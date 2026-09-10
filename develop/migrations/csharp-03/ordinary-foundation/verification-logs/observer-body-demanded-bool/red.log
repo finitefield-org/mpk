@@ -1,0 +1,21 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 13.50s
+     Running unittests src/lib.rs (target/debug/deps/mpk_vc-6886378f36ee4600)
+
+running 1 test
+evaluated Bool false: cached=4, uncached=3205
+evaluated Bool true: cached=4, uncached=3205
+
+thread 'csharp_practical_vir_model::ordinary_carriers::tests::ordinary_core_evaluated_boolean_suspension_uses_boolean_cache' (2490707) panicked at crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs:911:13:
+body-demanded Bool: 3205 vs 3205
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test csharp_practical_vir_model::ordinary_carriers::tests::ordinary_core_evaluated_boolean_suspension_uses_boolean_cache ... FAILED
+
+failures:
+
+failures:
+    csharp_practical_vir_model::ordinary_carriers::tests::ordinary_core_evaluated_boolean_suspension_uses_boolean_cache
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 129 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `-p mpk-vc --lib`

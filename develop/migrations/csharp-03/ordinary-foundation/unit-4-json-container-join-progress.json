@@ -1,0 +1,180 @@
+{
+  "schema": "mpk.csharp_practical.w09.json_container_join_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "semantic_cell_count_correction_in_progress",
+  "implementation": "Extract existing ordinary Child circuit unchanged;add separately named ChildContainerPayload generated only when explicitly requested. Validate positive child/header counts then subtract implicit container cell before parent addition and inclusive16384 bound. Preserve all cursor,EOF,padding,overflow and whole-zero-invalid checks.",
+  "limits": "The child itself remains in1..16384. For a valid parent>=1 and parent+child-1<=16384,child<=16384 is necessary,so retaining its original bound loses no valid total. Container role/schema/depth checks belong to the future caller.",
+  "test_selection": "Affected grammar unit tests and one complete representative source/semantic certificate replay cover the shared extraction. Existing token/decimal/string runtime matrices and unchanged checker vectors are not repeated. Only the new small join certificate is submitted to unchanged checkers. Test/lint/format status is recorded separately. No check-fast or split whole gate;T06-W12 retains the T gate.",
+  "verification": [
+    {
+      "session_id": 13710,
+      "status": "passed",
+      "exit_code": 0,
+      "scope": "Three affected grammar tests;99 new complete C7 packets,242 existing header boundaries,role/value assembly;5.63s.",
+      "log": "/tmp/mpk-w09-json-container-grammar-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-container-join/mpk-w09-json-container-grammar-v1.log",
+      "sha256": "893bb08325222f707ab1566e3c288af9e36b464c6399ddd6e0abb1a5f3be8dac"
+    },
+    {
+      "session_id": 3309,
+      "status": "no_tests_selected",
+      "exit_code": 0,
+      "scope": "Incorrect plural test filter selected zero tests;not accepted as preservation evidence;corrected below.",
+      "log": "/tmp/mpk-w09-json-container-preservation-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-container-join/mpk-w09-json-container-preservation-v1.log",
+      "sha256": "313117ed3bfe4f2f162f189fc8518853d71e366121276c3f3bc96dc6809c56b3"
+    },
+    {
+      "session_id": 22085,
+      "status": "passed",
+      "exit_code": 0,
+      "scope": "Exact complete seven-product metadata/certificate preservation after shared Child extraction;actual source/import/template/member mutations and previous dependency closures;23.56s.",
+      "log": "/tmp/mpk-w09-json-container-preservation-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-container-join/mpk-w09-json-container-preservation-v2.log",
+      "sha256": "f1cea8803cce1ed2117c11edc729e07775b5953c4c4f58098bb83dbe0c74e6ba"
+    },
+    {
+      "session_id": 10526,
+      "status": "passed",
+      "exit_code": 0,
+      "scope": "Affected production library lint;45.57s including build wait;test-enabled follow-up pending.",
+      "log": "/tmp/mpk-w09-json-container-clippy-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-container-join/mpk-w09-json-container-clippy-v1.log",
+      "sha256": "7e724980411f429db8ac9ffae457e66637c3e5184717802e2fdadce978824add"
+    },
+    {
+      "session_id": null,
+      "status": "passed",
+      "exit_code": 0,
+      "scope": "Scoped rustfmt check before certificate export test edit;edited file subsequently formatted.",
+      "log": "/tmp/mpk-w09-json-container-format-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-container-join/mpk-w09-json-container-format-v1.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "session_id": 79347,
+      "status": "passed",
+      "exit_code": 0,
+      "scope": "99 complete core packets rerun after adding reproducible optional certificate output for checker validation;3.57s.",
+      "log": "/tmp/mpk-w09-json-container-certificate-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-container-join/mpk-w09-json-container-certificate-v1.log",
+      "sha256": "9b3d59cfa2b89786a1dc54fae4a2a4bc0d5b87cff44ec7ebee680fd35be268c1"
+    },
+    {
+      "session_id": 46810,
+      "status": "passed",
+      "exit_code": 0,
+      "scope": "Frozen offline double capture rejected16384 and16385 ASCII field identifiers with source_identifier. PracticalCapture ValidateIdentifier max512;no typed parser acceptance was reached.",
+      "log": "/tmp/mpk-w09-json-field-name-capture-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-container-join/mpk-w09-json-field-name-capture-v1.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "session_id": 3680,
+      "status": "failed_existing_test_style",
+      "exit_code": 101,
+      "scope": "Existing cloned_ref_to_slice_refs and needless_range_loop warnings in carrier/domain unit tests;fixed with same input references and enumeration of the same nine depths.",
+      "log": "/tmp/mpk-w09-json-container-clippy-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-container-join/mpk-w09-json-container-clippy-v2.log",
+      "sha256": "25cdfd60627533633edc0f355ac2e7d0660e7b442f4f37b26ca724ab8901e328"
+    },
+    {
+      "session_id": 53157,
+      "status": "passed",
+      "exit_code": 0,
+      "scope": "Affected production/test lint after two style-only corrections;1m35s. No runtime behavior or assertions changed by these corrections.",
+      "log": "/tmp/mpk-w09-json-container-clippy-v3.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-container-join/mpk-w09-json-container-clippy-v3.log",
+      "sha256": "4feeaf65a75c6f9ba05ae9b742f6c350a3c2718e05378bed159fae8c70275c6a"
+    },
+    {
+      "session_id": null,
+      "status": "passed",
+      "exit_code": 0,
+      "scope": "Final scoped rustfmt check for all three edited Rust files.",
+      "log": "/tmp/mpk-w09-json-container-format-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-container-join/mpk-w09-json-container-format-v2.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "session_id": 71674,
+      "status": "passed",
+      "exit_code": 0,
+      "scope": "Unchanged Rust checker accepts exact new helper bytes,46 declarations and zero axioms.",
+      "log": "/tmp/mpk-w09-json-container-rust-checker-v1.json",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-container-join/mpk-w09-json-container-rust-checker-v1.json",
+      "sha256": "2125c27eafe08ef856a5305a2d507fa38d78fa638bc86086ed1f1e366b6fd294"
+    },
+    {
+      "session_id": 36998,
+      "status": "passed",
+      "exit_code": 0,
+      "scope": "Unchanged Go checker accepts same bytes. Go verifyOutput uses uint64 axiom_count with omitempty;omitted zero matches explicit Rust zero.",
+      "log": "/tmp/mpk-w09-json-container-go-checker-v1.json",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-container-join/mpk-w09-json-container-go-checker-v1.json",
+      "sha256": "ffa36d1c09f179caa0bd68f2da6039fbc4dfed81ed170807fcdc0146fd3491c4"
+    },
+    {
+      "session_id": 89928,
+      "status": "expected_rejection",
+      "exit_code": 1,
+      "scope": "Same last-byte corruption rejected with KERNEL_HASH_MISMATCH.",
+      "log": "/tmp/mpk-w09-json-container-rust-corrupt-v1.json",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-container-join/mpk-w09-json-container-rust-corrupt-v1.json",
+      "sha256": "ec978b50707d75ca0021783b89aded15676897955c70d5f66b4af030bde5be6c"
+    },
+    {
+      "session_id": null,
+      "status": "expected_rejection",
+      "exit_code": 1,
+      "scope": "Same last-byte corruption rejected with hash_mismatch.",
+      "log": "/tmp/mpk-w09-json-container-go-corrupt-v1.json",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-container-join/mpk-w09-json-container-go-corrupt-v1.json",
+      "sha256": "a97d07ef02ceed9ad80e4e20c9e14460f54031ab23a7c07a3af93537b64619f3"
+    }
+  ],
+  "live_jobs": [],
+  "certificate_generation": "MPK_W09_JSON_CONTAINER_CERT_OUT=/tmp/mpk-w09-json-container-join.mpcert cargo test -p mpk-vc --lib json_grammar_container_payload_counts_before_parent_bound -- --nocapture",
+  "pending": [
+    "Connect the explicit container join to complete Transition events and ordered-map entry parsers with actual shape,role,order,capacity,depth and storage rules.",
+    "Remaining JSON arrays/collections/sums,absence/null,envelope and all outstanding W09 units3-8,propositions/proofs,assembly/mutations/predecessor audit."
+  ],
+  "completion": "W09 remains incomplete;no component-only commit/push;W10 remains blocked.",
+  "goal_turn_classification": "Progress: authoritative terminal results recovered;new counted join implementation and regression evidence;possible source-name issue disproved by original capture.",
+  "certificate": {
+    "log": "/tmp/mpk-w09-json-container-join.mpcert",
+    "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-container-join/mpk-w09-json-container-join.mpcert",
+    "sha256": "b02d3bc7e2a6600b1e9a3785a1f4891f3d288af68652b9b2b1c60d8d6ef55059"
+  },
+  "agreement": {
+    "status": "passed",
+    "bytes": 87554,
+    "declarations": 46,
+    "axioms": 0,
+    "hashes": {
+      "export": "9f1d295d629b186736c274055c98a8f77b0774fd3fa04d13381e24fd238ce30a",
+      "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+      "certificate": "2bfdbbcc6314ea6e6357f726099eeb7900b1966e6d854ff2a14239ad47c6428f"
+    },
+    "log": "/tmp/mpk-w09-json-container-agreement-v1.json",
+    "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-container-join/mpk-w09-json-container-agreement-v1.json",
+    "sha256": "10fca5dae746606b18856e73c599aeeccd70008d55a06f573a46fbcc1c8e3279"
+  },
+  "corrupt_certificate": {
+    "log": "/tmp/mpk-w09-json-container-join-corrupt.mpcert",
+    "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-container-join/mpk-w09-json-container-join-corrupt.mpcert",
+    "sha256": "6abaf338036d24a3cbb33833143d27dbe95fa8b781ff572ec5799e0420fd2c13"
+  },
+  "review": "unit-4-json-container-join-review.md",
+  "checker_commands": [
+    "cargo run --quiet -p mpk-cli -- check /tmp/mpk-w09-json-container-join.mpcert",
+    "cd go-tools/mpk-checker-ref && GOCACHE=/tmp/mpk-w09-go-cache go run ./cmd/mpk-checker-ref verify /tmp/mpk-w09-json-container-join.mpcert"
+  ],
+  "prior_status_before_cell_count_correction": "core_runtime_existing_product_preservation_lint_and_same_byte_dual_checkers_passed",
+  "superseded_cell_count_evidence": {
+    "review": "unit-4-json-cell-count-review.md",
+    "reason": "The typed JSON header used a16384 cumulative cap and counted strings as1. The frozen typed-value contract is65536 total and1+UTF16 units for strings. Prior checker acceptance proves type checking of old bytes;old cell expectations do not prove the required semantics.",
+    "required": "Regenerate affected candidate bytes,check changed bytes with both checkers,and verify corrected string/cumulative-cell behavior."
+  }
+}

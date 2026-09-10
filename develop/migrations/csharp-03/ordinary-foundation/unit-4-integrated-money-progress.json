@@ -1,0 +1,185 @@
+{
+  "schema": "mpk.csharp_practical.w09.integrated_money_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "integrated_money_targeted_verification_passed_not_unit_completion",
+  "implementation": "Money borrows the owning Relations, storage cache, Builder and counted fold pipeline; all expanded Money operations are emitted in the integrated structural program instead of retained as deferred instance IDs. Currency predicates remain explicit ordinary arguments requiring source proofs.",
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_money_ops.rs",
+      "sha256": "4229b23626c8dd926d29554fb1f93f271b063f8d685a53a0410356bc2567db59"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_structural_foundations.rs",
+      "sha256": "095d8c5a3d0390c5adb34036a93ecb196cd1005f3915d5b1937c3ed2fb6b846b"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_money_tests.rs",
+      "sha256": "8c8ad6e51b7ac68f96240379232f1c57d841c1a258c3d525ce0fcc950299965a"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_structural_foundation_tests.rs",
+      "sha256": "6577967409123497ea661b5532a4083c780359272edb1117e58be66d7956f283"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_structural_equivalence_tests.rs",
+      "sha256": "76ef7391ebcd3b56355b5bb6c45879d56b745682d291f8014ca2ef8291f9886a"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "sha256": "cff66650344d08304d4b8643929d00f80758dbf1b86983c768b2e40e4dacc24a"
+    }
+  ],
+  "verification": [
+    {
+      "command": "cargo check -p mpk-vc",
+      "log": "/tmp/mpk-w09-integrated-money-check-v1.log",
+      "log_sha256": "84aec7aa0f215f7e6576c284d984588ddf78030173eee41a8be25119b5230455",
+      "status": "passed",
+      "scope": "25.32 seconds; production refactor/integration compiled."
+    },
+    {
+      "command": "/usr/bin/git diff --check",
+      "status": "passed",
+      "scope": "Current integration and corpus correction, outside sandbox."
+    },
+    {
+      "command": "gofmt -l go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "status": "passed",
+      "scope": "No unformatted files reported."
+    },
+    {
+      "session_id": 97866,
+      "command": "cargo clippy -p mpk-vc --test csharp_practical_vc -- -D warnings",
+      "log": "/tmp/mpk-w09-integrated-money-clippy-v1.log",
+      "status": "passed",
+      "revision": "intermediate_build_before_final_corpus_verified",
+      "log_sha256": "091df1110e03c9b12cdea1ebdb06040c61c08eded638f1e7adf63baa4f53e259",
+      "scope": "2m50s including build waits; repeated after final 44-source test edit to remove build-timing ambiguity."
+    },
+    {
+      "command": "cargo fmt --all -- --check",
+      "status": "passed",
+      "revision": "final_44_source_revision",
+      "log": "/tmp/mpk-w09-integrated-money-format-v2.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "session_id": 45104,
+      "command": "cargo clippy -p mpk-vc --test csharp_practical_vc -- -D warnings",
+      "log": "/tmp/mpk-w09-integrated-money-clippy-v2.log",
+      "status": "passed",
+      "log_sha256": "3131a1e2c7a5ba0acd934df661631bd890dabf36ba41c1a8e67d172450b567e8",
+      "scope": "Final 44-source revision, 28.33s including lock waits."
+    },
+    {
+      "session_id": 77544,
+      "command": "MPK_W09_STRUCTURAL_FOUNDATIONS_OUT=/tmp/mpk-w09-structural-with-money-v1 cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_structural_foundation_original_sources -- --nocapture",
+      "log": "/tmp/mpk-w09-integrated-money-sources-v1.log",
+      "status": "passed_intermediate_43_source_revision",
+      "log_sha256": "6f135bd02a61eb9b321754dfad1f5718f87e766ee21911d1f9b4b3d1931a4296",
+      "scope": "43 sources passed in 160.36s. 42 existing certificate bytes unchanged; only binding-vc-money changed. Final 44-source revision remains pending."
+    },
+    {
+      "session_id": 90854,
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc -- csharp_03_t06_w09_money_original_source_certificates csharp_03_t06_w09_money_composes_with_structural_foundations --nocapture --test-threads=1",
+      "log": "/tmp/mpk-w09-integrated-money-closure-v1.log",
+      "status": "passed",
+      "log_sha256": "6ec2e0e8e2e8525a31e620522d20ffccea9d3e01891ab2dc846ead19af1fe37d",
+      "scope": "Standalone two-source exact replay and dynamic integration: 2 sources, 3 instances, 30 operations, 2976 transitive declarations and predicate/failure-order mutations passed in 292.20s. The final 118-pair corpus test is separate."
+    },
+    {
+      "session_id": 60968,
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "log": "/tmp/mpk-w09-integrated-money-inventory-v2.log",
+      "status": "passed",
+      "log_sha256": "204918fce366851f75e8e30759aea85108b17c399eaca6dcf82288d5da26ab06",
+      "scope": "All five inventory tests passed in 40.86s."
+    },
+    {
+      "session_id": 11984,
+      "command": "MPK_W09_STRUCTURAL_FOUNDATIONS_OUT=/tmp/mpk-w09-structural-with-money-v3 cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_structural_foundation_original_sources -- --nocapture",
+      "log": "/tmp/mpk-w09-integrated-money-sources-v3.log",
+      "status": "passed",
+      "log_sha256": "ac4d16159222262a26fd128513392a3bab2574559c7e842a5780b514499e4bc7",
+      "scope": "Final 44-source generation/import/mutation test passed in 147.95s."
+    },
+    {
+      "session_id": 80174,
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc -- csharp_03_t06_w09_structural_foundation_original_sources csharp_03_t06_w09_structural_foundation_component_definition_closure --nocapture --test-threads=1",
+      "log": "/tmp/mpk-w09-integrated-money-replay-v3.log",
+      "status": "passed",
+      "log_sha256": "7d56fb8b7f790e983737c303f4350c618f6353d6a61e0ca959bdc9ee75ec3556",
+      "scope": "Current 44-source pinned replay and all 118 component pairs passed in 163.58s: 1235 roots, 14183 transitive declarations, root/dependency mutations rejected."
+    },
+    {
+      "session_id": 32312,
+      "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIStructuralFoundations$' -count=1 -timeout 0 -v",
+      "log": "/tmp/mpk-w09-integrated-money-checkers-v3.log",
+      "log_sha256": "fad588d26f4dcb5c3baec5a5b24d2ba22ff784687ad107184014ef848de8287f",
+      "status": "passed",
+      "scope": "All 44 current structural/Money certificates passed identical-byte Rust/Go zero-axiom checking and hash mutation rejection; 5570.951s."
+    }
+  ],
+  "live_jobs": [
+    {
+      "session_id": 32312,
+      "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIStructuralFoundations$' -count=1 -timeout 0 -v",
+      "log": "/tmp/mpk-w09-integrated-money-checkers-v3.log",
+      "status": "passed",
+      "cwd": "go-tools/mpk-checker-ref",
+      "scope": "All 44 current structural/Money certificates passed identical-byte Rust/Go zero-axiom checking and hash mutation rejection; 5570.951s.",
+      "log_sha256": "fad588d26f4dcb5c3baec5a5b24d2ba22ff784687ad107184014ef848de8287f"
+    }
+  ],
+  "remaining": [
+    "Original units 3–8 and W09 proof/assembly acceptance remain open. No component-only commit."
+  ],
+  "full_gate": "Deferred to CSHARP-03-T06-W12.",
+  "corpus_correction": "Direct review identified the shared string/enum Money source missing from integrated pins. Final generation now includes 44 original sources, and the checker corpus expects 44 pins. Full component/integrated comparison includes both Money sources, 118 source-component pairs total. The shared 43-source unit-3 helper remains stable for unrelated callers.",
+  "build_note": "First source/closure jobs started before final 44-source and 118-pair corpus correction. Preserve those processes and identify their actual compiled scope from terminal output. Final 44-source generation/replay and closure comparison must use the completed revision; do not treat intermediate 43-source evidence as the final gate.",
+  "failed_attempts": [
+    {
+      "session_id": 25838,
+      "command": "MPK_W09_STRUCTURAL_FOUNDATIONS_OUT=/tmp/mpk-w09-structural-with-money-v2 cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_structural_foundation_original_sources -- --nocapture",
+      "log": "/tmp/mpk-w09-integrated-money-sources-v2.log",
+      "status": "failed_linker_enospc",
+      "log_sha256": "2ae3eb84deafdeb51f2f7203da44fb7625ca8751fa4ca345d6a6c81a466c8038",
+      "scope": "Exit 101 before final 44-source test execution. Linker reported errno=28, No space left on device. No semantic verdict."
+    }
+  ],
+  "cache_cleanup": {
+    "path": "/tmp/mpk-w09-integrated-money-cache-cleanup-v1.json",
+    "sha256": "801ec8a6a7f1ad3aa5f588a3d17bc0624c5998498650a2d03098ff26b1ce8e35",
+    "scope": "Five obsolete pre-September-9 mpk-vc incremental directories removed after confirming no rustc active. Current binaries, certificates and live tests preserved."
+  },
+  "manifest": {
+    "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/certificates.json",
+    "sha256": "5aaf1a37981b5832bb2337af4a4eb21ab288b2b31f80b9e655e2d2cd037c0a4e",
+    "sources": 44,
+    "operations": 462,
+    "observations": 285,
+    "max_terms": 150315,
+    "max_declarations": 1779,
+    "max_transformers": 10441,
+    "unchanged_prior_certificates": 42
+  },
+  "pin_status": "Current 44 pins installed after passing final generation. Previous 43 pins and manifest retained under structural-foundations/pre-money; old/new file hashes recorded in money-integration.json.",
+  "review_result": "No remaining findings in this component after the recorded targeted tests passed; full W09 requirements remain open.",
+  "actual_source_boundary_extension": {
+    "receipt": "unit-4-structural-boundary-progress.json",
+    "files": [
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_structural_foundations.rs",
+        "previous_sha256": "2d54f7cb25693e3f226fffeec735ff3fb6eabbf4fe99e2659e569ab360ad6353",
+        "current_sha256": "095d8c5a3d0390c5adb34036a93ecb196cd1005f3915d5b1937c3ed2fb6b846b"
+      },
+      {
+        "path": "go-tools/mpk-checker-ref/checker_agreement_test.go",
+        "previous_sha256": "1105b2be0a620421f214aa1741a7a7d5c65f1018d9a5309d25a1dc9f2ea1e54d",
+        "current_sha256": "cff66650344d08304d4b8643929d00f80758dbf1b86983c768b2e40e4dacc24a"
+      }
+    ],
+    "scope": "Add source-specific shared boundary generation/export/test entry. Existing component body behavior is retained; exact old structural replay and full component closure are verified separately."
+  }
+}

@@ -1,0 +1,159 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.integer_codec_clause_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "integer_codec_contract_component_targeted_verification_passed",
+  "source_tags": [
+    "codec_parse",
+    "codec_format"
+  ],
+  "codec_ids": [
+    "integer.i8",
+    "integer.u8",
+    "integer.i16",
+    "integer.u16",
+    "integer.i32",
+    "integer.u32",
+    "integer.i64",
+    "integer.u64",
+    "duration_ticks",
+    "unix_milliseconds"
+  ],
+  "capture": "integer-codec-clauses/capture-receipt.json",
+  "completed": [
+    "10 corrected-contract frontend accepts",
+    "54 unchanged standalone format and 54 parse byte pins",
+    "8 full-length bound cases",
+    "compiler binder/nominal regression",
+    "inventory, clippy and format",
+    "10 original-source contexts and 76 contract conditions passed in 915.96s",
+    "40 aliased format cases and 140 aliased parse cases passed; all 20 nominal recipe closures match standalone definitions",
+    "Exact program import and result-type metadata corruption passed",
+    "Ten completed candidate byte/metadata pairs pinned; 2,674,845 decoded bytes",
+    "Rust CLI checker build passed",
+    "All ten same-byte Rust/Go checker cases passed with zero axioms, agreeing reports and actual hash corruption rejection; 168.783s",
+    "Terminal PASS names, current candidate hashes/sizes, metadata, tested output copies and capture receipts reconciled",
+    "Final direct component review: no remaining actionable findings"
+  ],
+  "live_jobs": [],
+  "remaining": [],
+  "full_gate": "deferred to T06-W12",
+  "overall_status": "Original units 3-8 and W09 remain open; commit/push at original-unit boundary.",
+  "selection_reason": "The new codec connection and shared emitter extraction affect integer, Duration and Instant recipe aliases and prior standalone generation. Run all affected byte pins and new alias/source observations; retain prior standalone arithmetic coverage without rerunning it. Compiler/cache nominal lowering, inventory and lint/format cover integration.",
+  "verification_logs": [
+    {
+      "log": "verification-logs/integer-codec-clauses/mpk-w09-integer-codec-clauses-check-v1.log",
+      "sha256": "c51b9b9462376b11ef47e2d1d65aba272d30370f818832a82db009a1b988225d",
+      "result": "initial library visibility error"
+    },
+    {
+      "log": "verification-logs/integer-codec-clauses/mpk-w09-integer-codec-clauses-check-v2.log",
+      "sha256": "d9fccc4810ef6aac9f6b9dca0453f1d485d221ae51ff2b3b552dc696a0791cba",
+      "result": "library check passed"
+    },
+    {
+      "log": "verification-logs/integer-codec-clauses/mpk-w09-integer-codec-requests-v1.log",
+      "sha256": "25fee6a57055c7f8bc02f4b24b9211d62c49e73e4244fd7038578a885192c349",
+      "result": "initial test-helper visibility error"
+    },
+    {
+      "log": "verification-logs/integer-codec-clauses/mpk-w09-integer-codec-requests-v2.log",
+      "sha256": "25fee6a57055c7f8bc02f4b24b9211d62c49e73e4244fd7038578a885192c349",
+      "result": "same test-helper visibility error before corrected build"
+    },
+    {
+      "log": "verification-logs/integer-codec-clauses/mpk-w09-integer-codec-requests-v3.log",
+      "sha256": "d8c6229c3a1205c89cd08371346ed97c6dd12073bb4c7cbe6e9820193e208639",
+      "result": "initial requests generated; superseded because String sequence_length was invalid"
+    },
+    {
+      "log": "verification-logs/integer-codec-clauses/mpk-w09-integer-codec-requests-v4.log",
+      "sha256": "e654165c626f476fa52b3fbc62c5056cef3c9fe45e75abc23a92eab1c972da36",
+      "result": "corrected round-trip requests generated"
+    },
+    {
+      "log": "verification-logs/integer-codec-clauses/mpk-w09-integer-codec-definedness-v1.log",
+      "sha256": "3d26f7892059939f22ca0768c73d7546398ea1334e346c52ea186506dd436448",
+      "result": "8 full-length boundary cases passed"
+    },
+    {
+      "log": "verification-logs/integer-codec-clauses/mpk-w09-integer-codec-standalone-pins-v1.log",
+      "sha256": "982724515f6ba4a501e7ea8f0cae4f942c2ded13782de9c3b19290ab8b79f7d9",
+      "result": "invalid Cargo multiple-filter invocation; superseded by separate scoped commands"
+    },
+    {
+      "log": "verification-logs/integer-codec-clauses/mpk-w09-integer-codec-format-pins-v1.log",
+      "sha256": "d7b9313ea4eb871615f82cf4aa7359b6451b5d0bc45c880f24367526ac9cc88a",
+      "result": "54 existing format pins matched"
+    },
+    {
+      "log": "verification-logs/integer-codec-clauses/mpk-w09-integer-codec-parse-pins-v1.log",
+      "sha256": "af7cd9330e6198ec08862549ac3f8c722ab18f963f0aa75e48e84ccce69c23a8",
+      "result": "54 existing parse pins matched"
+    },
+    {
+      "log": "verification-logs/integer-codec-clauses/mpk-w09-integer-codec-clauses-source-v1.log",
+      "sha256": "580f6d711698a0a8183b3494d6ac5edb37ff2f3bd10dda9f8bb4ca67f5bb78b6",
+      "result": "initial test fixture rejected: String is not bounded_sequence; corrected before final source run"
+    },
+    {
+      "log": "verification-logs/integer-codec-clauses/mpk-w09-integer-codec-clauses-clippy-v1.log",
+      "sha256": "62d521e859b7efc27b1f76d7bf9a75d3724d1616c5577ad83927642e8873a234",
+      "result": "test-module placement lint; corrected"
+    },
+    {
+      "log": "verification-logs/integer-codec-clauses/mpk-w09-integer-codec-clauses-clippy-v2.log",
+      "sha256": "47f854d6138f56abd823ed3065fd2f83f2f403404a4b56b5f6ec1623b9ae61ca",
+      "result": "library and test configurations clippy passed"
+    },
+    {
+      "log": "verification-logs/integer-codec-clauses/mpk-w09-integer-codec-clauses-lowering-v1.log",
+      "sha256": "ebf05bb21528e52fe557bcd7a2a82422adcd705c659e1b57ba1fec4f2ab027f5",
+      "result": "existing binder/nominal regression passed"
+    },
+    {
+      "log": "verification-logs/integer-codec-clauses/mpk-w09-integer-codec-clauses-inventory-v1.log",
+      "sha256": "22c02709f078043a091706bb616b64329e0df5519817d7d6b31087a777a30cde",
+      "result": "targeted inventory passed"
+    },
+    {
+      "log": "verification-logs/integer-codec-clauses/mpk-w09-integer-codec-clauses-format-v1.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result": "edited Rust format check passed"
+    },
+    {
+      "log": "verification-logs/integer-codec-clauses/mpk-w09-integer-codec-capture-v1.log",
+      "sha256": "b54783e7f03a494ff5bd47f4478ef297095ffb7feeb71eefcecd239ae331398b",
+      "result": "initial frontend accepts; superseded contract fixture"
+    },
+    {
+      "log": "verification-logs/integer-codec-clauses/mpk-w09-integer-codec-capture-v2.log",
+      "sha256": "b54783e7f03a494ff5bd47f4478ef297095ffb7feeb71eefcecd239ae331398b",
+      "result": "10 corrected-contract frontend accepts"
+    },
+    {
+      "log": "verification-logs/integer-codec-clauses/mpk-w09-integer-codec-clauses-source-v2.log",
+      "sha256": "8934e04e08b47fced471d6bf126fbcea22a4a1c1f48cabfed6bb40a5da61c652",
+      "result": "10 contexts, 76 source clauses, 40 format and 140 parse alias cases, 20 exact dependency closures, import and metadata corruption passed; 915.96s"
+    },
+    {
+      "log": "verification-logs/integer-codec-clauses/mpk-w09-integer-codec-checker-build-v1.log",
+      "sha256": "88bb1ebf18e30aef8305e8a7bb836930416e07ccfeec2307ac8197a90dc5eefb",
+      "result": "Rust CLI checker build passed"
+    },
+    {
+      "log": "verification-logs/integer-codec-clauses/mpk-w09-integer-codec-clauses-checkers-v1.log",
+      "sha256": "21c65480c408b380b00572a2d3ffd7ac5cf478713d8478bdc0581f933e1f7a52",
+      "result": "10 same-byte dual-checker candidates, zero axioms, report agreement and hash corruption rejection passed; 168.783s; final current bytes and metadata reconciled"
+    }
+  ],
+  "review": "unit-4-integer-codec-clauses-review.md",
+  "certificates": "integer-codec-clauses/certificates.json",
+  "repository_state": {
+    "branch": "main",
+    "head": "aaf39bf",
+    "tracked_changes": 43,
+    "untracked_entries": 421,
+    "note": "Preexisting dirty work preserved, including user AGENTS.md. No component commit/push; original unit 4 and W09 remain incomplete."
+  }
+}

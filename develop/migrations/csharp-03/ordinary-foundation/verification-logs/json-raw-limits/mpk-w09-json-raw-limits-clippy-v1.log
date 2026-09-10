@@ -1,0 +1,21 @@
+    Blocking waiting for file lock on build directory
+    Checking mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error: can be more succinctly written as a byte str
+  --> crates/mpk-vc/src/csharp_practical_ordinary_json_raw_limits.rs:87:19
+   |
+87 |         for ch in [b',', b' ', b'\t', b'\r', b'\n'] {
+   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `*b", \t\r\n"`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#byte_char_slices
+   = note: `-D clippy::byte-char-slices` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(clippy::byte_char_slices)]`
+
+error: can be more succinctly written as a byte str
+  --> crates/mpk-vc/src/csharp_practical_ordinary_json_raw_limits.rs:95:19
+   |
+95 |         for ch in [b'-', b't', b'f', b'n'] {
+   |                   ^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `*b"-tfn"`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#byte_char_slices
+
+error: could not compile `mpk-vc` (lib) due to 2 previous errors

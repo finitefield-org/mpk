@@ -1,0 +1,130 @@
+{
+  "schema": "mpk.csharp_practical.w09.json_keyword_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "partial_json_keyword_component_verified_not_unit_completion",
+  "implementation": "Exact null/false/true lexical prefix recognition over the private C24 document. C6 packet bits 0 prefix-valid, 1 whole-valid, 2 null, 3 Boolean payload, 4..36 full-u32 consumed, 36..64 zero. Invalid is all zero. Full document bound is 1 MiB. Following delimiters remain the enclosing grammar responsibility. Shared byte fragments allow ordinary Slice/Concat composition.",
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_keywords.rs",
+      "sha256": "e85fbfbd55f3868634457be74d78a777ac0adc0f2261c6e569f00d1743487245"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_keyword_tests.rs",
+      "sha256": "0e245cc1342b2201f9fe27fde550edcaa196082772699eb60c0011a161c32b21"
+    }
+  ],
+  "verification": [
+    {
+      "session_id": 99315,
+      "command": "MPK_W09_JSON_KEYWORDS_OUT=/tmp/mpk-w09-json-keywords-v1 cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_json_keywords_original_sources -- --exact-placeholder --nocapture",
+      "status": "interrupted_invalid_invocation_exit_130",
+      "log": "/tmp/mpk-w09-json-keywords-sources-v1.log",
+      "reason": "Unsupported test option detected while still waiting for build lock; interrupted this exact command only, not due to observation timeout. No tests executed.",
+      "log_sha256": "256920d31a6e3c8c7b7c6e25b6976dd361363b398cfdd33869c4affe88178eb2"
+    },
+    {
+      "session_id": 36866,
+      "command": "MPK_W09_JSON_KEYWORDS_OUT=/tmp/mpk-w09-json-keywords-v1 cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_json_keywords_ -- --nocapture --test-threads=1",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-json-keywords-suite-v1.log",
+      "scope": "All three tests passed in 266.63s: 401 lexical cases/all64 packet bits, 33 full-u32 lengths, 12 high-offset Slice and 16 Concat compositions, 68 source contexts/three nonempty programs, exact imports and mutations.",
+      "log_sha256": "f353655cb9d8b9f5de52f65288ea06f8a2789a9b254aadb5c463027650b85208"
+    },
+    {
+      "session_id": 56346,
+      "command": "cargo clippy -p mpk-vc --test csharp_practical_vc -- -D warnings",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-json-keywords-clippy-v1.log",
+      "scope": "Targeted clippy passed in 2m55s including build wait.",
+      "log_sha256": "48133e6b4baf009b08fc0d739156154e7ace3eeed212363d03bc2973b89ffe58"
+    },
+    {
+      "session_id": 91335,
+      "command": "cargo fmt --all -- --check",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-json-keywords-format-check-v1.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "session_id": 96554,
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-json-keywords-inventory-v1.log",
+      "scope": "All five inventory tests passed in 44.27s.",
+      "log_sha256": "cb7f9918ee2a0454b351766e08dd44cab3c139b1e7eb3ac495ffaf96c93760dc"
+    },
+    {
+      "session_id": 72089,
+      "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIJsonKeywords$' -count=1 -timeout 0 -v",
+      "status": "failed_missing_pins",
+      "log": "/tmp/mpk-w09-json-keywords-checkers-v1.log",
+      "reason": "The preparatory copy incorrectly compared raw SHA-256 against the domain-separated certificate hash and stopped before copying. The checker correctly rejected the empty corpus. Corrected staging validates MPK-MODULE-CERT-0.1 plus NUL plus certificate bytes before copying all three pins.",
+      "log_sha256": "34a6d35d2d2a39f29cb38eb8293714ec6e1f0ff74ffe64b1eb8eeef1bc8f7a95"
+    },
+    {
+      "session_id": 78265,
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_json_keywords_original_sources -- --nocapture",
+      "status": "failed_missing_pins",
+      "log": "/tmp/mpk-w09-json-keywords-replay-v1.log",
+      "reason": "Replay was launched despite failed preparatory copy; missing file failure, no semantic verdict. Pins now copied after correct domain-hash validation.",
+      "log_sha256": "9828898e3d3c83c47d6cd75f20477bf1aba50fa44a5d39e8bdd2557fc31c59d1"
+    },
+    {
+      "session_id": 1179,
+      "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIJsonKeywords$' -count=1 -timeout 0 -v",
+      "cwd": "go-tools/mpk-checker-ref",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-json-keywords-checkers-v2.log",
+      "scope": "All three identical-byte Rust/Go cases passed with zero axioms and hash-corruption rejection, 12.680s including startup (12.45s tests).",
+      "log_sha256": "d6b35737ac24c95fb0ae8bdce27743183e08fdb245546f786b46e38d1e3e1218"
+    },
+    {
+      "session_id": 5005,
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_json_keywords_original_sources -- --nocapture",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-json-keywords-replay-v2.log",
+      "scope": "Exact 68-context/three-certificate pinned replay passed in 30.82s.",
+      "log_sha256": "cbdbe8ff21720b29ee5c91f5c4b3b3dd54f21a1d2613e503b032ec5fc80fd2a3"
+    },
+    {
+      "session_id": 27057,
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc -- csharp_03_t06_w09_json_keywords_original_sources csharp_03_t06_w09_json_string_parsers_original_sources --nocapture --test-threads=1",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-json-tokens-component-replay-v1.log",
+      "log_sha256": "2ba9f3e583ef7edebf6fa8a1f394537acfff53c83a6d967bb1c0e4855c6819ba",
+      "scope": "Both standalone 68-context/three-certificate exact pinned replays passed in 83.62s. Shared-emitter refactoring preserves every previous string/keyword certificate byte and metadata."
+    }
+  ],
+  "pending": [
+    "Complete remaining strict typed JSON grammar and codec/binding/source relations in internal unit 4",
+    "Finish outstanding unit 3 validation and integrate native/control/transition relations, universal VC proofs and certificate assembly under the original eight-unit W09 plan"
+  ],
+  "whole_gate": "Deferred to T06-W12; not run in intermediate W09.",
+  "completion": "Units 3\u20138 and W09 remain incomplete; no component-only commit or push.",
+  "pinned_manifest": {
+    "path": "develop/migrations/csharp-03/ordinary-foundation/json-keywords/certificates.json",
+    "sha256": "0c29af4d9337619abbe7e073c1cff3c611e5033ee3279f08caffde12ed699675",
+    "contexts": 68,
+    "certificates": 3,
+    "terms_each": 11122,
+    "declarations_each": 167,
+    "static_transformers_each": 109
+  },
+  "review": {
+    "scope": "New JSON keyword emitter, descriptor/source reconstruction, direct ordinary composition tests, three pinned certificates and same-byte checker harness entry. Existing unrelated uncommitted work is not declared fully reviewed by this checkpoint.",
+    "findings": [],
+    "limitations": "This packet recognizes lexical prefixes only; delimiter checks, whole typed grammar and universal application proof obligations remain open."
+  },
+  "previous_pre_shared_emitter_files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_keywords.rs",
+      "sha256": "1ccfc5d25de6eeae0f31c5d36265c24ed9ad89511f74d6f960667f40917208bc"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_keyword_tests.rs",
+      "sha256": "0e245cc1342b2201f9fe27fde550edcaa196082772699eb60c0011a161c32b21"
+    }
+  ],
+  "shared_emitter_refactor": "The current files move document/fragment creation to the standalone caller and accept shared definitions. Exact prior certificate bytes and metadata are preserved, independently replayed by session 27057. Prior semantic and checker evidence remains tied to those unchanged bytes."
+}

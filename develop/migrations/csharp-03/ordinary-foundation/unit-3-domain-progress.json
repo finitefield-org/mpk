@@ -1,0 +1,450 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.domain_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 3,
+  "status": "implementation under verification; no domain/unit/W09 completion receipt",
+  "baseline_commit": "aaf39bf",
+  "completed_observations": [
+    {
+      "log": "/tmp/mpk-w09-aggregate-core.log",
+      "result": "2 aggregate core tests passed before the later full-capacity/short-circuit additions",
+      "log_sha256": "e37598c3457b2a2603ef4fb3bd707f4383f38a9b6ebcbcd0b2aeb4c426418865"
+    },
+    {
+      "log": "/tmp/mpk-w09-aggregate-short-circuit.log",
+      "result": "1 short-circuit test passed",
+      "log_sha256": "07b7cb3ce0f02a34604b173456732cff6745b05360923d803f01dafad2a482b5"
+    },
+    {
+      "log": "/tmp/mpk-w09-aggregate-full-capacity.log",
+      "result": "1 full-capacity test passed; 498.46 seconds",
+      "log_sha256": "08fedcc195941bf72e24abdbd74884c27a0a3ea5c065e197ae40e5a511a45952"
+    },
+    {
+      "log": "/tmp/mpk-w09-aggregate-core-replay.log",
+      "result": "pinned aggregate certificate and limit replay passed",
+      "log_sha256": "d690870aae8fe0816e2360d78590f9719a84334a8ff920c04ea3d32d9b308cb5"
+    },
+    {
+      "log": "/tmp/mpk-w09-aggregate-source.log",
+      "result": "3 source contexts, exact regeneration and mutations passed",
+      "log_sha256": "25d78f5a3f7c7c006112086cd207fa072f31d044312973ca6140b99196b8489e"
+    },
+    {
+      "log": "/tmp/mpk-w09-domains-generation.log",
+      "result": "21 domain source contexts generated and reconstructed",
+      "log_sha256": "a0d8271fdccebf10a02f583938deed7052962318fdbf2d6fe2df7c1f4a7c1253"
+    },
+    {
+      "log": "/tmp/mpk-w09-domains-small-values.log",
+      "result": "237 small-value count observations passed",
+      "log_sha256": "89ca1ca362012e543d6148b3593357a34d7a68a67370f16b130e9b99bbf32f98"
+    },
+    {
+      "log": "/tmp/mpk-w09-domains-replay-mutations.log",
+      "result": "21 pinned domain contexts replayed and metadata/certificate mutations rejected",
+      "log_sha256": "3e1d59c83b9f3037390fd5bbbf0aa3b749536fc01b81c69e87419d567f28956a"
+    },
+    {
+      "log": "/tmp/mpk-w09-aggregate-predecessor-folds.log",
+      "result": "5 predecessor source fold certificate byte replays and mutations passed",
+      "log_sha256": "da0ca3c961e71f881d5afa2f2167fbc55bbbd8d17babff737cba179e42d8a86d"
+    },
+    {
+      "log": "/tmp/mpk-w09-domain-predecessor-relations.log",
+      "result": "21 predecessor source relation certificate byte replays and mutations passed",
+      "log_sha256": "812e66656b4ffebbe5e4b12fba2162558959fc76f6f05bc7da42d14b90a556ac"
+    },
+    {
+      "log": "/tmp/mpk-w09-domain-inventory.log",
+      "result": "5 inventory tests passed",
+      "log_sha256": "47779228950979de45538e2c5be3fbe5c4b38d668216244c1770a823d64aca08"
+    },
+    {
+      "log": "/tmp/mpk-w09-domain-clippy.log",
+      "result": "scoped library/integration clippy passed before the final aggregate API test addition",
+      "log_sha256": "18030f5ab89137a34969639a4452cd9fdfa1afd363ed3e87fea630432cebab96"
+    },
+    {
+      "log": "/tmp/mpk-w09-domain-zero.log",
+      "result": "baseline 0..15-depth all-zero and padding test passed in 463.02 seconds; implementation subsequently optimized",
+      "log_sha256": "495186b016ce5f02434252a4aeca3645ed873957785d7e498fda5d4b5984fa39"
+    },
+    {
+      "log": "/tmp/mpk-w09-domain-checkers-v3.log",
+      "result": "baseline aggregate plus all 21 domain certificates accepted by both checkers with zero axioms; all 22 hash corruptions rejected; 583.512 seconds",
+      "log_sha256": "227da4173f5ca311976c9d8ab557ff7bb550636d730fcc93bd22c285ab044635"
+    },
+    {
+      "log": "/tmp/mpk-w09-domain-clippy-final.log",
+      "result": "scoped clippy passed before the scalar-zero optimization",
+      "log_sha256": "58f00df0bd721a2df4923620e6b87ebf1d183a2ab199ccca86ffd7f993b49456"
+    },
+    {
+      "log": "/tmp/mpk-w09-domain-format.log",
+      "result": "format check passed before scalar-zero optimization",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "log": "/tmp/mpk-w09-domains-generation-v2.log",
+      "result": "21 optimized domain source contexts generated and mutation-tested; 24.12 seconds",
+      "log_sha256": "d79673daf1bc88597574e7244abec8722c4911b161443ee1879f796f20ea4dab"
+    },
+    {
+      "log": "/tmp/mpk-w09-domains-small-values-v2.log",
+      "result": "same 237 small values passed after optimization; 7.04 seconds",
+      "log_sha256": "3015e8bfb15d815946fe1c8527f6397ae580fae7ca02a8538c21087c3dbb2077"
+    },
+    {
+      "log": "/tmp/mpk-w09-domain-clippy-v2.log",
+      "result": "scoped clippy passed after scalar-zero optimization; 16.97 seconds",
+      "log_sha256": "4fe39c64ab8a080d2f8b44635b28d7f7d3f3b7aa08a7b73eb88a116edfbfc8c5"
+    },
+    {
+      "log": "/tmp/mpk-w09-domain-zero-v2.log",
+      "result": "scalar-word zero and padding test passed; 349.74 seconds; subsequently superseded by partition improvement",
+      "log_sha256": "fc80d6381e2a23cb1be34918711e2b14d71ab2bcd1677f388db3a84792ac9d00"
+    },
+    {
+      "log": "/tmp/mpk-w09-domain-zero-v3.log",
+      "result": "word-preserving partition zero and padding coverage including D20 passed; 13.36 seconds; before eta-contraction",
+      "log_sha256": "42a05e1e9303d47225db63cca3bfc70db12f414186e9f4d06553866c5e684706"
+    },
+    {
+      "log": "/tmp/mpk-w09-domain-checkers-v4.log",
+      "result": "21 domain certificates passed both checkers before partition improvement; 287.040 seconds",
+      "log_sha256": "ac1f71ff5f93db95590e49351efed528826665ec50b2ded9513b3e52208b280a"
+    },
+    {
+      "log": "/tmp/mpk-w09-domains-generation-v3.log",
+      "result": "26 source contexts generated and mutation-tested before eta-contraction; 54.73 seconds",
+      "log_sha256": "a595affced6349c7982739a7ff8d488675d21ee10dc597664ae84d0db61a9d8b"
+    },
+    {
+      "log": "/tmp/mpk-w09-domains-replay-v3.log",
+      "result": "26 pinned source certificates replayed before eta-contraction; 46.77 seconds",
+      "log_sha256": "5c8e322e94e3360a341a4b41dd2d8a22e4eff4258b6d35c4349579bf8430af4a"
+    },
+    {
+      "log": "/tmp/mpk-w09-domain-checkers-v5.log",
+      "result": "26 domain certificates accepted by both unchanged checkers with zero axioms and 26 corruptions rejected; 550.747 seconds; before eta-contraction",
+      "log_sha256": "a8d6eaa67c2a0d5726acbde06f7ca9a9b664ed76446ae7c7b1e70907f39d4e66"
+    },
+    {
+      "log": "/tmp/mpk-w09-domains-storage-rejections.log",
+      "result": "18 high tags, 8 dirty empty-arm payloads and 2 unused product roles rejected; 4.80 seconds; before eta-contraction",
+      "log_sha256": "729fad6e3b1481dc4863e2a6e5a53601fd5327effd5e5d374ca6085a96c004a8"
+    },
+    {
+      "log": "/tmp/mpk-w09-domain-source-request-replay.log",
+      "result": "all five original-source requests exactly replayed; 0.07 seconds",
+      "log_sha256": "0453de5e8e0a9f54e0a7175496976089895f2b786b8adc610d0fd4fe1ccd118f"
+    },
+    {
+      "log": "/tmp/mpk-w09-domain-inventory-v2.log",
+      "result": "5 inventory tests passed; 15.76 seconds",
+      "log_sha256": "4ed47204511e903894c237dbedee4ebe1134fcc1ad913820dc76f5c5a64f9492"
+    },
+    {
+      "log": "/tmp/mpk-w09-domain-clippy-v3.log",
+      "result": "scoped clippy passed before eta-contraction and evaluator transition counting",
+      "log_sha256": "e933f0901edec09a3e10052cbe9306ad6b79ea640935f907d38bc22a97580ded"
+    },
+    {
+      "log": "/tmp/mpk-w09-aggregate-sharing-v2.log",
+      "result": "computed predicate sharing regression passed after import correction: 1967080 shared transitions versus 15628958 repeated transitions; 1.17 seconds",
+      "log_sha256": "1f94c8cd5891ba83676f042a27ef2118edda5fa820db3dd0f8b6c4ad70fecef3"
+    },
+    {
+      "log": "/tmp/mpk-w09-aggregate-core-v2.log",
+      "result": "all 4 aggregate tests passed after eta-contraction, including 16384-element exact-bound execution; 502.21 seconds",
+      "log_sha256": "b4f332ba714d0e7e1151d5c5f3d4d20a12d3c6c6cccdbba106d55617663ef3bf"
+    },
+    {
+      "log": "/tmp/mpk-w09-domain-format-v3.log",
+      "result": "format check passed after eta-contraction and import correction",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "log": "/tmp/mpk-w09-domain-generation-v4.log",
+      "result": "26 post-eta source certificates generated and import-mutation tested; 58.16 seconds",
+      "log_sha256": "5a1b3849b2ac543b4e33dee3c6e3f75fff0581e090ce2098aecb40829c08c5ac"
+    },
+    {
+      "log": "/tmp/mpk-w09-domain-clippy-v4.log",
+      "result": "scoped lint passed after eta-contraction, counter and corrected import; 35.81 seconds; decimal collection test added subsequently",
+      "log_sha256": "67850de68b8ef3117c49fad3556bf2167e6e80d6d8b9bc437ce2b4faf652029f"
+    },
+    {
+      "log": "/tmp/mpk-w09-domains-small-values-v3.log",
+      "result": "small values across 26 source contexts passed after eta-contraction; 12.74 seconds",
+      "log_sha256": "488ca2fa5aaa171c44ca28285522c48021b931a1bdf2d4273799e7c85cb2db48"
+    },
+    {
+      "log": "/tmp/mpk-w09-domain-zero-v4.log",
+      "result": "post-eta zero and padding checks including D20 passed; 30.64 seconds",
+      "log_sha256": "c5fddad8dda853019661d2119720dd608b52c54aa7d2673d294cf5459b7415d6"
+    },
+    {
+      "log": "/tmp/mpk-w09-domains-full-string-v2.log",
+      "result": "full 16384-unit UTF-16 source value returned 16385 cells; excessive length and dirty length padding rejected; 637.29 seconds",
+      "log_sha256": "0248ef1912a5116fe0fc6ff0ff64306dafea7404b2c5344c71572214d2a77121"
+    },
+    {
+      "log": "/tmp/mpk-w09-domains-replay-v4.log",
+      "result": "all 26 post-eta pinned certificates exactly replayed and metadata/certificate mutations rejected; 96.27 seconds",
+      "log_sha256": "b519c26511670c448793231d7d28360d135908e2b8ae5438cb496fe7ddd2669a"
+    },
+    {
+      "log": "/tmp/mpk-w09-aggregate-source-v2.log",
+      "result": "all 3 post-eta source aggregate contexts reconstructed and mutation-tested",
+      "log_sha256": "e5d9cdab6b257f6da68b4156b7552d36616900c0e005ce0258b84cd8ca4d456c"
+    },
+    {
+      "log": "/tmp/mpk-w09-domains-storage-rejections-v2.log",
+      "result": "post-eta high sum tags, dirty empty-arm payloads and unused product roles rejected",
+      "log_sha256": "a25020cccb8f561acb1df143612a9aeb4ffa67b30fe34f0afbd5b66bfb09d5e1"
+    },
+    {
+      "log": "/tmp/mpk-w09-domain-clippy-v5.log",
+      "result": "scoped clippy passed with decimal collection order test; 6.79 seconds",
+      "log_sha256": "4a1107d8fbadb1280a1122b576f88478db4f59680dc806c86b6ddb8f93c8b84e"
+    },
+    {
+      "log": "/tmp/mpk-w09-domain-checkers-v6.log",
+      "result": "aggregate plus 26 post-reader domain certificates accepted by both unchanged checkers with zero axioms; 27 hash corruptions rejected; 603.325 seconds; before direct field/key getters",
+      "log_sha256": "c79c6a26ca8a4d3524dc24e2ffeb9606c982fc75941f8438740c26e66cf9f835"
+    },
+    {
+      "log": "/tmp/mpk-w09-sparse-observer.log",
+      "result": "dense/sparse selector equivalence at depths 0..8 and C40 high-address observations passed; existing unused-argument regression also passed; 0.02 seconds",
+      "log_sha256": "ad9ff4a1901fdc34ed270fc4e820a06b7f379b13376787329e1e3de114999a9f"
+    },
+    {
+      "log": "/tmp/mpk-w09-sparse-map-input.log",
+      "result": "six sparse/dense map storage comparisons over original-source integer and decimal map carriers passed; 0.88 seconds",
+      "log_sha256": "ab669887b913b2030e714b8e24c9f0d12f1c8ac194d398e61d4d7d7297124cd9"
+    },
+    {
+      "log": "/tmp/mpk-w09-domain-clippy-v6.log",
+      "result": "scoped clippy passed with sparse input and string/compound map tests; 17.88 seconds",
+      "log_sha256": "00b125f2fc88dc581bc474b8c257e8d95e479abfb13a948e7f09a7654e228db1"
+    },
+    {
+      "log": "/tmp/mpk-w09-domains-small-values-v4.log",
+      "result": "small values across all 26 sources passed after direct field/key getters; 13.88 seconds",
+      "log_sha256": "0d3844dc3ddcf0c7a0df547f1c9d2097ad3ca97f08dcf722e5fef4ab56cf492d"
+    },
+    {
+      "log": "/tmp/mpk-w09-domain-generation-v5.log",
+      "result": "26 direct-getter source contexts generated and import-mutation tested; 52.98 seconds",
+      "log_sha256": "89a28575c56c127c2cd75f20f5f8b085cf5c029960c17e31612f9bd1720ccf83"
+    },
+    {
+      "log": "/tmp/mpk-w09-domain-predecessor-relations-v2.log",
+      "result": "all 21 predecessor relation certificates replayed byte-identically and passed mutations after direct-getter addition; 36.30 seconds",
+      "log_sha256": "2ce4f58da175b384e858bc8c0eb1b238c1c37f95b54022781a8313e35e401c1e"
+    },
+    {
+      "log": "/tmp/mpk-w09-domain-clippy-v7.log",
+      "result": "scoped lint passed after direct field/key getters; 16.98 seconds",
+      "log_sha256": "42f401bc7312e85899bf21b4e2ba4013adcb6730f67bc5d173fa5611918f5573"
+    },
+    {
+      "log": "/tmp/mpk-w09-domain-format-v4.log",
+      "result": "format check passed with sparse observer/map cases",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "log": "/tmp/mpk-w09-domain-inventory-v3.log",
+      "result": "all five consumer/ledger/baseline inventory tests passed after sparse map tests and direct getters; 19.98 seconds",
+      "log_sha256": "3e43ee5ae557b99ba6cf5f7f40a9c588174007fe426caa68fbc72d17108c41ba"
+    },
+    {
+      "log": "/tmp/mpk-w09-domains-replay-v5.log",
+      "result": "all 26 current pinned domain certificates exactly replayed and metadata/certificate mutations rejected; 50.47 seconds",
+      "log_sha256": "4d72ab4477cd3dbdac199980b3ab0877044bd8e958c85d925d8410156ca9accb"
+    },
+    {
+      "log": "/tmp/mpk-w09-domain-checkers-v7.log",
+      "result": "all 26 direct-getter domain certificates accepted by both unchanged checkers with zero axioms; all 26 hash corruptions rejected; 492.057 seconds",
+      "log_sha256": "c575243492caa11f6396f8b378e9fe8bf52c4ad41c9767c9fae8c020c3c6fe19"
+    },
+    {
+      "log": "/tmp/mpk-w09-domains-user-exception-v2.log",
+      "result": "two original-source user payload counts (2/5 cells) and eight tag/payload/padding mutations passed; nested source rejects with zero artifacts; 1.12 seconds",
+      "log_sha256": "c6d39e40049ee83a56a6a70325c42f4b90c8d27fde6d9a6c50989b769275f571"
+    },
+    {
+      "log": "/tmp/mpk-w09-domain-source-request-replay-v3.log",
+      "result": "all five data-source requests and three exception-control requests replayed byte-for-byte; 0.07 seconds",
+      "log_sha256": "5dd74cc35db4e2104fb735dbd24a4f150a4da2ebb96affe58403ca61dd81fb9a"
+    },
+    {
+      "log": "/tmp/mpk-w09-domain-generation-v6.log",
+      "result": "28 source contexts generated and import-mutation tested; prior 26 certificate bytes and metadata unchanged; 50.03 seconds",
+      "log_sha256": "1d4b8d54d0a1df9d0487eaa367d4e333c3a3ef66b252f222fad2df6f595eff93"
+    },
+    {
+      "log": "/tmp/mpk-w09-domains-replay-v6.log",
+      "result": "28 pinned source domain certificates exactly replayed and import mutations rejected; 114.16 seconds",
+      "log_sha256": "476598777dc97381c78d3350a9acd423fe7c41e60fd8ed4fb21d2431ba7c0a04"
+    },
+    {
+      "log": "/tmp/mpk-w09-domain-checkers-exceptions.log",
+      "result": "both new exception certificates accepted by both unchanged checkers with zero axioms and corruptions rejected; 41.919 seconds",
+      "log_sha256": "34da3d48977acfc42844da500a341fcf219df1ab618c8d7c5bd05eac465faca5"
+    },
+    {
+      "log": "/tmp/mpk-w09-domain-clippy-v8.log",
+      "result": "scoped clippy passed after exception coverage addition; 10.84 seconds",
+      "log_sha256": "1633833945dd9ef4d819e3ff3586274838922ac611d0ba255b63cde4b8537451"
+    },
+    {
+      "log": "/tmp/mpk-w09-domain-inventory-v4.log",
+      "result": "all five inventory tests passed after exception captures and 28-context corpus addition; 15.95 seconds",
+      "log_sha256": "6b706853f30cd228e11656ba3ca9a6b689cf2171c4f70ce5a5553f9a62ceaf46"
+    },
+    {
+      "log": "/tmp/mpk-w09-domain-format-v5.log",
+      "result": "format check passed after exception coverage additions",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "log": "/tmp/mpk-w09-contract-carrier-checkers-v1.log",
+      "result": "11 previous and 11 current helper certificates passed both checkers and hash mutations; includes the changed domain certificate",
+      "log_sha256": "6ca92165f6856d5bf30cd7438de8b09dbecd6440fcb385d918faa6c1f8e8f539"
+    },
+    {
+      "log": "/tmp/mpk-w09-contract-domains-replay-v1.log",
+      "result": "all 28 current domain certificates pinned replay and import mutations passed",
+      "log_sha256": "dd054909eefb3fffe88982ddee55260ba8ad0f620a62d02146159a3dfb2f4637"
+    }
+  ],
+  "pending_verification": [
+    {
+      "log": "/tmp/mpk-w09-domains-source-v5.log",
+      "scope": "all seven original-source domain semantic tests after direct getters, including full logical-cell/UTF-16/role bounds and decimal/string/compound ordering; 3 test threads",
+      "status": "terminal SIGKILL; cause not established; no complete semantic acceptance",
+      "log_sha256": "0523a014462d16829d76fddcfc603001d09d445a30c5f3b9d9fd87ebe98d45d0"
+    },
+    {
+      "log": "/tmp/mpk-w09-domains-remaining-source-v6.log",
+      "scope": "decimal collection order, string/compound map order and exact total-cell boundary; same three unfinished tests, serial after observer lifetime correction",
+      "status": "terminal SIGABRT from stack overflow; no completed domain subtest; iterative environment destruction correction under verification",
+      "log_sha256": "cada53a85cee44c197c6d68a7d9c38823216d12f6be5e9b1e1df96f39f2c4bdf"
+    },
+    {
+      "scope": "decimal/string/compound order and exact total-cell boundary, unchanged three-test scope after iterative environment destruction",
+      "session_id": 23035,
+      "log": "/tmp/mpk-w09-domains-remaining-source-v7.log",
+      "status": "historical handle; no current process established and original temporary log unavailable on 2026-09-11; not a terminal pass or failure receipt"
+    }
+  ],
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "result": "deferred to T06-W12"
+  },
+  "remaining_scope": "unit-3-progress.md",
+  "superseded_runs": [
+    {
+      "log": "/tmp/mpk-w09-domains-collections.log",
+      "result": "explicitly stopped by SIGTERM after replacing per-word collection scans with fixed scalar Boolean expressions; not a deterministic assertion failure",
+      "reason": "old zero predicate starts a bounded state pipeline for each scalar word inside a large region; the replacement keeps the same semantic scope and wide-region transformer construction"
+    },
+    {
+      "log": "/tmp/mpk-w09-domains-collections-v2.log",
+      "result": "explicitly stopped by SIGTERM after implementation replacement; not a deterministic assertion failure",
+      "reason": "superseded scalar-word implementation by retaining a complete word at the bottom of each selector partition"
+    },
+    {
+      "log": "/tmp/mpk-w09-domains-collections-v3.log",
+      "result": "explicitly stopped by SIGTERM after implementation replacement; not a deterministic assertion failure",
+      "reason": "superseded eta-expanded predicate and element readers by direct partial application"
+    },
+    {
+      "log": "/tmp/mpk-w09-domains-total-cells.log",
+      "result": "explicitly stopped by SIGTERM after implementation replacement; not a deterministic assertion failure",
+      "reason": "superseded eta-expanded predicate and element readers by direct partial application"
+    },
+    {
+      "log": "/tmp/mpk-w09-domains-full-string.log",
+      "result": "explicitly stopped by SIGTERM after implementation replacement; not a deterministic assertion failure",
+      "reason": "superseded eta-expanded predicate and element readers by direct partial application"
+    },
+    {
+      "log": "/tmp/mpk-w09-domains-collections-v4.log",
+      "result": "explicitly stopped by SIGTERM; terminal handles confirmed; no deterministic assertion failure",
+      "reason": "ordinary domain field getters and key-relation element readers still eta-expanded the selected cube; replaced with direct partial applications after small-value regression passed",
+      "log_sha256": "18a8dff6a940dfec76ebff126598d407fca75a0dc9d66ab0203f225be2bb7dcf"
+    },
+    {
+      "log": "/tmp/mpk-w09-domains-total-cells-v2.log",
+      "result": "explicitly stopped by SIGTERM; terminal handles confirmed; no deterministic assertion failure",
+      "reason": "ordinary domain field getters and key-relation element readers still eta-expanded the selected cube; replaced with direct partial applications after small-value regression passed",
+      "log_sha256": "dccd1a60a8e7a30025af9d300601cebdcde9c108b1e9c5f14547e8d87f7616cc"
+    },
+    {
+      "log": "/tmp/mpk-w09-domains-decimal-collections.log",
+      "result": "explicitly stopped by SIGTERM; terminal handles confirmed; no deterministic assertion failure",
+      "reason": "ordinary domain field getters and key-relation element readers still eta-expanded the selected cube; replaced with direct partial applications after small-value regression passed",
+      "log_sha256": "760bd86f87eb5d6b3e4beadf7eec688cc4ede4c3d60f9355208d28f9fa2adacc"
+    },
+    {
+      "log": "/tmp/mpk-w09-domains-string-compound-maps.log",
+      "result": "explicitly stopped by SIGTERM; terminal handles confirmed; no deterministic assertion failure",
+      "reason": "ordinary domain field getters and key-relation element readers still eta-expanded the selected cube; replaced with direct partial applications after small-value regression passed",
+      "log_sha256": "486c17eb1fc405f0d007951eb00d81aa4ec62c02c43eb0a78ac9364210c1ca04"
+    }
+  ],
+  "corrected_failures": [
+    {
+      "log": "/tmp/mpk-w09-aggregate-sharing.log",
+      "finding": "new regression imported run_counted through a tests reexport that did not include it",
+      "fix": "import directly from the existing test_eval module",
+      "verification": "/tmp/mpk-w09-aggregate-sharing-v2.log"
+    }
+  ],
+  "current_certificate_status": "All 28 current domain certificates accepted by both unchanged checkers with zero axioms, including the contract-only Bool extension; all pinned byte replays pass. Recursive semantic boundary tests remain active.",
+  "current_corpus": {
+    "source_contexts": 28,
+    "domain_root_occurrences": 160,
+    "max_terms": 45348,
+    "max_declarations": 536,
+    "max_static_transformers": 8576
+  },
+  "source_capture_notes": {
+    "exception_sources": "exception-domain-sources/capture.json",
+    "initial_data_only_route": "/tmp/mpk-w09-exception-domain-responses.json; two closed_type rejections; not acceptance evidence",
+    "correct_control_route": "/tmp/mpk-w09-exception-domain-responses-v3.json; two accepts and exact exception_value_api rejection with zero artifacts",
+    "live_semantic_run_scope": "original seven-test run terminated with SIGKILL; original 26-source scope retained and new two source-exception domains verified separately"
+  },
+  "contract_carrier_extension": "contract-carrier-extension/changes.json",
+  "current_outstanding_semantics_run": {
+    "session_id": 55774,
+    "log": "/tmp/mpk-w09-domains-outstanding-semantics-v1.log",
+    "status": "running",
+    "tests": [
+      "csharp_03_t06_w09_domains_source_collections_and_rejections",
+      "csharp_03_t06_w09_domains_source_decimal_collection_order",
+      "csharp_03_t06_w09_domains_source_string_compound_map_order",
+      "csharp_03_t06_w09_domains_source_total_cell_boundary"
+    ],
+    "selection": "Only four still-unverified domain consumers of the regrouped aggregate. Prior missing/terminal handles were checked and current process inventory showed no domain semantic run before launch; not a timeout-triggered duplicate. One test thread limits concurrent large domain evaluations.",
+    "process_ids": {
+      "cargo": 31738,
+      "test": 31739
+    },
+    "observed_on": "2026-09-11 JST",
+    "completed_subtests": [
+      "csharp_03_t06_w09_domains_source_collections_and_rejections",
+      "csharp_03_t06_w09_domains_source_decimal_collection_order"
+    ],
+    "current_subtest": "csharp_03_t06_w09_domains_source_string_compound_map_order",
+    "remaining_subtests": [
+      "csharp_03_t06_w09_domains_source_string_compound_map_order",
+      "csharp_03_t06_w09_domains_source_total_cell_boundary"
+    ],
+    "observation_note": "Live process confirmed with CPU activity; current string-map duplicate count evaluation remains pending. The first two subtests have terminal ok lines in the live log; the complete command has not exited. Original session handle is unavailable; no duplicate was launched."
+  }
+}

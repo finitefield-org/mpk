@@ -1,0 +1,370 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.decimal_data_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "status": "shared_candidates_passed_runtime_and_final_dual_checker_pending",
+  "observed_at": "2026-09-10T22:19:57.773823+00:00",
+  "component": "Unit 5 W03 decimal SSA result and ordered-exception use points",
+  "source_contexts": 3,
+  "definition_occurrences": 9,
+  "distinct_operations": 6,
+  "operation_use_points": 11,
+  "certificate_bytes_total": 2315545,
+  "largest_certificate_bytes": 983484,
+  "capture": "decimal-data/capture-receipt.json",
+  "certificates": "decimal-data/certificates.json",
+  "passed": [
+    {
+      "test": "ordinary_decimal_data_result_observes_all_storage_bits",
+      "seconds": 0.54,
+      "reason": "New 512-bit comparison width: equality plus each of 512 individual bit mutations, including padding; invalid width rejects.",
+      "log": "verification-logs/decimal-data/decimal-data-bits-v1.log"
+    },
+    {
+      "test": "csharp_03_t06_w09_decimal_data_requests",
+      "seconds": 0.06,
+      "reason": "Three native source requests preserve original roots/sidecars.",
+      "log": "verification-logs/decimal-data/decimal-data-requests-v1.log"
+    },
+    {
+      "test": "native capture",
+      "seconds": null,
+      "reason": "All three original C# inputs accepted using unchanged isolated frontend; 88 staged inputs revalidated.",
+      "log": "verification-logs/decimal-data/decimal-data-capture-v1.log"
+    },
+    {
+      "test": "integer_data_candidates and floating_data_candidates",
+      "seconds": 6.79,
+      "reason": "Shared result helper only admits an additional width. All six prior integer/floating certificates and metadata remain byte-identical; their runtime/checker suites are therefore not repeated.",
+      "log": "verification-logs/decimal-data/decimal-data-shared-replay-v1.log"
+    },
+    {
+      "test": "csharp_03_t06_w09_decimal_data_candidates",
+      "seconds": 20.95,
+      "log": "verification-logs/decimal-data/decimal-data-candidates-v2.log",
+      "reason": "Final Let-bound result relations regenerate with unchanged original scalar definition closures, W03 links and rejection checks."
+    },
+    {
+      "test": "cargo test --release -p mpk-vc --lib ordinary_decimal_data_ -- --nocapture",
+      "tests": 2,
+      "seconds": 0.56,
+      "log": "verification-logs/decimal-data/decimal-data-sharing-v1.log",
+      "reason": "All 512 one-bit storage corruptions reject; positive comparison passes. Actual core reduction count compares shared and unshared ordinary definitions with the same scalar body and inputs.",
+      "core_transitions": {
+        "shared": 162221,
+        "unshared": 676539
+      },
+      "limitation": "Small generic regression, not an end-to-end workload timing claim."
+    },
+    {
+      "test": "rustfmt --check --edition 2021 --config skip_children=true",
+      "log": "verification-logs/decimal-data/decimal-data-format-v2.log",
+      "reason": "Final eight touched Rust files."
+    },
+    {
+      "test": "cargo clippy -p mpk-vc --lib --test csharp_practical_vc -- -D warnings",
+      "seconds": 34.67,
+      "log": "verification-logs/decimal-data/decimal-data-clippy-v3.log",
+      "reason": "Final Let-sharing production code and new core work-count regression."
+    },
+    {
+      "test": "csharp_03_t01_w02_inventory_closes_every_artifact_and_consumer_edge",
+      "seconds": 16.16,
+      "log": "verification-logs/decimal-data/decimal-data-inventory-v2.log",
+      "reason": "Final core Let emission and test dependency references; inventory fingerprint unchanged."
+    }
+  ],
+  "live_jobs": [
+    {
+      "case": "csharp_03_t06_w09_decimal_data_original_source",
+      "profile": "release",
+      "session_id": 28913,
+      "log": "/tmp/mpk-w09-decimal-data-source-v2.log",
+      "pid": 71223,
+      "last_verified_elapsed": "00:52",
+      "last_observed_rss_kib": 6701120
+    },
+    {
+      "case": "TestCheckerAgreementWithRustCLIDecimalData",
+      "session_id": 28472,
+      "log": "/tmp/mpk-w09-decimal-data-checkers-v2.log",
+      "pid": 71030,
+      "last_verified_elapsed": "02:26"
+    }
+  ],
+  "scope_limits": [
+    "Fresh native use points cover decimal add/divide/less, Round ToEven with digits, int32-to-decimal and decimal-to-int32; not all 45 decimal signatures have a fresh native use point in this corpus.",
+    "Result relations compare the full 512-bit product representation, including padding; the existing numeric reference evaluates expected values only in tests.",
+    "Individual failure predicates use existing unmasked decimal checks; W03 prefixes and guards impose exception priority. Native observations must still complete before claiming their outcomes.",
+    "All other source data families remain explicit pending definitions. Input-domain and complete source-call/control/ownership/native-body/application proofs remain separate W09 obligations.",
+    "Original units 3-8 remain open; no original-unit commit boundary has been reached."
+  ],
+  "full_gate": {
+    "status": "deferred",
+    "target": "CSHARP-03-T06-W12",
+    "reason": "Intermediate W; changed comparator width and native decimal adapter receive targeted tests only."
+  },
+  "review": "unit-5-decimal-data-review.md",
+  "source_files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_decimal_data.rs",
+      "bytes": 12372,
+      "sha256": "197a4785e48d813357e81d5ef7958f729d1c40b9337ade60daf088901f6fdaef"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_integer_data.rs",
+      "bytes": 14178,
+      "sha256": "2f2ef31c9591dd0d57837cf08891d71e2014e34cba87689cc0b22da4d534f861"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_source_clauses.rs",
+      "bytes": 78791,
+      "sha256": "1e35dc318c016430f746b1c5169ce0cec6c4c9b7eae9fce25e306e2a3e8bc374"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_structural.rs",
+      "bytes": 36845,
+      "sha256": "bb9f1c2b4133f8b76fda7373b27676d3c1e836477d6c09575bf011413b980494"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs",
+      "bytes": 58819,
+      "sha256": "68364c30a2ec1667940c66f826f6c64c7333594fbea8f9a96e6ffc8958ce22c4"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+      "bytes": 275862,
+      "sha256": "bda23ae32879bb62fa040f8558216b6c581be6fb1d5cbb91e0f686a745a9185b"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_data_tests.rs",
+      "bytes": 16430,
+      "sha256": "57bc74fa38bf3b9a9a1f7c0dd45b6850b15f7e582d0b6cb7aced3d5cbcf71206"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_contract_expression_tests.rs",
+      "bytes": 29455,
+      "sha256": "efb255d6e46c4a947fff75fd799b4ccd66ada6c582eb24a24d5a1a09fbbf18b5"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "bytes": 26188,
+      "sha256": "ee094123aa31b74351480a31f9137078fbe21b9530f8e4ca0f6e38c48f7e9698"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "verification-logs/decimal-data/decimal-data-bits-v1.log",
+      "bytes": 491,
+      "sha256": "4af59d2540efb377aa7f8c3b106a605083f2ce95bcfdd3a5da832f05f5535b24"
+    },
+    {
+      "path": "verification-logs/decimal-data/decimal-data-candidates-v1.log",
+      "bytes": 682,
+      "sha256": "78bf8b25b71071b87b1401c9be36f1a3ac4b1bbb47bca8a617b886201a3c6b38"
+    },
+    {
+      "path": "verification-logs/decimal-data/decimal-data-candidates-v2.log",
+      "bytes": 754,
+      "sha256": "2ebd39dc10308dc47f465b90f80b979e94ebe1736f6d84fda3e51812be0f7292"
+    },
+    {
+      "path": "verification-logs/decimal-data/decimal-data-capture-v1.log",
+      "bytes": 96,
+      "sha256": "b54783e7f03a494ff5bd47f4478ef297095ffb7feeb71eefcecd239ae331398b"
+    },
+    {
+      "path": "verification-logs/decimal-data/decimal-data-checkers-v1.log",
+      "bytes": 608,
+      "sha256": "94b7bbf8c2fd588f32411e38e47eea7b4d74e7fca0bc0977f8ddd135536291c1"
+    },
+    {
+      "path": "verification-logs/decimal-data/decimal-data-clippy-v1.log",
+      "bytes": 198,
+      "sha256": "1896574498581a1ce59631e642fa77560ede58837fc23c40fc0999dade4cbcff"
+    },
+    {
+      "path": "verification-logs/decimal-data/decimal-data-clippy-v2.log",
+      "bytes": 144,
+      "sha256": "75e651a98628a630b0e4deefaf61672898e02c9cdf88a05665a1af0086ce83dd"
+    },
+    {
+      "path": "verification-logs/decimal-data/decimal-data-clippy-v3.log",
+      "bytes": 144,
+      "sha256": "f75311cc1e6afaa1456be80f37a74b2a67e8d6e13e1c1f9870633c5da622f744"
+    },
+    {
+      "path": "verification-logs/decimal-data/decimal-data-format-v1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "verification-logs/decimal-data/decimal-data-format-v2.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "verification-logs/decimal-data/decimal-data-inventory-v1.log",
+      "bytes": 450,
+      "sha256": "c65b8a87c1842fe28feb74002569393cd068d43aa51cc842967127ab3c75e396"
+    },
+    {
+      "path": "verification-logs/decimal-data/decimal-data-inventory-v2.log",
+      "bytes": 505,
+      "sha256": "2c1dde99cdfcb3e718d13177fae36c88eee104402cd4792db0344e96138b8b3d"
+    },
+    {
+      "path": "verification-logs/decimal-data/decimal-data-requests-v1.log",
+      "bytes": 497,
+      "sha256": "a9dbbbb1231007fe0d91149c80430507d133f949b4410b4ef638a0c08485607e"
+    },
+    {
+      "path": "verification-logs/decimal-data/decimal-data-runtime-profile-v1.log",
+      "bytes": 224,
+      "sha256": "c71cf0574c77354fd0dd5b06602953d04c4974b330933b9b8590dd31206f6390"
+    },
+    {
+      "path": "verification-logs/decimal-data/decimal-data-runtime-profile-v1.txt",
+      "bytes": 61980,
+      "sha256": "676159d11bf3f65d97dbe786d411f8f1708343e92d9b0efb08c4c5cc1de1826e"
+    },
+    {
+      "path": "verification-logs/decimal-data/decimal-data-shared-replay-v1.log",
+      "bytes": 1194,
+      "sha256": "77a1db1c2be818368301487186beb3df4230354e2acdb23328a266e0a7b40dee"
+    },
+    {
+      "path": "verification-logs/decimal-data/decimal-data-sharing-v1.log",
+      "bytes": 722,
+      "sha256": "aeee47badda929d571e87687f863083e80f266f8c951943c8856c38f4d0e73cb"
+    },
+    {
+      "path": "verification-logs/decimal-data/decimal-data-source-v1.log",
+      "bytes": 736,
+      "sha256": "60b1f23ad5948df34432dfe058eb3247857a5f033de8b6fdaa0a7a833b11f668"
+    },
+    {
+      "path": "verification-logs/decimal-data/raw-requests.json",
+      "bytes": 6587,
+      "sha256": "118e98976d0aa3c07f3e61fdd386eb1348215d2936f711bd11b384e7726278c8"
+    },
+    {
+      "path": "verification-logs/decimal-data/raw-responses.json",
+      "bytes": 25520,
+      "sha256": "26383dfdf043dfc8b0be760f104526a4054b6009e9635d0c8f5e2638056b5155"
+    },
+    {
+      "path": "verification-logs/decimal-data/unshared-v1/add.hex",
+      "bytes": 1768568,
+      "sha256": "c3d40eb85db0549409392d958b1ae16438feae6e1db35bff360b514937778cf2"
+    },
+    {
+      "path": "verification-logs/decimal-data/unshared-v1/add.json",
+      "bytes": 27519,
+      "sha256": "b5ccf791cf4bebded71c96d3708c8f7a9257ab90d5a1eef12475a45c8a867fba"
+    },
+    {
+      "path": "verification-logs/decimal-data/unshared-v1/certificates.json",
+      "bytes": 880,
+      "sha256": "3948a7927aaae89a82315a99b6f55d77948c4f04ced8b22a2f94f0073bba6f5d"
+    },
+    {
+      "path": "verification-logs/decimal-data/unshared-v1/divide.hex",
+      "bytes": 2002976,
+      "sha256": "9b5be8cac8fc9679507bf5847349356530397ff068507ab5862e3dfc06a86db2"
+    },
+    {
+      "path": "verification-logs/decimal-data/unshared-v1/divide.json",
+      "bytes": 34136,
+      "sha256": "4eca3594bbde2b2dc8bbbeeed81f1d4ec5d48e325cd58b9382b872aaaf6af0bd"
+    },
+    {
+      "path": "verification-logs/decimal-data/unshared-v1/requests.json",
+      "bytes": 6587,
+      "sha256": "118e98976d0aa3c07f3e61fdd386eb1348215d2936f711bd11b384e7726278c8"
+    },
+    {
+      "path": "verification-logs/decimal-data/unshared-v1/responses.json",
+      "bytes": 25699,
+      "sha256": "ff6c296c7ecdf9998f64086a61a3ff519feb17373c079ac11f62ccdf37a38f79"
+    },
+    {
+      "path": "verification-logs/decimal-data/unshared-v1/round.hex",
+      "bytes": 970888,
+      "sha256": "de41bca9bb4127649650aecc55b9bdbdc8e18365c9dc6bc9ca18a152d77b2bba"
+    },
+    {
+      "path": "verification-logs/decimal-data/unshared-v1/round.json",
+      "bytes": 21532,
+      "sha256": "c532769c76acd32d8822c0aa144599282d3322ad1d2cd6eeb0c62a6bf75eb4df"
+    }
+  ],
+  "runtime_profile": {
+    "captured_at": "2026-09-11T07:11:51.742+09:00",
+    "pid": 69916,
+    "worker_samples": 2471,
+    "top_of_stack_samples": {
+      "evaluate_counted": 1546,
+      "tiny_malloc": 132,
+      "free": 114,
+      "defer": 109
+    },
+    "physical_footprint": "70.3M",
+    "peak_physical_footprint": "6.4G",
+    "evidence": [
+      "verification-logs/decimal-data/decimal-data-runtime-profile-v1.txt",
+      "verification-logs/decimal-data/decimal-data-runtime-profile-v1.log"
+    ],
+    "note": "RSS and physical footprint are distinct reported metrics. The sample confirms generic core evaluation, not a completed result or a global retained-memory bound."
+  },
+  "revalidation": {
+    "reason": "The previous relation referred to the same computed term ID from every bit comparison without a core Let. Explicit ordinary Let now shares the computed result; scalar bodies, operands and test inputs are unchanged. Earlier candidate/checker evidence remains historical until final bytes are regenerated and checked.",
+    "candidate_session_id": 97442,
+    "current_candidate_session_log": "/tmp/mpk-w09-decimal-data-candidates-v2.log",
+    "pending": [
+      "final runtime observations",
+      "same-byte dual checking of final certificates",
+      "final scoped review"
+    ]
+  },
+  "historical_checks": [
+    {
+      "test": "csharp_03_t06_w09_decimal_data_candidates",
+      "seconds": 20.8,
+      "reason": "Original W03 metadata, complete existing scalar dependency closures, explicit pending list and successor/certificate mutations.",
+      "log": "verification-logs/decimal-data/decimal-data-candidates-v1.log"
+    },
+    {
+      "test": "cargo clippy -p mpk-vc --lib --test csharp_practical_vc -- -D warnings",
+      "seconds": 10.58,
+      "reason": "Final new production/integration test code including exception diagnostic lines.",
+      "log": "verification-logs/decimal-data/decimal-data-clippy-v2.log"
+    },
+    {
+      "test": "csharp_03_t01_w02_inventory_closes_every_artifact_and_consumer_edge",
+      "seconds": 16.25,
+      "reason": "New source/export consumer closure; no inventory fingerprint change.",
+      "log": "verification-logs/decimal-data/decimal-data-inventory-v1.log"
+    },
+    {
+      "test": "rustfmt --check --edition 2021 --config skip_children=true",
+      "seconds": null,
+      "reason": "All eight touched Rust files.",
+      "log": "verification-logs/decimal-data/decimal-data-format-v1.log"
+    },
+    {
+      "test": "TestCheckerAgreementWithRustCLIDecimalData",
+      "seconds": 358.145,
+      "cases": 3,
+      "reason": "Same canonical bytes accepted by both unchanged checkers with zero axioms and matching reports/hashes; hash corruption rejects.",
+      "log": "verification-logs/decimal-data/decimal-data-checkers-v1.log"
+    }
+  ],
+  "superseded_runtime": {
+    "pid": 69916,
+    "session_id": 83594,
+    "status": "explicitly_stopped_without_verdict",
+    "log": "verification-logs/decimal-data/decimal-data-source-v1.log",
+    "reason": "Revised Let-sharing candidates passed reconstruction; replace only the obsolete native decimal runtime with the same tests on final definitions. SIGTERM is cancellation, not a deterministic semantic failure."
+  },
+  "historical_certificates": "verification-logs/decimal-data/unshared-v1/certificates.json"
+}

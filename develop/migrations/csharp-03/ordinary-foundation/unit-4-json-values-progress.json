@@ -1,0 +1,254 @@
+{
+  "schema": "mpk.csharp_practical.w09.json_values_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "semantic_cell_count_correction_in_progress",
+  "scope": "Typed primitive JSON parse packets preserve complete reconstructed value carriers, exact cursor, one logical cell per scalar, codec configuration and zero invalid storage. Compound grammar, builtin/source enums and error vocabulary, field presence and actual boundary/application proofs remain pending.",
+  "test_selection": "Only new packet conversion/projection runtime, original context linkage and full existing token dependency closure, complete new primitive adapter route matrix, eight new distinct checker vectors, affected production/integration lint, scoped format and two consumer inventory tests. Existing scalar/string/decimal/calendar token runtime matrices are not repeated for this adapter-only change. Source test caught duplicate shared converter emission; reran affected scalar conversion and source generation after the fix. String probes were strengthened for every invalid ending bit. No intermediate-W check-fast.sh or split equivalent.",
+  "verification": [
+    {
+      "status": "passed",
+      "scope": "Initial production generator build.",
+      "exit_code": 0,
+      "log": "/tmp/mpk-w09-json-values-build-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-values/mpk-w09-json-values-build-v1.log",
+      "log_sha256": "9a6fe0362d90e6cfddd05f2e6033b22ac23b50d3c0c6c534081abfd49f855fca",
+      "elapsed_seconds": 12.04
+    },
+    {
+      "status": "passed",
+      "scope": "40 complete scalar packets and projections before shared-converter alias fix.",
+      "exit_code": 0,
+      "log": "/tmp/mpk-w09-json-values-packets-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-values/mpk-w09-json-values-packets-v1.log",
+      "log_sha256": "5f4a26f2380528dc492e9edbd4515220f8f7b5b78ad5d0a91796893771606bf3",
+      "elapsed_seconds": 0.92
+    },
+    {
+      "status": "passed",
+      "scope": "Initial 18 string header/full-capacity sparse payload probes.",
+      "exit_code": 0,
+      "log": "/tmp/mpk-w09-json-values-string-packets-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-values/mpk-w09-json-values-string-packets-v1.log",
+      "log_sha256": "bcdfbb98df84e82327731b67df75d3cc468aa30dbefbbcdd080be571cc4f9065",
+      "elapsed_seconds": 0.1
+    },
+    {
+      "status": "failed_generation",
+      "scope": "A reused layout re-emitted the same converter: cache checked a logical name but circuit emission returned a generated result name. Added a stable ordinary alias; the repeat-emission regression test checks unchanged declaration and transformer counts.",
+      "exit_code": 101,
+      "log": "/tmp/mpk-w09-json-values-sources-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-values/mpk-w09-json-values-sources-v1.log",
+      "log_sha256": "6ab71f240e29c22e2cb2612e42c77d2dad0a0105e39eaedb2132e73f6793d1f1",
+      "elapsed_seconds": 11.4
+    },
+    {
+      "status": "passed",
+      "scope": "Affected production library and integration-test clippy before alias fix.",
+      "exit_code": 0,
+      "log": "/tmp/mpk-w09-json-values-clippy-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-values/mpk-w09-json-values-clippy-v1.log",
+      "log_sha256": "68131dde8d46c0f92310e9bf67b3f640c9d9e37660d4e3ced3476d8604ff3998",
+      "elapsed_seconds": 30.92
+    },
+    {
+      "status": "passed",
+      "scope": "Both consumer inventory closure and added/deleted-consumer tests. No inventory fingerprint changed for this module.",
+      "exit_code": 0,
+      "log": "/tmp/mpk-w09-json-values-inventory-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-values/mpk-w09-json-values-inventory-v1.log",
+      "log_sha256": "0c6068256885103b06529c2e0e113fc43426ca62b4221f1b3be0ee419cbca07e",
+      "elapsed_seconds": 16.85
+    },
+    {
+      "status": "passed",
+      "scope": "40 complete scalar packets and projections after alias fix, plus exact reuse/cumulative-count regression.",
+      "exit_code": 0,
+      "log": "/tmp/mpk-w09-json-values-packets-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-values/mpk-w09-json-values-packets-v2.log",
+      "log_sha256": "d7140aa8ba2f95184b229295459eb4858dcb7122b2fb73ec7028fc3a1c0dcfde",
+      "elapsed_seconds": 1.11
+    },
+    {
+      "status": "passed",
+      "scope": "24 complete headers with distinct cursor bits, individual invalid ending bits, invalid-value masking and sparse C19 value probes through the last address.",
+      "exit_code": 0,
+      "log": "/tmp/mpk-w09-json-values-string-packets-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-values/mpk-w09-json-values-string-packets-v2.log",
+      "log_sha256": "7613b5702f0ab8dff790f40eef9aa48eaf887ddbcf62908bf451ed20dc0e87e2",
+      "elapsed_seconds": 0.12
+    },
+    {
+      "status": "passed",
+      "scope": "72 original contexts, seven complete programs, independent token/type/codec configuration routes, complete previous token definition/dependency preservation, deferred carrier complement and metadata/hash mutations.",
+      "exit_code": 0,
+      "log": "/tmp/mpk-w09-json-values-sources-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-values/mpk-w09-json-values-sources-v2.log",
+      "log_sha256": "d21f5b06f2247b801a2277c2faedd38811e9e27300c6f6077234528ec027557d",
+      "elapsed_seconds": 156.33
+    },
+    {
+      "status": "passed",
+      "scope": "Affected production library and integration-test clippy after production alias fix.",
+      "exit_code": 0,
+      "log": "/tmp/mpk-w09-json-values-clippy-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-values/mpk-w09-json-values-clippy-v2.log",
+      "log_sha256": "f7b5fe72c8ecc3c94e9b2beb5ccec06ac2a742dfc0e605f63296e425cf619a5b",
+      "elapsed_seconds": 42.99
+    },
+    {
+      "status": "passed",
+      "scope": "Source-free route coverage for all 20 supported primitive types, both GUID formats and all 146 decimal configurations: 166 adapters within one certificate.",
+      "exit_code": 0,
+      "log": "/tmp/mpk-w09-json-values-all-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-values/mpk-w09-json-values-all-v1.log",
+      "log_sha256": "c5dc5805ef52df37cc1d45784b3e78463c8289be0fcf145ce8c5b959e0ad1def",
+      "elapsed_seconds": 6.65
+    },
+    {
+      "status": "passed",
+      "scope": "Scoped rustfmt check after final code/test edits.",
+      "exit_code": 0,
+      "log": "/tmp/mpk-w09-json-values-format-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-values/mpk-w09-json-values-format-v2.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "status": "failed_environment",
+      "scope": "Go could not open macOS build-cache file under the sandbox. Terminal exit 1 before checker execution; retry uses GOCACHE=/tmp/mpk-w09-go-cache.",
+      "exit_code": 1,
+      "log": "/tmp/mpk-w09-json-values-checkers-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-values/mpk-w09-json-values-checkers-v1.log",
+      "log_sha256": "6931d1da109b18087a8a0078634312286bca6f9fc18e2f8c0e347b3ce66a7f4f"
+    },
+    {
+      "status": "passed",
+      "exit_code": 0,
+      "session_id": 2890,
+      "scope": "All eight distinct source/complete primitive-route vectors accepted by unchanged Rust/Go checkers with matching reports, zero axioms and hash-corruption rejection;3203.674s.",
+      "log": "/tmp/mpk-w09-json-values-checkers-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-values/mpk-w09-json-values-checkers-v2.log",
+      "log_sha256": "fbe3565ac7cdd3f28dfee42058a713b6c7804ad630490866bc0350c6d6a8d080"
+    }
+  ],
+  "pins": [
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/json-values/document-7a157feb27ed416752b5dde8aa2bf373b9a2c82755d2caa89e955057176ee57b.hex",
+      "certificate_sha256": "24b4a2645e73726ccbc8547345f488a8acb7933e5f9e3dfdaac8e01571d66fba",
+      "terms": 123131,
+      "declarations": 2037,
+      "static_transformers": 7269,
+      "adapter_count": 149
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/json-values/document-decb5507362a7672c711a5befd63efc1038c2c0a86ee20137a1c4c472e0d1684.hex",
+      "certificate_sha256": "15dc852bb2a93cf7fb8c89458f61110d6bbe5e29902ba965c640a18f07b0b1c5",
+      "terms": 116865,
+      "declarations": 1888,
+      "static_transformers": 7265,
+      "adapter_count": 5
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/json-values/document-6b96fc4eed95a1d33fa5784b9062f02fa07ac65b6aef2b4100bb91e9c2f1a613.hex",
+      "certificate_sha256": "ce0477e5dc4f2738a4b0dd21649b8b9d1b72a218bf491a3ebdb151fe7db7ff72",
+      "terms": 115358,
+      "declarations": 1865,
+      "static_transformers": 7262,
+      "adapter_count": 1
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/json-values/calendar-date.hex",
+      "certificate_sha256": "4afe21a295f6195f2e1ec26c34b90967bd32f3e6aaba9a8200df575f9ba69853",
+      "terms": 169168,
+      "declarations": 2382,
+      "static_transformers": 7738,
+      "adapter_count": 1
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/json-values/calendar-time.hex",
+      "certificate_sha256": "4b1c568cc9e618d5ae3fbb68bbb8c6197fb45fa9c5b7b3a8a8f4a3c79cfa63b8",
+      "terms": 159145,
+      "declarations": 2270,
+      "static_transformers": 7626,
+      "adapter_count": 1
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/json-values/calendar-date-time.hex",
+      "certificate_sha256": "00865a5c47047518a8748ff4df095e5a18a2de1ceb016a1686e0f7a99e4fd631",
+      "terms": 208457,
+      "declarations": 2788,
+      "static_transformers": 8103,
+      "adapter_count": 2
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/json-values/calendar-date-time-decimal.hex",
+      "certificate_sha256": "8a50118a30802455748835483e8281b973863ff628938fc684418612014e39c9",
+      "terms": 215151,
+      "declarations": 2945,
+      "static_transformers": 8108,
+      "adapter_count": 148
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/json-values-all-scalars/all-scalars.hex",
+      "certificate_sha256": "278ba3d7514936db10cb580f1efc0b9a03940fe67409e43a6f3d9c256172e9c8",
+      "terms": 219046,
+      "declarations": 3010,
+      "static_transformers": 8117,
+      "adapter_count": 166
+    }
+  ],
+  "implementation": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_values.rs",
+      "sha256": "61070a41ccc6070717af1d9e9b87abba66cb1a5147f8ea75596f726bb68c77b5"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_scalar_bits.rs",
+      "sha256": "19c192f9979ee00f85c0e31e520f795cddd8743cbacd95f8110496d57ce57fb4"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs",
+      "sha256": "32102d2fe32721c5cf14878ed943ed52677a27966921d2d9dd487795815aadbd"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+      "sha256": "64583f8bc91afbd9bb83d319e71b7ada21b181ecce77b0dcd7289d0de324348f"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_value_tests.rs",
+      "sha256": "c7b5c61f3dcc739562b1077845b4b5550baddc2137b6dae3be37e45b5d48b215"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_token_tests.rs",
+      "sha256": "256fb86c6180b9e27b91ac85bdcf82a869bf2407eb468bb816535e2361d676ae"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "sha256": "0ec4ffc19cf62e247156af378e2997cbfa342d2de61301bd3ebd68fb10108992"
+    }
+  ],
+  "review": "unit-4-json-values-review.md",
+  "live_jobs": [],
+  "pending": [
+    "Source products now implemented and separately verified in json-products progress; complete semantic arrays/objects/sums, field absence/null and boundary relations remain outstanding.",
+    "Implement remaining builtin/source enum and error vocabulary routes, formatting/boundary relations, and all outstanding W09 units 3-8."
+  ],
+  "full_gate": "Deferred to T06-W12; no component-only commit or push.",
+  "goal_turn_classification": "Progress: implemented actual typed primitive JSON parser adapters, fixed shared converter duplicate emission, passed packet and original-source/complete-route tests, preserved all existing token dependencies and dispatched eight current dual-checker vectors.",
+  "observed_at": "2026-09-10T01:18:59.981756+00:00",
+  "commands": {
+    "scalar_packets": "cargo test -p mpk-vc --lib json_value_packet -- --nocapture",
+    "string_packets": "cargo test -p mpk-vc --lib json_string_value_packet -- --nocapture",
+    "source_generation": "MPK_W09_JSON_VALUES_OUT=/tmp/mpk-w09-json-values-pins-v2 cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_json_values_original_sources_and_token_preservation -- --nocapture",
+    "all_supported_primitives": "MPK_W09_JSON_VALUES_ALL_OUT=/tmp/mpk-w09-json-values-all-pins-v1 cargo test -p mpk-vc --lib json_values_all_primitive_codec_routes_fit_one_certificate -- --nocapture",
+    "lint": "cargo clippy -p mpk-vc --lib --test csharp_practical_vc -- -D warnings",
+    "inventory": "cargo test -p mpk-vc --test csharp_practical_inventory csharp_03_t01_w02_ -- --nocapture",
+    "diff_check": "/usr/bin/git diff --check (outside sandbox)"
+  },
+  "prior_status_before_cell_count_correction": "typed_primitive_runtime_sources_routes_inventory_lint_and_all_eight_same_byte_dual_checkers_passed",
+  "superseded_cell_count_evidence": {
+    "review": "unit-4-json-cell-count-review.md",
+    "reason": "The typed JSON header used a16384 cumulative cap and counted strings as1. The frozen typed-value contract is65536 total and1+UTF16 units for strings. Prior checker acceptance proves type checking of old bytes;old cell expectations do not prove the required semantics.",
+    "required": "Regenerate affected candidate bytes,check changed bytes with both checkers,and verify corrected string/cumulative-cell behavior."
+  }
+}

@@ -1,0 +1,216 @@
+{
+  "schema": "mpk.csharp_practical.w09.json_scalar_grammar_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "scalar_grammar_checkpoint_verified_not_unit_completion",
+  "implementation": "Append bool/null/u8/u16/u32/i8/i16/i32 scalar grammar leaves on the shared lexical program. Accept C24 document, full-u32 absolute start C5, eight-bit exact ending C3. Endings 0 EOF, 1 comma, 2 array close, 3 object close; other tags reject. C7 output valid, at-EOF, low-width value zero-extended to u64, absolute u32 end and zero padding. Check original document bound, Slice, addition carry, start/end bounds, nonempty token and exact live delimiter; do not consume delimiter.",
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_tokens.rs",
+      "sha256": "5d43654a52a9b2d8a4a68faef269168c44c0801f13ddf15a16765274c65ca103"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_token_tests.rs",
+      "sha256": "d2ab120c339c5e15e121e33d7678efdfcf2effca90a2b014c863ed00a195380a"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_scalar_bits.rs",
+      "sha256": "807c32fd77a2e5fa218b20726fea1c44821644e0c81a216db0f99e3bb91140d7"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs",
+      "sha256": "a1e69df7a517c53417e65c76faa872170c932924104d5b23a7de19c4153c50db"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+      "sha256": "49601c9ab0cabac598dd2fa1f9cfddebeced95ad01ea1e637c3d218237ae5195"
+    }
+  ],
+  "previous_signed_manifest": {
+    "path": "develop/migrations/csharp-03/ordinary-foundation/json-tokens/previous-signed/certificates.json",
+    "sha256": "96a9410aa7f0c0d372c85d23d17290a11a208db84dfa12a3c6b7e401af146a52"
+  },
+  "verification": [
+    {
+      "session_id": 87992,
+      "command": "MPK_W09_JSON_TOKENS_OUT=/tmp/mpk-w09-json-tokens-scalar-v1 cargo test -p mpk-vc --test csharp_practical_vc -- csharp_03_t06_w09_json_tokens_original_sources csharp_03_t06_w09_json_tokens_scalar_grammar --nocapture --test-threads=1",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-json-tokens-scalar-suite-v1.log",
+      "completed_subtests": [
+        "original_sources: 68 contexts, three programs; import/context/metadata/byte mutations; all archived unsigned 39066/533 and signed 46834/644 terms/declarations preserved"
+      ],
+      "log_sha256": "f0bf5eedc19fb42bb3d16f0192358e046daf3478067df04c141b91973ecb4da5",
+      "scope": "Source/preservation and all 119 scalar grammar cases passed in 644.47s, all 128 packet bits observed."
+    },
+    {
+      "session_id": 6998,
+      "command": "cargo clippy -p mpk-vc --test csharp_practical_vc -- -D warnings",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-json-tokens-scalar-clippy-v1.log",
+      "log_sha256": "034f1ff13a11cc394a17d6933d652368fd977f2bf5697c077beeddbe6179523e",
+      "scope": "Targeted lint passed in 55.52s including build lock wait."
+    },
+    {
+      "command": "rustfmt --edition 2021 --check --config skip_children=true <five edited Rust files>",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-json-tokens-scalar-format-v1.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "scope": "Only edited Rust production/export/test files."
+    },
+    {
+      "command": "/usr/bin/git diff --check",
+      "status": "passed",
+      "scope": "Outside sandbox, current tracked edits."
+    },
+    {
+      "command": "Validated three generated domain-separated certificate hashes, checked limits, staged and compared every pin and manifest byte with source output",
+      "status": "passed",
+      "scope": "Source generation plus exact copy/read-back comparison establishes current pin identity without rerunning unchanged generation."
+    },
+    {
+      "session_id": 8477,
+      "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIJsonTokens$/^document-6b96fc4eed95a1d33fa5784b9062f02fa07ac65b6aef2b4100bb91e9c2f1a613[.]hex$' -count=1 -timeout 0 -v",
+      "status": "passed",
+      "cwd": "go-tools/mpk-checker-ref",
+      "log": "/tmp/mpk-w09-json-tokens-scalar-checkers-v1.log",
+      "scope": "One distinct certificate input passed both same-byte zero-axiom checkers and hash corruption rejection in 460.35s; all three source certificates explicitly byte-identical.",
+      "log_sha256": "84008e415076c60a023a90063a83376122c58f15e9858633d7ae25f4c091390a"
+    },
+    {
+      "session_id": 97714,
+      "command": "MPK_W09_JSON_TOKENS_OUT=/tmp/mpk-w09-json-tokens-scalar-v2 cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_json_tokens_original_sources -- --nocapture",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-json-tokens-scalar-source-v2.log",
+      "scope": "Current kind-label metadata source regeneration passed in 85.05s; exact v1/v2 certificate preservation and metadata-only rename checked during staging.",
+      "log_sha256": "8e9b381724b0097175b01035bbbeff3f67cc2e5629bc881d83b9027b887e5d0f"
+    },
+    {
+      "command": "rustfmt --edition 2021 --check --config skip_children=true <two metadata-label affected Rust files>",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-json-tokens-scalar-format-v2.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "test_selection": "Only changed scalar grammar behavior and all source/certificate metadata/linkage/preservation paths are executed. Existing integer/string/keyword matrices are retained if complete old-term/declaration preservation passes. Same-byte checker cases cover the enlarged certificates. No inventory or unrelated functional suite rerun: no dependency spelling, artifact edge or acceptance-rule edit. All three decoded current certificate vectors compare byte-for-byte equal, so checker agreement runs once for the single distinct input. No separate repeat source generation is needed after copying pins: every staged byte and manifest was read back and compared to verified source output.",
+  "pending": [
+    "Complete recursive typed structure, cumulative limits, shared program assembly and all remaining original W09 units"
+  ],
+  "whole_gate": "Deferred to T06-W12; no intermediate-W full gate.",
+  "completion": "W09 incomplete; no component-only commit or push.",
+  "review": "unit-4-json-scalar-review.md",
+  "current_pins": {
+    "path": "develop/migrations/csharp-03/ordinary-foundation/json-tokens/previous-scalars/certificates.json",
+    "sha256": "24dc168185e1a1559f164ee3379bf62408d0bbddabebeee7fc9540d693006abb",
+    "sources": [
+      {
+        "id": "document-7a157feb27ed416752b5dde8aa2bf373b9a2c82755d2caa89e955057176ee57b",
+        "certificate_sha256": "27e0e92e8b5a5c325c88d61611738fc268b5e2172439cdd6176e8aba99023668",
+        "terms": 53232,
+        "declarations": 735,
+        "static_transformers": 8744
+      },
+      {
+        "id": "document-decb5507362a7672c711a5befd63efc1038c2c0a86ee20137a1c4c472e0d1684",
+        "certificate_sha256": "27e0e92e8b5a5c325c88d61611738fc268b5e2172439cdd6176e8aba99023668",
+        "terms": 53232,
+        "declarations": 735,
+        "static_transformers": 8744
+      },
+      {
+        "id": "document-6b96fc4eed95a1d33fa5784b9062f02fa07ac65b6aef2b4100bb91e9c2f1a613",
+        "certificate_sha256": "27e0e92e8b5a5c325c88d61611738fc268b5e2172439cdd6176e8aba99023668",
+        "terms": 53232,
+        "declarations": 735,
+        "static_transformers": 8744
+      }
+    ],
+    "identical_byte_groups": {
+      "27e0e92e8b5a5c325c88d61611738fc268b5e2172439cdd6176e8aba99023668": [
+        "document-7a157feb27ed416752b5dde8aa2bf373b9a2c82755d2caa89e955057176ee57b",
+        "document-decb5507362a7672c711a5befd63efc1038c2c0a86ee20137a1c4c472e0d1684",
+        "document-6b96fc4eed95a1d33fa5784b9062f02fa07ac65b6aef2b4100bb91e9c2f1a613"
+      ]
+    },
+    "revision": "verified_kind_label_scalar_checkpoint_before_scan_regroup"
+  },
+  "cost_delta_from_signed": {
+    "terms": 6398,
+    "declarations": 91,
+    "static_transformers": 66
+  },
+  "pre_kind_label_files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_tokens.rs",
+      "sha256": "60871b8036455b553f1238c2861984c6621ffabfade15324708ed9b059ce4c22"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_token_tests.rs",
+      "sha256": "0a9c78b74e64fb9838ef5b8bc61c267d42da0574a4245b78f7d89292b16d6645"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_scalar_bits.rs",
+      "sha256": "4e8e907937e930fc51191abfccca4fbd9f1fbff778117c337d81ef1d7c2fd25b"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs",
+      "sha256": "bd1c236f553d1f8772a9911dc43d904d66622e2789cce8df5d09af5ea0974bcf"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+      "sha256": "56efa905ac175685294b759487b2bbba7a0c2e0c69fce6b21470398dfdd70a15"
+    }
+  ],
+  "review_findings": [
+    {
+      "issue": "The short scalar discriminator was named type_id, although null is syntax and the tags are not registered MPK type IDs.",
+      "fix": "Rename the discriminator to kind and document its lexical scope. Generated global names and circuit bodies are unchanged.",
+      "verification": "Passed source regeneration, exact normalized manifest and all certificate byte comparisons; existing 119-case semantic and distinct-input checker results transfer."
+    }
+  ],
+  "previous_goal_turn_classification": "progress: persisted the user-approved affected-test selection policy in AGENTS.md",
+  "this_goal_turn_classification": "progress: implemented scalar grammar consumers; completed signed, integrated Money and decimal parser evidence; source/preservation/limits passed and targeted semantic/checker work remains live.",
+  "live_jobs_last_confirmed": [],
+  "review_result": "No remaining findings in this scalar leaf component; full W09 remains incomplete.",
+  "shared_builder_extension": {
+    "files": [
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_tokens.rs",
+        "previous_sha256": "d2ff4303cc3988930c604de89efe95f66eea7f37b5df9b7d9b748498f401a992",
+        "current_sha256": "5d43654a52a9b2d8a4a68faef269168c44c0801f13ddf15a16765274c65ca103"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_scalar_bits.rs",
+        "previous_sha256": "4e8e907937e930fc51191abfccca4fbd9f1fbff778117c337d81ef1d7c2fd25b",
+        "current_sha256": "807c32fd77a2e5fa218b20726fea1c44821644e0c81a216db0f99e3bb91140d7"
+      }
+    ],
+    "receipt": "unit-4-json-collection-integration-progress.json",
+    "preservation": "Auxiliary-only unit test passed exact standalone certificate byte preservation after extracting the shared-emitter entry point. Full collection coexistence tested separately."
+  },
+  "scan_regroup_extension": {
+    "receipt": "unit-4-json-collection-integration-progress.json",
+    "status": "source_and_equivalence_passed_execution_in_progress",
+    "scope": "Checkpoint pins are archived before pair-pipeline regrouping. Current source/pins preserve every other definition and the exact expanded scan sequence; affected execution/checker results are separate."
+  },
+  "actual_source_boundary_extension": {
+    "receipt": "unit-4-structural-boundary-progress.json",
+    "files": [
+      {
+        "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_token_tests.rs",
+        "previous_sha256": "7d0323863411b4751f72aec1cf9b651fb8831ea55b5d823de7ef1149c7de8510",
+        "current_sha256": "d2ab120c339c5e15e121e33d7678efdfcf2effca90a2b014c863ed00a195380a"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs",
+        "previous_sha256": "bd1c236f553d1f8772a9911dc43d904d66622e2789cce8df5d09af5ea0974bcf",
+        "current_sha256": "a1e69df7a517c53417e65c76faa872170c932924104d5b23a7de19c4153c50db"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+        "previous_sha256": "56efa905ac175685294b759487b2bbba7a0c2e0c69fce6b21470398dfdd70a15",
+        "current_sha256": "49601c9ab0cabac598dd2fa1f9cfddebeced95ad01ea1e637c3d218237ae5195"
+      }
+    ],
+    "scope": "Add source-specific shared boundary generation/export/test entry. Existing component body behavior is retained; exact old structural replay and full component closure are verified separately."
+  }
+}

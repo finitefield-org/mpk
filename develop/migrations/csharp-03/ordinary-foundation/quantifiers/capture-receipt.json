@@ -1,0 +1,23 @@
+{
+  "schema": "mpk.csharp_practical.w09.quantifier_capture.v1",
+  "entry_point": "csharp_practical_build_inputs.test_data_phase(requests=exact_request_bytes)",
+  "image": "python@sha256:933b46a028fd786c9c3d426ebabc237e29a15912231ea8de576e95f0e4f41a4c",
+  "isolation": "No network;read-only staged inputs and root;4GiB memory;2 CPUs;3GiB tmpfs;default seccomp;SYS_ADMIN,SETUID,SETGID,SETFCAP only;no-new-privileges.",
+  "context_count": 6,
+  "captures": [
+    {
+      "file": "requests.json",
+      "sha256": "4e5dda1bbe49edba3138e9e48988d5663047be86bc1f0daf6f141b60b62d4d48"
+    },
+    {
+      "file": "responses.json",
+      "sha256": "704ad409496032d40d2be5a17be245c7e55e009cfb3d882f54c91c4ec6626bc7"
+    },
+    {
+      "file": "capture-inputs.json",
+      "sha256": "8befa15a01a4209c159d509013d3ab9b28b8ded95f1ae909b24f655390354c2c"
+    }
+  ],
+  "input_validation": "All 88 staged files match both current repository bytes and capture manifest hashes/sizes;71 source files pinned by frozen manifests.",
+  "result": "Both isolated processes exited0 with empty stdout/stderr;all6 contexts returned facts."
+}

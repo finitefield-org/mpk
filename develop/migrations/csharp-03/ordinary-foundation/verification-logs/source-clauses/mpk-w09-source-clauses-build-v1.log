@@ -1,0 +1,19 @@
+    Checking mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error[E0609]: no field `arguments` on type `csharp_practical_vir_model::ClosedOperationSignature`
+   --> crates/mpk-vc/src/csharp_practical_ordinary_source_clauses.rs:176:37
+    |
+176 |                 if scalar.operation.arguments != d.argument_types
+    |                                     ^^^^^^^^^ unknown field
+    |
+    = note: available fields are: `id`, `tag`, `argument_type_ids`, `normal_result_type_id`, `ordered_checks`
+
+error[E0609]: no field `result` on type `csharp_practical_vir_model::ClosedOperationSignature`
+   --> crates/mpk-vc/src/csharp_practical_ordinary_source_clauses.rs:177:41
+    |
+177 |                     || scalar.operation.result != d.result_type
+    |                                         ^^^^^^ unknown field
+    |
+    = note: available fields are: `id`, `tag`, `argument_type_ids`, `normal_result_type_id`, `ordered_checks`
+
+For more information about this error, try `rustc --explain E0609`.
+error: could not compile `mpk-vc` (lib) due to 2 previous errors

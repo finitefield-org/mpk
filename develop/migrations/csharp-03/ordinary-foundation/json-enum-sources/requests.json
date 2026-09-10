@@ -1,0 +1,26 @@
+[
+  {
+    "compilation_id": "data",
+    "id": "all-underlying",
+    "inputs": [
+      {
+        "kind": "sidecar",
+        "path": "contracts/boundary.json",
+        "utf8": "{\"schema\":\"mpk.csharp.boundary.v1\",\"semantic_context\":{\"schema\":\"mpk.semantic_context.v2\",\"profile_registry\":{\"schema\":\"mpk.semantic_profile.registry.v2\",\"id\":\"mpk.semantic_profile.registry.v2\",\"revision\":4,\"registry_sha256\":\"b675e26ad35f1a4604f77006cd11b63cc20c680c65eadd2b12a3d3b2df0f1e24\"},\"profile_entry_sha256\":\"b0c3cc5c2525c4b602de22bd99275be9c7f4a10a650b54900053e0acd8e9c9c3\",\"source_language\":\"csharp\",\"semantic_profile\":\"mpk.csharp.practical.v1\",\"semantic_parameters\":{\"schema\":\"mpk.semantic_parameters.csharp_practical.v1\",\"value\":{\"check_overflow_default\":true,\"documentation_mode\":\"none\",\"language_version\":\"14.0\",\"nullable_context\":\"enable\",\"optimization\":\"release\",\"platform\":\"x64\",\"pointer_width\":64,\"preprocessor_symbols\":[],\"source_kind\":\"regular\",\"target_framework\":\"net10.0\",\"target_id\":\"linux-x64\",\"unsafe\":false}},\"foundation_descriptor\":{\"schema\":\"mpk.csharp.foundation_descriptor.v1\",\"id\":\"mpk.csharp.practical.foundation.v1\",\"content_sha256\":\"230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2\"}},\"compilation_id\":\"data\",\"boundary_id\":\"boundary.entry\",\"selected_callable_id\":\"mpk.csharp.source.a749fce6edfad98f575caabefdcccf757c9fefe180551e15099e303b24bc69a9\",\"input_fields\":[{\"field_id\":\"field0\",\"json_name\":\"field0\",\"type_id\":\"mpk.csharp.source.e7fac9e87eca97044ab80feda9ca27de1fbaef5438950dc4d62669257d1833c2\",\"required\":true,\"nullable\":false,\"missing_rule\":{\"mode\":\"reject\"},\"codec_id\":null,\"codec_parameters\":null}],\"output_fields\":[{\"field_id\":\"result\",\"json_name\":\"\\ud800\",\"type_id\":\"mpk.csharp.source.e7fac9e87eca97044ab80feda9ca27de1fbaef5438950dc4d62669257d1833c2\",\"required\":true,\"nullable\":false,\"missing_rule\":{\"mode\":\"reject\"},\"codec_id\":null,\"codec_parameters\":null}],\"canonical_json_profile\":\"mpk.csharp.canonical_json.v1\",\"parse_format_profile\":\"mpk.csharp.parse_format.v1\",\"evidence_linkage\":{\"raw_input_domain\":\"MPK-CSHARP-BOUNDARY-INPUT-1.0\",\"canonical_value_domain\":\"MPK-CSHARP-CANONICAL-VALUE-1.0\",\"canonical_output_domain\":\"MPK-CSHARP-BOUNDARY-OUTPUT-1.0\",\"reparse_equality\":\"typed_field_complete\"},\"contract_sha256\":\"133955c9a8755439c326228c19bf3768e8936b5327440a1ec2424e4af3ec0757\"}"
+      },
+      {
+        "kind": "sidecar",
+        "path": "contracts/method.json",
+        "utf8": "{\"schema\":\"mpk.csharp.contract.v1\",\"semantic_context\":{\"schema\":\"mpk.semantic_context.v2\",\"profile_registry\":{\"schema\":\"mpk.semantic_profile.registry.v2\",\"id\":\"mpk.semantic_profile.registry.v2\",\"revision\":4,\"registry_sha256\":\"b675e26ad35f1a4604f77006cd11b63cc20c680c65eadd2b12a3d3b2df0f1e24\"},\"profile_entry_sha256\":\"b0c3cc5c2525c4b602de22bd99275be9c7f4a10a650b54900053e0acd8e9c9c3\",\"source_language\":\"csharp\",\"semantic_profile\":\"mpk.csharp.practical.v1\",\"semantic_parameters\":{\"schema\":\"mpk.semantic_parameters.csharp_practical.v1\",\"value\":{\"check_overflow_default\":true,\"documentation_mode\":\"none\",\"language_version\":\"14.0\",\"nullable_context\":\"enable\",\"optimization\":\"release\",\"platform\":\"x64\",\"pointer_width\":64,\"preprocessor_symbols\":[],\"source_kind\":\"regular\",\"target_framework\":\"net10.0\",\"target_id\":\"linux-x64\",\"unsafe\":false}},\"foundation_descriptor\":{\"schema\":\"mpk.csharp.foundation_descriptor.v1\",\"id\":\"mpk.csharp.practical.foundation.v1\",\"content_sha256\":\"230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2\"}},\"compilation_id\":\"data\",\"callable_id\":\"mpk.csharp.source.a749fce6edfad98f575caabefdcccf757c9fefe180551e15099e303b24bc69a9\",\"source_content_sha256\":\"0cc56552d04f05226822c1e9fd515357df939aef467ec6c7aea70f9174221980\",\"termination\":\"total\",\"requires\":[],\"ensures\":[],\"exceptional_cases\":[],\"modifies\":[],\"loops\":[],\"contract_sha256\":\"ca012476198d17e7644f0e6f3d33fb97b91ff20089f49472e9c2b7930a33acab\"}"
+      },
+      {
+        "kind": "source",
+        "path": "src/Entry.cs",
+        "utf8": "namespace Boundary;public enum E0:sbyte{Low=-128,Zero=0,High=127}public enum E1:byte{Zero=0,High=255}public enum E2:short{Low=-32768,Zero=0,High=32767}public enum E3:ushort{Zero=0,High=65535}public enum E4:int{Low=-2147483648,Zero=0,High=2147483647}public enum E5:uint{Zero=0,High=4294967295U}public enum E6:long{Low=-9223372036854775808L,Zero=0,High=9223372036854775807L}public enum E7:ulong{Zero=0,High=18446744073709551615UL}public readonly struct Payload{public readonly E0 V0;public readonly E1 V1;public readonly E2 V2;public readonly E3 V3;public readonly E4 V4;public readonly E5 V5;public readonly E6 V6;public readonly E7 V7;public Payload(E0 p0,E1 p1,E2 p2,E3 p3,E4 p4,E5 p5,E6 p6,E7 p7){V0=p0;V1=p1;V2=p2;V3=p3;V4=p4;V5=p5;V6=p6;V7=p7;}}public static class Entry{public static Payload Run(Payload p){return new Payload(p.V0,p.V1,p.V2,p.V3,p.V4,p.V5,p.V6,p.V7);}}\n"
+      }
+    ],
+    "roots": [
+      "mpk.csharp.source.a749fce6edfad98f575caabefdcccf757c9fefe180551e15099e303b24bc69a9"
+    ]
+  }
+]

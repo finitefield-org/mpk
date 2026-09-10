@@ -1,0 +1,8 @@
+=== RUN   TestCheckerAgreementWithRustCLIJsonSequences
+=== RUN   TestCheckerAgreementWithRustCLIJsonSequences/source-arrays.hex
+    checker_agreement_test.go:389: carrier must be accepted with zero axioms: report={Module: DeclarationCount:0 AxiomCount:0 ExportHash:[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0] AxiomReportHash:[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0] CertificateHash:[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0] AxiomReport:{Entries:[] DeclarationDependencies:[] Summary:{CoreAxiomCount:0 BuiltinTheoryAxiomCount:0 GoSemanticsAxiomCount:0 ExternalAxiomCount:0 TotalAxiomCount:0}}} error=core_check: application 137039 argument 0 has non-pi function type const
+--- FAIL: TestCheckerAgreementWithRustCLIJsonSequences (142.12s)
+    --- FAIL: TestCheckerAgreementWithRustCLIJsonSequences/source-arrays.hex (142.12s)
+FAIL
+exit status 1
+FAIL	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	142.504s

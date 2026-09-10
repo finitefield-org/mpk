@@ -1,0 +1,59 @@
+[
+  {
+    "compilation_id": "data",
+    "id": "single-add",
+    "inputs": [
+      {
+        "kind": "sidecar",
+        "path": "contracts/data.json",
+        "utf8": "{\"schema\":\"mpk.csharp.contract.v1\",\"semantic_context\":{\"schema\":\"mpk.semantic_context.v2\",\"profile_registry\":{\"schema\":\"mpk.semantic_profile.registry.v2\",\"id\":\"mpk.semantic_profile.registry.v2\",\"revision\":4,\"registry_sha256\":\"b675e26ad35f1a4604f77006cd11b63cc20c680c65eadd2b12a3d3b2df0f1e24\"},\"profile_entry_sha256\":\"b0c3cc5c2525c4b602de22bd99275be9c7f4a10a650b54900053e0acd8e9c9c3\",\"source_language\":\"csharp\",\"semantic_profile\":\"mpk.csharp.practical.v1\",\"semantic_parameters\":{\"schema\":\"mpk.semantic_parameters.csharp_practical.v1\",\"value\":{\"check_overflow_default\":true,\"documentation_mode\":\"none\",\"language_version\":\"14.0\",\"nullable_context\":\"enable\",\"optimization\":\"release\",\"platform\":\"x64\",\"pointer_width\":64,\"preprocessor_symbols\":[],\"source_kind\":\"regular\",\"target_framework\":\"net10.0\",\"target_id\":\"linux-x64\",\"unsafe\":false}},\"foundation_descriptor\":{\"schema\":\"mpk.csharp.foundation_descriptor.v1\",\"id\":\"mpk.csharp.practical.foundation.v1\",\"content_sha256\":\"230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2\"}},\"compilation_id\":\"data\",\"callable_id\":\"mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f\",\"source_content_sha256\":\"a0f624d14d1bbf83a6d2eb9c3b77bc509961dec66cf771371ae443efeaa0887b\",\"termination\":\"total\",\"requires\":[],\"ensures\":[{\"tag\":\"literal\",\"type_id\":\"mpk.csharp.value.bool.v1\",\"value\":true}],\"exceptional_cases\":[],\"modifies\":[],\"loops\":[],\"contract_sha256\":\"3c7acedbe1451b7fc07980a9714c5c092850db466dd84b19ae13e7a78e0b046a\"}"
+      },
+      {
+        "kind": "source",
+        "path": "src/Entry.cs",
+        "utf8": "namespace Quantifiers;public static class Entry{public static int Run(int lower,int upper){float a=lower;float b=upper;float c=a+b;return checked((int)c);}}\n"
+      }
+    ],
+    "roots": [
+      "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f"
+    ]
+  },
+  {
+    "compilation_id": "data",
+    "id": "single-negate",
+    "inputs": [
+      {
+        "kind": "sidecar",
+        "path": "contracts/data.json",
+        "utf8": "{\"schema\":\"mpk.csharp.contract.v1\",\"semantic_context\":{\"schema\":\"mpk.semantic_context.v2\",\"profile_registry\":{\"schema\":\"mpk.semantic_profile.registry.v2\",\"id\":\"mpk.semantic_profile.registry.v2\",\"revision\":4,\"registry_sha256\":\"b675e26ad35f1a4604f77006cd11b63cc20c680c65eadd2b12a3d3b2df0f1e24\"},\"profile_entry_sha256\":\"b0c3cc5c2525c4b602de22bd99275be9c7f4a10a650b54900053e0acd8e9c9c3\",\"source_language\":\"csharp\",\"semantic_profile\":\"mpk.csharp.practical.v1\",\"semantic_parameters\":{\"schema\":\"mpk.semantic_parameters.csharp_practical.v1\",\"value\":{\"check_overflow_default\":true,\"documentation_mode\":\"none\",\"language_version\":\"14.0\",\"nullable_context\":\"enable\",\"optimization\":\"release\",\"platform\":\"x64\",\"pointer_width\":64,\"preprocessor_symbols\":[],\"source_kind\":\"regular\",\"target_framework\":\"net10.0\",\"target_id\":\"linux-x64\",\"unsafe\":false}},\"foundation_descriptor\":{\"schema\":\"mpk.csharp.foundation_descriptor.v1\",\"id\":\"mpk.csharp.practical.foundation.v1\",\"content_sha256\":\"230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2\"}},\"compilation_id\":\"data\",\"callable_id\":\"mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f\",\"source_content_sha256\":\"c7b3f5ed508da5d5a07bce455b8558cbcb7089c0a0fc498695a3354c8ff75e2b\",\"termination\":\"total\",\"requires\":[],\"ensures\":[{\"tag\":\"literal\",\"type_id\":\"mpk.csharp.value.bool.v1\",\"value\":true}],\"exceptional_cases\":[],\"modifies\":[],\"loops\":[],\"contract_sha256\":\"e702118a19853837fa76bcb5d41b463511912c3e2dfba9acbbcfeb543e2f4bd0\"}"
+      },
+      {
+        "kind": "source",
+        "path": "src/Entry.cs",
+        "utf8": "namespace Quantifiers;public static class Entry{public static int Run(int lower,int upper){float a=lower;float c=-a;return c<a?lower:upper;}}\n"
+      }
+    ],
+    "roots": [
+      "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f"
+    ]
+  },
+  {
+    "compilation_id": "data",
+    "id": "double-compare",
+    "inputs": [
+      {
+        "kind": "sidecar",
+        "path": "contracts/data.json",
+        "utf8": "{\"schema\":\"mpk.csharp.contract.v1\",\"semantic_context\":{\"schema\":\"mpk.semantic_context.v2\",\"profile_registry\":{\"schema\":\"mpk.semantic_profile.registry.v2\",\"id\":\"mpk.semantic_profile.registry.v2\",\"revision\":4,\"registry_sha256\":\"b675e26ad35f1a4604f77006cd11b63cc20c680c65eadd2b12a3d3b2df0f1e24\"},\"profile_entry_sha256\":\"b0c3cc5c2525c4b602de22bd99275be9c7f4a10a650b54900053e0acd8e9c9c3\",\"source_language\":\"csharp\",\"semantic_profile\":\"mpk.csharp.practical.v1\",\"semantic_parameters\":{\"schema\":\"mpk.semantic_parameters.csharp_practical.v1\",\"value\":{\"check_overflow_default\":true,\"documentation_mode\":\"none\",\"language_version\":\"14.0\",\"nullable_context\":\"enable\",\"optimization\":\"release\",\"platform\":\"x64\",\"pointer_width\":64,\"preprocessor_symbols\":[],\"source_kind\":\"regular\",\"target_framework\":\"net10.0\",\"target_id\":\"linux-x64\",\"unsafe\":false}},\"foundation_descriptor\":{\"schema\":\"mpk.csharp.foundation_descriptor.v1\",\"id\":\"mpk.csharp.practical.foundation.v1\",\"content_sha256\":\"230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2\"}},\"compilation_id\":\"data\",\"callable_id\":\"mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f\",\"source_content_sha256\":\"fcbc2ec8f8a9360793c51dbc272cb7c45968f1c57b0eac738d81b9f9fc3f825b\",\"termination\":\"total\",\"requires\":[],\"ensures\":[{\"tag\":\"literal\",\"type_id\":\"mpk.csharp.value.bool.v1\",\"value\":true}],\"exceptional_cases\":[],\"modifies\":[],\"loops\":[],\"contract_sha256\":\"ffe8e1dd14a4331304ceeaae185be248d18876092457586637482536ecd1474f\"}"
+      },
+      {
+        "kind": "source",
+        "path": "src/Entry.cs",
+        "utf8": "namespace Quantifiers;public static class Entry{public static int Run(int lower,int upper){long a=lower;long b=upper;double x=a;double y=b;return x<y?lower:upper;}}\n"
+      }
+    ],
+    "roots": [
+      "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f"
+    ]
+  }
+]

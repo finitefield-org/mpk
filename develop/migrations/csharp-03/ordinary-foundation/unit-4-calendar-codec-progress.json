@@ -1,0 +1,113 @@
+{
+  "schema": "mpk.csharp_practical.w09.calendar_codec_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "partial_calendar_codec_definitions_verified_not_unit_completion",
+  "scope": "Ordinary date/time parse and format definitions; registry/source/boundary linkage and universal proofs remain open.",
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_calendar_codecs.rs",
+      "sha256": "dc6e398adca9071d8142b8c3e2c39db5cff1909f91390fded776ff4d0fccdb93"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_calendar.rs",
+      "sha256": "588ecb9f1552ceac0ca96bba81109ad8c4886cb480dd84596e7c3c523e528df2"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_calendar_codec_tests.rs",
+      "sha256": "ebb3fbda97865c16331de0600d19d0925854dde908c92f695ff7853b20e2f6a1"
+    }
+  ],
+  "verification": [
+    {
+      "command": "cargo check -p mpk-vc",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-calendar-codecs-check-v1.log",
+      "log_sha256": "7fb8491fbb1b324bfd537ecf765302ef9edefcaa612bf9dff7d121c0d1b119d6",
+      "scope": "Passed without warnings, 12.94 seconds."
+    },
+    {
+      "command": "MPK_W09_CALENDAR_CODECS_OUT=/tmp/mpk-w09-calendar-codecs-v1 cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_calendar_codecs_original_sources -- --nocapture",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-calendar-codecs-sources-v1.log",
+      "log_sha256": "2810d3f9279f49370e23501da98707ff679ef9ada00af6fa469d0d95125f9585",
+      "scope": "All 67 original contexts regenerated with exact import and metadata/hash/cross-context mutation rejection. Three nonempty programs, 47.81 seconds."
+    },
+    {
+      "command": "cargo test -p mpk-vc --lib calendar_circuits_emit_all_signatures -- --nocapture",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-calendar-codecs-core-preservation-v1.log",
+      "log_sha256": "65c95d951b8dfdda69807384e648556eb755e2a6ab8e3a3e16a6759ffb83b329",
+      "scope": "All original Gregorian/Guid/DayOfWeek definitions regenerated with exact pinned certificates and full metrics unchanged, 5.28 seconds."
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --test csharp_practical_vc -- -D warnings",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-calendar-codecs-clippy-v1.log",
+      "log_sha256": "1e9bb82a8eafd76a3fd3c49b7095e35257f039eb315477ed49e1c32f049ceff8",
+      "scope": "Passed, 1m 06s including build wait."
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-calendar-codecs-inventory-v1.log",
+      "log_sha256": "ac92623f2d50e3c3f9029e73464a9d9d2ec5052688b98bea41e5481766a09fed",
+      "scope": "All five tests passed, 17.75 seconds. No fixture count/hash adjustment required."
+    },
+    {
+      "command": "cargo fmt --all -- --check",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-calendar-codecs-format-v1.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "scope": "Passed with empty output."
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_calendar_codecs_original_sources -- --nocapture",
+      "log": "/tmp/mpk-w09-calendar-codecs-replay-v1.log",
+      "status": "passed",
+      "scope": "All 67 original contexts regenerated, exact three pinned certificate/metadata files and import/mutation checks passed, 48.58 seconds.",
+      "log_sha256": "b3bed4a3e60d617cda8d20e90af30a7b193084dc62c88f4c91fe412b182bc2e0"
+    },
+    {
+      "command": "gofmt -l go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "status": "passed",
+      "scope": "No files reported."
+    },
+    {
+      "command": "/usr/bin/git diff --check",
+      "status": "passed",
+      "scope": "Outside sandbox, exit zero."
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_calendar_codecs_semantics -- --nocapture",
+      "log": "/tmp/mpk-w09-calendar-codecs-semantics-v1.log",
+      "status": "passed",
+      "scope": "All 795 ordinary parse/format/bidirectional and error cases passed, including Gregorian month edges and time tick boundaries; 901.46 seconds.",
+      "log_sha256": "4497dd1581b33895f6962eddedc2b7c8c8defb20b2979bec2af12d0262e8b754"
+    },
+    {
+      "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run '^TestCheckerAgreementWithRustCLICalendarCodecs$' -count=1 -timeout 0 -v",
+      "log": "/tmp/mpk-w09-calendar-codecs-checkers-v1.log",
+      "status": "passed",
+      "scope": "All three original-source certificates accepted by both unchanged checkers with zero axioms; hash corruption rejected. Go test 1694.257 seconds, including intervening build waits.",
+      "log_sha256": "8c2fc0c97efc845afcff14152f736eb80dba55bee08a122f9e2d7e892302a954"
+    }
+  ],
+  "manifest": {
+    "path": "develop/migrations/csharp-03/ordinary-foundation/calendar-codecs/certificates.json",
+    "sha256": "2d8b4475f955f1aecb27a5698bd4d35a52add88406ba77253e05f8d51e979720",
+    "contexts_examined": 67,
+    "nonempty_contexts": 3,
+    "definition_occurrences": 3,
+    "max_terms": 77061,
+    "max_declarations": 806
+  },
+  "live_jobs": [],
+  "remaining": [
+    "Exact registry/source/boundary linkage and universal parse/format proofs remain required.",
+    "Complete strict JSON and all original W09 units 3-8; no component-only commit or W09 completion.",
+    "Full check-fast.sh gate remains deferred to T06-W12."
+  ],
+  "current_status_note": "Historical verified receipt for exact previous-json-format archive bytes. Current root vectors have optimized formatters; parser definitions are preserved. New formatting/source/checker status is tracked by unit-4-json-calendar-progress.json.",
+  "verified_archive": "calendar-codecs/previous-json-format"
+}

@@ -1,0 +1,167 @@
+{
+  "schema": "mpk.csharp_practical.w09.exception_clauses_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_units": [
+    3,
+    4,
+    5
+  ],
+  "status": "exception_expression_component_targeted_verification_passed",
+  "implementation": [
+    "exception_is and exception_payload validate exact signatures/specializations and reuse existing finite definitions through one per-builder cache.",
+    "Payload ContractDefined aliases the exact active-tag predicate. Type matching retains the frozen ancestry relation;inactive masked output is not a defined result.",
+    "Data attachment recheck now preserves the control-validated closed exception universe,case scope and exception subject. It retains the full recheck and existing non-control gate."
+  ],
+  "verification": [
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/exception-clauses/mpk-w09-exception-clauses-build-v1.log",
+      "sha256": "3049a5a48e32162ab7cdaf612b1d83e60845b4eda19da243887236a0efda4cb9",
+      "scope_and_selection_reason": "Affected library compilation after adding finite exception recipe reuse;12.77s."
+    },
+    {
+      "status": "failed_test_compile_corrected",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/exception-clauses/mpk-w09-exception-clause-request-v1.log",
+      "sha256": "7a19e08e3d485c52b35173bfea51cc13a7d8f4492aed9a920bdf5981aacbbd6a",
+      "scope_and_selection_reason": "Test referred to nonexistent NamedMonomorphicValue.member_id. Corrected lookup uses validated stored-member ordinal and the corresponding named payload value."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/exception-clauses/mpk-w09-exception-clause-request-v2.log",
+      "sha256": "91a2640d16813fcbb616f95960aa0603fa4bb5a2d0b68bc289a0b8528ce1bfd9",
+      "scope_and_selection_reason": "Two exact original-source request contexts;0.05s."
+    },
+    {
+      "status": "rejected_wrong_capture_owner_corrected",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/exception-clauses/mpk-w09-exception-clause-capture-v1.log",
+      "sha256": "b54783e7f03a494ff5bd47f4478ef297095ffb7feeb71eefcecd239ae331398b",
+      "scope_and_selection_reason": "Data-only frontend returned data_later_owner_T04_W05 and closed_type. Replaced the capture entry point with the existing frozen control-emission harness;no frontend validation changes."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/exception-clauses/mpk-w09-exception-clause-capture-v2.log",
+      "sha256": "b54783e7f03a494ff5bd47f4478ef297095ffb7feeb71eefcecd239ae331398b",
+      "scope_and_selection_reason": "Both contexts captured fresh through test_loop_contracts(control=True,requests=...).38 frozen control input files hash/size verified;isolated compiler/source processes both exit0 with empty stdout/stderr."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/exception-clauses/mpk-w09-exception-clauses-preservation-v1.log",
+      "sha256": "3403b126bae3fc35e16ee6b57b306f7a2eacece11540f27d7be14b73084d3698",
+      "scope_and_selection_reason": "All five previous contract attachment tests/pins pass after shared compiler extension;1.96s. No expensive unrelated arithmetic or collection semantics repeated."
+    },
+    {
+      "status": "failed_production_scope_corrected",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/exception-clauses/mpk-w09-exception-clauses-source-v1.log",
+      "sha256": "58cbfd2c394d99a28b0de00b2ae2d4a7847fcf9878208f583db9402d06189145",
+      "scope_and_selection_reason": "Source regression failed Contract during emit_data_phase. The second contract check omitted the already validated exception scope/variable and allowed only built-in scope IDs. Fixed the recheck to preserve the closed universe and subject without bypassing validation."
+    },
+    {
+      "status": "failed_test_alias_assumption_corrected",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/exception-clauses/mpk-w09-exception-clauses-source-v2.log",
+      "sha256": "af1c0260e33a8a2c959d17db97316f32cf3a7e51a7b42da0878ab9f6d8490b21",
+      "scope_and_selection_reason": "Built-in context passed;payload test looked up an invented separate definedness global. W03 correctly aliases the existing active-arm function. Test now checks full W03 definedness and all raw payload output bits."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/exception-clauses/mpk-w09-exception-clauses-source-v3.log",
+      "sha256": "b7fae1788dca10ea46811f19ce5bd41a28935ea700bd7c9f430e7bb4ca65ab2a",
+      "scope_and_selection_reason": "Two original source contexts,23 exceptional source expressions,2808 scope/guard/storage observations;all builtin/user/unknown/high-bit tags,three payload types,guarded and lexical-let definedness,exact finite dependency closures,import and scope mutation;5.31s runtime."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/exception-clauses/mpk-w09-exception-clauses-handler-preservation-v1.log",
+      "sha256": "84f9174b5028490e7725140c030b56629e4fa89994fde499722fb3753e8db880",
+      "scope_and_selection_reason": "Both original T06-W05 handler/postcondition tests including source and metadata mutations after attachment-scope fix;41.78s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/exception-clauses/mpk-w09-exception-clauses-clippy-v1.log",
+      "sha256": "350afb8f353d95b3c2d59035e40f8a899cd010d9bafb4b347edb811c007d2c37",
+      "scope_and_selection_reason": "Affected generator/integration lint before attachment correction;28.61s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/exception-clauses/mpk-w09-exception-clauses-clippy-v2.log",
+      "sha256": "44cbb27f007f1fc66b21dc7e09cc3efe1ad18f5c707fd8a3b989743e01edad12",
+      "scope_and_selection_reason": "Final production attachment correction and affected integration lint;1m00s including build-directory contention."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/exception-clauses/mpk-w09-exception-clauses-inventory-v1.log",
+      "sha256": "7fc1da45cad9c8997f8af63f3f98f6e08046eb3d211400e97ef6a49338e4b7c3",
+      "scope_and_selection_reason": "Inventory closure after adding exception recipe consumer;16.07s runtime."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/exception-clauses/mpk-w09-exception-clauses-inventory-v2.log",
+      "sha256": "99e97ed9ac29135f1677c2cea43017cec1e02adc638f10db45c8cdb739c9d2e6",
+      "scope_and_selection_reason": "Final artifact-consumer closure after data attachment fix;15.79s runtime. Fingerprints remain unchanged,including125 Std. paths and4948 aggregate edges."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/exception-clauses/mpk-w09-exception-clauses-checkers-v1.log",
+      "sha256": "e8a728637d05a5714d8b7046a81491d688e2eecb5f2b0849c93a11a6e8fdcf79",
+      "scope_and_selection_reason": "Only two new candidates:both unchanged checkers accept identical bytes with zero axioms/matching reports,and reject actual hash corruption;3.350s. Exact PASS names,current hashes/sizes,sibling metadata and tested output copies reconciled."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/exception-clauses/mpk-w09-exception-clauses-binders-v1.log",
+      "sha256": "9e4144941f4ac20a79db0e51bba961450b0bf12a343940e5cdde13ff7c877eaf",
+      "scope_and_selection_reason": "Two affected compiler unit cases preserve nominal binders and conditional cubes;0.00s runtime."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/exception-clauses/mpk-w09-exception-clauses-pinned-request-v1.log",
+      "sha256": "1c873449d10c2ee43b6b31c144cd0b85605752ade5bc732923bf58453863c125",
+      "scope_and_selection_reason": "Exact published two-context request replay;0.09s. Tested program/certificate output copies were compared directly instead of repeating unchanged semantic observations."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/exception-clauses/mpk-w09-exception-clauses-format-v1.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "scope_and_selection_reason": "Scoped formatting for changed Rust production and tests."
+    },
+    {
+      "status": "passed",
+      "commands": [
+        "/usr/bin/git diff --check",
+        "gofmt -l go-tools/mpk-checker-ref/checker_agreement_test.go",
+        "Recompute retained verification-log/candidate SHA256 values"
+      ],
+      "scope_and_selection_reason": "Final working-diff whitespace,affected Go formatting and evidence-integrity checks;no findings."
+    }
+  ],
+  "candidates": [
+    {
+      "file": "exception-builtins.hex",
+      "certificate_sha256": "ab427ce81346f0e274d3bc0cff148eabbf9ffe4ec108911b0e1ec2b3c1f8109c",
+      "size_bytes": 17848
+    },
+    {
+      "file": "exception-payload.hex",
+      "certificate_sha256": "5f36ec83daf9a60e4bb8ef66df85d3f878ec4f58406ecb9027d1e9d0f202b132",
+      "size_bytes": 24223
+    }
+  ],
+  "coverage": {
+    "source_contexts": 2,
+    "builtin_types": 9,
+    "user_exception_payload_types": [
+      "i32",
+      "bool",
+      "char"
+    ],
+    "exceptional_source_expressions": 23,
+    "all_attachment_rows": 27,
+    "scope_guard_storage_observations": 2808,
+    "finite_dependency_closures": 2
+  },
+  "live_jobs": [],
+  "pending": [
+    "Remaining contract recipes,concrete native/control use-point bindings,transition/replay definitions,application proofs and original internal-unit acceptance."
+  ],
+  "whole_gate": "Deferred to T06-W12;no check-fast or equivalent full gate.",
+  "commit": "No component-only commit;original approved internal units remain incomplete.",
+  "review": "unit-4-exception-clauses-review.md",
+  "goal_turn_classification": "Progress:exception recipes now reuse ordinary finite definitions;actual source regression fixed lost exception scope in attachment recheck. Scoped source,handler,mutation,storage,dual-checker,lint and inventory validation passed. W09 remains open."
+}

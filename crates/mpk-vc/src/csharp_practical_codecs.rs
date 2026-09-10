@@ -38,6 +38,9 @@ pub struct BoundaryCodec {
     rounding: Option<CodecRounding>,
 }
 impl BoundaryCodec {
+    pub(crate) fn ordinary_configuration(&self) -> (&str, Option<u8>, Option<CodecRounding>) {
+        (&self.id, self.scale, self.rounding)
+    }
     /// Shared attachment rule for an optional boundary-field codec. This
     /// validates configuration only; document invocation belongs to T05.
     pub fn from_optional_contract_parameters(

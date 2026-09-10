@@ -7424,17 +7424,57 @@ pub use transition_vc::{
 #[path = "csharp_practical_ordinary_carriers.rs"]
 mod ordinary_carriers;
 pub use ordinary_carriers::{
-    generate_csharp_practical_ordinary_carriers, import_csharp_practical_ordinary_carriers,
-    OrdinaryArm, OrdinaryCarrier, OrdinaryCarrierError, OrdinaryCarrierProgram, OrdinaryField,
-    OrdinaryShape,
+    generate_csharp_practical_ordinary_aggregate_folds,
+    generate_csharp_practical_ordinary_carriers, import_csharp_practical_ordinary_aggregate_folds,
+    import_csharp_practical_ordinary_carriers, OrdinaryAggregateFoldDefinition,
+    OrdinaryAggregateFoldProgram, OrdinaryArm, OrdinaryCarrier, OrdinaryCarrierError,
+    OrdinaryCarrierProgram, OrdinaryField, OrdinaryShape,
+};
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_constructions,
+    import_csharp_practical_ordinary_constructions, OrdinaryConstructionDefinition,
+    OrdinaryConstructionFailure, OrdinaryConstructionOperation, OrdinaryConstructionProgram,
+};
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_defaults, import_csharp_practical_ordinary_defaults,
+    OrdinaryDefaultCandidate, OrdinaryDefaultDefinition, OrdinaryDefaultProgram,
+    OrdinarySourceDefaultRequirement,
+};
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_entries, import_csharp_practical_ordinary_entries,
+    OrdinaryEntryDefinition, OrdinaryEntryProgram,
+};
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_finite_operations,
+    import_csharp_practical_ordinary_finite_operations, OrdinaryFiniteOperation,
+    OrdinaryFiniteOperationProgram,
+};
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_money, import_csharp_practical_ordinary_money,
+    OrdinaryMoneyDefinition, OrdinaryMoneyFailure, OrdinaryMoneyOperation, OrdinaryMoneyProgram,
+};
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_observations, import_csharp_practical_ordinary_observations,
+    OrdinaryObservationDefinition, OrdinaryObservationProgram,
+};
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_outcomes, import_csharp_practical_ordinary_outcomes,
+    OrdinaryOutcomeDefinition, OrdinaryOutcomeFailure, OrdinaryOutcomeOperation,
+    OrdinaryOutcomeProgram,
+};
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_sequences, import_csharp_practical_ordinary_sequences,
+    OrdinarySequenceOperations, OrdinarySequenceProgram,
 };
 
 pub use ordinary_carriers::{
-    generate_csharp_practical_ordinary_ordered_folds, generate_csharp_practical_ordinary_relations,
+    generate_csharp_practical_ordinary_domains, generate_csharp_practical_ordinary_ordered_folds,
+    generate_csharp_practical_ordinary_relations,
     generate_csharp_practical_ordinary_scalar_domains,
-    generate_csharp_practical_ordinary_structural, import_csharp_practical_ordinary_ordered_folds,
-    import_csharp_practical_ordinary_relations, import_csharp_practical_ordinary_scalar_domains,
-    import_csharp_practical_ordinary_structural, OrdinaryArmOperations,
+    generate_csharp_practical_ordinary_structural, import_csharp_practical_ordinary_domains,
+    import_csharp_practical_ordinary_ordered_folds, import_csharp_practical_ordinary_relations,
+    import_csharp_practical_ordinary_scalar_domains, import_csharp_practical_ordinary_structural,
+    OrdinaryArmOperations, OrdinaryDomainDefinition, OrdinaryDomainProgram,
     OrdinaryOrderedFoldDefinition, OrdinaryOrderedFoldProgram, OrdinaryProductOperations,
     OrdinaryProjection, OrdinaryRelationDefinition, OrdinaryRelationProgram,
     OrdinaryScalarDomainDefinition, OrdinaryScalarDomainProgram, OrdinaryScalarDomainRule,
@@ -7455,4 +7495,224 @@ pub use ordinary_carriers::{
 pub use ordinary_carriers::{
     generate_csharp_practical_ordinary_strings, import_csharp_practical_ordinary_strings,
     OrdinaryStringDefinition, OrdinaryStringProgram,
+};
+
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_collections, import_csharp_practical_ordinary_collections,
+    OrdinaryCollectionDefinition, OrdinaryCollectionFailure, OrdinaryCollectionOperation,
+    OrdinaryCollectionProgram,
+};
+
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_literals, import_csharp_practical_ordinary_literals,
+    OrdinaryLiteralBinding, OrdinaryLiteralDefinition, OrdinaryLiteralOrigin,
+    OrdinaryLiteralProgram,
+};
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_structural_boundary,
+    generate_csharp_practical_ordinary_structural_foundations,
+    generate_csharp_practical_ordinary_structural_public,
+    import_csharp_practical_ordinary_structural_boundary,
+    import_csharp_practical_ordinary_structural_foundations,
+    import_csharp_practical_ordinary_structural_public, OrdinaryDeferredFoundationInstance,
+    OrdinaryStructuralFoundationProgram,
+};
+
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_boundary_literals,
+    import_csharp_practical_ordinary_boundary_literals, OrdinaryBoundaryLiteralBinding,
+    OrdinaryBoundaryLiteralProgram,
+};
+
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_binding_projections,
+    generate_csharp_practical_ordinary_binding_rebuilds,
+    import_csharp_practical_ordinary_binding_projections,
+    import_csharp_practical_ordinary_binding_rebuilds, OrdinaryBindingProjectionDefinition,
+    OrdinaryBindingProjectionProgram, OrdinaryBindingRebuildDefinition,
+    OrdinaryBindingRebuildProgram,
+};
+
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_binding_guards,
+    generate_csharp_practical_ordinary_binding_orders,
+    generate_csharp_practical_ordinary_binding_relations,
+    generate_csharp_practical_ordinary_boundary_rules,
+    import_csharp_practical_ordinary_binding_guards,
+    import_csharp_practical_ordinary_binding_orders,
+    import_csharp_practical_ordinary_binding_relations,
+    import_csharp_practical_ordinary_boundary_rules, OrdinaryBindingAgreement,
+    OrdinaryBindingPredicate, OrdinaryBindingRelationProgram, OrdinaryBoundaryRuleProgram,
+};
+
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_hex_codecs, import_csharp_practical_ordinary_hex_codecs,
+    OrdinaryHexCodecDefinition, OrdinaryHexCodecProgram,
+};
+
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_decimal_fixed_formats,
+    generate_csharp_practical_ordinary_decimal_formats,
+    generate_csharp_practical_ordinary_integer_formats,
+    import_csharp_practical_ordinary_decimal_fixed_formats,
+    import_csharp_practical_ordinary_decimal_formats,
+    import_csharp_practical_ordinary_integer_formats, OrdinaryDecimalFixedFormatDefinition,
+    OrdinaryDecimalFixedFormatProgram, OrdinaryDecimalFormatDefinition,
+    OrdinaryDecimalFormatProgram, OrdinaryIntegerFormatDefinition, OrdinaryIntegerFormatProgram,
+};
+
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_integer_parsers,
+    import_csharp_practical_ordinary_integer_parsers, OrdinaryIntegerParseDefinition,
+    OrdinaryIntegerParseProgram,
+};
+
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_decimal_parsers,
+    import_csharp_practical_ordinary_decimal_parsers, OrdinaryDecimalParseDefinition,
+    OrdinaryDecimalParseProgram,
+};
+
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_calendar_codecs,
+    import_csharp_practical_ordinary_calendar_codecs, OrdinaryCalendarCodecDefinition,
+    OrdinaryCalendarCodecProgram,
+};
+
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_boundary_documents,
+    import_csharp_practical_ordinary_boundary_documents, OrdinaryBoundaryDocumentDefinition,
+    OrdinaryBoundaryDocumentProgram,
+};
+
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_boundary_utf8,
+    import_csharp_practical_ordinary_boundary_utf8, OrdinaryBoundaryUtf8Definition,
+    OrdinaryBoundaryUtf8Program,
+};
+
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_json_strings, import_csharp_practical_ordinary_json_strings,
+    OrdinaryJsonStringDefinition, OrdinaryJsonStringProgram,
+};
+
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_json_string_parsers,
+    import_csharp_practical_ordinary_json_string_parsers, OrdinaryJsonStringParseDefinition,
+    OrdinaryJsonStringParseProgram,
+};
+
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_boundary_fragments,
+    import_csharp_practical_ordinary_boundary_fragments, OrdinaryBoundaryFragmentDefinition,
+    OrdinaryBoundaryFragmentProgram,
+};
+
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_json_keywords,
+    import_csharp_practical_ordinary_json_keywords, OrdinaryJsonKeywordDefinition,
+    OrdinaryJsonKeywordProgram,
+};
+
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_json_tokens, import_csharp_practical_ordinary_json_tokens,
+    OrdinaryJsonCalendarTokenDefinition, OrdinaryJsonDecimalTokenDefinition,
+    OrdinaryJsonQuotedCodecDefinition, OrdinaryJsonScalarTokenDefinition,
+    OrdinaryJsonSignedDefinition, OrdinaryJsonTokenDefinition, OrdinaryJsonTokenProgram,
+    OrdinaryJsonUnsignedDefinition,
+};
+
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_json_products,
+    generate_csharp_practical_ordinary_json_syntax, generate_csharp_practical_ordinary_json_values,
+    import_csharp_practical_ordinary_json_products, import_csharp_practical_ordinary_json_syntax,
+    import_csharp_practical_ordinary_json_values, OrdinaryJsonCollectionDefinition,
+    OrdinaryJsonEnumDefinition, OrdinaryJsonFieldSyntax, OrdinaryJsonGrammarDefinition,
+    OrdinaryJsonProductDefinition, OrdinaryJsonProductProgram, OrdinaryJsonSequenceDefinition,
+    OrdinaryJsonSumArm, OrdinaryJsonSumDefinition, OrdinaryJsonSyntaxLiteral,
+    OrdinaryJsonSyntaxProgram, OrdinaryJsonValueDefinition, OrdinaryJsonValueProgram,
+    OrdinaryJsonVocabularyDefinition,
+};
+
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_json_boundary_fields,
+    import_csharp_practical_ordinary_json_boundary_fields, OrdinaryJsonBoundaryFieldDefinition,
+    OrdinaryJsonBoundaryFieldProgram,
+};
+
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_json_envelopes,
+    import_csharp_practical_ordinary_json_envelopes, OrdinaryJsonEnvelopeDefinition,
+    OrdinaryJsonEnvelopeField, OrdinaryJsonEnvelopeProgram,
+};
+
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_json_typed_depth,
+    import_csharp_practical_ordinary_json_typed_depth, OrdinaryJsonTypedDepthDefinition,
+    OrdinaryJsonTypedDepthProgram,
+};
+
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_json_depth_guarded_envelopes,
+    import_csharp_practical_ordinary_json_depth_guarded_envelopes,
+};
+
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_json_typed_nodes,
+    import_csharp_practical_ordinary_json_typed_nodes, OrdinaryJsonTypedNodeDefinition,
+    OrdinaryJsonTypedNodeProgram,
+};
+
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_json_typed_guarded_envelopes,
+    import_csharp_practical_ordinary_json_typed_guarded_envelopes,
+};
+
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_json_raw_limits,
+    import_csharp_practical_ordinary_json_raw_limits, OrdinaryJsonRawLimitsDefinition,
+    OrdinaryJsonRawLimitsProgram,
+};
+
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_json_limits_guarded_envelopes,
+    import_csharp_practical_ordinary_json_limits_guarded_envelopes,
+};
+
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_contract_expressions,
+    generate_csharp_practical_ordinary_source_clauses,
+    import_csharp_practical_ordinary_contract_expressions,
+    import_csharp_practical_ordinary_source_clauses, OrdinaryContractExpressionDefinition,
+    OrdinaryContractExpressionProgram, OrdinarySourceClauseDefinition, OrdinarySourceClauseProgram,
+};
+
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_public_defaults,
+    generate_csharp_practical_ordinary_public_domains,
+    import_csharp_practical_ordinary_public_defaults,
+    import_csharp_practical_ordinary_public_domains, OrdinaryPublicDefaultDefinition,
+    OrdinaryPublicDomainDefinition, OrdinaryPublicDomainProgram,
+};
+
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_integer_data, import_csharp_practical_ordinary_integer_data,
+    OrdinaryIntegerDataDefinition, OrdinaryIntegerDataOperation, OrdinaryIntegerDataProgram,
+};
+
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_structural_data,
+    import_csharp_practical_ordinary_structural_data, OrdinaryStructuralDataDefinition,
+    OrdinaryStructuralDataOperation, OrdinaryStructuralDataProgram,
+};
+
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_floating_data,
+    import_csharp_practical_ordinary_floating_data, OrdinaryFloatingDataDefinition,
+    OrdinaryFloatingDataOperation, OrdinaryFloatingDataProgram,
+};
+
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_decimal_data, import_csharp_practical_ordinary_decimal_data,
+    OrdinaryDecimalDataDefinition, OrdinaryDecimalDataOperation, OrdinaryDecimalDataProgram,
 };

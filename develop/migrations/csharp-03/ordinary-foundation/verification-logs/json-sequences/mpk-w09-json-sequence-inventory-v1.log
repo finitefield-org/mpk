@@ -1,0 +1,26 @@
+    Blocking waiting for file lock on build directory
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1m 21s
+     Running tests/csharp_practical_inventory.rs (target/debug/deps/csharp_practical_inventory-ad7f7e409e721e85)
+
+running 2 tests
+
+thread 'csharp_03_t01_w02_search_fixtures_reject_added_or_deleted_consumers' (1092901) panicked at crates/mpk-vc/tests/csharp_practical_inventory.rs:826:55:
+checked-in consumer set: "foundation.std_namespace: expected count=120 sha256=434a1dc1b67307237d9479283c5c7ddcf5559bc3ac8b24dc6fdaf019004d423b; actual count=121 sha256=98932c33aabbdddf9f840062109a438022c99a28ef7c89571618181d575d54ed"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test csharp_03_t01_w02_search_fixtures_reject_added_or_deleted_consumers ... FAILED
+
+thread 'csharp_03_t01_w02_inventory_closes_every_artifact_and_consumer_edge' (1092900) panicked at crates/mpk-vc/tests/csharp_practical_inventory.rs:1376:5:
+repository consumer search drift:
+foundation.std_namespace: expected count=120 sha256=434a1dc1b67307237d9479283c5c7ddcf5559bc3ac8b24dc6fdaf019004d423b; actual count=121 sha256=98932c33aabbdddf9f840062109a438022c99a28ef7c89571618181d575d54ed
+test csharp_03_t01_w02_inventory_closes_every_artifact_and_consumer_edge ... FAILED
+
+failures:
+
+failures:
+    csharp_03_t01_w02_inventory_closes_every_artifact_and_consumer_edge
+    csharp_03_t01_w02_search_fixtures_reject_added_or_deleted_consumers
+
+test result: FAILED. 0 passed; 2 failed; 0 ignored; 0 measured; 3 filtered out; finished in 16.39s
+
+error: test failed, to rerun pass `-p mpk-vc --test csharp_practical_inventory`

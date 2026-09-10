@@ -1,0 +1,3975 @@
+{
+  "contexts_examined": 65,
+  "sources": [
+    {
+      "declarations": 243,
+      "id": "binding-vc-boundary_field",
+      "metadata": {
+        "certificate_sha256": "2ee29dfd2559314d31bead4a652324a2cbf9c511835293b5b90eaf5f28e525aa",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          },
+          {
+            "codec_id": "integer.u32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.u32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.u32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": false,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.u32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "4cc5fd034b66b707695f83da1202d44232047bd8410c20f0e7b4fb7ac7ee848f"
+      },
+      "terms": 13901
+    },
+    {
+      "declarations": 243,
+      "id": "binding-vc-bounded_sequence",
+      "metadata": {
+        "certificate_sha256": "2ee29dfd2559314d31bead4a652324a2cbf9c511835293b5b90eaf5f28e525aa",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          },
+          {
+            "codec_id": "integer.u32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.u32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.u32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": false,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.u32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "a87efbbae90152d6188a4a5fc17cd0e8fd56fc325310669b3a072fa9781cbcaf"
+      },
+      "terms": 13901
+    },
+    {
+      "declarations": 267,
+      "id": "binding-vc-instant",
+      "metadata": {
+        "certificate_sha256": "09b510fb767c821613d4356e2456f1af0bee9f4632708eeeb19de4aa63af91a3",
+        "definitions": [
+          {
+            "codec_id": "integer.i64",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i64.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i64.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 6,
+            "value_type_id": "mpk.csharp.value.i64.v1"
+          },
+          {
+            "codec_id": "unix_milliseconds",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.instant.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.instant.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 6,
+            "value_type_id": "mpk.csharp.value.instant.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "4fe895fba3ec261015681e96c86bf8dcf4094edf1c7d7d097bb5398aacf955f7"
+      },
+      "terms": 13789
+    },
+    {
+      "declarations": 226,
+      "id": "binding-vc-lookup",
+      "metadata": {
+        "certificate_sha256": "0e493b080a2d40de1841cfe0c05bac8e285c75f89cae4fdfee82de2afaab021f",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "cde2736b40fb66e89c0005e7a1414d2297ad68e348340bb083b23a0068002040"
+      },
+      "terms": 12970
+    },
+    {
+      "declarations": 243,
+      "id": "binding-vc-money",
+      "metadata": {
+        "certificate_sha256": "2ee29dfd2559314d31bead4a652324a2cbf9c511835293b5b90eaf5f28e525aa",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          },
+          {
+            "codec_id": "integer.u32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.u32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.u32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": false,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.u32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "f77204c2a00427fcb6a751294aa81ab810942a8faaaebec14f62ba278a59ce11"
+      },
+      "terms": 13901
+    },
+    {
+      "declarations": 226,
+      "id": "binding-vc-option",
+      "metadata": {
+        "certificate_sha256": "0e493b080a2d40de1841cfe0c05bac8e285c75f89cae4fdfee82de2afaab021f",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "cfe62f1acf2a56c7536d75f1b1ef22faa41127c528517e6abfafb32006eaed52"
+      },
+      "terms": 12970
+    },
+    {
+      "declarations": 226,
+      "id": "binding-vc-ordered_entry",
+      "metadata": {
+        "certificate_sha256": "0e493b080a2d40de1841cfe0c05bac8e285c75f89cae4fdfee82de2afaab021f",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "f2e8f3289077db7b35dfa9c247a919aa3b5a4d2b3087ab183b6fbea40d7c5ecd"
+      },
+      "terms": 12970
+    },
+    {
+      "declarations": 243,
+      "id": "binding-vc-ordered_map",
+      "metadata": {
+        "certificate_sha256": "2ee29dfd2559314d31bead4a652324a2cbf9c511835293b5b90eaf5f28e525aa",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          },
+          {
+            "codec_id": "integer.u32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.u32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.u32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": false,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.u32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "31095a5e4f83d6127bf3345d5b73b852f075842c132f29f2b7dbcd937b3a0590"
+      },
+      "terms": 13901
+    },
+    {
+      "declarations": 243,
+      "id": "binding-vc-ordered_set",
+      "metadata": {
+        "certificate_sha256": "2ee29dfd2559314d31bead4a652324a2cbf9c511835293b5b90eaf5f28e525aa",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          },
+          {
+            "codec_id": "integer.u32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.u32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.u32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": false,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.u32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "29b1a4cce62a4358a442bcb32f6c40fcf5858ac94c9a9f3cdb4651bc75d840c5"
+      },
+      "terms": 13901
+    },
+    {
+      "declarations": 226,
+      "id": "binding-vc-result",
+      "metadata": {
+        "certificate_sha256": "0e493b080a2d40de1841cfe0c05bac8e285c75f89cae4fdfee82de2afaab021f",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "46ec8a2a72516cfaaec458023e908792957de44bdd2e55ea1b4b132914c5e000"
+      },
+      "terms": 12970
+    },
+    {
+      "declarations": 243,
+      "id": "binding-vc-transition",
+      "metadata": {
+        "certificate_sha256": "2ee29dfd2559314d31bead4a652324a2cbf9c511835293b5b90eaf5f28e525aa",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          },
+          {
+            "codec_id": "integer.u32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.u32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.u32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": false,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.u32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "033dae645bf662233303b43260d43eb2e3b763f9936bcaa88d84573f39c84638"
+      },
+      "terms": 13901
+    },
+    {
+      "declarations": 243,
+      "id": "binding-vc-validation",
+      "metadata": {
+        "certificate_sha256": "2ee29dfd2559314d31bead4a652324a2cbf9c511835293b5b90eaf5f28e525aa",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          },
+          {
+            "codec_id": "integer.u32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.u32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.u32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": false,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.u32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "c88fb2387f575db148dfd94ca4d89f38f33925f008f677e680e543944c53cafe"
+      },
+      "terms": 13901
+    },
+    {
+      "declarations": 243,
+      "id": "bool-construction",
+      "metadata": {
+        "certificate_sha256": "2ee29dfd2559314d31bead4a652324a2cbf9c511835293b5b90eaf5f28e525aa",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          },
+          {
+            "codec_id": "integer.u32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.u32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.u32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": false,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.u32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "2d544804c9918db8f688068b79a8ae72ca4c40719314bbc0988ae316afb1bd47"
+      },
+      "terms": 13901
+    },
+    {
+      "declarations": 226,
+      "id": "boundary-exception-empty",
+      "metadata": {
+        "certificate_sha256": "0e493b080a2d40de1841cfe0c05bac8e285c75f89cae4fdfee82de2afaab021f",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "85e5de49d45b51a0e22ffd7cc302ff2d6dd01d97793e9a1173e7b57e14e5cad1"
+      },
+      "terms": 12970
+    },
+    {
+      "declarations": 226,
+      "id": "boundary-exception-payload",
+      "metadata": {
+        "certificate_sha256": "0e493b080a2d40de1841cfe0c05bac8e285c75f89cae4fdfee82de2afaab021f",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "f22dfc07f82d932e11fe7f4221bef767fe6771f128a773b7871480651b9679e6"
+      },
+      "terms": 12970
+    },
+    {
+      "declarations": 243,
+      "id": "boundary-map-compound",
+      "metadata": {
+        "certificate_sha256": "2ee29dfd2559314d31bead4a652324a2cbf9c511835293b5b90eaf5f28e525aa",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          },
+          {
+            "codec_id": "integer.u32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.u32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.u32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": false,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.u32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "c5f9883d95b67539ffdac072ac8ed8fd269ec3545629165ec6f39b8ba1e27164"
+      },
+      "terms": 13901
+    },
+    {
+      "declarations": 243,
+      "id": "boundary-map-decimal",
+      "metadata": {
+        "certificate_sha256": "2ee29dfd2559314d31bead4a652324a2cbf9c511835293b5b90eaf5f28e525aa",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          },
+          {
+            "codec_id": "integer.u32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.u32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.u32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": false,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.u32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "2b4a645517bb6cfd03b33cc6c38b7e8c78206a5e8ebc08a22c0b97e35d31a753"
+      },
+      "terms": 13901
+    },
+    {
+      "declarations": 243,
+      "id": "boundary-map-string",
+      "metadata": {
+        "certificate_sha256": "2ee29dfd2559314d31bead4a652324a2cbf9c511835293b5b90eaf5f28e525aa",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          },
+          {
+            "codec_id": "integer.u32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.u32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.u32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": false,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.u32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "c52710c988c8a2174a9fb0854c627175fef1ac2322f29a5521d30ddbf1b91c6d"
+      },
+      "terms": 13901
+    },
+    {
+      "declarations": 243,
+      "id": "boundary-set-decimal",
+      "metadata": {
+        "certificate_sha256": "2ee29dfd2559314d31bead4a652324a2cbf9c511835293b5b90eaf5f28e525aa",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          },
+          {
+            "codec_id": "integer.u32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.u32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.u32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": false,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.u32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "711a6d014a0871ad2e57c06bf504b4254d07d53ee947f1f0bcf0a74c1e2baed5"
+      },
+      "terms": 13901
+    },
+    {
+      "declarations": 243,
+      "id": "boundary-total-cells",
+      "metadata": {
+        "certificate_sha256": "2ee29dfd2559314d31bead4a652324a2cbf9c511835293b5b90eaf5f28e525aa",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          },
+          {
+            "codec_id": "integer.u32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.u32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.u32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": false,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.u32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "87f2d8cdacbc213a3e60fe8b0111b4e43ca7fb41aacff89b7f8348ad85042163"
+      },
+      "terms": 13901
+    },
+    {
+      "declarations": 243,
+      "id": "complete-snapshot",
+      "metadata": {
+        "certificate_sha256": "2ee29dfd2559314d31bead4a652324a2cbf9c511835293b5b90eaf5f28e525aa",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          },
+          {
+            "codec_id": "integer.u32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.u32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.u32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": false,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.u32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "5d82f989204a4282a91e5947cecf54832b8c4862c2446f1b71c8a1332f4a57b3"
+      },
+      "terms": 13901
+    },
+    {
+      "declarations": 226,
+      "id": "construction-vc-enum_zero",
+      "metadata": {
+        "certificate_sha256": "0e493b080a2d40de1841cfe0c05bac8e285c75f89cae4fdfee82de2afaab021f",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "156261e236ca455e56536c5f8b58129f3a0ee874c51675e30ca05a7fab2decde"
+      },
+      "terms": 12970
+    },
+    {
+      "declarations": 226,
+      "id": "construction-vc-positive_constructor",
+      "metadata": {
+        "certificate_sha256": "0e493b080a2d40de1841cfe0c05bac8e285c75f89cae4fdfee82de2afaab021f",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "dc3c9669d88943ace38fc2f37ec9253520b96654160de7c30b845ccc1f4b357a"
+      },
+      "terms": 12970
+    },
+    {
+      "declarations": 243,
+      "id": "enum-construction",
+      "metadata": {
+        "certificate_sha256": "2ee29dfd2559314d31bead4a652324a2cbf9c511835293b5b90eaf5f28e525aa",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          },
+          {
+            "codec_id": "integer.u32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.u32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.u32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": false,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.u32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "cd17548f8314c3b1854e23912a0a2d685a8327c0c1d79e86916b65dcff164263"
+      },
+      "terms": 13901
+    },
+    {
+      "declarations": 226,
+      "id": "exception-vc-allowed",
+      "metadata": {
+        "certificate_sha256": "0e493b080a2d40de1841cfe0c05bac8e285c75f89cae4fdfee82de2afaab021f",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "b8a5ddc466eae72f9cf6b5a62363008eecb626f9518e1ae704cb7cebae295ed9"
+      },
+      "terms": 12970
+    },
+    {
+      "declarations": 243,
+      "id": "extra-bool-float-map",
+      "metadata": {
+        "certificate_sha256": "2ee29dfd2559314d31bead4a652324a2cbf9c511835293b5b90eaf5f28e525aa",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          },
+          {
+            "codec_id": "integer.u32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.u32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.u32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": false,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.u32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "b983194b235fafeb6275bcc5dcd3d5b5e3fb646852ff6ee09271f0eaf9ebeae3"
+      },
+      "terms": 13901
+    },
+    {
+      "declarations": 243,
+      "id": "extra-bool-nullable-map",
+      "metadata": {
+        "certificate_sha256": "2ee29dfd2559314d31bead4a652324a2cbf9c511835293b5b90eaf5f28e525aa",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          },
+          {
+            "codec_id": "integer.u32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.u32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.u32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": false,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.u32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "3e280212bbd67c74d6c1403ce2c46a22d660a5626478b35c5f4c7048d782d89c"
+      },
+      "terms": 13901
+    },
+    {
+      "declarations": 226,
+      "id": "extra-lookup-nullable",
+      "metadata": {
+        "certificate_sha256": "0e493b080a2d40de1841cfe0c05bac8e285c75f89cae4fdfee82de2afaab021f",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "699bd0830cf98078495b6b1e547307a7fb7f9085cffecbd18165d92bf8fc68d0"
+      },
+      "terms": 12970
+    },
+    {
+      "declarations": 243,
+      "id": "extra-shared-lookup-maps",
+      "metadata": {
+        "certificate_sha256": "2ee29dfd2559314d31bead4a652324a2cbf9c511835293b5b90eaf5f28e525aa",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          },
+          {
+            "codec_id": "integer.u32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.u32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.u32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": false,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.u32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "29aeac8baf5e79c5e855ba1f7f9062001bb780f5877ce2376183add924b70945"
+      },
+      "terms": 13901
+    },
+    {
+      "declarations": 243,
+      "id": "extra-validation-bool",
+      "metadata": {
+        "certificate_sha256": "2ee29dfd2559314d31bead4a652324a2cbf9c511835293b5b90eaf5f28e525aa",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          },
+          {
+            "codec_id": "integer.u32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.u32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.u32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": false,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.u32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "230b926d605e0e2106bbc898668094e6414ce8205496e0df1ed475e3589e6e9e"
+      },
+      "terms": 13901
+    },
+    {
+      "declarations": 243,
+      "id": "extra-validation-product",
+      "metadata": {
+        "certificate_sha256": "2ee29dfd2559314d31bead4a652324a2cbf9c511835293b5b90eaf5f28e525aa",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          },
+          {
+            "codec_id": "integer.u32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.u32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.u32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": false,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.u32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "edd93de1124cae68351155fcbcecd528de20e230dfbb7c790f3965e3e4d060b3"
+      },
+      "terms": 13901
+    },
+    {
+      "declarations": 243,
+      "id": "float-sequence",
+      "metadata": {
+        "certificate_sha256": "2ee29dfd2559314d31bead4a652324a2cbf9c511835293b5b90eaf5f28e525aa",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          },
+          {
+            "codec_id": "integer.u32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.u32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.u32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": false,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.u32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "513c132a546ee6072974926284b853f16ed246f0c582db4b628aeedfbed60579"
+      },
+      "terms": 13901
+    },
+    {
+      "declarations": 258,
+      "id": "floats",
+      "metadata": {
+        "certificate_sha256": "fe94886c87e778f0ed3f1e408f73a245b294f0e6c00c8deb9725de7300084ebd",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          },
+          {
+            "codec_id": "integer.i64",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i64.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i64.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 6,
+            "value_type_id": "mpk.csharp.value.i64.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "9f4ff2195a8b6aaba9bff2ecaebdb1cbc8ca283baa348088ad59c4921580b157"
+      },
+      "terms": 14783
+    },
+    {
+      "declarations": 226,
+      "id": "guid",
+      "metadata": {
+        "certificate_sha256": "0e493b080a2d40de1841cfe0c05bac8e285c75f89cae4fdfee82de2afaab021f",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "bb95b06514ad09a7dc864ba3018ab1656d7002d6499e588c874fd89d15edd3fc"
+      },
+      "terms": 12970
+    },
+    {
+      "declarations": 243,
+      "id": "nested-box",
+      "metadata": {
+        "certificate_sha256": "2ee29dfd2559314d31bead4a652324a2cbf9c511835293b5b90eaf5f28e525aa",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          },
+          {
+            "codec_id": "integer.u32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.u32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.u32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": false,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.u32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "0532d6cfb811641717af5586c1ad6dfdf36a047cad7987230af4836fe8f6f04c"
+      },
+      "terms": 13901
+    },
+    {
+      "declarations": 243,
+      "id": "nullable-string-default",
+      "metadata": {
+        "certificate_sha256": "2ee29dfd2559314d31bead4a652324a2cbf9c511835293b5b90eaf5f28e525aa",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          },
+          {
+            "codec_id": "integer.u32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.u32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.u32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": false,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.u32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "abbba8770b99c49a426c210a01b7aacb03f866900dabb0d06119fee97a466625"
+      },
+      "terms": 13901
+    },
+    {
+      "declarations": 243,
+      "id": "parse-error-contract",
+      "metadata": {
+        "certificate_sha256": "2ee29dfd2559314d31bead4a652324a2cbf9c511835293b5b90eaf5f28e525aa",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          },
+          {
+            "codec_id": "integer.u32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.u32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.u32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": false,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.u32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "06c0d07267710ea58471e12a4e5197ce5a18f9a2fed5b9ed2efd20aa52a8cb5e"
+      },
+      "terms": 13901
+    },
+    {
+      "declarations": 243,
+      "id": "product-construction",
+      "metadata": {
+        "certificate_sha256": "2ee29dfd2559314d31bead4a652324a2cbf9c511835293b5b90eaf5f28e525aa",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          },
+          {
+            "codec_id": "integer.u32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.u32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.u32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": false,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.u32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "827521c9c96ae638d9274c2201d15d2600a65756f291b55948b138efe93331ae"
+      },
+      "terms": 13901
+    },
+    {
+      "declarations": 226,
+      "id": "string",
+      "metadata": {
+        "certificate_sha256": "0e493b080a2d40de1841cfe0c05bac8e285c75f89cae4fdfee82de2afaab021f",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "4a7e60e56cb94b6b0cabc213f31967cfb431ae9e72a367094876902d01d1ebf9"
+      },
+      "terms": 12970
+    },
+    {
+      "declarations": 226,
+      "id": "unit-void-source",
+      "metadata": {
+        "certificate_sha256": "0e493b080a2d40de1841cfe0c05bac8e285c75f89cae4fdfee82de2afaab021f",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "b0c2c0c4b3a19ac971631ccc92baf16dbf5155d03adecf06da0effc42a181be0"
+      },
+      "terms": 12970
+    },
+    {
+      "declarations": 242,
+      "id": "literal-i8",
+      "metadata": {
+        "certificate_sha256": "f3cfcda921adf400559464e9d374b0105bca37920cf0de4bf643c0d5794c1644",
+        "definitions": [
+          {
+            "codec_id": "integer.i8",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i8.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i8.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 3,
+            "value_type_id": "mpk.csharp.value.i8.v1"
+          },
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "c60aa6188c6d6ead006ab4285fc6009212956587fe013c578ec7f84fbc6bdf78"
+      },
+      "terms": 13757
+    },
+    {
+      "declarations": 240,
+      "id": "literal-u8",
+      "metadata": {
+        "certificate_sha256": "26bf8245a3ee401cc251c757c9cdf8379bd75f4d99564ed184641be6d0643406",
+        "definitions": [
+          {
+            "codec_id": "integer.u8",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.u8.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.u8.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": false,
+            "value_depth": 3,
+            "value_type_id": "mpk.csharp.value.u8.v1"
+          },
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "6e7f09179335189aa3a459550b998d0ad783724a2ebb31c184201cf59d295f72"
+      },
+      "terms": 13741
+    },
+    {
+      "declarations": 244,
+      "id": "literal-i16",
+      "metadata": {
+        "certificate_sha256": "6a389bfaef6c5c8703b4f6ff2a424487d79e080fe62750d83efc91df236fbf8d",
+        "definitions": [
+          {
+            "codec_id": "integer.i16",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i16.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i16.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 4,
+            "value_type_id": "mpk.csharp.value.i16.v1"
+          },
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "9c1a71783063a722c53e66a8ea22ce72bbd303374b84ea6256752025a0b0d1f1"
+      },
+      "terms": 13889
+    },
+    {
+      "declarations": 241,
+      "id": "literal-u16",
+      "metadata": {
+        "certificate_sha256": "4308f5339071c759b6153026e02c766f070aa7441ddb0f6a3d695b6e4b6d3f94",
+        "definitions": [
+          {
+            "codec_id": "integer.u16",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.u16.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.u16.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": false,
+            "value_depth": 4,
+            "value_type_id": "mpk.csharp.value.u16.v1"
+          },
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "ac3f7aa8ada6cd69ade8d88c91ea3cd0bdeea6fd9eee646a33db4932151c0fff"
+      },
+      "terms": 13837
+    },
+    {
+      "declarations": 226,
+      "id": "literal-i32",
+      "metadata": {
+        "certificate_sha256": "0e493b080a2d40de1841cfe0c05bac8e285c75f89cae4fdfee82de2afaab021f",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "292bfb24fe20953b3b06ff297cfb93f0eda3cd2b130d5e077401a5c00032eb45"
+      },
+      "terms": 12970
+    },
+    {
+      "declarations": 220,
+      "id": "literal-u32",
+      "metadata": {
+        "certificate_sha256": "e18075aad09679fcb5ef28cb592f30afe8966482668a3dc09325b28a08677b63",
+        "definitions": [
+          {
+            "codec_id": "integer.u32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.u32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.u32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": false,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.u32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "8cf5e87134176455c3307e1480570d843b7f2c686559048a5634cbc3ac2ed90a"
+      },
+      "terms": 12726
+    },
+    {
+      "declarations": 235,
+      "id": "literal-i64",
+      "metadata": {
+        "certificate_sha256": "043e7cbb0a82f553ccf317464170600ff70364b896c45bf69ec159ad510f14ca",
+        "definitions": [
+          {
+            "codec_id": "integer.i64",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i64.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i64.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 6,
+            "value_type_id": "mpk.csharp.value.i64.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "97c9e78116205c8d0b25d4da626b404b05aa17db7f283da85bc2b160fd2ed84d"
+      },
+      "terms": 13705
+    },
+    {
+      "declarations": 223,
+      "id": "literal-u64",
+      "metadata": {
+        "certificate_sha256": "5b31b4162fed03db3cdf8c160495cb66bcbe3c47e4fbc5386851fb8a13a45326",
+        "definitions": [
+          {
+            "codec_id": "integer.u64",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.u64.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.u64.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": false,
+            "value_depth": 6,
+            "value_type_id": "mpk.csharp.value.u64.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "1376dbbaa0d2ed30f88e0a831562cff0b8d217c9809781efa031c9b0ba1f04e6"
+      },
+      "terms": 13096
+    },
+    {
+      "declarations": 226,
+      "id": "literal-string",
+      "metadata": {
+        "certificate_sha256": "0e493b080a2d40de1841cfe0c05bac8e285c75f89cae4fdfee82de2afaab021f",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "1b9a3ed0f6d493b97d3b1465b0e762397ea6c9286accff6afd0cc8ac78299834"
+      },
+      "terms": 12970
+    },
+    {
+      "declarations": 226,
+      "id": "literal-nullable-none",
+      "metadata": {
+        "certificate_sha256": "0e493b080a2d40de1841cfe0c05bac8e285c75f89cae4fdfee82de2afaab021f",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "10ea939b2af5dc5d43b3a0cc9de19fe8fa0367ee767449c184819230df05aef3"
+      },
+      "terms": 12970
+    },
+    {
+      "declarations": 226,
+      "id": "literal-nullable-some",
+      "metadata": {
+        "certificate_sha256": "0e493b080a2d40de1841cfe0c05bac8e285c75f89cae4fdfee82de2afaab021f",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "71cc0e7e609f3cec55f9926d4a38a1b97533ad7fc07502a8250be1bd6d445fdb"
+      },
+      "terms": 12970
+    },
+    {
+      "declarations": 243,
+      "id": "literal-array",
+      "metadata": {
+        "certificate_sha256": "2ee29dfd2559314d31bead4a652324a2cbf9c511835293b5b90eaf5f28e525aa",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          },
+          {
+            "codec_id": "integer.u32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.u32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.u32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": false,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.u32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "3e8f86d7b73412224837faeadcebe805d38c486bb304ca5de466e775e5569eb3"
+      },
+      "terms": 13901
+    },
+    {
+      "declarations": 226,
+      "id": "literal-product",
+      "metadata": {
+        "certificate_sha256": "0e493b080a2d40de1841cfe0c05bac8e285c75f89cae4fdfee82de2afaab021f",
+        "definitions": [
+          {
+            "codec_id": "integer.i32",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.i32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.i32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "07f6fcf206e185e518c278b676a6a658c6ae3fb3a98ab1680d89a4404c221975"
+      },
+      "terms": 12970
+    },
+    {
+      "declarations": 235,
+      "id": "duration-add-source",
+      "metadata": {
+        "certificate_sha256": "6969268c5895213c5702e5bac320aaf1f9bb1a5fa73180b843c4f996e922a2c7",
+        "definitions": [
+          {
+            "codec_id": "duration_ticks",
+            "parse_definition": "Mpk.CSharp.Ordinary.IntegerParse.duration.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.duration.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "signed": true,
+            "value_depth": 6,
+            "value_type_id": "mpk.csharp.value.duration.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_integer_parsers.v1",
+        "source_ir_sha256": "f937d5816b2937a942de7c90e8658511bb2fcac3903caee6ca3ab917de2d7d0b"
+      },
+      "terms": 13705
+    }
+  ]
+}

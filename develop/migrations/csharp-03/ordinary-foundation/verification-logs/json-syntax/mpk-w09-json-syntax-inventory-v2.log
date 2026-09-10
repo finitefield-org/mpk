@@ -1,0 +1,21 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.04s
+     Running tests/csharp_practical_inventory.rs (target/debug/deps/csharp_practical_inventory-ad7f7e409e721e85)
+
+running 2 tests
+
+thread 'csharp_03_t01_w02_inventory_closes_every_artifact_and_consumer_edge' (771497) panicked at crates/mpk-vc/tests/csharp_practical_inventory.rs:569:5:
+assertion `left == right` failed: family-to-path inventory total drift
+  left: 4943
+ right: 4942
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test csharp_03_t01_w02_inventory_closes_every_artifact_and_consumer_edge ... FAILED
+test csharp_03_t01_w02_search_fixtures_reject_added_or_deleted_consumers ... ok
+
+failures:
+
+failures:
+    csharp_03_t01_w02_inventory_closes_every_artifact_and_consumer_edge
+
+test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 3 filtered out; finished in 16.59s
+
+error: test failed, to rerun pass `-p mpk-vc --test csharp_practical_inventory`

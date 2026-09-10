@@ -2,6 +2,48 @@
 //! These functions require valid child values. They do not discharge domains,
 //! source constructor invariants, validation bounds or application VCs.
 use super::*;
+#[path = "csharp_practical_ordinary_binding_projections.rs"]
+mod binding_projections;
+pub use binding_projections::{
+    generate_csharp_practical_ordinary_binding_projections,
+    generate_csharp_practical_ordinary_binding_rebuilds,
+    import_csharp_practical_ordinary_binding_projections,
+    import_csharp_practical_ordinary_binding_rebuilds, OrdinaryBindingProjectionDefinition,
+    OrdinaryBindingProjectionProgram, OrdinaryBindingRebuildDefinition,
+    OrdinaryBindingRebuildProgram,
+};
+#[path = "csharp_practical_ordinary_literals.rs"]
+mod literals;
+pub use literals::{
+    generate_csharp_practical_ordinary_literals, import_csharp_practical_ordinary_literals,
+    OrdinaryLiteralBinding, OrdinaryLiteralDefinition, OrdinaryLiteralOrigin,
+    OrdinaryLiteralProgram,
+};
+
+pub(super) fn emit_literal_values(
+    vir: &ValidatedPracticalVir,
+    layouts: &OrdinaryCarrierProgram,
+    b: Builder,
+    values: BTreeMap<String, MonomorphicValue>,
+) -> R<(Builder, Vec<OrdinaryLiteralDefinition>)> {
+    literals::emit_named_values(vir, layouts, b, values)
+}
+
+#[path = "csharp_practical_ordinary_construction_ops.rs"]
+mod construction_ops;
+pub use construction_ops::{
+    generate_csharp_practical_ordinary_constructions,
+    import_csharp_practical_ordinary_constructions, OrdinaryConstructionDefinition,
+    OrdinaryConstructionFailure, OrdinaryConstructionOperation, OrdinaryConstructionProgram,
+};
+
+#[path = "csharp_practical_ordinary_non_templates.rs"]
+mod non_templates;
+pub use non_templates::{
+    generate_csharp_practical_ordinary_finite_operations,
+    import_csharp_practical_ordinary_finite_operations, OrdinaryFiniteOperation,
+    OrdinaryFiniteOperationProgram,
+};
 
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
 pub struct OrdinaryProjection {
@@ -38,6 +80,31 @@ pub enum OrdinaryStructuralOperations {
 pub struct OrdinaryStructuralDefinition {
     pub carrier: OrdinaryCarrier,
     pub operations: OrdinaryStructuralOperations,
+}
+
+/// One concrete stored shape has one constructor/projection family per VIR.
+/// Sharing is explicit here; Builder still rejects duplicate global definitions.
+#[derive(Default)]
+struct StorageCache(BTreeMap<String, OrdinaryStructuralDefinition>);
+impl StorageCache {
+    fn get(
+        &mut self,
+        b: &mut Builder,
+        carrier: &OrdinaryCarrier,
+        carriers: &BTreeMap<&str, &OrdinaryCarrier>,
+    ) -> R<Option<OrdinaryStructuralDefinition>> {
+        if let Some(value) = self.0.get(&carrier.type_id) {
+            if value.carrier != *carrier {
+                return Err(OrdinaryCarrierError::Linkage);
+            }
+            return Ok(Some(value.clone()));
+        }
+        let value = emit(b, carrier, carriers)?;
+        if let Some(value) = &value {
+            self.0.insert(carrier.type_id.clone(), value.clone());
+        }
+        Ok(value)
+    }
 }
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
 pub struct OrdinaryStructuralProgram {
@@ -234,7 +301,7 @@ fn product_fields(
         })
         .collect()
 }
-fn emit(
+pub(super) fn emit(
     b: &mut Builder,
     carrier: &OrdinaryCarrier,
     carriers: &BTreeMap<&str, &OrdinaryCarrier>,
@@ -788,7 +855,115 @@ pub use ordered_fold::{
 
 #[path = "csharp_practical_ordinary_relations.rs"]
 mod relations;
+pub(super) use relations::emit_ordered_key_relations;
 pub use relations::{
-    generate_csharp_practical_ordinary_relations, import_csharp_practical_ordinary_relations,
-    OrdinaryRelationDefinition, OrdinaryRelationProgram,
+    generate_csharp_practical_ordinary_domains, generate_csharp_practical_ordinary_relations,
+    import_csharp_practical_ordinary_domains, import_csharp_practical_ordinary_relations,
+    OrdinaryDomainDefinition, OrdinaryDomainProgram, OrdinaryRelationDefinition,
+    OrdinaryRelationProgram,
+};
+pub use relations::{
+    generate_csharp_practical_ordinary_entries, import_csharp_practical_ordinary_entries,
+    OrdinaryEntryDefinition, OrdinaryEntryProgram,
+};
+pub use relations::{
+    generate_csharp_practical_ordinary_money, import_csharp_practical_ordinary_money,
+    OrdinaryMoneyDefinition, OrdinaryMoneyFailure, OrdinaryMoneyOperation, OrdinaryMoneyProgram,
+};
+pub use relations::{
+    generate_csharp_practical_ordinary_observations, import_csharp_practical_ordinary_observations,
+    OrdinaryObservationDefinition, OrdinaryObservationProgram,
+};
+pub use relations::{
+    generate_csharp_practical_ordinary_outcomes, import_csharp_practical_ordinary_outcomes,
+    OrdinaryOutcomeDefinition, OrdinaryOutcomeFailure, OrdinaryOutcomeOperation,
+    OrdinaryOutcomeProgram,
+};
+pub use relations::{
+    generate_csharp_practical_ordinary_sequences, import_csharp_practical_ordinary_sequences,
+    OrdinarySequenceOperations, OrdinarySequenceProgram,
+};
+
+#[path = "csharp_practical_ordinary_aggregate_fold.rs"]
+mod aggregate_fold;
+pub(super) use aggregate_fold::emit_fold as emit_aggregate_fold;
+
+pub use aggregate_fold::{
+    generate_csharp_practical_ordinary_aggregate_folds,
+    import_csharp_practical_ordinary_aggregate_folds, OrdinaryAggregateFoldDefinition,
+    OrdinaryAggregateFoldProgram,
+};
+
+pub use relations::{
+    generate_csharp_practical_ordinary_collections, import_csharp_practical_ordinary_collections,
+    OrdinaryCollectionDefinition, OrdinaryCollectionFailure, OrdinaryCollectionOperation,
+    OrdinaryCollectionProgram,
+};
+
+pub use relations::{
+    generate_csharp_practical_ordinary_structural_boundary,
+    generate_csharp_practical_ordinary_structural_foundations,
+    generate_csharp_practical_ordinary_structural_public,
+    import_csharp_practical_ordinary_structural_boundary,
+    import_csharp_practical_ordinary_structural_foundations,
+    import_csharp_practical_ordinary_structural_public, OrdinaryDeferredFoundationInstance,
+    OrdinaryStructuralFoundationProgram,
+};
+
+pub use literals::{
+    generate_csharp_practical_ordinary_boundary_literals,
+    import_csharp_practical_ordinary_boundary_literals, OrdinaryBoundaryLiteralBinding,
+    OrdinaryBoundaryLiteralProgram,
+};
+
+pub use relations::{
+    generate_csharp_practical_ordinary_binding_guards,
+    generate_csharp_practical_ordinary_binding_orders,
+    generate_csharp_practical_ordinary_binding_relations,
+    generate_csharp_practical_ordinary_boundary_rules,
+    import_csharp_practical_ordinary_binding_guards,
+    import_csharp_practical_ordinary_binding_orders,
+    import_csharp_practical_ordinary_binding_relations,
+    import_csharp_practical_ordinary_boundary_rules, OrdinaryBindingAgreement,
+    OrdinaryBindingPredicate, OrdinaryBindingRelationProgram, OrdinaryBoundaryRuleProgram,
+};
+
+#[path = "csharp_practical_ordinary_source_clauses.rs"]
+mod source_clauses;
+pub use source_clauses::{
+    generate_csharp_practical_ordinary_contract_expressions,
+    generate_csharp_practical_ordinary_source_clauses,
+    import_csharp_practical_ordinary_contract_expressions,
+    import_csharp_practical_ordinary_source_clauses, OrdinaryContractExpressionDefinition,
+    OrdinaryContractExpressionProgram, OrdinarySourceClauseDefinition, OrdinarySourceClauseProgram,
+};
+
+pub use relations::{
+    generate_csharp_practical_ordinary_public_defaults,
+    generate_csharp_practical_ordinary_public_domains,
+    import_csharp_practical_ordinary_public_defaults,
+    import_csharp_practical_ordinary_public_domains, OrdinaryPublicDefaultDefinition,
+    OrdinaryPublicDomainDefinition, OrdinaryPublicDomainProgram,
+};
+
+pub use source_clauses::{
+    generate_csharp_practical_ordinary_integer_data, import_csharp_practical_ordinary_integer_data,
+    OrdinaryIntegerDataDefinition, OrdinaryIntegerDataOperation, OrdinaryIntegerDataProgram,
+};
+
+pub use source_clauses::{
+    generate_csharp_practical_ordinary_structural_data,
+    import_csharp_practical_ordinary_structural_data, OrdinaryStructuralDataDefinition,
+    OrdinaryStructuralDataOperation, OrdinaryStructuralDataProgram,
+};
+
+pub use source_clauses::{
+    generate_csharp_practical_ordinary_floating_data,
+    import_csharp_practical_ordinary_floating_data, OrdinaryFloatingDataDefinition,
+    OrdinaryFloatingDataOperation, OrdinaryFloatingDataProgram,
+};
+
+pub use source_clauses::{
+    generate_csharp_practical_ordinary_decimal_data, import_csharp_practical_ordinary_decimal_data,
+    OrdinaryDecimalDataDefinition, OrdinaryDecimalDataOperation, OrdinaryDecimalDataProgram,
 };

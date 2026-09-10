@@ -1,0 +1,9 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error[E0599]: no variant named `Decimal96` found for enum `mpk_vc::csharp_practical_vir_model::MonomorphicValue`
+  --> crates/mpk-vc/tests/support/csharp_practical_ordinary_json_boundary_field_tests.rs:13:29
+   |
+13 |         | MonomorphicValue::Decimal96 { .. }
+   |                             ^^^^^^^^^ variant not found in `mpk_vc::csharp_practical_vir_model::MonomorphicValue`
+
+For more information about this error, try `rustc --explain E0599`.
+error: could not compile `mpk-vc` (test "csharp_practical_vc") due to 1 previous error

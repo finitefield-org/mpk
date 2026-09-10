@@ -1,0 +1,183 @@
+{
+  "schema": "mpk.csharp_practical.w09.json_string_prefix_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "partial_json_string_prefix_verification_in_progress_not_unit_completion",
+  "implementation": "One counted scan stops at the first canonical closing quote. Whole Valid/Value additionally require cursor == complete document length; PrefixValid/PrefixValue and Consumed return only the first token and exact byte count, or zero values/count on failure. The same Builder emits shared byte-fragment functions for ordinary Slice-to-parser composition. Document/UTF16 bounds and checker rules are unchanged.",
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_string_parse.rs",
+      "sha256": "abc5e7dcffefc5fc658dc6ca5bf2fcd508a11e643d5fd260aa22acdf3e58c2a0"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_boundary_fragments.rs",
+      "sha256": "598aec666ad96bd280f528fcb0ebe926f789d9f46efabc7a72ccccb63b981900"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_string_parse_tests.rs",
+      "sha256": "3133725551f03503d26e868bf200a20e9e34d2fd16d16f41a01420513a561e16"
+    }
+  ],
+  "verification": [
+    {
+      "command": "cargo check -p mpk-vc",
+      "log": "/tmp/mpk-w09-json-string-prefix-check-v1.log",
+      "log_sha256": "31e21c1142a5e00332ede71108950b329ea22bb44206e9b18261a93df58c65cd",
+      "status": "passed_intermediate_prefix_only_revision",
+      "scope": "44.69s, before shared-fragment integration and final tests; final compiled tests/lint remain pending."
+    },
+    {
+      "session_id": 83170,
+      "command": "MPK_W09_JSON_STRING_PARSERS_OUT=/tmp/mpk-w09-json-string-prefix-v1 cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_json_string_parsers_original_sources -- --nocapture",
+      "log": "/tmp/mpk-w09-json-string-prefix-sources-v1.log",
+      "status": "passed",
+      "log_sha256": "095b3ae2600b954d127e05592001a72dcaf27e9108370a0012132e0be547df7d",
+      "scope": "68 contexts and three nonempty programs passed source/import/mutation checks in 59.74s."
+    },
+    {
+      "session_id": 42912,
+      "command": "cargo clippy -p mpk-vc --test csharp_practical_vc -- -D warnings",
+      "log": "/tmp/mpk-w09-json-string-prefix-clippy-v1.log",
+      "status": "passed",
+      "log_sha256": "334027f3907abad91ff08fef0545fe00085f35fad220f14f139174cd0418320e",
+      "scope": "Final prefix/shared-fragment revision passed targeted clippy, 4m07s including build wait."
+    },
+    {
+      "session_id": 91069,
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_boundary_fragments_original_sources -- --nocapture",
+      "log": "/tmp/mpk-w09-json-string-prefix-fragment-replay-v1.log",
+      "status": "passed",
+      "log_sha256": "026a120a358fea2fa6bff608228287be88564df008bdc881a693d9bde3ac8dfc",
+      "scope": "All 68 contexts and three existing fragment certificate bytes preserved exactly in 35.49s."
+    },
+    {
+      "command": "cargo fmt --all -- --check",
+      "log": "/tmp/mpk-w09-json-string-prefix-format-v1.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "passed"
+    },
+    {
+      "command": "/usr/bin/git diff --check",
+      "status": "passed",
+      "scope": "Outside sandbox."
+    },
+    {
+      "session_id": 67467,
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_json_string_parsers_original_sources -- --nocapture",
+      "log": "/tmp/mpk-w09-json-string-prefix-replay-v1.log",
+      "status": "passed",
+      "log_sha256": "d0fcc6d15552e4ba4d21dc15c259b00ab3f8ef2f21685c12d128ee0f96869c11",
+      "scope": "Exact 68-context/three-certificate pinned replay passed in 50.14s."
+    },
+    {
+      "session_id": 91597,
+      "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIJsonStringParsers$' -count=1 -timeout 0 -v",
+      "log": "/tmp/mpk-w09-json-string-prefix-checkers-v1.log",
+      "status": "passed",
+      "cwd": "go-tools/mpk-checker-ref",
+      "log_sha256": "3f431b7c50b316870cde5dc36ccc01a67fc4517cf20c4ad62e06ebd7775b7cf3",
+      "scope": "All three same-byte Rust/Go cases passed with zero axioms and hash-corruption rejection; 138.026s including build, 96.08s test execution."
+    },
+    {
+      "session_id": 30529,
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "log": "/tmp/mpk-w09-json-string-prefix-inventory-v1.log",
+      "status": "passed",
+      "log_sha256": "99bb0c4d402bbc7bb9a596204a9aa4e5d585c0e1c7bbe0024ae25a63b73b4382",
+      "scope": "All five inventory tests passed in 41.98s."
+    },
+    {
+      "session_id": 41825,
+      "command": "cargo clippy -p mpk-vc --test csharp_practical_vc -- -D warnings",
+      "log": "/tmp/mpk-w09-json-string-prefix-clippy-v2.log",
+      "status": "passed",
+      "log_sha256": "c410bfc2116b6ad8a3e4a5bf472351d637e19497aa40464f46e07e2663797dd1",
+      "scope": "Includes the added 98306-byte full-control consumption test; 42.35s including build wait."
+    },
+    {
+      "command": "cargo fmt --all -- --check",
+      "log": "/tmp/mpk-w09-json-string-prefix-format-v2.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "passed",
+      "scope": "Includes the full-control consumption test."
+    },
+    {
+      "session_id": 27057,
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc -- csharp_03_t06_w09_json_keywords_original_sources csharp_03_t06_w09_json_string_parsers_original_sources --nocapture --test-threads=1",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-json-tokens-component-replay-v1.log",
+      "log_sha256": "2ba9f3e583ef7edebf6fa8a1f394537acfff53c83a6d967bb1c0e4855c6819ba",
+      "scope": "Both standalone 68-context/three-certificate exact pinned replays passed in 83.62s. Shared-emitter refactoring preserves every previous string/keyword certificate byte and metadata."
+    }
+  ],
+  "live_jobs": [
+    {
+      "session_id": 45385,
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc -- csharp_03_t06_w09_json_string_prefix_semantics csharp_03_t06_w09_json_string_prefix_document_bounds_and_slices --nocapture --test-threads=1",
+      "log": "/tmp/mpk-w09-json-string-prefix-semantics-v1.log",
+      "status": "running",
+      "completed_tests": [
+        "csharp_03_t06_w09_json_string_prefix_document_bounds_and_slices"
+      ],
+      "scope": "Document/u32 bounds and 12 same-certificate Slice-to-parser high-offset compositions passed; 62-case prefix oracle matrix remains live."
+    },
+    {
+      "session_id": 95295,
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_json_string_parsers_semantics -- --nocapture",
+      "log": "/tmp/mpk-w09-json-string-prefix-whole-regression-v1.log",
+      "status": "running"
+    },
+    {
+      "session_id": 72975,
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc -- csharp_03_t06_w09_json_string_parsers_full_bound csharp_03_t06_w09_json_string_prefix_full_decoded_bound --nocapture --test-threads=1",
+      "log": "/tmp/mpk-w09-json-string-prefix-full-v1.log",
+      "status": "running"
+    },
+    {
+      "session_id": 67249,
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_json_string_prefix_full_control_consumption -- --nocapture",
+      "log": "/tmp/mpk-w09-json-string-prefix-full-controls-v1.log",
+      "status": "running"
+    }
+  ],
+  "remaining": [
+    "Complete the 296-case whole-document regression and 62-case prefix oracle matrix. Document/u32 bounds and 12 ordinary Slice-to-parser compositions passed.",
+    "Complete four original full-decoded-bound cases, 16384/16385 ASCII prefix cases and new 98306-byte control-prefix consumption.",
+    "Complete scoped review after all current semantic/full-bound runs. Source/replay/both-checker/inventory, shared-fragment byte preservation and current lint/format passed.",
+    "Complete strict JSON grammar/typed fields and all remaining original units 3–8, including native/control/transition and universal proof/assembly scope. No component-only commit."
+  ],
+  "full_gate": "Deferred to CSHARP-03-T06-W12.",
+  "previous_whole_only_receipt": "unit-4-json-string-parse-progress.json",
+  "manifest": {
+    "path": "develop/migrations/csharp-03/ordinary-foundation/json-string-parsers/previous-pair-pipeline/certificates.json",
+    "sha256": "be9bf15808287738947d8f8455197ab5c99636fcf93e4a9a32093b9f4c9ff754",
+    "contexts": 68,
+    "nonempty": 3,
+    "terms_per_certificate": 24828,
+    "declarations_per_certificate": 342,
+    "static_transformers_per_certificate": 8406,
+    "scope": "Verified prefix checkpoint before scan regrouping; current regrouped pins are in unit-4-json-collection-integration-progress.json."
+  },
+  "pin_status": "Current prefix/shared-fragment pins installed. Old three whole-only pins and manifest archived in json-string-parsers/previous-whole-only; prefix-extension.json records old/new hashes.",
+  "test_extension": "Added one full 16384-control-unit prefix case to require consumed byte 98306 (above 65535); the existing full-bound job remains live and unchanged. Production/pinned bytes did not change for this additional test.",
+  "previous_pre_shared_emitter_files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_string_parse.rs",
+      "sha256": "1ecc9e2ddda4b076ecdd6a7c0d06b980954ed347a15be1be9bca37246c75efd6"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_boundary_fragments.rs",
+      "sha256": "31e67dfabf49e2ac418fdd0ada3807b3c9a008890d9fb9ecfec23809003dd3d8"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_string_parse_tests.rs",
+      "sha256": "3ce563fc8a9e92b75e14f7e29330b8ed9d19dc3c189168b49ea20ec6e420d1eb"
+    }
+  ],
+  "shared_emitter_refactor": "The current files move document/fragment creation to the standalone caller and accept shared definitions. Exact prior certificate bytes and metadata are preserved, independently replayed by session 27057. Prior semantic and checker evidence remains tied to those unchanged bytes.",
+  "scan_regroup_extension": {
+    "receipt": "unit-4-json-collection-integration-progress.json",
+    "status": "source_and_equivalence_passed_execution_in_progress",
+    "scope": "Checkpoint pins are archived before pair-pipeline regrouping. Current source/pins preserve every other definition and the exact expanded scan sequence; affected execution/checker results are separate."
+  }
+}

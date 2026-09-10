@@ -1,0 +1,32 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error[E0432]: unresolved import `super::boundary_document_tests`
+ --> crates/mpk-vc/tests/support/csharp_practical_ordinary_json_raw_limit_tests.rs:1:12
+  |
+1 | use super::boundary_document_tests::document_sources;
+  |            ^^^^^^^^^^^^^^^^^^^^^^^ could not find `boundary_document_tests` in `super`
+
+error[E0425]: cannot find type `V` in this scope
+ --> crates/mpk-vc/tests/support/csharp_practical_ordinary_json_raw_limit_tests.rs:4:69
+  |
+4 | fn document(bytes: &[u8], length: u32, inactive: &[(usize, u8)]) -> V {
+  |                                                                     ^ not found in this scope
+  |
+help: consider importing this enum
+  |
+1 + use crate::ordinary_carriers::core_eval::V;
+  |
+
+error[E0425]: cannot find function `run` in this scope
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_json_raw_limit_tests.rs:122:25
+    |
+122 |             assert!(bit(run(
+    |                         ^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  1 + use crate::ordinary_carriers::core_eval::run;
+    |
+
+Some errors have detailed explanations: E0425, E0432.
+For more information about an error, try `rustc --explain E0425`.
+error: could not compile `mpk-vc` (test "csharp_practical_vc") due to 3 previous errors

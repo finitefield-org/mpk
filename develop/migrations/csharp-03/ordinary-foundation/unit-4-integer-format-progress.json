@@ -1,0 +1,148 @@
+{
+  "schema": "mpk.csharp_practical.w09.integer_format_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "partial_integer_format_definitions_verified_not_unit_completion",
+  "scope": "Canonical integer/duration/instant formatting only; ordinary parsing and proofs remain open",
+  "source_contexts_examined": 65,
+  "pinned_contexts": 54,
+  "formatter_occurrences": 86,
+  "codec_ids": [
+    "integer.i8",
+    "integer.u8",
+    "integer.i16",
+    "integer.u16",
+    "integer.i32",
+    "integer.u32",
+    "integer.i64",
+    "integer.u64",
+    "duration_ticks",
+    "unix_milliseconds"
+  ],
+  "max_terms": 10693,
+  "max_declarations": 130,
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_integer_format.rs",
+      "sha256": "7d39e2d3416e422da82fc00d5718b821ef21545714be1f52d5b680b3c068dfbd"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_hex_codecs.rs",
+      "sha256": "3e30edb1f478a9d3a00411fcb5befbcdb5261ca25e07b445d7860c80cbd484b7"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_scalar_bits.rs",
+      "sha256": "ab768e16512ced3a35d6e2d1212044f1d0918dc6b289d67a20652235764b1624"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs",
+      "sha256": "111d7cf3071425220aef02d849d07415594864bba84fac84f949f73c061facc1"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+      "sha256": "88a285da98a75667958c753a85c7c9151dbc6d49dc41619db3142586d9b3733c"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_integer_format_tests.rs",
+      "sha256": "7b6c6c3c112ef30bab260c7b3382212d48f60f75ec5cd6f31f10f2180eb5506c"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_literal_tests.rs",
+      "sha256": "56b188532c2c4ddb395c4e4d157598bab8eba10d7284a5b05c1833d563d3c250"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "sha256": "a4a90faeda2bbc6a74a7c8aed2e6d1d5f3beed60b707a807bc54782d6289a017"
+    },
+    {
+      "path": "develop/migrations/csharp-03/artifact-consumer-inventory.json",
+      "sha256": "25de8631b807ce3f935d3fcd98542214fe54cba4b7ca8d623b9cd2b0a4f4408e"
+    },
+    {
+      "path": "develop/migrations/csharp-03/data-phase/historical-inventory-cache-correction.json",
+      "sha256": "81d8308938a58d88ad71343a814bd8d959c2fa0348a1c39f5b222bcbc565237a"
+    }
+  ],
+  "manifest": {
+    "path": "develop/migrations/csharp-03/ordinary-foundation/integer-formats/certificates.json",
+    "sha256": "a91eeb90de19ed6e5dc153ccb4da142fbb70151f0bd120b2f864cdd6dcf36b78"
+  },
+  "verification": [
+    {
+      "command": "cargo check -p mpk-vc",
+      "log": "/tmp/mpk-w09-integer-formats-check-v1.log",
+      "log_sha256": "79a7898c2dfab7156ba604fb484a86e2cf0f1459e5fc9ec4f30ec20c0eda2534",
+      "status": "failed_compile",
+      "scope": "A temporary formatted helper name was borrowed across its statement; fixed with a stable local String before source execution."
+    },
+    {
+      "command": "MPK_W09_INTEGER_FORMATS_OUT=/tmp/mpk-w09-integer-formats-v1 cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_integer_formats_original_sources -- --nocapture",
+      "log": "/tmp/mpk-w09-integer-formats-suite-v1.log",
+      "log_sha256": "e1f39fa1ef6ca080129715f38802274eeb4fa73cacd08dcf4a5d81f45bfe68e2",
+      "status": "failed_coverage",
+      "scope": "64-context generation completed but only 9 codec IDs appeared; no semantic matrix ran. Added existing captured TimeSpan-add source to cover duration without shrinking the ten-codec requirement."
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --test csharp_practical_vc -- -D warnings",
+      "log": "/tmp/mpk-w09-integer-formats-clippy-v2.log",
+      "log_sha256": "e552ae03433c4e27269bfd414d070c27632cea60c51b42f079334b2188927db5",
+      "status": "passed",
+      "scope": "45.89 seconds; current production and 65-context source suite, before independent pin-replay test addition"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "log": "/tmp/mpk-w09-integer-formats-inventory-v1.log",
+      "log_sha256": "08ea3a4d6a199706a92a08c6ef614168be0bb4e948ea7f88883b8e249fbb4e68",
+      "status": "passed",
+      "scope": "5 tests, 16.40 seconds; exact new formatter Std namespace path delta from 117 to 118"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_integer_formats_pinned_sources -- --nocapture",
+      "log": "/tmp/mpk-w09-integer-formats-replay-v1.log",
+      "log_sha256": "04a0f8daa434a9c77fb7722fb2c2f2c8dc3ee1c3ea2959b2929ebe436c23e5b7",
+      "status": "passed",
+      "scope": "65 actual-source contexts regenerated; all 54 certificate files and complete metadata exactly preserved, 14.27 seconds"
+    },
+    {
+      "command": "cargo fmt --all -- --check; gofmt -d go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "log": "/tmp/mpk-w09-integer-formats-format-v1.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "passed",
+      "scope": "Rust and Go formatting output empty"
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --test csharp_practical_vc -- -D warnings",
+      "status": "passed",
+      "scope": "Final current production and both source/pinned tests, 42.37 seconds",
+      "log": "/tmp/mpk-w09-integer-formats-clippy-v3.log",
+      "log_sha256": "31997e65922eda0e23ce4391655ad0e721a6c13f9367f7ad8c7b199702d58e7a"
+    },
+    {
+      "command": "/usr/bin/git diff --check",
+      "status": "passed",
+      "scope": "Outside sandbox, exit zero after current code/doc changes"
+    },
+    {
+      "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIIntegerFormats$' -count=1 -timeout 0 -v",
+      "log": "/tmp/mpk-w09-integer-formats-checkers-v1.log",
+      "status": "passed",
+      "scope": "All 54 exact pinned certificate byte sequences accepted by both unchanged checkers with zero axioms; hash corruptions rejected; 387.289 seconds",
+      "log_sha256": "e53bbb4daac1f0217a6faa65a1422696c1f715134be65fb909b7b7c115c7d290"
+    },
+    {
+      "command": "MPK_W09_INTEGER_FORMATS_OUT=/tmp/mpk-w09-integer-formats-v2 cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_integer_formats_original_sources -- --nocapture",
+      "log": "/tmp/mpk-w09-integer-formats-suite-v2.log",
+      "log_sha256": "140cbbf08ae86d2dc618cd2f48e118114b1bdbea36999e741c05b6c38cca4d67",
+      "status": "passed",
+      "scope": "65 source contexts, 54 pins and 86 formatter occurrences across ten codecs; all 392 ordinary formatting/model-parse comparisons passed in 4407.63 seconds. Original semantic executable predates only helper visibility, independent pin replay and sibling codec additions; exact pin replay confirms those preserve formatter bytes."
+    }
+  ],
+  "live_jobs": [],
+  "remaining": [
+    "Scoped formatter definition review is complete with no additional actionable finding after all 392 semantic observations passed. This does not close unit 4 or W09.",
+    "Integer parsers are now implemented with 456 passing short observations; full-capacity and both-checker runs are tracked in unit-4-integer-parse-progress.json. Exact registered result linkage and proofs remain open.",
+    "Implement remaining decimal/date/time codecs and strict whole-document JSON relations, then all remaining native/control/transition/proof work in implementation-plan.md units 3\u20138.",
+    "No internal unit completion/commit/push or W09 completion; check-fast.sh remains deferred to T06-W12."
+  ],
+  "subsequent_source_note": "Integer parser integration only widens formatter helper visibility and adds sibling exports/test support. Semantic formatter bodies are unchanged; both-family 65-context replay passed in 23.84 seconds and exactly preserves every formatter pin. The ongoing original formatter semantic process is retained."
+}

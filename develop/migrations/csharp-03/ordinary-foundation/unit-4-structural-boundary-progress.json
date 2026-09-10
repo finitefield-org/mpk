@@ -1,0 +1,122 @@
+{
+  "schema": "mpk.csharp_practical.w09.structural_boundary_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "historical_checkpoint_superseded_by_string_framing",
+  "implementation": "One generation implementation retains existing standalone behavior when boundary mode is false. Boundary mode regenerates the exact boundary VC program, appends the shared JSON environment to the owning structural/Money Builder for nonempty boundary contracts, binds the boundary program hash, and uses a distinct canonical schema. Both entry points independently reconstruct exact metadata and certificate bytes during import. No counters are reset and no existing operation or deferred obligation is removed.",
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_structural_foundations.rs",
+      "sha256": "095d8c5a3d0390c5adb34036a93ecb196cd1005f3915d5b1937c3ed2fb6b846b"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_domains.rs",
+      "sha256": "fbab352accecc2ea7e1503316e8e0d103df4f376a4f6282d3924b380e4cef210"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_relations.rs",
+      "sha256": "95033c80fa9956a2d0a8146c80821515031695816baefe70703a1ffe6b02e620"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_structural.rs",
+      "sha256": "4a6eeafbf6f3a7b5811b5f83a0e06c5ca6fca27e18467281f32584d5af49fc26"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs",
+      "sha256": "a1e69df7a517c53417e65c76faa872170c932924104d5b23a7de19c4153c50db"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+      "sha256": "49601c9ab0cabac598dd2fa1f9cfddebeced95ad01ea1e637c3d218237ae5195"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_token_tests.rs",
+      "sha256": "d2ab120c339c5e15e121e33d7678efdfcf2effca90a2b014c863ed00a195380a"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "sha256": "e56c52af8788c85bea1a0a7b7c0304ca1b02b0d6338fcce3621110aa041fc04c"
+    }
+  ],
+  "verification": [
+    {
+      "session_id": 45102,
+      "command": "MPK_W09_STRUCTURAL_BOUNDARY_OUT=/tmp/mpk-w09-structural-boundary-v1 cargo test -p mpk-vc --test csharp_practical_vc -- csharp_03_t06_w09_structural_boundary_original_sources csharp_03_t06_w09_structural_foundation_original_sources --nocapture --test-threads=1",
+      "log": "/tmp/mpk-w09-structural-boundary-sources-v1.log",
+      "status": "passed",
+      "scope": "Both tests passed in 240.18s: four new actual-source generation/closure/import/mutation cases and exact old 44-source structural replay. All previous structural metadata/certificate pins retained.",
+      "log_sha256": "0f9256ace48cd74476ba772e4dde6f18da9abe956165577be1a416171232f353"
+    },
+    {
+      "session_id": 48032,
+      "command": "cargo clippy -p mpk-vc --lib --test csharp_practical_vc -- -D warnings",
+      "log": "/tmp/mpk-w09-structural-boundary-clippy-v1.log",
+      "status": "passed",
+      "log_sha256": "9e2098ee14e60ea9b95c289461496087041050c319cbbe559450c4c7301f5dec",
+      "scope": "Targeted production/test lint passed in 35.44s."
+    },
+    {
+      "command": "rustfmt --edition 2021 --check --config skip_children=true <seven edited Rust files>",
+      "log": "/tmp/mpk-w09-structural-boundary-format-v1.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "passed"
+    },
+    {
+      "session_id": 66270,
+      "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIStructuralBoundary$/^document-' -count=1 -timeout 0 -v",
+      "log": "/tmp/mpk-w09-structural-boundary-checkers-v1.log",
+      "status": "reported_pass_log_unavailable",
+      "scope": "Prior turn observed exit 0 and three passing cases (741.73s). Temporary log is absent after environment recovery, so this is a historical report, not a newly verified result. Changed certificates are being checked under unit-4-json-string-framing-progress.json."
+    },
+    {
+      "session_id": 40137,
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory -- csharp_03_t01_w02_inventory_closes_every_artifact_and_consumer_edge csharp_03_t01_w02_search_fixtures_reject_added_or_deleted_consumers --nocapture",
+      "log": "/tmp/mpk-w09-structural-boundary-consumers-v1.log",
+      "status": "passed",
+      "scope": "Only two affected consumer-edge tests passed in 39.31s; three unrelated tests filtered out.",
+      "log_sha256": "45625c7c539080c4a23d3d615e0eb921b4762d37213e0def14074fc69c029246"
+    },
+    {
+      "command": "/usr/bin/git diff --check",
+      "status": "passed",
+      "scope": "Current code and verification records, outside sandbox."
+    }
+  ],
+  "test_selection": "Only the changed structural generation path and its boundary integration are executed. The old structural corpus requires exact replay because its generator was refactored. Complete dependency closure allows reuse of unchanged component semantics and byte-identical old checker results. New integrated certificates require distinct-byte dual checking. No unrelated practical suite or whole gate. The added checker fixture requires only the two consumer-edge inventory cases. The unit/void certificate exactly matches its previously verified structural pin, so only three distinct new byte vectors need both checker runs.",
+  "pending": [
+    "Complete typed grammar/cumulative limits, native/transition relations, proof assembly and remaining original W09 requirements"
+  ],
+  "whole_gate": "Deferred to T06-W12.",
+  "completion": "Full W09 incomplete; no component-only commit or push.",
+  "previous_goal_turn_classification": "progress: shared fold/JSON limit failure reproduced and fixed; generated certificates passed both checkers",
+  "pinned_manifest": {
+    "path": "develop/migrations/csharp-03/ordinary-foundation/structural-boundary/previous-string-framing/certificates.json",
+    "sha256": "e47cdd30c3c6bbc1f0d4576b05f7879944b9763f32ece146755b3fe23a17612e",
+    "new_distinct_inputs": [
+      {
+        "id": "document-7a157feb27ed416752b5dde8aa2bf373b9a2c82755d2caa89e955057176ee57b",
+        "hash": "1d820573607983ac4b8d421cb3c0e0b522db15b3adc666fe5a2d0dd40e0ed534"
+      },
+      {
+        "id": "document-decb5507362a7672c711a5befd63efc1038c2c0a86ee20137a1c4c472e0d1684",
+        "hash": "7518f373c7c7a545fa768a39b44762305eb4ae949ee75d8e265bc15de63f47c4"
+      },
+      {
+        "id": "document-6b96fc4eed95a1d33fa5784b9062f02fa07ac65b6aef2b4100bb91e9c2f1a613",
+        "hash": "fe605a188b3ed26f4089de1de377803536138ee1864e4d7f17e2591b27590ab2"
+      }
+    ],
+    "reused_inputs": [
+      "unit-void-source"
+    ]
+  },
+  "review": "unit-4-structural-boundary-review.md",
+  "live_jobs_last_confirmed": [],
+  "this_goal_turn_classification": "progress: source-specific structural/boundary generation and import implemented; all four new source/closure/mutation cases, prior 44-source exact replay, lint/format and affected consumer checks passed.",
+  "recovery_observation": {
+    "date": "2026-09-10",
+    "scope": "Prior temporary test logs are absent in this environment. Sessions 28983, 40861 and 80623 returned Unknown process id. Their prior running status is not evidence of completion. Do not infer pass from missing handles.",
+    "structural_checker": "Earlier turn reported exit 0 for session 66270; log now unavailable for revalidation. Retain this as historical report, not a newly observed pass."
+  },
+  "string_framing_extension": "unit-4-json-string-framing-progress.json"
+}

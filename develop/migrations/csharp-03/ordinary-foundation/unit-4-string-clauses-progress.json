@@ -1,0 +1,438 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.string_clauses_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "status": "string_contract_component_targeted_verification_passed",
+  "observed_at": "2026-09-10T21:00:16.889565+00:00",
+  "component": "Unit 4 string unary/binary contract adapters",
+  "operation_kinds": 21,
+  "legacy_dag_comparisons": 57,
+  "raw_check_observations": 33,
+  "passed": [
+    {
+      "test": "string_contract_",
+      "tests": 2,
+      "seconds": 6.54,
+      "reason": "New adapter cache must preserve legacy DAGs, nullable context/signature identity and independent failed-check predicates.",
+      "log": "verification-logs/string-clauses/string-contract-cache-tests-v3.log"
+    },
+    {
+      "test": "ordinary_quantifier_skips_body_for_empty_or_invalid_ranges",
+      "seconds": 2.16,
+      "reason": "Shared Clauses initialization changed; empty/invalid ranges must still avoid body evaluation.",
+      "log": "verification-logs/string-clauses/string-cache-quantifier-regression-v1.log"
+    },
+    {
+      "test": "csharp_03_t01_w02_inventory_closes_every_artifact_and_consumer_edge",
+      "seconds": 16.0,
+      "reason": "New source test file and adapter paths must retain inventory consumer coverage.",
+      "log": "verification-logs/string-clauses/string-clause-inventory-v1.log"
+    },
+    {
+      "test": "cargo clippy -p mpk-vc --lib --test csharp_practical_vc -- -D warnings",
+      "seconds": 20.66,
+      "reason": "Changed production and integration test compilation. Source fixture warning fix is being rechecked.",
+      "log": "verification-logs/string-clauses/string-clause-clippy-v1.log"
+    },
+    {
+      "test": "csharp_03_t06_w09_string_clauses_candidates",
+      "seconds": 33.71,
+      "reason": "All six source contexts must import, regenerate, retain complete legacy dependency closures and reject body/metadata mutations.",
+      "log": "verification-logs/string-clauses/string-clauses-candidates-v2.log"
+    },
+    {
+      "test": "csharp_03_t06_w09_string_clauses_original_source",
+      "seconds": 56.15,
+      "observations": 67,
+      "definedness_rejections": 18,
+      "revision": "before balanced literal selector fix",
+      "reason": "All source operation and null/range/output-bound attachments observed, using larger fixture stack; does not imply checker acceptance.",
+      "log": "verification-logs/string-clauses/string-clauses-source-v1.log"
+    },
+    {
+      "test": "ordinary_literal_",
+      "tests": 3,
+      "seconds": 49.67,
+      "observations": 32768,
+      "reason": "Large literal encoder changed. All full-capacity role addresses, every partial-carrier child/padding/inactive bit and original scalar/deep-padding pins checked.",
+      "log": "verification-logs/string-clauses/string-literal-balanced-tests-v1.log"
+    },
+    {
+      "test": "csharp_03_t06_w09_string_clauses_candidates",
+      "seconds": 18.6,
+      "reason": "Regenerate six candidates on default stack; only two construction contexts changed. Four other certificate/metadata pairs remain byte-identical.",
+      "log": "verification-logs/string-clauses/string-clauses-candidates-v3.log"
+    },
+    {
+      "test": "csharp_03_t06_w09_string_clauses_original_source",
+      "runtime_prefix": "construction-",
+      "seconds": 33.48,
+      "observations": 24,
+      "definedness_rejections": 2,
+      "reason": "Only changed construction contexts re-evaluated; all six output certificate and metadata pairs match final pins. Other 43 observations and 16 failures retained from identical-byte v1 contexts.",
+      "log": "verification-logs/string-clauses/string-clauses-source-v2.log"
+    },
+    {
+      "test": "cargo clippy -p mpk-vc --lib --test csharp_practical_vc -- -D warnings",
+      "seconds": 44.35,
+      "reason": "Final balanced encoder and runtime selection test changes.",
+      "log": "verification-logs/string-clauses/string-clause-final-clippy-v1.log"
+    },
+    {
+      "test": "TestCheckerAgreementWithRustCLIStringClauses/construction-",
+      "command": "GOCACHE=/tmp/mpk-w09-go-cache go test -timeout 0 -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIStringClauses$/^construction-' -count=1 -v",
+      "cwd": "go-tools/mpk-checker-ref",
+      "seconds": 93.336,
+      "cases": 2,
+      "reason": "Two changed construction certificates accepted by both unchanged checkers with zero axioms, matching reports/hashes; hash corruptions reject. Other four final certificates are identical to passing v1 cases.",
+      "log": "verification-logs/string-clauses/string-clauses-checkers-v2.log"
+    },
+    {
+      "test": "rustfmt --check --edition 2021 --config skip_children=true",
+      "reason": "Final changed literal encoder and source fixture formatting.",
+      "log": "verification-logs/string-clauses/string-clause-final-format-v1.log"
+    }
+  ],
+  "capture_attempts": [
+    {
+      "version": 1,
+      "accepted": 2,
+      "rejected": 4,
+      "reason": "Strict frontend rejects compiler warnings in generated test source: unused constant locals and possible null dereferences. Fix source fixtures, retain compiler policy.",
+      "responses": "verification-logs/string-clauses/capture-v1-responses.json"
+    },
+    {
+      "version": 2,
+      "status": "completed",
+      "session_id": 27993,
+      "requests": "/tmp/mpk-w09-string-clause-requests-v2.json",
+      "responses": "/tmp/mpk-w09-string-clause-responses-v2.json",
+      "log": "/tmp/mpk-w09-string-clause-capture-v2.log",
+      "accepted": 4,
+      "rejected": 2,
+      "reason": "Ordinal fixtures used CompareOrdinal outside the frozen framework API surface; corrected to Compare with StringComparison.Ordinal."
+    },
+    {
+      "version": 3,
+      "status": "completed",
+      "session_id": 96588,
+      "requests": "/tmp/mpk-w09-string-clause-requests-v3-ordinal.json",
+      "responses": "/tmp/mpk-w09-string-clause-responses-v3-ordinal.json",
+      "log": "/tmp/mpk-w09-string-clause-capture-v3.log",
+      "reason": "Only two changed ordinal inputs recaptured; other four requests compared exactly equal to accepted v2 requests.",
+      "accepted": 2,
+      "rejected": 0
+    }
+  ],
+  "remaining_component_work": [],
+  "full_gate": {
+    "status": "deferred",
+    "target": "CSHARP-03-T06-W12"
+  },
+  "scope_limits": [
+    "Legacy helpers remain unchanged; raw failure aliases are appended.",
+    "Synthetic nullable signatures are lowering tests, not native source evidence.",
+    "Larger-arity native calls and application/native-body proofs are outside this component.",
+    "Original units 3-8 remain open; this is not an original-unit completion or commit boundary."
+  ],
+  "review": "unit-4-string-clauses-review.md",
+  "native_contexts_accepted": 6,
+  "live_jobs": [],
+  "candidate_attempts": [
+    {
+      "version": 1,
+      "status": "failed",
+      "reason": "Default test thread stack overflowed after two basic contexts passed; construction includes a full-capacity UTF-16 literal. Retry uses existing full-capacity fixture convention of a 64 MiB worker stack.",
+      "log": "verification-logs/string-clauses/string-clauses-candidates-v1.log"
+    }
+  ],
+  "attachments": 67,
+  "certificate_bytes_total": 576246,
+  "largest_certificate_bytes": 137380,
+  "capture": "string-clauses/capture-receipt.json",
+  "certificates": "string-clauses/certificates.json",
+  "source_files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_string.rs",
+      "bytes": 31743,
+      "sha256": "2d7b21bb7334ff8194e632723ad20546db9cd7a49b0dd83f6e3bc459114d95b6"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_scalar_bits.rs",
+      "bytes": 58463,
+      "sha256": "9c3757dc88c5a653885891773a5b786d255e740900581c6e0902d241f556d2cb"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_source_clauses.rs",
+      "bytes": 77579,
+      "sha256": "533ee3cd6e58faa790d461e61073ad3020367a2390e6ad286b4e077a2fbacb15"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_quantifiers.rs",
+      "bytes": 20857,
+      "sha256": "f70e6e7db4c07b13250cd3f10fda485416dc3084b2dc41b8e0fe22614ed3d625"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_string_clause_tests.rs",
+      "bytes": 22917,
+      "sha256": "73fa341e8fe53e35ffd73d2196d5a68ec623dd435621259c41bbe4203be72bea"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_contract_expression_tests.rs",
+      "bytes": 29109,
+      "sha256": "35f8b1d1a14c5c815877e6ce871a74366a360111c8334348d0b84249c53a8b6f"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "bytes": 25716,
+      "sha256": "b4f5e5dae7e08039656a9580a42fff8b04d6948290295485ef7682a3cba95d66"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_literals.rs",
+      "bytes": 28863,
+      "sha256": "8fd92a71aacae8cc0a5db4a47d12e3ff1617470c154a1f5dea2d0745a20d89a2"
+    }
+  ],
+  "checker_attempts": [
+    {
+      "version": 1,
+      "status": "failed",
+      "seconds": 120.892,
+      "passed_contexts": [
+        "basic-nonnull",
+        "basic-nullable",
+        "ordinal-nonnull",
+        "ordinal-nullable"
+      ],
+      "failed_contexts": [
+        "construction-nonnull",
+        "construction-nullable"
+      ],
+      "reason": "Rust checker process stack overflow on linear 16,384-slot literal mux chains; treated as execution failure, never proof acceptance.",
+      "log": "verification-logs/string-clauses/string-clauses-checkers-v1.log"
+    }
+  ],
+  "fix": "Use balanced address selection for literals with more than 256 child slots, preserving small literal bytes, padding, inactive zeros and role ordering. Removed the temporary large-stack source fixture wrapper; verify on default stack and unchanged checker.",
+  "affected_scope_audit": "Scanned all ordinary-foundation/*/requests.json contract sidecars: only string-clauses has string literal values longer than 256. Small literal generation and pins remain unchanged.",
+  "runtime_observations": 67,
+  "failure_definedness_rejections": 18,
+  "same_byte_checker_reuse": [
+    {
+      "id": "basic-nonnull",
+      "certificate_sha256": "8c824c97fc93e8d2d0df681fefe6298c1a6680766d6e60b4040aef81d44f3888",
+      "log": "verification-logs/string-clauses/string-clauses-checkers-v1.log"
+    },
+    {
+      "id": "basic-nullable",
+      "certificate_sha256": "d07abe8dc407b7799f92080f7f694c7c05bbb7d451c2028604fdcbebec88ffa2",
+      "log": "verification-logs/string-clauses/string-clauses-checkers-v1.log"
+    },
+    {
+      "id": "ordinal-nonnull",
+      "certificate_sha256": "f920c5c2f16d1fac960ab005a0013fe3e854ed017e644f55c69af6d1b91d6ff3",
+      "log": "verification-logs/string-clauses/string-clauses-checkers-v1.log"
+    },
+    {
+      "id": "ordinal-nullable",
+      "certificate_sha256": "cca11a42559c6d1ebe41d88e49a99deaa8a843092fb10324cd19a401642c628c",
+      "log": "verification-logs/string-clauses/string-clauses-checkers-v1.log"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "verification-logs/string-clauses/capture-inputs.json",
+      "bytes": 19763,
+      "sha256": "8befa15a01a4209c159d509013d3ab9b28b8ded95f1ae909b24f655390354c2c"
+    },
+    {
+      "path": "verification-logs/string-clauses/capture-v1-requests.json",
+      "bytes": 93315,
+      "sha256": "2a8c5e7b86b22ee55fddd1e863bd10d0a7bd05a4c209e5ac2751e189648a7535"
+    },
+    {
+      "path": "verification-logs/string-clauses/capture-v1-responses.json",
+      "bytes": 71907,
+      "sha256": "5f1665e3e4ac89618f62af5f718b784e9c1e9da35fc3f9eba5cd91996077c2c1"
+    },
+    {
+      "path": "verification-logs/string-clauses/capture-v2-requests.json",
+      "bytes": 93112,
+      "sha256": "89b7c9b828b0de3e15d3bee308566031b96a55a530ecff3d51ce9cf844975e19"
+    },
+    {
+      "path": "verification-logs/string-clauses/capture-v2-responses.json",
+      "bytes": 88806,
+      "sha256": "1899b276d6889677167577dee3085badbbbeaa24341f0801ce984ab27255fddb"
+    },
+    {
+      "path": "verification-logs/string-clauses/capture-v3-ordinal-requests.json",
+      "bytes": 27697,
+      "sha256": "924bb0414464fd0691cde779a09329ccd0fe49f5946e421110ed392232053063"
+    },
+    {
+      "path": "verification-logs/string-clauses/capture-v3-ordinal-responses.json",
+      "bytes": 55195,
+      "sha256": "c011b5ff89763cc3f3e900ca2c5506b851f7fe902a4f34d40d4af50800a37a8b"
+    },
+    {
+      "path": "verification-logs/string-clauses/capture-v3-requests.json",
+      "bytes": 93148,
+      "sha256": "7236a33c3d681cfc7d478a63aafe01248df1bce5230a19623bdacded35b4258c"
+    },
+    {
+      "path": "verification-logs/string-clauses/capture-v3-responses.json",
+      "bytes": 135129,
+      "sha256": "ed9d34a00062ce1a83d390f2c018f12da7c66a1fea05b1ff96ad628ce5153ba9"
+    },
+    {
+      "path": "verification-logs/string-clauses/string-cache-quantifier-regression-v1.log",
+      "bytes": 486,
+      "sha256": "fd17a40941cdbb7afd1bbeecbb36e6adbb35b313d18cc4493e1417c2dc8e5866"
+    },
+    {
+      "path": "verification-logs/string-clauses/string-clause-capture-v1.log",
+      "bytes": 96,
+      "sha256": "b54783e7f03a494ff5bd47f4478ef297095ffb7feeb71eefcecd239ae331398b"
+    },
+    {
+      "path": "verification-logs/string-clauses/string-clause-capture-v2.log",
+      "bytes": 96,
+      "sha256": "b54783e7f03a494ff5bd47f4478ef297095ffb7feeb71eefcecd239ae331398b"
+    },
+    {
+      "path": "verification-logs/string-clauses/string-clause-capture-v3.log",
+      "bytes": 96,
+      "sha256": "b54783e7f03a494ff5bd47f4478ef297095ffb7feeb71eefcecd239ae331398b"
+    },
+    {
+      "path": "verification-logs/string-clauses/string-clause-clippy-v1.log",
+      "bytes": 198,
+      "sha256": "215b8e8f3243caa5caddcac02abae0b9f7430bb2649c0a7b5c3550336cd512ec"
+    },
+    {
+      "path": "verification-logs/string-clauses/string-clause-clippy-v2.log",
+      "bytes": 143,
+      "sha256": "54eb9c620147097be0f1979a4d075f05df46447c5b506c578bdeb886e0b8d969"
+    },
+    {
+      "path": "verification-logs/string-clauses/string-clause-clippy-v4.log",
+      "bytes": 143,
+      "sha256": "dc784c6379e3332cbe688871a5ca83f5ad687dadb14e044c7255ca4513a5e5d4"
+    },
+    {
+      "path": "verification-logs/string-clauses/string-clause-final-clippy-v1.log",
+      "bytes": 198,
+      "sha256": "aaf759332d5d6de2734f49b4d11757bddf04e3ef6a08f3b72f7222a1cd03f7b7"
+    },
+    {
+      "path": "verification-logs/string-clauses/string-clause-final-format-v1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "verification-logs/string-clauses/string-clause-format-v3.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "verification-logs/string-clauses/string-clause-inventory-v1.log",
+      "bytes": 450,
+      "sha256": "24e6fa2759bfcda0c96a9ed362fbde54fc942e7904cd3d4bea14275bb2ed74cc"
+    },
+    {
+      "path": "verification-logs/string-clauses/string-clause-inventory-v4.log",
+      "bytes": 379,
+      "sha256": "1e90ba829853ebc86608be593376041acd3436583c72da7744be1f6b68a803e0"
+    },
+    {
+      "path": "verification-logs/string-clauses/string-clause-requests-v1.log",
+      "bytes": 499,
+      "sha256": "8523a4b7b95bbd7a6fa9beec80bacac4a3f0b3741d92cf28d670072f8e4e7e39"
+    },
+    {
+      "path": "verification-logs/string-clauses/string-clause-requests-v2.log",
+      "bytes": 498,
+      "sha256": "fd9d638a420da22b4618bd68de8834ee9ac18a4f21faf0c1180805db3d278c47"
+    },
+    {
+      "path": "verification-logs/string-clauses/string-clause-requests-v3.log",
+      "bytes": 498,
+      "sha256": "dc27273df30d9ef2a143e0b8e5d5e00bcab9265b6fcd880e2a77dc21d0f9b372"
+    },
+    {
+      "path": "verification-logs/string-clauses/string-clauses-candidates-v1.log",
+      "bytes": 867,
+      "sha256": "ed158df4aa5edc33c6b8d276837f48c901c3f4eaa49c460ed687750c1c470137"
+    },
+    {
+      "path": "verification-logs/string-clauses/string-clauses-candidates-v2.log",
+      "bytes": 1075,
+      "sha256": "169332663fd4c7d12f420e63bf8ebe010fcfb59e2738a3e3c7b8753120e3cca6"
+    },
+    {
+      "path": "verification-logs/string-clauses/string-clauses-candidates-v3.log",
+      "bytes": 1075,
+      "sha256": "3b602d3c3b37617dbe22aa0f8a088217018a38bd1f7222de994f7271e7be4fe0"
+    },
+    {
+      "path": "verification-logs/string-clauses/string-clauses-checkers-v1.log",
+      "bytes": 1828,
+      "sha256": "61f82738a2f267b5cc1f2cd9c7dde8d3e871703489127bcc711af91e5a2420dc"
+    },
+    {
+      "path": "verification-logs/string-clauses/string-clauses-checkers-v2.log",
+      "bytes": 541,
+      "sha256": "6179912b72e9acfea914443a31af2c431c7a992a6077f700e5ac098d98084c78"
+    },
+    {
+      "path": "verification-logs/string-clauses/string-clauses-source-v1.log",
+      "bytes": 1004,
+      "sha256": "017dbf8c5b8ae4d6afa81ac4909f2e80f6e017e76884d3f94ce02627ae1831fc"
+    },
+    {
+      "path": "verification-logs/string-clauses/string-clauses-source-v2.log",
+      "bytes": 1075,
+      "sha256": "e3627dd38d4d789d7a96db5fac38e54a9f787e31e7fdc5f0abdf2e13ccbfcda3"
+    },
+    {
+      "path": "verification-logs/string-clauses/string-contract-cache-check-v1.log",
+      "bytes": 144,
+      "sha256": "6db2f7bc644550b6db9563b4e9c8242c7d0d670ee01babac708b55c6eeb8a608"
+    },
+    {
+      "path": "verification-logs/string-clauses/string-contract-cache-clippy-v1.log",
+      "bytes": 198,
+      "sha256": "a52f8c187ae6b83766d201189bb4982e6cf0cb8ea9627e08229c50d74e3bc480"
+    },
+    {
+      "path": "verification-logs/string-clauses/string-contract-cache-tests-v1.log",
+      "bytes": 860,
+      "sha256": "2f390f09a631a35f4e333579b9e95136c85cc7480cc04f4ef8d48543a7d4585e"
+    },
+    {
+      "path": "verification-logs/string-clauses/string-contract-cache-tests-v2.log",
+      "bytes": 806,
+      "sha256": "d5dff8149b25c499d36cb30f0cfdeb8e31b390b8110ce6c1fb05283ea4ddb7ab"
+    },
+    {
+      "path": "verification-logs/string-clauses/string-contract-cache-tests-v3.log",
+      "bytes": 806,
+      "sha256": "e893993121eb59416fd73c41c4668efa5e79af37420faff562644f6d1c00d163"
+    },
+    {
+      "path": "verification-logs/string-clauses/string-literal-balanced-clippy-v1.log",
+      "bytes": 144,
+      "sha256": "472be438c97792b6c284ddecfb6d46016e77c33a001c10b1795f4605dbf1b416"
+    },
+    {
+      "path": "verification-logs/string-clauses/string-literal-balanced-format-v1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "verification-logs/string-clauses/string-literal-balanced-tests-v1.log",
+      "bytes": 769,
+      "sha256": "f739a466257c9cf86fa4d681e528320d90a0175696691d884061f302cc45fd8a"
+    }
+  ],
+  "inventory_note": "Final inventory run v4 passed in 15.95s after adding the Go entry. The subsequent balanced-selector and runtime-prefix edits stay within existing files and introduce no new artifact consumer route."
+}

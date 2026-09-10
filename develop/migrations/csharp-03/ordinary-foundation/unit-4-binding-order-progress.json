@@ -1,0 +1,242 @@
+{
+  "schema": "mpk.csharp_practical.w09.binding_order_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "partial_order_definitions_verified_not_unit_completion",
+  "source_contexts_examined": 45,
+  "order_contexts": 9,
+  "order_predicate_occurrences": 10,
+  "nonordering_contexts_with_unchanged_bytes": 36,
+  "max_terms": 43258,
+  "max_declarations": 511,
+  "max_static_transformers": 8594,
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_binding_orders.rs",
+      "sha256": "8107ef3142b7bfeb01322c4682f3254107fd664cf84839e37284a276c7dbae4b"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_binding_guards.rs",
+      "sha256": "8b1d86a37790617dd92ec70f52ebca9e61543824f228e43875e0756e851aa83f"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_binding_relations.rs",
+      "sha256": "9e5611a248b610d9b5133d011e1a1347480d49bb8f0663a61d10ac8afafacc20"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_relations.rs",
+      "sha256": "e98d026949629be0208105bd0f208021a120ae095a303fdafbcb8149aef5244d"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_structural.rs",
+      "sha256": "90c8078a8a1305f45482f5366c0c3ffb888204f23834f09a5ca9b046c6f17c8a"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs",
+      "sha256": "645410a96e20f9632be61036464496f3e09fb5b4dce6308b774efb40b06d57fb"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+      "sha256": "63e58ef3b9f37a5289da1c26ca3534d0c2d94906c69dad54e1788c8574d9e0fd"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_binding_order_tests.rs",
+      "sha256": "5d3cae04294b55992ee8f0bf0d26f42b912129168dc1f409fd448ab8e7aefd2a"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_binding_guard_tests.rs",
+      "sha256": "86d76c286b518141eff83cd8ee88e3d5b47c357e6b4afa40c1cf6cc188e4618f"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "sha256": "b333a74aa341d12afe4ddde52d9591fe9459d875443f3fe4aeb195d500d4ad58"
+    }
+  ],
+  "pins": [
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-orders/binding-vc-ordered_map.hex",
+      "sha256": "c1dc2d6565ba4cc48f41d184776935b70409b2bc2597487b75ca376565975ee2"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-orders/binding-vc-ordered_set.hex",
+      "sha256": "32c65614a63c25b825402b3bcfd9c0c03add64cb968f1e45836028dcb81faf95"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-orders/boundary-map-compound.hex",
+      "sha256": "369c207d28cae0bdf1bcdcfdac5d20212a63782df048c0f70c531aa5ca8d999d"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-orders/boundary-map-decimal.hex",
+      "sha256": "13d78f12da68cd49fffe0231a87962949d4ae6bfdd6a26f7ea190d4d08ba5b6a"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-orders/boundary-map-string.hex",
+      "sha256": "bbdd09701cd8f22a1692a0e7537ca3c83f6752a83fb5828b7727de5a5fab9329"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-orders/boundary-set-decimal.hex",
+      "sha256": "14f4c1faff5be738a95257ae316c91fbd3fa004b3537dfc2b4a47212c2d1086f"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-orders/extra-bool-float-map.hex",
+      "sha256": "80a18230d8ff92f8d5b8b317f55ca46eedde65a53f6c0ba110a14dd5c87b1ebf"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-orders/extra-bool-nullable-map.hex",
+      "sha256": "21235d3684e57a1065d876f7ec9226317bae4cc499c708bcfb711382560621f7"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-orders/extra-shared-lookup-maps.hex",
+      "sha256": "2ef0c17bbe3ac1f8646bf477d356792551c4087c515be20045ea00d43edf0287"
+    }
+  ],
+  "metadata": {
+    "path": "develop/migrations/csharp-03/ordinary-foundation/binding-orders/certificates.json",
+    "sha256": "1d1dcba0fc3ee1e9f1aea77d595c0349b549c4719a6bf3912cd131d7c5582747"
+  },
+  "verification": [
+    {
+      "command": "cargo check -p mpk-vc",
+      "log": {
+        "path": "/tmp/mpk-w09-binding-orders-check-v1.log",
+        "sha256": "0a4e692fa9289b710c9d024ef9543d2a6fb819f441289430f4dacc8e8b9c0971"
+      },
+      "result": "passed",
+      "scope": "New production order module and exports"
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --test csharp_practical_vc -- -D warnings",
+      "log": {
+        "path": "/tmp/mpk-w09-binding-orders-clippy-v2.log",
+        "sha256": "ad9aa05a1be38316c2462ff41fea0aefd5761c649f763d0e427465eed05d2f9b"
+      },
+      "result": "passed",
+      "scope": "Latest test and implementation; replaced unnecessary Box allocation after lint v1 finding"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "log": {
+        "path": "/tmp/mpk-w09-binding-orders-inventory-v1.log",
+        "sha256": "5423b9759fc0b0a344c9d2ca91cf11b88f27f2c7ee7e73d1600bb2620ad79436"
+      },
+      "result": "5 passed; 21.14 seconds",
+      "scope": "All scoped consumer/inventory tests; no new historical namespace path in this component"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_binding_orders_original_source_certificates -- --nocapture",
+      "log": {
+        "path": "/tmp/mpk-w09-binding-orders-replay-v1.log",
+        "sha256": "f7310b35fa54216a30ffe06edcf462dce4331d87bbd0217c7978568cf1edbf3f"
+      },
+      "result": "1 passed; 66.20 seconds",
+      "scope": "All 45 source contexts: preserve all 45 base guard pins; nine new pinned certificates resolve ten exact demanded predicates; 36 nonordering contexts retain identical certificate bytes; base definition closure equivalence, import/context/schema/certificate mutation rejection"
+    },
+    {
+      "command": "cargo fmt --all -- --check",
+      "log": {
+        "path": "/tmp/mpk-w09-binding-orders-format-v1.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "result": "passed",
+      "scope": "Formatting"
+    },
+    {
+      "command": "/usr/bin/git diff --check",
+      "result": "passed",
+      "scope": "Whitespace check outside sandbox"
+    },
+    {
+      "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIBindingOrders$' -count=1 -timeout 0 -v",
+      "result": "passed; 9 certificates; 247.406 seconds",
+      "scope": "Both unchanged checkers accept the exact same bytes with zero axioms and reject hash-corrupted bytes.",
+      "log": {
+        "path": "/tmp/mpk-w09-binding-orders-checkers-v1.log",
+        "sha256": "08fb3edbcac402828779407aa7b040474da4aa490e398af0bf79f003a4e08cf9"
+      }
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --test csharp_practical_vc -- -D warnings",
+      "result": "passed; 50.76 seconds",
+      "scope": "Latest test code including separate string/compound edge cases",
+      "log": {
+        "path": "/tmp/mpk-w09-binding-orders-clippy-v3.log",
+        "sha256": "8921c1776f1a66524fa51a78d72273d2f2cab2754898bfbb1654909bf90baeae"
+      }
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_binding_orders_string_compound_edges -- --nocapture",
+      "result": "1 passed; 8 observations; 3.01 seconds",
+      "scope": "Original-source structural-key equal-prefix/field-priority and ordinal UTF-16 prefix/surrogate-boundary cases",
+      "log": {
+        "path": "/tmp/mpk-w09-binding-orders-string-edges-v1.log",
+        "sha256": "6c7fcc020698076eb6b30c5b8bb91fceb5d77d5a4e2701905f58a170b21afdc8"
+      }
+    },
+    {
+      "command": "cargo fmt --all -- --check",
+      "result": "passed",
+      "scope": "Latest code including string/compound edge cases",
+      "log": {
+        "path": "/tmp/mpk-w09-binding-orders-format-v2.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "command": "MPK_W09_BINDING_ORDERS_OUT=/tmp/mpk-w09-binding-orders-v1 cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_binding_orders_ -- --nocapture",
+      "result": "3 passed; 1124.53 seconds",
+      "scope": "45-context generation, 140 source semantic observations and six full-capacity map/set observations. Executable predates only allocation-only test lint fix and separately verified eight-edge test.",
+      "log": {
+        "path": "/tmp/mpk-w09-binding-orders-suite-v1.log",
+        "sha256": "506430216d459ea1d10a0a01f693ea994c4598b2aa3179b571be354dcc86af0b"
+      }
+    }
+  ],
+  "live_jobs": [],
+  "other_w09_jobs": [
+    {
+      "session_id": 23035,
+      "log": "/tmp/mpk-w09-domains-remaining-source-v7.log",
+      "scope": "Unit 3 deep domain cases: decimal collection test passed; string/compound and total-cell tests remain live."
+    },
+    {
+      "session_id": 22106,
+      "log": "/tmp/mpk-w09-money-semantics-v1.log",
+      "scope": "Original-source Money semantic matrix"
+    }
+  ],
+  "full_gate": "Deferred to T06-W12; no check-fast or equivalent full gate executed.",
+  "remaining": [
+    "This order component has no live verification jobs. Remaining W09 domain/Money validation and reconstruction/codecs/native/proof work retain their independent scope.",
+    "Binding reconstruction, native operation/outcome/default-use witnesses and canonical codec relations.",
+    "All remaining units 3-8 per implementation-plan.md and unchanged complete W09 acceptance."
+  ],
+  "commit_push": "Not performed: partial internal unit 4; commit boundaries remain complete internal units.",
+  "completed_other_w09_jobs": [
+    {
+      "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIBindingRelations$' -count=1 -timeout 0 -v",
+      "result": "passed; 45 certificates; 1535.579 seconds",
+      "scope": "Corrected binding observation relations: identical bytes accepted by both unchanged checkers, zero axioms and hash-corruption rejection.",
+      "log": {
+        "path": "/tmp/mpk-w09-binding-observation-checkers-v2.log",
+        "sha256": "75ca012663dee6579d7088f2dea325c36672cd218824bcf33617f3c3f618b4fe"
+      }
+    },
+    {
+      "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIBindingGuards$' -count=1 -timeout 0 -v",
+      "result": "passed; 45 certificates; 1329.647 seconds",
+      "scope": "Both unchanged checkers accept identical guard certificate bytes with zero axioms and reject hash-corrupted bytes.",
+      "log": {
+        "path": "/tmp/mpk-w09-binding-guards-checkers-v1.log",
+        "sha256": "2169e0954dd483dbae200de40688b54ddca5637fbe0491c92cb67010056a7321"
+      }
+    }
+  ],
+  "successful_subtests": {
+    "full_capacity": {
+      "result": "6 observations passed",
+      "scope": "Both integer map and set at 4096 elements: full ascending; duplicate at index 2048; duplicate at index 4095.",
+      "log": "/tmp/mpk-w09-binding-orders-suite-v1.log",
+      "note": "Passed subtest inside still-running three-test process; not a claim that the whole source-semantics suite has passed."
+    }
+  }
+}

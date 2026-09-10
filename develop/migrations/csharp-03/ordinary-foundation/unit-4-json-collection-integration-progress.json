@@ -1,0 +1,230 @@
+{
+  "schema": "mpk.csharp_practical.w09.json_collection_integration_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "shared_generation_limits_and_dual_checkers_passed_runtime_regressions_in_progress",
+  "scope": "Compose the actual full collection fold and JSON lexical definitions using one Builder and cumulative counters; retain all original W09 requirements.",
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_scalar_bits.rs",
+      "sha256": "807c32fd77a2e5fa218b20726fea1c44821644e0c81a216db0f99e3bb91140d7"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_tokens.rs",
+      "sha256": "5d43654a52a9b2d8a4a68faef269168c44c0801f13ddf15a16765274c65ca103"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_ordered_fold.rs",
+      "sha256": "ceeb3945d85832d4548ce586a3a4679625490da83bc566a4b80dfdf06864479c"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_string_parse.rs",
+      "sha256": "abc5e7dcffefc5fc658dc6ca5bf2fcd508a11e643d5fd260aa22acdf3e58c2a0"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_string_parse_tests.rs",
+      "sha256": "3133725551f03503d26e868bf200a20e9e34d2fd16d16f41a01420513a561e16"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_token_tests.rs",
+      "sha256": "d2ab120c339c5e15e121e33d7678efdfcf2effca90a2b014c863ed00a195380a"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_boundary_fragments.rs",
+      "sha256": "598aec666ad96bd280f528fcb0ebe926f789d9f46efabc7a72ccccb63b981900"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "sha256": "cff66650344d08304d4b8643929d00f80758dbf1b86983c768b2e40e4dacc24a"
+    }
+  ],
+  "verification": [
+    {
+      "session_id": 98874,
+      "log": "/tmp/mpk-w09-json-collection-budget-v1.log",
+      "log_sha256": "822ba6d80596d87c93a15316681f2e0662a208bc478dd64c7c8a255443cada26",
+      "status": "passed_auxiliary_only_insufficient_for_full_fold",
+      "scope": "Standalone shared-emitter bytes matched the verified scalar checkpoint. Auxiliary-only integration passed but collection count was zero, so this does not establish full fold coexistence."
+    },
+    {
+      "session_id": 65435,
+      "command": "cargo test -p mpk-vc --lib csharp_03_t06_w09_json_and_collection_folds_share_budget -- --nocapture",
+      "log": "/tmp/mpk-w09-json-collection-budget-v2.log",
+      "status": "failed_limit",
+      "scope": "Actual full collection pipeline count 8192; JSON scan reached cumulative 8399 before adding 8193 leaves, which would exceed 16384. Reproduced Limit in 2.02s; terminal exit 101.",
+      "log_sha256": "4d9b463efe0878f9e32025d06dcd909a23c2b52217fd42a01ca24f223f4cf38e"
+    },
+    {
+      "session_id": 29310,
+      "command": "MPK_W09_JSON_TOKENS_OUT=/tmp/mpk-w09-json-tokens-regroup-v1 MPK_W09_JSON_STRING_PARSERS_OUT=/tmp/mpk-w09-json-string-parsers-regroup-v1 cargo test -p mpk-vc --test csharp_practical_vc -- csharp_03_t06_w09_json_tokens_original_sources csharp_03_t06_w09_json_string_parsers_original_sources --nocapture --test-threads=1",
+      "log": "/tmp/mpk-w09-json-regroup-sources-v1.log",
+      "status": "passed",
+      "scope": "Both 68-context/three-program source suites passed exact scan expansion, all other dependency closure and import/mutation checks in 148.04s. Pins staged with complete read-back equality; one distinct byte vector per family.",
+      "log_sha256": "9fee000003cb16eb0115bbc26ae36b9c77419c737b139452215e76aa91fc4dea"
+    },
+    {
+      "session_id": 78056,
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc -- csharp_03_t06_w09_json_scan_regroup_boundaries csharp_03_t06_w09_json_scan_regroup_audit_mutations --nocapture --test-threads=1",
+      "log": "/tmp/mpk-w09-json-regroup-targeted-v1.log",
+      "status": "passed",
+      "scope": "Both regroup tests passed in 574.86s: ten whole/prefix boundary pairs, eight mixed/error cases; shortened sequence, changed Step and source argument mutations rejected.",
+      "log_sha256": "51ab25ea9b5c3be6d35b9148e45c07e9b04fa509f3678d610f255487fc0d6ae8"
+    },
+    {
+      "session_id": 28983,
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_json_string_prefix_full_decoded_bound -- --nocapture",
+      "log": "/tmp/mpk-w09-json-regroup-full-bound-v1.log",
+      "status": "running",
+      "scope": "Affected terminal partial group at 16384/16385 decoded units; existing older full-bound jobs retained"
+    },
+    {
+      "session_id": 87163,
+      "command": "cargo clippy -p mpk-vc --lib --test csharp_practical_vc -- -D warnings",
+      "log": "/tmp/mpk-w09-json-regroup-clippy-v1.log",
+      "status": "passed",
+      "scope": "Before final helper-reuse guards and shared pin writer; 1m13s.",
+      "log_sha256": "95f29416b091e47a95c1e0a9f68d6ed2140ad49da78c06f9f1a5ec6d2f89f35b"
+    },
+    {
+      "session_id": 13266,
+      "command": "MPK_W09_SHARED_JSON_OUT=/tmp/mpk-w09-json-collection-shared-v3 cargo test -p mpk-vc --lib csharp_03_t06_w09_json_and_collection_folds_share_budget -- --nocapture",
+      "log": "/tmp/mpk-w09-json-collection-budget-v3.log",
+      "status": "passed",
+      "scope": "Current standalone bytes match the regrouped source pins; preexisting C19/C24 helper reuse, complete collection pipeline plus JSON, canonical shared certificate generation passed in 4.42s. Total 12842 transformers.",
+      "log_sha256": "66c6f0f91f90d7a60e70e80e3dd71a334106648f7f7d511c4bd8802c21029f6d"
+    },
+    {
+      "session_id": 94070,
+      "command": "cargo clippy -p mpk-vc --lib --test csharp_practical_vc -- -D warnings",
+      "log": "/tmp/mpk-w09-json-regroup-clippy-v2.log",
+      "status": "passed",
+      "scope": "Final helper guards and pin writer lint passed; 49.75s including lock wait.",
+      "log_sha256": "170d3c105eb3af65acf050f77b9e66577beee5b688df2971c8de1ce216883297"
+    },
+    {
+      "session_id": 77433,
+      "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIJson(StringParsers|Tokens)$/^document-6b96fc4eed95a1d33fa5784b9062f02fa07ac65b6aef2b4100bb91e9c2f1a613[.]hex$' -count=1 -timeout 0 -v",
+      "log": "/tmp/mpk-w09-json-regroup-checkers-v1.log",
+      "status": "passed",
+      "scope": "Both distinct regrouped certificate inputs passed Rust/Go same-byte zero-axiom agreement and hash corruption rejection: string parser 153.38s, shared token 68.02s, command total 242.652s. Three source certificate vectors per family were explicitly byte-identical.",
+      "log_sha256": "d0917bb996994e2cb3ed08f97deaa118ade6b3150443ba2f3dcc0c00bbaebcf4"
+    },
+    {
+      "session_id": 4110,
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory -- csharp_03_t01_w02_inventory_closes_every_artifact_and_consumer_edge csharp_03_t01_w02_search_fixtures_reject_added_or_deleted_consumers --nocapture",
+      "log": "/tmp/mpk-w09-json-regroup-consumers-v1.log",
+      "status": "passed",
+      "scope": "Only two affected consumer-edge tests passed in 39.42s; three unrelated inventory tests filtered out.",
+      "log_sha256": "603967145b12591a66460a74a98358854208d4f755740e0e0235ad19509a93bd"
+    },
+    {
+      "session_id": 21394,
+      "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIJsonCollectionShared$' -count=1 -timeout 0 -v",
+      "log": "/tmp/mpk-w09-json-collection-shared-checkers-v1.log",
+      "status": "passed",
+      "scope": "Combined full collection/JSON certificate passed both same-byte checkers with zero axioms and hash corruption rejection in 132.85s (command total 133.139s).",
+      "log_sha256": "cd5d062268078a48f26002a63e99e4461f6ab59c4163cbf017f4f9fe79b7f53e"
+    },
+    {
+      "command": "rustfmt --edition 2021 --check --config skip_children=true <seven edited Rust files>; gofmt -l checker_agreement_test.go",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-json-regroup-format-v2.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "scope": "Final edited-file formatting; no Go file reported."
+    },
+    {
+      "command": "/usr/bin/git diff --check",
+      "status": "passed",
+      "scope": "Current tracked edits, outside sandbox."
+    }
+  ],
+  "review_findings": [
+    {
+      "issue": "The initial integration test initialized auxiliary functions without demanding the lazy full collection pipeline.",
+      "fix": "Emit the actual depth-14 fold and assert its nonzero full pipeline cost before testing cumulative emission."
+    },
+    {
+      "issue": "Full collection and current JSON string scan cannot share the required 16384 cumulative transformer budget.",
+      "fix": "Implemented 4096 StepFour groups and a final StepTwo; exact 16386-packet expansion and all remaining declaration closures passed in both source corpora."
+    },
+    {
+      "issue": "Shared structural storage can already contain C19/C24 cube helpers; fragment/string emitters previously registered them unconditionally.",
+      "fix": "Reuse the already registered generic helpers. Shared integration regression prepopulates both helper depths; standalone byte identity is checked against regenerated pins."
+    }
+  ],
+  "pending": [
+    "Finish current regrouped full-capacity test (28983) and scoped review",
+    "Integrate actual-source structural/boundary programs (unit-4-structural-boundary-progress.json)",
+    "Complete full typed grammar, source/native/transition relations and remaining original W09 requirements"
+  ],
+  "whole_gate": "Deferred to T06-W12.",
+  "completion": "Full W09 incomplete; no component-only commit.",
+  "before_regroup_files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_string_parse.rs",
+      "sha256": "59456a22ca87ece3f409d54fd2aba447e7fcfd3ec5f546fc55147963235c6956"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_string_parse_tests.rs",
+      "sha256": "3ce563fc8a9e92b75e14f7e29330b8ed9d19dc3c189168b49ea20ec6e420d1eb"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_token_tests.rs",
+      "sha256": "43598b01890eab0a7bb94283b0d1f67561883d4334606e9a34badbdafb6c3d20"
+    }
+  ],
+  "implementation": "Extract shared Builder entry point without changing standalone bytes. Group JSON Scan as 4096 explicit StepFour occurrences followed by one StepTwo, exactly 16386 ordered primitive Step calls. StepTwo and StepFour bodies and every outer occurrence use the unchanged cumulative composition counter. No limits or checker rules changed.",
+  "test_selection": "The changed scanner composition requires source/definition closure, group boundary and final capacity cases. Scalar integer/bool/null definitions do not depend on Scan and need no semantic rerun after full closure preservation. No whole practical suite, unrelated inventory, or check-fast. Both checker inputs will be deduplicated only after full byte equality is checked.",
+  "regrouped_pins": [
+    {
+      "directory": "json-string-parsers",
+      "manifest_sha256": "3f7e2b785be6f899a8b3a2c565dbba036eb641afc869e2eaf2fb1ad0d8952fe4",
+      "contexts": 68,
+      "source_certificates": 3,
+      "distinct_byte_inputs": 1,
+      "terms": 24831,
+      "declarations": 343,
+      "static_transformers": 4312,
+      "certificate_sha256": "c5d4b5a8948425fe2ec35d325dbc0471289cf8c2c9ebcf8f78b8727f839c230a",
+      "preservation": "All prior declaration dependencies agree after checking identical 16386-Step sequence and isolating Scan reassociation; actual source/import/mutations passed. Every staged byte read back and matched source output."
+    },
+    {
+      "directory": "json-tokens/previous-string-framing",
+      "manifest_sha256": "6c752cd00faf0422f1e6f429219112783888840e9bb31a8eebcf6f8aa5ac3c5b",
+      "contexts": 68,
+      "source_certificates": 3,
+      "distinct_byte_inputs": 1,
+      "terms": 53235,
+      "declarations": 736,
+      "static_transformers": 4650,
+      "certificate_sha256": "f54954711ce49cf7127c861f79bbd9e26f4c49dc43bc034815abcdfd2da47fed",
+      "preservation": "All prior declaration dependencies agree after checking identical 16386-Step sequence and isolating Scan reassociation; actual source/import/mutations passed. Every staged byte read back and matched source output."
+    }
+  ],
+  "shared_pin": {
+    "path": "develop/migrations/csharp-03/ordinary-foundation/json-collection-shared/previous-string-framing/certificate.json",
+    "sha256": "a382e0b858f36280183c970b34ff28b41c234aa0c6d742d048b366a4e87b2241",
+    "terms": 53948,
+    "declarations": 756,
+    "static_transformers": 12842,
+    "certificate_sha256": "e1f8ac2fc8e85d6a963ec821d084cd0794bd2dea9f94f536b6452f52bdca6aec",
+    "scope": "source-free full collection/JSON definition integration; not application VC proofs"
+  },
+  "review": "unit-4-json-collection-integration-review.md",
+  "previous_goal_turn_classification": "progress: scalar grammar implementation and prior semantic/checker evidence",
+  "this_goal_turn_classification": "progress: scalar checkpoint verified; actual cumulative integration limit reproduced and fixed by checked scan reassociation, helper reuse, and combined certificate generation within all limits.",
+  "live_jobs_last_confirmed": [],
+  "actual_source_boundary_extension": {
+    "receipt": "unit-4-structural-boundary-progress.json",
+    "files": [
+      {
+        "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_token_tests.rs",
+        "previous_sha256": "7d0323863411b4751f72aec1cf9b651fb8831ea55b5d823de7ef1149c7de8510",
+        "current_sha256": "d2ab120c339c5e15e121e33d7678efdfcf2effca90a2b014c863ed00a195380a"
+      }
+    ],
+    "scope": "Add source-specific shared boundary generation/export/test entry. Existing component body behavior is retained; exact old structural replay and full component closure are verified separately."
+  },
+  "string_framing_extension": "unit-4-json-string-framing-progress.json",
+  "recovery_observation": "2026-09-10: session 28983 returns Unknown process id and its temporary log is absent. Capacity result remains unverified; no inferred pass."
+}

@@ -1,0 +1,505 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.literal_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "VIR-literal component verification passed; original unit 4 and W09 remain incomplete",
+  "source_contexts": 64,
+  "contexts_with_literals": 33,
+  "empty_inventory_contexts": 31,
+  "literal_definitions": 88,
+  "source_bindings": 105,
+  "ordinary_bit_observations": 6550,
+  "top_level_value_kinds": [
+    "bool",
+    "char",
+    "closed_exception",
+    "decimal_bits",
+    "enum",
+    "f32_bits",
+    "f64_bits",
+    "option",
+    "product",
+    "signed",
+    "string",
+    "unsigned"
+  ],
+  "source_max_terms": 362,
+  "source_max_declarations": 20,
+  "source_capture": "literal-sources/capture.json",
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_literals.rs",
+      "sha256": "c07f4a17ad075a56fb631061ee287ff0d17c25c48867a20934d34e00349ccf87"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_structural.rs",
+      "sha256": "6ef4842a006571a2d680ccbbeb634fe62063ed63a2700c8d42d45d34a7bbc5a1"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs",
+      "sha256": "cc8d626dcb667e007309c4f43b3ac2cd25dca42a5769110ca303278d81230bac"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+      "sha256": "cf31b43ffda06f9507ba27001b172f3f586cb4716be3b7a4bc96abc857b800d6"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_literal_tests.rs",
+      "sha256": "19a00fa5f522c81d91d28fb9a3eb7a2cf598bcad4258ff7bc565080c4243f7f3"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_carriers.rs",
+      "sha256": "b7a744a97ca5eb6f6cb59fa36e435f5383637911fe01aea31ac000895e237509"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_structural_foundation_tests.rs",
+      "sha256": "166899fbe5f528874f92b6feac6682e3fbb201e08bff9626f554d8ebc2be5515"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "sha256": "0a5c2b7d019357e1ce7ee809721d5513f05610eda2933693a1dca5e51fadfe6f"
+    }
+  ],
+  "certificates": [
+    {
+      "path": "literal-definitions/binding-vc-boundary_field.hex",
+      "file_sha256": "93ae7ea5217263cc20f3f9b3d11780d81392764648c13ce85e0c8deada99b08d",
+      "decoded_bytes_sha256": "4fbeba3dfb1bd4ae7b45752b8cddbccaa12e3d4fd4e3713c1195d9d0dd406484"
+    },
+    {
+      "path": "literal-definitions/binding-vc-bounded_sequence.hex",
+      "file_sha256": "93ae7ea5217263cc20f3f9b3d11780d81392764648c13ce85e0c8deada99b08d",
+      "decoded_bytes_sha256": "4fbeba3dfb1bd4ae7b45752b8cddbccaa12e3d4fd4e3713c1195d9d0dd406484"
+    },
+    {
+      "path": "literal-definitions/binding-vc-instant.hex",
+      "file_sha256": "93ae7ea5217263cc20f3f9b3d11780d81392764648c13ce85e0c8deada99b08d",
+      "decoded_bytes_sha256": "4fbeba3dfb1bd4ae7b45752b8cddbccaa12e3d4fd4e3713c1195d9d0dd406484"
+    },
+    {
+      "path": "literal-definitions/binding-vc-lookup.hex",
+      "file_sha256": "93ae7ea5217263cc20f3f9b3d11780d81392764648c13ce85e0c8deada99b08d",
+      "decoded_bytes_sha256": "4fbeba3dfb1bd4ae7b45752b8cddbccaa12e3d4fd4e3713c1195d9d0dd406484"
+    },
+    {
+      "path": "literal-definitions/binding-vc-money.hex",
+      "file_sha256": "93ae7ea5217263cc20f3f9b3d11780d81392764648c13ce85e0c8deada99b08d",
+      "decoded_bytes_sha256": "4fbeba3dfb1bd4ae7b45752b8cddbccaa12e3d4fd4e3713c1195d9d0dd406484"
+    },
+    {
+      "path": "literal-definitions/binding-vc-option.hex",
+      "file_sha256": "93ae7ea5217263cc20f3f9b3d11780d81392764648c13ce85e0c8deada99b08d",
+      "decoded_bytes_sha256": "4fbeba3dfb1bd4ae7b45752b8cddbccaa12e3d4fd4e3713c1195d9d0dd406484"
+    },
+    {
+      "path": "literal-definitions/binding-vc-ordered_entry.hex",
+      "file_sha256": "93ae7ea5217263cc20f3f9b3d11780d81392764648c13ce85e0c8deada99b08d",
+      "decoded_bytes_sha256": "4fbeba3dfb1bd4ae7b45752b8cddbccaa12e3d4fd4e3713c1195d9d0dd406484"
+    },
+    {
+      "path": "literal-definitions/binding-vc-ordered_map.hex",
+      "file_sha256": "93ae7ea5217263cc20f3f9b3d11780d81392764648c13ce85e0c8deada99b08d",
+      "decoded_bytes_sha256": "4fbeba3dfb1bd4ae7b45752b8cddbccaa12e3d4fd4e3713c1195d9d0dd406484"
+    },
+    {
+      "path": "literal-definitions/binding-vc-ordered_set.hex",
+      "file_sha256": "93ae7ea5217263cc20f3f9b3d11780d81392764648c13ce85e0c8deada99b08d",
+      "decoded_bytes_sha256": "4fbeba3dfb1bd4ae7b45752b8cddbccaa12e3d4fd4e3713c1195d9d0dd406484"
+    },
+    {
+      "path": "literal-definitions/binding-vc-result.hex",
+      "file_sha256": "93ae7ea5217263cc20f3f9b3d11780d81392764648c13ce85e0c8deada99b08d",
+      "decoded_bytes_sha256": "4fbeba3dfb1bd4ae7b45752b8cddbccaa12e3d4fd4e3713c1195d9d0dd406484"
+    },
+    {
+      "path": "literal-definitions/binding-vc-transition.hex",
+      "file_sha256": "93ae7ea5217263cc20f3f9b3d11780d81392764648c13ce85e0c8deada99b08d",
+      "decoded_bytes_sha256": "4fbeba3dfb1bd4ae7b45752b8cddbccaa12e3d4fd4e3713c1195d9d0dd406484"
+    },
+    {
+      "path": "literal-definitions/binding-vc-validation.hex",
+      "file_sha256": "93ae7ea5217263cc20f3f9b3d11780d81392764648c13ce85e0c8deada99b08d",
+      "decoded_bytes_sha256": "4fbeba3dfb1bd4ae7b45752b8cddbccaa12e3d4fd4e3713c1195d9d0dd406484"
+    },
+    {
+      "path": "literal-definitions/bool-construction.hex",
+      "file_sha256": "fc8ccdaf57866c7a931d39b1e523cf5e3c7596ff46b9dd0f460fe7637ee87806",
+      "decoded_bytes_sha256": "78cad640f4797d3d2ab65a01551d85d0a0e16104752fbd4bb18dc4df6ee9730b"
+    },
+    {
+      "path": "literal-definitions/bool-float-entry.hex",
+      "file_sha256": "93ae7ea5217263cc20f3f9b3d11780d81392764648c13ce85e0c8deada99b08d",
+      "decoded_bytes_sha256": "4fbeba3dfb1bd4ae7b45752b8cddbccaa12e3d4fd4e3713c1195d9d0dd406484"
+    },
+    {
+      "path": "literal-definitions/boundary-exception-empty.hex",
+      "file_sha256": "846a4dfa11e310ca08485e2e477fb0b26c73b187ea5ab2cbfe2db4f2c936c7ee",
+      "decoded_bytes_sha256": "2ead4d7be810544df0bb94b9096a76bcad1b41279d0e932262ad27bc88f4f6c6"
+    },
+    {
+      "path": "literal-definitions/boundary-exception-payload.hex",
+      "file_sha256": "ee0ffc7dbc5688c2c0cd938c4e4f4da59120a88a60347d1a8aebcf73103b1f53",
+      "decoded_bytes_sha256": "74a5996806aba5272fd020a3d201954e4606a21800fd75338dc92bc84c53f606"
+    },
+    {
+      "path": "literal-definitions/boundary-map-compound.hex",
+      "file_sha256": "93ae7ea5217263cc20f3f9b3d11780d81392764648c13ce85e0c8deada99b08d",
+      "decoded_bytes_sha256": "4fbeba3dfb1bd4ae7b45752b8cddbccaa12e3d4fd4e3713c1195d9d0dd406484"
+    },
+    {
+      "path": "literal-definitions/boundary-map-decimal.hex",
+      "file_sha256": "93ae7ea5217263cc20f3f9b3d11780d81392764648c13ce85e0c8deada99b08d",
+      "decoded_bytes_sha256": "4fbeba3dfb1bd4ae7b45752b8cddbccaa12e3d4fd4e3713c1195d9d0dd406484"
+    },
+    {
+      "path": "literal-definitions/boundary-map-string.hex",
+      "file_sha256": "93ae7ea5217263cc20f3f9b3d11780d81392764648c13ce85e0c8deada99b08d",
+      "decoded_bytes_sha256": "4fbeba3dfb1bd4ae7b45752b8cddbccaa12e3d4fd4e3713c1195d9d0dd406484"
+    },
+    {
+      "path": "literal-definitions/boundary-set-decimal.hex",
+      "file_sha256": "93ae7ea5217263cc20f3f9b3d11780d81392764648c13ce85e0c8deada99b08d",
+      "decoded_bytes_sha256": "4fbeba3dfb1bd4ae7b45752b8cddbccaa12e3d4fd4e3713c1195d9d0dd406484"
+    },
+    {
+      "path": "literal-definitions/boundary-total-cells.hex",
+      "file_sha256": "93ae7ea5217263cc20f3f9b3d11780d81392764648c13ce85e0c8deada99b08d",
+      "decoded_bytes_sha256": "4fbeba3dfb1bd4ae7b45752b8cddbccaa12e3d4fd4e3713c1195d9d0dd406484"
+    },
+    {
+      "path": "literal-definitions/complete-snapshot.hex",
+      "file_sha256": "93ae7ea5217263cc20f3f9b3d11780d81392764648c13ce85e0c8deada99b08d",
+      "decoded_bytes_sha256": "4fbeba3dfb1bd4ae7b45752b8cddbccaa12e3d4fd4e3713c1195d9d0dd406484"
+    },
+    {
+      "path": "literal-definitions/construction-vc-enum_zero.hex",
+      "file_sha256": "9ccdd52a00cb3e3c520e8168790d41c6d2617df92a40f74600e307c5a20210af",
+      "decoded_bytes_sha256": "3950796319582ac4deaa1e3680b486826c3939b9c197cb7d58792b12623ce301"
+    },
+    {
+      "path": "literal-definitions/construction-vc-positive_constructor.hex",
+      "file_sha256": "685f3ac2ba1b6b4d9762224b9beb926b356be3340eadd5cc08e62a3ebadfb6a6",
+      "decoded_bytes_sha256": "951e235ed073a504ef3c8101d522a72b4cdc76ddec85598a1e853271b2838df9"
+    },
+    {
+      "path": "literal-definitions/date.hex",
+      "file_sha256": "93ae7ea5217263cc20f3f9b3d11780d81392764648c13ce85e0c8deada99b08d",
+      "decoded_bytes_sha256": "4fbeba3dfb1bd4ae7b45752b8cddbccaa12e3d4fd4e3713c1195d9d0dd406484"
+    },
+    {
+      "path": "literal-definitions/enum-construction.hex",
+      "file_sha256": "4cae8c5c5fcdec036e6b06e33579cac3c383ccd02b371cb2b7023fcf42be2d07",
+      "decoded_bytes_sha256": "742b21fd0eb3c6655e7e3a32410ec73a7ff5ed7bb86a727fc53036b62af89c22"
+    },
+    {
+      "path": "literal-definitions/exception-vc-allowed.hex",
+      "file_sha256": "f9adf3a3bf1661ea6cf22c7bd2679fb8b3a190bc6815510ef9698896baeca283",
+      "decoded_bytes_sha256": "dbdc2cfa03ccd0c45365ce79e5a446140c8ab581fda4e076b8cba2edb8f93416"
+    },
+    {
+      "path": "literal-definitions/extra-bool-float-map.hex",
+      "file_sha256": "93ae7ea5217263cc20f3f9b3d11780d81392764648c13ce85e0c8deada99b08d",
+      "decoded_bytes_sha256": "4fbeba3dfb1bd4ae7b45752b8cddbccaa12e3d4fd4e3713c1195d9d0dd406484"
+    },
+    {
+      "path": "literal-definitions/extra-bool-nullable-map.hex",
+      "file_sha256": "93ae7ea5217263cc20f3f9b3d11780d81392764648c13ce85e0c8deada99b08d",
+      "decoded_bytes_sha256": "4fbeba3dfb1bd4ae7b45752b8cddbccaa12e3d4fd4e3713c1195d9d0dd406484"
+    },
+    {
+      "path": "literal-definitions/extra-lookup-nullable.hex",
+      "file_sha256": "93ae7ea5217263cc20f3f9b3d11780d81392764648c13ce85e0c8deada99b08d",
+      "decoded_bytes_sha256": "4fbeba3dfb1bd4ae7b45752b8cddbccaa12e3d4fd4e3713c1195d9d0dd406484"
+    },
+    {
+      "path": "literal-definitions/extra-shared-lookup-maps.hex",
+      "file_sha256": "93ae7ea5217263cc20f3f9b3d11780d81392764648c13ce85e0c8deada99b08d",
+      "decoded_bytes_sha256": "4fbeba3dfb1bd4ae7b45752b8cddbccaa12e3d4fd4e3713c1195d9d0dd406484"
+    },
+    {
+      "path": "literal-definitions/extra-validation-bool.hex",
+      "file_sha256": "93ae7ea5217263cc20f3f9b3d11780d81392764648c13ce85e0c8deada99b08d",
+      "decoded_bytes_sha256": "4fbeba3dfb1bd4ae7b45752b8cddbccaa12e3d4fd4e3713c1195d9d0dd406484"
+    },
+    {
+      "path": "literal-definitions/extra-validation-product.hex",
+      "file_sha256": "93ae7ea5217263cc20f3f9b3d11780d81392764648c13ce85e0c8deada99b08d",
+      "decoded_bytes_sha256": "4fbeba3dfb1bd4ae7b45752b8cddbccaa12e3d4fd4e3713c1195d9d0dd406484"
+    },
+    {
+      "path": "literal-definitions/float-sequence.hex",
+      "file_sha256": "a637df0caa7d9e82e90dda6cff6a017895719a66fabd67d5737da43b8d8a622b",
+      "decoded_bytes_sha256": "25e6b660025457119c09ccc77552c94833de0aafa8f5f2f359a35c8ddf3b90d1"
+    },
+    {
+      "path": "literal-definitions/floats.hex",
+      "file_sha256": "93ae7ea5217263cc20f3f9b3d11780d81392764648c13ce85e0c8deada99b08d",
+      "decoded_bytes_sha256": "4fbeba3dfb1bd4ae7b45752b8cddbccaa12e3d4fd4e3713c1195d9d0dd406484"
+    },
+    {
+      "path": "literal-definitions/guid.hex",
+      "file_sha256": "93ae7ea5217263cc20f3f9b3d11780d81392764648c13ce85e0c8deada99b08d",
+      "decoded_bytes_sha256": "4fbeba3dfb1bd4ae7b45752b8cddbccaa12e3d4fd4e3713c1195d9d0dd406484"
+    },
+    {
+      "path": "literal-definitions/literal-array.hex",
+      "file_sha256": "cc42d91079388222b48b33b28caadaf609d475d977646b884d6028fc3a8ea126",
+      "decoded_bytes_sha256": "db81bf611be0a03ee8ed001c864672e45a15a80670f474a6cbee592064862d86"
+    },
+    {
+      "path": "literal-definitions/literal-bool.hex",
+      "file_sha256": "3a0f73d1f55a63b12930bf43914bc1994a8d6284f5d118efc03bf8ed65b417d0",
+      "decoded_bytes_sha256": "70c43322d2b6c5493198a5c6a0a0b97b75cdae3e260664f9abfd004034d6c92d"
+    },
+    {
+      "path": "literal-definitions/literal-char.hex",
+      "file_sha256": "0c335cd3354bd71ac2c8af6ce73afa966c7fe734a79b4465f469e55e88e23f57",
+      "decoded_bytes_sha256": "75f98d7645eb71b656b356af4f132cc860bf0a59478a9197c4068cc5df974028"
+    },
+    {
+      "path": "literal-definitions/literal-decimal.hex",
+      "file_sha256": "1371df09d92d05df1ac6d3c698f21171372a343edeefb928b26d6e959e23fe42",
+      "decoded_bytes_sha256": "370f89b53d5bc77f9fe2db0fcd1b561a52f432c48447c0de4ba8347dec070d15"
+    },
+    {
+      "path": "literal-definitions/literal-enum.hex",
+      "file_sha256": "c8b4159d20727625c6a5766102056bf670ef2baf7df01b7f32180bc0a66b8c2f",
+      "decoded_bytes_sha256": "93e9ef66d65bc18d55142156570581d595a73c91a5e49feabdb0215ae1f21c93"
+    },
+    {
+      "path": "literal-definitions/literal-f32-nan.hex",
+      "file_sha256": "41a013064c406ed477e65866ac7027f6e6639dcdb9604af029145e684794ed80",
+      "decoded_bytes_sha256": "984634fac2fd3e8a0fe94716d26f5165282756804d0a4c257146d1e23d88260e"
+    },
+    {
+      "path": "literal-definitions/literal-f32.hex",
+      "file_sha256": "41a013064c406ed477e65866ac7027f6e6639dcdb9604af029145e684794ed80",
+      "decoded_bytes_sha256": "984634fac2fd3e8a0fe94716d26f5165282756804d0a4c257146d1e23d88260e"
+    },
+    {
+      "path": "literal-definitions/literal-f64-infinity.hex",
+      "file_sha256": "81226dba22f54474757f0a7b25719e046380b67c362f140ab88768044ba873f0",
+      "decoded_bytes_sha256": "6a03d7e1e8b2e6b48a69ccab731726a6a0ba817b3d18ac9ff7f6185fea802b9f"
+    },
+    {
+      "path": "literal-definitions/literal-f64.hex",
+      "file_sha256": "5ff30f9c9089745da193af111c5a58611c37556abe64eac6aa6cca15c85b47e1",
+      "decoded_bytes_sha256": "4aaaa4de1e04d4745cf22bf53c73ea77efc01b527b7c8b07178774635aaffe7e"
+    },
+    {
+      "path": "literal-definitions/literal-i16.hex",
+      "file_sha256": "1c555e279efbb7d98ce31d46293f16c16977fe5227a73718d43a972e646e67fc",
+      "decoded_bytes_sha256": "bba4632444c8be2de31e98bc8356466d32638487ffd9b129aae1438a09d46c41"
+    },
+    {
+      "path": "literal-definitions/literal-i32.hex",
+      "file_sha256": "116136975c779e8a6dcf1d3b38fa1296a29dc3a7315923121fc62588f6cf5d7c",
+      "decoded_bytes_sha256": "a02a383b22fe66c5b27bca288afd7b748adf513b7b6bd9af20f77f00b872e98c"
+    },
+    {
+      "path": "literal-definitions/literal-i64.hex",
+      "file_sha256": "cb983457d2580dd6cfebca258a7823eff63f0e7a5f3966f85605291999cde22b",
+      "decoded_bytes_sha256": "923d085786337db3b7158ecd1e9547aea5431a88a23443567f0e973930ab8d89"
+    },
+    {
+      "path": "literal-definitions/literal-i8.hex",
+      "file_sha256": "c0cc6fbca9101f54fbbea36f3cc5e47262644f3c108ac68483f73627e9f301e8",
+      "decoded_bytes_sha256": "d27b629e805812ef11aec2c72360a5750d6a533516de23ef539a5d7099e6007a"
+    },
+    {
+      "path": "literal-definitions/literal-nullable-none.hex",
+      "file_sha256": "93ae7ea5217263cc20f3f9b3d11780d81392764648c13ce85e0c8deada99b08d",
+      "decoded_bytes_sha256": "4fbeba3dfb1bd4ae7b45752b8cddbccaa12e3d4fd4e3713c1195d9d0dd406484"
+    },
+    {
+      "path": "literal-definitions/literal-nullable-some.hex",
+      "file_sha256": "6554279770069c746e05f809dc5348d8ca67824c51bfefcc6d703bc88a396907",
+      "decoded_bytes_sha256": "f024969eca3865889e77cc4ed09b1e5c92e95533c5527876502c913530c88390"
+    },
+    {
+      "path": "literal-definitions/literal-product.hex",
+      "file_sha256": "9e21c63a1fae1f6ab65a7055c592692787b4c0679c071d7591a5d3cdb0eac76e",
+      "decoded_bytes_sha256": "0a2e79e6a353c95c5ac4f166e47c3a427f24bd43a1aef04453673c74873ef073"
+    },
+    {
+      "path": "literal-definitions/literal-string.hex",
+      "file_sha256": "df3bb18b39f7c404326c99caa76b83baba2117a5aa296cb515e2b057cb11289f",
+      "decoded_bytes_sha256": "fe70fbab402ca38d0d0efa334a26aa5e0f466368fb5e91077104b6f50eedb878"
+    },
+    {
+      "path": "literal-definitions/literal-u16.hex",
+      "file_sha256": "03253c12446ee8da7b2de4734d3eede9d9bdf2369c7adecb750d8fe2aaf88fde",
+      "decoded_bytes_sha256": "95765b8197e1ea3da5ca14278c4936263bebaba19f48167296e2392adcced666"
+    },
+    {
+      "path": "literal-definitions/literal-u32.hex",
+      "file_sha256": "b650ca0d9e4aa1d587d5ced20afd5bd76e4f4c1ac4a5914dea60dad5c42cd95c",
+      "decoded_bytes_sha256": "de03f8cad15b0f1bab92d03b94e6c6836dfde922e3a37413bffa9e6d7b9e9150"
+    },
+    {
+      "path": "literal-definitions/literal-u64.hex",
+      "file_sha256": "1a419c88603f98197782ee00de8c61951be3514a4283e2645b0a75a86d29dd08",
+      "decoded_bytes_sha256": "4aa9fc1fd79afb047f5bc3f57866155369893d2507583e21728020d06e30fa4a"
+    },
+    {
+      "path": "literal-definitions/literal-u8.hex",
+      "file_sha256": "57113f526c491773bd7f5d6244bda334d0f6f1b264e3943c125dcccf3015b90c",
+      "decoded_bytes_sha256": "8c90b569eea3e86463423bc9d443cd090347885d6c395667cf5fb42d0497b201"
+    },
+    {
+      "path": "literal-definitions/nested-box.hex",
+      "file_sha256": "510958e652b96c0c2a3db2970d2afec563af01b6d10604a825fbc1bc5697a736",
+      "decoded_bytes_sha256": "dff7d3ba6a9ebf6f9b08308adde24c40486b07706c59fbcb3969ab1d524ffc2b"
+    },
+    {
+      "path": "literal-definitions/nullable-float.hex",
+      "file_sha256": "93ae7ea5217263cc20f3f9b3d11780d81392764648c13ce85e0c8deada99b08d",
+      "decoded_bytes_sha256": "4fbeba3dfb1bd4ae7b45752b8cddbccaa12e3d4fd4e3713c1195d9d0dd406484"
+    },
+    {
+      "path": "literal-definitions/nullable-string-default.hex",
+      "file_sha256": "49b368c8e693664fab8a48104fce8f14bab8e96a8dcababfae9ccda18265679f",
+      "decoded_bytes_sha256": "9788397ea0d76d2080607434eb113829683b774e08c60ecbe45c31eb0556f410"
+    },
+    {
+      "path": "literal-definitions/parse-error-contract.hex",
+      "file_sha256": "685f3ac2ba1b6b4d9762224b9beb926b356be3340eadd5cc08e62a3ebadfb6a6",
+      "decoded_bytes_sha256": "951e235ed073a504ef3c8101d522a72b4cdc76ddec85598a1e853271b2838df9"
+    },
+    {
+      "path": "literal-definitions/product-construction.hex",
+      "file_sha256": "12c8441b2c8b84931f18e874bfbef04c28b12e93d50939bc5e5e771ca0a5d50f",
+      "decoded_bytes_sha256": "5441a03d36279f59d010d2dc7ce0916bf5553d415aaf9f0e7c3d91e709c99f49"
+    },
+    {
+      "path": "literal-definitions/string.hex",
+      "file_sha256": "f087e17eeb894eee5941d024829e27d400889b58b8806a3420edcefff3afc848",
+      "decoded_bytes_sha256": "089187ad5aab15d39802282d1339cc366c9f7dd9ea59a752c4918738864c4897"
+    },
+    {
+      "path": "literal-definitions/unit-void-source.hex",
+      "file_sha256": "93ae7ea5217263cc20f3f9b3d11780d81392764648c13ce85e0c8deada99b08d",
+      "decoded_bytes_sha256": "4fbeba3dfb1bd4ae7b45752b8cddbccaa12e3d4fd4e3713c1195d9d0dd406484"
+    },
+    {
+      "path": "literal-edges/deep-padding.hex",
+      "file_sha256": "cea9ca09f2c481783f97271f9c89f80c012b09ad183a6fcc893b44a33985915c",
+      "decoded_bytes_sha256": "133695c1a95154223a665aaff0b40ff72b3ba498dafa44780b99e647e50b6366"
+    },
+    {
+      "path": "literal-edges/scalar-storage.hex",
+      "file_sha256": "99b2acd4cf5239b5e811bc97250d77452668df631be459ac7039424cfc4188ce",
+      "decoded_bytes_sha256": "58c8ac723bd405ed54180136b87356e3aa88ee979a3273103bea0207e2d47f45"
+    }
+  ],
+  "completed_checks": [
+    {
+      "scope": "64 source contexts: generation, mutations, 88 definitions, 105 bindings and 6550 independent ordinary bit observations",
+      "command": "MPK_W09_LITERALS_OUT=/tmp/mpk-w09-literals-v2 cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_literals_original_source_certificates_and_semantics -- --nocapture",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-literals-source-v2.log",
+      "log_sha256": "fedda0741442e0619a3cdbeb06114abd8feedc523aed510217e7d3d1f4dd9c64",
+      "duration_seconds": 11.0
+    },
+    {
+      "scope": "exact 21 source-request bytes and all 64 source pins with mutations and semantic observations",
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc -- csharp_03_t06_w09_literal_source_requests csharp_03_t06_w09_literals_original_source_certificates_and_semantics --nocapture",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-literals-pinned-replay-v1.log",
+      "log_sha256": "3e14981e2576e08fb797c61c301b550f828fd0a911eed17e4700c0aa388d3870",
+      "duration_seconds": 11.13
+    },
+    {
+      "scope": "two scalar/deep core regression certificates, generation and ordinary semantics",
+      "command": "MPK_W09_LITERAL_EDGES_OUT=/tmp/mpk-w09-literal-edges-v1 cargo test -p mpk-vc --lib ordinary_literal_ -- --nocapture",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-literals-edges-v1.log",
+      "log_sha256": "089c158469ee26b7e3d1199bd46b9a04e82b6a6dd7c87188746f2d7adf190476",
+      "duration_seconds": 0.28
+    },
+    {
+      "scope": "two edge pins exact replay and ordinary semantics",
+      "command": "cargo test -p mpk-vc --lib ordinary_literal_ -- --nocapture",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-literals-edge-replay-v1.log",
+      "log_sha256": "5e95881fa6491ab61d5d1918068194393f9332e0d31829da2400dc9e644db5d6"
+    },
+    {
+      "scope": "64 same-byte certificates accepted by both unchanged checkers with zero axioms; all hash corruptions rejected",
+      "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run '^TestCheckerAgreementWithRustCLILiteralDefinitions$' -count=1 -timeout 0 -v",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-literals-checkers-v1.log",
+      "log_sha256": "9f7f17f84516e9bbd164a3661d5893bc0eb5bb73c18bd4350fb9a9ad30b9bbdb",
+      "duration_seconds": 285.593,
+      "working_directory": "go-tools/mpk-checker-ref"
+    },
+    {
+      "scope": "2 same-byte certificates accepted by both unchanged checkers with zero axioms; all hash corruptions rejected",
+      "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run '^TestCheckerAgreementWithRustCLILiteralEdges$' -count=1 -timeout 0 -v",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-literals-edge-checkers-v1.log",
+      "log_sha256": "46a665297a44d3ce50015066c9abd2d8965be0677ca862a903705a0f8ef603dd",
+      "duration_seconds": 3.359,
+      "working_directory": "go-tools/mpk-checker-ref"
+    },
+    {
+      "scope": "final library and practical integration lint",
+      "command": "cargo clippy -p mpk-vc --lib --test csharp_practical_vc -- -D warnings",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-literals-clippy-v2.log",
+      "log_sha256": "85eb62b69f7a377372abe34326a12baed49bebc29f6f8b58fd0f31190d4f3a10"
+    },
+    {
+      "scope": "five artifact/consumer and ledger inventory tests",
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-literals-inventory-v1.log",
+      "log_sha256": "5824d0d276fee2407f1f5bf9650cad928a15a3c86fed0551ba5fd528dff68c3b",
+      "duration_seconds": 16.44
+    },
+    {
+      "scope": "seven changed Rust source/test files; children excluded from unrelated formatting checks",
+      "command": "rustfmt --check --edition 2021 --config skip_children=true [seven changed files listed below]",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-literals-format-v1.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "live_jobs": [],
+  "review_attachment": "unit-4-literal-review.md",
+  "review_findings": [],
+  "review_scope": "VIR-literal component only; full unit-4 and W09 review remain open",
+  "corrected_attempts": [
+    {
+      "log": "/tmp/mpk-w09-literals-source-v1.log",
+      "log_sha256": "9ae034419b557cc673ee120575bba9ba472cfef4de7906e06b12616a6c4b06a8",
+      "reason": "numeric-start hash name component rejected by canonical decoding; fixed H prefix; superseded before source pins were published"
+    },
+    {
+      "response": "/tmp/mpk-w09-literal-responses-v1.json",
+      "sha256": "4a33a4fa7d1aa27155421cc4d4cd39129b28eb34685bdaca3235d0b136025e00",
+      "reason": "two excluded static framework field reads; replaced by admitted arithmetic expressions, not a frontend policy change"
+    }
+  ],
+  "scope_limits": [
+    "Block literals and failed-check exception values only; boundary-run literal linkage remains to be implemented",
+    "31 source contexts have no literal and are not positive semantic evidence",
+    "NaN/infinity source arithmetic does not become a literal-result proof; direct scalar edges separately test raw representations",
+    "Large source storage is sampled; edge scalar bit vectors and all 253 deep selectors are exhaustive for those concrete examples",
+    "Definitions and finite observations do not prove native source or application VCs"
+  ],
+  "remaining": [
+    "Finish original Money 78-case ordinary run and deep unit-3 domain/collection runs",
+    "Complete original units 4-8: bindings, codecs/JSON, boundary literal linkage, native/control and transition relations, ordinary application propositions/proofs, assembly and W09 acceptance",
+    "Directly review and commit/push only completed original internal units"
+  ],
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "status": "deferred to T06-W12"
+  },
+  "commit_status": "uncommitted original unit-3/unit-4 work; no new commit/push",
+  "subsequent_verification": {
+    "progress": "unit-4-boundary-literal-progress.json",
+    "scope": "After adding the separate boundary-run generator and symbol-name helper, all 64 VIR-literal pin bytes and metadata, their 6550 observations and exact source requests passed again. Earlier file hashes above retain the original component checkpoint version."
+  }
+}

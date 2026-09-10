@@ -1,0 +1,31 @@
+=== RUN   TestCheckerAgreementWithRustCLIStringClauses
+=== RUN   TestCheckerAgreementWithRustCLIStringClauses/basic-nonnull.hex
+=== RUN   TestCheckerAgreementWithRustCLIStringClauses/basic-nullable.hex
+=== RUN   TestCheckerAgreementWithRustCLIStringClauses/construction-nonnull.hex
+    checker_agreement_test.go:391: Rust checker execution/protocol failure: Rust checker did not return a verifier report: unexpected end of JSON input
+        stdout:
+        
+        stderr:
+        
+        thread 'main' (3128180) has overflowed its stack
+        fatal runtime error: stack overflow, aborting
+=== RUN   TestCheckerAgreementWithRustCLIStringClauses/construction-nullable.hex
+    checker_agreement_test.go:391: Rust checker execution/protocol failure: Rust checker did not return a verifier report: unexpected end of JSON input
+        stdout:
+        
+        stderr:
+        
+        thread 'main' (3129452) has overflowed its stack
+        fatal runtime error: stack overflow, aborting
+=== RUN   TestCheckerAgreementWithRustCLIStringClauses/ordinal-nonnull.hex
+=== RUN   TestCheckerAgreementWithRustCLIStringClauses/ordinal-nullable.hex
+--- FAIL: TestCheckerAgreementWithRustCLIStringClauses (120.54s)
+    --- PASS: TestCheckerAgreementWithRustCLIStringClauses/basic-nonnull.hex (2.11s)
+    --- PASS: TestCheckerAgreementWithRustCLIStringClauses/basic-nullable.hex (2.05s)
+    --- FAIL: TestCheckerAgreementWithRustCLIStringClauses/construction-nonnull.hex (53.14s)
+    --- FAIL: TestCheckerAgreementWithRustCLIStringClauses/construction-nullable.hex (44.95s)
+    --- PASS: TestCheckerAgreementWithRustCLIStringClauses/ordinal-nonnull.hex (12.59s)
+    --- PASS: TestCheckerAgreementWithRustCLIStringClauses/ordinal-nullable.hex (5.69s)
+FAIL
+exit status 1
+FAIL	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	120.892s

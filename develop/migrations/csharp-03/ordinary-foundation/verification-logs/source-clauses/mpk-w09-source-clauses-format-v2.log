@@ -1,0 +1,13 @@
+Diff in /Users/kazuyoshitoshiya/mpk/crates/mpk-vc/tests/support/csharp_practical_ordinary_source_clause_tests.rs:93:
+                     .filter(|i| (n as u32) & (1 << i) != 0)
+                     .map(|i| member_index | (i << (depth - 5)))
+                     .collect();
+-                let actual = bit(run(
+-                    &cert,
+-                    &d.definition,
+-                    vec![sparse_cube(depth, bits)],
+-                ));
++                let actual = bit(run(&cert, &d.definition, vec![sparse_cube(depth, bits)]));
+                 assert_eq!(
+                     actual,
+                     if id == "positive_default" {

@@ -1,0 +1,12 @@
+    Checking mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error: manual implementation of `.is_multiple_of()`
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_transition_clause_tests.rs:378:41
+    |
+378 |                         .filter(|index| (index.count_ones() as usize + slot + phase) % 2 == 0)
+    |                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with: `(index.count_ones() as usize + slot + phase).is_multiple_of(2)`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#manual_is_multiple_of
+    = note: `-D clippy::manual-is-multiple-of` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::manual_is_multiple_of)]`
+
+error: could not compile `mpk-vc` (test "csharp_practical_vc") due to 1 previous error

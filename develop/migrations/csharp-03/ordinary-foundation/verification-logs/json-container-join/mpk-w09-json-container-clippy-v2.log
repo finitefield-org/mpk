@@ -1,0 +1,28 @@
+    Checking mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error: unnecessary use of `clone` to create a slice from a reference
+   --> crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs:886:50
+    |
+886 |             assert_eq!(bit(eval(&cert, argument, &[delayed.clone()])), expected);
+    |                                                  ^^^^^^^^^^^^^^^^^^ help: try: `std::slice::from_ref(&delayed)`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#cloned_ref_to_slice_refs
+    = note: `-D clippy::cloned-ref-to-slice-refs` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::cloned_ref_to_slice_refs)]`
+
+error: the loop variable `depth` is used to index `zeros`
+   --> crates/mpk-vc/src/csharp_practical_ordinary_domains.rs:624:22
+    |
+624 |         for depth in 0..=8 {
+    |                      ^^^^^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#needless_range_loop
+    = note: `-D clippy::needless-range-loop` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::needless_range_loop)]`
+help: consider using an iterator and enumerate()
+    |
+624 -         for depth in 0..=8 {
+624 +         for (depth, <item>) in zeros.iter().enumerate().take(8 + 1) {
+    |
+
+error: could not compile `mpk-vc` (lib test) due to 2 previous errors
+warning: build failed, waiting for other jobs to finish...

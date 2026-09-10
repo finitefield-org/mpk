@@ -1,0 +1,22 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.finite_source_capture.v1",
+  "inputs": "requests.json",
+  "outputs": "responses.json",
+  "source_origin": "construction-vc/requests.json positive_constructor, unchanged source bytes with a type invariant comparing parse_error_kind(syntax) to u32 1",
+  "capture_command": "./scripts/build-csharp-practical-frontend.sh --test-control-emission-requests",
+  "environment": "existing mpk-java-t10-gate:local Linux amd64 image; read-only repository; network disabled; frozen build-input cache validated by script",
+  "determinism": "existing control emission harness captures each request twice and compares bytes",
+  "accepted": 1,
+  "rejected": 0,
+  "application_vc_proof": false,
+  "files": [
+    {
+      "path": "requests.json",
+      "sha256": "c655b6b78ce02c3a37d03a838776e1688ceadd934c7bb8f5dbedb4930d9dc6df"
+    },
+    {
+      "path": "responses.json",
+      "sha256": "4a5fbf20399587e9af60bdcf3f9e2d04b84e2573d0f68c929b8d8df33f4f8f68"
+    }
+  ]
+}

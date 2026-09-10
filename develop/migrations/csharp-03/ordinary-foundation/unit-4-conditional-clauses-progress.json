@@ -1,0 +1,111 @@
+{
+  "schema": "mpk.csharp_practical.w09.conditional_clauses_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "total_conditional_component_and_structural_integration_targeted_verification_passed",
+  "implementation": "Lower frozen condition/when_true/when_false argument order by selecting Bool leaves of each closed carrier;verify nominal signature and empty parameters. Do not eliminate Bool into a function carrier. Partial operations remain fail-closed pending definedness predicates.",
+  "verification": [
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/conditional-clauses/mpk-w09-conditional-clauses-build-v1.log",
+      "sha256": "7f106fa8da87daf48e21d23931497cdfa830da874a6c3d12e5eb6ec4102e0977",
+      "scope_and_selection_reason": "Conditional recipe library build;15.95s."
+    },
+    {
+      "status": "rejected_old_context_corrected_by_fresh_capture",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/conditional-clauses/mpk-w09-conditional-clauses-source-v1.log",
+      "sha256": "5c8b0afd27c3dd7c3254768bd29ce8c6d1f18ac232d842271bbfff036caa4e35",
+      "scope_and_selection_reason": "Reusing old source facts across a changed sidecar context correctly rejected Source. Did not weaken context validation; captured the exact new request."
+    },
+    {
+      "status": "failed_test_import_corrected",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/conditional-clauses/mpk-w09-conditional-clauses-helper-v1.log",
+      "sha256": "30cf87ff4684de3b8426c3cb11521d9bda6e3ac3d87960dee7da44e80cb4eb28",
+      "scope_and_selection_reason": "Library test needed qualified certificate-structure validator path."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/conditional-clauses/mpk-w09-conditional-clauses-helper-v2.log",
+      "sha256": "4a470bde94b1ef6467a83f7ec6c2b8485fabd7fdc5a57b692dc45ee41ee77d01",
+      "scope_and_selection_reason": "Bool/i32/depth19 array-shaped cubes select actual branch leaves;nominal branch/condition mismatches and unexpected parameters reject;0.01s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/conditional-clauses/mpk-w09-conditional-requests-v1.log",
+      "sha256": "f9ee87a7ab34d6a5973c68c9fe0f3ace1ed5a670687e4a66541c69a0072fed35",
+      "scope_and_selection_reason": "Construct canonical source/contract request for conditional public clause;0.04s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/conditional-clauses/mpk-w09-conditional-capture-v1.log",
+      "sha256": "b54783e7f03a494ff5bd47f4478ef297095ffb7feeb71eefcecd239ae331398b",
+      "scope_and_selection_reason": "Both isolated hash-pinned compiler and source harness exited0 with empty stdout/stderr;fresh conditional context facts returned."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/conditional-clauses/mpk-w09-conditional-clauses-source-v2.log",
+      "sha256": "f9517131fa921d295432cc0adb4dda5a32b2cc62aee3585e52f465e3e2a0a9d8",
+      "scope_and_selection_reason": "Fresh original source conditional clause at seven signed boundaries and exact seven-source predecessor clause replay/30 observations;2.21s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/conditional-clauses/mpk-w09-conditional-clauses-checkers-v1.log",
+      "sha256": "a272799e3a5de610be095cd63c44122edc77641db4ce7a52f9380b5f75f8737c",
+      "scope_and_selection_reason": "Both candidates accepted by unchanged Rust/Go checkers with zero axioms;actual hash corruptions rejected;exact PASS set/current hashes reconciled;31.866s including build queue."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/conditional-clauses/mpk-w09-conditional-clauses-clippy-v1.log",
+      "sha256": "d5a9b5028b4cd84326e94c35754a8038db710f75b91d6422583a3599e2548ea0",
+      "scope_and_selection_reason": "Affected library/integration lint passed54.04s including queue."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/conditional-clauses/mpk-w09-conditional-clauses-inventory-v1.log",
+      "sha256": "4bd65b7c20d5c18f3d50d5eedf3a6df53f20a3b0a9ba006f375e26423dbfb77a",
+      "scope_and_selection_reason": "Consumer closure after standalone conditional recipe/candidates passed20.40s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/conditional-clauses/mpk-w09-conditional-integrated-v1.log",
+      "sha256": "d7075d612aadfdea3f0c4c45b9120c90c4c0b01a72a4798695d2a2fea7f98988",
+      "scope_and_selection_reason": "New conditional context integrated with complete structural/public definitions;all standalone clause dependency closures identical;exact import and signed boundaries passed1.12s. Original source candidate bytes unchanged."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/conditional-clauses/mpk-w09-conditional-integrated-checkers-v1.log",
+      "sha256": "846d793e67f3bee9e095449914d31a880f1c4a9ed809476be0c3460a2b7bc581",
+      "scope_and_selection_reason": "Only new integrated candidate checked;unchanged earlier two successful cases retained. Both checkers accept with zero axioms and reject hash corruption;18.087s including queue. Combined exact three-case PASS set and current hashes reconciled."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/conditional-clauses/mpk-w09-conditional-integrated-clippy-v1.log",
+      "sha256": "3bd4eda81362adf7eb7bcb69948115ced3489ee4742edb1ae54e8138e8683792",
+      "scope_and_selection_reason": "Affected integration lint after adding integrated-source checks passed9.88s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/conditional-clauses/mpk-w09-conditional-integrated-inventory-v1.log",
+      "sha256": "3123608d5173b60a8702219e82f051a1e25414abfc8e7df6034e8123d7c9bf65",
+      "scope_and_selection_reason": "Final consumer closure after integrated metadata/candidate publication passed18.10s;no inventory fingerprint refresh."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/conditional-clauses/mpk-w09-conditional-clauses-format-v1.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "scope_and_selection_reason": "Scoped formatting passed."
+    }
+  ],
+  "live_jobs": [],
+  "pending": [
+    "Remaining recipe/definedness and native/proof assembly;all remaining W09 scope unchanged."
+  ],
+  "whole_gate": "Deferred to T06-W12;no full gate run.",
+  "commit": "No component-only commit;internal units remain incomplete.",
+  "candidates": {
+    "directory": "conditional-clauses",
+    "count": 3,
+    "same_byte_checkers": "all3 passed across retained two-case run and new integrated-only run;current hashes and combined PASS set reconciled"
+  },
+  "review": "unit-4-conditional-clauses-review.md"
+}

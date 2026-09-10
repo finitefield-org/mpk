@@ -1,0 +1,20 @@
+    Blocking waiting for file lock on build directory
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error[E0308]: mismatched types
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_json_envelope_tests.rs:83:66
+    |
+ 83 |     let raw = generate_csharp_practical_ordinary_json_raw_limits(emitted).unwrap();
+    |               -------------------------------------------------- ^^^^^^^ expected `&ValidatedPracticalVir`, found `&EmittedDataPhase`
+    |               |
+    |               arguments to this function are incorrect
+    |
+    = note: expected reference `&mpk_vc::csharp_practical_vir_validation::ValidatedPracticalVir`
+               found reference `&mpk_vc::csharp_practical_vir_model::EmittedDataPhase`
+note: function defined here
+   --> crates/mpk-vc/src/csharp_practical_ordinary_json_raw_limits.rs:340:8
+    |
+340 | pub fn generate_csharp_practical_ordinary_json_raw_limits(
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+For more information about this error, try `rustc --explain E0308`.
+error: could not compile `mpk-vc` (test "csharp_practical_vc") due to 1 previous error

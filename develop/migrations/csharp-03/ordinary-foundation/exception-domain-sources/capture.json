@@ -1,0 +1,22 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.exception_domain_capture.v1",
+  "inputs": "requests.json",
+  "outputs": "responses.json",
+  "capture_command": "./scripts/build-csharp-practical-frontend.sh --test-control-emission-requests",
+  "environment": "existing local mpk-java-t10-gate:local Linux amd64 image; repository read-only; network disabled; frozen build-input cache validated by script",
+  "accepted": 2,
+  "rejected": 1,
+  "rejection": "CSHARP_PRACTICAL_TYPE/exception_value_api",
+  "rejected_artifact_count": 0,
+  "application_vc_proof": false,
+  "files": [
+    {
+      "path": "requests.json",
+      "sha256": "f937cba403f82d0dc98c5e1fa6bf9870bc020edc50f2e97877848bdd42615ff3"
+    },
+    {
+      "path": "responses.json",
+      "sha256": "2ae3f86e030739400ae7d15dd2f57465b28339e4c3510c72a0aeaa20482142f7"
+    }
+  ]
+}

@@ -85,7 +85,10 @@ fn sequence(
     }
     product(vec![raw(values.len() as u128, 32), data])
 }
-fn storage(value: &MonomorphicValue, types: &BTreeMap<String, OrdinaryCarrier>) -> Vec<bool> {
+pub(super) fn storage(
+    value: &MonomorphicValue,
+    types: &BTreeMap<String, OrdinaryCarrier>,
+) -> Vec<bool> {
     let shape = &types[value.type_id()].shape;
     let scalar = |n: u128| match shape {
         OrdinaryShape::Bits { width } => raw(n, *width as usize),
@@ -241,7 +244,7 @@ fn storage(value: &MonomorphicValue, types: &BTreeMap<String, OrdinaryCarrier>) 
     assert_eq!(packed.len(), 1 << types[value.type_id()].depth);
     packed
 }
-fn sample(
+pub(super) fn sample(
     id: &str,
     seed: usize,
     types: &BTreeMap<String, OrdinaryCarrier>,
@@ -631,7 +634,7 @@ fn check_sequence_index_words(c: &Certificate, d: &OrdinaryRelationDefinition) {
         );
     }
 }
-fn sources() -> Vec<(String, Value, Value)> {
+pub(super) fn sources() -> Vec<(String, Value, Value)> {
     let mut cases = vec![];
     for family in ["binding-vc", "construction-vc", "exception-vc"] {
         let reqs = read(&format!("{family}/requests.json"));

@@ -303,7 +303,23 @@ fn stages(id: &str) -> R<[IntegerCircuit; 3]> {
     let finish = helper(id, "Finish", c, output, signature.ordered_checks, failures);
     Ok([initial, step, finish])
 }
-pub(super) fn emit_decimal(b: &mut Builder, id: &str) -> R<OrdinaryScalarDefinition> {
+pub(in super::super) fn emit_decimal_contract(
+    b: &mut Builder,
+    id: &str,
+) -> R<(OrdinaryScalarDefinition, Vec<String>)> {
+    if arithmetic::operation(id).is_some() {
+        return arithmetic::emit_contract(b, id);
+    }
+    let scalar = emit_decimal(b, id)?;
+    // Rounding and conversions have at most one check, so no earlier
+    // exception can mask their independent range/overflow condition.
+    if scalar.ordered_failure_definitions.len() > 1 {
+        return Err(OrdinaryCarrierError::Linkage);
+    }
+    let checks = scalar.ordered_failure_definitions.clone();
+    Ok((scalar, checks))
+}
+pub(in super::super) fn emit_decimal(b: &mut Builder, id: &str) -> R<OrdinaryScalarDefinition> {
     if arithmetic::operation(id).is_some() {
         return arithmetic::emit(b, id);
     }

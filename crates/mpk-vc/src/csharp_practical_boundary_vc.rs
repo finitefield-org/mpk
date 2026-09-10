@@ -5,7 +5,10 @@ use super::*;
 use crate::csharp_practical_source_artifacts::{self as a, PracticalJsonValue as J};
 use crate::csharp_practical_vir_validation::ValidatedPracticalVir;
 const BOOL: &str = "mpk.csharp.value.bool.v1";
-const STRING: &str = "mpk.csharp.value.string.v1";
+// A private ordinary core type, not a registered application value type.
+// Boundary documents retain up to 1 MiB of UTF-8 bytes; application strings
+// have only 16,384 UTF-16 units and cannot carry the complete document.
+pub(crate) const BOUNDARY_DOCUMENT_TYPE: &str = "Mpk.CSharp.Ordinary.BoundaryDocument";
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum BoundaryVcError {
     Linkage,
@@ -163,9 +166,7 @@ pub(crate) fn generate_boundary_vcs(
         }
         let id = text(&v, "contract_sha256")?;
         p.contracts.push(doc.clone());
-        // JSON text uses the ordinary string carrier without PublicDomain: a
-        // document can exceed the 16384-unit limit of an application string.
-        let document = var(0, STRING);
+        let document = var(0, BOUNDARY_DOCUMENT_TYPE);
         // The exact grammar/codec recipes are keyed by the retained contract.
         // Canonical UTF-8, duplicate keys (after escape decoding), declaration
         // order and all fixed byte/depth/cell/string/collection limits are required.
@@ -226,7 +227,7 @@ pub(crate) fn generate_boundary_vcs(
             p.push(
                 &fid,
                 "input_field",
-                vec![subject("document", STRING)],
+                vec![subject("document", BOUNDARY_DOCUMENT_TYPE)],
                 vec![accepted.clone()],
                 vec![
                     legal,
@@ -248,7 +249,7 @@ pub(crate) fn generate_boundary_vcs(
         p.push(
             id,
             "input_acceptance",
-            vec![subject("document", STRING)],
+            vec![subject("document", BOUNDARY_DOCUMENT_TYPE)],
             vec![],
             vec![equal(BOOL, accepted, cv::combine(&constraints, true))],
         );
@@ -265,7 +266,7 @@ pub(crate) fn generate_boundary_vcs(
         let encoded = call(
             &format!("Mpk.CSharp.Boundary.EncodeOutput.{id}"),
             vec![returned.clone()],
-            STRING,
+            BOUNDARY_DOCUMENT_TYPE,
         );
         let reparsed = call(
             &format!("Mpk.CSharp.Boundary.ReparseOutput.{id}"),
@@ -304,6 +305,17 @@ pub struct BoundaryValueDefinition {
     pub name: String,
     pub value: MonomorphicValue,
 }
+impl BoundaryValueDefinition {
+    pub(crate) fn canonical_name(value: &MonomorphicValue) -> String {
+        format!(
+            "Mpk.CSharp.Boundary.Value.{}",
+            digest(
+                &serde_json::to_vec(value).expect("typed literal"),
+                "MPK-CSHARP-BOUNDARY-LITERAL-1.0"
+            )
+        )
+    }
+}
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
 pub struct BoundaryRunVcProgram {
     boundary_program_sha256: String,
@@ -320,6 +332,12 @@ pub struct BoundaryRunVcProgram {
     relations: BoundaryVcProgram,
 }
 impl BoundaryRunVcProgram {
+    pub fn source_ir_sha256(&self) -> &str {
+        &self.source_ir_sha256
+    }
+    pub fn boundary_program_sha256(&self) -> &str {
+        &self.boundary_program_sha256
+    }
     pub fn sequents(&self) -> &[BoundarySequent] {
         self.relations.sequents()
     }
@@ -336,13 +354,7 @@ impl BoundaryRunVcProgram {
         digest(&self.canonical_bytes(), "MPK-CSHARP-BOUNDARY-RUN-VC-1.0")
     }
     fn literal(&mut self, v: &MonomorphicValue) -> ContractTerm {
-        let name = format!(
-            "Mpk.CSharp.Boundary.Value.{}",
-            digest(
-                &serde_json::to_vec(v).expect("typed literal"),
-                "MPK-CSHARP-BOUNDARY-LITERAL-1.0"
-            )
-        );
+        let name = BoundaryValueDefinition::canonical_name(v);
         if !self.values.iter().any(|d| d.name == name) {
             self.values.push(BoundaryValueDefinition {
                 name: name.clone(),

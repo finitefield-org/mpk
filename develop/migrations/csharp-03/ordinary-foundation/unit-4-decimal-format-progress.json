@@ -1,0 +1,117 @@
+{
+  "schema": "mpk.csharp_practical.w09.decimal_format_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "partial_normalized_decimal_format_definitions_verified_not_unit_completion",
+  "scope": "Normalized decimal formatting; fixed rounding, parser and all required proofs remain open",
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_decimal_format.rs",
+      "sha256": "6df10c3d55bd360d143a1148fd848c518ffa8af58134a6f81175abcd3c56cb2c"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_format_tests.rs",
+      "sha256": "b3eb029736c45cf19046c4b4c978614e6ad35869305335da323e075e29332f29"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_scalar_bits.rs",
+      "sha256": "4304cce4cba78694661c0b9ae5cb3a70f64f75369278cd18a142368692029f5d"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs",
+      "sha256": "6c167364997e267098982edfc588131e70edcdd760d97f3035e9e98d9d564e03"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+      "sha256": "7066f3e4dcd839805b01e8d2b6063a65bd461acd0cf2d396927c9822326b0796"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_literal_tests.rs",
+      "sha256": "df9117826d68d5711ff85b572269165b842955f893eeceb2695fc9a8a25f42cb"
+    }
+  ],
+  "verification": [
+    {
+      "command": "cargo fmt --all -- --check",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-decimal-formats-format-v1.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "scope": "Rust formatting only; no compilation or semantic verdict inferred."
+    },
+    {
+      "command": "/usr/bin/git diff --check",
+      "status": "passed",
+      "scope": "Outside sandbox, exit zero after implementation/documentation edits."
+    },
+    {
+      "command": "cargo check -p mpk-vc",
+      "log": "/tmp/mpk-w09-decimal-formats-check-v1.log",
+      "log_sha256": "09341d75f2d776db5b5d8655d57e16f0c90c1501c074767430248214a30ca120",
+      "status": "passed",
+      "scope": "cargo check completed in 6m 58s including existing build-lock wait."
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --test csharp_practical_vc -- -D warnings",
+      "log": "/tmp/mpk-w09-decimal-formats-clippy-v2.log",
+      "log_sha256": "91b6cef6d96a568cd78a06e370638cedcdff32bb85af6283222e952a0d949255",
+      "status": "passed",
+      "scope": "Current production plus original and pinned source tests; 17.07 seconds including lock wait."
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "log": "/tmp/mpk-w09-decimal-formats-inventory-v1.log",
+      "log_sha256": "77a46992ad04117b6a8329640ea5299d86fb66136f35a028e66dbc7d2269828e",
+      "status": "passed",
+      "scope": "All five tests passed, 28.20 seconds. No fixture count/hash adjustment required by the decimal formatter."
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_decimal_formats_pinned_sources -- --nocapture",
+      "log": "/tmp/mpk-w09-decimal-formats-replay-v1.log",
+      "log_sha256": "463b3e88d0562e111d8ab9cad1427fae121585eabd6deb5f415545579859dfff",
+      "status": "passed",
+      "scope": "65 actual source contexts regenerated; exact metadata and all six pinned certificate bytes preserved, 10.00 seconds."
+    },
+    {
+      "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIDecimalFormats$' -count=1 -timeout 0 -v",
+      "log": "/tmp/mpk-w09-decimal-formats-checkers-v1.log",
+      "log_sha256": "d3a902469405c50def133872ed0206e38f3bba8e6f64c8f7977d651e3990c720",
+      "status": "passed",
+      "scope": "All six same-byte certificate cases accepted by both unchanged checkers with zero axioms, hash mutations rejected. Uses corrected separate stdout/stderr harness; 92.206 seconds."
+    },
+    {
+      "command": "/usr/bin/git diff --check",
+      "status": "passed",
+      "scope": "Outside sandbox, exit zero after current implementation, regression tests and review records."
+    },
+    {
+      "command": "cargo fmt --all -- --check",
+      "log": "/tmp/mpk-w09-decimal-formats-format-v2.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "passed",
+      "scope": "Current formatting; empty output."
+    },
+    {
+      "command": "MPK_W09_DECIMAL_FORMATS_OUT=/tmp/mpk-w09-decimal-formats-v1 cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_decimal_formats_original_sources -- --nocapture",
+      "log": "/tmp/mpk-w09-decimal-formats-suite-v1.log",
+      "status": "passed",
+      "scope": "Normalized decimal ordinary semantic matrix passed: all 72 cases across scales/signs, coefficient boundaries, cohorts and zero; 5841.65 seconds. The running executable predated shared helper extraction, whose exact produced bytes were independently preserved by recorded replay.",
+      "log_sha256": "9eee5400e7e25097fb141a7dd0d965e746a10f029f9665ac4ceb1a2235c5d79f"
+    }
+  ],
+  "live_jobs": [],
+  "remaining": [
+    "Exact registry/source linkage and universal normalized parse/format proofs remain required.",
+    "Fixed-format and parser work, strict JSON and original W09 units 3-8 remain open.",
+    "No component-only commit or W09 completion; check-fast.sh deferred to T06-W12."
+  ],
+  "manifest": {
+    "path": "develop/migrations/csharp-03/ordinary-foundation/decimal-formats/certificates.json",
+    "sha256": "a0b67f6216480b89020a51cf61f18b7dbf594294314a5fd11af2b983340748bc"
+  },
+  "source_contexts_examined": 65,
+  "pinned_contexts": 6,
+  "formatter_occurrences": 6,
+  "max_terms": 26011,
+  "max_declarations": 236,
+  "subsequent_source_note": "Digit helpers were extracted into a shared Rust emitter for fixed formatting, without changing ordinary normalized bodies. Exact replay of all 65 normalized contexts and six pins passed after extraction in 12.72 seconds. The ongoing original normalized semantic process is preserved."
+}

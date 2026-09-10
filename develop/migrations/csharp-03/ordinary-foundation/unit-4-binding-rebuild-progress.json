@@ -1,0 +1,135 @@
+{
+  "schema": "mpk.csharp_practical.w09.binding_rebuild_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "partial_binary_reconstruction_verified_not_unit_completion",
+  "scope": "Explicit binary semantic/source-completion reconstruction only; no nonidentity unary inverse or application proof",
+  "counts": {
+    "source_contexts": 45,
+    "binary_definitions": 37,
+    "pending_nonidentity_unary_witness_occurrences": 35,
+    "existing_identity_witnesses": 2,
+    "source_observations": 267,
+    "changed_input_outputs": 63,
+    "raw_completion_length_observations": 2,
+    "storage_bit_observations": 32331,
+    "max_terms": 1616,
+    "max_declarations": 62
+  },
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_binding_rebuilds.rs",
+      "sha256": "38b247050c8d2e4f8c043b381875a358250f30a116ac6755c3d6603e47fdb515"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_binding_rebuild_tests.rs",
+      "sha256": "2aaa9284d6823834f6e25d37aefbce7d3705bd88cc5488c51d6ed7e4ec2599ea"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_binding_projections.rs",
+      "sha256": "ed810a90d707b47e46048c70b05425a702485050dc14f64187fd0f82935e8e4e"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_structural.rs",
+      "sha256": "6e0ebb3ee17b2b7f7071f800397c47d5ba56c723e403f030ab40d91f3b21a091"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs",
+      "sha256": "e1147a890d4f6540232d00f701b93cd91e355a39f1affeb75d2bc77c9ee61184"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+      "sha256": "db6d5e42ceb610f68f2daccdfe381f151376da197b768f66733cdb0bd65605d6"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_binding_relation_tests.rs",
+      "sha256": "f8dfc064a66103e771286d3d37322c2404126c2ef880f978445b2c923451c3ab"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "sha256": "323c2bd040076b05c88252ad7c66549cc2c93aa17d039c855b3b0c990dcf5fd5"
+    },
+    {
+      "path": "develop/migrations/csharp-03/artifact-consumer-inventory.json",
+      "sha256": "62d9729a2a9a86ba853035346057b7271b4c6d1392bfd398b5a40e183af200a2"
+    },
+    {
+      "path": "develop/migrations/csharp-03/data-phase/historical-inventory-cache-correction.json",
+      "sha256": "8d9fee3c69037b2b2560dc115060744cb73e6e95fa6c0b0e44488475a2cbbea1"
+    }
+  ],
+  "manifest": {
+    "path": "develop/migrations/csharp-03/ordinary-foundation/binding-rebuilds/certificates.json",
+    "sha256": "a9e974c4eb1bb1ac58326c0cb2c162063aaab1fe7ee5adce217b17c746f21f9c"
+  },
+  "verification": [
+    {
+      "command": "MPK_W09_BINDING_REBUILDS_OUT=/tmp/mpk-w09-binding-rebuilds-v2 cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_binding_rebuilds_ -- --nocapture",
+      "log": "/tmp/mpk-w09-binding-rebuilds-suite-v2.log",
+      "log_sha256": "5c7b2501b31d35379135cb0ff3d3770684de588307d6aaa5e0efa2c2a647d227",
+      "status": "passed",
+      "scope": "2 tests, 30.46 seconds; 45 generated contexts, 37 definitions, 35 pending unary witness occurrences, initial 156 source observations; executable predates strengthened tests"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_binding_rebuilds_source_observations -- --nocapture",
+      "log": "/tmp/mpk-w09-binding-rebuilds-semantics-v3.log",
+      "log_sha256": "068a70ae3454ff7219d1e08abe1a8ba6ac0526ee7c5602e0ffd2b2453b50d1c7",
+      "status": "failed_test_input",
+      "scope": "Test completion omitted newly active ordered-map payload cells. Fixed by supplying explicit source completion input cells; this result is not a pass."
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_binding_rebuilds_ -- --nocapture",
+      "log": "/tmp/mpk-w09-binding-rebuilds-suite-v4.log",
+      "log_sha256": "c26f49f05cb81242a1881fdff4601cbfb7b3158034daeb9d0065d97073b3990e",
+      "status": "passed",
+      "scope": "2 tests, 31.89 seconds; exact replay of all 45 pins and metadata, importer mutations and forward closure preservation; 267 source observations, 63 changed outputs, 2 raw completion length cases, 32331 storage bit observations"
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --test csharp_practical_vc -- -D warnings",
+      "log": "/tmp/mpk-w09-binding-rebuilds-clippy-v2.log",
+      "log_sha256": "54c3b2e632baa7bf9e28dff856303a1379c446b73bedea1aa32bc9bdb8b88b55",
+      "status": "passed",
+      "scope": "13.57 seconds, latest strengthened tests"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "log": "/tmp/mpk-w09-binding-rebuilds-inventory-v1.log",
+      "log_sha256": "47e1e43b09dfc4999d0a3620e267822ad09ded57f9504a889d8899d89a893339",
+      "status": "passed",
+      "scope": "5 tests, 16.99 seconds; exact new Std namespace path delta, 115 to 116"
+    },
+    {
+      "command": "go test -run '^TestCheckerAgreementWithRustCLIBindingRebuilds$' -count=1 -timeout 90m -v",
+      "log": "/tmp/mpk-w09-binding-rebuilds-checkers-v1.log",
+      "log_sha256": "95c9063b358c7888f7fa6370a872ff1fb0e114d5e149904adff3cdda40b6e3d4",
+      "status": "not_verified",
+      "scope": "Missing checkeragreement tag ran zero tests; exit 1 after forbidden default Go cache write. No checker coverage claimed."
+    },
+    {
+      "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIBindingRebuilds$' -count=1 -timeout 0 -v",
+      "log": "/tmp/mpk-w09-binding-rebuilds-checkers-v2.log",
+      "log_sha256": "fd753f28bde6b6303fc2b2d2b583590e0e94531bd37bb5aa06759a38455978f8",
+      "status": "passed",
+      "scope": "All 45 exact pinned byte sequences accepted with zero axioms by both unchanged checkers; hash-corrupted variants rejected. Completed in 166.916 seconds."
+    },
+    {
+      "command": "cargo fmt --all -- --check; gofmt -d go-tools/mpk-checker-ref/checker_agreement_test.go; /usr/bin/git diff --check",
+      "status": "passed",
+      "scope": "Rust format log empty; Go formatting diff empty; Git diff check exit zero. Git ran outside sandbox.",
+      "log": "/tmp/mpk-w09-binding-rebuilds-format-v1.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "live_jobs": [],
+  "remaining": [
+    "Source-invariant and admissible unary completion witnesses; both universal round trips; native constructor/getter/operation and outcome commutation proofs.",
+    "Unit 3 deep domains and Money source semantic matrices remain tracked in their own live receipts.",
+    "Complete unit 4 canonical codecs and all other uncompleted work in implementation-plan.md units 3\u20138.",
+    "No internal unit commit or W09 completion claim; check-fast.sh remains deferred to T06-W12."
+  ],
+  "direct_review": {
+    "status": "no_additional_findings_in_binary_component",
+    "scope": "Unit 4 and W09 proof obligations remain incomplete",
+    "path": "develop/migrations/csharp-03/ordinary-foundation/unit-4-binding-rebuild-review.md"
+  }
+}

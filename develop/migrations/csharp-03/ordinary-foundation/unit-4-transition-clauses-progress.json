@@ -1,0 +1,93 @@
+{
+  "schema": "mpk.csharp_practical.w09.transition_clause_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "status": "transition_projection_component_targeted_verification_passed",
+  "verification": [
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/transition-clauses/mpk-w09-transition-clauses-build-v1.log",
+      "sha256": "d9e3dec16c3ab4a52b030e0ffe81f2b524478b6ce20ea628a081b73f777ec24b",
+      "scope_and_selection_reason": "Affected library compilation;10.54s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/transition-clauses/mpk-w09-transition-clause-requests-v1.log",
+      "sha256": "ceac6292f4b50e8e24eb51d28b23132274dd1f01fccf3bfcd2895291f7a36bb5",
+      "scope_and_selection_reason": "Two fresh scalar/compound source/contract request contexts;0.07s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/transition-clauses/mpk-w09-transition-clause-capture-v1.log",
+      "sha256": "b54783e7f03a494ff5bd47f4478ef297095ffb7feeb71eefcecd239ae331398b",
+      "scope_and_selection_reason": "Both unchanged isolated frontend processes exited0 with empty stdout/stderr;88 staged files rechecked against current repository and manifest."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/transition-clauses/mpk-w09-transition-clauses-source-v1.log",
+      "sha256": "a54f81f4a1f757c08b54efd40bf55d7781f789b64593855dc4b433f5b0af6caa",
+      "scope_and_selection_reason": "Six original source clauses and exact getter aliases with full dependency closure equality;999 field/selector/tail observations;exact import and result metadata mutation;3.17s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/transition-clauses/mpk-w09-transition-clauses-preservation-v1.log",
+      "sha256": "81d16b3099329b5165d51914a84d98a66bd0789f3f9b5c8d0b5bc4d11d30dc9e",
+      "scope_and_selection_reason": "Affected shared compiler/storage consumers:tagged construction and old/result attachments retain exact pins;two tests,1.63s. Disjoint codec/collection/quantifier semantics not rerun."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/transition-clauses/mpk-w09-transition-clauses-inventory-v1.log",
+      "sha256": "19ef4490aa8de54a77b39e51ad676ad9516c00d5015f2c080f51f5d41dfe0e86",
+      "scope_and_selection_reason": "Affected artifact-consumer closure;16.89s. Existing126 Std. paths/4949 aggregate edges unchanged."
+    },
+    {
+      "status": "failed_test_lint_corrected",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/transition-clauses/mpk-w09-transition-clauses-clippy-v1.log",
+      "sha256": "92b2fda80fd6806633a3eb5196e071f216aca4e612c2d5e1039337e64160396d",
+      "scope_and_selection_reason": "Test parity expression used a manual modulo comparison;replaced with is_multiple_of."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/transition-clauses/mpk-w09-transition-clauses-clippy-v2.log",
+      "sha256": "55ec62a1014d02a2c1211c764135c675265001eaf03a23f00582a44b2bb92c15",
+      "scope_and_selection_reason": "Final affected library/integration lint after test-only correction;45.25s with build-directory contention."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/transition-clauses/mpk-w09-transition-clauses-format-v1.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "scope_and_selection_reason": "Only changed production/integration Rust files;skip_children avoids unrelated formatting."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/transition-clauses/mpk-w09-transition-clauses-checkers-v1.log",
+      "sha256": "6e919092ab9c45c0a912771450874147a6b5718bf9ea9a3c0ae3a05c430cfcc3",
+      "scope_and_selection_reason": "Only two new candidates:both unchanged checkers accept identical bytes with zero axioms and matching reports,and reject actual hash corruption. Terminal PASS names,current hashes/sizes/metadata and tested output copies reconciled;57.192s."
+    },
+    {
+      "status": "passed",
+      "commands": [
+        "/usr/bin/git diff --check",
+        "gofmt -l go-tools/mpk-checker-ref/checker_agreement_test.go",
+        "Recompute retained log/candidate hashes and compare actual tested output copies"
+      ],
+      "scope_and_selection_reason": "Final changed-file whitespace/format and evidence consistency;no repeated semantic suite."
+    }
+  ],
+  "candidates": [
+    {
+      "file": "compound.hex",
+      "bytes": 94537,
+      "certificate_sha256": "b4593c9e9444dedcf21f17743c5ad317a24a2c227b9f0b468d3a2f1500b7d37e"
+    },
+    {
+      "file": "scalar-map.hex",
+      "bytes": 74005,
+      "certificate_sha256": "5157bf50c7e112a2d8c79410fa39454270e73c3a16e85bcbb9945cd781e7d0e1"
+    }
+  ],
+  "live_jobs": [],
+  "remaining_component_checks": [],
+  "whole_gate": "Deferred to T06-W12;no check-fast or equivalent split whole gate in this W.",
+  "completion": "Original units3\u20138 and W09 remain open. Projection helpers do not instantiate native outcomes or discharge transition/replay/application VCs;no component-only commit/push.",
+  "review": "No actionable findings remain in this component."
+}

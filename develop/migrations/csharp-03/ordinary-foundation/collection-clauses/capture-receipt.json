@@ -1,0 +1,30 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.collection_clause_capture.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "date": "2026-09-11",
+  "files": [
+    {
+      "path": "requests.json",
+      "bytes": 127420,
+      "sha256": "efd0722cd7f0b011ba4ad504cd98ff2dcdf4b2cb78ab82c671a16a88216d1c71"
+    },
+    {
+      "path": "responses.json",
+      "bytes": 50499,
+      "sha256": "9b661003ede8e5c8a406938a687e3a3703896a65ff3aa58afb53b87b01e35ff0"
+    },
+    {
+      "path": "capture-inputs.json",
+      "bytes": 19763,
+      "sha256": "8befa15a01a4209c159d509013d3ab9b28b8ded95f1ae909b24f655390354c2c"
+    }
+  ],
+  "source_contexts": 9,
+  "frontend_accepts": 9,
+  "capture_stage": "/tmp/mpk-w09-public-domain-capture-stage",
+  "stage_verification": "All 88 recorded stage files matched recorded hashes and sizes; every repository counterpart matched before capture.",
+  "docker_image": "python@sha256:933b46a028fd786c9c3d426ebabc237e29a15912231ea8de576e95f0e4f41a4c",
+  "isolation": "network none; default seccomp; read-only root and stage; bounded tmpfs; no-new-privileges; only required namespace/user capabilities; 4g/2cpu",
+  "route": "unchanged gate.test_data_phase via diagnose.py",
+  "semantic_status": "All nine ordinary source contexts, 18 recipes and 5598 observations passed; current-byte regeneration and dual checking passed. This is not application VC proof."
+}

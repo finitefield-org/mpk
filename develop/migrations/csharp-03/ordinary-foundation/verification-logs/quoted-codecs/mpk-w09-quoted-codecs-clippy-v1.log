@@ -1,0 +1,23 @@
+    Blocking waiting for file lock on build directory
+    Checking mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error[E0308]: mismatched types
+    --> crates/mpk-vc/tests/support/csharp_practical_ordinary_json_token_tests.rs:1462:30
+     |
+1461 |             super::super::structural_equivalence_tests::same_definition_closure(
+     |             ------------------------------------------------------------------- arguments to this function are incorrect
+1462 |                 &old, &cert, &roots,
+     |                              ^^^^^^ expected `&BTreeSet<String>`, found `&Vec<String>`
+     |
+     = note: expected reference `&std::collections::BTreeSet<std::string::String>`
+                found reference `&std::vec::Vec<std::string::String>`
+note: function defined here
+    --> crates/mpk-vc/tests/support/csharp_practical_ordinary_structural_equivalence_tests.rs:32:15
+     |
+  32 | pub(super) fn same_definition_closure(
+     |               ^^^^^^^^^^^^^^^^^^^^^^^
+...
+  35 |     roots: &BTreeSet<String>,
+     |     ------------------------
+
+For more information about this error, try `rustc --explain E0308`.
+error: could not compile `mpk-vc` (test "csharp_practical_vc") due to 1 previous error

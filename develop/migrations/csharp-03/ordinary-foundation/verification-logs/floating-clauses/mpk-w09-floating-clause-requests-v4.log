@@ -1,0 +1,128 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error[E0277]: the trait bound `&str: Into<str>` is not satisfied
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_floating_clause_tests.rs:191:30
+    |
+191 |     rows.push(("conversions".into(), conversions));
+    |                              ^^^^ the trait `From<&str>` is not implemented for `str`
+    |
+    = help: `std::string::String` implements trait `From<T>`:
+              From<&mut str>
+              From<&std::string::String>
+              From<&str>
+              From<Box<str>>
+              From<Cow<'_, str>>
+              From<char>
+    = note: required for `&str` to implement `Into<str>`
+
+error[E0277]: the trait bound `&str: Into<str>` is not satisfied
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_floating_clause_tests.rs:176:22
+    |
+176 |                 kind.into(),
+    |                      ^^^^ the trait `From<&str>` is not implemented for `str`
+    |
+    = help: `std::string::String` implements trait `From<T>`:
+              From<&mut str>
+              From<&std::string::String>
+              From<&str>
+              From<Box<str>>
+              From<Cow<'_, str>>
+              From<char>
+    = note: required for `&str` to implement `Into<str>`
+
+error[E0277]: the size for values of type `str` cannot be known at compilation time
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_floating_clause_tests.rs:192:20
+    |
+192 |       let requests = rows
+    |  ____________________^
+193 | |         .into_iter()
+194 | |         .flat_map(|(id, expressions)| {
+195 | |             let source = native_source(&id);
+...   |
+199 | |                 .clone()
+200 | |         })
+    | |__________^ doesn't have a size known at compile-time
+    |
+    = help: the trait `Sized` is not implemented for `str`
+    = note: only the last element of a tuple may have a dynamically sized type
+help: consider borrowing the value
+    |
+194 |         .flat_map(|(id, expressions)| &{
+    |                                       +
+
+error[E0277]: the size for values of type `str` cannot be known at compilation time
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_floating_clause_tests.rs:194:21
+    |
+194 |         .flat_map(|(id, expressions)| {
+    |                     ^^ doesn't have a size known at compile-time
+    |
+    = help: the trait `Sized` is not implemented for `str`
+    = note: all local variables must have a statically known size
+
+error[E0277]: the size for values of type `str` cannot be known at compilation time
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_floating_clause_tests.rs:192:20
+    |
+192 |       let requests = rows
+    |  ____________________^
+193 | |         .into_iter()
+    | |____________________^ doesn't have a size known at compile-time
+    |
+    = help: the trait `Sized` is not implemented for `str`
+    = note: only the last element of a tuple may have a dynamically sized type
+
+error[E0277]: the size for values of type `str` cannot be known at compilation time
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_floating_clause_tests.rs:191:5
+    |
+191 |     rows.push(("conversions".into(), conversions));
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ doesn't have a size known at compile-time
+    |
+    = help: the trait `Sized` is not implemented for `str`
+    = note: only the last element of a tuple may have a dynamically sized type
+
+error[E0277]: the size for values of type `str` cannot be known at compilation time
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_floating_clause_tests.rs:172:20
+    |
+172 |       let mut rows = ["single", "double"]
+    |  ____________________^
+173 | |         .into_iter()
+174 | |         .map(|kind| {
+...   |
+179 | |         })
+    | |__________^ doesn't have a size known at compile-time
+    |
+    = help: the trait `Sized` is not implemented for `str`
+    = note: only the last element of a tuple may have a dynamically sized type
+help: consider borrowing the value
+    |
+174 |         .map(|kind| &{
+    |                     +
+
+error[E0308]: mismatched types
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_floating_clause_tests.rs:196:67
+    |
+196 |             integer_codec_clause_tests::requests_for_source(vec![(id, expressions)], Some(&source))
+    |                                                                   ^^ expected `String`, found `str`
+    |
+help: try using a conversion method
+    |
+196 |             integer_codec_clause_tests::requests_for_source(vec![(id.to_string(), expressions)], Some(&source))
+    |                                                                     ++++++++++++
+
+error[E0277]: the size for values of type `str` cannot be known at compilation time
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_floating_clause_tests.rs:192:20
+    |
+192 |       let requests = rows
+    |  ____________________^
+193 | |         .into_iter()
+194 | |         .flat_map(|(id, expressions)| {
+195 | |             let source = native_source(&id);
+...   |
+200 | |         })
+201 | |         .collect::<Vec<_>>();
+    | |____________________________^ doesn't have a size known at compile-time
+    |
+    = help: the trait `Sized` is not implemented for `str`
+    = note: only the last element of a tuple may have a dynamically sized type
+
+Some errors have detailed explanations: E0277, E0308.
+For more information about an error, try `rustc --explain E0277`.
+error: could not compile `mpk-vc` (test "csharp_practical_vc") due to 9 previous errors

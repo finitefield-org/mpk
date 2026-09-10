@@ -1,0 +1,401 @@
+{
+  "schema": "mpk.csharp_practical.w09.aggregate_step_eight_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_units": [
+    3,
+    4
+  ],
+  "status": "all_affected_aggregate_consumer_source_preservation_and_dual_checks_passed_remaining_domain_semantics_running",
+  "implementation": "Reassociate aggregate Pipeline through StepEight, a four-StepTwo guarded composition. Retain exactly 8192 ordered original StepTwo calls and every original Active/Compose/predicate/length/cell operation. Builder charges four group occurrences and 2048 pipeline occurrences without resetting or discounting cumulative counters.",
+  "scope": "Definitions and regression evidence only; not typed schema grammar, universal application propositions or proofs.",
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_aggregate_fold.rs",
+      "sha256": "0d059bcbf331e26aa2831f64f8ffc8e26e6762e1e30327dbcad3a67f5046b66d"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_decimal_parse.rs",
+      "sha256": "525f52f61b9d505b56a8b465d23d49accdbe05ee0622eda4f22ba975148613b9"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_scalar_bits.rs",
+      "sha256": "3bb5561cf518267cc01318a0820bfae53d461637ce096063a0a62bdaf1f1fd08"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_structural_equivalence_tests.rs",
+      "sha256": "a54cfdc56a99d3c2aa25e8feb632c2b5f74b8d467e86029c130f378176b2df6d"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_integer_parse_tests.rs",
+      "sha256": "53d5b1bb4cd66565b0c255dc32521146204cbfa8bdd93a261c3ee3bd951e1b7a"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_parse_tests.rs",
+      "sha256": "efa87c1b8e422b7aa282cb55ee36ab40621eceabef7ef220aff4f6cacc74b9ed"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "sha256": "06dcdbb8f2bd820a54ce390e23a600af52b7aff0d545509b9058f1e0b77ffd21"
+    }
+  ],
+  "verification": [
+    {
+      "session_id": 61806,
+      "status": "failed_test_compile",
+      "scope": "Initial test-only visibility re-export failed compilation; corrected to a wrapper.",
+      "log": "/tmp/mpk-w09-decimal-shared-baseline-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/aggregate-step-eight/mpk-w09-decimal-shared-baseline-v1.log",
+      "log_sha256": "9b48172657ccf159b92e865f40128b0efeb82209b84d849d89932f160db951c2",
+      "exit_code": 101
+    },
+    {
+      "session_id": 6077,
+      "status": "failed_expected_resource_limit",
+      "scope": "Before regrouping, actual collection+JSON+decimal generation exceeded the shared transformer limit at decimal emission.",
+      "log": "/tmp/mpk-w09-decimal-shared-baseline-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/aggregate-step-eight/mpk-w09-decimal-shared-baseline-v2.log",
+      "log_sha256": "422fe3861cfbb77d86f1ca42eedcf34632759d6f06a72c6bc3a45ffca2747047",
+      "exit_code": 101
+    },
+    {
+      "session_id": 92524,
+      "status": "passed",
+      "scope": "Three generation/limit/poison tests passed in 2.78s. New combined certificate uses 15434 transformers.",
+      "log": "/tmp/mpk-w09-aggregate-step-eight-generation-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/aggregate-step-eight/mpk-w09-aggregate-step-eight-generation-v1.log",
+      "log_sha256": "4d9a5be63f832751bdd5cd89a9f070e315d02e46f57d8a84bf40236471080df4",
+      "exit_code": 0
+    },
+    {
+      "session_id": 35973,
+      "status": "passed",
+      "scope": "Two definition-closure and audit-mutation tests passed in 0.52s; 8192 ordered StepTwo calls preserved, all old declarations/dependencies unchanged after validated reassociation.",
+      "log": "/tmp/mpk-w09-aggregate-step-eight-audit-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/aggregate-step-eight/mpk-w09-aggregate-step-eight-audit-v1.log",
+      "log_sha256": "53b227dbdd504bfaff14bc3f40676a7dc293c4cc74cdfc2481f3c583d973c1c1",
+      "exit_code": 0
+    },
+    {
+      "session_id": 91879,
+      "status": "passed",
+      "scope": "Affected library and integration test target clippy passed with warnings denied, 30.77s including build wait.",
+      "log": "/tmp/mpk-w09-aggregate-step-eight-clippy-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/aggregate-step-eight/mpk-w09-aggregate-step-eight-clippy-v1.log",
+      "log_sha256": "3f6aab722f2752a926cfb7c991696d11c568929496d451d454b141f02c389f32",
+      "exit_code": 0
+    },
+    {
+      "session_id": 81272,
+      "status": "passed",
+      "scope": "Two tests passed in 277.04s: each parser reconstructed 65 contexts; 54 integer and six decimal source pins, full prior definition closure/import mutations, 456 embedded integer observations.",
+      "log": "/tmp/mpk-w09-aggregate-step-eight-sources-v1.log",
+      "exit_code": 0,
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/aggregate-step-eight/mpk-w09-aggregate-step-eight-sources-v1.log",
+      "log_sha256": "56ff8b3683f28dd2cced91d5ee1fabcf86c29902482e69e22b7c44f77de6c822"
+    },
+    {
+      "session_id": 10274,
+      "status": "passed",
+      "scope": "All three aggregate runtime tests passed in 777.48s: complete 16384/16383-element bound, group boundaries, modes/saturation/odd counts.",
+      "log": "/tmp/mpk-w09-aggregate-step-eight-runtime-v1.log",
+      "exit_code": 0,
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/aggregate-step-eight/mpk-w09-aggregate-step-eight-runtime-v1.log",
+      "log_sha256": "d0185abe0ec1c71d13e182eff1bb3547fab02c8978f7710f7d1b20781742b637"
+    },
+    {
+      "session_id": 30551,
+      "status": "passed",
+      "scope": "Both potentially affected consumer inventory tests passed in 16.90s; three unrelated cases filtered.",
+      "log": "/tmp/mpk-w09-aggregate-step-eight-consumers-v1.log",
+      "exit_code": 0,
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/aggregate-step-eight/mpk-w09-aggregate-step-eight-consumers-v1.log",
+      "log_sha256": "b0ee49e8f601a570be601c04b25e01ad936d87090cf9c1683d6c83a3bd03dac4"
+    },
+    {
+      "session_id": 56758,
+      "status": "passed",
+      "scope": "Both aggregate/combined pin replay and cumulative-limit branches passed in 2.56s.",
+      "log": "/tmp/mpk-w09-aggregate-step-eight-pins-v1.log",
+      "exit_code": 0,
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/aggregate-step-eight/mpk-w09-aggregate-step-eight-pins-v1.log",
+      "log_sha256": "c5a4ab4a3c08308d61643736406401115a06021471d983256c9c212214d30254"
+    },
+    {
+      "session_id": 77834,
+      "status": "passed",
+      "scope": "Both changed core/shared vectors passed same-byte Go/Rust checking with zero axioms and actual hash-corruption rejection: aggregate 68.89s, combined decimal/JSON/collection 162.95s; total 232.213s.",
+      "log": "/tmp/mpk-w09-aggregate-step-eight-core-shared-checkers-v1.log",
+      "exit_code": 0,
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/aggregate-step-eight/mpk-w09-aggregate-step-eight-core-shared-checkers-v1.log",
+      "log_sha256": "55cc0a97e6478e112bd8067f1fa769bc0325d1738731ade3639c9ed3f816d780"
+    },
+    {
+      "session_id": 69397,
+      "status": "passed",
+      "log": "/tmp/mpk-w09-aggregate-step-eight-parser-checkers-v1.log",
+      "scope": "All 13 distinct parser vectors passed both checkers, zero axioms and hash corruption rejection: 12 integer groups in 119.94s; one decimal group in 29.58s.",
+      "exit_code": 0,
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/aggregate-step-eight/mpk-w09-aggregate-step-eight-parser-checkers-v1.log",
+      "log_sha256": "2fcd8176d9a230f677dd5c895b68b91d3a7addcd723805afed7ed9438af55e35"
+    }
+  ],
+  "test_selection": "Include both emit_aggregate_fold aliases and direct aggregate_fold::emit_fold call sites, plus every transitive consumer whose root certificate contains the aggregate Pipeline. Integer/decimal/core generation, runtime and checker cases already pass. Additional twelve component families require actual-source regeneration, exact non-cost metadata and expanded-definition comparison, and checker verification for each distinct changed byte vector. Four structural boundary contexts are also regenerated by quoted-decimal work and compared to previous definitions. Unaffected vectors are identified by full byte equality; unrelated runtime suites and intermediate-W whole gates remain excluded.",
+  "archives": [
+    "aggregate-folds/previous-step-eight",
+    "integer-parsers/previous-step-eight",
+    "decimal-parsers/previous-step-eight"
+  ],
+  "pins": {
+    "aggregate": {
+      "certificate_sha256": "e9aad530b53430b2fcf608e656dfeff60f0d775be5e076601291b7bf93be716c",
+      "declarations": 123,
+      "definitions": [
+        {
+          "all_definition": "Mpk.CSharp.Ordinary.AggregateFold.All.D0",
+          "any_definition": "Mpk.CSharp.Ordinary.AggregateFold.Any.D0",
+          "capacity": 1,
+          "first_definition": "Mpk.CSharp.Ordinary.AggregateFold.First.D0",
+          "index_bits": 0,
+          "sum_definition": "Mpk.CSharp.Ordinary.AggregateFold.Sum.D0"
+        },
+        {
+          "all_definition": "Mpk.CSharp.Ordinary.AggregateFold.All.D1",
+          "any_definition": "Mpk.CSharp.Ordinary.AggregateFold.Any.D1",
+          "capacity": 2,
+          "first_definition": "Mpk.CSharp.Ordinary.AggregateFold.First.D1",
+          "index_bits": 1,
+          "sum_definition": "Mpk.CSharp.Ordinary.AggregateFold.Sum.D1"
+        },
+        {
+          "all_definition": "Mpk.CSharp.Ordinary.AggregateFold.All.D2",
+          "any_definition": "Mpk.CSharp.Ordinary.AggregateFold.Any.D2",
+          "capacity": 4,
+          "first_definition": "Mpk.CSharp.Ordinary.AggregateFold.First.D2",
+          "index_bits": 2,
+          "sum_definition": "Mpk.CSharp.Ordinary.AggregateFold.Sum.D2"
+        },
+        {
+          "all_definition": "Mpk.CSharp.Ordinary.AggregateFold.All.D3",
+          "any_definition": "Mpk.CSharp.Ordinary.AggregateFold.Any.D3",
+          "capacity": 8,
+          "first_definition": "Mpk.CSharp.Ordinary.AggregateFold.First.D3",
+          "index_bits": 3,
+          "sum_definition": "Mpk.CSharp.Ordinary.AggregateFold.Sum.D3"
+        },
+        {
+          "all_definition": "Mpk.CSharp.Ordinary.AggregateFold.All.D4",
+          "any_definition": "Mpk.CSharp.Ordinary.AggregateFold.Any.D4",
+          "capacity": 16,
+          "first_definition": "Mpk.CSharp.Ordinary.AggregateFold.First.D4",
+          "index_bits": 4,
+          "sum_definition": "Mpk.CSharp.Ordinary.AggregateFold.Sum.D4"
+        },
+        {
+          "all_definition": "Mpk.CSharp.Ordinary.AggregateFold.All.D5",
+          "any_definition": "Mpk.CSharp.Ordinary.AggregateFold.Any.D5",
+          "capacity": 32,
+          "first_definition": "Mpk.CSharp.Ordinary.AggregateFold.First.D5",
+          "index_bits": 5,
+          "sum_definition": "Mpk.CSharp.Ordinary.AggregateFold.Sum.D5"
+        },
+        {
+          "all_definition": "Mpk.CSharp.Ordinary.AggregateFold.All.D6",
+          "any_definition": "Mpk.CSharp.Ordinary.AggregateFold.Any.D6",
+          "capacity": 64,
+          "first_definition": "Mpk.CSharp.Ordinary.AggregateFold.First.D6",
+          "index_bits": 6,
+          "sum_definition": "Mpk.CSharp.Ordinary.AggregateFold.Sum.D6"
+        },
+        {
+          "all_definition": "Mpk.CSharp.Ordinary.AggregateFold.All.D7",
+          "any_definition": "Mpk.CSharp.Ordinary.AggregateFold.Any.D7",
+          "capacity": 128,
+          "first_definition": "Mpk.CSharp.Ordinary.AggregateFold.First.D7",
+          "index_bits": 7,
+          "sum_definition": "Mpk.CSharp.Ordinary.AggregateFold.Sum.D7"
+        },
+        {
+          "all_definition": "Mpk.CSharp.Ordinary.AggregateFold.All.D8",
+          "any_definition": "Mpk.CSharp.Ordinary.AggregateFold.Any.D8",
+          "capacity": 256,
+          "first_definition": "Mpk.CSharp.Ordinary.AggregateFold.First.D8",
+          "index_bits": 8,
+          "sum_definition": "Mpk.CSharp.Ordinary.AggregateFold.Sum.D8"
+        },
+        {
+          "all_definition": "Mpk.CSharp.Ordinary.AggregateFold.All.D9",
+          "any_definition": "Mpk.CSharp.Ordinary.AggregateFold.Any.D9",
+          "capacity": 512,
+          "first_definition": "Mpk.CSharp.Ordinary.AggregateFold.First.D9",
+          "index_bits": 9,
+          "sum_definition": "Mpk.CSharp.Ordinary.AggregateFold.Sum.D9"
+        },
+        {
+          "all_definition": "Mpk.CSharp.Ordinary.AggregateFold.All.D10",
+          "any_definition": "Mpk.CSharp.Ordinary.AggregateFold.Any.D10",
+          "capacity": 1024,
+          "first_definition": "Mpk.CSharp.Ordinary.AggregateFold.First.D10",
+          "index_bits": 10,
+          "sum_definition": "Mpk.CSharp.Ordinary.AggregateFold.Sum.D10"
+        },
+        {
+          "all_definition": "Mpk.CSharp.Ordinary.AggregateFold.All.D11",
+          "any_definition": "Mpk.CSharp.Ordinary.AggregateFold.Any.D11",
+          "capacity": 2048,
+          "first_definition": "Mpk.CSharp.Ordinary.AggregateFold.First.D11",
+          "index_bits": 11,
+          "sum_definition": "Mpk.CSharp.Ordinary.AggregateFold.Sum.D11"
+        },
+        {
+          "all_definition": "Mpk.CSharp.Ordinary.AggregateFold.All.D12",
+          "any_definition": "Mpk.CSharp.Ordinary.AggregateFold.Any.D12",
+          "capacity": 4096,
+          "first_definition": "Mpk.CSharp.Ordinary.AggregateFold.First.D12",
+          "index_bits": 12,
+          "sum_definition": "Mpk.CSharp.Ordinary.AggregateFold.Sum.D12"
+        },
+        {
+          "all_definition": "Mpk.CSharp.Ordinary.AggregateFold.All.D13",
+          "any_definition": "Mpk.CSharp.Ordinary.AggregateFold.Any.D13",
+          "capacity": 8192,
+          "first_definition": "Mpk.CSharp.Ordinary.AggregateFold.First.D13",
+          "index_bits": 13,
+          "sum_definition": "Mpk.CSharp.Ordinary.AggregateFold.Sum.D13"
+        },
+        {
+          "all_definition": "Mpk.CSharp.Ordinary.AggregateFold.All.D14",
+          "any_definition": "Mpk.CSharp.Ordinary.AggregateFold.Any.D14",
+          "capacity": 16384,
+          "first_definition": "Mpk.CSharp.Ordinary.AggregateFold.First.D14",
+          "index_bits": 14,
+          "sum_definition": "Mpk.CSharp.Ordinary.AggregateFold.Sum.D14"
+        }
+      ],
+      "static_transformers": 2077,
+      "terms": 4818
+    },
+    "shared": {
+      "before_decimal_transformers": 13002,
+      "certificate_sha256": "303c00d62cc209d47728311bb3ea310e3fb318e08b697acc37b815764f4a9c08",
+      "collection_transformers": 8192,
+      "declarations": 1696,
+      "scope": "full collection, JSON and decimal definition integration; not application VC proofs",
+      "static_transformers": 15434,
+      "terms": 107519
+    }
+  },
+  "pending": [
+    "Complete all 122 distinct changed consumer checker inputs and reconcile verification evidence",
+    "Complete all remaining W09 units 3 through 8"
+  ],
+  "whole_gate": "Deferred to T06-W12.",
+  "completion": "W09 incomplete; no component-only commit or push.",
+  "previous_goal_turn_classification": "no progress: acknowledged future test selection preference; this continuation revalidated actual worktree and terminal jobs before acting.",
+  "this_goal_turn_classification": "progress: corrected direct/transitive consumer inventory, regenerated all twelve affected families, fixed stale dependency fixture selection, passed complete definition/non-cost-metadata audit, staged 133 changed and 92 identical pins, and started 122 distinct same-byte checker inputs.",
+  "format_checks": {
+    "rustfmt_six_edited_files": "passed",
+    "gofmt_checker_file": "passed",
+    "git_diff_check": "passed; /usr/bin/git outside sandbox"
+  },
+  "parser_pins": {
+    "staging": "All 60 generated pins and both manifests copied and read back byte-for-byte after source generation/preservation checks. Source suite subsequently completed successfully.",
+    "groups": "unit-4-aggregate-step-eight-checker-groups.json",
+    "integer_distinct_vectors": 12,
+    "decimal_distinct_vectors": 1,
+    "repeat_pinned_source_generation": "Not repeated: source generation/import/preservation passed and copied bytes/metadata were read back exactly; no production code changed afterward."
+  },
+  "live_jobs_last_confirmed": [],
+  "review": {
+    "path": "unit-4-aggregate-step-eight-review.md",
+    "source_findings": [],
+    "verification_pending": true
+  },
+  "historical_pin_note": "Quoted decimal integration now supersedes JSON/shared vectors. The aggregate core and standalone integer/decimal pins stay unchanged. Prior combined bytes and metadata are retained under decimal-json-collection-shared/previous-quoted-decimal and were checked before superseding.",
+  "test_selection_correction": "Previous search considered only emit_aggregate_fold and missed direct aggregate_fold::emit_fold calls in relations, domains, construction_ops, collection_ops and binding_orders, plus their transitive consumers. Earlier claim that only integer/decimal were affected is incorrect. Runtime/core/parser results remain valid, but affected current root pins in unit-4-aggregate-step-eight-affected-pins.json require actual-source regeneration, normalized dependency audit and deduplicated checker verification.",
+  "additional_consumer_generation": {
+    "session_id": 55476,
+    "log": "/tmp/mpk-w09-aggregate-aliased-sources-v1.log",
+    "scope": "11 affected direct/transitive component source certificate suites; output /tmp/mpk-w09-aggregate-aliased-v1",
+    "status": "10_passed_one_stale_dependency_fixture_failure",
+    "exit_code": 101,
+    "elapsed_seconds": 482.25,
+    "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/aggregate-step-eight/mpk-w09-aggregate-aliased-sources-v1.log",
+    "log_sha256": "fe4bc7c20ceea5db1eab17d193a3e932999aaaa04c372679375963040fae5f88",
+    "failure": "Binding order test compared freshly generated guard metadata/bytes with the still-old root guard pins. This is a fixture sequencing mismatch, not semantic/proof rejection. The test now supports MPK_W09_BINDING_GUARDS_OUT for dependency generation while retaining exact byte/metadata comparison; retry only that test after guard generation completed."
+  },
+  "additional_structural_generation": {
+    "session_id": 41742,
+    "log": "/tmp/mpk-w09-aggregate-aliased-structural-v1.log",
+    "scope": "Integrated structural foundation actual-source generation; sharing budget compares newly generated independent programs, not obsolete static counts",
+    "status": "passed",
+    "exit_code": 0,
+    "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/aggregate-step-eight/mpk-w09-aggregate-aliased-structural-v1.log",
+    "log_sha256": "5db139119f826180bc7dc4ac9fb964a6a277d8ce5e210895f59c3fc73288a703",
+    "elapsed_seconds": 66.21
+  },
+  "additional_preservation_audit": "csharp_03_t06_w09_aggregate_aliased_consumer_preservation: compare all previous family pins and non-cost metadata; reject unregenerated aggregate pins, require StepEight, expand all 8192 old steps and compare full dependency closure.",
+  "initial_test_selection": "Production usage search finds only integer_parse and decimal_parse consuming emit_aggregate_fold. Recheck those source contexts and changed aggregate grouping/bounds/short-circuit behavior. Exact full prior definition-closure audit covers unchanged arithmetic/parser logic; unrelated JSON, hex, calendar, formatter and structural semantic suites are not repeated. New combined definition closure verifies all old JSON/collection and decimal declarations. No intermediate-W whole gate or split equivalent.",
+  "binding_order_retry": {
+    "session_id": 61552,
+    "log": "/tmp/mpk-w09-aggregate-aliased-binding-orders-v2.log",
+    "status": "passed",
+    "scope": "Only binding order source certificate suite, using the newly generated exact guard fixtures.",
+    "exit_code": 0,
+    "elapsed_seconds": 56.92,
+    "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/aggregate-step-eight/mpk-w09-aggregate-aliased-binding-orders-v2.log",
+    "log_sha256": "242ef2cb07e07c2e869a8efc753da0722122b5742cf3b9efc34a854f7e0ccc42"
+  },
+  "additional_preservation": {
+    "session_id": 7987,
+    "log": "/tmp/mpk-w09-aggregate-aliased-preservation-v1.log",
+    "status": "passed",
+    "exit_code": 0,
+    "scope": "All twelve families: 133 reassociated vectors and 92 exact unchanged vectors; every old definition and non-cost metadata preserved. Passed in 11.72s.",
+    "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/aggregate-step-eight/mpk-w09-aggregate-aliased-preservation-v1.log",
+    "log_sha256": "558ff3b9f3881237890906e4d437029bd06d2bde9cf370bb38c5992c96c48ec4"
+  },
+  "additional_lint": {
+    "session_id": 69626,
+    "log": "/tmp/mpk-w09-aggregate-aliased-clippy-v1.log",
+    "status": "passed",
+    "exit_code": 0,
+    "scope": "Targeted clippy after the dependency fixture test update passed in 6.83s.",
+    "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/aggregate-step-eight/mpk-w09-aggregate-aliased-clippy-v1.log",
+    "log_sha256": "010dd04d7da7594c443c0647e82f7bd826d41a67a823efbda51173cd3f465999"
+  },
+  "additional_pins": {
+    "staging": "All 225 generated pins and twelve manifests copied and read back exactly after source generation and complete preservation audit. No redundant source replay after staging.",
+    "changed": 133,
+    "unchanged": 92,
+    "distinct_changed_byte_vectors": 122,
+    "groups": "unit-4-aggregate-aliased-checker-groups.json",
+    "previous_receipt_pin_map": "unit-4-aggregate-step-eight-repin-map.json"
+  },
+  "additional_checkers": {
+    "session_id": 16304,
+    "log": "/tmp/mpk-w09-aggregate-aliased-checkers-v1.log",
+    "status": "passed",
+    "scope": "All 122 distinct changed vectors in all 12 additional consumer families passed both unchanged checkers with zero axioms and hash-corruption rejection. Session 16304 terminal exit 0 consumed.",
+    "latest_progress": {
+      "completed_families": [
+        "TestCheckerAgreementWithRustCLIBindingGuards",
+        "TestCheckerAgreementWithRustCLIBindingOrders",
+        "TestCheckerAgreementWithRustCLIBindingRelations",
+        "TestCheckerAgreementWithRustCLICollectionOperations",
+        "TestCheckerAgreementWithRustCLIConstructionOperations",
+        "TestCheckerAgreementWithRustCLIRecursiveDomains",
+        "TestCheckerAgreementWithRustCLIEntryOperations",
+        "TestCheckerAgreementWithRustCLIMoneyOperations",
+        "TestCheckerAgreementWithRustCLIOutcomeOperations",
+        "TestCheckerAgreementWithRustCLISequenceOperations",
+        "TestCheckerAgreementWithRustCLISourceObservations",
+        "TestCheckerAgreementWithRustCLIStructuralFoundations"
+      ],
+      "completed_distinct_cases": 122,
+      "status": "terminal passed"
+    },
+    "exit_code": 0,
+    "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/aggregate-step-eight/mpk-w09-aggregate-aliased-checkers-v1.log",
+    "log_sha256": "510889967649ad2b839406ad31a0113ec63e7d50fe35cfb191268f4f7d9ba6cf"
+  }
+}

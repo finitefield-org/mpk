@@ -158,6 +158,19 @@ fn csharp_03_t06_w07_original_contracts_and_three_state_obligations() {
         let p = vc.boundary_vcs();
         assert_eq!(p.contracts().len(), 1);
         check(p.sequents(), p.definition_names());
+        // W09: the transport is a private 1 MiB byte cube, not the bounded
+        // application string carrier. This assertion fails on the old route.
+        for sequent in p
+            .sequents()
+            .iter()
+            .filter(|s| s.kind == "input_acceptance" || s.kind == "input_field")
+        {
+            assert_eq!(
+                sequent.subjects[0].type_id,
+                "Mpk.CSharp.Ordinary.BoundaryDocument"
+            );
+        }
+
         assert!(nodes(p) > 0);
         let output = p
             .sequents()

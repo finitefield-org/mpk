@@ -1,0 +1,21 @@
+    Blocking waiting for file lock on build directory
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1m 24s
+     Running tests/csharp_practical_inventory.rs (target/debug/deps/csharp_practical_inventory-ad7f7e409e721e85)
+
+running 1 test
+
+thread 'csharp_03_t01_w02_inventory_closes_every_artifact_and_consumer_edge' (3170582) panicked at crates/mpk-vc/tests/csharp_practical_inventory.rs:1376:5:
+repository consumer search drift:
+foundation.std_namespace: expected count=127 sha256=276758e13e56d555c24b5281c8c57ecb0159f6d706e8695dd17b6fd8129eea19; actual count=128 sha256=860ac4ed45e45ac79cb4a852e5af703d1801924e8ded05bd9a7957a11fc717b0
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test csharp_03_t01_w02_inventory_closes_every_artifact_and_consumer_edge ... FAILED
+
+failures:
+
+failures:
+    csharp_03_t01_w02_inventory_closes_every_artifact_and_consumer_edge
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 4 filtered out; finished in 15.89s
+
+error: test failed, to rerun pass `-p mpk-vc --test csharp_practical_inventory`

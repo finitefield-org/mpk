@@ -1,0 +1,166 @@
+{
+  "schema": "mpk.csharp_practical.w09.boundary_document_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "partial_boundary_document_representation_correction_verified_not_unit_completion",
+  "finding": "Boundary VC document binders and encoder results incorrectly used the 16384-unit application string type for up to 1 MiB of UTF-8 document bytes.",
+  "implementation": "Private ordinary C24 byte document alias, full-u32 length, Make/Bounded/ReadByte/Length; no change to registered application types or checker rules.",
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_boundary_vc.rs",
+      "sha256": "f8ec2c2537ab5fe9c16f77278df9312859f7616953169bca794f79334ea938d6"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_boundary_document.rs",
+      "sha256": "0721ec4ef7fbeb52cf35b4a07ddc97516ada6293f600ecda02dc017b9a0edb94"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_boundary_document_tests.rs",
+      "sha256": "81e57ef5a8074386d93f62d68fd4c06738a37b7212c518fbee3b5fa14335dcc2"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_boundary_vc.rs",
+      "sha256": "848b9ddf821fed15f9305aaea2112fbd53bff7b1376c97aab92a78d3b4029f7e"
+    }
+  ],
+  "verification": [
+    {
+      "command": "cargo check -p mpk-vc",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-boundary-documents-check-v1.log",
+      "log_sha256": "7d3e8b86c8068879ef5871695e810cbfdd37ed4cf4fb33a52a1d8f021987305a",
+      "scope": "Compilation passed including build wait, 3m 57s."
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --test csharp_practical_vc -- -D warnings",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-boundary-documents-clippy-v1.log",
+      "log_sha256": "38a894f7611b4c032c966223d1325e16adeefc888f85229202b8fc2089200fc8",
+      "scope": "Current production and integration tests passed lint, 3m 28s including wait."
+    },
+    {
+      "command": "cargo fmt --all -- --check",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-boundary-documents-format-v1.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "scope": "Formatting passed before the private test function call was replaced by the public VC generation path; changed test was separately rustfmt formatted."
+    },
+    {
+      "command": "MPK_W09_BOUNDARY_DOCUMENTS_OUT=/tmp/mpk-w09-boundary-documents-v3 cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_boundary_documents_original_sources_and_storage -- --nocapture",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-boundary-documents-sources-v3.log",
+      "log_sha256": "c4d3446f31523ac60bc2add51d8318d959c6c85ec4e37dd70e1c4275ce37ee41",
+      "scope": "68 original contexts, three nonempty programs, private/application type separation, full-u32 bound/index cases and distinct long canonical JSON tails passed, 45.11 seconds."
+    },
+    {
+      "command": "MPK_T06_W07_GOLDEN_OUT=/tmp/mpk-w09-boundary-document-w07-goldens-v2.json cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w07_original_contracts_and_three_state_obligations -- --nocapture",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-boundary-document-w07-contracts-v2.log",
+      "log_sha256": "e3754277d5c632096790f751f9f5927803890f23ccb1482277578084b0306ed6",
+      "scope": "15 actual boundary contracts and private document subject regression passed; 4.24 seconds."
+    },
+    {
+      "command": "MPK_T06_W07_RUN_OUT=/tmp/mpk-w09-boundary-document-w07-runs-v2.json cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w07_complete_run_relations_and_hostile_serializers -- --nocapture",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-boundary-document-w07-runs-v2.log",
+      "log_sha256": "74a69a120b19bc76b57f8dfd5c5ea893f1c5320d602f2751a3d9c911eca4ec5e",
+      "scope": "Two complete run relation/mutation cases passed, 0.95 seconds."
+    },
+    {
+      "command": "MPK_W09_BOUNDARY_LITERALS_OUT=/tmp/mpk-w09-boundary-document-literals-v2 cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_boundary_literals_source_runs_and_mutations -- --nocapture",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-boundary-document-literals-v2.log",
+      "log_sha256": "65e7bdd9e95c7d790bd3bfeaecdae3c9cbfb4f8341796e674b721eb27281ffe2",
+      "scope": "Nine source/run variants and 20,258 ordinary value-bit observations passed, 21.89 seconds."
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc -- csharp_03_t06_w07_original_contracts_and_three_state_obligations csharp_03_t06_w07_complete_run_relations_and_hostile_serializers csharp_03_t06_w07_deterministic_byte_mutations_keep_exact_evidence csharp_03_t06_w09_boundary_literals_source_runs_and_mutations --test-threads=1 --nocapture",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-boundary-document-linkage-replay-v1.log",
+      "log_sha256": "88fe8f5d6a23257aa2e421dd88fe2c015705cc9da75fd1b5cba7f83d084273ee",
+      "scope": "All four affected tests passed against the installed regenerated goldens and literal manifest, including deterministic byte mutations; 33.63 seconds."
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --test csharp_practical_vc -- -D warnings",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-boundary-documents-clippy-v2.log",
+      "log_sha256": "d13a6e51a63b643ce0695b4f056e32c9fe6ddfa60236848866882a5e3c7b73f6",
+      "scope": "Current production and extended source tests passed, 7.04 seconds."
+    },
+    {
+      "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIBoundaryDocuments$' -count=1 -timeout 0 -v",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-boundary-documents-checkers-v1.log",
+      "log_sha256": "0f15b543688aecb4045ab835d38b2089f5aaf754f280abe24038fae3e0f1a0e0",
+      "scope": "All three same-byte certificates accepted by both unchanged checkers with zero axioms; hash corruption rejected, 5.773 seconds."
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_boundary_documents_original_sources_and_storage -- --nocapture",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-boundary-documents-replay-v1.log",
+      "log_sha256": "77eafe0a9d72cde0698a6ecd325556ac2bac149d1683aa0fd5267e519391f02b",
+      "scope": "Exact 68-context/three-certificate pinned replay and storage tests passed, 45.46 seconds."
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-boundary-documents-inventory-v1.log",
+      "log_sha256": "421cb0f0a1e8ebcca419e9d70b7b74ee1d43360c53f2b1cf4dff1f72d51bd2bf",
+      "scope": "Five inventory tests passed, 18.88 seconds; repeated after the corpus extension and fixture installation to verify current state."
+    },
+    {
+      "command": "cargo fmt --all -- --check",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-boundary-documents-format-v2.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "scope": "Current Rust formatting passed with empty output."
+    },
+    {
+      "command": "gofmt -l go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "status": "passed",
+      "scope": "No files reported."
+    },
+    {
+      "command": "/usr/bin/git diff --check",
+      "status": "passed",
+      "scope": "Outside sandbox, exit zero."
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "log": "/tmp/mpk-w09-boundary-documents-inventory-v2.log",
+      "scope": "All five inventory tests passed after the final corpus extension, archived history and regenerated fixtures; 16.44 seconds.",
+      "status": "passed",
+      "log_sha256": "7b9d053ff4147c7047d19dc5441c6ee3bd69e9c9e66b91a6eeec6b6a826b00b3"
+    }
+  ],
+  "failed_attempts": [
+    {
+      "log": "/tmp/mpk-w09-boundary-documents-sources-v1.log",
+      "status": "build_failed",
+      "reason": "Integration test attempted to call a private generator; corrected to public PracticalVcSource/VC generation. Same compile failure ended sessions 59746, 85821, 47552 and 67735; replacement jobs started only after terminal status."
+    },
+    {
+      "log": "/tmp/mpk-w09-boundary-documents-sources-v2.log",
+      "status": "test_failed_coverage_guard",
+      "reason": "The 65 general source fixtures had no attached boundary contracts, so the observed-storage assertion correctly failed. Added three existing actual captured boundary-output source cases; all 68 contexts and three definitions then passed. The production presence guard was retained."
+    }
+  ],
+  "live_jobs": [],
+  "remaining": [
+    "Implement strict UTF-8/JSON, ordered typed fields, decoded limits, source/native/transition relations and all original W09 universal proof/acceptance requirements.",
+    "No component-only commit or internal-unit/W09 completion; full check-fast.sh deferred to T06-W12."
+  ],
+  "manifest": {
+    "path": "develop/migrations/csharp-03/ordinary-foundation/boundary-documents/certificates.json",
+    "sha256": "db9db8c5a480d7eb07b5e940418e8861ba4577df1a6c88e014b9849e32657f03",
+    "contexts_examined": 68,
+    "nonempty_contexts": 3,
+    "terms_per_certificate": 2506,
+    "declarations_per_certificate": 44
+  },
+  "linkage_correction": {
+    "path": "develop/migrations/csharp-03/ordinary-foundation/boundary-documents/linkage-correction.json",
+    "scope": "Archived previous 15 contract/2 run goldens and nine-run literal manifest; independent JSON field masking confirmed only expected linkage hashes changed, and all nine literal certificate bytes stayed identical."
+  },
+  "review": "Scoped direct review completed after all targeted results; no additional finding in the representation correction. JSON grammar/encoding and all remaining original W09 requirements remain open."
+}

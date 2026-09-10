@@ -1,0 +1,394 @@
+{
+  "schema": "mpk.csharp_practical.w09.json_sequences_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "current_byte_checker_passed_historical_numeric_capacity_passed_with_scoped_analysis",
+  "implementation": [
+    "Support exact closed bounded_sequence carriers,including original source arrays (4096 boundary capacity),and recursively supported source/semantic children. Source front-end jagged-array exclusion stays intact.",
+    "Track cursor,cells and complete sequence storage in typed packets;guard finite steps on invalid headers or closing bracket. Each step consumes a needed comma and retains child delimiter for the next step/final close. Empty arrays,depth and outer ending use existing grammar rules.",
+    "Reuse exact child parsers with mutually exclusive comma/closing-bracket endings. Parent joins use full child semantic cells;implicit Transition/map wrappers remain separate pending work.",
+    "Emit fixed complete storage append and length roles with zero inactive storage;mask all output on failure. Finite StepEight and per-depth/capacity guarded pipeline are counted through original Builder composition without resets or dropped definitions.",
+    "Correct shared definition input construction to retain Cube depth directly. The previous usize bit-width -> u32 conversion silently changed depth>=32 to Bool. Depths0..31 retain exact old bytes;new wide types are checked directly."
+  ],
+  "verification": [
+    {
+      "session_id": 5208,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Production compile;13.09s.",
+      "log": "/tmp/mpk-w09-json-sequence-build-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-sequences/mpk-w09-json-sequence-build-v1.log",
+      "log_sha256": "90089a416fa8953a477a51f0bb73f395c5620362e02ee321f106e3f47a77f7df"
+    },
+    {
+      "session_id": 72261,
+      "exit_code": 0,
+      "status": "passed_request_generation",
+      "scope": "First source request generation;subsequent original capture correctly rejected unsupported jagged arrays.",
+      "log": "/tmp/mpk-w09-json-sequence-requests-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-sequences/mpk-w09-json-sequence-requests-v1.log",
+      "log_sha256": "61b5131696decb39ef8fcade1145d9f5051eb87815374b0ff396125f2a102c11"
+    },
+    {
+      "session_id": 8979,
+      "exit_code": 0,
+      "status": "expected_frontend_rejection",
+      "scope": "Original frozen double capture rejects jagged source array with CSHARP_PRACTICAL_TYPE/array_jagged. Fixture changed to arrays of structs containing arrays;frontend rules unchanged.",
+      "log": "/tmp/mpk-w09-json-sequence-capture-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-sequences/mpk-w09-json-sequence-capture-v1.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "session_id": 92447,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Request generation for bool[],int[],and Inner[] where Inner holds int[].",
+      "log": "/tmp/mpk-w09-json-sequence-requests-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-sequences/mpk-w09-json-sequence-requests-v2.log",
+      "log_sha256": "1a5a068a5f7433463eb0165f74efcba5c86eddac659ffd90d20483fe00b8ed86"
+    },
+    {
+      "session_id": 5728,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Frozen offline double capture accepted two source products;read-only mount and no network.",
+      "log": "/tmp/mpk-w09-json-sequence-capture-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-sequences/mpk-w09-json-sequence-capture-v2.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "session_id": 4515,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Only existing long[] source consumer regenerated;complete primitive/syntax closures and source/import/mutations checked;23.21s.",
+      "log": "/tmp/mpk-w09-json-sequence-prior-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-sequences/mpk-w09-json-sequence-prior-v1.log",
+      "log_sha256": "8a09ccc482a776cf089e7e6d22a5c9b9e4a62514cba012c198929b2e3bb0d262"
+    },
+    {
+      "session_id": 88993,
+      "exit_code": 0,
+      "status": "passed_structural_checks_before_type_fix",
+      "scope": "New three-sequence/two-product source,partition,metadata/import mutations and primitive/syntax preservation;24.53s. Core checking subsequently rejected a wide argument;this was not certificate acceptance.",
+      "log": "/tmp/mpk-w09-json-sequence-source-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-sequences/mpk-w09-json-sequence-source-v1.log",
+      "log_sha256": "b5b10d656bc67bfc8fee51f553eb57d7fe4b66f6b643a274b2db1690a203e110"
+    },
+    {
+      "session_id": 96819,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Complete previous seven-product Money/entry metadata and bytes unchanged;23.35s.",
+      "log": "/tmp/mpk-w09-json-sequence-preservation-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-sequences/mpk-w09-json-sequence-preservation-v1.log",
+      "log_sha256": "2bbd9f3ffbff4a7235908fe42703d6188b9f75b4e77e51cbe8b5d75651d760c5"
+    },
+    {
+      "session_id": 6275,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Initial affected production/test clippy;1m24s.",
+      "log": "/tmp/mpk-w09-json-sequence-clippy-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-sequences/mpk-w09-json-sequence-clippy-v1.log",
+      "log_sha256": "8e69735499d21698db75c83e336e65655411193da2bc6ca8b618e5ca59da6c36"
+    },
+    {
+      "session_id": 4871,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Count group8 plus512 pipeline occurrences,cache reuse,16384 capacity sharing and inclusive transformer limit;0.03s.",
+      "log": "/tmp/mpk-w09-json-sequence-accounting-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-sequences/mpk-w09-json-sequence-accounting-v1.log",
+      "log_sha256": "dbdedc4e58f2f37c1f358f5f01b21fa809a9c028a9b104d84f74344b00f9190d"
+    },
+    {
+      "session_id": 37019,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Production/integration lint after capacity test addition.",
+      "log": "/tmp/mpk-w09-json-sequence-clippy-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-sequences/mpk-w09-json-sequence-clippy-v2.log",
+      "log_sha256": "39362a80a76323d474b7fa97585c379026e19d902777ab28ca598576c83c5ccb"
+    },
+    {
+      "session_id": 78673,
+      "exit_code": 0,
+      "status": "no_tests_selected",
+      "scope": "Missing checkeragreement build tag;no checker acceptance inferred.",
+      "log": "/tmp/mpk-w09-json-sequence-prior-checkers-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-sequences/mpk-w09-json-sequence-prior-checkers-v1.log",
+      "log_sha256": "ba58fed7c59ad4fbe33e55c7c28a0b6ef0928e0fa1d9a7ecfd0d6893e9546e82"
+    },
+    {
+      "session_id": 44653,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Exactly one changed long[] vector passed both unchanged checkers,matching reports,zero axioms and hash corruption;357.108s.",
+      "log": "/tmp/mpk-w09-json-sequence-prior-checkers-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-sequences/mpk-w09-json-sequence-prior-checkers-v2.log",
+      "log_sha256": "ddcbc7604343d37760e7f0fbc6f4a225f262661c4b6893580b5c5b1549a1a959"
+    },
+    {
+      "session_id": 56531,
+      "exit_code": 1,
+      "status": "rejected_core_type",
+      "scope": "Go core checking rejected new nested-sequence certificate: C32 projection input had been narrowed to Bool by shared definition helper.",
+      "log": "/tmp/mpk-w09-json-sequence-checkers-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-sequences/mpk-w09-json-sequence-checkers-v1.log",
+      "log_sha256": "eefb25f271a68dc05ec3d4438312efc385e5f6b2144963b74693b06ae8893945"
+    },
+    {
+      "session_id": 31953,
+      "exit_code": 0,
+      "status": "runtime_observations_before_type_fix",
+      "scope": "18 cases passed;251.90s. First13 narrow cases retain exact dependency closures after fix;five wide cases explicitly rerun. This log does not establish acceptance of the old ill-typed complete certificate.",
+      "log": "/tmp/mpk-w09-json-sequence-runtime-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-sequences/mpk-w09-json-sequence-runtime-v1.log",
+      "log_sha256": "b6c150f01299576c749e5566fb03609d650052d63e26efddcfff4279bbb3d2d0"
+    },
+    {
+      "session_id": 20992,
+      "exit_code": 0,
+      "status": "diagnostic",
+      "scope": "Rust table index differs from Go interned core term index;no acceptance claim.",
+      "log": "/tmp/mpk-w09-json-sequence-inspect-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-sequences/mpk-w09-json-sequence-inspect-v1.log",
+      "log_sha256": "5e4cb6249a0ae8296ac912c5eba2d363de7b2df1c5db951d3f163a18cd407c38"
+    },
+    {
+      "session_id": 50246,
+      "exit_code": 0,
+      "status": "diagnostic_expected_rejection",
+      "scope": "Unchanged Go checker context identifies failing declaration JsonValues.Packet.D32.Project.D7.R0. Diagnostic test removed after locating generator bug.",
+      "log": "/tmp/mpk-w09-json-sequence-go-inspect-v3.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-sequences/mpk-w09-json-sequence-go-inspect-v3.log",
+      "log_sha256": "a2f67bc9f86f462b937f8c27118aa58b2213bdd0f0c18fdd0055132c8b77abcb"
+    },
+    {
+      "session_id": 92789,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Shared define preserves exact prior certificate bytes across depths0..31 and retains input types for depths32,33,64,128,253;0.02s.",
+      "log": "/tmp/mpk-w09-json-sequence-wide-definition-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-sequences/mpk-w09-json-sequence-wide-definition-v1.log",
+      "log_sha256": "baa57cfb0cdc931d67f525f4f76efdca121c988043e84c0e496f813b2ab00079"
+    },
+    {
+      "session_id": 81208,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Corrected typed generation,source reconstruction,partition/import/mutations and child/syntax preservation;24.61s;137606 terms,2092 declarations.",
+      "log": "/tmp/mpk-w09-json-sequence-source-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-sequences/mpk-w09-json-sequence-source-v2.log",
+      "log_sha256": "8f3d1ab8267cbc939e9d8210e1f48aa7c42d180ee4bdba9e6e321963ac986295"
+    },
+    {
+      "session_id": 73888,
+      "exit_code": 101,
+      "status": "failed_test_path",
+      "scope": "Optional previous-fixture path was relative to the package working directory;retried with absolute path.",
+      "log": "/tmp/mpk-w09-json-sequence-corrected-replay-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-sequences/mpk-w09-json-sequence-corrected-replay-v1.log",
+      "log_sha256": "e59d98b5eecf1590c69d5881ab678415dcef6625e226563de1eff39f0d9ccdbd"
+    },
+    {
+      "session_id": 69376,
+      "exit_code": 101,
+      "status": "failed_expected_inventory_delta",
+      "scope": "New sequence emitter adds one Std consumer;independent old path set reconstruction recorded.",
+      "log": "/tmp/mpk-w09-json-sequence-inventory-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-sequences/mpk-w09-json-sequence-inventory-v1.log",
+      "log_sha256": "784ffcfff0f0cfefa3ebd65f2f47baa5030c7dceaaf7affc05a2faa04ac6c512"
+    },
+    {
+      "session_id": 18527,
+      "exit_code": 101,
+      "status": "failed_expected_inventory_total",
+      "scope": "Search-fingerprint test passed;aggregate family/path count needed4943->4944 for the same single new consumer.",
+      "log": "/tmp/mpk-w09-json-sequence-inventory-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-sequences/mpk-w09-json-sequence-inventory-v2.log",
+      "log_sha256": "5a33c16c429a93e577bed1a3f0e98b75e0080092cbbf84ef29692ca6cec3aaef"
+    },
+    {
+      "session_id": 5727,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Exact saved changed long[] vector replay before wide-type fix.",
+      "log": "/tmp/mpk-w09-json-sequence-prior-replay-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-sequences/mpk-w09-json-sequence-prior-replay-v1.log",
+      "log_sha256": "215007db09f08bee87e6b9a927edd6939bdc225dea2447fd9ffc80fa11fdcb58"
+    },
+    {
+      "session_id": 72229,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Exact changed long[] vector still unchanged after common definition fix;23.47s. Its passed dual-checker result is retained.",
+      "log": "/tmp/mpk-w09-json-sequence-prior-replay-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-sequences/mpk-w09-json-sequence-prior-replay-v2.log",
+      "log_sha256": "b65c9a57043aac16cbb7ef8a253e81ac60f225356473169ef1cdae1b33dedaf8"
+    },
+    {
+      "session_id": 56299,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Exact checked-in original request replay.",
+      "log": "/tmp/mpk-w09-json-sequence-requests-replay-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-sequences/mpk-w09-json-sequence-requests-replay-v1.log",
+      "log_sha256": "862af8ff8ee92fce3ff402a45b28ce06812258ae2a057ff8dec0a87e201f40b0"
+    },
+    {
+      "session_id": 43114,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Final production/library and integration test lint after wide-type correction;1m48s.",
+      "log": "/tmp/mpk-w09-json-sequence-clippy-v3.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-sequences/mpk-w09-json-sequence-clippy-v3.log",
+      "log_sha256": "5e7e9ba3d5cde752dc953bc57680d72275df5a642aab79af5f2bb33edf991d85"
+    },
+    {
+      "session_id": 57977,
+      "status": "passed",
+      "exit_code": 0,
+      "scope": "Only affected wide cases14..18 pass after retained cube-depth fix;171.57s.",
+      "log": "/tmp/mpk-w09-json-sequence-runtime-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-sequences/mpk-w09-json-sequence-runtime-v2.log",
+      "log_sha256": "ec76e1b829620f752b6bb5a8f265d5e32558b5566e8e6e402cc95de66f2d9090"
+    },
+    {
+      "session_id": 96266,
+      "status": "passed",
+      "exit_code": 0,
+      "scope": "Corrected source/pin replay and exact complete two narrow sequence metadata/dependency closures against pre-fix bytes;25.10s.",
+      "log": "/tmp/mpk-w09-json-sequence-corrected-replay-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-sequences/mpk-w09-json-sequence-corrected-replay-v2.log",
+      "log_sha256": "123d5dfe3479d2a8bf823a516fd97d1303f9bf802c17101d933993736a9449ca"
+    },
+    {
+      "session_id": 39515,
+      "status": "passed",
+      "exit_code": 0,
+      "scope": "Aggregate inventory test passes after the one proven consumer addition;16.23s. Other fingerprint test passed in v2 and was not repeated.",
+      "log": "/tmp/mpk-w09-json-sequence-inventory-v3.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-sequences/mpk-w09-json-sequence-inventory-v3.log",
+      "log_sha256": "3521a3d076af935cd0cbbf0b851389c609d8efcc15509bfa9500238cc24605a6"
+    },
+    {
+      "session_id": 9538,
+      "status": "terminated_by_test_runner_timeout",
+      "exit_code": 1,
+      "scope": "Go test runner terminated after its default600s limit while waiting in Rust CLI command. This is not a proof rejection. The terminal exec handle returned exit1; outside-sandbox process inspection found no remaining candidate/checker process before restarting with timeout0. No acceptance result is inferred from an incomplete checker report.",
+      "log": "/tmp/mpk-w09-json-sequence-checkers-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-sequences/mpk-w09-json-sequence-checkers-v2.log",
+      "log_sha256": "8d461a86df1f71e127b72dc9c173ac8ead2367b1971008d257514f2ce44a2dd5"
+    },
+    {
+      "status": "passed",
+      "exit_code": 0,
+      "scope": "Scoped Rust format checks;Go gofmt listing empty. Final git diff --check also passed.",
+      "log": "/tmp/mpk-w09-json-sequence-format-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-sequences/mpk-w09-json-sequence-format-v1.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "status": "passed",
+      "exit_code": 0,
+      "scope": "Scoped Rust format checks;Go gofmt listing empty. Final git diff --check also passed.",
+      "log": "/tmp/mpk-w09-json-sequence-format-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-sequences/mpk-w09-json-sequence-format-v2.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "session_id": 43052,
+      "status": "passed",
+      "exit_code": 0,
+      "scope": "Corrected nested-sequence vector accepted by both unchanged checkers using identical bytes; zero axioms, matching reports and hash mutation checks;544.681s.",
+      "log": "/tmp/mpk-w09-json-sequence-checkers-v3.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-sequences/mpk-w09-json-sequence-checkers-v3.log",
+      "log_sha256": "7b7fe12ad9b4ad1fe70681f94bfcd4aca7461c9788ab9884d22117d8ab499e45"
+    },
+    {
+      "status": "passed",
+      "result": "Historical original-document Bool-array capacity test passed in 44333.77s: 4095/4096 accepted, 4097 rejected; complete packet header and length plus selected edge slots checked. Not a current-byte runtime result.",
+      "log": "/tmp/mpk-w09-json-sequence-capacity-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-sequences/mpk-w09-json-sequence-capacity-v1.log",
+      "log_sha256": "c0b45e3911d68337d00a4f45ab77215e926502315ed8afdf758c17e84a62e2de",
+      "recorded_historical_certificate_sha256": "c93a99c770c740c390a876e34ac61be97c0c7cf0eb4f91200a5783410ca177cb",
+      "current_certificate_sha256": "ed891381a857baf1d70adf4b8e8f20f55cec623756a6bacb79659ca072e62334",
+      "current_byte_evidence": "Existing exact six-definition difference and bounded-input analysis apply to these numeric inputs; both current/archived hashes still match that report. Current-byte dual checker PASS separately revalidated.",
+      "scope_review": "unit-4-json-cell-count-capacity-scope.md",
+      "terminal_process_check": "PID 68689 absent after terminal success log on 2026-09-11 JST; unavailable original tool handle not used as completion evidence."
+    }
+  ],
+  "diagnostic_artifacts": [
+    {
+      "log": "/tmp/mpk-w09-json-sequence-inventory-delta.json",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-sequences/mpk-w09-json-sequence-inventory-delta.json",
+      "log_sha256": "86583414231f494a579bc5afab519662e2df379435288caa0323d1b1dbba77cb"
+    },
+    {
+      "log": "/tmp/mpk-w09-json-sequence-requests-jagged-v1.json",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-sequences/mpk-w09-json-sequence-requests-jagged-v1.json",
+      "log_sha256": "b5e3cf59ed67369267c5912d870dd510cac21d922b5ef687669b9524163d7cc4"
+    },
+    {
+      "log": "/tmp/mpk-w09-json-sequence-responses-jagged-v1.json",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-sequences/mpk-w09-json-sequence-responses-jagged-v1.json",
+      "log_sha256": "baa17e96c491e282bd10ee1c9d4a1414d0aed1394f7aa8e4c8ce2cc6b1df07a4"
+    },
+    {
+      "log": "/tmp/mpk-w09-json-sequence-go-inspect-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-sequences/mpk-w09-json-sequence-go-inspect-v1.log",
+      "log_sha256": "2383da4b7320d5373c0d5f66f9cc0028ec3388cafa38dc98d167d56db1727748"
+    },
+    {
+      "log": "/tmp/mpk-w09-json-sequence-go-inspect-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-sequences/mpk-w09-json-sequence-go-inspect-v2.log",
+      "log_sha256": "e38522b8a655b4282cbd30967e06778278ea99e01510e0adc9bcfb7bc956c7f0"
+    }
+  ],
+  "pin": {
+    "path": "develop/migrations/csharp-03/ordinary-foundation/json-sequences/source-arrays.hex",
+    "certificate_sha256": "c93a99c770c740c390a876e34ac61be97c0c7cf0eb4f91200a5783410ca177cb",
+    "terms": 137606,
+    "declarations": 2092,
+    "static_transformers": 8889,
+    "previous_rejected_vector": "json-sequences/previous-wide-arguments"
+  },
+  "affected_prior_pin": {
+    "id": "document-decb5507362a7672c711a5befd63efc1038c2c0a86ee20137a1c4c472e0d1684",
+    "certificate_sha256": "b2af36fa6b94682c82dcf284207508ef91250be4a5ab9b42b2437ceb0622974a",
+    "terms": 140308,
+    "declarations": 2245,
+    "archive": "json-products/previous-sequence-parser",
+    "other_six_metadata_rows": "exactly unchanged;their hex files were not written"
+  },
+  "live_jobs": [],
+  "review": "unit-4-json-sequences-review.md",
+  "test_selection": "New source/recursive array semantics and capacity edges,actual changed long[] consumer,one unchanged Money/entry representative,small shared-definition narrow-byte/wide-type regression and counted-pipeline limits. After the type-only fix,rerun only wide runtime cases and compare exact narrow dependency closures;the live scalar-array capacity run is not restarted. Only two changed certificate vectors go to checkers. Inventory verifies one new consumer with previous set/hash reconstructed. No check-fast or split whole gate;T06-W12 retains that gate.",
+  "pending": [
+    "Remaining sum/map/set/Transition parsing,implicit wrapper cell counts,absence/null and full boundary relations.",
+    "W09 remaining units3-8,source/control/native and replay relations,actual propositions/proofs,certificate assembly/mutations and predecessor corpus audit."
+  ],
+  "completion": "W09 incomplete;no component-only commit or push;W10 remains blocked.",
+  "goal_turn_classification": "Progress: recursive sequence parser integrated into actual source products;full direct review found/fixed wide Cube argument bug;changed-source vectors,selective semantics and accounting evidence generated.",
+  "shared_definition_impact": "Input depth0..31 retains byte-identical term insertion and type/body construction,verified against the old implementation. Fixed scalar/calendar/decimal/token/document callers use these depths. Dynamic packet projection/assembly and sequence functions require the new retained-wide inputs and are exercised by the nested fixture. The changed existing long[] vector and all narrow sequence dependency closures remain exact.",
+  "prior_status_before_cell_count_correction": "recursive_sequences_dual_checker_passed_capacity_running",
+  "superseded_cell_count_evidence": {
+    "review": "unit-4-json-cell-count-review.md",
+    "reason": "The typed JSON header used a16384 cumulative cap and counted strings as1. The frozen typed-value contract is65536 total and1+UTF16 units for strings. Prior checker acceptance proves type checking of old bytes;old cell expectations do not prove the required semantics.",
+    "required": "Regenerate affected candidate bytes,check changed bytes with both checkers,and verify corrected string/cumulative-cell behavior."
+  },
+  "capacity_scope_review": "unit-4-json-cell-count-capacity-scope.md",
+  "numeric_capacity_terminal": {
+    "status": "passed",
+    "result": "Historical original-document Bool-array capacity test passed in 44333.77s: 4095/4096 accepted, 4097 rejected; complete packet header and length plus selected edge slots checked. Not a current-byte runtime result.",
+    "log": "/tmp/mpk-w09-json-sequence-capacity-v1.log",
+    "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-sequences/mpk-w09-json-sequence-capacity-v1.log",
+    "log_sha256": "c0b45e3911d68337d00a4f45ab77215e926502315ed8afdf758c17e84a62e2de",
+    "recorded_historical_certificate_sha256": "c93a99c770c740c390a876e34ac61be97c0c7cf0eb4f91200a5783410ca177cb",
+    "current_certificate_sha256": "ed891381a857baf1d70adf4b8e8f20f55cec623756a6bacb79659ca072e62334",
+    "current_byte_evidence": "Existing exact six-definition difference and bounded-input analysis apply to these numeric inputs; both current/archived hashes still match that report. Current-byte dual checker PASS separately revalidated.",
+    "scope_review": "unit-4-json-cell-count-capacity-scope.md",
+    "terminal_process_check": "PID 68689 absent after terminal success log on 2026-09-11 JST; unavailable original tool handle not used as completion evidence."
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.binding_clause_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "forward_binding_contract_component_targeted_verification_passed",
+  "source_tags": [
+    "source_project"
+  ],
+  "capture": "binding-clauses/capture-receipt.json",
+  "completed": [
+    "15 fresh original-source frontend accepts",
+    "ordinary binder and nominal-type lowering regression passed",
+    "affected library and tests clippy passed",
+    "15 source contexts, 4,354 observations and exact dependency closure passed",
+    "NaN-containing source contract evaluated false as required",
+    "exact program import and result metadata corruption passed",
+    "targeted inventory and final format passed",
+    "All 15 same-byte dual-checker candidates and hash corruptions passed; current evidence reconciled"
+  ],
+  "live_jobs": [],
+  "remaining": [],
+  "source_reconstruct": "Still requires source-completion witnesses and source invariant/round-trip proofs; no arbitrary source completion introduced.",
+  "full_gate": "deferred to T06-W12",
+  "overall_status": "Original units 3-8 and W09 remain open; commit/push at original-unit boundary.",
+  "verification_logs": [
+    {
+      "log": "verification-logs/binding-clauses/library-check.log",
+      "sha256": "ef9d54c69523307cc8624398500b4dc1c6cd8790fc0cc4eb75b867a75fda654a",
+      "result": "passed library check"
+    },
+    {
+      "log": "verification-logs/binding-clauses/requests.log",
+      "sha256": "8921ac086f0b0071140ef17d96bb46eff0b87220952a95084e8171248fa979e1",
+      "result": "15 source requests generated"
+    },
+    {
+      "log": "verification-logs/binding-clauses/capture.log",
+      "sha256": "b54783e7f03a494ff5bd47f4478ef297095ffb7feeb71eefcecd239ae331398b",
+      "result": "15 fresh frontend accepts"
+    },
+    {
+      "log": "verification-logs/binding-clauses/lowering-initial.log",
+      "sha256": "7852d06c4a77ae95dce746fe4e687fa4193ea5c62df1fcf56e0260d6a8562439",
+      "result": "initial cfg(test) cache initializer omission; fixed before final runs"
+    },
+    {
+      "log": "verification-logs/binding-clauses/lowering.log",
+      "sha256": "b1da06660cd8d8ea7b53149f765e7547b7189c2aa163ff67d5d5b09dd21dc99e",
+      "result": "binder and nominal-type regression passed"
+    },
+    {
+      "log": "verification-logs/binding-clauses/source.log",
+      "sha256": "c78523c7d623713b3c0db2491789e2be397ddaf39788a7f0cd32f693d4ea6356",
+      "result": "15 source contexts and 4,354 observations passed; 56.63s; one required NaN false case"
+    },
+    {
+      "log": "verification-logs/binding-clauses/inventory.log",
+      "sha256": "3ada171693efce070f30d71cbada6e6514fef8cc20282afa006edaf96bca4c11",
+      "result": "targeted inventory test passed; 16.26s"
+    },
+    {
+      "log": "verification-logs/binding-clauses/clippy.log",
+      "sha256": "31b527348dc1149863d6ccaca4e86d58b7f5143279e4a7c1867699fee047eb3f",
+      "result": "affected library and all test configurations clippy passed"
+    },
+    {
+      "log": "verification-logs/binding-clauses/format.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result": "edited Rust files format passed"
+    },
+    {
+      "log": "verification-logs/binding-clauses/checkers.log",
+      "sha256": "e185d348aed3d5ad8d785c8dafa6a8e113b146e0a6f1f74a92230fdf7667de72",
+      "result": "15 identical-byte candidates accepted by both unchanged checkers with zero axioms and agreeing reports; actual hash corruptions rejected; all terminal names/current hashes/metadata/tested copies reconciled"
+    }
+  ],
+  "review": "unit-4-binding-clauses-review.md",
+  "certificates": "binding-clauses/certificates.json",
+  "selection_reason": "Only source_project dispatch and its compiler cache changed in production. Targeted original-source/alias semantics and exact projection dependency comparisons exercise that connection; binder, inventory, lint/format cover shared compiler state. No standalone projection body changed, so prior full projection semantics/capacity tests are not repeated."
+}

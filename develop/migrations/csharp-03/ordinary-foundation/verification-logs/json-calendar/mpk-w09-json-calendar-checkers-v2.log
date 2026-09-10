@@ -1,0 +1,36 @@
+Executing ['go', 'test', '-C', 'go-tools/mpk-checker-ref', '-tags', 'checkeragreement', '-run', '^TestCheckerAgreementWithRustCLICalendarCodecs$/^(codec\\-date\\-source\\.hex|codec\\-time\\-source\\.hex)$', '-count=1', '-timeout', '0', '-v']
+=== RUN   TestCheckerAgreementWithRustCLICalendarCodecs
+=== RUN   TestCheckerAgreementWithRustCLICalendarCodecs/codec-date-source.hex
+=== RUN   TestCheckerAgreementWithRustCLICalendarCodecs/codec-time-source.hex
+--- PASS: TestCheckerAgreementWithRustCLICalendarCodecs (109.84s)
+    --- PASS: TestCheckerAgreementWithRustCLICalendarCodecs/codec-date-source.hex (48.45s)
+    --- PASS: TestCheckerAgreementWithRustCLICalendarCodecs/codec-time-source.hex (61.39s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	110.277s
+Executing ['go', 'test', '-C', 'go-tools/mpk-checker-ref', '-tags', 'checkeragreement', '-run', '^TestCheckerAgreementWithRustCLIJsonCalendar$/^(date\\-structural\\.hex|date\\-time\\-decimal\\-structural\\.hex|date\\-time\\-decimal\\-tokens\\.hex|date\\-time\\-structural\\.hex|date\\-tokens\\.hex|time\\-structural\\.hex|time\\-tokens\\.hex)$', '-count=1', '-timeout', '0', '-v']
+=== RUN   TestCheckerAgreementWithRustCLIJsonCalendar
+=== RUN   TestCheckerAgreementWithRustCLIJsonCalendar/date-structural.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonCalendar/date-time-decimal-structural.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonCalendar/date-time-decimal-tokens.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonCalendar/date-time-structural.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonCalendar/date-tokens.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonCalendar/time-structural.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonCalendar/time-tokens.hex
+--- PASS: TestCheckerAgreementWithRustCLIJsonCalendar (4625.76s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonCalendar/date-structural.hex (484.67s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonCalendar/date-time-decimal-structural.hex (1252.20s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonCalendar/date-time-decimal-tokens.hex (567.75s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonCalendar/date-time-structural.hex (875.61s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonCalendar/date-tokens.hex (357.25s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonCalendar/time-structural.hex (645.75s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonCalendar/time-tokens.hex (442.53s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	4625.952s
+Executing ['go', 'test', '-C', 'go-tools/mpk-checker-ref', '-tags', 'checkeragreement', '-run', '^TestCheckerAgreementWithRustCLIJsonCalendarCollection$/^(collection\\-calendar\\-json\\.hex)$', '-count=1', '-timeout', '0', '-v']
+=== RUN   TestCheckerAgreementWithRustCLIJsonCalendarCollection
+=== RUN   TestCheckerAgreementWithRustCLIJsonCalendarCollection/collection-calendar-json.hex
+--- PASS: TestCheckerAgreementWithRustCLIJsonCalendarCollection (559.85s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonCalendarCollection/collection-calendar-json.hex (559.85s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	560.212s
+PASS: all distinct current calendar and collection vectors completed both checkers.

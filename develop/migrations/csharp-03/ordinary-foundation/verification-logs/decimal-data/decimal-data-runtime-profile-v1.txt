@@ -1,0 +1,401 @@
+Analysis of sampling csharp_practical_vc-0951b3e219e92435 (pid 69916) every 1 millisecond
+Process:         csharp_practical_vc-0951b3e219e92435 [69916]
+Path:            /Users/USER/*/csharp_practical_vc-0951b3e219e92435
+Load Address:    0x104c50000
+Identifier:      csharp_practical_vc-0951b3e219e92435
+Version:         0
+Code Type:       ARM64
+Platform:        macOS
+Parent Process:  cargo [69782]
+Target Type:     live task
+
+Date/Time:       2026-09-11 07:11:51.742 +0900
+Launch Time:     2026-09-11 07:06:22.630 +0900
+OS Version:      macOS 26.6.2 (25G83)
+Report Version:  7
+Analysis Tool:   /usr/bin/sample
+
+Physical footprint:         70.3M
+Physical footprint (peak):  6.4G
+Idle exit:                  untracked
+----
+
+Call graph:
+    2471 Thread_3279664   DispatchQueue_1: com.apple.main-thread  (serial)
+    + 2471 start  (in dyld) + 6992  [0x1852f04e4]
+    +   2471 main  (in csharp_practical_vc-0951b3e219e92435) + 52  [0x1050245a8]
+    +     2471 _RNvNtCsa9BKTri5B3M_3std2rt19lang_start_internal  (in csharp_practical_vc-0951b3e219e92435) + 952  [0x1058185b4]
+    +       2471 _RNCINvNtCsa9BKTri5B3M_3std2rt10lang_startuE0Cs2th93lprptj_19csharp_practical_vc  (in csharp_practical_vc-0951b3e219e92435) + 16  [0x104fdde1c]
+    +         2471 _RINvNtNtCsa9BKTri5B3M_3std3sys9backtrace28___rust_begin_short_backtraceFEuuECs2th93lprptj_19csharp_practical_vc  (in csharp_practical_vc-0951b3e219e92435) + 12  [0x104f2061c]
+    +           2471 _RNvCs3O4ZRUMviTO_4test16test_main_static  (in csharp_practical_vc-0951b3e219e92435) + 300  [0x105155114]
+    +             2471 _RNvNtCs3O4ZRUMviTO_4test7console17run_tests_console  (in csharp_practical_vc-0951b3e219e92435) + 5840  [0x105164f64]
+    +               2471 _RNvMs1_NtNtNtCsa9BKTri5B3M_3std4sync4mpmc4listINtB5_7ChannelNtNtCs3O4ZRUMviTO_4test5event13CompletedTestE4recvB10_  (in csharp_practical_vc-0951b3e219e92435) + 432  [0x10515b024]
+    +                 2471 _RNCNvMs1_NtNtNtCsa9BKTri5B3M_3std4sync4mpmc4listINtB7_7ChannelNtNtCs3O4ZRUMviTO_4test5event13CompletedTestE4recvs_0B12_  (in csharp_practical_vc-0951b3e219e92435) + 228  [0x1051520bc]
+    +                   2471 _RNvMs_NtNtCsa9BKTri5B3M_3std6thread6threadNtB4_6Thread4park  (in csharp_practical_vc-0951b3e219e92435) + 48  [0x10580f694]
+    +                     2471 _dispatch_semaphore_wait_slow  (in libdispatch.dylib) + 132  [0x185501b20]
+    +                       2471 _dispatch_sema4_wait  (in libdispatch.dylib) + 28  [0x185501490]
+    +                         2471 semaphore_wait_trap  (in libsystem_kernel.dylib) + 8  [0x185677bb0]
+    2471 Thread_3279751: ordinary_carriers::public_domain_tests::contract_expression_tes
+      2471 thread_start  (in libsystem_pthread.dylib) + 8  [0x1856b6c1c]
+        2471 _pthread_start  (in libsystem_pthread.dylib) + 136  [0x1856bbc58]
+          2471 _RNvNvMs0_NtNtNtCsa9BKTri5B3M_3std3sys6thread4unixNtB7_6Thread3new12thread_start  (in csharp_practical_vc-0951b3e219e92435) + 408  [0x10581f498]
+            2471 _RNSNvYNCINvNtNtCsa9BKTri5B3M_3std6thread9lifecycle15spawn_uncheckedNCNvCs3O4ZRUMviTO_4test8run_tests_0uEs_0INtNtNtCsgtPOCBgevO_4core3ops8function6FnOnceuE9call_once6vtableB17_  (in csharp_practical_vc-0951b3e219e92435) + 64  [0x105153bac]
+              2471 _RINvNtNtCsa9BKTri5B3M_3std3sys9backtrace28___rust_begin_short_backtraceNCNvCs3O4ZRUMviTO_4test8run_tests_0uEB1b_  (in csharp_practical_vc-0951b3e219e92435) + 132  [0x10514c4dc]
+                2471 _RNCNvCs3O4ZRUMviTO_4test8run_test0B3_  (in csharp_practical_vc-0951b3e219e92435) + 908  [0x105151654]
+                  2471 _RINvCs3O4ZRUMviTO_4test28___rust_begin_short_backtraceINtNtCsgtPOCBgevO_4core6result6ResultuNtNtCslJsSqIQKwiA_5alloc6string6StringEFEBQ_EB2_  (in csharp_practical_vc-0951b3e219e92435) + 24  [0x10514620c]
+                    2471 _RNvYNCNvNtNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers19public_domain_tests25contract_expression_tests18decimal_data_tests46csharp_03_t06_w09_decimal_data_original_source0INtNtNtCsgtPOCBgevO_4core3ops8function6FnOnceuE9call_onceBe_  (in csharp_practical_vc-0951b3e219e92435) + 24  [0x105023344]
+                      2471 _RNvNtNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers19public_domain_tests25contract_expression_tests18decimal_data_tests6verify  (in csharp_practical_vc-0951b3e219e92435) + 7780  [0x104d7aa30]
+                        2471 _RNvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval3run  (in csharp_practical_vc-0951b3e219e92435) + 344  [0x10509dcac]
+                          1546 _RINvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-0951b3e219e92435) + 364,428,...  [0x105090238,0x105090278,...]
+                          191 _RINvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-0951b3e219e92435) + 1176  [0x105090564]
+                          ! 109 _RNvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval5defer  (in csharp_practical_vc-0951b3e219e92435) + 60,284,...  [0x10509df8c,0x10509e06c,...]
+                          ! 66 _RNvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval5defer  (in csharp_practical_vc-0951b3e219e92435) + 352  [0x10509e0b0]
+                          ! : 31 _xzm_xzone_malloc_tiny  (in libsystem_malloc.dylib) + 40,12,...  [0x1854dcf64,0x1854dcf48,...]
+                          ! : 11 <deduplicated_symbol>  (in libsystem_malloc.dylib) + 112,136,...  [0x1854d71cc,0x1854d71e4,...]
+                          ! : 11 _malloc_zone_malloc  (in libsystem_malloc.dylib) + 12,64,...  [0x1854e70c8,0x1854e70fc,...]
+                          ! : 5 _xzm_xzone_malloc  (in libsystem_malloc.dylib) + 24,184,...  [0x1854d7968,0x1854d7a08,...]
+                          ! : 4 _RNvCs9wFQrvczXsK_7___rustc11___rdl_alloc  (in csharp_practical_vc-0951b3e219e92435) + 0,12  [0x105806b68,0x105806b74]
+                          ! : 1 DYLD-STUB$$malloc  (in csharp_practical_vc-0951b3e219e92435) + 4  [0x10584cd68]
+                          ! : 1 _xzm_xzone_malloc_freelist_outlined  (in libsystem_malloc.dylib) + 248  [0x1854de798]
+                          ! : | 1 _xzm_xzone_malloc_from_freelist_chunk  (in libsystem_malloc.dylib) + 64  [0x1854debc0]
+                          ! : 1 _xzm_xzone_malloc_freelist_outlined  (in libsystem_malloc.dylib) + 324  [0x1854de7e4]
+                          ! : | 1 _xzm_xzone_find_and_malloc_from_freelist_chunk  (in libsystem_malloc.dylib) + 336  [0x1854df0cc]
+                          ! : |   1 _xzm_xzone_malloc_from_freelist_chunk  (in libsystem_malloc.dylib) + 992  [0x1854def60]
+                          ! : 1 _xzm_xzone_malloc_from_freelist_chunk  (in libsystem_malloc.dylib) + 680  [0x1854dee28]
+                          ! 15 _RNvXse_NtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_evalNtB5_1VNtNtCsgtPOCBgevO_4core5clone5Clone5clone  (in csharp_practical_vc-0951b3e219e92435) + 16,28,...  [0x1050fb620,0x1050fb62c,...]
+                          ! 1 _RNvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval5defer  (in csharp_practical_vc-0951b3e219e92435) + 340  [0x10509e0a4]
+                          !   1 _RNvCs9wFQrvczXsK_7___rustc35___rust_no_alloc_shim_is_unstable_v2  (in csharp_practical_vc-0951b3e219e92435) + 0  [0x1051461f0]
+                          113 _RINvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-0951b3e219e92435) + 8508  [0x105092208]
+                          ! 53 _xzm_xzone_malloc_tiny  (in libsystem_malloc.dylib) + 40,364,...  [0x1854dcf64,0x1854dd0a8,...]
+                          ! 18 _malloc_zone_malloc  (in libsystem_malloc.dylib) + 100,64,...  [0x1854e7120,0x1854e70fc,...]
+                          ! 16 <deduplicated_symbol>  (in libsystem_malloc.dylib) + 116,212,...  [0x1854d71d0,0x1854d7230,...]
+                          ! 9 _xzm_xzone_malloc  (in libsystem_malloc.dylib) + 24,188,...  [0x1854d7968,0x1854d7a0c,...]
+                          ! 7 _xzm_xzone_malloc_freelist_outlined  (in libsystem_malloc.dylib) + 324  [0x1854de7e4]
+                          ! : 4 _xzm_xzone_find_and_malloc_from_freelist_chunk  (in libsystem_malloc.dylib) + 860  [0x1854df2d8]
+                          ! : | 2 xzm_chunk_mark_used  (in libsystem_malloc.dylib) + 188  [0x1854bfefc]
+                          ! : | + 1 _xzm_reclaim_mark_used  (in libsystem_malloc.dylib) + 124  [0x1854bffac]
+                          ! : | + ! 1 _xzm_reclaim_mark_used_locked  (in libsystem_malloc.dylib) + 60  [0x1854c2a9c]
+                          ! : | + !   1 mach_vm_reclaim_try_cancel  (in libsystem_kernel.dylib) + 260  [0x18568b2f8]
+                          ! : | + !     1 mach_absolute_time  (in libsystem_kernel.dylib) + 108  [0x18567810c]
+                          ! : | + 1 _xzm_reclaim_mark_used  (in libsystem_malloc.dylib) + 176  [0x1854bffe0]
+                          ! : | +   1 mach_vm_reclaim_update_kernel_accounting  (in libsystem_kernel.dylib) + 92  [0x18568b494]
+                          ! : | +     1 mach_vm_reclaim_update_kernel_accounting_trap  (in libsystem_kernel.dylib) + 8  [0x185677cb8]
+                          ! : | 2 xzm_chunk_mark_used  (in libsystem_malloc.dylib) + 40,172  [0x1854bfe68,0x1854bfeec]
+                          ! : 2 _xzm_xzone_find_and_malloc_from_freelist_chunk  (in libsystem_malloc.dylib) + 336  [0x1854df0cc]
+                          ! : | 2 _xzm_xzone_malloc_from_freelist_chunk  (in libsystem_malloc.dylib) + 64,588  [0x1854debc0,0x1854dedcc]
+                          ! : 1 _xzm_xzone_find_and_malloc_from_freelist_chunk  (in libsystem_malloc.dylib) + 332  [0x1854df0c8]
+                          ! 4 DYLD-STUB$$malloc  (in csharp_practical_vc-0951b3e219e92435) + 4  [0x10584cd68]
+                          ! 3 _xzm_xzone_malloc_freelist_outlined  (in libsystem_malloc.dylib) + 208,352,...  [0x1854de770,0x1854de800,...]
+                          ! 2 _RNvCs9wFQrvczXsK_7___rustc11___rdl_alloc  (in csharp_practical_vc-0951b3e219e92435) + 0,12  [0x105806b68,0x105806b74]
+                          ! 1 _xzm_xzone_malloc_freelist_outlined  (in libsystem_malloc.dylib) + 260  [0x1854de7a4]
+                          !   1 _malloc_ulock_self_owner_value  (in libsystem_malloc.dylib) + 0  [0x1854def6c]
+                          95 _RINvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-0951b3e219e92435) + 5216  [0x10509152c]
+                          ! 62 _RINvNtCsgtPOCBgevO_4core3ptr9drop_glueNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval6EnvRefEBG_  (in csharp_practical_vc-0951b3e219e92435) + 220  [0x10508ad58]
+                          ! : 28 _RINvMs2_NtNtCsa9BKTri5B3M_3std6thread5localINtB6_8LocalKeyINtNtCsgtPOCBgevO_4core4cell7RefCellTbINtNtCslJsSqIQKwiA_5alloc3vec3VecNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval3EnvEEEE4withNCNvXs1_B25_NtB25_6EnvRefNtNtNtBZ_3ops4drop4Drop4drop0uEB29_  (in csharp_practical_vc-0951b3e219e92435) + 304  [0x104ee9834]
+                          ! : | 11 _RINvNtCsgtPOCBgevO_4core3ptr9drop_glueNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval3EnvEBG_  (in csharp_practical_vc-0951b3e219e92435) + 16,48,...  [0x104eea910,0x104eea930,...]
+                          ! : | 6 _RINvNtCsgtPOCBgevO_4core3ptr9drop_glueNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval3EnvEBG_  (in csharp_practical_vc-0951b3e219e92435) + 36  [0x104eea924]
+                          ! : | + 6 _RINvNtCsgtPOCBgevO_4core3ptr9drop_glueNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval1VEBG_  (in csharp_practical_vc-0951b3e219e92435) + 528,28,...  [0x104eea85c,0x104eea668,...]
+                          ! : | 5 _RINvNtCsgtPOCBgevO_4core3ptr9drop_glueNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval1VEBG_  (in csharp_practical_vc-0951b3e219e92435) + 540,548  [0x104eea868,0x104eea870]
+                          ! : | 5 _RINvNtCsgtPOCBgevO_4core3ptr9drop_glueNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval3EnvEBG_  (in csharp_practical_vc-0951b3e219e92435) + 236  [0x104eea9ec]
+                          ! : | + 3 _RINvMs2_NtNtCsa9BKTri5B3M_3std6thread5localINtB6_8LocalKeyINtNtCsgtPOCBgevO_4core4cell7RefCellTbINtNtCslJsSqIQKwiA_5alloc3vec3VecNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval3EnvEEEE4withNCNvXs1_B25_NtB25_6EnvRefNtNtNtBZ_3ops4drop4Drop4drop0uEB29_  (in csharp_practical_vc-0951b3e219e92435) + 24,88,...  [0x104ee971c,0x104ee975c,...]
+                          ! : | + 2 _RINvMs2_NtNtCsa9BKTri5B3M_3std6thread5localINtB6_8LocalKeyINtNtCsgtPOCBgevO_4core4cell7RefCellTbINtNtCslJsSqIQKwiA_5alloc3vec3VecNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval3EnvEEEE4withNCNvXs1_B25_NtB25_6EnvRefNtNtNtBZ_3ops4drop4Drop4drop0uEB29_  (in csharp_practical_vc-0951b3e219e92435) + 36  [0x104ee9728]
+                          ! : | +   2 _RNvYNCNKNvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval11ENV_RELEASE00INtNtNtCsgtPOCBgevO_4core3ops8function6FnOnceTINtNtB1A_6option6OptionQIB2e_INtNtB1A_4cell7RefCellTbINtNtCslJsSqIQKwiA_5alloc3vec3VecNtB8_3EnvEEEEEEE9call_onceBc_  (in csharp_practical_vc-0951b3e219e92435) + 28  [0x1050fba38]
+                          ! : | +     2 _tlv_get_addr  (in libdyld.dylib) + 4  [0x1852b838c]
+                          ! : | 1 _RINvMs2_NtNtCsa9BKTri5B3M_3std6thread5localINtB6_8LocalKeyINtNtCsgtPOCBgevO_4core4cell7RefCellTbINtNtCslJsSqIQKwiA_5alloc3vec3VecNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval3EnvEEEE4withNCNvXs1_B25_NtB25_6EnvRefNtNtNtBZ_3ops4drop4Drop4drop0uEB29_  (in csharp_practical_vc-0951b3e219e92435) + 356  [0x104ee9868]
+                          ! : 22 _RINvMs2_NtNtCsa9BKTri5B3M_3std6thread5localINtB6_8LocalKeyINtNtCsgtPOCBgevO_4core4cell7RefCellTbINtNtCslJsSqIQKwiA_5alloc3vec3VecNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval3EnvEEEE4withNCNvXs1_B25_NtB25_6EnvRefNtNtNtBZ_3ops4drop4Drop4drop0uEB29_  (in csharp_practical_vc-0951b3e219e92435) + 264,292,...  [0x104ee980c,0x104ee9828,...]
+                          ! : 9 _RINvMs2_NtNtCsa9BKTri5B3M_3std6thread5localINtB6_8LocalKeyINtNtCsgtPOCBgevO_4core4cell7RefCellTbINtNtCslJsSqIQKwiA_5alloc3vec3VecNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval3EnvEEEE4withNCNvXs1_B25_NtB25_6EnvRefNtNtNtBZ_3ops4drop4Drop4drop0uEB29_  (in csharp_practical_vc-0951b3e219e92435) + 36  [0x104ee9728]
+                          ! : | 7 _RNvYNCNKNvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval11ENV_RELEASE00INtNtNtCsgtPOCBgevO_4core3ops8function6FnOnceTINtNtB1A_6option6OptionQIB2e_INtNtB1A_4cell7RefCellTbINtNtCslJsSqIQKwiA_5alloc3vec3VecNtB8_3EnvEEEEEEE9call_onceBc_  (in csharp_practical_vc-0951b3e219e92435) + 28  [0x1050fba38]
+                          ! : | + 7 _tlv_get_addr  (in libdyld.dylib) + 4,0  [0x1852b838c,0x1852b8388]
+                          ! : | 2 _RNvYNCNKNvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval11ENV_RELEASE00INtNtNtCsgtPOCBgevO_4core3ops8function6FnOnceTINtNtB1A_6option6OptionQIB2e_INtNtB1A_4cell7RefCellTbINtNtCslJsSqIQKwiA_5alloc3vec3VecNtB8_3EnvEEEEEEE9call_onceBc_  (in csharp_practical_vc-0951b3e219e92435) + 20  [0x1050fba30]
+                          ! : 3 _RINvNtCsgtPOCBgevO_4core3ptr9drop_glueNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval3EnvEBG_  (in csharp_practical_vc-0951b3e219e92435) + 240  [0x104eea9f0]
+                          ! 18 _RINvNtCsgtPOCBgevO_4core3ptr9drop_glueNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval6EnvRefEBG_  (in csharp_practical_vc-0951b3e219e92435) + 176  [0x10508ad2c]
+                          ! : 9 _free  (in libsystem_malloc.dylib) + 36,12,...  [0x1854e7cf4,0x1854e7cdc,...]
+                          ! : 6 _xzm_free  (in libsystem_malloc.dylib) + 232,564,...  [0x1854d8200,0x1854d834c,...]
+                          ! : 2 _xzm_free  (in libsystem_malloc.dylib) + 352  [0x1854d8278]
+                          ! : | 2 __bzero  (in libsystem_platform.dylib) + 24  [0x1856c5048]
+                          ! : 1 _xzm_free  (in libsystem_malloc.dylib) + 1048  [0x1854d8530]
+                          ! :   1 mach_absolute_time  (in libsystem_kernel.dylib) + 112  [0x185678110]
+                          ! 9 _RINvNtCsgtPOCBgevO_4core3ptr9drop_glueNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval6EnvRefEBG_  (in csharp_practical_vc-0951b3e219e92435) + 24,32,...  [0x10508ac94,0x10508ac9c,...]
+                          ! 4 _xzm_free  (in libsystem_malloc.dylib) + 1560  [0x1854d8730]
+                          ! 2 _RINvMs2_NtNtCsa9BKTri5B3M_3std6thread5localINtB6_8LocalKeyINtNtCsgtPOCBgevO_4core4cell7RefCellTbINtNtCslJsSqIQKwiA_5alloc3vec3VecNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval3EnvEEEE4withNCNvXs1_B25_NtB25_6EnvRefNtNtNtBZ_3ops4drop4Drop4drop0uEB29_  (in csharp_practical_vc-0951b3e219e92435) + 356  [0x104ee9868]
+                          72 _RINvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-0951b3e219e92435) + 4676  [0x105091310]
+                          ! 32 _RINvMs3_NtNtCslJsSqIQKwiA_5alloc11collections9vec_dequeINtB6_8VecDequeTNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval9WeakValueB17_EE6retainNCNvMs6_B19_NtB19_10LambdaMemo17remember_identity0EB1d_  (in csharp_practical_vc-0951b3e219e92435) + 632  [0x104ee9b60]
+                          ! : 20 _RINvNtCsgtPOCBgevO_4core3ptr9drop_glueNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval9WeakValueEBG_  (in csharp_practical_vc-0951b3e219e92435) + 84  [0x104eeaae0]
+                          ! : | 14 _xzm_free  (in libsystem_malloc.dylib) + 232,780,...  [0x1854d8200,0x1854d8424,...]
+                          ! : | 3 DYLD-STUB$$free  (in csharp_practical_vc-0951b3e219e92435) + 4  [0x10584ccfc]
+                          ! : | 2 _free  (in libsystem_malloc.dylib) + 0,64  [0x1854e7cd0,0x1854e7d10]
+                          ! : | 1 _xzm_free  (in libsystem_malloc.dylib) + 352  [0x1854d8278]
+                          ! : |   1 _platform_memset  (in libsystem_platform.dylib) + 160  [0x1856c5130]
+                          ! : 7 _xzm_free  (in libsystem_malloc.dylib) + 1560,128,...  [0x1854d8730,0x1854d8198,...]
+                          ! : 4 _RINvNtCsgtPOCBgevO_4core3ptr9drop_glueNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval9WeakValueEBG_  (in csharp_practical_vc-0951b3e219e92435) + 28,88,...  [0x104eeaaa8,0x104eeaae4,...]
+                          ! : 1 DYLD-STUB$$free  (in csharp_practical_vc-0951b3e219e92435) + 4  [0x10584ccfc]
+                          ! 17 _RINvMs3_NtNtCslJsSqIQKwiA_5alloc11collections9vec_dequeINtB6_8VecDequeTNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval9WeakValueB17_EE6retainNCNvMs6_B19_NtB19_10LambdaMemo17remember_identity0EB1d_  (in csharp_practical_vc-0951b3e219e92435) + 96,36,...  [0x104ee9948,0x104ee990c,...]
+                          ! 8 _RINvMs3_NtNtCslJsSqIQKwiA_5alloc11collections9vec_dequeINtB6_8VecDequeTNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval9WeakValueB17_EE6retainNCNvMs6_B19_NtB19_10LambdaMemo17remember_identity0EB1d_  (in csharp_practical_vc-0951b3e219e92435) + 96  [0x104ee9948]
+                          ! : 8 _RNvMs5_NtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_evalNtB5_9WeakValue7upgrade  (in csharp_practical_vc-0951b3e219e92435) + 288,100  [0x10509d70c,0x10509d650]
+                          ! 4 _RINvMs3_NtNtCslJsSqIQKwiA_5alloc11collections9vec_dequeINtB6_8VecDequeTNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval9WeakValueB17_EE6retainNCNvMs6_B19_NtB19_10LambdaMemo17remember_identity0EB1d_  (in csharp_practical_vc-0951b3e219e92435) + 116  [0x104ee995c]
+                          ! : 4 _RINvNtCsgtPOCBgevO_4core3ptr9drop_glueNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval1VEBG_  (in csharp_practical_vc-0951b3e219e92435) + 28,116  [0x104eea668,0x104eea6c0]
+                          ! 4 _RINvMs3_NtNtCslJsSqIQKwiA_5alloc11collections9vec_dequeINtB6_8VecDequeTNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval9WeakValueB17_EE6retainNCNvMs6_B19_NtB19_10LambdaMemo17remember_identity0EB1d_  (in csharp_practical_vc-0951b3e219e92435) + 624  [0x104ee9b58]
+                          ! : 1 _RINvNtCsgtPOCBgevO_4core3ptr9drop_glueNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval9WeakValueEBG_  (in csharp_practical_vc-0951b3e219e92435) + 192  [0x104eeab4c]
+                          ! : 1 _free  (in libsystem_malloc.dylib) + 100  [0x1854e7d34]
+                          ! : 1 _xzm_free  (in libsystem_malloc.dylib) + 352  [0x1854d8278]
+                          ! : | 1 __bzero  (in libsystem_platform.dylib) + 24  [0x1856c5048]
+                          ! : 1 _xzm_free  (in libsystem_malloc.dylib) + 684  [0x1854d83c4]
+                          ! 3 _RINvNtCsgtPOCBgevO_4core3ptr9drop_glueNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval1VEBG_  (in csharp_practical_vc-0951b3e219e92435) + 540  [0x104eea868]
+                          ! 2 _RINvMs3_NtNtCslJsSqIQKwiA_5alloc11collections9vec_dequeINtB6_8VecDequeTNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval9WeakValueB17_EE6retainNCNvMs6_B19_NtB19_10LambdaMemo17remember_identity0EB1d_  (in csharp_practical_vc-0951b3e219e92435) + 128  [0x104ee9968]
+                          ! : 2 _RNvMs5_NtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_evalNtB5_9WeakValue7upgrade  (in csharp_practical_vc-0951b3e219e92435) + 84,200  [0x10509d640,0x10509d6b4]
+                          ! 2 _RINvNtCsgtPOCBgevO_4core3ptr9drop_glueNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval9WeakValueEBG_  (in csharp_practical_vc-0951b3e219e92435) + 224  [0x104eeab6c]
+                          60 _RINvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-0951b3e219e92435) + 7300  [0x105091d50]
+                          ! 19 _RNvMs6_NtCslJsSqIQKwiA_5alloc2rcINtB5_2RcINtNtCsgtPOCBgevO_4core4cell7RefCellNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval10LambdaMemoEE9drop_slowB1j_  (in csharp_practical_vc-0951b3e219e92435) + 276  [0x104f12bfc]
+                          ! : 10 _xzm_free  (in libsystem_malloc.dylib) + 28,128,...  [0x1854d8134,0x1854d8198,...]
+                          ! : 5 _xzm_free  (in libsystem_malloc.dylib) + 352  [0x1854d8278]
+                          ! : | 3 DYLD-STUB$$_platform_bzero  (in libsystem_malloc.dylib) + 8  [0x1854ef878]
+                          ! : | 2 _platform_memset  (in libsystem_platform.dylib) + 132,160  [0x1856c5114,0x1856c5130]
+                          ! : 2 DYLD-STUB$$free  (in csharp_practical_vc-0951b3e219e92435) + 4  [0x10584ccfc]
+                          ! : 2 _free  (in libsystem_malloc.dylib) + 12,36  [0x1854e7cdc,0x1854e7cf4]
+                          ! 19 _xzm_free  (in libsystem_malloc.dylib) + 780,28,...  [0x1854d8424,0x1854d8134,...]
+                          ! 10 _RNvMs6_NtCslJsSqIQKwiA_5alloc2rcINtB5_2RcINtNtCsgtPOCBgevO_4core4cell7RefCellNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval10LambdaMemoEE9drop_slowB1j_  (in csharp_practical_vc-0951b3e219e92435) + 32,48,...  [0x104f12b08,0x104f12b18,...]
+                          ! 4 _xzm_free  (in libsystem_malloc.dylib) + 352  [0x1854d8278]
+                          ! : 3 DYLD-STUB$$_platform_bzero  (in libsystem_malloc.dylib) + 8  [0x1854ef878]
+                          ! : 1 _platform_memset  (in libsystem_platform.dylib) + 140  [0x1856c511c]
+                          ! 2 DYLD-STUB$$free  (in csharp_practical_vc-0951b3e219e92435) + 0,4  [0x10584ccf8,0x10584ccfc]
+                          ! 2 _RNvMs6_NtCslJsSqIQKwiA_5alloc2rcINtB5_2RcINtNtCsgtPOCBgevO_4core4cell7RefCellNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval10LambdaMemoEE9drop_slowB1j_  (in csharp_practical_vc-0951b3e219e92435) + 48  [0x104f12b18]
+                          ! : 2 _RINvNtCsgtPOCBgevO_4core3ptr9drop_glueNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval1VEBG_  (in csharp_practical_vc-0951b3e219e92435) + 28  [0x104eea668]
+                          ! 2 _RNvMs6_NtCslJsSqIQKwiA_5alloc2rcINtB5_2RcINtNtCsgtPOCBgevO_4core4cell7RefCellNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval10LambdaMemoEE9drop_slowB1j_  (in csharp_practical_vc-0951b3e219e92435) + 68  [0x104f12b2c]
+                          ! : 2 _RINvNtCsgtPOCBgevO_4core3ptr9drop_glueNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval1VEBG_  (in csharp_practical_vc-0951b3e219e92435) + 28  [0x104eea668]
+                          ! 1 _RINvNtCsgtPOCBgevO_4core3ptr9drop_glueNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval1VEBG_  (in csharp_practical_vc-0951b3e219e92435) + 540  [0x104eea868]
+                          ! 1 _RNvMs6_NtCslJsSqIQKwiA_5alloc2rcINtB5_2RcINtNtCsgtPOCBgevO_4core4cell7RefCellNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval10LambdaMemoEE9drop_slowB1j_  (in csharp_practical_vc-0951b3e219e92435) + 200  [0x104f12bb0]
+                          !   1 _RINvNtCsgtPOCBgevO_4core3ptr9drop_glueNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval9WeakValueEBG_  (in csharp_practical_vc-0951b3e219e92435) + 12  [0x104eeaa98]
+                          52 _RINvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-0951b3e219e92435) + 4328  [0x1050911b4]
+                          ! 23 _xzm_xzone_malloc_tiny  (in libsystem_malloc.dylib) + 364,276,...  [0x1854dd0a8,0x1854dd050,...]
+                          ! 8 _malloc_zone_malloc  (in libsystem_malloc.dylib) + 56,64,...  [0x1854e70f4,0x1854e70fc,...]
+                          ! 7 _xzm_xzone_malloc_freelist_outlined  (in libsystem_malloc.dylib) + 324  [0x1854de7e4]
+                          ! : 6 _xzm_xzone_find_and_malloc_from_freelist_chunk  (in libsystem_malloc.dylib) + 860  [0x1854df2d8]
+                          ! : | 6 xzm_chunk_mark_used  (in libsystem_malloc.dylib) + 188  [0x1854bfefc]
+                          ! : |   6 _xzm_reclaim_mark_used  (in libsystem_malloc.dylib) + 124  [0x1854bffac]
+                          ! : |     6 _xzm_reclaim_mark_used_locked  (in libsystem_malloc.dylib) + 60  [0x1854c2a9c]
+                          ! : |       6 mach_vm_reclaim_try_cancel  (in libsystem_kernel.dylib) + 260  [0x18568b2f8]
+                          ! : |         6 mach_absolute_time  (in libsystem_kernel.dylib) + 108  [0x18567810c]
+                          ! : 1 _xzm_xzone_find_and_malloc_from_freelist_chunk  (in libsystem_malloc.dylib) + 332  [0x1854df0c8]
+                          ! 6 <deduplicated_symbol>  (in libsystem_malloc.dylib) + 112,164,...  [0x1854d71cc,0x1854d7200,...]
+                          ! 3 _xzm_xzone_malloc  (in libsystem_malloc.dylib) + 24,184,...  [0x1854d7968,0x1854d7a08,...]
+                          ! 2 _RNvCs9wFQrvczXsK_7___rustc11___rdl_alloc  (in csharp_practical_vc-0951b3e219e92435) + 0,12  [0x105806b68,0x105806b74]
+                          ! 1 _xzm_xzone_find_and_malloc_from_freelist_chunk  (in libsystem_malloc.dylib) + 1936  [0x1854df70c]
+                          ! 1 _xzm_xzone_malloc_freelist_outlined  (in libsystem_malloc.dylib) + 248  [0x1854de798]
+                          ! : 1 _xzm_xzone_malloc_from_freelist_chunk  (in libsystem_malloc.dylib) + 28  [0x1854deb9c]
+                          ! 1 _xzm_xzone_malloc_freelist_outlined  (in libsystem_malloc.dylib) + 260  [0x1854de7a4]
+                          !   1 _malloc_ulock_self_owner_value  (in libsystem_malloc.dylib) + 0  [0x1854def6c]
+                          42 _RINvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-0951b3e219e92435) + 6356  [0x1050919a0]
+                          ! 40 _RNvMs3_NtCslJsSqIQKwiA_5alloc7raw_vecINtB5_6RawVecNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval1VE8grow_oneBS_  (in csharp_practical_vc-0951b3e219e92435) + 60  [0x10583b474]
+                          ! : 35 _RNvMs4_NtCslJsSqIQKwiA_5alloc7raw_vecNtB5_11RawVecInner11finish_growCs2th93lprptj_19csharp_practical_vc  (in csharp_practical_vc-0951b3e219e92435) + 120  [0x10583ba60]
+                          ! : | 20 _xzm_xzone_malloc_tiny  (in libsystem_malloc.dylib) + 24,284,...  [0x1854dcf54,0x1854dd058,...]
+                          ! : | 7 _malloc_zone_malloc  (in libsystem_malloc.dylib) + 12,64,...  [0x1854e70c8,0x1854e70fc,...]
+                          ! : | 3 <deduplicated_symbol>  (in libsystem_malloc.dylib) + 112,164,...  [0x1854d71cc,0x1854d7200,...]
+                          ! : | 3 _xzm_xzone_malloc  (in libsystem_malloc.dylib) + 24,192  [0x1854d7968,0x1854d7a10]
+                          ! : | 2 _RNvCs9wFQrvczXsK_7___rustc11___rdl_alloc  (in csharp_practical_vc-0951b3e219e92435) + 12  [0x105806b74]
+                          ! : 4 _RNvMs4_NtCslJsSqIQKwiA_5alloc7raw_vecNtB5_11RawVecInner11finish_growCs2th93lprptj_19csharp_practical_vc  (in csharp_practical_vc-0951b3e219e92435) + 36,68,...  [0x10583ba0c,0x10583ba2c,...]
+                          ! : 1 _RNvMs4_NtCslJsSqIQKwiA_5alloc7raw_vecNtB5_11RawVecInner11finish_growCs2th93lprptj_19csharp_practical_vc  (in csharp_practical_vc-0951b3e219e92435) + 108  [0x10583ba54]
+                          ! :   1 _RNvCs9wFQrvczXsK_7___rustc35___rust_no_alloc_shim_is_unstable_v2  (in csharp_practical_vc-0951b3e219e92435) + 0  [0x1051461f0]
+                          ! 2 _RNvMs3_NtCslJsSqIQKwiA_5alloc7raw_vecINtB5_6RawVecNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval1VE8grow_oneBS_  (in csharp_practical_vc-0951b3e219e92435) + 44  [0x10583b464]
+                          39 _RINvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-0951b3e219e92435) + 6124  [0x1050918b8]
+                          ! 18 _xzm_free  (in libsystem_malloc.dylib) + 196,996,...  [0x1854d81dc,0x1854d84fc,...]
+                          ! 6 _free  (in libsystem_malloc.dylib) + 36,64,...  [0x1854e7cf4,0x1854e7d10,...]
+                          ! 4 _RNvMs6_NtCslJsSqIQKwiA_5alloc2rcINtB5_2RcINtNtCsgtPOCBgevO_4core4cell7RefCellNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval10SuspensionEE9drop_slowB1j_  (in csharp_practical_vc-0951b3e219e92435) + 44  [0x104f12cf4]
+                          ! : 4 _RINvNtCsgtPOCBgevO_4core3ptr9drop_glueNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval1VEBG_  (in csharp_practical_vc-0951b3e219e92435) + 28  [0x104eea668]
+                          ! 4 _RNvMs6_NtCslJsSqIQKwiA_5alloc2rcINtB5_2RcINtNtCsgtPOCBgevO_4core4cell7RefCellNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval10SuspensionEE9drop_slowB1j_  (in csharp_practical_vc-0951b3e219e92435) + 28,60  [0x104f12ce4,0x104f12d04]
+                          ! 3 DYLD-STUB$$free  (in csharp_practical_vc-0951b3e219e92435) + 4  [0x10584ccfc]
+                          ! 2 _RINvNtCsgtPOCBgevO_4core3ptr9drop_glueNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval1VEBG_  (in csharp_practical_vc-0951b3e219e92435) + 540  [0x104eea868]
+                          ! 1 _xzm_chunk_list_slot_push  (in libsystem_malloc.dylib) + 128  [0x1854e09f8]
+                          ! : 1 _xzm_chunk_list_push  (in libsystem_malloc.dylib) + 96  [0x1854df8a4]
+                          ! 1 _xzm_free  (in libsystem_malloc.dylib) + 352  [0x1854d8278]
+                          !   1 _platform_memset  (in libsystem_platform.dylib) + 160  [0x1856c5130]
+                          31 _RNvXse_NtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_evalNtB5_1VNtNtCsgtPOCBgevO_4core5clone5Clone5clone  (in csharp_practical_vc-0951b3e219e92435) + 408,404,...  [0x1050fb7a8,0x1050fb7a4,...]
+                          28 _RINvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-0951b3e219e92435) + 2476  [0x105090a78]
+                          ! 28 _RINvMs1_NtCs9nAj5kJTqSU_9hashbrown3mapINtB6_7HashMapmNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval5UsageNtNtNtCsa9BKTri5B3M_3std4hash6random11RandomStateE3getmEBV_  (in csharp_practical_vc-0951b3e219e92435) + 160,216,...  [0x105084144,0x10508417c,...]
+                          28 _RINvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-0951b3e219e92435) + 7308  [0x105091d58]
+                          ! 10 _xzm_free  (in libsystem_malloc.dylib) + 996,1240,...  [0x1854d84fc,0x1854d85f0,...]
+                          ! 6 _RINvNtCsgtPOCBgevO_4core3ptr9drop_glueNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval1VEBG_  (in csharp_practical_vc-0951b3e219e92435) + 28,108,...  [0x10508a9ac,0x10508a9fc,...]
+                          ! 6 _RNvMs6_NtCslJsSqIQKwiA_5alloc2rcINtB5_2RcINtNtCsgtPOCBgevO_4core4cell7RefCellNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval10SuspensionEE9drop_slowB1j_  (in csharp_practical_vc-0951b3e219e92435) + 28,44,...  [0x104f12ce4,0x104f12cf4,...]
+                          ! 3 _free  (in libsystem_malloc.dylib) + 0,12,...  [0x1854e7cd0,0x1854e7cdc,...]
+                          ! 2 _xzm_free  (in libsystem_malloc.dylib) + 352  [0x1854d8278]
+                          ! : 1 DYLD-STUB$$_platform_bzero  (in libsystem_malloc.dylib) + 8  [0x1854ef878]
+                          ! : 1 _platform_memset  (in libsystem_platform.dylib) + 132  [0x1856c5114]
+                          ! 1 DYLD-STUB$$free  (in csharp_practical_vc-0951b3e219e92435) + 4  [0x10584ccfc]
+                          25 _RINvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-0951b3e219e92435) + 5076  [0x1050914a0]
+                          ! 19 _RINvNtCsgtPOCBgevO_4core3ptr9drop_glueNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval1VEBG_  (in csharp_practical_vc-0951b3e219e92435) + 40,108,...  [0x10508a9b8,0x10508a9fc,...]
+                          ! 3 _xzm_free  (in libsystem_malloc.dylib) + 1240,352  [0x1854d85f0,0x1854d8278]
+                          ! 2 _free  (in libsystem_malloc.dylib) + 96,104  [0x1854e7d30,0x1854e7d38]
+                          ! 1 _xzm_free  (in libsystem_malloc.dylib) + 352  [0x1854d8278]
+                          !   1 __bzero  (in libsystem_platform.dylib) + 24  [0x1856c5048]
+                          25 _RINvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-0951b3e219e92435) + 7524  [0x105091e30]
+                          ! 15 _xzm_free  (in libsystem_malloc.dylib) + 128,232,...  [0x1854d8198,0x1854d8200,...]
+                          ! 6 _xzm_free  (in libsystem_malloc.dylib) + 352  [0x1854d8278]
+                          ! : 3 __bzero  (in libsystem_platform.dylib) + 24  [0x1856c5048]
+                          ! : 3 _platform_memset  (in libsystem_platform.dylib) + 140,160  [0x1856c511c,0x1856c5130]
+                          ! 3 _free  (in libsystem_malloc.dylib) + 12,64,...  [0x1854e7cdc,0x1854e7d10,...]
+                          ! 1 DYLD-STUB$$free  (in csharp_practical_vc-0951b3e219e92435) + 4  [0x10584ccfc]
+                          19 _RINvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-0951b3e219e92435) + 4880  [0x1050913dc]
+                          ! 18 _RNvMs3_NtNtCslJsSqIQKwiA_5alloc11collections9vec_dequeINtB5_8VecDequeTNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval9WeakValueB16_EE4growB1c_  (in csharp_practical_vc-0951b3e219e92435) + 24  [0x104f12988]
+                          ! : 16 <deduplicated_symbol>  (in csharp_practical_vc-0951b3e219e92435) + 60  [0x10583b4dc]
+                          ! : | 14 _RNvMs4_NtCslJsSqIQKwiA_5alloc7raw_vecNtB5_11RawVecInner11finish_growCs2th93lprptj_19csharp_practical_vc  (in csharp_practical_vc-0951b3e219e92435) + 120  [0x10583ba60]
+                          ! : | + 5 _xzm_xzone_malloc_tiny  (in libsystem_malloc.dylib) + 88,284,...  [0x1854dcf94,0x1854dd058,...]
+                          ! : | + 3 <deduplicated_symbol>  (in libsystem_malloc.dylib) + 112,164,...  [0x1854d71cc,0x1854d7200,...]
+                          ! : | + 3 _malloc_zone_malloc  (in libsystem_malloc.dylib) + 44,56,...  [0x1854e70e8,0x1854e70f4,...]
+                          ! : | + 2 DYLD-STUB$$malloc  (in csharp_practical_vc-0951b3e219e92435) + 4  [0x10584cd68]
+                          ! : | + 1 _xzm_xzone_malloc  (in libsystem_malloc.dylib) + 184  [0x1854d7a08]
+                          ! : | 1 _RNvMs4_NtCslJsSqIQKwiA_5alloc7raw_vecNtB5_11RawVecInner11finish_growCs2th93lprptj_19csharp_practical_vc  (in csharp_practical_vc-0951b3e219e92435) + 108  [0x10583ba54]
+                          ! : | + 1 _RNvCs9wFQrvczXsK_7___rustc35___rust_no_alloc_shim_is_unstable_v2  (in csharp_practical_vc-0951b3e219e92435) + 0  [0x1051461f0]
+                          ! : | 1 _RNvMs4_NtCslJsSqIQKwiA_5alloc7raw_vecNtB5_11RawVecInner11finish_growCs2th93lprptj_19csharp_practical_vc  (in csharp_practical_vc-0951b3e219e92435) + 36  [0x10583ba0c]
+                          ! : 2 <deduplicated_symbol>  (in csharp_practical_vc-0951b3e219e92435) + 56,60  [0x10583b4d8,0x10583b4dc]
+                          ! 1 _RNvMs3_NtNtCslJsSqIQKwiA_5alloc11collections9vec_dequeINtB5_8VecDequeTNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval9WeakValueB16_EE4growB1c_  (in csharp_practical_vc-0951b3e219e92435) + 16  [0x104f12980]
+                          13 _RINvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-0951b3e219e92435) + 6044  [0x105091868]
+                          ! 7 _RINvNtCsgtPOCBgevO_4core3ptr9drop_glueNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval6EnvRefEBG_  (in csharp_practical_vc-0951b3e219e92435) + 220  [0x10508ad58]
+                          ! : 6 _RINvMs2_NtNtCsa9BKTri5B3M_3std6thread5localINtB6_8LocalKeyINtNtCsgtPOCBgevO_4core4cell7RefCellTbINtNtCslJsSqIQKwiA_5alloc3vec3VecNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval3EnvEEEE4withNCNvXs1_B25_NtB25_6EnvRefNtNtNtBZ_3ops4drop4Drop4drop0uEB29_  (in csharp_practical_vc-0951b3e219e92435) + 216,24,...  [0x104ee97dc,0x104ee971c,...]
+                          ! : 1 _RINvMs2_NtNtCsa9BKTri5B3M_3std6thread5localINtB6_8LocalKeyINtNtCsgtPOCBgevO_4core4cell7RefCellTbINtNtCslJsSqIQKwiA_5alloc3vec3VecNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval3EnvEEEE4withNCNvXs1_B25_NtB25_6EnvRefNtNtNtBZ_3ops4drop4Drop4drop0uEB29_  (in csharp_practical_vc-0951b3e219e92435) + 36  [0x104ee9728]
+                          ! :   1 _RNvYNCNKNvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval11ENV_RELEASE00INtNtNtCsgtPOCBgevO_4core3ops8function6FnOnceTINtNtB1A_6option6OptionQIB2e_INtNtB1A_4cell7RefCellTbINtNtCslJsSqIQKwiA_5alloc3vec3VecNtB8_3EnvEEEEEEE9call_onceBc_  (in csharp_practical_vc-0951b3e219e92435) + 28  [0x1050fba38]
+                          ! :     1 _tlv_get_addr  (in libdyld.dylib) + 4  [0x1852b838c]
+                          ! 3 _RINvNtCsgtPOCBgevO_4core3ptr9drop_glueNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval6EnvRefEBG_  (in csharp_practical_vc-0951b3e219e92435) + 176  [0x10508ad2c]
+                          ! : 2 _xzm_free  (in libsystem_malloc.dylib) + 996  [0x1854d84fc]
+                          ! : 1 _xzm_free  (in libsystem_malloc.dylib) + 352  [0x1854d8278]
+                          ! :   1 __bzero  (in libsystem_platform.dylib) + 24  [0x1856c5048]
+                          ! 2 _RINvNtCsgtPOCBgevO_4core3ptr9drop_glueNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval6EnvRefEBG_  (in csharp_practical_vc-0951b3e219e92435) + 140  [0x10508ad08]
+                          ! 1 _xzm_free  (in libsystem_malloc.dylib) + 1560  [0x1854d8730]
+                          12 _RINvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-0951b3e219e92435) + 6952  [0x105091bf4]
+                          ! 12 _RINvNtCsgtPOCBgevO_4core3ptr9drop_glueNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval6EnvRefEBG_  (in csharp_practical_vc-0951b3e219e92435) + 24,140,...  [0x10508ac94,0x10508ad08,...]
+                          9 _RINvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-0951b3e219e92435) + 4536  [0x105091284]
+                          ! 9 _RNvMs5_NtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_evalNtB5_9WeakValue2of  (in csharp_practical_vc-0951b3e219e92435) + 0,4,...  [0x10509d2d8,0x10509d2dc,...]
+                          7 _RINvNtCsgtPOCBgevO_4core3ptr9drop_glueNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval6EnvRefEBG_  (in csharp_practical_vc-0951b3e219e92435) + 248  [0x10508ad74]
+                          6 _RINvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-0951b3e219e92435) + 7716  [0x105091ef0]
+                          ! 6 _RNvXse_NtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_evalNtB5_1VNtNtCsgtPOCBgevO_4core5clone5Clone5clone  (in csharp_practical_vc-0951b3e219e92435) + 16,264,...  [0x1050fb620,0x1050fb718,...]
+                          5 _RINvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-0951b3e219e92435) + 7148  [0x105091cb8]
+                          ! 5 _RNvXse_NtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_evalNtB5_1VNtNtCsgtPOCBgevO_4core5clone5Clone5clone  (in csharp_practical_vc-0951b3e219e92435) + 264,16,...  [0x1050fb718,0x1050fb620,...]
+                          5 _RINvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-0951b3e219e92435) + 8044  [0x105092038]
+                          ! 5 _RNvMs5_NtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_evalNtB5_9WeakValue7matches  (in csharp_practical_vc-0951b3e219e92435) + 4,140,...  [0x10509d444,0x10509d4cc,...]
+                          5 _RINvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-0951b3e219e92435) + 8192  [0x1050920cc]
+                          ! 5 _RNvMs5_NtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_evalNtB5_9WeakValue2of  (in csharp_practical_vc-0951b3e219e92435) + 0,84,...  [0x10509d2d8,0x10509d32c,...]
+                          5 _RINvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-0951b3e219e92435) + 8212  [0x1050920e0]
+                          ! 5 _RINvNtCsgtPOCBgevO_4core3ptr9drop_glueNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval9WeakValueEBG_  (in csharp_practical_vc-0951b3e219e92435) + 212,12,...  [0x10508b00c,0x10508af44,...]
+                          5 _RINvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-0951b3e219e92435) + 8696  [0x1050922c4]
+                          ! 5 _RINvNtCsgtPOCBgevO_4core3ptr9drop_glueNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval1VEBG_  (in csharp_practical_vc-0951b3e219e92435) + 28,16  [0x10508a9ac,0x10508a9a0]
+                          4 _RINvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-0951b3e219e92435) + 2828  [0x105090bd8]
+                          ! 4 _RNvXse_NtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_evalNtB5_1VNtNtCsgtPOCBgevO_4core5clone5Clone5clone  (in csharp_practical_vc-0951b3e219e92435) + 88,16,...  [0x1050fb668,0x1050fb620,...]
+                          4 _xzm_free  (in libsystem_malloc.dylib) + 1560  [0x1854d8730]
+                          3 _RINvNtCsgtPOCBgevO_4core3ptr9drop_glueNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval1VEBG_  (in csharp_practical_vc-0951b3e219e92435) + 580  [0x10508abd4]
+                          3 _RINvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-0951b3e219e92435) + 860  [0x105090428]
+                          ! 3 _RNvXse_NtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_evalNtB5_1VNtNtCsgtPOCBgevO_4core5clone5Clone5clone  (in csharp_practical_vc-0951b3e219e92435) + 264,24  [0x1050fb718,0x1050fb628]
+                          3 _RINvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-0951b3e219e92435) + 4548  [0x105091290]
+                          ! 3 _RNvMs5_NtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_evalNtB5_9WeakValue2of  (in csharp_practical_vc-0951b3e219e92435) + 240,288  [0x10509d3c8,0x10509d3f8]
+                          3 _RINvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-0951b3e219e92435) + 8224  [0x1050920ec]
+                          ! 3 _RNvXse_NtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_evalNtB5_1VNtNtCsgtPOCBgevO_4core5clone5Clone5clone  (in csharp_practical_vc-0951b3e219e92435) + 88,28  [0x1050fb668,0x1050fb62c]
+                          3 _RINvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-0951b3e219e92435) + 8496  [0x1050921fc]
+                          ! 3 _RNvCs9wFQrvczXsK_7___rustc35___rust_no_alloc_shim_is_unstable_v2  (in csharp_practical_vc-0951b3e219e92435) + 0  [0x1051461f0]
+                          3 _RINvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-0951b3e219e92435) + 8772  [0x105092310]
+                          ! 3 _RINvNtCsgtPOCBgevO_4core3ptr9drop_glueNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval6EnvRefEBG_  (in csharp_practical_vc-0951b3e219e92435) + 32,24  [0x10508ac9c,0x10508ac94]
+                          3 _RNvMs3_NtCslJsSqIQKwiA_5alloc7raw_vecINtB5_6RawVecNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval1VE8grow_oneBS_  (in csharp_practical_vc-0951b3e219e92435) + 84  [0x10583b48c]
+                          2 _RINvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-0951b3e219e92435) + 4316  [0x1050911a8]
+                          ! 2 _RNvCs9wFQrvczXsK_7___rustc35___rust_no_alloc_shim_is_unstable_v2  (in csharp_practical_vc-0951b3e219e92435) + 0  [0x1051461f0]
+                          1 _RINvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-0951b3e219e92435) + 2508  [0x105090a98]
+                          ! 1 _RNvXse_NtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_evalNtB5_1VNtNtCsgtPOCBgevO_4core5clone5Clone5clone  (in csharp_practical_vc-0951b3e219e92435) + 16  [0x1050fb620]
+                          1 _RINvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-0951b3e219e92435) + 5936  [0x1050917fc]
+                            1 _RNvXse_NtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_evalNtB5_1VNtNtCsgtPOCBgevO_4core5clone5Clone5clone  (in csharp_practical_vc-0951b3e219e92435) + 36  [0x1050fb634]
+
+Total number in stack (recursive counted multiple, when >=5):
+        14       _xzm_free  (in libsystem_malloc.dylib) + 0  [0x1854d8118]
+        10       _xzm_free  (in libsystem_malloc.dylib) + 352  [0x1854d8278]
+        9       _RINvNtCsgtPOCBgevO_4core3ptr9drop_glueNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval1VEBG_  (in csharp_practical_vc-0951b3e219e92435) + 0  [0x104eea64c]
+        9       _RNvXse_NtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_evalNtB5_1VNtNtCsgtPOCBgevO_4core5clone5Clone5clone  (in csharp_practical_vc-0951b3e219e92435) + 0  [0x1050fb610]
+        8       _free  (in libsystem_malloc.dylib) + 0  [0x1854e7cd0]
+        7       DYLD-STUB$$free  (in csharp_practical_vc-0951b3e219e92435) + 0  [0x10584ccf8]
+        6       _platform_memset  (in libsystem_platform.dylib) + 0  [0x1856c5090]
+        5       <deduplicated_symbol>  (in libsystem_malloc.dylib) + 0  [0x1854d715c]
+        5       _RINvMs2_NtNtCsa9BKTri5B3M_3std6thread5localINtB6_8LocalKeyINtNtCsgtPOCBgevO_4core4cell7RefCellTbINtNtCslJsSqIQKwiA_5alloc3vec3VecNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval3EnvEEEE4withNCNvXs1_B25_NtB25_6EnvRefNtNtNtBZ_3ops4drop4Drop4drop0uEB29_  (in csharp_practical_vc-0951b3e219e92435) + 0  [0x104ee9704]
+        5       _RINvNtCsgtPOCBgevO_4core3ptr9drop_glueNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval6EnvRefEBG_  (in csharp_practical_vc-0951b3e219e92435) + 0  [0x10508ac7c]
+        5       _RNvCs9wFQrvczXsK_7___rustc35___rust_no_alloc_shim_is_unstable_v2  (in csharp_practical_vc-0951b3e219e92435) + 0  [0x1051461f0]
+        5       __bzero  (in libsystem_platform.dylib) + 0  [0x1856c5030]
+        5       _malloc_zone_malloc  (in libsystem_malloc.dylib) + 0  [0x1854e70bc]
+        5       _xzm_xzone_malloc  (in libsystem_malloc.dylib) + 0  [0x1854d7950]
+        5       _xzm_xzone_malloc_from_freelist_chunk  (in libsystem_malloc.dylib) + 0  [0x1854deb80]
+        5       _xzm_xzone_malloc_tiny  (in libsystem_malloc.dylib) + 0  [0x1854dcf3c]
+
+Sort by top of stack, same collapsed (when >= 5):
+        semaphore_wait_trap  (in libsystem_kernel.dylib)        2471
+        _RINvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-0951b3e219e92435)        1546
+        _xzm_xzone_malloc_tiny  (in libsystem_malloc.dylib)        132
+        _xzm_free  (in libsystem_malloc.dylib)        114
+        _RNvNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval5defer  (in csharp_practical_vc-0951b3e219e92435)        109
+        _RNvXse_NtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_evalNtB5_1VNtNtCsgtPOCBgevO_4core5clone5Clone5clone  (in csharp_practical_vc-0951b3e219e92435)        69
+        _RINvNtCsgtPOCBgevO_4core3ptr9drop_glueNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval1VEBG_  (in csharp_practical_vc-0951b3e219e92435)        62
+        _malloc_zone_malloc  (in libsystem_malloc.dylib)        47
+        <deduplicated_symbol>  (in libsystem_malloc.dylib)        39
+        _RINvMs2_NtNtCsa9BKTri5B3M_3std6thread5localINtB6_8LocalKeyINtNtCsgtPOCBgevO_4core4cell7RefCellTbINtNtCslJsSqIQKwiA_5alloc3vec3VecNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval3EnvEEEE4withNCNvXs1_B25_NtB25_6EnvRefNtNtNtBZ_3ops4drop4Drop4drop0uEB29_  (in csharp_practical_vc-0951b3e219e92435)        34
+        _RINvNtCsgtPOCBgevO_4core3ptr9drop_glueNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval6EnvRefEBG_  (in csharp_practical_vc-0951b3e219e92435)        33
+        _RINvMs1_NtCs9nAj5kJTqSU_9hashbrown3mapINtB6_7HashMapmNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval5UsageNtNtNtCsa9BKTri5B3M_3std4hash6random11RandomStateE3getmEBV_  (in csharp_practical_vc-0951b3e219e92435)        28
+        _free  (in libsystem_malloc.dylib)        28
+        _xzm_xzone_malloc  (in libsystem_malloc.dylib)        21
+        _RINvMs3_NtNtCslJsSqIQKwiA_5alloc11collections9vec_dequeINtB6_8VecDequeTNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval9WeakValueB17_EE6retainNCNvMs6_B19_NtB19_10LambdaMemo17remember_identity0EB1d_  (in csharp_practical_vc-0951b3e219e92435)        17
+        _RNvMs5_NtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_evalNtB5_9WeakValue2of  (in csharp_practical_vc-0951b3e219e92435)        17
+        _RINvNtCsgtPOCBgevO_4core3ptr9drop_glueNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval3EnvEBG_  (in csharp_practical_vc-0951b3e219e92435)        14
+        DYLD-STUB$$free  (in csharp_practical_vc-0951b3e219e92435)        13
+        _RINvNtCsgtPOCBgevO_4core3ptr9drop_glueNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval9WeakValueEBG_  (in csharp_practical_vc-0951b3e219e92435)        13
+        _RNvCs9wFQrvczXsK_7___rustc11___rdl_alloc  (in csharp_practical_vc-0951b3e219e92435)        10
+        _RNvMs5_NtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_evalNtB5_9WeakValue7upgrade  (in csharp_practical_vc-0951b3e219e92435)        10
+        _RNvMs6_NtCslJsSqIQKwiA_5alloc2rcINtB5_2RcINtNtCsgtPOCBgevO_4core4cell7RefCellNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval10LambdaMemoEE9drop_slowB1j_  (in csharp_practical_vc-0951b3e219e92435)        10
+        _RNvMs6_NtCslJsSqIQKwiA_5alloc2rcINtB5_2RcINtNtCsgtPOCBgevO_4core4cell7RefCellNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval10SuspensionEE9drop_slowB1j_  (in csharp_practical_vc-0951b3e219e92435)        10
+        _tlv_get_addr  (in libdyld.dylib)        10
+        _platform_memset  (in libsystem_platform.dylib)        9
+        _RNvCs9wFQrvczXsK_7___rustc35___rust_no_alloc_shim_is_unstable_v2  (in csharp_practical_vc-0951b3e219e92435)        8
+        __bzero  (in libsystem_platform.dylib)        8
+        mach_absolute_time  (in libsystem_kernel.dylib)        8
+        DYLD-STUB$$_platform_bzero  (in libsystem_malloc.dylib)        7
+        DYLD-STUB$$malloc  (in csharp_practical_vc-0951b3e219e92435)        7
+        _xzm_xzone_malloc_from_freelist_chunk  (in libsystem_malloc.dylib)        6
+        _RNvMs3_NtCslJsSqIQKwiA_5alloc7raw_vecINtB5_6RawVecNtNtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_eval1VE8grow_oneBS_  (in csharp_practical_vc-0951b3e219e92435)        5
+        _RNvMs4_NtCslJsSqIQKwiA_5alloc7raw_vecNtB5_11RawVecInner11finish_growCs2th93lprptj_19csharp_practical_vc  (in csharp_practical_vc-0951b3e219e92435)        5
+        _RNvMs5_NtNtCs2th93lprptj_19csharp_practical_vc17ordinary_carriers9core_evalNtB5_9WeakValue7matches  (in csharp_practical_vc-0951b3e219e92435)        5
+
+Binary Images:
+       0x104c50000 -        0x105cfd293 +csharp_practical_vc-0951b3e219e92435 (0) <6361B7CA-8F3B-3543-B946-C3F186792065> /Users/*/csharp_practical_vc-0951b3e219e92435
+       0x185248000 -        0x18529ab4b  libobjc.A.dylib (951.7) <03BD9E32-CF0A-37B0-898A-3CE8DE06D842> /usr/lib/libobjc.A.dylib
+       0x18529b000 -        0x1852cfd58  libdyld.dylib (1387) <957F93B3-8805-39C7-9C51-EDD1715F550E> /usr/lib/system/libdyld.dylib
+       0x1852d0000 -        0x1853834ff  dyld (1.0.0 - 1387) <74E52480-C2BD-3C8D-812D-95FE2B74A096> /usr/lib/dyld
+       0x185384000 -        0x185387228  libsystem_blocks.dylib (96) <E0AC1231-27AA-3A13-8FAC-41D5802B1F3C> /usr/lib/system/libsystem_blocks.dylib
+       0x185388000 -        0x1853dc55f  libxpc.dylib (3102.160.5) <33E44C2D-D65E-37A6-B85F-1A4CF524A050> /usr/lib/system/libxpc.dylib
+       0x1853dd000 -        0x1853fd9ff  libsystem_trace.dylib (1861.160.4) <93F1DD8C-6CD9-32B9-B222-D23DA5D161B4> /usr/lib/system/libsystem_trace.dylib
+       0x1853fe000 -        0x1854ac5f7  libcorecrypto.dylib (1922.160.10) <0642DDAD-4771-3C82-805C-E7C6701C1461> /usr/lib/system/libcorecrypto.dylib
+       0x1854ad000 -        0x1854fd257  libsystem_malloc.dylib (812.160.5) <D969A907-3E43-3951-9365-8C2DB3812E9D> /usr/lib/system/libsystem_malloc.dylib
+       0x1854fe000 -        0x18554523f  libdispatch.dylib (1542.160.2) <B2000CD5-F580-314A-A141-E036719D854E> /usr/lib/system/libdispatch.dylib
+       0x185546000 -        0x185548ffb  libsystem_featureflags.dylib (103) <FEE12F9C-344B-33B3-8EDD-283580EF1C67> /usr/lib/system/libsystem_featureflags.dylib
+       0x185549000 -        0x1855ca1e7  libsystem_c.dylib (1752.160.4) <D77CEB62-AFF6-3CEC-BA9B-4F057FBE2EB5> /usr/lib/system/libsystem_c.dylib
+       0x1855cb000 -        0x18565bae7  libc++.1.dylib (2100.43) <F0FD393C-15BC-3C75-A19D-897F7B225C78> /usr/lib/libc++.1.dylib
+       0x18565c000 -        0x18567675f  libc++abi.dylib (2100.43) <F38A9C58-22AB-3798-BBAE-8DCD9CC0CE27> /usr/lib/libc++abi.dylib
+       0x185677000 -        0x1856b42e7  libsystem_kernel.dylib (12377.161.14) <C6A4A4CB-92E6-3BAF-AAE0-E8306259209A> /usr/lib/system/libsystem_kernel.dylib
+       0x1856b5000 -        0x1856c1b3b  libsystem_pthread.dylib (539.100.4) <A373F0B0-9880-326A-88B4-DD8BE4E33072> /usr/lib/system/libsystem_pthread.dylib
+       0x1856c2000 -        0x1856ca963  libsystem_platform.dylib (375.120.2) <EDB83A19-EC17-32DE-9350-6145970A85D6> /usr/lib/system/libsystem_platform.dylib
+       0x1856cb000 -        0x1856fa6eb  libsystem_info.dylib (600) <9B5FB84B-31AD-3EA7-8F89-8C700D369DC8> /usr/lib/system/libsystem_info.dylib
+       0x189698000 -        0x1896a1e5f  libsystem_darwin.dylib (1752.160.4) <8E07D22E-CE5A-38A0-B091-5B0338C326F5> /usr/lib/system/libsystem_darwin.dylib
+       0x189b03000 -        0x189b151b6  libsystem_notify.dylib (348.160.3) <15799128-6CBD-30D6-A2BB-B9D02B4470C0> /usr/lib/system/libsystem_notify.dylib
+       0x18bdd4000 -        0x18bdeef7b  libsystem_networkextension.dylib (2226.161.1) <9C7B1EEB-47BE-3791-93A9-CFC693CB9417> /usr/lib/system/libsystem_networkextension.dylib
+       0x18be71000 -        0x18be88fdf  libsystem_asl.dylib (406) <54439739-33EE-3273-839F-CBA67D7F5CB1> /usr/lib/system/libsystem_asl.dylib
+       0x18da2a000 -        0x18da32387  libsystem_symptoms.dylib (2169.160.3) <229122B9-B8B1-3F2F-870E-8650AE3C4FB5> /usr/lib/system/libsystem_symptoms.dylib
+       0x191ccf000 -        0x191d075b7  libsystem_containermanager.dylib (725.160.3) <14B2A47F-19C8-392F-8FDB-FE8AE375DD41> /usr/lib/system/libsystem_containermanager.dylib
+       0x1930e1000 -        0x1930e55d7  libsystem_configuration.dylib (1405.160.3) <D8D6280B-783D-3550-BDBA-2861AE40604F> /usr/lib/system/libsystem_configuration.dylib
+       0x1930e6000 -        0x1930ec99f  libsystem_sandbox.dylib (2680.160.6) <54688162-B50D-3D31-A1E8-7B9766D3530D> /usr/lib/system/libsystem_sandbox.dylib
+       0x194741000 -        0x1947441fb  libquarantine.dylib (196.160.2) <EEE5AADB-52E1-3C4C-881A-70405770B1F1> /usr/lib/system/libquarantine.dylib
+       0x194ee0000 -        0x194ee6d03  libsystem_coreservices.dylib (191.5.1) <D4ACD2AC-5702-3C45-85A0-300B2C2D19E1> /usr/lib/system/libsystem_coreservices.dylib
+       0x19546f000 -        0x1954aca77  libsystem_m.dylib (3312.100.1) <B54FBE99-DB0B-32C7-ABDD-C2206DF606A4> /usr/lib/system/libsystem_m.dylib
+       0x1954ae000 -        0x1954b1527  libmacho.dylib (1387) <949131E5-BDA2-39BA-AA50-62651BB51802> /usr/lib/system/libmacho.dylib
+       0x1954cb000 -        0x1954d83a7  libcommonCrypto.dylib (600035) <3B110564-5278-3CB0-85F1-2CE8431FF935> /usr/lib/system/libcommonCrypto.dylib
+       0x1954d9000 -        0x1954e2ca3  libunwind.dylib (2100.2) <05FD0014-55B1-3B8A-A6BA-6C7A389C4123> /usr/lib/system/libunwind.dylib
+       0x1954eb000 -        0x1954f5bef  libcopyfile.dylib (240.160.2.0.1) <D0009B8A-8ECC-3D56-9206-7E1839707F93> /usr/lib/system/libcopyfile.dylib
+       0x1954f6000 -        0x1954f9987  libcompiler_rt.dylib (103.3) <6FB345CA-7F5C-3263-A23F-143F7539FD8A> /usr/lib/system/libcompiler_rt.dylib
+       0x1954fa000 -        0x1954fe78b  libsystem_collections.dylib (1752.160.4) <C8160BD2-5941-3DC0-BB40-F8C2B8156EC4> /usr/lib/system/libsystem_collections.dylib
+       0x1954ff000 -        0x1955024cf  libsystem_secinit.dylib (168.100.7) <ECABC024-8F02-374A-BB7E-29437CEA2ABD> /usr/lib/system/libsystem_secinit.dylib
+       0x195503000 -        0x195505bf7  libremovefile.dylib (85.100.6) <7460B5AE-469A-36A0-A7EC-6C7D69628E86> /usr/lib/system/libremovefile.dylib
+       0x195506000 -        0x195506f27  libkeymgr.dylib (31) <7E863FCA-F3FF-32C7-8A8C-F983E946AFC3> /usr/lib/system/libkeymgr.dylib
+       0x195507000 -        0x19550fe37  libsystem_dnssd.dylib (2881.160.4) <305F4398-E688-3384-B351-02D865EC8A04> /usr/lib/system/libsystem_dnssd.dylib
+       0x195510000 -        0x19551509b  libcache.dylib (95) <9CD7B1E1-3E47-339C-A193-2392E3E0ED23> /usr/lib/system/libcache.dylib
+       0x195516000 -        0x195517ce3  libSystem.B.dylib (1356) <4FED5EE2-5D3E-35B1-A170-9859C4B683BB> /usr/lib/libSystem.B.dylib
+       0x2894d9000 -        0x2894e0349  libRosetta.dylib (367.9) <0C7397C6-D747-31F2-8BC1-4096213BDE5C> /usr/lib/libRosetta.dylib
+       0x28b0ec000 -        0x28b0efa4b  libsystem_darwindirectory.dylib (122) <971A4F65-493D-39F3-846D-0D33FA2769FD> /usr/lib/system/libsystem_darwindirectory.dylib
+       0x28b0f0000 -        0x28b0fa39b  libsystem_eligibility.dylib (319.160.17) <750CA446-92EA-3A56-9A7B-CC0841686C50> /usr/lib/system/libsystem_eligibility.dylib
+       0x28b0fb000 -        0x28b10288b  libsystem_sanitizers.dylib (26.1) <D88EC709-9AA8-3083-B22B-D3CB39678D71> /usr/lib/system/libsystem_sanitizers.dylib
+       0x28b103000 -        0x28b103bb7  libsystem_trial.dylib (474.2.18.2) <7194FF5B-A6C5-3D67-B00A-90209F10D603> /usr/lib/system/libsystem_trial.dylib

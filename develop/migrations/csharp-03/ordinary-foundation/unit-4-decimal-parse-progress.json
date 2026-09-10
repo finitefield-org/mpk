@@ -1,0 +1,124 @@
+{
+  "schema": "mpk.csharp_practical.w09.decimal_parse_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "decimal_parser_targeted_verification_passed_not_unit_completion",
+  "scope": "Ordinary normalized and all 145 fixed decimal parsing configurations, with ordered errors; source/registry linkage and universal codec proofs remain outstanding.",
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_decimal_parse.rs",
+      "sha256": "3fb5edaae6bdb3600c5627170f65f523b395a241702e37439134142d485b758c"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_parse_tests.rs",
+      "sha256": "bdfbcac2143e247500e122c8b9df95ffb0f7c197307debac84ecf86605c93e13"
+    }
+  ],
+  "verification": [
+    {
+      "command": "cargo fmt --all -- --check",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-decimal-parsers-format-v1.log",
+      "scope": "Formatting passed before the two exact 192-bit overflow literals were added."
+    },
+    {
+      "command": "cargo check -p mpk-vc --tests",
+      "log": "/tmp/mpk-w09-decimal-parsers-check-v1.log",
+      "status": "passed",
+      "log_sha256": "dc3abe8004351cdc485169915e4455e7d6e6cd0c7fae30cd8b5c80c9072324c6",
+      "scope": "Compilation only; finished in 6m 02s with no warnings. Original-source generation and semantic execution remain separate."
+    },
+    {
+      "command": "MPK_W09_DECIMAL_PARSERS_OUT=/tmp/mpk-w09-decimal-parsers-v1 cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_decimal_parsers_original_sources -- --nocapture",
+      "log": "/tmp/mpk-w09-decimal-parsers-sources-v1.log",
+      "status": "passed",
+      "scope": "65 original source contexts regenerated; six nonempty programs, 146 configurations each, metadata/hash/cross-context mutation rejection passed. Test execution 66.94 seconds.",
+      "log_sha256": "7e6ba015a5addbe0e1b525ab0e084a8d81c7b9700cd3f0b404461e474452f442"
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --test csharp_practical_vc -- -D warnings",
+      "log": "/tmp/mpk-w09-decimal-parsers-clippy-v1.log",
+      "status": "passed",
+      "scope": "Targeted clippy passed with -D warnings, 2m 04s including build wait.",
+      "log_sha256": "e9cf3e66bb2164ecdab8156831a2f3dbd7932cbcb6d92a25e28c1c52a6f215e2"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "log": "/tmp/mpk-w09-decimal-parsers-inventory-v1.log",
+      "status": "passed",
+      "scope": "All five consumer inventory tests passed, 18.60 seconds. No fixture count/hash modification required.",
+      "log_sha256": "fac4343839c3cd33c7f276202047fb54ef225f064b883c770c1bd0447e65908c"
+    },
+    {
+      "command": "cargo fmt --all -- --check",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-decimal-parsers-format-v2.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "scope": "Current Rust formatting; empty output."
+    },
+    {
+      "command": "gofmt -l go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "status": "passed",
+      "scope": "No files reported."
+    },
+    {
+      "command": "/usr/bin/git diff --check",
+      "status": "passed",
+      "scope": "Outside sandbox, exit zero; no commit or push."
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_decimal_parsers_original_sources -- --nocapture",
+      "log": "/tmp/mpk-w09-decimal-parsers-replay-v1.log",
+      "status": "passed",
+      "scope": "All 65 original contexts regenerated and exact six pinned certificate/metadata files matched; import/mutation checks repeated, 68.17 seconds.",
+      "log_sha256": "7a7814ec9b3a56227d5aa5948509fcfdad5d851f07c864fd5029b5af9a10fe09"
+    },
+    {
+      "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIDecimalParsers$' -count=1 -timeout 0 -v",
+      "log": "/tmp/mpk-w09-decimal-parsers-checkers-v1.log",
+      "status": "passed",
+      "scope": "All six original-source certificate cases accepted by both unchanged checkers with zero axioms and hash corruption rejected; 333.820 seconds.",
+      "log_sha256": "ab5f5af114ace5be73c39fa150ab8c38b0f014617e454ab1c0a2387c3342e0e7"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_decimal_parsers_full_input_bound -- --nocapture",
+      "log": "/tmp/mpk-w09-decimal-parsers-full-bound-v1.log",
+      "status": "passed",
+      "scope": "All four full 16,384-unit cases passed: late syntax, noncanonical leading zeros, precision, and range. Actual ordinary output bits matched independent parser errors, 2039.92 seconds.",
+      "log_sha256": "159ef25e3900c03d281c71bea75c65d3c8927746d209e3a743acdb91ffbb5d7f"
+    },
+    {
+      "session_id": 68105,
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_decimal_parsers_semantics -- --nocapture",
+      "log": "/tmp/mpk-w09-decimal-parsers-semantics-v1.log",
+      "log_sha256": "e217b6fc9bcd46e4b699057efbaaa8add76383f839bb8df57d935d3ba1b45f6b",
+      "status": "passed",
+      "scope": "All 446 observations across 146 configurations and additional short-input cases passed; 14167.71s."
+    }
+  ],
+  "live_jobs": [
+    {
+      "session_id": 68105,
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_decimal_parsers_semantics -- --nocapture",
+      "log": "/tmp/mpk-w09-decimal-parsers-semantics-v1.log",
+      "status": "passed",
+      "scope": "All 446 observations across 146 configurations and additional short-input cases passed; 14167.71s.",
+      "log_sha256": "e217b6fc9bcd46e4b699057efbaaa8add76383f839bb8df57d935d3ba1b45f6b"
+    }
+  ],
+  "remaining": [
+    "Keep full original eight-unit W09 scope intact; complete all remaining codecs, source/native/transition relations and actual universal proofs.",
+    "No component-only commit or W09 completion. Full check-fast.sh gate remains deferred to T06-W12."
+  ],
+  "manifest": {
+    "path": "develop/migrations/csharp-03/ordinary-foundation/decimal-parsers/certificates.json",
+    "sha256": "998cff0c9382dd3f8f0719a232a24fb23637e8a46ab490a908f1ff681aae4a89",
+    "contexts_examined": 65,
+    "nonempty_contexts": 6,
+    "configurations_per_context": 146,
+    "definition_occurrences": 876,
+    "max_terms": 44720,
+    "max_declarations": 643
+  },
+  "review_result": "No remaining findings in this component after the recorded targeted tests passed; full W09 requirements remain open."
+}

@@ -1,0 +1,21 @@
+[
+  {
+    "compilation_id": "data",
+    "id": "bool-float-entry",
+    "inputs": [
+      {
+        "kind": "sidecar",
+        "path": "contracts/data.json",
+        "utf8": "{\"schema\":\"mpk.csharp.semantic_bindings.v1\",\"semantic_context\":{\"schema\":\"mpk.semantic_context.v2\",\"profile_registry\":{\"schema\":\"mpk.semantic_profile.registry.v2\",\"id\":\"mpk.semantic_profile.registry.v2\",\"revision\":4,\"registry_sha256\":\"b675e26ad35f1a4604f77006cd11b63cc20c680c65eadd2b12a3d3b2df0f1e24\"},\"profile_entry_sha256\":\"b0c3cc5c2525c4b602de22bd99275be9c7f4a10a650b54900053e0acd8e9c9c3\",\"source_language\":\"csharp\",\"semantic_profile\":\"mpk.csharp.practical.v1\",\"semantic_parameters\":{\"schema\":\"mpk.semantic_parameters.csharp_practical.v1\",\"value\":{\"check_overflow_default\":true,\"documentation_mode\":\"none\",\"language_version\":\"14.0\",\"nullable_context\":\"enable\",\"optimization\":\"release\",\"platform\":\"x64\",\"pointer_width\":64,\"preprocessor_symbols\":[],\"source_kind\":\"regular\",\"target_framework\":\"net10.0\",\"target_id\":\"linux-x64\",\"unsafe\":false}},\"foundation_descriptor\":{\"schema\":\"mpk.csharp.foundation_descriptor.v1\",\"id\":\"mpk.csharp.practical.foundation.v1\",\"content_sha256\":\"230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2\"}},\"compilation_id\":\"data\",\"bindings\":[{\"schema\":\"mpk.csharp.semantic_binding.v1\",\"source_type_id\":\"mpk.csharp.source.cd5fa1d4ea600175ecbc1152e32c34a1af714f60c10ddeefba3f0128d30eb530\",\"source_content_sha256\":\"d165caef0319c5745d7db50b12e8a6e60128763a20a54126768b370f98984db0\",\"role\":\"ordered_entry\",\"member_map\":{\"key\":\"mpk.csharp.member.cc2337e3c4dc2b15d623fcf1bafb203350b878cb1f8703b1bd53f3b3180dbdc2\",\"value\":\"mpk.csharp.member.d63e069d28add566073999900c27cd3be185fc511c56519bb167c075d9bed3cf\"},\"tag_arms\":{},\"inferred_argument_ids\":[\"mpk.csharp.value.bool.v1\",\"mpk.csharp.value.f32.v1\"],\"default_arm\":\"ineligible\",\"bounds\":{},\"operation_map\":{},\"enum_arms\":{},\"binding_sha256\":\"e7febae5e44fb894737d6ce5e9503655bc60e8de9ef5188c393815ccf646019f\"}],\"binding_set_sha256\":\"f185d476cb67663f54683dc75298040a83e8c5afabd6d52f8f09fd687264449a\"}"
+      },
+      {
+        "kind": "source",
+        "path": "src/Entry.cs",
+        "utf8": "namespace EntryCases;public readonly struct Rep{public readonly bool Key;public readonly float Value;}public static class Entry{public static Rep Run(Rep value){return value;}}\n"
+      }
+    ],
+    "roots": [
+      "mpk.csharp.source.327f7fb35fb76ae00a4b7385d8739f3174e48e70cf4ad1e46f711ec675e7aed4"
+    ]
+  }
+]

@@ -1,0 +1,33 @@
+{
+  "schema": "mpk.csharp_practical.total_clause_capture.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "image": "python@sha256:933b46a028fd786c9c3d426ebabc237e29a15912231ea8de576e95f0e4f41a4c",
+  "isolation": {
+    "network": "none",
+    "repository_mount": "only staged required inputs, read-only",
+    "root_filesystem": "read-only",
+    "seccomp": "Docker default",
+    "capabilities": [
+      "SYS_ADMIN",
+      "SETUID",
+      "SETGID",
+      "SETFCAP"
+    ],
+    "no_new_privileges": true,
+    "temporary_filesystem": "rw,exec,nosuid,nodev"
+  },
+  "capture": "Unchanged hash-pinned test_data_phase; diagnostic wrapper reports execute_isolated output without changing results or validation. Both compiler and source harness exited 0 with empty stdout/stderr.",
+  "files": [
+    {
+      "file": "requests.json",
+      "sha256": "7461261c695915f85f61299fa81d0e1486c1aa02987c9cd1ec6c3d2724a218eb",
+      "size_bytes": 5800
+    },
+    {
+      "file": "responses.json",
+      "sha256": "eb91a138f02ab5fe40ed3d72b37785cf777a2f426e643fe56d04a70c389c2ada",
+      "size_bytes": 11430
+    }
+  ],
+  "acceptance": "Fresh exact source/sidecar capture for sequence_length,tagged_is and parse_error_kind clauses. Both hash-pinned isolated compiler/source harness processes exited0 with empty stdout/stderr;Rust source import and clause semantics passed."
+}

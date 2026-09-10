@@ -1,0 +1,20 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.07s
+     Running tests/csharp_practical_inventory.rs (target/debug/deps/csharp_practical_inventory-ad7f7e409e721e85)
+
+running 1 test
+
+thread 'csharp_03_t01_w02_search_fixtures_reject_added_or_deleted_consumers' (1535919) panicked at crates/mpk-vc/tests/csharp_practical_inventory.rs:1545:5:
+assertion `left == right` failed
+  left: String("aab2f56dc0dc58949a0ea7e1b8621754513079648b6a118e35a66d1b6f540853")
+ right: "655ecaa18333279d360350d1898ea27744a6ce731fb66aa85967d20c3fbce60b"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test csharp_03_t01_w02_search_fixtures_reject_added_or_deleted_consumers ... FAILED
+
+failures:
+
+failures:
+    csharp_03_t01_w02_search_fixtures_reject_added_or_deleted_consumers
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.17s
+
+error: test failed, to rerun pass `-p mpk-vc --test csharp_practical_inventory`

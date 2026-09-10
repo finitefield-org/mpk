@@ -390,6 +390,48 @@ pub fn generate_csharp_practical_ordinary_carriers(
     {
         l.add(t.type_id())?;
     }
+    // Source contracts can introduce value types absent from executable SSA
+    // (for example a parse-error literal in a type invariant). Collect typed
+    // terms rather than searching user literal text for type-like strings.
+    for expression in vir.contract_expressions() {
+        let mut types = BTreeSet::new();
+        let mut pending = vec![expression.term()];
+        while let Some(term) = pending.pop() {
+            types.insert(term.type_id());
+            match term {
+                ContractTerm::App {
+                    function, argument, ..
+                } => {
+                    pending.extend([function.as_ref(), argument.as_ref()]);
+                }
+                ContractTerm::Lam {
+                    parameter_type,
+                    body,
+                    ..
+                } => {
+                    types.insert(parameter_type.as_str());
+                    pending.push(body);
+                }
+                ContractTerm::Let { value, body, .. } => {
+                    pending.extend([value.as_ref(), body.as_ref()]);
+                }
+                ContractTerm::Var { .. } | ContractTerm::Const { .. } => {}
+            }
+        }
+        for definition in expression.definitions() {
+            types.insert(definition.result_type.as_str());
+            types.extend(definition.argument_types.iter().map(String::as_str));
+        }
+        for (_, ty) in expression.subjects() {
+            types.insert(ty);
+        }
+        for ty in types {
+            // Arrow types describe ordinary functions, not stored value cubes.
+            if crate::csharp_practical_vc_model::ordinary_type_route(ty).is_ok() {
+                l.add(ty)?;
+            }
+        }
+    }
     for e in vir.data_closed().entries() {
         l.add(text(e, "instance_id")?)?;
     }
@@ -800,14 +842,255 @@ impl Builder {
 }
 
 #[cfg(test)]
+#[path = "csharp_practical_ordinary_test_eval_tests.rs"]
+mod observer_tests;
+#[cfg(test)]
 #[path = "csharp_practical_ordinary_test_eval.rs"]
 mod test_eval;
 
+#[path = "csharp_practical_ordinary_defaults.rs"]
+mod defaults;
+pub use defaults::{
+    generate_csharp_practical_ordinary_defaults, import_csharp_practical_ordinary_defaults,
+    OrdinaryDefaultCandidate, OrdinaryDefaultDefinition, OrdinaryDefaultProgram,
+    OrdinarySourceDefaultRequirement,
+};
+
 #[cfg(test)]
 mod tests {
+    use super::test_eval::thunk;
     pub(super) use super::test_eval::{apply, bit, eval, run, Env, V};
     use super::*;
-    use std::{cell::RefCell, rc::Rc};
+    use std::rc::Rc;
+    #[test]
+    fn ordinary_core_evaluated_boolean_suspension_uses_boolean_cache() {
+        use super::test_eval::apply_counted;
+        let mut b = Builder::new().unwrap();
+        let argument = b.var(0).unwrap();
+        let not = b.constant("Std.Bool.not").unwrap();
+        let yes = b.constant("Std.Bool.true").unwrap();
+        let no = b.constant("Std.Bool.false").unwrap();
+        let mut body = argument;
+        for _ in 0..128 {
+            body = b.app(not, vec![body]).unwrap();
+        }
+        let body = b.lam(b.boolean, body).unwrap();
+        let ty = b.pi(b.boolean, b.boolean).unwrap();
+        b.define("Test.DelayedBoolCache", ty, body).unwrap();
+        let ignored = b.lam(b.boolean, no).unwrap();
+        b.define("Test.IgnoredArgument", ty, ignored).unwrap();
+        let cert = decode_canonical_certificate(&b.finish().unwrap()).unwrap();
+        let f = run(&cert, "Test.DelayedBoolCache", vec![]);
+        for (expected, term) in [(false, no), (true, yes)] {
+            let (value, uncached) = apply_counted(&cert, f.clone(), V::Bit(expected));
+            assert_eq!(bit(value), expected);
+            let delayed = thunk(term, Rc::new(Env::Empty));
+            // Force through the same machine; keep the suspension wrapper.
+            assert_eq!(
+                bit(eval(&cert, argument, std::slice::from_ref(&delayed))),
+                expected
+            );
+            let (value, cached) = apply_counted(&cert, f.clone(), delayed);
+            assert_eq!(bit(value), expected);
+            eprintln!("evaluated Bool {expected}: cached={cached}, uncached={uncached}");
+            assert!(
+                cached * 10 < uncached,
+                "evaluated Bool recomputed: {cached} vs {uncached}"
+            );
+        }
+        // An argument first demanded by the body must populate the same cache.
+        // Use a fresh closure so the preceding eager calls cannot seed it.
+        let fresh = run(&cert, "Test.DelayedBoolCache", vec![]);
+        for (expected, term) in [(false, no), (true, yes)] {
+            let (value, uncached) =
+                apply_counted(&cert, fresh.clone(), thunk(term, Rc::new(Env::Empty)));
+            assert_eq!(bit(value), expected);
+            let (value, cached) = apply_counted(&cert, fresh.clone(), V::Bit(expected));
+            assert_eq!(bit(value), expected);
+            assert!(
+                cached * 10 < uncached,
+                "body-demanded Bool: {cached} vs {uncached}"
+            );
+        }
+        // A pending unused argument must remain unforced, even when invalid.
+        let ignored = run(&cert, "Test.IgnoredArgument", vec![]);
+        assert!(!bit(apply(
+            &cert,
+            ignored,
+            thunk(u32::MAX, Rc::new(Env::Empty))
+        )));
+    }
+    #[test]
+    fn ordinary_core_deep_environment_release_uses_a_worklist() {
+        std::thread::Builder::new()
+            .stack_size(128 * 1024)
+            .spawn(|| {
+                use super::test_eval::EnvRef;
+                let leaf = Rc::new(Env::Empty);
+                let weak = Rc::downgrade(&leaf);
+                let mut chain: EnvRef = leaf.into();
+                for _ in 0..50_000 {
+                    chain = EnvRef::new(Env::Bind(V::Bit(false), chain));
+                    // Releasing a captured value must enqueue its environment
+                    // too, without evaluating even a poison suspension.
+                    chain = EnvRef::new(Env::Bind(thunk(u32::MAX, chain), EnvRef::new(Env::Empty)));
+                }
+                let shared = chain.clone();
+                drop(chain);
+                assert!(weak.upgrade().is_some());
+                drop(shared);
+                assert!(weak.upgrade().is_none());
+            })
+            .unwrap()
+            .join()
+            .unwrap();
+    }
+    #[test]
+    fn ordinary_core_forced_thunk_releases_obsolete_environment() {
+        let mut b = Builder::new().unwrap();
+        let argument = b.var(0).unwrap();
+        let body = b.lam(b.boolean, argument).unwrap();
+        let ty = b.pi(b.boolean, b.boolean).unwrap();
+        b.define("Test.Demand", ty, body).unwrap();
+        let cert = decode_canonical_certificate(&b.finish().unwrap()).unwrap();
+        let yes = cert.term_table.iter().position(|term| matches!(term,
+            TermNode::Const { global, .. } if cert.name_table[cert.declarations[*global as usize].name as usize] == "Std.Bool.true"
+        )).unwrap() as u32;
+        let environment = Rc::new(Env::Bind(
+            V::Cube(vec![false; 4096]),
+            Rc::new(Env::Empty).into(),
+        ));
+        let weak = Rc::downgrade(&environment);
+        let delayed = thunk(yes, environment);
+        let alias = delayed.clone();
+        assert!(weak.upgrade().is_some());
+        assert!(bit(run(&cert, "Test.Demand", vec![delayed])));
+        // Every alias shares the evaluated result; none needs the suspended
+        // term's environment after evaluation has produced a closed Bool.
+        assert!(weak.upgrade().is_none());
+        assert!(bit(run(&cert, "Test.Demand", vec![alias])));
+    }
+    #[test]
+    fn ordinary_core_forced_thunk_preserves_result_closure_environment() {
+        let mut b = Builder::new().unwrap();
+        let function_ty = b.cube(1).unwrap();
+        let argument = b.var(0).unwrap();
+        let body = b.lam(function_ty, argument).unwrap();
+        let ty = b.pi(function_ty, function_ty).unwrap();
+        b.define("Test.DemandFunction", ty, body).unwrap();
+        let captured = b.var(1).unwrap();
+        let inner = b.lam(b.boolean, captured).unwrap();
+        let body = b.lam(b.boolean, inner).unwrap();
+        let ty = b.pi(b.boolean, function_ty).unwrap();
+        b.define("Test.Capture", ty, body).unwrap();
+        let cert = decode_canonical_certificate(&b.finish().unwrap()).unwrap();
+        let declaration = cert
+            .declarations
+            .iter()
+            .find(|d| cert.name_table[d.name as usize] == "Test.Capture")
+            .unwrap();
+        let DeclarationKind::Def { value, .. } = declaration.kind else {
+            panic!()
+        };
+        let TermNode::Lam { body: inner, .. } = cert.term_table[value as usize] else {
+            panic!()
+        };
+        let environment = Rc::new(Env::Bind(V::Bit(true), Rc::new(Env::Empty).into()));
+        let weak = Rc::downgrade(&environment);
+        let delayed = thunk(inner, environment);
+        let result = run(&cert, "Test.DemandFunction", vec![delayed.clone()]);
+        assert!(weak.upgrade().is_some());
+        for argument in [false, true] {
+            assert!(bit(apply(&cert, result.clone(), V::Bit(argument))));
+        }
+        drop(result);
+        // The memoized closure still needs its captured argument.
+        assert!(weak.upgrade().is_some());
+        let result = run(&cert, "Test.DemandFunction", vec![delayed]);
+        assert!(bit(apply(&cert, result, V::Bit(false))));
+        assert!(weak.upgrade().is_none());
+    }
+    #[test]
+    fn ordinary_core_sparse_input_matches_dense_selectors() {
+        use super::test_eval::sparse_cube;
+        let mut b = Builder::new().unwrap();
+        for depth in 0..=8 {
+            let ty = b.cube(depth).unwrap();
+            let value = b.var(0).unwrap();
+            let body = b.lam(ty, value).unwrap();
+            let ty = b.pi(ty, ty).unwrap();
+            b.define(&format!("Test.Identity{depth}"), ty, body)
+                .unwrap();
+        }
+        let cert = decode_canonical_certificate(&b.finish().unwrap()).unwrap();
+        let observe = |mut value, depth, address| {
+            for selector in 0..depth {
+                // Exercise delayed as well as immediate Bool selectors.
+                let name = if address & (1usize << selector) == 0 {
+                    "Std.Bool.false"
+                } else {
+                    "Std.Bool.true"
+                };
+                let declaration = cert
+                    .declarations
+                    .iter()
+                    .position(|d| cert.name_table[d.name as usize] == name)
+                    .unwrap() as u32;
+                let term = cert
+                    .term_table
+                    .iter()
+                    .position(|t| {
+                        matches!(t,
+                    TermNode::Const { global, .. } if *global == declaration)
+                    })
+                    .unwrap() as u32;
+                let argument = thunk(term, Rc::new(Env::Empty));
+                value = apply(&cert, value, argument);
+            }
+            bit(value)
+        };
+        for depth in 0..=8 {
+            let length = 1 << depth;
+            for ones in [
+                BTreeSet::new(),
+                (0..length).filter(|i| i % 3 == 0).collect(),
+                [length - 1].into_iter().collect(),
+            ] {
+                let dense = (0..length).map(|i| ones.contains(&i)).collect::<Vec<_>>();
+                let dense = if depth == 0 {
+                    V::Bit(dense[0])
+                } else {
+                    V::Cube(dense)
+                };
+                let sparse = sparse_cube(depth, ones);
+                let name = format!("Test.Identity{depth}");
+                let dense = run(&cert, &name, vec![dense]);
+                let sparse = run(&cert, &name, vec![sparse]);
+                for address in 0..length {
+                    assert_eq!(
+                        observe(sparse.clone(), depth, address),
+                        observe(dense.clone(), depth, address)
+                    );
+                }
+            }
+        }
+        // Unlike a dense input, this concrete C40 table requires no terabyte
+        // allocation. Check high selectors, mixed addresses and neighboring zeros.
+        let ones = [0, 1, 1usize << 39, (1usize << 40) - 1]
+            .into_iter()
+            .collect();
+        let wide = sparse_cube(40, ones);
+        for (address, expected) in [
+            (0, true),
+            (1, true),
+            (2, false),
+            (1 << 39, true),
+            ((1 << 39) + 1, false),
+            ((1usize << 40) - 1, true),
+        ] {
+            assert_eq!(observe(wide.clone(), 40, address), expected);
+        }
+    }
     #[test]
     fn ordinary_core_observer_preserves_unused_arguments() {
         let mut b = Builder::new().unwrap();
@@ -818,7 +1101,7 @@ mod tests {
         let cert = decode_canonical_certificate(&b.finish().unwrap()).unwrap();
         // A poison suspension detects demand without recognizing an operation
         // in the evaluator. It is a test argument, never certificate evidence.
-        let poison = || V::Thunk(u32::MAX, Rc::new(Env::Empty), Rc::new(RefCell::new(None)));
+        let poison = || thunk(u32::MAX, Rc::new(Env::Empty));
         assert!(bit(run(&cert, "Test.Ignore", vec![poison()])));
         for choice in [false, true] {
             let branches = if choice {
@@ -946,15 +1229,50 @@ mod scalar_bits;
 #[path = "csharp_practical_ordinary_structural.rs"]
 mod structural;
 pub use structural::{
+    generate_csharp_practical_ordinary_aggregate_folds, generate_csharp_practical_ordinary_domains,
     generate_csharp_practical_ordinary_ordered_folds, generate_csharp_practical_ordinary_relations,
     generate_csharp_practical_ordinary_scalar_domains,
-    generate_csharp_practical_ordinary_structural, import_csharp_practical_ordinary_ordered_folds,
-    import_csharp_practical_ordinary_relations, import_csharp_practical_ordinary_scalar_domains,
-    import_csharp_practical_ordinary_structural, OrdinaryArmOperations,
-    OrdinaryOrderedFoldDefinition, OrdinaryOrderedFoldProgram, OrdinaryProductOperations,
-    OrdinaryProjection, OrdinaryRelationDefinition, OrdinaryRelationProgram,
-    OrdinaryScalarDomainDefinition, OrdinaryScalarDomainProgram, OrdinaryScalarDomainRule,
-    OrdinaryStructuralDefinition, OrdinaryStructuralOperations, OrdinaryStructuralProgram,
+    generate_csharp_practical_ordinary_structural,
+    import_csharp_practical_ordinary_aggregate_folds, import_csharp_practical_ordinary_domains,
+    import_csharp_practical_ordinary_ordered_folds, import_csharp_practical_ordinary_relations,
+    import_csharp_practical_ordinary_scalar_domains, import_csharp_practical_ordinary_structural,
+    OrdinaryAggregateFoldDefinition, OrdinaryAggregateFoldProgram, OrdinaryArmOperations,
+    OrdinaryDomainDefinition, OrdinaryDomainProgram, OrdinaryOrderedFoldDefinition,
+    OrdinaryOrderedFoldProgram, OrdinaryProductOperations, OrdinaryProjection,
+    OrdinaryRelationDefinition, OrdinaryRelationProgram, OrdinaryScalarDomainDefinition,
+    OrdinaryScalarDomainProgram, OrdinaryScalarDomainRule, OrdinaryStructuralDefinition,
+    OrdinaryStructuralOperations, OrdinaryStructuralProgram,
+};
+pub use structural::{
+    generate_csharp_practical_ordinary_constructions,
+    import_csharp_practical_ordinary_constructions, OrdinaryConstructionDefinition,
+    OrdinaryConstructionFailure, OrdinaryConstructionOperation, OrdinaryConstructionProgram,
+};
+pub use structural::{
+    generate_csharp_practical_ordinary_entries, import_csharp_practical_ordinary_entries,
+    OrdinaryEntryDefinition, OrdinaryEntryProgram,
+};
+pub use structural::{
+    generate_csharp_practical_ordinary_finite_operations,
+    import_csharp_practical_ordinary_finite_operations, OrdinaryFiniteOperation,
+    OrdinaryFiniteOperationProgram,
+};
+pub use structural::{
+    generate_csharp_practical_ordinary_money, import_csharp_practical_ordinary_money,
+    OrdinaryMoneyDefinition, OrdinaryMoneyFailure, OrdinaryMoneyOperation, OrdinaryMoneyProgram,
+};
+pub use structural::{
+    generate_csharp_practical_ordinary_observations, import_csharp_practical_ordinary_observations,
+    OrdinaryObservationDefinition, OrdinaryObservationProgram,
+};
+pub use structural::{
+    generate_csharp_practical_ordinary_outcomes, import_csharp_practical_ordinary_outcomes,
+    OrdinaryOutcomeDefinition, OrdinaryOutcomeFailure, OrdinaryOutcomeOperation,
+    OrdinaryOutcomeProgram,
+};
+pub use structural::{
+    generate_csharp_practical_ordinary_sequences, import_csharp_practical_ordinary_sequences,
+    OrdinarySequenceOperations, OrdinarySequenceProgram,
 };
 
 pub use scalar_bits::{
@@ -971,4 +1289,225 @@ pub use scalar_bits::{
 pub use scalar_bits::{
     generate_csharp_practical_ordinary_strings, import_csharp_practical_ordinary_strings,
     OrdinaryStringDefinition, OrdinaryStringProgram,
+};
+
+pub use structural::{
+    generate_csharp_practical_ordinary_collections, import_csharp_practical_ordinary_collections,
+    OrdinaryCollectionDefinition, OrdinaryCollectionFailure, OrdinaryCollectionOperation,
+    OrdinaryCollectionProgram,
+};
+
+pub use structural::{
+    generate_csharp_practical_ordinary_structural_boundary,
+    generate_csharp_practical_ordinary_structural_foundations,
+    generate_csharp_practical_ordinary_structural_public,
+    import_csharp_practical_ordinary_structural_boundary,
+    import_csharp_practical_ordinary_structural_foundations,
+    import_csharp_practical_ordinary_structural_public, OrdinaryDeferredFoundationInstance,
+    OrdinaryStructuralFoundationProgram,
+};
+
+pub use structural::{
+    generate_csharp_practical_ordinary_literals, import_csharp_practical_ordinary_literals,
+    OrdinaryLiteralBinding, OrdinaryLiteralDefinition, OrdinaryLiteralOrigin,
+    OrdinaryLiteralProgram,
+};
+
+pub use structural::{
+    generate_csharp_practical_ordinary_boundary_literals,
+    import_csharp_practical_ordinary_boundary_literals, OrdinaryBoundaryLiteralBinding,
+    OrdinaryBoundaryLiteralProgram,
+};
+
+pub use structural::{
+    generate_csharp_practical_ordinary_binding_projections,
+    generate_csharp_practical_ordinary_binding_rebuilds,
+    import_csharp_practical_ordinary_binding_projections,
+    import_csharp_practical_ordinary_binding_rebuilds, OrdinaryBindingProjectionDefinition,
+    OrdinaryBindingProjectionProgram, OrdinaryBindingRebuildDefinition,
+    OrdinaryBindingRebuildProgram,
+};
+
+pub use structural::{
+    generate_csharp_practical_ordinary_binding_guards,
+    generate_csharp_practical_ordinary_binding_orders,
+    generate_csharp_practical_ordinary_binding_relations,
+    generate_csharp_practical_ordinary_boundary_rules,
+    import_csharp_practical_ordinary_binding_guards,
+    import_csharp_practical_ordinary_binding_orders,
+    import_csharp_practical_ordinary_binding_relations,
+    import_csharp_practical_ordinary_boundary_rules, OrdinaryBindingAgreement,
+    OrdinaryBindingPredicate, OrdinaryBindingRelationProgram, OrdinaryBoundaryRuleProgram,
+};
+
+pub use scalar_bits::{
+    generate_csharp_practical_ordinary_hex_codecs, import_csharp_practical_ordinary_hex_codecs,
+    OrdinaryHexCodecDefinition, OrdinaryHexCodecProgram,
+};
+
+pub use scalar_bits::{
+    generate_csharp_practical_ordinary_decimal_fixed_formats,
+    generate_csharp_practical_ordinary_decimal_formats,
+    generate_csharp_practical_ordinary_integer_formats,
+    import_csharp_practical_ordinary_decimal_fixed_formats,
+    import_csharp_practical_ordinary_decimal_formats,
+    import_csharp_practical_ordinary_integer_formats, OrdinaryDecimalFixedFormatDefinition,
+    OrdinaryDecimalFixedFormatProgram, OrdinaryDecimalFormatDefinition,
+    OrdinaryDecimalFormatProgram, OrdinaryIntegerFormatDefinition, OrdinaryIntegerFormatProgram,
+};
+
+pub use scalar_bits::{
+    generate_csharp_practical_ordinary_integer_parsers,
+    import_csharp_practical_ordinary_integer_parsers, OrdinaryIntegerParseDefinition,
+    OrdinaryIntegerParseProgram,
+};
+
+pub use scalar_bits::{
+    generate_csharp_practical_ordinary_decimal_parsers,
+    import_csharp_practical_ordinary_decimal_parsers, OrdinaryDecimalParseDefinition,
+    OrdinaryDecimalParseProgram,
+};
+
+pub use scalar_bits::{
+    generate_csharp_practical_ordinary_calendar_codecs,
+    import_csharp_practical_ordinary_calendar_codecs, OrdinaryCalendarCodecDefinition,
+    OrdinaryCalendarCodecProgram,
+};
+
+pub use scalar_bits::{
+    generate_csharp_practical_ordinary_boundary_documents,
+    import_csharp_practical_ordinary_boundary_documents, OrdinaryBoundaryDocumentDefinition,
+    OrdinaryBoundaryDocumentProgram,
+};
+
+pub use scalar_bits::{
+    generate_csharp_practical_ordinary_boundary_utf8,
+    import_csharp_practical_ordinary_boundary_utf8, OrdinaryBoundaryUtf8Definition,
+    OrdinaryBoundaryUtf8Program,
+};
+
+pub use scalar_bits::{
+    generate_csharp_practical_ordinary_json_strings, import_csharp_practical_ordinary_json_strings,
+    OrdinaryJsonStringDefinition, OrdinaryJsonStringProgram,
+};
+
+pub use scalar_bits::{
+    generate_csharp_practical_ordinary_json_string_parsers,
+    import_csharp_practical_ordinary_json_string_parsers, OrdinaryJsonStringParseDefinition,
+    OrdinaryJsonStringParseProgram,
+};
+
+pub use scalar_bits::{
+    generate_csharp_practical_ordinary_boundary_fragments,
+    import_csharp_practical_ordinary_boundary_fragments, OrdinaryBoundaryFragmentDefinition,
+    OrdinaryBoundaryFragmentProgram,
+};
+
+pub use scalar_bits::{
+    generate_csharp_practical_ordinary_json_keywords,
+    import_csharp_practical_ordinary_json_keywords, OrdinaryJsonKeywordDefinition,
+    OrdinaryJsonKeywordProgram,
+};
+
+pub use scalar_bits::{
+    generate_csharp_practical_ordinary_json_tokens, import_csharp_practical_ordinary_json_tokens,
+    OrdinaryJsonCalendarTokenDefinition, OrdinaryJsonDecimalTokenDefinition,
+    OrdinaryJsonQuotedCodecDefinition, OrdinaryJsonScalarTokenDefinition,
+    OrdinaryJsonSignedDefinition, OrdinaryJsonTokenDefinition, OrdinaryJsonTokenProgram,
+    OrdinaryJsonUnsignedDefinition,
+};
+
+pub use scalar_bits::{
+    generate_csharp_practical_ordinary_json_products,
+    generate_csharp_practical_ordinary_json_syntax, generate_csharp_practical_ordinary_json_values,
+    import_csharp_practical_ordinary_json_products, import_csharp_practical_ordinary_json_syntax,
+    import_csharp_practical_ordinary_json_values, OrdinaryJsonCollectionDefinition,
+    OrdinaryJsonEnumDefinition, OrdinaryJsonFieldSyntax, OrdinaryJsonGrammarDefinition,
+    OrdinaryJsonProductDefinition, OrdinaryJsonProductProgram, OrdinaryJsonSequenceDefinition,
+    OrdinaryJsonSumArm, OrdinaryJsonSumDefinition, OrdinaryJsonSyntaxLiteral,
+    OrdinaryJsonSyntaxProgram, OrdinaryJsonValueDefinition, OrdinaryJsonValueProgram,
+    OrdinaryJsonVocabularyDefinition,
+};
+
+pub use scalar_bits::{
+    generate_csharp_practical_ordinary_json_boundary_fields,
+    import_csharp_practical_ordinary_json_boundary_fields, OrdinaryJsonBoundaryFieldDefinition,
+    OrdinaryJsonBoundaryFieldProgram,
+};
+
+pub use scalar_bits::{
+    generate_csharp_practical_ordinary_json_envelopes,
+    import_csharp_practical_ordinary_json_envelopes, OrdinaryJsonEnvelopeDefinition,
+    OrdinaryJsonEnvelopeField, OrdinaryJsonEnvelopeProgram,
+};
+
+pub use scalar_bits::{
+    generate_csharp_practical_ordinary_json_typed_depth,
+    import_csharp_practical_ordinary_json_typed_depth, OrdinaryJsonTypedDepthDefinition,
+    OrdinaryJsonTypedDepthProgram,
+};
+
+pub use scalar_bits::{
+    generate_csharp_practical_ordinary_json_depth_guarded_envelopes,
+    import_csharp_practical_ordinary_json_depth_guarded_envelopes,
+};
+
+pub use scalar_bits::{
+    generate_csharp_practical_ordinary_json_typed_nodes,
+    import_csharp_practical_ordinary_json_typed_nodes, OrdinaryJsonTypedNodeDefinition,
+    OrdinaryJsonTypedNodeProgram,
+};
+
+pub use scalar_bits::{
+    generate_csharp_practical_ordinary_json_typed_guarded_envelopes,
+    import_csharp_practical_ordinary_json_typed_guarded_envelopes,
+};
+
+pub use scalar_bits::{
+    generate_csharp_practical_ordinary_json_raw_limits,
+    import_csharp_practical_ordinary_json_raw_limits, OrdinaryJsonRawLimitsDefinition,
+    OrdinaryJsonRawLimitsProgram,
+};
+
+pub use scalar_bits::{
+    generate_csharp_practical_ordinary_json_limits_guarded_envelopes,
+    import_csharp_practical_ordinary_json_limits_guarded_envelopes,
+};
+
+pub use structural::{
+    generate_csharp_practical_ordinary_contract_expressions,
+    generate_csharp_practical_ordinary_source_clauses,
+    import_csharp_practical_ordinary_contract_expressions,
+    import_csharp_practical_ordinary_source_clauses, OrdinaryContractExpressionDefinition,
+    OrdinaryContractExpressionProgram, OrdinarySourceClauseDefinition, OrdinarySourceClauseProgram,
+};
+
+pub use structural::{
+    generate_csharp_practical_ordinary_public_defaults,
+    generate_csharp_practical_ordinary_public_domains,
+    import_csharp_practical_ordinary_public_defaults,
+    import_csharp_practical_ordinary_public_domains, OrdinaryPublicDefaultDefinition,
+    OrdinaryPublicDomainDefinition, OrdinaryPublicDomainProgram,
+};
+
+pub use structural::{
+    generate_csharp_practical_ordinary_integer_data, import_csharp_practical_ordinary_integer_data,
+    OrdinaryIntegerDataDefinition, OrdinaryIntegerDataOperation, OrdinaryIntegerDataProgram,
+};
+
+pub use structural::{
+    generate_csharp_practical_ordinary_structural_data,
+    import_csharp_practical_ordinary_structural_data, OrdinaryStructuralDataDefinition,
+    OrdinaryStructuralDataOperation, OrdinaryStructuralDataProgram,
+};
+
+pub use structural::{
+    generate_csharp_practical_ordinary_floating_data,
+    import_csharp_practical_ordinary_floating_data, OrdinaryFloatingDataDefinition,
+    OrdinaryFloatingDataOperation, OrdinaryFloatingDataProgram,
+};
+
+pub use structural::{
+    generate_csharp_practical_ordinary_decimal_data, import_csharp_practical_ordinary_decimal_data,
+    OrdinaryDecimalDataDefinition, OrdinaryDecimalDataOperation, OrdinaryDecimalDataProgram,
 };

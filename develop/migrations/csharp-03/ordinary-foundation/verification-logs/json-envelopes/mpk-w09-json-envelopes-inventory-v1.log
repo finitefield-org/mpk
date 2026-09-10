@@ -1,0 +1,19 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 6.82s
+     Running tests/csharp_practical_inventory.rs (target/debug/deps/csharp_practical_inventory-ad7f7e409e721e85)
+
+running 1 test
+
+thread 'csharp_03_t01_w02_search_fixtures_reject_added_or_deleted_consumers' (1515441) panicked at crates/mpk-vc/tests/csharp_practical_inventory.rs:826:55:
+checked-in consumer set: "foundation.std_namespace: expected count=121 sha256=98932c33aabbdddf9f840062109a438022c99a28ef7c89571618181d575d54ed; actual count=122 sha256=9d7e5cd2b800ff30f9067c9a7112416518fa1e97fb3d69129ed8c06b95508c54"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test csharp_03_t01_w02_search_fixtures_reject_added_or_deleted_consumers ... FAILED
+
+failures:
+
+failures:
+    csharp_03_t01_w02_search_fixtures_reject_added_or_deleted_consumers
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 4 filtered out; finished in 10.98s
+
+error: test failed, to rerun pass `-p mpk-vc --test csharp_practical_inventory`

@@ -1,0 +1,297 @@
+{
+  "schema": "mpk.csharp_practical.w09.boundary_fragments_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "partial_byte_composition_verified_not_unit_completion",
+  "implementation": "Ordinary SliceValid/Slice and ConcatValid/Concat over the full 1 MiB private C24 byte document. Full-u32 length/start/count checks, carry rejection, zero result on invalid ranges, normalized output padding/inactive storage. No host copy, UTF-8/JSON assumption, registered result ID or checker change.",
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_boundary_fragments.rs",
+      "sha256": "598aec666ad96bd280f528fcb0ebe926f789d9f46efabc7a72ccccb63b981900"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_scalar_bits.rs",
+      "sha256": "807c32fd77a2e5fa218b20726fea1c44821644e0c81a216db0f99e3bb91140d7"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs",
+      "sha256": "a1e69df7a517c53417e65c76faa872170c932924104d5b23a7de19c4153c50db"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+      "sha256": "49601c9ab0cabac598dd2fa1f9cfddebeced95ad01ea1e637c3d218237ae5195"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_boundary_fragment_tests.rs",
+      "sha256": "66ca161d4e53bc35060a81974b7968568effe899a2526e81b0fc6521e752efe9"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_literal_tests.rs",
+      "sha256": "8e04f56d32049195648ede66a5d61ce45ae934a3f849378cc6d154ee19393763"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "sha256": "cff66650344d08304d4b8643929d00f80758dbf1b86983c768b2e40e4dacc24a"
+    }
+  ],
+  "verification": [
+    {
+      "command": "cargo check -p mpk-vc",
+      "log": "/tmp/mpk-w09-boundary-fragments-check-v1.log",
+      "log_sha256": "19a1cda8a3c919f0052816533ad76c19ec7f83ad086367ba8f400db3fb25acc5",
+      "status": "passed",
+      "scope": "34.52s production compile."
+    },
+    {
+      "session_id": 68382,
+      "command": "MPK_W09_BOUNDARY_FRAGMENTS_OUT=/tmp/mpk-w09-boundary-fragments-v1 cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_boundary_fragments_original_sources -- --nocapture",
+      "log": "/tmp/mpk-w09-boundary-fragments-sources-v1.log",
+      "status": "passed",
+      "log_sha256": "f8e2fe1405ca825fcab6bbc77bba6457af2e7101c6111662860cb04b700b2ad8",
+      "scope": "68 contexts and three nonempty programs; exact import, metadata/context/byte mutations and empty-slice observation passed in 33.64s."
+    },
+    {
+      "session_id": 5918,
+      "command": "cargo clippy -p mpk-vc --test csharp_practical_vc -- -D warnings",
+      "log": "/tmp/mpk-w09-boundary-fragments-clippy-v1.log",
+      "status": "passed",
+      "log_sha256": "e4efe693f2a15feeffdad00626b569795f54397f0cbf26a5ca4cce494f2bf0a6",
+      "scope": "Targeted clippy passed, 2m14s including build waits."
+    },
+    {
+      "command": "cargo fmt --all -- --check",
+      "log": "/tmp/mpk-w09-boundary-fragments-format-v1.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "passed"
+    },
+    {
+      "command": "/usr/bin/git diff --check",
+      "status": "passed",
+      "scope": "Outside sandbox."
+    },
+    {
+      "session_id": 87339,
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_boundary_fragments_original_sources -- --nocapture",
+      "log": "/tmp/mpk-w09-boundary-fragments-replay-v1.log",
+      "status": "passed",
+      "log_sha256": "063ecfd1157ad9c9c7353dacf2959b3090fb19934664680cb83088796705c390",
+      "scope": "Exact 68-context/three-certificate pinned replay passed in 27.23s."
+    },
+    {
+      "session_id": 62703,
+      "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIBoundaryFragments$' -count=1 -timeout 0 -v",
+      "log": "/tmp/mpk-w09-boundary-fragments-checkers-v1.log",
+      "status": "passed",
+      "cwd": "go-tools/mpk-checker-ref",
+      "log_sha256": "013a25285faea1b038e516d9007502675b900dfb59aba111c51e1610a934bd0f",
+      "scope": "All three same-byte Rust/Go certificates accepted with zero axioms; hash corruptions rejected. 51.245s including build wait, 9.92s test execution."
+    },
+    {
+      "session_id": 58367,
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "log": "/tmp/mpk-w09-boundary-fragments-inventory-v1.log",
+      "status": "passed",
+      "log_sha256": "b7dbdcbb3b894a78ea9fcd5a254850b38f6926439ca1e9bd459861f821bc9a75",
+      "scope": "All five inventory tests passed in 40.15s."
+    },
+    {
+      "session_id": 87614,
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc -- csharp_03_t06_w09_boundary_fragments_semantics csharp_03_t06_w09_boundary_fragments_full_bounds --nocapture --test-threads=1",
+      "log": "/tmp/mpk-w09-boundary-fragments-semantics-v1.log",
+      "status": "passed",
+      "scope": "Both complete semantic and full-bound/address subtests passed in 561.49s: 256 byte values, 48 slice ranges, 36 complete short concatenations, all 20 address bits and four exact-capacity concatenations.",
+      "log_sha256": "49c484645d282e96076543b1ecd335ce90d4cdb34c11ffe3a5179d519f6f3e89"
+    },
+    {
+      "session_id": 91069,
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_boundary_fragments_original_sources -- --nocapture",
+      "log": "/tmp/mpk-w09-json-string-prefix-fragment-replay-v1.log",
+      "status": "passed",
+      "log_sha256": "026a120a358fea2fa6bff608228287be88564df008bdc881a693d9bde3ac8dfc",
+      "scope": "Shared-document emitter preserves all 68 contexts and three pinned certificates exactly; 35.49s."
+    }
+  ],
+  "live_jobs": [],
+  "remaining": [
+    "No standalone fragment semantic/checker gates remain; general typed JSON integration and original unit scope remain open.",
+    "Integrate byte composition with complete strict JSON grammar and typed boundary fields; complete remaining codecs/bindings, source/native/control/transition relations and universal proofs in original units 3–8.",
+    "No component-only commit or W09 completion."
+  ],
+  "full_gate": "Deferred to CSHARP-03-T06-W12.",
+  "manifest": {
+    "path": "develop/migrations/csharp-03/ordinary-foundation/boundary-fragments/certificates.json",
+    "sha256": "7c3e90ef6322e9fe11cde69a8c5db926f82f70188b6c05979e7b74a74622c45a",
+    "contexts": 68,
+    "nonempty": 3,
+    "terms_per_certificate": 8208,
+    "declarations_per_certificate": 135,
+    "static_transformers_per_certificate": 81
+  },
+  "previous_standalone_files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_boundary_fragments.rs",
+      "sha256": "30a68e7bc2b757ea1ceea6dca64617073a2472d352cc70bf3b40d4f275706803"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_scalar_bits.rs",
+      "sha256": "6c9763247e38872cad74d51c3462c314d06d393f93bf351b2c6a3bcfe52d08a1"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs",
+      "sha256": "f8cf3597735a4737f2f89a54283aafec0cbe80a3b04aac9c1e1f2d289e8016a9"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+      "sha256": "0725cfdc19199763a962047cfc71f864deb9b527f4c797cd3c86e812ce0097d3"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_boundary_fragment_tests.rs",
+      "sha256": "66ca161d4e53bc35060a81974b7968568effe899a2526e81b0fc6521e752efe9"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_literal_tests.rs",
+      "sha256": "1e72f9ded7fdc8276ee5d8c4461095fd4e243595f8b25621923a49c68931c5fe"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "sha256": "1105b2be0a620421f214aa1741a7a7d5c65f1018d9a5309d25a1dc9f2ea1e54d"
+    }
+  ],
+  "shared_emitter_note": "The emitter now accepts its already-generated private document definitions so the JSON prefix parser can share the same Builder/document. Standalone emission still emits the document first; no fragment arithmetic/body changes. Repeat exact 68-context pinned replay to establish preservation.",
+  "keyword_export_extension": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_scalar_bits.rs",
+      "previous_sha256": "6c9763247e38872cad74d51c3462c314d06d393f93bf351b2c6a3bcfe52d08a1",
+      "current_sha256": "75b63fabb878328489aa6be4d45174d4eb605ced5bcbd9593184296bdad885b3",
+      "change": "Append only the separate JSON keyword module/export/test entry; prior byte-fragment implementation and evidence unchanged."
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs",
+      "previous_sha256": "f8cf3597735a4737f2f89a54283aafec0cbe80a3b04aac9c1e1f2d289e8016a9",
+      "current_sha256": "f6ffb999624b7315c6745a327352713c2e38a993adf87d4f5a00b92f000393fc",
+      "change": "Append only the separate JSON keyword module/export/test entry; prior byte-fragment implementation and evidence unchanged."
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+      "previous_sha256": "0725cfdc19199763a962047cfc71f864deb9b527f4c797cd3c86e812ce0097d3",
+      "current_sha256": "732ffa6632a7c120d94a5352cd1294e81be13a063d68ccbdc2c64e7f591dd3a6",
+      "change": "Append only the separate JSON keyword module/export/test entry; prior byte-fragment implementation and evidence unchanged."
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_literal_tests.rs",
+      "previous_sha256": "1e72f9ded7fdc8276ee5d8c4461095fd4e243595f8b25621923a49c68931c5fe",
+      "current_sha256": "665f42b161a2e377523d6efad03f24a12e4eca27d9572db933e67181ae8fcaf0",
+      "change": "Append only the separate JSON keyword module/export/test entry; prior byte-fragment implementation and evidence unchanged."
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "previous_sha256": "1105b2be0a620421f214aa1741a7a7d5c65f1018d9a5309d25a1dc9f2ea1e54d",
+      "current_sha256": "e1677a95f60526804d26c6b970229acc338778cc96a57069bf16c4e07d1168ee",
+      "change": "Append only the separate JSON keyword module/export/test entry; prior byte-fragment implementation and evidence unchanged."
+    }
+  ],
+  "json_token_export_extension": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_scalar_bits.rs",
+      "previous_sha256": "75b63fabb878328489aa6be4d45174d4eb605ced5bcbd9593184296bdad885b3",
+      "current_sha256": "8d3025c9cb8af31695dd53860125070f862491b944726f6c7a4bb7bc11116183",
+      "change": "Append only the shared JSON token module/export/test entry; existing byte-fragment implementation unchanged."
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs",
+      "previous_sha256": "f6ffb999624b7315c6745a327352713c2e38a993adf87d4f5a00b92f000393fc",
+      "current_sha256": "ba476b3a8ff1a589e68f861c15a437cf198eacfd084809bff1837f8335889d27",
+      "change": "Append only the shared JSON token module/export/test entry; existing byte-fragment implementation unchanged."
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+      "previous_sha256": "732ffa6632a7c120d94a5352cd1294e81be13a063d68ccbdc2c64e7f591dd3a6",
+      "current_sha256": "38eb64a247af809f615fdee7dd1bb67341b46f025cee670c68715190494c1435",
+      "change": "Append only the shared JSON token module/export/test entry; existing byte-fragment implementation unchanged."
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_literal_tests.rs",
+      "previous_sha256": "665f42b161a2e377523d6efad03f24a12e4eca27d9572db933e67181ae8fcaf0",
+      "current_sha256": "8e04f56d32049195648ede66a5d61ce45ae934a3f849378cc6d154ee19393763",
+      "change": "Append only the shared JSON token module/export/test entry; existing byte-fragment implementation unchanged."
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "previous_sha256": "e1677a95f60526804d26c6b970229acc338778cc96a57069bf16c4e07d1168ee",
+      "current_sha256": "1314b35317c3cfd1e56d8c17f34904fa5976857bb339555d19ab9034ac7b4672",
+      "change": "Append only the shared JSON token module/export/test entry; existing byte-fragment implementation unchanged."
+    }
+  ],
+  "signed_token_export_extension": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_scalar_bits.rs",
+      "previous_sha256": "8d3025c9cb8af31695dd53860125070f862491b944726f6c7a4bb7bc11116183",
+      "current_sha256": "9c4618181166d6721b3bbcb0a511fc5bdc4660be98798af25ac8be8889dca775",
+      "change": "Add only OrdinaryJsonSignedDefinition to the shared token export group; reverse-transform reproduces the exact previous file hash."
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs",
+      "previous_sha256": "ba476b3a8ff1a589e68f861c15a437cf198eacfd084809bff1837f8335889d27",
+      "current_sha256": "d54739bd9872975804beba42e8ecd6d0999e0900b4fb5ce8bfe4e61196d2147b",
+      "change": "Add only OrdinaryJsonSignedDefinition to the shared token export group; reverse-transform reproduces the exact previous file hash."
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+      "previous_sha256": "38eb64a247af809f615fdee7dd1bb67341b46f025cee670c68715190494c1435",
+      "current_sha256": "b9eacaaa59a358c304872a8ef7b0248b8b9c054c9514c3595e03050f7a75ab72",
+      "change": "Add only OrdinaryJsonSignedDefinition to the shared token export group; reverse-transform reproduces the exact previous file hash."
+    }
+  ],
+  "scalar_token_export_extension": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_scalar_bits.rs",
+      "previous_sha256": "9c4618181166d6721b3bbcb0a511fc5bdc4660be98798af25ac8be8889dca775",
+      "current_sha256": "4e8e907937e930fc51191abfccca4fbd9f1fbff778117c337d81ef1d7c2fd25b",
+      "change": "Only append OrdinaryJsonScalarTokenDefinition to the shared export group; exact reverse-transform hash checked."
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs",
+      "previous_sha256": "d54739bd9872975804beba42e8ecd6d0999e0900b4fb5ce8bfe4e61196d2147b",
+      "current_sha256": "bd1c236f553d1f8772a9911dc43d904d66622e2789cce8df5d09af5ea0974bcf",
+      "change": "Only append OrdinaryJsonScalarTokenDefinition to the shared export group; exact reverse-transform hash checked."
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+      "previous_sha256": "b9eacaaa59a358c304872a8ef7b0248b8b9c054c9514c3595e03050f7a75ab72",
+      "current_sha256": "56efa905ac175685294b759487b2bbba7a0c2e0c69fce6b21470398dfdd70a15",
+      "change": "Only append OrdinaryJsonScalarTokenDefinition to the shared export group; exact reverse-transform hash checked."
+    }
+  ],
+  "shared_builder_extension": {
+    "files": [
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_scalar_bits.rs",
+        "previous_sha256": "4e8e907937e930fc51191abfccca4fbd9f1fbff778117c337d81ef1d7c2fd25b",
+        "current_sha256": "807c32fd77a2e5fa218b20726fea1c44821644e0c81a216db0f99e3bb91140d7"
+      }
+    ],
+    "receipt": "unit-4-json-collection-integration-progress.json",
+    "preservation": "Auxiliary-only unit test passed exact standalone certificate byte preservation after extracting the shared-emitter entry point. Full collection coexistence tested separately."
+  },
+  "scan_regroup_extension": {
+    "receipt": "unit-4-json-collection-integration-progress.json",
+    "status": "source_and_equivalence_passed_execution_in_progress",
+    "scope": "Checkpoint pins are archived before pair-pipeline regrouping. Current source/pins preserve every other definition and the exact expanded scan sequence; affected execution/checker results are separate."
+  },
+  "actual_source_boundary_extension": {
+    "receipt": "unit-4-structural-boundary-progress.json",
+    "files": [
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs",
+        "previous_sha256": "bd1c236f553d1f8772a9911dc43d904d66622e2789cce8df5d09af5ea0974bcf",
+        "current_sha256": "a1e69df7a517c53417e65c76faa872170c932924104d5b23a7de19c4153c50db"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+        "previous_sha256": "56efa905ac175685294b759487b2bbba7a0c2e0c69fce6b21470398dfdd70a15",
+        "current_sha256": "49601c9ab0cabac598dd2fa1f9cfddebeced95ad01ea1e637c3d218237ae5195"
+      }
+    ],
+    "scope": "Add source-specific shared boundary generation/export/test entry. Existing component body behavior is retained; exact old structural replay and full component closure are verified separately."
+  }
+}

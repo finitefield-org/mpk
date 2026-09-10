@@ -1,0 +1,63 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.decimal_clause_capture.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "date": "2026-09-11",
+  "files": [
+    {
+      "path": "requests.json",
+      "bytes": 40749,
+      "sha256": "76ae421507041683076d7f811c1aef3ea3b6ad086511d8a7e307c9f1ef4ba4bf"
+    },
+    {
+      "path": "responses.json",
+      "bytes": 136077,
+      "sha256": "fd3d3fd732e994943ec25c6aaad8c90b749b13fc6c639e2f34b0a9f8c824c854"
+    },
+    {
+      "path": "capture-inputs.json",
+      "bytes": 19763,
+      "sha256": "8befa15a01a4209c159d509013d3ab9b28b8ded95f1ae909b24f655390354c2c"
+    }
+  ],
+  "source_contexts": 9,
+  "frontend_accepts": 9,
+  "capture_stage": "/tmp/mpk-w09-public-domain-capture-stage",
+  "stage_verification": "All 88 recorded files and repository counterparts verified before capture",
+  "docker_image": "python@sha256:933b46a028fd786c9c3d426ebabc237e29a15912231ea8de576e95f0e4f41a4c",
+  "isolation": "network none; default seccomp; read-only stage/root; bounded tmpfs; no-new-privileges; required namespace/user capabilities only; 4g/2cpu",
+  "route": "unchanged gate.test_data_phase via diagnose.py",
+  "raw_transports": [
+    {
+      "path": "verification-logs/decimal-clauses/mpk-w09-decimal-clause-requests-v2.json",
+      "bytes": 41210,
+      "sha256": "4c804dfab75b889d77c36d0b7d2cc0b53684acd91ba70131539a729c6344eb94"
+    },
+    {
+      "path": "verification-logs/decimal-clauses/mpk-w09-decimal-clause-responses-v2.json",
+      "bytes": 129364,
+      "sha256": "569b2d31fe2b68919fcde8a1be84892c92a7c11de9b0aed3d88cb3601a39d629"
+    },
+    {
+      "path": "verification-logs/decimal-clauses/mpk-w09-decimal-comparison-request-v3.json",
+      "bytes": 4917,
+      "sha256": "9a05221d341cee866b42bb7d03b973672a57c2afef73515d950c60ebb1c35bc0"
+    },
+    {
+      "path": "verification-logs/decimal-clauses/mpk-w09-decimal-comparison-response-v3.json",
+      "bytes": 17823,
+      "sha256": "4b0d7b26afab559a372aeb450a6192439740de130b826ae70947453872b20f7d"
+    },
+    {
+      "path": "verification-logs/decimal-clauses/mpk-w09-decimal-conversion-request-v4.json",
+      "bytes": 9915,
+      "sha256": "c50662883d56a29c0a76577b784240f7dad6742cc4db7b705815fbe5f94b3ec7"
+    },
+    {
+      "path": "verification-logs/decimal-clauses/mpk-w09-decimal-conversion-response-v4.json",
+      "bytes": 40305,
+      "sha256": "ae1d51c827cc1452fa9359582a1c5ef0906cbc9878c8f9b804cc4b575537cb66"
+    }
+  ],
+  "reconstruction": "Final responses combine v4 conversions, v3 comparisons, and seven v2 responses whose requests are structurally identical. Rejected v2 comparisons used non-admitted x.Equals(y). V2 conversions used invalid numeric char literals. These historical inputs are not passing source contract cases.",
+  "scope": "Captured frontend facts; not application VC proofs"
+}

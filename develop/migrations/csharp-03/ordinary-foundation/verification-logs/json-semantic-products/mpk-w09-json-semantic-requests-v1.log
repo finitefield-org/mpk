@@ -1,0 +1,14 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error[E0624]: method `data_closed` is private
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_json_semantic_product_tests.rs:156:18
+    |
+156 |                 .data_closed()
+    |                  ^^^^^^^^^^^ private method
+    |
+   ::: crates/mpk-vc/src/csharp_practical_vir_validation.rs:610:5
+    |
+610 |     pub(crate) fn data_closed(&self) -> &ClosedInstanceSet {
+    |     ------------------------------------------------------ private method defined here
+
+For more information about this error, try `rustc --explain E0624`.
+error: could not compile `mpk-vc` (test "csharp_practical_vc") due to 1 previous error

@@ -1,0 +1,1107 @@
+[
+  {
+    "declarations": 83,
+    "file": "nested-box.hex",
+    "id": "nested-box",
+    "metadata": {
+      "certificate_sha256": "f6e85eab0d57945df51327e485873ad7646d1fcef2e7dfe4976a2199745a7881",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 22,
+            "shape": {
+              "fields": [
+                {
+                  "id": "length",
+                  "shape": {
+                    "kind": "bits",
+                    "width": 32
+                  }
+                },
+                {
+                  "id": "cells",
+                  "shape": {
+                    "capacity": 16384,
+                    "element": {
+                      "kind": "reference",
+                      "type_id": "mpk.csharp.source.a21b0b484f6daea7c4670cab3eb882c9cb69815fd5cfb04f364a67f8c77c9877"
+                    },
+                    "kind": "array"
+                  }
+                },
+                {
+                  "id": "initialized",
+                  "shape": {
+                    "capacity": 16384,
+                    "element": {
+                      "kind": "bits",
+                      "width": 1
+                    },
+                    "kind": "array"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.instance.931d973333b51c5b0469c07c9b411ee262070e63c97b0ddb380ece441e4a53ad"
+          },
+          "complete_definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e39333164393733333333623531633562303436396330376339623431316565323632303730653633633937623064646233383065636534343165346135336164.Complete",
+          "element_type_id": "mpk.csharp.source.a21b0b484f6daea7c4670cab3eb882c9cb69815fd5cfb04f364a67f8c77c9877",
+          "initialized_definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e39333164393733333333623531633562303436396330376339623431316565323632303730653633633937623064646233383065636534343165346135336164.Initialized",
+          "length_definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e39333164393733333333623531633562303436396330376339623431316565323632303730653633633937623064646233383065636534343165346135336164.Field0",
+          "operations": [
+            {
+              "argument_type_ids": [
+                "mpk.csharp.value.i32.v1",
+                "mpk.csharp.value.bool.v1"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e39333164393733333333623531633562303436396330376339623431316565323632303730653633633937623064646233383065636534343165346135336164.NegativeLength",
+                  "label": "negative_length"
+                },
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e39333164393733333333623531633562303436396330376339623431316565323632303730653633633937623064646233383065636534343165346135336164.ConstructionBound",
+                  "label": "construction_bound"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e39333164393733333333623531633562303436396330376339623431316565323632303730653633633937623064646233383065636534343165346135336164.Allocate",
+              "operation_id": "mpk.csharp.instance.931d973333b51c5b0469c07c9b411ee262070e63c97b0ddb380ece441e4a53ad.allocate",
+              "result_type_id": "mpk.csharp.instance.931d973333b51c5b0469c07c9b411ee262070e63c97b0ddb380ece441e4a53ad"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.931d973333b51c5b0469c07c9b411ee262070e63c97b0ddb380ece441e4a53ad",
+                "mpk.csharp.value.i32.v1"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": null,
+                  "label": "ownership"
+                },
+                {
+                  "argument_indices": [
+                    0,
+                    1
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e39333164393733333333623531633562303436396330376339623431316565323632303730653633633937623064646233383065636534343165346135336164.IndexRange",
+                  "label": "index_range"
+                },
+                {
+                  "argument_indices": [
+                    0,
+                    1
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e39333164393733333333623531633562303436396330376339623431316565323632303730653633633937623064646233383065636534343165346135336164.Uninitialized",
+                  "label": "uninitialized"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e39333164393733333333623531633562303436396330376339623431316565323632303730653633633937623064646233383065636534343165346135336164.Read",
+              "operation_id": "mpk.csharp.instance.931d973333b51c5b0469c07c9b411ee262070e63c97b0ddb380ece441e4a53ad.read",
+              "result_type_id": "mpk.csharp.source.a21b0b484f6daea7c4670cab3eb882c9cb69815fd5cfb04f364a67f8c77c9877"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.931d973333b51c5b0469c07c9b411ee262070e63c97b0ddb380ece441e4a53ad",
+                "mpk.csharp.value.i32.v1",
+                "mpk.csharp.source.a21b0b484f6daea7c4670cab3eb882c9cb69815fd5cfb04f364a67f8c77c9877"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": null,
+                  "label": "ownership"
+                },
+                {
+                  "argument_indices": [
+                    0,
+                    1
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e39333164393733333333623531633562303436396330376339623431316565323632303730653633633937623064646233383065636534343165346135336164.IndexRange",
+                  "label": "index_range"
+                },
+                {
+                  "argument_indices": [
+                    0,
+                    1
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e39333164393733333333623531633562303436396330376339623431316565323632303730653633633937623064646233383065636534343165346135336164.Initialized",
+                  "label": "already_initialized"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e39333164393733333333623531633562303436396330376339623431316565323632303730653633633937623064646233383065636534343165346135336164.Update",
+              "operation_id": "mpk.csharp.instance.931d973333b51c5b0469c07c9b411ee262070e63c97b0ddb380ece441e4a53ad.fill",
+              "result_type_id": "mpk.csharp.instance.931d973333b51c5b0469c07c9b411ee262070e63c97b0ddb380ece441e4a53ad"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.931d973333b51c5b0469c07c9b411ee262070e63c97b0ddb380ece441e4a53ad",
+                "mpk.csharp.value.i32.v1",
+                "mpk.csharp.source.a21b0b484f6daea7c4670cab3eb882c9cb69815fd5cfb04f364a67f8c77c9877"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": null,
+                  "label": "ownership"
+                },
+                {
+                  "argument_indices": [
+                    0,
+                    1
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e39333164393733333333623531633562303436396330376339623431316565323632303730653633633937623064646233383065636534343165346135336164.IndexRange",
+                  "label": "index_range"
+                },
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e39333164393733333333623531633562303436396330376339623431316565323632303730653633633937623064646233383065636534343165346135336164.Incomplete",
+                  "label": "incomplete"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e39333164393733333333623531633562303436396330376339623431316565323632303730653633633937623064646233383065636534343165346135336164.Update",
+              "operation_id": "mpk.csharp.instance.931d973333b51c5b0469c07c9b411ee262070e63c97b0ddb380ece441e4a53ad.rewrite",
+              "result_type_id": "mpk.csharp.instance.931d973333b51c5b0469c07c9b411ee262070e63c97b0ddb380ece441e4a53ad"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.931d973333b51c5b0469c07c9b411ee262070e63c97b0ddb380ece441e4a53ad"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": null,
+                  "label": "ownership"
+                },
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e39333164393733333333623531633562303436396330376339623431316565323632303730653633633937623064646233383065636534343165346135336164.Incomplete",
+                  "label": "incomplete"
+                },
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e39333164393733333333623531633562303436396330376339623431316565323632303730653633633937623064646233383065636534343165346135336164.PublicationBound",
+                  "label": "publication_bound"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e39333164393733333333623531633562303436396330376339623431316565323632303730653633633937623064646233383065636534343165346135336164.Freeze",
+              "operation_id": "mpk.csharp.instance.931d973333b51c5b0469c07c9b411ee262070e63c97b0ddb380ece441e4a53ad.freeze",
+              "result_type_id": "mpk.csharp.instance.4cac0be04b1b7b464b43fa5db913d1f4967b028959c09c724dc31ce6e57f8578"
+            }
+          ],
+          "published_type_id": "mpk.csharp.instance.4cac0be04b1b7b464b43fa5db913d1f4967b028959c09c724dc31ce6e57f8578"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_constructions.v1",
+      "source_ir_sha256": "0532d6cfb811641717af5586c1ad6dfdf36a047cad7987230af4836fe8f6f04c",
+      "static_transformers": 2077
+    },
+    "terms": 4514
+  },
+  {
+    "declarations": 83,
+    "file": "float-sequence.hex",
+    "id": "float-sequence",
+    "metadata": {
+      "certificate_sha256": "4a05c414be0eab5846d37a882c7f4119f0166d6fa83f4fed6e3cf80d4363db50",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 21,
+            "shape": {
+              "fields": [
+                {
+                  "id": "length",
+                  "shape": {
+                    "kind": "bits",
+                    "width": 32
+                  }
+                },
+                {
+                  "id": "cells",
+                  "shape": {
+                    "capacity": 16384,
+                    "element": {
+                      "kind": "reference",
+                      "type_id": "mpk.csharp.value.f32.v1"
+                    },
+                    "kind": "array"
+                  }
+                },
+                {
+                  "id": "initialized",
+                  "shape": {
+                    "capacity": 16384,
+                    "element": {
+                      "kind": "bits",
+                      "width": 1
+                    },
+                    "kind": "array"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.instance.2d39b0540a309fde3a1ab7c2ea1ce342f6b3a5e966543487425bb7fefea81d19"
+          },
+          "complete_definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e32643339623035343061333039666465336131616237633265613163653334326636623361356539363635343334383734323562623766656665613831643139.Complete",
+          "element_type_id": "mpk.csharp.value.f32.v1",
+          "initialized_definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e32643339623035343061333039666465336131616237633265613163653334326636623361356539363635343334383734323562623766656665613831643139.Initialized",
+          "length_definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e32643339623035343061333039666465336131616237633265613163653334326636623361356539363635343334383734323562623766656665613831643139.Field0",
+          "operations": [
+            {
+              "argument_type_ids": [
+                "mpk.csharp.value.i32.v1",
+                "mpk.csharp.value.bool.v1"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e32643339623035343061333039666465336131616237633265613163653334326636623361356539363635343334383734323562623766656665613831643139.NegativeLength",
+                  "label": "negative_length"
+                },
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e32643339623035343061333039666465336131616237633265613163653334326636623361356539363635343334383734323562623766656665613831643139.ConstructionBound",
+                  "label": "construction_bound"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e32643339623035343061333039666465336131616237633265613163653334326636623361356539363635343334383734323562623766656665613831643139.Allocate",
+              "operation_id": "mpk.csharp.instance.2d39b0540a309fde3a1ab7c2ea1ce342f6b3a5e966543487425bb7fefea81d19.allocate",
+              "result_type_id": "mpk.csharp.instance.2d39b0540a309fde3a1ab7c2ea1ce342f6b3a5e966543487425bb7fefea81d19"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.2d39b0540a309fde3a1ab7c2ea1ce342f6b3a5e966543487425bb7fefea81d19",
+                "mpk.csharp.value.i32.v1"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": null,
+                  "label": "ownership"
+                },
+                {
+                  "argument_indices": [
+                    0,
+                    1
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e32643339623035343061333039666465336131616237633265613163653334326636623361356539363635343334383734323562623766656665613831643139.IndexRange",
+                  "label": "index_range"
+                },
+                {
+                  "argument_indices": [
+                    0,
+                    1
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e32643339623035343061333039666465336131616237633265613163653334326636623361356539363635343334383734323562623766656665613831643139.Uninitialized",
+                  "label": "uninitialized"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e32643339623035343061333039666465336131616237633265613163653334326636623361356539363635343334383734323562623766656665613831643139.Read",
+              "operation_id": "mpk.csharp.instance.2d39b0540a309fde3a1ab7c2ea1ce342f6b3a5e966543487425bb7fefea81d19.read",
+              "result_type_id": "mpk.csharp.value.f32.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.2d39b0540a309fde3a1ab7c2ea1ce342f6b3a5e966543487425bb7fefea81d19",
+                "mpk.csharp.value.i32.v1",
+                "mpk.csharp.value.f32.v1"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": null,
+                  "label": "ownership"
+                },
+                {
+                  "argument_indices": [
+                    0,
+                    1
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e32643339623035343061333039666465336131616237633265613163653334326636623361356539363635343334383734323562623766656665613831643139.IndexRange",
+                  "label": "index_range"
+                },
+                {
+                  "argument_indices": [
+                    0,
+                    1
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e32643339623035343061333039666465336131616237633265613163653334326636623361356539363635343334383734323562623766656665613831643139.Initialized",
+                  "label": "already_initialized"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e32643339623035343061333039666465336131616237633265613163653334326636623361356539363635343334383734323562623766656665613831643139.Update",
+              "operation_id": "mpk.csharp.instance.2d39b0540a309fde3a1ab7c2ea1ce342f6b3a5e966543487425bb7fefea81d19.fill",
+              "result_type_id": "mpk.csharp.instance.2d39b0540a309fde3a1ab7c2ea1ce342f6b3a5e966543487425bb7fefea81d19"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.2d39b0540a309fde3a1ab7c2ea1ce342f6b3a5e966543487425bb7fefea81d19",
+                "mpk.csharp.value.i32.v1",
+                "mpk.csharp.value.f32.v1"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": null,
+                  "label": "ownership"
+                },
+                {
+                  "argument_indices": [
+                    0,
+                    1
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e32643339623035343061333039666465336131616237633265613163653334326636623361356539363635343334383734323562623766656665613831643139.IndexRange",
+                  "label": "index_range"
+                },
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e32643339623035343061333039666465336131616237633265613163653334326636623361356539363635343334383734323562623766656665613831643139.Incomplete",
+                  "label": "incomplete"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e32643339623035343061333039666465336131616237633265613163653334326636623361356539363635343334383734323562623766656665613831643139.Update",
+              "operation_id": "mpk.csharp.instance.2d39b0540a309fde3a1ab7c2ea1ce342f6b3a5e966543487425bb7fefea81d19.rewrite",
+              "result_type_id": "mpk.csharp.instance.2d39b0540a309fde3a1ab7c2ea1ce342f6b3a5e966543487425bb7fefea81d19"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.2d39b0540a309fde3a1ab7c2ea1ce342f6b3a5e966543487425bb7fefea81d19"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": null,
+                  "label": "ownership"
+                },
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e32643339623035343061333039666465336131616237633265613163653334326636623361356539363635343334383734323562623766656665613831643139.Incomplete",
+                  "label": "incomplete"
+                },
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e32643339623035343061333039666465336131616237633265613163653334326636623361356539363635343334383734323562623766656665613831643139.PublicationBound",
+                  "label": "publication_bound"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e32643339623035343061333039666465336131616237633265613163653334326636623361356539363635343334383734323562623766656665613831643139.Freeze",
+              "operation_id": "mpk.csharp.instance.2d39b0540a309fde3a1ab7c2ea1ce342f6b3a5e966543487425bb7fefea81d19.freeze",
+              "result_type_id": "mpk.csharp.instance.9d9babb8a44e56e3636da442ef8a973b8df092390d5222fd619d08794065b1e1"
+            }
+          ],
+          "published_type_id": "mpk.csharp.instance.9d9babb8a44e56e3636da442ef8a973b8df092390d5222fd619d08794065b1e1"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_constructions.v1",
+      "source_ir_sha256": "513c132a546ee6072974926284b853f16ed246f0c582db4b628aeedfbed60579",
+      "static_transformers": 2077
+    },
+    "terms": 4506
+  },
+  {
+    "declarations": 83,
+    "file": "bool-construction.hex",
+    "id": "bool-construction",
+    "metadata": {
+      "certificate_sha256": "1eedf4078f1769fda134b12bf8b2fd6a90f29fd58e9b301b6859d98ef6600c24",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 16,
+            "shape": {
+              "fields": [
+                {
+                  "id": "length",
+                  "shape": {
+                    "kind": "bits",
+                    "width": 32
+                  }
+                },
+                {
+                  "id": "cells",
+                  "shape": {
+                    "capacity": 16384,
+                    "element": {
+                      "kind": "reference",
+                      "type_id": "mpk.csharp.value.bool.v1"
+                    },
+                    "kind": "array"
+                  }
+                },
+                {
+                  "id": "initialized",
+                  "shape": {
+                    "capacity": 16384,
+                    "element": {
+                      "kind": "bits",
+                      "width": 1
+                    },
+                    "kind": "array"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.instance.170095264d86021d80c9bcb84295f7c400722d3fc6836cefa153189dc6ed0253"
+          },
+          "complete_definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e31373030393532363464383630323164383063396263623834323935663763343030373232643366633638333663656661313533313839646336656430323533.Complete",
+          "element_type_id": "mpk.csharp.value.bool.v1",
+          "initialized_definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e31373030393532363464383630323164383063396263623834323935663763343030373232643366633638333663656661313533313839646336656430323533.Initialized",
+          "length_definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e31373030393532363464383630323164383063396263623834323935663763343030373232643366633638333663656661313533313839646336656430323533.Field0",
+          "operations": [
+            {
+              "argument_type_ids": [
+                "mpk.csharp.value.i32.v1",
+                "mpk.csharp.value.bool.v1"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e31373030393532363464383630323164383063396263623834323935663763343030373232643366633638333663656661313533313839646336656430323533.NegativeLength",
+                  "label": "negative_length"
+                },
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e31373030393532363464383630323164383063396263623834323935663763343030373232643366633638333663656661313533313839646336656430323533.ConstructionBound",
+                  "label": "construction_bound"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e31373030393532363464383630323164383063396263623834323935663763343030373232643366633638333663656661313533313839646336656430323533.Allocate",
+              "operation_id": "mpk.csharp.instance.170095264d86021d80c9bcb84295f7c400722d3fc6836cefa153189dc6ed0253.allocate",
+              "result_type_id": "mpk.csharp.instance.170095264d86021d80c9bcb84295f7c400722d3fc6836cefa153189dc6ed0253"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.170095264d86021d80c9bcb84295f7c400722d3fc6836cefa153189dc6ed0253",
+                "mpk.csharp.value.i32.v1"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": null,
+                  "label": "ownership"
+                },
+                {
+                  "argument_indices": [
+                    0,
+                    1
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e31373030393532363464383630323164383063396263623834323935663763343030373232643366633638333663656661313533313839646336656430323533.IndexRange",
+                  "label": "index_range"
+                },
+                {
+                  "argument_indices": [
+                    0,
+                    1
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e31373030393532363464383630323164383063396263623834323935663763343030373232643366633638333663656661313533313839646336656430323533.Uninitialized",
+                  "label": "uninitialized"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e31373030393532363464383630323164383063396263623834323935663763343030373232643366633638333663656661313533313839646336656430323533.Read",
+              "operation_id": "mpk.csharp.instance.170095264d86021d80c9bcb84295f7c400722d3fc6836cefa153189dc6ed0253.read",
+              "result_type_id": "mpk.csharp.value.bool.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.170095264d86021d80c9bcb84295f7c400722d3fc6836cefa153189dc6ed0253",
+                "mpk.csharp.value.i32.v1",
+                "mpk.csharp.value.bool.v1"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": null,
+                  "label": "ownership"
+                },
+                {
+                  "argument_indices": [
+                    0,
+                    1
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e31373030393532363464383630323164383063396263623834323935663763343030373232643366633638333663656661313533313839646336656430323533.IndexRange",
+                  "label": "index_range"
+                },
+                {
+                  "argument_indices": [
+                    0,
+                    1
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e31373030393532363464383630323164383063396263623834323935663763343030373232643366633638333663656661313533313839646336656430323533.Initialized",
+                  "label": "already_initialized"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e31373030393532363464383630323164383063396263623834323935663763343030373232643366633638333663656661313533313839646336656430323533.Update",
+              "operation_id": "mpk.csharp.instance.170095264d86021d80c9bcb84295f7c400722d3fc6836cefa153189dc6ed0253.fill",
+              "result_type_id": "mpk.csharp.instance.170095264d86021d80c9bcb84295f7c400722d3fc6836cefa153189dc6ed0253"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.170095264d86021d80c9bcb84295f7c400722d3fc6836cefa153189dc6ed0253",
+                "mpk.csharp.value.i32.v1",
+                "mpk.csharp.value.bool.v1"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": null,
+                  "label": "ownership"
+                },
+                {
+                  "argument_indices": [
+                    0,
+                    1
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e31373030393532363464383630323164383063396263623834323935663763343030373232643366633638333663656661313533313839646336656430323533.IndexRange",
+                  "label": "index_range"
+                },
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e31373030393532363464383630323164383063396263623834323935663763343030373232643366633638333663656661313533313839646336656430323533.Incomplete",
+                  "label": "incomplete"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e31373030393532363464383630323164383063396263623834323935663763343030373232643366633638333663656661313533313839646336656430323533.Update",
+              "operation_id": "mpk.csharp.instance.170095264d86021d80c9bcb84295f7c400722d3fc6836cefa153189dc6ed0253.rewrite",
+              "result_type_id": "mpk.csharp.instance.170095264d86021d80c9bcb84295f7c400722d3fc6836cefa153189dc6ed0253"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.170095264d86021d80c9bcb84295f7c400722d3fc6836cefa153189dc6ed0253"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": null,
+                  "label": "ownership"
+                },
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e31373030393532363464383630323164383063396263623834323935663763343030373232643366633638333663656661313533313839646336656430323533.Incomplete",
+                  "label": "incomplete"
+                },
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e31373030393532363464383630323164383063396263623834323935663763343030373232643366633638333663656661313533313839646336656430323533.PublicationBound",
+                  "label": "publication_bound"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e31373030393532363464383630323164383063396263623834323935663763343030373232643366633638333663656661313533313839646336656430323533.Freeze",
+              "operation_id": "mpk.csharp.instance.170095264d86021d80c9bcb84295f7c400722d3fc6836cefa153189dc6ed0253.freeze",
+              "result_type_id": "mpk.csharp.instance.75aa45c9f7f43f48d8bb8ded24510a202c0df60daa06dcf5ae12a5cc5af11158"
+            }
+          ],
+          "published_type_id": "mpk.csharp.instance.75aa45c9f7f43f48d8bb8ded24510a202c0df60daa06dcf5ae12a5cc5af11158"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_constructions.v1",
+      "source_ir_sha256": "2d544804c9918db8f688068b79a8ae72ca4c40719314bbc0988ae316afb1bd47",
+      "static_transformers": 2077
+    },
+    "terms": 4283
+  },
+  {
+    "declarations": 83,
+    "file": "product-construction.hex",
+    "id": "product-construction",
+    "metadata": {
+      "certificate_sha256": "f6e85eab0d57945df51327e485873ad7646d1fcef2e7dfe4976a2199745a7881",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 22,
+            "shape": {
+              "fields": [
+                {
+                  "id": "length",
+                  "shape": {
+                    "kind": "bits",
+                    "width": 32
+                  }
+                },
+                {
+                  "id": "cells",
+                  "shape": {
+                    "capacity": 16384,
+                    "element": {
+                      "kind": "reference",
+                      "type_id": "mpk.csharp.source.a21b0b484f6daea7c4670cab3eb882c9cb69815fd5cfb04f364a67f8c77c9877"
+                    },
+                    "kind": "array"
+                  }
+                },
+                {
+                  "id": "initialized",
+                  "shape": {
+                    "capacity": 16384,
+                    "element": {
+                      "kind": "bits",
+                      "width": 1
+                    },
+                    "kind": "array"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.instance.931d973333b51c5b0469c07c9b411ee262070e63c97b0ddb380ece441e4a53ad"
+          },
+          "complete_definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e39333164393733333333623531633562303436396330376339623431316565323632303730653633633937623064646233383065636534343165346135336164.Complete",
+          "element_type_id": "mpk.csharp.source.a21b0b484f6daea7c4670cab3eb882c9cb69815fd5cfb04f364a67f8c77c9877",
+          "initialized_definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e39333164393733333333623531633562303436396330376339623431316565323632303730653633633937623064646233383065636534343165346135336164.Initialized",
+          "length_definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e39333164393733333333623531633562303436396330376339623431316565323632303730653633633937623064646233383065636534343165346135336164.Field0",
+          "operations": [
+            {
+              "argument_type_ids": [
+                "mpk.csharp.value.i32.v1",
+                "mpk.csharp.value.bool.v1"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e39333164393733333333623531633562303436396330376339623431316565323632303730653633633937623064646233383065636534343165346135336164.NegativeLength",
+                  "label": "negative_length"
+                },
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e39333164393733333333623531633562303436396330376339623431316565323632303730653633633937623064646233383065636534343165346135336164.ConstructionBound",
+                  "label": "construction_bound"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e39333164393733333333623531633562303436396330376339623431316565323632303730653633633937623064646233383065636534343165346135336164.Allocate",
+              "operation_id": "mpk.csharp.instance.931d973333b51c5b0469c07c9b411ee262070e63c97b0ddb380ece441e4a53ad.allocate",
+              "result_type_id": "mpk.csharp.instance.931d973333b51c5b0469c07c9b411ee262070e63c97b0ddb380ece441e4a53ad"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.931d973333b51c5b0469c07c9b411ee262070e63c97b0ddb380ece441e4a53ad",
+                "mpk.csharp.value.i32.v1"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": null,
+                  "label": "ownership"
+                },
+                {
+                  "argument_indices": [
+                    0,
+                    1
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e39333164393733333333623531633562303436396330376339623431316565323632303730653633633937623064646233383065636534343165346135336164.IndexRange",
+                  "label": "index_range"
+                },
+                {
+                  "argument_indices": [
+                    0,
+                    1
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e39333164393733333333623531633562303436396330376339623431316565323632303730653633633937623064646233383065636534343165346135336164.Uninitialized",
+                  "label": "uninitialized"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e39333164393733333333623531633562303436396330376339623431316565323632303730653633633937623064646233383065636534343165346135336164.Read",
+              "operation_id": "mpk.csharp.instance.931d973333b51c5b0469c07c9b411ee262070e63c97b0ddb380ece441e4a53ad.read",
+              "result_type_id": "mpk.csharp.source.a21b0b484f6daea7c4670cab3eb882c9cb69815fd5cfb04f364a67f8c77c9877"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.931d973333b51c5b0469c07c9b411ee262070e63c97b0ddb380ece441e4a53ad",
+                "mpk.csharp.value.i32.v1",
+                "mpk.csharp.source.a21b0b484f6daea7c4670cab3eb882c9cb69815fd5cfb04f364a67f8c77c9877"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": null,
+                  "label": "ownership"
+                },
+                {
+                  "argument_indices": [
+                    0,
+                    1
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e39333164393733333333623531633562303436396330376339623431316565323632303730653633633937623064646233383065636534343165346135336164.IndexRange",
+                  "label": "index_range"
+                },
+                {
+                  "argument_indices": [
+                    0,
+                    1
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e39333164393733333333623531633562303436396330376339623431316565323632303730653633633937623064646233383065636534343165346135336164.Initialized",
+                  "label": "already_initialized"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e39333164393733333333623531633562303436396330376339623431316565323632303730653633633937623064646233383065636534343165346135336164.Update",
+              "operation_id": "mpk.csharp.instance.931d973333b51c5b0469c07c9b411ee262070e63c97b0ddb380ece441e4a53ad.fill",
+              "result_type_id": "mpk.csharp.instance.931d973333b51c5b0469c07c9b411ee262070e63c97b0ddb380ece441e4a53ad"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.931d973333b51c5b0469c07c9b411ee262070e63c97b0ddb380ece441e4a53ad",
+                "mpk.csharp.value.i32.v1",
+                "mpk.csharp.source.a21b0b484f6daea7c4670cab3eb882c9cb69815fd5cfb04f364a67f8c77c9877"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": null,
+                  "label": "ownership"
+                },
+                {
+                  "argument_indices": [
+                    0,
+                    1
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e39333164393733333333623531633562303436396330376339623431316565323632303730653633633937623064646233383065636534343165346135336164.IndexRange",
+                  "label": "index_range"
+                },
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e39333164393733333333623531633562303436396330376339623431316565323632303730653633633937623064646233383065636534343165346135336164.Incomplete",
+                  "label": "incomplete"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e39333164393733333333623531633562303436396330376339623431316565323632303730653633633937623064646233383065636534343165346135336164.Update",
+              "operation_id": "mpk.csharp.instance.931d973333b51c5b0469c07c9b411ee262070e63c97b0ddb380ece441e4a53ad.rewrite",
+              "result_type_id": "mpk.csharp.instance.931d973333b51c5b0469c07c9b411ee262070e63c97b0ddb380ece441e4a53ad"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.931d973333b51c5b0469c07c9b411ee262070e63c97b0ddb380ece441e4a53ad"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": null,
+                  "label": "ownership"
+                },
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e39333164393733333333623531633562303436396330376339623431316565323632303730653633633937623064646233383065636534343165346135336164.Incomplete",
+                  "label": "incomplete"
+                },
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e39333164393733333333623531633562303436396330376339623431316565323632303730653633633937623064646233383065636534343165346135336164.PublicationBound",
+                  "label": "publication_bound"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e39333164393733333333623531633562303436396330376339623431316565323632303730653633633937623064646233383065636534343165346135336164.Freeze",
+              "operation_id": "mpk.csharp.instance.931d973333b51c5b0469c07c9b411ee262070e63c97b0ddb380ece441e4a53ad.freeze",
+              "result_type_id": "mpk.csharp.instance.4cac0be04b1b7b464b43fa5db913d1f4967b028959c09c724dc31ce6e57f8578"
+            }
+          ],
+          "published_type_id": "mpk.csharp.instance.4cac0be04b1b7b464b43fa5db913d1f4967b028959c09c724dc31ce6e57f8578"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_constructions.v1",
+      "source_ir_sha256": "827521c9c96ae638d9274c2201d15d2600a65756f291b55948b138efe93331ae",
+      "static_transformers": 2077
+    },
+    "terms": 4514
+  },
+  {
+    "declarations": 83,
+    "file": "enum-construction.hex",
+    "id": "enum-construction",
+    "metadata": {
+      "certificate_sha256": "38e80b2ca3fe4f7f96528dcd68b0616178e63b1287843b0317dd5e6034c7d051",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 21,
+            "shape": {
+              "fields": [
+                {
+                  "id": "length",
+                  "shape": {
+                    "kind": "bits",
+                    "width": 32
+                  }
+                },
+                {
+                  "id": "cells",
+                  "shape": {
+                    "capacity": 16384,
+                    "element": {
+                      "kind": "reference",
+                      "type_id": "mpk.csharp.source.c5005575f41c86437ccd96232da1c67a2494c14bfe42c04297b4e8cb0ea6aa55"
+                    },
+                    "kind": "array"
+                  }
+                },
+                {
+                  "id": "initialized",
+                  "shape": {
+                    "capacity": 16384,
+                    "element": {
+                      "kind": "bits",
+                      "width": 1
+                    },
+                    "kind": "array"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.instance.326085e46b120221771c9c271442d2c53929ba1de4cd22a3648cc12fe108f89e"
+          },
+          "complete_definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e33323630383565343662313230323231373731633963323731343432643263353339323962613164653463643232613336343863633132666531303866383965.Complete",
+          "element_type_id": "mpk.csharp.source.c5005575f41c86437ccd96232da1c67a2494c14bfe42c04297b4e8cb0ea6aa55",
+          "initialized_definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e33323630383565343662313230323231373731633963323731343432643263353339323962613164653463643232613336343863633132666531303866383965.Initialized",
+          "length_definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e33323630383565343662313230323231373731633963323731343432643263353339323962613164653463643232613336343863633132666531303866383965.Field0",
+          "operations": [
+            {
+              "argument_type_ids": [
+                "mpk.csharp.value.i32.v1",
+                "mpk.csharp.value.bool.v1"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e33323630383565343662313230323231373731633963323731343432643263353339323962613164653463643232613336343863633132666531303866383965.NegativeLength",
+                  "label": "negative_length"
+                },
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e33323630383565343662313230323231373731633963323731343432643263353339323962613164653463643232613336343863633132666531303866383965.ConstructionBound",
+                  "label": "construction_bound"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e33323630383565343662313230323231373731633963323731343432643263353339323962613164653463643232613336343863633132666531303866383965.Allocate",
+              "operation_id": "mpk.csharp.instance.326085e46b120221771c9c271442d2c53929ba1de4cd22a3648cc12fe108f89e.allocate",
+              "result_type_id": "mpk.csharp.instance.326085e46b120221771c9c271442d2c53929ba1de4cd22a3648cc12fe108f89e"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.326085e46b120221771c9c271442d2c53929ba1de4cd22a3648cc12fe108f89e",
+                "mpk.csharp.value.i32.v1"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": null,
+                  "label": "ownership"
+                },
+                {
+                  "argument_indices": [
+                    0,
+                    1
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e33323630383565343662313230323231373731633963323731343432643263353339323962613164653463643232613336343863633132666531303866383965.IndexRange",
+                  "label": "index_range"
+                },
+                {
+                  "argument_indices": [
+                    0,
+                    1
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e33323630383565343662313230323231373731633963323731343432643263353339323962613164653463643232613336343863633132666531303866383965.Uninitialized",
+                  "label": "uninitialized"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e33323630383565343662313230323231373731633963323731343432643263353339323962613164653463643232613336343863633132666531303866383965.Read",
+              "operation_id": "mpk.csharp.instance.326085e46b120221771c9c271442d2c53929ba1de4cd22a3648cc12fe108f89e.read",
+              "result_type_id": "mpk.csharp.source.c5005575f41c86437ccd96232da1c67a2494c14bfe42c04297b4e8cb0ea6aa55"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.326085e46b120221771c9c271442d2c53929ba1de4cd22a3648cc12fe108f89e",
+                "mpk.csharp.value.i32.v1",
+                "mpk.csharp.source.c5005575f41c86437ccd96232da1c67a2494c14bfe42c04297b4e8cb0ea6aa55"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": null,
+                  "label": "ownership"
+                },
+                {
+                  "argument_indices": [
+                    0,
+                    1
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e33323630383565343662313230323231373731633963323731343432643263353339323962613164653463643232613336343863633132666531303866383965.IndexRange",
+                  "label": "index_range"
+                },
+                {
+                  "argument_indices": [
+                    0,
+                    1
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e33323630383565343662313230323231373731633963323731343432643263353339323962613164653463643232613336343863633132666531303866383965.Initialized",
+                  "label": "already_initialized"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e33323630383565343662313230323231373731633963323731343432643263353339323962613164653463643232613336343863633132666531303866383965.Update",
+              "operation_id": "mpk.csharp.instance.326085e46b120221771c9c271442d2c53929ba1de4cd22a3648cc12fe108f89e.fill",
+              "result_type_id": "mpk.csharp.instance.326085e46b120221771c9c271442d2c53929ba1de4cd22a3648cc12fe108f89e"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.326085e46b120221771c9c271442d2c53929ba1de4cd22a3648cc12fe108f89e",
+                "mpk.csharp.value.i32.v1",
+                "mpk.csharp.source.c5005575f41c86437ccd96232da1c67a2494c14bfe42c04297b4e8cb0ea6aa55"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": null,
+                  "label": "ownership"
+                },
+                {
+                  "argument_indices": [
+                    0,
+                    1
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e33323630383565343662313230323231373731633963323731343432643263353339323962613164653463643232613336343863633132666531303866383965.IndexRange",
+                  "label": "index_range"
+                },
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e33323630383565343662313230323231373731633963323731343432643263353339323962613164653463643232613336343863633132666531303866383965.Incomplete",
+                  "label": "incomplete"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e33323630383565343662313230323231373731633963323731343432643263353339323962613164653463643232613336343863633132666531303866383965.Update",
+              "operation_id": "mpk.csharp.instance.326085e46b120221771c9c271442d2c53929ba1de4cd22a3648cc12fe108f89e.rewrite",
+              "result_type_id": "mpk.csharp.instance.326085e46b120221771c9c271442d2c53929ba1de4cd22a3648cc12fe108f89e"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.326085e46b120221771c9c271442d2c53929ba1de4cd22a3648cc12fe108f89e"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": null,
+                  "label": "ownership"
+                },
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e33323630383565343662313230323231373731633963323731343432643263353339323962613164653463643232613336343863633132666531303866383965.Incomplete",
+                  "label": "incomplete"
+                },
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e33323630383565343662313230323231373731633963323731343432643263353339323962613164653463643232613336343863633132666531303866383965.PublicationBound",
+                  "label": "publication_bound"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Construction.T6d706b2e6373686172702e696e7374616e63652e33323630383565343662313230323231373731633963323731343432643263353339323962613164653463643232613336343863633132666531303866383965.Freeze",
+              "operation_id": "mpk.csharp.instance.326085e46b120221771c9c271442d2c53929ba1de4cd22a3648cc12fe108f89e.freeze",
+              "result_type_id": "mpk.csharp.instance.19f6c57a86a500682d9c0fde6adf3638fc27aa45332496046f0123655bb77aac"
+            }
+          ],
+          "published_type_id": "mpk.csharp.instance.19f6c57a86a500682d9c0fde6adf3638fc27aa45332496046f0123655bb77aac"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_constructions.v1",
+      "source_ir_sha256": "cd17548f8314c3b1854e23912a0a2d685a8327c0c1d79e86916b65dcff164263",
+      "static_transformers": 2077
+    },
+    "terms": 4506
+  }
+]

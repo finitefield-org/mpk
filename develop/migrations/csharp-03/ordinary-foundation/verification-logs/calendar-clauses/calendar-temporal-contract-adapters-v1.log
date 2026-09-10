@@ -1,0 +1,116 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error[E0364]: `emit_temporal` is private, and cannot be re-exported
+    --> crates/mpk-vc/src/csharp_practical_ordinary_scalar_bits.rs:1300:16
+     |
+1300 | pub(super) use temporal::emit_temporal;
+     |                ^^^^^^^^^^^^^^^^^^^^^^^
+     |
+note: consider marking `emit_temporal` as `pub` in the imported module
+    --> crates/mpk-vc/src/csharp_practical_ordinary_scalar_bits.rs:1300:16
+     |
+1300 | pub(super) use temporal::emit_temporal;
+     |                ^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0364]: `emit_calendar` is private, and cannot be re-exported
+    --> crates/mpk-vc/src/csharp_practical_ordinary_scalar_bits.rs:1308:16
+     |
+1308 | pub(super) use calendar::emit_calendar;
+     |                ^^^^^^^^^^^^^^^^^^^^^^^
+     |
+note: consider marking `emit_calendar` as `pub` in the imported module
+    --> crates/mpk-vc/src/csharp_practical_ordinary_scalar_bits.rs:1308:16
+     |
+1308 | pub(super) use calendar::emit_calendar;
+     |                ^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0603]: function import `emit_calendar` is private
+    --> crates/mpk-vc/src/csharp_practical_ordinary_source_clauses.rs:824:56
+     |
+ 824 | ...                   super::super::scalar_bits::emit_calendar(&mut self.b, op)?
+     |                                                  ^^^^^^^^^^^^^ private function import
+     |
+note: the function import `emit_calendar` is defined here...
+    --> crates/mpk-vc/src/csharp_practical_ordinary_scalar_bits.rs:1308:16
+     |
+1308 | pub(super) use calendar::emit_calendar;
+     |                ^^^^^^^^^^^^^^^^^^^^^^^
+note: ...and refers to the function `emit_calendar` which is defined here
+    --> crates/mpk-vc/src/csharp_practical_ordinary_calendar.rs:269:1
+     |
+ 269 | pub(super) fn emit_calendar(b: &mut Builder, id: &str) -> R<OrdinaryScalarDefinition> {
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: import `emit_calendar` directly
+     |
+ 824 -                             super::super::scalar_bits::emit_calendar(&mut self.b, op)?
+ 824 +                             calendar::emit_calendar(&mut self.b, op)?
+     |
+
+error[E0603]: function import `emit_temporal` is private
+    --> crates/mpk-vc/src/csharp_practical_ordinary_source_clauses.rs:829:56
+     |
+ 829 | ...                   super::super::scalar_bits::emit_temporal(&mut self.b, op)?
+     |                                                  ^^^^^^^^^^^^^ private function import
+     |
+note: the function import `emit_temporal` is defined here...
+    --> crates/mpk-vc/src/csharp_practical_ordinary_scalar_bits.rs:1300:16
+     |
+1300 | pub(super) use temporal::emit_temporal;
+     |                ^^^^^^^^^^^^^^^^^^^^^^^
+note: ...and refers to the function `emit_temporal` which is defined here
+    --> crates/mpk-vc/src/csharp_practical_ordinary_temporal.rs:251:1
+     |
+ 251 | pub(super) fn emit_temporal(b: &mut Builder, id: &str) -> R<OrdinaryScalarDefinition> {
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: import `emit_temporal` directly
+     |
+ 829 -                             super::super::scalar_bits::emit_temporal(&mut self.b, op)?
+ 829 +                             temporal::emit_temporal(&mut self.b, op)?
+     |
+
+error[E0603]: function import `emit_calendar` is private
+    --> crates/mpk-vc/src/csharp_practical_ordinary_source_clauses.rs:1245:55
+     |
+1245 |                     super::super::super::scalar_bits::emit_calendar(&mut b, &operation.id)
+     |                                                       ^^^^^^^^^^^^^ private function import
+     |
+note: the function import `emit_calendar` is defined here...
+    --> crates/mpk-vc/src/csharp_practical_ordinary_scalar_bits.rs:1308:16
+     |
+1308 | pub(super) use calendar::emit_calendar;
+     |                ^^^^^^^^^^^^^^^^^^^^^^^
+note: ...and refers to the function `emit_calendar` which is defined here
+    --> crates/mpk-vc/src/csharp_practical_ordinary_calendar.rs:269:1
+     |
+ 269 | pub(super) fn emit_calendar(b: &mut Builder, id: &str) -> R<OrdinaryScalarDefinition> {
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: import `emit_calendar` directly
+     |
+1245 -                     super::super::super::scalar_bits::emit_calendar(&mut b, &operation.id)
+1245 +                     calendar::emit_calendar(&mut b, &operation.id)
+     |
+
+error[E0603]: function import `emit_temporal` is private
+    --> crates/mpk-vc/src/csharp_practical_ordinary_source_clauses.rs:1247:55
+     |
+1247 |                     super::super::super::scalar_bits::emit_temporal(&mut b, &operation.id)
+     |                                                       ^^^^^^^^^^^^^ private function import
+     |
+note: the function import `emit_temporal` is defined here...
+    --> crates/mpk-vc/src/csharp_practical_ordinary_scalar_bits.rs:1300:16
+     |
+1300 | pub(super) use temporal::emit_temporal;
+     |                ^^^^^^^^^^^^^^^^^^^^^^^
+note: ...and refers to the function `emit_temporal` which is defined here
+    --> crates/mpk-vc/src/csharp_practical_ordinary_temporal.rs:251:1
+     |
+ 251 | pub(super) fn emit_temporal(b: &mut Builder, id: &str) -> R<OrdinaryScalarDefinition> {
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: import `emit_temporal` directly
+     |
+1247 -                     super::super::super::scalar_bits::emit_temporal(&mut b, &operation.id)
+1247 +                     temporal::emit_temporal(&mut b, &operation.id)
+     |
+
+Some errors have detailed explanations: E0364, E0603.
+For more information about an error, try `rustc --explain E0364`.
+error: could not compile `mpk-vc` (lib test) due to 6 previous errors

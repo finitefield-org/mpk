@@ -1,0 +1,536 @@
+{
+  "contexts_examined": 68,
+  "sources": [
+    {
+      "declarations": 812,
+      "id": "document-7a157feb27ed416752b5dde8aa2bf373b9a2c82755d2caa89e955057176ee57b",
+      "metadata": {
+        "boundary_program_sha256": "498b3331b60c8005c1a36f61c9efea14db917458e49b23dc1d0c34064b52cd95",
+        "certificate_sha256": "62052349863eff9c197184b5238b3949184c37d30d05d1b610aacc8074c36580",
+        "definition": {
+          "keywords": {
+            "document": {
+              "bounded_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Bounded",
+              "depth": 24,
+              "length_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Length",
+              "make_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Make",
+              "read_byte_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.ReadByte",
+              "shape": {
+                "capacity": 1048576,
+                "element": {
+                  "kind": "bits",
+                  "width": 8
+                },
+                "kind": "sequence"
+              },
+              "type_name": "Mpk.CSharp.Ordinary.BoundaryDocument"
+            },
+            "fragments": {
+              "concat_definition": "Mpk.CSharp.Ordinary.BoundaryFragments.Concat",
+              "concat_valid_definition": "Mpk.CSharp.Ordinary.BoundaryFragments.ConcatValid",
+              "document": {
+                "bounded_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Bounded",
+                "depth": 24,
+                "length_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Length",
+                "make_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Make",
+                "read_byte_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.ReadByte",
+                "shape": {
+                  "capacity": 1048576,
+                  "element": {
+                    "kind": "bits",
+                    "width": 8
+                  },
+                  "kind": "sequence"
+                },
+                "type_name": "Mpk.CSharp.Ordinary.BoundaryDocument"
+              },
+              "slice_definition": "Mpk.CSharp.Ordinary.BoundaryFragments.Slice",
+              "slice_valid_definition": "Mpk.CSharp.Ordinary.BoundaryFragments.SliceValid",
+              "static_transformers": 81
+            },
+            "parse_definition": "Mpk.CSharp.Ordinary.JsonKeywords.Parse",
+            "static_transformers": 4340
+          },
+          "scalars": [
+            {
+              "kind": "bool",
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.bool.Parse"
+            },
+            {
+              "kind": "null",
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.null.Parse"
+            },
+            {
+              "kind": "u8",
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.u8.Parse"
+            },
+            {
+              "kind": "u16",
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.u16.Parse"
+            },
+            {
+              "kind": "u32",
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.u32.Parse"
+            },
+            {
+              "kind": "i8",
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.i8.Parse"
+            },
+            {
+              "kind": "i16",
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.i16.Parse"
+            },
+            {
+              "kind": "i32",
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.i32.Parse"
+            }
+          ],
+          "signed": [
+            {
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Signed8",
+              "width": 8
+            },
+            {
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Signed16",
+              "width": 16
+            },
+            {
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Signed32",
+              "width": 32
+            }
+          ],
+          "static_transformers": 4713,
+          "string_frame_definition": "Mpk.CSharp.Ordinary.JsonStringParse.Frame.Parse",
+          "string_frame_header_definition": "Mpk.CSharp.Ordinary.JsonStringParse.Frame.Header",
+          "string_frame_value_definition": "Mpk.CSharp.Ordinary.JsonStringParse.Frame.Value",
+          "strings": {
+            "consumed_definition": "Mpk.CSharp.Ordinary.JsonStringParse.Consumed",
+            "document": {
+              "bounded_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Bounded",
+              "depth": 24,
+              "length_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Length",
+              "make_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Make",
+              "read_byte_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.ReadByte",
+              "shape": {
+                "capacity": 1048576,
+                "element": {
+                  "kind": "bits",
+                  "width": 8
+                },
+                "kind": "sequence"
+              },
+              "type_name": "Mpk.CSharp.Ordinary.BoundaryDocument"
+            },
+            "fragments": {
+              "concat_definition": "Mpk.CSharp.Ordinary.BoundaryFragments.Concat",
+              "concat_valid_definition": "Mpk.CSharp.Ordinary.BoundaryFragments.ConcatValid",
+              "document": {
+                "bounded_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Bounded",
+                "depth": 24,
+                "length_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Length",
+                "make_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Make",
+                "read_byte_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.ReadByte",
+                "shape": {
+                  "capacity": 1048576,
+                  "element": {
+                    "kind": "bits",
+                    "width": 8
+                  },
+                  "kind": "sequence"
+                },
+                "type_name": "Mpk.CSharp.Ordinary.BoundaryDocument"
+              },
+              "slice_definition": "Mpk.CSharp.Ordinary.BoundaryFragments.Slice",
+              "slice_valid_definition": "Mpk.CSharp.Ordinary.BoundaryFragments.SliceValid",
+              "static_transformers": 81
+            },
+            "prefix_valid_definition": "Mpk.CSharp.Ordinary.JsonStringParse.PrefixValid",
+            "prefix_value_definition": "Mpk.CSharp.Ordinary.JsonStringParse.PrefixValue",
+            "scan_steps": 8193,
+            "state_depth": 19,
+            "static_transformers": 4312,
+            "valid_definition": "Mpk.CSharp.Ordinary.JsonStringParse.Valid",
+            "value_definition": "Mpk.CSharp.Ordinary.JsonStringParse.Value",
+            "value_depth": 19
+          },
+          "unsigned": [
+            {
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Unsigned8",
+              "width": 8
+            },
+            {
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Unsigned16",
+              "width": 16
+            },
+            {
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Unsigned32",
+              "width": 32
+            },
+            {
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Unsigned64",
+              "width": 64
+            }
+          ]
+        },
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_json_tokens.v1",
+        "source_ir_sha256": "db528d90eb5b1cad7733ae5643b2d65f31eb5ec0b211d8645460684f482b861f"
+      },
+      "terms": 56122
+    },
+    {
+      "declarations": 812,
+      "id": "document-decb5507362a7672c711a5befd63efc1038c2c0a86ee20137a1c4c472e0d1684",
+      "metadata": {
+        "boundary_program_sha256": "1b80d10e2ff9c2328f76616b818b8ff051c975b3e29c8e14cf49b07485b76c5a",
+        "certificate_sha256": "62052349863eff9c197184b5238b3949184c37d30d05d1b610aacc8074c36580",
+        "definition": {
+          "keywords": {
+            "document": {
+              "bounded_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Bounded",
+              "depth": 24,
+              "length_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Length",
+              "make_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Make",
+              "read_byte_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.ReadByte",
+              "shape": {
+                "capacity": 1048576,
+                "element": {
+                  "kind": "bits",
+                  "width": 8
+                },
+                "kind": "sequence"
+              },
+              "type_name": "Mpk.CSharp.Ordinary.BoundaryDocument"
+            },
+            "fragments": {
+              "concat_definition": "Mpk.CSharp.Ordinary.BoundaryFragments.Concat",
+              "concat_valid_definition": "Mpk.CSharp.Ordinary.BoundaryFragments.ConcatValid",
+              "document": {
+                "bounded_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Bounded",
+                "depth": 24,
+                "length_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Length",
+                "make_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Make",
+                "read_byte_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.ReadByte",
+                "shape": {
+                  "capacity": 1048576,
+                  "element": {
+                    "kind": "bits",
+                    "width": 8
+                  },
+                  "kind": "sequence"
+                },
+                "type_name": "Mpk.CSharp.Ordinary.BoundaryDocument"
+              },
+              "slice_definition": "Mpk.CSharp.Ordinary.BoundaryFragments.Slice",
+              "slice_valid_definition": "Mpk.CSharp.Ordinary.BoundaryFragments.SliceValid",
+              "static_transformers": 81
+            },
+            "parse_definition": "Mpk.CSharp.Ordinary.JsonKeywords.Parse",
+            "static_transformers": 4340
+          },
+          "scalars": [
+            {
+              "kind": "bool",
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.bool.Parse"
+            },
+            {
+              "kind": "null",
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.null.Parse"
+            },
+            {
+              "kind": "u8",
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.u8.Parse"
+            },
+            {
+              "kind": "u16",
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.u16.Parse"
+            },
+            {
+              "kind": "u32",
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.u32.Parse"
+            },
+            {
+              "kind": "i8",
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.i8.Parse"
+            },
+            {
+              "kind": "i16",
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.i16.Parse"
+            },
+            {
+              "kind": "i32",
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.i32.Parse"
+            }
+          ],
+          "signed": [
+            {
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Signed8",
+              "width": 8
+            },
+            {
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Signed16",
+              "width": 16
+            },
+            {
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Signed32",
+              "width": 32
+            }
+          ],
+          "static_transformers": 4713,
+          "string_frame_definition": "Mpk.CSharp.Ordinary.JsonStringParse.Frame.Parse",
+          "string_frame_header_definition": "Mpk.CSharp.Ordinary.JsonStringParse.Frame.Header",
+          "string_frame_value_definition": "Mpk.CSharp.Ordinary.JsonStringParse.Frame.Value",
+          "strings": {
+            "consumed_definition": "Mpk.CSharp.Ordinary.JsonStringParse.Consumed",
+            "document": {
+              "bounded_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Bounded",
+              "depth": 24,
+              "length_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Length",
+              "make_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Make",
+              "read_byte_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.ReadByte",
+              "shape": {
+                "capacity": 1048576,
+                "element": {
+                  "kind": "bits",
+                  "width": 8
+                },
+                "kind": "sequence"
+              },
+              "type_name": "Mpk.CSharp.Ordinary.BoundaryDocument"
+            },
+            "fragments": {
+              "concat_definition": "Mpk.CSharp.Ordinary.BoundaryFragments.Concat",
+              "concat_valid_definition": "Mpk.CSharp.Ordinary.BoundaryFragments.ConcatValid",
+              "document": {
+                "bounded_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Bounded",
+                "depth": 24,
+                "length_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Length",
+                "make_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Make",
+                "read_byte_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.ReadByte",
+                "shape": {
+                  "capacity": 1048576,
+                  "element": {
+                    "kind": "bits",
+                    "width": 8
+                  },
+                  "kind": "sequence"
+                },
+                "type_name": "Mpk.CSharp.Ordinary.BoundaryDocument"
+              },
+              "slice_definition": "Mpk.CSharp.Ordinary.BoundaryFragments.Slice",
+              "slice_valid_definition": "Mpk.CSharp.Ordinary.BoundaryFragments.SliceValid",
+              "static_transformers": 81
+            },
+            "prefix_valid_definition": "Mpk.CSharp.Ordinary.JsonStringParse.PrefixValid",
+            "prefix_value_definition": "Mpk.CSharp.Ordinary.JsonStringParse.PrefixValue",
+            "scan_steps": 8193,
+            "state_depth": 19,
+            "static_transformers": 4312,
+            "valid_definition": "Mpk.CSharp.Ordinary.JsonStringParse.Valid",
+            "value_definition": "Mpk.CSharp.Ordinary.JsonStringParse.Value",
+            "value_depth": 19
+          },
+          "unsigned": [
+            {
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Unsigned8",
+              "width": 8
+            },
+            {
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Unsigned16",
+              "width": 16
+            },
+            {
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Unsigned32",
+              "width": 32
+            },
+            {
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Unsigned64",
+              "width": 64
+            }
+          ]
+        },
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_json_tokens.v1",
+        "source_ir_sha256": "def79ea5f2c445c038973363ab0055b51cc7663a3fe41450e787e9aafd73155f"
+      },
+      "terms": 56122
+    },
+    {
+      "declarations": 812,
+      "id": "document-6b96fc4eed95a1d33fa5784b9062f02fa07ac65b6aef2b4100bb91e9c2f1a613",
+      "metadata": {
+        "boundary_program_sha256": "89ce2a410ce76aa49a119c6bffc8281641f787f7f67d852982d4d7cc973a27a3",
+        "certificate_sha256": "62052349863eff9c197184b5238b3949184c37d30d05d1b610aacc8074c36580",
+        "definition": {
+          "keywords": {
+            "document": {
+              "bounded_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Bounded",
+              "depth": 24,
+              "length_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Length",
+              "make_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Make",
+              "read_byte_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.ReadByte",
+              "shape": {
+                "capacity": 1048576,
+                "element": {
+                  "kind": "bits",
+                  "width": 8
+                },
+                "kind": "sequence"
+              },
+              "type_name": "Mpk.CSharp.Ordinary.BoundaryDocument"
+            },
+            "fragments": {
+              "concat_definition": "Mpk.CSharp.Ordinary.BoundaryFragments.Concat",
+              "concat_valid_definition": "Mpk.CSharp.Ordinary.BoundaryFragments.ConcatValid",
+              "document": {
+                "bounded_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Bounded",
+                "depth": 24,
+                "length_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Length",
+                "make_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Make",
+                "read_byte_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.ReadByte",
+                "shape": {
+                  "capacity": 1048576,
+                  "element": {
+                    "kind": "bits",
+                    "width": 8
+                  },
+                  "kind": "sequence"
+                },
+                "type_name": "Mpk.CSharp.Ordinary.BoundaryDocument"
+              },
+              "slice_definition": "Mpk.CSharp.Ordinary.BoundaryFragments.Slice",
+              "slice_valid_definition": "Mpk.CSharp.Ordinary.BoundaryFragments.SliceValid",
+              "static_transformers": 81
+            },
+            "parse_definition": "Mpk.CSharp.Ordinary.JsonKeywords.Parse",
+            "static_transformers": 4340
+          },
+          "scalars": [
+            {
+              "kind": "bool",
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.bool.Parse"
+            },
+            {
+              "kind": "null",
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.null.Parse"
+            },
+            {
+              "kind": "u8",
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.u8.Parse"
+            },
+            {
+              "kind": "u16",
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.u16.Parse"
+            },
+            {
+              "kind": "u32",
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.u32.Parse"
+            },
+            {
+              "kind": "i8",
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.i8.Parse"
+            },
+            {
+              "kind": "i16",
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.i16.Parse"
+            },
+            {
+              "kind": "i32",
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.i32.Parse"
+            }
+          ],
+          "signed": [
+            {
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Signed8",
+              "width": 8
+            },
+            {
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Signed16",
+              "width": 16
+            },
+            {
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Signed32",
+              "width": 32
+            }
+          ],
+          "static_transformers": 4713,
+          "string_frame_definition": "Mpk.CSharp.Ordinary.JsonStringParse.Frame.Parse",
+          "string_frame_header_definition": "Mpk.CSharp.Ordinary.JsonStringParse.Frame.Header",
+          "string_frame_value_definition": "Mpk.CSharp.Ordinary.JsonStringParse.Frame.Value",
+          "strings": {
+            "consumed_definition": "Mpk.CSharp.Ordinary.JsonStringParse.Consumed",
+            "document": {
+              "bounded_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Bounded",
+              "depth": 24,
+              "length_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Length",
+              "make_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Make",
+              "read_byte_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.ReadByte",
+              "shape": {
+                "capacity": 1048576,
+                "element": {
+                  "kind": "bits",
+                  "width": 8
+                },
+                "kind": "sequence"
+              },
+              "type_name": "Mpk.CSharp.Ordinary.BoundaryDocument"
+            },
+            "fragments": {
+              "concat_definition": "Mpk.CSharp.Ordinary.BoundaryFragments.Concat",
+              "concat_valid_definition": "Mpk.CSharp.Ordinary.BoundaryFragments.ConcatValid",
+              "document": {
+                "bounded_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Bounded",
+                "depth": 24,
+                "length_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Length",
+                "make_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Make",
+                "read_byte_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.ReadByte",
+                "shape": {
+                  "capacity": 1048576,
+                  "element": {
+                    "kind": "bits",
+                    "width": 8
+                  },
+                  "kind": "sequence"
+                },
+                "type_name": "Mpk.CSharp.Ordinary.BoundaryDocument"
+              },
+              "slice_definition": "Mpk.CSharp.Ordinary.BoundaryFragments.Slice",
+              "slice_valid_definition": "Mpk.CSharp.Ordinary.BoundaryFragments.SliceValid",
+              "static_transformers": 81
+            },
+            "prefix_valid_definition": "Mpk.CSharp.Ordinary.JsonStringParse.PrefixValid",
+            "prefix_value_definition": "Mpk.CSharp.Ordinary.JsonStringParse.PrefixValue",
+            "scan_steps": 8193,
+            "state_depth": 19,
+            "static_transformers": 4312,
+            "valid_definition": "Mpk.CSharp.Ordinary.JsonStringParse.Valid",
+            "value_definition": "Mpk.CSharp.Ordinary.JsonStringParse.Value",
+            "value_depth": 19
+          },
+          "unsigned": [
+            {
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Unsigned8",
+              "width": 8
+            },
+            {
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Unsigned16",
+              "width": 16
+            },
+            {
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Unsigned32",
+              "width": 32
+            },
+            {
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Unsigned64",
+              "width": 64
+            }
+          ]
+        },
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_json_tokens.v1",
+        "source_ir_sha256": "3c706bb36d5d68ed88daa494de36a51a9cb1f3560edb840393d3a49f237848a8"
+      },
+      "terms": 56122
+    }
+  ]
+}

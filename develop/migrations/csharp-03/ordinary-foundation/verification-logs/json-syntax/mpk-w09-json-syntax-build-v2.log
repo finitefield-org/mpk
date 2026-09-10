@@ -1,0 +1,47 @@
+    Checking mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error[E0631]: type mismatch in function arguments
+   --> crates/mpk-vc/src/csharp_practical_ordinary_json_syntax.rs:256:27
+    |
+256 |                 .and_then(J::as_str)
+    |                  -------- ^^^^^^^^^ expected due to this
+    |                  |
+    |                  required by a bound introduced by this call
+    |
+   ::: crates/mpk-vc/src/csharp_practical_source_artifacts.rs:468:5
+    |
+468 |     pub fn as_str(&self) -> Option<&str> {
+    |     ------------------------------------ found signature defined here
+    |
+    = note: expected function signature `fn(&serde_json::Value) -> _`
+               found function signature `fn(&PracticalJsonValue) -> _`
+note: required by a bound in `std::option::Option::<T>::and_then`
+   --> /rustc/8bab26f4f68e0e26f0bb7960be334d5b520ea452/library/core/src/option.rs:1538:4
+help: consider wrapping the function in a closure
+    |
+256 |                 .and_then(|arg0: &serde_json::Value| J::as_str(/* &PracticalJsonValue */))
+    |                           ++++++++++++++++++++++++++          +++++++++++++++++++++++++++
+
+error[E0631]: type mismatch in function arguments
+   --> crates/mpk-vc/src/csharp_practical_ordinary_json_syntax.rs:260:27
+    |
+260 |                 .and_then(J::as_str)
+    |                  -------- ^^^^^^^^^ expected due to this
+    |                  |
+    |                  required by a bound introduced by this call
+    |
+   ::: crates/mpk-vc/src/csharp_practical_source_artifacts.rs:468:5
+    |
+468 |     pub fn as_str(&self) -> Option<&str> {
+    |     ------------------------------------ found signature defined here
+    |
+    = note: expected function signature `fn(&serde_json::Value) -> _`
+               found function signature `fn(&PracticalJsonValue) -> _`
+note: required by a bound in `std::option::Option::<T>::and_then`
+   --> /rustc/8bab26f4f68e0e26f0bb7960be334d5b520ea452/library/core/src/option.rs:1538:4
+help: consider wrapping the function in a closure
+    |
+260 |                 .and_then(|arg0: &serde_json::Value| J::as_str(/* &PracticalJsonValue */))
+    |                           ++++++++++++++++++++++++++          +++++++++++++++++++++++++++
+
+For more information about this error, try `rustc --explain E0631`.
+error: could not compile `mpk-vc` (lib) due to 2 previous errors

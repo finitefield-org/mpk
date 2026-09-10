@@ -1,0 +1,118 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.fixed_codec_clause_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "fixed_codec_contract_component_targeted_verification_passed",
+  "source_tags": [
+    "codec_parse",
+    "codec_format"
+  ],
+  "codec_ids": [
+    "binary32",
+    "binary64",
+    "guid.n",
+    "guid.d",
+    "date",
+    "time"
+  ],
+  "capture": "fixed-codec-clauses/capture-receipt.json",
+  "certificates": "fixed-codec-clauses/certificates.json",
+  "completed": [
+    "Seven frontend source accepts",
+    "24 unchanged existing byte pins: hex 11, calendar 3, integer contracts 10",
+    "Two source tests passed: 44 runtime contract conditions, 56 direct parse cases and 21,088 format/composition bit observations",
+    "Six individual contexts: 12 aliases and full dependency closures matched",
+    "Mixed context: 44 reconstructed attachments, 12 aliases and full dependency closures matched; individual runtime cases not repeated",
+    "Exact import and individual result-metadata corruption rejection passed",
+    "Scoped inventory, clippy, Rust/Go format and Rust CLI checker build passed",
+    "Seven completed candidates pinned; 2,730,888 decoded bytes; largest 1,283,008",
+    "All seven same-byte Rust/Go checker candidates passed: zero axioms, agreeing reports and actual hash corruption rejection; 254.248s",
+    "Terminal PASS names, current candidate hashes/sizes, metadata, tested copies, captures and retained logs reconciled",
+    "Final direct component review: no remaining actionable findings"
+  ],
+  "live_jobs": [],
+  "remaining": [],
+  "review": "unit-4-fixed-codec-clauses-review.md",
+  "verification_logs": [
+    {
+      "log": "verification-logs/fixed-codec-clauses/mpk-w09-fixed-codec-clauses-check-v1.log",
+      "sha256": "02aa2ff6aa7a6a29caaa798a6e74c06f0e9286c1d7aafb31fa8ba6d273d4d73a",
+      "result": "library check passed"
+    },
+    {
+      "log": "verification-logs/fixed-codec-clauses/mpk-w09-fixed-codec-requests-v1.log",
+      "sha256": "87a252f8f8dd115da2e53b2989fda308b770a627015ea5a0178953067d66989a",
+      "result": "six individual requests generated; superseded by the seven-context fixture"
+    },
+    {
+      "log": "verification-logs/fixed-codec-clauses/mpk-w09-fixed-codec-requests-v2.log",
+      "sha256": "a83a26c3a23f741e243906d7db60e1830ef8ec3499fc01d608a3976a902c834b",
+      "result": "seven requests generated including mixed codec context"
+    },
+    {
+      "log": "verification-logs/fixed-codec-clauses/mpk-w09-fixed-codec-capture-v1.log",
+      "sha256": "b54783e7f03a494ff5bd47f4478ef297095ffb7feeb71eefcecd239ae331398b",
+      "result": "seven fresh frontend accepts"
+    },
+    {
+      "log": "verification-logs/fixed-codec-clauses/mpk-w09-fixed-codec-hex-pins-v1.log",
+      "sha256": "6bf0766752d08328949d255cf686f2ba8c11a62d81b8a6ab6118f1f566ea0301",
+      "result": "11 hex byte pins matched; 7.34s"
+    },
+    {
+      "log": "verification-logs/fixed-codec-clauses/mpk-w09-fixed-codec-calendar-pins-v1.log",
+      "sha256": "f16a23174a5b933abb02a9806f9b50cbbe29d31f4a19b9ffa5bdc545f1f72b53",
+      "result": "3 calendar byte pins matched; 4.06s"
+    },
+    {
+      "log": "verification-logs/fixed-codec-clauses/mpk-w09-fixed-codec-integer-pins-v1.log",
+      "sha256": "62cd3108f1ede28f10aff7c2b45a95ddefeee506d44dd14cf7835600750aef5e",
+      "result": "10 integer contract byte pins matched; 8.67s"
+    },
+    {
+      "log": "verification-logs/fixed-codec-clauses/mpk-w09-fixed-codec-clauses-clippy-v1.log",
+      "sha256": "23673fbbeda5d5a2c79f1f70b28ee2dc479726d5fec9db64c822d98767517c01",
+      "result": "affected library/integration test clippy passed"
+    },
+    {
+      "log": "verification-logs/fixed-codec-clauses/mpk-w09-fixed-codec-clauses-inventory-v1.log",
+      "sha256": "825c2eddc306bff80b41f3c83e688158fe419268b4e0bc521554e4e657c8d898",
+      "result": "targeted inventory passed; 15.94s"
+    },
+    {
+      "log": "verification-logs/fixed-codec-clauses/mpk-w09-fixed-codec-clauses-format-v1.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result": "edited Rust format check passed"
+    },
+    {
+      "log": "verification-logs/fixed-codec-clauses/mpk-w09-fixed-codec-clauses-go-format-v1.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result": "Go format check passed"
+    },
+    {
+      "log": "verification-logs/fixed-codec-clauses/mpk-w09-fixed-codec-clauses-source-v1.log",
+      "sha256": "8b58004fb67a84addf6953a243905343055fbcd26247817fe995745e3c061aff",
+      "result": "two targeted tests passed; 44 source conditions, 56 parse cases, 21,088 format/composition bit observations, 44 mixed attachments and 12 mixed aliases/closures; 96.24s"
+    },
+    {
+      "log": "verification-logs/fixed-codec-clauses/mpk-w09-fixed-codec-checker-build-v1.log",
+      "sha256": "279b441645fdd0400f0a9a857a3c1db6b45c3f74fb7ade6984cc54f0ab1f4612",
+      "result": "Rust CLI checker build passed"
+    },
+    {
+      "log": "verification-logs/fixed-codec-clauses/mpk-w09-fixed-codec-clauses-checkers-v1.log",
+      "sha256": "743fc4d8d904ac7e3ca65fbdbc3a2fcd7eb1a2396ad0683eb15372c624770b38",
+      "result": "Seven same-byte dual-checker candidates, zero axioms, agreeing reports and actual hash corruption rejection passed; 254.248s; current bytes/evidence reconciled"
+    }
+  ],
+  "selection_reason": "The shared emitter extraction affects existing hex/calendar generation; the dispatch and test request helper changes affect integer contract generation. Compare those 24 byte pins and test new fixed-codec aliases/source composition and the mixed cache. Prior unchanged standalone arithmetic and integer runtime suites are not rerun.",
+  "full_gate": "deferred to T06-W12",
+  "overall_status": "Original units 3-8 and W09 remain open; commit/push at original-unit boundary.",
+  "repository_state": {
+    "branch": "main",
+    "head": "aaf39bf",
+    "tracked_changes": 43,
+    "untracked_entries": 425,
+    "note": "Preexisting dirty work preserved, including user AGENTS.md. No component commit/push; original unit 4 and W09 remain incomplete."
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "schema": "mpk.csharp_practical.w09.json_string_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "partial_json_string_encoding_verification_in_progress_not_unit_completion",
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_string.rs",
+      "sha256": "81e31ee4afa1154a4c2726e0853f7e8fc10b5c508d1e94176c181578f9396d9f"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_string_tests.rs",
+      "sha256": "32c45f906089131ccfcd907958fe9ff4d1a4bfd837025c1e7362cfb681b18180"
+    }
+  ],
+  "verification": [
+    {
+      "command": "cargo check -p mpk-vc",
+      "log": "/tmp/mpk-w09-json-strings-check-v1.log",
+      "log_sha256": "7ffc7e7b440b28fb46fa5a4b8d17ac810afbc26e94a35e46b68a6ac8c060c63c",
+      "status": "passed",
+      "scope": "Initial production compile in 31.52 seconds; precedes zero-cube construction simplification and explicit final-state sharing."
+    },
+    {
+      "command": "/usr/bin/git diff --check",
+      "status": "passed",
+      "scope": "Outside sandbox, exit zero."
+    },
+    {
+      "command": "cargo fmt --all -- --check",
+      "log": "/tmp/mpk-w09-json-strings-format-v1.log",
+      "status": "passed",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --test csharp_practical_vc -- -D warnings",
+      "log": "/tmp/mpk-w09-json-strings-clippy-v2.log",
+      "status": "passed",
+      "log_sha256": "c7ec544f4233b3206cb63ec781e2c4ad4ccb70ce05d8370fe49846748a0808ff",
+      "scope": "Current production and integration tests passed clippy, including build wait, in 4m 25s."
+    },
+    {
+      "command": "MPK_W09_JSON_STRINGS_OUT=/tmp/mpk-w09-json-strings-v2 cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_json_strings_original_sources -- --nocapture",
+      "log": "/tmp/mpk-w09-json-strings-sources-v2.log",
+      "status": "passed",
+      "log_sha256": "a044ba4a4f88d16bd04e97ca81ef5cf0f9b9b1e4d414b291e5cfddf5d44d5a03",
+      "scope": "All 68 source contexts, three nonempty programs, exact regeneration/import and mutations, empty string encoding: passed in 32.00 seconds."
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "log": "/tmp/mpk-w09-json-strings-inventory-v1.log",
+      "status": "passed",
+      "log_sha256": "a2551cea16361e92095d61791865e6780a72618de533f01670bb20e42cc1fbf8",
+      "scope": "All five inventory checks passed in 47.13 seconds, following build/startup waits."
+    },
+    {
+      "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIJsonStrings$' -count=1 -timeout 0 -v",
+      "cwd": "go-tools/mpk-checker-ref",
+      "log": "/tmp/mpk-w09-json-strings-checkers-v1.log",
+      "status": "passed",
+      "log_sha256": "bc9a21c632180d4b1d027659d77d4858be8b10ef305d01b6b0fb48cb7cda016b",
+      "scope": "All three same-byte certificates accepted by both unchanged checkers with zero axioms and hash-corruption rejection, 69.851 seconds."
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_json_strings_original_sources -- --nocapture",
+      "log": "/tmp/mpk-w09-json-strings-replay-v1.log",
+      "status": "passed",
+      "log_sha256": "7cca5ebd3e75c4d289feba810e80460a1727a6b907564d57a2c1b1eac717389e",
+      "scope": "Exact pinned replay across 68 contexts and all three certificates passed, 43.63 seconds."
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_json_strings_semantics -- --nocapture",
+      "log": "/tmp/mpk-w09-json-strings-semantics-v1.log",
+      "status": "passed",
+      "log_sha256": "b30fa3dd572dbe7daa34dc13805d72406c2445963263c8e0dc39a2c454c61fa1",
+      "scope": "All 344 independent canonical encoding cases plus full-u32 bounds and inactive-storage checks passed in 1970.70 seconds."
+    }
+  ],
+  "failed_attempts": [
+    {
+      "log": "/tmp/mpk-w09-json-strings-sources-v1.log",
+      "status": "build_failed",
+      "reason": "Test core-value read helper shadowed the fixture reader; fixed by parent-qualified fixture read. Session 38994 terminated with exit 101 before v2 started."
+    }
+  ],
+  "live_jobs": [
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_json_strings_full_bound -- --nocapture",
+      "log": "/tmp/mpk-w09-json-strings-full-v1.log",
+      "status": "running",
+      "session_id": 95267
+    }
+  ],
+  "pending_commands": [],
+  "remaining": [
+    "Complete current source/semantic/full-bound/checker validation and scoped direct review.",
+    "JSON grammar/decoding, ordered typed fields, source/native/control/transition relations, registered results and universal proofs, and the rest of original internal units 3–8 remain required.",
+    "No component-only commit or W09 completion. Full check-fast.sh deferred to T06-W12."
+  ],
+  "build_wait_observation": "The same live checker-agreement session 56616 rebuilt mpk-cli while verifying its second UTF-8 certificate; new JSON tests waited for that Cargo build lock. Processes were preserved. Semantic session 60863 subsequently began compiling the current mpk-vc.",
+  "manifest": {
+    "path": "develop/migrations/csharp-03/ordinary-foundation/json-strings/certificates.json",
+    "sha256": "44cef6a4d0750cbd523b52f9855222b60faf1c8f84d608c597a747b7502e0a3a",
+    "contexts_examined": 68,
+    "nonempty_contexts": 3,
+    "terms_per_certificate": 12971,
+    "declarations_per_certificate": 174,
+    "static_transformers_per_certificate": 8292
+  },
+  "runtime_observation": {
+    "command": "sample 88315 1 -file /tmp/mpk-w09-json-strings-semantics-sample-v1.txt",
+    "log": "/tmp/mpk-w09-json-strings-semantics-sample-v1.txt",
+    "sha256": "0fc0d8f50473d383d6690c629336317186641e1afbecd4a798138dc2c4149b91",
+    "result": "Only two sampled stacks were recorded; both were in ordinary evaluation/release paths. This is insufficient to identify a performance bottleneck. No observer change or process restart was made. The live matrix continued past case 176/344."
+  }
+}

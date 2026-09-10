@@ -1,0 +1,191 @@
+{
+  "schema": "mpk.csharp_practical.w09.json_ordered_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "semantic_cell_count_correction_in_progress",
+  "implementation": [
+    "Emit reachable total key relations using the existing Relations compiler in the same Builder with complete dependencies and preserved costs.",
+    "Resolve exact Map inline entry storage and Set reference storage;reuse typed child parsers and the shared bounded-sequence pipeline.",
+    "Require strict comparison against previous key/element at every append;zero complete packet on failed order. Map uses child-container payload join to exclude only its implicit entry cell while retaining JSON depth.",
+    "Preserve ordinary array/sum bytes exactly when no collection hooks are needed."
+  ],
+  "verification": [
+    {
+      "session_id": 69976,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Production library check;18.18s.",
+      "log": "/tmp/mpk-w09-json-ordered-build-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-ordered/mpk-w09-json-ordered-build-v1.log",
+      "log_sha256": "4c465e144d3273f2d739b8593262a7871fc1b7bf6d95c4f0a49afa974fdd41e3"
+    },
+    {
+      "session_id": 11306,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Original four key-context request generation.",
+      "log": "/tmp/mpk-w09-json-ordered-requests-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-ordered/mpk-w09-json-ordered-requests-v1.log",
+      "log_sha256": "4244710619850aadd64d64d22c6af7dc1b75b28158b76155b56f377201fb5ad9"
+    },
+    {
+      "session_id": 3371,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Frozen offline double capture accepted all four original contexts;no profile/frontend changes.",
+      "log": "/tmp/mpk-w09-json-ordered-capture-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-ordered/mpk-w09-json-ordered-capture-v1.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "session_id": 22519,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Original three-sequence/two-source-product fixture has exactly unchanged complete metadata and certificate;24.70s.",
+      "log": "/tmp/mpk-w09-json-ordered-sequence-preservation-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-ordered/mpk-w09-json-ordered-sequence-preservation-v1.log",
+      "log_sha256": "12a0045a5271360295c57c1ca6e8bcf08377f01e6f4d3947215aa5f307cf40f0"
+    },
+    {
+      "session_id": 26883,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Original six-sum fixture has exactly unchanged complete metadata and certificate;27.66s.",
+      "log": "/tmp/mpk-w09-json-ordered-sum-preservation-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-ordered/mpk-w09-json-ordered-sum-preservation-v1.log",
+      "log_sha256": "2302ce308ca6a016cf928718fef3349d282dbf82e3b304749ef1b34704b98daf"
+    },
+    {
+      "session_id": 81042,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Four original contexts,Map/Set layouts,key comparison and join/capacity mutations,import,full primitive/syntax dependency closures and structure limits;97.14s.",
+      "log": "/tmp/mpk-w09-json-ordered-sources-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-ordered/mpk-w09-json-ordered-sources-v1.log",
+      "log_sha256": "188231798b3135b33351b8c0817d965d9539ddd216d2ccc925f04cb237c309d5"
+    },
+    {
+      "session_id": 40025,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Affected production/integration lint before additional high-slot test;45.61s.",
+      "log": "/tmp/mpk-w09-json-ordered-clippy-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-ordered/mpk-w09-json-ordered-clippy-v1.log",
+      "log_sha256": "06926aa32f7e4186134e5bdd5e12a2d6466fbf46759004407a2e35a364a7385d"
+    },
+    {
+      "session_id": 60815,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Consumer fingerprint addition/deletion check;17.09s;no fixture changes needed.",
+      "log": "/tmp/mpk-w09-json-ordered-inventory-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-ordered/mpk-w09-json-ordered-inventory-v1.log",
+      "log_sha256": "9f79e85e91b235e17d503e58646390167d6838ecaa3e66c0367da5f55c3afb80"
+    },
+    {
+      "session_id": 48089,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Twenty-six direct core admission cases at legal integer prefix lengths0,1,2048,2049,4095;0.52s. This is not full-document capacity evidence.",
+      "log": "/tmp/mpk-w09-json-ordered-high-slots-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-ordered/mpk-w09-json-ordered-high-slots-v1.log",
+      "log_sha256": "dd13707708684c754f39a38b053932a4bddc06c9aea06b5770c96ca5ea2ba49e"
+    },
+    {
+      "session_id": null,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Exact accepted request fixture replay.",
+      "log": "/tmp/mpk-w09-json-ordered-request-replay-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-ordered/mpk-w09-json-ordered-request-replay-v1.log",
+      "log_sha256": "5a1ae9320e8c590b6c000d06a3b6067fb660994fa7a04f83a43da17118ed9168"
+    },
+    {
+      "session_id": null,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Scoped Rust format check;Go gofmt listing empty;git diff --check also passes outside sandbox.",
+      "log": "/tmp/mpk-w09-json-ordered-format-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-ordered/mpk-w09-json-ordered-format-v1.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "session_id": 31693,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Final affected production/integration lint including high-slot admission test;8.44s.",
+      "log": "/tmp/mpk-w09-json-ordered-clippy-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-ordered/mpk-w09-json-ordered-clippy-v2.log",
+      "log_sha256": "95f1ea5b6b513d23d413dcff0534e82d212dd8aaf31b4ea70dbb403736ec5186"
+    },
+    {
+      "session_id": 51405,
+      "exit_code": 0,
+      "status": "passed_on_previous_cell_contract",
+      "scope": "Original runtime matrix completed2669.43s. Its string/cumulative-cell expectations are superseded by the cell-count correction review;not evidence for the corrected accounting.",
+      "log": "/tmp/mpk-w09-json-ordered-core-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-ordered/mpk-w09-json-ordered-core-v1.log",
+      "log_sha256": "8407496f04213b688d1097c0b94159c352542ee1aec58d8e5a93a3926feb70ca"
+    },
+    {
+      "session_id": 75907,
+      "exit_code": 0,
+      "status": "passed_historical_candidate",
+      "scope": "Historical pre-correction candidates: all four Map/Set contexts passed both checkers with zero axioms and hash mutation rejection in 3991.331s. This does not establish current replacement-byte acceptance.",
+      "log": "/tmp/mpk-w09-json-ordered-checkers-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-cell-count/mpk-w09-json-ordered-checkers-v1.log",
+      "log_sha256": "3e008d965fd8cfbfe173f4943a12db5e70d931c357e5b79a5c400cdce1b64314"
+    }
+  ],
+  "pins": [
+    {
+      "id": "integer",
+      "path": "develop/migrations/csharp-03/ordinary-foundation/json-ordered/integer.hex",
+      "certificate_sha256": "ea9f26d62421b44a64cb100fb021989d888afa9c987886de56236a13bf37f7ac",
+      "terms": 143414,
+      "declarations": 2198,
+      "static_transformers": 8410
+    },
+    {
+      "id": "decimal",
+      "path": "develop/migrations/csharp-03/ordinary-foundation/json-ordered/decimal.hex",
+      "certificate_sha256": "313701fb596e46b584200c8414d5e17f1d8e47620c8426a22d52d575aa27eddd",
+      "terms": 180327,
+      "declarations": 2644,
+      "static_transformers": 8743
+    },
+    {
+      "id": "string",
+      "path": "develop/migrations/csharp-03/ordinary-foundation/json-ordered/string.hex",
+      "certificate_sha256": "73d3ac34ed6c07daea3aed4dd3473b1f7e653d969102d248fa9f6097767e5367",
+      "terms": 145279,
+      "declarations": 2238,
+      "static_transformers": 8418
+    },
+    {
+      "id": "compound",
+      "path": "develop/migrations/csharp-03/ordinary-foundation/json-ordered/compound.hex",
+      "certificate_sha256": "35ad58ca4c458240011796098dacaff837f08cefcb8bf6c656a862f7825d8a93",
+      "terms": 145832,
+      "declarations": 2281,
+      "static_transformers": 8436
+    }
+  ],
+  "live_jobs": [],
+  "test_selection": "New Map/Set paths,representative integer/decimal/string/compound key comparison integration,and previous-slot high address bits. Exact existing array/sum replay establishes refactor preservation,so their accepted checker matrices and live capacity runs are not repeated. Only the four new candidates go to both checkers. Affected lint/format,request replay and consumer fingerprints;no check-fast or split equivalent in W09.",
+  "review": "unit-4-json-ordered-review.md",
+  "pending": [
+    "Complete corrected candidate checker verification; see unit-4-json-cell-count-progress.json.",
+    "Finish still-running numeric sequence capacity and independent domain verification.",
+    "Complete full boundary relations and remaining W09 units 3-8, including propositions/proofs and assembly/mutation/predecessor audit."
+  ],
+  "completion": "W09 and unit4 incomplete;no component-only commit/push;whole T gate deferred to T06-W12.",
+  "goal_turn_classification": "Progress: implemented Map/Set JSON with existing semantic key relations and role-correct cell joins,generated four original-source candidate contexts,verified preservation and high-slot admission,and consumed successful six-sum dual checking.",
+  "prior_status_before_cell_count_correction": "implemented_source_and_high_slot_checks_passed_full_runtime_and_checkers_running",
+  "superseded_cell_count_evidence": {
+    "review": "unit-4-json-cell-count-review.md",
+    "reason": "The typed JSON header used a16384 cumulative cap and counted strings as1. The frozen typed-value contract is65536 total and1+UTF16 units for strings. Prior checker acceptance proves type checking of old bytes;old cell expectations do not prove the required semantics.",
+    "required": "Regenerate affected candidate bytes,check changed bytes with both checkers,and verify corrected string/cumulative-cell behavior."
+  },
+  "capacity_scope_review": "unit-4-json-cell-count-capacity-scope.md"
+}

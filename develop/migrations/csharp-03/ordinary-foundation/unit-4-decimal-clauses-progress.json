@@ -1,0 +1,199 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.decimal_clause_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "decimal_contract_component_targeted_verification_passed",
+  "implemented": [
+    "Connect decimal unary/binary recipes to unchanged ordinary result and ordered-exception declarations",
+    "Emit separate raw arithmetic failure projections for contract definedness; retain overlapping zero/overflow flags",
+    "Validate exact nominal signatures and failure lists; preserve the integer/floating/quantifier shared cache"
+  ],
+  "verified": [
+    "45 frozen decimal operation signatures and 135 nominal/check-list corruptions pass (15.79s)",
+    "Eight raw flag observations cover all zero/overflow combinations (0.00s)",
+    "33 conversion/rounding/unary metadata pins plus seven certificate pins remain identical (3.94s)",
+    "12 arithmetic metadata pins plus seven certificate pins remain identical (9.05s)",
+    "Four affected quantifier tests pass, including full capacity (170.64s)",
+    "22 existing integer/fixed-codec/floating source certificates and metadata remain identical (14.25s)",
+    "Scoped clippy (19.71s), format, inventory (16.13s), and Rust CLI build passed before later test-fixture-only corrections",
+    "Source v5 completed add overflow definedness rejection and comparisons before later char-fixture failure (overall test failed after 158.34s); candidates v6 also verified both dependency closures, including shared-helper mutation rejection in add",
+    "Nine final native-source candidates passed all 44 public operation aliases/dependency closures, 49 attachments, import/metadata and helper-body mutations (55.54s); this candidate-only test performs no runtime observations",
+    "Nine final candidates pinned: 7154493 decoded bytes total, maximum 1064943. All current bytes, metadata and candidate copies reconciled. Completed v5 add/comparisons contexts are exactly byte/metadata identical.",
+    "Final scoped clippy passed (24.03s); scoped Rust/Go formats clean. Nine accepted requests/responses reconstructed exactly from six retained raw capture transport files.",
+    "Nine same-byte dual-checker cases passed (883.971s), with terminal PASS set/current candidate bytes/metadata/hashes/sizes reconciled.",
+    "Final v7 source test passed all 49 attachments/44 aliases and the nine selected runtime cases/four failures (1365.79s). Combined with the byte-identical completed v5 add overflow case: ten cases/five failures. Current runtime outputs, nine checker candidates, metadata, hashes/sizes, capture receipt and all retained logs reconciled."
+  ],
+  "selection_reason": "Decimal native emitter refactoring requires all 45 existing signature/metadata pins and 14 byte fixtures, plus new raw-condition and adapter checks. Shared scalar cache use requires quantifier tests and 22 existing source certificate pins. Existing decimal arithmetic oracle matrices are unchanged and are not repeated; new original-source paths remain a separate gate. The shared dependency comparison was extended with a decimal-only internal-name option; rerun the existing strict floating closure/runtime test. Further source runtime verification excludes unchanged add after exact byte comparison, to avoid repeating its completed overflow observation. Recheck the artifact/consumer inventory once after adding final decimal and collection certificate manifests and pins.",
+  "fixture_iterations": [
+    "Fixed private test helper access and shared cache tuple consumers after compiler diagnostics",
+    "Public x.Equals(y) rejects the frozen frontend framework_api rule. Internal value_equality remains among 45 adapter checks; 44 operations are representable via existing public C# syntax. Capture only the corrected comparison context; eight identical contexts reuse v2 facts",
+    "First source run failed strict dependency-name comparison before semantic observations. Investigating whether cache-equivalent internal helper names differ; not counted as a pass",
+    "Strict closure comparison found add.AlignInit versus equal.AlignInit: identical shared circuits may acquire the first requesting operation name. A separate decimal-only comparison permits internal helper names to differ, traverses both complete declarations and preserves exact public names. A mutated helper body must reject. Existing strict floating closure/runtime checks passed after this comparator refactor (60.34s).",
+    "Source v4 stopped intentionally after correcting a test mutation that could target an unrelated equality helper; it is not a pass or deterministic production failure.",
+    "Candidate v6 and source v5 rejected conversions because char test literals used integers. Corrected to one-code-unit UTF-16 strings and recapturing only that changed context. Source v5 first completed add (overflow rejection) and comparisons, then failed; reuse only the byte-identical completed context observations."
+  ],
+  "verification_logs": [
+    {
+      "log": "verification-logs/decimal-clauses/mpk-w09-decimal-clauses-signatures-v1.log",
+      "sha256": "b2693b167d52faf584565b44b2de26f1c2ca1ee59e04d03f0f76bc2f7dcd0ef6"
+    },
+    {
+      "log": "verification-logs/decimal-clauses/mpk-w09-decimal-clauses-signatures-v2.log",
+      "sha256": "e632d97b0eb9b6aa53c1b1b383eb41205ca5a2fa184143ffa40c39dd51251bb2"
+    },
+    {
+      "log": "verification-logs/decimal-clauses/mpk-w09-decimal-clauses-arithmetic-pins-v1.log",
+      "sha256": "0fef1bc2f5dd80aa975b67d0c468712f68e3aa79d63289be14d1a717c6cfd257"
+    },
+    {
+      "log": "verification-logs/decimal-clauses/mpk-w09-decimal-clauses-overlap-v1.log",
+      "sha256": "0528a2841bd826e2a3b157426724e5579a5d0d154a7409853e808bc54e6f4638"
+    },
+    {
+      "log": "verification-logs/decimal-clauses/mpk-w09-decimal-clauses-overlap-v2.log",
+      "sha256": "b56829e0b9e7bf581ef71e35eccb813464493b37796d5842e1949495c55e7703"
+    },
+    {
+      "log": "verification-logs/decimal-clauses/mpk-w09-decimal-clauses-dispatch-v1.log",
+      "sha256": "30cd792ecb3a272b950d5a3f8511764993d4d9008f6dc28f04b048def1bd624c"
+    },
+    {
+      "log": "verification-logs/decimal-clauses/mpk-w09-decimal-clauses-quantifiers-v1.log",
+      "sha256": "2198826ed9977b26977bacfa7dfe2ac11929a1c581e7c6166f22374ceb4a1a63"
+    },
+    {
+      "log": "verification-logs/decimal-clauses/mpk-w09-decimal-clauses-existing-pins-v1.log",
+      "sha256": "7ff046c708168a5aa92021e4bfded9c46b04d9ec3c7bbb2da76bc4e0d455903d"
+    },
+    {
+      "log": "verification-logs/decimal-clauses/mpk-w09-decimal-clauses-clippy-v1.log",
+      "sha256": "71827658c865dc8cacdcaa52ece2ee007ccec0d2d959a20684b97f99ef832b3e"
+    },
+    {
+      "log": "verification-logs/decimal-clauses/mpk-w09-decimal-clauses-clippy-v2.log",
+      "sha256": "17b3a16782f9b37ffdd4e9070400f8e1ee5e8746e62a77d0bd4711b4de30d48c"
+    },
+    {
+      "log": "verification-logs/decimal-clauses/mpk-w09-decimal-clauses-inventory-v1.log",
+      "sha256": "7e35c50a639476ee6bb6c4368f6ad96dfeb85bae0d17c20b552a8aeb45736bd1"
+    },
+    {
+      "log": "verification-logs/decimal-clauses/mpk-w09-decimal-clauses-format-v1.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "log": "verification-logs/decimal-clauses/mpk-w09-decimal-clauses-checker-build-v1.log",
+      "sha256": "5dd9b8134d0d4e53cc818b4133f2f21cd11a352db6f34640704c2111d8f0679f"
+    },
+    {
+      "log": "verification-logs/decimal-clauses/mpk-w09-decimal-clauses-source-v2.log",
+      "sha256": "16f9fd06a7c8cc795a965f0c044ca8ecc33cdae8a79ddd2af46dc41634a44d38"
+    },
+    {
+      "log": "verification-logs/decimal-clauses/mpk-w09-decimal-clause-requests-v1.log",
+      "sha256": "ccbe61ec7c257c2bf186b1bd2c54f0273f5893a7eaf639e63fa54e48c753ae21"
+    },
+    {
+      "log": "verification-logs/decimal-clauses/mpk-w09-decimal-clause-requests-v2.log",
+      "sha256": "4d68364ac9e6dbc209629402babec2b36fc016774defa50c2df7a3be7800aa1d"
+    },
+    {
+      "log": "verification-logs/decimal-clauses/mpk-w09-decimal-clause-requests-v3.log",
+      "sha256": "b126573bded52ac905e1c35a35c600319b14baf2a1a4b8fd82c0be94357ea7af"
+    },
+    {
+      "log": "verification-logs/decimal-clauses/mpk-w09-decimal-clause-requests-v4.log",
+      "sha256": "9519d8de381971203420472c2b80585a79b622830e83bd0d15b6bab4d6024563"
+    },
+    {
+      "log": "verification-logs/decimal-clauses/mpk-w09-decimal-clause-capture-v2.log",
+      "sha256": "b54783e7f03a494ff5bd47f4478ef297095ffb7feeb71eefcecd239ae331398b"
+    },
+    {
+      "log": "verification-logs/decimal-clauses/mpk-w09-decimal-comparison-capture-v3.log",
+      "sha256": "b54783e7f03a494ff5bd47f4478ef297095ffb7feeb71eefcecd239ae331398b"
+    },
+    {
+      "log": "verification-logs/decimal-clauses/mpk-w09-decimal-clauses-source-v3.log",
+      "sha256": "63edc94f4776e2aa8b6ecb00e66d0922ed6807009081753de0df8e7ae312bef4"
+    },
+    {
+      "log": "verification-logs/decimal-clauses/mpk-w09-decimal-clauses-source-v4.log",
+      "sha256": "2c81b41e1e5c076fba643ebfae795ef0966ea62a186d67af4ce5f13daa950b67"
+    },
+    {
+      "log": "verification-logs/decimal-clauses/mpk-w09-decimal-clauses-source-v5.log",
+      "sha256": "0386c4c31206300ff18c71127fae68127070296a3f4b1311dbb85112862a9d20"
+    },
+    {
+      "log": "verification-logs/decimal-clauses/mpk-w09-decimal-clauses-candidates-v6.log",
+      "sha256": "1ac1ec4e815bb7a85201d75cd1944a60bb6e7cdfce5900f91c7b6e38268da645"
+    },
+    {
+      "log": "verification-logs/decimal-clauses/mpk-w09-decimal-clauses-clippy-v3.log",
+      "sha256": "3a956b718c1b3080d85ad89619f566f1e4b03852d1dd578c29521b6973fe63b9"
+    },
+    {
+      "log": "verification-logs/decimal-clauses/mpk-w09-decimal-clauses-clippy-v4.log",
+      "sha256": "3f0025839b0a801f4b0c50a1d4f86e158f4dc2cf7952dfaff95708916751622a"
+    },
+    {
+      "log": "verification-logs/decimal-clauses/mpk-w09-decimal-clauses-format-v2.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "log": "verification-logs/decimal-clauses/mpk-w09-decimal-clauses-comparator-regression-v1.log",
+      "sha256": "32200e5bba6d52c2b415faba181798e64d3784352ad6f14d2207d15e1c81b221"
+    },
+    {
+      "log": "verification-logs/decimal-clauses/mpk-w09-decimal-conversion-capture-v4.log",
+      "sha256": "b54783e7f03a494ff5bd47f4478ef297095ffb7feeb71eefcecd239ae331398b"
+    },
+    {
+      "log": "verification-logs/decimal-clauses/mpk-w09-decimal-clauses-candidates-v7.log",
+      "sha256": "7a9d11dcc1f0db5d7e945b84fde26cd13ed970fdbe741616b572b78552fd165c"
+    },
+    {
+      "log": "verification-logs/decimal-clauses/mpk-w09-decimal-clauses-clippy-v5.log",
+      "sha256": "dd540443e7b5d21076aee25a362449dd8406e6e7cb8fce2fbf98b21c258c6dc4"
+    },
+    {
+      "log": "verification-logs/decimal-clauses/mpk-w09-decimal-clauses-format-v3.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "log": "verification-logs/decimal-clauses/mpk-w09-decimal-clauses-go-format-v1.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "log": "verification-logs/decimal-clauses/mpk-w09-decimal-collection-final-inventory-v1.log",
+      "sha256": "de81df81dc5a1e2d71cabd9721bdb563ac10b45604bc70ace855fef4710ae3fb",
+      "result": "Final artifact/consumer inventory passed after pinning both nine-candidate sets; 15.99s"
+    },
+    {
+      "log": "verification-logs/decimal-clauses/mpk-w09-decimal-clauses-checkers-v1.log",
+      "sha256": "35bb21f1966f68aaba3a222bb4c56fd098b451e385108ebecc8dd8c72d88c88a",
+      "result": "All nine same-byte Rust/Go checker cases passed; zero axioms, report agreement, and hash corruption rejection; 883.971s"
+    },
+    {
+      "log": "verification-logs/decimal-clauses/mpk-w09-decimal-clauses-source-v7.log",
+      "sha256": "9a0e569fa1f67f982df9265c2db12f29d75aa330fb556e87cf8bf462652b5e58",
+      "result": "Final nine selected runtime cases passed, including four failure rejections; 1365.79s. Reuse v5 add overflow on identical bytes for ten combined cases/five failures."
+    }
+  ],
+  "remaining": [],
+  "full_gate": "deferred to T06-W12",
+  "overall_status": "Original units 3-8 and W09 remain open; no component commit/push.",
+  "live_jobs": [],
+  "capture": "decimal-clauses/capture-receipt.json",
+  "certificates": "decimal-clauses/certificates.json",
+  "review": "unit-4-decimal-clauses-review.md",
+  "repository_state": {
+    "branch": "main",
+    "head": "aaf39bf",
+    "tracked_changes": 45,
+    "untracked_entries": 437,
+    "note": "Preexisting dirty work and user AGENTS.md preserved. No component commit/push. Original units 3-8 and W09 are open."
+  },
+  "observer_note": "Runtime proof observations above use the pre-unused-argument-cache observer binary. A separate test-only observer optimization experiment is ongoing and is not represented as a new application proof or completed W09 unit."
+}

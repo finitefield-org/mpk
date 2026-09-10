@@ -1,0 +1,161 @@
+{
+  "contexts_examined": 67,
+  "sources": [
+    {
+      "declarations": 752,
+      "id": "date",
+      "metadata": {
+        "certificate_sha256": "cf7fde10cd1459438f2d4f874470d62511825d59b42a7b67cc0fe4c797071e31",
+        "definitions": [
+          {
+            "codec_id": "date",
+            "format_definition": "Mpk.CSharp.Ordinary.CalendarCodec.date.Format",
+            "parse_definition": "Mpk.CSharp.Ordinary.CalendarCodec.date.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.date.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "text_length": 10,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.date.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_calendar_codecs.v1",
+        "source_ir_sha256": "68114b462d2393c19200ff334c22a8caf9acc31f2fa0458e7f8d78d621186d59"
+      },
+      "terms": 72781
+    },
+    {
+      "declarations": 752,
+      "id": "codec-date-source",
+      "metadata": {
+        "certificate_sha256": "cf7fde10cd1459438f2d4f874470d62511825d59b42a7b67cc0fe4c797071e31",
+        "definitions": [
+          {
+            "codec_id": "date",
+            "format_definition": "Mpk.CSharp.Ordinary.CalendarCodec.date.Format",
+            "parse_definition": "Mpk.CSharp.Ordinary.CalendarCodec.date.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.date.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "text_length": 10,
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.date.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_calendar_codecs.v1",
+        "source_ir_sha256": "68114b462d2393c19200ff334c22a8caf9acc31f2fa0458e7f8d78d621186d59"
+      },
+      "terms": 72781
+    },
+    {
+      "declarations": 632,
+      "id": "codec-time-source",
+      "metadata": {
+        "certificate_sha256": "25cffcbea885101c282e3e6bb64a57bcf617048243625c4009c3420e0b438b24",
+        "definitions": [
+          {
+            "codec_id": "time",
+            "format_definition": "Mpk.CSharp.Ordinary.CalendarCodec.time.Format",
+            "parse_definition": "Mpk.CSharp.Ordinary.CalendarCodec.time.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.time.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "text_length": 16,
+            "value_depth": 6,
+            "value_type_id": "mpk.csharp.value.time.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_calendar_codecs.v1",
+        "source_ir_sha256": "338077aa1c90fd991b1f5757cd62e9224c2585a6925da17e193123745203fd52"
+      },
+      "terms": 60904
+    }
+  ]
+}

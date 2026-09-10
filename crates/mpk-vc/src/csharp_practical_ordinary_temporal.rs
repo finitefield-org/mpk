@@ -248,6 +248,9 @@ impl OrdinaryTemporalProgram {
         serde_json::to_vec(self).expect("typed temporal program")
     }
 }
+pub(in super::super) fn emit_temporal(b: &mut Builder, id: &str) -> R<OrdinaryScalarDefinition> {
+    emit_circuit(b, temporal_circuit(id)?, "Temporal")
+}
 pub fn generate_csharp_practical_ordinary_temporal(
     vir: &ValidatedPracticalVir,
 ) -> R<OrdinaryTemporalProgram> {

@@ -1,0 +1,108 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.string_clause_capture.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "date": "2026-09-11",
+  "files": [
+    {
+      "path": "requests.json",
+      "bytes": 93148,
+      "sha256": "7236a33c3d681cfc7d478a63aafe01248df1bce5230a19623bdacded35b4258c"
+    },
+    {
+      "path": "responses.json",
+      "bytes": 135129,
+      "sha256": "f2713f7851d87745f89273038e97c6d7a97f92e9d9ae91972d6aa044ceea0f86"
+    },
+    {
+      "path": "capture-inputs.json",
+      "bytes": 19763,
+      "sha256": "8befa15a01a4209c159d509013d3ab9b28b8ded95f1ae909b24f655390354c2c"
+    }
+  ],
+  "source_contexts": 6,
+  "frontend_accepts": 6,
+  "capture_stage": "/tmp/mpk-w09-public-domain-capture-stage",
+  "stage_verification": "All 88 staged files revalidated against repository counterparts; 71 pinned input files checked.",
+  "docker_image": "python@sha256:933b46a028fd786c9c3d426ebabc237e29a15912231ea8de576e95f0e4f41a4c",
+  "platform": "linux/amd64",
+  "isolation": {
+    "network": "none",
+    "root": "read-only",
+    "stage_mount": "read-only",
+    "memory": "4g",
+    "cpus": 2,
+    "pids": 256,
+    "tmpfs": "/tmp, rw exec size=4g mode=1777",
+    "seccomp": "default",
+    "no_new_privileges": true,
+    "capabilities": [
+      "SYS_ADMIN",
+      "SETUID",
+      "SETGID",
+      "SETFCAP"
+    ]
+  },
+  "route": "unchanged gate.test_data_phase through diagnose.py",
+  "successful_log": [
+    "../verification-logs/string-clauses/string-clause-capture-v2.log",
+    "../verification-logs/string-clauses/string-clause-capture-v3.log"
+  ],
+  "scope": "Source facts only; generated contract and application proofs are separate gates.",
+  "raw_transports": [
+    {
+      "path": "verification-logs/string-clauses/capture-v1-requests.json",
+      "bytes": 93315,
+      "sha256": "2a8c5e7b86b22ee55fddd1e863bd10d0a7bd05a4c209e5ac2751e189648a7535"
+    },
+    {
+      "path": "verification-logs/string-clauses/capture-v1-responses.json",
+      "bytes": 71907,
+      "sha256": "5f1665e3e4ac89618f62af5f718b784e9c1e9da35fc3f9eba5cd91996077c2c1"
+    },
+    {
+      "path": "verification-logs/string-clauses/capture-v2-requests.json",
+      "bytes": 93112,
+      "sha256": "89b7c9b828b0de3e15d3bee308566031b96a55a530ecff3d51ce9cf844975e19"
+    },
+    {
+      "path": "verification-logs/string-clauses/capture-v2-responses.json",
+      "bytes": 88806,
+      "sha256": "1899b276d6889677167577dee3085badbbbeaa24341f0801ce984ab27255fddb"
+    },
+    {
+      "path": "verification-logs/string-clauses/capture-v3-ordinal-requests.json",
+      "bytes": 27697,
+      "sha256": "924bb0414464fd0691cde779a09329ccd0fe49f5946e421110ed392232053063"
+    },
+    {
+      "path": "verification-logs/string-clauses/capture-v3-ordinal-responses.json",
+      "bytes": 55195,
+      "sha256": "c011b5ff89763cc3f3e900ca2c5506b851f7fe902a4f34d40d4af50800a37a8b"
+    },
+    {
+      "path": "verification-logs/string-clauses/capture-v3-requests.json",
+      "bytes": 93148,
+      "sha256": "7236a33c3d681cfc7d478a63aafe01248df1bce5230a19623bdacded35b4258c"
+    },
+    {
+      "path": "verification-logs/string-clauses/capture-v3-responses.json",
+      "bytes": 135129,
+      "sha256": "ed9d34a00062ce1a83d390f2c018f12da7c66a1fea05b1ff96ad628ce5153ba9"
+    }
+  ],
+  "reconstruction": "Four unchanged v3 requests equal accepted v2 requests exactly. Two changed ordinal requests use v3 recapture. Final parsed JSON equals the merged accepted responses; serialization whitespace may differ.",
+  "prior_attempts": [
+    {
+      "version": 1,
+      "accepted": 2,
+      "rejected": 4,
+      "reason": "Generated fixture compiler warnings; source repaired while preserving strict diagnostics."
+    },
+    {
+      "version": 2,
+      "accepted": 4,
+      "rejected": 2,
+      "reason": "Ordinal fixture called an out-of-surface API; corrected to supported explicit ordinal Compare."
+    }
+  ]
+}

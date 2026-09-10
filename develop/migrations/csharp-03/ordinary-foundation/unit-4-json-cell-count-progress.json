@@ -1,0 +1,290 @@
+{
+  "schema": "mpk.csharp_practical.w09.json_cell_count_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "all_corrected_source_runtime_and_helper_checks_passed_changed_source_checkers_running",
+  "finding": "Old typed JSON limit16384 and string1-cell accounting conflict with frozen TOTAL_VALUE_CELLS_MAX65536 and String1+UTF16-unit accounting.",
+  "authoritative_sources": [
+    "crates/mpk-vc/src/csharp_practical_vir_model.rs:TOTAL_VALUE_CELLS_MAX and validate_value_inner String branch",
+    "crates/mpk-vc/src/csharp_practical_boundary_input.rs:capture_boundary_input and value_limits"
+  ],
+  "implementation": [
+    "Use the frozen total constant in complete header validation and both child joins.",
+    "Read all32 stored string length bits and emit1+units after checking the16384-unit string bound. Preserve scalar codec cell1,actual carrier storage and implicit wrapper exclusions.",
+    "Correct UTF16-aware expectations for Option<string>,Transition,Money<string> and unequal-length Map/Set keys;offer runtime filters for changed consumers."
+  ],
+  "verification": [
+    {
+      "session_id": 50526,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "120 complete C7 headers and every stored UTF16 length bit;0.67s.",
+      "log": "/tmp/mpk-w09-json-cell-count-string-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-cell-count/mpk-w09-json-cell-count-string-v1.log",
+      "log_sha256": "38e457e2638119fe639e955448eeb23b261533495aab399ecf5b9b2d17d26a37"
+    },
+    {
+      "session_id": 86647,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Three affected grammar tests:99 container joins,242 full headers and complete invalid-storage assembly;7.06s.",
+      "log": "/tmp/mpk-w09-json-cell-count-grammar-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-cell-count/mpk-w09-json-cell-count-grammar-v1.log",
+      "log_sha256": "49b4892d634984bb189066382a43152ae013418e9e1f799bb36835d3e8de8316"
+    },
+    {
+      "session_id": 10139,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "24 header and wide-storage assembly cases;0.21s.",
+      "log": "/tmp/mpk-w09-json-cell-count-string-storage-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-cell-count/mpk-w09-json-cell-count-string-storage-v1.log",
+      "log_sha256": "4ba7ad97b024ab74eac0f57faa129256b3e46476caa563356ea38d81295acd4a"
+    },
+    {
+      "session_id": 3335,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "All166 primitive codec routes fit one candidate;219727 terms,3013 declarations,8119 static transformers;6.71s.",
+      "log": "/tmp/mpk-w09-json-cell-count-all-scalars-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-cell-count/mpk-w09-json-cell-count-all-scalars-v1.log",
+      "log_sha256": "304696abddac1fe40a06b810d4a54bc5ca6a944948b08b39e7756baeb774b81c"
+    },
+    {
+      "session_id": 78957,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Affected production/integration lint before final Money runtime filter;21.20s.",
+      "log": "/tmp/mpk-w09-json-cell-count-clippy-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-cell-count/mpk-w09-json-cell-count-clippy-v1.log",
+      "log_sha256": "832ff29cd1e82db3e473fc45c0c16999434c9ed8345e1b386d6bb120817c0dce"
+    },
+    {
+      "session_id": 12082,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Affected artifact/consumer inventory;15.77s;no fingerprint changes needed.",
+      "log": "/tmp/mpk-w09-json-cell-count-inventory-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-cell-count/mpk-w09-json-cell-count-inventory-v1.log",
+      "log_sha256": "a56387b8ba736a738d055c468a66ee17603405992587f85c99538bd4ef34b911"
+    },
+    {
+      "session_id": null,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Scoped Rust formatting;Go gofmt listing empty;subsequent Money/runtime edits separately formatted.",
+      "log": "/tmp/mpk-w09-json-cell-count-format-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-cell-count/mpk-w09-json-cell-count-format-v1.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "session_id": 17177,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Four original-document Option<string> cases pass with empty/nonempty supplementary Unicode and corrected five-cell Some(A\ud83d\ude00).",
+      "log": "/tmp/mpk-w09-json-cell-count-option-core-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-cell-count/mpk-w09-json-cell-count-option-core-v1.log",
+      "log_sha256": "38f9cd01d7a658eca3ae4c346c1e3da87c54560c570c27a9cebad349834c0570"
+    },
+    {
+      "session_id": 43285,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Final affected library/integration lint including Money/string-only filters and temporary candidate paths.",
+      "log": "/tmp/mpk-w09-json-cell-count-clippy-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-cell-count/mpk-w09-json-cell-count-clippy-v2.log",
+      "log_sha256": "1b31174131a5ad4e0083af54359a248767c71b18be0382003f1ac9e6b6da3f7f"
+    },
+    {
+      "session_id": 60141,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "All10 affected source generators passed;27 candidate vectors verified,22 changed and5 unchanged. Complete prior token/syntax dependency closures retained;687.69s.",
+      "log": "/tmp/mpk-w09-json-cell-count-sources-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-cell-count/mpk-w09-json-cell-count-sources-v1.log",
+      "log_sha256": "7e834fa66c6d3d707801622061118373bb52ae2ca19754088c988b86e7a56c4b"
+    },
+    {
+      "session_id": 77826,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "New string-cell helper and changed166-route all-scalar candidate accepted by both unchanged checkers with matching zero-axiom reports;hash-corrupted bytes rejected.",
+      "log": "/tmp/mpk-w09-json-cell-count-small-and-scalars-checkers-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-cell-count/mpk-w09-json-cell-count-small-and-scalars-checkers-v1.log",
+      "log_sha256": "fe915a4779ca0ff959cb415480ab2fbb3c9b426d9e2cdbc17bb4eb956830cd8b"
+    },
+    {
+      "session_id": 27945,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "12 corrected original-document Map/Set string-key cases;268.44s.",
+      "log": "/tmp/mpk-w09-json-cell-count-ordered-string-core-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-cell-count/mpk-w09-json-cell-count-ordered-string-core-v1.log",
+      "log_sha256": "7d46a1f5887acf8726bc8cd0ead6f4889ba6a6d9af1c1ebd9559d3af7e6ee60b"
+    },
+    {
+      "session_id": 77057,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "12 corrected original-document Map/Set compound-key cases;463.86s.",
+      "log": "/tmp/mpk-w09-json-cell-count-ordered-compound-core-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-cell-count/mpk-w09-json-cell-count-ordered-compound-core-v1.log",
+      "log_sha256": "1873f6e52d6449c09541a44d30461445813d9daaa990857c1f61f34594051eaf"
+    },
+    {
+      "session_id": 52913,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Five corrected original-document Money<string>/source-parent cases;505.31s.",
+      "log": "/tmp/mpk-w09-json-cell-count-money-core-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-cell-count/mpk-w09-json-cell-count-money-core-v1.log",
+      "log_sha256": "fd5830b4468f4df3d66923d608d9247331cdf84b0308be506026b75ac1f0b788"
+    },
+    {
+      "session_id": 64868,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "All12 corrected compound Transition/source document cases;536.30s. Together with Option,Map/Set and Money,45 affected document cases passed.",
+      "log": "/tmp/mpk-w09-json-cell-count-transition-core-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-cell-count/mpk-w09-json-cell-count-transition-core-v1.log",
+      "log_sha256": "2c47d039fa7ba11e01fc24ef27aad2277bc84b6eeec4e7ba0983c49b36e954cb"
+    },
+    {
+      "session_id": 92206,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Two targeted tests passed in 28.28s: every array/sum definition compared against pre-correction bytes with exactly six changed blocks, and the existing aggregate consumer transitive-comparison regression.",
+      "log": "/tmp/mpk-w09-json-cell-count-definition-diff-v3.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-cell-count/mpk-w09-json-cell-count-definition-diff-v3.log",
+      "log_sha256": "4d249e261c346b797b579c6e68894a76a4524d70ff0fd48c61c3e0c1644d6c82"
+    },
+    {
+      "session_id": 19219,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Affected integration test lint passed in 10.00s after comparison-helper changes.",
+      "log": "/tmp/mpk-w09-json-cell-count-diff-clippy-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-cell-count/mpk-w09-json-cell-count-diff-clippy-v1.log",
+      "log_sha256": "ef9d54c69523307cc8624398500b4dc1c6cd8790fc0cc4eb75b867a75fda654a"
+    },
+    {
+      "session_id": null,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Scoped rustfmt --check passed for three changed integration support files.",
+      "log": "/tmp/mpk-w09-json-cell-count-diff-format-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-cell-count/mpk-w09-json-cell-count-diff-format-v1.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "live_jobs": [],
+  "candidate_families": [
+    "json-values",
+    "json-values-all-scalars",
+    "json-products",
+    "json-product-nested",
+    "json-sequences",
+    "json-sums",
+    "json-ordered",
+    "json-transition",
+    "json-semantic-products",
+    "json-enums",
+    "json-builtins"
+  ],
+  "already_replaced": [
+    "json-values",
+    "json-values-all-scalars",
+    "json-products",
+    "json-product-nested",
+    "json-sequences",
+    "json-sums",
+    "json-ordered",
+    "json-transition",
+    "json-semantic-products",
+    "json-enums",
+    "json-builtins"
+  ],
+  "new_family": "json-string-cells",
+  "test_selection": "Exercise changed cell arithmetic,stored UTF16 length and affected string-containing consumers. Regenerate all callers of typed JSON value/product emitters to establish exactly which canonical bytes changed;rerun both checkers only for changed vectors. Existing lexical/format/parser/source-capture implementations and independent boundary MissingRule/NullRule paths are unchanged and not rerun. Old live capacity runs finish without restarts;their scope must be reconciled with corrected bytes rather than called current acceptance. No check-fast or split whole gate.",
+  "review": "unit-4-json-cell-count-review.md",
+  "pending": [
+    "Consume changed-only source checker runner; retain exact hashes and terminal results without repeating successful unchanged groups.",
+    "Consume independent domain runs. Original numeric array capacity has passed; its historical scope is reconciled in unit-4-json-cell-count-capacity-scope.md.",
+    "Close JSON semantic finding after all corrected-byte checks and direct review; complete remaining unit3/4 boundary work and W09 native/control/replay/proof/assembly/acceptance scope."
+  ],
+  "completion": "Affected JSON reviews reopened;unit4 and W09 incomplete;no component-only commit/push. T whole gate deferred to T06-W12.",
+  "goal_turn_classification": "Progress after previous acknowledgement-only turn: revalidated three live handles; corrected encoded circuit-name matching in the new direct-definition audit; compared all 4387 array/sum declarations; passed shared-comparator regression, lint and format; recorded terminal historical Validation and Map/Set evidence with explicit current-byte limitations.",
+  "replacement_manifest": "unit-4-json-cell-count-replacements.json",
+  "changed_checker_scope": "22 changed source vectors plus one changed all-scalar vector and one new string-cell helper;five byte-identical source vectors skipped.",
+  "numeric_capacity_scope": {
+    "review": "unit-4-json-cell-count-capacity-scope.md",
+    "definition_diff": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-cell-count/numeric-capacity-definition-diff.json",
+    "status": "historical_numeric_scope_reconciled_by_definition_diff_and_bounded_input_analysis",
+    "limitation": "Not a universal proof or current-byte runtime result. Original array and Validation terminal passes retained; numeric input scope reconciled by exact definition differences and bounded-input analysis.",
+    "array_terminal_result": {
+      "status": "passed",
+      "result": "Historical original-document Bool-array capacity test passed in 44333.77s: 4095/4096 accepted, 4097 rejected; complete packet header and length plus selected edge slots checked. Not a current-byte runtime result.",
+      "log": "/tmp/mpk-w09-json-sequence-capacity-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-sequences/mpk-w09-json-sequence-capacity-v1.log",
+      "log_sha256": "c0b45e3911d68337d00a4f45ab77215e926502315ed8afdf758c17e84a62e2de",
+      "recorded_historical_certificate_sha256": "c93a99c770c740c390a876e34ac61be97c0c7cf0eb4f91200a5783410ca177cb",
+      "current_certificate_sha256": "ed891381a857baf1d70adf4b8e8f20f55cec623756a6bacb79659ca072e62334",
+      "current_byte_evidence": "Existing exact six-definition difference and bounded-input analysis apply to these numeric inputs; both current/archived hashes still match that report. Current-byte dual checker PASS separately revalidated.",
+      "scope_review": "unit-4-json-cell-count-capacity-scope.md",
+      "terminal_process_check": "PID 68689 absent after terminal success log on 2026-09-11 JST; unavailable original tool handle not used as completion evidence."
+    }
+  },
+  "changed_checker_results": "verification-logs/json-cell-count/changed-checker-results.json",
+  "checker_interruption": {
+    "status": "v1_terminal_execution_failure_one_candidate_only",
+    "cause": "Rust cargo build for calendar-date-time.hex observed the brief interval between module declaration and new file creation. Current library/clippy builds pass; this is execution/protocol failure,not certificate rejection.",
+    "resume_runner": "verification-logs/json-cell-count/check-changed-v2.py",
+    "rule": "Wait until session23706 is terminal before starting v2. It validates retained log hashes and exact PASS subtest names/current certificate hashes,then reruns only unpassed candidates. It preserves successful cases even within a failed group.",
+    "terminal_scope": "json-products:6pass,calendar-date-time failed Rust cargo build before verifier report;2865.466s. All source candidate hashes unchanged."
+  },
+  "changed_checker_scope_completed": {
+    "json-values": {
+      "document-7a157feb27ed416752b5dde8aa2bf373b9a2c82755d2caa89e955057176ee57b.hex": "d72de56db210afb8b6cb092a521901fd2fec341d3e16027e92b1b94fb0caa861",
+      "document-decb5507362a7672c711a5befd63efc1038c2c0a86ee20137a1c4c472e0d1684.hex": "93cbf04030372263c4b1fb3aaf5b60d4d02720a528c553b6d244286f7576b57f"
+    },
+    "json-products": {
+      "calendar-date-time-decimal.hex": "560450aaa53f546dbca907bafdc126800864608b7241008642af972f5c6ba880",
+      "calendar-date-time.hex": "d07f27b8fb1f7d67ad4ae89e5c4497235ffccea6a8dcec77f318b3f883a8e477",
+      "calendar-date.hex": "cf42686953ed7a79a03f1c849bf2378fa17ae5a9160db13d31cd7f9bd075f0a1",
+      "calendar-time.hex": "c2646202b78963f4837a3354dfd598478f7ac00f91427688846d3aa354705ba7",
+      "document-6b96fc4eed95a1d33fa5784b9062f02fa07ac65b6aef2b4100bb91e9c2f1a613.hex": "212ac4ef348f0cd5aa603d5e19b22855bad0c237b9501d72c047922ddeeb64ca",
+      "document-7a157feb27ed416752b5dde8aa2bf373b9a2c82755d2caa89e955057176ee57b.hex": "62804be475744a3a4b9c157c59fc7070a6260f0f845c7f336fff2cf9e368f328",
+      "document-decb5507362a7672c711a5befd63efc1038c2c0a86ee20137a1c4c472e0d1684.hex": "971d890b60578c4be84480b839c02f198b22c79a3c39972888d207af750f25bb"
+    },
+    "json-product-nested": {
+      "empty.hex": "7205adf8f5e0906a083f8b1e77502e925952d17d54fc25ef2502d4d45aa7a3c8",
+      "nested.hex": "cdb5642d0b39942176a5797f709ec551f3b022b53966050015fb1f46bd35dccc"
+    },
+    "json-sequences": {
+      "source-arrays.hex": "ed891381a857baf1d70adf4b8e8f20f55cec623756a6bacb79659ca072e62334"
+    },
+    "json-sums": {
+      "all-sums.hex": "16c49cedf355563e2b1ddbe242acdae6a3292c7f8fe40b83cfbc93da91e66cd2"
+    },
+    "json-ordered": {
+      "compound.hex": "7e755f6ad9e3a724bf9ae6919b5b2154868ca49eece48eab55c69415bc464acb",
+      "decimal.hex": "bbdabe5513433da33bc60a654ac4f71193e4161a7193437b8a7606900aa51c65",
+      "integer.hex": "b736abd53e1f06b31a2ca9db6d7be49237b6bd5beccc304c6960bfb790936bed",
+      "string.hex": "f9223dbcefa68a02ec69136e88a77f328dd40eb6a6b0bf0de525b72b3470a1e3"
+    },
+    "json-transition": {
+      "compound.hex": "d7a3b3c4c7c0623a5387155ce77335eecdfde95f6cbab489d0582d94d08a5517",
+      "scalar-map.hex": "49a39b060b67d1b72c3b0356a488144de603e4c53ca6bbc358c45706e64402e0"
+    },
+    "json-semantic-products": {
+      "money-entry.hex": "b50ed06b3dd6ff97c1e9d0406d877a2c6575ff40c14477fe3a42adbcc2ab4e27"
+    },
+    "json-enums": {
+      "all-underlying.hex": "37267f505e8738e1ebbe906f27a75f6db8471d4abde354f1b12809e94ec3e45d"
+    },
+    "json-builtins": {
+      "day-error.hex": "0a8acfc29012fc868f1f0e36ddc1d04ede919eac167e40a02e6489d8ed9774ef"
+    }
+  },
+  "changed_checker_results_status": "All changed exact candidates now pass both unchanged checkers;candidate hashes and retained PASS sets reconciled. Historical compile interruption was not proof rejection."
+}

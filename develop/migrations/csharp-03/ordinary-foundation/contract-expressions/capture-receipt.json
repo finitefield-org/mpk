@@ -1,0 +1,25 @@
+{
+  "schema": "mpk.csharp_practical.w09.contract_expression_capture.v1",
+  "image": "python@sha256:933b46a028fd786c9c3d426ebabc237e29a15912231ea8de576e95f0e4f41a4c",
+  "isolation": "No network;read-only staged pinned inputs only;read-only root;4GiB memory;2 CPUs;3GiB tmpfs;default seccomp;capabilities SYS_ADMIN,SETUID,SETGID,SETFCAP only;no-new-privileges.",
+  "captures": [
+    {
+      "file": "requests.json",
+      "sha256": "1594dac5b262c94ef6cb122117e07253bd90ad18f891d4162f86b0e32a576b15"
+    },
+    {
+      "file": "responses.json",
+      "sha256": "90782b9a83fdccd3546389a665a36531277c44590bbc3358a2a6eb73d44c89f3"
+    },
+    {
+      "file": "old-result-requests.json",
+      "sha256": "d524715e0e6a85ece7bad44fbb484080d73fc7eecdaa67aade985350196e8b16"
+    },
+    {
+      "file": "old-result-responses.json",
+      "sha256": "4e92dc4bfa8d224987fa320fd1f82c9ad2a603769db8fca93eb402efa8b28384"
+    }
+  ],
+  "method_loop_sources": "Reuse unchanged control-vc/measure-{requests,responses}.json for total_variable,partial_without_measure,total_descending.",
+  "failed_attempt": "Initial old-result data capture rejected the loop handoff;retained diagnostic log. A fresh loop-free source context was captured and independently imported."
+}

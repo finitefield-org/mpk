@@ -1,0 +1,20 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 7.67s
+     Running tests/csharp_practical_inventory.rs (target/debug/deps/csharp_practical_inventory-ad7f7e409e721e85)
+
+running 1 test
+
+thread 'csharp_03_t01_w02_inventory_closes_every_artifact_and_consumer_edge' (2170740) panicked at crates/mpk-vc/tests/csharp_practical_inventory.rs:1376:5:
+repository consumer search drift:
+foundation.std_namespace: expected count=124 sha256=8deb188c93775b1fd757ab74f2ddc036e22879472734a17cd7ae3fe5aaa38eaf; actual count=125 sha256=29f46ae283165d65cbdeda315138f657456418f1eff83926abe9dc8bb001a1f6
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test csharp_03_t01_w02_inventory_closes_every_artifact_and_consumer_edge ... FAILED
+
+failures:
+
+failures:
+    csharp_03_t01_w02_inventory_closes_every_artifact_and_consumer_edge
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 4 filtered out; finished in 19.29s
+
+error: test failed, to rerun pass `-p mpk-vc --test csharp_practical_inventory`

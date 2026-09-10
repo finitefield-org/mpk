@@ -130,6 +130,80 @@ pub(in super::super) fn special_relation(b: &mut Builder, token: &str) -> R<Scal
     }
 }
 
+/// Exact unsigned addition saturated at the invalid logical-cell sentinel.
+/// Extend to 33 bits before adding, so even two arbitrary u32 inputs cannot wrap.
+pub(in super::super) fn count_addition(b: &mut Builder) -> R<String> {
+    let sig = signature("mpk.csharp.value.u32.v1", "saturated_cell_add", "u32");
+    let result = format!(
+        "{PREFIX}.DomainCount.O{}.Result",
+        sig.id
+            .as_bytes()
+            .iter()
+            .map(|b| format!("{b:02x}"))
+            .collect::<String>()
+    );
+    if b.globals.contains_key(&result) {
+        return Ok(result);
+    }
+    let mut c = Circuit::new(&[32, 32]);
+    let left = Circuit::extend(&c.inputs[0], 33, false);
+    let right = Circuit::extend(&c.inputs[1], 33, false);
+    let (sum, _) = c.add(&left, &right, F);
+    let maximum = TOTAL_VALUE_CELLS_MAX + 1;
+    let bound = (0..33)
+        .map(|i| if maximum & (1u64 << i) == 0 { F } else { T })
+        .collect::<Vec<_>>();
+    let below = c.lt(&sum, &bound, false);
+    let output = c.select(below, &sum[..32], &bound[..32]);
+    // Preserve left-to-right failure short-circuiting: once a child count is
+    // invalid, the rest of the value need not be inspected to reject it.
+    let right_valid = c.lt(&right, &bound, false);
+    let output = c.select(right_valid, &output, &bound[..32]);
+    let left_valid = c.lt(&left, &bound, false);
+    let output = c.select(left_valid, &output, &bound[..32]);
+    let d = emit_circuit(
+        b,
+        IntegerCircuit {
+            signature: sig,
+            circuit: c,
+            output,
+            failures: vec![],
+        },
+        "DomainCount",
+    )?;
+    Ok(d.result_definition)
+}
+
+/// Unsigned word subtraction for a sequence's right-hand offset. Its caller
+/// selects it only when index >= left length; subtraction itself is total u32.
+pub(in super::super) fn sequence_subtraction(b: &mut Builder) -> R<String> {
+    let sig = signature("mpk.csharp.value.u32.v1", "sequence_offset", "u32");
+    let result = format!(
+        "{PREFIX}.SequenceIndex.O{}.Result",
+        sig.id
+            .as_bytes()
+            .iter()
+            .map(|b| format!("{b:02x}"))
+            .collect::<String>()
+    );
+    if b.globals.contains_key(&result) {
+        return Ok(result);
+    }
+    let mut c = Circuit::new(&[32, 32]);
+    let (output, _) = c.sub(&c.inputs[0].clone(), &c.inputs[1].clone());
+    Ok(emit_circuit(
+        b,
+        IntegerCircuit {
+            signature: sig,
+            circuit: c,
+            output,
+            failures: vec![],
+        },
+        "SequenceIndex",
+    )?
+    .result_definition)
+}
+
 #[cfg(test)]
 mod tests {
     use super::super::super::tests::{apply, bit, run, V};

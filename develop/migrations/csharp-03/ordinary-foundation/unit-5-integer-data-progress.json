@@ -1,0 +1,314 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.integer_data_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "status": "integer_data_component_targeted_verification_passed",
+  "component": "Unit 5 W03 integer and Boolean source operation relations",
+  "observed_at": "2026-09-10T21:30:35.792469+00:00",
+  "implemented": [
+    "Reconstruct W03 data program and exact integer/Boolean signatures from validated original VIR.",
+    "Generate result relations using every actual result bit; retain frozen integer scalar bodies and exact failed-check predicates.",
+    "Lower original success guard/relation/goal and ordered-check prefix/failure/guard at original SSA subject order and CFG successor identities.",
+    "Record every other data-family definition as pending; import regenerates complete bytes and metadata."
+  ],
+  "passed": [
+    {
+      "test": "cargo check -p mpk-vc --lib",
+      "seconds": 13.5,
+      "log": "verification-logs/integer-data/integer-data-check-v1.log"
+    },
+    {
+      "test": "csharp_03_t06_w09_integer_data_requests",
+      "seconds": 0.06,
+      "log": "verification-logs/integer-data/integer-data-requests-v1.log"
+    },
+    {
+      "test": "native capture",
+      "contexts": 3,
+      "accepted": 3,
+      "log": "verification-logs/integer-data/integer-data-capture-v1.log"
+    },
+    {
+      "test": "ordinary_integer_data_relation_observes_every_result_bit",
+      "seconds": 95.2,
+      "observations": 1068,
+      "reason": "New relation must observe every result bit of all integer/char carrier widths and Boolean truth values; changed results reject.",
+      "log": "verification-logs/integer-data/integer-data-relations-unit-v3.log"
+    },
+    {
+      "test": "clippy",
+      "seconds": 51.96,
+      "reason": "New production module and integration test compile/lint.",
+      "log": "verification-logs/integer-data/integer-data-clippy-v1.log"
+    },
+    {
+      "test": "csharp_03_t01_w02_inventory_closes_every_artifact_and_consumer_edge",
+      "seconds": 16.05,
+      "reason": "New source/test paths and public exports require exact consumer closure; only the independently verified new standard-namespace path changed.",
+      "log": "verification-logs/integer-data/integer-data-inventory-v2.log"
+    },
+    {
+      "test": "csharp_03_t06_w09_integer_data_candidates",
+      "seconds": 6.31,
+      "reason": "New data relation API: reconstruct original use-point metadata and pending families, compare complete frozen scalar definition closures, reject metadata/byte mutations.",
+      "log": "verification-logs/integer-data/integer-data-candidates-v4.log"
+    },
+    {
+      "test": "TestCheckerAgreementWithRustCLIIntegerData",
+      "seconds": 82.509,
+      "cases": 3,
+      "reason": "All three identical-byte candidates accepted with zero axioms and matching Rust/Go reports and hashes; actual hash mutations rejected.",
+      "log": "verification-logs/integer-data/integer-data-checkers-v1.log"
+    },
+    {
+      "test": "cargo clippy -p mpk-vc --lib --test csharp_practical_vc -- -D warnings",
+      "seconds": 33.79,
+      "reason": "Final SSA index conversion and corrected native fixture expectations.",
+      "log": "verification-logs/integer-data/integer-data-clippy-v3.log"
+    },
+    {
+      "test": "rustfmt --check --edition 2021 --config skip_children=true",
+      "reason": "Final changed data adapter and native test source format.",
+      "log": "verification-logs/integer-data/integer-data-final-format-v1.log"
+    },
+    {
+      "test": "csharp_03_t06_w09_integer_data_original_source",
+      "seconds": 350.67,
+      "observations": 80,
+      "reason": "Original SSA argument/result order, source use-point guards and failure precedence must evaluate correctly; same-type reversal and mixed-type mapping regressions included. All three runtime certificate/metadata pairs match checker pins exactly.",
+      "log": "verification-logs/integer-data/integer-data-source-v3.log"
+    },
+    {
+      "test": "csharp_03_t06_w09_integer_data_candidates",
+      "seconds": 6.31,
+      "reason": "Extract shared result equality and expose the shared W03 point binder for structural data without changing any integer candidate or metadata bytes. Old arithmetic runtime tests need not repeat.",
+      "log": "verification-logs/integer-data/integer-data-shared-replay-v1.log"
+    }
+  ],
+  "test_correction": "Initial unit fixture incorrectly requested i8/i16 arithmetic despite frozen C# promotion rules. Corrected to native-width arithmetic plus narrowing conversions (including char). Two failed runs retained.",
+  "live_jobs": [],
+  "remaining_component_work": [],
+  "scope_limits": [
+    "These definitions do not prove native bodies or application VCs.",
+    "Other data families and source-call/control/construction/ownership relations remain required by unit 5.",
+    "Original units 3-8 remain open; no original-unit commit boundary reached."
+  ],
+  "full_gate": {
+    "status": "deferred",
+    "target": "CSHARP-03-T06-W12"
+  },
+  "review_findings_fixed": [
+    {
+      "finding": "Raw SSA/definition IDs can contain name components starting with digits; initial certificates fail canonical decode.",
+      "fix": "Core symbol names now use H-prefixed hashes of the complete typed identity; original IDs/roles remain in metadata.",
+      "logs": [
+        "verification-logs/integer-data/integer-data-source-v1.log",
+        "verification-logs/integer-data/integer-data-candidates-v1.log"
+      ]
+    },
+    {
+      "finding": "New ordinary source file adds a standard-foundation consumer path.",
+      "fix": "Reconstructed exact old 127-path preimage after removing only the new file; update namespace count to 128, hash, total to 4951 and correction receipt."
+    },
+    {
+      "finding": "W03 free-variable indices refer to subjects[i]; passing them directly to the de Bruijn contract compiler reverses equal-typed values and rejects mixed argument/result types.",
+      "fix": "Translate each W03 free index to subjects.len()-1-index before adding the original-order lambdas; validate exact source type and reject unsupported local-binder forms.",
+      "logs": [
+        "verification-logs/integer-data/integer-data-source-v2.log",
+        "verification-logs/integer-data/integer-data-candidates-v3.log"
+      ]
+    }
+  ],
+  "source_contexts": 3,
+  "definition_occurrences": 6,
+  "source_operation_use_points": 8,
+  "certificate_bytes_total": 571133,
+  "largest_certificate_bytes": 542851,
+  "capture": "integer-data/capture-receipt.json",
+  "certificates": "integer-data/certificates.json",
+  "source_files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_integer_data.rs",
+      "bytes": 14172,
+      "sha256": "0b5c6e43839ab96e6e08d647358f99e089ce4d260b8542a6b4373721d474459c"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_source_clauses.rs",
+      "bytes": 78193,
+      "sha256": "415068c18103f1e499eb0a088814bc6e6b0d39c072e67be43728f3649aeaba81"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_structural.rs",
+      "bytes": 36390,
+      "sha256": "11645d09daa9c58d1c0c07b34b4e30f08c1fe7e13ebf16b42c8f4a0be745d6e2"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs",
+      "bytes": 58372,
+      "sha256": "53af8f744eae2837aa7f2f782df51a8602f6f5a8c214fc01dd78c49fdf921578"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+      "bytes": 275401,
+      "sha256": "947253707c075e4218f7d14406797b290f65bdb8371336f9cb983f3ceeae3e73"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_integer_data_tests.rs",
+      "bytes": 12994,
+      "sha256": "2f8e52e6b1eee935bc27198542a8223772a66a71f19c59327f1b1ec9b7697a64"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_contract_expression_tests.rs",
+      "bytes": 29283,
+      "sha256": "a8626961aede0319a62532fc86545a19b75e02a1fa531c57832e37ee132961aa"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "bytes": 25832,
+      "sha256": "7b9679e8e225a09d8b5a0d457f36fded0b3eb6eaf481085b810f4b4060cf4756"
+    },
+    {
+      "path": "develop/migrations/csharp-03/artifact-consumer-inventory.json",
+      "bytes": 107190,
+      "sha256": "ecc2bd2ea5896e89d546b71dc1eafdfe318cb971e280f6fb2b2631c6047cb75d"
+    },
+    {
+      "path": "develop/migrations/csharp-03/data-phase/historical-inventory-cache-correction.json",
+      "bytes": 3409,
+      "sha256": "cd9c4b2654e3ddb01620f9e16a33b7867b5c1008114a6a0ed2a06408538fa4d3"
+    },
+    {
+      "path": "crates/mpk-vc/tests/csharp_practical_inventory.rs",
+      "bytes": 79226,
+      "sha256": "cd7f31e701fdc05c37fe5bb48fc241468eae50a252e10b5f2b157e6ec08356a2"
+    }
+  ],
+  "review": "unit-5-integer-data-review.md",
+  "evidence": [
+    {
+      "path": "verification-logs/integer-data/capture-inputs.json",
+      "bytes": 19763,
+      "sha256": "8befa15a01a4209c159d509013d3ab9b28b8ded95f1ae909b24f655390354c2c"
+    },
+    {
+      "path": "verification-logs/integer-data/integer-data-candidates-v1.log",
+      "bytes": 1312,
+      "sha256": "1442ee0f2bf1aded4d462dd2b944e1eeaf4208eec438832f4488b4f236926008"
+    },
+    {
+      "path": "verification-logs/integer-data/integer-data-candidates-v2.log",
+      "bytes": 505,
+      "sha256": "55c8a614883cad564e35117c727e032a7b8eb6a24aac7e6ae12f289513a25e4f"
+    },
+    {
+      "path": "verification-logs/integer-data/integer-data-candidates-v3.log",
+      "bytes": 1181,
+      "sha256": "4dd4986a20c8414f116776df2d3f61754149f922cd0921017ec464c833a5ea82"
+    },
+    {
+      "path": "verification-logs/integer-data/integer-data-candidates-v4.log",
+      "bytes": 769,
+      "sha256": "62653b391aff07b67443c798482f91898096b44c3666226d1304d2816215a1c9"
+    },
+    {
+      "path": "verification-logs/integer-data/integer-data-capture-v1.log",
+      "bytes": 96,
+      "sha256": "b54783e7f03a494ff5bd47f4478ef297095ffb7feeb71eefcecd239ae331398b"
+    },
+    {
+      "path": "verification-logs/integer-data/integer-data-check-v1.log",
+      "bytes": 144,
+      "sha256": "11416411f5bf9dc936ccfd25340d90baa17484a2ff27e06ff9414591e5a0b349"
+    },
+    {
+      "path": "verification-logs/integer-data/integer-data-checkers-v1.log",
+      "bytes": 636,
+      "sha256": "cf5dcf250f7430f07bdb22830be36c532d1a11a680b0bcaca99dadf31d599f14"
+    },
+    {
+      "path": "verification-logs/integer-data/integer-data-clippy-v1.log",
+      "bytes": 144,
+      "sha256": "e6f1f442254fee7ca529a7df91dbea6be336d496d489e910239bc956e523b486"
+    },
+    {
+      "path": "verification-logs/integer-data/integer-data-clippy-v2.log",
+      "bytes": 198,
+      "sha256": "8732966488e26d97d755c41482e1514201034087170fefdae589373e4a8fc4c6"
+    },
+    {
+      "path": "verification-logs/integer-data/integer-data-clippy-v3.log",
+      "bytes": 198,
+      "sha256": "58868c76df017f8dbc8d8f85ccba77dfe1412e69629f06b1383710c21f60d99c"
+    },
+    {
+      "path": "verification-logs/integer-data/integer-data-final-format-v1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "verification-logs/integer-data/integer-data-format-v1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "verification-logs/integer-data/integer-data-inventory-v1.log",
+      "bytes": 1164,
+      "sha256": "26ac50f27b73b5873cf73102444008d3a7ee0bd0d9aa50b9022516011ecba049"
+    },
+    {
+      "path": "verification-logs/integer-data/integer-data-inventory-v2.log",
+      "bytes": 451,
+      "sha256": "a38e6562ef853e36462cedd56df6e362d82ed8c84623f6c5d69baca8cf86eb9f"
+    },
+    {
+      "path": "verification-logs/integer-data/integer-data-relations-unit-v1.log",
+      "bytes": 1123,
+      "sha256": "f67be8c8e76fa3db2d8718a0b5c766fab5274aed62a283c7869340f6f964d98f"
+    },
+    {
+      "path": "verification-logs/integer-data/integer-data-relations-unit-v2.log",
+      "bytes": 1051,
+      "sha256": "28dba62310dfa8f5975d2a47f8c171585b6d92a0d2f6743870f75c3dfb60ea55"
+    },
+    {
+      "path": "verification-logs/integer-data/integer-data-relations-unit-v3.log",
+      "bytes": 698,
+      "sha256": "78eaf03e77a4b8e611eb7a38e563dcc505d1cffac3d71fa17b3c49ea1b7e17a1"
+    },
+    {
+      "path": "verification-logs/integer-data/integer-data-requests-v1.log",
+      "bytes": 497,
+      "sha256": "2d7098db5e384f9b227f241300fbd94571dace911d2350198f53818940ee5af9"
+    },
+    {
+      "path": "verification-logs/integer-data/integer-data-shared-replay-v1.log",
+      "bytes": 769,
+      "sha256": "15dfe7f5b3f303aeb114e174d2c7af7588b036b97a1c16fc37803b27f38ef947"
+    },
+    {
+      "path": "verification-logs/integer-data/integer-data-source-v1.log",
+      "bytes": 1381,
+      "sha256": "af0ce6fe15be714da7cf8609a6affeab74b74af35047af0f6b214d968c830815"
+    },
+    {
+      "path": "verification-logs/integer-data/integer-data-source-v2.log",
+      "bytes": 1141,
+      "sha256": "06a4efd2cc2bf81528eb2adee0760970f54922d6f776dd69ed32386ef57844a6"
+    },
+    {
+      "path": "verification-logs/integer-data/integer-data-source-v3.log",
+      "bytes": 935,
+      "sha256": "4b94aba17cf8dfe70b25f7c8aa2f42b0c778663b1cf0fc0944d7ee572b5a908f"
+    },
+    {
+      "path": "verification-logs/integer-data/raw-requests.json",
+      "bytes": 6587,
+      "sha256": "78cda9f172314fbd86be827864d4204da7c866f2eb88dfe3019ce0b728d37fe6"
+    },
+    {
+      "path": "verification-logs/integer-data/raw-responses.json",
+      "bytes": 23192,
+      "sha256": "158d20b34141debae1a9d7913ad967365aee9e14e5cb2c53a5ecdef942caa087"
+    }
+  ],
+  "runtime_observations": 80
+}

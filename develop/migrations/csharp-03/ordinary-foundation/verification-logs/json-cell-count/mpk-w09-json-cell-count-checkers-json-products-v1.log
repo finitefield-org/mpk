@@ -1,0 +1,31 @@
+=== RUN   TestCheckerAgreementWithRustCLIJsonProducts
+=== RUN   TestCheckerAgreementWithRustCLIJsonProducts/calendar-date-time-decimal.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonProducts/calendar-date-time.hex
+    checker_agreement_test.go:391: Rust checker execution/protocol failure: Rust checker did not return a verifier report: unexpected end of JSON input
+        stdout:
+        
+        stderr:
+        error: couldn't read `crates/mpk-vc/src/csharp_practical_ordinary_json_boundary_fields.rs`: No such file or directory (os error 2)
+          --> crates/mpk-vc/src/csharp_practical_ordinary_json_products.rs:15:1
+           |
+        15 | mod boundary_fields;
+           | ^^^^^^^^^^^^^^^^^^^^
+        
+        error: could not compile `mpk-vc` (lib) due to 1 previous error
+        error: could not compile `mpk-vc` (lib) due to 1 previous error
+=== RUN   TestCheckerAgreementWithRustCLIJsonProducts/calendar-date.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonProducts/calendar-time.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonProducts/document-6b96fc4eed95a1d33fa5784b9062f02fa07ac65b6aef2b4100bb91e9c2f1a613.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonProducts/document-7a157feb27ed416752b5dde8aa2bf373b9a2c82755d2caa89e955057176ee57b.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonProducts/document-decb5507362a7672c711a5befd63efc1038c2c0a86ee20137a1c4c472e0d1684.hex
+--- FAIL: TestCheckerAgreementWithRustCLIJsonProducts (2865.10s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonProducts/calendar-date-time-decimal.hex (655.79s)
+    --- FAIL: TestCheckerAgreementWithRustCLIJsonProducts/calendar-date-time.hex (308.18s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonProducts/calendar-date.hex (530.28s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonProducts/calendar-time.hex (438.87s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonProducts/document-6b96fc4eed95a1d33fa5784b9062f02fa07ac65b6aef2b4100bb91e9c2f1a613.hex (369.35s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonProducts/document-7a157feb27ed416752b5dde8aa2bf373b9a2c82755d2caa89e955057176ee57b.hex (272.58s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonProducts/document-decb5507362a7672c711a5befd63efc1038c2c0a86ee20137a1c4c472e0d1684.hex (290.05s)
+FAIL
+exit status 1
+FAIL	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	2865.466s

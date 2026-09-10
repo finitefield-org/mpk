@@ -1,0 +1,304 @@
+Executing ['go', 'test', '-C', 'go-tools/mpk-checker-ref', '-tags', 'checkeragreement', '-run', '^TestCheckerAgreementWithRustCLIBindingGuards$/^(binding\\-vc\\-bounded_sequence\\.hex|binding\\-vc\\-money\\.hex|binding\\-vc\\-ordered_map\\.hex|binding\\-vc\\-ordered_set\\.hex|binding\\-vc\\-transition\\.hex|binding\\-vc\\-validation\\.hex|bool\\-construction\\.hex|boundary\\-map\\-compound\\.hex|boundary\\-map\\-decimal\\.hex|boundary\\-map\\-string\\.hex|boundary\\-set\\-decimal\\.hex|enum\\-construction\\.hex|extra\\-bool\\-float\\-map\\.hex|extra\\-bool\\-nullable\\-map\\.hex|extra\\-shared\\-lookup\\-maps\\.hex|extra\\-validation\\-bool\\.hex|extra\\-validation\\-product\\.hex|float\\-sequence\\.hex|nested\\-box\\.hex|nullable\\-string\\-default\\.hex|product\\-construction\\.hex|remapped\\-boundary\\-sequence\\.hex|string\\.hex)$', '-count=1', '-timeout', '0', '-v']
+=== RUN   TestCheckerAgreementWithRustCLIBindingGuards
+=== RUN   TestCheckerAgreementWithRustCLIBindingGuards/binding-vc-bounded_sequence.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingGuards/binding-vc-money.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingGuards/binding-vc-ordered_map.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingGuards/binding-vc-ordered_set.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingGuards/binding-vc-transition.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingGuards/binding-vc-validation.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingGuards/bool-construction.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingGuards/boundary-map-compound.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingGuards/boundary-map-decimal.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingGuards/boundary-map-string.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingGuards/boundary-set-decimal.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingGuards/enum-construction.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingGuards/extra-bool-float-map.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingGuards/extra-bool-nullable-map.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingGuards/extra-shared-lookup-maps.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingGuards/extra-validation-bool.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingGuards/extra-validation-product.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingGuards/float-sequence.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingGuards/nested-box.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingGuards/nullable-string-default.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingGuards/product-construction.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingGuards/remapped-boundary-sequence.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingGuards/string.hex
+--- PASS: TestCheckerAgreementWithRustCLIBindingGuards (241.31s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingGuards/binding-vc-bounded_sequence.hex (5.01s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingGuards/binding-vc-money.hex (37.26s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingGuards/binding-vc-ordered_map.hex (4.77s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingGuards/binding-vc-ordered_set.hex (5.08s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingGuards/binding-vc-transition.hex (4.74s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingGuards/binding-vc-validation.hex (5.08s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingGuards/bool-construction.hex (6.55s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingGuards/boundary-map-compound.hex (5.15s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingGuards/boundary-map-decimal.hex (36.53s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingGuards/boundary-map-string.hex (5.05s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingGuards/boundary-set-decimal.hex (36.12s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingGuards/enum-construction.hex (8.79s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingGuards/extra-bool-float-map.hex (4.67s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingGuards/extra-bool-nullable-map.hex (4.84s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingGuards/extra-shared-lookup-maps.hex (5.05s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingGuards/extra-validation-bool.hex (6.58s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingGuards/extra-validation-product.hex (4.97s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingGuards/float-sequence.hex (8.59s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingGuards/nested-box.hex (9.10s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingGuards/nullable-string-default.hex (10.77s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingGuards/product-construction.hex (9.43s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingGuards/remapped-boundary-sequence.hex (7.18s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingGuards/string.hex (9.99s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	241.709s
+Executing ['go', 'test', '-C', 'go-tools/mpk-checker-ref', '-tags', 'checkeragreement', '-run', '^TestCheckerAgreementWithRustCLIBindingOrders$/^(binding\\-vc\\-ordered_map\\.hex|binding\\-vc\\-ordered_set\\.hex|boundary\\-map\\-compound\\.hex|boundary\\-map\\-decimal\\.hex|boundary\\-map\\-string\\.hex|boundary\\-set\\-decimal\\.hex|extra\\-bool\\-float\\-map\\.hex|extra\\-bool\\-nullable\\-map\\.hex|extra\\-shared\\-lookup\\-maps\\.hex)$', '-count=1', '-timeout', '0', '-v']
+=== RUN   TestCheckerAgreementWithRustCLIBindingOrders
+=== RUN   TestCheckerAgreementWithRustCLIBindingOrders/binding-vc-ordered_map.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingOrders/binding-vc-ordered_set.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingOrders/boundary-map-compound.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingOrders/boundary-map-decimal.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingOrders/boundary-map-string.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingOrders/boundary-set-decimal.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingOrders/extra-bool-float-map.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingOrders/extra-bool-nullable-map.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingOrders/extra-shared-lookup-maps.hex
+--- PASS: TestCheckerAgreementWithRustCLIBindingOrders (108.66s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingOrders/binding-vc-ordered_map.hex (5.01s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingOrders/binding-vc-ordered_set.hex (5.16s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingOrders/boundary-map-compound.hex (5.17s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingOrders/boundary-map-decimal.hex (36.69s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingOrders/boundary-map-string.hex (5.24s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingOrders/boundary-set-decimal.hex (36.10s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingOrders/extra-bool-float-map.hex (4.73s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingOrders/extra-bool-nullable-map.hex (5.44s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingOrders/extra-shared-lookup-maps.hex (5.14s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	108.855s
+Executing ['go', 'test', '-C', 'go-tools/mpk-checker-ref', '-tags', 'checkeragreement', '-run', '^TestCheckerAgreementWithRustCLIBindingRelations$/^(binding\\-vc\\-bounded_sequence\\.hex|binding\\-vc\\-money\\.hex|binding\\-vc\\-ordered_map\\.hex|binding\\-vc\\-ordered_set\\.hex|binding\\-vc\\-transition\\.hex|binding\\-vc\\-validation\\.hex|boundary\\-map\\-compound\\.hex|boundary\\-map\\-decimal\\.hex|boundary\\-map\\-string\\.hex|boundary\\-set\\-decimal\\.hex|extra\\-bool\\-float\\-map\\.hex|extra\\-bool\\-nullable\\-map\\.hex|extra\\-shared\\-lookup\\-maps\\.hex|extra\\-validation\\-bool\\.hex|extra\\-validation\\-product\\.hex|remapped\\-boundary\\-sequence\\.hex)$', '-count=1', '-timeout', '0', '-v']
+=== RUN   TestCheckerAgreementWithRustCLIBindingRelations
+=== RUN   TestCheckerAgreementWithRustCLIBindingRelations/binding-vc-bounded_sequence.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingRelations/binding-vc-money.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingRelations/binding-vc-ordered_map.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingRelations/binding-vc-ordered_set.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingRelations/binding-vc-transition.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingRelations/binding-vc-validation.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingRelations/boundary-map-compound.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingRelations/boundary-map-decimal.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingRelations/boundary-map-string.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingRelations/boundary-set-decimal.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingRelations/extra-bool-float-map.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingRelations/extra-bool-nullable-map.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingRelations/extra-shared-lookup-maps.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingRelations/extra-validation-bool.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingRelations/extra-validation-product.hex
+=== RUN   TestCheckerAgreementWithRustCLIBindingRelations/remapped-boundary-sequence.hex
+--- PASS: TestCheckerAgreementWithRustCLIBindingRelations (181.63s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingRelations/binding-vc-bounded_sequence.hex (5.16s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingRelations/binding-vc-money.hex (36.80s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingRelations/binding-vc-ordered_map.hex (4.77s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingRelations/binding-vc-ordered_set.hex (5.10s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingRelations/binding-vc-transition.hex (4.73s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingRelations/binding-vc-validation.hex (4.77s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingRelations/boundary-map-compound.hex (5.21s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingRelations/boundary-map-decimal.hex (36.68s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingRelations/boundary-map-string.hex (5.01s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingRelations/boundary-set-decimal.hex (35.79s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingRelations/extra-bool-float-map.hex (9.84s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingRelations/extra-bool-nullable-map.hex (4.90s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingRelations/extra-shared-lookup-maps.hex (5.00s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingRelations/extra-validation-bool.hex (6.43s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingRelations/extra-validation-product.hex (4.87s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingRelations/remapped-boundary-sequence.hex (6.57s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	181.977s
+Executing ['go', 'test', '-C', 'go-tools/mpk-checker-ref', '-tags', 'checkeragreement', '-run', '^TestCheckerAgreementWithRustCLICollectionOperations$/^(binding\\-vc\\-ordered_map\\.hex|binding\\-vc\\-ordered_set\\.hex|boundary\\-map\\-compound\\.hex|boundary\\-map\\-decimal\\.hex|boundary\\-map\\-string\\.hex|boundary\\-set\\-decimal\\.hex|extra\\-bool\\-float\\-map\\.hex|extra\\-bool\\-nullable\\-map\\.hex|extra\\-shared\\-lookup\\-maps\\.hex)$', '-count=1', '-timeout', '0', '-v']
+=== RUN   TestCheckerAgreementWithRustCLICollectionOperations
+=== RUN   TestCheckerAgreementWithRustCLICollectionOperations/binding-vc-ordered_map.hex
+=== RUN   TestCheckerAgreementWithRustCLICollectionOperations/binding-vc-ordered_set.hex
+=== RUN   TestCheckerAgreementWithRustCLICollectionOperations/boundary-map-compound.hex
+=== RUN   TestCheckerAgreementWithRustCLICollectionOperations/boundary-map-decimal.hex
+=== RUN   TestCheckerAgreementWithRustCLICollectionOperations/boundary-map-string.hex
+=== RUN   TestCheckerAgreementWithRustCLICollectionOperations/boundary-set-decimal.hex
+=== RUN   TestCheckerAgreementWithRustCLICollectionOperations/extra-bool-float-map.hex
+=== RUN   TestCheckerAgreementWithRustCLICollectionOperations/extra-bool-nullable-map.hex
+=== RUN   TestCheckerAgreementWithRustCLICollectionOperations/extra-shared-lookup-maps.hex
+--- PASS: TestCheckerAgreementWithRustCLICollectionOperations (241.58s)
+    --- PASS: TestCheckerAgreementWithRustCLICollectionOperations/binding-vc-ordered_map.hex (9.39s)
+    --- PASS: TestCheckerAgreementWithRustCLICollectionOperations/binding-vc-ordered_set.hex (9.31s)
+    --- PASS: TestCheckerAgreementWithRustCLICollectionOperations/boundary-map-compound.hex (40.97s)
+    --- PASS: TestCheckerAgreementWithRustCLICollectionOperations/boundary-map-decimal.hex (75.67s)
+    --- PASS: TestCheckerAgreementWithRustCLICollectionOperations/boundary-map-string.hex (10.46s)
+    --- PASS: TestCheckerAgreementWithRustCLICollectionOperations/boundary-set-decimal.hex (67.05s)
+    --- PASS: TestCheckerAgreementWithRustCLICollectionOperations/extra-bool-float-map.hex (9.10s)
+    --- PASS: TestCheckerAgreementWithRustCLICollectionOperations/extra-bool-nullable-map.hex (9.83s)
+    --- PASS: TestCheckerAgreementWithRustCLICollectionOperations/extra-shared-lookup-maps.hex (9.79s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	241.770s
+Executing ['go', 'test', '-C', 'go-tools/mpk-checker-ref', '-tags', 'checkeragreement', '-run', '^TestCheckerAgreementWithRustCLIConstructionOperations$/^(bool\\-construction\\.hex|enum\\-construction\\.hex|float\\-sequence\\.hex|nested\\-box\\.hex)$', '-count=1', '-timeout', '0', '-v']
+=== RUN   TestCheckerAgreementWithRustCLIConstructionOperations
+=== RUN   TestCheckerAgreementWithRustCLIConstructionOperations/bool-construction.hex
+=== RUN   TestCheckerAgreementWithRustCLIConstructionOperations/enum-construction.hex
+=== RUN   TestCheckerAgreementWithRustCLIConstructionOperations/float-sequence.hex
+=== RUN   TestCheckerAgreementWithRustCLIConstructionOperations/nested-box.hex
+--- PASS: TestCheckerAgreementWithRustCLIConstructionOperations (16.44s)
+    --- PASS: TestCheckerAgreementWithRustCLIConstructionOperations/bool-construction.hex (4.58s)
+    --- PASS: TestCheckerAgreementWithRustCLIConstructionOperations/enum-construction.hex (3.90s)
+    --- PASS: TestCheckerAgreementWithRustCLIConstructionOperations/float-sequence.hex (4.00s)
+    --- PASS: TestCheckerAgreementWithRustCLIConstructionOperations/nested-box.hex (3.97s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	16.794s
+Executing ['go', 'test', '-C', 'go-tools/mpk-checker-ref', '-tags', 'checkeragreement', '-run', '^TestCheckerAgreementWithRustCLIRecursiveDomains$/^(binding\\-vc\\-bounded_sequence\\.hex|binding\\-vc\\-money\\.hex|binding\\-vc\\-ordered_map\\.hex|binding\\-vc\\-ordered_set\\.hex|binding\\-vc\\-transition\\.hex|binding\\-vc\\-validation\\.hex|boundary\\-exception\\-payload\\.hex|boundary\\-map\\-compound\\.hex|boundary\\-map\\-decimal\\.hex|boundary\\-map\\-string\\.hex|boundary\\-set\\-decimal\\.hex|boundary\\-total\\-cells\\.hex|nested\\-box\\.hex|string\\.hex)$', '-count=1', '-timeout', '0', '-v']
+=== RUN   TestCheckerAgreementWithRustCLIRecursiveDomains
+=== RUN   TestCheckerAgreementWithRustCLIRecursiveDomains/binding-vc-bounded_sequence.hex
+=== RUN   TestCheckerAgreementWithRustCLIRecursiveDomains/binding-vc-money.hex
+=== RUN   TestCheckerAgreementWithRustCLIRecursiveDomains/binding-vc-ordered_map.hex
+=== RUN   TestCheckerAgreementWithRustCLIRecursiveDomains/binding-vc-ordered_set.hex
+=== RUN   TestCheckerAgreementWithRustCLIRecursiveDomains/binding-vc-transition.hex
+=== RUN   TestCheckerAgreementWithRustCLIRecursiveDomains/binding-vc-validation.hex
+=== RUN   TestCheckerAgreementWithRustCLIRecursiveDomains/boundary-exception-payload.hex
+=== RUN   TestCheckerAgreementWithRustCLIRecursiveDomains/boundary-map-compound.hex
+=== RUN   TestCheckerAgreementWithRustCLIRecursiveDomains/boundary-map-decimal.hex
+=== RUN   TestCheckerAgreementWithRustCLIRecursiveDomains/boundary-map-string.hex
+=== RUN   TestCheckerAgreementWithRustCLIRecursiveDomains/boundary-set-decimal.hex
+=== RUN   TestCheckerAgreementWithRustCLIRecursiveDomains/boundary-total-cells.hex
+=== RUN   TestCheckerAgreementWithRustCLIRecursiveDomains/nested-box.hex
+=== RUN   TestCheckerAgreementWithRustCLIRecursiveDomains/string.hex
+--- PASS: TestCheckerAgreementWithRustCLIRecursiveDomains (173.12s)
+    --- PASS: TestCheckerAgreementWithRustCLIRecursiveDomains/binding-vc-bounded_sequence.hex (6.09s)
+    --- PASS: TestCheckerAgreementWithRustCLIRecursiveDomains/binding-vc-money.hex (7.72s)
+    --- PASS: TestCheckerAgreementWithRustCLIRecursiveDomains/binding-vc-ordered_map.hex (6.82s)
+    --- PASS: TestCheckerAgreementWithRustCLIRecursiveDomains/binding-vc-ordered_set.hex (6.59s)
+    --- PASS: TestCheckerAgreementWithRustCLIRecursiveDomains/binding-vc-transition.hex (6.37s)
+    --- PASS: TestCheckerAgreementWithRustCLIRecursiveDomains/binding-vc-validation.hex (6.88s)
+    --- PASS: TestCheckerAgreementWithRustCLIRecursiveDomains/boundary-exception-payload.hex (6.54s)
+    --- PASS: TestCheckerAgreementWithRustCLIRecursiveDomains/boundary-map-compound.hex (9.69s)
+    --- PASS: TestCheckerAgreementWithRustCLIRecursiveDomains/boundary-map-decimal.hex (43.69s)
+    --- PASS: TestCheckerAgreementWithRustCLIRecursiveDomains/boundary-map-string.hex (9.13s)
+    --- PASS: TestCheckerAgreementWithRustCLIRecursiveDomains/boundary-set-decimal.hex (40.92s)
+    --- PASS: TestCheckerAgreementWithRustCLIRecursiveDomains/boundary-total-cells.hex (8.96s)
+    --- PASS: TestCheckerAgreementWithRustCLIRecursiveDomains/nested-box.hex (6.90s)
+    --- PASS: TestCheckerAgreementWithRustCLIRecursiveDomains/string.hex (6.83s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	173.319s
+Executing ['go', 'test', '-C', 'go-tools/mpk-checker-ref', '-tags', 'checkeragreement', '-run', '^TestCheckerAgreementWithRustCLIEntryOperations$/^(boundary\\-map\\-compound\\.hex|boundary\\-map\\-string\\.hex)$', '-count=1', '-timeout', '0', '-v']
+=== RUN   TestCheckerAgreementWithRustCLIEntryOperations
+=== RUN   TestCheckerAgreementWithRustCLIEntryOperations/boundary-map-compound.hex
+=== RUN   TestCheckerAgreementWithRustCLIEntryOperations/boundary-map-string.hex
+--- PASS: TestCheckerAgreementWithRustCLIEntryOperations (16.29s)
+    --- PASS: TestCheckerAgreementWithRustCLIEntryOperations/boundary-map-compound.hex (8.16s)
+    --- PASS: TestCheckerAgreementWithRustCLIEntryOperations/boundary-map-string.hex (8.13s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	16.477s
+Executing ['go', 'test', '-C', 'go-tools/mpk-checker-ref', '-tags', 'checkeragreement', '-run', '^TestCheckerAgreementWithRustCLIMoneyOperations$/^(binding\\-vc\\-money\\.hex|shared\\-string\\-enum\\-money\\.hex)$', '-count=1', '-timeout', '0', '-v']
+=== RUN   TestCheckerAgreementWithRustCLIMoneyOperations
+=== RUN   TestCheckerAgreementWithRustCLIMoneyOperations/binding-vc-money.hex
+=== RUN   TestCheckerAgreementWithRustCLIMoneyOperations/shared-string-enum-money.hex
+--- PASS: TestCheckerAgreementWithRustCLIMoneyOperations (840.06s)
+    --- PASS: TestCheckerAgreementWithRustCLIMoneyOperations/binding-vc-money.hex (385.74s)
+    --- PASS: TestCheckerAgreementWithRustCLIMoneyOperations/shared-string-enum-money.hex (454.32s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	840.246s
+Executing ['go', 'test', '-C', 'go-tools/mpk-checker-ref', '-tags', 'checkeragreement', '-run', '^TestCheckerAgreementWithRustCLIOutcomeOperations$/^(binding\\-vc\\-validation\\.hex|extra\\-validation\\-bool\\.hex|extra\\-validation\\-product\\.hex|nested\\-box\\.hex|string\\.hex)$', '-count=1', '-timeout', '0', '-v']
+=== RUN   TestCheckerAgreementWithRustCLIOutcomeOperations
+=== RUN   TestCheckerAgreementWithRustCLIOutcomeOperations/binding-vc-validation.hex
+=== RUN   TestCheckerAgreementWithRustCLIOutcomeOperations/extra-validation-bool.hex
+=== RUN   TestCheckerAgreementWithRustCLIOutcomeOperations/extra-validation-product.hex
+=== RUN   TestCheckerAgreementWithRustCLIOutcomeOperations/nested-box.hex
+=== RUN   TestCheckerAgreementWithRustCLIOutcomeOperations/string.hex
+--- PASS: TestCheckerAgreementWithRustCLIOutcomeOperations (46.89s)
+    --- PASS: TestCheckerAgreementWithRustCLIOutcomeOperations/binding-vc-validation.hex (9.32s)
+    --- PASS: TestCheckerAgreementWithRustCLIOutcomeOperations/extra-validation-bool.hex (9.65s)
+    --- PASS: TestCheckerAgreementWithRustCLIOutcomeOperations/extra-validation-product.hex (9.50s)
+    --- PASS: TestCheckerAgreementWithRustCLIOutcomeOperations/nested-box.hex (9.09s)
+    --- PASS: TestCheckerAgreementWithRustCLIOutcomeOperations/string.hex (9.32s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	47.249s
+Executing ['go', 'test', '-C', 'go-tools/mpk-checker-ref', '-tags', 'checkeragreement', '-run', '^TestCheckerAgreementWithRustCLISequenceOperations$/^(binding\\-vc\\-bounded_sequence\\.hex|binding\\-vc\\-ordered_map\\.hex|boundary\\-map\\-compound\\.hex|boundary\\-map\\-decimal\\.hex|boundary\\-map\\-string\\.hex|boundary\\-set\\-decimal\\.hex|boundary\\-total\\-cells\\.hex|float\\-sequence\\.hex|nested\\-box\\.hex)$', '-count=1', '-timeout', '0', '-v']
+=== RUN   TestCheckerAgreementWithRustCLISequenceOperations
+=== RUN   TestCheckerAgreementWithRustCLISequenceOperations/binding-vc-bounded_sequence.hex
+=== RUN   TestCheckerAgreementWithRustCLISequenceOperations/binding-vc-ordered_map.hex
+=== RUN   TestCheckerAgreementWithRustCLISequenceOperations/boundary-map-compound.hex
+=== RUN   TestCheckerAgreementWithRustCLISequenceOperations/boundary-map-decimal.hex
+=== RUN   TestCheckerAgreementWithRustCLISequenceOperations/boundary-map-string.hex
+=== RUN   TestCheckerAgreementWithRustCLISequenceOperations/boundary-set-decimal.hex
+=== RUN   TestCheckerAgreementWithRustCLISequenceOperations/boundary-total-cells.hex
+=== RUN   TestCheckerAgreementWithRustCLISequenceOperations/float-sequence.hex
+=== RUN   TestCheckerAgreementWithRustCLISequenceOperations/nested-box.hex
+--- PASS: TestCheckerAgreementWithRustCLISequenceOperations (390.36s)
+    --- PASS: TestCheckerAgreementWithRustCLISequenceOperations/binding-vc-bounded_sequence.hex (11.45s)
+    --- PASS: TestCheckerAgreementWithRustCLISequenceOperations/binding-vc-ordered_map.hex (8.92s)
+    --- PASS: TestCheckerAgreementWithRustCLISequenceOperations/boundary-map-compound.hex (8.63s)
+    --- PASS: TestCheckerAgreementWithRustCLISequenceOperations/boundary-map-decimal.hex (64.11s)
+    --- PASS: TestCheckerAgreementWithRustCLISequenceOperations/boundary-map-string.hex (147.40s)
+    --- PASS: TestCheckerAgreementWithRustCLISequenceOperations/boundary-set-decimal.hex (120.73s)
+    --- PASS: TestCheckerAgreementWithRustCLISequenceOperations/boundary-total-cells.hex (9.74s)
+    --- PASS: TestCheckerAgreementWithRustCLISequenceOperations/float-sequence.hex (10.03s)
+    --- PASS: TestCheckerAgreementWithRustCLISequenceOperations/nested-box.hex (9.34s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	390.552s
+Executing ['go', 'test', '-C', 'go-tools/mpk-checker-ref', '-tags', 'checkeragreement', '-run', '^TestCheckerAgreementWithRustCLISourceObservations$/^(binding\\-vc\\-money\\.hex|complete\\-snapshot\\.hex|extra\\-bool\\-float\\-map\\.hex)$', '-count=1', '-timeout', '0', '-v']
+=== RUN   TestCheckerAgreementWithRustCLISourceObservations
+=== RUN   TestCheckerAgreementWithRustCLISourceObservations/binding-vc-money.hex
+=== RUN   TestCheckerAgreementWithRustCLISourceObservations/complete-snapshot.hex
+=== RUN   TestCheckerAgreementWithRustCLISourceObservations/extra-bool-float-map.hex
+--- PASS: TestCheckerAgreementWithRustCLISourceObservations (227.38s)
+    --- PASS: TestCheckerAgreementWithRustCLISourceObservations/binding-vc-money.hex (159.55s)
+    --- PASS: TestCheckerAgreementWithRustCLISourceObservations/complete-snapshot.hex (57.76s)
+    --- PASS: TestCheckerAgreementWithRustCLISourceObservations/extra-bool-float-map.hex (10.06s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	227.726s
+Executing ['go', 'test', '-C', 'go-tools/mpk-checker-ref', '-tags', 'checkeragreement', '-run', '^TestCheckerAgreementWithRustCLIStructuralFoundations$/^(binding\\-vc\\-bounded_sequence\\.hex|binding\\-vc\\-money\\.hex|binding\\-vc\\-ordered_map\\.hex|binding\\-vc\\-ordered_set\\.hex|binding\\-vc\\-transition\\.hex|binding\\-vc\\-validation\\.hex|bool\\-construction\\.hex|boundary\\-exception\\-payload\\.hex|boundary\\-map\\-compound\\.hex|boundary\\-map\\-decimal\\.hex|boundary\\-map\\-string\\.hex|boundary\\-set\\-decimal\\.hex|boundary\\-total\\-cells\\.hex|complete\\-snapshot\\.hex|enum\\-construction\\.hex|extra\\-bool\\-float\\-map\\.hex|extra\\-bool\\-nullable\\-map\\.hex|extra\\-shared\\-lookup\\-maps\\.hex|extra\\-validation\\-bool\\.hex|extra\\-validation\\-product\\.hex|float\\-sequence\\.hex|nested\\-box\\.hex|nullable\\-string\\-default\\.hex|product\\-construction\\.hex|shared\\-string\\-enum\\-money\\.hex|string\\.hex)$', '-count=1', '-timeout', '0', '-v']
+=== RUN   TestCheckerAgreementWithRustCLIStructuralFoundations
+=== RUN   TestCheckerAgreementWithRustCLIStructuralFoundations/binding-vc-bounded_sequence.hex
+=== RUN   TestCheckerAgreementWithRustCLIStructuralFoundations/binding-vc-money.hex
+=== RUN   TestCheckerAgreementWithRustCLIStructuralFoundations/binding-vc-ordered_map.hex
+=== RUN   TestCheckerAgreementWithRustCLIStructuralFoundations/binding-vc-ordered_set.hex
+=== RUN   TestCheckerAgreementWithRustCLIStructuralFoundations/binding-vc-transition.hex
+=== RUN   TestCheckerAgreementWithRustCLIStructuralFoundations/binding-vc-validation.hex
+=== RUN   TestCheckerAgreementWithRustCLIStructuralFoundations/bool-construction.hex
+=== RUN   TestCheckerAgreementWithRustCLIStructuralFoundations/boundary-exception-payload.hex
+=== RUN   TestCheckerAgreementWithRustCLIStructuralFoundations/boundary-map-compound.hex
+=== RUN   TestCheckerAgreementWithRustCLIStructuralFoundations/boundary-map-decimal.hex
+=== RUN   TestCheckerAgreementWithRustCLIStructuralFoundations/boundary-map-string.hex
+=== RUN   TestCheckerAgreementWithRustCLIStructuralFoundations/boundary-set-decimal.hex
+=== RUN   TestCheckerAgreementWithRustCLIStructuralFoundations/boundary-total-cells.hex
+=== RUN   TestCheckerAgreementWithRustCLIStructuralFoundations/complete-snapshot.hex
+=== RUN   TestCheckerAgreementWithRustCLIStructuralFoundations/enum-construction.hex
+=== RUN   TestCheckerAgreementWithRustCLIStructuralFoundations/extra-bool-float-map.hex
+=== RUN   TestCheckerAgreementWithRustCLIStructuralFoundations/extra-bool-nullable-map.hex
+=== RUN   TestCheckerAgreementWithRustCLIStructuralFoundations/extra-shared-lookup-maps.hex
+=== RUN   TestCheckerAgreementWithRustCLIStructuralFoundations/extra-validation-bool.hex
+=== RUN   TestCheckerAgreementWithRustCLIStructuralFoundations/extra-validation-product.hex
+=== RUN   TestCheckerAgreementWithRustCLIStructuralFoundations/float-sequence.hex
+=== RUN   TestCheckerAgreementWithRustCLIStructuralFoundations/nested-box.hex
+=== RUN   TestCheckerAgreementWithRustCLIStructuralFoundations/nullable-string-default.hex
+=== RUN   TestCheckerAgreementWithRustCLIStructuralFoundations/product-construction.hex
+=== RUN   TestCheckerAgreementWithRustCLIStructuralFoundations/shared-string-enum-money.hex
+=== RUN   TestCheckerAgreementWithRustCLIStructuralFoundations/string.hex
+--- PASS: TestCheckerAgreementWithRustCLIStructuralFoundations (1418.89s)
+    --- PASS: TestCheckerAgreementWithRustCLIStructuralFoundations/binding-vc-bounded_sequence.hex (9.06s)
+    --- PASS: TestCheckerAgreementWithRustCLIStructuralFoundations/binding-vc-money.hex (296.52s)
+    --- PASS: TestCheckerAgreementWithRustCLIStructuralFoundations/binding-vc-ordered_map.hex (10.13s)
+    --- PASS: TestCheckerAgreementWithRustCLIStructuralFoundations/binding-vc-ordered_set.hex (9.54s)
+    --- PASS: TestCheckerAgreementWithRustCLIStructuralFoundations/binding-vc-transition.hex (5.21s)
+    --- PASS: TestCheckerAgreementWithRustCLIStructuralFoundations/binding-vc-validation.hex (5.58s)
+    --- PASS: TestCheckerAgreementWithRustCLIStructuralFoundations/bool-construction.hex (5.68s)
+    --- PASS: TestCheckerAgreementWithRustCLIStructuralFoundations/boundary-exception-payload.hex (11.40s)
+    --- PASS: TestCheckerAgreementWithRustCLIStructuralFoundations/boundary-map-compound.hex (84.61s)
+    --- PASS: TestCheckerAgreementWithRustCLIStructuralFoundations/boundary-map-decimal.hex (74.82s)
+    --- PASS: TestCheckerAgreementWithRustCLIStructuralFoundations/boundary-map-string.hex (13.78s)
+    --- PASS: TestCheckerAgreementWithRustCLIStructuralFoundations/boundary-set-decimal.hex (117.63s)
+    --- PASS: TestCheckerAgreementWithRustCLIStructuralFoundations/boundary-total-cells.hex (10.22s)
+    --- PASS: TestCheckerAgreementWithRustCLIStructuralFoundations/complete-snapshot.hex (62.30s)
+    --- PASS: TestCheckerAgreementWithRustCLIStructuralFoundations/enum-construction.hex (9.59s)
+    --- PASS: TestCheckerAgreementWithRustCLIStructuralFoundations/extra-bool-float-map.hex (11.91s)
+    --- PASS: TestCheckerAgreementWithRustCLIStructuralFoundations/extra-bool-nullable-map.hex (11.24s)
+    --- PASS: TestCheckerAgreementWithRustCLIStructuralFoundations/extra-shared-lookup-maps.hex (11.38s)
+    --- PASS: TestCheckerAgreementWithRustCLIStructuralFoundations/extra-validation-bool.hex (8.84s)
+    --- PASS: TestCheckerAgreementWithRustCLIStructuralFoundations/extra-validation-product.hex (225.18s)
+    --- PASS: TestCheckerAgreementWithRustCLIStructuralFoundations/float-sequence.hex (5.62s)
+    --- PASS: TestCheckerAgreementWithRustCLIStructuralFoundations/nested-box.hex (10.87s)
+    --- PASS: TestCheckerAgreementWithRustCLIStructuralFoundations/nullable-string-default.hex (14.63s)
+    --- PASS: TestCheckerAgreementWithRustCLIStructuralFoundations/product-construction.hex (90.27s)
+    --- PASS: TestCheckerAgreementWithRustCLIStructuralFoundations/shared-string-enum-money.hex (297.02s)
+    --- PASS: TestCheckerAgreementWithRustCLIStructuralFoundations/string.hex (5.85s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	1419.081s

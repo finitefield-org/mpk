@@ -1,0 +1,100 @@
+{
+  "schema": "mpk.csharp_practical.w09.tagged_make_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "status": "tagged_construction_component_targeted_verification_passed",
+  "verification": [
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/tagged-make/mpk-w09-tagged-make-build-v1.log",
+      "sha256": "cb4d130710f4fb392cc4522d8dfd1c323ea75c29270e2ef83df34dfe367419a9",
+      "scope_and_selection_reason": "Affected library compilation;9.60s."
+    },
+    {
+      "status": "failed_test_compile_corrected",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/tagged-make/mpk-w09-tagged-make-requests-v1.log",
+      "sha256": "15f8e0c50bf8d19ea9fd66e03ea889c12d658e1c8bfb1553b69741f7463b27bf",
+      "scope_and_selection_reason": "Test used Option<Box<Value>> for the generic tagged payload;corrected to its actual Vec<Value> field."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/tagged-make/mpk-w09-tagged-make-requests-v2.log",
+      "sha256": "12bb5431c02812ebd683fe237e19f43c4a990439be7df7aacc45c3fb947a2a28",
+      "scope_and_selection_reason": "Fresh all-five-sum source/contract request;0.04s. Original binding bytes and source preserved, method contract replaced before capture."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/tagged-make/mpk-w09-tagged-make-capture-v1.log",
+      "sha256": "b54783e7f03a494ff5bd47f4478ef297095ffb7feeb71eefcecd239ae331398b",
+      "scope_and_selection_reason": "Both unchanged isolated frontend processes exited0 with empty stdout/stderr.88 staged files rechecked against repository and manifest."
+    },
+    {
+      "status": "failed_test_bool_input_corrected",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/tagged-make/mpk-w09-tagged-make-source-v1.log",
+      "sha256": "05e9b965534920dac7c1f2f775744b35b08933e7e1df06145ed10d1ecaec4d33",
+      "scope_and_selection_reason": "Test-only evaluation supplied Cube([Bool]) where scalar Bool is represented as Bit. Corrected argument construction by carrier width."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/tagged-make/mpk-w09-tagged-make-source-v2.log",
+      "sha256": "2e0b33d4aab2d4c534b67aae1016c0599a31947e9541cf866a8a8692a6a249d7",
+      "scope_and_selection_reason": "13 original contract clauses,12 exact constructor aliases/complete structural dependency closures,2406 storage observations, exact import and expression metadata mutation;1.62s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/tagged-make/mpk-w09-tagged-make-preservation-v1.log",
+      "sha256": "1dbb2f12853af49593b646a158e9e1d653bea5eb1851c088efea8f7ed8b8f28a",
+      "scope_and_selection_reason": "Affected existing tag/length and partial-read consumers retain exact pins:two tests,2864+2620 observations,17.78s. Disjoint quantifier/codec/arithmetic suites not repeated."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/tagged-make/mpk-w09-tagged-make-inventory-v1.log",
+      "sha256": "804c8c13f88228992c5da986b29c3d81e9c876b327743b0a2ba68c88846127ac",
+      "scope_and_selection_reason": "Affected repository artifact-consumer closure;16.09s. Existing126 Std. paths and4949 aggregate edges unchanged."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/tagged-make/mpk-w09-tagged-make-clippy-v1.log",
+      "sha256": "50e9f2b6202988ba3112ff929eeb895772ec38a83521f57aec0d43d39c8610f7",
+      "scope_and_selection_reason": "Affected library/integration lint before test Bool input correction;49.58s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/tagged-make/mpk-w09-tagged-make-format-v1.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "scope_and_selection_reason": "Only changed production/integration Rust files;skip_children avoids unrelated formatting."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/tagged-make/mpk-w09-tagged-make-checkers-v1.log",
+      "sha256": "edda1d9e007bac54eb05eaa0fa3749ba6071ab7e75bc9df1fbb6c0590a9d6dc7",
+      "scope_and_selection_reason": "One new candidate accepted on identical bytes by both unchanged checkers,zero axioms and matching reports;actual hash corruption rejected by both. Terminal PASS,current hash/size/metadata and tested output bytes reconciled;64.788s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/tagged-make/mpk-w09-tagged-make-clippy-v2.log",
+      "sha256": "101783404b83b892200fc4b784e6932f2e9543b6788fdf68cf5884fb01bbd9cf",
+      "scope_and_selection_reason": "Final affected library/integration lint including scalar Bool test input correction;1m03s with build-directory contention."
+    },
+    {
+      "status": "passed",
+      "commands": [
+        "/usr/bin/git diff --check",
+        "gofmt -l go-tools/mpk-checker-ref/checker_agreement_test.go",
+        "Recompute retained log/candidate hashes and compare actual tested output copies"
+      ],
+      "scope_and_selection_reason": "Final changed-file whitespace/format and evidence consistency;no repeated semantic suite."
+    }
+  ],
+  "candidates": [
+    {
+      "file": "tagged-make.hex",
+      "bytes": 35202,
+      "certificate_sha256": "924783c4067b190da0aa4898b18a2ee8f826a9440208477c1d45442918598ceb"
+    }
+  ],
+  "live_jobs": [],
+  "remaining_component_checks": [],
+  "whole_gate": "Deferred to T06-W12;no check-fast or equivalent split whole gate in this W.",
+  "completion": "Original internal units3\u20138 and W09 remain open. This helper does not discharge application VCs;no component-only commit/push.",
+  "review": "No actionable findings remain in this component."
+}

@@ -1,0 +1,225 @@
+{
+  "schema": "mpk.csharp_practical.w09.json_quoted_codecs_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "quoted_hexadecimal_component_verified",
+  "implementation": "The existing ordinary binary32/binary64/guid.n/guid.d codec emitter is reused in the same JSON Builder. Each wrapper binds the existing full JSON string frame, passes its decoded UTF-16 value to the exact codec parser, and requires both frame validity and codec success. C8 output retains valid/whole flags, all 128 payload bits (zero-extended for floats), absolute u32 end and zero padding. Endings 0..3 only. Invalid results are entirely zero. Existing parse/format definitions are included in metadata and compared to prior standalone definitions.",
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_tokens.rs",
+      "sha256": "258bec90b1666c6d3f5d7ed49f3307298fddd84eadaf2461f99b293c482111e5"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_hex_codecs.rs",
+      "sha256": "e51d8de7af4bc8061c7de0f72bfb8c4d6569d21cf01b2f35fec7cbc5fe650605"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_scalar_bits.rs",
+      "sha256": "18ef173929da64a12229d3aac0faac5f844d60d8199f3ae0bcb32b70c6eb4208"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs",
+      "sha256": "f53d5ccd5f481c634a476c068786e84a722dbc0cb879aac8535f8b3de2e20b32"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+      "sha256": "6002bc37d813b3ce1b5d585d259e6ea57087bc486584b79e8db8dd46654b4042"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_token_tests.rs",
+      "sha256": "7bbfe2df23bfacf2d586efac49a6d77989ed7b3213b82be083eba4d540503adb",
+      "before_test_type_fix_sha256": "6834f6e4972da0c72cd52ca61d52bccd88b6c3f679efa4c8655a6e9c1ddc206b"
+    }
+  ],
+  "verification": [
+    {
+      "session_id": 14227,
+      "log": "/tmp/mpk-w09-quoted-codecs-sources-v1.log",
+      "status": "failed_test_compile",
+      "scope": "68 shared JSON contexts and four structural contexts: complete old lexical and reused standalone codec dependency closure, metadata, exact import/mutations and limits.",
+      "exit_code": 101,
+      "log_sha256": "70b706593b3447d67bb7187f3a749586f2404a22bbe009c5a2b3e68d4fd20143",
+      "failure": "New preservation test passed Vec<String> where same_definition_closure requires BTreeSet<String>. Test-only type mismatch corrected before retry; no runtime cases ran.",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quoted-codecs/mpk-w09-quoted-codecs-sources-v1.log"
+    },
+    {
+      "session_id": 13188,
+      "log": "/tmp/mpk-w09-quoted-codecs-semantics-v1.log",
+      "status": "failed_test_compile",
+      "scope": "Only new quoted hex codec composition: every C8 packet bit, raw float/Guid bit patterns, malformed/canonical/length cases, exact ending and full original bounds.",
+      "exit_code": 101,
+      "log_sha256": "4bc2554c962d42def2fc063086770117c6affe4aca8988b72187c5ae4b477683",
+      "failure": "New preservation test passed Vec<String> where same_definition_closure requires BTreeSet<String>. Test-only type mismatch corrected before retry; no runtime cases ran.",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quoted-codecs/mpk-w09-quoted-codecs-semantics-v1.log"
+    },
+    {
+      "session_id": 82184,
+      "log": "/tmp/mpk-w09-quoted-codecs-clippy-v1.log",
+      "status": "failed_test_compile",
+      "scope": "Targeted library and csharp_practical_vc test lint, warnings denied.",
+      "exit_code": 101,
+      "log_sha256": "6b37c0821c7cbe9e9b0b6121969a9899e0d6de0e6df8c335506c074acd7e07ae",
+      "failure": "New preservation test passed Vec<String> where same_definition_closure requires BTreeSet<String>. Test-only type mismatch corrected before retry; no runtime cases ran.",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quoted-codecs/mpk-w09-quoted-codecs-clippy-v1.log"
+    },
+    {
+      "session_id": 40475,
+      "log": "/tmp/mpk-w09-quoted-codecs-sources-v2.log",
+      "status": "passed",
+      "scope": "68 original JSON contexts and four actual structural contexts passed complete component/old codec dependency closure, metadata, import/mutation and limits in 151.43s.",
+      "exit_code": 0,
+      "log_sha256": "6ef3c340ad60e1bf4439264db5285bae0d444617bc695106b1bf45d360ad56ad",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quoted-codecs/mpk-w09-quoted-codecs-sources-v2.log"
+    },
+    {
+      "session_id": 14430,
+      "log": "/tmp/mpk-w09-quoted-codecs-semantics-v2.log",
+      "status": "passed",
+      "scope": "48 all-256-bit quoted hexadecimal integration cases passed in 1360.69s; terminal session result consumed.",
+      "exit_code": 0,
+      "log_sha256": "a57c2199a87b88fd5c3c2dadcb33114691747e3cd578b29eddc30e641039217d",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quoted-codecs/mpk-w09-quoted-codecs-semantics-v2.log"
+    },
+    {
+      "session_id": 71167,
+      "log": "/tmp/mpk-w09-quoted-codecs-clippy-v2.log",
+      "status": "passed",
+      "scope": "Targeted clippy passed with warnings denied, 31.83s including build wait.",
+      "exit_code": 0,
+      "log_sha256": "e0592a66f474f5e3d8061b8172da6dfd1de83333e974a1a98d972e4ebea0d81c",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quoted-codecs/mpk-w09-quoted-codecs-clippy-v2.log"
+    },
+    {
+      "session_id": 41274,
+      "log": "/tmp/mpk-w09-quoted-codecs-consumers-v1.log",
+      "status": "passed",
+      "scope": "Only the two affected consumer-edge tests passed in 16.50s; three unrelated cases filtered.",
+      "exit_code": 0,
+      "log_sha256": "a49959da77af65aa06a596f5798af9a2be6cad26358068bf1bbb6851a2165db1",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quoted-codecs/mpk-w09-quoted-codecs-consumers-v1.log"
+    },
+    {
+      "command": "rustfmt --edition 2021 --check --config skip_children=true <six edited Rust files>",
+      "status": "passed"
+    },
+    {
+      "session_id": 44630,
+      "log": "/tmp/mpk-w09-quoted-codecs-shared-v2.log",
+      "status": "passed",
+      "scope": "Full collection/shared JSON generation passed in 3.53s at 13002 cumulative transformers, including exact standalone shared-emitter pin equality.",
+      "exit_code": 0,
+      "log_sha256": "c18366a24f716c05e58d20497defc6af7bcd57a20eec153dbc30b30384e253f1",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quoted-codecs/mpk-w09-quoted-codecs-shared-v2.log"
+    },
+    {
+      "session_id": 16429,
+      "log": "/tmp/mpk-w09-quoted-codecs-token-checkers-v2.log",
+      "status": "passed",
+      "scope": "One explicitly byte-equal group for all three JSON sources passed both checkers with zero axioms and actual hash-corruption rejection in 115.76s.",
+      "exit_code": 0,
+      "log_sha256": "496265760b3206764fcd117889856d8b49174a19d8591deeeecf3d01af20e115",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quoted-codecs/mpk-w09-quoted-codecs-token-checkers-v2.log"
+    },
+    {
+      "session_id": 26403,
+      "log": "/tmp/mpk-w09-quoted-codecs-combined-checkers-v2.log",
+      "status": "passed",
+      "scope": "All four selected distinct vectors passed: shared collection 77.46s and three structural cases 77.29/279.06/112.45s; aggregate command 546.455s. Both checkers accept identical bytes with zero axioms and reject actual hash corruption.",
+      "observed_completed_subcases": [
+        {
+          "name": "TestCheckerAgreementWithRustCLIJsonCollectionShared/collection-json.hex",
+          "status": "passed",
+          "seconds": 77.46
+        }
+      ],
+      "exit_code": 0,
+      "log_sha256": "c0c2a87c0a62b93578b6b4e5b80c18098290afc12035944856dcf53888162f8e",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quoted-codecs/mpk-w09-quoted-codecs-combined-checkers-v2.log"
+    },
+    {
+      "session_id": 16533,
+      "log": "/tmp/mpk-w09-quoted-codecs-shared-checkers-v2.log",
+      "status": "intentionally_interrupted_duplicate",
+      "exit_code": 1,
+      "scope": "An unnecessary second shared checker was started after misreading Go -run alternation behavior. Actual original log showed collection-json already running, so this duplicate was interrupted (28.016s) and its process absence confirmed. No result is reused and no rerun is needed; original session 26403 remains authoritative.",
+      "log_sha256": "18ded22a34f9a9414c2f17d579dae9d5e19e4727e31c33164b292bf58e19ebca",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quoted-codecs/mpk-w09-quoted-codecs-shared-checkers-v2.log"
+    }
+  ],
+  "test_selection": "Reuse unchanged lexical/frame/quoted-integer and standalone hexadecimal semantic matrices only after complete dependency preservation. The standalone codec generator only exposes its existing private emitter; no behavior changes there. New current certificate vectors require actual same-byte dual checking. Source tests and new runtime cases run in separate processes to avoid queueing source evidence behind semantic evaluation. No unrelated suite or intermediate-W whole gate.",
+  "prior_pins": "Previous-quoted-codecs archives retain all immediately prior token/shared/structural pins. The intermediate quoted-scalar structural bytes were generated and source-tested but not dual-checked before this extension; no acceptance claim is made for those obsolete byte vectors. Only the final changed structural vectors are checked to avoid redundant checks of superseded intermediate output.",
+  "pending": [
+    "All remaining typed grammar/cumulative limits, source/native/transition relations, actual proof assembly and original W09 acceptance requirements"
+  ],
+  "whole_gate": "Deferred to T06-W12.",
+  "completion": "W09 incomplete; no component-only commit or push.",
+  "previous_goal_turn_classification": "progress: quoted scalar lowering implemented; 70 semantic cases and actual-source generation have now finished successfully.",
+  "this_goal_turn_classification": "progress: consumed both terminal runtime results; quoted codec cases passed and aggregate/decimal/JSON/collection generation passed. Continuing aggregate regroup preservation and affected parser validation.",
+  "token_pins": {
+    "manifest": "json-tokens/certificates.json",
+    "manifest_sha256": "1b45ab892a62b1703a1d4b913980d460a532175664f0512c308041868c79b8e2",
+    "contexts": 68,
+    "source_rows": 3,
+    "distinct_byte_vectors": 1,
+    "terms": 68973,
+    "declarations": 1073,
+    "static_transformers": 4810,
+    "certificate_sha256": "bfb6e5c72b27920177196c9de50cf81d8c7a1e82df129f1c8f8fa652d208e964",
+    "staging": "All three pins/metadata copied and read back; decoded vectors explicitly compared equal. Complete old lexical and all four standalone hex codec parse/format dependency closures matched."
+  },
+  "shared_pin": {
+    "path": "develop/migrations/csharp-03/ordinary-foundation/json-collection-shared/certificate.json",
+    "sha256": "488db62f448d7d1fb4d4a1211d1219fa33779e8429ab8e571db3fec17115f704",
+    "terms": 69685,
+    "declarations": 1093,
+    "static_transformers": 13002,
+    "certificate_sha256": "8d5d32fdf384aa90e73ae8cab783585b5bc58ba3450d09106566f0005ce0da66",
+    "staging": "Both generated files copied and read back byte-for-byte."
+  },
+  "structural_pins": {
+    "path": "develop/migrations/csharp-03/ordinary-foundation/structural-boundary/certificates.json",
+    "sha256": "02d2ab3afa30543270b129fa981d61df4214dc3ca50737305cef6b45cfdc4b73",
+    "new_distinct_vectors": 3,
+    "reused_exact_vectors": [
+      "unit-void-source"
+    ],
+    "rows": [
+      {
+        "id": "document-7a157feb27ed416752b5dde8aa2bf373b9a2c82755d2caa89e955057176ee57b",
+        "terms": 112362,
+        "declarations": 1706,
+        "static_transformers": 13412,
+        "certificate_sha256": "57070e97ceb47248dab0b3a1499ee4f0edc32ab2c842198ccca0343f8b3cb15a"
+      },
+      {
+        "id": "document-decb5507362a7672c711a5befd63efc1038c2c0a86ee20137a1c4c472e0d1684",
+        "terms": 80967,
+        "declarations": 1559,
+        "static_transformers": 13099,
+        "certificate_sha256": "ae72146256234186970a06518d0f8bbed25e13b378caa7ef8666afecc00ec33f"
+      },
+      {
+        "id": "document-6b96fc4eed95a1d33fa5784b9062f02fa07ac65b6aef2b4100bb91e9c2f1a613",
+        "terms": 69606,
+        "declarations": 1104,
+        "static_transformers": 4810,
+        "certificate_sha256": "0888b303fe9fe0250c76e175a147f95e1e02d28acd3ab5739f39d6ac36bd6f52"
+      },
+      {
+        "id": "unit-void-source",
+        "terms": 6647,
+        "declarations": 200,
+        "static_transformers": 58,
+        "certificate_sha256": "feae49872d087dbaf428ee7afe7d877e02d6d3cb6fc06ad47d64122b78c64576"
+      }
+    ],
+    "staging": "All four pins/metadata copied and read back; no-boundary vector matches prior pin byte-for-byte."
+  },
+  "live_jobs_last_confirmed": [],
+  "review": {
+    "path": "unit-4-json-quoted-codecs-review.md",
+    "findings": [],
+    "scope": "Implementation packet layout, sum success tag, full-width payload preservation, frame/bounds/ending requirements, exact reused parse/format dependencies, source/import linkage, measured limits and test selection.",
+    "verification_pending": "No quoted-codec component checks remain; full W09 definitions/relations/proof assembly and acceptance remain incomplete."
+  }
+}

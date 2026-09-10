@@ -1,0 +1,164 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.floating_clause_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "floating_contract_component_targeted_verification_passed",
+  "scope": "38 retained floating operations plus six numeric conversions, including checked conversion failure conditions",
+  "implemented": [
+    "Reuse the unchanged ordinary floating emitter for unary/binary contract recipes",
+    "Validate exact nominal arguments/results/check lists and failure-definition counts",
+    "Keep checked float-to-integer overflow independent; IEEE floating arithmetic has no exception checks",
+    "Test all 44 aliases and full dependency closures; select 18 runtime source cases including two overflow rejections"
+  ],
+  "verified": [
+    "17 existing integer/hex/calendar contract certificate pins are byte-identical after the shared dispatch and request helper changes",
+    "Five final native-source frontend captures accepted",
+    "All 44 alias/dependency closures, 46 attachments, 18 selected conditions and two overflow definedness rejections passed; 57.99s",
+    "Oversized whole-double source rejects the frozen Limit; 2.99s",
+    "Final scoped clippy/format, targeted inventory and Rust CLI build passed",
+    "Five source candidates pinned (6,311,044 bytes; largest 1,982,518); current bytes/metadata/tested copies and capture/limit-rejection provenance reconciled",
+    "All five same-byte dual-checker cases passed (1316.119s); terminal PASS set, current certificate and metadata hashes/sizes, tested copies, capture receipts and retained log hashes reconciled"
+  ],
+  "fixture_iterations": [
+    "Initial comparison tag equal was corrected to the admitted structural_equal tag",
+    "Native source was expanded to contain referenced operations instead of relying on integer-only scalar-signature fallback",
+    "One source containing all 44 native operations exceeded an existing standalone-generator limit. Split native source by single/double/conversions; retain all 44 operation checks and frozen limits",
+    "Explicit String tuple annotation fixes fixture-builder type inference after splitting",
+    "All double operations in one contract also exceed the existing limit. Use measured operation costs to split double comparisons/arithmetic/division; retain the oversized native input as a passing Limit rejection regression. All 44 operations remain covered."
+  ],
+  "verification_logs": [
+    {
+      "log": "verification-logs/floating-clauses/mpk-w09-floating-clause-requests-v1.log",
+      "sha256": "0ec11e6fe5ad70bc83acd44edc2bb14b8b144f4b485f9571d6a29dab2162d0f8"
+    },
+    {
+      "log": "verification-logs/floating-clauses/mpk-w09-floating-clause-requests-v2.log",
+      "sha256": "ddcfcbec189d0c674f5add712e0ae6c3a6421ddf80719c6a005996e009cc9125"
+    },
+    {
+      "log": "verification-logs/floating-clauses/mpk-w09-floating-clause-requests-v3.log",
+      "sha256": "4b160724b20cf91f78600ca2370da00681bee1db6b8c052ba67ce27edfe3b9e0"
+    },
+    {
+      "log": "verification-logs/floating-clauses/mpk-w09-floating-clause-requests-v4.log",
+      "sha256": "93ce784467a9856c325f4e79f9ef1c79b6d7664292a9814d38f7ba20918f0fe5"
+    },
+    {
+      "log": "verification-logs/floating-clauses/mpk-w09-floating-clause-capture-v1.log",
+      "sha256": "b54783e7f03a494ff5bd47f4478ef297095ffb7feeb71eefcecd239ae331398b"
+    },
+    {
+      "log": "verification-logs/floating-clauses/mpk-w09-floating-clause-capture-v3.log",
+      "sha256": "b54783e7f03a494ff5bd47f4478ef297095ffb7feeb71eefcecd239ae331398b"
+    },
+    {
+      "log": "verification-logs/floating-clauses/mpk-w09-floating-clauses-source-v1.log",
+      "sha256": "83c92893620a616e8bf61619f1acd736ff503f068b08303397662e01b4427208"
+    },
+    {
+      "log": "verification-logs/floating-clauses/mpk-w09-floating-clauses-source-v3.log",
+      "sha256": "416909792df5b3c6aac350653dc17be832075891f4c995bafa4bacc5c9c9df53"
+    },
+    {
+      "log": "verification-logs/floating-clauses/mpk-w09-floating-clauses-clippy-v1.log",
+      "sha256": "945d4d3965097d6c9f9fadae5a1281e1077c3149d37acf33b11808ead1836ba5"
+    },
+    {
+      "log": "verification-logs/floating-clauses/mpk-w09-floating-clauses-clippy-v2.log",
+      "sha256": "e799e59dde772b0c657e6b4e235164052088baf6ed7da6441c49498c61239cec"
+    },
+    {
+      "log": "verification-logs/floating-clauses/mpk-w09-floating-clauses-existing-pins-v1.log",
+      "sha256": "17f0a43c70f0cf6578cdc795e85fd215dde14453472e63cbdfdd446aa29ebeee"
+    },
+    {
+      "log": "verification-logs/floating-clauses/mpk-w09-floating-clauses-existing-pins-v2.log",
+      "sha256": "c983f4cff12173cd9dc2dd3bcb897d701ac7ddd63258d758d38b6415805f58ac"
+    },
+    {
+      "log": "verification-logs/floating-clauses/mpk-w09-floating-clauses-format-v1.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "log": "verification-logs/floating-clauses/mpk-w09-floating-clauses-go-format-v1.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "log": "verification-logs/floating-clauses/mpk-w09-floating-clauses-checker-build-v1.log",
+      "sha256": "1614c118c93431449debeb58bf8a89eeec134e4c48b23536fb55e65d97b67f3a"
+    },
+    {
+      "log": "verification-logs/floating-clauses/mpk-w09-floating-clause-requests-v4b.log",
+      "sha256": "0297aa6631d82f2deb983ee6e9f8b4b1618518235b5dbeccf6911916233b0f77"
+    },
+    {
+      "log": "verification-logs/floating-clauses/mpk-w09-floating-clause-capture-v4.log",
+      "sha256": "b54783e7f03a494ff5bd47f4478ef297095ffb7feeb71eefcecd239ae331398b"
+    },
+    {
+      "log": "verification-logs/floating-clauses/mpk-w09-floating-clauses-clippy-v3.log",
+      "sha256": "e762d5b4817383ee2c5ddd316ceda546be3bbaad3bd6f4ec879f0b4980d4c6b1"
+    },
+    {
+      "log": "verification-logs/floating-clauses/mpk-w09-floating-clauses-format-v2.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "log": "verification-logs/floating-clauses/mpk-w09-floating-clauses-inventory-v1.log",
+      "sha256": "6a4af8e243794c93a1264b9808fef032edc6aa9456d0e3c10012a49231691386"
+    },
+    {
+      "log": "verification-logs/floating-clauses/mpk-w09-floating-clause-requests-v5.log",
+      "sha256": "32c89bcdf4a940947ec6bd6b81c35387e1dec01fd57c370ce33f0aa2b03ca00d"
+    },
+    {
+      "log": "verification-logs/floating-clauses/mpk-w09-floating-clause-capture-v5.log",
+      "sha256": "b54783e7f03a494ff5bd47f4478ef297095ffb7feeb71eefcecd239ae331398b"
+    },
+    {
+      "log": "verification-logs/floating-clauses/mpk-w09-floating-clauses-source-v4.log",
+      "sha256": "815ceb7dd3402ca316f8c3e580f78c5d85687929e501216cdf6ede5dda2890d3"
+    },
+    {
+      "log": "verification-logs/floating-clauses/mpk-w09-floating-clauses-limit-v1.log",
+      "sha256": "c841f76b86874b4b6f5f0c4f646ff9917173787c2259b8bf10ff43274e8b60d3"
+    },
+    {
+      "log": "verification-logs/floating-clauses/mpk-w09-floating-clauses-clippy-v4.log",
+      "sha256": "918372f6fb63b1668482508035ac7d50e4d182894b4065475a09ee36f91c9feb"
+    },
+    {
+      "log": "verification-logs/floating-clauses/mpk-w09-floating-clauses-format-v3.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "log": "verification-logs/floating-clauses/mpk-w09-floating-clauses-go-format-v2.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "log": "verification-logs/floating-clauses/mpk-w09-floating-clauses-source-v5.log",
+      "sha256": "b3f64719137c6a966f3732945775f8d761234eb36b9e5d6f40e093334c07d60f",
+      "result": "source cases passed; 57.99s"
+    },
+    {
+      "log": "verification-logs/floating-clauses/mpk-w09-floating-clauses-checkers-v1.log",
+      "sha256": "6089e94a5bb93b41fc3625f48fe24f5dd82b3946587037b52896360747b452b1",
+      "result": "All five same-byte Rust/Go checker cases passed; zero axioms, report agreement and hash corruption rejection; 1316.119s"
+    }
+  ],
+  "remaining": [],
+  "selection_reason": "The ordinary floating bodies change visibility only. Compare complete alias dependencies and run representative new source wiring/definedness paths rather than repeat the unchanged standalone floating semantic matrix. The common scalar dispatch and request builder require 17 existing contract byte pins.",
+  "full_gate": "deferred to T06-W12",
+  "overall_status": "Original units 3-8 and W09 remain open; no component commit/push.",
+  "capture": "floating-clauses/capture-receipt.json",
+  "live_jobs": [],
+  "certificates": "floating-clauses/certificates.json",
+  "repository_state": {
+    "branch": "main",
+    "head": "aaf39bf",
+    "tracked_changes": 44,
+    "untracked_entries": 433,
+    "note": "Preexisting dirty work and user AGENTS.md preserved. No component commit/push; original units 3-8 and W09 remain incomplete."
+  },
+  "review": "unit-4-floating-clauses-review.md"
+}

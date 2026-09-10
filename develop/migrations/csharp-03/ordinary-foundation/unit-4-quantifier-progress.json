@@ -1,0 +1,203 @@
+{
+  "schema": "mpk.csharp_practical.w09.quantifier_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "status": "bounded_quantifier_component_targeted_verification_passed",
+  "user_clarification": {
+    "range": "lower <= i < upper",
+    "reversed_range": "definedness_violation",
+    "statically_oversized_expansion": "reject_generation",
+    "approval": "この扱いで進める"
+  },
+  "verification": [
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quantifiers/mpk-w09-quantifier-build-v1.log",
+      "sha256": "c3e3bfd9274c256b95f9b248d1b634005227bc850dbf7815e1d3748a01fdf9a7",
+      "scope_and_selection_reason": "New library recipe compilation before test scaffolding."
+    },
+    {
+      "status": "failed_test_compile_corrected",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quantifiers/mpk-w09-quantifier-core-v1.log",
+      "sha256": "6a571c1c18a0e016c1a3b54a8b844c631441858f68452669ec5360d78c4b9f78",
+      "scope_and_selection_reason": "Test used a missing validator import and nonexistent Certificate.terms field;fixed to term_table."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quantifiers/mpk-w09-quantifier-core-v2.log",
+      "sha256": "a9a345567e0b8be07ca083d29b1f6ca70f0d4d6a3882b8c645151b1d6047178f",
+      "scope_and_selection_reason": "New four-width range/value circuits:116 cases,8305 concrete transformers,34.72s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quantifiers/mpk-w09-quantifier-capacity-v1.log",
+      "sha256": "1f52cb559f62b487bcbb49c36013655b63bae8716bf2334373ab4bcf041eb1fb",
+      "scope_and_selection_reason": "New u64 offset integration at all16384 slots,162.52s;actual body traversal,not a host-computed oracle shortcut."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quantifiers/mpk-w09-quantifier-skip-body-v1.log",
+      "sha256": "034df06f79ac307acd8e38d3ffca96215ad02c748e453d1c28358b7ac246a59f",
+      "scope_and_selection_reason": "All four widths,empty/reversed/oversized ranges use a poison non-function to detect any body application;1.75s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quantifiers/mpk-w09-quantifier-pinned-core-v1.log",
+      "sha256": "fed95a7c459981fcae2bba5933e1c2cfd7598f0093cb7771e5dab7df8e8849c2",
+      "scope_and_selection_reason": "Test-only fixture pin correction:exact current bytes/metadata match the already capacity-tested core;short non-evaluation regression3.87s,so unchanged full-capacity traversal was not repeated."
+    },
+    {
+      "status": "failed_test_compile_corrected",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quantifiers/mpk-w09-quantifier-requests-v1.log",
+      "sha256": "d5578c8b6e51cd426223a0b8c9ae84cac5038a9cb0d92be3cb48c83e1ce5b769",
+      "scope_and_selection_reason": "Nested test expression moved borrowed lower/upper values;changed to clones."
+    },
+    {
+      "status": "passed_superseded_request_draft",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quantifiers/mpk-w09-quantifier-requests-v2.log",
+      "sha256": "7d7a70755bfeeb90aad8dc90a272ea50924f06ef448fbc89ffaad4f2620299c8",
+      "scope_and_selection_reason": "Initial five-context request construction;source parameters subsequently corrected to canonical parameter:0/1 IDs before capture."
+    },
+    {
+      "status": "passed_superseded_request_draft",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quantifiers/mpk-w09-quantifier-requests-v3.log",
+      "sha256": "e5b1d9d280f228506aa8aae8b91f2712b86e3543d891bb5cd5ebb20908c23e24",
+      "scope_and_selection_reason": "Five corrected method contexts before adding the public-consumer regression."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quantifiers/mpk-w09-quantifier-requests-v4.log",
+      "sha256": "362157678f6dc85c1945ff17052d76aaeffd6b9180b71eb7064392b1c40f7ca1",
+      "scope_and_selection_reason": "Final six exact request contexts;0.10s. Generated requests later matched retained source-test output bytes exactly."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quantifiers/mpk-w09-quantifier-capture-v1.log",
+      "sha256": "b54783e7f03a494ff5bd47f4478ef297095ffb7feeb71eefcecd239ae331398b",
+      "scope_and_selection_reason": "Six contexts captured fresh through unchanged isolated data frontend;both processes exit0. All88 staged inputs checked against repository and manifest."
+    },
+    {
+      "status": "failed_test_subject_assignment_corrected",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quantifiers/mpk-w09-quantifier-source-v1.log",
+      "sha256": "8dba3f80f8b1a55874837fb7b8c238cf9694db17daf9e7a902252a79a6c0ece7",
+      "scope_and_selection_reason": "Test omitted entry:parameter subjects preserved by the canonical attachment. Added explicit entry argument assignments;no production/capture changes."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quantifiers/mpk-w09-quantifier-source-v2.log",
+      "sha256": "2ff60ea3ac73cd55512a96d859c9fa1670b57abe76b08c2b0a01075feb0df2f9",
+      "scope_and_selection_reason": "Four integer method contracts,160 value/definedness observations,nested and lexical binders,all-body exists definedness,static oversized rejection;public quantifier consumer rejection and metadata mutations;161.88s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quantifiers/mpk-w09-quantifier-preservation-v1.log",
+      "sha256": "dc84407f65cfee90620e39507a6993d8e902906bb4b741807a16df817174a129",
+      "scope_and_selection_reason": "Four affected shared-compiler consumers:method/loop,old/result,multiowner source,exception clauses. Exact existing pins and2808 exception observations remain valid;3.21s. Unrelated collection/scalar semantics not rerun."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quantifiers/mpk-w09-quantifier-inventory-update-v1.log",
+      "sha256": "6c09b8bbc2bc2b02860cf33ccb6c3c3273bbed06512718d4126e4ffc423b8690",
+      "scope_and_selection_reason": "Audited old125-path fingerprint preimage;added only the new quantifier source path. Std. count126,aggregate4949;dependent historical inventory hash updated."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quantifiers/mpk-w09-quantifier-inventory-v1.log",
+      "sha256": "db73be0b5246d4eeb83488f11034bb20806fc4053dd15657840bccaf0853e0dd",
+      "scope_and_selection_reason": "Affected artifact-consumer closure;16.99s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quantifiers/mpk-w09-quantifier-clippy-v1.log",
+      "sha256": "c2ec8ccf15be90eaaf69399b57dcc85783cff2ac39c317fff27213cfce3a82d5",
+      "scope_and_selection_reason": "Affected library/integration lint before final test additions;29.11s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quantifiers/mpk-w09-quantifier-clippy-v2.log",
+      "sha256": "68e7754cfe51dfa1809f933a7b02478fe9ec8050bcf8d9ba203f6dfd0091a732",
+      "scope_and_selection_reason": "Affected lint with public-consumer case;21.37s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quantifiers/mpk-w09-quantifier-clippy-v3.log",
+      "sha256": "d311c9b4fed8a65c58a8643d036c5b6827af20bfe876c1a432ba07b64877a932",
+      "scope_and_selection_reason": "Final affected library/integration lint after entry-subject and fixture-pin corrections;35.03s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quantifiers/mpk-w09-quantifier-format-v1.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "scope_and_selection_reason": "Only the changed production and integration Rust files;skip_children avoids unrelated formatting."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quantifiers/mpk-w09-quantifier-offset-bits-v1.log",
+      "sha256": "a56c1c3522437addf02ec789e012452ea0b907aa8b800b2fb9c204c68d3d2c0f",
+      "scope_and_selection_reason": "Review found full-capacity constant predicate did not demand high offset bits. Extracted actual emitted predicate term,checked forall/exists share it,and verified320 selector/carry/signed/high-u64 observations in15.68s. Original bytes still match;no repeated full traversal."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quantifiers/mpk-w09-quantifier-test-clippy-v1.log",
+      "sha256": "a64549f90aef4adb56fd5eb9ed16c593657844b39d160021b280e79618509dc7",
+      "scope_and_selection_reason": "Changed library unit tests require cfg(test) lint;scoped to mpk-vc --lib --tests because Cargo selects its unit-test lint via --tests. No unrelated tests executed;2m11s. All selected targets pass with warnings denied."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quantifiers/mpk-w09-quantifier-format-v2.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "scope_and_selection_reason": "Final scoped formatting after test-only offset coverage and type-alias changes."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quantifiers/mpk-w09-quantifier-checkers-v1.log",
+      "sha256": "6f0061d4a5fa4c1b5345ed88a788a70dbcf01cea42d156f17c25047b3199c252",
+      "scope_and_selection_reason": "Only six new quantifier candidates. Both unchanged checkers accepted identical bytes with zero axioms and matching reports, and both rejected each actual hash corruption. Six terminal PASS names reconcile to current hashes/sizes/metadata/tested output copies;827.806s."
+    },
+    {
+      "status": "passed",
+      "commands": [
+        "/usr/bin/git diff --check",
+        "gofmt -l go-tools/mpk-checker-ref/checker_agreement_test.go",
+        "Recompute retained log/candidate hashes and compare actual tested output copies"
+      ],
+      "scope_and_selection_reason": "Final changed-file formatting/whitespace and evidence consistency;no repeated semantic suite."
+    }
+  ],
+  "remaining_component_checks": [],
+  "whole_gate": "Deferred to T06-W12; no check-fast or equivalent split whole gate in this W.",
+  "completion": "This component does not complete an original internal unit or W09 and does not discharge application VCs.",
+  "live_jobs": [],
+  "candidates": [
+    {
+      "file": "core.hex",
+      "bytes": 102939,
+      "certificate_sha256": "41d91d0b7194ed816214d08a0fcbbc399bb75807c8a45ef77fae4f80f00f2c88"
+    },
+    {
+      "file": "quantifier-i32.hex",
+      "bytes": 342736,
+      "certificate_sha256": "d33c2903f2989c2c3989c1bd16587d702b35c8dbb0fe3cc6d17b3acdab96b315"
+    },
+    {
+      "file": "quantifier-i64.hex",
+      "bytes": 1255565,
+      "certificate_sha256": "d781dc3b3fcb28217a367f244375ce6c61b60b60f1b222cfbe26ee749c767eb5"
+    },
+    {
+      "file": "quantifier-public.hex",
+      "bytes": 36878,
+      "certificate_sha256": "6842aeb5fdc1e7b9dbcabb7fcec10706693f48d34ffc42122287e0018f490af1"
+    },
+    {
+      "file": "quantifier-u32.hex",
+      "bytes": 314026,
+      "certificate_sha256": "1b6833eeefd9089551454141df9bc6cb2394c0d2646c2335b1af402c79311063"
+    },
+    {
+      "file": "quantifier-u64.hex",
+      "bytes": 1196804,
+      "certificate_sha256": "0eb7ffadecb2938ae7ab47cfafd8e125c8f9b1bb66923a7cd58344201b2fc77c"
+    }
+  ],
+  "review": "No actionable findings remain in this component after fixture pin and high-offset coverage corrections."
+}

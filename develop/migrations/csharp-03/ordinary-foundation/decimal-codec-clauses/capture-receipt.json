@@ -1,0 +1,36 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.decimal_codec_clause_capture.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "date": "2026-09-11",
+  "files": [
+    {
+      "path": "requests.json",
+      "bytes": 116300,
+      "sha256": "c9435e880b550186bd280d5c563c8f2f4bdb305f63ee0c8230928e273e24426f"
+    },
+    {
+      "path": "responses.json",
+      "bytes": 19649,
+      "sha256": "8f47f562fa9e7e3f36ae6079ac1366599870e4df4996c1f552f3a8fb1102609b"
+    },
+    {
+      "path": "capture-inputs.json",
+      "bytes": 19763,
+      "sha256": "8befa15a01a4209c159d509013d3ab9b28b8ded95f1ae909b24f655390354c2c"
+    }
+  ],
+  "source_contexts": 6,
+  "frontend_accepts": 6,
+  "capture_stage": "/tmp/mpk-w09-public-domain-capture-stage",
+  "stage_verification": "All 88 recorded inputs matched hashes/sizes and every repository counterpart before capture.",
+  "docker_image": "python@sha256:933b46a028fd786c9c3d426ebabc237e29a15912231ea8de576e95f0e4f41a4c",
+  "isolation": "network none; default seccomp; read-only root/stage; bounded tmpfs; no-new-privileges; required namespace/user capabilities only; 4g/2cpu",
+  "route": "unchanged gate.test_data_phase via diagnose.py",
+  "scope": "frontend attachment facts; not application VC proof",
+  "raw_response_transport": {
+    "log": "verification-logs/decimal-codec-clauses/capture-raw-responses-v2.json",
+    "sha256": "e77859b9b45dc15b06afb7a4847499f1e7caf9bc3dcd4d2e551ed32d0a64ba29",
+    "note": "Current responses.json is structurally equal pretty-printed output; all facts and arrays preserved."
+  },
+  "correction": "MAX with 28 fractional zeros parses successfully; separate MAX+1 literal rejects Range. Original capture and candidates retained in previous-range-expectation/."
+}

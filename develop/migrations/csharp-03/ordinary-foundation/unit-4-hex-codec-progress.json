@@ -1,0 +1,130 @@
+{
+  "schema": "mpk.csharp_practical.w09.hex_codec_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "partial_hex_codec_definitions_verified_not_unit_completion",
+  "codec_ids": [
+    "binary32",
+    "binary64",
+    "guid.n",
+    "guid.d"
+  ],
+  "source_contexts_examined": 64,
+  "pinned_contexts": 11,
+  "codec_occurrences": 14,
+  "max_terms": 3119,
+  "max_declarations": 93,
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_hex_codecs.rs",
+      "sha256": "a08ed47df6d6d2dfa43d2507b2a2d13d3790ac7ff5bacae96b9f59aecfff1da7"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_scalar_bits.rs",
+      "sha256": "6aaa986720ef930082f6267e1daf8780cde43cb0c8dfcfd04f6986a26032456b"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs",
+      "sha256": "2cb3590424372a69731092c80e45812c7b6af02705f01bdaee596880e80e2ef2"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+      "sha256": "fe0d09b82a2970f754bd0cdd9cb2cc2a969dd7f0d64b2a8f85637d38dd5f68c6"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_hex_codec_tests.rs",
+      "sha256": "1a19c71cdbe2d1f25f87c89c8f435a0a4d133ac168ce6c37dccd7cefea2f06cf"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_literal_tests.rs",
+      "sha256": "f914e381d98f2070846c3524a4147dc3a4ebb7579f53e862f3b074507e9a8798"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "sha256": "4e4eccf7699c3fc5d1b152f6c493d3c9e2df3c3e8ccfc0732240996978eb5717"
+    },
+    {
+      "path": "develop/migrations/csharp-03/artifact-consumer-inventory.json",
+      "sha256": "f4c9485a00aa806daad35306be907b4ab845d6a540de095d7deb4753fbb804ee"
+    },
+    {
+      "path": "develop/migrations/csharp-03/data-phase/historical-inventory-cache-correction.json",
+      "sha256": "7926b1681c5436348bc7abac2bfd5784c9eab7e1b73aad8a9cc339ff07e5759a"
+    }
+  ],
+  "manifest": {
+    "path": "develop/migrations/csharp-03/ordinary-foundation/hex-codecs/certificates.json",
+    "sha256": "160648bd78273d7196df3bc3670b65ddb892c2d52cc5dbe4ceac61a1d4ecdacc"
+  },
+  "verification": [
+    {
+      "command": "cargo check -p mpk-vc",
+      "log": "/tmp/mpk-w09-hex-codecs-check-v1.log",
+      "log_sha256": "b650bc460ab4dbcaf7738614c4bea271892176f276bdead96aead56b73809563",
+      "status": "passed",
+      "scope": "production type check, 63 seconds; before positional field-ID metadata correction"
+    },
+    {
+      "command": "MPK_W09_HEX_CODECS_OUT=/tmp/mpk-w09-hex-codecs-v1 cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_hex_codecs_original_sources -- --nocapture",
+      "log": "/tmp/mpk-w09-hex-codecs-suite-v1.log",
+      "log_sha256": "b840878f513217d5e7fdde77cb560de0a2a3d3ecfefb2e9e92f4128e808ab796",
+      "status": "failed_compile",
+      "scope": "Oracle formatter required captured foundation/root/closed arguments; fixed in next attempt"
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --test csharp_practical_vc -- -D warnings",
+      "log": "/tmp/mpk-w09-hex-codecs-clippy-v1.log",
+      "log_sha256": "1725b0c10e34b38d0a406e7b22f3601c9a11e5824e2a4cfd283b206452b35682",
+      "status": "passed",
+      "scope": "154 seconds including build-lock wait; current production/tests compile cleanly"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "log": "/tmp/mpk-w09-hex-codecs-inventory-v1.log",
+      "log_sha256": "d1a31268c662fba6347a82deff642e23c769abb237abdfb3ffd386460c9eaed5",
+      "status": "passed",
+      "scope": "5 tests, 16.56 seconds; exact new Std namespace path delta from 116 to 117"
+    },
+    {
+      "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIHexCodecs$' -count=1 -timeout 0 -v",
+      "log": "/tmp/mpk-w09-hex-codecs-checkers-v1.log",
+      "status": "passed",
+      "scope": "All 11 exact byte sequences accepted by both unchanged checkers with zero axioms and rejected hash corruptions; 183.927 seconds",
+      "log_sha256": "e0857b78dbb23ee3acab7999cbf2ececacdae2b7cff3087d3e32e30abe406f16"
+    },
+    {
+      "command": "cargo fmt --all -- --check; gofmt -d go-tools/mpk-checker-ref/checker_agreement_test.go; /usr/bin/git diff --check",
+      "status": "passed",
+      "scope": "Empty Rust/Go formatting output and Git diff-check exit zero",
+      "log": "/tmp/mpk-w09-hex-codecs-format-v1.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "Compare each generated v2 hex and manifest with its repository pin; recompute all recorded implementation hashes",
+      "status": "passed",
+      "scope": "11 certificate files and full manifest are byte-identical to the generated v2 output; current implementation hashes match the tested source receipt."
+    },
+    {
+      "command": "MPK_W09_HEX_CODECS_OUT=/tmp/mpk-w09-hex-codecs-v2 cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_hex_codecs_original_sources -- --nocapture",
+      "log": "/tmp/mpk-w09-hex-codecs-suite-v2.log",
+      "status": "passed",
+      "scope": "64-context generation, mutations, 39 format/parse comparisons and 680 parse/error cases passed in 785.35 seconds. Executable predates only later helper visibility/export changes and the independent pinned-replay test.",
+      "log_sha256": "73b385b89c1a0a36aa53b90a29b483bd8533022e55fd2d1bd3ed80b97704c0df"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_hex_codecs_pinned_sources -- --nocapture",
+      "log": "/tmp/mpk-w09-hex-codecs-replay-v1.log",
+      "status": "passed",
+      "scope": "64 original source contexts regenerated; all 11 fixed hex files and complete metadata exactly preserved after visibility/export changes, 7.40 seconds",
+      "log_sha256": "e4c723bfa680136617bb4e0ac44d4b24b413edea0227e83e3550de76d12b4f9b"
+    }
+  ],
+  "live_jobs": [],
+  "remaining": [
+    "Hex codec component target verification is complete; no live component jobs. Other codec families and the full W09 proof scope remain required.",
+    "Implement integer, decimal, date/time, duration/instant and strict whole-document JSON relations.",
+    "Bind structural parser result to each exact registered closed result instance during VC assembly, and prove source/native commutation and universal round trips.",
+    "Complete all remaining implementation-plan.md units 3\u20138 and W09 acceptance. check-fast.sh remains deferred to T06-W12."
+  ],
+  "subsequent_source_note": "Shared call/truth/word helpers became visible only to sibling ordinary modules; semantic bodies and all 11 pins are unchanged. The additional pinned-replay test avoids repeating the 785-second semantic matrix for visibility-only changes."
+}

@@ -1,0 +1,6058 @@
+{
+  "before_decimal_transformers": 13002,
+  "certificate_sha256": "303c00d62cc209d47728311bb3ea310e3fb318e08b697acc37b815764f4a9c08",
+  "collection_transformers": 8192,
+  "decimal": [
+    {
+      "codec_id": "decimal.normalized",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Normalized.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": null,
+      "scale": null,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S0.ToEven.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToEven",
+      "scale": 0,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S0.AwayFromZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "AwayFromZero",
+      "scale": 0,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S0.ToZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToZero",
+      "scale": 0,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S0.ToNegativeInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToNegativeInfinity",
+      "scale": 0,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S0.ToPositiveInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToPositiveInfinity",
+      "scale": 0,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S1.ToEven.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToEven",
+      "scale": 1,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S1.AwayFromZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "AwayFromZero",
+      "scale": 1,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S1.ToZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToZero",
+      "scale": 1,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S1.ToNegativeInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToNegativeInfinity",
+      "scale": 1,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S1.ToPositiveInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToPositiveInfinity",
+      "scale": 1,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S2.ToEven.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToEven",
+      "scale": 2,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S2.AwayFromZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "AwayFromZero",
+      "scale": 2,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S2.ToZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToZero",
+      "scale": 2,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S2.ToNegativeInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToNegativeInfinity",
+      "scale": 2,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S2.ToPositiveInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToPositiveInfinity",
+      "scale": 2,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S3.ToEven.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToEven",
+      "scale": 3,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S3.AwayFromZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "AwayFromZero",
+      "scale": 3,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S3.ToZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToZero",
+      "scale": 3,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S3.ToNegativeInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToNegativeInfinity",
+      "scale": 3,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S3.ToPositiveInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToPositiveInfinity",
+      "scale": 3,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S4.ToEven.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToEven",
+      "scale": 4,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S4.AwayFromZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "AwayFromZero",
+      "scale": 4,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S4.ToZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToZero",
+      "scale": 4,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S4.ToNegativeInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToNegativeInfinity",
+      "scale": 4,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S4.ToPositiveInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToPositiveInfinity",
+      "scale": 4,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S5.ToEven.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToEven",
+      "scale": 5,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S5.AwayFromZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "AwayFromZero",
+      "scale": 5,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S5.ToZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToZero",
+      "scale": 5,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S5.ToNegativeInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToNegativeInfinity",
+      "scale": 5,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S5.ToPositiveInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToPositiveInfinity",
+      "scale": 5,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S6.ToEven.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToEven",
+      "scale": 6,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S6.AwayFromZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "AwayFromZero",
+      "scale": 6,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S6.ToZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToZero",
+      "scale": 6,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S6.ToNegativeInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToNegativeInfinity",
+      "scale": 6,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S6.ToPositiveInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToPositiveInfinity",
+      "scale": 6,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S7.ToEven.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToEven",
+      "scale": 7,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S7.AwayFromZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "AwayFromZero",
+      "scale": 7,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S7.ToZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToZero",
+      "scale": 7,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S7.ToNegativeInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToNegativeInfinity",
+      "scale": 7,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S7.ToPositiveInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToPositiveInfinity",
+      "scale": 7,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S8.ToEven.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToEven",
+      "scale": 8,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S8.AwayFromZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "AwayFromZero",
+      "scale": 8,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S8.ToZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToZero",
+      "scale": 8,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S8.ToNegativeInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToNegativeInfinity",
+      "scale": 8,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S8.ToPositiveInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToPositiveInfinity",
+      "scale": 8,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S9.ToEven.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToEven",
+      "scale": 9,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S9.AwayFromZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "AwayFromZero",
+      "scale": 9,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S9.ToZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToZero",
+      "scale": 9,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S9.ToNegativeInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToNegativeInfinity",
+      "scale": 9,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S9.ToPositiveInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToPositiveInfinity",
+      "scale": 9,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S10.ToEven.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToEven",
+      "scale": 10,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S10.AwayFromZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "AwayFromZero",
+      "scale": 10,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S10.ToZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToZero",
+      "scale": 10,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S10.ToNegativeInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToNegativeInfinity",
+      "scale": 10,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S10.ToPositiveInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToPositiveInfinity",
+      "scale": 10,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S11.ToEven.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToEven",
+      "scale": 11,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S11.AwayFromZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "AwayFromZero",
+      "scale": 11,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S11.ToZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToZero",
+      "scale": 11,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S11.ToNegativeInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToNegativeInfinity",
+      "scale": 11,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S11.ToPositiveInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToPositiveInfinity",
+      "scale": 11,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S12.ToEven.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToEven",
+      "scale": 12,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S12.AwayFromZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "AwayFromZero",
+      "scale": 12,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S12.ToZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToZero",
+      "scale": 12,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S12.ToNegativeInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToNegativeInfinity",
+      "scale": 12,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S12.ToPositiveInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToPositiveInfinity",
+      "scale": 12,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S13.ToEven.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToEven",
+      "scale": 13,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S13.AwayFromZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "AwayFromZero",
+      "scale": 13,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S13.ToZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToZero",
+      "scale": 13,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S13.ToNegativeInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToNegativeInfinity",
+      "scale": 13,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S13.ToPositiveInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToPositiveInfinity",
+      "scale": 13,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S14.ToEven.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToEven",
+      "scale": 14,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S14.AwayFromZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "AwayFromZero",
+      "scale": 14,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S14.ToZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToZero",
+      "scale": 14,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S14.ToNegativeInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToNegativeInfinity",
+      "scale": 14,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S14.ToPositiveInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToPositiveInfinity",
+      "scale": 14,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S15.ToEven.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToEven",
+      "scale": 15,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S15.AwayFromZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "AwayFromZero",
+      "scale": 15,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S15.ToZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToZero",
+      "scale": 15,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S15.ToNegativeInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToNegativeInfinity",
+      "scale": 15,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S15.ToPositiveInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToPositiveInfinity",
+      "scale": 15,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S16.ToEven.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToEven",
+      "scale": 16,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S16.AwayFromZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "AwayFromZero",
+      "scale": 16,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S16.ToZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToZero",
+      "scale": 16,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S16.ToNegativeInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToNegativeInfinity",
+      "scale": 16,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S16.ToPositiveInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToPositiveInfinity",
+      "scale": 16,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S17.ToEven.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToEven",
+      "scale": 17,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S17.AwayFromZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "AwayFromZero",
+      "scale": 17,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S17.ToZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToZero",
+      "scale": 17,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S17.ToNegativeInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToNegativeInfinity",
+      "scale": 17,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S17.ToPositiveInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToPositiveInfinity",
+      "scale": 17,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S18.ToEven.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToEven",
+      "scale": 18,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S18.AwayFromZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "AwayFromZero",
+      "scale": 18,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S18.ToZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToZero",
+      "scale": 18,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S18.ToNegativeInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToNegativeInfinity",
+      "scale": 18,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S18.ToPositiveInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToPositiveInfinity",
+      "scale": 18,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S19.ToEven.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToEven",
+      "scale": 19,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S19.AwayFromZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "AwayFromZero",
+      "scale": 19,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S19.ToZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToZero",
+      "scale": 19,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S19.ToNegativeInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToNegativeInfinity",
+      "scale": 19,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S19.ToPositiveInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToPositiveInfinity",
+      "scale": 19,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S20.ToEven.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToEven",
+      "scale": 20,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S20.AwayFromZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "AwayFromZero",
+      "scale": 20,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S20.ToZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToZero",
+      "scale": 20,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S20.ToNegativeInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToNegativeInfinity",
+      "scale": 20,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S20.ToPositiveInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToPositiveInfinity",
+      "scale": 20,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S21.ToEven.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToEven",
+      "scale": 21,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S21.AwayFromZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "AwayFromZero",
+      "scale": 21,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S21.ToZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToZero",
+      "scale": 21,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S21.ToNegativeInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToNegativeInfinity",
+      "scale": 21,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S21.ToPositiveInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToPositiveInfinity",
+      "scale": 21,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S22.ToEven.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToEven",
+      "scale": 22,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S22.AwayFromZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "AwayFromZero",
+      "scale": 22,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S22.ToZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToZero",
+      "scale": 22,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S22.ToNegativeInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToNegativeInfinity",
+      "scale": 22,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S22.ToPositiveInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToPositiveInfinity",
+      "scale": 22,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S23.ToEven.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToEven",
+      "scale": 23,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S23.AwayFromZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "AwayFromZero",
+      "scale": 23,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S23.ToZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToZero",
+      "scale": 23,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S23.ToNegativeInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToNegativeInfinity",
+      "scale": 23,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S23.ToPositiveInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToPositiveInfinity",
+      "scale": 23,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S24.ToEven.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToEven",
+      "scale": 24,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S24.AwayFromZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "AwayFromZero",
+      "scale": 24,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S24.ToZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToZero",
+      "scale": 24,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S24.ToNegativeInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToNegativeInfinity",
+      "scale": 24,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S24.ToPositiveInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToPositiveInfinity",
+      "scale": 24,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S25.ToEven.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToEven",
+      "scale": 25,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S25.AwayFromZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "AwayFromZero",
+      "scale": 25,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S25.ToZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToZero",
+      "scale": 25,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S25.ToNegativeInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToNegativeInfinity",
+      "scale": 25,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S25.ToPositiveInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToPositiveInfinity",
+      "scale": 25,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S26.ToEven.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToEven",
+      "scale": 26,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S26.AwayFromZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "AwayFromZero",
+      "scale": 26,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S26.ToZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToZero",
+      "scale": 26,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S26.ToNegativeInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToNegativeInfinity",
+      "scale": 26,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S26.ToPositiveInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToPositiveInfinity",
+      "scale": 26,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S27.ToEven.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToEven",
+      "scale": 27,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S27.AwayFromZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "AwayFromZero",
+      "scale": 27,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S27.ToZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToZero",
+      "scale": 27,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S27.ToNegativeInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToNegativeInfinity",
+      "scale": 27,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S27.ToPositiveInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToPositiveInfinity",
+      "scale": 27,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S28.ToEven.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToEven",
+      "scale": 28,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S28.AwayFromZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "AwayFromZero",
+      "scale": 28,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S28.ToZero.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToZero",
+      "scale": 28,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S28.ToNegativeInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToNegativeInfinity",
+      "scale": 28,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    },
+    {
+      "codec_id": "decimal.fixed",
+      "parse_definition": "Mpk.CSharp.Ordinary.DecimalParse.Fixed.S28.ToPositiveInfinity.Parse",
+      "parse_result_shape": {
+        "arms": [
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.decimal.v1"
+                }
+              }
+            ],
+            "id": "ok",
+            "tag": 0
+          },
+          {
+            "fields": [
+              {
+                "id": "0",
+                "shape": {
+                  "kind": "reference",
+                  "type_id": "mpk.csharp.value.parse_error.v1"
+                }
+              }
+            ],
+            "id": "error",
+            "tag": 1
+          }
+        ],
+        "kind": "sum"
+      },
+      "rounding": "ToPositiveInfinity",
+      "scale": 28,
+      "value_depth": 9,
+      "value_type_id": "mpk.csharp.value.decimal.v1"
+    }
+  ],
+  "declarations": 1696,
+  "json": {
+    "keywords": {
+      "document": {
+        "bounded_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Bounded",
+        "depth": 24,
+        "length_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Length",
+        "make_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Make",
+        "read_byte_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.ReadByte",
+        "shape": {
+          "capacity": 1048576,
+          "element": {
+            "kind": "bits",
+            "width": 8
+          },
+          "kind": "sequence"
+        },
+        "type_name": "Mpk.CSharp.Ordinary.BoundaryDocument"
+      },
+      "fragments": {
+        "concat_definition": "Mpk.CSharp.Ordinary.BoundaryFragments.Concat",
+        "concat_valid_definition": "Mpk.CSharp.Ordinary.BoundaryFragments.ConcatValid",
+        "document": {
+          "bounded_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Bounded",
+          "depth": 24,
+          "length_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Length",
+          "make_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Make",
+          "read_byte_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.ReadByte",
+          "shape": {
+            "capacity": 1048576,
+            "element": {
+              "kind": "bits",
+              "width": 8
+            },
+            "kind": "sequence"
+          },
+          "type_name": "Mpk.CSharp.Ordinary.BoundaryDocument"
+        },
+        "slice_definition": "Mpk.CSharp.Ordinary.BoundaryFragments.Slice",
+        "slice_valid_definition": "Mpk.CSharp.Ordinary.BoundaryFragments.SliceValid",
+        "static_transformers": 8273
+      },
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonKeywords.Parse",
+      "static_transformers": 12532
+    },
+    "quoted_codecs": [
+      {
+        "codec": {
+          "codec_id": "binary32",
+          "format_definition": "Mpk.CSharp.Ordinary.HexCodec.binary32.Format",
+          "parse_definition": "Mpk.CSharp.Ordinary.HexCodec.binary32.Parse",
+          "parse_result_shape": {
+            "arms": [
+              {
+                "fields": [
+                  {
+                    "id": "0",
+                    "shape": {
+                      "kind": "reference",
+                      "type_id": "mpk.csharp.value.f32.v1"
+                    }
+                  }
+                ],
+                "id": "ok",
+                "tag": 0
+              },
+              {
+                "fields": [
+                  {
+                    "id": "0",
+                    "shape": {
+                      "kind": "reference",
+                      "type_id": "mpk.csharp.value.parse_error.v1"
+                    }
+                  }
+                ],
+                "id": "error",
+                "tag": 1
+              }
+            ],
+            "kind": "sum"
+          },
+          "value_depth": 5,
+          "value_type_id": "mpk.csharp.value.f32.v1"
+        },
+        "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedCodec.binary32.Parse"
+      },
+      {
+        "codec": {
+          "codec_id": "binary64",
+          "format_definition": "Mpk.CSharp.Ordinary.HexCodec.binary64.Format",
+          "parse_definition": "Mpk.CSharp.Ordinary.HexCodec.binary64.Parse",
+          "parse_result_shape": {
+            "arms": [
+              {
+                "fields": [
+                  {
+                    "id": "0",
+                    "shape": {
+                      "kind": "reference",
+                      "type_id": "mpk.csharp.value.f64.v1"
+                    }
+                  }
+                ],
+                "id": "ok",
+                "tag": 0
+              },
+              {
+                "fields": [
+                  {
+                    "id": "0",
+                    "shape": {
+                      "kind": "reference",
+                      "type_id": "mpk.csharp.value.parse_error.v1"
+                    }
+                  }
+                ],
+                "id": "error",
+                "tag": 1
+              }
+            ],
+            "kind": "sum"
+          },
+          "value_depth": 6,
+          "value_type_id": "mpk.csharp.value.f64.v1"
+        },
+        "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedCodec.binary64.Parse"
+      },
+      {
+        "codec": {
+          "codec_id": "guid.n",
+          "format_definition": "Mpk.CSharp.Ordinary.HexCodec.guid.Codec.n.Format",
+          "parse_definition": "Mpk.CSharp.Ordinary.HexCodec.guid.Codec.n.Parse",
+          "parse_result_shape": {
+            "arms": [
+              {
+                "fields": [
+                  {
+                    "id": "0",
+                    "shape": {
+                      "kind": "reference",
+                      "type_id": "mpk.csharp.value.guid.v1"
+                    }
+                  }
+                ],
+                "id": "ok",
+                "tag": 0
+              },
+              {
+                "fields": [
+                  {
+                    "id": "0",
+                    "shape": {
+                      "kind": "reference",
+                      "type_id": "mpk.csharp.value.parse_error.v1"
+                    }
+                  }
+                ],
+                "id": "error",
+                "tag": 1
+              }
+            ],
+            "kind": "sum"
+          },
+          "value_depth": 7,
+          "value_type_id": "mpk.csharp.value.guid.v1"
+        },
+        "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedCodec.guid.n.Parse"
+      },
+      {
+        "codec": {
+          "codec_id": "guid.d",
+          "format_definition": "Mpk.CSharp.Ordinary.HexCodec.guid.Codec.d.Format",
+          "parse_definition": "Mpk.CSharp.Ordinary.HexCodec.guid.Codec.d.Parse",
+          "parse_result_shape": {
+            "arms": [
+              {
+                "fields": [
+                  {
+                    "id": "0",
+                    "shape": {
+                      "kind": "reference",
+                      "type_id": "mpk.csharp.value.guid.v1"
+                    }
+                  }
+                ],
+                "id": "ok",
+                "tag": 0
+              },
+              {
+                "fields": [
+                  {
+                    "id": "0",
+                    "shape": {
+                      "kind": "reference",
+                      "type_id": "mpk.csharp.value.parse_error.v1"
+                    }
+                  }
+                ],
+                "id": "error",
+                "tag": 1
+              }
+            ],
+            "kind": "sum"
+          },
+          "value_depth": 7,
+          "value_type_id": "mpk.csharp.value.guid.v1"
+        },
+        "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedCodec.guid.d.Parse"
+      }
+    ],
+    "quoted_scalars": [
+      {
+        "kind": "char",
+        "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Quoted.char.Parse"
+      },
+      {
+        "kind": "i64",
+        "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Quoted.i64.Parse"
+      },
+      {
+        "kind": "u64",
+        "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Quoted.u64.Parse"
+      },
+      {
+        "kind": "duration",
+        "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Quoted.duration.Parse"
+      },
+      {
+        "kind": "instant",
+        "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Quoted.instant.Parse"
+      }
+    ],
+    "scalars": [
+      {
+        "kind": "bool",
+        "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.bool.Parse"
+      },
+      {
+        "kind": "null",
+        "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.null.Parse"
+      },
+      {
+        "kind": "u8",
+        "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.u8.Parse"
+      },
+      {
+        "kind": "u16",
+        "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.u16.Parse"
+      },
+      {
+        "kind": "u32",
+        "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.u32.Parse"
+      },
+      {
+        "kind": "i8",
+        "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.i8.Parse"
+      },
+      {
+        "kind": "i16",
+        "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.i16.Parse"
+      },
+      {
+        "kind": "i32",
+        "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.i32.Parse"
+      }
+    ],
+    "signed": [
+      {
+        "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Signed8",
+        "width": 8
+      },
+      {
+        "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Signed16",
+        "width": 16
+      },
+      {
+        "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Signed32",
+        "width": 32
+      }
+    ],
+    "static_transformers": 13002,
+    "string_frame_definition": "Mpk.CSharp.Ordinary.JsonStringParse.Frame.Parse",
+    "string_frame_header_definition": "Mpk.CSharp.Ordinary.JsonStringParse.Frame.Header",
+    "string_frame_value_definition": "Mpk.CSharp.Ordinary.JsonStringParse.Frame.Value",
+    "strings": {
+      "consumed_definition": "Mpk.CSharp.Ordinary.JsonStringParse.Consumed",
+      "document": {
+        "bounded_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Bounded",
+        "depth": 24,
+        "length_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Length",
+        "make_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Make",
+        "read_byte_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.ReadByte",
+        "shape": {
+          "capacity": 1048576,
+          "element": {
+            "kind": "bits",
+            "width": 8
+          },
+          "kind": "sequence"
+        },
+        "type_name": "Mpk.CSharp.Ordinary.BoundaryDocument"
+      },
+      "fragments": {
+        "concat_definition": "Mpk.CSharp.Ordinary.BoundaryFragments.Concat",
+        "concat_valid_definition": "Mpk.CSharp.Ordinary.BoundaryFragments.ConcatValid",
+        "document": {
+          "bounded_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Bounded",
+          "depth": 24,
+          "length_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Length",
+          "make_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.Make",
+          "read_byte_definition": "Mpk.CSharp.Ordinary.BoundaryDocument.ReadByte",
+          "shape": {
+            "capacity": 1048576,
+            "element": {
+              "kind": "bits",
+              "width": 8
+            },
+            "kind": "sequence"
+          },
+          "type_name": "Mpk.CSharp.Ordinary.BoundaryDocument"
+        },
+        "slice_definition": "Mpk.CSharp.Ordinary.BoundaryFragments.Slice",
+        "slice_valid_definition": "Mpk.CSharp.Ordinary.BoundaryFragments.SliceValid",
+        "static_transformers": 8273
+      },
+      "prefix_valid_definition": "Mpk.CSharp.Ordinary.JsonStringParse.PrefixValid",
+      "prefix_value_definition": "Mpk.CSharp.Ordinary.JsonStringParse.PrefixValue",
+      "scan_steps": 8193,
+      "state_depth": 19,
+      "static_transformers": 12504,
+      "valid_definition": "Mpk.CSharp.Ordinary.JsonStringParse.Valid",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonStringParse.Value",
+      "value_depth": 19
+    },
+    "unsigned": [
+      {
+        "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Unsigned8",
+        "width": 8
+      },
+      {
+        "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Unsigned16",
+        "width": 16
+      },
+      {
+        "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Unsigned32",
+        "width": 32
+      },
+      {
+        "parse_definition": "Mpk.CSharp.Ordinary.JsonTokens.Unsigned64",
+        "width": 64
+      }
+    ]
+  },
+  "scope": "full collection, JSON and decimal definition integration; not application VC proofs",
+  "static_transformers": 15434,
+  "terms": 107519
+}

@@ -75,7 +75,7 @@ fn at_most(b: &mut Builder, bits: &[u32], maximum: u64) -> R<u32> {
     }
     Ok(le)
 }
-fn selected_rule(
+pub(super) fn selected_rule(
     carrier: &OrdinaryCarrier,
     vir: &ValidatedPracticalVir,
 ) -> R<Option<OrdinaryScalarDomainRule>> {
@@ -111,7 +111,7 @@ fn primitive_rule(token: &str) -> R<Option<OrdinaryScalarDomainRule>> {
         },
     }))
 }
-fn emit_domain(
+pub(super) fn emit_domain(
     b: &mut Builder,
     carrier: &OrdinaryCarrier,
     rule: OrdinaryScalarDomainRule,

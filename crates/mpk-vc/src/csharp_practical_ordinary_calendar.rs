@@ -25,7 +25,7 @@ fn leap_year(c: &mut Circuit, y: &[Bit]) -> Bit {
     let century = c.or(nz100, div400);
     c.and(div4, century)
 }
-fn month_length(c: &mut Circuit, y: &[Bit], m: &[Bit]) -> Word {
+pub(super) fn month_length(c: &mut Circuit, y: &[Bit], m: &[Bit]) -> Word {
     let leap = leap_year(c, y);
     let february = c.equal(m, &constant(2));
     let short = [4, 6, 9, 11].into_iter().fold(F, |acc, n| {
@@ -54,7 +54,7 @@ fn days_before_year(c: &mut Circuit, year: &[Bit]) -> Word {
     let n = c.sub(&n, &q100).0;
     c.add(&n, &q400, F).0
 }
-fn date_number(c: &mut Circuit, y: &[Bit], m: &[Bit], day: &[Bit]) -> Word {
+pub(super) fn date_number(c: &mut Circuit, y: &[Bit], m: &[Bit], day: &[Bit]) -> Word {
     let leap = leap_year(c, y);
     let mut before = constant(0);
     for month in 1..=12 {
@@ -77,7 +77,7 @@ fn signed_offset_range(c: &mut Circuit, offset: &[Bit], bound: i128) -> Bit {
     let above = c.lt(&constant(bound as u128), offset, true);
     c.or(below, above)
 }
-fn date_parts(c: &mut Circuit, n: &[Bit]) -> (Word, Word, Word) {
+pub(super) fn date_parts(c: &mut Circuit, n: &[Bit]) -> (Word, Word, Word) {
     // Split a Gregorian cycle into 400/100/4/1-year blocks. On the final
     // day of a 400-year or four-year block, cap the corresponding quotient
     // at three so the extra day remains in the preceding leap year.
@@ -265,6 +265,9 @@ impl OrdinaryCalendarProgram {
     pub fn canonical_bytes(&self) -> Vec<u8> {
         serde_json::to_vec(self).expect("typed calendar program")
     }
+}
+pub(in super::super) fn emit_calendar(b: &mut Builder, id: &str) -> R<OrdinaryScalarDefinition> {
+    emit_circuit(b, calendar_circuit(id)?, "Calendar")
 }
 pub fn generate_csharp_practical_ordinary_calendar(
     vir: &ValidatedPracticalVir,

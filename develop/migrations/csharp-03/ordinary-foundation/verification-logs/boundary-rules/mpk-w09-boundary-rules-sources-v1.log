@@ -1,0 +1,36 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error[E0277]: the size for values of type `[u8]` cannot be known at compilation time
+  --> crates/mpk-vc/tests/support/csharp_practical_ordinary_boundary_rule_tests.rs:29:24
+   |
+29 |     let mut previous = None;
+   |                        ^^^^ doesn't have a size known at compile-time
+   |
+   = help: the trait `Sized` is not implemented for `[u8]`
+   = note: only the last element of a tuple may have a dynamically sized type
+
+error[E0277]: the size for values of type `[u8]` cannot be known at compilation time
+  --> crates/mpk-vc/tests/support/csharp_practical_ordinary_boundary_rule_tests.rs:77:16
+   |
+77 |         if let Some((metadata, certificate)) = &previous {
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ doesn't have a size known at compile-time
+   |
+   = help: within `([u8], [u8])`, the trait `Sized` is not implemented for `[u8]`
+   = note: required because it appears within the type `([u8], [u8])`
+note: required by a bound in `Some`
+  --> /rustc/8bab26f4f68e0e26f0bb7960be334d5b520ea452/library/core/src/option.rs:605:4
+
+error[E0308]: mismatched types
+  --> crates/mpk-vc/tests/support/csharp_practical_ordinary_boundary_rule_tests.rs:85:20
+   |
+29 |     let mut previous = None;
+   |                        ---- expected due to this value
+...
+85 |         previous = Some((p.canonical_bytes(), p.certificate_bytes().to_vec()));
+   |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `Option<([u8], [u8])>`, found `Option<(Vec<u8>, Vec<u8>)>`
+   |
+   = note: expected enum `std::option::Option<([u8], [u8])>`
+              found enum `std::option::Option<(Vec<u8>, Vec<u8>)>`
+
+Some errors have detailed explanations: E0277, E0308.
+For more information about an error, try `rustc --explain E0277`.
+error: could not compile `mpk-vc` (test "csharp_practical_vc") due to 3 previous errors

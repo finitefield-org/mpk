@@ -1,0 +1,57 @@
+    Checking mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error[E0308]: mismatched types
+   --> crates/mpk-vc/src/csharp_practical_ordinary_json_syntax.rs:148:30
+    |
+148 |         let offset = word(b, (i * 32) as u128, 5)?;
+    |                      ----    ^^^^^^^^^^^^^^^^ expected `u32`, found `u128`
+    |                      |
+    |                      arguments to this function are incorrect
+    |
+note: function defined here
+   --> crates/mpk-vc/src/csharp_practical_ordinary_hex_codecs.rs:133:15
+    |
+133 | pub(super) fn word(b: &mut Builder, n: u32, depth: u32) -> R<u32> {
+    |               ^^^^                  ------
+help: you can convert a `u128` to a `u32` and panic if the converted value doesn't fit
+    |
+148 |         let offset = word(b, ((i * 32) as u128).try_into().unwrap(), 5)?;
+    |                              +                +++++++++++++++++++++
+
+error[E0308]: mismatched types
+   --> crates/mpk-vc/src/csharp_practical_ordinary_json_syntax.rs:150:29
+    |
+150 |         let count = word(b, chunk.len() as u128, 5)?;
+    |                     ----    ^^^^^^^^^^^^^^^^^^^ expected `u32`, found `u128`
+    |                     |
+    |                     arguments to this function are incorrect
+    |
+note: function defined here
+   --> crates/mpk-vc/src/csharp_practical_ordinary_hex_codecs.rs:133:15
+    |
+133 | pub(super) fn word(b: &mut Builder, n: u32, depth: u32) -> R<u32> {
+    |               ^^^^                  ------
+help: you can convert a `u128` to a `u32` and panic if the converted value doesn't fit
+    |
+150 |         let count = word(b, (chunk.len() as u128).try_into().unwrap(), 5)?;
+    |                             +                   +++++++++++++++++++++
+
+error[E0308]: mismatched types
+   --> crates/mpk-vc/src/csharp_practical_ordinary_json_syntax.rs:159:25
+    |
+159 |     let count = word(b, bytes.len() as u128, 5)?;
+    |                 ----    ^^^^^^^^^^^^^^^^^^^ expected `u32`, found `u128`
+    |                 |
+    |                 arguments to this function are incorrect
+    |
+note: function defined here
+   --> crates/mpk-vc/src/csharp_practical_ordinary_hex_codecs.rs:133:15
+    |
+133 | pub(super) fn word(b: &mut Builder, n: u32, depth: u32) -> R<u32> {
+    |               ^^^^                  ------
+help: you can convert a `u128` to a `u32` and panic if the converted value doesn't fit
+    |
+159 |     let count = word(b, (bytes.len() as u128).try_into().unwrap(), 5)?;
+    |                         +                   +++++++++++++++++++++
+
+For more information about this error, try `rustc --explain E0308`.
+error: could not compile `mpk-vc` (lib) due to 3 previous errors

@@ -1,0 +1,61 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.structural_data_capture.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "date": "2026-09-11",
+  "files": [
+    {
+      "path": "requests.json",
+      "bytes": 10930,
+      "sha256": "5fd140969b8f28e186af73957d8360a3e9016de11c623a30c928090692b127b9"
+    },
+    {
+      "path": "responses.json",
+      "bytes": 34270,
+      "sha256": "89cd635cdc1b2123e8111e705242cedfec110f8df1ed1a7604f5b2ee1aa28d9e"
+    },
+    {
+      "path": "capture-inputs.json",
+      "bytes": 19763,
+      "sha256": "8befa15a01a4209c159d509013d3ab9b28b8ded95f1ae909b24f655390354c2c"
+    }
+  ],
+  "source_contexts": 5,
+  "frontend_accepts": 5,
+  "capture_stage": "/tmp/mpk-w09-public-domain-capture-stage",
+  "stage_verification": "All 88 staged files revalidated against repository counterparts; 71 pinned input files checked.",
+  "docker_image": "python@sha256:933b46a028fd786c9c3d426ebabc237e29a15912231ea8de576e95f0e4f41a4c",
+  "platform": "linux/amd64",
+  "isolation": {
+    "network": "none",
+    "root": "read-only",
+    "stage_mount": "read-only",
+    "memory": "4g",
+    "cpus": 2,
+    "pids": 256,
+    "tmpfs": "/tmp, rw exec size=4g mode=1777",
+    "seccomp": "default",
+    "no_new_privileges": true,
+    "capabilities": [
+      "SYS_ADMIN",
+      "SETUID",
+      "SETGID",
+      "SETFCAP"
+    ]
+  },
+  "route": "unchanged gate.test_data_phase through diagnose.py",
+  "successful_log": "../verification-logs/structural-data/structural-data-capture-v1.log",
+  "scope": "Source facts only; generated contract and application proofs are separate gates.",
+  "raw_transports": [
+    {
+      "path": "verification-logs/structural-data/raw-requests.json",
+      "bytes": 10930,
+      "sha256": "5fd140969b8f28e186af73957d8360a3e9016de11c623a30c928090692b127b9"
+    },
+    {
+      "path": "verification-logs/structural-data/raw-responses.json",
+      "bytes": 33808,
+      "sha256": "1882253768b725a1e05af755d0cb2e9d243864c51c1748327efb37bb7a43a6ec"
+    }
+  ],
+  "reconstruction": "Final parsed request/response JSON equals raw capture transports; response serialization whitespace may differ."
+}

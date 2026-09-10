@@ -1,0 +1,276 @@
+{
+  "schema": "mpk.csharp_practical.w09.json_token_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "unsigned_and_signed_lexical_checkpoints_verified_scalar_extension_in_progress",
+  "implementation": "One Builder emits the shared C24 byte document/fragments, existing canonical string decoder, exact keywords and four metadata unsigned parsers. A 20-step C7 scan accumulates greedy digits, rejects leading zeros and checks u64 overflow before base-10 arithmetic. Finish checks lookahead, full u32 document bound and the selected u8/u16/u32/u64 range. Packet bits 0 prefix-valid, 1 whole-valid, 2..66 u64 value, 66..98 u32 consumed, 98..128 zero; invalid all zero. Delimiters and typed schema grammar remain separate.",
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_tokens.rs",
+      "sha256": "5d43654a52a9b2d8a4a68faef269168c44c0801f13ddf15a16765274c65ca103"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_token_tests.rs",
+      "sha256": "d2ab120c339c5e15e121e33d7678efdfcf2effca90a2b014c863ed00a195380a"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_keywords.rs",
+      "sha256": "e85fbfbd55f3868634457be74d78a777ac0adc0f2261c6e569f00d1743487245"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_string_parse.rs",
+      "sha256": "abc5e7dcffefc5fc658dc6ca5bf2fcd508a11e643d5fd260aa22acdf3e58c2a0"
+    }
+  ],
+  "verification": [
+    {
+      "session_id": 56447,
+      "command": "MPK_W09_JSON_TOKENS_OUT=/tmp/mpk-w09-json-tokens-v1 cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_json_tokens_ -- --nocapture --test-threads=1",
+      "status": "failed_duplicate_shared_helper",
+      "log": "/tmp/mpk-w09-json-tokens-suite-v1.log",
+      "scope": "All three tests failed during generation with Linkage in 23.51s after startup. The unsigned emitter unconditionally redefined C7 helpers already emitted by the shared lexical circuits. The existing source/bounds/semantic suites all exercise this failure.",
+      "log_sha256": "5981c79977b1c894df30dd48773f57493577c0c2ae96b9acbd2a998c33aafa1f"
+    },
+    {
+      "session_id": 27057,
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc -- csharp_03_t06_w09_json_keywords_original_sources csharp_03_t06_w09_json_string_parsers_original_sources --nocapture --test-threads=1",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-json-tokens-component-replay-v1.log",
+      "scope": "Both standalone 68-context/three-certificate exact pinned replays passed in 83.62s. Shared-emitter refactoring preserves every previous string/keyword certificate byte and metadata.",
+      "log_sha256": "2ba9f3e583ef7edebf6fa8a1f394537acfff53c83a6d967bb1c0e4855c6819ba"
+    },
+    {
+      "session_id": 53045,
+      "command": "cargo clippy -p mpk-vc --test csharp_practical_vc -- -D warnings",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-json-tokens-clippy-v1.log",
+      "scope": "Targeted clippy passed in 10m53s including build/startup waits.",
+      "log_sha256": "29cec1b5abea1f10f936526b325a3aa97bc238c4e73879d3ce51f0d4223c7c8b"
+    },
+    {
+      "session_id": 87402,
+      "command": "cargo fmt --all -- --check",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-json-tokens-format-check-v1.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "session_id": 47143,
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-json-tokens-inventory-v1.log",
+      "scope": "All five inventory tests passed in 41.47s.",
+      "log_sha256": "283cf7b18c22024243abc90fdd7c0929ace65c5d74a23f7d1c659d93863f7fc1"
+    },
+    {
+      "command": "/usr/bin/git diff --check",
+      "status": "passed",
+      "scope": "Outside sandbox"
+    },
+    {
+      "session_id": 1717,
+      "command": "MPK_W09_JSON_TOKENS_OUT=/tmp/mpk-w09-json-tokens-v2 cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_json_tokens_ -- --nocapture --test-threads=1",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-json-tokens-suite-v2.log",
+      "scope": "All three corrected tests passed in 1045.51s: 228 independent unsigned prefix/value/range cases with all 128 packet bits, 32 u32-length cases/four high-offset slices/shared consumers, and 68 source contexts/three nonempty programs with import/mutation checks.",
+      "log_sha256": "c63d756fb9bdae01cdda39412b478ba7c8f84526adf2367f8fc87df6497974c2"
+    },
+    {
+      "session_id": 59401,
+      "command": "cargo clippy -p mpk-vc --test csharp_practical_vc -- -D warnings",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-json-tokens-clippy-v2.log",
+      "scope": "Corrected shared-helper revision passed targeted clippy in 4m01s including build wait.",
+      "log_sha256": "108aeb15ce48f6f4ee104d4ef5cebbe477725347d5dc1c0fd38523074688a9cf"
+    },
+    {
+      "session_id": 80005,
+      "command": "cargo fmt --all -- --check",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-json-tokens-format-check-v2.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "session_id": 22234,
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_json_tokens_original_sources -- --nocapture",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-json-tokens-replay-v1.log",
+      "log_sha256": "73fb047825a1748c3ba065e50f4ed754c1acab999a5be92dd0083905be0d9b9f",
+      "scope": "Exact 68-context/three-certificate pinned replay passed in 75.52s."
+    },
+    {
+      "session_id": 52482,
+      "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIJsonTokens$' -count=1 -timeout 0 -v",
+      "cwd": "go-tools/mpk-checker-ref",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-json-tokens-checkers-v1.log",
+      "scope": "All three same-byte Rust/Go certificates passed with zero axioms and hash mutation rejection; 171.269s including startup (170.85s tests).",
+      "log_sha256": "2317c64adb08da7d9d5c524b8f555f20aae51e7649539d5ddb9abdd43ddaacf0"
+    }
+  ],
+  "pending": [
+    "Verify appended scalar grammar (unit-4-json-scalar-progress.json)",
+    "Complete typed structure, source/value relations and original remaining W09 units 3–8"
+  ],
+  "whole_gate": "Deferred to T06-W12. No full gate in intermediate W09.",
+  "completion": "Not complete; no component-only commit or push.",
+  "shared_emitter_refactor": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_string_parse.rs",
+      "previous_sha256": "1ecc9e2ddda4b076ecdd6a7c0d06b980954ed347a15be1be9bca37246c75efd6",
+      "current_sha256": "59456a22ca87ece3f409d54fd2aba447e7fcfd3ec5f546fc55147963235c6956",
+      "change": "Only move document/fragment creation to the standalone caller and accept shared fragments in the reusable emitter. Reverse-transform reconstructs exact previous source hash. Standalone certificate replay still required.",
+      "verification": "Both exact standalone replays passed, 83.62s; session 27057."
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_keywords.rs",
+      "previous_sha256": "1ccfc5d25de6eeae0f31c5d36265c24ed9ad89511f74d6f960667f40917208bc",
+      "current_sha256": "e85fbfbd55f3868634457be74d78a777ac0adc0f2261c6e569f00d1743487245",
+      "change": "Only move document/fragment creation to the standalone caller and accept shared fragments in the reusable emitter. Reverse-transform reconstructs exact previous source hash. Standalone certificate replay still required.",
+      "verification": "Both exact standalone replays passed, 83.62s; session 27057."
+    }
+  ],
+  "startup_observation": {
+    "pid": 39277,
+    "session_id": 56447,
+    "sample_path": "/tmp/mpk-w09-json-tokens-startup-sample-v1.txt",
+    "sample_sha256": "6e98cd5d1d2ec8aecb3089c10b3f792dc59e1cd912172bd14526ea3adad7099c",
+    "observation": "One-second read-only sample reports all 863 sampled frames at dyld startup; no test/evaluator frames. Process remains live and original validation is preserved. This is not a semantic test failure or a diagnosed root cause.",
+    "free_space_observation": "39 GiB available on the work volume at the same check.",
+    "code_signature_check": {
+      "session_id": 98436,
+      "command": "/usr/bin/codesign --verify --verbose=2 target/debug/deps/csharp_practical_vc-dcf715cdb89904aa",
+      "status": "passed",
+      "scope": "Original integrated-test binary was valid on disk and satisfied its designated requirement. No diagnosis of the startup delay is inferred."
+    }
+  },
+  "previous_pre_duplicate_fix_files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_tokens.rs",
+      "sha256": "36ed8d32a10995c2f7c90d45ced0f088f1ac62209970b45004c19e6b66d5bd5b"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_token_tests.rs",
+      "sha256": "998bb533419386e10829064098ebc691c40aa5963e058db52749fba9e796204f"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_keywords.rs",
+      "sha256": "e85fbfbd55f3868634457be74d78a777ac0adc0f2261c6e569f00d1743487245"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_string_parse.rs",
+      "sha256": "59456a22ca87ece3f409d54fd2aba447e7fcfd3ec5f546fc55147963235c6956"
+    }
+  ],
+  "review_findings": [
+    {
+      "issue": "Unsigned emission duplicated already-present shared C7 helpers; integrated generation returned Linkage.",
+      "fix": "Check the shared Compose declaration before helpers(7), matching the existing circuit emitter.",
+      "status": "resolved_by_corrected_generation_pinned_replay_and_dual_checking"
+    }
+  ],
+  "next_typed_integration": {
+    "sources": [
+      "develop/docs/08_csharp_practical_subset_design.md:1723",
+      "crates/mpk-vc/src/csharp_practical_contract_values.rs:120",
+      "crates/mpk-vc/src/csharp_practical_boundary_input.rs:413"
+    ],
+    "requirements": [
+      "Small signed and unsigned semantic integers are raw minimal decimal JSON tokens; wide semantic i64/u64 remain quoted. The current unsigned lexical family is not complete numeric boundary coverage.",
+      "Add ordinary signed i8/i16/i32 lexical conversion with explicit sign, minimum/maximum, negative-zero rejection and unchanged full-document bounds.",
+      "Compose typed decoders/encoders with ordered fields, missing/null/value rules and complete source/value relations; unsigned metadata parsing alone does not satisfy unit 4."
+    ]
+  },
+  "pinned_manifest": {
+    "path": "develop/migrations/csharp-03/ordinary-foundation/json-tokens/previous-unsigned/certificates.json",
+    "sha256": "280ec06eb6e5ef849ccc9f983c17b98825db67660bea672464d108014c2b3f7d",
+    "contexts": 68,
+    "certificates": 3,
+    "terms_each": 39066,
+    "declarations_each": 533,
+    "static_transformers_each": 8585,
+    "hash_validation": "Each generated certificate verified against MPK-MODULE-CERT-0.1 plus NUL plus canonical bytes before copying."
+  },
+  "unsigned_checkpoint_manifest": {
+    "path": "develop/migrations/csharp-03/ordinary-foundation/json-tokens/previous-unsigned/certificates.json",
+    "sha256": "280ec06eb6e5ef849ccc9f983c17b98825db67660bea672464d108014c2b3f7d",
+    "purpose": "Exact pre-signed declaration/certificate archive; current unsigned semantic run still evaluates these definitions."
+  },
+  "previous_unsigned_source_files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_tokens.rs",
+      "sha256": "5fcda92b592f48b18e8988e48e55ebdc6d892eff198ba67a7fff3a1d6b349001"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_token_tests.rs",
+      "sha256": "998bb533419386e10829064098ebc691c40aa5963e058db52749fba9e796204f"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_keywords.rs",
+      "sha256": "e85fbfbd55f3868634457be74d78a777ac0adc0f2261c6e569f00d1743487245"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_string_parse.rs",
+      "sha256": "59456a22ca87ece3f409d54fd2aba447e7fcfd3ec5f546fc55147963235c6956"
+    }
+  ],
+  "signed_extension": {
+    "receipt": "unit-4-json-signed-token-progress.json",
+    "status": "passed",
+    "scope": "All signed matrix/bounds/source/pin/dual-checker verification passed; all previous unsigned definitions preserved."
+  },
+  "unsigned_checkpoint_review": {
+    "findings": [],
+    "scope": "Archived unsigned-only shared program after duplicate C7 helper fix; signed extension and full W09 proof/assembly completion remain outside this verified checkpoint."
+  },
+  "previous_scalar_extension_source_files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_tokens.rs",
+      "sha256": "2b66a21895669f893b2ee536021872d5f6813d1db109d7d749daa77115527ee6"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_token_tests.rs",
+      "sha256": "87c8049867d271595197fbe4be85244073b21804b1b9739989f8159ac95023c4"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_keywords.rs",
+      "sha256": "e85fbfbd55f3868634457be74d78a777ac0adc0f2261c6e569f00d1743487245"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_string_parse.rs",
+      "sha256": "59456a22ca87ece3f409d54fd2aba447e7fcfd3ec5f546fc55147963235c6956"
+    }
+  ],
+  "scalar_extension": {
+    "receipt": "unit-4-json-scalar-progress.json",
+    "status": "verification_in_progress",
+    "scope": "Current source appends scalar grammar; archived lexical checkpoint evidence applies after exact dependency preservation is verified."
+  },
+  "shared_builder_extension": {
+    "files": [
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_tokens.rs",
+        "previous_sha256": "d2ff4303cc3988930c604de89efe95f66eea7f37b5df9b7d9b748498f401a992",
+        "current_sha256": "5d43654a52a9b2d8a4a68faef269168c44c0801f13ddf15a16765274c65ca103"
+      }
+    ],
+    "receipt": "unit-4-json-collection-integration-progress.json",
+    "preservation": "Auxiliary-only unit test passed exact standalone certificate byte preservation after extracting the shared-emitter entry point. Full collection coexistence tested separately."
+  },
+  "scan_regroup_extension": {
+    "receipt": "unit-4-json-collection-integration-progress.json",
+    "status": "source_and_equivalence_passed_execution_in_progress",
+    "scope": "Checkpoint pins are archived before pair-pipeline regrouping. Current source/pins preserve every other definition and the exact expanded scan sequence; affected execution/checker results are separate."
+  },
+  "actual_source_boundary_extension": {
+    "receipt": "unit-4-structural-boundary-progress.json",
+    "files": [
+      {
+        "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_token_tests.rs",
+        "previous_sha256": "7d0323863411b4751f72aec1cf9b651fb8831ea55b5d823de7ef1149c7de8510",
+        "current_sha256": "d2ab120c339c5e15e121e33d7678efdfcf2effca90a2b014c863ed00a195380a"
+      }
+    ],
+    "scope": "Add source-specific shared boundary generation/export/test entry. Existing component body behavior is retained; exact old structural replay and full component closure are verified separately."
+  }
+}

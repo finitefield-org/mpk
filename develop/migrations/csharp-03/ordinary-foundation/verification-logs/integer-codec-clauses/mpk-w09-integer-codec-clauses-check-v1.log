@@ -1,0 +1,89 @@
+    Checking mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error[E0365]: `ContractCodecCache` is private, and cannot be re-exported
+    --> crates/mpk-vc/src/csharp_practical_ordinary_scalar_bits.rs:1558:16
+     |
+1558 | pub(super) use contract_codecs::ContractCodecCache;
+     |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ re-export of private `ContractCodecCache`
+     |
+     = note: consider declaring type or module `ContractCodecCache` with `pub`
+
+error[E0603]: struct import `ContractCodecCache` is private
+    --> crates/mpk-vc/src/csharp_practical_ordinary_source_clauses.rs:71:40
+     |
+  71 |     codecs: super::super::scalar_bits::ContractCodecCache,
+     |                                        ^^^^^^^^^^^^^^^^^^ private struct import
+     |
+note: the struct import `ContractCodecCache` is defined here...
+    --> crates/mpk-vc/src/csharp_practical_ordinary_scalar_bits.rs:1558:16
+     |
+1558 | pub(super) use contract_codecs::ContractCodecCache;
+     |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+note: ...and refers to the struct `ContractCodecCache` which is defined here
+    --> crates/mpk-vc/src/csharp_practical_ordinary_contract_codecs.rs:7:1
+     |
+   7 | pub(super) struct ContractCodecCache {
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: import `ContractCodecCache` directly
+     |
+  71 -     codecs: super::super::scalar_bits::ContractCodecCache,
+  71 +     codecs: contract_codecs::ContractCodecCache,
+     |
+
+error[E0603]: struct import `ContractCodecCache` is private
+    --> crates/mpk-vc/src/csharp_practical_ordinary_source_clauses.rs:314:48
+     |
+ 314 |                     super::super::scalar_bits::ContractCodecCache::format_defined(
+     |                                                ^^^^^^^^^^^^^^^^^^ private struct import
+     |
+note: the struct import `ContractCodecCache` is defined here...
+    --> crates/mpk-vc/src/csharp_practical_ordinary_scalar_bits.rs:1558:16
+     |
+1558 | pub(super) use contract_codecs::ContractCodecCache;
+     |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+note: ...and refers to the struct `ContractCodecCache` which is defined here
+    --> crates/mpk-vc/src/csharp_practical_ordinary_contract_codecs.rs:7:1
+     |
+   7 | pub(super) struct ContractCodecCache {
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: import `ContractCodecCache` directly
+     |
+ 314 -                     super::super::scalar_bits::ContractCodecCache::format_defined(
+ 314 +                     contract_codecs::ContractCodecCache(
+     |
+
+error[E0624]: method `emit` is private
+   --> crates/mpk-vc/src/csharp_practical_ordinary_source_clauses.rs:306:53
+    |
+306 |                   let (function, shape) = self.codecs.emit(&mut self.b, &layouts, &codec, parse)?;
+    |                                                       ^^^^ private method
+    |
+   ::: crates/mpk-vc/src/csharp_practical_ordinary_contract_codecs.rs:13:5
+    |
+ 13 | /     pub(super) fn emit(
+ 14 | |         &mut self,
+ 15 | |         b: &mut Builder,
+ 16 | |         layouts: &OrdinaryCarrierProgram,
+ 17 | |         codec: &BoundaryCodec,
+ 18 | |         parse: bool,
+ 19 | |     ) -> R<(String, Option<OrdinaryShape>)> {
+    | |___________________________________________- private method defined here
+
+error[E0624]: associated function `format_defined` is private
+   --> crates/mpk-vc/src/csharp_practical_ordinary_source_clauses.rs:314:68
+    |
+314 |                       super::super::scalar_bits::ContractCodecCache::format_defined(
+    |                                                                      ^^^^^^^^^^^^^^ private associated function
+    |
+   ::: crates/mpk-vc/src/csharp_practical_ordinary_contract_codecs.rs:59:5
+    |
+ 59 | /     pub(super) fn format_defined(
+ 60 | |         b: &mut Builder,
+ 61 | |         format: &str,
+ 62 | |         value_depth: u32,
+ 63 | |         name: &str,
+ 64 | |     ) -> R<()> {
+    | |______________- private associated function defined here
+
+Some errors have detailed explanations: E0365, E0603, E0624.
+For more information about an error, try `rustc --explain E0365`.
+error: could not compile `mpk-vc` (lib) due to 5 previous errors

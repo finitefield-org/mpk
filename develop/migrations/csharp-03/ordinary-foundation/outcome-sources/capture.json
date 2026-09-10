@@ -1,0 +1,23 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.outcome_source_capture.v1",
+  "requests": "requests.json",
+  "responses": "responses.json",
+  "source_origin": "test-generated original OutcomeCases.Rep identity methods and content-bound semantic bindings; Bool/product validation and nullable lookup",
+  "request_generator": "csharp_03_t06_w09_outcome_source_requests",
+  "capture_command": "./scripts/build-csharp-practical-frontend.sh --test-control-emission-requests",
+  "environment": "existing mpk-java-t10-gate:local Linux amd64 image; read-only repository; network disabled; frozen frontend build-input validation",
+  "determinism": "control-emission harness captures each request twice and compares bytes",
+  "accepted": 3,
+  "rejected": 0,
+  "application_vc_proof": false,
+  "files": [
+    {
+      "path": "requests.json",
+      "sha256": "e6fb0f84a8b9f7a942797b2473c1e475efdf2ccb2ca5070b11a11ad630ce33b4"
+    },
+    {
+      "path": "responses.json",
+      "sha256": "47e54cf438eb0994ce91c16f0fc0e7da5a09e92936702cff06aee7b9bc91cb72"
+    }
+  ]
+}

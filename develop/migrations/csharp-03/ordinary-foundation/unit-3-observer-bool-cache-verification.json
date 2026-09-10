@@ -1,0 +1,52 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.observer_cache_verification.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "date": "2026-09-11",
+  "status": "targeted observer correction verified; original unit 3 and W09 remain open",
+  "checks": [
+    {
+      "log": "verification-logs/observer-body-demanded-bool/red.log",
+      "sha256": "4a120e7fabb3dbff874be496bd7c0288f715160c3214189b8554561c1f5323fa",
+      "result": "expected regression failure; 0 passed, 1 failed",
+      "selection_reason": "fresh closure with a body-demanded Boolean must seed the existing cache"
+    },
+    {
+      "log": "verification-logs/observer-body-demanded-bool/green.log",
+      "sha256": "df6426fa282158520cc4a85217a2ab185586b652b69ab0fe6927655c7c40c3d0",
+      "result": "passed 6 observer tests",
+      "selection_reason": "memoization, unused arguments, environment lifetime, sparse input observations"
+    },
+    {
+      "log": "verification-logs/observer-body-demanded-bool/folds.log",
+      "sha256": "21882cc39b92c8250a9938594eb1008441ea9798010f8592336b6551e4026b50",
+      "result": "passed 3 aggregate tests",
+      "selection_reason": "direct higher-order fold consumers of the changed evaluator"
+    },
+    {
+      "log": "verification-logs/observer-body-demanded-bool/domains.log",
+      "sha256": "a160f0ac60c97ad2554a46911bec164ad5c1da869885128d22b09cc155f7aa58",
+      "result": "passed original-source small domain values",
+      "selection_reason": "representative recursive domain consumers of the changed evaluator"
+    },
+    {
+      "log": "verification-logs/observer-body-demanded-bool/clippy.log",
+      "sha256": "2ee5aebb49d0e7dfe5d3ae0815c2e674a7d0dcbfbf8a2a8c79817c397f97f0b8",
+      "result": "passed mpk-vc library and tests with warnings denied",
+      "selection_reason": "both the test-only evaluator and cfg(test) regressions changed"
+    },
+    {
+      "log": "verification-logs/observer-body-demanded-bool/format.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result": "passed two edited Rust files",
+      "selection_reason": "only edited Rust files require format verification"
+    }
+  ],
+  "production_certificate_changes": false,
+  "review": "unit-3-observer-bool-cache-review.md",
+  "full_gate": "deferred to T06-W12",
+  "long_running_original_executables": {
+    "domain_test_pid": 31739,
+    "json_capacity_test_pid": 68689,
+    "status": "not restarted; their remaining semantic outcomes are pending"
+  }
+}

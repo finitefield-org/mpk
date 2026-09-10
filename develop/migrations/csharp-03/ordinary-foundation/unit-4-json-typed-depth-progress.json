@@ -1,0 +1,82 @@
+{
+  "schema": "mpk.csharp_practical.w09.json_typed_depth_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "depth_predicates_source_core_and_same_byte_checking_passed",
+  "verification": [
+    {
+      "session_id": 72031,
+      "status": "passed",
+      "scope": "Affected library build14.06s.",
+      "log": "/tmp/mpk-w09-json-typed-depth-build-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-typed-depth/mpk-w09-json-typed-depth-build-v1.log",
+      "log_sha256": "509b64dce022e44bfc926f99442ef768a574532f2061610c0c8c252b91c643ff"
+    },
+    {
+      "session_id": 82764,
+      "status": "passed",
+      "scope": "252 actual ordinary-core cases:atoms,empty objects,tag-only and payload sums,active/inactive sequence storage,capacity8/9 and root-depth overflow;10.94s plus compilation.",
+      "log": "/tmp/mpk-w09-json-typed-depth-helper-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-typed-depth/mpk-w09-json-typed-depth-helper-v1.log",
+      "log_sha256": "9d14772bb7ad70d34902a4645e4e00150ee993789bf1b3567a76e7134c9ff0f6"
+    },
+    {
+      "session_id": 97443,
+      "status": "passed",
+      "scope": "15 original attachment sources,167 depth observations using independent captured canonical JSON trees;exact import and metadata/certificate mutations;2.81s plus compilation.",
+      "log": "/tmp/mpk-w09-json-typed-depth-sources-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-typed-depth/mpk-w09-json-typed-depth-sources-v1.log",
+      "log_sha256": "83f9e12373397dd2644ed5991fd7f54a0d74730320596b01acc296228e0620fc"
+    },
+    {
+      "session_id": 33944,
+      "status": "passed",
+      "scope": "Affected library and integration lint;1m16s including compilation queue.",
+      "log": "/tmp/mpk-w09-json-typed-depth-clippy-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-typed-depth/mpk-w09-json-typed-depth-clippy-v1.log",
+      "log_sha256": "3e77e70724ed85fe8fce7fa6e10e27086bd456efa950990d6c126e4db58db66f"
+    },
+    {
+      "session_id": 80057,
+      "status": "passed",
+      "scope": "Exact additional namespace consumer and receipt hash;addition/deletion regression17.22s.",
+      "log": "/tmp/mpk-w09-json-typed-depth-inventory-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-typed-depth/mpk-w09-json-typed-depth-inventory-v1.log",
+      "log_sha256": "0fa51c609029371fa7ab9e9f236f68c96c81ea9ea1d4ba5e794d65e5b75cdd33"
+    },
+    {
+      "session_id": 71443,
+      "status": "passed",
+      "scope": "All15 original source metadata and exact bytes match published pins;167 core observations with canonical-member/argument count equality;3.98s.",
+      "log": "/tmp/mpk-w09-json-typed-depth-pins-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-typed-depth/mpk-w09-json-typed-depth-pins-v1.log",
+      "log_sha256": "e0cc2c6dc9c2f3ae11a8c56dda4c8800636235c0524f48c3fba499dc6011c8c7"
+    },
+    {
+      "session_id": 42987,
+      "status": "passed",
+      "scope": "All16 identical-byte candidates accepted by unchanged Rust/Go checkers;matching reports,zero axioms,hash mutations rejected;72.903s.",
+      "log": "/tmp/mpk-w09-json-typed-depth-checkers-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-typed-depth/mpk-w09-json-typed-depth-checkers-v1.log",
+      "log_sha256": "9afd5904dcbbb88e519b0274f3537ef2604e99d8ef330e63469c4a9d6ea335e7"
+    },
+    {
+      "session_id": 33852,
+      "status": "passed",
+      "scope": "Final affected integration lint after exact pinned assertions;8.43s. Scoped rustfmt and git diff --check also passed.",
+      "log": "/tmp/mpk-w09-json-typed-depth-clippy-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-typed-depth/mpk-w09-json-typed-depth-clippy-v2.log",
+      "log_sha256": "5a8537992cd2732f69969a94c4869230fa136ea1769920e6a762528df4ba9a90"
+    }
+  ],
+  "live_jobs": [],
+  "publication": "json-typed-depth/certificates.json;15 source identities equal accepted boundary-vc corpus;all module hashes independently recomputed and both metadata locations agree.",
+  "test_selection": "New canonical typed-depth emitter and its original source consumers only;fixed-profile depth32/33,active sums and length masking including overflow. No existing JSON primitive/parser runtime repetition;T gate remains deferred toT06-W12.",
+  "review": "unit-4-json-typed-depth-review.md",
+  "pending": [
+    "Complete combined depth-guarded envelope verification;exercise additional original compound/map/set/money/transition source shapes.",
+    "Implement/prove separate raw-node/canonical-node bounds,source-domain/reconstruction/output and remaining native/control/replay/proof/assembly/W09 acceptance."
+  ],
+  "completion": "W09 and internal unit4 remain incomplete;no component-only commit/push.",
+  "goal_turn_classification": "Progress: implemented value-dependent ordinary canonical JSON depth predicates;252 helper and167 original-source core observations passed;published hash-checked candidates and started identical-byte checking."
+}

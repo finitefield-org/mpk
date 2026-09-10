@@ -1,0 +1,198 @@
+Executing ['cargo', 'test', '-p', 'mpk-vc', '--test', 'csharp_practical_vc', '--', 'csharp_03_t06_w09_domains_original_source_certificates', 'csharp_03_t06_w09_constructions_original_sources_and_mutations', 'csharp_03_t06_w09_collections_original_source_certificates', 'csharp_03_t06_w09_sequences_original_source_certificates', 'csharp_03_t06_w09_entries_original_source_certificates', 'csharp_03_t06_w09_outcomes_original_source_certificates', 'csharp_03_t06_w09_observations_original_source_certificates', 'csharp_03_t06_w09_money_original_source_certificates', 'csharp_03_t06_w09_binding_orders_original_source_certificates', 'csharp_03_t06_w09_binding_relations_original_source_certificates', 'csharp_03_t06_w09_binding_guards_original_source_certificates', '--nocapture', '--test-threads=1']
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 7.48s
+     Running tests/csharp_practical_vc.rs (target/debug/deps/csharp_practical_vc-dcf715cdb89904aa)
+
+running 11 tests
+test ordinary_carriers::collection_tests::csharp_03_t06_w09_collections_original_source_certificates ... collection certificate binding-vc-ordered_map: 8309 terms, 225 declarations
+collection certificate binding-vc-ordered_set: 8005 terms, 202 declarations
+collection certificate boundary-map-string: 10219 terms, 274 declarations
+collection certificate boundary-map-decimal: 46310 terms, 559 declarations
+collection certificate boundary-set-decimal: 45826 terms, 512 declarations
+collection certificate boundary-map-compound: 10319 terms, 282 declarations
+collection certificate extra-bool-float-map: 9521 terms, 231 declarations
+collection certificate extra-bool-nullable-map: 8824 terms, 266 declarations
+collection certificate extra-shared-lookup-maps: 8825 terms, 269 declarations
+ok
+test ordinary_carriers::construction_tests::csharp_03_t06_w09_constructions_original_sources_and_mutations ... construction certificates: 5 actual-source contexts
+ok
+test ordinary_carriers::domain_tests::csharp_03_t06_w09_domains_original_source_certificates ... domain source binding-vc-option
+domain source binding-vc-lookup
+domain source binding-vc-result
+domain source binding-vc-validation
+domain source binding-vc-boundary_field
+domain source binding-vc-transition
+domain source binding-vc-instant
+domain source binding-vc-money
+domain source binding-vc-bounded_sequence
+domain source binding-vc-ordered_entry
+domain source binding-vc-ordered_map
+domain source binding-vc-ordered_set
+domain source construction-vc-positive_constructor
+domain source construction-vc-enum_zero
+domain source exception-vc-allowed
+domain source nullable-float
+domain source floats
+domain source nested-box
+domain source string
+domain source date
+domain source guid
+domain source boundary-map-string
+domain source boundary-map-decimal
+domain source boundary-set-decimal
+domain source boundary-map-compound
+domain source boundary-total-cells
+domain source boundary-exception-empty
+domain source boundary-exception-payload
+ok
+test ordinary_carriers::entry_tests::csharp_03_t06_w09_entries_original_source_certificates ... entry certificates: 6 actual-source contexts; non-total float entry covered
+ok
+test ordinary_carriers::money_tests::csharp_03_t06_w09_money_original_source_certificates ... money generation binding-vc-money: 1 concrete instances
+money generation shared-string-enum-money: 2 concrete instances
+Money ordinary certificates: 2 original source contexts
+ok
+test ordinary_carriers::observation_tests::csharp_03_t06_w09_observations_original_source_certificates ... source observation binding-vc-money: 7 concrete types, 43910 terms
+source observation exception-vc-allowed: 3 concrete types, 2857 terms
+source observation extra-bool-float-map: 11 concrete types, 6460 terms
+source observation complete-snapshot: 9 concrete types, 46563 terms
+ok
+test ordinary_carriers::outcome_tests::csharp_03_t06_w09_outcomes_original_source_certificates ... outcome certificate binding-vc-option: 1 instances
+outcome certificate binding-vc-lookup: 1 instances
+outcome certificate binding-vc-result: 1 instances
+outcome certificate binding-vc-validation: 1 instances
+outcome certificate binding-vc-boundary_field: 1 instances
+outcome certificate binding-vc-ordered_map: 1 instances
+outcome certificate nullable-float: 1 instances
+outcome certificate nested-box: 1 instances
+outcome certificate string: 1 instances
+outcome certificate boundary-map-string: 1 instances
+outcome certificate boundary-map-decimal: 1 instances
+outcome certificate boundary-map-compound: 1 instances
+outcome certificate boundary-total-cells: 1 instances
+outcome certificate extra-validation-bool: 1 instances
+outcome certificate extra-validation-product: 1 instances
+outcome certificate extra-lookup-nullable: 2 instances
+outcome certificates: 16 actual-source contexts; five template families
+ok
+test ordinary_carriers::projection_tests::binding_relation_tests::csharp_03_t06_w09_binding_relations_original_source_certificates ... binding relations binding-vc-boundary_field: 8 predicates, 1 agreements, 3650 terms
+binding relations binding-vc-bounded_sequence: 7 predicates, 1 agreements, 6407 terms
+binding relations binding-vc-instant: 5 predicates, 1 agreements, 7353 terms
+binding relations binding-vc-lookup: 7 predicates, 1 agreements, 3596 terms
+binding relations binding-vc-money: 9 predicates, 1 agreements, 44041 terms
+binding relations binding-vc-option: 7 predicates, 1 agreements, 3596 terms
+binding relations binding-vc-ordered_entry: 7 predicates, 1 agreements, 3418 terms
+binding relations binding-vc-ordered_map: 14 predicates, 2 agreements, 6716 terms
+binding relations binding-vc-ordered_set: 7 predicates, 1 agreements, 6526 terms
+binding relations binding-vc-result: 8 predicates, 1 agreements, 3666 terms
+binding relations binding-vc-transition: 10 predicates, 1 agreements, 6561 terms
+binding relations binding-vc-validation: 10 predicates, 1 agreements, 6743 terms
+binding relations bool-construction: 4 predicates, 0 agreements, 6334 terms
+binding relations bool-float-entry: 7 predicates, 1 agreements, 3284 terms
+binding relations boundary-exception-empty: 1 predicates, 0 agreements, 895 terms
+binding relations boundary-exception-payload: 1 predicates, 0 agreements, 895 terms
+binding relations boundary-map-compound: 15 predicates, 2 agreements, 8166 terms
+binding relations boundary-map-decimal: 15 predicates, 2 agreements, 43208 terms
+binding relations boundary-map-string: 15 predicates, 2 agreements, 8127 terms
+binding relations boundary-set-decimal: 8 predicates, 1 agreements, 42986 terms
+binding relations boundary-total-cells: 5 predicates, 0 agreements, 3536 terms
+binding relations complete-snapshot: 4 predicates, 0 agreements, 3235 terms
+binding relations construction-vc-enum_zero: 1 predicates, 0 agreements, 895 terms
+binding relations construction-vc-positive_constructor: 1 predicates, 0 agreements, 895 terms
+binding relations date: 1 predicates, 0 agreements, 895 terms
+binding relations enum-construction: 5 predicates, 0 agreements, 6334 terms
+binding relations exception-vc-allowed: 1 predicates, 0 agreements, 895 terms
+binding relations extra-bool-float-map: 14 predicates, 2 agreements, 6510 terms
+binding relations extra-bool-nullable-map: 15 predicates, 2 agreements, 6802 terms
+binding relations extra-lookup-nullable: 8 predicates, 1 agreements, 3673 terms
+binding relations extra-shared-lookup-maps: 24 predicates, 4 agreements, 6986 terms
+binding relations extra-validation-bool: 10 predicates, 1 agreements, 6721 terms
+binding relations extra-validation-product: 11 predicates, 1 agreements, 6777 terms
+binding relations float-sequence: 4 predicates, 0 agreements, 6189 terms
+binding relations floats: 1 predicates, 0 agreements, 895 terms
+binding relations guid: 1 predicates, 0 agreements, 895 terms
+binding relations nested-box: 6 predicates, 0 agreements, 6427 terms
+binding relations nullable-float: 3 predicates, 0 agreements, 3235 terms
+binding relations nullable-string-default: 7 predicates, 0 agreements, 7686 terms
+binding relations parse-error-contract: 1 predicates, 0 agreements, 895 terms
+binding relations product-construction: 5 predicates, 0 agreements, 6363 terms
+binding relations string: 4 predicates, 0 agreements, 7484 terms
+binding relations unit-void-source: 4 predicates, 0 agreements, 3392 terms
+binding relations remapped-boundary-sequence: 15 predicates, 2 agreements, 10839 terms
+binding relations float-make-commutation: 9 predicates, 3 agreements, 3292 terms
+ok
+test ordinary_carriers::projection_tests::binding_relation_tests::guard_tests::csharp_03_t06_w09_binding_guards_original_source_certificates ... binding guards binding-vc-boundary_field: 19 predicates; 37 pending
+binding guards binding-vc-bounded_sequence: 9 predicates; 26 pending
+binding guards binding-vc-instant: 6 predicates; 9 pending
+binding guards binding-vc-lookup: 15 predicates; 34 pending
+binding guards binding-vc-money: 11 predicates; 62 pending
+binding guards binding-vc-option: 15 predicates; 37 pending
+binding guards binding-vc-ordered_entry: 9 predicates; 29 pending
+binding guards binding-vc-ordered_map: 18 predicates; 118 pending
+binding guards binding-vc-ordered_set: 9 predicates; 50 pending
+binding guards binding-vc-result: 17 predicates; 39 pending
+binding guards binding-vc-transition: 14 predicates; 49 pending
+binding guards binding-vc-validation: 21 predicates; 60 pending
+binding guards bool-construction: 4 predicates; 53 pending
+binding guards bool-float-entry: 9 predicates; 27 pending
+binding guards boundary-exception-empty: 1 predicates; 0 pending
+binding guards boundary-exception-payload: 1 predicates; 0 pending
+binding guards boundary-map-compound: 19 predicates; 119 pending
+binding guards boundary-map-decimal: 19 predicates; 119 pending
+binding guards boundary-map-string: 19 predicates; 119 pending
+binding guards boundary-set-decimal: 10 predicates; 51 pending
+binding guards boundary-total-cells: 5 predicates; 44 pending
+binding guards complete-snapshot: 4 predicates; 38 pending
+binding guards construction-vc-enum_zero: 1 predicates; 0 pending
+binding guards construction-vc-positive_constructor: 1 predicates; 0 pending
+binding guards date: 1 predicates; 0 pending
+binding guards enum-construction: 5 predicates; 54 pending
+binding guards exception-vc-allowed: 1 predicates; 0 pending
+binding guards extra-bool-float-map: 18 predicates; 105 pending
+binding guards extra-bool-nullable-map: 19 predicates; 143 pending
+binding guards extra-lookup-nullable: 16 predicates; 58 pending
+binding guards extra-shared-lookup-maps: 32 predicates; 211 pending
+binding guards extra-validation-bool: 21 predicates; 60 pending
+binding guards extra-validation-product: 22 predicates; 60 pending
+binding guards float-sequence: 4 predicates; 51 pending
+binding guards floats: 1 predicates; 0 pending
+binding guards guid: 1 predicates; 0 pending
+binding guards nested-box: 6 predicates; 78 pending
+binding guards nullable-float: 3 predicates; 25 pending
+binding guards nullable-string-default: 7 predicates; 79 pending
+binding guards parse-error-contract: 1 predicates; 0 pending
+binding guards product-construction: 5 predicates; 54 pending
+binding guards string: 4 predicates; 28 pending
+binding guards unit-void-source: 4 predicates; 28 pending
+binding guards remapped-boundary-sequence: 28 predicates; 75 pending
+binding guards float-make-commutation: 11 predicates; 31 pending
+ok
+test ordinary_carriers::projection_tests::binding_relation_tests::guard_tests::order_tests::csharp_03_t06_w09_binding_orders_original_source_certificates ... 
+thread 'ordinary_carriers::projection_tests::binding_relation_tests::guard_tests::order_tests::csharp_03_t06_w09_binding_orders_original_source_certificates' (540544) panicked at crates/mpk-vc/tests/support/csharp_practical_ordinary_binding_order_tests.rs:38:9:
+assertion `left == right` failed
+  left: Object {"agreements": Array [Object {"comparison_symbol": String("Mpk.CSharp.Binding.ObserveEqual.mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3"), "projection_id": String("projection.c52f67b4c11aed85603c864e424fff045fea3a7ec40ffb5263cbacfb2a9eab36"), "result_agreement_definition": String("Mpk.CSharp.Ordinary.BindingRelation.Hce03d367e6a3fae7cf8b40b1e12b302115a1b033a9eb7dc8587dccd4e81a6906"), "semantic_type_id": String("mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3"), "source_type_id": String("mpk.csharp.source.c912fedec302ca99dfd67280f6d6f74cf7cc8f43afc2a3af788b5ace3fbf1818")}], "binding_vc_sha256": String("ce46557ac2e782c3229d8b5131fe7e32b64c12ccab71f0d6822a5df2af7b523c"), "certificate_sha256": String("12a918511952af8108d54a7aa65712b71ef741cdeb5d0ce194f616f888657553"), "foundation_sha256": String("230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2"), "predicates": Array [Object {"argument_type_ids": Array [String("mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3")], "definition": String("Mpk.CSharp.Ordinary.BindingRelation.H3daebba786e668d93fad5d1b04c95e04a89aba98335ec0bdcb68b64ee0f26aaf"), "result_type_id": String("mpk.csharp.value.bool.v1"), "symbol": String("Mpk.CSharp.Binding.Bound.projection.c52f67b4c11aed85603c864e424fff045fea3a7ec40ffb5263cbacfb2a9eab36.length.4096")}, Object {"argument_type_ids": Array [String("mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3"), String("mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3")], "definition": String("Mpk.CSharp.Ordinary.SourceObservation.T6d706b2e6373686172702e696e7374616e63652e65643138333364376465393935663835313035306364613932303837376534663131346338636565646437616432353031303230356535323338626337366333.Equal"), "result_type_id": String("mpk.csharp.value.bool.v1"), "symbol": String("Mpk.CSharp.Binding.Equal.mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3")}, Object {"argument_type_ids": Array [String("mpk.csharp.value.bool.v1"), String("mpk.csharp.value.bool.v1")], "definition": String("Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e312e66616c73652e657175616c.Result"), "result_type_id": String("mpk.csharp.value.bool.v1"), "symbol": String("Mpk.CSharp.Binding.Equal.mpk.csharp.value.bool.v1")}, Object {"argument_type_ids": Array [String("mpk.csharp.value.i32.v1"), String("mpk.csharp.value.i32.v1")], "definition": String("Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e657175616c.Result"), "result_type_id": String("mpk.csharp.value.bool.v1"), "symbol": String("Mpk.CSharp.Binding.Equal.mpk.csharp.value.i32.v1")}, Object {"argument_type_ids": Array [String("mpk.csharp.value.u32.v1"), String("mpk.csharp.value.u32.v1")], "definition": String("Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e66616c73652e657175616c.Result"), "result_type_id": String("mpk.csharp.value.bool.v1"), "symbol": String("Mpk.CSharp.Binding.Equal.mpk.csharp.value.u32.v1")}, Object {"argument_type_ids": Array [String("mpk.csharp.source.c912fedec302ca99dfd67280f6d6f74cf7cc8f43afc2a3af788b5ace3fbf1818"), String("mpk.csharp.source.c912fedec302ca99dfd67280f6d6f74cf7cc8f43afc2a3af788b5ace3fbf1818")], "definition": String("Mpk.CSharp.Ordinary.BindingRelation.Hc6b8b7348144213dd3dd3363e36f741025a57adfde03868fa0e5895e90f3f692"), "result_type_id": String("mpk.csharp.value.bool.v1"), "symbol": String("Mpk.CSharp.Binding.MemberEqual.mpk.csharp.member.26944cab928a9cbe4e25e43f2a1a103fdbeb5b13f956b5bd0ce8aae836f0e377")}, Object {"argument_type_ids": Array [String("mpk.csharp.source.c912fedec302ca99dfd67280f6d6f74cf7cc8f43afc2a3af788b5ace3fbf1818"), String("mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3")], "definition": String("Mpk.CSharp.Ordinary.BindingRelation.H67f844c243b4adab6181ad186e9503e0fd051f96aa888a22e167ae7e40d866c9"), "result_type_id": String("mpk.csharp.value.bool.v1"), "symbol": String("Mpk.CSharp.Binding.MemberProjection.projection.c52f67b4c11aed85603c864e424fff045fea3a7ec40ffb5263cbacfb2a9eab36.mpk.csharp.member.26944cab928a9cbe4e25e43f2a1a103fdbeb5b13f956b5bd0ce8aae836f0e377.elements")}, Object {"argument_type_ids": Array [String("mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3"), String("mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3")], "definition": String("Mpk.CSharp.Ordinary.SourceObservation.T6d706b2e6373686172702e696e7374616e63652e65643138333364376465393935663835313035306364613932303837376534663131346338636565646437616432353031303230356535323338626337366333.Equal"), "result_type_id": String("mpk.csharp.value.bool.v1"), "symbol": String("Mpk.CSharp.Binding.ObserveEqual.mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3")}, Object {"argument_type_ids": Array [String("mpk.csharp.source.c912fedec302ca99dfd67280f6d6f74cf7cc8f43afc2a3af788b5ace3fbf1818"), String("mpk.csharp.source.c912fedec302ca99dfd67280f6d6f74cf7cc8f43afc2a3af788b5ace3fbf1818")], "definition": String("Mpk.CSharp.Ordinary.SourceObservation.T6d706b2e6373686172702e736f757263652e63393132666564656333303263613939646664363732383066366436663734636637636338663433616663326133616637383862356163653366626631383138.Equal"), "result_type_id": String("mpk.csharp.value.bool.v1"), "symbol": String("Mpk.CSharp.Binding.ObserveEqual.mpk.csharp.source.c912fedec302ca99dfd67280f6d6f74cf7cc8f43afc2a3af788b5ace3fbf1818")}], "projections": Array [Object {"project_definition": String("Mpk.CSharp.Ordinary.BindingProjection.Convert.H6920b345f7f1974a2146e27717e2bc2532183ec9bdf1b62aae693eff66826107"), "projection": Object {"binding_id": String("binding.c52f67b4c11aed85603c864e424fff045fea3a7ec40ffb5263cbacfb2a9eab36"), "id": String("projection.c52f67b4c11aed85603c864e424fff045fea3a7ec40ffb5263cbacfb2a9eab36"), "project": Object {"argument_type_ids": Array [String("mpk.csharp.source.c912fedec302ca99dfd67280f6d6f74cf7cc8f43afc2a3af788b5ace3fbf1818")], "id": String("binding.project.c52f67b4c11aed85603c864e424fff045fea3a7ec40ffb5263cbacfb2a9eab36"), "normal_result_type_id": String("mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3"), "ordered_checks": Array [], "tag": String("binding_project")}, "reconstruct": Object {"argument_type_ids": Array [String("mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3")], "id": String("binding.reconstruct.c52f67b4c11aed85603c864e424fff045fea3a7ec40ffb5263cbacfb2a9eab36"), "normal_result_type_id": String("mpk.csharp.source.c912fedec302ca99dfd67280f6d6f74cf7cc8f43afc2a3af788b5ace3fbf1818"), "ordered_checks": Array [], "tag": String("binding_reconstruct")}, "semantic_type_id": String("mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3"), "source_type_id": String("mpk.csharp.source.c912fedec302ca99dfd67280f6d6f74cf7cc8f43afc2a3af788b5ace3fbf1818")}, "reconstruct_definition": Null, "reconstruction_member_ids": Array [String("mpk.csharp.member.26944cab928a9cbe4e25e43f2a1a103fdbeb5b13f956b5bd0ce8aae836f0e377")], "semantic_carrier": Object {"depth": Number(18), "shape": Object {"capacity": Number(4096), "element": Object {"kind": String("reference"), "type_id": String("mpk.csharp.value.i32.v1")}, "kind": String("sequence")}, "type_id": String("mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3")}, "source_carrier": Object {"depth": Number(18), "shape": Object {"fields": Array [Object {"id": String("mpk.csharp.member.26944cab928a9cbe4e25e43f2a1a103fdbeb5b13f956b5bd0ce8aae836f0e377"), "shape": Object {"kind": String("reference"), "type_id": String("mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3")}}], "kind": String("product")}, "type_id": String("mpk.csharp.source.c912fedec302ca99dfd67280f6d6f74cf7cc8f43afc2a3af788b5ace3fbf1818")}}], "schema": String("mpk.csharp.ordinary_binding_guards.v1"), "source_ir_sha256": String("a87efbbae90152d6188a4a5fc17cd0e8fd56fc325310669b3a072fa9781cbcaf"), "static_transformers": Number(8250), "unresolved_vc_symbols": Array [String("Mpk.CSharp.Binding.DefaultUseForbidden.projection.c52f67b4c11aed85603c864e424fff045fea3a7ec40ffb5263cbacfb2a9eab36"), String("Mpk.CSharp.Binding.ValueObservation.projection.c52f67b4c11aed85603c864e424fff045fea3a7ec40ffb5263cbacfb2a9eab36"), String("Mpk.CSharp.Bool.And"), String("Mpk.CSharp.Bool.Not"), String("Mpk.CSharp.Bool.Or"), String("Mpk.CSharp.Bool.true"), String("Mpk.CSharp.Concrete.AllOutcomes.mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3.compare"), String("Mpk.CSharp.Concrete.AllOutcomes.mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3.equal"), String("Mpk.CSharp.Concrete.AllOutcomes.mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3.length"), String("Mpk.CSharp.Concrete.AllOutcomes.mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3.read"), String("Mpk.CSharp.Concrete.Definition.0307aa9b8230d4a0c7cf81c94fb67fc3898574f31f2c6e426ca22a59472511bd"), String("Mpk.CSharp.Concrete.Definition.53c0ff4c8d8927f6d6fad0b7f59a3f22ef20c03bc0a5ad3784a45dd0c38e3de4"), String("Mpk.CSharp.Concrete.Definition.9544a9b7c936dbf1a98d9b59ec76af3543c180c11c47349d33a913f4ac732e7b"), String("Mpk.CSharp.Concrete.Definition.c5e7d91750c8a90895af73a8b189895e1161a7db6beff1e528f1161bad8f4f56"), String("Mpk.CSharp.Concrete.Failure.mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3.read.index_range"), String("Mpk.CSharp.Concrete.Type.c0dff7410d59a76378ccd54375407b37485826ee6ab6741f38afd109182971a8"), String("Mpk.CSharp.PublicDomain.mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3"), String("Mpk.CSharp.PublicDomain.mpk.csharp.source.c912fedec302ca99dfd67280f6d6f74cf7cc8f43afc2a3af788b5ace3fbf1818"), String("Mpk.CSharp.PublicDomain.mpk.csharp.value.i32.v1"), String("Mpk.CSharp.SourceShape.mpk.csharp.source.c912fedec302ca99dfd67280f6d6f74cf7cc8f43afc2a3af788b5ace3fbf1818"), String("binding.reconstruct.c52f67b4c11aed85603c864e424fff045fea3a7ec40ffb5263cbacfb2a9eab36"), String("field.read.mpk.csharp.member.26944cab928a9cbe4e25e43f2a1a103fdbeb5b13f956b5bd0ce8aae836f0e377"), String("mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3.compare"), String("mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3.equal"), String("mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3.length"), String("mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3.read")]}
+ right: Object {"agreements": Array [Object {"comparison_symbol": String("Mpk.CSharp.Binding.ObserveEqual.mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3"), "projection_id": String("projection.c52f67b4c11aed85603c864e424fff045fea3a7ec40ffb5263cbacfb2a9eab36"), "result_agreement_definition": String("Mpk.CSharp.Ordinary.BindingRelation.Hce03d367e6a3fae7cf8b40b1e12b302115a1b033a9eb7dc8587dccd4e81a6906"), "semantic_type_id": String("mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3"), "source_type_id": String("mpk.csharp.source.c912fedec302ca99dfd67280f6d6f74cf7cc8f43afc2a3af788b5ace3fbf1818")}], "binding_vc_sha256": String("ce46557ac2e782c3229d8b5131fe7e32b64c12ccab71f0d6822a5df2af7b523c"), "certificate_sha256": String("4e012833069eb70b35ea1eb541ee71776224a2c6da39cd7007bcff14bc446b7c"), "foundation_sha256": String("230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2"), "predicates": Array [Object {"argument_type_ids": Array [String("mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3")], "definition": String("Mpk.CSharp.Ordinary.BindingRelation.H3daebba786e668d93fad5d1b04c95e04a89aba98335ec0bdcb68b64ee0f26aaf"), "result_type_id": String("mpk.csharp.value.bool.v1"), "symbol": String("Mpk.CSharp.Binding.Bound.projection.c52f67b4c11aed85603c864e424fff045fea3a7ec40ffb5263cbacfb2a9eab36.length.4096")}, Object {"argument_type_ids": Array [String("mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3"), String("mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3")], "definition": String("Mpk.CSharp.Ordinary.SourceObservation.T6d706b2e6373686172702e696e7374616e63652e65643138333364376465393935663835313035306364613932303837376534663131346338636565646437616432353031303230356535323338626337366333.Equal"), "result_type_id": String("mpk.csharp.value.bool.v1"), "symbol": String("Mpk.CSharp.Binding.Equal.mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3")}, Object {"argument_type_ids": Array [String("mpk.csharp.value.bool.v1"), String("mpk.csharp.value.bool.v1")], "definition": String("Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e312e66616c73652e657175616c.Result"), "result_type_id": String("mpk.csharp.value.bool.v1"), "symbol": String("Mpk.CSharp.Binding.Equal.mpk.csharp.value.bool.v1")}, Object {"argument_type_ids": Array [String("mpk.csharp.value.i32.v1"), String("mpk.csharp.value.i32.v1")], "definition": String("Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e657175616c.Result"), "result_type_id": String("mpk.csharp.value.bool.v1"), "symbol": String("Mpk.CSharp.Binding.Equal.mpk.csharp.value.i32.v1")}, Object {"argument_type_ids": Array [String("mpk.csharp.value.u32.v1"), String("mpk.csharp.value.u32.v1")], "definition": String("Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e66616c73652e657175616c.Result"), "result_type_id": String("mpk.csharp.value.bool.v1"), "symbol": String("Mpk.CSharp.Binding.Equal.mpk.csharp.value.u32.v1")}, Object {"argument_type_ids": Array [String("mpk.csharp.source.c912fedec302ca99dfd67280f6d6f74cf7cc8f43afc2a3af788b5ace3fbf1818"), String("mpk.csharp.source.c912fedec302ca99dfd67280f6d6f74cf7cc8f43afc2a3af788b5ace3fbf1818")], "definition": String("Mpk.CSharp.Ordinary.BindingRelation.Hc6b8b7348144213dd3dd3363e36f741025a57adfde03868fa0e5895e90f3f692"), "result_type_id": String("mpk.csharp.value.bool.v1"), "symbol": String("Mpk.CSharp.Binding.MemberEqual.mpk.csharp.member.26944cab928a9cbe4e25e43f2a1a103fdbeb5b13f956b5bd0ce8aae836f0e377")}, Object {"argument_type_ids": Array [String("mpk.csharp.source.c912fedec302ca99dfd67280f6d6f74cf7cc8f43afc2a3af788b5ace3fbf1818"), String("mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3")], "definition": String("Mpk.CSharp.Ordinary.BindingRelation.H67f844c243b4adab6181ad186e9503e0fd051f96aa888a22e167ae7e40d866c9"), "result_type_id": String("mpk.csharp.value.bool.v1"), "symbol": String("Mpk.CSharp.Binding.MemberProjection.projection.c52f67b4c11aed85603c864e424fff045fea3a7ec40ffb5263cbacfb2a9eab36.mpk.csharp.member.26944cab928a9cbe4e25e43f2a1a103fdbeb5b13f956b5bd0ce8aae836f0e377.elements")}, Object {"argument_type_ids": Array [String("mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3"), String("mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3")], "definition": String("Mpk.CSharp.Ordinary.SourceObservation.T6d706b2e6373686172702e696e7374616e63652e65643138333364376465393935663835313035306364613932303837376534663131346338636565646437616432353031303230356535323338626337366333.Equal"), "result_type_id": String("mpk.csharp.value.bool.v1"), "symbol": String("Mpk.CSharp.Binding.ObserveEqual.mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3")}, Object {"argument_type_ids": Array [String("mpk.csharp.source.c912fedec302ca99dfd67280f6d6f74cf7cc8f43afc2a3af788b5ace3fbf1818"), String("mpk.csharp.source.c912fedec302ca99dfd67280f6d6f74cf7cc8f43afc2a3af788b5ace3fbf1818")], "definition": String("Mpk.CSharp.Ordinary.SourceObservation.T6d706b2e6373686172702e736f757263652e63393132666564656333303263613939646664363732383066366436663734636637636338663433616663326133616637383862356163653366626631383138.Equal"), "result_type_id": String("mpk.csharp.value.bool.v1"), "symbol": String("Mpk.CSharp.Binding.ObserveEqual.mpk.csharp.source.c912fedec302ca99dfd67280f6d6f74cf7cc8f43afc2a3af788b5ace3fbf1818")}], "projections": Array [Object {"project_definition": String("Mpk.CSharp.Ordinary.BindingProjection.Convert.H6920b345f7f1974a2146e27717e2bc2532183ec9bdf1b62aae693eff66826107"), "projection": Object {"binding_id": String("binding.c52f67b4c11aed85603c864e424fff045fea3a7ec40ffb5263cbacfb2a9eab36"), "id": String("projection.c52f67b4c11aed85603c864e424fff045fea3a7ec40ffb5263cbacfb2a9eab36"), "project": Object {"argument_type_ids": Array [String("mpk.csharp.source.c912fedec302ca99dfd67280f6d6f74cf7cc8f43afc2a3af788b5ace3fbf1818")], "id": String("binding.project.c52f67b4c11aed85603c864e424fff045fea3a7ec40ffb5263cbacfb2a9eab36"), "normal_result_type_id": String("mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3"), "ordered_checks": Array [], "tag": String("binding_project")}, "reconstruct": Object {"argument_type_ids": Array [String("mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3")], "id": String("binding.reconstruct.c52f67b4c11aed85603c864e424fff045fea3a7ec40ffb5263cbacfb2a9eab36"), "normal_result_type_id": String("mpk.csharp.source.c912fedec302ca99dfd67280f6d6f74cf7cc8f43afc2a3af788b5ace3fbf1818"), "ordered_checks": Array [], "tag": String("binding_reconstruct")}, "semantic_type_id": String("mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3"), "source_type_id": String("mpk.csharp.source.c912fedec302ca99dfd67280f6d6f74cf7cc8f43afc2a3af788b5ace3fbf1818")}, "reconstruct_definition": Null, "reconstruction_member_ids": Array [String("mpk.csharp.member.26944cab928a9cbe4e25e43f2a1a103fdbeb5b13f956b5bd0ce8aae836f0e377")], "semantic_carrier": Object {"depth": Number(18), "shape": Object {"capacity": Number(4096), "element": Object {"kind": String("reference"), "type_id": String("mpk.csharp.value.i32.v1")}, "kind": String("sequence")}, "type_id": String("mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3")}, "source_carrier": Object {"depth": Number(18), "shape": Object {"fields": Array [Object {"id": String("mpk.csharp.member.26944cab928a9cbe4e25e43f2a1a103fdbeb5b13f956b5bd0ce8aae836f0e377"), "shape": Object {"kind": String("reference"), "type_id": String("mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3")}}], "kind": String("product")}, "type_id": String("mpk.csharp.source.c912fedec302ca99dfd67280f6d6f74cf7cc8f43afc2a3af788b5ace3fbf1818")}}], "schema": String("mpk.csharp.ordinary_binding_guards.v1"), "source_ir_sha256": String("a87efbbae90152d6188a4a5fc17cd0e8fd56fc325310669b3a072fa9781cbcaf"), "static_transformers": Number(2110), "unresolved_vc_symbols": Array [String("Mpk.CSharp.Binding.DefaultUseForbidden.projection.c52f67b4c11aed85603c864e424fff045fea3a7ec40ffb5263cbacfb2a9eab36"), String("Mpk.CSharp.Binding.ValueObservation.projection.c52f67b4c11aed85603c864e424fff045fea3a7ec40ffb5263cbacfb2a9eab36"), String("Mpk.CSharp.Bool.And"), String("Mpk.CSharp.Bool.Not"), String("Mpk.CSharp.Bool.Or"), String("Mpk.CSharp.Bool.true"), String("Mpk.CSharp.Concrete.AllOutcomes.mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3.compare"), String("Mpk.CSharp.Concrete.AllOutcomes.mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3.equal"), String("Mpk.CSharp.Concrete.AllOutcomes.mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3.length"), String("Mpk.CSharp.Concrete.AllOutcomes.mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3.read"), String("Mpk.CSharp.Concrete.Definition.0307aa9b8230d4a0c7cf81c94fb67fc3898574f31f2c6e426ca22a59472511bd"), String("Mpk.CSharp.Concrete.Definition.53c0ff4c8d8927f6d6fad0b7f59a3f22ef20c03bc0a5ad3784a45dd0c38e3de4"), String("Mpk.CSharp.Concrete.Definition.9544a9b7c936dbf1a98d9b59ec76af3543c180c11c47349d33a913f4ac732e7b"), String("Mpk.CSharp.Concrete.Definition.c5e7d91750c8a90895af73a8b189895e1161a7db6beff1e528f1161bad8f4f56"), String("Mpk.CSharp.Concrete.Failure.mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3.read.index_range"), String("Mpk.CSharp.Concrete.Type.c0dff7410d59a76378ccd54375407b37485826ee6ab6741f38afd109182971a8"), String("Mpk.CSharp.PublicDomain.mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3"), String("Mpk.CSharp.PublicDomain.mpk.csharp.source.c912fedec302ca99dfd67280f6d6f74cf7cc8f43afc2a3af788b5ace3fbf1818"), String("Mpk.CSharp.PublicDomain.mpk.csharp.value.i32.v1"), String("Mpk.CSharp.SourceShape.mpk.csharp.source.c912fedec302ca99dfd67280f6d6f74cf7cc8f43afc2a3af788b5ace3fbf1818"), String("binding.reconstruct.c52f67b4c11aed85603c864e424fff045fea3a7ec40ffb5263cbacfb2a9eab36"), String("field.read.mpk.csharp.member.26944cab928a9cbe4e25e43f2a1a103fdbeb5b13f956b5bd0ce8aae836f0e377"), String("mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3.compare"), String("mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3.equal"), String("mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3.length"), String("mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3.read")]}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+FAILED
+test ordinary_carriers::sequence_tests::csharp_03_t06_w09_sequences_original_source_certificates ... sequence source binding-vc-validation: 1 instances
+sequence source binding-vc-transition: 1 instances
+sequence source binding-vc-bounded_sequence: 1 instances
+sequence source binding-vc-ordered_map: 2 instances
+sequence source binding-vc-ordered_set: 1 instances
+sequence source nested-box: 1 instances
+sequence source boundary-map-string: 2 instances
+sequence source boundary-map-decimal: 2 instances
+sequence source boundary-set-decimal: 1 instances
+sequence source boundary-map-compound: 2 instances
+sequence source boundary-total-cells: 1 instances
+sequence source float-sequence: 1 instances
+sequence certificates: 12 source contexts; no value observations in this pass
+ok
+
+failures:
+
+failures:
+    ordinary_carriers::projection_tests::binding_relation_tests::guard_tests::order_tests::csharp_03_t06_w09_binding_orders_original_source_certificates
+
+test result: FAILED. 10 passed; 1 failed; 0 ignored; 0 measured; 148 filtered out; finished in 482.25s
+
+error: test failed, to rerun pass `-p mpk-vc --test csharp_practical_vc`

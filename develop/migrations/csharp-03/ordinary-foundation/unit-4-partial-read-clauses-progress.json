@@ -1,0 +1,113 @@
+{
+  "schema": "mpk.csharp_practical.w09.partial_read_clauses_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_units": [
+    3,
+    4
+  ],
+  "status": "sequence_index_and_tagged_payload_targeted_verification_passed",
+  "implementation": [
+    "sequence_index validates the closed bounded-sequence/element/i32 signature and reuses existing CheckedRead/IndexRange definitions through the same-VIR relation cache. ContractDefined is the negation of IndexRange.",
+    "Sequence operation emission validates the full expanded entry,then reuses an already emitted complete read/range pair;an incomplete pair rejects. Fresh standalone output is unchanged.",
+    "tagged_payload verifies an eligible sum template,arm,single stored payload and exact result reference type,including Validation role-bound wrapping. It reuses the existing masked projection and registers IsActive as ContractDefined.",
+    "Implicit partial recipes trigger the same separate W03 definedness lowering as explicit integer checks;all public consumers still reject pending original use-point discharge.",
+    "The total request helper is shared without changing original total fixture bytes. A fast prior-definedness byte gate avoids repeating expensive unaffected arithmetic observations."
+  ],
+  "verification": [
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/partial-read-clauses/mpk-w09-partial-reads-build-v1.log",
+      "sha256": "54d3388ba8a2473cc78952898c0764f28f219546f9a605978690611bde7792bc",
+      "scope_and_selection_reason": "Affected library compilation after implicit partial-read recipes and sequence-cache reuse;10.94s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/partial-read-clauses/mpk-w09-partial-read-requests-and-preservation-v1.log",
+      "sha256": "93b4d8e93bf1a78cfe99d5bbd354bd58cf37d6f7c77a5a69f85904ee91467742",
+      "scope_and_selection_reason": "New source request,unchanged total request and full total source/public/integrated pin/dependency-closure replay;three tests3.68s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/partial-read-clauses/mpk-w09-partial-read-capture-v1.log",
+      "sha256": "b54783e7f03a494ff5bd47f4478ef297095ffb7feeb71eefcecd239ae331398b",
+      "scope_and_selection_reason": "Fresh exact source/sidecar context;both hash-pinned isolated compiler/source processes exited0 with empty stdout/stderr."
+    },
+    {
+      "status": "failed_test_compile_corrected",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/partial-read-clauses/mpk-w09-partial-read-consumer-preservation-v1.log",
+      "sha256": "41ca089c2de7cb3123ddf14ae200e31855d4be939ecda9d86db7b614a347905f",
+      "scope_and_selection_reason": "Fast compatibility test used unavailable hex crate;replaced with direct comparison of generated metadata and encoded bytes. No dependency added."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/partial-read-clauses/mpk-w09-partial-read-consumer-preservation-v2.log",
+      "sha256": "62032ac3497e45a8d047c0b759c039661a92a45af8167710cd7212a13fd84a88",
+      "scope_and_selection_reason": "All12 affected sequence source certificate contexts plus exact prior checked-definedness certificate/metadata. Arithmetic and full-capacity semantic observations were not repeated because their function bodies are unchanged;two tests37.60s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/partial-read-clauses/mpk-w09-partial-read-source-v1.log",
+      "sha256": "99b18244eaca301fcf9319d121b16891c78f119a21fb544ad4c44028dc7ba473",
+      "scope_and_selection_reason": "13 original source clauses and2620 raw guard/storage observations;full standalone sequence dependency closure preserved;exact import/removal mutation and all three public-consumer rejections;5.96s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/partial-read-clauses/mpk-w09-partial-read-clippy-v1.log",
+      "sha256": "cc355cbedf95ce300639c298d452a464ab51f7dded9135875e05e0577acc455c",
+      "scope_and_selection_reason": "Affected library/integration lint;51.43s including build-directory contention."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/partial-read-clauses/mpk-w09-partial-read-checkers-v1.log",
+      "sha256": "2036b27cce8f7b3266b6b2efb0b2e0eee8f471e6e0fbd3f0a03c1b65e0c950df",
+      "scope_and_selection_reason": "Only new82416-byte candidate;both unchanged checkers accept identical bytes with zero axioms and reject actual hash corruption;8.579s. Exact PASS set,current hash,size,program metadata and tested output bytes reconciled."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/partial-read-clauses/mpk-w09-partial-read-inventory-v1.log",
+      "sha256": "a7dd3c3f224f550bfc51298d7700bf48aee1deb5334a2870156e43dcc43c25ec",
+      "scope_and_selection_reason": "Artifact-consumer closure;45.71s. All fingerprints unchanged,including125 Std. paths and4948 aggregate edges."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/partial-read-clauses/mpk-w09-partial-read-pinned-request-v1.log",
+      "sha256": "8561aaeadbe0037ce053bb12a50a995ff0d29b3ae5a60cf7ae0f8c51742e93c7",
+      "scope_and_selection_reason": "Exact newly published request replay;1.45s. Certificate/program copies also matched the tested outputs,without repeating unchanged semantic cases."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/partial-read-clauses/mpk-w09-partial-read-format-v1.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "scope_and_selection_reason": "Scoped changed Rust source/integration formatting."
+    },
+    {
+      "status": "passed",
+      "commands": [
+        "/usr/bin/git diff --check",
+        "gofmt -l go-tools/mpk-checker-ref/checker_agreement_test.go",
+        "Recompute retained verification-log SHA256 values"
+      ],
+      "scope_and_selection_reason": "Final working-diff whitespace,affected Go format and evidence-integrity checks;no findings."
+    }
+  ],
+  "candidates": {
+    "directory": "partial-read-clauses",
+    "count": 1,
+    "source_expressions": 13,
+    "raw_guard_and_storage_observations": 2620,
+    "terms": 6890,
+    "declarations": 194,
+    "certificate_sha256": "3d6e3d2a1de19037847ada6f09db49676c229f77ab57eda6efd61393b25c1e20",
+    "size_bytes": 82416,
+    "same_byte_checkers": "both passed;exact names,hash,size,metadata and tested output bytes reconciled"
+  },
+  "coverage_limit": "New original-source payload capture covers Option<Value>. Other eligible sum arms share the validated structural projection/activation generator;their complete source integration remains part of the original unit acceptance. Invalid length/tag probes test raw representation behavior,not public admission.",
+  "live_jobs": [],
+  "pending": [
+    "Other contract recipes and original use-point definedness discharge;native/control,transition/replay,application proofs and original internal-unit acceptance."
+  ],
+  "whole_gate": "Deferred to T06-W12;no check-fast or equivalent full gate.",
+  "commit": "No component-only commit;original approved internal units remain incomplete.",
+  "review": "unit-4-partial-read-clauses-review.md",
+  "goal_turn_classification": "Progress:two implicit partial contract recipes now lower to exact ordinary value/definedness functions and passed targeted source,storage,preservation,dual-checker and inventory validation. W09 remains open."
+}

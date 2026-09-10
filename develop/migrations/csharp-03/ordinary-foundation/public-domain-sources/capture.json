@@ -1,0 +1,33 @@
+{
+  "schema": "mpk.csharp_practical.public_domain_source_capture.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "image": "python@sha256:933b46a028fd786c9c3d426ebabc237e29a15912231ea8de576e95f0e4f41a4c",
+  "isolation": {
+    "network": "none",
+    "repository_mount": "only staged required inputs, read-only",
+    "root_filesystem": "read-only",
+    "seccomp": "Docker default",
+    "capabilities": [
+      "SYS_ADMIN",
+      "SETUID",
+      "SETGID",
+      "SETFCAP"
+    ],
+    "no_new_privileges": true,
+    "temporary_filesystem": "rw,exec,nosuid,nodev"
+  },
+  "capture": "Unchanged hash-pinned test_data_phase; diagnostic wrapper reports execute_isolated output without changing results or validation. Both compiler and source harness exited 0 with empty stdout/stderr.",
+  "files": [
+    {
+      "file": "requests.json",
+      "sha256": "524ea3012e3f57e04aeea42dc0b44233d7d31c68b4f309521cee65ba450556d3",
+      "size_bytes": 3638
+    },
+    {
+      "file": "responses.json",
+      "sha256": "f30a7d2b6d338727e1d996e61339839b6748f29ee1fc09ac77c45bb5e14c5d89",
+      "size_bytes": 11426
+    }
+  ],
+  "acceptance": "One original-source response contains facts; generated ordinary semantics and checker acceptance are separate verification."
+}

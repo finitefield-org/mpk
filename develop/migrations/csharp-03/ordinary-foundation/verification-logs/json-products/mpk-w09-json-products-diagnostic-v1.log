@@ -1,0 +1,39 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 21.45s
+     Running tests/csharp_practical_vc.rs (target/debug/deps/csharp_practical_vc-dcf715cdb89904aa)
+
+running 1 test
+JSON product stage: primitive adapters
+JSON product stage: syntax helpers
+JSON product stage: syntax literal [34, 65, 109, 111, 117, 110, 116, 34, 58]
+JSON product stage: syntax literal [34, 77, 97, 121, 98, 101, 34, 58]
+JSON product stage: syntax literal [34, 78, 117, 109, 98, 101, 114, 34, 58]
+JSON product stage: syntax literal [34, 84, 101, 120, 116, 34, 58]
+JSON product stage: syntax literal [34, 92, 117, 100, 56, 48, 48, 34, 58]
+JSON product stage: syntax literal [34, 102, 105, 101, 108, 100, 48, 34, 58]
+JSON product stage: syntax literal [34, 112, 97, 121, 108, 111, 97, 100, 34, 58]
+JSON product stage: syntax literal [34, 116, 97, 103, 34, 58]
+JSON product stage: syntax literal [44]
+JSON product stage: syntax literal [58]
+JSON product stage: syntax literal [91]
+JSON product stage: syntax literal [93]
+JSON product stage: syntax literal [123]
+JSON product stage: syntax literal [125]
+JSON product stage: grammar helpers
+JSON product stage: carrier mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338
+JSON product stage: carrier mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb
+JSON product stage: carrier mpk.csharp.source.e7fac9e87eca97044ab80feda9ca27de1fbaef5438950dc4d62669257d1833c2
+
+thread 'ordinary_carriers::literal_tests::json_token_tests::product_tests::csharp_03_t06_w09_json_products_sources_and_dependency_preservation' (849209) panicked at crates/mpk-vc/tests/support/csharp_practical_ordinary_json_product_tests.rs:29:33:
+document-7a157feb27ed416752b5dde8aa2bf373b9a2c82755d2caa89e955057176ee57b: Linkage
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test ordinary_carriers::literal_tests::json_token_tests::product_tests::csharp_03_t06_w09_json_products_sources_and_dependency_preservation ... FAILED
+
+failures:
+
+failures:
+    ordinary_carriers::literal_tests::json_token_tests::product_tests::csharp_03_t06_w09_json_products_sources_and_dependency_preservation
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 170 filtered out; finished in 10.14s
+
+error: test failed, to rerun pass `-p mpk-vc --test csharp_practical_vc`

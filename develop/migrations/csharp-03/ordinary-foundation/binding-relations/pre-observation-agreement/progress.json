@@ -1,0 +1,332 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.binding_relation_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "superseded: proof-level result/round-trip comparisons used IEEE equality; corrected observation lowering in progress",
+  "source_contexts": 44,
+  "predicate_occurrences": 174,
+  "result_agreements": 34,
+  "unresolved_vc_symbol_occurrences": 2476,
+  "ordinary_semantic_comparisons": 56,
+  "max_terms": 43963,
+  "max_declarations": 489,
+  "max_static_transformers": 8594,
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_binding_relations.rs",
+      "sha256": "c366baf86a344d0894f90d376151b3150f8014e6a2c95d3c2dcbba7a2671df7d"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_binding_projections.rs",
+      "sha256": "e4bb66c76b232f87da339a5d3dcdfd2e2a40500d2c90913c2be40f0db028b450"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_relations.rs",
+      "sha256": "afde4fc4d4181c31e42aefc3d25b8bca6d81a91053ded0daa5f21273fc9ad6b2"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_structural.rs",
+      "sha256": "ce2079e26fca08565e44fa3683e63a939ee5d856255951489f326f7cfe3dbe79"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs",
+      "sha256": "c159c4ff84fbd5138eae9bebb6f14ed1f3780cf2d00ddeba7669f94895144722"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+      "sha256": "9c40aff5bc76a70625e5f18fed604836210480e2913dc895a3f356ece6b15774"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_binding_relation_tests.rs",
+      "sha256": "46bdaa5cd1c518ed7bc3a25341a7ded3eb18feb4b85a5ab6df807a9bc4d12880"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_projection_tests.rs",
+      "sha256": "822a7cc9e50d37712a94da63b6dec30840dd45c5d12fa0590961928490683b0f"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_structural_equivalence_tests.rs",
+      "sha256": "1e23ba8a167b91b23e5c2534f8315cde13aa0d34ae0e4137c4c3f10cf9b2546f"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "sha256": "5a5283551404dd74207f936cf71423b542eae49684267ffbecbe36f7e55711b6"
+    }
+  ],
+  "pins": [
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/binding-vc-boundary_field.hex",
+      "sha256": "799bdf5685ead7c2d80f77fe0fadde780cbd3086f65749550eb81a9fb0ff3478"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/binding-vc-bounded_sequence.hex",
+      "sha256": "f70fab7be4f73a0a02559c7046926447d37ada11dbc931634eafde60df4765e5"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/binding-vc-instant.hex",
+      "sha256": "f18f45732677e74c2c19dce1ff53148585039ddf9c65b7cb9146667e35dc611f"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/binding-vc-lookup.hex",
+      "sha256": "5d6772e813e55bac45f1109ca38b77f7c2fcadfd98da2dcedda613409d03804c"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/binding-vc-money.hex",
+      "sha256": "62f63135ce217bf267f5719389f0f31464f78f36480861db2bcdab7e8716af31"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/binding-vc-option.hex",
+      "sha256": "a3c45f0677b801b3a3d49280ed2db507e6b14d7394cfc2ce8e9adf90a78db7e4"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/binding-vc-ordered_entry.hex",
+      "sha256": "16a9a6c7ab95dd50141b5b266c4c6065671b6338669725c873e4566be716e2e9"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/binding-vc-ordered_map.hex",
+      "sha256": "6ed9b2c4f0e62f2a9d32e506afd27946dcfd38a61d36691ab1308416f046997c"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/binding-vc-ordered_set.hex",
+      "sha256": "ba51c6a470e7630f23b524ecc2e6d0e06d1e5753c4cf044a4a569d2763aa1f0f"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/binding-vc-result.hex",
+      "sha256": "7c8a16176400e57964335555f931573eaea2bd897afc96a5f11fe3711e0ba04b"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/binding-vc-transition.hex",
+      "sha256": "138c05c7c605bdd2b14cdad1d4d504b44240a3c1935c09859dae40d79b8bc3de"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/binding-vc-validation.hex",
+      "sha256": "206900ad6d56c9e5f56469832d64c160c415e4c18dba78ddb264328dc2aa5813"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/bool-construction.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/bool-float-entry.hex",
+      "sha256": "ceb175f044a56c5b4170569754fc619a2e235c7b0ac27a80a4ca5cdf3cb64412"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/boundary-exception-empty.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/boundary-exception-payload.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/boundary-map-compound.hex",
+      "sha256": "0e12856ec47bdc1b2c7e6c067acc9f21b37eb86c29d10ce07245a9ff183aa433"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/boundary-map-decimal.hex",
+      "sha256": "8ca9de3c2ae6c73b01e7b34ab35b7b4c5767b715fe5788c2ebf52960509d61f0"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/boundary-map-string.hex",
+      "sha256": "1d1831c36d0cc0bddf1879c73cf4a77660cb4afd2be5df8148e9d693b56acecc"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/boundary-set-decimal.hex",
+      "sha256": "0e4ef473b3759a0ec13a3c3dadf5cf2d7faefdfb54b97d6919669352b892dd36"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/boundary-total-cells.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/complete-snapshot.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/construction-vc-enum_zero.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/construction-vc-positive_constructor.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/date.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/enum-construction.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/exception-vc-allowed.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/extra-bool-float-map.hex",
+      "sha256": "99f345f6f6547104536b8d263167e0e1a903e30b2d38e6c590cb7eadf4e3f6f3"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/extra-bool-nullable-map.hex",
+      "sha256": "fb8b7fd391af63e113498ec93ac3a0f5ecd85e21a3980f70ccceac3b2c7760c5"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/extra-lookup-nullable.hex",
+      "sha256": "753f9d7e3f7d0245176f50572dde42074b9f3659d1d4017ef27b89e1ee3d1d91"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/extra-shared-lookup-maps.hex",
+      "sha256": "c16bf9c669c421caf2dfce290158496148187d9964770f3b4032700b4db3aad6"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/extra-validation-bool.hex",
+      "sha256": "5ecb7eadbd8aaae345f3a937eed0e7899d89bccc90f3776875b3efc5cab08054"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/extra-validation-product.hex",
+      "sha256": "0811a16dfff67b10eec407104b5b995cd358788971da3f93af53b676f4b6f8ac"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/float-sequence.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/floats.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/guid.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/nested-box.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/nullable-float.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/nullable-string-default.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/parse-error-contract.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/product-construction.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/remapped-boundary-sequence.hex",
+      "sha256": "96321e77d1b0b459d5d2a4ae9c66bf1be808840c610b01eaa0ce72c0b60663cb"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/string.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/unit-void-source.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7"
+    }
+  ],
+  "metadata": {
+    "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/pre-observation-agreement/certificates.json",
+    "sha256": "7c8f602ad0aaca1154f95753ae1daf6c6817c923d6c14562e982c1068d8ea88c"
+  },
+  "verification": [
+    {
+      "command": "MPK_W09_BINDING_RELATIONS_OUT=/tmp/mpk-w09-binding-relations-v3 cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_binding_relations -- --nocapture",
+      "log": "/tmp/mpk-w09-binding-relations-suite-v3.log",
+      "log_sha256": "c67d8d66ee654dd67e2352cef6bf797126c367aced689640e21053d5de1dffe0",
+      "result": "passed",
+      "scope": "2 tests: all 44 source contexts, exact W06 predicates/unresolved inventory, metadata/byte/context mutations, standalone projection closure equivalence, 56 semantic observations; 115.39 seconds; before added standalone observation closure assertion"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_binding_projection -- --nocapture",
+      "log": "/tmp/mpk-w09-binding-relations-projection-replay-v1.log",
+      "log_sha256": "9e8164e6df5bc1a5c35528e821c557f0188d15340101ebf8b8e112a43209dc88",
+      "result": "passed",
+      "scope": "3 tests: unchanged 44 projection certificate pins, 34 definitions, 144 cases/16522 bits after shared-emitter refactor; 25.71 seconds"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "log": "/tmp/mpk-w09-binding-relations-inventory-v1.log",
+      "log_sha256": "dbebde8b8a19b3309e750333352b51808d4b5f1be232855771222146b62f0c4e",
+      "result": "passed",
+      "scope": "all 5 consumer/inventory checks; 16.16 seconds"
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --test csharp_practical_vc -- -D warnings",
+      "log": "/tmp/mpk-w09-binding-relations-clippy-v2.log",
+      "log_sha256": "789a896b09e8d13ab379fddf2ddb051d76b892a0e3fd20fa3bd71ec1398e66e3",
+      "result": "passed",
+      "scope": "production/test scoped lint; before last standalone-observation closure test addition"
+    },
+    {
+      "command": "cargo fmt --all -- --check",
+      "log": "/tmp/mpk-w09-binding-relations-format-v1.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result": "passed",
+      "scope": "format checkpoint; before last standalone-observation closure test addition"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_binding_relations -- --nocapture",
+      "log": "/tmp/mpk-w09-binding-relations-replay-v1.log",
+      "log_sha256": "f13006409c9f23a57ba2a1afd506c992bf038e01f4f812c13656a301d6ea4359",
+      "result": "passed",
+      "scope": "all pins/metadata; now also standalone source-observation dependency closure equivalence; 56 semantic observations; 124.93 seconds"
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --test csharp_practical_vc -- -D warnings",
+      "log": "/tmp/mpk-w09-binding-relations-clippy-v3.log",
+      "log_sha256": "fe29e256905928e3f4ba84f507a6fcca8895492d4c03f482509b9708af600ed0",
+      "result": "passed",
+      "scope": "last test assertion addition; 100 seconds including build lock"
+    },
+    {
+      "command": "cargo fmt --all -- --check",
+      "log": "/tmp/mpk-w09-binding-relations-format-v2.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result": "passed",
+      "scope": "final code formatting"
+    },
+    {
+      "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIBindingRelations$' -count=1 -timeout 0 -v",
+      "log": "/tmp/mpk-w09-binding-relations-checkers-v1.log",
+      "log_sha256": "a76b11e124a71d5ef201ab5dcc1eaf334655b1d4d5dcdee643fd21e45a9aad9c",
+      "result": "passed",
+      "scope": "historical 44 certificates type-checked by both unchanged checkers with zero axioms; hash corruptions reject; 693.002 seconds. This does not validate their incorrect proof-level equality semantics."
+    }
+  ],
+  "live_jobs": [],
+  "other_w09_jobs": [
+    {
+      "session_id": 23035,
+      "log": "/tmp/mpk-w09-domains-remaining-source-v7.log",
+      "status": "confirmed live; decimal-set signed scaled zero after completing decimal-map cases"
+    },
+    {
+      "session_id": 22106,
+      "log": "/tmp/mpk-w09-money-semantics-v1.log",
+      "status": "confirmed live; scale 1 mode 2 multiply/divide"
+    }
+  ],
+  "resolved_failures": [
+    {
+      "log": "/tmp/mpk-w09-binding-relations-suite-v1.log",
+      "reason": "test used private VC generators and inferred unsized previous-certificate state; fixed without changing production APIs"
+    },
+    {
+      "log": "/tmp/mpk-w09-binding-relations-suite-v2.log",
+      "reason": "duplicate shared cube helper definition caused first-source Linkage; fixed by idempotent auxiliary helper reuse"
+    }
+  ],
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "status": "deferred to T06-W12"
+  },
+  "remaining": "No reconstruction witness/native-call relation/source-target domain/commutation theorem supplied. Complete unit 4, native/control unit 5, transition unit 6, proof assembly unit 7 and full unit 8 acceptance remain required. Unit 3 deep checks/full review remain open.",
+  "superseded_by": "unit-4-binding-observation-progress.json"
+}

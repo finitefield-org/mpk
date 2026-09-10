@@ -1,0 +1,250 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.default_checkpoint.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 3,
+  "status": "default-candidate scoped checks passed; no unit/W09 completion receipt",
+  "application_vc_proof": false,
+  "source_conditions_discharged": false,
+  "contexts": 29,
+  "carrier_occurrences": 170,
+  "available_candidates": 108,
+  "ineligible": 62,
+  "pending_source_condition_occurrences": 22,
+  "structural_only_candidates": 14,
+  "captured_source_default_graphs": 18,
+  "max_terms": 108,
+  "max_declarations": 25,
+  "axioms_per_checked_certificate": 0,
+  "checks": [
+    {
+      "log": "/tmp/mpk-w09-default-replay-v2.log",
+      "scope": "29 original-source contexts, complete captured source-condition sets, values, exact pinned metadata/certificates and import mutations",
+      "log_sha256": "6c0523e7c7e1edd0413104f7ad5083bc2b0c9a9147b12d1b8fde43c517afc3a8"
+    },
+    {
+      "log": "/tmp/mpk-w09-default-checkers-v1.log",
+      "scope": "29 identical byte sequences accepted by both checkers with zero axioms; 29 hash corruptions rejected by both",
+      "log_sha256": "b20ba75b7430c63187d79065426c588cdaebf651ec137735582f7af6667a2d21"
+    },
+    {
+      "log": "/tmp/mpk-w09-default-inventory-v1.log",
+      "scope": "five inventory tests; Std namespace 110 paths and aggregate count 4933",
+      "log_sha256": "33870e69950427cac6ebfc802a10b5c8b84ea9dfc19ec2c45c5767385cacb4ee"
+    },
+    {
+      "log": "/tmp/mpk-w09-default-clippy-v2.log",
+      "scope": "mpk-vc library and practical integration-test clippy with warnings denied; before correcting only numeric expectations in the added edge test",
+      "log_sha256": "58690d45083cc8c16c2987b8b69cfe94fe3ecc696a26509bbee92de0b6c79fa2"
+    },
+    {
+      "log": "/tmp/mpk-w09-default-format-v1.log",
+      "scope": "rustfmt check of default production and test modules",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "log": "/tmp/mpk-w09-default-edges-v2.log",
+      "scope": "four original sources: required member, no enum zero, sealed class, 17 nested source types; missing obligation and importer size mutations",
+      "log_sha256": "ea08e0b9ac0beb27c64c11c8f3fa08036730f8f91177843951c8ec795f3c0790"
+    },
+    {
+      "log": "/tmp/mpk-w09-finite-inventory-v1.log",
+      "scope": "current inventory after the default-test constant mutation and finite-operation module additions: 112 Std namespace paths, 4935 aggregate occurrences",
+      "log_sha256": "af2201d447d6dd708c2c5a19ea2d72a8a69a64569f01c0ef3f87387993088642"
+    },
+    {
+      "log": "/tmp/mpk-w09-contract-carrier-checkers-v1.log",
+      "scope": "replacement default certificate and preserved previous bytes; both checkers and hash corruptions",
+      "log_sha256": "6ca92165f6856d5bf30cd7438de8b09dbecd6440fcb385d918faa6c1f8e8f539"
+    },
+    {
+      "log": "/tmp/mpk-w09-contract-defaults-replay-v1.log",
+      "scope": "all 29 current default certificates pinned replay and import mutations",
+      "log_sha256": "46d9751fb0a0290e4920bae2f43e8aef3092d94edd1e5cd3b5fe0c90bb673fdc"
+    }
+  ],
+  "pending_checks": [],
+  "review_corrections": [
+    "The source replay checked only emitted source requirements; it now compares the complete set reconstructed from captured graphs to detect dropped conditions.",
+    "The initial nested-source test expected 18 types, but the retained original source defines T0 through T16. Corrected to 17 types and 18 total cells; no production code changed.",
+    "The added default-test definition mutation contains a Std namespace reference. Its file was added to the inventory together with the finite-operation module; all five inventory checks pass at 112 paths."
+  ],
+  "certificates": [
+    {
+      "id": "binding-vc-option",
+      "path": "defaults/binding-vc-option.hex",
+      "artifact_sha256": "a7e0fa3174b43c67b3e14a08fca2ef964a34dbb934251fcc5f48a0dc9ffa7043",
+      "certificate_sha256": "2786933fc81b7efeadbe41b8cb8e6149c2af8384c4c3dce6b4f37cb112f40825"
+    },
+    {
+      "id": "binding-vc-lookup",
+      "path": "defaults/binding-vc-lookup.hex",
+      "artifact_sha256": "f93a4223c5925b6d4fa31ca64a212ad224455c9b4418e67825a2f343bf6c09d7",
+      "certificate_sha256": "322d52154b84614240acffaf0979f8bdaced04158d9ca289a4771a08eceda1c9"
+    },
+    {
+      "id": "binding-vc-result",
+      "path": "defaults/binding-vc-result.hex",
+      "artifact_sha256": "117c64dd88aedc694419d9f71a1a55eb13ebd8fa636b5e45c25ce84128e66029",
+      "certificate_sha256": "b33aa945fb09c5a09340097f145715535154b91970a40112d0d79890129f8ff2"
+    },
+    {
+      "id": "binding-vc-validation",
+      "path": "defaults/binding-vc-validation.hex",
+      "artifact_sha256": "5d9260d0348195c21b9aba3e03edae37bc0bce9fd30e054fd1c4d17d713042d2",
+      "certificate_sha256": "e97b3a3dc53d269aa5370a9d3a3650864cf33b1a82426fba2b8f7e4f95f449b9"
+    },
+    {
+      "id": "binding-vc-boundary_field",
+      "path": "defaults/binding-vc-boundary_field.hex",
+      "artifact_sha256": "1c604b2c539f04a6f0921de6d11c21994e73fc2dad3ea7aae9fb27bac34fc2b4",
+      "certificate_sha256": "2db34421602ae2ec9390e70996bb20e4e749f03e11c3a53b66cd3979de1f8d2b"
+    },
+    {
+      "id": "binding-vc-transition",
+      "path": "defaults/binding-vc-transition.hex",
+      "artifact_sha256": "3bd40c64793ff3eb43cf8e962b0d676e79859576e9c13c65499a39d7d9aae83c",
+      "certificate_sha256": "5d34dbe8d48098f658d92407e112d0f50c7d7534693d405a39d71222db167899"
+    },
+    {
+      "id": "binding-vc-instant",
+      "path": "defaults/binding-vc-instant.hex",
+      "artifact_sha256": "ae079a117f758c5abbace92180059f47a6a8bee9b1a377d0a917908519f8cd35",
+      "certificate_sha256": "5e5abaa9e1db645b9e4ff1e40316703237625ec2bcd290957f6d1faaa5039ada"
+    },
+    {
+      "id": "binding-vc-money",
+      "path": "defaults/binding-vc-money.hex",
+      "artifact_sha256": "e9214c37c7258e16ffc39caa8f417766ad105bf191ce446dd81e3a20f3c43692",
+      "certificate_sha256": "02c541550bcdc2781d9498fd83a1fc76e6764f0fa2cc6dc9dba975c119e7f57c"
+    },
+    {
+      "id": "binding-vc-bounded_sequence",
+      "path": "defaults/binding-vc-bounded_sequence.hex",
+      "artifact_sha256": "c5fca1409768d98dbdc8c5a064a9c8b37b053b0e4e7ea0550950e55913290bef",
+      "certificate_sha256": "c317b7293d1f7c7deefeeec951bd1515ff601efed4118fdf814190b9bf2deeb9"
+    },
+    {
+      "id": "binding-vc-ordered_entry",
+      "path": "defaults/binding-vc-ordered_entry.hex",
+      "artifact_sha256": "08f9bb245310a6d50c4d83edcdef181d7ce713979ee0b2130cf58718ab9dbd36",
+      "certificate_sha256": "1a993466d8a9e230656a4dc1acec761b531d5076c0f087b3b42c2ce2fa034ad6"
+    },
+    {
+      "id": "binding-vc-ordered_map",
+      "path": "defaults/binding-vc-ordered_map.hex",
+      "artifact_sha256": "0d364403403ace4aec1aa4c3f86dc36a7039fe9a9ccf6e3fbed20f9af50fda56",
+      "certificate_sha256": "33b59c6b1d9a2d0a34cf4dec3d230cbd5d2ccbc6e1c7bd07477240f45ba258a1"
+    },
+    {
+      "id": "binding-vc-ordered_set",
+      "path": "defaults/binding-vc-ordered_set.hex",
+      "artifact_sha256": "13e2c7c6c65decc94e6579810697ed5f6a97e09783460245b255dfee4ec8b652",
+      "certificate_sha256": "2da33b0c19d0e9b029dbd5b1d0b4064456cde774ad04e890c3970f06756f6b39"
+    },
+    {
+      "id": "construction-vc-positive_constructor",
+      "path": "defaults/construction-vc-positive_constructor.hex",
+      "artifact_sha256": "e2384689a3f7fdd445f50afecb964664851a44aaeaf8f37de95be1b80e359f73",
+      "certificate_sha256": "73e778935ab4b95f926ee0704f057d75e3d03108eaa3beb50ec5ad057baaa9eb"
+    },
+    {
+      "id": "construction-vc-enum_zero",
+      "path": "defaults/construction-vc-enum_zero.hex",
+      "artifact_sha256": "4f5dc7ebd4f8493ca8c91d765a073b737d04366dcf88da4e5e5d42525a77c5b0",
+      "certificate_sha256": "37d8c60899ee27fcd6688552d8429a9162b1c3c0855784a28338db557bc2cf1a"
+    },
+    {
+      "id": "exception-vc-allowed",
+      "path": "defaults/exception-vc-allowed.hex",
+      "artifact_sha256": "6211f9476d4a624a35ba2a91a7d38f6de21ed7e9de9f861251e97068181e1268",
+      "certificate_sha256": "3164fe0dd36eac54383a8613df3463cdbfb2f29f591a6531c1073da33ea5ced0"
+    },
+    {
+      "id": "nullable-float",
+      "path": "defaults/nullable-float.hex",
+      "artifact_sha256": "d748408e0d0203bed08453f06fa808ae0c80c04cad7da9f4917eddfa6fe405e7",
+      "certificate_sha256": "645e9e9578a2320c5971c5d9e09fce9d1b3470b8e03e5bbb654534d62fb91811"
+    },
+    {
+      "id": "floats",
+      "path": "defaults/floats.hex",
+      "artifact_sha256": "099af2cb3d5de47aa92306cc601cef8b1c4c5e7c646328aada7957e1015a733b",
+      "certificate_sha256": "8c5d04eb448864a9855506e67f23d7d526e3d1497726be530e44385bac1fc4f5"
+    },
+    {
+      "id": "nested-box",
+      "path": "defaults/nested-box.hex",
+      "artifact_sha256": "e5b61c69b7a2cf9c772af867b20b079ce204626617e048dd65157f12617da65e",
+      "certificate_sha256": "fbfa88af6e7b859aa5e17b24ccd7d266b645243b156fa62d41d3133c961b155e"
+    },
+    {
+      "id": "string",
+      "path": "defaults/string.hex",
+      "artifact_sha256": "41f1d8226b23fcb98a1bc02924ced2620107a341bf0592765fbf8d9ed4f83b27",
+      "certificate_sha256": "63c99391a4c7f216224f548d39a967fa707a86158d990baa5be64b625929f136"
+    },
+    {
+      "id": "date",
+      "path": "defaults/date.hex",
+      "artifact_sha256": "90390a20b42daa32693671876d8a77ea8fd1adbebcedd858c4b4cea19681e4c1",
+      "certificate_sha256": "3c0477b6c655a8bd92e80e3de7cf65d5fc4d0dc29539f4885f23fdf0e4447d59"
+    },
+    {
+      "id": "guid",
+      "path": "defaults/guid.hex",
+      "artifact_sha256": "237d2036c7b0688e808256984ba854216724aa4ac5eebc0f2c1a92d29671befe",
+      "certificate_sha256": "616816de959ea47e28bb5d3bae45b4e75790df4b132130f236a3fd8764057bcd"
+    },
+    {
+      "id": "boundary-map-string",
+      "path": "defaults/boundary-map-string.hex",
+      "artifact_sha256": "3b26dcebff95382396e029b61eb1d2c7a7e61936b87bcc96b650411266142dc1",
+      "certificate_sha256": "72f860e1d69cb92a4e5b73a6b6340591c430d05f1a2fe7bc7823149f7259b761"
+    },
+    {
+      "id": "boundary-map-decimal",
+      "path": "defaults/boundary-map-decimal.hex",
+      "artifact_sha256": "5d8b7159b8d494a47c55ed1307e66272eb942cfa67a4f3b9a1d359f66a53fa02",
+      "certificate_sha256": "216ff8d954ab201c7e6654eb089197e5f288f35c6cf94bed1b8b3d6f66cbae38"
+    },
+    {
+      "id": "boundary-set-decimal",
+      "path": "defaults/boundary-set-decimal.hex",
+      "artifact_sha256": "2e80183d0c1be4c4ca1ad609ae243027f36a9e23d6be3e779c12addcb0b1b050",
+      "certificate_sha256": "d2fab6e6fd9545adce7d16f0ab2c16516608638587585a1eef5e47bffffd1a18"
+    },
+    {
+      "id": "boundary-map-compound",
+      "path": "defaults/boundary-map-compound.hex",
+      "artifact_sha256": "d395f1a5eae65a23cfd7af828b60ad4356efb158fd4ab9ce629caf8475ccb5c0",
+      "certificate_sha256": "3c0b1c6ccc294c198b318274031af32964b64937fa15b52e9d55ceaadb8fcfe9"
+    },
+    {
+      "id": "boundary-total-cells",
+      "path": "defaults/boundary-total-cells.hex",
+      "artifact_sha256": "59c614d8115e019067796214e71ef4ec734218e3bdd415df75ce9aea5936f83a",
+      "certificate_sha256": "5f47f78fdf3a36bbbdbd75c11d9cddc54e627c8452ab1e3f81dfacde57e5b1e7"
+    },
+    {
+      "id": "boundary-exception-empty",
+      "path": "defaults/boundary-exception-empty.hex",
+      "artifact_sha256": "575f0e2f9784a55743055729bdccf329d69dcb0f238e9b7b2b930fc7cd745890",
+      "certificate_sha256": "7807e65995e585f8e80a0262e146c5a1cd1f1a47b5c59cf0dc6743b84a378222"
+    },
+    {
+      "id": "boundary-exception-payload",
+      "path": "defaults/boundary-exception-payload.hex",
+      "artifact_sha256": "bb3b63fc023f27404ce97191407e35f98889fd4ab8ceb428701955c6dbefc6fb",
+      "certificate_sha256": "925ee007a053e9669ef6e0b0162d4c2604204fffc8a72a9d44910ede8d4432b5"
+    },
+    {
+      "id": "nullable-string-default",
+      "path": "defaults/nullable-string-default.hex",
+      "artifact_sha256": "7951243c5fe800867f614dcced05bd9a0433ab1d7fe85f64bb1688d326eea954",
+      "certificate_sha256": "f478a984a26302258ea29d12cc5a4f2c2227c107d9499d3a506a0d5e51876326"
+    }
+  ],
+  "full_gate": "deferred to CSHARP-03-T06-W12",
+  "remaining_scope": "Recursive-domain semantic verification; semantic constructors and every remaining reachable operation; original units 4-8 including source-condition/application proof assembly.",
+  "contract_carrier_extension": "contract-carrier-extension/changes.json"
+}

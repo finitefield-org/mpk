@@ -1,0 +1,65 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.calendar_clause_capture.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "date": "2026-09-11",
+  "files": [
+    {
+      "path": "requests.json",
+      "bytes": 41537,
+      "sha256": "1ab39ad279b5519766d134c421c1495b83fcad48c2ce6e03b14611ee1aa0717b"
+    },
+    {
+      "path": "responses.json",
+      "bytes": 145255,
+      "sha256": "dd55c290a23041c45204a20dab68c16ddd35a73247bf825c887717c9151d035b"
+    },
+    {
+      "path": "capture-inputs.json",
+      "bytes": 19763,
+      "sha256": "8befa15a01a4209c159d509013d3ab9b28b8ded95f1ae909b24f655390354c2c"
+    }
+  ],
+  "source_contexts": 8,
+  "frontend_accepts": 8,
+  "capture_stage": "/tmp/mpk-w09-public-domain-capture-stage",
+  "stage_verification": "All 88 staged files revalidated against repository counterparts; 71 pinned input files checked.",
+  "docker_image": "python@sha256:933b46a028fd786c9c3d426ebabc237e29a15912231ea8de576e95f0e4f41a4c",
+  "platform": "linux/amd64",
+  "isolation": {
+    "network": "none",
+    "root": "read-only",
+    "stage_mount": "read-only",
+    "memory": "4g",
+    "cpus": 2,
+    "pids": 256,
+    "tmpfs": "/tmp, rw exec size=4g mode=1777",
+    "seccomp": "default",
+    "no_new_privileges": true,
+    "capabilities": [
+      "SYS_ADMIN",
+      "SETUID",
+      "SETGID",
+      "SETFCAP"
+    ]
+  },
+  "route": "unchanged gate.test_data_phase through diagnose.py",
+  "successful_log": "../verification-logs/calendar-clauses/calendar-clause-capture-v2.log",
+  "prior_failure": {
+    "log": "../verification-logs/calendar-clauses/calendar-clause-capture-v1.log",
+    "reason": "unshare could not write uid_map without SETFCAP; no semantic result. Retry added only the missing root UID-map capability."
+  },
+  "scope": "Source facts only; generated contract and application proofs are separate gates.",
+  "raw_transports": [
+    {
+      "path": "verification-logs/calendar-clauses/raw-requests.json",
+      "sha256": "1ab39ad279b5519766d134c421c1495b83fcad48c2ce6e03b14611ee1aa0717b",
+      "bytes": 41537
+    },
+    {
+      "path": "verification-logs/calendar-clauses/raw-responses.json",
+      "sha256": "7bb5f0b69dbe98f7a2e8e30c90a7ae0feaefd938f1a59c5cd8356c4d1f4cfb2b",
+      "bytes": 159961
+    }
+  ],
+  "reconstruction": "Final requests/responses use the runtime test serialization. Parsed JSON equals the retained raw capture transports exactly; only response whitespace differs."
+}

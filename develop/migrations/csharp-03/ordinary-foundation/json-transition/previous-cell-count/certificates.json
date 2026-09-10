@@ -1,0 +1,1418 @@
+[
+  {
+    "declarations": 2234,
+    "id": "scalar-map",
+    "program": {
+      "boundary_program_sha256": "31cc36350f543c1e8dbe0929b9184e30af50fab7f625476c859547347f578bda",
+      "certificate_sha256": "b67e160276547bbf6970cee64febe2eec6d75516a4ce20165a26d8afcafdf9e7",
+      "collections": [
+        {
+          "join_definition": "Mpk.CSharp.Ordinary.IntegerText.O4d706b2e4353686172702e4f7264696e6172792e4a736f6e4772616d6d61722e4368696c64436f6e7461696e65725061796c6f6164.Result",
+          "key_compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e636f6d70617265.Result",
+          "key_type_id": "mpk.csharp.value.i32.v1",
+          "order_definition": "Mpk.CSharp.Ordinary.JsonCollections.T6d706b2e6373686172702e696e7374616e63652e31653937313139373139363765613764613264633434643931366261303730323338346134376633373033333966333530376563396339306463633331353831.Increasing",
+          "sequence": {
+            "capacity": 4096,
+            "carrier": {
+              "depth": 19,
+              "shape": {
+                "capacity": 4096,
+                "element": {
+                  "fields": [
+                    {
+                      "id": "key",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    },
+                    {
+                      "id": "value",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.bool.v1"
+                      }
+                    }
+                  ],
+                  "kind": "product"
+                },
+                "kind": "sequence"
+              },
+              "type_id": "mpk.csharp.instance.1e9711971967ea7da2dc44d916ba0702384a47f370339f3507ec9c90dcc31581"
+            },
+            "child_parse_definition": "Mpk.CSharp.Ordinary.JsonProducts.T6d706b2e6373686172702e696e7374616e63652e39303736303635323064393232626663396362376263343635643063373664363436393731353838663766316661653031393039343863613030626132383636.Parse.ArrayElement",
+            "element_type_id": "mpk.csharp.instance.907606520d922bfc9cb7bc465d0c76d646971588f7f1fae0190948ca00ba2866",
+            "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D20.Project.D7.R0",
+            "packet_depth": 20,
+            "parse_definition": "Mpk.CSharp.Ordinary.JsonSequences.T6d706b2e6373686172702e696e7374616e63652e31653937313139373139363765613764613264633434643931366261303730323338346134376633373033333966333530376563396339306463633331353831.Parse",
+            "pipeline_definition": "Mpk.CSharp.Ordinary.JsonSequences.Fold.D20.N4096",
+            "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D20.Project.D19.R1"
+          },
+          "template_id": "mpk.csharp.semantic.ordered_map.v1"
+        }
+      ],
+      "deferred_type_ids": [],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "grammar": {
+        "begin_definition": "Mpk.CSharp.Ordinary.IntegerText.O4d706b2e4353686172702e4f7264696e6172792e4a736f6e4772616d6d61722e426567696e.Result",
+        "child_definition": "Mpk.CSharp.Ordinary.IntegerText.O4d706b2e4353686172702e4f7264696e6172792e4a736f6e4772616d6d61722e4368696c64.Result",
+        "child_depth_definition": "Mpk.CSharp.Ordinary.IntegerText.O4d706b2e4353686172702e4f7264696e6172792e4a736f6e4772616d6d61722e4368696c644465707468.Result",
+        "cursor_definition": "Mpk.CSharp.Ordinary.IntegerText.O4d706b2e4353686172702e4f7264696e6172792e4a736f6e4772616d6d61722e437572736f72.Result",
+        "finish_definition": "Mpk.CSharp.Ordinary.JsonGrammar.Finish",
+        "syntax_definition": "Mpk.CSharp.Ordinary.IntegerText.O4d706b2e4353686172702e4f7264696e6172792e4a736f6e4772616d6d61722e53796e746178.Result"
+      },
+      "key_relations": [
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.value.i32.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e657175616c.Result"
+        }
+      ],
+      "primitives": [
+        {
+          "carrier": {
+            "depth": 0,
+            "shape": {
+              "kind": "bits",
+              "width": 1
+            },
+            "type_id": "mpk.csharp.value.bool.v1"
+          },
+          "codec_id": "json.bool",
+          "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D7.R0",
+          "packet_depth": 8,
+          "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.Scalar.bool.Parse",
+          "rounding": null,
+          "scale": null,
+          "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.bool.Parse",
+          "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D0.R1"
+        },
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.value.i32.v1"
+          },
+          "codec_id": "integer.i32",
+          "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D7.R0",
+          "packet_depth": 8,
+          "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.Scalar.i32.Parse",
+          "rounding": null,
+          "scale": null,
+          "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.i32.Parse",
+          "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D5.R1"
+        },
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.value.u32.v1"
+          },
+          "codec_id": "integer.u32",
+          "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D7.R0",
+          "packet_depth": 8,
+          "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.Scalar.u32.Parse",
+          "rounding": null,
+          "scale": null,
+          "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.u32.Parse",
+          "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D5.R1"
+        }
+      ],
+      "products": [
+        {
+          "carrier": {
+            "depth": 20,
+            "shape": {
+              "fields": [
+                {
+                  "id": "state",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  }
+                },
+                {
+                  "id": "events",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3"
+                  }
+                },
+                {
+                  "id": "response",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.bool.v1"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.instance.5a2f0917b5af4fb6d74348f29c5d334dc3255cf39bac0ecd492e39bd9e36bfb1"
+          },
+          "container_payload_member_ids": [
+            "events"
+          ],
+          "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D21.Project.D7.R0",
+          "member_ids": [
+            "state",
+            "events",
+            "response"
+          ],
+          "member_names": [
+            "state",
+            "events",
+            "response"
+          ],
+          "packet_depth": 21,
+          "parse_definition": "Mpk.CSharp.Ordinary.JsonProducts.T6d706b2e6373686172702e696e7374616e63652e35613266303931376235616634666236643734333438663239633564333334646333323535636633396261633065636434393265333962643965333662666231.Parse",
+          "template_id": "mpk.csharp.semantic.transition.v1",
+          "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D21.Project.D20.R1"
+        },
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "fields": [
+                {
+                  "id": "key",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  }
+                },
+                {
+                  "id": "value",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.bool.v1"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.instance.907606520d922bfc9cb7bc465d0c76d646971588f7f1fae0190948ca00ba2866"
+          },
+          "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D7.R0",
+          "member_ids": [
+            "key",
+            "value"
+          ],
+          "member_names": [
+            "key",
+            "value"
+          ],
+          "packet_depth": 8,
+          "parse_definition": "Mpk.CSharp.Ordinary.JsonProducts.T6d706b2e6373686172702e696e7374616e63652e39303736303635323064393232626663396362376263343635643063373664363436393731353838663766316661653031393039343863613030626132383636.Parse",
+          "template_id": "mpk.csharp.semantic.ordered_entry.v1",
+          "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D6.R1"
+        },
+        {
+          "carrier": {
+            "depth": 20,
+            "shape": {
+              "fields": [
+                {
+                  "id": "mpk.csharp.member.41203bab8f9cfecb101ffea25a47296ba3f7026b0fa5aa97b7c8a3100c892a8e",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  }
+                },
+                {
+                  "id": "mpk.csharp.member.ba130e0ad430a58b6f24ed8a6cebac7eba09841f5e517519b0516225fc5760c8",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3"
+                  }
+                },
+                {
+                  "id": "mpk.csharp.member.11389eae4bbe49ceb5cf3e8cf3d8f84144923bb74c68ba21fc0dbc8252d97317",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.bool.v1"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.source.7b5cbdea5d5451bc95d8055148fd66ac253cf478c36a98b284779a20acb5b98c"
+          },
+          "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D21.Project.D7.R0",
+          "member_ids": [
+            "mpk.csharp.member.41203bab8f9cfecb101ffea25a47296ba3f7026b0fa5aa97b7c8a3100c892a8e",
+            "mpk.csharp.member.ba130e0ad430a58b6f24ed8a6cebac7eba09841f5e517519b0516225fc5760c8",
+            "mpk.csharp.member.11389eae4bbe49ceb5cf3e8cf3d8f84144923bb74c68ba21fc0dbc8252d97317"
+          ],
+          "member_names": [
+            "State",
+            "Events",
+            "Response"
+          ],
+          "packet_depth": 21,
+          "parse_definition": "Mpk.CSharp.Ordinary.JsonProducts.T6d706b2e6373686172702e736f757263652e37623563626465613564353435316263393564383035353134386664363661633235336366343738633336613938623238343737396132306163623562393863.Parse",
+          "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D21.Project.D20.R1"
+        },
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "fields": [
+                {
+                  "id": "mpk.csharp.member.b6836dec9a2673a14b240d48ca48792f84f79f928421a8205e08ddf87834602f",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  }
+                },
+                {
+                  "id": "mpk.csharp.member.7efe4c777fdfa5ec3f2599feff4541f35ecb6ab71a9f4b3d1a3f181827d3ec53",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.bool.v1"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.source.dcddbd545f2dd9acee1bc7dac3b94db2a23b394f6b48a62dd3a0beb949cf1642"
+          },
+          "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D7.R0",
+          "member_ids": [
+            "mpk.csharp.member.b6836dec9a2673a14b240d48ca48792f84f79f928421a8205e08ddf87834602f",
+            "mpk.csharp.member.7efe4c777fdfa5ec3f2599feff4541f35ecb6ab71a9f4b3d1a3f181827d3ec53"
+          ],
+          "member_names": [
+            "Key",
+            "Value"
+          ],
+          "packet_depth": 8,
+          "parse_definition": "Mpk.CSharp.Ordinary.JsonProducts.T6d706b2e6373686172702e736f757263652e64636464626435343566326464396163656531626337646163336239346462326132336233393466366234386136326464336130626562393439636631363432.Parse",
+          "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D6.R1"
+        },
+        {
+          "carrier": {
+            "depth": 19,
+            "shape": {
+              "fields": [
+                {
+                  "id": "mpk.csharp.member.d2343bf657f6276d2f9bb8c9560f7c29398c5f89fda4b172035ebceb4e563ce7",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.instance.531f04b6fcf5cbd47da68e0c584e7da3a7d91c22a82c199a723e2ad4d062fcf6"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.source.e39508d2c94a3516dc580cd7e389eae9ec5e8bc3f3bf98bd3ddbaaaed448dc26"
+          },
+          "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D20.Project.D7.R0",
+          "member_ids": [
+            "mpk.csharp.member.d2343bf657f6276d2f9bb8c9560f7c29398c5f89fda4b172035ebceb4e563ce7"
+          ],
+          "member_names": [
+            "Items"
+          ],
+          "packet_depth": 20,
+          "parse_definition": "Mpk.CSharp.Ordinary.JsonProducts.T6d706b2e6373686172702e736f757263652e65333935303864326339346133353136646335383063643765333839656165396563356538626333663362663938626433646462616161656434343864633236.Parse",
+          "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D20.Project.D19.R1"
+        },
+        {
+          "carrier": {
+            "depth": 21,
+            "shape": {
+              "fields": [
+                {
+                  "id": "mpk.csharp.member.2b8d11eafbcd038b7d6107284604350fd9b0b5eda62f23dd81c47615755c8c40",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.source.7b5cbdea5d5451bc95d8055148fd66ac253cf478c36a98b284779a20acb5b98c"
+                  }
+                },
+                {
+                  "id": "mpk.csharp.member.786a709d795ec7b2f2e35ba8962aefaa09fb7c67436df1e93cca2f068f71244a",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.source.e39508d2c94a3516dc580cd7e389eae9ec5e8bc3f3bf98bd3ddbaaaed448dc26"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.source.e7fac9e87eca97044ab80feda9ca27de1fbaef5438950dc4d62669257d1833c2"
+          },
+          "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D22.Project.D7.R0",
+          "member_ids": [
+            "mpk.csharp.member.2b8d11eafbcd038b7d6107284604350fd9b0b5eda62f23dd81c47615755c8c40",
+            "mpk.csharp.member.786a709d795ec7b2f2e35ba8962aefaa09fb7c67436df1e93cca2f068f71244a"
+          ],
+          "member_names": [
+            "Outcome",
+            "Map"
+          ],
+          "packet_depth": 22,
+          "parse_definition": "Mpk.CSharp.Ordinary.JsonProducts.T6d706b2e6373686172702e736f757263652e65376661633965383765636139373034346162383066656461396361323764653166626165663534333839353064633464363236363932353764313833336332.Parse",
+          "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D22.Project.D21.R1"
+        }
+      ],
+      "schema": "mpk.csharp.ordinary_json_products.v1",
+      "sequences": [
+        {
+          "capacity": 4096,
+          "carrier": {
+            "depth": 19,
+            "shape": {
+              "capacity": 4096,
+              "element": {
+                "kind": "reference",
+                "type_id": "mpk.csharp.instance.907606520d922bfc9cb7bc465d0c76d646971588f7f1fae0190948ca00ba2866"
+              },
+              "kind": "sequence"
+            },
+            "type_id": "mpk.csharp.instance.4b0e6a9c5b159157a086e97517f4ffd985be62076b06bbd4c90f8f6e5215ccfe"
+          },
+          "child_parse_definition": "Mpk.CSharp.Ordinary.JsonProducts.T6d706b2e6373686172702e696e7374616e63652e39303736303635323064393232626663396362376263343635643063373664363436393731353838663766316661653031393039343863613030626132383636.Parse.ArrayElement",
+          "element_type_id": "mpk.csharp.instance.907606520d922bfc9cb7bc465d0c76d646971588f7f1fae0190948ca00ba2866",
+          "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D20.Project.D7.R0",
+          "packet_depth": 20,
+          "parse_definition": "Mpk.CSharp.Ordinary.JsonSequences.T6d706b2e6373686172702e696e7374616e63652e34623065366139633562313539313537613038366539373531376634666664393835626536323037366230366262643463393066386636653532313563636665.Parse",
+          "pipeline_definition": "Mpk.CSharp.Ordinary.JsonSequences.Fold.D20.N4096",
+          "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D20.Project.D19.R1"
+        },
+        {
+          "capacity": 4096,
+          "carrier": {
+            "depth": 19,
+            "shape": {
+              "capacity": 4096,
+              "element": {
+                "kind": "reference",
+                "type_id": "mpk.csharp.source.dcddbd545f2dd9acee1bc7dac3b94db2a23b394f6b48a62dd3a0beb949cf1642"
+              },
+              "kind": "sequence"
+            },
+            "type_id": "mpk.csharp.instance.531f04b6fcf5cbd47da68e0c584e7da3a7d91c22a82c199a723e2ad4d062fcf6"
+          },
+          "child_parse_definition": "Mpk.CSharp.Ordinary.JsonProducts.T6d706b2e6373686172702e736f757263652e64636464626435343566326464396163656531626337646163336239346462326132336233393466366234386136326464336130626562393439636631363432.Parse.ArrayElement",
+          "element_type_id": "mpk.csharp.source.dcddbd545f2dd9acee1bc7dac3b94db2a23b394f6b48a62dd3a0beb949cf1642",
+          "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D20.Project.D7.R0",
+          "packet_depth": 20,
+          "parse_definition": "Mpk.CSharp.Ordinary.JsonSequences.T6d706b2e6373686172702e696e7374616e63652e35333166303462366663663563626434376461363865306335383465376461336137643931633232613832633139396137323365326164346430363266636636.Parse",
+          "pipeline_definition": "Mpk.CSharp.Ordinary.JsonSequences.Fold.D20.N4096",
+          "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D20.Project.D19.R1"
+        },
+        {
+          "capacity": 4096,
+          "carrier": {
+            "depth": 18,
+            "shape": {
+              "capacity": 4096,
+              "element": {
+                "kind": "reference",
+                "type_id": "mpk.csharp.value.i32.v1"
+              },
+              "kind": "sequence"
+            },
+            "type_id": "mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3"
+          },
+          "child_parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.Scalar.i32.Parse.ArrayElement",
+          "element_type_id": "mpk.csharp.value.i32.v1",
+          "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D19.Project.D7.R0",
+          "packet_depth": 19,
+          "parse_definition": "Mpk.CSharp.Ordinary.JsonSequences.T6d706b2e6373686172702e696e7374616e63652e65643138333364376465393935663835313035306364613932303837376534663131346338636565646437616432353031303230356535323338626337366333.Parse",
+          "pipeline_definition": "Mpk.CSharp.Ordinary.JsonSequences.Fold.D19.N4096",
+          "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D19.Project.D18.R1"
+        }
+      ],
+      "source_ir_sha256": "fa1b03eb7728b6d5673894bf1d5b6f760d06dc017a66b375729a71b7a6b3adb6",
+      "static_transformers": 8418,
+      "sums": [
+        {
+          "arms": [
+            {
+              "arm_id": "missing_key",
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonSums.T6d706b2e6373686172702e696e7374616e63652e39663633343161386464333263363431356266366261663064623862386338346135353965646437336464616664316264633163363338646135626162353738.A0.Parse",
+              "payload_maximum": null,
+              "payload_parse_definition": null,
+              "payload_type_id": null,
+              "tag": 0,
+              "tag_literal": {
+                "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.Heeb0e4fb7bb8a0acb5cd8ba16ef6ad39c4af3a605465c7ee00dc0a426ce57dd5",
+                "utf8": [
+                  34,
+                  109,
+                  105,
+                  115,
+                  115,
+                  105,
+                  110,
+                  103,
+                  95,
+                  107,
+                  101,
+                  121,
+                  34
+                ]
+              }
+            },
+            {
+              "arm_id": "found",
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonSums.T6d706b2e6373686172702e696e7374616e63652e39663633343161386464333263363431356266366261663064623862386338346135353965646437336464616664316264633163363338646135626162353738.A1.Parse",
+              "payload_maximum": null,
+              "payload_parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.Scalar.bool.Parse",
+              "payload_type_id": "mpk.csharp.value.bool.v1",
+              "tag": 1,
+              "tag_literal": {
+                "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.Hd409d4178027adc38fb271800000dfc90e524870e6e1ecda54319bc7d633288a",
+                "utf8": [
+                  34,
+                  102,
+                  111,
+                  117,
+                  110,
+                  100,
+                  34
+                ]
+              }
+            }
+          ],
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "arms": [
+                {
+                  "fields": [],
+                  "id": "missing_key",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.bool.v1"
+                      }
+                    }
+                  ],
+                  "id": "found",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "type_id": "mpk.csharp.instance.9f6341a8dd32c6415bf6baf0db8b8c84a559edd73ddafd1bdc1c638da5bab578"
+          },
+          "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D7.R0",
+          "packet_depth": 8,
+          "parse_definition": "Mpk.CSharp.Ordinary.JsonSums.T6d706b2e6373686172702e696e7374616e63652e39663633343161386464333263363431356266366261663064623862386338346135353965646437336464616664316264633163363338646135626162353738.Parse",
+          "template_id": "mpk.csharp.semantic.lookup.v1",
+          "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D6.R1"
+        }
+      ],
+      "syntax_literals": [
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.H77cf3dd7ab87643d51e47995b20a30de6c1104cc85c7a73d26f628f6a84e594f",
+          "utf8": [
+            34,
+            69,
+            118,
+            101,
+            110,
+            116,
+            115,
+            34,
+            58
+          ]
+        },
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.H99993bd8045a90ae983f17b09a7b917ab7598265156af03f6619b793580983f8",
+          "utf8": [
+            34,
+            73,
+            116,
+            101,
+            109,
+            115,
+            34,
+            58
+          ]
+        },
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.Hc19449a2420cc2ae4077fc64e4caaefbbe0af489e3397ac97ff68c9baf933f54",
+          "utf8": [
+            34,
+            75,
+            101,
+            121,
+            34,
+            58
+          ]
+        },
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.H276cf96afb3cf9bdac2d371ba1c688f43160490f54f5b0d2e44034d0facb57e2",
+          "utf8": [
+            34,
+            77,
+            97,
+            112,
+            34,
+            58
+          ]
+        },
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.H4a9cf2c8654b0f43cc4d31292e278dc0037f936d18a650cd76c2987ea391d5f6",
+          "utf8": [
+            34,
+            79,
+            117,
+            116,
+            99,
+            111,
+            109,
+            101,
+            34,
+            58
+          ]
+        },
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.H91a87e82e449a6f15e221f6f19c28b2376c8f4f9074998373a0c773e3a4904ca",
+          "utf8": [
+            34,
+            82,
+            101,
+            115,
+            112,
+            111,
+            110,
+            115,
+            101,
+            34,
+            58
+          ]
+        },
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.Ha216538ccfc8dc30609359e0a386ab657e6f219b490be88ee7f668480897e937",
+          "utf8": [
+            34,
+            83,
+            116,
+            97,
+            116,
+            101,
+            34,
+            58
+          ]
+        },
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.H727cf5679e3e5c67b1126f4a3f4f72d4238a9e820981a33028e0eacf2e199859",
+          "utf8": [
+            34,
+            86,
+            97,
+            108,
+            117,
+            101,
+            34,
+            58
+          ]
+        },
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.H7f7bd075518202c472311f03edccc29acf04eb91384212ca7b7914151f3ca5d3",
+          "utf8": [
+            34,
+            92,
+            117,
+            100,
+            56,
+            48,
+            48,
+            34,
+            58
+          ]
+        },
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.H2d5bd7ffe51ea52e5550f05f4658542ebabea2059bc27c532ed056e6031fb683",
+          "utf8": [
+            34,
+            101,
+            118,
+            101,
+            110,
+            116,
+            115,
+            34,
+            58
+          ]
+        },
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.H35b70227dcc9a78d403b0e4716ebb183bddadcec130a1d0c5adeea3fafdde032",
+          "utf8": [
+            34,
+            102,
+            105,
+            101,
+            108,
+            100,
+            48,
+            34,
+            58
+          ]
+        },
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.H5ee99704812d6f1702b83697fc9a64bcff6c9b24d79110602eb056967bd01b47",
+          "utf8": [
+            34,
+            107,
+            101,
+            121,
+            34,
+            58
+          ]
+        },
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.H29db0acbd9196171b38729319f18d3db374fa2be5facaf1746dd2c4087b1bb4e",
+          "utf8": [
+            34,
+            112,
+            97,
+            121,
+            108,
+            111,
+            97,
+            100,
+            34,
+            58
+          ]
+        },
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.H9549309a946825492417f162e3f1ad98011f3fada823d5682010bbe3b420824b",
+          "utf8": [
+            34,
+            114,
+            101,
+            115,
+            112,
+            111,
+            110,
+            115,
+            101,
+            34,
+            58
+          ]
+        },
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.H61ecc22927e8442d6a64a7df7a26e8935e826817dcb16edc1cd78e2951a389d4",
+          "utf8": [
+            34,
+            115,
+            116,
+            97,
+            116,
+            101,
+            34,
+            58
+          ]
+        },
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.H66eca3113cad36b2508f4ae436348d7bb100f70c7701d793088b5845d1ca39df",
+          "utf8": [
+            34,
+            116,
+            97,
+            103,
+            34,
+            58
+          ]
+        },
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.H08ca1c78e39c4b3cc786687e3f84205c4ab905abe26a22fdd32cc0fa94e78823",
+          "utf8": [
+            34,
+            118,
+            97,
+            108,
+            117,
+            101,
+            34,
+            58
+          ]
+        },
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.Hd03502c43d74a30b936740a9517dc4ea2b2ad7168caa0a774cefe793ce0b33e7",
+          "utf8": [
+            44
+          ]
+        },
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.He7ac0786668e0ff0f02b62bd04f45ff636fd82db63b1104601c975dc005f3a67",
+          "utf8": [
+            58
+          ]
+        },
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.H245843abef9e72e7efac30138a994bf6301e7e1d7d7042a33d42e863d2638811",
+          "utf8": [
+            91
+          ]
+        },
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.Hcfae0d4248f7142f7b17f826cd7a519280e312577690e957830d23dcf35a3fff",
+          "utf8": [
+            93
+          ]
+        },
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.H021fb596db81e6d02bf3d2586ee3981fe519f275c0ac9ca76bbcf2ebb4097d96",
+          "utf8": [
+            123
+          ]
+        },
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.Hd10b36aa74a59bcf4a88185837f658afaf3646eff2bb16c3928d0e9335e945d2",
+          "utf8": [
+            125
+          ]
+        }
+      ]
+    },
+    "terms": 144990
+  },
+  {
+    "declarations": 2162,
+    "id": "compound",
+    "program": {
+      "boundary_program_sha256": "fd03ff2b7b003efbbb0838a807de8085d931f6d7e34b047a9158d609df5de4e0",
+      "certificate_sha256": "0ca1cacc9f49c5bb6261496f7ccd7d506c2e169f9c2c2037e3852699dc440580",
+      "deferred_type_ids": [],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "grammar": {
+        "begin_definition": "Mpk.CSharp.Ordinary.IntegerText.O4d706b2e4353686172702e4f7264696e6172792e4a736f6e4772616d6d61722e426567696e.Result",
+        "child_definition": "Mpk.CSharp.Ordinary.IntegerText.O4d706b2e4353686172702e4f7264696e6172792e4a736f6e4772616d6d61722e4368696c64.Result",
+        "child_depth_definition": "Mpk.CSharp.Ordinary.IntegerText.O4d706b2e4353686172702e4f7264696e6172792e4a736f6e4772616d6d61722e4368696c644465707468.Result",
+        "cursor_definition": "Mpk.CSharp.Ordinary.IntegerText.O4d706b2e4353686172702e4f7264696e6172792e4a736f6e4772616d6d61722e437572736f72.Result",
+        "finish_definition": "Mpk.CSharp.Ordinary.JsonGrammar.Finish",
+        "syntax_definition": "Mpk.CSharp.Ordinary.IntegerText.O4d706b2e4353686172702e4f7264696e6172792e4a736f6e4772616d6d61722e53796e746178.Result"
+      },
+      "primitives": [
+        {
+          "carrier": {
+            "depth": 0,
+            "shape": {
+              "kind": "bits",
+              "width": 1
+            },
+            "type_id": "mpk.csharp.value.bool.v1"
+          },
+          "codec_id": "json.bool",
+          "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D7.R0",
+          "packet_depth": 8,
+          "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.Scalar.bool.Parse",
+          "rounding": null,
+          "scale": null,
+          "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.bool.Parse",
+          "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D0.R1"
+        },
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.value.i32.v1"
+          },
+          "codec_id": "integer.i32",
+          "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D7.R0",
+          "packet_depth": 8,
+          "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.Scalar.i32.Parse",
+          "rounding": null,
+          "scale": null,
+          "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.i32.Parse",
+          "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D5.R1"
+        },
+        {
+          "carrier": {
+            "depth": 19,
+            "shape": {
+              "capacity": 16384,
+              "element": {
+                "kind": "bits",
+                "width": 16
+              },
+              "kind": "sequence"
+            },
+            "type_id": "mpk.csharp.value.string.v1"
+          },
+          "codec_id": "json.string",
+          "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D20.Project.D7.R0",
+          "packet_depth": 20,
+          "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.String.Parse",
+          "rounding": null,
+          "scale": null,
+          "token_definition": "Mpk.CSharp.Ordinary.JsonStringParse.Frame.Parse",
+          "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D20.Project.D19.R1"
+        },
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.value.u32.v1"
+          },
+          "codec_id": "integer.u32",
+          "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D7.R0",
+          "packet_depth": 8,
+          "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.Scalar.u32.Parse",
+          "rounding": null,
+          "scale": null,
+          "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.u32.Parse",
+          "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D5.R1"
+        }
+      ],
+      "products": [
+        {
+          "carrier": {
+            "depth": 22,
+            "shape": {
+              "fields": [
+                {
+                  "id": "state",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.source.cd242d03a3dc0b4d2468904e9cd35a41ab2f9a4a7a49cbf71a847e84e7e3569d"
+                  }
+                },
+                {
+                  "id": "events",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.instance.3b48412499802a1d22f55059280afc1d67155fdedca53a0ffc42fab3789b3f77"
+                  }
+                },
+                {
+                  "id": "response",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.instance.dbbedc32d86a05f390b19350cfc16abf8db8ad4c632f25d5b1ecdd2050081162"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.instance.2eccd6ec42771ae9c5320f0611606bbd548e1d3fdc72d262b676443ed2f8d921"
+          },
+          "container_payload_member_ids": [
+            "events"
+          ],
+          "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D23.Project.D7.R0",
+          "member_ids": [
+            "state",
+            "events",
+            "response"
+          ],
+          "member_names": [
+            "state",
+            "events",
+            "response"
+          ],
+          "packet_depth": 23,
+          "parse_definition": "Mpk.CSharp.Ordinary.JsonProducts.T6d706b2e6373686172702e696e7374616e63652e32656363643665633432373731616539633533323066303631313630366262643534386531643366646337326432363262363736343433656432663864393231.Parse",
+          "template_id": "mpk.csharp.semantic.transition.v1",
+          "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D23.Project.D22.R1"
+        },
+        {
+          "carrier": {
+            "depth": 22,
+            "shape": {
+              "fields": [
+                {
+                  "id": "mpk.csharp.member.46e0a213b950af1e707ca29d082de06ef78b1eab0daa52c0ac68b9fec402317f",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.source.cd242d03a3dc0b4d2468904e9cd35a41ab2f9a4a7a49cbf71a847e84e7e3569d"
+                  }
+                },
+                {
+                  "id": "mpk.csharp.member.6dfc70823fa075a7249427052a960fd2b699d26d52699b40661a236390ca981f",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.instance.3b48412499802a1d22f55059280afc1d67155fdedca53a0ffc42fab3789b3f77"
+                  }
+                },
+                {
+                  "id": "mpk.csharp.member.efabd60b925473189d276968dd0c5bfd2f71634b99cadae3755d3e9fcaa89f71",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.instance.dbbedc32d86a05f390b19350cfc16abf8db8ad4c632f25d5b1ecdd2050081162"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.source.7b5cbdea5d5451bc95d8055148fd66ac253cf478c36a98b284779a20acb5b98c"
+          },
+          "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D23.Project.D7.R0",
+          "member_ids": [
+            "mpk.csharp.member.46e0a213b950af1e707ca29d082de06ef78b1eab0daa52c0ac68b9fec402317f",
+            "mpk.csharp.member.6dfc70823fa075a7249427052a960fd2b699d26d52699b40661a236390ca981f",
+            "mpk.csharp.member.efabd60b925473189d276968dd0c5bfd2f71634b99cadae3755d3e9fcaa89f71"
+          ],
+          "member_names": [
+            "State",
+            "Events",
+            "Response"
+          ],
+          "packet_depth": 23,
+          "parse_definition": "Mpk.CSharp.Ordinary.JsonProducts.T6d706b2e6373686172702e736f757263652e37623563626465613564353435316263393564383035353134386664363661633235336366343738633336613938623238343737396132306163623562393863.Parse",
+          "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D23.Project.D22.R1"
+        },
+        {
+          "carrier": {
+            "depth": 20,
+            "shape": {
+              "fields": [
+                {
+                  "id": "mpk.csharp.member.67f2d5f12ef9f2ba957faeda5103f3d59e53e51d1dbd49b39936748285fbfdbe",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.string.v1"
+                  }
+                },
+                {
+                  "id": "mpk.csharp.member.8c64d564c7d303cd551712b12a7b4460fd40b115d691d5234597b35f43759d13",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.source.cd242d03a3dc0b4d2468904e9cd35a41ab2f9a4a7a49cbf71a847e84e7e3569d"
+          },
+          "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D21.Project.D7.R0",
+          "member_ids": [
+            "mpk.csharp.member.67f2d5f12ef9f2ba957faeda5103f3d59e53e51d1dbd49b39936748285fbfdbe",
+            "mpk.csharp.member.8c64d564c7d303cd551712b12a7b4460fd40b115d691d5234597b35f43759d13"
+          ],
+          "member_names": [
+            "Name",
+            "Version"
+          ],
+          "packet_depth": 21,
+          "parse_definition": "Mpk.CSharp.Ordinary.JsonProducts.T6d706b2e6373686172702e736f757263652e63643234326430336133646330623464323436383930346539636433356134316162326639613461376134396362663731613834376538346537653335363964.Parse",
+          "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D21.Project.D20.R1"
+        },
+        {
+          "carrier": {
+            "depth": 22,
+            "shape": {
+              "fields": [
+                {
+                  "id": "mpk.csharp.member.2b8d11eafbcd038b7d6107284604350fd9b0b5eda62f23dd81c47615755c8c40",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.source.7b5cbdea5d5451bc95d8055148fd66ac253cf478c36a98b284779a20acb5b98c"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.source.e7fac9e87eca97044ab80feda9ca27de1fbaef5438950dc4d62669257d1833c2"
+          },
+          "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D23.Project.D7.R0",
+          "member_ids": [
+            "mpk.csharp.member.2b8d11eafbcd038b7d6107284604350fd9b0b5eda62f23dd81c47615755c8c40"
+          ],
+          "member_names": [
+            "Outcome"
+          ],
+          "packet_depth": 23,
+          "parse_definition": "Mpk.CSharp.Ordinary.JsonProducts.T6d706b2e6373686172702e736f757263652e65376661633965383765636139373034346162383066656461396361323764653166626165663534333839353064633464363236363932353764313833336332.Parse",
+          "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D23.Project.D22.R1"
+        },
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "fields": [
+                {
+                  "id": "mpk.csharp.member.db15132a8b923690e551f00f3850b60eb144429650d1b0f0a80be679284b0c7e",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.source.f3bc906f96e692c2679188eedc2408e900bf2e992dd7d018fe5fad464e994064"
+          },
+          "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D7.R0",
+          "member_ids": [
+            "mpk.csharp.member.db15132a8b923690e551f00f3850b60eb144429650d1b0f0a80be679284b0c7e"
+          ],
+          "member_names": [
+            "Code"
+          ],
+          "packet_depth": 8,
+          "parse_definition": "Mpk.CSharp.Ordinary.JsonProducts.T6d706b2e6373686172702e736f757263652e66336263393036663936653639326332363739313838656564633234303865393030626632653939326464376430313866653566616434363465393934303634.Parse",
+          "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D5.R1"
+        }
+      ],
+      "schema": "mpk.csharp.ordinary_json_products.v1",
+      "sequences": [
+        {
+          "capacity": 4096,
+          "carrier": {
+            "depth": 18,
+            "shape": {
+              "capacity": 4096,
+              "element": {
+                "kind": "reference",
+                "type_id": "mpk.csharp.source.f3bc906f96e692c2679188eedc2408e900bf2e992dd7d018fe5fad464e994064"
+              },
+              "kind": "sequence"
+            },
+            "type_id": "mpk.csharp.instance.3b48412499802a1d22f55059280afc1d67155fdedca53a0ffc42fab3789b3f77"
+          },
+          "child_parse_definition": "Mpk.CSharp.Ordinary.JsonProducts.T6d706b2e6373686172702e736f757263652e66336263393036663936653639326332363739313838656564633234303865393030626632653939326464376430313866653566616434363465393934303634.Parse.ArrayElement",
+          "element_type_id": "mpk.csharp.source.f3bc906f96e692c2679188eedc2408e900bf2e992dd7d018fe5fad464e994064",
+          "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D19.Project.D7.R0",
+          "packet_depth": 19,
+          "parse_definition": "Mpk.CSharp.Ordinary.JsonSequences.T6d706b2e6373686172702e696e7374616e63652e33623438343132343939383032613164323266353530353932383061666331643637313535666465646361353361306666633432666162333738396233663737.Parse",
+          "pipeline_definition": "Mpk.CSharp.Ordinary.JsonSequences.Fold.D19.N4096",
+          "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D19.Project.D18.R1"
+        }
+      ],
+      "source_ir_sha256": "90b8e955b1f57deb8877336543232a79e890e18908d3967e3a2057767da490e6",
+      "static_transformers": 7876,
+      "sums": [
+        {
+          "arms": [
+            {
+              "arm_id": "none",
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonSums.T6d706b2e6373686172702e696e7374616e63652e64626265646333326438366130356633393062313933353063666331366162663864623861643463363332663235643562316563646432303530303831313632.A0.Parse",
+              "payload_maximum": null,
+              "payload_parse_definition": null,
+              "payload_type_id": null,
+              "tag": 0,
+              "tag_literal": {
+                "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.H30a0924a3360be687d1df9fcbbfdff62c01bc0fd14036ab9076cf7f451568666",
+                "utf8": [
+                  34,
+                  110,
+                  111,
+                  110,
+                  101,
+                  34
+                ]
+              }
+            },
+            {
+              "arm_id": "some",
+              "parse_definition": "Mpk.CSharp.Ordinary.JsonSums.T6d706b2e6373686172702e696e7374616e63652e64626265646333326438366130356633393062313933353063666331366162663864623861643463363332663235643562316563646432303530303831313632.A1.Parse",
+              "payload_maximum": null,
+              "payload_parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.Scalar.bool.Parse",
+              "payload_type_id": "mpk.csharp.value.bool.v1",
+              "tag": 1,
+              "tag_literal": {
+                "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.H79bb6bebd06f38c9b78e47a7f2a9a4e9106c7f9f79f64bc85727e4d69665e277",
+                "utf8": [
+                  34,
+                  115,
+                  111,
+                  109,
+                  101,
+                  34
+                ]
+              }
+            }
+          ],
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "arms": [
+                {
+                  "fields": [],
+                  "id": "none",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.bool.v1"
+                      }
+                    }
+                  ],
+                  "id": "some",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "type_id": "mpk.csharp.instance.dbbedc32d86a05f390b19350cfc16abf8db8ad4c632f25d5b1ecdd2050081162"
+          },
+          "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D7.R0",
+          "packet_depth": 8,
+          "parse_definition": "Mpk.CSharp.Ordinary.JsonSums.T6d706b2e6373686172702e696e7374616e63652e64626265646333326438366130356633393062313933353063666331366162663864623861643463363332663235643562316563646432303530303831313632.Parse",
+          "template_id": "mpk.csharp.semantic.option.v1",
+          "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D6.R1"
+        }
+      ],
+      "syntax_literals": [
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.H1b657b4843c6c8b6c51a85c5a94edf0aebdf35b737995b4b40eef757fdff0f8d",
+          "utf8": [
+            34,
+            67,
+            111,
+            100,
+            101,
+            34,
+            58
+          ]
+        },
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.H77cf3dd7ab87643d51e47995b20a30de6c1104cc85c7a73d26f628f6a84e594f",
+          "utf8": [
+            34,
+            69,
+            118,
+            101,
+            110,
+            116,
+            115,
+            34,
+            58
+          ]
+        },
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.H4c9c1105f1c7d1a54f47eb8852ae1f9481788f7475778ae00eda38748a28336d",
+          "utf8": [
+            34,
+            78,
+            97,
+            109,
+            101,
+            34,
+            58
+          ]
+        },
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.H4a9cf2c8654b0f43cc4d31292e278dc0037f936d18a650cd76c2987ea391d5f6",
+          "utf8": [
+            34,
+            79,
+            117,
+            116,
+            99,
+            111,
+            109,
+            101,
+            34,
+            58
+          ]
+        },
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.H91a87e82e449a6f15e221f6f19c28b2376c8f4f9074998373a0c773e3a4904ca",
+          "utf8": [
+            34,
+            82,
+            101,
+            115,
+            112,
+            111,
+            110,
+            115,
+            101,
+            34,
+            58
+          ]
+        },
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.Ha216538ccfc8dc30609359e0a386ab657e6f219b490be88ee7f668480897e937",
+          "utf8": [
+            34,
+            83,
+            116,
+            97,
+            116,
+            101,
+            34,
+            58
+          ]
+        },
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.H040ffd69b105e426c3990f883af12232d381169a77d96a5ef5bcf3d3406b7c22",
+          "utf8": [
+            34,
+            86,
+            101,
+            114,
+            115,
+            105,
+            111,
+            110,
+            34,
+            58
+          ]
+        },
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.H7f7bd075518202c472311f03edccc29acf04eb91384212ca7b7914151f3ca5d3",
+          "utf8": [
+            34,
+            92,
+            117,
+            100,
+            56,
+            48,
+            48,
+            34,
+            58
+          ]
+        },
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.H2d5bd7ffe51ea52e5550f05f4658542ebabea2059bc27c532ed056e6031fb683",
+          "utf8": [
+            34,
+            101,
+            118,
+            101,
+            110,
+            116,
+            115,
+            34,
+            58
+          ]
+        },
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.H35b70227dcc9a78d403b0e4716ebb183bddadcec130a1d0c5adeea3fafdde032",
+          "utf8": [
+            34,
+            102,
+            105,
+            101,
+            108,
+            100,
+            48,
+            34,
+            58
+          ]
+        },
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.H29db0acbd9196171b38729319f18d3db374fa2be5facaf1746dd2c4087b1bb4e",
+          "utf8": [
+            34,
+            112,
+            97,
+            121,
+            108,
+            111,
+            97,
+            100,
+            34,
+            58
+          ]
+        },
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.H9549309a946825492417f162e3f1ad98011f3fada823d5682010bbe3b420824b",
+          "utf8": [
+            34,
+            114,
+            101,
+            115,
+            112,
+            111,
+            110,
+            115,
+            101,
+            34,
+            58
+          ]
+        },
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.H61ecc22927e8442d6a64a7df7a26e8935e826817dcb16edc1cd78e2951a389d4",
+          "utf8": [
+            34,
+            115,
+            116,
+            97,
+            116,
+            101,
+            34,
+            58
+          ]
+        },
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.H66eca3113cad36b2508f4ae436348d7bb100f70c7701d793088b5845d1ca39df",
+          "utf8": [
+            34,
+            116,
+            97,
+            103,
+            34,
+            58
+          ]
+        },
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.Hd03502c43d74a30b936740a9517dc4ea2b2ad7168caa0a774cefe793ce0b33e7",
+          "utf8": [
+            44
+          ]
+        },
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.He7ac0786668e0ff0f02b62bd04f45ff636fd82db63b1104601c975dc005f3a67",
+          "utf8": [
+            58
+          ]
+        },
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.H245843abef9e72e7efac30138a994bf6301e7e1d7d7042a33d42e863d2638811",
+          "utf8": [
+            91
+          ]
+        },
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.Hcfae0d4248f7142f7b17f826cd7a519280e312577690e957830d23dcf35a3fff",
+          "utf8": [
+            93
+          ]
+        },
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.H021fb596db81e6d02bf3d2586ee3981fe519f275c0ac9ca76bbcf2ebb4097d96",
+          "utf8": [
+            123
+          ]
+        },
+        {
+          "match_definition": "Mpk.CSharp.Ordinary.JsonSyntax.Literal.Hd10b36aa74a59bcf4a88185837f658afaf3646eff2bb16c3928d0e9335e945d2",
+          "utf8": [
+            125
+          ]
+        }
+      ]
+    },
+    "terms": 142434
+  }
+]

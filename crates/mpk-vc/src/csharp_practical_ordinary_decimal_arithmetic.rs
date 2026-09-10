@@ -343,6 +343,44 @@ fn phases(id: &str) -> R<Vec<Phase>> {
     Ok(phases)
 }
 pub(super) fn emit(b: &mut Builder, id: &str) -> R<OrdinaryScalarDefinition> {
+    Ok(emit_inner(b, id, false)?.0)
+}
+pub(super) fn emit_contract(
+    b: &mut Builder,
+    id: &str,
+) -> R<(OrdinaryScalarDefinition, Vec<String>)> {
+    emit_inner(b, id, true)
+}
+fn contract_failures(
+    b: &mut Builder,
+    name: &str,
+    checks: &[RequiredCheck],
+    widths: &[usize],
+    state: u32,
+) -> R<Vec<String>> {
+    checks
+        .iter()
+        .enumerate()
+        .map(|(i, check)| {
+            let index = match check.id.as_str() {
+                "exception.division_by_zero" => 307,
+                "exception.overflow" => 306,
+                _ => return Err(OrdinaryCarrierError::Linkage),
+            };
+            let value = core_read(b, state, index, address_bits(FIT as u32))?;
+            let body = bind_inputs(b, widths, value)?;
+            let ty = input_type(b, widths, b.boolean)?;
+            let name = format!("{name}.ContractFailure.F{i}");
+            b.define(&name, ty, body)?;
+            Ok(name)
+        })
+        .collect()
+}
+fn emit_inner(
+    b: &mut Builder,
+    id: &str,
+    raw_contract_failures: bool,
+) -> R<(OrdinaryScalarDefinition, Vec<String>)> {
     let signature = signature(id)?;
     let pipeline = phases(id)?;
     let widths = signature
@@ -439,25 +477,63 @@ pub(super) fn emit(b: &mut Builder, id: &str) -> R<OrdinaryScalarDefinition> {
         let ty = input_type(b, &widths, ty)?;
         b.define(name, ty, body)?;
     }
-    Ok(OrdinaryScalarDefinition {
-        operation: signature,
-        result_definition,
-        success_definition,
-        ordered_failure_definitions: failures,
-        boolean_gates: definitions.iter().map(|d| d.boolean_gates).sum(),
-        state_depth: definitions.iter().map(|d| d.state_depth).max().unwrap(),
-        static_transformers: definitions
-            .iter()
-            .map(|d| d.static_transformers)
-            .sum::<usize>()
-            + extra,
-    })
+    // Preserve the existing result/success/ordered-exception declarations.
+    // Contract definedness excludes each raw condition, including simultaneous
+    // divide-by-zero and overflow flags; do not apply exception precedence here.
+    let contract_checks = if raw_contract_failures {
+        contract_failures(b, &name, &signature.ordered_checks, &widths, state)?
+    } else {
+        vec![]
+    };
+    Ok((
+        OrdinaryScalarDefinition {
+            operation: signature,
+            result_definition,
+            success_definition,
+            ordered_failure_definitions: failures,
+            boolean_gates: definitions.iter().map(|d| d.boolean_gates).sum(),
+            state_depth: definitions.iter().map(|d| d.state_depth).max().unwrap(),
+            static_transformers: definitions
+                .iter()
+                .map(|d| d.static_transformers)
+                .sum::<usize>()
+                + extra,
+        },
+        contract_checks,
+    ))
 }
 
 #[cfg(test)]
 mod tests {
     use super::super::tests::{decimal as value, observe, physical, prune};
     use super::*;
+    #[test]
+    fn decimal_contract_failure_flags_preserve_overlap() {
+        use super::super::super::super::test_eval::{bit, run, sparse_cube};
+        let mut b = Builder::new().unwrap();
+        let checks = signature("decimal.divide").unwrap().ordered_checks;
+        assert_eq!(checks.len(), 2);
+        let state = b.var(0).unwrap();
+        let names = contract_failures(&mut b, "Test.Decimal", &checks, &[FIT], state).unwrap();
+        let cert = decode_canonical_certificate(&b.finish().unwrap()).unwrap();
+        for zero in [false, true] {
+            for overflow in [false, true] {
+                let ones = [(307, zero), (306, overflow)]
+                    .into_iter()
+                    .filter_map(|(i, on)| on.then_some(i))
+                    .collect();
+                let input = sparse_cube(address_bits(FIT as u32), ones);
+                for (check, name) in checks.iter().zip(&names) {
+                    let expected = match check.id.as_str() {
+                        "exception.division_by_zero" => zero,
+                        "exception.overflow" => overflow,
+                        _ => unreachable!(),
+                    };
+                    assert_eq!(bit(run(&cert, name, vec![input.clone()])), expected);
+                }
+            }
+        }
+    }
     const MAX: u128 = (1u128 << 96) - 1;
     const FIXTURES: &[&str] = &[
         "equal",

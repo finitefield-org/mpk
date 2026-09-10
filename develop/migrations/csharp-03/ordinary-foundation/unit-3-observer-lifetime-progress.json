@@ -1,0 +1,136 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.observer_lifetime_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 3,
+  "status": "scoped correction verified; unit 3 and W09 remain incomplete",
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_test_eval.rs",
+      "sha256": "809617033c0fc57b9be28364da3e3dacd5ee00338b0c2d4a4375fcd896c7f5a0"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs",
+      "sha256": "cf684b4c68dc03b6aad330ac70d9f22a28e642cbfc9dfdb2889e536658fbe6d8"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_aggregate_fold.rs",
+      "sha256": "cb0d1152fb4479fbbdee5d2809cbfdcaf5f22df14f4c465d6285bfc4a870c985"
+    }
+  ],
+  "regression_before_fix": {
+    "log": "/tmp/mpk-w09-thunk-release-before.log",
+    "log_sha256": "e6a31383daffb1ba3ce9f212467f613f2f7b2c587e2e7b006d85a5ca86341d93",
+    "status": "expected failure: a surviving evaluated-thunk alias retained its obsolete environment"
+  },
+  "completed_checks": [
+    {
+      "scope": "eight core lifetime/laziness/cube/aggregate regressions",
+      "command": "cargo test -p mpk-vc --lib -- ordinary_core_ ordinary_cube_helpers_preserve_order_and_zero_padding aggregate_fold_modes_saturation_and_odd_counts aggregate_fold_short_circuits_invalid_and_empty_inputs aggregate_fold_shares_computed_predicate_words --nocapture",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-thunk-release-core-v2.log",
+      "log_sha256": "2280526721d850f62dc30b0338da7182f025814d2d6f5729be652ac96ff55c62"
+    },
+    {
+      "scope": "four source consumer tests: extra collections, small domains, sum/unused storage rejection and composed structural foundations",
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc -- csharp_03_t06_w09_structural_foundation_composed_semantics csharp_03_t06_w09_domains_source_small_values csharp_03_t06_w09_domains_source_sum_and_unused_storage_rejections csharp_03_t06_w09_collections_extra_source_semantics --test-threads=1 --nocapture",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-thunk-release-consumers-v1.log",
+      "log_sha256": "baac15e8154b9b713535f011b062b543b3a68735dea6c45c6f0720980532b519"
+    },
+    {
+      "scope": "scoped library and practical integration lint",
+      "command": "cargo clippy -p mpk-vc --lib --test csharp_practical_vc -- -D warnings",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-thunk-release-clippy-v1.log",
+      "log_sha256": "7c0c127faf7219185f693175502d43183c2316e666ae29271a5527d005630265"
+    },
+    {
+      "scope": "three changed Rust files rustfmt and git diff --check",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-thunk-release-format-v2.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "scope": "nine low-level observer/aggregate regressions after iterative environment release",
+      "command": "cargo test -p mpk-vc --lib -- ordinary_core_ ordinary_cube_helpers_preserve_order_and_zero_padding aggregate_fold_modes_saturation_and_odd_counts aggregate_fold_short_circuits_invalid_and_empty_inputs aggregate_fold_shares_computed_predicate_words --nocapture",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-env-release-core-v1.log",
+      "log_sha256": "3b08d178e047dbc289504ebf33fe03012b4ee9da79fff1b4a9ecd74fffb957e0"
+    },
+    {
+      "scope": "100000 mixed tail/captured-poison bindings, shared-owner lifetime and complete reclamation on 128-KiB native stack",
+      "command": "cargo test -p mpk-vc --lib ordinary_core_deep_environment_release_uses_a_worklist -- --nocapture",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-env-release-deep-v2.log",
+      "log_sha256": "d812d6d26d631fb98e0336f5c1798b660d9352b01bb0a3bdf54953c21654e862"
+    },
+    {
+      "scope": "four source-consumer tests after iterative destruction",
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc -- csharp_03_t06_w09_structural_foundation_composed_semantics csharp_03_t06_w09_domains_source_small_values csharp_03_t06_w09_domains_source_sum_and_unused_storage_rejections csharp_03_t06_w09_collections_extra_source_semantics --test-threads=1 --nocapture",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-env-release-consumers-v1.log",
+      "log_sha256": "5d0c88433bb106a342a4f7295d89f1c27ea6de55e83c3cf19878382b48a99c08"
+    },
+    {
+      "scope": "scoped lint after environment representation/destruction change",
+      "command": "cargo clippy -p mpk-vc --lib --test csharp_practical_vc -- -D warnings",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-env-release-clippy-v1.log",
+      "log_sha256": "59604e70c58a3dcf0a4315943e70679afad8a749d3ee0ab003ab90b7ef9f4672"
+    },
+    {
+      "scope": "changed observer and carrier tests rustfmt; git diff --check",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-env-release-format-v2.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "scope": "integer map/set domains and capacity, including both 4096-slot source cases",
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_collections_integer_domains_and_capacity -- --nocapture",
+      "status": "passed",
+      "duration_seconds": 4341.47,
+      "log": "/tmp/mpk-w09-collection-capacity-v2.log",
+      "log_sha256": "13f836070732fdf63e508a4b31d652e236becbfaa918f75f393df229fdc54372",
+      "version_scope": "current three-argument writer and corrected thunk lifetime; before iterative EnvRef destruction; not a verification of the later observer version"
+    }
+  ],
+  "computed_word_evaluation_transitions": {
+    "shared": 1967080,
+    "repeated": 15628958,
+    "status": "identical to pre-correction counts; no reduction is skipped"
+  },
+  "corrected_compile_attempts": [
+    {
+      "log": "/tmp/mpk-w09-thunk-release-core-v1.log",
+      "log_sha256": "d14c22ebcde6d87c2db33cd5a8cdd72282c1a8dea740bb1f314799e88da045cd",
+      "reason": "aggregate poison input still used old Thunk constructor; migrated to shared factory"
+    },
+    {
+      "log": "/tmp/mpk-w09-thunk-release-folds-v1.log",
+      "log_sha256": "d14c22ebcde6d87c2db33cd5a8cdd72282c1a8dea740bb1f314799e88da045cd",
+      "reason": "aggregate poison input still used old Thunk constructor; migrated to shared factory"
+    }
+  ],
+  "pending_checks": [
+    {
+      "scope": "three previously incomplete source-domain tests, serial and unchanged semantic coverage",
+      "log": "/tmp/mpk-w09-domains-remaining-source-v6.log",
+      "status": "terminal SIGABRT from stack overflow; no completed domain subtest; iterative environment destruction correction under verification",
+      "log_sha256": "cada53a85cee44c197c6d68a7d9c38823216d12f6be5e9b1e1df96f39f2c4bdf"
+    },
+    {
+      "scope": "three original unfinished domain semantic tests; identical source cases, stack limits and serial execution after destructor correction",
+      "session_id": 23035,
+      "log": "/tmp/mpk-w09-domains-remaining-source-v7.log",
+      "status": "running"
+    }
+  ],
+  "review": "unit-3-observer-lifetime-review.md",
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "status": "deferred to T06-W12"
+  },
+  "remaining": "Complete pending unit-3 semantics/checkers and review, then original units 4-8; no application VC proof is supplied by this observer",
+  "commit_status": "uncommitted internal unit 3; no new commit/push",
+  "destructor_correction": "Replace recursive Rc<Env> release with EnvRef and a per-thread worklist; retain shared owners and evaluate no input during destruction"
+}

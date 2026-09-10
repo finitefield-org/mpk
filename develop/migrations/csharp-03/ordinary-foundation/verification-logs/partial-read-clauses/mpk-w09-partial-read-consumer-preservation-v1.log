@@ -1,0 +1,11 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error[E0433]: cannot find module or crate `hex` in this scope
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_definedness_clause_tests.rs:383:17
+    |
+383 |     let bytes = hex::decode(
+    |                 ^^^ use of unresolved module or unlinked crate `hex`
+    |
+    = help: if you wanted to use a crate named `hex`, use `cargo add hex` to add it to your `Cargo.toml`
+
+For more information about this error, try `rustc --explain E0433`.
+error: could not compile `mpk-vc` (test "csharp_practical_vc") due to 1 previous error

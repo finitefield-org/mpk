@@ -1,0 +1,24 @@
+=== RUN   TestCheckerAgreementWithRustCLIStructuralBoundary
+=== RUN   TestCheckerAgreementWithRustCLIStructuralBoundary/document-6b96fc4eed95a1d33fa5784b9062f02fa07ac65b6aef2b4100bb91e9c2f1a613.hex
+=== RUN   TestCheckerAgreementWithRustCLIStructuralBoundary/document-7a157feb27ed416752b5dde8aa2bf373b9a2c82755d2caa89e955057176ee57b.hex
+=== RUN   TestCheckerAgreementWithRustCLIStructuralBoundary/document-decb5507362a7672c711a5befd63efc1038c2c0a86ee20137a1c4c472e0d1684.hex
+    checker_agreement_test.go:401: Rust checker execution/protocol failure: Rust checker did not return a verifier report: unexpected end of JSON input
+        stdout:
+        
+        stderr:
+        error[E0425]: cannot find function `quoted_scalars` in this scope
+           --> crates/mpk-vc/src/csharp_practical_ordinary_json_tokens.rs:423:26
+            |
+        423 |     let quoted_scalars = quoted_scalars(
+            |                          ^^^^^^^^^^^^^^ not found in this scope
+        
+        For more information about this error, try `rustc --explain E0425`.
+        error: could not compile `mpk-vc` (lib) due to 1 previous error
+        error: could not compile `mpk-vc` (lib) due to 1 previous error
+--- FAIL: TestCheckerAgreementWithRustCLIStructuralBoundary (387.69s)
+    --- PASS: TestCheckerAgreementWithRustCLIStructuralBoundary/document-6b96fc4eed95a1d33fa5784b9062f02fa07ac65b6aef2b4100bb91e9c2f1a613.hex (54.01s)
+    --- PASS: TestCheckerAgreementWithRustCLIStructuralBoundary/document-7a157feb27ed416752b5dde8aa2bf373b9a2c82755d2caa89e955057176ee57b.hex (239.28s)
+    --- FAIL: TestCheckerAgreementWithRustCLIStructuralBoundary/document-decb5507362a7672c711a5befd63efc1038c2c0a86ee20137a1c4c472e0d1684.hex (94.39s)
+FAIL
+exit status 1
+FAIL	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	388.061s

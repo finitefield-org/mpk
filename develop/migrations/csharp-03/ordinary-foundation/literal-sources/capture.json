@@ -1,0 +1,20 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.literal_source_capture.v1",
+  "request_generator": "csharp_03_t06_w09_literal_source_requests",
+  "capture_command": "./scripts/build-csharp-practical-frontend.sh --test-control-emission-requests",
+  "environment": "existing mpk-java-t10-gate:local Linux amd64 image; network disabled; read-only repository; frozen frontend build-input validation",
+  "determinism": "harness captures each request twice and compares output bytes",
+  "accepted": 21,
+  "rejected": 0,
+  "application_vc_proof": false,
+  "files": [
+    {
+      "path": "requests.json",
+      "sha256": "a4ad22d974745dd8eec6e503da8d6a8356e38aedd30e368083a4109e529a05ce"
+    },
+    {
+      "path": "responses.json",
+      "sha256": "e64206ee193b58ed7f3f7152ef85dede7e06373cff4bfdfc8488830f70d0a748"
+    }
+  ]
+}

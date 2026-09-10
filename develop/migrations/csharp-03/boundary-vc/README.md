@@ -13,8 +13,12 @@ declaration order, and fixed limits. JSON syntax cells have a 262144 limit;
 decoded values including frozen defaults have a separate 65536-cell limit.
 The document byte limit is 1048576, depth is 32, parsed names/string values are
 limited to 16384 UTF-16 units, and typed collections to 4096 elements. Document
-text uses the ordinary string carrier without assuming the bounded public
-application-string domain; legal documents may exceed 16384 units.
+text uses the private ordinary `Mpk.CSharp.Ordinary.BoundaryDocument` byte
+carrier. W09 corrected the earlier application-string route, whose 16384-unit
+storage could not retain complete larger documents. Application string storage
+and the registered value vocabulary remain unchanged. The historical W07
+receipt is retained; current contract/run hashes and the archived previous
+values are linked in `../ordinary-foundation/boundary-documents/linkage-correction.json`.
 
 Each field gets explicit required/missing/null/value implications, typed payload
 canonicality, reconstruction and source-domain goals. The retained contract

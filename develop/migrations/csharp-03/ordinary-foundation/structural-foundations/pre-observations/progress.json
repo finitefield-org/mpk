@@ -1,0 +1,404 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.structural_foundation_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 3,
+  "status": "in progress; not a completion receipt",
+  "source_contexts": 42,
+  "operation_occurrences": 423,
+  "max_terms": 47020,
+  "max_declarations": 666,
+  "max_static_transformers": 8602,
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_structural_foundations.rs",
+      "sha256": "9df748e26df033657654b23ca7a43510b111ac16908fe877032763087236330f"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_structural_foundation_tests.rs",
+      "sha256": "87c9f510bb24bc5d0fd258311bc93975b6dc4f27899aa23847d7ecc286c5b99c"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "sha256": "81a4641d432d0365267e86da841c5982a2fffa7465b3aa9cdf6e398cd9af0e25"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_structural_equivalence_tests.rs",
+      "sha256": "0fe1aa96a20b1d127e88716189b38bbed629f7c1279e68029c76d1ed084046aa"
+    }
+  ],
+  "certificates": [
+    {
+      "path": "structural-foundations/binding-vc-boundary_field.hex",
+      "file_sha256": "11a41c0cf48681cbf77f47f84af364e45262221ec5c0a5063189f2ea3084c882",
+      "certificate_sha256": "6a225deec4f278e9aa332ed851730baf48a5040946a531c4ddb2d18de5d1930d",
+      "source_ir_sha256": "4cc5fd034b66b707695f83da1202d44232047bd8410c20f0e7b4fb7ac7ee848f"
+    },
+    {
+      "path": "structural-foundations/binding-vc-bounded_sequence.hex",
+      "file_sha256": "64c9893ede50eca302d8583ff6f86ba37f17712e889c6b7a7b2d3db3727ab7f7",
+      "certificate_sha256": "416c58a34c42b343f79d127ae79e4b0cec16c607def998f9fff467cf663d8f85",
+      "source_ir_sha256": "a87efbbae90152d6188a4a5fc17cd0e8fd56fc325310669b3a072fa9781cbcaf"
+    },
+    {
+      "path": "structural-foundations/binding-vc-instant.hex",
+      "file_sha256": "10bf5b79b8d9225d113ea6dd698106359aa474e6a9532c0d1ad2567cf0d22965",
+      "certificate_sha256": "684ffea808f50cfacd6a34f5bc2ae763938454d0daad795ca95c05342ca76c87",
+      "source_ir_sha256": "4fe895fba3ec261015681e96c86bf8dcf4094edf1c7d7d097bb5398aacf955f7"
+    },
+    {
+      "path": "structural-foundations/binding-vc-lookup.hex",
+      "file_sha256": "c6a6a7d446d1e96eb97ffde5f5a2c4b0daa5530eb05e1e18f93c0b9faae51922",
+      "certificate_sha256": "62a63c397246ca367cb4267fdf6b78975115832c32d15412fe2bff7aa413c0dc",
+      "source_ir_sha256": "cde2736b40fb66e89c0005e7a1414d2297ad68e348340bb083b23a0068002040"
+    },
+    {
+      "path": "structural-foundations/binding-vc-money.hex",
+      "file_sha256": "5ccecc65224fe713e859e9bd251dfc34be3cfd452242f4a33e445d8f0f181d72",
+      "certificate_sha256": "07450864e289c1fedc569a43f5258e8791fe6f247e566cfd650833b12fd4b032",
+      "source_ir_sha256": "f77204c2a00427fcb6a751294aa81ab810942a8faaaebec14f62ba278a59ce11"
+    },
+    {
+      "path": "structural-foundations/binding-vc-option.hex",
+      "file_sha256": "817c796dbc588f2892303ebdfa10b16d6de846e781dd3e57443311d958a26227",
+      "certificate_sha256": "9f1451acc25cdc745a523154ecf67c3427d2829450e2b88c79765cd51371c5e3",
+      "source_ir_sha256": "cfe62f1acf2a56c7536d75f1b1ef22faa41127c528517e6abfafb32006eaed52"
+    },
+    {
+      "path": "structural-foundations/binding-vc-ordered_entry.hex",
+      "file_sha256": "cbeed663f15b849fff7b6f6f5faad1dfbab2c9d3ea43e2c5978c8594142fafda",
+      "certificate_sha256": "c99f9dca07f93ae79e35778fd8bb1e134f21690f48d57e3ff8b4a80e8583e157",
+      "source_ir_sha256": "f2e8f3289077db7b35dfa9c247a919aa3b5a4d2b3087ab183b6fbea40d7c5ecd"
+    },
+    {
+      "path": "structural-foundations/binding-vc-ordered_map.hex",
+      "file_sha256": "e937f64dff7748d189ff6bd621ecefa03ce55487a8d3088b14e0bc3ac61b9003",
+      "certificate_sha256": "c2ad06e6bca6ffc2d39a424d1ced2e71b87960d78613b48344980b7d2b0aff29",
+      "source_ir_sha256": "31095a5e4f83d6127bf3345d5b73b852f075842c132f29f2b7dbcd937b3a0590"
+    },
+    {
+      "path": "structural-foundations/binding-vc-ordered_set.hex",
+      "file_sha256": "f093baa387d8ea760293af4ffac1c99c2253f198aaa1b8c8c86d378ecd8d9471",
+      "certificate_sha256": "19dfbfa390d7dde2a8a73a28e4befb09ecdc3b2b31c8736a0df51dd10d276316",
+      "source_ir_sha256": "29b1a4cce62a4358a442bcb32f6c40fcf5858ac94c9a9f3cdb4651bc75d840c5"
+    },
+    {
+      "path": "structural-foundations/binding-vc-result.hex",
+      "file_sha256": "78b307c490ee3bf22233ae253ea79248564a872954b328854cd69d2343e7c0de",
+      "certificate_sha256": "de2d97b92aaa4f1fefbc3437d591c862b317d1d0584b98c8e97e91f7e9d5c090",
+      "source_ir_sha256": "46ec8a2a72516cfaaec458023e908792957de44bdd2e55ea1b4b132914c5e000"
+    },
+    {
+      "path": "structural-foundations/binding-vc-transition.hex",
+      "file_sha256": "daa0345ba5e0268351d6d6a4d5392916ea72127cc3cdb2efb14e091db4ebc8b0",
+      "certificate_sha256": "6f8d84036ec61c35c7690f95d486d8f148efbec2fa11c682b4f127adb70ad822",
+      "source_ir_sha256": "033dae645bf662233303b43260d43eb2e3b763f9936bcaa88d84573f39c84638"
+    },
+    {
+      "path": "structural-foundations/binding-vc-validation.hex",
+      "file_sha256": "a817ab1347cabf330e7cab91003e6e4e3ccbf6259a74c29c5c6bf3d9eee68ed9",
+      "certificate_sha256": "b7a79cdff1635dcb82a28eb8aff03c1b3c737be312098ad64b19dd572cfd7fcb",
+      "source_ir_sha256": "c88fb2387f575db148dfd94ca4d89f38f33925f008f677e680e543944c53cafe"
+    },
+    {
+      "path": "structural-foundations/bool-construction.hex",
+      "file_sha256": "82c1908d6d75345991b11d078af58cf8191dad3ecfff72ceca3941e24df8c1fe",
+      "certificate_sha256": "9b101cc6a90be1915933ca7dd56350737b601b8aef19c0e6f1e473afb2178ae6",
+      "source_ir_sha256": "2d544804c9918db8f688068b79a8ae72ca4c40719314bbc0988ae316afb1bd47"
+    },
+    {
+      "path": "structural-foundations/bool-float-entry.hex",
+      "file_sha256": "f23e0a40975a267c255cefe40b89a3cbf468bcb84343de165b2146a7d1100857",
+      "certificate_sha256": "4340e8c3a308d638c2e407986e733303a6967eca53913f448ff915c2f18b8d1c",
+      "source_ir_sha256": "c3ef130d712958b47c36d4fb919145c1b87d76dd551af9346ecd21aa3ff8a796"
+    },
+    {
+      "path": "structural-foundations/boundary-exception-empty.hex",
+      "file_sha256": "c9a990ce65aba120e4941fa2c1a997cd43f9eeaab94da5c8362f5e351750678e",
+      "certificate_sha256": "7069e4647ede24eee1fc1d5880856debe3781c5f5b58192ef0f6f135981668e3",
+      "source_ir_sha256": "85e5de49d45b51a0e22ffd7cc302ff2d6dd01d97793e9a1173e7b57e14e5cad1"
+    },
+    {
+      "path": "structural-foundations/boundary-exception-payload.hex",
+      "file_sha256": "3bfcb1ef7350eb4cbbc76416755e537539a3275d2eed696ff001b2783b322a2c",
+      "certificate_sha256": "6830b98799733ca39bee82accd580543a1cde11a33fe553bed1a1f2f1a59244a",
+      "source_ir_sha256": "f22dfc07f82d932e11fe7f4221bef767fe6771f128a773b7871480651b9679e6"
+    },
+    {
+      "path": "structural-foundations/boundary-map-compound.hex",
+      "file_sha256": "4876cabe5bc827308c810b278ea3e688db4564311c229ecaed53f2cf3b156566",
+      "certificate_sha256": "d60155e8c0446900cafc5ce6774d5d02ffde0b9d33e18752183d6825be46d63e",
+      "source_ir_sha256": "c5f9883d95b67539ffdac072ac8ed8fd269ec3545629165ec6f39b8ba1e27164"
+    },
+    {
+      "path": "structural-foundations/boundary-map-decimal.hex",
+      "file_sha256": "e269fff6386d78f52c67c4b7a76db4959f8681e4e67e0e1929affff8c96ed7fb",
+      "certificate_sha256": "271f6cb103fc960ca6b6f13abec590c8ab30ff6dffd1905ccec393b93d14eabd",
+      "source_ir_sha256": "2b4a645517bb6cfd03b33cc6c38b7e8c78206a5e8ebc08a22c0b97e35d31a753"
+    },
+    {
+      "path": "structural-foundations/boundary-map-string.hex",
+      "file_sha256": "5915f3839f70b7f2aa4d5b4ecf9b1d87159993df1ae32a1b3a8edf84c9d37842",
+      "certificate_sha256": "06fec855b7b24dc37a27bbc702f9900ef1ad427568ec30c0cc6bf498c3f907fb",
+      "source_ir_sha256": "c52710c988c8a2174a9fb0854c627175fef1ac2322f29a5521d30ddbf1b91c6d"
+    },
+    {
+      "path": "structural-foundations/boundary-set-decimal.hex",
+      "file_sha256": "5887bc0c8764cd7f93a0448b60ff4d7aef8677e772461731d9b4af99b894ed31",
+      "certificate_sha256": "2b87ca6f82a8e0d39d8f77c24bf189641b7375f43b66a9916c9b27fef7ffc135",
+      "source_ir_sha256": "711a6d014a0871ad2e57c06bf504b4254d07d53ee947f1f0bcf0a74c1e2baed5"
+    },
+    {
+      "path": "structural-foundations/boundary-total-cells.hex",
+      "file_sha256": "5e79502f6c5912b12eb3095f33f6c59fa0c388381faa3adfa3cd97cc1137d84e",
+      "certificate_sha256": "476e30e445c44756f82d2cacc10b99244bbbf1705636da78e92f971dfac12a8c",
+      "source_ir_sha256": "87f2d8cdacbc213a3e60fe8b0111b4e43ca7fb41aacff89b7f8348ad85042163"
+    },
+    {
+      "path": "structural-foundations/construction-vc-enum_zero.hex",
+      "file_sha256": "5a3c7c243465f78167f3b5a80039e1a7c0950849ee1ce9529608afa186bbe213",
+      "certificate_sha256": "21269e6100dfa9a2fcda3f75a8d2d5c1d97a9568344a1d53d90dd2e81554426c",
+      "source_ir_sha256": "156261e236ca455e56536c5f8b58129f3a0ee874c51675e30ca05a7fab2decde"
+    },
+    {
+      "path": "structural-foundations/construction-vc-positive_constructor.hex",
+      "file_sha256": "5251eff17fefab78aa70e99af13b661be753270079679ec9af31156d4b342427",
+      "certificate_sha256": "f94861e619890008af55cc50bbbba9bb4ead36f56d2f9e0987ad69920f5a12fd",
+      "source_ir_sha256": "dc3c9669d88943ace38fc2f37ec9253520b96654160de7c30b845ccc1f4b357a"
+    },
+    {
+      "path": "structural-foundations/date.hex",
+      "file_sha256": "77130719484c29d1beb7bf36b4f7622173f7dd205df523a1e517fd193393eb10",
+      "certificate_sha256": "20682922ac99ca6f08eb2075e58b562ebd1dd39f76a89f919589e5eb261a8f12",
+      "source_ir_sha256": "68114b462d2393c19200ff334c22a8caf9acc31f2fa0458e7f8d78d621186d59"
+    },
+    {
+      "path": "structural-foundations/enum-construction.hex",
+      "file_sha256": "6076fbafab6557035068220b7f1f0553f4f558fa8ed6893826b03d408d665dbb",
+      "certificate_sha256": "31776c679a040ebd5f94f0fc474d5d88f20bb55318a882db006bd02c05128d94",
+      "source_ir_sha256": "cd17548f8314c3b1854e23912a0a2d685a8327c0c1d79e86916b65dcff164263"
+    },
+    {
+      "path": "structural-foundations/exception-vc-allowed.hex",
+      "file_sha256": "7192ac611474fe252985037074db5d52403030d824cfbf95ec58d181bf998ac3",
+      "certificate_sha256": "60327c255d426753b57b08fbb08d67de9d05e651b4bdf7043dba15fa16ed96cb",
+      "source_ir_sha256": "b8a5ddc466eae72f9cf6b5a62363008eecb626f9518e1ae704cb7cebae295ed9"
+    },
+    {
+      "path": "structural-foundations/extra-bool-float-map.hex",
+      "file_sha256": "68dc83fd3b0cddaafa6d4a15d236a778ebb5fa6fcbaf38331856fe0808f5f6b3",
+      "certificate_sha256": "618617a7ff075d39d0a6edacdffce1bfb3ed757902b79b74e989571ffbbcf593",
+      "source_ir_sha256": "b983194b235fafeb6275bcc5dcd3d5b5e3fb646852ff6ee09271f0eaf9ebeae3"
+    },
+    {
+      "path": "structural-foundations/extra-bool-nullable-map.hex",
+      "file_sha256": "dd49adb680db5f79b64428d06754d9d01ba31936e9e2173710cc6c8703d17dfc",
+      "certificate_sha256": "3cb063845d641ce77dbe6c2ab8d676a56d37fbfac92d6db8f4262feea4d8f1fd",
+      "source_ir_sha256": "3e280212bbd67c74d6c1403ce2c46a22d660a5626478b35c5f4c7048d782d89c"
+    },
+    {
+      "path": "structural-foundations/extra-lookup-nullable.hex",
+      "file_sha256": "c5e3bb8c909d38433f2766495dffeb9758e24d48f99cd858770f1549fef85c9f",
+      "certificate_sha256": "adf09954f30b7d4b493fdd8484280dc13cf693804f071df0759e77a42a410a72",
+      "source_ir_sha256": "699bd0830cf98078495b6b1e547307a7fb7f9085cffecbd18165d92bf8fc68d0"
+    },
+    {
+      "path": "structural-foundations/extra-shared-lookup-maps.hex",
+      "file_sha256": "c4f654d46da6f6467cbc6ca21908cda65eb020e4719a071d14d960be616a9fe8",
+      "certificate_sha256": "6840a0741aab03b28d22f7e95212b6677d7bd63775a3670fe9e1c00a2d6b3f94",
+      "source_ir_sha256": "29aeac8baf5e79c5e855ba1f7f9062001bb780f5877ce2376183add924b70945"
+    },
+    {
+      "path": "structural-foundations/extra-validation-bool.hex",
+      "file_sha256": "c1dafae9124510be9e4719b3597fab703c04cb77042fd4aa40dcd5da419da669",
+      "certificate_sha256": "2c6b3b758a91d1a6796e7a6da43cefbb519901c3bdaee5a71e46e3ac00b60515",
+      "source_ir_sha256": "230b926d605e0e2106bbc898668094e6414ce8205496e0df1ed475e3589e6e9e"
+    },
+    {
+      "path": "structural-foundations/extra-validation-product.hex",
+      "file_sha256": "88fe249a54154adc9b0643868a7f3a235fd2161466a458b027e3122a84dd8f92",
+      "certificate_sha256": "8b8f9911e7aea96848fb0f96726445f2a8c389a1eb19813591c306a66418c774",
+      "source_ir_sha256": "edd93de1124cae68351155fcbcecd528de20e230dfbb7c790f3965e3e4d060b3"
+    },
+    {
+      "path": "structural-foundations/float-sequence.hex",
+      "file_sha256": "efa9418c2b13d3051d755c4d0a5c9eeb65a6cd6239112de5215deeef7552b8a7",
+      "certificate_sha256": "d04505a0639476ce33fcc580f3eab71ca62a4ffc5a2bf1e6c17c8416bfdbe15d",
+      "source_ir_sha256": "513c132a546ee6072974926284b853f16ed246f0c582db4b628aeedfbed60579"
+    },
+    {
+      "path": "structural-foundations/floats.hex",
+      "file_sha256": "2170d6b2093e89ce322c7987bebb711f216da33d0660c75f670f398a7d1a1aa9",
+      "certificate_sha256": "a5d013cf5a4d3b27d881c1b9205087474a59a6cfc8159799ca7dd9ab7d8ae4f6",
+      "source_ir_sha256": "9f4ff2195a8b6aaba9bff2ecaebdb1cbc8ca283baa348088ad59c4921580b157"
+    },
+    {
+      "path": "structural-foundations/guid.hex",
+      "file_sha256": "4e3fff1e4dfbe4f69958f89775622e1ca00cf34ea8b3b5209601b5f4aec77b6e",
+      "certificate_sha256": "419b68e10a684ea47b5141641538aec6b4acbfb118390b96fe6242faa61d8e04",
+      "source_ir_sha256": "bb95b06514ad09a7dc864ba3018ab1656d7002d6499e588c874fd89d15edd3fc"
+    },
+    {
+      "path": "structural-foundations/nested-box.hex",
+      "file_sha256": "6522e9a7c72574b4a774e4b220689af5b30199f2d83aaee269cea131124eb889",
+      "certificate_sha256": "1cfdb850cb8aaeb08a1426e464f51c1e5893d96a4942234a2870dec138f6782b",
+      "source_ir_sha256": "0532d6cfb811641717af5586c1ad6dfdf36a047cad7987230af4836fe8f6f04c"
+    },
+    {
+      "path": "structural-foundations/nullable-float.hex",
+      "file_sha256": "b02f66386e814c6def4a9ff37f126878eff114ed9d066f8dc8ef6550b96a9198",
+      "certificate_sha256": "5579351a12a1a372c01f01458f874ac02b56764d922ec27da3e2021887428877",
+      "source_ir_sha256": "c86308a58815cf5b285d115fd0d947ee404bffaa3f110ce0b9b419d9f99f9b40"
+    },
+    {
+      "path": "structural-foundations/nullable-string-default.hex",
+      "file_sha256": "52340d044ee99b3345cf2f5123ca8a499cd4e492dea5682c3b407669e3523a72",
+      "certificate_sha256": "e06e4d8fe1fb59eb8983545bb588122de797b2ab0eab2c686dd6b54c4eb631de",
+      "source_ir_sha256": "abbba8770b99c49a426c210a01b7aacb03f866900dabb0d06119fee97a466625"
+    },
+    {
+      "path": "structural-foundations/parse-error-contract.hex",
+      "file_sha256": "cda31cf857807eb64ac633518adabedd47d4828d34e7b051e3495eb185336f14",
+      "certificate_sha256": "38876b71db91b368066ff754583223e35d10b7f4521341bcd4fd256261c38604",
+      "source_ir_sha256": "06c0d07267710ea58471e12a4e5197ce5a18f9a2fed5b9ed2efd20aa52a8cb5e"
+    },
+    {
+      "path": "structural-foundations/product-construction.hex",
+      "file_sha256": "eb79bda7d8a121f591079a28d7d0933dc21af1b9390516e05ef750fa2c7556b2",
+      "certificate_sha256": "e15e5dedfb85388b055cf77e29645435b481a494b7c10e8cbade7d70d833e758",
+      "source_ir_sha256": "827521c9c96ae638d9274c2201d15d2600a65756f291b55948b138efe93331ae"
+    },
+    {
+      "path": "structural-foundations/string.hex",
+      "file_sha256": "ebe644339abe8f000ccf0685dfde62c876ba16ba1913b851cf53aa6fc63fe80b",
+      "certificate_sha256": "7c06350d775cf2c20a622c241387e8383ca5c26562db4225884280c26bea2a98",
+      "source_ir_sha256": "4a7e60e56cb94b6b0cabc213f31967cfb431ae9e72a367094876902d01d1ebf9"
+    },
+    {
+      "path": "structural-foundations/unit-void-source.hex",
+      "file_sha256": "1c2525c0ec38807080de9b46ad16a4603b4946d4a5897e6e8d3cb934ecaddb56",
+      "certificate_sha256": "fe1232cd428d5dd6b2b2cb343e23619db8bb0864d610fa33afaa8c5d09027f4d",
+      "source_ir_sha256": "b0c2c0c4b3a19ac971631ccc92baf16dbf5155d03adecf06da0effc42a181be0"
+    }
+  ],
+  "completed_checks": [
+    {
+      "scope": "41 actual-source generation, complete operation coverage, metadata and byte mutations",
+      "command": "MPK_W09_STRUCTURAL_FOUNDATIONS_OUT=/tmp/mpk-w09-structural-foundations-v1 cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_structural_foundation_original_sources -- --nocapture",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-structural-foundations-source-v1.log",
+      "log_sha256": "011240ed1dc60ef05407ea1cbedffa6e236c13badd996445a19e5ad4f37f40c1"
+    },
+    {
+      "scope": "41 exact pinned replay and mutation checks",
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_structural_foundation_original_sources -- --nocapture",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-structural-foundations-pinned-replay-v1.log",
+      "log_sha256": "c77d3eaa7577868578c93938849a38b6c1c712d4f322cb3653c810d68f794967"
+    },
+    {
+      "scope": "nine standalone component suites preserve all existing metadata/certificate bytes",
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc -- --exact ordinary_carriers::collection_tests::csharp_03_t06_w09_collections_original_source_certificates ordinary_carriers::construction_tests::csharp_03_t06_w09_constructions_original_sources_and_mutations ordinary_carriers::default_tests::csharp_03_t06_w09_defaults_original_sources_and_mutations ordinary_carriers::domain_tests::csharp_03_t06_w09_domains_original_source_certificates ordinary_carriers::entry_tests::csharp_03_t06_w09_entries_original_source_certificates ordinary_carriers::finite_tests::csharp_03_t06_w09_finite_operations_original_sources ordinary_carriers::outcome_tests::csharp_03_t06_w09_outcomes_original_source_certificates ordinary_carriers::relation_tests::csharp_03_t06_w09_relations_original_source_certificates ordinary_carriers::sequence_tests::csharp_03_t06_w09_sequences_original_source_certificates --test-threads=2 --nocapture",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-shared-emission-pinned-replay-v1.log",
+      "log_sha256": "ee75814d382b6c2fa6c54cccb4544e7590bc45d8f2bb86a059d1b862c1b1bb7d"
+    },
+    {
+      "scope": "five composed sources and nineteen ordinary observations after final test fix",
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_structural_foundation_composed_semantics -- --nocapture",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-structural-foundations-semantics-v3.log",
+      "log_sha256": "4e6cc8c20e2de79c32ff687f70ef90db694ba300a5e571db75d638ef7eb13b4c"
+    },
+    {
+      "scope": "library and primary practical integration test lint",
+      "command": "cargo clippy -p mpk-vc --lib --test csharp_practical_vc -- -D warnings",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-structural-foundations-clippy-v2.log",
+      "log_sha256": "e2eaf178bc5582e9c207d06282eb9611ba803c3aee5f3de45d6c3cb108b51bfe"
+    },
+    {
+      "scope": "new generator and test rustfmt; Go gofmt; git diff --check",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-structural-foundations-format-v1.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "scope": "42-source generation and metadata/certificate mutation suite; original 41 rows and byte files unchanged",
+      "command": "MPK_W09_STRUCTURAL_FOUNDATIONS_OUT=/tmp/mpk-w09-structural-foundations-v2 cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_structural_foundation_original_sources -- --nocapture",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-structural-foundations-source-v2.log",
+      "log_sha256": "13684a38748256585e02ba67cd5471a01bc1d5109777419fcb8da95c40e0e39c"
+    },
+    {
+      "scope": "42 exact pinned source replays and mutation rejection",
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_structural_foundation_original_sources -- --nocapture",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-structural-foundations-pinned-replay-v2.log",
+      "log_sha256": "dc4f588e26ea7a969af86d7beb984fd4085c8dc0fd6cf1ae5ab9fe441f71ff6f"
+    },
+    {
+      "scope": "original 41 same-byte zero-axiom certificates and hash corruptions with both checkers",
+      "command": "go test -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIStructuralFoundations$' -count=1 -timeout 0 -v",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-structural-foundations-checkers-v1.log",
+      "log_sha256": "97e4cf4166a7e8b300d546c6f7bf927b2d0b0706306fe5f25e8426a34f0640c0"
+    },
+    {
+      "scope": "additional nullable-string-default certificate, zero axioms and hash corruption with both checkers; total current corpus 42",
+      "command": "go test -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIStructuralFoundations$/nullable-string-default.hex$' -count=1 -timeout 0 -v",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-structural-foundations-extra-checkers-v1.log",
+      "log_sha256": "e9c986292b3f8b972e7f2ede541271829b304ba2786007f62039743370604f53"
+    },
+    {
+      "scope": "112 source-component pairs, 1132 root definitions, 10500 transitive declarations; root and dependency body mutations rejected",
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_structural_foundation_component_definition_closure -- --nocapture",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-structural-equivalence-v1.log",
+      "log_sha256": "2645ee5fb47b1c22df39e2aad64eed91c13cc1dd70f3184a7bcc05491519c453"
+    },
+    {
+      "scope": "final scoped lint after closure comparison and corpus extension",
+      "command": "cargo clippy -p mpk-vc --lib --test csharp_practical_vc -- -D warnings",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-structural-equivalence-clippy-v1.log",
+      "log_sha256": "7e040e3d7e6b05484ff79f918e139dd00f9c6293443252456d52aa4b07c876e2"
+    },
+    {
+      "scope": "all five consumer-inventory tests after corpus/definition-closure additions",
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-structural-equivalence-inventory-v1.log",
+      "log_sha256": "43224e92be0719ffd5970e96737599ecd16a3a38d1e79564875a7b70296c669f"
+    },
+    {
+      "scope": "new/updated structural test files rustfmt; checker harness gofmt; git diff --check",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-structural-equivalence-format-v1.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "pending_checks": [],
+  "fixed_attempts": [
+    {
+      "log": "/tmp/mpk-w09-structural-foundations-semantics-v1.log",
+      "reason": "mandatory Option arm missing in test input; fixed to explicit None"
+    },
+    {
+      "log": "/tmp/mpk-w09-structural-foundations-clippy-v1.log",
+      "reason": "unnecessary Box allocation in test; fixed in place"
+    }
+  ],
+  "remaining": [
+    "Complete pending domain/collection semantics and full internal unit 3 review",
+    "Finish internal unit 3 review and fixes before its commit",
+    "Original internal units 4-8, including bindings/codecs, native control, transitions, ordinary proofs/assembly and full W09 acceptance"
+  ],
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "status": "deferred to T06-W12"
+  },
+  "review": "unit-3-structural-foundation-review.md",
+  "commit_status": "uncommitted internal unit 3 work; no new commit/push",
+  "corrected_coverage_gap": "nullable-string-default was absent from the original 41-source integrated corpus; current 42 sources cover all 112 standalone component source occurrences by exact source/foundation hashes"
+}

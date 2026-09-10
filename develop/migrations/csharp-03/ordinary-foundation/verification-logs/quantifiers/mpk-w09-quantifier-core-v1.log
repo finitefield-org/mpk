@@ -1,0 +1,39 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error[E0425]: cannot find function `validate_csharp_practical_certificate_structure` in this scope
+   --> crates/mpk-vc/src/csharp_practical_ordinary_quantifiers.rs:259:9
+    |
+259 |           validate_csharp_practical_certificate_structure(&cert).unwrap();
+    |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+   ::: crates/mpk-vc/src/csharp_practical_ordinary_structural.rs:418:1
+    |
+418 | / pub fn generate_csharp_practical_ordinary_structural(
+419 | |     vir: &ValidatedPracticalVir,
+420 | | ) -> R<OrdinaryStructuralProgram> {
+421 | |     let layouts = generate_csharp_practical_ordinary_carriers(vir)?;
+...   |
+446 | |     Ok(p)
+447 | | }
+    | |_- similarly named function `generate_csharp_practical_ordinary_structural` defined here
+    |
+help: a function with a similar name exists
+    |
+259 -         validate_csharp_practical_certificate_structure(&cert).unwrap();
+259 +         generate_csharp_practical_ordinary_structural(&cert).unwrap();
+    |
+help: consider importing this function
+    |
+211 +     use crate::csharp_practical_vc_model::validate_csharp_practical_certificate_structure;
+    |
+
+error[E0609]: no field `terms` on type `mpk_cert::Certificate`
+   --> crates/mpk-vc/src/csharp_practical_ordinary_quantifiers.rs:268:209
+    |
+268 | ...tes)),"static_transformers":transformers,"terms":cert.terms.len(),"declarations":cert.declarations.len()})).unwrap()).unwrap();
+    |                                                          ^^^^^ unknown field
+    |
+    = note: available fields are: `module`, `imports`, `name_table`, `level_table`, `term_table` ... and 7 others
+
+Some errors have detailed explanations: E0425, E0609.
+For more information about an error, try `rustc --explain E0425`.
+error: could not compile `mpk-vc` (lib test) due to 2 previous errors

@@ -1,0 +1,197 @@
+{
+  "schema": "mpk.csharp_practical.w09.contract_expressions_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_units": [
+    3,
+    4,
+    5
+  ],
+  "status": "attachment_expression_component_targeted_verification_passed",
+  "implementation": [
+    "Shared compiler prepass preserves existing source-public output;the new generator processes every canonical W03 contract attachment or rejects the whole program on unsupported recipes.",
+    "Each value and exact W03 definedness function retains complete nominal subject order,owner,old/exception metadata and attachment identity;program metadata binds VIR,foundation and data-VC hashes. Concrete use-point substitution is still separate.",
+    "Identical public expression hashes on different nominal subject signatures receive attachment suffixes on both value and definedness symbols. Existing unambiguous names and bytes stay unchanged.",
+    "Exact-regeneration import rejects metadata,subject and cross-context substitutions;no trust is assigned to runtime observations."
+  ],
+  "verification": [
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/contract-expressions/mpk-w09-contract-expressions-build-v1.log",
+      "sha256": "7d56fc04be2839a72ddbf443c9f6dc3822052272a2ad2da234df45ef8f0a7d9f",
+      "scope_and_selection_reason": "Affected library compilation after extracting the shared compiler and adding complete attachment programs;13.27s."
+    },
+    {
+      "status": "failed_test_compile_corrected",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/contract-expressions/mpk-w09-contract-expressions-method-scopes-v1.log",
+      "sha256": "2c4f63e17678f3bcbd351d686124467eb7f0dd47c733f35df195015e3cb27787",
+      "scope_and_selection_reason": "Test used a nonexistent VC type and a typed hash domain as raw bytes;corrected to ValidatedPracticalVc and hash_domain_separated_raw."
+    },
+    {
+      "status": "failed_test_assertion_corrected",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/contract-expressions/mpk-w09-contract-expressions-method-scopes-v2.log",
+      "sha256": "7bd1b499d116f243db5d0a2487e0b071364d7d586a72fecae2ab669e31843145",
+      "scope_and_selection_reason": "Test incorrectly required nonempty owners. Frozen loop captures intentionally have empty owner;now exact declared/empty metadata is preserved,without inventing control ownership."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/contract-expressions/mpk-w09-contract-expressions-method-scopes-v3.log",
+      "sha256": "448bfba5d1731debba0e0f28b8b37040ccf6b23c9eb47cae61ed8e609058d6ff",
+      "scope_and_selection_reason": "Three frozen control source contexts,nine attachments,27 value/definedness sample pairs;distinct binder markers,exact W03 linkage,import/metadata mutations;1.87s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/contract-expressions/mpk-w09-multiowner-capture-v1.log",
+      "sha256": "b54783e7f03a494ff5bd47f4478ef297095ffb7feeb71eefcecd239ae331398b",
+      "scope_and_selection_reason": "Two fresh exact source/sidecar contexts;each isolated compiler/source process exits0 with empty stdout/stderr."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/contract-expressions/mpk-w09-contract-expressions-multiowner-v1.log",
+      "sha256": "197edf4d246ca8607c45563b67bbed5f671b6564a8ba36899da325945d6c8519",
+      "scope_and_selection_reason": "Both i32/i64 source owners use the same expression hashes with different carrier depths. Value/definedness symbols are distinct;total integrated dependency closure is preserved,partial public admission rejects;1.24s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/contract-expressions/mpk-w09-contract-expressions-preservation-v1.log",
+      "sha256": "04d38777e3048ff2ec23dfe9e234d2904a6b8049681e22669d6ba9b5a385575f",
+      "scope_and_selection_reason": "Shared compiler extraction can affect checked,partial-read,total and rich literal consumers:all four scoped original-source/byte/dependency preservation tests pass;39.01s. No unrelated tests repeated."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/contract-expressions/mpk-w09-contract-expressions-old-result-request-v1.log",
+      "sha256": "ae5a59596530aff2ab7932fe942e9bc20bcef00cecaab40e313a09abf955a9f8",
+      "scope_and_selection_reason": "Initial old/result request construction;0.03s."
+    },
+    {
+      "status": "rejected_fixture_replaced",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/contract-expressions/mpk-w09-old-result-capture-v1.log",
+      "sha256": "b54783e7f03a494ff5bd47f4478ef297095ffb7feeb71eefcecd239ae331398b",
+      "scope_and_selection_reason": "Data capture frontend correctly rejects array_loop_handoff for the borrowed loop fixture. Kept dedicated frozen control replay and replaced only the new binding probe with a loop-free method;no production frontend change."
+    },
+    {
+      "status": "invalid_test_invocation_corrected",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/contract-expressions/mpk-w09-contract-expressions-context-v1.log",
+      "sha256": "8e69a51769c17d54c171ecc914fe55fcf6843d68325d3be9b4f6f8662dfd19a5",
+      "scope_and_selection_reason": "Cargo accepts one positional test filter;the two-filter invocation did not execute tests. Corrected to module filter plus explicit exclusions."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/contract-expressions/mpk-w09-contract-expressions-context-v2.log",
+      "sha256": "1a971c3358a4c40c4f4bc0270b440bce842c12e5b706984cbb8d6b6e3e6db808",
+      "scope_and_selection_reason": "Updated loop-free request plus method/loop semantics and cross-context import rejection;two tests1.88s. Only changed tests repeated."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/contract-expressions/mpk-w09-old-result-capture-v2.log",
+      "sha256": "b54783e7f03a494ff5bd47f4478ef297095ffb7feeb71eefcecd239ae331398b",
+      "scope_and_selection_reason": "Fresh loop-free old/result context;both isolated compiler/source processes exit0 with empty stdout/stderr and facts are accepted by the normal source importer."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/contract-expressions/mpk-w09-contract-expressions-old-result-v1.log",
+      "sha256": "e2d72d07ced10753841e8ff2da85fc22247368b5bd746873079eae4bc1570164",
+      "scope_and_selection_reason": "Five distinct current/entry/result binding probes,exact W03 metadata,import and subject permutation rejection;0.45s. Counterfactual assignments test binders,not CFG reachability."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/contract-expressions/mpk-w09-contract-expressions-clippy-v1.log",
+      "sha256": "cbb4cce4701a1b9149a1bead061d47d9e76ce8a91b241c2f5d1fe0f5a01d3b42",
+      "scope_and_selection_reason": "Affected library/integration lint;38.94s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/contract-expressions/mpk-w09-contract-expressions-checkers-v1.log",
+      "sha256": "9b01798028ded47b211d572debec093ec6528a771e554b6d757b3f05dac28e56",
+      "scope_and_selection_reason": "All nine new same-byte candidates accepted by both unchanged checkers with zero axioms and matching reports;actual last-byte hash corruptions rejected;20.489s total. Exact PASS names,current hashes,sizes,metadata and tested output copies reconciled."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/contract-expressions/mpk-w09-contract-expressions-inventory-v1.log",
+      "sha256": "114e8f5be9db56b53de80d84f215d6fe1788514d13c485e7975022bff60326ec",
+      "scope_and_selection_reason": "Artifact-consumer closure test after the new generator/reexports;16.02s test time. Existing fingerprints remain unchanged,including125 Std. paths and4948 aggregate edges."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/contract-expressions/mpk-w09-contract-expressions-pinned-requests-v1.log",
+      "sha256": "654f4f5a44dcef78c093ec81277dace1aabe180552ed1498f90982f319010f39",
+      "scope_and_selection_reason": "Both published request pins match independent construction;two tests0.07s. Tested certificates/programs copied exactly without repeating unchanged semantic evaluations."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/contract-expressions/mpk-w09-contract-expressions-format-v1.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "scope_and_selection_reason": "Scoped formatting for all changed Rust production/tests/reexports."
+    },
+    {
+      "status": "passed",
+      "commands": [
+        "/usr/bin/git diff --check",
+        "gofmt -l go-tools/mpk-checker-ref/checker_agreement_test.go",
+        "Recompute retained log and candidate hashes;compare tested copies"
+      ],
+      "scope_and_selection_reason": "Changed working-diff whitespace,Go format and evidence integrity;no findings."
+    }
+  ],
+  "candidates": [
+    {
+      "file": "multiowner-partial-source.hex",
+      "certificate_sha256": "aff63c96d7e2c4a2e4503b817c61710c4954d3d9b6c0a73f7ce8e06337c7ba72",
+      "size_bytes": 21626
+    },
+    {
+      "file": "multiowner-partial.hex",
+      "certificate_sha256": "00304109f5eba7ea84cd9626c3c043923d1286a4549e2e4f371a606d8a5ecaf6",
+      "size_bytes": 21362
+    },
+    {
+      "file": "multiowner-total-integrated.hex",
+      "certificate_sha256": "915acc06e38fd2c93148c4af918d3cd93fb18c64d4e657603cd53f287003f9a1",
+      "size_bytes": 114633
+    },
+    {
+      "file": "multiowner-total-source.hex",
+      "certificate_sha256": "f54a069bd6fe002261c9683575ec2be37aa9a0f495ade64dfdd6c38a7f8e040b",
+      "size_bytes": 1465
+    },
+    {
+      "file": "multiowner-total.hex",
+      "certificate_sha256": "6d5475520acbe70ceb46d1b1fb4dfa1644f532ae86cab497fb829eb8cfdfc243",
+      "size_bytes": 1631
+    },
+    {
+      "file": "old-result.hex",
+      "certificate_sha256": "319806160a285870cb27adac93643849d6288e47e3ec3461f08b2a50711c80f9",
+      "size_bytes": 9575
+    },
+    {
+      "file": "partial_without_measure.hex",
+      "certificate_sha256": "adbed42a4b59399c39e55fb299ff02b9961e457ff13d0b537a0adec1ffbba2fe",
+      "size_bytes": 1751
+    },
+    {
+      "file": "total_descending.hex",
+      "certificate_sha256": "be4cf1cf21773baae307ec6210051ada633dc31c1f164c0676129265b323e3d0",
+      "size_bytes": 2063
+    },
+    {
+      "file": "total_variable.hex",
+      "certificate_sha256": "0cfe1cae4f6e1d567bd0fc45431ecfb5edc2ab74f3a88bc08198d568c915a207",
+      "size_bytes": 2348
+    }
+  ],
+  "coverage": {
+    "method_loop_contexts": 3,
+    "method_loop_attachments": 9,
+    "method_loop_value_definedness_pairs": 27,
+    "multiowner_contexts": 2,
+    "old_current_result_probes": 5
+  },
+  "live_jobs": [],
+  "pending": [
+    "Remaining contract recipes,exception/control use-point instantiation,native/control and transition/replay definitions,application proofs and original internal-unit acceptance."
+  ],
+  "whole_gate": "Deferred to T06-W12;no check-fast or equivalent full gate.",
+  "commit": "No component-only commit;original approved internal units remain incomplete.",
+  "review": "unit-4-contract-expressions-review.md",
+  "goal_turn_classification": "Progress:all-attachment value/definedness programs and source-carrier collision correction passed scoped source,mutation,compatibility,dual-checker,lint and inventory validation. W09 remains open."
+}

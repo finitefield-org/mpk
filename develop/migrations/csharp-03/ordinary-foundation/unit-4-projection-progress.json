@@ -1,0 +1,351 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.projection_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "forward projection component verified; original units 3-8 and W09 incomplete",
+  "source_contexts": 44,
+  "projection_definitions": 34,
+  "binding_roles": 12,
+  "source_value_comparisons": 144,
+  "max_terms": 1230,
+  "max_declarations": 44,
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_binding_projections.rs",
+      "sha256": "44aba189c94e6d22bf5e6b9c71d0aeeb23cc225ffb0e6f0f8a156d13d78c8b11"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_structural.rs",
+      "sha256": "28a3d616f5f15ea74b666533188b10107c01a84e2c58a3974f6009ac34ed9bda"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs",
+      "sha256": "ece8507d5e21a1203b200b93d6ef5c17421f462f19e430510e27acdabe7ff82d"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+      "sha256": "e942f59b3c0fe14ae3a0a401502ce097c9fef451e10b1815c7640b32829224c8"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_projection_tests.rs",
+      "sha256": "198642f0f82cd691cfe8b70eef21dbbbec2876b7b0e641e6abea0a6204609db1"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_carriers.rs",
+      "sha256": "21056377903b4ab012c252ba5c24531457a1740d8997853f16c1a5805feef346"
+    },
+    {
+      "path": "crates/mpk-vc/tests/csharp_practical_inventory.rs",
+      "sha256": "0b6ff3009d6f12a12444aef535588ca58ef1c63099c66d1398e24901363689d3"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "sha256": "16db15477a7c23d115d322f77532e832726b4c2f3e9c83a025d0c0cccfc0d270"
+    },
+    {
+      "path": "develop/migrations/csharp-03/artifact-consumer-inventory.json",
+      "sha256": "84af47aa4400bbdbc8e92e2b51ea97ebc90bbe7a6b1e1eed4e1f086ede3ea3e8"
+    },
+    {
+      "path": "develop/migrations/csharp-03/data-phase/historical-inventory-cache-correction.json",
+      "sha256": "cb2153d94ec210019c3657cdb3c10588b6d1b78f354006ac41471efc7e3a5cd2"
+    }
+  ],
+  "source_capture_files": [
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/projection-sources/requests.json",
+      "sha256": "aac361f86c22c854b389fb9fbd24be72980bc39c8ef4686145eeeeadd1e5e78f"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/projection-sources/responses.json",
+      "sha256": "7c85593c71fa580bf52f0601578b9e3fe7ea397df417e0817a798b55bd2493bb"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/projection-sources/capture.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "pins": [
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/binding-vc-boundary_field.hex",
+      "sha256": "717ca0fef3dd1b735bcade604bf203225dfe9bae8a4f70b116a57890bf0a1034"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/binding-vc-bounded_sequence.hex",
+      "sha256": "5136f0d8c90bc3a752ad79d68a60bbbdbc119f379535152964abdc15ca9309b5"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/binding-vc-instant.hex",
+      "sha256": "31b2c2047e1fd61e79ed05a751fcbc6a6f52e7a9a99836463981cc12ba9a8214"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/binding-vc-lookup.hex",
+      "sha256": "34e2c501153080d55eeef6d324b9f6c7fc377b99636d90160dcda486d14102d8"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/binding-vc-money.hex",
+      "sha256": "88432148a2c4eecbc5496ab65b21b4408713012ad0fbcb7a306254918a7ecd0a"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/binding-vc-option.hex",
+      "sha256": "5e21d7cf066b7dc02c5481963b0773d19b8b3b95b441dca078fa25353e13b5fd"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/binding-vc-ordered_entry.hex",
+      "sha256": "63285d6dd521fe3c7b85d8a42ee390aa42e91d9d93cf84c1f1d0fa3e37d437fd"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/binding-vc-ordered_map.hex",
+      "sha256": "1584d4decc8090c3e41c87a7429059001eff36e4b5e7d6901bee7d6f9faa4622"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/binding-vc-ordered_set.hex",
+      "sha256": "12209ebb6087c814c125c3e04c310a10e1b372044a2f06e5c805d8c869d1532a"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/binding-vc-result.hex",
+      "sha256": "7f2ecf9b5347bcdb41f4c862120978f4c3f36e023d3ed642c1f5f1b250ddf961"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/binding-vc-transition.hex",
+      "sha256": "66960e33a2d19cdb95340b5ef69cdd38c0a0b5e6156f37f2ae654f3e112b560a"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/binding-vc-validation.hex",
+      "sha256": "1baa803f8c0248bc157a16ae7706e58a1fd4330c22d9d2e2385feec4d7a2d7ff"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/bool-construction.hex",
+      "sha256": "791d29bcabfe45072d8bf349db86f95874f32edf52d456d7672459af6a2082c4"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/bool-float-entry.hex",
+      "sha256": "df9ebbfea9c73054128892ede1f475885bb80b7408e3fa56a3ecc6c83cf0134a"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/boundary-exception-empty.hex",
+      "sha256": "791d29bcabfe45072d8bf349db86f95874f32edf52d456d7672459af6a2082c4"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/boundary-exception-payload.hex",
+      "sha256": "791d29bcabfe45072d8bf349db86f95874f32edf52d456d7672459af6a2082c4"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/boundary-map-compound.hex",
+      "sha256": "e5fee0876d4e56311561bab42971d90dbbe1fb52b01ee7b209d3534a724bf46a"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/boundary-map-decimal.hex",
+      "sha256": "5bdb93712a5a31b19492f7e520073e8b0bcb17407c1971e0254aa37def755af7"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/boundary-map-string.hex",
+      "sha256": "634be924699ec273b4b5459069775ca3f3d4fef662d94e61023d47c664875fb4"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/boundary-set-decimal.hex",
+      "sha256": "de52da507f8c46298af67d85adec5a9c74c9b94f67541f14a8cf463d04f41f07"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/boundary-total-cells.hex",
+      "sha256": "791d29bcabfe45072d8bf349db86f95874f32edf52d456d7672459af6a2082c4"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/complete-snapshot.hex",
+      "sha256": "791d29bcabfe45072d8bf349db86f95874f32edf52d456d7672459af6a2082c4"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/construction-vc-enum_zero.hex",
+      "sha256": "791d29bcabfe45072d8bf349db86f95874f32edf52d456d7672459af6a2082c4"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/construction-vc-positive_constructor.hex",
+      "sha256": "791d29bcabfe45072d8bf349db86f95874f32edf52d456d7672459af6a2082c4"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/date.hex",
+      "sha256": "791d29bcabfe45072d8bf349db86f95874f32edf52d456d7672459af6a2082c4"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/enum-construction.hex",
+      "sha256": "791d29bcabfe45072d8bf349db86f95874f32edf52d456d7672459af6a2082c4"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/exception-vc-allowed.hex",
+      "sha256": "791d29bcabfe45072d8bf349db86f95874f32edf52d456d7672459af6a2082c4"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/extra-bool-float-map.hex",
+      "sha256": "991c588126c89c1e48962f45245ee5ba4e051e6ec73022cfa09a01ad37bd0c15"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/extra-bool-nullable-map.hex",
+      "sha256": "2dbd5fa1ea1610f106dee5175dbb26d9ee02c13391556caaf205da32ff3b6fcc"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/extra-lookup-nullable.hex",
+      "sha256": "3c82202db76afb8f3ee24021df8d29248744c9d537e4f5157786e41502536a6a"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/extra-shared-lookup-maps.hex",
+      "sha256": "e5070118fc54a509fd9e4c3882b01a8557b498cab3e43b642ce478bc702ff7f8"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/extra-validation-bool.hex",
+      "sha256": "55119f881b593bcd4a88f9d93088087ffd7d4f5057d76a51a11fd6586342f440"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/extra-validation-product.hex",
+      "sha256": "d32bcba7c34f1ce73cd271f6cdfc61e29785ea9d08d8a8f1a86708b864456e65"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/float-sequence.hex",
+      "sha256": "791d29bcabfe45072d8bf349db86f95874f32edf52d456d7672459af6a2082c4"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/floats.hex",
+      "sha256": "791d29bcabfe45072d8bf349db86f95874f32edf52d456d7672459af6a2082c4"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/guid.hex",
+      "sha256": "791d29bcabfe45072d8bf349db86f95874f32edf52d456d7672459af6a2082c4"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/nested-box.hex",
+      "sha256": "791d29bcabfe45072d8bf349db86f95874f32edf52d456d7672459af6a2082c4"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/nullable-float.hex",
+      "sha256": "791d29bcabfe45072d8bf349db86f95874f32edf52d456d7672459af6a2082c4"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/nullable-string-default.hex",
+      "sha256": "791d29bcabfe45072d8bf349db86f95874f32edf52d456d7672459af6a2082c4"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/parse-error-contract.hex",
+      "sha256": "791d29bcabfe45072d8bf349db86f95874f32edf52d456d7672459af6a2082c4"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/product-construction.hex",
+      "sha256": "791d29bcabfe45072d8bf349db86f95874f32edf52d456d7672459af6a2082c4"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/remapped-boundary-sequence.hex",
+      "sha256": "d022bd5cbff0ae7acc74d2ea3977ce06fb71f8d96f5af924f0cd30ff0e29f541"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/string.hex",
+      "sha256": "791d29bcabfe45072d8bf349db86f95874f32edf52d456d7672459af6a2082c4"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/unit-void-source.hex",
+      "sha256": "791d29bcabfe45072d8bf349db86f95874f32edf52d456d7672459af6a2082c4"
+    }
+  ],
+  "metadata": {
+    "path": "develop/migrations/csharp-03/ordinary-foundation/binding-projections/certificates.json",
+    "sha256": "6708ef65d5461f9adec9850c82c2e2d9d29ea2ff05d8385d608af561828daf53"
+  },
+  "verification": [
+    {
+      "name": "source capture",
+      "command": "docker run --rm -i --platform linux/amd64 --network none --security-opt seccomp=unconfined --cap-add SYS_ADMIN --mount type=bind,source=/Users/kazuyoshitoshiya/mpk,target=/repo,readonly --workdir /repo mpk-java-t10-gate:local ./scripts/build-csharp-practical-frontend.sh --test-control-emission-requests < /tmp/mpk-w09-projection-requests.json > /tmp/mpk-w09-projection-responses.json 2> /tmp/mpk-w09-projection-capture.log",
+      "log": "/tmp/mpk-w09-projection-capture.log",
+      "result": "passed",
+      "scope": "one accepted actual source; harness requires exact two-capture equality",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "source suite generation",
+      "command": "MPK_W09_PROJECTIONS_OUT=/tmp/mpk-w09-projections-v4 cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_binding_projection -- --nocapture",
+      "log": "/tmp/mpk-w09-projections-suite-v4.log",
+      "result": "passed",
+      "scope": "3 tests: request reconstruction; 44 contexts, 34 projections, metadata/bytes/context mutants; 144 core projection comparisons",
+      "log_sha256": "a0a68dcf9050a39b540863bddeda894f743d2a0f535a3bf03f37eddb8b815adf"
+    },
+    {
+      "name": "pinned replay",
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_binding_projection -- --nocapture",
+      "log": "/tmp/mpk-w09-projections-replay-v1.log",
+      "result": "passed",
+      "scope": "3 tests, all exact pins and semantic comparisons; before additional coverage counters/assertions",
+      "log_sha256": "5ef8cdffb0c79819b708e75f6d857aed9c8b13319ce4d05c7c3310827d62b226"
+    },
+    {
+      "name": "same-byte dual checking",
+      "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run ^TestCheckerAgreementWithRustCLIBindingProjections$ -count=1 -timeout 0 -v",
+      "log": "/tmp/mpk-w09-projections-checkers-v3.log",
+      "result": "passed",
+      "scope": "44 same-byte certificates accepted by both unchanged checkers with axiom count zero; all corruptions rejected; 166.366 seconds",
+      "log_sha256": "4924e5424229329a7676ff3ccba8d4e4d4337b07cd84a1754e146ce85c753f8b"
+    },
+    {
+      "name": "scoped lint",
+      "command": "cargo clippy -p mpk-vc --test csharp_practical_vc -- -D warnings",
+      "log": "/tmp/mpk-w09-projections-clippy-v2.log",
+      "result": "passed",
+      "scope": "projection and affected library/test compilation after coverage assertions",
+      "log_sha256": "9262741b6624fd142e4c61f9552934ac0d67250facf0585c76c50d9b8f6e7559"
+    },
+    {
+      "name": "consumer inventory",
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "log": "/tmp/mpk-w09-projections-inventory-v3.log",
+      "result": "passed",
+      "scope": "5 tests, namespace paths 114 and all linked count/hash checks",
+      "log_sha256": "3e34b337de9c4bd2a0a27e9c93e8dd4f89ea04a67428de0d7ac9d7ae09f4b5c1"
+    },
+    {
+      "name": "format",
+      "command": "cargo fmt --all -- --check",
+      "log": "/tmp/mpk-w09-projections-format-v2.log",
+      "result": "passed",
+      "scope": "Rust formatting after final code edit",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "final semantic coverage audit",
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_binding_projections_original_source_semantics -- --nocapture",
+      "log": "/tmp/mpk-w09-projections-semantics-v5.log",
+      "log_sha256": "8626309dbdb4a1dd7294259c4ff0a8342c3636d7722f60ae320ecef325237683",
+      "result": "passed",
+      "scope": "all 12 roles asserted; 144 value comparisons / 16522 observed bits; 25.56 seconds"
+    }
+  ],
+  "non_verification_attempts": [
+    {
+      "log": "/tmp/mpk-w09-projections-checkers-v1.log",
+      "result": "missing checkeragreement build tag: no tests ran; not evidence"
+    },
+    {
+      "log": "/tmp/mpk-w09-projections-checkers-v2.log",
+      "result": "default Go build-cache write denied; terminal infrastructure failure; retried with writable cache"
+    }
+  ],
+  "live_jobs": [],
+  "other_w09_jobs": [
+    {
+      "session_id": 23035,
+      "log": "/tmp/mpk-w09-domains-remaining-source-v7.log",
+      "status": "confirmed still running; decimal map cases advanced to decimal set"
+    },
+    {
+      "session_id": 22106,
+      "log": "/tmp/mpk-w09-money-semantics-v1.log",
+      "status": "confirmed still running; mode 2 multiply/divide reached"
+    }
+  ],
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "status": "deferred to T06-W12"
+  },
+  "remaining": "Unit 3 deep domains/full review; remaining unit 4 reconstruction, commutation and codecs; complete original units 5-8. Neither semantic observations nor component certificates discharge application VCs.",
+  "observed_bits": 16522,
+  "subsequent_verification": {
+    "scope": "shared-emitter refactor for binding relations; previous file hashes retain the earlier checkpoint",
+    "record": "unit-4-binding-relation-progress.json",
+    "projection_replay_log": "/tmp/mpk-w09-binding-relations-projection-replay-v1.log",
+    "result": "all 44 existing projection pins and 144 value comparisons unchanged"
+  }
+}

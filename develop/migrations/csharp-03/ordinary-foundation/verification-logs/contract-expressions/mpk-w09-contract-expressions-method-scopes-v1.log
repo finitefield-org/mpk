@@ -1,0 +1,35 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error[E0425]: cannot find type `PracticalVcProgram` in this scope
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_contract_expression_tests.rs:59:60
+    |
+ 59 | fn metadata(program:&OrdinaryContractExpressionProgram,vc:&PracticalVcProgram) {
+    |                                                            ^^^^^^^^^^^^^^^^^^
+    |
+   ::: crates/mpk-vc/src/csharp_practical_vc_model.rs:744:1
+    |
+744 | pub struct PracticalVcError {
+    | --------------------------- similarly named struct `PracticalVcError` defined here
+    |
+help: a struct with a similar name exists
+    |
+ 59 - fn metadata(program:&OrdinaryContractExpressionProgram,vc:&PracticalVcProgram) {
+ 59 + fn metadata(program:&OrdinaryContractExpressionProgram,vc:&PracticalVcError) {
+    |
+
+error[E0277]: the trait bound `mpk_vc::HashDomain: AsRef<[u8]>` is not satisfied
+  --> crates/mpk-vc/tests/support/csharp_practical_ordinary_contract_expression_tests.rs:35:56
+   |
+35 | ...::new();hash.update(a::TYPE_CONTRACT_HASH_DOMAIN);hash.update([0]);hash.update(a::canonical_practical_json_bytes(&J::Object(field...
+   |                 ------ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `AsRef<[u8]>` is not implemented for `mpk_vc::HashDomain`
+   |                 |
+   |                 required by a bound introduced by this call
+   |
+note: required by a bound in `sha2::Digest::update`
+  --> /Users/kazuyoshitoshiya/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/digest-0.10.7/src/digest.rs:23:37
+   |
+23 |     fn update(&mut self, data: impl AsRef<[u8]>);
+   |                                     ^^^^^^^^^^^ required by this bound in `Digest::update`
+
+Some errors have detailed explanations: E0277, E0425.
+For more information about an error, try `rustc --explain E0277`.
+error: could not compile `mpk-vc` (test "csharp_practical_vc") due to 2 previous errors

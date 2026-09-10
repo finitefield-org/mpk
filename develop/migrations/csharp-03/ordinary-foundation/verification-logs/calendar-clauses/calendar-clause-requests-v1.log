@@ -1,0 +1,9 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error[E0425]: cannot find function `read_bytes` in this scope
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_calendar_clause_tests.rs:390:13
+    |
+390 |             read_bytes(&format!("ordinary-foundation/calendar-clauses/{name}")),
+    |             ^^^^^^^^^^ not found in this scope
+
+For more information about this error, try `rustc --explain E0425`.
+error: could not compile `mpk-vc` (test "csharp_practical_vc") due to 1 previous error

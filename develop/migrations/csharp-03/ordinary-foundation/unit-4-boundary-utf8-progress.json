@@ -1,0 +1,337 @@
+{
+  "schema": "mpk.csharp_practical.w09.boundary_utf8_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "partial_utf8_state_retention_correction_verification_in_progress_not_unit_completion",
+  "implementation": "Ordinary UTF-8 DFA over the full 1 MiB private byte document; 64-byte blocks, two counted blocks per scan step, 8192 scan steps, full-u32 bound, leading-BOM rejection. JSON grammar and universal/source proof linkage remain open.",
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_boundary_utf8.rs",
+      "sha256": "87685ddc237d909742b3aa20e0797f99fd65325f7c46077c5f64b38b8f909059"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_boundary_document.rs",
+      "sha256": "88aebab1200bcaa5929ad6efb3eea6176d0a434ffce1be5cf8418aa4b95348d1"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_boundary_utf8_tests.rs",
+      "sha256": "967439b6b7be2d968941ecc30cf5d21c0eb7a55d01e68a7370a4fc3612c3000e"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_boundary_document_tests.rs",
+      "sha256": "f7342bc22b1a355212cef5a8924e399efe94bbb4e7afa211f4403db619f546cb"
+    }
+  ],
+  "verification": [
+    {
+      "command": "cargo check -p mpk-vc",
+      "log": "/tmp/mpk-w09-boundary-utf8-check-v1.log",
+      "status": "passed",
+      "log_sha256": "0926ab53af7cfe547501c91cffa1140f997d3a21f2983bde7659beb8aeae440d",
+      "revision": "historical_before_ForceBit_correction"
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --test csharp_practical_vc -- -D warnings",
+      "log": "/tmp/mpk-w09-boundary-utf8-clippy-v2.log",
+      "status": "passed",
+      "log_sha256": "b38b809548563ff6da1ba4cb3d498ed4ec66539c15f95ee33263f52fbafeb72a",
+      "revision": "historical_before_ForceBit_correction"
+    },
+    {
+      "command": "cargo fmt --all -- --check",
+      "log": "/tmp/mpk-w09-boundary-utf8-format-v2.log",
+      "status": "passed",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "revision": "historical_before_ForceBit_correction"
+    },
+    {
+      "command": "/usr/bin/git diff --check",
+      "status": "passed",
+      "scope": "Outside sandbox, exit zero.",
+      "revision": "historical_before_ForceBit_correction"
+    },
+    {
+      "command": "MPK_W09_BOUNDARY_UTF8_OUT=/tmp/mpk-w09-boundary-utf8-v2 cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_boundary_utf8_original_sources -- --nocapture",
+      "log": "/tmp/mpk-w09-boundary-utf8-sources-v2.log",
+      "status": "passed",
+      "log_sha256": "4b9ed913821dc9b4ce4de6bb1002b34fca49c0f1bdc647599dc50a55f061bc68",
+      "revision": "historical_before_ForceBit_correction"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_boundary_documents_original_sources_and_storage -- --nocapture",
+      "log": "/tmp/mpk-w09-boundary-utf8-document-replay-v1.log",
+      "status": "passed",
+      "log_sha256": "a946cf1cc62927d425e05fc1df1aaf60a6d602ed0243932438bb05dc46501fe7",
+      "revision": "historical_before_ForceBit_correction"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "log": "/tmp/mpk-w09-boundary-utf8-inventory-v1.log",
+      "status": "passed",
+      "log_sha256": "7ed99528bdf3802cfded2bf8b0c2198afd2346ccea2377edbc0e17645012044d",
+      "revision": "historical_before_ForceBit_correction"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_boundary_utf8_original_sources -- --nocapture",
+      "log": "/tmp/mpk-w09-boundary-utf8-replay-v1.log",
+      "status": "passed",
+      "log_sha256": "99a6b1d9744d7a2c7c1cb7d1b0d9060db1023049c13ce43c8bd3f5a0aa92defc",
+      "scope": "Exact 68-context and three-certificate pinned replay passed in 82.86 seconds.",
+      "revision": "historical_before_ForceBit_correction"
+    },
+    {
+      "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIBoundaryUtf8$' -count=1 -timeout 0 -v",
+      "cwd": "go-tools/mpk-checker-ref",
+      "log": "/tmp/mpk-w09-boundary-utf8-checkers-v1.log",
+      "status": "passed",
+      "log_sha256": "49bad5999e10cf918427a7d184f95e4e8c43a247558180d23f4d44585b46f215",
+      "scope": "All three identical-byte Rust/Go cases passed with zero axioms and hash-corruption rejection, 1190.346 seconds including CLI rebuild waits.",
+      "revision": "historical_before_ForceBit_correction"
+    },
+    {
+      "command": "cargo fmt --all -- --check",
+      "log": "/tmp/mpk-w09-boundary-utf8-packed-format-v1.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "passed",
+      "scope": "Current packed-state correction and its complete regression tests are formatted.",
+      "revision": "historical_before_ForceBit_correction"
+    },
+    {
+      "command": "/usr/bin/git diff --check",
+      "status": "passed",
+      "scope": "Current packed-state correction, outside sandbox, exit zero.",
+      "revision": "historical_before_ForceBit_correction"
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --test csharp_practical_vc -- -D warnings",
+      "log": "/tmp/mpk-w09-boundary-utf8-packed-clippy-v1.log",
+      "status": "passed",
+      "log_sha256": "9965bdf4886b3be022555cabbda6d7eb40af1e03efdffd80aaa9754b88cf23a2",
+      "revision": "historical_before_ForceBit_correction"
+    },
+    {
+      "command": "cargo test -p mpk-vc --lib csharp_03_t06_w09_utf8_packing_has_bounded_dependency_walk -- --nocapture",
+      "log": "/tmp/mpk-w09-boundary-utf8-packing-walk-v1.log",
+      "log_sha256": "bc5d36ca7748991e83c1e0f3199f059cfae606810e46500abdab9ca655745244",
+      "status": "passed",
+      "revision": "current_ForceBit_correction",
+      "scope": "One unit regression passed; expanded dependency visits 585, bound 4096. Measures the PackState DAG before Builder.finish to catch the previous exponential construction promptly."
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --test csharp_practical_vc -- -D warnings",
+      "log": "/tmp/mpk-w09-boundary-utf8-packed-clippy-v2.log",
+      "log_sha256": "37e5ad8b898262493eb88cf61e80aa17911392b4bbfa7b6d2614a39d81e4fe64",
+      "status": "passed",
+      "revision": "current_ForceBit_correction",
+      "scope": "Passed, 3m43s including build lock waits."
+    },
+    {
+      "session_id": 96976,
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_boundary_utf8_packed_state_releases_prior_storage -- --nocapture",
+      "log": "/tmp/mpk-w09-boundary-utf8-packed-state-v2.log",
+      "status": "passed",
+      "revision": "current_ForceBit_correction",
+      "log_sha256": "50c00ea18891b99c31a302573e0aebb25394b73312eb25563f75b5c3924c0cf7",
+      "scope": "66 constant/basis states across all 64 leaves; captured pending-bit environments released after first observation; unselected poisoned Mux branch released without forcing. Passed in 6.10s."
+    },
+    {
+      "command": "cargo fmt --all -- --check",
+      "log": "/tmp/mpk-w09-boundary-utf8-packed-format-v2.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "passed",
+      "revision": "current_ForceBit_correction"
+    },
+    {
+      "command": "/usr/bin/git diff --check",
+      "status": "passed",
+      "revision": "current_ForceBit_correction",
+      "scope": "Outside sandbox, exit zero."
+    },
+    {
+      "session_id": 92400,
+      "command": "MPK_W09_BOUNDARY_UTF8_OUT=/tmp/mpk-w09-boundary-utf8-v4 cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_boundary_utf8_original_sources -- --nocapture",
+      "log": "/tmp/mpk-w09-boundary-utf8-sources-v4.log",
+      "status": "passed",
+      "revision": "current_ForceBit_correction",
+      "log_sha256": "06b6148ed1d7c007dfcea5cc10fab9082ffee34d1ff0c8a1bbdc3e0dcec452c1",
+      "scope": "68 contexts, three nonempty certificates, source/import/context/metadata/hash mutation checks and empty-document observation passed in 104.21 seconds."
+    },
+    {
+      "session_id": 89946,
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "log": "/tmp/mpk-w09-boundary-utf8-packed-inventory-v1.log",
+      "status": "passed",
+      "revision": "current_ForceBit_correction",
+      "log_sha256": "ae1e7b79bd892d5dc7d2aff2f6768974565481ab20b805682b063118ab75a3be",
+      "scope": "All five inventory tests passed."
+    },
+    {
+      "session_id": 50834,
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_boundary_utf8_original_sources -- --nocapture",
+      "log": "/tmp/mpk-w09-boundary-utf8-replay-v4.log",
+      "status": "passed",
+      "revision": "current_ForceBit_correction",
+      "log_sha256": "85bc189c2f7a7b1bf66a966451ccf58b763414d054e1aa19e7dc2af3223e10b4",
+      "scope": "Exact 68-context and three-certificate pinned replay passed in 133.65 seconds."
+    },
+    {
+      "session_id": 91463,
+      "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIBoundaryUtf8$/^document-6b96fc4eed95a1d33fa5784b9062f02fa07ac65b6aef2b4100bb91e9c2f1a613[.]hex$' -count=1 -timeout 0 -v",
+      "cwd": "go-tools/mpk-checker-ref",
+      "log": "/tmp/mpk-w09-boundary-utf8-checkers-enospc-retry-v1.log",
+      "status": "passed",
+      "log_sha256": "f9e9f9d3b41b804051c76928d482927003027a009010a29192eb92f063b7b3a3",
+      "scope": "The ENOSPC-affected document-6b96fc4... case passed both same-byte checkers with zero axioms and hash-corruption rejection in 198.179s. Together with the two v4 passing cases this covers all three unchanged current pins; this is a union of runs, not a fresh full-suite pass."
+    },
+    {
+      "session_id": 20212,
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_boundary_utf8_semantics -- --nocapture",
+      "log": "/tmp/mpk-w09-boundary-utf8-semantics-v2.log",
+      "log_sha256": "a2e9b1f8db5bcf4c835ea052f0492a31810064ab82eb2393dc8d4b7d4f06d667",
+      "status": "passed",
+      "scope": "Historical unpacked revision: 2089 oracle cases plus three inactive-storage and three full-u32 cases passed in 8658.36s. Current packed revision remains separately running.",
+      "revision": "historical_unpacked_not_current_ForceBit"
+    }
+  ],
+  "failed_attempts": [
+    {
+      "logs": [
+        "/tmp/mpk-w09-boundary-utf8-sources-v1.log",
+        "/tmp/mpk-w09-boundary-utf8-semantics-v1.log",
+        "/tmp/mpk-w09-boundary-utf8-blocks-v1.log",
+        "/tmp/mpk-w09-boundary-utf8-full-v1.log"
+      ],
+      "status": "generation_limit_rejection",
+      "reason": "The first scan exhausted all 16384 counted transformers before circuit helpers. All four sessions returned exit 101. Corrected counted composition without changing limits, then started v2."
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_boundary_utf8_full_document_bound -- --nocapture",
+      "log": "/tmp/mpk-w09-boundary-utf8-full-v2.log",
+      "status": "terminated_sigkill_no_semantic_verdict",
+      "log_sha256": "cdacbb2304d7d9acdaf826586a48c3404d65d6a30028709796f54ec3486a9a85",
+      "reason": "Cargo reported child SIGKILL (signal 9) while the first full 1 MiB ASCII observation was running. The cause is not established by this log; this is not a deterministic semantic failure or passing full-bound evidence."
+    },
+    {
+      "command": "MPK_W09_BOUNDARY_UTF8_OUT=/tmp/mpk-w09-boundary-utf8-v3 cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_boundary_utf8_original_sources -- --nocapture",
+      "log": "/tmp/mpk-w09-boundary-utf8-sources-v3.log",
+      "session_id": 64643,
+      "status": "intentionally_interrupted_obsolete_exponential_dependency_walk",
+      "log_sha256": "96f7df3f8d7acff3cf87dc61e243c89b2edd48067442921a21a3149c86a6d693",
+      "reason": "Directly nested 64 duplicated Bool-rec bodies imply at least 2^64 visits in the unchanged dependency walker. Verified obsolete processes 9641, 9868 and 10761 were interrupted with SIGINT; terminal exits 101, 101 and 1 respectively. This is a generation defect, not a semantic verdict."
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_boundary_utf8_packed_state_releases_prior_storage -- --nocapture",
+      "log": "/tmp/mpk-w09-boundary-utf8-packed-state-v1.log",
+      "session_id": 83980,
+      "status": "intentionally_interrupted_obsolete_exponential_dependency_walk",
+      "log_sha256": "bce0dbd79d13b1e8ae8dfa03c3693758972bcff18966e0b0a471fb56f8c1d47b",
+      "reason": "Directly nested 64 duplicated Bool-rec bodies imply at least 2^64 visits in the unchanged dependency walker. Verified obsolete processes 9641, 9868 and 10761 were interrupted with SIGINT; terminal exits 101, 101 and 1 respectively. This is a generation defect, not a semantic verdict."
+    },
+    {
+      "command": "/usr/bin/time -l cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_boundary_utf8_full_document_bound -- --nocapture",
+      "log": "/tmp/mpk-w09-boundary-utf8-full-v3.log",
+      "session_id": 40910,
+      "status": "intentionally_interrupted_obsolete_exponential_dependency_walk",
+      "log_sha256": "969601259fe5c0224d0c70d9f9300ca05af284440dbe4d76bf36e127ac94b0fd",
+      "reason": "Directly nested 64 duplicated Bool-rec bodies imply at least 2^64 visits in the unchanged dependency walker. Verified obsolete processes 9641, 9868 and 10761 were interrupted with SIGINT; terminal exits 101, 101 and 1 respectively. This is a generation defect, not a semantic verdict."
+    },
+    {
+      "session_id": 7911,
+      "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIBoundaryUtf8$' -count=1 -timeout 0 -v",
+      "log": "/tmp/mpk-w09-boundary-utf8-checkers-v4.log",
+      "status": "failed_one_case_rust_cli_build_enospc_two_cases_passed",
+      "cwd": "go-tools/mpk-checker-ref",
+      "log_sha256": "055935dee59dcdb1e64916d935873aa40bcc6664320d491b66c7839b1e9bd873",
+      "scope": "Terminal exit 1, 1484.096s. document-6b96fc4... failed Rust CLI build due to ENOSPC, with no final checker-protocol verdict. document-7a157feb... and document-decb5507... passed same-byte zero-axiom and hash-corruption checks. Retry only the failed case against unchanged pins; record the union explicitly."
+    }
+  ],
+  "live_jobs": [
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_boundary_utf8_semantics -- --nocapture",
+      "log": "/tmp/mpk-w09-boundary-utf8-semantics-v2.log",
+      "status": "passed",
+      "session_id": 20212,
+      "scope": "Historical unpacked revision: 2089 oracle cases plus three inactive-storage and three full-u32 cases passed in 8658.36s. Current packed revision remains separately running.",
+      "log_sha256": "a2e9b1f8db5bcf4c835ea052f0492a31810064ab82eb2393dc8d4b7d4f06d667"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_boundary_utf8_block_boundaries -- --nocapture",
+      "log": "/tmp/mpk-w09-boundary-utf8-blocks-v2.log",
+      "status": "running_prior_unpacked_revision",
+      "session_id": 1841
+    },
+    {
+      "session_id": 66878,
+      "command": "/usr/bin/time -l cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_boundary_utf8_full_document_bound -- --nocapture",
+      "log": "/tmp/mpk-w09-boundary-utf8-full-v4.log",
+      "status": "running_current_ForceBit_revision"
+    },
+    {
+      "session_id": 40861,
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_boundary_utf8_semantics -- --nocapture",
+      "log": "/tmp/mpk-w09-boundary-utf8-semantics-v4.log",
+      "status": "running_current_ForceBit_revision"
+    },
+    {
+      "session_id": 20151,
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_boundary_utf8_block_boundaries -- --nocapture",
+      "log": "/tmp/mpk-w09-boundary-utf8-blocks-v4.log",
+      "status": "running_current_ForceBit_revision"
+    }
+  ],
+  "remaining": [
+    "Complete semantic, boundary and full-capacity execution; exact 68-context pin replay; three same-byte dual-checker cases; scoped direct review.",
+    "Implement strict JSON grammar/typed fields, source/native/control/transition relations, registered results and universal application proofs; complete original internal units 3–8 and W09 exit gate.",
+    "No component-only commit or W09 completion. Full check-fast.sh gate deferred to T06-W12."
+  ],
+  "manifest": {
+    "path": "develop/migrations/csharp-03/ordinary-foundation/boundary-utf8/certificates.json",
+    "sha256": "53d49c61a8e97812f8187f55f7ffefcad01e7d555c8cc19fefe76d25f5fc9bff",
+    "contexts_examined": 68,
+    "nonempty_contexts": 3,
+    "terms_per_certificate": 88486,
+    "declarations_per_certificate": 859,
+    "static_transformers_per_certificate": 8994
+  },
+  "previous_unpacked_files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_boundary_utf8.rs",
+      "sha256": "8f29da4c90577335cb83cf980ecde619ab3bf0d3150a740e98046ab274f8b1fd"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_boundary_document.rs",
+      "sha256": "88aebab1200bcaa5929ad6efb3eea6176d0a434ffce1be5cf8418aa4b95348d1"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_boundary_utf8_tests.rs",
+      "sha256": "05898b114a32840c8f89b14734eef5850f15b72762a18ab4d3186d72b4f897a9"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_boundary_document_tests.rs",
+      "sha256": "f7342bc22b1a355212cef5a8924e399efe94bbb4e7afa211f4403db619f546cb"
+    }
+  ],
+  "state_packing_correction": {
+    "reason": "Review identified that pointwise Mux closures retain their old-state branch and raw circuit state. Ordinary PackState/SealState definitions now materialize all 64 state leaves in a closed Bool-argument environment after every step and composition.",
+    "scope": "No capacity reduction, observer change, function-valued Bool recursor, counter reset or checker rule. Both concrete SealState occurrences count toward the same static budget.",
+    "validation": "New tests preserve 66 basis/constant states (all 64 leaves), observe release of captured old bit environments after one output leaf, and observe release of an unselected poisoned Mux branch without forcing it. Full 1 MiB verification must pass on this revision.",
+    "pin_status": "Current ForceBit pins installed from passing generation v4; previous three certificates and manifest retained in boundary-utf8/previous-unpacked. packing-correction.json records both file hashes. Exact pinned replay and both checkers remain live.",
+    "build_note": "Final ForceBit generation v4 and full bound v4 progressed past the initial loader wait without restart. Full-bound execution reached the first 1 MiB ASCII case. Packing regression v2 passed. Current short semantic and boundary suites started separately; old in-flight suites remain prior-revision evidence.",
+    "dependency_walk_correction": "ForceBit isolates duplicated Bool-rec branches behind a declaration boundary. PackState invokes ForceBit with each body subtree once, avoiding exponential dependency traversal without changing either checker or the observer. The pre-finish unit regression measures 585 expanded visits."
+  },
+  "startup_observation": {
+    "path": "/tmp/mpk-w09-boundary-utf8-startup-sample-v1.txt",
+    "sha256": "a60b5820474df975df39c6dda2738f78b8ad525deac9793f473e9594a6891823",
+    "scope": "One-second sample of live generation PID 15033 showed _dyld_start only. No cause inferred; existing processes progressed without restart."
+  },
+  "previous_unpacked_manifest": {
+    "path": "develop/migrations/csharp-03/ordinary-foundation/boundary-utf8/previous-unpacked/certificates.json",
+    "sha256": "20aae0638ae680f0dcbd6368069fcbedbe15323cc17d07ab0dd1b009b1872931",
+    "contexts_examined": 68,
+    "nonempty_contexts": 3,
+    "terms_per_certificate": 88146,
+    "declarations_per_certificate": 856,
+    "static_transformers_per_certificate": 8992
+  },
+  "checker_infrastructure_note": "Resolved: v4 passed two cases; the sole ENOSPC-affected case passed in checkers-enospc-retry-v1. All three current pins have same-byte zero-axiom/hash-corruption evidence across these runs. Full semantic/boundary/capacity evidence remains incomplete."
+}

@@ -1,0 +1,149 @@
+{
+  "schema": "mpk.csharp_practical.w09.definedness_clauses_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_units": [
+    3,
+    4
+  ],
+  "status": "integer_contract_definedness_targeted_verification_passed",
+  "implementation": [
+    "Standalone source public clauses retain their original value and optional separate definedness_definition,with the same exact expression/attachment/source/VIR identities.",
+    "Definedness is lowered from the canonical W03 term,not reconstructed as a stricter unconditional conjunction. Conditional branches and lexical lets retain their original meaning.",
+    "Supported integer checks match complete scalar signatures and reuse existing disjoint overflow/division-by-zero failure functions. No scalar-circuit change or general mapping of overlapping failures.",
+    "All three public consumers refuse partial clauses pending the original use-point obligation owner;no failure-zero admission or silent PublicDomain strengthening.",
+    "All old total metadata omits the optional field and retains exact bytes."
+  ],
+  "verification": [
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/definedness-clauses/mpk-w09-definedness-build-v1.log",
+      "sha256": "da2cf465444f7d15c8e38ec2540a41a638ba19fe46b8c6eadfbc061052a0fc7e",
+      "scope_and_selection_reason": "Affected library compilation;10.89s."
+    },
+    {
+      "status": "failed_test_compile_corrected",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/definedness-clauses/mpk-w09-definedness-requests-v1.log",
+      "sha256": "54794cc0c4660036ef56b81a387a1b76d91f8220a2bc8b2fdbe71a34733cf5bd",
+      "scope_and_selection_reason": "Test referenced a nonexistent field.type_id;corrected the assertion to the actual Reference shape."
+    },
+    {
+      "status": "failed_test_input_corrected",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/definedness-clauses/mpk-w09-definedness-source-v1.log",
+      "sha256": "e2c450eb69fedb27b2197250321791a5c0fb12560c41c2d92c3f8590183a8fd7",
+      "scope_and_selection_reason": "Unordered JSON fixture correctly rejected during source contract import."
+    },
+    {
+      "status": "failed_test_input_corrected",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/definedness-clauses/mpk-w09-definedness-input-types-v1.log",
+      "sha256": "fbb7d0a7802e647628974818c5758f7c897f06fa934572d351110aec4bf7979e",
+      "scope_and_selection_reason": "Per-expression diagnostic identified the same frozen field-order violation;no production importer relaxation."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/definedness-clauses/mpk-w09-definedness-inputs-v2.log",
+      "sha256": "a93d413d9e2e34b5d9c8e84a6e1a166e547154c172c34d7b979740a1a32d4e18",
+      "scope_and_selection_reason": "Nine corrected canonical expression types and exact request construction;two tests0.32s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/definedness-clauses/mpk-w09-definedness-capture-v2.log",
+      "sha256": "b54783e7f03a494ff5bd47f4478ef297095ffb7feeb71eefcecd239ae331398b",
+      "scope_and_selection_reason": "Fresh corrected source/sidecar context;both hash-pinned isolated compiler/source processes exited0 with empty stdout/stderr."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/definedness-clauses/mpk-w09-definedness-source-v2.log",
+      "sha256": "1ba623af980ae88d56063bcefe22d7098605071be46ee6f5b0e97604800bebbf",
+      "scope_and_selection_reason": "81 source value/definedness boundary cases with expression-hash linkage,normal-value-only observations,three public-consumer rejection checks,exact import and removal mutation;106.22s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/definedness-clauses/mpk-w09-definedness-preservation-v1.log",
+      "sha256": "9ee60792490159ac848e527d05b2ec3f1839f836d91ed3cd04a83002f2657cd3",
+      "scope_and_selection_reason": "Affected prior structural and total source/public/integrated consumers;old metadata,all definition closures and bytes unchanged;two tests4.98s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/definedness-clauses/mpk-w09-definedness-clippy-v1.log",
+      "sha256": "334f9499ad3b226b5b48633f522ac75d6cc0a663133ff46415cb7e04cc1cd06c",
+      "scope_and_selection_reason": "Affected library/integration lint;31.97s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/definedness-clauses/mpk-w09-definedness-format-v1.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "scope_and_selection_reason": "Changed source and integration-test formatting."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/definedness-clauses/mpk-w09-definedness-checkers-v1.log",
+      "sha256": "810177e59e9f4082835003065a923e8b7c23c10a3910cdcf723420cd2c9a6f7d",
+      "scope_and_selection_reason": "Only the new554215-byte candidate;both unchanged checkers accept identical bytes with zero axioms and reject actual hash corruption;80.954s. Exact PASS set,current hash,size and program metadata reconciled against the tested output."
+    },
+    {
+      "status": "expected_new_reference_detected",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/definedness-clauses/mpk-w09-definedness-inventory-v1.log",
+      "sha256": "7887c8d75086dd73c0ee46d13a49ee29aca500d812d28e06814430c8fe6990d2",
+      "scope_and_selection_reason": "Found one new Std. namespace consumer in the source-clause compiler;125 paths versus124."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/definedness-clauses/mpk-w09-definedness-inventory-update-v1.log",
+      "sha256": "45d2e70a9328f5da1cb2096f98d7e8b5c25259bc8795c7c0ef64b5edf6ff47c4",
+      "scope_and_selection_reason": "Asserted exact previous124-path fingerprint after excluding only the new source-clause file;updated that fixture,aggregate4947->4948 and dependent inventory hash."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/definedness-clauses/mpk-w09-definedness-inventory-v2.log",
+      "sha256": "dc29c0d9cb88f958b7c9d0365957aec37d899a56454d0a3abf5e8410b1859cfd",
+      "scope_and_selection_reason": "Artifact-consumer closure after the audited single-reference update. 15.91s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/definedness-clauses/mpk-w09-definedness-pinned-request-v1.log",
+      "sha256": "2f6389bb4fc308b294a652e3bae5081594000b450bb76878c093370c16f0da35",
+      "scope_and_selection_reason": "Exact newly published request replay;0.05s. Published program/certificate bytes separately compared exactly with the already-tested outputs,without repeating the81 unchanged semantic cases."
+    },
+    {
+      "status": "passed",
+      "commands": [
+        "/usr/bin/git diff --check",
+        "Scoped rustfmt --check including the changed inventory assertion",
+        "gofmt -l go-tools/mpk-checker-ref/checker_agreement_test.go",
+        "Recompute all retained verification-log SHA256 values"
+      ],
+      "scope_and_selection_reason": "Final whitespace/format and evidence-integrity checks after documentation and the single-reference inventory correction;no findings."
+    }
+  ],
+  "candidates": {
+    "directory": "definedness-clauses",
+    "count": 1,
+    "source_expressions": 9,
+    "source_cases": 81,
+    "terms": 47803,
+    "declarations": 644,
+    "certificate_sha256": "7f2fd3bf83aee031673776f8430a932651c8c1343002805aa8cc5c3ee8c8804b",
+    "size_bytes": 554215,
+    "same_byte_checkers": "both passed;exact names,hash,size,metadata and tested output bytes reconciled"
+  },
+  "inventory_delta": {
+    "only_added_path": "crates/mpk-vc/src/csharp_practical_ordinary_source_clauses.rs",
+    "old_count": 124,
+    "old_paths_sha256": "8deb188c93775b1fd757ab74f2ddc036e22879472734a17cd7ae3fe5aaa38eaf",
+    "new_count": 125,
+    "new_paths_sha256": "29f46ae283165d65cbdeda315138f657456418f1eff83926abe9dc8bb001a1f6",
+    "old_aggregate": 4947,
+    "new_aggregate": 4948
+  },
+  "live_jobs": [],
+  "pending": [
+    "Other partial/quantified recipes and original use-point definedness discharge;native/control,transition/replay,application proofs and original internal-unit acceptance."
+  ],
+  "whole_gate": "Deferred to T06-W12;no check-fast or equivalent full gate.",
+  "commit": "No component-only commit;original approved internal units remain incomplete.",
+  "review": "unit-4-definedness-clauses-review.md",
+  "goal_turn_classification": "Progress:separate ordinary W03 integer definedness now compiles from exact captured source and passes scoped validation. W09 remains open.",
+  "follow_up_components": {
+    "implicit_partial_reads": "unit-4-partial-read-clauses-progress.json"
+  }
+}

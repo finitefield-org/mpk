@@ -1,0 +1,333 @@
+[
+  {
+    "family": "json-values",
+    "candidates": {
+      "document-7a157feb27ed416752b5dde8aa2bf373b9a2c82755d2caa89e955057176ee57b.hex": "d72de56db210afb8b6cb092a521901fd2fec341d3e16027e92b1b94fb0caa861",
+      "document-decb5507362a7672c711a5befd63efc1038c2c0a86ee20137a1c4c472e0d1684.hex": "93cbf04030372263c4b1fb3aaf5b60d4d02720a528c553b6d244286f7576b57f"
+    },
+    "command": [
+      "go",
+      "test",
+      "-timeout",
+      "0",
+      "-tags",
+      "checkeragreement",
+      "-run",
+      "^TestCheckerAgreementWithRustCLIJsonValues$/^(document-7a157feb27ed416752b5dde8aa2bf373b9a2c82755d2caa89e955057176ee57b|document-decb5507362a7672c711a5befd63efc1038c2c0a86ee20137a1c4c472e0d1684)\\.hex$",
+      "-count=1",
+      "-v"
+    ],
+    "exit_code": 0,
+    "seconds": 404.07,
+    "log": "/tmp/mpk-w09-json-cell-count-checkers-json-values-v1.log",
+    "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-cell-count/mpk-w09-json-cell-count-checkers-json-values-v1.log",
+    "log_sha256": "8248950fbbdab16dff73adde37fa244c1dfaed3c4127abb6bc0a889752a271d4"
+  },
+  {
+    "family": "json-products",
+    "candidates": {
+      "calendar-date-time-decimal.hex": "560450aaa53f546dbca907bafdc126800864608b7241008642af972f5c6ba880",
+      "calendar-date-time.hex": "d07f27b8fb1f7d67ad4ae89e5c4497235ffccea6a8dcec77f318b3f883a8e477",
+      "calendar-date.hex": "cf42686953ed7a79a03f1c849bf2378fa17ae5a9160db13d31cd7f9bd075f0a1",
+      "calendar-time.hex": "c2646202b78963f4837a3354dfd598478f7ac00f91427688846d3aa354705ba7",
+      "document-6b96fc4eed95a1d33fa5784b9062f02fa07ac65b6aef2b4100bb91e9c2f1a613.hex": "212ac4ef348f0cd5aa603d5e19b22855bad0c237b9501d72c047922ddeeb64ca",
+      "document-7a157feb27ed416752b5dde8aa2bf373b9a2c82755d2caa89e955057176ee57b.hex": "62804be475744a3a4b9c157c59fc7070a6260f0f845c7f336fff2cf9e368f328",
+      "document-decb5507362a7672c711a5befd63efc1038c2c0a86ee20137a1c4c472e0d1684.hex": "971d890b60578c4be84480b839c02f198b22c79a3c39972888d207af750f25bb"
+    },
+    "command": [
+      "go",
+      "test",
+      "-timeout",
+      "0",
+      "-tags",
+      "checkeragreement",
+      "-run",
+      "^TestCheckerAgreementWithRustCLIJsonProducts$/^(calendar-date-time-decimal|calendar-date-time|calendar-date|calendar-time|document-6b96fc4eed95a1d33fa5784b9062f02fa07ac65b6aef2b4100bb91e9c2f1a613|document-7a157feb27ed416752b5dde8aa2bf373b9a2c82755d2caa89e955057176ee57b|document-decb5507362a7672c711a5befd63efc1038c2c0a86ee20137a1c4c472e0d1684)\\.hex$",
+      "-count=1",
+      "-v"
+    ],
+    "exit_code": 1,
+    "seconds": 2865.61,
+    "log": "/tmp/mpk-w09-json-cell-count-checkers-json-products-v1.log",
+    "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-cell-count/mpk-w09-json-cell-count-checkers-json-products-v1.log",
+    "log_sha256": "697ca3747c0ba4b6220a1aa64e51ad051a6ba1bfca81fade0aa40307191f69fa"
+  },
+  {
+    "family": "json-products",
+    "candidates": {
+      "calendar-date-time.hex": "d07f27b8fb1f7d67ad4ae89e5c4497235ffccea6a8dcec77f318b3f883a8e477"
+    },
+    "command": [
+      "go",
+      "test",
+      "-timeout",
+      "0",
+      "-tags",
+      "checkeragreement",
+      "-run",
+      "^TestCheckerAgreementWithRustCLIJsonProducts$/^(calendar\\-date\\-time\\.hex)$",
+      "-count=1",
+      "-v"
+    ],
+    "exit_code": 0,
+    "process_exit_code": 0,
+    "passed_files": [
+      "calendar-date-time.hex"
+    ],
+    "seconds": 804.68,
+    "log": "/tmp/mpk-w09-json-cell-count-checkers-json-products-v2.log",
+    "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-cell-count/mpk-w09-json-cell-count-checkers-json-products-v2.log",
+    "log_sha256": "8ab52b9ec445cb184b9e7703be120a13e96a555d7be0fdda3b32d3c6d5a79978"
+  },
+  {
+    "family": "json-product-nested",
+    "candidates": {
+      "empty.hex": "7205adf8f5e0906a083f8b1e77502e925952d17d54fc25ef2502d4d45aa7a3c8",
+      "nested.hex": "cdb5642d0b39942176a5797f709ec551f3b022b53966050015fb1f46bd35dccc"
+    },
+    "command": [
+      "go",
+      "test",
+      "-timeout",
+      "0",
+      "-tags",
+      "checkeragreement",
+      "-run",
+      "^TestCheckerAgreementWithRustCLIJsonProductNested$/^(empty\\.hex|nested\\.hex)$",
+      "-count=1",
+      "-v"
+    ],
+    "exit_code": 0,
+    "process_exit_code": 0,
+    "passed_files": [
+      "empty.hex",
+      "nested.hex"
+    ],
+    "seconds": 484.35,
+    "log": "/tmp/mpk-w09-json-cell-count-checkers-json-product-nested-v2.log",
+    "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-cell-count/mpk-w09-json-cell-count-checkers-json-product-nested-v2.log",
+    "log_sha256": "c0730fc6cc953013cf5e4d9484ffb7191f92af30e47e8fd3f355932322806216"
+  },
+  {
+    "family": "json-sequences",
+    "candidates": {
+      "source-arrays.hex": "ed891381a857baf1d70adf4b8e8f20f55cec623756a6bacb79659ca072e62334"
+    },
+    "command": [
+      "go",
+      "test",
+      "-timeout",
+      "0",
+      "-tags",
+      "checkeragreement",
+      "-run",
+      "^TestCheckerAgreementWithRustCLIJsonSequences$/^(source\\-arrays\\.hex)$",
+      "-count=1",
+      "-v"
+    ],
+    "exit_code": 0,
+    "process_exit_code": 0,
+    "passed_files": [
+      "source-arrays.hex"
+    ],
+    "seconds": 550.4,
+    "log": "/tmp/mpk-w09-json-cell-count-checkers-json-sequences-v2.log",
+    "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-cell-count/mpk-w09-json-cell-count-checkers-json-sequences-v2.log",
+    "log_sha256": "7ed925bac64cab06770fa0633e0cdbc6d5fb3e1715dbe7ddd00195e1ab46413a"
+  },
+  {
+    "family": "json-sums",
+    "candidates": {
+      "all-sums.hex": "16c49cedf355563e2b1ddbe242acdae6a3292c7f8fe40b83cfbc93da91e66cd2"
+    },
+    "command": [
+      "go",
+      "test",
+      "-timeout",
+      "0",
+      "-tags",
+      "checkeragreement",
+      "-run",
+      "^TestCheckerAgreementWithRustCLIJsonSums$/^(all\\-sums\\.hex)$",
+      "-count=1",
+      "-v"
+    ],
+    "exit_code": 0,
+    "process_exit_code": 0,
+    "passed_files": [
+      "all-sums.hex"
+    ],
+    "seconds": 404.25,
+    "log": "/tmp/mpk-w09-json-cell-count-checkers-json-sums-v2.log",
+    "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-cell-count/mpk-w09-json-cell-count-checkers-json-sums-v2.log",
+    "log_sha256": "f678ebc2ac3daa33a61cb7c512c41487d571e3409d3c23f03ac81af9e4540980"
+  },
+  {
+    "family": "json-ordered",
+    "candidates": {
+      "compound.hex": "7e755f6ad9e3a724bf9ae6919b5b2154868ca49eece48eab55c69415bc464acb",
+      "decimal.hex": "bbdabe5513433da33bc60a654ac4f71193e4161a7193437b8a7606900aa51c65",
+      "integer.hex": "b736abd53e1f06b31a2ca9db6d7be49237b6bd5beccc304c6960bfb790936bed",
+      "string.hex": "f9223dbcefa68a02ec69136e88a77f328dd40eb6a6b0bf0de525b72b3470a1e3"
+    },
+    "command": [
+      "go",
+      "test",
+      "-timeout",
+      "0",
+      "-tags",
+      "checkeragreement",
+      "-run",
+      "^TestCheckerAgreementWithRustCLIJsonOrdered$/^(compound\\.hex|decimal\\.hex|integer\\.hex|string\\.hex)$",
+      "-count=1",
+      "-v"
+    ],
+    "exit_code": 0,
+    "process_exit_code": 0,
+    "passed_files": [
+      "compound.hex",
+      "decimal.hex",
+      "integer.hex",
+      "string.hex"
+    ],
+    "seconds": 3765.26,
+    "log": "/tmp/mpk-w09-json-cell-count-checkers-json-ordered-v2.log",
+    "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-cell-count/mpk-w09-json-cell-count-checkers-json-ordered-v2.log",
+    "log_sha256": "9fe067b1cceb15aa0b970e4b7053d07cae00bac044b183ea904f27e7d547f5d8"
+  },
+  {
+    "family": "json-transition",
+    "candidates": {
+      "compound.hex": "d7a3b3c4c7c0623a5387155ce77335eecdfde95f6cbab489d0582d94d08a5517",
+      "scalar-map.hex": "49a39b060b67d1b72c3b0356a488144de603e4c53ca6bbc358c45706e64402e0"
+    },
+    "command": [
+      "go",
+      "test",
+      "-timeout",
+      "0",
+      "-tags",
+      "checkeragreement",
+      "-run",
+      "^TestCheckerAgreementWithRustCLIJsonTransition$/^(compound\\.hex|scalar\\-map\\.hex)$",
+      "-count=1",
+      "-v"
+    ],
+    "exit_code": 0,
+    "process_exit_code": 0,
+    "passed_files": [
+      "compound.hex",
+      "scalar-map.hex"
+    ],
+    "seconds": 925.45,
+    "log": "/tmp/mpk-w09-json-cell-count-checkers-json-transition-v2.log",
+    "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-cell-count/mpk-w09-json-cell-count-checkers-json-transition-v2.log",
+    "log_sha256": "50f92163e9b1acc56c51a207e71ca0b68ea310870ccdf2e3a2d48f53837f45a9"
+  },
+  {
+    "family": "json-semantic-products",
+    "candidates": {
+      "money-entry.hex": "b50ed06b3dd6ff97c1e9d0406d877a2c6575ff40c14477fe3a42adbcc2ab4e27"
+    },
+    "command": [
+      "go",
+      "test",
+      "-timeout",
+      "0",
+      "-tags",
+      "checkeragreement",
+      "-run",
+      "^TestCheckerAgreementWithRustCLIJsonSemanticProducts$/^(money\\-entry\\.hex)$",
+      "-count=1",
+      "-v"
+    ],
+    "exit_code": 0,
+    "process_exit_code": 0,
+    "passed_files": [
+      "money-entry.hex"
+    ],
+    "seconds": 312.52,
+    "log": "/tmp/mpk-w09-json-cell-count-checkers-json-semantic-products-v2.log",
+    "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-cell-count/mpk-w09-json-cell-count-checkers-json-semantic-products-v2.log",
+    "log_sha256": "cc76b72250dd5d657e42cf0d3c416bce9c3da28af10329ef758c3780756b7bdb"
+  },
+  {
+    "family": "json-enums",
+    "candidates": {
+      "all-underlying.hex": "37267f505e8738e1ebbe906f27a75f6db8471d4abde354f1b12809e94ec3e45d"
+    },
+    "command": [
+      "go",
+      "test",
+      "-timeout",
+      "0",
+      "-tags",
+      "checkeragreement",
+      "-run",
+      "^TestCheckerAgreementWithRustCLIJsonEnums$/^(all\\-underlying\\.hex)$",
+      "-count=1",
+      "-v"
+    ],
+    "exit_code": 1,
+    "process_exit_code": 1,
+    "passed_files": [],
+    "seconds": 314.03,
+    "log": "/tmp/mpk-w09-json-cell-count-checkers-json-enums-v2.log",
+    "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-cell-count/mpk-w09-json-cell-count-checkers-json-enums-v2.log",
+    "log_sha256": "0a2a3f5e072c7c485176da49273f7dc51bf3dbbe364a51e449a4e7353124bd88"
+  },
+  {
+    "family": "json-enums",
+    "candidates": {
+      "all-underlying.hex": "37267f505e8738e1ebbe906f27a75f6db8471d4abde354f1b12809e94ec3e45d"
+    },
+    "command": [
+      "go",
+      "test",
+      "-timeout",
+      "0",
+      "-tags",
+      "checkeragreement",
+      "-run",
+      "^TestCheckerAgreementWithRustCLIJsonEnums$/^(all\\-underlying\\.hex)$",
+      "-count=1",
+      "-v"
+    ],
+    "exit_code": 0,
+    "process_exit_code": 0,
+    "passed_files": [
+      "all-underlying.hex"
+    ],
+    "seconds": 429.45,
+    "log": "/tmp/mpk-w09-json-cell-count-checkers-json-enums-v3.log",
+    "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-cell-count/mpk-w09-json-cell-count-checkers-json-enums-v3.log",
+    "log_sha256": "cec6fdaf973c736079c25b2bc1d59c20b02d6269d9d84c7419468f1305b86dd2"
+  },
+  {
+    "family": "json-builtins",
+    "candidates": {
+      "day-error.hex": "0a8acfc29012fc868f1f0e36ddc1d04ede919eac167e40a02e6489d8ed9774ef"
+    },
+    "command": [
+      "go",
+      "test",
+      "-timeout",
+      "0",
+      "-tags",
+      "checkeragreement",
+      "-run",
+      "^TestCheckerAgreementWithRustCLIJsonBuiltins$/^(day\\-error\\.hex)$",
+      "-count=1",
+      "-v"
+    ],
+    "exit_code": 0,
+    "process_exit_code": 0,
+    "passed_files": [
+      "day-error.hex"
+    ],
+    "seconds": 299.53,
+    "log": "/tmp/mpk-w09-json-cell-count-checkers-json-builtins-v2.log",
+    "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-cell-count/mpk-w09-json-cell-count-checkers-json-builtins-v2.log",
+    "log_sha256": "1d3aaf9263937f1acbeec458e0d25c65fde66059f621e819c790f85fcca3bc55"
+  }
+]

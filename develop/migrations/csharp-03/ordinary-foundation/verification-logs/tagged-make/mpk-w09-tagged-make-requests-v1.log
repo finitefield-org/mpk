@@ -1,0 +1,12 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error[E0308]: mismatched types
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_tagged_make_tests.rs:268:26
+    |
+268 |                 payload: payload.map(Box::new),
+    |                          ^^^^^^^^^^^^^^^^^^^^^ expected `Vec<MonomorphicValue>`, found `Option<Box<MonomorphicValue>>`
+    |
+    = note: expected struct `Vec<mpk_vc::csharp_practical_vir_model::MonomorphicValue>`
+                 found enum `std::option::Option<Box<mpk_vc::csharp_practical_vir_model::MonomorphicValue>>`
+
+For more information about this error, try `rustc --explain E0308`.
+error: could not compile `mpk-vc` (test "csharp_practical_vc") due to 1 previous error

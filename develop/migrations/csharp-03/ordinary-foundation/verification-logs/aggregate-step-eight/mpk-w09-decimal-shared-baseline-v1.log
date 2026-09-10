@@ -1,0 +1,33 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error[E0364]: `emit_parser` is private, and cannot be re-exported
+    --> crates/mpk-vc/src/csharp_practical_ordinary_scalar_bits.rs:1302:16
+     |
+1302 | pub(super) use decimal_parse::emit_parser as emit_decimal_parsers_for_shared_test;
+     |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+     |
+note: consider marking `emit_parser` as `pub` in the imported module
+    --> crates/mpk-vc/src/csharp_practical_ordinary_scalar_bits.rs:1302:16
+     |
+1302 | pub(super) use decimal_parse::emit_parser as emit_decimal_parsers_for_shared_test;
+     |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0603]: function import `emit_decimal_parsers_for_shared_test` is private
+    --> crates/mpk-vc/src/csharp_practical_ordinary_aggregate_fold.rs:305:33
+     |
+ 305 |             emit_boundary_json, emit_decimal_parsers_for_shared_test,
+     |                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ private function import
+     |
+note: the function import `emit_decimal_parsers_for_shared_test` is defined here...
+    --> crates/mpk-vc/src/csharp_practical_ordinary_scalar_bits.rs:1302:16
+     |
+1302 | pub(super) use decimal_parse::emit_parser as emit_decimal_parsers_for_shared_test;
+     |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+note: ...and refers to the function `emit_parser` which is defined here
+    --> crates/mpk-vc/src/csharp_practical_ordinary_decimal_parse.rs:361:1
+     |
+ 361 | pub(super) fn emit_parser(b: &mut Builder) -> R<Vec<OrdinaryDecimalParseDefinition>> {
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Some errors have detailed explanations: E0364, E0603.
+For more information about an error, try `rustc --explain E0364`.
+error: could not compile `mpk-vc` (lib test) due to 2 previous errors

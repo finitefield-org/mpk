@@ -1,0 +1,31 @@
+    Blocking waiting for file lock on build directory
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error[E0425]: cannot find function `validate_csharp_practical_certificate_structure` in this scope
+   --> crates/mpk-vc/src/csharp_practical_ordinary_source_clauses.rs:597:9
+    |
+597 |           validate_csharp_practical_certificate_structure(&cert).unwrap();
+    |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+   ::: crates/mpk-vc/src/csharp_practical_ordinary_structural.rs:418:1
+    |
+418 | / pub fn generate_csharp_practical_ordinary_structural(
+419 | |     vir: &ValidatedPracticalVir,
+420 | | ) -> R<OrdinaryStructuralProgram> {
+421 | |     let layouts = generate_csharp_practical_ordinary_carriers(vir)?;
+...   |
+446 | |     Ok(p)
+447 | | }
+    | |_- similarly named function `generate_csharp_practical_ordinary_structural` defined here
+    |
+help: a function with a similar name exists
+    |
+597 -         validate_csharp_practical_certificate_structure(&cert).unwrap();
+597 +         generate_csharp_practical_ordinary_structural(&cert).unwrap();
+    |
+help: consider importing this function
+    |
+434 +     use crate::csharp_practical_vc_model::validate_csharp_practical_certificate_structure;
+    |
+
+For more information about this error, try `rustc --explain E0425`.
+error: could not compile `mpk-vc` (lib test) due to 1 previous error

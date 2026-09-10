@@ -1,0 +1,23 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.money_source_capture.v1",
+  "requests": "requests.json",
+  "responses": "responses.json",
+  "source_origin": "original MoneyCases.Envelope identity root containing source StringMoney and EnumMoney with content-bound money bindings",
+  "request_generator": "csharp_03_t06_w09_money_source_requests",
+  "capture_command": "./scripts/build-csharp-practical-frontend.sh --test-control-emission-requests",
+  "environment": "existing mpk-java-t10-gate:local Linux amd64 image; read-only repository; network disabled; frozen frontend build-input validation",
+  "determinism": "control-emission harness captures each request twice and compares bytes",
+  "accepted": 1,
+  "rejected": 0,
+  "application_vc_proof": false,
+  "files": [
+    {
+      "path": "requests.json",
+      "sha256": "660ca61dc4e9327858f0528370d33b01efcfb9675b536ce901e356f2b3b2f48a"
+    },
+    {
+      "path": "responses.json",
+      "sha256": "7b3e974aeb01536bec5c75031ab3ecaef055acd2fbf183c5d4896d96b7073673"
+    }
+  ]
+}

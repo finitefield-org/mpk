@@ -1,0 +1,151 @@
+{
+  "schema": "mpk.csharp_practical.w09.json_quoted_scalars_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "quoted_scalar_semantics_verified_structural_checker_inputs_superseded",
+  "implementation": "Quoted char/i64/u64/duration/instant use the existing complete string frame. Char requires exactly one decoded UTF-16 unit; surrogate units remain values while a surrogate pair is two units. Integer codecs parse an exact interior byte slice with whole-consumption and range checks, preserving rejection of plus, leading zero, negative zero and overflow. Complete frame validity independently owns canonical JSON, quotes, original bounds and delimiter existence. Colon is rejected for all semantic value parsers. Duration/instant use the frozen signed-64 encoding. No aggregate scan or extra collection pipeline is introduced.",
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_tokens.rs",
+      "sha256": "fbc81c9fae4b9519d9fb2b8e2b8cae17674b67f75407a162bf929a7c3ce03431"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_token_tests.rs",
+      "sha256": "4770637584643473c1ef9af82f5ec75462832da262bbac0b1d5d884409b5595a"
+    }
+  ],
+  "verification": [
+    {
+      "session_id": 33013,
+      "log": "/tmp/mpk-w09-quoted-scalars-suite-v1.log",
+      "status": "passed",
+      "scope": "All three selected tests passed in 524.57s: 68 JSON contexts, 70 all-128-bit quoted scalar cases and four actual-source structural/boundary contexts with complete component closure, import/mutations and limits.",
+      "exit_code": 0,
+      "log_sha256": "4351fdfbaf8ba5217ec3df07ddb0a9c32c530d7cff79d4eeffb431e6d9631a64",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quoted-scalars/mpk-w09-quoted-scalars-suite-v1.log"
+    },
+    {
+      "session_id": 49766,
+      "log": "/tmp/mpk-w09-quoted-scalars-clippy-v1.log",
+      "status": "passed",
+      "scope": "Targeted clippy passed with warnings denied in 27.78s.",
+      "exit_code": 0,
+      "log_sha256": "fc0f40742d9f48db575447465618a1ae4da99301e24dfad0cda1cb2124c77ca2",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quoted-scalars/mpk-w09-quoted-scalars-clippy-v1.log"
+    },
+    {
+      "session_id": 19678,
+      "log": "/tmp/mpk-w09-quoted-scalars-consumers-v1.log",
+      "status": "passed",
+      "scope": "Two affected consumer-edge tests passed in 16.82s; three unrelated cases filtered.",
+      "exit_code": 0,
+      "log_sha256": "7c5ba83833dd5fe2aebada092d89f67740370ea5d02080166bf997877c9b2cf0",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quoted-scalars/mpk-w09-quoted-scalars-consumers-v1.log"
+    },
+    {
+      "session_id": 52959,
+      "log": "/tmp/mpk-w09-quoted-scalars-shared-v1.log",
+      "status": "passed",
+      "exit_code": 0,
+      "scope": "Full collection/shared JSON generation and exact standalone shared-emitter bytes passed in 2.75s. Cumulative transformers 12979, below unchanged 16384 limit.",
+      "log_sha256": "741022f2d9989122633c857ac87af4be593657faf229caa4538fa721a1027774",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quoted-scalars/mpk-w09-quoted-scalars-shared-v1.log"
+    },
+    {
+      "session_id": 95324,
+      "log": "/tmp/mpk-w09-quoted-scalars-token-checkers-v1.log",
+      "status": "passed",
+      "scope": "All three JSON source byte vectors were explicitly equal; their representative passed both checkers with zero axioms and hash-corruption rejection in 63.44s.",
+      "exit_code": 0,
+      "log_sha256": "b4e94a8af545c8d96bad7ab46848516ca529cb02ce2bfffb04bddbd0caaafe97",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quoted-scalars/mpk-w09-quoted-scalars-token-checkers-v1.log"
+    },
+    {
+      "session_id": 93708,
+      "log": "/tmp/mpk-w09-quoted-scalars-shared-checkers-v1.log",
+      "status": "passed",
+      "scope": "Distinct full collection/shared JSON certificate passed both checkers with zero axioms and actual hash-corruption rejection in 63.80s.",
+      "exit_code": 0,
+      "log_sha256": "7d01b97b8c2d569673ac233ff542d30a3104903157160279d33112f1a794dccb",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quoted-scalars/mpk-w09-quoted-scalars-shared-checkers-v1.log"
+    },
+    {
+      "command": "rustfmt --edition 2021 --check --config skip_children=true <two edited Rust files>; /usr/bin/git diff --check (outside sandbox)",
+      "status": "passed"
+    }
+  ],
+  "test_selection": "The signed small-width emitter has only parameterized its existing width list/helper namespace; every old lexical declaration including the full preceding framed-string checkpoint must be preserved. Only the new quoted codec behavior is evaluated. Old lexical/frame matrices are reused through complete dependency closure. All changed source programs and full-collection coexistence need regeneration and distinct-byte dual checking. No unrelated suite or intermediate-W whole gate.",
+  "prior_pins": "The framed-string checkpoint was copied byte-for-byte to previous-quoted-scalars in each of json-tokens, structural-boundary and json-collection-shared before replacing pins.",
+  "pending": [
+    "Same-byte checks on the subsequent final structural vectors including all quoted-scalar definitions; archived intermediate structural bytes remain unchecked",
+    "Full typed grammar, cumulative limits, native/source/transition relations, proof assembly and all remaining W09 acceptance requirements"
+  ],
+  "whole_gate": "Deferred to T06-W12.",
+  "completion": "W09 incomplete; no component-only commit or push.",
+  "previous_goal_turn_classification": "progress: canonical string framing implementation and targeted tests, source reconstruction and two changed-byte checker groups passed.",
+  "this_goal_turn_classification": "progress: implemented quoted semantic scalar lowering and corresponding source/semantic checks; independently diagnosed terminal predecessor checker build race and retried only the affected case.",
+  "token_pins": {
+    "manifest": "json-tokens/previous-quoted-codecs/certificates.json",
+    "manifest_sha256": "f2a7f6be9c0f38af0782c5d7dd4a2f2e710d474fd144d9a502fd06020706e91f",
+    "contexts": 68,
+    "source_rows": 3,
+    "distinct_byte_vectors": 1,
+    "terms": 61491,
+    "declarations": 913,
+    "static_transformers": 4787,
+    "certificate_sha256": "7ad67d24360022ce19b332c28eabc5571f83b43cfada96bff605b103d54d0f06",
+    "staging": "All source outputs copied and read back byte-for-byte. All three decoded vectors explicitly compared equal."
+  },
+  "shared_pin": {
+    "path": "json-collection-shared/previous-quoted-codecs/certificate.json",
+    "sha256": "931a2b31d0ff9561b4ffae123b8cecc5599cba9b7ac5945f96020c2e1cebc666",
+    "terms": 62204,
+    "declarations": 933,
+    "static_transformers": 12979,
+    "certificate_sha256": "12869c50467a459c4109f3dc30849fe27d94ad422e6a86368a2ef7df96d1a83b",
+    "staging": "Both generated files copied and read back byte-for-byte."
+  },
+  "live_jobs_last_confirmed": [],
+  "review": {
+    "path": "unit-4-json-quoted-scalars-review.md",
+    "findings": [],
+    "scope": "Direct implementation review of new quote/char/wide-integer composition, exact interior bounds and whole-consumption, full UTF-16 unit handling, unchanged raw type admission, imports/old dependency preservation and limits.",
+    "verification_pending": "Quoted runtime suite and subsequent actual-source generation; resulting distinct structural certificate vectors still need both checkers."
+  },
+  "structural_pins": {
+    "path": "structural-boundary/previous-quoted-codecs/certificates.json",
+    "sha256": "0ebc09de53f8f522c625dcccf46c74d2d4728fdc583d33cbcdfe6926ff246332",
+    "rows": [
+      {
+        "id": "document-7a157feb27ed416752b5dde8aa2bf373b9a2c82755d2caa89e955057176ee57b",
+        "terms": 104953,
+        "declarations": 1546,
+        "static_transformers": 13389,
+        "certificate_sha256": "c49798778ca883e832e2a6b4c548480a48ff60d695d53651c860a09b42892e22"
+      },
+      {
+        "id": "document-decb5507362a7672c711a5befd63efc1038c2c0a86ee20137a1c4c472e0d1684",
+        "terms": 73555,
+        "declarations": 1399,
+        "static_transformers": 13076,
+        "certificate_sha256": "3ed86d7dc427a5c20f09a37470560ba1ae1a6a041252ed054c3aaff067a94658"
+      },
+      {
+        "id": "document-6b96fc4eed95a1d33fa5784b9062f02fa07ac65b6aef2b4100bb91e9c2f1a613",
+        "terms": 62124,
+        "declarations": 944,
+        "static_transformers": 4787,
+        "certificate_sha256": "d8f684d1caeebb736f9198c7706c7a653541671e65c2f2cd7dc838ee6077a06b"
+      },
+      {
+        "id": "unit-void-source",
+        "terms": 6647,
+        "declarations": 200,
+        "static_transformers": 58,
+        "certificate_sha256": "feae49872d087dbaf428ee7afe7d877e02d6d3cb6fc06ad47d64122b78c64576"
+      }
+    ],
+    "verification": "Source/closure/import/mutations and structure limits passed; these intermediate structural byte vectors have not been dual-checked. They are superseded by the immediately following quoted-codec extension. Only the final changed structural vectors will be dual-checked; do not claim checker acceptance for these archived intermediate bytes."
+  },
+  "quoted_codec_extension": "unit-4-json-quoted-codecs-progress.json"
+}

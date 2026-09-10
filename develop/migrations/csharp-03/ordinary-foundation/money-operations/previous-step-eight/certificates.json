@@ -1,0 +1,653 @@
+[
+  {
+    "declarations": 1545,
+    "file": "binding-vc-money.hex",
+    "id": "binding-vc-money",
+    "metadata": {
+      "certificate_sha256": "cc5f1bac0ed7a9720ce0df8b8a46df1fec8468c1d04538ec05f7ad7d0c5ae01e",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 20,
+            "shape": {
+              "fields": [
+                {
+                  "id": "amount",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.decimal.v1"
+                  }
+                },
+                {
+                  "id": "currency",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.string.v1"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b"
+          },
+          "currency_type_id": "mpk.csharp.value.string.v1",
+          "operations": [
+            {
+              "argument_type_ids": [
+                "mpk.csharp.value.decimal.v1",
+                "mpk.csharp.value.string.v1",
+                "mpk.csharp.value.i32.v1"
+              ],
+              "currency_predicate_argument_type_id": "mpk.csharp.value.string.v1",
+              "failures": [
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e637265617465.Failure.F0",
+                  "label": "invalid_currency"
+                },
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e637265617465.Failure.F1",
+                  "label": "invalid_scale"
+                },
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e637265617465.Failure.F2",
+                  "label": "invalid_precision"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e637265617465.Normal",
+              "operation_id": "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b.create",
+              "result_type_id": "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b"
+              ],
+              "currency_predicate_argument_type_id": null,
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e616d6f756e74.Normal",
+              "operation_id": "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b.amount",
+              "result_type_id": "mpk.csharp.value.decimal.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b"
+              ],
+              "currency_predicate_argument_type_id": null,
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e63757272656e6379.Normal",
+              "operation_id": "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b.currency",
+              "result_type_id": "mpk.csharp.value.string.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b",
+                "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b"
+              ],
+              "currency_predicate_argument_type_id": null,
+              "failures": [
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e616464.Failure.F0",
+                  "label": "currency_mismatch"
+                },
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e616464.Failure.F1",
+                  "label": "decimal_overflow"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e616464.Normal",
+              "operation_id": "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b.add",
+              "result_type_id": "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b",
+                "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b"
+              ],
+              "currency_predicate_argument_type_id": null,
+              "failures": [
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e7375627472616374.Failure.F0",
+                  "label": "currency_mismatch"
+                },
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e7375627472616374.Failure.F1",
+                  "label": "decimal_overflow"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e7375627472616374.Normal",
+              "operation_id": "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b.subtract",
+              "result_type_id": "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b",
+                "mpk.csharp.value.decimal.v1",
+                "mpk.csharp.value.i32.v1",
+                "mpk.csharp.value.u32.v1"
+              ],
+              "currency_predicate_argument_type_id": null,
+              "failures": [
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e6d756c7469706c79.Failure.F0",
+                  "label": "invalid_scale"
+                },
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e6d756c7469706c79.Failure.F1",
+                  "label": "invalid_rounding"
+                },
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e6d756c7469706c79.Failure.F2",
+                  "label": "decimal_overflow"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e6d756c7469706c79.Normal",
+              "operation_id": "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b.multiply",
+              "result_type_id": "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b",
+                "mpk.csharp.value.decimal.v1",
+                "mpk.csharp.value.i32.v1",
+                "mpk.csharp.value.u32.v1"
+              ],
+              "currency_predicate_argument_type_id": null,
+              "failures": [
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e646976696465.Failure.F0",
+                  "label": "invalid_scale"
+                },
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e646976696465.Failure.F1",
+                  "label": "invalid_rounding"
+                },
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e646976696465.Failure.F2",
+                  "label": "division_by_zero"
+                },
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e646976696465.Failure.F3",
+                  "label": "decimal_overflow"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e646976696465.Normal",
+              "operation_id": "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b.divide",
+              "result_type_id": "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b",
+                "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b"
+              ],
+              "currency_predicate_argument_type_id": null,
+              "failures": [
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e616d6f756e745f636f6d70617265.Failure.F0",
+                  "label": "currency_mismatch"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e616d6f756e745f636f6d70617265.Normal",
+              "operation_id": "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b.amount_compare",
+              "result_type_id": "mpk.csharp.value.i32.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b",
+                "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b"
+              ],
+              "currency_predicate_argument_type_id": null,
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e657175616c.Normal",
+              "operation_id": "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b.equal",
+              "result_type_id": "mpk.csharp.value.bool.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b",
+                "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b"
+              ],
+              "currency_predicate_argument_type_id": null,
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e636f6d70617265.Normal",
+              "operation_id": "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b.compare",
+              "result_type_id": "mpk.csharp.value.i32.v1"
+            }
+          ]
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_money.v1",
+      "source_ir_sha256": "f77204c2a00427fcb6a751294aa81ab810942a8faaaebec14f62ba278a59ce11",
+      "static_transformers": 10423
+    },
+    "terms": 146884
+  },
+  {
+    "declarations": 1599,
+    "file": "shared-string-enum-money.hex",
+    "id": "shared-string-enum-money",
+    "metadata": {
+      "certificate_sha256": "c977fec8b150d0ae7997cf60a4a30d7e43bb798aabbbc6e7593fb2ae21f5167b",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 20,
+            "shape": {
+              "fields": [
+                {
+                  "id": "amount",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.decimal.v1"
+                  }
+                },
+                {
+                  "id": "currency",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.string.v1"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b"
+          },
+          "currency_type_id": "mpk.csharp.value.string.v1",
+          "operations": [
+            {
+              "argument_type_ids": [
+                "mpk.csharp.value.decimal.v1",
+                "mpk.csharp.value.string.v1",
+                "mpk.csharp.value.i32.v1"
+              ],
+              "currency_predicate_argument_type_id": "mpk.csharp.value.string.v1",
+              "failures": [
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e637265617465.Failure.F0",
+                  "label": "invalid_currency"
+                },
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e637265617465.Failure.F1",
+                  "label": "invalid_scale"
+                },
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e637265617465.Failure.F2",
+                  "label": "invalid_precision"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e637265617465.Normal",
+              "operation_id": "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b.create",
+              "result_type_id": "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b"
+              ],
+              "currency_predicate_argument_type_id": null,
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e616d6f756e74.Normal",
+              "operation_id": "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b.amount",
+              "result_type_id": "mpk.csharp.value.decimal.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b"
+              ],
+              "currency_predicate_argument_type_id": null,
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e63757272656e6379.Normal",
+              "operation_id": "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b.currency",
+              "result_type_id": "mpk.csharp.value.string.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b",
+                "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b"
+              ],
+              "currency_predicate_argument_type_id": null,
+              "failures": [
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e616464.Failure.F0",
+                  "label": "currency_mismatch"
+                },
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e616464.Failure.F1",
+                  "label": "decimal_overflow"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e616464.Normal",
+              "operation_id": "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b.add",
+              "result_type_id": "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b",
+                "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b"
+              ],
+              "currency_predicate_argument_type_id": null,
+              "failures": [
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e7375627472616374.Failure.F0",
+                  "label": "currency_mismatch"
+                },
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e7375627472616374.Failure.F1",
+                  "label": "decimal_overflow"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e7375627472616374.Normal",
+              "operation_id": "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b.subtract",
+              "result_type_id": "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b",
+                "mpk.csharp.value.decimal.v1",
+                "mpk.csharp.value.i32.v1",
+                "mpk.csharp.value.u32.v1"
+              ],
+              "currency_predicate_argument_type_id": null,
+              "failures": [
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e6d756c7469706c79.Failure.F0",
+                  "label": "invalid_scale"
+                },
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e6d756c7469706c79.Failure.F1",
+                  "label": "invalid_rounding"
+                },
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e6d756c7469706c79.Failure.F2",
+                  "label": "decimal_overflow"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e6d756c7469706c79.Normal",
+              "operation_id": "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b.multiply",
+              "result_type_id": "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b",
+                "mpk.csharp.value.decimal.v1",
+                "mpk.csharp.value.i32.v1",
+                "mpk.csharp.value.u32.v1"
+              ],
+              "currency_predicate_argument_type_id": null,
+              "failures": [
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e646976696465.Failure.F0",
+                  "label": "invalid_scale"
+                },
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e646976696465.Failure.F1",
+                  "label": "invalid_rounding"
+                },
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e646976696465.Failure.F2",
+                  "label": "division_by_zero"
+                },
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e646976696465.Failure.F3",
+                  "label": "decimal_overflow"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e646976696465.Normal",
+              "operation_id": "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b.divide",
+              "result_type_id": "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b",
+                "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b"
+              ],
+              "currency_predicate_argument_type_id": null,
+              "failures": [
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e616d6f756e745f636f6d70617265.Failure.F0",
+                  "label": "currency_mismatch"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e616d6f756e745f636f6d70617265.Normal",
+              "operation_id": "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b.amount_compare",
+              "result_type_id": "mpk.csharp.value.i32.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b",
+                "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b"
+              ],
+              "currency_predicate_argument_type_id": null,
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e657175616c.Normal",
+              "operation_id": "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b.equal",
+              "result_type_id": "mpk.csharp.value.bool.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b",
+                "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b"
+              ],
+              "currency_predicate_argument_type_id": null,
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e636239323235626437373633303731363234336436383737353065666362303838363863303732386633643964386432623864626362373631306661633935622e636f6d70617265.Normal",
+              "operation_id": "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b.compare",
+              "result_type_id": "mpk.csharp.value.i32.v1"
+            }
+          ]
+        },
+        {
+          "carrier": {
+            "depth": 10,
+            "shape": {
+              "fields": [
+                {
+                  "id": "amount",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.decimal.v1"
+                  }
+                },
+                {
+                  "id": "currency",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.source.e70a5c41b42968363d3f161231606d3a640347124e678f89ba6d1c656eb5b6f8"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.instance.e29ba97339cfdd2f0f65fc02833659ea10f9adef2e77d691053df550d269bf26"
+          },
+          "currency_type_id": "mpk.csharp.source.e70a5c41b42968363d3f161231606d3a640347124e678f89ba6d1c656eb5b6f8",
+          "operations": [
+            {
+              "argument_type_ids": [
+                "mpk.csharp.value.decimal.v1",
+                "mpk.csharp.source.e70a5c41b42968363d3f161231606d3a640347124e678f89ba6d1c656eb5b6f8",
+                "mpk.csharp.value.i32.v1"
+              ],
+              "currency_predicate_argument_type_id": "mpk.csharp.source.e70a5c41b42968363d3f161231606d3a640347124e678f89ba6d1c656eb5b6f8",
+              "failures": [
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e653239626139373333396366646432663066363566633032383333363539656131306639616465663265373764363931303533646635353064323639626632362e637265617465.Failure.F0",
+                  "label": "invalid_currency"
+                },
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e653239626139373333396366646432663066363566633032383333363539656131306639616465663265373764363931303533646635353064323639626632362e637265617465.Failure.F1",
+                  "label": "invalid_scale"
+                },
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e653239626139373333396366646432663066363566633032383333363539656131306639616465663265373764363931303533646635353064323639626632362e637265617465.Failure.F2",
+                  "label": "invalid_precision"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e653239626139373333396366646432663066363566633032383333363539656131306639616465663265373764363931303533646635353064323639626632362e637265617465.Normal",
+              "operation_id": "mpk.csharp.instance.e29ba97339cfdd2f0f65fc02833659ea10f9adef2e77d691053df550d269bf26.create",
+              "result_type_id": "mpk.csharp.instance.e29ba97339cfdd2f0f65fc02833659ea10f9adef2e77d691053df550d269bf26"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.e29ba97339cfdd2f0f65fc02833659ea10f9adef2e77d691053df550d269bf26"
+              ],
+              "currency_predicate_argument_type_id": null,
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e653239626139373333396366646432663066363566633032383333363539656131306639616465663265373764363931303533646635353064323639626632362e616d6f756e74.Normal",
+              "operation_id": "mpk.csharp.instance.e29ba97339cfdd2f0f65fc02833659ea10f9adef2e77d691053df550d269bf26.amount",
+              "result_type_id": "mpk.csharp.value.decimal.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.e29ba97339cfdd2f0f65fc02833659ea10f9adef2e77d691053df550d269bf26"
+              ],
+              "currency_predicate_argument_type_id": null,
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e653239626139373333396366646432663066363566633032383333363539656131306639616465663265373764363931303533646635353064323639626632362e63757272656e6379.Normal",
+              "operation_id": "mpk.csharp.instance.e29ba97339cfdd2f0f65fc02833659ea10f9adef2e77d691053df550d269bf26.currency",
+              "result_type_id": "mpk.csharp.source.e70a5c41b42968363d3f161231606d3a640347124e678f89ba6d1c656eb5b6f8"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.e29ba97339cfdd2f0f65fc02833659ea10f9adef2e77d691053df550d269bf26",
+                "mpk.csharp.instance.e29ba97339cfdd2f0f65fc02833659ea10f9adef2e77d691053df550d269bf26"
+              ],
+              "currency_predicate_argument_type_id": null,
+              "failures": [
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e653239626139373333396366646432663066363566633032383333363539656131306639616465663265373764363931303533646635353064323639626632362e616464.Failure.F0",
+                  "label": "currency_mismatch"
+                },
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e653239626139373333396366646432663066363566633032383333363539656131306639616465663265373764363931303533646635353064323639626632362e616464.Failure.F1",
+                  "label": "decimal_overflow"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e653239626139373333396366646432663066363566633032383333363539656131306639616465663265373764363931303533646635353064323639626632362e616464.Normal",
+              "operation_id": "mpk.csharp.instance.e29ba97339cfdd2f0f65fc02833659ea10f9adef2e77d691053df550d269bf26.add",
+              "result_type_id": "mpk.csharp.instance.e29ba97339cfdd2f0f65fc02833659ea10f9adef2e77d691053df550d269bf26"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.e29ba97339cfdd2f0f65fc02833659ea10f9adef2e77d691053df550d269bf26",
+                "mpk.csharp.instance.e29ba97339cfdd2f0f65fc02833659ea10f9adef2e77d691053df550d269bf26"
+              ],
+              "currency_predicate_argument_type_id": null,
+              "failures": [
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e653239626139373333396366646432663066363566633032383333363539656131306639616465663265373764363931303533646635353064323639626632362e7375627472616374.Failure.F0",
+                  "label": "currency_mismatch"
+                },
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e653239626139373333396366646432663066363566633032383333363539656131306639616465663265373764363931303533646635353064323639626632362e7375627472616374.Failure.F1",
+                  "label": "decimal_overflow"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e653239626139373333396366646432663066363566633032383333363539656131306639616465663265373764363931303533646635353064323639626632362e7375627472616374.Normal",
+              "operation_id": "mpk.csharp.instance.e29ba97339cfdd2f0f65fc02833659ea10f9adef2e77d691053df550d269bf26.subtract",
+              "result_type_id": "mpk.csharp.instance.e29ba97339cfdd2f0f65fc02833659ea10f9adef2e77d691053df550d269bf26"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.e29ba97339cfdd2f0f65fc02833659ea10f9adef2e77d691053df550d269bf26",
+                "mpk.csharp.value.decimal.v1",
+                "mpk.csharp.value.i32.v1",
+                "mpk.csharp.value.u32.v1"
+              ],
+              "currency_predicate_argument_type_id": null,
+              "failures": [
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e653239626139373333396366646432663066363566633032383333363539656131306639616465663265373764363931303533646635353064323639626632362e6d756c7469706c79.Failure.F0",
+                  "label": "invalid_scale"
+                },
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e653239626139373333396366646432663066363566633032383333363539656131306639616465663265373764363931303533646635353064323639626632362e6d756c7469706c79.Failure.F1",
+                  "label": "invalid_rounding"
+                },
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e653239626139373333396366646432663066363566633032383333363539656131306639616465663265373764363931303533646635353064323639626632362e6d756c7469706c79.Failure.F2",
+                  "label": "decimal_overflow"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e653239626139373333396366646432663066363566633032383333363539656131306639616465663265373764363931303533646635353064323639626632362e6d756c7469706c79.Normal",
+              "operation_id": "mpk.csharp.instance.e29ba97339cfdd2f0f65fc02833659ea10f9adef2e77d691053df550d269bf26.multiply",
+              "result_type_id": "mpk.csharp.instance.e29ba97339cfdd2f0f65fc02833659ea10f9adef2e77d691053df550d269bf26"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.e29ba97339cfdd2f0f65fc02833659ea10f9adef2e77d691053df550d269bf26",
+                "mpk.csharp.value.decimal.v1",
+                "mpk.csharp.value.i32.v1",
+                "mpk.csharp.value.u32.v1"
+              ],
+              "currency_predicate_argument_type_id": null,
+              "failures": [
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e653239626139373333396366646432663066363566633032383333363539656131306639616465663265373764363931303533646635353064323639626632362e646976696465.Failure.F0",
+                  "label": "invalid_scale"
+                },
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e653239626139373333396366646432663066363566633032383333363539656131306639616465663265373764363931303533646635353064323639626632362e646976696465.Failure.F1",
+                  "label": "invalid_rounding"
+                },
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e653239626139373333396366646432663066363566633032383333363539656131306639616465663265373764363931303533646635353064323639626632362e646976696465.Failure.F2",
+                  "label": "division_by_zero"
+                },
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e653239626139373333396366646432663066363566633032383333363539656131306639616465663265373764363931303533646635353064323639626632362e646976696465.Failure.F3",
+                  "label": "decimal_overflow"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e653239626139373333396366646432663066363566633032383333363539656131306639616465663265373764363931303533646635353064323639626632362e646976696465.Normal",
+              "operation_id": "mpk.csharp.instance.e29ba97339cfdd2f0f65fc02833659ea10f9adef2e77d691053df550d269bf26.divide",
+              "result_type_id": "mpk.csharp.instance.e29ba97339cfdd2f0f65fc02833659ea10f9adef2e77d691053df550d269bf26"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.e29ba97339cfdd2f0f65fc02833659ea10f9adef2e77d691053df550d269bf26",
+                "mpk.csharp.instance.e29ba97339cfdd2f0f65fc02833659ea10f9adef2e77d691053df550d269bf26"
+              ],
+              "currency_predicate_argument_type_id": null,
+              "failures": [
+                {
+                  "definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e653239626139373333396366646432663066363566633032383333363539656131306639616465663265373764363931303533646635353064323639626632362e616d6f756e745f636f6d70617265.Failure.F0",
+                  "label": "currency_mismatch"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e653239626139373333396366646432663066363566633032383333363539656131306639616465663265373764363931303533646635353064323639626632362e616d6f756e745f636f6d70617265.Normal",
+              "operation_id": "mpk.csharp.instance.e29ba97339cfdd2f0f65fc02833659ea10f9adef2e77d691053df550d269bf26.amount_compare",
+              "result_type_id": "mpk.csharp.value.i32.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.e29ba97339cfdd2f0f65fc02833659ea10f9adef2e77d691053df550d269bf26",
+                "mpk.csharp.instance.e29ba97339cfdd2f0f65fc02833659ea10f9adef2e77d691053df550d269bf26"
+              ],
+              "currency_predicate_argument_type_id": null,
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e653239626139373333396366646432663066363566633032383333363539656131306639616465663265373764363931303533646635353064323639626632362e657175616c.Normal",
+              "operation_id": "mpk.csharp.instance.e29ba97339cfdd2f0f65fc02833659ea10f9adef2e77d691053df550d269bf26.equal",
+              "result_type_id": "mpk.csharp.value.bool.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.e29ba97339cfdd2f0f65fc02833659ea10f9adef2e77d691053df550d269bf26",
+                "mpk.csharp.instance.e29ba97339cfdd2f0f65fc02833659ea10f9adef2e77d691053df550d269bf26"
+              ],
+              "currency_predicate_argument_type_id": null,
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Money.O6d706b2e6373686172702e696e7374616e63652e653239626139373333396366646432663066363566633032383333363539656131306639616465663265373764363931303533646635353064323639626632362e636f6d70617265.Normal",
+              "operation_id": "mpk.csharp.instance.e29ba97339cfdd2f0f65fc02833659ea10f9adef2e77d691053df550d269bf26.compare",
+              "result_type_id": "mpk.csharp.value.i32.v1"
+            }
+          ]
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_money.v1",
+      "source_ir_sha256": "35772ddbea39f8ec3714ee215dda330f1d07f663dba935b5bf4a766023efc53e",
+      "static_transformers": 10439
+    },
+    "terms": 147163
+  }
+]

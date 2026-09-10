@@ -1,0 +1,70 @@
+=== RUN   TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes
+=== RUN   TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/empty-input.hex
+    checker_agreement_test.go:391: Rust checker execution/protocol failure: Rust checker did not return a verifier report: unexpected end of JSON input
+        stdout:
+        
+        stderr:
+        error[E0609]: no field `arguments` on type `csharp_practical_vir_model::ClosedOperationSignature`
+           --> crates/mpk-vc/src/csharp_practical_ordinary_source_clauses.rs:176:37
+            |
+        176 |                 if scalar.operation.arguments != d.argument_types
+            |                                     ^^^^^^^^^ unknown field
+            |
+            = note: available fields are: `id`, `tag`, `argument_type_ids`, `normal_result_type_id`, `ordered_checks`
+        
+        error[E0609]: no field `result` on type `csharp_practical_vir_model::ClosedOperationSignature`
+           --> crates/mpk-vc/src/csharp_practical_ordinary_source_clauses.rs:177:41
+            |
+        177 |                     || scalar.operation.result != d.result_type
+            |                                         ^^^^^^ unknown field
+            |
+            = note: available fields are: `id`, `tag`, `argument_type_ids`, `normal_result_type_id`, `ordered_checks`
+        
+        For more information about this error, try `rustc --explain E0609`.
+        error: could not compile `mpk-vc` (lib) due to 2 previous errors
+        error: could not compile `mpk-vc` (lib) due to 2 previous errors
+=== RUN   TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/json-depth-compound-ordered-compound.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/json-depth-compound-ordered-decimal.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/json-depth-compound-ordered-integer.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/json-depth-compound-ordered-string.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/json-depth-compound-product-empty.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/json-depth-compound-product-nested.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/json-depth-compound-semantic-product-money-entry.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/json-depth-compound-sequence-source-arrays.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/json-depth-compound-sum-all-sums.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/json-depth-compound-transition-compound.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/json-depth-compound-transition-scalar-map.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/json-semantic-root-money.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/json-semantic-root-ordered_entry.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/json-semantic-root-ordered_map.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/json-semantic-root-ordered_set.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/json-semantic-root-transition.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/nullable_default.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/presence_missing_default.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/raw-packet-mask.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/required.hex
+--- FAIL: TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes (15342.16s)
+    --- FAIL: TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/empty-input.hex (281.58s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/json-depth-compound-ordered-compound.hex (1497.52s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/json-depth-compound-ordered-decimal.hex (1615.94s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/json-depth-compound-ordered-integer.hex (713.83s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/json-depth-compound-ordered-string.hex (1633.05s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/json-depth-compound-product-empty.hex (712.84s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/json-depth-compound-product-nested.hex (581.84s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/json-depth-compound-semantic-product-money-entry.hex (666.86s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/json-depth-compound-sequence-source-arrays.hex (911.88s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/json-depth-compound-sum-all-sums.hex (608.83s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/json-depth-compound-transition-compound.hex (540.45s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/json-depth-compound-transition-scalar-map.hex (727.52s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/json-semantic-root-money.hex (562.82s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/json-semantic-root-ordered_entry.hex (579.02s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/json-semantic-root-ordered_map.hex (764.87s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/json-semantic-root-ordered_set.hex (650.96s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/json-semantic-root-transition.hex (564.35s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/nullable_default.hex (506.75s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/presence_missing_default.hex (593.72s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/raw-packet-mask.hex (51.39s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/required.hex (576.12s)
+FAIL
+exit status 1
+FAIL	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	15342.545s

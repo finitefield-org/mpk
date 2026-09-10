@@ -1,0 +1,29 @@
+{
+  "schema": "mpk.csharp_practical.w09.boundary_document_linkage_correction.v1",
+  "reason": "Replace the insufficient application string route with a private ordinary 1 MiB UTF-8 document carrier; application types and literal certificate bytes must remain unchanged.",
+  "files": [
+    {
+      "path": "develop/migrations/csharp-03/boundary-vc/goldens.json",
+      "before_sha256": "a0fb46146ba8df18ea637775bf0997bdc1b7a0da86cd950c3c0ffa69fe45776e",
+      "archived_at": "develop/migrations/csharp-03/ordinary-foundation/boundary-documents/previous/w07-goldens.json",
+      "status": "regenerated_verified_only_expected_linkage_hashes_changed",
+      "after_sha256": "c566edda663a386ba468a8bb2fcd049c9de9fd07b878541321464e2412a8aee6"
+    },
+    {
+      "path": "develop/migrations/csharp-03/boundary-vc/run-goldens.json",
+      "before_sha256": "a6443e245d9b19cda81a66443e1f87ba76100e9e533dbcae0339dae3e624a062",
+      "archived_at": "develop/migrations/csharp-03/ordinary-foundation/boundary-documents/previous/w07-run-goldens.json",
+      "status": "regenerated_verified_only_expected_linkage_hashes_changed",
+      "after_sha256": "2a6c71f7b552a0b5aba9ea6e88fcee9e3cc04e07db6579dc613569e037c8db35"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/boundary-literals/certificates.json",
+      "before_sha256": "82f24839d59364cca2e0649e9b846a2218a8296ed834550b3cda10a77c892c25",
+      "archived_at": "develop/migrations/csharp-03/ordinary-foundation/boundary-documents/previous/boundary-literal-certificates.json",
+      "status": "regenerated_verified_only_expected_linkage_hashes_changed",
+      "after_sha256": "d537f0cc1fdcd182e352c568b1189f3995407d7c5f6c637c2594b7dd0f8ec4b8"
+    }
+  ],
+  "literal_certificate_preservation": "All nine regenerated boundary literal certificate files matched existing bytes exactly. Definitions, values, bindings, term/declaration counts and 20,258 observations are unchanged.",
+  "scope": "W09 implementation correction, not a W07 re-completion or universal proof receipt"
+}

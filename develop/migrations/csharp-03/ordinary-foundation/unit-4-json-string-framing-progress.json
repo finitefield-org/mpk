@@ -1,0 +1,202 @@
+{
+  "schema": "mpk.csharp_practical.w09.json_string_framing_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "framed_string_component_verified",
+  "implementation": "Shared JSON generation appends framed canonical string parsing with one bound Scan result. Arguments are the complete original C24 document, full-u32 start and full-eight-bit ending tag. Endings 0=EOF,1=comma,2=array close,3=object close,4=colon. The C20 result contains a zero-padded C7 valid/whole/absolute-end/decoded-length header and a C19 UTF-16 value. Every invalid result is pointwise zero and a required delimiter must exist but remains unconsumed. Original document bounds and addition carry are checked independently of the suffix. Existing scalar and string-prefix definitions are unchanged.",
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_tokens.rs",
+      "sha256": "72c03563e91463b450029404365bdd10514bbe5fb65e4a9f7eda0372856aa09d"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_string_parse.rs",
+      "sha256": "2b26a4fe13061ac9cf0a1d941307a69a16f8d893bbb6ed1077de304860b82fc2"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_token_tests.rs",
+      "sha256": "a9635c028c3eb1921a82ebcd99799b0fbf602d4ecee6531e853932656555a2fe"
+    }
+  ],
+  "verification": [
+    {
+      "session_id": 61384,
+      "log": "/tmp/mpk-w09-string-framing-suite-v1.log",
+      "status": "passed",
+      "scope": "Three selected tests passed in 231.56s: 68 source contexts / three JSON pins, 44 complete framed-string cases, and four structural/boundary contexts; complete old lexical and combined component declaration closures, imports, mutations and limits.",
+      "exit_code": 0,
+      "log_sha256": "56d7394187d6553d6322ee1fec817f9168733a3881e07fe28bca1a34a658fd2f",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/string-framing/mpk-w09-string-framing-suite-v1.log"
+    },
+    {
+      "session_id": 75166,
+      "log": "/tmp/mpk-w09-string-framing-clippy-v1.log",
+      "status": "passed",
+      "scope": "mpk-vc library and csharp_practical_vc target clippy passed with warnings denied; 1m03s including build lock wait.",
+      "exit_code": 0,
+      "log_sha256": "101783404b83b892200fc4b784e6932f2e9543b6788fdf68cf5884fb01bbd9cf",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/string-framing/mpk-w09-string-framing-clippy-v1.log"
+    },
+    {
+      "command": "rustfmt --edition 2021 --config skip_children=true <three changed Rust files>",
+      "status": "passed"
+    },
+    {
+      "command": "/usr/bin/git diff --check",
+      "status": "passed",
+      "scope": "Current worktree, outside sandbox."
+    },
+    {
+      "session_id": 49916,
+      "log": "/tmp/mpk-w09-string-framing-consumers-v1.log",
+      "status": "passed",
+      "scope": "Two affected consumer-edge tests passed in 16.75s; three unrelated cases filtered.",
+      "exit_code": 0,
+      "log_sha256": "3cf2d578dad4a40d1d486c17f9cd263714b1f5862b1aa371034a784b57b65084",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/string-framing/mpk-w09-string-framing-consumers-v1.log"
+    },
+    {
+      "session_id": 31119,
+      "log": "/tmp/mpk-w09-string-framing-shared-v1.log",
+      "status": "passed",
+      "exit_code": 0,
+      "log_sha256": "71098601f316df35e5ef0aeea7be53743c2c6db09ea49b222b844419a760d572",
+      "scope": "Full collection/JSON generation passed in 2.48s, 8192 collection + 4713 JSON = 12905 cumulative static transformers; exact standalone shared-emitter byte match.",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/string-framing/mpk-w09-string-framing-shared-v1.log"
+    },
+    {
+      "session_id": 12203,
+      "log": "/tmp/mpk-w09-string-framing-token-checkers-v1.log",
+      "status": "passed",
+      "scope": "One explicit byte-equivalence class for three JSON sources passed both checkers with zero axioms and actual hash-corruption rejection; 86.44s.",
+      "exit_code": 0,
+      "log_sha256": "88d68a15b1eac2849deed42eb6f574346fb98623a07ee389390335bb2bbe8a2d",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/string-framing/mpk-w09-string-framing-token-checkers-v1.log"
+    },
+    {
+      "session_id": 98803,
+      "log": "/tmp/mpk-w09-string-framing-shared-checkers-v1.log",
+      "status": "passed",
+      "scope": "Full collection/JSON shared byte vector passed both checkers, zero axioms and hash-corruption rejection in 54.21s.",
+      "exit_code": 0,
+      "log_sha256": "c966de365b94046a41b82e38ff5004774538450c580b95c16f09345ed1c01235",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/string-framing/mpk-w09-string-framing-shared-checkers-v1.log"
+    },
+    {
+      "session_id": 10205,
+      "log": "/tmp/mpk-w09-string-framing-structural-checkers-v1.log",
+      "status": "failed_cli_build",
+      "scope": "First two actual-source cases passed (54.01s and 239.28s). Final decb case failed during Rust CLI rebuild because the next quoted-scalars edit was temporarily incomplete (missing quoted_scalars function). This is a generation-build race, not certificate rejection. Only that case needs a corrected retry; do not rerun the passing two.",
+      "exit_code": 1,
+      "log_sha256": "bc44513ef2fb51ec8c4ae3a9e254c59617b059530b1472335aed8b3dde08a602",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/string-framing/mpk-w09-string-framing-structural-checkers-v1.log"
+    },
+    {
+      "status": "passed",
+      "scope": "Read-back audit independently matched all three current implementation file hashes, retained completed-log hashes, unchanged source/foundation/boundary linkage, and all seven source certificate hashes. No semantic test rerun for documentation-only changes."
+    },
+    {
+      "session_id": 45111,
+      "log": "/tmp/mpk-w09-string-framing-structural-checkers-retry-v1.log",
+      "status": "passed",
+      "scope": "Only previously build-affected document-decb vector passed both checkers with zero axioms and hash-corruption rejection in 148.52s. Together with the first two passing cases of 10205, all three distinct framed-string structural vectors are checked.",
+      "exit_code": 0,
+      "log_sha256": "698b79edc631e60f0d8430662aecc2901353e9c1d542ee03576cf92063679852",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/string-framing/mpk-w09-string-framing-structural-checkers-retry-v1.log"
+    }
+  ],
+  "test_selection": "Only the new frame semantics and consumers whose generated bytes change require new execution. Complete old lexical declaration/dependency comparisons retain earlier scalar/prefix semantics; the unchanged standalone string-parser emitter is not rerun. Regenerate the shared full-collection fixture and check each distinct changed certificate vector once with both checkers; byte-equal source rows may reuse that exact-vector result. No unrelated full practical suite.",
+  "prior_pins": "json-tokens, structural-boundary and json-collection-shared roots copied byte-for-byte to each previous-string-framing directory before edits to pins.",
+  "pending": [
+    "Complete typed object/array/quoted-codec grammar and cumulative limits, source/native/transition relations, proof assembly and all original W09 acceptance requirements"
+  ],
+  "whole_gate": "Deferred to T06-W12; no intermediate W check-fast.sh or split equivalent.",
+  "completion": "W09 remains incomplete. No component-only commit or push.",
+  "previous_goal_turn_classification": "no progress: the immediate previous user-preference reply acknowledged test selection only; this turn resumed with authoritative source/handle inspection and implementation.",
+  "this_goal_turn_classification": "progress: implemented framed JSON strings in the shared and actual-source ordinary programs; 44 runtime cases, 68 source contexts, four structural contexts, cumulative collection budget, consumer checks, lint and two distinct dual-checker inputs passed; final three-source checker process remains confirmed live.",
+  "token_pins": {
+    "manifest": "json-tokens/previous-quoted-scalars/certificates.json",
+    "manifest_sha256": "6b60c1b322c9af6db9c1e6240cacb7d26d9c2ea3e87b8703f2d7609c5079b06d",
+    "contexts": 68,
+    "source_rows": 3,
+    "distinct_byte_vectors": 1,
+    "terms": 56122,
+    "declarations": 812,
+    "static_transformers": 4713,
+    "certificate_sha256": "62052349863eff9c197184b5238b3949184c37d30d05d1b610aacc8074c36580",
+    "staging": "All generated files copied and read back byte-for-byte; all three decoded vectors compared equal."
+  },
+  "shared_pin": {
+    "path": "json-collection-shared/previous-quoted-scalars/certificate.json",
+    "sha256": "3e50f1cd8d239f58ce72c88a78040dfd71fcf8c366c36fd8f9ac94c5663f63e4",
+    "terms": 56835,
+    "declarations": 832,
+    "static_transformers": 12905,
+    "certificate_sha256": "fc1d3e1cd6d2c1b5ebada706715cda8ddd600d005680d731fcc82b9365d8a347",
+    "staging": "Both generated files copied and read back byte-for-byte."
+  },
+  "prior_job_recovery": {
+    "date": "2026-09-10",
+    "handles_confirmed_missing": [
+      28983,
+      40861,
+      80623,
+      23035,
+      66878,
+      20151,
+      1841,
+      95267,
+      72975,
+      67249,
+      76988
+    ],
+    "scope": "All listed write_stdin calls returned Unknown process id; prior /tmp logs are absent. Their previously pending results remain unverified. They were not restarted during this frame-only verification."
+  },
+  "structural_pins": {
+    "path": "structural-boundary/previous-quoted-scalars/certificates.json",
+    "sha256": "ca42579e8e64765a101c21e3b2a17f9a978f9b57f2520ade59599d417a5267b1",
+    "new_distinct_byte_vectors": 3,
+    "reused_exact_byte_vectors": [
+      "unit-void-source"
+    ],
+    "rows": [
+      {
+        "id": "document-7a157feb27ed416752b5dde8aa2bf373b9a2c82755d2caa89e955057176ee57b",
+        "terms": 99656,
+        "declarations": 1445,
+        "static_transformers": 13315,
+        "certificate_sha256": "4ebd04217d42a548e4985099b72ace09f3aa88c713fcf276b2504ba60e383c7a"
+      },
+      {
+        "id": "document-decb5507362a7672c711a5befd63efc1038c2c0a86ee20137a1c4c472e0d1684",
+        "terms": 68242,
+        "declarations": 1298,
+        "static_transformers": 13002,
+        "certificate_sha256": "56cc1677fc94ea08145a0890c5639e71eb4741a7c75bb917f35dcd07d94d2efb"
+      },
+      {
+        "id": "document-6b96fc4eed95a1d33fa5784b9062f02fa07ac65b6aef2b4100bb91e9c2f1a613",
+        "terms": 56755,
+        "declarations": 843,
+        "static_transformers": 4713,
+        "certificate_sha256": "2a9f4342c574e19cd3f26c645354e1dea9f54aa9094c1e31bdfc855d68b52355"
+      },
+      {
+        "id": "unit-void-source",
+        "terms": 6647,
+        "declarations": 200,
+        "static_transformers": 58,
+        "certificate_sha256": "feae49872d087dbaf428ee7afe7d877e02d6d3cb6fc06ad47d64122b78c64576"
+      }
+    ],
+    "staging": "All four pins and metadata copied/read back; certificate domain hashes checked; no-boundary bytes directly compared to old pin."
+  },
+  "review": {
+    "path": "unit-4-json-string-framing-review.md",
+    "scope": "New framed-string definitions, metadata wiring, exact old dependency preservation, packet layout, cursor arithmetic, delimiter liveness, targeted test coverage and receipt linkage.",
+    "findings": [],
+    "verification_pending": "No remaining framed-string component check; full W09 review and implementation remain open."
+  },
+  "live_jobs_last_confirmed": [],
+  "quoted_scalar_extension": "unit-4-json-quoted-scalars-progress.json"
+}

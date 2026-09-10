@@ -1,0 +1,149 @@
+{
+  "schema": "mpk.csharp_practical.w09.literal_clauses_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_units": [
+    3,
+    4
+  ],
+  "status": "rich_literal_source_semantics_both_consumers_and_targeted_verification_passed",
+  "implementation": [
+    "Reuse authoritative type-directed canonical contract decoder;retain raw UTF-16 surrogate code units with PracticalJsonValue rather than serde_json Value.",
+    "Batch rich literals through existing ordinary literal emitter, sharing product/sequence parts in the same builder. Register exact nominal closed constant definitions before clause recipes.",
+    "Keep established Bool/integer circuit bodies byte-identical. Rich literal decode/type/value failures still abort the whole generator;no source/body or application proof is inferred."
+  ],
+  "verification": [
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/literal-clauses/mpk-w09-literal-clauses-build-v1.log",
+      "sha256": "3a21544c85b7705a2771f385e009ecb2b87fbd8a441b04bc480d5a60b096715c",
+      "scope_and_selection_reason": "Rich literal prepass library compilation;15.58s. Existing decoder only gained internal visibility;its parsing/validation did not change."
+    },
+    {
+      "status": "failed_test_compile_corrected",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/literal-clauses/mpk-w09-literal-clause-requests-v1.log",
+      "sha256": "32eb4f1177c15cdf13e2bec6ac0bd972bf18e23e887157f786122ead389e6159",
+      "scope_and_selection_reason": "New test initially referenced private construction generator;switched to the existing public immutable VIR contract-expression inventory."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/literal-clauses/mpk-w09-literal-clause-requests-v2.log",
+      "sha256": "448b81c3fa13889dc3b716a2b9b97e105b00b3c33a4db162d09d30add0728e36",
+      "scope_and_selection_reason": "First exact source request generated;0.10s. Float test input later corrected before final capture."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/literal-clauses/mpk-w09-literal-clauses-preservation-v1.log",
+      "sha256": "e7ddde551c8e8834f99fd97b99ced2ecc0b75f3fbda73b0cf0fef9f861202612",
+      "scope_and_selection_reason": "Three affected consumers: existing conditional and structural source clauses plus public-default candidates;exact prior byte/definition closure preservation and semantic checks;10.00s."
+    },
+    {
+      "status": "failed_command_corrected",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/literal-clauses/mpk-w09-literal-clause-capture-v1.log",
+      "sha256": "00108383df6c5dc32d4a1734192d61dfcda8f171328b68e6c24a45304759dcb6",
+      "scope_and_selection_reason": "Docker rejected mistyped checksum length before executing;retried the established pinned image digest."
+    },
+    {
+      "status": "passed_capture_invalid_test_contract",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/literal-clauses/mpk-w09-literal-clause-capture-v2.log",
+      "sha256": "b54783e7f03a494ff5bd47f4478ef297095ffb7feeb71eefcecd239ae331398b",
+      "scope_and_selection_reason": "Both isolated compiler/harness processes exited0;subsequent Rust contract import rejected noncanonical float test values."
+    },
+    {
+      "status": "rejected_invalid_test_contract",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/literal-clauses/mpk-w09-literal-clauses-source-v1.log",
+      "sha256": "9e45cccd54c9df37c649d6ce90c17b75104e18910e218a7ca4d46b67dbe93605",
+      "scope_and_selection_reason": "Rust data-phase contract validation rejected decimal-text IEEE test inputs;no validation rule weakened."
+    },
+    {
+      "status": "rejected_invalid_test_contract",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/literal-clauses/mpk-w09-literal-clause-input-types-v1.log",
+      "sha256": "cfe1549d1272bba3450d30563cc71f9d014138b40082ee956c21968dd3f099db",
+      "scope_and_selection_reason": "Individual typed import identified f32 input;binary32/binary64 contracts require exact hex bit strings."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/literal-clauses/mpk-w09-literal-clause-input-types-v2.log",
+      "sha256": "944ea14e724345b9b6aa0c6809612d2b377723204fd9409baeac54fc0eed814e",
+      "scope_and_selection_reason": "All18 corrected canonical literal inputs independently accepted by the existing typed contract importer;exact corrected request generated;two tests0.35s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/literal-clauses/mpk-w09-literal-clause-capture-v3.log",
+      "sha256": "b54783e7f03a494ff5bd47f4478ef297095ffb7feeb71eefcecd239ae331398b",
+      "scope_and_selection_reason": "Fresh facts for the exact corrected request;both isolated compiler/harness exited0 with empty stdout/stderr."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/literal-clauses/mpk-w09-literal-clauses-source-v2.log",
+      "sha256": "b587c4edd52b850e293c2718b3bb5e2b6b4e50dfc4fec0c3df729009456d45cc",
+      "scope_and_selection_reason": "Actual source import,18 constants,1414 independent storage-bit observations,ordinary source import and full source dependency closure retained in integrated program;6.97s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/literal-clauses/mpk-w09-literal-clauses-source-v3.log",
+      "sha256": "24d52df69327141eaeea30c31deb5932dbaced2b638dc85b2a225d5f31070328",
+      "scope_and_selection_reason": "Pinned candidate/metadata/request replay;full standalone public-default definition closures and metadata retained in integrated output;integrated import and structure checks;1414 bit observations;two tests10.09s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/literal-clauses/mpk-w09-literal-clauses-clippy-v1.log",
+      "sha256": "c9daf4f647bae2037973a9cc6f955c3daa037cd997582fd7128f5dfb1ae11906",
+      "scope_and_selection_reason": "Affected library/integration lint;25.39s;before input-type diagnostics."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/literal-clauses/mpk-w09-literal-clauses-clippy-v2.log",
+      "sha256": "fbfdb5470c52147548fb3cc399be9b2bab4136ed729df1fdf1fe45e9aec45d27",
+      "scope_and_selection_reason": "Affected lint after input-type diagnostic correction;10.85s;before final public-consumer assertions."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/literal-clauses/mpk-w09-literal-clauses-format-v1.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "scope_and_selection_reason": "Scoped Rust formatting after final consumer assertions."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/literal-clauses/mpk-w09-literal-clauses-checkers-v1.log",
+      "sha256": "09d4a6ffbdfb3f7ce02b2bfed2eebc074246caa2dd8b6dd10f7b0517bd655933",
+      "scope_and_selection_reason": "Both exact current candidates accepted by unchanged Rust/Go checkers with zero axioms and actual hash-corruption rejection;exact PASS set, current module hashes and program metadata reconciled;133.367s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/literal-clauses/mpk-w09-literal-clauses-clippy-v3.log",
+      "sha256": "87a9ea61ec4718c331c781dfb048da770c592b9313b8df5632e09eb83ef0b0bb",
+      "scope_and_selection_reason": "Affected library/integration lint after final consumer assertions;10.08s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/literal-clauses/mpk-w09-literal-clauses-inventory-v1.log",
+      "sha256": "11c1df36983b68a40296198be4e8c7d4a40bbc2d5c1d468d49e82671aaf9be69",
+      "scope_and_selection_reason": "Artifact-consumer closure after rich literal source/candidate publication;16.79s;no inventory fingerprint update required."
+    },
+    {
+      "status": "passed",
+      "command": "/usr/bin/git diff --check; gofmt -l go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "scope_and_selection_reason": "Working diff whitespace/conflict-marker check and affected Go harness formatting;both produced no findings."
+    }
+  ],
+  "candidates": {
+    "directory": "literal-clauses",
+    "count": 2,
+    "constants": 18,
+    "bit_observations": 1414,
+    "source_terms": 59789,
+    "source_declarations": 740,
+    "integrated_terms": 63807,
+    "integrated_declarations": 1078,
+    "integrated_static_transformers": 2633,
+    "same_byte_checkers": "Both passed;exact PASS names,current hashes,sizes and metadata reconciled."
+  },
+  "live_jobs": [],
+  "pending": [
+    "Remaining recipe definedness,native/control,transition/replay,application proofs and original internal-unit acceptance."
+  ],
+  "whole_gate": "Deferred to T06-W12;no check-fast or split full gate.",
+  "commit": "No component-only commit;approved internal units remain incomplete.",
+  "review": "unit-4-literal-clauses-review.md",
+  "goal_turn_classification": "Progress: wired rich canonical literals into actual source public clauses and both consumers;fixed invalid test inputs using established validation;18 constants/1414 storage observations and two current-byte dual-checker cases passed. Original internal units and W09 remain open."
+}

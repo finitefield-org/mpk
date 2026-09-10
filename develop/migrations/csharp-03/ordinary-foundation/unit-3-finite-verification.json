@@ -1,0 +1,106 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.finite_operation_checkpoint.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 3,
+  "status": "finite-operation scoped checks passed; no unit/W09 completion receipt",
+  "source_contexts": 7,
+  "operations": 103,
+  "max_terms": 2408,
+  "max_declarations": 66,
+  "source_constructor_cases": 94,
+  "source_payload_observations": 4,
+  "scalar_core_certificate": "finite-operations/core.hex",
+  "scalar_core_artifact_sha256": "91e8661b7e0a03bb2375b7269caa42e1eb637428f4e2eb75ac6092ab136c8a2e",
+  "axioms_per_checked_certificate": 0,
+  "input_domain_obligations_discharged": false,
+  "application_vc_proof": false,
+  "contract_carrier_extension": "contract-carrier-extension/changes.json",
+  "checks": [
+    {
+      "log": "/tmp/mpk-w09-finite-core-v1.log",
+      "scope": "all unit values and parse-error tags/pairs through ordinary core",
+      "log_sha256": "8a558b9679acaceb3644a7e1e4e3186795210d53893d0d5d0f730e73a90509c0"
+    },
+    {
+      "log": "/tmp/mpk-w09-finite-source-v4.log",
+      "scope": "seven original-source contexts; 94 constructor cases and complete finite tag/value comparisons",
+      "log_sha256": "5b329d389fbed65fee5ace32447b1b42a8f2b92b2d94839a1e17f18149bafbd0"
+    },
+    {
+      "log": "/tmp/mpk-w09-contract-finite-replay-v1.log",
+      "scope": "seven pinned source programs and metadata/hash/active-tag mutation rejection",
+      "log_sha256": "940a87b57ef35c10b4773e6e1870a5c51808796b95a2aedb941c855f11520cf7"
+    },
+    {
+      "log": "/tmp/mpk-w09-finite-checkers-v1.log",
+      "scope": "six unchanged source certificates plus scalar core; both checkers and hash corruptions",
+      "log_sha256": "7d0bab8a9d8ac05c1609ba6c9861013e88aeeb4610a3c57d19af36a9d505f6fd"
+    },
+    {
+      "log": "/tmp/mpk-w09-finite-checkers-parse-v2.log",
+      "scope": "added parse-error original-source certificate; both checkers and hash corruption",
+      "log_sha256": "970c29307c9b145664a5a0bb48e379419bfb07b32314b645e566497e3adf11c2"
+    },
+    {
+      "log": "/tmp/mpk-w09-finite-clippy-v2.log",
+      "scope": "mpk-vc library and practical integration-test clippy with denied warnings",
+      "log_sha256": "7af6751b836731e4e6ac762656d9cb26650a4679d673ea5c3036cb0c4300d49c"
+    },
+    {
+      "log": "/tmp/mpk-w09-finite-inventory-v1.log",
+      "scope": "five inventory checks at 112 Std namespace paths and 4935 aggregate occurrences",
+      "log_sha256": "af2201d447d6dd708c2c5a19ea2d72a8a69a64569f01c0ef3f87387993088642"
+    },
+    {
+      "log": "/tmp/mpk-w09-finite-format-v1.log",
+      "scope": "rustfmt check on changed carrier/finite-operation production and test modules",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "certificates": [
+    {
+      "id": "exception-vc-allowed",
+      "path": "finite-operations/exception-vc-allowed.hex",
+      "artifact_sha256": "98ce7a7406553d0bc0203051667cbd2a1731f9574a7c4cebdb9c37830ef7075d",
+      "certificate_sha256": "895adc2d57903088ef319c5c7a5e487b66e0ddec0f42868b216b13ebd9f5eb01"
+    },
+    {
+      "id": "nested-box",
+      "path": "finite-operations/nested-box.hex",
+      "artifact_sha256": "98ce7a7406553d0bc0203051667cbd2a1731f9574a7c4cebdb9c37830ef7075d",
+      "certificate_sha256": "895adc2d57903088ef319c5c7a5e487b66e0ddec0f42868b216b13ebd9f5eb01"
+    },
+    {
+      "id": "string",
+      "path": "finite-operations/string.hex",
+      "artifact_sha256": "98ce7a7406553d0bc0203051667cbd2a1731f9574a7c4cebdb9c37830ef7075d",
+      "certificate_sha256": "895adc2d57903088ef319c5c7a5e487b66e0ddec0f42868b216b13ebd9f5eb01"
+    },
+    {
+      "id": "boundary-exception-empty",
+      "path": "finite-operations/boundary-exception-empty.hex",
+      "artifact_sha256": "fc5f12cbcd93176d6026f86a05ed9b2070c16de4037d23406e1bed9145c2b3d3",
+      "certificate_sha256": "c6c3ae65fe40432a0a77a76ee6c0b5306559626a382fe28b8cca68649e75b3af"
+    },
+    {
+      "id": "boundary-exception-payload",
+      "path": "finite-operations/boundary-exception-payload.hex",
+      "artifact_sha256": "0b5040482c00ca33ff3fcbd91806db534955b548d122ab4e587c3d67fd12f2f1",
+      "certificate_sha256": "b4e4d86b80f86872ba8f52fe879de1fa55dc3d665fb9434cc990ac9c8bdc7a59"
+    },
+    {
+      "id": "unit-void-source",
+      "path": "finite-operations/unit-void-source.hex",
+      "artifact_sha256": "09ea97a82d05e40de8a2bc63dbe21ead8738ebd0ceee0f2db8368d01b4c58e66",
+      "certificate_sha256": "9d30c53cfe42bc0216330e2be48b5d2d43e7a83fa1b2d53f09eb9ad2491132e7"
+    },
+    {
+      "id": "parse-error-contract",
+      "path": "finite-operations/parse-error-contract.hex",
+      "artifact_sha256": "56a3f4d480eb681bdb139e053288878a39bea8c0e1e9713b1dbc594ff62e175c",
+      "certificate_sha256": "0418170500ea9111e97c543df642fc9b2aed02222f85392dad47bab7ccf44743"
+    }
+  ],
+  "full_gate": "deferred to T06-W12",
+  "remaining_scope": "semantic source constructors/accessors beyond these finite operations; bounded sequences/construction state/maps/sets/outcomes; original units 4-8 including proof assembly"
+}

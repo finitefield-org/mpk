@@ -8,7 +8,7 @@ use crate::csharp_practical_source_artifacts::{
     ValidatedPracticalArtifact,
 };
 pub(super) use contract_values::decode_boundary_default;
-use contract_values::decode_contract_value;
+pub(super) use contract_values::decode_contract_value;
 
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub enum DataPhaseError {
@@ -1477,7 +1477,17 @@ pub(crate) fn attach_data_contracts(
                     .get("exception_type_id")
                     .and_then(J::as_str)
                     .ok_or(DataPhaseError::Contract)?;
-                if !builtin_exception_arms().iter().any(|arm| arm.type_id == id) {
+                if let Some(universe) = &env.exception_universe {
+                    // The control owner already validated this exact closed
+                    // scope. Preserve it during the data attachment recheck,
+                    // including source exceptions and the exception subject.
+                    if universe.arm(id).is_none() {
+                        return Err(DataPhaseError::Contract);
+                    }
+                    env.exception_type = Some(id.into());
+                    env.variables
+                        .insert("exception".into(), EXCEPTION_TYPE_ID.into());
+                } else if !builtin_exception_arms().iter().any(|arm| arm.type_id == id) {
                     return Err(DataPhaseError::LaterOwner("CSHARP-03-T04-W04"));
                 }
                 clause(
@@ -1498,6 +1508,8 @@ pub(crate) fn attach_data_contracts(
                     clause(b, r, c, &env, expression, &mut nodes)?;
                 }
             }
+            env.exception_type = None;
+            env.variables.remove("exception");
         } else {
             let id = value
                 .get("source_type_id")

@@ -1,0 +1,33 @@
+{
+  "schema": "mpk.csharp_practical.literal_clause_capture.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "image": "python@sha256:933b46a028fd786c9c3d426ebabc237e29a15912231ea8de576e95f0e4f41a4c",
+  "isolation": {
+    "network": "none",
+    "repository_mount": "only staged required inputs, read-only",
+    "root_filesystem": "read-only",
+    "seccomp": "Docker default",
+    "capabilities": [
+      "SYS_ADMIN",
+      "SETUID",
+      "SETGID",
+      "SETFCAP"
+    ],
+    "no_new_privileges": true,
+    "temporary_filesystem": "rw,exec,nosuid,nodev"
+  },
+  "capture": "Unchanged hash-pinned test_data_phase; diagnostic wrapper reports execute_isolated output without changing results or validation. Both compiler and source harness exited 0 with empty stdout/stderr.",
+  "files": [
+    {
+      "file": "requests.json",
+      "sha256": "efd2a12abe20a5f6f6b57f2d194b870bbfe6052a893e393ccecac7c4b54df5e4",
+      "size_bytes": 8687
+    },
+    {
+      "file": "responses.json",
+      "sha256": "27739f86608f22bda95d8cbdfe84f2891fa6ee5636c41929b14b7767bf570120",
+      "size_bytes": 11425
+    }
+  ],
+  "acceptance": "Fresh hash-pinned compiler/source harness facts for exact 18-literal source contract, including UTF-16 surrogate strings and canonical IEEE bit strings. Both isolated processes exited 0. All 18 literal inputs independently passed existing typed contract validation."
+}

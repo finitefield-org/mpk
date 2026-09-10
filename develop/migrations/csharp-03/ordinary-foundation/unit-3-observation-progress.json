@@ -1,0 +1,181 @@
+{
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 3,
+  "status": "source-observation component verification passed; unit 3 and W09 remain incomplete",
+  "completed_checks": [
+    {
+      "scope": "four original-source observation programs and 43 extended integrated programs, generation/import/mutations",
+      "status": "passed",
+      "command": "MPK_W09_OBSERVATIONS_OUT=/tmp/mpk-w09-observations-v2 MPK_W09_STRUCTURAL_FOUNDATIONS_OUT=/tmp/mpk-w09-structural-foundations-v3 cargo test -p mpk-vc --test csharp_practical_vc -- csharp_03_t06_w09_observations_original_source_certificates csharp_03_t06_w09_structural_foundation_original_sources --test-threads=2 --nocapture",
+      "log": "/tmp/mpk-w09-observations-integrated-source-v1.log",
+      "log_sha256": "488cb38e3d24e09eab4a243572c8a19858489620a3d0c9395a6bb0c406ea85e5"
+    },
+    {
+      "scope": "23 snapshot/scalar ordinary observation pairs and 10 IEEE semantic-equality contrasts",
+      "status": "passed",
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_observations_complete_snapshot_semantics -- --nocapture",
+      "log": "/tmp/mpk-w09-observations-semantics-v2.log",
+      "log_sha256": "9886aa55e45dfa71b9335dd7dfdc928d1fb2f80119d2938f1616bd47daeb2daf"
+    },
+    {
+      "scope": "exact request bytes and 116 component/integrated pairs, 1160 roots, 11207 transitive declarations, metadata equality and body/dependency mutations",
+      "status": "passed",
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc -- csharp_03_t06_w09_structural_foundation_component_definition_closure csharp_03_t06_w09_observation_source_requests --test-threads=1 --nocapture",
+      "log": "/tmp/mpk-w09-observations-closure-v1.log",
+      "log_sha256": "ac681fe435d3c4abe1a6c45810c8a983d8e3d740fb3661d71e6ad6d75b3030ed"
+    },
+    {
+      "scope": "exact existing 22 relation and two Money pins, four observation pins and 43 integrated pins after cache separation",
+      "status": "passed",
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc -- csharp_03_t06_w09_relations_original_source_certificates csharp_03_t06_w09_money_original_source_certificates csharp_03_t06_w09_observations_original_source_certificates csharp_03_t06_w09_structural_foundation_original_sources --test-threads=2 --nocapture",
+      "log": "/tmp/mpk-w09-observations-pinned-replay-v2.log",
+      "log_sha256": "6b19392dddde63cddbf1550a70a921c6f8cec5da2bb6df028019957371e359dc"
+    },
+    {
+      "scope": "scoped library and primary practical integration lint",
+      "status": "passed",
+      "command": "cargo clippy -p mpk-vc --lib --test csharp_practical_vc -- -D warnings",
+      "log": "/tmp/mpk-w09-observations-clippy-v2.log",
+      "log_sha256": "36a7c35a69a350892387c5703eaaa8167b32134643a361b63af1d7678214631a"
+    },
+    {
+      "scope": "five inventory tests including archived and new observation artifacts",
+      "status": "passed",
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "log": "/tmp/mpk-w09-observations-inventory-v2.log",
+      "log_sha256": "ed4461d681f389081341be14bfd06cd3e397dd74de25432c8cd4be7fb0fb87dc"
+    },
+    {
+      "scope": "Rust formatting after metadata comparison layout correction",
+      "status": "passed",
+      "command": "cargo fmt --all -- --check",
+      "log": "/tmp/mpk-w09-observations-format-v3.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "scope": "all four current observation pins accepted by both unchanged checkers with zero axioms; hash corruptions rejected",
+      "status": "passed",
+      "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run '^TestCheckerAgreementWithRustCLISourceObservations$' -count=1 -timeout 0 -v",
+      "log": "/tmp/mpk-w09-observations-checkers-v2.log",
+      "log_sha256": "cb7208850a3e5c801b6226adbba8682718a0984bd0d8ac688ba2422b90146595"
+    },
+    {
+      "scope": "43 current integrated source certificates, same bytes accepted by both unchanged checkers with zero axioms and all hash corruptions rejected",
+      "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIStructuralFoundations$' -count=1 -timeout 0 -v",
+      "working_directory": "go-tools/mpk-checker-ref",
+      "status": "passed",
+      "duration_seconds": 1232.277,
+      "log": "/tmp/mpk-w09-observations-integrated-checkers-v1.log",
+      "log_sha256": "637c8852a96fe5038757ae5bd5b0695720c54ade3e3b374d192e837bb80e28ce"
+    }
+  ],
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "status": "deferred to T06-W12"
+  },
+  "remaining": [
+    "Complete pending deep domain semantics; directly review/fix all unit 3 changes",
+    "Complete original units 4-8 including binding/codecs, native/control and transition relations, application proof assembly and W09 acceptance"
+  ],
+  "commit_status": "uncommitted; no new commit or push",
+  "schema": "mpk.csharp_practical.t06_w09.observation_progress.v1",
+  "source_contexts": 4,
+  "carrier_occurrences": 30,
+  "max_terms": 46558,
+  "max_declarations": 500,
+  "max_static_transformers": 8624,
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_observations.rs",
+      "sha256": "4c926a6a6766867172f9bdcb621d5b61714ee2c199899e3737a1f63769bf4122"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_relations.rs",
+      "sha256": "bf0dc952fa68d840dfab829dbef9b730a672233d7483942d7809df7f3a9a8a0b"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_observation_tests.rs",
+      "sha256": "3b845845112df747f4ff717fcf5e6e29fd216dc263ca5213084d9f75ac82d0ae"
+    }
+  ],
+  "certificates": [
+    {
+      "path": "source-observations/binding-vc-money.hex",
+      "file_sha256": "765ca3ed0124cb8119b0203c93e7cffa33ff55de033459d9053a59c2c0630f05",
+      "certificate_sha256": "5df4e766dc5e38ad9e5a22893916823fd51bacc97a8f5949f26e6339af498b93",
+      "source_ir_sha256": "f77204c2a00427fcb6a751294aa81ab810942a8faaaebec14f62ba278a59ce11"
+    },
+    {
+      "path": "source-observations/exception-vc-allowed.hex",
+      "file_sha256": "2c1e4bfe22c1fa384506ccaa3d980be3d753e32360fd54ce211aab0d00158894",
+      "certificate_sha256": "8560f3e18ead31a2b45118643cc98e19b016a9786fa90fca5dde43689af9781f",
+      "source_ir_sha256": "b8a5ddc466eae72f9cf6b5a62363008eecb626f9518e1ae704cb7cebae295ed9"
+    },
+    {
+      "path": "source-observations/extra-bool-float-map.hex",
+      "file_sha256": "a2cce207b64d9a0ad464fe7f0971aac38fb445413dc0eb941000e65525b30af8",
+      "certificate_sha256": "ea9db049a5382eb460e4bcc4800f952cdf8e21291a092133da83d9498ff8e6ea",
+      "source_ir_sha256": "b983194b235fafeb6275bcc5dcd3d5b5e3fb646852ff6ee09271f0eaf9ebeae3"
+    },
+    {
+      "path": "source-observations/complete-snapshot.hex",
+      "file_sha256": "be83574eed9f9d5c553cd0e66bb1ec25aae014f193f0b77afeb4db877b44885c",
+      "certificate_sha256": "5667dfa6753c756a60dd62a17f3ca6a84582ba747a9670ab5fedad845c776b16",
+      "source_ir_sha256": "5d82f989204a4282a91e5947cecf54832b8c4862c2446f1b71c8a1332f4a57b3"
+    }
+  ],
+  "source_capture": {
+    "schema": "mpk.csharp_practical.t06_w09.observation_source_capture.v1",
+    "request_generator": "csharp_03_t06_w09_observation_source_requests",
+    "capture_command": "./scripts/build-csharp-practical-frontend.sh --test-control-emission-requests",
+    "environment": "existing mpk-java-t10-gate:local Linux amd64 image; network disabled; read-only repository; frozen frontend build-input validation",
+    "determinism": "harness captures request twice and compares output bytes",
+    "accepted": 1,
+    "rejected": 0,
+    "application_vc_proof": false,
+    "files": [
+      {
+        "path": "requests.json",
+        "sha256": "9e719d45a320446bdb7a3a6b80bdc3c3d047abd70e0f92b47c2e6c845bb7f1cc"
+      },
+      {
+        "path": "responses.json",
+        "sha256": "e90fb6b2a69f589ce00c3981004e331cf7aa89eed035e4890f807054e40abd8c"
+      }
+    ]
+  },
+  "live_jobs": [],
+  "review_findings": [
+    {
+      "finding": "Existing n(id) helper is also used by component emitters; changing its arity broke compilation",
+      "resolution": "Retain the semantic n(id) helper and use a distinct mode-aware internal name function",
+      "evidence": "/tmp/mpk-w09-observations-check-v1.log"
+    },
+    {
+      "finding": "Initial snapshot test supplied TaggedSum for the frozen Option carrier; input validator rejected it",
+      "resolution": "Use the exact Option/Some/None representation; same semantic values and all 23 pairs pass",
+      "evidence": "/tmp/mpk-w09-observations-semantics-v1.log"
+    },
+    {
+      "finding": "Semantic and observation modes must not share cached type results or generated composite names",
+      "resolution": "Cache key includes mode; distinct SourceObservation namespace; 116-pair comparison includes exact observation metadata to reject wrong cached root selection"
+    }
+  ],
+  "non_evidence_attempts": [
+    {
+      "log": "/tmp/mpk-w09-observations-checkers-v1.log",
+      "reason": "Go command was invoked from repository root; corrected working directory in v2"
+    }
+  ],
+  "scope_limits": [
+    "Source observation assumes valid operand domains; source/public invariants and reconstruction still require ordinary proofs",
+    "NaN bits, floating signed zero and every source stored field are preserved; decimal cohorts compare numerically",
+    "Erased construction state is explicit and not a storable snapshot",
+    "Finite observations and type/helper certificates do not prove application VCs"
+  ],
+  "review_attachment": "unit-3-observation-review.md",
+  "subsequent_collection_verification": {
+    "progress": "unit-3-entry-collection-progress.json",
+    "scope": "Original collection generation and complete semantics passed (nine sources/ten instances, 669 observations); earlier observer version is explicit in that receipt."
+  }
+}

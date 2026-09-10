@@ -203,6 +203,36 @@ impl Circuit {
         }
         x
     }
+    // Preserve input IDs and gate order while aligning the first gate block.
+    // Only zero padding is inserted; every internal reference and root moves
+    // by the same offset. Pruning immediately rebuilds the interning table.
+    fn align_inputs(&mut self, block_bits: u32, outputs: &mut [Bit]) {
+        let alignment = 1usize << block_bits;
+        let old_start = self.start;
+        let padding = (alignment - old_start % alignment) % alignment;
+        if padding == 0 {
+            return;
+        }
+        let remap = |id: Bit| if id >= old_start { id + padding } else { id };
+        self.gates.splice(
+            old_start..old_start,
+            std::iter::repeat_n(Gate::False, padding),
+        );
+        self.start += padding;
+        for gate in self.gates.iter_mut().skip(self.start) {
+            *gate = match *gate {
+                Gate::Not(a) => Gate::Not(remap(a)),
+                Gate::And(a, b) => Gate::And(remap(a), remap(b)),
+                Gate::Xor(a, b) => Gate::Xor(remap(a), remap(b)),
+                Gate::Mux(c, t, e) => Gate::Mux(remap(c), remap(t), remap(e)),
+                _ => unreachable!("computed gates follow the input prefix"),
+            };
+        }
+        for output in outputs {
+            *output = remap(*output);
+        }
+        self.intern.clear();
+    }
     fn prune(&mut self, outputs: &mut [Bit]) {
         let mut live = vec![false; self.gates.len()];
         for &id in outputs.iter() {
@@ -536,14 +566,26 @@ pub struct OrdinaryScalarDefinition {
     pub static_transformers: usize,
 }
 pub type OrdinaryIntegerDefinition = OrdinaryScalarDefinition;
-fn emit_integer(b: &mut Builder, id: &str) -> R<OrdinaryIntegerDefinition> {
+pub(super) fn emit_integer(b: &mut Builder, id: &str) -> R<OrdinaryIntegerDefinition> {
     emit_circuit(b, integer_circuit(id)?, "Integer")
 }
 fn emit_circuit(
     b: &mut Builder,
-    mut p: IntegerCircuit,
+    p: IntegerCircuit,
     namespace: &str,
 ) -> R<OrdinaryScalarDefinition> {
+    emit_circuit_with_block_bits(b, p, namespace, 5)
+}
+fn emit_circuit_with_block_bits(
+    b: &mut Builder,
+    mut p: IntegerCircuit,
+    namespace: &str,
+    block_bits: u32,
+) -> R<OrdinaryScalarDefinition> {
+    if !(5..=7).contains(&block_bits) {
+        return Err(OrdinaryCarrierError::Shape);
+    }
+    let block_size = 1usize << block_bits;
     let mut success = T;
     for f in &mut p.failures {
         let raw = *f;
@@ -561,6 +603,7 @@ fn emit_circuit(
         .chain(p.failures.iter().copied())
         .chain(std::iter::once(success))
         .collect::<Vec<_>>();
+    p.circuit.align_inputs(block_bits, &mut roots);
     p.circuit.prune(&mut roots);
     let output_len = p.output.len();
     p.output.copy_from_slice(&roots[..output_len]);
@@ -591,8 +634,8 @@ fn emit_circuit(
             .collect::<String>()
     );
     let mut steps = vec![];
-    for start in (c.start..c.gates.len()).step_by(32) {
-        let count = (c.gates.len() - start).min(32);
+    for start in (c.start..c.gates.len()).step_by(block_size) {
+        let count = (c.gates.len() - start).min(block_size);
         let mut bindings = vec![];
         for j in 0..count {
             bindings.push(core_gate(b, c.gates[start + j], start, j, d)?);
@@ -605,9 +648,9 @@ fn emit_circuit(
             .collect::<R<Vec<_>>>()?;
         let f = b.constant("Std.Bool.false")?;
         // Select low address bits while retaining the complete selector scope.
-        let value = core_select(b, &values, d, 0, 5, f)?;
+        let value = core_select(b, &values, d, 0, block_bits, f)?;
         let mut block = b.constant("Std.Bool.true")?;
-        for i in 5..d {
+        for i in block_bits..d {
             let v = b.var(d - 1 - i)?;
             let v = if start & (1usize << i) == 0 {
                 let not = b.constant("Std.Bool.not")?;
@@ -629,7 +672,7 @@ fn emit_circuit(
         }
         let body = b.lam(s, body)?;
         let ty = b.pi(s, s)?;
-        let step = format!("{name}.Block.B{}", start / 32);
+        let step = format!("{name}.Block.B{}", start / block_size);
         b.define(&step, ty, body)?;
         steps.push(b.constant(&step)?);
     }
@@ -773,6 +816,43 @@ pub fn import_csharp_practical_ordinary_integers(
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn circuit_block_alignment_preserves_dependencies_and_roots() {
+        for width in [1, 8, 32, 64, 128] {
+            for block_bits in [5, 6, 7] {
+                let mut c = Circuit::new(&[width]);
+                let input = c.inputs[0].clone();
+                let mut roots = input.clone();
+                let mut value = input[0];
+                for i in 0..384 {
+                    let a = input[i % width];
+                    let b = input[(i + 3) % width];
+                    let inverse = c.not(value);
+                    let different = c.xor(a, inverse);
+                    let both = c.and(b, different);
+                    value = c.mux(a, both, inverse);
+                    roots.extend([inverse, different, both, value]);
+                }
+                let inputs = [0, 1, u128::MAX, 0xaaaa_5555, 1u128 << (width - 1)];
+                let expected = inputs.map(|input| {
+                    let values = c.evaluate(&[input]);
+                    roots.iter().map(|&id| values[id]).collect::<Vec<_>>()
+                });
+                c.align_inputs(block_bits, &mut roots);
+                assert_eq!(c.start % (1 << block_bits), 0);
+                c.prune(&mut roots);
+                for (input, expected) in inputs.into_iter().zip(expected) {
+                    let values = c.evaluate(&[input]);
+                    assert_eq!(
+                        roots.iter().map(|&id| values[id]).collect::<Vec<_>>(),
+                        expected,
+                        "width {width}, block bits {block_bits}, input {input}"
+                    );
+                }
+            }
+        }
+    }
     fn observed(p: &IntegerCircuit, args: &[u128]) -> (u128, Option<usize>) {
         let v = p.circuit.evaluate(args);
         (
@@ -1217,6 +1297,7 @@ mod tests {
 
 #[path = "csharp_practical_ordinary_temporal.rs"]
 mod temporal;
+pub(super) use temporal::emit_temporal;
 pub use temporal::{
     generate_csharp_practical_ordinary_temporal, import_csharp_practical_ordinary_temporal,
     OrdinaryTemporalProgram,
@@ -1224,6 +1305,7 @@ pub use temporal::{
 
 #[path = "csharp_practical_ordinary_calendar.rs"]
 mod calendar;
+pub(super) use calendar::emit_calendar;
 pub use calendar::{
     generate_csharp_practical_ordinary_calendar, import_csharp_practical_ordinary_calendar,
     OrdinaryCalendarProgram,
@@ -1231,6 +1313,7 @@ pub use calendar::{
 
 #[path = "csharp_practical_ordinary_float.rs"]
 mod floating;
+pub(super) use floating::emit_floating;
 pub use floating::{
     generate_csharp_practical_ordinary_floating, import_csharp_practical_ordinary_floating,
     OrdinaryFloatingProgram,
@@ -1238,6 +1321,7 @@ pub use floating::{
 
 #[path = "csharp_practical_ordinary_decimal.rs"]
 mod decimal;
+pub(super) use decimal::{emit_decimal, emit_decimal_contract};
 pub use decimal::{
     generate_csharp_practical_ordinary_decimal, import_csharp_practical_ordinary_decimal,
     OrdinaryDecimalProgram,
@@ -1245,6 +1329,7 @@ pub use decimal::{
 
 #[path = "csharp_practical_ordinary_string.rs"]
 mod utf16;
+pub(super) use utf16::ContractStringCache;
 pub use utf16::{
     generate_csharp_practical_ordinary_strings, import_csharp_practical_ordinary_strings,
     OrdinaryStringDefinition, OrdinaryStringProgram,
@@ -1252,4 +1337,226 @@ pub use utf16::{
 
 #[path = "csharp_practical_ordinary_scalar_relations.rs"]
 mod scalar_relations;
-pub(super) use scalar_relations::{bits_relation, special_relation, ScalarRelations};
+pub(super) use scalar_relations::{
+    bits_relation, count_addition, sequence_subtraction, special_relation, ScalarRelations,
+};
+
+#[path = "csharp_practical_ordinary_hex_codecs.rs"]
+mod hex_codecs;
+pub use hex_codecs::{
+    generate_csharp_practical_ordinary_hex_codecs, import_csharp_practical_ordinary_hex_codecs,
+    OrdinaryHexCodecDefinition, OrdinaryHexCodecProgram,
+};
+
+#[path = "csharp_practical_ordinary_integer_format.rs"]
+mod integer_format;
+pub use integer_format::{
+    generate_csharp_practical_ordinary_integer_formats,
+    import_csharp_practical_ordinary_integer_formats, OrdinaryIntegerFormatDefinition,
+    OrdinaryIntegerFormatProgram,
+};
+
+#[path = "csharp_practical_ordinary_integer_parse.rs"]
+mod integer_parse;
+pub use integer_parse::{
+    generate_csharp_practical_ordinary_integer_parsers,
+    import_csharp_practical_ordinary_integer_parsers, OrdinaryIntegerParseDefinition,
+    OrdinaryIntegerParseProgram,
+};
+
+#[path = "csharp_practical_ordinary_decimal_format.rs"]
+mod decimal_format;
+pub use decimal_format::{
+    generate_csharp_practical_ordinary_decimal_formats,
+    import_csharp_practical_ordinary_decimal_formats, OrdinaryDecimalFormatDefinition,
+    OrdinaryDecimalFormatProgram,
+};
+
+#[path = "csharp_practical_ordinary_decimal_fixed_format.rs"]
+mod decimal_fixed_format;
+pub use decimal_fixed_format::{
+    generate_csharp_practical_ordinary_decimal_fixed_formats,
+    import_csharp_practical_ordinary_decimal_fixed_formats, OrdinaryDecimalFixedFormatDefinition,
+    OrdinaryDecimalFixedFormatProgram,
+};
+
+#[path = "csharp_practical_ordinary_decimal_parse.rs"]
+mod decimal_parse;
+#[cfg(test)]
+pub(super) fn emit_decimal_parsers_for_shared_test(
+    b: &mut Builder,
+) -> R<Vec<OrdinaryDecimalParseDefinition>> {
+    decimal_parse::emit_parser(b)
+}
+pub use decimal_parse::{
+    generate_csharp_practical_ordinary_decimal_parsers,
+    import_csharp_practical_ordinary_decimal_parsers, OrdinaryDecimalParseDefinition,
+    OrdinaryDecimalParseProgram,
+};
+
+#[path = "csharp_practical_ordinary_calendar_codecs.rs"]
+mod calendar_codecs;
+pub use calendar_codecs::{
+    generate_csharp_practical_ordinary_calendar_codecs,
+    import_csharp_practical_ordinary_calendar_codecs, OrdinaryCalendarCodecDefinition,
+    OrdinaryCalendarCodecProgram,
+};
+
+#[path = "csharp_practical_ordinary_boundary_document.rs"]
+mod boundary_document;
+pub use boundary_document::{
+    generate_csharp_practical_ordinary_boundary_documents,
+    import_csharp_practical_ordinary_boundary_documents, OrdinaryBoundaryDocumentDefinition,
+    OrdinaryBoundaryDocumentProgram,
+};
+
+#[path = "csharp_practical_ordinary_boundary_utf8.rs"]
+mod boundary_utf8;
+pub use boundary_utf8::{
+    generate_csharp_practical_ordinary_boundary_utf8,
+    import_csharp_practical_ordinary_boundary_utf8, OrdinaryBoundaryUtf8Definition,
+    OrdinaryBoundaryUtf8Program,
+};
+
+#[path = "csharp_practical_ordinary_json_string.rs"]
+mod json_strings;
+pub use json_strings::{
+    generate_csharp_practical_ordinary_json_strings, import_csharp_practical_ordinary_json_strings,
+    OrdinaryJsonStringDefinition, OrdinaryJsonStringProgram,
+};
+
+#[path = "csharp_practical_ordinary_json_string_parse.rs"]
+mod json_string_parsers;
+pub use json_string_parsers::{
+    generate_csharp_practical_ordinary_json_string_parsers,
+    import_csharp_practical_ordinary_json_string_parsers, OrdinaryJsonStringParseDefinition,
+    OrdinaryJsonStringParseProgram,
+};
+
+#[path = "csharp_practical_ordinary_boundary_fragments.rs"]
+mod boundary_fragments;
+pub use boundary_fragments::{
+    generate_csharp_practical_ordinary_boundary_fragments,
+    import_csharp_practical_ordinary_boundary_fragments, OrdinaryBoundaryFragmentDefinition,
+    OrdinaryBoundaryFragmentProgram,
+};
+
+#[path = "csharp_practical_ordinary_json_keywords.rs"]
+mod json_keywords;
+pub use json_keywords::{
+    generate_csharp_practical_ordinary_json_keywords,
+    import_csharp_practical_ordinary_json_keywords, OrdinaryJsonKeywordDefinition,
+    OrdinaryJsonKeywordProgram,
+};
+
+#[path = "csharp_practical_ordinary_json_tokens.rs"]
+mod json_tokens;
+pub use json_tokens::{
+    generate_csharp_practical_ordinary_json_tokens, import_csharp_practical_ordinary_json_tokens,
+    OrdinaryJsonCalendarTokenDefinition, OrdinaryJsonDecimalTokenDefinition,
+    OrdinaryJsonQuotedCodecDefinition, OrdinaryJsonScalarTokenDefinition,
+    OrdinaryJsonSignedDefinition, OrdinaryJsonTokenDefinition, OrdinaryJsonTokenProgram,
+    OrdinaryJsonUnsignedDefinition,
+};
+
+// The complete boundary lexical environment can share the owning structural
+// Builder. Its counters and declarations must not be reset at the boundary.
+pub(super) fn emit_boundary_json(b: &mut Builder) -> R<OrdinaryJsonTokenDefinition> {
+    let document = boundary_document::emit(b)?;
+    let fragments = boundary_fragments::emit(b, document)?;
+    json_tokens::emit(b, fragments)
+}
+
+// Select calendar definitions from the actual reconstructed reachable layouts.
+pub(super) fn emit_boundary_json_for_carriers(
+    b: &mut Builder,
+    carriers: &[OrdinaryCarrier],
+) -> R<OrdinaryJsonTokenDefinition> {
+    let mut definition = emit_boundary_json(b)?;
+    json_tokens::add_calendars(b, &mut definition, carriers)?;
+    Ok(definition)
+}
+
+#[path = "csharp_practical_ordinary_json_syntax.rs"]
+mod json_syntax;
+pub use json_syntax::{
+    generate_csharp_practical_ordinary_json_syntax, import_csharp_practical_ordinary_json_syntax,
+    OrdinaryJsonFieldSyntax, OrdinaryJsonSyntaxLiteral, OrdinaryJsonSyntaxProgram,
+};
+
+#[path = "csharp_practical_ordinary_json_values.rs"]
+mod json_values;
+pub use json_values::{
+    generate_csharp_practical_ordinary_json_values, import_csharp_practical_ordinary_json_values,
+    OrdinaryJsonValueDefinition, OrdinaryJsonValueProgram,
+};
+
+#[path = "csharp_practical_ordinary_json_grammar.rs"]
+mod json_grammar;
+pub use json_grammar::OrdinaryJsonGrammarDefinition;
+#[path = "csharp_practical_ordinary_json_enums.rs"]
+mod json_enums;
+#[path = "csharp_practical_ordinary_json_products.rs"]
+mod json_products;
+pub use json_enums::OrdinaryJsonEnumDefinition;
+#[path = "csharp_practical_ordinary_json_vocabulary.rs"]
+mod json_vocabulary;
+pub use json_products::{
+    generate_csharp_practical_ordinary_json_products,
+    import_csharp_practical_ordinary_json_products, OrdinaryJsonCollectionDefinition,
+    OrdinaryJsonProductDefinition, OrdinaryJsonProductProgram, OrdinaryJsonSequenceDefinition,
+    OrdinaryJsonSumArm, OrdinaryJsonSumDefinition,
+};
+pub use json_vocabulary::OrdinaryJsonVocabularyDefinition;
+
+pub use json_products::{
+    generate_csharp_practical_ordinary_json_boundary_fields,
+    import_csharp_practical_ordinary_json_boundary_fields, OrdinaryJsonBoundaryFieldDefinition,
+    OrdinaryJsonBoundaryFieldProgram,
+};
+
+pub use json_products::{
+    generate_csharp_practical_ordinary_json_envelopes,
+    import_csharp_practical_ordinary_json_envelopes, OrdinaryJsonEnvelopeDefinition,
+    OrdinaryJsonEnvelopeField, OrdinaryJsonEnvelopeProgram,
+};
+
+pub use json_products::{
+    generate_csharp_practical_ordinary_json_typed_depth,
+    import_csharp_practical_ordinary_json_typed_depth, OrdinaryJsonTypedDepthDefinition,
+    OrdinaryJsonTypedDepthProgram,
+};
+
+pub use json_products::{
+    generate_csharp_practical_ordinary_json_depth_guarded_envelopes,
+    import_csharp_practical_ordinary_json_depth_guarded_envelopes,
+};
+
+pub use json_products::{
+    generate_csharp_practical_ordinary_json_typed_nodes,
+    import_csharp_practical_ordinary_json_typed_nodes, OrdinaryJsonTypedNodeDefinition,
+    OrdinaryJsonTypedNodeProgram,
+};
+
+pub use json_products::{
+    generate_csharp_practical_ordinary_json_typed_guarded_envelopes,
+    import_csharp_practical_ordinary_json_typed_guarded_envelopes,
+};
+
+#[path = "csharp_practical_ordinary_json_raw_limits.rs"]
+mod json_raw_limits;
+
+pub use json_raw_limits::{
+    generate_csharp_practical_ordinary_json_raw_limits,
+    import_csharp_practical_ordinary_json_raw_limits, OrdinaryJsonRawLimitsDefinition,
+    OrdinaryJsonRawLimitsProgram,
+};
+
+pub use json_products::{
+    generate_csharp_practical_ordinary_json_limits_guarded_envelopes,
+    import_csharp_practical_ordinary_json_limits_guarded_envelopes,
+};
+
+#[path = "csharp_practical_ordinary_contract_codecs.rs"]
+mod contract_codecs;
+pub(super) use contract_codecs::ContractCodecCache;

@@ -1,0 +1,36 @@
+Executing ['go', 'test', '-C', 'go-tools/mpk-checker-ref', '-tags', 'checkeragreement', '-run', '^TestCheckerAgreementWithRustCLIIntegerParsers$/^(binding\\-vc\\-boundary_field\\.hex|binding\\-vc\\-instant\\.hex|binding\\-vc\\-lookup\\.hex|duration\\-add\\-source\\.hex|floats\\.hex|literal\\-i16\\.hex|literal\\-i64\\.hex|literal\\-i8\\.hex|literal\\-u16\\.hex|literal\\-u32\\.hex|literal\\-u64\\.hex|literal\\-u8\\.hex)$', '-count=1', '-timeout', '0', '-v']
+=== RUN   TestCheckerAgreementWithRustCLIIntegerParsers
+=== RUN   TestCheckerAgreementWithRustCLIIntegerParsers/binding-vc-boundary_field.hex
+=== RUN   TestCheckerAgreementWithRustCLIIntegerParsers/binding-vc-instant.hex
+=== RUN   TestCheckerAgreementWithRustCLIIntegerParsers/binding-vc-lookup.hex
+=== RUN   TestCheckerAgreementWithRustCLIIntegerParsers/duration-add-source.hex
+=== RUN   TestCheckerAgreementWithRustCLIIntegerParsers/floats.hex
+=== RUN   TestCheckerAgreementWithRustCLIIntegerParsers/literal-i16.hex
+=== RUN   TestCheckerAgreementWithRustCLIIntegerParsers/literal-i64.hex
+=== RUN   TestCheckerAgreementWithRustCLIIntegerParsers/literal-i8.hex
+=== RUN   TestCheckerAgreementWithRustCLIIntegerParsers/literal-u16.hex
+=== RUN   TestCheckerAgreementWithRustCLIIntegerParsers/literal-u32.hex
+=== RUN   TestCheckerAgreementWithRustCLIIntegerParsers/literal-u64.hex
+=== RUN   TestCheckerAgreementWithRustCLIIntegerParsers/literal-u8.hex
+--- PASS: TestCheckerAgreementWithRustCLIIntegerParsers (119.94s)
+    --- PASS: TestCheckerAgreementWithRustCLIIntegerParsers/binding-vc-boundary_field.hex (9.96s)
+    --- PASS: TestCheckerAgreementWithRustCLIIntegerParsers/binding-vc-instant.hex (10.29s)
+    --- PASS: TestCheckerAgreementWithRustCLIIntegerParsers/binding-vc-lookup.hex (9.59s)
+    --- PASS: TestCheckerAgreementWithRustCLIIntegerParsers/duration-add-source.hex (10.01s)
+    --- PASS: TestCheckerAgreementWithRustCLIIntegerParsers/floats.hex (10.40s)
+    --- PASS: TestCheckerAgreementWithRustCLIIntegerParsers/literal-i16.hex (10.03s)
+    --- PASS: TestCheckerAgreementWithRustCLIIntegerParsers/literal-i64.hex (9.98s)
+    --- PASS: TestCheckerAgreementWithRustCLIIntegerParsers/literal-i8.hex (9.94s)
+    --- PASS: TestCheckerAgreementWithRustCLIIntegerParsers/literal-u16.hex (9.95s)
+    --- PASS: TestCheckerAgreementWithRustCLIIntegerParsers/literal-u32.hex (9.38s)
+    --- PASS: TestCheckerAgreementWithRustCLIIntegerParsers/literal-u64.hex (9.62s)
+    --- PASS: TestCheckerAgreementWithRustCLIIntegerParsers/literal-u8.hex (10.76s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	120.265s
+Executing ['go', 'test', '-C', 'go-tools/mpk-checker-ref', '-tags', 'checkeragreement', '-run', '^TestCheckerAgreementWithRustCLIDecimalParsers$/^(binding\\-vc\\-money\\.hex)$', '-count=1', '-timeout', '0', '-v']
+=== RUN   TestCheckerAgreementWithRustCLIDecimalParsers
+=== RUN   TestCheckerAgreementWithRustCLIDecimalParsers/binding-vc-money.hex
+--- PASS: TestCheckerAgreementWithRustCLIDecimalParsers (29.58s)
+    --- PASS: TestCheckerAgreementWithRustCLIDecimalParsers/binding-vc-money.hex (29.58s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	29.770s

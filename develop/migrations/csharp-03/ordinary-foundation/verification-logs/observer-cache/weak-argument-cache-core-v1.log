@@ -1,0 +1,17 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error[E0282]: type annotations needed for `Rc<_>`
+   --> crates/mpk-vc/src/csharp_practical_ordinary_test_eval_tests.rs:312:9
+    |
+312 |     let sparse = Rc::new([1usize, 3].into_iter().collect());
+    |         ^^^^^^
+...
+316 |             V::SparseCube(sparse.clone(), offset, 2, 4),
+    |                           ------ type must be known at this point
+    |
+help: consider giving `sparse` an explicit type, where the placeholder `_` is specified
+    |
+312 |     let sparse: Rc<T> = Rc::new([1usize, 3].into_iter().collect());
+    |               +++++++
+
+For more information about this error, try `rustc --explain E0282`.
+error: could not compile `mpk-vc` (lib test) due to 1 previous error

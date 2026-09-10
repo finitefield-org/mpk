@@ -1,0 +1,12 @@
+import sys
+sys.path.insert(0, '/repo/scripts')
+import csharp_practical_build_inputs as gate
+original = gate.active.execute_isolated
+def diagnostic(*args, **kwargs):
+    result = original(*args, **kwargs)
+    print('isolated return code:', result.returncode, file=sys.stderr)
+    print('stdout:', repr(result.stdout), file=sys.stderr)
+    print('stderr:', repr(result.stderr), file=sys.stderr)
+    return result
+gate.active.execute_isolated = diagnostic
+sys.stdout.buffer.write(gate.test_data_phase(requests=sys.stdin.buffer.read()))

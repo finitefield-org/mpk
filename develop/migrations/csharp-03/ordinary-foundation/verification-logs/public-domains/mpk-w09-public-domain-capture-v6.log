@@ -1,0 +1,10 @@
+isolated return code: 126
+stdout: b''
+stderr: b'unshare: failed to execute /tmp/mpk-csharp-practical-data-phase-test-9sre5yl3/closure/extracted/dotnet-sdk-linux-x64/dotnet: Permission denied\n'
+Traceback (most recent call last):
+  File "/repo/diagnose.py", line 12, in <module>
+    sys.stdout.buffer.write(gate.test_data_phase(requests=sys.stdin.buffer.read()))
+                            ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/repo/scripts/csharp_practical_build_inputs.py", line 3293, in test_data_phase
+    raise active.CSharpBuildFailure("CSHARP_PRACTICAL_DATA_PHASE_TEST_BUILD")
+csharp_build_inputs.CSharpBuildFailure: CSHARP_PRACTICAL_DATA_PHASE_TEST_BUILD

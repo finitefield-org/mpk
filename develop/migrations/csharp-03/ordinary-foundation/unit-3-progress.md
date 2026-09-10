@@ -4,6 +4,66 @@ Unit 3 is in progress, not complete. Units 1 and 2 are complete as internal
 units. W09 is not complete, and W10-W12 remain blocked. The full T06 gate
 stays deferred to W12.
 
+## Integrated ordinary program checkpoint
+
+The additional `structural-public/` profile now combines those existing
+operations with source public clauses, recursive public domains and concrete
+public-default predicates. Three original contexts passed complete dependency
+closure comparisons and both unchanged checkers; representative predecessor
+bytes are preserved. The six standalone public-default candidates also remain
+byte-identical. See `unit-3-structural-public-progress.json` and
+`unit-3-public-domains-progress.json`. These predicates do not discharge native
+source, initialization or application proofs; the remaining internal-unit scope
+and deep runtime tests remain open.
+
+
+`structural-foundations/README.md` now records 43 actual-source programs,
+432 unit-3 operation occurrences and 274 source-observation carriers. Generation,
+mutation checks and exact replay pass. All 116 standalone source-component pairs,
+1,160 roots and 11,207 transitive declarations match, including observation
+metadata and body/dependency mutations. Source observation preserves NaN bits,
+floating signed zero and every stored source field, while decimal cohorts are
+compared numerically. Its 23 ordinary value pairs and ten semantic-equality
+contrasts passed. All four observation pins passed both checkers with zero
+axioms and hash-corruption rejection. The extended 43-pin integrated checker
+run passed all 43 certificates with zero axioms and hash-corruption rejection (1,232.277 seconds). Previous 42 checked integrated pins and receipts are preserved in
+`structural-foundations/pre-observations/`.
+
+The integrated program retains deferred Money/Transition and native source-state
+obligations. This does not close unit 3 or W09. Deep domain semantics,
+full unit review and all original units 4-8 remain required. See
+`unit-3-observation-progress.json` and `unit-3-structural-foundation-progress.json`.
+
+## Current entry and collection checkpoint
+
+The observer lifetime correction is recorded in
+`unit-3-observer-lifetime-progress.json` and its linked review. Eight low-level
+and four source-consumer tests passed. A subsequent stack-overflow abort exposed
+recursive destruction of environment chains; the iterative-release correction
+passed nine low-level tests, a mixed 100,000-binding test on a 128-KiB stack,
+four source-consumer tests and lint. Unfinished domain checks are rerunning
+serially as v7; the integer domain/capacity suite passed in 4,341.47 seconds
+with the earlier lifetime-corrected observer and current writer, before iterative
+EnvRef destruction. Other existing semantic/checker processes remain intact.
+
+The ordered-entry generator now emits every expanded make/key/value/equal and
+eligible compare operation. Six actual-source certificates passed exact replay
+and both checkers with zero axioms; the complete semantic run also passed six
+contexts and 248 observations. The ordered-map/set generator now emits all 75 operations across ten
+instances in nine original-source contexts. Generation/mutation checks passed;
+the additional float-value, nullable-value and shared-lookup sources passed
+243 ordinary observations. All nine current certificates passed both checkers
+with zero axioms and rejection of hash corruptions. The current maximum-update
+suite passed first/middle/last insertions, full-map replacement and exact decimal
+cohort retention. Integer map/set domains and both 4096-slot capacity cases
+passed. Complete original collection semantics also passed: 669 observations
+across nine sources/ten instances (12,673.09 seconds), under the earlier
+pre-lifetime-correction observer and v4 writer. The declaration-closure checks
+retain the current production definitions.
+See `unit-3-entry-collection-progress.json` and
+`unit-3-entry-collection-review.md` for exact versions, completed checks and live
+jobs. Older component checkpoints below retain their chronological scope.
+
 ## Product/sum storage construction and access
 
 The new ordinary structural generator independently reconstructs the complete
@@ -180,20 +240,106 @@ cache entries are unchanged. See `unit-3-relations-verification.json` and
 
 Inspected next-component requirements, including logical cell-count exceptions
 for map entries and transition events, are in `unit-3-domain-notes.md`. These
-notes do not implement the missing domains or defaults.
+notes specify the domain/default rules; current implementation evidence is linked
+in the component checkpoints below.
 
 - Complete semantic domains/default eligibility for all concrete values,
   including recursive canonical padding and inactive storage, sum tags, nullable
   payloads, string bounds and role-specific sequence bounds. Primitive scalar
   and source-enum representation domains are implemented as described above;
   source public clauses and default eligibility still require assembly.
-- Unit/parse-error/exception operations and semantic constructors/accessors over
-  these helpers, retaining domain, validation and ordered failure obligations.
-- Bounded sequence and construction-state operations, ownership/initialization,
-  ordered maps/sets, outcome/validation operations and error concatenation.
+- Semantic source constructors/accessors and operation integration over these
+  helpers, retaining domain, validation and ordered failure obligations. The
+  finite unit/parse-error/exception operation component is described below.
+- Complete construction storage/domain/source-state integration described below;
+  source ownership and
+  initialization proof assembly remains pending. Implement ordered maps/sets
+  and complete the full integration/review of these components.
 - Expand every operation of every reachable concrete foundation instance,
   including uninvoked operations, and close unit 3's full scoped acceptance.
 
 Bindings, business adapters and codecs/literals remain unit 4; native body and
 control relations, transitions/replay, proof assembly and W09 acceptance remain
 units 5-8. This component does not move those ownership boundaries.
+
+## Recursive domains under verification
+
+The shared First/Sum aggregate pipeline and initial recursive Count/Valid
+implementation are present. Source reconstruction, small value counts and
+predecessor pinned-byte replay have passed. All 28 current domain certificates
+passed both checkers; deep storage/collection semantic verification remains in
+progress. See
+`unit-3-domain-progress.md` and its linked log inventory for exact evidence,
+open review coverage and the unchanged remaining scope. No domain, unit 3 or
+W09 completion receipt is issued by this work-in-progress checkpoint.
+
+## Default candidates
+
+Structural default eligibility, concrete zero-valued ordinary definitions and
+declaration-level public admission are implemented in
+`csharp_practical_ordinary_defaults.rs`. Source-default conditions remain explicit
+and pending; the flags are not application proofs. The 29-source pinned corpus
+passed exact replay and same-byte dual checking with zero axioms and hash-mutation
+rejection. See `defaults/README.md` and `unit-3-default-verification.json` for
+coverage, costs and scoped verification. Semantic constructors/operations and
+source-condition/application proof assembly remain outstanding.
+
+## Bounded sequences and construction storage
+
+All expanded bounded-sequence operations are generated, with full-word range
+failure, guarded read, structural equality and total-only comparison. Twelve
+original-source contexts and sixteen instances are pinned in
+`sequence-operations/`; see its README and the sequence/construction checkpoint
+(`unit-3-sequence-construction-progress.json` and
+`unit-3-sequence-construction-review.md`) for current verification. The semantic
+corpus includes string/decimal values and passed 457 indexed reads plus small
+semantic pairs in 1868.22 seconds. Its complete byte/metadata output matches the
+pinned certificate-only replay and dual-checker input exactly.
+
+Construction allocation/read/fill/rewrite/freeze normal bodies and ordered
+storage predicates are generated for five original-source contexts in
+`construction-operations/`. Allocation, sparse functional update, initialization,
+read/publication and invalid high-index semantics pass over all five source/type
+contexts. The 16,383/16,384/full-bitmap and invalid 16,385-length test also passes,
+including the final 4096 publication address. Source ownership/lifetime/version and default/public-domain conditions
+remain explicit pending obligations, not trusted Boolean flags. Both unchanged
+checkers accept all 17 sequence/construction certificates with zero axioms and
+reject all 17 hash-corrupted variants. Deep recursive-domain semantics and the
+source-state/application proof scope remain separate pending work.
+
+Direct review found and corrected source-type-only deduplication in the new
+test corpus: two different source contexts can share the same declaration ID.
+Additional sequence cases now check same-length element differences and
+lexicographic first-difference precedence, which length-only differences cannot
+exercise. These changes do not close the remaining maps/sets/outcomes, semantic
+source operations or the original units 4-8, and no unit/W09 completion receipt
+is issued.
+
+## Outcome and validation operations
+
+All expanded option/result/lookup/validation/boundary-field operations are now
+ordinary definitions, including constructors, tag/payload access, optional
+fallback, semantic equality, total-only comparison and ordered validation-error
+concatenation. Sixteen actual-source contexts cover seventeen instances and
+115 operations. The 907 semantic observations, i32 256-error boundary test and
+Bool/source-product append cases pass; nullable lookup preserves missing-key
+versus found(none). See `outcome-operations/README.md`,
+`unit-3-outcome-verification.json` and `unit-3-outcome-review.md` for exact scope
+and same-byte checker/replay evidence. These helpers do not establish source
+bindings or application VCs. Recursive-domain verification, map/set operations,
+source-state integration and the original units 4-8 remain outstanding.
+
+## Finite non-template operations and contract-only carriers
+
+Unit, parse-error and closed-exception operations are generated as ordinary terms
+for every reachable applicable type, including uninvoked operations. Seven actual
+source contexts and the scalar helper corpus pass same-byte dual checking and
+semantic observations; see `finite-operations/README.md`,
+`unit-3-finite-verification.json` and `unit-3-finite-review.md`.
+
+The parse-error source contract exposed missing contract-only carriers. The
+correction adds Bool to eleven existing certificates, preserves their previous
+bytes, and verifies both versions. Existing layouts and 144 other generated
+certificates are unchanged; eight scoped pinned replays pass. See
+`contract-carrier-extension/changes.json`. Recursive-domain semantic boundary
+tests, remaining operations and the original W09 assembly scope remain open.

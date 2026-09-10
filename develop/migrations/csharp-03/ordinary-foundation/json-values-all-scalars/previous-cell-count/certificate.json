@@ -1,0 +1,6213 @@
+{
+  "certificate_sha256": "278ba3d7514936db10cb580f1efc0b9a03940fe67409e43a6f3d9c256172e9c8",
+  "declarations": 3010,
+  "definitions": [
+    {
+      "carrier": {
+        "depth": 0,
+        "shape": {
+          "kind": "bits",
+          "width": 0
+        },
+        "type_id": "mpk.csharp.value.unit.v1"
+      },
+      "codec_id": "json.null",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D7.R0",
+      "packet_depth": 8,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.Scalar.null.Parse",
+      "rounding": null,
+      "scale": null,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.null.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D0.R1"
+    },
+    {
+      "carrier": {
+        "depth": 0,
+        "shape": {
+          "kind": "bits",
+          "width": 1
+        },
+        "type_id": "mpk.csharp.value.bool.v1"
+      },
+      "codec_id": "json.bool",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D7.R0",
+      "packet_depth": 8,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.Scalar.bool.Parse",
+      "rounding": null,
+      "scale": null,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.bool.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D0.R1"
+    },
+    {
+      "carrier": {
+        "depth": 4,
+        "shape": {
+          "kind": "bits",
+          "width": 16
+        },
+        "type_id": "mpk.csharp.value.char.v1"
+      },
+      "codec_id": "json.char",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D7.R0",
+      "packet_depth": 8,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.Quoted.char.Parse",
+      "rounding": null,
+      "scale": null,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.Quoted.char.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D4.R1"
+    },
+    {
+      "carrier": {
+        "depth": 19,
+        "shape": {
+          "capacity": 16384,
+          "element": {
+            "kind": "bits",
+            "width": 16
+          },
+          "kind": "sequence"
+        },
+        "type_id": "mpk.csharp.value.string.v1"
+      },
+      "codec_id": "json.string",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D20.Project.D7.R0",
+      "packet_depth": 20,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.String.Parse",
+      "rounding": null,
+      "scale": null,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonStringParse.Frame.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D20.Project.D19.R1"
+    },
+    {
+      "carrier": {
+        "depth": 3,
+        "shape": {
+          "kind": "bits",
+          "width": 8
+        },
+        "type_id": "mpk.csharp.value.i8.v1"
+      },
+      "codec_id": "integer.i8",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D7.R0",
+      "packet_depth": 8,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.Scalar.i8.Parse",
+      "rounding": null,
+      "scale": null,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.i8.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D3.R1"
+    },
+    {
+      "carrier": {
+        "depth": 3,
+        "shape": {
+          "kind": "bits",
+          "width": 8
+        },
+        "type_id": "mpk.csharp.value.u8.v1"
+      },
+      "codec_id": "integer.u8",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D7.R0",
+      "packet_depth": 8,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.Scalar.u8.Parse",
+      "rounding": null,
+      "scale": null,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.u8.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D3.R1"
+    },
+    {
+      "carrier": {
+        "depth": 4,
+        "shape": {
+          "kind": "bits",
+          "width": 16
+        },
+        "type_id": "mpk.csharp.value.i16.v1"
+      },
+      "codec_id": "integer.i16",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D7.R0",
+      "packet_depth": 8,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.Scalar.i16.Parse",
+      "rounding": null,
+      "scale": null,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.i16.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D4.R1"
+    },
+    {
+      "carrier": {
+        "depth": 4,
+        "shape": {
+          "kind": "bits",
+          "width": 16
+        },
+        "type_id": "mpk.csharp.value.u16.v1"
+      },
+      "codec_id": "integer.u16",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D7.R0",
+      "packet_depth": 8,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.Scalar.u16.Parse",
+      "rounding": null,
+      "scale": null,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.u16.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D4.R1"
+    },
+    {
+      "carrier": {
+        "depth": 5,
+        "shape": {
+          "kind": "bits",
+          "width": 32
+        },
+        "type_id": "mpk.csharp.value.i32.v1"
+      },
+      "codec_id": "integer.i32",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D7.R0",
+      "packet_depth": 8,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.Scalar.i32.Parse",
+      "rounding": null,
+      "scale": null,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.i32.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D5.R1"
+    },
+    {
+      "carrier": {
+        "depth": 5,
+        "shape": {
+          "kind": "bits",
+          "width": 32
+        },
+        "type_id": "mpk.csharp.value.u32.v1"
+      },
+      "codec_id": "integer.u32",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D7.R0",
+      "packet_depth": 8,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.Scalar.u32.Parse",
+      "rounding": null,
+      "scale": null,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.Scalar.u32.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D5.R1"
+    },
+    {
+      "carrier": {
+        "depth": 6,
+        "shape": {
+          "kind": "bits",
+          "width": 64
+        },
+        "type_id": "mpk.csharp.value.i64.v1"
+      },
+      "codec_id": "integer.i64",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D7.R0",
+      "packet_depth": 8,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.Quoted.i64.Parse",
+      "rounding": null,
+      "scale": null,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.Quoted.i64.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D6.R1"
+    },
+    {
+      "carrier": {
+        "depth": 6,
+        "shape": {
+          "kind": "bits",
+          "width": 64
+        },
+        "type_id": "mpk.csharp.value.u64.v1"
+      },
+      "codec_id": "integer.u64",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D7.R0",
+      "packet_depth": 8,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.Quoted.u64.Parse",
+      "rounding": null,
+      "scale": null,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.Quoted.u64.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D6.R1"
+    },
+    {
+      "carrier": {
+        "depth": 5,
+        "shape": {
+          "kind": "bits",
+          "width": 32
+        },
+        "type_id": "mpk.csharp.value.f32.v1"
+      },
+      "codec_id": "binary32",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D7.R0",
+      "packet_depth": 8,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedCodec.binary32.Parse",
+      "rounding": null,
+      "scale": null,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedCodec.binary32.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D5.R1"
+    },
+    {
+      "carrier": {
+        "depth": 6,
+        "shape": {
+          "kind": "bits",
+          "width": 64
+        },
+        "type_id": "mpk.csharp.value.f64.v1"
+      },
+      "codec_id": "binary64",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D7.R0",
+      "packet_depth": 8,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedCodec.binary64.Parse",
+      "rounding": null,
+      "scale": null,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedCodec.binary64.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D6.R1"
+    },
+    {
+      "carrier": {
+        "depth": 7,
+        "shape": {
+          "kind": "bits",
+          "width": 128
+        },
+        "type_id": "mpk.csharp.value.guid.v1"
+      },
+      "codec_id": "guid.n",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D7.R0",
+      "packet_depth": 8,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedCodec.guid.n.Parse",
+      "rounding": null,
+      "scale": null,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedCodec.guid.n.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D7.R1"
+    },
+    {
+      "carrier": {
+        "depth": 7,
+        "shape": {
+          "kind": "bits",
+          "width": 128
+        },
+        "type_id": "mpk.csharp.value.guid.v1"
+      },
+      "codec_id": "guid.d",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D7.R0",
+      "packet_depth": 8,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedCodec.guid.d.Parse",
+      "rounding": null,
+      "scale": null,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedCodec.guid.d.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D7.R1"
+    },
+    {
+      "carrier": {
+        "depth": 5,
+        "shape": {
+          "kind": "bits",
+          "width": 32
+        },
+        "type_id": "mpk.csharp.value.date.v1"
+      },
+      "codec_id": "date",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D7.R0",
+      "packet_depth": 8,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedCalendar.date.Parse",
+      "rounding": null,
+      "scale": null,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedCalendar.date.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D5.R1"
+    },
+    {
+      "carrier": {
+        "depth": 6,
+        "shape": {
+          "kind": "bits",
+          "width": 64
+        },
+        "type_id": "mpk.csharp.value.time.v1"
+      },
+      "codec_id": "time",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D7.R0",
+      "packet_depth": 8,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedCalendar.time.Parse",
+      "rounding": null,
+      "scale": null,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedCalendar.time.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D6.R1"
+    },
+    {
+      "carrier": {
+        "depth": 6,
+        "shape": {
+          "kind": "bits",
+          "width": 64
+        },
+        "type_id": "mpk.csharp.value.duration.v1"
+      },
+      "codec_id": "duration_ticks",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D7.R0",
+      "packet_depth": 8,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.Quoted.duration.Parse",
+      "rounding": null,
+      "scale": null,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.Quoted.duration.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D6.R1"
+    },
+    {
+      "carrier": {
+        "depth": 6,
+        "shape": {
+          "kind": "bits",
+          "width": 64
+        },
+        "type_id": "mpk.csharp.value.instant.v1"
+      },
+      "codec_id": "unix_milliseconds",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D7.R0",
+      "packet_depth": 8,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.Quoted.instant.Parse",
+      "rounding": null,
+      "scale": null,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.Quoted.instant.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D8.Project.D6.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.normalized",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Normalized.Parse",
+      "rounding": null,
+      "scale": null,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Normalized.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S0.ToEven.Parse",
+      "rounding": "ToEven",
+      "scale": 0,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S0.ToEven.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S0.AwayFromZero.Parse",
+      "rounding": "AwayFromZero",
+      "scale": 0,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S0.AwayFromZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S0.ToZero.Parse",
+      "rounding": "ToZero",
+      "scale": 0,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S0.ToZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S0.ToNegativeInfinity.Parse",
+      "rounding": "ToNegativeInfinity",
+      "scale": 0,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S0.ToNegativeInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S0.ToPositiveInfinity.Parse",
+      "rounding": "ToPositiveInfinity",
+      "scale": 0,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S0.ToPositiveInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S1.ToEven.Parse",
+      "rounding": "ToEven",
+      "scale": 1,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S1.ToEven.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S1.AwayFromZero.Parse",
+      "rounding": "AwayFromZero",
+      "scale": 1,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S1.AwayFromZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S1.ToZero.Parse",
+      "rounding": "ToZero",
+      "scale": 1,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S1.ToZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S1.ToNegativeInfinity.Parse",
+      "rounding": "ToNegativeInfinity",
+      "scale": 1,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S1.ToNegativeInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S1.ToPositiveInfinity.Parse",
+      "rounding": "ToPositiveInfinity",
+      "scale": 1,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S1.ToPositiveInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S2.ToEven.Parse",
+      "rounding": "ToEven",
+      "scale": 2,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S2.ToEven.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S2.AwayFromZero.Parse",
+      "rounding": "AwayFromZero",
+      "scale": 2,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S2.AwayFromZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S2.ToZero.Parse",
+      "rounding": "ToZero",
+      "scale": 2,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S2.ToZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S2.ToNegativeInfinity.Parse",
+      "rounding": "ToNegativeInfinity",
+      "scale": 2,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S2.ToNegativeInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S2.ToPositiveInfinity.Parse",
+      "rounding": "ToPositiveInfinity",
+      "scale": 2,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S2.ToPositiveInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S3.ToEven.Parse",
+      "rounding": "ToEven",
+      "scale": 3,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S3.ToEven.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S3.AwayFromZero.Parse",
+      "rounding": "AwayFromZero",
+      "scale": 3,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S3.AwayFromZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S3.ToZero.Parse",
+      "rounding": "ToZero",
+      "scale": 3,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S3.ToZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S3.ToNegativeInfinity.Parse",
+      "rounding": "ToNegativeInfinity",
+      "scale": 3,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S3.ToNegativeInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S3.ToPositiveInfinity.Parse",
+      "rounding": "ToPositiveInfinity",
+      "scale": 3,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S3.ToPositiveInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S4.ToEven.Parse",
+      "rounding": "ToEven",
+      "scale": 4,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S4.ToEven.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S4.AwayFromZero.Parse",
+      "rounding": "AwayFromZero",
+      "scale": 4,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S4.AwayFromZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S4.ToZero.Parse",
+      "rounding": "ToZero",
+      "scale": 4,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S4.ToZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S4.ToNegativeInfinity.Parse",
+      "rounding": "ToNegativeInfinity",
+      "scale": 4,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S4.ToNegativeInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S4.ToPositiveInfinity.Parse",
+      "rounding": "ToPositiveInfinity",
+      "scale": 4,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S4.ToPositiveInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S5.ToEven.Parse",
+      "rounding": "ToEven",
+      "scale": 5,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S5.ToEven.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S5.AwayFromZero.Parse",
+      "rounding": "AwayFromZero",
+      "scale": 5,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S5.AwayFromZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S5.ToZero.Parse",
+      "rounding": "ToZero",
+      "scale": 5,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S5.ToZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S5.ToNegativeInfinity.Parse",
+      "rounding": "ToNegativeInfinity",
+      "scale": 5,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S5.ToNegativeInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S5.ToPositiveInfinity.Parse",
+      "rounding": "ToPositiveInfinity",
+      "scale": 5,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S5.ToPositiveInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S6.ToEven.Parse",
+      "rounding": "ToEven",
+      "scale": 6,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S6.ToEven.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S6.AwayFromZero.Parse",
+      "rounding": "AwayFromZero",
+      "scale": 6,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S6.AwayFromZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S6.ToZero.Parse",
+      "rounding": "ToZero",
+      "scale": 6,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S6.ToZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S6.ToNegativeInfinity.Parse",
+      "rounding": "ToNegativeInfinity",
+      "scale": 6,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S6.ToNegativeInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S6.ToPositiveInfinity.Parse",
+      "rounding": "ToPositiveInfinity",
+      "scale": 6,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S6.ToPositiveInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S7.ToEven.Parse",
+      "rounding": "ToEven",
+      "scale": 7,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S7.ToEven.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S7.AwayFromZero.Parse",
+      "rounding": "AwayFromZero",
+      "scale": 7,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S7.AwayFromZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S7.ToZero.Parse",
+      "rounding": "ToZero",
+      "scale": 7,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S7.ToZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S7.ToNegativeInfinity.Parse",
+      "rounding": "ToNegativeInfinity",
+      "scale": 7,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S7.ToNegativeInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S7.ToPositiveInfinity.Parse",
+      "rounding": "ToPositiveInfinity",
+      "scale": 7,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S7.ToPositiveInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S8.ToEven.Parse",
+      "rounding": "ToEven",
+      "scale": 8,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S8.ToEven.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S8.AwayFromZero.Parse",
+      "rounding": "AwayFromZero",
+      "scale": 8,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S8.AwayFromZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S8.ToZero.Parse",
+      "rounding": "ToZero",
+      "scale": 8,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S8.ToZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S8.ToNegativeInfinity.Parse",
+      "rounding": "ToNegativeInfinity",
+      "scale": 8,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S8.ToNegativeInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S8.ToPositiveInfinity.Parse",
+      "rounding": "ToPositiveInfinity",
+      "scale": 8,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S8.ToPositiveInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S9.ToEven.Parse",
+      "rounding": "ToEven",
+      "scale": 9,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S9.ToEven.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S9.AwayFromZero.Parse",
+      "rounding": "AwayFromZero",
+      "scale": 9,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S9.AwayFromZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S9.ToZero.Parse",
+      "rounding": "ToZero",
+      "scale": 9,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S9.ToZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S9.ToNegativeInfinity.Parse",
+      "rounding": "ToNegativeInfinity",
+      "scale": 9,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S9.ToNegativeInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S9.ToPositiveInfinity.Parse",
+      "rounding": "ToPositiveInfinity",
+      "scale": 9,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S9.ToPositiveInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S10.ToEven.Parse",
+      "rounding": "ToEven",
+      "scale": 10,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S10.ToEven.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S10.AwayFromZero.Parse",
+      "rounding": "AwayFromZero",
+      "scale": 10,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S10.AwayFromZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S10.ToZero.Parse",
+      "rounding": "ToZero",
+      "scale": 10,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S10.ToZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S10.ToNegativeInfinity.Parse",
+      "rounding": "ToNegativeInfinity",
+      "scale": 10,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S10.ToNegativeInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S10.ToPositiveInfinity.Parse",
+      "rounding": "ToPositiveInfinity",
+      "scale": 10,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S10.ToPositiveInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S11.ToEven.Parse",
+      "rounding": "ToEven",
+      "scale": 11,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S11.ToEven.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S11.AwayFromZero.Parse",
+      "rounding": "AwayFromZero",
+      "scale": 11,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S11.AwayFromZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S11.ToZero.Parse",
+      "rounding": "ToZero",
+      "scale": 11,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S11.ToZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S11.ToNegativeInfinity.Parse",
+      "rounding": "ToNegativeInfinity",
+      "scale": 11,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S11.ToNegativeInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S11.ToPositiveInfinity.Parse",
+      "rounding": "ToPositiveInfinity",
+      "scale": 11,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S11.ToPositiveInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S12.ToEven.Parse",
+      "rounding": "ToEven",
+      "scale": 12,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S12.ToEven.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S12.AwayFromZero.Parse",
+      "rounding": "AwayFromZero",
+      "scale": 12,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S12.AwayFromZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S12.ToZero.Parse",
+      "rounding": "ToZero",
+      "scale": 12,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S12.ToZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S12.ToNegativeInfinity.Parse",
+      "rounding": "ToNegativeInfinity",
+      "scale": 12,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S12.ToNegativeInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S12.ToPositiveInfinity.Parse",
+      "rounding": "ToPositiveInfinity",
+      "scale": 12,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S12.ToPositiveInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S13.ToEven.Parse",
+      "rounding": "ToEven",
+      "scale": 13,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S13.ToEven.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S13.AwayFromZero.Parse",
+      "rounding": "AwayFromZero",
+      "scale": 13,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S13.AwayFromZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S13.ToZero.Parse",
+      "rounding": "ToZero",
+      "scale": 13,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S13.ToZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S13.ToNegativeInfinity.Parse",
+      "rounding": "ToNegativeInfinity",
+      "scale": 13,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S13.ToNegativeInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S13.ToPositiveInfinity.Parse",
+      "rounding": "ToPositiveInfinity",
+      "scale": 13,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S13.ToPositiveInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S14.ToEven.Parse",
+      "rounding": "ToEven",
+      "scale": 14,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S14.ToEven.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S14.AwayFromZero.Parse",
+      "rounding": "AwayFromZero",
+      "scale": 14,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S14.AwayFromZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S14.ToZero.Parse",
+      "rounding": "ToZero",
+      "scale": 14,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S14.ToZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S14.ToNegativeInfinity.Parse",
+      "rounding": "ToNegativeInfinity",
+      "scale": 14,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S14.ToNegativeInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S14.ToPositiveInfinity.Parse",
+      "rounding": "ToPositiveInfinity",
+      "scale": 14,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S14.ToPositiveInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S15.ToEven.Parse",
+      "rounding": "ToEven",
+      "scale": 15,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S15.ToEven.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S15.AwayFromZero.Parse",
+      "rounding": "AwayFromZero",
+      "scale": 15,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S15.AwayFromZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S15.ToZero.Parse",
+      "rounding": "ToZero",
+      "scale": 15,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S15.ToZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S15.ToNegativeInfinity.Parse",
+      "rounding": "ToNegativeInfinity",
+      "scale": 15,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S15.ToNegativeInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S15.ToPositiveInfinity.Parse",
+      "rounding": "ToPositiveInfinity",
+      "scale": 15,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S15.ToPositiveInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S16.ToEven.Parse",
+      "rounding": "ToEven",
+      "scale": 16,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S16.ToEven.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S16.AwayFromZero.Parse",
+      "rounding": "AwayFromZero",
+      "scale": 16,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S16.AwayFromZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S16.ToZero.Parse",
+      "rounding": "ToZero",
+      "scale": 16,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S16.ToZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S16.ToNegativeInfinity.Parse",
+      "rounding": "ToNegativeInfinity",
+      "scale": 16,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S16.ToNegativeInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S16.ToPositiveInfinity.Parse",
+      "rounding": "ToPositiveInfinity",
+      "scale": 16,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S16.ToPositiveInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S17.ToEven.Parse",
+      "rounding": "ToEven",
+      "scale": 17,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S17.ToEven.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S17.AwayFromZero.Parse",
+      "rounding": "AwayFromZero",
+      "scale": 17,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S17.AwayFromZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S17.ToZero.Parse",
+      "rounding": "ToZero",
+      "scale": 17,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S17.ToZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S17.ToNegativeInfinity.Parse",
+      "rounding": "ToNegativeInfinity",
+      "scale": 17,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S17.ToNegativeInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S17.ToPositiveInfinity.Parse",
+      "rounding": "ToPositiveInfinity",
+      "scale": 17,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S17.ToPositiveInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S18.ToEven.Parse",
+      "rounding": "ToEven",
+      "scale": 18,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S18.ToEven.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S18.AwayFromZero.Parse",
+      "rounding": "AwayFromZero",
+      "scale": 18,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S18.AwayFromZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S18.ToZero.Parse",
+      "rounding": "ToZero",
+      "scale": 18,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S18.ToZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S18.ToNegativeInfinity.Parse",
+      "rounding": "ToNegativeInfinity",
+      "scale": 18,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S18.ToNegativeInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S18.ToPositiveInfinity.Parse",
+      "rounding": "ToPositiveInfinity",
+      "scale": 18,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S18.ToPositiveInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S19.ToEven.Parse",
+      "rounding": "ToEven",
+      "scale": 19,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S19.ToEven.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S19.AwayFromZero.Parse",
+      "rounding": "AwayFromZero",
+      "scale": 19,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S19.AwayFromZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S19.ToZero.Parse",
+      "rounding": "ToZero",
+      "scale": 19,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S19.ToZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S19.ToNegativeInfinity.Parse",
+      "rounding": "ToNegativeInfinity",
+      "scale": 19,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S19.ToNegativeInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S19.ToPositiveInfinity.Parse",
+      "rounding": "ToPositiveInfinity",
+      "scale": 19,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S19.ToPositiveInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S20.ToEven.Parse",
+      "rounding": "ToEven",
+      "scale": 20,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S20.ToEven.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S20.AwayFromZero.Parse",
+      "rounding": "AwayFromZero",
+      "scale": 20,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S20.AwayFromZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S20.ToZero.Parse",
+      "rounding": "ToZero",
+      "scale": 20,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S20.ToZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S20.ToNegativeInfinity.Parse",
+      "rounding": "ToNegativeInfinity",
+      "scale": 20,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S20.ToNegativeInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S20.ToPositiveInfinity.Parse",
+      "rounding": "ToPositiveInfinity",
+      "scale": 20,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S20.ToPositiveInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S21.ToEven.Parse",
+      "rounding": "ToEven",
+      "scale": 21,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S21.ToEven.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S21.AwayFromZero.Parse",
+      "rounding": "AwayFromZero",
+      "scale": 21,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S21.AwayFromZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S21.ToZero.Parse",
+      "rounding": "ToZero",
+      "scale": 21,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S21.ToZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S21.ToNegativeInfinity.Parse",
+      "rounding": "ToNegativeInfinity",
+      "scale": 21,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S21.ToNegativeInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S21.ToPositiveInfinity.Parse",
+      "rounding": "ToPositiveInfinity",
+      "scale": 21,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S21.ToPositiveInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S22.ToEven.Parse",
+      "rounding": "ToEven",
+      "scale": 22,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S22.ToEven.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S22.AwayFromZero.Parse",
+      "rounding": "AwayFromZero",
+      "scale": 22,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S22.AwayFromZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S22.ToZero.Parse",
+      "rounding": "ToZero",
+      "scale": 22,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S22.ToZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S22.ToNegativeInfinity.Parse",
+      "rounding": "ToNegativeInfinity",
+      "scale": 22,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S22.ToNegativeInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S22.ToPositiveInfinity.Parse",
+      "rounding": "ToPositiveInfinity",
+      "scale": 22,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S22.ToPositiveInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S23.ToEven.Parse",
+      "rounding": "ToEven",
+      "scale": 23,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S23.ToEven.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S23.AwayFromZero.Parse",
+      "rounding": "AwayFromZero",
+      "scale": 23,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S23.AwayFromZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S23.ToZero.Parse",
+      "rounding": "ToZero",
+      "scale": 23,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S23.ToZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S23.ToNegativeInfinity.Parse",
+      "rounding": "ToNegativeInfinity",
+      "scale": 23,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S23.ToNegativeInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S23.ToPositiveInfinity.Parse",
+      "rounding": "ToPositiveInfinity",
+      "scale": 23,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S23.ToPositiveInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S24.ToEven.Parse",
+      "rounding": "ToEven",
+      "scale": 24,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S24.ToEven.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S24.AwayFromZero.Parse",
+      "rounding": "AwayFromZero",
+      "scale": 24,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S24.AwayFromZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S24.ToZero.Parse",
+      "rounding": "ToZero",
+      "scale": 24,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S24.ToZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S24.ToNegativeInfinity.Parse",
+      "rounding": "ToNegativeInfinity",
+      "scale": 24,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S24.ToNegativeInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S24.ToPositiveInfinity.Parse",
+      "rounding": "ToPositiveInfinity",
+      "scale": 24,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S24.ToPositiveInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S25.ToEven.Parse",
+      "rounding": "ToEven",
+      "scale": 25,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S25.ToEven.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S25.AwayFromZero.Parse",
+      "rounding": "AwayFromZero",
+      "scale": 25,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S25.AwayFromZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S25.ToZero.Parse",
+      "rounding": "ToZero",
+      "scale": 25,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S25.ToZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S25.ToNegativeInfinity.Parse",
+      "rounding": "ToNegativeInfinity",
+      "scale": 25,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S25.ToNegativeInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S25.ToPositiveInfinity.Parse",
+      "rounding": "ToPositiveInfinity",
+      "scale": 25,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S25.ToPositiveInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S26.ToEven.Parse",
+      "rounding": "ToEven",
+      "scale": 26,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S26.ToEven.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S26.AwayFromZero.Parse",
+      "rounding": "AwayFromZero",
+      "scale": 26,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S26.AwayFromZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S26.ToZero.Parse",
+      "rounding": "ToZero",
+      "scale": 26,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S26.ToZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S26.ToNegativeInfinity.Parse",
+      "rounding": "ToNegativeInfinity",
+      "scale": 26,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S26.ToNegativeInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S26.ToPositiveInfinity.Parse",
+      "rounding": "ToPositiveInfinity",
+      "scale": 26,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S26.ToPositiveInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S27.ToEven.Parse",
+      "rounding": "ToEven",
+      "scale": 27,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S27.ToEven.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S27.AwayFromZero.Parse",
+      "rounding": "AwayFromZero",
+      "scale": 27,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S27.AwayFromZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S27.ToZero.Parse",
+      "rounding": "ToZero",
+      "scale": 27,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S27.ToZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S27.ToNegativeInfinity.Parse",
+      "rounding": "ToNegativeInfinity",
+      "scale": 27,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S27.ToNegativeInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S27.ToPositiveInfinity.Parse",
+      "rounding": "ToPositiveInfinity",
+      "scale": 27,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S27.ToPositiveInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S28.ToEven.Parse",
+      "rounding": "ToEven",
+      "scale": 28,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S28.ToEven.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S28.AwayFromZero.Parse",
+      "rounding": "AwayFromZero",
+      "scale": 28,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S28.AwayFromZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S28.ToZero.Parse",
+      "rounding": "ToZero",
+      "scale": 28,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S28.ToZero.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S28.ToNegativeInfinity.Parse",
+      "rounding": "ToNegativeInfinity",
+      "scale": 28,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S28.ToNegativeInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    },
+    {
+      "carrier": {
+        "depth": 9,
+        "shape": {
+          "fields": [
+            {
+              "id": "negative",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "scale",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            },
+            {
+              "id": "coefficient",
+              "shape": {
+                "kind": "bits",
+                "width": 96
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "mpk.csharp.value.decimal.v1"
+      },
+      "codec_id": "decimal.fixed",
+      "header_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D7.R0",
+      "packet_depth": 10,
+      "parse_definition": "Mpk.CSharp.Ordinary.JsonValues.From.Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S28.ToPositiveInfinity.Parse",
+      "rounding": "ToPositiveInfinity",
+      "scale": 28,
+      "token_definition": "Mpk.CSharp.Ordinary.JsonTokens.QuotedDecimal.Fixed.S28.ToPositiveInfinity.Parse",
+      "value_definition": "Mpk.CSharp.Ordinary.JsonValues.Packet.D10.Project.D9.R1"
+    }
+  ],
+  "scope": "Source-free complete primitive codec route matrix; compound grammar and application proofs remain pending",
+  "static_transformers": 8117,
+  "terms": 219046
+}

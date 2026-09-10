@@ -2,6 +2,36 @@
 use super::*;
 use sha2::{Digest, Sha256};
 
+#[path = "csharp_practical_ordinary_finite_tests.rs"]
+mod finite_tests;
+
+#[path = "csharp_practical_ordinary_sequence_tests.rs"]
+mod sequence_tests;
+
+#[path = "csharp_practical_ordinary_construction_tests.rs"]
+mod construction_tests;
+
+#[path = "csharp_practical_ordinary_outcome_tests.rs"]
+mod outcome_tests;
+
+#[path = "csharp_practical_ordinary_entry_tests.rs"]
+mod entry_tests;
+
+#[path = "csharp_practical_ordinary_money_tests.rs"]
+mod money_tests;
+
+#[path = "csharp_practical_ordinary_observation_tests.rs"]
+mod observation_tests;
+
+#[path = "csharp_practical_ordinary_collection_tests.rs"]
+mod collection_tests;
+
+#[path = "csharp_practical_ordinary_structural_foundation_tests.rs"]
+mod structural_foundation_tests;
+
+#[path = "csharp_practical_ordinary_structural_equivalence_tests.rs"]
+mod structural_equivalence_tests;
+
 #[test]
 fn csharp_03_t06_w09_carriers_original_inputs_and_mutations() {
     let b = b();
@@ -1705,3 +1735,30 @@ mod core_eval;
 
 #[path = "csharp_practical_ordinary_relation_tests.rs"]
 mod relation_tests;
+
+#[path = "csharp_practical_ordinary_domain_tests.rs"]
+mod domain_tests;
+
+#[path = "csharp_practical_ordinary_domain_sources.rs"]
+mod domain_sources;
+
+#[path = "csharp_practical_ordinary_default_tests.rs"]
+mod default_tests;
+
+#[path = "csharp_practical_ordinary_literal_tests.rs"]
+mod literal_tests;
+
+#[path = "csharp_practical_ordinary_boundary_literal_tests.rs"]
+mod boundary_literal_tests;
+
+#[path = "csharp_practical_ordinary_boundary_rule_tests.rs"]
+mod boundary_rule_tests;
+
+#[path = "csharp_practical_ordinary_projection_tests.rs"]
+mod projection_tests;
+
+#[path = "csharp_practical_ordinary_source_clause_tests.rs"]
+mod source_clause_tests;
+
+#[path = "csharp_practical_ordinary_public_domain_tests.rs"]
+mod public_domain_tests;

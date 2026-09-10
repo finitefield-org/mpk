@@ -1,0 +1,64 @@
+{
+  "schema": "mpk.csharp_practical.w09.bool_thunk_memo_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "status": "observer_evaluated_bool_key_refinement_verified_not_unit_completion",
+  "scope": "Generic test-only observer memoization for already evaluated Boolean suspensions; no production/certificate semantic change",
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_test_eval.rs",
+      "sha256": "4608b96a7ec7c720be9006fb4896d5e76916e29f80c0e4302dd3397016f4e03f"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs",
+      "sha256": "e2a08e56cf63449f99c15513ab03dd8b341a84e694006373e5b44e109e33f5be"
+    }
+  ],
+  "verification": [
+    {
+      "command": "cargo test -p mpk-vc --lib ordinary_core_evaluated_boolean_suspension_uses_boolean_cache -- --nocapture",
+      "log": "/tmp/mpk-w09-bool-thunk-memo-before-v1.log",
+      "log_sha256": "3805d2b071e06dd409ea98765df593fa7ba893106779ce9621cac2ae239f73c4",
+      "status": "failed_regression",
+      "scope": "Pre-fix known-Bool wrapper repeated 3203 transitions, versus uncached 3205."
+    },
+    {
+      "command": "cargo test -p mpk-vc --lib -- ordinary_core_ integer_circuits_core_evaluation_matches_network --nocapture",
+      "log": "/tmp/mpk-w09-bool-thunk-memo-core-v1.log",
+      "log_sha256": "ec0ecdd750f0f9d2388c091c7b2ede0a8645695545e45482ddb2901d24e0c77d",
+      "status": "passed",
+      "scope": "Seven tests, 0.37 seconds. Cached application uses 4 transitions for each Boolean, versus 3205 uncached; lazy poison and environment/sparse/real integer-circuit checks pass."
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --test csharp_practical_vc -- -D warnings",
+      "log": "/tmp/mpk-w09-bool-thunk-memo-clippy-v1.log",
+      "log_sha256": "c96d74ae703a7633d1f42418130171e046c345a9ea4eaaff695bcd354782905c",
+      "status": "passed",
+      "scope": "Current integration observer and production, 22.00 seconds."
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_integer_parsers_original_sources -- --nocapture",
+      "log": "/tmp/mpk-w09-bool-thunk-memo-integer-parse-v1.log",
+      "log_sha256": "03dfb3a139a5a7929dba66e2aeb70bd817c0e0004fc5592d15e0a20bdd85faad",
+      "status": "passed",
+      "scope": "65-source regeneration, exact 54 pinned parser programs and metadata mutations; all 456 independent ordinary parser observations passed with the updated observer, 279.26 seconds. This is not a controlled wall-time speed comparison."
+    },
+    {
+      "command": "cargo fmt --all -- --check",
+      "log": "/tmp/mpk-w09-bool-thunk-memo-format-v1.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "passed",
+      "scope": "Empty output after current code and tests."
+    },
+    {
+      "command": "/usr/bin/git diff --check",
+      "status": "passed",
+      "scope": "Outside sandbox, exit zero after code/tests/initial review record."
+    }
+  ],
+  "live_jobs": [],
+  "remaining": [
+    "Scoped observer refinement and 456-case consumer verification complete; no unit/W09 completion inferred.",
+    "Preserve existing live decimal/domain processes; no timeout-driven restart or completion claim.",
+    "Complete all original W09 implementation units and proofs; check-fast.sh remains deferred to T06-W12."
+  ]
+}

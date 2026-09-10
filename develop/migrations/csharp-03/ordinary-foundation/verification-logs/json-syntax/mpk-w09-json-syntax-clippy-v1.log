@@ -1,0 +1,12 @@
+    Checking mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error: can be more succinctly written as a byte str
+   --> crates/mpk-vc/src/csharp_practical_ordinary_json_syntax.rs:204:28
+    |
+204 |         for punctuation in [b'{', b'}', b'[', b']', b',', b':'] {
+    |                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `*b"{}[],:"`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#byte_char_slices
+    = note: `-D clippy::byte-char-slices` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::byte_char_slices)]`
+
+error: could not compile `mpk-vc` (lib) due to 1 previous error

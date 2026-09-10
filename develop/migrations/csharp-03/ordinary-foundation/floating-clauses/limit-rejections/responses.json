@@ -1,0 +1,539 @@
+[
+  {
+    "id": "double",
+    "facts": {
+      "compilation_id": "data",
+      "input_files": [
+        {
+          "kind": "sidecar",
+          "path": "contracts/data.json",
+          "raw_sha256": "809caeb29212d882516a4f93562b91adf2863c10a23aa987b9b2134c3939f0db",
+          "size_bytes": 8929
+        },
+        {
+          "kind": "source",
+          "path": "src/Entry.cs",
+          "raw_sha256": "496954d3fadda8e46c2fef69e9f470dbb5e0f344c7679a9c40e049ca4a6ff046",
+          "size_bytes": 570
+        }
+      ],
+      "types": [],
+      "callables": [
+        {
+          "identity": {
+            "kind": "method",
+            "name": "Run",
+            "namespace": "Quantifiers",
+            "owner": "mpk.csharp.source.ea5c15b56e18c3d943a7712c4f0ee8a0d09586979e5f73d97b54448e1b58d37e",
+            "parameter_type_ids": [
+              "mpk.csharp.value.i32.v1",
+              "mpk.csharp.value.i32.v1"
+            ],
+            "result_type_id": "mpk.csharp.value.i32.v1"
+          },
+          "is_static": true,
+          "is_property_getter": false,
+          "is_synthesized_constructor": false,
+          "parameters": [
+            {
+              "id": "i32",
+              "kind": "primitive"
+            },
+            {
+              "id": "i32",
+              "kind": "primitive"
+            }
+          ],
+          "result": {
+            "id": "i32",
+            "kind": "primitive"
+          },
+          "id": "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "496954d3fadda8e46c2fef69e9f470dbb5e0f344c7679a9c40e049ca4a6ff046",
+          "start_byte": 48,
+          "end_byte": 568,
+          "body_sha256": "abdc37095e079f779dfc5be23868caea0721eb58b7b423527d625e069bf9c484",
+          "body_utf8": "[{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarationGroup\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclaration\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarator\",\"symbol\":\"local:0\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableInitializer\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"Conversion\",\"symbol\":\"\",\"traits\":\"True|False|True|False|True|True|False|False|False\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"Conversion\",\"symbol\":\"\",\"traits\":\"True|False|True|False|True|True|False|False|False\",\"type\":\"23:mpk.csharp.value.i64.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"ParameterReference\",\"symbol\":\"parameter:0\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.i32.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarationGroup\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclaration\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarator\",\"symbol\":\"local:1\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableInitializer\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"Conversion\",\"symbol\":\"\",\"traits\":\"True|False|True|False|True|True|False|False|False\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"Conversion\",\"symbol\":\"\",\"traits\":\"True|False|True|False|True|True|False|False|False\",\"type\":\"23:mpk.csharp.value.i64.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"ParameterReference\",\"symbol\":\"parameter:1\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.i32.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarationGroup\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclaration\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarator\",\"symbol\":\"local:2\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableInitializer\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"Unary\",\"symbol\":\"\",\"traits\":\"Plus|False|False\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"LocalReference\",\"symbol\":\"local:0\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarationGroup\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclaration\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarator\",\"symbol\":\"local:3\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableInitializer\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"Unary\",\"symbol\":\"\",\"traits\":\"Minus|False|False\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"LocalReference\",\"symbol\":\"local:0\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarationGroup\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclaration\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarator\",\"symbol\":\"local:4\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableInitializer\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"Invocation\",\"symbol\":\"System.Runtime|System.Math.Abs(double)\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"Argument\",\"symbol\":\"argument:0\",\"traits\":\"Explicit|0\",\"type\":null},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"LocalReference\",\"symbol\":\"local:0\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarationGroup\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclaration\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarator\",\"symbol\":\"local:5\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableInitializer\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"Invocation\",\"symbol\":\"System.Runtime|double.IsNaN(double)\",\"traits\":\"\",\"type\":\"24:mpk.csharp.value.bool.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"Argument\",\"symbol\":\"argument:0\",\"traits\":\"Explicit|0\",\"type\":null},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"LocalReference\",\"symbol\":\"local:0\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarationGroup\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclaration\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarator\",\"symbol\":\"local:6\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableInitializer\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"Invocation\",\"symbol\":\"System.Runtime|double.IsInfinity(double)\",\"traits\":\"\",\"type\":\"24:mpk.csharp.value.bool.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"Argument\",\"symbol\":\"argument:0\",\"traits\":\"Explicit|0\",\"type\":null},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"LocalReference\",\"symbol\":\"local:0\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarationGroup\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclaration\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarator\",\"symbol\":\"local:7\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableInitializer\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"Invocation\",\"symbol\":\"System.Runtime|double.IsFinite(double)\",\"traits\":\"\",\"type\":\"24:mpk.csharp.value.bool.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"Argument\",\"symbol\":\"argument:0\",\"traits\":\"Explicit|0\",\"type\":null},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"LocalReference\",\"symbol\":\"local:0\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarationGroup\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclaration\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarator\",\"symbol\":\"local:8\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableInitializer\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":2,\"implicit\":false,\"kind\":\"Binary\",\"symbol\":\"\",\"traits\":\"Equals|False|False\",\"type\":\"24:mpk.csharp.value.bool.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"LocalReference\",\"symbol\":\"local:0\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"LocalReference\",\"symbol\":\"local:1\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarationGroup\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclaration\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarator\",\"symbol\":\"local:9\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableInitializer\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":2,\"implicit\":false,\"kind\":\"Binary\",\"symbol\":\"\",\"traits\":\"NotEquals|False|False\",\"type\":\"24:mpk.csharp.value.bool.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"LocalReference\",\"symbol\":\"local:0\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"LocalReference\",\"symbol\":\"local:1\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarationGroup\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclaration\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarator\",\"symbol\":\"local:10\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableInitializer\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":2,\"implicit\":false,\"kind\":\"Binary\",\"symbol\":\"\",\"traits\":\"LessThan|False|False\",\"type\":\"24:mpk.csharp.value.bool.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"LocalReference\",\"symbol\":\"local:0\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"LocalReference\",\"symbol\":\"local:1\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarationGroup\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclaration\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarator\",\"symbol\":\"local:11\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableInitializer\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":2,\"implicit\":false,\"kind\":\"Binary\",\"symbol\":\"\",\"traits\":\"LessThanOrEqual|False|False\",\"type\":\"24:mpk.csharp.value.bool.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"LocalReference\",\"symbol\":\"local:0\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"LocalReference\",\"symbol\":\"local:1\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarationGroup\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclaration\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarator\",\"symbol\":\"local:12\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableInitializer\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":2,\"implicit\":false,\"kind\":\"Binary\",\"symbol\":\"\",\"traits\":\"GreaterThan|False|False\",\"type\":\"24:mpk.csharp.value.bool.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"LocalReference\",\"symbol\":\"local:0\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"LocalReference\",\"symbol\":\"local:1\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarationGroup\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclaration\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarator\",\"symbol\":\"local:13\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableInitializer\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":2,\"implicit\":false,\"kind\":\"Binary\",\"symbol\":\"\",\"traits\":\"GreaterThanOrEqual|False|False\",\"type\":\"24:mpk.csharp.value.bool.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"LocalReference\",\"symbol\":\"local:0\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"LocalReference\",\"symbol\":\"local:1\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarationGroup\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclaration\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarator\",\"symbol\":\"local:14\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableInitializer\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":2,\"implicit\":false,\"kind\":\"Invocation\",\"symbol\":\"System.Runtime|System.Math.Min(double, double)\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"Argument\",\"symbol\":\"argument:0\",\"traits\":\"Explicit|0\",\"type\":null},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"LocalReference\",\"symbol\":\"local:0\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"Argument\",\"symbol\":\"argument:1\",\"traits\":\"Explicit|1\",\"type\":null},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"LocalReference\",\"symbol\":\"local:1\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarationGroup\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclaration\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarator\",\"symbol\":\"local:15\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableInitializer\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":2,\"implicit\":false,\"kind\":\"Invocation\",\"symbol\":\"System.Runtime|System.Math.Max(double, double)\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"Argument\",\"symbol\":\"argument:0\",\"traits\":\"Explicit|0\",\"type\":null},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"LocalReference\",\"symbol\":\"local:0\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"Argument\",\"symbol\":\"argument:1\",\"traits\":\"Explicit|1\",\"type\":null},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"LocalReference\",\"symbol\":\"local:1\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarationGroup\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclaration\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarator\",\"symbol\":\"local:16\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableInitializer\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":2,\"implicit\":false,\"kind\":\"Binary\",\"symbol\":\"\",\"traits\":\"Add|False|False\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"LocalReference\",\"symbol\":\"local:0\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"LocalReference\",\"symbol\":\"local:1\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarationGroup\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclaration\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarator\",\"symbol\":\"local:17\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableInitializer\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":2,\"implicit\":false,\"kind\":\"Binary\",\"symbol\":\"\",\"traits\":\"Subtract|False|False\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"LocalReference\",\"symbol\":\"local:0\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"LocalReference\",\"symbol\":\"local:1\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarationGroup\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclaration\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarator\",\"symbol\":\"local:18\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableInitializer\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":2,\"implicit\":false,\"kind\":\"Binary\",\"symbol\":\"\",\"traits\":\"Multiply|False|False\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"LocalReference\",\"symbol\":\"local:0\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"LocalReference\",\"symbol\":\"local:1\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarationGroup\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclaration\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarator\",\"symbol\":\"local:19\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableInitializer\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":2,\"implicit\":false,\"kind\":\"Binary\",\"symbol\":\"\",\"traits\":\"Divide|False|False\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"LocalReference\",\"symbol\":\"local:0\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"LocalReference\",\"symbol\":\"local:1\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarationGroup\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclaration\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarator\",\"symbol\":\"local:20\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableInitializer\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":2,\"implicit\":false,\"kind\":\"Binary\",\"symbol\":\"\",\"traits\":\"Remainder|False|False\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"LocalReference\",\"symbol\":\"local:0\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"LocalReference\",\"symbol\":\"local:1\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.f64.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"Return\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"ParameterReference\",\"symbol\":\"parameter:0\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.i32.v15:value0:\"}]",
+          "data_steps": [
+            {
+              "node_ordinal": 4,
+              "family": "numeric",
+              "operation": "numeric.conversion.int64_to_double",
+              "operand_ordinals": [
+                5
+              ],
+              "argument_ordinals": [
+                0
+              ],
+              "rounding": ""
+            },
+            {
+              "node_ordinal": 11,
+              "family": "numeric",
+              "operation": "numeric.conversion.int64_to_double",
+              "operand_ordinals": [
+                12
+              ],
+              "argument_ordinals": [
+                0
+              ],
+              "rounding": ""
+            },
+            {
+              "node_ordinal": 18,
+              "family": "numeric",
+              "operation": "floating.double.plus",
+              "operand_ordinals": [
+                19
+              ],
+              "argument_ordinals": [
+                0
+              ],
+              "rounding": ""
+            },
+            {
+              "node_ordinal": 24,
+              "family": "numeric",
+              "operation": "floating.double.negate",
+              "operand_ordinals": [
+                25
+              ],
+              "argument_ordinals": [
+                0
+              ],
+              "rounding": ""
+            },
+            {
+              "node_ordinal": 30,
+              "family": "numeric",
+              "operation": "floating.double.abs",
+              "operand_ordinals": [
+                32
+              ],
+              "argument_ordinals": [
+                0
+              ],
+              "rounding": ""
+            },
+            {
+              "node_ordinal": 37,
+              "family": "numeric",
+              "operation": "floating.double.is_nan",
+              "operand_ordinals": [
+                39
+              ],
+              "argument_ordinals": [
+                0
+              ],
+              "rounding": ""
+            },
+            {
+              "node_ordinal": 44,
+              "family": "numeric",
+              "operation": "floating.double.is_infinity",
+              "operand_ordinals": [
+                46
+              ],
+              "argument_ordinals": [
+                0
+              ],
+              "rounding": ""
+            },
+            {
+              "node_ordinal": 51,
+              "family": "numeric",
+              "operation": "floating.double.is_finite",
+              "operand_ordinals": [
+                53
+              ],
+              "argument_ordinals": [
+                0
+              ],
+              "rounding": ""
+            },
+            {
+              "node_ordinal": 58,
+              "family": "numeric",
+              "operation": "floating.double.equal",
+              "operand_ordinals": [
+                59,
+                60
+              ],
+              "argument_ordinals": [
+                0,
+                1
+              ],
+              "rounding": ""
+            },
+            {
+              "node_ordinal": 65,
+              "family": "numeric",
+              "operation": "floating.double.not_equal",
+              "operand_ordinals": [
+                66,
+                67
+              ],
+              "argument_ordinals": [
+                0,
+                1
+              ],
+              "rounding": ""
+            },
+            {
+              "node_ordinal": 72,
+              "family": "numeric",
+              "operation": "floating.double.less",
+              "operand_ordinals": [
+                73,
+                74
+              ],
+              "argument_ordinals": [
+                0,
+                1
+              ],
+              "rounding": ""
+            },
+            {
+              "node_ordinal": 79,
+              "family": "numeric",
+              "operation": "floating.double.less_equal",
+              "operand_ordinals": [
+                80,
+                81
+              ],
+              "argument_ordinals": [
+                0,
+                1
+              ],
+              "rounding": ""
+            },
+            {
+              "node_ordinal": 86,
+              "family": "numeric",
+              "operation": "floating.double.greater",
+              "operand_ordinals": [
+                87,
+                88
+              ],
+              "argument_ordinals": [
+                0,
+                1
+              ],
+              "rounding": ""
+            },
+            {
+              "node_ordinal": 93,
+              "family": "numeric",
+              "operation": "floating.double.greater_equal",
+              "operand_ordinals": [
+                94,
+                95
+              ],
+              "argument_ordinals": [
+                0,
+                1
+              ],
+              "rounding": ""
+            },
+            {
+              "node_ordinal": 100,
+              "family": "numeric",
+              "operation": "floating.double.min",
+              "operand_ordinals": [
+                102,
+                104
+              ],
+              "argument_ordinals": [
+                0,
+                1
+              ],
+              "rounding": ""
+            },
+            {
+              "node_ordinal": 109,
+              "family": "numeric",
+              "operation": "floating.double.max",
+              "operand_ordinals": [
+                111,
+                113
+              ],
+              "argument_ordinals": [
+                0,
+                1
+              ],
+              "rounding": ""
+            },
+            {
+              "node_ordinal": 118,
+              "family": "numeric",
+              "operation": "floating.double.add",
+              "operand_ordinals": [
+                119,
+                120
+              ],
+              "argument_ordinals": [
+                0,
+                1
+              ],
+              "rounding": ""
+            },
+            {
+              "node_ordinal": 125,
+              "family": "numeric",
+              "operation": "floating.double.subtract",
+              "operand_ordinals": [
+                126,
+                127
+              ],
+              "argument_ordinals": [
+                0,
+                1
+              ],
+              "rounding": ""
+            },
+            {
+              "node_ordinal": 132,
+              "family": "numeric",
+              "operation": "floating.double.multiply",
+              "operand_ordinals": [
+                133,
+                134
+              ],
+              "argument_ordinals": [
+                0,
+                1
+              ],
+              "rounding": ""
+            },
+            {
+              "node_ordinal": 139,
+              "family": "numeric",
+              "operation": "floating.double.divide",
+              "operand_ordinals": [
+                140,
+                141
+              ],
+              "argument_ordinals": [
+                0,
+                1
+              ],
+              "rounding": ""
+            },
+            {
+              "node_ordinal": 146,
+              "family": "numeric",
+              "operation": "floating.double.remainder",
+              "operand_ordinals": [
+                147,
+                148
+              ],
+              "argument_ordinals": [
+                0,
+                1
+              ],
+              "rounding": ""
+            }
+          ],
+          "initialization_plans": []
+        }
+      ],
+      "source_obligations": [],
+      "source_containers": [
+        {
+          "id": "mpk.csharp.source.ea5c15b56e18c3d943a7712c4f0ee8a0d09586979e5f73d97b54448e1b58d37e",
+          "name": "Entry",
+          "namespace": "Quantifiers",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "496954d3fadda8e46c2fef69e9f470dbb5e0f344c7679a9c40e049ca4a6ff046",
+          "start_byte": 22,
+          "end_byte": 569
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/Entry.cs",
+          "raw_sha256": "496954d3fadda8e46c2fef69e9f470dbb5e0f344c7679a9c40e049ca4a6ff046",
+          "size_bytes": 570
+        }
+      ],
+      "selected_root_ids": [
+        "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f"
+      ],
+      "reachable_declarations": [
+        "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f",
+        "mpk.csharp.source.ea5c15b56e18c3d943a7712c4f0ee8a0d09586979e5f73d97b54448e1b58d37e"
+      ],
+      "exact_types": [
+        {
+          "callable_id": "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f",
+          "local_ordinal": 0,
+          "type": {
+            "id": "f64",
+            "kind": "primitive"
+          }
+        },
+        {
+          "callable_id": "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f",
+          "local_ordinal": 1,
+          "type": {
+            "id": "f64",
+            "kind": "primitive"
+          }
+        },
+        {
+          "callable_id": "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f",
+          "local_ordinal": 2,
+          "type": {
+            "id": "f64",
+            "kind": "primitive"
+          }
+        },
+        {
+          "callable_id": "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f",
+          "local_ordinal": 3,
+          "type": {
+            "id": "f64",
+            "kind": "primitive"
+          }
+        },
+        {
+          "callable_id": "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f",
+          "local_ordinal": 4,
+          "type": {
+            "id": "f64",
+            "kind": "primitive"
+          }
+        },
+        {
+          "callable_id": "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f",
+          "local_ordinal": 5,
+          "type": {
+            "id": "bool",
+            "kind": "primitive"
+          }
+        },
+        {
+          "callable_id": "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f",
+          "local_ordinal": 6,
+          "type": {
+            "id": "bool",
+            "kind": "primitive"
+          }
+        },
+        {
+          "callable_id": "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f",
+          "local_ordinal": 7,
+          "type": {
+            "id": "bool",
+            "kind": "primitive"
+          }
+        },
+        {
+          "callable_id": "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f",
+          "local_ordinal": 8,
+          "type": {
+            "id": "bool",
+            "kind": "primitive"
+          }
+        },
+        {
+          "callable_id": "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f",
+          "local_ordinal": 9,
+          "type": {
+            "id": "bool",
+            "kind": "primitive"
+          }
+        },
+        {
+          "callable_id": "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f",
+          "local_ordinal": 10,
+          "type": {
+            "id": "bool",
+            "kind": "primitive"
+          }
+        },
+        {
+          "callable_id": "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f",
+          "local_ordinal": 11,
+          "type": {
+            "id": "bool",
+            "kind": "primitive"
+          }
+        },
+        {
+          "callable_id": "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f",
+          "local_ordinal": 12,
+          "type": {
+            "id": "bool",
+            "kind": "primitive"
+          }
+        },
+        {
+          "callable_id": "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f",
+          "local_ordinal": 13,
+          "type": {
+            "id": "bool",
+            "kind": "primitive"
+          }
+        },
+        {
+          "callable_id": "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f",
+          "local_ordinal": 14,
+          "type": {
+            "id": "f64",
+            "kind": "primitive"
+          }
+        },
+        {
+          "callable_id": "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f",
+          "local_ordinal": 15,
+          "type": {
+            "id": "f64",
+            "kind": "primitive"
+          }
+        },
+        {
+          "callable_id": "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f",
+          "local_ordinal": 16,
+          "type": {
+            "id": "f64",
+            "kind": "primitive"
+          }
+        },
+        {
+          "callable_id": "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f",
+          "local_ordinal": 17,
+          "type": {
+            "id": "f64",
+            "kind": "primitive"
+          }
+        },
+        {
+          "callable_id": "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f",
+          "local_ordinal": 18,
+          "type": {
+            "id": "f64",
+            "kind": "primitive"
+          }
+        },
+        {
+          "callable_id": "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f",
+          "local_ordinal": 19,
+          "type": {
+            "id": "f64",
+            "kind": "primitive"
+          }
+        },
+        {
+          "callable_id": "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f",
+          "local_ordinal": 20,
+          "type": {
+            "id": "f64",
+            "kind": "primitive"
+          }
+        }
+      ]
+    }
+  }
+]

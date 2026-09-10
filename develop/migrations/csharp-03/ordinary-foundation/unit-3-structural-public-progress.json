@@ -1,0 +1,76 @@
+{
+  "schema": "mpk.csharp_practical.w09.structural_public_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_units": [
+    3,
+    4
+  ],
+  "status": "three_source_integration_component_targeted_semantics_closure_preservation_checkers_and_lint_passed",
+  "verification": [
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/structural-public/mpk-w09-structural-public-build-v1.log",
+      "sha256": "a844bc9ab4ff7c313145bcc150aebf3b3d73c6d4b10d7f8d78b287b104de7d47",
+      "scope_and_selection_reason": "New integrated profile library build passed11.16s; before scalar shared-root reuse."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/structural-public/mpk-w09-structural-public-sources-v1.log",
+      "sha256": "67b4ad61ab11c99e328bde6815d2ce5dc44bfb03ce899273bfaf1b2e8f672633",
+      "scope_and_selection_reason": "Three source profiles, full transitive definition closure comparisons, metadata and import mutation checks passed6.69s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/structural-public/mpk-w09-structural-public-preservation-v1.log",
+      "sha256": "944b34bc38a6dd4c4291ec8b671a397bc4681e1681a6ee3f78fff750396f4325",
+      "scope_and_selection_reason": "Shared emitter extraction may affect standalone profiles: all six pinned public-default programs and representative representation bytes passed9.10s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/structural-public/mpk-w09-structural-public-checkers-v1.log",
+      "sha256": "4fd40ac7af7f26f0a86ab9b5025db52c8525e0a52a53e98624ccf6f2d038b1e7",
+      "scope_and_selection_reason": "All three pinned candidates accepted by unchanged Rust/Go checkers with zero axioms and actual hash-corruption rejection;exact PASS set and current module hashes reconciled;25.047s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/structural-public/mpk-w09-structural-public-predecessor-v2.log",
+      "sha256": "3bbf88f3feba512af91bfd5390dc90cb20c83c3826445a6afc883cf76e77499b",
+      "scope_and_selection_reason": "Two representative source product/enum contexts retain exact predecessor structural and representation bytes;0.54s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/structural-public/mpk-w09-structural-public-clippy-v1.log",
+      "sha256": "d3018ff6bd4fe673066811785a8698fd088f231f2b87fe33059a837cb430df8d",
+      "scope_and_selection_reason": "Affected library/integration lint passed54.61s including build queue."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/structural-public/mpk-w09-structural-public-inventory-v1.log",
+      "sha256": "e83e935dd96714626ef50bfd6079486a3cc89ed96a377fa905b1ff8b4822546c",
+      "scope_and_selection_reason": "Integrated API/candidate consumer closure passed18.10s;no inventory fingerprint refresh."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/structural-public/mpk-w09-structural-public-format-v1.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "scope_and_selection_reason": "Scoped formatting check passed."
+    }
+  ],
+  "live_jobs": [],
+  "candidates": {
+    "directory": "structural-public",
+    "count": 3,
+    "hashes_verified_before_publication": true,
+    "max_terms": 9466,
+    "max_declarations": 414,
+    "max_static_transformers": 2118,
+    "same_byte_dual_checkers": "all3 passed;exact PASS set/currenthashes reconciled"
+  },
+  "pending": [
+    "Complete recursive domain runtime and source clause recipe coverage.",
+    "Remaining internal units3-8, native/control/replay relations and actual VC proof assembly;full W09 acceptance."
+  ],
+  "review": "unit-3-structural-public-review.md",
+  "whole_gate": "Deferred to T06-W12;no check-fast or equivalent full gate run.",
+  "commit": "No component checkpoint commit;whole internal unit remains incomplete."
+}

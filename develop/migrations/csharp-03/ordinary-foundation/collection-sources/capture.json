@@ -1,0 +1,23 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.collection_source_capture.v1",
+  "requests": "requests.json",
+  "responses": "responses.json",
+  "source_origin": "test-generated original CollectionCases identity methods and content-bound semantic entry/map bindings; float and nullable values and two maps sharing lookup",
+  "request_generator": "csharp_03_t06_w09_collection_source_requests",
+  "capture_command": "./scripts/build-csharp-practical-frontend.sh --test-control-emission-requests",
+  "environment": "existing mpk-java-t10-gate:local Linux amd64 image; read-only repository; network disabled; frozen frontend build-input validation",
+  "determinism": "control-emission harness captures each request twice and compares bytes",
+  "accepted": 3,
+  "rejected": 0,
+  "application_vc_proof": false,
+  "files": [
+    {
+      "path": "requests.json",
+      "sha256": "62572d3ccc18a3e1171e519ea6336832633b4c3b9492a69e86c7430cccaf678e"
+    },
+    {
+      "path": "responses.json",
+      "sha256": "a02887806f45d13aa045c157d19843b80973882c02afad20abf9e80a76c56a92"
+    }
+  ]
+}

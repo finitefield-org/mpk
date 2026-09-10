@@ -1,0 +1,183 @@
+{
+  "schema": "mpk.csharp_practical.w09.integer_parse_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "partial_integer_parse_definitions_verified_not_unit_completion",
+  "scope": "Ordinary canonical decimal integer parsing; registered concrete result linkage and universal source/boundary proofs remain open",
+  "source_contexts_examined": 65,
+  "pinned_contexts": 54,
+  "parser_occurrences": 86,
+  "codec_ids": [
+    "duration_ticks",
+    "integer.i16",
+    "integer.i32",
+    "integer.i64",
+    "integer.i8",
+    "integer.u16",
+    "integer.u32",
+    "integer.u64",
+    "integer.u8",
+    "unix_milliseconds"
+  ],
+  "max_terms": 14783,
+  "max_declarations": 267,
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_integer_parse.rs",
+      "sha256": "3e0e11eccfcdc93f445da569d36ef9d02eabf92befdfeb055f9b1ad3dd1ced24"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_integer_format.rs",
+      "sha256": "e80b3599814feee5940bc0d8b0f8d5ce023d99dafff6cb5e4c63550eb8290842"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_aggregate_fold.rs",
+      "sha256": "18821fedeb5443356608aa30f91e490f76c70b05877123f578d53845a05a3a5f"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_structural.rs",
+      "sha256": "512f9ca2883615d084d8ee71a00fbf7cad7095ad185e6cd665ec9fcdc4ce1b07"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_scalar_bits.rs",
+      "sha256": "0ba0b1614d726282271cbe9c298bc5f7a08156c71f92d19b5472dd90852d07a9"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs",
+      "sha256": "0e5d8f13a1875b080687c7f4622c325b836e413bd10f80d935bb948f2e0c45f6"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+      "sha256": "b0f40f5b3f34344a7949899e67ac45cbd250da037a8b25e4119e9bb60d45dd15"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_integer_parse_tests.rs",
+      "sha256": "6291babf01961975b42ab7e8ecac80b446942f4f46b68904ac76a6f810d41f7c"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_integer_format_tests.rs",
+      "sha256": "824820cfa0e252978bf7a3bd024107eac86eb1757d202979e81c24119e841cb3"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_literal_tests.rs",
+      "sha256": "0117183a05a51f012e127c4ba3b2c660fe7f63c1371fd660a3f726aa71e8c026"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "sha256": "79c0454ff542e95b9c194373034fe877e6387b10efa4fdadca99d46abf01a8c4"
+    },
+    {
+      "path": "develop/migrations/csharp-03/artifact-consumer-inventory.json",
+      "sha256": "296ad8c4ac35e20a721cdf7fbd50832e8d83b8de1806766b902bfe6e4e3274a6"
+    },
+    {
+      "path": "develop/migrations/csharp-03/data-phase/historical-inventory-cache-correction.json",
+      "sha256": "61eb8c7e47f7f2584f8673cb3048f66965a484884a6253e646b7d77ee65f0f6e"
+    }
+  ],
+  "manifest": {
+    "path": "develop/migrations/csharp-03/ordinary-foundation/integer-parsers/certificates.json",
+    "sha256": "3b3ce2ca4b2ba26ad1beb5ad93e7462c4186793c87279b28f2dc419c1eef0263"
+  },
+  "verification": [
+    {
+      "command": "cargo check -p mpk-vc",
+      "log": "/tmp/mpk-w09-integer-parsers-check-v1.log",
+      "log_sha256": "80fd2b11bd139e0fc157901149c3c5080e80778f885821cea7649556daf45645",
+      "status": "failed_compile",
+      "scope": "Two overlapping mutable builder borrows (E0499); corrected before any successful run."
+    },
+    {
+      "command": "MPK_W09_INTEGER_PARSERS_OUT=/tmp/mpk-w09-integer-parsers-v1 cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_integer_parsers_original_sources -- --nocapture",
+      "log": "/tmp/mpk-w09-integer-parsers-suite-v1.log",
+      "log_sha256": "d8ae0ba698e7d420adb961ab137b26dc78693eb4c69a5bc164ba464c957f79bf",
+      "status": "passed",
+      "scope": "65 actual source contexts; 54 pins, 86 parser occurrences; exact import/metadata/hash/cross-context mutations; 456 ordinary result observations across ten codecs, 249.95 seconds. Executable predates only independent replay test addition."
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "log": "/tmp/mpk-w09-integer-parsers-inventory-v1.log",
+      "log_sha256": "97e297f5626852558bea14fff2d050b82a04917833134ce486c0aa63584bbb35",
+      "status": "passed",
+      "scope": "5 tests, 20.00 seconds. Exact one-path addition: Std namespace count 118 to 119, total matches 4941 to 4942; prior path hash and serialized formatting reproduced after removing only the new parser delta."
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc -- csharp_03_t06_w09_integer_parsers_pinned_sources csharp_03_t06_w09_integer_formats_pinned_sources --nocapture",
+      "log": "/tmp/mpk-w09-integer-parsers-replay-v1.log",
+      "log_sha256": "b565e11eb199575600272d8cc85856e632e06f62b734ccaadf1deb355b33e17c",
+      "status": "passed",
+      "scope": "2 tests, 23.84 seconds; regenerate both families from 65 original contexts and compare all 54 nonempty programs per family. Shared helper visibility changes preserve all formatter bytes."
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --test csharp_practical_vc -- -D warnings",
+      "log": "/tmp/mpk-w09-integer-parsers-clippy-v2.log",
+      "log_sha256": "2b6f57a81f14bac5a5cb8829422df84498262f76a6cba3867be0011d3399c2e4",
+      "status": "passed",
+      "scope": "Current production and tests, finished in 1m 11s including build lock wait."
+    },
+    {
+      "command": "cargo fmt --all -- --check",
+      "log": "/tmp/mpk-w09-integer-parsers-format-v1.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "passed",
+      "scope": "Exit zero and empty output."
+    },
+    {
+      "command": "gofmt -d go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "log": "/tmp/mpk-w09-integer-parsers-gofmt-v1.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "passed",
+      "scope": "Exit zero and empty output."
+    },
+    {
+      "command": "/usr/bin/git diff --check",
+      "status": "passed",
+      "scope": "Outside sandbox, exit zero; source changes passed before documentation additions."
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_integer_parsers_full_input_bound -- --nocapture",
+      "log": "/tmp/mpk-w09-integer-parsers-bound-v1.log",
+      "log_sha256": "071d1a741c9df547239e847fd67aa27ec8137fecadbc4b5fc20526c40699b054",
+      "status": "passed",
+      "scope": "All four maximum-bound input/error cases passed in 588.42 seconds: 16384 digits, redundant zeros, last invalid character after zeros, and 16385-unit bound precedence. Exact ordinary result bits checked."
+    },
+    {
+      "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIIntegerParsers$/^boundary-exception-empty[.]hex$' -count=1 -timeout 0 -v",
+      "log": "/tmp/mpk-w09-integer-parsers-warning-recheck-v1.log",
+      "log_sha256": "f9147c40bcff0ed884b9007cb74eaaa771b10fd548576a33476f91370dd3e058",
+      "status": "passed",
+      "scope": "The one previously warning-contaminated certificate passed both unchanged checker acceptances with zero axioms and the hash-corruption rejection, through the corrected process helper; 27.122 seconds. Not a full 54-case rerun."
+    },
+    {
+      "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIIntegerParsers$' -count=1 -timeout 0 -v",
+      "log": "/tmp/mpk-w09-integer-parsers-checkers-v1.log",
+      "log_sha256": "d5e551af216ec3750cfd1bdaa74c7f48e3c41f09c37227a71e3225273f661d8a",
+      "status": "failed_execution_protocol_one_case",
+      "scope": "Original full run exited 1 after 3024.107 seconds: 53 checker cases passed, only boundary-exception-empty failed because a compiler warning contaminated the combined output. This is not recorded as a passing full run."
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_integer_parsers_original_sources -- --nocapture",
+      "log": "/tmp/mpk-w09-bool-thunk-memo-integer-parse-v1.log",
+      "log_sha256": "03dfb3a139a5a7929dba66e2aeb70bd817c0e0004fc5592d15e0a20bdd85faad",
+      "status": "passed",
+      "scope": "Subsequent test-only evaluated-Bool memoization refinement: all source/pin/import mutations and all 456 ordinary observations passed again, 279.26 seconds. Parser production unchanged."
+    }
+  ],
+  "live_jobs": [],
+  "remaining": [
+    "Scoped parser definition review complete: 456 short observations, four full-bound cases, exact source/pin replay, lint/inventory and all 54 checker cases accounted for. Registered result linkage and universal proofs remain open.",
+    "Link structural parser result arms to exact registered concrete result instances and prove parse/format/source boundary relations.",
+    "Implement remaining decimal/calendar codecs and strict whole-document JSON relations; finish original implementation-plan units 3\u20138.",
+    "No component-only commit, internal unit completion or W09 completion. check-fast.sh stays deferred to T06-W12."
+  ],
+  "subsequent_source_note": "The decimal formatter adds sibling module/reexports and tests only. Integer parser production is unchanged; prior source hashes remain historical snapshots.",
+  "checker_coverage": {
+    "pinned_certificates": 54,
+    "passed_in_original_run": 53,
+    "original_failed_case": "boundary-exception-empty.hex",
+    "targeted_recheck": "/tmp/mpk-w09-integer-parsers-warning-recheck-v1.log",
+    "targeted_recheck_status": "passed_both_checker_acceptance_and_hash_corruption",
+    "all_cases_accounted_for": true,
+    "interpretation": "Full 54-certificate coverage is the union of 53 clean original cases and one successful targeted repair recheck. A whole-corpus rerun using the new harness was not performed."
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "certificate_sha256": "5b328eb1e80acd7f5dd482c38482b0caa0bd51992395acd11a53870e20cb9598",
+  "declarations": 22,
+  "id": "decimal_default",
+  "program": {
+    "boundary_program_sha256": "df9d73eee160ca6bfc5d78142d536b407126dae1eaa4637bf9389098fff07d0b",
+    "certificate_sha256": "5b328eb1e80acd7f5dd482c38482b0caa0bd51992395acd11a53870e20cb9598",
+    "definitions": [
+      {
+        "carrier": {
+          "depth": 9,
+          "shape": {
+            "fields": [
+              {
+                "id": "negative",
+                "shape": {
+                  "kind": "bits",
+                  "width": 1
+                }
+              },
+              {
+                "id": "scale",
+                "shape": {
+                  "kind": "bits",
+                  "width": 8
+                }
+              },
+              {
+                "id": "coefficient",
+                "shape": {
+                  "kind": "bits",
+                  "width": 96
+                }
+              }
+            ],
+            "kind": "product"
+          },
+          "type_id": "mpk.csharp.value.decimal.v1"
+        },
+        "count_definition": "Mpk.CSharp.Ordinary.JsonTypedNodes.T6d706b2e6373686172702e76616c75652e646563696d616c2e7631",
+        "valid_definition": "Mpk.CSharp.Ordinary.JsonTypedNodes.T6d706b2e6373686172702e76616c75652e646563696d616c2e7631.Valid"
+      },
+      {
+        "carrier": {
+          "depth": 6,
+          "shape": {
+            "kind": "bits",
+            "width": 64
+          },
+          "type_id": "mpk.csharp.value.i64.v1"
+        },
+        "count_definition": "Mpk.CSharp.Ordinary.JsonTypedNodes.T6d706b2e6373686172702e76616c75652e6936342e7631",
+        "valid_definition": "Mpk.CSharp.Ordinary.JsonTypedNodes.T6d706b2e6373686172702e76616c75652e6936342e7631.Valid"
+      }
+    ],
+    "schema": "mpk.csharp.ordinary_json_typed_nodes.v1",
+    "source_ir_sha256": "3033c0bc3e7b71544f91b11cc0f49df623eedbde090f4ada403bbe7da5397503",
+    "static_transformers": 2
+  },
+  "source_snapshot_sha256": "9ae890de59c73629469a23da4cfe4de517b1edd0c16244603c5ba66b7dfe8448",
+  "terms": 1097
+}

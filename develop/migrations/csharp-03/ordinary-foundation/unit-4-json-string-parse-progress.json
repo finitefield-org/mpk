@@ -1,0 +1,104 @@
+{
+  "schema": "mpk.csharp_practical.w09.json_string_parse_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "partial_canonical_json_string_parsing_verification_in_progress_not_unit_completion",
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_string_parse.rs",
+      "sha256": "fa090d06b6e1e0f0b272da6f0891744279424936cf7030187947947855480e0d"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_string_parse_tests.rs",
+      "sha256": "b69082db00b7e7b6f32de05ddd64c603bcb0c41a74851d74a7377b974b402143"
+    }
+  ],
+  "verification": [
+    {
+      "command": "cargo check -p mpk-vc",
+      "log": "/tmp/mpk-w09-json-string-parsers-check-v1.log",
+      "status": "passed",
+      "log_sha256": "075eba1483833be806f46f7a02f0685c2001a1483fd4472750e5f0d588683eca",
+      "scope": "Current ordinary parser production compiled in 1m 22s."
+    },
+    {
+      "command": "MPK_W09_JSON_STRING_PARSERS_OUT=/tmp/mpk-w09-json-string-parsers-v1 cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_json_string_parsers_original_sources -- --nocapture",
+      "log": "/tmp/mpk-w09-json-string-parsers-sources-v1.log",
+      "status": "passed",
+      "log_sha256": "97dfd3178908ee4d95e32a648af45f42a1081e9c3937bb30018a5df3508402e5",
+      "scope": "All 68 contexts, three nonempty programs, exact imports/mutations and empty quoted-string validity/value passed in 43.77 seconds."
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --test csharp_practical_vc -- -D warnings",
+      "log": "/tmp/mpk-w09-json-string-parsers-clippy-v1.log",
+      "status": "passed",
+      "log_sha256": "9bd2cd50cca49503c791ea525d303111a56755a6bb8eb4102bbc8a396d3d3ab6",
+      "scope": "Current production and integration tests passed clippy with warnings denied, 1m 35s including build wait."
+    },
+    {
+      "command": "cargo fmt --all -- --check",
+      "log": "/tmp/mpk-w09-json-string-parsers-format-v1.log",
+      "status": "passed",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "/usr/bin/git diff --check",
+      "status": "passed",
+      "scope": "Outside sandbox, exit zero."
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "log": "/tmp/mpk-w09-json-string-parsers-inventory-v1.log",
+      "log_sha256": "72cd4f873e0aad45da55647ce25599f212572ea1953d11f2c935ab66d2a01977",
+      "status": "passed",
+      "scope": "All five inventory tests passed in 60.96 seconds."
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_json_string_parsers_original_sources -- --nocapture",
+      "log": "/tmp/mpk-w09-json-string-parsers-replay-v1.log",
+      "status": "passed",
+      "log_sha256": "2c7d5fcc2ab867766d3b44863b50d3b9c2849a3dc88b8e212609ce3c3045e4bd",
+      "scope": "Exact pinned replay passed across all 68 contexts and three certificates."
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_json_string_parsers_semantics -- --nocapture",
+      "log": "/tmp/mpk-w09-json-string-parsers-semantics-v1.log",
+      "status": "passed",
+      "log_sha256": "232ff31c9d3ee09ed77b82dac54dcd6f10aab38a5b3c7f9fa506e30133b68ceb",
+      "scope": "All 296 independent parser oracle cases, full-u32 bounds and inactive-storage cases passed (888.34 seconds)."
+    },
+    {
+      "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIJsonStringParsers$' -count=1 -timeout 0 -v",
+      "cwd": "go-tools/mpk-checker-ref",
+      "log": "/tmp/mpk-w09-json-string-parsers-checkers-v1.log",
+      "status": "passed",
+      "log_sha256": "8b38352f05ab9eae6582c0b21eaa84ed728f85a05cdc0c0ea29a03695525fa18",
+      "scope": "All three same-byte Rust/Go checker cases passed with zero axioms and hash-corruption rejection (172.622 seconds including rebuild wait)."
+    }
+  ],
+  "live_jobs": [
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_json_string_parsers_full_bound -- --nocapture",
+      "log": "/tmp/mpk-w09-json-string-parsers-full-v1.log",
+      "status": "running_prior_whole_document_only_revision",
+      "session_id": 76988
+    }
+  ],
+  "pending_commands": [],
+  "remaining": [
+    "Complete source/import/mutation/pin/checker, semantic and full-bound verification and scoped direct review.",
+    "General JSON structure, duplicate/unknown/ordered fields, typed decoding and cumulative resource limits, source/native/control/transition relations, registered result linkage and universal application proofs; complete all original internal units 3\u20138 and W09 acceptance.",
+    "No component-only commit or W09 completion; check-fast.sh remains deferred to T06-W12."
+  ],
+  "manifest": {
+    "path": "develop/migrations/csharp-03/ordinary-foundation/json-string-parsers/previous-whole-only/certificates.json",
+    "sha256": "1ff8585e8156e1e8ff5d623c33075a0a7f781f8f429b4e9fbd9556ab37be82e0",
+    "contexts_examined": 68,
+    "nonempty_contexts": 3,
+    "terms_per_certificate": 19894,
+    "declarations_per_certificate": 247,
+    "static_transformers_per_certificate": 8340
+  },
+  "revision_scope": "Historical whole-document-only parser. Current prefix/consumed-count extension and shared fragment integration are tracked separately; prior results must not be presented as current certificate acceptance.",
+  "superseded_by": "unit-4-json-string-prefix-progress.json"
+}

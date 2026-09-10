@@ -1,0 +1,190 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.observer_weak_cache_experiment.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "status": "targeted_regressions_passed_workload_probe_pending",
+  "observed_at": "2026-09-10T22:11:52.933740+00:00",
+  "predecessor": "unit-3-observer-cache-experiment.json",
+  "review": "unit-3-observer-weak-cache-review.md",
+  "changes": [
+    "Per-lambda eight-entry FIFO of weak function/suspension/cube-view argument identities and weak result handles.",
+    "No forcing during lookup; dead cached results recompute; keys include all relevant view offsets/strides/lengths.",
+    "Both key and result edges are weak to avoid keeping an argument or a result capturing the function alive."
+  ],
+  "checks": [
+    {
+      "command": "cargo test -p mpk-vc --lib ordinary_core_ -- --nocapture",
+      "result": "passed",
+      "tests": 12,
+      "runtime_seconds": 0.04,
+      "log": "verification-logs/observer-cache/weak-argument-cache-core-v4.log",
+      "reason": "Shared-function evaluation and lifetimes changed. Final cases cover 736 Boolean truth observations, high binders, lazy/forced thunks, capture release, repeated closed work, weak identity/view correctness, sixteen-view eviction and capture-cycle avoidance."
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --lib --test csharp_practical_vc -- -D warnings",
+      "result": "passed",
+      "runtime_seconds": 25.43,
+      "log": "verification-logs/observer-cache/weak-argument-cache-clippy-v1.log",
+      "reason": "Changed observer is included in integration tests; implementation unchanged after this check."
+    },
+    {
+      "command": "rustfmt --check --edition 2021 --config skip_children=true (two modified observer files)",
+      "result": "passed",
+      "log": "verification-logs/observer-cache/weak-argument-cache-format-v1.log",
+      "reason": "Scoped formatting."
+    }
+  ],
+  "inventory_reuse": {
+    "receipt": "unit-3-observer-cache-experiment.json",
+    "result": "prior_exact_inventory_pass_retained",
+    "reason": "Weak-cache edits affect the same two existing files. Their membership for every inventory needle is checked again; no new file in inventory search roots, route, or fingerprint is introduced.",
+    "needle_memberships_compared": 272
+  },
+  "initial_failure": {
+    "log": "verification-logs/observer-cache/weak-argument-cache-core-v1.log",
+    "reason": "New sparse-view regression required an explicit BTreeSet collection type; corrected before all subsequent passing runs."
+  },
+  "pending": [],
+  "limits": [
+    "No actual workload speed/memory improvement is established.",
+    "Older running probes use their launch binary, not this weak-cache implementation.",
+    "The root and per-lambda entry bounds do not establish a global retained-memory bound.",
+    "No generated operation oracle, reduced source case, changed frozen bound, or application-proof substitution.",
+    "No original unit completion, commit or push. W09 and units 3-8 remain open."
+  ],
+  "full_gate": {
+    "status": "deferred_to_T06_W12",
+    "reason": "Intermediate W affected-test policy."
+  },
+  "source_files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_test_eval.rs",
+      "sha256": "bb2222af8fb10dac0e3245064d29dc16a66f46181436c0e5478a7c61466b9a50"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_test_eval_tests.rs",
+      "sha256": "e23a87712eec967cdb7b47235bf46f1d1ee37c5cdf889a2f94f5d4c5d4156ba9"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "verification-logs/observer-cache/weak-argument-cache-core-v1.log",
+      "sha256": "b0ad844afca58b558aec490d6a626dbaaa0a3750337af8f6728e571fb3c7650c"
+    },
+    {
+      "path": "verification-logs/observer-cache/weak-argument-cache-core-v2.log",
+      "sha256": "66f8de406ed247dfbd044125f13394aff7acd50395398392ec93caa00fdb3623"
+    },
+    {
+      "path": "verification-logs/observer-cache/weak-argument-cache-core-v3.log",
+      "sha256": "ab47c60efa628d68ae9e61852081fa53bce2e607567094f47d5c3551a2c98e84"
+    },
+    {
+      "path": "verification-logs/observer-cache/weak-argument-cache-core-v4.log",
+      "sha256": "eb6600387863173484b311925b6731e58b8e9a1f37caee2832a6d7b310a06c4e"
+    },
+    {
+      "path": "verification-logs/observer-cache/weak-argument-cache-clippy-v1.log",
+      "sha256": "4adcd3ae0a4f099b69f3f62d97a471ccfe956b3149047164da414bbf4519ae59"
+    },
+    {
+      "path": "verification-logs/observer-cache/weak-argument-cache-format-v1.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "verification-logs/observer-cache/weak-argument-cache-csharp_practical_ordinary_test_eval.rs.txt",
+      "sha256": "bb2222af8fb10dac0e3245064d29dc16a66f46181436c0e5478a7c61466b9a50"
+    },
+    {
+      "path": "verification-logs/observer-cache/weak-argument-cache-csharp_practical_ordinary_test_eval_tests.rs.txt",
+      "sha256": "e23a87712eec967cdb7b47235bf46f1d1ee37c5cdf889a2f94f5d4c5d4156ba9"
+    },
+    {
+      "path": "verification-logs/observer-cache/weak-cache-profile-v1.txt",
+      "sha256": "e069817187939cb2d3d1971e3a463beda9e553ffc701869dfcc32c214354906d"
+    },
+    {
+      "path": "verification-logs/observer-cache/weak-cache-profile-v1.log",
+      "sha256": "06cec70a1b980469d8f4a4d287124bf02e0569b91d6cb47e59b388a538984298"
+    },
+    {
+      "path": "verification-logs/observer-cache/release-observer-core-v1.log",
+      "sha256": "538aaec4c1dff4c9e9ca86eec993bc75ba6dcfb9f08532135fc1d8f388b51066"
+    },
+    {
+      "path": "verification-logs/observer-cache/weak-argument-cache-domain-probe-v1-stopped.log",
+      "sha256": "29ecbcb173b03fc85771ee29ab913d45ea0cd471e9ad7917e4fc2dc93858aa87"
+    },
+    {
+      "path": "verification-logs/observer-cache/release-domain-profile-v1.txt",
+      "sha256": "1d3b633dfbcce20190dbb862e469a042603d65fe799e4377d4146aa1c16b7d19"
+    },
+    {
+      "path": "verification-logs/observer-cache/release-domain-profile-v1.log",
+      "sha256": "960ebe6b802796526c8b25829e2abf026deb84d8143053edf3ad7c9f47ee2e40"
+    }
+  ],
+  "additional_semantic_evidence": {
+    "receipt": "unit-4-calendar-clauses-progress.json",
+    "note": "Latest weak-cache observer passed the fourteen selected calendar/temporal source conditions. This is semantics evidence, not a timing comparison or a completed domain workload."
+  },
+  "profile": {
+    "command": "/usr/bin/sample 52257 3 -file /tmp/mpk-w09-weak-cache-profile-v1.txt",
+    "captured_at": "2026-09-11T06:38:46.597+09:00",
+    "result": "captured_live_worker_not_a_test_result",
+    "evidence": [
+      "verification-logs/observer-cache/weak-cache-profile-v1.txt",
+      "verification-logs/observer-cache/weak-cache-profile-v1.log"
+    ],
+    "worker_samples": 1631,
+    "top_of_stack_samples": {
+      "_platform_memmove": 330,
+      "evaluate_counted": 257,
+      "memcpy_stub": 92,
+      "defer": 31
+    },
+    "interpretation": "The active worker remained in generic core evaluation, with significant copy/move work in this unoptimized binary. Waiting main/join threads are excluded from worker counts. A three-second sample does not establish end-to-end performance or a passing domain result."
+  },
+  "optimized_probe": {
+    "command": "cargo test --release -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_domains_source_string_duplicate_probe -- --nocapture",
+    "session_id": 68605,
+    "log": "/tmp/mpk-w09-release-domain-probe-v1.log",
+    "status": "running_original_duplicate_C33_case_no_result",
+    "reason": "Same original C33 duplicate-string-map input, frozen bounds and assertions; select only this outstanding case to measure optimized execution without changing observer semantics.",
+    "pid": 66701,
+    "build_seconds": 82,
+    "assertion_review": "All 32 output bits and all input/result assertions remain active under release; no debug_assert-dependent acceptance.",
+    "observer_regression": {
+      "command": "cargo test --release -p mpk-vc --lib ordinary_core_ -- --nocapture",
+      "session_id": 50296,
+      "log": "/tmp/mpk-w09-release-observer-core-v1.log",
+      "status": "passed",
+      "reason": "Check the same generic observer in optimized mode; only its twelve direct regression tests.",
+      "tests": 12,
+      "runtime_seconds": 0.01,
+      "retained_log": "verification-logs/observer-cache/release-observer-core-v1.log"
+    },
+    "profile": {
+      "captured_at": "2026-09-11T07:07:31.968+09:00",
+      "worker_samples": 2476,
+      "top_of_stack_samples": {
+        "evaluate_counted": 1204,
+        "tiny_malloc": 166,
+        "free": 165,
+        "defer": 132
+      },
+      "evidence": [
+        "verification-logs/observer-cache/release-domain-profile-v1.txt",
+        "verification-logs/observer-cache/release-domain-profile-v1.log"
+      ],
+      "interpretation": "The optimized worker remains in generic reduction, allocation and release. Copy/move no longer appears among top sampled leaves. Compiler inlining prevents attributing all evaluation samples to a specific operation. No workload verdict or end-to-end speedup is established."
+    }
+  },
+  "superseded_probe": {
+    "pid": 52257,
+    "session_id": 24424,
+    "status": "explicitly_stopped_without_verdict",
+    "elapsed_last_observation": "01:40:08",
+    "reason": "The exact same case started in an optimized binary. Stop only the redundant debug probe; original formal domain process 31739 continues. This is neither a pass nor a deterministic test failure.",
+    "retained_log": "verification-logs/observer-cache/weak-argument-cache-domain-probe-v1-stopped.log"
+  }
+}

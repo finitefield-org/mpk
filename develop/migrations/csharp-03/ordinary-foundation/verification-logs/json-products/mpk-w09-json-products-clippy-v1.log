@@ -1,0 +1,21 @@
+    Checking mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error[E0308]: mismatched types
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_json_product_tests.rs:255:49
+    |
+255 |                     leaf(&cert, result.clone(), packet_depth, i),
+    |                     ----                        ^^^^^^^^^^^^ expected `usize`, found `u32`
+    |                     |
+    |                     arguments to this function are incorrect
+    |
+note: function defined here
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_json_token_tests.rs:143:4
+    |
+143 | fn leaf(cert: &mpk_cert::encode::Certificate, mut value: V, depth: usize, index: usize) -> bool {
+    |    ^^^^                                                     ------------
+help: you can convert a `u32` to a `usize` and panic if the converted value doesn't fit
+    |
+255 |                     leaf(&cert, result.clone(), packet_depth.try_into().unwrap(), i),
+    |                                                             ++++++++++++++++++++
+
+For more information about this error, try `rustc --explain E0308`.
+error: could not compile `mpk-vc` (test "csharp_practical_vc") due to 1 previous error

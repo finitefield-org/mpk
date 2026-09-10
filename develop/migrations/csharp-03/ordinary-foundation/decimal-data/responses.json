@@ -1,0 +1,479 @@
+[
+  {
+    "facts": {
+      "callables": [
+        {
+          "body_sha256": "c14e20948ce31944f885aa2af5173c7c5ff897c063de9d82b9e63a7503625c9f",
+          "body_utf8": "[{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarationGroup\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclaration\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarator\",\"symbol\":\"local:0\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableInitializer\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":true,\"kind\":\"Conversion\",\"symbol\":\"\",\"traits\":\"True|False|True|False|True|True|False|False|False\",\"type\":\"27:mpk.csharp.value.decimal.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"ParameterReference\",\"symbol\":\"parameter:0\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.i32.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarationGroup\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclaration\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarator\",\"symbol\":\"local:1\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableInitializer\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":true,\"kind\":\"Conversion\",\"symbol\":\"\",\"traits\":\"True|False|True|False|True|True|False|False|False\",\"type\":\"27:mpk.csharp.value.decimal.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"ParameterReference\",\"symbol\":\"parameter:1\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.i32.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarationGroup\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclaration\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarator\",\"symbol\":\"local:2\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableInitializer\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":2,\"implicit\":false,\"kind\":\"Binary\",\"symbol\":\"\",\"traits\":\"Add|False|False\",\"type\":\"27:mpk.csharp.value.decimal.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"LocalReference\",\"symbol\":\"local:0\",\"traits\":\"\",\"type\":\"27:mpk.csharp.value.decimal.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"LocalReference\",\"symbol\":\"local:1\",\"traits\":\"\",\"type\":\"27:mpk.csharp.value.decimal.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"Return\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"Conversion\",\"symbol\":\"\",\"traits\":\"True|False|True|False|False|True|False|False|False\",\"type\":\"23:mpk.csharp.value.i32.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"LocalReference\",\"symbol\":\"local:2\",\"traits\":\"\",\"type\":\"27:mpk.csharp.value.decimal.v15:value0:\"}]",
+          "data_steps": [
+            {
+              "argument_ordinals": [
+                0
+              ],
+              "family": "numeric",
+              "node_ordinal": 4,
+              "operand_ordinals": [
+                5
+              ],
+              "operation": "decimal.conversion.int32_to_decimal",
+              "rounding": ""
+            },
+            {
+              "argument_ordinals": [
+                0
+              ],
+              "family": "numeric",
+              "node_ordinal": 10,
+              "operand_ordinals": [
+                11
+              ],
+              "operation": "decimal.conversion.int32_to_decimal",
+              "rounding": ""
+            },
+            {
+              "argument_ordinals": [
+                0,
+                1
+              ],
+              "family": "numeric",
+              "node_ordinal": 16,
+              "operand_ordinals": [
+                17,
+                18
+              ],
+              "operation": "decimal.add",
+              "rounding": ""
+            },
+            {
+              "argument_ordinals": [
+                0
+              ],
+              "family": "numeric",
+              "node_ordinal": 20,
+              "operand_ordinals": [
+                21
+              ],
+              "operation": "decimal.conversion.decimal_to_int32",
+              "rounding": ""
+            }
+          ],
+          "end_byte": 152,
+          "id": "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f",
+          "identity": {
+            "kind": "method",
+            "name": "Run",
+            "namespace": "Quantifiers",
+            "owner": "mpk.csharp.source.ea5c15b56e18c3d943a7712c4f0ee8a0d09586979e5f73d97b54448e1b58d37e",
+            "parameter_type_ids": [
+              "mpk.csharp.value.i32.v1",
+              "mpk.csharp.value.i32.v1"
+            ],
+            "result_type_id": "mpk.csharp.value.i32.v1"
+          },
+          "initialization_plans": [],
+          "is_property_getter": false,
+          "is_static": true,
+          "is_synthesized_constructor": false,
+          "parameters": [
+            {
+              "id": "i32",
+              "kind": "primitive"
+            },
+            {
+              "id": "i32",
+              "kind": "primitive"
+            }
+          ],
+          "result": {
+            "id": "i32",
+            "kind": "primitive"
+          },
+          "source_path": "src/Entry.cs",
+          "source_sha256": "49a8975378bf274a2044f22129c4efe13a623885d9d4165d17e56ce4e3bc723c",
+          "start_byte": 48
+        }
+      ],
+      "compilation_id": "data",
+      "exact_types": [
+        {
+          "callable_id": "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f",
+          "local_ordinal": 0,
+          "type": {
+            "id": "decimal",
+            "kind": "primitive"
+          }
+        },
+        {
+          "callable_id": "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f",
+          "local_ordinal": 1,
+          "type": {
+            "id": "decimal",
+            "kind": "primitive"
+          }
+        },
+        {
+          "callable_id": "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f",
+          "local_ordinal": 2,
+          "type": {
+            "id": "decimal",
+            "kind": "primitive"
+          }
+        }
+      ],
+      "input_files": [
+        {
+          "kind": "sidecar",
+          "path": "contracts/data.json",
+          "raw_sha256": "1d8c5e870b1ed1038dc3a5fb2b96319ef0aaffbe376f648c4409e2ff2f5c5400",
+          "size_bytes": 1498
+        },
+        {
+          "kind": "source",
+          "path": "src/Entry.cs",
+          "raw_sha256": "49a8975378bf274a2044f22129c4efe13a623885d9d4165d17e56ce4e3bc723c",
+          "size_bytes": 154
+        }
+      ],
+      "reachable_declarations": [
+        "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f",
+        "mpk.csharp.source.ea5c15b56e18c3d943a7712c4f0ee8a0d09586979e5f73d97b54448e1b58d37e"
+      ],
+      "selected_root_ids": [
+        "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f"
+      ],
+      "source_containers": [
+        {
+          "end_byte": 153,
+          "id": "mpk.csharp.source.ea5c15b56e18c3d943a7712c4f0ee8a0d09586979e5f73d97b54448e1b58d37e",
+          "name": "Entry",
+          "namespace": "Quantifiers",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "49a8975378bf274a2044f22129c4efe13a623885d9d4165d17e56ce4e3bc723c",
+          "start_byte": 22
+        }
+      ],
+      "source_obligations": [],
+      "sources": [
+        {
+          "path": "src/Entry.cs",
+          "raw_sha256": "49a8975378bf274a2044f22129c4efe13a623885d9d4165d17e56ce4e3bc723c",
+          "size_bytes": 154
+        }
+      ],
+      "types": []
+    },
+    "id": "add"
+  },
+  {
+    "facts": {
+      "callables": [
+        {
+          "body_sha256": "0dc5b88d494553c7355957bcd693704017f3482717f7cc0f9e6bf5e38841e220",
+          "body_utf8": "[{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarationGroup\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclaration\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarator\",\"symbol\":\"local:0\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableInitializer\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":true,\"kind\":\"Conversion\",\"symbol\":\"\",\"traits\":\"True|False|True|False|True|True|False|False|False\",\"type\":\"27:mpk.csharp.value.decimal.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"ParameterReference\",\"symbol\":\"parameter:0\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.i32.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarationGroup\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclaration\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarator\",\"symbol\":\"local:1\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableInitializer\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":true,\"kind\":\"Conversion\",\"symbol\":\"\",\"traits\":\"True|False|True|False|True|True|False|False|False\",\"type\":\"27:mpk.csharp.value.decimal.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"ParameterReference\",\"symbol\":\"parameter:1\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.i32.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarationGroup\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclaration\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarator\",\"symbol\":\"local:2\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableInitializer\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":2,\"implicit\":false,\"kind\":\"Binary\",\"symbol\":\"\",\"traits\":\"Divide|False|False\",\"type\":\"27:mpk.csharp.value.decimal.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"LocalReference\",\"symbol\":\"local:0\",\"traits\":\"\",\"type\":\"27:mpk.csharp.value.decimal.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"LocalReference\",\"symbol\":\"local:1\",\"traits\":\"\",\"type\":\"27:mpk.csharp.value.decimal.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"Return\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"Conversion\",\"symbol\":\"\",\"traits\":\"True|False|True|False|False|True|False|False|False\",\"type\":\"23:mpk.csharp.value.i32.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"LocalReference\",\"symbol\":\"local:2\",\"traits\":\"\",\"type\":\"27:mpk.csharp.value.decimal.v15:value0:\"}]",
+          "data_steps": [
+            {
+              "argument_ordinals": [
+                0
+              ],
+              "family": "numeric",
+              "node_ordinal": 4,
+              "operand_ordinals": [
+                5
+              ],
+              "operation": "decimal.conversion.int32_to_decimal",
+              "rounding": ""
+            },
+            {
+              "argument_ordinals": [
+                0
+              ],
+              "family": "numeric",
+              "node_ordinal": 10,
+              "operand_ordinals": [
+                11
+              ],
+              "operation": "decimal.conversion.int32_to_decimal",
+              "rounding": ""
+            },
+            {
+              "argument_ordinals": [
+                0,
+                1
+              ],
+              "family": "numeric",
+              "node_ordinal": 16,
+              "operand_ordinals": [
+                17,
+                18
+              ],
+              "operation": "decimal.divide",
+              "rounding": ""
+            },
+            {
+              "argument_ordinals": [
+                0
+              ],
+              "family": "numeric",
+              "node_ordinal": 20,
+              "operand_ordinals": [
+                21
+              ],
+              "operation": "decimal.conversion.decimal_to_int32",
+              "rounding": ""
+            }
+          ],
+          "end_byte": 152,
+          "id": "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f",
+          "identity": {
+            "kind": "method",
+            "name": "Run",
+            "namespace": "Quantifiers",
+            "owner": "mpk.csharp.source.ea5c15b56e18c3d943a7712c4f0ee8a0d09586979e5f73d97b54448e1b58d37e",
+            "parameter_type_ids": [
+              "mpk.csharp.value.i32.v1",
+              "mpk.csharp.value.i32.v1"
+            ],
+            "result_type_id": "mpk.csharp.value.i32.v1"
+          },
+          "initialization_plans": [],
+          "is_property_getter": false,
+          "is_static": true,
+          "is_synthesized_constructor": false,
+          "parameters": [
+            {
+              "id": "i32",
+              "kind": "primitive"
+            },
+            {
+              "id": "i32",
+              "kind": "primitive"
+            }
+          ],
+          "result": {
+            "id": "i32",
+            "kind": "primitive"
+          },
+          "source_path": "src/Entry.cs",
+          "source_sha256": "fc321fbed01c1560898421b2ea93893badee62b7077946f016f1eba24ca5daed",
+          "start_byte": 48
+        }
+      ],
+      "compilation_id": "data",
+      "exact_types": [
+        {
+          "callable_id": "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f",
+          "local_ordinal": 0,
+          "type": {
+            "id": "decimal",
+            "kind": "primitive"
+          }
+        },
+        {
+          "callable_id": "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f",
+          "local_ordinal": 1,
+          "type": {
+            "id": "decimal",
+            "kind": "primitive"
+          }
+        },
+        {
+          "callable_id": "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f",
+          "local_ordinal": 2,
+          "type": {
+            "id": "decimal",
+            "kind": "primitive"
+          }
+        }
+      ],
+      "input_files": [
+        {
+          "kind": "sidecar",
+          "path": "contracts/data.json",
+          "raw_sha256": "330630f116c0f93119796a307b82b75c6949290d672123d367d9aecd81ce8489",
+          "size_bytes": 1498
+        },
+        {
+          "kind": "source",
+          "path": "src/Entry.cs",
+          "raw_sha256": "fc321fbed01c1560898421b2ea93893badee62b7077946f016f1eba24ca5daed",
+          "size_bytes": 154
+        }
+      ],
+      "reachable_declarations": [
+        "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f",
+        "mpk.csharp.source.ea5c15b56e18c3d943a7712c4f0ee8a0d09586979e5f73d97b54448e1b58d37e"
+      ],
+      "selected_root_ids": [
+        "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f"
+      ],
+      "source_containers": [
+        {
+          "end_byte": 153,
+          "id": "mpk.csharp.source.ea5c15b56e18c3d943a7712c4f0ee8a0d09586979e5f73d97b54448e1b58d37e",
+          "name": "Entry",
+          "namespace": "Quantifiers",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "fc321fbed01c1560898421b2ea93893badee62b7077946f016f1eba24ca5daed",
+          "start_byte": 22
+        }
+      ],
+      "source_obligations": [],
+      "sources": [
+        {
+          "path": "src/Entry.cs",
+          "raw_sha256": "fc321fbed01c1560898421b2ea93893badee62b7077946f016f1eba24ca5daed",
+          "size_bytes": 154
+        }
+      ],
+      "types": []
+    },
+    "id": "divide"
+  },
+  {
+    "facts": {
+      "callables": [
+        {
+          "body_sha256": "6de144e25eb84c0cf1446cd76decd4e3b5fe2e305b1e3a5773c23cc2d0cd1333",
+          "body_utf8": "[{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarationGroup\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclaration\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarator\",\"symbol\":\"local:0\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableInitializer\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":true,\"kind\":\"Conversion\",\"symbol\":\"\",\"traits\":\"True|False|True|False|True|True|False|False|False\",\"type\":\"27:mpk.csharp.value.decimal.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"ParameterReference\",\"symbol\":\"parameter:0\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.i32.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarationGroup\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclaration\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableDeclarator\",\"symbol\":\"local:1\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"VariableInitializer\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":3,\"implicit\":false,\"kind\":\"Invocation\",\"symbol\":\"System.Runtime|decimal.Round(decimal, int, System.MidpointRounding)\",\"traits\":\"\",\"type\":\"27:mpk.csharp.value.decimal.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"Argument\",\"symbol\":\"argument:0\",\"traits\":\"Explicit|0\",\"type\":null},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"LocalReference\",\"symbol\":\"local:0\",\"traits\":\"\",\"type\":\"27:mpk.csharp.value.decimal.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"Argument\",\"symbol\":\"argument:1\",\"traits\":\"Explicit|1\",\"type\":null},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"ParameterReference\",\"symbol\":\"parameter:1\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.i32.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"Argument\",\"symbol\":\"argument:2\",\"traits\":\"Explicit|2\",\"type\":null},{\"constant\":\"System.Int32:0\",\"child_count\":0,\"implicit\":false,\"kind\":\"FieldReference\",\"symbol\":\"System.Runtime|System.MidpointRounding.ToEven\",\"traits\":\"\",\"type\":\"intrinsic_argument:System.MidpointRounding\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"Return\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":3,\"implicit\":false,\"kind\":\"Conditional\",\"symbol\":\"\",\"traits\":\"False\",\"type\":\"23:mpk.csharp.value.i32.v15:value0:\"},{\"constant\":null,\"child_count\":2,\"implicit\":false,\"kind\":\"Binary\",\"symbol\":\"\",\"traits\":\"LessThan|False|False\",\"type\":\"24:mpk.csharp.value.bool.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"LocalReference\",\"symbol\":\"local:1\",\"traits\":\"\",\"type\":\"27:mpk.csharp.value.decimal.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"LocalReference\",\"symbol\":\"local:0\",\"traits\":\"\",\"type\":\"27:mpk.csharp.value.decimal.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"ParameterReference\",\"symbol\":\"parameter:0\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.i32.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"ParameterReference\",\"symbol\":\"parameter:1\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.i32.v15:value0:\"}]",
+          "data_steps": [
+            {
+              "argument_ordinals": [
+                0
+              ],
+              "family": "numeric",
+              "node_ordinal": 4,
+              "operand_ordinals": [
+                5
+              ],
+              "operation": "decimal.conversion.int32_to_decimal",
+              "rounding": ""
+            },
+            {
+              "argument_ordinals": [
+                0,
+                1
+              ],
+              "family": "numeric",
+              "node_ordinal": 10,
+              "operand_ordinals": [
+                12,
+                14
+              ],
+              "operation": "decimal.round",
+              "rounding": "ToEven"
+            },
+            {
+              "argument_ordinals": [
+                0,
+                1
+              ],
+              "family": "numeric",
+              "node_ordinal": 19,
+              "operand_ordinals": [
+                20,
+                21
+              ],
+              "operation": "decimal.less",
+              "rounding": ""
+            }
+          ],
+          "end_byte": 195,
+          "id": "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f",
+          "identity": {
+            "kind": "method",
+            "name": "Run",
+            "namespace": "Quantifiers",
+            "owner": "mpk.csharp.source.ea5c15b56e18c3d943a7712c4f0ee8a0d09586979e5f73d97b54448e1b58d37e",
+            "parameter_type_ids": [
+              "mpk.csharp.value.i32.v1",
+              "mpk.csharp.value.i32.v1"
+            ],
+            "result_type_id": "mpk.csharp.value.i32.v1"
+          },
+          "initialization_plans": [],
+          "is_property_getter": false,
+          "is_static": true,
+          "is_synthesized_constructor": false,
+          "parameters": [
+            {
+              "id": "i32",
+              "kind": "primitive"
+            },
+            {
+              "id": "i32",
+              "kind": "primitive"
+            }
+          ],
+          "result": {
+            "id": "i32",
+            "kind": "primitive"
+          },
+          "source_path": "src/Entry.cs",
+          "source_sha256": "497278a738b3896f2ba1da02ab12a94ab22af00c0b782910feb16732a5e62d7c",
+          "start_byte": 48
+        }
+      ],
+      "compilation_id": "data",
+      "exact_types": [
+        {
+          "callable_id": "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f",
+          "local_ordinal": 0,
+          "type": {
+            "id": "decimal",
+            "kind": "primitive"
+          }
+        },
+        {
+          "callable_id": "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f",
+          "local_ordinal": 1,
+          "type": {
+            "id": "decimal",
+            "kind": "primitive"
+          }
+        }
+      ],
+      "input_files": [
+        {
+          "kind": "sidecar",
+          "path": "contracts/data.json",
+          "raw_sha256": "c29b39107a6c4f6cb8cd4a647d41345526888423ca791acbe2b1c7fd933a8c54",
+          "size_bytes": 1498
+        },
+        {
+          "kind": "source",
+          "path": "src/Entry.cs",
+          "raw_sha256": "497278a738b3896f2ba1da02ab12a94ab22af00c0b782910feb16732a5e62d7c",
+          "size_bytes": 197
+        }
+      ],
+      "reachable_declarations": [
+        "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f",
+        "mpk.csharp.source.ea5c15b56e18c3d943a7712c4f0ee8a0d09586979e5f73d97b54448e1b58d37e"
+      ],
+      "selected_root_ids": [
+        "mpk.csharp.source.0bdd7fbd2ce1d6bd97c04a41aa5c88a06ac1c1f5aba09f282352887e2e5bd01f"
+      ],
+      "source_containers": [
+        {
+          "end_byte": 196,
+          "id": "mpk.csharp.source.ea5c15b56e18c3d943a7712c4f0ee8a0d09586979e5f73d97b54448e1b58d37e",
+          "name": "Entry",
+          "namespace": "Quantifiers",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "497278a738b3896f2ba1da02ab12a94ab22af00c0b782910feb16732a5e62d7c",
+          "start_byte": 22
+        }
+      ],
+      "source_obligations": [],
+      "sources": [
+        {
+          "path": "src/Entry.cs",
+          "raw_sha256": "497278a738b3896f2ba1da02ab12a94ab22af00c0b782910feb16732a5e62d7c",
+          "size_bytes": 197
+        }
+      ],
+      "types": []
+    },
+    "id": "round"
+  }
+]

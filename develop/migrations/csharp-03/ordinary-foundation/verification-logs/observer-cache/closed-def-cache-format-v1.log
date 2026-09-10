@@ -1,0 +1,15 @@
+Diff in /Users/kazuyoshitoshiya/mpk/crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs:842:
+ }
+ 
+ #[cfg(test)]
+-#[path = "csharp_practical_ordinary_test_eval.rs"]
+-mod test_eval;
+-#[cfg(test)]
+ #[path = "csharp_practical_ordinary_test_eval_tests.rs"]
+ mod observer_tests;
++#[cfg(test)]
++#[path = "csharp_practical_ordinary_test_eval.rs"]
++mod test_eval;
+ 
+ #[path = "csharp_practical_ordinary_defaults.rs"]
+ mod defaults;

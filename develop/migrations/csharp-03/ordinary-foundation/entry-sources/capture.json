@@ -1,0 +1,23 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.entry_source_capture.v1",
+  "requests": "requests.json",
+  "responses": "responses.json",
+  "source_origin": "test-generated original EntryCases.Rep identity method and content-bound ordered_entry binding; Bool key and IEEE float value",
+  "request_generator": "csharp_03_t06_w09_entry_source_request",
+  "capture_command": "./scripts/build-csharp-practical-frontend.sh --test-control-emission-requests",
+  "environment": "existing mpk-java-t10-gate:local Linux amd64 image; read-only repository; network disabled; frozen frontend build-input validation",
+  "determinism": "control-emission harness captures each request twice and compares bytes",
+  "accepted": 1,
+  "rejected": 0,
+  "application_vc_proof": false,
+  "files": [
+    {
+      "path": "requests.json",
+      "sha256": "323b9e34e2c7d18dc9d86e66162ded651443e436ce3c56cc854260fae5c4d259"
+    },
+    {
+      "path": "responses.json",
+      "sha256": "10cbd2f020a6084223740c9f939d326c909213c14b34ca354bb99a8c61ca6729"
+    }
+  ]
+}

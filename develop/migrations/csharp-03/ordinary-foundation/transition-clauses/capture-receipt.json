@@ -1,0 +1,22 @@
+{
+  "schema": "mpk.csharp_practical.w09.transition_clause_capture.v1",
+  "entry_point": "csharp_practical_build_inputs.test_data_phase(requests=exact_request_bytes)",
+  "image": "python@sha256:933b46a028fd786c9c3d426ebabc237e29a15912231ea8de576e95f0e4f41a4c",
+  "isolation": "No network;read-only stage/root;4GiB memory;2 CPUs;3GiB tmpfs;default seccomp;SYS_ADMIN,SETUID,SETGID,SETFCAP only;no-new-privileges.",
+  "captures": [
+    {
+      "file": "requests.json",
+      "sha256": "4430d01073322ace581417a1a84034582aa0a723c1a556d943a30bc8373aca20"
+    },
+    {
+      "file": "responses.json",
+      "sha256": "4593740579dc8e6ab28de66ff54be8cf336c2427b9f3b055b5be0bc0eff09935"
+    },
+    {
+      "file": "capture-inputs.json",
+      "sha256": "8befa15a01a4209c159d509013d3ab9b28b8ded95f1ae909b24f655390354c2c"
+    }
+  ],
+  "input_validation": "88 staged files match current repository and manifest hashes/sizes;71 source files pinned.",
+  "result": "Two fresh method contract contexts;both isolated frontend processes exited0 with empty stdout/stderr."
+}

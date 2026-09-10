@@ -1,0 +1,11 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error[E0609]: no field `type_id` on type `mpk_vc::csharp_practical_vir_model::OrdinaryField`
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_definedness_clause_tests.rs:145:30
+    |
+145 |         assert_eq!(fields[0].type_id,I32);
+    |                              ^^^^^^^ unknown field
+    |
+    = note: available fields are: `id`, `shape`
+
+For more information about this error, try `rustc --explain E0609`.
+error: could not compile `mpk-vc` (test "csharp_practical_vc") due to 1 previous error

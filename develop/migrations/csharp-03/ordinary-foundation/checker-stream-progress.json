@@ -1,0 +1,71 @@
+{
+  "schema": "mpk.csharp_practical.w09.checker_stream_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "status": "process_stream_fix_verified_failed_case_rechecked",
+  "source": {
+    "path": "go-tools/mpk-checker-ref/checker_agreement_test.go",
+    "sha256": "ee94c11a161f3a18247c06b96b9ae40a57fa93a1e8b870f37802b640dae9125f"
+  },
+  "finding": {
+    "log": "/tmp/mpk-w09-integer-parsers-checkers-v1.log",
+    "case": "boundary-exception-empty.hex",
+    "detail": "stderr compiler warning was combined with accepted stdout report and rejected by JSON parser; not a proof rejection or test pass."
+  },
+  "verification": [
+    {
+      "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run '^(TestCheckerAgreementRustProcessStreams|TestCheckerAgreementWithRustCLIReportProtocol)$' -count=1 -v",
+      "log": "/tmp/mpk-w09-checker-streams-tests-v1.log",
+      "log_sha256": "bb7566d4cdac9208d2f7b4be048e710c95d679ad2feffdafd486b9350f18c375",
+      "status": "passed",
+      "scope": "Initial four-case subprocess matrix plus existing report protocol tests; before accepted-with-warning case addition."
+    },
+    {
+      "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run '^(TestCheckerAgreementRustProcessStreams|TestCheckerAgreementWithRustCLIReportProtocol)$' -count=1 -v",
+      "log": "/tmp/mpk-w09-checker-streams-tests-v2.log",
+      "log_sha256": "0ea66aef1eacae59f991febe366b05b7a11ecefb1e4dedf99aa7ae0fa2951427",
+      "status": "passed",
+      "scope": "Current five-case subprocess matrix plus existing report protocol tests."
+    },
+    {
+      "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIDecimalFormats$' -count=1 -timeout 0 -v",
+      "log": "/tmp/mpk-w09-decimal-formats-checkers-v1.log",
+      "log_sha256": "d3a902469405c50def133872ed0206e38f3bba8e6f64c8f7977d651e3990c720",
+      "status": "passed",
+      "scope": "Six actual ordinary certificates accepted with zero axioms and hash corruptions rejected through the corrected stream-separated subprocess helper."
+    },
+    {
+      "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIIntegerParsers$/^boundary-exception-empty[.]hex$' -count=1 -timeout 0 -v",
+      "log": "/tmp/mpk-w09-integer-parsers-warning-recheck-v1.log",
+      "log_sha256": "f9147c40bcff0ed884b9007cb74eaaa771b10fd548576a33476f91370dd3e058",
+      "status": "passed",
+      "scope": "The one previously warning-contaminated certificate passed both unchanged checker acceptances with zero axioms and the hash-corruption rejection, through the corrected process helper; 27.122 seconds. Not a full 54-case rerun."
+    },
+    {
+      "command": "/usr/bin/git diff --check",
+      "status": "passed",
+      "scope": "Outside sandbox, exit zero after current implementation, regression tests and review records."
+    },
+    {
+      "command": "gofmt -d go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "log": "/tmp/mpk-w09-checker-streams-gofmt-v1.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "passed",
+      "scope": "Current formatting; empty output."
+    }
+  ],
+  "live_jobs": [],
+  "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run '^(TestCheckerAgreementRustProcessStreams|TestCheckerAgreementWithRustCLIReportProtocol)$' -count=1 -v",
+  "remaining": [
+    "The observed stream defect and its one failed case are verified repaired; no full-corpus pass is attributed to the original failed run.",
+    "Complete all remaining original W09 units and acceptance; no component-only commit or whole-task completion."
+  ],
+  "original_corpus_outcome": {
+    "log": "/tmp/mpk-w09-integer-parsers-checkers-v1.log",
+    "log_sha256": "d5e551af216ec3750cfd1bdaa74c7f48e3c41f09c37227a71e3225273f661d8a",
+    "passed": 53,
+    "failed": [
+      "boundary-exception-empty.hex"
+    ],
+    "repair_recheck_passed": true
+  }
+}

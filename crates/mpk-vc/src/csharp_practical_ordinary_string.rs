@@ -56,6 +56,75 @@ struct Helpers {
     construct: Option<construct::Aux>,
     ordinal: Option<ordinal::Aux>,
 }
+/// One contract compiler owns one closed context and its selected nullable
+/// string representation. Existing operation bodies remain unchanged.
+#[derive(Default)]
+pub(in super::super) struct ContractStringCache {
+    helpers: Option<Helpers>,
+    definitions: BTreeMap<String, (OrdinaryStringDefinition, Vec<String>)>,
+}
+impl ContractStringCache {
+    pub(in super::super) fn emit(
+        &mut self,
+        b: &mut Builder,
+        signature: ClosedOperationSignature,
+        nullable: bool,
+    ) -> R<(OrdinaryStringDefinition, Vec<String>)> {
+        // The admitted unary/binary contract tags have exactly one/two
+        // operands. Larger native-call arities use the standalone emitter.
+        if !matches!(signature.argument_type_ids.len(), 1 | 2) {
+            return Err(OrdinaryCarrierError::Shape);
+        }
+        if let Some(h) = &self.helpers {
+            if h.depth != TEXT_DEPTH + u32::from(nullable) {
+                return Err(OrdinaryCarrierError::Linkage);
+            }
+        }
+        if let Some(existing) = self.definitions.get(&signature.id) {
+            return if existing.0.operation == signature {
+                Ok(existing.clone())
+            } else {
+                Err(OrdinaryCarrierError::Linkage)
+            };
+        }
+        if self.helpers.is_none() {
+            self.helpers = Some(Helpers::new(b, nullable)?);
+        }
+        let h = self.helpers.as_mut().unwrap();
+        let definition = h.emit(b, signature)?;
+        let mut checks = definition.ordered_failure_definitions.clone();
+        // Contract failure symbols denote individual failed checks, without
+        // masking by an earlier exception. Keep legacy ordered failures intact.
+        if checks.len() > 1 {
+            if checks.len() != 2 {
+                return Err(OrdinaryCarrierError::Shape);
+            }
+            let left = b.var(1)?;
+            let right = b.var(0)?;
+            let (valid, inputs) = match definition.operation.id.as_str() {
+                "string.index" => {
+                    let length = call(b, &h.length, vec![left])?;
+                    let valid = call(b, &h.range.result_definition, vec![right, length])?;
+                    (valid, vec![1 << h.depth, 32])
+                }
+                "string.contains.ordinal"
+                | "string.starts_with.ordinal"
+                | "string.ends_with.ordinal" => {
+                    (call(b, &h.present, vec![right])?, vec![1 << h.depth; 2])
+                }
+                _ => return Err(OrdinaryCarrierError::Shape),
+            };
+            let failed = call(b, "Std.Bool.not", vec![valid])?;
+            let name = format!("{}.ContractRaw.F1", definition.result_definition);
+            define(b, &name, &inputs, 0, failed)?;
+            checks[1] = name;
+        }
+        let result = (definition, checks);
+        self.definitions
+            .insert(result.0.operation.id.clone(), result.clone());
+        Ok(result)
+    }
+}
 fn call(b: &mut Builder, name: &str, args: Vec<u32>) -> R<u32> {
     let f = b.constant(name)?;
     b.app(f, args)
@@ -350,6 +419,247 @@ mod tests {
                 })
                 .collect(),
         }
+    }
+    #[test]
+    fn string_contract_cache_preserves_legacy_bodies_and_context() {
+        let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+            .join("../../develop/migrations/csharp-03/ordinary-foundation");
+        let mut signatures = BTreeMap::new();
+        for family in [
+            "string-basic-circuits",
+            "string-construction-circuits",
+            "string-ordinal-circuits",
+        ] {
+            let rows: Value = serde_json::from_slice(
+                &std::fs::read(root.join(family).join("metrics.json")).unwrap(),
+            )
+            .unwrap();
+            for row in rows.as_array().unwrap() {
+                let definitions = row["metadata"]["definitions"].as_array().unwrap();
+                let nullable = definitions
+                    .iter()
+                    .flat_map(|d| d["operation"]["argument_type_ids"].as_array().unwrap())
+                    .any(|id| id.as_str().unwrap().starts_with("mpk.csharp.instance."));
+                for definition in definitions {
+                    let op: ClosedOperationSignature =
+                        serde_json::from_value(definition["operation"].clone()).unwrap();
+                    if matches!(op.argument_type_ids.len(), 1 | 2) {
+                        signatures.insert((op.id.clone(), nullable), op);
+                    }
+                }
+            }
+        }
+        let frozen = signatures.clone();
+        // Cover every one/two-operand interpolation shape and static concat,
+        // including variants absent from the retained source pin corpus.
+        let bound = check_contract("obligation.output_bound").unwrap();
+        let extra = ["s", "c", "ss", "sc", "cs", "cc"];
+        for shape in extra {
+            let id = format!("string.interpolation.restricted.{shape}");
+            signatures.insert(
+                (id.clone(), false),
+                ClosedOperationSignature {
+                    id,
+                    tag: ClosedOperationTag::Data,
+                    argument_type_ids: shape
+                        .chars()
+                        .map(|kind| {
+                            if kind == 's' {
+                                STRING_TYPE_ID.into()
+                            } else {
+                                "mpk.csharp.value.char.v1".into()
+                            }
+                        })
+                        .collect(),
+                    normal_result_type_id: STRING_TYPE_ID.into(),
+                    ordered_checks: vec![RequiredCheck {
+                        id: "obligation.output_bound".into(),
+                        tag: bound.tag,
+                        failure_type_id: None,
+                    }],
+                },
+            );
+        }
+        let mut concat = signatures
+            .iter()
+            .find(|((id, _), _)| id == "string.concat.operator.string_string")
+            .unwrap()
+            .1
+            .clone();
+        concat.id = "string.concat.string2".into();
+        signatures.insert((concat.id.clone(), true), concat);
+        let originals = signatures.values().cloned().collect::<Vec<_>>();
+        for operation in originals {
+            for nullable in [false, true] {
+                let mut operation = operation.clone();
+                for arg in &mut operation.argument_type_ids {
+                    if arg == STRING_TYPE_ID || arg.starts_with("mpk.csharp.instance.") {
+                        *arg = if nullable {
+                            "test.option.string".into()
+                        } else {
+                            STRING_TYPE_ID.into()
+                        };
+                    }
+                }
+                signatures.insert((operation.id.clone(), nullable), operation);
+            }
+        }
+        let mut checked = 0;
+        for ((id, nullable), operation) in signatures.into_iter().chain(frozen) {
+            let mut legacy = Builder::new().unwrap();
+            let expected = Helpers::new(&mut legacy, nullable)
+                .unwrap()
+                .emit(&mut legacy, operation.clone())
+                .unwrap();
+            let mut current = Builder::new().unwrap();
+            let mut cache = ContractStringCache::default();
+            let actual = cache
+                .emit(&mut current, operation.clone(), nullable)
+                .unwrap();
+            assert_eq!(actual.0, expected);
+            // Raw-check adapters only append terms and declarations. Before
+            // final name-table sorting, the complete legacy DAG stays exact.
+            assert_eq!(
+                &current.c.term_table[..legacy.c.term_table.len()],
+                &legacy.c.term_table
+            );
+            assert_eq!(
+                &current.c.declarations[..legacy.c.declarations.len()],
+                &legacy.c.declarations
+            );
+            assert_eq!(
+                &current.c.name_table[..legacy.c.name_table.len()],
+                &legacy.c.name_table
+            );
+            assert_eq!(current.c.level_table, legacy.c.level_table);
+            let sizes = (current.c.term_table.len(), current.c.declarations.len());
+            assert_eq!(
+                cache
+                    .emit(&mut current, operation.clone(), nullable)
+                    .unwrap(),
+                actual
+            );
+            assert_eq!(
+                (current.c.term_table.len(), current.c.declarations.len()),
+                sizes
+            );
+            assert!(matches!(
+                cache.emit(&mut current, operation.clone(), !nullable),
+                Err(OrdinaryCarrierError::Linkage)
+            ));
+            let mut changed = operation;
+            changed.normal_result_type_id = "test.changed".into();
+            assert!(
+                matches!(
+                    cache.emit(&mut current, changed, nullable),
+                    Err(OrdinaryCarrierError::Linkage)
+                ),
+                "{id}"
+            );
+            current.finish().unwrap();
+            checked += 1;
+        }
+        assert_eq!(checked, 57);
+        eprintln!("string contract cache preserved {checked} legacy operation/nullable DAGs and rejected context/signature reuse");
+    }
+    #[test]
+    fn string_contract_failures_are_raw_and_preserve_priority() {
+        let text = |present| {
+            V::Cube(physical(
+                if present { Some(&[b'x' as u16]) } else { None },
+                true,
+            ))
+        };
+        let word = |n: i32| V::Cube((0..32).map(|i| (n as u32) & (1 << i) != 0).collect());
+        let mut b = Builder::new().unwrap();
+        let mut cache = ContractStringCache::default();
+        let indexed = cache
+            .emit(&mut b, signature("string.index", true), true)
+            .unwrap();
+        let check = |id: &str| {
+            let c = check_contract(id).unwrap();
+            RequiredCheck {
+                id: id.into(),
+                tag: c.tag,
+                failure_type_id: match c.failure {
+                    CheckFailureType::None => None,
+                    CheckFailureType::Exact(t) => Some(t.into()),
+                },
+            }
+        };
+        let search = cache
+            .emit(
+                &mut b,
+                ClosedOperationSignature {
+                    id: "string.contains.ordinal".into(),
+                    tag: ClosedOperationTag::Data,
+                    argument_type_ids: vec!["test.option.string".into(); 2],
+                    normal_result_type_id: BOOL_TYPE_ID.into(),
+                    ordered_checks: vec![
+                        check("exception.null_receiver"),
+                        check("exception.null_argument"),
+                    ],
+                },
+                true,
+            )
+            .unwrap();
+        let concat = cache
+            .emit(
+                &mut b,
+                ClosedOperationSignature {
+                    id: "string.concat.string2".into(),
+                    tag: ClosedOperationTag::Data,
+                    argument_type_ids: vec!["test.option.string".into(); 2],
+                    normal_result_type_id: STRING_TYPE_ID.into(),
+                    ordered_checks: vec![check("obligation.output_bound")],
+                },
+                true,
+            )
+            .unwrap();
+        let c = decode_canonical_certificate(&b.finish().unwrap()).unwrap();
+        let mut observations = 0;
+        for present in [false, true] {
+            for index in [-1, 0, 1] {
+                let args = vec![text(present), word(index)];
+                let bad = index < 0 || index >= i32::from(present);
+                assert_eq!(bit(run(&c, &indexed.1[0], args.clone())), !present);
+                assert_eq!(bit(run(&c, &indexed.1[1], args.clone())), bad);
+                assert_eq!(
+                    bit(run(&c, &indexed.0.ordered_failure_definitions[1], args)),
+                    present && bad
+                );
+                observations += 3;
+            }
+        }
+        for left in [false, true] {
+            for right in [false, true] {
+                let args = vec![text(left), text(right)];
+                assert_eq!(bit(run(&c, &search.1[0], args.clone())), !left);
+                assert_eq!(bit(run(&c, &search.1[1], args.clone())), !right);
+                assert_eq!(
+                    bit(run(&c, &search.0.ordered_failure_definitions[1], args)),
+                    left && !right
+                );
+                observations += 3;
+            }
+        }
+        for (left, right, failed) in [
+            (Some(16383), Some(1), false),
+            (Some(16384), Some(1), true),
+            (None, Some(16384), false),
+        ] {
+            let input = |n: Option<usize>| {
+                let units = n.map(|n| vec![0; n]);
+                V::Cube(physical(units.as_deref(), true))
+            };
+            assert_eq!(
+                bit(run(&c, &concat.1[0], vec![input(left), input(right)])),
+                failed
+            );
+            observations += 1;
+        }
+        assert_eq!(observations, 33);
+        eprintln!("string contract raw checks: {observations} null/range/priority/output-capacity observations");
     }
     // Independent physical encoding of the unit-1 sequence and option layouts.
     pub(super) fn physical(text: Option<&[u16]>, nullable: bool) -> Vec<bool> {

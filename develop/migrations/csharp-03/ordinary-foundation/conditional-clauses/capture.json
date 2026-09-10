@@ -1,0 +1,33 @@
+{
+  "schema": "mpk.csharp_practical.conditional_clause_capture.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "image": "python@sha256:933b46a028fd786c9c3d426ebabc237e29a15912231ea8de576e95f0e4f41a4c",
+  "isolation": {
+    "network": "none",
+    "repository_mount": "only staged required inputs, read-only",
+    "root_filesystem": "read-only",
+    "seccomp": "Docker default",
+    "capabilities": [
+      "SYS_ADMIN",
+      "SETUID",
+      "SETGID",
+      "SETFCAP"
+    ],
+    "no_new_privileges": true,
+    "temporary_filesystem": "rw,exec,nosuid,nodev"
+  },
+  "capture": "Unchanged hash-pinned test_data_phase; diagnostic wrapper reports execute_isolated output without changing results or validation. Both compiler and source harness exited 0 with empty stdout/stderr.",
+  "files": [
+    {
+      "file": "requests.json",
+      "sha256": "bfac782846e51a87446b89deed8a830f22fe7e4c4d5718affb136f73a7983599",
+      "size_bytes": 4801
+    },
+    {
+      "file": "responses.json",
+      "sha256": "b90b628e9acfafae854b743fad02b1c2b385c4f815be9632a0ce4742151ec336",
+      "size_bytes": 11426
+    }
+  ],
+  "acceptance": "Original C# source remains unchanged, but changed contract input changes compilation context. Fresh hash-pinned frontend capture returned facts for the exact conditional request; old source context replay correctly rejected."
+}

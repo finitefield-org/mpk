@@ -1,0 +1,376 @@
+//! Test-only call-by-need evaluation of ordinary Boolean core terms.
+//! This supplies observations, never proof or certificate acceptance.
+use mpk_cert::encode::{Certificate, DeclarationKind, TermNode};
+use std::{cell::RefCell, collections::BTreeSet, rc::Rc};
+// Environment edges share ownership but release unreachable chains through a
+// worklist. Evaluation already uses an explicit stack; Rust destructor recursion
+// must not reintroduce a native-stack limit when a suspension is evaluated.
+#[derive(Clone)]
+pub(super) struct EnvRef(Option<Rc<Env>>);
+impl EnvRef {
+    pub(super) fn new(env: Env) -> Self {
+        Self(Some(Rc::new(env)))
+    }
+}
+impl From<Rc<Env>> for EnvRef {
+    fn from(env: Rc<Env>) -> Self {
+        Self(Some(env))
+    }
+}
+impl std::ops::Deref for EnvRef {
+    type Target = Env;
+    fn deref(&self) -> &Env {
+        self.0.as_ref().expect("live environment edge")
+    }
+}
+thread_local! {
+    static ENV_RELEASE: RefCell<(bool, Vec<Env>)> = const { RefCell::new((false, Vec::new())) };
+}
+impl Drop for EnvRef {
+    fn drop(&mut self) {
+        let Some(edge) = self.0.take() else {
+            return;
+        };
+        let Ok(env) = Rc::try_unwrap(edge) else {
+            return;
+        };
+        ENV_RELEASE.with(|release| {
+            {
+                let mut state = release.borrow_mut();
+                state.1.push(env);
+                if state.0 {
+                    return;
+                }
+                state.0 = true;
+            }
+            loop {
+                let next = release.borrow_mut().1.pop();
+                let Some(env) = next else {
+                    break;
+                };
+                // No queue borrow is held. Nested environment drops append to
+                // the same queue instead of recursing through captured values.
+                drop(env);
+            }
+            release.borrow_mut().0 = false;
+        });
+    }
+}
+// A binding adds one shared node rather than copying every captured value.
+// De Bruijn lookup keeps the newest binding at index zero.
+pub(super) enum Env {
+    Empty,
+    Bind(V, EnvRef),
+}
+impl Env {
+    fn get(&self, mut index: usize) -> V {
+        let mut env = self;
+        loop {
+            match env {
+                Self::Bind(value, _) if index == 0 => return value.clone(),
+                Self::Bind(_, tail) => {
+                    index -= 1;
+                    env = tail;
+                }
+                Self::Empty => panic!("unbound core variable"),
+            }
+        }
+    }
+}
+type BoolMemo = Rc<RefCell<[Option<V>; 2]>>;
+#[derive(Clone)]
+pub(super) enum Suspension {
+    Pending(u32, EnvRef),
+    Evaluated(V),
+}
+#[derive(Clone)]
+pub(super) enum V {
+    Bit(bool),
+    Cube(Vec<bool>),
+    SharedCube(Rc<Vec<bool>>, usize, usize),
+    SparseCube(Rc<BTreeSet<usize>>, usize, usize, usize),
+    Lambda(u32, EnvRef, BoolMemo),
+    Thunk(Rc<RefCell<Suspension>>),
+    Rec(Vec<V>),
+}
+enum EvalControl {
+    Term(u32, EnvRef),
+    Force(V),
+    Apply(V, V),
+    Value(V),
+}
+enum EvalFrame {
+    Arguments(Vec<u32>, usize, EnvRef),
+    Apply(V),
+    BoolMemo(V, BoolMemo),
+    ThunkMemo(Rc<RefCell<Suspension>>),
+    Select(V, V),
+    ReadCube(Rc<Vec<bool>>, usize, usize),
+    ReadSparseCube(Rc<BTreeSet<usize>>, usize, usize, usize),
+}
+// Inspect only an already available result; memoization must not introduce a
+// demand for an unused (or not yet needed) argument.
+fn available_bool(value: &V) -> Option<bool> {
+    match value {
+        V::Bit(bit) => Some(*bit),
+        V::Thunk(delayed) => match &*delayed.borrow() {
+            Suspension::Evaluated(V::Bit(bit)) => Some(*bit),
+            _ => None,
+        },
+        _ => None,
+    }
+}
+pub(super) fn thunk(term: u32, env: impl Into<EnvRef>) -> V {
+    V::Thunk(Rc::new(RefCell::new(Suspension::Pending(term, env.into()))))
+}
+/// A concrete Boolean truth table with absent entries equal to false. This
+/// changes only input storage: every demanded selector still executes normally.
+pub(super) fn sparse_cube(depth: u32, ones: BTreeSet<usize>) -> V {
+    let length = 1usize.checked_shl(depth).expect("host cube address width");
+    assert!(ones.iter().all(|&i| i < length));
+    if depth == 0 {
+        V::Bit(ones.contains(&0))
+    } else {
+        V::SparseCube(Rc::new(ones), 0, 1, length)
+    }
+}
+// Suspensions retain their own environment. Variables and Bool constants
+// need no new suspension; no generated operation name is recognized here.
+fn defer(c: &Certificate, term: u32, env: &EnvRef) -> V {
+    match &c.term_table[term as usize] {
+        TermNode::Var(i) => env.get(*i as usize),
+        TermNode::Const { global, .. } => {
+            let d = &c.declarations[*global as usize];
+            match c.name_table[d.name as usize].as_str() {
+                "Std.Bool.false" => V::Bit(false),
+                "Std.Bool.true" => V::Bit(true),
+                "Std.Bool.rec" => V::Rec(vec![]),
+                _ => thunk(term, EnvRef::new(Env::Empty)),
+            }
+        }
+        _ => thunk(term, env.clone()),
+    }
+}
+// A call-by-need core machine with an explicit continuation stack. Deep
+// finite arithmetic must not consume the native stack while reducing terms.
+fn evaluate_counted<const COUNT: bool>(
+    c: &Certificate,
+    mut control: EvalControl,
+    steps: &mut u64,
+) -> V {
+    let mut frames = vec![];
+    loop {
+        if COUNT {
+            *steps += 1;
+        }
+        control = match control {
+            EvalControl::Term(term, env) => match &c.term_table[term as usize] {
+                TermNode::Var(i) => EvalControl::Force(env.get(*i as usize)),
+                TermNode::Const { global, .. } => {
+                    let d = &c.declarations[*global as usize];
+                    match c.name_table[d.name as usize].as_str() {
+                        "Std.Bool.false" => EvalControl::Value(V::Bit(false)),
+                        "Std.Bool.true" => EvalControl::Value(V::Bit(true)),
+                        "Std.Bool.rec" => EvalControl::Value(V::Rec(vec![])),
+                        _ => match d.kind {
+                            DeclarationKind::Def { value, .. } => {
+                                EvalControl::Term(value, EnvRef::new(Env::Empty))
+                            }
+                            _ => panic!("non-value constant"),
+                        },
+                    }
+                }
+                TermNode::Lam { body, .. } => {
+                    EvalControl::Value(V::Lambda(*body, env, Rc::new(RefCell::new([None, None]))))
+                }
+                TermNode::App {
+                    function,
+                    arguments,
+                } => {
+                    if !arguments.is_empty() {
+                        frames.push(EvalFrame::Arguments(arguments.clone(), 0, env.clone()));
+                    }
+                    EvalControl::Term(*function, env)
+                }
+                TermNode::Let { value, body, .. } => {
+                    let next = Env::Bind(defer(c, *value, &env), env);
+                    EvalControl::Term(*body, EnvRef::new(next))
+                }
+                _ => panic!("evaluated a type"),
+            },
+            EvalControl::Force(V::Thunk(memo)) => {
+                let state = memo.borrow().clone();
+                match state {
+                    Suspension::Evaluated(value) => EvalControl::Value(value),
+                    Suspension::Pending(term, env) => {
+                        frames.push(EvalFrame::ThunkMemo(memo));
+                        EvalControl::Term(term, env)
+                    }
+                }
+            }
+            EvalControl::Force(value) => EvalControl::Value(value),
+            EvalControl::Apply(function, argument) => {
+                frames.push(EvalFrame::Apply(argument));
+                EvalControl::Force(function)
+            }
+            EvalControl::Value(value) => match frames.pop() {
+                None => return value,
+                Some(EvalFrame::Arguments(arguments, index, env)) => {
+                    let argument = defer(c, arguments[index], &env);
+                    if index + 1 < arguments.len() {
+                        frames.push(EvalFrame::Arguments(arguments, index + 1, env));
+                    }
+                    EvalControl::Apply(value, argument)
+                }
+                Some(EvalFrame::Apply(argument)) => match value {
+                    V::Lambda(body, env, memo) => {
+                        let argument = match argument {
+                            V::Cube(bits) => V::SharedCube(Rc::new(bits), 0, 1),
+                            x => x,
+                        };
+                        // Reuse a Bool already forced by another consumer, but
+                        // never force a pending argument to obtain a cache key.
+                        let key = available_bool(&argument);
+                        let cached = key.and_then(|k| memo.borrow()[usize::from(k)].clone());
+                        if let Some(value) = cached {
+                            EvalControl::Value(value)
+                        } else {
+                            if matches!(&argument, V::Bit(_) | V::Thunk(_)) {
+                                frames.push(EvalFrame::BoolMemo(argument.clone(), memo));
+                            }
+                            let next = Env::Bind(argument, env);
+                            EvalControl::Term(body, EnvRef::new(next))
+                        }
+                    }
+                    V::Rec(mut arguments) => {
+                        arguments.push(argument);
+                        if arguments.len() == 3 {
+                            let major = arguments.pop().unwrap();
+                            let yes = arguments.pop().unwrap();
+                            let no = arguments.pop().unwrap();
+                            frames.push(EvalFrame::Select(no, yes));
+                            EvalControl::Force(major)
+                        } else {
+                            EvalControl::Value(V::Rec(arguments))
+                        }
+                    }
+                    V::Cube(bits) => {
+                        EvalControl::Apply(V::SharedCube(Rc::new(bits), 0, 1), argument)
+                    }
+                    V::SharedCube(bits, offset, stride) => {
+                        frames.push(EvalFrame::ReadCube(bits, offset, stride));
+                        EvalControl::Force(argument)
+                    }
+                    V::SparseCube(bits, offset, stride, length) => {
+                        frames.push(EvalFrame::ReadSparseCube(bits, offset, stride, length));
+                        EvalControl::Force(argument)
+                    }
+                    V::Bit(_) => panic!("applied a leaf"),
+                    V::Thunk(..) => unreachable!("forced function"),
+                },
+                Some(EvalFrame::BoolMemo(argument, memo)) => {
+                    // The body may have demanded a formerly pending Bool.
+                    // Record that result too, without forcing anything here.
+                    if let Some(key) = available_bool(&argument) {
+                        memo.borrow_mut()[usize::from(key)] = Some(value.clone());
+                    }
+                    EvalControl::Value(value)
+                }
+                Some(EvalFrame::ThunkMemo(memo)) => {
+                    // All aliases now own only the result. A returned closure
+                    // retains any environment it still needs; the obsolete
+                    // suspension environment must not stay alive separately.
+                    *memo.borrow_mut() = Suspension::Evaluated(value.clone());
+                    EvalControl::Value(value)
+                }
+                Some(EvalFrame::Select(no, yes)) => {
+                    let V::Bit(choice) = value else {
+                        panic!("non-Bool major")
+                    };
+                    EvalControl::Force(if choice { yes } else { no })
+                }
+                Some(EvalFrame::ReadCube(bits, offset, stride)) => {
+                    let V::Bit(choice) = value else {
+                        panic!("non-Bool selector")
+                    };
+                    let offset = offset + usize::from(choice) * stride;
+                    let stride = 2 * stride;
+                    EvalControl::Value(if stride >= bits.len() {
+                        V::Bit(bits[offset])
+                    } else {
+                        V::SharedCube(bits, offset, stride)
+                    })
+                }
+                Some(EvalFrame::ReadSparseCube(bits, offset, stride, length)) => {
+                    let V::Bit(choice) = value else {
+                        panic!("non-Bool selector")
+                    };
+                    let offset = offset + usize::from(choice) * stride;
+                    let stride = 2 * stride;
+                    EvalControl::Value(if stride == length {
+                        V::Bit(bits.contains(&offset))
+                    } else {
+                        V::SparseCube(bits, offset, stride, length)
+                    })
+                }
+            },
+        };
+    }
+}
+fn evaluate(c: &Certificate, control: EvalControl) -> V {
+    evaluate_counted::<false>(c, control, &mut 0)
+}
+/// Generic interpreter work measurement. No generated operation is recognized;
+/// the same reduction machine runs with an extra transition counter.
+pub(super) fn run_counted(c: &Certificate, name: &str) -> (V, u64) {
+    let d = c
+        .declarations
+        .iter()
+        .find(|d| c.name_table[d.name as usize] == name)
+        .unwrap();
+    let DeclarationKind::Def { value, .. } = d.kind else {
+        panic!()
+    };
+    let mut steps = 0;
+    let result = evaluate_counted::<true>(
+        c,
+        EvalControl::Term(value, EnvRef::new(Env::Empty)),
+        &mut steps,
+    );
+    (result, steps)
+}
+pub(super) fn eval(c: &Certificate, term: u32, env: &[V]) -> V {
+    let env = env
+        .iter()
+        .rev()
+        .fold(EnvRef::new(Env::Empty), |tail, value| {
+            EnvRef::new(Env::Bind(value.clone(), tail))
+        });
+    evaluate(c, EvalControl::Term(term, env))
+}
+pub(super) fn apply(c: &Certificate, f: V, x: V) -> V {
+    evaluate(c, EvalControl::Apply(f, x))
+}
+pub(super) fn apply_counted(c: &Certificate, f: V, x: V) -> (V, u64) {
+    let mut steps = 0;
+    let value = evaluate_counted::<true>(c, EvalControl::Apply(f, x), &mut steps);
+    (value, steps)
+}
+pub(super) fn run(c: &Certificate, name: &str, args: Vec<V>) -> V {
+    let d = c
+        .declarations
+        .iter()
+        .find(|d| c.name_table[d.name as usize] == name)
+        .unwrap();
+    let DeclarationKind::Def { value, .. } = d.kind else {
+        panic!()
+    };
+    args.into_iter().fold(
+        evaluate(c, EvalControl::Term(value, EnvRef::new(Env::Empty))),
+        |f, a| apply(c, f, a),
+    )
+}
+pub(super) fn bit(v: V) -> bool {
+    let V::Bit(v) = v else { panic!() };
+    v
+}

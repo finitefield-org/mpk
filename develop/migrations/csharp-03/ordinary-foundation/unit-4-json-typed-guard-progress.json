@@ -1,0 +1,342 @@
+{
+  "schema": "mpk.csharp_practical.w09.json_typed_guard_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "all32_source_variants_and33_same_byte_dual_checker_candidates_passed",
+  "verification": [
+    {
+      "session_id": 27195,
+      "status": "passed",
+      "scope": "New depth+node guarded variant builds;13.22s.",
+      "log": "/tmp/mpk-w09-json-typed-guard-build-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-typed-guard/mpk-w09-json-typed-guard-build-v1.log",
+      "log_sha256": "36933bec8b06c8e013f1c8458bcad2e6cbd0818b2d6bf6f704df0f3cab763e03"
+    },
+    {
+      "session_id": 22954,
+      "status": "failed_test_packet_oracle_corrected",
+      "scope": "Test assumed leading packet padding;actual packet padding trails active selectors. Failed first valid second-field bit3. Production guard unchanged;corrected independent packet oracle and strengthened invalid-parse case with nonzero payload.",
+      "log": "/tmp/mpk-w09-json-typed-guard-helper-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-typed-guard/mpk-w09-json-typed-guard-helper-v1.log",
+      "log_sha256": "8e8581b821bfd7f29fd859b69ea01acc6bc6226ba3f8882d34be430f896c8465"
+    },
+    {
+      "session_id": 93284,
+      "status": "passed",
+      "scope": "2560 full-packet bits:node counts1,262143,262144,262145,u32MAX;second-field failure;invalid parse with nonzero payload;0.08s.",
+      "log": "/tmp/mpk-w09-json-typed-guard-helper-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-typed-guard/mpk-w09-json-typed-guard-helper-v2.log",
+      "log_sha256": "2143d8bf8054dc78549186222e3e856cd418332e7cb31cbc7e644a14d8e08416"
+    },
+    {
+      "session_id": 53785,
+      "status": "passed",
+      "scope": "Exact prior unguarded and depth-guarded required-source metadata/certificate pins preserved;11.18s. No predecessor runtime cases repeated.",
+      "log": "/tmp/mpk-w09-json-typed-guard-predecessor-pins-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-typed-guard/mpk-w09-json-typed-guard-predecessor-pins-v1.log",
+      "log_sha256": "cb45bdbd53ac83e993890b67294074e9ba49fa91723bbf5b347b507df50b2ac8"
+    },
+    {
+      "session_id": 85238,
+      "status": "passed",
+      "scope": "Affected library/integration lint including updated guard helper and source closure tests;38.19s.",
+      "log": "/tmp/mpk-w09-json-typed-guard-clippy-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-typed-guard/mpk-w09-json-typed-guard-clippy-v1.log",
+      "log_sha256": "7e040e3d7e6b05484ff79f918e139dd00f9c6293443252456d52aa4b07c876e2"
+    },
+    {
+      "session_id": 73652,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "16 complete original compound/direct-root prior parser and node-count closures plus metadata preserved;154.17s. No parser runtime repeated. All16 new metadata/bytes pairs hash-verified and pinned.",
+      "log": "/tmp/mpk-w09-json-typed-guard-compound-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-typed-guard/mpk-w09-json-typed-guard-compound-v1.log",
+      "log_sha256": "3f5caf2529ee6398c73a22add06a438242fe8a48ae0fdf5924f8e661c9232367"
+    },
+    {
+      "session_id": 3446,
+      "status": "passed",
+      "scope": "Four original base contexts,8 accepted and15 rejected documents,all output packet bits;304.88s. Entire predecessor field/parser/count closures preserved;4 hash-verified new candidates published.",
+      "log": "/tmp/mpk-w09-json-typed-guard-sources-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-typed-guard/mpk-w09-json-typed-guard-sources-v1.log",
+      "log_sha256": "e784f269f12425610c7bfd22c60c38212632b95bb545eb322ad6fcfa879b2f99"
+    },
+    {
+      "session_id": null,
+      "status": "passed",
+      "scope": "Scoped Rust formatting for all changed production/test files and reexports passed.",
+      "log": "/tmp/mpk-w09-json-typed-guard-format-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-typed-guard/mpk-w09-json-typed-guard-format-v1.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "session_id": 86756,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Remaining12 base source contexts:22 accepted17 rejected documents,complete packets;685.02s. Combined base scope16sources30accepted32rejected;16 compound closure cases separately verified.",
+      "log": "/tmp/mpk-w09-json-typed-guard-remaining-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-typed-guard/mpk-w09-json-typed-guard-remaining-v1.log",
+      "log_sha256": "a812f2e05b524236e086a8621467426d7ff4b5fe1be21ddf222162fd0137fc2e"
+    },
+    {
+      "status": "terminal_partial_build_failure",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-typed-guard/mpk-w09-json-typed-guard-checkers-v1.log",
+      "sha256": "ed57e64da432456553d64bddf9fc48703f18b9ec5451c69ea0ebdd5950681df0",
+      "scope": "Original33-candidate run terminal13926.075s;32 exact PASS names/current hashes/certificate metadata reconciled. Sole failed case could not build the Rust checker due to then-existing source-clause signature field names,already corrected;this was not certificate rejection."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-typed-guard/mpk-w09-json-typed-guard-checkers-retry-v2.log",
+      "sha256": "9d5f44ce2c083c68e9c082ca0c866fc48b2d379abb0bfc71714e21e1ab0b46ec",
+      "scope": "Sole build-failed candidate retry passed both unchanged checkers and corruption rejection;1262.544s. Exact PASS union33,current hashes,sizes and metadata reconciled;32 original successes not rerun."
+    }
+  ],
+  "live_jobs": [],
+  "test_selection": "Only new typed-node guard and modified generation paths. Full packet oracle tests exact cutoff,second-field and prior-parse rejection;16 base source contexts cover field forms/defaults/null/missing/empty/mutations.16 compound variants compare complete prior parser/count closures and limits,retaining their exact predecessor runtime evidence. No source recapture,unrelated tests,check-fast or split whole gate.",
+  "review": "unit-4-json-typed-guard-review.md",
+  "pending": [
+    "Complete raw tree limits,source reconstruction,output and full remaining W09 scope."
+  ],
+  "completion": "W09/internalunit4 incomplete;no component-only commit/push;T-wide gate deferred toT06-W12.",
+  "goal_turn_classification": "Progress:composed actual typed-node bound predicates over decoded/defaulted arguments after depth guards;preserved existing variants;2560 packet bits and exact predecessor pins pass;standalone32-candidate node counter dual checking completed and reconciled.",
+  "candidate_directory": "json-typed-guarded-envelopes",
+  "published_compound_candidates": 16,
+  "published_helper_candidates": 1,
+  "max_compound_terms": 186846,
+  "max_compound_declarations": 2769,
+  "max_compound_transformers": 8925,
+  "published_base_candidates": 16,
+  "checker_reconciliation": [
+    {
+      "file": "decimal_default.hex",
+      "certificate_sha256": "4166022750de99c27c07caf20af3d19a2a9e9fdf5a8dc13b39f018812fbd4320",
+      "size_bytes": 1701808,
+      "status": "passed",
+      "checker_run": "original_v1"
+    },
+    {
+      "file": "empty-input.hex",
+      "certificate_sha256": "03edcf0d22be555470d1fc63041f6463c4e6ab38620a09a72efa13245a10da92",
+      "size_bytes": 1572710,
+      "status": "passed",
+      "checker_run": "original_v1"
+    },
+    {
+      "file": "enum_default.hex",
+      "certificate_sha256": "570e6d71d02b8fd551c4f4203b249b2a3e1b1ab71062fa1e74004a98cf92d9ab",
+      "size_bytes": 1617891,
+      "status": "passed",
+      "checker_run": "original_v1"
+    },
+    {
+      "file": "json-depth-compound-ordered-compound.hex",
+      "certificate_sha256": "2f643439708f85a0f9f1843ba5eab445d1170cd30ed0d69077eacccdb1586df7",
+      "size_bytes": 1816117,
+      "status": "passed",
+      "checker_run": "retry_v2"
+    },
+    {
+      "file": "json-depth-compound-ordered-decimal.hex",
+      "certificate_sha256": "4d9f909b42e465aec4669e82d7bd12fe03db672a44db7d62e5450a35f92c9d12",
+      "size_bytes": 2215253,
+      "status": "passed",
+      "checker_run": "original_v1"
+    },
+    {
+      "file": "json-depth-compound-ordered-integer.hex",
+      "certificate_sha256": "cc5a6ce4d50f9e90e67ea8048ad2ad81a5535b699b1171f4ba54bb36e002eb02",
+      "size_bytes": 1774468,
+      "status": "passed",
+      "checker_run": "original_v1"
+    },
+    {
+      "file": "json-depth-compound-ordered-string.hex",
+      "certificate_sha256": "b6b8bde7ce927e7b1eddff28dc6fde2c776e65949d739ffabbda96f782ea34c3",
+      "size_bytes": 1802441,
+      "status": "passed",
+      "checker_run": "original_v1"
+    },
+    {
+      "file": "json-depth-compound-product-empty.hex",
+      "certificate_sha256": "c8d7942b443ec5f947710cd872ba16b9624fc5c11ae916498619a3977f4c3360",
+      "size_bytes": 1599720,
+      "status": "passed",
+      "checker_run": "original_v1"
+    },
+    {
+      "file": "json-depth-compound-product-nested.hex",
+      "certificate_sha256": "d030454826e91ee4e80f65df41a3135e88dc8cf7f265179e34aa11745f5a66e4",
+      "size_bytes": 1634536,
+      "status": "passed",
+      "checker_run": "original_v1"
+    },
+    {
+      "file": "json-depth-compound-semantic-product-money-entry.hex",
+      "certificate_sha256": "3fb9bce30e77a2649a797de86262d4162016a5b463c51a0a7d3560bf2699c720",
+      "size_bytes": 1812337,
+      "status": "passed",
+      "checker_run": "original_v1"
+    },
+    {
+      "file": "json-depth-compound-sequence-source-arrays.hex",
+      "certificate_sha256": "8615d2d08820535deb71bbf088b185130128e5834ff4ecdd95a02953226f1963",
+      "size_bytes": 1690364,
+      "status": "passed",
+      "checker_run": "original_v1"
+    },
+    {
+      "file": "json-depth-compound-sum-all-sums.hex",
+      "certificate_sha256": "84bd2c7bf892cbb1ade5725e20f958c7068639764f23d74ca4753940353bd53a",
+      "size_bytes": 1821448,
+      "status": "passed",
+      "checker_run": "original_v1"
+    },
+    {
+      "file": "json-depth-compound-transition-compound.hex",
+      "certificate_sha256": "c95f5d916301efd272a1188c1688453b0f0be456a41c8abd5a867d4aa70663b0",
+      "size_bytes": 1768579,
+      "status": "passed",
+      "checker_run": "original_v1"
+    },
+    {
+      "file": "json-depth-compound-transition-scalar-map.hex",
+      "certificate_sha256": "180912c7b759cdc13cfe872785800389adb330117acd5b0d48135ecd4c64a663",
+      "size_bytes": 1797866,
+      "status": "passed",
+      "checker_run": "original_v1"
+    },
+    {
+      "file": "json-semantic-root-money.hex",
+      "certificate_sha256": "f2c1131de96ef45426bff243b4eee94f11b9161e69e180bf703b2522a6132859",
+      "size_bytes": 1753882,
+      "status": "passed",
+      "checker_run": "original_v1"
+    },
+    {
+      "file": "json-semantic-root-ordered_entry.hex",
+      "certificate_sha256": "134290ddaea6b983be54634e8ddbe9857c6935f70a9e1addc8c0b35ff93b9475",
+      "size_bytes": 1643189,
+      "status": "passed",
+      "checker_run": "original_v1"
+    },
+    {
+      "file": "json-semantic-root-ordered_map.hex",
+      "certificate_sha256": "bd360c1b88d14c6fd0da2940a2b0078f3d1b5ed260f33a75f421d71624cd7a69",
+      "size_bytes": 1756719,
+      "status": "passed",
+      "checker_run": "original_v1"
+    },
+    {
+      "file": "json-semantic-root-ordered_set.hex",
+      "certificate_sha256": "bdf843f814f019d1d1113916a021bf3c4d08ff5b3b336280ae0f3c2fc7f3bca8",
+      "size_bytes": 1689065,
+      "status": "passed",
+      "checker_run": "original_v1"
+    },
+    {
+      "file": "json-semantic-root-transition.hex",
+      "certificate_sha256": "bb827f2b11613ddc5df1dd3a8be4efc444017bc78f3fa579fef5bfa5d67c66e0",
+      "size_bytes": 1718218,
+      "status": "passed",
+      "checker_run": "original_v1"
+    },
+    {
+      "file": "node-packet-mask.hex",
+      "certificate_sha256": "3e0ab8651ff54fd911ad923ef6274a374f73e21be87202b286ddd06dbad0f5de",
+      "size_bytes": 19252,
+      "status": "passed",
+      "checker_run": "original_v1"
+    },
+    {
+      "file": "nullable_default.hex",
+      "certificate_sha256": "ec3c87287ba1ef12cc67c6e67218ce5dea9d1fbaa1afeb9768a0a6057828b9de",
+      "size_bytes": 1654237,
+      "status": "passed",
+      "checker_run": "original_v1"
+    },
+    {
+      "file": "nullable_nonnull.hex",
+      "certificate_sha256": "786fba96cc41d1332d7f85a1fa35dcda400989768975c01312eca45855aafa7b",
+      "size_bytes": 1660643,
+      "status": "passed",
+      "checker_run": "original_v1"
+    },
+    {
+      "file": "nullable_required.hex",
+      "certificate_sha256": "e09f32b82194963d8e46f5f64c497ff45fcccf890d992a6f3945c018dcdae798",
+      "size_bytes": 1651918,
+      "status": "passed",
+      "checker_run": "original_v1"
+    },
+    {
+      "file": "optional_default.hex",
+      "certificate_sha256": "e5d7259aaddbe381f5769b5f52d337d8fa9ceae17ecb0fdf39f5c5aabf2050bc",
+      "size_bytes": 1609201,
+      "status": "passed",
+      "checker_run": "original_v1"
+    },
+    {
+      "file": "presence_default.hex",
+      "certificate_sha256": "dc2ddc2ee94e0cffd2d75ec9882596367643727301a843bd2bd0c08325ab866c",
+      "size_bytes": 1695755,
+      "status": "passed",
+      "checker_run": "original_v1"
+    },
+    {
+      "file": "presence_exposed.hex",
+      "certificate_sha256": "bb8110eba553a3262fc56167bd9bff8cf879484dcb02d9b692f393ace9b9fdaf",
+      "size_bytes": 1691835,
+      "status": "passed",
+      "checker_run": "original_v1"
+    },
+    {
+      "file": "presence_instant.hex",
+      "certificate_sha256": "ecb477f909ea652246a6420526cd1e1cca82bb0e092efb2faf12f3b1bc059caf",
+      "size_bytes": 1702247,
+      "status": "passed",
+      "checker_run": "original_v1"
+    },
+    {
+      "file": "presence_missing_default.hex",
+      "certificate_sha256": "aa9988779aae0c3eb02d8ae3a13bc2dc799807c1b48bd24bfe1607ac30d1aea1",
+      "size_bytes": 1691835,
+      "status": "passed",
+      "checker_run": "original_v1"
+    },
+    {
+      "file": "presence_nonmissing_zero.hex",
+      "certificate_sha256": "9dbd804a79e83a1c36b5555af4f47ac17d0db73dcebd5ae219115eec5efa0055",
+      "size_bytes": 1688488,
+      "status": "passed",
+      "checker_run": "original_v1"
+    },
+    {
+      "file": "presence_required.hex",
+      "certificate_sha256": "8370472706d892406669547b683763815861ee59b2b688c86e3c2597639d0742",
+      "size_bytes": 1690319,
+      "status": "passed",
+      "checker_run": "original_v1"
+    },
+    {
+      "file": "raw_instant.hex",
+      "certificate_sha256": "e7dc9367f190998702b46fe1be1f09251ef1d13cb08cb3b442aeacec482ec540",
+      "size_bytes": 1618240,
+      "status": "passed",
+      "checker_run": "original_v1"
+    },
+    {
+      "file": "required.hex",
+      "certificate_sha256": "bae1d1d32d8ed6ec238f8cc6531955dda23e01508041ded7594ddb9507501d83",
+      "size_bytes": 1618071,
+      "status": "passed",
+      "checker_run": "original_v1"
+    },
+    {
+      "file": "surrogate_name.hex",
+      "certificate_sha256": "86999e0e468941c7157f2c61cd87460e98660886b93f0db653d75a636faba4da",
+      "size_bytes": 1618552,
+      "status": "passed",
+      "checker_run": "original_v1"
+    }
+  ]
+}

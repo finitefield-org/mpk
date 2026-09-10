@@ -1,0 +1,178 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.calendar_clauses_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "status": "calendar_contract_component_targeted_verification_passed",
+  "observed_at": "2026-09-10T20:41:17.381757+00:00",
+  "component": "Unit 4 calendar/temporal native contract connections",
+  "source_contexts": 8,
+  "native_operation_aliases": 50,
+  "attachments": 54,
+  "runtime_observations": 14,
+  "failure_definedness_rejections": 4,
+  "standalone_pins_preserved": 70,
+  "internal_adapters_verified": 65,
+  "signature_mutations_rejected": 195,
+  "internal_error_outcome_rejections": 3,
+  "certificate_bytes_total": 4928305,
+  "largest_certificate_bytes": 1550994,
+  "capture": "calendar-clauses/capture-receipt.json",
+  "certificates": "calendar-clauses/certificates.json",
+  "passed": [
+    {
+      "command": "cargo test -p mpk-vc --lib ordinary_contract_calendar_temporal_dispatch_preserves_frozen_definitions -- --nocapture",
+      "runtime_seconds": 12.0,
+      "reason": "New shared emission entry points and dispatch must preserve the exact old standalone definitions/certificates; test all 70 frozen pins, 65 supported adapters, 195 signature mutations, and 3 explicit error-outcome rejections.",
+      "log": "verification-logs/calendar-clauses/calendar-temporal-contract-adapters-v2.log"
+    },
+    {
+      "command": "MPK_W09_CALENDAR_CLAUSE_REQUESTS_OUT=/tmp/mpk-w09-calendar-clause-requests-v2.json cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_calendar_clause_requests -- --nocapture",
+      "runtime_seconds": 0.16,
+      "reason": "Generate exact native inputs for all 50 unary/binary Date/Time/Duration/Guid operations.",
+      "log": "verification-logs/calendar-clauses/calendar-clause-requests-v2.log"
+    },
+    {
+      "command": "MPK_W09_CALENDAR_CLAUSE_RESPONSES=/tmp/mpk-w09-calendar-clause-responses-v2.json MPK_W09_CALENDAR_CLAUSES_OUT=/tmp/mpk-w09-calendar-clauses-candidates-v1 cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_calendar_clauses_candidates -- --nocapture",
+      "runtime_seconds": 45.58,
+      "reason": "Every new source adapter must link to the complete existing definition closure, preserve typed attachment metadata, and reject helper/metadata mutations.",
+      "log": "verification-logs/calendar-clauses/calendar-clauses-candidates-v1.log"
+    },
+    {
+      "command": "MPK_W09_CALENDAR_CLAUSE_RESPONSES=/tmp/mpk-w09-calendar-clause-responses-v2.json MPK_W09_CALENDAR_CLAUSES_OUT=/tmp/mpk-w09-calendar-clauses-source-v1 cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_calendar_clauses_original_source -- --nocapture",
+      "runtime_seconds": 54.99,
+      "reason": "Fourteen selected paths exercise each family, new source literal/alias links and every exception category here. All arithmetic definitions are byte-identical to previously verified standalone circuits, so their whole runtime suite is not repeated.",
+      "log": "verification-logs/calendar-clauses/calendar-clauses-source-v1.log"
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --lib --test csharp_practical_vc -- -D warnings",
+      "runtime_seconds": 24.53,
+      "reason": "Changed production dispatch and integration test compilation.",
+      "log": "verification-logs/calendar-clauses/calendar-temporal-contract-clippy-v1.log"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory csharp_03_t01_w02_inventory_closes_every_artifact_and_consumer_edge -- --nocapture",
+      "runtime_seconds": 15.98,
+      "reason": "A new source test file and emitter reexports require checking artifact/consumer search coverage.",
+      "log": "verification-logs/calendar-clauses/calendar-clause-inventory-v1.log"
+    },
+    {
+      "command": "rustfmt --check --edition 2021 --config skip_children=true (six edited Rust files)",
+      "runtime_seconds": null,
+      "reason": "Scoped format checks only.",
+      "log": "verification-logs/calendar-clauses/calendar-clause-format-v1.log"
+    },
+    {
+      "command": "GOCACHE=/tmp/mpk-w09-go-cache go test -timeout 0 -tags checkeragreement -run '^TestCheckerAgreementWithRustCLICalendarClauses$' -count=1 -v",
+      "cwd": "go-tools/mpk-checker-ref",
+      "runtime_seconds": 1002.221,
+      "cases": 8,
+      "reason": "All eight new byte sequences accepted by both unchanged checkers with zero axioms and matching reports/hashes; all hash-corrupted variants reject.",
+      "log": "verification-logs/calendar-clauses/calendar-clauses-checkers-v1.log"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_calendar_clauses_candidates -- --nocapture",
+      "runtime_seconds": 45.61,
+      "reason": "Regenerate from the current shared compiler after adding the string dispatch/cache. All eight pinned certificates and metadata remain byte-identical; unrelated runtime suites are not repeated.",
+      "log": "verification-logs/calendar-clauses/calendar-clauses-current-pins-v2.log"
+    }
+  ],
+  "live_jobs": [],
+  "remaining_component_work": [],
+  "scope_limits": [
+    "This component does not provide application or native-body proofs.",
+    "Date.construct has three arguments and Guid.empty has zero: they are outside the unary/binary adapter tag; their standalone pins are preserved.",
+    "DayOfWeek comparison adapters and the eight non-error Instant adapters have frozen internal signature/pin coverage here, not fresh native-source capture coverage.",
+    "Instant.add_duration/subtract_duration/difference retain ErrorOutcome checks and reject this normal-result adapter; their outcome-aware contract connection remains open.",
+    "Original W09 units 3-8 remain incomplete; no original-unit commit boundary has been reached."
+  ],
+  "full_gate": {
+    "status": "deferred",
+    "target": "CSHARP-03-T06-W12",
+    "reason": "Intermediate W: targeted affected tests per user/repository policy."
+  },
+  "source_files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_calendar.rs",
+      "sha256": "16d97129e84a8038728176443ad7ad4832387ec1a15bc5986ff99f0951fa2059"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_temporal.rs",
+      "sha256": "004c06a137aa07c7b3abff98ed80f29248268032564791a8072812fbffa14ee7"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_scalar_bits.rs",
+      "sha256": "9c3757dc88c5a653885891773a5b786d255e740900581c6e0902d241f556d2cb"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_source_clauses.rs",
+      "sha256": "533ee3cd6e58faa790d461e61073ad3020367a2390e6ad286b4e077a2fbacb15"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_calendar_clause_tests.rs",
+      "sha256": "2298f8f6337beca171640eec7877892ffb3e9f15f6dda92643013f4001b46376"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_contract_expression_tests.rs",
+      "sha256": "35f8b1d1a14c5c815877e6ce871a74366a360111c8334348d0b84249c53a8b6f"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "sha256": "13c64b0166568ec6979ed399cd3a706215c2af9214c8355355f6fe7e0b70e0e6"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "verification-logs/calendar-clauses/calendar-clause-capture-v1.log",
+      "sha256": "deac6d63a5eceffca4760e089e0319a30d6c094b9c3ed1d40dad0113e9d6eac9"
+    },
+    {
+      "path": "verification-logs/calendar-clauses/calendar-clause-capture-v2.log",
+      "sha256": "b54783e7f03a494ff5bd47f4478ef297095ffb7feeb71eefcecd239ae331398b"
+    },
+    {
+      "path": "verification-logs/calendar-clauses/calendar-clause-format-v1.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "verification-logs/calendar-clauses/calendar-clause-inventory-v1.log",
+      "sha256": "957e4a169f4ee066a27674a20324df8d7185bc8ddc3a32f7a3cbf74cd9b1bc40"
+    },
+    {
+      "path": "verification-logs/calendar-clauses/calendar-clause-requests-v1.log",
+      "sha256": "d9a9de75fadc6cf47ed62ff678e744c23861fed4a67ba2dde6eee75d59c22b26"
+    },
+    {
+      "path": "verification-logs/calendar-clauses/calendar-clause-requests-v2.log",
+      "sha256": "a076392b8a2b78ffa89f009cda665e7bef76b6440a883572c046bac98748f528"
+    },
+    {
+      "path": "verification-logs/calendar-clauses/calendar-clauses-candidates-v1.log",
+      "sha256": "b32b09f93993b063850c67d036e4d2c25d7f64342ea8fc1454eab8be915bd25b"
+    },
+    {
+      "path": "verification-logs/calendar-clauses/calendar-clauses-checkers-v1.log",
+      "sha256": "cea8ea9bfaf48ce43c0c5125e687136ee0bdf4aa44d402f1fd703ad2fb725cfc"
+    },
+    {
+      "path": "verification-logs/calendar-clauses/calendar-clauses-current-pins-v2.log",
+      "sha256": "c23ed59452db084d65bcfecf72ffee7d6338f9d1f71d7670ff51663736ef2b88"
+    },
+    {
+      "path": "verification-logs/calendar-clauses/calendar-clauses-source-v1.log",
+      "sha256": "2e35ce0044ab2ea6e78b003cfa63f0b7900693e115affccb2128237437c3d0b1"
+    },
+    {
+      "path": "verification-logs/calendar-clauses/calendar-temporal-contract-adapters-v1.log",
+      "sha256": "240d32549bf037e3ab34b5eb8e341f3aee772e475d109218c70ec900a8cb506d"
+    },
+    {
+      "path": "verification-logs/calendar-clauses/calendar-temporal-contract-adapters-v2.log",
+      "sha256": "6c442b5bb44126de959e978c645cf36ac542361bf3adffa906e768e9aa4ec174"
+    },
+    {
+      "path": "verification-logs/calendar-clauses/calendar-temporal-contract-clippy-v1.log",
+      "sha256": "c006edbd08532607327d9f534a9edbe466b78bfcb138bdbf0e571d37ca8aaaf0"
+    }
+  ],
+  "inventory_note": "The Go harness entry was added after the inventory run. Comparing its file with the new function removed preserves all 136 inventory-needle memberships; no new file or route was added by that edit.",
+  "review": "unit-4-calendar-clauses-review.md"
+}

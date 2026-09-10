@@ -1,0 +1,44 @@
+[
+  {
+    "compilation_id": "data",
+    "id": "exception-empty",
+    "inputs": [
+      {
+        "kind": "source",
+        "path": "src/Entry.cs",
+        "utf8": "namespace DomainCases;public sealed class Fault:System.Exception{}public static class Entry{public static int Run(int value){if(value<0)throw new Fault();return value;}}\n"
+      }
+    ],
+    "roots": [
+      "mpk.csharp.source.8b1f01c78adcff32bd58ac32a2e1fab54b8450204a588ed142da66058e5736bc"
+    ]
+  },
+  {
+    "compilation_id": "data",
+    "id": "exception-payload",
+    "inputs": [
+      {
+        "kind": "source",
+        "path": "src/Entry.cs",
+        "utf8": "namespace DomainCases;public sealed class Fault:System.Exception{public readonly int Code;public readonly bool Flag;public readonly char Unit;public Fault(int code){Code=code;Flag=true;Unit='x';}}public static class Entry{public static int Run(int value){if(value<0)throw new Fault(value);return value;}}\n"
+      }
+    ],
+    "roots": [
+      "mpk.csharp.source.8b1f01c78adcff32bd58ac32a2e1fab54b8450204a588ed142da66058e5736bc"
+    ]
+  },
+  {
+    "compilation_id": "data",
+    "id": "exception-nested",
+    "inputs": [
+      {
+        "kind": "source",
+        "path": "src/Entry.cs",
+        "utf8": "namespace DomainCases;public sealed class Fault:System.Exception{public readonly System.Exception Error;public Fault(){Error=new System.ArgumentException();}}public static class Entry{public static int Run(int value){if(value<0)throw new Fault();return value;}}\n"
+      }
+    ],
+    "roots": [
+      "mpk.csharp.source.8b1f01c78adcff32bd58ac32a2e1fab54b8450204a588ed142da66058e5736bc"
+    ]
+  }
+]

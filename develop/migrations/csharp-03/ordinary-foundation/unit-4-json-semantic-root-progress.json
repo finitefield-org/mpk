@@ -1,0 +1,110 @@
+{
+  "schema": "mpk.csharp_practical.w09.json_semantic_root_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "all5_original_roots_and_same_byte_checkers_passed",
+  "verification": [
+    {
+      "session_id": 99965,
+      "status": "passed",
+      "scope": "Generated five original source requests with exact root semantic bindings.",
+      "log": "/tmp/mpk-w09-json-semantic-root-requests-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-semantic-root/mpk-w09-json-semantic-root-requests-v1.log",
+      "log_sha256": "de919aa2eb22844dc23cc77ea9040a1c235c4d8b019b9339b9fef3e1cb9f7ef6"
+    },
+    {
+      "session_id": 30288,
+      "status": "passed",
+      "scope": "Five original C# source contexts accepted in two identical offline compiler captures.",
+      "log": "/tmp/mpk-w09-json-semantic-root-capture-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-semantic-root/mpk-w09-json-semantic-root-capture-v1.log",
+      "log_sha256": "df15db15944acbadd8cfef3b4fa204a6e2de08c8abac380fefd8c43743451bfe"
+    },
+    {
+      "session_id": null,
+      "status": "passed",
+      "scope": "Affected integration test lint passed in13.00s.",
+      "log": "/tmp/mpk-w09-json-semantic-root-clippy-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-semantic-root/mpk-w09-json-semantic-root-clippy-v1.log",
+      "log_sha256": "b5f52614a8ba8bbc3e7858e0dca32abb8d135db0eed09972ba22ba67adbfb57c"
+    },
+    {
+      "session_id": 72929,
+      "status": "passed",
+      "scope": "All five generated requests match pinned source fixture;0.15s.",
+      "log": "/tmp/mpk-w09-json-semantic-root-pins-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-semantic-root/mpk-w09-json-semantic-root-pins-v1.log",
+      "log_sha256": "1bb5022d70f0a5a8992aa89845334afd6e0a25f21440d5dc5799846508e95cf1"
+    },
+    {
+      "session_id": 69269,
+      "status": "passed",
+      "scope": "Final affected integration lint after exact candidate pin assertions;8.31s.",
+      "log": "/tmp/mpk-w09-json-semantic-root-clippy-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-semantic-root/mpk-w09-json-semantic-root-clippy-v2.log",
+      "log_sha256": "4a9158e02848aea2f70990c5f00b863973bcc9e1bb409f4366027b231b17ee32"
+    },
+    {
+      "session_id": 21957,
+      "status": "failed_aggregate_count_corrected",
+      "scope": "Consumer closure test exposed old4944 total after two previously recorded Std namespace consumers. Individual fixture counts already sum4946;updated only aggregate expectation;full closure rerun pending.",
+      "log": "/tmp/mpk-w09-json-semantic-root-inventory-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-semantic-root/mpk-w09-json-semantic-root-inventory-v1.log",
+      "log_sha256": "a076d0fcf720fea423170a2c6fef189c6a937d3b8df25030ebffd6db3464c167"
+    },
+    {
+      "session_id": 71258,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "All5 directly projected original source roots;complete parse headers,selected argument bits,canonical depth boundaries and wrong-source-format rejection;331.08s. All5 metadata/byte pairs independently hash-verified before publication.",
+      "log": "/tmp/mpk-w09-json-semantic-root-runtime-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-semantic-root/mpk-w09-json-semantic-root-runtime-v1.log",
+      "log_sha256": "0fb8a3be187bf0c6a885c2990b53110cbcfb5346aa30c141b66d70dfcb7ccfe2"
+    },
+    {
+      "session_id": 89809,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Full consumer closure after aggregate-only4944->4946 correction;32.59s. All136 individual fingerprints and real consumer edges pass unchanged.",
+      "log": "/tmp/mpk-w09-json-semantic-root-inventory-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-semantic-root/mpk-w09-json-semantic-root-inventory-v2.log",
+      "log_sha256": "ebd0fbcab88311aa580fc4658f23865ea7217adca482db0ac469fac1d15f9daa"
+    },
+    {
+      "status": "passed",
+      "scope": "rustfmt --check on affected integration fixture tests and inventory test;Go checker file gofmt applied. No semantic runtime cases repeated after pin-only assertions."
+    },
+    {
+      "session_id": 70329,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "All5 exact pinned source candidates:unchanged Rust/Go checker agreement,zero axioms and hash-corrupted rejection;1953.046s. Exact PASS filename set and current candidate hashes verified.",
+      "log": "/tmp/mpk-w09-json-semantic-root-checkers-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-semantic-root/mpk-w09-json-semantic-root-checkers-v1.log",
+      "log_sha256": "efd335c4f3036d79556461db382a1b987b8e2dca7c4088d83224d1c66885af24"
+    }
+  ],
+  "source_directory": "json-semantic-root-sources",
+  "capture": {
+    "image": "mpk-java-t10-gate:local",
+    "image_id_prefix": "ea3189955dd9",
+    "platform": "linux/amd64",
+    "network": "none",
+    "repository_mount": "readonly",
+    "command": "python3 /capture/capture.py",
+    "driver": "scripts/csharp_practical_build_inputs.py::test_data_phase",
+    "receipt": "json-semantic-root-sources/receipt.json"
+  },
+  "live_jobs": [],
+  "test_selection": "New projected-root routes that nested unprojected source fixtures do not cover. Pinned source regeneration,offline double capture and affected integration lint only;no unrelated tests or split whole gate. Runtime coverage does not assert complete wide argument storage. Full consumer closure test selected because new source/test modules can add consumers;it found a stale aggregate count not exercised by earlier fingerprint-only test. No fixture fingerprints were weakened or changed.",
+  "review": "unit-4-json-semantic-root-review.md",
+  "pending": [
+    "Complete full unit4 and remaining W09 units per implementation-plan.md."
+  ],
+  "completion": "W09/internalunit4 incomplete;no component-only commit/push;T-wide gate deferred toT06-W12.",
+  "candidate_directory": "json-semantic-root",
+  "published_candidates": 5,
+  "max_terms": 147944,
+  "max_declarations": 2258,
+  "goal_turn_classification": "Progress:published five identical offline original-source captures;completed11 compound and5 directly projected source runtime contexts;added exact pin assertions and same-byte checker suites;reconciled terminal15 field checkers;found/fixed stale inventory aggregate and passed full affected consumer closure."
+}

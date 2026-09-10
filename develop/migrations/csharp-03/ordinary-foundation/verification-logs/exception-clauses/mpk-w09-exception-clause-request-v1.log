@@ -1,0 +1,11 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error[E0609]: no field `member_id` on type `&&mpk_vc::csharp_practical_vir_model::NamedMonomorphicValue`
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_exception_clause_tests.rs:324:62
+    |
+324 |                         let field = fields.iter().find(|f| f.member_id == member).unwrap();
+    |                                                              ^^^^^^^^^ unknown field
+    |
+    = note: available fields are: `name`, `value`
+
+For more information about this error, try `rustc --explain E0609`.
+error: could not compile `mpk-vc` (test "csharp_practical_vc") due to 1 previous error

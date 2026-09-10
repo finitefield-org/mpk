@@ -1,0 +1,510 @@
+{
+  "schema": "mpk.csharp_practical.w09.json_calendar_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "current_calendar_and_collection_sources_semantics_and_same_byte_dual_checkers_passed",
+  "scope": "Reachable date/time JSON tokens, exact calendar parse reuse and semantics-preserving fixed-width formatter reduction, with four actual source programs. Typed schema grammar and W09 units 3-8 remain incomplete.",
+  "sources": [
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/json-calendar-sources/requests.json",
+      "sha256": "92e8a088747744e8f66d330916360af3defdd38a5a69eb39ad36356ff5f7f4b7"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/json-calendar-sources/responses.json",
+      "sha256": "d7bdb541df670320dd61dc230b894368c99068e07f998e398d0ea5f818bffd00"
+    }
+  ],
+  "verification": [
+    {
+      "status": "failed_compile",
+      "scope": "Private generator was inaccessible from integration tests; corrected to public VC API.",
+      "log": "/tmp/mpk-w09-json-calendar-requests-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-json-calendar-requests-v1.log",
+      "log_sha256": "ac0d462fdcc65e166411ba90952f9b6bc923f80e0481a4da048629a6bb4c40eb"
+    },
+    {
+      "status": "passed",
+      "scope": "Four canonical requests generated; one test passed.",
+      "log": "/tmp/mpk-w09-json-calendar-requests-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-json-calendar-requests-v2.log",
+      "log_sha256": "6d5d77ea61bb39893100b3408278b4412a919df6622324677cd407c704396eac"
+    },
+    {
+      "status": "environment_unavailable",
+      "scope": "Docker daemon was unavailable; no compilation occurred. Started existing OrbStack.",
+      "log": "/tmp/mpk-w09-json-calendar-capture-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-json-calendar-capture-v1.log",
+      "log_sha256": "21a8958523ee3f32c07e7f7b7bccabfbdb5202272dc594ce999c60fbbe256ffa"
+    },
+    {
+      "status": "passed",
+      "scope": "Offline pinned Linux harness exited 0 with four real compiler responses and no rejects.",
+      "log": "/tmp/mpk-w09-json-calendar-capture-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-json-calendar-capture-v2.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "status": "passed",
+      "scope": "Both source request/replay tests passed in 0.73s; reachable date/time/decimal carriers and boundary VC checked.",
+      "log": "/tmp/mpk-w09-json-calendar-replay-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-json-calendar-replay-v1.log",
+      "log_sha256": "e0c7e6015964341a601b42df592141a3146e4d87b4fc5a661085a2e6b7e79b3a"
+    },
+    {
+      "status": "passed",
+      "scope": "Affected library and csharp_practical_vc test lint passed in 7.00s.",
+      "log": "/tmp/mpk-w09-json-calendar-clippy-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-json-calendar-clippy-v1.log",
+      "log_sha256": "f99e2e1589672e6bed5422c0e54ddafadacfa10b73c6ef5e61f59503cf2b3436"
+    },
+    {
+      "status": "passed",
+      "scope": "Before wrappers: common JSON + date 181949 terms/7994 transformers; time 173602/7889; both 231144/8622. One cumulative generation/structure test passed in 16.28s.",
+      "log": "/tmp/mpk-w09-json-calendar-cumulative-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-json-calendar-cumulative-v1.log",
+      "log_sha256": "5cea888401ddae10645e9e6db6aeccb91a3eeff89ad7217a836b3b4e1d8b3ec3"
+    },
+    {
+      "status": "passed",
+      "scope": "After source fixture addition: both affected inventory tests passed in 16.63s; repeated after production integration separately.",
+      "log": "/tmp/mpk-w09-json-calendar-consumers-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-json-calendar-consumers-v1.log",
+      "log_sha256": "b585a189f14dc4956e0eb8b1b2c2d1dccfc12d81fcb7cc68d28ce1d55b35df44"
+    },
+    {
+      "status": "passed",
+      "scope": "Production calendar wrapper/selective integration cargo check passed.",
+      "log": "/tmp/mpk-w09-json-calendar-build-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-json-calendar-build-v1.log",
+      "log_sha256": "cabd31d37e2718ee3abf020ab8cc6f5e2d8dff36a25a0619588f735167faf2f8"
+    },
+    {
+      "status": "failed_compile",
+      "scope": "Integration helper lacked the public ValidatedPracticalVir import. Added that import; no generated proof rejection.",
+      "log": "/tmp/mpk-w09-json-calendar-programs-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-json-calendar-programs-v1.log",
+      "log_sha256": "78c536883d16284b95a6485587ab1e5359dc98e02b8b108c1003ab0cd687e1f6"
+    },
+    {
+      "status": "failed_compile",
+      "scope": "Same missing integration type import; corrected before retry.",
+      "log": "/tmp/mpk-w09-json-calendar-runtime-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-json-calendar-runtime-v1.log",
+      "log_sha256": "2ea1ff4ee5025af4cc8eb56b28ea9fd5bcbc49b4fd78cb65411b8d19165c12a4"
+    },
+    {
+      "status": "failed_compile",
+      "scope": "Same missing integration type import; corrected before retry.",
+      "log": "/tmp/mpk-w09-json-calendar-existing-sources-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-json-calendar-existing-sources-v1.log",
+      "log_sha256": "2ea1ff4ee5025af4cc8eb56b28ea9fd5bcbc49b4fd78cb65411b8d19165c12a4"
+    },
+    {
+      "status": "passed",
+      "scope": "Post-integration library and integration-test lint passed in 27.83s.",
+      "log": "/tmp/mpk-w09-json-calendar-clippy-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-json-calendar-clippy-v2.log",
+      "log_sha256": "e1e49bca6fc50a2e5207ea2c966a33d1a4c54860db818c5df6298f528957fa8a"
+    },
+    {
+      "status": "passed",
+      "scope": "Seven touched Rust files pass scoped rustfmt --check.",
+      "log": "/tmp/mpk-w09-json-calendar-format-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-json-calendar-format-v1.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "status": "failed_limit",
+      "scope": "Date, time and date+time token/structural programs generated and their full dependency closures passed. The fourth date+time+decimal input fails actual combined generation with OrdinaryCarrierError::Limit. Test failed in 96.71s; no completed manifest, no root repin and no new calendar checker acceptance.",
+      "log": "/tmp/mpk-w09-json-calendar-programs-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-json-calendar-programs-v2.log",
+      "log_sha256": "8c478828e2c5954dddf18f35ff91f1b1a93d978195cc3432562bfdf204a50651"
+    },
+    {
+      "status": "passed",
+      "scope": "Both affected original-source suites passed in 134.78s: 68 JSON contexts and four structural contexts, metadata/import mutations, exact current pinned bytes and complete component closures.",
+      "log": "/tmp/mpk-w09-json-calendar-existing-sources-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-json-calendar-existing-sources-v2.log",
+      "log_sha256": "d0178b1b26ce5a5465257d26b22bb9f5fc9a76f121de12204330ce044c5e06b5"
+    },
+    {
+      "status": "passed",
+      "scope": "Both post-integration affected inventory tests passed in 19.66s.",
+      "log": "/tmp/mpk-w09-json-calendar-consumers-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-json-calendar-consumers-v2.log",
+      "log_sha256": "bb2ef1775890bae0044f5fd0593d2d2d8ed2673d83d8e37f5814dce670e71dfc"
+    },
+    {
+      "status": "passed",
+      "scope": "Diagnostic component measurement passed in 8.02s: date+time+decimal independent structural 48088 terms/509 declarations/2466 transformers, independent JSON 231368/3303/8631. This does not prove the failed shared generation; the exact emitted shared program remains required.",
+      "log": "/tmp/mpk-w09-json-calendar-component-costs-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-json-calendar-component-costs-v1.log",
+      "log_sha256": "b8cfcc41b33c4f4eb7e6d43e60765d8a302c76534fb407662a60f8a9db8283ba"
+    },
+    {
+      "status": "passed",
+      "scope": "All 30 complete C7 token packets passed in 502.34s on the pre-format-change program. Subsequent 177-root/2325-dependency preservation proves all these token/parser definitions are unchanged.",
+      "log": "/tmp/mpk-w09-json-calendar-runtime-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-json-calendar-runtime-v2.log",
+      "log_sha256": "e710a7a6ca145320901ba91be2612c3effa734ee375052e7f5a75e6c7b078545"
+    },
+    {
+      "status": "passed",
+      "scope": "14002 exact full-width arithmetic cases matched both original divider and host quotient/remainder; 0.26s.",
+      "log": "/tmp/mpk-w09-calendar-format-divider-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-calendar-format-divider-v1.log",
+      "log_sha256": "082d7e1149c2e132096c0cdecdfe63d2388a6b9fa1e9c2f5d3a8f55e9d8407ba"
+    },
+    {
+      "status": "passed",
+      "scope": "Initial generic double-dabble measurement passed in 0.06s; superseded by the reduced digit-adjust circuit.",
+      "log": "/tmp/mpk-w09-calendar-format-bcd-costs-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-calendar-format-bcd-costs-v1.log",
+      "log_sha256": "f456091e83451dc215913f8d7b02ac1f34aaa341e42fb3e4eadcaba0839e4cb6"
+    },
+    {
+      "status": "passed",
+      "scope": "Reduced BCD adjustment matches original restoring conversion and host digits, including all 4096 12-bit inputs and 32/64-bit high-bit/decimal edges. Five width/digit settings passed in 0.08s.",
+      "log": "/tmp/mpk-w09-calendar-format-bcd-costs-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-calendar-format-bcd-costs-v2.log",
+      "log_sha256": "14b84139d24b91c8068339a42fb1644cb0b9ee686b756aa6ebe955c285a7b33f"
+    },
+    {
+      "status": "failed_limit",
+      "scope": "Narrowing the restoring remainder alone was insufficient; the fourth source still failed shared generation with Limit in 89.45s.",
+      "log": "/tmp/mpk-w09-json-calendar-programs-v3.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-json-calendar-programs-v3.log",
+      "log_sha256": "3bcdc79db79e83e3b3d09b90972914c526e12fd8a9b91c3f0a051a3d18e88614"
+    },
+    {
+      "status": "passed",
+      "scope": "All four actual sources passed calendar->JSON->structural full definition closure, exact codec metadata, mutations/imports and cumulative limits in 108.97s. Required date+time+decimal structural program fits at 259134 terms, 3610 declarations, 8901 static transformers.",
+      "log": "/tmp/mpk-w09-json-calendar-programs-v4.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-json-calendar-programs-v4.log",
+      "log_sha256": "200bd6b378be29ac98f3f0eb2dfebc4abbd237e412b46a89d2cf20612cbd3906"
+    },
+    {
+      "status": "passed",
+      "scope": "67 original calendar source contexts and three nonempty certificates regenerated with import/mutation checks and full archived parser dependency preservation; 41.37s.",
+      "log": "/tmp/mpk-w09-calendar-format-sources-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-calendar-format-sources-v1.log",
+      "log_sha256": "9031b1d704b8bf4874af4c086e4a8c4a497600c44674cdd1ee55cec4af0c318a"
+    },
+    {
+      "status": "passed",
+      "scope": "All 177 original JSON token roots and 2325 dependency declarations remain identical after formatter optimization; 6.01s.",
+      "log": "/tmp/mpk-w09-calendar-format-token-preservation-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-calendar-format-token-preservation-v1.log",
+      "log_sha256": "749aa5717ad10607b47a9038bfa520235c5b23c4f8b3d7a60d7cb39326a33315"
+    },
+    {
+      "status": "passed",
+      "scope": "68 affected ordinary formatting and parse(format) cases passed independent reference strings, headers, padding and complete value restoration in 128.73s. Unchanged parser-only matrices were not rerun.",
+      "log": "/tmp/mpk-w09-calendar-format-regression-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-calendar-format-regression-v1.log",
+      "log_sha256": "9dd1349b7f7113a2989ab582114009f6e3da9c1265229580ed07c05895f03596"
+    },
+    {
+      "status": "passed",
+      "scope": "Affected library/integration lint passed in 44.81s; later token-preservation helper compiled and passed separately.",
+      "log": "/tmp/mpk-w09-calendar-format-clippy-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-calendar-format-clippy-v1.log",
+      "log_sha256": "c3a4a9cef8d4701c3260da4cc40b9e54b345784255bfcd4a78e531ae2f8566cd"
+    },
+    {
+      "status": "passed",
+      "scope": "Both affected inventory checks passed in 17.24s.",
+      "log": "/tmp/mpk-w09-calendar-format-consumers-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-calendar-format-consumers-v1.log",
+      "log_sha256": "889ccd0c82f0035b19109f63c12de01336a82bee8c74a34bbc9068c04061ddc1"
+    },
+    {
+      "status": "passed",
+      "scope": "Post-preservation-helper library/integration lint passed in 7.20s.",
+      "log": "/tmp/mpk-w09-calendar-format-clippy-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-calendar-format-clippy-v2.log",
+      "log_sha256": "b9d2fc1a55047524db3041a8bac7b0b39e76c7de037701ed44d1b0d0dc10a7d6"
+    },
+    {
+      "status": "passed",
+      "scope": "All three edited calendar implementation/test files pass scoped format check.",
+      "log": "/tmp/mpk-w09-calendar-format-rustfmt-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-calendar-format-rustfmt-v1.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "status": "failed_limit",
+      "scope": "New full 16384-cell collection/calendar/JSON shared-environment check failed with Limit after 197199 terms, 2878 declarations and 16223 charged transformers; a subsequent composition exceeds the frozen static-transformer budget. The test retains its successful-composition requirement. This is separate from the now-passing four actual source programs.",
+      "log": "/tmp/mpk-w09-calendar-collection-budget-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-calendar-collection-budget-v1.log",
+      "log_sha256": "7c5a11721c40da671fd647ac76bf6253aa04f454744438c71b7451e46105b95e"
+    },
+    {
+      "status": "passed",
+      "scope": "Post-optimization common JSON plus calendar codec measurement passed in 15.66s: date formatter 277 gate blocks, time formatter 272. Bare common JSON + both codecs has 222695 terms/3167 declarations/8503 transformers; the typed wrappers add nine. This does not close the failing collection combination.",
+      "log": "/tmp/mpk-w09-calendar-format-cumulative-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-calendar-format-cumulative-v2.log",
+      "log_sha256": "10baef189ebe15156d62fff152af049ae56138b95b608619442ad04ddd7e0bbe"
+    },
+    {
+      "status": "passed",
+      "scope": "Direct 128-gate format blocks allow complete collection/calendar/JSON generation: 207455 terms, 2780 declarations, 16293 charged transformers; structure validation passed in 6.19s.",
+      "log": "/tmp/mpk-w09-calendar-collection-budget-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-calendar-collection-budget-v2.log",
+      "log_sha256": "edd69922e08cff8fe573c65c73f6e8363037f06612cad1a81c8b112147a01be2"
+    },
+    {
+      "status": "passed",
+      "scope": "Three selected tests passed in 2.75s: alignment preserves all dependencies/roots for 5 input widths and 3 block widths; exact standalone decimal bytes and idempotent reuse; exact existing combined collection/JSON/decimal bytes and counters.",
+      "log": "/tmp/mpk-w09-calendar-block-default-preservation-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-calendar-block-default-preservation-v1.log",
+      "log_sha256": "cb89e0fbdee2967220bddd278aab1419976443deac2cc6444d70b901a8b14aae"
+    },
+    {
+      "status": "passed",
+      "scope": "All four actual source programs pass full definition closure/import/mutation/cumulative checks in 104.41s. Largest combined source has 243567 terms and 3199 declarations.",
+      "log": "/tmp/mpk-w09-json-calendar-programs-v5.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-json-calendar-programs-v5.log",
+      "log_sha256": "25a84becea2c838de313d99790e4c1b1412be34a27411c606362b28cc96791a5"
+    },
+    {
+      "status": "passed",
+      "scope": "Both targeted tests passed in 97.82s: 68 formatting/round-trip/padding cases and complete preservation of previous 177 JSON token roots/2325 dependencies.",
+      "log": "/tmp/mpk-w09-calendar-block-semantics-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-calendar-block-semantics-v1.log",
+      "log_sha256": "28af6c30fd06c5660635ba4c1f1937bbcf76ffef3cd310a7630fa8e14eddef2b"
+    },
+    {
+      "status": "passed",
+      "scope": "67 calendar source contexts and all three generated nonempty vectors passed archived parser closure/import/mutation checks in 38.00s.",
+      "log": "/tmp/mpk-w09-calendar-block-sources-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-calendar-block-sources-v1.log",
+      "log_sha256": "10378c2357260b329284c2b14cfa40bee3fa5653ffd8050d038da3df349838e3"
+    },
+    {
+      "status": "passed",
+      "scope": "Complete collection/calendar/JSON vector generated and retained with its metadata; 6.62s. Exact copied bytes subsequently read back.",
+      "log": "/tmp/mpk-w09-calendar-collection-pin-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-calendar-collection-pin-v1.log",
+      "log_sha256": "d3372fb3656a7c5b7a1e3b6211cd4786ec7245b562387a60802d14e6571e9b21"
+    },
+    {
+      "status": "passed",
+      "scope": "Affected library/integration clippy passed in 35.27s.",
+      "log": "/tmp/mpk-w09-calendar-block-clippy-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-calendar-block-clippy-v1.log",
+      "log_sha256": "b0e086826de04ad59063a5cc6e8c6a59f130afed88676d730f1508df0b3f1d32"
+    },
+    {
+      "status": "passed",
+      "scope": "Four touched implementation/test-bearing Rust files pass scoped rustfmt --check.",
+      "log": "/tmp/mpk-w09-calendar-block-format-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-calendar-block-format-v1.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "status": "cancelled_superseded",
+      "scope": "Old 32-gate batch intentionally stopped after new 128-gate lowering superseded its bytes. Two distinct calendar-codec vectors had passed both checkers. Remaining JSON/structural batch is not counted as passed or as a proof rejection. Verified live test PID 37470 was terminated; parent session 65206 exited 1. Cancellation was not due to an observation timeout.",
+      "log": "/tmp/mpk-w09-json-calendar-checkers-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-json-calendar-checkers-v1.log",
+      "log_sha256": "19b593708fdf103855c057cfbd77ae28dae4f1001a0d322aa3e3c2549b6d544d"
+    },
+    {
+      "status": "passed",
+      "scope": "Both affected consumer-inventory checks passed in 16.77s after new wide-block and shared-collection artifacts.",
+      "log": "/tmp/mpk-w09-calendar-block-consumers-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-calendar-block-consumers-v1.log",
+      "log_sha256": "d38e4314ab72681782f492bcad006025f3a3e38bd84cef02831b0315330d5776"
+    },
+    {
+      "status": "passed",
+      "scope": "All ten distinct current byte vectors from twelve complete pins: two calendar codecs, seven JSON/structural, one shared collection; unchanged Rust/Go checkers and hash-corruption rejection.",
+      "exit_code": 0,
+      "session_id": 76173,
+      "log": "/tmp/mpk-w09-json-calendar-checkers-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-calendar/mpk-w09-json-calendar-checkers-v2.log",
+      "log_sha256": "129cbd4fc303fc49aecce53207ed742c15e7f73f00267d319695ccebc4620bf1",
+      "subcommand_elapsed_seconds": [
+        110.277,
+        4625.952,
+        560.212
+      ]
+    }
+  ],
+  "test_selection": "Only new calendar source requests/capture replay, cumulative JSON/calendar generation, affected inventory edges and lint/format. Existing long-running affected suites are polled without restarting. No check-fast or split whole gate; full gate deferred to T06-W12.",
+  "completion": "Units 3-8 and W09 acceptance remain incomplete; no component-only commit or push.",
+  "implementation": "Both standalone and structural generators select exact reachable date/time carriers. Each C7 wrapper binds the canonical string frame once, calls the original ordinary parser, requires frame validity and success plus ending 0..3, preserves the complete day/tick value and absolute end, and zeroes invalid results. Empty metadata is omitted to preserve old programs. Formatting now uses bounded remainder division and a fixed-width BCD shift/add-three conversion; every required parse and format definition remains emitted. No codec type/configuration was removed to fit the limit. Calendar FormatCharacters now directly emits up to 128 Boolean gates per transformer. The input prefix is zero-padded to that block alignment and all subsequent gate references/roots remapped before pruning. Unrelated emitters keep exactly 32-gate blocks. Every actual block is charged; neither counters nor transformer calls are hidden/reset.",
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_calendar_codecs.rs",
+      "sha256": "bcd9480d516decfc349a73aaefcc771188a5255e687d846ec176d5305de9dadb"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_tokens.rs",
+      "sha256": "35601f1e5ca09a0ba2a9f4cfe2131a49769f37f040366d2e465b709ddb93df30"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_scalar_bits.rs",
+      "sha256": "44cd503f0abb783e7e63b0e1703b99e57c5bb5b049b64b0822445511b174605b"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs",
+      "sha256": "b5f9ff9827b0824f7e047b6497f4cf9a304fc9b28463af7bca57ece5d1c2637a"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+      "sha256": "270d56a668b272d6efa86ed9dcade19ea0d80544f0a43315098d00b9060619ab"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_structural_foundations.rs",
+      "sha256": "db7199d3d6ece4d1bdf6261898231c6cfcd4fbec27c23470d3206b670ec45738"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_calendar_tests.rs",
+      "sha256": "a50938b7ed2330c7def46981bdb32c4be4ee649bf58c47c77f7c0677313d92c9"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_ordered_fold.rs",
+      "sha256": "55aba70a15271d5f91665181145045b7757f4b8bb7378335f92f637c5db36623"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_calendar_codec_tests.rs",
+      "sha256": "5566b407bc8d28569932a4448c37242685db2c168a982419c65676862e10a3f5"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "sha256": "3b78eb55f766665fddda28feede384ac0393518a162c352b03b39570dd001bdd"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_integer_format.rs",
+      "sha256": "a3e9ad263ca3773b3debe2717ffad6fb87b9f3e05036f323c7ec98fd9c106e80"
+    }
+  ],
+  "live_jobs": [],
+  "review": "unit-4-json-calendar-review.md",
+  "pending": [
+    "Complete typed JSON grammar and boundary relations",
+    "All outstanding W09 units 3-8 and W09 acceptance; no component-only commit"
+  ],
+  "goal_turn_classification": "Progress: resolved shared collection/calendar limit with direct wider Boolean gate blocks, proved unchanged default bytes and token dependencies, passed all source/format/alignment tests, pinned twelve complete vectors and dispatched ten current dual-checker cases after intentionally stopping superseded checking.",
+  "findings": [
+    {
+      "id": "calendar-cumulative-decimal",
+      "status": "resolved_in_generation_and_semantics_pending_current_checkers",
+      "finding": "Actual reachable date+time+decimal combined structural boundary exceeds a frozen practical limit. Three smaller source contexts are insufficient evidence for this requirement.",
+      "evidence": "verification-logs/json-calendar/mpk-w09-json-calendar-programs-v2.log",
+      "next": "Measure component costs and reduce emitted definition costs while preserving complete semantics and cumulative accounting.",
+      "resolution": "BCD formatting lowers full shared date+time+decimal to 259134 terms without omitting any definitions; original parsers/token dependency closures and affected formatting regressions pass."
+    },
+    {
+      "id": "calendar-collection-static-budget",
+      "status": "resolved_in_generation_and_semantics_pending_current_checkers",
+      "finding": "The common maximum-capacity collection fold and both calendar JSON codecs cannot yet coexist within the static-transformer budget. Keep all required definitions and cumulative accounting; do not count the four simpler source cases as proof for this combination.",
+      "evidence": "verification-logs/json-calendar/mpk-w09-calendar-collection-budget-v1.log",
+      "next": "Measure format gate-block counts, then investigate larger directly emitted Boolean gate blocks (with correct initial-state alignment and charged composition) rather than hiding existing transformer calls. Verify actual source term/binder budgets as well as the shared collection budget; preserve unrelated default emission.",
+      "resolution": "Direct 128-gate format emission reduces actual transformer count to 16293 and passes structure validation. Alignment, default byte preservation, unchanged token dependencies and affected formatting semantics pass."
+    }
+  ],
+  "pins": "Twelve complete current vectors copied/read back from successful source/collection generation. Ten full-byte groups are in unit-4-json-calendar-checker-groups.json. The 32-gate calendar and JSON/structural vectors are archived in previous-wide-blocks; their cancelled checker batch is recorded separately. Older parser/format history remains in previous-json-format and previous-format.",
+  "component_costs": {
+    "structural": {
+      "terms": 48088,
+      "declarations": 509,
+      "static_transformers": 2466
+    },
+    "json": {
+      "terms": 231368,
+      "declarations": 3303,
+      "static_transformers": 8631
+    },
+    "interpretation": "Independent term sum is 279456 before shared-term deduplication, above the 262144 term limit. This points to term cost as the next investigation; cumulative actual failure remains authoritative.",
+    "status": "Historical before-formatter-change diagnostic; superseded for the four actual source programs by current_programs and programs-v4 terminal success."
+  },
+  "verification_notes": "Affected source, formatting, alignment, exact unchanged-byte, inventory, lint/format checks and git diff --check passed. Current checker batch remains live. All original W09 requirements remain in implementation-plan.md; no unit or W09 completion claim.",
+  "current_programs": [
+    {
+      "id": "date",
+      "kind": "tokens",
+      "terms": 168250,
+      "declarations": 2374,
+      "certificate_sha256": "50820bfa502253887fece6dbcf6b4d30c1f66f309b3f07ca860c4ed1eb11f75e",
+      "static_transformers": 7737
+    },
+    {
+      "id": "date",
+      "kind": "structural",
+      "terms": 169604,
+      "declarations": 2413,
+      "certificate_sha256": "75691540521a3949c3783b96e21c50b75358f457739d5d4a4526b517b63ff04c",
+      "static_transformers": 7752
+    },
+    {
+      "id": "time",
+      "kind": "tokens",
+      "terms": 158313,
+      "declarations": 2262,
+      "certificate_sha256": "e34cfbf32a96b43f523c8cd9923cb872e1d46a674164f8d242c4b5be7950f819",
+      "static_transformers": 7625
+    },
+    {
+      "id": "time",
+      "kind": "structural",
+      "terms": 162624,
+      "declarations": 2337,
+      "certificate_sha256": "3753de1593e0ffee5240a01322c45c55d5727fe1d48447fca9a4b42917d8c2c6",
+      "static_transformers": 7670
+    },
+    {
+      "id": "date-time",
+      "kind": "tokens",
+      "terms": 207353,
+      "declarations": 2773,
+      "certificate_sha256": "39569693e778c819fd90490fde95634bd3e72d1d94273e4584ff91abc572142a",
+      "static_transformers": 8101
+    },
+    {
+      "id": "date-time",
+      "kind": "structural",
+      "terms": 211811,
+      "declarations": 2858,
+      "certificate_sha256": "9fc09955b7a317c465f07d807fb7fc65b187be5c876b3a297eb8304ada777102",
+      "static_transformers": 8146
+    },
+    {
+      "id": "date-time-decimal",
+      "kind": "tokens",
+      "terms": 207353,
+      "declarations": 2773,
+      "certificate_sha256": "39569693e778c819fd90490fde95634bd3e72d1d94273e4584ff91abc572142a",
+      "static_transformers": 8101
+    },
+    {
+      "id": "date-time-decimal",
+      "kind": "structural",
+      "terms": 243567,
+      "declarations": 3199,
+      "certificate_sha256": "ca384aa2e8777d544b7847a2d74dfa910c3c84f33ae9f32c990bf6d9477b1d90",
+      "static_transformers": 8490
+    }
+  ],
+  "checker_partial_results": {
+    "status": "superseded batch cancelled; all ten distinct current vectors passed",
+    "current_session_id": 76173,
+    "groups": "unit-4-json-calendar-checker-groups.json",
+    "log": "/tmp/mpk-w09-json-calendar-checkers-v2.log",
+    "completed": "Terminal session 76173 exit 0; all two calendar-codec, seven JSON/structural, and one collection byte vectors passed both unchanged checkers and hash-corruption rejection."
+  },
+  "format_block_costs": {
+    "date": 277,
+    "time": 272,
+    "current_boolean_gates_per_block": 32,
+    "next_investigation": "Directly emit larger Boolean gate blocks for format circuits, aligning the padded input state and preserving all gate order/dependencies. Keep unrelated default emission unchanged, validate actual term/binder/static limits, and recheck the full source and collection combinations. Do not hide existing transformer applications or reset counters.",
+    "status": "Historical 32-gate diagnostic; replaced by direct 128-gate block emission."
+  },
+  "current_collection_program": {
+    "terms": 207455,
+    "declarations": 2780,
+    "static_transformers": 16293,
+    "certificate_sha256": "13616239b096dee0781414695eb6f55ed4637b8cf0449a73f73913b03cd2420f"
+  }
+}

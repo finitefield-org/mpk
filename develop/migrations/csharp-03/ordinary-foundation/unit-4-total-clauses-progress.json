@@ -1,0 +1,106 @@
+{
+  "schema": "mpk.csharp_practical.w09.total_clauses_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_units": [
+    3,
+    4
+  ],
+  "status": "three_total_observation_recipes_targeted_verification_passed",
+  "implementation": [
+    "sequence_length references the existing semantic sequence Length definition through the VIR-bound relation cache;only bounded_sequence instances are eligible and the complete32-bit word is preserved. Valid lengths fit i32;input domain supplies its bound.",
+    "tagged_is verifies its nominal sum template/arm and references the existing structural IsActive definition,sharing StorageCache with both consumers. It does not read an inactive payload.",
+    "parse_error_kind enforces ParseError->u32 and the frozen32-bit representation,emitting the ordinary identity function.",
+    "Structural equal/compare retain exactly their former definitions after factoring relation-builder ownership transfer."
+  ],
+  "verification": [
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/total-clauses/mpk-w09-total-clauses-build-v1.log",
+      "sha256": "5b42d581e94a028c61e9bde234139a90f33555e186e2d7bf19bcc3c01a923e3d",
+      "scope_and_selection_reason": "Affected library compilation after three total observation recipes and relation-cache operation selector;16.07s."
+    },
+    {
+      "status": "failed_test_compile_corrected",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/total-clauses/mpk-w09-total-clause-requests-v1.log",
+      "sha256": "3498e6db9bdfb6a9fcbbbb6fc23dbc4959f788d001cf13a5667663737ebef902",
+      "scope_and_selection_reason": "Test used typed hash-domain API with a string;replaced it with the protocol-defined domain/NUL/SHA256 expression hash without changing production hashing."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/total-clauses/mpk-w09-total-clause-requests-and-preservation-v2.log",
+      "sha256": "626734536dcaba3178dea9ac78757e4fcfee40bcd2f9d80005f0720a58be0acf",
+      "scope_and_selection_reason": "New canonical request plus affected structural and rich-literal consumers;existing source/integrated pins,all dependency closures and1414 literal observations preserved;three tests9.63s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/total-clauses/mpk-w09-total-clause-capture-v1.log",
+      "sha256": "b54783e7f03a494ff5bd47f4478ef297095ffb7feeb71eefcecd239ae331398b",
+      "scope_and_selection_reason": "Fresh exact source/sidecar facts;hash-pinned compiler and source harness both exited0 with empty stdout/stderr."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/total-clauses/mpk-w09-total-clauses-source-v1.log",
+      "sha256": "9e5ca9f5e9b8970b095650b73c011b97949c7cc0b5893a5dec4a353e4503cc4e",
+      "scope_and_selection_reason": "Eight source clause truth values with expression-hash linkage and four direct recipe functions;2864 bit/tag observations including unknown/high-bit tags and complete stored length words;all standalone source/public/base structural closures match integrated output;imports and structure checks;2.91s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/total-clauses/mpk-w09-total-clauses-pinned-v1.log",
+      "sha256": "6d6b43b5706d42b5df8643528473751123d1a84e48146475ac5e81e604cd73a5",
+      "scope_and_selection_reason": "Exact newly pinned metadata/bytes/request replay and same semantic/closure checks;two tests2.94s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/total-clauses/mpk-w09-total-clauses-checkers-v1.log",
+      "sha256": "ea0f2c0357ebabc9af8d67ec9d4e063b6904bc4c8a02b336b713f86b801d10f0",
+      "scope_and_selection_reason": "Only two new candidates checked;both unchanged Rust/Go checkers accept identical bytes with zero axioms and reject actual hash corruptions. Exact PASS set,current hashes,sizes and metadata reconciled;11.919s."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/total-clauses/mpk-w09-total-clauses-clippy-v1.log",
+      "sha256": "1f6547fd64749b8da8cfcbfaa7e58ea2e06cb528f22829fce010a63aefc75137",
+      "scope_and_selection_reason": "Affected library/integration lint;34.93s including compiler contention."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/total-clauses/mpk-w09-total-clauses-format-v1.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "scope_and_selection_reason": "Scoped changed Rust source and test formatting."
+    },
+    {
+      "status": "passed",
+      "log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/total-clauses/mpk-w09-total-clauses-inventory-v1.log",
+      "sha256": "57bd12f58d930294d67540ce7f326f5deb7f50bf74344dcbcf51ee1e94f4bb42",
+      "scope_and_selection_reason": "Artifact-consumer closure after new source/candidate publication;16.07s;inventory fingerprints unchanged."
+    },
+    {
+      "status": "passed",
+      "commands": [
+        "/usr/bin/git diff --check",
+        "gofmt -l go-tools/mpk-checker-ref/checker_agreement_test.go"
+      ],
+      "scope_and_selection_reason": "Working diff whitespace/conflict-marker and affected Go formatting checks;no findings."
+    }
+  ],
+  "candidates": {
+    "directory": "total-clauses",
+    "count": 2,
+    "source_expressions": 8,
+    "direct_recipe_functions": 4,
+    "bit_and_tag_observations": 2864,
+    "source_terms": 6739,
+    "source_declarations": 183,
+    "integrated_terms": 8884,
+    "integrated_declarations": 408,
+    "integrated_static_transformers": 2133,
+    "same_byte_checkers": "both passed;exact PASS names,current hashes,sizes and metadata reconciled"
+  },
+  "live_jobs": [],
+  "pending": [
+    "Remaining contract recipes and definedness,native/control,transition/replay,application proofs and original internal-unit acceptance."
+  ],
+  "whole_gate": "Deferred to T06-W12;no check-fast or equivalent full gate.",
+  "commit": "No component-only commit;original approved internal units remain incomplete.",
+  "review": "unit-4-total-clauses-review.md",
+  "goal_turn_classification": "Progress:three total observation recipes now produce ordinary functions from exact captured source;preserved prior definitions and passed scoped semantic/import/dual-checker verification. W09 remains open."
+}

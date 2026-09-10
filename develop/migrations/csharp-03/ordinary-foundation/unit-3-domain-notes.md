@@ -1,8 +1,9 @@
 # W09 unit 3 domain implementation notes
 
-These are inspected requirements for the next component, not implemented
-ordinary domain definitions or a completion receipt. Comparisons require their
-input domains; passing relation/helper certificates does not establish them.
+These are inspected requirements, not a completion receipt. A recursive-domain
+implementation is now under verification; see `unit-3-domain-progress.md`.
+Comparisons require their input domains; passing relation/helper certificates
+does not establish application invariants or discharge application VCs.
 
 Reconstruct all storable carriers and exact closed-instance roles from validated
 VIR. Reuse the existing scalar/source-enum domain definitions. Recursive domains

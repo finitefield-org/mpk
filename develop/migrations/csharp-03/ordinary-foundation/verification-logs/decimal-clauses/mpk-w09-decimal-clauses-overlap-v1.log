@@ -1,0 +1,9 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error[E0432]: unresolved import `super::super::super::super::super::test_eval`
+   --> crates/mpk-vc/src/csharp_practical_ordinary_decimal_arithmetic.rs:512:48
+    |
+512 |         use super::super::super::super::super::test_eval::{bit, run, sparse_cube};
+    |                                                ^^^^^^^^^ could not find `test_eval` in `super`
+
+For more information about this error, try `rustc --explain E0432`.
+error: could not compile `mpk-vc` (lib test) due to 1 previous error

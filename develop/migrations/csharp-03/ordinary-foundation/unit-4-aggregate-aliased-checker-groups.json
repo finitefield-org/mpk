@@ -1,0 +1,1709 @@
+{
+  "comparison": "Complete decoded byte-vector equality across all twelve changed families; unaffected vectors byte-identical. All source tests and normalized full-definition/non-cost-metadata audit passed before staging.",
+  "families": {
+    "binding-guards": {
+      "test": "TestCheckerAgreementWithRustCLIBindingGuards",
+      "pin_count": 45,
+      "changed": 23,
+      "manifest_sha256": "ef8a1dc61565fa3dda510916dbad561be66c1512cd965e1c9db2c69a970c9f32"
+    },
+    "binding-orders": {
+      "test": "TestCheckerAgreementWithRustCLIBindingOrders",
+      "pin_count": 9,
+      "changed": 9,
+      "manifest_sha256": "d4af906d35db3235b79dd35ba70854cd28c3952a95d405efbdc77499e804f660"
+    },
+    "binding-relations": {
+      "test": "TestCheckerAgreementWithRustCLIBindingRelations",
+      "pin_count": 45,
+      "changed": 23,
+      "manifest_sha256": "a9454c70cb0cefa8704be183d9c34c36fcc34a92c33e5101e262a98110df0b02"
+    },
+    "collection-operations": {
+      "test": "TestCheckerAgreementWithRustCLICollectionOperations",
+      "pin_count": 9,
+      "changed": 9,
+      "manifest_sha256": "6760a4212bc81aef6e03b5af78d9edbb34ccdc55cf8e211775176ac6f2b40f4f"
+    },
+    "construction-operations": {
+      "test": "TestCheckerAgreementWithRustCLIConstructionOperations",
+      "pin_count": 5,
+      "changed": 5,
+      "manifest_sha256": "1d6c8124815634e72bb47f90c3579b686dae41be165f7c2988f62d62b989c97f"
+    },
+    "domains": {
+      "test": "TestCheckerAgreementWithRustCLIRecursiveDomains",
+      "pin_count": 28,
+      "changed": 14,
+      "manifest_sha256": "ffc4c5b1de7fb1f370dc96b20e32957a602fe6ae93f8732bab5cee7325476136"
+    },
+    "entry-operations": {
+      "test": "TestCheckerAgreementWithRustCLIEntryOperations",
+      "pin_count": 6,
+      "changed": 2,
+      "manifest_sha256": "a9099174681e8d2dbf18ad712dbce104ee334af8fb859708b9fa68d77238f73c"
+    },
+    "money-operations": {
+      "test": "TestCheckerAgreementWithRustCLIMoneyOperations",
+      "pin_count": 2,
+      "changed": 2,
+      "manifest_sha256": "625c356e6d71d2a1d1dcecf9e71c76430ebaeedbfb0a6e2f87a6b933fd258334"
+    },
+    "outcome-operations": {
+      "test": "TestCheckerAgreementWithRustCLIOutcomeOperations",
+      "pin_count": 16,
+      "changed": 5,
+      "manifest_sha256": "818af7a2e8b5285c658e114090aaee72950da915244c6db2ede3bf4becfe74bc"
+    },
+    "sequence-operations": {
+      "test": "TestCheckerAgreementWithRustCLISequenceOperations",
+      "pin_count": 12,
+      "changed": 12,
+      "manifest_sha256": "bbffa745776bbbc050af280b691dd47d29d78f36dad3d3fd39a8279c0fbb0a8f"
+    },
+    "source-observations": {
+      "test": "TestCheckerAgreementWithRustCLISourceObservations",
+      "pin_count": 4,
+      "changed": 3,
+      "manifest_sha256": "a9d49ea2a9cda64496a1ab6fa34589a429b539a9e5550bd08272aa8a256b9715"
+    },
+    "structural-foundations": {
+      "test": "TestCheckerAgreementWithRustCLIStructuralFoundations",
+      "pin_count": 44,
+      "changed": 26,
+      "manifest_sha256": "009bc3baf5f384292ccfc35d7627546a2247d7a66ae9ce7ac019dc41a6dfe089"
+    }
+  },
+  "groups": [
+    {
+      "representative": {
+        "directory": "binding-guards",
+        "file": "binding-vc-bounded_sequence.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-guards",
+          "file": "binding-vc-bounded_sequence.hex"
+        }
+      ],
+      "certificate_sha256": "4e012833069eb70b35ea1eb541ee71776224a2c6da39cd7007bcff14bc446b7c"
+    },
+    {
+      "representative": {
+        "directory": "binding-guards",
+        "file": "binding-vc-money.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-guards",
+          "file": "binding-vc-money.hex"
+        }
+      ],
+      "certificate_sha256": "5638b09596a0cb7ef10499fe5c39dd9efca95c04da9d6df67bbf1020c7f7044f"
+    },
+    {
+      "representative": {
+        "directory": "binding-guards",
+        "file": "binding-vc-ordered_map.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-guards",
+          "file": "binding-vc-ordered_map.hex"
+        }
+      ],
+      "certificate_sha256": "3e3ff48d33402ee87ba56e4d433b6dd68ae5069ea343443cfeb5091c0f340727"
+    },
+    {
+      "representative": {
+        "directory": "binding-guards",
+        "file": "binding-vc-ordered_set.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-guards",
+          "file": "binding-vc-ordered_set.hex"
+        }
+      ],
+      "certificate_sha256": "a73f07aa234160fca6d9550f9a93491303a523af1ceb00a40decd89fde1774df"
+    },
+    {
+      "representative": {
+        "directory": "binding-guards",
+        "file": "binding-vc-transition.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-guards",
+          "file": "binding-vc-transition.hex"
+        }
+      ],
+      "certificate_sha256": "000830ee80ab2d3c4b4f4341462b418da4670ad7993a73c35b73eaa07c64857a"
+    },
+    {
+      "representative": {
+        "directory": "binding-guards",
+        "file": "binding-vc-validation.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-guards",
+          "file": "binding-vc-validation.hex"
+        }
+      ],
+      "certificate_sha256": "0ddd08197752f07a6c773b395fb7049f077ac42e323bbeaae7a3c2d060e5b9e3"
+    },
+    {
+      "representative": {
+        "directory": "binding-guards",
+        "file": "bool-construction.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-guards",
+          "file": "bool-construction.hex"
+        },
+        {
+          "directory": "binding-relations",
+          "file": "bool-construction.hex"
+        }
+      ],
+      "certificate_sha256": "e1af67c69c5c79c210669d1e7faebec59c054a34e02b24e0d03abc718564f667"
+    },
+    {
+      "representative": {
+        "directory": "binding-guards",
+        "file": "boundary-map-compound.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-guards",
+          "file": "boundary-map-compound.hex"
+        }
+      ],
+      "certificate_sha256": "0381c204e0b6fd8dcec56fbe1c7dbbbb24570736f2360dd1f2b5e84be284a1bc"
+    },
+    {
+      "representative": {
+        "directory": "binding-guards",
+        "file": "boundary-map-decimal.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-guards",
+          "file": "boundary-map-decimal.hex"
+        }
+      ],
+      "certificate_sha256": "b15f5b6a497d0a3c2efc4705162e0920e409235442c70710ed97188ec23b7853"
+    },
+    {
+      "representative": {
+        "directory": "binding-guards",
+        "file": "boundary-map-string.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-guards",
+          "file": "boundary-map-string.hex"
+        }
+      ],
+      "certificate_sha256": "8495958761889a227bce5c490d4600ee9bf3f75c03364257809c44aaceff2548"
+    },
+    {
+      "representative": {
+        "directory": "binding-guards",
+        "file": "boundary-set-decimal.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-guards",
+          "file": "boundary-set-decimal.hex"
+        }
+      ],
+      "certificate_sha256": "139c28467865f8723a3bf21226fd0f41996b749b721c980aaff293085e905b65"
+    },
+    {
+      "representative": {
+        "directory": "binding-guards",
+        "file": "enum-construction.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-guards",
+          "file": "enum-construction.hex"
+        },
+        {
+          "directory": "binding-relations",
+          "file": "enum-construction.hex"
+        }
+      ],
+      "certificate_sha256": "1556ed05143969d0d3981208f1e3f526aacfa57cdf5ae28f76652c6d60180f9e"
+    },
+    {
+      "representative": {
+        "directory": "binding-guards",
+        "file": "extra-bool-float-map.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-guards",
+          "file": "extra-bool-float-map.hex"
+        }
+      ],
+      "certificate_sha256": "157cade7d3316fa4fe2ea2b93cb661889d5e8aaee0ff7a103d82b79bcaa73eaa"
+    },
+    {
+      "representative": {
+        "directory": "binding-guards",
+        "file": "extra-bool-nullable-map.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-guards",
+          "file": "extra-bool-nullable-map.hex"
+        }
+      ],
+      "certificate_sha256": "2a81a1b70faad17f604855f6d2fbf7bc5b3d8a2df5fc2bda54a51855e910a464"
+    },
+    {
+      "representative": {
+        "directory": "binding-guards",
+        "file": "extra-shared-lookup-maps.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-guards",
+          "file": "extra-shared-lookup-maps.hex"
+        }
+      ],
+      "certificate_sha256": "57f1759806394ed153731ce00481849afaf52933fda7cba8fc8b0baf58232340"
+    },
+    {
+      "representative": {
+        "directory": "binding-guards",
+        "file": "extra-validation-bool.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-guards",
+          "file": "extra-validation-bool.hex"
+        }
+      ],
+      "certificate_sha256": "c6f3057d868326e762179b6227ee683f75c69838ebe7bed3d33eba085792f1dd"
+    },
+    {
+      "representative": {
+        "directory": "binding-guards",
+        "file": "extra-validation-product.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-guards",
+          "file": "extra-validation-product.hex"
+        }
+      ],
+      "certificate_sha256": "59e4fc7ec00190320be1da3e845a4419f67d8a42912d307d3c6130bbc7406cf1"
+    },
+    {
+      "representative": {
+        "directory": "binding-guards",
+        "file": "float-sequence.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-guards",
+          "file": "float-sequence.hex"
+        },
+        {
+          "directory": "binding-relations",
+          "file": "float-sequence.hex"
+        }
+      ],
+      "certificate_sha256": "224923bceafc27160b35a070aef636137a71a04faf23acf3197553f5fff76564"
+    },
+    {
+      "representative": {
+        "directory": "binding-guards",
+        "file": "nested-box.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-guards",
+          "file": "nested-box.hex"
+        },
+        {
+          "directory": "binding-relations",
+          "file": "nested-box.hex"
+        }
+      ],
+      "certificate_sha256": "0caa58bc921a1a49885bf35f34e5d98e26fb460b14d3f3b52d1eae79db8bc78a"
+    },
+    {
+      "representative": {
+        "directory": "binding-guards",
+        "file": "nullable-string-default.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-guards",
+          "file": "nullable-string-default.hex"
+        },
+        {
+          "directory": "binding-relations",
+          "file": "nullable-string-default.hex"
+        }
+      ],
+      "certificate_sha256": "dc4ca0a3fe32cacf0d65bb0e648a7b92b3d5063c64f85742ce994ab88ea32ce1"
+    },
+    {
+      "representative": {
+        "directory": "binding-guards",
+        "file": "product-construction.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-guards",
+          "file": "product-construction.hex"
+        },
+        {
+          "directory": "binding-relations",
+          "file": "product-construction.hex"
+        }
+      ],
+      "certificate_sha256": "c003aad0a11790418c8094adc40353d1a7b0a37723c116aebee3cc2f1bbdf805"
+    },
+    {
+      "representative": {
+        "directory": "binding-guards",
+        "file": "remapped-boundary-sequence.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-guards",
+          "file": "remapped-boundary-sequence.hex"
+        }
+      ],
+      "certificate_sha256": "67bf3fc41202d18f3df3c9e4264dfc979b23c74e4ab23f6ea98cb0effffb3e28"
+    },
+    {
+      "representative": {
+        "directory": "binding-guards",
+        "file": "string.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-guards",
+          "file": "string.hex"
+        },
+        {
+          "directory": "binding-relations",
+          "file": "string.hex"
+        }
+      ],
+      "certificate_sha256": "fcce418223fc2b8588aa46fae8f77a79fa61b903800e9deea2d9b7471fccaeb6"
+    },
+    {
+      "representative": {
+        "directory": "binding-orders",
+        "file": "binding-vc-ordered_map.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-orders",
+          "file": "binding-vc-ordered_map.hex"
+        }
+      ],
+      "certificate_sha256": "0386d5d71d9abcfeb8b4eff6b0fd9e731966a16abc220d0ec0c8ca5c54228aba"
+    },
+    {
+      "representative": {
+        "directory": "binding-orders",
+        "file": "binding-vc-ordered_set.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-orders",
+          "file": "binding-vc-ordered_set.hex"
+        }
+      ],
+      "certificate_sha256": "d4b68a54985466870dc0a2e1f5e6e6fcfcff41fefd659b816826b0b963172886"
+    },
+    {
+      "representative": {
+        "directory": "binding-orders",
+        "file": "boundary-map-compound.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-orders",
+          "file": "boundary-map-compound.hex"
+        }
+      ],
+      "certificate_sha256": "761c7bb12fddce8b3adbc1788d9cecd845554b38a48eea1ee3cf4c61ce633e01"
+    },
+    {
+      "representative": {
+        "directory": "binding-orders",
+        "file": "boundary-map-decimal.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-orders",
+          "file": "boundary-map-decimal.hex"
+        }
+      ],
+      "certificate_sha256": "1141edacb4375e18f7970dada9db820651abffa06a474b0ffe50889c4533d923"
+    },
+    {
+      "representative": {
+        "directory": "binding-orders",
+        "file": "boundary-map-string.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-orders",
+          "file": "boundary-map-string.hex"
+        }
+      ],
+      "certificate_sha256": "a80e8c2bd5660e2177c544a775fd66ba83cef7f3366af04093d15f6789fc88e4"
+    },
+    {
+      "representative": {
+        "directory": "binding-orders",
+        "file": "boundary-set-decimal.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-orders",
+          "file": "boundary-set-decimal.hex"
+        }
+      ],
+      "certificate_sha256": "60412e3b84a6c429ac98c4dd82bd3add3a75e0791fee108c88f3a6b6037561bc"
+    },
+    {
+      "representative": {
+        "directory": "binding-orders",
+        "file": "extra-bool-float-map.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-orders",
+          "file": "extra-bool-float-map.hex"
+        }
+      ],
+      "certificate_sha256": "fb271f996cf9c15cc70ba70dcd201610306329e76b2bba4f659cd3c9f3816e44"
+    },
+    {
+      "representative": {
+        "directory": "binding-orders",
+        "file": "extra-bool-nullable-map.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-orders",
+          "file": "extra-bool-nullable-map.hex"
+        }
+      ],
+      "certificate_sha256": "3a30e0c08ddbc8e47a4cf1b004a18b0c2f5ab9dee2c05fe37bdbe3c0c327736e"
+    },
+    {
+      "representative": {
+        "directory": "binding-orders",
+        "file": "extra-shared-lookup-maps.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-orders",
+          "file": "extra-shared-lookup-maps.hex"
+        }
+      ],
+      "certificate_sha256": "cc147409f6fc831925c8d6a124ab3b769d3764dee40a2448da6c66a527ee8b6d"
+    },
+    {
+      "representative": {
+        "directory": "binding-relations",
+        "file": "binding-vc-bounded_sequence.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-relations",
+          "file": "binding-vc-bounded_sequence.hex"
+        }
+      ],
+      "certificate_sha256": "560aa9566900033fea1ca856bffc5e4c96ad661c777fdbc9284dac8104f4f4b2"
+    },
+    {
+      "representative": {
+        "directory": "binding-relations",
+        "file": "binding-vc-money.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-relations",
+          "file": "binding-vc-money.hex"
+        }
+      ],
+      "certificate_sha256": "83e4eeadc4d4023bfa808083ac4ec60f815b2bc6e4ee50224553469f4d03c105"
+    },
+    {
+      "representative": {
+        "directory": "binding-relations",
+        "file": "binding-vc-ordered_map.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-relations",
+          "file": "binding-vc-ordered_map.hex"
+        }
+      ],
+      "certificate_sha256": "e4b27bd2103e1eb527d5b4210b4803f455ca08cbd5c1359a46ecf295607dbcb2"
+    },
+    {
+      "representative": {
+        "directory": "binding-relations",
+        "file": "binding-vc-ordered_set.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-relations",
+          "file": "binding-vc-ordered_set.hex"
+        }
+      ],
+      "certificate_sha256": "c7c7d47cd446e2c268113c4996dc59c61b871bd7fd39084342760c93d0aaaf52"
+    },
+    {
+      "representative": {
+        "directory": "binding-relations",
+        "file": "binding-vc-transition.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-relations",
+          "file": "binding-vc-transition.hex"
+        }
+      ],
+      "certificate_sha256": "899f4c07689c92dbed6a6c418973a07eb333b29b3b61bddcaa590adf02527613"
+    },
+    {
+      "representative": {
+        "directory": "binding-relations",
+        "file": "binding-vc-validation.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-relations",
+          "file": "binding-vc-validation.hex"
+        }
+      ],
+      "certificate_sha256": "70ee419430d66128276d21bbf40111cf34d9330aaf163c38df926cc684a626e6"
+    },
+    {
+      "representative": {
+        "directory": "binding-relations",
+        "file": "boundary-map-compound.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-relations",
+          "file": "boundary-map-compound.hex"
+        }
+      ],
+      "certificate_sha256": "2c4f85fd815c2f3af0628ec346e136740a9e3570683bd9175373f3b1a895734a"
+    },
+    {
+      "representative": {
+        "directory": "binding-relations",
+        "file": "boundary-map-decimal.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-relations",
+          "file": "boundary-map-decimal.hex"
+        }
+      ],
+      "certificate_sha256": "8b969f4acbc464b9800abcd6db1dbb9061d43e5097da7c30734d89e63ed89150"
+    },
+    {
+      "representative": {
+        "directory": "binding-relations",
+        "file": "boundary-map-string.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-relations",
+          "file": "boundary-map-string.hex"
+        }
+      ],
+      "certificate_sha256": "f363a40b89c2f05ae6082fbe6742118adb1213ba91f22c20d38a7a88a0dca55f"
+    },
+    {
+      "representative": {
+        "directory": "binding-relations",
+        "file": "boundary-set-decimal.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-relations",
+          "file": "boundary-set-decimal.hex"
+        }
+      ],
+      "certificate_sha256": "95056b121f4ad0957c5fe279c051c5154797d654b7cd5c84afd8d3c107d01c10"
+    },
+    {
+      "representative": {
+        "directory": "binding-relations",
+        "file": "extra-bool-float-map.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-relations",
+          "file": "extra-bool-float-map.hex"
+        }
+      ],
+      "certificate_sha256": "d8820f7390615cd93d733a59a8fa5a379d7e4068316e82cf878eacd9982aac47"
+    },
+    {
+      "representative": {
+        "directory": "binding-relations",
+        "file": "extra-bool-nullable-map.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-relations",
+          "file": "extra-bool-nullable-map.hex"
+        }
+      ],
+      "certificate_sha256": "b4775f13302de0aaa31ef90ade7af7f5148f7b117f9d9bfef307b1a376d39515"
+    },
+    {
+      "representative": {
+        "directory": "binding-relations",
+        "file": "extra-shared-lookup-maps.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-relations",
+          "file": "extra-shared-lookup-maps.hex"
+        }
+      ],
+      "certificate_sha256": "809b02ab4662954c0accda2acaa80c6dee4f444d370ca302cff0523c04e10a11"
+    },
+    {
+      "representative": {
+        "directory": "binding-relations",
+        "file": "extra-validation-bool.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-relations",
+          "file": "extra-validation-bool.hex"
+        }
+      ],
+      "certificate_sha256": "fa45375fce12d9800fdb9993e0a853e3e485741bc11ff24f74b11987ea5338a1"
+    },
+    {
+      "representative": {
+        "directory": "binding-relations",
+        "file": "extra-validation-product.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-relations",
+          "file": "extra-validation-product.hex"
+        }
+      ],
+      "certificate_sha256": "31aee59896f2a2900a91bb129059aa3e1963235eaf6f223106ef074c9cef38b6"
+    },
+    {
+      "representative": {
+        "directory": "binding-relations",
+        "file": "remapped-boundary-sequence.hex"
+      },
+      "members": [
+        {
+          "directory": "binding-relations",
+          "file": "remapped-boundary-sequence.hex"
+        }
+      ],
+      "certificate_sha256": "1a567385bb15afb8b20becc48bcc74be28e0e8c3808f3e8fec1273a63e0a56ee"
+    },
+    {
+      "representative": {
+        "directory": "collection-operations",
+        "file": "binding-vc-ordered_map.hex"
+      },
+      "members": [
+        {
+          "directory": "collection-operations",
+          "file": "binding-vc-ordered_map.hex"
+        }
+      ],
+      "certificate_sha256": "f122c5c1162fdad246be19651bfb0c97a6a97863e0f906f1aad7e6c0b1d1e3fc"
+    },
+    {
+      "representative": {
+        "directory": "collection-operations",
+        "file": "binding-vc-ordered_set.hex"
+      },
+      "members": [
+        {
+          "directory": "collection-operations",
+          "file": "binding-vc-ordered_set.hex"
+        }
+      ],
+      "certificate_sha256": "cf6f3c89e9490b113ebc40bc35ef9eecd7517df282fb4cbcf01c8d2583683434"
+    },
+    {
+      "representative": {
+        "directory": "collection-operations",
+        "file": "boundary-map-compound.hex"
+      },
+      "members": [
+        {
+          "directory": "collection-operations",
+          "file": "boundary-map-compound.hex"
+        }
+      ],
+      "certificate_sha256": "6f77446c2d10382ae7e5f0c337c4bd233c2d34e6a011dc9612aa8b1e92addcae"
+    },
+    {
+      "representative": {
+        "directory": "collection-operations",
+        "file": "boundary-map-decimal.hex"
+      },
+      "members": [
+        {
+          "directory": "collection-operations",
+          "file": "boundary-map-decimal.hex"
+        }
+      ],
+      "certificate_sha256": "58cabf030cbf7d17223c4599ccaff2df73b7bff0d1d015d7de9dd9d454d9c49a"
+    },
+    {
+      "representative": {
+        "directory": "collection-operations",
+        "file": "boundary-map-string.hex"
+      },
+      "members": [
+        {
+          "directory": "collection-operations",
+          "file": "boundary-map-string.hex"
+        }
+      ],
+      "certificate_sha256": "04130663a27b0b494b018d90f4e5ffadc93c0b5bd75390a96b19df56b655e465"
+    },
+    {
+      "representative": {
+        "directory": "collection-operations",
+        "file": "boundary-set-decimal.hex"
+      },
+      "members": [
+        {
+          "directory": "collection-operations",
+          "file": "boundary-set-decimal.hex"
+        }
+      ],
+      "certificate_sha256": "18abd92146d0ebd637ebb13007b0838d9c4c6c825c6c60f555dd5d64478ec0ce"
+    },
+    {
+      "representative": {
+        "directory": "collection-operations",
+        "file": "extra-bool-float-map.hex"
+      },
+      "members": [
+        {
+          "directory": "collection-operations",
+          "file": "extra-bool-float-map.hex"
+        }
+      ],
+      "certificate_sha256": "bfd3f39a1d308b5f7b37a2c59adf6a9f632b80c84fa2917ab30e9a56fd76da84"
+    },
+    {
+      "representative": {
+        "directory": "collection-operations",
+        "file": "extra-bool-nullable-map.hex"
+      },
+      "members": [
+        {
+          "directory": "collection-operations",
+          "file": "extra-bool-nullable-map.hex"
+        }
+      ],
+      "certificate_sha256": "2c8175e92b8697b9b3c4686e864545c13128dfe1e0094b4cf115444cf8e0b8c6"
+    },
+    {
+      "representative": {
+        "directory": "collection-operations",
+        "file": "extra-shared-lookup-maps.hex"
+      },
+      "members": [
+        {
+          "directory": "collection-operations",
+          "file": "extra-shared-lookup-maps.hex"
+        }
+      ],
+      "certificate_sha256": "7465ade41f77378a74af98809d461042cfa1768c63f9eeded667398b263e6971"
+    },
+    {
+      "representative": {
+        "directory": "construction-operations",
+        "file": "bool-construction.hex"
+      },
+      "members": [
+        {
+          "directory": "construction-operations",
+          "file": "bool-construction.hex"
+        }
+      ],
+      "certificate_sha256": "1eedf4078f1769fda134b12bf8b2fd6a90f29fd58e9b301b6859d98ef6600c24"
+    },
+    {
+      "representative": {
+        "directory": "construction-operations",
+        "file": "enum-construction.hex"
+      },
+      "members": [
+        {
+          "directory": "construction-operations",
+          "file": "enum-construction.hex"
+        }
+      ],
+      "certificate_sha256": "38e80b2ca3fe4f7f96528dcd68b0616178e63b1287843b0317dd5e6034c7d051"
+    },
+    {
+      "representative": {
+        "directory": "construction-operations",
+        "file": "float-sequence.hex"
+      },
+      "members": [
+        {
+          "directory": "construction-operations",
+          "file": "float-sequence.hex"
+        }
+      ],
+      "certificate_sha256": "4a05c414be0eab5846d37a882c7f4119f0166d6fa83f4fed6e3cf80d4363db50"
+    },
+    {
+      "representative": {
+        "directory": "construction-operations",
+        "file": "nested-box.hex"
+      },
+      "members": [
+        {
+          "directory": "construction-operations",
+          "file": "nested-box.hex"
+        },
+        {
+          "directory": "construction-operations",
+          "file": "product-construction.hex"
+        }
+      ],
+      "certificate_sha256": "f6e85eab0d57945df51327e485873ad7646d1fcef2e7dfe4976a2199745a7881"
+    },
+    {
+      "representative": {
+        "directory": "domains",
+        "file": "binding-vc-bounded_sequence.hex"
+      },
+      "members": [
+        {
+          "directory": "domains",
+          "file": "binding-vc-bounded_sequence.hex"
+        }
+      ],
+      "certificate_sha256": "2fdaaa0018ed9100a1fb03e8efad973a06fa16f0aac0e3180738ff7745768b83"
+    },
+    {
+      "representative": {
+        "directory": "domains",
+        "file": "binding-vc-money.hex"
+      },
+      "members": [
+        {
+          "directory": "domains",
+          "file": "binding-vc-money.hex"
+        }
+      ],
+      "certificate_sha256": "b60a819c75244eb0aa5e70444cf76bf97ab77adc659203e9c1fc0cb062bfe362"
+    },
+    {
+      "representative": {
+        "directory": "domains",
+        "file": "binding-vc-ordered_map.hex"
+      },
+      "members": [
+        {
+          "directory": "domains",
+          "file": "binding-vc-ordered_map.hex"
+        }
+      ],
+      "certificate_sha256": "95250b810032337c8b3d3ff74293134a5b2dce628d2790624fc5c52fad2479aa"
+    },
+    {
+      "representative": {
+        "directory": "domains",
+        "file": "binding-vc-ordered_set.hex"
+      },
+      "members": [
+        {
+          "directory": "domains",
+          "file": "binding-vc-ordered_set.hex"
+        }
+      ],
+      "certificate_sha256": "6a99a366dae3651de67edf8275e11642a9d5cb12e38be2f2cdf82395a1fe4f1d"
+    },
+    {
+      "representative": {
+        "directory": "domains",
+        "file": "binding-vc-transition.hex"
+      },
+      "members": [
+        {
+          "directory": "domains",
+          "file": "binding-vc-transition.hex"
+        }
+      ],
+      "certificate_sha256": "cb14e28e348d3db58067820d57527d8b5aaea3e6c9d7bc7130568ee77998f459"
+    },
+    {
+      "representative": {
+        "directory": "domains",
+        "file": "binding-vc-validation.hex"
+      },
+      "members": [
+        {
+          "directory": "domains",
+          "file": "binding-vc-validation.hex"
+        }
+      ],
+      "certificate_sha256": "aedef7d9dca888895d843c0db4657d8d10688acd066a8759ad8459695e8432db"
+    },
+    {
+      "representative": {
+        "directory": "domains",
+        "file": "boundary-exception-payload.hex"
+      },
+      "members": [
+        {
+          "directory": "domains",
+          "file": "boundary-exception-payload.hex"
+        }
+      ],
+      "certificate_sha256": "4a7ab92f51acc46e218b9ad88794f77a5f36afaaf40bee1ab8c1595f017a53d5"
+    },
+    {
+      "representative": {
+        "directory": "domains",
+        "file": "boundary-map-compound.hex"
+      },
+      "members": [
+        {
+          "directory": "domains",
+          "file": "boundary-map-compound.hex"
+        }
+      ],
+      "certificate_sha256": "8d338ef045d41d63fa4b507756ecb825bd25c89155274e8c0c53c580ca6ed201"
+    },
+    {
+      "representative": {
+        "directory": "domains",
+        "file": "boundary-map-decimal.hex"
+      },
+      "members": [
+        {
+          "directory": "domains",
+          "file": "boundary-map-decimal.hex"
+        }
+      ],
+      "certificate_sha256": "1b48aa7ebba1520cac993e54b6fd7d082be497651aeab3c5ef5a54acedbfc47a"
+    },
+    {
+      "representative": {
+        "directory": "domains",
+        "file": "boundary-map-string.hex"
+      },
+      "members": [
+        {
+          "directory": "domains",
+          "file": "boundary-map-string.hex"
+        }
+      ],
+      "certificate_sha256": "de153262f9a52023acb6db6bc3e751c587b8801c779e49fe44c7f324c1743b93"
+    },
+    {
+      "representative": {
+        "directory": "domains",
+        "file": "boundary-set-decimal.hex"
+      },
+      "members": [
+        {
+          "directory": "domains",
+          "file": "boundary-set-decimal.hex"
+        }
+      ],
+      "certificate_sha256": "e617234259897cae2badfea1dda2daf0bed712497123fd52059cf8196881a187"
+    },
+    {
+      "representative": {
+        "directory": "domains",
+        "file": "boundary-total-cells.hex"
+      },
+      "members": [
+        {
+          "directory": "domains",
+          "file": "boundary-total-cells.hex"
+        }
+      ],
+      "certificate_sha256": "c7708cc776c75255469b34182c7f3c8ff698f083ab774d7393a7eadf8158270a"
+    },
+    {
+      "representative": {
+        "directory": "domains",
+        "file": "nested-box.hex"
+      },
+      "members": [
+        {
+          "directory": "domains",
+          "file": "nested-box.hex"
+        }
+      ],
+      "certificate_sha256": "c541d20264f58deb1180935258243c63e4d7eb731dd9383cddd98b56826fbe78"
+    },
+    {
+      "representative": {
+        "directory": "domains",
+        "file": "string.hex"
+      },
+      "members": [
+        {
+          "directory": "domains",
+          "file": "string.hex"
+        }
+      ],
+      "certificate_sha256": "e134578a6c53fa1be8e7f8ed2ac6e3c010d03a558189287f110611ca1e0785d1"
+    },
+    {
+      "representative": {
+        "directory": "entry-operations",
+        "file": "boundary-map-compound.hex"
+      },
+      "members": [
+        {
+          "directory": "entry-operations",
+          "file": "boundary-map-compound.hex"
+        }
+      ],
+      "certificate_sha256": "ab533f562482c10298d8806a75a46c3d532fdf478777f51ddb04eb45c09e30b6"
+    },
+    {
+      "representative": {
+        "directory": "entry-operations",
+        "file": "boundary-map-string.hex"
+      },
+      "members": [
+        {
+          "directory": "entry-operations",
+          "file": "boundary-map-string.hex"
+        }
+      ],
+      "certificate_sha256": "d9a92a4521d8b3db469dbde09c9254ea09d0a40e037e1d4559daeb9efcb0ed54"
+    },
+    {
+      "representative": {
+        "directory": "money-operations",
+        "file": "binding-vc-money.hex"
+      },
+      "members": [
+        {
+          "directory": "money-operations",
+          "file": "binding-vc-money.hex"
+        }
+      ],
+      "certificate_sha256": "95b96df40095cb50ce2c0165671bd106f1cbda34ba725f614b9e529a93ab2855"
+    },
+    {
+      "representative": {
+        "directory": "money-operations",
+        "file": "shared-string-enum-money.hex"
+      },
+      "members": [
+        {
+          "directory": "money-operations",
+          "file": "shared-string-enum-money.hex"
+        }
+      ],
+      "certificate_sha256": "0479da0e8ab376abc10c2387792ceec8b7127f55de06fd8f0ac187acb767fb11"
+    },
+    {
+      "representative": {
+        "directory": "outcome-operations",
+        "file": "binding-vc-validation.hex"
+      },
+      "members": [
+        {
+          "directory": "outcome-operations",
+          "file": "binding-vc-validation.hex"
+        }
+      ],
+      "certificate_sha256": "672a4609b0d2f4dbe8f163e40d088fc1b9f348ca340cdfc368a4e2abf74693b3"
+    },
+    {
+      "representative": {
+        "directory": "outcome-operations",
+        "file": "extra-validation-bool.hex"
+      },
+      "members": [
+        {
+          "directory": "outcome-operations",
+          "file": "extra-validation-bool.hex"
+        }
+      ],
+      "certificate_sha256": "ebfc8850cc4dbe6d0e390954c482e146b27c482203572cf2cf8211c2dbcfa651"
+    },
+    {
+      "representative": {
+        "directory": "outcome-operations",
+        "file": "extra-validation-product.hex"
+      },
+      "members": [
+        {
+          "directory": "outcome-operations",
+          "file": "extra-validation-product.hex"
+        }
+      ],
+      "certificate_sha256": "3ccbc12baaaaa7d098fc6a3d70090e5dafbccf92c149fd9404790672f7181bd0"
+    },
+    {
+      "representative": {
+        "directory": "outcome-operations",
+        "file": "nested-box.hex"
+      },
+      "members": [
+        {
+          "directory": "outcome-operations",
+          "file": "nested-box.hex"
+        }
+      ],
+      "certificate_sha256": "4c101af828f97ecf88f99a7e4a488ff4fa0a6ab20d0b6cf73fe95a0819470c5c"
+    },
+    {
+      "representative": {
+        "directory": "outcome-operations",
+        "file": "string.hex"
+      },
+      "members": [
+        {
+          "directory": "outcome-operations",
+          "file": "string.hex"
+        }
+      ],
+      "certificate_sha256": "970865de88be9769d992b608bfd32bf93e4da2501f3b30011713b151fefdd14f"
+    },
+    {
+      "representative": {
+        "directory": "sequence-operations",
+        "file": "binding-vc-bounded_sequence.hex"
+      },
+      "members": [
+        {
+          "directory": "sequence-operations",
+          "file": "binding-vc-bounded_sequence.hex"
+        },
+        {
+          "directory": "sequence-operations",
+          "file": "binding-vc-ordered_set.hex"
+        },
+        {
+          "directory": "sequence-operations",
+          "file": "binding-vc-transition.hex"
+        },
+        {
+          "directory": "sequence-operations",
+          "file": "binding-vc-validation.hex"
+        }
+      ],
+      "certificate_sha256": "f7b274bd6352301da1f7383f63260daf36021684817f834589d123a4cfea7b3f"
+    },
+    {
+      "representative": {
+        "directory": "sequence-operations",
+        "file": "binding-vc-ordered_map.hex"
+      },
+      "members": [
+        {
+          "directory": "sequence-operations",
+          "file": "binding-vc-ordered_map.hex"
+        }
+      ],
+      "certificate_sha256": "c16a7bd3e0d8b889e2278c580b73bd4329ddedd39d5e53d3cfda9bbcc381cac8"
+    },
+    {
+      "representative": {
+        "directory": "sequence-operations",
+        "file": "boundary-map-compound.hex"
+      },
+      "members": [
+        {
+          "directory": "sequence-operations",
+          "file": "boundary-map-compound.hex"
+        }
+      ],
+      "certificate_sha256": "46b3c70d9a84d224baf30caaafcf4fec9ca57452cd2d35d3a1d7d609ef1ce345"
+    },
+    {
+      "representative": {
+        "directory": "sequence-operations",
+        "file": "boundary-map-decimal.hex"
+      },
+      "members": [
+        {
+          "directory": "sequence-operations",
+          "file": "boundary-map-decimal.hex"
+        }
+      ],
+      "certificate_sha256": "a6db6a8a90121a2f3ca6738a29ff17cb6fe4eba72ff992e9dc669d33b195dce8"
+    },
+    {
+      "representative": {
+        "directory": "sequence-operations",
+        "file": "boundary-map-string.hex"
+      },
+      "members": [
+        {
+          "directory": "sequence-operations",
+          "file": "boundary-map-string.hex"
+        }
+      ],
+      "certificate_sha256": "5cfc14d1ef7ebfd2429f4e054b1782c33542649abdbdf4a8ffe45c80530bc2de"
+    },
+    {
+      "representative": {
+        "directory": "sequence-operations",
+        "file": "boundary-set-decimal.hex"
+      },
+      "members": [
+        {
+          "directory": "sequence-operations",
+          "file": "boundary-set-decimal.hex"
+        }
+      ],
+      "certificate_sha256": "72eff9852166f833700b1645d27a46d76271fff44308315522e16244c1e65802"
+    },
+    {
+      "representative": {
+        "directory": "sequence-operations",
+        "file": "boundary-total-cells.hex"
+      },
+      "members": [
+        {
+          "directory": "sequence-operations",
+          "file": "boundary-total-cells.hex"
+        }
+      ],
+      "certificate_sha256": "621294f6f777b44fc6c7ca63978eea17ae1086ee7ebffc14d6657a0cfc366812"
+    },
+    {
+      "representative": {
+        "directory": "sequence-operations",
+        "file": "float-sequence.hex"
+      },
+      "members": [
+        {
+          "directory": "sequence-operations",
+          "file": "float-sequence.hex"
+        }
+      ],
+      "certificate_sha256": "efd871585f17698c2d9006f4400dd0747ae655573696cf440e969a2c3fe8aa88"
+    },
+    {
+      "representative": {
+        "directory": "sequence-operations",
+        "file": "nested-box.hex"
+      },
+      "members": [
+        {
+          "directory": "sequence-operations",
+          "file": "nested-box.hex"
+        }
+      ],
+      "certificate_sha256": "58c2ca1353281aefa9bc28e906b0b84f4d61466687a53229ee6268e11c91a5b3"
+    },
+    {
+      "representative": {
+        "directory": "source-observations",
+        "file": "binding-vc-money.hex"
+      },
+      "members": [
+        {
+          "directory": "source-observations",
+          "file": "binding-vc-money.hex"
+        }
+      ],
+      "certificate_sha256": "7a1884afdddf6494ef51e9a69fd8a1ab726cde3ff129ba69e423d61769099063"
+    },
+    {
+      "representative": {
+        "directory": "source-observations",
+        "file": "complete-snapshot.hex"
+      },
+      "members": [
+        {
+          "directory": "source-observations",
+          "file": "complete-snapshot.hex"
+        }
+      ],
+      "certificate_sha256": "cad1609abf0d88d44000c41157d689d8b212a89848bad0efefd3261a1b26547f"
+    },
+    {
+      "representative": {
+        "directory": "source-observations",
+        "file": "extra-bool-float-map.hex"
+      },
+      "members": [
+        {
+          "directory": "source-observations",
+          "file": "extra-bool-float-map.hex"
+        }
+      ],
+      "certificate_sha256": "c9b16a2d358fea1117cb15edb131e43ff926cce302f9d2dd4592d24c00a745cf"
+    },
+    {
+      "representative": {
+        "directory": "structural-foundations",
+        "file": "binding-vc-bounded_sequence.hex"
+      },
+      "members": [
+        {
+          "directory": "structural-foundations",
+          "file": "binding-vc-bounded_sequence.hex"
+        }
+      ],
+      "certificate_sha256": "0e07c03e0ff36bcdfa50d34c4b0fc5262a39f5117df15df0f4f27febe603038a"
+    },
+    {
+      "representative": {
+        "directory": "structural-foundations",
+        "file": "binding-vc-money.hex"
+      },
+      "members": [
+        {
+          "directory": "structural-foundations",
+          "file": "binding-vc-money.hex"
+        }
+      ],
+      "certificate_sha256": "f9030108211f8884b77cbe8c2018afa10dc82c6906e2e290c5e661567c6d4f9b"
+    },
+    {
+      "representative": {
+        "directory": "structural-foundations",
+        "file": "binding-vc-ordered_map.hex"
+      },
+      "members": [
+        {
+          "directory": "structural-foundations",
+          "file": "binding-vc-ordered_map.hex"
+        }
+      ],
+      "certificate_sha256": "9c0cfb8192a9b19908e5fcfc37c2eeec9defe666671eb17a1c4a7201d1315768"
+    },
+    {
+      "representative": {
+        "directory": "structural-foundations",
+        "file": "binding-vc-ordered_set.hex"
+      },
+      "members": [
+        {
+          "directory": "structural-foundations",
+          "file": "binding-vc-ordered_set.hex"
+        }
+      ],
+      "certificate_sha256": "2e065f74d966df7a7ab6e9057b8a9d5ef56f4f9d44d3316b1180e90bec2124ac"
+    },
+    {
+      "representative": {
+        "directory": "structural-foundations",
+        "file": "binding-vc-transition.hex"
+      },
+      "members": [
+        {
+          "directory": "structural-foundations",
+          "file": "binding-vc-transition.hex"
+        }
+      ],
+      "certificate_sha256": "458b97cbee98dc199e6486d1f167bc4528b0fa49c8b7fbe7ddd9111fa55ed0f8"
+    },
+    {
+      "representative": {
+        "directory": "structural-foundations",
+        "file": "binding-vc-validation.hex"
+      },
+      "members": [
+        {
+          "directory": "structural-foundations",
+          "file": "binding-vc-validation.hex"
+        }
+      ],
+      "certificate_sha256": "5d8490b0f11e6a198714360eaa9f3ce9c0f662b735c84ff9cfa3b5155d21a7bb"
+    },
+    {
+      "representative": {
+        "directory": "structural-foundations",
+        "file": "bool-construction.hex"
+      },
+      "members": [
+        {
+          "directory": "structural-foundations",
+          "file": "bool-construction.hex"
+        }
+      ],
+      "certificate_sha256": "60daefb9093d1e60ac431a7f72e6f5cb02cf925aa5f481e9bbf1c848e4035c2f"
+    },
+    {
+      "representative": {
+        "directory": "structural-foundations",
+        "file": "boundary-exception-payload.hex"
+      },
+      "members": [
+        {
+          "directory": "structural-foundations",
+          "file": "boundary-exception-payload.hex"
+        }
+      ],
+      "certificate_sha256": "c95b37e82faaf8769a9fdf118c95c48b44224602ff4d8ff8567b4e6642c66c39"
+    },
+    {
+      "representative": {
+        "directory": "structural-foundations",
+        "file": "boundary-map-compound.hex"
+      },
+      "members": [
+        {
+          "directory": "structural-foundations",
+          "file": "boundary-map-compound.hex"
+        }
+      ],
+      "certificate_sha256": "9e5ddb571610842a52fd0635c8faa4283d9736d1384c80e78e050bcebe3423b1"
+    },
+    {
+      "representative": {
+        "directory": "structural-foundations",
+        "file": "boundary-map-decimal.hex"
+      },
+      "members": [
+        {
+          "directory": "structural-foundations",
+          "file": "boundary-map-decimal.hex"
+        }
+      ],
+      "certificate_sha256": "3183a8f31a1e8c1b7df1ace5379edc2eb99063eefa6a3f32a9132013acb317f4"
+    },
+    {
+      "representative": {
+        "directory": "structural-foundations",
+        "file": "boundary-map-string.hex"
+      },
+      "members": [
+        {
+          "directory": "structural-foundations",
+          "file": "boundary-map-string.hex"
+        }
+      ],
+      "certificate_sha256": "02e1f108fef4416d8d44cd10704843ec2f429afc1878c892d09bcf154b22df28"
+    },
+    {
+      "representative": {
+        "directory": "structural-foundations",
+        "file": "boundary-set-decimal.hex"
+      },
+      "members": [
+        {
+          "directory": "structural-foundations",
+          "file": "boundary-set-decimal.hex"
+        }
+      ],
+      "certificate_sha256": "3c3da8da6e06bb0378732140be6fe6fbabeab067eacb8fac52b0ad999412f4e6"
+    },
+    {
+      "representative": {
+        "directory": "structural-foundations",
+        "file": "boundary-total-cells.hex"
+      },
+      "members": [
+        {
+          "directory": "structural-foundations",
+          "file": "boundary-total-cells.hex"
+        }
+      ],
+      "certificate_sha256": "23e6587a3ad53d74fb02a6b835d1d9f4f6ec6befa32b34938a8e50b6d523768d"
+    },
+    {
+      "representative": {
+        "directory": "structural-foundations",
+        "file": "complete-snapshot.hex"
+      },
+      "members": [
+        {
+          "directory": "structural-foundations",
+          "file": "complete-snapshot.hex"
+        }
+      ],
+      "certificate_sha256": "3e3aa64c0704e64b80ffc561643930ba0e3a08115f752ed5e41a3cd47ecd1c09"
+    },
+    {
+      "representative": {
+        "directory": "structural-foundations",
+        "file": "enum-construction.hex"
+      },
+      "members": [
+        {
+          "directory": "structural-foundations",
+          "file": "enum-construction.hex"
+        }
+      ],
+      "certificate_sha256": "b669cc05a4f4f7e00d95b85f3b8e1974bd3b1ab6a7859b6eef88679e2f6a8473"
+    },
+    {
+      "representative": {
+        "directory": "structural-foundations",
+        "file": "extra-bool-float-map.hex"
+      },
+      "members": [
+        {
+          "directory": "structural-foundations",
+          "file": "extra-bool-float-map.hex"
+        }
+      ],
+      "certificate_sha256": "60226adf50ee7c8ab014f951141147c279e80c1c37d7acecd203b926295cbb1a"
+    },
+    {
+      "representative": {
+        "directory": "structural-foundations",
+        "file": "extra-bool-nullable-map.hex"
+      },
+      "members": [
+        {
+          "directory": "structural-foundations",
+          "file": "extra-bool-nullable-map.hex"
+        }
+      ],
+      "certificate_sha256": "15f570a544fa2099edc6519fa61cfb8c3ca21b7179f70d6a1eaab17021f3bb2f"
+    },
+    {
+      "representative": {
+        "directory": "structural-foundations",
+        "file": "extra-shared-lookup-maps.hex"
+      },
+      "members": [
+        {
+          "directory": "structural-foundations",
+          "file": "extra-shared-lookup-maps.hex"
+        }
+      ],
+      "certificate_sha256": "9641c86a975b2adac37cd87fdb6ce597c4f5e17bcb533b49670f133aa304aa72"
+    },
+    {
+      "representative": {
+        "directory": "structural-foundations",
+        "file": "extra-validation-bool.hex"
+      },
+      "members": [
+        {
+          "directory": "structural-foundations",
+          "file": "extra-validation-bool.hex"
+        }
+      ],
+      "certificate_sha256": "8a50c57da6baae5e6bd8bc0697986a913aca2c36c3d26dbe11a040bb50b9b13f"
+    },
+    {
+      "representative": {
+        "directory": "structural-foundations",
+        "file": "extra-validation-product.hex"
+      },
+      "members": [
+        {
+          "directory": "structural-foundations",
+          "file": "extra-validation-product.hex"
+        }
+      ],
+      "certificate_sha256": "b7df60d5d93fb6f01a5233d23c8902dcf32d3bbb5e895d7efcce0a415e34cfec"
+    },
+    {
+      "representative": {
+        "directory": "structural-foundations",
+        "file": "float-sequence.hex"
+      },
+      "members": [
+        {
+          "directory": "structural-foundations",
+          "file": "float-sequence.hex"
+        }
+      ],
+      "certificate_sha256": "a0d9c0d2129df4e3dac15f0ebb07f40c722f9a6b05b094835399b388e05cc6fa"
+    },
+    {
+      "representative": {
+        "directory": "structural-foundations",
+        "file": "nested-box.hex"
+      },
+      "members": [
+        {
+          "directory": "structural-foundations",
+          "file": "nested-box.hex"
+        }
+      ],
+      "certificate_sha256": "c3d34d791c70dbf1058b0595ad4f647e3b753839292b8eb2d061a904b5246df0"
+    },
+    {
+      "representative": {
+        "directory": "structural-foundations",
+        "file": "nullable-string-default.hex"
+      },
+      "members": [
+        {
+          "directory": "structural-foundations",
+          "file": "nullable-string-default.hex"
+        }
+      ],
+      "certificate_sha256": "782d086460d2b1b44c50a95acd81daf0a5a5ac60042852dd682763b842c46af2"
+    },
+    {
+      "representative": {
+        "directory": "structural-foundations",
+        "file": "product-construction.hex"
+      },
+      "members": [
+        {
+          "directory": "structural-foundations",
+          "file": "product-construction.hex"
+        }
+      ],
+      "certificate_sha256": "265ef0eb96267fa67eae86d111d9663cb7f25f6cbb87f31a718bcce5692fc58b"
+    },
+    {
+      "representative": {
+        "directory": "structural-foundations",
+        "file": "shared-string-enum-money.hex"
+      },
+      "members": [
+        {
+          "directory": "structural-foundations",
+          "file": "shared-string-enum-money.hex"
+        }
+      ],
+      "certificate_sha256": "f5b414cb2fb9a6a855b776a877699c3d5011351edfdbc02c2edcba87ff281a82"
+    },
+    {
+      "representative": {
+        "directory": "structural-foundations",
+        "file": "string.hex"
+      },
+      "members": [
+        {
+          "directory": "structural-foundations",
+          "file": "string.hex"
+        }
+      ],
+      "certificate_sha256": "178e88ef2036dca6e67d337846cf4f01766cf42f0803f705faf77edc77cb3088"
+    }
+  ]
+}

@@ -1,0 +1,198 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.structural_data_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "status": "native_structural_equality_component_targeted_verification_passed",
+  "observed_at": "2026-09-10T21:37:54.296892+00:00",
+  "component": "Unit 5 W03 native structural equality use-point connections",
+  "source_contexts": 5,
+  "definition_occurrences": 6,
+  "operation_use_points": 7,
+  "operand_types": 4,
+  "runtime_observations": 98,
+  "certificate_bytes_total": 150236,
+  "largest_certificate_bytes": 49769,
+  "capture": "structural-data/capture-receipt.json",
+  "certificates": "structural-data/certificates.json",
+  "passed": [
+    {
+      "test": "cargo check -p mpk-vc --lib",
+      "seconds": 14.03,
+      "reason": "New structural data generator and shared result helper compile.",
+      "log": "verification-logs/structural-data/structural-data-check-v1.log"
+    },
+    {
+      "test": "csharp_03_t06_w09_structural_data_requests",
+      "seconds": 0.1,
+      "reason": "Generate five native source inputs with root and sidecar identity reconstruction.",
+      "log": "verification-logs/structural-data/structural-data-requests-v1.log"
+    },
+    {
+      "test": "native capture",
+      "contexts": 5,
+      "reason": "All native sources accepted through unchanged isolated frontend; 88 staged inputs revalidated (71 pinned files).",
+      "log": "verification-logs/structural-data/structural-data-capture-v1.log"
+    },
+    {
+      "test": "csharp_03_t06_w09_structural_data_candidates",
+      "seconds": 2.48,
+      "reason": "New use-point adapter must preserve complete existing relation definition closures, exact SSA/CFG metadata, pending family lists and mutation rejection.",
+      "log": "verification-logs/structural-data/structural-data-candidates-v1.log"
+    },
+    {
+      "test": "csharp_03_t06_w09_structural_data_original_source",
+      "seconds": 3.8,
+      "observations": 98,
+      "reason": "True and false actual result values across equality/difference, high i64 bits, Boolean and enum operands; all result/guard/goal predicates retain original SSA ordering. All five outputs equal candidate/checker pins.",
+      "log": "verification-logs/structural-data/structural-data-source-v1.log"
+    },
+    {
+      "test": "cargo clippy -p mpk-vc --lib --test csharp_practical_vc -- -D warnings",
+      "seconds": 28.93,
+      "reason": "New production and integration test code; shared helper visibility/extraction.",
+      "log": "verification-logs/structural-data/structural-data-clippy-v1.log"
+    },
+    {
+      "test": "csharp_03_t01_w02_inventory_closes_every_artifact_and_consumer_edge",
+      "seconds": 16.02,
+      "reason": "New modules and exports require consumer closure verification; no fingerprint change needed.",
+      "log": "verification-logs/structural-data/structural-data-inventory-v1.log"
+    },
+    {
+      "test": "TestCheckerAgreementWithRustCLIStructuralData",
+      "seconds": 58.907,
+      "cases": 5,
+      "reason": "Identical canonical bytes accepted by both unchanged checkers with zero axioms and matching reports/hashes; actual hash corruption rejects.",
+      "log": "verification-logs/structural-data/structural-data-checkers-v1.log"
+    },
+    {
+      "test": "csharp_03_t06_w09_integer_data_candidates",
+      "seconds": 6.31,
+      "reason": "Shared result-comparison helper and point binding must preserve every prior integer certificate/metadata byte.",
+      "log": "verification-logs/integer-data/integer-data-shared-replay-v1.log"
+    },
+    {
+      "test": "rustfmt --check --edition 2021 --config skip_children=true",
+      "reason": "Changed adapter/helper/test formatting.",
+      "log": "verification-logs/structural-data/structural-data-format-v1.log"
+    }
+  ],
+  "live_jobs": [],
+  "remaining_component_work": [],
+  "scope_limits": [
+    "Fresh native use points cover StructuralEqual only: i32, i64, Bool and a declared enum.",
+    "CanonicalCompare dispatch delegates to the existing total-only Compare emitter and uses the shared 32-bit result comparator; this corpus has no fresh native CanonicalCompare use point and supplies no such native-body proof.",
+    "Other source data families remain explicit pending definitions. In particular native != preserves its separate boolean.not step rather than changing the structural equality operation.",
+    "Input representation/public domains and complete source-call/control/ownership/native-body/application proofs remain separate required W09 work.",
+    "Original units 3-8 remain open; no original-unit commit boundary has been reached."
+  ],
+  "full_gate": {
+    "status": "deferred",
+    "target": "CSHARP-03-T06-W12",
+    "reason": "Intermediate W; selected affected verification only."
+  },
+  "review": "unit-5-structural-data-review.md",
+  "source_files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_structural_data.rs",
+      "bytes": 7003,
+      "sha256": "524dc811f552a1b0b228867511feb071a2af22f3bd0ad9b3663119def34574a5"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_integer_data.rs",
+      "bytes": 14172,
+      "sha256": "0b5c6e43839ab96e6e08d647358f99e089ce4d260b8542a6b4373721d474459c"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_source_clauses.rs",
+      "bytes": 78193,
+      "sha256": "415068c18103f1e499eb0a088814bc6e6b0d39c072e67be43728f3649aeaba81"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_structural.rs",
+      "bytes": 36390,
+      "sha256": "11645d09daa9c58d1c0c07b34b4e30f08c1fe7e13ebf16b42c8f4a0be745d6e2"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs",
+      "bytes": 58372,
+      "sha256": "53af8f744eae2837aa7f2f782df51a8602f6f5a8c214fc01dd78c49fdf921578"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+      "bytes": 275401,
+      "sha256": "947253707c075e4218f7d14406797b290f65bdb8371336f9cb983f3ceeae3e73"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_structural_data_tests.rs",
+      "bytes": 10050,
+      "sha256": "aa50d45ff6585ea16645bea88177f46eaba2246aa0feee7360592d020ef59d88"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_contract_expression_tests.rs",
+      "bytes": 29283,
+      "sha256": "a8626961aede0319a62532fc86545a19b75e02a1fa531c57832e37ee132961aa"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "bytes": 25954,
+      "sha256": "a2251ec0fb91aae3a16d965c144b402472a4247f4b0cb3b54f27c69a7be3d7be"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "verification-logs/structural-data/raw-requests.json",
+      "bytes": 10930,
+      "sha256": "5fd140969b8f28e186af73957d8360a3e9016de11c623a30c928090692b127b9"
+    },
+    {
+      "path": "verification-logs/structural-data/raw-responses.json",
+      "bytes": 33808,
+      "sha256": "1882253768b725a1e05af755d0cb2e9d243864c51c1748327efb37bb7a43a6ec"
+    },
+    {
+      "path": "verification-logs/structural-data/structural-data-candidates-v1.log",
+      "bytes": 827,
+      "sha256": "7031a260a934ca05051ae5fabf77d89e824e4fe1c226b116a6519b65b55cfca2"
+    },
+    {
+      "path": "verification-logs/structural-data/structural-data-capture-v1.log",
+      "bytes": 96,
+      "sha256": "b54783e7f03a494ff5bd47f4478ef297095ffb7feeb71eefcecd239ae331398b"
+    },
+    {
+      "path": "verification-logs/structural-data/structural-data-check-v1.log",
+      "bytes": 144,
+      "sha256": "b37aec4c76ec62bbb05297cbb36979dc23e366a6274b7224078c3e3d3803afde"
+    },
+    {
+      "path": "verification-logs/structural-data/structural-data-checkers-v1.log",
+      "bytes": 918,
+      "sha256": "121346f926c2ae80a0f14e35d33ac9e1922393f0b6e34a618d7185c96b395d66"
+    },
+    {
+      "path": "verification-logs/structural-data/structural-data-clippy-v1.log",
+      "bytes": 144,
+      "sha256": "6aaab819cfd8ac4f7ec7412a687a1a63f2566c69e865f231c8f8695f336f39ba"
+    },
+    {
+      "path": "verification-logs/structural-data/structural-data-inventory-v1.log",
+      "bytes": 505,
+      "sha256": "63c4d46518d7aca0f303cc2183c5f273ec0597cff0f702460f62885a746f1a57"
+    },
+    {
+      "path": "verification-logs/structural-data/structural-data-requests-v1.log",
+      "bytes": 503,
+      "sha256": "7854013b0d613501b102d441e54613b2bd056ce99af79fda883ddfd8e498a28d"
+    },
+    {
+      "path": "verification-logs/structural-data/structural-data-source-v1.log",
+      "bytes": 828,
+      "sha256": "26186a11ea6e77cf7a2d2a1510b33e189ac2fe1403a14a06d843e570f9949d78"
+    },
+    {
+      "path": "verification-logs/structural-data/structural-data-format-v1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

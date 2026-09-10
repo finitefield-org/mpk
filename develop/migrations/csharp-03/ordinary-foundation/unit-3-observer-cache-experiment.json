@@ -1,0 +1,199 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.observer_cache_experiment.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "status": "targeted_core_checks_passed_actual_workload_verification_pending",
+  "observed_at": "2026-09-10T20:11:28.985526+00:00",
+  "scope": "Test-only ordinary-core observer used to validate units 3/4; no generated-operation oracle or checker/proof acceptance change.",
+  "changes": [
+    "Conservative runtime free-variable analysis reuses results of unused binders without forcing input; high variables remain conservatively live.",
+    "Application continuations retain immutable term IDs instead of cloning argument vectors.",
+    "Demanded closed Def values use a per-evaluation FIFO cache of at most 64 roots; no cache survives across calls or certificates."
+  ],
+  "passed": [
+    {
+      "test": "cargo test -p mpk-vc --lib ordinary_core_ -- --nocapture",
+      "count": 10,
+      "runtime_seconds": 0.03,
+      "reason": "Observer evaluation, laziness, Boolean memoization, deep/captured environments and cache locality changed. Includes 736 eager/delayed truth observations and 160-entry eviction/certificate-isolation cases.",
+      "log": "verification-logs/observer-cache/closed-def-cache-core-v1.log"
+    },
+    {
+      "test": "cargo clippy -p mpk-vc --lib --test csharp_practical_vc -- -D warnings",
+      "runtime_seconds": 8.61,
+      "reason": "Observer is included by both library and integration tests.",
+      "log": "verification-logs/observer-cache/closed-def-cache-clippy-v1.log"
+    },
+    {
+      "test": "rustfmt --check --edition 2021 --config skip_children=true (four touched observer/parent/domain files)",
+      "reason": "Scoped formatting; module order corrected.",
+      "log": "verification-logs/observer-cache/closed-def-cache-format-v2.log"
+    }
+  ],
+  "inventory": {
+    "status": "passed",
+    "reason": "New observer test contributes exactly one Std. search consumer. Removing that path reproduces the old 126-path hash; updated count/hash and total 4949 -> 4950. No consumer exclusion was introduced.",
+    "added_path": "crates/mpk-vc/src/csharp_practical_ordinary_test_eval_tests.rs",
+    "count": 127,
+    "paths_sha256": "276758e13e56d555c24b5281c8c57ecb0159f6d706e8695dd17b6fd8129eea19",
+    "runtime_seconds": 15.98,
+    "log": "verification-logs/observer-cache/closed-def-cache-inventory-v3.log"
+  },
+  "live_jobs": [
+    {
+      "pid": 31739,
+      "case": "original serial domain acceptance run",
+      "log": "/tmp/mpk-w09-domains-outstanding-semantics-v1.log",
+      "status": "running_older_launch_binary",
+      "note": "Already completed collection/rejection and decimal-order cases stay valid; remaining string/compound and total-cell cases pending."
+    }
+  ],
+  "superseded_jobs": [
+    {
+      "pid": 47116,
+      "case": "static-unused-only decimal divide probe",
+      "status": "deliberately_stopped_after_implementation_superseded",
+      "log": "verification-logs/observer-cache/unused-argument-cache-decimal-divide-v1.log"
+    },
+    {
+      "pid": 47526,
+      "case": "static-unused-only string duplicate probe",
+      "status": "deliberately_stopped_after_implementation_superseded",
+      "log": "verification-logs/observer-cache/unused-argument-cache-domain-probe-v1.log"
+    },
+    {
+      "pid": 49472,
+      "session_id": 11596,
+      "case": "csharp_03_t06_w09_domains_source_string_duplicate_probe",
+      "log": "verification-logs/observer-cache/closed-def-cache-domain-probe-v1-stopped.log",
+      "status": "deliberately_stopped_after_weak_cache_probe_started",
+      "reason": "Superseded observer implementation; no case result. Original formal domain job preserved."
+    }
+  ],
+  "limits": [
+    "Actual workload speed/memory benefit has not been established.",
+    "The 64-entry bound limits cache roots, not the transitive retained value graph.",
+    "The pre-closed-cache source snapshot includes subsequent allocation changes; it is not the exact source of the superseded static-only probe binaries.",
+    "A short sample still places the active domain worker in generic ordinary evaluation; it is neither a completed test nor a causal performance comparison.",
+    "Do not present stopped, filtered or in-progress runs as passed.",
+    "No original unit or W09 completion; application/native-body proof obligations remain open."
+  ],
+  "full_gate": {
+    "status": "deferred",
+    "target": "CSHARP-03-T06-W12",
+    "reason": "Intermediate W: affected checks only per user/repository policy."
+  },
+  "source_files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_test_eval.rs",
+      "sha256": "1db93d039ae64b2573345e3f85e238677bd524fe19536c3f52cf90953ac1928e"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_test_eval_tests.rs",
+      "sha256": "59edb670a395b6d0015b609e1f040f706c16e6641ebbb0819464109ef666c78a"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs",
+      "sha256": "1b44c0bc1134dc4593f0cf345284783c5d7c520cfc2b4004e76f1e479d625a85"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_domain_tests.rs",
+      "sha256": "001261be93546f1a29000aa0d138f4bb1f4836d76eb93fd1d776a905f77ecd9e"
+    },
+    {
+      "path": "crates/mpk-vc/tests/csharp_practical_inventory.rs",
+      "sha256": "4980bf6f0f85a5a67e3208ebb44ba92d898fd5382d4569b8c5973c9da258f2f5"
+    },
+    {
+      "path": "develop/migrations/csharp-03/artifact-consumer-inventory.json",
+      "sha256": "0663f36d686ecfb461b8fac8f42126804b66a3a62468da251b8a0bc219a535ae"
+    },
+    {
+      "path": "develop/migrations/csharp-03/data-phase/historical-inventory-cache-correction.json",
+      "sha256": "911074451472a1a35f350b6403d0d7d5a17518b7459baded1da37b6e68479cc8"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "verification-logs/observer-cache/closed-def-cache-core-v1.log",
+      "sha256": "ac6715b2a7da006b1d2cd857b566abab211bd9156c25e399f660c3ecb6e7083a"
+    },
+    {
+      "path": "verification-logs/observer-cache/closed-def-cache-clippy-v1.log",
+      "sha256": "88807c764ea1f0cfa43381159478e987f9fd342c0529a2379d4c4ebcfa019892"
+    },
+    {
+      "path": "verification-logs/observer-cache/closed-def-cache-format-v1.log",
+      "sha256": "b6cac80b8df007d8ddd5d1173855c9d66c75e29dcdb31c5398732ac440165d3b"
+    },
+    {
+      "path": "verification-logs/observer-cache/closed-def-cache-format-v2.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "verification-logs/observer-cache/unused-argument-cache-inventory-v1.log",
+      "sha256": "d35698e9cddc66c31f4769411adc1a19d1d685bec89c2d3db1d38414a8e77d00"
+    },
+    {
+      "path": "verification-logs/observer-cache/closed-def-cache-inventory-v2.log",
+      "sha256": "3ea38637860c8f96f2af5700be1e57cb018626adc78946eda0051fc9b3385ff2"
+    },
+    {
+      "path": "verification-logs/observer-cache/unused-argument-cache-decimal-divide-v1.log",
+      "sha256": "2cdd993128b7a974b1f05a6a6540d29323b4a70c7e3c5993c81f154139a7cf48"
+    },
+    {
+      "path": "verification-logs/observer-cache/unused-argument-cache-domain-probe-v1.log",
+      "sha256": "db98477f30d3b34abb210db81f206786afe158ae73c16d6a1b10bc4d489b4f57"
+    },
+    {
+      "path": "verification-logs/observer-cache/before-unused-cache.rs.txt",
+      "sha256": "fc8c8c9ce6903d4260e9493a6414fc29b18a12a8292d2b6d0fb430eba849ddde"
+    },
+    {
+      "path": "verification-logs/observer-cache/before-closed-def-cache.rs.txt",
+      "sha256": "24b9b27ca7c87533be0ad8b44cb789a00422f80dc9ea9872edfc6d6a8e4c55ad"
+    },
+    {
+      "path": "verification-logs/observer-cache/closed-def-cache-v1.rs.txt",
+      "sha256": "1db93d039ae64b2573345e3f85e238677bd524fe19536c3f52cf90953ac1928e"
+    },
+    {
+      "path": "verification-logs/observer-cache/domain-sample-v1.txt",
+      "sha256": "ea9894aacbba83a6123afc0049ac8bf7d963a1a044fd26616818fdbb9d27c8f8"
+    },
+    {
+      "path": "verification-logs/observer-cache/closed-def-cache-inventory-v3.log",
+      "sha256": "7f64d1963071aebf2137b2af80a4dbe1197df65d4ee842e076fdaf00e8d68d0d"
+    },
+    {
+      "path": "verification-logs/observer-cache/closed-def-cache-domain-probe-v1-stopped.log",
+      "sha256": "6977427f8e0a421f307d033a0eabd2db18adadd3d4ad8575cfd75e1a34354e79"
+    },
+    {
+      "path": "verification-logs/observer-cache/closed-def-cache-decimal-divide-v1.log",
+      "sha256": "3487391abb3f7a011128dcd9d3166aa2cb08c777c082255ca96931460406c4c9"
+    }
+  ],
+  "review": "unit-3-observer-cache-review.md",
+  "followup_experiment": "unit-3-observer-weak-cache-experiment.json",
+  "completed_workload_jobs": [
+    {
+      "pid": 49473,
+      "session_id": 97863,
+      "case": "csharp_03_t06_w09_decimal_clauses_original_source",
+      "environment": {
+        "MPK_W09_DECIMAL_CLAUSES_RUNTIME_CONTEXTS": "divide",
+        "MPK_W09_DECIMAL_CLAUSES_OUT": "/tmp/mpk-w09-decimal-clauses-closed-cache-divide-v1"
+      },
+      "log": "verification-logs/observer-cache/closed-def-cache-decimal-divide-v1.log",
+      "status": "passed",
+      "runtime_seconds": 1067.06,
+      "selected_conditions": 2,
+      "failure_definedness_rejections": 1,
+      "operation_aliases": 44,
+      "attachments": 49,
+      "byte_identity": "All nine regenerated hex and metadata files match the accepted decimal-clauses pins byte for byte.",
+      "note": "Launch observer predates the weak-argument cache. Non-divide runtime cases are filtered; their context log lines do not mean runtime observations."
+    }
+  ]
+}

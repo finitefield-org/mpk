@@ -2,6 +2,50 @@
 //! concrete carriers. Representation/public domains remain caller obligations.
 use super::super::scalar_bits::{bits_relation, special_relation, ScalarRelations};
 use super::*;
+#[path = "csharp_practical_ordinary_binding_relations.rs"]
+mod binding_relations;
+pub use binding_relations::{
+    generate_csharp_practical_ordinary_binding_guards,
+    generate_csharp_practical_ordinary_binding_orders,
+    generate_csharp_practical_ordinary_binding_relations,
+    generate_csharp_practical_ordinary_boundary_rules,
+    import_csharp_practical_ordinary_binding_guards,
+    import_csharp_practical_ordinary_binding_orders,
+    import_csharp_practical_ordinary_binding_relations,
+    import_csharp_practical_ordinary_boundary_rules, OrdinaryBindingAgreement,
+    OrdinaryBindingPredicate, OrdinaryBindingRelationProgram, OrdinaryBoundaryRuleProgram,
+};
+#[path = "csharp_practical_ordinary_observations.rs"]
+mod observations;
+pub use observations::{
+    generate_csharp_practical_ordinary_observations, import_csharp_practical_ordinary_observations,
+    OrdinaryObservationDefinition, OrdinaryObservationProgram,
+};
+#[path = "csharp_practical_ordinary_money_ops.rs"]
+mod money_ops;
+pub use money_ops::{
+    generate_csharp_practical_ordinary_money, import_csharp_practical_ordinary_money,
+    OrdinaryMoneyDefinition, OrdinaryMoneyFailure, OrdinaryMoneyOperation, OrdinaryMoneyProgram,
+};
+#[path = "csharp_practical_ordinary_entry_ops.rs"]
+mod entry_ops;
+pub use entry_ops::{
+    generate_csharp_practical_ordinary_entries, import_csharp_practical_ordinary_entries,
+    OrdinaryEntryDefinition, OrdinaryEntryProgram,
+};
+#[path = "csharp_practical_ordinary_outcome_ops.rs"]
+mod outcome_ops;
+pub use outcome_ops::{
+    generate_csharp_practical_ordinary_outcomes, import_csharp_practical_ordinary_outcomes,
+    OrdinaryOutcomeDefinition, OrdinaryOutcomeFailure, OrdinaryOutcomeOperation,
+    OrdinaryOutcomeProgram,
+};
+#[path = "csharp_practical_ordinary_sequence_ops.rs"]
+mod sequence_ops;
+pub use sequence_ops::{
+    generate_csharp_practical_ordinary_sequences, import_csharp_practical_ordinary_sequences,
+    OrdinarySequenceOperations, OrdinarySequenceProgram,
+};
 #[derive(Clone, Debug)]
 struct Node {
     depth: u32,
@@ -38,8 +82,16 @@ impl OrdinaryRelationProgram {
     }
 }
 fn n(id: &str) -> String {
+    relation_name(id, false)
+}
+fn relation_name(id: &str, observations: bool) -> String {
+    let namespace = if observations {
+        "SourceObservation"
+    } else {
+        "Relation"
+    };
     format!(
-        "{PREFIX}.Relation.T{}",
+        "{PREFIX}.{namespace}.T{}",
         id.as_bytes()
             .iter()
             .map(|b| format!("{b:02x}"))
@@ -53,14 +105,147 @@ fn and(b: &mut Builder, x: u32, y: u32) -> R<u32> {
 fn wmux(b: &mut Builder, c: u32, t: u32, e: u32) -> R<u32> {
     call(b, &format!("{PREFIX}.Cube.D5.Mux"), vec![c, t, e])
 }
-struct Relations<'a> {
+pub(super) struct Relations<'a> {
     vir: &'a ValidatedPracticalVir,
+    shared_folds: bool,
+    observations: bool,
     carriers: BTreeMap<String, OrdinaryCarrier>,
     b: Builder,
-    nodes: BTreeMap<String, Node>,
-    active: BTreeSet<String>,
+    nodes: BTreeMap<(bool, String), Node>,
+    active: BTreeSet<(bool, String)>,
     raw: BTreeMap<(u32, bool), ScalarRelations>,
     special: BTreeMap<String, ScalarRelations>,
+    storage: StorageCache,
+}
+// Cache ownership follows the builder when contract recipes emit relations
+// before the integrated structural program. All carriers derive from one VIR.
+#[derive(Default)]
+pub(super) struct ContractRelationCache {
+    source_ir_sha256: Option<String>,
+    nodes: BTreeMap<(bool, String), Node>,
+    active: BTreeSet<(bool, String)>,
+    raw: BTreeMap<(u32, bool), ScalarRelations>,
+    special: BTreeMap<String, ScalarRelations>,
+}
+pub(super) enum ContractRelationOperation {
+    Equal,
+    Compare,
+    SequenceLength,
+    SequenceRead,
+    SequenceIndexRange,
+    CollectionContains,
+    MapLookup,
+}
+impl ContractRelationCache {
+    pub(super) fn emit(
+        &mut self,
+        vir: &ValidatedPracticalVir,
+        builder: Builder,
+        storage: StorageCache,
+        type_id: &str,
+        operation: ContractRelationOperation,
+    ) -> (Builder, StorageCache, R<String>) {
+        if self
+            .source_ir_sha256
+            .as_ref()
+            .is_some_and(|hash| hash != vir.hash())
+        {
+            return (builder, storage, Err(OrdinaryCarrierError::Linkage));
+        }
+        self.source_ir_sha256 = Some(vir.hash().into());
+        let layouts = generate_csharp_practical_ordinary_carriers(vir);
+        let layouts = match layouts {
+            Ok(layouts) => layouts,
+            Err(e) => return (builder, storage, Err(e)),
+        };
+        let mut r = Relations {
+            vir,
+            shared_folds: true,
+            observations: false,
+            carriers: layouts
+                .carriers()
+                .iter()
+                .map(|c| (c.type_id.clone(), c.clone()))
+                .collect(),
+            b: builder,
+            storage,
+            nodes: std::mem::take(&mut self.nodes),
+            active: std::mem::take(&mut self.active),
+            raw: std::mem::take(&mut self.raw),
+            special: std::mem::take(&mut self.special),
+        };
+        let result = (|| {
+            if matches!(
+                operation,
+                ContractRelationOperation::SequenceLength
+                    | ContractRelationOperation::SequenceRead
+                    | ContractRelationOperation::SequenceIndexRange
+            ) && !vir.data_closed().entries().iter().any(|entry| {
+                entry["instance_id"] == type_id
+                    && entry["template_id"] == "mpk.csharp.semantic.bounded_sequence.v1"
+            }) {
+                return Err(OrdinaryCarrierError::Linkage);
+            }
+            if !r.b.globals.contains_key(&format!("{PREFIX}.Cube.D5.Mux")) {
+                r.b.helpers(5)?;
+            }
+            ordered_fold::auxiliary(&mut r.b)?;
+            let relation = r.ty(type_id)?;
+            match operation {
+                ContractRelationOperation::CollectionContains
+                | ContractRelationOperation::MapLookup => domains::emit_contract_read(
+                    &mut r,
+                    type_id,
+                    matches!(operation, ContractRelationOperation::MapLookup),
+                ),
+                ContractRelationOperation::Equal => Ok(relation.equal),
+                ContractRelationOperation::Compare => {
+                    relation.compare.ok_or(OrdinaryCarrierError::Shape)
+                }
+                ContractRelationOperation::SequenceLength => Ok(format!("{}.Length", n(type_id))),
+                ContractRelationOperation::SequenceRead
+                | ContractRelationOperation::SequenceIndexRange => {
+                    let entry = vir
+                        .data_closed()
+                        .entries()
+                        .iter()
+                        .find(|entry| entry["instance_id"] == type_id)
+                        .ok_or(OrdinaryCarrierError::Linkage)?;
+                    let sequence = sequence_ops::emit_sequence(&mut r, entry)?;
+                    Ok(
+                        if matches!(operation, ContractRelationOperation::SequenceRead) {
+                            sequence.read_definition
+                        } else {
+                            sequence.index_range_definition
+                        },
+                    )
+                }
+            }
+        })();
+        self.nodes = r.nodes;
+        self.active = r.active;
+        self.raw = r.raw;
+        self.special = r.special;
+        (r.b, r.storage, result)
+    }
+    pub(super) fn seed(self, r: &mut Relations<'_>) -> R<()> {
+        if self
+            .source_ir_sha256
+            .as_ref()
+            .is_some_and(|hash| hash != r.vir.hash())
+            || !self.active.is_empty()
+            || !r.nodes.is_empty()
+            || !r.active.is_empty()
+            || !r.raw.is_empty()
+            || !r.special.is_empty()
+        {
+            return Err(OrdinaryCarrierError::Linkage);
+        }
+        r.nodes = self.nodes;
+        r.raw = self.raw;
+        r.special = self.special;
+        Ok(())
+    }
 }
 impl Relations<'_> {
     fn raw(&mut self, width: u32, signed: bool) -> R<Node> {
@@ -77,6 +262,11 @@ impl Relations<'_> {
         })
     }
     fn special(&mut self, token: &str) -> R<Node> {
+        // Source observation preserves IEEE bit patterns, including signed
+        // zero and NaN payloads. Decimal cohorts remain value-observable only.
+        if self.observations && matches!(token, "f32" | "f64") {
+            return self.raw(if token == "f32" { 32 } else { 64 }, false);
+        }
         if !self.special.contains_key(token) {
             self.special
                 .insert(token.to_owned(), special_relation(&mut self.b, token)?);
@@ -107,13 +297,14 @@ impl Relations<'_> {
         self.template(id).as_deref() == Some("mpk.csharp.semantic.sequence_construction.v1")
     }
     fn ty(&mut self, id: &str) -> R<Node> {
-        if let Some(node) = self.nodes.get(id) {
+        let key = (self.observations, id.to_owned());
+        if let Some(node) = self.nodes.get(&key) {
             return Ok(node.clone());
         }
         if self.internal(id) {
             return Err(OrdinaryCarrierError::Shape);
         }
-        if !self.active.insert(id.to_owned()) {
+        if !self.active.insert(key.clone()) {
             return Err(OrdinaryCarrierError::Cycle);
         }
         let carrier = self
@@ -154,9 +345,13 @@ impl Relations<'_> {
                     let OrdinaryShape::Sum { arms } = &carrier.shape else {
                         return Err(OrdinaryCarrierError::Shape);
                     };
-                    self.sum(arms, &n(id), false)?
+                    self.sum(arms, &relation_name(id, self.observations), false)?
                 } else {
-                    self.shape(&carrier.shape, &n(id), order.as_deref())?
+                    self.shape(
+                        &carrier.shape,
+                        &relation_name(id, self.observations),
+                        order.as_deref(),
+                    )?
                 }
             }
         };
@@ -169,9 +364,16 @@ impl Relations<'_> {
         if total && node.compare.is_none() {
             return Err(OrdinaryCarrierError::Shape);
         }
-        self.nodes.insert(id.to_owned(), node.clone());
-        self.active.remove(id);
+        self.nodes.insert(key.clone(), node.clone());
+        self.active.remove(&key);
         Ok(node)
+    }
+    fn source_observation(&mut self, id: &str) -> R<Node> {
+        let previous = self.observations;
+        self.observations = true;
+        let result = self.ty(id);
+        self.observations = previous;
+        result
     }
     fn eq_word(&mut self, left: u32, right: u32) -> R<u32> {
         let eq = self.raw(32, false)?.equal;
@@ -182,7 +384,21 @@ impl Relations<'_> {
         self.eq_word(value, zero)
     }
     fn getter(&mut self, name: &str, source: u32, target: u32, prefix: &[bool]) -> R<String> {
-        project(&mut self.b, name, source, target, prefix, None)?;
+        if self.shared_folds {
+            if source.checked_sub(target) != Some(prefix.len() as u32) {
+                return Err(OrdinaryCarrierError::Shape);
+            }
+            let value = self.b.var(0)?;
+            let address = prefix
+                .iter()
+                .map(|&v| bit(&mut self.b, v))
+                .collect::<R<Vec<_>>>()?;
+            let body = self.b.app(value, address)?;
+            define(&mut self.b, name, &[source], target, body)?;
+        } else {
+            // Keep the predecessor relation program's pinned emission bytes.
+            project(&mut self.b, name, source, target, prefix, None)?;
+        }
         Ok(name.to_owned())
     }
     fn product(
@@ -318,12 +534,24 @@ impl Relations<'_> {
         let array_depth = index_bits + child.depth;
         let payload = 5.max(array_depth);
         let depth = payload + 1;
-        let fold = ordered_fold::emit_fold(&mut self.b, index_bits)?;
+        let fold = if self.shared_folds {
+            let d = aggregate_fold::emit_fold(&mut self.b, index_bits)?;
+            OrdinaryOrderedFoldDefinition {
+                index_bits: d.index_bits,
+                capacity: d.capacity,
+                first_definition: d.first_definition,
+                any_definition: d.any_definition,
+                all_definition: d.all_definition,
+            }
+        } else {
+            ordered_fold::emit_fold(&mut self.b, index_bits)?
+        };
         let mut length_address = vec![false];
         length_address.extend(vec![false; (payload - 5) as usize]);
         let length = self.getter(&format!("{name}.Length"), depth, 5, &length_address)?;
-        let source = self.b.var(child.depth + 1)?;
-        let index = self.b.var(child.depth)?;
+        let selectors = if self.shared_folds { 0 } else { child.depth };
+        let source = self.b.var(selectors + 1)?;
+        let index = self.b.var(selectors)?;
         let mut address = vec![bit(&mut self.b, true)?];
         address.extend(vec![
             bit(&mut self.b, false)?;
@@ -336,9 +564,9 @@ impl Relations<'_> {
                 .collect::<R<Vec<_>>>()?;
             address.push(self.b.app(index, a)?);
         }
-        address.extend(self.b.selectors(child.depth)?);
+        address.extend(self.b.selectors(selectors)?);
         let body = self.b.app(source, address)?;
-        let body = self.b.wrap_selectors(child.depth, body)?;
+        let body = self.b.wrap_selectors(selectors, body)?;
         let read = format!("{name}.ReadAt");
         define(&mut self.b, &read, &[depth, 5], child.depth, body)?;
         // Build a 32-bit index from the low-first index selector group.
@@ -414,6 +642,53 @@ impl Relations<'_> {
         }
     }
 }
+/// Emit precisely the collection key relations into the caller's existing core
+/// context. Keep the builder and all dependency/cost accounting intact.
+pub(in super::super) fn emit_ordered_key_relations(
+    vir: &ValidatedPracticalVir,
+    layouts: &OrdinaryCarrierProgram,
+    b: Builder,
+    keys: &BTreeSet<String>,
+) -> R<(Builder, Vec<OrdinaryRelationDefinition>)> {
+    if keys.is_empty() {
+        return Ok((b, vec![]));
+    }
+    let mut r = Relations {
+        vir,
+        shared_folds: true,
+        observations: false,
+        carriers: layouts
+            .carriers()
+            .iter()
+            .map(|c| (c.type_id.clone(), c.clone()))
+            .collect(),
+        b,
+        nodes: BTreeMap::new(),
+        active: BTreeSet::new(),
+        raw: BTreeMap::new(),
+        special: BTreeMap::new(),
+        storage: StorageCache::default(),
+    };
+    ordered_fold::auxiliary(&mut r.b)?;
+    let mut definitions = vec![];
+    for id in keys {
+        let node = r.ty(id)?;
+        if node.compare.is_none() {
+            return Err(OrdinaryCarrierError::Shape);
+        }
+        definitions.push(OrdinaryRelationDefinition {
+            carrier: r
+                .carriers
+                .get(id)
+                .ok_or(OrdinaryCarrierError::Linkage)?
+                .clone(),
+            equality_definition: node.equal,
+            compare_definition: node.compare,
+        });
+    }
+    Ok((r.b, definitions))
+}
+
 pub fn generate_csharp_practical_ordinary_relations(
     vir: &ValidatedPracticalVir,
 ) -> R<OrdinaryRelationProgram> {
@@ -425,12 +700,15 @@ pub fn generate_csharp_practical_ordinary_relations(
         .collect();
     let mut r = Relations {
         vir,
+        shared_folds: false,
+        observations: false,
         carriers,
         b: Builder::new()?,
         nodes: BTreeMap::new(),
         active: BTreeSet::new(),
         raw: BTreeMap::new(),
         special: BTreeMap::new(),
+        storage: StorageCache::default(),
     };
     r.b.helpers(5)?;
     let mut definitions = vec![];
@@ -475,3 +753,34 @@ pub fn import_csharp_practical_ordinary_relations(
     }
     Ok(expected)
 }
+
+#[path = "csharp_practical_ordinary_domains.rs"]
+mod domains;
+pub use domains::{
+    generate_csharp_practical_ordinary_domains, import_csharp_practical_ordinary_domains,
+    OrdinaryDomainDefinition, OrdinaryDomainProgram,
+};
+
+pub use domains::{
+    generate_csharp_practical_ordinary_collections, import_csharp_practical_ordinary_collections,
+    OrdinaryCollectionDefinition, OrdinaryCollectionFailure, OrdinaryCollectionOperation,
+    OrdinaryCollectionProgram,
+};
+
+pub use domains::{
+    generate_csharp_practical_ordinary_structural_boundary,
+    generate_csharp_practical_ordinary_structural_foundations,
+    generate_csharp_practical_ordinary_structural_public,
+    import_csharp_practical_ordinary_structural_boundary,
+    import_csharp_practical_ordinary_structural_foundations,
+    import_csharp_practical_ordinary_structural_public, OrdinaryDeferredFoundationInstance,
+    OrdinaryStructuralFoundationProgram,
+};
+
+pub use domains::{
+    generate_csharp_practical_ordinary_public_defaults,
+    generate_csharp_practical_ordinary_public_domains,
+    import_csharp_practical_ordinary_public_defaults,
+    import_csharp_practical_ordinary_public_domains, OrdinaryPublicDefaultDefinition,
+    OrdinaryPublicDomainDefinition, OrdinaryPublicDomainProgram,
+};

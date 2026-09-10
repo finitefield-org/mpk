@@ -1,0 +1,258 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.money_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "partial_money_definitions_verified_not_unit_completion",
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_money_ops.rs",
+      "sha256": "e33b3f357a6398136bd8118860f08cbd367f9d3336f0ca110a2f8b36cacb1e76"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_money_tests.rs",
+      "sha256": "25455678329ece0925ae0992dd710de20be474e92ded234c9e9a88bb6deb9e60"
+    }
+  ],
+  "candidate_certificates": [
+    {
+      "path": "money-operations/binding-vc-money.hex",
+      "file_sha256": "671b95ebb55c1c12899698a374544ec07fb9ea061e71f02d026c1c2dfccc2285",
+      "certificate_sha256": "cc5f1bac0ed7a9720ce0df8b8a46df1fec8468c1d04538ec05f7ad7d0c5ae01e",
+      "source_ir_sha256": "f77204c2a00427fcb6a751294aa81ab810942a8faaaebec14f62ba278a59ce11",
+      "terms": 146884,
+      "declarations": 1545,
+      "static_transformers": 10423
+    },
+    {
+      "path": "money-operations/shared-string-enum-money.hex",
+      "file_sha256": "995da4da80c0c1585af670423917ef88269ff47db667e9ed82b752d28ac5e72a",
+      "certificate_sha256": "c977fec8b150d0ae7997cf60a4a30d7e43bb798aabbbc6e7593fb2ae21f5167b",
+      "source_ir_sha256": "35772ddbea39f8ec3714ee215dda330f1d07f663dba935b5bf4a766023efc53e",
+      "terms": 147163,
+      "declarations": 1599,
+      "static_transformers": 10439
+    }
+  ],
+  "completed_checks": [
+    {
+      "scope": "original source generation and all metadata/certificate mutations",
+      "status": "passed",
+      "command": "MPK_W09_MONEY_OUT=/tmp/mpk-w09-money-v4 cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_money_original_source_certificates -- --nocapture",
+      "log": "/tmp/mpk-w09-money-source-v4.log",
+      "log_sha256": "7382245be424ae96937c7660ee8f26cf1eeb0914febc40309a01df4d5496dd65"
+    },
+    {
+      "scope": "scoped library and practical-test lint before the additional request test",
+      "status": "passed",
+      "command": "cargo clippy -p mpk-vc --lib --test csharp_practical_vc -- -D warnings",
+      "log": "/tmp/mpk-w09-money-clippy-v1.log",
+      "log_sha256": "32f2c15dc995c5f3d82e433e3dcd7c18b9916102201e712fd797b2335188e21d"
+    },
+    {
+      "scope": "five inventory tests",
+      "status": "passed",
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "log": "/tmp/mpk-w09-money-inventory-v1.log",
+      "log_sha256": "e76b87eb1fa438069ad6db3db39c4b031ea2b5e8a14aa40ad053417ceb3561fb"
+    },
+    {
+      "scope": "format after export ordering correction, before additional request test",
+      "status": "passed",
+      "command": "cargo fmt --all -- --check",
+      "log": "/tmp/mpk-w09-money-format-v2.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "scope": "additional original source request generation",
+      "status": "passed",
+      "command": "MPK_W09_MONEY_REQUESTS_OUT=/tmp/mpk-w09-money-requests-v1.json cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_money_source_requests -- --nocapture",
+      "log": "/tmp/mpk-w09-money-requests-v1.log",
+      "log_sha256": "bf2a7dea6fcfab29ba8d7d6b52f0ee634e7d68accfb201e8f3b4a1106108e847"
+    },
+    {
+      "scope": "exact original one-source pin replay before additional source",
+      "status": "passed",
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_money_original_source_certificates -- --nocapture",
+      "log": "/tmp/mpk-w09-money-pinned-replay-v1.log",
+      "log_sha256": "e84a3914b2b9b50a9d95f04a135869ac9745a09a4c7501d8f17774be04878961"
+    },
+    {
+      "scope": "both actual sources, three concrete Money instances, 30 operations, generation and mutations",
+      "status": "passed",
+      "command": "MPK_W09_MONEY_OUT=/tmp/mpk-w09-money-v5 cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_money_original_source_certificates -- --nocapture",
+      "log": "/tmp/mpk-w09-money-source-v5.log",
+      "log_sha256": "a212309daefc553367e2a800cb84de5c8e3074540708219d77d4b8ba179f4d98"
+    },
+    {
+      "scope": "both exact certificate pins and additional source request replay",
+      "status": "passed",
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc -- csharp_03_t06_w09_money_original_source_certificates csharp_03_t06_w09_money_source_requests --test-threads=1 --nocapture",
+      "log": "/tmp/mpk-w09-money-pinned-replay-v2.log",
+      "log_sha256": "053669774d92ff3cfbee8a60db4104f61fb18dbfb1d462d570ea588a22f0e75c"
+    },
+    {
+      "scope": "original binding-vc-money pin accepted with zero axioms by both unchanged checkers; hash corruptions rejected",
+      "status": "passed",
+      "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIMoneyOperations$' -count=1 -timeout 0 -v",
+      "log": "/tmp/mpk-w09-money-checkers-v3.log",
+      "log_sha256": "cd89cfb2684388c8a17e8b26f6aac556bbeee41a181c9396a907d79cb2175cb2"
+    },
+    {
+      "scope": "current 100-case oracle input/error-label audit; does NOT evaluate generated operation bodies",
+      "status": "passed",
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_money_oracle_case_domains -- --nocapture",
+      "log": "/tmp/mpk-w09-money-oracle-audit-v1.log",
+      "log_sha256": "8765819eecd55d6eb7ed68560b3e30c5e391cd959097c7b57b7813b32d294ead"
+    },
+    {
+      "scope": "scoped lint after named-error assertion strengthening, before observer callback extraction",
+      "status": "passed",
+      "command": "cargo clippy -p mpk-vc --lib --test csharp_practical_vc -- -D warnings",
+      "log": "/tmp/mpk-w09-money-clippy-v3.log",
+      "log_sha256": "15c218eb65f2a8abeefe7d4e7c8044786516cb548287bd22c7fc95fe87184df9"
+    },
+    {
+      "scope": "five inventory tests including additional source/test files",
+      "status": "passed",
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "log": "/tmp/mpk-w09-money-inventory-v2.log",
+      "log_sha256": "96327c7a124b8ff009908250f7a4ed8988c294ffe35eec13f29f8ee1aec212d0"
+    },
+    {
+      "scope": "format after named-error assertion strengthening, before observer callback extraction",
+      "status": "passed",
+      "command": "cargo fmt --all -- --check",
+      "log": "/tmp/mpk-w09-money-format-v4.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "scope": "exact source request bytes and identical 100-case oracle input/error-label audit, not generated operation execution",
+      "status": "passed",
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc -- csharp_03_t06_w09_money_source_requests csharp_03_t06_w09_money_oracle_case_domains --test-threads=1 --nocapture",
+      "log": "/tmp/mpk-w09-money-request-oracle-v2.log",
+      "log_sha256": "05405caa600d3d57efbca22e19adfd88a59620b51956f388eebab6d1c20d7388"
+    },
+    {
+      "scope": "final scoped lint after observer callback extraction and exact request-byte assertion",
+      "status": "passed",
+      "command": "cargo clippy -p mpk-vc --lib --test csharp_practical_vc -- -D warnings",
+      "log": "/tmp/mpk-w09-money-clippy-v4.log",
+      "log_sha256": "ec715aefe7a9ae82a58955c98e93fd4168cbf49e571d8cc5b6d1c8eaca0627ae"
+    },
+    {
+      "scope": "final Rust formatting",
+      "status": "passed",
+      "command": "cargo fmt --all -- --check",
+      "log": "/tmp/mpk-w09-money-format-v5.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "scope": "shared string/enum pin accepted by both unchanged checkers with zero axioms; hash corruption rejected",
+      "status": "passed",
+      "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIMoneyOperations$/shared-string-enum-money.hex$' -count=1 -timeout 0 -v",
+      "log": "/tmp/mpk-w09-money-shared-checkers-v2.log",
+      "log_sha256": "a45f74da5941f4d0e653d15880cafcc7c5d595ed1470759beeaa1bb14fc01a4f"
+    },
+    {
+      "scope": "Money pin bytes unchanged after source-observation mode and cache separation in shared relation machinery",
+      "status": "passed",
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc -- csharp_03_t06_w09_relations_original_source_certificates csharp_03_t06_w09_money_original_source_certificates csharp_03_t06_w09_observations_original_source_certificates csharp_03_t06_w09_structural_foundation_original_sources --test-threads=2 --nocapture",
+      "log": "/tmp/mpk-w09-observations-pinned-replay-v2.log",
+      "log_sha256": "6b19392dddde63cddbf1550a70a921c6f8cec5da2bb6df028019957371e359dc"
+    },
+    {
+      "scope": "shared string/enum Money, all 20 operations and 22 ordinary observations",
+      "status": "passed",
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_money_shared_string_enum_semantics -- --nocapture",
+      "duration_seconds": 3950.06,
+      "log": "/tmp/mpk-w09-money-shared-semantics-v2.log",
+      "log_sha256": "0d1c97ab6ad49ff6745a601e292c95cb1156ffb2790afd916537093265957b0e",
+      "version_scope": "initial observer assertion version, same generated bytes and inputs; supplemented by the completed current 100-case named-error oracle audit, which does not replace ordinary evaluation"
+    },
+    {
+      "scope": "original binding-vc-money, all ten operations and 78 ordinary observations",
+      "status": "passed",
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_money_original_source_semantics -- --nocapture",
+      "duration_seconds": 18164.08,
+      "log": "/tmp/mpk-w09-money-semantics-v1.log",
+      "log_sha256": "ff1a0f95229208c425eee5f734fcc23d122948b70d4659c9001e82b1e764b04c",
+      "version_scope": "Initial observer assertion version; same generated bytes and case inputs. Completed current 100-case named-error oracle audit proves every error in these exact inputs is named, addressing the None==None observer concern without substituting for ordinary execution."
+    }
+  ],
+  "live_jobs": [],
+  "pending_checks": [],
+  "corrected_generation_findings": [
+    {
+      "log": "/tmp/mpk-w09-money-source-v1.log",
+      "finding": "nonexistent word Equal reference and duplicate D9 helper emission; original source generation failed Linkage",
+      "resolution": "compare complete u32 words with existing Less in both directions; reuse D9 helpers; v4 passed"
+    },
+    {
+      "log": "/tmp/mpk-w09-money-source-v2.log",
+      "finding": "duplicate D9 helper emission remained after replacing Equal",
+      "resolution": "v3 diagnostics identified multiply/round emission; guarded existing D9 helpers; removed temporary diagnostics; v4 passed"
+    }
+  ],
+  "non_evidence_attempts": [
+    {
+      "log": "/tmp/mpk-w09-money-checkers-v1.log",
+      "reason": "checkeragreement build tag omitted; no tests ran"
+    },
+    {
+      "log": "/tmp/mpk-w09-money-checkers-v2.log",
+      "reason": "sandbox denied default Go cache; v3 uses writable /tmp cache"
+    },
+    {
+      "log": "/tmp/mpk-w09-money-shared-checkers-v1.log",
+      "reason": "wrong Go working directory; v2 runs in go-tools/mpk-checker-ref"
+    },
+    {
+      "log": "/tmp/mpk-w09-money-shared-semantics-v1.log",
+      "reason": "compile failed: test Enum input lacked underlying field; fixed to frozen source i32 underlying type"
+    }
+  ],
+  "scope_limits": [
+    "Create currency predicate is an explicit ordinary function parameter; no application predicate proof is inferred",
+    "Normal/failure definitions assume validated operand domains and frozen error order",
+    "Finite observations and helper typing do not discharge universal application VCs",
+    "Both source semantic matrices, exact pins and both checker runs have passed within this finite Money component. Source currency/native proofs and full unit-4/W09 review remain separate.",
+    "Unit 3 deep tests and final review remain open; units 4-8 retain all original requirements, including bindings/codecs, source/native and transition relations, proof assembly and W09 acceptance"
+  ],
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "status": "deferred to T06-W12"
+  },
+  "commit_status": "uncommitted; no new commit or push",
+  "additional_source_capture": {
+    "schema": "mpk.csharp_practical.t06_w09.money_source_capture.v1",
+    "requests": "requests.json",
+    "responses": "responses.json",
+    "source_origin": "original MoneyCases.Envelope identity root containing source StringMoney and EnumMoney with content-bound money bindings",
+    "request_generator": "csharp_03_t06_w09_money_source_requests",
+    "capture_command": "./scripts/build-csharp-practical-frontend.sh --test-control-emission-requests",
+    "environment": "existing mpk-java-t10-gate:local Linux amd64 image; read-only repository; network disabled; frozen frontend build-input validation",
+    "determinism": "control-emission harness captures each request twice and compares bytes",
+    "accepted": 1,
+    "rejected": 0,
+    "application_vc_proof": false,
+    "files": [
+      {
+        "path": "requests.json",
+        "sha256": "660ca61dc4e9327858f0528370d33b01efcfb9675b536ce901e356f2b3b2f48a"
+      },
+      {
+        "path": "responses.json",
+        "sha256": "7b3e974aeb01536bec5c75031ab3ecaef055acd2fbf183c5d4896d96b7073673"
+      }
+    ],
+    "status": "passed; command exit 0, one accepted request, no rejection; captured twice by Linux harness"
+  },
+  "pin_extension_check": "Both the original pin bytes and its complete metadata row compare equal before/after adding the shared string/enum source.",
+  "observer_review": {
+    "finding": "An unnamed oracle OperandType/Signature error could have matched no generated failure through None == None.",
+    "fix": "Require a named semantic error in the ordinary observation helper.",
+    "verification": "The exact 78+22 case functions pass the current named-error oracle audit. Both ordinary executions now passed on the same generated bytes and inputs: 78 cases in 18164.08 seconds and 22 shared string/enum cases in 3950.06 seconds. The audit supplies the stronger guard check and does not replace either ordinary execution.",
+    "remaining": "No live finite Money component test; source/native currency predicates, universal proofs and complete W09 review remain required."
+  },
+  "review_attachment": "unit-4-money-review.md"
+}

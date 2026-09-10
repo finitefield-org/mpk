@@ -1,0 +1,15 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error[E0603]: function `emit` is private
+   --> crates/mpk-vc/src/csharp_practical_ordinary_json_envelopes.rs:794:57
+    |
+794 |         let raw = super::super::super::json_raw_limits::emit(&mut b).unwrap();
+    |                                                         ^^^^ private function
+    |
+note: the function `emit` is defined here
+   --> crates/mpk-vc/src/csharp_practical_ordinary_json_raw_limits.rs:199:1
+    |
+199 | fn emit(b: &mut Builder) -> R<OrdinaryJsonRawLimitsDefinition> {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+For more information about this error, try `rustc --explain E0603`.
+error: could not compile `mpk-vc` (lib test) due to 1 previous error

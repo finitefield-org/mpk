@@ -16,7 +16,7 @@ fn not(b: &mut Builder, x: u32) -> R<u32> {
     let t = bit(b, true)?;
     mux(b, x, f, t)
 }
-fn read_bit(b: &mut Builder, value: u32, index: u32) -> R<u32> {
+pub(super) fn read_bit(b: &mut Builder, value: u32, index: u32) -> R<u32> {
     let address = prefix(5, index)
         .into_iter()
         .map(|v| bit(b, v))
@@ -46,13 +46,16 @@ fn make_word(b: &mut Builder, values: &[u32]) -> R<u32> {
     }
     b.wrap_selectors(5, out)
 }
-fn helper(b: &mut Builder, n: &str, args: Vec<u32>) -> R<u32> {
+pub(super) fn helper(b: &mut Builder, n: &str, args: Vec<u32>) -> R<u32> {
     call(b, &name(n), args)
 }
-fn cube_mux(b: &mut Builder, d: u32, active: u32, yes: u32, no: u32) -> R<u32> {
+pub(super) fn cube_mux(b: &mut Builder, d: u32, active: u32, yes: u32, no: u32) -> R<u32> {
     call(b, &format!("{PREFIX}.Cube.D{d}.Mux"), vec![active, yes, no])
 }
-fn auxiliary(b: &mut Builder) -> R<()> {
+pub(super) fn auxiliary(b: &mut Builder) -> R<()> {
+    if b.globals.contains_key(&name("Active")) {
+        return Ok(());
+    }
     for d in [5, STATE] {
         if !b.globals.contains_key(&format!("{PREFIX}.Cube.D{d}.Mux")) {
             b.helpers(d)?;
@@ -292,7 +295,7 @@ pub(super) fn emit_fold(b: &mut Builder, depth: u32) -> R<OrdinaryOrderedFoldDef
     }
     Ok(definition)
 }
-fn collect_depths(shape: &OrdinaryShape, depths: &mut BTreeSet<u32>) -> R<()> {
+pub(super) fn collect_depths(shape: &OrdinaryShape, depths: &mut BTreeSet<u32>) -> R<()> {
     match shape {
         OrdinaryShape::Bits { .. } | OrdinaryShape::Reference { .. } => {}
         OrdinaryShape::RoleBound { value, .. } => collect_depths(value, depths)?,
@@ -368,6 +371,128 @@ pub fn import_csharp_practical_ordinary_ordered_folds(
 mod tests {
     use super::super::super::tests::{apply, bit as observed_bit, run, V};
     use super::*;
+    #[test]
+    fn csharp_03_t06_w09_calendar_json_and_collection_budget() {
+        use super::super::super::scalar_bits::emit_boundary_json_for_carriers;
+        let mut b = Builder::new().unwrap();
+        emit_fold(&mut b, 14).unwrap();
+        let carriers = [("date", 32), ("time", 64)]
+            .into_iter()
+            .map(|(token, width)| OrdinaryCarrier {
+                type_id: format!("mpk.csharp.value.{token}.v1"),
+                depth: address_bits(width),
+                shape: OrdinaryShape::Bits { width },
+            })
+            .collect::<Vec<_>>();
+        let combined = emit_boundary_json_for_carriers(&mut b, &carriers);
+        eprintln!("full collection/calendar/JSON: {} terms, {} declarations, {} charged transformers; emission {}", b.c.term_table.len(), b.c.declarations.len(), b.static_transformers, if combined.is_ok() {"ok"} else {"failed"});
+        let combined =
+            combined.expect("complete shared collection/calendar/JSON environment must fit");
+        let static_transformers = b.static_transformers;
+        let bytes = b.finish().unwrap();
+        let cert = decode_canonical_certificate(&bytes).unwrap();
+        crate::csharp_practical_vc_model::validate_csharp_practical_certificate_structure(&cert)
+            .unwrap();
+        let metadata = serde_json::json!({
+            "scope": "full collection/calendar/JSON definition environment; not application proofs",
+            "json": combined,
+            "terms": cert.term_table.len(), "declarations": cert.declarations.len(),
+            "static_transformers": static_transformers,
+            "certificate_sha256": mpk_cert::hash_hex(&mpk_cert::certificate_hash(&bytes)),
+        });
+        let hex = bytes
+            .iter()
+            .map(|byte| format!("{byte:02x}"))
+            .collect::<String>()
+            + "\n";
+        let metadata = serde_json::to_vec_pretty(&metadata).unwrap();
+        let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join(
+            "../../develop/migrations/csharp-03/ordinary-foundation/json-calendar-collection",
+        );
+        if let Some(out) = std::env::var_os("MPK_W09_CALENDAR_COLLECTION_OUT") {
+            let out = std::path::PathBuf::from(out);
+            std::fs::create_dir_all(&out).unwrap();
+            std::fs::write(out.join("collection-calendar-json.hex"), hex).unwrap();
+            std::fs::write(out.join("certificate.json"), metadata).unwrap();
+        } else {
+            assert_eq!(
+                std::fs::read_to_string(root.join("collection-calendar-json.hex")).unwrap(),
+                hex
+            );
+            assert_eq!(
+                std::fs::read(root.join("certificate.json")).unwrap(),
+                metadata
+            );
+        }
+    }
+    #[test]
+    fn csharp_03_t06_w09_json_and_collection_folds_share_budget() {
+        use super::super::super::scalar_bits::emit_boundary_json;
+        let mut standalone = Builder::new().unwrap();
+        let json = emit_boundary_json(&mut standalone).unwrap();
+        let standalone_bytes = standalone.finish().unwrap();
+        let pin = std::fs::read_to_string(concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/../../develop/migrations/csharp-03/ordinary-foundation/json-tokens/",
+            "document-6b96fc4eed95a1d33fa5784b9062f02fa07ac65b6aef2b4100bb91e9c2f1a613.hex"
+        ))
+        .unwrap();
+        let pinned_bytes = (0..pin.trim().len())
+            .step_by(2)
+            .map(|i| u8::from_str_radix(&pin[i..i + 2], 16).unwrap())
+            .collect::<Vec<_>>();
+        assert_eq!(
+            standalone_bytes, pinned_bytes,
+            "standalone shared-emitter preservation"
+        );
+        let mut shared = Builder::new().unwrap();
+        emit_fold(&mut shared, 14).unwrap();
+        let collection_count = shared.static_transformers;
+        assert!(
+            collection_count >= 8192,
+            "the full collection pipeline must be emitted"
+        );
+        // Structural storage may already own these generic cube helpers.
+        shared.helpers(19).unwrap();
+        shared.helpers(24).unwrap();
+        let combined = emit_boundary_json(&mut shared);
+        eprintln!("Shared collection/JSON folds: collection {collection_count}, standalone JSON {}, cumulative before result {}", json.static_transformers, shared.static_transformers);
+        assert!(combined.is_ok(), "shared emission failed: {combined:?}");
+        let combined = combined.unwrap();
+        assert!(combined.static_transformers <= 16_384);
+        let bytes = shared.finish().unwrap();
+        let cert = decode_canonical_certificate(&bytes).unwrap();
+        let directory = std::env::var_os("MPK_W09_SHARED_JSON_OUT").map(std::path::PathBuf::from);
+        let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+            .join("../../develop/migrations/csharp-03/ordinary-foundation/json-collection-shared");
+        let hex = bytes.iter().map(|b| format!("{b:02x}")).collect::<String>() + "\n";
+        let metadata = serde_json::json!({
+            "scope":"source-free full collection/JSON definition integration; not application VC proofs",
+            "collection_transformers":collection_count,
+            "static_transformers":combined.static_transformers,
+            "terms":cert.term_table.len(),"declarations":cert.declarations.len(),
+            "json":combined,
+            "certificate_sha256":mpk_cert::hash_hex(&mpk_cert::certificate_hash(&bytes))
+        });
+        if let Some(directory) = directory {
+            std::fs::create_dir_all(&directory).unwrap();
+            std::fs::write(directory.join("collection-json.hex"), hex).unwrap();
+            std::fs::write(
+                directory.join("certificate.json"),
+                serde_json::to_vec_pretty(&metadata).unwrap(),
+            )
+            .unwrap();
+        } else {
+            assert_eq!(
+                std::fs::read_to_string(root.join("collection-json.hex")).unwrap(),
+                hex
+            );
+            let pinned: serde_json::Value =
+                serde_json::from_slice(&std::fs::read(root.join("certificate.json")).unwrap())
+                    .unwrap();
+            assert_eq!(pinned, metadata);
+        }
+    }
     #[test]
     fn ordered_fold_comparator_has_linear_syntactic_traversal() {
         let mut b = Builder::new().unwrap();

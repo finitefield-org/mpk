@@ -479,7 +479,7 @@ fn remainder_stages(id: &str) -> R<(Format, [IntegerCircuit; 3])> {
     let raw = c.select(nan, &propagated, &raw);
     Ok((fmt, [initial, step, stage(id, "Finish", c, raw)]))
 }
-fn emit_floating(b: &mut Builder, id: &str) -> R<OrdinaryScalarDefinition> {
+pub(in super::super) fn emit_floating(b: &mut Builder, id: &str) -> R<OrdinaryScalarDefinition> {
     if id.starts_with("numeric.conversion.") {
         return emit_circuit(b, conversion::circuit(id)?, "Floating");
     }

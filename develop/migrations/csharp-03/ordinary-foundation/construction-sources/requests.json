@@ -1,0 +1,44 @@
+[
+  {
+    "id": "bool-construction",
+    "compilation_id": "business",
+    "roots": [
+      "mpk.csharp.source.78e51d3041e153c1b3760806931b8d1ec19c38c3ef981ce2a50473edc0ad829c"
+    ],
+    "inputs": [
+      {
+        "kind": "source",
+        "path": "src/Entry.cs",
+        "utf8": "namespace Business; public static class Entry { public static int Run(int input) { bool[] values = new bool[]{true,false,true}; return values.Length; } }\n"
+      }
+    ]
+  },
+  {
+    "id": "product-construction",
+    "compilation_id": "business",
+    "roots": [
+      "mpk.csharp.source.78e51d3041e153c1b3760806931b8d1ec19c38c3ef981ce2a50473edc0ad829c"
+    ],
+    "inputs": [
+      {
+        "kind": "source",
+        "path": "src/Entry.cs",
+        "utf8": "namespace Business; public readonly struct Pair { public readonly int X; public readonly bool Flag; public Pair(int x, bool flag) { X=x; Flag=flag; } } public static class Entry { public static int Run(int input) { Pair[] values = new Pair[]{new Pair(input,true),new Pair(2,false)}; return values.Length; } }\n"
+      }
+    ]
+  },
+  {
+    "id": "enum-construction",
+    "compilation_id": "business",
+    "roots": [
+      "mpk.csharp.source.78e51d3041e153c1b3760806931b8d1ec19c38c3ef981ce2a50473edc0ad829c"
+    ],
+    "inputs": [
+      {
+        "kind": "source",
+        "path": "src/Entry.cs",
+        "utf8": "namespace Business; public enum Kind { First=1, Second=2 } public static class Entry { public static int Run(int input) { Kind[] values = new Kind[]{Kind.First,Kind.Second}; return values.Length; } }\n"
+      }
+    ]
+  }
+]

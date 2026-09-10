@@ -1,0 +1,69 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error[E0425]: cannot find type `ValidatedPracticalVir` in this scope
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_collection_clause_tests.rs:94:64
+    |
+ 94 | fn clauses(p: &OrdinaryCollectionProgram, facts: &Value, vir: &ValidatedPracticalVir) -> Vec<J> {
+    |                                                                ^^^^^^^^^^^^^^^^^^^^^
+    |
+   ::: crates/mpk-vc/src/csharp_practical_vc_model.rs:463:1
+    |
+463 | pub struct ValidatedPracticalVc {
+    | ------------------------------- similarly named struct `ValidatedPracticalVc` defined here
+    |
+help: a struct with a similar name exists
+    |
+ 94 - fn clauses(p: &OrdinaryCollectionProgram, facts: &Value, vir: &ValidatedPracticalVir) -> Vec<J> {
+ 94 + fn clauses(p: &OrdinaryCollectionProgram, facts: &Value, vir: &ValidatedPracticalVc) -> Vec<J> {
+    |
+
+error[E0425]: cannot find value `roots` in this scope
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_collection_clause_tests.rs:105:50
+    |
+105 |             OrderedCollectionModel::new(&bundle, roots, closed, &d.carrier.type_id).unwrap();
+    |                                                  ^^^^^ not found in this scope
+    |
+note: function `crate::ordinary_carriers::structural_equivalence_tests::roots` exists but is inaccessible
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_structural_equivalence_tests.rs:5:1
+    |
+  5 | fn roots(value: &Value, names: &mut BTreeSet<String>) {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ not accessible
+
+error[E0425]: cannot find value `closed` in this scope
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_collection_clause_tests.rs:105:57
+    |
+105 |             OrderedCollectionModel::new(&bundle, roots, closed, &d.carrier.type_id).unwrap();
+    |                                                         ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `closed` in this scope
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_collection_clause_tests.rs:107:55
+    |
+107 |         for (value, query) in cases(d, &types, facts, closed) {
+    |                                                       ^^^^^^ not found in this scope
+
+error[E0061]: this function takes 3 arguments but 5 arguments were supplied
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_collection_clause_tests.rs:199:23
+    |
+199 |         let clauses = clauses(
+    |                       ^^^^^^^
+...
+203 |             emitted.closure().roots(),
+    |             ------------------------- unexpected argument #4 of type `&mpk_vc::csharp_practical_vir_model::ValidatedClosedRootSet`
+204 |             emitted.closure().closed(),
+    |             -------------------------- unexpected argument #5 of type `&mpk_vc::csharp_practical_vir_model::ClosedInstanceSet`
+    |
+note: function defined here
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_collection_clause_tests.rs:94:4
+    |
+ 94 | fn clauses(p: &OrdinaryCollectionProgram, facts: &Value, vir: &ValidatedPracticalVir) -> Vec<J> {
+    |    ^^^^^^^
+help: remove the extra arguments
+    |
+202 -             emitted.vir(),
+203 -             emitted.closure().roots(),
+204 -             emitted.closure().closed(),
+202 +             emitted.vir(),
+    |
+
+Some errors have detailed explanations: E0061, E0425.
+For more information about an error, try `rustc --explain E0061`.
+error: could not compile `mpk-vc` (test "csharp_practical_vc") due to 5 previous errors

@@ -1,0 +1,20 @@
+Executing ['go', 'test', '-C', 'go-tools/mpk-checker-ref', '-tags', 'checkeragreement', '-run', '^TestCheckerAgreementWithRustCLICalendarCodecs$/^(codec\\-date\\-source\\.hex|codec\\-time\\-source\\.hex)$', '-count=1', '-timeout', '0', '-v']
+=== RUN   TestCheckerAgreementWithRustCLICalendarCodecs
+=== RUN   TestCheckerAgreementWithRustCLICalendarCodecs/codec-date-source.hex
+=== RUN   TestCheckerAgreementWithRustCLICalendarCodecs/codec-time-source.hex
+--- PASS: TestCheckerAgreementWithRustCLICalendarCodecs (137.59s)
+    --- PASS: TestCheckerAgreementWithRustCLICalendarCodecs/codec-date-source.hex (91.42s)
+    --- PASS: TestCheckerAgreementWithRustCLICalendarCodecs/codec-time-source.hex (46.17s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	138.065s
+Executing ['go', 'test', '-C', 'go-tools/mpk-checker-ref', '-tags', 'checkeragreement', '-run', '^TestCheckerAgreementWithRustCLIJsonCalendar$/^(date\\-structural\\.hex|date\\-time\\-decimal\\-structural\\.hex|date\\-time\\-decimal\\-tokens\\.hex|date\\-time\\-structural\\.hex|date\\-tokens\\.hex|time\\-structural\\.hex|time\\-tokens\\.hex)$', '-count=1', '-timeout', '0', '-v']
+=== RUN   TestCheckerAgreementWithRustCLIJsonCalendar
+=== RUN   TestCheckerAgreementWithRustCLIJsonCalendar/date-structural.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonCalendar/date-time-decimal-structural.hex
+signal: terminated
+FAIL	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	676.513s
+Traceback (most recent call last):
+  File "<stdin>", line 9, in <module>
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['go', 'test', '-C', 'go-tools/mpk-checker-ref', '-tags', 'checkeragreement', '-run', '^TestCheckerAgreementWithRustCLIJsonCalendar$/^(date\\-structural\\.hex|date\\-time\\-decimal\\-structural\\.hex|date\\-time\\-decimal\\-tokens\\.hex|date\\-time\\-structural\\.hex|date\\-tokens\\.hex|time\\-structural\\.hex|time\\-tokens\\.hex)$', '-count=1', '-timeout', '0', '-v']' returned non-zero exit status 1.

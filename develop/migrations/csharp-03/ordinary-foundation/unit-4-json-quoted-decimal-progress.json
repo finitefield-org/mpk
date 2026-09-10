@@ -1,0 +1,217 @@
+{
+  "schema": "mpk.csharp_practical.w09.json_quoted_decimal_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "source_preservation_limits_changed_checkers_and_all_settings_runtime_passed",
+  "implementation": "Reuse all 146 exact decimal parser configurations in the shared JSON environment. One common finish circuit combines the existing C20 string frame and original C10 closed decimal parse result. C10 token packet preserves valid/whole, every C9 decimal bit, absolute u32 end and zero padding; rejects every unsuccessful parser, frame or non-value ending. Normalized and fixed-scale/rounding identity remain in metadata.",
+  "emitter_reuse": "Extract the unchanged decimal core emission into emit_core and guard complete existing core/config definitions. A direct unit test proves identical canonical bytes to the previously dual-checked standalone decimal pin and unchanged counters on repeat emission.",
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_tokens.rs",
+      "sha256": "6b5a43aff9fad4610e683c087f76e20437242261a4e77aad530e32faa82e63f0"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_decimal_parse.rs",
+      "sha256": "acb76e2945a55556163304ced43103c4c92d4b6b2a2781d1e6be21061525d71b"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_scalar_bits.rs",
+      "sha256": "26fceb9b0e140d6c19d851bd9b5b31bdf2fd1b9986ad5770bbfcf6d06ca1f8bc"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs",
+      "sha256": "a35769d09fe22d266d684c88fb72f94f96f4844493d6667492136819ab07dcac"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+      "sha256": "90863a1c0bd8a913f4fd3a8e36f71dd6fc014ba32532ac559f7c15bbc73f355a"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_aggregate_fold.rs",
+      "sha256": "4bf0e2215ccc47735c419b0eed95e9b74db814906dc97d9d44656557dddf75a3"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_token_tests.rs",
+      "sha256": "1913704f34e6be2727fe97317758516aec83252960c5d97380556978404b6e71",
+      "before_test_followup_sha256": "a91c88455f47f4474bc43823b2fb23c14ec0f2e09126b39be78c7d3723a46940"
+    }
+  ],
+  "verification": [
+    {
+      "session_id": 66425,
+      "status": "passed",
+      "scope": "Two actual unit tests passed in 2.72s: exact unchanged standalone decimal bytes and idempotent reuse; full combined generation at 15453 transformers. An extra unmatched filter selected no test and is not counted.",
+      "log": "/tmp/mpk-w09-quoted-decimal-generation-v1.log",
+      "exit_code": 0,
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quoted-decimal/mpk-w09-quoted-decimal-generation-v1.log",
+      "log_sha256": "89b37eb3809ef221839b55639a57845ee94ddbdab8f59676de67c13eae04bdec"
+    },
+    {
+      "session_id": 7390,
+      "status": "passed",
+      "scope": "Both actual-source tests passed in 221.09s: 68 JSON contexts, four structural contexts, old JSON/decimal metadata and dependency preservation, import mutations and limits.",
+      "log": "/tmp/mpk-w09-quoted-decimal-sources-v1.log",
+      "exit_code": 0,
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quoted-decimal/mpk-w09-quoted-decimal-sources-v1.log",
+      "log_sha256": "d0ef942e75b5a64f09b2234b5c70db3a2bb397948092fc0b31486c1d169046ca"
+    },
+    {
+      "session_id": 51718,
+      "status": "failed_test_expectation",
+      "scope": "After six successful closed-setting samples, fixed scale 1 correctly preserved coefficient 10; the new test incorrectly expected coefficient 1. Reference parse_decimal and the unchanged ordinary Trim rule preserve fixed scale unless range trimming is needed. Test-only expected values corrected; production bytes unchanged.",
+      "log": "/tmp/mpk-w09-quoted-decimal-runtime-v1.log",
+      "exit_code": 101,
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quoted-decimal/mpk-w09-quoted-decimal-runtime-v1.log",
+      "log_sha256": "ae1b413f77979dfd5e866ea026238e358c8a2e3bdf7fa01cfee329652a39b8b6"
+    },
+    {
+      "session_id": 99927,
+      "status": "passed",
+      "scope": "Affected library/integration clippy passed in 44.57s including build wait.",
+      "log": "/tmp/mpk-w09-quoted-decimal-clippy-v1.log",
+      "exit_code": 0,
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quoted-decimal/mpk-w09-quoted-decimal-clippy-v1.log",
+      "log_sha256": "3552d8ba5c0053f5c6352fe5e52c36d03b7ea2e29aaa388538d6b4db576165e9"
+    },
+    {
+      "session_id": 25130,
+      "status": "passed",
+      "scope": "Both selected consumer inventory tests passed in 17.05s.",
+      "log": "/tmp/mpk-w09-quoted-decimal-consumers-v1.log",
+      "exit_code": 0,
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quoted-decimal/mpk-w09-quoted-decimal-consumers-v1.log",
+      "log_sha256": "56e93ecefb593bf86ae51dc3c2f39706ca42ce86561b8492dfa81880367fe274"
+    },
+    {
+      "session_id": 35136,
+      "status": "passed",
+      "scope": "Shared generation/pinned standalone preservation passed in 5.15s: JSON 7261 and combined 15453 transformers.",
+      "log": "/tmp/mpk-w09-quoted-decimal-shared-v1.log",
+      "exit_code": 0,
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quoted-decimal/mpk-w09-quoted-decimal-shared-v1.log",
+      "log_sha256": "f66059694700d71edf1c1fecd5b9a9c4681ebc965d82b7d0122bf389d3310004"
+    },
+    {
+      "session_id": null,
+      "status": "passed",
+      "scope": "Complete old shared JSON/collection and decimal dependency closure passed in 0.53s.",
+      "log": "/tmp/mpk-w09-quoted-decimal-shared-closure-v1.log",
+      "exit_code": 0,
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quoted-decimal/mpk-w09-quoted-decimal-shared-closure-v1.log",
+      "log_sha256": "3366f4764c01257b55017cbbb52aef1bceb1a5f761fda18e463e78c146569be0"
+    },
+    {
+      "session_id": 23118,
+      "status": "passed",
+      "scope": "One full-byte-equivalent representative for all three JSON source pins passed both checkers with zero axioms and actual hash corruption rejection in 225.47s.",
+      "log": "/tmp/mpk-w09-quoted-decimal-token-checkers-v1.log",
+      "exit_code": 0,
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quoted-decimal/mpk-w09-quoted-decimal-token-checkers-v1.log",
+      "log_sha256": "124ce438f96d62233f79a463b0437882d0a1d15df16c2227cb8ee11093ac93c8"
+    },
+    {
+      "session_id": 94779,
+      "status": "passed",
+      "scope": "All146 exact fixed/normalized setting samples passed in12839.31s; original scale/coefficient retained; terminal94779 returned exit0.",
+      "log": "/tmp/mpk-w09-quoted-decimal-settings-v2.log",
+      "exit_code": 0,
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quoted-decimal/mpk-w09-quoted-decimal-settings-v2.log",
+      "log_sha256": "ba50a66a2bb31f3bb711034e71b54a70846a494261e87972a6a5afafec21d59a"
+    },
+    {
+      "session_id": 1683,
+      "status": "passed",
+      "scope": "All 28 C10 packets passed every one of their 1024 bits in 974.98s, including corrected exact fixed-scale representations, invalid grammar/range/scale, ending and original full bounds.",
+      "log": "/tmp/mpk-w09-quoted-decimal-runtime-v2.log",
+      "exit_code": 0,
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quoted-decimal/mpk-w09-quoted-decimal-runtime-v2.log",
+      "log_sha256": "1945973a60e4b116e9cc520b458999d16d01457a1bb34e3fe4a53b10e1efdf77"
+    },
+    {
+      "session_id": 63479,
+      "status": "passed",
+      "scope": "Compare all previous combined structural declarations, normalizing only verified aggregate reassociation where present. Passed in 1.57s.",
+      "log": "/tmp/mpk-w09-quoted-decimal-structural-preservation-v1.log",
+      "exit_code": 0,
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quoted-decimal/mpk-w09-quoted-decimal-structural-preservation-v1.log",
+      "log_sha256": "c4098e9bfe1b5b86716c7d9bb198ec1ca0ade4d269582b8694acaab7a7af191f"
+    },
+    {
+      "session_id": 31846,
+      "status": "passed",
+      "scope": "All five distinct shared/structural vectors passed both unchanged checkers with zero axioms and hash-corruption rejection in 1249.942s. The terminal handle returned exit 0.",
+      "log": "/tmp/mpk-w09-quoted-decimal-combined-checkers-v1.log",
+      "exit_code": 0,
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quoted-decimal/mpk-w09-quoted-decimal-combined-checkers-v1.log",
+      "log_sha256": "845fb489a0bf9f14a4a392f46f665f5ea9d30f6859f73d2d1d7163c621f9ed22"
+    },
+    {
+      "session_id": 1997,
+      "status": "passed",
+      "scope": "Targeted lint after test expectation correction and aliased-consumer audit additions. Passed in 14.29s including build wait.",
+      "log": "/tmp/mpk-w09-quoted-decimal-clippy-v2.log",
+      "exit_code": 0,
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/quoted-decimal/mpk-w09-quoted-decimal-clippy-v2.log",
+      "log_sha256": "bb8b865106c97397529bbb39620e4650c074574b0ccb2b11cb1a31be8f6a87b6"
+    }
+  ],
+  "test_selection": "Only new quoted decimal runtime composition is evaluated; earlier JSON/quoted hex/string/integer semantic suites are reused after complete definition preservation. Standalone decimal bytes are exactly unchanged after emission reuse, so their already passed semantic and checker results are retained. Regenerate/check only changed token/shared/structural vectors, using full-byte comparison to avoid duplicate checking. No check-fast or split whole gate in W09.",
+  "archives": "previous-quoted-decimal in json-tokens, json-collection-shared, structural-boundary and decimal-json-collection-shared retain the previously checked exact vectors.",
+  "aggregate_runtime": "Aggregate maximum capacity/group/modes runtime passed all three tests in 777.48s. Additional direct/aliased consumers were subsequently discovered; their source regeneration/preservation/checker work is explicitly reopened in the aggregate receipt.",
+  "pending": [
+    "Complete additional aggregate aliased consumers and all remaining W09 units 3 through 8"
+  ],
+  "whole_gate": "Deferred to T06-W12.",
+  "completion": "W09 incomplete; no component-only commit or push.",
+  "previous_goal_turn_classification": "progress: aggregate regroup preservation/limit/source/byte evidence implemented; checker completion and quoted codec runtime results recorded.",
+  "this_goal_turn_classification": "progress: consumed final five combined checker results; validated four actual calendar source captures and started cumulative generation measurement.",
+  "pins": {
+    "json-tokens": {
+      "manifest": "develop/migrations/csharp-03/ordinary-foundation/json-tokens/certificates.json",
+      "sha256": "d8d59eb01a45a65ad8bdb9dd1753ed3f9ce9a0a0fd535437ff8ebc9cfc53f700",
+      "staging": "Generated exact bytes and metadata copied then read back. JSON source pins explicitly byte-equal; unit-void structural pin explicitly unchanged; two shared environment vectors explicitly unequal."
+    },
+    "json-collection-shared": {
+      "manifest": "develop/migrations/csharp-03/ordinary-foundation/json-collection-shared/certificate.json",
+      "sha256": "ad2ac2747fed587a444fa92c052686e2d14c4ae23d9e3929e091a55911e61272",
+      "staging": "Generated exact bytes and metadata copied then read back. JSON source pins explicitly byte-equal; unit-void structural pin explicitly unchanged; two shared environment vectors explicitly unequal."
+    },
+    "decimal-json-collection-shared": {
+      "manifest": "develop/migrations/csharp-03/ordinary-foundation/decimal-json-collection-shared/certificate.json",
+      "sha256": "88ac3b3642433382b67a6beaf63676f53a705fda973366d2e534bf637c7d0802",
+      "staging": "Generated exact bytes and metadata copied then read back. JSON source pins explicitly byte-equal; unit-void structural pin explicitly unchanged; two shared environment vectors explicitly unequal."
+    },
+    "structural-boundary": {
+      "manifest": "develop/migrations/csharp-03/ordinary-foundation/structural-boundary/certificates.json",
+      "sha256": "53a70d158e9635759206dba4859c7aac43788ace4f6eb4691eed9e7f6f7c0144",
+      "staging": "Generated exact bytes and metadata copied then read back. JSON source pins explicitly byte-equal; unit-void structural pin explicitly unchanged; two shared environment vectors explicitly unequal."
+    }
+  },
+  "review": {
+    "path": "unit-4-json-quoted-decimal-review.md",
+    "findings": [],
+    "remaining": "Full W09 implementation/review remain incomplete.",
+    "resolved_findings": [
+      "Test oracle assumed fixed-scale parse normalized its representation; corrected after checking the reference grammar and unchanged core."
+    ]
+  },
+  "observed_partial_runtime": {
+    "session_id": 1683,
+    "completed_full_packets": 28,
+    "status": "terminal suite passed"
+  },
+  "live_jobs_last_confirmed": [],
+  "combined_checker_partial_results": [
+    {
+      "case": "JsonCollectionShared/collection-json.hex",
+      "status": "passed",
+      "seconds": 182.0
+    },
+    {
+      "case": "DecimalJsonCollectionShared/collection-json-decimal.hex",
+      "status": "passed",
+      "seconds": 210.01
+    }
+  ],
+  "format_checks": "Seven implementation/test files passed scoped rustfmt before later test-only corrections; subsequent edited test files formatted. Final git diff --check passed. Targeted clippy after all test edits passed in aggregate-aliased-clippy-v1."
+}

@@ -1,0 +1,161 @@
+{
+  "schema": "mpk.csharp_practical.w09.json_boundary_fields_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "all15_source_runtime_and_same_byte_dual_checkers_passed",
+  "verification": [
+    {
+      "session_id": 79710,
+      "status": "passed_with_warning",
+      "scope": "Initial library build passed; unused zero import became used by null-state rejection fix.",
+      "log": "/tmp/mpk-w09-json-boundary-fields-build-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-boundary-fields/mpk-w09-json-boundary-fields-build-v1.log",
+      "log_sha256": "e85629e78c3bd2e4c4d08bdcdd63f8ec05ebd76d8e8fa25c2536e88362de6e07"
+    },
+    {
+      "session_id": 69607,
+      "status": "failed_compile_corrected",
+      "scope": "Test oracle used nonexistent Decimal variant; corrected to DecimalBits.",
+      "log": "/tmp/mpk-w09-json-boundary-fields-source-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-boundary-fields/mpk-w09-json-boundary-fields-source-v1.log",
+      "log_sha256": "05fdba09205af63a5309268ce3ba87009391a95ed547c21ff6fd1e617ad1c341"
+    },
+    {
+      "session_id": 26334,
+      "status": "failed_compile_corrected",
+      "scope": "Intermediate Decimal96 test variant was also incorrect; corrected to the inspected DecimalBits declaration.",
+      "log": "/tmp/mpk-w09-json-boundary-fields-source-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-boundary-fields/mpk-w09-json-boundary-fields-source-v2.log",
+      "log_sha256": "436d1cdca2e3c9ccc2b0c5d6f9c4a889bfac1a8a10f84d7440877231529294ed"
+    },
+    {
+      "session_id": 19902,
+      "status": "failed_linkage_corrected_partial_core_evidence",
+      "scope": "Six contexts completed with full carrier/packet observations and predecessor-definition preservation. Then raw_instant failed closed before core execution because its Instant codec adapter was absent; fixed by explicit validated codec dependency.",
+      "log": "/tmp/mpk-w09-json-boundary-fields-source-v3.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-boundary-fields/mpk-w09-json-boundary-fields-source-v3.log",
+      "log_sha256": "93f17bb655a0921bdb78a8894798793f10fcd7f8626af3d6f8bb52d968045a9d"
+    },
+    {
+      "session_id": 42776,
+      "status": "passed",
+      "scope": "432 complete header cases,5.89s; wrapper cells/depth/high counts/invalid padding.",
+      "log": "/tmp/mpk-w09-json-boundary-fields-header-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-boundary-fields/mpk-w09-json-boundary-fields-header-v1.log",
+      "log_sha256": "a4690c2c90f9dea314bd1273cb499feb4103aa4abc9e02f6a62f8e35869f7514"
+    },
+    {
+      "session_id": 7327,
+      "status": "passed",
+      "scope": "Corrected raw-instant source,one original document,10 complete packet cases;107.90s. Includes Int64 minimum and source/codec storage identity.",
+      "log": "/tmp/mpk-w09-json-boundary-fields-raw-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-boundary-fields/mpk-w09-json-boundary-fields-raw-v1.log",
+      "log_sha256": "e63fc17317b8646bff95399f4d53c02e9db8bf0d1688395ea4a7175131f907d7"
+    },
+    {
+      "session_id": 77273,
+      "status": "passed",
+      "scope": "Affected consumer inventory test passed19.21s; no fingerprint fixture update.",
+      "log": "/tmp/mpk-w09-json-boundary-fields-inventory-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-boundary-fields/mpk-w09-json-boundary-fields-inventory-v1.log",
+      "log_sha256": "c95978eb9433a9137d46481aa34d27ecea76ad5c49d05b6db064c7581ae7dfc3"
+    },
+    {
+      "session_id": 19783,
+      "status": "passed",
+      "scope": "Rich source product reproduces exact current pinned metadata/bytes and child closures;34.44s. No repeat dual checking needed for these unchanged bytes.",
+      "log": "/tmp/mpk-w09-json-boundary-fields-products-preserved-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-boundary-fields/mpk-w09-json-boundary-fields-products-preserved-v1.log",
+      "log_sha256": "8b2aed3d620222fe5d4bd7340aa5205d333e152c367e81d22d6dbe245abfbcba"
+    },
+    {
+      "session_id": 76194,
+      "status": "passed",
+      "scope": "Final library/integration lint including explicit same-byte prior-core reuse mode;30.68s.",
+      "log": "/tmp/mpk-w09-json-boundary-fields-clippy-v3.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-boundary-fields/mpk-w09-json-boundary-fields-clippy-v3.log",
+      "log_sha256": "8640c850c90a3abd9277a65474059545e81f54154d7106c3fe0a09a20e07e7c0"
+    },
+    {
+      "session_id": null,
+      "status": "passed",
+      "scope": "Scoped Rust formatting before final test-only reuse mode; that addition was separately rustfmt formatted.",
+      "log": "/tmp/mpk-w09-json-boundary-fields-format-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-boundary-fields/mpk-w09-json-boundary-fields-format-v1.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "session_id": 31707,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Eight nullable/presence contexts,18 original documents,54 complete carrier/packet cases including immutable import and metadata/certificate mutation checks;200.88s.",
+      "log": "/tmp/mpk-w09-json-boundary-fields-later-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-boundary-fields/mpk-w09-json-boundary-fields-later-v1.log",
+      "log_sha256": "63a1d7decb479905c9ce1605bca817fba70981cdebc4a145c99d042c00c51d1f"
+    },
+    {
+      "session_id": 97829,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Six completed source contexts regenerate current metadata and match every previously executed certificate byte;63.71s. Zero core cases repeated;prior ten original documents retained by exact-byte equivalence.",
+      "log": "/tmp/mpk-w09-json-boundary-fields-reconciled-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-boundary-fields/mpk-w09-json-boundary-fields-reconciled-v1.log",
+      "log_sha256": "1779212eaf6432aeed367891d26b7c5cac73f317cb02e6dee78f492239bf8ccd"
+    },
+    {
+      "session_id": null,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Scoped formatting passed for all changed Rust source/test files after reuse-mode addition;Go gofmt listing empty.",
+      "log": "/tmp/mpk-w09-json-boundary-fields-format-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-boundary-fields/mpk-w09-json-boundary-fields-format-v2.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "session_id": 93226,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Default per-case pinned metadata/bytes assertion passed8.22s with exact prior-byte core reuse;no runtime cases repeated.",
+      "log": "/tmp/mpk-w09-json-boundary-fields-pins-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-boundary-fields/mpk-w09-json-boundary-fields-pins-v1.log",
+      "log_sha256": "c122f1267c41e84c84263fe661f6295b7c172c9d84e65eca0463f8e60ef3f113"
+    },
+    {
+      "session_id": 26370,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "Final affected library/integration lint passed19.76s after pinned-file assertion addition.",
+      "log": "/tmp/mpk-w09-json-boundary-fields-clippy-v4.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-boundary-fields/mpk-w09-json-boundary-fields-clippy-v4.log",
+      "log_sha256": "5a89055dbf031ddeb7a55381f93a3f332300cfe9db02b607d08bfa0e1865e95e"
+    },
+    {
+      "session_id": 7771,
+      "exit_code": 0,
+      "status": "passed",
+      "scope": "All15 exact pinned candidates: unchanged Rust/Go checker agreement,zero axioms and hash-corrupted rejection;4754.368s. Exact PASS filename set and candidate hashes independently reconciled.",
+      "log": "/tmp/mpk-w09-json-boundary-fields-checkers-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-boundary-fields/mpk-w09-json-boundary-fields-checkers-v1.log",
+      "log_sha256": "49e09f70d3bad868e65b28a5f3d7455c390992f3d91e16c7ecb6fe8333e51524"
+    }
+  ],
+  "live_jobs": [],
+  "raw_instant_output": "/tmp/mpk-w09-json-boundary-fields-raw-v1",
+  "prior_core_output": "/tmp/mpk-w09-json-boundary-fields-v1",
+  "review": "unit-4-json-boundary-fields-review.md",
+  "test_selection": "New header arithmetic and original boundary-input conformance for15accepted source contexts. Reuse only exact candidate bytes already exercised before the raw-instant linkage failure. Check the affected public product generator with one rich pinned source and full dependency closure,inventory,lint/format. Unchanged primitive codec/runtime families are not rerun; no check-fast or split whole gate.",
+  "pending": [
+    "Review field decoder evidence and complete remaining compound/string/configured-codec coverage during envelope integration.",
+    "Implement full envelope ordering/duplicates/missing/default bounds/source reconstruction/output and remaining W09 native/control/replay/proof/assembly/acceptance scope."
+  ],
+  "completion": "W09 and unit4 incomplete;no component-only commit/push;T gate deferred toT06-W12.",
+  "completed_output_trees": [
+    "/tmp/mpk-w09-json-boundary-fields-later-v1",
+    "/tmp/mpk-w09-json-boundary-fields-raw-v1"
+  ],
+  "candidate_directory": "json-boundary-fields",
+  "published_candidates": 15,
+  "max_terms": 142747,
+  "max_declarations": 2174,
+  "goal_turn_classification": "Progress: implemented source-linked ordinary boundary field decoders,missing literals,null/payload wrappers and exact codec selection;fixed null classification and raw-instant dependency;completed15source runtime scopes,432headers,exact prior/new byte reconciliation and rich old-product preservation;published15hash-verified candidates and started same-byte dual checking."
+}

@@ -1,0 +1,680 @@
+{
+  "contexts_examined": 64,
+  "sources": [
+    {
+      "declarations": 27,
+      "id": "bool-float-entry",
+      "metadata": {
+        "certificate_sha256": "f095f7e5c151d8f906bdaf66204464c95d985a1a1a84f7ed9282fc6a254fb136",
+        "definitions": [
+          {
+            "codec_id": "binary32",
+            "format_definition": "Mpk.CSharp.Ordinary.HexCodec.binary32.Format",
+            "parse_definition": "Mpk.CSharp.Ordinary.HexCodec.binary32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.f32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.f32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_hex_codecs.v1",
+        "source_ir_sha256": "c3ef130d712958b47c36d4fb919145c1b87d76dd551af9346ecd21aa3ff8a796"
+      },
+      "terms": 1397
+    },
+    {
+      "declarations": 49,
+      "id": "complete-snapshot",
+      "metadata": {
+        "certificate_sha256": "88500a8d5be782edffc24bae4a74a4e9ed1c18c037d0697a2722f27088fa65ce",
+        "definitions": [
+          {
+            "codec_id": "binary32",
+            "format_definition": "Mpk.CSharp.Ordinary.HexCodec.binary32.Format",
+            "parse_definition": "Mpk.CSharp.Ordinary.HexCodec.binary32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.f32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.f32.v1"
+          },
+          {
+            "codec_id": "binary64",
+            "format_definition": "Mpk.CSharp.Ordinary.HexCodec.binary64.Format",
+            "parse_definition": "Mpk.CSharp.Ordinary.HexCodec.binary64.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.f64.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "value_depth": 6,
+            "value_type_id": "mpk.csharp.value.f64.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_hex_codecs.v1",
+        "source_ir_sha256": "5d82f989204a4282a91e5947cecf54832b8c4862c2446f1b71c8a1332f4a57b3"
+      },
+      "terms": 2125
+    },
+    {
+      "declarations": 27,
+      "id": "extra-bool-float-map",
+      "metadata": {
+        "certificate_sha256": "f095f7e5c151d8f906bdaf66204464c95d985a1a1a84f7ed9282fc6a254fb136",
+        "definitions": [
+          {
+            "codec_id": "binary32",
+            "format_definition": "Mpk.CSharp.Ordinary.HexCodec.binary32.Format",
+            "parse_definition": "Mpk.CSharp.Ordinary.HexCodec.binary32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.f32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.f32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_hex_codecs.v1",
+        "source_ir_sha256": "b983194b235fafeb6275bcc5dcd3d5b5e3fb646852ff6ee09271f0eaf9ebeae3"
+      },
+      "terms": 1397
+    },
+    {
+      "declarations": 27,
+      "id": "float-sequence",
+      "metadata": {
+        "certificate_sha256": "f095f7e5c151d8f906bdaf66204464c95d985a1a1a84f7ed9282fc6a254fb136",
+        "definitions": [
+          {
+            "codec_id": "binary32",
+            "format_definition": "Mpk.CSharp.Ordinary.HexCodec.binary32.Format",
+            "parse_definition": "Mpk.CSharp.Ordinary.HexCodec.binary32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.f32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.f32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_hex_codecs.v1",
+        "source_ir_sha256": "513c132a546ee6072974926284b853f16ed246f0c582db4b628aeedfbed60579"
+      },
+      "terms": 1397
+    },
+    {
+      "declarations": 49,
+      "id": "floats",
+      "metadata": {
+        "certificate_sha256": "88500a8d5be782edffc24bae4a74a4e9ed1c18c037d0697a2722f27088fa65ce",
+        "definitions": [
+          {
+            "codec_id": "binary32",
+            "format_definition": "Mpk.CSharp.Ordinary.HexCodec.binary32.Format",
+            "parse_definition": "Mpk.CSharp.Ordinary.HexCodec.binary32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.f32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.f32.v1"
+          },
+          {
+            "codec_id": "binary64",
+            "format_definition": "Mpk.CSharp.Ordinary.HexCodec.binary64.Format",
+            "parse_definition": "Mpk.CSharp.Ordinary.HexCodec.binary64.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.f64.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "value_depth": 6,
+            "value_type_id": "mpk.csharp.value.f64.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_hex_codecs.v1",
+        "source_ir_sha256": "9f4ff2195a8b6aaba9bff2ecaebdb1cbc8ca283baa348088ad59c4921580b157"
+      },
+      "terms": 2125
+    },
+    {
+      "declarations": 93,
+      "id": "guid",
+      "metadata": {
+        "certificate_sha256": "7f1ba3f3611c8cec27439ec2310e7feda525bb1c415766e4bb6ceefd5e5195d0",
+        "definitions": [
+          {
+            "codec_id": "guid.n",
+            "format_definition": "Mpk.CSharp.Ordinary.HexCodec.guid.Codec.n.Format",
+            "parse_definition": "Mpk.CSharp.Ordinary.HexCodec.guid.Codec.n.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.guid.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "value_depth": 7,
+            "value_type_id": "mpk.csharp.value.guid.v1"
+          },
+          {
+            "codec_id": "guid.d",
+            "format_definition": "Mpk.CSharp.Ordinary.HexCodec.guid.Codec.d.Format",
+            "parse_definition": "Mpk.CSharp.Ordinary.HexCodec.guid.Codec.d.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.guid.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "value_depth": 7,
+            "value_type_id": "mpk.csharp.value.guid.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_hex_codecs.v1",
+        "source_ir_sha256": "bb95b06514ad09a7dc864ba3018ab1656d7002d6499e588c874fd89d15edd3fc"
+      },
+      "terms": 3119
+    },
+    {
+      "declarations": 27,
+      "id": "nullable-float",
+      "metadata": {
+        "certificate_sha256": "f095f7e5c151d8f906bdaf66204464c95d985a1a1a84f7ed9282fc6a254fb136",
+        "definitions": [
+          {
+            "codec_id": "binary32",
+            "format_definition": "Mpk.CSharp.Ordinary.HexCodec.binary32.Format",
+            "parse_definition": "Mpk.CSharp.Ordinary.HexCodec.binary32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.f32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.f32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_hex_codecs.v1",
+        "source_ir_sha256": "c86308a58815cf5b285d115fd0d947ee404bffaa3f110ce0b9b419d9f99f9b40"
+      },
+      "terms": 1397
+    },
+    {
+      "declarations": 27,
+      "id": "literal-f32",
+      "metadata": {
+        "certificate_sha256": "f095f7e5c151d8f906bdaf66204464c95d985a1a1a84f7ed9282fc6a254fb136",
+        "definitions": [
+          {
+            "codec_id": "binary32",
+            "format_definition": "Mpk.CSharp.Ordinary.HexCodec.binary32.Format",
+            "parse_definition": "Mpk.CSharp.Ordinary.HexCodec.binary32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.f32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.f32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_hex_codecs.v1",
+        "source_ir_sha256": "0d05e5381ee04fa16c65c5516819db60f6c38450bf6190369993b0737d893247"
+      },
+      "terms": 1397
+    },
+    {
+      "declarations": 35,
+      "id": "literal-f64",
+      "metadata": {
+        "certificate_sha256": "25b74f0fdf95a5eee861bfcddfd126834b167072c5d024d032476a85da050ef3",
+        "definitions": [
+          {
+            "codec_id": "binary64",
+            "format_definition": "Mpk.CSharp.Ordinary.HexCodec.binary64.Format",
+            "parse_definition": "Mpk.CSharp.Ordinary.HexCodec.binary64.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.f64.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "value_depth": 6,
+            "value_type_id": "mpk.csharp.value.f64.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_hex_codecs.v1",
+        "source_ir_sha256": "6328323dc9b92297fa922d05e6e19cfb2333e563f4b19b420973fc5a58ce5f90"
+      },
+      "terms": 1714
+    },
+    {
+      "declarations": 27,
+      "id": "literal-f32-nan",
+      "metadata": {
+        "certificate_sha256": "f095f7e5c151d8f906bdaf66204464c95d985a1a1a84f7ed9282fc6a254fb136",
+        "definitions": [
+          {
+            "codec_id": "binary32",
+            "format_definition": "Mpk.CSharp.Ordinary.HexCodec.binary32.Format",
+            "parse_definition": "Mpk.CSharp.Ordinary.HexCodec.binary32.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.f32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "value_depth": 5,
+            "value_type_id": "mpk.csharp.value.f32.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_hex_codecs.v1",
+        "source_ir_sha256": "6945d05dabe91398e70d40f8ae0d4d05a3974527655f19f2c248cf3cf622562c"
+      },
+      "terms": 1397
+    },
+    {
+      "declarations": 35,
+      "id": "literal-f64-infinity",
+      "metadata": {
+        "certificate_sha256": "25b74f0fdf95a5eee861bfcddfd126834b167072c5d024d032476a85da050ef3",
+        "definitions": [
+          {
+            "codec_id": "binary64",
+            "format_definition": "Mpk.CSharp.Ordinary.HexCodec.binary64.Format",
+            "parse_definition": "Mpk.CSharp.Ordinary.HexCodec.binary64.Parse",
+            "parse_result_shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.f64.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.parse_error.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "value_depth": 6,
+            "value_type_id": "mpk.csharp.value.f64.v1"
+          }
+        ],
+        "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+        "schema": "mpk.csharp.ordinary_hex_codecs.v1",
+        "source_ir_sha256": "433a7f719f68f07bedb5f26d0d72f97ab2273abd19c1031b999bcd17e0bd8cc3"
+      },
+      "terms": 1714
+    }
+  ]
+}

@@ -1,0 +1,171 @@
+{
+  "schema": "mpk.csharp_practical.w09.json_raw_limits_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "targeted_raw_scanner_source_semantics_and_same_byte_checkers_passed",
+  "verification": [
+    {
+      "session_id": 50461,
+      "status": "passed",
+      "scope": "Initial standalone raw-limit scanner builds;13.90s.",
+      "log": "/tmp/mpk-w09-json-raw-limits-build-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-raw-limits/mpk-w09-json-raw-limits-build-v1.log",
+      "log_sha256": "10091514e1df6fbd49fd0bed8ad7becf7dbad8d65ef24881a88f5de2dd4da0df"
+    },
+    {
+      "session_id": 15909,
+      "status": "failed_test_compile_corrected",
+      "scope": "Test helper missing closing brace;fixed before semantic tests.",
+      "log": "/tmp/mpk-w09-json-raw-limits-helper-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-raw-limits/mpk-w09-json-raw-limits-helper-v1.log",
+      "log_sha256": "ef48983264e4a84f124ebc7403a644a289d4d8673da4dd2a1be8c8c96fbe4052"
+    },
+    {
+      "session_id": 57115,
+      "status": "passed_prior64byte_scan",
+      "scope": "Initial64-byte block:23 full64-bit state observations pass33.46s. Initial scan generated109234terms368declarations8510transformers. Later block/group sizing changed to fit combined admission budget;retain as historical only.",
+      "log": "/tmp/mpk-w09-json-raw-limits-helper-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-raw-limits/mpk-w09-json-raw-limits-helper-v2.log",
+      "log_sha256": "c0d72b6250eb8ee9f99c0ebb605efb188c047cac768457722d7ae090fe0c8302"
+    },
+    {
+      "session_id": 71764,
+      "status": "failed_test_module_registration_corrected",
+      "scope": "Copied source helper expected sibling boundary_document_tests under literal_tests. Moved new test module to that parent;no production change.",
+      "log": "/tmp/mpk-w09-json-raw-limits-sources-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-raw-limits/mpk-w09-json-raw-limits-sources-v1.log",
+      "log_sha256": "ceead7440944726d3553561c9d783c643aee0d7cd11388f790d61b9088f896b7"
+    },
+    {
+      "session_id": 45723,
+      "status": "failed_test_module_registration_corrected",
+      "scope": "Same wrong test module placement;corrected before runtime.",
+      "log": "/tmp/mpk-w09-json-raw-limits-docs-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-raw-limits/mpk-w09-json-raw-limits-docs-v1.log",
+      "log_sha256": "40ba90aa6cb1d49f9ed1dadb31c8d4d1d3079375258f5ae0193740f7eb0c263a"
+    },
+    {
+      "session_id": 73018,
+      "status": "failed_style_corrected",
+      "scope": "Two byte-char-slices warnings corrected to equivalent byte strings;no circuit behavior change.",
+      "log": "/tmp/mpk-w09-json-raw-limits-clippy-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-raw-limits/mpk-w09-json-raw-limits-clippy-v1.log",
+      "log_sha256": "a4c379045094a30d4ca6120e8fc17d810c8220c90562bbd93dceb83e72030e5b"
+    },
+    {
+      "session_id": 97863,
+      "status": "failed_test_definition_lookup_corrected",
+      "scope": "Final32-byte scan generation measured58023terms223declarations4275transformers.High-index checks reached finish call then test requested unregistered friendly circuit label.Changed metadata to expose exact generated finished-definition ID and test to use it;no certificate definition change.",
+      "log": "/tmp/mpk-w09-json-raw-limits-costs-v3.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-raw-limits/mpk-w09-json-raw-limits-costs-v3.log",
+      "log_sha256": "de8840f1e0b1c2c221013be9fadc92fea0665f6049e48eb0c76534b03ce73d84"
+    },
+    {
+      "session_id": 32067,
+      "status": "partial_pass_finish_lookup_corrected",
+      "scope": "Final32-byte block passed23 full64-bit state cases. Scan cost test hit same missing friendly finish name;corrected.Metadata exposes actual internal helper reference,not a new admission route.",
+      "log": "/tmp/mpk-w09-json-raw-limits-helper-v4.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-raw-limits/mpk-w09-json-raw-limits-helper-v4.log",
+      "log_sha256": "350f9243bc01065031119b03090bd14454f2d620b6e87c5a2103e38c98091fba"
+    },
+    {
+      "session_id": 77193,
+      "status": "passed_prior64byte_version",
+      "scope": "68 original contexts,3 nonempty boundary programs;79.86s. Artifact inspection proved64byte/four-block scan.Version differs from final32byte/eight-block scan,so current-source checks launched separately.",
+      "log": "/tmp/mpk-w09-json-raw-limits-sources-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-raw-limits/mpk-w09-json-raw-limits-sources-v2.log",
+      "log_sha256": "70ddb13c4f3f689a6f3d21f0e404ad246776e017317b12da4ec0262c3e57a207"
+    },
+    {
+      "session_id": 4940,
+      "status": "passed_prior64byte_version",
+      "scope": "21 validJSON trees plus2 overlength cases;97.25s. Built against prior64byte scanner;final32byte run required.",
+      "log": "/tmp/mpk-w09-json-raw-limits-docs-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-raw-limits/mpk-w09-json-raw-limits-docs-v2.log",
+      "log_sha256": "916e33421d98e82705af8ccf4ef794041e82fe7016566d2fed3156171e2a4a08"
+    },
+    {
+      "session_id": 11566,
+      "status": "passed",
+      "scope": "Full consumer closure;15.84s. No new literalStd consumer,so all fingerprints and total4947 stay unchanged.",
+      "log": "/tmp/mpk-w09-json-raw-limits-inventory-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-raw-limits/mpk-w09-json-raw-limits-inventory-v1.log",
+      "log_sha256": "8221732a16b7a687da18d277ed6ff5b531e4db0b6dec143193b77782b471fb32"
+    },
+    {
+      "session_id": 12767,
+      "status": "passed",
+      "scope": "Affected library/integration lint after equivalent byte-string fixes;2m11s including build queue. Later changes expose existing helper metadata and fix test friendly-name lookup.",
+      "log": "/tmp/mpk-w09-json-raw-limits-clippy-v2.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-raw-limits/mpk-w09-json-raw-limits-clippy-v2.log",
+      "log_sha256": "19a17d23124e2b5e973bcc80db8953da02ba3cea3ae03eade186ab58623f03eb"
+    },
+    {
+      "session_id": null,
+      "status": "passed",
+      "scope": "Scoped formatting for added scanner,source tests and changed reexports/registration.",
+      "log": "/tmp/mpk-w09-json-raw-limits-format-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-raw-limits/mpk-w09-json-raw-limits-format-v1.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "session_id": 60453,
+      "log": "/tmp/mpk-w09-json-raw-limits-sources-v3.log",
+      "output": "/tmp/mpk-w09-json-raw-limits-sources-v3",
+      "scope": "Final32-byte scan original-source metadata/import/mutation/pins;includes exact internal finished-definition reference.",
+      "status": "passed",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-raw-limits/mpk-w09-json-raw-limits-sources-v3.log",
+      "log_sha256": "684c2d5c527ef1da8f0a0323c058d6893517142f745cbf4eb712e5ef0a157912"
+    },
+    {
+      "session_id": 57763,
+      "log": "/tmp/mpk-w09-json-raw-limits-docs-v3.log",
+      "scope": "Final32-byte scan21 canonical JSON trees and2 overlength cases;earlier64-byte run not reused.",
+      "status": "passed",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-raw-limits/mpk-w09-json-raw-limits-docs-v3.log",
+      "log_sha256": "8467f01052c1d318806191dde5526999a6051745b7b7df55f16dc84bfd99ff93"
+    },
+    {
+      "session_id": 17941,
+      "log": "/tmp/mpk-w09-json-raw-limits-costs-v5.log",
+      "output": "/tmp/mpk-w09-json-raw-limits-helper-v5",
+      "scope": "Final32-byte scan generation,last physical byte active/inactive reads and EOF pending-string cutoff with corrected actual definition ID.",
+      "status": "passed",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-raw-limits/mpk-w09-json-raw-limits-costs-v5.log",
+      "log_sha256": "a8f8744a61b543f8a2ab2decb56a7a9862cc59e788bb543d23e59db971c0cf40"
+    },
+    {
+      "session_id": 63939,
+      "status": "passed",
+      "scope": "Five exact candidates accepted by both unchanged checkers with zero axioms;hash mutations reject;440.608s including process startup. Exact PASS set and current candidate hashes reconciled.",
+      "log": "/tmp/mpk-w09-json-raw-limits-checkers-v1.log",
+      "retained_log": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/json-raw-limits/mpk-w09-json-raw-limits-checkers-v1.log",
+      "log_sha256": "2a92a3aebd86034ca0542131c4a1ede407731c7260cfd851935ffb334dcc8179"
+    }
+  ],
+  "live_jobs": [],
+  "test_selection": "Only new raw-limit scanner and source contexts exposing boundary documents. Small complete canonical trees plus block/high-address/cutoff state tests. Conditional lexical counting is separate from JSON/UTF8 syntax validity. No complete1MiB raw tree runtime has passed yet;full capacity and integration remain pending.",
+  "review": "unit-4-json-raw-limits-review.md",
+  "pending": [
+    "Combined raw/typed envelope closure,packet semantics and actual admission budgets;targeted tests running.",
+    "Integrate raw limits with typed guarded envelopes and verify actual combined costs and source cases.",
+    "Complete source/public domains,reconstruction,output,native/control/replay,proof/assembly and full remaining W09 acceptance."
+  ],
+  "completion": "W09/internalunit4 incomplete;no component-only commit/push;T gate deferred toT06-W12.",
+  "goal_turn_classification": "Progress:implemented raw canonical JSON node/depth scan;23 final32-byte state cases pass,final scan costs measured;old64-byte source/document tests correctly kept historical;fixed exact finish-definition test lookup and launched final source/document/high-address checks;completed32 typed-guard source variants and5 semantic-root dual-checker reconciliation.",
+  "final_scan_measured_costs": {
+    "terms": 58023,
+    "declarations": 223,
+    "static_transformers": 4275,
+    "block_bytes": 32,
+    "blocks_per_step": 8,
+    "scan_steps": 4096
+  },
+  "retained_candidates": {
+    "document-6b96fc4eed95a1d33fa5784b9062f02fa07ac65b6aef2b4100bb91e9c2f1a613.hex": "734363c2d1642d2bf2783a8d70cba20fb5fda2169e6eb38e8a970b78fb9bcd01",
+    "document-7a157feb27ed416752b5dde8aa2bf373b9a2c82755d2caa89e955057176ee57b.hex": "734363c2d1642d2bf2783a8d70cba20fb5fda2169e6eb38e8a970b78fb9bcd01",
+    "document-decb5507362a7672c711a5befd63efc1038c2c0a86ee20137a1c4c472e0d1684.hex": "734363c2d1642d2bf2783a8d70cba20fb5fda2169e6eb38e8a970b78fb9bcd01",
+    "raw-block.hex": "715d2c579923ac3643452d35a9f2cf2bbfdfab037730ae8fa5275be7c800b296",
+    "raw-scan.hex": "734363c2d1642d2bf2783a8d70cba20fb5fda2169e6eb38e8a970b78fb9bcd01"
+  }
+}

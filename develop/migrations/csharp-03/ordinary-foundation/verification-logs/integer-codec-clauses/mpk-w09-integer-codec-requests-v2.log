@@ -1,0 +1,42 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error[E0433]: cannot find module or crate `integer_format_tests` in this scope
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_integer_codec_clause_tests.rs:234:21
+    |
+234 |                     integer_format_tests::format_case(
+    |                     ^^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `integer_format_tests`
+    |
+    = help: if you wanted to use a crate named `integer_format_tests`, use `cargo add integer_format_tests` to add it to your `Cargo.toml`
+note: module `crate::ordinary_carriers::literal_tests::integer_format_tests` exists but is inaccessible
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_literal_tests.rs:285:1
+    |
+285 | mod integer_format_tests;
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^ not accessible
+
+error[E0433]: cannot find module or crate `integer_parse_tests` in this scope
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_integer_codec_clause_tests.rs:270:21
+    |
+270 |                     integer_parse_tests::parsed_case(
+    |                     ^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `integer_parse_tests`
+    |
+    = help: if you wanted to use a crate named `integer_parse_tests`, use `cargo add integer_parse_tests` to add it to your `Cargo.toml`
+note: module `crate::ordinary_carriers::literal_tests::integer_parse_tests` exists but is inaccessible
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_literal_tests.rs:288:1
+    |
+288 | mod integer_parse_tests;
+    | ^^^^^^^^^^^^^^^^^^^^^^^^ not accessible
+
+error[E0433]: cannot find module or crate `integer_parse_tests` in this scope
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_integer_codec_clause_tests.rs:278:21
+    |
+278 |                     integer_parse_tests::parsed_case(&c, &d, &[], Some(length));
+    |                     ^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `integer_parse_tests`
+    |
+    = help: if you wanted to use a crate named `integer_parse_tests`, use `cargo add integer_parse_tests` to add it to your `Cargo.toml`
+note: module `crate::ordinary_carriers::literal_tests::integer_parse_tests` exists but is inaccessible
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_literal_tests.rs:288:1
+    |
+288 | mod integer_parse_tests;
+    | ^^^^^^^^^^^^^^^^^^^^^^^^ not accessible
+
+For more information about this error, try `rustc --explain E0433`.
+error: could not compile `mpk-vc` (test "csharp_practical_vc") due to 3 previous errors

@@ -1,0 +1,29 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error[E0505]: cannot move out of `lower` because it is borrowed
+  --> crates/mpk-vc/tests/support/csharp_practical_ordinary_quantifier_tests.rs:83:17
+   |
+46 |     let quant = |tag: &str, body: J| quantified(tag, "q", lower.clone(), upper.clone(), body);
+   |                 --------------------                      ----- borrow occurs due to use in closure
+   |                 |
+   |                 borrow of `lower` occurs here
+...
+78 |         quant(
+   |         ----- borrow later used by call
+...
+83 |                 lower,
+   |                 ^^^^^ move out of `lower` occurs here
+
+error[E0505]: cannot move out of `upper` because it is borrowed
+  --> crates/mpk-vc/tests/support/csharp_practical_ordinary_quantifier_tests.rs:84:17
+   |
+46 |     let quant = |tag: &str, body: J| quantified(tag, "q", lower.clone(), upper.clone(), body);
+   |                 -------------------- borrow of `upper` occurs here       ----- borrow occurs due to use in closure
+...
+78 |         quant(
+   |         ----- borrow later used by call
+...
+84 |                 upper,
+   |                 ^^^^^ move out of `upper` occurs here
+
+For more information about this error, try `rustc --explain E0505`.
+error: could not compile `mpk-vc` (test "csharp_practical_vc") due to 2 previous errors

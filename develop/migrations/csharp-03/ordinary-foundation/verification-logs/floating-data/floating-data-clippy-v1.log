@@ -1,0 +1,26 @@
+    Checking mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error: used `assert_eq!` with a literal bool
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_floating_data_tests.rs:177:29
+    |
+177 | / ...                   assert_eq!(
+178 | | ...                       bit(run(
+179 | | ...                           &cert,
+180 | | ...                           &o.predicates[&format!("check.{i}.prefix")],
+...   |
+183 | | ...                       true
+184 | | ...                   );
+    | |_______________________^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#bool_assert_comparison
+    = note: `-D clippy::bool-assert-comparison` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::bool_assert_comparison)]`
+help: replace it with `assert!(..)`
+    |
+177 ~                             assert!(
+178 |                                 bit(run(
+...
+181 |                                     args.clone()
+182 ~                                 ))
+    |
+
+error: could not compile `mpk-vc` (test "csharp_practical_vc") due to 1 previous error

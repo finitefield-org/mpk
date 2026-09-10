@@ -1,0 +1,21 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.domain_profile_observation.v1",
+  "date": "2026-09-11",
+  "pid": 31739,
+  "command": "/usr/bin/sample 31739 3 1 -file /tmp/mpk-w09-domain-sample-20260911.txt",
+  "log": "verification-logs/domains/domain-sample-20260911.txt",
+  "sha256": "b67f9250f94c0ab019932c10188a2190627f732b9a630b68841691098cf60885",
+  "active_thread_samples": 2419,
+  "observations": [
+    "All sampled active-worker stacks are under observed_count in the original string/compound map domain test.",
+    "The active worker is reducing ordinary terms; the main/test wrapper threads wait for it.",
+    "Top-of-stack samples include platform_memmove (646), memcpy stub (128), and evaluate_counted (452); these are one short sample, not a complete runtime attribution."
+  ],
+  "limits": [
+    "The long-running process uses its launch binary, predating the recent Bool memoization fix.",
+    "No generated-operation shortcut, interpreter change, cancellation or restart was performed.",
+    "This sample does not establish a specific algorithmic root cause or a test result.",
+    "A naive global constant cache could retain exponentially many selector memo nodes for large constant cubes; memory retention must be measured and bounded before adopting that hypothesis."
+  ],
+  "next_investigation": "Benchmark a per-evaluate_counted cache of demanded closed Def values, scoped to one Certificate evaluation, before changing live tests. Const currently recreates the same closed Lambda and its Bool memo on every demand. A local cache could share those memo tables without forcing arguments, recognizing generated operation names, or retaining state across certificates. This is an unimplemented hypothesis; compare transition counts, memory and malformed/unused-argument behavior on bounded generic tests first."
+}

@@ -1,0 +1,32 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error[E0425]: cannot find type `ValidatedPracticalVir` in this scope
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_collection_clause_tests.rs:110:64
+    |
+110 | fn clauses(p: &OrdinaryCollectionProgram, facts: &Value, vir: &ValidatedPracticalVir) -> Vec<J> {
+    |                                                                ^^^^^^^^^^^^^^^^^^^^^
+    |
+   ::: crates/mpk-vc/src/csharp_practical_vc_model.rs:463:1
+    |
+463 | pub struct ValidatedPracticalVc {
+    | ------------------------------- similarly named struct `ValidatedPracticalVc` defined here
+    |
+help: a struct with a similar name exists
+    |
+110 - fn clauses(p: &OrdinaryCollectionProgram, facts: &Value, vir: &ValidatedPracticalVir) -> Vec<J> {
+110 + fn clauses(p: &OrdinaryCollectionProgram, facts: &Value, vir: &ValidatedPracticalVc) -> Vec<J> {
+    |
+
+error[E0425]: cannot find function `structural_equal` in this scope
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_collection_clause_tests.rs:101:23
+    |
+101 |             .find(|e| structural_equal(&e.key, query).unwrap())
+    |                       ^^^^^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `structural_equal` in this scope
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_collection_clause_tests.rs:105:23
+    |
+105 |             .find(|e| structural_equal(e, query).unwrap())
+    |                       ^^^^^^^^^^^^^^^^ not found in this scope
+
+For more information about this error, try `rustc --explain E0425`.
+error: could not compile `mpk-vc` (test "csharp_practical_vc") due to 3 previous errors

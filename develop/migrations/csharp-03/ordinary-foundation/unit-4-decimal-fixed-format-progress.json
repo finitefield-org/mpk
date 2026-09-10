@@ -1,0 +1,133 @@
+{
+  "schema": "mpk.csharp_practical.w09.decimal_fixed_format_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "fixed_decimal_format_implementation_verification_running",
+  "scope": "All 29 scales and five fixed-decimal rounding modes; exact registered binding and proofs remain pending",
+  "expected_configurations_per_decimal_context": 145,
+  "expected_source_contexts": 65,
+  "expected_nonempty_contexts": 6,
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_decimal_fixed_format.rs",
+      "sha256": "151e3a42afccdc29e5d9d623e9d5e36af9b262a396ed488433a3d9cccea2eb7b"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_decimal_format.rs",
+      "sha256": "c86f614d21f8fa56f2c6dee35111fc1b961606b57b4b42256690710028262eac"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_fixed_format_tests.rs",
+      "sha256": "906b8b7247f140fa6fc54e706fd238a99c698232f5c162862fb1a38b6f3ecd52"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_scalar_bits.rs",
+      "sha256": "f3a8d69c15f002bc1dc5d8cac099271fa6fa457e613f3078a4ac8f054c66b560"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs",
+      "sha256": "9c3d3140fcd9cc27badb9e0c2007acb35d97a2c5909c4d3f1aa1aadf30651f8e"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+      "sha256": "7e332dd3b9646c9e9a32e82187128f2b27109a71b7437d9d7f56d206803251f7"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_literal_tests.rs",
+      "sha256": "a51b51628a9ae4b881856a03eff848fd88f01de18b4253215640c1dcd119ff99"
+    }
+  ],
+  "verification": [
+    {
+      "command": "cargo check -p mpk-vc",
+      "log": "/tmp/mpk-w09-decimal-fixed-formats-check-v1.log",
+      "log_sha256": "6b43ee4f8224bae8e6e2fe3bd54776551029b92526f432bdc1c56b6dc50dc413",
+      "status": "passed",
+      "scope": "Production compiled in 11.76 seconds, before source test addition."
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_decimal_formats_pinned_sources -- --nocapture",
+      "log": "/tmp/mpk-w09-decimal-fixed-formats-normalized-replay-v1.log",
+      "log_sha256": "ca8c6a296cb31a17ef5a698886fba550d1f94c272c4a93d625b0ce82122cf922",
+      "status": "passed",
+      "scope": "65 contexts, exact normalized metadata and six certificate byte sequences preserved after shared digit-helper extraction, 12.72 seconds."
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --test csharp_practical_vc -- -D warnings",
+      "log": "/tmp/mpk-w09-decimal-fixed-formats-clippy-v1.log",
+      "log_sha256": "d7307147fe1dd9cb8b78d37f2a64708369d8e7277a34e50945f809c549bed27c",
+      "status": "passed",
+      "scope": "Production and original-source tests before independent fixed pin test addition; 54.42 seconds including lock wait."
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "log": "/tmp/mpk-w09-decimal-fixed-formats-inventory-v1.log",
+      "log_sha256": "ed5378996c4a971171221d92d2da0ff9b778b67686596f43fbea97e2479faa2d",
+      "status": "passed",
+      "scope": "All five tests passed. The two new fixed-format files contain no existing inventory fixture needles; no count or hash baseline adjustment."
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_decimal_fixed_formats_pinned_sources -- --nocapture",
+      "log": "/tmp/mpk-w09-decimal-fixed-formats-replay-v1.log",
+      "log_sha256": "32b0a9829b0914149d56d0acd87bd279a308cecca960ae191e1b5121b800b706",
+      "status": "passed",
+      "scope": "All 65 contexts regenerated; exact six fixed-format programs and 145 configurations per decimal context match pins and metadata, 11.20 seconds."
+    },
+    {
+      "command": "GOCACHE=/tmp/mpk-w09-money-go-cache go test -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIDecimalFixedFormats$' -count=1 -timeout 0 -v",
+      "log": "/tmp/mpk-w09-decimal-fixed-formats-checkers-v1.log",
+      "log_sha256": "03d3cb8b97858c036a176b75a6670be36af009c1ddf3a1f82fdc050cd804c981",
+      "status": "passed",
+      "scope": "Six identical-byte certificate cases accepted by both unchanged checkers with zero axioms; hash corruptions rejected. All 870 configuration occurrences represented, 286.362 seconds."
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --test csharp_practical_vc -- -D warnings",
+      "log": "/tmp/mpk-w09-decimal-fixed-formats-clippy-v2.log",
+      "log_sha256": "2b6f57a81f14bac5a5cb8829422df84498262f76a6cba3867be0011d3399c2e4",
+      "status": "passed",
+      "scope": "Final current production and original/pinned source tests; 1m 11s including build lock wait."
+    },
+    {
+      "command": "cargo fmt --all -- --check",
+      "log": "/tmp/mpk-w09-decimal-fixed-formats-format-v1.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "passed",
+      "scope": "Current source formatting; empty output."
+    },
+    {
+      "command": "gofmt -d go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "log": "/tmp/mpk-w09-decimal-fixed-formats-gofmt-v1.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "passed",
+      "scope": "Current source formatting; empty output."
+    },
+    {
+      "command": "/usr/bin/git diff --check",
+      "status": "passed",
+      "scope": "Outside sandbox, exit zero after final implementation/test/review records."
+    }
+  ],
+  "live_jobs": [
+    {
+      "session_id": 80623,
+      "command": "MPK_W09_DECIMAL_FIXED_FORMATS_OUT=/tmp/mpk-w09-decimal-fixed-formats-v1 cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_decimal_fixed_formats_original_sources -- --nocapture",
+      "log": "/tmp/mpk-w09-decimal-fixed-formats-suite-v1.log",
+      "observed": "All 65 contexts generated/imported; six programs with 145 configurations each pinned. Ordinary semantic matrix started, with initial maximum and rounding-half cases passing; whole suite pending. Executable predates only the independent pinned replay test addition."
+    }
+  ],
+  "remaining": [
+    "Complete the running fixed-format ordinary semantic matrix, then final scoped review. Both checkers, exact replay, lint and inventory passed.",
+    "All six complete 145-configuration programs and metadata pinned; normalized helper extraction proved byte-preserving. Universal source/codec proofs are separate remaining work.",
+    "Implement fixed/normalized decimal parsing, remaining codecs and JSON, exact source/registry linkage, all remaining original implementation-plan units 3\u20138.",
+    "No component-only commit or W09 completion. check-fast.sh deferred to T06-W12."
+  ],
+  "manifest": {
+    "path": "develop/migrations/csharp-03/ordinary-foundation/decimal-fixed-formats/certificates.json",
+    "sha256": "ae6552b9f95236034e0c63635c14a7187692565c87d827e34d931325e690da3e"
+  },
+  "source_contexts_examined": 65,
+  "pinned_contexts": 6,
+  "configuration_occurrences": 870,
+  "max_terms": 34535,
+  "max_declarations": 518
+}

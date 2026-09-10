@@ -1,0 +1,46 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error[E0308]: mismatched types
+  --> crates/mpk-vc/src/csharp_practical_ordinary_quantifiers.rs:74:37
+   |
+74 |         c.scalars.insert(id.into(), d);
+   |                   ------            ^ expected `(OrdinaryScalarDefinition, Vec<String>)`, found `OrdinaryScalarDefinition`
+   |                   |
+   |                   arguments to this method are incorrect
+   |
+   = note: expected tuple `(scalar_bits::OrdinaryScalarDefinition, Vec<std::string::String>)`
+             found struct `scalar_bits::OrdinaryScalarDefinition`
+help: the return type of this call is `scalar_bits::OrdinaryScalarDefinition` due to the type of the argument passed
+  --> crates/mpk-vc/src/csharp_practical_ordinary_quantifiers.rs:74:9
+   |
+74 |         c.scalars.insert(id.into(), d);
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^-^
+   |                                     |
+   |                                     this argument influences the return type of `insert`
+note: method defined here
+  --> /rustc/8bab26f4f68e0e26f0bb7960be334d5b520ea452/library/alloc/src/collections/btree/map.rs:1045:11
+
+error[E0609]: no field `operation` on type `&(scalar_bits::OrdinaryScalarDefinition, Vec<std::string::String>)`
+  --> crates/mpk-vc/src/csharp_practical_ordinary_quantifiers.rs:77:11
+   |
+77 |     if !d.operation.ordered_checks.is_empty() {
+   |           ^^^^^^^^^ unknown field
+   |
+help: one of the expressions' fields has a field of the same name
+   |
+77 |     if !d.0.operation.ordered_checks.is_empty() {
+   |           ++
+
+error[E0609]: no field `result_definition` on type `&(scalar_bits::OrdinaryScalarDefinition, Vec<std::string::String>)`
+  --> crates/mpk-vc/src/csharp_practical_ordinary_quantifiers.rs:80:10
+   |
+80 |     Ok(d.result_definition.clone())
+   |          ^^^^^^^^^^^^^^^^^ unknown field
+   |
+help: one of the expressions' fields has a field of the same name
+   |
+80 |     Ok(d.0.result_definition.clone())
+   |          ++
+
+Some errors have detailed explanations: E0308, E0609.
+For more information about an error, try `rustc --explain E0308`.
+error: could not compile `mpk-vc` (lib test) due to 3 previous errors

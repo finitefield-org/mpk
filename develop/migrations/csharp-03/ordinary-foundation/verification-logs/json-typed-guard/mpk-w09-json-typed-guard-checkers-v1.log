@@ -1,0 +1,94 @@
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/decimal_default.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/empty-input.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/enum_default.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/json-depth-compound-ordered-compound.hex
+    checker_agreement_test.go:391: Rust checker execution/protocol failure: Rust checker did not return a verifier report: unexpected end of JSON input
+        stdout:
+        
+        stderr:
+        error[E0609]: no field `arguments` on type `csharp_practical_vir_model::ClosedOperationSignature`
+           --> crates/mpk-vc/src/csharp_practical_ordinary_source_clauses.rs:176:37
+            |
+        176 |                 if scalar.operation.arguments != d.argument_types
+            |                                     ^^^^^^^^^ unknown field
+            |
+            = note: available fields are: `id`, `tag`, `argument_type_ids`, `normal_result_type_id`, `ordered_checks`
+        
+        error[E0609]: no field `result` on type `csharp_practical_vir_model::ClosedOperationSignature`
+           --> crates/mpk-vc/src/csharp_practical_ordinary_source_clauses.rs:177:41
+            |
+        177 |                     || scalar.operation.result != d.result_type
+            |                                         ^^^^^^ unknown field
+            |
+            = note: available fields are: `id`, `tag`, `argument_type_ids`, `normal_result_type_id`, `ordered_checks`
+        
+        For more information about this error, try `rustc --explain E0609`.
+        error: could not compile `mpk-vc` (lib) due to 2 previous errors
+        error: could not compile `mpk-vc` (lib) due to 2 previous errors
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/json-depth-compound-ordered-decimal.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/json-depth-compound-ordered-integer.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/json-depth-compound-ordered-string.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/json-depth-compound-product-empty.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/json-depth-compound-product-nested.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/json-depth-compound-semantic-product-money-entry.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/json-depth-compound-sequence-source-arrays.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/json-depth-compound-sum-all-sums.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/json-depth-compound-transition-compound.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/json-depth-compound-transition-scalar-map.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/json-semantic-root-money.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/json-semantic-root-ordered_entry.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/json-semantic-root-ordered_map.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/json-semantic-root-ordered_set.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/json-semantic-root-transition.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/node-packet-mask.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/nullable_default.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/nullable_nonnull.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/nullable_required.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/optional_default.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/presence_default.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/presence_exposed.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/presence_instant.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/presence_missing_default.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/presence_nonmissing_zero.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/presence_required.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/raw_instant.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/required.hex
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/surrogate_name.hex
+--- FAIL: TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes (13925.70s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/decimal_default.hex (634.14s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/empty-input.hex (247.62s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/enum_default.hex (357.36s)
+    --- FAIL: TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/json-depth-compound-ordered-compound.hex (684.74s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/json-depth-compound-ordered-decimal.hex (1212.44s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/json-depth-compound-ordered-integer.hex (466.25s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/json-depth-compound-ordered-string.hex (1284.93s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/json-depth-compound-product-empty.hex (278.59s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/json-depth-compound-product-nested.hex (366.17s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/json-depth-compound-semantic-product-money-entry.hex (426.69s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/json-depth-compound-sequence-source-arrays.hex (614.94s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/json-depth-compound-sum-all-sums.hex (343.20s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/json-depth-compound-transition-compound.hex (448.18s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/json-depth-compound-transition-scalar-map.hex (452.35s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/json-semantic-root-money.hex (430.03s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/json-semantic-root-ordered_entry.hex (310.29s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/json-semantic-root-ordered_map.hex (451.21s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/json-semantic-root-ordered_set.hex (438.28s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/json-semantic-root-transition.hex (315.39s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/node-packet-mask.hex (41.89s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/nullable_default.hex (320.02s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/nullable_nonnull.hex (370.26s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/nullable_required.hex (280.44s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/optional_default.hex (258.05s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/presence_default.hex (283.06s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/presence_exposed.hex (282.39s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/presence_instant.hex (312.20s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/presence_missing_default.hex (381.97s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/presence_nonmissing_zero.hex (336.66s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/presence_required.hex (282.82s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/raw_instant.hex (307.98s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/required.hex (363.67s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/surrogate_name.hex (341.46s)
+FAIL
+exit status 1
+FAIL	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	13926.075s

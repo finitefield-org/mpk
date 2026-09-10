@@ -1,0 +1,35 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.fixed_codec_clause_capture.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "date": "2026-09-11",
+  "files": [
+    {
+      "path": "requests.json",
+      "bytes": 57366,
+      "sha256": "b5ed0bbeca753e73ecb50b35697aaf2bc47129ee7e0bca48c5591e7dbeca1074"
+    },
+    {
+      "path": "responses.json",
+      "bytes": 22878,
+      "sha256": "3ad87e5340fc6f29e997465fa4c9246e66631dd37a84ecaeda343cdc971c91b6"
+    },
+    {
+      "path": "capture-inputs.json",
+      "bytes": 19763,
+      "sha256": "8befa15a01a4209c159d509013d3ab9b28b8ded95f1ae909b24f655390354c2c"
+    }
+  ],
+  "source_contexts": 7,
+  "frontend_accepts": 7,
+  "capture_stage": "/tmp/mpk-w09-public-domain-capture-stage",
+  "stage_verification": "All 88 recorded inputs matched hashes/sizes and every repository counterpart before capture.",
+  "docker_image": "python@sha256:933b46a028fd786c9c3d426ebabc237e29a15912231ea8de576e95f0e4f41a4c",
+  "isolation": "network none; default seccomp; read-only root/stage; bounded tmpfs; no-new-privileges; required namespace/user capabilities only; 4g/2cpu",
+  "route": "unchanged gate.test_data_phase via diagnose.py",
+  "scope": "frontend attachment facts; not application VC proof",
+  "raw_response_transport": {
+    "log": "verification-logs/fixed-codec-clauses/capture-raw-responses.json",
+    "sha256": "e0d6749f0900f939647df04ece7043a1ed89bf53bd2a2632b3c47a7ddb4ed01b",
+    "note": "Current responses.json is structurally equal pretty-printed output; all facts and arrays preserved."
+  }
+}

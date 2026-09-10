@@ -1,0 +1,139 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.collection_clause_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "collection_contract_component_targeted_verification_passed",
+  "source_tags": [
+    "map_contains",
+    "map_lookup",
+    "set_contains"
+  ],
+  "capture": "collection-clauses/capture-receipt.json",
+  "completed": [
+    "9 original collection certificates remain byte-identical after common search/lookup extraction",
+    "9 current frontend contexts accepted",
+    "affected library/integration clippy passed",
+    "targeted inventory test passed; no inventory update needed",
+    "All 9 source contexts, 18 recipes and 5598 observations passed in 12013.57s; terminal exit 0. Nine tested certificates and metadata are pinned, pending regeneration with current code.",
+    "All nine tested certificates and metadata regenerated identically with current implementation (16.39s). Reuse the completed 12013.57s ordinary source run; no runtime repeat is needed.",
+    "New current-byte preservation test passes affected clippy (11.64s) and scoped Rust format.",
+    "All nine same-byte dual-checker cases passed (97.231s); terminal PASS set, exact current and runtime-tested artifacts, certificate/metadata hashes and sizes, capture receipt and retained log hashes reconciled. Final direct component review: no actionable findings."
+  ],
+  "live_jobs": [],
+  "remaining": [],
+  "full_gate": "deferred to T06-W12",
+  "overall_status": "Original units 3-8 and W09 remain open; commit/push at original-unit boundary.",
+  "verification_logs": [
+    {
+      "log": "verification-logs/collection-clauses/refactor-check.log",
+      "sha256": "1e3c2aba842f5f0166d285689d7b683c747bb96c283112b150390e28c9e9b059",
+      "result": "initial extraction compile failed; retained shared-key closure fixed afterward"
+    },
+    {
+      "log": "verification-logs/collection-clauses/library-check.log",
+      "sha256": "62a7e07e0e789ae3bddfdabd2e4fe12349edbd63c05c28ac436b948054ae0cb3",
+      "result": "passed library check"
+    },
+    {
+      "log": "verification-logs/collection-clauses/predecessor-pins.log",
+      "sha256": "49beb538fe4ddb0c1e8a32013ea61b7346c4dcfe60065e10ee70b26e4cc5629a",
+      "result": "9 predecessor certificate bytes preserved after extraction"
+    },
+    {
+      "log": "verification-logs/collection-clauses/request-compile-v1.log",
+      "sha256": "7c8d3c9c077bb2a119297f1b16f32edbc7bdfc95ecee946e7a09ff708d164b1c",
+      "result": "test-only imports/API mistakes; not semantic acceptance"
+    },
+    {
+      "log": "verification-logs/collection-clauses/request-compile-v2.log",
+      "sha256": "d210bbe70f94ff26ae8297b1de4a81288bb918e3a422b344ea616a83984d6d74",
+      "result": "test-only signature correction was incomplete"
+    },
+    {
+      "log": "verification-logs/collection-clauses/request-compile-v3.log",
+      "sha256": "be316b32cbb02144a837a69175bafab576abd8be7bd95e675ee0c6767db2e5a0",
+      "result": "test-only VIR module import corrected next"
+    },
+    {
+      "log": "verification-logs/collection-clauses/request-path-v4.log",
+      "sha256": "d7735a83e06504fb1ec2a2d59782dc82648f66da28b6503bc36b412dcd60ba16",
+      "result": "fixture assumed one binding filename; corrected to preserve each original path"
+    },
+    {
+      "log": "verification-logs/collection-clauses/requests-v5.log",
+      "sha256": "ddd5dc73d87765bf2167319f4c8af12bd651886ef3a30d2b0057a7c5e8291101",
+      "result": "initial requests generated; decimal literal spelling later corrected"
+    },
+    {
+      "log": "verification-logs/collection-clauses/initial-capture.log",
+      "sha256": "b54783e7f03a494ff5bd47f4478ef297095ffb7feeb71eefcecd239ae331398b",
+      "result": "9 frontend accepts; not semantic acceptance"
+    },
+    {
+      "log": "verification-logs/collection-clauses/source-v1.log",
+      "sha256": "8abd9013cfcac11f3da8f0e4cee25cb7539a955bf5938c7b031ca3b998d67158",
+      "result": "first 3 contexts passed; decimal contract literal import rejected non-normalized spelling"
+    },
+    {
+      "log": "verification-logs/collection-clauses/requests-v6.log",
+      "sha256": "659dc5b279393323a94c4c4fbbc27ab134b2694fb0d14b50d0b389ec00ce72c6",
+      "result": "current normalized decimal requests generated"
+    },
+    {
+      "log": "verification-logs/collection-clauses/capture-v2.log",
+      "sha256": "b54783e7f03a494ff5bd47f4478ef297095ffb7feeb71eefcecd239ae331398b",
+      "result": "9 fresh current frontend accepts"
+    },
+    {
+      "log": "verification-logs/collection-clauses/inventory-no-tests.log",
+      "sha256": "b3e495bc77145a89e25b682abab164c3b34b06017e9f4d1c53239ba15bd92607",
+      "result": "wrong test target; zero tests; not verification"
+    },
+    {
+      "log": "verification-logs/collection-clauses/inventory.log",
+      "sha256": "78b7cee72ed09c1a9883d640abb49b70d1bbf346b55890664d5a6c0c9ab75517",
+      "result": "targeted inventory passed"
+    },
+    {
+      "log": "verification-logs/collection-clauses/clippy.log",
+      "sha256": "4a718616a2eff653ad1f8c159a787f30f9c52fc49c3712ff0ef0ce4c28b28bce",
+      "result": "final affected library/integration clippy passed"
+    },
+    {
+      "log": "verification-logs/collection-clauses/format.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result": "final affected Rust format passed"
+    },
+    {
+      "log": "verification-logs/collection-clauses/source-v2.log",
+      "sha256": "cd3b9923ba83cdb8f011ba83593faf025f960fb9d073ae19d082d0ec1cac55ad",
+      "result": "All 9 source contexts, 18 recipes and 5598 ordinary observations passed; 12013.57s; terminal exit 0"
+    },
+    {
+      "log": "verification-logs/collection-clauses/mpk-w09-collection-clauses-current-pins-v1.log",
+      "sha256": "25e03d8e2f649d1b0ea6fd12bf6711a686cc4b079edc6ffd35acfd96d22b1220",
+      "result": "All nine source certificates and metadata regenerated identically with current implementation; 16.39s"
+    },
+    {
+      "log": "verification-logs/collection-clauses/mpk-w09-collection-clauses-current-clippy-v1.log",
+      "sha256": "5ee129c39e4e1e82a08f37b8e6c39cfccbb9507636b64988efba9d482eaf04ab"
+    },
+    {
+      "log": "verification-logs/collection-clauses/mpk-w09-collection-clauses-current-format-v1.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "log": "verification-logs/collection-clauses/mpk-w09-collection-clauses-checkers-v1.log",
+      "sha256": "bc11b9e8c1487c335434795b53f8c870c611d68c2a9842bd1df7c8a69d1ef334",
+      "result": "All nine same-byte Go/Rust checker cases passed; zero axioms, report agreement and hash corruption rejection; 97.231s"
+    },
+    {
+      "log": "verification-logs/collection-clauses/mpk-w09-decimal-collection-final-inventory-v1.log",
+      "sha256": "de81df81dc5a1e2d71cabd9721bdb563ac10b45604bc70ace855fef4710ae3fb",
+      "result": "Final artifact/consumer inventory passed after pinning both nine-candidate sets; 15.99s"
+    }
+  ],
+  "selection_reason": "The production change extracts existing search/lookup bodies and adds contract dispatch. Exact predecessor bytes, new contract source/alias semantics, transitive definition closure, targeted inventory, and affected lint/format cover those changes. Existing full-capacity collection algorithms remain byte-identical and are not rerun. After the long-running source test completed, regenerate all nine programs and require exact certificate/metadata equality with tested artifacts. This permits runtime evidence reuse after later unrelated adapter changes. Recheck the artifact/consumer inventory once after adding final decimal and collection certificate manifests and pins.",
+  "certificates": "collection-clauses/certificates.json",
+  "review": "unit-4-collection-clauses-review.md"
+}
