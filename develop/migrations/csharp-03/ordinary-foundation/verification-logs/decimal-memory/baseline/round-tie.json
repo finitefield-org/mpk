@@ -1,0 +1,26 @@
+{
+  "label": "round-tie",
+  "mode": "evaluate",
+  "context": "round",
+  "operation": "decimal.round.ToEven.2",
+  "case": 0,
+  "role": "success_relation",
+  "exit_code": 0,
+  "wall_seconds": 2.2660761249717325,
+  "command": [
+    "/usr/bin/time",
+    "-l",
+    "/Users/kazuyoshitoshiya/mpk/target/release/deps/csharp_practical_vc-0951b3e219e92435",
+    "csharp_03_t06_w09_decimal_data_memory_probe",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "environment": {
+    "MPK_W09_DECIMAL_PROBE_CONTEXT": "round",
+    "MPK_W09_DECIMAL_PROBE_MODE": "evaluate",
+    "MPK_W09_DECIMAL_PROBE_OPERATION": "decimal.round.ToEven.2",
+    "MPK_W09_DECIMAL_PROBE_CASE": "0",
+    "MPK_W09_DECIMAL_PROBE_ROLE": "success_relation",
+    "MPK_W09_DECIMAL_PROBE_WRONG": "false"
+  }
+}

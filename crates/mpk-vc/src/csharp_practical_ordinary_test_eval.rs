@@ -453,10 +453,17 @@ fn evaluate_counted<const COUNT: bool>(
                         let key = available_bool(&argument);
                         let unused = memo.borrow().argument_unused;
                         let cached = if unused {
-                            memo.borrow().independent.clone()
+                            memo.borrow()
+                                .independent
+                                .clone()
+                                .or_else(|| memo.borrow().identity_result(&V::Bit(false)))
                         } else {
-                            key.and_then(|k| memo.borrow().by_bool[usize::from(k)].clone())
-                                .or_else(|| memo.borrow().identity_result(&argument))
+                            key.and_then(|k| {
+                                memo.borrow().by_bool[usize::from(k)]
+                                    .clone()
+                                    .or_else(|| memo.borrow().identity_result(&V::Bit(k)))
+                            })
+                            .or_else(|| memo.borrow().identity_result(&argument))
                         };
                         if let Some(value) = cached {
                             EvalControl::Value(value)
@@ -500,10 +507,21 @@ fn evaluate_counted<const COUNT: bool>(
                 Some(EvalFrame::BoolMemo(argument, memo)) => {
                     // The body may have demanded a formerly pending Bool.
                     // Record that result too, without forcing anything here.
+                    // Only scalar bits are retained strongly: function results
+                    // can capture large trees of further memoized closures.
+                    // Reuse them while live elsewhere, then recompute on demand.
                     if memo.borrow().argument_unused {
-                        memo.borrow_mut().independent = Some(value.clone());
+                        if !matches!(value, V::Bit(_)) {
+                            memo.borrow_mut().remember_identity(&V::Bit(false), &value);
+                        } else {
+                            memo.borrow_mut().independent = Some(value.clone());
+                        }
                     } else if let Some(key) = available_bool(&argument) {
-                        memo.borrow_mut().by_bool[usize::from(key)] = Some(value.clone());
+                        if !matches!(value, V::Bit(_)) {
+                            memo.borrow_mut().remember_identity(&V::Bit(key), &value);
+                        } else {
+                            memo.borrow_mut().by_bool[usize::from(key)] = Some(value.clone());
+                        }
                     } else {
                         memo.borrow_mut().remember_identity(&argument, &value);
                     }
@@ -617,4 +635,21 @@ pub(super) fn run(c: &Certificate, name: &str, args: Vec<V>) -> V {
 pub(super) fn bit(v: V) -> bool {
     let V::Bit(v) = v else { panic!() };
     v
+}
+
+/// Requested allocation sizes before allocator size-class rounding. Rc uses
+/// two count words; RefCell adds its borrow flag. This reports layouts only.
+#[allow(dead_code)] // The same file also serves lib tests without the integration probe.
+pub(super) fn allocation_layouts() -> [(&'static str, usize); 3] {
+    [
+        ("Rc<Env>", std::mem::size_of::<(usize, usize, Env)>()),
+        (
+            "Rc<RefCell<LambdaMemo>>",
+            std::mem::size_of::<(usize, usize, RefCell<LambdaMemo>)>(),
+        ),
+        (
+            "Rc<RefCell<Suspension>>",
+            std::mem::size_of::<(usize, usize, RefCell<Suspension>)>(),
+        ),
+    ]
 }

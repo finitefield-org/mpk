@@ -427,3 +427,160 @@ fn cases(op: &str) -> Vec<Vec<MonomorphicValue>> {
         other => panic!("unexpected native decimal operation {other}"),
     }
 }
+
+/// Explicit diagnostic entry point. Normal acceptance tests never consult these
+/// selectors. Each process measures one preparation phase or one original case.
+#[test]
+fn csharp_03_t06_w09_decimal_data_memory_probe() {
+    let Ok(context_id) = std::env::var("MPK_W09_DECIMAL_PROBE_CONTEXT") else {
+        return;
+    };
+    let mode = std::env::var("MPK_W09_DECIMAL_PROBE_MODE").expect("explicit probe mode");
+    eprintln!(
+        "memory probe allocation layouts: {:?}",
+        core_eval::allocation_layouts()
+    );
+    let bundle = b();
+    let requests = requests();
+    let request = requests
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|r| r["id"] == context_id)
+        .expect("known context");
+    let responses = read("ordinary-foundation/decimal-data/responses.json");
+    let response = responses
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|r| r["id"] == context_id)
+        .unwrap();
+    eprintln!("memory probe phase=source context={context_id}");
+    let (context, captures) = support::replay_context(&bundle, request);
+    let source = ValidatedDataSource::import_captured_facts(
+        &bundle,
+        &context,
+        &captures,
+        &serde_json::to_vec(&response["facts"]).unwrap(),
+    )
+    .unwrap();
+    let emitted = emit_data_phase(&bundle, &context, &captures, &source).unwrap();
+    if mode == "source" {
+        return;
+    }
+    if mode == "generate" {
+        eprintln!("memory probe phase=generate context={context_id}");
+        let program = generate_csharp_practical_ordinary_decimal_data(emitted.vir()).unwrap();
+        output(&format!("{context_id}.json"), &program.canonical_bytes());
+        let pinned = fs::read_to_string(Path::new(env!("CARGO_MANIFEST_DIR")).join(format!(
+            "../../develop/migrations/csharp-03/ordinary-foundation/decimal-data/{context_id}.hex"
+        )))
+        .unwrap();
+        assert_eq!(program.certificate_bytes(), decode_probe_hex(&pinned));
+        eprintln!("memory probe phase=generate-complete");
+        return;
+    }
+    assert_eq!(mode, "evaluate", "known mode");
+    let op = std::env::var("MPK_W09_DECIMAL_PROBE_OPERATION").expect("operation");
+    let case: usize = std::env::var("MPK_W09_DECIMAL_PROBE_CASE")
+        .expect("case index")
+        .parse()
+        .unwrap();
+    let role = std::env::var("MPK_W09_DECIMAL_PROBE_ROLE").expect("predicate role");
+    assert!(matches!(
+        role.as_str(),
+        "success_relation" | "success_goal" | "success_guard"
+    ));
+    let wrong = match std::env::var("MPK_W09_DECIMAL_PROBE_WRONG").as_deref() {
+        Ok("true") => true,
+        Ok("false") => false,
+        _ => panic!("explicit wrong-result selector"),
+    };
+    let metadata = read(&format!(
+        "ordinary-foundation/decimal-data/{context_id}.json"
+    ));
+    let definition = metadata["definitions"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|d| d["source"]["signature"]["id"] == op)
+        .expect("operation in pinned context");
+    let point = metadata["operations"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|o| o["source"]["definition_id"] == definition["source"]["id"])
+        .unwrap();
+    let signature = &definition["source"]["signature"];
+    let types = signature["argument_type_ids"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .map(|v| v.as_str().unwrap().to_owned())
+        .collect::<Vec<_>>();
+    let result_type = signature["normal_result_type_id"].as_str().unwrap();
+    let recipe = NumericOperation::new(&op, &types, result_type, None).unwrap();
+    let inputs = cases(&op).get(case).expect("original case index").clone();
+    let verdict = recipe.evaluate(
+        &bundle,
+        emitted.closure().roots(),
+        emitted.closure().closed(),
+        &inputs,
+    );
+    if role == "success_relation" {
+        assert!(
+            verdict.is_ok(),
+            "original suite skips unguarded failed relations"
+        );
+    }
+    let expected = match role.as_str() {
+        "success_guard" => verdict.is_ok(),
+        "success_goal" => verdict.is_err() || !wrong,
+        "success_relation" => !wrong,
+        _ => unreachable!(),
+    };
+    let mut actual = verdict
+        .as_ref()
+        .map(physical)
+        .unwrap_or_else(|_| vec![false; physical_width(result_type)]);
+    if wrong {
+        let index = if actual.len() == 512 {
+            382
+        } else {
+            actual.len() - 1
+        };
+        actual[index] = !actual[index];
+    }
+    let mut args = inputs
+        .iter()
+        .map(|v| encode_bits(physical(v)))
+        .collect::<Vec<_>>();
+    args.push(encode_bits(actual));
+    let hex = fs::read_to_string(Path::new(env!("CARGO_MANIFEST_DIR")).join(format!(
+        "../../develop/migrations/csharp-03/ordinary-foundation/decimal-data/{context_id}.hex"
+    )))
+    .unwrap();
+    let bytes = decode_probe_hex(&hex);
+    assert_eq!(
+        mpk_cert::hash_hex(&mpk_cert::certificate_hash(&bytes)),
+        metadata["certificate_sha256"].as_str().unwrap()
+    );
+    let cert = mpk_cert::decode_canonical_certificate(&bytes).unwrap();
+    eprintln!("memory probe phase=evaluate context={context_id} operation={op} case={case} role={role} wrong={wrong} expected={expected} inputs={inputs:?}");
+    assert_eq!(
+        bit(run(
+            &cert,
+            point["predicates"][&role].as_str().unwrap(),
+            args
+        )),
+        expected
+    );
+    eprintln!("memory probe phase=evaluate-complete");
+}
+fn decode_probe_hex(hex: &str) -> Vec<u8> {
+    assert_eq!(hex.len() % 2, 0);
+    hex.as_bytes()
+        .chunks_exact(2)
+        .map(|pair| u8::from_str_radix(std::str::from_utf8(pair).unwrap(), 16).unwrap())
+        .collect()
+}

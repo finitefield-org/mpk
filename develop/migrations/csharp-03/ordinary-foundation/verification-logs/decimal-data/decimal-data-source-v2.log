@@ -1,0 +1,21 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+    Finished `release` profile [optimized] target(s) in 1m 35s
+     Running tests/csharp_practical_vc.rs (target/release/deps/csharp_practical_vc-0951b3e219e92435)
+
+running 1 test
+test ordinary_carriers::public_domain_tests::contract_expression_tests::decimal_data_tests::csharp_03_t06_w09_decimal_data_original_source has been running for over 60 seconds
+decimal data decimal.add: Some("System.OverflowException"), raw conditions [true]
+decimal data decimal.conversion.decimal_to_int32: Some("System.OverflowException"), raw conditions [true]
+decimal data source add: 3 definitions, 4 use points, 0 pending
+decimal data decimal.divide: Some("System.DivideByZeroException"), raw conditions [true, false]
+decimal data decimal.divide: Some("System.OverflowException"), raw conditions [false, true]
+decimal data decimal.conversion.decimal_to_int32: Some("System.OverflowException"), raw conditions [true]
+decimal data source divide: 3 definitions, 4 use points, 0 pending
+decimal data decimal.round.ToEven.2: Some("System.ArgumentOutOfRangeException"), raw conditions [true]
+decimal data decimal.round.ToEven.2: Some("System.ArgumentOutOfRangeException"), raw conditions [true]
+decimal data source round: 3 definitions, 3 use points, 0 pending
+decimal data source: 11 use points, 82 result/guard cases
+test ordinary_carriers::public_domain_tests::contract_expression_tests::decimal_data_tests::csharp_03_t06_w09_decimal_data_original_source ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 296 filtered out; finished in 4102.33s
+

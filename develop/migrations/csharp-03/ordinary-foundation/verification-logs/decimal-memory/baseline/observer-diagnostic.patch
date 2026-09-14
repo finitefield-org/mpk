@@ -1,0 +1,77 @@
+diff --git a/crates/mpk-vc/src/csharp_practical_ordinary_test_eval.rs b/crates/mpk-vc/src/csharp_practical_ordinary_test_eval.rs
+index b482752..8691571 100644
+--- a/crates/mpk-vc/src/csharp_practical_ordinary_test_eval.rs
++++ b/crates/mpk-vc/src/csharp_practical_ordinary_test_eval.rs
+@@ -346,6 +346,10 @@ fn evaluate_counted<const COUNT: bool>(
+     steps: &mut u64,
+ ) -> V {
+     let mut frames = vec![];
++    // Diagnostic comparison only: weak function results preserve semantics but
++    // may require recomputation. Never force an argument to obtain a cache key.
++    let weak_functions =
++        std::env::var("MPK_W09_CORE_CACHE_POLICY").is_ok_and(|policy| policy == "weak-functions");
+     // Closed definitions always evaluate in their own empty environment.
+     // This cache is local to this call and Certificate, has a fixed entry
+     // bound, and owns no callbacks into itself. It cannot leak across runs or
+@@ -453,10 +457,17 @@ fn evaluate_counted<const COUNT: bool>(
+                         let key = available_bool(&argument);
+                         let unused = memo.borrow().argument_unused;
+                         let cached = if unused {
+-                            memo.borrow().independent.clone()
++                            memo.borrow()
++                                .independent
++                                .clone()
++                                .or_else(|| memo.borrow().identity_result(&V::Bit(false)))
+                         } else {
+-                            key.and_then(|k| memo.borrow().by_bool[usize::from(k)].clone())
+-                                .or_else(|| memo.borrow().identity_result(&argument))
++                            key.and_then(|k| {
++                                memo.borrow().by_bool[usize::from(k)]
++                                    .clone()
++                                    .or_else(|| memo.borrow().identity_result(&V::Bit(k)))
++                            })
++                            .or_else(|| memo.borrow().identity_result(&argument))
+                         };
+                         if let Some(value) = cached {
+                             EvalControl::Value(value)
+@@ -501,9 +512,17 @@ fn evaluate_counted<const COUNT: bool>(
+                     // The body may have demanded a formerly pending Bool.
+                     // Record that result too, without forcing anything here.
+                     if memo.borrow().argument_unused {
+-                        memo.borrow_mut().independent = Some(value.clone());
++                        if weak_functions && !matches!(value, V::Bit(_)) {
++                            memo.borrow_mut().remember_identity(&V::Bit(false), &value);
++                        } else {
++                            memo.borrow_mut().independent = Some(value.clone());
++                        }
+                     } else if let Some(key) = available_bool(&argument) {
+-                        memo.borrow_mut().by_bool[usize::from(key)] = Some(value.clone());
++                        if weak_functions && !matches!(value, V::Bit(_)) {
++                            memo.borrow_mut().remember_identity(&V::Bit(key), &value);
++                        } else {
++                            memo.borrow_mut().by_bool[usize::from(key)] = Some(value.clone());
++                        }
+                     } else {
+                         memo.borrow_mut().remember_identity(&argument, &value);
+                     }
+@@ -618,3 +637,20 @@ pub(super) fn bit(v: V) -> bool {
+     let V::Bit(v) = v else { panic!() };
+     v
+ }
++
++/// Requested allocation sizes before allocator size-class rounding. Rc uses
++/// two count words; RefCell adds its borrow flag. This reports layouts only.
++#[allow(dead_code)] // The same file also serves lib tests without the integration probe.
++pub(super) fn allocation_layouts() -> [(&'static str, usize); 3] {
++    [
++        ("Rc<Env>", std::mem::size_of::<(usize, usize, Env)>()),
++        (
++            "Rc<RefCell<LambdaMemo>>",
++            std::mem::size_of::<(usize, usize, RefCell<LambdaMemo>)>(),
++        ),
++        (
++            "Rc<RefCell<Suspension>>",
++            std::mem::size_of::<(usize, usize, RefCell<Suspension>)>(),
++        ),
++    ]
++}

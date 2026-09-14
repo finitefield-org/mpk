@@ -1099,7 +1099,12 @@ failure conditions separately from ordered guards. A core Let now shares the
 computed result across bit comparisons. Candidate reconstruction, scalar-body
 closure matching, comparator/sharing regressions, unchanged six prior
 integer/floating pins, final lint, inventory and formatting pass. Final native
-runtime and dual checking of shared candidates remain live in
-`unit-5-decimal-data-progress.json`; earlier unshared checker passes are
-historical evidence. The scoped review is in `unit-5-decimal-data-review.md`.
+runtime (82 observations) and dual checking of all three shared candidates pass
+in `unit-5-decimal-data-progress.json`; earlier unshared checker passes are
+historical evidence. The per-case memory investigation is recorded in
+`unit-5-decimal-memory-review.md`: one small addition reproduces the large peak;
+weak result retention greatly reduces memory with increased recomputation.
+At the user’s request, this is now the normal test-observer policy; scalar
+results stay cached and live function results remain shared. No cache-policy
+environment setting is needed. Final measurements are in the memory review. The scoped review is in `unit-5-decimal-data-review.md`.
 Original unit 5, units 3-8 and W09 acceptance remain incomplete.

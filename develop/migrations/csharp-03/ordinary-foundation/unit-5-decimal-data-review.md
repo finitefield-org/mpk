@@ -23,7 +23,7 @@ The three native inputs produce nine definition occurrences and eleven use
 points with exact existing scalar-body dependency closures. Source successor
 and certificate mutations reject. Candidate tests, comparator regression,
 previous-pin replay, lint, inventory and formatting pass. Native value/exception
-observations remain pending. All three earlier unshared certificates passed both
+observations were pending at this earlier review checkpoint. All three earlier unshared certificates passed both
 unchanged checkers with zero axioms and matching reports/hashes; hash mutations
 rejected. Final shared bytes must pass the checks below.
 
@@ -45,5 +45,14 @@ Final shared candidate reconstruction, both decimal comparator regressions,
 lint, inventory and formatting now pass. The generic sharing regression
 observes identical true results with 162,221 versus 676,539 core transitions.
 This measures the bounded regression only. The revised native runtime and
-same-byte dual-checker runs remain pending in the progress receipt; the old
-runtime was explicitly superseded with no verdict.
+same-byte dual-checker runs subsequently passed: 82 observations in 4,102.33 s
+and all three checker cases in 355.521 s. The old runtime was explicitly
+superseded with no verdict. Final artifact bytes match the regenerated pins.
+
+The user-requested per-case memory diagnosis and scoped observer review are in
+`unit-5-decimal-memory-review.md`. They identify excessive intermediate cache
+retention on one small addition. The measured weak-result policy now applies normally at the user’s request,
+with a time tradeoff; the original cases are unchanged. The added lifetime
+regression and all 12 prior observer regressions pass. Semantic/checker
+revalidation is complete; this observer fix does not complete original unit 5
+or W09. See the memory review for final verification and measured scope.

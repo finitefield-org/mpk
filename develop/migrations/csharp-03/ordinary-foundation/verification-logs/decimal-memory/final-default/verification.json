@@ -1,0 +1,44 @@
+{
+  "status": "passed",
+  "default_policy": "weak non-Bit memo results; strong scalar Bit results; no environment switch",
+  "measurements": [
+    {
+      "case": "add-small",
+      "wall_seconds": 173.34752112498973,
+      "peak_physical_footprint_bytes": 141427192,
+      "peak_MiB": 134.87548065185547,
+      "exit_code": 0
+    },
+    {
+      "case": "convert-zero",
+      "wall_seconds": 0.08489183301571757,
+      "peak_physical_footprint_bytes": 18989440,
+      "peak_MiB": 18.1097412109375,
+      "exit_code": 0
+    },
+    {
+      "case": "round-tie",
+      "wall_seconds": 3.2829762090113945,
+      "peak_physical_footprint_bytes": 29573528,
+      "peak_MiB": 28.203514099121094,
+      "exit_code": 0
+    }
+  ],
+  "source_sha256": {
+    "crates/mpk-vc/src/csharp_practical_ordinary_test_eval.rs": "9eec32535941241d6c1a4364f06d95289cd5c48d9d7c1c20d050e37d6b1682d3",
+    "crates/mpk-vc/src/csharp_practical_ordinary_test_eval_tests.rs": "0114bd487ed4020ad705a13f2211731db9e50964b55d8df47ac12c85f7e17e12",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_data_tests.rs": "04dcc575c0d8fe1cda88a39bbc58080a72b9e05662fea0cabf8f9c8438b8e7a5"
+  },
+  "checks": {
+    "ordinary_core_regressions": 13,
+    "representative_positive_predicates": 3,
+    "wrong_round_result_rejection": 1,
+    "clippy": "passed",
+    "rustfmt": "passed",
+    "scoped_review": "no actionable findings"
+  },
+  "selection_reason": "Observer lifetime/cache change: all generic core regressions plus original decimal conversion, rounding and memory-heavy addition; wrong result rejection verifies negative behavior. No certificate bytes changed; generator/checker reruns are unnecessary.",
+  "measurement_limitations": "Single diagnostic runs, not a controlled benchmark; prior baseline addition was heap-sampled, final addition was not. Initial sandboxed convert-zero test passed but /usr/bin/time could not read kern.clockrate; retry outside sandbox succeeded and supplied the reported metrics.",
+  "full_gate": "Deferred to T06-W12; no check-fast or equivalent full run",
+  "unit_status": "Original unit 5 and W09 remain incomplete; no separate component commit"
+}

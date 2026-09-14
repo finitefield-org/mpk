@@ -1,8 +1,8 @@
 {
   "schema": "mpk.csharp_practical.t06_w09.decimal_data_progress.v1",
   "work_item": "CSHARP-03-T06-W09",
-  "status": "shared_candidates_passed_runtime_and_final_dual_checker_pending",
-  "observed_at": "2026-09-10T22:19:57.773823+00:00",
+  "status": "semantic_and_dual_checker_verification_passed_default_observer_memory_fix_verified",
+  "observed_at": "2026-09-14T12:17:33.820789+00:00",
   "component": "Unit 5 W03 decimal SSA result and ordered-exception use points",
   "source_contexts": 3,
   "definition_occurrences": 9,
@@ -71,26 +71,23 @@
       "seconds": 16.16,
       "log": "verification-logs/decimal-data/decimal-data-inventory-v2.log",
       "reason": "Final core Let emission and test dependency references; inventory fingerprint unchanged."
-    }
-  ],
-  "live_jobs": [
-    {
-      "case": "csharp_03_t06_w09_decimal_data_original_source",
-      "profile": "release",
-      "session_id": 28913,
-      "log": "/tmp/mpk-w09-decimal-data-source-v2.log",
-      "pid": 71223,
-      "last_verified_elapsed": "00:52",
-      "last_observed_rss_kib": 6701120
     },
     {
-      "case": "TestCheckerAgreementWithRustCLIDecimalData",
-      "session_id": 28472,
-      "log": "/tmp/mpk-w09-decimal-data-checkers-v2.log",
-      "pid": 71030,
-      "last_verified_elapsed": "02:26"
+      "test": "csharp_03_t06_w09_decimal_data_original_source",
+      "seconds": 4102.33,
+      "observations": 82,
+      "log": "verification-logs/decimal-data/decimal-data-source-v2.log",
+      "reason": "All original result/guard cases completed; exact runtime output equals shared candidate metadata/certificate pins."
+    },
+    {
+      "test": "TestCheckerAgreementWithRustCLIDecimalData",
+      "seconds": 355.521,
+      "cases": 3,
+      "log": "verification-logs/decimal-data/decimal-data-checkers-v2.log",
+      "reason": "Final shared bytes accepted by both unchanged checkers with zero axioms and matching reports/hashes; hash corruption rejects."
     }
   ],
+  "live_jobs": [],
   "scope_limits": [
     "Fresh native use points cover decimal add/divide/less, Round ToEven with digits, int32-to-decimal and decimal-to-int32; not all 45 decimal signatures have a fresh native use point in this corpus.",
     "Result relations compare the full 512-bit product representation, including padding; the existing numeric reference evaluates expected values only in tests.",
@@ -296,6 +293,16 @@
       "path": "verification-logs/decimal-data/unshared-v1/round.json",
       "bytes": 21532,
       "sha256": "c532769c76acd32d8822c0aa144599282d3322ad1d2cd6eeb0c62a6bf75eb4df"
+    },
+    {
+      "path": "verification-logs/decimal-data/decimal-data-source-v2.log",
+      "bytes": 1617,
+      "sha256": "b1e30b4844ce441a61faa5beb4158700470bb63b690936dd57648bd4fae95ee7"
+    },
+    {
+      "path": "verification-logs/decimal-data/decimal-data-checkers-v2.log",
+      "bytes": 608,
+      "sha256": "7c8361d6be782886f60a6e1a15741edfaf527ba7bda0eeaf2245e7ad0d9a5213"
     }
   ],
   "runtime_profile": {
@@ -320,11 +327,7 @@
     "reason": "The previous relation referred to the same computed term ID from every bit comparison without a core Let. Explicit ordinary Let now shares the computed result; scalar bodies, operands and test inputs are unchanged. Earlier candidate/checker evidence remains historical until final bytes are regenerated and checked.",
     "candidate_session_id": 97442,
     "current_candidate_session_log": "/tmp/mpk-w09-decimal-data-candidates-v2.log",
-    "pending": [
-      "final runtime observations",
-      "same-byte dual checking of final certificates",
-      "final scoped review"
-    ]
+    "pending": []
   },
   "historical_checks": [
     {
@@ -366,5 +369,17 @@
     "log": "verification-logs/decimal-data/decimal-data-source-v1.log",
     "reason": "Revised Let-sharing candidates passed reconstruction; replace only the obsolete native decimal runtime with the same tests on final definitions. SIGTERM is cancellation, not a deterministic semantic failure."
   },
-  "historical_certificates": "verification-logs/decimal-data/unshared-v1/certificates.json"
+  "historical_certificates": "verification-logs/decimal-data/unshared-v1/certificates.json",
+  "runtime_observations": 82,
+  "memory_investigation": {
+    "status": "default_memory_fix_verified",
+    "reason": "User considers 6.4 GB peak excessive. Separate preparation from pinned-certificate predicate evaluation in individual processes; preserve all original acceptance cases.",
+    "source_snapshot_note": "source_files records the completed semantic/checker run; diagnostic test additions are subsequent changes.",
+    "report": "unit-5-decimal-memory-review.md",
+    "measurements": "verification-logs/decimal-memory/measurements.json",
+    "default_policy_changed": true,
+    "conclusion": "The normal observer now weakly retains non-Bit memo results. Original decimal 1 + 2 passed at 134.875 MiB peak / 173.348 seconds, versus historical 8616.74 MiB / 95.670 seconds. Scalar caching, live sharing and lazy demand are preserved. No global memory ceiling is claimed.",
+    "scoped_review": "No actionable findings; all 13 observer regressions, three positive decimal cases, wrong round result rejection, clippy and formatting pass.",
+    "final_verification": "verification-logs/decimal-memory/final-default/verification.json"
+  }
 }

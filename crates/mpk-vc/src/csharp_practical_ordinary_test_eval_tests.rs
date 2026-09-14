@@ -397,3 +397,63 @@ fn ordinary_core_function_result_cache_does_not_create_capture_cycles() {
     assert!(gw.upgrade().is_none(), "cache retained returned closure");
     assert!(fw.upgrade().is_none(), "cache introduced a capture cycle");
 }
+
+#[test]
+fn ordinary_core_boolean_and_unused_result_caches_release_closures() {
+    let mut b = Builder::new().unwrap();
+    let captured = b.var(1).unwrap();
+    let no = b.constant("Std.Bool.false").unwrap();
+    for (name, result) in [("Test.CapturedResult", captured), ("Test.UnusedResult", no)] {
+        let inner = b.lam(b.boolean, result).unwrap();
+        let outer = b.lam(b.boolean, inner).unwrap();
+        let ty = b.cube(2).unwrap();
+        b.define(name, ty, outer).unwrap();
+    }
+    let c = decode_canonical_certificate(&b.finish().unwrap()).unwrap();
+    for unused in [false, true] {
+        let f = run(
+            &c,
+            if unused {
+                "Test.UnusedResult"
+            } else {
+                "Test.CapturedResult"
+            },
+            vec![],
+        );
+        for input in [false, true] {
+            // Unused poison must remain unforced even after cache expiration.
+            let argument = || {
+                if unused {
+                    thunk(u32::MAX, Rc::new(Env::Empty))
+                } else {
+                    V::Bit(input)
+                }
+            };
+            let first = apply(&c, f.clone(), argument());
+            let V::Lambda(_, _, memo) = &first else {
+                panic!()
+            };
+            let weak = Rc::downgrade(memo);
+            let again = apply(&c, f.clone(), argument());
+            let V::Lambda(_, _, again_memo) = &again else {
+                panic!()
+            };
+            assert!(Rc::ptr_eq(memo, again_memo), "live result was not shared");
+            assert_eq!(
+                bit(apply(&c, first.clone(), V::Bit(false))),
+                !unused && input
+            );
+            drop(first);
+            assert!(weak.upgrade().is_some(), "live alias lost its result");
+            drop(again);
+            // Keep the source function alive: its cache must not own the result.
+            // The old strong Boolean/independent caches fail this assertion.
+            assert!(
+                weak.upgrade().is_none(),
+                "cache retained an unused result closure"
+            );
+            let rebuilt = apply(&c, f.clone(), argument());
+            assert_eq!(bit(apply(&c, rebuilt, V::Bit(true))), !unused && input);
+        }
+    }
+}

@@ -1,0 +1,91 @@
+Process:         csharp_practical_vc-0951b3e219e92435 [53076]
+Path:            /Users/USER/*/csharp_practical_vc-0951b3e219e92435
+Load Address:    0x100a30000
+Identifier:      csharp_practical_vc-0951b3e219e92435
+Version:         0
+Code Type:       ARM64
+Platform:        macOS
+Parent Process:  time [53075]
+Target Type:     live task
+
+Date/Time:       2026-09-14 21:18:27.759 +0900
+Launch Time:     2026-09-14 21:17:46.909 +0900
+OS Version:      macOS 26.6.2 (25G83)
+Report Version:  7
+Analysis Tool:   /usr/bin/heap
+
+Physical footprint:         6.9G
+Physical footprint (peak):  6.9G
+Idle exit:                  untracked
+----
+
+Process 53076: 1 zone
+
+All zones: 57493352 nodes malloced - Sizes: 6288KB[1] 5120KB[1] 4096KB[1] 1696KB[1] 848KB[1] 48KB[1] 24KB[1] 16KB[1] 14KB[2] 7KB[2] 6KB[1] 5KB[2] 4KB[4] 3.5KB[1] 3KB[8] 2.5KB[4] 2KB[3] 1.5KB[6] 1.25KB[14] 1KB[7] 896[6] 768[26] 640[768] 512[11] 448[16] 384[14] 320[80] 256[13] 224[28] 192[28130729] 160[38] 128[246] 112[88] 96[814] 80[69] 64[29320449] 48[481] 32[2036] 16[37378] 
+
+Found:  68 ObjC classes
+Type names for non-objects could be derived from allocation backtraces if the process used MallocStackLogging
+
+-----------------------------------------------------------------------
+All zones: 57493352 nodes (7297722208 bytes)
+
+   COUNT      BYTES       AVG   CLASS_NAME                                        TYPE    BINARY
+   =====      =====       ===   ==========                                        ====    ======
+   37376     598016      16.0   non-object                                                
+    1898      60736      32.0   non-object                                                
+     468      22464      48.0   non-object                                                
+29320439  1876508096      64.0   non-object                                                
+      67       5360      80.0   non-object                                                
+     812      77952      96.0   non-object                                                
+      88       9856     112.0   non-object                                                
+     245      31360     128.0   non-object                                                
+      38       6080     160.0   non-object                                                
+28130729  5401099968     192.0   non-object                                                
+      28       6272     224.0   non-object                                                
+      13       3328     256.0   non-object                                                
+      80      25600     320.0   non-object                                                
+      14       5376     384.0   non-object                                                
+      16       7168     448.0   non-object                                                
+      11       5632     512.0   non-object                                                
+     768     491520     640.0   non-object                                                
+      26      19968     768.0   non-object                                                
+       6       5376     896.0   non-object                                                
+       7       7168    1024.0   non-object                                                
+      14      17920    1280.0   non-object                                                
+       6       9216    1536.0   non-object                                                
+       3       6144    2048.0   non-object                                                
+       4      10240    2560.0   non-object                                                
+       7      21504    3072.0   non-object                                                
+       1       3584    3584.0   non-object                                                
+       4      16384    4096.0   non-object                                                
+       2      10240    5120.0   non-object                                                
+       1       6144    6144.0   non-object                                                
+       2      14336    7168.0   non-object                                                
+       2      28672   14336.0   non-object                                                
+       1      16384   16384.0   non-object                                                
+       1      24576   24576.0   non-object                                                
+       1      49152   49152.0   non-object                                                
+       1     868352  868352.0   non-object                                                
+       1    1736704  1736704.0   non-object                                                
+       1    4194304  4194304.0   non-object                                                
+       1    5242880  5242880.0   non-object                                                
+       1    6438912  6438912.0   non-object                                                
+     136       4352      32.0   Class.data (class_rw_t)                           C       libobjc.A.dylib
+       2         32      16.0   xpc_string_t (Storage)                            C       libxpc.dylib
+       1         32      32.0   xpc_string_t (Storage)                            C       libxpc.dylib
+       1         48      48.0   xpc_string_t (Storage)                            C       libxpc.dylib
+       1         64      64.0   xpc_string_t (Storage)                            C       libxpc.dylib
+       1       3072    3072.0   xpc_string_t (Storage)                            C       libxpc.dylib
+       4        192      48.0   xpc_dictionary_t (Storage)                        C       libxpc.dylib
+       2        128      64.0   xpc_dictionary_t (Storage)                        C       libxpc.dylib
+       5        320      64.0   pthread_mutex_t                                   C       libpthread.dylib
+       6        288      48.0   xpc_string_t                                      ObjC    libxpc.dylib
+       2        192      96.0   xpc_dictionary_t                                  ObjC    libxpc.dylib
+       2        160      80.0   dispatch_semaphore_t                              ObjC    libdispatch.dylib
+       1        128     128.0   dispatch_queue_t (serial)                         ObjC    libdispatch.dylib
+       1         64      64.0   xpc_array_t (Storage)                             C       libxpc.dylib
+       1         64      64.0   xpc_pipe_t                                        ObjC    libxpc.dylib
+       1         48      48.0   Class.data.extended (class_rw_ext_t)              C       libobjc.A.dylib
+       1         48      48.0   xpc_array_t                                       ObjC    libxpc.dylib
+       1         32      32.0   Class.methodCache._buckets (bucket_t)             C       libobjc.A.dylib
+
