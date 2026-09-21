@@ -1,0 +1,53 @@
+
+running 5 tests
+test ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_edge_collection_candidates ... control edges foreach_string: generated/imported exact candidate; 0 pending guards
+control edges foreach_string_var: generated/imported exact candidate; 0 pending guards
+control edges foreach_array: generated/imported exact candidate; 0 pending guards
+control edges foreach_array_var: generated/imported exact candidate; 0 pending guards
+control edges lookup: generated/imported exact candidate; 0 pending guards
+control edges governing_throw: generated/imported exact candidate; 0 pending guards
+control edges type: generated/imported exact candidate; 1 pending guards
+control edges string_property: generated/imported exact candidate; 0 pending guards
+ok
+test ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_edge_other_sources_unchanged ... control edges while: generated/imported exact candidate; 0 pending guards
+control edges for: generated/imported exact candidate; 0 pending guards
+control edges short_circuit: generated/imported exact candidate; 0 pending guards
+control edges switch: generated/imported exact candidate; 0 pending guards
+control edges is_binding: generated/imported exact candidate; 0 pending guards
+control edges guard_order: generated/imported exact candidate; 0 pending guards
+control edges guard_throw: generated/imported exact candidate; 0 pending guards
+control edges total_variable: generated/imported exact candidate; 0 pending guards
+control edges index_update: generated/imported exact candidate; 0 pending guards
+ok
+test ordinary_carriers::public_domain_tests::contract_expression_tests::option_data_tests::csharp_03_t06_w09_option_data_candidates ... option data context struct-none: 3 definitions, 3 SSA points
+option data context i32-value: 2 definitions, 2 SSA points
+option data context i32-fallback: 1 definitions, 1 SSA points
+option data context i32-default: 1 definitions, 1 SSA points
+option data context nested-string: 2 definitions, 2 SSA points
+option data context struct-decimal: 1 definitions, 1 SSA points
+option data context lifted-bool: 1 definitions, 2 SSA points
+option data context lifted-i32-checked: 1 definitions, 2 SSA points
+option data context lifted-i64: 1 definitions, 2 SSA points
+option data context lifted-f32: 1 definitions, 2 SSA points
+option data context lifted-f64: 1 definitions, 2 SSA points
+option data context lifted-decimal: 1 definitions, 2 SSA points
+option data: 12 contexts, 0 result observations
+ok
+test ordinary_carriers::public_domain_tests::contract_expression_tests::reference_data_tests::csharp_03_t06_w09_reference_data_candidates ... reference data context guarded: 1 definitions, 1 SSA points
+reference data context conditional: 1 definitions, 1 SSA points
+reference data context suppressed: 1 definitions, 1 SSA points
+reference data context property: 1 definitions, 1 SSA points
+reference data: 4 contexts, 0 result observations
+ok
+test ordinary_carriers::public_domain_tests::contract_expression_tests::sequence_data_tests::csharp_03_t06_w09_sequence_data_candidates ... sequence data context i32-length: 1 definitions, 1 SSA points
+sequence data context i32-read: 1 definitions, 1 SSA points
+sequence data context nullable-length: 1 definitions, 1 SSA points
+sequence data context product-length: 1 definitions, 1 SSA points
+sequence data context string-length: 1 definitions, 1 SSA points
+sequence data context field-read: 1 definitions, 1 SSA points
+sequence data context property-read: 1 definitions, 1 SSA points
+sequence data: 7 contexts, 0 result observations
+ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 332 filtered out; finished in 6.60s
+

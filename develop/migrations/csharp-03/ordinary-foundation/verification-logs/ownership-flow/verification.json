@@ -1,0 +1,69 @@
+{
+  "work_item": "CSHARP-03-T06-W09",
+  "status": "symbolic_ownership_witness_reconstruction_verified_not_proof",
+  "observed_at": "2026-09-20T14:32:20.336008+00:00",
+  "selection_rationale": "Extract the existing symbolic linear-ownership replay into an opt-in witness API. Check original native arrays, source loops, catch/finally cleanup, every CFG edge and phi mapping. Exercise existing hostile loop fixed-point rejection and preserve construction certificate bytes; unrelated scalar/runtime semantics are unchanged.",
+  "source_contexts": 12,
+  "blocks": 1085,
+  "exceptional_edges": 157,
+  "delayed_backedges": 14,
+  "checks": [
+    {
+      "receipt": "traces.json",
+      "log_sha256": "d1a6aa9a791bc1a034b622f72ccd250a73f63f7e5bf70486d2fff601f7b683a8",
+      "wall_seconds": 1.494,
+      "passed": true
+    },
+    {
+      "receipt": "loop-regression.json",
+      "log_sha256": "6255447b3ef6ea270796bfba7e6e1e3d28c11e6c0787afa627aa1e15b8469e9a",
+      "wall_seconds": 102.96,
+      "passed": true
+    },
+    {
+      "receipt": "construction-preservation.json",
+      "log_sha256": "1c4ed64ba2a274f99e422d2e7260267493fdef4a65de243d71eb319131ac4f6b",
+      "wall_seconds": 1.17,
+      "passed": true
+    },
+    {
+      "receipt": "lint.json",
+      "log_sha256": "14a772de52fc05eb5de41cc5c51c99821cc9337e7cab9a1db5c9e4894c6bc43f",
+      "wall_seconds": 32.25,
+      "passed": true
+    },
+    {
+      "receipt": "format.json",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "wall_seconds": 0.131,
+      "passed": true
+    },
+    {
+      "receipt": "inventory.json",
+      "log_sha256": "4eb4c46077cff5a9bf5a711632601794dd8cb9f296950a6f9b6f94e15d4fa553",
+      "wall_seconds": 0.553,
+      "passed": true
+    },
+    {
+      "receipt": "trace-pin-replay.json",
+      "log_sha256": "cdcdb9cfe31facbe2ee3d2af4d2bd6b3473a21f8a5e303f1c2b219443c29b139",
+      "wall_seconds": 0.834,
+      "passed": true
+    }
+  ],
+  "source_and_fixture_sha256": {
+    "crates/mpk-vc/src/csharp_practical_vir_validation.rs": "90cab8619bdee76ffaed564768c80e801768d9364a7bd348c2d2d6b37b14fd31",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_ownership_flow_tests.rs": "385c57ac298405f6ca63fb6534bcabde11cfecd9485152f39b10dda53d561194",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-flow/traces.json": "ff6d0981241a391db329cd322f974b475e14a6bf85e6c379b90fb5cf3d33694c",
+    "develop/migrations/csharp-03/data-phase/data-stage-replay.json": "66fefc6ee9c90141eae37630c99c06d0925eb4edbb89d5931d45f7a62a4c5e5c",
+    "develop/migrations/csharp-03/control-vc/loop-requests.json": "7a6d6ecfcbe52b4dbe41947998e3a97a599170f5deae471840ca6f8bae0e3f54",
+    "develop/migrations/csharp-03/control-emission/loop-responses.json": "7b7e88bb586d4994569578989cd88dac973807f6950ede6275869a845f14fdb2",
+    "develop/migrations/csharp-03/control-emission/construction-sources.json": "cd2a5e7aad3ab27c4e0b9a7b1dba726c71ed75d72239174fa780c91a5db4104c",
+    "develop/migrations/csharp-03/control-emission/construction-capture.json": "46bcededd9115bdee35aab6c68ce81c038d31b2955ddcaaf43fd29cccfb2cc94"
+  },
+  "ordinary_equations_generated": false,
+  "ownership_proofs_discharged": false,
+  "unit_5_complete": false,
+  "w09_complete": false,
+  "whole_gate": "deferred to T06-W12"
+}

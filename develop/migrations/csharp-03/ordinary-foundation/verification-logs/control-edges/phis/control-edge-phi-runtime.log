@@ -1,0 +1,19 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error[E0425]: cannot find type `PracticalVirFunction` in module `crate::csharp_practical_vir_model`
+   --> crates/mpk-vc/src/csharp_practical_ordinary_control_edges.rs:230:51
+    |
+230 |     function: &crate::csharp_practical_vir_model::PracticalVirFunction,
+    |                                                   ^^^^^^^^^^^^^^^^^^^^ not found in `crate::csharp_practical_vir_model`
+    |
+help: consider importing this struct
+    |
+  3 + use crate::csharp_practical_vir_validation::PracticalVirFunction;
+    |
+help: if you import `PracticalVirFunction`, refer to it directly
+    |
+230 -     function: &crate::csharp_practical_vir_model::PracticalVirFunction,
+230 +     function: &PracticalVirFunction,
+    |
+
+For more information about this error, try `rustc --explain E0425`.
+error: could not compile `mpk-vc` (lib) due to 1 previous error

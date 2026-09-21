@@ -1,0 +1,21 @@
+{
+  "command": [
+    "cargo",
+    "test",
+    "--release",
+    "-p",
+    "mpk-vc",
+    "--lib",
+    "control_nullable_some_storage_preserves_presence_payload_and_padding",
+    "--",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "exit_code": 0,
+  "timed_out": false,
+  "wall_seconds": 41.074,
+  "environment": {
+    "MPK_W09_CONTROL_SOME_OUT": "/tmp/mpk-control-some-storage.hex",
+    "MPK_CORE_MAX_SECONDS": "300"
+  }
+}

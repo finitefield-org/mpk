@@ -1,0 +1,132 @@
+{
+  "status": "passed_scoped_native_memory_binding_checks",
+  "memory_bindings": 4,
+  "refreshed_memory_loads": 3,
+  "new_observations": 100,
+  "index_update_observations": 4559,
+  "all_current_control_observations": 38159,
+  "checks": {
+    "control-memory-runtime": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_control_edge_construction_guards",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 139.847,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-memory-candidates",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-memory-regeneration": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "csharp_03_t06_w09_control_edge_collection_candidates",
+        "csharp_03_t06_w09_control_edge_other_sources_unchanged",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 30.402,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-memory-final-candidates",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-memory-preservation": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_control_memory_preserves_existing_declarations",
+        "csharp_03_t06_w09_control_edge_phi_preserves_existing_declarations",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.207,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-memory-final-candidates",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-memory-lint": {
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 20.517,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-memory-format": {
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 2.783,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    }
+  },
+  "certificate": {
+    "hex_file_sha256": "47b20ae154af7be12f27ccccce9ffa9a1d2a5beb61047bcacd7e0eea14e8bad4",
+    "metadata_file_sha256": "b2f2292387cc8365f914fab83a886292d791753086bb5e702b5e88966247a4cc",
+    "certificate_sha256": "a1df04cec1987d69aaa9a8fecb84744242323f5340877f9e9dc95805baeb41d6",
+    "bytes": 676497,
+    "edges": 63,
+    "guards": 63,
+    "joins": 61,
+    "phi_joins": 4,
+    "phi_values": 8,
+    "pending_edges": 0,
+    "checker_evidence": "memory-bindings/cases.json",
+    "memory_bindings": 4
+  },
+  "source_sha256": {
+    "crates/mpk-vc/src/csharp_practical_ordinary_control_edges.rs": "837374fdd4707eadc43c38550c802ed5d2adec69af2db3d5cfd539a7f1299a06",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_edge_tests.rs": "54c3caad331e3ba569cd06efcc2652b184eef387028b65be7431c5f1182e8e5a",
+    "crates/mpk-vc/src/csharp_practical_ordinary_source_clauses.rs": "fea85698dcb45e5f001434144ca7b7ad5f791aadb21ef4a1be11fcd850f33722",
+    "crates/mpk-vc/src/csharp_practical_ordinary_structural.rs": "dc3284d1a62adffe7515004dd05ffcb151558fca294fbf6cf57d508e89d388a0",
+    "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs": "2082ac94e13298286f556a1fa70acc261bdba3408f891f240c05b34647f95363",
+    "crates/mpk-vc/src/csharp_practical_vir_model.rs": "b363743c7bc02932fb119d038344a5a56d271f4e5751a2c726e7c22d61083da0"
+  },
+  "preserved_other_contexts": 16,
+  "public_slot_projection_pending": true,
+  "application_scope_pending": true,
+  "whole_gate": "deferred to T06-W12"
+}

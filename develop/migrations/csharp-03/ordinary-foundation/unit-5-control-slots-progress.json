@@ -1,0 +1,30 @@
+{
+  "work_item": "CSHARP-03-T06-W09",
+  "status": "passed_scoped_slots_arrays_and_nullable_storage",
+  "source_contexts": 9,
+  "relations": 130,
+  "relation_roles": {
+    "entry": 9,
+    "store": 50,
+    "load": 67,
+    "pattern_bind": 4
+  },
+  "runtime_observations": 2048,
+  "checker_certificates": 9,
+  "application_scope_pending": true,
+  "remaining": [
+    "Nullable storage and guarded edge transport are implemented; mapping to original W04 logical observations and complete native/application composition remain pending.",
+    "Non-transfer memory effects and source-exit snapshot production; node-entry merging.",
+    "Caught-exception slots/exceptional transfers, native execution, loop/pattern sequents and application proof assembly."
+  ],
+  "verification": "verification-logs/control-slots/verification.json",
+  "review": "unit-5-control-slots-review.md",
+  "unit_5_complete": false,
+  "w09_complete": false,
+  "whole_gate": "deferred to T06-W12",
+  "native_representation_audit": "verification-logs/control-edges/phis/native-slot-representation-audit.json",
+  "native_memory_resolution": "verification-logs/control-edges/memory-bindings/verification.json",
+  "public_projection_verification": "verification-logs/control-slots/public-projection/verification.json",
+  "nullable_slot_verification": "verification-logs/control-slots/nullable-representation/verification.json",
+  "nullable_transport_verification": "verification-logs/control-edges/nullable-slots/verification.json"
+}

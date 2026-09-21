@@ -1,0 +1,31 @@
+
+running 1 test
+test ordinary_carriers::public_domain_tests::contract_expression_tests::string_data_tests::csharp_03_t06_w09_string_data_original_source ... string data source basic-nonnull: 3 definitions, 3 use points, 0 pending
+string data source basic-nullable: 3 definitions, 3 use points, 1 pending
+string runtime start: construction-nonnull string.interpolation.restricted.cs
+string case start: construction-nonnull string.interpolation.restricted.cs [0]
+string stage: raw
+string stage: guard wrong=false
+string stage: goal wrong=false
+TERM PROFILE hits=0 lookups=471541 bits=1024 functions=8
+term (286, 15255846051706850519) vars=11 node=App { function: 28, arguments: [282, 285, 132] }
+term (286, 12569756952828686409) vars=11 node=App { function: 28, arguments: [282, 285, 132] }
+term (271, 8527487469987491097) vars=11 node=App { function: 28, arguments: [267, 270, 132] }
+term (286, 886194909878207523) vars=11 node=App { function: 28, arguments: [282, 285, 132] }
+term (286, 13628705816074755568) vars=11 node=App { function: 28, arguments: [282, 285, 132] }
+term (279, 5478196018538419712) vars=11 node=App { function: 28, arguments: [275, 278, 132] }
+term (279, 13572556152197979515) vars=11 node=App { function: 28, arguments: [275, 278, 132] }
+term (264, 172047928505698826) vars=11 node=App { function: 28, arguments: [260, 263, 132] }
+
+thread 'ordinary_carriers::public_domain_tests::contract_expression_tests::string_data_tests::csharp_03_t06_w09_string_data_original_source' (6250781) panicked at crates/mpk-vc/tests/support/../../src/csharp_practical_ordinary_test_eval.rs:606:17:
+MPK_CORE_MAX_SECONDS exhausted: ordinary evaluation deadline exceeded; no semantic verdict
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+FAILED
+
+failures:
+
+failures:
+    ordinary_carriers::public_domain_tests::contract_expression_tests::string_data_tests::csharp_03_t06_w09_string_data_original_source
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 308 filtered out; finished in 10.31s
+

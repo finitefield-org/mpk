@@ -1,0 +1,60 @@
+[
+  {
+    "stage": "index_update-positive-go",
+    "command": [
+      "/private/tmp/mpk-control-native-checks-b/go-checker",
+      "/private/tmp/mpk-control-native-checks-b/index_update-positive.mpcert"
+    ],
+    "wall_seconds": 157.707,
+    "exit_code": 0,
+    "timed_out": false,
+    "input_file_sha256": "7a731b84822e98486a7864a3c1f67ff40796a9433dea20cf89e85c19272708e9",
+    "stdout_sha256": "36916bb3ef004f4044317e7101ac1ae502c4044f057daa927e431d08cd82a5c5",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "index_update-positive-rust",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "check",
+      "/private/tmp/mpk-control-native-checks-b/index_update-positive.mpcert"
+    ],
+    "wall_seconds": 0.437,
+    "exit_code": 0,
+    "timed_out": false,
+    "input_file_sha256": "7a731b84822e98486a7864a3c1f67ff40796a9433dea20cf89e85c19272708e9",
+    "stdout_sha256": "834ea6b84f2b3c7ff8e9edef0f9c2b822a15273867335aea25c5e14a0559efbf",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "index_update-hash-go",
+    "command": [
+      "/private/tmp/mpk-control-native-checks-b/go-checker",
+      "/private/tmp/mpk-control-native-checks-b/index_update-hash.mpcert"
+    ],
+    "wall_seconds": 157.649,
+    "exit_code": 1,
+    "timed_out": false,
+    "input_file_sha256": "2b5fa11b67ea0eb4419addefdb192c5f0180d4007c4cb81880f2be17b6ceab6d",
+    "stdout_sha256": "a51cafbb545f780ad1da96db8954ec822903de34dff30d76df9d04c2e37b8e03",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "index_update-hash-rust",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "check",
+      "/private/tmp/mpk-control-native-checks-b/index_update-hash.mpcert"
+    ],
+    "wall_seconds": 0.427,
+    "exit_code": 1,
+    "timed_out": false,
+    "input_file_sha256": "2b5fa11b67ea0eb4419addefdb192c5f0180d4007c4cb81880f2be17b6ceab6d",
+    "stdout_sha256": "3d88694d51ef5e243b437c753336102a9b9e917d608f28e6d609d50aaf212616",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  }
+]

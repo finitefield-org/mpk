@@ -1,0 +1,40 @@
+{
+  "schema": "mpk.w09.reference_data.user_long_completed.v1",
+  "imported_at": "2026-09-20T13:49:32.934066+00:00",
+  "source_directory": "/tmp/mpk-w09-reference-data-long-1ufh5c4j",
+  "status": "all_delegated_checks_passed",
+  "checked_current_hash_counts": {
+    "fixture_sha256": 10,
+    "checker_source_sha256": 86,
+    "runtime_source_sha256": 223
+  },
+  "manifest_sha256": "9ba52612c89a69ddcd739a2d79fe7a15229cc87324ed74c3c834a9fc8d4f0451",
+  "results_sha256": "2767ec9bc5aeefc18c41d805cf2642f6382b5e356d9508c8bbddb4775289fb50",
+  "results": [
+    {
+      "label": "guarded-some",
+      "test_seconds": 40.99,
+      "wall_seconds": 41.16754724999191,
+      "result_observations": 9,
+      "log_sha256": "be8180a3a8f9875294b4ed7966050981291ad58df3fb506895b0113d7e00e330",
+      "future_execution_owner": "agent (measured under one minute)"
+    },
+    {
+      "label": "conditional-some",
+      "test_seconds": 39.06,
+      "wall_seconds": 39.13204791699536,
+      "result_observations": 9,
+      "log_sha256": "588cf64af7fabeb5d5f47b24b8351cea4880464466b1199f78727e87fe1c2682",
+      "future_execution_owner": "agent (measured under one minute)"
+    }
+  ],
+  "additional_executed_result_observations": 18,
+  "total_executed_result_observations": 30,
+  "equivalent_context_normal_observations_reused": 18,
+  "total_context_result_observations_covered": 48,
+  "equivalence_revalidated": true,
+  "reran_tests": false,
+  "performance_claim": "No implementation change or speedup inferred. Completed measured durations supersede the earlier 45-second cutoff for future execution ownership.",
+  "unit_5_complete": false,
+  "w09_complete": false
+}

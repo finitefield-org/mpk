@@ -75,6 +75,16 @@ impl ContractStringCache {
         if !matches!(signature.argument_type_ids.len(), 1 | 2) {
             return Err(OrdinaryCarrierError::Shape);
         }
+        self.emit_native(b, signature, nullable)
+    }
+    /// Native calls also include substring/concat/interpolation with larger
+    /// arities. The caller must reconstruct the exact closed signature first.
+    pub(in super::super) fn emit_native(
+        &mut self,
+        b: &mut Builder,
+        signature: ClosedOperationSignature,
+        nullable: bool,
+    ) -> R<(OrdinaryStringDefinition, Vec<String>)> {
         if let Some(h) = &self.helpers {
             if h.depth != TEXT_DEPTH + u32::from(nullable) {
                 return Err(OrdinaryCarrierError::Linkage);
@@ -95,7 +105,11 @@ impl ContractStringCache {
         let mut checks = definition.ordered_failure_definitions.clone();
         // Contract failure symbols denote individual failed checks, without
         // masking by an earlier exception. Keep legacy ordered failures intact.
-        if checks.len() > 1 {
+        if definition.operation.id == "string.substring.start_length" {
+            let raw = construct::emit_raw_substring_checks(b, h, &definition)?;
+            checks[1] = raw[0].clone();
+            checks[2] = raw[1].clone();
+        } else if checks.len() > 1 {
             if checks.len() != 2 {
                 return Err(OrdinaryCarrierError::Shape);
             }
@@ -660,6 +674,89 @@ mod tests {
         }
         assert_eq!(observations, 33);
         eprintln!("string contract raw checks: {observations} null/range/priority/output-capacity observations");
+    }
+    #[test]
+    fn string_native_cache_preserves_larger_arity_bodies_and_raw_substring_checks() {
+        let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+            .join("../../develop/migrations/csharp-03/ordinary-foundation/string-construction-circuits/metrics.json");
+        let rows: Value = serde_json::from_slice(&std::fs::read(root).unwrap()).unwrap();
+        let mut checked = 0;
+        for row in rows.as_array().unwrap() {
+            for d in row["metadata"]["definitions"].as_array().unwrap() {
+                let operation: ClosedOperationSignature =
+                    serde_json::from_value(d["operation"].clone()).unwrap();
+                if operation.argument_type_ids.len() < 3 {
+                    continue;
+                }
+                let nullable = operation
+                    .argument_type_ids
+                    .iter()
+                    .any(|t| t.starts_with("mpk.csharp.instance."));
+                let mut old = Builder::new().unwrap();
+                let expected = Helpers::new(&mut old, nullable)
+                    .unwrap()
+                    .emit(&mut old, operation.clone())
+                    .unwrap();
+                let mut b = Builder::new().unwrap();
+                let mut cache = ContractStringCache::default();
+                let (actual, raw) = cache
+                    .emit_native(&mut b, operation.clone(), nullable)
+                    .unwrap();
+                assert_eq!(actual, expected);
+                assert_eq!(&b.c.term_table[..old.c.term_table.len()], &old.c.term_table);
+                assert_eq!(
+                    &b.c.declarations[..old.c.declarations.len()],
+                    &old.c.declarations
+                );
+                assert_eq!(&b.c.name_table[..old.c.name_table.len()], &old.c.name_table);
+                assert_eq!(b.c.level_table, old.c.level_table);
+                // Unary/binary contract admission must not grow with native calls.
+                assert!(cache.emit(&mut b, operation.clone(), nullable).is_err());
+                let c = decode_canonical_certificate(&b.finish().unwrap()).unwrap();
+                if operation.id == "string.substring.start_length" {
+                    let word =
+                        |n: i32| V::Cube((0..32).map(|i| (n as u32) & (1 << i) != 0).collect());
+                    for present in [false, true] {
+                        if !nullable && !present {
+                            continue;
+                        }
+                        for (start, len) in [(0, 1), (-1, 1), (0, 16385), (0, -1)] {
+                            let args = vec![
+                                V::Cube(physical(
+                                    if present { Some(&[97, 0xd800]) } else { None },
+                                    nullable,
+                                )),
+                                word(start),
+                                word(len),
+                            ];
+                            let length = if present { 2 } else { 0 };
+                            let range_bad =
+                                start < 0 || len < 0 || start > length || len > length - start;
+                            let bound_bad = !(0..=16384).contains(&len);
+                            let failures = [!present, range_bad, bound_bad];
+                            let mut prefix = true;
+                            for (i, failed) in failures.into_iter().enumerate() {
+                                assert_eq!(bit(run(&c, &raw[i], args.clone())), failed, "raw {i}");
+                                assert_eq!(
+                                    bit(run(
+                                        &c,
+                                        &actual.ordered_failure_definitions[i],
+                                        args.clone()
+                                    )),
+                                    prefix && failed,
+                                    "ordered {i}"
+                                );
+                                prefix &= !failed;
+                            }
+                            assert_eq!(bit(run(&c, &actual.success_definition, args)), prefix);
+                        }
+                    }
+                }
+                checked += 1;
+            }
+        }
+        assert!(checked >= 2);
+        eprintln!("native multi-argument string bodies preserved: {checked}");
     }
     // Independent physical encoding of the unit-1 sequence and option layouts.
     pub(super) fn physical(text: Option<&[u16]>, nullable: bool) -> Vec<bool> {

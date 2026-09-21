@@ -1,0 +1,14 @@
+    Checking mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error: it looks like you're manually copying between slices
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_control_edge_tests.rs:781:17
+    |
+781 | /                 for i in second.selected_argument..second.state_argument_start + n {
+782 | |                     args[i] = other[i].clone();
+783 | |                 }
+    | |_________________^ help: try replacing the loop by: `args[second.selected_argument..(second.state_argument_start + n)].clone_from_slice(&other[second.selected_argument..(second.state_argument_start + n)]);`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#manual_memcpy
+    = note: `-D clippy::manual-memcpy` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::manual_memcpy)]`
+
+error: could not compile `mpk-vc` (test "csharp_practical_vc") due to 1 previous error

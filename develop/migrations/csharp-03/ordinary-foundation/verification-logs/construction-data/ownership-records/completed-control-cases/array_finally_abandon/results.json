@@ -1,0 +1,60 @@
+[
+  {
+    "stage": "control-array_finally_abandon-positive-go",
+    "command": [
+      "/private/tmp/mpk-control-records-array_finally_abandon-20260921/go-checker",
+      "/private/tmp/mpk-control-records-array_finally_abandon-20260921/control-array_finally_abandon-positive.mpcert"
+    ],
+    "wall_seconds": 333.755,
+    "exit_code": 0,
+    "timed_out": false,
+    "input_file_sha256": "728ea91da1f8b8345a4fb9c7e7b87f043a530c0b8885944221f5c4c45c01246a",
+    "stdout_sha256": "6de5a7af44bae2ab596727e34fa34918a93e865b068f3221ca15eed18f1671cc",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "control-array_finally_abandon-positive-rust",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "check",
+      "/private/tmp/mpk-control-records-array_finally_abandon-20260921/control-array_finally_abandon-positive.mpcert"
+    ],
+    "wall_seconds": 0.506,
+    "exit_code": 0,
+    "timed_out": false,
+    "input_file_sha256": "728ea91da1f8b8345a4fb9c7e7b87f043a530c0b8885944221f5c4c45c01246a",
+    "stdout_sha256": "3e23e58ef02b33f8a12a2d44d46567930a2b36220f7c76d456237888e0439e8f",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "control-array_finally_abandon-hash-go",
+    "command": [
+      "/private/tmp/mpk-control-records-array_finally_abandon-20260921/go-checker",
+      "/private/tmp/mpk-control-records-array_finally_abandon-20260921/control-array_finally_abandon-hash.mpcert"
+    ],
+    "wall_seconds": 290.559,
+    "exit_code": 1,
+    "timed_out": false,
+    "input_file_sha256": "db74930ded3c820ed901111e389db580cbbce0445ef414ecda1494a4e1e17cbb",
+    "stdout_sha256": "6e242bc5255763830625d2f2f2f8bc6f7f854cae6045f2c0181772109ba075cc",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "control-array_finally_abandon-hash-rust",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "check",
+      "/private/tmp/mpk-control-records-array_finally_abandon-20260921/control-array_finally_abandon-hash.mpcert"
+    ],
+    "wall_seconds": 0.514,
+    "exit_code": 1,
+    "timed_out": false,
+    "input_file_sha256": "db74930ded3c820ed901111e389db580cbbce0445ef414ecda1494a4e1e17cbb",
+    "stdout_sha256": "4e6d7a0ec51eea1eb3a64dc59609556b4a8584d9c67b4e7311ec2a24c059ae72",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  }
+]

@@ -1,0 +1,63 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+    Finished `release` profile [optimized] target(s) in 1m 17s
+     Running tests/csharp_practical_vc.rs (target/release/deps/csharp_practical_vc-0951b3e219e92435)
+
+running 1 test
+test ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_native_operations_original_sources ... native integer runtime integer.i32.less.unchecked
+native integer runtime integer.i32.add.checked
+native operation families: {"IntegerBoolean": 2}
+control native operations while: 68 observations
+control edges while: generated/imported exact candidate; 0 pending guards
+native integer runtime integer.i32.less.unchecked
+pending native operation structural.equal.mpk.csharp.value.i32.v1: ["Mpk.CSharp.Data.Relation.3782661b4351d1bfe679ebbcbe0ce6d79f7c3543b0b7e6c07074ffb46413fa3d"]
+pending native operation structural.equal.mpk.csharp.value.i32.v1: ["Mpk.CSharp.Data.Relation.3782661b4351d1bfe679ebbcbe0ce6d79f7c3543b0b7e6c07074ffb46413fa3d"]
+native integer runtime integer.i32.add.checked
+native integer runtime integer.i32.add.checked
+native operation families: {"IntegerBoolean": 3}
+control native operations for: 100 observations
+control edges for: generated/imported exact candidate; 0 pending guards
+native integer runtime integer.i32.less.unchecked
+native integer runtime integer.i32.add.checked
+native integer runtime integer.i32.less.unchecked
+native integer runtime integer.i32.add.checked
+native integer runtime integer.i32.multiply.checked
+native integer runtime integer.i32.add.checked
+native operation families: {"IntegerBoolean": 6}
+control native operations short_circuit: 202 observations
+control edges short_circuit: generated/imported exact candidate; 0 pending guards
+native integer runtime integer.i32.greater.unchecked
+pending native operation structural.equal.mpk.csharp.value.i32.v1: ["Mpk.CSharp.Data.Relation.3782661b4351d1bfe679ebbcbe0ce6d79f7c3543b0b7e6c07074ffb46413fa3d"]
+native integer runtime integer.i32.subtract.checked
+native operation families: {"IntegerBoolean": 2}
+control native operations switch: 72 observations
+control edges switch: generated/imported exact candidate; 0 pending guards
+native integer runtime integer.i32.greater.unchecked
+native integer runtime integer.i32.negate.checked
+native operation families: {"IntegerBoolean": 2}
+control native operations is_binding: 70 observations
+control edges is_binding: generated/imported exact candidate; 0 pending guards
+native integer runtime integer.i32.add.checked
+pending native operation structural.equal.mpk.csharp.value.i32.v1: ["Mpk.CSharp.Data.Relation.3782661b4351d1bfe679ebbcbe0ce6d79f7c3543b0b7e6c07074ffb46413fa3d"]
+pending native operation structural.equal.mpk.csharp.value.i32.v1: ["Mpk.CSharp.Data.Relation.3782661b4351d1bfe679ebbcbe0ce6d79f7c3543b0b7e6c07074ffb46413fa3d"]
+native integer runtime integer.i32.add.checked
+pending native operation structural.equal.mpk.csharp.value.i32.v1: ["Mpk.CSharp.Data.Relation.3782661b4351d1bfe679ebbcbe0ce6d79f7c3543b0b7e6c07074ffb46413fa3d"]
+native integer runtime integer.i32.multiply.checked
+native integer runtime integer.i32.add.checked
+native operation families: {"IntegerBoolean": 4}
+control native operations guard_order: 130 observations
+control edges guard_order: generated/imported exact candidate; 0 pending guards
+native integer runtime integer.i32.divide.checked
+
+thread 'ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_native_operations_original_sources' (8095859) panicked at crates/mpk-vc/tests/support/../../src/csharp_practical_ordinary_test_eval.rs:509:17:
+MPK_CORE_MAX_SECONDS exhausted: ordinary evaluation deadline exceeded; no semantic verdict
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+FAILED
+
+failures:
+
+failures:
+    ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_native_operations_original_sources
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 349 filtered out; finished in 300.16s
+
+error: test failed, to rerun pass `-p mpk-vc --test csharp_practical_vc`

@@ -1,0 +1,14 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error[E0433]: cannot find type `PathBuf` in this scope
+  --> crates/mpk-vc/tests/support/csharp_practical_ordinary_control_slot_tests.rs:19:66
+   |
+19 |     let root = std::env::var_os("MPK_W09_CONTROL_SLOTS_OUT").map(PathBuf::from);
+   |                                                                  ^^^^^^^ use of undeclared type `PathBuf`
+   |
+help: consider importing this struct
+   |
+ 2 + use std::path::PathBuf;
+   |
+
+For more information about this error, try `rustc --explain E0433`.
+error: could not compile `mpk-vc` (test "csharp_practical_vc") due to 1 previous error

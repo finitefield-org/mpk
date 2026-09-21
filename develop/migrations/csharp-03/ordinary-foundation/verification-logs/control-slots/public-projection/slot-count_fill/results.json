@@ -1,0 +1,60 @@
+[
+  {
+    "stage": "count_fill-positive-go",
+    "command": [
+      "/private/tmp/mpk-control-partial-count-fill-checks-20260921/go-checker",
+      "/private/tmp/mpk-control-partial-count-fill-checks-20260921/count_fill-positive.mpcert"
+    ],
+    "wall_seconds": 440.944,
+    "exit_code": 0,
+    "timed_out": false,
+    "input_file_sha256": "2b3473bc3db1941f78b73d165e6696fd3c38cac3fac873aaf84bc4852ac25621",
+    "stdout_sha256": "96d903e65eb1bb3296a5a28eb56818e89ac5f96baff7136e6b0a752199fe7681",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "count_fill-positive-rust",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "check",
+      "/private/tmp/mpk-control-partial-count-fill-checks-20260921/count_fill-positive.mpcert"
+    ],
+    "wall_seconds": 1.069,
+    "exit_code": 0,
+    "timed_out": false,
+    "input_file_sha256": "2b3473bc3db1941f78b73d165e6696fd3c38cac3fac873aaf84bc4852ac25621",
+    "stdout_sha256": "4ca84dc7a77fabd3205a1501c978112eed2a4f3031dcd1ef0a22f9797607e205",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "count_fill-hash-go",
+    "command": [
+      "/private/tmp/mpk-control-partial-count-fill-checks-20260921/go-checker",
+      "/private/tmp/mpk-control-partial-count-fill-checks-20260921/count_fill-hash.mpcert"
+    ],
+    "wall_seconds": 432.921,
+    "exit_code": 1,
+    "timed_out": false,
+    "input_file_sha256": "8067f04194bd677dfad77148136ee28ff6892fbe63e16958dc7d97960c91ceda",
+    "stdout_sha256": "dcc15f26cbfb75bf667d08953ef21b2c89a709b75a9cfdc42cf0186926819af5",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "count_fill-hash-rust",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "check",
+      "/private/tmp/mpk-control-partial-count-fill-checks-20260921/count_fill-hash.mpcert"
+    ],
+    "wall_seconds": 1.095,
+    "exit_code": 1,
+    "timed_out": false,
+    "input_file_sha256": "8067f04194bd677dfad77148136ee28ff6892fbe63e16958dc7d97960c91ceda",
+    "stdout_sha256": "d62d312113f33de165616d54c1034efadb945676056635a4f705a75e7b24a168",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  }
+]

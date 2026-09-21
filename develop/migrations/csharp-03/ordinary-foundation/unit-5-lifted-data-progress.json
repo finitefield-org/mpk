@@ -1,0 +1,193 @@
+{
+  "work_item": "CSHARP-03-T06-W09",
+  "unit": 5,
+  "status": "lifted_scoped_runtime_corpus_and_seven_dual_checker_contexts_passed_w09_pending",
+  "source_contexts": 7,
+  "definition_occurrences": 47,
+  "ssa_use_points": 47,
+  "unique_signatures": 46,
+  "runtime_signatures_passed": 46,
+  "result_guard_observations_passed": 2550,
+  "short_runtime_results": [
+    {
+      "receipt": "runtime-bool.json",
+      "observations": 78,
+      "sha256": "141f5512a833a3ce85e7c0441979a74bed7005d37dd3cc1c17abeab308a5ec30"
+    },
+    {
+      "receipt": "runtime-f32.json",
+      "observations": 432,
+      "sha256": "7a876395d43a9d10b268ebde2d2fbf1d340eadd9f2461e5db3808011244f2d49"
+    },
+    {
+      "receipt": "runtime-f64.json",
+      "observations": 432,
+      "sha256": "3e160ac420ef7d91b690d08e4d1b7602bbc6d824c2ade1601871a0cab0f2a4ab"
+    },
+    {
+      "receipt": "runtime-lifted-i32-add-checked.json",
+      "observations": 72,
+      "sha256": "d452e49f5d2ffde279ed1034082d2460ed3a7eccf99363f98cafa6990fc6ed40"
+    },
+    {
+      "receipt": "runtime-lifted-i32-add-unchecked.json",
+      "observations": 72,
+      "sha256": "fa0bde3b8e9e3aafcdf296725c62c66d6b1a4e6f53798298060a71ca14503c18"
+    },
+    {
+      "receipt": "runtime-lifted-i32-equal-unchecked.json",
+      "observations": 72,
+      "sha256": "c76f68898e2900bb9f284c3c3bcf194bcb0092f7536cb090a09ce0ff83c13782"
+    },
+    {
+      "receipt": "runtime-lifted-i32-greater-unchecked.json",
+      "observations": 72,
+      "sha256": "e282fa1f092c67161ed5dc9246ed6a1469316ded014e96accfc06a909abe1796"
+    },
+    {
+      "receipt": "runtime-lifted-i32-greater_equal-unchecked.json",
+      "observations": 72,
+      "sha256": "50a7bc375fe4ee5674688eba38e2ed2bd4b655bbcb237f0e2a83047f486ffb62"
+    },
+    {
+      "receipt": "runtime-lifted-i32-less-unchecked.json",
+      "observations": 72,
+      "sha256": "3dfa951812f68cb870045e3d4cfc1f8f07920f032a2f84b625d6843f62a4117a"
+    },
+    {
+      "receipt": "runtime-lifted-i32-less_equal-unchecked.json",
+      "observations": 72,
+      "sha256": "7d748d24f7c73518f89b5aa29c532c9c46bab1584616f417560b0485f57cb50a"
+    },
+    {
+      "receipt": "runtime-lifted-i32-multiply-unchecked.json",
+      "observations": 72,
+      "sha256": "b4e2b58b0c1aceb6467b3fbc4178aa21139500394753a9514c65005161c57bb3"
+    },
+    {
+      "receipt": "runtime-lifted-i32-negate-checked.json",
+      "observations": 12,
+      "sha256": "d28f98a5cf3dc97c587cfdd78b5b6bd19d0b554b1665238730f8b75b90a8954d"
+    },
+    {
+      "receipt": "runtime-lifted-i32-negate-unchecked.json",
+      "observations": 12,
+      "sha256": "c0324a92a70199cff423e6e195418c288b612b8b6bfd4cdd10902bae0183152c"
+    },
+    {
+      "receipt": "runtime-lifted-i32-not_equal-unchecked.json",
+      "observations": 72,
+      "sha256": "3dd57b6c34f42d5d7849208ab055333ccd393e9ff9bfa18c7627e8194be95ff4"
+    },
+    {
+      "receipt": "runtime-lifted-i32-plus-unchecked.json",
+      "observations": 12,
+      "sha256": "2b588906f68d7cbf7668ed424e058bd2a730dbfef293a15c6be16f0d286fdf9e"
+    },
+    {
+      "receipt": "runtime-lifted-i32-subtract-checked.json",
+      "observations": 72,
+      "sha256": "6fc8a3da4b36f28c7a85e0c68ccbc99de7f3c6d69cb449589c08c4dcb4ce34df"
+    },
+    {
+      "receipt": "runtime-lifted-i32-subtract-unchecked.json",
+      "observations": 72,
+      "sha256": "c075625ebb5e26218f1cf9828c1fbce331e2e1edd8fb267161a65856fe723869"
+    },
+    {
+      "receipt": "runtime-lifted-i64-add-checked.json",
+      "observations": 72,
+      "sha256": "46affde2e1ecd690f911230a7f0536be25c35130d2750f9ec7f6f1fdea5691ee"
+    },
+    {
+      "receipt": "runtime-lifted-i64-equal-unchecked.json",
+      "observations": 72,
+      "sha256": "17174fa3719e62e430c262b148805fa60832edeca07c1ccb2961597e8bdbf36f"
+    },
+    {
+      "receipt": "runtime-lifted-i64-less-unchecked.json",
+      "observations": 72,
+      "sha256": "50e61ece0470014b45363ba8489533f74a118bf5fc388583ef5430b56864ce16"
+    },
+    {
+      "receipt": "runtime-lifted-i64-negate-checked.json",
+      "observations": 12,
+      "sha256": "bf3b0d01568ac035fef9d999cc94749ee52ec21c072bac8d2a55e1819e4746b9"
+    }
+  ],
+  "capture": "verification-logs/lifted-data/capture/receipt.json",
+  "capture_method": "Two identical offline captures with pinned Linux amd64 Python image, network disabled, read-only repository and 4 GiB memory limit; SYS_ADMIN permits the existing inner unshare sandbox.",
+  "capture_correction": "The original f64 test source used an unadmitted i32-to-f64 conversion; the final source uses typed double literals and retains all six lifted comparisons. No frontend acceptance rule was changed.",
+  "accepted_candidate_mutations": [
+    "changed original SSA normal-successor metadata rejects",
+    "changed certificate bytes reject exact import"
+  ],
+  "dual_checker_complete": [
+    "bool",
+    "f32",
+    "f64",
+    "decimal",
+    "i32-checked",
+    "i32-unchecked",
+    "i64"
+  ],
+  "limits": [
+    "Historical diagnostic, superseded by the completed user run: The i32 checked group and selected arithmetic/decimal equality diagnostics exceeded a 45-second evaluation budget. These are unresolved runtime observations, not semantic counterexamples.",
+    "Historical diagnostic, superseded by the completed user run: Decimal and i32-unchecked dual-checker suites exceeded a 50-second diagnostic cap; neither full suite is claimed passed. Similar larger integer suites are user-owned without another diagnostic run.",
+    "Unchecked i32 multiply completed in 47.63 seconds after the dispatcher stopped. Full successful test output proves its 72 observations; wrapper exit status was unavailable. No rerun needed.",
+    "No frozen test cases or carrier bounds were reduced. New operation filtering rejects selectors with no runtime observations.",
+    "Other data families remain explicit pending definitions. Native body/control/ownership relations, proofs and original units 3-8 remain incomplete."
+  ],
+  "verification_selection": [
+    "New nullable adapter: complete Bool/null truth tables, signed extrema and overflow/null-before-failure ordering, NaNs/signed zeros, exact physical result equality and mutated padding.",
+    "Source/candidate/import checks exercise all seven native sources and 47 SSA points. Runtime partitions omit only explicitly delegated long operations.",
+    "Checker tests use the existing same-decoded-bytes agreement and hash-corruption rejection harness on the new seven-certificate corpus.",
+    "Five inventory tests pass after adding exactly two Std. consumers against the previous 129-path preimage: scalar_relations (prior count fix) and lifted_data.",
+    "Clippy (6.09 seconds) and formatting cover only affected targets. Full gate stays at T06-W12.",
+    "Imported all 12 user logs; verified every expected operand pair and observation count, all four checker subtests, unchanged certificate manifests and source hashes matching the deep-cache correction receipt. No code changed and no passed tests rerun."
+  ],
+  "source_sha256": {
+    "crates/mpk-vc/src/csharp_practical_ordinary_lifted_data.rs": "ee4e1dcf60c24f3e268bf9e2a39be8f98ca046feed6190d5d4d6d5c5949710fc",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_lifted_data_tests.rs": "799e543a934f707fcbfcdbb20d1d2be4c2d09c6934603a2857bb5586ca39ed6a",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_contract_expression_tests.rs": "767096f52ba9da2a78dd0aa70d4f53aee8db57d670cc168f50a5a3e43f3d49c3",
+    "go-tools/mpk-checker-ref/checker_agreement_test.go": "616f4317ba0b87b09aab9bbab6313343c6df9aeaf1d8b82132c6d264136cde62"
+  },
+  "full_gate": "deferred_to_T06_W12",
+  "completion": "No W09/internal-unit completion or commit boundary reached.",
+  "observer_correction": {
+    "receipt": "verification-logs/lifted-data/deep-cache/verification.json",
+    "review": "unit-5-lifted-deep-cache-review.md",
+    "full_checked_multiplication": "passed all 36 input pairs / 72 correct-wrong observations in 163.15 seconds",
+    "historical_evidence": "The earlier 35-operation counts/source hashes describe the prior observer. Targeted post-correction evidence is in the linked receipt.",
+    "completion_receipt": "verification-logs/lifted-data/user-long-completed/verification.json"
+  },
+  "long_checks_completed": {
+    "runtime_operations": [
+      "lifted.i32.multiply.checked",
+      "lifted.i32.divide.checked",
+      "lifted.i32.remainder.unchecked",
+      "lifted.i32.divide.unchecked",
+      "lifted.i64.divide.checked",
+      "lifted.decimal.equal.unchecked",
+      "lifted.decimal.not_equal.unchecked",
+      "lifted.decimal.less.unchecked",
+      "lifted.decimal.less_equal.unchecked",
+      "lifted.decimal.greater.unchecked",
+      "lifted.decimal.greater_equal.unchecked"
+    ],
+    "checker_contexts": [
+      "i32-checked",
+      "i32-unchecked",
+      "i64",
+      "decimal"
+    ],
+    "command": "bash develop/migrations/csharp-03/ordinary-foundation/lifted-data/run-long-checks.sh",
+    "owner": "user",
+    "receipt": "verification-logs/lifted-data/user-long-completed/verification.json",
+    "status": "passed; do not rerun without relevant changes"
+  },
+  "long_checks_pending": {
+    "runtime_operations": [],
+    "checker_contexts": []
+  }
+}

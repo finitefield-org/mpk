@@ -93,7 +93,7 @@ pub(super) fn result_equality(
     actual: u32,
     result_width: u32,
 ) -> R<u32> {
-    if !matches!(result_width, 1 | 8 | 16 | 32 | 64 | 512) {
+    if !matches!(result_width, 1 | 8 | 16 | 32 | 64 | 128 | 512) {
         return Err(OrdinaryCarrierError::Shape);
     }
     let depth = address_bits(result_width);
@@ -161,6 +161,54 @@ pub(super) fn predicate(
     let ty = c.ty(&signature(&args, SOURCE_BOOL), 0)?;
     c.b.define(name, ty, body)
 }
+pub(super) fn emit_definition(
+    c: &mut Clauses<'_>,
+    d: &DataSemanticDefinition,
+) -> R<OrdinaryIntegerDataDefinition> {
+    if d.family != DataDefinitionFamily::IntegerBoolean {
+        return Err(OrdinaryCarrierError::Linkage);
+    }
+    let scalar = super::super::super::scalar_bits::emit_integer(&mut c.b, &d.signature.id)?;
+    if scalar.operation != d.signature
+        || scalar.ordered_failure_definitions.len() != d.failure_names.len()
+        || d.failure_result_names.iter().any(Option::is_some)
+    {
+        return Err(OrdinaryCarrierError::Linkage);
+    }
+    let relation_definition = core_name("Relation", &d.id);
+    relation(&mut c.b, &scalar, &relation_definition)?;
+    let mut args = d.signature.argument_type_ids.clone();
+    args.push(d.signature.normal_result_type_id.clone());
+    c.constants.insert(
+        d.relation_name.clone(),
+        (signature(&args, SOURCE_BOOL), relation_definition.clone()),
+    );
+    for ((check, symbol), body) in d
+        .signature
+        .ordered_checks
+        .iter()
+        .zip(&d.failure_names)
+        .zip(&scalar.ordered_failure_definitions)
+    {
+        // Integer divide/remainder zero and min/-1 failures are disjoint;
+        // their frozen ordered predicates equal individual failed checks.
+        if check.tag != RequiredCheckTag::Exception {
+            return Err(OrdinaryCarrierError::Linkage);
+        }
+        c.constants.insert(
+            symbol.clone(),
+            (
+                signature(&d.signature.argument_type_ids, SOURCE_BOOL),
+                body.clone(),
+            ),
+        );
+    }
+    Ok(OrdinaryIntegerDataDefinition {
+        source: d.clone(),
+        scalar,
+        relation_definition,
+    })
+}
 pub fn generate_csharp_practical_ordinary_integer_data(
     vir: &ValidatedPracticalVir,
 ) -> R<OrdinaryIntegerDataProgram> {
@@ -176,46 +224,7 @@ pub fn generate_csharp_practical_ordinary_integer_data(
             pending.push(d.id.clone());
             continue;
         }
-        let scalar = super::super::super::scalar_bits::emit_integer(&mut c.b, &d.signature.id)?;
-        if scalar.operation != d.signature
-            || scalar.ordered_failure_definitions.len() != d.failure_names.len()
-            || d.failure_result_names.iter().any(Option::is_some)
-        {
-            return Err(OrdinaryCarrierError::Linkage);
-        }
-        let relation_definition = core_name("Relation", &d.id);
-        relation(&mut c.b, &scalar, &relation_definition)?;
-        let mut args = d.signature.argument_type_ids.clone();
-        args.push(d.signature.normal_result_type_id.clone());
-        c.constants.insert(
-            d.relation_name.clone(),
-            (signature(&args, SOURCE_BOOL), relation_definition.clone()),
-        );
-        for ((check, symbol), body) in d
-            .signature
-            .ordered_checks
-            .iter()
-            .zip(&d.failure_names)
-            .zip(&scalar.ordered_failure_definitions)
-        {
-            // Integer divide/remainder zero and min/-1 failures are disjoint;
-            // their frozen ordered predicates equal individual failed checks.
-            if check.tag != RequiredCheckTag::Exception {
-                return Err(OrdinaryCarrierError::Linkage);
-            }
-            c.constants.insert(
-                symbol.clone(),
-                (
-                    signature(&d.signature.argument_type_ids, SOURCE_BOOL),
-                    body.clone(),
-                ),
-            );
-        }
-        definitions.push(OrdinaryIntegerDataDefinition {
-            source: d.clone(),
-            scalar,
-            relation_definition,
-        });
+        definitions.push(emit_definition(&mut c, d)?);
     }
     let ids = definitions
         .iter()

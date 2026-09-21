@@ -1,0 +1,20 @@
+{
+  "command": [
+    "rustfmt",
+    "--check",
+    "--edition",
+    "2021",
+    "--config",
+    "skip_children=true",
+    "crates/mpk-vc/src/csharp_practical_ordinary_ownership_flow.rs",
+    "crates/mpk-vc/src/csharp_practical_ordinary_ownership_proofs.rs",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_ownership_flow_tests.rs",
+    "crates/mpk-vc/tests/csharp_practical_inventory.rs"
+  ],
+  "exit_code": 0,
+  "timed_out": false,
+  "wall_seconds": 0.076,
+  "environment": {
+    "MPK_CORE_MAX_SECONDS": "300"
+  }
+}

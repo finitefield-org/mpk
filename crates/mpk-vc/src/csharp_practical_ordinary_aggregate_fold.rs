@@ -277,6 +277,60 @@ mod tests {
                 .collect(),
         )
     }
+    #[test]
+    fn aggregate_count_addition_u32_boundaries_and_rejection() {
+        use super::super::super::test_eval::thunk;
+        use std::rc::Rc;
+        let mut b = Builder::new().unwrap();
+        let add = super::super::super::scalar_bits::count_addition(&mut b).unwrap();
+        let bytes = b.finish().unwrap();
+        if let Some(path) = std::env::var_os("MPK_COUNT_ADDITION_CERT_OUT") {
+            fs::write(path, &bytes).unwrap();
+        }
+        let c = mpk_cert::decode_canonical_certificate(&bytes).unwrap();
+        let mut values = vec![
+            0,
+            1,
+            2,
+            17,
+            32767,
+            32768,
+            65534,
+            65535,
+            65536,
+            65537,
+            65538,
+            u32::MAX,
+        ];
+        for bit in 0..32 {
+            values.push(1 << bit);
+            values.push((1u32 << bit).wrapping_sub(1));
+        }
+        values.sort_unstable();
+        values.dedup();
+        for &left in &values {
+            for &right in &values {
+                let expected = (u64::from(left) + u64::from(right)).min(u64::from(INVALID)) as u32;
+                let got = observed(&c, run(&c, &add, vec![number(left), number(right)]));
+                assert_eq!(got, expected, "{left} + {right}");
+            }
+        }
+        // Invalid left operands must reject without demanding the right cube.
+        for left in [INVALID, 1 << 17, 1 << 31, u32::MAX] {
+            let poison = thunk(
+                u32::MAX,
+                Rc::new(super::super::super::test_eval::Env::Empty),
+            );
+            assert_eq!(
+                observed(&c, run(&c, &add, vec![number(left), poison])),
+                INVALID
+            );
+        }
+        eprintln!(
+            "count addition: {} operand pairs, four lazy rejection probes",
+            values.len() * values.len()
+        );
+    }
     fn fixture() -> (
         Certificate,
         Vec<OrdinaryAggregateFoldDefinition>,
@@ -578,10 +632,23 @@ mod tests {
         use super::super::super::test_eval::run_counted;
         let mut b = Builder::new().unwrap();
         let fold = emit_fold(&mut b, 1).unwrap();
-        let add = super::super::super::scalar_bits::count_addition(&mut b).unwrap();
         let one = word(&mut b, 1).unwrap();
         let zero = word(&mut b, 0).unwrap();
-        let result = call(&mut b, &add, vec![one, zero]).unwrap();
+        // Fixed work isolates predicate sharing from improvements to the cell
+        // adder itself. Bind the computed Bool outside the result selectors.
+        let mut expensive = bit(&mut b, false).unwrap();
+        for _ in 0..2049 {
+            expensive = call(&mut b, "Std.Bool.not", vec![expensive]).unwrap();
+        }
+        let flag = b.var(0).unwrap();
+        let result = cube_mux(&mut b, 5, flag, one, zero).unwrap();
+        let result = b
+            .term(TermNode::Let {
+                ty: b.boolean,
+                value: expensive,
+                body: result,
+            })
+            .unwrap();
         define(&mut b, "Test.Computed", &[0], 5, result).unwrap();
         // Negative control: extensionally the same predicate, but applying it
         // again inside every word selector repeats its finite calculation.

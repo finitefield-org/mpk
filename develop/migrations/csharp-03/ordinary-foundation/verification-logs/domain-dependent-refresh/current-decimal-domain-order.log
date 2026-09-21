@@ -1,0 +1,22 @@
+
+running 1 test
+test ordinary_carriers::domain_tests::csharp_03_t06_w09_domains_source_decimal_collection_order ... decimal collection domain boundary-map-decimal: equivalent scales
+decimal collection domain boundary-map-decimal: signed scaled zero
+decimal collection domain boundary-map-decimal: descending
+decimal collection domain boundary-map-decimal: increasing
+
+thread '<unnamed>' (6749414) panicked at crates/mpk-vc/tests/support/../../src/csharp_practical_ordinary_test_eval.rs:509:17:
+MPK_CORE_MAX_SECONDS exhausted: ordinary evaluation deadline exceeded; no semantic verdict
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'ordinary_carriers::domain_tests::csharp_03_t06_w09_domains_source_decimal_collection_order' (6749413) panicked at crates/mpk-vc/tests/support/csharp_practical_ordinary_domain_tests.rs:853:10:
+called `Result::unwrap()` on an `Err` value: Any { .. }
+FAILED
+
+failures:
+
+failures:
+    ordinary_carriers::domain_tests::csharp_03_t06_w09_domains_source_decimal_collection_order
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 310 filtered out; finished in 45.12s
+

@@ -1,0 +1,31 @@
+[
+  {
+    "stage": "two-origins-hash-go",
+    "command": [
+      "/private/tmp/mpk-ownership-two-origins-hash-20260921/go-checker",
+      "/private/tmp/mpk-ownership-two-origins-hash-20260921/two-origins-hash.mpcert"
+    ],
+    "wall_seconds": 44.57,
+    "exit_code": 1,
+    "timed_out": false,
+    "input_file_sha256": "bbd7c527133ac1110f1e38e972de78b5e3d1d0e85adcb033866dd853df251843",
+    "stdout_sha256": "10adf5f8b6937659654c3376d1ad00ba439ad9f448e774411dfc414207283951",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "two-origins-hash-rust",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "check",
+      "/private/tmp/mpk-ownership-two-origins-hash-20260921/two-origins-hash.mpcert"
+    ],
+    "wall_seconds": 0.174,
+    "exit_code": 1,
+    "timed_out": false,
+    "input_file_sha256": "bbd7c527133ac1110f1e38e972de78b5e3d1d0e85adcb033866dd853df251843",
+    "stdout_sha256": "690068f68d5c76cd7c7e0c490388d6f3e13d8a8237051d689fd4906f4f02156e",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  }
+]

@@ -1,0 +1,32 @@
+{
+  "work_item": "CSHARP-03-T06-W09",
+  "status": "passed_scoped_guard_and_edge_transport_checks",
+  "source_contexts": 9,
+  "edges": 360,
+  "guards": 360,
+  "joins": 341,
+  "pending_edges": 0,
+  "runtime_observations": 13910,
+  "distinct_original_w04_goal_bindings": 95,
+  "checker_certificates": 9,
+  "state_rule": "source_exit_to_edge_specific_target; node_entry_merge_pending",
+  "application_scope_pending": true,
+  "remaining": [
+    "Other data-family guard definitions, including the five foreach_string guards retained by the pending regression.",
+    "Node-entry merging, non-transfer node frames and production of source-exit snapshots.",
+    "Caught-exception entry, exceptional transfer semantics, native execution and loop/pattern application proofs."
+  ],
+  "verification": "verification-logs/control-edges/verification.json",
+  "review": "unit-5-control-edges-review.md",
+  "unit_5_complete": false,
+  "w09_complete": false,
+  "whole_gate": "deferred to T06-W12",
+  "scoped_ownership_bindings": 4,
+  "construction_definitions": 3,
+  "unsupported_guard_regression": {
+    "source": "foreach_string",
+    "pending_edges": 5,
+    "receipt": "construction/control-edge-string-pending-final.json",
+    "scope": "Separate unsupported source; not part of the nine-source fully generated corpus."
+  }
+}

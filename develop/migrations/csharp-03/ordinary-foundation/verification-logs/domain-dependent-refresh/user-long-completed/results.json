@@ -1,0 +1,145 @@
+[
+  {
+    "family": "structural-boundary",
+    "file": "document-6b96fc4eed95a1d33fa5784b9062f02fa07ac65b6aef2b4100bb91e9c2f1a613.hex",
+    "certificate_path": "develop/migrations/csharp-03/ordinary-foundation/structural-boundary/document-6b96fc4eed95a1d33fa5784b9062f02fa07ac65b6aef2b4100bb91e9c2f1a613.hex",
+    "certificate_file_sha256": "e043351cca73d235db96f8befc4ebe040ff31ddc367894484bbfae70fe84089a",
+    "test_filter": "^TestCheckerAgreementWithRustCLIStructuralBoundary$/^document\\-6b96fc4eed95a1d33fa5784b9062f02fa07ac65b6aef2b4100bb91e9c2f1a613\\.hex$",
+    "reason": "Agent 55-second process limit; no semantic verdict",
+    "short_log": "structural-boundary__document-6b96fc4eed95a1d33fa5784b9062f02fa07ac65b6aef2b4100bb91e9c2f1a613.log",
+    "command": [
+      "go",
+      "test",
+      "-v",
+      "-count=1",
+      "-timeout",
+      "25m",
+      "-tags",
+      "checkeragreement",
+      "-run",
+      "^TestCheckerAgreementWithRustCLIStructuralBoundary$/^document\\-6b96fc4eed95a1d33fa5784b9062f02fa07ac65b6aef2b4100bb91e9c2f1a613\\.hex$",
+      "."
+    ],
+    "exit_code": 0,
+    "passed": true,
+    "wall_seconds": 186.46597187500447,
+    "log": "structural-boundary__document-6b96fc4eed95a1d33fa5784b9062f02fa07ac65b6aef2b4100bb91e9c2f1a613.log",
+    "log_sha256": "6e7eb9152e86ed8c2fd0e6472fa9d7d4ab542b22082867887dc2a9b95f747239"
+  },
+  {
+    "family": "structural-boundary",
+    "file": "document-7a157feb27ed416752b5dde8aa2bf373b9a2c82755d2caa89e955057176ee57b.hex",
+    "certificate_path": "develop/migrations/csharp-03/ordinary-foundation/structural-boundary/document-7a157feb27ed416752b5dde8aa2bf373b9a2c82755d2caa89e955057176ee57b.hex",
+    "certificate_file_sha256": "d5e71e56b35ba0c55e6bacb0412d75884ad641301a5eae277cdbec35652719f9",
+    "test_filter": "^TestCheckerAgreementWithRustCLIStructuralBoundary$/^document\\-7a157feb27ed416752b5dde8aa2bf373b9a2c82755d2caa89e955057176ee57b\\.hex$",
+    "reason": "Agent 55-second process limit; no semantic verdict",
+    "short_log": "structural-boundary__document-7a157feb27ed416752b5dde8aa2bf373b9a2c82755d2caa89e955057176ee57b.log",
+    "command": [
+      "go",
+      "test",
+      "-v",
+      "-count=1",
+      "-timeout",
+      "25m",
+      "-tags",
+      "checkeragreement",
+      "-run",
+      "^TestCheckerAgreementWithRustCLIStructuralBoundary$/^document\\-7a157feb27ed416752b5dde8aa2bf373b9a2c82755d2caa89e955057176ee57b\\.hex$",
+      "."
+    ],
+    "exit_code": 0,
+    "passed": true,
+    "wall_seconds": 367.04659241699846,
+    "log": "structural-boundary__document-7a157feb27ed416752b5dde8aa2bf373b9a2c82755d2caa89e955057176ee57b.log",
+    "log_sha256": "34b3dad604ca2475c4b926506e12ef1dd85ec4ed313ca990570363945551c86d"
+  },
+  {
+    "family": "structural-boundary",
+    "file": "document-decb5507362a7672c711a5befd63efc1038c2c0a86ee20137a1c4c472e0d1684.hex",
+    "certificate_path": "develop/migrations/csharp-03/ordinary-foundation/structural-boundary/document-decb5507362a7672c711a5befd63efc1038c2c0a86ee20137a1c4c472e0d1684.hex",
+    "certificate_file_sha256": "6e2b663d9231b58120566b14fb8a7c2f92b9ba1319d7213ac837a7172d5c6a0f",
+    "test_filter": "^TestCheckerAgreementWithRustCLIStructuralBoundary$/^document\\-decb5507362a7672c711a5befd63efc1038c2c0a86ee20137a1c4c472e0d1684\\.hex$",
+    "reason": "Agent 55-second process limit; no semantic verdict",
+    "short_log": "structural-boundary__document-decb5507362a7672c711a5befd63efc1038c2c0a86ee20137a1c4c472e0d1684.log",
+    "command": [
+      "go",
+      "test",
+      "-v",
+      "-count=1",
+      "-timeout",
+      "25m",
+      "-tags",
+      "checkeragreement",
+      "-run",
+      "^TestCheckerAgreementWithRustCLIStructuralBoundary$/^document\\-decb5507362a7672c711a5befd63efc1038c2c0a86ee20137a1c4c472e0d1684\\.hex$",
+      "."
+    ],
+    "exit_code": 0,
+    "passed": true,
+    "wall_seconds": 204.4362199580064,
+    "log": "structural-boundary__document-decb5507362a7672c711a5befd63efc1038c2c0a86ee20137a1c4c472e0d1684.log",
+    "log_sha256": "22d1d03969f426e6dda9211fa26965a54fab40523738517687c552084ced5cfc"
+  },
+  {
+    "label": "full-capacity-aggregate",
+    "target": [
+      "--lib"
+    ],
+    "test": "aggregate_fold_full_capacity_sums_exact_logical_bound",
+    "evaluator_seconds": 600,
+    "command": [
+      "cargo",
+      "test",
+      "--release",
+      "-p",
+      "mpk-vc",
+      "--lib",
+      "aggregate_fold_full_capacity_sums_exact_logical_bound",
+      "--",
+      "--nocapture",
+      "--test-threads=1"
+    ],
+    "exit_code": 0,
+    "passed": true,
+    "wall_seconds": 42.64920866698958,
+    "environment": {
+      "MPK_CORE_MAX_SECONDS": 600,
+      "MPK_CORE_MAX_STEPS": null,
+      "MPK_W09_variables": "unset"
+    },
+    "log": "full-capacity-aggregate.log",
+    "log_sha256": "49364ed667cdda44feb2dd6397fe19c53df2385e5cef1ff4e6d10fc27a440f8b"
+  },
+  {
+    "label": "decimal-domain-order",
+    "target": [
+      "--test",
+      "csharp_practical_vc"
+    ],
+    "test": "csharp_03_t06_w09_domains_source_decimal_collection_order",
+    "evaluator_seconds": 600,
+    "command": [
+      "cargo",
+      "test",
+      "--release",
+      "-p",
+      "mpk-vc",
+      "--test",
+      "csharp_practical_vc",
+      "csharp_03_t06_w09_domains_source_decimal_collection_order",
+      "--",
+      "--nocapture",
+      "--test-threads=1"
+    ],
+    "exit_code": 0,
+    "passed": true,
+    "wall_seconds": 92.72406350000529,
+    "environment": {
+      "MPK_CORE_MAX_SECONDS": 600,
+      "MPK_CORE_MAX_STEPS": null,
+      "MPK_W09_variables": "unset"
+    },
+    "log": "decimal-domain-order.log",
+    "log_sha256": "02cce610f30f69441a47dcf78e0159ee160acfe59708950abc9b972d816d19bd"
+  }
+]

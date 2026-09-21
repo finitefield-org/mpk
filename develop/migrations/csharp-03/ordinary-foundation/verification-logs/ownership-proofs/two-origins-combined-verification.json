@@ -1,0 +1,17 @@
+{
+  "case": "two-origins",
+  "passed": true,
+  "certificate_file_sha256": "3351db8ab9b3858c9b5c7ce923f9cc5a51db35c54a29e0a224b02332182f260a",
+  "certificate_sha256": "e88c2368d52a691c70725a2ddc99aa40dfe15561939b55c1a212d18f188e7870",
+  "positive_reports_agree": true,
+  "positive_receipts": [
+    "shared-step-two-go.json",
+    "shared-step-two-rust.json"
+  ],
+  "positive_report_sha256": {
+    "shared-step-two-go.log": "046baa459dd3da713e9b43f5e6639a243c5848329db229f73ec654a0ec1e5e87",
+    "shared-step-two-rust.log": "079a2845dd6ec477971e4eabda124f1c6771ee58ae876ba361c8b0ee534b539e"
+  },
+  "hash_receipt": "completed-long-cases/two-origins-stages/cases.json",
+  "selection_rationale": "Current positive reports already accept exactly these bytes and agree on module/declarations/zero axioms/all hashes. Execute only the remaining hash-corruption stages."
+}

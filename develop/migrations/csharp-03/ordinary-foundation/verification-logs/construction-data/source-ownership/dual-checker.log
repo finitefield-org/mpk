@@ -1,0 +1,39 @@
+=== RUN   TestCheckerAgreementWithRustCLIConstructionData
+=== RUN   TestCheckerAgreementWithRustCLIConstructionData/default-write.hex
+    checker_agreement_test.go:395: Go accepted: certificate=d6fc16a115d5c5407d36b778581031d3a83018c3459c72ddd49f47278ef939b4 declarations=482 axioms=0 elapsed=32.638832084s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=5663ea2b9ada4271ecb9e1eed47757522a1fa26d3dd9061bccac6ea05b73f4e3 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=1.576694833s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=32.481388834s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=1.580493459s
+=== RUN   TestCheckerAgreementWithRustCLIConstructionData/dynamic-string.hex
+    checker_agreement_test.go:395: Go accepted: certificate=7959c8ae6c2650be50f20dfac397d4412abc1398c9f985599bf6cf60a0f6e1bd declarations=863 axioms=0 elapsed=2m21.33195425s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=4ece190dcc6ac1e121cc0b5e90016acc61277d3eb58ee678660e4340b8651a84 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=39.183851125s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=2m35.267785542s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=2.960145959s
+=== RUN   TestCheckerAgreementWithRustCLIConstructionData/increment.hex
+    checker_agreement_test.go:395: Go accepted: certificate=d82ac7034784de68fb1efa0ddeebfc22802bb4058311ecc4bc877c862d8d6f04 declarations=1673 axioms=0 elapsed=1m40.347010084s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=9680ffb5da0ca9e20a619a541722c444338246339a42e93651d66656f7101204 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=2.162990083s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=1m43.278384875s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=3.686417959s
+=== RUN   TestCheckerAgreementWithRustCLIConstructionData/initializer.hex
+    checker_agreement_test.go:395: Go accepted: certificate=720b24ccfc1cc0110a8cb855298fde66cbe16d03f51ad064659bc162af5d0865 declarations=571 axioms=0 elapsed=1m9.575302042s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=6c7a040bb2e2e4f40d6baf549c660b5822010c201b2745e521e99501797d1dc7 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=1.945706917s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=51.456977666s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=2.005974916s
+=== RUN   TestCheckerAgreementWithRustCLIConstructionData/return-array.hex
+    checker_agreement_test.go:395: Go accepted: certificate=2e4522ee0bd3522de84c5991c963ab0c97634b420d29d996d8b28fd09e5b9c5f declarations=336 axioms=0 elapsed=9.547536417s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=aae23d7b923424153dd9eb660b3b63fc064cb81032fee1fed0ad0239fa1be15b axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=999.89825ms
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=9.555741959s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=1.035089791s
+=== RUN   TestCheckerAgreementWithRustCLIConstructionData/string-fill.hex
+    checker_agreement_test.go:395: Go accepted: certificate=4dfff9e649f58f4ec5a203bef556f2fe8e9d061a97f8dab389f50c3dd34e7f8c declarations=514 axioms=0 elapsed=32.963577542s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=a643520468fc006cdf52078d8435875f67aea6c40cdda4840b762a26db9c283c axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=1.666552333s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=32.337018167s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=1.606731917s
+--- PASS: TestCheckerAgreementWithRustCLIConstructionData (831.21s)
+    --- PASS: TestCheckerAgreementWithRustCLIConstructionData/default-write.hex (68.28s)
+    --- PASS: TestCheckerAgreementWithRustCLIConstructionData/dynamic-string.hex (338.75s)
+    --- PASS: TestCheckerAgreementWithRustCLIConstructionData/increment.hex (209.48s)
+    --- PASS: TestCheckerAgreementWithRustCLIConstructionData/initializer.hex (124.99s)
+    --- PASS: TestCheckerAgreementWithRustCLIConstructionData/return-array.hex (21.14s)
+    --- PASS: TestCheckerAgreementWithRustCLIConstructionData/string-fill.hex (68.58s)
+PASS

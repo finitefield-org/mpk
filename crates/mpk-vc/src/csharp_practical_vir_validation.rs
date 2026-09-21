@@ -590,6 +590,36 @@ pub struct PracticalVirImportContext<'a> {
     pub operations_transport: &'a [u8],
 }
 
+/// Reconstructed linear-token witness, not an ownership proof or host verdict.
+/// Ordinary VC generation must check edge/phi/action/operation equations against
+/// the original function before using any point-specific ownership condition.
+#[derive(Clone, Debug, Eq, PartialEq, Serialize)]
+pub struct SymbolicConstructionOwnership {
+    pub function_id: String,
+    pub allocations: BTreeSet<String>,
+    pub blocks: Vec<SymbolicConstructionBlock>,
+    pub backedges: Vec<SymbolicConstructionEdge>,
+}
+#[derive(Clone, Debug, Eq, PartialEq, Serialize)]
+pub struct SymbolicConstructionBlock {
+    pub node_id: String,
+    pub incoming: Vec<SymbolicConstructionEdge>,
+    /// After incoming-edge cleanup/phis, before local discard actions.
+    pub before_actions: BTreeMap<String, String>,
+    /// After local discard actions, before the invocation. Exceptional edges
+    /// retain this state; failed allocate/write/freeze do not commit changes.
+    pub before_invocation: BTreeMap<String, String>,
+    pub normal: BTreeMap<String, String>,
+}
+#[derive(Clone, Debug, Eq, PartialEq, Serialize)]
+pub struct SymbolicConstructionEdge {
+    pub predecessor_node_id: String,
+    pub target_node_id: String,
+    pub before_cleanup: BTreeMap<String, String>,
+    pub after_cleanup: BTreeMap<String, String>,
+    pub after_phis: BTreeMap<String, String>,
+}
+
 pub struct ValidatedPracticalVir {
     construction_source: Option<crate::csharp_practical_vir_model::ValidatedDataSource>,
     construction_foundation: ValidatedFoundationBundle,
@@ -646,6 +676,71 @@ impl ValidatedPracticalVir {
     }
     pub fn data_contracts(&self) -> &[String] {
         &self.wire.data_contracts
+    }
+
+    /// Independently replay symbolic source ownership. Returned maps are
+    /// witness data only, to be translated into ordinary proof obligations.
+    pub fn symbolic_construction_ownership(
+        &self,
+    ) -> Result<Vec<SymbolicConstructionOwnership>, PracticalVirImportError> {
+        if self.construction_source.is_none() {
+            return Ok(vec![]);
+        }
+        let operations = self
+            .operation_signatures
+            .iter()
+            .map(|s| (s.id.clone(), s.clone()))
+            .collect();
+        let mut traces = vec![];
+        for function in self.functions().iter().filter(|f| {
+            f.blocks
+                .iter()
+                .filter_map(|b| b.invocation.as_ref())
+                .any(|i| is_construction_operation(&self.data_closed, &i.operation_id))
+        }) {
+            let nodes = function
+                .blocks
+                .iter()
+                .map(|b| (b.node.id.as_str(), b))
+                .collect::<BTreeMap<_, _>>();
+            let mut predecessors = nodes
+                .keys()
+                .map(|&id| (id, Vec::new()))
+                .collect::<BTreeMap<_, _>>();
+            for block in &function.blocks {
+                for target in block
+                    .node
+                    .normal_successor_ids
+                    .iter()
+                    .map(String::as_str)
+                    .chain(
+                        block
+                            .node
+                            .exceptional_successors
+                            .iter()
+                            .map(|e| e.target_id.as_str()),
+                    )
+                {
+                    let incoming = predecessors.get_mut(target).ok_or_else(ownership_failure)?;
+                    if !incoming.contains(&block.node.id.as_str()) {
+                        incoming.push(block.node.id.as_str());
+                    }
+                }
+            }
+            for incoming in predecessors.values_mut() {
+                incoming.sort();
+            }
+            traces.push(reconstruct_symbolic_construction_ownership::<true>(
+                function,
+                &nodes,
+                &predecessors,
+                &self.construction_foundation,
+                &self.construction_roots,
+                &self.data_closed,
+                &operations,
+            )?);
+        }
+        Ok(traces)
     }
 
     pub fn functions(&self) -> &[PracticalVirFunction] {
@@ -4344,8 +4439,28 @@ fn validate_symbolic_construction_ownership(
     predecessors: &BTreeMap<&str, Vec<&str>>,
     prepared: &PreparedInputs,
 ) -> Result<(), PracticalVirImportError> {
-    let instances = prepared
-        .closed
+    reconstruct_symbolic_construction_ownership::<false>(
+        function,
+        nodes,
+        predecessors,
+        &prepared.foundation,
+        &prepared.roots,
+        &prepared.closed,
+        &prepared.operations,
+    )
+    .map(|_| ())
+}
+
+fn reconstruct_symbolic_construction_ownership<const CAPTURE: bool>(
+    function: &PracticalVirFunction,
+    nodes: &BTreeMap<&str, &PracticalVirBlock>,
+    predecessors: &BTreeMap<&str, Vec<&str>>,
+    foundation: &ValidatedFoundationBundle,
+    roots: &ValidatedClosedRootSet,
+    closed: &ClosedInstanceSet,
+    operations: &BTreeMap<String, ClosedOperationSignature>,
+) -> Result<SymbolicConstructionOwnership, PracticalVirImportError> {
+    let instances = closed
         .entries()
         .iter()
         .filter(|e| e["template_id"] == "mpk.csharp.semantic.sequence_construction.v1")
@@ -4383,6 +4498,8 @@ fn validate_symbolic_construction_ownership(
         .map(|v| (v.result.id.as_str(), &v.value))
         .collect::<BTreeMap<_, _>>();
     let mut allocations = BTreeSet::new();
+    let mut trace_blocks = BTreeMap::new();
+    let mut trace_backedges = vec![];
     // origin allocation -> its sole live SSA version on this edge.
     type Live = BTreeMap<String, String>;
     // SSA versions form a finite invariant at each loop header. Seed it from
@@ -4417,6 +4534,7 @@ fn validate_symbolic_construction_ownership(
                 continue;
             }
             let mut incoming_states = vec![];
+            let mut trace_incoming = vec![];
             let mut exit_origins = BTreeSet::new();
             let mut cleanup = BTreeSet::new();
             if matches!(
@@ -4442,6 +4560,11 @@ fn validate_symbolic_construction_ownership(
                     delayed.insert(key);
                     continue;
                 };
+                let before_cleanup = if CAPTURE {
+                    live.clone()
+                } else {
+                    BTreeMap::new()
+                };
                 if matches!(
                     block.node.tag,
                     ControlNodeTag::Exit
@@ -4465,6 +4588,11 @@ fn validate_symbolic_construction_ownership(
                         live.remove(origin);
                     }
                 }
+                let after_cleanup = if CAPTURE {
+                    live.clone()
+                } else {
+                    BTreeMap::new()
+                };
                 for phi in &block.phi_values {
                     if !instances.contains(phi.value.type_id.as_str()) {
                         continue;
@@ -4481,6 +4609,15 @@ fn validate_symbolic_construction_ownership(
                         .map(|(k, _)| k.clone())
                         .ok_or_else(ownership_failure)?;
                     live.insert(origin, phi.value.id.clone());
+                }
+                if CAPTURE {
+                    trace_incoming.push(SymbolicConstructionEdge {
+                        predecessor_node_id: predecessor.to_string(),
+                        target_node_id: id.into(),
+                        before_cleanup,
+                        after_cleanup,
+                        after_phis: live.clone(),
+                    });
                 }
                 incoming_states.push(live);
             }
@@ -4501,6 +4638,11 @@ fn validate_symbolic_construction_ownership(
             if block.node.tag == ControlNodeTag::LoopHeader {
                 header_states.insert(id.to_owned(), live.clone());
             }
+            let before_actions = if CAPTURE {
+                live.clone()
+            } else {
+                BTreeMap::new()
+            };
             for action in block.construction_actions.iter().filter(|_| {
                 !matches!(
                     block.node.tag,
@@ -4528,7 +4670,7 @@ fn validate_symbolic_construction_ownership(
             }
             let exceptional = live.clone();
             if let Some(invocation) = &block.invocation {
-                let signature = &prepared.operations[&invocation.operation_id];
+                let signature = &operations[&invocation.operation_id];
                 if let Some((instance, name)) = construction_operation(&invocation.operation_id) {
                     if signature.tag != ClosedOperationTag::Foundation {
                         return Err(ownership_failure());
@@ -4548,8 +4690,7 @@ fn validate_symbolic_construction_ownership(
                                 return Err(ownership_failure());
                             };
                             if *default {
-                                let entry = prepared
-                                    .closed
+                                let entry = closed
                                     .entries()
                                     .iter()
                                     .find(|e| e["instance_id"] == instance)
@@ -4558,10 +4699,7 @@ fn validate_symbolic_construction_ownership(
                                     .as_str()
                                     .ok_or_else(ownership_failure)?;
                                 crate::csharp_practical_vir_model::domain_default(
-                                    &prepared.foundation,
-                                    &prepared.roots,
-                                    &prepared.closed,
-                                    payload,
+                                    foundation, roots, closed, payload,
                                 )
                                 .map_err(|_| ownership_failure())?;
                             }
@@ -4641,6 +4779,18 @@ fn validate_symbolic_construction_ownership(
             for edge in &block.node.exceptional_successors {
                 edges.insert((id.into(), edge.target_id.clone()), exceptional.clone());
             }
+            if CAPTURE {
+                trace_blocks.insert(
+                    id.to_owned(),
+                    SymbolicConstructionBlock {
+                        node_id: id.into(),
+                        incoming: trace_incoming,
+                        before_actions,
+                        before_invocation: exceptional,
+                        normal: live,
+                    },
+                );
+            }
             processed.insert(id);
             progress = true;
         }
@@ -4653,6 +4803,11 @@ fn validate_symbolic_construction_ownership(
             .get(&(predecessor.clone(), header.clone()))
             .cloned()
             .ok_or_else(ownership_failure)?;
+        let before_cleanup = if CAPTURE {
+            live.clone()
+        } else {
+            BTreeMap::new()
+        };
         for phi in &nodes[header.as_str()].phi_values {
             if !instances.contains(phi.value.type_id.as_str()) {
                 continue;
@@ -4673,8 +4828,22 @@ fn validate_symbolic_construction_ownership(
         if header_states.get(&header) != Some(&live) {
             return Err(ownership_failure());
         }
+        if CAPTURE {
+            trace_backedges.push(SymbolicConstructionEdge {
+                predecessor_node_id: predecessor,
+                target_node_id: header,
+                after_cleanup: before_cleanup.clone(),
+                before_cleanup,
+                after_phis: live,
+            });
+        }
     }
-    Ok(())
+    Ok(SymbolicConstructionOwnership {
+        function_id: function.id.clone(),
+        allocations,
+        blocks: trace_blocks.into_values().collect(),
+        backedges: trace_backedges,
+    })
 }
 
 fn validate_ownership(

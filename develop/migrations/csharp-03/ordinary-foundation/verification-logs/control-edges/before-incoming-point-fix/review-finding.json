@@ -1,0 +1,7 @@
+{
+  "status": "superseded_source_binding_defect",
+  "finding": "W04 at_edge/decreasing identifies its post-edge value at the target cutpoint with Some(edge_id). The initial transport metadata instead used target None, which is the node/iteration-entry observation; it could not match the original post-edge goals and could accidentally conflate a backedge result with the previous iteration.",
+  "fix": "Transport from source exit (source node plus edge ID) to the edge-specific target observation (target node plus the same edge ID). No target None snapshot occurs in this relation. Node-entry merging remains a separate explicit scoped obligation. Test actual W04 post-edge bindings and non-vacuous assignedness goals for a variable decrease.",
+  "semantic_completion_claim": false,
+  "intermediate_unpromoted_candidate": "A target Some(edge_id) to target None relation matched the goal label but still risked aliasing the previous header entry. It was not promoted. The final state_rule explicitly retains node_entry_merge_pending."
+}

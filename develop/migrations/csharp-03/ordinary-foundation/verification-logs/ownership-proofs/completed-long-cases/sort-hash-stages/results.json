@@ -1,0 +1,31 @@
+[
+  {
+    "stage": "sort-hash-go",
+    "command": [
+      "/private/tmp/mpk-ownership-sort-hash-20260921/go-checker",
+      "/private/tmp/mpk-ownership-sort-hash-20260921/sort-hash.mpcert"
+    ],
+    "wall_seconds": 954.102,
+    "exit_code": 1,
+    "timed_out": false,
+    "input_file_sha256": "aad70668560e17dc5a5c5caeeb70a76d2d91f45c2f442cd16fe3025ee9109de7",
+    "stdout_sha256": "e735679489a7ae703b376af9d3ae21f991e5cee442fdbf8807795829c6550b33",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "sort-hash-rust",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "check",
+      "/private/tmp/mpk-ownership-sort-hash-20260921/sort-hash.mpcert"
+    ],
+    "wall_seconds": 0.848,
+    "exit_code": 1,
+    "timed_out": false,
+    "input_file_sha256": "aad70668560e17dc5a5c5caeeb70a76d2d91f45c2f442cd16fe3025ee9109de7",
+    "stdout_sha256": "c82afd62346a9e0708c4791de96c28c62d59f2bd4d1471f259c8ec88c1700257",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  }
+]

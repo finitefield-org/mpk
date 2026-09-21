@@ -1,5 +1,16 @@
 # W09 string contract connections
 
+Current constructor follow-up (2026-09-20): the two construction contexts were
+regenerated after shared index/range emission changed. Candidate/closure tests
+and both checkers pass for their current bytes. Prior pins are preserved under
+`../verification-logs/string-data/hoisted-index/previous-pins/string-clauses/`.
+The following counts and receipts describe the earlier snapshot; current
+certificate sizes/hashes are in `certificates.json`. The shared constructor's
+complete oracle and final binder checker now pass, as recorded in
+`../verification-logs/string-data/user-long-completed/verification.json`.
+
+## Earlier snapshot
+
 Six independently captured source contexts cover nullable and non-null basic,
 construction and ordinal strings: 21 unary/binary operation kinds and 67
 contract attachments. Candidate replay preserves the complete existing operation

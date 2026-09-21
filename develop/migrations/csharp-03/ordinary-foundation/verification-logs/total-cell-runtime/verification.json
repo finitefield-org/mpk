@@ -1,0 +1,210 @@
+{
+  "status": "targeted_boundary_full_capacity_and_scoped_regressions_passed_w09_work_pending",
+  "user_failure": {
+    "seconds": 606.15,
+    "deadline_seconds": 600,
+    "first_case_finished": false
+  },
+  "agent_boundary": {
+    "test_seconds": 38.19,
+    "peak_physical_footprint_bytes": 564020040,
+    "peak_physical_footprint_mib": 537.8914260864258,
+    "maximum_rss_bytes": 583548928,
+    "both_65536_and_65537_checked": true
+  },
+  "checks": {
+    "compact-boundary": {
+      "command": [
+        "/usr/bin/time",
+        "-l",
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_domains_source_total_cell_boundary",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 38.60216262500035,
+      "max_seconds_per_thread": 45,
+      "process_timeout_seconds": 55,
+      "diagnostic_only": false
+    },
+    "count-addition": {
+      "command": [
+        "target/release/deps/mpk_vc-4f3748aad12c0f7e",
+        "aggregate_count_addition_u32_boundaries_and_rejection",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 1.161597750033252,
+      "max_seconds_per_thread": 45,
+      "process_timeout_seconds": 55,
+      "diagnostic_only": false
+    },
+    "affected-core": {
+      "command": [
+        "target/release/deps/mpk_vc-4f3748aad12c0f7e",
+        "ordinary_core_",
+        "recursive_domain_",
+        "aggregate_fold_group_boundaries",
+        "aggregate_fold_modes_saturation_and_odd_counts",
+        "aggregate_fold_short_circuits_invalid_and_empty_inputs",
+        "aggregate_fold_shares_computed_predicate_words",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 101,
+      "wall_seconds": 14.830267500015907,
+      "max_seconds_per_thread": 45,
+      "process_timeout_seconds": 55,
+      "diagnostic_only": false
+    },
+    "predicate-sharing": {
+      "command": [
+        "target/release/deps/mpk_vc-4f3748aad12c0f7e",
+        "aggregate_fold_shares_computed_predicate_words",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.7383086250047199,
+      "max_seconds_per_thread": 45,
+      "process_timeout_seconds": 55,
+      "diagnostic_only": false
+    },
+    "affected-source": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_domains_source_collections_and_rejections",
+        "csharp_03_t06_w09_domains_source_full_utf16_capacity",
+        "csharp_03_t06_w09_domains_source_string_compound_map_order",
+        "csharp_03_t06_w09_domains_source_string_increasing_and_tail_probe",
+        "csharp_03_t06_w09_domains_source_small_values",
+        "csharp_03_t06_w09_domains_source_sum_and_unused_storage_rejections",
+        "public_domain_nested_source_clauses",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 2.9605432910029776,
+      "max_seconds_per_thread": 45,
+      "process_timeout_seconds": 55,
+      "diagnostic_only": false
+    },
+    "count-addition-rust-check": {
+      "command": [
+        "target/debug/mpk",
+        "verify",
+        "develop/migrations/csharp-03/ordinary-foundation/verification-logs/total-cell-runtime/count-addition.mpcert"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.020717166014946997,
+      "max_seconds_per_thread": 45,
+      "process_timeout_seconds": 55,
+      "diagnostic_only": false
+    },
+    "count-addition-go-check": {
+      "command": [
+        "/tmp/mpk-total-cell-checker-ref",
+        "verify",
+        "develop/migrations/csharp-03/ordinary-foundation/verification-logs/total-cell-runtime/count-addition.mpcert"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.24988466600188985,
+      "max_seconds_per_thread": 45,
+      "process_timeout_seconds": 55,
+      "diagnostic_only": false
+    }
+  },
+  "source_sha256": {
+    "crates/mpk-vc/src/csharp_practical_ordinary_domains.rs": "02b3c44e197d22193e0e3f4e615d64f6e8dcc06a0405b57f06ed07a74623884b",
+    "crates/mpk-vc/src/csharp_practical_ordinary_scalar_relations.rs": "865872b3dba0a54503c6bd5991c1cda247c73cbec817080c736d175ea5b1549e",
+    "crates/mpk-vc/src/csharp_practical_ordinary_aggregate_fold.rs": "50b30f339311c88a7e1b7d6cf39d173a0b4aa2065d57f35d2cd3300b69d4f4b8",
+    "crates/mpk-vc/src/csharp_practical_ordinary_test_eval.rs": "e5a02b33df8d89895109cc149cce1d2ae993ab20aa0751eeecea80ca730a190e",
+    "crates/mpk-vc/src/csharp_practical_ordinary_test_eval_tests.rs": "282bfc932fb730a5d357bf4a57684ca91648e2dcc78fb4f394605d91700c53ea",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_domain_tests.rs": "7eb7c844ebdfc99f6a41db0dbf76327462e9c957eae9b06bb5649dc2d36607c2"
+  },
+  "certificate_sha256": "3581c55e8b760173741915793e173d74d97cd4ff5aa6bda57d3acbf6f622d08c",
+  "selection_rationale": [
+    "Dense input normalization affects the generic observer; check all ordinary_core_ cases, including address preservation, laziness and lifetime.",
+    "Product constant-field aggregation and the shared saturated adder affect recursive/collection domains, padding, enum/public restrictions and aggregate first/sum modes.",
+    "Run the original 3855-element accepted/rejected boundary unchanged, plus 4624 u32 operand pairs and four poison-right rejection probes.",
+    "The same new helper certificate is accepted by the unchanged Rust and Go checkers with zero axioms. Full affected fixture regeneration remains pending."
+  ],
+  "failed_attempts": [
+    "Fixed fields and dense normalization alone each exceeded a 45-second diagnostic budget; this is not a claim they would exceed 600 seconds.",
+    "Full 33-bit circuit in direct lets exceeded the existing binder-depth limit; the final guarded 17-bit circuit fits the unchanged limit.",
+    "One check invocation was cancelled during compilation; no test verdict came from it. Builds were then completed separately.",
+    "Affected-core run: 26 passed, one performance-ratio assertion failed because its workload used the optimized adder. Replace only that test workload with fixed Bool operations; unchanged >2 ratio gate then passes (427009 versus 3664442 transitions)."
+  ],
+  "scaling_diagnostics": {
+    "temporary_probe_removed": true,
+    "counts": [
+      1,
+      2,
+      8,
+      32,
+      128,
+      512
+    ],
+    "before_seconds": [
+      0.093,
+      0.125,
+      0.429,
+      1.641,
+      6.51,
+      25.944
+    ],
+    "after_seconds": [
+      0.018,
+      0.019,
+      0.046,
+      0.163,
+      0.627,
+      2.462
+    ],
+    "not_full_boundary_verdicts": true
+  },
+  "remaining": [
+    "Existing W09 string-data runtime, regenerated domain/consumer/aggregate fixtures and same-byte checker replay.",
+    "Full T06 gate remains at W12; W09 and internal unit 3 remain incomplete."
+  ],
+  "memory_limits": "Boundary peak is a measured 537.891 MiB; no equivalent peak was provided for the timed-out baseline. Do not claim a memory improvement from this comparison. Prior decimal add-small pass (127.59 seconds, 243.25 MiB) remains historical and was not rerun.",
+  "lint": {
+    "command": "cargo clippy -p mpk-vc --lib --test csharp_practical_vc -- -D warnings",
+    "exit_code": 0,
+    "seconds": 21.8
+  },
+  "format": {
+    "command": "rustfmt --edition 2021 --check (six affected Rust files)",
+    "exit_code": 0
+  },
+  "user_full_capacity_result": {
+    "test": "aggregate_fold_full_capacity_sums_exact_logical_bound",
+    "execution_owner": "user",
+    "evidence": "User-supplied cargo output; not rerun by agent",
+    "command": [
+      "cargo",
+      "test",
+      "--release",
+      "-p",
+      "mpk-vc",
+      "--lib",
+      "aggregate_fold_full_capacity_sums_exact_logical_bound",
+      "--",
+      "--nocapture",
+      "--test-threads=1"
+    ],
+    "environment": {
+      "MPK_CORE_MAX_STEPS": null,
+      "MPK_CORE_MAX_SECONDS": "300"
+    },
+    "passed": 1,
+    "failed": 0,
+    "filtered_out": 159,
+    "test_seconds": 35.03,
+    "cargo_preparation_seconds": 0.08,
+    "peak_memory_bytes": null,
+    "future_execution_owner": "agent when affected; observed runtime is under one minute"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "command": [
+    "cargo",
+    "test",
+    "--release",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "csharp_practical_vc",
+    "--",
+    "csharp_03_t06_w09_control_slot_source_relations",
+    "csharp_03_t06_w09_control_slot_array_snapshots",
+    "csharp_03_t06_w09_control_slot_count_fill_candidate",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "exit_code": 0,
+  "timed_out": false,
+  "wall_seconds": 95.21,
+  "environment": {
+    "MPK_W09_CONTROL_SLOTS_OUT": "/tmp/mpk-control-nullable-slot-candidates",
+    "MPK_CORE_MAX_SECONDS": "300"
+  }
+}

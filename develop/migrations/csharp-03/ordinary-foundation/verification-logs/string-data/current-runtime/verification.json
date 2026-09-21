@@ -1,0 +1,120 @@
+{
+  "work_item": "CSHARP-03-T06-W09",
+  "status": "22_string_signatures_passed_26_long_signatures_pending",
+  "source_contexts_checked": 8,
+  "definition_occurrences": 52,
+  "distinct_typed_signatures": 48,
+  "runtime_typed_signatures_passed": 22,
+  "runtime_result_guard_cases_passed": 130,
+  "checks": {
+    "basic": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_string_data_original_source",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 1.7502994170063175,
+      "max_seconds_per_thread": 45,
+      "process_timeout_seconds": 55,
+      "diagnostic_only": false,
+      "selected_prefix": "basic-",
+      "selected_context": null,
+      "selected_operation": null
+    },
+    "ordinal": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_string_data_original_source",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 10.802296667010523,
+      "max_seconds_per_thread": 45,
+      "process_timeout_seconds": 55,
+      "diagnostic_only": false,
+      "selected_prefix": "ordinal-",
+      "selected_context": null,
+      "selected_operation": null
+    },
+    "exact-selector": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_string_data_original_source",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 1.741300624969881,
+      "max_seconds_per_thread": 45,
+      "process_timeout_seconds": 55,
+      "diagnostic_only": false,
+      "selected_prefix": "basic-nullable",
+      "selected_context": null,
+      "selected_operation": "string.index"
+    },
+    "unmatched-selector": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_string_data_original_source",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 101,
+      "wall_seconds": 0.9550459579913877,
+      "max_seconds_per_thread": 45,
+      "process_timeout_seconds": 55,
+      "diagnostic_only": false,
+      "selected_prefix": null,
+      "selected_context": null,
+      "selected_operation": "string.no_such_operation"
+    },
+    "construction-diagnostic": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_string_data_original_source",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 101,
+      "wall_seconds": 45.2794874170213,
+      "max_seconds_per_thread": 45,
+      "process_timeout_seconds": 55,
+      "diagnostic_only": true,
+      "selected_prefix": "construction-nonnull",
+      "selected_context": null,
+      "selected_operation": null,
+      "verdict": "no semantic verdict; first concat.string2 case exceeded 45-second diagnostic cap"
+    }
+  },
+  "negative_selector": "Unmatched selector correctly fails with zero observations; expected exit 101 is not a semantic test failure.",
+  "selection_reason": "Previously pending string runtime: basic and ordinal returned within one minute under the current observer. Construction first-case probe exceeded 45 seconds; remaining string-result groups are user-owned without repeating that diagnostic. Exact selector validation covers the new partitioning; all eight original candidates and import mutations are replayed in each run.",
+  "source_changes": "Only progress logging and an optional exact operation filter; all original cases, expectations, types and physical result bounds remain.",
+  "passed_checkers": "All eight pinned certificate manifests still match previously checked hashes; no certificate changed or checker rerun.",
+  "pending_manifest": "string-data/pending-runtime.json",
+  "handoff": "bash develop/migrations/csharp-03/ordinary-foundation/string-data/run-long-checks.sh",
+  "lint": {
+    "command": "cargo clippy -p mpk-vc --test csharp_practical_vc -- -D warnings",
+    "exit_code": 0,
+    "seconds": 5.74
+  },
+  "format": "rustfmt check and bash -n passed",
+  "source_sha256": {
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_string_data_tests.rs": "4a4b9aa48356608eb98cabd1738175f1ff4db39c71b89b6b1634457b44b4cc8f",
+    "crates/mpk-vc/src/csharp_practical_ordinary_test_eval.rs": "d4160220aa77546cb3911df2d66bbd0e8684f3020d128db9306288a87c661c8f",
+    "develop/migrations/csharp-03/ordinary-foundation/string-data/run-long-checks.sh": "cb6fbd4aaabc5a519f3b6938751df1334b08df8ab5a035b92a415b2ac84a6fe8",
+    "develop/migrations/csharp-03/ordinary-foundation/string-data/pending-runtime.json": "4292314dcf8ea8fec98c4b4302d91fc7908510f427faa3bfe4849c3a314becdd"
+  },
+  "full_gate": "deferred_to_T06_W12",
+  "completion": "Unit 5 and W09 remain incomplete.",
+  "followup_definition_preservation": [
+    {
+      "evidence": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-edges/collections/control-edge-collection-preservation.json",
+      "source_hashes_updated": [],
+      "older_dependency_hashes_retained_for_separate_reconciliation": [],
+      "reason": "All prior data certificate and metadata bytes regenerated identically. Only affected generator reuse/extraction was checked; no new runtime observation is claimed."
+    }
+  ]
+}

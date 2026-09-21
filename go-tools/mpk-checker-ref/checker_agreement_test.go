@@ -10,7 +10,9 @@ import (
 	"os/exec"
 	"path/filepath"
 	"sort"
+	"strings"
 	"testing"
+	"time"
 )
 
 func TestCheckerAgreementWithRustCLI(t *testing.T) {
@@ -94,7 +96,8 @@ type rustAgreementReport struct {
 		AxiomReport *string `json:"axiom_report"`
 		Certificate string  `json:"certificate"`
 	} `json:"hashes"`
-	ErrorCode *string `json:"error_code"`
+	ErrorCode   *string `json:"error_code"`
+	ErrorDetail *string `json:"error_detail"`
 }
 
 func parseRustAgreementReport(output []byte, status int, candidate []byte) (rustAgreementReport, error) {
@@ -384,24 +387,32 @@ func checkOrdinaryCertificates(t *testing.T, directory string, expectedCount int
 	for _, path := range fixtures {
 		t.Run(filepath.Base(path), func(t *testing.T) {
 			candidate := readHexFile(t, path)
+			started := time.Now()
 			g, err := VerifyCertificateBytes(candidate)
 			if err != nil || g.AxiomCount != 0 {
 				t.Fatalf("carrier must be accepted with zero axioms: report=%+v error=%v", g, err)
 			}
+			t.Logf("Go accepted: certificate=%s declarations=%d axioms=%d elapsed=%s", HashHex(g.CertificateHash), g.DeclarationCount, g.AxiomCount, time.Since(started))
+			started = time.Now()
 			r, _ := rustCLIChecks(t, root, candidate)
 			if err := r.agrees(g); err != nil {
 				t.Fatal(err)
 			}
+			t.Logf("Rust accepted identical bytes and report: export=%s axiom_report=%s elapsed=%s", *r.Hashes.Export, *r.Hashes.AxiomReport, time.Since(started))
 			// Actual hash-corrupted bytes must be rejected by both processes.
 			candidate[len(candidate)-1] ^= 1
+			started = time.Now()
 			_, goErr := VerifyCertificateBytes(candidate)
 			if e, ok := goErr.(*VerifyError); !ok || e.Kind == VerifyInternalInvariant {
 				t.Fatalf("Go must reject the changed hash with a proof error: %v", goErr)
 			}
+			t.Logf("Go rejected changed hash: elapsed=%s", time.Since(started))
+			started = time.Now()
 			r, _ = rustCLIChecks(t, root, candidate)
 			if r.Verdict != "rejected" {
 				t.Fatal("Rust accepted a changed certificate hash")
 			}
+			t.Logf("Rust rejected changed hash: elapsed=%s", time.Since(started))
 		})
 	}
 }
@@ -764,10 +775,74 @@ func TestCheckerAgreementWithRustCLIStructuralData(t *testing.T) {
 	checkOrdinaryCertificates(t, "structural-data", 5)
 }
 
+func TestCheckerAgreementWithRustCLISourceValueData(t *testing.T) {
+	checkOrdinaryCertificates(t, "source-value-data", 7)
+}
+
 func TestCheckerAgreementWithRustCLIFloatingData(t *testing.T) {
 	checkOrdinaryCertificates(t, "floating-data", 3)
 }
 
 func TestCheckerAgreementWithRustCLIDecimalData(t *testing.T) {
 	checkOrdinaryCertificates(t, "decimal-data", 3)
+}
+
+func TestCheckerAgreementWithRustCLICalendarData(t *testing.T) {
+	checkOrdinaryCertificates(t, "calendar-data", 8)
+}
+
+func TestCheckerAgreementWithRustCLIStringData(t *testing.T) {
+	checkOrdinaryCertificates(t, "string-data", 8)
+}
+
+func TestCheckerAgreementWithRustCLILiftedData(t *testing.T) {
+	checkOrdinaryCertificates(t, "lifted-data", 7)
+}
+
+func TestCheckerAgreementWithRustCLIOptionData(t *testing.T) {
+	checkOrdinaryCertificates(t, "option-data", 12)
+}
+
+func TestCheckerAgreementWithRustCLISequenceData(t *testing.T) {
+	checkOrdinaryCertificates(t, "sequence-data", 7)
+}
+
+func TestCheckerAgreementWithRustCLIReferenceData(t *testing.T) {
+	checkOrdinaryCertificates(t, "reference-data", 4)
+}
+
+func TestCheckerAgreementWithRustCLIConstructionData(t *testing.T) {
+	checkOrdinaryCertificates(t, "construction-data", 6)
+}
+
+func TestCheckerAgreementWithRustCLIOwnershipEquations(t *testing.T) {
+	checkOrdinaryCertificates(t, "ownership-equations", 14)
+}
+
+func TestCheckerAgreementWithRustCLIOwnershipProofs(t *testing.T) {
+	checkOrdinaryCertificates(t, "ownership-proofs", 14)
+}
+
+func TestCheckerAgreementWithRustCLIOwnershipProofMutations(t *testing.T) {
+	root := absoluteRepoRoot(t)
+	fixtures, err := filepath.Glob(filepath.Join(root, "develop/migrations/csharp-03/ordinary-foundation/ownership-proofs/mutations/*.hex"))
+	if err != nil || len(fixtures) != 3 {
+		t.Fatalf("ownership proof mutation corpus: count=%d error=%v", len(fixtures), err)
+	}
+	for _, path := range fixtures {
+		t.Run(filepath.Base(path), func(t *testing.T) {
+			candidate := readHexFile(t, path)
+			_, err := VerifyCertificateBytes(candidate)
+			if e, ok := err.(*VerifyError); !ok || e.Kind != VerifyCoreCheck || !(e.Detail == "lambda domain mismatch" || (strings.Contains(e.Detail, " inferred ") && strings.Contains(e.Detail, " but expected "))) {
+				t.Fatalf("expected a type mismatch with valid hashes, not a resource limit: %v", err)
+			}
+			r, _ := rustCLIChecks(t, root, candidate)
+			var detail struct {
+				Code string `json:"code"`
+			}
+			if r.Verdict != "rejected" || r.ErrorCode == nil || *r.ErrorCode != "KERNEL_CORE_CHECK" || r.ErrorDetail == nil || json.Unmarshal([]byte(*r.ErrorDetail), &detail) != nil || detail.Code != "CORE_TYPE_MISMATCH" {
+				t.Fatalf("expected Rust type mismatch, not a resource limit: %+v", r)
+			}
+		})
+	}
 }

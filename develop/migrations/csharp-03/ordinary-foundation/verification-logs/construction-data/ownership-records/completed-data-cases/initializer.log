@@ -1,0 +1,9 @@
+=== RUN   TestCheckerAgreementWithRustCLIConstructionData
+=== RUN   TestCheckerAgreementWithRustCLIConstructionData/initializer.hex
+    checker_agreement_test.go:395: Go accepted: certificate=7948e8d18209d0fc809d1740cb6f53099bcb307fc60ab45105f706cbfaae0a9b declarations=758 axioms=0 elapsed=1m57.061981625s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=6f3d0f1d9aa1b9fb0bbaeda0144965503ab43334258f0acb75e774bb238a22b6 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=2.925608708s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=1m41.397279s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=2.672133292s
+--- PASS: TestCheckerAgreementWithRustCLIConstructionData (224.06s)
+    --- PASS: TestCheckerAgreementWithRustCLIConstructionData/initializer.hex (224.06s)
+PASS

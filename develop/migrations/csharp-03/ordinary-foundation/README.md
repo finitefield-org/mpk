@@ -15,6 +15,20 @@ relations and application proof assembly remain units 3-8 in
 `implementation-plan.md`. Checking these carrier certificates does not
 discharge an application VC.
 
+The current domain/aggregate pin refresh is recorded in
+`verification-logs/domain-pin-refresh/verification.json`: ten immediate families,
+103 changed certificates, preserved preimages and exact transitive component
+closure. All 103 changed certificates pass same-byte Rust/Go checking; the 11
+user long checks have been imported. Other downstream consumer work and unit-3
+obligations remain open. This scoped success does not close unit 3.
+
+The public/boundary follow-up adds 18 refreshed certificates, all passing both
+checkers. All five delegated checks are complete, including the full-capacity
+aggregate and eight decimal domain-order cases. Thirty-four matching earlier
+regressions were reused and the full total-cell boundary passed. See
+`verification-logs/domain-dependent-refresh/user-long-completed/verification.json`.
+These scoped results retain the remaining unit-3/W09 obligations.
+
 The contract-carrier coverage correction is recorded in
 `contract-carrier-extension/changes.json`. Eleven helper certificates now include
 the previously omitted contract-only Bool carrier. Their previous bytes are
@@ -1108,3 +1122,210 @@ At the user’s request, this is now the normal test-observer policy; scalar
 results stay cached and live function results remain shared. No cache-policy
 environment setting is needed. Final measurements are in the memory review. The scoped review is in `unit-5-decimal-data-review.md`.
 Original unit 5, units 3-8 and W09 acceptance remain incomplete.
+
+The 2026-09-20 sparse string-map incident prompted uniform-subview and bounded
+memo-cache changes. The user-run C31 regression still exhausted 500 million
+steps in 7.89 seconds. The generator now replaces wide fixed zero-region folds
+with depth-shared binary conjunction definitions while retaining every address.
+This changes certificate bytes; affected current fixtures and their same-byte
+checker receipts require regeneration. Neither compilation nor runtime tests
+were run by the agent for this revision; testing is user-owned. Earlier memory
+measurements do not establish this revision's memory peak. The user then ran
+the revised C31 regression successfully: 24,856 transitions for the empty
+region and at most 47,388 for the three nonzero addresses, 0.01 seconds test
+time. The user also reports passes for the observer/padding regressions and
+C33 duplicate-source probe. The full map suite subsequently exhausted one
+billion steps on the increasing string map after duplicate/descending completed
+in 0.132/0.131 seconds. The generator now sums only active elements and checks
+all inactive physical slots with a separate ordinary tail predicate. The
+first tail implementation also exhausted both user-run helper-test budgets.
+It now propagates a scalar carry while reading the original length bits,
+instead of composing shifted/incremented length words. This latest revision
+has not been compiled or tested by the agent. The user rerun passed both tail
+tests in 0.58 seconds, with at most 314,475 transitions across 38 wide
+observations. The increasing C33 source probe then passed in 0.311 seconds,
+with first/last inactive corruption rejected in 0.002/0.003 seconds (0.35
+seconds total test time). The complete six-case C33/C34 string/compound map
+suite then passed in 1.22 seconds, with individual cases taking 0.116–0.362
+seconds. Affected collection/UTF-16/total-cell checks, current memory peak and
+regenerated certificates remain pending. Continue with the new bounded checks in `test-handoff.md`; see
+`unit-3-sparse-observer-review.md`.
+
+
+After the subsequent 256-error/full-UTF16 failures, a bounded scalar observation
+cache and an exact constant-one count simplification were implemented. The agent
+ran the four affected source regressions successfully in 8.41 seconds, plus
+core, recursive-domain, restricted/public and short decimal checks and lint.
+Evidence is in `verification-logs/domain-scalar-cache/verification.json`.
+The user now delegates tests under one minute to the agent. The user-run decimal-add
+probe passed in 127.59 seconds at 243.25 MiB peak footprint, versus the previous
+weak-cache 173.35 seconds / 134.88 MiB. The scalar observation cache improves
+speed with increased bit-data retention; no global memory reduction is claimed. Fixture regeneration,
+remaining long runtime cases and W09 acceptance remain outstanding.
+
+
+The subsequent 600-second total-cell timeout is fixed in the targeted check:
+the unchanged 3,855-element test accepts 65,536 cells and rejects 65,537 in
+38.19 seconds, with 537.89 MiB peak physical footprint. Constant product counts,
+exact sparse input normalization and a compact shared saturated adder remove
+repeated work while retaining physical padding, bounds and public restrictions.
+Scoped regressions and same-byte zero-axiom checking of the new adder passed;
+see `verification-logs/total-cell-runtime/verification.json`. The larger
+16,384-element aggregate test also passed in the user run (35.03 seconds);
+future affected runs are agent-owned under the one-minute policy. Full aggregate/domain/
+consumer fixture replay and remaining W09 work are still pending.
+
+### Native calendar/time/Guid data relations (unit 5 component)
+
+`calendar-data/` connects 57 definition occurrences and 67 original SSA use
+points from eight captured C# programs. All 52 distinct operations pass 124
+result/guard cases, with exact old Calendar/Temporal dependency closures and
+unchanged prior integer/floating/decimal pins. The 128-bit Guid result comparator
+rejects every single-bit mutation. Same-byte dual checking of all eight new
+certificates passed, including zero-axiom agreement and hash-corruption rejection; see `unit-5-calendar-data-progress.json` and its
+scoped review. Native-body/control/ownership and application proofs, the rest
+of units 3–8, and W09 completion remain outstanding.
+
+### Native string data relations (unit 5 component, scoped tests complete)
+
+`string-data/` connects 52 definition occurrences and 52 original SSA use points
+across eight captured C# programs. The native additions cover three/four-argument
+substring, concat and interpolation. Native and legacy reconstruction share
+the current scalar bodies; raw failure conditions feed ordered W03 guards and
+static obligations. Result
+relations compare the entire physical carrier, including unused storage.
+All eight certificates pass both unchanged checkers; candidate replay, shared
+cache/comparator regressions, inventory, lint and formatting pass. All 48 scoped runtime signatures and 320 observations now pass, including the
+25 user-completed partitions. The constructor oracle and all changed
+certificates also pass. Current evidence and review are in
+`unit-5-string-data-progress.json` and
+`unit-5-string-data-review.md`. This does not complete original unit 5 or W09.
+
+
+### Native lifted nullable data relations (unit 5 component)
+
+`lifted-data/` connects 47 definition occurrences and 47 original SSA use points
+across seven captured C# sources. Exact candidate/import/mutation checks pass.
+The prior short runs plus completed user long runs cover 46 signatures and
+2,550 result/guard observations. All seven certificates pass same-byte zero-axiom
+Rust/Go checking and hash-mutation rejection. Checked i32 multiplication now
+passes all 36 pairs in 163.15 seconds after the deep-cache correction; all eleven
+long runtime groups and four pending checker contexts have passed. Receipts and
+scope limits are in `unit-5-lifted-data-progress.json` and
+`verification-logs/lifted-data/user-long-completed/verification.json`.
+This component does not close unit 5 or W09.
+
+
+String constructor runtime follow-up (2026-09-20): the reported interpolation
+test passes in 51.54 seconds after a 600.23-second first-case timeout. Index and
+range bindings now survive per-code-unit comparison. All fourteen changed
+certificates passed both checkers; the user also completed the 44-case constructor
+oracle and all 25 remaining runtime partitions. Current scoped completion
+evidence is `verification-logs/string-data/user-long-completed/verification.json`;
+prior correction evidence and pin preimages remain under `hoisted-index/`.
+The handoff script is retained for reproducibility and needs no rerun.
+
+### Source-value data relations (unit 5 component)
+
+`source-value-data/` connects source-product construction and stored-field reads
+to original W03 SSA predicates. Signatures are reconstructed from source member
+tables; complete storage agreement preserves NaN bits, signed zeros and padding.
+Seven unchanged original-source captures produce ten definition occurrences and
+twelve use points. All 108 result observations and seven same-byte Rust/Go
+checker cases pass, with metadata/context/successor/hash mutations rejected.
+See `unit-5-source-value-data-progress.json` and the linked verification/review.
+Source constructor execution, public/ownership and native control-flow proofs
+remain outstanding; this component does not complete unit 5 or W09.
+
+## Native option SSA component
+
+`option-data/` adds native nullable foundation result and exception relations:
+sixteen invoked definitions and twenty-two original SSA points in twelve
+captured contexts. All twelve certificate pairs pass both checkers, and all
+twelve runtime contexts pass with 177 result observations. The user completed
+the nested-string value-or partition in 235.32 test seconds. See
+`unit-5-option-data-progress.json`, `unit-5-option-data-review.md` and
+`verification-logs/option-data/verification.json`. This does not complete unit 5
+or W09, and the whole gate remains deferred to T06-W12.
+
+## Published sequence SSA component
+
+`sequence-data/` connects Length and checked element reads to original W03
+subjects and exception edges. Seven source contexts, 411 result/guard probes
+and all seven dual-checker certificate pairs pass; twelve predecessor pins are
+unchanged. See `unit-5-sequence-data-progress.json` and its review/evidence.
+Private construction/ownership and native-body proof integration remain open.
+
+## Nullable-reference SSA component
+
+`reference-data/` connects reference extraction with its exact null-reference
+exception edge. All scoped checks pass: 30 executed observations and 18 reused
+exact-equivalent context observations cover four original sources. Both unique
+certificates cover all four artifacts. The user completed the normal partitions
+in 41.17 and 39.13 seconds wall; future affected runs are agent-owned. Exact
+certificate/SSA/oracle equivalence is recorded before reusing results. See `unit-5-reference-data-progress.json` and linked
+review/evidence. Unit 5 and W09 remain incomplete.
+
+## Native private-array storage SSA component
+
+Six captured contexts, 21 invoked definitions and 26 SSA points pass reconstruction,
+198 runtime observations and six same-byte Rust/Go checks. Update equality retains
+full physical coverage while sharing empty/untouched regions. Ownership remains
+explicitly pending (nine records, 183 formula roles); unit 5 and W09 are incomplete.
+See `unit-5-construction-data-progress.json` and its review. The user now delegates
+all test execution, including long tests, to the agent.
+
+## Native symbolic ownership equations
+
+`ownership-equations/` now contains 14 original-source programs with 7,457
+ordinary equations. All 19,831 scoped state/receiver observations and all 14
+same-byte Rust/Go checks pass. Checked flow proofs and their original W03
+predicate linkage remain pending; unit 5 and W09 are incomplete. See
+`unit-5-ownership-equations-progress.json` and its component review.
+
+The source-slot checkpoint now covers nine source contexts and 130 relations,
+with 2048 observations. Private array source snapshots admit partial initialization
+under the 4096 profile bound; complete public projections remain separate.
+Nullable slot storage preserves Option presence and payload. The three array
+certificates, nullable source certificate and Some storage helper passed both
+unchanged checkers and hash rejection. See
+`verification-logs/control-slots/public-projection/verification.json` and
+`verification-logs/control-slots/nullable-representation/verification.json`.
+Nullable edge transport, non-transfer memory effects and application proof
+assembly remain open; this does not complete W09.
+
+
+Nullable edge transport now retains the complete Option storage representation
+for the `type` source's 53 joins. Its 2,758 observations replace 2,016 previous
+observations; the current edge total is 38,901. Sixteen other edge programs are
+byte-identical, and the changed certificate passes both checkers and hash
+rejection. See `verification-logs/control-edges/nullable-slots/verification.json`
+and its review. Nullable slot-to-edge transport is implemented; mapping W04
+logical observations, node-entry merging, non-transfer memory effects and
+complete application proofs remain pending. The changed fixture contains zero
+W04 goal bindings. Unit 5 and W09 remain incomplete.
+
+
+The captured SwitchExpressionException throw now has an ordinary local guard
+and slot transport bound to its exact source/native anchor, frozen tag-8
+literal, exception check and target. All existing definitions remain an exact
+prefix, and the sixteen other edge contexts are unchanged. The changed source
+passes 2,807 observations and same-byte Go/Rust checking with hash rejection;
+the current corpus has 704 guards, 667 transports and 38,950 observations.
+See `verification-logs/control-edges/builtin-throw/verification.json` and its
+review. All guards in these seventeen sources are defined; node reachability,
+handler semantics, W04 observation mapping and complete application proofs
+remain open. Unit 5 and W09 remain incomplete, with the full gate at T06-W12.
+
+
+Node-entry relations now cover all 617 native blocks across the seventeen
+original control sources. Each relation requires exactly one enabled incoming
+edge and preserves its assigned slot/phi snapshot at a fresh entry; other
+predecessor states remain independent. The 13,576 new observations pass,
+including nonzero values, missing/double selection and physical corruption.
+All fourteen distinct certificate byte sequences (seventeen source contexts)
+pass both checkers and hash rejection. The previous 38,950 edge observations
+retain exact declaration prefixes, giving 52,526 scoped observations. See
+`verification-logs/control-edges/node-entry/verification.json` and its review.
+Source-exit production, non-transfer memory effects, W04 observation mapping
+and full native/application proofs remain open. Unit 5 and W09 are incomplete.

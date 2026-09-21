@@ -247,6 +247,132 @@ impl ContractRelationCache {
         Ok(())
     }
 }
+// Native option results reuse the frozen outcome bodies in one owning builder.
+pub(super) fn emit_option_definitions(
+    vir: &ValidatedPracticalVir,
+    layouts: &OrdinaryCarrierProgram,
+    builder: Builder,
+) -> R<(Builder, Vec<OrdinaryOutcomeDefinition>)> {
+    let (b, _, definitions) = emit_data_foundations(vir, layouts, builder, false, true)?;
+    Ok((b, definitions))
+}
+
+// Native published-array results reuse the frozen sequence bodies.
+pub(super) fn emit_sequence_definitions(
+    vir: &ValidatedPracticalVir,
+    layouts: &OrdinaryCarrierProgram,
+    builder: Builder,
+) -> R<(Builder, Vec<OrdinarySequenceOperations>)> {
+    let (b, definitions, _) = emit_data_foundations(vir, layouts, builder, true, false)?;
+    Ok((b, definitions))
+}
+
+// A combined native program retains one relation/storage cache so an option
+// payload and a sequence element cannot redeclare the same structural helpers.
+pub(super) fn emit_data_foundations(
+    vir: &ValidatedPracticalVir,
+    layouts: &OrdinaryCarrierProgram,
+    builder: Builder,
+    sequences: bool,
+    options: bool,
+) -> R<(
+    Builder,
+    Vec<OrdinarySequenceOperations>,
+    Vec<OrdinaryOutcomeDefinition>,
+)> {
+    let (builder, state) = emit_data_foundations_cached(
+        vir,
+        layouts,
+        builder,
+        sequences,
+        options,
+        ContractRelationCache::default(),
+        StorageCache::default(),
+    )?;
+    Ok((builder, state.sequences, state.options))
+}
+
+/// These caches own exactly the definitions already installed in the builder.
+/// Moving them together permits later data families to reuse shared payloads.
+#[derive(Default)]
+pub(super) struct DataFoundationState {
+    pub sequences: Vec<OrdinarySequenceOperations>,
+    pub options: Vec<OrdinaryOutcomeDefinition>,
+    pub relations: ContractRelationCache,
+    pub storage: StorageCache,
+}
+
+pub(super) fn emit_data_foundations_cached(
+    vir: &ValidatedPracticalVir,
+    layouts: &OrdinaryCarrierProgram,
+    builder: Builder,
+    sequences: bool,
+    options: bool,
+    relations: ContractRelationCache,
+    storage: StorageCache,
+) -> R<(Builder, DataFoundationState)> {
+    let mut r = Relations {
+        vir,
+        shared_folds: true,
+        observations: false,
+        carriers: layouts
+            .carriers()
+            .iter()
+            .map(|c| (c.type_id.clone(), c.clone()))
+            .collect(),
+        b: builder,
+        nodes: BTreeMap::new(),
+        active: BTreeSet::new(),
+        raw: BTreeMap::new(),
+        special: BTreeMap::new(),
+        storage,
+    };
+    relations.seed(&mut r)?;
+    // Construction/ownership definitions may already have installed C5.
+    // Keep one exact helper family in a combined native program.
+    if !r.b.globals.contains_key(&format!("{PREFIX}.Cube.D5.Mux")) {
+        r.b.helpers(5)?;
+    }
+    ordered_fold::auxiliary(&mut r.b)?;
+    let mut sequence_definitions = vec![];
+    for entry in vir
+        .data_closed()
+        .entries()
+        .iter()
+        .filter(|e| sequences && e["template_id"] == "mpk.csharp.semantic.bounded_sequence.v1")
+    {
+        sequence_definitions.push(sequence_ops::emit_sequence(&mut r, entry)?);
+    }
+    let mut option_definitions = vec![];
+    for entry in vir
+        .data_closed()
+        .entries()
+        .iter()
+        .filter(|e| options && e["template_id"] == "mpk.csharp.semantic.option.v1")
+    {
+        option_definitions.push(outcome_ops::emit_outcome(&mut r, entry)?);
+    }
+    let cache = ContractRelationCache {
+        source_ir_sha256: Some(vir.hash().into()),
+        nodes: r.nodes,
+        active: r.active,
+        raw: r.raw,
+        special: r.special,
+    };
+    if !cache.active.is_empty() {
+        return Err(OrdinaryCarrierError::Cycle);
+    }
+    Ok((
+        r.b,
+        DataFoundationState {
+            sequences: sequence_definitions,
+            options: option_definitions,
+            relations: cache,
+            storage: r.storage,
+        },
+    ))
+}
+
 impl Relations<'_> {
     fn raw(&mut self, width: u32, signed: bool) -> R<Node> {
         let key = (width, signed);

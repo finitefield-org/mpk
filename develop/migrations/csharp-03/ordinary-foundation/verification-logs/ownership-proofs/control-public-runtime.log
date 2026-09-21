@@ -1,0 +1,36 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+    Finished `release` profile [optimized] target(s) in 1m 21s
+     Running tests/csharp_practical_vc.rs (target/release/deps/csharp_practical_vc-0951b3e219e92435)
+
+running 3 tests
+test ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_edge_construction_guards ... control edges index_update: runtime start
+control edges index_update: 0 pending, 4559 cumulative observations
+control edges: 24 distinct original W04 goal bindings checked
+ok
+test ordinary_carriers::public_domain_tests::contract_expression_tests::control_slot_tests::csharp_03_t06_w09_control_slot_array_snapshots ... 
+thread 'ordinary_carriers::public_domain_tests::contract_expression_tests::control_slot_tests::csharp_03_t06_w09_control_slot_array_snapshots' (7869457) panicked at crates/mpk-vc/tests/support/../../src/csharp_practical_ordinary_test_eval.rs:509:17:
+MPK_CORE_MAX_SECONDS exhausted: ordinary evaluation deadline exceeded; no semantic verdict
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+FAILED
+test ordinary_carriers::public_domain_tests::contract_expression_tests::control_slot_tests::csharp_03_t06_w09_control_slot_source_relations ... control slots while: runtime start
+control slots while: 1 functions, 132 cumulative observations
+control slots for: runtime start
+control slots for: 1 functions, 434 cumulative observations
+control slots short_circuit: runtime start
+control slots short_circuit: 1 functions, 688 cumulative observations
+control slots switch: runtime start
+control slots switch: 1 functions, 778 cumulative observations
+control slots is_binding: runtime start
+control slots is_binding: 1 functions, 850 cumulative observations
+control slots guard_order: runtime start
+control slots guard_order: 1 functions, 1482 cumulative observations
+ok
+
+failures:
+
+failures:
+    ordinary_carriers::public_domain_tests::contract_expression_tests::control_slot_tests::csharp_03_t06_w09_control_slot_array_snapshots
+
+test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 333 filtered out; finished in 353.69s
+
+error: test failed, to rerun pass `-p mpk-vc --test csharp_practical_vc`

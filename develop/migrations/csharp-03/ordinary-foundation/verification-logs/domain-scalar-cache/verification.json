@@ -1,0 +1,90 @@
+{
+  "status": "targeted_short_checks_and_user_large_memory_probe_passed",
+  "tests_owner": "agent for tests under one minute; user for longer tests",
+  "changes": [
+    "Environment-free bounded scalar observation trees retain learned bits through weak selector-closure eviction.",
+    "Use length as the exact active-cell sum only for unordered sequences of full-width unconstrained bit scalars without declared public clauses. All capacity/padding/tail checks remain."
+  ],
+  "checks": {
+    "ordinary_core": {
+      "passed": 18,
+      "test_seconds": 0.03,
+      "note": "The added test initially referred to an absent Std.Bool.xor; replaced by ordinary Bool.rec/not before this passing run."
+    },
+    "recursive_domain": {
+      "passed": 4,
+      "test_seconds": 0.69,
+      "log": "tail-regressions.log"
+    },
+    "source_regressions": {
+      "passed": 4,
+      "test_seconds": 8.41,
+      "log": "source-regressions.log"
+    },
+    "restricted_domains": {
+      "passed": 2,
+      "test_seconds": 4.88,
+      "log": "restricted-domains.log"
+    },
+    "decimal_probes": {
+      "convert-zero": {
+        "passed": true,
+        "test_seconds": 0.05,
+        "peak_physical_footprint_bytes": 19726768,
+        "peak_mib": 18.812911987304688,
+        "log": "convert-zero.log"
+      },
+      "round-tie": {
+        "passed": true,
+        "test_seconds": 2.4,
+        "peak_physical_footprint_bytes": 42697136,
+        "peak_mib": 40.71916198730469,
+        "log": "round-tie.log"
+      },
+      "round-wrong": {
+        "passed": true,
+        "test_seconds": 2.36,
+        "peak_physical_footprint_bytes": 42631624,
+        "peak_mib": 40.65668487548828,
+        "log": "round-wrong.log"
+      },
+      "add-small": {
+        "passed": true,
+        "execution_owner": "user",
+        "wall_seconds": 127.58954695798457,
+        "test_seconds": 127.57,
+        "peak_physical_footprint_bytes": 255066688,
+        "peak_mib": 243.25054931640625,
+        "maximum_rss_bytes": 262684672,
+        "log": "add-small-user.log",
+        "receipt": "add-small-user.json",
+        "comparison_to_previous_weak_cache": {
+          "previous_wall_seconds": 173.34752112498973,
+          "previous_peak_bytes": 141427192,
+          "time_reduction_percent": 26.39667061290829,
+          "peak_increase_percent": 80.35194250339073
+        },
+        "limitations": "Single diagnostic measurements, not a controlled benchmark or global memory bound. Receipt does not capture MPK_CORE variables; user supplied command used MAX_SECONDS=600 with MAX_STEPS unset."
+      }
+    },
+    "clippy": "passed: cargo clippy -p mpk-vc --lib --test csharp_practical_vc -- -D warnings",
+    "rustfmt": "passed on the three edited Rust files"
+  },
+  "selection_reason": "Observer change needs generic value/laziness/lifetime/cost tests plus dependent arithmetic observations; count optimization needs full-capacity and invalid-storage cases, restricted/public domains and prior source-map regressions. No full W/T gate.",
+  "source_sha256": {
+    "crates/mpk-vc/src/csharp_practical_ordinary_domains.rs": "f267886479e266c64872a20ce91e47012466850177c2d51cf38297a41193335f",
+    "crates/mpk-vc/src/csharp_practical_ordinary_test_eval.rs": "7df1b37aba9cb108fe80ba1ba796f7673b3fd4f638c0197c896ca5980fd536d6",
+    "crates/mpk-vc/src/csharp_practical_ordinary_test_eval_tests.rs": "b5de8e6d28e609a98c16e1ecf0a5ab1f0b87373c7ef85204a61b2d182d3c0855"
+  },
+  "remaining": [
+    "Outstanding total-cell/string-data runtime checks.",
+    "Regenerate changed current domain/consumer fixtures and repeat linkage/checker validation.",
+    "T06 full gate at W12."
+  ],
+  "memory_limitations": "User-run addition peaks at 243.25054931640625 MiB versus the historical weak-cache 134.87548065185547 MiB; time falls from 173.35 to 127.59 seconds. Scalar observations trade additional retained bit data for less recomputation. These are single-run comparisons, not global memory bounds.",
+  "source_hashes_still_match_at_log_import": {
+    "crates/mpk-vc/src/csharp_practical_ordinary_domains.rs": true,
+    "crates/mpk-vc/src/csharp_practical_ordinary_test_eval.rs": true,
+    "crates/mpk-vc/src/csharp_practical_ordinary_test_eval_tests.rs": true
+  }
+}

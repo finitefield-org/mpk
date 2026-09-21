@@ -1,0 +1,60 @@
+[
+  {
+    "stage": "index_update-positive-go",
+    "command": [
+      "/private/tmp/mpk-control-source-frames-checks-b/go-checker",
+      "/private/tmp/mpk-control-source-frames-checks-b/index_update-positive.mpcert"
+    ],
+    "wall_seconds": 164.762,
+    "exit_code": 0,
+    "timed_out": false,
+    "input_file_sha256": "70695cdb57a4774755f625c24a32efb2726827d712ee0e0d7935a160c85d1dd6",
+    "stdout_sha256": "051e559ae0c4bdc7a5ae1d8e079717c1157304eab7f6217fea843337b13b861c",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "index_update-positive-rust",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "check",
+      "/private/tmp/mpk-control-source-frames-checks-b/index_update-positive.mpcert"
+    ],
+    "wall_seconds": 0.387,
+    "exit_code": 0,
+    "timed_out": false,
+    "input_file_sha256": "70695cdb57a4774755f625c24a32efb2726827d712ee0e0d7935a160c85d1dd6",
+    "stdout_sha256": "a0413c831a0f8fb8a648082fe297453b73f87f53da46984a206dafc2c5fe718d",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "index_update-hash-go",
+    "command": [
+      "/private/tmp/mpk-control-source-frames-checks-b/go-checker",
+      "/private/tmp/mpk-control-source-frames-checks-b/index_update-hash.mpcert"
+    ],
+    "wall_seconds": 151.462,
+    "exit_code": 1,
+    "timed_out": false,
+    "input_file_sha256": "d0c6791fb7c64c046039d88bba80237e6b59785febaab67ea64deb5be06921ef",
+    "stdout_sha256": "dde3d1921febfa877e60a4b5124239563a49547bfbc04170e04e25e262a4c871",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "index_update-hash-rust",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "check",
+      "/private/tmp/mpk-control-source-frames-checks-b/index_update-hash.mpcert"
+    ],
+    "wall_seconds": 0.427,
+    "exit_code": 1,
+    "timed_out": false,
+    "input_file_sha256": "d0c6791fb7c64c046039d88bba80237e6b59785febaab67ea64deb5be06921ef",
+    "stdout_sha256": "876b3ec6473e341704d7d9f320a653e81082b9f97ae6762b3932014aa76d3dd7",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  }
+]

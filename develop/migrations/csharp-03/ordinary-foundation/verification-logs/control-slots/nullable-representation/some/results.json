@@ -1,0 +1,60 @@
+[
+  {
+    "stage": "mpk-control-some-storage-positive-go",
+    "command": [
+      "/private/tmp/mpk-control-some-storage-checks-20260921/go-checker",
+      "/private/tmp/mpk-control-some-storage-checks-20260921/mpk-control-some-storage-positive.mpcert"
+    ],
+    "wall_seconds": 0.321,
+    "exit_code": 0,
+    "timed_out": false,
+    "input_file_sha256": "eeeca1f664e7757ca9356e0c8896b0b528e649c60d8a5c2f64b81b9861a17df2",
+    "stdout_sha256": "ece25b1aa1807961a18707529473116959a4e6c3ed8ff3343c7f93b45d468ac0",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "mpk-control-some-storage-positive-rust",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "check",
+      "/private/tmp/mpk-control-some-storage-checks-20260921/mpk-control-some-storage-positive.mpcert"
+    ],
+    "wall_seconds": 0.007,
+    "exit_code": 0,
+    "timed_out": false,
+    "input_file_sha256": "eeeca1f664e7757ca9356e0c8896b0b528e649c60d8a5c2f64b81b9861a17df2",
+    "stdout_sha256": "73e9ed3c3a882029587c88d2c6371e414c748309b81a2924bc4e179a1cfcbf28",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "mpk-control-some-storage-hash-go",
+    "command": [
+      "/private/tmp/mpk-control-some-storage-checks-20260921/go-checker",
+      "/private/tmp/mpk-control-some-storage-checks-20260921/mpk-control-some-storage-hash.mpcert"
+    ],
+    "wall_seconds": 0.007,
+    "exit_code": 1,
+    "timed_out": false,
+    "input_file_sha256": "7d87310dfb78ce56ddaa7b0cba48ed3c2bc266fdb4d891db50cf0d7b1bfbda0d",
+    "stdout_sha256": "daa1a50e584776066794553790cf186f6c5bc148a86093d91b8a843b9b08b504",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "mpk-control-some-storage-hash-rust",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "check",
+      "/private/tmp/mpk-control-some-storage-checks-20260921/mpk-control-some-storage-hash.mpcert"
+    ],
+    "wall_seconds": 0.007,
+    "exit_code": 1,
+    "timed_out": false,
+    "input_file_sha256": "7d87310dfb78ce56ddaa7b0cba48ed3c2bc266fdb4d891db50cf0d7b1bfbda0d",
+    "stdout_sha256": "f8b6d6c9a2e5d2048ac7ded0c8ea55976d219f5bd1b185e5308f7777f5b566af",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  }
+]

@@ -1,0 +1,1471 @@
+{
+  "status": "passed_scoped_memory_effect_relation",
+  "source_context": "index_update",
+  "effects": [
+    {
+      "source_node_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.node.000028",
+      "receiver_transfer": {
+        "source_node_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.node.000019",
+        "entry_node_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.node.000018",
+        "exit_node_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.node.000018",
+        "kind": "load",
+        "slot": "local:0",
+        "value": {
+          "id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.value.000009",
+          "type_id": "mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc"
+        }
+      },
+      "source_result": {
+        "id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.value.000019",
+        "type_id": "mpk.csharp.value.i32.v1"
+      },
+      "operation": {
+        "id": "data.operation.mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.node.000024",
+        "function_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8",
+        "node_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.node.000024",
+        "definition_id": "data.definition.b8c97313797377771d9da446315cbdffa745ae410ef888dd9b9cb6e87a4b5067",
+        "subjects": [
+          {
+            "id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.value.000005",
+            "type_id": "mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc"
+          },
+          {
+            "id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.value.000003",
+            "type_id": "mpk.csharp.value.i32.v1"
+          },
+          {
+            "id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.value.000019",
+            "type_id": "mpk.csharp.value.i32.v1"
+          },
+          {
+            "id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.value.000020",
+            "type_id": "mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc"
+          }
+        ],
+        "normal_successor_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.node.000043",
+        "checks": [
+          {
+            "id": "data.check.mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.node.000024.0000",
+            "check": {
+              "id": "ownership",
+              "tag": "static_obligation",
+              "failure_type_id": null
+            },
+            "prefix_guard": {
+              "form": "const",
+              "name": "Mpk.CSharp.Bool.true",
+              "type_id": "mpk.csharp.value.bool.v1"
+            },
+            "failure_predicate": {
+              "form": "app",
+              "function": {
+                "form": "app",
+                "function": {
+                  "form": "app",
+                  "function": {
+                    "form": "const",
+                    "name": "Mpk.CSharp.Data.Fails.b8c97313797377771d9da446315cbdffa745ae410ef888dd9b9cb6e87a4b5067.ownership",
+                    "type_id": "(mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc->(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)))"
+                  },
+                  "argument": {
+                    "form": "var",
+                    "index": 0,
+                    "type_id": "mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc"
+                  },
+                  "type_id": "(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1))"
+                },
+                "argument": {
+                  "form": "var",
+                  "index": 1,
+                  "type_id": "mpk.csharp.value.i32.v1"
+                },
+                "type_id": "(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)"
+              },
+              "argument": {
+                "form": "var",
+                "index": 2,
+                "type_id": "mpk.csharp.value.i32.v1"
+              },
+              "type_id": "mpk.csharp.value.bool.v1"
+            },
+            "failure_guard": {
+              "form": "app",
+              "function": {
+                "form": "app",
+                "function": {
+                  "form": "const",
+                  "name": "Mpk.CSharp.Bool.And",
+                  "type_id": "(mpk.csharp.value.bool.v1->(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1))"
+                },
+                "argument": {
+                  "form": "const",
+                  "name": "Mpk.CSharp.Bool.true",
+                  "type_id": "mpk.csharp.value.bool.v1"
+                },
+                "type_id": "(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1)"
+              },
+              "argument": {
+                "form": "app",
+                "function": {
+                  "form": "app",
+                  "function": {
+                    "form": "app",
+                    "function": {
+                      "form": "const",
+                      "name": "Mpk.CSharp.Data.Fails.b8c97313797377771d9da446315cbdffa745ae410ef888dd9b9cb6e87a4b5067.ownership",
+                      "type_id": "(mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc->(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)))"
+                    },
+                    "argument": {
+                      "form": "var",
+                      "index": 0,
+                      "type_id": "mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc"
+                    },
+                    "type_id": "(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1))"
+                  },
+                  "argument": {
+                    "form": "var",
+                    "index": 1,
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  },
+                  "type_id": "(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)"
+                },
+                "argument": {
+                  "form": "var",
+                  "index": 2,
+                  "type_id": "mpk.csharp.value.i32.v1"
+                },
+                "type_id": "mpk.csharp.value.bool.v1"
+              },
+              "type_id": "mpk.csharp.value.bool.v1"
+            },
+            "static_goal": {
+              "form": "app",
+              "function": {
+                "form": "app",
+                "function": {
+                  "form": "const",
+                  "name": "Mpk.CSharp.Bool.Or",
+                  "type_id": "(mpk.csharp.value.bool.v1->(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1))"
+                },
+                "argument": {
+                  "form": "app",
+                  "function": {
+                    "form": "const",
+                    "name": "Mpk.CSharp.Bool.Not",
+                    "type_id": "(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1)"
+                  },
+                  "argument": {
+                    "form": "const",
+                    "name": "Mpk.CSharp.Bool.true",
+                    "type_id": "mpk.csharp.value.bool.v1"
+                  },
+                  "type_id": "mpk.csharp.value.bool.v1"
+                },
+                "type_id": "(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1)"
+              },
+              "argument": {
+                "form": "app",
+                "function": {
+                  "form": "const",
+                  "name": "Mpk.CSharp.Bool.Not",
+                  "type_id": "(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1)"
+                },
+                "argument": {
+                  "form": "app",
+                  "function": {
+                    "form": "app",
+                    "function": {
+                      "form": "app",
+                      "function": {
+                        "form": "const",
+                        "name": "Mpk.CSharp.Data.Fails.b8c97313797377771d9da446315cbdffa745ae410ef888dd9b9cb6e87a4b5067.ownership",
+                        "type_id": "(mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc->(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)))"
+                      },
+                      "argument": {
+                        "form": "var",
+                        "index": 0,
+                        "type_id": "mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc"
+                      },
+                      "type_id": "(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1))"
+                    },
+                    "argument": {
+                      "form": "var",
+                      "index": 1,
+                      "type_id": "mpk.csharp.value.i32.v1"
+                    },
+                    "type_id": "(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)"
+                  },
+                  "argument": {
+                    "form": "var",
+                    "index": 2,
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  },
+                  "type_id": "mpk.csharp.value.bool.v1"
+                },
+                "type_id": "mpk.csharp.value.bool.v1"
+              },
+              "type_id": "mpk.csharp.value.bool.v1"
+            },
+            "exceptional_successor": null,
+            "exception_value": null,
+            "tagged_result_goal": null
+          },
+          {
+            "id": "data.check.mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.node.000024.0001",
+            "check": {
+              "id": "index_range",
+              "tag": "exception",
+              "failure_type_id": "System.IndexOutOfRangeException"
+            },
+            "prefix_guard": {
+              "form": "app",
+              "function": {
+                "form": "const",
+                "name": "Mpk.CSharp.Bool.Not",
+                "type_id": "(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1)"
+              },
+              "argument": {
+                "form": "app",
+                "function": {
+                  "form": "app",
+                  "function": {
+                    "form": "app",
+                    "function": {
+                      "form": "const",
+                      "name": "Mpk.CSharp.Data.Fails.b8c97313797377771d9da446315cbdffa745ae410ef888dd9b9cb6e87a4b5067.ownership",
+                      "type_id": "(mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc->(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)))"
+                    },
+                    "argument": {
+                      "form": "var",
+                      "index": 0,
+                      "type_id": "mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc"
+                    },
+                    "type_id": "(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1))"
+                  },
+                  "argument": {
+                    "form": "var",
+                    "index": 1,
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  },
+                  "type_id": "(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)"
+                },
+                "argument": {
+                  "form": "var",
+                  "index": 2,
+                  "type_id": "mpk.csharp.value.i32.v1"
+                },
+                "type_id": "mpk.csharp.value.bool.v1"
+              },
+              "type_id": "mpk.csharp.value.bool.v1"
+            },
+            "failure_predicate": {
+              "form": "app",
+              "function": {
+                "form": "app",
+                "function": {
+                  "form": "app",
+                  "function": {
+                    "form": "const",
+                    "name": "Mpk.CSharp.Data.Fails.b8c97313797377771d9da446315cbdffa745ae410ef888dd9b9cb6e87a4b5067.index_range",
+                    "type_id": "(mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc->(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)))"
+                  },
+                  "argument": {
+                    "form": "var",
+                    "index": 0,
+                    "type_id": "mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc"
+                  },
+                  "type_id": "(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1))"
+                },
+                "argument": {
+                  "form": "var",
+                  "index": 1,
+                  "type_id": "mpk.csharp.value.i32.v1"
+                },
+                "type_id": "(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)"
+              },
+              "argument": {
+                "form": "var",
+                "index": 2,
+                "type_id": "mpk.csharp.value.i32.v1"
+              },
+              "type_id": "mpk.csharp.value.bool.v1"
+            },
+            "failure_guard": {
+              "form": "app",
+              "function": {
+                "form": "app",
+                "function": {
+                  "form": "const",
+                  "name": "Mpk.CSharp.Bool.And",
+                  "type_id": "(mpk.csharp.value.bool.v1->(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1))"
+                },
+                "argument": {
+                  "form": "app",
+                  "function": {
+                    "form": "const",
+                    "name": "Mpk.CSharp.Bool.Not",
+                    "type_id": "(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1)"
+                  },
+                  "argument": {
+                    "form": "app",
+                    "function": {
+                      "form": "app",
+                      "function": {
+                        "form": "app",
+                        "function": {
+                          "form": "const",
+                          "name": "Mpk.CSharp.Data.Fails.b8c97313797377771d9da446315cbdffa745ae410ef888dd9b9cb6e87a4b5067.ownership",
+                          "type_id": "(mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc->(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)))"
+                        },
+                        "argument": {
+                          "form": "var",
+                          "index": 0,
+                          "type_id": "mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc"
+                        },
+                        "type_id": "(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1))"
+                      },
+                      "argument": {
+                        "form": "var",
+                        "index": 1,
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      },
+                      "type_id": "(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)"
+                    },
+                    "argument": {
+                      "form": "var",
+                      "index": 2,
+                      "type_id": "mpk.csharp.value.i32.v1"
+                    },
+                    "type_id": "mpk.csharp.value.bool.v1"
+                  },
+                  "type_id": "mpk.csharp.value.bool.v1"
+                },
+                "type_id": "(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1)"
+              },
+              "argument": {
+                "form": "app",
+                "function": {
+                  "form": "app",
+                  "function": {
+                    "form": "app",
+                    "function": {
+                      "form": "const",
+                      "name": "Mpk.CSharp.Data.Fails.b8c97313797377771d9da446315cbdffa745ae410ef888dd9b9cb6e87a4b5067.index_range",
+                      "type_id": "(mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc->(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)))"
+                    },
+                    "argument": {
+                      "form": "var",
+                      "index": 0,
+                      "type_id": "mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc"
+                    },
+                    "type_id": "(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1))"
+                  },
+                  "argument": {
+                    "form": "var",
+                    "index": 1,
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  },
+                  "type_id": "(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)"
+                },
+                "argument": {
+                  "form": "var",
+                  "index": 2,
+                  "type_id": "mpk.csharp.value.i32.v1"
+                },
+                "type_id": "mpk.csharp.value.bool.v1"
+              },
+              "type_id": "mpk.csharp.value.bool.v1"
+            },
+            "static_goal": null,
+            "exceptional_successor": {
+              "check_id": "index_range",
+              "exception_type_id": "System.IndexOutOfRangeException",
+              "target_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.node.000050"
+            },
+            "exception_value": {
+              "kind": "closed_exception",
+              "type_id": "mpk.csharp.value.exception.v1",
+              "tag": 2,
+              "source_type_id": null,
+              "payload": null
+            },
+            "tagged_result_goal": null
+          },
+          {
+            "id": "data.check.mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.node.000024.0002",
+            "check": {
+              "id": "incomplete",
+              "tag": "static_obligation",
+              "failure_type_id": null
+            },
+            "prefix_guard": {
+              "form": "app",
+              "function": {
+                "form": "app",
+                "function": {
+                  "form": "const",
+                  "name": "Mpk.CSharp.Bool.And",
+                  "type_id": "(mpk.csharp.value.bool.v1->(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1))"
+                },
+                "argument": {
+                  "form": "app",
+                  "function": {
+                    "form": "const",
+                    "name": "Mpk.CSharp.Bool.Not",
+                    "type_id": "(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1)"
+                  },
+                  "argument": {
+                    "form": "app",
+                    "function": {
+                      "form": "app",
+                      "function": {
+                        "form": "app",
+                        "function": {
+                          "form": "const",
+                          "name": "Mpk.CSharp.Data.Fails.b8c97313797377771d9da446315cbdffa745ae410ef888dd9b9cb6e87a4b5067.ownership",
+                          "type_id": "(mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc->(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)))"
+                        },
+                        "argument": {
+                          "form": "var",
+                          "index": 0,
+                          "type_id": "mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc"
+                        },
+                        "type_id": "(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1))"
+                      },
+                      "argument": {
+                        "form": "var",
+                        "index": 1,
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      },
+                      "type_id": "(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)"
+                    },
+                    "argument": {
+                      "form": "var",
+                      "index": 2,
+                      "type_id": "mpk.csharp.value.i32.v1"
+                    },
+                    "type_id": "mpk.csharp.value.bool.v1"
+                  },
+                  "type_id": "mpk.csharp.value.bool.v1"
+                },
+                "type_id": "(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1)"
+              },
+              "argument": {
+                "form": "app",
+                "function": {
+                  "form": "const",
+                  "name": "Mpk.CSharp.Bool.Not",
+                  "type_id": "(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1)"
+                },
+                "argument": {
+                  "form": "app",
+                  "function": {
+                    "form": "app",
+                    "function": {
+                      "form": "app",
+                      "function": {
+                        "form": "const",
+                        "name": "Mpk.CSharp.Data.Fails.b8c97313797377771d9da446315cbdffa745ae410ef888dd9b9cb6e87a4b5067.index_range",
+                        "type_id": "(mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc->(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)))"
+                      },
+                      "argument": {
+                        "form": "var",
+                        "index": 0,
+                        "type_id": "mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc"
+                      },
+                      "type_id": "(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1))"
+                    },
+                    "argument": {
+                      "form": "var",
+                      "index": 1,
+                      "type_id": "mpk.csharp.value.i32.v1"
+                    },
+                    "type_id": "(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)"
+                  },
+                  "argument": {
+                    "form": "var",
+                    "index": 2,
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  },
+                  "type_id": "mpk.csharp.value.bool.v1"
+                },
+                "type_id": "mpk.csharp.value.bool.v1"
+              },
+              "type_id": "mpk.csharp.value.bool.v1"
+            },
+            "failure_predicate": {
+              "form": "app",
+              "function": {
+                "form": "app",
+                "function": {
+                  "form": "app",
+                  "function": {
+                    "form": "const",
+                    "name": "Mpk.CSharp.Data.Fails.b8c97313797377771d9da446315cbdffa745ae410ef888dd9b9cb6e87a4b5067.incomplete",
+                    "type_id": "(mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc->(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)))"
+                  },
+                  "argument": {
+                    "form": "var",
+                    "index": 0,
+                    "type_id": "mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc"
+                  },
+                  "type_id": "(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1))"
+                },
+                "argument": {
+                  "form": "var",
+                  "index": 1,
+                  "type_id": "mpk.csharp.value.i32.v1"
+                },
+                "type_id": "(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)"
+              },
+              "argument": {
+                "form": "var",
+                "index": 2,
+                "type_id": "mpk.csharp.value.i32.v1"
+              },
+              "type_id": "mpk.csharp.value.bool.v1"
+            },
+            "failure_guard": {
+              "form": "app",
+              "function": {
+                "form": "app",
+                "function": {
+                  "form": "const",
+                  "name": "Mpk.CSharp.Bool.And",
+                  "type_id": "(mpk.csharp.value.bool.v1->(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1))"
+                },
+                "argument": {
+                  "form": "app",
+                  "function": {
+                    "form": "app",
+                    "function": {
+                      "form": "const",
+                      "name": "Mpk.CSharp.Bool.And",
+                      "type_id": "(mpk.csharp.value.bool.v1->(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1))"
+                    },
+                    "argument": {
+                      "form": "app",
+                      "function": {
+                        "form": "const",
+                        "name": "Mpk.CSharp.Bool.Not",
+                        "type_id": "(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1)"
+                      },
+                      "argument": {
+                        "form": "app",
+                        "function": {
+                          "form": "app",
+                          "function": {
+                            "form": "app",
+                            "function": {
+                              "form": "const",
+                              "name": "Mpk.CSharp.Data.Fails.b8c97313797377771d9da446315cbdffa745ae410ef888dd9b9cb6e87a4b5067.ownership",
+                              "type_id": "(mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc->(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)))"
+                            },
+                            "argument": {
+                              "form": "var",
+                              "index": 0,
+                              "type_id": "mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc"
+                            },
+                            "type_id": "(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1))"
+                          },
+                          "argument": {
+                            "form": "var",
+                            "index": 1,
+                            "type_id": "mpk.csharp.value.i32.v1"
+                          },
+                          "type_id": "(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)"
+                        },
+                        "argument": {
+                          "form": "var",
+                          "index": 2,
+                          "type_id": "mpk.csharp.value.i32.v1"
+                        },
+                        "type_id": "mpk.csharp.value.bool.v1"
+                      },
+                      "type_id": "mpk.csharp.value.bool.v1"
+                    },
+                    "type_id": "(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1)"
+                  },
+                  "argument": {
+                    "form": "app",
+                    "function": {
+                      "form": "const",
+                      "name": "Mpk.CSharp.Bool.Not",
+                      "type_id": "(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1)"
+                    },
+                    "argument": {
+                      "form": "app",
+                      "function": {
+                        "form": "app",
+                        "function": {
+                          "form": "app",
+                          "function": {
+                            "form": "const",
+                            "name": "Mpk.CSharp.Data.Fails.b8c97313797377771d9da446315cbdffa745ae410ef888dd9b9cb6e87a4b5067.index_range",
+                            "type_id": "(mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc->(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)))"
+                          },
+                          "argument": {
+                            "form": "var",
+                            "index": 0,
+                            "type_id": "mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc"
+                          },
+                          "type_id": "(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1))"
+                        },
+                        "argument": {
+                          "form": "var",
+                          "index": 1,
+                          "type_id": "mpk.csharp.value.i32.v1"
+                        },
+                        "type_id": "(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)"
+                      },
+                      "argument": {
+                        "form": "var",
+                        "index": 2,
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      },
+                      "type_id": "mpk.csharp.value.bool.v1"
+                    },
+                    "type_id": "mpk.csharp.value.bool.v1"
+                  },
+                  "type_id": "mpk.csharp.value.bool.v1"
+                },
+                "type_id": "(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1)"
+              },
+              "argument": {
+                "form": "app",
+                "function": {
+                  "form": "app",
+                  "function": {
+                    "form": "app",
+                    "function": {
+                      "form": "const",
+                      "name": "Mpk.CSharp.Data.Fails.b8c97313797377771d9da446315cbdffa745ae410ef888dd9b9cb6e87a4b5067.incomplete",
+                      "type_id": "(mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc->(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)))"
+                    },
+                    "argument": {
+                      "form": "var",
+                      "index": 0,
+                      "type_id": "mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc"
+                    },
+                    "type_id": "(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1))"
+                  },
+                  "argument": {
+                    "form": "var",
+                    "index": 1,
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  },
+                  "type_id": "(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)"
+                },
+                "argument": {
+                  "form": "var",
+                  "index": 2,
+                  "type_id": "mpk.csharp.value.i32.v1"
+                },
+                "type_id": "mpk.csharp.value.bool.v1"
+              },
+              "type_id": "mpk.csharp.value.bool.v1"
+            },
+            "static_goal": {
+              "form": "app",
+              "function": {
+                "form": "app",
+                "function": {
+                  "form": "const",
+                  "name": "Mpk.CSharp.Bool.Or",
+                  "type_id": "(mpk.csharp.value.bool.v1->(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1))"
+                },
+                "argument": {
+                  "form": "app",
+                  "function": {
+                    "form": "const",
+                    "name": "Mpk.CSharp.Bool.Not",
+                    "type_id": "(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1)"
+                  },
+                  "argument": {
+                    "form": "app",
+                    "function": {
+                      "form": "app",
+                      "function": {
+                        "form": "const",
+                        "name": "Mpk.CSharp.Bool.And",
+                        "type_id": "(mpk.csharp.value.bool.v1->(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1))"
+                      },
+                      "argument": {
+                        "form": "app",
+                        "function": {
+                          "form": "const",
+                          "name": "Mpk.CSharp.Bool.Not",
+                          "type_id": "(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1)"
+                        },
+                        "argument": {
+                          "form": "app",
+                          "function": {
+                            "form": "app",
+                            "function": {
+                              "form": "app",
+                              "function": {
+                                "form": "const",
+                                "name": "Mpk.CSharp.Data.Fails.b8c97313797377771d9da446315cbdffa745ae410ef888dd9b9cb6e87a4b5067.ownership",
+                                "type_id": "(mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc->(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)))"
+                              },
+                              "argument": {
+                                "form": "var",
+                                "index": 0,
+                                "type_id": "mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc"
+                              },
+                              "type_id": "(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1))"
+                            },
+                            "argument": {
+                              "form": "var",
+                              "index": 1,
+                              "type_id": "mpk.csharp.value.i32.v1"
+                            },
+                            "type_id": "(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)"
+                          },
+                          "argument": {
+                            "form": "var",
+                            "index": 2,
+                            "type_id": "mpk.csharp.value.i32.v1"
+                          },
+                          "type_id": "mpk.csharp.value.bool.v1"
+                        },
+                        "type_id": "mpk.csharp.value.bool.v1"
+                      },
+                      "type_id": "(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1)"
+                    },
+                    "argument": {
+                      "form": "app",
+                      "function": {
+                        "form": "const",
+                        "name": "Mpk.CSharp.Bool.Not",
+                        "type_id": "(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1)"
+                      },
+                      "argument": {
+                        "form": "app",
+                        "function": {
+                          "form": "app",
+                          "function": {
+                            "form": "app",
+                            "function": {
+                              "form": "const",
+                              "name": "Mpk.CSharp.Data.Fails.b8c97313797377771d9da446315cbdffa745ae410ef888dd9b9cb6e87a4b5067.index_range",
+                              "type_id": "(mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc->(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)))"
+                            },
+                            "argument": {
+                              "form": "var",
+                              "index": 0,
+                              "type_id": "mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc"
+                            },
+                            "type_id": "(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1))"
+                          },
+                          "argument": {
+                            "form": "var",
+                            "index": 1,
+                            "type_id": "mpk.csharp.value.i32.v1"
+                          },
+                          "type_id": "(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)"
+                        },
+                        "argument": {
+                          "form": "var",
+                          "index": 2,
+                          "type_id": "mpk.csharp.value.i32.v1"
+                        },
+                        "type_id": "mpk.csharp.value.bool.v1"
+                      },
+                      "type_id": "mpk.csharp.value.bool.v1"
+                    },
+                    "type_id": "mpk.csharp.value.bool.v1"
+                  },
+                  "type_id": "mpk.csharp.value.bool.v1"
+                },
+                "type_id": "(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1)"
+              },
+              "argument": {
+                "form": "app",
+                "function": {
+                  "form": "const",
+                  "name": "Mpk.CSharp.Bool.Not",
+                  "type_id": "(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1)"
+                },
+                "argument": {
+                  "form": "app",
+                  "function": {
+                    "form": "app",
+                    "function": {
+                      "form": "app",
+                      "function": {
+                        "form": "const",
+                        "name": "Mpk.CSharp.Data.Fails.b8c97313797377771d9da446315cbdffa745ae410ef888dd9b9cb6e87a4b5067.incomplete",
+                        "type_id": "(mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc->(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)))"
+                      },
+                      "argument": {
+                        "form": "var",
+                        "index": 0,
+                        "type_id": "mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc"
+                      },
+                      "type_id": "(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1))"
+                    },
+                    "argument": {
+                      "form": "var",
+                      "index": 1,
+                      "type_id": "mpk.csharp.value.i32.v1"
+                    },
+                    "type_id": "(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)"
+                  },
+                  "argument": {
+                    "form": "var",
+                    "index": 2,
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  },
+                  "type_id": "mpk.csharp.value.bool.v1"
+                },
+                "type_id": "mpk.csharp.value.bool.v1"
+              },
+              "type_id": "mpk.csharp.value.bool.v1"
+            },
+            "exceptional_successor": null,
+            "exception_value": null,
+            "tagged_result_goal": null
+          }
+        ],
+        "success_guard": {
+          "form": "app",
+          "function": {
+            "form": "app",
+            "function": {
+              "form": "const",
+              "name": "Mpk.CSharp.Bool.And",
+              "type_id": "(mpk.csharp.value.bool.v1->(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1))"
+            },
+            "argument": {
+              "form": "app",
+              "function": {
+                "form": "const",
+                "name": "Mpk.CSharp.Bool.Not",
+                "type_id": "(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1)"
+              },
+              "argument": {
+                "form": "app",
+                "function": {
+                  "form": "app",
+                  "function": {
+                    "form": "app",
+                    "function": {
+                      "form": "const",
+                      "name": "Mpk.CSharp.Data.Fails.b8c97313797377771d9da446315cbdffa745ae410ef888dd9b9cb6e87a4b5067.ownership",
+                      "type_id": "(mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc->(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)))"
+                    },
+                    "argument": {
+                      "form": "var",
+                      "index": 0,
+                      "type_id": "mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc"
+                    },
+                    "type_id": "(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1))"
+                  },
+                  "argument": {
+                    "form": "var",
+                    "index": 1,
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  },
+                  "type_id": "(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)"
+                },
+                "argument": {
+                  "form": "var",
+                  "index": 2,
+                  "type_id": "mpk.csharp.value.i32.v1"
+                },
+                "type_id": "mpk.csharp.value.bool.v1"
+              },
+              "type_id": "mpk.csharp.value.bool.v1"
+            },
+            "type_id": "(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1)"
+          },
+          "argument": {
+            "form": "app",
+            "function": {
+              "form": "app",
+              "function": {
+                "form": "const",
+                "name": "Mpk.CSharp.Bool.And",
+                "type_id": "(mpk.csharp.value.bool.v1->(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1))"
+              },
+              "argument": {
+                "form": "app",
+                "function": {
+                  "form": "const",
+                  "name": "Mpk.CSharp.Bool.Not",
+                  "type_id": "(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1)"
+                },
+                "argument": {
+                  "form": "app",
+                  "function": {
+                    "form": "app",
+                    "function": {
+                      "form": "app",
+                      "function": {
+                        "form": "const",
+                        "name": "Mpk.CSharp.Data.Fails.b8c97313797377771d9da446315cbdffa745ae410ef888dd9b9cb6e87a4b5067.index_range",
+                        "type_id": "(mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc->(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)))"
+                      },
+                      "argument": {
+                        "form": "var",
+                        "index": 0,
+                        "type_id": "mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc"
+                      },
+                      "type_id": "(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1))"
+                    },
+                    "argument": {
+                      "form": "var",
+                      "index": 1,
+                      "type_id": "mpk.csharp.value.i32.v1"
+                    },
+                    "type_id": "(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)"
+                  },
+                  "argument": {
+                    "form": "var",
+                    "index": 2,
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  },
+                  "type_id": "mpk.csharp.value.bool.v1"
+                },
+                "type_id": "mpk.csharp.value.bool.v1"
+              },
+              "type_id": "(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1)"
+            },
+            "argument": {
+              "form": "app",
+              "function": {
+                "form": "const",
+                "name": "Mpk.CSharp.Bool.Not",
+                "type_id": "(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1)"
+              },
+              "argument": {
+                "form": "app",
+                "function": {
+                  "form": "app",
+                  "function": {
+                    "form": "app",
+                    "function": {
+                      "form": "const",
+                      "name": "Mpk.CSharp.Data.Fails.b8c97313797377771d9da446315cbdffa745ae410ef888dd9b9cb6e87a4b5067.incomplete",
+                      "type_id": "(mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc->(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)))"
+                    },
+                    "argument": {
+                      "form": "var",
+                      "index": 0,
+                      "type_id": "mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc"
+                    },
+                    "type_id": "(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1))"
+                  },
+                  "argument": {
+                    "form": "var",
+                    "index": 1,
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  },
+                  "type_id": "(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)"
+                },
+                "argument": {
+                  "form": "var",
+                  "index": 2,
+                  "type_id": "mpk.csharp.value.i32.v1"
+                },
+                "type_id": "mpk.csharp.value.bool.v1"
+              },
+              "type_id": "mpk.csharp.value.bool.v1"
+            },
+            "type_id": "mpk.csharp.value.bool.v1"
+          },
+          "type_id": "mpk.csharp.value.bool.v1"
+        },
+        "success_relation": {
+          "form": "app",
+          "function": {
+            "form": "app",
+            "function": {
+              "form": "app",
+              "function": {
+                "form": "app",
+                "function": {
+                  "form": "const",
+                  "name": "Mpk.CSharp.Data.Relation.b8c97313797377771d9da446315cbdffa745ae410ef888dd9b9cb6e87a4b5067",
+                  "type_id": "(mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc->(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->(mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc->mpk.csharp.value.bool.v1))))"
+                },
+                "argument": {
+                  "form": "var",
+                  "index": 0,
+                  "type_id": "mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc"
+                },
+                "type_id": "(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->(mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc->mpk.csharp.value.bool.v1)))"
+              },
+              "argument": {
+                "form": "var",
+                "index": 1,
+                "type_id": "mpk.csharp.value.i32.v1"
+              },
+              "type_id": "(mpk.csharp.value.i32.v1->(mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc->mpk.csharp.value.bool.v1))"
+            },
+            "argument": {
+              "form": "var",
+              "index": 2,
+              "type_id": "mpk.csharp.value.i32.v1"
+            },
+            "type_id": "(mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc->mpk.csharp.value.bool.v1)"
+          },
+          "argument": {
+            "form": "var",
+            "index": 3,
+            "type_id": "mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc"
+          },
+          "type_id": "mpk.csharp.value.bool.v1"
+        },
+        "success_goal": {
+          "form": "app",
+          "function": {
+            "form": "app",
+            "function": {
+              "form": "const",
+              "name": "Mpk.CSharp.Bool.Or",
+              "type_id": "(mpk.csharp.value.bool.v1->(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1))"
+            },
+            "argument": {
+              "form": "app",
+              "function": {
+                "form": "const",
+                "name": "Mpk.CSharp.Bool.Not",
+                "type_id": "(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1)"
+              },
+              "argument": {
+                "form": "app",
+                "function": {
+                  "form": "app",
+                  "function": {
+                    "form": "const",
+                    "name": "Mpk.CSharp.Bool.And",
+                    "type_id": "(mpk.csharp.value.bool.v1->(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1))"
+                  },
+                  "argument": {
+                    "form": "app",
+                    "function": {
+                      "form": "const",
+                      "name": "Mpk.CSharp.Bool.Not",
+                      "type_id": "(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1)"
+                    },
+                    "argument": {
+                      "form": "app",
+                      "function": {
+                        "form": "app",
+                        "function": {
+                          "form": "app",
+                          "function": {
+                            "form": "const",
+                            "name": "Mpk.CSharp.Data.Fails.b8c97313797377771d9da446315cbdffa745ae410ef888dd9b9cb6e87a4b5067.ownership",
+                            "type_id": "(mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc->(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)))"
+                          },
+                          "argument": {
+                            "form": "var",
+                            "index": 0,
+                            "type_id": "mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc"
+                          },
+                          "type_id": "(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1))"
+                        },
+                        "argument": {
+                          "form": "var",
+                          "index": 1,
+                          "type_id": "mpk.csharp.value.i32.v1"
+                        },
+                        "type_id": "(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)"
+                      },
+                      "argument": {
+                        "form": "var",
+                        "index": 2,
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      },
+                      "type_id": "mpk.csharp.value.bool.v1"
+                    },
+                    "type_id": "mpk.csharp.value.bool.v1"
+                  },
+                  "type_id": "(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1)"
+                },
+                "argument": {
+                  "form": "app",
+                  "function": {
+                    "form": "app",
+                    "function": {
+                      "form": "const",
+                      "name": "Mpk.CSharp.Bool.And",
+                      "type_id": "(mpk.csharp.value.bool.v1->(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1))"
+                    },
+                    "argument": {
+                      "form": "app",
+                      "function": {
+                        "form": "const",
+                        "name": "Mpk.CSharp.Bool.Not",
+                        "type_id": "(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1)"
+                      },
+                      "argument": {
+                        "form": "app",
+                        "function": {
+                          "form": "app",
+                          "function": {
+                            "form": "app",
+                            "function": {
+                              "form": "const",
+                              "name": "Mpk.CSharp.Data.Fails.b8c97313797377771d9da446315cbdffa745ae410ef888dd9b9cb6e87a4b5067.index_range",
+                              "type_id": "(mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc->(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)))"
+                            },
+                            "argument": {
+                              "form": "var",
+                              "index": 0,
+                              "type_id": "mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc"
+                            },
+                            "type_id": "(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1))"
+                          },
+                          "argument": {
+                            "form": "var",
+                            "index": 1,
+                            "type_id": "mpk.csharp.value.i32.v1"
+                          },
+                          "type_id": "(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)"
+                        },
+                        "argument": {
+                          "form": "var",
+                          "index": 2,
+                          "type_id": "mpk.csharp.value.i32.v1"
+                        },
+                        "type_id": "mpk.csharp.value.bool.v1"
+                      },
+                      "type_id": "mpk.csharp.value.bool.v1"
+                    },
+                    "type_id": "(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1)"
+                  },
+                  "argument": {
+                    "form": "app",
+                    "function": {
+                      "form": "const",
+                      "name": "Mpk.CSharp.Bool.Not",
+                      "type_id": "(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1)"
+                    },
+                    "argument": {
+                      "form": "app",
+                      "function": {
+                        "form": "app",
+                        "function": {
+                          "form": "app",
+                          "function": {
+                            "form": "const",
+                            "name": "Mpk.CSharp.Data.Fails.b8c97313797377771d9da446315cbdffa745ae410ef888dd9b9cb6e87a4b5067.incomplete",
+                            "type_id": "(mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc->(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)))"
+                          },
+                          "argument": {
+                            "form": "var",
+                            "index": 0,
+                            "type_id": "mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc"
+                          },
+                          "type_id": "(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1))"
+                        },
+                        "argument": {
+                          "form": "var",
+                          "index": 1,
+                          "type_id": "mpk.csharp.value.i32.v1"
+                        },
+                        "type_id": "(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)"
+                      },
+                      "argument": {
+                        "form": "var",
+                        "index": 2,
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      },
+                      "type_id": "mpk.csharp.value.bool.v1"
+                    },
+                    "type_id": "mpk.csharp.value.bool.v1"
+                  },
+                  "type_id": "mpk.csharp.value.bool.v1"
+                },
+                "type_id": "mpk.csharp.value.bool.v1"
+              },
+              "type_id": "mpk.csharp.value.bool.v1"
+            },
+            "type_id": "(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1)"
+          },
+          "argument": {
+            "form": "app",
+            "function": {
+              "form": "app",
+              "function": {
+                "form": "app",
+                "function": {
+                  "form": "app",
+                  "function": {
+                    "form": "const",
+                    "name": "Mpk.CSharp.Data.Relation.b8c97313797377771d9da446315cbdffa745ae410ef888dd9b9cb6e87a4b5067",
+                    "type_id": "(mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc->(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->(mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc->mpk.csharp.value.bool.v1))))"
+                  },
+                  "argument": {
+                    "form": "var",
+                    "index": 0,
+                    "type_id": "mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc"
+                  },
+                  "type_id": "(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->(mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc->mpk.csharp.value.bool.v1)))"
+                },
+                "argument": {
+                  "form": "var",
+                  "index": 1,
+                  "type_id": "mpk.csharp.value.i32.v1"
+                },
+                "type_id": "(mpk.csharp.value.i32.v1->(mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc->mpk.csharp.value.bool.v1))"
+              },
+              "argument": {
+                "form": "var",
+                "index": 2,
+                "type_id": "mpk.csharp.value.i32.v1"
+              },
+              "type_id": "(mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc->mpk.csharp.value.bool.v1)"
+            },
+            "argument": {
+              "form": "var",
+              "index": 3,
+              "type_id": "mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc"
+            },
+            "type_id": "mpk.csharp.value.bool.v1"
+          },
+          "type_id": "mpk.csharp.value.bool.v1"
+        }
+      },
+      "allocation_origin_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.value.000009",
+      "before_state_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.node.000024.invoke",
+      "after_state_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.node.000024.normal",
+      "ownership": {
+        "function_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8",
+        "node_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.node.000024",
+        "receiver_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.value.000005",
+        "state_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.node.000024.invoke",
+        "source_failure_name": "Mpk.CSharp.Data.Fails.b8c97313797377771d9da446315cbdffa745ae410ef888dd9b9cb6e87a4b5067.ownership",
+        "scoped_failure_definition": "Mpk.CSharp.Ordinary.ConstructionData.OwnershipFailure.Had54dbc9aa36148861a64a4d31f0afb3429530628c45ce86465b1e4a3c6872ae",
+        "scoped_failure_theorem": "Mpk.CSharp.Ordinary.ConstructionData.OwnershipFailure.Had54dbc9aa36148861a64a4d31f0afb3429530628c45ce86465b1e4a3c6872ae.Proof",
+        "flow_theorem": "Mpk.CSharp.Ordinary.OwnershipFlow.Flow.H3cea3d046fa698ccd332031af42577687177e990b6deeee3cbd3737cc4e3b005.Proof",
+        "receiver_theorem": "Mpk.CSharp.Ordinary.OwnershipFlow.PointFailure.H46ad0a4f54ce8ce49904f1a1ddc883819c90bb9803d83dd7a5ae4d6a9567399c.Proof"
+      },
+      "snapshot_definition": "Mpk.CSharp.Ordinary.ControlEdge.SourceSlotSnapshot.Hfd21cf819351cbe508a9ea36e84beaafcba26cef4c21314ff7c077e6dabbb0ed",
+      "arguments": [
+        {
+          "kind": "source_before_assigned",
+          "edge_id": null,
+          "node_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.node.000024",
+          "value_id": "local:0",
+          "type_id": "mpk.csharp.value.bool.v1"
+        },
+        {
+          "kind": "source_before_slot",
+          "edge_id": null,
+          "node_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.node.000024",
+          "value_id": "local:0",
+          "type_id": "mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3"
+        },
+        {
+          "kind": "source_after_assigned",
+          "edge_id": null,
+          "node_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.node.000043",
+          "value_id": "local:0",
+          "type_id": "mpk.csharp.value.bool.v1"
+        },
+        {
+          "kind": "source_after_slot",
+          "edge_id": null,
+          "node_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.node.000043",
+          "value_id": "local:0",
+          "type_id": "mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3"
+        },
+        {
+          "kind": "ssa",
+          "edge_id": null,
+          "node_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.node.000024",
+          "value_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.value.000005",
+          "type_id": "mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc"
+        },
+        {
+          "kind": "ssa",
+          "edge_id": null,
+          "node_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.node.000024",
+          "value_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.value.000003",
+          "type_id": "mpk.csharp.value.i32.v1"
+        },
+        {
+          "kind": "ssa",
+          "edge_id": null,
+          "node_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.node.000024",
+          "value_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.value.000019",
+          "type_id": "mpk.csharp.value.i32.v1"
+        },
+        {
+          "kind": "ssa",
+          "edge_id": null,
+          "node_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.node.000024",
+          "value_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.value.000020",
+          "type_id": "mpk.csharp.instance.731eb86260bfb137b1d927d3f4acb2476ddb8fc1be501a03e66563a2f35fe4cc"
+        }
+      ],
+      "execution_scope": "successful_native_update_of_receiver_slot; other_source_frames_and_exception_execution_pending",
+      "definition": "Mpk.CSharp.Ordinary.ControlEdge.MemoryEffect.H1c996441350ec29b9ddb64a1287334ebbae1829151beca361fb2fe099035d570"
+    }
+  ],
+  "runtime_observations": 13,
+  "retained_edge_and_entry_observations": 52526,
+  "all_observations": 52539,
+  "unchanged_source_certificates": 16,
+  "checks": {
+    "control-memory-effect-runtime-fixed": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_control_memory_effect_original_source",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 88.642,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-memory-effect-fixed",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-memory-effect-lint-fixed": {
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 13.958,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-memory-effect-regeneration": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_control_edge_other_sources_unchanged",
+        "csharp_03_t06_w09_control_edge_collection_candidates",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 2.318,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-memory-effect-final",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-memory-effect-preservation": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "preserves_existing_declarations",
+        "control_slot_original_source",
+        "control_slot_count_fill_candidate",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1.59,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-memory-effect-final",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-memory-effect-slot-dependencies": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_control_slot_source_relations",
+        "csharp_03_t06_w09_control_slot_array_snapshots",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 3.716,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-memory-effect-format": {
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 2.952,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-memory-effect-pinned-replay": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_control_memory_effect_original_source",
+        "csharp_03_t06_w09_control_memory_effect_preserves_existing_declarations",
+        "csharp_03_t06_w09_control_edge_other_sources_unchanged",
+        "csharp_03_t06_w09_control_edge_collection_candidates",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 4.123,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    }
+  },
+  "checker_evidence": "checks/cases.json",
+  "certificate": {
+    "hex_file_sha256": "be255ca5a0374c4a2d0df65ef6d2fdb3bd8630a107786b9d805d625a513d8d11",
+    "metadata_file_sha256": "3000a5e19094d1b040a62d51cb23f8cd0cd30e76f42410d2667302a45c102194",
+    "certificate_sha256": "b24c515218e29f2e60edd983fedb0d3945eb915e28ecfe7e8f2f35a4061862f9",
+    "bytes": 716726,
+    "edges": 63,
+    "guards": 63,
+    "joins": 61,
+    "phi_joins": 4,
+    "phi_values": 8,
+    "pending_edges": 0,
+    "checker_evidence": "memory-effects/checks/cases.json",
+    "memory_bindings": 4,
+    "node_entries": 51,
+    "memory_effects": 1
+  },
+  "source_sha256": {
+    "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs": "02dca72231458bbf5ce0b0ab2a3c8a35c3c682ca7c7a212ff7dc7c054df9fd47",
+    "crates/mpk-vc/src/csharp_practical_ordinary_control_edges.rs": "3c6d75627c74b0985030c35e22e68e6eac8e9d95c09a4a157cd1472ac6f262aa",
+    "crates/mpk-vc/src/csharp_practical_ordinary_source_clauses.rs": "79d742d61217786eb6ba7b809b65f914eb3f2cb679917413f6743663bde88f68",
+    "crates/mpk-vc/src/csharp_practical_ordinary_structural.rs": "9cfbde5ed80b731b838f2e67bd9f8ba043e1c66cb339cd3a60a9792a8f93b761",
+    "crates/mpk-vc/src/csharp_practical_vir_model.rs": "4636372f1239b1c3301c70de6695400a875bd3c5c3061432c96429e584b2152e",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_edge_tests.rs": "c7073fc3687d7c651debdc6a72e4b1c50512969c7bd56512b916d5ba0294b5c9"
+  },
+  "selection_reason": "Memory effects append one source-bound receiver update to index_update. Thirteen core observations exercise valid writes to both indices, false assignedness, mismatched public/private snapshots, incomplete private storage, negative and upper-bound indices and wrong element values. Six historical preservation tests retain every prior definition; sixteen other edge programs regenerate byte-for-byte. All nine private slot pins replay unchanged, including count_fill, and 144 public array snapshot plus 1888 slot observations pass. Only the changed index_update certificate receives fresh Go/Rust acceptance and hash-rejection checks. Four re-export changes reverse exactly to previous hashes. Full guard/entry runtime suites are not rerun because their complete declaration bodies and metadata are unchanged. The larger count_fill node-entry arity issue is recorded as pending, without claiming fill execution coverage.",
+  "review": "review.md",
+  "known_follow_up": "node-entry-fan-in-follow-up.json",
+  "native_execution_and_application_proofs_pending": true,
+  "unit_5_complete": false,
+  "w09_complete": false,
+  "whole_gate": "deferred to T06-W12"
+}

@@ -434,5 +434,16 @@
       "sha256": "f739a466257c9cf86fa4d681e528320d90a0175696691d884061f302cc45fd8a"
     }
   ],
-  "inventory_note": "Final inventory run v4 passed in 15.95s after adding the Go entry. The subsequent balanced-selector and runtime-prefix edits stay within existing files and introduce no new artifact consumer route."
+  "inventory_note": "Final inventory run v4 passed in 15.95s after adding the Go entry. The subsequent balanced-selector and runtime-prefix edits stay within existing files and introduce no new artifact consumer route.",
+  "subsequent_constructor_correction": {
+    "receipt": "verification-logs/string-data/hoisted-index/verification.json",
+    "changed_contexts": [
+      "construction-nonnull",
+      "construction-nullable"
+    ],
+    "both_checkers": "passed current bytes",
+    "source_candidates_and_legacy_closure_checks": "passed",
+    "historical_checks": "Older entries refer to preserved preimages. Current complete constructor oracle and final binder checker now passed.",
+    "completed_user_checks": "verification-logs/string-data/user-long-completed/verification.json"
+  }
 }

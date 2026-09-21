@@ -82,8 +82,8 @@ fn add(b: &mut Builder, left: u32, right: u32) -> R<u32> {
     let d = super::super::super::scalar_bits::count_addition(b)?;
     call(b, &d, vec![left, right])
 }
-/// All leaves are false. Each concrete depth shares the same bounded pipeline.
-/// Splitting selector groups also handles padding whose depth exceeds 14.
+/// All leaves are false. Each fixed depth shares a closed ordinary definition.
+/// Both selector branches are covered; no collection length bounds this check.
 fn zero_definition(b: &mut Builder, depth: u32) -> R<String> {
     if depth > 253 {
         return Err(OrdinaryCarrierError::Limit);
@@ -98,8 +98,7 @@ fn zero_definition(b: &mut Builder, depth: u32) -> R<String> {
     } else if depth <= 5 {
         // A word is a fixed scalar Boolean expression, just like the existing
         // ordered-fold Empty helper. Do not start a collection state scan for
-        // every word inside a large region. Wider regions still use the
-        // counted concrete state pipeline below.
+        // every word inside a large region.
         let source = b.var(0)?;
         let mut valid = bit(b, true)?;
         for i in 0..1 << depth {
@@ -113,21 +112,101 @@ fn zero_definition(b: &mut Builder, depth: u32) -> R<String> {
         }
         valid
     } else {
-        // Keep a full scalar word at the bottom of each concrete partition.
-        // Otherwise depths 6..14 scan one Bool per state step and never use
-        // the fixed-word base case, despite having the same scalar storage.
-        let group = (depth - 5).min(14);
-        let child = zero_definition(b, depth - group)?;
-        let fold = aggregate_fold::emit_fold(b, group)?;
-        let source = b.var(group)?;
-        let selectors = b.selectors(group)?;
-        let value = b.app(source, selectors)?;
-        let valid = call(b, &child, vec![value])?;
-        let predicate = b.wrap_selectors(group, valid)?;
-        let count = word(b, 1 << group)?;
-        call(b, &fold.all_definition, vec![predicate, count])?
+        // This is a fixed truth table, not a counted collection. Partition
+        // its full address space by the first selector. Shared closed child
+        // definitions let equal subviews reuse ordinary evaluation results
+        // without traversing a counted-fold state chain for every empty word.
+        // Emit the smaller definition first: the certificate is acyclic.
+        let child = zero_definition(b, depth - 1)?;
+        let source = b.var(0)?;
+        let low = bit(b, false)?;
+        let high = bit(b, true)?;
+        let low = b.app(source, vec![low])?;
+        let high = b.app(source, vec![high])?;
+        let low = call(b, &child, vec![low])?;
+        let high = call(b, &child, vec![high])?;
+        and(b, low, high)?
     };
     define(b, &name, &[depth], 0, body)?;
+    Ok(name)
+}
+/// Check every physical slot at index >= length, without counting those slots.
+/// The caller separately enforces the declared capacity bound. A length at or
+/// above physical capacity has no inactive slots.
+fn zero_tail_definition(b: &mut Builder, indices: u32, child: u32) -> R<String> {
+    if indices > 14 || child > 253 - indices {
+        return Err(OrdinaryCarrierError::Limit);
+    }
+    let name = format!("{PREFIX}.Domain.ZeroTail.I{indices}.D{child}");
+    if b.globals.contains_key(&name) {
+        return Ok(name);
+    }
+    ordered_fold::auxiliary(b)?;
+    let step = zero_tail_step_definition(b, indices, child, 0)?;
+    let length = b.var(1)?;
+    let source = b.var(0)?;
+    let carry = bit(b, false)?;
+    let tail = call(b, &step, vec![length, carry, source])?;
+    let capacity = word(b, 1 << indices)?;
+    let partial = fold_helper(b, "Less", vec![length, capacity])?;
+    let yes = bit(b, true)?;
+    let body = mux(b, partial, tail, yes)?;
+    define(b, &name, &[5, indices + child], 0, body)?;
+    Ok(name)
+}
+/// At offset k, the active count is (original_length >> k) + carry.
+/// Keep the original word, reading fixed bit addresses; never build nested
+/// shifted/incremented word closures. For the next even/odd branch, the carry
+/// is respectively (bit[k] OR carry) / (bit[k] AND carry).
+/// The wrapper guarantees original_length < 2^indices before invoking a step.
+fn zero_tail_step_definition(b: &mut Builder, indices: u32, child: u32, offset: u32) -> R<String> {
+    let name = format!("{PREFIX}.Domain.ZeroTail.I{indices}.D{child}.Step.B{offset}");
+    if b.globals.contains_key(&name) {
+        return Ok(name);
+    }
+    let remaining = indices - offset;
+    let zero = zero_definition(b, remaining + child)?;
+    let next = if remaining > 0 {
+        Some(zero_tail_step_definition(b, indices, child, offset + 1)?)
+    } else {
+        None
+    };
+    let length = b.var(2)?;
+    let carry = b.var(1)?;
+    let source = b.var(0)?;
+    let all_zero = call(b, &zero, vec![source])?;
+    let yes = bit(b, true)?;
+    let body = if let Some(next) = next {
+        // Because the original high bits are zero, the active subarray is
+        // empty iff its remaining length bits and carry are all zero; it is
+        // full iff those length bits and carry are all one.
+        let mut empty = not(b, carry)?;
+        let mut full = carry;
+        for i in offset..indices {
+            let value = read_bit(b, length, i)?;
+            let not_value = not(b, value)?;
+            empty = and(b, empty, not_value)?;
+            full = and(b, full, value)?;
+        }
+        let low_bit = read_bit(b, length, offset)?;
+        let even_carry = mux(b, low_bit, yes, carry)?;
+        let odd_carry = and(b, low_bit, carry)?;
+        let low = bit(b, false)?;
+        let high = bit(b, true)?;
+        let low = b.app(source, vec![low])?;
+        let high = b.app(source, vec![high])?;
+        let low = call(b, &next, vec![length, even_carry, low])?;
+        let high = call(b, &next, vec![length, odd_carry, high])?;
+        let split = and(b, low, high)?;
+        // Entirely zero subregions satisfy every suffix and need no split.
+        let partial = mux(b, all_zero, yes, split)?;
+        let nonfull = mux(b, empty, all_zero, partial)?;
+        mux(b, full, yes, nonfull)?
+    } else {
+        // The original quotient is zero after all index bits are removed.
+        mux(b, carry, yes, all_zero)?
+    };
+    define(b, &name, &[5, 0, remaining + child], 0, body)?;
     Ok(name)
 }
 /// Check a fixed subcube without inspecting any other region.
@@ -314,7 +393,17 @@ impl Domains<'_> {
         let depth = roles + max;
         let source = self.r.b.var(0)?;
         let mut valid = bit(&mut self.r.b, true)?;
-        let mut count = word(&mut self.r.b, own)?;
+        // Collapse fields whose domain count is identically one, but retain
+        // every physical field-padding check. Repeatedly building a scalar
+        // addition for each fixed-width field makes large record arrays costly.
+        let unit_fields = fields
+            .iter()
+            .map(|field| self.unconstrained_unit_cell(&field.shape))
+            .collect::<R<Vec<_>>>()?;
+        let fixed = unit_fields.iter().fold(own, |count, unit| {
+            count.saturating_add(u32::from(*unit)).min(INVALID)
+        });
+        let mut count = word(&mut self.r.b, fixed)?;
         for (i, child) in children.iter().enumerate() {
             let leading = prefix(roles, i as u32);
             let padded = padding(&mut self.r.b, source, depth, &leading, child.depth)?;
@@ -324,9 +413,11 @@ impl Domains<'_> {
             let getter =
                 self.r
                     .getter(&format!("{name}.Read.F{i}"), depth, child.depth, &address)?;
-            let value = call(&mut self.r.b, &getter, vec![source])?;
-            let cells = call(&mut self.r.b, &child.definition, vec![value])?;
-            count = add(&mut self.r.b, count, cells)?;
+            if !unit_fields[i] {
+                let value = call(&mut self.r.b, &getter, vec![source])?;
+                let cells = call(&mut self.r.b, &child.definition, vec![value])?;
+                count = add(&mut self.r.b, count, cells)?;
+            }
         }
         for i in fields.len() as u32..1 << roles {
             let empty = zero_region(&mut self.r.b, source, depth, &prefix(roles, i))?;
@@ -389,6 +480,35 @@ impl Domains<'_> {
                 .map(|c| c.shape.clone())
                 .ok_or(OrdinaryCarrierError::Linkage),
             _ => Ok(shape.clone()),
+        }
+    }
+    // Only full-width unconstrained bit scalars have count identically one.
+    // Enums, ranges, padding, wrappers and declared public clauses must still
+    // evaluate their element domains. Ordering also requires the normal fold.
+    fn unconstrained_unit_cell(&self, shape: &OrdinaryShape) -> R<bool> {
+        match shape {
+            OrdinaryShape::Bits { width } => Ok(width.is_power_of_two() && *width <= 512),
+            OrdinaryShape::Reference { type_id } => {
+                if self
+                    .public_clauses
+                    .as_ref()
+                    .and_then(|clauses| clauses.get(type_id))
+                    .is_some_and(|clauses| !clauses.is_empty())
+                {
+                    return Ok(false);
+                }
+                let carrier = self
+                    .r
+                    .carriers
+                    .get(type_id)
+                    .ok_or(OrdinaryCarrierError::Linkage)?;
+                Ok(
+                    matches!(scalar_domains::selected_rule(carrier, self.r.vir)?,
+                    Some(OrdinaryScalarDomainRule::Bits { width })
+                        if width.is_power_of_two() && width <= 512 && address_bits(width) == carrier.depth),
+                )
+            }
+            _ => Ok(false),
         }
     }
     fn sequence(
@@ -463,12 +583,11 @@ impl Domains<'_> {
         } else {
             None
         };
-        let zero_child = zero_definition(&mut self.r.b, child.depth)?;
+        let zero_tail = zero_tail_definition(&mut self.r.b, indices, child.depth)?;
         // Under the index-selector group, capture the entire source value.
         let source = self.r.b.var(indices)?;
         let index = index_word(&mut self.r.b, indices)?;
         let len = call(&mut self.r.b, &length, vec![source])?;
-        let visible = fold_helper(&mut self.r.b, "Less", vec![index, len])?;
         let value = call(&mut self.r.b, &read, vec![source, index])?;
         let mut cells = call(&mut self.r.b, &child.definition, vec![value])?;
         if let Some((compare, key)) = ordering {
@@ -489,13 +608,18 @@ impl Domains<'_> {
             let valid = mux(&mut self.r.b, within, increasing, yes)?;
             cells = reject_unless(&mut self.r.b, valid, cells)?;
         }
-        let empty = call(&mut self.r.b, &zero_child, vec![value])?;
-        let zero = word(&mut self.r.b, 0)?;
-        let tail = reject_unless(&mut self.r.b, empty, zero)?;
-        let cells = wmux(&mut self.r.b, visible, cells, tail)?;
         let predicate = self.r.b.wrap_selectors(indices, cells)?;
-        let cap = word(&mut self.r.b, 1 << indices)?;
-        let sum = call(&mut self.r.b, &fold.sum_definition, vec![predicate, cap])?;
+        // Sum only active elements. Inactive storage is checked separately,
+        // including rounded-up physical slots beyond the declared capacity.
+        let source = self.r.b.var(0)?;
+        let len = call(&mut self.r.b, &length, vec![source])?;
+        let sum = if ordered.is_none() && self.unconstrained_unit_cell(element)? {
+            // Exact sum of `length` constant-one counts. Bounds and all
+            // physical padding/tail checks below remain mandatory.
+            len
+        } else {
+            call(&mut self.r.b, &fold.sum_definition, vec![predicate, len])?
+        };
         let own = word(&mut self.r.b, own)?;
         let count = add(&mut self.r.b, own, sum)?;
         let source = self.r.b.var(0)?;
@@ -504,7 +628,12 @@ impl Domains<'_> {
         let bound = fold_helper(&mut self.r.b, "Less", vec![len, limit])?;
         let length_padding = padding(&mut self.r.b, source, depth, &[false], 5)?;
         let array_padding = padding(&mut self.r.b, source, depth, &[true], array)?;
+        let mut address = vec![bit(&mut self.r.b, true)?];
+        address.extend(vec![bit(&mut self.r.b, false)?; (payload - array) as usize]);
+        let elements = self.r.b.app(source, address)?;
+        let tail = call(&mut self.r.b, &zero_tail, vec![len, elements])?;
         let valid = and(&mut self.r.b, length_padding, array_padding)?;
+        let valid = and(&mut self.r.b, valid, tail)?;
         let valid = and(&mut self.r.b, bound, valid)?;
         let count = reject_unless(&mut self.r.b, valid, count)?;
         self.finish_count(name, depth, count)
@@ -650,6 +779,135 @@ mod tests {
     use super::super::super::super::tests::{bit as observed_bit, run, V};
     use super::*;
 
+    fn length_value(length: u32) -> V {
+        V::Cube((0..32).map(|i| length & (1 << i) != 0).collect())
+    }
+
+    #[test]
+    fn recursive_domain_zero_tail_matches_physical_addresses() {
+        let mut b = Builder::new().unwrap();
+        let names = [0, 2].map(|child| zero_tail_definition(&mut b, 3, child).unwrap());
+        let singleton = zero_tail_definition(&mut b, 0, 0).unwrap();
+        let cert = mpk_cert::decode_canonical_certificate(&b.finish().unwrap()).unwrap();
+        for length in 0..=8 {
+            // All eight-slot Boolean arrays, including odd boundaries.
+            for mask in 0u32..256 {
+                let expected = (length..8).all(|i| mask & (1 << i) == 0);
+                let bits = (0..8).map(|i| mask & (1 << i) != 0).collect();
+                assert_eq!(
+                    observed_bit(run(
+                        &cert,
+                        &names[0],
+                        vec![length_value(length), V::Cube(bits)]
+                    )),
+                    expected,
+                    "length {length}, mask {mask}"
+                );
+            }
+            // Physical addresses carry the index in the low three bits,
+            // independently of the higher child-payload selectors.
+            for address in 0..32 {
+                let mut bits = vec![false; 32];
+                bits[address] = true;
+                assert_eq!(
+                    observed_bit(run(
+                        &cert,
+                        &names[1],
+                        vec![length_value(length), V::Cube(bits)]
+                    )),
+                    (address & 7) < length as usize,
+                    "length {length}, payload address {address}"
+                );
+            }
+        }
+        for length in [0, 1] {
+            for value in [false, true] {
+                assert_eq!(
+                    observed_bit(run(
+                        &cert,
+                        &singleton,
+                        vec![length_value(length), V::Bit(value)]
+                    )),
+                    length == 1 || !value
+                );
+            }
+        }
+    }
+
+    #[test]
+    fn recursive_domain_sparse_zero_tail_work_is_bounded() {
+        use super::super::super::super::test_eval::{apply_counted, sparse_cube};
+        let mut b = Builder::new().unwrap();
+        let shapes = [(14u32, 4u32), (12, 20)];
+        let names =
+            shapes.map(|(indices, child)| zero_tail_definition(&mut b, indices, child).unwrap());
+        let cert = mpk_cert::decode_canonical_certificate(&b.finish().unwrap()).unwrap();
+        for ((indices, child), name) in shapes.into_iter().zip(names) {
+            let capacity = 1usize << indices;
+            let last_payload = ((1usize << child) - 1) << indices;
+            for length in [0usize, 1, 2, 3, capacity / 2, capacity - 1, capacity] {
+                let mut active = BTreeSet::new();
+                if length > 0 {
+                    active.insert(0);
+                    active.insert(last_payload | (length - 1));
+                }
+                let mut cases = vec![("active", active.clone(), true)];
+                if length < capacity {
+                    let mut first = active.clone();
+                    first.insert(last_payload | length);
+                    cases.push(("first inactive", first, false));
+                    active.insert(last_payload | (capacity - 1));
+                    cases.push(("last physical", active, false));
+                }
+                for (case, bits, expected) in cases {
+                    let f = run(&cert, &name, vec![]);
+                    let (f, prefix_steps) = apply_counted(&cert, f, length_value(length as u32));
+                    let (result, steps) =
+                        apply_counted(&cert, f, sparse_cube(indices + child, bits));
+                    let steps = steps + prefix_steps;
+                    assert_eq!(
+                        observed_bit(result),
+                        expected,
+                        "I{indices} D{child} length {length} {case}"
+                    );
+                    assert!(
+                        steps < 10_000_000,
+                        "I{indices} D{child} length {length} {case}: {steps} transitions"
+                    );
+                    eprintln!("zero tail I{indices} D{child} length {length} {case}: {steps} core transitions");
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn recursive_domain_sparse_zero_work_is_bounded() {
+        use super::super::super::super::test_eval::{apply_counted, sparse_cube};
+        let mut b = Builder::new().unwrap();
+        b.helpers(5).unwrap();
+        // This is the actual predicate used by the first C33 map length-
+        // padding region, with all 2^31 addresses.
+        let name = zero_definition(&mut b, 31).unwrap();
+        let cert = mpk_cert::decode_canonical_certificate(&b.finish().unwrap()).unwrap();
+        let f = run(&cert, &name, vec![]);
+        let (zero, steps) = apply_counted(&cert, f, sparse_cube(31, BTreeSet::new()));
+        assert!(observed_bit(zero));
+        assert!(steps < 1_000_000, "C31 zero-region reduction cost: {steps}");
+        eprintln!("C31 complete zero-region predicate: {steps} core transitions");
+        // A single nonzero leaf, including the last one, must still reject.
+        for index in [0usize, 1 << 30, (1usize << 31) - 1] {
+            let f = run(&cert, &name, vec![]);
+            let (zero, steps) =
+                apply_counted(&cert, f, sparse_cube(31, [index].into_iter().collect()));
+            assert!(!observed_bit(zero), "C31 nonzero address {index}");
+            assert!(
+                steps < 1_000_000,
+                "C31 nonzero address {index} reduction cost: {steps}"
+            );
+            eprintln!("C31 nonzero address {index}: {steps} core transitions");
+        }
+    }
+
     #[test]
     fn recursive_domain_zero_regions_and_padding() {
         let mut b = Builder::new().unwrap();
@@ -660,7 +918,7 @@ mod tests {
         }
         let wide = zero_definition(&mut b, 20).unwrap();
         let count = b.static_transformers;
-        assert_eq!(count, 8217);
+        assert_eq!(count, 0);
         for depth in 0..=15 {
             zero_definition(&mut b, depth).unwrap();
         }
@@ -706,8 +964,8 @@ mod tests {
             bits[index] = true;
             assert!(!observed_bit(run(&cert, &zeros[15], vec![V::Cube(bits)])));
         }
-        // D20 really uses a 14-selector outer group and a D6 child, whose
-        // final partition reaches the fixed scalar word. No index may alias.
+        // Binary partitions reach the fixed scalar word without aliasing
+        // high address bits or omitting either selector branch.
         for index in [0, 1 << 14, 1 << 19] {
             let mut bits = vec![false; 1 << 20];
             bits[index] = true;

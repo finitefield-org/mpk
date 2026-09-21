@@ -1,0 +1,20 @@
+
+running 1 test
+test csharp_practical_vir_model::ordinary_carriers::scalar_bits::utf16::construct::tests::string_construction_shares_index_and_range_per_code_unit ... shared UTF-16 index 0: first 274244 transitions, next fifteen 1250550
+shared UTF-16 index 1: first 344006 transitions, next fifteen 5160090
+shared UTF-16 index 2: first 343840 transitions, next fifteen 5157600
+shared UTF-16 index 3: first 344233 transitions, next fifteen 5163495
+shared UTF-16 index 4: first 252798 transitions, next fifteen 1154250
+
+thread 'csharp_practical_vir_model::ordinary_carriers::scalar_bits::utf16::construct::tests::string_construction_shares_index_and_range_per_code_unit' (6270758) panicked at crates/mpk-vc/src/csharp_practical_ordinary_string_construct.rs:465:17:
+range check was recomputed for each bit: [252798, 76950, 76950, 76950, 76950, 76950, 76950, 76950, 76950, 76950, 76950, 76950, 76950, 76950, 76950, 76950]
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+FAILED
+
+failures:
+
+failures:
+    csharp_practical_vir_model::ordinary_carriers::scalar_bits::utf16::construct::tests::string_construction_shares_index_and_range_per_code_unit
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 161 filtered out; finished in 0.55s
+

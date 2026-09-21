@@ -1,0 +1,67 @@
+{
+  "changes": {
+    "crates/mpk-vc/src/csharp_practical_ordinary_string_data.rs": {
+      "before_sha256": "855689006cf5888234abaf1f4f05a97026821ce99d474c898faf0b80d3defe10",
+      "after_sha256": "444c3688f6ae426a7df69761f24add51f6dcd4e9512e6924d2076c7504855f16",
+      "validation": "control-edge-collection-preservation.json: exact predecessor certificate and metadata regeneration after emitter extraction/shared cache factoring"
+    },
+    "crates/mpk-vc/src/csharp_practical_ordinary_sequence_data.rs": {
+      "before_sha256": "98cce72c3472d5677f6212062ae043cb8e0fe4a9c68fdddbc945a6055e7199c6",
+      "after_sha256": "0945776b418dbdf37fcf4d63418aedadb4efef802a03153ca1f8a585014ca205",
+      "validation": "control-edge-collection-preservation.json: exact predecessor certificate and metadata regeneration; visibility-only preimage additionally verified"
+    },
+    "crates/mpk-vc/src/csharp_practical_ordinary_reference_data.rs": {
+      "before_sha256": "ed1da4e4a48521f120969119ef4e2e33067eb84a57c673dd831e97ff76cea126",
+      "after_sha256": "5864c9494df97d42f568f530f0c8535fc467f59b07813527b1f574febb200441",
+      "validation": "control-edge-collection-preservation.json: exact predecessor certificate and metadata regeneration; visibility-only preimage additionally verified"
+    },
+    "crates/mpk-vc/src/csharp_practical_ordinary_option_data.rs": {
+      "before_sha256": "cb95eb3e7a4a45742073288ff5fec8c8b3c1f4610837e15aed734282327d7ebe",
+      "after_sha256": "d3e6276e294df8c30055b97a677491392db6dd79a74ff304134ca88fe75f1488",
+      "validation": "control-edge-collection-preservation.json: exact predecessor certificate and metadata regeneration; visibility-only preimage additionally verified"
+    },
+    "crates/mpk-vc/src/csharp_practical_ordinary_relations.rs": {
+      "before_sha256": "29afb5c8d3cfd4cf6cfe743005c69de5e194df0c00c47d9faeced54e0b07739b",
+      "after_sha256": "37b8f7b947bbbc21c4741abafd6f49dcb47ac2e43349b96490c35d31789019ef",
+      "validation": "control-edge-collection-preservation.json: exact predecessor certificate and metadata regeneration after emitter extraction/shared cache factoring"
+    }
+  },
+  "evidence_updates": [
+    {
+      "file": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/string-data/current-runtime/verification.json",
+      "updated": [],
+      "older_dependencies": []
+    },
+    {
+      "file": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/sequence-data/verification.json",
+      "updated": [
+        "crates/mpk-vc/src/csharp_practical_ordinary_string_data.rs",
+        "crates/mpk-vc/src/csharp_practical_ordinary_sequence_data.rs",
+        "crates/mpk-vc/src/csharp_practical_ordinary_option_data.rs",
+        "crates/mpk-vc/src/csharp_practical_ordinary_relations.rs"
+      ],
+      "older_dependencies": []
+    },
+    {
+      "file": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/option-data/verification.json",
+      "updated": [
+        "crates/mpk-vc/src/csharp_practical_ordinary_string_data.rs",
+        "crates/mpk-vc/src/csharp_practical_ordinary_option_data.rs"
+      ],
+      "older_dependencies": [
+        "crates/mpk-vc/src/csharp_practical_ordinary_relations.rs"
+      ]
+    },
+    {
+      "file": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/reference-data/verification.json",
+      "updated": [
+        "crates/mpk-vc/src/csharp_practical_ordinary_string_data.rs",
+        "crates/mpk-vc/src/csharp_practical_ordinary_sequence_data.rs",
+        "crates/mpk-vc/src/csharp_practical_ordinary_reference_data.rs",
+        "crates/mpk-vc/src/csharp_practical_ordinary_option_data.rs",
+        "crates/mpk-vc/src/csharp_practical_ordinary_relations.rs"
+      ],
+      "older_dependencies": []
+    }
+  ]
+}

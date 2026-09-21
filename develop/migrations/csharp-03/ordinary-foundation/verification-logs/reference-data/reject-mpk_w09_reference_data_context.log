@@ -1,0 +1,22 @@
+
+running 1 test
+test ordinary_carriers::public_domain_tests::contract_expression_tests::reference_data_tests::csharp_03_t06_w09_reference_data_original_source ... reference data context guarded: 1 definitions, 1 SSA points
+reference data context conditional: 1 definitions, 1 SSA points
+reference data context suppressed: 1 definitions, 1 SSA points
+reference data context property: 1 definitions, 1 SSA points
+
+thread '<unnamed>' (6942656) panicked at crates/mpk-vc/tests/support/csharp_practical_ordinary_reference_data_tests.rs:410:9:
+selector matched no reference operation
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'ordinary_carriers::public_domain_tests::contract_expression_tests::reference_data_tests::csharp_03_t06_w09_reference_data_original_source' (6942655) panicked at crates/mpk-vc/tests/support/csharp_practical_ordinary_reference_data_tests.rs:66:10:
+called `Result::unwrap()` on an `Err` value: Any { .. }
+FAILED
+
+failures:
+
+failures:
+    ordinary_carriers::public_domain_tests::contract_expression_tests::reference_data_tests::csharp_03_t06_w09_reference_data_original_source
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 316 filtered out; finished in 0.82s
+

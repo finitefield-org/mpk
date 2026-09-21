@@ -1,0 +1,9 @@
+=== RUN   TestCheckerAgreementWithRustCLIConstructionData
+=== RUN   TestCheckerAgreementWithRustCLIConstructionData/increment.hex
+    checker_agreement_test.go:395: Go accepted: certificate=464156f6bd92e6ec13270c46489ac03723f0ffb06ab538015e98b5118de30e23 declarations=2150 axioms=0 elapsed=4m0.252465375s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=b2969859c803bb1f9c0e650434483306a60b588a078fb3380828e15d8b37551b axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=3.77297075s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=3m52.071888458s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=3.059310208s
+--- PASS: TestCheckerAgreementWithRustCLIConstructionData (479.16s)
+    --- PASS: TestCheckerAgreementWithRustCLIConstructionData/increment.hex (479.16s)
+PASS

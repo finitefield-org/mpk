@@ -1,0 +1,60 @@
+[
+  {
+    "stage": "control-array_return_finally-positive-go",
+    "command": [
+      "/private/tmp/mpk-control-records-array_return_finally-20260921/go-checker",
+      "/private/tmp/mpk-control-records-array_return_finally-20260921/control-array_return_finally-positive.mpcert"
+    ],
+    "wall_seconds": 222.409,
+    "exit_code": 0,
+    "timed_out": false,
+    "input_file_sha256": "5db56394626e545ae249b2389f768af8d05d2973949af6648b37e1421f64df24",
+    "stdout_sha256": "ff68a0254fda93d39da802488d57561e59c0296408aeed7f54541cf5106a50ab",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "control-array_return_finally-positive-rust",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "check",
+      "/private/tmp/mpk-control-records-array_return_finally-20260921/control-array_return_finally-positive.mpcert"
+    ],
+    "wall_seconds": 0.495,
+    "exit_code": 0,
+    "timed_out": false,
+    "input_file_sha256": "5db56394626e545ae249b2389f768af8d05d2973949af6648b37e1421f64df24",
+    "stdout_sha256": "120a11029d12340dda710f7380514b51dde0b3ee7cb6eddf83635a8d108058ce",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "control-array_return_finally-hash-go",
+    "command": [
+      "/private/tmp/mpk-control-records-array_return_finally-20260921/go-checker",
+      "/private/tmp/mpk-control-records-array_return_finally-20260921/control-array_return_finally-hash.mpcert"
+    ],
+    "wall_seconds": 212.749,
+    "exit_code": 1,
+    "timed_out": false,
+    "input_file_sha256": "6cb7b2a15dc1f25189b5dff0a6ac4066c7a41605f8f5d3097b26b22b917d11e2",
+    "stdout_sha256": "02d176c76f8c019366857fff9095497151fc5ad1f040636f65bbca58ec89f9aa",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "control-array_return_finally-hash-rust",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "check",
+      "/private/tmp/mpk-control-records-array_return_finally-20260921/control-array_return_finally-hash.mpcert"
+    ],
+    "wall_seconds": 0.451,
+    "exit_code": 1,
+    "timed_out": false,
+    "input_file_sha256": "6cb7b2a15dc1f25189b5dff0a6ac4066c7a41605f8f5d3097b26b22b917d11e2",
+    "stdout_sha256": "7b9baeab4acf07ebc4316d7e9613911b0b90ec2b83a82b25bf0ed93cb1ca1067",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  }
+]

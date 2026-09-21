@@ -1511,3 +1511,71 @@ pub use structural::{
     generate_csharp_practical_ordinary_decimal_data, import_csharp_practical_ordinary_decimal_data,
     OrdinaryDecimalDataDefinition, OrdinaryDecimalDataOperation, OrdinaryDecimalDataProgram,
 };
+
+pub use structural::{
+    generate_csharp_practical_ordinary_calendar_data,
+    import_csharp_practical_ordinary_calendar_data, OrdinaryCalendarDataDefinition,
+    OrdinaryCalendarDataOperation, OrdinaryCalendarDataProgram,
+};
+
+pub use structural::{
+    generate_csharp_practical_ordinary_string_data, import_csharp_practical_ordinary_string_data,
+    OrdinaryStringDataDefinition, OrdinaryStringDataOperation, OrdinaryStringDataProgram,
+};
+
+pub use structural::{
+    generate_csharp_practical_ordinary_lifted_data, import_csharp_practical_ordinary_lifted_data,
+    OrdinaryLiftedDataDefinition, OrdinaryLiftedDataOperation, OrdinaryLiftedDataProgram,
+};
+
+pub use structural::{
+    generate_csharp_practical_ordinary_source_value_data,
+    import_csharp_practical_ordinary_source_value_data, OrdinarySourceValueDataDefinition,
+    OrdinarySourceValueDataOperation, OrdinarySourceValueDataProgram,
+};
+
+pub use structural::{
+    generate_csharp_practical_ordinary_option_data,
+    generate_csharp_practical_ordinary_reference_data,
+    generate_csharp_practical_ordinary_sequence_data, import_csharp_practical_ordinary_option_data,
+    import_csharp_practical_ordinary_reference_data,
+    import_csharp_practical_ordinary_sequence_data, OrdinaryOptionDataDefinition,
+    OrdinaryOptionDataOperation, OrdinaryOptionDataProgram, OrdinaryReferenceDataDefinition,
+    OrdinaryReferenceDataOperation, OrdinaryReferenceDataProgram, OrdinarySequenceDataDefinition,
+    OrdinarySequenceDataOperation, OrdinarySequenceDataProgram,
+};
+
+pub use structural::{
+    generate_csharp_practical_ordinary_construction_data,
+    import_csharp_practical_ordinary_construction_data, OrdinaryConstructionDataDefinition,
+    OrdinaryConstructionDataOperation, OrdinaryConstructionDataProgram,
+    OrdinaryConstructionOwnershipRecord, OrdinaryConstructionOwnershipUse,
+};
+
+pub use structural::{
+    generate_csharp_practical_ordinary_ownership_flow,
+    import_csharp_practical_ordinary_ownership_flow, OrdinaryOwnershipEquation,
+    OrdinaryOwnershipFlowProgram, OrdinaryOwnershipFunction, OrdinaryOwnershipPoint,
+    OrdinaryOwnershipState,
+};
+
+pub use structural::{
+    generate_csharp_practical_ordinary_ownership_proofs,
+    import_csharp_practical_ordinary_ownership_proofs, OrdinaryOwnershipProof,
+    OrdinaryOwnershipProofProgram,
+};
+
+pub use structural::{
+    generate_csharp_practical_ordinary_control_slots,
+    import_csharp_practical_ordinary_control_slots, OrdinaryControlSlotArgument,
+    OrdinaryControlSlotFunction, OrdinaryControlSlotProgram, OrdinaryControlSlotRelation,
+};
+
+pub use structural::{
+    generate_csharp_practical_ordinary_control_edges,
+    import_csharp_practical_ordinary_control_edges, OrdinaryControlEdgeDefinition,
+    OrdinaryControlEdgeFunction, OrdinaryControlEdgeJoin, OrdinaryControlEdgeProgram,
+    OrdinaryControlEntryComponent, OrdinaryControlEntryIncoming, OrdinaryControlMemoryBinding,
+    OrdinaryControlMemoryEffect, OrdinaryControlNativeDefinition, OrdinaryControlNativeOperation,
+    OrdinaryControlNodeEntry, OrdinaryControlSourceFrame,
+};

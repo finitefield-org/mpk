@@ -1,0 +1,439 @@
+{
+  "work_item": "CSHARP-03-T06-W09",
+  "observed_on": "2026-09-20",
+  "status": "reported_total_cell_timeout_fixed_full_capacity_passed_w09_work_pending",
+  "test": "csharp_03_t06_w09_domains_source_string_compound_map_order",
+  "last_user_output": "string/compound map domain boundary-map-string: duplicate, C33, 13 true input leaves",
+  "process_snapshot": {
+    "pid": 39637,
+    "elapsed": "07:29:18",
+    "cpu_percent": 98.8,
+    "resident_kib": 10640,
+    "parent_cargo_pid": 39389
+  },
+  "follow_up": "A three-second sample attempt found the PID absent. A second ps check found neither the test nor parent cargo PID. The agent did not stop either process; terminal verdict and cause of exit are unknown.",
+  "code_findings": [
+    "The two-entry map is represented by a C33 sparse input. Its 13 stored true addresses do not bound generated predicate work.",
+    "Domains::sequence evaluates length padding before returning the collection count/order result. The first unused length-storage sibling has depth 31.",
+    "The original zero_definition lowered wide zero checks through counted folds; the revised generator uses depth-shared binary conjunctions for fixed regions.",
+    "An early duplicate-key rejection by itself would not fix valid-map runtime. Complete padding and capacity coverage must be retained.",
+    "The sequence count passed rounded physical capacity to the saturated sum fold, visiting every inactive slot even for length two. Invalid ordering saturates early, explaining why invalid cases terminate before the increasing case. Nested strings also use this sequence path.",
+    "The first tail revision reconstructed a shifted/incremented C5 length word at each recursion level. Repeated Empty/Less reads re-entered these nested word expressions. The replacement passes the original word unchanged and only propagates a scalar carry."
+  ],
+  "limits": [
+    "No sample stack or completed verdict was obtained for the original seven-hour source-map process.",
+    "No conclusion that the weak-cache memory fix alone caused the original runtime.",
+    "Targeted short regressions and user-run large decimal probe passed. Addition memory increased versus the earlier weak-cache version; outstanding total-cell/string-data runs and regenerated certificate/checker receipts remain pending. No W09 completion claim."
+  ],
+  "next_required_work": "Targeted runtime checks passed, including user-run 16384-element aggregate sum in 35.03 seconds. Regenerated fixtures and W09 string-data runtime remain pending. Future affected runs of the aggregate test belong to the agent; no immediate rerun needed.",
+  "testing_owner": "agent for tests within one minute; user for longer tests",
+  "handoff": "test-handoff.md",
+  "full_gate": "deferred_to_T06_W12",
+  "prepared_fix": {
+    "review": "unit-3-sparse-observer-review.md",
+    "commands": "test-handoff.md",
+    "tests_executed_by_agent": true,
+    "compilation_executed_by_agent": true,
+    "performance_verdict": "Original total-cell boundary passed both observations in 38.19 seconds, peak footprint 564020040 bytes. User full-capacity aggregate test passed in 35.03 seconds. Scoped regressions and standalone adder dual checking passed; full fixture replay remains pending.",
+    "changes": [
+      "Exact uniform sparse subviews and bounded constant-argument memo keys.",
+      "Demand-triggered cache reuse for fresh suspended arguments without eager forcing.",
+      "256 bounded closed-function memo records survive value-cache eviction without retaining environments.",
+      "Optional cumulative per-thread step and wall-clock limits fail explicitly.",
+      "Replace wide fixed zero-region counted folds with acyclic depth-shared binary conjunction definitions; require each C31 positive/negative observation to take fewer than one million transitions.",
+      "Sequence folds now sum only active elements; a separate ordinary ZeroTail predicate checks every physical inactive slot. LSB-first branches use ceil/floor half lengths and whole-zero regions terminate through the existing exact zero predicate.",
+      "Replace HalfLength/Add1 recursion with fixed original-length bit reads and a Bool carry: even carry = bit OR carry, odd carry = bit AND carry. Empty/full tests inspect the original remaining bits; no intermediate length words are generated.",
+      "Environment-free bounded scalar observation trees retain learned bits through weak selector-closure eviction.",
+      "Use length as the exact active-cell sum only for unordered sequences of full-width unconstrained bit scalars without declared public clauses. All capacity/padding/tail checks remain."
+    ],
+    "scope": "Preserve C33/C31 capacities and full inactive storage; generated certificates change and require regeneration and dual checking. Checker rules and collection folds remain unchanged."
+  },
+  "user_regression_result": {
+    "test": "recursive_domain_sparse_zero_work_is_bounded",
+    "max_steps": 500000000,
+    "max_seconds": 120,
+    "elapsed_seconds": 7.89,
+    "result": "step_budget_exhausted_before_positive_observation",
+    "revision": "observer_only_fix_before_binary_zero_definitions"
+  },
+  "user_revised_regression_result": {
+    "test": "recursive_domain_sparse_zero_work_is_bounded",
+    "max_steps": 10000000,
+    "max_seconds": 30,
+    "compile_seconds": 27.38,
+    "test_seconds": 0.01,
+    "result": "passed",
+    "passed_tests": 1,
+    "failed_tests": 0,
+    "core_transitions": {
+      "empty": 24856,
+      "nonzero_0": 1603,
+      "nonzero_1073741824": 2547,
+      "nonzero_2147483647": 47388
+    },
+    "revision": "binary_zero_definitions",
+    "evidence": "User-supplied cargo terminal output; agent did not run the test",
+    "memory_peak": null
+  },
+  "user_follow_up_results": [
+    {
+      "filters": [
+        "ordinary_core_",
+        "recursive_domain_zero_regions_and_padding"
+      ],
+      "target": "mpk-vc --lib",
+      "max_steps": 100000000,
+      "max_seconds": 120,
+      "result": "passed_user_report",
+      "elapsed_seconds": null
+    },
+    {
+      "filters": [
+        "csharp_03_t06_w09_domains_source_string_duplicate_probe"
+      ],
+      "target": "mpk-vc --test csharp_practical_vc",
+      "max_steps": 500000000,
+      "max_seconds": 120,
+      "result": "passed_user_report",
+      "elapsed_seconds": null
+    }
+  ],
+  "follow_up_evidence": "User reported both previously supplied commands passed; detailed counts, logs and timing were not supplied.",
+  "user_full_map_result": {
+    "test": "csharp_03_t06_w09_domains_source_string_compound_map_order",
+    "max_steps": 1000000000,
+    "max_seconds": 300,
+    "test_seconds": 16.97,
+    "completed_cases": [
+      {
+        "context": "boundary-map-string",
+        "case": "duplicate",
+        "seconds": 0.132
+      },
+      {
+        "context": "boundary-map-string",
+        "case": "descending",
+        "seconds": 0.131
+      }
+    ],
+    "failed_case": {
+      "context": "boundary-map-string",
+      "case": "increasing",
+      "reason": "cumulative per-thread step budget exhausted; no semantic verdict"
+    },
+    "compound_cases": "not reached",
+    "revision": "binary fixed zero regions, before active-count/tail separation",
+    "evidence": "User-supplied cargo terminal output"
+  },
+  "user_tail_helper_result": {
+    "filter": "zero_tail_",
+    "max_steps_per_thread": 500000000,
+    "max_seconds_per_thread": 120,
+    "compile_seconds": 32.74,
+    "test_seconds": 15.0,
+    "passed_tests": 0,
+    "failed_tests": 2,
+    "wide_completed_observations": [
+      {
+        "indices": 14,
+        "child_depth": 4,
+        "length": 0,
+        "case": "active",
+        "core_transitions": 13917
+      },
+      {
+        "indices": 14,
+        "child_depth": 4,
+        "length": 0,
+        "case": "first inactive",
+        "core_transitions": 5174
+      },
+      {
+        "indices": 14,
+        "child_depth": 4,
+        "length": 0,
+        "case": "last physical",
+        "core_transitions": 23878
+      }
+    ],
+    "failures": {
+      "recursive_domain_sparse_zero_tail_work_is_bounded": "step budget exhausted after length-zero observations, before next observation completed",
+      "recursive_domain_zero_tail_matches_physical_addresses": "step budget exhausted; no completed test verdict"
+    },
+    "revision": "nested half-length/add-one words",
+    "evidence": "User-supplied cargo output; no agent execution"
+  },
+  "user_scalar_carry_tail_result": {
+    "filter": "zero_tail_",
+    "max_steps_per_thread": 500000000,
+    "max_seconds_per_thread": 120,
+    "compile_seconds": 30.2,
+    "test_seconds": 0.58,
+    "passed_tests": 2,
+    "failed_tests": 0,
+    "wide_observations": 38,
+    "max_observation_transitions": 314475,
+    "per_observation_assertion_limit": 10000000,
+    "column_order": [
+      "length",
+      "active",
+      "first inactive",
+      "last physical"
+    ],
+    "i14_d4": [
+      [
+        0,
+        18802,
+        10059,
+        28763
+      ],
+      [
+        1,
+        54565,
+        55796,
+        63727
+      ],
+      [
+        2,
+        113582,
+        52933,
+        122744
+      ],
+      [
+        3,
+        107568,
+        115052,
+        129338
+      ],
+      [
+        8192,
+        167390,
+        31487,
+        168259
+      ],
+      [
+        16383,
+        19757,
+        112682,
+        112682
+      ],
+      [
+        16384,
+        9681,
+        null,
+        null
+      ]
+    ],
+    "i12_d20": [
+      [
+        0,
+        33695,
+        33134,
+        57362
+      ],
+      [
+        1,
+        71923,
+        83411,
+        94455
+      ],
+      [
+        2,
+        244728,
+        80066,
+        267260
+      ],
+      [
+        3,
+        227829,
+        256909,
+        276749
+      ],
+      [
+        2048,
+        302844,
+        57726,
+        314475
+      ],
+      [
+        4095,
+        34746,
+        267067,
+        267067
+      ],
+      [
+        4096,
+        9793,
+        null,
+        null
+      ]
+    ],
+    "evidence": "User-supplied cargo output; no agent execution",
+    "memory_peak": null
+  },
+  "user_increasing_tail_probe_result": {
+    "test": "csharp_03_t06_w09_domains_source_string_increasing_and_tail_probe",
+    "max_steps_per_thread": 1000000000,
+    "max_seconds_per_thread": 300,
+    "compile_seconds": 85,
+    "test_seconds": 0.35,
+    "passed_tests": 1,
+    "failed_tests": 0,
+    "observations": [
+      {
+        "context": "boundary-map-string",
+        "case": "increasing",
+        "carrier_depth": 33,
+        "true_input_leaves": 13,
+        "seconds": 0.311,
+        "result": "expected logical count accepted"
+      },
+      {
+        "context": "boundary-map-string",
+        "case": "dirty first inactive entry",
+        "address": 5,
+        "seconds": 0.002,
+        "result": "rejected"
+      },
+      {
+        "context": "boundary-map-string",
+        "case": "dirty last physical address",
+        "address": 8589934591,
+        "seconds": 0.003,
+        "result": "rejected"
+      }
+    ],
+    "evidence": "User-supplied cargo output; no agent execution",
+    "memory_peak": null
+  },
+  "user_revised_full_map_result": {
+    "test": "csharp_03_t06_w09_domains_source_string_compound_map_order",
+    "max_steps_per_thread": 1000000000,
+    "max_seconds_per_thread": 300,
+    "test_seconds": 1.22,
+    "passed_tests": 1,
+    "failed_tests": 0,
+    "completed_cases": [
+      {
+        "context": "boundary-map-string",
+        "carrier_depth": 33,
+        "case": "duplicate",
+        "true_input_leaves": 13,
+        "seconds": 0.117
+      },
+      {
+        "context": "boundary-map-string",
+        "carrier_depth": 33,
+        "case": "descending",
+        "true_input_leaves": 13,
+        "seconds": 0.116
+      },
+      {
+        "context": "boundary-map-string",
+        "carrier_depth": 33,
+        "case": "increasing",
+        "true_input_leaves": 13,
+        "seconds": 0.302
+      },
+      {
+        "context": "boundary-map-compound",
+        "carrier_depth": 34,
+        "case": "duplicate",
+        "true_input_leaves": 13,
+        "seconds": 0.123
+      },
+      {
+        "context": "boundary-map-compound",
+        "carrier_depth": 34,
+        "case": "descending",
+        "true_input_leaves": 14,
+        "seconds": 0.126
+      },
+      {
+        "context": "boundary-map-compound",
+        "carrier_depth": 34,
+        "case": "increasing",
+        "true_input_leaves": 14,
+        "seconds": 0.362
+      }
+    ],
+    "revision": "binary zero regions plus active count and original-bit/scalar-carry tail",
+    "evidence": "User-supplied cargo output; no agent execution",
+    "memory_peak": null
+  },
+  "user_collection_boundary_failure": {
+    "tests": [
+      "csharp_03_t06_w09_domains_source_collections_and_rejections",
+      "csharp_03_t06_w09_domains_source_full_utf16_capacity"
+    ],
+    "max_steps_per_thread": 1000000000,
+    "max_seconds_per_thread": 300,
+    "test_seconds": 30.63,
+    "passed_tests": 0,
+    "failed_tests": 2,
+    "last_cases": [
+      "validation inclusive 256 errors",
+      "16384 UTF-16 units"
+    ],
+    "reason": "step budgets exhausted; no semantic verdict",
+    "revision": "before scalar observation cache and unit-count shortcut"
+  },
+  "agent_short_verification": "verification-logs/domain-scalar-cache/verification.json",
+  "user_large_decimal_memory_result": {
+    "passed": true,
+    "execution_owner": "user",
+    "wall_seconds": 127.58954695798457,
+    "test_seconds": 127.57,
+    "peak_physical_footprint_bytes": 255066688,
+    "peak_mib": 243.25054931640625,
+    "maximum_rss_bytes": 262684672,
+    "log": "add-small-user.log",
+    "receipt": "add-small-user.json",
+    "comparison_to_previous_weak_cache": {
+      "previous_wall_seconds": 173.34752112498973,
+      "previous_peak_bytes": 141427192,
+      "time_reduction_percent": 26.39667061290829,
+      "peak_increase_percent": 80.35194250339073
+    },
+    "limitations": "Single diagnostic measurements, not a controlled benchmark or global memory bound. Receipt does not capture MPK_CORE variables; user supplied command used MAX_SECONDS=600 with MAX_STEPS unset."
+  },
+  "user_total_cell_failure": {
+    "test": "csharp_03_t06_w09_domains_source_total_cell_boundary",
+    "max_steps_per_thread": null,
+    "max_seconds_per_thread": 600,
+    "test_seconds": 606.15,
+    "result": "deadline_exhausted_before_positive_observation",
+    "last_case": "3855 items, exactly 65536 cells",
+    "negative_case_reached": false,
+    "evidence": "User-supplied cargo output; no memory peak included"
+  },
+  "total_cell_fix_verification": "verification-logs/total-cell-runtime/verification.json",
+  "user_full_capacity_result": {
+    "test": "aggregate_fold_full_capacity_sums_exact_logical_bound",
+    "execution_owner": "user",
+    "evidence": "User-supplied cargo output; not rerun by agent",
+    "command": [
+      "cargo",
+      "test",
+      "--release",
+      "-p",
+      "mpk-vc",
+      "--lib",
+      "aggregate_fold_full_capacity_sums_exact_logical_bound",
+      "--",
+      "--nocapture",
+      "--test-threads=1"
+    ],
+    "environment": {
+      "MPK_CORE_MAX_STEPS": null,
+      "MPK_CORE_MAX_SECONDS": "300"
+    },
+    "passed": 1,
+    "failed": 0,
+    "filtered_out": 159,
+    "test_seconds": 35.03,
+    "cargo_preparation_seconds": 0.08,
+    "peak_memory_bytes": null,
+    "future_execution_owner": "agent when affected; observed runtime is under one minute"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "command": [
+    "rustfmt",
+    "--check",
+    "--edition",
+    "2021",
+    "--config",
+    "skip_children=true",
+    "crates/mpk-vc/src/csharp_practical_ordinary_ownership_flow.rs",
+    "crates/mpk-vc/src/csharp_practical_ordinary_structural.rs",
+    "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs",
+    "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_ownership_flow_tests.rs"
+  ],
+  "exit_code": 0,
+  "timed_out": false,
+  "wall_seconds": 0.141,
+  "environment": {
+    "MPK_CORE_MAX_SECONDS": "300"
+  }
+}

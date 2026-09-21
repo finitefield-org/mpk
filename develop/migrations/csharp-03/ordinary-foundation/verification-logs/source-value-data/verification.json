@@ -1,0 +1,199 @@
+{
+  "schema": "mpk.csharp_practical.source_value_data_verification.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "status": "scoped_component_checks_passed",
+  "observed_at": "2026-09-20T10:00:34.845371+00:00",
+  "source_contexts": 7,
+  "definition_occurrences": 10,
+  "ssa_use_points": 12,
+  "result_observations": 108,
+  "core_bit_observations": 265,
+  "certificate_pairs_checked_by_both": 7,
+  "checks": [
+    {
+      "label": "runtime-positive-constructor",
+      "receipt": "runtime-positive-constructor.json",
+      "log_sha256": "46b5396bd353ddf531e4c9dd3622bb24f6cb4309aa6fe86f3dd30569fad14072",
+      "seconds": 0.6678051669732668
+    },
+    {
+      "label": "runtime-broken_constructor",
+      "receipt": "runtime-broken_constructor.json",
+      "log_sha256": "1dfdbe0094acbb1e3552d350f7e16258e3e886dabd74d020224edcf3686dc9db",
+      "seconds": 0.2870812499895692
+    },
+    {
+      "label": "runtime-broken_default",
+      "receipt": "runtime-broken_default.json",
+      "log_sha256": "16a6e3a2ce817fceb102e74647c3697295ec143c24ca778bbe8642c72799fc99",
+      "seconds": 0.24006020894739777
+    },
+    {
+      "label": "runtime-positive_default",
+      "receipt": "runtime-positive_default.json",
+      "log_sha256": "60d742661faec21395a366beec2bd4df95f31be67e6b40b593487f98a9e1797b",
+      "seconds": 0.2365884580067359
+    },
+    {
+      "label": "runtime-positive-initializer",
+      "receipt": "runtime-positive-initializer.json",
+      "log_sha256": "35072b1d93ba0781b7cd1c4f120606871599bc000aea8ea113252299eedcdb9d",
+      "seconds": 26.650462833000347
+    },
+    {
+      "label": "runtime-broken-initializer",
+      "receipt": "runtime-broken-initializer.json",
+      "log_sha256": "9264fba438a66d94d6ec1fefd035b6bc364f8b774facacdbeca665a69f1ba224",
+      "seconds": 25.916187416994944
+    },
+    {
+      "label": "storage-bits",
+      "receipt": "storage-bits.json",
+      "log_sha256": "1ad8cefd6ad8f7796f479149585d01e8f8f4c68b2ba7183cf0c5db748895e75b",
+      "seconds": 0.406505124992691
+    },
+    {
+      "label": "dual-checkers",
+      "receipt": "dual-checkers.json",
+      "log_sha256": "daebad01e1560fd8a272a72beb94b61f0ed191c014f14eb097da4a7d64990031",
+      "seconds": 36.41448491701158
+    },
+    {
+      "label": "inventory",
+      "receipt": "inventory.json",
+      "log_sha256": "c2813f7bf84b9edf6e8a6e25c2539ad5145c1068729bf95cb9fe10d8ece9f29b",
+      "seconds": 1.3753013330278918
+    }
+  ],
+  "checks_scope": "New source-value adapter only. Every runtime partition also reconstructs all seven candidates and rejects linkage/certificate mutations; the enum context intentionally has no source product operation. No existing semantic body changed, so previous string/lifted/other runtime suites are not rerun.",
+  "lint": {
+    "command": "cargo clippy -p mpk-vc --lib --test csharp_practical_vc --test csharp_practical_inventory -- -D warnings",
+    "result": "passed, tool output",
+    "seconds": 29.56
+  },
+  "format": "rustfmt --check on all eight touched Rust files and gofmt -l passed; git diff --check passed",
+  "sources": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_source_value_data.rs",
+      "sha256": "ea15f75028c3da22a5e8711117707eb64bbb0eceb47a3e1e9826c5a85f35884b"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_source_clauses.rs",
+      "sha256": "77a1fd0de58614880f82f45034e88bc5f9b89b8c0f0cd6d7166ebad5bee59488"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_structural.rs",
+      "sha256": "4aa396133761dca47b5843bf40e402c810c0f178770d844e0eee432cdd54fa9a"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs",
+      "sha256": "814ff9ef9f79bca414b9f7220d653f2e1be353faa5d74ce3c7a6b6f7510f6f7b"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+      "sha256": "66c86c110630f70690db25537654b95a874a3aa16b5f86a33cd9b5d525794f69"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_source_value_data_tests.rs",
+      "sha256": "6ce2f8f9200e898e211d61e6b29be2bfff18189871bb169f4ebb1ebc9172e8e2"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_contract_expression_tests.rs",
+      "sha256": "70e3f983cf05556b2ec3863af28899303e868d8d75e0add421379798539f067f"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "sha256": "2411848244094799a96819bfb84940891d9cbee9672c058c10436daeef9874f4"
+    },
+    {
+      "path": "crates/mpk-vc/tests/csharp_practical_inventory.rs",
+      "sha256": "af929022e943a4012287e3b1efe37b5d462371a221aa912e4cb9f529e9b7c2d6"
+    }
+  ],
+  "capture_reuse": [
+    {
+      "path": "develop/migrations/csharp-03/construction-vc/requests.json",
+      "sha256": "99fa4df497b31a309a968d2cd06db6b5784d0775c3fb1b107567c19fbd904b70"
+    },
+    {
+      "path": "develop/migrations/csharp-03/construction-vc/responses.json",
+      "sha256": "c1b9f90778b58bc2708355cf9b399f9639803806e12d0bfd93c6709460981b06"
+    },
+    {
+      "path": "develop/migrations/csharp-03/construction-vc/goldens.json",
+      "sha256": "6bd0983a0bea73da22ede988972a58b8f22ce71c75085319d58718b472dcbb3f"
+    }
+  ],
+  "pins": [
+    {
+      "id": "broken_constructor",
+      "bytes": 3898,
+      "file_sha256": "db67cd79e4832f51ddff1c28b991ac52996cf90df5f1f896457573b1e853f609",
+      "raw_bytes_sha256": "25f57b1fd6611616c6d6cda21d3cdc93e0cdcf61189c550321123339eb4c76e6",
+      "metadata_sha256": "e02fd5ce7063ee31caef61798f07c6068879894b17874742fc48a1efd543312d",
+      "certificate_sha256": "3954e35f71685c0b4c687c13c131c193ff809ab57881ba7a5bc9641cde88be44"
+    },
+    {
+      "id": "broken_default",
+      "bytes": 2795,
+      "file_sha256": "1775fb0036ac6f1220fdd69a23408a0f09011fd4630fe363aefb7966714481db",
+      "raw_bytes_sha256": "9253a36632bf395c1b546e5df827dc9ae18c1f246438ab671ddf144535ddbf86",
+      "metadata_sha256": "29200b260cc709fb812fcb2d0ed45dc3d60e836b96565a91ab560a5b7891d0f1",
+      "certificate_sha256": "7ac116d7f44ffb550bd6a69afaf5f39224ee7dc6919920865eba2d34cf3eb342"
+    },
+    {
+      "id": "broken_initializer",
+      "bytes": 6181,
+      "file_sha256": "628ef23a1ccf47854c3121f0a2f3d4440edbdb64d6aa90ed83d566af790d071c",
+      "raw_bytes_sha256": "96378f0b3c65048f82569f066a68695b7c6be583ce09dc1c7a5892eb1ae85e60",
+      "metadata_sha256": "dd256f51d72d5c95248c903fef9e293c3d9f369a6806581c1820fbf9831b29d0",
+      "certificate_sha256": "efba4fa288fabd6e0786d677adbb3803e1e72dd919aaffa38b3566505c11eb35"
+    },
+    {
+      "id": "enum_zero",
+      "bytes": 787,
+      "file_sha256": "93ae7ea5217263cc20f3f9b3d11780d81392764648c13ce85e0c8deada99b08d",
+      "raw_bytes_sha256": "4fbeba3dfb1bd4ae7b45752b8cddbccaa12e3d4fd4e3713c1195d9d0dd406484",
+      "metadata_sha256": "402f61f4aa14108826a2ef98726b83d225117607fe67f6065ddb7a7ce5b36fbf",
+      "certificate_sha256": "98d226b7824ebe768d58bc57782a5d6b9c492f0130ab3caa847530ccf13ffa5d"
+    },
+    {
+      "id": "positive_constructor",
+      "bytes": 3898,
+      "file_sha256": "ec3812f9f72f5a1617da41a100e9b6993318682bcdd6c143b39b19dea351d53d",
+      "raw_bytes_sha256": "41e2ddbba4697031882d4036152c68cea72837c96d08d49f97f5ca02bc6b2688",
+      "metadata_sha256": "bf3efb7ce8c3ffe64831d74e942aacd3387b340462722a3e7f374f3c36af754e",
+      "certificate_sha256": "8e1f523ad74f097f6b8e44a90373d02bd171420ac10311ad03f91ed7a2901d3e"
+    },
+    {
+      "id": "positive_default",
+      "bytes": 2795,
+      "file_sha256": "1775fb0036ac6f1220fdd69a23408a0f09011fd4630fe363aefb7966714481db",
+      "raw_bytes_sha256": "9253a36632bf395c1b546e5df827dc9ae18c1f246438ab671ddf144535ddbf86",
+      "metadata_sha256": "b7a3be9249c4189023bf9e817de3af740d6e43be4485bb56577dcf35cf8e0ed9",
+      "certificate_sha256": "7ac116d7f44ffb550bd6a69afaf5f39224ee7dc6919920865eba2d34cf3eb342"
+    },
+    {
+      "id": "positive_initializer",
+      "bytes": 6181,
+      "file_sha256": "628ef23a1ccf47854c3121f0a2f3d4440edbdb64d6aa90ed83d566af790d071c",
+      "raw_bytes_sha256": "96378f0b3c65048f82569f066a68695b7c6be583ce09dc1c7a5892eb1ae85e60",
+      "metadata_sha256": "70183848da392d96c10a77a2d67f95f87ffe770738535924f2138a1f414a4c58",
+      "certificate_sha256": "efba4fa288fabd6e0786d677adbb3803e1e72dd919aaffa38b3566505c11eb35"
+    }
+  ],
+  "inventory_delta": {
+    "query": "foundation.std_namespace",
+    "added": "crates/mpk-vc/src/csharp_practical_ordinary_source_value_data.rs",
+    "before_count": 131,
+    "after_count": 132,
+    "aggregate_before": 4954,
+    "aggregate_after": 4955,
+    "old_preimage_verified": true
+  },
+  "review": "unit-5-source-value-data-review.md",
+  "remaining_component_tests": [],
+  "unit_5_complete": false,
+  "w09_complete": false,
+  "full_gate": "deferred to T06-W12"
+}

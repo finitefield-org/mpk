@@ -1,0 +1,402 @@
+{
+  "schema": "mpk.w09.domain_pin_refresh.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "status": "all_103_changed_certificate_checks_passed",
+  "recorded_at": "2026-09-20T10:23:38.217100+00:00",
+  "selection_rationale": "Only changed aggregate/domain/structural and seven immediate consumer certificate pins; exact original-source reconstruction, dependency closure and unchanged-byte exclusions determine coverage. No broad W/T gate.",
+  "changed_certificates": 103,
+  "families": [
+    {
+      "family": "aggregate-folds",
+      "changed": [
+        "core.hex"
+      ],
+      "unchanged": []
+    },
+    {
+      "family": "domains",
+      "changed": [
+        "binding-vc-boundary_field.hex",
+        "binding-vc-bounded_sequence.hex",
+        "binding-vc-instant.hex",
+        "binding-vc-lookup.hex",
+        "binding-vc-money.hex",
+        "binding-vc-option.hex",
+        "binding-vc-ordered_entry.hex",
+        "binding-vc-ordered_map.hex",
+        "binding-vc-ordered_set.hex",
+        "binding-vc-result.hex",
+        "binding-vc-transition.hex",
+        "binding-vc-validation.hex",
+        "boundary-exception-empty.hex",
+        "boundary-exception-payload.hex",
+        "boundary-map-compound.hex",
+        "boundary-map-decimal.hex",
+        "boundary-map-string.hex",
+        "boundary-set-decimal.hex",
+        "boundary-total-cells.hex",
+        "construction-vc-positive_constructor.hex",
+        "exception-vc-allowed.hex",
+        "nested-box.hex",
+        "nullable-float.hex",
+        "string.hex"
+      ],
+      "unchanged": [
+        "construction-vc-enum_zero.hex",
+        "date.hex",
+        "floats.hex",
+        "guid.hex"
+      ]
+    },
+    {
+      "family": "structural-foundations",
+      "changed": [
+        "binding-vc-boundary_field.hex",
+        "binding-vc-bounded_sequence.hex",
+        "binding-vc-instant.hex",
+        "binding-vc-lookup.hex",
+        "binding-vc-money.hex",
+        "binding-vc-option.hex",
+        "binding-vc-ordered_entry.hex",
+        "binding-vc-ordered_map.hex",
+        "binding-vc-ordered_set.hex",
+        "binding-vc-result.hex",
+        "binding-vc-transition.hex",
+        "binding-vc-validation.hex",
+        "bool-construction.hex",
+        "bool-float-entry.hex",
+        "boundary-exception-empty.hex",
+        "boundary-exception-payload.hex",
+        "boundary-map-compound.hex",
+        "boundary-map-decimal.hex",
+        "boundary-map-string.hex",
+        "boundary-set-decimal.hex",
+        "boundary-total-cells.hex",
+        "complete-snapshot.hex",
+        "construction-vc-positive_constructor.hex",
+        "enum-construction.hex",
+        "exception-vc-allowed.hex",
+        "extra-bool-float-map.hex",
+        "extra-bool-nullable-map.hex",
+        "extra-lookup-nullable.hex",
+        "extra-shared-lookup-maps.hex",
+        "extra-validation-bool.hex",
+        "extra-validation-product.hex",
+        "float-sequence.hex",
+        "nested-box.hex",
+        "nullable-float.hex",
+        "nullable-string-default.hex",
+        "parse-error-contract.hex",
+        "product-construction.hex",
+        "shared-string-enum-money.hex",
+        "string.hex",
+        "unit-void-source.hex"
+      ],
+      "unchanged": [
+        "construction-vc-enum_zero.hex",
+        "date.hex",
+        "floats.hex",
+        "guid.hex"
+      ]
+    },
+    {
+      "family": "sequence-operations",
+      "changed": [
+        "binding-vc-bounded_sequence.hex",
+        "binding-vc-ordered_map.hex",
+        "binding-vc-ordered_set.hex",
+        "binding-vc-transition.hex",
+        "binding-vc-validation.hex",
+        "boundary-map-compound.hex",
+        "boundary-map-decimal.hex",
+        "boundary-map-string.hex",
+        "boundary-set-decimal.hex",
+        "boundary-total-cells.hex",
+        "float-sequence.hex",
+        "nested-box.hex"
+      ],
+      "unchanged": []
+    },
+    {
+      "family": "construction-operations",
+      "changed": [
+        "bool-construction.hex",
+        "enum-construction.hex",
+        "float-sequence.hex",
+        "nested-box.hex",
+        "product-construction.hex"
+      ],
+      "unchanged": []
+    },
+    {
+      "family": "outcome-operations",
+      "changed": [
+        "binding-vc-validation.hex",
+        "extra-validation-bool.hex",
+        "extra-validation-product.hex",
+        "nested-box.hex",
+        "string.hex"
+      ],
+      "unchanged": [
+        "binding-vc-boundary_field.hex",
+        "binding-vc-lookup.hex",
+        "binding-vc-option.hex",
+        "binding-vc-ordered_map.hex",
+        "binding-vc-result.hex",
+        "boundary-map-compound.hex",
+        "boundary-map-decimal.hex",
+        "boundary-map-string.hex",
+        "boundary-total-cells.hex",
+        "extra-lookup-nullable.hex",
+        "nullable-float.hex"
+      ]
+    },
+    {
+      "family": "entry-operations",
+      "changed": [
+        "boundary-map-compound.hex",
+        "boundary-map-string.hex"
+      ],
+      "unchanged": [
+        "binding-vc-ordered_entry.hex",
+        "binding-vc-ordered_map.hex",
+        "bool-float-entry.hex",
+        "boundary-map-decimal.hex"
+      ]
+    },
+    {
+      "family": "collection-operations",
+      "changed": [
+        "binding-vc-ordered_map.hex",
+        "binding-vc-ordered_set.hex",
+        "boundary-map-compound.hex",
+        "boundary-map-decimal.hex",
+        "boundary-map-string.hex",
+        "boundary-set-decimal.hex",
+        "extra-bool-float-map.hex",
+        "extra-bool-nullable-map.hex",
+        "extra-shared-lookup-maps.hex"
+      ],
+      "unchanged": []
+    },
+    {
+      "family": "source-observations",
+      "changed": [
+        "binding-vc-money.hex",
+        "complete-snapshot.hex",
+        "extra-bool-float-map.hex"
+      ],
+      "unchanged": [
+        "exception-vc-allowed.hex"
+      ]
+    },
+    {
+      "family": "money-operations",
+      "changed": [
+        "binding-vc-money.hex",
+        "shared-string-enum-money.hex"
+      ],
+      "unchanged": []
+    }
+  ],
+  "dual_checkers": {
+    "passed": 103,
+    "user_long_pending": 0,
+    "failed_semantic_verdicts": 0,
+    "details": "completed-checker-results.json",
+    "pending": "pending-long-checks.json",
+    "agent_process_limit_seconds": 55,
+    "claims": "Each pass is same-byte Rust/Go acceptance with zero axioms, report agreement and corrupted-hash rejection. Timeout is not a semantic verdict.",
+    "agent_passed": 92,
+    "user_passed": 11,
+    "historical_short_attempts": "checker-results.json",
+    "completed_user_receipt": "user-long-completed/verification.json"
+  },
+  "original_source_reconstruction": "All ten family generation tests passed; domain and integrated structural pinned replays passed; copied candidates and installed/preimage hashes checked.",
+  "component_closure": {
+    "passed": true,
+    "source_component_pairs": 118,
+    "roots": 1235,
+    "transitive_declarations": 12178,
+    "root_and_dependency_mutations_rejected": true,
+    "receipt": "component-closure.json"
+  },
+  "runtime_evidence_reconciliation": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_domains.rs",
+      "previous_sha256": "02b3c44e197d22193e0e3f4e615d64f6e8dcc06a0405b57f06ed07a74623884b",
+      "current_sha256": "02b3c44e197d22193e0e3f4e615d64f6e8dcc06a0405b57f06ed07a74623884b",
+      "unchanged": true
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_scalar_relations.rs",
+      "previous_sha256": "865872b3dba0a54503c6bd5991c1cda247c73cbec817080c736d175ea5b1549e",
+      "current_sha256": "865872b3dba0a54503c6bd5991c1cda247c73cbec817080c736d175ea5b1549e",
+      "unchanged": true
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_aggregate_fold.rs",
+      "previous_sha256": "50b30f339311c88a7e1b7d6cf39d173a0b4aa2065d57f35d2cd3300b69d4f4b8",
+      "current_sha256": "50b30f339311c88a7e1b7d6cf39d173a0b4aa2065d57f35d2cd3300b69d4f4b8",
+      "unchanged": true
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_test_eval.rs",
+      "previous_sha256": "e5a02b33df8d89895109cc149cce1d2ae993ab20aa0751eeecea80ca730a190e",
+      "current_sha256": "d4160220aa77546cb3911df2d66bbd0e8684f3020d128db9306288a87c661c8f",
+      "unchanged": false
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_test_eval_tests.rs",
+      "previous_sha256": "282bfc932fb730a5d357bf4a57684ca91648e2dcc78fb4f394605d91700c53ea",
+      "current_sha256": "9c521d1be3c96d28de9f2da7144c67395222921ae83221874e0c3b5d3da5cb1a",
+      "unchanged": false
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_domain_tests.rs",
+      "previous_sha256": "7eb7c844ebdfc99f6a41db0dbf76327462e9c957eae9b06bb5649dc2d36607c2",
+      "current_sha256": "7eb7c844ebdfc99f6a41db0dbf76327462e9c957eae9b06bb5649dc2d36607c2",
+      "unchanged": true
+    }
+  ],
+  "runtime_scope": "No producer/observer code edits in this fixture refresh. Historical runtime results retain their original observer hashes; later observer changes still need scope reconciliation before unit completion.",
+  "logs_sha256": {
+    "domains__binding-vc-instant.log": "586d8ee0f9090b5f2f7ec4dd2a699926f8ed893a464023c893cd113b85db7f3e",
+    "structural-foundations__binding-vc-ordered_entry.log": "2af60341028bdf48c77b60e83c5a3156769aef78aac63c74ab795de43fe353ea",
+    "structural-foundations__binding-vc-validation.log": "b5fab4acbfcb06a2aa1344322c55c9b95dbf10c8a29d3d0ced335e5d26c5700f",
+    "construction-operations__product-construction.log": "8e425cc4aace8223c2aaa77dc10d2ed7c6eb4b8d2a143f0124b36938e9d905fd",
+    "structural-foundations__binding-vc-transition.log": "0e72561875df2c2f273acd260367f730b33ea8c0fe4a1ddf912fd8e17245b0d5",
+    "structural-foundations__float-sequence.log": "05311ed5a32f6fdcb38b8cd2eb5cf9762ffe80ec6cc25decc0deceb96e230fa5",
+    "sequence-operations__nested-box.log": "6a18ecc891bd37b2518d7af0e52b07d2cfab7be931ff60c93aa403ec98856dc0",
+    "sequence-operations__boundary-map-string.log": "849b74bc39ebf58f2633707a7a70ba5b24cb2cc4bb4067388c5eb45242019844",
+    "entry-operations__boundary-map-string.log": "41207fe3bc2c360ab786596d5347b715b8e578b61ad5a1f2d17d91c4181d49fa",
+    "domains__boundary-exception-empty.log": "1eff6ffad444173a61a3c29c04224d4f98f827c2d526f247042d19e98a021108",
+    "structural-foundations__boundary-exception-payload.log": "4ee55017b7e1d1220d0ddab677825c178a0180c79e3688564cab2522d453c575",
+    "structural-foundations__parse-error-contract.log": "57b91049f863673fda72afbe87a182bcead3230922520cf5ef01a6ee4f61cb40",
+    "structural-foundations__nested-box.log": "6af459beb9682e3eb64ca36bb50f94ad13c9e8f46ced331e46e19c5078cc75e8",
+    "structural-foundations__extra-shared-lookup-maps.log": "1c15da5b01b6b5d51f863c2d4e87724dacc887ede7c045345c28a92e60e5608c",
+    "structural-foundations__unit-void-source.log": "c3b91da382649abd2090674e81f82c361d922ba68d4b5432ab5bb789f167d965",
+    "outcome-operations__string.log": "44b0186c30edaab1b7d230d6e8f150dfdbfb0f75210453ba3af98c898772977c",
+    "construction-operations-candidates.log": "d793af868b3ea859fcc85be92b7a334d3f98eb9e4d2d394879548a1d66f8e985",
+    "structural-foundations__exception-vc-allowed.log": "e212ec1b427b6c43b629f90fa4e3342c1be0a7ab6c8402b1a3f4f0229df156d8",
+    "outcome-operations__extra-validation-product.log": "83a5e82e8f7c8b951e4080554eaddf70357df566fe0ca163cd676fd77ce7f96b",
+    "domains__boundary-exception-payload.log": "2e673d1fc1748d76404be2d7cbd140759bda01c764752267051a94bc152a7265",
+    "collection-operations__binding-vc-ordered_set.log": "9d1e84659e05c3124789a21ee16aefee6b71df1b5893c62fd5f3cbfc98a786bd",
+    "aggregate-pin.log": "0837ed813db04ceda412a4e244feed5b8025f62f4e3db18175f6af8adf2deba5",
+    "outcome-operations__binding-vc-validation.log": "05bc3606940d4965498072ed61bdc194686f82d67c76da71955e9f57b67c9211",
+    "aggregate-folds__core.log": "f74166d377494fa43110509cb26220d252095e83199c6c074f352dea194322c3",
+    "structural-foundations__binding-vc-ordered_set.log": "577d8797e08c6b91ccf7bca6e47c5baa865c2cd9218b576fd29549364e8c4e80",
+    "structural-foundations__extra-validation-product.log": "163088da5a329d7da89f469d4ea853edaea67f8be3d338190493e7cb33340b3f",
+    "domains__binding-vc-money.log": "340f846a3cf7de822bf483d4356b8599a6e03f59fb7fdce1be4af31c6fea9cba",
+    "collection-operations__boundary-map-string.log": "8823ab979d0fe4430af7d2aa6e37cfe1ba22d504df74398b29ba8eba1a95b910",
+    "structural-foundations__boundary-set-decimal.log": "318ed2fbd2a4d2e9e70b0b1e75f5c1c93cd4a0daa6973905a3a5b650bd9c8078",
+    "domains__binding-vc-transition.log": "ddf87ad300aa770ce9ae0eb2994b0277867039738e4aa0dd5e8be16f446b387a",
+    "domains__boundary-map-decimal.log": "4bf005a8a9296128a85c351aba65a8f6d11003089da27158296af649eb335616",
+    "domains__binding-vc-validation.log": "95c9fa3b63d9b5d87f80de0b961cc52a3e77a933c351494689c6d24fd9aff7ee",
+    "structural-foundations__bool-float-entry.log": "70131610e0b66b7984031c26ba472d23ef0c76404d75fb1e50a9c983aba5472c",
+    "outcome-operations-candidates.log": "880d241181c3f682b472a4288db956b5b69a21091c588b90cf05988bf26a029b",
+    "structural-foundations__bool-construction.log": "3c77b4c67c7e8186944874582e1990d8d9e92e38b4e89e0eca325c148a9715d5",
+    "domains__construction-vc-positive_constructor.log": "b7794146f5fd0743805c4dc889987af9c6e6b5d20c0bfe0c52fd3685a45d69cf",
+    "structural-foundations__nullable-float.log": "a30634da2403ccd7f03003e98f4b8caa296f029266bb6f6cc813e9760c277d87",
+    "collection-operations__extra-bool-float-map.log": "1923792dcca290dd398fd20258f3aed8925e642a732bd79f8281859dea71b58e",
+    "sequence-operations-candidates.log": "59dd0c9bf3ac50d7747e3ff119c7ba2eed4a9f1fb4680bd62376677079c2407d",
+    "sequence-operations__float-sequence.log": "e633c3eebfddcdb1e14ce1c1cada0ef6947714f6f7a85f73f93160ded4f56afe",
+    "sequence-operations__binding-vc-ordered_map.log": "9bf8fe3ad7267890a635e17e6d5f61248f6e55f83f3a9c2f5dafa8cbebc409b1",
+    "collection-operations__boundary-set-decimal.log": "bc90c31250a4dcb7dac37e73b155540cfa4b56be19df28572bfe038b16b39fd2",
+    "construction-operations__float-sequence.log": "904eb5868e25b6e92da87028186b90ce1416e577933be6f9178f7957ae2e772c",
+    "domain-candidates.log": "0e97f5ce767783e6a0fc367826fda4fbca61bfed7fd7509b33960a67cf0f4594",
+    "component-closure.log": "46ae1c063186a926e5367b87092156a0bf872f53838e42f3a367c9cf6ad51f21",
+    "structural-foundations__extra-bool-float-map.log": "8aad223245f2f80fce29dc5667e523739d832a59384a9d933325178f91c8d6ae",
+    "collection-operations__boundary-map-compound.log": "7777b7f2821124642e007a46d43cb4560bfaa9b4b472e15fd4544ddffb6c3d67",
+    "sequence-operations__binding-vc-validation.log": "a3d2c3fcf1147461061dc613beda311215201861aa4f79bbcfadb0a7e0045f91",
+    "structural-foundations__boundary-total-cells.log": "d182baedc9530a7419bb40a6a2f0b39d82d6a471a826a6c1278cdda915a80312",
+    "sequence-operations__boundary-map-decimal.log": "d81ef14b9cbe4d0e89e6c2494ad5c03c1deb3b042273de72db06489f707aab78",
+    "domains__binding-vc-ordered_map.log": "c2482ad3a34aae760e58b9e167c6044d823e16659b3107357daea45bd2e5246e",
+    "sequence-operations__binding-vc-transition.log": "e0440015f9549b949141c929c9da4518c286e791a3d9abaf97e5e7ede80bf4b8",
+    "construction-operations__bool-construction.log": "3376a556de0fd7a65affda4e73a0a871b9cd23ec4dba9be4964fed1706ba3e9a",
+    "domains__boundary-map-string.log": "00db2aa3513fc38270f106a9fdd8571ac77846f33e481268791916e0e992d0ce",
+    "collection-operations-candidates.log": "113fa53d77bab30e58c9b52782968b74ded370f58605965db8d8a971996e9859",
+    "collection-operations__extra-shared-lookup-maps.log": "4ee696b8a5769d4238d25880b7e2fd57d918eb0e7991cc6f89d26bfb00a5eb47",
+    "domains__boundary-set-decimal.log": "50308f32694a4f3ef56a4d60d74307090e314d5873e331942271e61e356a749b",
+    "structural-foundations__extra-validation-bool.log": "c45a78623c9013a1b10f763e0d90c6a6d9537255d45ec298b27379bebcd9539f",
+    "structural-foundations__boundary-map-decimal.log": "a99889ce87562c7a281f352d6ea41c437560152f46c99a9563bfa5faed89472a",
+    "domains__binding-vc-boundary_field.log": "a97f04f5e22e3080206cb69dea8ec39354265b4d791a084ff997507d52025478",
+    "sequence-operations__boundary-total-cells.log": "66072f80509e05cc05d7ede089f77f4e98f6a464032f2fe91b04ea4368d8d409",
+    "source-observations__complete-snapshot.log": "8f1c6e3b6181653d6b1e4401c6196b26dda5ad18b2d4c1446245d60db7fc24ab",
+    "structural-foundations__boundary-map-compound.log": "dd6883539caed042cb2e1d3f8dcc9abc7ff1b0d5816062293f74014a050c3397",
+    "money-operations__binding-vc-money.log": "728e6b7d97770ddddbe020dcfaf23e320f581a6cbb09e619903355af3e9b8b3d",
+    "entry-operations__boundary-map-compound.log": "01f590363412630f31759a42f39a09977d433f9723a8ca1537e9fced02f671ca",
+    "sequence-operations__binding-vc-bounded_sequence.log": "63af5944d479ea603ff4a7a69ff72806e4f8129f18c90b71ddcb4a1a7c194fd4",
+    "entry-operations-candidates.log": "49b8c0055b9f0d0ea0d64a4fd7211b6cc5dc8fd629556bd124214622182bb9af",
+    "domains__binding-vc-lookup.log": "b9ae11563d84171c451b2d209c239880d05dbca9a4521900c173a4e6874af7f9",
+    "structural-foundations__binding-vc-result.log": "9451accd9d639955829aa117a3919d9a2b3bf4668cdf80eb1930055701175e29",
+    "structural-foundations__product-construction.log": "dcb02278a676f4fac458e81d70de83e0039a15ebc5b8d7d6e8987b0f1f13a079",
+    "structural-foundations__nullable-string-default.log": "ac71cf208cef56128180c4df2d6258c94576f4073dc528aa80556124bae02d21",
+    "source-observations__binding-vc-money.log": "3ed27b46b6b8278f6235fb9f37525be3160d9a99c78d3fc231eff05962112eb3",
+    "collection-operations__boundary-map-decimal.log": "6b89dc1addc34dd4b0c8152f1493ac4918d31d7f31a8a1d370706e48c8e0d64a",
+    "aggregate-candidates.log": "0837ed813db04ceda412a4e244feed5b8025f62f4e3db18175f6af8adf2deba5",
+    "source-observations-candidates.log": "dbb1c4b757368510eb9799cbf6754d14f0ad14d9fce8665dce093238696b8d0b",
+    "outcome-operations__nested-box.log": "c8925bc2e96611e520f487886387c35e5e821f211b1aa5755093851e463880a6",
+    "sequence-operations__binding-vc-ordered_set.log": "718ef8af271a09690755618bac73bc29727f12abd8f6f16b8dc749b36046ef54",
+    "structural-foundations__extra-lookup-nullable.log": "94f8a805b63b8c12d3f49881f4ba0b8897f9f73bcc9e3ce342d1a6f23674b4e4",
+    "structural-foundations__shared-string-enum-money.log": "f3bec0a6923f3e28210598e0aea0de85631cb2c2e837bac64b2801f04afd941b",
+    "final-pins.log": "423e0448b3c0a5e044cda184c0b179125e90413844d2eba03035f9cfd4d4403d",
+    "structural-foundations__binding-vc-option.log": "f7a0945deaf71830fa559afb8edb0952fcfd001c81e712fbd909dbbc7a4f1179",
+    "foundations-candidates.log": "eb50812285173da4b08d56c0a86d7f24a92b6b15f7314c547fb2b75152b8631f",
+    "outcome-operations__extra-validation-bool.log": "bc52b555e67fb2e3deede8a18a93d3091a98e9b8b948c105b8f052650ecfaf54",
+    "domains__binding-vc-bounded_sequence.log": "1850bf2526db67005c244e500ea2ad97d609fbf312ca1ca5d9d0a8a68008f959",
+    "domains__binding-vc-ordered_set.log": "4ad5612e16889250b604e684ef0c9684e6f1bcdac114baf2cec7e572985ea221",
+    "sequence-operations__boundary-set-decimal.log": "9b383e5d15d5b9774afe32be88e28122c897a5cb5a0ba7d7501637f52e6adfda",
+    "structural-foundations__binding-vc-bounded_sequence.log": "b22882d64ac93f65803f2076488bfe501181629061c1504491b1c58e5c83cd21",
+    "construction-operations__nested-box.log": "0998e49860b8af8b54c1061d32b98af69dc073821ef3dd1d6aef1e0d9d1ab0b1",
+    "domains__boundary-total-cells.log": "ed8889e54da8147012b1c12d51b838ee55ba637ed400ee54b9a52c2673c20fbf",
+    "money-operations__shared-string-enum-money.log": "7b8601058167c93ba466e5b7347bec6a2b7f295642d9d033a87d6dba62e2550a",
+    "structural-foundations__construction-vc-positive_constructor.log": "ddac07c0ff6d14783e513d45faa97a0865a1f06b493a559281a31efe50ae8f39",
+    "structural-foundations__boundary-exception-empty.log": "963beede281e5bd863f70fc3530c95c306700783795da741802c484d1e6d91b3",
+    "domains__string.log": "c5b6e6f9059711f9b7169b40f84e156a90138968beb21c588cc9f0db2e7a9b0e",
+    "domains__nullable-float.log": "41981a0171032a3450becd4e838fcd3c3b82730c394988487fa970d86ae121d1",
+    "structural-foundations__binding-vc-lookup.log": "95dad822eea67cd478c64978455bbee38abc591e5a821d908e2b7a2e1d1497fc",
+    "domains__binding-vc-result.log": "26cc2aafc857d86b36254edae0f05c6debfbe257003370eb2f919b9c651bd2dc",
+    "structural-foundations__boundary-map-string.log": "18a1c7eed71c038f82176e08c93004e34940cc1911d24b0c2250fdb7691c5f71",
+    "money-operations-candidates.log": "76ddb69e8911de65c06a3b57c24cd0fe06ed0057fa26eeaad7fcf6b26c6a6aca",
+    "domains__binding-vc-ordered_entry.log": "29497f2c49bb6829f56ebaa4ec42033a667a0d172d0d69bace5bbe93b58f9eb9",
+    "construction-operations__enum-construction.log": "26ecb5d5c7d3ff89be3572b823ad7c98c1ecbefcc7e376f36e166be1bd5a4cf8",
+    "domains__boundary-map-compound.log": "5229ffc8617198b5401953a8b423a56f15729f5d0e9647c44a7f806a62de2a4d",
+    "domains__nested-box.log": "ff35e3efb94f73885f4bc6adbe37aa298f1b77c4e501c904ce001d0342634817",
+    "structural-foundations__string.log": "7f58bccf69eb09481fe3987ec770b165ae06161543060aa165e736017b69c2f2",
+    "structural-foundations__binding-vc-money.log": "3b12619e7a1684d365a87207a8e2247323ad2b89f7def114c8d5a88b02f32522",
+    "domains__exception-vc-allowed.log": "5f01e8507f8e91b13d03accfbfb7400997ad9f483c6733d28b2954f8a9a154d1",
+    "collection-operations__binding-vc-ordered_map.log": "dc9cc818b8bed8a3f02bd59696b59890d1dcb8bc112939667545afdaa356cd3a",
+    "sequence-operations__boundary-map-compound.log": "d94d3d5fcc6ae4aaa541afffb5431cddd42f2d76a56411f68fbd205794c1bd68",
+    "structural-foundations__binding-vc-instant.log": "487267aa2b7aca6cfff21fa85673723e2b7ed8c9d10a93fea0dfc2f310d1239c",
+    "source-observations__extra-bool-float-map.log": "6ef591956eaa77fb27c36f183968b1923b4af4e185b77e0db1c9bd508162b803",
+    "collection-operations__extra-bool-nullable-map.log": "a1fb28cfe38307b833f4ed0df6ecf66f7ce0c960e940e10a04bb53f1ddb26009",
+    "structural-foundations__complete-snapshot.log": "13451b4be4eaa7f938185e3364c07121b9e67d465d11209cfc72976044934870",
+    "structural-foundations__extra-bool-nullable-map.log": "24b3b271dec512be674002693d5ea0098c2b9c656ebac35c4fbd5b89ba2535ee",
+    "structural-foundations__binding-vc-ordered_map.log": "339579f730c181777a5e21b519954e7209390eefe355fe4ef5c88217fe439666",
+    "structural-foundations__enum-construction.log": "19ca7da66e12ddabe4b801296dc8bce72d4cba83df28e2c6779ae55a74db023c",
+    "domains__binding-vc-option.log": "e985da7bfd79d7863c4f2d4779a6a0f486aa0bee2b6f6c24bd1c3b2f653c05dd",
+    "structural-foundations__binding-vc-boundary_field.log": "57aa5adf55554cb2862e798700b98269787b98920b707c56820ed1132ac63784"
+  },
+  "remaining": [
+    "Refresh other affected downstream clause/data consumers.",
+    "Reconcile runtime evidence and audit full unit-3 requirements.",
+    "Finish units 4-8 and W09 without treating scoped evidence as application proofs."
+  ],
+  "full_gate": "Deferred to T06-W12",
+  "commit": "No partial internal-unit commit",
+  "handoff_validation": {
+    "list_mode": "passed: all 11 pending filters and input hashes validated without running tests",
+    "python_syntax": "passed for short and long runners",
+    "git_diff_check": "passed; /usr/bin/git outside sandbox",
+    "review": "review.md"
+  },
+  "user_long_import": "user-long-completed/verification.json",
+  "user_long_import_validation": {
+    "copied_artifact_hashes": "passed",
+    "all_103_result_log_hashes": "passed",
+    "pending_cases": 0,
+    "git_diff_check": "passed",
+    "tests_rerun": false
+  }
+}

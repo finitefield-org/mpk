@@ -1,0 +1,41 @@
+{
+  "work_item": "CSHARP-03-T06-W09",
+  "status": "passed_scoped_guards_slot_transport_and_native_phi_checks",
+  "source_contexts": 17,
+  "edges": 704,
+  "guards": 703,
+  "joins": 666,
+  "pending_edges": 1,
+  "runtime_observations": 38059,
+  "checker_certificates": 17,
+  "state_rule": "source_exit_to_edge_specific_target; node_entry_merge_pending",
+  "application_scope_pending": true,
+  "remaining": [
+    "The modeled SwitchExpressionException edge in type and other unimplemented data/exception families.",
+    "Direct original-loop coverage for reference-family adapters and combined option/sequence foundation emission.",
+    "Source logical slots and native private-array/nullable representations require explicit projection and memory-SSA effects; source non-store nodes cannot all be framed as unchanged.",
+    "Node-entry merging, non-transfer node frames and production of source-exit snapshots.",
+    "Caught-exception entry, exceptional transfer semantics, native execution and loop/pattern application proofs."
+  ],
+  "verification": "verification-logs/control-edges/verification.json",
+  "review": "unit-5-control-edges-review.md",
+  "unit_5_complete": false,
+  "w09_complete": false,
+  "whole_gate": "deferred to T06-W12",
+  "scoped_ownership_bindings": 4,
+  "construction_definitions": 3,
+  "unsupported_guard_regression": {
+    "source": "type",
+    "pending_edges": 1,
+    "receipt": "phis/control-edge-phi-runtime-reviewed.json",
+    "scope": "The original SwitchExpressionException edge remains pending; no constant-false replacement or reachability claim."
+  },
+  "original_w04_goal_binding_comparisons": {
+    "original_nine_source_partition": 95,
+    "collection_partition": 36
+  },
+  "collection_review": "verification-logs/control-edges/collections/review.md",
+  "phi_joins": 62,
+  "phi_values": 100,
+  "phi_review": "verification-logs/control-edges/phis/review.md"
+}

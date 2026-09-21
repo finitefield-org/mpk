@@ -1,0 +1,2124 @@
+[
+  {
+    "declarations": 95,
+    "file": "binding-vc-option.hex",
+    "id": "binding-vc-option",
+    "metadata": {
+      "certificate_sha256": "708de1f41a54e4c8f34273bb76785ca2738e0c5b868e6dfb28b5710ec7b98a1b",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "arms": [
+                {
+                  "fields": [],
+                  "id": "none",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "some",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "type_id": "mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338"
+          },
+          "operations": [
+            {
+              "argument_type_ids": [],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e39663761636463663036323830376132666439353432666531363138346661363832666633336136653634626434333937346231343935333434376637333338.Arm.A0.MakeStorage",
+              "operation_id": "mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338.none",
+              "result_type_id": "mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.value.i32.v1"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e39663761636463663036323830376132666439353432666531363138346661363832666633336136653634626434333937346231343935333434376637333338.Arm.A1.MakeStorage",
+              "operation_id": "mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338.some",
+              "result_type_id": "mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e39663761636463663036323830376132666439353432666531363138346661363832666633336136653634626434333937346231343935333434376637333338.Arm.A1.IsActive",
+              "operation_id": "mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338.has_value",
+              "result_type_id": "mpk.csharp.value.bool.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e39663761636463663036323830376132666439353432666531363138346661363832666633336136653634626434333937346231343935333434376637333338.Arm.A1.InvalidOperation",
+                  "label": "invalid_operation"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e39663761636463663036323830376132666439353432666531363138346661363832666633336136653634626434333937346231343935333434376637333338.Arm.A1.Field.F0",
+              "operation_id": "mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338.value",
+              "result_type_id": "mpk.csharp.value.i32.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338",
+                "mpk.csharp.value.i32.v1"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e39663761636463663036323830376132666439353432666531363138346661363832666633336136653634626434333937346231343935333434376637333338.Outcome.ValueOr",
+              "operation_id": "mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338.value_or",
+              "result_type_id": "mpk.csharp.value.i32.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338",
+                "mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e39663761636463663036323830376132666439353432666531363138346661363832666633336136653634626434333937346231343935333434376637333338.Equal",
+              "operation_id": "mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338.equal",
+              "result_type_id": "mpk.csharp.value.bool.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338",
+                "mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e39663761636463663036323830376132666439353432666531363138346661363832666633336136653634626434333937346231343935333434376637333338.Compare",
+              "operation_id": "mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338.compare",
+              "result_type_id": "mpk.csharp.value.i32.v1"
+            }
+          ],
+          "template_id": "mpk.csharp.semantic.option.v1"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_outcomes.v1",
+      "source_ir_sha256": "cfe62f1acf2a56c7536d75f1b1ef22faa41127c528517e6abfafb32006eaed52",
+      "static_transformers": 31
+    },
+    "terms": 3426
+  },
+  {
+    "declarations": 94,
+    "file": "binding-vc-lookup.hex",
+    "id": "binding-vc-lookup",
+    "metadata": {
+      "certificate_sha256": "3305e9857bdf3da5bb983541cc7aa37a56287f589920d0ae3cb7487e62dc7ec8",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "arms": [
+                {
+                  "fields": [],
+                  "id": "missing_key",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "found",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "type_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d"
+          },
+          "operations": [
+            {
+              "argument_type_ids": [],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e62663431346363636335653038316365623335393936313832636134623033653065343065653134633965663236306663363234313837393962653533383964.Arm.A0.MakeStorage",
+              "operation_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d.missing",
+              "result_type_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.value.i32.v1"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e62663431346363636335653038316365623335393936313832636134623033653065343065653134633965663236306663363234313837393962653533383964.Arm.A1.MakeStorage",
+              "operation_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d.found",
+              "result_type_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e62663431346363636335653038316365623335393936313832636134623033653065343065653134633965663236306663363234313837393962653533383964.Arm.A1.IsActive",
+              "operation_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d.is_found",
+              "result_type_id": "mpk.csharp.value.bool.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e62663431346363636335653038316365623335393936313832636134623033653065343065653134633965663236306663363234313837393962653533383964.Arm.A1.InvalidOperation",
+                  "label": "invalid_operation"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e62663431346363636335653038316365623335393936313832636134623033653065343065653134633965663236306663363234313837393962653533383964.Arm.A1.Field.F0",
+              "operation_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d.value",
+              "result_type_id": "mpk.csharp.value.i32.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d",
+                "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e62663431346363636335653038316365623335393936313832636134623033653065343065653134633965663236306663363234313837393962653533383964.Equal",
+              "operation_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d.equal",
+              "result_type_id": "mpk.csharp.value.bool.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d",
+                "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e62663431346363636335653038316365623335393936313832636134623033653065343065653134633965663236306663363234313837393962653533383964.Compare",
+              "operation_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d.compare",
+              "result_type_id": "mpk.csharp.value.i32.v1"
+            }
+          ],
+          "template_id": "mpk.csharp.semantic.lookup.v1"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_outcomes.v1",
+      "source_ir_sha256": "cde2736b40fb66e89c0005e7a1414d2297ad68e348340bb083b23a0068002040",
+      "static_transformers": 31
+    },
+    "terms": 3413
+  },
+  {
+    "declarations": 96,
+    "file": "binding-vc-result.hex",
+    "id": "binding-vc-result",
+    "metadata": {
+      "certificate_sha256": "b7af68ed69cff8642da0a7bb0c13f0f0acd965dbbbf0785dee8d2a02c4176802",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "type_id": "mpk.csharp.instance.2ada0d81676b91c3e6d4529237992a3665e0b6306d8b9edb72dd7864e1308c87"
+          },
+          "operations": [
+            {
+              "argument_type_ids": [
+                "mpk.csharp.value.i32.v1"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e32616461306438313637366239316333653664343532393233373939326133363635653062363330366438623965646237326464373836346531333038633837.Arm.A0.MakeStorage",
+              "operation_id": "mpk.csharp.instance.2ada0d81676b91c3e6d4529237992a3665e0b6306d8b9edb72dd7864e1308c87.ok",
+              "result_type_id": "mpk.csharp.instance.2ada0d81676b91c3e6d4529237992a3665e0b6306d8b9edb72dd7864e1308c87"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.value.i32.v1"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e32616461306438313637366239316333653664343532393233373939326133363635653062363330366438623965646237326464373836346531333038633837.Arm.A1.MakeStorage",
+              "operation_id": "mpk.csharp.instance.2ada0d81676b91c3e6d4529237992a3665e0b6306d8b9edb72dd7864e1308c87.error",
+              "result_type_id": "mpk.csharp.instance.2ada0d81676b91c3e6d4529237992a3665e0b6306d8b9edb72dd7864e1308c87"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.2ada0d81676b91c3e6d4529237992a3665e0b6306d8b9edb72dd7864e1308c87"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e32616461306438313637366239316333653664343532393233373939326133363635653062363330366438623965646237326464373836346531333038633837.Arm.A0.IsActive",
+              "operation_id": "mpk.csharp.instance.2ada0d81676b91c3e6d4529237992a3665e0b6306d8b9edb72dd7864e1308c87.is_ok",
+              "result_type_id": "mpk.csharp.value.bool.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.2ada0d81676b91c3e6d4529237992a3665e0b6306d8b9edb72dd7864e1308c87"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e32616461306438313637366239316333653664343532393233373939326133363635653062363330366438623965646237326464373836346531333038633837.Arm.A0.InvalidOperation",
+                  "label": "invalid_operation"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e32616461306438313637366239316333653664343532393233373939326133363635653062363330366438623965646237326464373836346531333038633837.Arm.A0.Field.F0",
+              "operation_id": "mpk.csharp.instance.2ada0d81676b91c3e6d4529237992a3665e0b6306d8b9edb72dd7864e1308c87.value",
+              "result_type_id": "mpk.csharp.value.i32.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.2ada0d81676b91c3e6d4529237992a3665e0b6306d8b9edb72dd7864e1308c87"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e32616461306438313637366239316333653664343532393233373939326133363635653062363330366438623965646237326464373836346531333038633837.Arm.A1.InvalidOperation",
+                  "label": "invalid_operation"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e32616461306438313637366239316333653664343532393233373939326133363635653062363330366438623965646237326464373836346531333038633837.Arm.A1.Field.F0",
+              "operation_id": "mpk.csharp.instance.2ada0d81676b91c3e6d4529237992a3665e0b6306d8b9edb72dd7864e1308c87.error_value",
+              "result_type_id": "mpk.csharp.value.i32.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.2ada0d81676b91c3e6d4529237992a3665e0b6306d8b9edb72dd7864e1308c87",
+                "mpk.csharp.instance.2ada0d81676b91c3e6d4529237992a3665e0b6306d8b9edb72dd7864e1308c87"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e32616461306438313637366239316333653664343532393233373939326133363635653062363330366438623965646237326464373836346531333038633837.Equal",
+              "operation_id": "mpk.csharp.instance.2ada0d81676b91c3e6d4529237992a3665e0b6306d8b9edb72dd7864e1308c87.equal",
+              "result_type_id": "mpk.csharp.value.bool.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.2ada0d81676b91c3e6d4529237992a3665e0b6306d8b9edb72dd7864e1308c87",
+                "mpk.csharp.instance.2ada0d81676b91c3e6d4529237992a3665e0b6306d8b9edb72dd7864e1308c87"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e32616461306438313637366239316333653664343532393233373939326133363635653062363330366438623965646237326464373836346531333038633837.Compare",
+              "operation_id": "mpk.csharp.instance.2ada0d81676b91c3e6d4529237992a3665e0b6306d8b9edb72dd7864e1308c87.compare",
+              "result_type_id": "mpk.csharp.value.i32.v1"
+            }
+          ],
+          "template_id": "mpk.csharp.semantic.result.v1"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_outcomes.v1",
+      "source_ir_sha256": "46ec8a2a72516cfaaec458023e908792957de44bdd2e55ea1b4b132914c5e000",
+      "static_transformers": 31
+    },
+    "terms": 3425
+  },
+  {
+    "declarations": 157,
+    "file": "binding-vc-validation.hex",
+    "id": "binding-vc-validation",
+    "metadata": {
+      "certificate_sha256": "672a4609b0d2f4dbe8f163e40d088fc1b9f348ca340cdfc368a4e2abf74693b3",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 19,
+            "shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "valid",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "role_bound",
+                        "maximum": 256,
+                        "value": {
+                          "kind": "reference",
+                          "type_id": "mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3"
+                        }
+                      }
+                    }
+                  ],
+                  "id": "invalid",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "type_id": "mpk.csharp.instance.26cd63aa1a84577b59c10ffd686e3b24a35abc4043d64ab5a6a53f4a880d6f58"
+          },
+          "operations": [
+            {
+              "argument_type_ids": [
+                "mpk.csharp.value.i32.v1"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e32366364363361613161383435373762353963313066666436383665336232346133356162633430343364363461623561366135336634613838306436663538.Arm.A0.MakeStorage",
+              "operation_id": "mpk.csharp.instance.26cd63aa1a84577b59c10ffd686e3b24a35abc4043d64ab5a6a53f4a880d6f58.valid",
+              "result_type_id": "mpk.csharp.instance.26cd63aa1a84577b59c10ffd686e3b24a35abc4043d64ab5a6a53f4a880d6f58"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e32366364363361613161383435373762353963313066666436383665336232346133356162633430343364363461623561366135336634613838306436663538.Outcome.EmptyErrors",
+                  "label": "empty_errors"
+                },
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e32366364363361613161383435373762353963313066666436383665336232346133356162633430343364363461623561366135336634613838306436663538.Outcome.ValidationBound",
+                  "label": "validation_bound"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e32366364363361613161383435373762353963313066666436383665336232346133356162633430343364363461623561366135336634613838306436663538.Arm.A1.MakeStorage",
+              "operation_id": "mpk.csharp.instance.26cd63aa1a84577b59c10ffd686e3b24a35abc4043d64ab5a6a53f4a880d6f58.invalid",
+              "result_type_id": "mpk.csharp.instance.26cd63aa1a84577b59c10ffd686e3b24a35abc4043d64ab5a6a53f4a880d6f58"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.26cd63aa1a84577b59c10ffd686e3b24a35abc4043d64ab5a6a53f4a880d6f58"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e32366364363361613161383435373762353963313066666436383665336232346133356162633430343364363461623561366135336634613838306436663538.Arm.A0.IsActive",
+              "operation_id": "mpk.csharp.instance.26cd63aa1a84577b59c10ffd686e3b24a35abc4043d64ab5a6a53f4a880d6f58.is_valid",
+              "result_type_id": "mpk.csharp.value.bool.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.26cd63aa1a84577b59c10ffd686e3b24a35abc4043d64ab5a6a53f4a880d6f58"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e32366364363361613161383435373762353963313066666436383665336232346133356162633430343364363461623561366135336634613838306436663538.Arm.A0.InvalidOperation",
+                  "label": "invalid_operation"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e32366364363361613161383435373762353963313066666436383665336232346133356162633430343364363461623561366135336634613838306436663538.Arm.A0.Field.F0",
+              "operation_id": "mpk.csharp.instance.26cd63aa1a84577b59c10ffd686e3b24a35abc4043d64ab5a6a53f4a880d6f58.value",
+              "result_type_id": "mpk.csharp.value.i32.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.26cd63aa1a84577b59c10ffd686e3b24a35abc4043d64ab5a6a53f4a880d6f58"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e32366364363361613161383435373762353963313066666436383665336232346133356162633430343364363461623561366135336634613838306436663538.Arm.A1.InvalidOperation",
+                  "label": "invalid_operation"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e32366364363361613161383435373762353963313066666436383665336232346133356162633430343364363461623561366135336634613838306436663538.Arm.A1.Field.F0",
+              "operation_id": "mpk.csharp.instance.26cd63aa1a84577b59c10ffd686e3b24a35abc4043d64ab5a6a53f4a880d6f58.errors",
+              "result_type_id": "mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3",
+                "mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0,
+                    1
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e32366364363361613161383435373762353963313066666436383665336232346133356162633430343364363461623561366135336634613838306436663538.Outcome.AppendBound",
+                  "label": "validation_bound"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e32366364363361613161383435373762353963313066666436383665336232346133356162633430343364363461623561366135336634613838306436663538.Outcome.AppendErrors",
+              "operation_id": "mpk.csharp.instance.26cd63aa1a84577b59c10ffd686e3b24a35abc4043d64ab5a6a53f4a880d6f58.append_errors",
+              "result_type_id": "mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.26cd63aa1a84577b59c10ffd686e3b24a35abc4043d64ab5a6a53f4a880d6f58",
+                "mpk.csharp.instance.26cd63aa1a84577b59c10ffd686e3b24a35abc4043d64ab5a6a53f4a880d6f58"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e32366364363361613161383435373762353963313066666436383665336232346133356162633430343364363461623561366135336634613838306436663538.Equal",
+              "operation_id": "mpk.csharp.instance.26cd63aa1a84577b59c10ffd686e3b24a35abc4043d64ab5a6a53f4a880d6f58.equal",
+              "result_type_id": "mpk.csharp.value.bool.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.26cd63aa1a84577b59c10ffd686e3b24a35abc4043d64ab5a6a53f4a880d6f58",
+                "mpk.csharp.instance.26cd63aa1a84577b59c10ffd686e3b24a35abc4043d64ab5a6a53f4a880d6f58"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e32366364363361613161383435373762353963313066666436383665336232346133356162633430343364363461623561366135336634613838306436663538.Compare",
+              "operation_id": "mpk.csharp.instance.26cd63aa1a84577b59c10ffd686e3b24a35abc4043d64ab5a6a53f4a880d6f58.compare",
+              "result_type_id": "mpk.csharp.value.i32.v1"
+            }
+          ],
+          "template_id": "mpk.csharp.semantic.validation.v1"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_outcomes.v1",
+      "source_ir_sha256": "c88fb2387f575db148dfd94ca4d89f38f33925f008f677e680e543944c53cafe",
+      "static_transformers": 2116
+    },
+    "terms": 7245
+  },
+  {
+    "declarations": 100,
+    "file": "binding-vc-boundary_field.hex",
+    "id": "binding-vc-boundary_field",
+    "metadata": {
+      "certificate_sha256": "a0a88512c76cec04d6819a323c6dec64ecd20ef266977f3c4f5ae97560487544",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "arms": [
+                {
+                  "fields": [],
+                  "id": "missing",
+                  "tag": 0
+                },
+                {
+                  "fields": [],
+                  "id": "null",
+                  "tag": 1
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "value",
+                  "tag": 2
+                }
+              ],
+              "kind": "sum"
+            },
+            "type_id": "mpk.csharp.instance.b82463e0c4162ceab115a2382e0ee90aac8c2b675cc636a0c6d4e27dc96b746b"
+          },
+          "operations": [
+            {
+              "argument_type_ids": [],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e62383234363365306334313632636561623131356132333832653065653930616163386332623637356363363336613063366434653237646339366237343662.Arm.A0.MakeStorage",
+              "operation_id": "mpk.csharp.instance.b82463e0c4162ceab115a2382e0ee90aac8c2b675cc636a0c6d4e27dc96b746b.missing",
+              "result_type_id": "mpk.csharp.instance.b82463e0c4162ceab115a2382e0ee90aac8c2b675cc636a0c6d4e27dc96b746b"
+            },
+            {
+              "argument_type_ids": [],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e62383234363365306334313632636561623131356132333832653065653930616163386332623637356363363336613063366434653237646339366237343662.Arm.A1.MakeStorage",
+              "operation_id": "mpk.csharp.instance.b82463e0c4162ceab115a2382e0ee90aac8c2b675cc636a0c6d4e27dc96b746b.null",
+              "result_type_id": "mpk.csharp.instance.b82463e0c4162ceab115a2382e0ee90aac8c2b675cc636a0c6d4e27dc96b746b"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.value.i32.v1"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e62383234363365306334313632636561623131356132333832653065653930616163386332623637356363363336613063366434653237646339366237343662.Arm.A2.MakeStorage",
+              "operation_id": "mpk.csharp.instance.b82463e0c4162ceab115a2382e0ee90aac8c2b675cc636a0c6d4e27dc96b746b.value",
+              "result_type_id": "mpk.csharp.instance.b82463e0c4162ceab115a2382e0ee90aac8c2b675cc636a0c6d4e27dc96b746b"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.b82463e0c4162ceab115a2382e0ee90aac8c2b675cc636a0c6d4e27dc96b746b"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e62383234363365306334313632636561623131356132333832653065653930616163386332623637356363363336613063366434653237646339366237343662.Tag",
+              "operation_id": "mpk.csharp.instance.b82463e0c4162ceab115a2382e0ee90aac8c2b675cc636a0c6d4e27dc96b746b.tag",
+              "result_type_id": "mpk.csharp.value.u32.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.b82463e0c4162ceab115a2382e0ee90aac8c2b675cc636a0c6d4e27dc96b746b"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e62383234363365306334313632636561623131356132333832653065653930616163386332623637356363363336613063366434653237646339366237343662.Arm.A2.InvalidOperation",
+                  "label": "invalid_operation"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e62383234363365306334313632636561623131356132333832653065653930616163386332623637356363363336613063366434653237646339366237343662.Arm.A2.Field.F0",
+              "operation_id": "mpk.csharp.instance.b82463e0c4162ceab115a2382e0ee90aac8c2b675cc636a0c6d4e27dc96b746b.payload",
+              "result_type_id": "mpk.csharp.value.i32.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.b82463e0c4162ceab115a2382e0ee90aac8c2b675cc636a0c6d4e27dc96b746b",
+                "mpk.csharp.instance.b82463e0c4162ceab115a2382e0ee90aac8c2b675cc636a0c6d4e27dc96b746b"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e62383234363365306334313632636561623131356132333832653065653930616163386332623637356363363336613063366434653237646339366237343662.Equal",
+              "operation_id": "mpk.csharp.instance.b82463e0c4162ceab115a2382e0ee90aac8c2b675cc636a0c6d4e27dc96b746b.equal",
+              "result_type_id": "mpk.csharp.value.bool.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.b82463e0c4162ceab115a2382e0ee90aac8c2b675cc636a0c6d4e27dc96b746b",
+                "mpk.csharp.instance.b82463e0c4162ceab115a2382e0ee90aac8c2b675cc636a0c6d4e27dc96b746b"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e62383234363365306334313632636561623131356132333832653065653930616163386332623637356363363336613063366434653237646339366237343662.Compare",
+              "operation_id": "mpk.csharp.instance.b82463e0c4162ceab115a2382e0ee90aac8c2b675cc636a0c6d4e27dc96b746b.compare",
+              "result_type_id": "mpk.csharp.value.i32.v1"
+            }
+          ],
+          "template_id": "mpk.csharp.semantic.boundary_field.v1"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_outcomes.v1",
+      "source_ir_sha256": "4cc5fd034b66b707695f83da1202d44232047bd8410c20f0e7b4fb7ac7ee848f",
+      "static_transformers": 31
+    },
+    "terms": 3472
+  },
+  {
+    "declarations": 94,
+    "file": "binding-vc-ordered_map.hex",
+    "id": "binding-vc-ordered_map",
+    "metadata": {
+      "certificate_sha256": "3305e9857bdf3da5bb983541cc7aa37a56287f589920d0ae3cb7487e62dc7ec8",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "arms": [
+                {
+                  "fields": [],
+                  "id": "missing_key",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "found",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "type_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d"
+          },
+          "operations": [
+            {
+              "argument_type_ids": [],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e62663431346363636335653038316365623335393936313832636134623033653065343065653134633965663236306663363234313837393962653533383964.Arm.A0.MakeStorage",
+              "operation_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d.missing",
+              "result_type_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.value.i32.v1"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e62663431346363636335653038316365623335393936313832636134623033653065343065653134633965663236306663363234313837393962653533383964.Arm.A1.MakeStorage",
+              "operation_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d.found",
+              "result_type_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e62663431346363636335653038316365623335393936313832636134623033653065343065653134633965663236306663363234313837393962653533383964.Arm.A1.IsActive",
+              "operation_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d.is_found",
+              "result_type_id": "mpk.csharp.value.bool.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e62663431346363636335653038316365623335393936313832636134623033653065343065653134633965663236306663363234313837393962653533383964.Arm.A1.InvalidOperation",
+                  "label": "invalid_operation"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e62663431346363636335653038316365623335393936313832636134623033653065343065653134633965663236306663363234313837393962653533383964.Arm.A1.Field.F0",
+              "operation_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d.value",
+              "result_type_id": "mpk.csharp.value.i32.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d",
+                "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e62663431346363636335653038316365623335393936313832636134623033653065343065653134633965663236306663363234313837393962653533383964.Equal",
+              "operation_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d.equal",
+              "result_type_id": "mpk.csharp.value.bool.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d",
+                "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e62663431346363636335653038316365623335393936313832636134623033653065343065653134633965663236306663363234313837393962653533383964.Compare",
+              "operation_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d.compare",
+              "result_type_id": "mpk.csharp.value.i32.v1"
+            }
+          ],
+          "template_id": "mpk.csharp.semantic.lookup.v1"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_outcomes.v1",
+      "source_ir_sha256": "31095a5e4f83d6127bf3345d5b73b852f075842c132f29f2b7dbcd937b3a0590",
+      "static_transformers": 31
+    },
+    "terms": 3413
+  },
+  {
+    "declarations": 86,
+    "file": "nullable-float.hex",
+    "id": "nullable-float",
+    "metadata": {
+      "certificate_sha256": "38996705b2ae7d087675a53e192b0dbf404dc19dd50f2f8965796e1f8a6509cb",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "arms": [
+                {
+                  "fields": [],
+                  "id": "none",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.f32.v1"
+                      }
+                    }
+                  ],
+                  "id": "some",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "type_id": "mpk.csharp.instance.335c76b32eabd6b74657dca5edec4dd2624b82c15ed919966e3a7c2a2e8934b2"
+          },
+          "operations": [
+            {
+              "argument_type_ids": [],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e33333563373662333265616264366237343635376463613565646563346464323632346238326331356564393139393636653361376332613265383933346232.Arm.A0.MakeStorage",
+              "operation_id": "mpk.csharp.instance.335c76b32eabd6b74657dca5edec4dd2624b82c15ed919966e3a7c2a2e8934b2.none",
+              "result_type_id": "mpk.csharp.instance.335c76b32eabd6b74657dca5edec4dd2624b82c15ed919966e3a7c2a2e8934b2"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.value.f32.v1"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e33333563373662333265616264366237343635376463613565646563346464323632346238326331356564393139393636653361376332613265383933346232.Arm.A1.MakeStorage",
+              "operation_id": "mpk.csharp.instance.335c76b32eabd6b74657dca5edec4dd2624b82c15ed919966e3a7c2a2e8934b2.some",
+              "result_type_id": "mpk.csharp.instance.335c76b32eabd6b74657dca5edec4dd2624b82c15ed919966e3a7c2a2e8934b2"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.335c76b32eabd6b74657dca5edec4dd2624b82c15ed919966e3a7c2a2e8934b2"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e33333563373662333265616264366237343635376463613565646563346464323632346238326331356564393139393636653361376332613265383933346232.Arm.A1.IsActive",
+              "operation_id": "mpk.csharp.instance.335c76b32eabd6b74657dca5edec4dd2624b82c15ed919966e3a7c2a2e8934b2.has_value",
+              "result_type_id": "mpk.csharp.value.bool.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.335c76b32eabd6b74657dca5edec4dd2624b82c15ed919966e3a7c2a2e8934b2"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e33333563373662333265616264366237343635376463613565646563346464323632346238326331356564393139393636653361376332613265383933346232.Arm.A1.InvalidOperation",
+                  "label": "invalid_operation"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e33333563373662333265616264366237343635376463613565646563346464323632346238326331356564393139393636653361376332613265383933346232.Arm.A1.Field.F0",
+              "operation_id": "mpk.csharp.instance.335c76b32eabd6b74657dca5edec4dd2624b82c15ed919966e3a7c2a2e8934b2.value",
+              "result_type_id": "mpk.csharp.value.f32.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.335c76b32eabd6b74657dca5edec4dd2624b82c15ed919966e3a7c2a2e8934b2",
+                "mpk.csharp.value.f32.v1"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e33333563373662333265616264366237343635376463613565646563346464323632346238326331356564393139393636653361376332613265383933346232.Outcome.ValueOr",
+              "operation_id": "mpk.csharp.instance.335c76b32eabd6b74657dca5edec4dd2624b82c15ed919966e3a7c2a2e8934b2.value_or",
+              "result_type_id": "mpk.csharp.value.f32.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.335c76b32eabd6b74657dca5edec4dd2624b82c15ed919966e3a7c2a2e8934b2",
+                "mpk.csharp.instance.335c76b32eabd6b74657dca5edec4dd2624b82c15ed919966e3a7c2a2e8934b2"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e33333563373662333265616264366237343635376463613565646563346464323632346238326331356564393139393636653361376332613265383933346232.Equal",
+              "operation_id": "mpk.csharp.instance.335c76b32eabd6b74657dca5edec4dd2624b82c15ed919966e3a7c2a2e8934b2.equal",
+              "result_type_id": "mpk.csharp.value.bool.v1"
+            }
+          ],
+          "template_id": "mpk.csharp.semantic.option.v1"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_outcomes.v1",
+      "source_ir_sha256": "c86308a58815cf5b285d115fd0d947ee404bffaa3f110ce0b9b419d9f99f9b40",
+      "static_transformers": 27
+    },
+    "terms": 4424
+  },
+  {
+    "declarations": 145,
+    "file": "nested-box.hex",
+    "id": "nested-box",
+    "metadata": {
+      "certificate_sha256": "4c101af828f97ecf88f99a7e4a488ff4fa0a6ab20d0b6cf73fe95a0819470c5c",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 20,
+            "shape": {
+              "arms": [
+                {
+                  "fields": [],
+                  "id": "none",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.instance.4cac0be04b1b7b464b43fa5db913d1f4967b028959c09c724dc31ce6e57f8578"
+                      }
+                    }
+                  ],
+                  "id": "some",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "type_id": "mpk.csharp.instance.c5c10ebf30919056be558da494844678244d5a1976c5d47e7057cf336f788c58"
+          },
+          "operations": [
+            {
+              "argument_type_ids": [],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e63356331306562663330393139303536626535353864613439343834343637383234346435613139373663356434376537303537636633333666373838633538.Arm.A0.MakeStorage",
+              "operation_id": "mpk.csharp.instance.c5c10ebf30919056be558da494844678244d5a1976c5d47e7057cf336f788c58.none",
+              "result_type_id": "mpk.csharp.instance.c5c10ebf30919056be558da494844678244d5a1976c5d47e7057cf336f788c58"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.4cac0be04b1b7b464b43fa5db913d1f4967b028959c09c724dc31ce6e57f8578"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e63356331306562663330393139303536626535353864613439343834343637383234346435613139373663356434376537303537636633333666373838633538.Arm.A1.MakeStorage",
+              "operation_id": "mpk.csharp.instance.c5c10ebf30919056be558da494844678244d5a1976c5d47e7057cf336f788c58.some",
+              "result_type_id": "mpk.csharp.instance.c5c10ebf30919056be558da494844678244d5a1976c5d47e7057cf336f788c58"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.c5c10ebf30919056be558da494844678244d5a1976c5d47e7057cf336f788c58"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e63356331306562663330393139303536626535353864613439343834343637383234346435613139373663356434376537303537636633333666373838633538.Arm.A1.IsActive",
+              "operation_id": "mpk.csharp.instance.c5c10ebf30919056be558da494844678244d5a1976c5d47e7057cf336f788c58.has_value",
+              "result_type_id": "mpk.csharp.value.bool.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.c5c10ebf30919056be558da494844678244d5a1976c5d47e7057cf336f788c58"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e63356331306562663330393139303536626535353864613439343834343637383234346435613139373663356434376537303537636633333666373838633538.Arm.A1.InvalidOperation",
+                  "label": "invalid_operation"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e63356331306562663330393139303536626535353864613439343834343637383234346435613139373663356434376537303537636633333666373838633538.Arm.A1.Field.F0",
+              "operation_id": "mpk.csharp.instance.c5c10ebf30919056be558da494844678244d5a1976c5d47e7057cf336f788c58.value",
+              "result_type_id": "mpk.csharp.instance.4cac0be04b1b7b464b43fa5db913d1f4967b028959c09c724dc31ce6e57f8578"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.c5c10ebf30919056be558da494844678244d5a1976c5d47e7057cf336f788c58",
+                "mpk.csharp.instance.4cac0be04b1b7b464b43fa5db913d1f4967b028959c09c724dc31ce6e57f8578"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e63356331306562663330393139303536626535353864613439343834343637383234346435613139373663356434376537303537636633333666373838633538.Outcome.ValueOr",
+              "operation_id": "mpk.csharp.instance.c5c10ebf30919056be558da494844678244d5a1976c5d47e7057cf336f788c58.value_or",
+              "result_type_id": "mpk.csharp.instance.4cac0be04b1b7b464b43fa5db913d1f4967b028959c09c724dc31ce6e57f8578"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.c5c10ebf30919056be558da494844678244d5a1976c5d47e7057cf336f788c58",
+                "mpk.csharp.instance.c5c10ebf30919056be558da494844678244d5a1976c5d47e7057cf336f788c58"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e63356331306562663330393139303536626535353864613439343834343637383234346435613139373663356434376537303537636633333666373838633538.Equal",
+              "operation_id": "mpk.csharp.instance.c5c10ebf30919056be558da494844678244d5a1976c5d47e7057cf336f788c58.equal",
+              "result_type_id": "mpk.csharp.value.bool.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.c5c10ebf30919056be558da494844678244d5a1976c5d47e7057cf336f788c58",
+                "mpk.csharp.instance.c5c10ebf30919056be558da494844678244d5a1976c5d47e7057cf336f788c58"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e63356331306562663330393139303536626535353864613439343834343637383234346435613139373663356434376537303537636633333666373838633538.Compare",
+              "operation_id": "mpk.csharp.instance.c5c10ebf30919056be558da494844678244d5a1976c5d47e7057cf336f788c58.compare",
+              "result_type_id": "mpk.csharp.value.i32.v1"
+            }
+          ],
+          "template_id": "mpk.csharp.semantic.option.v1"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_outcomes.v1",
+      "source_ir_sha256": "0532d6cfb811641717af5586c1ad6dfdf36a047cad7987230af4836fe8f6f04c",
+      "static_transformers": 2108
+    },
+    "terms": 6555
+  },
+  {
+    "declarations": 137,
+    "file": "string.hex",
+    "id": "string",
+    "metadata": {
+      "certificate_sha256": "970865de88be9769d992b608bfd32bf93e4da2501f3b30011713b151fefdd14f",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 20,
+            "shape": {
+              "arms": [
+                {
+                  "fields": [],
+                  "id": "none",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.string.v1"
+                      }
+                    }
+                  ],
+                  "id": "some",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "type_id": "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb"
+          },
+          "operations": [
+            {
+              "argument_type_ids": [],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e61646661333237636239303635393231616430623166373666336131666237346534393566396262353761666663613031303638313335623662383964666562.Arm.A0.MakeStorage",
+              "operation_id": "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb.none",
+              "result_type_id": "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.value.string.v1"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e61646661333237636239303635393231616430623166373666336131666237346534393566396262353761666663613031303638313335623662383964666562.Arm.A1.MakeStorage",
+              "operation_id": "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb.some",
+              "result_type_id": "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e61646661333237636239303635393231616430623166373666336131666237346534393566396262353761666663613031303638313335623662383964666562.Arm.A1.IsActive",
+              "operation_id": "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb.has_value",
+              "result_type_id": "mpk.csharp.value.bool.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e61646661333237636239303635393231616430623166373666336131666237346534393566396262353761666663613031303638313335623662383964666562.Arm.A1.InvalidOperation",
+                  "label": "invalid_operation"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e61646661333237636239303635393231616430623166373666336131666237346534393566396262353761666663613031303638313335623662383964666562.Arm.A1.Field.F0",
+              "operation_id": "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb.value",
+              "result_type_id": "mpk.csharp.value.string.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb",
+                "mpk.csharp.value.string.v1"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e61646661333237636239303635393231616430623166373666336131666237346534393566396262353761666663613031303638313335623662383964666562.Outcome.ValueOr",
+              "operation_id": "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb.value_or",
+              "result_type_id": "mpk.csharp.value.string.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb",
+                "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e61646661333237636239303635393231616430623166373666336131666237346534393566396262353761666663613031303638313335623662383964666562.Equal",
+              "operation_id": "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb.equal",
+              "result_type_id": "mpk.csharp.value.bool.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb",
+                "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e61646661333237636239303635393231616430623166373666336131666237346534393566396262353761666663613031303638313335623662383964666562.Compare",
+              "operation_id": "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb.compare",
+              "result_type_id": "mpk.csharp.value.i32.v1"
+            }
+          ],
+          "template_id": "mpk.csharp.semantic.option.v1"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_outcomes.v1",
+      "source_ir_sha256": "4a7e60e56cb94b6b0cabc213f31967cfb431ae9e72a367094876902d01d1ebf9",
+      "static_transformers": 2100
+    },
+    "terms": 7488
+  },
+  {
+    "declarations": 94,
+    "file": "boundary-map-string.hex",
+    "id": "boundary-map-string",
+    "metadata": {
+      "certificate_sha256": "3305e9857bdf3da5bb983541cc7aa37a56287f589920d0ae3cb7487e62dc7ec8",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "arms": [
+                {
+                  "fields": [],
+                  "id": "missing_key",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "found",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "type_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d"
+          },
+          "operations": [
+            {
+              "argument_type_ids": [],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e62663431346363636335653038316365623335393936313832636134623033653065343065653134633965663236306663363234313837393962653533383964.Arm.A0.MakeStorage",
+              "operation_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d.missing",
+              "result_type_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.value.i32.v1"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e62663431346363636335653038316365623335393936313832636134623033653065343065653134633965663236306663363234313837393962653533383964.Arm.A1.MakeStorage",
+              "operation_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d.found",
+              "result_type_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e62663431346363636335653038316365623335393936313832636134623033653065343065653134633965663236306663363234313837393962653533383964.Arm.A1.IsActive",
+              "operation_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d.is_found",
+              "result_type_id": "mpk.csharp.value.bool.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e62663431346363636335653038316365623335393936313832636134623033653065343065653134633965663236306663363234313837393962653533383964.Arm.A1.InvalidOperation",
+                  "label": "invalid_operation"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e62663431346363636335653038316365623335393936313832636134623033653065343065653134633965663236306663363234313837393962653533383964.Arm.A1.Field.F0",
+              "operation_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d.value",
+              "result_type_id": "mpk.csharp.value.i32.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d",
+                "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e62663431346363636335653038316365623335393936313832636134623033653065343065653134633965663236306663363234313837393962653533383964.Equal",
+              "operation_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d.equal",
+              "result_type_id": "mpk.csharp.value.bool.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d",
+                "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e62663431346363636335653038316365623335393936313832636134623033653065343065653134633965663236306663363234313837393962653533383964.Compare",
+              "operation_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d.compare",
+              "result_type_id": "mpk.csharp.value.i32.v1"
+            }
+          ],
+          "template_id": "mpk.csharp.semantic.lookup.v1"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_outcomes.v1",
+      "source_ir_sha256": "c52710c988c8a2174a9fb0854c627175fef1ac2322f29a5521d30ddbf1b91c6d",
+      "static_transformers": 31
+    },
+    "terms": 3413
+  },
+  {
+    "declarations": 94,
+    "file": "boundary-map-decimal.hex",
+    "id": "boundary-map-decimal",
+    "metadata": {
+      "certificate_sha256": "3305e9857bdf3da5bb983541cc7aa37a56287f589920d0ae3cb7487e62dc7ec8",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "arms": [
+                {
+                  "fields": [],
+                  "id": "missing_key",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "found",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "type_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d"
+          },
+          "operations": [
+            {
+              "argument_type_ids": [],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e62663431346363636335653038316365623335393936313832636134623033653065343065653134633965663236306663363234313837393962653533383964.Arm.A0.MakeStorage",
+              "operation_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d.missing",
+              "result_type_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.value.i32.v1"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e62663431346363636335653038316365623335393936313832636134623033653065343065653134633965663236306663363234313837393962653533383964.Arm.A1.MakeStorage",
+              "operation_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d.found",
+              "result_type_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e62663431346363636335653038316365623335393936313832636134623033653065343065653134633965663236306663363234313837393962653533383964.Arm.A1.IsActive",
+              "operation_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d.is_found",
+              "result_type_id": "mpk.csharp.value.bool.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e62663431346363636335653038316365623335393936313832636134623033653065343065653134633965663236306663363234313837393962653533383964.Arm.A1.InvalidOperation",
+                  "label": "invalid_operation"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e62663431346363636335653038316365623335393936313832636134623033653065343065653134633965663236306663363234313837393962653533383964.Arm.A1.Field.F0",
+              "operation_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d.value",
+              "result_type_id": "mpk.csharp.value.i32.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d",
+                "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e62663431346363636335653038316365623335393936313832636134623033653065343065653134633965663236306663363234313837393962653533383964.Equal",
+              "operation_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d.equal",
+              "result_type_id": "mpk.csharp.value.bool.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d",
+                "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e62663431346363636335653038316365623335393936313832636134623033653065343065653134633965663236306663363234313837393962653533383964.Compare",
+              "operation_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d.compare",
+              "result_type_id": "mpk.csharp.value.i32.v1"
+            }
+          ],
+          "template_id": "mpk.csharp.semantic.lookup.v1"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_outcomes.v1",
+      "source_ir_sha256": "2b4a645517bb6cfd03b33cc6c38b7e8c78206a5e8ebc08a22c0b97e35d31a753",
+      "static_transformers": 31
+    },
+    "terms": 3413
+  },
+  {
+    "declarations": 94,
+    "file": "boundary-map-compound.hex",
+    "id": "boundary-map-compound",
+    "metadata": {
+      "certificate_sha256": "3305e9857bdf3da5bb983541cc7aa37a56287f589920d0ae3cb7487e62dc7ec8",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "arms": [
+                {
+                  "fields": [],
+                  "id": "missing_key",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "found",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "type_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d"
+          },
+          "operations": [
+            {
+              "argument_type_ids": [],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e62663431346363636335653038316365623335393936313832636134623033653065343065653134633965663236306663363234313837393962653533383964.Arm.A0.MakeStorage",
+              "operation_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d.missing",
+              "result_type_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.value.i32.v1"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e62663431346363636335653038316365623335393936313832636134623033653065343065653134633965663236306663363234313837393962653533383964.Arm.A1.MakeStorage",
+              "operation_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d.found",
+              "result_type_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e62663431346363636335653038316365623335393936313832636134623033653065343065653134633965663236306663363234313837393962653533383964.Arm.A1.IsActive",
+              "operation_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d.is_found",
+              "result_type_id": "mpk.csharp.value.bool.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e62663431346363636335653038316365623335393936313832636134623033653065343065653134633965663236306663363234313837393962653533383964.Arm.A1.InvalidOperation",
+                  "label": "invalid_operation"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e62663431346363636335653038316365623335393936313832636134623033653065343065653134633965663236306663363234313837393962653533383964.Arm.A1.Field.F0",
+              "operation_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d.value",
+              "result_type_id": "mpk.csharp.value.i32.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d",
+                "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e62663431346363636335653038316365623335393936313832636134623033653065343065653134633965663236306663363234313837393962653533383964.Equal",
+              "operation_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d.equal",
+              "result_type_id": "mpk.csharp.value.bool.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d",
+                "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e62663431346363636335653038316365623335393936313832636134623033653065343065653134633965663236306663363234313837393962653533383964.Compare",
+              "operation_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d.compare",
+              "result_type_id": "mpk.csharp.value.i32.v1"
+            }
+          ],
+          "template_id": "mpk.csharp.semantic.lookup.v1"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_outcomes.v1",
+      "source_ir_sha256": "c5f9883d95b67539ffdac072ac8ed8fd269ec3545629165ec6f39b8ba1e27164",
+      "static_transformers": 31
+    },
+    "terms": 3413
+  },
+  {
+    "declarations": 81,
+    "file": "boundary-total-cells.hex",
+    "id": "boundary-total-cells",
+    "metadata": {
+      "certificate_sha256": "d03921919a65aee2b5678d2a66d80f3ff4a560bfee70dd4f4a2f595fe408e122",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "arms": [
+                {
+                  "fields": [],
+                  "id": "none",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.bool.v1"
+                      }
+                    }
+                  ],
+                  "id": "some",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "type_id": "mpk.csharp.instance.dbbedc32d86a05f390b19350cfc16abf8db8ad4c632f25d5b1ecdd2050081162"
+          },
+          "operations": [
+            {
+              "argument_type_ids": [],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e64626265646333326438366130356633393062313933353063666331366162663864623861643463363332663235643562316563646432303530303831313632.Arm.A0.MakeStorage",
+              "operation_id": "mpk.csharp.instance.dbbedc32d86a05f390b19350cfc16abf8db8ad4c632f25d5b1ecdd2050081162.none",
+              "result_type_id": "mpk.csharp.instance.dbbedc32d86a05f390b19350cfc16abf8db8ad4c632f25d5b1ecdd2050081162"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.value.bool.v1"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e64626265646333326438366130356633393062313933353063666331366162663864623861643463363332663235643562316563646432303530303831313632.Arm.A1.MakeStorage",
+              "operation_id": "mpk.csharp.instance.dbbedc32d86a05f390b19350cfc16abf8db8ad4c632f25d5b1ecdd2050081162.some",
+              "result_type_id": "mpk.csharp.instance.dbbedc32d86a05f390b19350cfc16abf8db8ad4c632f25d5b1ecdd2050081162"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.dbbedc32d86a05f390b19350cfc16abf8db8ad4c632f25d5b1ecdd2050081162"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e64626265646333326438366130356633393062313933353063666331366162663864623861643463363332663235643562316563646432303530303831313632.Arm.A1.IsActive",
+              "operation_id": "mpk.csharp.instance.dbbedc32d86a05f390b19350cfc16abf8db8ad4c632f25d5b1ecdd2050081162.has_value",
+              "result_type_id": "mpk.csharp.value.bool.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.dbbedc32d86a05f390b19350cfc16abf8db8ad4c632f25d5b1ecdd2050081162"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e64626265646333326438366130356633393062313933353063666331366162663864623861643463363332663235643562316563646432303530303831313632.Arm.A1.InvalidOperation",
+                  "label": "invalid_operation"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e64626265646333326438366130356633393062313933353063666331366162663864623861643463363332663235643562316563646432303530303831313632.Arm.A1.Field.F0",
+              "operation_id": "mpk.csharp.instance.dbbedc32d86a05f390b19350cfc16abf8db8ad4c632f25d5b1ecdd2050081162.value",
+              "result_type_id": "mpk.csharp.value.bool.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.dbbedc32d86a05f390b19350cfc16abf8db8ad4c632f25d5b1ecdd2050081162",
+                "mpk.csharp.value.bool.v1"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e64626265646333326438366130356633393062313933353063666331366162663864623861643463363332663235643562316563646432303530303831313632.Outcome.ValueOr",
+              "operation_id": "mpk.csharp.instance.dbbedc32d86a05f390b19350cfc16abf8db8ad4c632f25d5b1ecdd2050081162.value_or",
+              "result_type_id": "mpk.csharp.value.bool.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.dbbedc32d86a05f390b19350cfc16abf8db8ad4c632f25d5b1ecdd2050081162",
+                "mpk.csharp.instance.dbbedc32d86a05f390b19350cfc16abf8db8ad4c632f25d5b1ecdd2050081162"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e64626265646333326438366130356633393062313933353063666331366162663864623861643463363332663235643562316563646432303530303831313632.Equal",
+              "operation_id": "mpk.csharp.instance.dbbedc32d86a05f390b19350cfc16abf8db8ad4c632f25d5b1ecdd2050081162.equal",
+              "result_type_id": "mpk.csharp.value.bool.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.dbbedc32d86a05f390b19350cfc16abf8db8ad4c632f25d5b1ecdd2050081162",
+                "mpk.csharp.instance.dbbedc32d86a05f390b19350cfc16abf8db8ad4c632f25d5b1ecdd2050081162"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e64626265646333326438366130356633393062313933353063666331366162663864623861643463363332663235643562316563646432303530303831313632.Compare",
+              "operation_id": "mpk.csharp.instance.dbbedc32d86a05f390b19350cfc16abf8db8ad4c632f25d5b1ecdd2050081162.compare",
+              "result_type_id": "mpk.csharp.value.i32.v1"
+            }
+          ],
+          "template_id": "mpk.csharp.semantic.option.v1"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_outcomes.v1",
+      "source_ir_sha256": "87f2d8cdacbc213a3e60fe8b0111b4e43ca7fb41aacff89b7f8348ad85042163",
+      "static_transformers": 17
+    },
+    "terms": 3428
+  },
+  {
+    "declarations": 165,
+    "file": "extra-validation-bool.hex",
+    "id": "extra-validation-bool",
+    "metadata": {
+      "certificate_sha256": "ebfc8850cc4dbe6d0e390954c482e146b27c482203572cf2cf8211c2dbcfa651",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 14,
+            "shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "valid",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "role_bound",
+                        "maximum": 256,
+                        "value": {
+                          "kind": "reference",
+                          "type_id": "mpk.csharp.instance.75aa45c9f7f43f48d8bb8ded24510a202c0df60daa06dcf5ae12a5cc5af11158"
+                        }
+                      }
+                    }
+                  ],
+                  "id": "invalid",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "type_id": "mpk.csharp.instance.ecce652a62ff3080f4d3a40edacb7474a06de7dfdc1eb4826a0725a8cdc81bf8"
+          },
+          "operations": [
+            {
+              "argument_type_ids": [
+                "mpk.csharp.value.i32.v1"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e65636365363532613632666633303830663464336134306564616362373437346130366465376466646331656234383236613037323561386364633831626638.Arm.A0.MakeStorage",
+              "operation_id": "mpk.csharp.instance.ecce652a62ff3080f4d3a40edacb7474a06de7dfdc1eb4826a0725a8cdc81bf8.valid",
+              "result_type_id": "mpk.csharp.instance.ecce652a62ff3080f4d3a40edacb7474a06de7dfdc1eb4826a0725a8cdc81bf8"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.75aa45c9f7f43f48d8bb8ded24510a202c0df60daa06dcf5ae12a5cc5af11158"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e65636365363532613632666633303830663464336134306564616362373437346130366465376466646331656234383236613037323561386364633831626638.Outcome.EmptyErrors",
+                  "label": "empty_errors"
+                },
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e65636365363532613632666633303830663464336134306564616362373437346130366465376466646331656234383236613037323561386364633831626638.Outcome.ValidationBound",
+                  "label": "validation_bound"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e65636365363532613632666633303830663464336134306564616362373437346130366465376466646331656234383236613037323561386364633831626638.Arm.A1.MakeStorage",
+              "operation_id": "mpk.csharp.instance.ecce652a62ff3080f4d3a40edacb7474a06de7dfdc1eb4826a0725a8cdc81bf8.invalid",
+              "result_type_id": "mpk.csharp.instance.ecce652a62ff3080f4d3a40edacb7474a06de7dfdc1eb4826a0725a8cdc81bf8"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.ecce652a62ff3080f4d3a40edacb7474a06de7dfdc1eb4826a0725a8cdc81bf8"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e65636365363532613632666633303830663464336134306564616362373437346130366465376466646331656234383236613037323561386364633831626638.Arm.A0.IsActive",
+              "operation_id": "mpk.csharp.instance.ecce652a62ff3080f4d3a40edacb7474a06de7dfdc1eb4826a0725a8cdc81bf8.is_valid",
+              "result_type_id": "mpk.csharp.value.bool.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.ecce652a62ff3080f4d3a40edacb7474a06de7dfdc1eb4826a0725a8cdc81bf8"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e65636365363532613632666633303830663464336134306564616362373437346130366465376466646331656234383236613037323561386364633831626638.Arm.A0.InvalidOperation",
+                  "label": "invalid_operation"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e65636365363532613632666633303830663464336134306564616362373437346130366465376466646331656234383236613037323561386364633831626638.Arm.A0.Field.F0",
+              "operation_id": "mpk.csharp.instance.ecce652a62ff3080f4d3a40edacb7474a06de7dfdc1eb4826a0725a8cdc81bf8.value",
+              "result_type_id": "mpk.csharp.value.i32.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.ecce652a62ff3080f4d3a40edacb7474a06de7dfdc1eb4826a0725a8cdc81bf8"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e65636365363532613632666633303830663464336134306564616362373437346130366465376466646331656234383236613037323561386364633831626638.Arm.A1.InvalidOperation",
+                  "label": "invalid_operation"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e65636365363532613632666633303830663464336134306564616362373437346130366465376466646331656234383236613037323561386364633831626638.Arm.A1.Field.F0",
+              "operation_id": "mpk.csharp.instance.ecce652a62ff3080f4d3a40edacb7474a06de7dfdc1eb4826a0725a8cdc81bf8.errors",
+              "result_type_id": "mpk.csharp.instance.75aa45c9f7f43f48d8bb8ded24510a202c0df60daa06dcf5ae12a5cc5af11158"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.75aa45c9f7f43f48d8bb8ded24510a202c0df60daa06dcf5ae12a5cc5af11158",
+                "mpk.csharp.instance.75aa45c9f7f43f48d8bb8ded24510a202c0df60daa06dcf5ae12a5cc5af11158"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0,
+                    1
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e65636365363532613632666633303830663464336134306564616362373437346130366465376466646331656234383236613037323561386364633831626638.Outcome.AppendBound",
+                  "label": "validation_bound"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e65636365363532613632666633303830663464336134306564616362373437346130366465376466646331656234383236613037323561386364633831626638.Outcome.AppendErrors",
+              "operation_id": "mpk.csharp.instance.ecce652a62ff3080f4d3a40edacb7474a06de7dfdc1eb4826a0725a8cdc81bf8.append_errors",
+              "result_type_id": "mpk.csharp.instance.75aa45c9f7f43f48d8bb8ded24510a202c0df60daa06dcf5ae12a5cc5af11158"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.ecce652a62ff3080f4d3a40edacb7474a06de7dfdc1eb4826a0725a8cdc81bf8",
+                "mpk.csharp.instance.ecce652a62ff3080f4d3a40edacb7474a06de7dfdc1eb4826a0725a8cdc81bf8"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e65636365363532613632666633303830663464336134306564616362373437346130366465376466646331656234383236613037323561386364633831626638.Equal",
+              "operation_id": "mpk.csharp.instance.ecce652a62ff3080f4d3a40edacb7474a06de7dfdc1eb4826a0725a8cdc81bf8.equal",
+              "result_type_id": "mpk.csharp.value.bool.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.ecce652a62ff3080f4d3a40edacb7474a06de7dfdc1eb4826a0725a8cdc81bf8",
+                "mpk.csharp.instance.ecce652a62ff3080f4d3a40edacb7474a06de7dfdc1eb4826a0725a8cdc81bf8"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e65636365363532613632666633303830663464336134306564616362373437346130366465376466646331656234383236613037323561386364633831626638.Compare",
+              "operation_id": "mpk.csharp.instance.ecce652a62ff3080f4d3a40edacb7474a06de7dfdc1eb4826a0725a8cdc81bf8.compare",
+              "result_type_id": "mpk.csharp.value.i32.v1"
+            }
+          ],
+          "template_id": "mpk.csharp.semantic.validation.v1"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_outcomes.v1",
+      "source_ir_sha256": "230b926d605e0e2106bbc898668094e6414ce8205496e0df1ed475e3589e6e9e",
+      "static_transformers": 2118
+    },
+    "terms": 7335
+  },
+  {
+    "declarations": 169,
+    "file": "extra-validation-product.hex",
+    "id": "extra-validation-product",
+    "metadata": {
+      "certificate_sha256": "3ccbc12baaaaa7d098fc6a3d70090e5dafbccf92c149fd9404790672f7181bd0",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 20,
+            "shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "valid",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "role_bound",
+                        "maximum": 256,
+                        "value": {
+                          "kind": "reference",
+                          "type_id": "mpk.csharp.instance.94ab2df5442dce29785e1a13fbf1db00f7a5d6e278c740d7d9d90ea85bf16430"
+                        }
+                      }
+                    }
+                  ],
+                  "id": "invalid",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "type_id": "mpk.csharp.instance.65860d31f538049e58208dd59ab27e1968cc1bb490f654e91d925c32a86fcd83"
+          },
+          "operations": [
+            {
+              "argument_type_ids": [
+                "mpk.csharp.value.i32.v1"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e36353836306433316635333830343965353832303864643539616232376531393638636331626234393066363534653931643932356333326138366663643833.Arm.A0.MakeStorage",
+              "operation_id": "mpk.csharp.instance.65860d31f538049e58208dd59ab27e1968cc1bb490f654e91d925c32a86fcd83.valid",
+              "result_type_id": "mpk.csharp.instance.65860d31f538049e58208dd59ab27e1968cc1bb490f654e91d925c32a86fcd83"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.94ab2df5442dce29785e1a13fbf1db00f7a5d6e278c740d7d9d90ea85bf16430"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e36353836306433316635333830343965353832303864643539616232376531393638636331626234393066363534653931643932356333326138366663643833.Outcome.EmptyErrors",
+                  "label": "empty_errors"
+                },
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e36353836306433316635333830343965353832303864643539616232376531393638636331626234393066363534653931643932356333326138366663643833.Outcome.ValidationBound",
+                  "label": "validation_bound"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e36353836306433316635333830343965353832303864643539616232376531393638636331626234393066363534653931643932356333326138366663643833.Arm.A1.MakeStorage",
+              "operation_id": "mpk.csharp.instance.65860d31f538049e58208dd59ab27e1968cc1bb490f654e91d925c32a86fcd83.invalid",
+              "result_type_id": "mpk.csharp.instance.65860d31f538049e58208dd59ab27e1968cc1bb490f654e91d925c32a86fcd83"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.65860d31f538049e58208dd59ab27e1968cc1bb490f654e91d925c32a86fcd83"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e36353836306433316635333830343965353832303864643539616232376531393638636331626234393066363534653931643932356333326138366663643833.Arm.A0.IsActive",
+              "operation_id": "mpk.csharp.instance.65860d31f538049e58208dd59ab27e1968cc1bb490f654e91d925c32a86fcd83.is_valid",
+              "result_type_id": "mpk.csharp.value.bool.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.65860d31f538049e58208dd59ab27e1968cc1bb490f654e91d925c32a86fcd83"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e36353836306433316635333830343965353832303864643539616232376531393638636331626234393066363534653931643932356333326138366663643833.Arm.A0.InvalidOperation",
+                  "label": "invalid_operation"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e36353836306433316635333830343965353832303864643539616232376531393638636331626234393066363534653931643932356333326138366663643833.Arm.A0.Field.F0",
+              "operation_id": "mpk.csharp.instance.65860d31f538049e58208dd59ab27e1968cc1bb490f654e91d925c32a86fcd83.value",
+              "result_type_id": "mpk.csharp.value.i32.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.65860d31f538049e58208dd59ab27e1968cc1bb490f654e91d925c32a86fcd83"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e36353836306433316635333830343965353832303864643539616232376531393638636331626234393066363534653931643932356333326138366663643833.Arm.A1.InvalidOperation",
+                  "label": "invalid_operation"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e36353836306433316635333830343965353832303864643539616232376531393638636331626234393066363534653931643932356333326138366663643833.Arm.A1.Field.F0",
+              "operation_id": "mpk.csharp.instance.65860d31f538049e58208dd59ab27e1968cc1bb490f654e91d925c32a86fcd83.errors",
+              "result_type_id": "mpk.csharp.instance.94ab2df5442dce29785e1a13fbf1db00f7a5d6e278c740d7d9d90ea85bf16430"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.94ab2df5442dce29785e1a13fbf1db00f7a5d6e278c740d7d9d90ea85bf16430",
+                "mpk.csharp.instance.94ab2df5442dce29785e1a13fbf1db00f7a5d6e278c740d7d9d90ea85bf16430"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0,
+                    1
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e36353836306433316635333830343965353832303864643539616232376531393638636331626234393066363534653931643932356333326138366663643833.Outcome.AppendBound",
+                  "label": "validation_bound"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e36353836306433316635333830343965353832303864643539616232376531393638636331626234393066363534653931643932356333326138366663643833.Outcome.AppendErrors",
+              "operation_id": "mpk.csharp.instance.65860d31f538049e58208dd59ab27e1968cc1bb490f654e91d925c32a86fcd83.append_errors",
+              "result_type_id": "mpk.csharp.instance.94ab2df5442dce29785e1a13fbf1db00f7a5d6e278c740d7d9d90ea85bf16430"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.65860d31f538049e58208dd59ab27e1968cc1bb490f654e91d925c32a86fcd83",
+                "mpk.csharp.instance.65860d31f538049e58208dd59ab27e1968cc1bb490f654e91d925c32a86fcd83"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e36353836306433316635333830343965353832303864643539616232376531393638636331626234393066363534653931643932356333326138366663643833.Equal",
+              "operation_id": "mpk.csharp.instance.65860d31f538049e58208dd59ab27e1968cc1bb490f654e91d925c32a86fcd83.equal",
+              "result_type_id": "mpk.csharp.value.bool.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.65860d31f538049e58208dd59ab27e1968cc1bb490f654e91d925c32a86fcd83",
+                "mpk.csharp.instance.65860d31f538049e58208dd59ab27e1968cc1bb490f654e91d925c32a86fcd83"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e36353836306433316635333830343965353832303864643539616232376531393638636331626234393066363534653931643932356333326138366663643833.Compare",
+              "operation_id": "mpk.csharp.instance.65860d31f538049e58208dd59ab27e1968cc1bb490f654e91d925c32a86fcd83.compare",
+              "result_type_id": "mpk.csharp.value.i32.v1"
+            }
+          ],
+          "template_id": "mpk.csharp.semantic.validation.v1"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_outcomes.v1",
+      "source_ir_sha256": "edd93de1124cae68351155fcbcecd528de20e230dfbb7c790f3965e3e4d060b3",
+      "static_transformers": 2118
+    },
+    "terms": 7419
+  },
+  {
+    "declarations": 113,
+    "file": "extra-lookup-nullable.hex",
+    "id": "extra-lookup-nullable",
+    "metadata": {
+      "certificate_sha256": "dd9f276ed5e2584851bdcd4d38d7ac5809ecec6d29db74588d24544dc97b8134",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "arms": [
+                {
+                  "fields": [],
+                  "id": "none",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "some",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "type_id": "mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338"
+          },
+          "operations": [
+            {
+              "argument_type_ids": [],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e39663761636463663036323830376132666439353432666531363138346661363832666633336136653634626434333937346231343935333434376637333338.Arm.A0.MakeStorage",
+              "operation_id": "mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338.none",
+              "result_type_id": "mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.value.i32.v1"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e39663761636463663036323830376132666439353432666531363138346661363832666633336136653634626434333937346231343935333434376637333338.Arm.A1.MakeStorage",
+              "operation_id": "mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338.some",
+              "result_type_id": "mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e39663761636463663036323830376132666439353432666531363138346661363832666633336136653634626434333937346231343935333434376637333338.Arm.A1.IsActive",
+              "operation_id": "mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338.has_value",
+              "result_type_id": "mpk.csharp.value.bool.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e39663761636463663036323830376132666439353432666531363138346661363832666633336136653634626434333937346231343935333434376637333338.Arm.A1.InvalidOperation",
+                  "label": "invalid_operation"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e39663761636463663036323830376132666439353432666531363138346661363832666633336136653634626434333937346231343935333434376637333338.Arm.A1.Field.F0",
+              "operation_id": "mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338.value",
+              "result_type_id": "mpk.csharp.value.i32.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338",
+                "mpk.csharp.value.i32.v1"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e39663761636463663036323830376132666439353432666531363138346661363832666633336136653634626434333937346231343935333434376637333338.Outcome.ValueOr",
+              "operation_id": "mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338.value_or",
+              "result_type_id": "mpk.csharp.value.i32.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338",
+                "mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e39663761636463663036323830376132666439353432666531363138346661363832666633336136653634626434333937346231343935333434376637333338.Equal",
+              "operation_id": "mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338.equal",
+              "result_type_id": "mpk.csharp.value.bool.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338",
+                "mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e39663761636463663036323830376132666439353432666531363138346661363832666633336136653634626434333937346231343935333434376637333338.Compare",
+              "operation_id": "mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338.compare",
+              "result_type_id": "mpk.csharp.value.i32.v1"
+            }
+          ],
+          "template_id": "mpk.csharp.semantic.option.v1"
+        },
+        {
+          "carrier": {
+            "depth": 7,
+            "shape": {
+              "arms": [
+                {
+                  "fields": [],
+                  "id": "missing_key",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338"
+                      }
+                    }
+                  ],
+                  "id": "found",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "type_id": "mpk.csharp.instance.b67c482282761f371eb6b340cd070676cb2770f5cc4bd71aa8f7f9f8dcb6e56b"
+          },
+          "operations": [
+            {
+              "argument_type_ids": [],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e62363763343832323832373631663337316562366233343063643037303637366362323737306635636334626437316161386637663966386463623665353662.Arm.A0.MakeStorage",
+              "operation_id": "mpk.csharp.instance.b67c482282761f371eb6b340cd070676cb2770f5cc4bd71aa8f7f9f8dcb6e56b.missing",
+              "result_type_id": "mpk.csharp.instance.b67c482282761f371eb6b340cd070676cb2770f5cc4bd71aa8f7f9f8dcb6e56b"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e62363763343832323832373631663337316562366233343063643037303637366362323737306635636334626437316161386637663966386463623665353662.Arm.A1.MakeStorage",
+              "operation_id": "mpk.csharp.instance.b67c482282761f371eb6b340cd070676cb2770f5cc4bd71aa8f7f9f8dcb6e56b.found",
+              "result_type_id": "mpk.csharp.instance.b67c482282761f371eb6b340cd070676cb2770f5cc4bd71aa8f7f9f8dcb6e56b"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.b67c482282761f371eb6b340cd070676cb2770f5cc4bd71aa8f7f9f8dcb6e56b"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e62363763343832323832373631663337316562366233343063643037303637366362323737306635636334626437316161386637663966386463623665353662.Arm.A1.IsActive",
+              "operation_id": "mpk.csharp.instance.b67c482282761f371eb6b340cd070676cb2770f5cc4bd71aa8f7f9f8dcb6e56b.is_found",
+              "result_type_id": "mpk.csharp.value.bool.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.b67c482282761f371eb6b340cd070676cb2770f5cc4bd71aa8f7f9f8dcb6e56b"
+              ],
+              "failures": [
+                {
+                  "argument_indices": [
+                    0
+                  ],
+                  "definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e62363763343832323832373631663337316562366233343063643037303637366362323737306635636334626437316161386637663966386463623665353662.Arm.A1.InvalidOperation",
+                  "label": "invalid_operation"
+                }
+              ],
+              "normal_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e62363763343832323832373631663337316562366233343063643037303637366362323737306635636334626437316161386637663966386463623665353662.Arm.A1.Field.F0",
+              "operation_id": "mpk.csharp.instance.b67c482282761f371eb6b340cd070676cb2770f5cc4bd71aa8f7f9f8dcb6e56b.value",
+              "result_type_id": "mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.b67c482282761f371eb6b340cd070676cb2770f5cc4bd71aa8f7f9f8dcb6e56b",
+                "mpk.csharp.instance.b67c482282761f371eb6b340cd070676cb2770f5cc4bd71aa8f7f9f8dcb6e56b"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e62363763343832323832373631663337316562366233343063643037303637366362323737306635636334626437316161386637663966386463623665353662.Equal",
+              "operation_id": "mpk.csharp.instance.b67c482282761f371eb6b340cd070676cb2770f5cc4bd71aa8f7f9f8dcb6e56b.equal",
+              "result_type_id": "mpk.csharp.value.bool.v1"
+            },
+            {
+              "argument_type_ids": [
+                "mpk.csharp.instance.b67c482282761f371eb6b340cd070676cb2770f5cc4bd71aa8f7f9f8dcb6e56b",
+                "mpk.csharp.instance.b67c482282761f371eb6b340cd070676cb2770f5cc4bd71aa8f7f9f8dcb6e56b"
+              ],
+              "failures": [],
+              "normal_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e62363763343832323832373631663337316562366233343063643037303637366362323737306635636334626437316161386637663966386463623665353662.Compare",
+              "operation_id": "mpk.csharp.instance.b67c482282761f371eb6b340cd070676cb2770f5cc4bd71aa8f7f9f8dcb6e56b.compare",
+              "result_type_id": "mpk.csharp.value.i32.v1"
+            }
+          ],
+          "template_id": "mpk.csharp.semantic.lookup.v1"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_outcomes.v1",
+      "source_ir_sha256": "699bd0830cf98078495b6b1e547307a7fb7f9085cffecbd18165d92bf8fc68d0",
+      "static_transformers": 31
+    },
+    "terms": 3665
+  }
+]

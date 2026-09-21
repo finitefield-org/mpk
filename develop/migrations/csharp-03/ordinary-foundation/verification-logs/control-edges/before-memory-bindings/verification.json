@@ -1,0 +1,743 @@
+{
+  "schema": "mpk.csharp.ordinary_control_edges.verification.v1",
+  "status": "passed_scoped_guards_slot_transport_and_native_phi_checks",
+  "recorded_at": "2026-09-20T20:46:08.909679+00:00",
+  "source_contexts": 17,
+  "edges": 704,
+  "guards": 703,
+  "joins": 666,
+  "pending_edges": 1,
+  "runtime_observations": 38059,
+  "certificates": {
+    "for": {
+      "hex_file_sha256": "6160e0ebfb6be155ad7c492b047c7ef4b9daf60231113ce01cc44237e42c6027",
+      "metadata_file_sha256": "b2d108a99061edb3f38882db27c840a386a9fa04e532bda66552f3355d0f8a1d",
+      "certificate_sha256": "e12c88319a9d22b54c0c451fa1153b1339b231dded2dbaf28bb62658b24d0c7c",
+      "bytes": 40784,
+      "edges": 52,
+      "guards": 52,
+      "joins": 50,
+      "phi_joins": 7,
+      "phi_values": 15,
+      "pending_edges": 0,
+      "checker_evidence": "phis/cases.json"
+    },
+    "foreach_array": {
+      "hex_file_sha256": "80804940d302a90bcf6d8d07b9ebce5930cbb606f5d7d6f9a30d5b26387c201f",
+      "metadata_file_sha256": "3352eb2d2ba9a0151db34fcea0a35acc07fbce21899c54cdf8f7bc4907ceeea7",
+      "certificate_sha256": "21778b3fadbdc2aa28c3979c45b9f030d970f763c424c8da3f520648470076f4",
+      "bytes": 76767,
+      "edges": 44,
+      "guards": 44,
+      "joins": 42,
+      "phi_joins": 4,
+      "phi_values": 6,
+      "pending_edges": 0,
+      "checker_evidence": "phis/cases.json"
+    },
+    "foreach_array_var": {
+      "hex_file_sha256": "80804940d302a90bcf6d8d07b9ebce5930cbb606f5d7d6f9a30d5b26387c201f",
+      "metadata_file_sha256": "41a65fb68d10debf2627aa2159b0d63e98927bc90a685b8295bc4b9a3bf15795",
+      "certificate_sha256": "21778b3fadbdc2aa28c3979c45b9f030d970f763c424c8da3f520648470076f4",
+      "bytes": 76767,
+      "edges": 44,
+      "guards": 44,
+      "joins": 42,
+      "phi_joins": 4,
+      "phi_values": 6,
+      "pending_edges": 0,
+      "checker_evidence": "phis/cases.json"
+    },
+    "foreach_string": {
+      "hex_file_sha256": "2fd9a88f63fc8ab8ca5d82ebcd8bc0c0122e5008c11b8234401b6cd1b7da3c77",
+      "metadata_file_sha256": "f60340fa05d8743b9d919d20c5072d1b376b2cb8d132b171e735c372a560b9bb",
+      "certificate_sha256": "68541fb78ad32ef6f3abd78cca5d053840e93b80b2ebedd2b22d2043ff726717",
+      "bytes": 56834,
+      "edges": 49,
+      "guards": 49,
+      "joins": 47,
+      "phi_joins": 4,
+      "phi_values": 6,
+      "pending_edges": 0,
+      "checker_evidence": "phis/cases.json"
+    },
+    "foreach_string_var": {
+      "hex_file_sha256": "2fd9a88f63fc8ab8ca5d82ebcd8bc0c0122e5008c11b8234401b6cd1b7da3c77",
+      "metadata_file_sha256": "ca4b3c37b4478be8d86bc2751c55f657044b8088ee88940c30a13033dff1b601",
+      "certificate_sha256": "68541fb78ad32ef6f3abd78cca5d053840e93b80b2ebedd2b22d2043ff726717",
+      "bytes": 56834,
+      "edges": 49,
+      "guards": 49,
+      "joins": 47,
+      "phi_joins": 4,
+      "phi_values": 6,
+      "pending_edges": 0,
+      "checker_evidence": "phis/cases.json"
+    },
+    "governing_throw": {
+      "hex_file_sha256": "dc174921d3c40275c2ebf8af6d04d39aa29668b0421c6fa3c721f66fca335275",
+      "metadata_file_sha256": "99bc8e1c1deff4955848e9cd4e166cb6aaaad90eb78688b82730b5e050c2b83f",
+      "certificate_sha256": "66e81e701a26cf989ac88a7a2a7ce4eb96ee522cb3895c90b78f1067a5d31c9b",
+      "bytes": 57394,
+      "edges": 26,
+      "guards": 26,
+      "joins": 24,
+      "phi_joins": 2,
+      "phi_values": 2,
+      "pending_edges": 0,
+      "checker_evidence": "phis/cases.json"
+    },
+    "guard_order": {
+      "hex_file_sha256": "04e359913983b399116550cfea5a6cbffb65669768dca27668a28f7fdc552e8f",
+      "metadata_file_sha256": "0485ca1f4e1be3a594bc51d0c8d801319294c7d92fca6415495d1959c23a9100",
+      "certificate_sha256": "9826cb1db7668c546b90d3defb838952b920e604ef0dae8787bbea239647bef3",
+      "bytes": 365228,
+      "edges": 65,
+      "guards": 65,
+      "joins": 63,
+      "phi_joins": 5,
+      "phi_values": 8,
+      "pending_edges": 0,
+      "checker_evidence": "phis/cases.json"
+    },
+    "guard_throw": {
+      "hex_file_sha256": "461b3de99d166926f4a639f61922bec3fcb756578bd172dbed6e351501979871",
+      "metadata_file_sha256": "f4177062a0e14a947830b8d2382ade81f7fc371afad8fd1d1451c57fe7390d13",
+      "certificate_sha256": "507f4c2b814a8e6e3dcbe91a43dabb2ceab7de885d3f1b9840d7fb52f55bc9bf",
+      "bytes": 309733,
+      "edges": 30,
+      "guards": 30,
+      "joins": 28,
+      "phi_joins": 2,
+      "phi_values": 2,
+      "pending_edges": 0,
+      "checker_evidence": "phis/cases.json"
+    },
+    "index_update": {
+      "hex_file_sha256": "e4dce20446048862e9c06955143544f47f9608fd695606f09b54ab929c54a598",
+      "metadata_file_sha256": "61980d58d32364ed5925fc0b3346854e0ec67dc0446d9739e294ff935bf389e4",
+      "certificate_sha256": "9cfdea46ddf228d1897f55988b768b694a92b7fe5cb014b46e1d4ca8eda64440",
+      "bytes": 675865,
+      "edges": 63,
+      "guards": 63,
+      "joins": 61,
+      "phi_joins": 4,
+      "phi_values": 8,
+      "pending_edges": 0,
+      "checker_evidence": "phis/cases.json"
+    },
+    "is_binding": {
+      "hex_file_sha256": "5554c348677caa8a3d789d0871e841a20a59461199a03086b92b5dc68e2ba4e6",
+      "metadata_file_sha256": "152202f410f8a32beef434b4c5bf26e9348917b0caf6c5a3bb838bdb019045ea",
+      "certificate_sha256": "4a85578e4e9166cab0d3cdbb108ce76dafd0c5558e43b8cf10071fd5b57cca97",
+      "bytes": 23406,
+      "edges": 22,
+      "guards": 22,
+      "joins": 19,
+      "phi_joins": 0,
+      "phi_values": 0,
+      "pending_edges": 0,
+      "checker_evidence": "phis/cases.json"
+    },
+    "lookup": {
+      "hex_file_sha256": "155709532aaadbe0678997ed8a9ff86080fcfeb61e97354f72fa3fc8117464d9",
+      "metadata_file_sha256": "88f853f8fd020afc70ca132f40d81f3863d8a2bef6657919702ba63d0671c584",
+      "certificate_sha256": "fa9b95745a388d114c4af6d171a362669deeb7934c2215a1835711e441e04c9d",
+      "bytes": 80540,
+      "edges": 45,
+      "guards": 45,
+      "joins": 42,
+      "phi_joins": 2,
+      "phi_values": 6,
+      "pending_edges": 0,
+      "checker_evidence": "phis/cases.json"
+    },
+    "short_circuit": {
+      "hex_file_sha256": "a55af290d0c1704b8b3170a7377f9b043e2fe3490cb3b6dcf0b0150381b2de57",
+      "metadata_file_sha256": "10d0de8cd6233a19cee7341e5270e250bd29acb1798080ddb1974e40eb15ae94",
+      "certificate_sha256": "ec336bf4739ad89c9db7e9edfd94f6210e7b359a984d17023a5139fbe3f4efbd",
+      "bytes": 352963,
+      "edges": 45,
+      "guards": 45,
+      "joins": 43,
+      "phi_joins": 5,
+      "phi_values": 12,
+      "pending_edges": 0,
+      "checker_evidence": "phis/cases.json"
+    },
+    "string_property": {
+      "hex_file_sha256": "0ed298b69ae3bbf6f28128d50bc6a56e9cf95f2df7324633136aa33228075e62",
+      "metadata_file_sha256": "dc16c1069377d777473ab2a6b7cceb229890af5717adaa5875919923e3693d58",
+      "certificate_sha256": "cad03885516039f7490472cf042b15e858ab520b4b567c3040006cc1cfd9c41d",
+      "bytes": 35432,
+      "edges": 30,
+      "guards": 30,
+      "joins": 28,
+      "phi_joins": 2,
+      "phi_values": 2,
+      "pending_edges": 0,
+      "checker_evidence": "phis/cases.json"
+    },
+    "switch": {
+      "hex_file_sha256": "b8548813137856cbc9297a82bb84b9d32efe7e2758cb3dc76ff1329475796ee2",
+      "metadata_file_sha256": "120696644d7ea0130b8396ba843c11d7d6978316668944a02e3744bc7c35278f",
+      "certificate_sha256": "8b9154e81fd77ed5f3ec02a4ba164a23902a13f6917713a15c716cbfc3094f89",
+      "bytes": 33553,
+      "edges": 35,
+      "guards": 35,
+      "joins": 33,
+      "phi_joins": 5,
+      "phi_values": 5,
+      "pending_edges": 0,
+      "checker_evidence": "phis/cases.json"
+    },
+    "total_variable": {
+      "hex_file_sha256": "03aa226e1a32c92d84781bc370be942c16ec79fc6c1fb76d24470983fc7e6e24",
+      "metadata_file_sha256": "d60a78443fc0f919cdbea2e8874bfae984c90e5f1c376327569c178fb48b3c77",
+      "certificate_sha256": "d9961790113c03000c9acf86f0a0f7a737b6467d564902fc7205e7d462f28fb9",
+      "bytes": 28824,
+      "edges": 24,
+      "guards": 24,
+      "joins": 22,
+      "phi_joins": 4,
+      "phi_values": 6,
+      "pending_edges": 0,
+      "checker_evidence": "phis/cases.json"
+    },
+    "type": {
+      "hex_file_sha256": "e03f1e8da9d7ea97c70c3e144491f7361fda8c746d1414053575d9baff344f83",
+      "metadata_file_sha256": "c02a85af3c976a0539e928b6b348541cbc2026bcb7bacb6c413c35d16dac2b74",
+      "certificate_sha256": "3c4c408df1079636a4dd8cc820ee73bdf15b18aabc6ae07995de27d5d4d2a8e4",
+      "bytes": 104679,
+      "edges": 57,
+      "guards": 56,
+      "joins": 53,
+      "phi_joins": 4,
+      "phi_values": 4,
+      "pending_edges": 1,
+      "checker_evidence": "phis/cases.json"
+    },
+    "while": {
+      "hex_file_sha256": "03aa226e1a32c92d84781bc370be942c16ec79fc6c1fb76d24470983fc7e6e24",
+      "metadata_file_sha256": "35d1c51fffeac77d5b7f5c05632540fda857e4dfc48b2ddea17999d3842cae75",
+      "certificate_sha256": "d9961790113c03000c9acf86f0a0f7a737b6467d564902fc7205e7d462f28fb9",
+      "bytes": 28824,
+      "edges": 24,
+      "guards": 24,
+      "joins": 22,
+      "phi_joins": 4,
+      "phi_values": 6,
+      "pending_edges": 0,
+      "checker_evidence": "phis/cases.json"
+    }
+  },
+  "checks": {
+    "control-edge-transport": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_control_edge_source_relations",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 176.931,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-edge-transport-candidates",
+        "MPK_CORE_MAX_SECONDS": "600"
+      }
+    },
+    "control-edge-transport-lint": {
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 14.71,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-transport-format": {
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 2.797,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-inventory": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_inventory",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 3.462,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-candidates": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "csharp_03_t06_w09_control_edge_source_relations",
+        "csharp_03_t06_w09_integer_data_candidates",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 178.955,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-edge-candidates",
+        "MPK_CORE_MAX_SECONDS": "600"
+      }
+    },
+    "control-edge-construction-pins-preserved": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_control_edge_other_sources_unchanged",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.927,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-string-pending-final": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_control_edge_missing_string_guards_stay_pending",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 30.64,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-construction-checked-lint": {
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 4.338,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-construction-final-format": {
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 2.815,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-string-pending-lint": {
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 4.275,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-construction-complete-format": {
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 2.777,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-collection-runtime": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_control_edge_collection_source_relations",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 36.191,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-edge-collection-runtime-candidates",
+        "MPK_CORE_MAX_SECONDS": "600"
+      }
+    },
+    "control-edge-collection-preservation": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "csharp_03_t06_w09_control_edge_other_sources_unchanged",
+        "csharp_03_t06_w09_control_edge_missing_pattern_guards_stay_pending",
+        "csharp_03_t06_w09_string_data_candidates",
+        "csharp_03_t06_w09_sequence_data_candidates",
+        "csharp_03_t06_w09_option_data_candidates",
+        "csharp_03_t06_w09_reference_data_candidates",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 11.341,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-collection-final-regeneration": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "csharp_03_t06_w09_control_edge_collection_candidates",
+        "csharp_03_t06_w09_control_edge_other_sources_unchanged",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 2.186,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-edge-collection-final-candidates",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-option-runtime": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "csharp_03_t06_w09_control_edge_option_source_relations",
+        "csharp_03_t06_w09_control_edge_missing_pattern_guards_stay_pending",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 88.556,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-edge-option-candidates",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-option-lint": {
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 23.062,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-option-final-format": {
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 2.818,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-phi-runtime-reviewed": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "csharp_03_t06_w09_control_edge_source_relations",
+        "csharp_03_t06_w09_control_edge_collection_source_relations",
+        "csharp_03_t06_w09_control_edge_missing_pattern_guards_stay_pending",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 154.036,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-edge-phi-reviewed-candidates",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-phi-preservation-final": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_control_edge_phi_preserves_existing_declarations",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 32.662,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-edge-phi-candidates",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-phi-final-regeneration-fixed": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_control_edge_collection_candidates",
+        "csharp_03_t06_w09_control_edge_other_sources_unchanged",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 2.981,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-edge-phi-final-candidates",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-phi-lint-reviewed": {
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 4.363,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-phi-format-reviewed": {
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 2.775,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    }
+  },
+  "selection_reason": "Changed W04 guard and guarded slot transport definitions are exercised on nine original loop/pattern sources, including variable decreases. Tests check integer boundary/failure order, false guards, assignedness, high physical bits, inactive payloads, original goal bindings and metadata/certificate mutations. The shared integer emitter extraction replays all three existing integer-data pins byte-for-byte (control-edge-candidates); unaffected integer runtime/checker evidence is retained. One added Std consumer requires the five inventory tests. Final candidate import/regeneration ran before promotion; copied files match those exact hashes, so identical runtime checks were not repeated. Construction extension resolves all ten missing index_update guards and binds four ownership failure names to exact checked source points. Re-ran only that changed source (3991 observations); the other eight sources regenerate to identical bytes in 0.90 seconds, preserving 9919 prior observations and checker acceptance. Two private helper visibility changes exactly reproduce the previous source when reversed. Inventory paths and checker sources are unchanged. A foreach_string negative case retains five unsupported guards and rejects removing pending metadata. Earlier basic/native string fixtures had no W04 loop/pattern graph and were corrected without changing production semantics. String/native sequence/Option failures now use original definitions in the same builder. Eight new captured sources add 19751 current observations partitioned explicitly below: seven contexts retain 17875 observations; the updated type case contributes 1876. The original nine control sources and 31 string/sequence/Option/reference contexts regenerate exactly; only new or changed edge certificates were rechecked. Reference adapters and simultaneous option/sequence native scopes still need dedicated loop coverage before full-unit acceptance. Native phi integration appends 62 edge-guarded parallel-copy relations covering 100 selected phi operands. All seventeen source contexts reran (38059 observations), exact native predecessors/types and incoming snapshots are independently checked, and full carrier corruption is rejected when guards hold. Existing guard/slot term/declaration prefixes and metadata are unchanged. All current certificate bytes have fresh same-byte Go/Rust and hash rejection receipts. New declaration preservation and final candidate regeneration pass; no checker/core or additional inventory consumer path changed.",
+  "state_rule": "source_exit_to_edge_specific_target; node_entry_merge_pending",
+  "review_correction": "before-incoming-point-fix/review-finding.json",
+  "superseded_checks": "control-edge-candidates contains predecessor guard/transport observations and current unchanged integer pin replay. Only control-edge-transport and current cases.json establish final edge coverage. Earlier edge checker receipts are archived under before-incoming-point-fix. The old index_update pin in before-construction-guards is superseded by construction/cases.json; other eight pins and their root-level checker receipts remain identical. collections/cases.json includes the earlier type candidate with three pending guards; the final type receipt is collections/option/cases.json. The earlier foreach_string pending regression is superseded by checked generated string guards and the retained type exception regression. The pre-phi pins and verification are archived in before-phi-joins. Current acceptance is phis/cases.json for all seventeen pins; prior runtime counts are replaced, not summed. The reviewed runtime input patterns preserve all candidate bytes; final regeneration and direct byte comparison prove identity with the dual-checked candidates.",
+  "source_sha256": {
+    "crates/mpk-vc/src/csharp_practical_ordinary_control_edges.rs": "ff519fe0959f45219dc212e3df4efc01d1bc17345be38f04220456d59aeaeef8",
+    "crates/mpk-vc/src/csharp_practical_ordinary_integer_data.rs": "3eee8761668645fa9bc6762b8a2f92546e0ccae4c7a6eb298fcb2478d23cef80",
+    "crates/mpk-vc/src/csharp_practical_ordinary_construction_data.rs": "e629cba416c5bb2331da7a8a534958198148b0453c90c554daa393d160970122",
+    "crates/mpk-vc/src/csharp_practical_ordinary_source_clauses.rs": "8015d73ba07c693c71f758acfccf53af1cd8e4109a6776b92f284c450f424e11",
+    "crates/mpk-vc/src/csharp_practical_ordinary_structural.rs": "7c962b458881264b58905c6c00eba2e80bd8020b12385224d3b64166741f8437",
+    "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs": "87bf9240299a600948bc0c4fc279aae1175f4fc24080defeecbdebe30bf22e5f",
+    "crates/mpk-vc/src/csharp_practical_vir_model.rs": "e3e68101621f177028afb4efc213e8f793a8d233aae5b34d6237f6b0b33e3e78",
+    "crates/mpk-vc/src/csharp_practical_control_vc.rs": "8b0ba935236d866c3e8ffc3019ede67e4faa29a274c8a66fb75fb62eb8b21500",
+    "crates/mpk-vc/src/csharp_practical_control_emission.rs": "bb7fc2a64bbefa53c2613e663fc1c2dd211f031f3a54bc5d1e8cc10942021e2e",
+    "crates/mpk-vc/src/csharp_practical_control_ssa.rs": "8e5da608d26ea7ef753f31fd22db49ddcaa35be4603137226e5808865d0dc7d4",
+    "crates/mpk-vc/src/csharp_practical_ordinary_test_eval.rs": "d4160220aa77546cb3911df2d66bbd0e8684f3020d128db9306288a87c661c8f",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_edge_tests.rs": "be48513122edabd1103759a6c81f3361d107383ffe514f593a74d10426f4b9be",
+    "crates/mpk-vc/tests/csharp_practical_inventory.rs": "a03753b884536474117f09f6300fdbb8000aaead7b8e630a25fed00e5a8e04da",
+    "develop/migrations/csharp-03/artifact-consumer-inventory.json": "ae7074a24cdb04c9b807ecf3ce1093ffa7ca9d99b0d90e1a2141a7252b285075",
+    "develop/migrations/csharp-03/data-phase/historical-inventory-cache-correction.json": "66b6ead3e8db3df1377309fd4fe40a949ca173c533a7bad0baa1b34db09e403e",
+    "develop/migrations/csharp-03/control-vc/loop-requests.json": "7a6d6ecfcbe52b4dbe41947998e3a97a599170f5deae471840ca6f8bae0e3f54",
+    "develop/migrations/csharp-03/control-emission/loop-responses.json": "7b7e88bb586d4994569578989cd88dac973807f6950ede6275869a845f14fdb2",
+    "develop/migrations/csharp-03/control-emission/source-cases.json": "8293fe0bd49a98c5f9dc4c65661a3c50f95d675b55458f7a96e0da6eea676d28",
+    "develop/migrations/csharp-03/control-vc/measure-requests.json": "140b6a5e8037f163e3b08b602104aa27a9f8db18e3cd48dbfe54ad6f60061dfe",
+    "develop/migrations/csharp-03/control-vc/measure-responses.json": "54cbbdc8ac849eeae32deb4431626c0726e9f6748284d8737c4fe7f737af32cd",
+    "develop/migrations/csharp-03/ordinary-foundation/verification-logs/ownership-proofs/check-files.py": "2bb51bb0e3f0cdf377b53ff4c526acbf630336754585bee359981f298d7fb761",
+    "crates/mpk-vc/src/csharp_practical_ordinary_construction_ops.rs": "9f5e8f82e404afd8f3055c34b5970aac9ba38ae04812985770e10caafc3c4332",
+    "crates/mpk-vc/src/csharp_practical_ordinary_ownership_flow.rs": "99d4143d61371a53751bad0a76ca7e3a29ecd388b0acc2dfa19c6835db09ad21",
+    "crates/mpk-vc/src/csharp_practical_ordinary_ownership_proofs.rs": "b384937cecfc7960a8027859d4c6ac8260cf80eaa72e404984fe6dd3093faa81",
+    "crates/mpk-vc/src/csharp_practical_ordinary_string_data.rs": "444c3688f6ae426a7df69761f24add51f6dcd4e9512e6924d2076c7504855f16",
+    "crates/mpk-vc/src/csharp_practical_ordinary_sequence_data.rs": "0945776b418dbdf37fcf4d63418aedadb4efef802a03153ca1f8a585014ca205",
+    "crates/mpk-vc/src/csharp_practical_ordinary_reference_data.rs": "5864c9494df97d42f568f530f0c8535fc467f59b07813527b1f574febb200441",
+    "crates/mpk-vc/src/csharp_practical_ordinary_option_data.rs": "d3e6276e294df8c30055b97a677491392db6dd79a74ff304134ca88fe75f1488",
+    "crates/mpk-vc/src/csharp_practical_ordinary_relations.rs": "37b8f7b947bbbc21c4741abafd6f49dcb47ac2e43349b96490c35d31789019ef"
+  },
+  "application_scope_pending": true,
+  "remaining": [
+    "The modeled SwitchExpressionException edge in type and other unimplemented data/exception families.",
+    "Direct original-loop coverage for reference-family adapters and combined option/sequence foundation emission.",
+    "Source logical slots and native private-array/nullable representations require explicit projection and memory-SSA effects; source non-store nodes cannot all be framed as unchanged.",
+    "Node-entry merging, non-transfer node frames and production of source-exit snapshots.",
+    "Caught-exception entry, exceptional transfer semantics, native execution and loop/pattern application proofs."
+  ],
+  "unit_5_complete": false,
+  "w09_complete": false,
+  "whole_gate": "deferred to T06-W12",
+  "construction_runtime": "construction/runtime-subtest.json",
+  "scoped_ownership_bindings": 4,
+  "construction_definitions": 3,
+  "runtime_partition": {
+    "original_nine_sources": {
+      "observations": 16114,
+      "receipt": "phis/control-edge-phi-runtime-reviewed.json"
+    },
+    "eight_collection_sources": {
+      "observations": 21945,
+      "receipt": "phis/control-edge-phi-runtime-reviewed.json"
+    }
+  },
+  "unsupported_guard_regression": {
+    "source": "type",
+    "pending_edges": 1,
+    "receipt": "phis/control-edge-phi-runtime-reviewed.json",
+    "scope": "The original SwitchExpressionException edge remains pending; no constant-false replacement or reachability claim."
+  },
+  "construction_review": "construction/review.md",
+  "original_w04_goal_binding_comparisons": {
+    "original_nine_source_partition": 95,
+    "collection_partition": 36
+  },
+  "collection_review": "collections/review.md",
+  "phi_joins": 62,
+  "phi_values": 100,
+  "phi_state_rule": "parallel_phi_inputs_at_source_exit_to_edge_specific_target; node_entry_merge_pending",
+  "phi_review": "phis/review.md",
+  "native_representation_audit": "phis/native-slot-representation-audit.json"
+}

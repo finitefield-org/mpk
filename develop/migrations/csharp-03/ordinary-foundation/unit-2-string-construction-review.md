@@ -1,5 +1,14 @@
 # W09 internal unit 2: UTF-16 construction review
 
+Current follow-up: see `unit-5-string-construction-runtime-review.md` and
+`verification-logs/string-data/hoisted-index/verification.json`. Constructor
+sharing changed emitted bytes and moved the accepted all-char arity from 231
+to 234 under the unchanged 256-binder cap. Earlier results below retain their
+historical scope; replaced pins are preserved. The reported interpolation test
+now passes; the user also completed the constructor oracle, binder checker and
+all remaining string runtime partitions. Final scoped evidence is in
+`verification-logs/string-data/user-long-completed/verification.json`.
+
 Baseline: `06996db`. This component does not complete W09 or unblock W10-W12.
 
 ## Scope and representation

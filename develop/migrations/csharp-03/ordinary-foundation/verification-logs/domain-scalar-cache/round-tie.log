@@ -1,0 +1,28 @@
+
+running 1 test
+test ordinary_carriers::public_domain_tests::contract_expression_tests::decimal_data_tests::csharp_03_t06_w09_decimal_data_memory_probe ... memory probe allocation layouts: [("Rc<Env>", 64), ("Rc<RefCell<LambdaMemo>>", 200), ("Rc<RefCell<Suspension>>", 64)]
+memory probe phase=source context=round
+memory probe phase=evaluate context=round operation=decimal.round.ToEven.2 case=0 role=success_relation wrong=false expected=true inputs=[DecimalBits { type_id: "mpk.csharp.value.decimal.v1", negative: false, scale: 1, coefficient: "25" }, Signed { type_id: "mpk.csharp.value.i32.v1", value: "0" }]
+memory probe phase=evaluate-complete
+ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 304 filtered out; finished in 2.40s
+
+        2.40 real         2.38 user         0.01 sys
+            50462720  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+                3287  page reclaims
+                   0  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                   4  voluntary context switches
+                 718  involuntary context switches
+         31062027532  instructions retired
+          7517187386  cycles elapsed
+            42697136  peak memory footprint

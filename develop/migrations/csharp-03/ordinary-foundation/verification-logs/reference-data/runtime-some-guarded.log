@@ -1,0 +1,22 @@
+
+running 1 test
+test ordinary_carriers::public_domain_tests::contract_expression_tests::reference_data_tests::csharp_03_t06_w09_reference_data_original_source ... reference data start: guarded reference.value.mpk.csharp.instance.68630552d3cf32617731c14f77e5039d4c6a1a3c804a96b9cd1734e5bc85e547
+reference case: guarded some
+reference case: guarded some
+reference case: guarded some
+
+thread '<unnamed>' (6940066) panicked at crates/mpk-vc/tests/support/../../src/csharp_practical_ordinary_test_eval.rs:509:17:
+MPK_CORE_MAX_SECONDS exhausted: ordinary evaluation deadline exceeded; no semantic verdict
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'ordinary_carriers::public_domain_tests::contract_expression_tests::reference_data_tests::csharp_03_t06_w09_reference_data_original_source' (6940065) panicked at crates/mpk-vc/tests/support/csharp_practical_ordinary_reference_data_tests.rs:66:10:
+called `Result::unwrap()` on an `Err` value: Any { .. }
+FAILED
+
+failures:
+
+failures:
+    ordinary_carriers::public_domain_tests::contract_expression_tests::reference_data_tests::csharp_03_t06_w09_reference_data_original_source
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 316 filtered out; finished in 45.10s
+

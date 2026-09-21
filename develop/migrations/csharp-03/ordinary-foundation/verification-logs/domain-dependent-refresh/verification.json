@@ -1,0 +1,491 @@
+{
+  "schema": "mpk.w09.domain_dependent_refresh.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "status": "all_18_changed_consumer_certificates_and_current_runtime_checks_passed",
+  "recorded_at": "2026-09-20T11:12:50.257830+00:00",
+  "selection_rationale": "Four public/boundary profiles embed changed domain/aggregate definitions. Regenerated original-source candidates determine the 18 changed certificate selections; two identical enum candidates excluded. Reuse 34 current-observer passes and run only three uncovered current-observer semantic tests. No whole W/T gate.",
+  "generation": {
+    "public-domains": {
+      "family": "public-domains",
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_public_domains_construction_sources",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "environment": {
+        "MPK_W09_PUBLIC_DOMAINS_OUT": "/tmp/mpk-domain-dependent-public-domains",
+        "MPK_CORE_MAX_SECONDS": "45",
+        "MPK_CORE_MAX_STEPS": null
+      },
+      "exit_code": 0,
+      "wall_seconds": 0.4033357499865815,
+      "process_limit_seconds": 55,
+      "log_sha256": "f6c689e4773e9d6483fc49510862d1ed8075ac559a51083ff3bf39130f5d93d6"
+    },
+    "public-defaults": {
+      "family": "public-defaults",
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_public_defaults_source_conditions",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "environment": {
+        "MPK_W09_PUBLIC_DEFAULTS_OUT": "/tmp/mpk-domain-dependent-public-defaults",
+        "MPK_CORE_MAX_SECONDS": "45",
+        "MPK_CORE_MAX_STEPS": null
+      },
+      "exit_code": 0,
+      "wall_seconds": 0.39878691697958857,
+      "process_limit_seconds": 55,
+      "log_sha256": "f24d03258562ccd3cb6ab8fdef31de3fe1b65e53fde6b076653fb53a5c1549f4"
+    },
+    "structural-public": {
+      "family": "structural-public",
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_structural_public_composes_existing_definitions",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "environment": {
+        "MPK_W09_STRUCTURAL_PUBLIC_OUT": "/tmp/mpk-domain-dependent-structural-public",
+        "MPK_CORE_MAX_SECONDS": "45",
+        "MPK_CORE_MAX_STEPS": null
+      },
+      "exit_code": 0,
+      "wall_seconds": 0.4490862090024166,
+      "process_limit_seconds": 55,
+      "log_sha256": "0167608186f6d50811706bc1e66099f1628381b500b9dbaf463304870946b093"
+    },
+    "structural-boundary": {
+      "family": "structural-boundary",
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_structural_boundary_original_sources",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "environment": {
+        "MPK_W09_STRUCTURAL_BOUNDARY_OUT": "/tmp/mpk-domain-dependent-structural-boundary",
+        "MPK_CORE_MAX_SECONDS": "45",
+        "MPK_CORE_MAX_STEPS": null
+      },
+      "exit_code": 0,
+      "wall_seconds": 10.618027374963276,
+      "process_limit_seconds": 55,
+      "log_sha256": "e2e83a70f21000363b432fd550d79a1e58044cf0230067ac8bd10011c6c4a7da"
+    }
+  },
+  "changed_certificates": 18,
+  "unchanged_certificates": 2,
+  "families": [
+    {
+      "family": "public-domains",
+      "changed": [
+        "broken_constructor.hex",
+        "broken_default.hex",
+        "broken_initializer.hex",
+        "positive_constructor.hex",
+        "positive_default.hex",
+        "positive_initializer.hex"
+      ],
+      "unchanged": [
+        "enum_zero.hex"
+      ]
+    },
+    {
+      "family": "public-defaults",
+      "changed": [
+        "broken_default.hex",
+        "declared-recursive.hex",
+        "nested.hex",
+        "positive_constructor.hex",
+        "positive_default.hex"
+      ],
+      "unchanged": [
+        "enum_zero.hex"
+      ]
+    },
+    {
+      "family": "structural-public",
+      "changed": [
+        "binding-vc-ordered_map.hex",
+        "construction-vc-positive_constructor.hex",
+        "nested.hex"
+      ],
+      "unchanged": []
+    },
+    {
+      "family": "structural-boundary",
+      "changed": [
+        "document-6b96fc4eed95a1d33fa5784b9062f02fa07ac65b6aef2b4100bb91e9c2f1a613.hex",
+        "document-7a157feb27ed416752b5dde8aa2bf373b9a2c82755d2caa89e955057176ee57b.hex",
+        "document-decb5507362a7672c711a5befd63efc1038c2c0a86ee20137a1c4c472e0d1684.hex",
+        "unit-void-source.hex"
+      ],
+      "unchanged": []
+    }
+  ],
+  "dual_checkers": {
+    "passed": 18,
+    "pending": 0,
+    "details": "completed-checker-results.json",
+    "agent_passed": 15,
+    "user_passed": 3,
+    "historical_short_attempts": "checker-results.json"
+  },
+  "reused_runtime": "reconciled-runtime.json",
+  "runtime_attempts": {
+    "current-total-cell-boundary": {
+      "label": "current-total-cell-boundary",
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_domains_source_total_cell_boundary",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "passed",
+      "wall_seconds": 42.83863958402071,
+      "evaluator_seconds": 45,
+      "process_limit_seconds": 55,
+      "log_sha256": "82484a943d83237b573ecd074d9ffe4c2378dd5062e77fcf45cf246b9ada8a30"
+    },
+    "current-full-capacity-aggregate": {
+      "label": "current-full-capacity-aggregate",
+      "command": [
+        "target/release/deps/mpk_vc-4f3748aad12c0f7e",
+        "aggregate_fold_full_capacity_sums_exact_logical_bound",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 101,
+      "status": "user_long_check_pending",
+      "wall_seconds": 45.265869292023126,
+      "evaluator_seconds": 45,
+      "process_limit_seconds": 55,
+      "log_sha256": "efe382600fe0f0d956f3361b4ebbc8268321f6fa273cee45d1a391c205790009"
+    },
+    "current-full-capacity-aggregate-59s": {
+      "command": [
+        "target/release/deps/mpk_vc-4f3748aad12c0f7e",
+        "aggregate_fold_full_capacity_sums_exact_logical_bound",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 101,
+      "status": "user_long_check_pending",
+      "wall_seconds": 55.266094791993964,
+      "evaluator_seconds": 55,
+      "process_limit_seconds": 59,
+      "reason": "The prior 45-second cutoff did not establish whether the previously 35-second case still fits the user one-minute window. This bounded follow-up resolves execution ownership, with no production changes.",
+      "log_sha256": "989f64e4b027d067a6794a074c522ff2b4be712ee34c6d0a53911a250367956d"
+    },
+    "current-decimal-domain-order": {
+      "label": "current-decimal-domain-order",
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_domains_source_decimal_collection_order",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 101,
+      "status": "user_long_check_pending",
+      "wall_seconds": 45.175416000012774,
+      "evaluator_seconds": 45,
+      "process_limit_seconds": 55,
+      "log_sha256": "68f4a09f0514f4638856db07d7967095356e0fc5f8b90ce3f833b184aca42509"
+    }
+  },
+  "pending_runtime_tests": [],
+  "runtime_interpretation": "Earlier budget-limited attempts remain diagnostic history. Both complete runtime tests now pass with the current observer: full-capacity aggregate 42.55s and all eight decimal map/set order cases 92.64s. The total-cell 65536/65537 check already passed in 42.82s. No performance change was made for this import.",
+  "pending_manifest": "pending-long-checks.json",
+  "review": "review.md",
+  "source_sha256": {
+    "crates/mpk-vc/src/csharp_practical_ordinary_aggregate_fold.rs": "50b30f339311c88a7e1b7d6cf39d173a0b4aa2065d57f35d2cd3300b69d4f4b8",
+    "crates/mpk-vc/src/csharp_practical_ordinary_binding_guards.rs": "8b1d86a37790617dd92ec70f52ebca9e61543824f228e43875e0756e851aa83f",
+    "crates/mpk-vc/src/csharp_practical_ordinary_binding_orders.rs": "8107ef3142b7bfeb01322c4682f3254107fd664cf84839e37284a276c7dbae4b",
+    "crates/mpk-vc/src/csharp_practical_ordinary_binding_projections.rs": "ed810a90d707b47e46048c70b05425a702485050dc14f64187fd0f82935e8e4e",
+    "crates/mpk-vc/src/csharp_practical_ordinary_binding_rebuilds.rs": "38b247050c8d2e4f8c043b381875a358250f30a116ac6755c3d6603e47fdb515",
+    "crates/mpk-vc/src/csharp_practical_ordinary_binding_relations.rs": "ac86dab874165f849e0a72180790100bcfe522e11c5b6901db1918e159a8918b",
+    "crates/mpk-vc/src/csharp_practical_ordinary_boundary_document.rs": "88aebab1200bcaa5929ad6efb3eea6176d0a434ffce1be5cf8418aa4b95348d1",
+    "crates/mpk-vc/src/csharp_practical_ordinary_boundary_fragments.rs": "598aec666ad96bd280f528fcb0ebe926f789d9f46efabc7a72ccccb63b981900",
+    "crates/mpk-vc/src/csharp_practical_ordinary_boundary_literals.rs": "af6fca8d51bf1712bf954a38763cb8de68777e41d62d483a1e83ae61751954de",
+    "crates/mpk-vc/src/csharp_practical_ordinary_boundary_rules.rs": "ce371f650d8826c0d5e34f886ccffd139e524f8d3563b2f44f8b1b7e79e2599f",
+    "crates/mpk-vc/src/csharp_practical_ordinary_boundary_utf8.rs": "87685ddc237d909742b3aa20e0797f99fd65325f7c46077c5f64b38b8f909059",
+    "crates/mpk-vc/src/csharp_practical_ordinary_calendar.rs": "16d97129e84a8038728176443ad7ad4832387ec1a15bc5986ff99f0951fa2059",
+    "crates/mpk-vc/src/csharp_practical_ordinary_calendar_codecs.rs": "e5e7a815cd0125c5f5214c9d52e9c03ecea4afba9a227443aebed1a75f799921",
+    "crates/mpk-vc/src/csharp_practical_ordinary_calendar_data.rs": "55a3d81de693b966dcf2aa141b90a3697634e55b9b783dbdb6d63fd237a9bc5b",
+    "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs": "814ff9ef9f79bca414b9f7220d653f2e1be353faa5d74ce3c7a6b6f7510f6f7b",
+    "crates/mpk-vc/src/csharp_practical_ordinary_collection_ops.rs": "de1f1a8152cd4b7f99864d122a105d60a486323f44c0c01f9c8da1eb7f62916a",
+    "crates/mpk-vc/src/csharp_practical_ordinary_construction_ops.rs": "61abb2088d626d33177d69d1e10de23a5f7bcbd553102dd6d15688504a447c7a",
+    "crates/mpk-vc/src/csharp_practical_ordinary_contract_codecs.rs": "e0db0869cb5487b36487a12575260cd3da21db78fc38249edf93e514407117cd",
+    "crates/mpk-vc/src/csharp_practical_ordinary_contract_expressions.rs": "44d45158911d7604205fd643511b94f96450c2bcd589aa29064d6444ebc5a382",
+    "crates/mpk-vc/src/csharp_practical_ordinary_decimal.rs": "05445069bb89a54ff8de1c1e909f5e89b87e302f10af8173e27feeef905638bb",
+    "crates/mpk-vc/src/csharp_practical_ordinary_decimal_arithmetic.rs": "78f3cf789d97b3676d827d36675fb7e9999840ac88386f7c016fa5793e1653eb",
+    "crates/mpk-vc/src/csharp_practical_ordinary_decimal_data.rs": "197a4785e48d813357e81d5ef7958f729d1c40b9337ade60daf088901f6fdaef",
+    "crates/mpk-vc/src/csharp_practical_ordinary_decimal_fixed_format.rs": "2d5474656b1741431373d4baa79ddca963a2c5ae020987b432e8060c35808dd1",
+    "crates/mpk-vc/src/csharp_practical_ordinary_decimal_format.rs": "738d13a44db6f0d62493fe9f211ab5ee783c363ccf3c7a6e00577bd5bc0ba1be",
+    "crates/mpk-vc/src/csharp_practical_ordinary_decimal_parse.rs": "acb76e2945a55556163304ced43103c4c92d4b6b2a2781d1e6be21061525d71b",
+    "crates/mpk-vc/src/csharp_practical_ordinary_defaults.rs": "9d93390920fa1bac69ed3a58c0435a2437e81aa3a1ce6c35426fa7be33f8bedd",
+    "crates/mpk-vc/src/csharp_practical_ordinary_domains.rs": "02b3c44e197d22193e0e3f4e615d64f6e8dcc06a0405b57f06ed07a74623884b",
+    "crates/mpk-vc/src/csharp_practical_ordinary_entry_ops.rs": "726e5fcb7aa06103e947be960ce73a935fd5dbda8d3fc5f01cb9f8218632dc69",
+    "crates/mpk-vc/src/csharp_practical_ordinary_float.rs": "7e261694767ebf49310e79aff23757f6752acf2b5034bf0399febf4f1d4330a6",
+    "crates/mpk-vc/src/csharp_practical_ordinary_float_conversion.rs": "503d2e251d80016d885c1f219e360a68dafb014f84ebe0819cca5b8e041bddff",
+    "crates/mpk-vc/src/csharp_practical_ordinary_floating_data.rs": "55270969ca74297f36e6fe97120138a32463406108cb81dba5fcca00c56b579b",
+    "crates/mpk-vc/src/csharp_practical_ordinary_hex_codecs.rs": "72e19a05940f9485acde70c15ec7f654c54be88d0a38de193567ce2317393e43",
+    "crates/mpk-vc/src/csharp_practical_ordinary_integer_data.rs": "608ca705fa84ae293102c5744a8b8d46651a8d3920c7f214dd0397e6e8044ee4",
+    "crates/mpk-vc/src/csharp_practical_ordinary_integer_format.rs": "15173b6269315b472a5f3d78baf3a3bca519a48c842392c6f54bcfe09fae57fa",
+    "crates/mpk-vc/src/csharp_practical_ordinary_integer_parse.rs": "c62aeacfeb41ccc45d5f3cf7192b3e580d4388857c44dfef286d6481c0e86ab4",
+    "crates/mpk-vc/src/csharp_practical_ordinary_json_boundary_fields.rs": "591976f3bf83d4d493bf6a70ecce027982708c63d4d29c2b30bb06815e91244c",
+    "crates/mpk-vc/src/csharp_practical_ordinary_json_collections.rs": "93843fa3bdcab1b1039b2956c010879996eb767eb1ace1f294fd964fad4e127d",
+    "crates/mpk-vc/src/csharp_practical_ordinary_json_enums.rs": "3f17c53dec718a3d6c7559ddfceab22eed57697f6b597ce54d2c793f29344568",
+    "crates/mpk-vc/src/csharp_practical_ordinary_json_envelopes.rs": "86a6e0d2a623d9f7684c25ffc397f447a341a090b80f2ee86771ff4ab4be49a4",
+    "crates/mpk-vc/src/csharp_practical_ordinary_json_grammar.rs": "b0a04f17970494c95efe183e74d4e560eac05404eb335b03a9d622c503a6fc39",
+    "crates/mpk-vc/src/csharp_practical_ordinary_json_keywords.rs": "e85fbfbd55f3868634457be74d78a777ac0adc0f2261c6e569f00d1743487245",
+    "crates/mpk-vc/src/csharp_practical_ordinary_json_products.rs": "7b1e283efa0b242bbf25c5410115c770ee36aaf280edd3b5f9d119434b57ec02",
+    "crates/mpk-vc/src/csharp_practical_ordinary_json_raw_limits.rs": "e3ef42d14dd01f495abf15dbb3e639b8111d6e8905e16b94ae9a27fb056f6102",
+    "crates/mpk-vc/src/csharp_practical_ordinary_json_sequences.rs": "32100b244093e93ee21c52d9032d763d2fb3e06762f3df4420a1478c88d65d32",
+    "crates/mpk-vc/src/csharp_practical_ordinary_json_string.rs": "81e31ee4afa1154a4c2726e0853f7e8fc10b5c508d1e94176c181578f9396d9f",
+    "crates/mpk-vc/src/csharp_practical_ordinary_json_string_parse.rs": "2b26a4fe13061ac9cf0a1d941307a69a16f8d893bbb6ed1077de304860b82fc2",
+    "crates/mpk-vc/src/csharp_practical_ordinary_json_sums.rs": "a9ad772664d78cb0a8dfeeab98cd10f350310b367ee9d7f37238cee7a18b4bcb",
+    "crates/mpk-vc/src/csharp_practical_ordinary_json_syntax.rs": "03356e416b4fb2d07458f17638ca6ee0d79ec08f777ab61599cc3f731f634266",
+    "crates/mpk-vc/src/csharp_practical_ordinary_json_tokens.rs": "35601f1e5ca09a0ba2a9f4cfe2131a49769f37f040366d2e465b709ddb93df30",
+    "crates/mpk-vc/src/csharp_practical_ordinary_json_typed_depth.rs": "1a26f7a789bbf0b9a8f98b86a4db13e23ee26c3d90fac4960f3328c090f1307a",
+    "crates/mpk-vc/src/csharp_practical_ordinary_json_typed_nodes.rs": "e8cac204bd63df1a8402f700d3f0c9331e9ef9b8f03abaa30ee4d5ead263fda6",
+    "crates/mpk-vc/src/csharp_practical_ordinary_json_values.rs": "829fde91c040cb133e2b94956a00166bc7af05f7030936525262a3d76e3e7ac6",
+    "crates/mpk-vc/src/csharp_practical_ordinary_json_vocabulary.rs": "068c22305c1512e21e8bfc3d04c9ad62c87602e8ad1fb11fecc05f5758961ffd",
+    "crates/mpk-vc/src/csharp_practical_ordinary_lifted_data.rs": "ee4e1dcf60c24f3e268bf9e2a39be8f98ca046feed6190d5d4d6d5c5949710fc",
+    "crates/mpk-vc/src/csharp_practical_ordinary_literals.rs": "8fd92a71aacae8cc0a5db4a47d12e3ff1617470c154a1f5dea2d0745a20d89a2",
+    "crates/mpk-vc/src/csharp_practical_ordinary_money_ops.rs": "4229b23626c8dd926d29554fb1f93f271b063f8d685a53a0410356bc2567db59",
+    "crates/mpk-vc/src/csharp_practical_ordinary_non_templates.rs": "1b317e36aa3c8eb2c79e7d2bddef23b23b3c2c1d0ed22ac3fa7b76242cfad423",
+    "crates/mpk-vc/src/csharp_practical_ordinary_observations.rs": "4c926a6a6766867172f9bdcb621d5b61714ee2c199899e3737a1f63769bf4122",
+    "crates/mpk-vc/src/csharp_practical_ordinary_ordered_fold.rs": "55aba70a15271d5f91665181145045b7757f4b8bb7378335f92f637c5db36623",
+    "crates/mpk-vc/src/csharp_practical_ordinary_outcome_ops.rs": "3534b83552b3190056a160e28efbd28e5507c663cb2da298ed4f9017d6a25ef3",
+    "crates/mpk-vc/src/csharp_practical_ordinary_public_domains.rs": "9de1f71e3c90d6bdcbe7d4f0fa70cc8068db03ecce55715c11790072ba465753",
+    "crates/mpk-vc/src/csharp_practical_ordinary_quantifiers.rs": "f70e6e7db4c07b13250cd3f10fda485416dc3084b2dc41b8e0fe22614ed3d625",
+    "crates/mpk-vc/src/csharp_practical_ordinary_relations.rs": "71bb70daa142ccf53599c14badca6c7719de3cec07d2325cc1130b8f280fc344",
+    "crates/mpk-vc/src/csharp_practical_ordinary_scalar_bits.rs": "9c3757dc88c5a653885891773a5b786d255e740900581c6e0902d241f556d2cb",
+    "crates/mpk-vc/src/csharp_practical_ordinary_scalar_domains.rs": "b79c9a047d23da82f590332f1015942f257e143ee22aa6f7d6e35d8a0b26fa13",
+    "crates/mpk-vc/src/csharp_practical_ordinary_scalar_relations.rs": "865872b3dba0a54503c6bd5991c1cda247c73cbec817080c736d175ea5b1549e",
+    "crates/mpk-vc/src/csharp_practical_ordinary_sequence_ops.rs": "dbc5cd30cdaec935760e3dd33f1bc1b8fe7badd4a3b9c8005a113c51f450a636",
+    "crates/mpk-vc/src/csharp_practical_ordinary_source_clauses.rs": "77a1fd0de58614880f82f45034e88bc5f9b89b8c0f0cd6d7166ebad5bee59488",
+    "crates/mpk-vc/src/csharp_practical_ordinary_source_value_data.rs": "ea15f75028c3da22a5e8711117707eb64bbb0eceb47a3e1e9826c5a85f35884b",
+    "crates/mpk-vc/src/csharp_practical_ordinary_string.rs": "e32dab1fd209893ce7d6cb4a0704c5a2d3f6d7b493936b0bcbcfbcdbe44bfbab",
+    "crates/mpk-vc/src/csharp_practical_ordinary_string_construct.rs": "e078c74dd887679b2243d030ad6d12eefb524ce19fe244a0dc5e57b4248f6a5b",
+    "crates/mpk-vc/src/csharp_practical_ordinary_string_data.rs": "855689006cf5888234abaf1f4f05a97026821ce99d474c898faf0b80d3defe10",
+    "crates/mpk-vc/src/csharp_practical_ordinary_string_ordinal.rs": "9e84c5408dcd44d81b94be27775b9147f3d9c39a68a4bfb9da97a2acda60a927",
+    "crates/mpk-vc/src/csharp_practical_ordinary_structural.rs": "4aa396133761dca47b5843bf40e402c810c0f178770d844e0eee432cdd54fa9a",
+    "crates/mpk-vc/src/csharp_practical_ordinary_structural_data.rs": "524dc811f552a1b0b228867511feb071a2af22f3bd0ad9b3663119def34574a5",
+    "crates/mpk-vc/src/csharp_practical_ordinary_structural_foundations.rs": "3dd5e1d2348b0c3d63de17f0609b0042f9f6bab51793ef64a0c9a04b380b7c88",
+    "crates/mpk-vc/src/csharp_practical_ordinary_temporal.rs": "004c06a137aa07c7b3abff98ed80f29248268032564791a8072812fbffa14ee7",
+    "crates/mpk-vc/src/csharp_practical_ordinary_test_eval.rs": "d4160220aa77546cb3911df2d66bbd0e8684f3020d128db9306288a87c661c8f",
+    "crates/mpk-vc/src/csharp_practical_ordinary_test_eval_tests.rs": "9c521d1be3c96d28de9f2da7144c67395222921ae83221874e0c3b5d3da5cb1a",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_domain_tests.rs": "7eb7c844ebdfc99f6a41db0dbf76327462e9c957eae9b06bb5649dc2d36607c2"
+  },
+  "checker_source_sha256": {
+    "Cargo.lock": "7022ea1468c663f4f5280ea8d94fec3d03c0a28667304f80608157946d5a9f60",
+    "crates/mpk-cert/Cargo.toml": "b99ff7fde6a4f0cb50a091eb02997c97d5f2e934b42eddfd375f53b96bfc3a47",
+    "crates/mpk-cert/src/axiom_report.rs": "508888b0fd3733dbcbf76907b7822fd445ac124d1e6041711c547ad3d3fda22f",
+    "crates/mpk-cert/src/binary_tags.rs": "f557165a3d1fad17ea5c4b5ad27b92170dbb203931b30ef157e22856d5f2616b",
+    "crates/mpk-cert/src/canonical.rs": "704d3f04bf3219cbc9bca5b7ca8b4ff6723bc834d777fcf5219ecc900c2b8e74",
+    "crates/mpk-cert/src/cert_basic.rs": "ca8e2bd5c7ffbc5c54e51a1e65eb2f2b559b5d6f8efd6a0d74581197d8d7e295",
+    "crates/mpk-cert/src/decode.rs": "e77619d5d464db0e5d5538b1349c1cb1b1d8b39da227c3f7aa36fbb5e9d11a13",
+    "crates/mpk-cert/src/encode.rs": "406c310d53e464c9fe0f079e4186a0501e2eb84fae6c443d40d029d53a2beecf",
+    "crates/mpk-cert/src/export.rs": "b846726ef91b02583aee70849459c5856ea14cebaee226a5d71fedb0a61da2cd",
+    "crates/mpk-cert/src/hash.rs": "dc80a4db8fbd2965093daa90d4b32cebc8116659a95323df987ebeaa7dec2a83",
+    "crates/mpk-cert/src/imports.rs": "3b2edcf9305e5a5ed355fe194219826c97571da0ca47656562cf4bdde2983183",
+    "crates/mpk-cert/src/lib.rs": "38b44e99c13ea9a76c0c08c8a1cfd1ec23922b33c9d252a96beef59f8634b553",
+    "crates/mpk-cli/Cargo.toml": "0f1ad9eeacead087b533b4676692c987693023decc7159569898076f05b18f38",
+    "crates/mpk-cli/src/ai_explain.rs": "b717bde506447acd7ee271e5d6d9b2c5254ca004f4ed6c960eac4d808ee5759b",
+    "crates/mpk-cli/src/csharp_practical_consumer_migration.rs": "1afe5a5ca5275152dfcf9ac647f8265ae01c2a311e3f3f345630a7fe4a71ffc4",
+    "crates/mpk-cli/src/csharp_practical_frontend_protocol.rs": "b4c6c55dd29f9a2983231ab67b0c9263f42becfbd620ef3daa4e3098944c2077",
+    "crates/mpk-cli/src/csharp_practical_migration.rs": "bcbdd41bfb06cd7171169757e57b7cf486d191170384b8017c0feaa13947b930",
+    "crates/mpk-cli/src/frontend_protocol.rs": "859cc5bd3c80e6f60202714fba6315c945a871585623fca9888e15b643b1f215",
+    "crates/mpk-cli/src/frontend_registry.rs": "77ee8257071d5c653ceb963c8f826c7c1caa7832c3199c720b231d8bc0dc602d",
+    "crates/mpk-cli/src/frontend_registry_linux.rs": "cea4c604b6eb465db70d8f417daaf6a5136d1e3d8653fd19407833f10cfd56ff",
+    "crates/mpk-cli/src/frontend_runner.rs": "d541a3b2a7b105df4ba707aa29d57eba71e930a51b6697213b14c03405461783",
+    "crates/mpk-cli/src/frontend_sandbox.rs": "efb1c847150617d9c056b17d7609823dda1de047fd05f6c963b098f393774f5a",
+    "crates/mpk-cli/src/java_frontend_runner.rs": "19cf91df681a2d4ec922dc77e0fb32f343aa8956a1f533be27f40a46517b985f",
+    "crates/mpk-cli/src/lib.rs": "81219c1c94227b1710f1885a87cf2a662e7e4a43cb7c37e4c52ef590b57dc2c7",
+    "crates/mpk-cli/src/main.rs": "8a323430b13daa9d219874ebc185fa8f70e77130eaeb3f67656cd37f37916757",
+    "crates/mpk-cli/src/policy_profile.rs": "5a553718f994255b640f6f64f9df6ee9d72627cb157ad0a2e109e04ff6212dac",
+    "crates/mpk-cli/src/policy_scan.rs": "f7ff9aad5bee2205834d77d2b132262f71acfb673bd136199746221305e25d8f",
+    "crates/mpk-cli/src/policy_schema.rs": "c2174e197ea64547fe5f3c2f57b66bf0d16cb876d09de3a1d29ece4cb056246c",
+    "crates/mpk-cli/src/program_certificate.rs": "f82bb4473cf4d10cf6d8789fb24ce86943d9decd33d4c640537278086e89c3b5",
+    "crates/mpk-cli/src/reference_checker.rs": "5147d091250bf9000dbfafb5143c513cdc3c95335ef921c6c20062001d335d9c",
+    "crates/mpk-cli/src/successor_ai_explain.rs": "2cc49008953772d7ff19a69832ec229e1a5e829427e5012169db8d293e600139",
+    "crates/mpk-cli/src/successor_cli.rs": "3e0ed602068f8350e335ecca26bf2e233cdf78e2a17ab64e3540594c8eabeaf9",
+    "crates/mpk-cli/src/successor_frontend_protocol.rs": "7fc320909c96751705982b901fecaaedaf3a0ba0bd8ae635452230cfe4669915",
+    "crates/mpk-cli/src/successor_frontend_runner.rs": "8b8081561715de130bf04f0566b8a65d9349af1c30a6639833cd2cd52e243418",
+    "crates/mpk-cli/src/successor_policy.rs": "1569596b5571ddf875b59f61cb86468249a7735d4274f5317c3489053d7680a0",
+    "crates/mpk-cli/src/successor_release_bundle.rs": "586d35ea1cd18fc94c1cdd1ef632f2c4d2eec16ec9f4a9a1c0ae7b43efec94d3",
+    "crates/mpk-core/Cargo.toml": "7d23784732e23fd78029884f2b9a5bc6200e7192c31ae10ada567e61a15607a3",
+    "crates/mpk-core/src/context.rs": "e426d6d43b99106bd80c8e946325b1f8d712109865f6b8c340146908d273352d",
+    "crates/mpk-core/src/decl_check.rs": "8a6afd03f5e19831815f59b069f319cfd947ce123b8ad10e29d511c869f43783",
+    "crates/mpk-core/src/defeq.rs": "940fd74971a889239e8168fb13fd5cf9099e4efdbac1c2ffbce5780724a2c270",
+    "crates/mpk-core/src/env.rs": "612258863b6bde2d59c573b0fb9a485a17235e426acd02b44c2f30c718e5f16e",
+    "crates/mpk-core/src/error.rs": "76bbf92e086713711c26310fd2f02f58bf5a1d298251cd93c66e4af0c14189bb",
+    "crates/mpk-core/src/inductive.rs": "41bc938dfdb03ef8a8973a9abecd917171e25efc55c58ebeb43bf4b8ad59be9d",
+    "crates/mpk-core/src/inductive_gen.rs": "0ffbd5776dc55ab954f3dc9786c17cf24689a82e42aa8de78b8755294e905575",
+    "crates/mpk-core/src/infer.rs": "76fc314f85d226f718f2aeafe06a399be0189d173294084f3116f6f9feff873a",
+    "crates/mpk-core/src/level.rs": "00b030888a20ae9015c94968e8e4dc63f8c924224df36d3a186ba9d4dcfff1ad",
+    "crates/mpk-core/src/lib.rs": "5ca1b37f66f2cbcab0cf7dc6e4446ebf2036f9dff790139108154995b56da777",
+    "crates/mpk-core/src/name.rs": "6a6c8659f556bb63d782ca4aa9c465b05a7b8987327a2e02cbbb95669ca15e99",
+    "crates/mpk-core/src/positivity.rs": "5ad6d3d072a8db9bba5c98b02a0d9da9e096faca1836762aecf4cebb1ad460bd",
+    "crates/mpk-core/src/reduce.rs": "bbd58360f97eba191a9c12208e1488668ed8b39c96be6d354065a7c4d9c02d37",
+    "crates/mpk-core/src/reduce_inductive.rs": "29b84e63df8561c72ac88389866857c04bde500c6fd301119b90b9bd27c23e10",
+    "crates/mpk-core/src/subst.rs": "e1843f9aafe2d4349bf6bd8a1bcfff4eb39c318c87e37b47a36c23cb8e2cd23f",
+    "crates/mpk-core/src/term.rs": "4fcd1dba9916b8b3d22ffabd889c2949bb14cf468420b5e839b779108e91bb60",
+    "crates/mpk-kernel/Cargo.toml": "3226dc567ef89c9488b61e6c79df2134eb7b1dd36c7cbe19abb3e3e7916ac826",
+    "crates/mpk-kernel/src/cache.rs": "fb9bd805c365f6f614e2f0cb432bc92964e78faa4749df15ad62c4a82ed767ad",
+    "crates/mpk-kernel/src/decl_driver.rs": "01139721a6ab41f9dd312e3f1e30dfb635095429e48e79a36cf97de2f09bbde8",
+    "crates/mpk-kernel/src/json_output.rs": "82992d18824fd25f7c1fcd58d569e4e339bda8be2f60588bb20d2537b9b6cdb5",
+    "crates/mpk-kernel/src/lib.rs": "8f9dcda8206eb714e12feb0a6c3cd4220c68f02e3780daa869173c9626cb27f5",
+    "crates/mpk-kernel/src/profile.rs": "e44ce30ffbc29617073456ce8dd9bd46ce731549c423a01a747c82542cffc580",
+    "crates/mpk-kernel/src/proof_check.rs": "27e8f109d9241cee011984021d74f57088f4ebf30012a858e0fe6416cae96027",
+    "crates/mpk-kernel/src/proof_structural.rs": "6117063aa07e3ac5882ebba60ab907518a2c9844f96d35887f5a31c8d66906c0",
+    "crates/mpk-kernel/src/proof_theory.rs": "81d52c5be4e325c3cccb1d6e0096b0e118f245f53234d5496dfdac066fee95af",
+    "crates/mpk-kernel/src/verifier.rs": "e8932a62713b8f8af18a980093a6ff162b3510b4b4e7da924d9b421552a9e3f2",
+    "crates/mpk-theory/Cargo.toml": "120227c9b1a0bbbe48e146d6d2412793b9e357cb43e7d21585c760a268081908",
+    "crates/mpk-theory/src/array_cert.rs": "7b6261cbedc9200ffe8ce5513374e2c14aa6b999926607e450440e26bb25cace",
+    "crates/mpk-theory/src/bitvec_eval.rs": "3fa7578174f4e3a489d395653687899d1d06fc59780b9224d652638b7d589ac4",
+    "crates/mpk-theory/src/bool_cert.rs": "17bcac0225e8281ecf754115734cf254addf87bc44a6da4fddaebabbea226c14",
+    "crates/mpk-theory/src/lib.rs": "10719601e65de998218739cd2b5b61a6bf69df6692c1b829c307c6cf57d61ccd",
+    "crates/mpk-theory/src/linarith_cert.rs": "3606832e69432a08295e014f0810e5f20aa7d10fdef2bc8789448ebf98d6895a",
+    "go-tools/mpk-checker-ref/axiom_report.go": "c4b90708cee28a9198de51b44882e4c6fb1b012331378ab82a1c2f9537472d57",
+    "go-tools/mpk-checker-ref/axiom_report_test.go": "d0b81bf2605439ccca678118c5074e0193a217cc372d12a41e2ad148c6ec6b8a",
+    "go-tools/mpk-checker-ref/checker_agreement_test.go": "2411848244094799a96819bfb84940891d9cbee9672c058c10436daeef9874f4",
+    "go-tools/mpk-checker-ref/core_check.go": "94fbcf5d1db028360ec31d78ae4f683b379e738628ef582ea8648f708cac3de1",
+    "go-tools/mpk-checker-ref/core_check_test.go": "ea726b6f4ecba51dd003e5acdda995f14cd9544e00fd0b6de5bcace599d1493a",
+    "go-tools/mpk-checker-ref/decoder.go": "636a3cefeebe2b8cdaf2191992f5ab08edb293aa019e366d33e7590a6e0e2a02",
+    "go-tools/mpk-checker-ref/decoder_test.go": "b9b6bc2753dc513cfc45ca1efe1cff2bca031791dd8293fa6a2873ef3d61c01e",
+    "go-tools/mpk-checker-ref/defeq.go": "9f8af4d3c6a93f6a5b462b2bb777f75f75c48d4d9f57278250643fe23c0d546e",
+    "go-tools/mpk-checker-ref/defeq_test.go": "f199578a7845974c785a2d4da64d8b995d67fc0ef763a628aab6a6f3bf14a3d8",
+    "go-tools/mpk-checker-ref/doc.go": "952a3da781b751eb063b2f4d859568453896d76ee8ab2122209720879c150b75",
+    "go-tools/mpk-checker-ref/go.mod": "1dcc4212afe08523613abb23420df58c1bea4507db876e3ceac1e758a1b76250",
+    "go-tools/mpk-checker-ref/hash.go": "9412b1bbabe87879061f142774bc8cbe7dd6210340855b445279bd7d1ba43c41",
+    "go-tools/mpk-checker-ref/hash_test.go": "922bf39c91f2e715526dd6277939aa324e53809466fa053b2d35ab55ed540b86",
+    "go-tools/mpk-checker-ref/proof_check.go": "71f1b8648941e68c1bc67ae4cf640e35a31df20584b1f818f697fb5afc86e996",
+    "go-tools/mpk-checker-ref/proof_check_test.go": "5f29b974ebb641f59723eba732c6b2ec227c52b7ff871a7ce470050a94c1cc18",
+    "go-tools/mpk-checker-ref/verify.go": "79d70ede0ea7453667009d4575265f8fdc2860e35026065bb4ae5d374faa1b5e",
+    "go-tools/mpk-checker-ref/verify_test.go": "eb287ff774bb5415b4f4b9bfa0d2510203da6cd857f613aa0a8fe11802f68bd3"
+  },
+  "artifact_sha256": {
+    "public-domains-generation.log": "f6c689e4773e9d6483fc49510862d1ed8075ac559a51083ff3bf39130f5d93d6",
+    "current-full-capacity-aggregate.log": "efe382600fe0f0d956f3361b4ebbc8268321f6fa273cee45d1a391c205790009",
+    "public-defaults__positive_constructor.log": "361e106c7812531ca8558c820047e10261cd713380a9fa166a1a933b8f269390",
+    "structural-boundary__document-7a157feb27ed416752b5dde8aa2bf373b9a2c82755d2caa89e955057176ee57b.log": "36895e57f17d922b32462994a818e057869f6c6661904aeaec4b0ef3e7d89ff5",
+    "current-full-capacity-aggregate-59s.log": "989f64e4b027d067a6794a074c522ff2b4be712ee34c6d0a53911a250367956d",
+    "public-defaults__positive_default.log": "633a812b5904d90a45de59dcba04042f35db1e4f51821d6a37e1f8ae77832328",
+    "public-defaults-generation.log": "f24d03258562ccd3cb6ab8fdef31de3fe1b65e53fde6b076653fb53a5c1549f4",
+    "structural-boundary__document-decb5507362a7672c711a5befd63efc1038c2c0a86ee20137a1c4c472e0d1684.log": "0248d24185ef68152aa8e2c370bc4e5f05bb37636d00f7a122040dbd0e7f5a94",
+    "current-total-cell-boundary.log": "82484a943d83237b573ecd074d9ffe4c2378dd5062e77fcf45cf246b9ada8a30",
+    "public-defaults__broken_default.log": "276f4ad9c1b29f8a24803b41e46de5b919b530c3991f68e8e1187c5309d3f54b",
+    "public-domains__broken_default.log": "90d19aa54200fe7b0d0a810234070aab7376a39069ce4fdf11b53018c7f3a4a9",
+    "structural-public__nested.log": "1d981bf4c57d8a5136ceab4163984e163ddb7c55b6fcf9aceee1cdfd7895b530",
+    "structural-boundary__document-6b96fc4eed95a1d33fa5784b9062f02fa07ac65b6aef2b4100bb91e9c2f1a613.log": "de7a5944ee6eb5f3b358912ed67c554dbb65fa5aa6fcd88f171be8986f596359",
+    "public-defaults__declared-recursive.log": "76981bbc1a426e46809c1a4bbad0878561ef968d16490e436451ce72f277f634",
+    "structural-public__construction-vc-positive_constructor.log": "0888f704db0bd8e679c0a06fe763927629aa69aa9bf0da04de4487fdbbee6e7a",
+    "public-domains__broken_initializer.log": "cdf7721a2bcc5ac23da5cbc7703f2e49667a030cc785e9d0cddc85360f510acb",
+    "public-domains__positive_default.log": "a466ce840d7358f5ecfd388d1792829c744106c65d6e765f362fed584283c19d",
+    "structural-boundary-generation.log": "e2e83a70f21000363b432fd550d79a1e58044cf0230067ac8bd10011c6c4a7da",
+    "structural-public__binding-vc-ordered_map.log": "3f1cbb9bfad471aaeaeb4acf7254aa1bb9cefe90ebcd19bd9f41fdf051ba0b65",
+    "public-domains__positive_constructor.log": "0c7f4fb5e5d69ffb05b4b7018e9b9679bcef5c99c64cf436c355cfc368c494a8",
+    "public-defaults__nested.log": "7ba48628c3b6dd32bb1246ee93305ced6b40bfb6c0f58f01e396e1eed16527bc",
+    "public-domains__positive_initializer.log": "4ce25d692f3447b9fa22def84d6f852c0c3cdfa4ba17812b20d646344d6bae3f",
+    "structural-public-generation.log": "0167608186f6d50811706bc1e66099f1628381b500b9dbaf463304870946b093",
+    "structural-boundary__unit-void-source.log": "494a6e03b3825a211dc0cf2d0668adb591ad909bd7836b598b9d929d6116a6af",
+    "public-domains__broken_constructor.log": "f13c093e7c4ba0178f3f864442e79f78de3cad0710459456335d707e84120f2f",
+    "current-decimal-domain-order.log": "68f4a09f0514f4638856db07d7967095356e0fc5f8b90ce3f833b184aca42509"
+  },
+  "remaining": [
+    "Other downstream clause/data fixture reconciliation and full internal-unit review.",
+    "Native/control, transition and exact proof assembly requirements of W09."
+  ],
+  "unit_3_complete": false,
+  "w09_complete": false,
+  "whole_gate": "Deferred to T06-W12",
+  "commit": "No partial-unit commit",
+  "handoff_validation": {
+    "list_mode": "passed: exactly three checker cases and two runtime tests; current certificate/checker/runtime source hashes validated without test execution",
+    "git_diff_check": "passed outside sandbox",
+    "production_source_edits_in_this_refresh": false,
+    "passing_tests_rerun_for_handoff": false
+  },
+  "completed_runtime": [
+    {
+      "label": "full-capacity-aggregate",
+      "target": [
+        "--lib"
+      ],
+      "test": "aggregate_fold_full_capacity_sums_exact_logical_bound",
+      "evaluator_seconds": 600,
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "aggregate_fold_full_capacity_sums_exact_logical_bound",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "passed": true,
+      "wall_seconds": 42.64920866698958,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": 600,
+        "MPK_CORE_MAX_STEPS": null,
+        "MPK_W09_variables": "unset"
+      },
+      "log": "user-long-completed/full-capacity-aggregate.log",
+      "log_sha256": "49364ed667cdda44feb2dd6397fe19c53df2385e5cef1ff4e6d10fc27a440f8b"
+    },
+    {
+      "label": "decimal-domain-order",
+      "target": [
+        "--test",
+        "csharp_practical_vc"
+      ],
+      "test": "csharp_03_t06_w09_domains_source_decimal_collection_order",
+      "evaluator_seconds": 600,
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_domains_source_decimal_collection_order",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "passed": true,
+      "wall_seconds": 92.72406350000529,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": 600,
+        "MPK_CORE_MAX_STEPS": null,
+        "MPK_W09_variables": "unset"
+      },
+      "log": "user-long-completed/decimal-domain-order.log",
+      "log_sha256": "02cce610f30f69441a47dcf78e0159ee160acfe59708950abc9b972d816d19bd"
+    }
+  ],
+  "user_long_import": "user-long-completed/verification.json",
+  "user_long_import_validation": {
+    "copied_artifact_hashes": "passed",
+    "completed_checker_results": 18,
+    "decimal_domain_cases_observed": 8,
+    "pending_cases": 0,
+    "tests_rerun": false,
+    "git_diff_check": "passed outside sandbox"
+  }
+}

@@ -1,0 +1,223 @@
+{
+  "status": "passed_scoped_count_fill_control_relations",
+  "source_context": "count_fill",
+  "node_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.node.000128",
+  "logical_arguments": 501,
+  "components": 12,
+  "maximum_component_arguments": 81,
+  "runtime_observations": 20598,
+  "edge_observations": 11904,
+  "node_entry_observations": 6633,
+  "selector_truth_cases": 2048,
+  "receiver_update_observations": 13,
+  "excluded_duplicate_arrival_observations": 497,
+  "original_w04_goal_binding_comparisons": 68,
+  "certificate": {
+    "hex_file_sha256": "5cc1e804ea0f14dc38f5bb32d9aeca6af00e45904164b9b41e8e47372d57d752",
+    "metadata_file_sha256": "d6645322bc16c0b7b745dbf3f0d6fd4b3fd132dd55b95c12c47642f17c056f48",
+    "certificate_sha256": "58649723d17a8d59193b8f331c29ee8ff00a2de58059f7bb2151025d15110803",
+    "bytes": 902957,
+    "checker_evidence": "factored-entry/checks/cases.json",
+    "edges": 148,
+    "guards": 148,
+    "joins": 146,
+    "phi_joins": 16,
+    "phi_values": 40,
+    "node_entries": 129,
+    "memory_bindings": 4,
+    "memory_effects": 1,
+    "pending_edges": 0
+  },
+  "checks": {
+    "control-factored-entry-final-runtime": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_control_node_entry_large_fan_in",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 32.925,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-factored-entry-final",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-factored-entry-final-lint": {
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 4.447,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-factored-entry-regeneration": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_control_edge_other_sources_unchanged",
+        "csharp_03_t06_w09_control_edge_collection_candidates",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 2.287,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-factored-entry-preserved",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-factored-entry-dependencies": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "preserves_existing_declarations",
+        "csharp_03_t06_w09_control_slot_source_relations",
+        "csharp_03_t06_w09_control_slot_array_snapshots",
+        "csharp_03_t06_w09_control_slot_count_fill_candidate",
+        "csharp_03_t06_w09_control_memory_effect_original_source",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 7.023,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-factored-entry-final-format": {
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 2.753,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-count-fill-memory-runtime": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_control_memory_effect_count_fill_source",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 32.549,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-count-fill-memory",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-count-fill-all-entries-runtime": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_control_node_entries_count_fill_source",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 37.358,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-count-fill-entries",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-count-fill-edges-runtime-reviewed": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "csharp_03_t06_w09_control_edge_count_fill_source_relations",
+        "csharp_03_t06_w09_control_edge_construction_guards",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 88.859,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-count-fill-edges",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-factored-entry-pinned-replay": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_control_node_entry_large_fan_in",
+        "csharp_03_t06_w09_control_node_entries_count_fill_source",
+        "csharp_03_t06_w09_control_memory_effect_count_fill_source",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 14.879,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    }
+  },
+  "source_sha256": {
+    "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs": "9429fb5c3a0bdb4766dce3f5a0ad0975b9151bb15e34f9062b5486e04c496fb0",
+    "crates/mpk-vc/src/csharp_practical_ordinary_control_edges.rs": "293994b2ce2bdfc563cd73796f9c1badb32f4b0d3a8d5f9564025c1ec8ee3cba",
+    "crates/mpk-vc/src/csharp_practical_ordinary_source_clauses.rs": "d0d97e721c7fd628b78345da7c7b4a63951a30b87d811e084a134ddbc75a87ee",
+    "crates/mpk-vc/src/csharp_practical_ordinary_structural.rs": "d693b1f0a4e4fe7cdc6b2dcbcc3dc3cdd3aa4808aba7549bea224516d3eb38da",
+    "crates/mpk-vc/src/csharp_practical_vir_model.rs": "3f250588126397538751b68ee5fa7572dd007d7712cf1e6e1e260446b7a71704",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_edge_tests.rs": "bbf9cd1a4f9fab6071935d0574539a80eddc1382e28e1c96dbf58272f0b32cdc"
+  },
+  "selection_reason": "The original count_fill source is now generated after factoring its 501-argument exit into twelve conjunctive components, at most 81 arguments each. Exhaustive 2048 selector cases, 6633 entry observations across all 129 nodes using the independent guard oracle, 11904 edge/transport/phi/native-memory observations and 13 receiver rewrite observations pass. The earlier 497 focused arrival cases are a retained cross-check and are not counted twice. The original edge test incorrectly assumed all slots require public projection; the captured native-only temporary now has its exact native type and absent projection fields checked, alongside the three public bindings. The affected index_update runtime was rerun unchanged. Seventeen prior programs are byte-identical; all nine slot dependency pins, six historical preservation tests, format/lint and new same-byte Go/Rust acceptance/hash rejection pass. This does not establish native execution, alias frames, loop invariants or application proofs.",
+  "preserved_previous_contexts": 17,
+  "all_source_contexts": 18,
+  "all_runtime_observations": 73137,
+  "pending": "Native execution, alias frames, loop invariants and application proof composition remain open.",
+  "unit_5_complete": false,
+  "w09_complete": false,
+  "whole_gate": "deferred to T06-W12"
+}

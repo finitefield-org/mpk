@@ -1,0 +1,1872 @@
+{
+  "schema": "mpk.csharp.ordinary_control_edges.verification.v1",
+  "status": "passed_scoped_edge_entry_and_memory_effect_relations",
+  "recorded_at": "2026-09-20T23:16:16.487876+00:00",
+  "source_contexts": 18,
+  "edges": 852,
+  "guards": 852,
+  "joins": 813,
+  "pending_edges": 0,
+  "runtime_observations": 73137,
+  "certificates": {
+    "for": {
+      "hex_file_sha256": "e4d5446b686776c6e182aaa542fd4a6cf0ce2927e16c28eda29a845f069913c9",
+      "metadata_file_sha256": "165520753fcd2e2e125d5ca2c2ae2435ea536fc6a53c41c1f8f92cfac3c039d9",
+      "certificate_sha256": "80c9d634d1ffb8d7b7a1e39f8f3ba71a41b6dda7d9d134bdcb72c01c84c4242c",
+      "bytes": 59143,
+      "edges": 52,
+      "guards": 52,
+      "joins": 50,
+      "phi_joins": 7,
+      "phi_values": 15,
+      "pending_edges": 0,
+      "checker_evidence": "node-entry/checks-a/cases.json",
+      "node_entries": 46
+    },
+    "foreach_array": {
+      "hex_file_sha256": "4358457b5859488dc4f699cf2db57576f1b704d2d7aa925c8ba9f15896a357e4",
+      "metadata_file_sha256": "57b986f513e118f03f3139ccb63bb1e0f7896da4a5014f324fa690e4b8c478e2",
+      "certificate_sha256": "dcc9e132596dc29e21aae9ef6fe2caa338615d7f84fbf295213417358ae64119",
+      "bytes": 98696,
+      "edges": 44,
+      "guards": 44,
+      "joins": 42,
+      "phi_joins": 4,
+      "phi_values": 6,
+      "pending_edges": 0,
+      "checker_evidence": "node-entry/checks-c/cases.json",
+      "node_entries": 39
+    },
+    "foreach_array_var": {
+      "hex_file_sha256": "4358457b5859488dc4f699cf2db57576f1b704d2d7aa925c8ba9f15896a357e4",
+      "metadata_file_sha256": "cb91ea94d3846142bc280e96d9dbc3c080a2d7e09feb8194af02479000642eae",
+      "certificate_sha256": "dcc9e132596dc29e21aae9ef6fe2caa338615d7f84fbf295213417358ae64119",
+      "bytes": 98696,
+      "edges": 44,
+      "guards": 44,
+      "joins": 42,
+      "phi_joins": 4,
+      "phi_values": 6,
+      "pending_edges": 0,
+      "checker_evidence": "node-entry/checks-c/cases.json",
+      "node_entries": 39,
+      "checker_identical_bytes_context": "foreach_array"
+    },
+    "foreach_string": {
+      "hex_file_sha256": "746ea7b574c7718efd0ffe78af951ebb636c6b390784e33236ce52d1ae349f91",
+      "metadata_file_sha256": "1f60f86ac9df71ebc76eb107082a125f451243cda7c74b857bccf2d4f3a1290b",
+      "certificate_sha256": "c918fea67bf83704d146617f50d90194323cf2d7762c09d25f74874277b84290",
+      "bytes": 80476,
+      "edges": 49,
+      "guards": 49,
+      "joins": 47,
+      "phi_joins": 4,
+      "phi_values": 6,
+      "pending_edges": 0,
+      "checker_evidence": "node-entry/checks-c/cases.json",
+      "node_entries": 42
+    },
+    "foreach_string_var": {
+      "hex_file_sha256": "746ea7b574c7718efd0ffe78af951ebb636c6b390784e33236ce52d1ae349f91",
+      "metadata_file_sha256": "fb2fb479960e1426237f524072af51f072fc036ca024f7f1a41c90c38734fef9",
+      "certificate_sha256": "c918fea67bf83704d146617f50d90194323cf2d7762c09d25f74874277b84290",
+      "bytes": 80476,
+      "edges": 49,
+      "guards": 49,
+      "joins": 47,
+      "phi_joins": 4,
+      "phi_values": 6,
+      "pending_edges": 0,
+      "checker_evidence": "node-entry/checks-c/cases.json",
+      "node_entries": 42,
+      "checker_identical_bytes_context": "foreach_string"
+    },
+    "governing_throw": {
+      "hex_file_sha256": "9c9da7ee8ca4dcb2229d66f8fed258ff69cbe95696c3a2c603eb1aa08d1cb426",
+      "metadata_file_sha256": "7122f296f29b520785cbbdb3d0c2f5c353eb8e5ee1adfa9c73fc683eb2145c16",
+      "certificate_sha256": "07a8bcb4ef6955bc3b460ad726f4d6312bcfccaf9a68cd5e09d8d8372d3c8b79",
+      "bytes": 65988,
+      "edges": 26,
+      "guards": 26,
+      "joins": 24,
+      "phi_joins": 2,
+      "phi_values": 2,
+      "pending_edges": 0,
+      "checker_evidence": "node-entry/checks-c/cases.json",
+      "node_entries": 24
+    },
+    "guard_order": {
+      "hex_file_sha256": "c4668fb41efb94994f39f560905f4462bca3fd4dcd7ba4d65ac1f29c08e85c6e",
+      "metadata_file_sha256": "bd3b3218bdf229767306716bb1df894ff308c7f133a0ebfebdf9451cb2a4caaf",
+      "certificate_sha256": "e73500ed436ba5edfae32749aa9402cbe3a92dddf54e51878687bae161d8defc",
+      "bytes": 401830,
+      "edges": 65,
+      "guards": 65,
+      "joins": 63,
+      "phi_joins": 5,
+      "phi_values": 8,
+      "pending_edges": 0,
+      "checker_evidence": "node-entry/checks-b/cases.json",
+      "node_entries": 58
+    },
+    "guard_throw": {
+      "hex_file_sha256": "302049d32308352e029e06255218805b27722cd3187895e72511090076ae2057",
+      "metadata_file_sha256": "55fe9848d8f6074e155ce3b9ff0c8f6a3633beeb3ace786be2331195a1112e97",
+      "certificate_sha256": "a019a09ff404bcbdb5d86a4efc2f9613b04e08e6979719ae22e9695a9356a78d",
+      "bytes": 322538,
+      "edges": 30,
+      "guards": 30,
+      "joins": 28,
+      "phi_joins": 2,
+      "phi_values": 2,
+      "pending_edges": 0,
+      "checker_evidence": "node-entry/checks-b/cases.json",
+      "node_entries": 27
+    },
+    "index_update": {
+      "hex_file_sha256": "be255ca5a0374c4a2d0df65ef6d2fdb3bd8630a107786b9d805d625a513d8d11",
+      "metadata_file_sha256": "3000a5e19094d1b040a62d51cb23f8cd0cd30e76f42410d2667302a45c102194",
+      "certificate_sha256": "b24c515218e29f2e60edd983fedb0d3945eb915e28ecfe7e8f2f35a4061862f9",
+      "bytes": 716726,
+      "edges": 63,
+      "guards": 63,
+      "joins": 61,
+      "phi_joins": 4,
+      "phi_values": 8,
+      "pending_edges": 0,
+      "checker_evidence": "memory-effects/checks/cases.json",
+      "memory_bindings": 4,
+      "node_entries": 51,
+      "memory_effects": 1
+    },
+    "is_binding": {
+      "hex_file_sha256": "4a81252555c8abf4ee7224db6f53b47db64251753d606c87759a503fdfc76add",
+      "metadata_file_sha256": "40ff035d1a0f177e26a53f9543d431b463fb920dcf28b808258de06ed5e07fbb",
+      "certificate_sha256": "3ea9733efa7d5ed985423be2682e68f274ca3f4f2057a788177bbced088140b8",
+      "bytes": 30262,
+      "edges": 22,
+      "guards": 22,
+      "joins": 19,
+      "phi_joins": 0,
+      "phi_values": 0,
+      "pending_edges": 0,
+      "checker_evidence": "node-entry/checks-a/cases.json",
+      "node_entries": 20
+    },
+    "lookup": {
+      "hex_file_sha256": "28801a423aa3981a5f2203d07d414f9e3a4e187ca08087bec335bbfbad48c418",
+      "metadata_file_sha256": "092a3cd73112f635f99501f2a2c1dfe333c16a7c2a5a727b97f8288a0901ea25",
+      "certificate_sha256": "411d1bd163b32da38a2f63b2a21af48cc130a512a7eb63af0305b0450095630f",
+      "bytes": 95426,
+      "edges": 45,
+      "guards": 45,
+      "joins": 42,
+      "phi_joins": 2,
+      "phi_values": 6,
+      "pending_edges": 0,
+      "checker_evidence": "node-entry/checks-c/cases.json",
+      "node_entries": 39
+    },
+    "short_circuit": {
+      "hex_file_sha256": "0933b51bc53e67957e6e27a5c0f9a7d77971a0f81b29690ab175910c35002a43",
+      "metadata_file_sha256": "e74b2ef67a939270014e9f3b20b5b96849101a5c96276ff8f580426b4212c86d",
+      "certificate_sha256": "364f0c3fdc0863f8572ddb5942e3270fa394ae4260370480077373a3292a41a3",
+      "bytes": 372669,
+      "edges": 45,
+      "guards": 45,
+      "joins": 43,
+      "phi_joins": 5,
+      "phi_values": 12,
+      "pending_edges": 0,
+      "checker_evidence": "node-entry/checks-a/cases.json",
+      "node_entries": 38
+    },
+    "string_property": {
+      "hex_file_sha256": "aec56fd7e0b43584790a13cc63f650545d3848028cecb6ac2c045fcd96de757e",
+      "metadata_file_sha256": "0264d26944dfcd2be812e608bcad57bb7d1aa7434f3beb31a180412960f87918",
+      "certificate_sha256": "440de8d5bde8b6b58121f4972bf9a3371023b3d621940658dc8e3f08da0c753d",
+      "bytes": 45385,
+      "edges": 30,
+      "guards": 30,
+      "joins": 28,
+      "phi_joins": 2,
+      "phi_values": 2,
+      "pending_edges": 0,
+      "checker_evidence": "node-entry/checks-b/cases.json",
+      "node_entries": 27
+    },
+    "switch": {
+      "hex_file_sha256": "4901b74000c201af447e14560144ceaf1093c02e822bb9fcda01641a0e9b0247",
+      "metadata_file_sha256": "4d304c1c87f5101e79649cb0653b581f5d904d656cfbfa497abadfa3573d8c86",
+      "certificate_sha256": "e8cd1761d585c21ddb564660daf678c3522ab99d212f24a38f863ce2f7e0d36a",
+      "bytes": 43768,
+      "edges": 35,
+      "guards": 35,
+      "joins": 33,
+      "phi_joins": 5,
+      "phi_values": 5,
+      "pending_edges": 0,
+      "checker_evidence": "node-entry/checks-a/cases.json",
+      "node_entries": 31
+    },
+    "total_variable": {
+      "hex_file_sha256": "572cebce97c1cf141a360ddba78dbd93879a25fae26a7c8e0d6bc9a7ce301b8a",
+      "metadata_file_sha256": "270d83c7b564226a0e652a28c4d813c9ed9660b603e2095582efb9c2bb4af960",
+      "certificate_sha256": "520d11a1f5217201634ce70c18f518107709981c59bd2cd38ef6ab883469ca39",
+      "bytes": 36712,
+      "edges": 24,
+      "guards": 24,
+      "joins": 22,
+      "phi_joins": 4,
+      "phi_values": 6,
+      "pending_edges": 0,
+      "checker_evidence": "node-entry/checks-a/cases.json",
+      "node_entries": 21,
+      "checker_identical_bytes_context": "while"
+    },
+    "type": {
+      "hex_file_sha256": "9b830aa6daea4e3632457d8bc826fd92be23b9163efcffbbc0d0d3a62b506f5e",
+      "metadata_file_sha256": "ef6af8e43de7db66ca65471d540071bb3f368648bfbb39d99148a522168045f4",
+      "certificate_sha256": "c40ea03916d3af5fa62209b385adfb485a552aabcf673f25f6b025239bf68e61",
+      "bytes": 129792,
+      "edges": 57,
+      "guards": 57,
+      "joins": 54,
+      "phi_joins": 4,
+      "phi_values": 4,
+      "pending_edges": 0,
+      "checker_evidence": "node-entry/checks-b/cases.json",
+      "node_entries": 52
+    },
+    "while": {
+      "hex_file_sha256": "572cebce97c1cf141a360ddba78dbd93879a25fae26a7c8e0d6bc9a7ce301b8a",
+      "metadata_file_sha256": "75fd4fdaa173deb7d091296f33e6465360cfdc4f46dc3c23c0614a7c323268ce",
+      "certificate_sha256": "520d11a1f5217201634ce70c18f518107709981c59bd2cd38ef6ab883469ca39",
+      "bytes": 36712,
+      "edges": 24,
+      "guards": 24,
+      "joins": 22,
+      "phi_joins": 4,
+      "phi_values": 6,
+      "pending_edges": 0,
+      "checker_evidence": "node-entry/checks-a/cases.json",
+      "node_entries": 21
+    },
+    "count_fill": {
+      "hex_file_sha256": "5cc1e804ea0f14dc38f5bb32d9aeca6af00e45904164b9b41e8e47372d57d752",
+      "metadata_file_sha256": "d6645322bc16c0b7b745dbf3f0d6fd4b3fd132dd55b95c12c47642f17c056f48",
+      "certificate_sha256": "58649723d17a8d59193b8f331c29ee8ff00a2de58059f7bb2151025d15110803",
+      "bytes": 902957,
+      "checker_evidence": "factored-entry/checks/cases.json",
+      "edges": 148,
+      "guards": 148,
+      "joins": 146,
+      "phi_joins": 16,
+      "phi_values": 40,
+      "node_entries": 129,
+      "memory_bindings": 4,
+      "memory_effects": 1,
+      "pending_edges": 0
+    }
+  },
+  "checks": {
+    "control-edge-transport": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_control_edge_source_relations",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 176.931,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-edge-transport-candidates",
+        "MPK_CORE_MAX_SECONDS": "600"
+      }
+    },
+    "control-edge-transport-lint": {
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 14.71,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-transport-format": {
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 2.797,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-inventory": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_inventory",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 3.462,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-candidates": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "csharp_03_t06_w09_control_edge_source_relations",
+        "csharp_03_t06_w09_integer_data_candidates",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 178.955,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-edge-candidates",
+        "MPK_CORE_MAX_SECONDS": "600"
+      }
+    },
+    "control-edge-construction-pins-preserved": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_control_edge_other_sources_unchanged",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.927,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-string-pending-final": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_control_edge_missing_string_guards_stay_pending",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 30.64,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-construction-checked-lint": {
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 4.338,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-construction-final-format": {
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 2.815,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-string-pending-lint": {
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 4.275,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-construction-complete-format": {
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 2.777,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-collection-runtime": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_control_edge_collection_source_relations",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 36.191,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-edge-collection-runtime-candidates",
+        "MPK_CORE_MAX_SECONDS": "600"
+      }
+    },
+    "control-edge-collection-preservation": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "csharp_03_t06_w09_control_edge_other_sources_unchanged",
+        "csharp_03_t06_w09_control_edge_missing_pattern_guards_stay_pending",
+        "csharp_03_t06_w09_string_data_candidates",
+        "csharp_03_t06_w09_sequence_data_candidates",
+        "csharp_03_t06_w09_option_data_candidates",
+        "csharp_03_t06_w09_reference_data_candidates",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 11.341,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-collection-final-regeneration": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "csharp_03_t06_w09_control_edge_collection_candidates",
+        "csharp_03_t06_w09_control_edge_other_sources_unchanged",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 2.186,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-edge-collection-final-candidates",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-option-runtime": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "csharp_03_t06_w09_control_edge_option_source_relations",
+        "csharp_03_t06_w09_control_edge_missing_pattern_guards_stay_pending",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 88.556,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-edge-option-candidates",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-option-lint": {
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 23.062,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-option-final-format": {
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 2.818,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-phi-runtime-reviewed": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "csharp_03_t06_w09_control_edge_source_relations",
+        "csharp_03_t06_w09_control_edge_collection_source_relations",
+        "csharp_03_t06_w09_control_edge_missing_pattern_guards_stay_pending",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 154.036,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-edge-phi-reviewed-candidates",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-phi-preservation-final": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_control_edge_phi_preserves_existing_declarations",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 32.662,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-edge-phi-candidates",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-phi-final-regeneration-fixed": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_control_edge_collection_candidates",
+        "csharp_03_t06_w09_control_edge_other_sources_unchanged",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 2.981,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-edge-phi-final-candidates",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-phi-lint-reviewed": {
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 4.363,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-phi-format-reviewed": {
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 2.775,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-memory-runtime": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_control_edge_construction_guards",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 139.847,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-memory-candidates",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-memory-regeneration": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "csharp_03_t06_w09_control_edge_collection_candidates",
+        "csharp_03_t06_w09_control_edge_other_sources_unchanged",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 30.402,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-memory-final-candidates",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-memory-preservation": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_control_memory_preserves_existing_declarations",
+        "csharp_03_t06_w09_control_edge_phi_preserves_existing_declarations",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.207,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-memory-final-candidates",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-memory-lint": {
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 20.517,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-memory-format": {
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 2.783,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-public-prefix-boundaries": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "construction_initialized_prefix_",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 51.651,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-public-final-regeneration": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_control_edge_other_sources_unchanged",
+        "csharp_03_t06_w09_control_edge_collection_candidates",
+        "csharp_03_t06_w09_sequence_data_candidates",
+        "csharp_03_t06_w09_option_data_candidates",
+        "csharp_03_t06_w09_reference_data_candidates",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 6.641,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-public-edge-final",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-partial-final-runtime": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "csharp_03_t06_w09_control_slot_count_fill_candidate",
+        "csharp_03_t06_w09_control_projection_preserves_existing_declarations",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 33.321,
+      "environment": {
+        "MPK_W09_CONTROL_SLOTS_OUT": "/tmp/mpk-control-partial-final-slots",
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-partial-edges",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-partial-source-regeneration": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "csharp_03_t06_w09_control_slot_count_fill_candidate",
+        "csharp_03_t06_w09_control_slot_array_snapshots",
+        "csharp_03_t06_w09_control_slot_source_relations",
+        "csharp_03_t06_w09_control_edge_other_sources_unchanged",
+        "csharp_03_t06_w09_control_edge_collection_candidates",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 96.465,
+      "environment": {
+        "MPK_W09_CONTROL_SLOTS_OUT": "/tmp/mpk-control-partial-slots",
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-partial-edges",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-partial-lint": {
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 15.965,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-partial-format": {
+      "command": [
+        "rustfmt",
+        "--check",
+        "--edition",
+        "2021",
+        "crates/mpk-vc/src/csharp_practical_ordinary_construction_data.rs",
+        "crates/mpk-vc/src/csharp_practical_ordinary_control_edges.rs",
+        "crates/mpk-vc/src/csharp_practical_ordinary_control_slots.rs",
+        "crates/mpk-vc/src/csharp_practical_ordinary_relations.rs",
+        "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_slot_tests.rs",
+        "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_edge_tests.rs"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.149,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-public-inventory": {
+      "command": [
+        "target/release/deps/csharp_practical_inventory-b645d7f4c4ccc945",
+        "csharp_03_t01_w02_inventory_closes_every_artifact_and_consumer_edge",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.624,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-nullable-slot-runtime": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "csharp_03_t06_w09_control_slot_source_relations",
+        "csharp_03_t06_w09_control_slot_array_snapshots",
+        "csharp_03_t06_w09_control_slot_count_fill_candidate",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 95.21,
+      "environment": {
+        "MPK_W09_CONTROL_SLOTS_OUT": "/tmp/mpk-control-nullable-slot-candidates",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-nullable-final-lint": {
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 5.598,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-nullable-final-format": {
+      "command": [
+        "rustfmt",
+        "--check",
+        "--edition",
+        "2021",
+        "crates/mpk-vc/src/csharp_practical_ordinary_construction_data.rs",
+        "crates/mpk-vc/src/csharp_practical_ordinary_control_edges.rs",
+        "crates/mpk-vc/src/csharp_practical_ordinary_control_slots.rs",
+        "crates/mpk-vc/src/csharp_practical_ordinary_relations.rs",
+        "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_slot_tests.rs",
+        "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_edge_tests.rs"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.156,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-nullable-slot-final-runtime": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_control_slot_source_relations",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 84.331,
+      "environment": {
+        "MPK_W09_CONTROL_SLOTS_OUT": "/tmp/mpk-control-nullable-slot-final",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-nullable-edge-payload-runtime": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_control_edge_option_source_relations",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 28.604,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-nullable-edge-reviewed",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-nullable-edge-final-regeneration": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "csharp_03_t06_w09_control_edge_other_sources_unchanged",
+        "csharp_03_t06_w09_control_edge_collection_candidates",
+        "csharp_03_t06_w09_control_edge_option_source_relations",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 30.045,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-nullable-edge-final",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-nullable-edge-preservation": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_control_edge_phi_preserves_existing_declarations",
+        "csharp_03_t06_w09_control_memory_preserves_existing_declarations",
+        "csharp_03_t06_w09_control_projection_preserves_existing_declarations",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.503,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-nullable-edge-final",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-nullable-edge-final-lint": {
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 4.28,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-nullable-edge-format": {
+      "command": [
+        "rustfmt",
+        "--check",
+        "--edition",
+        "2021",
+        "crates/mpk-vc/src/csharp_practical_ordinary_control_edges.rs",
+        "crates/mpk-vc/src/csharp_practical_ordinary_control_slots.rs",
+        "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_edge_tests.rs",
+        "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_slot_tests.rs"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.085,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-nullable-edge-pinned-replay": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_control_edge_option_source_relations",
+        "csharp_03_t06_w09_control_edge_other_sources_unchanged",
+        "csharp_03_t06_w09_control_edge_collection_candidates",
+        "csharp_03_t06_w09_control_slot_source_relations",
+        "csharp_03_t06_w09_control_slot_array_snapshots",
+        "csharp_03_t06_w09_control_slot_count_fill_candidate",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 7.063,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-builtin-throw-runtime": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "csharp_03_t06_w09_control_edge_option_source_relations",
+        "csharp_03_t06_w09_control_edge_builtin_throw_is_source_bound",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 83.894,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-builtin-throw-candidates",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-builtin-throw-regeneration": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_control_edge_other_sources_unchanged",
+        "csharp_03_t06_w09_control_edge_collection_candidates",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 2.088,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-builtin-throw-final",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-builtin-throw-preservation": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "csharp_03_t06_w09_control_builtin_throw_preserves_existing_declarations",
+        "csharp_03_t06_w09_control_edge_phi_preserves_existing_declarations",
+        "csharp_03_t06_w09_control_memory_preserves_existing_declarations",
+        "csharp_03_t06_w09_control_projection_preserves_existing_declarations",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 26.521,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-builtin-throw-final",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-builtin-throw-final-lint": {
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 4.308,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-builtin-throw-final-format": {
+      "command": [
+        "rustfmt",
+        "--check",
+        "--edition",
+        "2021",
+        "crates/mpk-vc/src/csharp_practical_ordinary_control_edges.rs",
+        "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_edge_tests.rs"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.085,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-builtin-throw-slot-dependency": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_control_slot_source_relations",
+        "csharp_03_t06_w09_control_slot_array_snapshots",
+        "csharp_03_t06_w09_control_slot_count_fill_candidate",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 4.23,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-builtin-throw-pinned-replay": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_control_edge_option_source_relations",
+        "csharp_03_t06_w09_control_edge_builtin_throw_is_source_bound",
+        "csharp_03_t06_w09_control_builtin_throw_preserves_existing_declarations",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1.104,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-node-entry-final-runtime": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_control_node_entries_original_sources",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 151.586,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-node-entry-final",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-node-entry-preservation": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_control_node_entry_preserves_existing_declarations",
+        "csharp_03_t06_w09_control_builtin_throw_preserves_existing_declarations",
+        "csharp_03_t06_w09_control_edge_phi_preserves_existing_declarations",
+        "csharp_03_t06_w09_control_memory_preserves_existing_declarations",
+        "csharp_03_t06_w09_control_projection_preserves_existing_declarations",
+        "csharp_03_t06_w09_control_slot_source_relations",
+        "csharp_03_t06_w09_control_slot_array_snapshots",
+        "csharp_03_t06_w09_control_slot_count_fill_candidate",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 5.08,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-node-entry-final",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-node-entry-final-lint": {
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 18.715,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-node-entry-format": {
+      "command": [
+        "rustfmt",
+        "--check",
+        "--edition",
+        "2021",
+        "--config",
+        "skip_children=true",
+        "crates/mpk-vc/src/csharp_practical_ordinary_control_edges.rs",
+        "crates/mpk-vc/src/csharp_practical_ordinary_source_clauses.rs",
+        "crates/mpk-vc/src/csharp_practical_ordinary_structural.rs",
+        "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs",
+        "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+        "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_edge_tests.rs"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.193,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-node-entry-bounded-regeneration": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "csharp_03_t06_w09_control_edge_other_sources_unchanged",
+        "csharp_03_t06_w09_control_edge_collection_candidates",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 92.113,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-node-entry-reviewed",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-node-entry-bounded-lint": {
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 13.882,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-node-entry-bounded-format": {
+      "command": [
+        "rustfmt",
+        "--check",
+        "--edition",
+        "2021",
+        "--config",
+        "skip_children=true",
+        "crates/mpk-vc/src/csharp_practical_ordinary_control_edges.rs",
+        "crates/mpk-vc/src/csharp_practical_ordinary_source_clauses.rs",
+        "crates/mpk-vc/src/csharp_practical_ordinary_structural.rs",
+        "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs",
+        "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+        "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_edge_tests.rs"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.286,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-node-entry-pinned-replay": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_control_edge_other_sources_unchanged",
+        "csharp_03_t06_w09_control_edge_collection_candidates",
+        "csharp_03_t06_w09_control_edge_option_source_relations",
+        "csharp_03_t06_w09_control_node_entry_preserves_existing_declarations",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 3.555,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-memory-effect-runtime-fixed": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_control_memory_effect_original_source",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 88.642,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-memory-effect-fixed",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-memory-effect-lint-fixed": {
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 13.958,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-memory-effect-regeneration": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_control_edge_other_sources_unchanged",
+        "csharp_03_t06_w09_control_edge_collection_candidates",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 2.318,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-memory-effect-final",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-memory-effect-preservation": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "preserves_existing_declarations",
+        "control_slot_original_source",
+        "control_slot_count_fill_candidate",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1.59,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-memory-effect-final",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-memory-effect-slot-dependencies": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_control_slot_source_relations",
+        "csharp_03_t06_w09_control_slot_array_snapshots",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 3.716,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-memory-effect-format": {
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 2.952,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-memory-effect-pinned-replay": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_control_memory_effect_original_source",
+        "csharp_03_t06_w09_control_memory_effect_preserves_existing_declarations",
+        "csharp_03_t06_w09_control_edge_other_sources_unchanged",
+        "csharp_03_t06_w09_control_edge_collection_candidates",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 4.123,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-factored-entry-final-runtime": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_control_node_entry_large_fan_in",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 32.925,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-factored-entry-final",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-factored-entry-final-lint": {
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 4.447,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-factored-entry-regeneration": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_control_edge_other_sources_unchanged",
+        "csharp_03_t06_w09_control_edge_collection_candidates",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 2.287,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-factored-entry-preserved",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-factored-entry-dependencies": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "preserves_existing_declarations",
+        "csharp_03_t06_w09_control_slot_source_relations",
+        "csharp_03_t06_w09_control_slot_array_snapshots",
+        "csharp_03_t06_w09_control_slot_count_fill_candidate",
+        "csharp_03_t06_w09_control_memory_effect_original_source",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 7.023,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-factored-entry-final-format": {
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 2.753,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-count-fill-memory-runtime": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_control_memory_effect_count_fill_source",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 32.549,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-count-fill-memory",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-count-fill-all-entries-runtime": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_control_node_entries_count_fill_source",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 37.358,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-count-fill-entries",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-count-fill-edges-runtime-reviewed": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "csharp_03_t06_w09_control_edge_count_fill_source_relations",
+        "csharp_03_t06_w09_control_edge_construction_guards",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 88.859,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-count-fill-edges",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-factored-entry-pinned-replay": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_control_node_entry_large_fan_in",
+        "csharp_03_t06_w09_control_node_entries_count_fill_source",
+        "csharp_03_t06_w09_control_memory_effect_count_fill_source",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 14.879,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    }
+  },
+  "selection_reason": "Changed W04 guard and guarded slot transport definitions are exercised on nine original loop/pattern sources, including variable decreases. Tests check integer boundary/failure order, false guards, assignedness, high physical bits, inactive payloads, original goal bindings and metadata/certificate mutations. The shared integer emitter extraction replays all three existing integer-data pins byte-for-byte (control-edge-candidates); unaffected integer runtime/checker evidence is retained. One added Std consumer requires the five inventory tests. Final candidate import/regeneration ran before promotion; copied files match those exact hashes, so identical runtime checks were not repeated. Construction extension resolves all ten missing index_update guards and binds four ownership failure names to exact checked source points. Re-ran only that changed source (3991 observations); the other eight sources regenerate to identical bytes in 0.90 seconds, preserving 9919 prior observations and checker acceptance. Two private helper visibility changes exactly reproduce the previous source when reversed. Inventory paths and checker sources are unchanged. A foreach_string negative case retains five unsupported guards and rejects removing pending metadata. Earlier basic/native string fixtures had no W04 loop/pattern graph and were corrected without changing production semantics. String/native sequence/Option failures now use original definitions in the same builder. Eight new captured sources add 19751 current observations partitioned explicitly below: seven contexts retain 17875 observations; the updated type case contributes 1876. The original nine control sources and 31 string/sequence/Option/reference contexts regenerate exactly; only new or changed edge certificates were rechecked. Reference adapters and simultaneous option/sequence native scopes still need dedicated loop coverage before full-unit acceptance. Native phi integration appends 62 edge-guarded parallel-copy relations covering 100 selected phi operands. All seventeen source contexts reran (38059 observations), exact native predecessors/types and incoming snapshots are independently checked, and full carrier corruption is rejected when guards hold. Existing guard/slot term/declaration prefixes and metadata are unchanged. All current certificate bytes have fresh same-byte Go/Rust and hash rejection receipts. New declaration preservation and final candidate regeneration pass; no checker/core or additional inventory consumer path changed. Native memory bindings resolve one store and three loads to exact current ownership snapshots without truncating 16384-cell private storage to a public sequence. Only index_update changes; its 4559 observations include 100 memory cases. Sixteen other certificates/metadata regenerate exactly, retaining 33600 observations and checker receipts. All existing guard/slot/phi terms and declarations remain intact. Four other modified modules only re-export the new record type; exact lexical preservation is recorded. Unrelated data/checker/inventory tests are not rerun. Public-array definitions are appended; all prior edge declarations remain exact and 16 complete edge artifacts remain byte-identical. The changed index_update receives fresh same-byte checks. Existing 38159 guard/phi/native memory observations are retained through exact declaration preservation; 144 new source/public projection observations are counted separately in the slot record. Nullable edge transport changes only the type context: 53 joins now use the exact Option storage type while original source metadata, guards and native phi relations are preserved. Its 2758 observations replace the old 2016; the other sixteen source programs regenerate byte-for-byte. Three historical preservation tests compare normalized complete declaration bodies for every unchanged definition and allow only the explicitly verified slot-join replacement. Same-byte Go/Rust acceptance and hash rejection cover the changed candidate. This fixture contains zero original W04 goal bindings, so it does not establish logical observation mapping or application proofs. The captured builtin SwitchExpressionException throw now has an exact source-anchored local guard and transport. Its new 49 runtime observations replace the pending edge, yielding 2807 current type observations. Every preexisting certificate term/declaration remains an exact prefix, verified by a new preservation test; sixteen other programs are byte-identical. Four historical preservation tests pass. All nine dependent slot pins replay exactly because their contexts either use a separate builder or contain no builtin throw. Changed type bytes have fresh same-byte checker acceptance and hash rejection. No source reachability or application theorem is inferred from the intrinsic local throw semantics. Node-entry merging appends 617 relations without changing existing certificate declarations. All seventeen original contexts execute 13576 new selection/guard/assignedness/payload/phi observations, including nonzero values, inactive predecessor garbage, missing or duplicate selection and full physical-bit corruptions. Five historical preservation tests and all nine slot dependency pins pass. Only the edge state-rule metadata changes from merge-pending to merge-separate. All fourteen distinct certificate byte sequences are checked by Go/Rust with hash rejection; three equivalent-context checks are reused only after exact file and decoded-byte identity. Four export-only source changes reverse exactly to their previous hashes; no new inventory path or core/checker change occurs. Memory effects append one source-bound receiver update to index_update. Thirteen core observations exercise valid writes to both indices, false assignedness, mismatched public/private snapshots, incomplete private storage, negative and upper-bound indices and wrong element values. Six historical preservation tests retain every prior definition; sixteen other edge programs regenerate byte-for-byte. All nine private slot pins replay unchanged, including count_fill, and 144 public array snapshot plus 1888 slot observations pass. Only the changed index_update certificate receives fresh Go/Rust acceptance and hash-rejection checks. Four re-export changes reverse exactly to previous hashes. Full guard/entry runtime suites are not rerun because their complete declaration bodies and metadata are unchanged. The larger count_fill node-entry arity issue is recorded as pending, without claiming fill execution coverage. The original count_fill source is now generated after factoring its 501-argument exit into twelve conjunctive components, at most 81 arguments each. Exhaustive 2048 selector cases, 6633 entry observations across all 129 nodes using the independent guard oracle, 11904 edge/transport/phi/native-memory observations and 13 receiver rewrite observations pass. The earlier 497 focused arrival cases are a retained cross-check and are not counted twice. The original edge test incorrectly assumed all slots require public projection; the captured native-only temporary now has its exact native type and absent projection fields checked, alongside the three public bindings. The affected index_update runtime was rerun unchanged. Seventeen prior programs are byte-identical; all nine slot dependency pins, six historical preservation tests, format/lint and new same-byte Go/Rust acceptance/hash rejection pass. This does not establish native execution, alias frames, loop invariants or application proofs.",
+  "state_rule": "source_exit_to_edge_specific_target; exactly_one_enabled_incoming_snapshot_to_fresh_node_entry; native_execution_pending",
+  "review_correction": "before-incoming-point-fix/review-finding.json",
+  "superseded_checks": "control-edge-candidates contains predecessor guard/transport observations and current unchanged integer pin replay. Only control-edge-transport and current cases.json establish final edge coverage. Earlier edge checker receipts are archived under before-incoming-point-fix. The old index_update pin in before-construction-guards is superseded by construction/cases.json; other eight pins and their root-level checker receipts remain identical. collections/cases.json includes the earlier type candidate with three pending guards; the final type receipt is collections/option/cases.json. The earlier foreach_string pending regression is superseded by checked generated string guards and the retained type exception regression. The pre-phi pins and verification are archived in before-phi-joins. Current acceptance is phis/cases.json for all seventeen pins; prior runtime counts are replaced, not summed. The reviewed runtime input patterns preserve all candidate bytes; final regeneration and direct byte comparison prove identity with the dual-checked candidates. The pre-memory index_update pin and current verification are archived in before-memory-bindings. Its current checker receipt is memory-bindings/cases.json; all sixteen other pins retain phis/cases.json. The old logical-slot/native-type audit remains an open projection obligation; current native memory resolution does not discharge public-slot projection or node execution.",
+  "source_sha256": {
+    "crates/mpk-vc/src/csharp_practical_ordinary_control_edges.rs": "293994b2ce2bdfc563cd73796f9c1badb32f4b0d3a8d5f9564025c1ec8ee3cba",
+    "crates/mpk-vc/src/csharp_practical_ordinary_integer_data.rs": "3eee8761668645fa9bc6762b8a2f92546e0ccae4c7a6eb298fcb2478d23cef80",
+    "crates/mpk-vc/src/csharp_practical_ordinary_construction_data.rs": "7edfbf19134738fc1bbc0367f5f935236e3d48b06cb9fb628a723cd7990a4738",
+    "crates/mpk-vc/src/csharp_practical_ordinary_source_clauses.rs": "d0d97e721c7fd628b78345da7c7b4a63951a30b87d811e084a134ddbc75a87ee",
+    "crates/mpk-vc/src/csharp_practical_ordinary_structural.rs": "d693b1f0a4e4fe7cdc6b2dcbcc3dc3cdd3aa4808aba7549bea224516d3eb38da",
+    "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs": "9429fb5c3a0bdb4766dce3f5a0ad0975b9151bb15e34f9062b5486e04c496fb0",
+    "crates/mpk-vc/src/csharp_practical_vir_model.rs": "3f250588126397538751b68ee5fa7572dd007d7712cf1e6e1e260446b7a71704",
+    "crates/mpk-vc/src/csharp_practical_control_vc.rs": "8b0ba935236d866c3e8ffc3019ede67e4faa29a274c8a66fb75fb62eb8b21500",
+    "crates/mpk-vc/src/csharp_practical_control_emission.rs": "bb7fc2a64bbefa53c2613e663fc1c2dd211f031f3a54bc5d1e8cc10942021e2e",
+    "crates/mpk-vc/src/csharp_practical_control_ssa.rs": "8e5da608d26ea7ef753f31fd22db49ddcaa35be4603137226e5808865d0dc7d4",
+    "crates/mpk-vc/src/csharp_practical_ordinary_test_eval.rs": "d4160220aa77546cb3911df2d66bbd0e8684f3020d128db9306288a87c661c8f",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_edge_tests.rs": "bbf9cd1a4f9fab6071935d0574539a80eddc1382e28e1c96dbf58272f0b32cdc",
+    "crates/mpk-vc/tests/csharp_practical_inventory.rs": "a03753b884536474117f09f6300fdbb8000aaead7b8e630a25fed00e5a8e04da",
+    "develop/migrations/csharp-03/artifact-consumer-inventory.json": "ae7074a24cdb04c9b807ecf3ce1093ffa7ca9d99b0d90e1a2141a7252b285075",
+    "develop/migrations/csharp-03/data-phase/historical-inventory-cache-correction.json": "66b6ead3e8db3df1377309fd4fe40a949ca173c533a7bad0baa1b34db09e403e",
+    "develop/migrations/csharp-03/control-vc/loop-requests.json": "7a6d6ecfcbe52b4dbe41947998e3a97a599170f5deae471840ca6f8bae0e3f54",
+    "develop/migrations/csharp-03/control-emission/loop-responses.json": "7b7e88bb586d4994569578989cd88dac973807f6950ede6275869a845f14fdb2",
+    "develop/migrations/csharp-03/control-emission/source-cases.json": "8293fe0bd49a98c5f9dc4c65661a3c50f95d675b55458f7a96e0da6eea676d28",
+    "develop/migrations/csharp-03/control-vc/measure-requests.json": "140b6a5e8037f163e3b08b602104aa27a9f8db18e3cd48dbfe54ad6f60061dfe",
+    "develop/migrations/csharp-03/control-vc/measure-responses.json": "54cbbdc8ac849eeae32deb4431626c0726e9f6748284d8737c4fe7f737af32cd",
+    "develop/migrations/csharp-03/ordinary-foundation/verification-logs/ownership-proofs/check-files.py": "2bb51bb0e3f0cdf377b53ff4c526acbf630336754585bee359981f298d7fb761",
+    "crates/mpk-vc/src/csharp_practical_ordinary_construction_ops.rs": "9f5e8f82e404afd8f3055c34b5970aac9ba38ae04812985770e10caafc3c4332",
+    "crates/mpk-vc/src/csharp_practical_ordinary_ownership_flow.rs": "99d4143d61371a53751bad0a76ca7e3a29ecd388b0acc2dfa19c6835db09ad21",
+    "crates/mpk-vc/src/csharp_practical_ordinary_ownership_proofs.rs": "b384937cecfc7960a8027859d4c6ac8260cf80eaa72e404984fe6dd3093faa81",
+    "crates/mpk-vc/src/csharp_practical_ordinary_string_data.rs": "444c3688f6ae426a7df69761f24add51f6dcd4e9512e6924d2076c7504855f16",
+    "crates/mpk-vc/src/csharp_practical_ordinary_sequence_data.rs": "0945776b418dbdf37fcf4d63418aedadb4efef802a03153ca1f8a585014ca205",
+    "crates/mpk-vc/src/csharp_practical_ordinary_reference_data.rs": "5864c9494df97d42f568f530f0c8535fc467f59b07813527b1f574febb200441",
+    "crates/mpk-vc/src/csharp_practical_ordinary_option_data.rs": "d3e6276e294df8c30055b97a677491392db6dd79a74ff304134ca88fe75f1488",
+    "crates/mpk-vc/src/csharp_practical_ordinary_relations.rs": "679b2f92efe4145c501a0b29f7e6d09a23ddd1cc53ba9b81e1d7078fb25ae0eb",
+    "crates/mpk-vc/src/csharp_practical_ordinary_control_slots.rs": "207d4fa4af1e16df9d8d260d23e3f0921a562e4a70cb20587a6bd193e782ba93",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_slot_tests.rs": "f2780e1599534c2513971f711923db6fa444216d9931805c480fea2334a56efb"
+  },
+  "application_scope_pending": true,
+  "remaining": [
+    "Other native operation/exception families, handler entry/search/unwinding and full native body relations remain unimplemented. All guards in the current eighteen-source corpus are now defined; this is not coverage of every supported program.",
+    "Direct original-loop coverage for reference-family adapters and combined option/sequence foundation emission.",
+    "Nullable source slots retain Option storage; original W04 logical observations remain pending. Direct-load receiver rewrites in index_update and count_fill constrain source snapshots before/after successful native execution. Aliased/reassigned receivers, other memory effects and non-transfer frames remain pending.",
+    "Produce source-exit snapshots, non-transfer node frames and native execution that constrain the incoming selection and state; node-entry selection/merge relations are now defined.",
+    "Caught-exception entry, exceptional transfer semantics, native execution and loop/pattern application proofs.",
+    "The count_fill eleven-predecessor entry now fits via twelve conjunctive components. Its original edge/node/receiver-update relations have scoped runtime coverage; native execution, alias frames, loop invariants and application proofs remain pending."
+  ],
+  "unit_5_complete": false,
+  "w09_complete": false,
+  "whole_gate": "deferred to T06-W12",
+  "construction_runtime": "construction/runtime-subtest.json",
+  "scoped_ownership_bindings": 6,
+  "construction_definitions": 3,
+  "runtime_partition": {
+    "unchanged_fifteen_sources": {
+      "observations": 31584,
+      "calculation": "33600 previous non-index sources minus 2016 old type observations",
+      "receipt": "phis/control-edge-phi-runtime-reviewed.json"
+    },
+    "index_update_current": {
+      "observations": 4559,
+      "receipt": "memory-bindings/control-memory-runtime.json"
+    },
+    "type_current": {
+      "observations": 2807,
+      "receipt": "builtin-throw/control-builtin-throw-runtime.json"
+    },
+    "node_entries": {
+      "observations": 13576,
+      "receipt": "node-entry/control-node-entry-final-runtime.json",
+      "scope": "New source-bound selection/slot/phi entry relations; previous edge observations retain unchanged declaration bodies."
+    },
+    "memory_effects": {
+      "observations": 13,
+      "receipt": "memory-effects/control-memory-effect-runtime-fixed.json",
+      "scope": "One source-bound successful array rewrite; source result is the assigned element, normal native result is new memory. Other source frames and exceptional execution remain open."
+    },
+    "count_fill_edges": {
+      "observations": 11904,
+      "receipt": "factored-entry/control-count-fill-edges-runtime-reviewed.json"
+    },
+    "count_fill_entries": {
+      "observations": 6633,
+      "receipt": "factored-entry/control-count-fill-all-entries-runtime.json"
+    },
+    "count_fill_selector_truth": {
+      "observations": 2048,
+      "receipt": "factored-entry/control-factored-entry-final-runtime.json",
+      "excludes_duplicate_arrival_observations": 497
+    },
+    "count_fill_receiver_update": {
+      "observations": 13,
+      "receipt": "factored-entry/control-count-fill-memory-runtime.json"
+    }
+  },
+  "unsupported_guard_regression": {
+    "status": "superseded_for_type_builtin_throw",
+    "previous_receipt": "phis/control-edge-phi-runtime-reviewed.json",
+    "current_receipt": "builtin-throw/control-builtin-throw-runtime.json",
+    "scope": "The exact captured builtin throw now has a locally true guard after source/native/literal/target validation. Unrecognized constants still remain pending; no general false or true exception fallback was introduced."
+  },
+  "construction_review": "construction/review.md",
+  "original_w04_goal_binding_comparisons": {
+    "original_nine_source_partition": 95,
+    "collection_partition": 36,
+    "count_fill_partition": 68
+  },
+  "collection_review": "collections/review.md",
+  "phi_joins": 78,
+  "phi_values": 140,
+  "phi_state_rule": "parallel_phi_inputs_at_source_exit_to_edge_specific_target; node_entry_merge_separate",
+  "phi_review": "phis/review.md",
+  "native_representation_audit": "phis/native-slot-representation-audit.json",
+  "memory_bindings": 8,
+  "refreshed_memory_loads": 5,
+  "memory_binding_review": "memory-bindings/review.md",
+  "public_projection_verification": "../control-slots/public-projection/verification.json",
+  "nullable_transport_verification": "nullable-slots/verification.json",
+  "builtin_throw_verification": "builtin-throw/verification.json",
+  "node_entries": 746,
+  "node_entry_observations": 22257,
+  "node_entry_verification": "node-entry/verification.json",
+  "memory_effects": 2,
+  "memory_effect_observations": 26,
+  "memory_effect_verification": "memory-effects/verification.json",
+  "factored_entry_verification": "factored-entry/verification.json"
+}

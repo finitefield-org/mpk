@@ -1,0 +1,382 @@
+{
+  "schema": "mpk.csharp.ordinary_control_edges.verification.v1",
+  "status": "passed_scoped_checks",
+  "recorded_at": "2026-09-20T20:05:06.770219+00:00",
+  "source_contexts": 9,
+  "edges": 360,
+  "guards": 360,
+  "joins": 341,
+  "pending_edges": 0,
+  "runtime_observations": 13910,
+  "distinct_original_w04_goal_bindings": 95,
+  "certificates": {
+    "for": {
+      "hex_file_sha256": "6e31c1c8e8df7bd659e5a6e1e9e6560d7cd544a815afb1932ddaedec09256f5f",
+      "metadata_file_sha256": "bf9c26d56096add441701224f181566347a66d36bb697ff47fa92fd1ef43b99a",
+      "certificate_sha256": "5d3b77d2896895ae53654c7f819ccff58604d17b7f1145fea7db99fcc0c31808",
+      "bytes": 39480,
+      "edges": 52,
+      "guards": 52,
+      "joins": 50,
+      "pending_edges": 0,
+      "checker_evidence": "cases.json"
+    },
+    "guard_order": {
+      "hex_file_sha256": "58eead3e9061ea90c22441e9770907917f2c7413228eebfb8b2ff737499ef6cd",
+      "metadata_file_sha256": "be52234158a56228ec14d1aceffbe033e8a502cdfe4e6fd51ee591b389c8872a",
+      "certificate_sha256": "689eb4dc799614f11e48ef743c015c12351353ca5ce6bfbe4ab35c1938d31ff6",
+      "bytes": 364266,
+      "edges": 65,
+      "guards": 65,
+      "joins": 63,
+      "pending_edges": 0,
+      "checker_evidence": "cases.json"
+    },
+    "guard_throw": {
+      "hex_file_sha256": "c605a3dc03598c4184db5f52e8220b6e8e6ccf98969ef75d1fb81d249b9bdae0",
+      "metadata_file_sha256": "e8cd840c84e945d743c5fce77dafbfadd458e3952f281cb3bf7566e48ac3609e",
+      "certificate_sha256": "53abc1f9910622582c5ca98d49ee5dd7af60b2f3c5576a16b2e0ffb48943d3be",
+      "bytes": 309374,
+      "edges": 30,
+      "guards": 30,
+      "joins": 28,
+      "pending_edges": 0,
+      "checker_evidence": "cases.json"
+    },
+    "index_update": {
+      "hex_file_sha256": "9cd2b874c6b69a045ca95bfc6bb8843f0294c3793909778a8ba94ed86dff33e8",
+      "metadata_file_sha256": "9fad0b1868146a790d0ea1a3587121ffd85710ccce20b5673e68524a2cdc8896",
+      "certificate_sha256": "a04a79c79e830385fb6216d1ac5c05fd28d6dcb7dca86ce2ebd031a3597f2270",
+      "bytes": 675025,
+      "edges": 63,
+      "guards": 63,
+      "joins": 61,
+      "pending_edges": 0,
+      "scoped_ownership_bindings": 4,
+      "construction_definitions": 3,
+      "checker_evidence": "construction/cases.json"
+    },
+    "is_binding": {
+      "hex_file_sha256": "5554c348677caa8a3d789d0871e841a20a59461199a03086b92b5dc68e2ba4e6",
+      "metadata_file_sha256": "152202f410f8a32beef434b4c5bf26e9348917b0caf6c5a3bb838bdb019045ea",
+      "certificate_sha256": "4a85578e4e9166cab0d3cdbb108ce76dafd0c5558e43b8cf10071fd5b57cca97",
+      "bytes": 23406,
+      "edges": 22,
+      "guards": 22,
+      "joins": 19,
+      "pending_edges": 0,
+      "checker_evidence": "cases.json"
+    },
+    "short_circuit": {
+      "hex_file_sha256": "4b30e04aea28660e537f9dcdb5e5433e3569667d5bcb562d0fce149787bbea76",
+      "metadata_file_sha256": "bc9ab37fd7667a871f472254e98fbad67d14716d7e333422d47ddf0253ff3732",
+      "certificate_sha256": "ee803dd0676167b9d1b80fa075bcd48681e3d712ba6c22936b86ca6616696354",
+      "bytes": 351913,
+      "edges": 45,
+      "guards": 45,
+      "joins": 43,
+      "pending_edges": 0,
+      "checker_evidence": "cases.json"
+    },
+    "switch": {
+      "hex_file_sha256": "b8a590ecf196e68fcc5c6467a99a85c366848d6f70ff8d7c87c9aa2356b1e935",
+      "metadata_file_sha256": "9ce52a20ed7e2b3653a069a60c976c9f23a53d1d8d6e3b83d4bf86afc4b0bf73",
+      "certificate_sha256": "a216145791b0a05958934b9a34e3c7ab31c683a4ac165e4c0842ce44efd66cd1",
+      "bytes": 32688,
+      "edges": 35,
+      "guards": 35,
+      "joins": 33,
+      "pending_edges": 0,
+      "checker_evidence": "cases.json"
+    },
+    "total_variable": {
+      "hex_file_sha256": "3f437b74cddb93920b0f7fac924a3dc88cc968f42bcd3b1846807eab62cd0a69",
+      "metadata_file_sha256": "881de9cfdb97bcca929c9e748e8ca54f6a656ff5749864d4ce3955b22b9a634e",
+      "certificate_sha256": "92913589b422881600ffa8adef8546ecd666f395b14a125b5c3e415bf7042f6a",
+      "bytes": 28099,
+      "edges": 24,
+      "guards": 24,
+      "joins": 22,
+      "pending_edges": 0,
+      "checker_evidence": "cases.json"
+    },
+    "while": {
+      "hex_file_sha256": "3f437b74cddb93920b0f7fac924a3dc88cc968f42bcd3b1846807eab62cd0a69",
+      "metadata_file_sha256": "d00871554e86e4b952047b508c816f847e6a16846143fa6148f604a82b36ddc8",
+      "certificate_sha256": "92913589b422881600ffa8adef8546ecd666f395b14a125b5c3e415bf7042f6a",
+      "bytes": 28099,
+      "edges": 24,
+      "guards": 24,
+      "joins": 22,
+      "pending_edges": 0,
+      "checker_evidence": "cases.json"
+    }
+  },
+  "checks": {
+    "control-edge-transport": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_control_edge_source_relations",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 176.931,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-edge-transport-candidates",
+        "MPK_CORE_MAX_SECONDS": "600"
+      }
+    },
+    "control-edge-transport-lint": {
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 14.71,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-transport-format": {
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 2.797,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-inventory": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_inventory",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 3.462,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-candidates": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "csharp_03_t06_w09_control_edge_source_relations",
+        "csharp_03_t06_w09_integer_data_candidates",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 178.955,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-edge-candidates",
+        "MPK_CORE_MAX_SECONDS": "600"
+      }
+    },
+    "control-edge-construction-pins-preserved": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_control_edge_other_sources_unchanged",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.927,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-string-pending-final": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_control_edge_missing_string_guards_stay_pending",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 30.64,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-construction-checked-lint": {
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 4.338,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-construction-final-format": {
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 2.815,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-string-pending-lint": {
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 4.275,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-edge-construction-complete-format": {
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 2.777,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    }
+  },
+  "selection_reason": "Changed W04 guard and guarded slot transport definitions are exercised on nine original loop/pattern sources, including variable decreases. Tests check integer boundary/failure order, false guards, assignedness, high physical bits, inactive payloads, original goal bindings and metadata/certificate mutations. The shared integer emitter extraction replays all three existing integer-data pins byte-for-byte (control-edge-candidates); unaffected integer runtime/checker evidence is retained. One added Std consumer requires the five inventory tests. Final candidate import/regeneration ran before promotion; copied files match those exact hashes, so identical runtime checks were not repeated. Construction extension resolves all ten missing index_update guards and binds four ownership failure names to exact checked source points. Re-ran only that changed source (3991 observations); the other eight sources regenerate to identical bytes in 0.90 seconds, preserving 9919 prior observations and checker acceptance. Two private helper visibility changes exactly reproduce the previous source when reversed. Inventory paths and checker sources are unchanged. A foreach_string negative case retains five unsupported guards and rejects removing pending metadata. Earlier basic/native string fixtures had no W04 loop/pattern graph and were corrected without changing production semantics.",
+  "state_rule": "source_exit_to_edge_specific_target; node_entry_merge_pending",
+  "review_correction": "before-incoming-point-fix/review-finding.json",
+  "superseded_checks": "control-edge-candidates contains predecessor guard/transport observations and current unchanged integer pin replay. Only control-edge-transport and current cases.json establish final edge coverage. Earlier edge checker receipts are archived under before-incoming-point-fix. The old index_update pin in before-construction-guards is superseded by construction/cases.json; other eight pins and their root-level checker receipts remain identical.",
+  "source_sha256": {
+    "crates/mpk-vc/src/csharp_practical_ordinary_control_edges.rs": "98f60aed6054738012fe5cb61f1902ba154ac63340e62bef9568123d166c698d",
+    "crates/mpk-vc/src/csharp_practical_ordinary_integer_data.rs": "3eee8761668645fa9bc6762b8a2f92546e0ccae4c7a6eb298fcb2478d23cef80",
+    "crates/mpk-vc/src/csharp_practical_ordinary_construction_data.rs": "e629cba416c5bb2331da7a8a534958198148b0453c90c554daa393d160970122",
+    "crates/mpk-vc/src/csharp_practical_ordinary_source_clauses.rs": "8015d73ba07c693c71f758acfccf53af1cd8e4109a6776b92f284c450f424e11",
+    "crates/mpk-vc/src/csharp_practical_ordinary_structural.rs": "7c962b458881264b58905c6c00eba2e80bd8020b12385224d3b64166741f8437",
+    "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs": "87bf9240299a600948bc0c4fc279aae1175f4fc24080defeecbdebe30bf22e5f",
+    "crates/mpk-vc/src/csharp_practical_vir_model.rs": "e3e68101621f177028afb4efc213e8f793a8d233aae5b34d6237f6b0b33e3e78",
+    "crates/mpk-vc/src/csharp_practical_control_vc.rs": "8b0ba935236d866c3e8ffc3019ede67e4faa29a274c8a66fb75fb62eb8b21500",
+    "crates/mpk-vc/src/csharp_practical_control_emission.rs": "bb7fc2a64bbefa53c2613e663fc1c2dd211f031f3a54bc5d1e8cc10942021e2e",
+    "crates/mpk-vc/src/csharp_practical_control_ssa.rs": "8e5da608d26ea7ef753f31fd22db49ddcaa35be4603137226e5808865d0dc7d4",
+    "crates/mpk-vc/src/csharp_practical_ordinary_test_eval.rs": "d4160220aa77546cb3911df2d66bbd0e8684f3020d128db9306288a87c661c8f",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_edge_tests.rs": "dcc057b203082964ce11edf4f0af71f2d9cc926d1cb699271cf9c543e00758ff",
+    "crates/mpk-vc/tests/csharp_practical_inventory.rs": "a03753b884536474117f09f6300fdbb8000aaead7b8e630a25fed00e5a8e04da",
+    "develop/migrations/csharp-03/artifact-consumer-inventory.json": "ae7074a24cdb04c9b807ecf3ce1093ffa7ca9d99b0d90e1a2141a7252b285075",
+    "develop/migrations/csharp-03/data-phase/historical-inventory-cache-correction.json": "66b6ead3e8db3df1377309fd4fe40a949ca173c533a7bad0baa1b34db09e403e",
+    "develop/migrations/csharp-03/control-vc/loop-requests.json": "7a6d6ecfcbe52b4dbe41947998e3a97a599170f5deae471840ca6f8bae0e3f54",
+    "develop/migrations/csharp-03/control-emission/loop-responses.json": "7b7e88bb586d4994569578989cd88dac973807f6950ede6275869a845f14fdb2",
+    "develop/migrations/csharp-03/control-emission/source-cases.json": "8293fe0bd49a98c5f9dc4c65661a3c50f95d675b55458f7a96e0da6eea676d28",
+    "develop/migrations/csharp-03/control-vc/measure-requests.json": "140b6a5e8037f163e3b08b602104aa27a9f8db18e3cd48dbfe54ad6f60061dfe",
+    "develop/migrations/csharp-03/control-vc/measure-responses.json": "54cbbdc8ac849eeae32deb4431626c0726e9f6748284d8737c4fe7f737af32cd",
+    "develop/migrations/csharp-03/ordinary-foundation/verification-logs/ownership-proofs/check-files.py": "2bb51bb0e3f0cdf377b53ff4c526acbf630336754585bee359981f298d7fb761",
+    "crates/mpk-vc/src/csharp_practical_ordinary_construction_ops.rs": "9f5e8f82e404afd8f3055c34b5970aac9ba38ae04812985770e10caafc3c4332",
+    "crates/mpk-vc/src/csharp_practical_ordinary_ownership_flow.rs": "99d4143d61371a53751bad0a76ca7e3a29ecd388b0acc2dfa19c6835db09ad21",
+    "crates/mpk-vc/src/csharp_practical_ordinary_ownership_proofs.rs": "b384937cecfc7960a8027859d4c6ac8260cf80eaa72e404984fe6dd3093faa81"
+  },
+  "application_scope_pending": true,
+  "remaining": [
+    "Other data-family guard definitions, including the five foreach_string guards retained by the pending regression.",
+    "Node-entry merging, non-transfer node frames and production of source-exit snapshots.",
+    "Caught-exception entry, exceptional transfer semantics, native execution and loop/pattern application proofs."
+  ],
+  "unit_5_complete": false,
+  "w09_complete": false,
+  "whole_gate": "deferred to T06-W12",
+  "construction_runtime": "construction/runtime-subtest.json",
+  "scoped_ownership_bindings": 4,
+  "construction_definitions": 3,
+  "runtime_partition": {
+    "unchanged_eight_sources": {
+      "observations": 9919,
+      "runtime_receipt": "control-edge-transport.json",
+      "exact_regeneration": "construction/control-edge-construction-pins-preserved.json"
+    },
+    "index_update": {
+      "observations": 3991,
+      "receipt": "construction/runtime-subtest.json"
+    }
+  },
+  "unsupported_guard_regression": {
+    "source": "foreach_string",
+    "pending_edges": 5,
+    "receipt": "construction/control-edge-string-pending-final.json",
+    "scope": "Separate unsupported source; not part of the nine-source fully generated corpus."
+  },
+  "construction_review": "construction/review.md"
+}

@@ -1,0 +1,30 @@
+{
+  "work_item": "CSHARP-03-T06-W09",
+  "status": "scoped_symbolic_ownership_records_passed",
+  "selection_rationale": "Nine captured data/control sources reconstruct exact ownership records and use bindings. Retain 220 observations of unchanged term/declaration prefixes, execute 17 new ownership predicates and repeat 36 use checks. Five changed and three new certificates pass same-byte Go/Rust acceptance, report agreement and precise hash-corruption rejection; return-array retains acceptance of identical bytes. Metadata/import mutations, lint, format and inventory pass. Native execution and application scopes remain open.",
+  "source_contexts": 9,
+  "definitions": 30,
+  "ssa_use_points": 35,
+  "runtime_observations": 237,
+  "certificates_passed_both_checkers": 9,
+  "pending_ownership_records": 0,
+  "pending_ownership_dependent_predicates": 0,
+  "test_execution": "All tests including long tests are agent-owned as of 2026-09-20.",
+  "whole_gate": "deferred to T06-W12",
+  "unit_5_complete": false,
+  "w09_complete": false,
+  "evidence": "verification-logs/construction-data/ownership-records/verification.json",
+  "review": "unit-5-construction-data-review.md",
+  "remaining": [
+    "Concrete borrow/transfer records remain pending when no symbolic source trace applies.",
+    "Integrate native execution, original control/contract scopes, public domains/defaults and remaining W02-W05 obligations, then complete application proof assembly."
+  ],
+  "symbolic_ownership_bindings": 24,
+  "previously_pending_ownership_dependent_predicates": 183,
+  "previous_storage_checkpoint": {
+    "evidence": "verification-logs/construction-data/verification.json",
+    "runtime_observations": 198,
+    "counting": "178 baseline plus 20 repeated final freeze checks"
+  },
+  "symbolic_ownership_records": 17
+}

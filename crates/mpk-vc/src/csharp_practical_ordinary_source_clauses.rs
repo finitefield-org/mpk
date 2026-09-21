@@ -1766,3 +1766,85 @@ pub use decimal_data::{
     generate_csharp_practical_ordinary_decimal_data, import_csharp_practical_ordinary_decimal_data,
     OrdinaryDecimalDataDefinition, OrdinaryDecimalDataOperation, OrdinaryDecimalDataProgram,
 };
+
+#[path = "csharp_practical_ordinary_calendar_data.rs"]
+mod calendar_data;
+pub use calendar_data::{
+    generate_csharp_practical_ordinary_calendar_data,
+    import_csharp_practical_ordinary_calendar_data, OrdinaryCalendarDataDefinition,
+    OrdinaryCalendarDataOperation, OrdinaryCalendarDataProgram,
+};
+
+#[path = "csharp_practical_ordinary_string_data.rs"]
+mod string_data;
+pub use string_data::{
+    generate_csharp_practical_ordinary_string_data, import_csharp_practical_ordinary_string_data,
+    OrdinaryStringDataDefinition, OrdinaryStringDataOperation, OrdinaryStringDataProgram,
+};
+
+#[path = "csharp_practical_ordinary_lifted_data.rs"]
+mod lifted_data;
+pub use lifted_data::{
+    generate_csharp_practical_ordinary_lifted_data, import_csharp_practical_ordinary_lifted_data,
+    OrdinaryLiftedDataDefinition, OrdinaryLiftedDataOperation, OrdinaryLiftedDataProgram,
+};
+
+#[path = "csharp_practical_ordinary_source_value_data.rs"]
+mod source_value_data;
+
+pub use source_value_data::{
+    generate_csharp_practical_ordinary_source_value_data,
+    import_csharp_practical_ordinary_source_value_data, OrdinarySourceValueDataDefinition,
+    OrdinarySourceValueDataOperation, OrdinarySourceValueDataProgram,
+};
+
+#[path = "csharp_practical_ordinary_option_data.rs"]
+mod option_data;
+pub use option_data::{
+    generate_csharp_practical_ordinary_option_data, import_csharp_practical_ordinary_option_data,
+    OrdinaryOptionDataDefinition, OrdinaryOptionDataOperation, OrdinaryOptionDataProgram,
+};
+
+#[path = "csharp_practical_ordinary_sequence_data.rs"]
+mod sequence_data;
+pub use sequence_data::{
+    generate_csharp_practical_ordinary_sequence_data,
+    import_csharp_practical_ordinary_sequence_data, OrdinarySequenceDataDefinition,
+    OrdinarySequenceDataOperation, OrdinarySequenceDataProgram,
+};
+
+#[path = "csharp_practical_ordinary_reference_data.rs"]
+mod reference_data;
+pub use reference_data::{
+    generate_csharp_practical_ordinary_reference_data,
+    import_csharp_practical_ordinary_reference_data, OrdinaryReferenceDataDefinition,
+    OrdinaryReferenceDataOperation, OrdinaryReferenceDataProgram,
+};
+
+#[path = "csharp_practical_ordinary_construction_data.rs"]
+mod construction_data;
+pub use construction_data::{
+    generate_csharp_practical_ordinary_construction_data,
+    import_csharp_practical_ordinary_construction_data, OrdinaryConstructionDataDefinition,
+    OrdinaryConstructionDataOperation, OrdinaryConstructionDataProgram,
+    OrdinaryConstructionOwnershipRecord, OrdinaryConstructionOwnershipUse,
+};
+
+#[path = "csharp_practical_ordinary_control_slots.rs"]
+mod control_slots;
+pub use control_slots::{
+    generate_csharp_practical_ordinary_control_slots,
+    import_csharp_practical_ordinary_control_slots, OrdinaryControlSlotArgument,
+    OrdinaryControlSlotFunction, OrdinaryControlSlotProgram, OrdinaryControlSlotRelation,
+};
+
+#[path = "csharp_practical_ordinary_control_edges.rs"]
+mod control_edges;
+pub use control_edges::{
+    generate_csharp_practical_ordinary_control_edges,
+    import_csharp_practical_ordinary_control_edges, OrdinaryControlEdgeDefinition,
+    OrdinaryControlEdgeFunction, OrdinaryControlEdgeJoin, OrdinaryControlEdgeProgram,
+    OrdinaryControlEntryComponent, OrdinaryControlEntryIncoming, OrdinaryControlMemoryBinding,
+    OrdinaryControlMemoryEffect, OrdinaryControlNativeDefinition, OrdinaryControlNativeOperation,
+    OrdinaryControlNodeEntry, OrdinaryControlSourceFrame,
+};

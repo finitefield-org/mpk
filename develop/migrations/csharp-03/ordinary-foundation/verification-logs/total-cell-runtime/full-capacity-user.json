@@ -1,0 +1,28 @@
+{
+  "test": "aggregate_fold_full_capacity_sums_exact_logical_bound",
+  "execution_owner": "user",
+  "evidence": "User-supplied cargo output; not rerun by agent",
+  "command": [
+    "cargo",
+    "test",
+    "--release",
+    "-p",
+    "mpk-vc",
+    "--lib",
+    "aggregate_fold_full_capacity_sums_exact_logical_bound",
+    "--",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "environment": {
+    "MPK_CORE_MAX_STEPS": null,
+    "MPK_CORE_MAX_SECONDS": "300"
+  },
+  "passed": 1,
+  "failed": 0,
+  "filtered_out": 159,
+  "test_seconds": 35.03,
+  "cargo_preparation_seconds": 0.08,
+  "peak_memory_bytes": null,
+  "future_execution_owner": "agent when affected; observed runtime is under one minute"
+}

@@ -1,0 +1,143 @@
+{
+  "status": "promoted_after_same_byte_checks",
+  "initial_runtime": "../../ownership-proofs/control-node-entry-runtime.json",
+  "initial_candidate_directory": "/tmp/mpk-control-node-entry-candidates",
+  "final_runtime_directory": "/tmp/mpk-control-node-entry-final",
+  "verified_live_sessions": {},
+  "completed_checker_partitions": [
+    "/tmp/mpk-control-node-entry-checks-a-20260921",
+    "/tmp/mpk-control-node-entry-checks-b-20260921"
+  ],
+  "scoped_candidates": [
+    {
+      "context": "for",
+      "nodes": 46,
+      "incoming_edges": 51,
+      "max_arguments": 49
+    },
+    {
+      "context": "foreach_array",
+      "nodes": 39,
+      "incoming_edges": 43,
+      "max_arguments": 76
+    },
+    {
+      "context": "foreach_array_var",
+      "nodes": 39,
+      "incoming_edges": 43,
+      "max_arguments": 76
+    },
+    {
+      "context": "foreach_string",
+      "nodes": 42,
+      "incoming_edges": 48,
+      "max_arguments": 115
+    },
+    {
+      "context": "foreach_string_var",
+      "nodes": 42,
+      "incoming_edges": 48,
+      "max_arguments": 115
+    },
+    {
+      "context": "governing_throw",
+      "nodes": 24,
+      "incoming_edges": 25,
+      "max_arguments": 29
+    },
+    {
+      "context": "guard_order",
+      "nodes": 58,
+      "incoming_edges": 64,
+      "max_arguments": 96
+    },
+    {
+      "context": "guard_throw",
+      "nodes": 27,
+      "incoming_edges": 29,
+      "max_arguments": 38
+    },
+    {
+      "context": "index_update",
+      "nodes": 51,
+      "incoming_edges": 62,
+      "max_arguments": 173
+    },
+    {
+      "context": "is_binding",
+      "nodes": 20,
+      "incoming_edges": 20,
+      "max_arguments": 20
+    },
+    {
+      "context": "lookup",
+      "nodes": 39,
+      "incoming_edges": 43,
+      "max_arguments": 43
+    },
+    {
+      "context": "short_circuit",
+      "nodes": 38,
+      "incoming_edges": 44,
+      "max_arguments": 66
+    },
+    {
+      "context": "string_property",
+      "nodes": 27,
+      "incoming_edges": 29,
+      "max_arguments": 29
+    },
+    {
+      "context": "switch",
+      "nodes": 31,
+      "incoming_edges": 34,
+      "max_arguments": 33
+    },
+    {
+      "context": "total_variable",
+      "nodes": 21,
+      "incoming_edges": 23,
+      "max_arguments": 32
+    },
+    {
+      "context": "type",
+      "nodes": 52,
+      "incoming_edges": 55,
+      "max_arguments": 47
+    },
+    {
+      "context": "while",
+      "nodes": 21,
+      "incoming_edges": 23,
+      "max_arguments": 32
+    }
+  ],
+  "remaining": [],
+  "w09_complete": false,
+  "whole_gate": "deferred to T06-W12",
+  "reviewed_runtime": {
+    "receipt": "../../ownership-proofs/control-node-entry-final-runtime.json",
+    "observations_by_context": {
+      "while": 374,
+      "for": 932,
+      "short_circuit": 801,
+      "switch": 472,
+      "is_binding": 320,
+      "guard_order": 1541,
+      "guard_throw": 511,
+      "total_variable": 374,
+      "index_update": 1184,
+      "foreach_string": 1137,
+      "foreach_string_var": 1137,
+      "foreach_array": 1019,
+      "foreach_array_var": 1019,
+      "lookup": 683,
+      "governing_throw": 392,
+      "type": 1214,
+      "string_property": 466
+    },
+    "observations": 13576
+  },
+  "final_certificate_bytes_match_initial_candidates": true,
+  "verification": "verification.json"
+}

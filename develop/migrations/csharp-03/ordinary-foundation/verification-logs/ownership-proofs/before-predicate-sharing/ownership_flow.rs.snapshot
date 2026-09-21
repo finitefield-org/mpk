@@ -1,0 +1,732 @@
+//! Ordinary symbolic linear-token equations. Witness observations are not proofs.
+use super::*;
+use crate::csharp_practical_vir_validation::{
+    PracticalConstructionAction, PracticalVirFunction, SymbolicConstructionOwnership,
+};
+use ordered_fold::read_bit;
+use sha2::{Digest, Sha256};
+type Live = BTreeMap<String, String>;
+#[derive(Clone, Debug, Eq, PartialEq, Serialize)]
+pub struct OrdinaryOwnershipState {
+    pub id: String,
+    pub live: Live,
+    pub definition: String,
+}
+#[derive(Clone, Debug, Eq, PartialEq, Serialize)]
+pub struct OrdinaryOwnershipEquation {
+    pub id: String,
+    pub relation_definition: String,
+    pub state_arguments: Vec<String>,
+    pub witness_definition: String,
+}
+#[derive(Clone, Debug, Eq, PartialEq, Serialize)]
+pub struct OrdinaryOwnershipPoint {
+    pub node_id: String,
+    pub receiver_id: String,
+    pub state_id: String,
+    /// Open state -> failed ownership. Must be linked to the flow proof.
+    pub failure_definition: String,
+    pub witness_definition: String,
+}
+#[derive(Clone, Debug, Eq, PartialEq, Serialize)]
+pub struct OrdinaryOwnershipFunction {
+    pub source: SymbolicConstructionOwnership,
+    /// Zero encodes absence; symbols[i] is encoded as i+1. Full words are used.
+    pub symbols: Vec<String>,
+    pub origins: Vec<String>,
+    pub state_depth: u32,
+    pub states: Vec<OrdinaryOwnershipState>,
+    pub equations: Vec<OrdinaryOwnershipEquation>,
+    pub points: Vec<OrdinaryOwnershipPoint>,
+    pub flow_definition: String,
+}
+#[derive(Clone, Debug, Eq, PartialEq, Serialize)]
+pub struct OrdinaryOwnershipFlowProgram {
+    schema: String,
+    source_ir_sha256: String,
+    foundation_sha256: String,
+    functions: Vec<OrdinaryOwnershipFunction>,
+    /// Closed Boolean flow equations still require checked proof terms.
+    pending_flow_proofs: Vec<String>,
+    /// Non-symbolic ownership (including borrow/transfer) is a separate scope.
+    pending_concrete_function_ids: Vec<String>,
+    certificate_sha256: String,
+    #[serde(skip)]
+    certificate: Vec<u8>,
+}
+impl OrdinaryOwnershipFlowProgram {
+    pub fn functions(&self) -> &[OrdinaryOwnershipFunction] {
+        &self.functions
+    }
+    pub fn pending_flow_proofs(&self) -> &[String] {
+        &self.pending_flow_proofs
+    }
+    pub fn pending_concrete_function_ids(&self) -> &[String] {
+        &self.pending_concrete_function_ids
+    }
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
+    pub fn canonical_bytes(&self) -> Vec<u8> {
+        serde_json::to_vec(self).expect("ownership equations")
+    }
+}
+fn name(role: &str, id: &impl Serialize) -> String {
+    format!(
+        "{PREFIX}.OwnershipFlow.{role}.H{:x}",
+        Sha256::digest(serde_json::to_vec(id).expect("typed ownership identity"))
+    )
+}
+fn and(b: &mut Builder, x: u32, y: u32) -> R<u32> {
+    let no = bit(b, false)?;
+    mux(b, x, y, no)
+}
+fn not(b: &mut Builder, x: u32) -> R<u32> {
+    let no = bit(b, false)?;
+    let yes = bit(b, true)?;
+    mux(b, x, no, yes)
+}
+fn or(b: &mut Builder, x: u32, y: u32) -> R<u32> {
+    let yes = bit(b, true)?;
+    mux(b, x, yes, y)
+}
+fn same_bit(b: &mut Builder, x: u32, y: u32) -> R<u32> {
+    let different = not(b, y)?;
+    mux(b, x, y, different)
+}
+fn equal(b: &mut Builder, x: u32, y: u32) -> R<u32> {
+    let name = format!("{PREFIX}.OwnershipFlow.WordEqual");
+    if !b.globals.contains_key(&name) {
+        let left = b.var(1)?;
+        let right = b.var(0)?;
+        let mut body = bit(b, true)?;
+        for i in 0..32 {
+            let a = read_bit(b, left, i)?;
+            let c = read_bit(b, right, i)?;
+            let eq = same_bit(b, a, c)?;
+            body = and(b, body, eq)?;
+        }
+        define(b, &name, &[5, 5], 0, body)?;
+    }
+    call(b, &name, vec![x, y])
+}
+
+fn slot(b: &mut Builder, state: u32, bits: u32, i: usize) -> R<u32> {
+    let args = prefix(bits, i as u32)
+        .into_iter()
+        .map(|v| bit(b, v))
+        .collect::<R<Vec<_>>>()?;
+    b.app(state, args)
+}
+fn decision(b: &mut Builder, depth: u32, axis: u32, addresses: &[u32]) -> R<u32> {
+    if addresses.is_empty() {
+        return bit(b, false);
+    }
+    if axis == depth {
+        return bit(b, true);
+    }
+    let (low, high): (Vec<_>, Vec<_>) = addresses
+        .iter()
+        .copied()
+        .partition(|a| a & (1 << axis) == 0);
+    let no = decision(b, depth, axis + 1, &low)?;
+    let yes = decision(b, depth, axis + 1, &high)?;
+    if no == yes {
+        return Ok(no);
+    }
+    let selected = b.var(depth - axis - 1)?;
+    mux(b, selected, yes, no)
+}
+fn word(b: &mut Builder, value: u32) -> R<u32> {
+    let addresses = (0..32)
+        .filter(|i| value & (1 << i) != 0)
+        .collect::<Vec<_>>();
+    let body = decision(b, 5, 0, &addresses)?;
+    b.wrap_selectors(5, body)
+}
+
+#[derive(Clone)]
+enum Action {
+    Allocate(usize, u32),
+    Replace(u32, u32),
+    Clear(usize),
+    Require(u32),
+    Actor(u32, u32),
+}
+struct Flow<'a> {
+    b: &'a mut Builder,
+    symbols: BTreeMap<String, u32>,
+    origins: Vec<String>,
+    bits: u32,
+    states: BTreeMap<String, OrdinaryOwnershipState>,
+    equations: Vec<OrdinaryOwnershipEquation>,
+}
+impl Flow<'_> {
+    fn symbol(&self, id: &str) -> R<u32> {
+        self.symbols
+            .get(id)
+            .copied()
+            .ok_or(OrdinaryCarrierError::Linkage)
+    }
+    fn origin(&self, id: &str) -> R<usize> {
+        self.origins
+            .iter()
+            .position(|o| o == id)
+            .ok_or(OrdinaryCarrierError::Linkage)
+    }
+    fn state(&mut self, id: String, live: &Live) -> R<String> {
+        if let Some(s) = self.states.get(&id) {
+            if &s.live != live {
+                return Err(OrdinaryCarrierError::Linkage);
+            }
+            return Ok(id);
+        }
+        // Equal witnesses share one closed state value. Each source point keeps
+        // its own identity and map, but repeated empty/unchanged states need no
+        // distinct delta-expansion in subsequent ordinary equality proofs.
+        if let Some(existing) = self.states.values().find(|s| &s.live == live) {
+            let definition = existing.definition.clone();
+            self.states.insert(
+                id.clone(),
+                OrdinaryOwnershipState {
+                    id: id.clone(),
+                    live: live.clone(),
+                    definition,
+                },
+            );
+            return Ok(id);
+        }
+        let depth = self.bits + 5;
+        let mut addresses = vec![];
+        for (origin, value) in live {
+            let index = self.origin(origin)?;
+            let value = self.symbol(value)?;
+            for i in 0..32 {
+                if value & (1 << i) != 0 {
+                    addresses.push(index as u32 | (i << self.bits));
+                }
+            }
+        }
+        let body = decision(self.b, depth, 0, &addresses)?;
+        let body = self.b.wrap_selectors(depth, body)?;
+        let definition = name("State", &id);
+        define(self.b, &definition, &[], depth, body)?;
+        self.states.insert(
+            id.clone(),
+            OrdinaryOwnershipState {
+                id: id.clone(),
+                live: live.clone(),
+                definition,
+            },
+        );
+        Ok(id)
+    }
+    fn contains(&mut self, values: &[u32], token: u32) -> R<u32> {
+        let token = word(self.b, token)?;
+        let mut any = bit(self.b, false)?;
+        for &value in values {
+            let same = equal(self.b, value, token)?;
+            any = or(self.b, any, same)?;
+        }
+        Ok(any)
+    }
+    fn witness(&mut self, id: String, relation: String, states: Vec<String>) -> R<()> {
+        let arguments = states
+            .iter()
+            .map(|id| self.b.constant(&self.states[id].definition))
+            .collect::<R<Vec<_>>>()?;
+        let body = call(self.b, &relation, arguments)?;
+        let witness = name("Witness", &id);
+        define(self.b, &witness, &[], 0, body)?;
+        self.equations.push(OrdinaryOwnershipEquation {
+            id,
+            relation_definition: relation,
+            state_arguments: states,
+            witness_definition: witness,
+        });
+        Ok(())
+    }
+    fn transfer(&mut self, id: String, before: String, after: String, actions: &[Action]) -> R<()> {
+        let x = self.b.var(1)?;
+        let y = self.b.var(0)?;
+        let mut values = (0..self.origins.len())
+            .map(|i| slot(self.b, x, self.bits, i))
+            .collect::<R<Vec<_>>>()?;
+        let zero = word(self.b, 0)?;
+        let mut body = bit(self.b, true)?;
+        for action in actions {
+            match *action {
+                Action::Actor(a, b) => {
+                    let a = word(self.b, a)?;
+                    let b = word(self.b, b)?;
+                    let eq = equal(self.b, a, b)?;
+                    body = and(self.b, body, eq)?;
+                }
+                Action::Clear(index) => values[index] = zero,
+                Action::Allocate(index, value) => {
+                    let absent = equal(self.b, values[index], zero)?;
+                    body = and(self.b, body, absent)?;
+                    values[index] = word(self.b, value)?;
+                }
+                Action::Require(value) | Action::Replace(value, _) => {
+                    let present = self.contains(&values, value)?;
+                    body = and(self.b, body, present)?;
+                    if let Action::Replace(_, next) = *action {
+                        let from = word(self.b, value)?;
+                        let next = word(self.b, next)?;
+                        for v in &mut values {
+                            let matches = equal(self.b, *v, from)?;
+                            *v = ordered_fold::cube_mux(self.b, 5, matches, next, *v)?;
+                        }
+                    }
+                }
+            }
+        }
+        // Output equality covers every slot and all 32 bits. Input/output
+        // padding slots are zero, and two live origins cannot share a token.
+        for i in 0..(1usize << self.bits) {
+            let actual = slot(self.b, y, self.bits, i)?;
+            let expected = values.get(i).copied().unwrap_or(zero);
+            let eq = equal(self.b, actual, expected)?;
+            body = and(self.b, body, eq)?;
+            if i >= self.origins.len() {
+                let input = slot(self.b, x, self.bits, i)?;
+                let eq = equal(self.b, input, zero)?;
+                body = and(self.b, body, eq)?;
+            }
+        }
+        for state in [x, y] {
+            for i in 0..self.origins.len() {
+                let a = slot(self.b, state, self.bits, i)?;
+                let absent = equal(self.b, a, zero)?;
+                for j in 0..i {
+                    let c = slot(self.b, state, self.bits, j)?;
+                    let same = equal(self.b, a, c)?;
+                    let distinct = not(self.b, same)?;
+                    let valid = or(self.b, absent, distinct)?;
+                    body = and(self.b, body, valid)?;
+                }
+            }
+        }
+        let relation = name("Transfer", &id);
+        define(self.b, &relation, &[self.bits + 5, self.bits + 5], 0, body)?;
+        self.witness(id, relation, vec![before, after])
+    }
+    fn empty(&mut self, id: String, state: String) -> R<()> {
+        let value = self.b.var(0)?;
+        let zero = word(self.b, 0)?;
+        let mut body = bit(self.b, true)?;
+        for i in 0..(1usize << self.bits) {
+            let value = slot(self.b, value, self.bits, i)?;
+            let empty = equal(self.b, value, zero)?;
+            body = and(self.b, body, empty)?;
+        }
+        let relation = name("Empty", &id);
+        define(self.b, &relation, &[self.bits + 5], 0, body)?;
+        self.witness(id, relation, vec![state])
+    }
+}
+fn emit(
+    b: &mut Builder,
+    source: &PracticalVirFunction,
+    trace: SymbolicConstructionOwnership,
+    instances: &BTreeSet<String>,
+) -> R<OrdinaryOwnershipFunction> {
+    let nodes = source
+        .blocks
+        .iter()
+        .map(|b| (b.node.id.as_str(), b))
+        .collect::<BTreeMap<_, _>>();
+    let traced = trace
+        .blocks
+        .iter()
+        .map(|b| (b.node_id.as_str(), b))
+        .collect::<BTreeMap<_, _>>();
+    if nodes.keys().ne(traced.keys()) || trace.function_id != source.id {
+        return Err(OrdinaryCarrierError::Linkage);
+    }
+    let operation = |id: &str| {
+        instances
+            .iter()
+            .find_map(|instance| id.strip_prefix(&format!("{instance}.")).map(str::to_owned))
+    };
+    let origins = source
+        .blocks
+        .iter()
+        .filter_map(|b| b.invocation.as_ref())
+        .filter(|i| operation(&i.operation_id).as_deref() == Some("allocate"))
+        .map(|i| i.result.id.clone())
+        .collect::<BTreeSet<_>>();
+    if origins != trace.allocations || origins.is_empty() {
+        return Err(OrdinaryCarrierError::Linkage);
+    }
+    let symbols = source
+        .blocks
+        .iter()
+        .flat_map(|b| {
+            b.literal_values
+                .iter()
+                .map(|v| v.result.id.clone())
+                .chain(b.phi_values.iter().map(|p| p.value.id.clone()))
+                .chain(b.invocation.iter().flat_map(|i| {
+                    i.operands
+                        .iter()
+                        .chain(std::iter::once(&i.result))
+                        .map(|v| v.id.clone())
+                }))
+        })
+        .chain(std::iter::once(source.id.clone()))
+        .collect::<BTreeSet<_>>()
+        .into_iter()
+        .collect::<Vec<_>>();
+    let table = symbols
+        .iter()
+        .enumerate()
+        .map(|(i, id)| (id.clone(), (i + 1) as u32))
+        .collect();
+    let origins = origins.into_iter().collect::<Vec<_>>();
+    let bits = address_bits(origins.len() as u32);
+    let mut f = Flow {
+        b,
+        symbols: table,
+        origins: origins.clone(),
+        bits,
+        states: BTreeMap::new(),
+        equations: vec![],
+    };
+    let state_id = |node: &str, role: &str| format!("{node}.{role}");
+    for block in &trace.blocks {
+        f.state(state_id(&block.node_id, "in"), &block.before_actions)?;
+        f.state(state_id(&block.node_id, "invoke"), &block.before_invocation)?;
+        f.state(state_id(&block.node_id, "normal"), &block.normal)?;
+    }
+    let mut points = vec![];
+    for block in &trace.blocks {
+        let node = nodes[block.node_id.as_str()];
+        let id = &block.node_id;
+        let cleanup = matches!(
+            node.node.tag,
+            ControlNodeTag::Exit | ControlNodeTag::HandlerEntry | ControlNodeTag::FinallyEntry
+        );
+        let mut actions = vec![];
+        for action in &node.construction_actions {
+            let PracticalConstructionAction::Discard {
+                construction_id,
+                actor_id,
+            } = action
+            else {
+                return Err(OrdinaryCarrierError::Linkage);
+            };
+            actions.push(Action::Actor(f.symbol(actor_id)?, f.symbol(&source.id)?));
+            if !cleanup {
+                actions.push(Action::Replace(f.symbol(construction_id)?, 0));
+            }
+        }
+        f.transfer(
+            format!("{id}.local"),
+            state_id(id, "in"),
+            state_id(id, "invoke"),
+            &actions,
+        )?;
+        let mut actions = vec![];
+        if let Some(i) = &node.invocation {
+            let op = operation(&i.operation_id);
+            if let Some(op) = op {
+                match op.as_str() {
+                    "allocate" => actions.push(Action::Allocate(
+                        f.origin(&i.result.id)?,
+                        f.symbol(&i.result.id)?,
+                    )),
+                    "read" | "fill" | "rewrite" | "freeze" => {
+                        let receiver = &i.operands.first().ok_or(OrdinaryCarrierError::Linkage)?.id;
+                        let token = f.symbol(receiver)?;
+                        actions.push(if op == "read" {
+                            Action::Require(token)
+                        } else {
+                            Action::Replace(
+                                token,
+                                if op == "freeze" {
+                                    0
+                                } else {
+                                    f.symbol(&i.result.id)?
+                                },
+                            )
+                        });
+                        let state = f.b.var(0)?;
+                        let values = (0..f.origins.len())
+                            .map(|i| slot(f.b, state, f.bits, i))
+                            .collect::<R<Vec<_>>>()?;
+                        let present = f.contains(&values, token)?;
+                        let failed = not(f.b, present)?;
+                        let failure = name("Failure", id);
+                        define(f.b, &failure, &[f.bits + 5], 0, failed)?;
+                        let state = state_id(id, "invoke");
+                        let value = f.b.constant(&f.states[&state].definition)?;
+                        let failed = call(f.b, &failure, vec![value])?;
+                        let witness = name("PointFailure", id);
+                        define(f.b, &witness, &[], 0, failed)?;
+                        points.push(OrdinaryOwnershipPoint {
+                            node_id: id.clone(),
+                            receiver_id: receiver.clone(),
+                            state_id: state,
+                            failure_definition: failure,
+                            witness_definition: witness,
+                        });
+                    }
+                    _ => return Err(OrdinaryCarrierError::Linkage),
+                }
+            } else if i.operation_id.starts_with("construction.complete.") {
+                actions.push(Action::Require(f.symbol(
+                    &i.operands.first().ok_or(OrdinaryCarrierError::Linkage)?.id,
+                )?));
+            }
+        }
+        f.transfer(
+            format!("{id}.invocation"),
+            state_id(id, "invoke"),
+            state_id(id, "normal"),
+            &actions,
+        )?;
+        if matches!(
+            node.node.tag,
+            ControlNodeTag::Return
+                | ControlNodeTag::Exit
+                | ControlNodeTag::HandlerEntry
+                | ControlNodeTag::FinallyEntry
+        ) {
+            f.empty(format!("{id}.terminal"), state_id(id, "normal"))?;
+        }
+    }
+    f.empty(
+        format!("{}.entry", source.id),
+        state_id(&source.blocks[0].node.id, "in"),
+    )?;
+    let edges = trace
+        .blocks
+        .iter()
+        .flat_map(|b| b.incoming.iter())
+        .chain(trace.backedges.iter())
+        .collect::<Vec<_>>();
+    let expected = source
+        .blocks
+        .iter()
+        .flat_map(|b| {
+            b.node
+                .normal_successor_ids
+                .iter()
+                .chain(b.node.exceptional_successors.iter().map(|e| &e.target_id))
+                .map(|target| (b.node.id.clone(), target.clone()))
+        })
+        .collect::<BTreeSet<_>>();
+    let actual = edges
+        .iter()
+        .map(|e| (e.predecessor_node_id.clone(), e.target_node_id.clone()))
+        .collect::<BTreeSet<_>>();
+    if actual != expected || actual.len() != edges.len() {
+        return Err(OrdinaryCarrierError::Linkage);
+    }
+    for edge in &edges {
+        let id = format!("{}.to.{}", edge.predecessor_node_id, edge.target_node_id);
+        let target = nodes[edge.target_node_id.as_str()];
+        let predecessor = nodes[edge.predecessor_node_id.as_str()];
+        let normal = predecessor
+            .node
+            .normal_successor_ids
+            .contains(&edge.target_node_id);
+        let before = f.state(format!("{id}.before"), &edge.before_cleanup)?;
+        let cleaned = f.state(format!("{id}.cleaned"), &edge.after_cleanup)?;
+        let merged = f.state(format!("{id}.phis"), &edge.after_phis)?;
+        f.transfer(
+            format!("{id}.edge"),
+            state_id(
+                &edge.predecessor_node_id,
+                if normal { "normal" } else { "invoke" },
+            ),
+            before.clone(),
+            &[],
+        )?;
+        let cleanup = matches!(
+            target.node.tag,
+            ControlNodeTag::Exit | ControlNodeTag::HandlerEntry | ControlNodeTag::FinallyEntry
+        );
+        let mut actions = vec![];
+        if cleanup {
+            for action in &target.construction_actions {
+                let PracticalConstructionAction::Discard {
+                    construction_id, ..
+                } = action
+                else {
+                    return Err(OrdinaryCarrierError::Linkage);
+                };
+                actions.push(Action::Clear(f.origin(construction_id)?));
+            }
+            if normal && target.node.tag != ControlNodeTag::FinallyEntry {
+                f.empty(format!("{id}.normal_admission"), before.clone())?;
+            }
+        }
+        f.transfer(format!("{id}.cleanup"), before, cleaned.clone(), &actions)?;
+        let mut actions = vec![];
+        for phi in target
+            .phi_values
+            .iter()
+            .filter(|p| instances.contains(&p.value.type_id))
+        {
+            let incoming = phi
+                .incoming
+                .iter()
+                .find(|v| v.predecessor_node_id == edge.predecessor_node_id)
+                .ok_or(OrdinaryCarrierError::Linkage)?;
+            actions.push(Action::Replace(
+                f.symbol(&incoming.value_id)?,
+                f.symbol(&phi.value.id)?,
+            ));
+        }
+        f.transfer(format!("{id}.phi"), cleaned, merged.clone(), &actions)?;
+        f.transfer(
+            format!("{id}.join"),
+            merged,
+            state_id(&edge.target_node_id, "in"),
+            &[],
+        )?;
+    }
+    // Cleanup must name exactly the union of incoming live origins, including
+    // different exceptional states. Neither missing nor invented discards pass.
+    for block in &source.blocks {
+        if !matches!(
+            block.node.tag,
+            ControlNodeTag::Exit | ControlNodeTag::HandlerEntry | ControlNodeTag::FinallyEntry
+        ) {
+            continue;
+        }
+        let cleanup = block
+            .construction_actions
+            .iter()
+            .map(|a| match a {
+                PracticalConstructionAction::Discard {
+                    construction_id, ..
+                } => Ok(construction_id.as_str()),
+                _ => Err(OrdinaryCarrierError::Linkage),
+            })
+            .collect::<R<BTreeSet<_>>>()?;
+        let zero = word(f.b, 0)?;
+        let mut body = bit(f.b, true)?;
+        for (index, origin) in origins.iter().enumerate() {
+            let mut present = bit(f.b, false)?;
+            for edge in edges.iter().filter(|e| e.target_node_id == block.node.id) {
+                let id = format!(
+                    "{}.to.{}.before",
+                    edge.predecessor_node_id, edge.target_node_id
+                );
+                let value = f.b.constant(&f.states[&id].definition)?;
+                let value = slot(f.b, value, f.bits, index)?;
+                let absent = equal(f.b, value, zero)?;
+                let live = not(f.b, absent)?;
+                present = or(f.b, present, live)?;
+            }
+            let expected = bit(f.b, cleanup.contains(origin.as_str()))?;
+            let same = same_bit(f.b, present, expected)?;
+            body = and(f.b, body, same)?;
+        }
+        let id = format!("{}.cleanup_coverage", block.node.id);
+        let relation = name("CleanupCoverage", &id);
+        define(f.b, &relation, &[], 0, body)?;
+        f.witness(id, relation, vec![])?;
+    }
+    let mut body = bit(f.b, true)?;
+    for e in &f.equations {
+        let value = f.b.constant(&e.witness_definition)?;
+        body = and(f.b, body, value)?;
+    }
+    let flow_definition = name("Flow", &source.id);
+    define(f.b, &flow_definition, &[], 0, body)?;
+    Ok(OrdinaryOwnershipFunction {
+        source: trace,
+        symbols,
+        origins,
+        state_depth: bits + 5,
+        states: f.states.into_values().collect(),
+        equations: f.equations,
+        points,
+        flow_definition,
+    })
+}
+pub(super) fn definitions(
+    vir: &ValidatedPracticalVir,
+) -> R<(Builder, Vec<OrdinaryOwnershipFunction>, Vec<String>)> {
+    let traces = vir
+        .symbolic_construction_ownership()
+        .map_err(|_| OrdinaryCarrierError::Linkage)?;
+    let instances = vir
+        .data_closed()
+        .entries()
+        .iter()
+        .filter(|e| e["template_id"] == "mpk.csharp.semantic.sequence_construction.v1")
+        .map(|e| text(e, "instance_id").map(str::to_owned))
+        .collect::<R<BTreeSet<_>>>()?;
+    let mut b = Builder::new()?;
+    b.helpers(5)?;
+    let mut functions = vec![];
+    for trace in traces {
+        let source = vir
+            .functions()
+            .iter()
+            .find(|f| f.id == trace.function_id)
+            .ok_or(OrdinaryCarrierError::Linkage)?;
+        functions.push(emit(&mut b, source, trace, &instances)?);
+    }
+    let included = functions
+        .iter()
+        .map(|f| f.source.function_id.as_str())
+        .collect::<BTreeSet<_>>();
+    let pending_concrete_function_ids = vir
+        .functions()
+        .iter()
+        .filter(|f| {
+            !included.contains(f.id.as_str())
+                && f.blocks.iter().any(|b| {
+                    !b.ownership_in.is_empty()
+                        || !b.ownership_out.is_empty()
+                        || !b.construction_actions.is_empty()
+                })
+        })
+        .map(|f| f.id.clone())
+        .collect();
+    Ok((b, functions, pending_concrete_function_ids))
+}
+pub fn generate_csharp_practical_ordinary_ownership_flow(
+    vir: &ValidatedPracticalVir,
+) -> R<OrdinaryOwnershipFlowProgram> {
+    let (b, functions, pending_concrete_function_ids) = definitions(vir)?;
+    let certificate = b.finish()?;
+    let p = OrdinaryOwnershipFlowProgram {
+        schema: "mpk.csharp.ordinary_ownership_flow.v1".into(),
+        source_ir_sha256: vir.hash().into(),
+        foundation_sha256: vir.construction_context().0.content_sha256().into(),
+        pending_flow_proofs: functions
+            .iter()
+            .map(|f| f.flow_definition.clone())
+            .collect(),
+        functions,
+        pending_concrete_function_ids,
+        certificate_sha256: mpk_cert::hash_hex(&mpk_cert::certificate_hash(&certificate)),
+        certificate,
+    };
+    if p.canonical_bytes().len() > 16 * 1024 * 1024 {
+        return Err(OrdinaryCarrierError::Limit);
+    }
+    Ok(p)
+}
+pub fn import_csharp_practical_ordinary_ownership_flow(
+    input: &[u8],
+    certificate: &[u8],
+    vir: &ValidatedPracticalVir,
+) -> R<OrdinaryOwnershipFlowProgram> {
+    if input.len() > 16 * 1024 * 1024 || certificate.len() > 16 * 1024 * 1024 {
+        return Err(OrdinaryCarrierError::Limit);
+    }
+    let p = generate_csharp_practical_ordinary_ownership_flow(vir)?;
+    if input != p.canonical_bytes() || certificate != p.certificate_bytes() {
+        return Err(OrdinaryCarrierError::Linkage);
+    }
+    Ok(p)
+}

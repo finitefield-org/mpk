@@ -1,0 +1,191 @@
+{
+  "work_item": "CSHARP-03-T06-W09",
+  "status": "deep_scalar_cache_corrected_short_cases_pass_full_operation_pending",
+  "reported_failure": "user-timeout.json",
+  "cause": "The old scalar observation trie stopped after six Bool arguments. Checked i32 multiplication has state depth 14 and 8908 generated gates, so intermediate weak closure eviction lost deep scalar observations.",
+  "change": "Cache demanded scalar leaves by selector path and path length up to depth 18 in a shared FIFO of at most 1024 leaves per originating lambda; retain no environments or function values. No eager demand, gate shortcuts, host arithmetic or semantic rules are introduced.",
+  "checks": {
+    "core-bounds": {
+      "command": [
+        "target/release/deps/mpk_vc-4f3748aad12c0f7e",
+        "ordinary_core_",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.45352345798164606,
+      "max_seconds_per_thread": 45,
+      "process_timeout_seconds": 55,
+      "diagnostic_only": false,
+      "selected_context": null,
+      "selected_operation": null
+    },
+    "multiply-zero": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_lifted_data_original_source",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 7.986549833032768,
+      "max_seconds_per_thread": 45,
+      "process_timeout_seconds": 55,
+      "diagnostic_only": false,
+      "selected_context": null,
+      "selected_operation": "lifted.i32.multiply.checked",
+      "selected_case": "1,1"
+    },
+    "multiply-overflow": {
+      "command": [
+        "/usr/bin/time",
+        "-l",
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_lifted_data_original_source",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 7.199014166020788,
+      "max_seconds_per_thread": 45,
+      "process_timeout_seconds": 55,
+      "diagnostic_only": false,
+      "selected_context": null,
+      "selected_operation": "lifted.i32.multiply.checked",
+      "selected_case": "4,3"
+    },
+    "multiply-negative": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_lifted_data_original_source",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 9.132052666973323,
+      "max_seconds_per_thread": 45,
+      "process_timeout_seconds": 55,
+      "diagnostic_only": false,
+      "selected_case": "3,3",
+      "selected_context": null,
+      "selected_operation": "lifted.i32.multiply.checked"
+    },
+    "domain-regressions": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_domains_source_collections_and_rejections",
+        "csharp_03_t06_w09_domains_source_full_utf16_capacity",
+        "csharp_03_t06_w09_domains_source_string_compound_map_order",
+        "csharp_03_t06_w09_domains_source_small_values",
+        "csharp_03_t06_w09_domains_source_sum_and_unused_storage_rejections",
+        "public_domain_nested_source_clauses",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 2.9783462079940364,
+      "max_seconds_per_thread": 45,
+      "process_timeout_seconds": 55,
+      "diagnostic_only": false,
+      "selected_case": null,
+      "selected_context": null,
+      "selected_operation": null
+    },
+    "aggregate-regressions": {
+      "command": [
+        "target/release/deps/mpk_vc-4f3748aad12c0f7e",
+        "recursive_domain_",
+        "aggregate_fold_group_boundaries",
+        "aggregate_fold_modes_saturation_and_odd_counts",
+        "aggregate_fold_short_circuits_invalid_and_empty_inputs",
+        "aggregate_fold_shares_computed_predicate_words",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 18.08268049999606,
+      "max_seconds_per_thread": 45,
+      "process_timeout_seconds": 55,
+      "diagnostic_only": false,
+      "selected_case": null,
+      "selected_context": null,
+      "selected_operation": null
+    },
+    "lifted-bool": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_lifted_data_original_source",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 3.0066323750070296,
+      "max_seconds_per_thread": 45,
+      "process_timeout_seconds": 55,
+      "diagnostic_only": false,
+      "selected_case": null,
+      "selected_context": "bool",
+      "selected_operation": null
+    },
+    "core-final": {
+      "command": [
+        "target/release/deps/mpk_vc-4f3748aad12c0f7e",
+        "ordinary_core_",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.45015124999918044,
+      "max_seconds_per_thread": 45,
+      "process_timeout_seconds": 55,
+      "diagnostic_only": false,
+      "selected_case": null,
+      "selected_context": null,
+      "selected_operation": null
+    }
+  },
+  "observations": {
+    "checked_multiply_pairs": [
+      [
+        "0",
+        "0"
+      ],
+      [
+        "-1",
+        "-1"
+      ],
+      [
+        "int.MinValue",
+        "-1"
+      ]
+    ],
+    "assertions_per_pair": "original raw failure, success guard/goal/relation, ordered failure predicates, correct/wrong physical results; two result observations per pair",
+    "complete_checked_multiply": "pending; 3 of 36 input pairs tested individually",
+    "overflow_case_peak_physical_bytes": 43188680,
+    "overflow_case_max_rss_bytes": 68403200,
+    "memory_scope": "Only the selected overflow pair and all seven candidate reconstructions, not the complete 36-pair run."
+  },
+  "selection_rationale": [
+    "Generic observer changed: all 20 ordinary_core_ tests cover demand, closure/environment lifetime, identity, certificate isolation and cache behavior.",
+    "Expanded release/rebuild regression to depths 5/14/18; bounded-cache regression covers 2048 entries, eviction, path-length separation and release.",
+    "Three short original-source multiplication cases cover zero result, negative operands and signed overflow without reducing the full default corpus.",
+    "Six source-domain tests and eight aggregate/recursive tests exercise affected consumers including full UTF-16, sparse tails, physical padding and sharing.",
+    "Full nullable Bool truth tables recheck absence and three-valued operators. Every selected lifted run also reconstructs/imports/compares all seven pinned candidates.",
+    "Existing certificate bytes and checker implementations are unchanged; prior checker runs are retained. Remaining four large checker suites remain pending."
+  ],
+  "lint": {
+    "command": "cargo clippy -p mpk-vc --lib --test csharp_practical_vc -- -D warnings",
+    "exit_code": 0,
+    "seconds": 11.41
+  },
+  "format": "rustfmt --check on the three changed Rust files passed; bash -n on the handoff script passed.",
+  "full_gate": "deferred_to_T06_W12",
+  "remaining": "Full checked multiplication and the other ten runtime groups plus four checker contexts remain user-owned. No whole-unit/W09 completion.",
+  "source_sha256": {
+    "crates/mpk-vc/src/csharp_practical_ordinary_test_eval.rs": "d4160220aa77546cb3911df2d66bbd0e8684f3020d128db9306288a87c661c8f",
+    "crates/mpk-vc/src/csharp_practical_ordinary_test_eval_tests.rs": "9c521d1be3c96d28de9f2da7144c67395222921ae83221874e0c3b5d3da5cb1a",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_lifted_data_tests.rs": "289165f40f081fb0f2391873a318d8db3698828c5c88d3d92dba7632396e8142",
+    "develop/migrations/csharp-03/ordinary-foundation/lifted-data/run-long-checks.sh": "886cc1f084dfbb8c12c9b08a68ba2467c92c0545c8b026d45e2edb8ccd7b6583"
+  },
+  "review": "unit-5-lifted-deep-cache-review.md; final test edit preserves the original full C5 truth table and adds C14/C18 high-selector observations."
+}

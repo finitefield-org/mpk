@@ -131,7 +131,7 @@ pub(in super::super) fn special_relation(b: &mut Builder, token: &str) -> R<Scal
 }
 
 /// Exact unsigned addition saturated at the invalid logical-cell sentinel.
-/// Extend to 33 bits before adding, so even two arbitrary u32 inputs cannot wrap.
+/// Guard arbitrary u32 operands before adding 17 bits and retaining the carry.
 pub(in super::super) fn count_addition(b: &mut Builder) -> R<String> {
     let sig = signature("mpk.csharp.value.u32.v1", "saturated_cell_add", "u32");
     let result = format!(
@@ -145,33 +145,114 @@ pub(in super::super) fn count_addition(b: &mut Builder) -> R<String> {
     if b.globals.contains_key(&result) {
         return Ok(result);
     }
+    // Valid counts are 0..=2^16; the invalid sentinel is 2^16 + 1.
+    // Reject larger inputs before using their low 17 bits. A 17-bit ripple
+    // sum plus its carry is exact for the remaining operands, without overflow.
+    const _: () = assert!(TOTAL_VALUE_CELLS_MAX == 65536);
     let mut c = Circuit::new(&[32, 32]);
-    let left = Circuit::extend(&c.inputs[0], 33, false);
-    let right = Circuit::extend(&c.inputs[1], 33, false);
-    let (sum, _) = c.add(&left, &right, F);
-    let maximum = TOTAL_VALUE_CELLS_MAX + 1;
-    let bound = (0..33)
-        .map(|i| if maximum & (1u64 << i) == 0 { F } else { T })
-        .collect::<Vec<_>>();
-    let below = c.lt(&sum, &bound, false);
-    let output = c.select(below, &sum[..32], &bound[..32]);
-    // Preserve left-to-right failure short-circuiting: once a child count is
-    // invalid, the rest of the value need not be inspected to reject it.
-    let right_valid = c.lt(&right, &bound, false);
-    let output = c.select(right_valid, &output, &bound[..32]);
-    let left_valid = c.lt(&left, &bound, false);
-    let output = c.select(left_valid, &output, &bound[..32]);
-    let d = emit_circuit(
-        b,
-        IntegerCircuit {
-            signature: sig,
-            circuit: c,
-            output,
-            failures: vec![],
-        },
-        "DomainCount",
-    )?;
-    Ok(d.result_definition)
+    fn any(c: &mut Circuit, bits: &[Bit]) -> Bit {
+        bits.iter().fold(F, |acc, &bit| c.mux(bit, T, acc))
+    }
+    fn invalid(c: &mut Circuit, bits: &[Bit]) -> Bit {
+        let high = any(c, &bits[17..]);
+        let low = any(c, &bits[..16]);
+        let above = c.and(bits[16], low);
+        c.mux(high, T, above)
+    }
+    let left = c.inputs[0].clone();
+    let right = c.inputs[1].clone();
+    let mut carry = F;
+    let mut sum = vec![];
+    for i in 0..17 {
+        let different = c.xor(left[i], right[i]);
+        sum.push(c.xor(different, carry));
+        // Equal input bits produce that bit as carry; different bits propagate.
+        carry = c.mux(different, carry, left[i]);
+    }
+    let low = any(&mut c, &sum[..16]);
+    let above = c.and(sum[16], low);
+    let saturated = c.mux(carry, T, above);
+    sum.resize(32, F);
+    let mut bound = vec![F; 32];
+    bound[0] = T;
+    bound[16] = T;
+    let output = c.select(saturated, &bound, &sum);
+    let right_invalid = invalid(&mut c, &right);
+    let output = c.select(right_invalid, &bound, &output);
+    let left_invalid = invalid(&mut c, &left);
+    let output = c.select(left_invalid, &bound, &output);
+    // Bind this fixed small helper's Bool gates outside the output selectors.
+    // Each demanded gate is shared, with no register-cube projection pipeline.
+    // Large general arithmetic retains its existing register-state lowering.
+    let mut output = output;
+    c.prune(&mut output);
+    let count = c.gates.len() - c.start;
+    if count + 7 > crate::csharp_practical_vc_model::BINDER_DEPTH_MAX as usize {
+        return Err(OrdinaryCarrierError::Limit);
+    }
+    fn get(b: &mut Builder, c: &Circuit, id: usize, bound: usize) -> R<u32> {
+        match c.gates[id] {
+            Gate::False => b.constant("Std.Bool.false"),
+            Gate::True => b.constant("Std.Bool.true"),
+            Gate::Input(arg, index) => {
+                let input = b.var((bound + c.inputs.len() - 1 - arg) as u32)?;
+                core_read(b, input, index, 5)
+            }
+            _ => b.var((bound - 1 - (id - c.start)) as u32),
+        }
+    }
+    let mut bindings = Vec::with_capacity(count);
+    for (bound, gate) in c.gates[c.start..].iter().enumerate() {
+        let value = match *gate {
+            Gate::Not(a) => {
+                let a = get(b, &c, a, bound)?;
+                let f = b.constant("Std.Bool.not")?;
+                b.app(f, vec![a])?
+            }
+            Gate::And(a, d) => {
+                let a = get(b, &c, a, bound)?;
+                let d = get(b, &c, d, bound)?;
+                let f = b.constant("Std.Bool.and")?;
+                b.app(f, vec![a, d])?
+            }
+            Gate::Xor(a, d) => {
+                let a = get(b, &c, a, bound)?;
+                let d = get(b, &c, d, bound)?;
+                let inverse = {
+                    let f = b.constant("Std.Bool.not")?;
+                    b.app(f, vec![a])?
+                };
+                core_mux(b, d, inverse, a)?
+            }
+            Gate::Mux(cond, yes, no) => {
+                let cond = get(b, &c, cond, bound)?;
+                let yes = get(b, &c, yes, bound)?;
+                let no = get(b, &c, no, bound)?;
+                core_mux(b, cond, yes, no)?
+            }
+            _ => return Err(OrdinaryCarrierError::Shape),
+        };
+        bindings.push(value);
+    }
+    let values = output
+        .iter()
+        .map(|&id| get(b, &c, id, count + 5))
+        .collect::<R<Vec<_>>>()?;
+    let no = b.constant("Std.Bool.false")?;
+    let body = core_select(b, &values, 5, 0, 5, no)?;
+    let mut body = b.wrap_selectors(5, body)?;
+    for value in bindings.into_iter().rev() {
+        body = b.term(TermNode::Let {
+            ty: b.boolean,
+            value,
+            body,
+        })?;
+    }
+    let body = bind_inputs(b, &[32, 32], body)?;
+    let word = b.cube(5)?;
+    let ty = input_type(b, &[32, 32], word)?;
+    b.define(&result, ty, body)?;
+    Ok(result)
 }
 
 /// Unsigned word subtraction for a sequence's right-hand offset. Its caller

@@ -1,0 +1,30 @@
+{
+  "original_attempt": {
+    "case": "sort",
+    "command": [
+      "/private/tmp/mpk-ownership-remaining-20260921/checker-tests",
+      "-test.run",
+      "^TestCheckerAgreementWithRustCLIOwnershipProofs$/^sort\\.hex$",
+      "-test.v",
+      "-test.timeout",
+      "1800s"
+    ],
+    "certificate_file_sha256": {
+      "develop/migrations/csharp-03/ordinary-foundation/ownership-proofs/sort.hex": "34f882cc01ae9d525770cd583daadcca1c0641642ecfafe49d39ed6cd293bf46"
+    },
+    "checker_sources": "checker-sources.json",
+    "checker_sources_sha256": "04860d497befbe85e37429560f51fe0ab0ec89beffc25048ea9324ce86ec294e",
+    "exit_code": 2,
+    "timed_out": true,
+    "inputs_unchanged": true,
+    "checker_sources_unchanged": true,
+    "passed": false,
+    "wall_seconds": 1800.071,
+    "log": "sort.log",
+    "log_sha256": "082d6ecdd1762299a18994618897be24dbed23b0493bae20415068990caf8c41"
+  },
+  "positive_checker_agreement": "passed",
+  "hash_corruption": "pending_separate_stage",
+  "explanation": "The whole-test 1800-second timeout occurred during the Go corruption check after both positive checkers had accepted the unchanged bytes. Preserve that acceptance and rerun only corruption checks with independent stage deadlines.",
+  "remaining_run": "/tmp/mpk-ownership-sort-hash-20260921"
+}

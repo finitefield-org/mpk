@@ -1,0 +1,9 @@
+=== RUN   TestCheckerAgreementWithRustCLIOwnershipProofs
+=== RUN   TestCheckerAgreementWithRustCLIOwnershipProofs/count_fill.hex
+    checker_agreement_test.go:395: Go accepted: certificate=20c76a649b25d57c56ef34ce9de41e4463ab595ec67afc15bc3c3633e2a9d503 declarations=2387 axioms=0 elapsed=6m3.340092458s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=ece2c4cae3b199de20a722f5f485b51ef8871cdfe853c5843e5768dbfce98ce3 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=39.791229333s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=5m54.501465334s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=5.071349791s
+--- PASS: TestCheckerAgreementWithRustCLIOwnershipProofs (762.71s)
+    --- PASS: TestCheckerAgreementWithRustCLIOwnershipProofs/count_fill.hex (762.71s)
+PASS

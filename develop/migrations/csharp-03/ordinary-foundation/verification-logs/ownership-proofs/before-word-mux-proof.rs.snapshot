@@ -1,0 +1,908 @@
+//! Ordinary equality proof candidates for exact symbolic ownership equations.
+//! Acceptance requires checking the returned certificate, never host evaluation.
+use super::*;
+use sha2::{Digest, Sha256};
+const EQ_HEX: &[u8] = include_bytes!("../../../proofs/std/eq/std-eq.hex");
+const EQ: &str = "Std.Eq";
+const REFL: &str = "Std.Eq.refl";
+
+#[derive(Clone, Debug, Eq, PartialEq, Serialize)]
+pub struct OrdinaryOwnershipProof {
+    pub function_id: String,
+    pub flow_definition: String,
+    pub flow_theorem: String,
+    /// Node -> equality theorem for the exact receiver state's failed check.
+    /// These are usable only together with the function's flow theorem.
+    pub point_theorems: BTreeMap<String, String>,
+}
+#[derive(Clone, Debug, Eq, PartialEq, Serialize)]
+pub struct OrdinaryOwnershipProofProgram {
+    schema: String,
+    source_ir_sha256: String,
+    foundation_sha256: String,
+    functions: Vec<OrdinaryOwnershipFunction>,
+    proofs: Vec<OrdinaryOwnershipProof>,
+    pending_concrete_function_ids: Vec<String>,
+    /// Proofs of source execution and linkage to original W03 scopes are separate.
+    application_scope_pending: bool,
+    certificate_sha256: String,
+    #[serde(skip)]
+    certificate: Vec<u8>,
+}
+impl OrdinaryOwnershipProofProgram {
+    pub fn functions(&self) -> &[OrdinaryOwnershipFunction] {
+        &self.functions
+    }
+    pub fn proofs(&self) -> &[OrdinaryOwnershipProof] {
+        &self.proofs
+    }
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
+    pub fn canonical_bytes(&self) -> Vec<u8> {
+        serde_json::to_vec(self).expect("ownership proof candidate")
+    }
+}
+
+// Copy the exact registered equality foundation. No generated axiom, custom
+// equality interface or proof-node shortcut is introduced.
+fn equality(b: &mut Builder) -> R<()> {
+    if format!("{:x}", Sha256::digest(EQ_HEX))
+        != "80d71a2ef388a6ad1dea166cca4bd10d9093d538edc4999743b6fb1ad80d03a1"
+    {
+        return Err(OrdinaryCarrierError::Linkage);
+    }
+    let hex = std::str::from_utf8(EQ_HEX)
+        .map_err(|_| OrdinaryCarrierError::Linkage)?
+        .split_whitespace()
+        .collect::<String>();
+    let bytes = (0..hex.len())
+        .step_by(2)
+        .map(|i| u8::from_str_radix(&hex[i..i + 2], 16).map_err(|_| OrdinaryCarrierError::Linkage))
+        .collect::<R<Vec<_>>>()?;
+    let c = decode_canonical_certificate(&bytes).map_err(|_| OrdinaryCarrierError::Linkage)?;
+    if !c.proof_node_table.is_empty() || !c.theory_certificates.is_empty() {
+        return Err(OrdinaryCarrierError::Linkage);
+    }
+    let mut names = vec![];
+    for name in &c.name_table {
+        let id =
+            b.c.name_table
+                .iter()
+                .position(|n| n == name)
+                .unwrap_or_else(|| {
+                    b.c.name_table.push(name.clone());
+                    b.c.name_table.len() - 1
+                });
+        names.push(id as u32);
+    }
+    let offset = b.c.declarations.len() as u32;
+    if offset as usize + c.declarations.len() > 8192 {
+        return Err(OrdinaryCarrierError::Limit);
+    }
+    for (i, d) in c.declarations.iter().enumerate() {
+        if b.globals
+            .insert(c.name_table[d.name as usize].clone(), offset + i as u32)
+            .is_some()
+        {
+            return Err(OrdinaryCarrierError::Linkage);
+        }
+    }
+    let mut levels = vec![];
+    for l in &c.level_table {
+        let node = match l {
+            LevelNode::Zero => LevelNode::Zero,
+            LevelNode::Succ(i) => LevelNode::Succ(levels[*i as usize]),
+            LevelNode::Max(a, z) => LevelNode::Max(levels[*a as usize], levels[*z as usize]),
+            LevelNode::Param(n) => LevelNode::Param(names[*n as usize]),
+        };
+        let id =
+            b.c.level_table
+                .iter()
+                .position(|n| n == &node)
+                .unwrap_or_else(|| {
+                    b.c.level_table.push(node);
+                    b.c.level_table.len() - 1
+                });
+        levels.push(id as u32);
+    }
+    let mut terms = vec![];
+    for t in &c.term_table {
+        let node = match t {
+            TermNode::Sort(l) => TermNode::Sort(levels[*l as usize]),
+            TermNode::Var(i) => TermNode::Var(*i),
+            TermNode::Const { global, levels: ls } => TermNode::Const {
+                global: offset + global,
+                levels: ls.iter().map(|l| levels[*l as usize]).collect(),
+            },
+            TermNode::App {
+                function,
+                arguments,
+            } => TermNode::App {
+                function: terms[*function as usize],
+                arguments: arguments.iter().map(|a| terms[*a as usize]).collect(),
+            },
+            TermNode::Lam { ty, body } => TermNode::Lam {
+                ty: terms[*ty as usize],
+                body: terms[*body as usize],
+            },
+            TermNode::Pi { ty, body } => TermNode::Pi {
+                ty: terms[*ty as usize],
+                body: terms[*body as usize],
+            },
+            TermNode::Let { ty, value, body } => TermNode::Let {
+                ty: terms[*ty as usize],
+                value: terms[*value as usize],
+                body: terms[*body as usize],
+            },
+        };
+        terms.push(b.term(node)?);
+    }
+    for d in c.declarations {
+        let kind = match d.kind {
+            DeclarationKind::Def {
+                ty,
+                value,
+                reducibility,
+            } => DeclarationKind::Def {
+                ty: terms[ty as usize],
+                value: terms[value as usize],
+                reducibility,
+            },
+            DeclarationKind::Theorem { ty, proof } => DeclarationKind::Theorem {
+                ty: terms[ty as usize],
+                proof: terms[proof as usize],
+            },
+            DeclarationKind::Inductive { ty } => DeclarationKind::Inductive {
+                ty: terms[ty as usize],
+            },
+            DeclarationKind::Constructor {
+                ty,
+                inductive,
+                generated,
+            } => DeclarationKind::Constructor {
+                ty: terms[ty as usize],
+                inductive: offset + inductive,
+                generated,
+            },
+            DeclarationKind::Recursor {
+                ty,
+                inductive,
+                generated,
+            } => DeclarationKind::Recursor {
+                ty: terms[ty as usize],
+                inductive: offset + inductive,
+                generated,
+            },
+            _ => return Err(OrdinaryCarrierError::Linkage),
+        };
+        b.c.declarations.push(Declaration {
+            name: names[d.name as usize],
+            kind,
+        });
+    }
+    Ok(())
+}
+// Proof-producing normalization for the pure, closed Bool/lambda fragment.
+// The unchanged kernel does not normalize a recursor's major premise eagerly;
+// congruence plus transitivity records that reduction explicitly.
+struct Normalizer<'a> {
+    b: &'a mut Builder,
+    heads: BTreeMap<u32, u32>,
+    substitutions: BTreeMap<(u32, u32, u32), u32>,
+    proofs: BTreeMap<u32, (bool, u32, u32)>,
+    inline_limit: u32,
+    share_atoms: bool,
+    share_word_transport: bool,
+    atoms: BTreeMap<u32, u32>,
+    word_values: BTreeMap<u32, u32>,
+}
+impl Normalizer<'_> {
+    fn word_transport(&mut self, function: u32) -> R<String> {
+        let name = format!("{PREFIX}.OwnershipProof.WordTransport");
+        if self.b.globals.contains_key(&name) {
+            return Ok(name);
+        }
+        let cube = self.b.cube(5)?;
+        let boolean = self.b.boolean;
+        // a,b,c,d : C5; a=c; b=d; r : Bool; WordEqual(c,d)=r.
+        let a = self.b.var(3)?;
+        let c = self.b.var(1)?;
+        let left_ty = call(self.b, EQ, vec![cube, a, c])?;
+        let b = self.b.var(3)?;
+        let d = self.b.var(1)?;
+        let right_ty = call(self.b, EQ, vec![cube, b, d])?;
+        let c = self.b.var(4)?;
+        let d = self.b.var(3)?;
+        let result = self.b.var(0)?;
+        let comparison = self.b.app(function, vec![c, d])?;
+        let comparison_ty = call(self.b, EQ, vec![boolean, comparison, result])?;
+        let binders = [
+            cube,
+            cube,
+            cube,
+            cube,
+            left_ty,
+            right_ty,
+            boolean,
+            comparison_ty,
+        ];
+        let a = self.b.var(7)?;
+        let b = self.b.var(6)?;
+        let c = self.b.var(5)?;
+        let d = self.b.var(4)?;
+        let left_eq = self.b.var(3)?;
+        let right_eq = self.b.var(2)?;
+        let result = self.b.var(1)?;
+        let comparison_eq = self.b.var(0)?;
+        let variable = self.b.var(0)?;
+        let inner_b = self.b.var(7)?;
+        let body = self.b.app(function, vec![variable, inner_b])?;
+        let left_fun = self.b.lam(cube, body)?;
+        let left = call(
+            self.b,
+            "Std.Eq.congr",
+            vec![cube, boolean, left_fun, a, c, left_eq],
+        )?;
+        let inner_c = self.b.var(6)?;
+        let body = self.b.app(function, vec![inner_c, variable])?;
+        let right_fun = self.b.lam(cube, body)?;
+        let right = call(
+            self.b,
+            "Std.Eq.congr",
+            vec![cube, boolean, right_fun, b, d, right_eq],
+        )?;
+        let original = self.b.app(function, vec![a, b])?;
+        let middle = self.b.app(function, vec![c, b])?;
+        let canonical = self.b.app(function, vec![c, d])?;
+        let joined = call(
+            self.b,
+            "Std.Eq.trans",
+            vec![boolean, original, middle, canonical, left, right],
+        )?;
+        let mut proof = call(
+            self.b,
+            "Std.Eq.trans",
+            vec![boolean, original, canonical, result, joined, comparison_eq],
+        )?;
+        let mut ty = call(self.b, EQ, vec![boolean, original, result])?;
+        for binder in binders.into_iter().rev() {
+            proof = self.b.lam(binder, proof)?;
+            ty = self.b.pi(binder, ty)?;
+        }
+        self.publish(&name, ty, proof)?;
+        Ok(name)
+    }
+    fn bool_step(&mut self, selected: bool) -> R<String> {
+        let name = format!("{PREFIX}.OwnershipProof.BoolStep.{selected}");
+        if self.b.globals.contains_key(&name) {
+            return Ok(name);
+        }
+        // For arbitrary branches n/y, condition c and result r:
+        // c = selected -> branch = r -> rec n y c = r.
+        // Sharing this ordinary theorem avoids re-inferring a fresh lambda
+        // containing both complete concrete branches at every reduction step.
+        let boolean = self.b.boolean;
+        let chosen = bit(self.b, selected)?;
+        let condition = self.b.var(1)?;
+        let condition_ty = call(self.b, EQ, vec![boolean, condition, chosen])?;
+        let branch = self.b.var(if selected { 3 } else { 4 })?;
+        let result = self.b.var(1)?;
+        let branch_ty = call(self.b, EQ, vec![boolean, branch, result])?;
+        let binders = [boolean, boolean, boolean, boolean, condition_ty, branch_ty];
+        let no = self.b.var(5)?;
+        let yes = self.b.var(4)?;
+        let condition = self.b.var(3)?;
+        let result = self.b.var(2)?;
+        let condition_proof = self.b.var(1)?;
+        let branch_proof = self.b.var(0)?;
+        let expression = call(self.b, "Std.Bool.rec", vec![no, yes, condition])?;
+        let branch = if selected { yes } else { no };
+        let inner_no = self.b.var(6)?;
+        let inner_yes = self.b.var(5)?;
+        let variable = self.b.var(0)?;
+        let body = call(self.b, "Std.Bool.rec", vec![inner_no, inner_yes, variable])?;
+        let fun = self.b.lam(boolean, body)?;
+        let congr = call(
+            self.b,
+            "Std.Eq.congr",
+            vec![boolean, boolean, fun, condition, chosen, condition_proof],
+        )?;
+        let mut proof = call(
+            self.b,
+            "Std.Eq.trans",
+            vec![boolean, expression, branch, result, congr, branch_proof],
+        )?;
+        let mut ty = call(self.b, EQ, vec![boolean, expression, result])?;
+        for binder in binders.into_iter().rev() {
+            proof = self.b.lam(binder, proof)?;
+            ty = self.b.pi(binder, ty)?;
+        }
+        self.publish(&name, ty, proof)?;
+        Ok(name)
+    }
+    fn substitute(&mut self, t: u32, depth: u32, value: u32) -> R<u32> {
+        if let Some(r) = self.substitutions.get(&(t, depth, value)) {
+            return Ok(*r);
+        }
+        let node = self.b.c.term_table[t as usize].clone();
+        let node = match node {
+            TermNode::Var(i) if i == depth => {
+                self.substitutions.insert((t, depth, value), value);
+                return Ok(value);
+            }
+            TermNode::Var(i) if i > depth => TermNode::Var(i - 1),
+            TermNode::App {
+                function,
+                arguments,
+            } => TermNode::App {
+                function: self.substitute(function, depth, value)?,
+                arguments: arguments
+                    .into_iter()
+                    .map(|a| self.substitute(a, depth, value))
+                    .collect::<R<Vec<_>>>()?,
+            },
+            TermNode::Lam { ty, body } => TermNode::Lam {
+                ty: self.substitute(ty, depth, value)?,
+                body: self.substitute(body, depth + 1, value)?,
+            },
+            TermNode::Pi { ty, body } => TermNode::Pi {
+                ty: self.substitute(ty, depth, value)?,
+                body: self.substitute(body, depth + 1, value)?,
+            },
+            TermNode::Let { ty, value: v, body } => TermNode::Let {
+                ty: self.substitute(ty, depth, value)?,
+                value: self.substitute(v, depth, value)?,
+                body: self.substitute(body, depth + 1, value)?,
+            },
+            node => node,
+        };
+        let result = self.b.term(node)?;
+        self.substitutions.insert((t, depth, value), result);
+        Ok(result)
+    }
+    fn head(&mut self, t: u32) -> R<u32> {
+        if self.word_call(t).is_some() {
+            return Ok(t);
+        }
+        if let Some(r) = self.heads.get(&t) {
+            return Ok(*r);
+        }
+        let node = self.b.c.term_table[t as usize].clone();
+        let result = match node {
+            TermNode::Const { global, .. } => match self.b.c.declarations[global as usize].kind {
+                DeclarationKind::Def {
+                    value,
+                    reducibility: DefinitionReducibility::Reducible,
+                    ..
+                } => self.head(value)?,
+                _ => t,
+            },
+            TermNode::Let { value, body, .. } => {
+                let reduced = self.substitute(body, 0, value)?;
+                self.head(reduced)?
+            }
+            TermNode::App {
+                function,
+                arguments,
+            } => {
+                let function = self.head(function)?;
+                if let TermNode::Lam { body, .. } = self.b.c.term_table[function as usize] {
+                    let reduced = self.substitute(body, 0, arguments[0])?;
+                    let reduced = self.b.app(reduced, arguments[1..].to_vec())?;
+                    self.head(reduced)?
+                } else if matches!(self.b.c.term_table[function as usize], TermNode::Const {global,..} if self.b.c.name_table[self.b.c.declarations[global as usize].name as usize] == "Std.Bool.rec")
+                    && arguments.len() == 3
+                {
+                    // Only a literal constructor major is an ordinary iota
+                    // conversion. Computed conditions still need explicit proof.
+                    let branch = match self.b.c.term_table[arguments[2] as usize] {
+                        TermNode::Const { global, .. } => match self.b.c.name_table
+                            [self.b.c.declarations[global as usize].name as usize]
+                            .as_str()
+                        {
+                            "Std.Bool.false" => Some(arguments[0]),
+                            "Std.Bool.true" => Some(arguments[1]),
+                            _ => None,
+                        },
+                        _ => None,
+                    };
+                    if let Some(branch) = branch {
+                        self.head(branch)?
+                    } else {
+                        self.b.app(function, arguments)?
+                    }
+                } else {
+                    self.b.app(function, arguments)?
+                }
+            }
+            _ => t,
+        };
+        self.heads.insert(t, result);
+        Ok(result)
+    }
+    fn word_call(&self, t: u32) -> Option<(u32, Vec<u32>)> {
+        let TermNode::App {
+            function,
+            arguments,
+        } = &self.b.c.term_table[t as usize]
+        else {
+            return None;
+        };
+        let TermNode::Const { global, .. } = self.b.c.term_table[*function as usize] else {
+            return None;
+        };
+        (arguments.len() == 2
+            && self.b.c.name_table[self.b.c.declarations[global as usize].name as usize]
+                == format!("{PREFIX}.OwnershipFlow.WordEqual"))
+        .then(|| (*function, arguments.clone()))
+    }
+    fn literal_tree(&mut self, t: u32) -> R<Option<u32>> {
+        match self.b.c.term_table[t as usize].clone() {
+            TermNode::Var(i) if i < 5 => Ok(Some(t)),
+            TermNode::Const { global, .. } => {
+                let name =
+                    &self.b.c.name_table[self.b.c.declarations[global as usize].name as usize];
+                Ok(matches!(name.as_str(), "Std.Bool.false" | "Std.Bool.true").then_some(t))
+            }
+            TermNode::App {
+                function,
+                arguments,
+            } if arguments.len() == 3 => {
+                let TermNode::Const { global, .. } = self.b.c.term_table[function as usize] else {
+                    return Ok(None);
+                };
+                if self.b.c.name_table[self.b.c.declarations[global as usize].name as usize]
+                    != "Std.Bool.rec"
+                {
+                    return Ok(None);
+                }
+                match self.b.c.term_table[arguments[2] as usize] {
+                    TermNode::Const { global, .. } => {
+                        let selected = match self.b.c.name_table
+                            [self.b.c.declarations[global as usize].name as usize]
+                            .as_str()
+                        {
+                            "Std.Bool.false" => 0,
+                            "Std.Bool.true" => 1,
+                            _ => return Ok(None),
+                        };
+                        self.literal_tree(arguments[selected])
+                    }
+                    TermNode::Var(i) if i < 5 => {
+                        let Some(no) = self.literal_tree(arguments[0])? else {
+                            return Ok(None);
+                        };
+                        let Some(yes) = self.literal_tree(arguments[1])? else {
+                            return Ok(None);
+                        };
+                        Ok(Some(self.b.app(function, vec![no, yes, arguments[2]])?))
+                    }
+                    _ => Ok(None),
+                }
+            }
+            _ => Ok(None),
+        }
+    }
+    fn literal_word(&mut self, t: u32) -> R<Option<u32>> {
+        let mut body = self.head(t)?;
+        for _ in 0..5 {
+            let TermNode::Lam { ty, body: inner } = self.b.c.term_table[body as usize] else {
+                return Ok(None);
+            };
+            if ty != self.b.boolean {
+                return Ok(None);
+            }
+            body = inner;
+        }
+        let Some(body) = self.literal_tree(body)? else {
+            return Ok(None);
+        };
+        let word = self.b.wrap_selectors(5, body)?;
+        if !self.share_atoms {
+            return Ok(Some(word));
+        }
+        if let Some(value) = self.word_values.get(&word) {
+            return Ok(Some(*value));
+        }
+        // Inference of a constant uses its already checked C5 type. Reusing
+        // literal carriers avoids rechecking the same lambda tree in every
+        // equality/prefix proof; their complete selector bodies remain checked.
+        let name = format!(
+            "{PREFIX}.OwnershipProof.WordValue.N{}",
+            self.b.c.declarations.len()
+        );
+        let ty = self.b.cube(5)?;
+        self.b.define(&name, ty, word)?;
+        let value = self.b.constant(&name)?;
+        self.word_values.insert(word, value);
+        Ok(Some(value))
+    }
+    // Sharing only constructor-valued selector computations keeps each
+    // conversion local. A computed recursor major stays neutral: replacing it
+    // by a literal would add an iota reduction absent from the original term.
+    fn atom(&mut self, t: u32) -> R<u32> {
+        if let Some(r) = self.atoms.get(&t) {
+            return Ok(*r);
+        }
+        let h = self.head(t)?;
+        let mut result = h;
+        if let TermNode::App {
+            function,
+            arguments,
+        } = self.b.c.term_table[h as usize].clone()
+        {
+            if let TermNode::Const { global, .. } = self.b.c.term_table[function as usize] {
+                if self.b.c.name_table[self.b.c.declarations[global as usize].name as usize]
+                    == "Std.Bool.rec"
+                    && arguments.len() == 3
+                {
+                    let condition = self.head(arguments[2])?;
+                    let literal = matches!(self.b.c.term_table[condition as usize], TermNode::Const { global, .. } if matches!(self.b.c.name_table[self.b.c.declarations[global as usize].name as usize].as_str(), "Std.Bool.true" | "Std.Bool.false"));
+                    if literal {
+                        let no = self.atom(arguments[0])?;
+                        let yes = self.atom(arguments[1])?;
+                        let variable = self.b.var(0)?;
+                        let identity = self.b.lam(self.b.boolean, variable)?;
+                        let neutral = self.b.app(identity, vec![condition])?;
+                        result = self.b.app(function, vec![no, yes, neutral])?;
+                    }
+                }
+            }
+        }
+        self.atoms.insert(t, result);
+        Ok(result)
+    }
+    fn normalize(&mut self, t: u32) -> R<(bool, u32, u32)> {
+        let h = if self.share_atoms {
+            self.atom(t)?
+        } else {
+            self.head(t)?
+        };
+        if let Some(r) = self.proofs.get(&h) {
+            return Ok(*r);
+        }
+        if let Some((function, arguments)) = self.word_call(h) {
+            let mut canonical = arguments.clone();
+            for arg in &mut canonical {
+                if let Some(word) = self.literal_word(*arg)? {
+                    *arg = word;
+                }
+            }
+            let result = if canonical != arguments {
+                let shared = self.b.app(function, canonical.clone())?;
+                let (value, reduced, _) = self.normalize(shared)?;
+                let cube = self.b.cube(5)?;
+                let expected = bit(self.b, value)?;
+                let proof = if self.share_word_transport {
+                    let transport = self.word_transport(function)?;
+                    let left = call(self.b, REFL, vec![cube, canonical[0]])?;
+                    let right = call(self.b, REFL, vec![cube, canonical[1]])?;
+                    call(
+                        self.b,
+                        &transport,
+                        vec![
+                            arguments[0],
+                            arguments[1],
+                            canonical[0],
+                            canonical[1],
+                            left,
+                            right,
+                            expected,
+                            reduced,
+                        ],
+                    )?
+                } else {
+                    let variable = self.b.var(0)?;
+                    let left_body = self.b.app(function, vec![variable, arguments[1]])?;
+                    let left_fun = self.b.lam(cube, left_body)?;
+                    let left_refl = call(self.b, REFL, vec![cube, canonical[0]])?;
+                    let left = call(
+                        self.b,
+                        "Std.Eq.congr",
+                        vec![
+                            cube,
+                            self.b.boolean,
+                            left_fun,
+                            arguments[0],
+                            canonical[0],
+                            left_refl,
+                        ],
+                    )?;
+                    let right_body = self.b.app(function, vec![canonical[0], variable])?;
+                    let right_fun = self.b.lam(cube, right_body)?;
+                    let right_refl = call(self.b, REFL, vec![cube, canonical[1]])?;
+                    let right = call(
+                        self.b,
+                        "Std.Eq.congr",
+                        vec![
+                            cube,
+                            self.b.boolean,
+                            right_fun,
+                            arguments[1],
+                            canonical[1],
+                            right_refl,
+                        ],
+                    )?;
+                    let middle = self.b.app(function, vec![canonical[0], arguments[1]])?;
+                    let joined = call(
+                        self.b,
+                        "Std.Eq.trans",
+                        vec![self.b.boolean, h, middle, shared, left, right],
+                    )?;
+                    call(
+                        self.b,
+                        "Std.Eq.trans",
+                        vec![self.b.boolean, h, shared, expected, joined, reduced],
+                    )?
+                };
+                let ty = call(self.b, EQ, vec![self.b.boolean, h, expected])?;
+                let name = format!(
+                    "{PREFIX}.OwnershipProof.Word.N{}",
+                    self.b.c.declarations.len()
+                );
+                self.publish(&name, ty, proof)?;
+                (value, self.b.constant(&name)?, 1)
+            } else {
+                let TermNode::Const { global, .. } = self.b.c.term_table[function as usize] else {
+                    return Err(OrdinaryCarrierError::Linkage);
+                };
+                let DeclarationKind::Def { value, .. } =
+                    self.b.c.declarations[global as usize].kind
+                else {
+                    return Err(OrdinaryCarrierError::Linkage);
+                };
+                let expanded = self.b.app(value, arguments)?;
+                self.normalize(expanded)?
+            };
+            self.proofs.insert(h, result);
+            return Ok(result);
+        }
+        let node = self.b.c.term_table[h as usize].clone();
+        let result = match node {
+            TermNode::Const { global, .. } => {
+                let name =
+                    &self.b.c.name_table[self.b.c.declarations[global as usize].name as usize];
+                let value = match name.as_str() {
+                    "Std.Bool.true" => true,
+                    "Std.Bool.false" => false,
+                    _ => return Err(OrdinaryCarrierError::Linkage),
+                };
+                let proof = call(self.b, REFL, vec![self.b.boolean, h])?;
+                (value, proof, 1)
+            }
+            TermNode::App {
+                function,
+                arguments,
+            } => {
+                let TermNode::Const { global, .. } = self.b.c.term_table[function as usize] else {
+                    return Err(OrdinaryCarrierError::Linkage);
+                };
+                if self.b.c.name_table[self.b.c.declarations[global as usize].name as usize]
+                    != "Std.Bool.rec"
+                    || arguments.len() != 3
+                {
+                    return Err(OrdinaryCarrierError::Linkage);
+                }
+                let (selected, condition_proof, condition_cost) = self.normalize(arguments[2])?;
+                let branch = arguments[usize::from(selected)];
+                let (value, branch_proof, branch_cost) = self.normalize(branch)?;
+                let no = arguments[0];
+                let yes = arguments[1];
+                let condition_reference = arguments[2];
+                let reference = h;
+                let branch = if selected { yes } else { no };
+                let result = bit(self.b, value)?;
+                let proof = if self.share_atoms {
+                    let step = self.bool_step(selected)?;
+                    call(
+                        self.b,
+                        &step,
+                        vec![
+                            no,
+                            yes,
+                            condition_reference,
+                            result,
+                            condition_proof,
+                            branch_proof,
+                        ],
+                    )?
+                } else {
+                    let variable = self.b.var(0)?;
+                    let body = self.b.app(function, vec![no, yes, variable])?;
+                    // Both branches are closed; wrapping a new binder needs no shift.
+                    let fun = self.b.lam(self.b.boolean, body)?;
+                    let condition = bit(self.b, selected)?;
+                    let congr = call(
+                        self.b,
+                        "Std.Eq.congr",
+                        vec![
+                            self.b.boolean,
+                            self.b.boolean,
+                            fun,
+                            condition_reference,
+                            condition,
+                            condition_proof,
+                        ],
+                    )?;
+                    call(
+                        self.b,
+                        "Std.Eq.trans",
+                        vec![
+                            self.b.boolean,
+                            reference,
+                            branch,
+                            result,
+                            congr,
+                            branch_proof,
+                        ],
+                    )?
+                };
+                (value, proof, condition_cost + branch_cost + 1)
+            }
+            _ => return Err(OrdinaryCarrierError::Linkage),
+        };
+        let (value, proof, cost) = result;
+        let result = if cost >= self.inline_limit {
+            let reference = h;
+            let expected = bit(self.b, value)?;
+            let ty = call(self.b, EQ, vec![self.b.boolean, reference, expected])?;
+            let name = format!(
+                "{PREFIX}.OwnershipProof.Step.N{}",
+                self.b.c.declarations.len()
+            );
+            self.publish(&name, ty, proof)?;
+            (value, self.b.constant(&name)?, 1)
+        } else {
+            result
+        };
+        self.proofs.insert(h, result);
+        Ok(result)
+    }
+    fn theorem(&mut self, definition: &str, expected: bool) -> R<String> {
+        let value = self.b.constant(definition)?;
+        let (actual, proof, _) = self.normalize(value)?;
+        if actual != expected {
+            return Err(OrdinaryCarrierError::Linkage);
+        }
+        let expected = bit(self.b, expected)?;
+        let ty = call(self.b, EQ, vec![self.b.boolean, value, expected])?;
+        let name = format!("{definition}.Proof");
+        self.publish(&name, ty, proof)?;
+        Ok(name)
+    }
+    fn publish(&mut self, name: &str, ty: u32, proof: u32) -> R<()> {
+        publish_theorem(self.b, name, ty, proof)
+    }
+}
+pub(super) fn publish_theorem(b: &mut Builder, name: &str, ty: u32, proof: u32) -> R<()> {
+    if b.globals.contains_key(name) {
+        return Err(OrdinaryCarrierError::Linkage);
+    }
+    if b.c.declarations.len() >= 8192 {
+        return Err(OrdinaryCarrierError::Limit);
+    }
+    let id = b.c.name_table.len() as u32;
+    b.c.name_table.push(name.to_owned());
+    b.globals
+        .insert(name.to_owned(), b.c.declarations.len() as u32);
+    b.c.declarations.push(Declaration {
+        name: id,
+        kind: DeclarationKind::Theorem { ty, proof },
+    });
+    Ok(())
+}
+/// Prove a source-bound subset of already emitted ownership equations while
+/// retaining the complete flow theorem as a checked dependency.
+pub(super) fn prove_record(
+    b: &mut Builder,
+    function: &OrdinaryOwnershipFunction,
+    flow_theorem: &str,
+    definition: &str,
+) -> R<String> {
+    let mut n = Normalizer {
+        b,
+        heads: BTreeMap::new(),
+        substitutions: BTreeMap::new(),
+        proofs: BTreeMap::new(),
+        inline_limit: if function.state_depth > 5 { 4 } else { 8 },
+        share_atoms: function.state_depth > 5,
+        share_word_transport: function.state_depth > 6,
+        atoms: BTreeMap::new(),
+        word_values: BTreeMap::new(),
+    };
+    let reference = n.b.constant(definition)?;
+    let (actual, proof, _) = n.normalize(reference)?;
+    if !actual {
+        return Err(OrdinaryCarrierError::Linkage);
+    }
+    let yes = bit(n.b, true)?;
+    let ty = call(n.b, EQ, vec![n.b.boolean, reference, yes])?;
+    let flow = n.b.constant(&function.flow_definition)?;
+    let flow_type = call(n.b, EQ, vec![n.b.boolean, flow, yes])?;
+    let dependency = n.b.constant(flow_theorem)?;
+    let proof = n.b.term(TermNode::Let {
+        ty: flow_type,
+        value: dependency,
+        body: proof,
+    })?;
+    let name = format!("{definition}.Proof");
+    n.publish(&name, ty, proof)?;
+    Ok(name)
+}
+pub fn generate_csharp_practical_ordinary_ownership_proofs(
+    vir: &ValidatedPracticalVir,
+) -> R<OrdinaryOwnershipProofProgram> {
+    let (b, functions, pending_concrete_function_ids) = ownership_flow::definitions(vir)?;
+    let (b, proofs) = emit_proofs(b, &functions)?;
+    let certificate = b.finish()?;
+    let p = OrdinaryOwnershipProofProgram {
+        schema: "mpk.csharp.ordinary_ownership_proofs.v1".into(),
+        source_ir_sha256: vir.hash().into(),
+        foundation_sha256: vir.construction_context().0.content_sha256().into(),
+        functions,
+        proofs,
+        pending_concrete_function_ids,
+        application_scope_pending: true,
+        certificate_sha256: mpk_cert::hash_hex(&mpk_cert::certificate_hash(&certificate)),
+        certificate,
+    };
+    if p.canonical_bytes().len() > 16 * 1024 * 1024 {
+        return Err(OrdinaryCarrierError::Limit);
+    }
+    Ok(p)
+}
+pub(super) fn emit_proofs(
+    mut b: Builder,
+    functions: &[OrdinaryOwnershipFunction],
+) -> R<(Builder, Vec<OrdinaryOwnershipProof>)> {
+    equality(&mut b)?;
+    let mut normalizer = Normalizer {
+        b: &mut b,
+        heads: BTreeMap::new(),
+        substitutions: BTreeMap::new(),
+        proofs: BTreeMap::new(),
+        inline_limit: 8,
+        share_atoms: false,
+        share_word_transport: false,
+        atoms: BTreeMap::new(),
+        word_values: BTreeMap::new(),
+    };
+    let mut proofs = vec![];
+    for f in functions {
+        // Multiple allocation slots make each inferred equality considerably
+        // larger. Shorter checked lemmas avoid repeating those inference trees.
+        normalizer.share_atoms = f.state_depth > 5;
+        normalizer.share_word_transport = f.state_depth > 6;
+        normalizer.inline_limit = if normalizer.share_atoms { 4 } else { 8 };
+        let flow_theorem = normalizer.theorem(&f.flow_definition, true)?;
+        let mut point_theorems = BTreeMap::new();
+        for p in &f.points {
+            point_theorems.insert(
+                p.node_id.clone(),
+                normalizer.theorem(&p.witness_definition, false)?,
+            );
+        }
+        proofs.push(OrdinaryOwnershipProof {
+            function_id: f.source.function_id.clone(),
+            flow_definition: f.flow_definition.clone(),
+            flow_theorem,
+            point_theorems,
+        });
+    }
+    Ok((b, proofs))
+}
+pub fn import_csharp_practical_ordinary_ownership_proofs(
+    input: &[u8],
+    certificate: &[u8],
+    vir: &ValidatedPracticalVir,
+) -> R<OrdinaryOwnershipProofProgram> {
+    if input.len() > 16 * 1024 * 1024 || certificate.len() > 16 * 1024 * 1024 {
+        return Err(OrdinaryCarrierError::Limit);
+    }
+    let p = generate_csharp_practical_ordinary_ownership_proofs(vir)?;
+    if input != p.canonical_bytes() || certificate != p.certificate_bytes() {
+        return Err(OrdinaryCarrierError::Linkage);
+    }
+    Ok(p)
+}

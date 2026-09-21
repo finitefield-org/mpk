@@ -53,7 +53,10 @@ fn name(kind: &str, identity: &impl Serialize) -> String {
         Sha256::digest(serde_json::to_vec(identity).expect("typed structural data identity"))
     )
 }
-fn emit(c: &mut Clauses<'_>, d: &DataSemanticDefinition) -> R<OrdinaryStructuralDataDefinition> {
+pub(super) fn emit(
+    c: &mut Clauses<'_>,
+    d: &DataSemanticDefinition,
+) -> R<OrdinaryStructuralDataDefinition> {
     let s = &d.signature;
     let compare = match s.tag {
         ClosedOperationTag::StructuralEqual => false,

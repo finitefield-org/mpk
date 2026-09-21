@@ -1,0 +1,78 @@
+{
+  "work_item": "CSHARP-03-T06-W09",
+  "status": "ordinary_symbolic_ownership_equations_named_word_prefixes_verified",
+  "observed_at": "2026-09-20T17:02:24.993642+00:00",
+  "selection_rationale": "WordEqual now retains all 32 comparisons in named prefixes; final Flow uses a balanced conjunction containing every equation. All 14 affected certificates, exact source regeneration and all 19,831 runtime observations were rechecked. Other ordinary generators are unaffected.",
+  "counts": {
+    "source_contexts": 14,
+    "functions": 14,
+    "equations": 7457,
+    "states": 7179,
+    "private_receiver_points": 40,
+    "runtime_observations": 19831
+  },
+  "checks": [
+    {
+      "receipt": "prefix-equation-candidates.json",
+      "log_sha256": "c3d1493040d9bcbfa418edf0cec1a37b299f1efcecdc6f21e71cde9a1ea763b0",
+      "wall_seconds": 1.924,
+      "passed": true
+    },
+    {
+      "receipt": "prefix-equation-runtime.json",
+      "log_sha256": "a08c392302cf5eac71bf9f2c30478f9eec717ed9e2457c45262c55c09e8b94a4",
+      "wall_seconds": 6.217,
+      "passed": true
+    },
+    {
+      "receipt": "prefix-equation-check.json",
+      "log_sha256": "1b7fe9a1f954e1ad821ca477a9efc8af11768e7ae9e3dc2fc37d869e8d258738",
+      "wall_seconds": 45.629,
+      "passed": true
+    },
+    {
+      "receipt": "prefix-inventory.json",
+      "log_sha256": "4eb4c46077cff5a9bf5a711632601794dd8cb9f296950a6f9b6f94e15d4fa553",
+      "wall_seconds": 0.555,
+      "passed": true
+    }
+  ],
+  "source_and_fixture_sha256": {
+    "crates/mpk-vc/src/csharp_practical_ordinary_ownership_flow.rs": "ae4519e3741e2b3d90f7ce2ef73bc1b5eb822b37958e0c62ef1f4d62a9c1226e",
+    "crates/mpk-vc/src/csharp_practical_vir_validation.rs": "90cab8619bdee76ffaed564768c80e801768d9364a7bd348c2d2d6b37b14fd31",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/27bf71b9691bff9bf271182a00171dcaf676eca9d77b8102e07cd1facfc6dd09.json": "f40f45628e790d5938a681cfd5b5b6afe826dc1f63807be9ce7a8c6c7e1c651a",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/array_finally_abandon.json": "a9d565dc35a51c0195d9554cae845ccbeba414624d1162cb0ed7a4aada9f7c82",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/array_initializer_catch.json": "eab7f65e9d4cca840752e8c1638f621eb712c89ee3e8ad29021ae31a555b3b91",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/array_publish_then_catch.json": "b8447fed3f7b2f9c344a0755dcbd4f1d7157d544e7eca9e691047cfcea29cfd9",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/array_return_finally.json": "03c209e7cea9f9b1ba1aa61e670b15da20d318db0371426a40605c71bc8851a8",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/b85dd77635fb03689bd82d5b31d1088a0f49d29f414ec392e08af68e4d0c46c9.json": "97cb999336f80c151757baa3832a5b1de372dc95108adb3e89eaded8a8bce0e9",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/count_fill.json": "53803689badbb28e1509c341da45a053aea3e9c4f8b4d33eeb72a5397c8d42e6",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/dcb1bfeae19deccb577dce44cd239e814c6ca65f71bb32d8005af44a572fa358.json": "caedd0f974a65abb4a4acf6ce2987e09d692de91cfd6d7d6ff77ad7ada04e87c",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/dedup.json": "03ecae1119e40a273b3e966a1701638e783acb2ce810cf31b76731289af0533f",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/duplicate_replace.json": "f2959d09615a73d31475f5784ae46e2501d9e857f91a55186d9b9735440e73f1",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/eight-live.json": "2e0e5d722d9e8e0f3b531f0713143f55b9efd9d9bb8cf77192777feed1bda334",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/index_update.json": "231eb7775db3b747bd0e06ce6469af097bd39479dc6fca801cd2286c173dc228",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/sort.json": "8632523d669c0756d7bf315606391f017f7cfc13856d599f071622439a053ab8",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/two-origins.json": "406c0e6610e84d31bed6d421a030976ccd2cdad66f661e3b5d46c4e50c892bd4",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/27bf71b9691bff9bf271182a00171dcaf676eca9d77b8102e07cd1facfc6dd09.hex": "5f68268207d7eee942867eb4939ea355307a4d5f2dea5f984bcf7270886604b6",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/array_finally_abandon.hex": "7de5e109b2012d552ac6a643c99368b2c50dbc731bea699fcd690501dc6b77ed",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/array_initializer_catch.hex": "33284ef2cefd214874289f3ff08f5de8f9bae3e53d3bf185a1180eb89a814cac",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/array_publish_then_catch.hex": "c62da2988f4e585054dadc31bc3b41d56ece92b3625ac10457814e0edd44eed4",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/array_return_finally.hex": "dada3fb69ec5faa7c54e5baf11d96233da3a410f01296a554c21be81b7a4fca2",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/b85dd77635fb03689bd82d5b31d1088a0f49d29f414ec392e08af68e4d0c46c9.hex": "54384558dee1cb32c32899ea5f664cd38df6ecab4a77912b5a79e7aae5960b05",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/count_fill.hex": "52879096391889c6a2cc98d8ed84e016c7c17e53f376f88b9df0c479df15e0e2",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/dcb1bfeae19deccb577dce44cd239e814c6ca65f71bb32d8005af44a572fa358.hex": "021a6c43b032144d713844d38b0b6c2229c79684bac20b7ad1cf19cbd1fc2506",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/dedup.hex": "47066ddf9077ff707c5092c4e854a174435abadd46b8f7ae68f4d83be12945d2",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/duplicate_replace.hex": "c132fa17e7179368c5f716bfb4081efa26aac4bbc092e5b68b74faf30731f5ae",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/eight-live.hex": "eb0af020667d832b6ae34bb3b4ae478159324313c30d9ddf3c782ea18c16e2b3",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/index_update.hex": "eb955b981d44a00cfd92e3a049a1e2ac4457de0bcb68b7f9b050ad540b488904",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/sort.hex": "d62bd2c2b1df68d1a411d5a9896196cbc396011a96aaaede7eabe0dbc0959e1f",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/two-origins.hex": "45ac638c70da26364bcab1f63ca78d320e138890ffe396e22ac11eb0ebf34bd2"
+  },
+  "ownership_proofs_discharged": false,
+  "unit_5_complete": false,
+  "w09_complete": false,
+  "whole_gate": "deferred to T06-W12",
+  "historical_evidence": "equation-encoding-verification.json",
+  "proof_program_status": "In development; this receipt covers only the equation definitions and execution checks, not proof candidates."
+}

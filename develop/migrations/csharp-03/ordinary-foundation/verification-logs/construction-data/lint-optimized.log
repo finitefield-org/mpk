@@ -1,0 +1,27 @@
+    Checking mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error: returning the result of a `let` binding from a block
+   --> crates/mpk-vc/src/csharp_practical_ordinary_construction_data.rs:144:9
+    |
+139 | /         let body = c.b.term(TermNode::Let {
+140 | |             ty,
+141 | |             value: computed,
+142 | |             body,
+143 | |         })?;
+    | |____________- unnecessary `let` binding
+144 |           body
+    |           ^^^^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#let_and_return
+    = note: `-D clippy::let-and-return` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::let_and_return)]`
+help: return the expression directly
+    |
+139 ~         
+140 ~         c.b.term(TermNode::Let {
+141 +             ty,
+142 +             value: computed,
+143 +             body,
+144 +         })?
+    |
+
+error: could not compile `mpk-vc` (lib) due to 1 previous error

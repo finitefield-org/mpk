@@ -1,0 +1,60 @@
+[
+  {
+    "stage": "index_update-positive-go",
+    "command": [
+      "/private/tmp/mpk-control-edge-bounds-checks-20260921/go-checker",
+      "/private/tmp/mpk-control-edge-bounds-checks-20260921/index_update-positive.mpcert"
+    ],
+    "wall_seconds": 167.557,
+    "exit_code": 0,
+    "timed_out": false,
+    "input_file_sha256": "41c92b50a036ebe6975a3ebfdd3f0f9c05231b2043f721ba1ce10125ebc5141b",
+    "stdout_sha256": "1919f44a10eb36e726cf12e8e0649c8602c07f89594d24825865bbcec28cba64",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "index_update-positive-rust",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "check",
+      "/private/tmp/mpk-control-edge-bounds-checks-20260921/index_update-positive.mpcert"
+    ],
+    "wall_seconds": 0.413,
+    "exit_code": 0,
+    "timed_out": false,
+    "input_file_sha256": "41c92b50a036ebe6975a3ebfdd3f0f9c05231b2043f721ba1ce10125ebc5141b",
+    "stdout_sha256": "a1c1604e9059c219ede80a8423c743d1e023d730a361f8a5e48aaa8fb9e403df",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "index_update-hash-go",
+    "command": [
+      "/private/tmp/mpk-control-edge-bounds-checks-20260921/go-checker",
+      "/private/tmp/mpk-control-edge-bounds-checks-20260921/index_update-hash.mpcert"
+    ],
+    "wall_seconds": 156.2,
+    "exit_code": 1,
+    "timed_out": false,
+    "input_file_sha256": "de06355433c82c03f87ebb726e1022246ef71801515a46cb54ba5e11a973d6f3",
+    "stdout_sha256": "e77cf782d7cb2287e12ebb6cb439dc6b9565d955ff1ccff26150953aa6c192ab",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "index_update-hash-rust",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "check",
+      "/private/tmp/mpk-control-edge-bounds-checks-20260921/index_update-hash.mpcert"
+    ],
+    "wall_seconds": 0.384,
+    "exit_code": 1,
+    "timed_out": false,
+    "input_file_sha256": "de06355433c82c03f87ebb726e1022246ef71801515a46cb54ba5e11a973d6f3",
+    "stdout_sha256": "de74b33d38d06d14bdc673fc373ac1270cceced02a7a3d1bc2e804038d07e78e",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  }
+]

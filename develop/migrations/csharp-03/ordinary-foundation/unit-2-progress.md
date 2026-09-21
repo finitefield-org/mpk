@@ -1,5 +1,14 @@
 # W09 internal unit 2: scalar progress
 
+Current follow-up: see `unit-5-string-construction-runtime-review.md` and
+`verification-logs/string-data/hoisted-index/verification.json`. Constructor
+sharing changed emitted bytes and moved the accepted all-char arity from 231
+to 234 under the unchanged 256-binder cap. Earlier results below retain their
+historical scope; replaced pins are preserved. The reported interpolation test
+now passes; the user also completed the constructor oracle, binder checker and
+all remaining string runtime partitions. Final scoped evidence is in
+`verification-logs/string-data/user-long-completed/verification.json`.
+
 Unit 2 is **complete as an internal implementation unit**. The final scalar
 coverage audit and transformer-contract correction are recorded at the end of
 this chronological log and in `unit-2-review.md`, `unit-2-coverage-audit.json`

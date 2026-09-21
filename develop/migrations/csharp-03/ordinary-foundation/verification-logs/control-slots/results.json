@@ -1,0 +1,234 @@
+[
+  {
+    "stage": "for-positive-go",
+    "command": [
+      "/private/tmp/mpk-control-slot-checks-20260921/go-checker",
+      "/private/tmp/mpk-control-slot-checks-20260921/for-positive.mpcert"
+    ],
+    "wall_seconds": 0.324,
+    "exit_code": 0,
+    "timed_out": false,
+    "input_file_sha256": "e59ccf8bb3f104e68ed7f0e96ff67ea0e2fdc2859339bd341473fc96ac5d6478",
+    "stdout_sha256": "9dbed206f7b9ffd38121481de3793a82d30d5e4162726aaf9df295af3db154c5",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "for-positive-rust",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "check",
+      "/private/tmp/mpk-control-slot-checks-20260921/for-positive.mpcert"
+    ],
+    "wall_seconds": 0.012,
+    "exit_code": 0,
+    "timed_out": false,
+    "input_file_sha256": "e59ccf8bb3f104e68ed7f0e96ff67ea0e2fdc2859339bd341473fc96ac5d6478",
+    "stdout_sha256": "d16d7591ec519b2b949e9ca2dd5fc5f8bfff605bca0023fdbf7bb6c7318c0a4a",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "for-hash-go",
+    "command": [
+      "/private/tmp/mpk-control-slot-checks-20260921/go-checker",
+      "/private/tmp/mpk-control-slot-checks-20260921/for-hash.mpcert"
+    ],
+    "wall_seconds": 0.047,
+    "exit_code": 1,
+    "timed_out": false,
+    "input_file_sha256": "ee0235fcdf7aebc6b0b34083cf60b22df3b0f359282b0f8dfb3e7dafff9aabbc",
+    "stdout_sha256": "4389d4f0a642402789e26f8b67102dfa760a7cf4b9afea8652bf8d6e5cefcf82",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "for-hash-rust",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "check",
+      "/private/tmp/mpk-control-slot-checks-20260921/for-hash.mpcert"
+    ],
+    "wall_seconds": 0.013,
+    "exit_code": 1,
+    "timed_out": false,
+    "input_file_sha256": "ee0235fcdf7aebc6b0b34083cf60b22df3b0f359282b0f8dfb3e7dafff9aabbc",
+    "stdout_sha256": "2877cb956e45bf6fe940d710266872ba0d57d55e449c41ae4a89e1655f16c675",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "short_circuit-positive-go",
+    "command": [
+      "/private/tmp/mpk-control-slot-checks-20260921/go-checker",
+      "/private/tmp/mpk-control-slot-checks-20260921/short_circuit-positive.mpcert"
+    ],
+    "wall_seconds": 0.043,
+    "exit_code": 0,
+    "timed_out": false,
+    "input_file_sha256": "86f5d600318c737cda12bc33d40e45e516224ebffed4ce19cc2f96b3dd533125",
+    "stdout_sha256": "cac21eaeb9f570089ec82375766e371a3dec7759eba611f15d96b023a019574d",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "short_circuit-positive-rust",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "check",
+      "/private/tmp/mpk-control-slot-checks-20260921/short_circuit-positive.mpcert"
+    ],
+    "wall_seconds": 0.013,
+    "exit_code": 0,
+    "timed_out": false,
+    "input_file_sha256": "86f5d600318c737cda12bc33d40e45e516224ebffed4ce19cc2f96b3dd533125",
+    "stdout_sha256": "89612f0ac156e08e3ef1849040604725390525e80bf2ce2bba6d1821cbb60150",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "short_circuit-hash-go",
+    "command": [
+      "/private/tmp/mpk-control-slot-checks-20260921/go-checker",
+      "/private/tmp/mpk-control-slot-checks-20260921/short_circuit-hash.mpcert"
+    ],
+    "wall_seconds": 0.045,
+    "exit_code": 1,
+    "timed_out": false,
+    "input_file_sha256": "9e93441ac59988c646d6d76f1272b06c3acd9d3d36a32ffda08af3201d50ccf7",
+    "stdout_sha256": "6383ccd6e168eb4eb8b47b1059b539c497cc1d95b6beee053eab9c7f1eacbe37",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "short_circuit-hash-rust",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "check",
+      "/private/tmp/mpk-control-slot-checks-20260921/short_circuit-hash.mpcert"
+    ],
+    "wall_seconds": 0.014,
+    "exit_code": 1,
+    "timed_out": false,
+    "input_file_sha256": "9e93441ac59988c646d6d76f1272b06c3acd9d3d36a32ffda08af3201d50ccf7",
+    "stdout_sha256": "a1a079869382c501ff4ce271b606d805a035517ea31c6c83c21082cc5e3aff9d",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "switch-positive-go",
+    "command": [
+      "/private/tmp/mpk-control-slot-checks-20260921/go-checker",
+      "/private/tmp/mpk-control-slot-checks-20260921/switch-positive.mpcert"
+    ],
+    "wall_seconds": 0.026,
+    "exit_code": 0,
+    "timed_out": false,
+    "input_file_sha256": "4672645b00bb9ed4e0480c6705feaf92707aa11081358c33fa66bb786de139fd",
+    "stdout_sha256": "af65725d8e9650a3188bfebcde1021809e9c33662e9814a79633fe2c185d2f80",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "switch-positive-rust",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "check",
+      "/private/tmp/mpk-control-slot-checks-20260921/switch-positive.mpcert"
+    ],
+    "wall_seconds": 0.014,
+    "exit_code": 0,
+    "timed_out": false,
+    "input_file_sha256": "4672645b00bb9ed4e0480c6705feaf92707aa11081358c33fa66bb786de139fd",
+    "stdout_sha256": "120c7461c9dd51d85fb61e9b933df679285303abbf123550ac61bd3e0772e4e0",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "switch-hash-go",
+    "command": [
+      "/private/tmp/mpk-control-slot-checks-20260921/go-checker",
+      "/private/tmp/mpk-control-slot-checks-20260921/switch-hash.mpcert"
+    ],
+    "wall_seconds": 0.022,
+    "exit_code": 1,
+    "timed_out": false,
+    "input_file_sha256": "93e32c1c57082355d70a25c54cf9ccef348cb65a1779b97fba1e2db633783125",
+    "stdout_sha256": "63e47ed60a100c0e5a3cf767467d72dbefbe751380f156498b4f55e45a51c01a",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "switch-hash-rust",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "check",
+      "/private/tmp/mpk-control-slot-checks-20260921/switch-hash.mpcert"
+    ],
+    "wall_seconds": 0.014,
+    "exit_code": 1,
+    "timed_out": false,
+    "input_file_sha256": "93e32c1c57082355d70a25c54cf9ccef348cb65a1779b97fba1e2db633783125",
+    "stdout_sha256": "8ed9ea98c9a8b64794abefbc8570cf8a474dca7aad41ab14634e74cfbe87d035",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "while-positive-go",
+    "command": [
+      "/private/tmp/mpk-control-slot-checks-20260921/go-checker",
+      "/private/tmp/mpk-control-slot-checks-20260921/while-positive.mpcert"
+    ],
+    "wall_seconds": 0.025,
+    "exit_code": 0,
+    "timed_out": false,
+    "input_file_sha256": "f0078de44fb4f1a97a7c44aa821601a8eace32efd06ec5a83ef43feef63991ff",
+    "stdout_sha256": "a14b263c27c51b95bab4e3c8e221bfb4f999e7a5b2b9f115cf57ff79056d807f",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "while-positive-rust",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "check",
+      "/private/tmp/mpk-control-slot-checks-20260921/while-positive.mpcert"
+    ],
+    "wall_seconds": 0.014,
+    "exit_code": 0,
+    "timed_out": false,
+    "input_file_sha256": "f0078de44fb4f1a97a7c44aa821601a8eace32efd06ec5a83ef43feef63991ff",
+    "stdout_sha256": "f1587a596bd043764315312daae552fa90631a983570d44b6d529bd908ffa3f7",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "while-hash-go",
+    "command": [
+      "/private/tmp/mpk-control-slot-checks-20260921/go-checker",
+      "/private/tmp/mpk-control-slot-checks-20260921/while-hash.mpcert"
+    ],
+    "wall_seconds": 0.025,
+    "exit_code": 1,
+    "timed_out": false,
+    "input_file_sha256": "bbaa6be18d8436f69db8aa5f5e82c361d28c1ebb8df0f832dea92669829f0f65",
+    "stdout_sha256": "6bb1cdc110263d34c51fad08be0d212b2e131dfc30b4cc707a6c32a0f372c594",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "while-hash-rust",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "check",
+      "/private/tmp/mpk-control-slot-checks-20260921/while-hash.mpcert"
+    ],
+    "wall_seconds": 0.014,
+    "exit_code": 1,
+    "timed_out": false,
+    "input_file_sha256": "bbaa6be18d8436f69db8aa5f5e82c361d28c1ebb8df0f832dea92669829f0f65",
+    "stdout_sha256": "f9a1204b3762553b09154fc0c569893ad436d53774ecb096c713800f60bdc062",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  }
+]

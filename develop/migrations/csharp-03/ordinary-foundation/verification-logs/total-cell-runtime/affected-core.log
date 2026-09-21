@@ -1,0 +1,94 @@
+
+running 27 tests
+test csharp_practical_vir_model::ordinary_carriers::observer_tests::ordinary_core_boolean_and_unused_result_caches_release_closures ... ok
+test csharp_practical_vir_model::ordinary_carriers::observer_tests::ordinary_core_closed_definition_cache_is_bounded_and_local ... bounded closed-definition cache: repeated work 7428 transitions; 160-entry eviction and cross-certificate cases passed
+ok
+test csharp_practical_vir_model::ordinary_carriers::observer_tests::ordinary_core_closed_function_memos_survive_value_cache_eviction ... ok
+test csharp_practical_vir_model::ordinary_carriers::observer_tests::ordinary_core_demanded_uniform_arguments_reuse_complete_results ... ok
+test csharp_practical_vir_model::ordinary_carriers::observer_tests::ordinary_core_dense_normalization_preserves_addresses_and_demand ... 
+thread 'csharp_practical_vir_model::ordinary_carriers::observer_tests::ordinary_core_dense_normalization_preserves_addresses_and_demand' (5588845) panicked at crates/mpk-vc/src/csharp_practical_ordinary_test_eval.rs:493:64:
+index out of bounds: the len is 78 but the index is 4294967295
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+ok
+test csharp_practical_vir_model::ordinary_carriers::observer_tests::ordinary_core_function_result_cache_does_not_create_capture_cycles ... ok
+test csharp_practical_vir_model::ordinary_carriers::observer_tests::ordinary_core_scalar_observations_survive_released_selector_closures ... ok
+test csharp_practical_vir_model::ordinary_carriers::observer_tests::ordinary_core_shared_function_arguments_reuse_results_without_retention ... ok
+test csharp_practical_vir_model::ordinary_carriers::observer_tests::ordinary_core_sparse_uniform_views_preserve_every_address ... ok
+test csharp_practical_vir_model::ordinary_carriers::observer_tests::ordinary_core_uniform_views_do_not_force_unused_arguments ... 
+thread 'csharp_practical_vir_model::ordinary_carriers::observer_tests::ordinary_core_uniform_views_do_not_force_unused_arguments' (5588850) panicked at crates/mpk-vc/src/csharp_practical_ordinary_test_eval.rs:493:64:
+index out of bounds: the len is 76 but the index is 4294967295
+ok
+test csharp_practical_vir_model::ordinary_carriers::observer_tests::ordinary_core_unused_binders_share_closures_and_release_arguments ... ok
+test csharp_practical_vir_model::ordinary_carriers::observer_tests::ordinary_core_usage_analysis_preserves_lets_and_deep_captures ... ok
+test csharp_practical_vir_model::ordinary_carriers::observer_tests::ordinary_core_usage_cache_matches_small_boolean_terms ... unused-argument cache: 92 Boolean/let terms, 736 eager/delayed observations
+ok
+test csharp_practical_vir_model::ordinary_carriers::structural::aggregate_fold::tests::aggregate_fold_group_boundaries ... ok
+test csharp_practical_vir_model::ordinary_carriers::structural::aggregate_fold::tests::aggregate_fold_modes_saturation_and_odd_counts ... ok
+test csharp_practical_vir_model::ordinary_carriers::structural::aggregate_fold::tests::aggregate_fold_shares_computed_predicate_words ... computed predicate word steps: shared 382414, repeated 584270
+
+thread 'csharp_practical_vir_model::ordinary_carriers::structural::aggregate_fold::tests::aggregate_fold_shares_computed_predicate_words' (5589244) panicked at crates/mpk-vc/src/csharp_practical_ordinary_aggregate_fold.rs:684:9:
+predicate word sharing regressed
+FAILED
+test csharp_practical_vir_model::ordinary_carriers::structural::aggregate_fold::tests::aggregate_fold_short_circuits_invalid_and_empty_inputs ... ok
+test csharp_practical_vir_model::ordinary_carriers::structural::relations::domains::tests::recursive_domain_sparse_zero_tail_work_is_bounded ... zero tail I14 D4 length 0 active: 18615 core transitions
+zero tail I14 D4 length 0 first inactive: 9872 core transitions
+zero tail I14 D4 length 0 last physical: 28576 core transitions
+zero tail I14 D4 length 1 active: 54378 core transitions
+zero tail I14 D4 length 1 first inactive: 55609 core transitions
+zero tail I14 D4 length 1 last physical: 63540 core transitions
+zero tail I14 D4 length 2 active: 113395 core transitions
+zero tail I14 D4 length 2 first inactive: 52746 core transitions
+zero tail I14 D4 length 2 last physical: 122557 core transitions
+zero tail I14 D4 length 3 active: 107381 core transitions
+zero tail I14 D4 length 3 first inactive: 114865 core transitions
+zero tail I14 D4 length 3 last physical: 129151 core transitions
+zero tail I14 D4 length 8192 active: 167203 core transitions
+zero tail I14 D4 length 8192 first inactive: 31300 core transitions
+zero tail I14 D4 length 8192 last physical: 168072 core transitions
+zero tail I14 D4 length 16383 active: 19570 core transitions
+zero tail I14 D4 length 16383 first inactive: 112495 core transitions
+zero tail I14 D4 length 16383 last physical: 112495 core transitions
+zero tail I14 D4 length 16384 active: 9681 core transitions
+zero tail I12 D20 length 0 active: 33501 core transitions
+zero tail I12 D20 length 0 first inactive: 32940 core transitions
+zero tail I12 D20 length 0 last physical: 57168 core transitions
+zero tail I12 D20 length 1 active: 71729 core transitions
+zero tail I12 D20 length 1 first inactive: 83217 core transitions
+zero tail I12 D20 length 1 last physical: 94261 core transitions
+zero tail I12 D20 length 2 active: 244534 core transitions
+zero tail I12 D20 length 2 first inactive: 79872 core transitions
+zero tail I12 D20 length 2 last physical: 267066 core transitions
+zero tail I12 D20 length 3 active: 227635 core transitions
+zero tail I12 D20 length 3 first inactive: 256715 core transitions
+zero tail I12 D20 length 3 last physical: 276555 core transitions
+zero tail I12 D20 length 2048 active: 302650 core transitions
+zero tail I12 D20 length 2048 first inactive: 57532 core transitions
+zero tail I12 D20 length 2048 last physical: 314281 core transitions
+zero tail I12 D20 length 4095 active: 34552 core transitions
+zero tail I12 D20 length 4095 first inactive: 266873 core transitions
+zero tail I12 D20 length 4095 last physical: 266873 core transitions
+zero tail I12 D20 length 4096 active: 9793 core transitions
+ok
+test csharp_practical_vir_model::ordinary_carriers::structural::relations::domains::tests::recursive_domain_sparse_zero_work_is_bounded ... C31 complete zero-region predicate: 24856 core transitions
+C31 nonzero address 0: 1603 core transitions
+C31 nonzero address 1073741824: 2547 core transitions
+C31 nonzero address 2147483647: 47388 core transitions
+ok
+test csharp_practical_vir_model::ordinary_carriers::structural::relations::domains::tests::recursive_domain_zero_regions_and_padding ... ok
+test csharp_practical_vir_model::ordinary_carriers::structural::relations::domains::tests::recursive_domain_zero_tail_matches_physical_addresses ... ok
+test csharp_practical_vir_model::ordinary_carriers::tests::ordinary_core_deep_environment_release_uses_a_worklist ... ok
+test csharp_practical_vir_model::ordinary_carriers::tests::ordinary_core_evaluated_boolean_suspension_uses_boolean_cache ... evaluated Bool false: cached=4, uncached=3206
+evaluated Bool true: cached=4, uncached=3206
+ok
+test csharp_practical_vir_model::ordinary_carriers::tests::ordinary_core_forced_thunk_preserves_result_closure_environment ... ok
+test csharp_practical_vir_model::ordinary_carriers::tests::ordinary_core_forced_thunk_releases_obsolete_environment ... ok
+test csharp_practical_vir_model::ordinary_carriers::tests::ordinary_core_observer_preserves_unused_arguments ... ok
+test csharp_practical_vir_model::ordinary_carriers::tests::ordinary_core_sparse_input_matches_dense_selectors ... ok
+
+failures:
+
+failures:
+    csharp_practical_vir_model::ordinary_carriers::structural::aggregate_fold::tests::aggregate_fold_shares_computed_predicate_words
+
+test result: FAILED. 26 passed; 1 failed; 0 ignored; 0 measured; 133 filtered out; finished in 14.81s
+

@@ -1,0 +1,744 @@
+{
+  "schema": "mpk.csharp.ordinary_control_slots.verification.v1",
+  "status": "passed_scoped_slots_arrays_and_nullable_storage",
+  "recorded_at": "2026-09-20T21:56:02.013984+00:00",
+  "source_contexts": 9,
+  "relations": 130,
+  "relation_roles": {
+    "entry": 9,
+    "store": 50,
+    "load": 67,
+    "pattern_bind": 4
+  },
+  "runtime_observations": 2048,
+  "certificates": {
+    "for": {
+      "hex_file_sha256": "f6242741abe0663fede3210b613e6570b8a8955fed0218876df44a3b01c7aef9",
+      "metadata_file_sha256": "ce735a29df83f6ffccd8637e76ad515789568353325338a12c02fbf7ec0466c8",
+      "certificate_sha256": "97c22893184ec727ac74aa6c83cad4494f0850f3958417f1029237f2c7e6eb71",
+      "bytes": 9231,
+      "functions": 1,
+      "relations": 13,
+      "checker_evidence": "cases.json"
+    },
+    "guard_order": {
+      "hex_file_sha256": "4f8fcfae1629dd8d72f6d13476f1ed560cd2f12d6518bc2712f34d29fbec3794",
+      "metadata_file_sha256": "9e9b79e8b1ce5237d3c987fcad56c1b43d673818d579ee6d5ad5043ab066d52c",
+      "certificate_sha256": "74fad8335aaff4c24758c3f7e8b7077adcb6817113abf8c03d4d78bb6a6b3fba",
+      "bytes": 11787,
+      "functions": 1,
+      "relations": 18,
+      "checker_evidence": "patterns/cases.json"
+    },
+    "is_binding": {
+      "hex_file_sha256": "eba85449d426f19d09745e471a9e9ed39dea8e0a89762b03ffc86ecac5941a7a",
+      "metadata_file_sha256": "95a9d2e1b677c7beea2a6319838433581cbf4412f05b5934b8cd5f65cf9a275c",
+      "certificate_sha256": "c79b3b14734c33aab3f271a2e2fec5a82d5c2eb758bbf6937b8094ed54f00cf9",
+      "bytes": 7452,
+      "functions": 1,
+      "relations": 4,
+      "checker_evidence": "patterns/cases.json"
+    },
+    "short_circuit": {
+      "hex_file_sha256": "c32e37c3f5f21afbf98da4adf74501b9063bcf986b5e011f0a4d1aa91c942088",
+      "metadata_file_sha256": "194b901e7076d9e6c4a54ce5126cd8e0ff7028c7312d084706000169fec4270c",
+      "certificate_sha256": "ef97ab3a1d20878660eb8699fd3c593cc01b914f39b90963f186b869ee2892f8",
+      "bytes": 8933,
+      "functions": 1,
+      "relations": 11,
+      "checker_evidence": "cases.json"
+    },
+    "switch": {
+      "hex_file_sha256": "d5d091cb4b919f5483d7775aa6a7a24db93056ed84f21b0ac98add8dc376567f",
+      "metadata_file_sha256": "1aaf47c20e1938c2a88541d50f95238cc7ea2a390151ee96cba124f87c82b264",
+      "certificate_sha256": "ae60a8fa69695aede2cb5837c76322546a660b4dd1613d102c9169d0048dcf14",
+      "bytes": 7494,
+      "functions": 1,
+      "relations": 6,
+      "checker_evidence": "cases.json"
+    },
+    "while": {
+      "hex_file_sha256": "031760b02d55611e10435ff84c1ae06643bf9ba47faab39e1b98af766c4da357",
+      "metadata_file_sha256": "67f9aa43e7cebb63fb491f2c46edebfc20acfc8a242a446ba8d6f6cf6eeefbb0",
+      "certificate_sha256": "0a0f6366577c1c1a85e6b074f335eb991b797d62d562acbf3321d0c6afe48ae2",
+      "bytes": 7899,
+      "functions": 1,
+      "relations": 7,
+      "checker_evidence": "cases.json"
+    },
+    "index_update": {
+      "hex_file_sha256": "1051a5b1e7a47372604b95ca4676e14b1745b3743bca6cecc245d5ec8cdcd197",
+      "metadata_file_sha256": "89f27c7f63400db24744b71b45057b66c52e9c49c5d5e8504b5faaaab55bd655",
+      "certificate_sha256": "f6c26051231177ca4b4d0675cc942bbc4f991499d30aa06c9cfe4ed1eb4ffc32",
+      "bytes": 689401,
+      "checker_evidence": "public-projection/slot-index_update/cases.json",
+      "functions": 1,
+      "relations": 12
+    },
+    "count_fill": {
+      "hex_file_sha256": "5a0ea88f94798fb90293174ec93e78bc46367336937d03b1419cff7ac3b8499e",
+      "metadata_file_sha256": "99657711d24fb5db57fb7d666fba8e2f14ae5fefb4b29daafc5e739dd6068b4b",
+      "certificate_sha256": "17d0ef8f5c0e6b952a49bf51b6c452bc5aa191fb487a6ed27333df880cda5c88",
+      "bytes": 774520,
+      "checker_evidence": "public-projection/slot-count_fill/cases.json",
+      "functions": 1,
+      "relations": 46
+    },
+    "type": {
+      "hex_file_sha256": "ca0d19c8d5565cbd8586d725557b0f2b81825c433e75448889ea083495648fb3",
+      "metadata_file_sha256": "2fb106c70afe9906b2dfacc88ad2d52e45aa4e2591ee267464e35de96a628d2e",
+      "certificate_sha256": "44f3b63a420e21add51ff2fd826a944ea8a1d3f4d4ee9bbcc5387cb8a90162f6",
+      "bytes": 10430,
+      "functions": 1,
+      "relations": 13,
+      "checker_evidence": "nullable-representation/slot/cases.json"
+    }
+  },
+  "checks": {
+    "control-slot-scoped-candidates": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_control_slot_source_relations",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 86.451,
+      "environment": {
+        "MPK_W09_CONTROL_SLOTS_OUT": "/tmp/mpk-control-slot-scoped-candidates",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-slot-scoped-final-pins": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_control_slot_source_relations",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.725,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-slot-scoped-lint": {
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 14.636,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-slot-scoped-format": {
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 2.845,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-slot-inventory": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_inventory",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 3.309,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-public-prefix-boundaries": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "construction_initialized_prefix_",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 51.651,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-public-final-regeneration": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_control_edge_other_sources_unchanged",
+        "csharp_03_t06_w09_control_edge_collection_candidates",
+        "csharp_03_t06_w09_sequence_data_candidates",
+        "csharp_03_t06_w09_option_data_candidates",
+        "csharp_03_t06_w09_reference_data_candidates",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 6.641,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-public-edge-final",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-partial-final-runtime": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "csharp_03_t06_w09_control_slot_count_fill_candidate",
+        "csharp_03_t06_w09_control_projection_preserves_existing_declarations",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 33.321,
+      "environment": {
+        "MPK_W09_CONTROL_SLOTS_OUT": "/tmp/mpk-control-partial-final-slots",
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-partial-edges",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-partial-source-regeneration": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "csharp_03_t06_w09_control_slot_count_fill_candidate",
+        "csharp_03_t06_w09_control_slot_array_snapshots",
+        "csharp_03_t06_w09_control_slot_source_relations",
+        "csharp_03_t06_w09_control_edge_other_sources_unchanged",
+        "csharp_03_t06_w09_control_edge_collection_candidates",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 96.465,
+      "environment": {
+        "MPK_W09_CONTROL_SLOTS_OUT": "/tmp/mpk-control-partial-slots",
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-partial-edges",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-partial-lint": {
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 15.965,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-partial-format": {
+      "command": [
+        "rustfmt",
+        "--check",
+        "--edition",
+        "2021",
+        "crates/mpk-vc/src/csharp_practical_ordinary_construction_data.rs",
+        "crates/mpk-vc/src/csharp_practical_ordinary_control_edges.rs",
+        "crates/mpk-vc/src/csharp_practical_ordinary_control_slots.rs",
+        "crates/mpk-vc/src/csharp_practical_ordinary_relations.rs",
+        "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_slot_tests.rs",
+        "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_edge_tests.rs"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.149,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-public-inventory": {
+      "command": [
+        "target/release/deps/csharp_practical_inventory-b645d7f4c4ccc945",
+        "csharp_03_t01_w02_inventory_closes_every_artifact_and_consumer_edge",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.624,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-nullable-slot-runtime": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "csharp_03_t06_w09_control_slot_source_relations",
+        "csharp_03_t06_w09_control_slot_array_snapshots",
+        "csharp_03_t06_w09_control_slot_count_fill_candidate",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 95.21,
+      "environment": {
+        "MPK_W09_CONTROL_SLOTS_OUT": "/tmp/mpk-control-nullable-slot-candidates",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-nullable-final-lint": {
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 5.598,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-nullable-final-format": {
+      "command": [
+        "rustfmt",
+        "--check",
+        "--edition",
+        "2021",
+        "crates/mpk-vc/src/csharp_practical_ordinary_construction_data.rs",
+        "crates/mpk-vc/src/csharp_practical_ordinary_control_edges.rs",
+        "crates/mpk-vc/src/csharp_practical_ordinary_control_slots.rs",
+        "crates/mpk-vc/src/csharp_practical_ordinary_relations.rs",
+        "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_slot_tests.rs",
+        "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_edge_tests.rs"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.156,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-nullable-slot-final-runtime": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_control_slot_source_relations",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 84.331,
+      "environment": {
+        "MPK_W09_CONTROL_SLOTS_OUT": "/tmp/mpk-control-nullable-slot-final",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-nullable-some-certificate": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "control_nullable_some_storage_preserves_presence_payload_and_padding",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 41.074,
+      "environment": {
+        "MPK_W09_CONTROL_SOME_OUT": "/tmp/mpk-control-some-storage.hex",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-nullable-edge-pinned-replay": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_control_edge_option_source_relations",
+        "csharp_03_t06_w09_control_edge_other_sources_unchanged",
+        "csharp_03_t06_w09_control_edge_collection_candidates",
+        "csharp_03_t06_w09_control_slot_source_relations",
+        "csharp_03_t06_w09_control_slot_array_snapshots",
+        "csharp_03_t06_w09_control_slot_count_fill_candidate",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 7.063,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-builtin-throw-slot-dependency": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_control_slot_source_relations",
+        "csharp_03_t06_w09_control_slot_array_snapshots",
+        "csharp_03_t06_w09_control_slot_count_fill_candidate",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 4.23,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-node-entry-preservation": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_control_node_entry_preserves_existing_declarations",
+        "csharp_03_t06_w09_control_builtin_throw_preserves_existing_declarations",
+        "csharp_03_t06_w09_control_edge_phi_preserves_existing_declarations",
+        "csharp_03_t06_w09_control_memory_preserves_existing_declarations",
+        "csharp_03_t06_w09_control_projection_preserves_existing_declarations",
+        "csharp_03_t06_w09_control_slot_source_relations",
+        "csharp_03_t06_w09_control_slot_array_snapshots",
+        "csharp_03_t06_w09_control_slot_count_fill_candidate",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 5.08,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-node-entry-final",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-memory-effect-slot-dependencies": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_control_slot_source_relations",
+        "csharp_03_t06_w09_control_slot_array_snapshots",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 3.716,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-memory-effect-preservation": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "preserves_existing_declarations",
+        "control_slot_original_source",
+        "control_slot_count_fill_candidate",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1.59,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-memory-effect-final",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-factored-entry-dependencies": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "preserves_existing_declarations",
+        "csharp_03_t06_w09_control_slot_source_relations",
+        "csharp_03_t06_w09_control_slot_array_snapshots",
+        "csharp_03_t06_w09_control_slot_count_fill_candidate",
+        "csharp_03_t06_w09_control_memory_effect_original_source",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 7.023,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-source-frames-preservation": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "preserves_existing_declarations",
+        "control_source_frames_preserve_existing_declarations",
+        "csharp_03_t06_w09_control_slot_source_relations",
+        "csharp_03_t06_w09_control_slot_array_snapshots",
+        "csharp_03_t06_w09_control_slot_count_fill_candidate",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 5.435,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-source-frames-final",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-native-slot-pins": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_control_slot_source_relations",
+        "csharp_03_t06_w09_control_slot_array_snapshots",
+        "csharp_03_t06_w09_control_slot_count_fill_candidate",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 4.396,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-native-options-dependencies": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "csharp_03_t06_w09_option_data_candidates",
+        "csharp_03_t06_w09_reference_data_candidates",
+        "csharp_03_t06_w09_sequence_data_candidates",
+        "csharp_03_t06_w09_structural_data_candidates",
+        "csharp_03_t06_w09_control_slot_source_relations",
+        "csharp_03_t06_w09_control_slot_array_snapshots",
+        "csharp_03_t06_w09_control_slot_count_fill_candidate",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 89.096,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-integrated-slots-final-runtime": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "csharp_03_t06_w09_control_integrated_slots_original_sources",
+        "csharp_03_t06_w09_control_slot_source_relations",
+        "csharp_03_t06_w09_control_slot_array_snapshots",
+        "csharp_03_t06_w09_control_slot_nullable_transport",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 42.858,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-integrated-slots-final",
+        "MPK_CORE_MAX_SECONDS": "600"
+      }
+    },
+    "control-integrated-slots-preservation": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "preserves_existing_declarations",
+        "control_source_frames_preserve_existing_declarations",
+        "control_native_operations_preserve_existing_declarations",
+        "control_native_options_preserve_existing_declarations",
+        "control_integrated_slots_preserve_existing_declarations",
+        "control_slot_count_fill_candidate",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 2.573,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-integrated-slots-final",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    }
+  },
+  "selection_reason": "Changed entry/load/store/pattern-bind definitions and all slot framing arguments are exercised on six captured original loop/pattern sources. This includes assignedness, result/parameter mismatch, high physical bits, inactive storage, source/SSA/argument/scope metadata and certificate mutations. Inventory changes by exactly one Std consumer. The unchanged predecessor construction helper body needs no repeated semantic/checker run; its exact visibility-only source preimage is recorded separately. Added public-array snapshot and native temporary coverage in index_update/count_fill. Prefix helper exhaustive and boundary checks, original source/metadata mutations, 144+16 memory observations, six prior contexts (1482 observations), 17 edge/23 data context exact regeneration, declaration preservation, same-byte dual checking of three changed/new certificates, lint/format and artifact inventory are the affected checks. No unrelated whole gate was run. The type source adds 406 None/Some/payload/frame observations with one explicit Option storage override and unchanged original W04 provenance. Eight preexisting slot artifacts regenerate byte-identically. The Some injection helper has 3465 positive and individual physical-bit mutation observations across Bool, C5 and C9 payloads. The new source program and helper both pass same-byte Go/Rust and hash rejection. Subsequent built-in throw support replays all nine slot pins unchanged; only the edge producer/test identities change. Node-entry definitions are appended only in the public edge generator. All nine slot pins replay unchanged against the same private memory builder; relevant producer/export source hashes are refreshed. Source memory effects append only in the public edge generator; all nine private source-slot pins replay unchanged, with 144 snapshot and 1888 source-slot observations passing. Factored node entries append in the public edge generator only; all nine private slot pins replay unchanged. Source frames append only in the public edge generator; nine private slot pins remain unchanged and their source fingerprints are refreshed. Native operation relations append only in the public edge generator. The nine private slot pins replay unchanged; affected source fingerprints are refreshed. Retained relation/storage caches preserve the nine private slot pins and their 2032 observations; the targeted native Option dependency test passes. Shared slot-function emission preserves all nine standalone pins and 2032 existing observations while allowing the public control certificate to own the same exact entry/transfer definitions.",
+  "predecessor_preservation": "../construction-data/ownership-records/verification.json:nonsemantic_source_updates",
+  "initial_attempt": "control-slot-candidates-fixed.json timed out after 300 evaluation seconds with recursive full storage comparison; no full semantic verdict. Reusing the existing zero-region-aware exact comparison reduced the six-source final runtime to less than one second. Checker/evaluator implementations and budgets are unchanged.",
+  "source_sha256": {
+    "crates/mpk-vc/src/csharp_practical_ordinary_control_slots.rs": "bfdc3f97bbcf01bfc9f48f3c3d4c00654dd8ec46ec99ce9169792f85180dbd14",
+    "crates/mpk-vc/src/csharp_practical_ordinary_construction_data.rs": "7edfbf19134738fc1bbc0367f5f935236e3d48b06cb9fb628a723cd7990a4738",
+    "crates/mpk-vc/src/csharp_practical_ordinary_source_clauses.rs": "fde2e9f75733bcbf8a2ae9f1c6f1313983338e253a49239bdf2dc3cf46f32197",
+    "crates/mpk-vc/src/csharp_practical_ordinary_structural.rs": "2bc5f19e7015c2254d01cf33e812638d5475d97b8340fc1db7a71d9cc5278b9f",
+    "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs": "299e25d1a79ab62184dcf9f075b315b329b0412af6152b05a857d600db46d1d6",
+    "crates/mpk-vc/src/csharp_practical_vir_model.rs": "9b61bd203f5fa7af0d2c47812d10d402bd097c2f4ca642a34c5422d2bdc2e639",
+    "crates/mpk-vc/src/csharp_practical_control_vc.rs": "8b0ba935236d866c3e8ffc3019ede67e4faa29a274c8a66fb75fb62eb8b21500",
+    "crates/mpk-vc/src/csharp_practical_control_emission.rs": "bb7fc2a64bbefa53c2613e663fc1c2dd211f031f3a54bc5d1e8cc10942021e2e",
+    "crates/mpk-vc/src/csharp_practical_control_ssa.rs": "8e5da608d26ea7ef753f31fd22db49ddcaa35be4603137226e5808865d0dc7d4",
+    "crates/mpk-vc/src/csharp_practical_ordinary_test_eval.rs": "d4160220aa77546cb3911df2d66bbd0e8684f3020d128db9306288a87c661c8f",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_slot_tests.rs": "f2780e1599534c2513971f711923db6fa444216d9931805c480fea2334a56efb",
+    "crates/mpk-vc/tests/csharp_practical_inventory.rs": "a03753b884536474117f09f6300fdbb8000aaead7b8e630a25fed00e5a8e04da",
+    "develop/migrations/csharp-03/control-vc/loop-requests.json": "7a6d6ecfcbe52b4dbe41947998e3a97a599170f5deae471840ca6f8bae0e3f54",
+    "develop/migrations/csharp-03/control-emission/loop-responses.json": "7b7e88bb586d4994569578989cd88dac973807f6950ede6275869a845f14fdb2",
+    "develop/migrations/csharp-03/control-emission/source-cases.json": "8293fe0bd49a98c5f9dc4c65661a3c50f95d675b55458f7a96e0da6eea676d28",
+    "develop/migrations/csharp-03/artifact-consumer-inventory.json": "ae7074a24cdb04c9b807ecf3ce1093ffa7ca9d99b0d90e1a2141a7252b285075",
+    "develop/migrations/csharp-03/data-phase/historical-inventory-cache-correction.json": "66b6ead3e8db3df1377309fd4fe40a949ca173c533a7bad0baa1b34db09e403e",
+    "develop/migrations/csharp-03/ordinary-foundation/verification-logs/ownership-proofs/check-files.py": "2bb51bb0e3f0cdf377b53ff4c526acbf630336754585bee359981f298d7fb761",
+    "crates/mpk-vc/src/csharp_practical_ordinary_control_edges.rs": "eca69dc2079f01f8f1896767aeaf667a4b7d9e55b2da9db7b1cbf2b49a236372",
+    "crates/mpk-vc/src/csharp_practical_ordinary_relations.rs": "37795e1a79222821313602452018483aa69f051fb5c4242fd4eaa99dfccfd020",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_edge_tests.rs": "bd004c6f7ccf87ebc787f5f4a91cce4396480fa63d5781fc557f05883c3cc83b"
+  },
+  "application_scope_pending": true,
+  "remaining": [
+    "Nullable storage and guarded edge transport are implemented; mapping to original W04 logical observations and complete native/application composition remain pending.",
+    "Non-transfer memory effects and source-exit snapshot production; node-entry merging.",
+    "Caught-exception slots/exceptional transfers, native execution, loop/pattern sequents and application proof assembly."
+  ],
+  "unit_5_complete": false,
+  "w09_complete": false,
+  "whole_gate": "deferred to T06-W12",
+  "nonsemantic_source_updates": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_source_clauses.rs",
+      "previous_sha256": "189f9d710dc77c8c64be53cdebc9ec6f2211e7441aaa166a51a0a53ed12982d7",
+      "current_sha256": "8015d73ba07c693c71f758acfccf53af1cd8e4109a6776b92f284c450f424e11",
+      "change": "Only append the sibling control-edge module registration/public reexports; every existing byte before the append is unchanged."
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_structural.rs",
+      "previous_sha256": "274cdedf367d903da2cc68e4128b6348162892bee6279a31a55616be46f939a1",
+      "current_sha256": "7c962b458881264b58905c6c00eba2e80bd8020b12385224d3b64166741f8437",
+      "change": "Only append the sibling control-edge module registration/public reexports; every existing byte before the append is unchanged."
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs",
+      "previous_sha256": "9e4611b7baf89dade10ab467438bd0d936562ed02a43e374561e78f61fe24107",
+      "current_sha256": "87bf9240299a600948bc0c4fc279aae1175f4fc24080defeecbdebe30bf22e5f",
+      "change": "Only append the sibling control-edge module registration/public reexports; every existing byte before the append is unchanged."
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+      "previous_sha256": "9b84476f62297a76a413c059bb06d5eb1e6b173d6c8d922863b0b44bd0bfa9bd",
+      "current_sha256": "e3e68101621f177028afb4efc213e8f793a8d233aae5b34d6237f6b0b33e3e78",
+      "change": "Only append the sibling control-edge module registration/public reexports; every existing byte before the append is unchanged."
+    },
+    {
+      "path": "develop/migrations/csharp-03/artifact-consumer-inventory.json",
+      "previous_sha256": "d8d305ae6971b6bf78ad23c11422385a31f9e9a28bf29eadbd8ba47e2e02a584",
+      "current_sha256": "ae7074a24cdb04c9b807ecf3ce1093ffa7ca9d99b0d90e1a2141a7252b285075",
+      "change": "Only account for the added control-edge Std consumer (135 to 136, total 4958 to 4959); all other inventory fields are unchanged."
+    },
+    {
+      "path": "crates/mpk-vc/tests/csharp_practical_inventory.rs",
+      "previous_sha256": "38f832dddd77751611075ce1791657a7469daf29e0dbe3485773d1e8024e76b7",
+      "current_sha256": "a03753b884536474117f09f6300fdbb8000aaead7b8e630a25fed00e5a8e04da",
+      "change": "Only account for the added control-edge Std consumer (135 to 136, total 4958 to 4959); all other inventory fields are unchanged."
+    },
+    {
+      "path": "develop/migrations/csharp-03/data-phase/historical-inventory-cache-correction.json",
+      "previous_sha256": "5dd5b0dd06f6f9c02d4856d86e405a2de1af69e28d415b36b98a6d8b7b1c38c5",
+      "current_sha256": "66b6ead3e8db3df1377309fd4fe40a949ca173c533a7bad0baa1b34db09e403e",
+      "change": "Only account for the added control-edge Std consumer (135 to 136, total 4958 to 4959); all other inventory fields are unchanged."
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_construction_data.rs",
+      "previous_sha256": "e582a49af0117baddaffbd368282e2109a5b97075708c05a3064855f796007a0",
+      "current_sha256": "e629cba416c5bb2331da7a8a534958198148b0453c90c554daa393d160970122",
+      "change": "Only change emit and ownership_use visibility to pub(super) for sibling control-edge reuse. Reversing those two tokens reproduces the previously verified source bytes exactly; no construction semantics or prior certificate changes."
+    }
+  ],
+  "dependency_inventory_verification": "../control-edges/control-edge-inventory.json",
+  "public_projection_verification": "../control-slots/public-projection/verification.json",
+  "nullable_slot_verification": "nullable-representation/verification.json",
+  "nullable_transport_verification": "../control-edges/nullable-slots/verification.json"
+}

@@ -1,0 +1,724 @@
+{
+  "status": "passed_scoped_native_normal_relations",
+  "source_contexts": 18,
+  "operations": 106,
+  "defined": 98,
+  "pending": 8,
+  "non_data_invocations": 1,
+  "runtime_observations": 616,
+  "operation_observations": 592,
+  "failed_default_observations": 24,
+  "retained_observations": 83745,
+  "all_observations": 84361,
+  "per_context": {
+    "for": {
+      "operations": 5,
+      "defined": 5,
+      "pending": 0,
+      "non_data_invocations": 0,
+      "runtime_observations": 30
+    },
+    "foreach_array": {
+      "operations": 6,
+      "defined": 6,
+      "pending": 0,
+      "non_data_invocations": 0,
+      "runtime_observations": 40
+    },
+    "foreach_array_var": {
+      "operations": 6,
+      "defined": 6,
+      "pending": 0,
+      "non_data_invocations": 0,
+      "runtime_observations": 25
+    },
+    "foreach_string": {
+      "operations": 8,
+      "defined": 6,
+      "pending": 2,
+      "non_data_invocations": 0,
+      "runtime_observations": 56
+    },
+    "foreach_string_var": {
+      "operations": 8,
+      "defined": 6,
+      "pending": 2,
+      "non_data_invocations": 0,
+      "runtime_observations": 26
+    },
+    "governing_throw": {
+      "operations": 2,
+      "defined": 2,
+      "pending": 0,
+      "non_data_invocations": 0,
+      "runtime_observations": 13
+    },
+    "guard_order": {
+      "operations": 7,
+      "defined": 7,
+      "pending": 0,
+      "non_data_invocations": 0,
+      "runtime_observations": 21
+    },
+    "guard_throw": {
+      "operations": 2,
+      "defined": 2,
+      "pending": 0,
+      "non_data_invocations": 0,
+      "runtime_observations": 21
+    },
+    "index_update": {
+      "operations": 11,
+      "defined": 11,
+      "pending": 0,
+      "non_data_invocations": 0,
+      "runtime_observations": 76
+    },
+    "is_binding": {
+      "operations": 2,
+      "defined": 2,
+      "pending": 0,
+      "non_data_invocations": 0,
+      "runtime_observations": 21
+    },
+    "lookup": {
+      "operations": 7,
+      "defined": 7,
+      "pending": 0,
+      "non_data_invocations": 0,
+      "runtime_observations": 28
+    },
+    "short_circuit": {
+      "operations": 6,
+      "defined": 6,
+      "pending": 0,
+      "non_data_invocations": 0,
+      "runtime_observations": 33
+    },
+    "string_property": {
+      "operations": 3,
+      "defined": 2,
+      "pending": 1,
+      "non_data_invocations": 0,
+      "runtime_observations": 8
+    },
+    "switch": {
+      "operations": 3,
+      "defined": 3,
+      "pending": 0,
+      "non_data_invocations": 0,
+      "runtime_observations": 39
+    },
+    "total_variable": {
+      "operations": 2,
+      "defined": 2,
+      "pending": 0,
+      "non_data_invocations": 0,
+      "runtime_observations": 6
+    },
+    "type": {
+      "operations": 6,
+      "defined": 3,
+      "pending": 3,
+      "non_data_invocations": 1,
+      "runtime_observations": 14
+    },
+    "while": {
+      "operations": 2,
+      "defined": 2,
+      "pending": 0,
+      "non_data_invocations": 0,
+      "runtime_observations": 36
+    },
+    "count_fill": {
+      "operations": 20,
+      "defined": 20,
+      "pending": 0,
+      "non_data_invocations": 0,
+      "runtime_observations": 99
+    }
+  },
+  "pending_operations": [
+    {
+      "context": "foreach_string",
+      "operation": "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb.some",
+      "node_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.node.000007",
+      "constants": [
+        "Mpk.CSharp.Data.Relation.32b762bd9571d02ad2f1dd73f40478f3faa4fdf7b01e405b78337cbdcc6be2b4"
+      ]
+    },
+    {
+      "context": "foreach_string",
+      "operation": "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb.some",
+      "node_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.node.000020",
+      "constants": [
+        "Mpk.CSharp.Data.Relation.32b762bd9571d02ad2f1dd73f40478f3faa4fdf7b01e405b78337cbdcc6be2b4"
+      ]
+    },
+    {
+      "context": "foreach_string_var",
+      "operation": "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb.some",
+      "node_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.node.000007",
+      "constants": [
+        "Mpk.CSharp.Data.Relation.32b762bd9571d02ad2f1dd73f40478f3faa4fdf7b01e405b78337cbdcc6be2b4"
+      ]
+    },
+    {
+      "context": "foreach_string_var",
+      "operation": "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb.some",
+      "node_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.node.000020",
+      "constants": [
+        "Mpk.CSharp.Data.Relation.32b762bd9571d02ad2f1dd73f40478f3faa4fdf7b01e405b78337cbdcc6be2b4"
+      ]
+    },
+    {
+      "context": "string_property",
+      "operation": "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb.some",
+      "node_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.node.000010",
+      "constants": [
+        "Mpk.CSharp.Data.Relation.32b762bd9571d02ad2f1dd73f40478f3faa4fdf7b01e405b78337cbdcc6be2b4"
+      ]
+    },
+    {
+      "context": "type",
+      "operation": "mpk.csharp.instance.68630552d3cf32617731c14f77e5039d4c6a1a3c804a96b9cd1734e5bc85e547.some",
+      "node_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.node.000015",
+      "constants": [
+        "Mpk.CSharp.Data.Relation.57eaf222974eda489c83ecddd768dd430fb013afde316f7306ecff0bc2a96a61"
+      ]
+    },
+    {
+      "context": "type",
+      "operation": "mpk.csharp.instance.68630552d3cf32617731c14f77e5039d4c6a1a3c804a96b9cd1734e5bc85e547.has_value",
+      "node_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.node.000025",
+      "constants": [
+        "Mpk.CSharp.Data.Relation.9261d99641e3fda1307c4253f6ab4757595bbcb74a37178fa9444c88cec1fb19"
+      ]
+    },
+    {
+      "context": "type",
+      "operation": "structural.equal.mpk.csharp.instance.68630552d3cf32617731c14f77e5039d4c6a1a3c804a96b9cd1734e5bc85e547",
+      "node_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.node.000036",
+      "constants": [
+        "Mpk.CSharp.Data.Relation.59f890dd486b5ef2f093173bb4c0ba74fecdfc1a495f1a8a439eb98bb628d55b"
+      ]
+    }
+  ],
+  "certificates": {
+    "for": {
+      "hex_file_sha256": "62de7983a59e46b3ea1cca01abed95509466bd317749010c0cefafd37880ff72",
+      "metadata_file_sha256": "3ca4dd3e3990372d7c7a8b8d1df0ae4fee033c8319731e02426060d03de30577",
+      "certificate_sha256": "35dbda9c4731566a4afeeab6c2bbce320b7b8bc096fe4a2a3bc965011e7cbf87",
+      "bytes": 87072,
+      "edges": 52,
+      "guards": 52,
+      "joins": 50,
+      "phi_joins": 7,
+      "phi_values": 15,
+      "pending_edges": 0,
+      "checker_evidence": "native-operations/checks-c/cases.json",
+      "node_entries": 46,
+      "source_frame_records": 44,
+      "source_frames": 38,
+      "native_operations": 5,
+      "native_normal_relations": 5,
+      "pending_native_operations": 0
+    },
+    "foreach_array": {
+      "hex_file_sha256": "679eb0ffea26cc0210bdca220d2a16ea30dc76ef13daec4d68142d0d4dffe1c0",
+      "metadata_file_sha256": "d0ad7657ef7b76b66b0d9c585a11414c889ab1050ad8fb63d82e6d484b441cf6",
+      "certificate_sha256": "0eeec5002248c9e414a0cfbd7c0b3b33cd43da1d4d4fdd8850ccf5a4c897ecad",
+      "bytes": 111749,
+      "edges": 44,
+      "guards": 44,
+      "joins": 42,
+      "phi_joins": 4,
+      "phi_values": 6,
+      "pending_edges": 0,
+      "checker_evidence": "native-operations/checks-c/cases.json",
+      "node_entries": 39,
+      "source_frame_records": 36,
+      "source_frames": 30,
+      "native_operations": 6,
+      "native_normal_relations": 6,
+      "pending_native_operations": 0
+    },
+    "foreach_array_var": {
+      "hex_file_sha256": "679eb0ffea26cc0210bdca220d2a16ea30dc76ef13daec4d68142d0d4dffe1c0",
+      "metadata_file_sha256": "f8830cb2346be37d72540ade15bf18b4763cfee3e44f8a4a77d9dc64aefa64a9",
+      "certificate_sha256": "0eeec5002248c9e414a0cfbd7c0b3b33cd43da1d4d4fdd8850ccf5a4c897ecad",
+      "bytes": 111749,
+      "edges": 44,
+      "guards": 44,
+      "joins": 42,
+      "phi_joins": 4,
+      "phi_values": 6,
+      "pending_edges": 0,
+      "checker_evidence": "native-operations/checks-c/cases.json",
+      "node_entries": 39,
+      "source_frame_records": 36,
+      "source_frames": 30,
+      "native_operations": 6,
+      "native_normal_relations": 6,
+      "pending_native_operations": 0,
+      "checker_identical_bytes_context": "foreach_array"
+    },
+    "foreach_string": {
+      "hex_file_sha256": "4036ea8c546f6538a41d29a7efbad46f022d723b3f0c37d1f2196f0ece0267da",
+      "metadata_file_sha256": "8c7fadce70b0ab01b3f5cd6e2c6dae81dfaae819f7abf332e49069eb40ff42f0",
+      "certificate_sha256": "4d4bf97012f2703d6d0c799e57d9d1da231113157b04467332bacb4e7a6538d5",
+      "bytes": 89502,
+      "edges": 49,
+      "guards": 49,
+      "joins": 47,
+      "phi_joins": 4,
+      "phi_values": 6,
+      "pending_edges": 0,
+      "checker_evidence": "native-operations/checks-c/cases.json",
+      "node_entries": 42,
+      "source_frame_records": 38,
+      "source_frames": 31,
+      "native_operations": 8,
+      "native_normal_relations": 6,
+      "pending_native_operations": 2
+    },
+    "foreach_string_var": {
+      "hex_file_sha256": "4036ea8c546f6538a41d29a7efbad46f022d723b3f0c37d1f2196f0ece0267da",
+      "metadata_file_sha256": "61872ffed43ecd0e793d9918b50b41af5d05e5b0dd18e54eee4a016fe0d35f69",
+      "certificate_sha256": "4d4bf97012f2703d6d0c799e57d9d1da231113157b04467332bacb4e7a6538d5",
+      "bytes": 89502,
+      "edges": 49,
+      "guards": 49,
+      "joins": 47,
+      "phi_joins": 4,
+      "phi_values": 6,
+      "pending_edges": 0,
+      "checker_evidence": "native-operations/checks-c/cases.json",
+      "node_entries": 42,
+      "source_frame_records": 38,
+      "source_frames": 31,
+      "native_operations": 8,
+      "native_normal_relations": 6,
+      "pending_native_operations": 2,
+      "checker_identical_bytes_context": "foreach_string"
+    },
+    "governing_throw": {
+      "hex_file_sha256": "a8b2284bbc78d07bd3e6a8869e385d1f01f5806ad1fb637312f05159f82d89ab",
+      "metadata_file_sha256": "1240e0586fe5b05a9466c05ea0c7fd7dc91cd06412fcbea062053ede9dfad279",
+      "certificate_sha256": "a1de16e5445a3affc2e11d89f7b6d5795f8ff859711d100819d296a7f4da360f",
+      "bytes": 73350,
+      "edges": 26,
+      "guards": 26,
+      "joins": 24,
+      "phi_joins": 2,
+      "phi_values": 2,
+      "pending_edges": 0,
+      "checker_evidence": "native-operations/checks-c/cases.json",
+      "node_entries": 24,
+      "source_frame_records": 24,
+      "source_frames": 19,
+      "native_operations": 2,
+      "native_normal_relations": 2,
+      "pending_native_operations": 0
+    },
+    "guard_order": {
+      "hex_file_sha256": "befd7e3d231e9a0e17a375e004349be505200508479d84232a771fcb2aa34bfd",
+      "metadata_file_sha256": "9ce21c4fd1187ad16a1190e331d2c4d2da0170676bd222bce3978fe0fefb1316",
+      "certificate_sha256": "f25598df31cd6e6926821d7082ff498e6916f454d516de26199ed3f241e5ec4d",
+      "bytes": 428701,
+      "edges": 65,
+      "guards": 65,
+      "joins": 63,
+      "phi_joins": 5,
+      "phi_values": 8,
+      "pending_edges": 0,
+      "checker_evidence": "native-operations/checks-c/cases.json",
+      "node_entries": 58,
+      "source_frame_records": 59,
+      "source_frames": 48,
+      "native_operations": 7,
+      "native_normal_relations": 7,
+      "pending_native_operations": 0
+    },
+    "guard_throw": {
+      "hex_file_sha256": "0bd34da681329fd0d7b3f851013634d06825e6eec865a3833d317a906e38a79e",
+      "metadata_file_sha256": "ef7edc33c08e5e914a46a495fd39e3d277af9c8d2e613229bd2519266d77735a",
+      "certificate_sha256": "1f0bc982c39d661eaa4f07306d785eb6daf5dd8206b371c0eb77bc7c99eb7033",
+      "bytes": 336038,
+      "edges": 30,
+      "guards": 30,
+      "joins": 28,
+      "phi_joins": 2,
+      "phi_values": 2,
+      "pending_edges": 0,
+      "checker_evidence": "native-operations/checks-c/cases.json",
+      "node_entries": 27,
+      "source_frame_records": 28,
+      "source_frames": 22,
+      "native_operations": 2,
+      "native_normal_relations": 2,
+      "pending_native_operations": 0
+    },
+    "index_update": {
+      "hex_file_sha256": "7fc014ec6039ffd10181aa6f35cf12f1c39bd8fe19d961e1c0ffd77826989992",
+      "metadata_file_sha256": "8732b67b45a7b66e7666c6307fd353f4ba58994ddda955bb94ea4e2ddb3c969c",
+      "certificate_sha256": "b01469195a3061aecc965a735a63a5ef63dbca76b5e6634265b0cde882002416",
+      "bytes": 731033,
+      "edges": 63,
+      "guards": 63,
+      "joins": 61,
+      "phi_joins": 4,
+      "phi_values": 8,
+      "pending_edges": 0,
+      "checker_evidence": "native-operations/checks-b/cases.json",
+      "memory_bindings": 4,
+      "node_entries": 51,
+      "memory_effects": 1,
+      "source_frame_records": 48,
+      "source_frames": 35,
+      "native_operations": 11,
+      "native_normal_relations": 11,
+      "pending_native_operations": 0
+    },
+    "is_binding": {
+      "hex_file_sha256": "0d97fadc9e4298235e506a199a6443accbc7d10cbd5f6983b60475aa7bfe1f9b",
+      "metadata_file_sha256": "341cd29fe9a67a1a9094c9beb6754f76fbb8bec399fd78496b55464c721a3f86",
+      "certificate_sha256": "30b8db9ca043967352eda48c5845ddc7c6cd25c8006c362ae5d4c5a8741f4ee9",
+      "bytes": 42017,
+      "edges": 22,
+      "guards": 22,
+      "joins": 19,
+      "phi_joins": 0,
+      "phi_values": 0,
+      "pending_edges": 0,
+      "checker_evidence": "native-operations/checks-c/cases.json",
+      "node_entries": 20,
+      "source_frame_records": 17,
+      "source_frames": 15,
+      "native_operations": 2,
+      "native_normal_relations": 2,
+      "pending_native_operations": 0
+    },
+    "lookup": {
+      "hex_file_sha256": "ea942829a1110b29f96366e66a2d34e556218142bba310f90e581cbf852abc26",
+      "metadata_file_sha256": "097fc0500837e9e52dde529bd42471fe8e86163b145b6a5ffce10ba3a832040b",
+      "certificate_sha256": "ab4fbb630bdf9158727219b3a1f57ca0c484013a0069ff5f8ab8caaa17b18edd",
+      "bytes": 113761,
+      "edges": 45,
+      "guards": 45,
+      "joins": 42,
+      "phi_joins": 2,
+      "phi_values": 6,
+      "pending_edges": 0,
+      "checker_evidence": "native-operations/checks-c/cases.json",
+      "node_entries": 39,
+      "source_frame_records": 36,
+      "source_frames": 29,
+      "native_operations": 7,
+      "native_normal_relations": 7,
+      "pending_native_operations": 0
+    },
+    "short_circuit": {
+      "hex_file_sha256": "002a21c4219edc3740e639658a2304d72eb69c210c41f329154d250c86eccde9",
+      "metadata_file_sha256": "f099c2c83f1825b2821e241419008a0ad9116fd5d0d0fbd6797fa85ac7529972",
+      "certificate_sha256": "29ee7114aef9784885c332e786d0d9b167f9d4bc8b785b149e75e43906219e73",
+      "bytes": 383478,
+      "edges": 45,
+      "guards": 45,
+      "joins": 43,
+      "phi_joins": 5,
+      "phi_values": 12,
+      "pending_edges": 0,
+      "checker_evidence": "native-operations/checks-c/cases.json",
+      "node_entries": 38,
+      "source_frame_records": 36,
+      "source_frames": 29,
+      "native_operations": 6,
+      "native_normal_relations": 6,
+      "pending_native_operations": 0
+    },
+    "string_property": {
+      "hex_file_sha256": "20a65bbd9e26b1b2dc47e99f35f9a13ed954551112f024db34dd9593537de1d0",
+      "metadata_file_sha256": "16694e4a4262ef35aee92b17a6c33b25f7479e7ffc392d64f7e703052a30f839",
+      "certificate_sha256": "23f864342f3602ae15cde10a9ba770a2fcecb297b219fa93b3dcd644ff6873e6",
+      "bytes": 52324,
+      "edges": 30,
+      "guards": 30,
+      "joins": 28,
+      "phi_joins": 2,
+      "phi_values": 2,
+      "pending_edges": 0,
+      "checker_evidence": "native-operations/checks-c/cases.json",
+      "node_entries": 27,
+      "source_frame_records": 22,
+      "source_frames": 21,
+      "native_operations": 3,
+      "native_normal_relations": 2,
+      "pending_native_operations": 1
+    },
+    "switch": {
+      "hex_file_sha256": "58a5cdf7b76dce0430eec9d1da7c54a66a1e242403949a0f4c54a0f451d4d566",
+      "metadata_file_sha256": "3177cc6b2ac28ed5bfb7e75c47cfc3d27d82fef461d03a6e23cedf2a415110bf",
+      "certificate_sha256": "69f552cdeb60320895334e5b1d4d8cca5550c2c4020098b9512c7fbbec8dc088",
+      "bytes": 70505,
+      "edges": 35,
+      "guards": 35,
+      "joins": 33,
+      "phi_joins": 5,
+      "phi_values": 5,
+      "pending_edges": 0,
+      "checker_evidence": "native-operations/checks-c/cases.json",
+      "node_entries": 31,
+      "source_frame_records": 29,
+      "source_frames": 25,
+      "native_operations": 3,
+      "native_normal_relations": 3,
+      "pending_native_operations": 0
+    },
+    "total_variable": {
+      "hex_file_sha256": "e21824bd1923ea76761989e1ad924e415339f847d91bb7fc6a5bc6f217ba311b",
+      "metadata_file_sha256": "803d13582194db6281e6e1299eb7489086461f716f3b28bf857606c4df7c4083",
+      "certificate_sha256": "16f02d6545c09f95adf07afc24f7f14befa3afd8a0707257cb67449e9154907b",
+      "bytes": 44463,
+      "edges": 24,
+      "guards": 24,
+      "joins": 22,
+      "phi_joins": 4,
+      "phi_values": 6,
+      "pending_edges": 0,
+      "checker_evidence": "native-operations/checks-c/cases.json",
+      "node_entries": 21,
+      "source_frame_records": 19,
+      "source_frames": 16,
+      "native_operations": 2,
+      "native_normal_relations": 2,
+      "pending_native_operations": 0
+    },
+    "type": {
+      "hex_file_sha256": "a4cde21deae2b5986f290644873762d4f24e5a6c6977c73ea11f9a2553236eb9",
+      "metadata_file_sha256": "ede63a1b99942d76632557754c8c2b32d1da4a8259009efd2f931a6ac93ad50d",
+      "certificate_sha256": "dc5fc0a60f4c9677bdd46bbe5c90ce99fc1612aa944b695bec76262be51ae849",
+      "bytes": 139752,
+      "edges": 57,
+      "guards": 57,
+      "joins": 54,
+      "phi_joins": 4,
+      "phi_values": 4,
+      "pending_edges": 0,
+      "checker_evidence": "native-operations/checks-c/cases.json",
+      "node_entries": 52,
+      "source_frame_records": 49,
+      "source_frames": 41,
+      "native_operations": 6,
+      "native_normal_relations": 3,
+      "pending_native_operations": 3
+    },
+    "while": {
+      "hex_file_sha256": "e21824bd1923ea76761989e1ad924e415339f847d91bb7fc6a5bc6f217ba311b",
+      "metadata_file_sha256": "089ab55804e24b525cb6a0c8bae9793cc01e2a403b28c2d02b51b3a6277a762c",
+      "certificate_sha256": "16f02d6545c09f95adf07afc24f7f14befa3afd8a0707257cb67449e9154907b",
+      "bytes": 44463,
+      "edges": 24,
+      "guards": 24,
+      "joins": 22,
+      "phi_joins": 4,
+      "phi_values": 6,
+      "pending_edges": 0,
+      "checker_evidence": "native-operations/checks-c/cases.json",
+      "node_entries": 21,
+      "source_frame_records": 19,
+      "source_frames": 16,
+      "native_operations": 2,
+      "native_normal_relations": 2,
+      "pending_native_operations": 0,
+      "checker_identical_bytes_context": "total_variable"
+    },
+    "count_fill": {
+      "hex_file_sha256": "f9e963cf1e818cedd006e6e773153ca8c297eb39c888c35504a781ed087b7d4b",
+      "metadata_file_sha256": "40471055f5aac9a09dbec46813ac1db0ee1cc85f8c7b305a0aaa4a5337f4c8d0",
+      "certificate_sha256": "99d73730edc5f8f279e48b9cf52238e5dcce98a8f3ef011a7eb4ae0ef19036fa",
+      "bytes": 936872,
+      "checker_evidence": "native-operations/checks-a/cases.json",
+      "edges": 148,
+      "guards": 148,
+      "joins": 146,
+      "phi_joins": 16,
+      "phi_values": 40,
+      "node_entries": 129,
+      "memory_bindings": 4,
+      "memory_effects": 1,
+      "pending_edges": 0,
+      "source_frame_records": 125,
+      "source_frames": 104,
+      "native_operations": 20,
+      "native_normal_relations": 20,
+      "pending_native_operations": 0
+    }
+  },
+  "checks": {
+    "control-native-operations-reviewed": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_control_native_operations_original_sources",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 382.963,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "840",
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-native-reviewed"
+      }
+    },
+    "control-native-failed-default": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_control_native_failure_default_result_is_not_execution",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 49.625,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-native-reviewed",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-native-candidate-frames": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_control_source_frames_original_sources",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 101.151,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-native-final",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-native-preservation": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "preserves_existing_declarations",
+        "control_source_frames_preserve_existing_declarations",
+        "control_native_operations_preserve_existing_declarations",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1.413,
+      "environment": {
+        "MPK_W09_CONTROL_EDGES_OUT": "/tmp/mpk-control-native-final",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-native-slot-pins": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_control_slot_source_relations",
+        "csharp_03_t06_w09_control_slot_array_snapshots",
+        "csharp_03_t06_w09_control_slot_count_fill_candidate",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 4.396,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-native-final-lint": {
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 6.099,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-native-final-format": {
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 2.822,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-native-pinned-replay": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_control_native_operations_preserve_existing_declarations",
+        "csharp_03_t06_w09_control_native_failure_default_result_is_not_execution",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 20.142,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    }
+  },
+  "source_sha256": {
+    "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs": "299e25d1a79ab62184dcf9f075b315b329b0412af6152b05a857d600db46d1d6",
+    "crates/mpk-vc/src/csharp_practical_ordinary_control_edges.rs": "0363676badd9ef1708dad27e3d220dca6a3f226b0753c30b3934eaebab309824",
+    "crates/mpk-vc/src/csharp_practical_ordinary_control_execution.rs": "7dd0b727cb273be5f86b873ec16691e69a51b365f1761d3b23a65c3a6d1a99cb",
+    "crates/mpk-vc/src/csharp_practical_ordinary_lifted_data.rs": "177a82553be63a5c7ef74de4f587b2a81f0db7e758cf1e12b2895c37f0786362",
+    "crates/mpk-vc/src/csharp_practical_ordinary_source_clauses.rs": "fde2e9f75733bcbf8a2ae9f1c6f1313983338e253a49239bdf2dc3cf46f32197",
+    "crates/mpk-vc/src/csharp_practical_ordinary_source_value_data.rs": "7169c9d5ce43b7394bce74aa17528ca0c4dfb1d9baaee758164865686772c673",
+    "crates/mpk-vc/src/csharp_practical_ordinary_structural.rs": "2bc5f19e7015c2254d01cf33e812638d5475d97b8340fc1db7a71d9cc5278b9f",
+    "crates/mpk-vc/src/csharp_practical_vir_model.rs": "9b61bd203f5fa7af0d2c47812d10d402bd097c2f4ca642a34c5422d2bdc2e639",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_edge_tests.rs": "e0d826d8442f60fe11191e76b6783e2687c7ea924cc5830c07f6e19fc6d052da"
+  },
+  "selection_reason": "Native normal relations append exact W03 invocation/SSA/normal-successor bindings to the W04 function subset. The corpus contains 106 operations: 98 defined, eight pending, plus one non-data invocation. Eighteen-source runtime passes 592 observations; six failed-operation/default-result cases add 24 observations proving that matching a failure result does not establish normal execution. Shared exact definitions receive one boundary matrix; every use point still exercises normal and corrupted results. Eight prior declaration/metadata preservation tests pass, nine private slot pins replay unchanged, and all 10608 source-frame observations pass. Fifteen distinct certificate byte sequences receive fresh same-byte Go/Rust acceptance, report agreement, zero-axiom and hash rejection checks; three aliases reuse evidence only by exact equality. Source-value/lifted adapter changes only expose existing emitters, and four modules only re-export metadata. Unrelated whole-suite tests are deferred to T06-W12. Promoted pins replay the native declaration-preservation and failed-default tests in 20.11 test seconds. Their repeated observations are not counted twice.",
+  "review": "review.md",
+  "unit_5_complete": false,
+  "w09_complete": false,
+  "whole_gate": "deferred to T06-W12"
+}

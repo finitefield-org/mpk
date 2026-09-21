@@ -1,0 +1,119 @@
+{
+  "status": "passed_scoped_nullable_slot_storage",
+  "source": "type",
+  "new_source_observations": 406,
+  "all_slot_observations": 2048,
+  "some_storage_observations": 3465,
+  "source_slot_overrides": {
+    "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8": {
+      "local:0": "mpk.csharp.instance.68630552d3cf32617731c14f77e5039d4c6a1a3c804a96b9cd1734e5bc85e547"
+    }
+  },
+  "source_provenance_unchanged": true,
+  "preserved_slot_contexts": 8,
+  "certificate": {
+    "hex_file_sha256": "ca0d19c8d5565cbd8586d725557b0f2b81825c433e75448889ea083495648fb3",
+    "metadata_file_sha256": "2fb106c70afe9906b2dfacc88ad2d52e45aa4e2591ee267464e35de96a628d2e",
+    "certificate_sha256": "44f3b63a420e21add51ff2fd826a944ea8a1d3f4d4ee9bbcc5387cb8a90162f6",
+    "bytes": 10430,
+    "functions": 1,
+    "relations": 13,
+    "checker_evidence": "nullable-representation/slot/cases.json"
+  },
+  "checks": {
+    "control-nullable-slot-final-runtime": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_control_slot_source_relations",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 84.331,
+      "environment": {
+        "MPK_W09_CONTROL_SLOTS_OUT": "/tmp/mpk-control-nullable-slot-final",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-nullable-some-certificate": {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "control_nullable_some_storage_preserves_presence_payload_and_padding",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 41.074,
+      "environment": {
+        "MPK_W09_CONTROL_SOME_OUT": "/tmp/mpk-control-some-storage.hex",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-nullable-final-lint": {
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 5.598,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-nullable-final-format": {
+      "command": [
+        "rustfmt",
+        "--check",
+        "--edition",
+        "2021",
+        "crates/mpk-vc/src/csharp_practical_ordinary_construction_data.rs",
+        "crates/mpk-vc/src/csharp_practical_ordinary_control_edges.rs",
+        "crates/mpk-vc/src/csharp_practical_ordinary_control_slots.rs",
+        "crates/mpk-vc/src/csharp_practical_ordinary_relations.rs",
+        "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_slot_tests.rs",
+        "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_edge_tests.rs"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.156,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    }
+  },
+  "edge_transport_pending": false,
+  "application_scope_pending": true,
+  "unit_5_complete": false,
+  "w09_complete": false,
+  "whole_gate": "deferred to T06-W12",
+  "source_sha256": {
+    "crates/mpk-vc/src/csharp_practical_ordinary_control_slots.rs": "207d4fa4af1e16df9d8d260d23e3f0921a562e4a70cb20587a6bd193e782ba93",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_slot_tests.rs": "f2780e1599534c2513971f711923db6fa444216d9931805c480fea2334a56efb"
+  },
+  "logical_observation_mapping_pending": true,
+  "edge_transport_verification": "../../control-edges/nullable-slots/verification.json"
+}

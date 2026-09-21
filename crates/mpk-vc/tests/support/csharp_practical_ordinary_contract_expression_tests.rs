@@ -731,3 +731,36 @@ mod floating_data_tests;
 
 #[path = "csharp_practical_ordinary_decimal_data_tests.rs"]
 mod decimal_data_tests;
+
+#[path = "csharp_practical_ordinary_calendar_data_tests.rs"]
+mod calendar_data_tests;
+
+#[path = "csharp_practical_ordinary_string_data_tests.rs"]
+mod string_data_tests;
+
+#[path = "csharp_practical_ordinary_lifted_data_tests.rs"]
+mod lifted_data_tests;
+
+#[path = "csharp_practical_ordinary_source_value_data_tests.rs"]
+mod source_value_data_tests;
+
+#[path = "csharp_practical_ordinary_option_data_tests.rs"]
+mod option_data_tests;
+
+#[path = "csharp_practical_ordinary_sequence_data_tests.rs"]
+mod sequence_data_tests;
+
+#[path = "csharp_practical_ordinary_reference_data_tests.rs"]
+mod reference_data_tests;
+
+#[path = "csharp_practical_ordinary_construction_data_tests.rs"]
+mod construction_data_tests;
+
+#[path = "csharp_practical_ordinary_ownership_flow_tests.rs"]
+mod ownership_flow_tests;
+
+#[path = "csharp_practical_ordinary_control_slot_tests.rs"]
+mod control_slot_tests;
+
+#[path = "csharp_practical_ordinary_control_edge_tests.rs"]
+mod control_edge_tests;

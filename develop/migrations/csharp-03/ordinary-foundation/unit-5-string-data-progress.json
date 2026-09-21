@@ -1,0 +1,180 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.string_data_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "status": "all_48_scoped_string_signatures_and_checker_contexts_passed",
+  "observed_at": "2026-09-20T09:44:15.573299+00:00",
+  "source_contexts": 8,
+  "definition_occurrences": 52,
+  "operation_use_points": 52,
+  "distinct_operations": 25,
+  "distinct_typed_signatures": 48,
+  "operation_ids": [
+    "string.compare.ordinal",
+    "string.concat.operator.char_string",
+    "string.concat.operator.string_char",
+    "string.concat.operator.string_string",
+    "string.concat.string2",
+    "string.concat.string3",
+    "string.concat.string4",
+    "string.contains.ordinal",
+    "string.ends_with.ordinal",
+    "string.equality.operator",
+    "string.equals.instance.ordinal",
+    "string.equals.ordinal",
+    "string.index",
+    "string.inequality.operator",
+    "string.interpolation.restricted.c",
+    "string.interpolation.restricted.cc",
+    "string.interpolation.restricted.cs",
+    "string.interpolation.restricted.s",
+    "string.interpolation.restricted.sc",
+    "string.interpolation.restricted.scs",
+    "string.interpolation.restricted.ss",
+    "string.is_null_or_empty",
+    "string.length",
+    "string.starts_with.ordinal",
+    "string.substring.start_length"
+  ],
+  "certificates": "string-data/certificates.json",
+  "capture": {
+    "prior_six": "string-clauses/requests.json and responses.json",
+    "additional_two": "verification-logs/string-data/capture-v2/receipt.json",
+    "method": "Two byte-identical local offline captures through unchanged test_data_phase; pinned python image, read-only repository, 4 GiB container limit.",
+    "prior_six_certificate_and_metadata_pairs_unchanged": true,
+    "prior_six_certificate_and_metadata_pairs_unchanged_scope": "Historical native-capture expansion only; subsequent constructor refactor changes four data contexts with preserved preimages."
+  },
+  "passed": [
+    {
+      "log": "verification-logs/string-data/string-data-core-v1.log",
+      "sha256": "45945d9b1287d13aa02a8b408e539686149b2aa2de6c14b38163cd4a6d2f233a",
+      "status": "passed",
+      "reason": "Changed native string cache plus full physical comparator: legacy bodies/context isolation, raw failures/priority and storage-bit mutations."
+    },
+    {
+      "log": "verification-logs/string-data/string-data-requests-v2.log",
+      "sha256": "b2a0f84162a3871792f0fccfd1a21ee9e4eb3411bc37d2b689ff21df27ed149f",
+      "status": "passed",
+      "reason": "All eight source requests, including the two fresh multi-argument inputs."
+    },
+    {
+      "log": "verification-logs/string-data/string-data-candidates-v2.log",
+      "sha256": "b43613c4072a5665319176a2c0e1e67b98543dab3c6bf0d84070dd0cb7705424",
+      "status": "passed",
+      "reason": "All eight source/SSA reconstruction and metadata/certificate mutation cases."
+    },
+    {
+      "log": "verification-logs/string-data/string-data-checkers-v1.log",
+      "sha256": "eba234e67193855a7314e52ae5ca85d28976aabc2d3c30b5da2c1390c70ab287",
+      "status": "passed",
+      "reason": "Six original certificates: identical bytes accepted by Rust and Go with zero axioms; hash corruptions reject."
+    },
+    {
+      "log": "verification-logs/string-data/string-data-checkers-v2.log",
+      "sha256": "3e7f44b8ea0d113eebf73cee68cbf0f98995bafa05e0fe1c9310fd8fdca63193",
+      "status": "passed",
+      "reason": "Two additional native certificates: identical bytes accepted by Rust and Go; earlier six pairs are byte-identical."
+    },
+    {
+      "log": "verification-logs/string-data/string-data-clippy-v1.log",
+      "sha256": "c5ce262023d12e71c7ab33567058649002b73a561748d18a676553664195db52",
+      "status": "passed",
+      "reason": "Affected mpk-vc lib and csharp_practical_vc integration target, warnings denied."
+    },
+    {
+      "log": "verification-logs/string-data/string-data-inventory-v2.log",
+      "sha256": "6368d3e50d0116f0983caea2fa3c03b03b344ef589a0f2c88842ae8b8656c533",
+      "status": "passed",
+      "reason": "One new Std namespace consumer and aggregate count affect all five inventory tests."
+    },
+    {
+      "log": "verification-logs/string-data/string-data-format-v1.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "passed",
+      "reason": "Ten touched Rust files; formatting only."
+    },
+    {
+      "log": "verification-logs/string-data/string-data-final-pins-v1.log",
+      "sha256": "7dcaf00db5e6d34ceec0e25bc9c3ad11d789b04d36cc63eadfbb1fdd588a5b96",
+      "status": "passed",
+      "reason": "Final eight string data pins plus existing string contract/calendar data pins after shared cache change."
+    }
+  ],
+  "scope_limits": [
+    "All 48 scoped typed signatures and 320 result/guard observations pass; no string component runtime partition remains pending.",
+    "Result equality includes the complete physical string carrier, not only active UTF-16 units; no frozen bound or runtime case reduced.",
+    "All other data families stay explicit pending definitions. Native body/control/ownership and application proofs remain required.",
+    "Original units 3-8 and W09 remain open; no internal-unit commit boundary reached."
+  ],
+  "source_files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_string_data.rs",
+      "sha256": "855689006cf5888234abaf1f4f05a97026821ce99d474c898faf0b80d3defe10"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_string.rs",
+      "sha256": "e32dab1fd209893ce7d6cb4a0704c5a2d3f6d7b493936b0bcbcfbcdbe44bfbab"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_string_construct.rs",
+      "sha256": "e078c74dd887679b2243d030ad6d12eefb524ce19fe244a0dc5e57b4248f6a5b"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_string_data_tests.rs",
+      "sha256": "4a4b9aa48356608eb98cabd1738175f1ff4db39c71b89b6b1634457b44b4cc8f"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "sha256": "616f4317ba0b87b09aab9bbab6313343c6df9aeaf1d8b82132c6d264136cde62"
+    }
+  ],
+  "review": "unit-5-string-data-review.md",
+  "full_gate": {
+    "status": "deferred_to_T06_W12",
+    "reason": "Intermediate W: affected tests only."
+  },
+  "live_jobs": [],
+  "cancelled_jobs": [
+    {
+      "session_id": 64521,
+      "pid": 32245,
+      "log": "/tmp/mpk-w09-string-data-source-v1.log",
+      "scope": "Full runtime observations for original six contexts, using initial six-context launch binary.",
+      "status": "cancelled_without_verdict_for_user_test_handoff",
+      "reason": "User requested all testing be performed by them; SIGTERM, not a semantic failure.",
+      "stopped_at": "2026-09-19T13:24:31.966800+00:00",
+      "retained_log": "verification-logs/string-data/handoff-mpk-w09-string-data-source-v1.log"
+    },
+    {
+      "session_id": 97837,
+      "pid": 34852,
+      "log": "/tmp/mpk-w09-string-data-source-v2.log",
+      "scope": "Full runtime observations for two added native contexts; all eight candidate pairs still regenerated.",
+      "status": "cancelled_without_verdict_for_user_test_handoff",
+      "reason": "User requested all testing be performed by them; SIGTERM, not a semantic failure.",
+      "stopped_at": "2026-09-19T13:24:31.966800+00:00",
+      "retained_log": "verification-logs/string-data/handoff-mpk-w09-string-data-source-v2.log"
+    }
+  ],
+  "testing_owner": "Completed; future affected checks under one minute agent-owned according to imported timings.",
+  "handoff": "test-handoff.md",
+  "subsequent_edit": "storage_equal visibility widened to pub(super) for the in-progress lifted-data adapter; generated expression unchanged. Prior source_files remain the tested snapshot.; added per-case progress and exact operation partitioning without changing cases or generated bytes.",
+  "current_runtime": {
+    "receipt": "verification-logs/string-data/user-long-completed/verification.json",
+    "passed_contexts": [
+      "basic-nonnull",
+      "basic-nullable",
+      "ordinal-nonnull",
+      "ordinal-nullable"
+    ],
+    "typed_signatures": 48,
+    "result_guard_cases": 320,
+    "pending_typed_signatures": 0,
+    "additional_passed_operation": {
+      "context": "construction-nonnull",
+      "operation": "string.interpolation.restricted.cs"
+    },
+    "completed_handoff_manifest": "verification-logs/string-data/user-long-completed/completed-runtime-manifest.json"
+  },
+  "constructor_runtime_correction": "verification-logs/string-data/hoisted-index/verification.json",
+  "user_completed_checks": "verification-logs/string-data/user-long-completed/verification.json"
+}

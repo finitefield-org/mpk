@@ -1,0 +1,145 @@
+{
+  "status": "in_progress",
+  "recorded_at": "2026-09-20T18:26:42.737737+00:00",
+  "selection_rationale": "Multiple-slot proof normalization uses shared BoolStep lemmas; eight-live additionally uses balanced full-width equality and a generic WordTransport lemma. Current exact regeneration passes for all 14 pins. W03 source ownership is separately linked and verified in the construction-data evidence. Same-byte checker/corruption cases are run only for new or not-yet-completed bytes. Shared BoolStep theorems replace repeated congruence/transitivity lambdas without changing the checker or source equations.",
+  "source_sha256": {
+    "crates/mpk-vc/src/csharp_practical_ordinary_ownership_flow.rs": "99d4143d61371a53751bad0a76ca7e3a29ecd388b0acc2dfa19c6835db09ad21",
+    "crates/mpk-vc/src/csharp_practical_ordinary_ownership_proofs.rs": "0a40196cf98985939dd0c5439251012820f21ffa7a7a512323cc9da3b6a96494",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_ownership_flow_tests.rs": "a40bbe7adcc3c3f1be9004d8ff22b75462696d344e9f9dd7c0d19fab9899ec00",
+    "go-tools/mpk-checker-ref/checker_agreement_test.go": "1763f16641bcd06b1e49b33f55a871416f49820d0a3ccfb3372b21971eec6b6a"
+  },
+  "candidates": {
+    "27bf71b9691bff9bf271182a00171dcaf676eca9d77b8102e07cd1facfc6dd09": {
+      "certificate_file_sha256": "52832c5f0b0f58dc384039ab8b9515ea0c7c8c9d358c63b683a086b8db1ccc07",
+      "metadata_file_sha256": "884e69f422f715d5cd5f08abbeceefdc14de7237b5f0e13a351c2d471e34da2e",
+      "certificate_sha256": "e25c5d54d3b346099deec0d619da0dee724317643b615acc2e946e6a629fa892",
+      "dual_checker_and_corruption": "passed",
+      "receipt": "prefix-check-27bf71b9691bff9bf271182a00171dcaf676eca9d77b8102e07cd1facfc6dd09.json",
+      "log_sha256": "ebbf08e6408f519f41123e5d06e1c433c092ccf58c5adb93c7945e98ef6b2d00"
+    },
+    "array_finally_abandon": {
+      "certificate_file_sha256": "69c0d9a5917990a81b9e18b6b2881d35769e1e604641003717b239c409770e5c",
+      "metadata_file_sha256": "c3c8938feb5b7e869e94e242ed5de7d93de207ca97db4fe56a3d4d909563e48f",
+      "certificate_sha256": "96bcb0f48a85bbebe68231ce46faff7301a670e56d99b4bdd600dfb0ca479673",
+      "dual_checker_and_corruption": "passed",
+      "receipt": "prefix-check-array_finally_abandon.json",
+      "log_sha256": "bd735f7dfedf7808e9f6bca27e8351063bf7761cf5cc1e4249da2912720de2fe"
+    },
+    "array_initializer_catch": {
+      "certificate_file_sha256": "1d73bd1e008571810b4048c593d43c5d1c0dbc20f48c49457e32ed4fa26f2bc4",
+      "metadata_file_sha256": "ceddeaaff67dc6d640d6471f186342474ba01aa52598be6c5d37f8fd58769535",
+      "certificate_sha256": "44f42024bfc70a5aa82a8cda333fd39ad4f3e13eb6cce8e03bda5edb8e3113bb",
+      "dual_checker_and_corruption": "passed",
+      "receipt": "prefix-check-array_initializer_catch.json",
+      "log_sha256": "96cfc9556dc5b49d0a905085e4175a1f8b8d3a7b33c34505a6787b7586b087f8"
+    },
+    "array_publish_then_catch": {
+      "certificate_file_sha256": "d4ffd666b255cc35efb7d1e2b715a4725749c6a6c724e5f1364ceaee30ec792c",
+      "metadata_file_sha256": "3cf7a3639b7c21f237d475c63233a8f53f0edecb85a82f99d18f14c92d09721d",
+      "certificate_sha256": "9b8efc451ca3ff4df3a69fd6c2505dd8f9f87f3de5085c4032c7b7c9ee286e9f",
+      "dual_checker_and_corruption": "passed",
+      "receipt": "prefix-check-array_publish_then_catch.json",
+      "log_sha256": "6d86fe131067e66be443af90a71c6e43b55447a7f70c4277197dbacdbe39bb60"
+    },
+    "array_return_finally": {
+      "certificate_file_sha256": "41b94d5a8bff08b5c697f616240151e535936d2aac53418e46e1669e46839657",
+      "metadata_file_sha256": "6287254dbe90c921d2a38a572bf5d78fc28945e65e2656da3eda5f948c9a73e2",
+      "certificate_sha256": "55c3dfd220261b02d85c995ad129a84dc8e75df9521afe5c6d79d2034ba0d092",
+      "dual_checker_and_corruption": "passed",
+      "receipt": "prefix-check-array_return_finally.json",
+      "log_sha256": "2e240b6d706a6682a309673eff6c6f6a74860d3b2676f4e700185d81e1750101"
+    },
+    "b85dd77635fb03689bd82d5b31d1088a0f49d29f414ec392e08af68e4d0c46c9": {
+      "certificate_file_sha256": "48634a383c0afc54c6908f35d8701cd2a9db5a0483e5c9eaf8c75b19f88269e6",
+      "metadata_file_sha256": "b796cfa62323fb5b69dc8ed5ed4d14e5200b9943b674173f75e801e46d973f9c",
+      "certificate_sha256": "a98b2b592308bd56bb423e7d423c6c78ee88bb21d78b0c5684174d2480b67909",
+      "dual_checker_and_corruption": "passed",
+      "receipt": "prefix-check-b85dd77635fb03689bd82d5b31d1088a0f49d29f414ec392e08af68e4d0c46c9.json",
+      "log_sha256": "9dd0862f4be5971bafeeaef3a9668c920934ff25c6a814a1a2abd1afd27babb5"
+    },
+    "count_fill": {
+      "certificate_file_sha256": "90d2229e1aeac1f952ef8c4c633081243058a0c3cfc35a24f7db7c1c905125a4",
+      "metadata_file_sha256": "8377c12e0669b81243e1b482c850244cef1f1a22b4b1e7c1a346e82f9e0343a7",
+      "certificate_sha256": "20c76a649b25d57c56ef34ce9de41e4463ab595ec67afc15bc3c3633e2a9d503",
+      "dual_checker_and_corruption": "passed",
+      "receipt": "/tmp/mpk-ownership-remaining-20260921/results.json",
+      "log_sha256": "f867ea2c50702d63b4a05f73c9c2102f5744c75862296fe7462bdca3a78d1aab"
+    },
+    "dcb1bfeae19deccb577dce44cd239e814c6ca65f71bb32d8005af44a572fa358": {
+      "certificate_file_sha256": "75a7022cfac4e4992239cc1715171610de3154d87efca667aa5417ab43cf1250",
+      "metadata_file_sha256": "3e633ec6b97c566969bcb7ac73070aedb53f3fe3eca833d136766158aa2658ee",
+      "certificate_sha256": "5b34cd37453987badbebc98edc8732959e59f81e12bc63aa7488b81a010b37c6",
+      "dual_checker_and_corruption": "passed",
+      "receipt": "prefix-check-string-fill.json",
+      "log_sha256": "d0ef83f12137e043738fd59f33afd36aeff657e134ae336990e10609ebba572c"
+    },
+    "dedup": {
+      "certificate_file_sha256": "cce4367786c8a6e5f83ec63f282510c2c28a5e0181b1b7b92867adf972443e05",
+      "metadata_file_sha256": "b143133c41708779f3803f7b0db0df0dcf0c4e3ffbf75357130a01d15937887d",
+      "certificate_sha256": "089983f86638cb230e57c56fbcd7cc68fcbad74b52ecfbd7422bf1b8ba01caea",
+      "dual_checker_and_corruption": "passed",
+      "receipt": "/tmp/mpk-ownership-remaining-20260921/results.json",
+      "log_sha256": "badb347b2e60ebe4272bc7a2d10ebcde45e619bd65c19be5c2a89c257dd24304"
+    },
+    "duplicate_replace": {
+      "certificate_file_sha256": "6cfd3da5202817b334f9fcb198aa75091551e264121bc4752c259ea476eecb96",
+      "metadata_file_sha256": "878008c09bd3365ea87e155e6fca99749942c11959f1a3ab4fc396ebdddef07c",
+      "certificate_sha256": "97c223e21e2bb30863d0ee95bddd60e806186e151e5dff87a9f907cbb7855cd6",
+      "dual_checker_and_corruption": "passed",
+      "receipt": "/tmp/mpk-ownership-remaining-20260921/results.json",
+      "log_sha256": "580285472d59a23706a78cc701542fb93c554d3ea3c12cc1a0a90d22ab90d212"
+    },
+    "eight-live": {
+      "certificate_file_sha256": "862bec0f9052b7d847e64dcd98d54e742d303ab9085e64940ac1f73a998f73b7",
+      "metadata_file_sha256": "84da2d435549e74d33527d9a9459c03771c4bffe13d0d2a092a8bc6998aa3947",
+      "certificate_sha256": "44e2e862df44f27d2207c60a39d3ecfda9a98eea69f02a7158a3bd09cb4aefa3",
+      "dual_checker_and_corruption": "pending",
+      "additional_positive_receipts": [
+        "balanced-eight-rust.json"
+      ]
+    },
+    "index_update": {
+      "certificate_file_sha256": "3f098d6ecbb1845837b2c77ea67d9a878b8c1fb091bfa8df12f1c1d87915882a",
+      "metadata_file_sha256": "1d663a518cee42aaecb0b721f558b897397514cd5cbb2613b200a40d85532f2d",
+      "certificate_sha256": "01685b1db74e79bf15d2e16618066f7da05ad79817748ac6d3daf7124e3b57a8",
+      "dual_checker_and_corruption": "passed",
+      "receipt": "/tmp/mpk-ownership-remaining-20260921/results.json",
+      "log_sha256": "e6570c8c6db8e614f6d5e2f114d70419fb837079708297419331199e6ae7eb7b"
+    },
+    "sort": {
+      "certificate_file_sha256": "34f882cc01ae9d525770cd583daadcca1c0641642ecfafe49d39ed6cd293bf46",
+      "metadata_file_sha256": "f898e4aff1239da5dc9e04dee7de8b116477ab57948781059ddc017c4059f582",
+      "certificate_sha256": "f8f91e00470abb72f9937e307d78b89a83552a2b6a43a5d15e72702e5bf54feb",
+      "dual_checker_and_corruption": "passed",
+      "receipt": "sort-combined-verification.json"
+    },
+    "two-origins": {
+      "certificate_file_sha256": "3351db8ab9b3858c9b5c7ce923f9cc5a51db35c54a29e0a224b02332182f260a",
+      "metadata_file_sha256": "92277a37edb977c214067a333d1587bd5dd63e88992dc90f3ce4c286419d968c",
+      "certificate_sha256": "e88c2368d52a691c70725a2ddc99aa40dfe15561939b55c1a212d18f188e7870",
+      "dual_checker_and_corruption": "passed",
+      "receipt": "two-origins-combined-verification.json",
+      "additional_positive_receipts": [
+        "shared-step-two-rust.json",
+        "shared-step-two-go.json"
+      ]
+    }
+  },
+  "ongoing_run_directories": [
+    "/tmp/mpk-ownership-remaining-20260921",
+    "/tmp/mpk-ownership-balanced-eight-20260921"
+  ],
+  "semantic_mutations": {
+    "receipt": "prefix-semantic-type-mismatches.json",
+    "status": "passed",
+    "expected": "Both checkers reject all three valid-hash mutants for type mismatch, not resource limits."
+  },
+  "source_contexts": 14,
+  "flow_conclusions": 14,
+  "receiver_conclusions": 40,
+  "application_scope_pending": true,
+  "unit_5_complete": false,
+  "w09_complete": false,
+  "whole_gate": "deferred to T06-W12",
+  "active_producer_experiment": "Word-wide mux congruence is under development. Current eight-live pin is unchanged and still checking; its acceptance is not transferred to an experimental candidate. The pre-experiment producer is archived in before-word-mux-proof.rs.snapshot."
+}

@@ -1,0 +1,30 @@
+{
+  "status": "identified_open_follow_up",
+  "source": "control-slots/count_fill.json",
+  "scope": "Static lower bound from source slots and guards; native phi arguments can only increase it. Not a runtime or checker acceptance result.",
+  "current_limit": 256,
+  "over_limit_nodes": [
+    {
+      "node_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.node.000128",
+      "incoming_edges": 11,
+      "slot_state_arguments": 38,
+      "minimum_flat_arguments_excluding_phis": 501
+    }
+  ],
+  "action": "Factor node-entry state checks before extending memory-effect execution coverage to count_fill; do not weaken selection or snapshot equality.",
+  "proposed_factorization": {
+    "shared_metadata": "Retain the full ordered argument list and exact argument indices; never drop predecessor states.",
+    "selection": "One relation over all incoming selection booleans enforces exactly one.",
+    "arrivals": "Each separate relation takes the same shared current entry state plus one predecessor selection, guard inputs and snapshot. A selected predecessor must have a true guard and matching assignedness/payload/phis.",
+    "composition": "Conjoin all relations at the same actual indexed values; do not accept unconstrained claimed success booleans. Native execution and application proof composition remain separate.",
+    "bounds": "Validate each emitted component against binder-depth limits before materialization, retain metadata-size and total-term limits, and preserve existing compact single-definition cases byte-for-byte.",
+    "tests": "Run original count_fill source with valid selection, missing/duplicate selection, disabled selected guard, selected snapshot corruptions and inactive predecessor differences; verify exact import reconstruction and same bytes in both checkers."
+  },
+  "resolution": {
+    "status": "factored_and_verified",
+    "evidence": "../factored-entry/verification.json",
+    "components": 12,
+    "maximum_arguments": 81,
+    "scope": "Entry representation limit resolved; native loop execution/application proofs remain open."
+  }
+}

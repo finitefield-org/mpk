@@ -132,3 +132,17 @@ Both records are preserved. Exact source hashes, selection rationale, commands
 and logs are in `verification-logs/decimal-memory/final-default/verification.json`.
 The full gate remains deferred to T06-W12. No original W09 internal unit boundary
 was completed by this observer fix, so no component-only commit/push was made.
+
+
+## Scalar observation cache follow-up
+
+The later domain-runtime work added bounded scalar observation trees without
+retaining function environments. The user reran the original decimal 1+2
+success case and it passed in 127.59 seconds, at 255,066,688 bytes (243.25 MiB)
+peak physical footprint. Against the final weak-cache measurement above,
+time decreased about 26.4% and peak footprint increased about 80.4%. This is a
+speed/memory tradeoff, not an additional memory reduction. It remains below
+the original 8.4 GiB case, but no global ceiling is established. Logs and source
+hashes are in `verification-logs/domain-scalar-cache/verification.json`, with
+the copied user receipts in `add-small-user.log/json`. This was user execution;
+the agent ran only the short conversion/rounding/negative and core regressions.

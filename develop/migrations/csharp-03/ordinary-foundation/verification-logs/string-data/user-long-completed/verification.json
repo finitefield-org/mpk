@@ -1,0 +1,472 @@
+{
+  "schema": "mpk.csharp_practical.string_data_completed_tests.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "execution_owner": "user",
+  "imported_at": "2026-09-20T09:44:15.573299+00:00",
+  "status": "all_25_runtime_partitions_and_constructor_regressions_passed",
+  "evidence": "Imported local handoff logs without rerunning tests. Current source and changed-pin hashes match the prior correction receipt; logs themselves do not attest a source snapshot.",
+  "runtime": [
+    {
+      "context": "construction-nonnull",
+      "operation": "string.concat.string2",
+      "argument_type_ids": [
+        "mpk.csharp.value.string.v1",
+        "mpk.csharp.value.string.v1"
+      ],
+      "log": "construction-nonnull.string.concat.string2.log",
+      "log_sha256": "f0a051201e0a6409bf37a822fcf6ca456b4cb5f6e7c61d35edb8289190feb4d6",
+      "operand_cases": 3,
+      "result_guard_observations": 6,
+      "seconds": 47.43,
+      "passed": 1,
+      "failed": 0,
+      "future_execution_owner": "agent"
+    },
+    {
+      "context": "construction-nonnull",
+      "operation": "string.concat.operator.string_char",
+      "argument_type_ids": [
+        "mpk.csharp.value.string.v1",
+        "mpk.csharp.value.char.v1"
+      ],
+      "log": "construction-nonnull.string.concat.operator.string_char.log",
+      "log_sha256": "84a595262e5c17e6e6052af935ebf09b56c515d75b394d300fa55c559cf36aab",
+      "operand_cases": 3,
+      "result_guard_observations": 6,
+      "seconds": 47.37,
+      "passed": 1,
+      "failed": 0,
+      "future_execution_owner": "agent"
+    },
+    {
+      "context": "construction-nonnull",
+      "operation": "string.interpolation.restricted.c",
+      "argument_type_ids": [
+        "mpk.csharp.value.char.v1"
+      ],
+      "log": "construction-nonnull.string.interpolation.restricted.c.log",
+      "log_sha256": "80c419623d72cb3e6d3f96ef19c25f3ebfb518c83c793b2ffddfa21fd52d69c4",
+      "operand_cases": 2,
+      "result_guard_observations": 4,
+      "seconds": 45.51,
+      "passed": 1,
+      "failed": 0,
+      "future_execution_owner": "agent"
+    },
+    {
+      "context": "construction-nonnull",
+      "operation": "string.interpolation.restricted.sc",
+      "argument_type_ids": [
+        "mpk.csharp.value.string.v1",
+        "mpk.csharp.value.char.v1"
+      ],
+      "log": "construction-nonnull.string.interpolation.restricted.sc.log",
+      "log_sha256": "f0da9f8a96ef6b4dcce7614182f8c05e929f29987ba6a2a36e105d552f58ce46",
+      "operand_cases": 3,
+      "result_guard_observations": 6,
+      "seconds": 46.66,
+      "passed": 1,
+      "failed": 0,
+      "future_execution_owner": "agent"
+    },
+    {
+      "context": "construction-nonnull",
+      "operation": "string.interpolation.restricted.cc",
+      "argument_type_ids": [
+        "mpk.csharp.value.char.v1",
+        "mpk.csharp.value.char.v1"
+      ],
+      "log": "construction-nonnull.string.interpolation.restricted.cc.log",
+      "log_sha256": "b747772f62cda1c8f0189d21bca2bf61126ae968e767053a6c64ee1edb943597",
+      "operand_cases": 2,
+      "result_guard_observations": 4,
+      "seconds": 45.57,
+      "passed": 1,
+      "failed": 0,
+      "future_execution_owner": "agent"
+    },
+    {
+      "context": "construction-nonnull",
+      "operation": "string.concat.operator.char_string",
+      "argument_type_ids": [
+        "mpk.csharp.value.char.v1",
+        "mpk.csharp.value.string.v1"
+      ],
+      "log": "construction-nonnull.string.concat.operator.char_string.log",
+      "log_sha256": "0fb14e164f9a3fa5531eda92ec2030fd12282f337789a0149b9074e0792ee28f",
+      "operand_cases": 3,
+      "result_guard_observations": 6,
+      "seconds": 45.9,
+      "passed": 1,
+      "failed": 0,
+      "future_execution_owner": "agent"
+    },
+    {
+      "context": "construction-nonnull",
+      "operation": "string.interpolation.restricted.s",
+      "argument_type_ids": [
+        "mpk.csharp.value.string.v1"
+      ],
+      "log": "construction-nonnull.string.interpolation.restricted.s.log",
+      "log_sha256": "438280ed5a17331764f7c100d89c7c1198437cc25b7cc646ec9d797f1b43df95",
+      "operand_cases": 2,
+      "result_guard_observations": 4,
+      "seconds": 45.98,
+      "passed": 1,
+      "failed": 0,
+      "future_execution_owner": "agent"
+    },
+    {
+      "context": "construction-nonnull",
+      "operation": "string.concat.operator.string_string",
+      "argument_type_ids": [
+        "mpk.csharp.value.string.v1",
+        "mpk.csharp.value.string.v1"
+      ],
+      "log": "construction-nonnull.string.concat.operator.string_string.log",
+      "log_sha256": "f24d2234972d93b13a0e262b980cc5f505410321927055e6d83bef1465ff1b33",
+      "operand_cases": 3,
+      "result_guard_observations": 6,
+      "seconds": 46.13,
+      "passed": 1,
+      "failed": 0,
+      "future_execution_owner": "agent"
+    },
+    {
+      "context": "construction-nonnull",
+      "operation": "string.interpolation.restricted.ss",
+      "argument_type_ids": [
+        "mpk.csharp.value.string.v1",
+        "mpk.csharp.value.string.v1"
+      ],
+      "log": "construction-nonnull.string.interpolation.restricted.ss.log",
+      "log_sha256": "2f14a87715dcfb55e2ec25c698b614033a73260dd3fa58c6186fb23605f85765",
+      "operand_cases": 3,
+      "result_guard_observations": 6,
+      "seconds": 45.78,
+      "passed": 1,
+      "failed": 0,
+      "future_execution_owner": "agent"
+    },
+    {
+      "context": "construction-nullable",
+      "operation": "string.interpolation.restricted.ss",
+      "argument_type_ids": [
+        "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb",
+        "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb"
+      ],
+      "log": "construction-nullable.string.interpolation.restricted.ss.log",
+      "log_sha256": "d202398f6967edfa69e8314b5c9eb3febb1c96450e9d24fb23a7fe6347342129",
+      "operand_cases": 5,
+      "result_guard_observations": 10,
+      "seconds": 86.96,
+      "passed": 1,
+      "failed": 0,
+      "future_execution_owner": "user"
+    },
+    {
+      "context": "construction-nullable",
+      "operation": "string.interpolation.restricted.cs",
+      "argument_type_ids": [
+        "mpk.csharp.value.char.v1",
+        "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb"
+      ],
+      "log": "construction-nullable.string.interpolation.restricted.cs.log",
+      "log_sha256": "7a84208cabae93ace518031790cb94af7120b3abaa659b719bb2560d09a8f8c9",
+      "operand_cases": 4,
+      "result_guard_observations": 8,
+      "seconds": 65.31,
+      "passed": 1,
+      "failed": 0,
+      "future_execution_owner": "user"
+    },
+    {
+      "context": "construction-nullable",
+      "operation": "string.interpolation.restricted.s",
+      "argument_type_ids": [
+        "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb"
+      ],
+      "log": "construction-nullable.string.interpolation.restricted.s.log",
+      "log_sha256": "9eb5b58a918d410b5cac2f105ad393b1f8a236213303c7067378832ed6d071ac",
+      "operand_cases": 3,
+      "result_guard_observations": 6,
+      "seconds": 67.84,
+      "passed": 1,
+      "failed": 0,
+      "future_execution_owner": "user"
+    },
+    {
+      "context": "construction-nullable",
+      "operation": "string.concat.operator.char_string",
+      "argument_type_ids": [
+        "mpk.csharp.value.char.v1",
+        "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb"
+      ],
+      "log": "construction-nullable.string.concat.operator.char_string.log",
+      "log_sha256": "2d0d2d1f3dabb7af5f6ee36238946e3ab130b923e9ab6e814521ddb201b1b572",
+      "operand_cases": 4,
+      "result_guard_observations": 8,
+      "seconds": 68.05,
+      "passed": 1,
+      "failed": 0,
+      "future_execution_owner": "user"
+    },
+    {
+      "context": "construction-nullable",
+      "operation": "string.interpolation.restricted.sc",
+      "argument_type_ids": [
+        "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb",
+        "mpk.csharp.value.char.v1"
+      ],
+      "log": "construction-nullable.string.interpolation.restricted.sc.log",
+      "log_sha256": "afcba258bc9e7af5e7d9ead6ae8b3455865ef83a8a1c6e9151762c94db90d9e3",
+      "operand_cases": 4,
+      "result_guard_observations": 8,
+      "seconds": 70.24,
+      "passed": 1,
+      "failed": 0,
+      "future_execution_owner": "user"
+    },
+    {
+      "context": "construction-nullable",
+      "operation": "string.concat.string2",
+      "argument_type_ids": [
+        "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb",
+        "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb"
+      ],
+      "log": "construction-nullable.string.concat.string2.log",
+      "log_sha256": "675c6201a2a3d4eec22b9da83340ccfe30401bf4aefc9703da3be41dc712a40b",
+      "operand_cases": 5,
+      "result_guard_observations": 10,
+      "seconds": 145.78,
+      "passed": 1,
+      "failed": 0,
+      "future_execution_owner": "user"
+    },
+    {
+      "context": "construction-nullable",
+      "operation": "string.concat.operator.string_char",
+      "argument_type_ids": [
+        "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb",
+        "mpk.csharp.value.char.v1"
+      ],
+      "log": "construction-nullable.string.concat.operator.string_char.log",
+      "log_sha256": "6ef24902c0d8806ed84e545020752782b79606d4347e8980a680b532e83ea44e",
+      "operand_cases": 4,
+      "result_guard_observations": 8,
+      "seconds": 117.2,
+      "passed": 1,
+      "failed": 0,
+      "future_execution_owner": "user"
+    },
+    {
+      "context": "construction-nullable",
+      "operation": "string.concat.operator.string_string",
+      "argument_type_ids": [
+        "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb",
+        "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb"
+      ],
+      "log": "construction-nullable.string.concat.operator.string_string.log",
+      "log_sha256": "194427c8e1a61df24127f977e373f72355993701909d68a59d7a25c14147803f",
+      "operand_cases": 5,
+      "result_guard_observations": 10,
+      "seconds": 93.52,
+      "passed": 1,
+      "failed": 0,
+      "future_execution_owner": "user"
+    },
+    {
+      "context": "native-nonnull",
+      "operation": "string.substring.start_length",
+      "argument_type_ids": [
+        "mpk.csharp.value.string.v1",
+        "mpk.csharp.value.i32.v1",
+        "mpk.csharp.value.i32.v1"
+      ],
+      "log": "native-nonnull.string.substring.start_length.log",
+      "log_sha256": "78cc469407311005f43f19abd33131da0c9e028cd26e7a323d918e0a09ab38f7",
+      "operand_cases": 3,
+      "result_guard_observations": 6,
+      "seconds": 24.8,
+      "passed": 1,
+      "failed": 0,
+      "future_execution_owner": "agent"
+    },
+    {
+      "context": "native-nonnull",
+      "operation": "string.concat.string3",
+      "argument_type_ids": [
+        "mpk.csharp.value.string.v1",
+        "mpk.csharp.value.string.v1",
+        "mpk.csharp.value.string.v1"
+      ],
+      "log": "native-nonnull.string.concat.string3.log",
+      "log_sha256": "1b5b07080997cdce1caab26361ac4e7246d450990b0ee5df1f870b1a7bc733ea",
+      "operand_cases": 3,
+      "result_guard_observations": 6,
+      "seconds": 52.54,
+      "passed": 1,
+      "failed": 0,
+      "future_execution_owner": "agent"
+    },
+    {
+      "context": "native-nonnull",
+      "operation": "string.concat.string4",
+      "argument_type_ids": [
+        "mpk.csharp.value.string.v1",
+        "mpk.csharp.value.string.v1",
+        "mpk.csharp.value.string.v1",
+        "mpk.csharp.value.string.v1"
+      ],
+      "log": "native-nonnull.string.concat.string4.log",
+      "log_sha256": "bd71cc80bdbb82be6429c40da984ad652c839cccb3208a1059463e6c889e3922",
+      "operand_cases": 3,
+      "result_guard_observations": 6,
+      "seconds": 59.06,
+      "passed": 1,
+      "failed": 0,
+      "future_execution_owner": "agent"
+    },
+    {
+      "context": "native-nonnull",
+      "operation": "string.interpolation.restricted.scs",
+      "argument_type_ids": [
+        "mpk.csharp.value.string.v1",
+        "mpk.csharp.value.char.v1",
+        "mpk.csharp.value.string.v1"
+      ],
+      "log": "native-nonnull.string.interpolation.restricted.scs.log",
+      "log_sha256": "2785cbbc75297b05a178d575acc304c196bb1a9d1e0bc5c572e64756fcdf2f63",
+      "operand_cases": 3,
+      "result_guard_observations": 6,
+      "seconds": 49.62,
+      "passed": 1,
+      "failed": 0,
+      "future_execution_owner": "agent"
+    },
+    {
+      "context": "native-nullable",
+      "operation": "string.substring.start_length",
+      "argument_type_ids": [
+        "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb",
+        "mpk.csharp.value.i32.v1",
+        "mpk.csharp.value.i32.v1"
+      ],
+      "log": "native-nullable.string.substring.start_length.log",
+      "log_sha256": "7799a744b44c3fe81bc8edf95d830a82c2067f3bb3e79fbb045aced4691ce7c5",
+      "operand_cases": 4,
+      "result_guard_observations": 8,
+      "seconds": 25.12,
+      "passed": 1,
+      "failed": 0,
+      "future_execution_owner": "agent"
+    },
+    {
+      "context": "native-nullable",
+      "operation": "string.interpolation.restricted.scs",
+      "argument_type_ids": [
+        "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb",
+        "mpk.csharp.value.char.v1",
+        "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb"
+      ],
+      "log": "native-nullable.string.interpolation.restricted.scs.log",
+      "log_sha256": "962822da6ec2d5823698fcd662a37d4bea1f6f0517e9360f4873491faa34be96",
+      "operand_cases": 5,
+      "result_guard_observations": 10,
+      "seconds": 100.71,
+      "passed": 1,
+      "failed": 0,
+      "future_execution_owner": "user"
+    },
+    {
+      "context": "native-nullable",
+      "operation": "string.concat.string3",
+      "argument_type_ids": [
+        "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb",
+        "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb",
+        "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb"
+      ],
+      "log": "native-nullable.string.concat.string3.log",
+      "log_sha256": "b507be2d367ad9ac8f2347387ef4ba9471c30dcc3f462d22f7404990a378d5d1",
+      "operand_cases": 6,
+      "result_guard_observations": 12,
+      "seconds": 122.73,
+      "passed": 1,
+      "failed": 0,
+      "future_execution_owner": "user"
+    },
+    {
+      "context": "native-nullable",
+      "operation": "string.concat.string4",
+      "argument_type_ids": [
+        "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb",
+        "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb",
+        "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb",
+        "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb"
+      ],
+      "log": "native-nullable.string.concat.string4.log",
+      "log_sha256": "dcbc7fcad1503543c34d78e362b37c6976563ef85ed1f7f263904a0383e45b49",
+      "operand_cases": 7,
+      "result_guard_observations": 14,
+      "seconds": 172.49,
+      "passed": 1,
+      "failed": 0,
+      "future_execution_owner": "user"
+    }
+  ],
+  "core_oracle": {
+    "log": "constructor-core-oracle.log",
+    "log_sha256": "d499e42e8b95246d9f2ac7802fd25a65addbef21d49bc8aa597f43dd7436b32e",
+    "cases": 44,
+    "seconds": 30.63,
+    "passed": true,
+    "future_execution_owner": "agent"
+  },
+  "binder_checker": {
+    "log": "constructor-binder-checkers.log",
+    "log_sha256": "4215a4029c92daeac18671bae964e985d318d22237ffb8ca59d40ce99993eac3",
+    "seconds": 21.53,
+    "passed": true,
+    "meaning": "Same bytes accepted by Rust and Go with zero axioms and matching hashes/reports; corrupted hash rejected by both.",
+    "future_execution_owner": "agent"
+  },
+  "scoped_totals": {
+    "typed_signatures": 48,
+    "result_guard_observations": 320,
+    "prior_basic_ordinal_signatures": 22,
+    "prior_basic_ordinal_observations": 130,
+    "prior_fixed_interpolation_signatures": 1,
+    "prior_fixed_interpolation_observations": 6,
+    "new_signatures": 25,
+    "new_observations": 184,
+    "remaining_runtime_signatures": 0,
+    "changed_certificates_checked_by_both": 14,
+    "source_context_certificates_checked_by_both": 8
+  },
+  "coverage": "Disjoint signature union of current metadata: 22 basic/ordinal + 1 fixed interpolation + 25 imported partitions = all 48 concrete signatures. Each imported case started and completed; two correct/wrong-result observations per case.",
+  "sources": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_string_construct.rs",
+      "sha256": "e078c74dd887679b2243d030ad6d12eefb524ce19fe244a0dc5e57b4248f6a5b"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_test_eval.rs",
+      "sha256": "d4160220aa77546cb3911df2d66bbd0e8684f3020d128db9306288a87c661c8f"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_string_data_tests.rs",
+      "sha256": "4a4b9aa48356608eb98cabd1738175f1ff4db39c71b89b6b1634457b44b4cc8f"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/string-data/run-long-checks.sh",
+      "sha256": "20ebabe11ed21d16513ef284071e2088a0a247e1726b803f180987caf056fbbe"
+    }
+  ],
+  "pin_consistency": "All fourteen changed certificate hashes match the correction receipt. Unchanged basic/ordinal receipts remain retained evidence.",
+  "memory": "No complete-run peak measurement supplied.",
+  "remaining_component_tests": [],
+  "w09_complete": false,
+  "unit_5_complete": false,
+  "full_gate": "deferred to T06-W12",
+  "live_jobs": []
+}

@@ -160,13 +160,17 @@ fn csharp_03_t06_w09_sparse_map_input_matches_dense_storage() {
 
 #[test]
 fn csharp_03_t06_w09_domains_source_string_compound_map_order() {
-    string_compound_map_order(None);
+    string_compound_map_order(None, false);
 }
 #[test]
 fn csharp_03_t06_w09_domains_source_string_duplicate_probe() {
-    string_compound_map_order(Some(("boundary-map-string", "duplicate")));
+    string_compound_map_order(Some(("boundary-map-string", "duplicate")), false);
 }
-fn string_compound_map_order(filter: Option<(&'static str, &'static str)>) {
+#[test]
+fn csharp_03_t06_w09_domains_source_string_increasing_and_tail_probe() {
+    string_compound_map_order(Some(("boundary-map-string", "increasing")), true);
+}
+fn string_compound_map_order(filter: Option<(&'static str, &'static str)>, tail_corruptions: bool) {
     std::thread::Builder::new()
         .stack_size(64 * 1024 * 1024)
         .spawn(move || {
@@ -279,12 +283,53 @@ fn string_compound_map_order(filter: Option<(&'static str, &'static str)>) {
                         "string/compound map domain {id}: {case}, C{depth}, {} true input leaves",
                         bits.len()
                     );
-                    let input = core_eval::sparse_cube(depth, bits);
+                    let input = core_eval::sparse_cube(depth, bits.clone());
+                    let started = std::time::Instant::now();
                     assert_eq!(
                         observed_count(&cert, run(&cert, &domain.count_definition, vec![input])),
                         if valid { cells(&value) } else { 65537 },
                         "{id} {case}"
                     );
+                    eprintln!(
+                        "string/compound map domain {id}: {case} completed in {:.3}s",
+                        started.elapsed().as_secs_f64()
+                    );
+                    if tail_corruptions {
+                        assert!(valid);
+                        // Locate a payload bit in the first inactive entry via
+                        // the independent storage encoder, retaining length 2.
+                        let mut extra = value.clone();
+                        let MonomorphicValue::OrderedMap { entries, .. } = &mut extra else {
+                            panic!()
+                        };
+                        entries.push(entries[0].clone());
+                        let (_, extra_bits) = sparse_map_storage(&extra, &types);
+                        let first = *extra_bits
+                            .iter()
+                            .find(|address| **address & 1 != 0 && !bits.contains(*address))
+                            .unwrap();
+                        for (label, address) in [
+                            ("first inactive entry", first),
+                            ("last physical address", (1usize << depth) - 1),
+                        ] {
+                            let mut changed = bits.clone();
+                            assert!(changed.insert(address));
+                            let started = std::time::Instant::now();
+                            let input = core_eval::sparse_cube(depth, changed);
+                            assert_eq!(
+                                observed_count(
+                                    &cert,
+                                    run(&cert, &domain.count_definition, vec![input])
+                                ),
+                                65537,
+                                "{id} {label} {address}"
+                            );
+                            eprintln!(
+                                "{id}: dirty {label} {address} rejected in {:.3}s",
+                                started.elapsed().as_secs_f64()
+                            );
+                        }
+                    }
                     count += 1;
                 }
             }

@@ -1,0 +1,123 @@
+{
+  "status": "implementation_required",
+  "source_case": "type",
+  "mismatches": [
+    {
+      "function": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8",
+      "slot": "local:0",
+      "source_type_id": "mpk.csharp.source.cfc9b967d284b63de913eac641d29f09b2c00c790e81beda517d2cb7daacbba7",
+      "native_type_id": "mpk.csharp.instance.68630552d3cf32617731c14f77e5039d4c6a1a3c804a96b9cd1734e5bc85e547",
+      "transfer": {
+        "source_node_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.node.000020",
+        "entry_node_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.node.000018",
+        "exit_node_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.node.000018",
+        "kind": "store",
+        "slot": "local:0",
+        "value": {
+          "id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.value.000003",
+          "type_id": "mpk.csharp.instance.68630552d3cf32617731c14f77e5039d4c6a1a3c804a96b9cd1734e5bc85e547"
+        }
+      },
+      "source_operation": {
+        "constant": null,
+        "child_count": 1,
+        "implicit": false,
+        "kind": "VariableDeclarator",
+        "symbol": "local:0",
+        "traits": "",
+        "type": null
+      },
+      "slot_source_operations": [
+        {
+          "ordinal": 2,
+          "operation": {
+            "constant": null,
+            "child_count": 1,
+            "implicit": false,
+            "kind": "VariableDeclarator",
+            "symbol": "local:0",
+            "traits": "",
+            "type": null
+          }
+        },
+        {
+          "ordinal": 15,
+          "operation": {
+            "constant": null,
+            "child_count": 0,
+            "implicit": false,
+            "kind": "LocalReference",
+            "symbol": "local:0",
+            "traits": "",
+            "type": "82:mpk.csharp.source.cfc9b967d284b63de913eac641d29f09b2c00c790e81beda517d2cb7daacbba79:annotated0:"
+          }
+        }
+      ]
+    },
+    {
+      "function": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8",
+      "slot": "local:0",
+      "source_type_id": "mpk.csharp.source.cfc9b967d284b63de913eac641d29f09b2c00c790e81beda517d2cb7daacbba7",
+      "native_type_id": "mpk.csharp.instance.68630552d3cf32617731c14f77e5039d4c6a1a3c804a96b9cd1734e5bc85e547",
+      "transfer": {
+        "source_node_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.node.000021",
+        "entry_node_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.node.000019",
+        "exit_node_id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.node.000019",
+        "kind": "load",
+        "slot": "local:0",
+        "value": {
+          "id": "mpk.csharp.source.88c1e21725003ed574525e5cae27a2f1dfc1261331198e916f90c93ddbcaece8.value.000003",
+          "type_id": "mpk.csharp.instance.68630552d3cf32617731c14f77e5039d4c6a1a3c804a96b9cd1734e5bc85e547"
+        }
+      },
+      "source_operation": {
+        "constant": null,
+        "child_count": 0,
+        "implicit": false,
+        "kind": "LocalReference",
+        "symbol": "local:0",
+        "traits": "",
+        "type": "82:mpk.csharp.source.cfc9b967d284b63de913eac641d29f09b2c00c790e81beda517d2cb7daacbba79:annotated0:"
+      },
+      "slot_source_operations": [
+        {
+          "ordinal": 2,
+          "operation": {
+            "constant": null,
+            "child_count": 1,
+            "implicit": false,
+            "kind": "VariableDeclarator",
+            "symbol": "local:0",
+            "traits": "",
+            "type": null
+          }
+        },
+        {
+          "ordinal": 15,
+          "operation": {
+            "constant": null,
+            "child_count": 0,
+            "implicit": false,
+            "kind": "LocalReference",
+            "symbol": "local:0",
+            "traits": "",
+            "type": "82:mpk.csharp.source.cfc9b967d284b63de913eac641d29f09b2c00c790e81beda517d2cb7daacbba79:annotated0:"
+          }
+        }
+      ]
+    }
+  ],
+  "required_semantics": [
+    "Retain original W04 source slot types and native SSA identities unchanged in provenance.",
+    "Choose an explicit Option storage carrier for affected slot values; preserve presence and payload together, including entry, load/store, frames and edge transport.",
+    "Validate the exact option closed instance and payload type; never silently strip presence or equate None with a zero payload.",
+    "If raw payload assignments enter an option slot, encode the exact Some constructor; no unchecked cast.",
+    "Compare source snapshots and checker bytes for unaffected contexts. Native execution and application proofs remain separate."
+  ],
+  "sources": {
+    "crates/mpk-vc/src/csharp_practical_control_vc.rs": "8b0ba935236d866c3e8ffc3019ede67e4faa29a274c8a66fb75fb62eb8b21500",
+    "develop/migrations/csharp-03/ordinary-foundation/control-edges/type.json": "c02a85af3c976a0539e928b6b348541cbc2026bcb7bacb6c413c35d16dac2b74",
+    "develop/migrations/csharp-03/control-emission/source-cases.json": "8293fe0bd49a98c5f9dc4c65661a3c50f95d675b55458f7a96e0da6eea676d28"
+  },
+  "w09_complete": false
+}

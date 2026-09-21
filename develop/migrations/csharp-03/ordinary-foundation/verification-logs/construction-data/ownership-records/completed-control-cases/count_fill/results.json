@@ -1,0 +1,60 @@
+[
+  {
+    "stage": "control-count_fill-positive-go",
+    "command": [
+      "/private/tmp/mpk-control-records-count_fill-20260921/go-checker",
+      "/private/tmp/mpk-control-records-count_fill-20260921/control-count_fill-positive.mpcert"
+    ],
+    "wall_seconds": 638.086,
+    "exit_code": 0,
+    "timed_out": false,
+    "input_file_sha256": "28e9a3cdfbec08307140695185d874859ab007cf5fb43dfd49c9a9b1f1a6aa40",
+    "stdout_sha256": "46a74c3df4ccd048231779422e7ffa105215c88280470a08f33faada4163f0a0",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "control-count_fill-positive-rust",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "check",
+      "/private/tmp/mpk-control-records-count_fill-20260921/control-count_fill-positive.mpcert"
+    ],
+    "wall_seconds": 0.73,
+    "exit_code": 0,
+    "timed_out": false,
+    "input_file_sha256": "28e9a3cdfbec08307140695185d874859ab007cf5fb43dfd49c9a9b1f1a6aa40",
+    "stdout_sha256": "889ca166bc4908f091881ffd563df04654f99add0b5667098b523d961f933e31",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "control-count_fill-hash-go",
+    "command": [
+      "/private/tmp/mpk-control-records-count_fill-20260921/go-checker",
+      "/private/tmp/mpk-control-records-count_fill-20260921/control-count_fill-hash.mpcert"
+    ],
+    "wall_seconds": 541.059,
+    "exit_code": 1,
+    "timed_out": false,
+    "input_file_sha256": "25fc8ab9da03225330b3daee0be392652a4b5f4684485c95e141faea473a23ad",
+    "stdout_sha256": "5bc3a57f4266d7b529b85a30dcd75bf76041c4f8ff787fc0487cc3d4cf701fce",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "control-count_fill-hash-rust",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "check",
+      "/private/tmp/mpk-control-records-count_fill-20260921/control-count_fill-hash.mpcert"
+    ],
+    "wall_seconds": 0.735,
+    "exit_code": 1,
+    "timed_out": false,
+    "input_file_sha256": "25fc8ab9da03225330b3daee0be392652a4b5f4684485c95e141faea473a23ad",
+    "stdout_sha256": "9b472b2c162bab7db1a9c5362d951380bcc69a80daf751b077a84e41d36dc8c4",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  }
+]

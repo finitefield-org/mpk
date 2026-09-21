@@ -1,0 +1,21 @@
+    Checking mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error: unreachable pattern
+    --> crates/mpk-vc/tests/support/csharp_practical_ordinary_control_edge_tests.rs:1435:19
+     |
+1434 |                 | "before-integrated-slots"
+     |                   ------------------------- matches all the relevant values
+1435 |                 | "before-integrated-slots"
+     |                   ^^^^^^^^^^^^^^^^^^^^^^^^^ no value can reach this
+     |
+     = note: `-D unreachable-patterns` implied by `-D warnings`
+     = help: to override `-D warnings` add `#[allow(unreachable_patterns)]`
+
+error: unreachable pattern
+    --> crates/mpk-vc/tests/support/csharp_practical_ordinary_control_edge_tests.rs:1452:23
+     |
+1451 |                     | "before-integrated-slots"
+     |                       ------------------------- matches all the relevant values
+1452 |                     | "before-integrated-slots"
+     |                       ^^^^^^^^^^^^^^^^^^^^^^^^^ no value can reach this
+
+error: could not compile `mpk-vc` (test "csharp_practical_vc") due to 2 previous errors

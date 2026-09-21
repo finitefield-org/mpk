@@ -1,0 +1,233 @@
+{
+  "work_item": "CSHARP-03-T06-W09",
+  "objective": "Implement all eight approved internal units; do not substitute observed examples for ordinary definitions or universal VC proofs.",
+  "status": "in_progress",
+  "authoritative_requirements": [
+    "implementation-plan.md",
+    "../../../docs/08_csharp_practical_subset_design-todo.md"
+  ],
+  "units": [
+    {
+      "unit": 1,
+      "requirement": "Concrete ordinary carriers, source reconstruction, limits and dual checking",
+      "status": "previously_completed_internal_unit",
+      "evidence": [
+        "unit-1-verification.json",
+        "unit-1-review.md"
+      ],
+      "final_audit": "Reconcile all changed dependencies before claiming W09 completion."
+    },
+    {
+      "unit": 2,
+      "requirement": "Complete finite scalar operations and exact checks",
+      "status": "previously_completed_internal_unit",
+      "evidence": [
+        "unit-2-verification.json",
+        "unit-2-coverage-audit.json",
+        "unit-2-review.md"
+      ],
+      "final_audit": "Preserve predecessor definitions and recheck changes to shared helpers."
+    },
+    {
+      "unit": 3,
+      "requirement": "Every reachable structural/collection operation, including uninvoked instances; recursive/public domains, defaults, equality/order, storage and observations",
+      "status": "partial",
+      "evidence": [
+        "unit-3-progress.md",
+        "verification-logs/total-cell-runtime/verification.json",
+        "verification-logs/domain-pin-refresh/verification.json",
+        "verification-logs/domain-pin-refresh/user-long-completed/verification.json",
+        "verification-logs/domain-dependent-refresh/verification.json",
+        "verification-logs/domain-dependent-refresh/user-long-completed/verification.json"
+      ],
+      "remaining": [
+        "Other affected downstream clause/data fixtures remain to reconcile; all 18 public/boundary consumer certificates and both delegated current-observer runtime tests now pass.",
+        "The current observer matches 34 previously passing scoped tests, and total-cell/full-capacity/decimal ordering now pass; audit remaining deep collection/sequence evidence and whole-unit coverage.",
+        "Review and close the full internal unit; no partial-unit commit."
+      ]
+    },
+    {
+      "unit": 4,
+      "requirement": "Bindings, business values, canonical codecs and strict typed JSON with exact source/value links",
+      "status": "partial",
+      "remaining": [
+        "Inventory existing adapter coverage against all required definition families, cumulative bounds and frozen failure order.",
+        "Complete missing relations and dependencies; verify changed domain-dependent certificates.",
+        "Review and close the full internal unit."
+      ]
+    },
+    {
+      "unit": 5,
+      "requirement": "Native invocation/results, SSA/ownership, constructors/fields, loops/decreases, patterns, normal/exceptional scopes, filters and finally",
+      "status": "partial",
+      "active_work": "Lifted and string scoped runtime/checker corpora passed. String covers 48 signatures/320 observations, complete constructor oracle and all changed certificates. Full native control/ownership/proof integration remains incomplete. Source-value field-read/product-construction relations now cover 10 definitions, 12 original SSA points and 108 observations; all seven certificates pass both checkers. Option foundation results now connect sixteen invoked definitions and twenty-two SSA points. All twelve certificates pass both checkers, and all twelve runtime contexts now pass with 177 result observations. Published sequence length/read SSA relations now pass seven original-source contexts, 411 observations and all seven certificate pairs. Nullable-reference extraction preserves NullReferenceException at four original SSA points. Both unique certificates and all scoped runtime cases pass: 30 executed observations plus 18 equivalent-context observations reused, covering 48 across four source contexts. Construction SSA relations cover 21 definitions/26 use points from six captured sources. Eighteen symbolic ownership checks now bind to exact function/node/receiver/state identities with checked flow dependencies, resolving 183 formerly pending formula roles. All six extended certificates pass both unchanged checkers with zero axioms and hash-corruption rejection; 220 current runtime observations pass. Seventeen original symbolic ownership records now have exact equation-subset predicates and checked proofs across nine data/control contexts. All nine current certificates pass both unchanged checkers and hash-corruption rejection (eight changed/new checks and one unchanged-byte acceptance retained). Seventeen new record observations and 36 repeated data-use checks pass; previous 220 observations retain exact declaration/term prefixes. Native execution/application scopes remain pending. Native symbolic ownership witnesses now reconstruct 1085 blocks, 157 exceptional edges and 14 delayed backedges across 12 captured contexts. Ordinary ownership equations now cover 14 sources, 7457 equations and 19831 runtime observations; all 14 certificates pass both unchanged checkers. Ordinary ownership candidates now contain 14 flow conclusions and 40 receiver conclusions. Their same-byte checker corpus is in progress; exact per-case results are recorded in current-proof-verification.json. Complete proof-corpus acceptance and native/application scopes remain pending; witness observations discharge no application obligations. Source-bound slot relations now cover 59 entry/load/store/pattern-bind definitions across six captured loop/pattern sources. All 1482 runtime observations, exact scope/SSA/import mutations and six same-byte Rust/Go certificates pass. These open normal-execution relations do not discharge edge joins, exceptional entry or application scopes. Guarded control-edge transport now covers all 360 guards and 341 source-exit to edge-specific target relations across nine original sources. Four exact source-point ownership bindings resolve the ten previously missing construction guards. The current corpus retains 9919 unchanged observations and adds 3991 current index_update observations (13910 total), 95 original W04 goal binding comparisons and nine same-byte Rust/Go certificates. A separate foreach_string regression retains five unsupported guards; other data-family guards, node-entry merging and native/application scopes remain open. The collection/Option extension now includes seventeen control sources, 703 generated guards, 666 transports and 33661 current runtime observations. All seventeen certificates have matching same-byte Rust/Go and corruption receipts. Thirty-one prior data contexts and nine prior control contexts regenerate unchanged. One modeled type-pattern exception edge and complete native/application composition remain pending; the reference adapter and combined option/sequence native branch also need dedicated original-loop coverage. Native phi integration adds 62 guarded incoming relations for 100 selected native phi operands, including private construction memory. All seventeen current certificates pass same-byte Go/Rust checks and hash corruption rejection; 38059 current observations pass. Original guard/slot terms and declarations remain unchanged. Logical-slot/private-memory projections, entry merges, native execution and application proofs remain open. The last eight-live symbolic ownership proof completed Go/Rust acceptance and hash rejection on the 470792-byte word-mux candidate. All fourteen current ownership proof pins and three semantic mutants now have complete acceptance/rejection evidence; native/application scopes remain outstanding. Four source array transfer observations now bind to exact native ownership snapshots, resolving three stale anchor names to current storage SSA IDs. The changed index_update certificate passes both unchanged checkers and hash rejection, with 4559 observations (100 added memory cases). Sixteen other edge contexts remain byte-identical; the current total is 38159 observations. Public-slot projections, non-transfer effects and application composition remain pending.",
+      "remaining": [
+        "Integrate every data family with original W02-W05 scope/ownership/control relations; keep missing definitions explicit.",
+        "Complete native body and exceptional control predicates without trusted observations or axioms."
+      ],
+      "evidence": [
+        "unit-5-lifted-data-progress.json",
+        "unit-5-lifted-data-review.md",
+        "unit-5-lifted-deep-cache-review.md",
+        "verification-logs/lifted-data/deep-cache/verification.json",
+        "verification-logs/lifted-data/user-long-completed/verification.json",
+        "verification-logs/string-data/current-runtime/verification.json",
+        "verification-logs/string-data/user-long-completed/verification.json",
+        "unit-5-source-value-data-progress.json",
+        "verification-logs/source-value-data/verification.json",
+        "unit-5-option-data-progress.json",
+        "unit-5-option-data-review.md",
+        "verification-logs/option-data/verification.json",
+        "verification-logs/option-data/user-long-completed/verification.json",
+        "unit-5-sequence-data-progress.json",
+        "unit-5-sequence-data-review.md",
+        "verification-logs/sequence-data/verification.json",
+        "unit-5-reference-data-progress.json",
+        "unit-5-reference-data-review.md",
+        "verification-logs/reference-data/verification.json",
+        "verification-logs/reference-data/user-long-completed/verification.json",
+        "unit-5-construction-data-progress.json",
+        "unit-5-construction-data-review.md",
+        "verification-logs/construction-data/verification.json",
+        "unit-5-ownership-flow-progress.json",
+        "ownership-flow/README.md",
+        "verification-logs/ownership-flow/verification.json",
+        "unit-5-ownership-equations-progress.json",
+        "unit-5-ownership-equations-review.md",
+        "verification-logs/ownership-equations/verification.json",
+        "verification-logs/ownership-proofs/current-equation-verification.json",
+        "unit-5-ownership-proofs-progress.json",
+        "ownership-proofs/README.md",
+        "verification-logs/ownership-proofs/current-proof-verification.json",
+        "unit-5-ownership-proofs-review.md",
+        "verification-logs/construction-data/source-ownership/verification.json",
+        "verification-logs/construction-data/ownership-records/verification.json",
+        "construction-ownership-records/README.md",
+        "unit-5-control-slots-progress.json",
+        "unit-5-control-slots-review.md",
+        "verification-logs/control-slots/verification.json",
+        "unit-5-control-edges-progress.json",
+        "unit-5-control-edges-review.md",
+        "verification-logs/control-edges/verification.json",
+        "verification-logs/control-edges/construction/review.md",
+        "verification-logs/control-edges/collections/review.md",
+        "verification-logs/control-edges/phis/verification.json",
+        "verification-logs/control-edges/phis/review.md",
+        "verification-logs/control-edges/memory-bindings/verification.json",
+        "verification-logs/control-edges/memory-bindings/review.md",
+        "verification-logs/control-slots/public-projection/verification.json",
+        "verification-logs/control-slots/nullable-representation/verification.json",
+        "verification-logs/control-edges/nullable-slots/verification.json",
+        "verification-logs/control-edges/builtin-throw/verification.json",
+        "verification-logs/control-edges/node-entry/verification.json",
+        "verification-logs/control-edges/memory-effects/verification.json",
+        "verification-logs/control-edges/factored-entry/verification.json",
+        "verification-logs/control-edges/source-frames/verification.json",
+        "verification-logs/control-edges/native-operations/verification.json",
+        "verification-logs/control-edges/native-options/verification.json",
+        "verification-logs/control-edges/integrated-slots/verification.json"
+      ],
+      "next_adapter_audit": {
+        "evidence": [
+          "crates/mpk-vc/src/csharp_practical_data_vc.rs:323",
+          "crates/mpk-vc/src/csharp_practical_data_emission.rs:1656",
+          "crates/mpk-vc/src/csharp_practical_ordinary_outcome_ops.rs:138",
+          "unit-5-captured-data-taxonomy-audit.json"
+        ],
+        "finding": "Native nullable none/some/has_value/value/value_or lower to frozen option foundation signatures, hence belong to Foundation, not a separate non-lifted NullableOutcome data family. Reuse the existing ordinary option/outcome definitions at original SSA points; keep ordered exception and tagged-error result relations distinct. Existing lifted adapter alone does not connect these foundation signatures.",
+        "remaining": "The option adapter is complete within its scope. The captured 208-case W03 taxonomy contains no direct Money/Instant semantic-error invocation; those binding operations use returned-result commutation. Audit actual remaining native invocation/control/scope definitions rather than inferring missing W03 adapters from the generic tagged-error schema."
+      },
+      "public_array_projection_checkpoint": {
+        "status": "passed_scoped_checks",
+        "evidence": "verification-logs/control-slots/public-projection/verification.json",
+        "scope": "Eight source slot programs, 1642 observations; exact current-memory public snapshots for seven bindings and one native temporary. Non-transfer effects, nullable slots and complete application proofs remain open."
+      },
+      "nullable_slot_checkpoint": {
+        "status": "passed_scoped_checks",
+        "evidence": "verification-logs/control-slots/nullable-representation/verification.json",
+        "remaining": "W04 logical observation mapping and full native/application proofs."
+      },
+      "nullable_edge_checkpoint": {
+        "status": "passed_scoped_checks",
+        "evidence": "verification-logs/control-edges/nullable-slots/verification.json",
+        "remaining": "W04 logical observation mapping, node-entry merges, non-transfer effects and full application proofs."
+      },
+      "builtin_throw_checkpoint": {
+        "status": "passed_scoped_checks",
+        "evidence": "verification-logs/control-edges/builtin-throw/verification.json",
+        "scope": "One exact source builtin throw guard and edge transport; 704 current corpus guards, 667 joins, 38950 observations. Reachability, handler search and application proofs remain pending."
+      },
+      "node_entry_checkpoint": {
+        "status": "passed_scoped_checks",
+        "evidence": "verification-logs/control-edges/node-entry/verification.json",
+        "scope": "617 entry relations over seventeen original source contexts; 13576 new observations. Native execution/selection, source-exit production, memory effects and application proofs remain pending."
+      },
+      "memory_effect_checkpoint": {
+        "status": "passed_scoped_checks",
+        "evidence": "verification-logs/control-edges/memory-effects/verification.json",
+        "scope": "One source-bound successful rewrite, 13 runtime observations. Fill-loop entry factorization, other frames/exceptions and native/application proof composition remain pending."
+      },
+      "factored_entry_checkpoint": {
+        "status": "passed_scoped_checks",
+        "evidence": "verification-logs/control-edges/factored-entry/verification.json",
+        "scope": "Original count_fill source: 148 edges, 129 node entries, one receiver rewrite; 20598 new observations. Eighteen source contexts now checked. Native execution/alias frames/application proofs remain pending."
+      },
+      "source_frame_checkpoint": {
+        "status": "passed_scoped_checks",
+        "evidence": "verification-logs/control-edges/source-frames/verification.json",
+        "scope": "580 source-local preservation relations across eighteen sources; 10608 new observations. Transfer values/definedness, native execution, alias/exception frames and application proofs remain separate."
+      },
+      "native_operation_checkpoint": {
+        "status": "passed_scoped_checks",
+        "evidence": "verification-logs/control-edges/native-operations/verification.json",
+        "scope": "98 native normal-operation relations in the eighteen-source W04 subset; 616 new observations. Eight Option/compound operations, one non-data invocation, other functions/families and full execution/application proofs remain open."
+      },
+      "native_option_checkpoint": {
+        "status": "passed_scoped_checks",
+        "evidence": "verification-logs/control-edges/native-options/verification.json",
+        "scope": "Eight pending Option/compound operations resolved; all 106 W03 native normal relations in the eighteen-source W04 subset are defined. 81 new observations; one non-data invocation, other functions/families and full execution/application proofs remain open."
+      },
+      "integrated_slots_checkpoint": {
+        "status": "passed_scoped_checks",
+        "evidence": "verification-logs/control-edges/integrated-slots/verification.json",
+        "scope": "18 source entries and 207 successful load/store/pattern transfers integrated with native operations in one certificate; 6342 new observations. Complete execution, exceptions and application proofs remain open."
+      }
+    },
+    {
+      "unit": 6,
+      "requirement": "Admission, pure/total source, projected outcomes, preservation, explicit time/versioning, ordered events/responses, history/replay and complete snapshots",
+      "status": "not_proven_complete",
+      "remaining": [
+        "Inspect and integrate existing transition clause helpers into the full W06-W08 ordinary relations.",
+        "Discharge all required groups using the exact shared definitions; test rejection/priority/replay counterexamples."
+      ]
+    },
+    {
+      "unit": 7,
+      "requirement": "Exact theorem types and proof terms reconstructed from every VC group; original dependencies and all artifact links; zero axioms and empty proof/theory tables",
+      "status": "not_proven_complete",
+      "remaining": [
+        "Complete ordinary program closure and independent theorem-type reconstruction.",
+        "Assemble checked proof terms only against those complete theorem types.",
+        "Reject missing definitions/proofs, excessive limits, checker failures/disagreement and every linkage mutation."
+      ]
+    },
+    {
+      "unit": 8,
+      "requirement": "Identical canonical bytes accepted by both checkers; mutation suites and predecessor corpus; clean direct review; commit/push completed units and update canonical W09/W10 statuses",
+      "status": "pending",
+      "remaining": [
+        "Finish units 3-7 without treating component evidence as whole-unit completion.",
+        "Run the scoped W09 acceptance corpus and mutation suite; all tests, including long tests, are agent-owned.",
+        "Audit all requirements and recorded evidence, then review/fix, commit/push and update readiness."
+      ]
+    }
+  ],
+  "execution_policy": {
+    "tests": "As of 2026-09-20 the user delegates all tests, including long-running tests, to the agent. Select affected tests; preserve timeouts as non-verdict diagnostics and do not repeat unchanged passed checks.",
+    "full_gate": "check-fast.sh deferred to T06-W12; do not reproduce the whole gate through individual commands in W09.",
+    "git": "/usr/bin/git outside sandbox; preserve existing in-progress work.",
+    "commits": "Only complete approved internal units may be marked completed and committed as such."
+  },
+  "completion_rule": "Every requirement must be proved by current authoritative code, artifacts and matching verification evidence before W09 is complete; W10 remains blocked until then."
+}

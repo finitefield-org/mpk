@@ -1,0 +1,22 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+    Finished `release` profile [optimized] target(s) in 28.49s
+     Running tests/csharp_practical_vc.rs (target/release/deps/csharp_practical_vc-0951b3e219e92435)
+
+running 1 test
+test ordinary_carriers::public_domain_tests::contract_expression_tests::control_slot_tests::csharp_03_t06_w09_control_slot_source_relations ... control slots while: 1 functions, 126 cumulative observations
+control slots for: 1 functions, 416 cumulative observations
+control slots short_circuit: 1 functions, 660 cumulative observations
+
+thread 'ordinary_carriers::public_domain_tests::contract_expression_tests::control_slot_tests::csharp_03_t06_w09_control_slot_source_relations' (7683495) panicked at crates/mpk-vc/tests/support/../../src/csharp_practical_ordinary_test_eval.rs:509:17:
+MPK_CORE_MAX_SECONDS exhausted: ordinary evaluation deadline exceeded; no semantic verdict
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+FAILED
+
+failures:
+
+failures:
+    ordinary_carriers::public_domain_tests::contract_expression_tests::control_slot_tests::csharp_03_t06_w09_control_slot_source_relations
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 324 filtered out; finished in 300.06s
+
+error: test failed, to rerun pass `-p mpk-vc --test csharp_practical_vc`

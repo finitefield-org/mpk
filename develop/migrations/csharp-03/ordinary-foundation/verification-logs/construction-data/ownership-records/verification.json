@@ -1,0 +1,247 @@
+{
+  "status": "passed_scoped_ownership_record_checks",
+  "scope": "Nine exact symbolic ownership records in six W03 contexts; loop/finally contexts under verification",
+  "prefix_evidence": "prefix-preservation.json",
+  "runtime_receipt": "../source-ownership/record-runtime.json",
+  "candidate_receipt": "../source-ownership/record-candidates.json",
+  "prior_runtime_receipt": "../source-ownership/verification.json",
+  "runtime_observations": {
+    "unchanged_previous": 220,
+    "new_records": 9,
+    "repeated_use_checks": 36,
+    "unique_total": 229
+  },
+  "checker_run": "/tmp/mpk-construction-records-checks-20260921",
+  "unchanged_checker_case": "return-array",
+  "application_scope_pending": true,
+  "unit_5_complete": false,
+  "w09_complete": false,
+  "whole_gate": "deferred to T06-W12",
+  "control_contexts": {
+    "count_fill": {
+      "records": 2,
+      "run_directory": "/tmp/mpk-control-records-count_fill-20260921"
+    },
+    "array_finally_abandon": {
+      "records": 4,
+      "run_directory": "/tmp/mpk-control-records-array_finally_abandon-20260921"
+    },
+    "array_return_finally": {
+      "records": 2,
+      "run_directory": "/tmp/mpk-control-records-array_return_finally-20260921"
+    }
+  },
+  "control_runtime_receipt": "../source-ownership/control-records.json",
+  "selection_rationale": "All prior six-context definitions and data-use metadata are unchanged prefixes; preserve their 220 successful observations, add 9 original ownership predicates and repeat 36 source-use checks. Three additional captured loop/finally contexts exercise 8 ownership records. Run same-byte dual-checking only for the five changed and three new certificates; retain acceptance of the unchanged return-array certificate. Whole gate remains T06-W12.",
+  "scoped_counts": {
+    "data_source_contexts": 6,
+    "control_source_contexts": 3,
+    "ownership_records": 17,
+    "new_record_observations": 17,
+    "previous_data_observations": 220,
+    "repeated_data_use_observations": 36
+  },
+  "checker_protocol_smoke": "/tmp/mpk-explicit-checker-protocol-20260921",
+  "candidates": {
+    "default-write": {
+      "family": "construction-data",
+      "certificate_file_sha256": "b12d599930449f5a4cdb3ce2b6b7bd3972d6e0d38806c6e982d1f2c279f4a450",
+      "metadata_file_sha256": "5c8293bf7980fa9a0202682c89797e451dd157ec53943d3ae239b38e398b7039",
+      "checker_status": "passed",
+      "evidence": "completed-data-cases/default-write.json"
+    },
+    "dynamic-string": {
+      "family": "construction-data",
+      "certificate_file_sha256": "222c9e61721dd5c453777aea9f938f9ab83480ae00c75ef3f66c73a3f276da86",
+      "metadata_file_sha256": "fe51ff680ea189649a65e465eba3f63053291d36e1966d18791d398de7481328",
+      "checker_status": "passed",
+      "evidence": "completed-data-cases/dynamic-string.json"
+    },
+    "increment": {
+      "family": "construction-data",
+      "certificate_file_sha256": "02b5a0feb3c0038d3c22c353981b6d5c39ab7c960457368a1a0a33c731ebead2",
+      "metadata_file_sha256": "87254843fa0ea5f1e92aeba1b749045e977e3754faf317e1e8fd07d6056371fc",
+      "checker_status": "passed",
+      "evidence": "completed-data-cases/increment.json"
+    },
+    "initializer": {
+      "family": "construction-data",
+      "certificate_file_sha256": "0dc4780e5f1686bce272fa958d158abac2922c4836ea2ad9972cac7a8f2fcf0f",
+      "metadata_file_sha256": "60f7a19a2bb3ddaf34656fced3e4ee48fabc3e9197868aa7fc0ea5d9dee03f2c",
+      "checker_status": "passed",
+      "evidence": "completed-data-cases/initializer.json"
+    },
+    "return-array": {
+      "family": "construction-data",
+      "certificate_file_sha256": "4c2c5b47a60190841e6f0e433929376e2c761a48010d24ed6ee1044ae3a78972",
+      "metadata_file_sha256": "b23159ac84efd9181433914c4a24aea169b42032a7abbe53f9549b4a9dac1fc3",
+      "checker_status": "passed_unchanged_bytes",
+      "evidence": "../source-ownership/verification.json"
+    },
+    "string-fill": {
+      "family": "construction-data",
+      "certificate_file_sha256": "e6621aedeba13d8f8dc1b6e5ec31616748f8bf43f51ffeaeb3053f0f43a6129b",
+      "metadata_file_sha256": "cddcc7a3aa044a701fd1bedee9d7a6cb56a76f9a2ff872684ff9fddecf058284",
+      "checker_status": "passed",
+      "evidence": "completed-data-cases/string-fill.json"
+    },
+    "control-array_finally_abandon": {
+      "family": "construction-ownership-records",
+      "certificate_file_sha256": "55d438f453f48dbbb23824d5aef6e7641f4796e1d20275e31247eab02501de38",
+      "metadata_file_sha256": "67c8f3593a966ba42c098e1e7f1d02a53cbdbc84198b8deea074a0debeb89396",
+      "checker_status": "passed",
+      "evidence": "completed-control-cases/array_finally_abandon/cases.json"
+    },
+    "control-array_return_finally": {
+      "family": "construction-ownership-records",
+      "certificate_file_sha256": "b6f506d71fa69cba9d6302ea99248dd34c5125ece72cede30c340fba8bdf2d2f",
+      "metadata_file_sha256": "842077b052f0fc10132c1580d91d4d04f3e5dc73da22615e37f3d298a6a00603",
+      "checker_status": "passed",
+      "evidence": "completed-control-cases/array_return_finally/cases.json"
+    },
+    "control-count_fill": {
+      "family": "construction-ownership-records",
+      "certificate_file_sha256": "a4bf697fd91723d74d41de63d8e2111c72f277581f6dcbcc859a6b96f7dd689e",
+      "metadata_file_sha256": "e452dd0a3112777568d116e6234a84adee476fe585caa6d7df8f3fe595a4474b",
+      "checker_status": "passed",
+      "evidence": "completed-control-cases/count_fill/cases.json"
+    }
+  },
+  "recorded_at": "2026-09-20T18:55:33.689578+00:00",
+  "checker_cases_passed": 9,
+  "checker_cases_total": 9,
+  "source_sha256": {
+    "crates/mpk-vc/src/csharp_practical_ordinary_construction_data.rs": "e629cba416c5bb2331da7a8a534958198148b0453c90c554daa393d160970122",
+    "crates/mpk-vc/src/csharp_practical_ordinary_ownership_proofs.rs": "b384937cecfc7960a8027859d4c6ac8260cf80eaa72e404984fe6dd3093faa81",
+    "crates/mpk-vc/src/csharp_practical_ordinary_ownership_flow.rs": "99d4143d61371a53751bad0a76ca7e3a29ecd388b0acc2dfa19c6835db09ad21",
+    "crates/mpk-vc/src/csharp_practical_ordinary_test_eval.rs": "d4160220aa77546cb3911df2d66bbd0e8684f3020d128db9306288a87c661c8f",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_construction_data_tests.rs": "d2ebbf233a66eb91455acd51c1174bb4d509fe09b1505fb05526af7cb61ae0fb",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_ownership_flow_tests.rs": "1a5dfe536ed39cb4d9f1158a7ee86f4733cf5b5cb1e051a76e4d61c4521f1a2b",
+    "develop/migrations/csharp-03/ordinary-foundation/verification-logs/ownership-proofs/check-files.py": "2bb51bb0e3f0cdf377b53ff4c526acbf630336754585bee359981f298d7fb761",
+    "develop/migrations/csharp-03/ordinary-foundation/verification-logs/construction-data/ownership-records/prefix-check.rs.snapshot": "465ae08041d0dd9bfdcf1f30e7d17155114ed8944d7c5e1eb74cc533bcb823b5"
+  },
+  "checks": {
+    "record-final-pins": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_construction_data_candidates",
+        "csharp_03_t06_w09_construction_ownership_control_records",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 16.156,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "record-capture-fix-preservation": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_construction_data_candidates",
+        "csharp_03_t06_w09_construction_ownership_control_records",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 11.554,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "record-runtime": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_construction_data_original_source",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 8.591,
+      "environment": {
+        "MPK_W09_CONSTRUCTION_DATA_OPERATION": "ownership-records",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "control-records": {
+      "command": [
+        "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+        "csharp_03_t06_w09_construction_ownership_control_records",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 3.259,
+      "environment": {
+        "MPK_W09_CONSTRUCTION_RECORDS_OUT": "/tmp/mpk-construction-control-records-pins",
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "record-inventory": {
+      "command": [
+        "target/release/deps/csharp_practical_inventory-b645d7f4c4ccc945",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1.189,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "word-mux-final-lint": {
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--tests",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 81.089,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    },
+    "word-mux-final-format": {
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 2.953,
+      "environment": {
+        "MPK_CORE_MAX_SECONDS": "300"
+      }
+    }
+  },
+  "nonsemantic_source_updates": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_construction_data.rs",
+      "previous_sha256": "4d3170e0ac0c77102b90f7a7b756576dda89d707765198bb338d6e4336d0e2a2",
+      "current_sha256": "e582a49af0117baddaffbd368282e2109a5b97075708c05a3064855f796007a0",
+      "change": "Only physical_equal visibility changes from private to pub(super), enabling the sibling control-slot generator to reuse the identical definition body. No existing generator body or output changes.",
+      "verification": "Exact previous source preimage reconstructed by reversing that one visibility change; source hash matched the checked checkpoint."
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_construction_data.rs",
+      "previous_sha256": "e582a49af0117baddaffbd368282e2109a5b97075708c05a3064855f796007a0",
+      "current_sha256": "e629cba416c5bb2331da7a8a534958198148b0453c90c554daa393d160970122",
+      "change": "Only change emit and ownership_use visibility to pub(super) for sibling control-edge reuse. Reversing those two tokens reproduces the previously verified source bytes exactly; no construction semantics or prior certificate changes."
+    }
+  ]
+}

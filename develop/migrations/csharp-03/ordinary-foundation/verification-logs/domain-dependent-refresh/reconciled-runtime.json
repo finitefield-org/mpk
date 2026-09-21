@@ -1,0 +1,122 @@
+{
+  "status": "existing_scoped_checks_match_current_observer_and_unchanged_domain_producers",
+  "sources": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_domains.rs",
+      "sha256": "02b3c44e197d22193e0e3f4e615d64f6e8dcc06a0405b57f06ed07a74623884b",
+      "receipt": "../total-cell-runtime/verification.json"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_scalar_relations.rs",
+      "sha256": "865872b3dba0a54503c6bd5991c1cda247c73cbec817080c736d175ea5b1549e",
+      "receipt": "../total-cell-runtime/verification.json"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_aggregate_fold.rs",
+      "sha256": "50b30f339311c88a7e1b7d6cf39d173a0b4aa2065d57f35d2cd3300b69d4f4b8",
+      "receipt": "../total-cell-runtime/verification.json"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_domain_tests.rs",
+      "sha256": "7eb7c844ebdfc99f6a41db0dbf76327462e9c957eae9b06bb5649dc2d36607c2",
+      "receipt": "../total-cell-runtime/verification.json"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_test_eval.rs",
+      "sha256": "d4160220aa77546cb3911df2d66bbd0e8684f3020d128db9306288a87c661c8f",
+      "receipt": "../lifted-data/deep-cache/verification.json"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_test_eval_tests.rs",
+      "sha256": "9c521d1be3c96d28de9f2da7144c67395222921ae83221874e0c3b5d3da5cb1a",
+      "receipt": "../lifted-data/deep-cache/verification.json"
+    }
+  ],
+  "checks": [
+    {
+      "check": "domain-regressions",
+      "tests_passed": 6,
+      "log": "../lifted-data/deep-cache/domain-regressions.log",
+      "log_sha256": "af37e42bd8b1801edafe497b0a9493f4b14431f736062b7ffbf742c98b95598d",
+      "receipt": {
+        "command": [
+          "target/release/deps/csharp_practical_vc-0951b3e219e92435",
+          "csharp_03_t06_w09_domains_source_collections_and_rejections",
+          "csharp_03_t06_w09_domains_source_full_utf16_capacity",
+          "csharp_03_t06_w09_domains_source_string_compound_map_order",
+          "csharp_03_t06_w09_domains_source_small_values",
+          "csharp_03_t06_w09_domains_source_sum_and_unused_storage_rejections",
+          "public_domain_nested_source_clauses",
+          "--nocapture",
+          "--test-threads=1"
+        ],
+        "exit_code": 0,
+        "wall_seconds": 2.9783462079940364,
+        "max_seconds_per_thread": 45,
+        "process_timeout_seconds": 55,
+        "diagnostic_only": false,
+        "selected_case": null,
+        "selected_context": null,
+        "selected_operation": null
+      },
+      "rerun": false
+    },
+    {
+      "check": "aggregate-regressions",
+      "tests_passed": 8,
+      "log": "../lifted-data/deep-cache/aggregate-regressions.log",
+      "log_sha256": "7072cd6e664c434d7b545db61c53f341b819adc7cdc238c322cfc23e852b3c20",
+      "receipt": {
+        "command": [
+          "target/release/deps/mpk_vc-4f3748aad12c0f7e",
+          "recursive_domain_",
+          "aggregate_fold_group_boundaries",
+          "aggregate_fold_modes_saturation_and_odd_counts",
+          "aggregate_fold_short_circuits_invalid_and_empty_inputs",
+          "aggregate_fold_shares_computed_predicate_words",
+          "--nocapture",
+          "--test-threads=1"
+        ],
+        "exit_code": 0,
+        "wall_seconds": 18.08268049999606,
+        "max_seconds_per_thread": 45,
+        "process_timeout_seconds": 55,
+        "diagnostic_only": false,
+        "selected_case": null,
+        "selected_context": null,
+        "selected_operation": null
+      },
+      "rerun": false
+    },
+    {
+      "check": "core-final",
+      "tests_passed": 20,
+      "log": "../lifted-data/deep-cache/core-final.log",
+      "log_sha256": "9c1122f7b79a591e4b723f3347859903df7d0d00464a51aec369df6ace586d09",
+      "receipt": {
+        "command": [
+          "target/release/deps/mpk_vc-4f3748aad12c0f7e",
+          "ordinary_core_",
+          "--nocapture",
+          "--test-threads=1"
+        ],
+        "exit_code": 0,
+        "wall_seconds": 0.45015124999918044,
+        "max_seconds_per_thread": 45,
+        "process_timeout_seconds": 55,
+        "diagnostic_only": false,
+        "selected_case": null,
+        "selected_context": null,
+        "selected_operation": null
+      },
+      "rerun": false
+    }
+  ],
+  "selection": "Reuse current-observer passes; only total-cell boundary, full-capacity aggregate and decimal domain ordering lack this current-observer evidence. Other unit-3 collection/sequence semantic corpora retain their separately versioned scope.",
+  "not_unit_completion": true,
+  "subsequent_completed_checks": {
+    "verification": "user-long-completed/verification.json",
+    "total_cell": "current-total-cell-boundary.json",
+    "scope": "All three previously uncovered current-observer runtime tests now pass. Other collection/sequence corpus version scopes remain separate."
+  }
+}

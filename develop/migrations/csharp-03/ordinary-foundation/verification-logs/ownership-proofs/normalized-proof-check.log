@@ -1,0 +1,243 @@
+=== RUN   TestCheckerAgreementWithRustCLIOwnershipProofs
+=== RUN   TestCheckerAgreementWithRustCLIOwnershipProofs/27bf71b9691bff9bf271182a00171dcaf676eca9d77b8102e07cd1facfc6dd09.hex
+panic: test timed out after 2m0s
+	running tests:
+		TestCheckerAgreementWithRustCLIOwnershipProofs (2m0s)
+		TestCheckerAgreementWithRustCLIOwnershipProofs/27bf71b9691bff9bf271182a00171dcaf676eca9d77b8102e07cd1facfc6dd09.hex (2m0s)
+
+goroutine 33 [running]:
+testing.(*M).startAlarm.func1()
+	/usr/local/go/src/testing/testing.go:2373 +0x30c
+created by time.goFunc
+	/usr/local/go/src/time/sleep.go:215 +0x38
+
+goroutine 1 [chan receive, 2 minutes]:
+testing.(*T).Run(0x140001124e0, {0x1046610d7?, 0x1400013bb48?}, 0x1046e5418)
+	/usr/local/go/src/testing/testing.go:1751 +0x328
+testing.runTests.func1(0x140001124e0)
+	/usr/local/go/src/testing/testing.go:2168 +0x40
+testing.tRunner(0x140001124e0, 0x1400013bc68)
+	/usr/local/go/src/testing/testing.go:1690 +0xe4
+testing.runTests(0x1400000c048, {0x1048001a0, 0x9c, 0x9c}, {0x7500000000000000?, 0x7513e0e50dc19583?, 0x104802c20?})
+	/usr/local/go/src/testing/testing.go:2166 +0x3ac
+testing.(*M).Run(0x1400007e0a0)
+	/usr/local/go/src/testing/testing.go:2034 +0x588
+main.main()
+	_testmain.go:355 +0x90
+
+goroutine 6 [chan receive, 2 minutes]:
+testing.(*T).Run(0x14000112680, {0x1400016205e?, 0x0?}, 0x1400010c5d0)
+	/usr/local/go/src/testing/testing.go:1751 +0x328
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.checkOrdinaryCertificates(0x14000112680, {0x104656085, 0x10}, 0xe)
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/checker_agreement_test.go:385 +0x160
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.TestCheckerAgreementWithRustCLIOwnershipProofs(0x14000112680?)
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/checker_agreement_test.go:812 +0x2c
+testing.tRunner(0x14000112680, 0x1046e5418)
+	/usr/local/go/src/testing/testing.go:1690 +0xe4
+created by testing.(*T).Run in goroutine 1
+	/usr/local/go/src/testing/testing.go:1743 +0x314
+
+goroutine 7 [runnable]:
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreTermArena).intern(0x14000c6f7d0, {0x3, 0x28a, 0x0, 0x0, {0x0, 0x0, 0x0}, {0x140006a7300, 0x3, ...}})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:1000 +0xcc
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreTermArena).app(0x14000c6f7d0, 0x28a, {0x140005f1ce0, 0x3, 0x0?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:979 +0x22c
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).whnf(0x14000c6f7b8, 0x3?, 0x14000c32e34, 0x1)
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/defeq.go:114 +0x1f8
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).equal(0x14000c6f7b8, 0xb570, 0xb567, 0x14000c32e34)
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/defeq.go:19 +0xb8
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).definitionallyEqualWithFuel(...)
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/defeq.go:8
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).definitionallyEqual(0x0?, 0x0?, 0x0?)
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/defeq.go:4 +0x28
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).check(0x14000c6f7b8, 0xdb9, 0xb567, {0x0?, 0x0?, 0x0?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:419 +0x2d0
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).inferApp(0x14000c6f7b8, 0xec5, 0x0?, {0x14000258b70, 0x6, 0x14000c6f7d0?}, {0x0, 0x0, 0x0})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:475 +0x13c
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).infer(0x0?, 0x0?, {0x0?, 0x0?, 0xbbf700000005?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:387 +0x2f4
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).check(0x14000c6f7b8, 0xec5, 0xbbf7, {0x0?, 0x0?, 0x0?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:415 +0x2b8
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).inferApp(0x14000c6f7b8, 0xec6, 0x140?, {0x14000258ba0, 0x6, 0x14000c6f7d0?}, {0x0, 0x0, 0x0})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:475 +0x13c
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).infer(0x0?, 0x0?, {0x0?, 0x0?, 0xbbee00000005?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:387 +0x2f4
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).check(0x14000c6f7b8, 0xec6, 0xbbee, {0x0?, 0x0?, 0x0?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:415 +0x2b8
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).inferApp(0x14000c6f7b8, 0x1052, 0x0?, {0x1400025c990, 0x6, 0x14000c6f7d0?}, {0x0, 0x0, 0x0})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:475 +0x13c
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).infer(0x0?, 0x0?, {0x0?, 0x0?, 0xc51f00000005?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:387 +0x2f4
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).check(0x14000c6f7b8, 0x1052, 0xc51f, {0x0?, 0x0?, 0x0?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:415 +0x2b8
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).inferApp(0x14000c6f7b8, 0x1053, 0x140?, {0x1400025c9c0, 0x6, 0x14000c6f7d0?}, {0x0, 0x0, 0x0})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:475 +0x13c
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).infer(0x0?, 0x0?, {0x0?, 0x0?, 0xc51600000005?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:387 +0x2f4
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).check(0x14000c6f7b8, 0x1053, 0xc516, {0x0?, 0x0?, 0x0?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:415 +0x2b8
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).inferApp(0x14000c6f7b8, 0x1054, 0x0?, {0x1400025c9f0, 0x6, 0x14000c6f7d0?}, {0x0, 0x0, 0x0})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:475 +0x13c
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).infer(0x0?, 0x0?, {0x0?, 0x0?, 0xc4df00000005?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:387 +0x2f4
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).check(0x14000c6f7b8, 0x1054, 0xc4df, {0x0?, 0x0?, 0x0?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:415 +0x2b8
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).inferApp(0x14000c6f7b8, 0x1055, 0x140?, {0x1400025ca20, 0x6, 0x14000c6f7d0?}, {0x0, 0x0, 0x0})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:475 +0x13c
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).infer(0x0?, 0x0?, {0x0?, 0x0?, 0xc4df00000005?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:387 +0x2f4
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).check(0x14000c6f7b8, 0x1055, 0xc4df, {0x0?, 0x0?, 0x0?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:415 +0x2b8
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).inferApp(0x14000c6f7b8, 0x1056, 0x140?, {0x1400025ca50, 0x6, 0x14000c6f7d0?}, {0x0, 0x0, 0x0})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:475 +0x13c
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).infer(0x0?, 0x0?, {0x0?, 0x0?, 0xcf6700000005?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:387 +0x2f4
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).check(0x14000c6f7b8, 0x1056, 0xcf67, {0x0?, 0x0?, 0x0?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:415 +0x2b8
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).inferApp(0x14000c6f7b8, 0x1362, 0x0?, {0x14000263b48, 0x6, 0x14000c6f7d0?}, {0x0, 0x0, 0x0})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:475 +0x13c
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).infer(0x0?, 0x0?, {0x0?, 0x0?, 0xd5c600000005?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:387 +0x2f4
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).check(0x14000c6f7b8, 0x1362, 0xd5c6, {0x0?, 0x0?, 0x0?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:415 +0x2b8
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).inferApp(0x14000c6f7b8, 0x1363, 0x140?, {0x14000263b78, 0x6, 0x14000c6f7d0?}, {0x0, 0x0, 0x0})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:475 +0x13c
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).infer(0x0?, 0x0?, {0x0?, 0x0?, 0xd03000000005?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:387 +0x2f4
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).check(0x14000c6f7b8, 0x1363, 0xd030, {0x0?, 0x0?, 0x0?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:415 +0x2b8
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).inferApp(0x14000c6f7b8, 0x1364, 0x140?, {0x14000263ba8, 0x6, 0x14000c6f7d0?}, {0x0, 0x0, 0x0})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:475 +0x13c
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).infer(0x0?, 0x0?, {0x0?, 0x0?, 0xd02100000005?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:387 +0x2f4
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).check(0x14000c6f7b8, 0x1364, 0xd021, {0x0?, 0x0?, 0x0?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:415 +0x2b8
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).inferApp(0x14000c6f7b8, 0x1365, 0x0?, {0x14000263bd8, 0x6, 0x14000c6f7d0?}, {0x0, 0x0, 0x0})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:475 +0x13c
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).infer(0x0?, 0x0?, {0x0?, 0x0?, 0xd00d00000005?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:387 +0x2f4
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).check(0x14000c6f7b8, 0x1365, 0xd00d, {0x0?, 0x0?, 0x0?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:415 +0x2b8
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).inferApp(0x14000c6f7b8, 0x1368, 0x140?, {0x14000263c98, 0x6, 0x14000c6f7d0?}, {0x0, 0x0, 0x0})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:475 +0x13c
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).infer(0x0?, 0x0?, {0x0?, 0x0?, 0x28a00000003?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:387 +0x2f4
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).check(0x14000c6f7b8, 0x1368, 0xcff8, {0x0?, 0x0?, 0x0?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:415 +0x2b8
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).inferApp(0x14000c6f7b8, 0x1498, 0x0?, {0x14000265d10, 0x6, 0x14000c6f7d0?}, {0x0, 0x0, 0x0})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:475 +0x13c
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).infer(0x0?, 0x0?, {0x0?, 0x0?, 0xdc0800000005?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:387 +0x2f4
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).check(0x14000c6f7b8, 0x1498, 0xdc03, {0x0?, 0x0?, 0x0?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:415 +0x2b8
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).inferApp(0x14000c6f7b8, 0x1499, 0x140?, {0x14000265d40, 0x6, 0x14000c6f7d0?}, {0x0, 0x0, 0x0})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:475 +0x13c
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).infer(0x0?, 0x0?, {0x0?, 0x0?, 0xdb0400000005?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:387 +0x2f4
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).check(0x14000c6f7b8, 0x1499, 0xdb04, {0x0?, 0x0?, 0x0?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:415 +0x2b8
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).inferApp(0x14000c6f7b8, 0x149a, 0x140?, {0x14000265d70, 0x6, 0x14000c6f7d0?}, {0x0, 0x0, 0x0})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:475 +0x13c
+...472 frames elided...
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).check(0x14000c6f7b8, 0x707f, 0x7c6d, {0x0?, 0x0?, 0x0?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:415 +0x2b8
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).inferApp(0x14000c6f7b8, 0x7080, 0x0?, {0x140001df8f0, 0x6, 0x1400029f7d0?}, {0x0, 0x0, 0x0})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:475 +0x13c
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).infer(0x0?, 0x0?, {0x0?, 0x0?, 0x7c5f00000005?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:387 +0x2f4
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).check(0x14000c6f7b8, 0x7080, 0x7c5a, {0x0?, 0x0?, 0x0?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:415 +0x2b8
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).inferApp(0x14000c6f7b8, 0x7247, 0x140?, {0x140001e58c0, 0x6, 0x1400029f7d0?}, {0x0, 0x0, 0x0})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:475 +0x13c
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).infer(0x0?, 0x0?, {0x0?, 0x0?, 0x28a00000003?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:387 +0x2f4
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).check(0x14000c6f7b8, 0x7247, 0x7c50, {0x0?, 0x0?, 0x0?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:415 +0x2b8
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).inferApp(0x14000c6f7b8, 0x7248, 0x0?, {0x140001e58f0, 0x6, 0x1400029f7d0?}, {0x0, 0x0, 0x0})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:475 +0x13c
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).infer(0x0?, 0x0?, {0x0?, 0x0?, 0x7c4200000005?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:387 +0x2f4
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).check(0x14000c6f7b8, 0x7248, 0x7c3d, {0x0?, 0x0?, 0x0?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:415 +0x2b8
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).inferApp(0x14000c6f7b8, 0x73ef, 0x140?, {0x140001eafc0, 0x6, 0x1400029f7d0?}, {0x0, 0x0, 0x0})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:475 +0x13c
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).infer(0x0?, 0x0?, {0x0?, 0x0?, 0x28a00000003?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:387 +0x2f4
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).check(0x14000c6f7b8, 0x73ef, 0x7c33, {0x0?, 0x0?, 0x0?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:415 +0x2b8
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).inferApp(0x14000c6f7b8, 0x73f0, 0x0?, {0x140001eaff0, 0x6, 0x1400029f7d0?}, {0x0, 0x0, 0x0})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:475 +0x13c
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).infer(0x0?, 0x0?, {0x0?, 0x0?, 0x7c2500000005?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:387 +0x2f4
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).check(0x14000c6f7b8, 0x73f0, 0x7c20, {0x0?, 0x0?, 0x0?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:415 +0x2b8
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).inferApp(0x14000c6f7b8, 0x7517, 0x140?, {0x140001efdb8, 0x6, 0x1400029f7d0?}, {0x0, 0x0, 0x0})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:475 +0x13c
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).infer(0x0?, 0x0?, {0x0?, 0x0?, 0x28a00000003?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:387 +0x2f4
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).check(0x14000c6f7b8, 0x7517, 0x7c16, {0x0?, 0x0?, 0x0?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:415 +0x2b8
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).inferApp(0x14000c6f7b8, 0x7518, 0x0?, {0x140001efde8, 0x6, 0x1400029f7d0?}, {0x0, 0x0, 0x0})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:475 +0x13c
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).infer(0x0?, 0x0?, {0x0?, 0x0?, 0x7c0800000005?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:387 +0x2f4
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).check(0x14000c6f7b8, 0x7518, 0x7c03, {0x0?, 0x0?, 0x0?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:415 +0x2b8
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).inferApp(0x14000c6f7b8, 0x763f, 0x140?, {0x140001f2bb8, 0x6, 0x1400029f7d0?}, {0x0, 0x0, 0x0})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:475 +0x13c
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).infer(0x0?, 0x0?, {0x0?, 0x0?, 0x28a00000003?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:387 +0x2f4
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).check(0x14000c6f7b8, 0x763f, 0x7bf9, {0x0?, 0x0?, 0x0?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:415 +0x2b8
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).inferApp(0x14000c6f7b8, 0x7640, 0x0?, {0x140001f2be8, 0x6, 0x1400029f7d0?}, {0x0, 0x0, 0x0})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:475 +0x13c
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).infer(0x0?, 0x0?, {0x0?, 0x0?, 0x7beb00000005?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:387 +0x2f4
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).check(0x14000c6f7b8, 0x7640, 0x7be6, {0x0?, 0x0?, 0x0?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:415 +0x2b8
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).inferApp(0x14000c6f7b8, 0x7807, 0x140?, {0x140001f8bb8, 0x6, 0x1400029f7d0?}, {0x0, 0x0, 0x0})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:475 +0x13c
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).infer(0x0?, 0x0?, {0x0?, 0x0?, 0x28a00000003?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:387 +0x2f4
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).check(0x14000c6f7b8, 0x7807, 0x7bdc, {0x0?, 0x0?, 0x0?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:415 +0x2b8
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).inferApp(0x14000c6f7b8, 0x7808, 0x0?, {0x140001f8be8, 0x6, 0x1400021d7d0?}, {0x0, 0x0, 0x0})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:475 +0x13c
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).infer(0x0?, 0x0?, {0x0?, 0x0?, 0x7bce00000005?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:387 +0x2f4
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).check(0x14000c6f7b8, 0x7808, 0x7bc9, {0x0?, 0x0?, 0x0?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:415 +0x2b8
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).inferApp(0x14000c6f7b8, 0x79af, 0x140?, {0x140001fe2b8, 0x6, 0x1400029f7d0?}, {0x0, 0x0, 0x0})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:475 +0x13c
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).infer(0x0?, 0x0?, {0x0?, 0x0?, 0x28a00000003?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:387 +0x2f4
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).check(0x14000c6f7b8, 0x79af, 0x7bbf, {0x0?, 0x0?, 0x0?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:415 +0x2b8
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).inferApp(0x14000c6f7b8, 0x79b0, 0x0?, {0x140001fe2e8, 0x6, 0x1400029f7d0?}, {0x0, 0x0, 0x0})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:475 +0x13c
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).infer(0x0?, 0x0?, {0x0?, 0x0?, 0x7ba400000005?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:387 +0x2f4
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).check(0x14000c6f7b8, 0x79b0, 0x7b9f, {0x0?, 0x0?, 0x65b00?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:415 +0x2b8
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).inferApp(0x14000c6f7b8, 0x7b8f, 0x1?, {0x14000205e30, 0x6, 0x0?}, {0x0, 0x0, 0x0})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:475 +0x13c
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).infer(0x3?, 0x0?, {0x0?, 0x0?, 0x28a00000003?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:387 +0x2f4
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreState).check(0x14000c6f7b8, 0x7b8f, 0x3c5, {0x0?, 0xc?, 0x1046d6760?})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:415 +0x2b8
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.(*coreCheckContext).checkDeclarations(0x14000c6f7b0)
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:129 +0x1c0
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.CheckCoreDeclarations(0x14000112000)
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:41 +0x178
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.CheckCore(...)
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/core_check.go:36
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.VerifyCertificate(_, {0x0, 0x96, 0xcf, 0x90, 0x3e, 0x60, 0x19, 0xf6, 0xcf, ...})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/verify.go:56 +0x5c
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.VerifyCertificateBytes({0x140003e4000, 0x65c46, 0x65c46})
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/verify.go:45 +0x158
+github.com/finitefield-org/mpk/go-tools/mpk-checker-ref.checkOrdinaryCertificates.func1(0x14000112820)
+	/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref/checker_agreement_test.go:387 +0x6c
+testing.tRunner(0x14000112820, 0x1400010c5d0)
+	/usr/local/go/src/testing/testing.go:1690 +0xe4
+created by testing.(*T).Run in goroutine 6
+	/usr/local/go/src/testing/testing.go:1743 +0x314

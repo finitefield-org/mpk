@@ -1,0 +1,41 @@
+    Finished `release` profile [optimized] target(s) in 0.08s
+     Running tests/csharp_practical_vc.rs (target/release/deps/csharp_practical_vc-0951b3e219e92435)
+
+running 4 tests
+test ordinary_carriers::domain_tests::csharp_03_t06_w09_domains_source_collections_and_rejections ... collection domain validation: valid value, 3 logical cells
+collection domain validation: reject duplicate or empty-invalid arm
+collection domain validation: inclusive 256 errors
+collection domain transition: valid value, 5 logical cells
+collection domain money: valid value, 5 logical cells
+collection domain bounded_sequence: valid value, 3 logical cells
+collection domain bounded_sequence: dirty inactive tail
+collection domain ordered_map: valid value, 5 logical cells
+collection domain ordered_map: dirty inactive tail
+collection domain ordered_map: reject duplicate or empty-invalid arm
+collection domain ordered_set: valid value, 3 logical cells
+collection domain ordered_set: dirty inactive tail
+collection domain ordered_set: reject duplicate or empty-invalid arm
+ok
+test ordinary_carriers::domain_tests::csharp_03_t06_w09_domains_source_full_utf16_capacity ... source UTF-16 domain: all 16384 code units, including isolated surrogate
+ok
+test ordinary_carriers::domain_tests::csharp_03_t06_w09_domains_source_string_compound_map_order ... string/compound map domain boundary-map-string: duplicate, C33, 13 true input leaves
+string/compound map domain boundary-map-string: duplicate completed in 0.093s
+string/compound map domain boundary-map-string: descending, C33, 13 true input leaves
+string/compound map domain boundary-map-string: descending completed in 0.089s
+string/compound map domain boundary-map-string: increasing, C33, 13 true input leaves
+string/compound map domain boundary-map-string: increasing completed in 0.182s
+string/compound map domain boundary-map-compound: duplicate, C34, 13 true input leaves
+string/compound map domain boundary-map-compound: duplicate completed in 0.096s
+string/compound map domain boundary-map-compound: descending, C34, 14 true input leaves
+string/compound map domain boundary-map-compound: descending completed in 0.098s
+string/compound map domain boundary-map-compound: increasing, C34, 14 true input leaves
+string/compound map domain boundary-map-compound: increasing completed in 0.266s
+ok
+test ordinary_carriers::domain_tests::csharp_03_t06_w09_domains_source_string_increasing_and_tail_probe ... string/compound map domain boundary-map-string: increasing, C33, 13 true input leaves
+string/compound map domain boundary-map-string: increasing completed in 0.175s
+boundary-map-string: dirty first inactive entry 5 rejected in 0.002s
+boundary-map-string: dirty last physical address 8589934591 rejected in 0.003s
+ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 301 filtered out; finished in 8.41s
+

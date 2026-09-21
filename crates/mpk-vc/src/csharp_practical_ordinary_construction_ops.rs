@@ -360,16 +360,16 @@ pub(super) fn emit_construction(
     })
 }
 
-pub fn generate_csharp_practical_ordinary_constructions(
+pub(super) fn emit_definitions(
     vir: &ValidatedPracticalVir,
-) -> R<OrdinaryConstructionProgram> {
-    let layouts = generate_csharp_practical_ordinary_carriers(vir)?;
+    layouts: &OrdinaryCarrierProgram,
+    mut b: Builder,
+) -> R<(Builder, Vec<OrdinaryConstructionDefinition>)> {
     let carriers = layouts
         .carriers()
         .iter()
         .map(|c| (c.type_id.as_str(), c))
         .collect::<BTreeMap<_, _>>();
-    let mut b = Builder::new()?;
     ordered_fold::auxiliary(&mut b)?;
     let mut definitions = vec![];
     for entry in vir
@@ -398,6 +398,14 @@ pub fn generate_csharp_practical_ordinary_constructions(
             entry,
         )?);
     }
+    Ok((b, definitions))
+}
+
+pub fn generate_csharp_practical_ordinary_constructions(
+    vir: &ValidatedPracticalVir,
+) -> R<OrdinaryConstructionProgram> {
+    let layouts = generate_csharp_practical_ordinary_carriers(vir)?;
+    let (b, definitions) = emit_definitions(vir, &layouts, Builder::new()?)?;
     let static_transformers = b.static_transformers;
     let certificate = b.finish()?;
     let program = OrdinaryConstructionProgram {

@@ -4,6 +4,41 @@ Unit 3 is in progress, not complete. Units 1 and 2 are complete as internal
 units. W09 is not complete, and W10-W12 remain blocked. The full T06 gate
 stays deferred to W12.
 
+## Completed public/boundary consumer checks
+
+All eighteen changed public-domain, public-default, structural-public and
+structural-boundary pins now pass both checkers (fifteen agent checks and three
+user checks). Two enum pins remain unchanged. Original-source reconstruction,
+component definition closure and all preserved preimage hashes were verified.
+
+Thirty-four matching current-observer regressions were reused without reruns.
+The original 65,536/65,537-cell boundary passed in 42.82 seconds. The user also
+completed the full-capacity aggregate (42.55 seconds test time) and all eight
+decimal map/set ordering cases (92.64 seconds test time). Earlier budget-limited
+attempts remain historical diagnostics. All five handoff checks are complete;
+see `verification-logs/domain-dependent-refresh/user-long-completed/verification.json`.
+Other dependent clause/data fixtures, deep collection/sequence evidence scope
+and the full internal-unit review remain open. This is not unit-3 completion.
+
+## Current domain/aggregate pin refresh
+
+After the bounded domain/aggregate performance corrections, ten immediate
+fixture families were regenerated: 103 changed certificates, with replaced
+bytes and metadata preserved. Exact component/integrated closure passes for
+118 source-component pairs, 1,235 roots and 12,178 transitive declarations.
+All 103 changed certificates now pass both checkers (92 agent checks and 11
+user checks); no checks remain pending in this refresh. Results are recorded in
+`verification-logs/domain-pin-refresh/verification.json`.
+The original-source generation/reconstruction/mutation checks pass. Unchanged
+certificates were excluded from repeated checker runs.
+
+These results supersede older checker receipts only for the listed changed
+pins. Other downstream domain-dependent consumers and reconciliation of deep
+runtime evidence remain open. Domain/scalar/aggregate producer hashes match the
+recorded boundary fix, but the observer has changed subsequently; historical
+runtime receipts are not presented as fresh runs of the latest observer. This
+refresh does not close unit 3 or W09, and no partial-unit commit is issued.
+
 ## Integrated ordinary program checkpoint
 
 The additional `structural-public/` profile now combines those existing

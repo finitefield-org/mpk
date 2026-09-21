@@ -127,13 +127,14 @@ impl Aux {
 fn args(b: &mut Builder, n: usize, extra: u32) -> R<Vec<u32>> {
     (0..n).rev().map(|i| b.var(extra + i as u32)).collect()
 }
-// The result has nineteen address selectors. This word lambda adds five
-// selectors of its own while capturing the fourteen output element-index bits.
+// At the fifteen-selector prefix (role plus element index), bind the index
+// word before the four UTF-16 bit selectors. Its five internal selectors
+// capture exactly the fourteen index bits.
 fn output_index(b: &mut Builder) -> R<u32> {
     let f = b.constant("Std.Bool.false")?;
     let mut bits = vec![f; 32];
     for (i, bit) in bits.iter_mut().enumerate().take(14) {
-        *bit = b.var(22 - i as u32)?;
+        *bit = b.var(18 - i as u32)?;
     }
     let value = core_select(b, &bits, 5, 0, 5, f)?;
     b.wrap_selectors(5, value)
@@ -186,10 +187,10 @@ pub(super) fn emit(
     let value_name = format!("{prefix}.Value");
     let f = b.constant("Std.Bool.false")?;
     let t = b.constant("Std.Bool.true")?;
-    let inner = args(b, n, 20)?; // nineteen output selectors and one length let.
-    let len = b.var(19)?;
-    let index = output_index(b)?;
-    let inside = call(b, &h.range.result_definition, vec![index, len])?;
+    let inner = args(b, n, 22)?; // nineteen selectors plus length/index/range lets.
+    let len = b.var(21)?;
+    let index = b.var(5)?;
+    let inside = b.var(4)?;
     let mut content = f;
     if substring {
         let source_index = call(b, &aux.add.result_definition, vec![inner[1], index])?;
@@ -219,17 +220,52 @@ pub(super) fn emit(
         }
     }
     content = core_mux(b, inside, content, f)?;
-    let selectors = b.selectors(5)?;
+    // The fifth header bit precedes the two per-index lets.
+    let selectors = [6, 3, 2, 1, 0]
+        .into_iter()
+        .map(|i| b.var(i))
+        .collect::<R<Vec<_>>>()?;
     let length_bit = b.app(len, selectors)?;
     let mut padding = f;
     for i in 1..14 {
-        let bit = b.var(18 - i)?;
+        let bit = b.var(20 - i)?;
         padding = call(b, "Std.Bool.or", vec![padding, bit])?;
     }
     let header = core_mux(b, padding, f, length_bit)?;
-    let role = b.var(18)?;
+    let role = b.var(20)?;
     let leaf = core_mux(b, role, content, header)?;
-    let body = b.wrap_selectors(19, leaf)?;
+    let body = b.wrap_selectors(4, leaf)?;
+    let prefix_length = b.var(16)?;
+    // Compare the address bits directly, rather than projecting a synthesized
+    // word through a scalar arithmetic circuit at every physical position.
+    // Each more significant bit overrides the lower comparison on inequality.
+    // Address bits above 13 are zero; retain all 32 length bits so Value also
+    // has the same meaning before the output-bound guard is applied.
+    let mut in_range = f;
+    for i in 0..32 {
+        let length_bit = core_read(b, prefix_length, i, 5)?;
+        if i < 14 {
+            let address_bit = b.var(14 - i as u32)?;
+            let when_one = call(b, "Std.Bool.and", vec![length_bit, in_range])?;
+            let when_zero = call(b, "Std.Bool.or", vec![length_bit, in_range])?;
+            in_range = core_mux(b, address_bit, when_one, when_zero)?;
+        } else {
+            in_range = call(b, "Std.Bool.or", vec![length_bit, in_range])?;
+        }
+    }
+    let body = b.term(TermNode::Let {
+        ty: b.boolean,
+        value: in_range,
+        body,
+    })?;
+    let index_word = output_index(b)?;
+    let word_ty = b.cube(5)?;
+    let body = b.term(TermNode::Let {
+        ty: word_ty,
+        value: index_word,
+        body,
+    })?;
+    let body = b.wrap_selectors(15, body)?;
     let total = call(b, &total_name, outer.clone())?;
     let word_ty = b.cube(5)?;
     let body = b.term(TermNode::Let {
@@ -263,13 +299,38 @@ pub(super) fn emit(
     if failures.len() != signature.ordered_checks.len() {
         return Err(OrdinaryCarrierError::Shape);
     }
-    let value = call(b, &value_name, outer)?;
-    let zero = b.constant(&format!("{PREFIX}.Cube.D19.Zero"))?;
-    let result = call(
-        b,
-        &format!("{PREFIX}.Cube.D19.Mux"),
-        vec![success, value, zero],
-    )?;
+    // Preserve the shared four-bit unit beneath the success guard. A pointwise
+    // C19 mux would reapply Value's whole index prefix for each output bit and
+    // lose the per-index lets above as intermediate closures are released.
+    let unit = b.var(4)?;
+    let selectors = b.selectors(4)?;
+    let leaf = b.app(unit, selectors)?;
+    let guard = b.var(21)?;
+    let leaf = core_mux(b, guard, leaf, f)?;
+    let result = b.wrap_selectors(4, leaf)?;
+    let value = b.var(15)?;
+    let selectors = b.selectors(15)?;
+    let unit = b.app(value, selectors)?;
+    let unit_ty = b.cube(4)?;
+    let result = b.term(TermNode::Let {
+        ty: unit_ty,
+        value: unit,
+        body: result,
+    })?;
+    let result = b.wrap_selectors(15, result)?;
+    let value_args = args(b, n, 1)?;
+    let value = call(b, &value_name, value_args)?;
+    let text_ty = b.cube(19)?;
+    let result = b.term(TermNode::Let {
+        ty: text_ty,
+        value,
+        body: result,
+    })?;
+    let result = b.term(TermNode::Let {
+        ty: b.boolean,
+        value: success,
+        body: result,
+    })?;
     let result_definition = format!("{prefix}.Result");
     let success_definition = format!("{prefix}.Success");
     define(b, &result_definition, &inputs, 19, result)?;
@@ -286,6 +347,35 @@ pub(super) fn emit(
         success_definition,
         ordered_failure_definitions,
     })
+}
+
+/// W03 stores each failed condition independently; ordered failures stay intact.
+pub(super) fn emit_raw_substring_checks(
+    b: &mut Builder,
+    h: &Helpers,
+    d: &OrdinaryStringDefinition,
+) -> R<[String; 2]> {
+    if d.operation.argument_type_ids.len() != 3 || d.ordered_failure_definitions.len() != 3 {
+        return Err(OrdinaryCarrierError::Shape);
+    }
+    let aux = h.construct.as_ref().ok_or(OrdinaryCarrierError::Shape)?;
+    let arguments = args(b, 3, 0)?;
+    let length = call(b, &h.length, vec![arguments[0]])?;
+    let range = call(
+        b,
+        &aux.range.result_definition,
+        vec![arguments[1], arguments[2], length],
+    )?;
+    let bound = call(b, &aux.bound.result_definition, vec![arguments[2]])?;
+    let names = [
+        format!("{}.NativeRaw.F1", d.result_definition),
+        format!("{}.NativeRaw.F2", d.result_definition),
+    ];
+    for (name, condition) in names.iter().zip([range, bound]) {
+        let failed = call(b, "Std.Bool.not", vec![condition])?;
+        define(b, name, &[1 << h.depth, 32, 32], 0, failed)?;
+    }
+    Ok(names)
 }
 
 #[cfg(test)]
@@ -364,6 +454,58 @@ mod tests {
         }
         bit(v)
     }
+    #[test]
+    fn string_construction_shares_index_and_range_per_code_unit() {
+        use super::super::super::super::test_eval::apply_counted;
+        let xs = vec![
+            StringOperand::Char { utf16: 0xd800 },
+            text(&[97, 0xd800, 0]),
+        ];
+        let id = "string.interpolation.restricted.cs";
+        let mut b = Builder::new().unwrap();
+        let mut h = Helpers::new(&mut b, false).unwrap();
+        let d = h.emit(&mut b, signature(id, &xs, false)).unwrap();
+        let c = decode_canonical_certificate(&b.finish().unwrap()).unwrap();
+        let value = run(
+            &c,
+            &d.result_definition,
+            xs.iter().map(|x| input(x, false)).collect(),
+        );
+        for index in [0usize, 1, 2, 3, 4, 8192, 16383] {
+            let mut word = apply(&c, value.clone(), V::Bit(true));
+            for bit in 0..14 {
+                word = apply(&c, word, V::Bit(index & (1 << bit) != 0));
+            }
+            let expected = [0xd800u16, 97, 0xd800, 0].get(index).copied().unwrap_or(0);
+            let mut costs = [0u64; 16];
+            for (selector, cost) in costs.iter_mut().enumerate() {
+                let mut actual = word.clone();
+                for bit_index in 0..4 {
+                    let (next, steps) =
+                        apply_counted(&c, actual, V::Bit(selector & (1 << bit_index) != 0));
+                    actual = next;
+                    *cost += steps;
+                }
+                assert_eq!(
+                    bit(actual),
+                    expected & (1 << selector) != 0,
+                    "index {index} bit {selector}"
+                );
+            }
+            eprintln!(
+                "shared UTF-16 index {index}: first {} transitions, next fifteen {}",
+                costs[0],
+                costs[1..].iter().sum::<u64>()
+            );
+            if index >= 4 {
+                assert!(
+                    costs[1..].iter().all(|&cost| cost < costs[0] && cost < 200),
+                    "range check was recomputed for each bit: {costs:?}"
+                );
+            }
+        }
+    }
+
     #[test]
     fn string_construction_core_matches_utf16_oracle() {
         let null = StringOperand::Text { utf16: None };
@@ -571,10 +713,10 @@ mod tests {
     }
     #[test]
     fn string_construction_rejects_oversized_binders() {
-        // N arguments, one length let, nineteen output selectors, and the five
-        // selectors of a captured index word reach the registered binder cap.
+        // The index word is now outside the last four selectors. N arguments,
+        // three shared lets and nineteen selectors reach the binder cap.
         let cap = crate::csharp_practical_vc_model::BINDER_DEPTH_MAX as usize;
-        let largest = cap - 25;
+        let largest = cap - 22;
         for n in [65, largest, largest + 1, cap + 1] {
             let xs = vec![StringOperand::Char { utf16: 0 }; n];
             let id = format!("string.interpolation.restricted.{}", "c".repeat(n));

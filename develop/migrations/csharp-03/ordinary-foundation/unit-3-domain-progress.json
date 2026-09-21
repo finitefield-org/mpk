@@ -423,7 +423,7 @@
   "current_outstanding_semantics_run": {
     "session_id": 55774,
     "log": "/tmp/mpk-w09-domains-outstanding-semantics-v1.log",
-    "status": "running",
+    "status": "not_live_on_2026_09_19_revalidation_no_verdict_for_remaining_cases",
     "tests": [
       "csharp_03_t06_w09_domains_source_collections_and_rejections",
       "csharp_03_t06_w09_domains_source_decimal_collection_order",
@@ -445,6 +445,41 @@
       "csharp_03_t06_w09_domains_source_string_compound_map_order",
       "csharp_03_t06_w09_domains_source_total_cell_boundary"
     ],
-    "observation_note": "Live process confirmed with CPU activity; current string-map duplicate count evaluation remains pending. The first two subtests have terminal ok lines in the live log; the complete command has not exited. Original session handle is unavailable; no duplicate was launched."
+    "observation_note": "Live process confirmed with CPU activity; current string-map duplicate count evaluation remains pending. The first two subtests have terminal ok lines in the live log; the complete command has not exited. Original session handle is unavailable; no duplicate was launched.",
+    "revalidation": "PID 31739 absent in current process inventory; historical session handles unavailable and temporary log absent. Previously recorded completed subtests retained; remaining cases are not accepted."
+  },
+  "current_remaining_semantics_run": {
+    "session_id": 12686,
+    "status": "cancelled_without_verdict_for_user_test_handoff",
+    "tests": [
+      "csharp_03_t06_w09_domains_source_total_cell_boundary",
+      "csharp_03_t06_w09_domains_source_string_compound_map_order"
+    ],
+    "logs": [
+      "/tmp/mpk-w09-domain-total-cells-current-v1.log",
+      "/tmp/mpk-w09-domain-string-map-current-v1.log"
+    ],
+    "observer_sha256": "9eec32535941241d6c1a4364f06d95289cd5c48d9d7c1c20d050e37d6b1682d3",
+    "reason": "Only the two remaining original domain tests. Old processes and handles are absent; this is not a timeout-triggered duplicate. Use current release observer with weak result retention, keeping all original inputs/assertions.",
+    "last_poll": "Session exited 143 after requested handoff; total-cell case unfinished; queued string/compound-map test never started.",
+    "stopped_at": "2026-09-19T13:24:31.966800+00:00",
+    "testing_owner": "user",
+    "retained_log": "verification-logs/string-data/handoff-mpk-w09-domain-total-cells-current-v1.log"
+  },
+  "latest_pin_refresh": {
+    "status": "all_103_changed_certificate_checks_passed",
+    "verification": "verification-logs/domain-pin-refresh/verification.json",
+    "changed_certificates": 103,
+    "dual_passed": 103,
+    "user_long_pending": 0,
+    "history_policy": "Earlier current_* run entries and pending lists describe their historical checkpoints; this receipt updates only the listed pin/closure scope.",
+    "user_long_verification": "verification-logs/domain-pin-refresh/user-long-completed/verification.json"
+  },
+  "latest_dependent_refresh": {
+    "verification": "verification-logs/domain-dependent-refresh/verification.json",
+    "status": "all_18_changed_consumer_certificates_and_current_runtime_checks_passed",
+    "history_note": "Earlier entries retain the version and scope of their original checks. No unit or W09 completion.",
+    "user_long_verification": "verification-logs/domain-dependent-refresh/user-long-completed/verification.json",
+    "pending_checks": 0
   }
 }

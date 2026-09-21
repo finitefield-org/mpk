@@ -1,0 +1,24 @@
+{
+  "work_item": "CSHARP-03-T06-W09",
+  "status": "passed_scoped_guard_and_edge_transport_checks",
+  "source_contexts": 9,
+  "edges": 360,
+  "guards": 350,
+  "joins": 331,
+  "pending_edges": 10,
+  "runtime_observations": 11718,
+  "distinct_original_w04_goal_bindings": 95,
+  "checker_certificates": 9,
+  "state_rule": "source_exit_to_edge_specific_target; node_entry_merge_pending",
+  "application_scope_pending": true,
+  "remaining": [
+    "Ten index_update guards require construction length/range and exact source-scoped ownership definitions.",
+    "Node-entry merging, non-transfer node frames and production of source-exit snapshots.",
+    "Caught-exception entry, exceptional transfer semantics, native execution and loop/pattern application proofs."
+  ],
+  "verification": "verification-logs/control-edges/verification.json",
+  "review": "unit-5-control-edges-review.md",
+  "unit_5_complete": false,
+  "w09_complete": false,
+  "whole_gate": "deferred to T06-W12"
+}

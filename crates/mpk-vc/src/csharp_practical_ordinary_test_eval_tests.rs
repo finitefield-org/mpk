@@ -4,6 +4,313 @@ use mpk_cert::{decode_canonical_certificate, encode::TermNode};
 use std::rc::Rc;
 
 #[test]
+fn ordinary_core_dense_normalization_preserves_addresses_and_demand() {
+    let mut b = Builder::new().unwrap();
+    let cube = b.cube(10).unwrap();
+    let x = b.var(0).unwrap();
+    let body = b.lam(cube, x).unwrap();
+    let ty = b.pi(cube, cube).unwrap();
+    b.define("Test.DenseIdentity", ty, body).unwrap();
+    let c = decode_canonical_certificate(&b.finish().unwrap()).unwrap();
+    for count in [0, 1, 16, 17, 1024] {
+        let mut bits = vec![false; 1024];
+        for index in 0..count {
+            bits[1023 - index] = true;
+        }
+        let normalized = dense_cube(bits.clone());
+        assert_eq!(matches!(normalized, V::SharedCube(..)), count > 16);
+        let passed = run(&c, "Test.DenseIdentity", vec![V::Cube(bits.clone())]);
+        let dense = V::SharedCube(Rc::new(bits.clone()), 0, 1);
+        for (address, expected) in bits.iter().enumerate() {
+            for mut value in [normalized.clone(), passed.clone(), dense.clone()] {
+                for selector in 0..10 {
+                    value = apply(&c, value, V::Bit(address & (1 << selector) != 0));
+                }
+                assert_eq!(bit(value), *expected, "count {count}, address {address}");
+            }
+        }
+        // Also exercise normalization when a raw table is applied directly.
+        let mut value = V::Cube(bits);
+        for _ in 0..10 {
+            value = apply(&c, value, V::Bit(true));
+        }
+        assert_eq!(bit(value), count != 0);
+    }
+    for length in [0, 1, 512, 1023, 1025] {
+        assert!(matches!(dense_cube(vec![false; length]), V::SharedCube(..)));
+    }
+    let demanded = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+        apply(
+            &c,
+            V::Cube(vec![false; 1024]),
+            thunk(u32::MAX, Rc::new(Env::Empty)),
+        )
+    }));
+    assert!(
+        demanded.is_err(),
+        "normalization skipped a demanded selector"
+    );
+}
+
+#[test]
+fn ordinary_core_scalar_observations_survive_released_selector_closures() {
+    for depth in [5, 14, 18] {
+        let mut b = Builder::new().unwrap();
+        let rec = b.constant("Std.Bool.rec").unwrap();
+        let not = b.constant("Std.Bool.not").unwrap();
+        let mut body = b.var(0).unwrap();
+        for i in 1..depth {
+            let input = b.var(i).unwrap();
+            let inverse = b.app(not, vec![body]).unwrap();
+            body = b.app(rec, vec![body, inverse, input]).unwrap();
+        }
+        for _ in 0..512 {
+            body = b.app(not, vec![body]).unwrap();
+        }
+        let body = b.wrap_selectors(depth, body).unwrap();
+        let ty = b.cube(depth).unwrap();
+        b.define("Test.ObservedWord", ty, body).unwrap();
+        let c = decode_canonical_certificate(&b.finish().unwrap()).unwrap();
+        let root = run(&c, "Test.ObservedWord", vec![]);
+        let mut totals = [0u64; 2];
+        for total in &mut totals {
+            for address in 0u32..32 {
+                let address = address | if depth > 5 { 1 << (depth - 1) } else { 0 };
+                let mut value = root.clone();
+                let mut first_memo = None;
+                for selector in 0..depth {
+                    let (next, steps) =
+                        apply_counted(&c, value, V::Bit(address & (1 << selector) != 0));
+                    *total += steps;
+                    if selector == 0 {
+                        let V::Lambda(_, _, memo) = &next else {
+                            panic!()
+                        };
+                        first_memo = Some(Rc::downgrade(memo));
+                    }
+                    value = next;
+                }
+                assert_eq!(bit(value), address.count_ones() % 2 != 0);
+                assert!(
+                    first_memo.unwrap().upgrade().is_none(),
+                    "scalar cache retained a selector closure"
+                );
+            }
+        }
+        assert!(
+            totals[1] < totals[0] / 4,
+            "cold/warm transitions: {totals:?}"
+        );
+    }
+}
+
+#[test]
+fn ordinary_core_sparse_uniform_views_preserve_every_address() {
+    let c = decode_canonical_certificate(&Builder::new().unwrap().finish().unwrap()).unwrap();
+    for depth in 0..=7 {
+        let length = 1usize << depth;
+        for ones in [
+            std::collections::BTreeSet::new(),
+            [0].into_iter().collect(),
+            [length - 1].into_iter().collect(),
+            (0..length).filter(|n| n % 3 == 0).collect(),
+        ] {
+            let sparse = sparse_cube(depth, ones.clone());
+            for index in 0..length {
+                let mut value = sparse.clone();
+                for selector in 0..depth {
+                    value = apply(&c, value, V::Bit(index & (1 << selector) != 0));
+                }
+                assert_eq!(
+                    bit(value),
+                    ones.contains(&index),
+                    "C{depth} address {index}"
+                );
+            }
+        }
+        for value in [false, true] {
+            if depth == 0 {
+                continue;
+            }
+            let mut cube = V::UniformCube(value, depth);
+            for selector in 0..depth {
+                cube = apply(&c, cube, V::Bit(selector % 2 == 0));
+            }
+            assert_eq!(bit(cube), value);
+        }
+    }
+    // Empty views with different physical offsets/backings must have the same
+    // exact constant representation, while a last-address mutation survives.
+    let input = sparse_cube(33, [1usize, (1usize << 33) - 1].into_iter().collect());
+    let empty = apply(&c, input.clone(), V::Bit(false));
+    assert!(matches!(empty, V::UniformCube(false, 32)));
+    let mut last = input;
+    for _ in 0..33 {
+        last = apply(&c, last, V::Bit(true));
+    }
+    assert!(bit(last));
+}
+
+#[test]
+fn ordinary_core_demanded_uniform_arguments_reuse_complete_results() {
+    let mut b = Builder::new().unwrap();
+    let no = b.constant("Std.Bool.false").unwrap();
+    let not = b.constant("Std.Bool.not").unwrap();
+    let or = b.constant("Std.Bool.or").unwrap();
+    let x = b.var(0).unwrap();
+    let head = b.app(x, vec![no; 8]).unwrap();
+    let mut expensive = no;
+    for _ in 0..512 {
+        expensive = b.app(not, vec![expensive]).unwrap();
+    }
+    let body = b.app(or, vec![head, expensive]).unwrap();
+    let input = b.cube(8).unwrap();
+    let body = b.lam(input, body).unwrap();
+    let ty = b.pi(input, b.boolean).unwrap();
+    b.define("Test.DemandThenWork", ty, body).unwrap();
+    // A different suspension/backing per call projects the even half of C9.
+    let x = b.var(0).unwrap();
+    let project = b.app(x, vec![no]).unwrap();
+    let c = decode_canonical_certificate(&b.finish().unwrap()).unwrap();
+    let f = run(&c, "Test.DemandThenWork", vec![]);
+    let (first, cold) = apply_counted(&c, f.clone(), sparse_cube(8, Default::default()));
+    assert!(!bit(first));
+    for _ in 0..8 {
+        let backing = Rc::new([1usize, 511].into_iter().collect());
+        let weak = Rc::downgrade(&backing);
+        let argument = thunk(
+            project,
+            Rc::new(Env::Bind(
+                V::SparseCube(backing, 0, 1, 512),
+                Rc::new(Env::Empty).into(),
+            )),
+        );
+        let (same, warm) = apply_counted(&c, f.clone(), argument);
+        assert!(!bit(same));
+        assert!(
+            warm < cold / 8,
+            "demanded argument recomputed: cold={cold}, warm={warm}"
+        );
+        assert!(
+            weak.upgrade().is_none(),
+            "empty view retained its old backing"
+        );
+    }
+    // A changed demanded bit must miss the constant-cube memo and return true.
+    let changed = thunk(
+        project,
+        Rc::new(Env::Bind(
+            sparse_cube(9, [0usize].into_iter().collect()),
+            Rc::new(Env::Empty).into(),
+        )),
+    );
+    assert!(bit(apply(&c, f, changed)));
+}
+
+#[test]
+fn ordinary_core_uniform_views_do_not_force_unused_arguments() {
+    let mut b = Builder::new().unwrap();
+    let no = b.constant("Std.Bool.false").unwrap();
+    let ty = b.cube(8).unwrap();
+    let body = b.lam(ty, no).unwrap();
+    let ty = b.pi(ty, b.boolean).unwrap();
+    b.define("Test.IgnoreUniform", ty, body).unwrap();
+    let c = decode_canonical_certificate(&b.finish().unwrap()).unwrap();
+    let f = run(&c, "Test.IgnoreUniform", vec![]);
+    assert!(!bit(apply(
+        &c,
+        f.clone(),
+        sparse_cube(8, Default::default())
+    )));
+    assert!(!bit(apply(&c, f, thunk(u32::MAX, Rc::new(Env::Empty)))));
+    // A demanded selector retains the original strict selector behavior.
+    let result = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+        apply(
+            &c,
+            V::UniformCube(false, 8),
+            thunk(u32::MAX, Rc::new(Env::Empty)),
+        )
+    }));
+    assert!(result.is_err());
+}
+
+#[test]
+fn ordinary_core_closed_function_memos_survive_value_cache_eviction() {
+    let mut b = Builder::new().unwrap();
+    let no = b.constant("Std.Bool.false").unwrap();
+    let yes = b.constant("Std.Bool.true").unwrap();
+    let not = b.constant("Std.Bool.not").unwrap();
+    let and = b.constant("Std.Bool.and").unwrap();
+    let input = b.cube(8).unwrap();
+    let x = b.var(0).unwrap();
+    let mut work = b.app(x, vec![no; 8]).unwrap();
+    for _ in 0..513 {
+        work = b.app(not, vec![work]).unwrap();
+    }
+    let body = b.lam(input, work).unwrap();
+    let ty = b.pi(input, b.boolean).unwrap();
+    b.define("Test.EvictedFunction", ty, body).unwrap();
+    let function = b.constant("Test.EvictedFunction").unwrap();
+    let mut noise = vec![];
+    for i in 0..80 {
+        let name = format!("Test.MemoNoise{i}");
+        b.define(&name, b.boolean, yes).unwrap();
+        noise.push(b.constant(&name).unwrap());
+    }
+    let mut terms = vec![];
+    for _ in 0..8 {
+        terms.push(b.app(function, vec![x]).unwrap());
+        terms.extend(noise.iter().copied());
+    }
+    let mut body = yes;
+    for term in terms.into_iter().rev() {
+        body = b.app(and, vec![term, body]).unwrap();
+    }
+    let body = b.lam(input, body).unwrap();
+    b.define("Test.ReuseEvictedFunction", ty, body).unwrap();
+    let c = decode_canonical_certificate(&b.finish().unwrap()).unwrap();
+    let function = run(&c, "Test.EvictedFunction", vec![]);
+    let (value, cold) = apply_counted(&c, function, sparse_cube(8, Default::default()));
+    assert!(bit(value));
+    let program = run(&c, "Test.ReuseEvictedFunction", vec![]);
+    let (value, shared) = apply_counted(&c, program, sparse_cube(8, Default::default()));
+    assert!(bit(value));
+    assert!(
+        shared < cold * 4,
+        "closed function memo lost: cold={cold}, repeated={shared}"
+    );
+    // The table is local to one evaluation/certificate, including identical
+    // declaration numbers with a changed function body in a later certificate.
+    let mut changed = c.clone();
+    let decl = changed
+        .declarations
+        .iter_mut()
+        .find(|d| changed.name_table[d.name as usize] == "Test.EvictedFunction")
+        .unwrap();
+    let mpk_cert::encode::DeclarationKind::Def { value, .. } = &mut decl.kind else {
+        panic!()
+    };
+    let TermNode::Lam { body, .. } = c.term_table[*value as usize] else {
+        panic!()
+    };
+    let TermNode::App { ref arguments, .. } = c.term_table[body as usize] else {
+        panic!()
+    };
+    // Remove one outer negation: 512 negations of the false input return false.
+    let replacement = arguments[0];
+    let TermNode::Lam { body, .. } = &mut changed.term_table[*value as usize] else {
+        panic!()
+    };
+    *body = replacement;
+    let program = run(&changed, "Test.ReuseEvictedFunction", vec![]);
+    assert!(!bit(apply(
+        &changed,
+        program,
+        sparse_cube(8, Default::default())
+    )));
+}
+
+#[test]
 fn ordinary_core_unused_binders_share_closures_and_release_arguments() {
     let mut b = Builder::new().unwrap();
     let outer = b.var(2).unwrap();

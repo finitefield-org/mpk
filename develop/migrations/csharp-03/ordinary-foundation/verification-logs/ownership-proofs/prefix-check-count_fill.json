@@ -1,0 +1,20 @@
+{
+  "command": [
+    "/tmp/mpk-ownership-proof-checker-tests",
+    "-test.run",
+    "^TestCheckerAgreementWithRustCLIOwnershipProofs$/^count_fill\\.hex$",
+    "-test.v",
+    "-test.timeout",
+    "12m"
+  ],
+  "exit_code": 2,
+  "timed_out": false,
+  "wall_seconds": 720.066,
+  "environment": {
+    "MPK_TEST_CWD": "/Users/kazuyoshitoshiya/mpk/go-tools/mpk-checker-ref",
+    "MPK_CORE_MAX_SECONDS": "300"
+  },
+  "test_framework_timeout": true,
+  "semantic_verdict": null,
+  "timeout_stage": "Rust hash-corruption check; full test incomplete"
+}

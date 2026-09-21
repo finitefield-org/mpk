@@ -1,0 +1,65 @@
+{
+  "status": "current_equation_encodings_verified",
+  "recorded_at": "2026-09-20T17:52:33.617263+00:00",
+  "selection_rationale": "Only contexts with more than two allocation origins use balanced 32-bit comparison ranges. The eight-live fixture is the only affected equation fixture; all other 13 bytes remain identical. Recheck eight-live runtime/corrupt-state observations and both checkers/hash corruptions, plus exact source reconstruction of all 14 fixtures.",
+  "source_contexts": 14,
+  "equations": 7457,
+  "runtime_observations": 19831,
+  "updated_eight_live_observations": 2505,
+  "unchanged_contexts": [
+    "27bf71b9691bff9bf271182a00171dcaf676eca9d77b8102e07cd1facfc6dd09",
+    "array_finally_abandon",
+    "array_initializer_catch",
+    "array_publish_then_catch",
+    "array_return_finally",
+    "b85dd77635fb03689bd82d5b31d1088a0f49d29f414ec392e08af68e4d0c46c9",
+    "count_fill",
+    "dcb1bfeae19deccb577dce44cd239e814c6ca65f71bb32d8005af44a572fa358",
+    "dedup",
+    "duplicate_replace",
+    "index_update",
+    "sort",
+    "two-origins"
+  ],
+  "unchanged_context_evidence": "prefix-equation-verification.json",
+  "checks": [
+    {
+      "receipt": "balanced-eight-equation-runtime.json",
+      "passed": true,
+      "wall_seconds": 33.74,
+      "log_sha256": "e8b3e7741fc0d13655f5d76ee42fa679456107f9accca5fe2c0a8acf3af88267"
+    },
+    {
+      "receipt": "balanced-eight-equation-check.json",
+      "passed": true,
+      "wall_seconds": 4.542,
+      "log_sha256": "ece3134906178ddaac60421bbb5da631e72d380957e9097ce8853a41cfaeef8f"
+    },
+    {
+      "receipt": "balanced-equation-preservation.json",
+      "passed": true,
+      "wall_seconds": 1.984,
+      "log_sha256": "51f84ce33caad008cc62cc3e8d642c00f83c62b2abff1c29021e943bdc49e2c5"
+    }
+  ],
+  "source_sha256": "99d4143d61371a53751bad0a76ca7e3a29ecd388b0acc2dfa19c6835db09ad21",
+  "certificate_file_sha256": {
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/27bf71b9691bff9bf271182a00171dcaf676eca9d77b8102e07cd1facfc6dd09.hex": "5f68268207d7eee942867eb4939ea355307a4d5f2dea5f984bcf7270886604b6",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/array_finally_abandon.hex": "7de5e109b2012d552ac6a643c99368b2c50dbc731bea699fcd690501dc6b77ed",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/array_initializer_catch.hex": "33284ef2cefd214874289f3ff08f5de8f9bae3e53d3bf185a1180eb89a814cac",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/array_publish_then_catch.hex": "c62da2988f4e585054dadc31bc3b41d56ece92b3625ac10457814e0edd44eed4",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/array_return_finally.hex": "dada3fb69ec5faa7c54e5baf11d96233da3a410f01296a554c21be81b7a4fca2",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/b85dd77635fb03689bd82d5b31d1088a0f49d29f414ec392e08af68e4d0c46c9.hex": "54384558dee1cb32c32899ea5f664cd38df6ecab4a77912b5a79e7aae5960b05",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/count_fill.hex": "52879096391889c6a2cc98d8ed84e016c7c17e53f376f88b9df0c479df15e0e2",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/dcb1bfeae19deccb577dce44cd239e814c6ca65f71bb32d8005af44a572fa358.hex": "021a6c43b032144d713844d38b0b6c2229c79684bac20b7ad1cf19cbd1fc2506",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/dedup.hex": "47066ddf9077ff707c5092c4e854a174435abadd46b8f7ae68f4d83be12945d2",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/duplicate_replace.hex": "c132fa17e7179368c5f716bfb4081efa26aac4bbc092e5b68b74faf30731f5ae",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/eight-live.hex": "b95e8794d639ba6938e6b110e35ee941ad39ccb8d39d5582f90620caceebd57e",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/index_update.hex": "eb955b981d44a00cfd92e3a049a1e2ac4457de0bcb68b7f9b050ad540b488904",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/sort.hex": "d62bd2c2b1df68d1a411d5a9896196cbc396011a96aaaede7eabe0dbc0959e1f",
+    "develop/migrations/csharp-03/ordinary-foundation/ownership-equations/two-origins.hex": "45ac638c70da26364bcab1f63ca78d320e138890ffe396e22ac11eb0ebf34bd2"
+  },
+  "unit_5_complete": false,
+  "w09_complete": false,
+  "whole_gate": "deferred to T06-W12"
+}

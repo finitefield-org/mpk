@@ -148,7 +148,7 @@
     "command": "cargo test --release -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_domains_source_string_duplicate_probe -- --nocapture",
     "session_id": 68605,
     "log": "/tmp/mpk-w09-release-domain-probe-v1.log",
-    "status": "running_original_duplicate_C33_case_no_result",
+    "status": "not_live_on_2026_09_19_revalidation_no_verdict",
     "reason": "Same original C33 duplicate-string-map input, frozen bounds and assertions; select only this outstanding case to measure optimized execution without changing observer semantics.",
     "pid": 66701,
     "build_seconds": 82,
@@ -177,6 +177,13 @@
         "verification-logs/observer-cache/release-domain-profile-v1.log"
       ],
       "interpretation": "The optimized worker remains in generic reduction, allocation and release. Copy/move no longer appears among top sampled leaves. Compiler inlining prevents attributing all evaluation samples to a specific operation. No workload verdict or end-to-end speedup is established."
+    },
+    "revalidation": {
+      "session": "write_stdin: Unknown process id 68605",
+      "pid": 66701,
+      "process": "ps -p 66701 found no process",
+      "temporary_log_exists": false,
+      "interpretation": "No completion evidence; duplicate-string domain test remains outstanding. Do not count historical running status as a live job."
     }
   },
   "superseded_probe": {

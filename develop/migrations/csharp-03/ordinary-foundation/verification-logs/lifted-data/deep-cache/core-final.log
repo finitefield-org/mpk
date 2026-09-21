@@ -1,0 +1,36 @@
+
+running 20 tests
+test csharp_practical_vir_model::ordinary_carriers::observer_tests::ordinary_core_boolean_and_unused_result_caches_release_closures ... ok
+test csharp_practical_vir_model::ordinary_carriers::observer_tests::ordinary_core_closed_definition_cache_is_bounded_and_local ... bounded closed-definition cache: repeated work 7428 transitions; 160-entry eviction and cross-certificate cases passed
+ok
+test csharp_practical_vir_model::ordinary_carriers::observer_tests::ordinary_core_closed_function_memos_survive_value_cache_eviction ... ok
+test csharp_practical_vir_model::ordinary_carriers::observer_tests::ordinary_core_demanded_uniform_arguments_reuse_complete_results ... ok
+test csharp_practical_vir_model::ordinary_carriers::observer_tests::ordinary_core_dense_normalization_preserves_addresses_and_demand ... 
+thread 'csharp_practical_vir_model::ordinary_carriers::observer_tests::ordinary_core_dense_normalization_preserves_addresses_and_demand' (5829480) panicked at crates/mpk-vc/src/csharp_practical_ordinary_test_eval.rs:523:64:
+index out of bounds: the len is 78 but the index is 4294967295
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+ok
+test csharp_practical_vir_model::ordinary_carriers::observer_tests::ordinary_core_function_result_cache_does_not_create_capture_cycles ... ok
+test csharp_practical_vir_model::ordinary_carriers::observer_tests::ordinary_core_scalar_observations_survive_released_selector_closures ... ok
+test csharp_practical_vir_model::ordinary_carriers::observer_tests::ordinary_core_shared_function_arguments_reuse_results_without_retention ... ok
+test csharp_practical_vir_model::ordinary_carriers::observer_tests::ordinary_core_sparse_uniform_views_preserve_every_address ... ok
+test csharp_practical_vir_model::ordinary_carriers::observer_tests::ordinary_core_uniform_views_do_not_force_unused_arguments ... 
+thread 'csharp_practical_vir_model::ordinary_carriers::observer_tests::ordinary_core_uniform_views_do_not_force_unused_arguments' (5829490) panicked at crates/mpk-vc/src/csharp_practical_ordinary_test_eval.rs:523:64:
+index out of bounds: the len is 76 but the index is 4294967295
+ok
+test csharp_practical_vir_model::ordinary_carriers::observer_tests::ordinary_core_unused_binders_share_closures_and_release_arguments ... ok
+test csharp_practical_vir_model::ordinary_carriers::observer_tests::ordinary_core_usage_analysis_preserves_lets_and_deep_captures ... ok
+test csharp_practical_vir_model::ordinary_carriers::observer_tests::ordinary_core_usage_cache_matches_small_boolean_terms ... unused-argument cache: 92 Boolean/let terms, 736 eager/delayed observations
+ok
+test csharp_practical_vir_model::ordinary_carriers::test_eval::ordinary_core_deep_observation_cache_is_bounded_and_isolated ... ok
+test csharp_practical_vir_model::ordinary_carriers::tests::ordinary_core_deep_environment_release_uses_a_worklist ... ok
+test csharp_practical_vir_model::ordinary_carriers::tests::ordinary_core_evaluated_boolean_suspension_uses_boolean_cache ... evaluated Bool false: cached=4, uncached=3206
+evaluated Bool true: cached=4, uncached=3206
+ok
+test csharp_practical_vir_model::ordinary_carriers::tests::ordinary_core_forced_thunk_preserves_result_closure_environment ... ok
+test csharp_practical_vir_model::ordinary_carriers::tests::ordinary_core_forced_thunk_releases_obsolete_environment ... ok
+test csharp_practical_vir_model::ordinary_carriers::tests::ordinary_core_observer_preserves_unused_arguments ... ok
+test csharp_practical_vir_model::ordinary_carriers::tests::ordinary_core_sparse_input_matches_dense_selectors ... ok
+
+test result: ok. 20 passed; 0 failed; 0 ignored; 0 measured; 141 filtered out; finished in 0.12s
+

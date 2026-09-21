@@ -1,0 +1,132 @@
+{
+  "schema": "mpk.csharp_practical.string_constructor_runtime_fix.v1",
+  "date": "2026-09-20T07:40:18.722071+00:00",
+  "status": "reported_interpolation_passed_remaining_long_checks_pending",
+  "reason": "Generated string construction changed; check constructor semantics, dependent contract/data caches, final pins and same-byte checker agreement. Basic/ordinal and lifted bytes remain unchanged.",
+  "reported_timeout_seconds": 600.23,
+  "reported_operation": "construction-nonnull / string.interpolation.restricted.cs",
+  "fixed_operation": {
+    "test": "csharp_03_t06_w09_string_data_original_source",
+    "passed": true,
+    "wall_seconds": 51.54369979200419,
+    "cases": 3,
+    "result_guard_observations": 6,
+    "all_physical_result_bits_compared": true
+  },
+  "passes": [
+    {
+      "label": "shared-word-pass",
+      "receipt": "shared-word-pass.json",
+      "log_sha256": "dbed21233030e58aa6e57a6c7d35e880014788473684f245ff1f8872f1aae637",
+      "wall_seconds": 0.7807961669750512
+    },
+    {
+      "label": "binder-pinned",
+      "receipt": "binder-pinned.json",
+      "log_sha256": "b4791ee6687ee56d6a5030b1b75e328aa1bbc07d7b4f11694611102fafa30af2",
+      "wall_seconds": 0.1864322920446284
+    },
+    {
+      "label": "affected-core",
+      "receipt": "affected-core.json",
+      "log_sha256": "b7a8b663ec83fb1669d8a7dbc20870d1b03d4241e2053857ff9525cb57c1646e",
+      "wall_seconds": 5.829362332995515
+    },
+    {
+      "label": "final-pins",
+      "receipt": "final-pins.json",
+      "log_sha256": "513699542251380105e0c3169f6c013e139896522c73af9888b3a254c0d93b2c",
+      "wall_seconds": 12.408580874965992
+    },
+    {
+      "label": "interpolation-pinned",
+      "receipt": "interpolation-pinned.json",
+      "log_sha256": "25f5367890f4f93d43b71a8f081646544d677fcba566d0baf6c25dbf1c022fc7",
+      "wall_seconds": 51.54369979200419
+    },
+    {
+      "label": "checker-construct-small",
+      "receipt": "checker-construct-small.json",
+      "log_sha256": "b7af98a7ea0339cb85ff14826189c2d2fcb6734aca843abf6620e79b003309a6",
+      "wall_seconds": 46.714053000032436
+    },
+    {
+      "label": "checker-construct-next",
+      "receipt": "checker-construct-next.json",
+      "log_sha256": "8f1e2c0fbce7b5e531c86a9ab9eca273955fb10d8f5c6a1f0e4c4a2410351616",
+      "wall_seconds": 2.669106292014476
+    },
+    {
+      "label": "checker-construct-remaining",
+      "receipt": "checker-construct-remaining.json",
+      "log_sha256": "c7d5198312049713efb5883be59d3e17c0f65a477983e2bc4ac57c7eecb46c39",
+      "wall_seconds": 12.885854916006792
+    },
+    {
+      "label": "checker-data-changed",
+      "receipt": "checker-data-changed.json",
+      "log_sha256": "d69a58404112a4a1c9f2d4a1202f2b1f5ff1e3532f0dae16c4cc52f165915d84",
+      "wall_seconds": 40.450879457988776
+    },
+    {
+      "label": "checker-clauses-changed",
+      "receipt": "checker-clauses-changed.json",
+      "log_sha256": "d4e33e604f4ec9ac39c629ed5f72c5eb1a433c2a5fdcb78cd79978ad5e1121ff",
+      "wall_seconds": 42.66117045801366
+    }
+  ],
+  "static_checks": [
+    {
+      "command": "cargo clippy -p mpk-vc --lib --test csharp_practical_vc -- -D warnings",
+      "result": "passed; captured tool output",
+      "seconds": 17.28
+    },
+    {
+      "command": "rustfmt --check --edition 2021 --config skip_children=true crates/mpk-vc/src/csharp_practical_ordinary_string_construct.rs",
+      "result": "passed; captured tool output"
+    },
+    {
+      "command": "bash -n develop/migrations/csharp-03/ordinary-foundation/string-data/run-long-checks.sh",
+      "result": "passed; captured tool output"
+    }
+  ],
+  "changed_certificates": 14,
+  "changed_certificates_checked_by_both": 13,
+  "remaining_changed_checker_fixture": "string-construction-circuits/string.interpolation.binder_limit.hex",
+  "historical_receipts": "Pre-change pin bytes and manifests are in previous-pins/. Earlier cache experiments and intermediate diagnostics are not current passes.",
+  "evaluator_unchanged_from_start": true,
+  "sources": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_string_construct.rs",
+      "sha256": "e078c74dd887679b2243d030ad6d12eefb524ce19fe244a0dc5e57b4248f6a5b"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_test_eval.rs",
+      "sha256": "d4160220aa77546cb3911df2d66bbd0e8684f3020d128db9306288a87c661c8f"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_string_data_tests.rs",
+      "sha256": "4a4b9aa48356608eb98cabd1738175f1ff4db39c71b89b6b1634457b44b4cc8f"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/string-data/run-long-checks.sh",
+      "sha256": "20ebabe11ed21d16513ef284071e2088a0a247e1726b803f180987caf056fbbe"
+    }
+  ],
+  "current_scoped_runtime_totals": {
+    "signatures": 23,
+    "observations": 136,
+    "pending_signatures": 25,
+    "earlier_22_signatures": "Retained from byte-identical basic/ordinal contexts; not rerun."
+  },
+  "remaining_user_checks": [
+    "25 string runtime partitions",
+    "44-case string_construction_core_matches_utf16_oracle",
+    "same-byte Rust/Go binder-limit certificate"
+  ],
+  "review": "../../../unit-5-string-construction-runtime-review.md",
+  "full_gate": "deferred to T06-W12",
+  "unit_5_complete": false,
+  "w09_complete": false,
+  "live_jobs": []
+}
