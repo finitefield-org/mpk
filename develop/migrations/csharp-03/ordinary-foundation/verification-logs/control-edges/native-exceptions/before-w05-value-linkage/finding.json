@@ -1,0 +1,7 @@
+{
+  "finding": "Exception binding used the check ID and a private kind instead of the original W05 edge-qualified exception value ID and exception_value kind. Local guards and storage bodies were correct, but linkage was not yet suitable for W05 composition.",
+  "status": "fixed_and_current_bytes_verified",
+  "old_candidates_promoted": false,
+  "old_count_fill_check": "Stopped by agent during obsolete positive Go stage, before publication; interruption is not a rejection or acceptance verdict.",
+  "required_validation": "Independently compare every binding with W05 ExceptionEdgeVc, regenerate all 18 candidates and run fresh same-byte checker acceptance/hash rejection for each new byte sequence."
+}

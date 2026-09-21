@@ -125,7 +125,8 @@
         "verification-logs/control-edges/source-frames/verification.json",
         "verification-logs/control-edges/native-operations/verification.json",
         "verification-logs/control-edges/native-options/verification.json",
-        "verification-logs/control-edges/integrated-slots/verification.json"
+        "verification-logs/control-edges/integrated-slots/verification.json",
+        "verification-logs/control-edges/native-exceptions/verification.json"
       ],
       "next_adapter_audit": {
         "evidence": [
@@ -191,6 +192,11 @@
         "status": "passed_scoped_checks",
         "evidence": "verification-logs/control-edges/integrated-slots/verification.json",
         "scope": "18 source entries and 207 successful load/store/pattern transfers integrated with native operations in one certificate; 6342 new observations. Complete execution, exceptions and application proofs remain open."
+      },
+      "native_exception_checkpoint": {
+        "status": "passed_scoped_checks",
+        "evidence": "verification-logs/control-edges/native-exceptions/verification.json",
+        "scope": "59 local exceptional-result relations; 6136 new observations and same-byte dual-checker coverage. Complete execution/handler/application proof obligations remain open."
       }
     },
     {

@@ -1,6 +1,8 @@
 //! Exact edge guards, ordered failures and guarded slot joins at original nodes.
 use super::*;
 use std::path::PathBuf;
+#[path = "csharp_practical_ordinary_control_exception_tests.rs"]
+mod exceptions;
 
 #[test]
 fn csharp_03_t06_w09_control_edge_phi_preserves_existing_declarations() {
@@ -1323,6 +1325,7 @@ fn preserves_existing_declarations(previous_folder: &str, strip_phis: bool) {
                 "source_frames",
                 "slot_relations",
                 "native_operations",
+                "native_exceptions",
                 "pending_native_invocation_node_ids",
             ] {
                 if before_function.get(field).is_none() {
@@ -1358,6 +1361,7 @@ fn preserves_existing_declarations(previous_folder: &str, strip_phis: bool) {
                         | "before-native-operations"
                         | "before-native-options"
                         | "before-integrated-slots"
+                        | "before-native-exceptions"
                 ) {
                     function
                         .as_object_mut()
@@ -1432,6 +1436,7 @@ fn preserves_existing_declarations(previous_folder: &str, strip_phis: bool) {
                 | "before-native-operations"
                 | "before-native-options"
                 | "before-integrated-slots"
+                | "before-native-exceptions"
         ) {
             18
         } else {
@@ -1448,6 +1453,7 @@ fn preserves_existing_declarations(previous_folder: &str, strip_phis: bool) {
                     | "before-native-operations"
                     | "before-native-options"
                     | "before-integrated-slots"
+                    | "before-native-exceptions"
             ) {
                 8
             } else {
@@ -2539,6 +2545,7 @@ enum NativeRuntime {
     All,
     Options,
     Slots,
+    Exceptions,
 }
 fn run_selected_cases_mode(
     ids: &[&str],
@@ -2647,6 +2654,10 @@ fn run_selected_cases_mode(
                 &mut exercised_native_definitions,
             );
             eprintln!("control native operations {id}: {count} observations");
+        }
+        if native == NativeRuntime::Exceptions {
+            let count = exceptions::run_exceptions(&p, vir, &c, &depths, vc.exception_vcs());
+            eprintln!("control native exceptions {id}: {count} observations");
         }
         if native == NativeRuntime::Slots {
             let count = run_integrated_slots(&p, vir, &c);

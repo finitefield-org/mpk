@@ -35,7 +35,7 @@ normative but inactive specifications and, after the approved W14 codec
 parameter and W01 partial-loop amendments, 709 vectors.
 `CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09` and
 `CSHARP-03-T03-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10/W11/W12/W13/W14` are complete.
-`CSHARP-03-T04-W01/W02/W03/W04/W05/W06` and `CSHARP-03-T05-W01/W02/W03/W04/W05/W06` are complete; `CSHARP-03-T06-W01/W02/W03/W04/W05/W06/W07/W08` are complete; `CSHARP-03-T06-W09` is ready. Every later
+`CSHARP-03-T04-W01/W02/W03/W04/W05/W06` and `CSHARP-03-T05-W01/W02/W03/W04/W05/W06` are complete; `CSHARP-03-T06-W01/W02/W03/W04/W05/W06/W07/W08` are complete; `CSHARP-03-T06-W09` is in progress. Every later
 implementation work item remains blocked by its serial predecessor.
 
 Source design: `08_csharp_practical_subset_design.md`.
@@ -1929,6 +1929,14 @@ Execution note: the user approved eight internal implementation/review/commit
 units in [the W09 work plan](../migrations/csharp-03/ordinary-foundation/implementation-plan.md).
 Each internal unit may be pushed separately. W09's exit gate is unchanged;
 partial carrier/helper certificates do not complete W09 or unblock W10.
+
+Current checkpoint (2026-09-21): internal unit 5 adds 59 ordered exceptional
+invocation-result relations for the existing 18-source control corpus, with
+exact W05 value identities. Scoped runtime, preservation, checker and review
+evidence is recorded under
+`develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-edges/native-exceptions/`.
+Handler/filter/finally execution, complete native bodies and application proof
+assembly remain open; this checkpoint does not close W09.
 
 
 Owns: translation of every already-expanded concrete foundation definition in

@@ -1,0 +1,397 @@
+{
+  "status": "passed",
+  "rust_binary_sha256": "ad1511e441145366964eb1a18fdb8392b0e38edae910d68e0149a6bd1b8c5265",
+  "checks": [
+    {
+      "stage": "count_fill-positive-rust",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-native-exceptions-w05-checks-first/count_fill-positive.mpcert"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 1.882,
+      "input_sha256": "6121df767e49ea6379b2ce5fbcec356cbcc1d1fbc4aace6c0d8c95211f8f1cce",
+      "exact_report_agreement": true,
+      "report": "count_fill-positive-rust-rebuilt.json"
+    },
+    {
+      "stage": "count_fill-hash-rust",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-native-exceptions-w05-checks-first/count_fill-hash.mpcert"
+      ],
+      "exit_code": 1,
+      "wall_seconds": 1.556,
+      "input_sha256": "6a0cac908b37a7f30f127a05f788244a9db383a6e2655432480670b7961f1bb6",
+      "exact_report_agreement": true,
+      "report": "count_fill-hash-rust-rebuilt.json"
+    },
+    {
+      "stage": "for-positive-rust",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-native-exceptions-w05-checks-second/for-positive.mpcert"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.052,
+      "input_sha256": "8099567273fc984f857025b73a93a30feb22a558ef4cf69f0f29379efd394f7c",
+      "exact_report_agreement": true,
+      "report": "for-positive-rust-rebuilt.json"
+    },
+    {
+      "stage": "for-hash-rust",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-native-exceptions-w05-checks-second/for-hash.mpcert"
+      ],
+      "exit_code": 1,
+      "wall_seconds": 0.048,
+      "input_sha256": "6ab09795bbcb685e74218f5dfc6aed39d91b14b97e0e66c2db7f730c5de6f1df",
+      "exact_report_agreement": true,
+      "report": "for-hash-rust-rebuilt.json"
+    },
+    {
+      "stage": "short_circuit-positive-rust",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-native-exceptions-w05-checks-second/short_circuit-positive.mpcert"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.12,
+      "input_sha256": "7e2bfa5caca0eead8ebf66c05f2317095cc541e350a240feadee6301cd5ba4b7",
+      "exact_report_agreement": true,
+      "report": "short_circuit-positive-rust-rebuilt.json"
+    },
+    {
+      "stage": "short_circuit-hash-rust",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-native-exceptions-w05-checks-second/short_circuit-hash.mpcert"
+      ],
+      "exit_code": 1,
+      "wall_seconds": 0.12,
+      "input_sha256": "5c5a0aec416634bfce7a1b4084b02cd921493243f8a5e88b2bd1508c44bb8bdc",
+      "exact_report_agreement": true,
+      "report": "short_circuit-hash-rust-rebuilt.json"
+    },
+    {
+      "stage": "switch-positive-rust",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-native-exceptions-w05-checks-second/switch-positive.mpcert"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.026,
+      "input_sha256": "b4f2e39b389949d946324c9573a6b8908540b12a5654e083be17cb6e76d18727",
+      "exact_report_agreement": true,
+      "report": "switch-positive-rust-rebuilt.json"
+    },
+    {
+      "stage": "switch-hash-rust",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-native-exceptions-w05-checks-second/switch-hash.mpcert"
+      ],
+      "exit_code": 1,
+      "wall_seconds": 0.027,
+      "input_sha256": "1424ddae7168988af553e3c2ce93b994de554ac5f2bbb064b7a6981cba690537",
+      "exact_report_agreement": true,
+      "report": "switch-hash-rust-rebuilt.json"
+    },
+    {
+      "stage": "is_binding-positive-rust",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-native-exceptions-w05-checks-second/is_binding-positive.mpcert"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.023,
+      "input_sha256": "d00eee8dc3f106abf25e2aab58d09b8995cc7b2b3bd36dfcb0dff6b2c393c628",
+      "exact_report_agreement": true,
+      "report": "is_binding-positive-rust-rebuilt.json"
+    },
+    {
+      "stage": "is_binding-hash-rust",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-native-exceptions-w05-checks-second/is_binding-hash.mpcert"
+      ],
+      "exit_code": 1,
+      "wall_seconds": 0.021,
+      "input_sha256": "9a765f00763f2db0481ac308ae1940025557694384002e10738b502d0b7b6e39",
+      "exact_report_agreement": true,
+      "report": "is_binding-hash-rust-rebuilt.json"
+    },
+    {
+      "stage": "guard_order-positive-rust",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-native-exceptions-w05-checks-second/guard_order-positive.mpcert"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.171,
+      "input_sha256": "12db8c6d23706e91344bb3303a06a0884a12a7370d9dece1ce799515f59a67c4",
+      "exact_report_agreement": true,
+      "report": "guard_order-positive-rust-rebuilt.json"
+    },
+    {
+      "stage": "guard_order-hash-rust",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-native-exceptions-w05-checks-second/guard_order-hash.mpcert"
+      ],
+      "exit_code": 1,
+      "wall_seconds": 0.175,
+      "input_sha256": "163f9637dfd06adf927d9a6372727a1bb5ecdde2a6d8c21f988f10d3abeb0a0e",
+      "exact_report_agreement": true,
+      "report": "guard_order-hash-rust-rebuilt.json"
+    },
+    {
+      "stage": "guard_throw-positive-rust",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-native-exceptions-w05-checks-second/guard_throw-positive.mpcert"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.108,
+      "input_sha256": "99fe0c8699733e204bcd2b05d76d83f476d71d09f5ab7531f3fe2225c3769196",
+      "exact_report_agreement": true,
+      "report": "guard_throw-positive-rust-rebuilt.json"
+    },
+    {
+      "stage": "guard_throw-hash-rust",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-native-exceptions-w05-checks-second/guard_throw-hash.mpcert"
+      ],
+      "exit_code": 1,
+      "wall_seconds": 0.107,
+      "input_sha256": "92b366c2d04834abbb78683a906a0b9312d61aec1cc70b6848a6b80c983515a6",
+      "exact_report_agreement": true,
+      "report": "guard_throw-hash-rust-rebuilt.json"
+    },
+    {
+      "stage": "total_variable-positive-rust",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-native-exceptions-w05-checks-second/total_variable-positive.mpcert"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.027,
+      "input_sha256": "ca5939b8f918d02e8b287dcd9ae7b470dc9d2a8793c60243a1cc48f3756b8bef",
+      "exact_report_agreement": true,
+      "report": "total_variable-positive-rust-rebuilt.json"
+    },
+    {
+      "stage": "total_variable-hash-rust",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-native-exceptions-w05-checks-second/total_variable-hash.mpcert"
+      ],
+      "exit_code": 1,
+      "wall_seconds": 0.025,
+      "input_sha256": "cee90eedee9a4ed9fe7bfb856940e4d8bfd2a03b15ba6752bb87efe9d9f70cf5",
+      "exact_report_agreement": true,
+      "report": "total_variable-hash-rust-rebuilt.json"
+    },
+    {
+      "stage": "foreach_array-positive-rust",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-native-exceptions-w05-checks-second/foreach_array-positive.mpcert"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.099,
+      "input_sha256": "cc542719ea465598fddb89e4d2b8b9b98791cf780eb8e77fe322fbc1047f216a",
+      "exact_report_agreement": true,
+      "report": "foreach_array-positive-rust-rebuilt.json"
+    },
+    {
+      "stage": "foreach_array-hash-rust",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-native-exceptions-w05-checks-second/foreach_array-hash.mpcert"
+      ],
+      "exit_code": 1,
+      "wall_seconds": 0.103,
+      "input_sha256": "4dc2ee7eeb5cb3c6e18851a600c9f890a483385b534a736790a2469a86060cdd",
+      "exact_report_agreement": true,
+      "report": "foreach_array-hash-rust-rebuilt.json"
+    },
+    {
+      "stage": "foreach_string-positive-rust",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-native-exceptions-w05-checks-second/foreach_string-positive.mpcert"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.117,
+      "input_sha256": "db8fff864c2de8513740eb5f547f5ad8536de8c296b17e36b2df211042d8c8b7",
+      "exact_report_agreement": true,
+      "report": "foreach_string-positive-rust-rebuilt.json"
+    },
+    {
+      "stage": "foreach_string-hash-rust",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-native-exceptions-w05-checks-second/foreach_string-hash.mpcert"
+      ],
+      "exit_code": 1,
+      "wall_seconds": 0.12,
+      "input_sha256": "4ed11115311cff005fee3a82774ae55d671c3fd0af15b34c1788ad533ff25e4d",
+      "exact_report_agreement": true,
+      "report": "foreach_string-hash-rust-rebuilt.json"
+    },
+    {
+      "stage": "governing_throw-positive-rust",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-native-exceptions-w05-checks-second/governing_throw-positive.mpcert"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.05,
+      "input_sha256": "274d141a6580ef1fc233b5068f704fac8ebac056a53aeae97cfb23565c8ca700",
+      "exact_report_agreement": true,
+      "report": "governing_throw-positive-rust-rebuilt.json"
+    },
+    {
+      "stage": "governing_throw-hash-rust",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-native-exceptions-w05-checks-second/governing_throw-hash.mpcert"
+      ],
+      "exit_code": 1,
+      "wall_seconds": 0.051,
+      "input_sha256": "dfe594d8418b5751c2dbb213d97471d9b288be3f419d6db24e9c77d3449c2183",
+      "exact_report_agreement": true,
+      "report": "governing_throw-hash-rust-rebuilt.json"
+    },
+    {
+      "stage": "lookup-positive-rust",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-native-exceptions-w05-checks-second/lookup-positive.mpcert"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.065,
+      "input_sha256": "aee215d24b14fcf509a5c4be9e06c0362eeab8f213a9c57dfad4b4d7282df81c",
+      "exact_report_agreement": true,
+      "report": "lookup-positive-rust-rebuilt.json"
+    },
+    {
+      "stage": "lookup-hash-rust",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-native-exceptions-w05-checks-second/lookup-hash.mpcert"
+      ],
+      "exit_code": 1,
+      "wall_seconds": 0.065,
+      "input_sha256": "eae712152860ca2e8248d8742aedb1f7656379bcc710a8fbfe897061c88df381",
+      "exact_report_agreement": true,
+      "report": "lookup-hash-rust-rebuilt.json"
+    },
+    {
+      "stage": "type-positive-rust",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-native-exceptions-w05-checks-second/type-positive.mpcert"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.094,
+      "input_sha256": "8255edc96ec82c7f58f3ebe4d950b9fc631e066e90cbb7556e3337c8e887276f",
+      "exact_report_agreement": true,
+      "report": "type-positive-rust-rebuilt.json"
+    },
+    {
+      "stage": "type-hash-rust",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-native-exceptions-w05-checks-second/type-hash.mpcert"
+      ],
+      "exit_code": 1,
+      "wall_seconds": 0.095,
+      "input_sha256": "0827ef202bef56ba70f33762cf28cea11a739f90b3920933d541f6623ea57d12",
+      "exact_report_agreement": true,
+      "report": "type-hash-rust-rebuilt.json"
+    },
+    {
+      "stage": "string_property-positive-rust",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-native-exceptions-w05-checks-second/string_property-positive.mpcert"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.058,
+      "input_sha256": "41110815b20825125e8b47fc1445d6362b03ee10154419b6b6b286671d322dc0",
+      "exact_report_agreement": true,
+      "report": "string_property-positive-rust-rebuilt.json"
+    },
+    {
+      "stage": "string_property-hash-rust",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-native-exceptions-w05-checks-second/string_property-hash.mpcert"
+      ],
+      "exit_code": 1,
+      "wall_seconds": 0.056,
+      "input_sha256": "c119cf36ab730c4e2db7457fe8d1e340fb04672e0a3cc014dee29fe0460b2ea9",
+      "exact_report_agreement": true,
+      "report": "string_property-hash-rust-rebuilt.json"
+    },
+    {
+      "stage": "index_update-positive-rust",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-native-exceptions-w05-checks-second/index_update-positive.mpcert"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.404,
+      "input_sha256": "071999a1b4a591b9bcab0ae7d0f4ccaa813be145e12ad078cc96a7fd817a00af",
+      "exact_report_agreement": true,
+      "report": "index_update-positive-rust-rebuilt.json"
+    },
+    {
+      "stage": "index_update-hash-rust",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-native-exceptions-w05-checks-second/index_update-hash.mpcert"
+      ],
+      "exit_code": 1,
+      "wall_seconds": 0.399,
+      "input_sha256": "c369e2b2fb502e559217d092fb105f9614543e8ac37f9ffe1af663bba7cabdd4",
+      "exact_report_agreement": true,
+      "report": "index_update-hash-rust-rebuilt.json"
+    }
+  ],
+  "selection_reason": "Fresh release build after generator changes. Reuse only an identical rebuilt binary; otherwise recheck all 15 positive and 15 hash-corrupted inputs and require exact JSON agreement with the same-byte Go/Rust reports."
+}

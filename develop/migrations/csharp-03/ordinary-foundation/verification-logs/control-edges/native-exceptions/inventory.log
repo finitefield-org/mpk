@@ -1,0 +1,28 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+    Finished `release` profile [optimized] target(s) in 2.02s
+     Running tests/csharp_practical_inventory.rs (target/release/deps/csharp_practical_inventory-b645d7f4c4ccc945)
+
+running 5 tests
+test csharp_03_t01_w01_baseline_recomputes_the_active_release ... ok
+test csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item ... ok
+test csharp_03_t01_w02_inventory_closes_every_artifact_and_consumer_edge ... 
+thread 'csharp_03_t01_w02_inventory_closes_every_artifact_and_consumer_edge' (8288602) panicked at crates/mpk-vc/tests/csharp_practical_inventory.rs:1376:5:
+repository consumer search drift:
+foundation.std_namespace: expected count=136 sha256=8abad41881c842386aab2b48e57e8e772d89bfbc911312e50329db141e642e78; actual count=138 sha256=d331b7861d6a1f4cc48c27ed097cc7a13aa349469bc24cb5883922ad658f9a85
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+FAILED
+test csharp_03_t01_w02_search_fixtures_reject_added_or_deleted_consumers ... 
+thread 'csharp_03_t01_w02_search_fixtures_reject_added_or_deleted_consumers' (8288606) panicked at crates/mpk-vc/tests/csharp_practical_inventory.rs:826:55:
+checked-in consumer set: "foundation.std_namespace: expected count=136 sha256=8abad41881c842386aab2b48e57e8e772d89bfbc911312e50329db141e642e78; actual count=138 sha256=d331b7861d6a1f4cc48c27ed097cc7a13aa349469bc24cb5883922ad658f9a85"
+FAILED
+test csharp_03_t03_w14_inventory_ignores_generated_python_caches ... ok
+
+failures:
+
+failures:
+    csharp_03_t01_w02_inventory_closes_every_artifact_and_consumer_edge
+    csharp_03_t01_w02_search_fixtures_reject_added_or_deleted_consumers
+
+test result: FAILED. 3 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.92s
+
+error: test failed, to rerun pass `-p mpk-vc --test csharp_practical_inventory`

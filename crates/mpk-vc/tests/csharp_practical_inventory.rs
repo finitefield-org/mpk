@@ -214,7 +214,7 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
             | "CSHARP-03-T06-W01" | "CSHARP-03-T06-W02" | "CSHARP-03-T06-W03"
             | "CSHARP-03-T06-W04" | "CSHARP-03-T06-W05" | "CSHARP-03-T06-W06"
             | "CSHARP-03-T06-W07" | "CSHARP-03-T06-W08" => "Complete",
-            "CSHARP-03-T06-W09" => "Ready",
+            "CSHARP-03-T06-W09" => "In progress",
             _ => "Blocked",
         };
         assert_eq!(row.status, expected_status, "status drift for {work_item}");
@@ -575,7 +575,7 @@ fn csharp_03_t01_w02_inventory_closes_every_artifact_and_consumer_edge() {
                     .expect("search count must be an unsigned integer")
             })
             .sum::<u64>(),
-        4_959,
+        4_961,
         "family-to-path inventory total drift"
     );
     let fixture_by_id = search_fixtures

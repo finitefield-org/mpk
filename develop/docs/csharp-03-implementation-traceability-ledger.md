@@ -1,5 +1,11 @@
 # CSHARP-03 Implementation Traceability Ledger
 
+Current implementation: `CSHARP-03-T06-W09` is `In progress`. Its eight internal
+units and pending acceptance gate are tracked in
+`develop/migrations/csharp-03/ordinary-foundation/w09-completion-audit.json`.
+W10 and later items remain blocked; the historical completion records below
+do not constitute a W09 receipt.
+
 Status: `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10`,
 `CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09`, and
 `CSHARP-03-T03-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10/W11/W12/W13` complete (2026-09-06). The entry audit, consumer
@@ -147,7 +153,7 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T06-W06` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W06` | `594c5e7b5f9210775b55284b05035151155225af` |
 | `CSHARP-03-T06-W07` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W07` | `f332894025c604f6a45bb1f4fe2eec56d0df7737` |
 | `CSHARP-03-T06-W08` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W08` | `SELF` |
-| `CSHARP-03-T06-W09` | `Ready` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W09` | `—` |
+| `CSHARP-03-T06-W09` | `In progress` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W09` | `—` |
 | `CSHARP-03-T06-W10` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_policy_verify.rs#CSHARP-03-T06-W10` | `—` |
 | `CSHARP-03-T06-W11` | `Blocked` | `crates/mpk-api/tests/csharp_practical_api.rs#CSHARP-03-T06-W11` | `—` |
 | `CSHARP-03-T06-W12` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_end_to_end.rs#CSHARP-03-T06-W12` | `—` |
@@ -5634,3 +5640,49 @@ receipts. W09 owns ordinary expansion, proof construction and both checker
 runs. Earlier captures, handoff goldens, receipts and frozen producer/vector
 bytes are unchanged. The full `./scripts/check-fast.sh` gate is deferred to
 T06-W12. W07 records its published commit, W08 uses `SELF`, and W09 is ready.
+
+
+## 59. CSHARP-03-T06-W09 internal unit 5 exceptional-result checkpoint
+
+W09 is In progress. This is a bounded internal component record, not a work-item
+completion or an unblock of W10. It starts from checkpoint
+`fe9dc4fc3ebc2554127591e708b2a2d224357751`; frozen inputs, original-source capture
+hashes and exact producer/test hashes are retained in
+`develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-edges/native-exceptions/`.
+
+The new ordinary control-exception emitter implements local failed invocation
+results under source-design sections 20.2 and 20.3. It binds each W03 ordered
+failure guard to its exact W04 edge and W05 exception value identity, literal,
+carrier and post-node. The complete failure prefix is retained, including
+source-scoped ownership predicates. The emitted relation conjoins the guard with
+full physical exception equality; it has no normal-result argument. Unknown
+semantic constants remain pending. Ordinary declaration/term/binder limits,
+Certificate v0 structure, empty proof/theory tables and zero axioms are preserved.
+
+Eighteen unchanged original-source contexts exercise 59 relations with 6,136
+observations. Positive/negative cases include numeric overflow/division by zero,
+null/index precedence, negative allocation length and absent nullable values.
+Each check must have both enabled and disabled observations; wrong exception
+tags/padding and metadata omission/addition/mutation reject. Twelve preservation
+and slot-candidate checks retain prior definitions and source metadata. All 15 distinct current certificate byte sequences pass same-byte Rust/Go
+acceptance, report agreement, zero-axiom and hash-corruption checks; final scoped
+review findings are zero. Exact results are recorded in the linked receipt
+before promotion; acceptance of an obsolete candidate never transfers to changed
+bytes. The original fixtures are retained under `before-native-exceptions/`.
+
+Review corrected a W05 identity mismatch in the first candidate and strengthened
+per-check outcome coverage. The dependency inventory also adds precisely the new
+exception emitter and the normal emitter omitted by the previous checkpoint;
+removing those two paths reconstructs the previous fingerprint. All 136 inventory
+searches now total 4,961 hits, including 138 foundation-namespace paths. The five
+inventory tests and targeted Clippy/format checks pass. The current ledger status
+is corrected from Ready to In progress without claiming W09 completion.
+
+Application source, toolchain, emitted application binaries, frozen foundation
+bundle and installed profiles are unchanged. The source/generic/dependency/
+iterator/async gates retain their existing unchanged capture evidence. No native
+Linux build/runner/release claim is made by this Rust-only component. Full source
+execution, handler search/filter/finally, exceptional state/alias framing,
+application proof assembly and remaining units stay open. The full predecessor
+acceptance corpus stays with W09 internal unit 8; `./scripts/check-fast.sh` stays
+with T06's final W12. There is no component-only commit or downstream unblock.

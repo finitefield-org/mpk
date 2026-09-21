@@ -1,0 +1,28 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+    Finished `release` profile [optimized] target(s) in 1m 30s
+     Running tests/csharp_practical_vc.rs (target/release/deps/csharp_practical_vc-0951b3e219e92435)
+
+running 1 test
+test ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::exceptions::csharp_03_t06_w09_control_native_exceptions_original_sources ... native exception enabled=2 disabled=6
+control native exceptions while: 96 observations
+control edges while: generated/imported exact candidate; 0 pending guards
+native exception enabled=4 disabled=12
+control native exceptions for: 192 observations
+control edges for: generated/imported exact candidate; 0 pending guards
+native exception enabled=7 disabled=25
+control native exceptions short_circuit: 384 observations
+control edges short_circuit: generated/imported exact candidate; 0 pending guards
+
+thread 'ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::exceptions::csharp_03_t06_w09_control_native_exceptions_original_sources' (8288033) panicked at crates/mpk-vc/tests/support/csharp_practical_ordinary_control_exception_tests.rs:176:5:
+assertion failed: enabled > 0 && disabled > 0
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+FAILED
+
+failures:
+
+failures:
+    ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::exceptions::csharp_03_t06_w09_control_native_exceptions_original_sources
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 356 filtered out; finished in 14.79s
+
+error: test failed, to rerun pass `-p mpk-vc --test csharp_practical_vc`

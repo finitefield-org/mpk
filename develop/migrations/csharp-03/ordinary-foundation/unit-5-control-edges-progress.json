@@ -1,21 +1,21 @@
 {
   "work_item": "CSHARP-03-T06-W09",
-  "status": "passed_scoped_control_relations_with_source_slot_integration",
+  "status": "passed_scoped_control_relations_with_native_exception_results",
   "source_contexts": 18,
   "edges": 852,
   "guards": 852,
   "joins": 813,
   "pending_edges": 0,
-  "runtime_observations": 90784,
+  "runtime_observations": 96920,
   "checker_certificates": 18,
   "state_rule": "source_exit_to_edge_specific_target; exactly_one_enabled_incoming_snapshot_to_fresh_node_entry; native_normal_guard_and_result_at_exact_invocation; actual_execution_witness_pending",
   "application_scope_pending": true,
   "remaining": [
-    "The W04 loop/pattern function subset has all 106 W03 native normal-operation relations. One non-data invocation remains pending. Other data families and straight-line/constructor functions still require native integration. Handler entry/search/unwinding and full native body/application proofs remain open.",
+    "The W04 loop/pattern subset has 106 native normal-operation relations and 59 ordered exceptional-result relations. One non-data invocation remains pending. Other data families and straight-line/constructor functions still require integration. Handler entry/search/unwinding and full native body/application proofs remain open.",
     "Direct original-loop coverage for reference-family adapters and combined option/sequence foundation emission.",
     "Nullable source slots retain Option storage; original W04 logical observations remain pending. Receiver rewrites constrain source snapshots in two contexts; alias-aware array update frames remain pending. Supported pure source nodes and non-target slots of source transfers now have complete local assignedness/storage frames.",
     "Function entry, successful transfer values/definedness, native normal operations and source frames are defined in the same certificate. Compose them into complete source-exit execution, constrain actual incoming selection/execution witnesses, define literal values and exceptional/alias state, and prove native body/application obligations.",
-    "Caught-exception entry, exceptional transfer semantics, native execution and loop/pattern application proofs.",
+    "The 59 local failed invocation guards and exact exception values are defined. Caught-exception entry, source-state framing on exceptions, handler/filter/finally, native execution and loop/pattern application proofs remain open.",
     "The count_fill eleven-predecessor entry now fits via twelve conjunctive components. Its original edge/node/receiver-update relations have scoped runtime coverage; native execution, alias frames, loop invariants and application proofs remain pending."
   ],
   "verification": "verification-logs/control-edges/verification.json",
@@ -74,5 +74,8 @@
   "slot_entry_relations": 18,
   "slot_transfer_relations": 207,
   "slot_relation_observations": 6342,
-  "slot_relation_verification": "verification-logs/control-edges/integrated-slots/verification.json"
+  "slot_relation_verification": "verification-logs/control-edges/integrated-slots/verification.json",
+  "native_exception_relations": 59,
+  "native_exception_observations": 6136,
+  "native_exception_verification": "verification-logs/control-edges/native-exceptions/verification.json"
 }

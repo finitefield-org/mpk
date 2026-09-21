@@ -9,6 +9,9 @@ use sha2::{Digest, Sha256};
 #[path = "csharp_practical_ordinary_control_execution.rs"]
 mod execution;
 pub use execution::{OrdinaryControlNativeDefinition, OrdinaryControlNativeOperation};
+#[path = "csharp_practical_ordinary_control_exceptions.rs"]
+mod exceptions;
+pub use exceptions::OrdinaryControlNativeException;
 
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
 pub struct OrdinaryControlEdgeJoin {
@@ -123,6 +126,10 @@ pub struct OrdinaryControlEdgeFunction {
     pub source_frames: Vec<OrdinaryControlSourceFrame>,
     #[serde(skip_serializing_if = "Vec::is_empty")]
     pub native_operations: Vec<OrdinaryControlNativeOperation>,
+    /// Ordered failed checks and exact produced exception values. Handler
+    /// search, unwind, source-state effects and reachability remain separate.
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    pub native_exceptions: Vec<OrdinaryControlNativeException>,
     /// Source entry and successful load/store relations in this same certificate.
     /// These require execution at their exact anchors; they do not prove reachability.
     #[serde(skip_serializing_if = "Vec::is_empty")]
@@ -1443,6 +1450,7 @@ pub fn generate_csharp_practical_ordinary_control_edges(
         }
         flow.slot_relations = slots.relations;
     }
+    exceptions::append(&mut c, &mut p, vir, &layouts)?;
     let certificate = c.b.finish()?;
     p.certificate_sha256 = mpk_cert::hash_hex(&mpk_cert::certificate_hash(&certificate));
     p.certificate = certificate;
@@ -1767,6 +1775,7 @@ fn emit_program_with_foundations(
             pending_memory_effect_node_ids: vec![],
             source_frames: vec![],
             native_operations: vec![],
+            native_exceptions: vec![],
             slot_relations: vec![],
             pending_native_invocation_node_ids: vec![],
         });

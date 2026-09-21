@@ -60,7 +60,8 @@ The current 18-source corpus has 852 guards, 813 slot transports, 78 native phi
 joins (140 values), and 746 node-entry records. There are 50,854 edge
 observations, 22,257 entry/selection observations and 26 receiver-update
 observations, 10,608 source-frame observations and 697 native-operation
-observations and 6,342 integrated slot observations, totaling 90,784. Original W04
+observations, 6,342 integrated slot observations and 6,136 exceptional-result
+observations, totaling 96,920. Original W04
 binding comparisons cover 95 identities in the initial partition and 36 in the
 collection partition, plus 68 in count/fill. The type fixture has no such
 original goal bindings;
@@ -87,3 +88,23 @@ dependencies agree with standalone slot generation. Ten preservation tests and
 the nine standalone pins pass; all fifteen distinct current certificates have
 fresh same-byte dual-checker acceptance and hash-corruption rejection. Actual
 execution witnesses and full application proofs remain open.
+
+
+## Native exceptional invocation result checkpoint
+
+The original W04 loop/pattern subset now has 59 ordinary exceptional-result
+relations across 18 source contexts. Each relation requires the ordered failure
+guard and the exact closed exception storage, and has no normal-result argument.
+Its value ID, type, target and literal agree with the independently generated
+W05 exception edge. Each individual check is exercised in both enabled and
+disabled states; all 6,136 new observations pass. Twelve preservation/slot-candidate
+tests retain the preceding term/declaration prefixes and metadata. Targeted lint,
+format and the five inventory tests pass. All 15 distinct certificates pass both unchanged checkers, report agreement,
+zero-axiom checks and hash-corruption rejection; see `../verification-logs/control-edges/native-exceptions/verification.json`
+and its review for the final result before using the promoted pins.
+
+These local relations do not establish source reachability, exceptional source
+frames, handler/filter/finally execution or complete application proofs. Unit 5
+and W09 remain incomplete, W10 remains blocked, and the whole gate stays deferred
+to T06-W12. The review's earlier W05 value-identity finding was corrected before
+promotion; obsolete candidate checks remain separate historical evidence.

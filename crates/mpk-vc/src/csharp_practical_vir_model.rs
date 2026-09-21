@@ -7781,6 +7781,6 @@ pub use ordinary_carriers::{
     import_csharp_practical_ordinary_control_edges, OrdinaryControlEdgeDefinition,
     OrdinaryControlEdgeFunction, OrdinaryControlEdgeJoin, OrdinaryControlEdgeProgram,
     OrdinaryControlEntryComponent, OrdinaryControlEntryIncoming, OrdinaryControlMemoryBinding,
-    OrdinaryControlMemoryEffect, OrdinaryControlNativeDefinition, OrdinaryControlNativeOperation,
-    OrdinaryControlNodeEntry, OrdinaryControlSourceFrame,
+    OrdinaryControlMemoryEffect, OrdinaryControlNativeDefinition, OrdinaryControlNativeException,
+    OrdinaryControlNativeOperation, OrdinaryControlNodeEntry, OrdinaryControlSourceFrame,
 };

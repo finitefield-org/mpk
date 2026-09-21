@@ -1,0 +1,24 @@
+START count_fill-positive-go
+END count_fill-positive-go PASS 482.226
+START count_fill-positive-rust
+END count_fill-positive-rust PASS 1.638
+START count_fill-hash-go
+END count_fill-hash-go FAIL 55.917
+Traceback (most recent call last):
+  File "/Users/kazuyoshitoshiya/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/ownership-proofs/check-files.py", line 121, in <module>
+    main()
+  File "/Users/kazuyoshitoshiya/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/ownership-proofs/check-files.py", line 105, in main
+    g = stage(label + "-go", [str(go), str(candidate)], submitted, corrupt)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kazuyoshitoshiya/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/ownership-proofs/check-files.py", line 71, in stage
+    report = json.loads(stdout.read_text())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)

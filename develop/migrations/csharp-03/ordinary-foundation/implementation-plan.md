@@ -1,6 +1,6 @@
 # CSHARP-03-T06-W09 implementation work plan (not a completion receipt)
 
-Baseline: `1e1f6a4` (T06-W08). The canonical work-item ledger is unchanged;
+Baseline: `1e1f6a4` (T06-W08). The canonical work-item ledger records W09 In progress;
 W09 is not complete and W10 must not become ready.
 
 ## Current state
@@ -110,7 +110,7 @@ ordinal reducers and the frozen concrete S->S transformer construction, added
 all-Boolean truth cases and all-integer certificate generation, and passed
 full-capacity core evaluation and same-byte dual checking.
 
-Units 3-8 remain outstanding. W09 remains Ready/in progress and W10-W12 remain
+Units 3-8 remain outstanding. W09 remains In progress and W10-W12 remain
 Blocked. No W09 completion receipt is issued by these internal units. The next
 work is structural/collection domains, defaults, equality/order, constructors,
 accessors and every operation of each reachable concrete foundation instance.

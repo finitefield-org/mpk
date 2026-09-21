@@ -213,3 +213,23 @@ The user explicitly requested commit and push of the current work in progress.
 This publication is a checkpoint of the accumulated W09 changes; it does not
 close an internal unit or mark W09 complete. The whole gate remains deferred
 to T06-W12.
+
+
+## Native exceptional invocation result checkpoint
+
+The original W04 loop/pattern subset now has 59 ordinary exceptional-result
+relations across 18 source contexts. Each relation requires the ordered failure
+guard and the exact closed exception storage, and has no normal-result argument.
+Its value ID, type, target and literal agree with the independently generated
+W05 exception edge. Each individual check is exercised in both enabled and
+disabled states; all 6,136 new observations pass. Twelve preservation/slot-candidate
+tests retain the preceding term/declaration prefixes and metadata. Targeted lint,
+format and the five inventory tests pass. All 15 distinct certificates pass both unchanged checkers, report agreement,
+zero-axiom checks and hash-corruption rejection; see `verification-logs/control-edges/native-exceptions/verification.json`
+and its review for the final result before using the promoted pins.
+
+These local relations do not establish source reachability, exceptional source
+frames, handler/filter/finally execution or complete application proofs. Unit 5
+and W09 remain incomplete, W10 remains blocked, and the whole gate stays deferred
+to T06-W12. The review's earlier W05 value-identity finding was corrected before
+promotion; obsolete candidate checks remain separate historical evidence.
