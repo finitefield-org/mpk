@@ -1,0 +1,593 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.unit4_count_pin_refresh.v1",
+  "status": "passed",
+  "original_git_commit": "2a2555f8a5d35b7f469835060d16b228d15edbdb",
+  "cause_commit": "fe9dc4fc3ebc2554127591e708b2a2d224357751",
+  "scope": "Shared saturated cell count addition changed earlier; existing unit-4 consumer pins retained the older helper. No source, binding, predicate, VC, pending-symbol or other linkage metadata changed.",
+  "selection_reason": "Recheck every changed certificate byte set; byte-identical contexts retain prior checking evidence. Duplicate candidates reuse a hash-identical representative.",
+  "groups": [
+    {
+      "corpus": "binding-relations",
+      "test": "TestCheckerAgreementWithRustCLIBindingRelations",
+      "selected_files": [
+        "binding-vc-bounded_sequence.hex",
+        "binding-vc-money.hex",
+        "binding-vc-ordered_map.hex",
+        "binding-vc-ordered_set.hex",
+        "binding-vc-transition.hex",
+        "binding-vc-validation.hex",
+        "bool-construction.hex",
+        "boundary-map-compound.hex",
+        "boundary-map-decimal.hex",
+        "boundary-map-string.hex",
+        "boundary-set-decimal.hex",
+        "enum-construction.hex",
+        "extra-bool-float-map.hex",
+        "extra-bool-nullable-map.hex",
+        "extra-shared-lookup-maps.hex",
+        "extra-validation-bool.hex",
+        "extra-validation-product.hex",
+        "float-sequence.hex",
+        "nested-box.hex",
+        "nullable-string-default.hex",
+        "product-construction.hex",
+        "remapped-boundary-sequence.hex",
+        "string.hex"
+      ],
+      "changed": 23,
+      "unchanged": 22
+    },
+    {
+      "corpus": "binding-guards",
+      "test": "TestCheckerAgreementWithRustCLIBindingGuards",
+      "selected_files": [
+        "binding-vc-bounded_sequence.hex",
+        "binding-vc-money.hex",
+        "binding-vc-ordered_map.hex",
+        "binding-vc-ordered_set.hex",
+        "binding-vc-transition.hex",
+        "binding-vc-validation.hex",
+        "boundary-map-compound.hex",
+        "boundary-map-decimal.hex",
+        "boundary-map-string.hex",
+        "boundary-set-decimal.hex",
+        "extra-bool-float-map.hex",
+        "extra-bool-nullable-map.hex",
+        "extra-shared-lookup-maps.hex",
+        "extra-validation-bool.hex",
+        "extra-validation-product.hex",
+        "remapped-boundary-sequence.hex"
+      ],
+      "changed": 23,
+      "unchanged": 22
+    },
+    {
+      "corpus": "binding-orders",
+      "test": "TestCheckerAgreementWithRustCLIBindingOrders",
+      "selected_files": [
+        "binding-vc-ordered_map.hex",
+        "binding-vc-ordered_set.hex",
+        "boundary-map-compound.hex",
+        "boundary-map-decimal.hex",
+        "boundary-map-string.hex",
+        "boundary-set-decimal.hex",
+        "extra-bool-float-map.hex",
+        "extra-bool-nullable-map.hex",
+        "extra-shared-lookup-maps.hex"
+      ],
+      "changed": 9,
+      "unchanged": 0
+    }
+  ],
+  "byte_sets": [
+    {
+      "representative": "binding-relations/binding-vc-bounded_sequence.hex",
+      "identical_occurrences": [
+        "binding-relations/binding-vc-bounded_sequence.hex"
+      ],
+      "raw_bytes_sha256": "6ee62c45ad46d5d11846f6bcbf0499f4b771b76859e4cf0ead6ad49f2d4f95a9",
+      "certificate_sha256": "cd0b996afe31e0e7955d1e117667b2547b146d5f1f4fbe3489d55ded0a536f57"
+    },
+    {
+      "representative": "binding-relations/binding-vc-money.hex",
+      "identical_occurrences": [
+        "binding-relations/binding-vc-money.hex"
+      ],
+      "raw_bytes_sha256": "064f75972472ea522ad25793e687d55efb52fdcd2af5a8d61ccb840074ec3ae5",
+      "certificate_sha256": "b8021aa53154aeb994bfa2bfaaccba780950a0b05f1ea5d8b46ff4d2b4b42fd0"
+    },
+    {
+      "representative": "binding-relations/binding-vc-ordered_map.hex",
+      "identical_occurrences": [
+        "binding-relations/binding-vc-ordered_map.hex"
+      ],
+      "raw_bytes_sha256": "4be6bb84ce23f129698b0b468a7befe1089a4356b89ed8d4eeeabbddc56e3887",
+      "certificate_sha256": "1feb2528bfb2a821ec3d2031b529ee29ce1845e7dd2a54549fc536728d0bd6dc"
+    },
+    {
+      "representative": "binding-relations/binding-vc-ordered_set.hex",
+      "identical_occurrences": [
+        "binding-relations/binding-vc-ordered_set.hex"
+      ],
+      "raw_bytes_sha256": "5b68ed4d3bc9599973ecafe24c71414895033f77b0c06810998ca01dacee3d9e",
+      "certificate_sha256": "08a48445aca1e6f385607db587f1b9a3f68dd2608e6bd4e4228e7cf2caf9f03d"
+    },
+    {
+      "representative": "binding-relations/binding-vc-transition.hex",
+      "identical_occurrences": [
+        "binding-relations/binding-vc-transition.hex"
+      ],
+      "raw_bytes_sha256": "4a55490e04de0611a761e05be6e691026235743c87371da02751a71e3d3caafa",
+      "certificate_sha256": "2ba09d7d6bc9be054c8e9cda07ff77939065ee4b5f5c04ec110b1217ea2e3899"
+    },
+    {
+      "representative": "binding-relations/binding-vc-validation.hex",
+      "identical_occurrences": [
+        "binding-relations/binding-vc-validation.hex"
+      ],
+      "raw_bytes_sha256": "29bdce7577bfb0e2591a829ff55a0ca1d6242802f6b6d1b474f5f2b03a2e535b",
+      "certificate_sha256": "fcbcf533e256bcd85fa3ab3bd663181b2fded5cf1035c625389f8237327dbd9a"
+    },
+    {
+      "representative": "binding-relations/bool-construction.hex",
+      "identical_occurrences": [
+        "binding-relations/bool-construction.hex",
+        "binding-guards/bool-construction.hex"
+      ],
+      "raw_bytes_sha256": "f5e23149094835091cfca8783ff2565df2865b282235b4b5e376f1a5aa782352",
+      "certificate_sha256": "3bc432c3da7e4e4a4e2e115236ad7e56a5aded8c6d08a8e332a17493ce4d6708"
+    },
+    {
+      "representative": "binding-relations/boundary-map-compound.hex",
+      "identical_occurrences": [
+        "binding-relations/boundary-map-compound.hex"
+      ],
+      "raw_bytes_sha256": "713f878304abcad48a0e129e6bd7859e97232cceaf287199841388ed2c7e405a",
+      "certificate_sha256": "deee70290e0dbd5d7019f82ba6985d21b96f559e4e45d5444bec22a49093b50d"
+    },
+    {
+      "representative": "binding-relations/boundary-map-decimal.hex",
+      "identical_occurrences": [
+        "binding-relations/boundary-map-decimal.hex"
+      ],
+      "raw_bytes_sha256": "8c743725a93b3c24610afffa86494705bc89ce9753870e7be522873889f71c6e",
+      "certificate_sha256": "e99d25b00a40ef1d2a20c9c50d502927ec31c34da1091adfccdeeff7a28731cf"
+    },
+    {
+      "representative": "binding-relations/boundary-map-string.hex",
+      "identical_occurrences": [
+        "binding-relations/boundary-map-string.hex"
+      ],
+      "raw_bytes_sha256": "c4b5ec1bbd101071ce8b5182c95501b9b95cf6b5ee0a4027036d510593332321",
+      "certificate_sha256": "adee4ad57f6f79497770ffd655f564b5bde014e6473ba035568483e0838b3174"
+    },
+    {
+      "representative": "binding-relations/boundary-set-decimal.hex",
+      "identical_occurrences": [
+        "binding-relations/boundary-set-decimal.hex"
+      ],
+      "raw_bytes_sha256": "df551073e369dd1009aaef747b6fa81713f4aec76077b53dd7475c9d56d4b9b0",
+      "certificate_sha256": "ecedc212800a2a909bb86db1440e2afaf3f8392dcda980ee2b3886abe3618c50"
+    },
+    {
+      "representative": "binding-relations/enum-construction.hex",
+      "identical_occurrences": [
+        "binding-relations/enum-construction.hex",
+        "binding-guards/enum-construction.hex"
+      ],
+      "raw_bytes_sha256": "08bbeb9d2f65b03bc81dfa741415b07ece0d2499a37cb904a078ea62d6632a16",
+      "certificate_sha256": "1c2bd12967f35f093ef5d9c2083c50960cc84d052233b7b783f6490fc6574c96"
+    },
+    {
+      "representative": "binding-relations/extra-bool-float-map.hex",
+      "identical_occurrences": [
+        "binding-relations/extra-bool-float-map.hex"
+      ],
+      "raw_bytes_sha256": "9fe4f3bb5b0da0745059ec346fc448637df5163febc46bf170535f3410dedd67",
+      "certificate_sha256": "9583d68aa4fd33f93a574134d79497e4d378bea5ebeef6e92c1dd09118759d4f"
+    },
+    {
+      "representative": "binding-relations/extra-bool-nullable-map.hex",
+      "identical_occurrences": [
+        "binding-relations/extra-bool-nullable-map.hex"
+      ],
+      "raw_bytes_sha256": "ab8adae02a9b02baceeb2aefd6dc3b78bfd6f0fab782f780c8cd0928c24b414a",
+      "certificate_sha256": "3a9b6a45d94070d6848b7d62984219181d82b1caf2fad4aa1f98974f4f317d2a"
+    },
+    {
+      "representative": "binding-relations/extra-shared-lookup-maps.hex",
+      "identical_occurrences": [
+        "binding-relations/extra-shared-lookup-maps.hex"
+      ],
+      "raw_bytes_sha256": "f65c2953eaf69561d125107da21c3839a4fda7ba53f2278bb86745c4c62563f2",
+      "certificate_sha256": "58d1df2db496021acc9e0118b97471ca59eb6c86bc6024e469e543e88f1e888c"
+    },
+    {
+      "representative": "binding-relations/extra-validation-bool.hex",
+      "identical_occurrences": [
+        "binding-relations/extra-validation-bool.hex"
+      ],
+      "raw_bytes_sha256": "2070e5b2efa3693923017a78eaa528400d96fd4758d82d70059b009c72ae4254",
+      "certificate_sha256": "0844f7d7b5cd1db1ee883959f138d7dfe3cbd5c02a108dad00ea598d298b3f69"
+    },
+    {
+      "representative": "binding-relations/extra-validation-product.hex",
+      "identical_occurrences": [
+        "binding-relations/extra-validation-product.hex"
+      ],
+      "raw_bytes_sha256": "082b5cb13069f489c6c0097bc662e114eb7259b048aa327124d7dbf6b417eb10",
+      "certificate_sha256": "e43b45233343d28405361c8770924982ded061ddfa516aea1373d03551a2d966"
+    },
+    {
+      "representative": "binding-relations/float-sequence.hex",
+      "identical_occurrences": [
+        "binding-relations/float-sequence.hex",
+        "binding-guards/float-sequence.hex"
+      ],
+      "raw_bytes_sha256": "ab6d23e83df81e14935d36af7b1f68e6025da803ecb314c78fee6a447408c3ed",
+      "certificate_sha256": "4f13ad2fb211c34b444b32f835b2fc4bb0977c812d689b9672ded1ddcdba5b22"
+    },
+    {
+      "representative": "binding-relations/nested-box.hex",
+      "identical_occurrences": [
+        "binding-relations/nested-box.hex",
+        "binding-guards/nested-box.hex"
+      ],
+      "raw_bytes_sha256": "be1f863de2337906a3312df835611da2b8644ca35e41fd18c59300cda52c845f",
+      "certificate_sha256": "f70afcf33780639924ed9330a503603760cda1bcf5574d55f1f799a3643c4948"
+    },
+    {
+      "representative": "binding-relations/nullable-string-default.hex",
+      "identical_occurrences": [
+        "binding-relations/nullable-string-default.hex",
+        "binding-guards/nullable-string-default.hex"
+      ],
+      "raw_bytes_sha256": "7018feb9eab95b5ea1e5139dfca612d3edac1e39f4f1ee1859a8849d287db1c4",
+      "certificate_sha256": "3a47a1095d79869d6b4ca19b2126a31d178481a09f866582be57cc818af01049"
+    },
+    {
+      "representative": "binding-relations/product-construction.hex",
+      "identical_occurrences": [
+        "binding-relations/product-construction.hex",
+        "binding-guards/product-construction.hex"
+      ],
+      "raw_bytes_sha256": "8034dfcfbf391d7297e18366e318f89ae7bfa59942c16743534bb175c3ae0bb2",
+      "certificate_sha256": "519caf9b773434ac0effc2b3e0338ffebaab018f58b4e349fc7c9ab0b1efa356"
+    },
+    {
+      "representative": "binding-relations/remapped-boundary-sequence.hex",
+      "identical_occurrences": [
+        "binding-relations/remapped-boundary-sequence.hex"
+      ],
+      "raw_bytes_sha256": "49f5d4aef0633d51616797f98f7f6edac7f900511467ac465be02f35cad522ac",
+      "certificate_sha256": "49c767eba8a0a4bee3f93fdbf0770e687ba44eebb8be42a3af229c44b98f36d0"
+    },
+    {
+      "representative": "binding-relations/string.hex",
+      "identical_occurrences": [
+        "binding-relations/string.hex",
+        "binding-guards/string.hex"
+      ],
+      "raw_bytes_sha256": "8e7920cfda62788bbead0773ffef0d19f57393b1553d25fc7f7dde684d079526",
+      "certificate_sha256": "92ac3c373d42c2a68b1d9aa93fac08d69078e066388e95f4e5dbc14e25da6f20"
+    },
+    {
+      "representative": "binding-guards/binding-vc-bounded_sequence.hex",
+      "identical_occurrences": [
+        "binding-guards/binding-vc-bounded_sequence.hex"
+      ],
+      "raw_bytes_sha256": "ef42c272693d795b4e5978eb8e1c730f471871c89b0ddae6d7f23a2a39d32cb0",
+      "certificate_sha256": "92e4e82ff4528b4538b607c5d5c437a02a081cea815a8429ef3a5ce52cfd474e"
+    },
+    {
+      "representative": "binding-guards/binding-vc-money.hex",
+      "identical_occurrences": [
+        "binding-guards/binding-vc-money.hex"
+      ],
+      "raw_bytes_sha256": "ce548559c517f84e8c7a269515150ff4d3676eeb49df0a423efccc94f3c8fe6f",
+      "certificate_sha256": "ce97495b60259134de25e512cb852f0d50ba882e32c3b3a1fc4f9a91ac35206b"
+    },
+    {
+      "representative": "binding-guards/binding-vc-ordered_map.hex",
+      "identical_occurrences": [
+        "binding-guards/binding-vc-ordered_map.hex"
+      ],
+      "raw_bytes_sha256": "df3d444755ee54ec2513e6e8affb5397617470c991c5fcfed4d5184c6162e621",
+      "certificate_sha256": "135fc26ee5d7f13d3759c00d46cacffc0808b5bff77ffbeca2ee28b1ae34d90e"
+    },
+    {
+      "representative": "binding-guards/binding-vc-ordered_set.hex",
+      "identical_occurrences": [
+        "binding-guards/binding-vc-ordered_set.hex"
+      ],
+      "raw_bytes_sha256": "afa4ed6cdb13a10f6d6324b3af802e977346e31c0205b334baec9a378f2ddf30",
+      "certificate_sha256": "83a39e2dc508c062c41e500de74d6ca097dd9a93d74725761e8fa25681b9ce9f"
+    },
+    {
+      "representative": "binding-guards/binding-vc-transition.hex",
+      "identical_occurrences": [
+        "binding-guards/binding-vc-transition.hex"
+      ],
+      "raw_bytes_sha256": "c4a1771096660c88bfcb1036059145fd6eab03371438504f93a598fe09dc784f",
+      "certificate_sha256": "41799adf66db8f60356d3ade629c0337cf6158d465f892a46a4c1324971cf259"
+    },
+    {
+      "representative": "binding-guards/binding-vc-validation.hex",
+      "identical_occurrences": [
+        "binding-guards/binding-vc-validation.hex"
+      ],
+      "raw_bytes_sha256": "1765d275ffe7cbc21dbf036bedf28f6d6aca742aff446dac0b4e12ce032985e2",
+      "certificate_sha256": "b76a228aedf797a2424d4f675a3562a4777b349fb2743e0f9f74a4c0b9681b7c"
+    },
+    {
+      "representative": "binding-guards/boundary-map-compound.hex",
+      "identical_occurrences": [
+        "binding-guards/boundary-map-compound.hex"
+      ],
+      "raw_bytes_sha256": "ef56276706e2a40aef53b64f0f45cea8582ad42db5ebb5d4cf3ebaf568bbdc90",
+      "certificate_sha256": "ada88ce8a6c34be8ae7dff7f2486151b62b34e404fef413829e4d80290a5c037"
+    },
+    {
+      "representative": "binding-guards/boundary-map-decimal.hex",
+      "identical_occurrences": [
+        "binding-guards/boundary-map-decimal.hex"
+      ],
+      "raw_bytes_sha256": "58aaa0429d46506009cf14e916cad68b3e1952e8f06533c0451009fcb5dedbbb",
+      "certificate_sha256": "9bddb15a2dbe50d80eab53c929d6be74722744ff6c1b747a0abd28229635e5b4"
+    },
+    {
+      "representative": "binding-guards/boundary-map-string.hex",
+      "identical_occurrences": [
+        "binding-guards/boundary-map-string.hex"
+      ],
+      "raw_bytes_sha256": "2ce6cc4be72615cfd22b468191a7e3f34557619c5d15e6a539d7589a7d32155c",
+      "certificate_sha256": "6571e7943c2d4c92a5c3b4006c300bb0231a0dedad115e3058d694d8914574c0"
+    },
+    {
+      "representative": "binding-guards/boundary-set-decimal.hex",
+      "identical_occurrences": [
+        "binding-guards/boundary-set-decimal.hex"
+      ],
+      "raw_bytes_sha256": "224afb9a5377e2f8fcd16a90730817457e7d1478bc60febda5df436b3efe35e9",
+      "certificate_sha256": "79557c0b93a82088da6b548d05941022620fd0d44c78cea3b9d1d6b53ccef98a"
+    },
+    {
+      "representative": "binding-guards/extra-bool-float-map.hex",
+      "identical_occurrences": [
+        "binding-guards/extra-bool-float-map.hex"
+      ],
+      "raw_bytes_sha256": "208802b1013a3577e66b5db75594296d83b7b13c36f087751adac99e64ef7586",
+      "certificate_sha256": "1176f1dc9ac5475b672f07e71d6a4a52141366b33d8cf836a13a10d415dfab32"
+    },
+    {
+      "representative": "binding-guards/extra-bool-nullable-map.hex",
+      "identical_occurrences": [
+        "binding-guards/extra-bool-nullable-map.hex"
+      ],
+      "raw_bytes_sha256": "fa3b6717b1e34b1f7cd09817c79fec9ced035980879b93fa77dbb9a6427c3115",
+      "certificate_sha256": "d9ed3cafac1e66438d57dc6c1850ab187be5a1636534b7730d62dc21a2410d45"
+    },
+    {
+      "representative": "binding-guards/extra-shared-lookup-maps.hex",
+      "identical_occurrences": [
+        "binding-guards/extra-shared-lookup-maps.hex"
+      ],
+      "raw_bytes_sha256": "24740cab35b328b547029cc5fd8969496ad866cf464b4d2ce6aeb913a1cb8342",
+      "certificate_sha256": "b2a3a763f16c2fa774d7959518ef13d9f9f5bc0224b49ce2654d7da9ed467c15"
+    },
+    {
+      "representative": "binding-guards/extra-validation-bool.hex",
+      "identical_occurrences": [
+        "binding-guards/extra-validation-bool.hex"
+      ],
+      "raw_bytes_sha256": "3bd35cbc206094f030afa0fa4b37d65e2e45f1a456ad2d621ed84230882ee841",
+      "certificate_sha256": "0f3c653cd9ccd165ec69b2ac79b58558381491aa8fb9d1c95f8f2588be4be4b7"
+    },
+    {
+      "representative": "binding-guards/extra-validation-product.hex",
+      "identical_occurrences": [
+        "binding-guards/extra-validation-product.hex"
+      ],
+      "raw_bytes_sha256": "0aad3659d13e2d0a57e1f664980b720ac789642c4b82bcf6f71dd43548c5579c",
+      "certificate_sha256": "4aafbaf9fe8c352b3cfa494629e3d8af166c8587d8e50b664e80d3726e365ec1"
+    },
+    {
+      "representative": "binding-guards/remapped-boundary-sequence.hex",
+      "identical_occurrences": [
+        "binding-guards/remapped-boundary-sequence.hex"
+      ],
+      "raw_bytes_sha256": "b5bcafbfa0f603bf4c51ef4ea28d19feed6b0fb7a607489759a87ae1d811d8b2",
+      "certificate_sha256": "e4afefcf474ee1c954b9b998a0f58c03af3b63e5c9d3a5500f70fcc30c092738"
+    },
+    {
+      "representative": "binding-orders/binding-vc-ordered_map.hex",
+      "identical_occurrences": [
+        "binding-orders/binding-vc-ordered_map.hex"
+      ],
+      "raw_bytes_sha256": "4679647f3439f3567d04652cd552d797aa20d31ae2574fc65a1836b7318fb506",
+      "certificate_sha256": "be57a07f3747961f1ec30a4ef67780e8e4b6c9a7a372bd8fd5dc35e237c07a82"
+    },
+    {
+      "representative": "binding-orders/binding-vc-ordered_set.hex",
+      "identical_occurrences": [
+        "binding-orders/binding-vc-ordered_set.hex"
+      ],
+      "raw_bytes_sha256": "77841a458c82a86ef60f09e24fa1503557e7dc73f5b205662b37b6a0db72d152",
+      "certificate_sha256": "04eddd07580adc9fa57f9d6b3e3caae3d04a310f220d9486792faf7bc9d60e72"
+    },
+    {
+      "representative": "binding-orders/boundary-map-compound.hex",
+      "identical_occurrences": [
+        "binding-orders/boundary-map-compound.hex"
+      ],
+      "raw_bytes_sha256": "34a38a3ec7c907fbbccd45790e6a171b02d89223640b45372271827ed0571a06",
+      "certificate_sha256": "ca68512770d18ccfa25d883ca15e1b2b47736483aa7b80e879682b1b579484cb"
+    },
+    {
+      "representative": "binding-orders/boundary-map-decimal.hex",
+      "identical_occurrences": [
+        "binding-orders/boundary-map-decimal.hex"
+      ],
+      "raw_bytes_sha256": "35646c5442599d78f42072fee03b2e8b995b6b95279b71b6d641acaf8c2fcb70",
+      "certificate_sha256": "f6ca743fe06cfb5da545dc809cf12aec2ed47440752b774ea4f31896601f5dd8"
+    },
+    {
+      "representative": "binding-orders/boundary-map-string.hex",
+      "identical_occurrences": [
+        "binding-orders/boundary-map-string.hex"
+      ],
+      "raw_bytes_sha256": "4c5fb8476429b6b143d3d46032ef0cfca4e1af9517952ad531299edb01e8906c",
+      "certificate_sha256": "5e36287aea398eaafeb412b007ef8b03651f0aa25e0dc7c1897ab6ed28ab4e07"
+    },
+    {
+      "representative": "binding-orders/boundary-set-decimal.hex",
+      "identical_occurrences": [
+        "binding-orders/boundary-set-decimal.hex"
+      ],
+      "raw_bytes_sha256": "060251126a0e51f17506121a6427dded2aa5e44663578a2f7765d834ebb64deb",
+      "certificate_sha256": "11bf4b303662eded336089af2b8b8f5d6e421ffa904f8ab0d64eb47cb12e942c"
+    },
+    {
+      "representative": "binding-orders/extra-bool-float-map.hex",
+      "identical_occurrences": [
+        "binding-orders/extra-bool-float-map.hex"
+      ],
+      "raw_bytes_sha256": "2cbb303d8890aceb60643d3ad99cfaa779701aead2fcdab3ad4c5774e03787b1",
+      "certificate_sha256": "8683c4406636b1dda45df548e26052ad83692b2215ceec7346ea6962ebc52f94"
+    },
+    {
+      "representative": "binding-orders/extra-bool-nullable-map.hex",
+      "identical_occurrences": [
+        "binding-orders/extra-bool-nullable-map.hex"
+      ],
+      "raw_bytes_sha256": "0562e5ce006a36fcacb6239de5c49cbc7b8411c822ac9c96c595dcd914e6bcd3",
+      "certificate_sha256": "ff3f850343b41df42007bf48fccfed07bfaa06376088869a1e3249dea7286b62"
+    },
+    {
+      "representative": "binding-orders/extra-shared-lookup-maps.hex",
+      "identical_occurrences": [
+        "binding-orders/extra-shared-lookup-maps.hex"
+      ],
+      "raw_bytes_sha256": "dce102226111bfd44ba1b5c6a3fc967edac0a90aa6294425eb0dd0e054e19da3",
+      "certificate_sha256": "81beb0832feb91fb0bca622507f2f1d01d53027964af2eefd1f335342c47342c"
+    }
+  ],
+  "temporary_backup": "/tmp/mpk-w09-before-unit4-count-pin-refresh",
+  "inspector_sha256": "a753e50d9676a30e6a5cf344d77ba783abdc9eac9f228f566fe62f3a38cefacd",
+  "full_gate": "deferred_to_T06_W12",
+  "checker_runs": [
+    {
+      "test": "TestCheckerAgreementWithRustCLIBindingRelations",
+      "command": [
+        "go",
+        "test",
+        "-tags=checkeragreement",
+        "-count=1",
+        "-timeout=0",
+        "-run",
+        "^TestCheckerAgreementWithRustCLIBindingRelations$/^(binding\\-vc\\-bounded_sequence\\.hex|binding\\-vc\\-money\\.hex|binding\\-vc\\-ordered_map\\.hex|binding\\-vc\\-ordered_set\\.hex|binding\\-vc\\-transition\\.hex|binding\\-vc\\-validation\\.hex|bool\\-construction\\.hex|boundary\\-map\\-compound\\.hex|boundary\\-map\\-decimal\\.hex|boundary\\-map\\-string\\.hex|boundary\\-set\\-decimal\\.hex|enum\\-construction\\.hex|extra\\-bool\\-float\\-map\\.hex|extra\\-bool\\-nullable\\-map\\.hex|extra\\-shared\\-lookup\\-maps\\.hex|extra\\-validation\\-bool\\.hex|extra\\-validation\\-product\\.hex|float\\-sequence\\.hex|nested\\-box\\.hex|nullable\\-string\\-default\\.hex|product\\-construction\\.hex|remapped\\-boundary\\-sequence\\.hex|string\\.hex)$",
+        "-v",
+        "."
+      ],
+      "selected_files": [
+        "binding-vc-bounded_sequence.hex",
+        "binding-vc-money.hex",
+        "binding-vc-ordered_map.hex",
+        "binding-vc-ordered_set.hex",
+        "binding-vc-transition.hex",
+        "binding-vc-validation.hex",
+        "bool-construction.hex",
+        "boundary-map-compound.hex",
+        "boundary-map-decimal.hex",
+        "boundary-map-string.hex",
+        "boundary-set-decimal.hex",
+        "enum-construction.hex",
+        "extra-bool-float-map.hex",
+        "extra-bool-nullable-map.hex",
+        "extra-shared-lookup-maps.hex",
+        "extra-validation-bool.hex",
+        "extra-validation-product.hex",
+        "float-sequence.hex",
+        "nested-box.hex",
+        "nullable-string-default.hex",
+        "product-construction.hex",
+        "remapped-boundary-sequence.hex",
+        "string.hex"
+      ],
+      "log": "binding-relations-checker.log",
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 1887.522,
+      "log_sha256": "5c9b7aa44590bcdee6b54f3017abf791256c723770e9c337dbb5796e5e05da23"
+    },
+    {
+      "test": "TestCheckerAgreementWithRustCLIBindingGuards",
+      "command": [
+        "go",
+        "test",
+        "-tags=checkeragreement",
+        "-count=1",
+        "-timeout=0",
+        "-run",
+        "^TestCheckerAgreementWithRustCLIBindingGuards$/^(binding\\-vc\\-bounded_sequence\\.hex|binding\\-vc\\-money\\.hex|binding\\-vc\\-ordered_map\\.hex|binding\\-vc\\-ordered_set\\.hex|binding\\-vc\\-transition\\.hex|binding\\-vc\\-validation\\.hex|boundary\\-map\\-compound\\.hex|boundary\\-map\\-decimal\\.hex|boundary\\-map\\-string\\.hex|boundary\\-set\\-decimal\\.hex|extra\\-bool\\-float\\-map\\.hex|extra\\-bool\\-nullable\\-map\\.hex|extra\\-shared\\-lookup\\-maps\\.hex|extra\\-validation\\-bool\\.hex|extra\\-validation\\-product\\.hex|remapped\\-boundary\\-sequence\\.hex)$",
+        "-v",
+        "."
+      ],
+      "selected_files": [
+        "binding-vc-bounded_sequence.hex",
+        "binding-vc-money.hex",
+        "binding-vc-ordered_map.hex",
+        "binding-vc-ordered_set.hex",
+        "binding-vc-transition.hex",
+        "binding-vc-validation.hex",
+        "boundary-map-compound.hex",
+        "boundary-map-decimal.hex",
+        "boundary-map-string.hex",
+        "boundary-set-decimal.hex",
+        "extra-bool-float-map.hex",
+        "extra-bool-nullable-map.hex",
+        "extra-shared-lookup-maps.hex",
+        "extra-validation-bool.hex",
+        "extra-validation-product.hex",
+        "remapped-boundary-sequence.hex"
+      ],
+      "log": "binding-guards-checker.log",
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 1220.09,
+      "log_sha256": "cc384ee533f80e1ff46d30e2c084629d7a4346710f078b2d4f34986226b4e4a2"
+    },
+    {
+      "test": "TestCheckerAgreementWithRustCLIBindingOrders",
+      "command": [
+        "go",
+        "test",
+        "-tags=checkeragreement",
+        "-count=1",
+        "-timeout=0",
+        "-run",
+        "^TestCheckerAgreementWithRustCLIBindingOrders$/^(binding\\-vc\\-ordered_map\\.hex|binding\\-vc\\-ordered_set\\.hex|boundary\\-map\\-compound\\.hex|boundary\\-map\\-decimal\\.hex|boundary\\-map\\-string\\.hex|boundary\\-set\\-decimal\\.hex|extra\\-bool\\-float\\-map\\.hex|extra\\-bool\\-nullable\\-map\\.hex|extra\\-shared\\-lookup\\-maps\\.hex)$",
+        "-v",
+        "."
+      ],
+      "selected_files": [
+        "binding-vc-ordered_map.hex",
+        "binding-vc-ordered_set.hex",
+        "boundary-map-compound.hex",
+        "boundary-map-decimal.hex",
+        "boundary-map-string.hex",
+        "boundary-set-decimal.hex",
+        "extra-bool-float-map.hex",
+        "extra-bool-nullable-map.hex",
+        "extra-shared-lookup-maps.hex"
+      ],
+      "log": "binding-orders-checker.log",
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 657.668,
+      "log_sha256": "6b39c7faec32a37feb6d4883b84d6761e4936b933f84a16cef526e6d8e77b107"
+    }
+  ],
+  "pinned_replay": "pinned-replay.json",
+  "hash_label_correction": "Initial byte-set deduplication stored raw SHA-256 under certificate_sha256. This receipt now records raw_bytes_sha256 separately and recomputes the MPK-MODULE-CERT-0.1 domain-separated certificate hash. Deduplication and checked bytes are unchanged."
+}

@@ -1,0 +1,49 @@
+from pathlib import Path
+import hashlib,json,os,subprocess,time,sys
+repo=Path('/Users/kazuyoshitoshiya/mpk');root=repo/'develop/migrations/csharp-03/ordinary-foundation';evidence=root/'verification-logs/binding-conditions'
+mode=sys.argv[1]
+receipt_path=evidence/(mode+'-verification.json')
+receipt=dict(supervisor_pid=os.getpid(),status='waiting_for_build',selection_reason={'definitions':'All 45 original binding source contexts cover six representation sequent kinds, exact metadata and strict import mutation rejection, and closure/pin preservation for unchanged order/guard/public-domain consumers. Run same-byte Go/Rust checking only after the complete corpus is published.','semantics':'Four original source contexts exercise every composed sequent kind, with valid samples and invalid storage. The independent oracle interprets original VC Boolean connectives and separately preserved atomic predicates.','quality':'Targeted Clippy, five inventory tests and formatting for new private definitions/tests and changed exporters.','reconstruction-preservation':'The shared condition compiler keeps reconstruction names and terms unchanged; compare all 45 generated complete certificate bytes and metadata after the original semantic test has finished.'}[mode],runs=[],full_gate='deferred_to_T06_W12')
+def save():receipt_path.write_text(json.dumps(receipt,indent=2)+'\n')
+def read(path):
+ try:return json.loads(path.read_text())
+ except (FileNotFoundError,json.JSONDecodeError):return {}
+def wait_passed(path):
+ while True:
+  d=read(path)
+  if d.get('status')=='passed':return d
+  if d.get('status') in ['failed','interrupted_not_passed']:raise RuntimeError('prerequisite failed: '+str(path))
+  time.sleep(30)
+def run(label,command,cwd,env,expected=None):
+ log=evidence/(label+'.log');row=dict(label=label,command=command,status='running',log=log.name);receipt['status']='running';receipt['runs'].append(row);save();start=time.monotonic()
+ with log.open('wb') as f:
+  p=subprocess.Popen(command,cwd=cwd,env=env,stdout=f,stderr=subprocess.STDOUT);row['pid']=p.pid;save();code=p.wait()
+ passed=code==0
+ if expected is not None:passed &= all(s in log.read_text() for s in expected)
+ row.update(status='passed' if passed else 'failed',exit_code=code,elapsed_seconds=round(time.monotonic()-start,3),log_sha256=hashlib.sha256(log.read_bytes()).hexdigest());save()
+ if not passed:raise RuntimeError('failed '+label)
+ print(json.dumps(row),flush=True)
+save()
+try:
+ build=wait_passed(evidence/'build.json');binary=build['binary'];assert build['sources_unchanged_during_build'];assert hashlib.sha256(Path(binary).read_bytes()).hexdigest()==build['binary_sha256'];receipt['binary_sha256']=build['binary_sha256'];receipt['build']='build.json';save()
+ env=os.environ.copy();env.update(build['profile']);env['GOCACHE']='/tmp/mpk-w09-unit4-go-cache'
+ if mode=='definitions':
+  env['MPK_W09_BINDING_CONDITIONS_OUT']=str(root/'binding-conditions')
+  test='csharp_03_t06_w09_binding_conditions_original_source_certificates';run('definitions',[binary,test,'--nocapture','--test-threads=1'],repo,env,['test result: ok. 1 passed; 0 failed;'])
+  manifest=read(root/'binding-conditions/certificates.json');assert len(manifest['sources'])==45
+  receipt['certificate_corpus']={r['id']:r['metadata']['certificate_sha256'] for r in manifest['sources']};save()
+  test='TestCheckerAgreementWithRustCLIBindingConditions';run('checkers',['go','test','-tags=checkeragreement','-count=1','-timeout=0','-run','^'+test+'$','-v','.'],repo/'go-tools/mpk-checker-ref',env,['--- PASS: '+test+'/'+r['id']+'.hex ' for r in manifest['sources']])
+ elif mode=='semantics':
+  run('semantics',[binary,'csharp_03_t06_w09_binding_conditions_original_sequents','--nocapture','--test-threads=1'],repo,env,['test result: ok. 1 passed; 0 failed;'])
+ elif mode=='quality':
+  run('clippy',['cargo','clippy','-p','mpk-vc','--test','csharp_practical_vc','--','-D','warnings'],repo,env)
+  run('inventory',['cargo','test','-p','mpk-vc','--test','csharp_practical_inventory'],repo,env,['test result: ok. 5 passed; 0 failed;'])
+  run('format',['cargo','fmt','--all','--','--check'],repo,env)
+ elif mode=='reconstruction-preservation':
+  receipt['status']='waiting_for_reconstruction_semantics';save();wait_passed(root/'verification-logs/binding-reconstruction/member-id-fix-verification.json')
+  run('reconstruction-preservation',[binary,'csharp_03_t06_w09_binding_reconstruction_condition_compiler_preserves_pins','--nocapture','--test-threads=1'],repo,env,['test result: ok. 1 passed; 0 failed;'])
+ receipt['status']='passed'
+except Exception as e:receipt['status']='failed';receipt['failure']=str(e)
+save()
+
+sys.exit(0 if receipt['status']=='passed' else 1)

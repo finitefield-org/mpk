@@ -1,0 +1,10 @@
+=== RUN   TestCheckerAgreementWithRustCLIDecimalJsonCollectionShared
+=== RUN   TestCheckerAgreementWithRustCLIDecimalJsonCollectionShared/collection-json-decimal.hex
+    checker_agreement_test.go:395: Go accepted: certificate=e2b539c5fabb063763256d20bf577c998019db7648c81ba807a61dafc1420bff declarations=1837 axioms=0 elapsed=2m49.726108666s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=60ce35e55dfd9ed09d83a2528d940651ae3a71f487064ecdd389b8aec580129e axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=10.410718584s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=2m28.237421208s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=8.359642s
+--- PASS: TestCheckerAgreementWithRustCLIDecimalJsonCollectionShared (336.76s)
+    --- PASS: TestCheckerAgreementWithRustCLIDecimalJsonCollectionShared/collection-json-decimal.hex (336.76s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	336.851s

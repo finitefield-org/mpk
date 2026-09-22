@@ -1,0 +1,48 @@
+{
+  "status": "passed",
+  "supervisor_pid": 6517,
+  "selection_reason": "Initial Clippy passed. Inventory found the new default test as one additional Std namespace consumer; preserve the exact previous 143-path fingerprint, add only that test, update 144 paths and total 4967, rerun all five inventory tests and pending format. No other Rust source, certificate or semantic oracle changed.",
+  "source_changes_since_build": {
+    "crates/mpk-vc/tests/csharp_practical_inventory.rs": "bd806262a3689ffec09fc489b623a1afa0eb6ba113de40d0e0733676cb58c28c"
+  },
+  "metadata_hashes": {
+    "develop/migrations/csharp-03/artifact-consumer-inventory.json": "ab947a1a62b9954673e6165100c31291f450fa7718390edfb12000244364aff7",
+    "develop/migrations/csharp-03/data-phase/historical-inventory-cache-correction.json": "79a73e1b25d1240ee78ce3a07faacbe44fef6a70d1f4e1b724ea237778949395"
+  },
+  "runs": [
+    {
+      "label": "inventory-fixed",
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_inventory"
+      ],
+      "status": "passed",
+      "log": "inventory-fixed.log",
+      "pid": 6518,
+      "exit_code": 0,
+      "elapsed_seconds": 5.269184416974895,
+      "log_sha256": "a52472ceb944283926cc07302bb391af73efa9106bdfc5e32e283b10be79c022"
+    },
+    {
+      "label": "format-fixed",
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "status": "passed",
+      "log": "format-fixed.log",
+      "pid": 6540,
+      "exit_code": 0,
+      "elapsed_seconds": 5.78427320800256,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "full_gate": "deferred_to_T06_W12"
+}

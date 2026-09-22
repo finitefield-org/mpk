@@ -2,7 +2,7 @@
   "schema": "mpk.csharp_practical.w09.json_cell_count_progress.v1",
   "work_item": "CSHARP-03-T06-W09",
   "internal_unit": 4,
-  "status": "all_corrected_source_runtime_and_helper_checks_passed_changed_source_checkers_running",
+  "status": "all_corrected_source_runtime_changed_source_checker_results_and_scoped_review_passed",
   "finding": "Old typed JSON limit16384 and string1-cell accounting conflict with frozen TOTAL_VALUE_CELLS_MAX65536 and String1+UTF16-unit accounting.",
   "authoritative_sources": [
     "crates/mpk-vc/src/csharp_practical_vir_model.rs:TOTAL_VALUE_CELLS_MAX and validate_value_inner String branch",
@@ -208,11 +208,10 @@
   "test_selection": "Exercise changed cell arithmetic,stored UTF16 length and affected string-containing consumers. Regenerate all callers of typed JSON value/product emitters to establish exactly which canonical bytes changed;rerun both checkers only for changed vectors. Existing lexical/format/parser/source-capture implementations and independent boundary MissingRule/NullRule paths are unchanged and not rerun. Old live capacity runs finish without restarts;their scope must be reconciled with corrected bytes rather than called current acceptance. No check-fast or split whole gate.",
   "review": "unit-4-json-cell-count-review.md",
   "pending": [
-    "Consume changed-only source checker runner; retain exact hashes and terminal results without repeating successful unchanged groups.",
-    "Consume independent domain runs. Original numeric array capacity has passed; its historical scope is reconciled in unit-4-json-cell-count-capacity-scope.md.",
-    "Close JSON semantic finding after all corrected-byte checks and direct review; complete remaining unit3/4 boundary work and W09 native/control/replay/proof/assembly/acceptance scope."
+    "Complete the unit 4 definition-family, dependency, failure-order and cumulative-limit coverage audit.",
+    "Complete remaining unit 3/4 boundary coverage and the W09 native/control/replay/proof/assembly/acceptance scope."
   ],
-  "completion": "Affected JSON reviews reopened;unit4 and W09 incomplete;no component-only commit/push. T whole gate deferred to T06-W12.",
+  "completion": "The typed-cell correction and its scoped review are complete. Unit4 and W09 remain incomplete;no component-only commit/push. T whole gate deferred to T06-W12.",
   "goal_turn_classification": "Progress after previous acknowledgement-only turn: revalidated three live handles; corrected encoded circuit-name matching in the new direct-definition audit; compared all 4387 array/sum declarations; passed shared-comparator regression, lint and format; recorded terminal historical Validation and Map/Set evidence with explicit current-byte limitations.",
   "replacement_manifest": "unit-4-json-cell-count-replacements.json",
   "changed_checker_scope": "22 changed source vectors plus one changed all-scalar vector and one new string-cell helper;five byte-identical source vectors skipped.",
@@ -286,5 +285,8 @@
       "day-error.hex": "0a8acfc29012fc868f1f0e36ddc1d04ede919eac167e40a02e6489d8ed9774ef"
     }
   },
-  "changed_checker_results_status": "All changed exact candidates now pass both unchanged checkers;candidate hashes and retained PASS sets reconciled. Historical compile interruption was not proof rejection."
+  "changed_checker_results_status": "All changed exact candidates now pass both unchanged checkers;candidate hashes and retained PASS sets reconciled. Historical compile interruption was not proof rejection.",
+  "terminal_evidence_reconciliation": "verification-logs/json-cell-count/terminal-evidence-reconciliation.json",
+  "review_status": "passed_scoped_review_no_open_finding",
+  "review_revalidation": "Independently matched all 22 current certificates.json/certificate.json certificate_sha256 values and every referenced retained log SHA-256 to terminal-evidence-reconciliation.json."
 }

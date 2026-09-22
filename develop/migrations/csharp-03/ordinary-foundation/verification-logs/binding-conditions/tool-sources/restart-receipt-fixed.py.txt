@@ -1,0 +1,30 @@
+from pathlib import Path
+import hashlib,json,os,shutil,subprocess,time,sys,re
+repo=Path('/Users/kazuyoshitoshiya/mpk');root=repo/'develop/migrations/csharp-03/ordinary-foundation';e=root/'verification-logs';mode=sys.argv[1]
+def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+profile=dict(CARGO_TARGET_DIR='/tmp/mpk-w09-optimized-target',CARGO_PROFILE_TEST_OPT_LEVEL='2',CARGO_PROFILE_TEST_DEBUG='0',CARGO_PROFILE_TEST_DEBUG_ASSERTIONS='true',CARGO_PROFILE_TEST_OVERFLOW_CHECKS='true',CARGO_INCREMENTAL='0')
+env=os.environ.copy();env.update(profile)
+if mode=='build':
+ base=json.loads((e/'binding-conditions/build.json').read_text());assert all(sha(repo/p)==h for p,h in base['source_sha256'].items())
+ receipt=e/'binding-conditions/build.json';log=e/'binding-conditions/build-clean.log';command=['cargo','test','-p','mpk-vc','--test','csharp_practical_vc','--no-run'];record={k:v for k,v in base.items() if k not in ['status','log','interruption_evidence','exit_code','elapsed_seconds','log_sha256','pid','supervisor_pid']};record.update(profile=profile,status='running',log=log.name,cache_recovery='Disable incremental code generation after interrupted LLVM cache caused undefined local symbols at link; retain optimization and both assertion settings.',supervisor_pid=os.getpid(),resumed_after='../interrupted-20260922T1016Z/interruption.json')
+else:
+ binary=Path('/tmp/mpk-w09-reconstruction-member-id-61a5b3d0a992')
+ assert sha(binary)=='61a5b3d0a992cf84ae4837691e9e8613cc6001132494dcb76362b377ba17fd81'
+ if mode=='reconstruction':
+  receipt=e/'binding-reconstruction/member-id-fix-verification.json';base=json.loads(receipt.read_text());base['interrupted_runs']=[r for r in base['runs'] if r['status']!='passed'];base['runs']=[r for r in base['runs'] if r['status']=='passed'];base['status']='running';base['supervisor_pid']=os.getpid();base['resumed_after']='../interrupted-20260922T1016Z/interruption.json';base['resume_binary']=str(binary);record=base
+  log=e/'binding-reconstruction/full-resumed.log';test='csharp_03_t06_w09_binding_reconstruction_original_sources';command=[str(binary),test,'--nocapture','--test-threads=1'];env['MPK_W09_BINDING_RECONSTRUCTION_OUT']=str(root/'binding-reconstruction')
+  run=dict(test=test,status='running',log=log.name,command=command);record['runs'].append(run)
+ else:
+  assert mode=='decimal';receipt=e/'binding-reconstruction/decimal-fixed-formats-resumed.json';log=e/'binding-reconstruction/decimal-fixed-formats-resumed.log';test='csharp_03_t06_w09_decimal_fixed_formats_original_sources';command=[str(binary),test,'--nocapture','--test-threads=1'];record=dict(status='running',test=test,command=command,profile=profile,binary_sha256=sha(binary),supervisor_pid=os.getpid(),log=log.name,selection_reason='Resume the full original 65-context, 145-configuration and 355-observation decimal-format test after its process was interrupted. The replacement binary changes only reconstruction test metadata compared with the interrupted decimal binary; decimal production/tests are unchanged. No semantic limit or sample reduction.',resumed_after='../interrupted-20260922T1016Z/interruption.json')
+def save():receipt.write_text(json.dumps(record,indent=2)+'\n')
+save();start=time.monotonic()
+with log.open('wb') as output:
+ process=subprocess.Popen(command,cwd=repo,env=env,stdin=subprocess.DEVNULL,stdout=output,stderr=subprocess.STDOUT);record['pid']=process.pid
+ if mode=='reconstruction':run['pid']=process.pid
+ save();code=process.wait()
+fields=dict(status='passed' if code==0 else 'failed',exit_code=code,elapsed_seconds=round(time.monotonic()-start,3),log_sha256=sha(log))
+if mode=='reconstruction':run.update(fields);record['status']=fields['status']
+else:record.update(fields)
+if mode=='build' and code==0:
+ paths=re.findall(r'Executable .* \(([^\n]+)\)',log.read_text());assert len(paths)==1;binary=Path(paths[0]);digest=sha(binary);snapshot=Path('/tmp/mpk-w09-binding-conditions-'+digest[:16]);shutil.copy2(binary,snapshot);record.update(binary=str(snapshot),binary_sha256=digest,sources_unchanged_during_build=all(sha(repo/p)==h for p,h in record['source_sha256'].items()))
+save();print(json.dumps({k:v for k,v in record.items() if k not in ['source_sha256','runs','interrupted_runs']}),flush=True);sys.exit(code)

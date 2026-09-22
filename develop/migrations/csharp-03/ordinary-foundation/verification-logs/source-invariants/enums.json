@@ -1,0 +1,62 @@
+{
+  "status": "passed",
+  "supervisor_pid": 79803,
+  "profile": {
+    "CARGO_TARGET_DIR": "/tmp/mpk-w09-optimized-target",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "2",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0"
+  },
+  "runs": [
+    {
+      "label": "enum-bits",
+      "command": [
+        "/tmp/mpk-w09-source-invariants-unit-705a01ad0eea71fe",
+        "csharp_03_t06_w09_source_invariant_enum_underlying_bits",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "status": "passed",
+      "log": "enum-bits.log",
+      "pid": 79808,
+      "exit_code": 0,
+      "elapsed_seconds": 0.552,
+      "log_sha256": "c7d5a69cbd2e7deacdb1e32d3c58279a20ed5e2065a10d7edb57b60c318c501b"
+    },
+    {
+      "label": "enum-checkers",
+      "command": [
+        "go",
+        "test",
+        "-tags=checkeragreement",
+        "-count=1",
+        "-timeout=0",
+        "-run",
+        "^TestCheckerAgreementWithRustCLISourceInvariantEnums$",
+        "-v",
+        "."
+      ],
+      "status": "passed",
+      "log": "enum-checkers.log",
+      "pid": 79814,
+      "exit_code": 0,
+      "elapsed_seconds": 410.827,
+      "log_sha256": "eb97cf6f30b8194ce26262486d8c257f0a56b11b958831211ca5319288f85cb6"
+    }
+  ],
+  "full_gate": "deferred_to_T06_W12",
+  "selection_reason": "Independent per-bit sensitivity over all eight signed/unsigned enum widths, boundary values and unlisted bit patterns; one definition-only helper certificate checked by both checkers.",
+  "build": "build.json",
+  "binaries": {
+    "unit": {
+      "path": "/tmp/mpk-w09-source-invariants-unit-705a01ad0eea71fe",
+      "sha256": "705a01ad0eea71fe0ed242f2d58c420b77dc33d3d73de548657fb5449c66aff4"
+    },
+    "integration": {
+      "path": "/tmp/mpk-w09-source-invariants-integration-aa1870c1bea6a08c",
+      "sha256": "aa1870c1bea6a08c7cb27f5d4c549bd744e0f7b5e4a6cf1f542e9ba39de84f5a"
+    }
+  }
+}

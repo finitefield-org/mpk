@@ -1,0 +1,10 @@
+=== RUN   TestCheckerAgreementWithRustCLIDecimalCodecClauses
+=== RUN   TestCheckerAgreementWithRustCLIDecimalCodecClauses/ToNegativeInfinity.hex
+    checker_agreement_test.go:395: Go accepted: certificate=1da8e5729e3a27575b17b23ab4c155335fc237de39803354675f8e8b7e2293ab declarations=1436 axioms=0 elapsed=1m39.75517625s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=eb366cccf7fed5f83612934730828489402034cb6d4f60cc73fa327548c9cf61 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=3.343022583s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=58.460140416s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=6.600135958s
+--- PASS: TestCheckerAgreementWithRustCLIDecimalCodecClauses (168.17s)
+    --- PASS: TestCheckerAgreementWithRustCLIDecimalCodecClauses/ToNegativeInfinity.hex (168.17s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	168.253s

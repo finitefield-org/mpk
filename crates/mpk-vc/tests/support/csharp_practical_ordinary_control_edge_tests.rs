@@ -3,6 +3,10 @@ use super::*;
 use std::path::PathBuf;
 #[path = "csharp_practical_ordinary_control_exception_tests.rs"]
 mod exceptions;
+#[path = "csharp_practical_ordinary_control_literal_tests.rs"]
+mod native_literals;
+#[path = "csharp_practical_ordinary_control_step_tests.rs"]
+mod steps;
 
 #[test]
 fn csharp_03_t06_w09_control_edge_phi_preserves_existing_declarations() {
@@ -461,11 +465,14 @@ fn run_native_operations(
             .iter()
             .map(|o| &o.source.node_id)
             .chain(&f.pending_native_invocation_node_ids)
+            .chain(&f.source_constructor_invocation_node_ids)
             .collect::<BTreeSet<_>>();
         assert_eq!(actual, expected);
         assert_eq!(
             actual.len(),
-            f.native_operations.len() + f.pending_native_invocation_node_ids.len()
+            f.native_operations.len()
+                + f.pending_native_invocation_node_ids.len()
+                + f.source_constructor_invocation_node_ids.len()
         );
         for o in &f.native_operations {
             assert_eq!(
@@ -1110,6 +1117,7 @@ fn preserves_existing_declarations(previous_folder: &str, strip_phis: bool) {
     let mut added = 0;
     let mut memory_records = 0;
     let mut resolved_native_operations = 0;
+    let mut resolved_alias_frames = 0;
     for file in fs::read_dir(&previous).unwrap() {
         let file = file.unwrap().path();
         if file.extension().and_then(|s| s.to_str()) != Some("hex") {
@@ -1184,6 +1192,66 @@ fn preserves_existing_declarations(previous_folder: &str, strip_phis: bool) {
                             new_edge["phi_join"] = phi.clone();
                         }
                     }
+                }
+            }
+        }
+        if previous_folder == "before-source-steps" {
+            for (old_function, new_function) in before_meta["functions"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .zip(after_meta["functions"].as_array_mut().unwrap())
+            {
+                let updated_slots = new_function
+                    .get("memory_effects")
+                    .and_then(Value::as_array)
+                    .into_iter()
+                    .flatten()
+                    .map(|effect| {
+                        let source_node_id = effect["source_node_id"].as_str().unwrap().to_owned();
+                        let updated_slot = effect["arguments"]
+                            .as_array()
+                            .unwrap()
+                            .iter()
+                            .find(|argument| argument["kind"] == "source_before_slot")
+                            .unwrap()["value_id"]
+                            .clone();
+                        (source_node_id, updated_slot)
+                    })
+                    .collect::<BTreeMap<_, _>>();
+                for (old_frame, new_frame) in old_function["source_frames"]
+                    .as_array()
+                    .unwrap()
+                    .iter()
+                    .zip(new_function["source_frames"].as_array_mut().unwrap())
+                {
+                    if old_frame["pending_reason"] != "memory_alias_frames_pending" {
+                        continue;
+                    }
+                    for field in [
+                        "source_node_id",
+                        "source_operation",
+                        "entry_node_id",
+                        "exit_node_id",
+                        "transfer",
+                        "state_rule",
+                    ] {
+                        assert_eq!(new_frame[field], old_frame[field]);
+                    }
+                    assert!(new_frame["pending_reason"].is_null());
+                    assert!(new_frame["definition"].is_string());
+                    let framed_slots = new_frame["framed_slots"].as_array().unwrap();
+                    assert!(!framed_slots.is_empty());
+                    assert_eq!(
+                        new_frame["arguments"].as_array().unwrap().len(),
+                        framed_slots.len() * 4
+                    );
+                    let updated_slot = updated_slots
+                        .get(new_frame["source_node_id"].as_str().unwrap())
+                        .unwrap();
+                    assert!(!framed_slots.contains(updated_slot));
+                    *new_frame = old_frame.clone();
+                    resolved_alias_frames += 1;
                 }
             }
         }
@@ -1318,6 +1386,26 @@ fn preserves_existing_declarations(previous_folder: &str, strip_phis: bool) {
             .iter()
             .zip(after_meta["functions"].as_array_mut().unwrap())
         {
+            if let Some(constructors) = function
+                .get("source_constructor_invocation_node_ids")
+                .and_then(Value::as_array)
+                .filter(|ids| !ids.is_empty())
+            {
+                if let Some(old_pending) = before_function
+                    .get("pending_native_invocation_node_ids")
+                    .and_then(Value::as_array)
+                    .filter(|ids| constructors.iter().all(|id| ids.contains(id)))
+                {
+                    let current_pending = function
+                        .get("pending_native_invocation_node_ids")
+                        .and_then(Value::as_array)
+                        .map(Vec::as_slice)
+                        .unwrap_or_default();
+                    assert!(constructors.iter().all(|id| !current_pending.contains(id)));
+                    function["pending_native_invocation_node_ids"] =
+                        Value::Array(old_pending.to_vec());
+                }
+            }
             for field in [
                 "node_entries",
                 "memory_effects",
@@ -1326,7 +1414,13 @@ fn preserves_existing_declarations(previous_folder: &str, strip_phis: bool) {
                 "slot_relations",
                 "native_operations",
                 "native_exceptions",
+                "native_literals",
+                "source_steps",
+                "source_executions",
+                "pending_source_execution_node_ids",
+                "excluded_unreachable_source_node_ids",
                 "pending_native_invocation_node_ids",
+                "source_constructor_invocation_node_ids",
             ] {
                 if before_function.get(field).is_none() {
                     function.as_object_mut().unwrap().remove(field);
@@ -1362,6 +1456,8 @@ fn preserves_existing_declarations(previous_folder: &str, strip_phis: bool) {
                         | "before-native-options"
                         | "before-integrated-slots"
                         | "before-native-exceptions"
+                        | "before-native-literals"
+                        | "before-source-steps"
                 ) {
                     function
                         .as_object_mut()
@@ -1429,6 +1525,14 @@ fn preserves_existing_declarations(previous_folder: &str, strip_phis: bool) {
         }
     );
     assert_eq!(
+        resolved_alias_frames,
+        if previous_folder == "before-source-steps" {
+            2
+        } else {
+            0
+        }
+    );
+    assert_eq!(
         count,
         if matches!(
             previous_folder,
@@ -1437,6 +1541,8 @@ fn preserves_existing_declarations(previous_folder: &str, strip_phis: bool) {
                 | "before-native-options"
                 | "before-integrated-slots"
                 | "before-native-exceptions"
+                | "before-native-literals"
+                | "before-source-steps"
         ) {
             18
         } else {
@@ -1454,6 +1560,8 @@ fn preserves_existing_declarations(previous_folder: &str, strip_phis: bool) {
                     | "before-native-options"
                     | "before-integrated-slots"
                     | "before-native-exceptions"
+                    | "before-native-literals"
+                    | "before-source-steps"
             ) {
                 8
             } else {
@@ -2546,6 +2654,10 @@ enum NativeRuntime {
     Options,
     Slots,
     Exceptions,
+    Literals,
+    Steps,
+    StepMetadata,
+    ExecutionMetadata,
 }
 fn run_selected_cases_mode(
     ids: &[&str],
@@ -2654,6 +2766,22 @@ fn run_selected_cases_mode(
                 &mut exercised_native_definitions,
             );
             eprintln!("control native operations {id}: {count} observations");
+        }
+        if native == NativeRuntime::StepMetadata {
+            let count = steps::audit_steps(&p, vir);
+            eprintln!("control source step metadata {id}: {count} complete normal steps");
+        }
+        if native == NativeRuntime::ExecutionMetadata {
+            let count = steps::audit_executions(&p, vir, &c, &depths);
+            eprintln!("control source execution metadata {id}: {count} source execution paths");
+        }
+        if native == NativeRuntime::Steps {
+            let count = steps::run_steps(&p, vir, &c);
+            eprintln!("control source steps {id}: {count} observations");
+        }
+        if native == NativeRuntime::Literals {
+            let count = native_literals::run_literals(&p, vir, &c);
+            eprintln!("control native literals {id}: {count} observations");
         }
         if native == NativeRuntime::Exceptions {
             let count = exceptions::run_exceptions(&p, vir, &c, &depths, vc.exception_vcs());

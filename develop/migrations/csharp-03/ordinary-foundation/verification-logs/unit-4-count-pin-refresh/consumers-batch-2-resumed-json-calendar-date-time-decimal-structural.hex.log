@@ -1,0 +1,25 @@
+=== RUN   TestCheckerAgreementWithRustCLIJsonCalendar
+=== RUN   TestCheckerAgreementWithRustCLIJsonCalendar/date-time-decimal-structural.hex
+    checker_agreement_test.go:395: Go accepted: certificate=36ee4e935f7786fec39f837d9a1254ff7fdfa430fec907ead94b619dd1849f8e declarations=3156 axioms=0 elapsed=16m29.157420208s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=5c024bc5adddfb153fca8c7fb8aae2e5b3c492566690e7892fd88e6014957a24 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=10.950502292s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=17m32.6515465s
+    checker_agreement_test.go:411: Rust checker execution/protocol failure: Rust checker did not return a verifier report: unexpected end of JSON input
+        stdout:
+        
+        stderr:
+        error[E0560]: struct `csharp_practical_vir_model::TypedValueRef` has no field named `value_id`
+           --> crates/mpk-vc/src/csharp_practical_ordinary_source_invariants.rs:233:13
+            |
+        233 |             value_id: "source_invariant.receiver".into(),
+            |             ^^^^^^^^ `csharp_practical_vir_model::TypedValueRef` does not have this field
+            |
+            = note: available fields are: `id`
+        
+        For more information about this error, try `rustc --explain E0560`.
+        error: could not compile `mpk-vc` (lib) due to 1 previous error
+        error: could not compile `mpk-vc` (lib) due to 1 previous error
+--- FAIL: TestCheckerAgreementWithRustCLIJsonCalendar (2079.06s)
+    --- FAIL: TestCheckerAgreementWithRustCLIJsonCalendar/date-time-decimal-structural.hex (2079.05s)
+FAIL
+FAIL	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	2079.814s
+FAIL

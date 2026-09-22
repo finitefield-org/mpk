@@ -1,0 +1,50 @@
+{
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "passed_scoped_component",
+  "scope": "Exact ordinary definitions for original concrete type predicates and original W06 conditions; all application proof IDs remain pending.",
+  "implementation": "crates/mpk-vc/src/csharp_practical_ordinary_concrete_types.rs",
+  "evidence": "verification-logs/concrete-types/",
+  "remaining": [
+    "Six original internal construction-state type conditions still require their ownership model.",
+    "Concrete operation/outcome equivalence, source-use/identity/native constraints, general witnesses and full unit integration remain outstanding."
+  ],
+  "full_gate": "deferred_to_T06_W12",
+  "expected_public_type_conditions": 81,
+  "expected_pending_type_conditions": 6,
+  "original_type_conditions": 87,
+  "review": "unit-4-concrete-type-review.md",
+  "current_verification": "verification-logs/concrete-types/verification.json",
+  "review_correction": "verification-logs/concrete-types/review-internal-states/finding.json",
+  "semantic_verification": {
+    "status": "passed",
+    "observations": 405,
+    "admitted": 325,
+    "rejected": 80,
+    "false_mutated_conditions": 405,
+    "evidence": "verification-logs/concrete-types/review-internal-states/semantics.json"
+  },
+  "source_replay": {
+    "status": "passed",
+    "contexts": 45,
+    "public_conditions": 81,
+    "pending_internal_type_conditions": 6
+  },
+  "source_invariant_preservation": {
+    "status": "passed",
+    "contexts": 53,
+    "evidence": "verification-logs/concrete-types/review-internal-states/preservation.json"
+  },
+  "next_operation_discovery": "verification-logs/concrete-types/operation-link-discovery.json",
+  "source_contexts": 45,
+  "conditions": 81,
+  "pending_internal_type_conditions": 6,
+  "semantics": {
+    "observations": 405,
+    "admitted": 325,
+    "rejected": 80,
+    "false_mutated_conditions": 405
+  },
+  "checker_certificates": 45,
+  "source_invariant_pins_preserved": 53
+}

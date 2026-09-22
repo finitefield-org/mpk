@@ -1,0 +1,224 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.binding_reconstruction_progress.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "passed_scoped_constant_completion_component",
+  "scope": "Explicit typed constant completions, unary reconstruction candidates, recursive public domains and original W06 preservation conditions in one ordinary program; universal proofs remain pending.",
+  "expected_source_contexts": 45,
+  "expected_candidates": 37,
+  "review": "unit-4-binding-reconstruction-review.md",
+  "negative_case": "remapped-boundary-sequence must fail complete source round trip and Extra member reconstruction for a public source value that differs from the selected completion.",
+  "verification_plan": [
+    {
+      "test": "csharp_03_t06_w09_binding_reconstruction_original_sources",
+      "reason": "Exercise new unary candidates against independent source projection/rebuild oracles, exact W06 sequents, public-domain counterexamples, strict import mutations and original definition closures."
+    },
+    {
+      "tests": [
+        "csharp_03_t06_w09_binding_projections_original_source_certificates",
+        "csharp_03_t06_w09_binding_rebuilds_original_source_certificates",
+        "csharp_03_t06_w09_binding_relations_original_source_certificates"
+      ],
+      "reason": "Emitter extraction and context sharing must preserve all existing certificate pins and metadata."
+    },
+    {
+      "test": "TestCheckerAgreementWithRustCLIBindingReconstruction",
+      "reason": "Both unchanged checkers must accept identical new definition certificates with zero axioms and reject corrupted hashes."
+    },
+    {
+      "tests": [
+        "csharp_practical_inventory",
+        "targeted Clippy",
+        "cargo fmt --all -- --check",
+        "gofmt",
+        "git diff --check"
+      ],
+      "reason": "Check the added foundation consumer, corrected ledger status, production/test lint and changed-file formatting."
+    },
+    {
+      "test": "csharp_03_t06_w09_binding_reconstruction_noninjective_candidate",
+      "reason": "Run the final negative fixture independently before the complete source corpus so missing source metadata or counterexample failures are diagnosed promptly."
+    }
+  ],
+  "verification": [
+    {
+      "command": "cargo check -p mpk-vc --tests",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-reconstruction-check.log",
+      "log_sha256": "747d0478e0839806af276bff9add90706042f1e19bc9bdabea75805839a16080",
+      "scope": "Compilation passed before the final test additions; not a test execution."
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --test csharp_practical_vc -- -D warnings",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-reconstruction-clippy.log",
+      "log_sha256": "ba77a2294de966fcf0a536fbc5f9663479a02b2e6bcf77f792082e0039661999",
+      "scope": "Production and reconstruction tests passed targeted lint. This precedes the completion-oracle and early validation updates; replacement lint is pending."
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-reconstruction-inventory.log",
+      "log_sha256": "ff7be376f1c723eda2466170d2ca240e2ccdbd6082739087bc3a2d34fd80d841",
+      "scope": "All five inventory tests passed; foundation.std_namespace now has 142 paths and the total is 4965."
+    },
+    {
+      "test": "csharp_03_t06_w09_binding_reconstruction_original_sources",
+      "status": "interrupted_for_test_oracle_correction_not_passed",
+      "log": "/tmp/mpk-w09-reconstruction-generation-v1.log",
+      "scope": "Four contexts passed before interruption. Static review found that seed 0 could leave the rebuild oracle without stored elements for a later recursive sequence case. Seed 2 covers the tested indices; decimal cohorts are now compared by admitted value observation. The Money sample confirmed active ordinary evaluation at the original source-round-trip goal, not a stalled producer.",
+      "partial_artifacts": "/tmp/mpk-w09-reconstruction-generation-v1-partial",
+      "sample": "/tmp/mpk-w09-reconstruction-money.sample"
+    },
+    {
+      "test": "csharp_03_t06_w09_binding_projections_original_source_certificates",
+      "exit_code": 0,
+      "status": "passed",
+      "elapsed_seconds": 142.649,
+      "log": "/tmp/mpk-w09-reconstruction-preserve-projections.log",
+      "log_sha256": "a400e814977a54df96e595025e6f6348b842e07b8cad84eef55bd9c912e23e94"
+    },
+    {
+      "test": "csharp_03_t06_w09_binding_rebuilds_original_source_certificates",
+      "exit_code": 0,
+      "status": "passed",
+      "elapsed_seconds": 452.433,
+      "log": "/tmp/mpk-w09-reconstruction-preserve-rebuilds.log",
+      "log_sha256": "16c7d364ee677875c0c8c248a964c8434c7821a34f95522bfaf7fcaf2e20df00"
+    },
+    {
+      "test": "csharp_03_t06_w09_binding_relations_original_source_certificates",
+      "exit_code": 101,
+      "status": "failed",
+      "elapsed_seconds": 95.328,
+      "log": "/tmp/mpk-w09-reconstruction-preserve-relations.log",
+      "log_sha256": "8a3f4dbb9e6e6c37f926c7e5e30273d771223053b43d90fb768a1414bba164a4"
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --test csharp_practical_vc -- -D warnings",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-reconstruction-clippy-v2.log",
+      "log_sha256": "ba3776c062f56f7863c210078a99ca9e8ed38e9a3c1fb6264c8a024d61f96403",
+      "scope": "Final early completion validation and corrected independent oracle.",
+      "elapsed_seconds": 148
+    },
+    {
+      "command": "csharp_03_t06_w09_binding_relations_original_source_certificates",
+      "status": "passed",
+      "log": "/tmp/mpk-w09-reconstruction-relations-generation.log",
+      "log_sha256": "593c192ab44155ab42e6b492ef855970ab772a541d09ce967c678709bb051a41",
+      "scope": "Current generation of all 45 contexts with strict import/mutation checks; stale pins audited separately.",
+      "elapsed_seconds": 725.13
+    },
+    {
+      "test": "csharp_03_t06_w09_binding_guards_original_source_certificates",
+      "log": "/tmp/mpk-w09-binding-guards-current.log",
+      "exit_code": 0,
+      "status": "passed",
+      "elapsed_seconds": 399.403,
+      "scope": "Current generation with strict import/mutation checks; promoted-pin replay and dual checking recorded separately."
+    },
+    {
+      "test": "csharp_03_t06_w09_binding_orders_original_source_certificates",
+      "log": "/tmp/mpk-w09-binding-orders-current.log",
+      "exit_code": 0,
+      "status": "passed",
+      "elapsed_seconds": 253.864,
+      "scope": "Current generation with strict import/mutation checks; promoted-pin replay and dual checking recorded separately."
+    },
+    {
+      "test": "csharp_03_t06_w09_binding_reconstruction_original_sources",
+      "status": "interrupted_for_optimized_equivalent_rerun_not_passed",
+      "log": "/tmp/mpk-w09-reconstruction-generation-v2.log",
+      "switch_receipt": "/tmp/mpk-w09-debug-to-optimized-switch.json",
+      "scope": "Four completed contexts; Money still evaluating. Full rerun uses optimization with assertions and checked overflow."
+    },
+    {
+      "test": "csharp_03_t06_w09_binding_reconstruction_original_sources",
+      "command": [
+        "/tmp/mpk-w09-optimized-target/debug/deps/csharp_practical_vc-a023def1d075fbd7",
+        "csharp_03_t06_w09_binding_reconstruction_original_sources",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "binary_sha256": "be65fbb0e37a0f0165c5b1fafb6e37b00e6775d883d328e6f2764b20853f8592",
+      "profile": {
+        "CARGO_TARGET_DIR": "/tmp/mpk-w09-optimized-target",
+        "CARGO_PROFILE_TEST_OPT_LEVEL": "2",
+        "CARGO_PROFILE_TEST_DEBUG": "0",
+        "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+        "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true"
+      },
+      "status": "failed",
+      "started_unix": 1790064671.265067,
+      "log": "/tmp/mpk-w09-reconstruction-optimized.log",
+      "output_environment": {
+        "MPK_W09_BINDING_RECONSTRUCTION_OUT": "/Users/kazuyoshitoshiya/mpk/develop/migrations/csharp-03/ordinary-foundation/binding-reconstruction"
+      },
+      "pid": 26026,
+      "exit_code": 101,
+      "elapsed_seconds": 3647.342,
+      "log_sha256": "d35d95c30cc7420c2179c9dd69f234d512bf2eb0b1b64cfa4c878d6f615c319d",
+      "scope": "The first 44 source contexts completed. The last noninjective fixture failed at a test-only lookup of an absent facts member id field. The test now derives the exact stored-member id from owner/name/type/storage, matching existing source-oracle code. No production definition changed. This full run is failed, not passed."
+    },
+    {
+      "status": "passed",
+      "scope": "Binding relation/guard/order consumer refresh: 55 changed occurrences, 48 distinct byte sequences passed both checkers and corruption rejection; complete pinned replay passed.",
+      "evidence": "verification-logs/unit-4-count-pin-refresh/verification.json"
+    },
+    {
+      "status": "passed",
+      "evidence": "verification-logs/binding-reconstruction/member-id-fix-quality.json",
+      "scope": "After deriving the exact member id and adding the focused negative test: targeted Clippy, all five inventory tests and cargo fmt --all -- --check passed. Production generation is unchanged."
+    },
+    {
+      "test": "csharp_03_t06_w09_binding_reconstruction_noninjective_candidate",
+      "status": "passed",
+      "elapsed_seconds": 1127.234,
+      "log": "verification-logs/binding-reconstruction/negative.log",
+      "scope": "Two candidates, 13 obligations, 1232 bit observations and all four negative conditions passed. The complete original source corpus is still running."
+    },
+    {
+      "test": "csharp_03_t06_w09_binding_reconstruction_original_sources",
+      "status": "passed",
+      "evidence": "verification-logs/binding-reconstruction/member-id-fix-verification.json",
+      "source_contexts": 45,
+      "candidates": 37,
+      "conditions": 206,
+      "bit_observations": 12683,
+      "negative_conditions": 4,
+      "scope": "Complete semantic/import/mutation run passed after the interrupted attempts. No partial run is counted as completion."
+    },
+    {
+      "test": "csharp_03_t06_w09_binding_reconstruction_condition_compiler_preserves_pins",
+      "status": "passed",
+      "evidence": "verification-logs/binding-conditions/reconstruction-preservation-verification.json",
+      "scope": "After sharing the condition record/compiler, all 45 current generated metadata records and complete certificate bytes match the full semantic corpus."
+    },
+    {
+      "test": "TestCheckerAgreementWithRustCLIBindingReconstruction",
+      "status": "passed",
+      "evidence": "verification-logs/binding-reconstruction/checker-verification.json",
+      "scope": "All 45 complete byte sequences passed both unchanged checkers with matching reports and zero axioms; both rejected changed hashes. Current hashes and terminal logs rechecked."
+    }
+  ],
+  "remaining": [
+    "General semantic-dependent reconstruction witnesses remain proof-producer work where a constant completion is insufficient.",
+    "Discharge the original universal source/domain/round-trip/member and commutation obligations during application proof assembly; no definition is a proof.",
+    "Complete the remaining unit-4 and W09 work; W10 stays blocked by its serial predecessor."
+  ],
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "status": "deferred_to_T06_W12"
+  },
+  "live_jobs": [],
+  "pin_drift": {
+    "status": "passed",
+    "scope": "45 relation, 45 guard and 9 order contexts. All retained declaration types agree; only the known saturated count helper body changed. Removed declarations are its old block/state/success and unused depth-10 cube helpers. All other linkage metadata agrees.",
+    "evidence": "verification-logs/unit-4-count-pin-refresh/verification.json",
+    "review": "verification-logs/unit-4-count-pin-refresh/review.md",
+    "required": "All 48 distinct byte sets and promoted pinned replay passed; see the completed receipt."
+  },
+  "current_verification": "verification-logs/binding-reconstruction/verification.json",
+  "interruption_recovery": "verification-logs/interrupted-20260922T1016Z/recovery.json"
+}

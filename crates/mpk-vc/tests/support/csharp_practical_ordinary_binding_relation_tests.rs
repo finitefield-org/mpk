@@ -551,3 +551,21 @@ mod guard_tests;
 
 #[path = "csharp_practical_ordinary_binding_rebuild_tests.rs"]
 mod rebuild_tests;
+
+#[path = "csharp_practical_ordinary_binding_reconstruction_tests.rs"]
+mod reconstruction_tests;
+
+#[path = "csharp_practical_ordinary_binding_condition_tests.rs"]
+mod condition_tests;
+
+#[path = "csharp_practical_ordinary_concrete_type_tests.rs"]
+mod concrete_type_tests;
+
+#[path = "csharp_practical_ordinary_concrete_operation_tests.rs"]
+mod concrete_operation_tests;
+
+#[path = "csharp_practical_ordinary_source_invariant_tests.rs"]
+mod source_invariant_tests;
+
+#[path = "csharp_practical_ordinary_binding_default_tests.rs"]
+mod default_tests;

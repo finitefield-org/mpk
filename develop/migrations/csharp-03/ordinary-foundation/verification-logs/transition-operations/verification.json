@@ -1,0 +1,163 @@
+{
+  "status": "passed_scoped_transition_foundation_verification",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 6,
+  "recorded_at": "2026-09-21T06:23:02.915583+00:00",
+  "selection_reason": "New standalone emitter; replay every reachable transition instance in the existing structural source corpus and both captured compound/scalar-map transition clauses. Test exact imports and metadata/certificate mutations, independent source values and relation oracle, field order, event order/duplicates, and inclusive 4096 event length. Existing control-source candidates unaffected; verify exact byte equivalence after export additions.",
+  "scope": "All expanded transition product operations; source protocol/admission/replay/history/proofs remain open.",
+  "source_sha256": {
+    "crates/mpk-vc/src/csharp_practical_ordinary_transition_ops.rs": "a468ceba63f714f93e2c585d3de473aef30155443885594a9a06efda83c82296",
+    "crates/mpk-vc/src/csharp_practical_ordinary_relations.rs": "98413ba3fc2d65837977de0abc2ddd8cfdb9857d1490dfff16781a1fbcab12a6",
+    "crates/mpk-vc/src/csharp_practical_ordinary_structural.rs": "3850405bf4f7a8ba78f358f303a9a44adbf689376f7a1c08382f7ed2175c5f0d",
+    "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs": "bf58d3cb673781ff9470423db5eb124283adcfea117d072316cbfe63aa4bbfc6",
+    "crates/mpk-vc/src/csharp_practical_vir_model.rs": "3eef9229f07a49b1a6f6bddcfc157d40b91eedcbb30669e7e029f88a74aa486b",
+    "crates/mpk-vc/src/csharp_practical_ordinary_test_eval.rs": "d4160220aa77546cb3911df2d66bbd0e8684f3020d128db9306288a87c661c8f",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_transition_ops_tests.rs": "66b84928b3b1f5c70178709aee7f1f5f105e36ff6726e4ddb55e89f8fedfd801",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_carriers.rs": "4671ecf8c8d2e6d52b1b7fc47614b79fa5da47794e46cccc706ca24eadaabd3e",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_relation_tests.rs": "41a3a605eaa8fd56049c0026de997177d0ee4997d1f26bacd3a261fc88970e07",
+    "crates/mpk-vc/src/csharp_practical_ordinary_structural_foundations.rs": "3d84e4451c2b71f02aa174710a1c4b6f19d4f4196a60a644dac7aea4003ed88f",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_structural_foundation_tests.rs": "3903216bd64bb8c0d80ae3ccc4aebb7671e63a0fa73178414c2aca8cf05f56fc"
+  },
+  "runtime": {
+    "receipt": "generation-runtime.json",
+    "contexts": 3,
+    "observations": 3652
+  },
+  "integrated_closure": {
+    "status": "passed",
+    "receipt": "integration-canonical-names.json",
+    "contexts": 3,
+    "transitive_definition_occurrences": 291,
+    "unchanged_public_profiles": 3,
+    "unchanged_boundary_profiles": 4,
+    "unchanged_collection_certificates": 9,
+    "unchanged_sequence_contexts": 12
+  },
+  "structural_refresh": {
+    "receipt": "integration-fixed.json",
+    "status": "44_context_generation_passed",
+    "changed_certificates": 1,
+    "unchanged_certificates": 43,
+    "prior_operations": 462,
+    "operations": 468,
+    "preservation": "term-table prefix exact; declaration kinds and resolved names exact (canonical name-table indices may shift)"
+  },
+  "dual_checkers": {
+    "distinct_certificates": 6,
+    "standalone": 3,
+    "integrated": 3,
+    "same_byte_reports": "accepted, agreeing hashes/counts, zero axioms",
+    "hash_corruptions": "all rejected",
+    "checked": {
+      "/private/tmp/mpk-transition-operations/binding-vc-transition.hex": {
+        "file_sha256": "2d5ab33e35cabb333f178b4be22b3e61498b6e01991dc8e21e156374923b303e",
+        "certificate_sha256": "3cff5e730901a0b7f2c7a6f5b20f945f4e8f966ea175115e891190482d9556d9",
+        "declarations": 101
+      },
+      "/private/tmp/mpk-transition-operations/clauses-compound.hex": {
+        "file_sha256": "83744ec282e3a7340f43367ab3d4307855139f29ecfbe7ce37a0080d91e00805",
+        "certificate_sha256": "3b922a4e9d7a79bd73a960a5e9ce6a7c7d5819e39cd9c6a794c5392d24665d05",
+        "declarations": 152
+      },
+      "/private/tmp/mpk-transition-operations/clauses-scalar-map.hex": {
+        "file_sha256": "83f48954c34c8bda782b5d005b92140a725abe9a03c432a0cbfffc515097c9c9",
+        "certificate_sha256": "461f3e419f5b7e1553b4cde652ed8b76fb0e14d7853ff155f7c9611b2c789df6",
+        "declarations": 109
+      },
+      "/private/tmp/mpk-transition-structural-refresh/binding-vc-transition.hex": {
+        "file_sha256": "053cae9f72abf20f1306688dc4a9c49aed395fdf1b2bb6e207417c5ef324ced2",
+        "certificate_sha256": "511ab7caff599a1a3d77ab890744d78deeaaaf52673502b5d7b6c5d5bb7e90de",
+        "declarations": 197
+      },
+      "/private/tmp/mpk-transition-integrated/clauses-compound.hex": {
+        "file_sha256": "b8adc22ad89eeaf52f5aa09287cc10605a6cecbcf7edac0471422c338a2620da",
+        "certificate_sha256": "284fae4f08400188a145c8981ceef8004ce845f40c70650af4aaad0839c0b879",
+        "declarations": 336
+      },
+      "/private/tmp/mpk-transition-integrated/clauses-scalar-map.hex": {
+        "file_sha256": "f10e30b71375032fc854cb91ea3502d62a201b44fad508d1eb813792772b85f8",
+        "certificate_sha256": "4086b35e5bc618204ada2c16b193c4273aa8a5e8c3153e64dfcd12a6d515c80a",
+        "declarations": 393
+      }
+    }
+  },
+  "targeted_checks": [
+    "generation-runtime.json",
+    "integration-canonical-names.json",
+    "inventory.json",
+    "lint-integrated.json",
+    "format.json",
+    "existing-component-closure.json",
+    "inventory-final.json"
+  ],
+  "historical_diagnostics": [
+    "integration.json: Cargo CLI rejected a second filter before --; no tests ran.",
+    "integration-fixed.json: generation passed; raw declaration name-table index comparison failed. Test corrected to compare resolved names and exact declaration kinds; no production changes were needed."
+  ],
+  "artifacts": {
+    "transition-operations/clauses-compound.hex": "83744ec282e3a7340f43367ab3d4307855139f29ecfbe7ce37a0080d91e00805",
+    "transition-operations/binding-vc-transition.hex": "2d5ab33e35cabb333f178b4be22b3e61498b6e01991dc8e21e156374923b303e",
+    "transition-operations/certificates.json": "5b6ced15ad4899acb6ca4dfd7cfbaab1cf19d1a37411e84c1f8af8c297122821",
+    "transition-operations/clauses-scalar-map.hex": "83f48954c34c8bda782b5d005b92140a725abe9a03c432a0cbfffc515097c9c9",
+    "transition-integrated/clauses-compound.hex": "b8adc22ad89eeaf52f5aa09287cc10605a6cecbcf7edac0471422c338a2620da",
+    "transition-integrated/binding-vc-transition.hex": "053cae9f72abf20f1306688dc4a9c49aed395fdf1b2bb6e207417c5ef324ced2",
+    "transition-integrated/certificates.json": "75d4935a98b45f545de28d0096504373d75700df489b511cc9610d21e45c3e31",
+    "transition-integrated/clauses-scalar-map.hex": "f10e30b71375032fc854cb91ea3502d62a201b44fad508d1eb813792772b85f8"
+  },
+  "changed_existing_artifacts": {
+    "structural-foundations/binding-vc-transition.hex": "053cae9f72abf20f1306688dc4a9c49aed395fdf1b2bb6e207417c5ef324ced2",
+    "structural-foundations/certificates.json": "c20e54c85ffe3f2033d9d2b366abdf0abc0ceb8313f3b918800dbdc73de17a02"
+  },
+  "unit_6_complete": false,
+  "w09_complete": false,
+  "whole_gate": "deferred to T06-W12",
+  "commit": "No partial-unit commit",
+  "existing_component_closure": {
+    "receipt": "existing-component-closure.json",
+    "source_component_pairs": 118,
+    "roots": 1235,
+    "transitive_definition_occurrences": 12178,
+    "mutations": "root and dependency changes rejected"
+  },
+  "post_publication_inventory": "passed five tests after adding verified fixture directories and updating the ledger",
+  "git_diff_check": "passed outside sandbox",
+  "logs_sha256": {
+    "inventory-final.log": "961268faa5655516e7e67e2047b991946e0de9a1957841dd5e640429f09ecf4b",
+    "integration-fixed.log": "155674f83614b95814ffb6845a44426df7835bdb4938f28d18fc46a73771e83f",
+    "generation-runtime.log": "3a78f08cb28c9c9864b3908eeb666a0f968dbaa33b188b4bafba7d2bb2432f3f",
+    "format.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "lint.log": "08821745df8dc4fdffdebf67c91779fe72649f41231886e25394648d9863da11",
+    "integration-canonical-names.log": "d65b62e273715f5f811f486f10d1b50e01d7034be63027311be85588ae3cc0e9",
+    "integration.log": "8b991bb8ddbdce9934a5b6e8d0961f700793a3ba2f9df1c2c1c13b262e440445",
+    "lint-integrated.log": "759fa0790cc25461999a7e72c49be33a37bdd4fa1eb9b4b9b12d1ecb4f82a23d",
+    "existing-component-closure.log": "ef1be8ab1eb034ad3e4dc4c08fc5281cd5a5e839e92b27a63ffe04a84d71e294",
+    "inventory.log": "ece965b4475644de53741feeb11afc58118de67e5fc4e1ac0aa374aa5df437e5",
+    "dual-checkers/integrated-compound/run.log": "226788be5fc98f09f3690370bda8e1f310d149a654384a64012072157658c02c",
+    "dual-checkers/integrated-compound/clauses-compound-hash-go.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dual-checkers/integrated-compound/clauses-scalar-map-hash-rust.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dual-checkers/integrated-compound/clauses-scalar-map-positive-rust.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dual-checkers/integrated-compound/clauses-compound-positive-rust.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dual-checkers/integrated-compound/clauses-compound-positive-go.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dual-checkers/integrated-compound/clauses-scalar-map-hash-go.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dual-checkers/integrated-compound/clauses-compound-hash-rust.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dual-checkers/integrated-compound/clauses-scalar-map-positive-go.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dual-checkers/integrated-binding/binding-vc-transition-positive-go.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dual-checkers/integrated-binding/binding-vc-transition-hash-rust.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dual-checkers/integrated-binding/run.log": "ae00174959f3e7cce30921643b9e3e9bdafd8f98039066d002f2dd77fa1cc5fd",
+    "dual-checkers/integrated-binding/binding-vc-transition-hash-go.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dual-checkers/integrated-binding/binding-vc-transition-positive-rust.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dual-checkers/standalone/binding-vc-transition-positive-go.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dual-checkers/standalone/binding-vc-transition-hash-rust.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dual-checkers/standalone/run.log": "be0e3b97e83696f2d2d1978f7e2e9366acd213420f41bf271f2043227a3a6c12",
+    "dual-checkers/standalone/binding-vc-transition-hash-go.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dual-checkers/standalone/clauses-compound-hash-go.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dual-checkers/standalone/clauses-scalar-map-hash-rust.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dual-checkers/standalone/clauses-scalar-map-positive-rust.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dual-checkers/standalone/binding-vc-transition-positive-rust.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dual-checkers/standalone/clauses-compound-positive-rust.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dual-checkers/standalone/clauses-compound-positive-go.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dual-checkers/standalone/clauses-scalar-map-hash-go.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dual-checkers/standalone/clauses-compound-hash-rust.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dual-checkers/standalone/clauses-scalar-map-positive-go.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

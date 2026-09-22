@@ -1,0 +1,10 @@
+=== RUN   TestCheckerAgreementWithRustCLIJsonDepthCompound
+=== RUN   TestCheckerAgreementWithRustCLIJsonDepthCompound/sequence-source-arrays.hex
+    checker_agreement_test.go:395: Go accepted: certificate=b40c250a45c4be8a7095fcb500f1f456da51fd21729ff2da83a729f67308b044 declarations=2147 axioms=0 elapsed=9m16.272182667s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=44e0bebb591ffd301c29528c39965f4a2449789b5467efeb33f9422aec80bbab axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=9.453551708s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=9m25.737237417s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=7.855327s
+--- PASS: TestCheckerAgreementWithRustCLIJsonDepthCompound (1139.36s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonDepthCompound/sequence-source-arrays.hex (1139.36s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	1139.718s

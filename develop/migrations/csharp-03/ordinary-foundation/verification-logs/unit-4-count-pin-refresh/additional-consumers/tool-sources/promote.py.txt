@@ -1,0 +1,199 @@
+from pathlib import Path
+import argparse
+import copy
+import hashlib
+import json
+import shutil
+
+root = Path('/Users/kazuyoshitoshiya/mpk/develop/migrations/csharp-03/ordinary-foundation')
+current = Path('/tmp/mpk-w09-current-count-consumers')
+backup = Path('/tmp/mpk-w09-before-count-consumer-refresh')
+parser = argparse.ArgumentParser()
+parser.add_argument('--family', action='append')
+parser.add_argument('--apply', action='store_true')
+args = parser.parse_args()
+plan = json.loads(Path('/tmp/mpk-w09-count-consumer-plan.json').read_text())
+audits = json.loads(Path('/tmp/mpk-w09-count-consumer-audits/audit.json').read_text())
+audits = {row['file']: row for row in audits['programs']}
+generation = json.loads((current / 'generation.json').read_text())
+generated = {row['file']: row for row in generation['programs']}
+selected = [t for t in plan['targets'] if not args.family or Path(t['file']).parent.name in args.family]
+approved_path = Path('/tmp/mpk-w09-extra-domain-consumer-review.json')
+approved = json.loads(approved_path.read_text()) if approved_path.exists() else {}
+
+def sha(data):
+    return hashlib.sha256(data).hexdigest()
+
+def pointer(doc, path):
+    for key in path.split('/')[1:]:
+        key = key.replace('~1', '/').replace('~0', '~')
+        doc = doc[int(key)] if isinstance(doc, list) else doc[key]
+    return doc
+
+def differences(a, b, path=''):
+    if type(a) is not type(b):
+        return [path]
+    if isinstance(a, dict):
+        return [path+'/'+k for k in a.keys() ^ b.keys()] + [p for k in a.keys() & b.keys() for p in differences(a[k], b[k], path+'/'+k)]
+    if isinstance(a, list):
+        if len(a) != len(b):
+            return [path+'/length']
+        return [p for i, (x, y) in enumerate(zip(a, b)) for p in differences(x, y, path+f'/{i}')]
+    return [] if a == b else [path]
+
+programs = {}
+by_file = {}
+by_hash = {}
+updates = {}
+rows = []
+for target in selected:
+    name = target['file']
+    audit = audits[name]
+    assert audit['status'] == 'known_count_helper_only' or approved.get(name, {}).get('status') == 'reviewed_previous_domain_optimization', name
+    old_path = root / name
+    old_hex = (backup / name).read_bytes() if (backup / name).exists() else old_path.read_bytes()
+    assert sha(old_hex) == audit['old_hex_sha256'], name
+    new_hex = (current / name).read_bytes()
+    assert sha(new_hex) == audit['new_hex_sha256'], name
+    old_bytes = bytes.fromhex(old_hex.decode())
+    new_bytes = bytes.fromhex(new_hex.decode())
+    assert sha(old_bytes) == target['raw_bytes_sha256'], name
+    metrics = generated[name]
+    assert sha(b'MPK-MODULE-CERT-0.1\0'+new_bytes) == metrics['certificate_sha256'], name
+    ref = target['metadata_source']
+    metadata_path = backup/ref['path'] if (backup/ref['path']).exists() else root/ref['path']
+    old_program = pointer(json.loads(metadata_path.read_text()), ref['pointer'])
+    new_program_raw = (current / name).with_suffix('.program.json').read_bytes()
+    new_program = json.loads(new_program_raw)
+    assert sorted(differences(old_program, new_program)) == audit['metadata_changed_paths'], name
+    key = (target['schema'], target['source_ir_sha256'], target['certificate_sha256'])
+    assert key not in programs
+    entry = dict(target=target, old_program=old_program, new_program=new_program, new_program_raw=new_program_raw,
+                 old_hex=old_hex, old_bytes=old_bytes, new_bytes=new_bytes, metrics=metrics, files=[])
+    programs[key] = entry
+    by_file[name] = entry
+    by_hash.setdefault(target['certificate_sha256'], []).append(entry)
+    suffix = old_hex[len(old_hex.rstrip()):]
+    promoted_hex = new_hex.rstrip() + suffix
+    assert old_path.read_bytes() in (old_hex, promoted_hex), ('unexpected current edit', name)
+    updates[old_path] = promoted_hex
+    rows.append(dict(file=name, old_certificate_sha256=target['certificate_sha256'], certificate_sha256=metrics['certificate_sha256'],
+                     raw_bytes_sha256=sha(new_bytes), old_hex_sha256=sha(old_hex), hex_sha256=sha(promoted_hex), audit_status=audit['status']))
+
+def source_hash(program):
+    return program.get('source_ir_sha256') or program.get('parsers', {}).get('source_ir_sha256')
+
+def certificate_hash(program):
+    return program.get('certificate_sha256') or program.get('parsers', {}).get('certificate_sha256')
+
+def metrics_for(row, family):
+    if isinstance(row.get('file'), str) and family+'/'+row['file'] in by_file:
+        return by_file[family+'/'+row['file']]
+    values = by_hash.get(row.get('certificate_sha256'), [])
+    if not values:
+        return None
+    signatures = {(v['metrics']['certificate_sha256'], v['metrics']['terms'], v['metrics']['declarations']) for v in values}
+    assert len(signatures) == 1, ('ambiguous hash-only metadata', family, row.get('certificate_sha256'))
+    return values[0]
+
+def refresh_metrics(row, entry):
+    metrics = entry['metrics']
+    for key in ('terms', 'declarations', 'certificate_sha256'):
+        if key in row:
+            row[key] = metrics[key]
+    if 'static_transformers' in row:
+        program = entry['new_program']
+        row['static_transformers'] = program.get('static_transformers', program.get('parsers', {}).get('static_transformers'))
+        assert row['static_transformers'] is not None
+    for key in ('bytes', 'size_bytes'):
+        if key in row:
+            assert row[key] == len(entry['old_bytes']), (key, row[key], len(entry['old_bytes']))
+            row[key] = len(entry['new_bytes'])
+
+def visit(value, path, pointer_path=''):
+    if isinstance(value, list):
+        return [visit(v, path, pointer_path+f'/{i}') for i, v in enumerate(value)]
+    if not isinstance(value, dict):
+        return value
+    key = (value.get('schema'), source_hash(value), certificate_hash(value))
+    entry = programs.get(key)
+    if entry:
+        assert value == entry['old_program'], ('metadata differs from audited program', str(path), pointer_path)
+        entry['files'].append(dict(path=str(path.relative_to(root)), pointer=pointer_path))
+        return copy.deepcopy(entry['new_program'])
+    match = metrics_for(value, path.parent.name)
+    updated = {k: visit(v, path, pointer_path+'/'+k) for k, v in value.items()}
+    for child in value.values():
+        if isinstance(child, dict):
+            key = (child.get('schema'), source_hash(child), certificate_hash(child))
+            if key in programs:
+                assert match is None or match['metrics']['certificate_sha256'] == programs[key]['metrics']['certificate_sha256']
+                match = programs[key]
+    if match:
+        refresh_metrics(updated, match)
+    return updated
+
+metadata_changes = []
+for family in sorted({Path(t['file']).parent.name for t in selected}):
+    for path in sorted((root/family).glob('*.json')):
+        # Only current manifests and canonical program records are rewritten.
+        if path.name not in ('certificates.json', 'certificate.json') and not any(t['metadata_source']['path'] == str(path.relative_to(root)) for t in selected) and not (path.with_suffix('.hex')).exists():
+            continue
+        raw = (backup/path.relative_to(root)).read_bytes() if (backup/path.relative_to(root)).exists() else path.read_bytes()
+        old = json.loads(raw)
+        new = visit(old, path)
+        if old == new:
+            continue
+        key = (old.get('schema'), source_hash(old), certificate_hash(old)) if isinstance(old, dict) else None
+        if key in programs:
+            encoded = programs[key]['new_program_raw'] + raw[len(raw.rstrip()):]
+        else:
+            encoded = json.dumps(new, ensure_ascii=False, indent=2, sort_keys=True).encode() + raw[len(raw.rstrip()):]
+        updates[path] = encoded
+        metadata_changes.append(dict(path=str(path.relative_to(root)), paths=sorted(differences(old, new)), old_sha256=sha(raw), sha256=sha(encoded)))
+
+# Some small manifests reference the exact canonical metadata file separately.
+for path in list(updates):
+    if path.name != 'certificates.json':
+        continue
+    value = json.loads(updates[path])
+    changed = False
+    def metadata_hashes(obj):
+        global changed
+        if isinstance(obj, list):
+            for child in obj: metadata_hashes(child)
+        elif isinstance(obj, dict):
+            if 'metadata_file' in obj and 'metadata_sha256' in obj:
+                p = path.parent/obj['metadata_file']
+                if p in updates:
+                    old = (backup/p.relative_to(root)).read_bytes() if (backup/p.relative_to(root)).exists() else p.read_bytes()
+                    assert obj['metadata_sha256'] == sha(old)
+                    obj['metadata_sha256'] = sha(updates[p]); changed = True
+            for child in obj.values(): metadata_hashes(child)
+    metadata_hashes(value)
+    if changed:
+        raw = (backup/path.relative_to(root)).read_bytes() if (backup/path.relative_to(root)).exists() else path.read_bytes()
+        updates[path] = json.dumps(value, ensure_ascii=False, indent=2, sort_keys=True).encode()+raw[len(raw.rstrip()):]
+        row = next(r for r in metadata_changes if r['path'] == str(path.relative_to(root)))
+        row.update(paths=sorted(differences(json.loads(raw), value)), sha256=sha(updates[path]))
+
+for entry in programs.values():
+    assert entry['target']['metadata_source'] in entry['files'], ('primary program metadata not refreshed', entry['target']['file'])
+for row in metadata_changes:
+    assert all(p.rsplit('/',1)[-1] in ('certificate_sha256', 'static_transformers', 'terms', 'declarations', 'size_bytes', 'bytes', 'metadata_sha256') for p in row['paths']), row
+receipt = dict(status='applied' if args.apply else 'reviewable_dry_run', source_programs=len(selected), metadata_files=len(metadata_changes),
+               source_identities_and_semantic_metadata_preserved=True, programs=rows, metadata=metadata_changes,
+               program_copies=[dict(file=e['target']['file'],copies=e['files']) for e in programs.values()])
+label = '-'.join(args.family) if args.family else 'all'
+if len(label) > 100:
+    label = sha(label.encode())[:16]
+receipt_name = 'promotion-' + label + '.json'
+if args.apply:
+    for path, data in updates.items():
+        before = backup/path.relative_to(root)
+        before.parent.mkdir(parents=True, exist_ok=True)
+        if not before.exists():
+            shutil.copy2(path, before)
+        path.write_bytes(data)
+Path('/tmp/mpk-w09-count-consumer-audits', receipt_name).write_text(json.dumps(receipt, indent=2)+'\n')
+print(json.dumps({k:v for k,v in receipt.items() if k not in ('programs','metadata','program_copies')}))

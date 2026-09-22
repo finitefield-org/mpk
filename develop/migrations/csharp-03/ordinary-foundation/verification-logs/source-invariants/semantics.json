@@ -1,0 +1,73 @@
+{
+  "status": "failed",
+  "supervisor_pid": 79801,
+  "profile": {
+    "CARGO_TARGET_DIR": "/tmp/mpk-w09-optimized-target",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "2",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0"
+  },
+  "runs": [
+    {
+      "label": "partial-clauses",
+      "command": [
+        "/tmp/mpk-w09-source-invariants-integration-aa1870c1bea6a08c",
+        "csharp_03_t06_w09_source_invariants_preserve_partial_clause_obligations",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "status": "passed",
+      "log": "partial-clauses.log",
+      "pid": 79807,
+      "exit_code": 0,
+      "elapsed_seconds": 1.162,
+      "log_sha256": "b70801d848a41687c42a174f6bf84984233cfde1d50af31aa03b6a76a90e7bbf"
+    },
+    {
+      "label": "nested-clauses",
+      "command": [
+        "/tmp/mpk-w09-source-invariants-integration-aa1870c1bea6a08c",
+        "csharp_03_t06_w09_source_invariants_nested_public_clauses",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "status": "passed",
+      "log": "nested-clauses.log",
+      "pid": 79849,
+      "exit_code": 0,
+      "elapsed_seconds": 47.541,
+      "log_sha256": "e6fa19b011cc469c0454b6fc2765e9ae2b5576c63d41e92481d5a2d2dba28b4c"
+    },
+    {
+      "label": "original-equations",
+      "command": [
+        "/tmp/mpk-w09-source-invariants-integration-aa1870c1bea6a08c",
+        "csharp_03_t06_w09_source_invariants_original_equations",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "status": "failed",
+      "log": "original-equations.log",
+      "pid": 80196,
+      "exit_code": 101,
+      "elapsed_seconds": 284.327,
+      "log_sha256": "71d2769a83496b172856951e08998be8c12ce0f5ce139bcc8fd0364c9c122db2"
+    }
+  ],
+  "full_gate": "deferred_to_T06_W12",
+  "selection_reason": "All original 45 binding contexts compare independent public-domain implementation with original public body and original W06 conditions; explicit enum rejection. Three nested public clause contexts add independent expected values; partial clause W03 obligations cannot be assumed.",
+  "build": "build.json",
+  "binaries": {
+    "unit": {
+      "path": "/tmp/mpk-w09-source-invariants-unit-705a01ad0eea71fe",
+      "sha256": "705a01ad0eea71fe0ed242f2d58c420b77dc33d3d73de548657fb5449c66aff4"
+    },
+    "integration": {
+      "path": "/tmp/mpk-w09-source-invariants-integration-aa1870c1bea6a08c",
+      "sha256": "aa1870c1bea6a08c7cb27f5d4c549bd744e0f7b5e4a6cf1f542e9ba39de84f5a"
+    }
+  },
+  "failure": "original-equations failed"
+}

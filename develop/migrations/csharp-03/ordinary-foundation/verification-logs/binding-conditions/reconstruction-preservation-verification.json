@@ -1,0 +1,25 @@
+{
+  "supervisor_pid": 33486,
+  "status": "passed",
+  "selection_reason": "The shared condition compiler keeps reconstruction names and terms unchanged; compare all 45 generated complete certificate bytes and metadata after the original semantic test has finished.",
+  "runs": [
+    {
+      "label": "reconstruction-preservation",
+      "command": [
+        "/tmp/mpk-w09-binding-conditions-468373a9fdec2105",
+        "csharp_03_t06_w09_binding_reconstruction_condition_compiler_preserves_pins",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "status": "passed",
+      "log": "reconstruction-preservation.log",
+      "pid": 44676,
+      "exit_code": 0,
+      "elapsed_seconds": 2.827,
+      "log_sha256": "f35c01b7238361060b5d566c35a65fdedc19fb44e749487688914fd97c69d745"
+    }
+  ],
+  "full_gate": "deferred_to_T06_W12",
+  "binary_sha256": "468373a9fdec2105c213886be30fce65939cc1ae8f374ec69ba749d5ef49ca60",
+  "build": "build.json"
+}

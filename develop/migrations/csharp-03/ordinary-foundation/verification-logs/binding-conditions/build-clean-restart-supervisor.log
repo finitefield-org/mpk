@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/tmp/mpk-w09-restart-after-interruption.py", line 29, in <module>
+    binary=Path('/tmp/mpk-w09-optimized-target/debug/deps/csharp_practical_vc-a023def1d075fbd7');digest=sha(binary);snapshot=Path('/tmp/mpk-w09-binding-conditions-'+digest[:16]);shutil.copy2(binary,snapshot);record.update(binary=str(snapshot),binary_sha256=digest,sources_unchanged_during_build=all(sha(repo/p)==h for p,h in record['source_sha256'].items()))
+                                                                                                        ^^^^^^^^^^^
+  File "/tmp/mpk-w09-restart-after-interruption.py", line 4, in sha
+    def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+                                     ^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/mpk-w09-optimized-target/debug/deps/csharp_practical_vc-a023def1d075fbd7'

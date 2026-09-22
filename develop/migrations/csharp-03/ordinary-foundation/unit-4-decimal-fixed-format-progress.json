@@ -2,7 +2,7 @@
   "schema": "mpk.csharp_practical.w09.decimal_fixed_format_progress.v1",
   "work_item": "CSHARP-03-T06-W09",
   "internal_unit": 4,
-  "status": "fixed_decimal_format_implementation_verification_running",
+  "status": "scoped_component_semantic_verification_incomplete",
   "scope": "All 29 scales and five fixed-decimal rounding modes; exact registered binding and proofs remain pending",
   "expected_configurations_per_decimal_context": 145,
   "expected_source_contexts": 65,
@@ -105,18 +105,31 @@
       "command": "/usr/bin/git diff --check",
       "status": "passed",
       "scope": "Outside sandbox, exit zero after final implementation/test/review records."
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_decimal_fixed_formats_original_sources -- --nocapture",
+      "status": "interrupted_not_passed",
+      "scope": "The restarted semantic matrix reached ToEven target-scale cases before exit 130. It was stopped following an erroneous W09 stop classification, now retracted. The interrupted run remains incomplete and is not counted as a pass."
+    },
+    {
+      "test": "csharp_03_t06_w09_decimal_fixed_formats_original_sources",
+      "status": "interrupted_for_optimized_equivalent_rerun_not_passed",
+      "receipt": "/tmp/mpk-w09-decimal-fixed-formats-resumed.json",
+      "switch_receipt": "/tmp/mpk-w09-debug-to-optimized-switch.json",
+      "scope": "All six 145-configuration source programs checked; numeric matrix incomplete. Full rerun retains test logic, assertions and overflow checks."
     }
   ],
   "live_jobs": [
     {
-      "session_id": 80623,
-      "command": "MPK_W09_DECIMAL_FIXED_FORMATS_OUT=/tmp/mpk-w09-decimal-fixed-formats-v1 cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_decimal_fixed_formats_original_sources -- --nocapture",
-      "log": "/tmp/mpk-w09-decimal-fixed-formats-suite-v1.log",
-      "observed": "All 65 contexts generated/imported; six programs with 145 configurations each pinned. Ordinary semantic matrix started, with initial maximum and rounding-half cases passing; whole suite pending. Executable predates only the independent pinned replay test addition."
+      "test": "csharp_03_t06_w09_decimal_fixed_formats_original_sources",
+      "session_id": 85999,
+      "receipt": "/tmp/mpk-w09-decimal-fixed-formats-optimized.json",
+      "log": "/tmp/mpk-w09-decimal-fixed-formats-optimized.log",
+      "status": "running_not_yet_a_pass"
     }
   ],
   "remaining": [
-    "Complete the running fixed-format ordinary semantic matrix, then final scoped review. Both checkers, exact replay, lint and inventory passed.",
+    "Finish the full fixed-format semantic matrix; interrupted attempts are not passes. Optimized compilation omits no cases and retains assertions and overflow checks.",
     "All six complete 145-configuration programs and metadata pinned; normalized helper extraction proved byte-preserving. Universal source/codec proofs are separate remaining work.",
     "Implement fixed/normalized decimal parsing, remaining codecs and JSON, exact source/registry linkage, all remaining original implementation-plan units 3\u20138.",
     "No component-only commit or W09 completion. check-fast.sh deferred to T06-W12."
@@ -129,5 +142,7 @@
   "pinned_contexts": 6,
   "configuration_occurrences": 870,
   "max_terms": 34535,
-  "max_declarations": 518
+  "max_declarations": 518,
+  "current_full_verification": "verification-logs/binding-reconstruction/decimal-fixed-formats-resumed.json",
+  "interruption_recovery": "verification-logs/interrupted-20260922T1016Z/recovery.json"
 }

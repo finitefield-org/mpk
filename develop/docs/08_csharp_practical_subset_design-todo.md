@@ -35,8 +35,13 @@ normative but inactive specifications and, after the approved W14 codec
 parameter and W01 partial-loop amendments, 709 vectors.
 `CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09` and
 `CSHARP-03-T03-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10/W11/W12/W13/W14` are complete.
-`CSHARP-03-T04-W01/W02/W03/W04/W05/W06` and `CSHARP-03-T05-W01/W02/W03/W04/W05/W06` are complete; `CSHARP-03-T06-W01/W02/W03/W04/W05/W06/W07/W08` are complete; `CSHARP-03-T06-W09` is in progress. Every later
-implementation work item remains blocked by its serial predecessor.
+`CSHARP-03-T04-W01/W02/W03/W04/W05/W06` and `CSHARP-03-T05-W01/W02/W03/W04/W05/W06` are complete; `CSHARP-03-T06-W01/W02/W03/W04/W05/W06/W07/W08` are complete. `CSHARP-03-T06-W09` is In progress.
+The 2026-09-22 reconstruction audit retracts the T01 stop classification:
+`remapped-boundary-sequence` is a W09 definition fixture, not a frozen positive
+verified compilation. Its noninjective binding must fail final proof acceptance.
+See `ordinary-foundation/binding-reconstruction-stop-condition.json` in the
+CSHARP-03 migration evidence and the W09 completion audit for remaining work.
+Every later implementation work item remains blocked by its serial predecessor.
 
 Source design: `08_csharp_practical_subset_design.md`.
 
@@ -1930,14 +1935,107 @@ units in [the W09 work plan](../migrations/csharp-03/ordinary-foundation/impleme
 Each internal unit may be pushed separately. W09's exit gate is unchanged;
 partial carrier/helper certificates do not complete W09 or unblock W10.
 
-Current checkpoint (2026-09-21): internal unit 5 adds 59 ordered exceptional
-invocation-result relations for the existing 18-source control corpus, with
-exact W05 value identities. Scoped runtime, preservation, checker and review
-evidence is recorded under
-`develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-edges/native-exceptions/`.
-Handler/filter/finally execution, complete native bodies and application proof
-assembly remain open; this checkpoint does not close W09.
+Current checkpoint (2026-09-21): internal unit 5 has 59 ordered exceptional
+invocation-result relations and 101 exact native literal-result relations in the
+18-source control corpus. The current normal, exception and literal extensions retain
+their exact source identities. Scoped runtime, preservation, same-byte checker
+and review evidence is recorded under
+`develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-edges/native-literals/`.
+The stale JSON checker-running status was reconciled against terminal logs and
+all 22 current changed source hashes. Full JSON review, handler/filter/finally
+execution, complete native bodies and application proof assembly remain open;
+these checkpoints do not close W09.
 
+The source-step checkpoint composes 579 normal node relations with shared SSA
+bindings across the same 703-node corpus. The unbounded 18-context runtime passed
+20,584 observations in 8,193.415 seconds; its 36 outputs are byte-identical to
+the independent metadata candidate and promoted fixture. Coverage, preservation,
+inventory and lint/format pass, and all 15 distinct same-byte checker cases pass
+with zero axioms and hash-corruption rejection. See
+`ordinary-foundation/verification-logs/control-edges/source-steps/verification.json`
+under the migration root. Entry selection, inter-step transport,
+exceptional/alias execution and application proof assembly remain open. The full
+current-observer collection/sequence runtime reconciliation has now passed for
+internal unit 3.
+
+The complete reachable source-execution checkpoint now connects function
+entry, normal, exceptional, alias-update, constructor-call and terminal source
+steps to their exact outgoing control paths. The 18-source corpus contains 761
+executions over 703 source nodes. All reachable execution obligations are
+resolved; ten structurally unreachable nodes are recorded as explicit
+exclusions rather than unresolved obligations. Assignedness and assigned
+payloads are bridged exactly at state boundaries, and edge/phi/handler/target
+selection remains explicit. Two independent 36-file metadata generations and
+the promoted fixture match byte for byte. All 15 distinct certificates pass
+both unchanged checkers with matching reports, zero axioms and hash-corruption
+rejection. See
+`ordinary-foundation/verification-logs/control-edges/complete-source-executions/verification.json`.
+The retained constructor invocation is explicitly classified as resolved; the
+pending native-invocation set is empty, and this metadata-only correction leaves
+every certificate byte unchanged.
+Complete native-body integration and application proof assembly remain open;
+unit 5 and W09 are not complete. The earlier 625-path normal-only checkpoint is
+retained as historical evidence.
+
+
+The transition product foundation checkpoint is now verified for internal unit 6:
+make/state/events/response/equal/eligible compare and the inclusive 4096-event
+failure are ordinary definitions, including uninvoked instances. Three original
+source contexts pass 3,652 observations, and all three standalone plus three
+integrated certificates pass both checkers with zero axioms and hash mutations
+rejected. Integration preserves 291 transition transitive definitions, all 118
+existing component pairs and 43 unchanged structural certificates; one existing
+certificate gains six operations (468 occurrences across 44 contexts). See
+`ordinary-foundation/verification-logs/transition-operations/verification.json`
+under the migration root. Admission, source execution, state/history preservation,
+retained-key lookup, replay and application proof assembly remain open. This
+checkpoint does not complete unit 6 or W09.
+
+
+The unit-6 snapshot/history adapter now resolves W08 `SourceEqual` constants
+using each exact complete source-member DAG and ordinary source-value equality.
+It also resolves the paired `CanonicalFieldEncodingsEqual` predicate as complete
+command and context equality, plus `HistoryCapacity4096`, `RetainedKeyPresent`,
+`RetainedRecord`, and `RetainedKeysUnique` over the exact retained history
+carrier. `AppendCompleteSnapshot` fixes the one-record length increase and exact
+new key/command/context/response, while `PreserveRetainedHistoryOrder` checks the
+complete old record prefix. All eleven original W08 contexts pass
+reconstruction/mutation checks; the two contexts with snapshots cover fourteen
+node occurrences, 200
+observations and fourteen isolated stored-member changes. All three distinct
+certificates pass same-byte Go/Rust checking with zero axioms and hash-corruption
+rejection. Nine contexts have no snapshots and are not counted as comparison
+coverage.
+See `ordinary-foundation/verification-logs/transition-snapshots/verification.json`
+under the migration root. Source-helper and canonical serializer correctness,
+admission, replay and application proof assembly remain unresolved. Unit 6 and
+W09 are not complete.
+
+
+The source-invariant component now passes its complete scoped verification:
+53 contexts retain 72 source-type equations and 35 original W06 conditions.
+All 300 original equation observations, 127 exact member-selector comparisons
+and 39 nested-clause observations pass. All 53 certificates pass both unchanged
+checkers with zero axioms and hash-corruption rejection. Direct member views
+preserve shared subcubes; 45 existing default pins are unchanged. All application
+proofs and W03 partial-clause integration remain pending. See
+`ordinary-foundation/verification-logs/source-invariants/direct-member-reads/verification.json`.
+
+The original W06 closed actual-default conditions now pass targeted verification
+over the 45 retained binding sources, including both checkers. They use exact CLR
+default values, source public-domain membership and the declared semantic arm.
+DefaultUseForbidden remains an explicit source-use proof obligation, and every
+original proof ID remains pending. See
+`ordinary-foundation/unit-4-binding-default-progress.json`. This does not close
+unit 4 or W09; the full T06 gate remains deferred to W12.
+
+The concrete-type adapter passes its scoped verification over all 45 original
+contexts: 81 public type conditions, six explicitly pending construction-state
+conditions, 405 value/mutation observations and 45 same-byte dual-checker cases.
+The source-invariant pins are unchanged. The five-component inventory now has
+445 available definitions and 542 remaining definitions; all 987 application
+proofs remain pending. See `ordinary-foundation/unit-4-concrete-type-progress.json`.
+This does not complete internal unit 4 or W09.
 
 Owns: translation of every already-expanded concrete foundation definition in
 monomorphic VIR into ordinary core definitions and proof terms for all new

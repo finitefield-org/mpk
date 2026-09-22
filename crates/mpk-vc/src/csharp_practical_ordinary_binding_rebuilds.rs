@@ -337,6 +337,31 @@ pub fn generate_csharp_practical_ordinary_binding_rebuilds(
     let vc = generate_binding_vcs(vir, &construction).map_err(|_| OrdinaryCarrierError::Linkage)?;
     let layouts = generate_csharp_practical_ordinary_carriers(vir)?;
     let (b, projections) = emit_binding_projections(vir, &vc, &layouts, Builder::new()?)?;
+    let (b, definitions, pending_reconstruct_symbols) =
+        emit_rebuilds(vir, &vc, &layouts, b, projections)?;
+    let certificate = b.finish()?;
+    let p = OrdinaryBindingRebuildProgram {
+        schema: "mpk.csharp.ordinary_binding_rebuilds.v1".into(),
+        source_ir_sha256: vir.hash().into(),
+        foundation_sha256: vir.construction_context().0.content_sha256().into(),
+        binding_vc_sha256: vc.hash(),
+        definitions,
+        pending_reconstruct_symbols,
+        certificate_sha256: mpk_cert::hash_hex(&mpk_cert::certificate_hash(&certificate)),
+        certificate,
+    };
+    if p.canonical_bytes().len() > 16 * 1024 * 1024 {
+        return Err(OrdinaryCarrierError::Limit);
+    }
+    Ok(p)
+}
+pub(in super::super) fn emit_rebuilds(
+    vir: &ValidatedPracticalVir,
+    vc: &BindingVcProgram,
+    layouts: &OrdinaryCarrierProgram,
+    b: Builder,
+    projections: Vec<OrdinaryBindingProjectionDefinition>,
+) -> R<(Builder, Vec<OrdinaryBindingRebuildDefinition>, Vec<String>)> {
     let mut r = Rebuild {
         p: Projections {
             b,
@@ -376,21 +401,7 @@ pub fn generate_csharp_practical_ordinary_binding_rebuilds(
     }
     pending_reconstruct_symbols.sort();
     pending_reconstruct_symbols.dedup();
-    let certificate = r.p.b.finish()?;
-    let p = OrdinaryBindingRebuildProgram {
-        schema: "mpk.csharp.ordinary_binding_rebuilds.v1".into(),
-        source_ir_sha256: vir.hash().into(),
-        foundation_sha256: vir.construction_context().0.content_sha256().into(),
-        binding_vc_sha256: vc.hash(),
-        definitions,
-        pending_reconstruct_symbols,
-        certificate_sha256: mpk_cert::hash_hex(&mpk_cert::certificate_hash(&certificate)),
-        certificate,
-    };
-    if p.canonical_bytes().len() > 16 * 1024 * 1024 {
-        return Err(OrdinaryCarrierError::Limit);
-    }
-    Ok(p)
+    Ok((r.p.b, definitions, pending_reconstruct_symbols))
 }
 pub fn import_csharp_practical_ordinary_binding_rebuilds(
     input: &[u8],

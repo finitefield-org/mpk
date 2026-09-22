@@ -1,17 +1,59 @@
 # W09 internal unit 1: ordinary carriers
 
-Current unit4 finding: typed JSON used an incorrect cumulative cell bound and
-string count. The required bound is65,536 and a string contributes1+UTF-16
-units. Affected component reviews are reopened; historical checker/test results
-do not close this semantic finding. See `unit-4-json-cell-count-review.md` and
-`unit-4-json-cell-count-progress.json` for correction and replacement evidence.
+W09 is In progress. The 2026-09-22 reconstruction audit retracts the T01 stop
+classification: `remapped-boundary-sequence` is a W09 definition fixture whose
+noninjective binding must fail final proof acceptance. It is absent from the
+freeze and published specifications. See `binding-reconstruction-stop-condition.json`.
+
+The current count-helper consumer repair has passed binding pinned replay and
+same-byte checking for all 48 distinct binding certificates. A broader scan
+found 268 source-bound codec/JSON/clause pins and six helper pins left behind
+by the earlier count/domain optimization. All now regenerate and preserve their
+original source identities; six additional domain differences have separate
+semantic and source-test review. Their 224 distinct certificate byte sequences
+are still being checked. See
+`verification-logs/unit-4-count-pin-refresh/additional-consumers/verification.json`.
+The complete reconstruction corpus now passes: 45 source contexts, 37 candidates,
+206 conditions, 12,683 bit observations and four negative conditions. Sharing
+the condition compiler preserves all 45 current certificate bytes and metadata;
+all 45 new certificates pass same-byte Go/Rust checking with zero axioms and
+changed-hash rejection. These records distinguish unfinished checks from passed
+component evidence and do not complete unit 4 or W09.
+
+Source-invariant equations now pass scoped verification over 53 source contexts,
+72 type equations and 35 W06 conditions. Direct member views pass 127 exact
+selector comparisons and make all 300 original equation observations complete
+without limits. All 53 certificates pass both checkers with zero axioms and
+hash-corruption rejection; all 45 default pins remain unchanged. The original
+formulas and pending proof IDs are retained. See
+`unit-4-source-invariant-progress.json`; no application proof is discharged.
+
+Closed actual-default conditions passed scoped verification over 45 sources. They
+connect exact recursive CLR zero values to the original public-domain and
+declared-arm goals. Ineligible defaults retain their source-use proof obligation.
+See `unit-4-binding-default-progress.json`; all proof IDs remain pending.
+
+Closed concrete type predicates now pass scoped verification over 45 original
+contexts. Eighty-one public type conditions are defined and six construction-state
+conditions remain explicit. All 405 value/mutation observations, 45 same-byte
+dual-checker cases, 53 source-invariant pin comparisons and targeted quality
+checks pass. See `unit-4-concrete-type-progress.json`. The five-component W06
+inventory now has 445 available definitions and 542 remaining definitions; every
+one of the 987 application proofs is still pending.
+
+The unit-4 typed JSON correction uses the required 65,536 cumulative cell bound
+and counts a string as 1 + UTF-16 units. All 22 changed candidates now have
+matching current hashes and terminal checker PASS evidence; that correction's
+review is closed. Full unit-4 coverage remains incomplete. See
+`unit-4-json-cell-count-progress.json` and
+`verification-logs/json-cell-count/terminal-evidence-reconciliation.json`.
 
 This directory records the first of eight user-approved internal W09 units.
 It contains actual ordinary carrier/helper definitions and regression fixtures.
 Internal unit 2 (scalar operations/checks) is also complete; see
-`unit-2-verification.json` and `unit-2-review.md`. W09 is still in progress:
+`unit-2-verification.json` and `unit-2-review.md`. W09 is in progress;
 structural/collection foundations, domains, bindings/codecs, control/transition
-relations and application proof assembly remain units 3-8 in
+relations and application proof assembly are tracked as units 3-8 in
 `implementation-plan.md`. Checking these carrier certificates does not
 discharge an application VC.
 
@@ -145,9 +187,9 @@ repository rule for intermediate W work. No GitHub Actions workflow is used.
 `money-operations/` contains three concrete instances and all 30 operations.
 Both source semantic matrices passed, totalling 100 ordinary observations;
 both pinned programs passed the unchanged checkers with zero axioms and rejected
-hash corruptions. This preserves the full scope of units 3-8. Unit 3
-still has pending deep semantic checks and its final review; neither this Money
-component nor the existing structural helper certificates complete W09. See
+hash corruptions. This preserves the full scope of units 3-8. Unit 3 later
+completed its deep semantic checks and final review; neither this Money
+component nor the existing structural helper certificates alone complete W09. See
 `unit-4-money-progress.json` for scoped evidence and pending work.
 
 Ordinary VIR block/check literal bodies are now emitted by the unit-4 literal
@@ -174,7 +216,8 @@ corruptions. See `binding-projections/README.md`,
 
 No nonidentity inverse or source/target-domain/commutation proof is inferred from
 forward conversion. The remaining unit 4 business/codec/reconstruction work,
-units 5-8, unit 3's deep checks/full review and complete W09 acceptance stay open.
+units 5-8 and complete W09 acceptance stay open. Unit 3's final evidence is in
+`unit-3-completion-audit.json` and `unit-3-completion-review.md`.
 
 ## Internal unit 4 binding-relation work in progress
 
@@ -1349,3 +1392,137 @@ frames, handler/filter/finally execution or complete application proofs. Unit 5
 and W09 remain incomplete, W10 remains blocked, and the whole gate stays deferred
 to T06-W12. The review's earlier W05 value-identity finding was corrected before
 promotion; obsolete candidate checks remain separate historical evidence.
+
+
+## Native literal result checkpoint
+
+All 101 retained native literal results in the 18 original control contexts now
+have exact producing-node, value-ID and type bindings plus ordinary full-storage
+equality relations in the same certificate. The 3,143 new observations cover
+independent storage encoding and changed low/middle/last bits, including padding
+and inactive sum arms. Thirteen preservation/slot checks retain every previous
+term/declaration prefix and metadata, preserving the earlier 96,920 observations
+(100,063 scoped observations in total). Standalone literal generation across 64
+source contexts and the boundary-literal consumer retain their existing pins;
+three shared-literal helper tests, inventory, targeted lint and format pass.
+All 15 distinct extended certificates pass same-byte Go/Rust acceptance, matching
+reports, zero axioms and hash-corruption rejection. See `verification-logs/control-edges/native-literals/verification.json` and its review.
+
+Literal results do not establish source-node reachability or compose a complete
+execution. Incoming witnesses, alias/exception state, handlers/filter/finally,
+transition/replay and application proof assembly remain open. Unit 5 and W09
+remain incomplete; the whole T gate is deferred to T06-W12.
+
+## Source normal-step composition checkpoint
+
+The 18 original control contexts now have 579 complete local normal-step
+predicates across 703 source nodes. Each predicate composes exact source frames,
+successful transfers, native normal results and literal results over one shared
+SSA argument list. The other 124 nodes remain explicit: 18 function entries, 93
+exceptional nodes, ten unreachable nodes, two alias updates and one non-data
+invocation.
+
+The unbounded runtime passed 20,584 observations in 8,193.415 seconds. Its 36
+outputs match the independent metadata candidate and promoted fixture byte for
+byte. All 15 distinct certificates pass both unchanged checkers with matching
+reports, zero axioms and hash-corruption rejection. See
+`verification-logs/control-edges/source-steps/verification.json`.
+
+Entry selection, inter-step transport, exceptional and alias execution, and
+complete application proof assembly remain open. Unit 5 and W09 remain
+incomplete.
+
+### Normal source execution checkpoint
+
+The unit-5 control program now composes 625 complete normal edge executions from
+the selected source-node entry through each complete local step and exact
+outgoing edge into the selected target entry. Assignedness is equal at both
+bridges; payload storage is equal whenever assigned. The complete in-memory
+argument/component map is committed by exact counts and SHA-256 in canonical
+metadata, keeping the largest candidate below 16 MiB.
+
+Three independent 36-file generations and the promoted fixture are byte
+identical. All 15 distinct certificates pass both unchanged checkers with
+matching reports, zero axioms and hash-corruption rejection. Source-step replay,
+preservation, inventory, clippy and format checks pass. See
+`verification-logs/control-edges/source-executions/verification.json`.
+
+Function entry, exceptional/alias execution, unreachable nodes, one non-data
+call and application proof assembly remain open. Unit 5 and W09 remain
+incomplete.
+
+### Complete reachable source execution checkpoint
+
+The successor checkpoint composes 761 source execution paths across all 18
+control contexts. It covers function entry, normal and exceptional paths,
+alias updates, the retained constructor call and terminal steps. Every
+reachable source node has an execution relation. Ten source nodes proven
+structurally unreachable are carried in
+`excluded_unreachable_source_node_ids`; they are excluded explicitly and do not
+appear as unresolved execution obligations.
+
+The retained constructor invocation is explicitly classified in
+`source_constructor_invocation_node_ids`; the pending native-invocation set is
+empty. This metadata-only classification leaves all certificate bytes unchanged.
+
+The 703-node corpus contains 582 complete local steps and 121 locally special
+steps handled by the execution layer: 18 function entries, 93 exceptional
+steps and ten unreachable nodes. The complete execution metadata has no pending
+reachable node ID. Two independent 36-file metadata generations and the
+promoted fixture are byte identical. All 15 distinct certificate byte sets
+pass both unchanged checkers with matching reports and zero axioms; both
+checkers reject the one-bit hash corruptions. Source-step replay, execution
+metadata mutation checks, preservation, inventory, targeted clippy and format
+checks pass. See
+`verification-logs/control-edges/complete-source-executions/verification.json`.
+
+This closes the source execution gap within the current 18-source corpus.
+Complete native-body integration and application proof assembly remain open,
+so unit 5 and W09 remain incomplete. The full T06 gate remains deferred to
+T06-W12.
+
+### Transition product foundation checkpoint
+
+The transition product foundation checkpoint is now verified for internal unit 6:
+make/state/events/response/equal/eligible compare and the inclusive 4096-event
+failure are ordinary definitions, including uninvoked instances. Three original
+source contexts pass 3,652 observations, and all three standalone plus three
+integrated certificates pass both checkers with zero axioms and hash mutations
+rejected. Integration preserves 291 transition transitive definitions, all 118
+existing component pairs and 43 unchanged structural certificates; one existing
+certificate gains six operations (468 occurrences across 44 contexts). See
+`verification-logs/transition-operations/verification.json`
+ Admission, source execution, state/history preservation,
+retained-key lookup, replay and application proof assembly remain open. This
+checkpoint does not complete unit 6 or W09.
+
+### Source snapshot and retained-history checkpoint
+
+The unit-6 snapshot/history adapter now resolves W08 `SourceEqual` constants
+using each exact complete source-member DAG and ordinary source-value equality.
+It also resolves the paired `CanonicalFieldEncodingsEqual` predicate as complete
+command and context equality, plus `HistoryCapacity4096`, `RetainedKeyPresent`,
+`RetainedRecord`, and `RetainedKeysUnique` over the exact retained history
+carrier. `AppendCompleteSnapshot` fixes the one-record length increase and exact
+new key/command/context/response, while `PreserveRetainedHistoryOrder` checks the
+complete old record prefix. All eleven original W08 contexts pass
+reconstruction/mutation checks; the two contexts with snapshots cover fourteen
+node occurrences, 200
+observations and fourteen isolated stored-member changes. All three distinct
+certificates pass same-byte Go/Rust checking with zero axioms and hash-corruption
+rejection. Nine contexts have no snapshots and are not counted as comparison
+coverage.
+See `verification-logs/transition-snapshots/verification.json`
+ Source-helper and canonical serializer correctness, admission, replay and
+application proof assembly remain unresolved. Unit 6 and W09 are not complete.
+
+## Binding representation conditions (scoped verification passed)
+
+Six original W06 representation sequent kinds now compose the exact public
+domains, projections, guards and canonical-order predicates. Each original
+assumption and goal is retained; every original proof obligation stays pending.
+All 45 source/import/closure cases, 385 runtime observations, 45 unchanged
+reconstruction certificates and 45 same-byte Go/Rust checks pass. All original
+proof obligations remain pending. Exact results are tracked in
+`unit-4-binding-condition-progress.json`
+and `unit-4-binding-condition-review.md`. This does not complete unit 4 or W09.

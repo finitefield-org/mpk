@@ -55,6 +55,7 @@ pub fn generate_csharp_practical_ordinary_boundary_literals(
     let layouts = generate_csharp_practical_ordinary_carriers(vir)?;
     let mut emitter = Literals {
         b: Builder::new()?,
+        part_scope: "LiteralPart",
         parts: BTreeMap::new(),
         carriers: layouts
             .carriers()

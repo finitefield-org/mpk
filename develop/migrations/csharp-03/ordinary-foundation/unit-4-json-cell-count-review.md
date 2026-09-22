@@ -1,4 +1,4 @@
-# W09 typed JSON cell-count correction: open review finding
+# W09 typed JSON cell-count correction: scoped review closed
 
 The authoritative value contract is `TOTAL_VALUE_CELLS_MAX = 65_536` and
 `validate_value_inner(String) = 1 + utf16.len()` in
@@ -45,7 +45,33 @@ regenerated and hash-verified;22 changed and5 stayed byte-identical. Old vectors
 are retained in each family's previous-cell-count directory. All45 affected
 original-document cases passed with corrected UTF-16 accounting. The new
 string-cell helper and changed all-scalar candidate also passed both checkers.
-The22 changed source vectors are still being checked; component review remains
-open until those terminal results and pending capacity scope are reconciled.
+At that checkpoint the22 changed source vectors were still being checked; the
+terminal reconciliation below supersedes that progress statement.
 
-The numeric capacity scope is now documented in `unit-4-json-cell-count-capacity-scope.md`. All 4,387 array/sum declaration names and types match; exactly six grammar blocks differ in each candidate pair. The targeted difference test and existing shared-comparator consumer passed, with lint/format clean. The initial comparison failure was a test namespace assumption (the emitter hex-encodes operation names); it was corrected to an exact six-name expectation. Historical Validation runtime and Map/Set checker jobs have completed and their logs are retained without treating them as current-byte acceptance. The changed-only runner has passed the two changed json-values vectors and continues with json-products; the full semantic finding remains open.
+The numeric capacity scope is now documented in `unit-4-json-cell-count-capacity-scope.md`. All 4,387 array/sum declaration names and types match; exactly six grammar blocks differ in each candidate pair. The targeted difference test and existing shared-comparator consumer passed, with lint/format clean. The initial comparison failure was a test namespace assumption (the emitter hex-encodes operation names); it was corrected to an exact six-name expectation. Historical Validation runtime and Map/Set checker jobs have completed and their logs are retained without treating them as current-byte acceptance. The terminal current-byte result is recorded below.
+
+## Final review resolution
+
+The changed-only queue is terminal. All 22 changed source certificates now have
+their current SHA-256 tied to an exact retained checker subtest PASS. The first
+`json-products` group ended nonzero because the Rust binary was observed during
+a brief rebuild interval; its six other candidates had already passed and the
+unchanged `calendar-date-time` candidate passed the isolated retry. The enum
+candidate likewise passed its isolated retry. These were process failures, not
+proof rejections. The immutable log hashes, subtest names and current candidate
+hashes are reconciled in
+`verification-logs/json-cell-count/terminal-evidence-reconciliation.json`.
+
+The capacity limitation remains explicit. Historical Bool-array and Validation
+runtime observations are reused only for inputs whose attempted semantic cell
+counts stay below both the old and corrected limits. The direct certificate
+comparison proves that exactly six cumulative-cell comparison blocks changed
+while every declaration name/type and all other bodies remain identical. The
+45 affected String-containing original documents were rerun on current bytes.
+This closes the typed-cell correction finding without treating the bounded
+analysis as a universal equivalence proof.
+
+No actionable finding remains in this scoped review. The broader unit 4 audit
+of all definition families, dependencies, frozen failure order and cumulative
+limits is still required. Unit 4 and W09 remain incomplete, and the whole T06
+gate remains deferred to W12.

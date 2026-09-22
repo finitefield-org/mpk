@@ -1,10 +1,10 @@
 # CSHARP-03 Implementation Traceability Ledger
 
-Current implementation: `CSHARP-03-T06-W09` is `In progress`. Its eight internal
-units and pending acceptance gate are tracked in
+Current implementation: `CSHARP-03-T06-W09` is `In progress`. Its completed
+checkpoints, reconstruction audit correction and pending acceptance gate are tracked in
 `develop/migrations/csharp-03/ordinary-foundation/w09-completion-audit.json`.
-W10 and later items remain blocked; the historical completion records below
-do not constitute a W09 receipt.
+The W09 definition counterexample does not require repeating T01. W10 and later items remain blocked;
+the historical completion records below do not constitute a W09 receipt.
 
 Status: `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10`,
 `CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09`, and
@@ -5642,10 +5642,10 @@ bytes are unchanged. The full `./scripts/check-fast.sh` gate is deferred to
 T06-W12. W07 records its published commit, W08 uses `SELF`, and W09 is ready.
 
 
-## 59. CSHARP-03-T06-W09 internal unit 5 exceptional-result checkpoint
+## 59. CSHARP-03-T06-W09 internal unit 5 local result checkpoints
 
-W09 is In progress. This is a bounded internal component record, not a work-item
-completion or an unblock of W10. It starts from checkpoint
+At this checkpoint, W09 was In progress. This is a bounded internal component
+record, not a work-item completion or an unblock of W10. It starts from checkpoint
 `fe9dc4fc3ebc2554127591e708b2a2d224357751`; frozen inputs, original-source capture
 hashes and exact producer/test hashes are retained in
 `develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-edges/native-exceptions/`.
@@ -5686,3 +5686,324 @@ execution, handler search/filter/finally, exceptional state/alias framing,
 application proof assembly and remaining units stay open. The full predecessor
 acceptance corpus stays with W09 internal unit 8; `./scripts/check-fast.sh` stays
 with T06's final W12. There is no component-only commit or downstream unblock.
+
+
+The next scoped extension adds 101 literal results at their exact native source
+nodes to these same 18 certificates. A private literal-fragment namespace lets
+the new pass append without redefining prior exception literal fragments. It
+preserves every previous term/declaration prefix and all old source metadata.
+Full physical equality distinguishes altered padding and inactive payloads.
+The 3,143 new observations, thirteen preservation/slot tests, original literal
+and boundary-literal consumers, three literal helper tests, inventory and
+Clippy/format all pass. All 15 distinct current bytes have matching Go/Rust
+acceptance and corruption receipts. Evidence and direct scoped review are in
+`develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-edges/native-literals/`.
+No application execution theorem is discharged by these local value relations.
+
+A separate evidence reconciliation verified all 22 changed JSON source pins
+against retained terminal PASS subtests and immutable log hashes across ten
+families. The stale running status is corrected; the historical failed group
+and its successful retry remain visible. This does not close the JSON semantic
+review or turn historical capacity observations into current-byte runtime tests.
+See `ordinary-foundation/verification-logs/json-cell-count/terminal-evidence-reconciliation.json`
+under the migration root. W09 and its remaining internal units stay open, W10
+stays blocked, and the full T gate stays deferred to T06-W12.
+
+
+Source-step composition is now a verified scoped checkpoint: 579 normal relations
+cover every source frame with existing complete native semantics in the 703-node
+control corpus. Components share the original SSA definition point and retain
+separate source entry/exit snapshots. Completeness metadata, fourteen retained
+prefix/slot checks, inventory and targeted lint/format pass. The unbounded
+18-context runtime passed 20,584 observations in 8,193.415 seconds, and its 36
+outputs match the independent metadata candidate and promoted fixture byte for
+byte. All 15 distinct certificates pass both unchanged checkers with zero axioms
+and hash-corruption rejection. Verification and review are in
+`ordinary-foundation/verification-logs/control-edges/source-steps/` under the
+migration root. The inventory adds exactly the one new Boolean-conjunction
+consumer (139 Std namespace paths, 4,962 total hits), with the original preimage
+and the corresponding historical-cache manifest hash recorded.
+
+The unit-3 completion audit also starts five full current-observer collection/
+sequence semantics, update/capacity and order checks. This closes a recorded
+runtime-version evidence gap; already reconciled domain/aggregate tests are not
+rerun. Exact scope, current producer/evaluator hashes and the active process
+handle are retained in `ordinary-foundation/verification-logs/unit-3-current-runtime/`.
+The unit-3 run subsequently passed all five tests in 9,040.787 seconds, closing
+the recorded current-observer gap and completing internal unit 3. The source-step
+checkpoint does not complete unit 5 or W09 because entry selection, inter-step transport, exceptional/alias
+execution and application proofs remain open. The T06 whole gate remains with
+W12.
+
+
+The transition product foundation checkpoint is now verified for internal unit 6:
+make/state/events/response/equal/eligible compare and the inclusive 4096-event
+failure are ordinary definitions, including uninvoked instances. Three original
+source contexts pass 3,652 observations, and all three standalone plus three
+integrated certificates pass both checkers with zero axioms and hash mutations
+rejected. Integration preserves 291 transition transitive definitions, all 118
+existing component pairs and 43 unchanged structural certificates; one existing
+certificate gains six operations (468 occurrences across 44 contexts). See
+`ordinary-foundation/verification-logs/transition-operations/verification.json`
+under the migration root. Admission, source execution, state/history preservation,
+retained-key lookup, replay and application proof assembly remain open. This
+checkpoint does not complete unit 6 or W09.
+
+Direct source-step review also corrected the binder limit to include nested
+argument-type depth. An actual Lam/Pi boundary test accepts 256 and factors 257;
+all 18 metadata/certificate pairs remain byte-identical before and after that
+fix and the transition export additions. See source-steps/binder-depth-verification.json
+and source-steps/export-byte-equivalence.json. The long source-step runtime has
+since passed; the unit-3 runtime also retained its original scope and passed.
+
+
+The unit-6 snapshot/history adapter now resolves W08 `SourceEqual` constants
+using each exact complete source-member DAG and ordinary source-value equality.
+It also resolves the paired `CanonicalFieldEncodingsEqual` predicate as complete
+command and context equality, plus `HistoryCapacity4096`, `RetainedKeyPresent`,
+`RetainedRecord`, and `RetainedKeysUnique` over the exact retained history
+carrier. `AppendCompleteSnapshot` fixes the one-record length increase and exact
+new key/command/context/response, while `PreserveRetainedHistoryOrder` checks the
+complete old record prefix. All eleven original W08 contexts pass
+reconstruction/mutation checks; the two contexts with snapshots cover fourteen
+node occurrences, 200
+observations and fourteen isolated stored-member changes. All three distinct
+certificates pass same-byte Go/Rust checking with zero axioms and hash-corruption
+rejection. Nine contexts have no snapshots and are not counted as comparison
+coverage.
+See `ordinary-foundation/verification-logs/transition-snapshots/verification.json`
+under the migration root. Source-helper and canonical serializer correctness,
+admission, replay and application proof assembly remain unresolved. Unit 6 and
+W09 are not complete.
+
+All fifteen distinct source-step certificates pass both
+unchanged checkers, report agreement, zero axioms and hash-corruption rejection.
+See `ordinary-foundation/verification-logs/control-edges/source-steps/checker-verification.json`.
+Its original eighteen-source execution test passed 20,584 observations in
+8,193.415 seconds; current control pins now contain the byte-identical result.
+The current-observer unit-3 run passed its original collection/sequence cases;
+the full T06 gate remains deferred to T06-W12.
+
+Normal source execution is now a further scoped unit-5 checkpoint. Every one of
+the 579 complete local steps is connected through each exact non-exception
+outgoing edge, for 625 source-step/edge executions across the same 18 contexts.
+The relation fixes the selected source entry, bridges assigned state into and
+out of the local step, and fixes the edge join, optional phi and selected target
+entry. Three independent 36-file generations match the promoted fixture. All
+15 distinct certificates pass the unchanged Go and Rust checkers with matching
+reports, zero axioms and one-bit hash-corruption rejection. The previous source
+step is preserved, all five inventory tests pass after recording the one new
+foundation namespace consumer (141 paths, 4,964 total hits), and targeted
+Clippy/format pass. Evidence and review are under
+`ordinary-foundation/verification-logs/control-edges/source-executions/`.
+Function entry, exceptional/alias execution, ten unreachable nodes, one
+non-data call and application proof assembly remain open, so unit 5 and W09
+remain In progress and W10 remains blocked.
+
+The complete reachable source-execution checkpoint supersedes that scope for
+current evidence while retaining the 625-path checkpoint unchanged as history.
+It composes 761 paths across function entry, normal, exceptional, alias-update,
+constructor-call and terminal source steps in the same 18 contexts. All
+reachable execution obligations are resolved. Ten structurally unreachable
+nodes are independently reconstructed and recorded as explicit exclusions,
+not pending obligations. The retained constructor invocation is explicitly
+classified as resolved, the pending native-invocation set is empty, and every
+certificate byte is unchanged. The corpus now has 582 complete local source steps and
+121 locally special steps handled at the execution layer. Two independent
+36-file metadata generations and the promoted fixture match byte for byte. All
+15 distinct certificates pass the unchanged Go and Rust checkers with matching
+reports, zero axioms and one-bit hash-corruption rejection. Source-step replay,
+execution metadata mutations, declaration preservation, all five inventory
+tests, targeted Clippy and format also pass. Evidence and review are under
+`ordinary-foundation/verification-logs/control-edges/complete-source-executions/`.
+Complete native-body integration and application proof assembly remain open,
+so unit 5 and W09 remained In progress at that checkpoint and W10 stayed blocked.
+
+## 60. CSHARP-03-T06-W09 binding-reconstruction audit correction
+
+W09 remains In progress. The 2026-09-22 stop classification is retracted. The existing
+`csharp_03_t06_w09_binding_projections_original_source_semantics` probe exposes
+two public `ProjectionCases.Root` values in the definition-only
+`remapped-boundary-sequence` corpus that differ only at stored member `Extra`.
+Their complete source storage differs, but the bounded-sequence projection is
+identical because its binding maps only `Items`.
+
+The frozen binding VC declares unary `reconstruct(semantic) -> source` and
+requires the source round trip, including a `MemberEqual` goal for every stored
+member. For `project(x) = project(x')` with `x != x'`, the same reconstruct
+input cannot return both source values. The ordinary binary rebuild correctly
+preserves an explicit source completion, but that helper cannot discharge the
+unary frozen operation. Choosing a zero completion would falsify the `Extra`
+round trip.
+
+This is a negative requirement for final proof acceptance, not evidence of an
+unencodable admitted capability. The source fixture was added during W09 in
+commit `09a14bdde6b14408e4f25e55cb787dd989577d7e`; neither the T01 freeze nor the
+published specifications contain it. The original projection review explicitly
+leaves the inverse and universal proofs pending. Generating ordinary definitions
+or a candidate VC does not verify the application. An invariant could fix an
+unmapped field, so this example also does not justify rejecting all unmapped
+members before lowering. The erroneous normative paragraph and T01-repeat
+requirement are removed. The regression still demonstrates that both source
+values satisfy the public domain. Details are recorded in
+`develop/migrations/csharp-03/ordinary-foundation/binding-reconstruction-stop-condition.json`.
+No W09 completion, W10 unblock, activation, commit or push follows from the
+partial checkpoints retained above. The T06 whole gate remains deferred to the
+final W, T06-W12.
+
+The follow-up unary-candidate test now derives the exact stored-member ID from
+captured owner/name/type/storage facts. Its focused negative fixture passed:
+two candidates, 13 obligations, 1,232 bit observations and all four counterexample
+conditions. The full 45-context semantic rerun remains in progress. Current
+binding consumer pins passed all 48 distinct Go/Rust certificate checks and
+complete pinned replay. The broader count/domain consumer repair regenerated
+268 source-bound programs and six helper certificates; its 224 distinct byte
+sets are still being checked. Exact source identities, audits, exceptional
+six-domain reviews, commands and hashes are retained under
+`ordinary-foundation/verification-logs/unit-4-count-pin-refresh/`.
+
+The new unit-4 binding-condition component translates the original W06 member
+agreement, exactly-one-arm, tag/payload agreement, bound, canonical ordering
+and nonempty-invalid sequents into ordinary assumption, goal and implication
+functions. It retains every original proof ID as pending. Source invariants,
+default and native-operation witnesses and universal theorem assembly remain
+separate incomplete requirements. The 45-context source/import/closure corpus,
+four-context composition semantics, unchanged reconstruction pins and same-byte
+checker validation are in progress; see `unit-4-binding-condition-progress.json`
+and the exact commands/hashes under `verification-logs/binding-conditions/` in
+the ordinary-foundation evidence directory. The foundation namespace inventory
+adds exactly this one consumer, preserving the preceding 142 paths (143 current
+paths, 4,966 total matches). These records do not complete unit 4/W09; the whole
+T06 gate remains deferred to T06-W12.
+
+The representation-condition checkpoint subsequently passed its complete scoped
+verification: 120 conditions across all 45 retained source contexts, 385 runtime
+composition observations (including 27 false goals and 27 false-assumption
+conditions), exact preservation of all 45 reconstruction metadata/certificate
+pairs, and all 45 same-byte Go/Rust checker cases with matching reports, zero
+axioms and changed-hash rejection. Targeted Clippy, all five inventory tests and
+format checks pass. Direct review has zero remaining scoped findings; current
+source, manifest, certificate and terminal-log hashes are rechecked in
+`ordinary-foundation/verification-logs/binding-conditions/verification.json`.
+The full reconstruction semantic rerun also passed 37 candidates, 206 conditions,
+12,683 bit observations and four counterexample conditions across 45 contexts;
+its certificate checker run remains separate. Interrupted attempts and the
+subsequent incremental-cache link failure are retained without being counted
+as passes. Current long-running verification uses durable process/exit records.
+This closes the representation-condition component only. Unit 4 and W09 remain
+In progress, every original application proof obligation is still pending,
+and the whole T06 gate remains deferred to T06-W12.
+
+The reconstruction checker run then passed all 45 certificates as well. Current
+bytes, domain-separated certificate hashes and terminal log hashes are verified
+in `ordinary-foundation/verification-logs/binding-reconstruction/verification.json`.
+This closes the explicit constant-completion component, while general witnesses
+and every universal application proof remain required. The remaining decimal
+matrix and broader count/domain consumer checks are still running; they are not
+included in either scoped completion claim.
+
+The source-invariant component now compiles the original W02 public-body equations
+and original W06 source_invariant conditions. SourceShape uses the independent
+representation-only domain; member reads, recursive public domains and exact
+compiled public clauses remain explicit. Targeted source/import/closure, nested
+clause, enum-bit, unchanged-consumer and dual-checker verification is in progress
+under `ordinary-foundation/verification-logs/source-invariants/`. Partial-clause
+W03 obligations, universal proofs and complete W09 assembly remain required.
+The broader count consumer checks encountered three Rust Cargo execution failures
+during a temporary source-invariant field-name compile error. The field is fixed
+and library checking passes; original failed logs are retained and complete
+same-byte/mutation retries run separately in `transient-rust-build-retries.json`.
+No incomplete check is counted as passed; the whole T06 gate stays at T06-W12.
+
+The source-invariant generator has passed 53 exact source/import/closure cases,
+retaining 72 original W02 type equations and 35 W06 source-invariant conditions.
+All 53 source certificates and the enum helper certificate pass same-byte
+Go/Rust acceptance with zero axioms and hash-corruption rejection. All old
+representation-domain pins, all 45 representation-condition pins and all 45
+reconstruction metadata/byte pairs are preserved. Nested/public-clause checks
+(39 observations), separate partial-definedness rejection and enum bit checks
+(868 observations) pass. The original-equation semantic run exposed a test-only
+malformed zero-depth Bool input. The complete rerun with Bit(true) remains live;
+its failed predecessor is retained, and no production/certificate changes were
+needed. Current receipts are under `verification-logs/source-invariants/`.
+This component, unit 4 and W09 are still in progress pending that rerun and the
+remaining unit requirements. The full T06 gate remains deferred to T06-W12.
+
+## 64. CSHARP-03-T06-W09 closed actual-default conditions
+
+The default component retains every original closed W06 sequent and links actual
+CLR defaults to source public membership and the declared semantic arm. It adds
+three condition definitions over 45 original contexts. Thirty-two ineligible
+default sequents require source-use proofs, and all 987 original proof IDs remain
+pending. The four-component definition inventory now has 364 available condition
+definitions and 623 remaining definitions; this is not proof completion.
+
+All 45 source/import/transitive-closure cases pass. Sixteen source defaults pass
+2,368 bit observations; 157 invalid-source/matching-arm and two valid-source/
+wrong-arm probes independently require both conjuncts. All 53 earlier source-
+invariant metadata/certificate pins are preserved. All 45 current default
+certificates pass both unchanged local checkers, identical reports, zero axioms
+and changed-hash rejection. Clippy and format pass. The initial inventory failure
+is retained; adding exactly the new default test preserves the previous 143-path
+fingerprint and passes all five tests at 144 paths / 4,967 matches.
+
+See `ordinary-foundation/verification-logs/binding-defaults/verification.json`.
+Internal unit 4 and W09 remain in progress, and the T06 gate is deferred to W12.
+A separate diagnostic has identified expensive eta-expanded member getters in
+the still-running source-invariant equation test. Its original unlimited run and
+its diagnostic ceiling outcomes are retained; no semantic pass is claimed for
+that unresolved component.
+
+## 65. CSHARP-03-T06-W09 source-invariant direct member views
+
+This scoped completion supersedes the source-invariant running status in the
+preceding checkpoints. Exact direct member reads preserve shared subcubes and
+all original formulas. All 127 members match the independent storage getters
+after exact eta reduction, including two deep members. The complete unlimited
+original equation test passes 300 observations and 32 enum rejection cases in
+about ten seconds; nested public clauses pass 39 observations and partial-clause
+definedness remains an explicit required obligation. The unchanged enum helper
+retains 868 verified observations.
+
+All 53 current certificates pass identical-byte Go/Rust checking, matching
+reports, zero axioms and changed-hash rejection. Forty-three byte sequences
+change, while source/member/type identities, public bodies, W06 sequents and
+pending proofs remain unchanged. Current replay preserves the 53 new pins and
+all 45 existing default pins. Targeted Clippy and format pass.
+
+Both test-harness failures are retained. The old equation process was interrupted
+only after the full replacement passed; its non-pass is retained with an explicit
+supersession record. The diagnostic ceilings are not semantic passes. See
+`ordinary-foundation/verification-logs/source-invariants/direct-member-reads/verification.json`.
+The four-component W06 inventory still has 364 available definitions and 623
+remaining; all 987 proofs are pending. Internal unit 4 and W09 stay in progress,
+and the full T06 gate remains deferred to W12. The three transient Cargo failures
+in the broader count-consumer batch now have complete passing retries; other
+batch cases and the full decimal matrix still run separately.
+
+## 66. CSHARP-03-T06-W09 concrete type predicate links
+
+The original concrete type recipes now select complete ordinary recursive public
+domains under their exact W06 symbols. Eighty-one public conditions are compiled
+across the 45 original contexts. Six sequence-construction state conditions remain
+explicitly pending; every original instance, recipe, sequent and proof ID is retained.
+Recipe hashes identify definitions and never serve as semantic truth values.
+
+All 405 semantic observations pass: 325 admitted representations, 80 rejected
+representations and 405 false original conditions after changing only the concrete
+predicate. Full independent public-domain closure and strict importer/context/
+field/hash/limit checks pass. All 45 certificates pass the unchanged Go/Rust
+checkers with identical reports, zero axioms and hash-corruption rejection. All
+53 current source-invariant pins are preserved. Clippy, five inventory tests and
+Rust/Go format checks pass. The inventory adds exactly one test path, preserving
+the prior 144-path preimage and reaching 145 paths / 4,968 family-to-path matches.
+
+The initially compiled source snapshot was invalidated when review corrected the
+test's public/internal partition. It supplied no verification result. The corrected
+build and all terminal source/binary/certificate/log hashes are audited separately.
+See `ordinary-foundation/verification-logs/concrete-types/verification.json`.
+The five-component inventory has 445 available definitions and 542 remaining;
+all 987 proofs remain pending. A read-only discovery maps 448 of the 467 original
+operation recipes to same-context structural metadata; 19 need their original
+context pins generated. That inventory supplies neither ordinary adapter definitions
+nor proofs. Internal unit 4 and W09 remain in progress, with the full T06 gate at W12.

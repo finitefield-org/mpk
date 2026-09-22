@@ -10,6 +10,9 @@ fuzz/target/
 __pycache__/
 *.py[cod]
 
+# Locally built checker executables; retain their source and verification evidence.
+/develop/migrations/csharp-03/ordinary-foundation/verification-logs/transition-snapshots/dual-checkers-*/go-checker
+
 # Local environment and Google Cloud credentials. See SECURITY.md.
 .env
 .env.*

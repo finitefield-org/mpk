@@ -1,0 +1,64 @@
+from pathlib import Path
+import collections
+import hashlib
+import json
+import os
+import re
+import subprocess
+import sys
+import time
+
+repo = Path('/Users/kazuyoshitoshiya/mpk')
+root = repo/'develop/migrations/csharp-03/ordinary-foundation'
+evidence = root/'verification-logs/unit-4-count-pin-refresh'
+label = sys.argv[1]
+promotions = [json.loads(Path(path).read_text()) for path in sys.argv[2:]]
+files = {}
+for promotion in promotions:
+    assert promotion['status'] == 'applied'
+    for row in promotion['programs']:
+        files[row['file']] = row
+source = (repo/'go-tools/mpk-checker-ref/checker_agreement_test.go').read_text()
+tests = {directory: (name, int(count)) for name,directory,count in re.findall(r'func (TestCheckerAgreementWithRustCLI\w+)\(t \*testing.T\) \{\s*checkOrdinaryCertificates\(t, "([^"]+)", (\d+)\)', source)}
+groups = collections.defaultdict(list)
+byte_sets = {}
+for name, row in sorted(files.items()):
+    path = root/name
+    raw = bytes.fromhex(path.read_text())
+    digest = hashlib.sha256(raw).hexdigest()
+    assert digest == row['raw_bytes_sha256']
+    assert hashlib.sha256(b'MPK-MODULE-CERT-0.1\0'+raw).hexdigest() == row['certificate_sha256']
+    family = path.parent.name
+    assert len(list(path.parent.glob('*.hex'))) == tests[family][1]
+    if digest not in byte_sets:
+        byte_sets[digest] = dict(raw_bytes_sha256=digest, certificate_sha256=row['certificate_sha256'], representative=name, occurrences=[])
+        groups[family].append(path.name)
+    byte_sets[digest]['occurrences'].append(name)
+receipt = dict(schema='mpk.csharp_practical.t06_w09.count_consumer_checkers.v1', status='running',
+               selection_reason='Each changed certificate byte set from reviewed source regeneration or the six exact helper tests is checked once with both unchanged checkers, matching reports, zero axioms and hash corruption rejection. Exact duplicate byte sequences share the representative result.',
+               changed_occurrences=len(files), distinct_byte_sequences=len(byte_sets), byte_sets=list(byte_sets.values()), runs=[])
+receipt_path = evidence/(label+'-checkers.json')
+def save():
+    receipt_path.write_text(json.dumps(receipt, indent=2)+'\n')
+save()
+env = os.environ.copy()
+env['GOCACHE'] = '/tmp/mpk-w09-unit4-go-cache'
+for family, names in groups.items():
+    test = tests[family][0]
+    pattern = '^'+test+'$/^('+'|'.join(re.escape(name) for name in names)+')$'
+    command = ['go', 'test', '-tags=checkeragreement', '-count=1', '-timeout=0', '-run', pattern, '-v', '.']
+    log = evidence/(label+'-'+family+'-checker.log')
+    run = dict(corpus=family,test=test,command=command,selected_files=names,status='running',log=log.name)
+    receipt['runs'].append(run);save()
+    start = time.monotonic()
+    with log.open('wb') as output:
+        process = subprocess.Popen(command,cwd=repo/'go-tools/mpk-checker-ref',env=env,stdout=output,stderr=subprocess.STDOUT)
+        run['pid'] = process.pid;save();code = process.wait()
+    log_text = log.read_text()
+    complete = code == 0 and all('--- PASS: '+test+'/'+name+' ' in log_text for name in names)
+    run.update(status='passed' if complete else 'failed',exit_code=code,elapsed_seconds=round(time.monotonic()-start,3),log_sha256=hashlib.sha256(log.read_bytes()).hexdigest())
+    save();print(json.dumps(run),flush=True)
+    if not complete:
+        break
+receipt['status'] = 'passed' if len(receipt['runs'])==len(groups) and all(r['status']=='passed' for r in receipt['runs']) else 'failed'
+save()

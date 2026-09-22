@@ -1,0 +1,61 @@
+{
+  "recorded_utc": "2026-09-22T14:49:34.784121+00:00",
+  "status": "implementation_checkpoint_not_completion",
+  "work_item": "CSHARP-03-T06-W09",
+  "authorization": "The user explicitly requested commit and push of the current work, including the incomplete checkpoint.",
+  "completed_internal_units": [
+    1,
+    2,
+    3
+  ],
+  "incomplete_internal_units": [
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "operation_component": "verification-logs/concrete-operations/partial-verification.json",
+  "verification_selection_reason": "Preserve the completed tests for changed ordinary foundations, binding conditions, control execution and transition adapters, plus their affected certificate/checker consumers. The original long-running real-value, decimal-format and count-consumer validations continue; this snapshot does not claim their completion.",
+  "background_verification_snapshot": {
+    "verification-logs/concrete-operations/real.json": {
+      "status": "running",
+      "run_status_counts": {
+        "running": 1
+      }
+    },
+    "verification-logs/binding-reconstruction/decimal-fixed-formats-resumed.json": {
+      "status": "running"
+    },
+    "verification-logs/unit-4-count-pin-refresh/consumers-batch-1-checkers.json": {
+      "status": "running",
+      "run_status_counts": {
+        "passed": 65,
+        "failed": 8,
+        "running": 2
+      }
+    },
+    "verification-logs/unit-4-count-pin-refresh/consumers-batch-2-checkers.json": {
+      "status": "running",
+      "run_status_counts": {
+        "passed": 27,
+        "failed": 3,
+        "running": 2
+      }
+    },
+    "verification-logs/unit-4-count-pin-refresh/transient-operation-build-retries.json": {
+      "status": "running",
+      "run_status_counts": {
+        "passed": 6,
+        "running": 2
+      }
+    }
+  },
+  "retained_failures": "Historical compiler, lint and counterexample failures remain recorded alongside their scoped corrections and retry receipts.",
+  "full_gate": "deferred_to_T06_W12",
+  "live_evidence": "Background processes may update log and receipt files after this commit snapshot; their later results are not implied by this checkpoint.",
+  "commit_validation": {
+    "scoped_whitespace_check": "passed for all staged files except raw verification .log files, whose original trailing whitespace and blank lines are retained for evidence hash integrity",
+    "operation_receipt_integrity": "all staged passed_receipts hashes and their terminal run log hashes match"
+  }
+}

@@ -578,6 +578,26 @@ fn csharp_03_t06_w09_binding_projections_original_source_semantics() {
                     );
                     let (changed_depth, changed_bits) = sparse_storage(&changed, &types);
                     assert_ne!(sparse_storage(&source, &types).1, changed_bits);
+                    // This is a genuine noninjective public binding, rather
+                    // than an out-of-domain storage mutation.
+                    let domains =
+                        generate_csharp_practical_ordinary_public_domains(emitted.vir()).unwrap();
+                    let domain = domains
+                        .definitions()
+                        .iter()
+                        .find(|domain| domain.carrier.type_id == def.source_carrier.type_id)
+                        .unwrap();
+                    let domain_certificate =
+                        mpk_cert::decode_canonical_certificate(domains.certificate_bytes())
+                            .unwrap();
+                    for value in [&source, &changed] {
+                        let (depth, cells) = sparse_storage(value, &types);
+                        assert!(bit(run(
+                            &domain_certificate,
+                            &domain.valid_definition,
+                            vec![sparse_cube(depth, cells)],
+                        )));
+                    }
                     assert!(def.reconstruct_definition.is_none());
                     assert_eq!(def.reconstruction_member_ids.len(), fields_count(&source));
                     outputs.push(run(

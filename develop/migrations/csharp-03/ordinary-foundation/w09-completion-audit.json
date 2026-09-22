@@ -2,6 +2,18 @@
   "work_item": "CSHARP-03-T06-W09",
   "objective": "Implement all eight approved internal units; do not substitute observed examples for ordinary definitions or universal VC proofs.",
   "status": "in_progress",
+  "stop_condition": {
+    "date": "2026-09-22",
+    "id": "binding_reconstruction_noninjective_positive_vector",
+    "evidence": [
+      "binding-reconstruction-stop-condition.json",
+      "binding-reconstruction-stop-condition.md",
+      "crates/mpk-vc/tests/support/csharp_practical_ordinary_projection_tests.rs"
+    ],
+    "finding": "This noninjective W09 definition fixture must fail final proof acceptance. It is not a T01 frozen positive verified compilation.",
+    "required_action": "Continue W09 reconstruction and universal proof assembly without changing the freeze or counting definitions as proofs.",
+    "status": "retracted"
+  },
   "authoritative_requirements": [
     "implementation-plan.md",
     "../../../docs/08_csharp_practical_subset_design-todo.md"
@@ -31,20 +43,24 @@
     {
       "unit": 3,
       "requirement": "Every reachable structural/collection operation, including uninvoked instances; recursive/public domains, defaults, equality/order, storage and observations",
-      "status": "partial",
+      "status": "completed_internal_unit",
       "evidence": [
         "unit-3-progress.md",
         "verification-logs/total-cell-runtime/verification.json",
         "verification-logs/domain-pin-refresh/verification.json",
         "verification-logs/domain-pin-refresh/user-long-completed/verification.json",
         "verification-logs/domain-dependent-refresh/verification.json",
-        "verification-logs/domain-dependent-refresh/user-long-completed/verification.json"
+        "verification-logs/domain-dependent-refresh/user-long-completed/verification.json",
+        "verification-logs/unit-3-current-runtime/verification.json",
+        "unit-3-completion-audit.json",
+        "unit-3-completion-review.md"
       ],
-      "remaining": [
-        "Other affected downstream clause/data fixtures remain to reconcile; all 18 public/boundary consumer certificates and both delegated current-observer runtime tests now pass.",
-        "The current observer matches 34 previously passing scoped tests, and total-cell/full-capacity/decimal ordering now pass; audit remaining deep collection/sequence evidence and whole-unit coverage.",
-        "Review and close the full internal unit; no partial-unit commit."
-      ]
+      "current_runtime_reconciliation": {
+        "status": "passed",
+        "evidence": "verification-logs/unit-3-current-runtime/verification.json",
+        "scope": "Five full collection/sequence semantic, maximum-update, capacity and element-order tests passed with the current observer and unchanged producers: 669 collection observations, 457 indexed sequence reads, full 4096 boundaries and NaN coverage in 9040.787 seconds."
+      },
+      "completion": "All unit-3 component definitions, source reconstruction, changed direct-consumer pins, current-observer semantics and direct review are complete. Native source ownership/execution and application proofs remain in units 5 and 7 rather than unit 3."
     },
     {
       "unit": 4,
@@ -54,16 +70,41 @@
         "Inventory existing adapter coverage against all required definition families, cumulative bounds and frozen failure order.",
         "Complete missing relations and dependencies; verify changed domain-dependent certificates.",
         "Review and close the full internal unit."
-      ]
+      ],
+      "evidence": [
+        "unit-4-binding-reconstruction-progress.json",
+        "unit-4-binding-reconstruction-review.md",
+        "unit-4-json-cell-count-progress.json",
+        "unit-4-json-cell-count-capacity-scope.md",
+        "verification-logs/json-cell-count/terminal-evidence-reconciliation.json",
+        "unit-4-binding-condition-progress.json",
+        "unit-4-binding-condition-review.md",
+        "verification-logs/binding-conditions/verification.json",
+        "unit-4-source-invariant-progress.json",
+        "unit-4-source-invariant-review.md",
+        "verification-logs/source-invariants/verification.json",
+        "unit-4-binding-default-progress.json",
+        "unit-4-binding-default-review.md",
+        "verification-logs/binding-defaults/verification.json",
+        "verification-logs/source-invariants/direct-member-reads/start.json",
+        "verification-logs/source-invariants/direct-member-reads/verification.json",
+        "unit-4-concrete-type-progress.json",
+        "unit-4-concrete-type-review.md",
+        "verification-logs/concrete-types/start.json",
+        "verification-logs/concrete-types/verification.json",
+        "verification-logs/concrete-types/remaining-w06-conditions.json"
+      ],
+      "terminal_checker_checkpoint": "All 22 changed JSON source candidates have current matching hashes and retained terminal checker PASS evidence. No checker is still running for this historical checkpoint; the typed-cell correction review is closed. Complete unit coverage remains open.",
+      "active_work": "Five scoped W06 components now pass verification: representation conditions, binding reconstruction, source invariants, closed defaults and concrete public types. Concrete types cover 81 public conditions over all 45 original contexts, retaining six internal-state conditions and all original proofs. All 405 value/mutation observations, 45 same-byte Go/Rust cases, 53 source-invariant pin comparisons and targeted quality checks pass. Source invariants retain their 300 original equation observations, 127 selector comparisons, 39 nested clauses and 53 same-byte checks; failed or superseded earlier work remains separately retained. The five-component inventory has 445 available definitions and 542 remaining; all 987 application proofs remain pending. The remaining operation metadata discovery is not implementation or proof completion. Broader count-consumer and decimal verification remains in progress. General witnesses, source-use/identity/native constraints, concrete operation/outcome equivalence, internal construction types and full unit-4 integration/review remain required."
     },
     {
       "unit": 5,
       "requirement": "Native invocation/results, SSA/ownership, constructors/fields, loops/decreases, patterns, normal/exceptional scopes, filters and finally",
       "status": "partial",
-      "active_work": "Lifted and string scoped runtime/checker corpora passed. String covers 48 signatures/320 observations, complete constructor oracle and all changed certificates. Full native control/ownership/proof integration remains incomplete. Source-value field-read/product-construction relations now cover 10 definitions, 12 original SSA points and 108 observations; all seven certificates pass both checkers. Option foundation results now connect sixteen invoked definitions and twenty-two SSA points. All twelve certificates pass both checkers, and all twelve runtime contexts now pass with 177 result observations. Published sequence length/read SSA relations now pass seven original-source contexts, 411 observations and all seven certificate pairs. Nullable-reference extraction preserves NullReferenceException at four original SSA points. Both unique certificates and all scoped runtime cases pass: 30 executed observations plus 18 equivalent-context observations reused, covering 48 across four source contexts. Construction SSA relations cover 21 definitions/26 use points from six captured sources. Eighteen symbolic ownership checks now bind to exact function/node/receiver/state identities with checked flow dependencies, resolving 183 formerly pending formula roles. All six extended certificates pass both unchanged checkers with zero axioms and hash-corruption rejection; 220 current runtime observations pass. Seventeen original symbolic ownership records now have exact equation-subset predicates and checked proofs across nine data/control contexts. All nine current certificates pass both unchanged checkers and hash-corruption rejection (eight changed/new checks and one unchanged-byte acceptance retained). Seventeen new record observations and 36 repeated data-use checks pass; previous 220 observations retain exact declaration/term prefixes. Native execution/application scopes remain pending. Native symbolic ownership witnesses now reconstruct 1085 blocks, 157 exceptional edges and 14 delayed backedges across 12 captured contexts. Ordinary ownership equations now cover 14 sources, 7457 equations and 19831 runtime observations; all 14 certificates pass both unchanged checkers. Ordinary ownership candidates now contain 14 flow conclusions and 40 receiver conclusions. Their same-byte checker corpus is in progress; exact per-case results are recorded in current-proof-verification.json. Complete proof-corpus acceptance and native/application scopes remain pending; witness observations discharge no application obligations. Source-bound slot relations now cover 59 entry/load/store/pattern-bind definitions across six captured loop/pattern sources. All 1482 runtime observations, exact scope/SSA/import mutations and six same-byte Rust/Go certificates pass. These open normal-execution relations do not discharge edge joins, exceptional entry or application scopes. Guarded control-edge transport now covers all 360 guards and 341 source-exit to edge-specific target relations across nine original sources. Four exact source-point ownership bindings resolve the ten previously missing construction guards. The current corpus retains 9919 unchanged observations and adds 3991 current index_update observations (13910 total), 95 original W04 goal binding comparisons and nine same-byte Rust/Go certificates. A separate foreach_string regression retains five unsupported guards; other data-family guards, node-entry merging and native/application scopes remain open. The collection/Option extension now includes seventeen control sources, 703 generated guards, 666 transports and 33661 current runtime observations. All seventeen certificates have matching same-byte Rust/Go and corruption receipts. Thirty-one prior data contexts and nine prior control contexts regenerate unchanged. One modeled type-pattern exception edge and complete native/application composition remain pending; the reference adapter and combined option/sequence native branch also need dedicated original-loop coverage. Native phi integration adds 62 guarded incoming relations for 100 selected native phi operands, including private construction memory. All seventeen current certificates pass same-byte Go/Rust checks and hash corruption rejection; 38059 current observations pass. Original guard/slot terms and declarations remain unchanged. Logical-slot/private-memory projections, entry merges, native execution and application proofs remain open. The last eight-live symbolic ownership proof completed Go/Rust acceptance and hash rejection on the 470792-byte word-mux candidate. All fourteen current ownership proof pins and three semantic mutants now have complete acceptance/rejection evidence; native/application scopes remain outstanding. Four source array transfer observations now bind to exact native ownership snapshots, resolving three stale anchor names to current storage SSA IDs. The changed index_update certificate passes both unchanged checkers and hash rejection, with 4559 observations (100 added memory cases). Sixteen other edge contexts remain byte-identical; the current total is 38159 observations. Public-slot projections, non-transfer effects and application composition remain pending.",
+      "active_work": "Lifted and string scoped runtime/checker corpora passed. String covers 48 signatures/320 observations, complete constructor oracle and all changed certificates. Full native control/ownership/proof integration remains incomplete. Source-value field-read/product-construction relations now cover 10 definitions, 12 original SSA points and 108 observations; all seven certificates pass both checkers. Option foundation results now connect sixteen invoked definitions and twenty-two SSA points. All twelve certificates pass both checkers, and all twelve runtime contexts now pass with 177 result observations. Published sequence length/read SSA relations now pass seven original-source contexts, 411 observations and all seven certificate pairs. Nullable-reference extraction preserves NullReferenceException at four original SSA points. Both unique certificates and all scoped runtime cases pass: 30 executed observations plus 18 equivalent-context observations reused, covering 48 across four source contexts. Construction SSA relations cover 21 definitions/26 use points from six captured sources. Eighteen symbolic ownership checks now bind to exact function/node/receiver/state identities with checked flow dependencies, resolving 183 formerly pending formula roles. All six extended certificates pass both unchanged checkers with zero axioms and hash-corruption rejection; 220 current runtime observations pass. Seventeen original symbolic ownership records now have exact equation-subset predicates and checked proofs across nine data/control contexts. All nine current certificates pass both unchanged checkers and hash-corruption rejection (eight changed/new checks and one unchanged-byte acceptance retained). Seventeen new record observations and 36 repeated data-use checks pass; previous 220 observations retain exact declaration/term prefixes. Native execution/application scopes remain pending. Native symbolic ownership witnesses now reconstruct 1085 blocks, 157 exceptional edges and 14 delayed backedges across 12 captured contexts. Ordinary ownership equations now cover 14 sources, 7457 equations and 19831 runtime observations; all 14 certificates pass both unchanged checkers. Ordinary ownership candidates now contain 14 flow conclusions and 40 receiver conclusions. Their same-byte checker corpus is in progress; exact per-case results are recorded in current-proof-verification.json. Complete proof-corpus acceptance and native/application scopes remain pending; witness observations discharge no application obligations. Source-bound slot relations now cover 59 entry/load/store/pattern-bind definitions across six captured loop/pattern sources. All 1482 runtime observations, exact scope/SSA/import mutations and six same-byte Rust/Go certificates pass. These open normal-execution relations do not discharge edge joins, exceptional entry or application scopes. Guarded control-edge transport now covers all 360 guards and 341 source-exit to edge-specific target relations across nine original sources. Four exact source-point ownership bindings resolve the ten previously missing construction guards. The current corpus retains 9919 unchanged observations and adds 3991 current index_update observations (13910 total), 95 original W04 goal binding comparisons and nine same-byte Rust/Go certificates. A separate foreach_string regression retains five unsupported guards; other data-family guards, node-entry merging and native/application scopes remain open. The collection/Option extension now includes seventeen control sources, 703 generated guards, 666 transports and 33661 current runtime observations. All seventeen certificates have matching same-byte Rust/Go and corruption receipts. Thirty-one prior data contexts and nine prior control contexts regenerate unchanged. One modeled type-pattern exception edge and complete native/application composition remain pending; the reference adapter and combined option/sequence native branch also need dedicated original-loop coverage. Native phi integration adds 62 guarded incoming relations for 100 selected native phi operands, including private construction memory. All seventeen current certificates pass same-byte Go/Rust checks and hash corruption rejection; 38059 current observations pass. Original guard/slot terms and declarations remain unchanged. Logical-slot/private-memory projections, entry merges, native execution and application proofs remain open. The last eight-live symbolic ownership proof completed Go/Rust acceptance and hash rejection on the 470792-byte word-mux candidate. All fourteen current ownership proof pins and three semantic mutants now have complete acceptance/rejection evidence; native/application scopes remain outstanding. Four source array transfer observations now bind to exact native ownership snapshots, resolving three stale anchor names to current storage SSA IDs. The changed index_update certificate passes both unchanged checkers and hash rejection, with 4559 observations (100 added memory cases). Sixteen other edge contexts remain byte-identical; the current total is 38159 observations. Normal source execution composes the preserved 625-path historical checkpoint. Complete reachable source execution now composes 761 paths across all 18 sources, closes every reachable execution obligation and records ten structurally unreachable nodes as explicit exclusions. All 15 distinct certificates pass both unchanged checkers and corruption rejection. Complete native-body integration and application proof assembly remain pending.",
       "remaining": [
         "Integrate every data family with original W02-W05 scope/ownership/control relations; keep missing definitions explicit.",
-        "Complete native body and exceptional control predicates without trusted observations or axioms."
+        "Audit complete native-body coverage across the original W02-W05 relations without trusted observations or axioms; then close the unit review."
       ],
       "evidence": [
         "unit-5-lifted-data-progress.json",
@@ -126,7 +167,11 @@
         "verification-logs/control-edges/native-operations/verification.json",
         "verification-logs/control-edges/native-options/verification.json",
         "verification-logs/control-edges/integrated-slots/verification.json",
-        "verification-logs/control-edges/native-exceptions/verification.json"
+        "verification-logs/control-edges/native-exceptions/verification.json",
+        "verification-logs/control-edges/native-literals/verification.json",
+        "verification-logs/control-edges/source-steps/verification.json",
+        "verification-logs/control-edges/source-executions/verification.json",
+        "verification-logs/control-edges/complete-source-executions/verification.json"
       ],
       "next_adapter_audit": {
         "evidence": [
@@ -197,16 +242,71 @@
         "status": "passed_scoped_checks",
         "evidence": "verification-logs/control-edges/native-exceptions/verification.json",
         "scope": "59 local exceptional-result relations; 6136 new observations and same-byte dual-checker coverage. Complete execution/handler/application proof obligations remain open."
+      },
+      "native_literal_checkpoint": {
+        "status": "passed_scoped_checks",
+        "evidence": "verification-logs/control-edges/native-literals/verification.json",
+        "scope": "101 exact literal-result relations, 3143 new observations and same-byte dual checking. Native execution composition, incoming witnesses, handler/alias state and application proofs remain open."
+      },
+      "source_step_checkpoint": {
+        "status": "passed_scoped_checks",
+        "evidence": "verification-logs/control-edges/source-steps/verification.json",
+        "review": "verification-logs/control-edges/source-steps/review.md",
+        "source_nodes": 703,
+        "complete_local_normal_predicates": 579,
+        "pending_nodes": 124,
+        "scope": "Shared original SSA definition points compose 579 normal invocation, literal, transfer and frame predicates across 703 nodes. The unbounded 18-context runtime passed 20,584 observations in 8,193.415 seconds; 36 runtime/metadata/promoted files are byte-identical, and 15 distinct certificates pass both unchanged checkers with zero axioms. Entry selection, inter-step transport, exceptional/alias execution and application proof assembly remain open."
+      },
+      "source_execution_checkpoint": {
+        "status": "passed_scoped_checks",
+        "evidence": "verification-logs/control-edges/source-executions/verification.json",
+        "review": "verification-logs/control-edges/source-executions/review.md",
+        "normal_edge_executions": 625,
+        "pending_nodes": 124,
+        "scope": "Every complete local normal step is connected from its selected node entry through every exact non-exception outgoing edge to the selected target entry. Three independent 36-file generations match the promoted fixture; all 15 distinct certificates pass same-byte Go/Rust checking with zero axioms and hash-corruption rejection. Function entry, exceptional/alias execution, unreachable nodes, one non-data call and application proof assembly remain open."
+      },
+      "complete_source_execution_checkpoint": {
+        "status": "passed_scoped_checks",
+        "evidence": "verification-logs/control-edges/complete-source-executions/verification.json",
+        "review": "verification-logs/control-edges/complete-source-executions/review.md",
+        "source_executions": 761,
+        "source_nodes": 703,
+        "complete_local_steps": 582,
+        "locally_special_steps": 121,
+        "pending_reachable_execution_nodes": 0,
+        "excluded_unreachable_source_nodes": 10,
+        "scope": "All reachable function-entry, normal, exceptional, alias-update, constructor-call and terminal source paths in the 18-source corpus have exact execution relations. Ten structurally unreachable nodes are explicit exclusions. Two independent metadata candidates and the promoted fixture match; all 15 distinct certificates pass same-byte Go/Rust checking with zero axioms and hash-corruption rejection. Complete native-body integration and application proof assembly remain open."
       }
     },
     {
       "unit": 6,
       "requirement": "Admission, pure/total source, projected outcomes, preservation, explicit time/versioning, ordered events/responses, history/replay and complete snapshots",
-      "status": "not_proven_complete",
+      "status": "partial",
       "remaining": [
         "Inspect and integrate existing transition clause helpers into the full W06-W08 ordinary relations.",
         "Discharge all required groups using the exact shared definitions; test rejection/priority/replay counterexamples."
-      ]
+      ],
+      "reviewed_handoff": {
+        "source": "crates/mpk-vc/src/csharp_practical_transition_vc.rs",
+        "fixture": "../transition-vc/goldens.json",
+        "contexts": 11,
+        "paths": 50,
+        "sequents": 120,
+        "snapshot_nodes": 14,
+        "scope": "Existing W08 typed recipes, not ordinary transition/replay definitions or proofs. Transition clause projection helpers only cover field projection."
+      },
+      "foundation_operations_checkpoint": {
+        "status": "passed_scoped_checks",
+        "evidence": "verification-logs/transition-operations/verification.json",
+        "review": "verification-logs/transition-operations/review.md",
+        "scope": "All expanded transition product operations integrated; three standalone and three integrated same-byte dual-checker certificates, 3652 runtime observations, 291 transition transitive definitions and 118 preserved component pairs. Admission/protocol/history/replay/application proof obligations remain open."
+      },
+      "source_snapshot_and_retained_history_checkpoint": {
+        "status": "passed_scoped_checks",
+        "evidence": "verification-logs/transition-snapshots/verification.json",
+        "review": "verification-logs/transition-snapshots/review.md",
+        "scope": "SourceEqual constants preserve the complete W08 snapshot DAG and all stored members; CanonicalFieldEncodingsEqual conjoins complete command/context equality; HistoryCapacity4096, RetainedKeyPresent, RetainedRecord, and RetainedKeysUnique use the exact bounded retained-history carrier; AppendCompleteSnapshot and PreserveRetainedHistoryOrder fix exact fresh-record append and complete old-prefix preservation: 11 original contexts, 14 node occurrences, 200 observations and 14 isolated member changes. Three distinct certificate byte sets pass both unchanged checkers. Source helper and canonical serializer correctness, admission, replay and application proofs remain open."
+      }
     },
     {
       "unit": 7,
@@ -216,7 +316,12 @@
         "Complete ordinary program closure and independent theorem-type reconstruction.",
         "Assemble checked proof terms only against those complete theorem types.",
         "Reject missing definitions/proofs, excessive limits, checker failures/disagreement and every linkage mutation."
-      ]
+      ],
+      "reviewed_handoff": {
+        "source": "crates/mpk-vc/src/csharp_practical_vc_model.rs",
+        "source_sha256": "e8d9eaf127e9e2f5e2fd18d7d4ff280a197ab706b13be5f7add26c05fcb39483",
+        "scope": "PracticalTheoremSkeleton still records obligation identity/dependencies/owner, without core theorem types or proof terms. The existing assembly plan validates lineage, limits and a zero-axiom profile. It is not complete program proof assembly."
+      }
     },
     {
       "unit": 8,
@@ -235,5 +340,5 @@
     "git": "/usr/bin/git outside sandbox; preserve existing in-progress work.",
     "commits": "Only complete approved internal units may be marked completed and committed as such."
   },
-  "completion_rule": "Every requirement must be proved by current authoritative code, artifacts and matching verification evidence before W09 is complete; W10 remains blocked until then."
+  "completion_rule": "W09 completes only after all eight internal units, exact application proof assembly and scoped acceptance gates pass. W10 remains blocked until then; the T06 whole gate remains deferred to T06-W12."
 }

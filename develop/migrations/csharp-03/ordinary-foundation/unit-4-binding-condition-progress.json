@@ -1,0 +1,75 @@
+{
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "passed_scoped_component",
+  "scope": "Compile six original W06 representation sequent kinds into ordinary assumption, goal and implication definitions; retain all original pending proof obligations.",
+  "source_contexts": 45,
+  "condition_kinds": [
+    "member_agreement",
+    "exactly_one_arm",
+    "tag_payload_agreement",
+    "bound",
+    "canonical_order_and_uniqueness",
+    "nonempty_invalid"
+  ],
+  "review": "unit-4-binding-condition-review.md",
+  "verification": {
+    "definitions": "verification-logs/binding-conditions/definitions-verification.json",
+    "semantics": "verification-logs/binding-conditions/semantics-verification.json",
+    "quality": "verification-logs/binding-conditions/quality-verification.json",
+    "reconstruction-preservation": "verification-logs/binding-conditions/reconstruction-preservation-verification.json"
+  },
+  "build": "verification-logs/binding-conditions/build.json",
+  "remaining": [
+    "Source invariant, actual default, identity observation and operation/outcome commutation conditions still require their exact witnesses.",
+    "General reconstruction witnesses, complete codecs/source links, all universal proofs and the other original W09 requirements remain."
+  ],
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "status": "deferred_to_T06_W12"
+  },
+  "interruption_recovery": "verification-logs/interrupted-20260922T1016Z/recovery.json",
+  "source_generation": {
+    "status": "passed",
+    "source_contexts": 45,
+    "condition_kinds": {
+      "bound": 16,
+      "canonical_order_and_uniqueness": 10,
+      "exactly_one_arm": 9,
+      "member_agreement": 62,
+      "nonempty_invalid": 3,
+      "tag_payload_agreement": 20
+    },
+    "conditions": 120,
+    "distinct_certificates": 45,
+    "maximum_terms": 43915,
+    "maximum_declarations": 580,
+    "manifest_sha256": "cd3b71c9bc9fea5806df48b38b4b198ad9b7f864446ee981369352b59c511656",
+    "evidence": "verification-logs/binding-conditions/definitions-verification.json",
+    "scope": "All 45 original sources; exact W06 sequents and all pending proof IDs; strict canonical importer, all metadata fields/foreign contexts/corruption/16 MiB bounds; transitive guard/order/public-domain closure preservation and unchanged order/guard bytes."
+  },
+  "semantic_verification": {
+    "status": "passed",
+    "source_contexts": 4,
+    "observations": 385,
+    "false_goals": 27,
+    "false_assumption_conditions": 27,
+    "evidence": "verification-logs/binding-conditions/semantics-verification.json"
+  },
+  "preservation_verification": {
+    "status": "passed",
+    "source_contexts": 45,
+    "evidence": "verification-logs/binding-conditions/reconstruction-preservation-verification.json"
+  },
+  "quality_verification": {
+    "status": "passed",
+    "checks": [
+      "targeted Clippy",
+      "inventory 5 tests",
+      "cargo fmt --all -- --check"
+    ],
+    "evidence": "verification-logs/binding-conditions/quality-verification.json"
+  },
+  "current_verification": "verification-logs/binding-conditions/verification.json",
+  "remaining_condition_inventory": "verification-logs/binding-conditions/remaining-w06-conditions.json"
+}

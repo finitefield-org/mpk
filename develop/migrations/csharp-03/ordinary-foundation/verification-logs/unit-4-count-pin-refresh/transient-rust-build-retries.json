@@ -1,0 +1,96 @@
+{
+  "status": "passed",
+  "supervisor_pid": 77497,
+  "cause": "Three pre-existing corpus checks invoked cargo run while a new source-invariant field was temporarily named value_id instead of TypedValueRef.id. Library cargo check passed after the correction. Original failed logs are retained. Rerun full original Go/Rust acceptance, identical report comparison and corruption rejection for each failed byte set.",
+  "full_gate": "deferred_to_T06_W12",
+  "runs": [
+    {
+      "previous_batch": "consumers-batch-1-checkers.json",
+      "previous_log": "consumers-batch-1-resumed-json-boundary-fields-nullable_required.hex.log",
+      "previous_log_sha256": "ddc31a5fd044ad47fb9e458c2e92486d97dcc6abbd487153e7a9292d82e56ea9",
+      "command": [
+        "go",
+        "test",
+        "-tags=checkeragreement",
+        "-count=1",
+        "-timeout=0",
+        "-run",
+        "^TestCheckerAgreementWithRustCLIJsonBoundaryFields$/^nullable_required\\.hex$",
+        "-v",
+        "."
+      ],
+      "test": "TestCheckerAgreementWithRustCLIJsonBoundaryFields",
+      "representative": "json-boundary-fields/nullable_required.hex",
+      "occurrences": [
+        "json-boundary-fields/nullable_required.hex"
+      ],
+      "raw_bytes_sha256": "9e1d8dfe58bf964e410a61083fce7549df4ee3d4ca5aff0aa18d5a54c90f37b8",
+      "certificate_sha256": "dd7648a3b83ec95f44255e4eba31b6f9de6acc16ac35ff0ff28dc444706b6d12",
+      "status": "passed",
+      "pid": 77499,
+      "log": "build-retry-json-boundary-fields-nullable_required.hex.log",
+      "exit_code": 0,
+      "elapsed_seconds": 1078.324,
+      "log_sha256": "4e573e033f7e42c9de148d48abc3ee9e424dd51a97a95a100bade897e311ee8c"
+    },
+    {
+      "previous_batch": "consumers-batch-1-checkers.json",
+      "previous_log": "consumers-batch-1-resumed-json-boundary-fields-optional_default.hex.log",
+      "previous_log_sha256": "6d8c6878f5ff8e5a13300755b62f8e82bf7599797a03046a256fbe682f1446f7",
+      "command": [
+        "go",
+        "test",
+        "-tags=checkeragreement",
+        "-count=1",
+        "-timeout=0",
+        "-run",
+        "^TestCheckerAgreementWithRustCLIJsonBoundaryFields$/^optional_default\\.hex$",
+        "-v",
+        "."
+      ],
+      "test": "TestCheckerAgreementWithRustCLIJsonBoundaryFields",
+      "representative": "json-boundary-fields/optional_default.hex",
+      "occurrences": [
+        "json-boundary-fields/optional_default.hex"
+      ],
+      "raw_bytes_sha256": "33be6ca0474cea0a0c50e72a5390906d431bcfccca223561f061376761ce4abf",
+      "certificate_sha256": "2bf10a1007d1661ea291b7ba744c8cc385b1739467dd0cf093329dc21b2c129a",
+      "status": "passed",
+      "pid": 77498,
+      "log": "build-retry-json-boundary-fields-optional_default.hex.log",
+      "exit_code": 0,
+      "elapsed_seconds": 1068.755,
+      "log_sha256": "39f3ef0624ef51489af9fc600cf3a1288562b7630c4f38bfdb663970056e585d"
+    },
+    {
+      "previous_batch": "consumers-batch-2-checkers.json",
+      "previous_log": "consumers-batch-2-resumed-json-calendar-date-time-decimal-structural.hex.log",
+      "previous_log_sha256": "b2b9d36bfe503073f101ee7bb0fa287f1ef2654df7b4cdb6cc2134addc95257d",
+      "command": [
+        "go",
+        "test",
+        "-tags=checkeragreement",
+        "-count=1",
+        "-timeout=0",
+        "-run",
+        "^TestCheckerAgreementWithRustCLIJsonCalendar$/^date\\-time\\-decimal\\-structural\\.hex$",
+        "-v",
+        "."
+      ],
+      "test": "TestCheckerAgreementWithRustCLIJsonCalendar",
+      "representative": "json-calendar/date-time-decimal-structural.hex",
+      "occurrences": [
+        "json-calendar/date-time-decimal-structural.hex"
+      ],
+      "raw_bytes_sha256": "85a7af4aab8b1f147c1c2070053000287b1d9ed6070aa0e76a26478298a411c5",
+      "certificate_sha256": "36ee4e935f7786fec39f837d9a1254ff7fdfa430fec907ead94b619dd1849f8e",
+      "status": "passed",
+      "pid": 84443,
+      "log": "build-retry-json-calendar-date-time-decimal-structural.hex.log",
+      "exit_code": 0,
+      "elapsed_seconds": 3531.947,
+      "log_sha256": "c3c7e8df429a310af300267cfb417bc508907779f2aa8e4958d3b8d25a20c6b0"
+    }
+  ],
+  "fixed_source_sha256": "431357bd3de2ece7541efeff42bab1b84d01a0ca62a0cf94cc17759a3f95de8b"
+}

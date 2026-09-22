@@ -1,0 +1,58 @@
+=== RUN   TestCheckerAgreementWithRustCLIBindingOrders
+=== RUN   TestCheckerAgreementWithRustCLIBindingOrders/binding-vc-ordered_map.hex
+    checker_agreement_test.go:395: Go accepted: certificate=be57a07f3747961f1ec30a4ef67780e8e4b6c9a7a372bd8fd5dc35e237c07a82 declarations=160 axioms=0 elapsed=2.116380542s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=b6dc041a32d577696045e27fa444d143ff20b8b61e4a15e7299b3903d02291c0 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=1.456601s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=1.839299458s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=1.343613958s
+=== RUN   TestCheckerAgreementWithRustCLIBindingOrders/binding-vc-ordered_set.hex
+    checker_agreement_test.go:395: Go accepted: certificate=04eddd07580adc9fa57f9d6b3e3caae3d04a310f220d9486792faf7bc9d60e72 declarations=123 axioms=0 elapsed=2.153305208s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=cbfc9cb815ff4304cba4373d92739ce2b75fe45d1bf1e5cb327ecca6b0d1e220 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=1.282620667s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=2.669029333s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=1.5528735s
+=== RUN   TestCheckerAgreementWithRustCLIBindingOrders/boundary-map-compound.hex
+    checker_agreement_test.go:395: Go accepted: certificate=ca68512770d18ccfa25d883ca15e1b2b47736483aa7b80e879682b1b579484cb declarations=199 axioms=0 elapsed=2.519186334s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=783b05c350e7827d92692c013ac83327e7178550a17dd23b7b2b6067160b6291 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=1.970914209s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=2.452127042s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=5.008278125s
+=== RUN   TestCheckerAgreementWithRustCLIBindingOrders/boundary-map-decimal.hex
+    checker_agreement_test.go:395: Go accepted: certificate=f6ca743fe06cfb5da545dc809cf12aec2ed47440752b774ea4f31896601f5dd8 declarations=481 axioms=0 elapsed=3m7.483915041s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=4d24056e18eca8d930769edd67e9640895ef0e28515871c7a2ca0ec45f1a8574 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=15.8680225s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=3m9.856717542s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=19.890420208s
+=== RUN   TestCheckerAgreementWithRustCLIBindingOrders/boundary-map-string.hex
+    checker_agreement_test.go:395: Go accepted: certificate=5e36287aea398eaafeb412b007ef8b03651f0aa25e0dc7c1897ab6ed28ab4e07 declarations=191 axioms=0 elapsed=10.106172167s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=6b2cf573ca50f5c699b376c86d2454f9b3fa335bc03777656084ef62a96b8a57 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=5.402103791s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=12.133571375s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=7.110119959s
+=== RUN   TestCheckerAgreementWithRustCLIBindingOrders/boundary-set-decimal.hex
+    checker_agreement_test.go:395: Go accepted: certificate=11bf4b303662eded336089af2b8b8f5d6e421ffa904f8ab0d64eb47cb12e942c declarations=443 axioms=0 elapsed=1m58.261486667s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=97d488f77c6ed1b0f551bb1ee82def73952ee09c2376eb08500f5ee61c3d9633 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=12.994304334s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=28.476313s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=3.0330495s
+=== RUN   TestCheckerAgreementWithRustCLIBindingOrders/extra-bool-float-map.hex
+    checker_agreement_test.go:395: Go accepted: certificate=8683c4406636b1dda45df548e26052ad83692b2215ceec7346ea6962ebc52f94 declarations=131 axioms=0 elapsed=1.533228166s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=c13ceb7be01cc4aa430385f0d9ae00ec471425b50cb6e8e6ade012941aabd8e6 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=1.066595959s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=1.643361125s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=1.093419125s
+=== RUN   TestCheckerAgreementWithRustCLIBindingOrders/extra-bool-nullable-map.hex
+    checker_agreement_test.go:395: Go accepted: certificate=ff3f850343b41df42007bf48fccfed07bfaa06376088869a1e3249dea7286b62 declarations=171 axioms=0 elapsed=2.247387875s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=cf34b8dda998c1f95c46ca0755d6e43a7dbf6ab0c4bb08e2c5689425a1fdb6a0 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=1.097103792s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=2.134537875s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=1.521762167s
+=== RUN   TestCheckerAgreementWithRustCLIBindingOrders/extra-shared-lookup-maps.hex
+    checker_agreement_test.go:395: Go accepted: certificate=81beb0832feb91fb0bca622507f2f1d01d53027964af2eefd1f335342c47342c declarations=214 axioms=0 elapsed=2.178866958s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=0db07b326c319b268cd25b012106eca5cec97b179bf3a99d74a080ca5f605075 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=1.256528375s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=2.163760333s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=1.440085584s
+--- PASS: TestCheckerAgreementWithRustCLIBindingOrders (656.42s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingOrders/binding-vc-ordered_map.hex (6.76s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingOrders/binding-vc-ordered_set.hex (7.66s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingOrders/boundary-map-compound.hex (11.95s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingOrders/boundary-map-decimal.hex (413.11s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingOrders/boundary-map-string.hex (34.76s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingOrders/boundary-set-decimal.hex (162.78s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingOrders/extra-bool-float-map.hex (5.34s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingOrders/extra-bool-nullable-map.hex (7.00s)
+    --- PASS: TestCheckerAgreementWithRustCLIBindingOrders/extra-shared-lookup-maps.hex (7.04s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	656.666s

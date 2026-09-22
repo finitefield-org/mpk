@@ -1,0 +1,21 @@
+{
+  "status": "resumed_running",
+  "interruption": "interruption.json",
+  "retained_results": "The focused reconstruction negative case, completed checker groups, prior quality checks and all previous scoped terminal passes remain retained. No interrupted full run is reported as passed.",
+  "reconstruction": "binding-reconstruction/member-id-fix-verification.json",
+  "decimal": "binding-reconstruction/decimal-fixed-formats-resumed.json",
+  "conditions_build": "binding-conditions/build.json",
+  "checker_batches": [
+    "unit-4-count-pin-refresh/consumers-batch-1-checkers.json",
+    "unit-4-count-pin-refresh/consumers-batch-2-checkers.json"
+  ],
+  "recovery_steps": [
+    "Verified missing tool handles and absent owned OS processes before restarting.",
+    "Preserved original receipts and logs with byte hashes.",
+    "Published an immutable copy of the known reconstruction-test binary; current runs cannot be invalidated by a later linker replacement.",
+    "After a resumed linker failed on undefined local LLVM symbols, retained the failure and rebuilt with incremental code generation disabled. Optimization, debug assertions and overflow checks stay enabled.",
+    "Supervisors retain process IDs and run independently of the tool session. Tests keep their complete assertions and no runtime observation limit.",
+    "Retained completed checker groups; remaining exact byte sets now run separately so each terminal pass is durably recorded."
+  ],
+  "full_gate": "deferred_to_T06_W12"
+}

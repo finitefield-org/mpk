@@ -1,0 +1,10 @@
+=== RUN   TestCheckerAgreementWithRustCLIJsonBoundaryFields
+=== RUN   TestCheckerAgreementWithRustCLIJsonBoundaryFields/nullable_nonnull.hex
+    checker_agreement_test.go:395: Go accepted: certificate=09ec4f810db6ccab0d39a084275f230ef22f4962465309e3da4ab10bd9946315 declarations=2012 axioms=0 elapsed=5m10.878104333s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=55451096198abe4516a1a79e0272e1356e5eb508dae18dbbf8154a96a1c55522 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=7.623888208s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=2m57.611508875s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=6.978701583s
+--- PASS: TestCheckerAgreementWithRustCLIJsonBoundaryFields (503.11s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonBoundaryFields/nullable_nonnull.hex (503.11s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	503.199s

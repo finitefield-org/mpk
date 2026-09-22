@@ -1,0 +1,38 @@
+{
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "targeted_verification_in_progress",
+  "scope": "Original concrete operation recipes, complete outcome comparison and original W06 condition bodies. This does not provide application proofs.",
+  "implementation": "crates/mpk-vc/src/csharp_practical_ordinary_concrete_operations.rs",
+  "evidence": "verification-logs/concrete-operations/",
+  "expected_original_operations": 467,
+  "expected_resolved_operations": 436,
+  "expected_pending_operations": 31,
+  "pending_reasons": [
+    "Internal sequence-construction state",
+    "Source ownership",
+    "Application-owned Money.create currency predicate"
+  ],
+  "verification": "Definition/signature/sequent closure checks, ordered-failure mutations, isolated NaN/input-guard checks, 96 prior-byte pins, all 45 same-byte dual-checker cases, and scoped quality checks pass. The original full real-value/guard test remains running; this component is incomplete until its terminal audit passes.",
+  "full_gate": "deferred_to_T06_W12",
+  "current_verification": "verification-logs/concrete-operations/partial-verification.json",
+  "review": "unit-4-concrete-operation-review.md",
+  "source_contexts": 45,
+  "conditions": 436,
+  "pending_operation_conditions": 31,
+  "routing": {
+    "operations": 92,
+    "assignments": 290,
+    "single_failure_changes": 566,
+    "masked_later_changes": 170
+  },
+  "isolated_mutations": {
+    "nan_payload_changes": 1,
+    "malformed_option_inputs": 1
+  },
+  "preserved_certificates": 96,
+  "pending_verification": [
+    "real.json: original full real-value/guard test is still running, including Money arithmetic"
+  ],
+  "dual_checker_certificates": 45
+}

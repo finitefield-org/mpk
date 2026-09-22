@@ -1,0 +1,10 @@
+=== RUN   TestCheckerAgreementWithRustCLIContractExpressions
+=== RUN   TestCheckerAgreementWithRustCLIContractExpressions/multiowner-total-integrated.hex
+    checker_agreement_test.go:395: Go accepted: certificate=cf0971fb47f93748072faa4f22e3250a281a678268d478a58e982fac9beb7506 declarations=188 axioms=0 elapsed=16.323353541s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=60a5e24e272adbe121a9f2ffe5b064dbefe06c390c596019502cecd2ae9e3f67 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=9.060650125s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=8.861855375s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=5.775132166s
+--- PASS: TestCheckerAgreementWithRustCLIContractExpressions (40.03s)
+    --- PASS: TestCheckerAgreementWithRustCLIContractExpressions/multiowner-total-integrated.hex (40.03s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	40.341s

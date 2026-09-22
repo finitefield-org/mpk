@@ -68,6 +68,7 @@ struct Encoded {
 }
 struct Literals<'a> {
     b: Builder,
+    part_scope: &'static str,
     parts: BTreeMap<[u8; 32], u32>,
     carriers: BTreeMap<&'a str, &'a OrdinaryCarrier>,
 }
@@ -80,7 +81,8 @@ impl Literals<'_> {
             return Ok(*term);
         }
         let name = format!(
-            "{PREFIX}.LiteralPart.H{}",
+            "{PREFIX}.{}.H{}",
+            self.part_scope,
             child
                 .fingerprint
                 .iter()
@@ -406,8 +408,21 @@ pub(super) fn emit_named_values(
     b: Builder,
     values: BTreeMap<String, MonomorphicValue>,
 ) -> R<(Builder, Vec<OrdinaryLiteralDefinition>)> {
+    emit_named_values_scoped(vir, layouts, b, values, "LiteralPart")
+}
+
+/// A separate scope lets an additional literal pass extend the same builder
+/// without redefining parts emitted by an earlier pass.
+pub(super) fn emit_named_values_scoped(
+    vir: &ValidatedPracticalVir,
+    layouts: &OrdinaryCarrierProgram,
+    b: Builder,
+    values: BTreeMap<String, MonomorphicValue>,
+    part_scope: &'static str,
+) -> R<(Builder, Vec<OrdinaryLiteralDefinition>)> {
     let mut emitter = Literals {
         b,
+        part_scope,
         parts: BTreeMap::new(),
         carriers: layouts
             .carriers()
@@ -438,6 +453,7 @@ pub fn generate_csharp_practical_ordinary_literals(
     let layouts = generate_csharp_practical_ordinary_carriers(vir)?;
     let mut emitter = Literals {
         b: Builder::new()?,
+        part_scope: "LiteralPart",
         parts: BTreeMap::new(),
         carriers: layouts
             .carriers()
@@ -568,6 +584,7 @@ mod tests {
         ];
         let mut e = Literals {
             b: Builder::new().unwrap(),
+            part_scope: "LiteralPart",
             parts: BTreeMap::new(),
             carriers: carriers.iter().map(|c| (c.type_id.as_str(), c)).collect(),
         };
@@ -646,6 +663,7 @@ mod tests {
     fn ordinary_literal_large_slots_use_bounded_depth() {
         let mut e = Literals {
             b: Builder::new().unwrap(),
+            part_scope: "LiteralPart",
             parts: BTreeMap::new(),
             carriers: BTreeMap::new(),
         };
@@ -691,6 +709,7 @@ mod tests {
     fn ordinary_literal_parts_preserve_deep_padding_and_sharing() {
         let mut e = Literals {
             b: Builder::new().unwrap(),
+            part_scope: "LiteralPart",
             parts: BTreeMap::new(),
             carriers: BTreeMap::new(),
         };

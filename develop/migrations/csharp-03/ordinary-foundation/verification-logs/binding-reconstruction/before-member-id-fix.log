@@ -1,0 +1,102 @@
+
+running 1 test
+test ordinary_carriers::projection_tests::binding_relation_tests::reconstruction_tests::csharp_03_t06_w09_binding_reconstruction_original_sources ... binding reconstruction start binding-vc-boundary_field
+binding reconstruction complete binding-vc-boundary_field: 1 candidates, 6 obligations
+binding reconstruction start binding-vc-bounded_sequence
+binding reconstruction complete binding-vc-bounded_sequence: 1 candidates, 5 obligations
+binding reconstruction start binding-vc-instant
+binding reconstruction complete binding-vc-instant: 1 candidates, 5 obligations
+binding reconstruction start binding-vc-lookup
+binding reconstruction complete binding-vc-lookup: 1 candidates, 6 obligations
+binding reconstruction start binding-vc-money
+binding reconstruction complete binding-vc-money: 1 candidates, 6 obligations
+binding reconstruction start binding-vc-option
+binding reconstruction complete binding-vc-option: 1 candidates, 6 obligations
+binding reconstruction start binding-vc-ordered_entry
+binding reconstruction complete binding-vc-ordered_entry: 1 candidates, 6 obligations
+binding reconstruction start binding-vc-ordered_map
+binding reconstruction complete binding-vc-ordered_map: 2 candidates, 11 obligations
+binding reconstruction start binding-vc-ordered_set
+binding reconstruction complete binding-vc-ordered_set: 1 candidates, 5 obligations
+binding reconstruction start binding-vc-result
+binding reconstruction complete binding-vc-result: 1 candidates, 7 obligations
+binding reconstruction start binding-vc-transition
+binding reconstruction complete binding-vc-transition: 1 candidates, 7 obligations
+binding reconstruction start binding-vc-validation
+binding reconstruction complete binding-vc-validation: 1 candidates, 7 obligations
+binding reconstruction start bool-construction
+binding reconstruction complete bool-construction: 0 candidates, 0 obligations
+binding reconstruction start bool-float-entry
+binding reconstruction complete bool-float-entry: 1 candidates, 6 obligations
+binding reconstruction start boundary-exception-empty
+binding reconstruction complete boundary-exception-empty: 0 candidates, 0 obligations
+binding reconstruction start boundary-exception-payload
+binding reconstruction complete boundary-exception-payload: 0 candidates, 0 obligations
+binding reconstruction start boundary-map-compound
+binding reconstruction complete boundary-map-compound: 2 candidates, 11 obligations
+binding reconstruction start boundary-map-decimal
+binding reconstruction complete boundary-map-decimal: 2 candidates, 11 obligations
+binding reconstruction start boundary-map-string
+binding reconstruction complete boundary-map-string: 2 candidates, 11 obligations
+binding reconstruction start boundary-set-decimal
+binding reconstruction complete boundary-set-decimal: 1 candidates, 5 obligations
+binding reconstruction start boundary-total-cells
+binding reconstruction complete boundary-total-cells: 0 candidates, 0 obligations
+binding reconstruction start complete-snapshot
+binding reconstruction complete complete-snapshot: 0 candidates, 0 obligations
+binding reconstruction start construction-vc-enum_zero
+binding reconstruction complete construction-vc-enum_zero: 0 candidates, 0 obligations
+binding reconstruction start construction-vc-positive_constructor
+binding reconstruction complete construction-vc-positive_constructor: 0 candidates, 0 obligations
+binding reconstruction start date
+binding reconstruction complete date: 0 candidates, 0 obligations
+binding reconstruction start enum-construction
+binding reconstruction complete enum-construction: 0 candidates, 0 obligations
+binding reconstruction start exception-vc-allowed
+binding reconstruction complete exception-vc-allowed: 0 candidates, 0 obligations
+binding reconstruction start extra-bool-float-map
+binding reconstruction complete extra-bool-float-map: 2 candidates, 11 obligations
+binding reconstruction start extra-bool-nullable-map
+binding reconstruction complete extra-bool-nullable-map: 2 candidates, 11 obligations
+binding reconstruction start extra-lookup-nullable
+binding reconstruction complete extra-lookup-nullable: 1 candidates, 6 obligations
+binding reconstruction start extra-shared-lookup-maps
+binding reconstruction complete extra-shared-lookup-maps: 4 candidates, 22 obligations
+binding reconstruction start extra-validation-bool
+binding reconstruction complete extra-validation-bool: 1 candidates, 7 obligations
+binding reconstruction start extra-validation-product
+binding reconstruction complete extra-validation-product: 1 candidates, 7 obligations
+binding reconstruction start float-sequence
+binding reconstruction complete float-sequence: 0 candidates, 0 obligations
+binding reconstruction start floats
+binding reconstruction complete floats: 0 candidates, 0 obligations
+binding reconstruction start guid
+binding reconstruction complete guid: 0 candidates, 0 obligations
+binding reconstruction start nested-box
+binding reconstruction complete nested-box: 0 candidates, 0 obligations
+binding reconstruction start nullable-float
+binding reconstruction complete nullable-float: 0 candidates, 0 obligations
+binding reconstruction start nullable-string-default
+binding reconstruction complete nullable-string-default: 0 candidates, 0 obligations
+binding reconstruction start parse-error-contract
+binding reconstruction complete parse-error-contract: 0 candidates, 0 obligations
+binding reconstruction start product-construction
+binding reconstruction complete product-construction: 0 candidates, 0 obligations
+binding reconstruction start string
+binding reconstruction complete string: 0 candidates, 0 obligations
+binding reconstruction start unit-void-source
+binding reconstruction complete unit-void-source: 0 candidates, 0 obligations
+binding reconstruction start remapped-boundary-sequence
+
+thread 'ordinary_carriers::projection_tests::binding_relation_tests::reconstruction_tests::csharp_03_t06_w09_binding_reconstruction_original_sources' (11498102) panicked at crates/mpk-vc/tests/support/csharp_practical_ordinary_binding_reconstruction_tests.rs:320:22:
+called `Option::unwrap()` on a `None` value
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+FAILED
+
+failures:
+
+failures:
+    ordinary_carriers::projection_tests::binding_relation_tests::reconstruction_tests::csharp_03_t06_w09_binding_reconstruction_original_sources
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 368 filtered out; finished in 3645.99s
+

@@ -1,0 +1,10 @@
+=== RUN   TestCheckerAgreementWithRustCLIJsonDepthCompound
+=== RUN   TestCheckerAgreementWithRustCLIJsonDepthCompound/sum-all-sums.hex
+    checker_agreement_test.go:395: Go accepted: certificate=f7c17532dfa00a32c496d53a73de1b5255d37cd19c1683c4d748a29a10119c34 declarations=2358 axioms=0 elapsed=4m47.715816459s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=211a8c02c89a4b8232d799dcab90c5fef4a59d0ce56f00b9ccc3b63d90bfdff8 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=11.64148825s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=5m8.656256584s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=10.8191825s
+--- PASS: TestCheckerAgreementWithRustCLIJsonDepthCompound (618.89s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonDepthCompound/sum-all-sums.hex (618.89s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	619.028s

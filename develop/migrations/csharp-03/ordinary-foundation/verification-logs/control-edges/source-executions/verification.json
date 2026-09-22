@@ -1,0 +1,58 @@
+{
+  "status": "passed_scoped_source_normal_execution_checks",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 5,
+  "recorded_at": "2026-09-21T09:49:17Z",
+  "scope": "Complete normal source-step execution from the selected source entry snapshot through the exact local step and selected outgoing edge into the target entry. Function entry, exceptional and alias execution, unreachable nodes, one non-data call and application proof assembly remain open.",
+  "coverage": {
+    "contexts": 18,
+    "source_nodes": 703,
+    "complete_local_normal_steps": 579,
+    "normal_edge_executions": 625,
+    "pending_nodes": 124,
+    "pending_reasons": {
+      "function_entry_relation_separate": 18,
+      "exception_execution_separate": 93,
+      "unreachable_source_node": 10,
+      "memory_alias_frames_pending": 2,
+      "native_call_semantics_pending": 1
+    },
+    "max_execution_arguments": 366,
+    "max_execution_components": 84,
+    "max_candidate_metadata_bytes": 13540383
+  },
+  "composition": [
+    "exact selected incoming node-entry relation",
+    "assignedness and assigned-payload equality from node entry to source-step entry",
+    "complete local normal source step",
+    "exact outgoing guard",
+    "assignedness and assigned-payload equality from source-step exit to edge source",
+    "edge join and phi join when present",
+    "target node-entry relation with exactly this incoming edge selected"
+  ],
+  "canonical_metadata": "The full reconstructed argument/component map remains in memory. Canonical JSON records exact counts and SHA-256 of that map to remain below the frozen 16 MiB input limit; import regenerates the map and requires exact metadata and certificate bytes.",
+  "checks": {
+    "execution_metadata": "passed; 625 exact executions, all role/index/definition/linkage checks, bridge and selector runtime truth tables, every serialized field and both owning collections mutated and rejected; 84.69 seconds",
+    "source_step_metadata_replay": "passed; all 579 prior complete local steps and 36 promoted files; 62.26 seconds",
+    "preservation": "passed; 18 programs preserved modulo previously checked nullable joins, zero new phi joins and eight retained memory bindings",
+    "candidate_equivalence": "three independently generated 36-file candidates and the promoted fixture are byte-identical",
+    "inventory": "passed; all five tests after foundation.std_namespace 140 to 141 and total 4963 to 4964 refresh",
+    "clippy": "passed: cargo clippy -p mpk-vc --lib --test csharp_practical_vc -- -D warnings",
+    "format": "passed: cargo fmt --all -- --check"
+  },
+  "dual_checkers": {
+    "receipt": "checker-verification.json",
+    "distinct_certificates": 15,
+    "stages": 60,
+    "same_byte_verdicts": "Go and Rust accepted every certificate with matching module/declaration/axiom/report hashes",
+    "axiom_count": 0,
+    "hash_corruptions": "all rejected by both checkers"
+  },
+  "evidence_audit": "evidence-audit.json",
+  "previous_fixture_archive": "../before-source-executions/control-edges",
+  "review": "review.md",
+  "unit_5_complete": false,
+  "w09_complete": false,
+  "whole_gate": "deferred to T06-W12",
+  "commit": "No partial-unit commit"
+}

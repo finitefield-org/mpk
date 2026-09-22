@@ -1,0 +1,43 @@
+
+running 5 tests
+test ordinary_carriers::collection_tests::csharp_03_t06_w09_collections_integer_domains_and_capacity ... collection domain binding-vc-ordered_map: full 4096
+collection domain binding-vc-ordered_set: full 4096
+ok
+test ordinary_carriers::collection_tests::csharp_03_t06_w09_collections_maximum_updates ... collection maximum update binding-vc-ordered_map: 4095 -> 4096, key -1
+collection maximum update binding-vc-ordered_map: 4095 -> 4096, key 4095
+collection maximum update binding-vc-ordered_map: 4095 -> 4096, key 8190
+collection maximum update binding-vc-ordered_set: 4095 -> 4096, key -1
+collection maximum update binding-vc-ordered_set: 4095 -> 4096, key 4095
+collection maximum update binding-vc-ordered_set: 4095 -> 4096, key 8190
+collection replacement boundary-map-decimal: retain exact 1.00 key for equal 1 query
+ok
+test ordinary_carriers::collection_tests::csharp_03_t06_w09_collections_original_source_semantics ... collection semantics binding-vc-ordered_map: mpk.csharp.instance.02793d345122ecfb71f097e67c41492a8a92c65d6716cc5d2acc466089218728
+collection semantics binding-vc-ordered_set: mpk.csharp.instance.6a8c3b47c67a9f408ba6ed95014218dd82a3a25bca1b6f4f629dca07cc2e974b
+collection semantics boundary-map-string: mpk.csharp.instance.54bedba76c95ec17a552e26a1f27f6476ca3b9a75c58ff01da585e218dc8c7a4
+collection semantics boundary-map-decimal: mpk.csharp.instance.fda308f6648a45ed5400579a3aadb0648bdaec5c08bbb2a6e69309b163f699af
+collection semantics boundary-set-decimal: mpk.csharp.instance.e479cb76f3737d0623df685d89d2bb7c56620da4ae9b5c5e22c95b087d2c3474
+collection semantics boundary-map-compound: mpk.csharp.instance.1e519560627af25f5dc350d3f4c5c4312264be285974154403bc970baea501e4
+collection semantics extra-bool-float-map: mpk.csharp.instance.9b0cac8b66657499ba0864a7202694580c41a27cb0e7865c036965a984d83ec4
+collection semantics extra-bool-nullable-map: mpk.csharp.instance.7c6fd6608d4ba325b669bfae33b57b06b14e844a762948d6d37551a1aa37bd97
+collection semantics extra-shared-lookup-maps: mpk.csharp.instance.02793d345122ecfb71f097e67c41492a8a92c65d6716cc5d2acc466089218728
+collection semantics extra-shared-lookup-maps: mpk.csharp.instance.dbd6a51148c5df8446cf138a505b11fbf9f6df1d24d0f2a3c1bf85766b0b00c9
+collection semantics: 10 source/instance contexts, 669 ordinary observations
+ok
+test ordinary_carriers::sequence_tests::csharp_03_t06_w09_sequences_equal_length_element_order ... ok
+test ordinary_carriers::sequence_tests::csharp_03_t06_w09_sequences_original_sources_and_boundaries ... sequence source binding-vc-validation: 1 instances
+sequence source binding-vc-transition: 1 instances
+sequence source binding-vc-bounded_sequence: 1 instances
+sequence source binding-vc-ordered_map: 2 instances
+sequence source binding-vc-ordered_set: 1 instances
+sequence source nested-box: 1 instances
+sequence source boundary-map-string: 2 instances
+sequence source boundary-map-decimal: 2 instances
+sequence source boundary-set-decimal: 1 instances
+sequence source boundary-map-compound: 2 instances
+sequence source boundary-total-cells: 1 instances
+sequence source float-sequence: 1 instances
+sequence operations: 12 source contexts; 457 indexed reads; full 4096 capacity and NaN covered
+ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 357 filtered out; finished in 9040.78s
+

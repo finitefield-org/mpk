@@ -4,7 +4,7 @@
 use super::super::super::super::defaults;
 use super::super::super::super::scalar_bits::emit_boundary_json_for_carriers;
 use super::super::super::{construction_ops, non_templates};
-use super::super::{entry_ops, money_ops, outcome_ops, sequence_ops};
+use super::super::{entry_ops, money_ops, outcome_ops, sequence_ops, transition_ops};
 use super::*;
 
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
@@ -45,6 +45,8 @@ pub struct OrdinaryStructuralFoundationProgram {
     public_domains: Option<Vec<OrdinaryPublicDomainDefinition>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     public_defaults: Option<Vec<OrdinaryPublicDefaultDefinition>>,
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    transitions: Vec<OrdinaryTransitionDefinition>,
     static_transformers: usize,
     certificate_sha256: String,
     #[serde(skip)]
@@ -105,6 +107,9 @@ impl OrdinaryStructuralFoundationProgram {
     pub fn money(&self) -> &[OrdinaryMoneyDefinition] {
         &self.money
     }
+    pub fn transitions(&self) -> &[OrdinaryTransitionDefinition] {
+        &self.transitions
+    }
     pub fn deferred_instances(&self) -> &[OrdinaryDeferredFoundationInstance] {
         &self.deferred_instances
     }
@@ -139,11 +144,45 @@ pub fn generate_csharp_practical_ordinary_structural_public(
 ) -> R<OrdinaryStructuralFoundationProgram> {
     generate_structural(vir, false, true)
 }
+
+/// The exact component definitions in the current owning builder. The view has
+/// no certificate or admission flag; an extension adds ordinary declarations
+/// before the single final encoding and limit check.
+pub(in super::super) struct StructuralDefinitionRefs<'a> {
+    pub sequences: &'a [OrdinarySequenceOperations],
+    pub constructions: &'a [OrdinaryConstructionDefinition],
+    pub entries: &'a [OrdinaryEntryDefinition],
+    pub outcomes: &'a [OrdinaryOutcomeDefinition],
+    pub collections: &'a [OrdinaryCollectionDefinition],
+    pub money: &'a [OrdinaryMoneyDefinition],
+    pub transitions: &'a [OrdinaryTransitionDefinition],
+    pub source_observations: &'a [OrdinaryObservationDefinition],
+    pub public_domains: &'a [OrdinaryPublicDomainDefinition],
+    pub source_clauses: &'a [OrdinarySourceClauseDefinition],
+}
+
+pub(in super::super) fn extend_structural_public<'a, T>(
+    vir: &'a ValidatedPracticalVir,
+    extend: impl FnOnce(&mut Relations<'a>, StructuralDefinitionRefs<'_>) -> R<T>,
+) -> R<(Vec<u8>, usize, T)> {
+    let (p, extra) = generate_structural_with(vir, false, true, extend)?;
+    Ok((p.certificate, p.static_transformers, extra))
+}
+
 fn generate_structural(
     vir: &ValidatedPracticalVir,
     with_boundary: bool,
     with_public: bool,
 ) -> R<OrdinaryStructuralFoundationProgram> {
+    generate_structural_with(vir, with_boundary, with_public, |_, _| Ok(())).map(|(p, ())| p)
+}
+
+fn generate_structural_with<'a, T>(
+    vir: &'a ValidatedPracticalVir,
+    with_boundary: bool,
+    with_public: bool,
+    extend: impl FnOnce(&mut Relations<'a>, StructuralDefinitionRefs<'_>) -> R<T>,
+) -> R<(OrdinaryStructuralFoundationProgram, T)> {
     let boundary_program = if with_boundary {
         Some(generate_boundary_vcs(vir).map_err(|_| OrdinaryCarrierError::Linkage)?)
     } else {
@@ -228,7 +267,6 @@ fn generate_structural(
     let mut entries = vec![];
     let mut outcomes = vec![];
     let mut collections = vec![];
-    let mut deferred_instances = vec![];
     for entry in vir.data_closed().entries() {
         let id = text(entry, "instance_id")?;
         let template = text(entry, "template_id")?;
@@ -273,16 +311,7 @@ fn generate_structural(
                 // Emitted together below so decimal operations share one cache.
             }
             "mpk.csharp.semantic.transition.v1" => {
-                // Explicitly retained, not silently treated as generated/proved.
-                deferred_instances.push(OrdinaryDeferredFoundationInstance {
-                    instance_id: id.into(),
-                    template_id: template.into(),
-                    operation_ids: array(entry, "operation_definitions")?
-                        .iter()
-                        .map(|op| text(op, "id").map(str::to_owned))
-                        .collect::<R<_>>()?,
-                    internal_unit: 6,
-                });
+                // Append after existing profiles to preserve their declaration order.
             }
             _ => return Err(OrdinaryCarrierError::Linkage),
         }
@@ -322,6 +351,30 @@ fn generate_structural(
     } else {
         (None, None)
     };
+    let mut transitions = vec![];
+    for entry in vir
+        .data_closed()
+        .entries()
+        .iter()
+        .filter(|entry| entry["template_id"] == "mpk.csharp.semantic.transition.v1")
+    {
+        transitions.push(transition_ops::emit_transition(&mut d.r, entry)?);
+    }
+    let extra = extend(
+        &mut d.r,
+        StructuralDefinitionRefs {
+            sequences: &sequences,
+            constructions: &constructions,
+            entries: &entries,
+            outcomes: &outcomes,
+            collections: &collections,
+            money: &money,
+            transitions: &transitions,
+            source_observations: &source_observations,
+            public_domains: public_domains.as_deref().unwrap_or(&[]),
+            source_clauses: source_clauses.as_deref().unwrap_or(&[]),
+        },
+    )?;
     let static_transformers = d.r.b.static_transformers;
     let certificate = d.r.b.finish()?;
     let p = OrdinaryStructuralFoundationProgram {
@@ -348,12 +401,13 @@ fn generate_structural(
         outcomes,
         collections,
         money,
-        deferred_instances,
+        deferred_instances: vec![],
         boundary_program_sha256: boundary_program.as_ref().map(|p| p.hash()),
         boundary_json,
         source_clauses,
         public_domains,
         public_defaults,
+        transitions,
         static_transformers,
         certificate_sha256: mpk_cert::hash_hex(&mpk_cert::certificate_hash(&certificate)),
         certificate,
@@ -361,7 +415,7 @@ fn generate_structural(
     if p.canonical_bytes().len() > 16 * 1024 * 1024 {
         return Err(OrdinaryCarrierError::Limit);
     }
-    Ok(p)
+    Ok((p, extra))
 }
 pub fn import_csharp_practical_ordinary_structural_foundations(
     input: &[u8],

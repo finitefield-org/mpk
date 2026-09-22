@@ -1,0 +1,60 @@
+{
+  "schema": "mpk.w09.unit_3_completion_audit.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 3,
+  "status": "complete",
+  "requirement": "Every reachable structural and collection operation, including uninvoked instances; recursive/public domains, defaults, equality/order, storage and observations.",
+  "coverage": [
+    {
+      "scope": "product/sum storage, accessors and inactive storage",
+      "evidence": ["unit-3-storage-verification.json", "unit-3-storage-review.md"]
+    },
+    {
+      "scope": "primitive and recursive domains, public domains and defaults",
+      "evidence": ["unit-3-scalar-domain-verification.json", "unit-3-domain-progress.json", "unit-3-public-domains-progress.json", "unit-3-default-verification.json", "verification-logs/domain-dependent-refresh/verification.json"]
+    },
+    {
+      "scope": "equality, eligible canonical order and complete source observation",
+      "evidence": ["unit-3-relations-verification.json", "unit-3-observation-progress.json", "unit-3-structural-foundation-progress.json"]
+    },
+    {
+      "scope": "bounded sequence and construction operations",
+      "evidence": ["unit-3-sequence-construction-progress.json", "unit-3-sequence-construction-review.md"]
+    },
+    {
+      "scope": "finite, option/result/lookup/validation and boundary-field operations",
+      "evidence": ["unit-3-finite-verification.json", "unit-3-outcome-verification.json", "unit-3-outcome-review.md"]
+    },
+    {
+      "scope": "ordered entries, maps and sets including uninvoked concrete instances",
+      "evidence": ["unit-3-entry-collection-progress.json", "unit-3-entry-collection-review.md"]
+    },
+    {
+      "scope": "current observer, full capacities and downstream certificate reconciliation",
+      "evidence": ["verification-logs/domain-pin-refresh/verification.json", "verification-logs/domain-dependent-refresh/verification.json", "verification-logs/unit-3-current-runtime/verification.json"]
+    }
+  ],
+  "acceptance": {
+    "ordinary_definitions_only": true,
+    "reachable_concrete_instances_include_uninvoked_operations": true,
+    "source_reconstruction_and_linkage_mutations": "passed",
+    "same_byte_dual_checking": "passed for every changed unit-3 pin and affected direct consumer pin",
+    "zero_axioms": true,
+    "hash_corruption_rejection": true,
+    "current_observer_runtime": "passed",
+    "direct_review": "unit-3-completion-review.md"
+  },
+  "boundary_ownership": {
+    "construction_source_ownership_and_execution": "unit 5",
+    "business bindings_and_codecs": "unit 4",
+    "transition_and_replay": "unit 6",
+    "application_theorem_and_proof_assembly": "unit 7",
+    "whole_W09_acceptance": "unit 8"
+  },
+  "remaining_for_w09": [
+    "Complete internal units 4-8.",
+    "Run W09 acceptance and the T06-W12 whole gate at their designated checkpoints."
+  ],
+  "w09_complete": false,
+  "whole_gate": "deferred to T06-W12"
+}

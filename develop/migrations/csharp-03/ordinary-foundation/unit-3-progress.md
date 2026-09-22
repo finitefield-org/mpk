@@ -1,8 +1,10 @@
 # W09 internal unit 3: structural and collection foundation progress
 
-Unit 3 is in progress, not complete. Units 1 and 2 are complete as internal
-units. W09 is not complete, and W10-W12 remain blocked. The full T06 gate
-stays deferred to W12.
+Unit 3 is complete as an internal unit. Units 1 and 2 were completed earlier.
+The final current-observer reconciliation and whole-unit review are recorded in
+`verification-logs/unit-3-current-runtime/verification.json`,
+`unit-3-completion-audit.json` and `unit-3-completion-review.md`. W09 is not
+complete, and W10-W12 remain blocked. The full T06 gate stays deferred to W12.
 
 ## Completed public/boundary consumer checks
 
@@ -17,8 +19,8 @@ completed the full-capacity aggregate (42.55 seconds test time) and all eight
 decimal map/set ordering cases (92.64 seconds test time). Earlier budget-limited
 attempts remain historical diagnostics. All five handoff checks are complete;
 see `verification-logs/domain-dependent-refresh/user-long-completed/verification.json`.
-Other dependent clause/data fixtures, deep collection/sequence evidence scope
-and the full internal-unit review remain open. This is not unit-3 completion.
+The later dependent-pin refresh, full current-observer collection/sequence run
+and whole-unit review close the open evidence scope described at this checkpoint.
 
 ## Current domain/aggregate pin refresh
 
@@ -273,6 +275,11 @@ cache entries are unchanged. See `unit-3-relations-verification.json` and
 
 ## Remaining unit 3 work
 
+This section records the scope that remained at the relation checkpoint. Every
+listed unit-3 item has since been implemented and verified; the authoritative
+completion mapping is `unit-3-completion-audit.json`. Native ownership,
+source-state execution and application proofs are owned by units 5 and 7.
+
 Inspected next-component requirements, including logical cell-count exceptions
 for map entries and transition events, are in `unit-3-domain-notes.md`. These
 notes specify the domain/default rules; current implementation evidence is linked
@@ -378,3 +385,18 @@ bytes, and verifies both versions. Existing layouts and 144 other generated
 certificates are unchanged; eight scoped pinned replays pass. See
 `contract-carrier-extension/changes.json`. Recursive-domain semantic boundary
 tests, remaining operations and the original W09 assembly scope remain open.
+
+## Completion reconciliation
+
+The final five current-observer collection/sequence tests passed in 9,040.787
+seconds: ten collection source/instance contexts and 669 observations, all
+4095-to-4096 update and full-capacity cases, twelve sequence contexts and 457
+indexed reads, equal-length element order and NaN behavior. The observer and
+all directly exercised producers match their launch hashes. Later transition
+and export integration preserves all nine collection and twelve sequence output
+byte strings. This closes the version-scoped semantic gap retained above.
+
+All changed unit-3 pins and affected direct consumers have exact source replay,
+same-byte Rust/Go acceptance, zero axioms and hash-corruption rejection. Direct
+review found no remaining unit-3 definition or concrete-instance coverage gap.
+Internal unit 3 is therefore complete; units 4-8 and W09 remain open.

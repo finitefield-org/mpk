@@ -1,0 +1,176 @@
+[
+  {
+    "stage": "idempotency-valid-positive-go",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/transition-snapshots/dual-checkers-retained-final/go-checker",
+      "/Users/kazuyoshitoshiya/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/transition-snapshots/dual-checkers-retained-final/idempotency-valid-positive.mpcert"
+    ],
+    "wall_seconds": 7.278,
+    "exit_code": 0,
+    "timed_out": false,
+    "input_file_sha256": "bae152230521183299153f71df955cc657f7a05f768e666df4a47ab48c09414b",
+    "stdout_sha256": "6a35772d32494908b7b721e7dec28494758a2b33752f9f37c72a235701a464ad",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "idempotency-valid-positive-rust",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "check",
+      "/Users/kazuyoshitoshiya/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/transition-snapshots/dual-checkers-retained-final/idempotency-valid-positive.mpcert"
+    ],
+    "wall_seconds": 0.078,
+    "exit_code": 0,
+    "timed_out": false,
+    "input_file_sha256": "bae152230521183299153f71df955cc657f7a05f768e666df4a47ab48c09414b",
+    "stdout_sha256": "f535c7c2c883fb809f62eb063e300812a039254735966177aec0f1c9b7fe2756",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "idempotency-valid-hash-go",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/transition-snapshots/dual-checkers-retained-final/go-checker",
+      "/Users/kazuyoshitoshiya/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/transition-snapshots/dual-checkers-retained-final/idempotency-valid-hash.mpcert"
+    ],
+    "wall_seconds": 6.954,
+    "exit_code": 1,
+    "timed_out": false,
+    "input_file_sha256": "5a95ef456fed52a3197cb84718a8d6c294157239e0b8eaa4aa1be10a47f5fc22",
+    "stdout_sha256": "42838b0ba3a46861ebcffa22db6fb65c583a96f4607695675c59ea316936d4ef",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "idempotency-valid-hash-rust",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "check",
+      "/Users/kazuyoshitoshiya/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/transition-snapshots/dual-checkers-retained-final/idempotency-valid-hash.mpcert"
+    ],
+    "wall_seconds": 0.076,
+    "exit_code": 1,
+    "timed_out": false,
+    "input_file_sha256": "5a95ef456fed52a3197cb84718a8d6c294157239e0b8eaa4aa1be10a47f5fc22",
+    "stdout_sha256": "a1a19f5d7ae1769617956100598ad5bfab64afde683a6d2aef832b5227d6f746",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "idempotency-omitted_context_body-positive-go",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/transition-snapshots/dual-checkers-retained-final/go-checker",
+      "/Users/kazuyoshitoshiya/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/transition-snapshots/dual-checkers-retained-final/idempotency-omitted_context_body-positive.mpcert"
+    ],
+    "wall_seconds": 6.885,
+    "exit_code": 0,
+    "timed_out": false,
+    "input_file_sha256": "5361efda07a97ba5c4f8b88f3aadef6fd65411f4e1dffe80a56d8c9cd9cbad91",
+    "stdout_sha256": "f23d205f4791bc3ce5afd36fd36f2852758a84c81e9b0168104669bf4c2b53d9",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "idempotency-omitted_context_body-positive-rust",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "check",
+      "/Users/kazuyoshitoshiya/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/transition-snapshots/dual-checkers-retained-final/idempotency-omitted_context_body-positive.mpcert"
+    ],
+    "wall_seconds": 0.077,
+    "exit_code": 0,
+    "timed_out": false,
+    "input_file_sha256": "5361efda07a97ba5c4f8b88f3aadef6fd65411f4e1dffe80a56d8c9cd9cbad91",
+    "stdout_sha256": "b4bc29cb147daefb3be01648b9e1506857ee714c0f57bd1c140f276670dd8914",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "idempotency-omitted_context_body-hash-go",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/transition-snapshots/dual-checkers-retained-final/go-checker",
+      "/Users/kazuyoshitoshiya/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/transition-snapshots/dual-checkers-retained-final/idempotency-omitted_context_body-hash.mpcert"
+    ],
+    "wall_seconds": 6.973,
+    "exit_code": 1,
+    "timed_out": false,
+    "input_file_sha256": "ec6cf40a4589f9f2fa77883b904962c3b5840fda330d09563e814a1e700cd453",
+    "stdout_sha256": "94e7cd193949c0914aaba91606b9f6d1347da436f3897745fde6c4ed773cde9a",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "idempotency-omitted_context_body-hash-rust",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "check",
+      "/Users/kazuyoshitoshiya/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/transition-snapshots/dual-checkers-retained-final/idempotency-omitted_context_body-hash.mpcert"
+    ],
+    "wall_seconds": 0.077,
+    "exit_code": 1,
+    "timed_out": false,
+    "input_file_sha256": "ec6cf40a4589f9f2fa77883b904962c3b5840fda330d09563e814a1e700cd453",
+    "stdout_sha256": "7b55f179b705c9d76d61b81899c38de7a212e3fbae319bcc37a53a2aece83568",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "transition-mutant_event-positive-go",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/transition-snapshots/dual-checkers-retained-final/go-checker",
+      "/Users/kazuyoshitoshiya/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/transition-snapshots/dual-checkers-retained-final/transition-mutant_event-positive.mpcert"
+    ],
+    "wall_seconds": 0.007,
+    "exit_code": 0,
+    "timed_out": false,
+    "input_file_sha256": "87f1acf3d677145cda9b27cf46a195291457a08cc910ad504f727d3475db842f",
+    "stdout_sha256": "59fb8028ea2f25dd590a7f82429c337e5063897cbbb518bac3d0442944850f14",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "transition-mutant_event-positive-rust",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "check",
+      "/Users/kazuyoshitoshiya/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/transition-snapshots/dual-checkers-retained-final/transition-mutant_event-positive.mpcert"
+    ],
+    "wall_seconds": 0.007,
+    "exit_code": 0,
+    "timed_out": false,
+    "input_file_sha256": "87f1acf3d677145cda9b27cf46a195291457a08cc910ad504f727d3475db842f",
+    "stdout_sha256": "2ffddd9b270eaded0856c29feba060438cb2ff270158806c96bfd7aef13e5566",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "transition-mutant_event-hash-go",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/transition-snapshots/dual-checkers-retained-final/go-checker",
+      "/Users/kazuyoshitoshiya/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/transition-snapshots/dual-checkers-retained-final/transition-mutant_event-hash.mpcert"
+    ],
+    "wall_seconds": 0.012,
+    "exit_code": 1,
+    "timed_out": false,
+    "input_file_sha256": "a76e45cf74b5fc2a836a9c41dcb05aab5f4ee9150673d6201950250adcd06897",
+    "stdout_sha256": "65fb374953146c2dba241e77cbae9f75249f80acc33d0a81d11fbfae78096a8c",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "transition-mutant_event-hash-rust",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "check",
+      "/Users/kazuyoshitoshiya/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/transition-snapshots/dual-checkers-retained-final/transition-mutant_event-hash.mpcert"
+    ],
+    "wall_seconds": 0.006,
+    "exit_code": 1,
+    "timed_out": false,
+    "input_file_sha256": "a76e45cf74b5fc2a836a9c41dcb05aab5f4ee9150673d6201950250adcd06897",
+    "stdout_sha256": "e0f5f784c257eda1a75b414df4e899d6d4e5a4d33006d7a2480b2940813ee038",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  }
+]

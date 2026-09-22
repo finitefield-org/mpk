@@ -1,0 +1,57 @@
+=== RUN   TestCheckerAgreementWithRustCLIJsonEnvelopes
+=== RUN   TestCheckerAgreementWithRustCLIJsonEnvelopes/presence_exposed.hex
+    checker_agreement_test.go:395: Go accepted: certificate=0a6ee0cf705092fed28152895b3254585bb8187caa6a02ace0c9ac082ae24f72 declarations=2075 axioms=0 elapsed=3m53.232851167s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=47710da425d8f31e31c7ef2bbc3eea204b082ec6238f9980a226c4f9bf991f37 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=1m16.213507125s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=3m58.880169958s
+    checker_agreement_test.go:411: Rust checker execution/protocol failure: Rust checker did not return a verifier report: unexpected end of JSON input
+        stdout:
+        
+        stderr:
+        warning: unused imports: `StructuralDefinitionRefs` and `extend_structural_public`
+         --> crates/mpk-vc/src/csharp_practical_ordinary_domains.rs:6:41
+          |
+        6 | pub(super) use structural_foundations::{extend_structural_public, StructuralDefinitionRefs};
+          |                                         ^^^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^^
+          |
+          = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+        
+        error[E0308]: mismatched types
+           --> crates/mpk-vc/src/csharp_practical_ordinary_binding_conditions.rs:107:51
+            |
+        107 |                 b.var(subjects.len() as u32 - 1 - index)
+            |                                                   ^^^^^ expected `u32`, found `usize`
+        
+        error[E0277]: cannot subtract `&usize` from `u32`
+           --> crates/mpk-vc/src/csharp_practical_ordinary_binding_conditions.rs:107:49
+            |
+        107 |                 b.var(subjects.len() as u32 - 1 - index)
+            |                                                 ^ no implementation for `u32 - &usize`
+            |
+            = help: the trait `Sub<&usize>` is not implemented for `u32`
+        help: the following other types implement trait `Sub<Rhs>`
+           --> /rustc/8bab26f4f68e0e26f0bb7960be334d5b520ea452/library/core/src/ops/arith.rs:210:8
+            |
+            = note: `u32` implements `Sub`
+           ::: /rustc/8bab26f4f68e0e26f0bb7960be334d5b520ea452/library/core/src/ops/arith.rs:225:0
+            |
+            = note: in this macro invocation
+           --> /rustc/8bab26f4f68e0e26f0bb7960be334d5b520ea452/library/core/src/internal_macros.rs:22:8
+            |
+            = note: `&u32` implements `Sub<u32>`
+           ::: /rustc/8bab26f4f68e0e26f0bb7960be334d5b520ea452/library/core/src/internal_macros.rs:33:8
+            |
+            = note: `u32` implements `Sub<&u32>`
+           ::: /rustc/8bab26f4f68e0e26f0bb7960be334d5b520ea452/library/core/src/internal_macros.rs:44:8
+            |
+            = note: `&u32` implements `Sub`
+            = note: this error originates in the macro `sub_impl` (in Nightly builds, run with -Z macro-backtrace for more info)
+        
+        Some errors have detailed explanations: E0277, E0308.
+        For more information about an error, try `rustc --explain E0277`.
+        error: could not compile `mpk-vc` (lib) due to 2 previous errors; 1 warning emitted
+        error: could not compile `mpk-vc` (lib) due to 2 previous errors; 1 warning emitted
+--- FAIL: TestCheckerAgreementWithRustCLIJsonEnvelopes (559.23s)
+    --- FAIL: TestCheckerAgreementWithRustCLIJsonEnvelopes/presence_exposed.hex (559.23s)
+FAIL
+FAIL	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	559.578s
+FAIL

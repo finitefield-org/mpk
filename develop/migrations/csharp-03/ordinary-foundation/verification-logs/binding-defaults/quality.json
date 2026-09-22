@@ -1,0 +1,62 @@
+{
+  "status": "failed",
+  "supervisor_pid": 5016,
+  "profile": {
+    "CARGO_TARGET_DIR": "/tmp/mpk-w09-optimized-target",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "2",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0"
+  },
+  "runs": [
+    {
+      "label": "clippy",
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "status": "passed",
+      "log": "clippy.log",
+      "pid": 5019,
+      "exit_code": 0,
+      "elapsed_seconds": 61.197,
+      "log_sha256": "44cbb27f007f1fc66b21dc7e09cc3efe1ad18f5c707fd8a3b989743e01edad12"
+    },
+    {
+      "label": "inventory",
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_inventory"
+      ],
+      "status": "failed",
+      "log": "inventory.log",
+      "pid": 5340,
+      "exit_code": 101,
+      "elapsed_seconds": 8.221,
+      "log_sha256": "7c3e4fe9536ff7d9d26aec6195a0db9fad10a6f0f3cba6853b7c1a58168ac04b"
+    }
+  ],
+  "full_gate": "deferred_to_T06_W12",
+  "selection_reason": "Clippy for changed library/integration tests, five artifact inventory tests, and format checks. No full T gate.",
+  "build": "build.json",
+  "binaries": {
+    "integration": {
+      "path": "/tmp/mpk-w09-binding-defaults-integration-7cfbeb8f419e9ab1",
+      "sha256": "7cfbeb8f419e9ab10733b35f35e1db827384a25ed8bb87220dd888c903d36451"
+    }
+  },
+  "failure": "inventory failed"
+}

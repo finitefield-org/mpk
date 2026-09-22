@@ -1,0 +1,11 @@
+{
+  "status": "review_fix_verified",
+  "finding": "The original-source test incorrectly expected all 87 instances to be public values. The retained structural corpus contains six occurrences of internal sequence-construction states. Production already keeps them explicitly pending; test exact partition and all 87 original condition identities instead.",
+  "expected_public_conditions": 81,
+  "expected_pending_type_conditions": 6,
+  "expected_original_conditions": 87,
+  "initial_build": "The running build is invalidated by this test-only review correction and must not be used as source-bound verification. Its hash guard will fail; rebuild corrected source before any verification.",
+  "production_changed": false,
+  "full_gate": "deferred_to_T06_W12",
+  "verification": "verification.json"
+}

@@ -1,0 +1,70 @@
+{
+  "status": "passed_scoped_source_normal_step_checks",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 5,
+  "recorded_at": "2026-09-21T08:20:50Z",
+  "scope": "Exact local normal-step composition for every original source node whose frame, successful transfer, native normal result, and literal-result semantics are complete. Entry selection, inter-step transport, exceptional/alias execution, and application proof assembly remain open.",
+  "coverage": {
+    "contexts": 18,
+    "source_nodes": 703,
+    "complete_local_normal_predicates": 579,
+    "pending_nodes": 124,
+    "pending_reasons": {
+      "function_entry_relation_separate": 18,
+      "exception_execution_separate": 93,
+      "unreachable_source_node": 10,
+      "memory_alias_frames_pending": 2,
+      "native_call_semantics_pending": 1
+    },
+    "max_step_arguments": 80,
+    "max_candidate_metadata_bytes": 13441834
+  },
+  "runtime": {
+    "receipt": "runtime-unbounded.json",
+    "log": "runtime-unbounded.log",
+    "wall_seconds": 8193.415,
+    "observations": 20584,
+    "true_component_outcomes": 9837,
+    "false_component_outcomes": 10727,
+    "shared_arguments_checked": 7160,
+    "initial_bounded_attempt": "runtime.json exhausted MPK_CORE_MAX_SECONDS=600 without a semantic verdict; the complete unchanged corpus then ran without evaluator time/step limits and passed"
+  },
+  "byte_equivalence": {
+    "receipt": "runtime-byte-equivalence.json",
+    "files": 36,
+    "metadata_runtime_and_published": "byte-identical"
+  },
+  "dual_checkers": {
+    "receipt": "checker-verification.json",
+    "distinct_certificates": 15,
+    "same_byte_verdicts": "Go/Rust accepted; reports/hashes/counts agree; zero axioms",
+    "hash_corruptions": "all rejected"
+  },
+  "current_source_sha256": {
+    "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs": "cd3551017e832f76178baf8fcdec9ea61a9bd474294c6b7ae0b0004f2fe563df",
+    "crates/mpk-vc/src/csharp_practical_ordinary_control_steps.rs": "eb4cef18b59abb35c01b8d729c2c36160e557729427ab931e4610ccb5ae14bdc",
+    "crates/mpk-vc/src/csharp_practical_ordinary_relations.rs": "fcb9dc67d6c8f34804351794e0a040de4ef8063c543223e12f42a0e781202580",
+    "crates/mpk-vc/src/csharp_practical_ordinary_structural.rs": "3136374bde9e026a59d8116be98f757d75b196cd62850cc62f815c7c49bfd7c6",
+    "crates/mpk-vc/src/csharp_practical_vir_model.rs": "de944e4385df1f5f120af369e65ff4fb0dd72455c9c1f27e66a553a654ec7efb",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_step_tests.rs": "36ecb048e19b6b085b9af8019653c0a4ad30eecb8e12ed82718bde0d14003b8d",
+    "develop/migrations/csharp-03/artifact-consumer-inventory.json": "5c26070887f1837f2639a85cf9c3ee3edf2758538ade3dabbc82d242db594dec",
+    "develop/migrations/csharp-03/data-phase/historical-inventory-cache-correction.json": "c4f25a8c45fdeed21e2c8aa20112ee037fbf12b4acd77724112840b09f154c5d"
+  },
+  "launch_source_and_binary": "in-progress.json and runtime-binary.json",
+  "checks": [
+    "runtime-unbounded.json",
+    "runtime-byte-equivalence.json",
+    "published-metadata.json",
+    "checker-verification.json",
+    "binder-depth-verification.json",
+    "export-byte-equivalence.json",
+    "preservation.json",
+    "lint-final.json",
+    "format.json",
+    "inventory-final.json"
+  ],
+  "unit_5_complete": false,
+  "w09_complete": false,
+  "whole_gate": "deferred to T06-W12",
+  "commit": "No partial-unit commit"
+}

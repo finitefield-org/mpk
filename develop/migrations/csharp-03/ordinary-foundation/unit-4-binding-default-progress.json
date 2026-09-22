@@ -1,0 +1,38 @@
+{
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "passed_scoped_component",
+  "scope": "Original W06 closed actual_default conditions, using exact recursive CLR zero-value definitions, public domains and declared semantic arms. Definition and proof availability remain separate.",
+  "implementation": "crates/mpk-vc/src/csharp_practical_ordinary_binding_defaults.rs",
+  "verification": {
+    "build": "verification-logs/binding-defaults/build.json",
+    "definitions": "verification-logs/binding-defaults/definitions.json",
+    "semantics": "verification-logs/binding-defaults/semantics.json",
+    "preservation": "verification-logs/binding-defaults/preservation.json",
+    "quality": "verification-logs/binding-defaults/quality.json"
+  },
+  "selection_reason": "The composition adds only default constants and closed W06 conditions. All 45 original source contexts are checked for exact original sequents, transitive component preservation and strict import mutation rejection. Runtime probes cover actual default bits and independent failure of each conjunct. The unchanged 53 source-invariant pins are replayed to preserve applicability of their running immutable semantic binary after export-only integration.",
+  "remaining": [
+    "Resolve DefaultUseForbidden through actual native/source use obligations; an ineligible declaration supplies no absence proof.",
+    "Complete general reconstruction witnesses, partial-clause definedness, identity/concrete equivalence, native commutation, remaining codecs and all universal application proofs."
+  ],
+  "full_gate": "deferred_to_T06_W12",
+  "current_verification": "verification-logs/binding-defaults/verification.json",
+  "source_contexts": 45,
+  "conditions": 3,
+  "pending_defaults": 32,
+  "semantics": {
+    "actual_defaults": 16,
+    "bits": 2368,
+    "closed_conditions": 3,
+    "unproven_declaration_flags": 3,
+    "invalid_source_matching_arm": 157,
+    "valid_source_wrong_arm": 2
+  },
+  "source_invariant_preservation": {
+    "status": "passed",
+    "contexts": 53
+  },
+  "checker_certificates": 45,
+  "source_invariant_pins_preserved": 53
+}

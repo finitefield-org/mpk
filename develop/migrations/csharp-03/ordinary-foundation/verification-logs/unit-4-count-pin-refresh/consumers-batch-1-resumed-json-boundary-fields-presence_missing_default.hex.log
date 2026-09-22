@@ -1,0 +1,10 @@
+=== RUN   TestCheckerAgreementWithRustCLIJsonBoundaryFields
+=== RUN   TestCheckerAgreementWithRustCLIJsonBoundaryFields/presence_missing_default.hex
+    checker_agreement_test.go:395: Go accepted: certificate=355b30d999180635ef0e410e9f6cdec5c10a4c3225afa3cd6909d2063b37c18a declarations=2052 axioms=0 elapsed=3m49.862974792s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=5afd89078b84ee9600d18c8f1965218216121d0b1b7d2eae546a8f8b3d334924 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=10.368145125s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=4m9.621259041s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=8.83531925s
+--- PASS: TestCheckerAgreementWithRustCLIJsonBoundaryFields (498.70s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonBoundaryFields/presence_missing_default.hex (498.70s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	498.794s

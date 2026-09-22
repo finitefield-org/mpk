@@ -1,0 +1,39 @@
+from pathlib import Path
+import json,hashlib,subprocess,time,os
+root=Path('/Users/kazuyoshitoshiya/mpk/develop/migrations/csharp-03/ordinary-foundation');current=Path('/tmp/mpk-w09-current-count-consumers');out=Path('/tmp/mpk-w09-count-consumer-audits');out.mkdir(exist_ok=True);plan=json.loads(Path('/tmp/mpk-w09-count-consumer-plan.json').read_text());todo={t['file']:t for t in plan['targets']};results=[];cached={}
+if os.environ.get('MPK_COUNT_RESUME'):
+ results=json.loads((out/'audit.json').read_text())['programs']
+ for result in results:
+  todo.pop(result['file'])
+  cached[result['old_hex_sha256']+'-'+result['new_hex_sha256']]=result['declarations']
+body='Mpk.CSharp.Ordinary.DomainCount.O'+b'structural.scalar.mpk.csharp.value.u32.v1.saturated_cell_add'.hex()+'.Result';base=body.removesuffix('Result');removed={base+s for s in [*(f'Block.B{i}' for i in range(3,28)),'State','Success']}|{'Mpk.CSharp.Ordinary.Cube.D10.'+s for s in ('Compose','Identity','Mux','Zero')}
+def ptr(doc,p):
+ for key in p.split('/')[1:]:
+  key=key.replace('~1','/').replace('~0','~');doc=doc[int(key)] if isinstance(doc,list) else doc[key]
+ return doc
+def diff(a,b,p=''):
+ if type(a)!=type(b):return [p]
+ if isinstance(a,dict):return [p+'/'+k for k in a.keys()^b.keys()]+[v for k in a.keys()&b.keys() for v in diff(a[k],b[k],p+'/'+k)]
+ if isinstance(a,list):
+  if len(a)!=len(b):return [p+'/length']
+  return [v for i,(x,y) in enumerate(zip(a,b)) for v in diff(x,y,p+f'/{i}')]
+ return [] if a==b else [p]
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+while todo:
+ ready=[k for k in todo if (current/k).with_suffix('.program.json').exists()]
+ for name in ready:
+  t=todo.pop(name);old=root/name;new=current/name;metadata=json.loads((current/name).with_suffix('.program.json').read_text());ref=t['metadata_source'];before=ptr(json.loads((root/ref['path']).read_text()),ref['pointer']);paths=sorted(diff(before,metadata));key=sha(old)+'-'+sha(new)
+  if key not in cached:
+   audit=json.loads(subprocess.check_output(['/tmp/mpk-w09-binding-pin-inspector',str(old),str(new)]));audit.pop('old');audit.pop('new');cached[key]=audit
+  audit=cached[key]
+  valid=not audit['added'] and not audit['changed_types'] and audit['changed_bodies']==[body] and set(audit['removed'])<=removed and all(p.endswith(('/certificate_sha256','/static_transformers')) for p in paths)
+  row={'file':name,'status':'known_count_helper_only' if valid else 'requires_review','source_ir_sha256':t['source_ir_sha256'],'schema':t['schema'],'old_hex_sha256':sha(old),'new_hex_sha256':sha(new),'metadata_changed_paths':paths,'declarations':audit};results.append(row)
+  (out/(name.replace('/','--')+'.json')).write_text(json.dumps(row,indent=2)+'\n')
+  if not valid:print('REVIEW',name,json.dumps({'metadata':paths,'added':audit['added'],'types':audit['changed_types'],'bodies':audit['changed_bodies']}),flush=True)
+  elif len(results)%10==0:print('audited',len(results),flush=True)
+  (out/'audit.json').write_text(json.dumps({'status':'running','audited':len(results),'remaining':len(todo),'programs':results},indent=2)+'\n')
+ if todo:
+  job=json.loads(Path(os.environ.get('MPK_COUNT_JOB','/tmp/mpk-w09-regenerate-count-consumers.json')).read_text())
+  if job['status']!='running':break
+  if not ready:time.sleep(5)
+status='passed' if not todo and all(r['status']=='known_count_helper_only' for r in results) else 'review_or_missing_programs';(out/'audit.json').write_text(json.dumps({'status':status,'audited':len(results),'remaining':list(todo),'distinct_declaration_pairs':len(cached),'programs':results},indent=2)+'\n');print(status,'audited',len(results),'remaining',len(todo),flush=True)

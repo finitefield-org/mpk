@@ -1,0 +1,50 @@
+{
+  "status": "passed",
+  "binary_sha256": "be65fbb0e37a0f0165c5b1fafb6e37b00e6775d883d328e6f2764b20853f8592",
+  "profile_receipt": "/tmp/mpk-w09-optimized-build.json",
+  "selection_reason": "Confirm the promoted pins match complete generation, strict import and mutations for all affected binding consumers.",
+  "runs": [
+    {
+      "test": "csharp_03_t06_w09_binding_relations_original_source_certificates",
+      "command": [
+        "/tmp/mpk-w09-optimized-target/debug/deps/csharp_practical_vc-a023def1d075fbd7",
+        "csharp_03_t06_w09_binding_relations_original_source_certificates",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 118.132,
+      "log": "binding-relations-pinned.log",
+      "log_sha256": "af63215473f6443029df41df66e07b4c77b327085c872644f0a0959bfd2ea4fc"
+    },
+    {
+      "test": "csharp_03_t06_w09_binding_guards_original_source_certificates",
+      "command": [
+        "/tmp/mpk-w09-optimized-target/debug/deps/csharp_practical_vc-a023def1d075fbd7",
+        "csharp_03_t06_w09_binding_guards_original_source_certificates",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 16.011,
+      "log": "binding-guards-pinned.log",
+      "log_sha256": "e376f04c4a521fa8fc9d78a09842b0dfa35cc05179a779bb7d4c377ac29c83f4"
+    },
+    {
+      "test": "csharp_03_t06_w09_binding_orders_original_source_certificates",
+      "command": [
+        "/tmp/mpk-w09-optimized-target/debug/deps/csharp_practical_vc-a023def1d075fbd7",
+        "csharp_03_t06_w09_binding_orders_original_source_certificates",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 13.149,
+      "log": "binding-orders-pinned.log",
+      "log_sha256": "465712645a1217d2e6d1f9f5356f355fb5a862c1100f984234feea05b45b424a"
+    }
+  ]
+}

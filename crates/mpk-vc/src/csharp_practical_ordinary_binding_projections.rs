@@ -470,12 +470,18 @@ impl Projections<'_> {
         if let Some(name) = self.nodes.get(&key) {
             return Ok(name.clone());
         }
+        // Source clauses may already have emitted this same context-bound
+        // conversion before a combined binding program requests it again.
+        let name = conversion_name(from, to);
+        if self.b.globals.contains_key(&name) {
+            self.nodes.insert(key, name.clone());
+            return Ok(name);
+        }
         if !self.active.insert(key.clone()) {
             return Err(OrdinaryCarrierError::Cycle);
         }
         let source = self.carrier(from)?;
         let target = self.carrier(to)?;
-        let name = conversion_name(from, to);
         let body = if from == to {
             self.b.var(0)?
         } else if let Some(binding) = self.bindings.get(from).copied() {
@@ -584,6 +590,7 @@ pub fn import_csharp_practical_ordinary_binding_projections(
 
 #[path = "csharp_practical_ordinary_binding_rebuilds.rs"]
 mod rebuilds;
+pub(super) use rebuilds::emit_rebuilds;
 pub use rebuilds::{
     generate_csharp_practical_ordinary_binding_rebuilds,
     import_csharp_practical_ordinary_binding_rebuilds, OrdinaryBindingRebuildDefinition,

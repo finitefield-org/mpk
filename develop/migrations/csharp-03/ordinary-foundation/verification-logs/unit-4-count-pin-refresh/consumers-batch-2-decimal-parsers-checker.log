@@ -1,0 +1,10 @@
+=== RUN   TestCheckerAgreementWithRustCLIDecimalParsers
+=== RUN   TestCheckerAgreementWithRustCLIDecimalParsers/binding-vc-money.hex
+    checker_agreement_test.go:395: Go accepted: certificate=0afbcb6a698bf84ab75b527b3bc9b06191931cdc1ad31c15d9742459c50bb112 declarations=617 axioms=0 elapsed=3m35.778605916s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=c7ac0c294f59ae30ac3732034720c5e4f14a308ac33708286ca8316a8fe3b319 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=16.768422625s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=27.856602875s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=3.137732708s
+--- PASS: TestCheckerAgreementWithRustCLIDecimalParsers (263.56s)
+    --- PASS: TestCheckerAgreementWithRustCLIDecimalParsers/binding-vc-money.hex (263.56s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	263.794s

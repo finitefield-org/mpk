@@ -1,0 +1,16 @@
+{
+  "status": "resolved_in_targeted_review",
+  "finding": "Clippy never_loop in the component lookup test. Also isolate the NaN payload mutation and exercise actual malformed source storage in addition to the existing predicate mutation.",
+  "changed_scope": "Only concrete operation tests. Production sources, the three existing semantic/definition test bodies, and prior certificate bytes are retained except for equivalent component lookup syntax in the definition test helper.",
+  "previous_test_sha256": "eb3c995cc96d34710b2f1071d7e5687485c063c5eac85b36929c8def3f07d2bd",
+  "prior_verification": "../build.json; ../routing.json; ../real.json; ../preservation.json; ../definitions.json",
+  "required_verification": [
+    "Fresh build and unchanged-source snapshot",
+    "Rerun original definition test against existing 45 corpus pins because its helper changes",
+    "New isolated payload/input test",
+    "Clippy, five inventory tests, Rust/Go format checks"
+  ],
+  "retained_checks": "Original ordered-outcome semantics and real-value semantics use unchanged functions/helpers and exact production source; they are not rerun solely for the independent new test. Original checkers continue on unchanged bytes.",
+  "full_gate": "deferred_to_T06_W12",
+  "resolution": "../review-isolated-input-guard/isolated.json and quality.json pass; all production sources and prior semantic test bodies/helpers remain unchanged."
+}

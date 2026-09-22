@@ -12,6 +12,15 @@ pub use execution::{OrdinaryControlNativeDefinition, OrdinaryControlNativeOperat
 #[path = "csharp_practical_ordinary_control_exceptions.rs"]
 mod exceptions;
 pub use exceptions::OrdinaryControlNativeException;
+#[path = "csharp_practical_ordinary_control_literals.rs"]
+mod native_literals;
+pub use native_literals::OrdinaryControlNativeLiteral;
+#[path = "csharp_practical_ordinary_control_steps.rs"]
+mod steps;
+pub use steps::{OrdinaryControlSourceStep, OrdinaryControlStepComponent};
+#[path = "csharp_practical_ordinary_control_source_execution.rs"]
+mod source_execution;
+pub use source_execution::OrdinaryControlSourceExecution;
 
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
 pub struct OrdinaryControlEdgeJoin {
@@ -130,6 +139,18 @@ pub struct OrdinaryControlEdgeFunction {
     /// search, unwind, source-state effects and reachability remain separate.
     #[serde(skip_serializing_if = "Vec::is_empty")]
     pub native_exceptions: Vec<OrdinaryControlNativeException>,
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    pub native_literals: Vec<OrdinaryControlNativeLiteral>,
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    pub source_steps: Vec<OrdinaryControlSourceStep>,
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    pub source_executions: Vec<OrdinaryControlSourceExecution>,
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    pub pending_source_execution_node_ids: Vec<String>,
+    /// Source graph nodes proven unreachable by the captured reachability walk.
+    /// These have no execution obligation and are distinct from unresolved nodes.
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    pub excluded_unreachable_source_node_ids: Vec<String>,
     /// Source entry and successful load/store relations in this same certificate.
     /// These require execution at their exact anchors; they do not prove reachability.
     #[serde(skip_serializing_if = "Vec::is_empty")]
@@ -137,6 +158,9 @@ pub struct OrdinaryControlEdgeFunction {
     /// Invocations without a W03 data operation still require native semantics.
     #[serde(skip_serializing_if = "Vec::is_empty")]
     pub pending_native_invocation_node_ids: Vec<String>,
+    /// Source-value constructor invocations resolved by the source-step layer.
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    pub source_constructor_invocation_node_ids: Vec<String>,
 }
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
 pub struct OrdinaryControlMemoryBinding {
@@ -1214,7 +1238,16 @@ fn source_frames(
         } else if matches!(node.kind.as_str(), "handler_search" | "builtin_throw") {
             Some("exception_execution_separate")
         } else if node.operation == "update" {
-            Some("memory_alias_frames_pending")
+            let effects = flow
+                .memory_effects
+                .iter()
+                .filter(|effect| effect.source_node_id == node.id)
+                .count();
+            if effects == 1 {
+                None
+            } else {
+                Some("memory_alias_frames_pending")
+            }
         } else if anchor.is_none() {
             Some("native_anchor_missing")
         } else if matches!(node.operation.as_str(), "load" | "store" | "pattern_bind") {
@@ -1280,6 +1313,24 @@ fn source_frames(
             continue;
         }
         let anchor = anchor.ok_or(OrdinaryCarrierError::Linkage)?;
+        let updated_slot = if node.operation == "update" {
+            let effect = flow
+                .memory_effects
+                .iter()
+                .find(|effect| effect.source_node_id == node.id)
+                .ok_or(OrdinaryCarrierError::Linkage)?;
+            Some(
+                effect
+                    .arguments
+                    .iter()
+                    .find(|argument| argument.kind == "source_before_slot")
+                    .ok_or(OrdinaryCarrierError::Linkage)?
+                    .value_id
+                    .as_str(),
+            )
+        } else {
+            None
+        };
         if let Some(t) = transfer {
             if t.entry_node_id != anchor.entry_node_id
                 || t.exit_node_id != anchor.exit_node_id
@@ -1291,6 +1342,9 @@ fn source_frames(
             }
         }
         for (slot, nominal) in &flow.source.slots {
+            if updated_slot == Some(slot.as_str()) {
+                continue;
+            }
             if transfer.is_some_and(|t| {
                 t.slot == *slot && matches!(t.kind.as_str(), "store" | "pattern_bind")
             }) {
@@ -1451,6 +1505,9 @@ pub fn generate_csharp_practical_ordinary_control_edges(
         flow.slot_relations = slots.relations;
     }
     exceptions::append(&mut c, &mut p, vir, &layouts)?;
+    native_literals::append(&mut c, &mut p, vir, &layouts)?;
+    steps::append(&mut c, &mut p, vir)?;
+    source_execution::append(&mut c, &mut p)?;
     let certificate = c.b.finish()?;
     p.certificate_sha256 = mpk_cert::hash_hex(&mpk_cert::certificate_hash(&certificate));
     p.certificate = certificate;
@@ -1776,8 +1833,14 @@ fn emit_program_with_foundations(
             source_frames: vec![],
             native_operations: vec![],
             native_exceptions: vec![],
+            native_literals: vec![],
+            source_steps: vec![],
+            source_executions: vec![],
+            pending_source_execution_node_ids: vec![],
+            excluded_unreachable_source_node_ids: vec![],
             slot_relations: vec![],
             pending_native_invocation_node_ids: vec![],
+            source_constructor_invocation_node_ids: vec![],
         });
     }
     // Append after the existing guard/slot declarations so their exact terms

@@ -1,0 +1,10 @@
+=== RUN   TestCheckerAgreementWithRustCLIDecimalCodecClauses
+=== RUN   TestCheckerAgreementWithRustCLIDecimalCodecClauses/normalized.hex
+    checker_agreement_test.go:395: Go accepted: certificate=72eb9e237a36cb7e30d907a2001817d428bb51276796f660ad1d1c37be7f9adf declarations=890 axioms=0 elapsed=1m27.8799755s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=3b962dc11bc4815173459eb17ce8d2879bfd8ab7a0044f640665205b327318a1 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=4.045530666s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=1m8.26054975s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=3.878524625s
+--- PASS: TestCheckerAgreementWithRustCLIDecimalCodecClauses (164.07s)
+    --- PASS: TestCheckerAgreementWithRustCLIDecimalCodecClauses/normalized.hex (164.07s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	164.161s

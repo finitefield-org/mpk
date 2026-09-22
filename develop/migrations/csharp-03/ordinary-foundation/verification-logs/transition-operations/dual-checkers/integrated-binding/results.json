@@ -1,0 +1,60 @@
+[
+  {
+    "stage": "binding-vc-transition-positive-go",
+    "command": [
+      "/private/tmp/mpk-transition-integrated-binding-check/go-checker",
+      "/private/tmp/mpk-transition-integrated-binding-check/binding-vc-transition-positive.mpcert"
+    ],
+    "wall_seconds": 2.047,
+    "exit_code": 0,
+    "timed_out": false,
+    "input_file_sha256": "c19287580f07865702696d095e3d666048ad7c6c1a2f4f4d897b1ffdd01dc520",
+    "stdout_sha256": "34db066e923af04a183223cb32daadb67c7f61669ae9da8ff54ab8ff7e48eeeb",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "binding-vc-transition-positive-rust",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "check",
+      "/private/tmp/mpk-transition-integrated-binding-check/binding-vc-transition-positive.mpcert"
+    ],
+    "wall_seconds": 0.079,
+    "exit_code": 0,
+    "timed_out": false,
+    "input_file_sha256": "c19287580f07865702696d095e3d666048ad7c6c1a2f4f4d897b1ffdd01dc520",
+    "stdout_sha256": "8cb936528d8a435f945bd897e576277b711667c15ee2c885382e43b6d94e2802",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "binding-vc-transition-hash-go",
+    "command": [
+      "/private/tmp/mpk-transition-integrated-binding-check/go-checker",
+      "/private/tmp/mpk-transition-integrated-binding-check/binding-vc-transition-hash.mpcert"
+    ],
+    "wall_seconds": 1.971,
+    "exit_code": 1,
+    "timed_out": false,
+    "input_file_sha256": "808ec06a1874f5e6533839dbb7e1a9986e1f30e90861eae01e63de268830f5c5",
+    "stdout_sha256": "b938ebc53a68d8795e9eabbfcdb80d66d306974f56b927d12853d7442a6d136d",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "binding-vc-transition-hash-rust",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "check",
+      "/private/tmp/mpk-transition-integrated-binding-check/binding-vc-transition-hash.mpcert"
+    ],
+    "wall_seconds": 0.076,
+    "exit_code": 1,
+    "timed_out": false,
+    "input_file_sha256": "808ec06a1874f5e6533839dbb7e1a9986e1f30e90861eae01e63de268830f5c5",
+    "stdout_sha256": "1ac4cd575c1f521771b8567035ca1675560b1fd41d43aa912447b196cb94afed",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  }
+]

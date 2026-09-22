@@ -1,0 +1,18 @@
+{
+  "status": "resolved_in_targeted_review",
+  "finding": "Clippy never_loop in the component lookup test. Also isolate the NaN payload mutation and exercise actual malformed source storage in addition to the existing predicate mutation.",
+  "changed_scope": "Only concrete operation tests. Production sources, the three existing semantic/definition test bodies, and prior certificate bytes are retained except for equivalent component lookup syntax in the definition test helper.",
+  "previous_test_sha256": "5501669c33a8cd1cbf9fe00cbdbbb54f6f6c89d49e999b5bf8a50d337f30eb71",
+  "prior_verification": "../build.json; ../routing.json; ../real.json; ../preservation.json; ../definitions.json",
+  "required_verification": [
+    "Fresh build of corrected isolated counterexample",
+    "Only the isolated payload/input test changes; original definition/routing/real/preservation results are retained through exact source comparisons",
+    "Clippy, inventory and format checks"
+  ],
+  "retained_checks": "Original ordered-outcome semantics and real-value semantics use unchanged functions/helpers and exact production source; they are not rerun solely for the independent new test. Original checkers continue on unchanged bytes.",
+  "full_gate": "deferred_to_T06_W12",
+  "additional_finding": "The malformed Option test used .value, whose inactive normal payload is zero and whose original normal goal is guarded by invalid_operation. Use total .has_value with a true concrete mutant instead: malformed original tag returns false, the original input domain rejects, both normal/outcome goals become false, and the original full condition remains guarded.",
+  "failed_isolated_test": "../review-isolated-mutations/isolated.json",
+  "definition_preservation": "../review-isolated-mutations/definitions.json",
+  "resolution": "../review-isolated-input-guard/isolated.json and quality.json pass; all production sources and prior semantic test bodies/helpers remain unchanged."
+}

@@ -1,0 +1,40 @@
+{
+  "status": "running",
+  "selection_reason": "Test-only stored-member-id derivation fix; execute the failing negative fixture first, then rerun the entire 45-context original-source test. Production certificate generation is unchanged.",
+  "binary_sha256": "61a5b3d0a992cf84ae4837691e9e8613cc6001132494dcb76362b377ba17fd81",
+  "test_source_sha256": "6882e6ec0e16fc07551fe9cefd09a697f3280fbf038b225d72c901aa522ecbc6",
+  "profile": {
+    "CARGO_PROFILE_TEST_OPT_LEVEL": 2,
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": true,
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": true
+  },
+  "runs": [
+    {
+      "test": "csharp_03_t06_w09_binding_reconstruction_noninjective_candidate",
+      "command": [
+        "/tmp/mpk-w09-optimized-target/debug/deps/csharp_practical_vc-a023def1d075fbd7",
+        "csharp_03_t06_w09_binding_reconstruction_noninjective_candidate",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "status": "passed",
+      "log": "negative.log",
+      "pid": 90590,
+      "exit_code": 0,
+      "elapsed_seconds": 1127.234,
+      "log_sha256": "972e128f570e93be46b3dbf59ddc37b6191ba18c6ca8f2d87310695b58b86568"
+    },
+    {
+      "test": "csharp_03_t06_w09_binding_reconstruction_original_sources",
+      "command": [
+        "/tmp/mpk-w09-optimized-target/debug/deps/csharp_practical_vc-a023def1d075fbd7",
+        "csharp_03_t06_w09_binding_reconstruction_original_sources",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "status": "running",
+      "log": "full.log",
+      "pid": 2242
+    }
+  ]
+}

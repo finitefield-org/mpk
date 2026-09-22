@@ -1,0 +1,12 @@
+=== RUN   TestCheckerAgreementWithRustCLIDecimalCodecClauses
+=== RUN   TestCheckerAgreementWithRustCLIDecimalCodecClauses/AwayFromZero.hex
+    checker_agreement_test.go:395: Go accepted: certificate=83f14acc70b6bab3d883a41e8b2b5c217920fabfaffeebe3267c30b996fa90e0 declarations=1436 axioms=0 elapsed=2m1.660825333s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=eca45aa39ede8de96892f838b5f1407893c1850b5cd0e01cb1101c7e3bfe246e axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=12.564572209s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=13m18.60822s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=8.716073375s
+=== RUN   TestCheckerAgreementWithRustCLIDecimalCodecClauses/ToEven.hex
+    checker_agreement_test.go:395: Go accepted: certificate=1794264f86cdeff3a05c0ea5c6ece0dfa617c1e8511ba35078205ffb09f18300 declarations=1436 axioms=0 elapsed=6m5.275482417s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=231532bfceb27830be0acc707b3971b54c8afb3c6360e4373ba1b40473b46039 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=46.529004125s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=9m50.841887542s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=7m14.965469833s
+=== RUN   TestCheckerAgreementWithRustCLIDecimalCodecClauses/ToNegativeInfinity.hex

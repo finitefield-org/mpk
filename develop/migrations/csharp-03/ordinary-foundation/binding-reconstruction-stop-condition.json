@@ -1,0 +1,90 @@
+{
+  "schema": "mpk.csharp_practical.binding_reconstruction_stop_condition.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "date": "2026-09-22",
+  "status": "stop_classification_retracted_candidate_proof_must_reject",
+  "requirement": {
+    "reconstruction_arity": 1,
+    "source_observation": "every stored source member",
+    "source_round_trip": "reconstruct(project(source)) preserves every admitted source observation"
+  },
+  "counterexample": {
+    "source_case": "remapped-boundary-sequence",
+    "source_type": "ProjectionCases.Root",
+    "unmapped_member": "Extra",
+    "source_type_id": "mpk.csharp.source.e90c84ab8233f3c024eb7372259ee0546d48c95437f68ec441496ce57044ecf2",
+    "unmapped_member_id": "mpk.csharp.member.6df8bfbc1eae344577ff2a6695b41a6c37b2c46eca51fa6e490052ee39f8b84a",
+    "binding_sha256": "df66d633149b2886a4f41730a2131f80b7f0727f86a81ae6fe4933fdeff8308a",
+    "changed_value": "73",
+    "facts": [
+      "Root.Extra is stored and is absent from the bounded_sequence member_map",
+      "the public source domain does not fix Extra to a unique value",
+      "changing Extra changes complete source storage",
+      "the forward semantic projection remains identical"
+    ],
+    "second_unmapped_member": {
+      "source_type": "ProjectionCases.Item",
+      "source_type_id": "mpk.csharp.source.3937ebf916d2833a26eb07fc6fa818794aa69fde05f199e2d9c61ba2a703c526",
+      "member": "Extra",
+      "member_id": "mpk.csharp.member.9892d996dbc6a5e70b503dc13892d78175f8c4306e97446d11759fa86d8ad5f9",
+      "binding_sha256": "ede9accc06ef6f10740c8e6cfcfd3aa60127a2e551b67e9855f631b28453a1b6"
+    },
+    "logical_contradiction": "For distinct public source values x and x' with project(x) = project(x'), a unary reconstruct must return the same value for both inputs and therefore cannot preserve every stored member of both x and x'."
+  },
+  "existing_executable_probe": {
+    "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_projection_tests.rs",
+    "test": "csharp_03_t06_w09_binding_projections_original_source_semantics",
+    "assertions": [
+      "project(changed_extra) equals project(original)",
+      "complete source storage differs",
+      "both original and changed source values satisfy the generated public domain",
+      "nonidentity reconstruct_definition is absent",
+      "reconstruction_member_ids includes every stored member"
+    ],
+    "verification": {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_binding_projections_original_source_semantics -- --nocapture",
+      "status": "passed",
+      "tests": 1,
+      "source_value_comparisons": 144,
+      "observed_bits": 16522,
+      "duration_seconds": 51.3,
+      "clippy": {
+        "command": "cargo clippy -p mpk-vc --test csharp_practical_vc -- -D warnings",
+        "status": "passed",
+        "duration_seconds": 16.74
+      },
+      "format_and_metadata": {
+        "commands": [
+          "cargo fmt --all -- --check",
+          "python3 -m json.tool <changed stop-condition/progress JSON>",
+          "/usr/bin/git diff --check"
+        ],
+        "status": "passed"
+      }
+    }
+  },
+  "related_implementation": {
+    "binary_rebuild": "crates/mpk-vc/src/csharp_practical_ordinary_binding_rebuilds.rs",
+    "pending_unary_occurrences": 35,
+    "note": "The binary helper preserves the explicit source completion, but it cannot implement the frozen unary signature."
+  },
+  "required_resolution": [
+    "Connect unary candidates to original W06 domain and round-trip obligations.",
+    "Retain every stored member in source observation, including inactive and unmapped fields.",
+    "Do not discharge an obligation merely by generating or importing a candidate definition.",
+    "Require final application proof acceptance to reject this noninjective candidate."
+  ],
+  "forbidden_workaround": "Do not assume a completion is admissible or weaken source observation. Every chosen unary completion is only a candidate and must satisfy all original universal obligations.",
+  "audit_correction": {
+    "date": "2026-09-22",
+    "finding": "The noninjectivity observation is valid. The claim that this is a T01 frozen positive verified compilation is false.",
+    "fixture_origin_commit": "09a14bdde6b14408e4f25e55cb787dd989577d7e",
+    "fixture_origin_date": "2026-09-11T07:21:45+09:00",
+    "fixture_origin_subject": "advance T06-W09",
+    "fixture_path": "projection-sources/requests.json",
+    "freeze_content_sha256": "5518468c7f478f9c02fd37df6f9de157545935c261bc30022fa9c19bc2383f06",
+    "freeze_and_spec_search": "No remapped-boundary-sequence occurrence in develop/migrations/csharp-03/freeze or develop/specs.",
+    "original_scope": "binding-projections/README.md explicitly leaves inverse definitions and universal proofs pending.",
+    "consequence": "Retain the negative witness, restore W09 In progress and require final proof acceptance to reject this candidate. No T01 amendment or blanket pre-lowering rejection follows."
+  }
+}

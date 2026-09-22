@@ -1,0 +1,274 @@
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/binding-vc-boundary_field.hex
+    checker_agreement_test.go:395: Go accepted: certificate=fdd7c0ac8710e7dfe0df22cc5c6f232327b2a16c1a665311489d37a7c0a3b6e3 declarations=97 axioms=0 elapsed=502.737792ms
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=b9891d7c7a479b4443e13665d2e783d18efe429ce5849d9be1eec5961ff9f375 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=3m47.157903667s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=346.302875ms
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=767.926209ms
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/binding-vc-bounded_sequence.hex
+    checker_agreement_test.go:395: Go accepted: certificate=c63651718709472f83329534ec9d2ad1ad1025df9f0269d31269b6b6bc60f428 declarations=90 axioms=0 elapsed=1.987438s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=575039cde9c21f22d394e2b4ecd28e9ff9d2b51728999485683dd2d0c5459c2d axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=1.072747167s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=2.012420375s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=1.0804135s
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/binding-vc-instant.hex
+    checker_agreement_test.go:395: Go accepted: certificate=9de326a6ddeb6375a4ee2afe2884fc84a8f37f8910fe850a7758eb44740d4015 declarations=42 axioms=0 elapsed=22.71725ms
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=dc98467fb05260a3fe00e7e85bedad5d4a6c13c3605d6d6a8fd8ca68c6137dc0 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=702.564125ms
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=18.963292ms
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=702.984334ms
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/binding-vc-lookup.hex
+    checker_agreement_test.go:395: Go accepted: certificate=4eccfe47242c8a4c80658c74a43e08e12e419f50ce4ff74a64dd67c17c25bfcd declarations=92 axioms=0 elapsed=298.367792ms
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=a85ca72698eb0efde0450f0dac71f2b7615bd8b4842c4c858706afd210f8a0b8 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=793.008417ms
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=291.2645ms
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=831.699875ms
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/binding-vc-money.hex
+    checker_agreement_test.go:395: Go accepted: certificate=39fe0b3ea3993b21a5b20bf3c3ce7ed8c0f8854e0c44caa9bba45aeadcc8e156 declarations=103 axioms=0 elapsed=2.980469042s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=41fb6f918a2693cb5951ad6939d403549eda2ed28a14f10c92d1b6c6dfdc55ba axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=1.183863917s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=2.997111084s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=1.10639025s
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/binding-vc-option.hex
+    checker_agreement_test.go:395: Go accepted: certificate=b89317869dba0a1186ac78f1000ca6d40af7b1f21816e947c82753925e03d022 declarations=92 axioms=0 elapsed=318.012959ms
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=6bff0117c8658c2039707ba468556afb34c4cd4ce7d0195ee8ad6b2ac2353d72 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=778.418167ms
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=311.355459ms
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=779.176667ms
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/binding-vc-ordered_entry.hex
+    checker_agreement_test.go:395: Go accepted: certificate=4bb3dfeedd7bb5f93f7973979afd9e4f63e88e81be4712de164e728214683bfd declarations=50 axioms=0 elapsed=15.303125ms
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=4593f7b903656bf1ee64c56032b5e6af05ed29d40a9212b07f3c10a3f1c7bf78 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=711.663584ms
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=24.83425ms
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=681.889666ms
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/binding-vc-ordered_map.hex
+    checker_agreement_test.go:395: Go accepted: certificate=dc98a4bb1a9ab20ef2812fa32de7e46e21faa1df23c265c5bcd1832d7034793b declarations=187 axioms=0 elapsed=2.46618625s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=04ab2cd6bc4a0f8829389f1d9e865cb8f930a4139ac2744a0afc7dc83b3aaa0d axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=1.230264041s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=2.269143708s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=1.166151083s
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/binding-vc-ordered_set.hex
+    checker_agreement_test.go:395: Go accepted: certificate=6a6fcd9e2eb1fbc71eee5dcf6c0aa02f91dbd403b3b16d8dcca11e2de9e6dd59 declarations=127 axioms=0 elapsed=1.986906125s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=cbfaa50a7c5d6570d29ebac3cd0a2e6d76ee7740f95d2968121931891d997d9d axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=1.110827584s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=1.974336833s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=1.043104541s
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/binding-vc-result.hex
+    checker_agreement_test.go:395: Go accepted: certificate=73c381fc36cf92a5628f5d14c8adae994d235ad6f8a99ae588e6a01f9b54fd76 declarations=90 axioms=0 elapsed=261.930791ms
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=8bb2ffe0d782dbfa5dcba64e1a46409756bdb9c7c732de660e0971ec82e604a1 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=734.302709ms
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=261.531041ms
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=743.108917ms
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/binding-vc-transition.hex
+    checker_agreement_test.go:395: Go accepted: certificate=32b4d4eb37f4b6efb44a58abb7f1b07d6ea6aca69efb8a17e4a034845ffd2b5b declarations=104 axioms=0 elapsed=1.900567542s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=252fd54905b0a430d6fcfaa45c7f1301b92328505c57c1414b50ea7721d08309 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=1.044185708s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=1.945594416s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=1.072306666s
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/binding-vc-validation.hex
+    checker_agreement_test.go:395: Go accepted: certificate=b9d49700f723db7cb3fc4b9fa9f0ffe0ca0b4703816042431f6882c9d8a802bc declarations=139 axioms=0 elapsed=2.152033125s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=5bd5529dc1fa7d9e74b4e556f3ae21101143d6fff79ea9df5bddf9ddf15b3d60 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=1.194280959s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=2.152106667s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=1.129526541s
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/bool-construction.hex
+    checker_agreement_test.go:395: Go accepted: certificate=7c686d4dacf6e5b3d0049399739e97d817ef65fb2ba2a13c0d47d804724cd91e declarations=137 axioms=0 elapsed=2.486910959s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=7bf525f7f5f883415c8807d054d477f413fc910d7a5bf5b127af1a0287066251 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=1.116900292s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=2.362010292s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=1.205763667s
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/bool-float-entry.hex
+    checker_agreement_test.go:395: Go accepted: certificate=df48a9989320c4309fc4a602db66c25204b1a2ff917e180c7afc1321fe3ac1f6 declarations=55 axioms=0 elapsed=25.527333ms
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=3c16cafde91aa9214bdbff103d422a2a0f1bc168c907a0511eeb8b72a29e5238 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=912.660625ms
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=18.859125ms
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=843.834375ms
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/boundary-exception-empty.hex
+    checker_agreement_test.go:395: Go accepted: certificate=bcb28b4aeef185da14f725cd5515a94d4b6ed7938ed6b5bc2977d3228a1c02f9 declarations=99 axioms=0 elapsed=314.511042ms
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=0383b320786a78eee20ccf00c15549aa9d7895ee2ceda81fec0fa0e74e21a26b axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=739.742833ms
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=297.952542ms
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=752.308459ms
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/boundary-exception-payload.hex
+    checker_agreement_test.go:395: Go accepted: certificate=35ecda9fdfb671a81b414e07d5b8d808caa2b18883616d5020b9a4e4c1ba9454 declarations=110 axioms=0 elapsed=268.4355ms
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=1ecd1c1feecf9f5f9a99746049713e5167bbfa222f1e010898a437e32a3fbdad axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=762.462792ms
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=290.19575ms
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=775.308709ms
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/boundary-map-compound.hex
+    checker_agreement_test.go:395: Go accepted: certificate=9aca2440342927048191ca048871f826599301ab2ecbbc4a29ff49aa684451c2 declarations=257 axioms=0 elapsed=3.417504209s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=ce6253b67c8f5f4c2b137ab5efd254fa1e6004dfe89b1a75e3a839f0910eff09 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=1.290674083s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=3.390233917s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=1.250302584s
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/boundary-map-decimal.hex
+    checker_agreement_test.go:395: Go accepted: certificate=13dcd8bed51628ee5423ba07eb8a51529e672fd543fb15e5119c2f3bc88a3fe0 declarations=492 axioms=0 elapsed=26.454843208s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=dbafb8e8beddb0cb7ccb1860adad91bff676eff6177216f2a6836c929844225e axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=2.671216s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=30.773106792s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=2.783273917s
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/boundary-map-string.hex
+    checker_agreement_test.go:395: Go accepted: certificate=979efa9ad65f46c7bafcc93cc8296324cc3d5e14b512d6c9c3ff3db924f3db6c declarations=226 axioms=0 elapsed=2.914459292s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=18b6f7dc692871b748289781246e4d429156f3e3724a3adec3efda225a1ca096 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=1.127758833s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=3.045950833s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=1.10084s
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/boundary-set-decimal.hex
+    checker_agreement_test.go:395: Go accepted: certificate=75421e778cfeb8bba2555a52256c4b039ece4469c01eb36e617fd3b61066615f declarations=428 axioms=0 elapsed=25.699528875s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=5a0de4894573f7ef683a6f4ac0ae76ec25b26b67379d0fb6357481445597309f axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=2.665528458s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=26.223423291s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=2.566029167s
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/boundary-total-cells.hex
+    checker_agreement_test.go:395: Go accepted: certificate=ee2d523d157e571b307b8012379cbb0074c1a55b00ccc5a6ca22397f90da41ad declarations=158 axioms=0 elapsed=4.779558375s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=8a8276a433297f63c459cb4c8b8e6252c6b4f17c6fb94f6d98435e365b1135ba axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=1.066604417s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=4.74159675s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=1.117309834s
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/complete-snapshot.hex
+    checker_agreement_test.go:395: Go accepted: certificate=f1ce6f956ba4099e5bfd6b896cba39f4a4247a1d3f448dfc4cb8dee28b5864d8 declarations=151 axioms=0 elapsed=4.660799958s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=516acd5e0dc41465ee017c9d1d872c0fc26e28183eb8dc8a590a8ea147af833f axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=1.034886917s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=4.709268s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=1.10170725s
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/construction-vc-enum_zero.hex
+    checker_agreement_test.go:395: Go accepted: certificate=b7078cbd1c87151892536b3fa78fe79104aaf6616c6ff3eec500e563d1294274 declarations=42 axioms=0 elapsed=16.028833ms
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=7966656f15548b831690ebd16ca0a38a1022591be71032b537396e818a2f5106 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=693.508583ms
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=15.3115ms
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=646.656834ms
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/construction-vc-positive_constructor.hex
+    checker_agreement_test.go:395: Go accepted: certificate=cd666b502b1890ea782363c31e6a125e43df27c5e719663d7c1020b8f99d0144 declarations=64 axioms=0 elapsed=52.442542ms
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=a02f683102f787fc73df0cf4067353ee494b44e641a33ed2fcaf2f802b8b3fdc axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=700.224667ms
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=48.080125ms
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=684.388125ms
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/date.hex
+    checker_agreement_test.go:395: Go accepted: certificate=4f98214bf681d6fa075dcb1f76de88080ebfae224b96f43bcc64e8db0facd52f declarations=39 axioms=0 elapsed=15.99925ms
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=e41162ab7ce56deca51771a8fc0edefc9a0edf755c2c7c48f8bab84d6cff63eb axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=673.528917ms
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=18.7765ms
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=657.857875ms
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/enum-construction.hex
+    checker_agreement_test.go:395: Go accepted: certificate=b221ab5bc1fc8c09fcec2df2cdab639229906a5ec0fb88c16817b5110227f04b declarations=145 axioms=0 elapsed=1.909343416s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=b909275108592b2f4e9cbefea9410b15fac2a81844b176e62a0ff9a1b4d2ee75 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=1.104743s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=2.204155583s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=1.124492166s
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/exception-vc-allowed.hex
+    checker_agreement_test.go:395: Go accepted: certificate=01f212fd6194730833519cb4287c271f2b30fef7efbf44d11688fe4ee1053cba declarations=95 axioms=0 elapsed=267.759417ms
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=f60abb0a2f1863bb46b8e7a9aa75ac015095f27a991bbab2d99c9190e2c113ee axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=728.798917ms
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=283.4145ms
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=709.649833ms
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/extra-bool-float-map.hex
+    checker_agreement_test.go:395: Go accepted: certificate=cc42421cb7900d47f767c9977761133b849374d71eb07949bd9665be692c656c declarations=168 axioms=0 elapsed=4.06742675s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=20fab9b42f6dfcc75ddbafaa106ef227481d08d47738b8b7ecb09c8a87310cef axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=1.052239125s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=4.122504834s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=988.154167ms
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/extra-bool-nullable-map.hex
+    checker_agreement_test.go:395: Go accepted: certificate=8e847caf9e645b729d136bdd09437a004d9b591d8dca64947148bb54471c06c7 declarations=177 axioms=0 elapsed=3.970634541s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=46d1278d26352aecf69906decd7cb78fab7738dfee3c4f169cac834e6d61a8d7 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=1.019684875s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=3.92397s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=1.006669666s
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/extra-lookup-nullable.hex
+    checker_agreement_test.go:395: Go accepted: certificate=4e0a080a4a3acbea5ab111da7178755a4d5f724cc37f7b49cc9b26a738a45642 declarations=104 axioms=0 elapsed=256.05175ms
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=bb4c39042e2c859226e792f5e79ef5754b6f2afe65664217e44553428fe78a12 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=712.859042ms
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=261.127458ms
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=674.398ms
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/extra-shared-lookup-maps.hex
+    checker_agreement_test.go:395: Go accepted: certificate=6e9c546ac1eea016088704eae27e94d24e3395592557a9c8a62c7dd06853edd7 declarations=230 axioms=0 elapsed=2.129763334s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=ab545828370ee1dd8092bb04f3a8fd355da594f52554a9c568c6b8913897c2df axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=1.058390666s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=2.152305791s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=1.063142125s
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/extra-validation-bool.hex
+    checker_agreement_test.go:395: Go accepted: certificate=c414b118d867ca3bcb5538defdab194db590a11d6e038cf4f38d92308ae87cfa declarations=139 axioms=0 elapsed=1.88236725s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=1c5665dae199bce454799976741293b83d4ace13cf2d0735244aba81df8eee54 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=990.835583ms
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=1.915393584s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=995.189416ms
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/extra-validation-product.hex
+    checker_agreement_test.go:395: Go accepted: certificate=8c7743baac08aea32bfe3c446c63c25142db751f3dce5d6ada8c52d91aadd096 declarations=149 axioms=0 elapsed=2.038826209s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=ef60c8fa2a57c8503abdca311495af5c2dfd440038c3ab8ea3868310174e6083 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=1.034130208s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=2.466482833s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=1.013574167s
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/float-make-commutation.hex
+    checker_agreement_test.go:395: Go accepted: certificate=45e570448a9c2ed114f9a50dc7ae47d58dfba15484dbfe0353b22eb5408a9a38 declarations=55 axioms=0 elapsed=18.05925ms
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=b576dd55c916770d19c0e0bb5114353a0f7f506a653324b1ef5676eb7b3a363b axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=622.558083ms
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=15.871375ms
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=674.727917ms
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/float-sequence.hex
+    checker_agreement_test.go:395: Go accepted: certificate=d56152be02cb96e13e85a1f56a20440806973ec2b6ae36916ee42186d7952f1c declarations=145 axioms=0 elapsed=1.891236041s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=a85561fa92dff4679ee39b3d4fdb30bc2af4a30883f49e9c8c4d36bf7b33229b axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=1.159115833s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=1.954142708s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=1.004427125s
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/floats.hex
+    checker_agreement_test.go:395: Go accepted: certificate=dde3464b7a9b025778cb4f0609a2b9700d527335bf68387c8797bda086a3ec12 declarations=45 axioms=0 elapsed=16.472792ms
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=d84e3bf2d21ba8adf600a0238fcbfe1e4d51cb775cfcc8f836fd108bdcae0206 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=629.712584ms
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=15.177ms
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=788.649417ms
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/guid.hex
+    checker_agreement_test.go:395: Go accepted: certificate=556766ae179772ad65d9f70846133e62c0ecee11b67c67b766e27ff93a27b56e declarations=39 axioms=0 elapsed=12.83925ms
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=f3ea28bb0424396baa48e76758a9e9bc2aa9b0abf83016f6d2d59021d619df95 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=647.912083ms
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=15.729125ms
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=675.700625ms
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/nested-box.hex
+    checker_agreement_test.go:395: Go accepted: certificate=5f2e2badd15657b6f7f35f02b7d9a9ed46ea38c864e1d86e33d88f69f7a0a7dc declarations=162 axioms=0 elapsed=2.229984166s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=27840c5bfed9f05621b3ea2f9aae80b43e8f0df3b95bbe94ad0b07ad1610bc22 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=1.130391417s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=2.192650417s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=1.042671167s
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/nullable-float.hex
+    checker_agreement_test.go:395: Go accepted: certificate=e5e0102b780060fb396e6bbeba8f6a9cc23c2a0a9240286ee7bd81f73c4defc7 declarations=85 axioms=0 elapsed=241.020208ms
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=ac7e4cddf578fc6cfe3fc1ea0d10a148d341b8e8a45eec2d008020fafd726e61 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=712.542875ms
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=327.233666ms
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=756.234709ms
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/nullable-string-default.hex
+    checker_agreement_test.go:395: Go accepted: certificate=b8b0ae2153b53fafe5a3dede5150a76377b200202c4ff4079e3d88e8459292c5 declarations=198 axioms=0 elapsed=2.688726417s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=aa82e496cca10dc70c7f95265c0cf6f5410870c891c4bc887e418204c8681186 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=1.165525417s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=2.263623125s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=986.33725ms
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/parse-error-contract.hex
+    checker_agreement_test.go:395: Go accepted: certificate=80f20ee6394c5e9b0459cb1c1d020a12b277e0fe6adddf1a34f87aff1d1972c7 declarations=65 axioms=0 elapsed=36.646458ms
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=07e6dda9855ca2c3824a646107af0b74bd0c366954d76c76935be17983fa3867 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=604.82675ms
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=91.465167ms
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=749.256583ms
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/product-construction.hex
+    checker_agreement_test.go:395: Go accepted: certificate=a8d56494f298b8dc39721a1f1e49cb02fe7893ec6dfbac45ee62f2e9ef0b80d6 declarations=147 axioms=0 elapsed=1.828991458s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=663ae6211c2a8f67a0bbd8b143dc984c30be467602a918410de79c0cd5b2e8e9 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=977.697792ms
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=1.909029375s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=1.004866709s
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/remapped-boundary-sequence.hex
+    checker_agreement_test.go:395: Go accepted: certificate=285b971faf41db66de464575505085623c7aa6df912267b8bedb1addfa72a64d declarations=170 axioms=0 elapsed=3.410600708s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=f2a1f23d1f9d6472629b271cf7c9c31175680e81ed7e9d411b8947faf652ac11 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=953.9055ms
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=3.572617583s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=954.051958ms
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/string.hex
+    checker_agreement_test.go:395: Go accepted: certificate=6fe50eeae6895b30be1c27f590e217e1367409764e7ba7375a8218853e0c58c9 declarations=154 axioms=0 elapsed=1.792131542s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=2e7ac9045da5dfd1aed9ddcd2dd28c8e45086061a2e039d71642e73f24bbd88c axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=911.304666ms
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=1.775088875s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=889.859334ms
+=== RUN   TestCheckerAgreementWithRustCLIConcreteTypes/unit-void-source.hex
+    checker_agreement_test.go:395: Go accepted: certificate=85bd6e1d4c6c562adfae80c2533df3547641e4948592edfcad85c1f697779dfb declarations=91 axioms=0 elapsed=233.436875ms
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=c9f617bda624c33b3d08341558cda986800075cbf4c7f5a9caa87b8ae85adc95 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=624.855292ms
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=296.996208ms
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=610.478667ms
+--- PASS: TestCheckerAgreementWithRustCLIConcreteTypes (554.68s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/binding-vc-boundary_field.hex (228.78s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/binding-vc-bounded_sequence.hex (6.15s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/binding-vc-instant.hex (1.45s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/binding-vc-lookup.hex (2.22s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/binding-vc-money.hex (8.27s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/binding-vc-option.hex (2.19s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/binding-vc-ordered_entry.hex (1.43s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/binding-vc-ordered_map.hex (7.13s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/binding-vc-ordered_set.hex (6.12s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/binding-vc-result.hex (2.00s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/binding-vc-transition.hex (5.97s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/binding-vc-validation.hex (6.63s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/bool-construction.hex (7.18s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/bool-float-entry.hex (1.80s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/boundary-exception-empty.hex (2.11s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/boundary-exception-payload.hex (2.10s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/boundary-map-compound.hex (9.35s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/boundary-map-decimal.hex (62.69s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/boundary-map-string.hex (8.19s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/boundary-set-decimal.hex (57.16s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/boundary-total-cells.hex (11.71s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/complete-snapshot.hex (11.51s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/construction-vc-enum_zero.hex (1.37s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/construction-vc-positive_constructor.hex (1.49s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/date.hex (1.37s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/enum-construction.hex (6.35s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/exception-vc-allowed.hex (1.99s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/extra-bool-float-map.hex (10.23s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/extra-bool-nullable-map.hex (9.92s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/extra-lookup-nullable.hex (1.91s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/extra-shared-lookup-maps.hex (6.41s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/extra-validation-bool.hex (5.79s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/extra-validation-product.hex (6.55s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/float-make-commutation.hex (1.33s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/float-sequence.hex (6.01s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/floats.hex (1.45s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/guid.hex (1.35s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/nested-box.hex (6.60s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/nullable-float.hex (2.04s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/nullable-string-default.hex (7.11s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/parse-error-contract.hex (1.48s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/product-construction.hex (5.72s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/remapped-boundary-sequence.hex (8.89s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/string.hex (5.37s)
+    --- PASS: TestCheckerAgreementWithRustCLIConcreteTypes/unit-void-source.hex (1.77s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	555.012s

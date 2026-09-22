@@ -1,0 +1,32 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.additional_count_consumers.v1",
+  "status": "regeneration_audit_and_promotion_passed_checkers_running",
+  "source_bound_occurrences": 268,
+  "original_source_contexts": 137,
+  "source_program_schemas": 15,
+  "source_free_helpers": 6,
+  "distinct_changed_byte_sequences": 224,
+  "count_helper_only_source_programs": 262,
+  "additional_reviewed_domain_programs": 6,
+  "metadata_files_updated": 207,
+  "generation": "generation.json",
+  "generation_note": "Initial request/response inventory regenerated 261 programs but reported seven missing contexts. The seven data-stage replay rows then regenerated successfully, preserving the initial failure and all exact source identities.",
+  "audit": "declaration-audit.json",
+  "audit_note": "Six rows remain requires_review in the raw syntactic audit; additional-domain-review.json closes precisely those findings with original-source replay equality and scoped domain helper tests.",
+  "promotion": "promotion.json",
+  "helper_promotion": "helpers/promotion-helpers.json",
+  "checkers": [
+    "../consumers-batch-1-checkers.json",
+    "../consumers-batch-2-checkers.json"
+  ],
+  "full_gate": "deferred_to_T06_W12",
+  "source_tools": {
+    "check.py.txt": "64dbdbe63e867d731b2ed5ce5f28bc0175b635918035dcc8bd58cb45545d7d58",
+    "initial-regenerate.rs.txt": "ef8f2c291bf20f1742cf7bfe5847f19a40bf859ad88fc4e40efa0401e169c0ae",
+    "regenerate.rs.txt": "39ca1eda584774dccfb92e20a340556c4ea0b2063832dc6fb69ce1be423c932e",
+    "promote.py.txt": "2f7560b9da77ca4277775c183f4a7fffdc296ac64461d811a98901f2332cd687",
+    "audit.py.txt": "0709568f3e5aee9b15503c288397747d30ae075cb1bac9e4de0f74bbaf9058f4",
+    "inspect.rs.txt": "d5f1f6173bb81ebabd93c2738c4070f64b0756ad59e54b6ded25b55309122ff0",
+    "initial-inspect.rs.txt": "a753e50d9676a30e6a5cf344d77ba783abdc9eac9f228f566fe62f3a38cefacd"
+  }
+}

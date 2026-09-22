@@ -1,0 +1,10 @@
+=== RUN   TestCheckerAgreementWithRustCLIJsonDepthCompound
+=== RUN   TestCheckerAgreementWithRustCLIJsonDepthCompound/semantic-product-money-entry.hex
+    checker_agreement_test.go:395: Go accepted: certificate=896b2fc59b0db8fa5f078021af2b55e63e88f8911bf8f57f70a26f76be580fe7 declarations=2309 axioms=0 elapsed=4m36.9240205s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=1389514121db04f85f75b1aa36d68642e915412bc0f4c2f10baac41c1ecd48ac axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=10.836158541s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=4m25.238076583s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=11.145112042s
+--- PASS: TestCheckerAgreementWithRustCLIJsonDepthCompound (564.17s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonDepthCompound/semantic-product-money-entry.hex (564.17s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	564.271s

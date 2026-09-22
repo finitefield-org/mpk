@@ -1,0 +1,110 @@
+{
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "status": "passed_scoped_component",
+  "scope": "Compile every original W02 source public-body equation and original W06 source_invariant condition in the retained source corpus. Representation-only membership, recursive member PublicDomain and compiled public clauses are separate links; all original proof obligations remain pending.",
+  "source_contexts": 53,
+  "implementation": "crates/mpk-vc/src/csharp_practical_ordinary_source_invariants.rs",
+  "verification": {
+    "build": "verification-logs/source-invariants/build.json",
+    "definitions": "verification-logs/source-invariants/definitions.json",
+    "semantics": "verification-logs/source-invariants/semantics.json",
+    "preservation": "verification-logs/source-invariants/preservation.json",
+    "enums": "verification-logs/source-invariants/enums.json",
+    "quality": "verification-logs/source-invariants/quality.json"
+  },
+  "remaining": [
+    "Connect W03 partial-clause definedness at each original use point; the current public-domain emitter explicitly rejects that unresolved composition.",
+    "General reconstruction witnesses, actual default and identity constraints, concrete equivalence/native commutation, complete codecs and all universal proofs remain required."
+  ],
+  "full_gate": "deferred_to_T06_W12",
+  "generation": {
+    "status": "passed",
+    "source_contexts": 53,
+    "type_equations": 72,
+    "binding_conditions": 35,
+    "manifest_sha256": "ab836908492310e8b2183dc24269c8c7e18ff8787b447c890451b3c366218752",
+    "evidence": "verification-logs/source-invariants/direct-member-reads/definitions.json"
+  },
+  "preservation": {
+    "status": "passed",
+    "evidence": "verification-logs/source-invariants/preservation.json",
+    "scope": "All original representation-domain corpus pins and all 45 representation-condition/reconstruction metadata+certificate pairs."
+  },
+  "semantic_input_correction": {
+    "status": "superseded_by_full_direct_member_equation_pass",
+    "finding": "verification-logs/source-invariants/equation-input-fix/finding.json",
+    "verification": "verification-logs/source-invariants/equation-input-fix/verification.json",
+    "scope": "Fix only the malformed depth-zero test input. Keep the original failed run, reuse unchanged passed nested/partial tests, and rerun all original equations. Production and all certificates unchanged.",
+    "supersession": "verification-logs/source-invariants/equation-input-fix/superseded-by-direct-members.json"
+  },
+  "enum_helpers": {
+    "status": "passed",
+    "widths": [
+      8,
+      16,
+      32,
+      64
+    ],
+    "signed_and_unsigned": true,
+    "observations": 868,
+    "certificate_count": 1,
+    "evidence": "verification-logs/source-invariants/enums.json"
+  },
+  "initial_quality": {
+    "status": "passed",
+    "checks": [
+      "targeted Clippy",
+      "five inventory tests",
+      "format"
+    ],
+    "evidence": "verification-logs/source-invariants/quality.json",
+    "current_test_input_fix": "Current targeted Clippy and format passed after the test-only prefix correction; see direct-member-reads/quality.json."
+  },
+  "nested_public_clauses": {
+    "status": "passed",
+    "observations": 39,
+    "evidence": "verification-logs/source-invariants/semantics.json",
+    "scope": "Only completed partial-clauses and nested-clauses runs; the original-equation test failed and is being rerun after its typed-input correction."
+  },
+  "current_verification": "verification-logs/source-invariants/direct-member-reads/verification.json",
+  "checker_verification": {
+    "status": "passed",
+    "source_certificates": 53,
+    "helper_certificates": 1,
+    "zero_axioms": true,
+    "hash_corruption_rejection": true,
+    "evidence": [
+      "verification-logs/source-invariants/direct-member-reads/definitions.json",
+      "verification-logs/source-invariants/enums.json"
+    ]
+  },
+  "current_build_preservation": {
+    "status": "passed",
+    "source_contexts": 53,
+    "build": "verification-logs/concrete-types/review-internal-states/build.json",
+    "evidence": "verification-logs/concrete-types/review-internal-states/preservation.json",
+    "note": "Exact source-invariant metadata and certificate replay after concrete-type export integration. Source-invariant definitions and evaluator are unchanged; prior full semantics apply to identical bytes."
+  },
+  "direct_member_read_fix": {
+    "status": "passed_scoped_component",
+    "diagnostic": "verification-logs/source-invariants/deep-equation-diagnostic/finding.json",
+    "evidence": "verification-logs/source-invariants/direct-member-reads/",
+    "remaining": "Full W03 partial-clause integration and every application proof remain pending.",
+    "audit_tool": "verification-logs/source-invariants/direct-member-reads/tool-sources/audit.py"
+  },
+  "semantic_verification": {
+    "direct_member_comparisons": 127,
+    "deep_members": 2,
+    "original_equation_observations": 300,
+    "enum_rejection_cases": 32,
+    "nested_clause_observations": 39,
+    "status": "passed"
+  },
+  "prefix_test_correction": {
+    "status": "passed",
+    "cause": "Evaluate closed constructor prefix terms with eval, rather than the Def-only run helper.",
+    "retained_failure": "verification-logs/source-invariants/direct-member-reads/semantics.json",
+    "verification": "verification-logs/source-invariants/direct-member-reads/prefix-test-fix/semantics.json"
+  }
+}

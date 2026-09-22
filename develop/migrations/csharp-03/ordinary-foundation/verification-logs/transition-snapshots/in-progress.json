@@ -1,0 +1,30 @@
+{
+  "status": "superseded_by_completed_scoped_verification",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 6,
+  "recorded_at": "2026-09-21T06:35:06.389362+00:00",
+  "source_sha256": {
+    "crates/mpk-vc/src/csharp_practical_ordinary_transition_snapshots.rs": "ddda7e9bf1e9c9e58b38d6b2dd94598c6b6c7e7e05048c07d59feda8c9236feb",
+    "crates/mpk-vc/src/csharp_practical_ordinary_relations.rs": "5d99816073eb05ff02eb442e6b148c22df4d0daee56849afbfd3219cec870b69",
+    "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs": "f403427820dfa2b661d576c9cb31d55daa88118de1fd5d4d82b2df497e81262e",
+    "crates/mpk-vc/src/csharp_practical_ordinary_structural.rs": "04ebff618fa44a927b6f43f57e8e8ca27c34f125e3b131110cb0c4fab447c9cc",
+    "crates/mpk-vc/src/csharp_practical_vir_model.rs": "e4413de70c41ebc7210117e84e0848fb7af0e85fab959e710c5ab8603bebd7fa",
+    "crates/mpk-vc/src/csharp_practical_transition_vc.rs": "af489df71be2d5dc3b53d32e86073533625f841e7ae2d5a62e860cb0a655d011",
+    "crates/mpk-vc/src/csharp_practical_idempotency.rs": "c1483f07d95f4398b2dd3f1dca3cf94003ceaf6fbc1ae7831a7d63df6c09bdee",
+    "crates/mpk-vc/src/csharp_practical_ordinary_test_eval.rs": "d4160220aa77546cb3911df2d66bbd0e8684f3020d128db9306288a87c661c8f",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_transition_snapshot_tests.rs": "692633639e151193e78b757e09af1280b7e5afbd34adddb5f67ef7e0e38ace71",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_carriers.rs": "c08e1b97f8e4a48e239419b6be2e9397929146f234ff51a8ce07b500b1e3a579",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_relation_tests.rs": "41a3a605eaa8fd56049c0026de997177d0ee4997d1f26bacd3a261fc88970e07"
+  },
+  "selection_reason": "W08 SourceEqual constants over the complete admitted source snapshot DAG are newly resolved. Replay all eleven original W08 positive and counterexample contexts; compare all snapshot nodes and remaining constants, independently evaluate values and isolated stored-member changes, and reject import metadata/certificate mutations. Existing transition products/control candidates only need exact byte-preservation checks for module/re-export additions.",
+  "runtime_session": null,
+  "lint_session": null,
+  "candidate_directory": "/tmp/mpk-transition-snapshots",
+  "scope": "Concrete complete source-value equality only. Canonical encoding, source helper equivalence, retained-key lookup, history/replay and application proofs remain unimplemented by this adapter.",
+  "unit_6_complete": false,
+  "w09_complete": false,
+  "whole_gate": "deferred to T06-W12",
+  "lint": "passed: lint.json",
+  "compile_diagnostic": "generation-runtime.json: test read a non-existent field_id on NamedMonomorphicValue; it now checks the independently reconstructed source-layout member IDs and values by source field order.",
+  "verification": "verification.json"
+}

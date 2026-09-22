@@ -1,0 +1,11 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error[E0609]: no field `field_id` on type `&mpk_vc::csharp_practical_vir_model::NamedMonomorphicValue`
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_transition_snapshot_tests.rs:158:46
+    |
+158 |                     fields.iter().map(|f| &f.field_id).collect::<Vec<_>>(),
+    |                                              ^^^^^^^^ unknown field
+    |
+    = note: available fields are: `name`, `value`
+
+For more information about this error, try `rustc --explain E0609`.
+error: could not compile `mpk-vc` (test "csharp_practical_vc") due to 1 previous error

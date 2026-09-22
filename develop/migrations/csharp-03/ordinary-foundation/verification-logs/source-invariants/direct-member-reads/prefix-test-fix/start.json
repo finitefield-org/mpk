@@ -1,0 +1,9 @@
+{
+  "status": "test_harness_fix_verified",
+  "cause": "The selector-prefix test called the Def-only run helper for a Boolean constructor. Evaluate its closed Const term with the same core evaluator instead; preserve all type, dependency, beta/eta and constant-subcube comparisons.",
+  "original_failed_receipt": "../semantics.json",
+  "original_test_sha256": "c35f0e25550a06b431387e685817f1488f21a67ca3e67c7243bf322224ab9aa5",
+  "production_changes": false,
+  "full_gate": "deferred_to_T06_W12",
+  "verification": "../verification.json"
+}

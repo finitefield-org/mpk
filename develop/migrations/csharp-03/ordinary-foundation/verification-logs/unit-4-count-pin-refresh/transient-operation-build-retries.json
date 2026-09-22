@@ -1,0 +1,238 @@
+{
+  "status": "running",
+  "supervisor_pid": 38848,
+  "cause": "Eight existing corpus checks invoked cargo run during the new operation sequent lowerer usize/u32 index error. The library check passed after correcting the free-index arithmetic. Retain every failed log and rerun full original Go/Rust acceptance, identical report comparison and corruption rejection for these byte sets.",
+  "full_gate": "deferred_to_T06_W12",
+  "runs": [
+    {
+      "previous_batch": "consumers-batch-1-checkers.json",
+      "previous_log": "consumers-batch-1-resumed-json-envelopes-presence_exposed.hex.log",
+      "previous_log_sha256": "e7afa215249e347d4f070b319aead72409e2534876608be4e8eb3adb27ad1837",
+      "command": [
+        "go",
+        "test",
+        "-tags=checkeragreement",
+        "-count=1",
+        "-timeout=0",
+        "-run",
+        "^TestCheckerAgreementWithRustCLIJsonEnvelopes$/^presence_exposed\\.hex$",
+        "-v",
+        "."
+      ],
+      "test": "TestCheckerAgreementWithRustCLIJsonEnvelopes",
+      "representative": "json-envelopes/presence_exposed.hex",
+      "occurrences": [
+        "json-envelopes/presence_exposed.hex"
+      ],
+      "raw_bytes_sha256": "5277e013fa9a5135981f054a22f9d389fad546350ec6735d216b2ce0f1770000",
+      "certificate_sha256": "0a6ee0cf705092fed28152895b3254585bb8187caa6a02ace0c9ac082ae24f72",
+      "status": "passed",
+      "pid": 38856,
+      "log": "operation-build-retry-json-envelopes-presence_exposed.hex.log",
+      "exit_code": 0,
+      "elapsed_seconds": 712.668,
+      "log_sha256": "bfca9265cc2a304771e3d4a300ea5e4045558d3d6100d86eac600b01f4b91d1b"
+    },
+    {
+      "previous_batch": "consumers-batch-1-checkers.json",
+      "previous_log": "consumers-batch-1-resumed-json-envelopes-presence_instant.hex.log",
+      "previous_log_sha256": "6980f18d8dd67c49c3c7fd8c1c49a031e8c679d32e3ed8ba7a73eeb24f1f3a53",
+      "command": [
+        "go",
+        "test",
+        "-tags=checkeragreement",
+        "-count=1",
+        "-timeout=0",
+        "-run",
+        "^TestCheckerAgreementWithRustCLIJsonEnvelopes$/^presence_instant\\.hex$",
+        "-v",
+        "."
+      ],
+      "test": "TestCheckerAgreementWithRustCLIJsonEnvelopes",
+      "representative": "json-envelopes/presence_instant.hex",
+      "occurrences": [
+        "json-envelopes/presence_instant.hex"
+      ],
+      "raw_bytes_sha256": "bab1e243a1465fb326da8b6b1706a135168c5f6e0185e31b131206526bc65fca",
+      "certificate_sha256": "e41c8e0411f0ad3ea9bd3467de320ace1325a85f5ecc84dc9a791dfd147e3b0a",
+      "status": "passed",
+      "pid": 38857,
+      "log": "operation-build-retry-json-envelopes-presence_instant.hex.log",
+      "exit_code": 0,
+      "elapsed_seconds": 719.736,
+      "log_sha256": "200822dd573781d87059b6e69d9d91eb3939d8187cc3ef0bc904d64d880d35aa"
+    },
+    {
+      "previous_batch": "consumers-batch-1-checkers.json",
+      "previous_log": "consumers-batch-1-resumed-json-envelopes-presence_missing_default.hex.log",
+      "previous_log_sha256": "be58af0cd76143aca251549216a72343bab6db43da2c74a7acd47052acd7939c",
+      "command": [
+        "go",
+        "test",
+        "-tags=checkeragreement",
+        "-count=1",
+        "-timeout=0",
+        "-run",
+        "^TestCheckerAgreementWithRustCLIJsonEnvelopes$/^presence_missing_default\\.hex$",
+        "-v",
+        "."
+      ],
+      "test": "TestCheckerAgreementWithRustCLIJsonEnvelopes",
+      "representative": "json-envelopes/presence_missing_default.hex",
+      "occurrences": [
+        "json-envelopes/presence_missing_default.hex"
+      ],
+      "raw_bytes_sha256": "89a8eaf00237570284e88c184f397ef3704f3a487728c0b8cac9cd3d38c93350",
+      "certificate_sha256": "886e768e019fde95c6225e850ebd27fdcdf595fd721fb4ad2efa0b2990ba5208",
+      "status": "passed",
+      "pid": 42605,
+      "log": "operation-build-retry-json-envelopes-presence_missing_default.hex.log",
+      "exit_code": 0,
+      "elapsed_seconds": 623.978,
+      "log_sha256": "c7ee18f910757030a26fce553be6cb51da2436a990f3f494d0d1476cb0302172"
+    },
+    {
+      "previous_batch": "consumers-batch-1-checkers.json",
+      "previous_log": "consumers-batch-1-resumed-json-envelopes-presence_nonmissing_zero.hex.log",
+      "previous_log_sha256": "b245fd0b7429341870110ffe4f202b63a9706263a8064be06d0d67a904d70ea7",
+      "command": [
+        "go",
+        "test",
+        "-tags=checkeragreement",
+        "-count=1",
+        "-timeout=0",
+        "-run",
+        "^TestCheckerAgreementWithRustCLIJsonEnvelopes$/^presence_nonmissing_zero\\.hex$",
+        "-v",
+        "."
+      ],
+      "test": "TestCheckerAgreementWithRustCLIJsonEnvelopes",
+      "representative": "json-envelopes/presence_nonmissing_zero.hex",
+      "occurrences": [
+        "json-envelopes/presence_nonmissing_zero.hex"
+      ],
+      "raw_bytes_sha256": "6614f214cb9246bcb34bdde05318489c15c41a4524d15ae2fbd79cb1cae977c9",
+      "certificate_sha256": "ed3e3ebd2fec65559a10767b0d8a975801b43a4d4cfa03fb2bd3cf8560d4aa3b",
+      "status": "passed",
+      "pid": 42736,
+      "log": "operation-build-retry-json-envelopes-presence_nonmissing_zero.hex.log",
+      "exit_code": 0,
+      "elapsed_seconds": 616.84,
+      "log_sha256": "a742f140dc6b941f06dcea2a0a2c7acd265a268d2d0c4b04c7dfbb6f6322543d"
+    },
+    {
+      "previous_batch": "consumers-batch-1-checkers.json",
+      "previous_log": "consumers-batch-1-resumed-json-envelopes-presence_required.hex.log",
+      "previous_log_sha256": "61974cac8d27db1c89280c75bb3fa8503ad5914f0a7060b5558ea184e59d92b6",
+      "command": [
+        "go",
+        "test",
+        "-tags=checkeragreement",
+        "-count=1",
+        "-timeout=0",
+        "-run",
+        "^TestCheckerAgreementWithRustCLIJsonEnvelopes$/^presence_required\\.hex$",
+        "-v",
+        "."
+      ],
+      "test": "TestCheckerAgreementWithRustCLIJsonEnvelopes",
+      "representative": "json-envelopes/presence_required.hex",
+      "occurrences": [
+        "json-envelopes/presence_required.hex"
+      ],
+      "raw_bytes_sha256": "9eabdf97d10ae85f0baecb61643a3fd396c5a76c2cdc59a26d3e9ee3ea680ffe",
+      "certificate_sha256": "270019c8f7d1b76cfb39ae4c26d285a6f9cb61507182703d79fcdb3682ca1947",
+      "status": "passed",
+      "pid": 45733,
+      "log": "operation-build-retry-json-envelopes-presence_required.hex.log",
+      "exit_code": 0,
+      "elapsed_seconds": 597.651,
+      "log_sha256": "d3ea9cec7412fc558e69a2d1cf3449f5a1177104bf1ca749fbe1209b9e98ae9f"
+    },
+    {
+      "previous_batch": "consumers-batch-1-checkers.json",
+      "previous_log": "consumers-batch-1-resumed-json-envelopes-raw_instant.hex.log",
+      "previous_log_sha256": "ae39a4206f34e85a1937e3d0c0cc6477e18689d6a2faa2fc0c3bc208615361ad",
+      "command": [
+        "go",
+        "test",
+        "-tags=checkeragreement",
+        "-count=1",
+        "-timeout=0",
+        "-run",
+        "^TestCheckerAgreementWithRustCLIJsonEnvelopes$/^raw_instant\\.hex$",
+        "-v",
+        "."
+      ],
+      "test": "TestCheckerAgreementWithRustCLIJsonEnvelopes",
+      "representative": "json-envelopes/raw_instant.hex",
+      "occurrences": [
+        "json-envelopes/raw_instant.hex"
+      ],
+      "raw_bytes_sha256": "493f34e9b873d5e61f409991ceaaaf4f4d46b8c4cf6ff0a3031900435023b614",
+      "certificate_sha256": "61c33f7ed58ee2836f3b7e7e8677c4ac90fd519a0aa0a4f9757202374f73af88",
+      "status": "passed",
+      "pid": 45735,
+      "log": "operation-build-retry-json-envelopes-raw_instant.hex.log",
+      "exit_code": 0,
+      "elapsed_seconds": 569.647,
+      "log_sha256": "a07afa15cfb587585bc1861a3ab6be6426211aef4e77247a5e5945f591ae3098"
+    },
+    {
+      "previous_batch": "consumers-batch-2-checkers.json",
+      "previous_log": "consumers-batch-2-resumed-json-limits-guarded-envelopes-json-depth-compound-ordered-decimal.hex.log",
+      "previous_log_sha256": "4943d68d093cf0e34fa22adcd783598ac0547e54a02b448bbd1df0e32bcb5373",
+      "command": [
+        "go",
+        "test",
+        "-tags=checkeragreement",
+        "-count=1",
+        "-timeout=0",
+        "-run",
+        "^TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes$/^json\\-depth\\-compound\\-ordered\\-decimal\\.hex$",
+        "-v",
+        "."
+      ],
+      "test": "TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes",
+      "representative": "json-limits-guarded-envelopes/json-depth-compound-ordered-decimal.hex",
+      "occurrences": [
+        "json-limits-guarded-envelopes/json-depth-compound-ordered-decimal.hex"
+      ],
+      "raw_bytes_sha256": "2c6c9a5d39205db5fe6587c8d00e46d4fa6ec33c5fa27208a0ac9683d1067f55",
+      "certificate_sha256": "8e2b472b974050c92b5fad9f02e31158590f73a80391fe8518f8ab03b10b93c3",
+      "status": "running",
+      "pid": 46564,
+      "log": "operation-build-retry-json-limits-guarded-envelopes-json-depth-compound-ordered-decimal.hex.log"
+    },
+    {
+      "previous_batch": "consumers-batch-2-checkers.json",
+      "previous_log": "consumers-batch-2-resumed-json-limits-guarded-envelopes-json-depth-compound-ordered-integer.hex.log",
+      "previous_log_sha256": "3cd8a00c6c3c0bb217223eb49cb850d09ff86c28385b3f47a5985cd7dcb3b5da",
+      "command": [
+        "go",
+        "test",
+        "-tags=checkeragreement",
+        "-count=1",
+        "-timeout=0",
+        "-run",
+        "^TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes$/^json\\-depth\\-compound\\-ordered\\-integer\\.hex$",
+        "-v",
+        "."
+      ],
+      "test": "TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes",
+      "representative": "json-limits-guarded-envelopes/json-depth-compound-ordered-integer.hex",
+      "occurrences": [
+        "json-limits-guarded-envelopes/json-depth-compound-ordered-integer.hex"
+      ],
+      "raw_bytes_sha256": "375429b8f05faae714fa0195dcf87e57414e9474c77899b6f56d7360ec747bfe",
+      "certificate_sha256": "df322e146ba811444367ddedae68e17b4574ec7b7c01ee2c8c3ea06e92edd2f3",
+      "status": "running",
+      "pid": 46612,
+      "log": "operation-build-retry-json-limits-guarded-envelopes-json-depth-compound-ordered-integer.hex.log"
+    }
+  ],
+  "fixed_source_sha256": {
+    "crates/mpk-vc/src/csharp_practical_ordinary_binding_conditions.rs": "8e9db5a753292363a3235c2f933b1acbfcff9f39cf682e823eff0b4947c8d534",
+    "crates/mpk-vc/src/csharp_practical_ordinary_concrete_operations.rs": "183e9361e8cc92a4926876e9c064a8dda56994cbaaeacd9df3d44ee1ce0c0b3e"
+  }
+}

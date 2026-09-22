@@ -7601,7 +7601,7 @@
     "terms": 4478
   },
   {
-    "declarations": 196,
+    "declarations": 197,
     "file": "binding-vc-transition.hex",
     "id": "binding-vc-transition",
     "metadata": {
@@ -7703,7 +7703,7 @@
           "type_id": "mpk.csharp.value.u32.v1"
         }
       ],
-      "certificate_sha256": "3cf05cced64dafeba096ee74059538e228604dbccc833e749898a4762e6aceda",
+      "certificate_sha256": "511ab7caff599a1a3d77ab890744d78deeaaaf52673502b5d7b6c5d5bb7e90de",
       "collections": [],
       "constructions": [],
       "defaults": [
@@ -7846,21 +7846,7 @@
           }
         }
       ],
-      "deferred_instances": [
-        {
-          "instance_id": "mpk.csharp.instance.720010bcf87f03772a036f777722e45b1930ec91c9f10be452202bf88ca2befb",
-          "internal_unit": 6,
-          "operation_ids": [
-            "mpk.csharp.instance.720010bcf87f03772a036f777722e45b1930ec91c9f10be452202bf88ca2befb.make",
-            "mpk.csharp.instance.720010bcf87f03772a036f777722e45b1930ec91c9f10be452202bf88ca2befb.state",
-            "mpk.csharp.instance.720010bcf87f03772a036f777722e45b1930ec91c9f10be452202bf88ca2befb.events",
-            "mpk.csharp.instance.720010bcf87f03772a036f777722e45b1930ec91c9f10be452202bf88ca2befb.response",
-            "mpk.csharp.instance.720010bcf87f03772a036f777722e45b1930ec91c9f10be452202bf88ca2befb.equal",
-            "mpk.csharp.instance.720010bcf87f03772a036f777722e45b1930ec91c9f10be452202bf88ca2befb.compare"
-          ],
-          "template_id": "mpk.csharp.semantic.transition.v1"
-        }
-      ],
+      "deferred_instances": [],
       "domains": [
         {
           "carrier": {
@@ -8362,10 +8348,56 @@
             }
           }
         }
+      ],
+      "transitions": [
+        {
+          "carrier": {
+            "depth": 20,
+            "shape": {
+              "fields": [
+                {
+                  "id": "state",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  }
+                },
+                {
+                  "id": "events",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3"
+                  }
+                },
+                {
+                  "id": "response",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.instance.720010bcf87f03772a036f777722e45b1930ec91c9f10be452202bf88ca2befb"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e37323030313062636638376630333737326130333666373737373232653435623139333065633931633966313062653435323230326266383863613262656662.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e37323030313062636638376630333737326130333666373737373232653435623139333065633931633966313062653435323230326266383863613262656662.Equal",
+          "event_bound_argument_index": 1,
+          "event_bound_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e37323030313062636638376630333737326130333666373737373232653435623139333065633931633966313062653435323230326266383863613262656662.Transition.EventBound",
+          "event_type_id": "mpk.csharp.value.i32.v1",
+          "events_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e37323030313062636638376630333737326130333666373737373232653435623139333065633931633966313062653435323230326266383863613262656662.Field.F1",
+          "events_type_id": "mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3",
+          "make_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e37323030313062636638376630333737326130333666373737373232653435623139333065633931633966313062653435323230326266383863613262656662.MakeStorage",
+          "response_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e37323030313062636638376630333737326130333666373737373232653435623139333065633931633966313062653435323230326266383863613262656662.Field.F2",
+          "response_type_id": "mpk.csharp.value.i32.v1",
+          "state_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e37323030313062636638376630333737326130333666373737373232653435623139333065633931633966313062653435323230326266383863613262656662.Field.F0",
+          "state_type_id": "mpk.csharp.value.i32.v1"
+        }
       ]
     },
-    "operation_count": 4,
-    "terms": 5159
+    "operation_count": 10,
+    "terms": 5161
   },
   {
     "declarations": 236,

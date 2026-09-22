@@ -1,7 +1,8 @@
 # C# Practical Subset Expansion Design
 
 Status: normative freeze package published through `CSHARP-03-T01-W10` and
-private implementation complete through `CSHARP-03-T06-W03`.
+private implementation in progress at `CSHARP-03-T06-W09`. Its definition
+checkpoints do not yet discharge application verification conditions.
 This document does not
 change the active `mpk.csharp.scalar.v0` profile, register a new profile, or
 authorize a practical-profile public route. The active release is registry
@@ -46,7 +47,7 @@ T06-W03 completes typed data/check/ownership and contract-definedness obligation
 T06-W04 is ready, while
 activation remains blocked through T08-W10.
 
-Prepared: 2026-09-02. Revised: 2026-09-08.
+Prepared: 2026-09-02. Revised: 2026-09-22.
 
 T01-W08 handoff: candidate foundation, specialization, binding and data
 semantics are now frozen in

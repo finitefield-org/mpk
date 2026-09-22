@@ -48,3 +48,18 @@ chronological coverage. Units 3–8 and W09 remain incomplete, including recursi
 semantic checks, remaining bindings/codecs, native/source/control relations,
 transitions, ordinary propositions/proofs and final certificate assembly.
 The full T06 gate remains deferred to T06-W12.
+
+### Transition product foundation checkpoint
+
+The transition product foundation checkpoint is now verified for internal unit 6:
+make/state/events/response/equal/eligible compare and the inclusive 4096-event
+failure are ordinary definitions, including uninvoked instances. Three original
+source contexts pass 3,652 observations, and all three standalone plus three
+integrated certificates pass both checkers with zero axioms and hash mutations
+rejected. Integration preserves 291 transition transitive definitions, all 118
+existing component pairs and 43 unchanged structural certificates; one existing
+certificate gains six operations (468 occurrences across 44 contexts). See
+`../verification-logs/transition-operations/verification.json`
+ Admission, source execution, state/history preservation,
+retained-key lookup, replay and application proof assembly remain open. This
+checkpoint does not complete unit 6 or W09.

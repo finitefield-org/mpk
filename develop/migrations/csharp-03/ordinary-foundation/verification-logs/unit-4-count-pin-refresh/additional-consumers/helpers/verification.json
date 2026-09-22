@@ -1,0 +1,83 @@
+{
+  "status": "passed",
+  "binary_sha256": "b7774b078435e37f3ecf1c02f2d3dc722c29faef84b0abfcad0b1a3599ed6c4f",
+  "profile_receipt": "/tmp/mpk-w09-count-helper-tests-build.json",
+  "selection_reason": "Only source-free helper fixtures retaining the prior saturated count implementation; complete their existing exact arithmetic/capacity/integration checks.",
+  "runs": [
+    {
+      "test": "aggregate_fold_decimal_json_collection_budget",
+      "command": [
+        "/tmp/mpk-w09-optimized-target/debug/deps/mpk_vc-3521558582f093fd",
+        "aggregate_fold_decimal_json_collection_budget",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "output": "/tmp/mpk-w09-current-count-helpers/decimal-json-collection-shared",
+      "log": "/tmp/mpk-w09-current-count-helpers/decimal-json-collection-shared.log",
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 2.763,
+      "log_sha256": "64ef9960896d462f2fde22e2bbee51b5cfb6281e9bc5a6768890d8ff44e03ac1"
+    },
+    {
+      "test": "csharp_03_t06_w09_calendar_json_and_collection_budget",
+      "command": [
+        "/tmp/mpk-w09-optimized-target/debug/deps/mpk_vc-3521558582f093fd",
+        "csharp_03_t06_w09_calendar_json_and_collection_budget",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "output": "/tmp/mpk-w09-current-count-helpers/json-calendar-collection",
+      "log": "/tmp/mpk-w09-current-count-helpers/json-calendar-collection.log",
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 3.765,
+      "log_sha256": "d0ed9c79c0e03f176215e3438075f667fa6ca59970687d18162fae0e1ce04a78"
+    },
+    {
+      "test": "json_values_all_primitive_codec_routes_fit_one_certificate",
+      "command": [
+        "/tmp/mpk-w09-optimized-target/debug/deps/mpk_vc-3521558582f093fd",
+        "json_values_all_primitive_codec_routes_fit_one_certificate",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "output": "/tmp/mpk-w09-current-count-helpers/json-values-all-scalars",
+      "log": "/tmp/mpk-w09-current-count-helpers/json-values-all-scalars.log",
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 6.171,
+      "log_sha256": "7b9956eb87365614032aadae17ea56cf0251964ffaaeacf9e3a495561d6d9fe8"
+    },
+    {
+      "test": "canonical_typed_json_depth_active_nodes_and_overflow",
+      "command": [
+        "/tmp/mpk-w09-optimized-target/debug/deps/mpk_vc-3521558582f093fd",
+        "canonical_typed_json_depth_active_nodes_and_overflow",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "output": "/tmp/mpk-w09-current-count-helpers/json-typed-depth",
+      "log": "/tmp/mpk-w09-current-count-helpers/json-typed-depth.log",
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 77.392,
+      "log_sha256": "af4d97faefc61850c160a4d94999b4234d7df47c357eb4c334da4728087d6a23"
+    },
+    {
+      "test": "canonical_typed_json_nodes_saturation_and_active_containers",
+      "command": [
+        "/tmp/mpk-w09-optimized-target/debug/deps/mpk_vc-3521558582f093fd",
+        "canonical_typed_json_nodes_saturation_and_active_containers",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "output": "/tmp/mpk-w09-current-count-helpers/json-typed-nodes",
+      "log": "/tmp/mpk-w09-current-count-helpers/json-typed-nodes.log",
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 39.342,
+      "log_sha256": "59a19d96f53c075ba5baa64deebf65cb8bb62ee30caf1b0949875bc8b60f0df8"
+    }
+  ]
+}

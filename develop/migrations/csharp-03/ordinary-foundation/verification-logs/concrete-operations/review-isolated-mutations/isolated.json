@@ -1,0 +1,40 @@
+{
+  "status": "failed",
+  "supervisor_pid": 45897,
+  "profile": {
+    "CARGO_TARGET_DIR": "/tmp/mpk-w09-optimized-target",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "2",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0"
+  },
+  "selection_reason": "Isolate a one-bit NaN payload change while preserving the key and all 32 observed float bits; reject actual malformed Option padding while retaining the original full guarded condition.",
+  "runs": [
+    {
+      "label": "isolated",
+      "command": [
+        "/tmp/mpk-w09-concrete-operations-reviewed-integration-96313d0d921903e7",
+        "csharp_03_t06_w09_concrete_operations_isolated_payload_and_invalid_input",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "status": "failed",
+      "log": "isolated.log",
+      "pid": 45901,
+      "exit_code": 101,
+      "elapsed_seconds": 0.909,
+      "log_sha256": "38d3a23dd1fb8114e13ea780982045cbcdb3690c214dd5037df700f43ea7ba71"
+    }
+  ],
+  "full_gate": "deferred_to_T06_W12",
+  "build": "build.json",
+  "binaries": {
+    "integration": {
+      "path": "/tmp/mpk-w09-concrete-operations-reviewed-integration-96313d0d921903e7",
+      "sha256": "96313d0d921903e79d155e789d147cd1e8270856394f24dbf05e3bd722ac5b6a"
+    }
+  },
+  "semantic_limits": "none",
+  "failure": "isolated failed"
+}

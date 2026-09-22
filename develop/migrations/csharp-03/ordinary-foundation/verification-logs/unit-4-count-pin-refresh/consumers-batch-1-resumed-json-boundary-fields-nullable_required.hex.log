@@ -1,0 +1,23 @@
+=== RUN   TestCheckerAgreementWithRustCLIJsonBoundaryFields
+=== RUN   TestCheckerAgreementWithRustCLIJsonBoundaryFields/nullable_required.hex
+    checker_agreement_test.go:395: Go accepted: certificate=dd7648a3b83ec95f44255e4eba31b6f9de6acc16ac35ff0ff28dc444706b6d12 declarations=2016 axioms=0 elapsed=2m50.644918542s
+    checker_agreement_test.go:397: Rust checker execution/protocol failure: Rust checker did not return a verifier report: unexpected end of JSON input
+        stdout:
+        
+        stderr:
+        error[E0560]: struct `csharp_practical_vir_model::TypedValueRef` has no field named `value_id`
+           --> crates/mpk-vc/src/csharp_practical_ordinary_source_invariants.rs:233:13
+            |
+        233 |             value_id: "source_invariant.receiver".into(),
+            |             ^^^^^^^^ `csharp_practical_vir_model::TypedValueRef` does not have this field
+            |
+            = note: available fields are: `id`
+        
+        For more information about this error, try `rustc --explain E0560`.
+        error: could not compile `mpk-vc` (lib) due to 1 previous error
+        error: could not compile `mpk-vc` (lib) due to 1 previous error
+--- FAIL: TestCheckerAgreementWithRustCLIJsonBoundaryFields (184.75s)
+    --- FAIL: TestCheckerAgreementWithRustCLIJsonBoundaryFields/nullable_required.hex (184.75s)
+FAIL
+FAIL	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	184.928s
+FAIL

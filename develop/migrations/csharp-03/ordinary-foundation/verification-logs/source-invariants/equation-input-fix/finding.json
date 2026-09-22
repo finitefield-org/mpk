@@ -1,0 +1,14 @@
+{
+  "status": "test_input_fixed_full_rerun_pending",
+  "cause": "The invalid-storage test used V::UniformCube(true, 0) for the empty source exception product. The evaluator correctly requires a Bool leaf at depth zero. Use V::Bit(true) at depth zero and keep the same invalid nonzero-padding case; production and every generated certificate are unchanged.",
+  "changed_files": [
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_source_invariant_tests.rs"
+  ],
+  "previous_failure": "original-equations.log",
+  "previous_completed_tests_retained": [
+    "partial-clauses",
+    "nested-clauses"
+  ],
+  "remaining": "Rerun all original equations with the corrected typed test input; rerun targeted Clippy and format.",
+  "full_gate": "deferred_to_T06_W12"
+}

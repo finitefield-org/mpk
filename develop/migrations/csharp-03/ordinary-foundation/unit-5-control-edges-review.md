@@ -228,8 +228,47 @@ format and the five inventory tests pass. All 15 distinct certificates pass both
 zero-axiom checks and hash-corruption rejection; see `verification-logs/control-edges/native-exceptions/verification.json`
 and its review for the final result before using the promoted pins.
 
-These local relations do not establish source reachability, exceptional source
-frames, handler/filter/finally execution or complete application proofs. Unit 5
-and W09 remain incomplete, W10 remains blocked, and the whole gate stays deferred
-to T06-W12. The review's earlier W05 value-identity finding was corrected before
-promotion; obsolete candidate checks remain separate historical evidence.
+## Native literal result checkpoint
+
+All 101 retained native literal results in the 18 original control contexts now
+have exact producing-node, value-ID and type bindings plus ordinary full-storage
+equality relations in the same certificate. The 3,143 new observations cover
+independent storage encoding and changed low/middle/last bits, including padding
+and inactive sum arms. Thirteen preservation/slot checks retain every previous
+term/declaration prefix and metadata, preserving the earlier 96,920 observations
+(100,063 scoped observations in total). Standalone literal generation across 64
+source contexts and the boundary-literal consumer retain their existing pins;
+three shared-literal helper tests, inventory, targeted lint and format pass.
+All 15 distinct extended certificates pass same-byte Go/Rust acceptance, matching
+reports, zero axioms and hash-corruption rejection. See `verification-logs/control-edges/native-literals/verification.json` and its review.
+
+Literal results do not establish source-node reachability or compose a complete
+execution. Incoming witnesses, alias/exception state, handlers/filter/finally,
+transition/replay and application proof assembly remain open. Unit 5 and W09
+remain incomplete; the whole T gate is deferred to T06-W12.
+
+## Complete reachable source execution checkpoint
+
+The current 18-source control corpus now composes 761 source execution paths.
+Function entries, normal and exceptional paths, alias updates, the retained
+constructor call and terminal steps all have exact execution relations. Every
+reachable source node is closed. Ten structurally unreachable nodes are
+independently reconstructed and serialized as explicit exclusions; no reachable
+execution ID remains pending. The constructor's native invocation node is
+explicitly classified as resolved and the pending native-invocation set is
+empty.
+
+The corpus contains 582 complete local steps and 121 locally special steps: 18
+function entries, 93 exceptional steps and ten unreachable nodes. Exact
+entry/exit state, selected edge, phi, handler and target relations remain part
+of the execution composition. Tests reject removal or forgery of the execution,
+pending and exclusion collections. Two independent metadata candidates and the
+promoted 36 files are byte identical. All 15 distinct certificate bytes pass
+same-byte Go/Rust acceptance with matching reports and zero axioms, and both
+checkers reject every hash corruption. Source-step replay, declaration
+preservation, inventory, targeted clippy and format checks pass. See
+`verification-logs/control-edges/complete-source-executions/review.md`.
+
+This checkpoint does not provide the remaining complete native-body integration
+or application proof assembly. Unit 5 and W09 remain incomplete, W10 remains
+blocked, and the full T06 gate remains deferred to T06-W12.

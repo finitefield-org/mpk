@@ -104,6 +104,14 @@ fn emitted_operation_ids(p: &OrdinaryStructuralFoundationProgram) -> BTreeSet<St
             add(op.operation_id.clone());
         }
     }
+    for d in p.transitions() {
+        for suffix in ["make", "state", "events", "response", "equal"] {
+            add(format!("{}.{suffix}", d.carrier.type_id));
+        }
+        if d.compare_definition.is_some() {
+            add(format!("{}.compare", d.carrier.type_id));
+        }
+    }
     for d in p.money() {
         for op in &d.operations {
             add(op.operation_id.clone());
@@ -181,34 +189,18 @@ fn csharp_03_t06_w09_structural_foundation_original_sources() {
         );
         let actual = emitted_operation_ids(&p);
         let mut expected = BTreeSet::new();
-        let mut deferred = BTreeSet::new();
         for entry in emitted.closure().closed().entries() {
             let template = entry["template_id"].as_str().unwrap();
             templates.insert(template.to_owned());
-            let set = if template == "mpk.csharp.semantic.transition.v1" {
-                &mut deferred
-            } else {
-                &mut expected
-            };
             for operation in entry["operation_definitions"].as_array().unwrap() {
-                assert!(set.insert(operation["id"].as_str().unwrap().to_owned()));
+                assert!(expected.insert(operation["id"].as_str().unwrap().to_owned()));
             }
         }
         assert_eq!(
             actual, expected,
             "complete uninvoked-operation coverage: {id}"
         );
-        assert_eq!(
-            deferred,
-            p.deferred_instances()
-                .iter()
-                .flat_map(|d| d.operation_ids.iter().cloned())
-                .collect()
-        );
-        for d in p.deferred_instances() {
-            assert_eq!(d.internal_unit, 6);
-            assert_eq!(d.template_id, "mpk.csharp.semantic.transition.v1");
-        }
+        assert!(p.deferred_instances().is_empty());
         for d in p.constructions() {
             for op in &d.operations {
                 for f in &op.failures {

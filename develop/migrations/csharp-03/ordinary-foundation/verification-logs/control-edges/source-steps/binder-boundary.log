@@ -1,0 +1,11 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+error[E0609]: no field `ty` on type `&mpk_cert::encode::Declaration`
+   --> crates/mpk-vc/src/csharp_practical_ordinary_control_steps.rs:396:42
+    |
+396 |         assert_eq!(b.binders[declaration.ty as usize], 256);
+    |                                          ^^ unknown field
+    |
+    = note: available fields are: `name`, `kind`
+
+For more information about this error, try `rustc --explain E0609`.
+error: could not compile `mpk-vc` (lib test) due to 1 previous error

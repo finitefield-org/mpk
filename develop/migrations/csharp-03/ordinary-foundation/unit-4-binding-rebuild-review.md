@@ -1,5 +1,12 @@
 # Source reconstruction review — partial W09
 
+Status correction 2026-09-22: this component remains partial. The definition-only
+`remapped-boundary-sequence` vector contains a varying unmapped stored member,
+so no unary reconstruct can satisfy its field-complete source round trip. See
+`binding-reconstruction-stop-condition.json` for the retracted stop classification.
+The fixture is absent from T01; its final proof must fail. The binary results
+below remain valid component evidence but cannot close the unary obligation.
+
 Reviewed binary reconstruction against the frozen binding requirement to
 preserve source observations and the forward conversion's concrete layouts.
 

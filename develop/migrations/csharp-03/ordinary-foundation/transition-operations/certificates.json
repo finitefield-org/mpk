@@ -1,0 +1,179 @@
+[
+  {
+    "declarations": 101,
+    "file": "binding-vc-transition.hex",
+    "id": "binding-vc-transition",
+    "metadata": {
+      "certificate_sha256": "3cff5e730901a0b7f2c7a6f5b20f945f4e8f966ea175115e891190482d9556d9",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 20,
+            "shape": {
+              "fields": [
+                {
+                  "id": "state",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  }
+                },
+                {
+                  "id": "events",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3"
+                  }
+                },
+                {
+                  "id": "response",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.instance.720010bcf87f03772a036f777722e45b1930ec91c9f10be452202bf88ca2befb"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e37323030313062636638376630333737326130333666373737373232653435623139333065633931633966313062653435323230326266383863613262656662.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e37323030313062636638376630333737326130333666373737373232653435623139333065633931633966313062653435323230326266383863613262656662.Equal",
+          "event_bound_argument_index": 1,
+          "event_bound_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e37323030313062636638376630333737326130333666373737373232653435623139333065633931633966313062653435323230326266383863613262656662.Transition.EventBound",
+          "event_type_id": "mpk.csharp.value.i32.v1",
+          "events_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e37323030313062636638376630333737326130333666373737373232653435623139333065633931633966313062653435323230326266383863613262656662.Field.F1",
+          "events_type_id": "mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3",
+          "make_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e37323030313062636638376630333737326130333666373737373232653435623139333065633931633966313062653435323230326266383863613262656662.MakeStorage",
+          "response_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e37323030313062636638376630333737326130333666373737373232653435623139333065633931633966313062653435323230326266383863613262656662.Field.F2",
+          "response_type_id": "mpk.csharp.value.i32.v1",
+          "state_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e37323030313062636638376630333737326130333666373737373232653435623139333065633931633966313062653435323230326266383863613262656662.Field.F0",
+          "state_type_id": "mpk.csharp.value.i32.v1"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_transition_operations.v1",
+      "source_ir_sha256": "033dae645bf662233303b43260d43eb2e3b763f9936bcaa88d84573f39c84638",
+      "static_transformers": 2083
+    },
+    "terms": 4131
+  },
+  {
+    "declarations": 109,
+    "file": "clauses-scalar-map.hex",
+    "id": "clauses-scalar-map",
+    "metadata": {
+      "certificate_sha256": "461f3e419f5b7e1553b4cde652ed8b76fb0e14d7853ff155f7c9611b2c789df6",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 20,
+            "shape": {
+              "fields": [
+                {
+                  "id": "state",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  }
+                },
+                {
+                  "id": "events",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3"
+                  }
+                },
+                {
+                  "id": "response",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.bool.v1"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.instance.5a2f0917b5af4fb6d74348f29c5d334dc3255cf39bac0ecd492e39bd9e36bfb1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e35613266303931376235616634666236643734333438663239633564333334646333323535636633396261633065636434393265333962643965333662666231.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e35613266303931376235616634666236643734333438663239633564333334646333323535636633396261633065636434393265333962643965333662666231.Equal",
+          "event_bound_argument_index": 1,
+          "event_bound_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e35613266303931376235616634666236643734333438663239633564333334646333323535636633396261633065636434393265333962643965333662666231.Transition.EventBound",
+          "event_type_id": "mpk.csharp.value.i32.v1",
+          "events_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e35613266303931376235616634666236643734333438663239633564333334646333323535636633396261633065636434393265333962643965333662666231.Field.F1",
+          "events_type_id": "mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3",
+          "make_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e35613266303931376235616634666236643734333438663239633564333334646333323535636633396261633065636434393265333962643965333662666231.MakeStorage",
+          "response_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e35613266303931376235616634666236643734333438663239633564333334646333323535636633396261633065636434393265333962643965333662666231.Field.F2",
+          "response_type_id": "mpk.csharp.value.bool.v1",
+          "state_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e35613266303931376235616634666236643734333438663239633564333334646333323535636633396261633065636434393265333962643965333662666231.Field.F0",
+          "state_type_id": "mpk.csharp.value.i32.v1"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_transition_operations.v1",
+      "source_ir_sha256": "ad733011c0849001a2434aedad5b6ae264cf33a13af03cff8f823709f11ce1e5",
+      "static_transformers": 2085
+    },
+    "terms": 4267
+  },
+  {
+    "declarations": 152,
+    "file": "clauses-compound.hex",
+    "id": "clauses-compound",
+    "metadata": {
+      "certificate_sha256": "3b922a4e9d7a79bd73a960a5e9ce6a7c7d5819e39cd9c6a794c5392d24665d05",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 22,
+            "shape": {
+              "fields": [
+                {
+                  "id": "state",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.source.cd242d03a3dc0b4d2468904e9cd35a41ab2f9a4a7a49cbf71a847e84e7e3569d"
+                  }
+                },
+                {
+                  "id": "events",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.instance.3b48412499802a1d22f55059280afc1d67155fdedca53a0ffc42fab3789b3f77"
+                  }
+                },
+                {
+                  "id": "response",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.instance.dbbedc32d86a05f390b19350cfc16abf8db8ad4c632f25d5b1ecdd2050081162"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.instance.2eccd6ec42771ae9c5320f0611606bbd548e1d3fdc72d262b676443ed2f8d921"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e32656363643665633432373731616539633533323066303631313630366262643534386531643366646337326432363262363736343433656432663864393231.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e32656363643665633432373731616539633533323066303631313630366262643534386531643366646337326432363262363736343433656432663864393231.Equal",
+          "event_bound_argument_index": 1,
+          "event_bound_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e32656363643665633432373731616539633533323066303631313630366262643534386531643366646337326432363262363736343433656432663864393231.Transition.EventBound",
+          "event_type_id": "mpk.csharp.source.f3bc906f96e692c2679188eedc2408e900bf2e992dd7d018fe5fad464e994064",
+          "events_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e32656363643665633432373731616539633533323066303631313630366262643534386531643366646337326432363262363736343433656432663864393231.Field.F1",
+          "events_type_id": "mpk.csharp.instance.3b48412499802a1d22f55059280afc1d67155fdedca53a0ffc42fab3789b3f77",
+          "make_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e32656363643665633432373731616539633533323066303631313630366262643534386531643366646337326432363262363736343433656432663864393231.MakeStorage",
+          "response_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e32656363643665633432373731616539633533323066303631313630366262643534386531643366646337326432363262363736343433656432663864393231.Field.F2",
+          "response_type_id": "mpk.csharp.instance.dbbedc32d86a05f390b19350cfc16abf8db8ad4c632f25d5b1ecdd2050081162",
+          "state_definition": "Mpk.CSharp.Ordinary.Structural.T6d706b2e6373686172702e696e7374616e63652e32656363643665633432373731616539633533323066303631313630366262643534386531643366646337326432363262363736343433656432663864393231.Field.F0",
+          "state_type_id": "mpk.csharp.source.cd242d03a3dc0b4d2468904e9cd35a41ab2f9a4a7a49cbf71a847e84e7e3569d"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_transition_operations.v1",
+      "source_ir_sha256": "3e3b8cbc6797ad889cb7678e45c072bef710b4732cce00dfdebf3aa42621bd7d",
+      "static_transformers": 2093
+    },
+    "terms": 5635
+  }
+]

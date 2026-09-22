@@ -2,6 +2,52 @@
 //! Reconstruction witnesses, domains, native outcomes and proofs remain required.
 use super::*;
 use sha2::{Digest, Sha256};
+#[path = "csharp_practical_ordinary_binding_defaults.rs"]
+mod binding_defaults;
+pub use binding_defaults::{
+    generate_csharp_practical_ordinary_binding_defaults,
+    import_csharp_practical_ordinary_binding_defaults, OrdinaryBindingActualDefault,
+    OrdinaryBindingDefaultPending, OrdinaryBindingDefaultPendingReason,
+    OrdinaryBindingDefaultProgram,
+};
+#[path = "csharp_practical_ordinary_concrete_operations.rs"]
+mod concrete_operations;
+pub use concrete_operations::{
+    generate_csharp_practical_ordinary_concrete_operations,
+    import_csharp_practical_ordinary_concrete_operations, OrdinaryConcreteFailureComponent,
+    OrdinaryConcreteOperationComponent, OrdinaryConcreteOperationDefinition,
+    OrdinaryConcreteOperationFailure, OrdinaryConcreteOperationPending,
+    OrdinaryConcreteOperationPendingReason, OrdinaryConcreteOperationProgram,
+};
+#[path = "csharp_practical_ordinary_concrete_types.rs"]
+mod concrete_types;
+pub use concrete_types::{
+    generate_csharp_practical_ordinary_concrete_types,
+    import_csharp_practical_ordinary_concrete_types, OrdinaryConcreteTypeDefinition,
+    OrdinaryConcreteTypeProgram,
+};
+#[path = "csharp_practical_ordinary_source_invariants.rs"]
+mod source_invariants;
+pub use source_invariants::{
+    generate_csharp_practical_ordinary_source_invariants,
+    import_csharp_practical_ordinary_source_invariants, OrdinarySourceInvariantDefinition,
+    OrdinarySourceInvariantEnumCase, OrdinarySourceInvariantProgram,
+};
+#[path = "csharp_practical_ordinary_binding_conditions.rs"]
+mod conditions;
+pub use conditions::{
+    generate_csharp_practical_ordinary_binding_conditions,
+    import_csharp_practical_ordinary_binding_conditions, OrdinaryBindingCondition,
+    OrdinaryBindingConditionProgram,
+};
+#[path = "csharp_practical_ordinary_binding_reconstruction.rs"]
+mod reconstruction;
+pub use reconstruction::{
+    generate_csharp_practical_ordinary_binding_reconstruction,
+    import_csharp_practical_ordinary_binding_reconstruction,
+    OrdinaryBindingReconstructionCandidate, OrdinaryBindingReconstructionObligation,
+    OrdinaryBindingReconstructionProgram,
+};
 #[path = "csharp_practical_ordinary_boundary_rules.rs"]
 mod boundary_rules;
 pub use boundary_rules::{
@@ -126,6 +172,14 @@ fn assemble<'a>(
     };
     // Projection emission already installs the shared word helpers.
     ordered_fold::auxiliary(&mut r.b)?;
+    assemble_relations(r, projections, vc, layouts)
+}
+fn assemble_relations<'a>(
+    mut r: Relations<'a>,
+    projections: Vec<OrdinaryBindingProjectionDefinition>,
+    vc: &BindingVcProgram,
+    layouts: &OrdinaryCarrierProgram,
+) -> R<BindingAssembly<'a>> {
     let mut predicates = BTreeMap::new();
     let mut agreements = vec![];
     for projection in &projections {

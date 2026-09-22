@@ -133,12 +133,16 @@ pub fn generate_csharp_practical_ordinary_binding_orders(
     let layouts = generate_csharp_practical_ordinary_carriers(vir)?;
     let mut a = assemble(vir, &vc, &layouts)?;
     guards::emit_guards(&mut a, &vc)?;
+    emit_orders(&mut a, &vc)?;
+    finish(vir, &vc, a, "mpk.csharp.ordinary_binding_orders.v1")
+}
+pub(super) fn emit_orders(a: &mut BindingAssembly<'_>, vc: &BindingVcProgram) -> R<()> {
     for symbol in vc.definition_names() {
         if let Some(id) = symbol.strip_prefix("Mpk.CSharp.Binding.CanonicalOrder.") {
-            emit_order(&mut a, id)?;
+            emit_order(a, id)?;
         }
     }
-    finish(vir, &vc, a, "mpk.csharp.ordinary_binding_orders.v1")
+    Ok(())
 }
 pub fn import_csharp_practical_ordinary_binding_orders(
     input: &[u8],

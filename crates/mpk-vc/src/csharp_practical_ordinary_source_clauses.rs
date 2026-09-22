@@ -1846,5 +1846,7 @@ pub use control_edges::{
     OrdinaryControlEdgeFunction, OrdinaryControlEdgeJoin, OrdinaryControlEdgeProgram,
     OrdinaryControlEntryComponent, OrdinaryControlEntryIncoming, OrdinaryControlMemoryBinding,
     OrdinaryControlMemoryEffect, OrdinaryControlNativeDefinition, OrdinaryControlNativeException,
-    OrdinaryControlNativeOperation, OrdinaryControlNodeEntry, OrdinaryControlSourceFrame,
+    OrdinaryControlNativeLiteral, OrdinaryControlNativeOperation, OrdinaryControlNodeEntry,
+    OrdinaryControlSourceExecution, OrdinaryControlSourceFrame, OrdinaryControlSourceStep,
+    OrdinaryControlStepComponent,
 };

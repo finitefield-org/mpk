@@ -1,0 +1,32 @@
+{
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 3,
+  "status": "superseded_by_completed_scoped_verification",
+  "recorded_at": "2026-09-21T05:52:45.620254+00:00",
+  "selection_reason": "The existing completion audit leaves the collection/sequence runtime version scope unverified: historical full runs used earlier observers. Domain/aggregate current-observer receipts are already complete and are not rerun. These five tests cover the remaining collection semantics, update/capacity boundaries and sequence value/order behavior with the current evaluator. No producer or evaluator changes; no whole-T gate.",
+  "sources": {
+    "crates/mpk-vc/src/csharp_practical_ordinary_test_eval.rs": "d4160220aa77546cb3911df2d66bbd0e8684f3020d128db9306288a87c661c8f",
+    "crates/mpk-vc/src/csharp_practical_ordinary_sequence_ops.rs": "dbc5cd30cdaec935760e3dd33f1bc1b8fe7badd4a3b9c8005a113c51f450a636",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_collection_tests.rs": "669d631bcb905cf14e511b2955d24e3597ce080239ea07739967f88904a3dd54",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_sequence_tests.rs": "8c153a6c6dec7334f484e73f888581ba51186e1490e46d3e0e866d68e5ed3b4f",
+    "crates/mpk-vc/src/csharp_practical_ordinary_collection_ops.rs": "de1f1a8152cd4b7f99864d122a105d60a486323f44c0c01f9c8da1eb7f62916a",
+    "crates/mpk-vc/src/csharp_practical_ordinary_relations.rs": "37795e1a79222821313602452018483aa69f051fb5c4242fd4eaa99dfccfd020",
+    "crates/mpk-vc/src/csharp_practical_ordinary_scalar_relations.rs": "865872b3dba0a54503c6bd5991c1cda247c73cbec817080c736d175ea5b1549e",
+    "crates/mpk-vc/src/csharp_practical_ordinary_structural.rs": "8053f737e1e6e1429e8cbf8212f3873070c8f9373fdb1a78c2554a8f463a09b2",
+    "crates/mpk-vc/src/csharp_practical_ordinary_structural_foundations.rs": "3dd5e1d2348b0c3d63de17f0609b0042f9f6bab51793ef64a0c9a04b380b7c88",
+    "crates/mpk-vc/src/csharp_practical_ordinary_domains.rs": "02b3c44e197d22193e0e3f4e615d64f6e8dcc06a0405b57f06ed07a74623884b",
+    "crates/mpk-vc/src/csharp_practical_ordinary_aggregate_fold.rs": "50b30f339311c88a7e1b7d6cf39d173a0b4aa2065d57f35d2cd3300b69d4f4b8",
+    "crates/mpk-vc/src/csharp_practical_ordinary_construction_ops.rs": "9f5e8f82e404afd8f3055c34b5970aac9ba38ae04812985770e10caafc3c4332",
+    "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs": "9340072f52aa64eaecd532551c7380ee7df92c8bd8ec366671a7ccb38f3ae62d",
+    "crates/mpk-vc/src/csharp_practical_ordinary_test_eval_tests.rs": "9c521d1be3c96d28de9f2da7144c67395222921ae83221874e0c3b5d3da5cb1a",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_relation_tests.rs": "41a3a605eaa8fd56049c0026de997177d0ee4997d1f26bacd3a261fc88970e07",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_entry_tests.rs": "4cb609dbbce4302462222f573336aec09375da1378b3346ab066c4a43cc5e009",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_structural_foundation_tests.rs": "dae5a2999a17e6365a1c5660d7a3dab0a1dbc6e6aed944c967d5f833420da3dc"
+  },
+  "test_binary_sha256": "06f4ee5eea43fa2ae3963f8237a23987d9182f51a397d0e91611313e54f3e8d6",
+  "w09_complete": false,
+  "unit_3_complete": true,
+  "whole_gate": "deferred to T06-W12",
+  "live_session": null,
+  "verification": "verification.json"
+}

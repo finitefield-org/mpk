@@ -1,0 +1,10 @@
+=== RUN   TestCheckerAgreementWithRustCLISourceInvariantEnums
+=== RUN   TestCheckerAgreementWithRustCLISourceInvariantEnums/enum-cases.hex
+    checker_agreement_test.go:395: Go accepted: certificate=cb004c297b67444eeb8ae8635123587f4253f07bdb0eab3861383f33027a5b8b declarations=36 axioms=0 elapsed=35.278708ms
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=86da75804016bcdccff8da961ba3622c3b7d5d5809a50629323c9c64d598fe86 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=6m33.988802875s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=16.760042ms
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=15.941312375s
+--- PASS: TestCheckerAgreementWithRustCLISourceInvariantEnums (409.98s)
+    --- PASS: TestCheckerAgreementWithRustCLISourceInvariantEnums/enum-cases.hex (409.98s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	410.309s

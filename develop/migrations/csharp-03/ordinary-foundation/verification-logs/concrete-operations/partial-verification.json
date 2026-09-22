@@ -1,0 +1,42 @@
+{
+  "status": "targeted_verification_in_progress",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 4,
+  "original_contexts": 45,
+  "defined_operation_conditions": 436,
+  "pending_operation_conditions": 31,
+  "proofs_pending": 987,
+  "proofs_discharged": 0,
+  "routing": {
+    "operations": 92,
+    "assignments": 290,
+    "single_failure_changes": 566,
+    "masked_later_changes": 170
+  },
+  "isolated_mutations": {
+    "nan_payload_changes": 1,
+    "malformed_option_inputs": 1
+  },
+  "preserved_certificates": 96,
+  "passed_receipts": {
+    "build.json": "72f5f28afad14111a14dfbdac400005ccb1a9a79101c007210344b6f608c34f1",
+    "routing.json": "f1d6d1f6e6eac05d87762d1735ca1d2132fb6c97f219d6699a94b826cb228f27",
+    "preservation.json": "569fd56a72e0240dd30cb83a1d2f1204cb07e019c4fb0ebba24b9d67e83a4a00",
+    "review-isolated-mutations/definitions.json": "2244dbe2d00cd7aaedd5238ca23fef6c3704c19fe3f576440fe3c3afd14b7804",
+    "review-isolated-input-guard/build.json": "d492917d9b8e5e298df5becfe39ad27f548904796688ff6890cf3a3f2e1ff1e1",
+    "review-isolated-input-guard/isolated.json": "69f7a3ce5d1cdc299f4610b3f4ca3f7a657925c86bdd0d622d78132f82b04604",
+    "review-isolated-input-guard/quality.json": "8ff3116000ec61b51667126e905ade8957e90faff7cfb5e4b3e04f85d4a99ca2",
+    "definitions.json": "4404a8105525f9be08151e9b031b12762c5dbb13406502be71e5d191d1eb452d"
+  },
+  "current_build": "review-isolated-input-guard/build.json",
+  "preserved_semantics": "All production sources and the existing routing/real test functions and helpers remain exact. Only component lookup syntax in the definition test changed, plus one independent test was appended. The definition test reran against all 45 unchanged corpus pins.",
+  "pending_verification": [
+    "real.json: original full real-value/guard test is still running, including Money arithmetic"
+  ],
+  "review_corrections": [
+    "quality.json retains the original never_loop failure",
+    "review-isolated-mutations/isolated.json retains the corrected .value counterexample failure"
+  ],
+  "full_gate": "deferred_to_T06_W12",
+  "dual_checker_certificates": 45
+}

@@ -1,0 +1,55 @@
+{
+  "status": "passed",
+  "selection_reason": "The reconstruction regression test was changed to derive captured member identity and adds an isolated noninjective test. Check targeted test lint, fixture consumer inventory and formatting. The repository-wide gate is deferred to T06-W12.",
+  "runs": [
+    {
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "status": "passed",
+      "log": "clippy.log",
+      "exit_code": 0,
+      "elapsed_seconds": 102.216,
+      "log_sha256": "84589aa8abb1021cf84b22ddc722fd7ef4fba8bbb2ed9b7da17299232692c2c4"
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_inventory",
+        "--",
+        "--test-threads=1"
+      ],
+      "status": "passed",
+      "log": "inventory.log",
+      "exit_code": 0,
+      "elapsed_seconds": 48.035,
+      "log_sha256": "0fe2fc2a8a382dd2a8032e0544e9a8fe6e32dceb54c256458c44bfe423c5b324"
+    },
+    {
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "status": "passed",
+      "log": "format.log",
+      "exit_code": 0,
+      "elapsed_seconds": 78.657,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

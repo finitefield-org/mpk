@@ -1,0 +1,10 @@
+=== RUN   TestCheckerAgreementWithRustCLIIntegerCodecClauses
+=== RUN   TestCheckerAgreementWithRustCLIIntegerCodecClauses/integer.i16.hex
+    checker_agreement_test.go:395: Go accepted: certificate=17cf8f29b6c9a50e8288847923b22c4ba4feb728708bb549c80de956e527e435 declarations=393 axioms=0 elapsed=12.444437375s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=1cf948d93f3a8198a266000df5575f0f7b7e111f1f4a81c91e99164bbf84c89a axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=1.963532042s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=9.599255292s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=2.70594725s
+--- PASS: TestCheckerAgreementWithRustCLIIntegerCodecClauses (26.73s)
+    --- PASS: TestCheckerAgreementWithRustCLIIntegerCodecClauses/integer.i16.hex (26.72s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	26.818s

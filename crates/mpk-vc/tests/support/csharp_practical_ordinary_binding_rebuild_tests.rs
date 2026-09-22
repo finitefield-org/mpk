@@ -179,7 +179,7 @@ fn arguments(oracle: &ProjectionOracle<'_>, id: &str) -> Vec<String> {
         .map(|a| a.as_str().unwrap().to_owned())
         .collect()
 }
-fn rebuild(
+pub(super) fn rebuild(
     oracle: &ProjectionOracle<'_>,
     semantic: &MonomorphicValue,
     completion: &MonomorphicValue,

@@ -1,22 +1,22 @@
 {
   "work_item": "CSHARP-03-T06-W09",
-  "status": "passed_scoped_control_relations_with_native_exception_results",
+  "status": "passed_scoped_complete_reachable_source_execution_checks",
   "source_contexts": 18,
   "edges": 852,
   "guards": 852,
   "joins": 813,
   "pending_edges": 0,
-  "runtime_observations": 96920,
+  "runtime_observations": 100063,
   "checker_certificates": 18,
-  "state_rule": "source_exit_to_edge_specific_target; exactly_one_enabled_incoming_snapshot_to_fresh_node_entry; native_normal_guard_and_result_at_exact_invocation; actual_execution_witness_pending",
+  "state_rule": "all_reachable_function_entry_normal_exceptional_alias_update_constructor_call_and_terminal_source_paths_have_exact_execution_relations; native_body_and_application_execution_pending",
   "application_scope_pending": true,
   "remaining": [
-    "The W04 loop/pattern subset has 106 native normal-operation relations and 59 ordered exceptional-result relations. One non-data invocation remains pending. Other data families and straight-line/constructor functions still require integration. Handler entry/search/unwinding and full native body/application proofs remain open.",
+    "The W04 loop/pattern subset has 106 native normal-operation relations and 59 ordered exceptional-result relations. Its retained source constructor invocation is explicitly classified and composed. Other data families and straight-line functions still require integration. Complete native body/application proofs remain open.",
     "Direct original-loop coverage for reference-family adapters and combined option/sequence foundation emission.",
-    "Nullable source slots retain Option storage; original W04 logical observations remain pending. Receiver rewrites constrain source snapshots in two contexts; alias-aware array update frames remain pending. Supported pure source nodes and non-target slots of source transfers now have complete local assignedness/storage frames.",
-    "Function entry, successful transfer values/definedness, native normal operations and source frames are defined in the same certificate. Compose them into complete source-exit execution, constrain actual incoming selection/execution witnesses, define literal values and exceptional/alias state, and prove native body/application obligations.",
-    "The 59 local failed invocation guards and exact exception values are defined. Caught-exception entry, source-state framing on exceptions, handler/filter/finally, native execution and loop/pattern application proofs remain open.",
-    "The count_fill eleven-predecessor entry now fits via twelve conjunctive components. Its original edge/node/receiver-update relations have scoped runtime coverage; native execution, alias frames, loop invariants and application proofs remain pending."
+    "Nullable source slots retain Option storage; original W04 logical observations remain pending. Receiver rewrites constrain source snapshots in two contexts. Supported pure source nodes, alias updates and non-target slots of source transfers now have complete local assignedness/storage execution frames.",
+    "Function entry, successful transfers, native normal and exceptional results, all 101 native literal results, pure source frames, alias updates, the retained constructor call and terminal paths are defined in the same certificate for the retained 18 contexts. Complete native body/application obligations remain open.",
+    "The 59 local failed invocation guards and exact exception values are defined and their reachable source execution paths are composed. Full native execution and loop/pattern application proofs remain open.",
+    "The count_fill eleven-predecessor entry now fits via twelve conjunctive components. Its original edge/node/receiver-update and reachable source execution relations have scoped coverage; native body, loop invariant and application proofs remain pending."
   ],
   "verification": "verification-logs/control-edges/verification.json",
   "review": "unit-5-control-edges-review.md",
@@ -66,7 +66,8 @@
   "native_operations": 106,
   "native_normal_relations": 106,
   "pending_native_operations": 0,
-  "pending_non_data_invocations": 1,
+  "pending_non_data_invocations": 0,
+  "source_constructor_invocations": 1,
   "native_operation_observations": 697,
   "native_operation_verification": "verification-logs/control-edges/native-operations/verification.json",
   "native_option_observations": 81,
@@ -77,5 +78,37 @@
   "slot_relation_verification": "verification-logs/control-edges/integrated-slots/verification.json",
   "native_exception_relations": 59,
   "native_exception_observations": 6136,
-  "native_exception_verification": "verification-logs/control-edges/native-exceptions/verification.json"
+  "native_exception_verification": "verification-logs/control-edges/native-exceptions/verification.json",
+  "native_literal_relations": 101,
+  "native_literal_observations": 3143,
+  "native_literal_verification": "verification-logs/control-edges/native-literals/verification.json",
+  "source_step_candidate": {
+    "status": "passed_promoted_and_preserved",
+    "source_nodes": 703,
+    "normal_predicates": 579,
+    "pending_nodes": 124,
+    "verification": "verification-logs/control-edges/source-steps/verification.json"
+  },
+  "source_execution_checkpoint": {
+    "status": "passed_scoped_checks",
+    "normal_edge_executions": 625,
+    "pending_nodes": 124,
+    "max_arguments": 366,
+    "max_components": 84,
+    "verification": "verification-logs/control-edges/source-executions/verification.json",
+    "scope": "Every complete local normal step is connected from its selected node entry through each exact non-exception outgoing edge to the selected target entry. Function entry, exceptional/alias execution, unreachable nodes, one non-data call and application proof assembly remain open."
+  },
+  "complete_source_execution_checkpoint": {
+    "status": "passed_scoped_checks",
+    "source_executions": 761,
+    "source_nodes": 703,
+    "complete_local_steps": 582,
+    "locally_special_steps": 121,
+    "pending_reachable_execution_nodes": 0,
+    "excluded_unreachable_source_nodes": 10,
+    "max_arguments": 366,
+    "max_components": 126,
+    "verification": "verification-logs/control-edges/complete-source-executions/verification.json",
+    "scope": "All reachable function-entry, normal, exceptional, alias-update, constructor-call and terminal source paths in the 18-source corpus have execution relations. Ten structurally unreachable nodes are explicit exclusions. Complete native-body integration and application proof assembly remain open."
+  }
 }

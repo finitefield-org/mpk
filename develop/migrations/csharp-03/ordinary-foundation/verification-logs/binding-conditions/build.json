@@ -1,0 +1,46 @@
+{
+  "command": [
+    "cargo",
+    "test",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "csharp_practical_vc",
+    "--no-run"
+  ],
+  "profile": {
+    "CARGO_TARGET_DIR": "/tmp/mpk-w09-optimized-target",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "2",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0"
+  },
+  "source_sha256": {
+    "crates/mpk-vc/src/csharp_practical_ordinary_binding_conditions.rs": "7ed7460586dc7eb619aaf09de5291fabb7f9a82e37b9db9f7fc0987fe27fb5de",
+    "crates/mpk-vc/src/csharp_practical_ordinary_binding_reconstruction.rs": "8c644a6f636726eca6af70f381c0bf01ab4b95ca93426a575c799925d052b881",
+    "crates/mpk-vc/src/csharp_practical_ordinary_binding_relations.rs": "988f75f2eab15042fb4a7f637e8e16e0f1cac7ba4c71b11e425faa9870341074",
+    "crates/mpk-vc/src/csharp_practical_ordinary_binding_orders.rs": "e0dd0516b57b65e37afd167b23e682f902e4e5f45d56e15b0474b71e220dc3b2",
+    "crates/mpk-vc/src/csharp_practical_ordinary_relations.rs": "84f3537325723305880f870c0ba48eb58431d6c71155c01e752a1fadd1644fc7",
+    "crates/mpk-vc/src/csharp_practical_ordinary_structural.rs": "0ad3ef938752f91ebea30cee97c4b4fa613777e8a1313ab09679c36f190ec892",
+    "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs": "8f1cadd5609d516b38c27c35a7db81af4001284326ca6c1c7386a55955bd8168",
+    "crates/mpk-vc/src/csharp_practical_vir_model.rs": "7a1c02898729d8d497a4bdae11d4b259d042b6c250b9c186c582347c0c1cb5dd",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_binding_condition_tests.rs": "96701f9cca2cead3090c22c6904848dc5c44cfa729aa3c901c671d4576c97234",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_binding_reconstruction_tests.rs": "4585d109f7d1d9fe936495a42bfade97f2f497df8ecf8652e6fed440a87544b5",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_binding_relation_tests.rs": "e8a53c9ab2e84360cdbaf51c40597ed7024f998b256ce9b5341ec1a4c23cf403"
+  },
+  "selection_reason": "Compile the new representation-condition API and targeted tests, including preservation of existing reconstruction and order output. No semantic evaluator bound is imposed.",
+  "resumed_after": "../interrupted-20260922T1016Z/interruption.json",
+  "status": "passed",
+  "log": "build-clean.log",
+  "cache_recovery": "Disable incremental code generation after interrupted LLVM cache caused undefined local symbols at link; retain optimization and both assertion settings.",
+  "supervisor_pid": 32697,
+  "pid": 32698,
+  "exit_code": 0,
+  "binary": "/tmp/mpk-w09-binding-conditions-468373a9fdec2105",
+  "binary_sha256": "468373a9fdec2105c213886be30fce65939cc1ae8f374ec69ba749d5ef49ca60",
+  "sources_unchanged_during_build": true,
+  "log_sha256": "99e83084cb9749a2d7a367d16a5389091d87c65d1a0ae059dca8e385e34d4d32",
+  "cargo_reported_elapsed": "3m 41s",
+  "receipt_recovery": "Cargo completed successfully and printed the new executable path. The supervisor then failed while copying its old hard-coded incremental-mode path. This receipt resolves the actual Cargo-reported path, verifies unchanged source hashes, and preserves the executable under its content hash; no build or test failure is reclassified."
+}

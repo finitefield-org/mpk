@@ -1,9 +1,26 @@
 # CSHARP-03-T06-W09 implementation work plan (not a completion receipt)
 
-Baseline: `1e1f6a4` (T06-W08). The canonical work-item ledger records W09 In progress;
-W09 is not complete and W10 must not become ready.
+Baseline: `1e1f6a4` (T06-W08). The canonical work-item ledger records W09
+In progress; W10 must not become ready until all W09 obligations are complete.
 
 ## Current state
+
+The W09 definition fixture `remapped-boundary-sequence` is noninjective over
+complete source observations: changing stored `Root.Extra` leaves the semantic
+projection unchanged. The frozen unary reconstruction VC therefore cannot
+preserve that member for both public source values. See
+`binding-reconstruction-stop-condition.json`. The earlier stop classification
+was mistaken: this fixture is absent from T01 and the published specifications.
+Its candidate must fail final proof acceptance. The freeze and valid component
+checkpoints remain intact; unary candidates and universal proofs remain required.
+
+The unary reconstruction checkpoint now connects explicit typed constant
+completions to the original W06 public-domain, both round-trip, stored-member
+and identity conditions in one ordinary program. All original proof obligations
+remain pending. Constant completions are one candidate strategy; they do not
+restrict permitted witnesses or establish source invariants. See
+`unit-4-binding-reconstruction-review.md` for the implementation and verification
+scope, including the noninjective candidate's negative conditions.
 
 The predecessor assembly path builds and checks ordinary Certificate v0 values,
 using the registered Bool/Eq/logic foundations. The practical assembly plan
@@ -99,6 +116,32 @@ the whole-W commit timing for this task only.
 These checks do not implement the missing ordinary definitions or proofs and
 must not be presented as completion of W09.
 
+The unit-6 transition checkpoints now include exact transition product
+operations, complete `SourceEqual` snapshot relations, the paired
+`CanonicalFieldEncodingsEqual` command/context relation, and exact history
+capacity, retained lookup/presence, and retained-key uniqueness relations. The
+adapter now also defines exact complete-snapshot append and retained-history
+prefix preservation. The latest snapshot corpus covers 11 W08 contexts, 14
+snapshot nodes and 200 observations; all three distinct certificates pass both
+unchanged checkers. Source helper and canonical serializer correctness,
+admission, replay and application proof assembly remain open, so this remains a
+partial W09 result.
+
+The later unit-5 complete reachable source-execution checkpoint composes 761
+paths across all function-entry, normal, exceptional, alias-update,
+constructor-call and terminal source steps. All reachable execution obligations
+are resolved; ten structurally unreachable nodes are explicit exclusions. Two
+independent 36-file metadata generations and the promoted fixture are
+identical, and all 15 distinct certificates pass same-byte Go/Rust checking
+with zero axioms and hash-corruption rejection. The constructor invocation is
+explicitly resolved, the pending native-invocation set is empty and all
+certificate bytes remain unchanged. Complete native-body integration
+and application proof assembly remain open; this checkpoint does not complete
+unit 5 or W09. See
+`verification-logs/control-edges/complete-source-executions/verification.json`.
+The earlier 625-path normal-only checkpoint remains preserved as historical
+evidence.
+
 ## Approved execution status
 
 Units 1 and 2 are complete as internal implementation units. See `README.md`,
@@ -110,10 +153,11 @@ ordinal reducers and the frozen concrete S->S transformer construction, added
 all-Boolean truth cases and all-integer certificate generation, and passed
 full-capacity core evaluation and same-byte dual checking.
 
-Units 3-8 remain outstanding. W09 remains In progress and W10-W12 remain
-Blocked. No W09 completion receipt is issued by these internal units. The next
-work is structural/collection domains, defaults, equality/order, constructors,
-accessors and every operation of each reachable concrete foundation instance.
+Units 1-3 are complete internal units. Units 4-8 remain outstanding. W09 remains
+In progress and W10-W12 remain Blocked. The unit-3 completion audit and final
+current-observer reconciliation are in `unit-3-completion-audit.json` and
+`verification-logs/unit-3-current-runtime/verification.json`. No W09 completion
+receipt is issued by these internal units.
 
 ### Unit 3 storage checkpoint
 
@@ -121,7 +165,20 @@ The product/sum storage constructors and projections passed direct review and
 targeted source, carrier, inventory and same-byte dual-checker verification.
 See `unit-3-storage-verification.json` and `unit-3-storage-review.md`. This is
 one component of unit 3; the complete remaining scope is retained in
-`unit-3-progress.md`. Units 3-8 and W09 acceptance remain open.
+`unit-3-progress.md`. This paragraph records the earlier storage checkpoint;
+the final unit-3 completion is recorded below. Units 4-8 and W09 acceptance
+remain open.
+
+### Unit 3 completion checkpoint
+
+All structural/collection components described below are now implemented and
+reviewed. The final five current-observer collection/sequence tests passed 669
+collection observations and 457 indexed sequence reads, including full-capacity,
+maximum-update, equal-length order and NaN cases. All changed unit-3 and affected
+direct-consumer pins have same-byte dual-checker, zero-axiom and corruption
+evidence. See `unit-3-completion-audit.json`, `unit-3-completion-review.md` and
+`verification-logs/unit-3-current-runtime/verification.json`. Units 4-8 and
+W09 acceptance remain open.
 
 ### Unit 3 scalar-domain checkpoint
 

@@ -17,6 +17,12 @@ mod outcome_tests;
 #[path = "csharp_practical_ordinary_entry_tests.rs"]
 mod entry_tests;
 
+#[path = "csharp_practical_ordinary_transition_ops_tests.rs"]
+mod transition_ops_tests;
+
+#[path = "csharp_practical_ordinary_transition_snapshot_tests.rs"]
+mod transition_snapshot_tests;
+
 #[path = "csharp_practical_ordinary_money_tests.rs"]
 mod money_tests;
 

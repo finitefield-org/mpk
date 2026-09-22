@@ -40,7 +40,10 @@ pre-observation-agreement; they are superseded, not current acceptance evidence.
 Direct review covers the semantic distinction, demanded symbol/type coverage,
 identity and internal-state classification, exact original-source and W06 links,
 shared projection/observation dependency closure, metadata/byte mutations and
-unchanged source equality/checker rules. Current remaining verification is
-recorded in unit-4-binding-observation-progress.json. This is not full unit 4 or
-W09 completion. Reconstruction witnesses, native/control semantics, canonical
-codecs, transitions and complete proof/certificate assembly remain required.
+unchanged source equality/checker rules. All 45 corrected certificate byte sets
+subsequently passed the unchanged Go and Rust checkers with zero axioms and
+hash-corruption rejection in 1,535.579 seconds; the failed earlier process run
+is retained separately and is not acceptance evidence. This is not full unit 4
+or W09 completion. Reconstruction witnesses, native/control semantics,
+canonical codecs, transitions and complete proof/certificate assembly remain
+required.

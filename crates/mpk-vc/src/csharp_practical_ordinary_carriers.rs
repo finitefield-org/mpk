@@ -1244,13 +1244,40 @@ pub use structural::{
     OrdinaryStructuralOperations, OrdinaryStructuralProgram,
 };
 pub use structural::{
+    generate_csharp_practical_ordinary_binding_defaults,
+    import_csharp_practical_ordinary_binding_defaults, OrdinaryBindingActualDefault,
+    OrdinaryBindingDefaultPending, OrdinaryBindingDefaultPendingReason,
+    OrdinaryBindingDefaultProgram,
+};
+pub use structural::{
+    generate_csharp_practical_ordinary_concrete_operations,
+    generate_csharp_practical_ordinary_concrete_types,
+    generate_csharp_practical_ordinary_source_invariants,
+    import_csharp_practical_ordinary_concrete_operations,
+    import_csharp_practical_ordinary_concrete_types,
+    import_csharp_practical_ordinary_source_invariants, OrdinaryConcreteFailureComponent,
+    OrdinaryConcreteOperationComponent, OrdinaryConcreteOperationDefinition,
+    OrdinaryConcreteOperationFailure, OrdinaryConcreteOperationPending,
+    OrdinaryConcreteOperationPendingReason, OrdinaryConcreteOperationProgram,
+    OrdinaryConcreteTypeDefinition, OrdinaryConcreteTypeProgram, OrdinarySourceInvariantDefinition,
+    OrdinarySourceInvariantEnumCase, OrdinarySourceInvariantProgram,
+};
+pub use structural::{
     generate_csharp_practical_ordinary_constructions,
     import_csharp_practical_ordinary_constructions, OrdinaryConstructionDefinition,
     OrdinaryConstructionFailure, OrdinaryConstructionOperation, OrdinaryConstructionProgram,
 };
 pub use structural::{
-    generate_csharp_practical_ordinary_entries, import_csharp_practical_ordinary_entries,
-    OrdinaryEntryDefinition, OrdinaryEntryProgram,
+    generate_csharp_practical_ordinary_entries,
+    generate_csharp_practical_ordinary_transition_operations,
+    generate_csharp_practical_ordinary_transition_snapshots,
+    import_csharp_practical_ordinary_entries,
+    import_csharp_practical_ordinary_transition_operations,
+    import_csharp_practical_ordinary_transition_snapshots, OrdinaryEntryDefinition,
+    OrdinaryEntryProgram, OrdinaryTransitionDefinition, OrdinaryTransitionHistoryCapacity,
+    OrdinaryTransitionProgram, OrdinaryTransitionRetainedHistory,
+    OrdinaryTransitionSnapshotDefinition, OrdinaryTransitionSnapshotEncodingEquality,
+    OrdinaryTransitionSnapshotProgram,
 };
 pub use structural::{
     generate_csharp_practical_ordinary_finite_operations,
@@ -1329,15 +1356,22 @@ pub use structural::{
 };
 
 pub use structural::{
+    generate_csharp_practical_ordinary_binding_conditions,
     generate_csharp_practical_ordinary_binding_guards,
     generate_csharp_practical_ordinary_binding_orders,
+    generate_csharp_practical_ordinary_binding_reconstruction,
     generate_csharp_practical_ordinary_binding_relations,
     generate_csharp_practical_ordinary_boundary_rules,
+    import_csharp_practical_ordinary_binding_conditions,
     import_csharp_practical_ordinary_binding_guards,
     import_csharp_practical_ordinary_binding_orders,
+    import_csharp_practical_ordinary_binding_reconstruction,
     import_csharp_practical_ordinary_binding_relations,
     import_csharp_practical_ordinary_boundary_rules, OrdinaryBindingAgreement,
-    OrdinaryBindingPredicate, OrdinaryBindingRelationProgram, OrdinaryBoundaryRuleProgram,
+    OrdinaryBindingCondition, OrdinaryBindingConditionProgram, OrdinaryBindingPredicate,
+    OrdinaryBindingReconstructionCandidate, OrdinaryBindingReconstructionObligation,
+    OrdinaryBindingReconstructionProgram, OrdinaryBindingRelationProgram,
+    OrdinaryBoundaryRuleProgram,
 };
 
 pub use scalar_bits::{
@@ -1577,5 +1611,7 @@ pub use structural::{
     OrdinaryControlEdgeFunction, OrdinaryControlEdgeJoin, OrdinaryControlEdgeProgram,
     OrdinaryControlEntryComponent, OrdinaryControlEntryIncoming, OrdinaryControlMemoryBinding,
     OrdinaryControlMemoryEffect, OrdinaryControlNativeDefinition, OrdinaryControlNativeException,
-    OrdinaryControlNativeOperation, OrdinaryControlNodeEntry, OrdinaryControlSourceFrame,
+    OrdinaryControlNativeLiteral, OrdinaryControlNativeOperation, OrdinaryControlNodeEntry,
+    OrdinaryControlSourceExecution, OrdinaryControlSourceFrame, OrdinaryControlSourceStep,
+    OrdinaryControlStepComponent,
 };

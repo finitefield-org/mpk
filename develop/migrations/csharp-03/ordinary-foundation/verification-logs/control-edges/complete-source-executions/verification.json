@@ -1,0 +1,51 @@
+{
+  "status": "passed_scoped_complete_reachable_source_execution_checks",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 5,
+  "recorded_at": "2026-09-21T12:01:48.069440Z",
+  "scope": "All reachable function-entry, normal, exceptional, alias-update, constructor-call and terminal source paths in the current 18-source corpus. Ten structurally unreachable nodes are explicit exclusions. Complete native-body integration and application proof assembly remain open.",
+  "coverage": {
+    "contexts": 18,
+    "source_nodes": 703,
+    "complete_local_steps": 582,
+    "locally_special_steps": 121,
+    "local_step_reasons": {
+      "function_entry_relation_separate": 18,
+      "exception_execution_separate": 93,
+      "unreachable_source_node": 10
+    },
+    "source_executions": 761,
+    "pending_reachable_execution_nodes": 0,
+    "excluded_unreachable_source_nodes": 10,
+    "max_execution_arguments": 366,
+    "max_execution_components": 126,
+    "max_candidate_metadata_bytes": 13595052,
+    "pending_native_invocations": 0,
+    "resolved_source_constructor_invocations": 1
+  },
+  "checks": {
+    "source_step_metadata_replay": "passed; all 582 complete local steps and 121 classified special steps across 36 promoted files; constructor-classification rerun 64.78 seconds",
+    "execution_metadata": "passed; all 761 exact execution paths, independent source-graph reachability reconstruction, pending/exclusion sets and collection mutations; reachability rerun 106.41 seconds and constructor-classification rerun 96.55 seconds",
+    "preservation": "passed; 18 programs preserved modulo the two resolved alias frames, zero new phi joins and eight retained memory bindings",
+    "candidate_equivalence": "two independently generated 36-file metadata candidates and the promoted fixture are byte-identical after explicit constructor classification; all certificate .hex bytes remained unchanged",
+    "inventory": "passed; all five tests with the unchanged 141-path foundation namespace inventory",
+    "clippy": "passed: cargo clippy -p mpk-vc --lib --test csharp_practical_vc -- -D warnings",
+    "format": "passed: cargo fmt --all -- --check",
+    "release_checker": "passed: cargo build --release -p mpk-cli"
+  },
+  "dual_checkers": {
+    "receipt": "checker-verification.json",
+    "distinct_certificates": 15,
+    "stages": 60,
+    "same_byte_verdicts": "Go and Rust accepted every certificate with matching module/declaration/axiom/report hashes",
+    "axiom_count": 0,
+    "hash_corruptions": "all rejected by both checkers"
+  },
+  "evidence_audit": "evidence-audit.json",
+  "historical_normal_execution_checkpoint": "../source-executions/verification.json",
+  "review": "review.md",
+  "unit_5_complete": false,
+  "w09_complete": false,
+  "whole_gate": "deferred to T06-W12",
+  "commit": "No partial-unit commit"
+}

@@ -1,0 +1,40 @@
+{
+  "status": "failed",
+  "supervisor_pid": 13671,
+  "profile": {
+    "CARGO_TARGET_DIR": "/tmp/mpk-w09-optimized-target",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "2",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0"
+  },
+  "runs": [
+    {
+      "label": "direct-members",
+      "command": [
+        "/tmp/mpk-w09-source-direct-members-integration-2776c0637f4ff273",
+        "csharp_03_t06_w09_source_invariants_direct_member_selectors",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "status": "failed",
+      "log": "direct-members.log",
+      "pid": 13675,
+      "exit_code": 101,
+      "elapsed_seconds": 1.202,
+      "log_sha256": "73872dcfc7e4e2e55291187f602d4bc3d170531dfa2094dc60e671b9f4b90ac6"
+    }
+  ],
+  "full_gate": "deferred_to_T06_W12",
+  "selection_reason": "Check every member against its independent eta-expanded storage getter, and verify complete constant subcubes remain shared. Rerun all original equations, all nested clauses and partial-definedness rejection without limits.",
+  "build": "build.json",
+  "binaries": {
+    "integration": {
+      "path": "/tmp/mpk-w09-source-direct-members-integration-2776c0637f4ff273",
+      "sha256": "2776c0637f4ff273cca8054136cb1ff8d882a6442a6ebfad7fd541da727946a6"
+    }
+  },
+  "semantic_limits": "none",
+  "failure": "direct-members failed"
+}

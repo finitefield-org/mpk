@@ -1,0 +1,33 @@
+from pathlib import Path
+import concurrent.futures,hashlib,json,os,re,subprocess,sys,threading,time
+repo=Path('/Users/kazuyoshitoshiya/mpk');root=repo/'develop/migrations/csharp-03/ordinary-foundation';e=root/'verification-logs/unit-4-count-pin-refresh';label=sys.argv[1];p=e/(label+'-checkers.json');d=json.loads(p.read_text());assert d['status']=='interrupted_not_passed'
+source=(repo/'go-tools/mpk-checker-ref/checker_agreement_test.go').read_text();tests={directory:(name,int(count)) for name,directory,count in re.findall(r'func (TestCheckerAgreementWithRustCLI\w+)\(t \*testing.T\) \{\s*checkOrdinaryCertificates\(t, "([^"]+)", (\d+)\)',source)}
+passed=set()
+for r in d['runs']:
+ if r['status']=='passed':
+  log=e/r['log'];assert hashlib.sha256(log.read_bytes()).hexdigest()==r['log_sha256'];assert all('--- PASS: '+r['test']+'/'+name+' ' in log.read_text() for name in r['selected_files']);passed.update(r['corpus']+'/'+name for name in r['selected_files'])
+d['interrupted_runs']=[r for r in d['runs'] if r['status']!='passed'];d['runs']=[r for r in d['runs'] if r['status']=='passed'];d.update(status='running',supervisor_pid=os.getpid(),resume_policy='Retain only complete terminal groups. Every unfinished distinct byte set gets its own unchanged Go/Rust harness process and durable terminal log; two independent byte sets run concurrently. No assertions or hash mutations are omitted.',resumed_after='../interrupted-20260922T1016Z/interruption.json');lock=threading.Lock()
+def save():
+ q=p.with_suffix('.pending');q.write_text(json.dumps(d,indent=2)+'\n');os.replace(q,p)
+def check_bytes(row):
+ for name in row['occurrences']:
+  raw=bytes.fromhex((root/name).read_text());assert hashlib.sha256(raw).hexdigest()==row['raw_bytes_sha256'];assert hashlib.sha256(b'MPK-MODULE-CERT-0.1\0'+raw).hexdigest()==row['certificate_sha256']
+for row in d['byte_sets']:check_bytes(row)
+remaining=[row for row in d['byte_sets'] if row['representative'] not in passed];d['retained_passed_distinct_byte_sequences']=len(passed);d['remaining_distinct_byte_sequences']=len(remaining);save()
+env=os.environ.copy();env['GOCACHE']='/tmp/mpk-w09-unit4-go-cache'
+def one(row):
+ check_bytes(row);name=row['representative'];family,file=name.split('/');test,count=tests[family];assert len(list((root/family).glob('*.hex')))==count;command=['go','test','-tags=checkeragreement','-count=1','-timeout=0','-run','^'+test+'$/^'+re.escape(file)+'$','-v','.'];log=e/(label+'-resumed-'+family+'-'+file+'.log');r=dict(corpus=family,test=test,command=command,selected_files=[file],status='running',log=log.name)
+ with lock:d['runs'].append(r);save()
+ start=time.monotonic()
+ with log.open('wb') as out:
+  child=subprocess.Popen(command,cwd=repo/'go-tools/mpk-checker-ref',env=env,stdin=subprocess.DEVNULL,stdout=out,stderr=subprocess.STDOUT)
+  with lock:r['pid']=child.pid;save()
+  code=child.wait()
+ complete=code==0 and '--- PASS: '+test+'/'+file+' ' in log.read_text();check_bytes(row)
+ with lock:
+  r.update(status='passed' if complete else 'failed',exit_code=code,elapsed_seconds=round(time.monotonic()-start,3),log_sha256=hashlib.sha256(log.read_bytes()).hexdigest());save()
+ print(json.dumps(r),flush=True);return complete
+ok=True
+with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
+ for result in pool.map(one,remaining):ok &= result
+covered={r['corpus']+'/'+file for r in d['runs'] if r['status']=='passed' for file in r['selected_files']};assert covered<={row['representative'] for row in d['byte_sets']};d['status']='passed' if ok and len(covered)==d['distinct_byte_sequences'] else 'failed';d['passed_distinct_byte_sequences']=len(covered);save();sys.exit(0 if d['status']=='passed' else 1)

@@ -1,0 +1,118 @@
+//! Temporary source-bound fixture migration tool, not semantic test evidence.
+use mpk_vc::csharp_practical_vir_model::*;
+use mpk_vc::csharp_practical_vc_model::validate_csharp_practical_certificate_structure;
+use serde_json::{json, Value};
+use std::{collections::{BTreeMap, BTreeSet}, fs, path::Path};
+#[allow(dead_code)]
+#[path = "/Users/kazuyoshitoshiya/mpk/crates/mpk-cli/tests/support/csharp_practical_data_context.rs"]
+mod support;
+
+fn read(path: impl AsRef<Path>) -> Value {
+    serde_json::from_slice(&fs::read(path).unwrap()).unwrap()
+}
+
+fn generate(schema: &str, emitted: &EmittedDataPhase) -> (Vec<u8>, Vec<u8>) {
+    let vir = emitted.vir();
+    macro_rules! program {
+        ($generate:ident, $import:ident, $context:expr) => {{
+            let p = $generate($context).unwrap();
+            let m = p.canonical_bytes();
+            let c = p.certificate_bytes().to_vec();
+            let restored = $import(&m, &c, $context).unwrap();
+            assert_eq!(restored.canonical_bytes(), m);
+            assert_eq!(restored.certificate_bytes(), c);
+            (m, c)
+        }};
+    }
+    match schema {
+        "mpk.csharp.ordinary_json_products.v1" => program!(generate_csharp_practical_ordinary_json_products, import_csharp_practical_ordinary_json_products, vir),
+        "mpk.csharp.ordinary_source_clauses.v1" => program!(generate_csharp_practical_ordinary_source_clauses, import_csharp_practical_ordinary_source_clauses, vir),
+        "mpk.csharp.ordinary_json_values.v1" => program!(generate_csharp_practical_ordinary_json_values, import_csharp_practical_ordinary_json_values, vir),
+        "mpk.csharp.ordinary_integer_parsers.v1" => program!(generate_csharp_practical_ordinary_integer_parsers, import_csharp_practical_ordinary_integer_parsers, vir),
+        "mpk.csharp.ordinary_decimal_parsers.v1" => program!(generate_csharp_practical_ordinary_decimal_parsers, import_csharp_practical_ordinary_decimal_parsers, vir),
+        "mpk.csharp.ordinary_structural_public.v1" => program!(generate_csharp_practical_ordinary_structural_public, import_csharp_practical_ordinary_structural_public, vir),
+        "mpk.csharp.ordinary_structural_boundary.v1" => program!(generate_csharp_practical_ordinary_structural_boundary, import_csharp_practical_ordinary_structural_boundary, vir),
+        "mpk.csharp.ordinary_json_depth_guarded_envelopes.v1" => program!(generate_csharp_practical_ordinary_json_depth_guarded_envelopes, import_csharp_practical_ordinary_json_depth_guarded_envelopes, emitted),
+        "mpk.csharp.ordinary_contract_expressions.v1" => program!(generate_csharp_practical_ordinary_contract_expressions, import_csharp_practical_ordinary_contract_expressions, vir),
+        "mpk.csharp.ordinary_json_limits_guarded_envelopes.v1" => program!(generate_csharp_practical_ordinary_json_limits_guarded_envelopes, import_csharp_practical_ordinary_json_limits_guarded_envelopes, emitted),
+        "mpk.csharp.ordinary_json_boundary_fields.v1" => program!(generate_csharp_practical_ordinary_json_boundary_fields, import_csharp_practical_ordinary_json_boundary_fields, emitted),
+        "mpk.csharp.ordinary_json_typed_nodes.v1" => program!(generate_csharp_practical_ordinary_json_typed_nodes, import_csharp_practical_ordinary_json_typed_nodes, emitted),
+        "mpk.csharp.ordinary_json_tokens.v1" => program!(generate_csharp_practical_ordinary_json_tokens, import_csharp_practical_ordinary_json_tokens, vir),
+        "mpk.csharp.ordinary_json_envelopes.v1" => program!(generate_csharp_practical_ordinary_json_envelopes, import_csharp_practical_ordinary_json_envelopes, emitted),
+        "mpk.csharp.ordinary_json_typed_guarded_envelopes.v1" => program!(generate_csharp_practical_ordinary_json_typed_guarded_envelopes, import_csharp_practical_ordinary_json_typed_guarded_envelopes, emitted),
+        _ => panic!("unknown producer {schema}"),
+    }
+}
+
+fn main() {
+    let root = Path::new("/Users/kazuyoshitoshiya/mpk/develop/migrations/csharp-03");
+    let output = Path::new("/tmp/mpk-w09-current-count-consumers");
+    fs::create_dir_all(output).unwrap();
+    let plan = read("/tmp/mpk-w09-count-consumer-plan.json");
+    let pairs = read(std::env::var("MPK_COUNT_PAIRS").unwrap_or_else(|_| "/tmp/mpk-w09-count-source-pairs.json".into()));
+    let bundle = validate_registered_foundation_bundle(registered_foundation_descriptor_transport(), registered_foundation_definitions_transport()).unwrap();
+    let mut targets = BTreeMap::<String, Vec<Value>>::new();
+    for target in plan["targets"].as_array().unwrap() {
+        targets.entry(target["source_ir_sha256"].as_str().unwrap().into()).or_default().push(target.clone());
+    }
+    let mut contexts = BTreeMap::<String, Value>::new();
+    let mut diagnostics = vec![];
+    let mut rows = vec![];
+    if std::env::var_os("MPK_COUNT_RESUME").is_some() {
+        let previous = read(output.join("generation.json"));
+        contexts = serde_json::from_value(previous["contexts"].clone()).unwrap();
+        rows = previous["programs"].as_array().unwrap().clone();
+        diagnostics = previous["diagnostics"].as_array().unwrap().clone();
+        for hash in contexts.keys() {
+            let completed = targets.remove(hash).unwrap();
+            for target in completed {
+                assert!(rows.iter().any(|r| r["file"] == target["file"] && r["source_ir_sha256"] == *hash));
+                assert!(output.join(target["file"].as_str().unwrap()).exists());
+            }
+        }
+    }
+    let mut cache = BTreeMap::new();
+    for pair in pairs.as_array().unwrap() {
+        let req_path = pair["requests"].as_str().unwrap();
+        let resp_path = pair["responses"].as_str().unwrap();
+        for path in [req_path, resp_path] {
+            cache.entry(path.to_owned()).or_insert_with(|| read(root.join(path)));
+        }
+        let request = cache[req_path].as_array().unwrap().iter().find(|r| r["id"] == pair["id"]).unwrap();
+        let response = cache[resp_path].as_array().unwrap().iter().find(|r| r["id"] == pair["id"]).unwrap();
+        let (context, captures) = support::replay_context(&bundle, request);
+        let facts = response.pointer(pair["facts_pointer"].as_str().unwrap_or("/facts")).unwrap();
+        let source = match ValidatedDataSource::import_captured_facts(&bundle, &context, &captures, &serde_json::to_vec(facts).unwrap()) {
+            Ok(s) => s,
+            Err(e) => { diagnostics.push(json!({"source":pair,"stage":"facts_import","error":format!("{e:?}")})); continue; }
+        };
+        let emitted = match emit_data_phase(&bundle, &context, &captures, &source) {
+            Ok(e) => e,
+            Err(e) => { diagnostics.push(json!({"source":pair,"stage":"data_emission","error":format!("{e:?}")})); continue; }
+        };
+        let hash = emitted.vir().hash().to_string();
+        let Some(wanted) = targets.remove(&hash) else { continue; };
+        contexts.insert(hash.clone(), pair.clone());
+        let mut schemas = BTreeSet::new();
+        for target in &wanted {
+            let schema = target["schema"].as_str().unwrap();
+            assert!(schemas.insert(schema));
+            let (metadata, bytes) = generate(schema, &emitted);
+            let cert = mpk_cert::decode_canonical_certificate(&bytes).unwrap();
+            validate_csharp_practical_certificate_structure(&cert).unwrap();
+            let p: Value = serde_json::from_slice(&metadata).unwrap();
+            assert_eq!(p["schema"], schema);
+            let path = output.join(target["file"].as_str().unwrap());
+            fs::create_dir_all(path.parent().unwrap()).unwrap();
+            let hex = bytes.iter().map(|b| format!("{b:02x}")).collect::<String>() + "\n";
+            fs::write(&path, hex).unwrap();
+            fs::write(path.with_extension("program.json"), &metadata).unwrap();
+            rows.push(json!({"file":target["file"],"schema":schema,"source_ir_sha256":hash,"source":pair,"terms":cert.term_table.len(),"declarations":cert.declarations.len(),"certificate_sha256":mpk_cert::hash_hex(&mpk_cert::certificate_hash(&bytes))}));
+            println!("generated {}", target["file"]);
+        }
+        fs::write(output.join("generation.json"), serde_json::to_vec_pretty(&json!({"status":"running","contexts":contexts,"programs":rows,"unresolved_contexts":targets.keys().collect::<Vec<_>>(),"diagnostics":diagnostics})).unwrap()).unwrap();
+        if targets.is_empty() { break; }
+    }
+    fs::write(output.join("generation.json"), serde_json::to_vec_pretty(&json!({"status":if targets.is_empty(){"passed_generation_and_strict_import"}else{"missing_original_contexts"},"contexts":contexts,"programs":rows,"unresolved_contexts":targets,"diagnostics":diagnostics})).unwrap()).unwrap();
+    assert!(targets.is_empty(), "{} original contexts were not found", targets.len());
+}

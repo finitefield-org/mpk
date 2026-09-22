@@ -1,0 +1,288 @@
+#![allow(dead_code)]
+use std::collections::{BTreeMap, BTreeSet};
+use mpk_cert::encode::{Certificate, DeclarationKind, LevelNode, TermNode};
+mod audit { use super::*;
+enum Pair {
+    Global(String, String),
+    Term(u32, u32),
+    Level(u32, u32),
+}
+
+// Compare syntax, not an evaluator result or a host oracle. IDs and DAG sharing
+// may differ, but names, binders, arguments, levels, declaration kinds and the
+// complete transitive definitions must agree. Worklists avoid deep recursion.
+pub(super) fn same_definition_closure(
+    left: &Certificate,
+    right: &Certificate,
+    roots: &BTreeSet<String>,
+) -> Result<BTreeSet<String>, String> {
+    compare_definitions(left, right, roots, true, true, false)
+}
+
+/// Compare each named definition directly; callers must separately enumerate
+/// and compare every global dependency before drawing a closure conclusion.
+pub(super) fn same_definition_bodies(
+    left: &Certificate,
+    right: &Certificate,
+    roots: &BTreeSet<String>,
+) -> Result<BTreeSet<String>, String> {
+    compare_definitions(left, right, roots, false, true, false)
+}
+
+pub(super) fn same_definition_types(
+    left: &Certificate,
+    right: &Certificate,
+    roots: &BTreeSet<String>,
+) -> Result<BTreeSet<String>, String> {
+    compare_definitions(left, right, roots, false, false, false)
+}
+
+// Shared decimal circuits are interned by their complete typed circuit. The
+// first operation to request one supplies its internal name. Permit only those
+// internal names to differ, then compare their entire declarations recursively.
+// Public operation names, all other globals, bodies, types and levels stay exact.
+pub(super) fn same_decimal_definition_closure(
+    left: &Certificate,
+    right: &Certificate,
+    roots: &BTreeSet<String>,
+) -> Result<BTreeSet<String>, String> {
+    compare_definitions(left, right, roots, true, true, true)
+}
+fn shared_decimal_names(left: &str, right: &str) -> bool {
+    [
+        "Mpk.CSharp.Ordinary.DecimalArithmetic.",
+        "Mpk.CSharp.Ordinary.DecimalSteps.",
+    ]
+    .iter()
+    .any(|prefix| left.starts_with(prefix) && right.starts_with(prefix))
+}
+
+fn compare_definitions(
+    left: &Certificate,
+    right: &Certificate,
+    roots: &BTreeSet<String>,
+    follow_globals: bool,
+    compare_values: bool,
+    allow_decimal_helper_names: bool,
+) -> Result<BTreeSet<String>, String> {
+    if left.imports != right.imports {
+        return Err("different imports".into());
+    }
+    let globals = |c: &Certificate| {
+        c.declarations
+            .iter()
+            .enumerate()
+            .map(|(i, d)| (c.name_table[d.name as usize].clone(), i))
+            .collect::<BTreeMap<_, _>>()
+    };
+    let (left_globals, right_globals) = (globals(left), globals(right));
+    let name =
+        |c: &Certificate, id: u32| c.name_table[c.declarations[id as usize].name as usize].clone();
+    let mut pending = roots
+        .iter()
+        .map(|s| Pair::Global(s.clone(), s.clone()))
+        .collect::<Vec<_>>();
+    let mut seen_globals = BTreeSet::new();
+    let mut seen_terms = BTreeSet::new();
+    let mut seen_levels = BTreeSet::new();
+    while let Some(pair) = pending.pop() {
+        match pair {
+            Pair::Global(global, right_global) => {
+                if !seen_globals.insert((global.clone(), right_global.clone())) {
+                    continue;
+                }
+                let l = left_globals
+                    .get(&global)
+                    .ok_or_else(|| format!("missing component global {global}"))?;
+                let r = right_globals
+                    .get(&right_global)
+                    .ok_or_else(|| format!("missing integrated global {right_global}"))?;
+                let (l, r) = (&left.declarations[*l].kind, &right.declarations[*r].kind);
+                if std::mem::discriminant(l) != std::mem::discriminant(r) {
+                    return Err(format!("declaration kind changed: {global}"));
+                }
+                match (l, r) {
+                    (
+                        DeclarationKind::Def {
+                            ty: lt,
+                            value: lv,
+                            reducibility: lr,
+                        },
+                        DeclarationKind::Def {
+                            ty: rt,
+                            value: rv,
+                            reducibility: rr,
+                        },
+                    ) => {
+                        if lr != rr {
+                            return Err(format!("reducibility changed: {global}"));
+                        }
+                        pending.push(Pair::Term(*lt, *rt));
+                        if compare_values {
+                            pending.push(Pair::Term(*lv, *rv));
+                        }
+                    }
+                    (
+                        DeclarationKind::Theorem { ty: lt, proof: lp },
+                        DeclarationKind::Theorem { ty: rt, proof: rp },
+                    ) => {
+                        pending.push(Pair::Term(*lt, *rt));
+                        if compare_values {
+                            pending.push(Pair::Term(*lp, *rp));
+                        }
+                    }
+                    (
+                        DeclarationKind::Inductive { ty: l },
+                        DeclarationKind::Inductive { ty: r },
+                    ) => pending.push(Pair::Term(*l, *r)),
+                    (
+                        DeclarationKind::Constructor {
+                            ty: lt,
+                            inductive: li,
+                            generated: lg,
+                        }
+                        | DeclarationKind::Recursor {
+                            ty: lt,
+                            inductive: li,
+                            generated: lg,
+                        },
+                        DeclarationKind::Constructor {
+                            ty: rt,
+                            inductive: ri,
+                            generated: rg,
+                        }
+                        | DeclarationKind::Recursor {
+                            ty: rt,
+                            inductive: ri,
+                            generated: rg,
+                        },
+                    ) => {
+                        if lg != rg || name(left, *li) != name(right, *ri) {
+                            return Err(format!("inductive linkage changed: {global}"));
+                        }
+                        pending.extend([
+                            Pair::Term(*lt, *rt),
+                            Pair::Global(name(left, *li), name(right, *ri)),
+                        ]);
+                    }
+                    _ => return Err(format!("unsupported or axiomatic declaration: {global}")),
+                }
+            }
+            Pair::Term(l, r) => {
+                if !seen_terms.insert((l, r)) {
+                    continue;
+                }
+                let (l, r) = (&left.term_table[l as usize], &right.term_table[r as usize]);
+                if std::mem::discriminant(l) != std::mem::discriminant(r) {
+                    return Err(format!("term shape changed: {l:?} / {r:?}"));
+                }
+                match (l, r) {
+                    (TermNode::Sort(l), TermNode::Sort(r)) => pending.push(Pair::Level(*l, *r)),
+                    (TermNode::Var(l), TermNode::Var(r)) if l == r => {}
+                    (
+                        TermNode::Const {
+                            global: lg,
+                            levels: ll,
+                        },
+                        TermNode::Const {
+                            global: rg,
+                            levels: rl,
+                        },
+                    ) if (name(left, *lg) == name(right, *rg)
+                        || (allow_decimal_helper_names
+                            && shared_decimal_names(&name(left, *lg), &name(right, *rg))))
+                        && ll.len() == rl.len() =>
+                    {
+                        if follow_globals {
+                            pending.push(Pair::Global(name(left, *lg), name(right, *rg)));
+                        }
+                        pending.extend(ll.iter().zip(rl).map(|(l, r)| Pair::Level(*l, *r)));
+                    }
+                    (
+                        TermNode::App {
+                            function: lf,
+                            arguments: la,
+                        },
+                        TermNode::App {
+                            function: rf,
+                            arguments: ra,
+                        },
+                    ) if la.len() == ra.len() => {
+                        pending.push(Pair::Term(*lf, *rf));
+                        pending.extend(la.iter().zip(ra).map(|(l, r)| Pair::Term(*l, *r)));
+                    }
+                    (
+                        TermNode::Lam { ty: lt, body: lb } | TermNode::Pi { ty: lt, body: lb },
+                        TermNode::Lam { ty: rt, body: rb } | TermNode::Pi { ty: rt, body: rb },
+                    ) => {
+                        pending.extend([Pair::Term(*lt, *rt), Pair::Term(*lb, *rb)]);
+                    }
+                    (
+                        TermNode::Let {
+                            ty: lt,
+                            value: lv,
+                            body: lb,
+                        },
+                        TermNode::Let {
+                            ty: rt,
+                            value: rv,
+                            body: rb,
+                        },
+                    ) => {
+                        pending.extend([
+                            Pair::Term(*lt, *rt),
+                            Pair::Term(*lv, *rv),
+                            Pair::Term(*lb, *rb),
+                        ]);
+                    }
+                    (TermNode::Const { global: l, .. }, TermNode::Const { global: r, .. }) => {
+                        return Err(format!(
+                            "constant target changed: {} / {}",
+                            name(left, *l),
+                            name(right, *r)
+                        ));
+                    }
+                    _ => return Err(format!("term contents changed: {l:?} / {r:?}")),
+                }
+            }
+            Pair::Level(l, r) => {
+                if !seen_levels.insert((l, r)) {
+                    continue;
+                }
+                match (
+                    &left.level_table[l as usize],
+                    &right.level_table[r as usize],
+                ) {
+                    (LevelNode::Zero, LevelNode::Zero) => {}
+                    (LevelNode::Succ(l), LevelNode::Succ(r)) => pending.push(Pair::Level(*l, *r)),
+                    (LevelNode::Max(la, lb), LevelNode::Max(ra, rb)) => {
+                        pending.extend([Pair::Level(*la, *ra), Pair::Level(*lb, *rb)])
+                    }
+                    (LevelNode::Param(l), LevelNode::Param(r))
+                        if left.name_table[*l as usize] == right.name_table[*r as usize] => {}
+                    _ => return Err("universe level changed".into()),
+                }
+            }
+        }
+    }
+    Ok(seen_globals.into_iter().map(|(left, _)| left).collect())
+}
+
+}
+fn read(path: &str) -> Certificate {
+ let s=std::fs::read_to_string(path).unwrap(); let s=s.trim();
+ let bytes=(0..s.len()).step_by(2).map(|i|u8::from_str_radix(&s[i..i+2],16).unwrap()).collect::<Vec<_>>();
+ mpk_cert::decode_canonical_certificate(&bytes).unwrap()
+}
+fn main() {
+ let args=std::env::args().collect::<Vec<_>>(); let a=read(&args[1]);let b=read(&args[2]);
+ let names=|c:&Certificate|c.declarations.iter().map(|d|c.name_table[d.name as usize].clone()).collect::<BTreeSet<_>>();
+ let left=names(&a);let right=names(&b);let common=left.intersection(&right).cloned().collect::<BTreeSet<_>>();
+ let mut changed_types=vec![]; let mut changed_bodies=vec![];
+ for name in &common {
+  let roots=BTreeSet::from([name.clone()]);
+  if audit::same_definition_types(&a,&b,&roots).is_err(){changed_types.push(name.clone());}
+  if audit::same_definition_bodies(&a,&b,&roots).is_err(){changed_bodies.push(name.clone());}
+ }
+ println!("{}",serde_json::to_string_pretty(&serde_json::json!({"old":args[1],"new":args[2],"old_declarations":left.len(),"new_declarations":right.len(),"changed_types":changed_types,"changed_bodies":changed_bodies,"removed":left.difference(&right).collect::<Vec<_>>(),"added":right.difference(&left).collect::<Vec<_>>()})).unwrap());
+}

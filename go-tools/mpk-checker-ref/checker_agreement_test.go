@@ -491,6 +491,34 @@ func TestCheckerAgreementWithRustCLIBindingRebuilds(t *testing.T) {
 	checkOrdinaryCertificates(t, "binding-rebuilds", 45)
 }
 
+func TestCheckerAgreementWithRustCLIBindingReconstruction(t *testing.T) {
+	checkOrdinaryCertificates(t, "binding-reconstruction", 45)
+}
+
+func TestCheckerAgreementWithRustCLIBindingConditions(t *testing.T) {
+	checkOrdinaryCertificates(t, "binding-conditions", 45)
+}
+
+func TestCheckerAgreementWithRustCLIConcreteTypes(t *testing.T) {
+	checkOrdinaryCertificates(t, "concrete-types", 45)
+}
+
+func TestCheckerAgreementWithRustCLIConcreteOperations(t *testing.T) {
+	checkOrdinaryCertificates(t, "concrete-operations", 45)
+}
+
+func TestCheckerAgreementWithRustCLISourceInvariants(t *testing.T) {
+	checkOrdinaryCertificates(t, "source-invariants", 53)
+}
+
+func TestCheckerAgreementWithRustCLISourceInvariantEnums(t *testing.T) {
+	checkOrdinaryCertificates(t, "source-invariant-enums", 1)
+}
+
+func TestCheckerAgreementWithRustCLIBindingDefaults(t *testing.T) {
+	checkOrdinaryCertificates(t, "binding-defaults", 45)
+}
+
 func TestCheckerAgreementWithRustCLIHexCodecs(t *testing.T) {
 	checkOrdinaryCertificates(t, "hex-codecs", 11)
 }

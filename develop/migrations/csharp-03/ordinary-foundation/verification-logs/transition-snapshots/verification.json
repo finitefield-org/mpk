@@ -1,0 +1,110 @@
+{
+  "status": "passed_scoped_snapshot_retained_history_and_append_checks",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 6,
+  "recorded_at": "2026-09-21T08:15:21Z",
+  "scope": "Complete source-value equality, paired command/context CanonicalFieldEncodingsEqual, exact 4096 history capacity, retained-key presence/lookup/uniqueness, exact complete-snapshot append, and complete old-history prefix preservation. Source helper execution, canonical JSON serialization correctness, admission, replay, and application proofs remain unimplemented by this adapter.",
+  "selection_reason": "W08 SourceEqual, CanonicalFieldEncodingsEqual, HistoryCapacity4096, RetainedKeyPresent, RetainedRecord, RetainedKeysUnique, AppendCompleteSnapshot, and PreserveRetainedHistoryOrder constants are resolved from the exact admitted source and retained-history DAGs. Replay all eleven original W08 positive and counterexample contexts; independently evaluate source equality, paired fields, capacity boundaries, retained lookup/uniqueness, append length and all stored fields, old-prefix preservation, isolated mutations, and metadata/certificate rejection. Existing transition products and control candidates receive exact byte-preservation checks.",
+  "source_sha256": {
+    "crates/mpk-vc/src/csharp_practical_ordinary_transition_snapshots.rs": "c6b8450e70e5d6245f231fa44ed43e27a3d5ae16ef3bbac63362cbc6b0e63056",
+    "crates/mpk-vc/src/csharp_practical_ordinary_relations.rs": "fcb9dc67d6c8f34804351794e0a040de4ef8063c543223e12f42a0e781202580",
+    "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs": "cd3551017e832f76178baf8fcdec9ea61a9bd474294c6b7ae0b0004f2fe563df",
+    "crates/mpk-vc/src/csharp_practical_ordinary_structural.rs": "3136374bde9e026a59d8116be98f757d75b196cd62850cc62f815c7c49bfd7c6",
+    "crates/mpk-vc/src/csharp_practical_vir_model.rs": "de944e4385df1f5f120af369e65ff4fb0dd72455c9c1f27e66a553a654ec7efb",
+    "crates/mpk-vc/src/csharp_practical_transition_vc.rs": "af489df71be2d5dc3b53d32e86073533625f841e7ae2d5a62e860cb0a655d011",
+    "crates/mpk-vc/src/csharp_practical_idempotency.rs": "c1483f07d95f4398b2dd3f1dca3cf94003ceaf6fbc1ae7831a7d63df6c09bdee",
+    "crates/mpk-vc/src/csharp_practical_ordinary_test_eval.rs": "d4160220aa77546cb3911df2d66bbd0e8684f3020d128db9306288a87c661c8f",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_transition_snapshot_tests.rs": "a1f24f76394747f05f8a083fff417dad7d6636211a71a505f295c150e60ecd48",
+    "crates/mpk-vc/tests/csharp_practical_inventory.rs": "da951c8c899d8d201bf5e7c49deeed60ecbc44a0a2c4604bc20414112a1d5ea2",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_carriers.rs": "c08e1b97f8e4a48e239419b6be2e9397929146f234ff51a8ce07b500b1e3a579",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_relation_tests.rs": "41a3a605eaa8fd56049c0026de997177d0ee4997d1f26bacd3a261fc88970e07"
+  },
+  "runtime": {
+    "receipt": "published-append.json",
+    "original_contexts": 11,
+    "contexts_with_snapshots": 2,
+    "empty_snapshot_contexts": 9,
+    "snapshot_node_occurrences": 14,
+    "canonical_field_equality_relations": 2,
+    "canonical_field_equality_observations": 18,
+    "history_capacity_relations": 2,
+    "history_capacity_observations": 8,
+    "retained_history_relation_sets": 2,
+    "retained_history_observations": 18,
+    "append_and_prefix_relation_sets": 2,
+    "append_and_prefix_observations": 16,
+    "observations": 200,
+    "isolated_stored_member_changes_detected": 14
+  },
+  "dual_checkers": {
+    "receipt_directory": "dual-checkers-append-final",
+    "distinct_certificates": 3,
+    "same_byte_verdicts": "Go/Rust accepted; reports/hashes/counts agree; zero axioms",
+    "hash_corruptions": "all rejected",
+    "cases": [
+      {
+        "file": "/private/tmp/mpk-transition-snapshots-append/idempotency-valid.hex",
+        "file_sha256": "22cfe4ed4490fdd74cac1762bfb24e95d1167c285cd66348b3f546b6429c96d7",
+        "hash_only": false,
+        "passed": true,
+        "accepted_reports_agree": true
+      },
+      {
+        "file": "/private/tmp/mpk-transition-snapshots-append/idempotency-omitted_context_body.hex",
+        "file_sha256": "b552f5806e06118223e7a7144b09d81c3bca47b5fceae3c4a53a1b483a259d41",
+        "hash_only": false,
+        "passed": true,
+        "accepted_reports_agree": true
+      },
+      {
+        "file": "/private/tmp/mpk-transition-snapshots-append/transition-mutant_event.hex",
+        "file_sha256": "eeee772d91ecc3834835201fc8eea76a17d6c37a4b97940e59621d2fc7d436de",
+        "hash_only": false,
+        "passed": true,
+        "accepted_reports_agree": true
+      }
+    ]
+  },
+  "existing_byte_equivalence": "existing-byte-equivalence-append.json",
+  "checks": [
+    "append-history.json",
+    "published-append.json",
+    "existing-writer-append.json",
+    "existing-byte-equivalence-append.json",
+    "lint-append.json",
+    "format-append.json",
+    "inventory-append.json"
+  ],
+  "initial_diagnostic": "generation-runtime.json: test read a non-existent field_id on NamedMonomorphicValue; it now checks the independently reconstructed source-layout member IDs and values by source field order.",
+  "artifacts": {
+    "transition-snapshots/idempotency-valid.hex": "22cfe4ed4490fdd74cac1762bfb24e95d1167c285cd66348b3f546b6429c96d7",
+    "transition-snapshots/idempotency-omitted_context_body.hex": "b552f5806e06118223e7a7144b09d81c3bca47b5fceae3c4a53a1b483a259d41",
+    "transition-snapshots/transition-vc-business_history_capacity.hex": "eeee772d91ecc3834835201fc8eea76a17d6c37a4b97940e59621d2fc7d436de",
+    "transition-snapshots/certificates.json": "7d9d766674eea68073cbef68df15d727e5ecfff7079eed8a3423bff2b8e626dd",
+    "transition-snapshots/transition-negative_time.hex": "eeee772d91ecc3834835201fc8eea76a17d6c37a4b97940e59621d2fc7d436de",
+    "transition-snapshots/transition-mutant_event.hex": "eeee772d91ecc3834835201fc8eea76a17d6c37a4b97940e59621d2fc7d436de",
+    "transition-snapshots/transition-valid.hex": "eeee772d91ecc3834835201fc8eea76a17d6c37a4b97940e59621d2fc7d436de",
+    "transition-snapshots/transition-mutant_invariant.hex": "eeee772d91ecc3834835201fc8eea76a17d6c37a4b97940e59621d2fc7d436de",
+    "transition-snapshots/transition-mutant_precedence.hex": "eeee772d91ecc3834835201fc8eea76a17d6c37a4b97940e59621d2fc7d436de",
+    "transition-snapshots/transition-vc-business_idempotency_conflict.hex": "eeee772d91ecc3834835201fc8eea76a17d6c37a4b97940e59621d2fc7d436de",
+    "transition-snapshots/transition-mutant_response.hex": "eeee772d91ecc3834835201fc8eea76a17d6c37a4b97940e59621d2fc7d436de",
+    "transition-snapshots/transition-mutant_version.hex": "eeee772d91ecc3834835201fc8eea76a17d6c37a4b97940e59621d2fc7d436de"
+  },
+  "unit_6_complete": false,
+  "w09_complete": false,
+  "whole_gate": "deferred to T06-W12",
+  "commit": "No partial-unit commit",
+  "inventory": "five tests passed after verified fixture publication; inventory fingerprint unchanged because the existing snapshot adapter module gained definitions without adding a new source path",
+  "logs_sha256": {
+    "append-history.log": "0dec575553a18e891071d7b001204f5ed92ee3f88f3a4da8c12e3aee24284f02",
+    "published-append.log": "168c78d3620644bd934b0a59a6f37aeaa0de83a2ba99600d4253537ebae3d703",
+    "format-append.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "lint-append.log": "94aa155e4c5396d984a8921b7c06a51737d93413cc9990132e013d06c9ffc70a",
+    "existing-writer-append.log": "49b7ccbc364385f3228c9f35a8ff0f3b8753859c4f3c7e7db8676c8fe579f48a",
+    "existing-byte-equivalence-append.json": "e2bc70381277223586b16e46fd0e95e617e91621b174dd7fecef021cfa6142b9",
+    "inventory-append.log": "5f8d860f8c76bae74d4940ccceeaacb825a1a745b678581b99a4b0527e425c6f",
+    "dual-checkers-append-final/cases.json": "b85c048a5173ab1518ad4003e5ca6fa69f754f8df71f3d0630c855271a1add25",
+    "dual-checkers-append-final/results.json": "a09da1fc115182b6b926b04742c843612517c9869a44b21ac06e0478c7361506",
+    "dual-checkers-append-final/provenance.json": "a6293ba730a485826984d8e1937e84fb786980494efd6e9bed7a8c3fdbab9d0a"
+  }
+}

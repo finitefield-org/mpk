@@ -1,0 +1,60 @@
+{
+  "schema": "mpk.w09.unit_3_current_runtime.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 3,
+  "status": "passed_current_observer_collection_and_sequence_reconciliation",
+  "recorded_at": "2026-09-21T08:26:26Z",
+  "selection_reason": "Historical complete collection and sequence semantic runs used older observer implementations. Domain and aggregate current-observer checks were already complete. These five tests are the remaining full collection semantics, maximum-update, capacity, sequence-boundary and element-order checks with the current observer and unchanged producers; the T06 whole gate remains deferred to W12.",
+  "command_receipt": "collections-sequences.json",
+  "terminal_log": {
+    "path": "collections-sequences.log",
+    "sha256": "dba9d9889ed960c4a2f91145a23175bd0e0dc9bb3e22c5be6bdd56b6aa369f60"
+  },
+  "result": {
+    "exit_code": 0,
+    "wall_seconds": 9040.787,
+    "tests_passed": 5,
+    "tests_failed": 0,
+    "collection_source_instance_contexts": 10,
+    "collection_observations": 669,
+    "sequence_source_contexts": 12,
+    "sequence_indexed_reads": 457,
+    "capacity": 4096,
+    "covered_boundaries": [
+      "map and set insertion from 4095 to 4096 at first, middle and final positions",
+      "full-map value replacement preserves the exact stored decimal key cohort",
+      "integer map/set domains at full capacity",
+      "sequence equal-length element order and same-length differences",
+      "full 4096 sequence capacity and IEEE NaN behavior"
+    ]
+  },
+  "launch_snapshot": {
+    "test_binary_sha256": "06f4ee5eea43fa2ae3963f8237a23987d9182f51a397d0e91611313e54f3e8d6",
+    "source_manifest": "in-progress.json",
+    "current_hashes_match": [
+      "crates/mpk-vc/src/csharp_practical_ordinary_test_eval.rs",
+      "crates/mpk-vc/src/csharp_practical_ordinary_sequence_ops.rs",
+      "crates/mpk-vc/tests/support/csharp_practical_ordinary_collection_tests.rs",
+      "crates/mpk-vc/tests/support/csharp_practical_ordinary_sequence_tests.rs",
+      "crates/mpk-vc/src/csharp_practical_ordinary_collection_ops.rs",
+      "crates/mpk-vc/src/csharp_practical_ordinary_domains.rs",
+      "crates/mpk-vc/src/csharp_practical_ordinary_aggregate_fold.rs",
+      "crates/mpk-vc/src/csharp_practical_ordinary_construction_ops.rs"
+    ]
+  },
+  "subsequent_integration": {
+    "verification": "transition-impact.json",
+    "status": "passed_scoped_writer_equivalence",
+    "scope": "Later transition-module and public re-export changes leave all nine collection and twelve sequence source outputs byte-identical to their independently regenerated current pins."
+  },
+  "related_current_observer_evidence": [
+    "../domain-dependent-refresh/reconciled-runtime.json",
+    "../domain-dependent-refresh/user-long-completed/verification.json",
+    "../total-cell-runtime/verification.json"
+  ],
+  "interpretation": "The five terminal successes close the recorded observer-version gap for unit 3. Together with the existing current-observer domain, aggregate and direct consumer evidence, internal unit 3 has current scoped runtime coverage. Runtime observations test the ordinary definitions; they are not application proof terms.",
+  "unit_3_completion_audit": "../../unit-3-completion-audit.json",
+  "unit_3_complete": true,
+  "w09_complete": false,
+  "whole_gate": "deferred to T06-W12"
+}

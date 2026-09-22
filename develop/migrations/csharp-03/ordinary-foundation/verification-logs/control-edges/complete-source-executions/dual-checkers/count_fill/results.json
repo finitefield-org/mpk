@@ -1,0 +1,60 @@
+[
+  {
+    "stage": "count_fill-positive-go",
+    "command": [
+      "/private/tmp/mpk-w09-final-source-execution-checkers-count-fill/go-checker",
+      "/private/tmp/mpk-w09-final-source-execution-checkers-count-fill/count_fill-positive.mpcert"
+    ],
+    "wall_seconds": 1341.005,
+    "exit_code": 0,
+    "timed_out": false,
+    "input_file_sha256": "da3567fc01980ad73044cfa4d9c983435f75c326842955fcde95125c9c0d1358",
+    "stdout_sha256": "9cec3c8681020f832245af73f066a4c7adfd0c36ed138613619a59db92ac0f3d",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "count_fill-positive-rust",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "check",
+      "/private/tmp/mpk-w09-final-source-execution-checkers-count-fill/count_fill-positive.mpcert"
+    ],
+    "wall_seconds": 2.338,
+    "exit_code": 0,
+    "timed_out": false,
+    "input_file_sha256": "da3567fc01980ad73044cfa4d9c983435f75c326842955fcde95125c9c0d1358",
+    "stdout_sha256": "9bc1cffae2a9a953e16a44d09444fd5129345c31e13c8302a87ee5ae9861b7a8",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "count_fill-hash-go",
+    "command": [
+      "/private/tmp/mpk-w09-final-source-execution-checkers-count-fill/go-checker",
+      "/private/tmp/mpk-w09-final-source-execution-checkers-count-fill/count_fill-hash.mpcert"
+    ],
+    "wall_seconds": 1360.123,
+    "exit_code": 1,
+    "timed_out": false,
+    "input_file_sha256": "34a90a048917b22faaa132c84e782d6470eefdcf3220723e00f29ba19ed00419",
+    "stdout_sha256": "f007cd1568b44936e12b8dbacf6328d9c757a8c902d22a5e068e9b7655ea1545",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  },
+  {
+    "stage": "count_fill-hash-rust",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "check",
+      "/private/tmp/mpk-w09-final-source-execution-checkers-count-fill/count_fill-hash.mpcert"
+    ],
+    "wall_seconds": 2.505,
+    "exit_code": 1,
+    "timed_out": false,
+    "input_file_sha256": "34a90a048917b22faaa132c84e782d6470eefdcf3220723e00f29ba19ed00419",
+    "stdout_sha256": "6d8f222c020b199c9aadb9632186a46bd322e1aacbba60f620cafd80f727b144",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": true
+  }
+]

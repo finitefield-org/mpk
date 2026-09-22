@@ -1,25 +1,61 @@
 //! Ordinary semantic equality and eligible canonical ordering over validated
 //! concrete carriers. Representation/public domains remain caller obligations.
-use super::super::scalar_bits::{bits_relation, special_relation, ScalarRelations};
+use super::super::scalar_bits::{
+    bits_relation, sequence_subtraction, special_relation, ScalarRelations,
+};
 use super::*;
 #[path = "csharp_practical_ordinary_binding_relations.rs"]
 mod binding_relations;
 pub use binding_relations::{
+    generate_csharp_practical_ordinary_binding_conditions,
     generate_csharp_practical_ordinary_binding_guards,
     generate_csharp_practical_ordinary_binding_orders,
+    generate_csharp_practical_ordinary_binding_reconstruction,
     generate_csharp_practical_ordinary_binding_relations,
     generate_csharp_practical_ordinary_boundary_rules,
+    import_csharp_practical_ordinary_binding_conditions,
     import_csharp_practical_ordinary_binding_guards,
     import_csharp_practical_ordinary_binding_orders,
+    import_csharp_practical_ordinary_binding_reconstruction,
     import_csharp_practical_ordinary_binding_relations,
     import_csharp_practical_ordinary_boundary_rules, OrdinaryBindingAgreement,
-    OrdinaryBindingPredicate, OrdinaryBindingRelationProgram, OrdinaryBoundaryRuleProgram,
+    OrdinaryBindingCondition, OrdinaryBindingConditionProgram, OrdinaryBindingPredicate,
+    OrdinaryBindingReconstructionCandidate, OrdinaryBindingReconstructionObligation,
+    OrdinaryBindingReconstructionProgram, OrdinaryBindingRelationProgram,
+    OrdinaryBoundaryRuleProgram,
+};
+pub use binding_relations::{
+    generate_csharp_practical_ordinary_binding_defaults,
+    import_csharp_practical_ordinary_binding_defaults, OrdinaryBindingActualDefault,
+    OrdinaryBindingDefaultPending, OrdinaryBindingDefaultPendingReason,
+    OrdinaryBindingDefaultProgram,
+};
+pub use binding_relations::{
+    generate_csharp_practical_ordinary_concrete_operations,
+    generate_csharp_practical_ordinary_concrete_types,
+    generate_csharp_practical_ordinary_source_invariants,
+    import_csharp_practical_ordinary_concrete_operations,
+    import_csharp_practical_ordinary_concrete_types,
+    import_csharp_practical_ordinary_source_invariants, OrdinaryConcreteFailureComponent,
+    OrdinaryConcreteOperationComponent, OrdinaryConcreteOperationDefinition,
+    OrdinaryConcreteOperationFailure, OrdinaryConcreteOperationPending,
+    OrdinaryConcreteOperationPendingReason, OrdinaryConcreteOperationProgram,
+    OrdinaryConcreteTypeDefinition, OrdinaryConcreteTypeProgram, OrdinarySourceInvariantDefinition,
+    OrdinarySourceInvariantEnumCase, OrdinarySourceInvariantProgram,
 };
 #[path = "csharp_practical_ordinary_observations.rs"]
 mod observations;
 pub use observations::{
     generate_csharp_practical_ordinary_observations, import_csharp_practical_ordinary_observations,
     OrdinaryObservationDefinition, OrdinaryObservationProgram,
+};
+#[path = "csharp_practical_ordinary_transition_snapshots.rs"]
+mod transition_snapshots;
+pub use transition_snapshots::{
+    generate_csharp_practical_ordinary_transition_snapshots,
+    import_csharp_practical_ordinary_transition_snapshots, OrdinaryTransitionHistoryCapacity,
+    OrdinaryTransitionRetainedHistory, OrdinaryTransitionSnapshotDefinition,
+    OrdinaryTransitionSnapshotEncodingEquality, OrdinaryTransitionSnapshotProgram,
 };
 #[path = "csharp_practical_ordinary_money_ops.rs"]
 mod money_ops;
@@ -32,6 +68,13 @@ mod entry_ops;
 pub use entry_ops::{
     generate_csharp_practical_ordinary_entries, import_csharp_practical_ordinary_entries,
     OrdinaryEntryDefinition, OrdinaryEntryProgram,
+};
+#[path = "csharp_practical_ordinary_transition_ops.rs"]
+mod transition_ops;
+pub use transition_ops::{
+    generate_csharp_practical_ordinary_transition_operations,
+    import_csharp_practical_ordinary_transition_operations, OrdinaryTransitionDefinition,
+    OrdinaryTransitionProgram,
 };
 #[path = "csharp_practical_ordinary_outcome_ops.rs"]
 mod outcome_ops;

@@ -1,0 +1,33 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/mpk/crates/mpk-vc)
+    Finished `test` profile [optimized] target(s) in 6.28s
+     Running tests/csharp_practical_inventory.rs (/tmp/mpk-w09-optimized-target/debug/deps/csharp_practical_inventory-7a728a490028e529)
+
+running 5 tests
+test csharp_03_t03_w14_inventory_ignores_generated_python_caches ... ok
+test csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item ... ok
+test csharp_03_t01_w01_baseline_recomputes_the_active_release ... ok
+test csharp_03_t01_w02_search_fixtures_reject_added_or_deleted_consumers ... FAILED
+test csharp_03_t01_w02_inventory_closes_every_artifact_and_consumer_edge ... FAILED
+
+failures:
+
+---- csharp_03_t01_w02_search_fixtures_reject_added_or_deleted_consumers stdout ----
+
+thread 'csharp_03_t01_w02_search_fixtures_reject_added_or_deleted_consumers' (12236709) panicked at crates/mpk-vc/tests/csharp_practical_inventory.rs:826:55:
+checked-in consumer set: "foundation.std_namespace: expected count=143 sha256=1ad4238b8fe31283e179c5ed198e8289542d7837ce71de937a74308a244d21f4; actual count=144 sha256=4bee1a45a71fac7113861a02f102e1df6f4859f95ad1e3c63ff87bf500d4197b"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- csharp_03_t01_w02_inventory_closes_every_artifact_and_consumer_edge stdout ----
+
+thread 'csharp_03_t01_w02_inventory_closes_every_artifact_and_consumer_edge' (12236708) panicked at crates/mpk-vc/tests/csharp_practical_inventory.rs:1376:5:
+repository consumer search drift:
+foundation.std_namespace: expected count=143 sha256=1ad4238b8fe31283e179c5ed198e8289542d7837ce71de937a74308a244d21f4; actual count=144 sha256=4bee1a45a71fac7113861a02f102e1df6f4859f95ad1e3c63ff87bf500d4197b
+
+
+failures:
+    csharp_03_t01_w02_inventory_closes_every_artifact_and_consumer_edge
+    csharp_03_t01_w02_search_fixtures_reject_added_or_deleted_consumers
+
+test result: FAILED. 3 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.60s
+
+error: test failed, to rerun pass `-p mpk-vc --test csharp_practical_inventory`

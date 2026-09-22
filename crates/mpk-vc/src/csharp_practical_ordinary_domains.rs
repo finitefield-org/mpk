@@ -3,6 +3,7 @@
 use super::*;
 #[path = "csharp_practical_ordinary_structural_foundations.rs"]
 mod structural_foundations;
+pub(super) use structural_foundations::{extend_structural_public, StructuralDefinitionRefs};
 pub use structural_foundations::{
     generate_csharp_practical_ordinary_structural_boundary,
     generate_csharp_practical_ordinary_structural_foundations,
@@ -699,35 +700,22 @@ impl Domains<'_> {
         }
     }
 }
-pub fn generate_csharp_practical_ordinary_domains(
-    vir: &ValidatedPracticalVir,
-) -> R<OrdinaryDomainProgram> {
-    let layouts = generate_csharp_practical_ordinary_carriers(vir)?;
+pub(super) fn emit_representation_domains<'a>(
+    r: Relations<'a>,
+    carriers: &[OrdinaryCarrier],
+) -> R<(Relations<'a>, Vec<OrdinaryDomainDefinition>)> {
     let mut d = Domains {
+        r,
         public_clauses: None,
-        r: Relations {
-            vir,
-            shared_folds: true,
-            observations: false,
-            carriers: layouts
-                .carriers()
-                .iter()
-                .map(|c| (c.type_id.clone(), c.clone()))
-                .collect(),
-            b: Builder::new()?,
-            nodes: BTreeMap::new(),
-            active: BTreeSet::new(),
-            raw: BTreeMap::new(),
-            special: BTreeMap::new(),
-            storage: StorageCache::default(),
-        },
         counts: BTreeMap::new(),
         active: BTreeSet::new(),
     };
-    d.r.b.helpers(5)?;
+    if !d.r.b.globals.contains_key(&format!("{PREFIX}.Cube.D5.Mux")) {
+        d.r.b.helpers(5)?;
+    }
     ordered_fold::auxiliary(&mut d.r.b)?;
     let mut definitions = vec![];
-    for carrier in layouts.carriers() {
+    for carrier in carriers {
         if d.r.internal(&carrier.type_id) {
             continue;
         }
@@ -743,8 +731,31 @@ pub fn generate_csharp_practical_ordinary_domains(
             valid_definition,
         });
     }
-    let static_transformers = d.r.b.static_transformers;
-    let certificate = d.r.b.finish()?;
+    Ok((d.r, definitions))
+}
+pub fn generate_csharp_practical_ordinary_domains(
+    vir: &ValidatedPracticalVir,
+) -> R<OrdinaryDomainProgram> {
+    let layouts = generate_csharp_practical_ordinary_carriers(vir)?;
+    let r = Relations {
+        vir,
+        shared_folds: true,
+        observations: false,
+        carriers: layouts
+            .carriers()
+            .iter()
+            .map(|c| (c.type_id.clone(), c.clone()))
+            .collect(),
+        b: Builder::new()?,
+        nodes: BTreeMap::new(),
+        active: BTreeSet::new(),
+        raw: BTreeMap::new(),
+        special: BTreeMap::new(),
+        storage: StorageCache::default(),
+    };
+    let (r, definitions) = emit_representation_domains(r, layouts.carriers())?;
+    let static_transformers = r.b.static_transformers;
+    let certificate = r.b.finish()?;
     let p = OrdinaryDomainProgram {
         schema: "mpk.csharp.ordinary_domains.v1".into(),
         source_ir_sha256: vir.hash().into(),
@@ -976,6 +987,20 @@ mod tests {
 
 #[path = "csharp_practical_ordinary_public_domains.rs"]
 mod public_domains;
+pub(super) fn emit_binding_domains<'a>(
+    r: Relations<'a>,
+    carriers: &[OrdinaryCarrier],
+    clauses: &[OrdinarySourceClauseDefinition],
+) -> R<(Relations<'a>, Vec<OrdinaryPublicDomainDefinition>)> {
+    let mut d = Domains {
+        r,
+        public_clauses: Some(public_domains::clauses_by_type(clauses)?),
+        counts: BTreeMap::new(),
+        active: BTreeSet::new(),
+    };
+    let definitions = public_domains::emit_membership(&mut d, carriers)?;
+    Ok((d.r, definitions))
+}
 pub use public_domains::{
     generate_csharp_practical_ordinary_public_defaults,
     generate_csharp_practical_ordinary_public_domains,

@@ -1,0 +1,60 @@
+{
+  "status": "passed",
+  "supervisor_pid": 16896,
+  "profile": {
+    "CARGO_TARGET_DIR": "/tmp/mpk-w09-optimized-target",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "2",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0"
+  },
+  "runs": [
+    {
+      "label": "clippy",
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "status": "passed",
+      "log": "clippy.log",
+      "pid": 16898,
+      "exit_code": 0,
+      "elapsed_seconds": 46.907,
+      "log_sha256": "4ab7a009123705b9f6a9f60b53f3420e4eb13de888f59652f2009fc0cd5c5f8d"
+    },
+    {
+      "label": "format",
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "status": "passed",
+      "log": "format.log",
+      "pid": 17146,
+      "exit_code": 0,
+      "elapsed_seconds": 5.033,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "full_gate": "deferred_to_T06_W12",
+  "selection_reason": "Targeted Clippy for changed library/integration tests and format. No new inventory consumer paths or search needles; no full T gate.",
+  "build": "build.json",
+  "binaries": {
+    "integration": {
+      "path": "/tmp/mpk-w09-source-direct-members-integration-2776c0637f4ff273",
+      "sha256": "2776c0637f4ff273cca8054136cb1ff8d882a6442a6ebfad7fd541da727946a6"
+    }
+  }
+}

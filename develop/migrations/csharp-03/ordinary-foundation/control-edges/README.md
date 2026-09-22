@@ -108,3 +108,94 @@ frames, handler/filter/finally execution or complete application proofs. Unit 5
 and W09 remain incomplete, W10 remains blocked, and the whole gate stays deferred
 to T06-W12. The review's earlier W05 value-identity finding was corrected before
 promotion; obsolete candidate checks remain separate historical evidence.
+
+
+## Native literal result checkpoint
+
+All 101 retained native literal results in the 18 original control contexts now
+have exact producing-node, value-ID and type bindings plus ordinary full-storage
+equality relations in the same certificate. The 3,143 new observations cover
+independent storage encoding and changed low/middle/last bits, including padding
+and inactive sum arms. Thirteen preservation/slot checks retain every previous
+term/declaration prefix and metadata, preserving the earlier 96,920 observations
+(100,063 scoped observations in total). Standalone literal generation across 64
+source contexts and the boundary-literal consumer retain their existing pins;
+three shared-literal helper tests, inventory, targeted lint and format pass.
+All 15 distinct extended certificates pass same-byte Go/Rust acceptance, matching
+reports, zero axioms and hash-corruption rejection. See `../verification-logs/control-edges/native-literals/verification.json` and its review.
+
+Literal results do not establish source-node reachability or compose a complete
+execution. Incoming witnesses, alias/exception state, handlers/filter/finally,
+transition/replay and application proof assembly remain open. Unit 5 and W09
+remain incomplete; the whole T gate is deferred to T06-W12.
+
+## Source normal-step composition checkpoint
+
+The 18 original control contexts now include 579 complete local normal-step
+predicates across 703 source nodes. Each predicate composes the exact source
+frame, successful transfer, native normal result and literal result over one
+shared SSA argument list. The remaining 124 nodes stay explicitly pending: 18
+function entries, 93 exceptional nodes, ten unreachable nodes, two alias updates
+and one non-data invocation.
+
+The unbounded local runtime completed 20,584 observations in 8,193.415 seconds.
+Its 36 files match the independent metadata candidate byte for byte. All 15
+distinct certificates pass both unchanged checkers with matching reports, zero
+axioms and hash-corruption rejection. See
+`../verification-logs/control-edges/source-steps/verification.json`.
+
+These relations assume their incoming source/SSA state. Entry selection,
+inter-step transport, exceptional and alias execution, and complete application
+proof assembly remain open. Unit 5 and W09 remain incomplete.
+
+## Normal source execution checkpoint
+
+The promoted program now contains 625 normal edge executions for the 579
+complete local source steps. Each execution fixes the selected source entry,
+bridges exact assignedness and assigned payloads into the local step, requires
+the outgoing guard, join and optional phi, then selects that exact incoming edge
+at the target entry. Return edges retain the complete source exit and guard
+without inventing a target join.
+
+The full reconstructed argument/component map remains available in memory.
+Canonical metadata stores exact counts and its SHA-256 commitment so the largest
+candidate remains 13,540,383 bytes, below the 16 MiB importer limit. Import
+regenerates and compares the complete candidate. All serialized execution fields
+and both owning collections reject mutation.
+
+Three independent 36-file generations match the promoted fixture byte for byte.
+All 15 distinct certificates pass unchanged Go/Rust checking with matching
+reports, zero axioms and hash-corruption rejection. The prior 579-step metadata,
+declaration preservation, inventory, clippy and format checks also pass. See
+`../verification-logs/control-edges/source-executions/verification.json`.
+
+Function entry initialization, exceptional and alias execution, ten unreachable
+nodes, one non-data call and application proof assembly remain open. Unit 5 and
+W09 remain incomplete.
+
+## Complete reachable source execution checkpoint
+
+The current program extends the retained normal-only checkpoint to 761 source
+execution paths. Function entries, normal and exceptional paths, alias updates,
+the constructor call and terminal steps are connected to their exact source
+state and control relations. All reachable execution obligations in the 18
+contexts are resolved. Ten structurally unreachable source IDs are stored in
+`excluded_unreachable_source_node_ids` and independently checked; the pending
+reachable execution set is empty.
+
+The 703 source nodes comprise 582 complete local steps and 121 locally special
+steps: 18 function entries, 93 exceptional steps and ten unreachable nodes.
+Canonical execution metadata commits to as many as 366 arguments and 126
+components; the largest JSON file is 13,595,052 bytes. Removal or forgery of
+execution, pending or exclusion collections rejects during import.
+
+Two independent 36-file metadata generations and these promoted fixtures match
+byte for byte. All 15 distinct certificates pass the unchanged Go and Rust
+checkers with matching reports and zero axioms. Both checkers reject all hash
+corruptions. Source-step replay, declaration preservation, the five inventory
+tests, targeted Clippy and format checks pass. See
+`../verification-logs/control-edges/complete-source-executions/verification.json`.
+
+Complete native-body integration and application proof assembly remain open.
+Unit 5 and W09 remain incomplete, and the full T06 gate remains deferred to
+T06-W12.

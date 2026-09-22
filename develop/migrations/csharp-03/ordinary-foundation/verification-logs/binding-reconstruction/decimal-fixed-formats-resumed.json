@@ -1,0 +1,24 @@
+{
+  "status": "running",
+  "test": "csharp_03_t06_w09_decimal_fixed_formats_original_sources",
+  "command": [
+    "/tmp/mpk-w09-reconstruction-member-id-61a5b3d0a992",
+    "csharp_03_t06_w09_decimal_fixed_formats_original_sources",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "profile": {
+    "CARGO_TARGET_DIR": "/tmp/mpk-w09-optimized-target",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "2",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0"
+  },
+  "binary_sha256": "61a5b3d0a992cf84ae4837691e9e8613cc6001132494dcb76362b377ba17fd81",
+  "supervisor_pid": 32696,
+  "log": "decimal-fixed-formats-resumed.log",
+  "selection_reason": "Resume the full original 65-context, 145-configuration and 355-observation decimal-format test after its process was interrupted. The replacement binary changes only reconstruction test metadata compared with the interrupted decimal binary; decimal production/tests are unchanged. No semantic limit or sample reduction.",
+  "resumed_after": "../interrupted-20260922T1016Z/interruption.json",
+  "pid": 32699
+}
