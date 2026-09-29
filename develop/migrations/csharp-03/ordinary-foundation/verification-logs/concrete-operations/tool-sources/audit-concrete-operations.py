@@ -1,6 +1,6 @@
 from pathlib import Path
 import hashlib,json,re,collections,sys
-repo=Path('/Users/kazuyoshitoshiya/mpk');r=repo/'develop/migrations/csharp-03/ordinary-foundation';base=r/'verification-logs/concrete-operations';e=base;review=base/'review-isolated-input-guard';earlier=base/'review-isolated-mutations'
+repo=Path('/Users/kazuyoshitoshiya/mpk');r=repo/'develop/migrations/csharp-03/ordinary-foundation';base=r/'verification-logs/concrete-operations';e=base;review=base/'review-isolated-input-guard';earlier=base/'review-isolated-mutations';real_review=base/'review-real-value-mutation'
 def read(p):return json.loads(p.read_text())
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def checked(path):
@@ -9,13 +9,31 @@ def checked(path):
   assert run['status']=='passed'and run['exit_code']==0
   assert sha(path.parent/run['log'])==run['log_sha256']
  return d
-receipt_paths={mode:e/(mode+'.json')for mode in ['definitions','routing','real','preservation']};receipt_paths.update({mode:review/(mode+'.json')for mode in ['build','isolated','quality']});receipt_paths['definition_preservation']=earlier/'definitions.json';receipt_paths['earlier_build']=earlier/'build.json';receipt_paths['initial_build']=e/'build.json'
+receipt_paths={mode:e/(mode+'.json')for mode in ['definitions','routing','preservation']};receipt_paths.update({mode:review/(mode+'.json')for mode in ['build','isolated','quality']});receipt_paths['definition_preservation']=earlier/'definitions.json';receipt_paths['earlier_build']=earlier/'build.json';receipt_paths['initial_build']=e/'build.json'
+receipt_paths.update(real=real_review/'real.json',build=real_review/'build.json',quality=real_review/'quality.json',definition_preservation=real_review/'definitions.json');receipt_paths['isolated_build']=review/'build.json'
 receipts={mode:checked(path)for mode,path in receipt_paths.items()};b=receipts['build'];assert b['sources_unchanged_during_build'];assert all(sha(repo/p)==h for p,h in b['source_sha256'].items())
 initial=receipts['initial_build'];assert initial['sources_unchanged_during_build'];changed={p for p,h in initial['source_sha256'].items()if b['source_sha256'][p]!=h};test_path='crates/mpk-vc/tests/support/csharp_practical_ordinary_concrete_operation_tests.rs';assert changed=={test_path}
 old_test=review/Path(test_path).name;assert sha(old_test)==initial['source_sha256'][test_path]
 expected=old_test.read_text().replace('for d in rows.iter().filter(|d| d["carrier"]["type_id"] == id) {','if let Some(d) = rows.iter().find(|d| d["carrier"]["type_id"] == id) {')
-assert (repo/test_path).read_text().split('// A test-only closed IEEE word.')[0].rstrip()==expected.rstrip()
-for binary in initial['binaries'].values():assert sha(Path(binary['path']))==binary['sha256']
+current=(repo/test_path).read_text();previous=(real_review/'previous-concrete-operation-tests.rs').read_text()
+assert sha(real_review/'previous-concrete-operation-tests.rs')==receipts['isolated_build']['source_sha256'][test_path]
+assert previous.split('// A test-only closed IEEE word.')[0].rstrip()==expected.rstrip()
+real_start='#[test]\nfn csharp_03_t06_w09_concrete_operations_real_values_and_guards()'
+real_end='// A test-only closed IEEE word.'
+assert current.split(real_start)[0]==previous.split(real_start)[0]
+assert current.split(real_end)[1]==previous.split(real_end)[1]
+changes=read(real_review/'finding.json');assert sha(repo/test_path)==changes['current_test_sha256']
+assert 'Some(-1)'in current and '!is_option_value'in current and 'for i in 0..32'in current
+old_real=read(e/'real.json');assert old_real['status']=='failed' and sha(e/'real.json')==changes['original_receipt_sha256']
+old_run=old_real['runs'][0];assert old_run['exit_code']!=0 and sha(e/old_run['log'])==old_run['log_sha256']
+assert 'binding-vc-option: concrete result ignored'in(e/old_run['log']).read_text()
+assert changes['status']=='resolved_with_full_real_value_verification'
+assert receipts['real']['binaries']==b['binaries']
+# Historical /tmp binaries may have been removed. Current source replay checks
+# every pinned byte, while exact unchanged test prefixes preserve prior evidence.
+historical_binary_availability={v['path']:Path(v['path']).is_file()for v in initial['binaries'].values()}
+for binary in initial['binaries'].values():
+ if Path(binary['path']).exists():assert sha(Path(binary['path']))==binary['sha256']
 first_test=review/'previous-isolated-input-test.rs';assert sha(first_test)==receipts['earlier_build']['source_sha256'][test_path]
 assert first_test.read_text().split('// A test-only closed IEEE word.')[0].rstrip()==expected.rstrip()
 assert {p for p,h in receipts['earlier_build']['source_sha256'].items()if b['source_sha256'][p]!=h}=={test_path}
@@ -48,12 +66,17 @@ assert reasons==dict(application_currency_predicate=1,internal_construction_stat
 for marker in ['Rust accepted identical bytes and report:','Rust rejected changed hash:','Go rejected changed hash:',' axioms=0 ']:assert log.count(marker)==45
 match=re.search(r'ordered outcomes: (\d+) operations, (\d+) assignments, (\d+) single-failure changes, (\d+) correctly masked later changes',(e/'routing.log').read_text());assert match
 routing=dict(zip(['operations','assignments','single_failure_changes','masked_later_changes'],map(int,match.groups())));assert routing['masked_later_changes']>0
-match=re.search(r'real operation values: (\d+) normal observations, (\d+) closed operations, (\d+) NaN observation, (\d+) rejected-input guards',(e/'real.log').read_text());assert match
+match=re.search(r'real operation values: (\d+) normal observations, (\d+) closed operations, (\d+) NaN observation, (\d+) rejected-input guards',(real_review/'real.log').read_text());assert match
 real=dict(zip(['normal_observations','closed_operations','nan_observations','rejected_input_guards'],map(int,match.groups())));assert real['nan_observations']==1
+assert real==dict(normal_observations=6,closed_operations=1,nan_observations=1,rejected_input_guards=5)
+real_log=(real_review/'real.log').read_text()
+case_markers=re.findall(r'concrete operation real value passed ([^:]+): (\S+)',real_log)
+assert len(case_markers)==len(set(case_markers))==6
+assert sorted((context,op.rsplit('.',1)[-1])for context,op in case_markers)==sorted([('binding-vc-money','multiply'),('binding-vc-money','divide'),('binding-vc-option','none'),('binding-vc-option','value'),('binding-vc-transition','make'),('float-make-commutation','make')])
 preserved={name:dict(certificate_count=len(list((r/name).glob('*.hex'))),manifest_sha256=sha(r/name/'certificates.json'))for name in ['structural-foundations','structural-boundary','structural-public','concrete-types']};assert sum(x['certificate_count']for x in preserved.values())==96
-record=dict(status='passed_scoped_component',work_item='CSHARP-03-T06-W09',internal_unit=4,source_contexts=45,conditions=436,pending_operation_conditions=31,original_operation_conditions=467,pending_reasons=dict(reasons),operand_arities=dict(arities),proofs_pending=987,proofs_discharged=0,routing=routing,real_values=real,isolated_mutations=dict(nan_payload_changes=1,malformed_source_inputs=1),retained_semantics='Only the definition test lookup syntax changed and one independent test was appended. Existing routing and real-value test functions/helpers and all production sources remain exact; archived original binaries and all 45 current corpus pins are verified.',initial_lint_failure='quality.json',review_correction='review-isolated-input-guard/finding.json',checker_certificates=45,zero_axioms=True,preserved=preserved,manifest_sha256=sha(r/'concrete-operations/certificates.json'),pins=pins,current_build=str((review/'build.json').relative_to(base)),current_source_hashes_verified=True,evidence={str(path.relative_to(base)):sha(path)for path in receipt_paths.values()},maximum_terms=max(x['terms']for x in manifest['sources']),maximum_declarations=max(x['declarations']for x in manifest['sources']),scope='Exact original closed operation recipes, normal values, first failures/success and original W06 conditions. Construction ownership/state and application currency prerequisites remain explicitly pending. No application proof or unit/W09 completion is supplied.',full_gate='deferred_to_T06_W12')
+record=dict(status='passed_scoped_component',work_item='CSHARP-03-T06-W09',internal_unit=4,source_contexts=45,conditions=436,pending_operation_conditions=31,original_operation_conditions=467,pending_reasons=dict(reasons),operand_arities=dict(arities),proofs_pending=987,proofs_discharged=0,routing=routing,real_values=real,isolated_mutations=dict(nan_payload_changes=1,malformed_source_inputs=1),retained_semantics='All production sources and ordered-outcome/isolated-mutation helpers remain exact. The real-value test changes only its Option.value no-op mutant, verifies the original 32 bits and retains every original case and guard. Current full real-value runtime, current source regeneration and all 45 corpus pins are verified.',historical_binary_availability=historical_binary_availability,real_value_correction='review-real-value-mutation/finding.json',initial_lint_failure='quality.json',review_correction='review-isolated-input-guard/finding.json',checker_certificates=45,zero_axioms=True,preserved=preserved,manifest_sha256=sha(r/'concrete-operations/certificates.json'),pins=pins,current_build=str((real_review/'build.json').relative_to(base)),current_source_hashes_verified=True,evidence={str(path.relative_to(base)):sha(path)for path in receipt_paths.values()},maximum_terms=max(x['terms']for x in manifest['sources']),maximum_declarations=max(x['declarations']for x in manifest['sources']),scope='Exact original closed operation recipes, normal values, first failures/success and original W06 conditions. Construction ownership/state and application currency prerequisites remain explicitly pending. No application proof or unit/W09 completion is supplied.',full_gate='deferred_to_T06_W12')
 (base/'verification.json').write_text(json.dumps(record,indent=2)+'\n')
-p=r/'unit-4-concrete-operation-progress.json';d=read(p);d.update(status='passed_scoped_component',current_verification='verification-logs/concrete-operations/verification.json',source_contexts=45,conditions=436,pending_operation_conditions=31,routing=routing,real_values=real,checker_certificates=45,preserved=preserved);d['verification']='Complete targeted terminal evidence, unchanged original recipes/sequents, mutation checks, prior-byte preservation, both checkers and quality checks passed. All application proofs remain pending.';p.write_text(json.dumps(d,indent=2)+'\n')
+p=r/'unit-4-concrete-operation-progress.json';d=read(p);d.update(status='passed_scoped_component',current_verification='verification-logs/concrete-operations/verification.json',source_contexts=45,conditions=436,pending_operation_conditions=31,routing=routing,real_values=real,checker_certificates=45,preserved=preserved);d['verification']='Complete targeted terminal evidence, unchanged original recipes/sequents, mutation checks, prior-byte preservation, both checkers and quality checks passed. All application proofs remain pending.';d['pending_verification']=[];p.write_text(json.dumps(d,indent=2)+'\n')
 prior=read(base.parent/'concrete-types/remaining-w06-conditions.json');d=json.loads(json.dumps(prior));d['scope']='Only the original 45 binding contexts. Available definitions span six separate ordinary components, not a complete application certificate. All 987 proofs remain pending.'
 for item in d['inputs'].values():assert sha(r/item['path'])==item['raw_sha256']
 d['inputs']['concrete-operations']=dict(path='concrete-operations/certificates.json',raw_sha256=record['manifest_sha256']);byid={x['id']:x['metadata']for x in manifest['sources']};available=collections.Counter();remaining=collections.Counter()

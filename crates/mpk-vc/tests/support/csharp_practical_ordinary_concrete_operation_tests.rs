@@ -719,14 +719,20 @@ fn csharp_03_t06_w09_concrete_operations_real_values_and_guards() {
             let arity = op.component.argument_type_ids.len();
             let is_nan =
                 id == "float-make-commutation" && op.component.operation_id.ends_with(".make");
+            let is_option_value =
+                id == "binding-vc-option" && op.component.operation_id.ends_with(".value");
             let selected = arity == 0
                 || is_nan
-                || (id == "binding-vc-option" && op.component.operation_id.ends_with(".value"))
+                || is_option_value
                 || (id == "binding-vc-transition" && op.component.operation_id.ends_with(".make"))
                 || (id == "binding-vc-money" && arity == 4);
             if !selected {
                 continue;
             }
+            eprintln!(
+                "concrete operation real value start {id}: {}",
+                op.component.operation_id
+            );
             let c = p
                 .conditions()
                 .iter()
@@ -786,10 +792,31 @@ fn csharp_03_t06_w09_concrete_operations_real_values_and_guards() {
                 "{id}"
             );
             let mut changed = cert.clone();
-            constant_result(&mut changed, &op.concrete_definition, arity, true);
+            if is_option_value {
+                // sample(seed=1) is Some(-1), whose 32 payload bits are all
+                // true. An all-true replacement would not change the result.
+                assert_eq!(op.component.result_type_id, ty("i32"));
+                let result = run(&cert, &op.normal_definition, args.clone());
+                for i in 0..32 {
+                    let observed = (0..5).fold(result.clone(), |f, n| {
+                        core_eval::apply(&cert, f, V::Bit(i & (1 << n) != 0))
+                    });
+                    assert!(
+                        bit(observed),
+                        "Option.value must return the original -1 payload"
+                    );
+                }
+            }
+            constant_result(
+                &mut changed,
+                &op.concrete_definition,
+                arity,
+                !is_option_value,
+            );
             assert!(
                 !bit(run(&changed, &op.normal_agreement_definition, args.clone())),
-                "{id}: concrete result ignored"
+                "{id}: {}: concrete result ignored",
+                op.component.operation_id
             );
             let assumptions = c
                 .assumption_definitions
@@ -825,6 +852,10 @@ fn csharp_03_t06_w09_concrete_operations_real_values_and_guards() {
             }
             normal += 1;
             closed += usize::from(arity == 0);
+            eprintln!(
+                "concrete operation real value passed {id}: {}",
+                op.component.operation_id
+            );
         }
         eprintln!("concrete operation real values complete {id}");
     }

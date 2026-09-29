@@ -50,6 +50,10 @@ recipe/sequent comparisons and the 96 prior certificate pins pass. The complete
 payload and malformed Option input checks. The final review has passing Clippy,
 five inventory tests and Rust/Go formatting. Both unchanged checkers now pass the
 complete 45-certificate corpus, including report agreement and hash-corruption
-rejection. The original full real-value test is still running; its terminal
-result is required before scoped component completion. Initial lint and counterexample
+rejection. The original full real-value test completed its Money cases, then
+failed because the Option.value test replaced -1 with the same all-true bits.
+The corrected test independently checks all 32 original bits before replacing
+the result with zero. Its complete rerun is required before scoped component
+completion; see `verification-logs/concrete-operations/review-real-value-mutation/`.
+Initial lint and counterexample
 test failures remain retained with the exact corrections and source snapshots.

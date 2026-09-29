@@ -1,5 +1,5 @@
 {
-  "status": "running",
+  "status": "failed",
   "supervisor_pid": 41291,
   "profile": {
     "CARGO_TARGET_DIR": "/tmp/mpk-w09-optimized-target",
@@ -19,9 +19,12 @@
         "--nocapture",
         "--test-threads=1"
       ],
-      "status": "running",
+      "status": "failed",
       "log": "real.log",
-      "pid": 41296
+      "pid": 41296,
+      "exit_code": 101,
+      "elapsed_seconds": 9733.151,
+      "log_sha256": "45c18c4b748ffcc58cf7b4e04f717383c195d981b4923730af1657c1aa6aeb19"
     }
   ],
   "full_gate": "deferred_to_T06_W12",
@@ -32,5 +35,6 @@
       "sha256": "fb535dabd132b1a2e52029f952f28b5b91a9c393eabc974cd38c9c423f35389c"
     }
   },
-  "semantic_limits": "none"
+  "semantic_limits": "none",
+  "failure": "real failed"
 }

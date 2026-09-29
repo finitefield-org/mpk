@@ -1,7 +1,7 @@
 {
   "work_item": "CSHARP-03-T06-W09",
   "internal_unit": 4,
-  "status": "targeted_verification_in_progress",
+  "status": "targeted_real_value_retry_in_progress",
   "scope": "Original concrete operation recipes, complete outcome comparison and original W06 condition bodies. This does not provide application proofs.",
   "implementation": "crates/mpk-vc/src/csharp_practical_ordinary_concrete_operations.rs",
   "evidence": "verification-logs/concrete-operations/",
@@ -13,7 +13,7 @@
     "Source ownership",
     "Application-owned Money.create currency predicate"
   ],
-  "verification": "Definition/signature/sequent closure checks, ordered-failure mutations, isolated NaN/input-guard checks, 96 prior-byte pins, all 45 same-byte dual-checker cases, and scoped quality checks pass. The original full real-value/guard test remains running; this component is incomplete until its terminal audit passes.",
+  "verification": "The original full real-value test failed after completing Money cases because the Option.value mutant was unchanged Some(-1). The test counterexample is corrected; all original cases will run again. Exact definitions, 45 same-byte dual-checker cases, ordered failures, isolated NaN/input guards and prior pin preservation retain passing receipts.",
   "full_gate": "deferred_to_T06_W12",
   "current_verification": "verification-logs/concrete-operations/partial-verification.json",
   "review": "unit-4-concrete-operation-review.md",
@@ -32,7 +32,7 @@
   },
   "preserved_certificates": 96,
   "pending_verification": [
-    "real.json: original full real-value/guard test is still running, including Money arithmetic"
+    "Complete real-value/guard rerun after the test-only Option.value counterexample correction"
   ],
   "dual_checker_certificates": 45
 }

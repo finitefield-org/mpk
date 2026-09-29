@@ -325,9 +325,11 @@ open.
 `decimal-fixed-formats/` pins six ordinary programs covering all 145 fixed-scale
 rounding configurations per decimal source. Both unchanged checkers accepted
 all six with zero axioms and rejected hash mutations; exact fixed/normalized
-pin replay, lint and inventory passed. The ordinary semantic matrix remains
-running in `unit-4-decimal-fixed-format-progress.json`. Parsing, exact registered
-linkage, universal proofs and the remaining original W09 units stay open.
+pin replay, lint and inventory passed. The complete ordinary semantic matrix
+now passes 355 observations; current 65-context/six-pin replay and six same-byte
+checker cases are reconciled in
+`verification-logs/decimal-fixed-formats-terminal/verification.json`. Exact
+source/binding integration, universal proofs and remaining W09 units stay open.
 
 ### Unit 4 decimal parser checkpoint
 

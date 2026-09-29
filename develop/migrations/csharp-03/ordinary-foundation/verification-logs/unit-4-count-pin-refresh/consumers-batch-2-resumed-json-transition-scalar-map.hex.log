@@ -1,0 +1,10 @@
+=== RUN   TestCheckerAgreementWithRustCLIJsonTransition
+=== RUN   TestCheckerAgreementWithRustCLIJsonTransition/scalar-map.hex
+    checker_agreement_test.go:395: Go accepted: certificate=19637828b753c5fde2011d1c8d9a3c460b1925a574f562edf46bc91367d18d40 declarations=2207 axioms=0 elapsed=3m11.497612083s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=2de5b031e4b44913d04a517ab691b1479a5b4b4933e284dc8cd73bb9cf4a0148 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=6.021096375s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=3m14.599929959s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=5.840695667s
+--- PASS: TestCheckerAgreementWithRustCLIJsonTransition (397.97s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonTransition/scalar-map.hex (397.97s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	398.060s

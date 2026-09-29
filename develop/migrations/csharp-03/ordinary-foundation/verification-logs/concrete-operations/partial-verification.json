@@ -1,5 +1,5 @@
 {
-  "status": "targeted_verification_in_progress",
+  "status": "targeted_real_value_retry_in_progress",
   "work_item": "CSHARP-03-T06-W09",
   "internal_unit": 4,
   "original_contexts": 45,
@@ -26,16 +26,20 @@
     "review-isolated-input-guard/build.json": "d492917d9b8e5e298df5becfe39ad27f548904796688ff6890cf3a3f2e1ff1e1",
     "review-isolated-input-guard/isolated.json": "69f7a3ce5d1cdc299f4610b3f4ca3f7a657925c86bdd0d622d78132f82b04604",
     "review-isolated-input-guard/quality.json": "8ff3116000ec61b51667126e905ade8957e90faff7cfb5e4b3e04f85d4a99ca2",
-    "definitions.json": "4404a8105525f9be08151e9b031b12762c5dbb13406502be71e5d191d1eb452d"
+    "definitions.json": "4404a8105525f9be08151e9b031b12762c5dbb13406502be71e5d191d1eb452d",
+    "review-real-value-mutation/build.json": "2c4bbba5a7263057fe8b5e9ff33738aba22f2e1a19f37b81f320115849cf0be8",
+    "review-real-value-mutation/definitions.json": "72278362725182712182d3949de9177985f4ca74479a7cd3ddd136ae090f6cf0",
+    "review-real-value-mutation/quality.json": "25bd8df799fd40169762e0381d7657d6bcac32b8650ef924348caf43c5b16435"
   },
-  "current_build": "review-isolated-input-guard/build.json",
-  "preserved_semantics": "All production sources and the existing routing/real test functions and helpers remain exact. Only component lookup syntax in the definition test changed, plus one independent test was appended. The definition test reran against all 45 unchanged corpus pins.",
+  "current_build": "review-real-value-mutation/build.json",
+  "preserved_semantics": "All production sources, routing helpers and isolated-mutation test remain exact. Only the real-value Option.value mutant changes from all-true (unchanged -1) to all-zero, with all 32 original bits independently checked and per-case progress messages added. Every original real-value source, operation, guard and condition is retained. Current 45-context pin regeneration passes.",
   "pending_verification": [
-    "real.json: original full real-value/guard test is still running, including Money arithmetic"
+    "review-real-value-mutation/real.json: complete real-value/guard rerun after correcting the unchanged Option.value counterexample"
   ],
   "review_corrections": [
     "quality.json retains the original never_loop failure",
-    "review-isolated-mutations/isolated.json retains the corrected .value counterexample failure"
+    "review-isolated-mutations/isolated.json retains the corrected .value counterexample failure",
+    "real.json retains the original Some(-1) / all-true no-op counterexample failure; review-real-value-mutation/finding.json records the correction"
   ],
   "full_gate": "deferred_to_T06_W12",
   "dual_checker_certificates": 45

@@ -1,0 +1,10 @@
+=== RUN   TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes
+=== RUN   TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/json-semantic-root-transition.hex
+    checker_agreement_test.go:395: Go accepted: certificate=f13bffba34fa16b83d43058e0ab496b2a03f26a51c34af16f85a3e71e03c3657 declarations=2357 axioms=0 elapsed=5m26.747305916s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=49d1ff7788ef9f6894fb1f3351eb4c948fc5861da5bf475678409787d3a5a91e axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=9.020103333s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=5m20.470919417s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=9.207415209s
+--- PASS: TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes (665.47s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/json-semantic-root-transition.hex (665.47s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	665.738s

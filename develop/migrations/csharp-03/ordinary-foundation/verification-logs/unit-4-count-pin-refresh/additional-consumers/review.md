@@ -61,3 +61,10 @@ rerun's scope; unrelated scalar and native-body tests are not repeated.
 This is a scoped repair of consumers affected by the prior helper/domain
 changes, not a repository-wide gate or application proof. Unit 4 and W09 remain
 in progress; the full T06 gate stays deferred to W12.
+
+Terminal audit: all 224 distinct byte sequences (274 occurrences) now pass
+identical-byte Go/Rust acceptance, matching reports, zero axioms and hash
+corruption rejection. The eleven historical Rust compilation failures remain
+retained alongside exact successful retries (three source-invariant and eight
+operation-index build retries). `checker-verification.json` verifies every
+terminal log hash, representative and duplicate occurrence.

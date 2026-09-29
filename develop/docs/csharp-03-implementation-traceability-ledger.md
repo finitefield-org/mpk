@@ -6007,3 +6007,30 @@ all 987 proofs remain pending. A read-only discovery maps 448 of the 467 origina
 operation recipes to same-context structural metadata; 19 need their original
 context pins generated. That inventory supplies neither ordinary adapter definitions
 nor proofs. Internal unit 4 and W09 remain in progress, with the full T06 gate at W12.
+
+## 67. CSHARP-03-T06-W09 terminal consumer and decimal reconciliation
+
+The two additional count/domain consumer batches are terminal. Their 224 distinct
+byte sequences (274 occurrences) pass both unchanged checkers with matching
+reports, zero axioms and complete hash-corruption rejection. Eleven historical
+Rust compilation failures remain recorded alongside exact successful retries;
+the terminal audit checks all log hashes, current bytes and duplicate links.
+See `ordinary-foundation/verification-logs/unit-4-count-pin-refresh/additional-consumers/checker-verification.json`.
+
+The unchanged fixed-decimal semantic test passed every original context,
+configuration and observation: 65 contexts, 145 mode/scale combinations and
+355 observations in 19,140.087 seconds. Current pin replay and six same-byte
+checker cases also pass. Only the six checker cases were recaptured because
+the historical checker log was stored in a removed /tmp file; the complete
+semantic run was retained. See
+`ordinary-foundation/verification-logs/decimal-fixed-formats-terminal/verification.json`.
+
+The concrete-operation component preserves all 467 original recipes, defines
+436 conditions and keeps 31 prerequisites explicit. Definition, failure-routing,
+prior-pin preservation and 45 same-byte checker cases pass. Its first full real
+run completed Money cases but then found a test error: replacing Option.value
+on Some(-1) with all-true bits did not change the result. The correction observes
+all 32 original bits before substituting zero, and retains every original case
+and guard. The complete rerun is still in progress; current Clippy, inventory,
+formatting and 45-context pin replay pass. No application proof, internal-unit
+or W09 completion is claimed. The whole T06 gate stays deferred to W12.

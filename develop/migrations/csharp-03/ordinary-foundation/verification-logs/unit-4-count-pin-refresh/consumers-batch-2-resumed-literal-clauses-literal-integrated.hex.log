@@ -1,0 +1,10 @@
+=== RUN   TestCheckerAgreementWithRustCLILiteralClauses
+=== RUN   TestCheckerAgreementWithRustCLILiteralClauses/literal-integrated.hex
+    checker_agreement_test.go:395: Go accepted: certificate=d64018709c7107ee5deb2abd07354378706efaa96faaac5b516c3617a7bcf221 declarations=1033 axioms=0 elapsed=22.710902291s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=7e0890c249e332579df4aa442661f4614216c9efc3930346f95e299ded7d2d1d axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=2.168060375s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=22.907546125s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=2.156930042s
+--- PASS: TestCheckerAgreementWithRustCLILiteralClauses (49.95s)
+    --- PASS: TestCheckerAgreementWithRustCLILiteralClauses/literal-integrated.hex (49.95s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	50.097s

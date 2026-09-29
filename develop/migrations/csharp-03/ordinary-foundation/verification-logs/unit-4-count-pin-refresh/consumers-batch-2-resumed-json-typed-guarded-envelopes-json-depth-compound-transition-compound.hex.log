@@ -1,0 +1,10 @@
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/json-depth-compound-transition-compound.hex
+    checker_agreement_test.go:395: Go accepted: certificate=9aaa8be52686bb6b438bd958a7209581b41abd263aa17f5758ef7e8dff58fe05 declarations=2271 axioms=0 elapsed=2m20.429084625s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=2e737948bb82db051325665a9f63f91e839058a7a8066bd9d6c92599eeaf7548 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=5.355318958s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=2m19.933845291s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=5.410140083s
+--- PASS: TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes (291.14s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/json-depth-compound-transition-compound.hex (291.14s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	291.415s

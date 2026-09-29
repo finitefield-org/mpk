@@ -1,0 +1,112 @@
+{
+  "status": "passed_scoped_component",
+  "supervisor_pid": 17525,
+  "selection_reason": "The full original 65-source, 145-configuration, 355-observation semantic run is terminal passed. Retain that run without repetition; replay all current source pins and recapture the six exact same-byte checker cases because the earlier checker log was stored only in a now-missing /tmp file.",
+  "retained_runtime": {
+    "receipt": "verification-logs/binding-reconstruction/decimal-fixed-formats-resumed.json",
+    "receipt_sha256": "50e4ebba1bdcee8f2e0060330d036bee34636caee3b1f1044188e477144fcab8",
+    "log_sha256": "0cda86c0c3838ce3401dcf2be16f2317d678ea566911968451ef8c4e7e936662",
+    "elapsed_seconds": 19140.087
+  },
+  "build": "verification-logs/concrete-operations/review-real-value-mutation/build.json",
+  "build_sha256": "2c4bbba5a7263057fe8b5e9ff33738aba22f2e1a19f37b81f320115849cf0be8",
+  "current_binary_sha256": "734b819e8ee9f19739c2dc1d383d6e08cb625e72c0fb2674437f2ea968dbe457",
+  "profile": {
+    "CARGO_TARGET_DIR": "/tmp/mpk-w09-optimized-target",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "2",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0"
+  },
+  "runs": [
+    {
+      "label": "pins",
+      "command": [
+        "/tmp/mpk-w09-concrete-operations-real-reviewed-integration-734b819e8ee9f197",
+        "csharp_03_t06_w09_decimal_fixed_formats_pinned_sources",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "status": "passed",
+      "log": "pins.log",
+      "pid": 17528,
+      "exit_code": 0,
+      "elapsed_seconds": 1.379,
+      "log_sha256": "0c66c0d7e79bdfb8d449ffe90520317b06a81bbba42f052cb7bc9b49b1735995"
+    },
+    {
+      "label": "checkers",
+      "command": [
+        "go",
+        "test",
+        "-tags=checkeragreement",
+        "-count=1",
+        "-timeout=0",
+        "-run",
+        "^TestCheckerAgreementWithRustCLIDecimalFixedFormats$",
+        "-v",
+        "."
+      ],
+      "status": "passed",
+      "log": "checkers.log",
+      "pid": 17536,
+      "exit_code": 0,
+      "elapsed_seconds": 156.683,
+      "log_sha256": "b590d4c532dd9077b78375e334162ba3515b1795983df5f26cb5f98e0a6357ff"
+    }
+  ],
+  "full_gate": "deferred_to_T06_W12",
+  "source_contexts": 65,
+  "configuration_count": 145,
+  "configuration_occurrences": 870,
+  "semantic_observations": 355,
+  "manifest_sha256": "ae6552b9f95236034e0c63635c14a7187692565c87d827e34d931325e690da3e",
+  "pins": [
+    {
+      "id": "binding-vc-money",
+      "certificate_sha256": "8e17c955175a60490092b7618d2860bafb752438389bc72e0fe704a87c73c621",
+      "hex_sha256": "3cc9805bc47f319c183846d5df1421d3f5a29150af7d3141546b9ad4b153ae39"
+    },
+    {
+      "id": "boundary-map-decimal",
+      "certificate_sha256": "8e17c955175a60490092b7618d2860bafb752438389bc72e0fe704a87c73c621",
+      "hex_sha256": "3cc9805bc47f319c183846d5df1421d3f5a29150af7d3141546b9ad4b153ae39"
+    },
+    {
+      "id": "boundary-set-decimal",
+      "certificate_sha256": "8e17c955175a60490092b7618d2860bafb752438389bc72e0fe704a87c73c621",
+      "hex_sha256": "3cc9805bc47f319c183846d5df1421d3f5a29150af7d3141546b9ad4b153ae39"
+    },
+    {
+      "id": "complete-snapshot",
+      "certificate_sha256": "8e17c955175a60490092b7618d2860bafb752438389bc72e0fe704a87c73c621",
+      "hex_sha256": "3cc9805bc47f319c183846d5df1421d3f5a29150af7d3141546b9ad4b153ae39"
+    },
+    {
+      "id": "literal-decimal",
+      "certificate_sha256": "8e17c955175a60490092b7618d2860bafb752438389bc72e0fe704a87c73c621",
+      "hex_sha256": "3cc9805bc47f319c183846d5df1421d3f5a29150af7d3141546b9ad4b153ae39"
+    },
+    {
+      "id": "literal-product",
+      "certificate_sha256": "8e17c955175a60490092b7618d2860bafb752438389bc72e0fe704a87c73c621",
+      "hex_sha256": "3cc9805bc47f319c183846d5df1421d3f5a29150af7d3141546b9ad4b153ae39"
+    }
+  ],
+  "current_source_sha256": {
+    "crates/mpk-vc/src/csharp_practical_ordinary_decimal_parse.rs": "acb76e2945a55556163304ced43103c4c92d4b6b2a2781d1e6be21061525d71b",
+    "crates/mpk-vc/src/csharp_practical_ordinary_decimal.rs": "05445069bb89a54ff8de1c1e909f5e89b87e302f10af8173e27feeef905638bb",
+    "crates/mpk-vc/src/csharp_practical_ordinary_decimal_fixed_format.rs": "2d5474656b1741431373d4baa79ddca963a2c5ae020987b432e8060c35808dd1",
+    "crates/mpk-vc/src/csharp_practical_ordinary_decimal_arithmetic.rs": "78f3cf789d97b3676d827d36675fb7e9999840ac88386f7c016fa5793e1653eb",
+    "crates/mpk-vc/src/csharp_practical_ordinary_decimal_data.rs": "197a4785e48d813357e81d5ef7958f729d1c40b9337ade60daf088901f6fdaef",
+    "crates/mpk-vc/src/csharp_practical_ordinary_decimal_format.rs": "738d13a44db6f0d62493fe9f211ab5ee783c363ccf3c7a6e00577bd5bc0ba1be",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_fixed_format_tests.rs": "906b8b7247f140fa6fc54e706fd238a99c698232f5c162862fb1a38b6f3ecd52",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_clause_tests.rs": "336b1440999bc49090413cb11774f81859afdecf7a3b90e3c16661c7970cf92b",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_data_tests.rs": "04dcc575c0d8fe1cda88a39bbc58080a72b9e05662fea0cabf8f9c8438b8e7a5",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_format_tests.rs": "b3eb029736c45cf19046c4b4c978614e6ad35869305335da323e075e29332f29",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_codec_clause_tests.rs": "ad7e892e6539ebd8ab7ff2959d1b4712b45693a4ff721bdb6b4b88fb379bc83b",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_parse_tests.rs": "efa87c1b8e422b7aa282cb55ee36ab40621eceabef7ef220aff4f6cacc74b9ed"
+  },
+  "retained_test_sha256": "906b8b7247f140fa6fc54e706fd238a99c698232f5c162862fb1a38b6f3ecd52"
+}

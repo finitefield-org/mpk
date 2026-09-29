@@ -1,0 +1,10 @@
+=== RUN   TestCheckerAgreementWithRustCLIJsonSemanticRoot
+=== RUN   TestCheckerAgreementWithRustCLIJsonSemanticRoot/money.hex
+    checker_agreement_test.go:395: Go accepted: certificate=286e445a7ec4d3cfcf54e3c1989aae0da1a2368cb151032855e195c4f256d502 declarations=2231 axioms=0 elapsed=3m31.391544167s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=90db7a895248348a7cb442c9e7418e06b9139383e134c2bc8a31d5c5806aeb6a axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=7.992693917s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=3m36.300457625s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=7.720564292s
+--- PASS: TestCheckerAgreementWithRustCLIJsonSemanticRoot (443.43s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonSemanticRoot/money.hex (443.43s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	443.698s

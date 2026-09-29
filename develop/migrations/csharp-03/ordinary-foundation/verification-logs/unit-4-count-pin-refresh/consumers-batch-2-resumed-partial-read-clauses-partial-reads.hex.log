@@ -1,0 +1,10 @@
+=== RUN   TestCheckerAgreementWithRustCLIPartialReadClauses
+=== RUN   TestCheckerAgreementWithRustCLIPartialReadClauses/partial-reads.hex
+    checker_agreement_test.go:395: Go accepted: certificate=2c5517180cf9af15ceea2308d923bdb7366d523ebbc07cd31d1ed9764bb9a9b6 declarations=163 axioms=0 elapsed=998.297583ms
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=5fc926e24add645f00c113f411903e2b91deab0a91f3358e06dcb2874543b176 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=726.188292ms
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=1.006315792s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=755.906833ms
+--- PASS: TestCheckerAgreementWithRustCLIPartialReadClauses (3.49s)
+    --- PASS: TestCheckerAgreementWithRustCLIPartialReadClauses/partial-reads.hex (3.49s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	3.581s

@@ -1,0 +1,10 @@
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/optional_default.hex
+    checker_agreement_test.go:395: Go accepted: certificate=a54dfa7714716254903be9de4f37c24160cd391ac9c0b0700075c744d2eb2a1f declarations=2036 axioms=0 elapsed=2m1.451999s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=3fc3474100fd6633066ad7d78d9f7e0490c00e55bb4b436895afc236de13c1d8 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=4.742233375s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=2m2.647910292s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=5.023339542s
+--- PASS: TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes (253.88s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonTypedGuardedEnvelopes/optional_default.hex (253.88s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	254.128s

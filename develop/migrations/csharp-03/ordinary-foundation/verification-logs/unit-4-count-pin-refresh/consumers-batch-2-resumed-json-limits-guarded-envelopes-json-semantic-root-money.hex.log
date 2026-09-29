@@ -1,0 +1,10 @@
+=== RUN   TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes
+=== RUN   TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/json-semantic-root-money.hex
+    checker_agreement_test.go:395: Go accepted: certificate=5faaf5123f591acc3f23a3c273bd10d640ab8ed7ddd2d7055bb002b091f3c3d5 declarations=2426 axioms=0 elapsed=8m2.832906209s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=8a25057d215651ddb17429aaded8e9e343fc0625f957956d67012059dbe058f8 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=16.316161709s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=6m59.768568291s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=9.70597725s
+--- PASS: TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes (928.65s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonLimitsGuardedEnvelopes/json-semantic-root-money.hex (928.65s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	928.761s

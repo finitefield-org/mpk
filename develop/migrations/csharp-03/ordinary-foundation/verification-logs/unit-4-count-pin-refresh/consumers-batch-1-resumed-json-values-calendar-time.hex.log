@@ -1,0 +1,10 @@
+=== RUN   TestCheckerAgreementWithRustCLIJsonValues
+=== RUN   TestCheckerAgreementWithRustCLIJsonValues/calendar-time.hex
+    checker_agreement_test.go:395: Go accepted: certificate=2db7a06ded8f2d3380011a60bbf1841d9559cd98ea1aaf29cb0ff4aaec84e4d8 declarations=2243 axioms=0 elapsed=3m49.983734625s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=bb1155fecc293d19eb97afe55740d7191a3a0e1df7440581921f2e10af55a8f4 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=8.000209125s
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=3m40.71864075s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=8.369904917s
+--- PASS: TestCheckerAgreementWithRustCLIJsonValues (467.09s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonValues/calendar-time.hex (467.09s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	467.201s

@@ -1,0 +1,10 @@
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedNodes
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedNodes/json-semantic-root-ordered_map.hex
+    checker_agreement_test.go:395: Go accepted: certificate=d45a275b76e399e740973d0d031cb44c9688960ca3a6cabdaf33acdfb357c15c declarations=89 axioms=0 elapsed=2.921808042s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=36935209aefda7e2353891559263d342a81a69d9ba2eeb6914faf101880756d8 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=733.435541ms
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=2.944715417s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=734.484958ms
+--- PASS: TestCheckerAgreementWithRustCLIJsonTypedNodes (7.34s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonTypedNodes/json-semantic-root-ordered_map.hex (7.34s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	7.429s

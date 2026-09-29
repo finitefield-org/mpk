@@ -61,3 +61,8 @@ fields while preserving source identities and semantic metadata. Their two
 checker batches remain separate from the completed binding checks. See
 `additional-consumers/verification.json` and `additional-consumers/review.md`;
 the 55 binding occurrences above must not be presented as this larger closure.
+
+The terminal additional-consumer audit now passes all 224 distinct byte sets
+and 274 occurrences. All eleven retained intermediate compilation failures
+have exact full successful retries; see
+`additional-consumers/checker-verification.json`. No checker batch remains live.

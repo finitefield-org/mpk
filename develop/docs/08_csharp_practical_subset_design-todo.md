@@ -2037,6 +2037,18 @@ The source-invariant pins are unchanged. The five-component inventory now has
 proofs remain pending. See `ordinary-foundation/unit-4-concrete-type-progress.json`.
 This does not complete internal unit 4 or W09.
 
+The additional count/domain consumer audit now passes all 224 distinct byte
+sets (274 occurrences), including eleven exact retries for retained intermediate
+compiler failures. The full fixed-decimal format matrix passes 355 observations
+across all 145 rounding/scale configurations; current 65-context/six-pin replay
+and all six same-byte checker cases pass. Evidence is under
+`ordinary-foundation/verification-logs/unit-4-count-pin-refresh/additional-consumers/checker-verification.json`
+and `ordinary-foundation/verification-logs/decimal-fixed-formats-terminal/verification.json`.
+The concrete-operation adapter retains 436 defined conditions and 31 pending
+prerequisites. Its original real-value test exposed an unchanged Option.value
+counterexample (the source already returned -1); a corrected complete rerun is
+in progress. All original application proofs and internal units 4-8 remain open.
+
 Owns: translation of every already-expanded concrete foundation definition in
 monomorphic VIR into ordinary core definitions and proof terms for all new
 finite values and operations; the successor program-assembly profile;

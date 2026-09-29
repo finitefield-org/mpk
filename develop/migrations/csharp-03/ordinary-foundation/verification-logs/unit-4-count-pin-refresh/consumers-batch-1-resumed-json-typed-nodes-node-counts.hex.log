@@ -1,0 +1,10 @@
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedNodes
+=== RUN   TestCheckerAgreementWithRustCLIJsonTypedNodes/node-counts.hex
+    checker_agreement_test.go:395: Go accepted: certificate=d71120cab017d9ef6d925360071d3f5af09fa443e8270cebc301870e77dbe81b declarations=89 axioms=0 elapsed=4.399286167s
+    checker_agreement_test.go:401: Rust accepted identical bytes and report: export=17446f9879208af08259748b9bcf0e57a5e52ba0621bd80c33b6dde03631b7b0 axiom_report=0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5 elapsed=894.591417ms
+    checker_agreement_test.go:409: Go rejected changed hash: elapsed=4.377096666s
+    checker_agreement_test.go:415: Rust rejected changed hash: elapsed=885.011291ms
+--- PASS: TestCheckerAgreementWithRustCLIJsonTypedNodes (10.56s)
+    --- PASS: TestCheckerAgreementWithRustCLIJsonTypedNodes/node-counts.hex (10.56s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	10.649s

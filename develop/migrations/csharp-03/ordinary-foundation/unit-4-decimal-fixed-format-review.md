@@ -1,4 +1,4 @@
-# W09 unit 4 fixed decimal formatting review (in progress)
+# W09 unit 4 fixed decimal formatting review (scoped review complete)
 
 This component covers all five fixed-decimal rounding modes and all 29 valid
 scales. It retains the remaining codec parsing, exact registered linkage,
@@ -39,12 +39,15 @@ programs pin 870 configuration occurrences (145 each); maxima are 34,535 terms
 and 518 declarations. Initial lint and all five inventory tests passed.
 All six same-byte checker cases passed with zero axioms and hash corruptions
 rejected (286.362 seconds); final pin replay passed (11.20 seconds) and latest
-lint passed. The ongoing semantic matrix is tracked separately in
-unit-4-decimal-fixed-format-progress.json and is not counted as a pass. The semantic matrix covers every mode/scale and additional
-rounding ties, parity, sticky tails, sign, maximum values and zero/cohort cases.
+lint passed. The complete original semantic matrix now passes all 355 observations in
+19,140.087 seconds. It covers every mode/scale and additional rounding ties,
+parity, sticky tails, sign, maximum values and zero/cohort cases. Current
+65-context/six-pin replay and all six same-byte Go/Rust checker cases pass.
+The final durable receipts and log hashes are in
+`verification-logs/decimal-fixed-formats-terminal/verification.json`. The earlier
+checker log had been stored only in a removed /tmp file, so that six-case
+coverage was recaptured; the complete semantic run was retained.
 
-No additional actionable code issue was found in this direct review. Final
-component review remains open until actual semantic and checker verification
-finish. Checker verification has passed. These helper definitions/certificates do not prove the complete boundary
-or source relations. No component-only commit or unit/W09 completion is issued;
+No additional actionable code issue was found in this direct review. Final scoped component review is complete. These helper definitions and
+certificates do not prove the complete boundary or source relations. No component-only commit or unit/W09 completion is issued;
 check-fast.sh remains at T06-W12.

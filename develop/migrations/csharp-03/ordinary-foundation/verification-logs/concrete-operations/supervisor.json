@@ -1,5 +1,5 @@
 {
-  "status": "running",
+  "status": "failed",
   "pid": 40368,
   "runs": [
     {
@@ -23,12 +23,20 @@
     {
       "mode": "real",
       "pid": 41291,
-      "status": "running"
+      "status": "failed",
+      "exit_code": 1
     },
     {
       "mode": "preservation",
       "pid": 41292,
-      "status": "running"
+      "status": "passed",
+      "exit_code": 0
+    },
+    {
+      "mode": "quality",
+      "pid": 72817,
+      "status": "failed",
+      "exit_code": 1
     }
   ],
   "full_gate": "deferred_to_T06_W12"
