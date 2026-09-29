@@ -2048,8 +2048,12 @@ and all six same-byte checker cases pass. Evidence is under
 and `ordinary-foundation/verification-logs/decimal-fixed-formats-terminal/verification.json`.
 The concrete-operation adapter retains 436 defined conditions and 31 pending
 prerequisites. Its original real-value test exposed an unchanged Option.value
-counterexample (the source already returned -1); a corrected complete rerun is
-in progress. All original application proofs and internal units 4-8 remain open.
+counterexample (the source already returned -1). The corrected complete rerun
+passed in 6,146.32 seconds: six normal observations, one closed operation,
+one NaN observation and five rejected-input guards. The audit matched all 333
+source hashes, the test binary, log and prior 45 zero-axiom checker pins; see
+`ordinary-foundation/verification-logs/concrete-operations/verification.json`.
+All 987 original application proofs and internal units 4-8 remain open.
 
 Owns: translation of every already-expanded concrete foundation definition in
 monomorphic VIR into ordinary core definitions and proof terms for all new

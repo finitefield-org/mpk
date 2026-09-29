@@ -1,7 +1,7 @@
 {
   "work_item": "CSHARP-03-T06-W09",
   "internal_unit": 4,
-  "status": "targeted_real_value_retry_in_progress",
+  "status": "passed_scoped_component",
   "scope": "Original concrete operation recipes, complete outcome comparison and original W06 condition bodies. This does not provide application proofs.",
   "implementation": "crates/mpk-vc/src/csharp_practical_ordinary_concrete_operations.rs",
   "evidence": "verification-logs/concrete-operations/",
@@ -13,9 +13,9 @@
     "Source ownership",
     "Application-owned Money.create currency predicate"
   ],
-  "verification": "The original full real-value test failed after completing Money cases because the Option.value mutant was unchanged Some(-1). The test counterexample is corrected; all original cases will run again. Exact definitions, 45 same-byte dual-checker cases, ordered failures, isolated NaN/input guards and prior pin preservation retain passing receipts.",
+  "verification": "Complete targeted terminal evidence, unchanged original recipes/sequents, mutation checks, prior-byte preservation, both checkers and quality checks passed. All application proofs remain pending.",
   "full_gate": "deferred_to_T06_W12",
-  "current_verification": "verification-logs/concrete-operations/partial-verification.json",
+  "current_verification": "verification-logs/concrete-operations/verification.json",
   "review": "unit-4-concrete-operation-review.md",
   "source_contexts": 45,
   "conditions": 436,
@@ -31,8 +31,31 @@
     "malformed_option_inputs": 1
   },
   "preserved_certificates": 96,
-  "pending_verification": [
-    "Complete real-value/guard rerun after the test-only Option.value counterexample correction"
-  ],
-  "dual_checker_certificates": 45
+  "pending_verification": [],
+  "dual_checker_certificates": 45,
+  "real_values": {
+    "normal_observations": 6,
+    "closed_operations": 1,
+    "nan_observations": 1,
+    "rejected_input_guards": 5
+  },
+  "checker_certificates": 45,
+  "preserved": {
+    "structural-foundations": {
+      "certificate_count": 44,
+      "manifest_sha256": "c20e54c85ffe3f2033d9d2b366abdf0abc0ceb8313f3b918800dbdc73de17a02"
+    },
+    "structural-boundary": {
+      "certificate_count": 4,
+      "manifest_sha256": "e2d6b20553e79832ab7e09b4c3443c0e0cbe7a7ad8bb4638348d9040d720e2be"
+    },
+    "structural-public": {
+      "certificate_count": 3,
+      "manifest_sha256": "dadffbe7731f2a2dfd418899b56090c358e044db8042b3ef11c7a17b7595473a"
+    },
+    "concrete-types": {
+      "certificate_count": 45,
+      "manifest_sha256": "6954f893d58b83939f9710cff0f85a1f3ab865e5990435efeb8007d470331a73"
+    }
+  }
 }
