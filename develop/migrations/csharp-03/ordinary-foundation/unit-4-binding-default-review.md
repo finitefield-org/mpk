@@ -34,14 +34,18 @@ source-use proofs. Every one of the 987 original W06 proof IDs remains pending.
 All 53 prior source-invariant metadata and certificate pins are unchanged under
 the current build. All 45 same-byte dual-checker cases passed with zero axioms and corruption rejection. Clippy passed. The initial inventory drift is retained; adding exactly the new test preserves the prior 143-path fingerprint and passes all five inventory tests at 144 paths / 4,967 family-to-path matches. Format passed after that correction.
 
-The follow-up captured-source inventory binds the 32 original ineligible-default
-sequents in 22 contexts to their exact input and callable-body hashes. The 58
-captured operation nodes contain no explicit `DefaultValue`; one initialization
-plan is retained. Fixture selection follows the original binding-default test's
-source chain, including the `binding-vc` originals and the `extra-` aliases;
-later binding-clause copies with the same labels are not substituted. This
-narrows the source-use work, but does not define or prove
-`DefaultUseForbidden`, account for implicit/native uses, or discharge any of the
-987 application proofs. See
-`verification-logs/binding-defaults/source-use-inventory.json` and its audit
-script. The full T06 gate remains deferred to W12.
+The follow-up source-use trace binds all 32 original ineligible-default
+sequents in 22 contexts to their exact source IR and callable-body hashes.
+Twenty-three matching typed nodes are retained from 58 captured operation
+nodes, including the explicit `Rep.Make` construction and its initialization
+plan. No captured operation is `DefaultValue`. The original 45 certificate
+bytes and hashes remain unchanged; the binding-default metadata now carries
+the trace, source availability and pending native-execution proof. Fixture
+selection follows the original binding-default test's source chain, including
+the `binding-vc` originals and the `extra-` aliases; later binding-clause copies
+with the same labels are not substituted. This narrows the source-use work but
+does not define or prove `DefaultUseForbidden`, account for all implicit/native
+publications, or discharge any of the 987 application proofs. See
+`verification-logs/binding-defaults/source-use-inventory.json`,
+`verification-logs/binding-defaults/source-use-traces/verification.json` and
+their audit script. The full T06 gate remains deferred to W12.

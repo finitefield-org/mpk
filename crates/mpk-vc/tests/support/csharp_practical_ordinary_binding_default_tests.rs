@@ -303,6 +303,43 @@ fn csharp_03_t06_w09_binding_defaults_original_source_certificates() {
             expected
         );
         assert_eq!(p.pending_defaults(), expected_pending);
+        assert_eq!(
+            p.source_use_traces().len(),
+            p.pending_defaults()
+                .iter()
+                .filter(|pending| {
+                    pending.reason == OrdinaryBindingDefaultPendingReason::SourceUseProofRequired
+                })
+                .count()
+        );
+        for trace in p.source_use_traces() {
+            assert_eq!(trace.source_ir_sha256, vir.hash());
+            assert!(trace.captured_source_available);
+            assert_eq!(trace.captured_callable_count, source.callables().len());
+            assert!(trace.native_execution_proof_pending);
+            assert!(p.pending_defaults().iter().any(|pending| {
+                pending.sequent.owner_id == trace.projection_id
+                    && pending.reason == OrdinaryBindingDefaultPendingReason::SourceUseProofRequired
+            }));
+            for node in &trace.nodes {
+                let callable = source
+                    .callables()
+                    .iter()
+                    .find(|callable| callable.id() == node.callable_id)
+                    .unwrap();
+                assert_eq!(node.body_sha256, callable.body_sha256());
+                assert!(node.node_ordinal < source.body(callable.id()).unwrap().len());
+            }
+        }
+        if id == "float-make-commutation" {
+            assert!(p
+                .source_use_traces()
+                .iter()
+                .flat_map(|trace| &trace.nodes)
+                .any(|node| {
+                    node.kind == "ObjectCreation" && node.initialization_plan && !node.implicit
+                }));
+        }
         let resolved = expected
             .iter()
             .map(|s| s.id.as_str())

@@ -2025,7 +2025,9 @@ The original W06 closed actual-default conditions now pass targeted verification
 over the 45 retained binding sources, including both checkers. They use exact CLR
 default values, source public-domain membership and the declared semantic arm.
 DefaultUseForbidden remains an explicit source-use proof obligation, and every
-original proof ID remains pending. See
+original proof ID remains pending. All 32 ineligible cases now carry a
+source-bound trace of the 23 typed nodes in the original 22 contexts; the
+trace does not prove absence of implicit or native default publication. See
 `ordinary-foundation/unit-4-binding-default-progress.json`. This does not close
 unit 4 or W09; the full T06 gate remains deferred to W12.
 

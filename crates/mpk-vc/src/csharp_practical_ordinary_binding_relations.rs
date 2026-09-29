@@ -8,7 +8,7 @@ pub use binding_defaults::{
     generate_csharp_practical_ordinary_binding_defaults,
     import_csharp_practical_ordinary_binding_defaults, OrdinaryBindingActualDefault,
     OrdinaryBindingDefaultPending, OrdinaryBindingDefaultPendingReason,
-    OrdinaryBindingDefaultProgram,
+    OrdinaryBindingDefaultProgram, OrdinaryBindingSourceUseNode, OrdinaryBindingSourceUseTrace,
 };
 #[path = "csharp_practical_ordinary_concrete_operations.rs"]
 mod concrete_operations;

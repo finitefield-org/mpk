@@ -1,14 +1,16 @@
 {
-  "status": "verified_captured_syntax_inventory_only",
-  "scope": "Original 32 ineligible-default W06 conditions in 22 binding contexts. Exact captured input and callable-body hashes are checked; no ordinary DefaultUseForbidden definition, source-use theorem or application proof is supplied.",
-  "selection_reason": "These 32 conditions are the remaining actual_default obligations; explicit DefaultValue syntax is relevant to their future source-use proof, while implicit/native uses and source execution still require ordinary reasoning.",
-  "manifest_sha256": "d3981aff993dbb5137644c229cc1df209c24fd26648c4fd1f0946b964332b104",
+  "status": "verified_ordinary_source_use_trace_only",
+  "scope": "Original 32 ineligible-default W06 conditions in 22 binding contexts. Ordinary trace nodes are reconciled with exact captured input and callable-body hashes; no DefaultUseForbidden definition, source-use theorem or application proof is supplied.",
+  "selection_reason": "These 32 conditions are the remaining actual_default obligations. The ordinary program now carries source-bound proof inputs; implicit/native publications and source execution still require ordinary reasoning.",
+  "manifest_sha256": "f8aab7768f74e58632b2e3702f3018d01fdd63837fba90230c4341a85f661fab",
   "contexts": 22,
   "pending_conditions": 32,
   "captured_operation_nodes": 58,
   "explicit_default_nodes": 0,
   "captured_data_steps": 0,
   "captured_initialization_plans": 1,
+  "ordinary_trace_records": 32,
+  "ordinary_trace_nodes": 23,
   "sources": [
     {
       "id": "binding-vc-boundary_field",
@@ -26,7 +28,9 @@
       "operation_nodes": 2,
       "explicit_default_nodes": [],
       "data_steps": 0,
-      "initialization_plans": 0
+      "initialization_plans": 0,
+      "ordinary_trace_records": 1,
+      "ordinary_trace_nodes": 1
     },
     {
       "id": "binding-vc-bounded_sequence",
@@ -44,7 +48,9 @@
       "operation_nodes": 2,
       "explicit_default_nodes": [],
       "data_steps": 0,
-      "initialization_plans": 0
+      "initialization_plans": 0,
+      "ordinary_trace_records": 1,
+      "ordinary_trace_nodes": 1
     },
     {
       "id": "binding-vc-instant",
@@ -62,7 +68,9 @@
       "operation_nodes": 2,
       "explicit_default_nodes": [],
       "data_steps": 0,
-      "initialization_plans": 0
+      "initialization_plans": 0,
+      "ordinary_trace_records": 1,
+      "ordinary_trace_nodes": 1
     },
     {
       "id": "binding-vc-money",
@@ -80,7 +88,9 @@
       "operation_nodes": 2,
       "explicit_default_nodes": [],
       "data_steps": 0,
-      "initialization_plans": 0
+      "initialization_plans": 0,
+      "ordinary_trace_records": 1,
+      "ordinary_trace_nodes": 1
     },
     {
       "id": "binding-vc-ordered_entry",
@@ -98,7 +108,9 @@
       "operation_nodes": 2,
       "explicit_default_nodes": [],
       "data_steps": 0,
-      "initialization_plans": 0
+      "initialization_plans": 0,
+      "ordinary_trace_records": 1,
+      "ordinary_trace_nodes": 1
     },
     {
       "id": "binding-vc-ordered_map",
@@ -117,7 +129,9 @@
       "operation_nodes": 2,
       "explicit_default_nodes": [],
       "data_steps": 0,
-      "initialization_plans": 0
+      "initialization_plans": 0,
+      "ordinary_trace_records": 2,
+      "ordinary_trace_nodes": 1
     },
     {
       "id": "binding-vc-ordered_set",
@@ -135,7 +149,9 @@
       "operation_nodes": 2,
       "explicit_default_nodes": [],
       "data_steps": 0,
-      "initialization_plans": 0
+      "initialization_plans": 0,
+      "ordinary_trace_records": 1,
+      "ordinary_trace_nodes": 1
     },
     {
       "id": "binding-vc-result",
@@ -153,7 +169,9 @@
       "operation_nodes": 2,
       "explicit_default_nodes": [],
       "data_steps": 0,
-      "initialization_plans": 0
+      "initialization_plans": 0,
+      "ordinary_trace_records": 1,
+      "ordinary_trace_nodes": 1
     },
     {
       "id": "binding-vc-transition",
@@ -171,7 +189,9 @@
       "operation_nodes": 2,
       "explicit_default_nodes": [],
       "data_steps": 0,
-      "initialization_plans": 0
+      "initialization_plans": 0,
+      "ordinary_trace_records": 1,
+      "ordinary_trace_nodes": 1
     },
     {
       "id": "binding-vc-validation",
@@ -189,7 +209,9 @@
       "operation_nodes": 2,
       "explicit_default_nodes": [],
       "data_steps": 0,
-      "initialization_plans": 0
+      "initialization_plans": 0,
+      "ordinary_trace_records": 1,
+      "ordinary_trace_nodes": 1
     },
     {
       "id": "bool-float-entry",
@@ -207,7 +229,9 @@
       "operation_nodes": 2,
       "explicit_default_nodes": [],
       "data_steps": 0,
-      "initialization_plans": 0
+      "initialization_plans": 0,
+      "ordinary_trace_records": 1,
+      "ordinary_trace_nodes": 1
     },
     {
       "id": "boundary-map-compound",
@@ -226,7 +250,9 @@
       "operation_nodes": 2,
       "explicit_default_nodes": [],
       "data_steps": 0,
-      "initialization_plans": 0
+      "initialization_plans": 0,
+      "ordinary_trace_records": 2,
+      "ordinary_trace_nodes": 1
     },
     {
       "id": "boundary-map-decimal",
@@ -245,7 +271,9 @@
       "operation_nodes": 2,
       "explicit_default_nodes": [],
       "data_steps": 0,
-      "initialization_plans": 0
+      "initialization_plans": 0,
+      "ordinary_trace_records": 2,
+      "ordinary_trace_nodes": 1
     },
     {
       "id": "boundary-map-string",
@@ -264,7 +292,9 @@
       "operation_nodes": 2,
       "explicit_default_nodes": [],
       "data_steps": 0,
-      "initialization_plans": 0
+      "initialization_plans": 0,
+      "ordinary_trace_records": 2,
+      "ordinary_trace_nodes": 1
     },
     {
       "id": "boundary-set-decimal",
@@ -282,7 +312,9 @@
       "operation_nodes": 2,
       "explicit_default_nodes": [],
       "data_steps": 0,
-      "initialization_plans": 0
+      "initialization_plans": 0,
+      "ordinary_trace_records": 1,
+      "ordinary_trace_nodes": 1
     },
     {
       "id": "extra-bool-float-map",
@@ -301,7 +333,9 @@
       "operation_nodes": 2,
       "explicit_default_nodes": [],
       "data_steps": 0,
-      "initialization_plans": 0
+      "initialization_plans": 0,
+      "ordinary_trace_records": 2,
+      "ordinary_trace_nodes": 1
     },
     {
       "id": "extra-bool-nullable-map",
@@ -320,7 +354,9 @@
       "operation_nodes": 2,
       "explicit_default_nodes": [],
       "data_steps": 0,
-      "initialization_plans": 0
+      "initialization_plans": 0,
+      "ordinary_trace_records": 2,
+      "ordinary_trace_nodes": 1
     },
     {
       "id": "extra-shared-lookup-maps",
@@ -341,7 +377,9 @@
       "operation_nodes": 2,
       "explicit_default_nodes": [],
       "data_steps": 0,
-      "initialization_plans": 0
+      "initialization_plans": 0,
+      "ordinary_trace_records": 4,
+      "ordinary_trace_nodes": 0
     },
     {
       "id": "extra-validation-bool",
@@ -359,7 +397,9 @@
       "operation_nodes": 2,
       "explicit_default_nodes": [],
       "data_steps": 0,
-      "initialization_plans": 0
+      "initialization_plans": 0,
+      "ordinary_trace_records": 1,
+      "ordinary_trace_nodes": 1
     },
     {
       "id": "extra-validation-product",
@@ -377,7 +417,9 @@
       "operation_nodes": 2,
       "explicit_default_nodes": [],
       "data_steps": 0,
-      "initialization_plans": 0
+      "initialization_plans": 0,
+      "ordinary_trace_records": 1,
+      "ordinary_trace_nodes": 1
     },
     {
       "id": "remapped-boundary-sequence",
@@ -396,7 +438,9 @@
       "operation_nodes": 2,
       "explicit_default_nodes": [],
       "data_steps": 0,
-      "initialization_plans": 0
+      "initialization_plans": 0,
+      "ordinary_trace_records": 2,
+      "ordinary_trace_nodes": 1
     },
     {
       "id": "float-make-commutation",
@@ -414,7 +458,9 @@
       "operation_nodes": 16,
       "explicit_default_nodes": [],
       "data_steps": 0,
-      "initialization_plans": 1
+      "initialization_plans": 1,
+      "ordinary_trace_records": 1,
+      "ordinary_trace_nodes": 3
     }
   ],
   "proofs_discharged": 0,

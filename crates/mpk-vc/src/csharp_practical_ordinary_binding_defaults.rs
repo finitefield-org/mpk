@@ -28,6 +28,30 @@ pub struct OrdinaryBindingDefaultPending {
     pub reason: OrdinaryBindingDefaultPendingReason,
 }
 
+/// Exact captured source nodes that can produce or refer to an ineligible
+/// source value. This is a proof input, not a source-use theorem: constructor
+/// temporary state and native execution still require ordinary relations.
+#[derive(Clone, Debug, Eq, PartialEq, Serialize)]
+pub struct OrdinaryBindingSourceUseNode {
+    pub callable_id: String,
+    pub body_sha256: String,
+    pub node_ordinal: usize,
+    pub kind: String,
+    pub implicit: bool,
+    pub initialization_plan: bool,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq, Serialize)]
+pub struct OrdinaryBindingSourceUseTrace {
+    pub projection_id: String,
+    pub source_type_id: String,
+    pub source_ir_sha256: String,
+    pub captured_source_available: bool,
+    pub captured_callable_count: usize,
+    pub nodes: Vec<OrdinaryBindingSourceUseNode>,
+    pub native_execution_proof_pending: bool,
+}
+
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
 pub struct OrdinaryBindingDefaultProgram {
     schema: String,
@@ -43,6 +67,7 @@ pub struct OrdinaryBindingDefaultProgram {
     predicates: Vec<OrdinaryBindingPredicate>,
     conditions: Vec<OrdinaryBindingCondition>,
     pending_defaults: Vec<OrdinaryBindingDefaultPending>,
+    source_use_traces: Vec<OrdinaryBindingSourceUseTrace>,
     unresolved_vc_symbols: Vec<String>,
     pending_condition_ids: Vec<String>,
     pending_proof_ids: Vec<String>,
@@ -72,6 +97,9 @@ impl OrdinaryBindingDefaultProgram {
     }
     pub fn pending_defaults(&self) -> &[OrdinaryBindingDefaultPending] {
         &self.pending_defaults
+    }
+    pub fn source_use_traces(&self) -> &[OrdinaryBindingSourceUseTrace] {
+        &self.source_use_traces
     }
     pub fn unresolved_vc_symbols(&self) -> &[String] {
         &self.unresolved_vc_symbols
@@ -160,6 +188,63 @@ fn closed_condition(
     })
 }
 
+fn source_use_traces(
+    vir: &ValidatedPracticalVir,
+    actual_defaults: &[OrdinaryBindingActualDefault],
+) -> R<Vec<OrdinaryBindingSourceUseTrace>> {
+    let (bundle, _, source) = vir.construction_context();
+    let mut traces = Vec::new();
+    for actual in actual_defaults
+        .iter()
+        .filter(|actual| actual.declared_arm == "ineligible")
+    {
+        let mut nodes = Vec::new();
+        if let Some(source) = source {
+            for callable in source.callables() {
+                let body = source
+                    .body(callable.id())
+                    .ok_or(OrdinaryCarrierError::Linkage)?;
+                for (node_ordinal, op) in body.iter().enumerate() {
+                    let Some(key) = op.type_key() else { continue };
+                    if key.starts_with("intrinsic_argument:")
+                        || key.starts_with("source_exception:")
+                    {
+                        continue;
+                    }
+                    let ty = parse_data_type_key(bundle, key)
+                        .map_err(|_| OrdinaryCarrierError::Linkage)?;
+                    let type_id = ClosedType::parse(&ty)
+                        .and_then(|ty| closed_type_id(bundle, &ty))
+                        .map_err(|_| OrdinaryCarrierError::Linkage)?;
+                    if type_id == actual.source_type_id {
+                        nodes.push(OrdinaryBindingSourceUseNode {
+                            callable_id: callable.id().into(),
+                            body_sha256: callable.body_sha256().into(),
+                            node_ordinal,
+                            kind: op.kind().into(),
+                            implicit: op.is_implicit(),
+                            initialization_plan: callable
+                                .initialization_plans()
+                                .iter()
+                                .any(|plan| plan.node_ordinal == node_ordinal),
+                        });
+                    }
+                }
+            }
+        }
+        traces.push(OrdinaryBindingSourceUseTrace {
+            projection_id: actual.projection_id.clone(),
+            source_type_id: actual.source_type_id.clone(),
+            source_ir_sha256: vir.hash().into(),
+            captured_source_available: source.is_some(),
+            captured_callable_count: source.map_or(0, |source| source.callables().len()),
+            nodes,
+            native_execution_proof_pending: true,
+        });
+    }
+    Ok(traces)
+}
+
 pub fn generate_csharp_practical_ordinary_binding_defaults(
     vir: &ValidatedPracticalVir,
 ) -> R<OrdinaryBindingDefaultProgram> {
@@ -240,6 +325,7 @@ pub fn generate_csharp_practical_ordinary_binding_defaults(
     let mut conditions = vec![];
     let mut pending_defaults = vec![];
     let mut pending_condition_ids = vec![];
+    let source_use_traces = source_use_traces(vir, &actual_defaults)?;
     for sequent in vc.sequents() {
         if sequent.kind != "actual_default" {
             pending_condition_ids.push(sequent.id.clone());
@@ -290,6 +376,7 @@ pub fn generate_csharp_practical_ordinary_binding_defaults(
         predicates,
         conditions,
         pending_defaults,
+        source_use_traces,
         unresolved_vc_symbols,
         pending_condition_ids,
         pending_proof_ids,
