@@ -46,8 +46,13 @@ whitespace check covers code, documentation, pins and checker records; those
 raw `.log` files are excluded from whitespace normalization and are hashed.
 
 The ongoing Linux real-value test at revision `7c321e4d` is separate evidence
-and is not counted as testing this adapter. Targeted Linux validation of this
-checkpoint remains pending until its own terminal logs are collected.
+and is not counted as testing this adapter. The targeted Linux run at `5cf114ba`
+passed its two library tests and 18-source regression, then failed Clippy with
+fourteen existing library style diagnostics. Exact logs, 370 source hashes and
+both test-binary hashes are retained in
+`verification-logs/server-linux-control-predicates-5cf114ba/`. The equivalent
+style repairs and the next integrated adapter have separate current evidence in
+`with-execution/`; its Linux lint retry does not rewrite the old revision's result.
 The repository-wide `./scripts/check-fast.sh` gate remains deferred to the
 last W of T06 (W12), per AGENTS.md. These are scoped test results, not a T gate.
 

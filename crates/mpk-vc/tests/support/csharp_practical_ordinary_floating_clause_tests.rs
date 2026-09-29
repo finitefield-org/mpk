@@ -247,8 +247,8 @@ fn native_source(id: &str) -> String {
         let x = format!("{prefix}x");
         let y = format!("{prefix}y");
         for (i, op) in OPS.into_iter().enumerate() {
-            if !selected_ops(id).contains(&op)
-                && !(op == "is_nan" && selected_ops(id).contains(&"add"))
+            if !(selected_ops(id).contains(&op)
+                || op == "is_nan" && selected_ops(id).contains(&"add"))
             {
                 continue;
             }

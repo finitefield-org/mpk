@@ -1080,7 +1080,10 @@ pub use source_clauses::{
 
 pub use source_clauses::{
     generate_csharp_practical_ordinary_control_predicates,
-    import_csharp_practical_ordinary_control_predicates, OrdinaryControlMeasureDefinition,
+    generate_csharp_practical_ordinary_control_predicates_with_execution,
+    import_csharp_practical_ordinary_control_predicates,
+    import_csharp_practical_ordinary_control_predicates_with_execution,
+    OrdinaryControlGuardDependency, OrdinaryControlMeasureDefinition,
     OrdinaryControlPredicateDefinition, OrdinaryControlPredicateProgram,
     OrdinaryControlSequentDefinition,
 };

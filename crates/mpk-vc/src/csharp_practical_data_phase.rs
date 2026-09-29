@@ -266,7 +266,7 @@ impl DataBindingClosure {
                     let ClosedType::Source(e) = entry else {
                         return Err(DataPhaseError::Binding);
                     };
-                    if !bindings.get(&e).is_some_and(|b| b.role == "ordered_entry") {
+                    if bindings.get(&e).is_none_or(|b| b.role != "ordered_entry") {
                         return Err(DataPhaseError::Binding);
                     }
                     let ClosedType::Instance { arguments, .. } =
@@ -1129,11 +1129,8 @@ pub fn parse_data_contract_expression(
             let ty = variant["field_types"][key].as_str().unwrap();
             match ty {
                 "contract_expression" | "contract_expression_bool" => shape(value, shapes)?,
-                "contract_expression_or_null" => {
-                    if value != &J::Null {
-                        shape(value, shapes)?;
-                    }
-                }
+                "contract_expression_or_null" if value != &J::Null => shape(value, shapes)?,
+                "contract_expression_or_null" => {}
                 "ordered_array<contract_expression>" => {
                     for item in value.as_array().ok_or(DataPhaseError::Contract)? {
                         shape(item, shapes)?;

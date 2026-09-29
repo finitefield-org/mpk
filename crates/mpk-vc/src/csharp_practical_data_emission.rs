@@ -428,10 +428,10 @@ impl Emitter<'_> {
             } else if !matches!(
                 signature.tag,
                 ClosedOperationTag::SourceCall | ClosedOperationTag::ConstructorExecute
-            ) || !self
+            ) || self
                 .control
                 .as_ref()
-                .is_some_and(|c| c.universe().arm(exception).is_some())
+                .is_none_or(|c| c.universe().arm(exception).is_none())
             {
                 return Err(DataPhaseError::Emission);
             }
@@ -547,11 +547,11 @@ impl Emitter<'_> {
         body: &mut Body,
         value: TypedValueRef,
     ) -> Result<TypedValueRef, DataPhaseError> {
-        if !self
+        if self
             .c
             .metadata
             .get(&value.type_id)
-            .is_some_and(|m| template_name(&m.template_id) == Some("sequence_construction"))
+            .is_none_or(|m| template_name(&m.template_id) != Some("sequence_construction"))
         {
             return Ok(value);
         }

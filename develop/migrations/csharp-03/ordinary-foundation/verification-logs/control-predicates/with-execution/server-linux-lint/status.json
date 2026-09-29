@@ -1,0 +1,50 @@
+{
+  "application_proofs": "pending",
+  "base_head": "5cf114ba63a85d6dec31ffa4b4f9df233d79ccff",
+  "finished_at": "2026-09-29T19:28:41.985621+00:00",
+  "full_t_gate": "deferred to T06-W12",
+  "process_pid": 3026156,
+  "stage": "format",
+  "stages": [
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "elapsed_seconds": 68.185,
+      "exit_code": 0,
+      "finished_at": "2026-09-29T19:28:36.516485+00:00",
+      "log_sha256": "e286e3c0da68bbea77697e698ef20fa026d7e8c51a538909774fa35273e9632c",
+      "stage": "clippy",
+      "started_at": "2026-09-29T19:27:28.331937+00:00"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "fmt",
+        "-p",
+        "mpk-vc",
+        "--",
+        "--check"
+      ],
+      "elapsed_seconds": 5.468,
+      "exit_code": 0,
+      "finished_at": "2026-09-29T19:28:41.984877+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stage": "format",
+      "started_at": "2026-09-29T19:28:36.517141+00:00"
+    }
+  ],
+  "started_at": "2026-09-29T19:27:28.259337+00:00",
+  "status": "passed_targeted_linux_lint_format",
+  "supervisor_pid": 3026049,
+  "verified_source_hashes": 370
+}

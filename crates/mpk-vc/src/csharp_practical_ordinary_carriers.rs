@@ -508,6 +508,7 @@ fn key(n: &TermNode) -> Key {
         TermNode::Let { ty, value, body } => Key::Let(*ty, *value, *body),
     }
 }
+#[derive(Clone)]
 struct Builder {
     c: Certificate,
     terms: BTreeMap<Key, u32>,
@@ -1620,7 +1621,10 @@ pub use structural::{
 
 pub use structural::{
     generate_csharp_practical_ordinary_control_predicates,
-    import_csharp_practical_ordinary_control_predicates, OrdinaryControlMeasureDefinition,
+    generate_csharp_practical_ordinary_control_predicates_with_execution,
+    import_csharp_practical_ordinary_control_predicates,
+    import_csharp_practical_ordinary_control_predicates_with_execution,
+    OrdinaryControlGuardDependency, OrdinaryControlMeasureDefinition,
     OrdinaryControlPredicateDefinition, OrdinaryControlPredicateProgram,
     OrdinaryControlSequentDefinition,
 };

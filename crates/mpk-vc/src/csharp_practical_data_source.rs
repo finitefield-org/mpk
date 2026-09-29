@@ -1019,7 +1019,7 @@ impl ValidatedDataSource {
                                 )
                                 | ("loop_exit", "structured_exit_ownership_and_publication")
                         ))
-                || (o.family == "array") != !o.predicate.is_empty()
+                || (o.family == "array") == o.predicate.is_empty()
                 || matches!(o.family.as_str(), "construction" | "domain" | "business")
                     && o.type_id.is_empty()
                 || o.family == "string" && !o.type_id.is_empty()

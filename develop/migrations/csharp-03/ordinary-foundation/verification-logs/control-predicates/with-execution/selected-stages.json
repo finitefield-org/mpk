@@ -1,0 +1,105 @@
+[
+  {
+    "command": [
+      "cargo",
+      "test",
+      "-p",
+      "mpk-vc",
+      "--lib",
+      "control_predicates::tests",
+      "--",
+      "--nocapture",
+      "--test-threads=1"
+    ],
+    "elapsed_seconds": 250.224,
+    "exit_code": 0,
+    "log_sha256": "07b9a50174106542c075dbb1dadc8f7ae29ecf96b8bc46d442b1c1ead64e4def",
+    "stage": "measures"
+  },
+  {
+    "command": [
+      "cargo",
+      "test",
+      "-p",
+      "mpk-vc",
+      "--test",
+      "csharp_practical_vc",
+      "csharp_03_t06_w01_scopes_normalization_and_parser_fuzz",
+      "--",
+      "--nocapture",
+      "--test-threads=1"
+    ],
+    "elapsed_seconds": 120.915,
+    "exit_code": 0,
+    "log_sha256": "34154f418ea508e3ce3867e4b34e3b4acd689542becf133e0a3e63e7c74b7cc0",
+    "stage": "parser"
+  },
+  {
+    "command": [
+      "cargo",
+      "test",
+      "-p",
+      "mpk-vc",
+      "--test",
+      "csharp_practical_vc",
+      "csharp_03_t06_w03_",
+      "--",
+      "--nocapture",
+      "--test-threads=1"
+    ],
+    "elapsed_seconds": 3.31,
+    "exit_code": 0,
+    "log_sha256": "ad28f9836fd4445d219e57f3b3c83b05d39968e5789557b69f84d99ac032702e",
+    "stage": "data-handoffs"
+  },
+  {
+    "command": [
+      "cargo",
+      "test",
+      "-p",
+      "mpk-vc",
+      "--test",
+      "csharp_practical_vc",
+      "csharp_03_t06_w04_",
+      "--",
+      "--nocapture",
+      "--test-threads=1"
+    ],
+    "elapsed_seconds": 7.031,
+    "exit_code": 0,
+    "log_sha256": "b8dcd405f0c13f1e484544c55b4080eb0b25f2c18ef2c7179bcec8a89ed15403",
+    "stage": "control-handoffs"
+  },
+  {
+    "command": [
+      "cargo",
+      "test",
+      "-p",
+      "mpk-vc",
+      "--test",
+      "csharp_practical_vc",
+      "csharp_03_t06_w05_original_exception_handlers_and_mutations",
+      "--",
+      "--nocapture",
+      "--test-threads=1"
+    ],
+    "elapsed_seconds": 4.343,
+    "exit_code": 0,
+    "log_sha256": "4fb3c5cd768753617a7bcdc33a113822931ee29c230d131da05005062e039a07",
+    "stage": "exception-handoffs"
+  },
+  {
+    "command": [
+      "cargo",
+      "fmt",
+      "-p",
+      "mpk-vc",
+      "--",
+      "--check"
+    ],
+    "elapsed_seconds": 5.606,
+    "exit_code": 0,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stage": "format"
+  }
+]

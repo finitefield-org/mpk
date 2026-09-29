@@ -118,7 +118,7 @@ impl ContractCodecCache {
         let rounding = rounding.map(|r| format!("{r:?}"));
         if codec.type_id() != "mpk.csharp.value.decimal.v1"
             || (id == "decimal.normalized" && (scale.is_some() || rounding.is_some()))
-            || (id == "decimal.fixed" && (!scale.is_some_and(|s| s <= 28) || rounding.is_none()))
+            || (id == "decimal.fixed" && (scale.is_none_or(|s| s > 28) || rounding.is_none()))
         {
             return Err(OrdinaryCarrierError::Linkage);
         }

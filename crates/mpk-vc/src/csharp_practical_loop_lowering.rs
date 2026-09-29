@@ -650,7 +650,7 @@ pub(super) fn validate_function(
                 return Err(Operand);
             }
         } else if !n.result.is_empty()
-            || !n.operation.is_empty() && !(handlers && n.kind == "handler_completion")
+            || !(n.operation.is_empty() || handlers && n.kind == "handler_completion")
             || !n.exceptional_successors.is_empty()
                 && !(universe.is_some()
                     && (n.kind == "explicit_throw"

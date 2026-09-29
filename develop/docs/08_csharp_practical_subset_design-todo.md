@@ -2064,9 +2064,26 @@ regressions also pass. All 19 certificate occurrences (14 distinct byte sets)
 pass unchanged Go/Rust checking with zero axioms and hash-mutation rejection.
 See `ordinary-foundation/verification-logs/control-predicates/verification.json`.
 These free-state predicate definitions do not establish native execution,
-loop induction or an application proof. Targeted Linux validation of this
-checkpoint remains pending; unit 5 and W09 remain In progress. The full T06
-gate remains deferred to W12.
+loop induction or an application proof. At revision `5cf114ba`, the targeted
+Linux measure and 18-source tests passed; Clippy exposed fourteen existing
+library style diagnostics. Their equivalent repairs and one later Linux test
+style diagnostic are recorded with the succeeding checkpoint. The original
+terminal Linux logs and source/binary hashes are retained under
+`verification-logs/server-linux-control-predicates-5cf114ba/`.
+
+The integrated W04 adapter now shares the exact native definitions while
+retaining every prior native JSON/hex pin and resolved declaration body. It
+reuses 100 exact function/source/target/edge guards with their binding order,
+including four ownership prerequisites. Over the same 215 original sequents,
+398 predicates and 113 logical implications are defined; the 102 remaining
+predicates all name missing pattern-step constants. Local and Linux targeted
+tests each pass ten tests: pinned regressions, 1,800 integral observations and
+affected parser/data/control/exception handoffs; both lint/format scopes pass.
+The 72 same-byte Go/Rust stages remain in progress and are recorded under
+`ordinary-foundation/verification-logs/control-predicates/with-execution/verification.json`;
+running stages are not counted as passed. Execution scopes, state transport,
+loop induction and all 987 application proofs remain open. Unit 5 and W09
+remain In progress; the full T06 gate remains deferred to W12.
 
 Owns: translation of every already-expanded concrete foundation definition in
 monomorphic VIR into ordinary core definitions and proof terms for all new

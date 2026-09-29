@@ -1418,11 +1418,21 @@ fn source_frames(
 pub fn generate_csharp_practical_ordinary_control_edges(
     vir: &ValidatedPracticalVir,
 ) -> R<OrdinaryControlEdgeProgram> {
+    let layouts = generate_csharp_practical_ordinary_carriers(vir)?;
+    let (_, p) = emit_complete_program(vir, &layouts)?;
+    Ok(p)
+}
+
+/// Retain the compiler so W04 predicates can share the exact native definitions.
+/// The original public generator still finishes this builder at the same point.
+pub(super) fn emit_complete_program<'a>(
+    vir: &'a ValidatedPracticalVir,
+    layouts: &'a OrdinaryCarrierProgram,
+) -> R<(Clauses<'a>, OrdinaryControlEdgeProgram)> {
     let (builder, mut p, mut foundations) = emit_program_with_foundations(vir)?;
     // Slot generation consumes only the private edge/memory builder. Entry
     // merging is appended here, once the complete incoming guards are known.
-    let layouts = generate_csharp_practical_ordinary_carriers(vir)?;
-    let mut c = compiler(vir, &layouts, builder, &[])?;
+    let mut c = compiler(vir, layouts, builder, &[])?;
     c.relations = std::mem::take(&mut foundations.relations);
     c.storage = std::mem::take(&mut foundations.storage);
     for flow in &mut p.functions {
@@ -1496,7 +1506,7 @@ pub fn generate_csharp_practical_ordinary_control_edges(
             &mut c.b,
             vir,
             &flow.source,
-            &layouts,
+            layouts,
             &flow.memory_bindings,
         )?;
         if slots.source != flow.source || slots.slot_type_overrides != flow.slot_type_overrides {
@@ -1504,17 +1514,17 @@ pub fn generate_csharp_practical_ordinary_control_edges(
         }
         flow.slot_relations = slots.relations;
     }
-    exceptions::append(&mut c, &mut p, vir, &layouts)?;
-    native_literals::append(&mut c, &mut p, vir, &layouts)?;
+    exceptions::append(&mut c, &mut p, vir, layouts)?;
+    native_literals::append(&mut c, &mut p, vir, layouts)?;
     steps::append(&mut c, &mut p, vir)?;
     source_execution::append(&mut c, &mut p)?;
-    let certificate = c.b.finish()?;
+    let certificate = c.b.clone().finish()?;
     p.certificate_sha256 = mpk_cert::hash_hex(&mpk_cert::certificate_hash(&certificate));
     p.certificate = certificate;
     if p.canonical_bytes().len() > 16 * 1024 * 1024 {
         return Err(OrdinaryCarrierError::Limit);
     }
-    Ok(p)
+    Ok((c, p))
 }
 pub(super) fn emit_program(
     vir: &ValidatedPracticalVir,

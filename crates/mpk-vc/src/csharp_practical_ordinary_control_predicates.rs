@@ -1,5 +1,6 @@
 //! Original W04 predicate bodies and their logical implication, with exact
-//! cutpoint bindings. Native execution, loop induction and proofs remain open.
+//! cutpoint bindings. Integrated native definitions retain their exact guards;
+//! execution scopes, loop induction and application proofs remain open.
 use super::*;
 use crate::csharp_practical_vir_model::{ControlBinding, ControlPredicate, ControlSequent};
 use sha2::{Digest, Sha256};
@@ -12,12 +13,24 @@ pub struct OrdinaryControlMeasureDefinition {
     pub definition: String,
 }
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
+pub struct OrdinaryControlGuardDependency {
+    pub function_id: String,
+    pub edge_id: String,
+    pub guard_definition: String,
+    /// Retain the exact receiver/flow prerequisite, not a context-free
+    /// interpretation of the template's ownership predicate.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ownership: Option<OrdinaryConstructionOwnershipUse>,
+}
+#[derive(Clone, Debug, Eq, PartialEq, Serialize)]
 pub struct OrdinaryControlPredicateDefinition {
     pub source: ControlPredicate,
     /// Original binding order, projected from the sequent's shared arguments.
     pub argument_indices: Vec<usize>,
     pub definition: Option<String>,
     pub pending_constant_names: Vec<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub native_guard_dependency: Option<OrdinaryControlGuardDependency>,
 }
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
 pub struct OrdinaryControlSequentDefinition {
@@ -38,6 +51,12 @@ pub struct OrdinaryControlPredicateProgram {
     source_ir_sha256: String,
     foundation_sha256: String,
     control_vc_sha256: String,
+    /// Independently reconstructed native execution program, whose ordinary
+    /// definitions retain the same names and bodies in the integrated certificate.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    native_source_program_sha256: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    native_source_certificate_sha256: Option<String>,
     measures: Vec<OrdinaryControlMeasureDefinition>,
     sequents: Vec<OrdinaryControlSequentDefinition>,
     unresolved_regions: Vec<String>,
@@ -217,6 +236,8 @@ fn predicate(
     source: &ControlPredicate,
     definition: String,
     arguments: &mut Vec<ControlBinding>,
+    native_guard: Option<&control_edges::OrdinaryControlEdgeDefinition>,
+    function_id: &str,
 ) -> R<OrdinaryControlPredicateDefinition> {
     if source.term.type_id() != SOURCE_BOOL {
         return Err(OrdinaryCarrierError::Linkage);
@@ -245,7 +266,28 @@ fn predicate(
             pending_constant_names.push(symbol);
         }
     }
-    let definition = if pending_constant_names.is_empty() {
+    let native_guard_dependency = if let Some(edge) = native_guard {
+        if &edge.source.guard != source || !edge.pending_constant_names.is_empty() {
+            return Err(OrdinaryCarrierError::Linkage);
+        }
+        Some(OrdinaryControlGuardDependency {
+            function_id: function_id.into(),
+            edge_id: edge.source.id.clone(),
+            guard_definition: edge
+                .guard_definition
+                .clone()
+                .ok_or(OrdinaryCarrierError::Linkage)?,
+            ownership: edge.ownership.clone(),
+        })
+    } else {
+        None
+    };
+    let definition = if let Some(dependency) = &native_guard_dependency {
+        // The existing guard has this exact original argument order and point.
+        // Keep its failure semantics and its recorded ownership prerequisites.
+        pending_constant_names.clear();
+        Some(dependency.guard_definition.clone())
+    } else if pending_constant_names.is_empty() {
         let args = source
             .bindings
             .iter()
@@ -267,6 +309,7 @@ fn predicate(
         argument_indices,
         definition,
         pending_constant_names,
+        native_guard_dependency,
     })
 }
 fn conjunction(
@@ -292,13 +335,46 @@ fn conjunction(
     }
     Ok(body)
 }
-fn sequent(c: &mut Clauses<'_>, source: &ControlSequent) -> R<OrdinaryControlSequentDefinition> {
+fn sequent(
+    c: &mut Clauses<'_>,
+    source: &ControlSequent,
+    native: Option<&OrdinaryControlEdgeProgram>,
+) -> R<OrdinaryControlSequentDefinition> {
     let mut arguments = vec![];
     let mut emit = |role: &str, predicates: &[ControlPredicate]| {
         predicates
             .iter()
             .enumerate()
-            .map(|(i, p)| predicate(c, p, name(role, &(&source.id, i, p)), &mut arguments))
+            .map(|(i, p)| {
+                let guard = native
+                    .filter(|_| {
+                        role == "Assumption" && i == 0 && source.id.starts_with("control.loop.")
+                    })
+                    .and_then(|native| {
+                        native
+                            .functions()
+                            .iter()
+                            .find(|f| f.source.function_id == source.function_id)
+                    })
+                    .and_then(|f| {
+                        f.edges.iter().find(|edge| {
+                            edge.guard_definition.is_some()
+                                && edge.pending_constant_names.is_empty()
+                                && edge.source.source_node_id == source.source_node_id
+                                && edge.source.target_node_id == source.target_node_id
+                                && source.id.ends_with(&format!(".{}", edge.source.id))
+                                && edge.source.guard == *p
+                        })
+                    });
+                predicate(
+                    c,
+                    p,
+                    name(role, &(&source.id, i, p)),
+                    &mut arguments,
+                    guard,
+                    &source.function_id,
+                )
+            })
             .collect::<R<Vec<_>>>()
     };
     let assumptions = emit("Assumption", &source.assumptions)?;
@@ -346,6 +422,19 @@ fn sequent(c: &mut Clauses<'_>, source: &ControlSequent) -> R<OrdinaryControlSeq
 pub fn generate_csharp_practical_ordinary_control_predicates(
     vir: &ValidatedPracticalVir,
 ) -> R<OrdinaryControlPredicateProgram> {
+    generate(vir, false)
+}
+/// Share exact native source definitions and reuse guards only at their source
+/// edges. Source execution/loop induction still require application proofs.
+pub fn generate_csharp_practical_ordinary_control_predicates_with_execution(
+    vir: &ValidatedPracticalVir,
+) -> R<OrdinaryControlPredicateProgram> {
+    generate(vir, true)
+}
+fn generate(
+    vir: &ValidatedPracticalVir,
+    with_execution: bool,
+) -> R<OrdinaryControlPredicateProgram> {
     use crate::csharp_practical_vir_model::data_vc::DataDefinitionFamily;
     let data = crate::csharp_practical_vir_model::data_vc::generate_data_vcs(vir)
         .map_err(|_| OrdinaryCarrierError::Linkage)?;
@@ -369,7 +458,18 @@ pub fn generate_csharp_practical_ordinary_control_predicates(
         .iter()
         .filter(|e| e.definitions().iter().any(needed))
         .collect::<Vec<_>>();
-    let mut c = compiler(vir, &layouts, Builder::new()?, &expressions)?;
+    let (mut c, native) = if with_execution {
+        let (c, native) = control_edges::emit_complete_program(vir, &layouts)?;
+        let mut recipes = compiler(vir, &layouts, c.b, &expressions)?;
+        recipes.relations = c.relations;
+        recipes.storage = c.storage;
+        (recipes, Some(native))
+    } else {
+        (
+            compiler(vir, &layouts, Builder::new()?, &expressions)?,
+            None,
+        )
+    };
     c.definedness_logic()?;
     for e in expressions {
         for d in e.definitions().iter().filter(|d| needed(d)) {
@@ -381,7 +481,9 @@ pub fn generate_csharp_practical_ordinary_control_predicates(
             && (requested.contains_key(&d.relation_name)
                 || d.failure_names.iter().any(|n| requested.contains_key(n)))
     }) {
-        integer_data::emit_definition(&mut c, d)?;
+        if native.is_none() {
+            integer_data::emit_definition(&mut c, d)?;
+        }
     }
     let mut measures = vec![];
     for (symbol, expected) in &requested {
@@ -402,7 +504,7 @@ pub fn generate_csharp_practical_ordinary_control_predicates(
     let sequents = control
         .sequents()
         .iter()
-        .map(|s| sequent(&mut c, s))
+        .map(|s| sequent(&mut c, s, native.as_ref()))
         .collect::<R<Vec<_>>>()?;
     let certificate = c.b.finish()?;
     let p = OrdinaryControlPredicateProgram {
@@ -410,6 +512,12 @@ pub fn generate_csharp_practical_ordinary_control_predicates(
         source_ir_sha256: vir.hash().into(),
         foundation_sha256: vir.construction_context().0.content_sha256().into(),
         control_vc_sha256: control.hash(),
+        native_source_program_sha256: native
+            .as_ref()
+            .map(|p| format!("{:x}", Sha256::digest(p.canonical_bytes()))),
+        native_source_certificate_sha256: native
+            .as_ref()
+            .map(|p| mpk_cert::hash_hex(&mpk_cert::certificate_hash(p.certificate_bytes()))),
         measures,
         sequents,
         unresolved_regions: control.unresolved_regions().to_vec(),
@@ -431,6 +539,20 @@ pub fn import_csharp_practical_ordinary_control_predicates(
         return Err(OrdinaryCarrierError::Limit);
     }
     let p = generate_csharp_practical_ordinary_control_predicates(vir)?;
+    if input != p.canonical_bytes() || certificate != p.certificate_bytes() {
+        return Err(OrdinaryCarrierError::Linkage);
+    }
+    Ok(p)
+}
+pub fn import_csharp_practical_ordinary_control_predicates_with_execution(
+    input: &[u8],
+    certificate: &[u8],
+    vir: &ValidatedPracticalVir,
+) -> R<OrdinaryControlPredicateProgram> {
+    if input.len() > 16 * 1024 * 1024 || certificate.len() > 16 * 1024 * 1024 {
+        return Err(OrdinaryCarrierError::Limit);
+    }
+    let p = generate_csharp_practical_ordinary_control_predicates_with_execution(vir)?;
     if input != p.canonical_bytes() || certificate != p.certificate_bytes() {
         return Err(OrdinaryCarrierError::Linkage);
     }
@@ -644,7 +766,15 @@ mod tests {
             quantifiers: Default::default(),
         };
         let mut arguments = vec![];
-        let p = predicate(&mut c, &source, "unused".into(), &mut arguments).unwrap();
+        let p = predicate(
+            &mut c,
+            &source,
+            "unused".into(),
+            &mut arguments,
+            None,
+            "function",
+        )
+        .unwrap();
         assert_eq!(arguments, source.bindings);
         assert_eq!(p.argument_indices, [0, 1]);
         assert!(p.definition.is_none());
@@ -652,7 +782,15 @@ mod tests {
             p.pending_constant_names,
             ["Mpk.CSharp.Control.GeneratedLoop.pending.entry"]
         );
-        let again = predicate(&mut c, &source, "unused".into(), &mut arguments).unwrap();
+        let again = predicate(
+            &mut c,
+            &source,
+            "unused".into(),
+            &mut arguments,
+            None,
+            "function",
+        )
+        .unwrap();
         assert_eq!(arguments.len(), 2);
         assert_eq!(again.argument_indices, [0, 1]);
         assert!(point_term(

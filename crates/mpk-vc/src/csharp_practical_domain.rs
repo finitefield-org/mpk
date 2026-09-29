@@ -167,10 +167,10 @@ pub(crate) fn reference_value_signature(
             .source_types
             .get(payload)
             .is_some_and(|s| s.kind == SourceKind::SealedClass)
-        && !closed
+        && closed
             .metadata
             .get(payload)
-            .is_some_and(|m| template_name(&m.template_id) == Some("bounded_sequence"))
+            .is_none_or(|m| template_name(&m.template_id) != Some("bounded_sequence"))
     {
         return Err(DomainError::Signature);
     }

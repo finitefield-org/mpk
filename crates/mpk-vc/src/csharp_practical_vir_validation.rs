@@ -3452,10 +3452,10 @@ fn validate_function<'a>(
                     .any(|c| c.filter.as_ref().is_some_and(|f| f.execution.is_some()))
         });
     if has_emitted_handlers
-        && !prepared
+        && prepared
             .actual_source
             .as_ref()
-            .is_some_and(|s| s.control_lowering().is_some())
+            .is_none_or(|s| s.control_lowering().is_none())
     {
         return Err(failure(
             PracticalVirImportPhase::Exception,

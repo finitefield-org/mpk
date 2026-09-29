@@ -4522,7 +4522,7 @@ fn require_abrupt_shape(
     } else {
         node.loop_id.is_none()
     };
-    if node.normal_successor_ids.is_empty() == !normal_edge
+    if node.normal_successor_ids.is_empty() != normal_edge
         && node.exceptional_successors.len() == exceptional_count
         && node.condition_type_id.is_none()
         && node.abrupt.as_ref().map(AbruptCompletion::tag) == Some(expected)
@@ -4659,13 +4659,13 @@ fn validate_loops(
         match &node.abrupt {
             Some(AbruptCompletion::Break { loop_id, target_id }) => {
                 let loop_region = loops.iter().find(|item| item.id == *loop_id);
-                if !loop_region.is_some_and(|item| item.break_target_node_id == *target_id) {
+                if loop_region.is_none_or(|item| item.break_target_node_id != *target_id) {
                     return Err(vir_failure(phase, PracticalVirErrorCode::LoopShape));
                 }
             }
             Some(AbruptCompletion::Continue { loop_id, target_id }) => {
                 let loop_region = loops.iter().find(|item| item.id == *loop_id);
-                if !loop_region.is_some_and(|item| item.continue_target_node_id == *target_id) {
+                if loop_region.is_none_or(|item| item.continue_target_node_id != *target_id) {
                     return Err(vir_failure(phase, PracticalVirErrorCode::LoopShape));
                 }
             }
@@ -7825,7 +7825,10 @@ pub use ordinary_carriers::{
 
 pub use ordinary_carriers::{
     generate_csharp_practical_ordinary_control_predicates,
-    import_csharp_practical_ordinary_control_predicates, OrdinaryControlMeasureDefinition,
+    generate_csharp_practical_ordinary_control_predicates_with_execution,
+    import_csharp_practical_ordinary_control_predicates,
+    import_csharp_practical_ordinary_control_predicates_with_execution,
+    OrdinaryControlGuardDependency, OrdinaryControlMeasureDefinition,
     OrdinaryControlPredicateDefinition, OrdinaryControlPredicateProgram,
     OrdinaryControlSequentDefinition,
 };
