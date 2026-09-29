@@ -11,5 +11,7 @@ all six generated files here byte for byte, checks exact original pending sets,
 and rejects changed metadata and certificate bytes at the importer. The
 original 45-source default test continues to pin the definition-only output.
 
-The independent Go/Rust checker review is recorded separately when complete.
+`tool-sources/audit.py` binds the pinned metadata and bytes to the original
+45-source manifest, independent Go/Rust checker reports, observed process exit
+codes, and one-bit hash mutations. Its receipt is added when every stage ends.
 The repository-wide gate remains deferred to T06-W12.
