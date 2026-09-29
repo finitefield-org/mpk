@@ -72,46 +72,12 @@ pub(super) fn represented_slots(
     vir: &ValidatedPracticalVir,
     flow: &ControlFunctionVc,
 ) -> R<BTreeMap<String, String>> {
-    let payloads = option_payloads(vir)?;
-    let mut overrides = BTreeMap::new();
-    for (slot, source) in &flow.slots {
-        for value in flow
-            .entry_values
-            .iter()
-            .filter(|(s, _)| s == slot)
-            .map(|(_, v)| v)
-            .chain(
-                flow.transfers
-                    .iter()
-                    .filter(|t| &t.slot == slot)
-                    .map(|t| &t.value),
-            )
-        {
-            if payloads.get(&value.type_id) == Some(source)
-                && overrides
-                    .insert(slot.clone(), value.type_id.clone())
-                    .is_some_and(|old| old != value.type_id)
-            {
-                return Err(OrdinaryCarrierError::Linkage);
-            }
-        }
-    }
-    Ok(overrides)
+    crate::csharp_practical_vir_model::control_vc::represented_slot_types(vir, flow)
+        .map_err(|_| OrdinaryCarrierError::Linkage)
 }
 fn option_payloads(vir: &ValidatedPracticalVir) -> R<BTreeMap<String, String>> {
-    vir.data_closed()
-        .entries()
-        .iter()
-        .filter(|e| e["template_id"] == "mpk.csharp.semantic.option.v1")
-        .map(|e| {
-            let id = text(e, "instance_id")?;
-            let args = &vir.data_closed().metadata[id].argument_ids;
-            if args.len() != 1 {
-                return Err(OrdinaryCarrierError::Linkage);
-            }
-            Ok((id.to_owned(), args[0].clone()))
-        })
-        .collect()
+    crate::csharp_practical_vir_model::control_vc::option_payload_types(vir)
+        .map_err(|_| OrdinaryCarrierError::Linkage)
 }
 fn some_storage(b: &mut Builder, child: u32) -> R<String> {
     let name = format!("{PREFIX}.ControlSlots.Some.D{child}");

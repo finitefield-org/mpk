@@ -3,6 +3,8 @@ use super::*;
 use mpk_vc::csharp_practical_vir_validation::ValidatedPracticalVir;
 #[path = "csharp_practical_ordinary_control_pattern_capture_tests.rs"]
 mod governing_captures;
+#[path = "csharp_practical_pattern_observation_tests.rs"]
+mod source_observations;
 
 type PredicateResult = Result<OrdinaryControlPredicateProgram, OrdinaryCarrierError>;
 type Generate = fn(&ValidatedPracticalVir) -> PredicateResult;

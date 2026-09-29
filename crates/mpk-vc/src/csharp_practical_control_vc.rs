@@ -6,6 +6,16 @@ use crate::csharp_practical_source_artifacts::{self as a, PracticalJsonValue as 
 use crate::csharp_practical_vir_validation::{PracticalVirFunction, ValidatedPracticalVir};
 
 const BOOL: &str = "mpk.csharp.value.bool.v1";
+#[path = "csharp_practical_control_slot_storage.rs"]
+mod slot_storage;
+pub(crate) use slot_storage::{option_payload_types, represented_slot_types};
+#[path = "csharp_practical_pattern_observations.rs"]
+mod pattern_observations;
+pub use pattern_observations::{
+    generate_csharp_practical_control_vcs_with_pattern_observations,
+    import_csharp_practical_control_vcs_with_pattern_observations, PatternObservationError,
+    PatternOperandObservation, PatternSlotObservation, PatternStepObservation,
+};
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub(crate) enum ControlVcError {
     Contract,
@@ -134,6 +144,8 @@ pub struct ControlVcProgram {
     functions: Vec<ControlFunctionVc>,
     loops: Vec<LoopVc>,
     patterns: Vec<PatternVc>,
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    pattern_observations: Vec<PatternStepObservation>,
     sequents: Vec<ControlSequent>,
     /// Earlier candidate-only VIR may have no captured source. These regions
     /// remain explicit unresolved requirements, never invented source contracts.
@@ -153,6 +165,9 @@ impl ControlVcProgram {
     }
     pub fn patterns(&self) -> &[PatternVc] {
         &self.patterns
+    }
+    pub fn pattern_observations(&self) -> &[PatternStepObservation] {
+        &self.pattern_observations
     }
     pub fn sequents(&self) -> &[ControlSequent] {
         &self.sequents
@@ -976,6 +991,7 @@ pub(crate) fn generate_control_vcs(
         functions: vec![],
         loops: vec![],
         patterns: vec![],
+        pattern_observations: vec![],
         sequents: vec![],
         unresolved_regions: vec![],
         definition_names: vec![],

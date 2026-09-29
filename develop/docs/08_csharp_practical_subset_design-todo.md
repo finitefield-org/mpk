@@ -2117,6 +2117,16 @@ Producer/consumer execution establishment, 102 original pattern predicate bodies
 and all 987 original application proofs remain open. Unit 5 and W09 stay In
 progress; W10-W12 remain Blocked and the full T06 gate stays deferred to W12.
 
+The typed source-observation prerequisite retains all 102 original pattern
+obligation IDs and their binding prefixes, adding 74 exact source operands and
+four before/after observations for each of 36 slot transfers. One slot retains
+its closed nullable storage separately from its nominal payload. The new source
+regression distinguishes two guard updates with identical historical observations
+and different current operands. Candidate generation and the three affected
+pinned/consumer tests plus lint/format pass locally; Linux reproduction remains
+pending. The ordinary scope consumer and all original pattern bodies/proofs
+remain open. See `ordinary-foundation/unit-5-pattern-observations-review.md`.
+
 Owns: translation of every already-expanded concrete foundation definition in
 monomorphic VIR into ordinary core definitions and proof terms for all new
 finite values and operations; the successor program-assembly profile;

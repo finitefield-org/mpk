@@ -7386,8 +7386,11 @@ pub use data_vc::{
 mod control_vc;
 pub(crate) use control_vc::{generate_control_vcs, ControlVcError};
 pub use control_vc::{
-    ControlBinding, ControlFlowEdge, ControlFunctionVc, ControlPredicate, ControlSequent,
-    ControlSlotTransfer, ControlVcProgram, LoopEdgeVc, LoopVc, PatternStepVc, PatternVc,
+    generate_csharp_practical_control_vcs_with_pattern_observations,
+    import_csharp_practical_control_vcs_with_pattern_observations, ControlBinding, ControlFlowEdge,
+    ControlFunctionVc, ControlPredicate, ControlSequent, ControlSlotTransfer, ControlVcProgram,
+    LoopEdgeVc, LoopVc, PatternObservationError, PatternOperandObservation, PatternSlotObservation,
+    PatternStepObservation, PatternStepVc, PatternVc,
 };
 
 #[path = "csharp_practical_exception_vc.rs"]
