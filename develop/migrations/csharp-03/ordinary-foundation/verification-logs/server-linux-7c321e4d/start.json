@@ -1,0 +1,18 @@
+{
+  "status": "running",
+  "started_utc": "2026-09-29T16:17:52Z",
+  "recorded_utc": "2026-09-29T16:21:51.178966+00:00",
+  "server": "root@162.43.92.154",
+  "checkout": "/root/mpk",
+  "head": "7c321e4dd103941d72f864ef8d1877400ca8c521",
+  "supervisor_pid": 3016044,
+  "script": "verify.sh",
+  "script_sha256": "77d7ad42d48841bd2f2f3210a86d1b739f067dd8a7b1033b7b2ca5e24bc1341f",
+  "selection_reason": "Run the changed concrete-operation source/pin test, affected fixed-decimal pin test, and complete real-value/guard regression on the user-requested Linux server. The T06-wide check-fast gate remains deferred to W12.",
+  "tests": [
+    "csharp_03_t06_w09_concrete_operations_original_source_certificates",
+    "csharp_03_t06_w09_decimal_fixed_formats_pinned_sources",
+    "csharp_03_t06_w09_concrete_operations_real_values_and_guards"
+  ],
+  "full_gate": "deferred_to_T06_W12"
+}
