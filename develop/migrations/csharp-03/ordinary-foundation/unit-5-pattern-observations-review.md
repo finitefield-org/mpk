@@ -38,8 +38,14 @@ nullable storage mismatch, fixed by sharing the exact storage helper. The next
 run exposed a test-only slot-ID typo, fixed to the original `local:0` ID. Their
 failed logs remain separate from the successful candidate and targeted receipts.
 The runner verifies all 376 source and 222 fixture hashes before and after each
-stage. Linux reproduction of this observation snapshot is pending; the preceding
-capture snapshot's seven Linux tests plus lint/format are already complete.
+stage. The same three targeted tests, Clippy and formatting also pass on the
+specified Linux server at the exact published
+`63525b495bc7d981e350f63f4d64365ee82597e4` commit. Its checkout remains clean and
+its test binary hash is independently checked after execution. The server fetches
+the exact public Git commit; no local working-tree payload is transferred. All
+597 source, fixture and reproduction files are also matched to that commit's
+Git blobs. The preceding capture snapshot's seven Linux tests plus lint/format
+are separately complete.
 
 This is the typed-input prerequisite for defining original pattern semantics.
 The ordinary predicate generator still consumes its historical control program;

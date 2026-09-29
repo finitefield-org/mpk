@@ -127,11 +127,124 @@
       "verified_source_hashes": 376
     },
     "server-linux": {
-      "status": "pending"
+      "application_proofs_pending": 987,
+      "finished_at": "2026-09-29T23:21:15.505869+00:00",
+      "full_t_gate": "deferred to T06-W12",
+      "original_pattern_predicates_pending": 102,
+      "process_pid": 3040664,
+      "selection_reason": "Verify source operands, represented slot snapshots and affected consumers.\n\nThe new regression fixes the 18 original contexts and 102 pattern obligations.\nThe capture regression reconstructs the historical native/execution/scope pins;\nthe slot regression covers consumers of the shared nullable storage helper.\nUnchanged parser, scalar, codec and theorem checkers are not repeated.\nThe full T06 gate is deferred to T06-W12.\n",
+      "stage": "format",
+      "stages": [
+        {
+          "command": [
+            "/usr/bin/cargo",
+            "test",
+            "-p",
+            "mpk-vc",
+            "--test",
+            "csharp_practical_vc",
+            "csharp_03_t06_w09_pattern_observations_original_sources",
+            "--",
+            "--nocapture",
+            "--test-threads=1"
+          ],
+          "elapsed_seconds": 437.284,
+          "exit_code": 0,
+          "finished_at": "2026-09-29T23:18:58.347326+00:00",
+          "log_sha256": "0b09b6b9af73e55560f9670954475a98cb8fdd1bd6921f28313c7fdca083f2e3",
+          "stage": "observations",
+          "started_at": "2026-09-29T23:11:41.063737+00:00"
+        },
+        {
+          "command": [
+            "/usr/bin/cargo",
+            "test",
+            "-p",
+            "mpk-vc",
+            "--test",
+            "csharp_practical_vc",
+            "csharp_03_t06_w09_control_predicates_with_pattern_captures_original_sources",
+            "--",
+            "--nocapture",
+            "--test-threads=1"
+          ],
+          "elapsed_seconds": 47.162,
+          "exit_code": 0,
+          "finished_at": "2026-09-29T23:19:46.336225+00:00",
+          "log_sha256": "9ba464002c634016f0767f385466b21acca8ae5808992d426e842cc9a20754f1",
+          "stage": "capture-compatibility",
+          "started_at": "2026-09-29T23:18:59.174039+00:00"
+        },
+        {
+          "command": [
+            "/usr/bin/cargo",
+            "test",
+            "-p",
+            "mpk-vc",
+            "--test",
+            "csharp_practical_vc",
+            "csharp_03_t06_w09_control_slot_source_relations",
+            "--",
+            "--nocapture",
+            "--test-threads=1"
+          ],
+          "elapsed_seconds": 2.347,
+          "exit_code": 0,
+          "finished_at": "2026-09-29T23:19:49.052641+00:00",
+          "log_sha256": "27eb0a06d125b955307756450a30183f9535d6e40d076c7fdb38ae7df9f8f1a2",
+          "stage": "slot-consumers",
+          "started_at": "2026-09-29T23:19:46.706068+00:00"
+        },
+        {
+          "command": [
+            "/usr/bin/cargo",
+            "clippy",
+            "-p",
+            "mpk-vc",
+            "--lib",
+            "--test",
+            "csharp_practical_vc",
+            "--",
+            "-D",
+            "warnings"
+          ],
+          "elapsed_seconds": 80.847,
+          "exit_code": 0,
+          "finished_at": "2026-09-29T23:21:10.284388+00:00",
+          "log_sha256": "32c5a2b3184e77e79f5489129bb0aeacec10f72faeb7e312586595bb04649c0c",
+          "stage": "clippy",
+          "started_at": "2026-09-29T23:19:49.437538+00:00"
+        },
+        {
+          "command": [
+            "/usr/bin/cargo",
+            "fmt",
+            "-p",
+            "mpk-vc",
+            "--",
+            "--check"
+          ],
+          "elapsed_seconds": 4.667,
+          "exit_code": 0,
+          "finished_at": "2026-09-29T23:21:15.317696+00:00",
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stage": "format",
+          "started_at": "2026-09-29T23:21:10.650564+00:00"
+        }
+      ],
+      "started_at": "2026-09-29T23:11:40.459446+00:00",
+      "status": "passed_targeted_tests_lint_format",
+      "supervisor_pid": 3039010,
+      "test_binaries": {
+        "/root/mpk-w09-pattern-observations-target/debug/deps/csharp_practical_vc-bb5f372f714b0f03": "52992475c8fc54d72b666b760b7808389bf0eed5f9d307fb0d031038aa72873a"
+      },
+      "unique_tests_passed": 3,
+      "verified_fixture_hashes": 222,
+      "verified_source_hashes": 376
     }
   },
   "original_pattern_predicates_pending": 102,
-  "recorded_at": "2026-09-29T23:08:43.224481+00:00",
+  "recorded_at": "2026-09-29T23:26:34.744956+00:00",
   "source_semantics_pending": true,
   "status": "passed_typed_observation_checkpoint",
   "unit_5_complete": false,

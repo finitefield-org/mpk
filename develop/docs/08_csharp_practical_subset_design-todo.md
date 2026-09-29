@@ -2123,9 +2123,10 @@ four before/after observations for each of 36 slot transfers. One slot retains
 its closed nullable storage separately from its nominal payload. The new source
 regression distinguishes two guard updates with identical historical observations
 and different current operands. Candidate generation and the three affected
-pinned/consumer tests plus lint/format pass locally; Linux reproduction remains
-pending. The ordinary scope consumer and all original pattern bodies/proofs
-remain open. See `ordinary-foundation/unit-5-pattern-observations-review.md`.
+pinned/consumer tests plus lint/format pass locally and on the specified Linux
+server. Exact source/fixture hashes and the published Git commit are verified.
+The ordinary scope consumer and all original pattern bodies/proofs remain open.
+See `ordinary-foundation/unit-5-pattern-observations-review.md`.
 
 Owns: translation of every already-expanded concrete foundation definition in
 monomorphic VIR into ordinary core definitions and proof terms for all new
