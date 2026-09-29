@@ -68,6 +68,8 @@ pub struct OrdinaryBindingDefaultProgram {
     conditions: Vec<OrdinaryBindingCondition>,
     pending_defaults: Vec<OrdinaryBindingDefaultPending>,
     source_use_traces: Vec<OrdinaryBindingSourceUseTrace>,
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    closed_condition_theorems: Vec<String>,
     unresolved_vc_symbols: Vec<String>,
     pending_condition_ids: Vec<String>,
     pending_proof_ids: Vec<String>,
@@ -100,6 +102,9 @@ impl OrdinaryBindingDefaultProgram {
     }
     pub fn source_use_traces(&self) -> &[OrdinaryBindingSourceUseTrace] {
         &self.source_use_traces
+    }
+    pub fn closed_condition_theorems(&self) -> &[String] {
+        &self.closed_condition_theorems
     }
     pub fn unresolved_vc_symbols(&self) -> &[String] {
         &self.unresolved_vc_symbols
@@ -248,6 +253,21 @@ fn source_use_traces(
 pub fn generate_csharp_practical_ordinary_binding_defaults(
     vir: &ValidatedPracticalVir,
 ) -> R<OrdinaryBindingDefaultProgram> {
+    generate_binding_defaults(vir, false)
+}
+
+/// Separate proof-bearing candidate for the closed eligible-default conditions.
+/// The source-use conditions and original W06 application proofs stay pending.
+pub fn generate_csharp_practical_ordinary_binding_default_closed_proofs(
+    vir: &ValidatedPracticalVir,
+) -> R<OrdinaryBindingDefaultProgram> {
+    generate_binding_defaults(vir, true)
+}
+
+fn generate_binding_defaults(
+    vir: &ValidatedPracticalVir,
+    prove_closed_conditions: bool,
+) -> R<OrdinaryBindingDefaultProgram> {
     let construction = generate_construction_vcs(vir).map_err(|_| OrdinaryCarrierError::Linkage)?;
     let vc = generate_binding_vcs(vir, &construction).map_err(|_| OrdinaryCarrierError::Linkage)?;
     let layouts = generate_csharp_practical_ordinary_carriers(vir)?;
@@ -360,6 +380,17 @@ pub fn generate_csharp_practical_ordinary_binding_defaults(
         .cloned()
         .collect();
     let pending_proof_ids = vc.sequents().iter().map(|s| s.id.clone()).collect();
+    let closed_condition_theorems = if prove_closed_conditions {
+        super::super::super::ownership_proofs::prove_closed_boolean_definitions(
+            &mut r.b,
+            &conditions
+                .iter()
+                .map(|condition| condition.condition_definition.clone())
+                .collect::<Vec<_>>(),
+        )?
+    } else {
+        vec![]
+    };
     let static_transformers = r.b.static_transformers;
     let certificate = r.b.finish()?;
     let p = OrdinaryBindingDefaultProgram {
@@ -377,6 +408,7 @@ pub fn generate_csharp_practical_ordinary_binding_defaults(
         conditions,
         pending_defaults,
         source_use_traces,
+        closed_condition_theorems,
         unresolved_vc_symbols,
         pending_condition_ids,
         pending_proof_ids,
@@ -399,6 +431,23 @@ pub fn import_csharp_practical_ordinary_binding_defaults(
         return Err(OrdinaryCarrierError::Limit);
     }
     let expected = generate_csharp_practical_ordinary_binding_defaults(vir)?;
+    if input != expected.canonical_bytes() || certificate != expected.certificate_bytes() {
+        return Err(OrdinaryCarrierError::Linkage);
+    }
+    Ok(expected)
+}
+
+/// Recompute and bind the closed-condition candidate to its exact VIR and
+/// certificate bytes. The original application VC proofs remain pending.
+pub fn import_csharp_practical_ordinary_binding_default_closed_proofs(
+    input: &[u8],
+    certificate: &[u8],
+    vir: &ValidatedPracticalVir,
+) -> R<OrdinaryBindingDefaultProgram> {
+    if input.len() > 16 * 1024 * 1024 || certificate.len() > 16 * 1024 * 1024 {
+        return Err(OrdinaryCarrierError::Limit);
+    }
+    let expected = generate_csharp_practical_ordinary_binding_default_closed_proofs(vir)?;
     if input != expected.canonical_bytes() || certificate != expected.certificate_bytes() {
         return Err(OrdinaryCarrierError::Linkage);
     }

@@ -500,3 +500,118 @@ fn csharp_03_t06_w09_binding_defaults_original_source_certificates() {
         );
     }
 }
+
+#[test]
+fn csharp_03_t06_w09_binding_defaults_closed_boolean_proof_candidates() {
+    let bundle = b();
+    let out = std::env::var_os("MPK_W09_DEFAULT_CLOSED_PROOFS_OUT").map(std::path::PathBuf::from);
+    if let Some(dir) = &out {
+        fs::create_dir_all(dir).unwrap();
+    }
+    let mut proved = 0;
+    for (id, row, facts) in sources() {
+        if !matches!(
+            id.as_str(),
+            "binding-vc-lookup" | "binding-vc-option" | "extra-lookup-nullable"
+        ) {
+            continue;
+        }
+        let (context, captures) = support::replay_context(&bundle, &row);
+        let source = ValidatedDataSource::import_captured_facts(
+            &bundle,
+            &context,
+            &captures,
+            &serde_json::to_vec(&facts).unwrap(),
+        )
+        .unwrap();
+        let emitted = emit_data_phase(&bundle, &context, &captures, &source).unwrap();
+        let p = generate_csharp_practical_ordinary_binding_default_closed_proofs(emitted.vir())
+            .unwrap_or_else(|e| panic!("{id}: {e:?}"));
+        let original = generate_csharp_practical_ordinary_binding_defaults(emitted.vir()).unwrap();
+        assert_eq!(p.pending_proof_ids(), original.pending_proof_ids(), "{id}");
+        assert_eq!(
+            p.pending_condition_ids(),
+            original.pending_condition_ids(),
+            "{id}"
+        );
+        assert_eq!(p.conditions(), original.conditions(), "{id}");
+        assert_eq!(p.source_use_traces(), original.source_use_traces(), "{id}");
+        assert_eq!(p.conditions().len(), 1, "{id}");
+        assert_eq!(p.closed_condition_theorems().len(), 1, "{id}");
+        assert_eq!(
+            p.closed_condition_theorems()[0],
+            format!("{}.Proof", p.conditions()[0].condition_definition)
+        );
+        let cert = mpk_cert::decode_canonical_certificate(p.certificate_bytes()).unwrap();
+        validate_csharp_practical_certificate_structure(&cert).unwrap();
+        assert!(cert.proof_node_table.is_empty() && cert.theory_certificates.is_empty());
+        assert!(cert.declarations.iter().any(|declaration| {
+            cert.name_table[declaration.name as usize] == p.closed_condition_theorems()[0]
+                && matches!(declaration.kind, DeclarationKind::Theorem { .. })
+        }));
+        assert!(p.pending_proof_ids().len() > 1);
+        if id == "binding-vc-lookup" {
+            let metadata = p.canonical_bytes();
+            let certificate = p.certificate_bytes();
+            assert_eq!(
+                import_csharp_practical_ordinary_binding_default_closed_proofs(
+                    &metadata,
+                    certificate,
+                    emitted.vir()
+                )
+                .unwrap()
+                .canonical_bytes(),
+                metadata
+            );
+            let mut altered_metadata = metadata.clone();
+            altered_metadata[0] ^= 1;
+            assert!(
+                import_csharp_practical_ordinary_binding_default_closed_proofs(
+                    &altered_metadata,
+                    certificate,
+                    emitted.vir()
+                )
+                .is_err()
+            );
+            let mut altered_certificate = certificate.to_vec();
+            altered_certificate[0] ^= 1;
+            assert!(
+                import_csharp_practical_ordinary_binding_default_closed_proofs(
+                    &metadata,
+                    &altered_certificate,
+                    emitted.vir()
+                )
+                .is_err()
+            );
+        }
+        proved += 1;
+        let hex = p
+            .certificate_bytes()
+            .iter()
+            .map(|byte| format!("{byte:02x}"))
+            .collect::<String>();
+        let bytes = [
+            ("hex", format!("{hex}\n").into_bytes()),
+            ("json", p.canonical_bytes()),
+        ];
+        for (ext, bytes) in bytes {
+            let path = if let Some(dir) = &out {
+                dir.join(format!("{id}.{ext}"))
+            } else {
+                std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+                    .join("../../develop/migrations/csharp-03/ordinary-foundation/verification-logs/binding-defaults/closed-proofs")
+                    .join(format!("{id}.{ext}"))
+            };
+            if out.is_some() {
+                fs::write(path, bytes).unwrap();
+            } else {
+                assert_eq!(fs::read(path).unwrap(), bytes, "{id}.{ext}");
+            }
+        }
+        eprintln!(
+            "closed default Boolean candidate {id}: {} bytes",
+            p.certificate_bytes().len()
+        );
+    }
+    assert_eq!(proved, 3);
+}

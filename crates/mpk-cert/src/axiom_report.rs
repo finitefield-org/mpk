@@ -202,7 +202,14 @@ impl<'a> AxiomReportBuilder<'a> {
         references: &mut BTreeSet<DeclarationId>,
     ) -> Result<(), AxiomReportBuildError> {
         let mut visiting = BTreeSet::new();
-        self.collect_term_references_inner(declaration_id, term, references, &mut visiting)
+        let mut completed = BTreeSet::new();
+        self.collect_term_references_inner(
+            declaration_id,
+            term,
+            references,
+            &mut visiting,
+            &mut completed,
+        )
     }
 
     fn collect_term_references_inner(
@@ -211,7 +218,11 @@ impl<'a> AxiomReportBuilder<'a> {
         term: TermId,
         references: &mut BTreeSet<DeclarationId>,
         visiting: &mut BTreeSet<TermId>,
+        completed: &mut BTreeSet<TermId>,
     ) -> Result<(), AxiomReportBuildError> {
+        if completed.contains(&term) {
+            return Ok(());
+        }
         if !visiting.insert(term) {
             return Err(AxiomReportBuildError::new(
                 AxiomReportBuildErrorKind::CyclicTermReference,
@@ -234,6 +245,7 @@ impl<'a> AxiomReportBuilder<'a> {
                     *function,
                     references,
                     visiting,
+                    completed,
                 )?;
                 for argument in arguments {
                     self.collect_term_references_inner(
@@ -241,21 +253,53 @@ impl<'a> AxiomReportBuilder<'a> {
                         *argument,
                         references,
                         visiting,
+                        completed,
                     )?;
                 }
             }
             TermNode::Lam { ty, body } | TermNode::Pi { ty, body } => {
-                self.collect_term_references_inner(declaration_id, *ty, references, visiting)?;
-                self.collect_term_references_inner(declaration_id, *body, references, visiting)?;
+                self.collect_term_references_inner(
+                    declaration_id,
+                    *ty,
+                    references,
+                    visiting,
+                    completed,
+                )?;
+                self.collect_term_references_inner(
+                    declaration_id,
+                    *body,
+                    references,
+                    visiting,
+                    completed,
+                )?;
             }
             TermNode::Let { ty, value, body } => {
-                self.collect_term_references_inner(declaration_id, *ty, references, visiting)?;
-                self.collect_term_references_inner(declaration_id, *value, references, visiting)?;
-                self.collect_term_references_inner(declaration_id, *body, references, visiting)?;
+                self.collect_term_references_inner(
+                    declaration_id,
+                    *ty,
+                    references,
+                    visiting,
+                    completed,
+                )?;
+                self.collect_term_references_inner(
+                    declaration_id,
+                    *value,
+                    references,
+                    visiting,
+                    completed,
+                )?;
+                self.collect_term_references_inner(
+                    declaration_id,
+                    *body,
+                    references,
+                    visiting,
+                    completed,
+                )?;
             }
         }
 
         visiting.remove(&term);
+        completed.insert(term);
         Ok(())
     }
 
@@ -790,7 +834,7 @@ mod tests {
         hash_hex,
     };
 
-    use super::{encode_axiom_report, AxiomReportBuildErrorKind};
+    use super::{encode_axiom_report, AxiomReportBuildErrorKind, AxiomReportBuilder};
 
     const AXIOM_REPORT_FIXTURE_DIR: &str = concat!(
         env!("CARGO_MANIFEST_DIR"),
@@ -966,5 +1010,48 @@ mod tests {
             error.kind(),
             AxiomReportBuildErrorKind::FutureDeclarationReference
         );
+    }
+
+    #[test]
+    fn shared_proof_dag_has_the_same_axiom_dependencies() {
+        let mut certificate = fixture_certificate();
+        let mut shared = 1;
+        // Twenty-four nodes represent more than sixteen million occurrences.
+        // Dependency collection must visit the shared term only once per root.
+        for _ in 0..24 {
+            let next = certificate.term_table.len() as u32;
+            certificate.term_table.push(TermNode::App {
+                function: shared,
+                arguments: vec![shared, shared],
+            });
+            shared = next;
+        }
+        certificate.declarations[1].kind = DeclarationKind::Def {
+            ty: 0,
+            value: shared,
+            reducibility: DefinitionReducibility::Reducible,
+        };
+        let dependencies = AxiomReportBuilder::new(&certificate)
+            .compute_declaration_dependencies()
+            .expect("shared DAG dependencies build");
+        assert_eq!(dependencies[1].direct_axioms, [0].into());
+        assert_eq!(dependencies[2].transitive_axioms, [0].into());
+    }
+
+    #[test]
+    fn shared_term_memoization_still_rejects_cycles() {
+        let mut certificate = fixture_certificate();
+        let cyclic = certificate.term_table.len() as u32;
+        certificate.term_table.push(TermNode::App {
+            function: cyclic,
+            arguments: vec![1, 1],
+        });
+        certificate.declarations[1].kind = DeclarationKind::Def {
+            ty: 0,
+            value: cyclic,
+            reducibility: DefinitionReducibility::Reducible,
+        };
+        let error = build_axiom_report(&certificate).unwrap_err();
+        assert_eq!(error.kind(), AxiomReportBuildErrorKind::CyclicTermReference);
     }
 }

@@ -188,6 +188,7 @@ fn equality(b: &mut Builder) -> R<()> {
 // congruence plus transitivity records that reduction explicitly.
 struct Normalizer<'a> {
     b: &'a mut Builder,
+    step_label: &'static str,
     heads: BTreeMap<u32, u32>,
     substitutions: BTreeMap<(u32, u32, u32), u32>,
     shifts: BTreeMap<(u32, u32, u32), u32>,
@@ -916,7 +917,8 @@ impl Normalizer<'_> {
             let expected = bit(self.b, value)?;
             let ty = call(self.b, EQ, vec![self.b.boolean, reference, expected])?;
             let name = format!(
-                "{PREFIX}.OwnershipProof.Step.N{}",
+                "{PREFIX}.{}.Step.N{}",
+                self.step_label,
                 self.b.c.declarations.len()
             );
             self.publish(&name, ty, proof)?;
@@ -970,6 +972,7 @@ pub(super) fn prove_record(
 ) -> R<String> {
     let mut n = Normalizer {
         b,
+        step_label: "OwnershipProof",
         heads: BTreeMap::new(),
         substitutions: BTreeMap::new(),
         shifts: BTreeMap::new(),
@@ -1029,6 +1032,7 @@ pub(super) fn emit_proofs(
     equality(&mut b)?;
     let mut normalizer = Normalizer {
         b: &mut b,
+        step_label: "OwnershipProof",
         heads: BTreeMap::new(),
         substitutions: BTreeMap::new(),
         shifts: BTreeMap::new(),
@@ -1063,6 +1067,36 @@ pub(super) fn emit_proofs(
         });
     }
     Ok((b, proofs))
+}
+
+/// Produce kernel-checked equality proofs for closed Boolean definitions.
+/// Callers must separately reconstruct and bind their original VC scope.
+pub(super) fn prove_closed_boolean_definitions(
+    b: &mut Builder,
+    definitions: &[String],
+) -> R<Vec<String>> {
+    if definitions.is_empty() {
+        return Ok(vec![]);
+    }
+    equality(b)?;
+    let mut normalizer = Normalizer {
+        b,
+        step_label: "ClosedBooleanProof",
+        heads: BTreeMap::new(),
+        substitutions: BTreeMap::new(),
+        shifts: BTreeMap::new(),
+        proofs: BTreeMap::new(),
+        inline_limit: 8,
+        share_atoms: false,
+        share_word_transport: false,
+        atoms: BTreeMap::new(),
+        word_values: BTreeMap::new(),
+        word_muxes: BTreeMap::new(),
+    };
+    definitions
+        .iter()
+        .map(|definition| normalizer.theorem(definition, true))
+        .collect()
 }
 pub fn import_csharp_practical_ordinary_ownership_proofs(
     input: &[u8],
@@ -1101,6 +1135,7 @@ mod tests {
         let expected = b.lam(boolean, expected_body).unwrap();
         let mut n = Normalizer {
             b: &mut b,
+            step_label: "OwnershipProof",
             heads: BTreeMap::new(),
             substitutions: BTreeMap::new(),
             shifts: BTreeMap::new(),
