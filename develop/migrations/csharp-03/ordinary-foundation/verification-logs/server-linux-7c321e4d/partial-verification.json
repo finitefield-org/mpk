@@ -1,0 +1,32 @@
+{
+  "status": "targeted_server_tests_partially_passed",
+  "recorded_utc": "2026-09-29T16:26:29.089615+00:00",
+  "server": "root@162.43.92.154",
+  "head": "7c321e4dd103941d72f864ef8d1877400ca8c521",
+  "supervisor_pid": 3016044,
+  "selection_reason": "Current concrete-operation test fixture changed and fixed-decimal pins are affected; run these exact cases on the user-requested Linux server before the long real-value/guard case. Full T06 gate remains deferred to W12.",
+  "completed_tests": [
+    {
+      "label": "definitions",
+      "filter": "csharp_03_t06_w09_concrete_operations_original_source_certificates",
+      "started_utc": "2026-09-29T16:17:52Z",
+      "ended_utc": "2026-09-29T16:24:56Z",
+      "exit_code": 0,
+      "status": "passed",
+      "log": "definitions.log",
+      "log_sha256": "02ed7e0eba83c485446dec19f56fa00fd8291eab3a242aedb482d4e4904d3ec7"
+    },
+    {
+      "label": "decimal-pins",
+      "filter": "csharp_03_t06_w09_decimal_fixed_formats_pinned_sources",
+      "started_utc": "2026-09-29T16:24:56Z",
+      "ended_utc": "2026-09-29T16:25:00Z",
+      "exit_code": 0,
+      "status": "passed",
+      "log": "decimal-pins.log",
+      "log_sha256": "ea96a1f9706fc4a5730082e0fe4a835df688649951dfa380ea18a85df0bc5b47"
+    }
+  ],
+  "running_test": "csharp_03_t06_w09_concrete_operations_real_values_and_guards",
+  "full_gate": "deferred_to_T06_W12"
+}

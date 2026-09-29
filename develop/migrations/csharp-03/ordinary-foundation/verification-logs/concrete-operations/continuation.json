@@ -1,15 +1,15 @@
 {
-  "recorded_utc": "2026-09-29T16:03:01.425326+00:00",
-  "previous_goal_turn_classification": "progress: corrected the Option.value test mutant, launched the complete original real-value rerun, and closed the decimal/count terminal audits",
-  "current_goal_turn_classification": "progress: reviewed scoped validation, committed and pushed 7a00be93, and retained the full real-value test running without interrupting it",
+  "recorded_utc": "2026-09-29T16:27:21.236150+00:00",
+  "previous_goal_turn_classification": "progress: committed and pushed 7a00be93 and 7c321e4d while the local full real-value test stayed live",
+  "current_goal_turn_classification": "progress: audited all 32 original ineligible-default captured source bodies, committed and pushed 26a40fc0, and started user-requested server tests; two targeted server tests passed and both long real-value runs remain live",
   "work_item": "CSHARP-03-T06-W09",
   "internal_unit": 4,
-  "goal": "Implement the entire requested C# practical subset TODO; internal units 4-8 and W09 remain incomplete.",
+  "goal": "Implement the entire C# practical subset TODO and run affected tests on the user-specified Linux server; internal units 4-8 and W09 remain incomplete.",
   "completed_this_turn": [
-    "Committed and pushed 7a00be93 on main with the 224 distinct additional count-consumer byte checks, the 65-context/145-configuration/355-observation fixed-decimal terminal evidence and the corrected Option.value mutation fixture.",
-    "Reviewed the staged test mutation and composite audit code; current Clippy, five inventory tests, Rust formatting, decimal pin replay and checker recapture remain passed. The changed source/document diff has no whitespace errors; raw hashed runtime logs retain original bytes.",
-    "Verified live supervisor PID 15644 and test PID 15647 continue the original full real-value run at near-full CPU; no terminal result is claimed.",
-    "Inspected Money.create: its currency validity is an explicit application-owned predicate argument. The pending source predicate cannot be replaced by a generic currency whitelist or accepted without its source proof."
+    "Verified 22 exact captured source contexts for all 32 original ineligible-default sequents: 58 body operation nodes and zero explicit DefaultValue nodes; this is a syntax inventory, not a DefaultUseForbidden proof.",
+    "Committed and pushed 26a40fc0 with the source-use inventory and the Linux server targeted-test launch record.",
+    "Fast-forwarded clean /root/mpk on the user-specified server to 7c321e4d and started supervisor PID 3016044. The original concrete-operation definition/pin test and fixed-decimal pin test passed with retained logs and SHA-256 hashes; the complete real-value/guard test is running.",
+    "The local complete real-value/guard test remains active as PID 15647 under supervisor 15644; Money.multiply passed and Money.divide is in progress. No full runtime pass is claimed."
   ],
   "current_verification": "partial-verification.json",
   "current_build": "review-real-value-mutation/build.json",
@@ -24,10 +24,12 @@
     "warning": "Verify actual process identity before action. Do not restart or interrupt due to elapsed time or silent log. No semantic evaluation limits."
   },
   "next_actions": [
+    "Poll server supervisor PID 3016044 and its status.txt; when terminal, copy/verify all server logs and write terminal receipt. Definitions and decimal-pins already passed on commit 7c321e4d.",
     "Wait for the complete real-value test to finish; retain any failure and diagnose it. All six original cases and five guards are required.",
     "If real.json passes, set review-real-value-mutation/finding.json to resolved_with_full_real_value_verification with exact receipt/log hashes, then run tool-sources/audit-concrete-operations.py. Its current composite verifies unchanged production/routing/isolated semantics, current pin replay, the corrected complete runtime and all historical failures.",
     "The terminal operation audit alone can create verification.json and the six-component 881/106 definition inventory. Then update scoped component review, README, TODO and ledger, keeping all 987 application proofs and unit 4/W09 pending.",
-    "Continue original source-use/identity/native constraints, concrete source-operation commutation, internal state/ownership/currency, complete unit integration and application proof/certificate assembly. Prefer a shared owning Builder for integration: raw certificate merging alone does not retain exact pre-sharing transformer counts."
+    "Continue original source-use/identity/native constraints, concrete source-operation commutation, internal state/ownership/currency, complete unit integration and application proof/certificate assembly. Prefer a shared owning Builder for integration: raw certificate merging alone does not retain exact pre-sharing transformer counts.",
+    "Keep the 32 source-use conditions pending: no explicit DefaultValue was captured, but implicit/native uses and ordinary source-use proofs are not implemented."
   ],
   "constraints": [
     "No subagents",
@@ -35,6 +37,16 @@
     "No check-fast before T06-W12",
     "Use /usr/bin/git outside sandbox",
     "Historical /tmp binaries/logs may be absent after environment cleanup; preserve durable old receipts and match current source/pinned bytes, recapturing only necessary missing verification.",
-    "Commit/push 7a00be93 completed the explicitly requested checkpoint; W09 remains in progress and the complete real-value run is pending."
-  ]
+    "User explicitly requested SSH server-side tests; targeted server cases run on 7c321e4d, and source-inventory-only 26a40fc0 is pushed separately."
+  ],
+  "server_runtime": {
+    "server": "root@162.43.92.154",
+    "checkout": "/root/mpk",
+    "head": "7c321e4dd103941d72f864ef8d1877400ca8c521",
+    "supervisor_pid": 3016044,
+    "evidence": "verification-logs/server-linux-7c321e4d/",
+    "partial_verification": "verification-logs/server-linux-7c321e4d/partial-verification.json",
+    "running_test": "csharp_03_t06_w09_concrete_operations_real_values_and_guards",
+    "warning": "Verify server PID, process identity and status.txt; do not restart solely because logs are quiet. The source-only 26a40fc0 commit was not part of this tested server checkout."
+  }
 }
