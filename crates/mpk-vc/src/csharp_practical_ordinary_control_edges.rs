@@ -1423,6 +1423,13 @@ pub fn generate_csharp_practical_ordinary_control_edges(
     Ok(p)
 }
 
+/// Resolve SSA values at their actual typed native definition points.
+pub(super) fn value_definition_points(
+    native: &crate::csharp_practical_vir_validation::PracticalVirFunction,
+) -> R<BTreeMap<String, ControlBinding>> {
+    steps::values(native)
+}
+
 /// Retain the compiler so W04 predicates can share the exact native definitions.
 /// The original public generator still finishes this builder at the same point.
 pub(super) fn emit_complete_program<'a>(

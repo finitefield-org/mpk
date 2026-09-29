@@ -2086,6 +2086,20 @@ all actual exits and exact inputs/reports are retained. Execution scopes, state 
 loop induction and all 987 application proofs remain open. Unit 5 and W09
 remain In progress; the full T06 gate remains deferred to W12.
 
+The subsequent pattern-scope adapter retains all 102 original pattern goals and
+113 native paths with their full premises and environments. It defines 113
+scope bodies and 108 physical observation transports while retaining 86 missing
+governing-observation producer links explicitly. Regressions pass 216 physical
+observations and 336 complete-scope checks, including 69 true native premises;
+the unit exhausts 16 Boolean combinations and the combined binder-limit fallback.
+All prior native/integrated pins and resolved declaration bodies survive. The
+seven changed certificates pass 28 Go/Rust stages; another 44 stages are retained
+after exact input/checker-byte comparison. See
+`ordinary-foundation/verification-logs/control-predicates/with-pattern-scopes/verification.json`
+for local/checker results and the separate Linux state. The 102 original
+PatternStep predicates and all 987 original application proofs remain pending.
+Unit 5 and W09 remain In progress; the T06-wide gate is deferred to W12.
+
 Owns: translation of every already-expanded concrete foundation definition in
 monomorphic VIR into ordinary core definitions and proof terms for all new
 finite values and operations; the successor program-assembly profile;

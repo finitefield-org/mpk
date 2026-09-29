@@ -1856,9 +1856,12 @@ mod control_predicates;
 pub use control_predicates::{
     generate_csharp_practical_ordinary_control_predicates,
     generate_csharp_practical_ordinary_control_predicates_with_execution,
+    generate_csharp_practical_ordinary_control_predicates_with_pattern_scopes,
     import_csharp_practical_ordinary_control_predicates,
     import_csharp_practical_ordinary_control_predicates_with_execution,
+    import_csharp_practical_ordinary_control_predicates_with_pattern_scopes,
     OrdinaryControlGuardDependency, OrdinaryControlMeasureDefinition,
-    OrdinaryControlPredicateDefinition, OrdinaryControlPredicateProgram,
-    OrdinaryControlSequentDefinition,
+    OrdinaryControlPatternExecutionScope, OrdinaryControlPatternObservation,
+    OrdinaryControlPatternScope, OrdinaryControlPredicateDefinition,
+    OrdinaryControlPredicateProgram, OrdinaryControlSequentDefinition,
 };

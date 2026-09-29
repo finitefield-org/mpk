@@ -6,8 +6,10 @@ type PredicateResult = Result<OrdinaryControlPredicateProgram, OrdinaryCarrierEr
 type Generate = fn(&ValidatedPracticalVir) -> PredicateResult;
 type Import = fn(&[u8], &[u8], &ValidatedPracticalVir) -> PredicateResult;
 
-fn output(id: &str, suffix: &str, bytes: &[u8], integrated: bool) {
-    let env = if integrated {
+fn output(id: &str, suffix: &str, bytes: &[u8], integrated: bool, scopes: bool) {
+    let env = if scopes {
+        "MPK_W09_CONTROL_PATTERN_SCOPE_OUTPUT"
+    } else if integrated {
         "MPK_W09_CONTROL_PREDICATE_INTEGRATED_OUTPUT"
     } else {
         "MPK_W09_CONTROL_PREDICATE_OUTPUT"
@@ -19,7 +21,9 @@ fn output(id: &str, suffix: &str, bytes: &[u8], integrated: bool) {
     } else {
         let mut dir = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
             .join("../../develop/migrations/csharp-03/ordinary-foundation/control-predicates");
-        if integrated {
+        if scopes {
+            dir.push("with-pattern-scopes");
+        } else if integrated {
             dir.push("with-execution");
         }
         assert_eq!(
@@ -90,19 +94,27 @@ fn mathematical(term: &ContractTerm, values: &[i32]) -> Option<bool> {
 
 #[test]
 fn csharp_03_t06_w09_control_predicates_original_sources() {
-    verify(false);
+    verify(false, false);
 }
 #[test]
 fn csharp_03_t06_w09_control_predicates_with_execution_original_sources() {
-    verify(true);
+    verify(true, false);
 }
-fn verify(integrated: bool) {
-    let generate: Generate = if integrated {
+#[test]
+fn csharp_03_t06_w09_control_predicates_with_pattern_scopes_original_sources() {
+    verify(true, true);
+}
+fn verify(integrated: bool, scopes: bool) {
+    let generate: Generate = if scopes {
+        generate_csharp_practical_ordinary_control_predicates_with_pattern_scopes
+    } else if integrated {
         generate_csharp_practical_ordinary_control_predicates_with_execution
     } else {
         generate_csharp_practical_ordinary_control_predicates
     };
-    let import: Import = if integrated {
+    let import: Import = if scopes {
+        import_csharp_practical_ordinary_control_predicates_with_pattern_scopes
+    } else if integrated {
         import_csharp_practical_ordinary_control_predicates_with_execution
     } else {
         import_csharp_practical_ordinary_control_predicates
@@ -135,6 +147,11 @@ fn verify(integrated: bool) {
     let mut distinct_snapshots = 0;
     let mut native_guards = 0;
     let mut ownership_guards = 0;
+    let mut pattern_scopes = 0;
+    let mut pattern_executions = 0;
+    let mut observation_tests = 0;
+    let mut scope_tests = 0;
+    let mut true_native_scopes = 0;
     let mut previous: Option<(Vec<u8>, Vec<u8>)> = None;
     for id in [
         "count_fill",
@@ -279,6 +296,209 @@ fn verify(integrated: bool) {
             .iter()
             .map(|c| (c.type_id.as_str(), c.depth))
             .collect::<BTreeMap<_, _>>();
+        if scopes {
+            let prior =
+                generate_csharp_practical_ordinary_control_predicates_with_execution(vir).unwrap();
+            let root = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+                .join("../../develop/migrations/csharp-03/ordinary-foundation/control-predicates/with-execution");
+            assert!(fs::read(root.join(format!("{id}.json"))).unwrap() == prior.canonical_bytes());
+            assert_eq!(
+                fs::read_to_string(root.join(format!("{id}.hex"))).unwrap(),
+                prior
+                    .certificate_bytes()
+                    .iter()
+                    .map(|b| format!("{b:02x}"))
+                    .collect::<String>()
+                    + "\n"
+            );
+            let before = mpk_cert::decode_canonical_certificate(prior.certificate_bytes()).unwrap();
+            let current = declaration_bodies(&cert);
+            for (name, body) in declaration_bodies(&before) {
+                assert!(
+                    current.get(&name) == Some(&body),
+                    "{id}: changed predicate {name}"
+                );
+            }
+            let native = native.as_ref().unwrap();
+            for scope in p.pattern_scopes() {
+                pattern_scopes += 1;
+                assert!(scope.original_pattern_predicate_pending);
+                let source = vc
+                    .control_vcs()
+                    .sequents()
+                    .iter()
+                    .find(|s| s.id == scope.source_sequent_id)
+                    .unwrap();
+                assert_eq!(source.function_id, scope.function_id);
+                assert_eq!(source.region_id, scope.pattern_id);
+                assert_eq!(source.source_node_id, scope.source_step.entry_node_id);
+                assert_eq!(
+                    source.target_node_id.as_ref(),
+                    Some(&scope.source_step.exit_node_id)
+                );
+                let flow = native
+                    .functions()
+                    .iter()
+                    .find(|f| f.source.function_id == scope.function_id)
+                    .unwrap();
+                assert_eq!(
+                    scope.excluded_unreachable,
+                    flow.excluded_unreachable_source_node_ids
+                        .contains(&scope.source_step.source_node_id)
+                );
+                let expected = flow
+                    .source_executions
+                    .iter()
+                    .filter(|e| e.source_node_id == scope.source_step.source_node_id)
+                    .collect::<Vec<_>>();
+                assert_eq!(scope.executions.len(), expected.len());
+                for (path, expected) in scope.executions.iter().zip(expected) {
+                    pattern_executions += 1;
+                    assert_eq!(&path.source_execution, expected);
+                    assert_eq!(
+                        path.native_argument_indices
+                            .iter()
+                            .map(|&i| path.arguments[i].clone())
+                            .collect::<Vec<_>>(),
+                        expected.arguments
+                    );
+                    assert_eq!(path.observations.len(), source.goals[0].bindings.len());
+                    for (i, (observation, original)) in path
+                        .observations
+                        .iter()
+                        .zip(&source.goals[0].bindings)
+                        .enumerate()
+                    {
+                        assert_eq!(&observation.source, original);
+                        assert_eq!(
+                            &path.arguments[observation.observation_argument_index],
+                            original
+                        );
+                        assert_eq!(
+                            observation.native_definition_point.value_id,
+                            original.value_id
+                        );
+                        assert_eq!(
+                            observation.native_definition_point.type_id,
+                            original.type_id
+                        );
+                        if let Some(n) = observation.native_argument_index {
+                            assert_eq!(expected.arguments[n], observation.native_definition_point);
+                            assert!(!path.pending_observation_binding_indices.contains(&i));
+                            let relation = path
+                                .components
+                                .iter()
+                                .find(|c| c.role == format!("observation_transport:{i}"))
+                                .unwrap();
+                            assert_eq!(
+                                relation.argument_indices,
+                                [observation.observation_argument_index, n]
+                            );
+                            let depth = depths[original.type_id.as_str()];
+                            let empty = || {
+                                if depth == 0 {
+                                    V::Bit(false)
+                                } else {
+                                    sparse_cube(depth, BTreeSet::new())
+                                }
+                            };
+                            let changed = if depth == 0 {
+                                V::Bit(true)
+                            } else {
+                                sparse_cube(depth, BTreeSet::from([(1usize << depth) - 1]))
+                            };
+                            assert!(bit(run(
+                                &cert,
+                                &relation.definition,
+                                vec![empty(), empty()]
+                            )));
+                            assert!(!bit(run(
+                                &cert,
+                                &relation.definition,
+                                vec![empty(), changed]
+                            )));
+                            observation_tests += 2;
+                        } else {
+                            assert!(path.pending_observation_binding_indices.contains(&i));
+                        }
+                    }
+                    if let Some(definition) = &path.definition {
+                        assert!(path.pending_definition_reasons.is_empty());
+                        // Evaluate the complete scope against the predecessor's
+                        // native relation. Matching observations alone must not
+                        // hide a false native execution premise.
+                        for flags in [false, true] {
+                            let mut args = path
+                                .arguments
+                                .iter()
+                                .map(|a| {
+                                    let depth = depths[a.type_id.as_str()];
+                                    if depth == 0 {
+                                        V::Bit(flags)
+                                    } else {
+                                        sparse_cube(depth, BTreeSet::new())
+                                    }
+                                })
+                                .collect::<Vec<_>>();
+                            for observation in &path.observations {
+                                if let Some(n) = observation.native_argument_index {
+                                    args[observation.observation_argument_index] = args[n].clone();
+                                }
+                            }
+                            let native_args = path
+                                .native_argument_indices
+                                .iter()
+                                .map(|&i| args[i].clone())
+                                .collect::<Vec<_>>();
+                            let expected_value = if let Some(definition) = &expected.definition {
+                                bit(run(&before, definition, native_args))
+                            } else {
+                                expected.components.iter().all(|component| {
+                                    bit(run(
+                                        &before,
+                                        &component.definition,
+                                        component
+                                            .argument_indices
+                                            .iter()
+                                            .map(|&i| native_args[i].clone())
+                                            .collect(),
+                                    ))
+                                })
+                            };
+                            true_native_scopes += usize::from(expected_value);
+                            assert_eq!(
+                                bit(run(&cert, definition, args.clone())),
+                                expected_value,
+                                "{id} {} {} flags={flags}",
+                                scope.source_sequent_id,
+                                path.source_execution.edge_id,
+                            );
+                            scope_tests += 1;
+                            // Change only an appended observation; the exact
+                            // native arguments and premise remain unchanged.
+                            if let Some(observation) = path.observations.iter().find(|o| {
+                                o.native_argument_index.is_some()
+                                    && o.observation_argument_index >= expected.arguments.len()
+                            }) {
+                                let depth = depths[observation.source.type_id.as_str()];
+                                args[observation.observation_argument_index] = if depth == 0 {
+                                    V::Bit(!flags)
+                                } else {
+                                    sparse_cube(depth, BTreeSet::from([(1usize << depth) - 1]))
+                                };
+                                assert!(!bit(run(&cert, definition, args)));
+                                scope_tests += 1;
+                            }
+                        }
+                    } else {
+                        assert!(!path.pending_definition_reasons.is_empty());
+                    }
+                }
+            }
+        } else {
+            assert!(p.pattern_scopes().is_empty());
+            assert!(metadata.get("pattern_scopes").is_none());
+        }
         for (s, original) in p.sequents().iter().zip(vc.control_vcs().sequents()) {
             assert_eq!(&s.source, original);
             assert_eq!(s.assumptions.len(), original.assumptions.len());
@@ -494,14 +714,25 @@ fn verify(integrated: bool) {
             )
             .is_err());
         }
-        output(id, "json", &p.canonical_bytes(), integrated);
+        if scopes && !p.pattern_scopes().is_empty() {
+            let mut altered = metadata.clone();
+            altered["pattern_scopes"][0]["source_step"]["entry_node_id"] =
+                json!("wrong-native-entry");
+            assert!(import(
+                &serde_json::to_vec(&altered).unwrap(),
+                p.certificate_bytes(),
+                vir
+            )
+            .is_err());
+        }
+        output(id, "json", &p.canonical_bytes(), integrated, scopes);
         let hex = p
             .certificate_bytes()
             .iter()
             .map(|b| format!("{b:02x}"))
             .collect::<String>()
             + "\n";
-        output(id, "hex", hex.as_bytes(), integrated);
+        output(id, "hex", hex.as_bytes(), integrated, scopes);
         eprintln!(
             "control predicates {id}: {} original sequents",
             p.sequents().len()
@@ -520,4 +751,10 @@ fn verify(integrated: bool) {
         assert_eq!(implication_observations, 392);
     }
     eprintln!("control predicates total: {total_sequents} sequents, {compiled} defined predicates, {pending} pending predicates, {measure_observations} original decrease observations, {implication_observations} implication observations, {distinct_snapshots} distinct snapshot pairs");
+    if scopes {
+        assert_eq!((pattern_scopes, pattern_executions), (102, 113));
+        assert!(observation_tests > 0 && scope_tests >= pattern_executions * 2);
+        assert!(true_native_scopes > 0);
+        eprintln!("pattern scopes: {pattern_scopes} original goals, {pattern_executions} native paths, {observation_tests} physical transport observations, {scope_tests} complete scope observations, {true_native_scopes} true native premises");
+    }
 }
