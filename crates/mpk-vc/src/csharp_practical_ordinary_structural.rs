@@ -1077,3 +1077,10 @@ pub use source_clauses::{
     OrdinaryControlSourceExecution, OrdinaryControlSourceFrame, OrdinaryControlSourceStep,
     OrdinaryControlStepComponent,
 };
+
+pub use source_clauses::{
+    generate_csharp_practical_ordinary_control_predicates,
+    import_csharp_practical_ordinary_control_predicates, OrdinaryControlMeasureDefinition,
+    OrdinaryControlPredicateDefinition, OrdinaryControlPredicateProgram,
+    OrdinaryControlSequentDefinition,
+};

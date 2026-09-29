@@ -1,0 +1,83 @@
+PASS count_fill-positive-rust 0.019
+PASS count_fill-positive-go 0.193
+PASS count_fill-hash-go 0.186
+PASS count_fill-hash-rust 0.027
+PASS while-positive-rust 0.017
+PASS while-positive-go 0.064
+PASS while-hash-rust 0.011
+PASS while-hash-go 0.064
+PASS for-positive-rust 0.016
+PASS for-positive-go 0.077
+PASS for-hash-rust 0.015
+PASS for-hash-go 0.066
+PASS short_circuit-positive-rust 0.017
+PASS short_circuit-positive-go 0.072
+PASS short_circuit-hash-rust 0.012
+PASS short_circuit-hash-go 0.071
+PASS switch-positive-rust 0.016
+PASS switch-positive-go 0.066
+PASS switch-hash-rust 0.014
+PASS is_binding-positive-go 0.009
+PASS switch-hash-go 0.064
+PASS is_binding-positive-rust 0.013
+PASS is_binding-hash-go 0.01
+PASS is_binding-hash-rust 0.008
+PASS guard_order-positive-go 0.008
+PASS guard_order-positive-rust 0.008
+PASS guard_order-hash-go 0.008
+PASS guard_order-hash-rust 0.005
+PASS guard_throw-positive-go 0.01
+PASS guard_throw-positive-rust 0.01
+PASS guard_throw-hash-go 0.011
+PASS guard_throw-hash-rust 0.01
+PASS total_variable-positive-rust 0.01
+PASS total_variable-positive-go 0.065
+PASS total_variable-hash-go 0.058
+PASS total_variable-hash-rust 0.012
+PASS index_update-positive-rust 0.017
+PASS index_update-positive-go 0.097
+PASS index_update-hash-rust 0.017
+PASS index_update-hash-go 0.103
+PASS foreach_string-positive-rust 0.009
+PASS foreach_string-positive-go 0.064
+PASS foreach_string-hash-rust 0.012
+PASS foreach_string-hash-go 0.065
+PASS foreach_string_var-positive-rust 0.012
+PASS foreach_string_var-positive-go 0.069
+PASS foreach_string_var-hash-rust 0.017
+PASS foreach_string_var-hash-go 0.071
+PASS foreach_array-positive-rust 0.011
+PASS foreach_array-positive-go 0.073
+PASS foreach_array-hash-go 0.073
+PASS foreach_array-hash-rust 0.022
+PASS foreach_array_var-positive-rust 0.014
+PASS foreach_array_var-positive-go 0.067
+PASS foreach_array_var-hash-rust 0.014
+PASS foreach_array_var-hash-go 0.069
+PASS lookup-positive-rust 0.013
+PASS lookup-positive-go 0.069
+PASS lookup-hash-rust 0.015
+PASS lookup-hash-go 0.071
+PASS governing_throw-positive-go 0.006
+PASS governing_throw-positive-rust 0.007
+PASS governing_throw-hash-go 0.006
+PASS governing_throw-hash-rust 0.009
+PASS type-positive-go 0.006
+PASS type-positive-rust 0.007
+PASS type-hash-go 0.012
+PASS type-hash-rust 0.008
+PASS string_property-positive-go 0.008
+PASS string_property-positive-rust 0.006
+PASS string_property-hash-go 0.007
+PASS string_property-hash-rust 0.01
+PASS measures-positive-rust 0.009
+PASS measures-positive-go 0.027
+PASS measures-hash-rust 0.009
+PASS measures-hash-go 0.031
+Traceback (most recent call last):
+  File "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/tool-sources/check.py", line 116, in <module>
+    main()
+  File "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/tool-sources/check.py", line 102, in main
+    assert bytes(go[g]).hex() == rust["hashes"][r], (case, g)
+                 ~~^^^
+KeyError: 'ContextHash'

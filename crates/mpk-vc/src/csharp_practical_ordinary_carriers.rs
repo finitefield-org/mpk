@@ -1617,3 +1617,10 @@ pub use structural::{
     OrdinaryControlSourceExecution, OrdinaryControlSourceFrame, OrdinaryControlSourceStep,
     OrdinaryControlStepComponent,
 };
+
+pub use structural::{
+    generate_csharp_practical_ordinary_control_predicates,
+    import_csharp_practical_ordinary_control_predicates, OrdinaryControlMeasureDefinition,
+    OrdinaryControlPredicateDefinition, OrdinaryControlPredicateProgram,
+    OrdinaryControlSequentDefinition,
+};

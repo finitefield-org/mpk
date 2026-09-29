@@ -5,6 +5,8 @@ use std::path::PathBuf;
 mod exceptions;
 #[path = "csharp_practical_ordinary_control_literal_tests.rs"]
 mod native_literals;
+#[path = "csharp_practical_ordinary_control_predicate_tests.rs"]
+mod predicates;
 #[path = "csharp_practical_ordinary_control_step_tests.rs"]
 mod steps;
 

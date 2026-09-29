@@ -2055,6 +2055,19 @@ source hashes, the test binary, log and prior 45 zero-axiom checker pins; see
 `ordinary-foundation/verification-logs/concrete-operations/verification.json`.
 All 987 original application proofs and internal units 4-8 remain open.
 
+The W04 predicate adapter now retains all 215 original sequents over the
+18-source control corpus, defining 383 predicates and 98 logical implications
+while explicitly retaining 117 predicates with missing pattern/data constants.
+All eight integral mathematical comparison/nonnegative helpers pass 1,800
+boundary/bit observations; the original variable-decrease and binding-map
+regressions also pass. All 19 certificate occurrences (14 distinct byte sets)
+pass unchanged Go/Rust checking with zero axioms and hash-mutation rejection.
+See `ordinary-foundation/verification-logs/control-predicates/verification.json`.
+These free-state predicate definitions do not establish native execution,
+loop induction or an application proof. Targeted Linux validation of this
+checkpoint remains pending; unit 5 and W09 remain In progress. The full T06
+gate remains deferred to W12.
+
 Owns: translation of every already-expanded concrete foundation definition in
 monomorphic VIR into ordinary core definitions and proof terms for all new
 finite values and operations; the successor program-assembly profile;

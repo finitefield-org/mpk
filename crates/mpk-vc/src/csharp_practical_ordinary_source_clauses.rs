@@ -1850,3 +1850,12 @@ pub use control_edges::{
     OrdinaryControlSourceExecution, OrdinaryControlSourceFrame, OrdinaryControlSourceStep,
     OrdinaryControlStepComponent,
 };
+
+#[path = "csharp_practical_ordinary_control_predicates.rs"]
+mod control_predicates;
+pub use control_predicates::{
+    generate_csharp_practical_ordinary_control_predicates,
+    import_csharp_practical_ordinary_control_predicates, OrdinaryControlMeasureDefinition,
+    OrdinaryControlPredicateDefinition, OrdinaryControlPredicateProgram,
+    OrdinaryControlSequentDefinition,
+};

@@ -7822,3 +7822,10 @@ pub use ordinary_carriers::{
     OrdinaryControlSourceExecution, OrdinaryControlSourceFrame, OrdinaryControlSourceStep,
     OrdinaryControlStepComponent,
 };
+
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_control_predicates,
+    import_csharp_practical_ordinary_control_predicates, OrdinaryControlMeasureDefinition,
+    OrdinaryControlPredicateDefinition, OrdinaryControlPredicateProgram,
+    OrdinaryControlSequentDefinition,
+};
