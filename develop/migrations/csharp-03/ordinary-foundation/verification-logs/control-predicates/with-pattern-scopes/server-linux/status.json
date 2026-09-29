@@ -1,0 +1,95 @@
+{
+  "application_proofs": "pending",
+  "base_head": "6a7850cd269e1fdeedb0bb69c0d640a4373046f3",
+  "finished_at": "2026-09-29T21:48:32.182780+00:00",
+  "full_t_gate": "deferred to T06-W12",
+  "process_pid": 3034117,
+  "stage": "format",
+  "stages": [
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_control_predicates_",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 518.965,
+      "exit_code": 0,
+      "finished_at": "2026-09-29T21:45:21.820779+00:00",
+      "log_sha256": "54da37510faded3210bfcc116b6df6c27b8c7cbe44980249c1a31e62856beca3",
+      "stage": "predicate-regressions",
+      "started_at": "2026-09-29T21:36:42.855703+00:00"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "pattern_scopes::tests",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 107.001,
+      "exit_code": 0,
+      "finished_at": "2026-09-29T21:47:09.229682+00:00",
+      "log_sha256": "a4b057b3e945c2d19f90e367734921f8007cd7bc6aadb7068c972d586d74bd7e",
+      "stage": "scope-composition",
+      "started_at": "2026-09-29T21:45:22.229258+00:00"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "elapsed_seconds": 77.979,
+      "exit_code": 0,
+      "finished_at": "2026-09-29T21:48:27.287466+00:00",
+      "log_sha256": "0d47295d2efddad6bd7906e6a8833dba65162813d3a7ad6e11a193d0f0232e7d",
+      "stage": "clippy",
+      "started_at": "2026-09-29T21:47:09.308404+00:00"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "fmt",
+        "-p",
+        "mpk-vc",
+        "--",
+        "--check"
+      ],
+      "elapsed_seconds": 4.785,
+      "exit_code": 0,
+      "finished_at": "2026-09-29T21:48:32.132303+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stage": "format",
+      "started_at": "2026-09-29T21:48:27.347584+00:00"
+    }
+  ],
+  "started_at": "2026-09-29T21:36:42.470465+00:00",
+  "status": "passed_targeted_linux_tests_lint_format",
+  "supervisor_pid": 3032317,
+  "test_binaries": {
+    "/root/mpk-w09-pattern-scopes-target/debug/deps/csharp_practical_vc-bb5f372f714b0f03": "12fadbd8d2cdbd416db667e5b9b71c0f4c48d2351859a031e72ac1eb8b167c43",
+    "/root/mpk-w09-pattern-scopes-target/debug/deps/mpk_vc-4a52d3d7fc00a2f4": "e54e9988dcf0aed6d60220730c0093429075f16510f01f933adb8118b882ccfb"
+  },
+  "unique_tests_passed": 4,
+  "verified_pin_hashes": 36,
+  "verified_source_hashes": 371
+}

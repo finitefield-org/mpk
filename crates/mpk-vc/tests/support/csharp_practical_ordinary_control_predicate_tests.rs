@@ -1,13 +1,17 @@
 //! W04 identities, binding projections, original decrease terms and hostile import.
 use super::*;
 use mpk_vc::csharp_practical_vir_validation::ValidatedPracticalVir;
+#[path = "csharp_practical_ordinary_control_pattern_capture_tests.rs"]
+mod governing_captures;
 
 type PredicateResult = Result<OrdinaryControlPredicateProgram, OrdinaryCarrierError>;
 type Generate = fn(&ValidatedPracticalVir) -> PredicateResult;
 type Import = fn(&[u8], &[u8], &ValidatedPracticalVir) -> PredicateResult;
 
-fn output(id: &str, suffix: &str, bytes: &[u8], integrated: bool, scopes: bool) {
-    let env = if scopes {
+fn output(id: &str, suffix: &str, bytes: &[u8], integrated: bool, scopes: bool, captures: bool) {
+    let env = if captures {
+        "MPK_W09_CONTROL_PATTERN_CAPTURE_OUTPUT"
+    } else if scopes {
         "MPK_W09_CONTROL_PATTERN_SCOPE_OUTPUT"
     } else if integrated {
         "MPK_W09_CONTROL_PREDICATE_INTEGRATED_OUTPUT"
@@ -21,7 +25,9 @@ fn output(id: &str, suffix: &str, bytes: &[u8], integrated: bool, scopes: bool) 
     } else {
         let mut dir = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
             .join("../../develop/migrations/csharp-03/ordinary-foundation/control-predicates");
-        if scopes {
+        if captures {
+            dir.push("with-pattern-captures");
+        } else if scopes {
             dir.push("with-pattern-scopes");
         } else if integrated {
             dir.push("with-execution");
@@ -94,25 +100,33 @@ fn mathematical(term: &ContractTerm, values: &[i32]) -> Option<bool> {
 
 #[test]
 fn csharp_03_t06_w09_control_predicates_original_sources() {
-    verify(false, false);
+    verify(false, false, false);
 }
 #[test]
 fn csharp_03_t06_w09_control_predicates_with_execution_original_sources() {
-    verify(true, false);
+    verify(true, false, false);
 }
 #[test]
 fn csharp_03_t06_w09_control_predicates_with_pattern_scopes_original_sources() {
-    verify(true, true);
+    verify(true, true, false);
 }
-fn verify(integrated: bool, scopes: bool) {
-    let generate: Generate = if scopes {
+#[test]
+fn csharp_03_t06_w09_control_predicates_with_pattern_captures_original_sources() {
+    verify(true, true, true);
+}
+fn verify(integrated: bool, scopes: bool, with_captures: bool) {
+    let generate: Generate = if with_captures {
+        generate_csharp_practical_ordinary_control_predicates_with_pattern_captures
+    } else if scopes {
         generate_csharp_practical_ordinary_control_predicates_with_pattern_scopes
     } else if integrated {
         generate_csharp_practical_ordinary_control_predicates_with_execution
     } else {
         generate_csharp_practical_ordinary_control_predicates
     };
-    let import: Import = if scopes {
+    let import: Import = if with_captures {
+        import_csharp_practical_ordinary_control_predicates_with_pattern_captures
+    } else if scopes {
         import_csharp_practical_ordinary_control_predicates_with_pattern_scopes
     } else if integrated {
         import_csharp_practical_ordinary_control_predicates_with_execution
@@ -152,6 +166,7 @@ fn verify(integrated: bool, scopes: bool) {
     let mut observation_tests = 0;
     let mut scope_tests = 0;
     let mut true_native_scopes = 0;
+    let mut capture_coverage = governing_captures::Coverage::default();
     let mut previous: Option<(Vec<u8>, Vec<u8>)> = None;
     for id in [
         "count_fill",
@@ -296,6 +311,22 @@ fn verify(integrated: bool, scopes: bool) {
             .iter()
             .map(|c| (c.type_id.as_str(), c.depth))
             .collect::<BTreeMap<_, _>>();
+        if with_captures {
+            governing_captures::verify(
+                id,
+                &p,
+                vir,
+                vc.control_vcs(),
+                native.as_ref().unwrap(),
+                &cert,
+                &depths,
+                &mut capture_coverage,
+            );
+        } else {
+            assert!(p.pattern_captures().is_empty() && p.pattern_capture_scopes().is_empty());
+            assert!(metadata.get("pattern_captures").is_none());
+            assert!(metadata.get("pattern_capture_scopes").is_none());
+        }
         if scopes {
             let prior =
                 generate_csharp_practical_ordinary_control_predicates_with_execution(vir).unwrap();
@@ -725,14 +756,21 @@ fn verify(integrated: bool, scopes: bool) {
             )
             .is_err());
         }
-        output(id, "json", &p.canonical_bytes(), integrated, scopes);
+        output(
+            id,
+            "json",
+            &p.canonical_bytes(),
+            integrated,
+            scopes,
+            with_captures,
+        );
         let hex = p
             .certificate_bytes()
             .iter()
             .map(|b| format!("{b:02x}"))
             .collect::<String>()
             + "\n";
-        output(id, "hex", hex.as_bytes(), integrated, scopes);
+        output(id, "hex", hex.as_bytes(), integrated, scopes, with_captures);
         eprintln!(
             "control predicates {id}: {} original sequents",
             p.sequents().len()
@@ -756,5 +794,8 @@ fn verify(integrated: bool, scopes: bool) {
         assert!(observation_tests > 0 && scope_tests >= pattern_executions * 2);
         assert!(true_native_scopes > 0);
         eprintln!("pattern scopes: {pattern_scopes} original goals, {pattern_executions} native paths, {observation_tests} physical transport observations, {scope_tests} complete scope observations, {true_native_scopes} true native premises");
+    }
+    if with_captures {
+        capture_coverage.finish();
     }
 }

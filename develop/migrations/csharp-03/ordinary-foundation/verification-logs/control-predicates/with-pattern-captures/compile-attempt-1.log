@@ -1,0 +1,36 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/crates/mpk-vc)
+error[E0308]: mismatched types
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_control_predicate_tests.rs:314:12
+    |
+314 |         if captures {
+    |            ^^^^^^^^ expected `bool`, found `CapturedInputSet`
+
+error[E0308]: mismatched types
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_control_predicate_tests.rs:765:13
+    |
+759 |         output(
+    |         ------ arguments to this function are incorrect
+...
+765 |             captures,
+    |             ^^^^^^^^ expected `bool`, found `CapturedInputSet`
+    |
+note: function defined here
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_control_predicate_tests.rs:11:4
+    |
+ 11 | fn output(id: &str, suffix: &str, bytes: &[u8], integrated: bool, scopes: bool, captures: bool) {
+    |    ^^^^^^                                                                       --------------
+
+error[E0308]: mismatched types
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_control_predicate_tests.rs:773:63
+    |
+773 |         output(id, "hex", hex.as_bytes(), integrated, scopes, captures);
+    |         ------ arguments to this function are incorrect       ^^^^^^^^ expected `bool`, found `CapturedInputSet`
+    |
+note: function defined here
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_control_predicate_tests.rs:11:4
+    |
+ 11 | fn output(id: &str, suffix: &str, bytes: &[u8], integrated: bool, scopes: bool, captures: bool) {
+    |    ^^^^^^                                                                       --------------
+
+For more information about this error, try `rustc --explain E0308`.
+error: could not compile `mpk-vc` (test "csharp_practical_vc") due to 3 previous errors

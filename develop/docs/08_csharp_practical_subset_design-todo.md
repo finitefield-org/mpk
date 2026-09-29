@@ -2100,6 +2100,22 @@ for local/checker results and the separate Linux state. The 102 original
 PatternStep predicates and all 987 original application proofs remain pending.
 Unit 5 and W09 remain In progress; the T06-wide gate is deferred to W12.
 
+The governing-capture adapter adds explicit normal-execution premises for seven
+exact original source producers. It connects all 86 previously missing governing
+observations across 113 consuming paths while preserving every prior scope pin
+and resolved declaration body. There are 108 compact scope definitions and five
+complete indexed component sets retained at the combined binder bound. Four
+source regression modes and three unit tests pass, with 388 physical transport
+checks, 398 complete-scope comparisons and 59 true joint scopes; pinned replay,
+Clippy and format also pass. All 72 exact-input checker stages are terminal and
+audited (28 new, 44 retained after exact input/checker comparison). The preceding scope-only snapshot
+separately passes its four Linux tests plus lint/format. The capture snapshot's
+Linux verification remains pending. See
+`ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/verification.json`.
+Producer/consumer execution establishment, 102 original pattern predicate bodies
+and all 987 original application proofs remain open. Unit 5 and W09 stay In
+progress; W10-W12 remain Blocked and the full T06 gate stays deferred to W12.
+
 Owns: translation of every already-expanded concrete foundation definition in
 monomorphic VIR into ordinary core definitions and proof terms for all new
 finite values and operations; the successor program-assembly profile;

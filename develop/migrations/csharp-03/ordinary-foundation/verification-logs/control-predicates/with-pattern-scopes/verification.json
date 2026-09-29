@@ -602,7 +602,101 @@
     }
   },
   "full_t_gate": "deferred to T06-W12",
-  "linux": null,
+  "linux": {
+    "application_proofs": "pending",
+    "base_head": "6a7850cd269e1fdeedb0bb69c0d640a4373046f3",
+    "finished_at": "2026-09-29T21:48:32.182780+00:00",
+    "full_t_gate": "deferred to T06-W12",
+    "process_pid": 3034117,
+    "stage": "format",
+    "stages": [
+      {
+        "command": [
+          "/usr/bin/cargo",
+          "test",
+          "-p",
+          "mpk-vc",
+          "--test",
+          "csharp_practical_vc",
+          "csharp_03_t06_w09_control_predicates_",
+          "--",
+          "--nocapture",
+          "--test-threads=1"
+        ],
+        "elapsed_seconds": 518.965,
+        "exit_code": 0,
+        "finished_at": "2026-09-29T21:45:21.820779+00:00",
+        "log_sha256": "54da37510faded3210bfcc116b6df6c27b8c7cbe44980249c1a31e62856beca3",
+        "stage": "predicate-regressions",
+        "started_at": "2026-09-29T21:36:42.855703+00:00"
+      },
+      {
+        "command": [
+          "/usr/bin/cargo",
+          "test",
+          "-p",
+          "mpk-vc",
+          "--lib",
+          "pattern_scopes::tests",
+          "--",
+          "--nocapture",
+          "--test-threads=1"
+        ],
+        "elapsed_seconds": 107.001,
+        "exit_code": 0,
+        "finished_at": "2026-09-29T21:47:09.229682+00:00",
+        "log_sha256": "a4b057b3e945c2d19f90e367734921f8007cd7bc6aadb7068c972d586d74bd7e",
+        "stage": "scope-composition",
+        "started_at": "2026-09-29T21:45:22.229258+00:00"
+      },
+      {
+        "command": [
+          "/usr/bin/cargo",
+          "clippy",
+          "-p",
+          "mpk-vc",
+          "--lib",
+          "--test",
+          "csharp_practical_vc",
+          "--",
+          "-D",
+          "warnings"
+        ],
+        "elapsed_seconds": 77.979,
+        "exit_code": 0,
+        "finished_at": "2026-09-29T21:48:27.287466+00:00",
+        "log_sha256": "0d47295d2efddad6bd7906e6a8833dba65162813d3a7ad6e11a193d0f0232e7d",
+        "stage": "clippy",
+        "started_at": "2026-09-29T21:47:09.308404+00:00"
+      },
+      {
+        "command": [
+          "/usr/bin/cargo",
+          "fmt",
+          "-p",
+          "mpk-vc",
+          "--",
+          "--check"
+        ],
+        "elapsed_seconds": 4.785,
+        "exit_code": 0,
+        "finished_at": "2026-09-29T21:48:32.132303+00:00",
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stage": "format",
+        "started_at": "2026-09-29T21:48:27.347584+00:00"
+      }
+    ],
+    "started_at": "2026-09-29T21:36:42.470465+00:00",
+    "status": "passed_targeted_linux_tests_lint_format",
+    "supervisor_pid": 3032317,
+    "test_binaries": {
+      "/root/mpk-w09-pattern-scopes-target/debug/deps/csharp_practical_vc-bb5f372f714b0f03": "12fadbd8d2cdbd416db667e5b9b71c0f4c48d2351859a031e72ac1eb8b167c43",
+      "/root/mpk-w09-pattern-scopes-target/debug/deps/mpk_vc-4a52d3d7fc00a2f4": "e54e9988dcf0aed6d60220730c0093429075f16510f01f933adb8118b882ccfb"
+    },
+    "unique_tests_passed": 4,
+    "verified_pin_hashes": 36,
+    "verified_source_hashes": 371
+  },
   "local": {
     "binaries": {
       "/tmp/mpk-w09-pattern-scopes-target/debug/deps/csharp_practical_vc-9eed0564ce83fca4": "a07de2fe600d29e0526bb53fe1a24a0b986dbf23d3feb62f6870c335fac9a903",
@@ -1134,17 +1228,18 @@
     "governing:exception": 1,
     "governing:normal": 85
   },
-  "recorded_at": "2026-09-29T20:56:40.153550+00:00",
+  "recorded_at": "2026-09-29T21:55:54.049912+00:00",
   "server_transfer": {
-    "approval_question_pending": true,
+    "approval_question_pending": false,
+    "approval_resolution": "Automatic review approved the same scp destination after public repository visibility and all 47 exact published file contents were verified. No human reply was inferred.",
     "automatic_review_rejection": {
       "action": "scp exact source/pin/script payload to the user-specified server",
       "reason": "Private source/input/script payload and destination were not considered explicitly authorized by the server-test instruction; no workaround was attempted."
     },
     "destination": "root@162.43.92.154:/root/mpk-w09-pattern-scopes/",
     "fixture_files": 36,
-    "linux_tests_for_this_source_snapshot": "not_started",
-    "original_server_real_value_run": "separate prior snapshot, still running; not evidence for these changes",
+    "linux_tests_for_this_source_snapshot": "passed_targeted_linux_tests_lint_format",
+    "original_server_real_value_run": "Separate prior 7c321e4d snapshot; terminal pass observed. It is not evidence for these changes.",
     "payloads": {
       "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-scopes/tool-sources/server-tests.py": {
         "bytes": 6104,
@@ -1164,7 +1259,27 @@
       }
     },
     "source_files": 9,
-    "status": "awaiting_explicit_transfer_approval"
+    "status": "transferred_verified_public_payload_and_tests_passed",
+    "successful_transfer": {
+      "exit_code": 0,
+      "observed_exec_session": "70956",
+      "payloads": {
+        "pins.public.tar": {
+          "bytes": 16455680,
+          "sha256": "95e2f6bdcae650ba85ac918cfa16d95d178920e8a7eaefe6260e731f1fc3b28f"
+        },
+        "source-manifest.json": {
+          "bytes": 53963,
+          "sha256": "ee0bd2f2ce6605bdd6b712ce504c82d373ee0015c44a2e349df657bb36a9f7b2"
+        },
+        "source.public.tar": {
+          "bytes": 665600,
+          "sha256": "f8e8d67e5962998ee0dd0d1734a2f582d71cc02c6ca581b6588743919ed781d8"
+        }
+      },
+      "public_payload_audit_sha256": "c2fabfcae2e82683e8b178535e0f19fe1d2e70da4925b824a164c61e8ece4cba",
+      "published_commit": "dd3ed0c83cd83e18618a9f18378cdfb1b5fc7feb"
+    }
   },
   "source_operations": {
     "binary": 5,

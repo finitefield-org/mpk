@@ -6034,3 +6034,33 @@ all 32 original bits before substituting zero, and retains every original case
 and guard. The complete rerun is still in progress; current Clippy, inventory,
 formatting and 45-context pin replay pass. No application proof, internal-unit
 or W09 completion is claimed. The whole T06 gate stays deferred to W12.
+
+## 68. CSHARP-03-T06-W09 original governing producer premises
+
+The scope-only checkpoint retains 102 original pattern goals and 113 native
+paths, with 108 physical observation links and 86 explicitly missing governing
+links. Its complete 72 checker stages and four Linux tests plus lint/format are
+audited over the exact 371-source snapshot. The initial automatic transfer
+rejection remains recorded; the same destination was subsequently approved after
+all 47 payload contents were verified against the public `dd3ed0c8` commit.
+
+The capture adapter connects those 86 observations under explicit normal
+execution premises for seven original source producers. Complete binding equality
+keeps the once-evaluated governing value separate from a mutated current slot.
+All 194 observations and 113 paths retain every premise. There are 108 compact
+definitions and five complete component sets at the combined binder bound; no
+condition is omitted to fit the bound. Prior pins and declaration bodies survive.
+
+Four source regression modes and three units pass; pinned replay, Clippy and
+format also pass. Independent observations include 388 physical transports,
+398 complete-scope comparisons, 59 true joint scopes and 96 Boolean cases.
+The failed test compilation and initial audit assumption are retained separately.
+All 72 new-snapshot checker stages are terminal and audited (28 new, 44 retained
+after exact input/checker comparison). Linux tests for this new snapshot
+remain pending. See
+`ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/verification.json`
+and `ordinary-foundation/unit-5-pattern-captures-review.md`.
+
+Producer/consumer execution establishment, the 102 original pattern predicate
+bodies and all 987 application proofs remain open. Unit 5 and W09 remain In
+progress, W10-W12 stay Blocked and the full T06 gate stays deferred to W12.

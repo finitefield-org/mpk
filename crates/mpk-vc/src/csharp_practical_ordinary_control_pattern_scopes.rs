@@ -12,6 +12,9 @@ pub struct OrdinaryControlPatternObservation {
     pub native_definition_point: ControlBinding,
     pub observation_argument_index: usize,
     pub native_argument_index: Option<usize>,
+    /// Exact governing producer argument, under the explicit capture premise.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub captured_argument_index: Option<usize>,
 }
 
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
@@ -21,6 +24,8 @@ pub struct OrdinaryControlPatternExecutionScope {
     pub arguments: Vec<ControlBinding>,
     pub native_argument_indices: Vec<usize>,
     pub observations: Vec<OrdinaryControlPatternObservation>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub capture_dependency: Option<OrdinaryControlPatternCaptureDependency>,
     pub components: Vec<OrdinaryControlStepComponent>,
     /// No available native argument is invented for an observation. A caller
     /// must separately establish missing observation/producers before proof use.
@@ -60,6 +65,9 @@ fn finish(
     if depths.len() != p.arguments.len() {
         return Err(OrdinaryCarrierError::Linkage);
     }
+    if !p.pending_definition_reasons.is_empty() {
+        return Ok(());
+    }
     // The actual bound includes a carrier's selector lambdas beneath the
     // shared argument binders. Retain components if composition exceeds it.
     if p.arguments.len() + depths.iter().copied().max().unwrap_or(0) as usize > 256 {
@@ -92,6 +100,7 @@ pub(super) fn emit(
     vir: &ValidatedPracticalVir,
     control: &ControlVcProgram,
     native: &OrdinaryControlEdgeProgram,
+    captures: Option<&[OrdinaryControlPatternCapture]>,
 ) -> R<Vec<OrdinaryControlPatternScope>> {
     let mut scopes = vec![];
     for pattern in control.patterns() {
@@ -106,6 +115,14 @@ pub(super) fn emit(
             .iter()
             .find(|f| f.source.function_id == pattern.function_id)
             .ok_or(OrdinaryCarrierError::Linkage)?;
+        let capture = captures
+            .map(|captures| {
+                captures
+                    .iter()
+                    .find(|capture| capture.pattern_id == pattern.id)
+                    .ok_or(OrdinaryCarrierError::Linkage)
+            })
+            .transpose()?;
         for step in &pattern.steps {
             let source_sequent_id = format!("{}.{}", pattern.id, step.source_node_id);
             let sequent = control
@@ -150,6 +167,7 @@ pub(super) fn emit(
                     arguments: execution.arguments.clone(),
                     native_argument_indices: (0..execution.arguments.len()).collect(),
                     observations: vec![],
+                    capture_dependency: None,
                     components: vec![],
                     pending_observation_binding_indices: vec![],
                     pending_definition_reasons: vec![],
@@ -166,20 +184,69 @@ pub(super) fn emit(
                 } else {
                     return Err(OrdinaryCarrierError::Linkage);
                 }
+                if let Some(capture) = capture {
+                    if capture.function_id != pattern.function_id
+                        || capture.governing_value != pattern.governing_value
+                    {
+                        return Err(OrdinaryCarrierError::Linkage);
+                    }
+                    if let (Some(definition), Some(governing)) =
+                        (&capture.definition, capture.governing_argument_index)
+                    {
+                        let indices = capture
+                            .arguments
+                            .iter()
+                            .map(|a| argument(&mut p.arguments, a.clone()))
+                            .collect::<Vec<_>>();
+                        let governing_argument_index = *indices
+                            .get(governing)
+                            .ok_or(OrdinaryCarrierError::Linkage)?;
+                        if p.arguments[governing_argument_index] != capture.native_definition_point
+                        {
+                            return Err(OrdinaryCarrierError::Linkage);
+                        }
+                        p.components.push(OrdinaryControlStepComponent {
+                            role: "governing_capture".into(),
+                            definition: definition.clone(),
+                            argument_indices: indices.clone(),
+                        });
+                        p.capture_dependency = Some(OrdinaryControlPatternCaptureDependency {
+                            pattern_id: pattern.id.clone(),
+                            producer_source_node_id: capture.producer_source_node_id.clone(),
+                            definition: definition.clone(),
+                            argument_indices: indices,
+                            governing_argument_index,
+                        });
+                    } else {
+                        p.pending_definition_reasons
+                            .push("governing_capture_unresolved".into());
+                    }
+                }
                 for (i, source) in goal.bindings.iter().enumerate() {
                     let point = values
                         .get(&source.value_id)
                         .filter(|p| source.kind == "ssa" && p.type_id == source.type_id)
                         .ok_or(OrdinaryCarrierError::Linkage)?;
                     let native_index = execution.arguments.iter().position(|a| a == point);
+                    let captured_index = if i == 0 {
+                        p.capture_dependency
+                            .as_ref()
+                            .map(|dependency| dependency.governing_argument_index)
+                    } else {
+                        None
+                    };
+                    if captured_index.is_some_and(|i| &p.arguments[i] != point) {
+                        return Err(OrdinaryCarrierError::Linkage);
+                    }
                     let observed = argument(&mut p.arguments, source.clone());
                     p.observations.push(OrdinaryControlPatternObservation {
                         source: source.clone(),
                         native_definition_point: point.clone(),
                         observation_argument_index: observed,
                         native_argument_index: native_index,
+                        captured_argument_index: captured_index,
                     });
-                    if let Some(native_index) = native_index {
+                    if let Some(native_index) = native_index.or(captured_index) {
                         let depth = c
                             .carriers
                             .get(source.type_id.as_str())
@@ -199,7 +266,11 @@ pub(super) fn emit(
                     }
                 }
                 let id = name(
-                    "PatternExecutionScope",
+                    if captures.is_some() {
+                        "PatternExecutionScopeWithCapture"
+                    } else {
+                        "PatternExecutionScope"
+                    },
                     &(
                         vir.hash(),
                         &sequent.id,
@@ -235,6 +306,93 @@ mod tests {
     use super::*;
 
     #[test]
+    fn governing_capture_is_separate_from_mutated_current_value() {
+        let mut b = Builder::new().unwrap();
+        let equality = construction_data::physical_equal(&mut b, 0).unwrap();
+        let before = b.var(1).unwrap();
+        let after = b.var(0).unwrap();
+        let updated = call(&mut b, "Std.Bool.not", vec![before]).unwrap();
+        let mutation = call(&mut b, &equality, vec![updated, after]).unwrap();
+        define(&mut b, "Mpk.Scope.Mutation", &[0, 0], 0, mutation).unwrap();
+        let bindings = (0..6)
+            .map(|i| ControlBinding {
+                kind: "ssa".into(),
+                edge_id: None,
+                node_id: format!("point.{i}"),
+                value_id: format!("value.{i}"),
+                type_id: SOURCE_BOOL.into(),
+            })
+            .collect::<Vec<_>>();
+        let source_execution = OrdinaryControlSourceExecution {
+            source_node_id: "consumer".into(),
+            entry_node_id: "entry".into(),
+            exit_node_id: "exit".into(),
+            edge_id: "normal".into(),
+            target_node_id: None,
+            arguments: bindings[2..4].to_vec(),
+            components: vec![],
+            argument_count: 2,
+            component_count: 1,
+            component_map_sha256: "test".into(),
+            state_rule: "current_value_mutation".into(),
+            definition: Some("Mpk.Scope.Mutation".into()),
+        };
+        let mut scope = OrdinaryControlPatternExecutionScope {
+            source_execution,
+            edge_kind: "normal".into(),
+            arguments: bindings,
+            native_argument_indices: vec![2, 3],
+            observations: vec![],
+            capture_dependency: None,
+            components: vec![
+                OrdinaryControlStepComponent {
+                    role: "native_source_execution".into(),
+                    definition: "Mpk.Scope.Mutation".into(),
+                    argument_indices: vec![2, 3],
+                },
+                OrdinaryControlStepComponent {
+                    role: "governing_capture".into(),
+                    definition: equality.clone(),
+                    argument_indices: vec![0, 1],
+                },
+                OrdinaryControlStepComponent {
+                    role: "observation_transport:0".into(),
+                    definition: equality.clone(),
+                    argument_indices: vec![4, 1],
+                },
+                OrdinaryControlStepComponent {
+                    role: "observation_transport:1".into(),
+                    definition: equality,
+                    argument_indices: vec![5, 3],
+                },
+            ],
+            pending_observation_binding_indices: vec![],
+            pending_definition_reasons: vec![],
+            definition: None,
+        };
+        finish(&mut b, &mut scope, &[0; 6], "Mpk.Scope.Captured").unwrap();
+        let certificate = mpk_cert::decode_canonical_certificate(&b.finish().unwrap()).unwrap();
+        let mut captured_differs_from_current = 0;
+        for bits in 0..64 {
+            let values = (0..6).map(|i| bits & (1 << i) != 0).collect::<Vec<_>>();
+            let expected = values[0] == values[1]
+                && values[2] != values[3]
+                && values[4] == values[1]
+                && values[5] == values[3];
+            assert_eq!(
+                observed(run(
+                    &certificate,
+                    scope.definition.as_ref().unwrap(),
+                    values.iter().copied().map(V::Bit).collect()
+                )),
+                expected
+            );
+            captured_differs_from_current += usize::from(expected && values[1] != values[3]);
+        }
+        assert!(captured_differs_from_current > 0);
+    }
+
+    #[test]
     fn native_premise_and_observation_transport_both_required() {
         let mut b = Builder::new().unwrap();
         let equality = construction_data::physical_equal(&mut b, 0).unwrap();
@@ -267,6 +425,7 @@ mod tests {
             arguments: bindings,
             native_argument_indices: vec![0, 1],
             observations: vec![],
+            capture_dependency: None,
             components: vec![
                 OrdinaryControlStepComponent {
                     role: "native_source_execution".into(),

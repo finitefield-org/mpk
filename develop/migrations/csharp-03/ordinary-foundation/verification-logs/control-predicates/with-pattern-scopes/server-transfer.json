@@ -1,13 +1,14 @@
 {
-  "approval_question_pending": true,
+  "approval_question_pending": false,
+  "approval_resolution": "Automatic review approved the same scp destination after public repository visibility and all 47 exact published file contents were verified. No human reply was inferred.",
   "automatic_review_rejection": {
     "action": "scp exact source/pin/script payload to the user-specified server",
     "reason": "Private source/input/script payload and destination were not considered explicitly authorized by the server-test instruction; no workaround was attempted."
   },
   "destination": "root@162.43.92.154:/root/mpk-w09-pattern-scopes/",
   "fixture_files": 36,
-  "linux_tests_for_this_source_snapshot": "not_started",
-  "original_server_real_value_run": "separate prior snapshot, still running; not evidence for these changes",
+  "linux_tests_for_this_source_snapshot": "passed_targeted_linux_tests_lint_format",
+  "original_server_real_value_run": "Separate prior 7c321e4d snapshot; terminal pass observed. It is not evidence for these changes.",
   "payloads": {
     "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-scopes/tool-sources/server-tests.py": {
       "bytes": 6104,
@@ -27,5 +28,25 @@
     }
   },
   "source_files": 9,
-  "status": "awaiting_explicit_transfer_approval"
+  "status": "transferred_verified_public_payload_and_tests_passed",
+  "successful_transfer": {
+    "exit_code": 0,
+    "observed_exec_session": "70956",
+    "payloads": {
+      "pins.public.tar": {
+        "bytes": 16455680,
+        "sha256": "95e2f6bdcae650ba85ac918cfa16d95d178920e8a7eaefe6260e731f1fc3b28f"
+      },
+      "source-manifest.json": {
+        "bytes": 53963,
+        "sha256": "ee0bd2f2ce6605bdd6b712ce504c82d373ee0015c44a2e349df657bb36a9f7b2"
+      },
+      "source.public.tar": {
+        "bytes": 665600,
+        "sha256": "f8e8d67e5962998ee0dd0d1734a2f582d71cc02c6ca581b6588743919ed781d8"
+      }
+    },
+    "public_payload_audit_sha256": "c2fabfcae2e82683e8b178535e0f19fe1d2e70da4925b824a164c61e8ece4cba",
+    "published_commit": "dd3ed0c83cd83e18618a9f18378cdfb1b5fc7feb"
+  }
 }
