@@ -599,7 +599,101 @@
     }
   },
   "full_t_gate": "deferred to T06-W12",
-  "linux": null,
+  "linux": {
+    "application_proofs": "pending",
+    "base_head": "dd3ed0c83cd83e18618a9f18378cdfb1b5fc7feb",
+    "finished_at": "2026-09-29T22:19:49.606993+00:00",
+    "full_t_gate": "deferred to T06-W12",
+    "process_pid": 3037494,
+    "stage": "format",
+    "stages": [
+      {
+        "command": [
+          "/usr/bin/cargo",
+          "test",
+          "-p",
+          "mpk-vc",
+          "--test",
+          "csharp_practical_vc",
+          "csharp_03_t06_w09_control_predicates_",
+          "--",
+          "--nocapture",
+          "--test-threads=1"
+        ],
+        "elapsed_seconds": 532.209,
+        "exit_code": 0,
+        "finished_at": "2026-09-29T22:16:45.060347+00:00",
+        "log_sha256": "8979af79dc6ac044c600a711816dcb03be38123c10ad794c1414cfc281fc258b",
+        "stage": "predicate-regressions",
+        "started_at": "2026-09-29T22:07:52.851028+00:00"
+      },
+      {
+        "command": [
+          "/usr/bin/cargo",
+          "test",
+          "-p",
+          "mpk-vc",
+          "--lib",
+          "pattern_",
+          "--",
+          "--nocapture",
+          "--test-threads=1"
+        ],
+        "elapsed_seconds": 105.114,
+        "exit_code": 0,
+        "finished_at": "2026-09-29T22:18:30.501388+00:00",
+        "log_sha256": "d1d29d254d3730e58359608bee67a4a1a431e1408fe0d4565739e2021b8c6cc1",
+        "stage": "scope-composition",
+        "started_at": "2026-09-29T22:16:45.386942+00:00"
+      },
+      {
+        "command": [
+          "/usr/bin/cargo",
+          "clippy",
+          "-p",
+          "mpk-vc",
+          "--lib",
+          "--test",
+          "csharp_practical_vc",
+          "--",
+          "-D",
+          "warnings"
+        ],
+        "elapsed_seconds": 74.216,
+        "exit_code": 0,
+        "finished_at": "2026-09-29T22:19:44.786724+00:00",
+        "log_sha256": "0dc22dcdcc41d1e369d856e11427737cb693e64c5dde37712534adbf6e17fbea",
+        "stage": "clippy",
+        "started_at": "2026-09-29T22:18:30.570535+00:00"
+      },
+      {
+        "command": [
+          "/usr/bin/cargo",
+          "fmt",
+          "-p",
+          "mpk-vc",
+          "--",
+          "--check"
+        ],
+        "elapsed_seconds": 4.698,
+        "exit_code": 0,
+        "finished_at": "2026-09-29T22:19:49.546633+00:00",
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stage": "format",
+        "started_at": "2026-09-29T22:19:44.849024+00:00"
+      }
+    ],
+    "started_at": "2026-09-29T22:07:52.736903+00:00",
+    "status": "passed_targeted_linux_tests_lint_format",
+    "supervisor_pid": 3035946,
+    "test_binaries": {
+      "/root/mpk-w09-pattern-captures-target/debug/deps/csharp_practical_vc-bb5f372f714b0f03": "b0fb8cb2f23057c9fafc0f9333105ca325d7633b4e4572683927593197a277ff",
+      "/root/mpk-w09-pattern-captures-target/debug/deps/mpk_vc-4a52d3d7fc00a2f4": "96c1ab2f6c137447939c8a1c64c27e7ea4f71ea2d21b38bba67d265d30a80c8e"
+    },
+    "unique_tests_passed": 7,
+    "verified_pin_hashes": 36,
+    "verified_source_hashes": 373
+  },
   "local": {
     "binaries": {
       "/tmp/mpk-w09-pattern-captures-target/debug/deps/csharp_practical_vc-9eed0564ce83fca4": "5db9d9336cf401b853bfb01dc5c9b93107dccf3772cb328c8ba482ad47c393d6",
@@ -1123,7 +1217,7 @@
   },
   "original_pattern_predicates_pending": 102,
   "producer_execution_establishment_pending": true,
-  "recorded_at": "2026-09-29T22:00:37.189402+00:00",
+  "recorded_at": "2026-09-29T22:55:44.791170+00:00",
   "status": "passed_local_producer_premise_checkpoint",
   "unit_5_complete": false,
   "w09_complete": false

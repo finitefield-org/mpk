@@ -45,7 +45,11 @@ exit passes its hash, verdict, zero-axiom and corruption checks. The earlier
 The preceding scope-only snapshot separately passes all 72 checker stages and
 the four Linux tests plus lint/format over its exact 371-source manifest. Its
 public-content transfer audit and initial automatic-review rejection remain
-recorded. Linux verification of the new capture snapshot is still pending.
+recorded. The capture snapshot also passes all seven Linux tests plus lint and
+format. The runner verifies all 373 source and 36 pin hashes before and after
+execution. Its terminal logs are audited against the exact published
+`1dc6c8d3f8656a8baa84f702fc90d34aab2b24ad` source snapshot, independently of
+subsequent observation-route edits.
 
 Exact records and reproduction scripts are under
 `verification-logs/control-predicates/with-pattern-captures/`.

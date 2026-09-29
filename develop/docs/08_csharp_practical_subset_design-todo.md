@@ -2108,9 +2108,10 @@ complete indexed component sets retained at the combined binder bound. Four
 source regression modes and three unit tests pass, with 388 physical transport
 checks, 398 complete-scope comparisons and 59 true joint scopes; pinned replay,
 Clippy and format also pass. All 72 exact-input checker stages are terminal and
-audited (28 new, 44 retained after exact input/checker comparison). The preceding scope-only snapshot
-separately passes its four Linux tests plus lint/format. The capture snapshot's
-Linux verification remains pending. See
+audited (28 new, 44 retained after exact input/checker comparison). The preceding
+scope-only snapshot separately passes its four Linux tests plus lint/format.
+The capture snapshot passes all seven Linux tests plus lint/format; its exact
+373-source and 36-pin hashes were verified before and after execution. See
 `ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/verification.json`.
 Producer/consumer execution establishment, 102 original pattern predicate bodies
 and all 987 original application proofs remain open. Unit 5 and W09 stay In
