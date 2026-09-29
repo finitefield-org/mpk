@@ -35,13 +35,16 @@ Targets follow the affected adapter and the equivalent Linux lint repairs:
   library style errors, then one equivalent floating-source test expression.
   The repairs preserve their Boolean truth conditions and rejection behavior;
   no lint is suppressed. Failed Linux attempts are retained alongside the retry.
-- The integrated certificate run has 18 distinct byte sets and 72 planned stages:
-  Go/Rust acceptance plus final-hash mutation rejection for each. Its status is
-  separate from completed runtime/lint evidence; live or queued checks are never
-  counted as passed. Existing integral measure pins did not change.
+- The integrated certificate run passes all 18 distinct byte sets and all 72
+  observed stages: Go/Rust acceptance plus final-hash mutation rejection for each.
+  All accepted module/declaration/axiom/report hashes agree and every axiom
+  category is zero. The detached continuation observed 72 retained stages and
+  zero pending stages, then reaudited the reports without rerunning a checker.
+  Existing integral measure pins did not change.
 
-`verification.json` records terminal results, source/binary/log provenance and
-the current checker snapshot. Raw Cargo logs retain terminal blank lines and are
+`verification.json` records terminal results and source/binary/log provenance.
+The final audit uses a fixed checkout of `82992f91` so later implementation
+changes cannot be attributed to the prior test binaries. Raw Cargo logs retain terminal blank lines and are
 hashed without whitespace normalization. The Git whitespace check excludes only
 these raw `.log` files and covers code, documentation, pins and checker records.
 

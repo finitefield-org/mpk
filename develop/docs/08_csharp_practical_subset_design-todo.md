@@ -2079,9 +2079,10 @@ including four ownership prerequisites. Over the same 215 original sequents,
 predicates all name missing pattern-step constants. Local and Linux targeted
 tests each pass ten tests: pinned regressions, 1,800 integral observations and
 affected parser/data/control/exception handoffs; both lint/format scopes pass.
-The 72 same-byte Go/Rust stages remain in progress and are recorded under
+All 72 same-byte Go/Rust stages pass over 18 distinct certificates with matching
+reports, zero axioms and hash-mutation rejection; the final fixed-commit audit is recorded under
 `ordinary-foundation/verification-logs/control-predicates/with-execution/verification.json`;
-running stages are not counted as passed. Execution scopes, state transport,
+all actual exits and exact inputs/reports are retained. Execution scopes, state transport,
 loop induction and all 987 application proofs remain open. Unit 5 and W09
 remain In progress; the full T06 gate remains deferred to W12.
 
