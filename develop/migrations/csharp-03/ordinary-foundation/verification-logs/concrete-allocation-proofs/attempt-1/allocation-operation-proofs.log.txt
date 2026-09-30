@@ -1,0 +1,87 @@
+   Compiling mpk-core v0.1.0 (/private/tmp/mpk-w09-operation-proof-transport/crates/mpk-core)
+   Compiling mpk-theory v0.1.0 (/private/tmp/mpk-w09-operation-proof-transport/crates/mpk-theory)
+   Compiling mpk-cert v0.1.0 (/private/tmp/mpk-w09-operation-proof-transport/crates/mpk-cert)
+   Compiling mpk-kernel v0.1.0 (/private/tmp/mpk-w09-operation-proof-transport/crates/mpk-kernel)
+   Compiling mpk-vc v0.1.0 (/private/tmp/mpk-w09-operation-proof-transport/crates/mpk-vc)
+error[E0425]: cannot find type `ValidatedPracticalVir` in this scope
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_concrete_operation_tests.rs:18:9
+    |
+ 18 |     fn(&ValidatedPracticalVir) -> Result<OrdinaryConcreteOperationProgram, OrdinaryCarrierError>;
+    |         ^^^^^^^^^^^^^^^^^^^^^
+    |
+   ::: crates/mpk-vc/src/csharp_practical_vc_model.rs:463:1
+    |
+463 | pub struct ValidatedPracticalVc {
+    | ------------------------------- similarly named struct `ValidatedPracticalVc` defined here
+    |
+help: a struct with a similar name exists
+    |
+ 18 -     fn(&ValidatedPracticalVir) -> Result<OrdinaryConcreteOperationProgram, OrdinaryCarrierError>;
+ 18 +     fn(&ValidatedPracticalVc) -> Result<OrdinaryConcreteOperationProgram, OrdinaryCarrierError>;
+    |
+
+error[E0425]: cannot find type `ValidatedPracticalVir` in this scope
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_concrete_operation_tests.rs:21:10
+    |
+ 21 |         &ValidatedPracticalVir,
+    |          ^^^^^^^^^^^^^^^^^^^^^
+    |
+   ::: crates/mpk-vc/src/csharp_practical_vc_model.rs:463:1
+    |
+463 | pub struct ValidatedPracticalVc {
+    | ------------------------------- similarly named struct `ValidatedPracticalVc` defined here
+    |
+help: a struct with a similar name exists
+    |
+ 21 -         &ValidatedPracticalVir,
+ 21 +         &ValidatedPracticalVc,
+    |
+
+error[E0425]: cannot find type `ValidatedPracticalVir` in this scope
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_concrete_operation_tests.rs:27:10
+    |
+ 27 |         &ValidatedPracticalVir,
+    |          ^^^^^^^^^^^^^^^^^^^^^
+    |
+   ::: crates/mpk-vc/src/csharp_practical_vc_model.rs:463:1
+    |
+463 | pub struct ValidatedPracticalVc {
+    | ------------------------------- similarly named struct `ValidatedPracticalVc` defined here
+    |
+help: a struct with a similar name exists
+    |
+ 27 -         &ValidatedPracticalVir,
+ 27 +         &ValidatedPracticalVc,
+    |
+
+error[E0425]: cannot find type `ValidatedPracticalVir` in this scope
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_concrete_operation_tests.rs:32:6
+    |
+ 32 |     &ValidatedPracticalVir,
+    |      ^^^^^^^^^^^^^^^^^^^^^
+    |
+   ::: crates/mpk-vc/src/csharp_practical_vc_model.rs:463:1
+    |
+463 | pub struct ValidatedPracticalVc {
+    | ------------------------------- similarly named struct `ValidatedPracticalVc` defined here
+    |
+help: a struct with a similar name exists
+    |
+ 32 -     &ValidatedPracticalVir,
+ 32 +     &ValidatedPracticalVc,
+    |
+
+error[E0425]: cannot find function `generate_construction_vcs` in this scope
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_concrete_operation_tests.rs:103:34
+    |
+103 |                 let construction=generate_construction_vcs(vir).unwrap();let vc=generate_binding_vcs(vir,&construction).unwrap();
+    |                                  ^^^^^^^^^^^^^^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `generate_binding_vcs` in this scope
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_concrete_operation_tests.rs:103:81
+    |
+103 |                 let construction=generate_construction_vcs(vir).unwrap();let vc=generate_binding_vcs(vir,&construction).unwrap();
+    |                                                                                 ^^^^^^^^^^^^^^^^^^^^ not found in this scope
+
+For more information about this error, try `rustc --explain E0425`.
+error: could not compile `mpk-vc` (test "csharp_practical_vc") due to 6 previous errors

@@ -424,7 +424,7 @@ fn named(b: &mut Builder, name: &str, count: usize, offset: u32) -> R<u32> {
     call(b, name, arguments)
 }
 
-fn emit(
+pub(super) fn emit(
     program: &OrdinaryConcreteOperationProgram,
     carriers: &BTreeMap<String, u32>,
 ) -> R<OrdinaryConcreteOperationProofProgram> {

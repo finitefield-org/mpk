@@ -1823,6 +1823,7 @@ pub use reference_data::{
 
 #[path = "csharp_practical_ordinary_construction_data.rs"]
 mod construction_data;
+pub(super) use construction_data::physical_equal;
 pub use construction_data::{
     generate_csharp_practical_ordinary_construction_data,
     import_csharp_practical_ordinary_construction_data, OrdinaryConstructionDataDefinition,

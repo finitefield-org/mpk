@@ -1,0 +1,37 @@
+{
+  "application_proofs_pending": 987,
+  "complete_application_assembly_pending": true,
+  "error": "AssertionError(('allocation-operation-proofs', 101))",
+  "finished_at": "2026-09-30T12:43:38.859681+00:00",
+  "full_t_gate": "deferred to T06-W12",
+  "process_pid": 19032,
+  "selection_reason": "Verify the six complete original W06 construction allocation sequents.\n\nThe new route appends allocation normal/outcome definitions to the exact old\ncertificate, retaining all original subjects, public input domains, ordered\nnegative-length/construction-bound gates, and full internal storage results.\nCheck all 45 original contexts and all 442 candidates with the actual Rust\nkernel, strict imports, complete original theorem syntax, and well-typed wrong\nnormal-result negatives (definition-only accepted, proof certificate rejected).\nRetain all 25 remaining ownership/internal-input/currency operations and every\none of the 987 original application proof IDs. Recheck the affected legacy\noperation proof route and all 45 old operation pins because the wrapper emitter\nand shared regression helper changed. Other definition/proof algorithms remain\nunchanged; their targeted tests are retained. Clippy and crate/support format\nchecks run. The full T06 gate remains deferred to T06-W12.\n",
+  "stage": "allocation-operation-proofs",
+  "stages": [
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_concrete_allocation_proofs_original_source",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 10.118,
+      "exit_code": 101,
+      "finished_at": "2026-09-30T12:43:38.859024+00:00",
+      "log_sha256": "9758b46f2fdc2bef784aac846cecfbc78649e455d06148410cf6a7e5c38a3f9f",
+      "stage": "allocation-operation-proofs",
+      "started_at": "2026-09-30T12:43:28.741206+00:00"
+    }
+  ],
+  "started_at": "2026-09-30T12:43:28.622579+00:00",
+  "status": "failed",
+  "supervisor_pid": 19024,
+  "verified_fixture_hashes": 173,
+  "verified_source_hashes": 744
+}

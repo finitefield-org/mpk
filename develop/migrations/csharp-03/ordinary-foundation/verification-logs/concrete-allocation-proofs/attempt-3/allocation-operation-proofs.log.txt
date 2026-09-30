@@ -1,0 +1,15 @@
+   Compiling mpk-vc v0.1.0 (/private/tmp/mpk-w09-operation-proof-transport/crates/mpk-vc)
+error[E0432]: unresolved import `mpk_vc::csharp_practical_binding_vc`
+ --> crates/mpk-vc/tests/support/csharp_practical_ordinary_concrete_operation_tests.rs:6:13
+  |
+6 | use mpk_vc::csharp_practical_binding_vc::generate_binding_vcs;
+  |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^ could not find `csharp_practical_binding_vc` in `mpk_vc`
+
+error[E0432]: unresolved import `mpk_vc::csharp_practical_construction_vc`
+ --> crates/mpk-vc/tests/support/csharp_practical_ordinary_concrete_operation_tests.rs:7:13
+  |
+7 | use mpk_vc::csharp_practical_construction_vc::generate_construction_vcs;
+  |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ could not find `csharp_practical_construction_vc` in `mpk_vc`
+
+For more information about this error, try `rustc --explain E0432`.
+error: could not compile `mpk-vc` (test "csharp_practical_vc") due to 2 previous errors

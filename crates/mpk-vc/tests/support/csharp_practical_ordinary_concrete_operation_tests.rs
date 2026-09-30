@@ -3,10 +3,58 @@
 use super::*;
 use core_eval::V;
 use mpk_cert::encode::{Certificate, DeclarationKind, TermNode};
+use mpk_vc::csharp_practical_vir_validation::ValidatedPracticalVir;
 
 #[test]
 fn csharp_03_t06_w09_concrete_operation_proofs_original_source() {
-    std::thread::Builder::new().stack_size(64 * 1024 * 1024).spawn(|| {
+    operation_proofs_source(false);
+}
+
+#[test]
+fn csharp_03_t06_w09_concrete_allocation_proofs_original_source() {
+    operation_proofs_source(true);
+}
+
+type OperationGenerator =
+    fn(&ValidatedPracticalVir) -> Result<OrdinaryConcreteOperationProgram, OrdinaryCarrierError>;
+type OperationProofGenerator =
+    fn(
+        &ValidatedPracticalVir,
+    ) -> Result<OrdinaryConcreteOperationProofProgram, OrdinaryCarrierError>;
+type OperationProofImporter =
+    fn(
+        &[u8],
+        &[u8],
+        &ValidatedPracticalVir,
+    ) -> Result<OrdinaryConcreteOperationProofProgram, OrdinaryCarrierError>;
+type OperationImporter = fn(
+    &[u8],
+    &[u8],
+    &ValidatedPracticalVir,
+) -> Result<OrdinaryConcreteOperationProgram, OrdinaryCarrierError>;
+
+fn operation_proofs_source(with_allocations: bool) {
+    let (generate_operations, generate_proofs, import_proofs, import_operations): (
+        OperationGenerator,
+        OperationProofGenerator,
+        OperationProofImporter,
+        OperationImporter,
+    ) = if with_allocations {
+        (
+            generate_csharp_practical_ordinary_concrete_operations_with_allocations,
+            generate_csharp_practical_ordinary_concrete_operation_proofs_with_allocations,
+            import_csharp_practical_ordinary_concrete_operation_proofs_with_allocations,
+            import_csharp_practical_ordinary_concrete_operations_with_allocations,
+        )
+    } else {
+        (
+            generate_csharp_practical_ordinary_concrete_operations,
+            generate_csharp_practical_ordinary_concrete_operation_proofs,
+            import_csharp_practical_ordinary_concrete_operation_proofs,
+            import_csharp_practical_ordinary_concrete_operations,
+        )
+    };
+    std::thread::Builder::new().stack_size(64 * 1024 * 1024).spawn(move || {
         let bundle = b();
         let output = std::env::var_os("MPK_W09_CONCRETE_OPERATION_PROOFS_OUT").map(std::path::PathBuf::from);
         if let Some(dir) = &output { fs::create_dir_all(dir).unwrap(); }
@@ -18,12 +66,46 @@ fn csharp_03_t06_w09_concrete_operation_proofs_original_source() {
             let source=ValidatedDataSource::import_captured_facts(&bundle,&context,&captures,&serde_json::to_vec(&facts).unwrap()).unwrap();
             let emitted=emit_data_phase(&bundle,&context,&captures,&source).unwrap();
             let vir=emitted.vir();
-            let original=generate_csharp_practical_ordinary_concrete_operations(vir).unwrap();
-            let p=generate_csharp_practical_ordinary_concrete_operation_proofs(vir).unwrap_or_else(|error| panic!("{id}: {error:?}"));
+            let original=generate_operations(vir).unwrap();
+            let p=generate_proofs(vir).unwrap_or_else(|error| panic!("{id}: {error:?}"));
             assert_eq!(p.proofs().iter().map(|p| &p.sequent).collect::<Vec<_>>(),original.conditions().iter().map(|c| &c.sequent).collect::<Vec<_>>());
             assert_eq!(p.pending_operations(),original.pending_operations());
             assert_eq!(p.pending_condition_ids(),original.pending_condition_ids());
             assert_eq!(p.pending_proof_ids(),original.pending_proof_ids());
+            if with_allocations {
+                let base=generate_csharp_practical_ordinary_concrete_operations(vir).unwrap();
+                let base_certificate=mpk_cert::decode_canonical_certificate(base.certificate_bytes()).unwrap();
+                let extended=mpk_cert::decode_canonical_certificate(original.certificate_bytes()).unwrap();
+                assert!(extended.term_table.starts_with(&base_certificate.term_table));
+                assert_eq!((&extended.module,&extended.source_manifest,&extended.imports),(&base_certificate.module,&base_certificate.source_manifest,&base_certificate.imports));
+                for (a,z) in base_certificate.declarations.iter().zip(&extended.declarations) {
+                    assert_eq!(base_certificate.name_table[a.name as usize],extended.name_table[z.name as usize]);assert_eq!(a.kind,z.kind);
+                }
+                assert_eq!(original.public_domains(),base.public_domains());
+                assert_eq!(original.source_observations(),base.source_observations());
+                assert_eq!(original.pending_proof_ids(),base.pending_proof_ids());
+                for d in base.definitions() {
+                    assert_eq!(Some(d),original.definitions().iter().find(|n|n.component.operation_id==d.component.operation_id));
+                }
+                for c in base.conditions() {
+                    assert_eq!(Some(c),original.conditions().iter().find(|n|n.sequent.id==c.sequent.id));
+                }
+                let ids=original.definitions().iter().map(|d|d.component.operation_id.as_str()).collect::<BTreeSet<_>>();
+                let expected=base.pending_operations().iter().filter(|o|o.reasons==[OrdinaryConcreteOperationPendingReason::InternalConstructionState] && o.component.operation_id.ends_with(".allocate")).collect::<Vec<_>>();
+                for o in &expected {
+                    let d=original.definitions().iter().find(|d|d.component.operation_id==o.component.operation_id).unwrap();
+                    assert_eq!(d.recipe,o.recipe);assert_eq!(d.component,o.component);
+                    assert_eq!(d.component.argument_type_ids,["mpk.csharp.value.i32.v1","mpk.csharp.value.bool.v1"]);
+                    assert_eq!(d.component.result_type_id,o.instance_id);
+                    assert_eq!(d.failures.iter().map(|f|f.label.as_str()).collect::<Vec<_>>(),["negative_length","construction_bound"]);
+                }
+                assert_eq!(original.definitions().len(),base.definitions().len()+expected.len());
+                assert_eq!(original.pending_operations(),base.pending_operations().iter().filter(|o|!ids.contains(o.component.operation_id.as_str())).cloned().collect::<Vec<_>>());
+                let full=generate_csharp_practical_vc(PracticalVcSource {artifact_context:&context,captured_inputs:&captures,vir}).unwrap();let vc=full.binding_vcs();
+                assert_eq!(original.conditions().iter().map(|c|&c.sequent).collect::<Vec<_>>(),vc.sequents().iter().filter(|s|s.kind=="concrete_definition_equivalence" && ids.contains(s.owner_id.as_str())).collect::<Vec<_>>());
+                assert_eq!(import_operations(&original.canonical_bytes(),original.certificate_bytes(),vir).unwrap(),original);
+                if expected.is_empty() {assert_eq!(original,base);}
+            }
             let metadata:Value=serde_json::from_slice(&p.canonical_bytes()).unwrap();
             assert_eq!(metadata["proof_check_pending"],true);
             assert_eq!(metadata["application_scope_pending"],true);
@@ -133,27 +215,35 @@ fn csharp_03_t06_w09_concrete_operation_proofs_original_source() {
                 assert_eq!(syntax(&after,success_eq[2]),json!(["const","Std.Bool.true"]));
                 assert_eq!(normal_type,normal_eq_id(&after,goals[0]));
             }
-            assert_eq!(import_csharp_practical_ordinary_concrete_operation_proofs(&p.canonical_bytes(),p.certificate_bytes(),vir).unwrap(),p);
+            assert_eq!(import_proofs(&p.canonical_bytes(),p.certificate_bytes(),vir).unwrap(),p);
             if let Some((metadata,certificate))=&previous {
-                assert!(import_csharp_practical_ordinary_concrete_operation_proofs(metadata,certificate,vir).is_err());
+                assert!(import_proofs(metadata,certificate,vir).is_err());
             }
-            if contexts==0 {
+            if contexts==0 || (with_allocations && id=="bool-construction") {
                 for field in metadata.as_object().unwrap().keys() {
                     let mut changed=metadata.clone();changed[field]=json!("forged");
-                    assert!(import_csharp_practical_ordinary_concrete_operation_proofs(&serde_json::to_vec(&changed).unwrap(),p.certificate_bytes(),vir).is_err(),"{field}");
+                    assert!(import_proofs(&serde_json::to_vec(&changed).unwrap(),p.certificate_bytes(),vir).is_err(),"{field}");
                 }
                 let too_large=vec![0;16*1024*1024+1];
-                assert!(import_csharp_practical_ordinary_concrete_operation_proofs(&too_large,&[],vir).is_err());
-                assert!(import_csharp_practical_ordinary_concrete_operation_proofs(&[],&too_large,vir).is_err());
-                let d=original.definitions().iter().find(|d|d.component.argument_type_ids.len()==1).unwrap();
+                assert!(import_proofs(&too_large,&[],vir).is_err());
+                assert!(import_proofs(&[],&too_large,vir).is_err());
+                let d=original.definitions().iter().find(|d| if contexts==0 {d.component.argument_type_ids.len()==1} else {d.component.operation_id.ends_with(".allocate")}).unwrap();
                 eprintln!("{id}: wrong normal-value proof probe for {}",d.component.operation_id);
                 fn wrong_value(mut c:Certificate,name:&str,depth:u32)->Vec<u8> {
                     let index=global(&c,name) as usize;
                     let DeclarationKind::Def {ty,mut value,reducibility}=c.declarations[index].kind else {panic!("missing normal implementation")};
                     let mut binders=vec![];
                     while let TermNode::Lam {ty,body}=c.term_table[value as usize] {binders.push(ty);value=body;}
-                    let zero=global(&c,&format!("Mpk.CSharp.Ordinary.Cube.D{depth}.Zero"));
-                    value=c.term_table.len() as u32;c.term_table.push(TermNode::Const {global:zero,levels:vec![]});
+                    if let Some(zero)=c.declarations.iter().position(|d|c.name_table[d.name as usize]==format!("Mpk.CSharp.Ordinary.Cube.D{depth}.Zero")) {
+                        value=c.term_table.len() as u32;c.term_table.push(TermNode::Const {global:zero as u32,levels:vec![]});
+                    } else {
+                        // Internal result cubes need no named Zero helper. Build
+                        // a closed, well-typed constant at the complete depth.
+                        let boolean=global(&c,"Std.Bool");let no=global(&c,"Std.Bool.false");
+                        let ty=c.term_table.len() as u32;c.term_table.push(TermNode::Const {global:boolean,levels:vec![]});
+                        value=c.term_table.len() as u32;c.term_table.push(TermNode::Const {global:no,levels:vec![]});
+                        for _ in 0..depth {let next=c.term_table.len() as u32;c.term_table.push(TermNode::Lam {ty,body:value});value=next;}
+                    }
                     for binder in binders.into_iter().rev() {
                         let next=c.term_table.len() as u32;c.term_table.push(TermNode::Lam {ty:binder,body:value});value=next;
                     }
@@ -169,7 +259,7 @@ fn csharp_03_t06_w09_concrete_operation_proofs_original_source() {
                 assert_eq!(mpk_kernel::verify_certificate_bytes(&wrong_definitions).unwrap().axiom_count,0);
                 let wrong=wrong_value(after.clone(),&d.concrete_definition,depth);
                 assert_eq!(mpk_kernel::verify_certificate_bytes(&wrong).unwrap_err().kind(),mpk_kernel::VerificationErrorKind::CoreCheck);
-                assert!(import_csharp_practical_ordinary_concrete_operation_proofs(&p.canonical_bytes(),&wrong,vir).is_err());
+                assert!(import_proofs(&p.canonical_bytes(),&wrong,vir).is_err());
                 if let Some(dir)=&output {fs::write(dir.join(format!("{id}-wrong.hex")),wrong.iter().map(|b|format!("{b:02x}")).collect::<String>()+"\n").unwrap();}
             }
             previous=Some((p.canonical_bytes(),p.certificate_bytes().to_vec()));
@@ -180,7 +270,7 @@ fn csharp_03_t06_w09_concrete_operation_proofs_original_source() {
             contexts+=1;proofs+=p.proofs().len();pending+=p.pending_operations().len();original_ids+=p.pending_proof_ids().len();
             eprintln!("{id}: {} complete operation proof candidates; {} operations and {} application IDs pending",p.proofs().len(),p.pending_operations().len(),p.pending_proof_ids().len());
         }
-        assert_eq!((contexts,proofs,pending,original_ids),(45,436,31,987));
+        assert_eq!((contexts,proofs,pending,original_ids),if with_allocations {(45,442,25,987)} else {(45,436,31,987)});
         assert_eq!(arities,BTreeSet::from([0,1,2,3,4]));
     }).unwrap().join().unwrap();
 }

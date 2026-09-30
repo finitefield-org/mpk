@@ -265,7 +265,7 @@ fn physical_zero(b: &mut Builder, depth: u32) -> R<String> {
     define(b, &name, &[depth], 0, body)?;
     Ok(name)
 }
-pub(super) fn physical_equal(b: &mut Builder, depth: u32) -> R<String> {
+pub(in super::super) fn physical_equal(b: &mut Builder, depth: u32) -> R<String> {
     let name = format!("{PREFIX}.ConstructionData.StorageEqual.D{depth}");
     if b.globals.contains_key(&name) {
         return Ok(name);

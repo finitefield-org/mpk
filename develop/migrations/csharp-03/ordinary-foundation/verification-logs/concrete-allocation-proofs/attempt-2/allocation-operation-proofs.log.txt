@@ -1,0 +1,15 @@
+   Compiling mpk-vc v0.1.0 (/private/tmp/mpk-w09-operation-proof-transport/crates/mpk-vc)
+error[E0425]: cannot find function `generate_construction_vcs` in this scope
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_concrete_operation_tests.rs:104:34
+    |
+104 |                 let construction=generate_construction_vcs(vir).unwrap();let vc=generate_binding_vcs(vir,&construction).unwrap();
+    |                                  ^^^^^^^^^^^^^^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `generate_binding_vcs` in this scope
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_concrete_operation_tests.rs:104:81
+    |
+104 |                 let construction=generate_construction_vcs(vir).unwrap();let vc=generate_binding_vcs(vir,&construction).unwrap();
+    |                                                                                 ^^^^^^^^^^^^^^^^^^^^ not found in this scope
+
+For more information about this error, try `rustc --explain E0425`.
+error: could not compile `mpk-vc` (test "csharp_practical_vc") due to 2 previous errors

@@ -13,6 +13,15 @@ pub use proofs::{
     OrdinaryConcreteOperationProof, OrdinaryConcreteOperationProofProgram,
 };
 
+#[path = "csharp_practical_ordinary_concrete_allocations.rs"]
+mod allocations;
+pub use allocations::{
+    generate_csharp_practical_ordinary_concrete_operation_proofs_with_allocations,
+    generate_csharp_practical_ordinary_concrete_operations_with_allocations,
+    import_csharp_practical_ordinary_concrete_operation_proofs_with_allocations,
+    import_csharp_practical_ordinary_concrete_operations_with_allocations,
+};
+
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
 pub struct OrdinaryConcreteFailureComponent {
     pub label: String,
@@ -392,6 +401,7 @@ fn emit_operation(
     recipe: &Value,
     c: OrdinaryConcreteOperationComponent,
     symbols: &mut BTreeMap<String, String>,
+    existing_boolean_equal: Option<&str>,
 ) -> R<OrdinaryConcreteOperationDefinition> {
     let count = c.argument_type_ids.len();
     let depth = |id: &str| {
@@ -421,7 +431,10 @@ fn emit_operation(
     }
     symbols.insert(c.operation_id.clone(), normal_definition.clone());
     symbols.insert(concrete_symbol.clone(), concrete_definition.clone());
-    let boolean_equal = r.raw(1, false)?.equal;
+    let boolean_equal = match existing_boolean_equal {
+        Some(name) => name.to_owned(),
+        None => r.raw(1, false)?.equal,
+    };
     let mut failures = vec![];
     let mut actual_clear = bit(&mut r.b, true)?;
     let mut concrete_clear = bit(&mut r.b, true)?;
@@ -598,7 +611,7 @@ pub fn generate_csharp_practical_ordinary_concrete_operations(
                         .push(OrdinaryConcreteOperationPendingReason::ApplicationCurrencyPredicate);
                 }
                 if reasons.is_empty() {
-                    definitions.push(emit_operation(r, instance, recipe, c, &mut symbols)?);
+                    definitions.push(emit_operation(r, instance, recipe, c, &mut symbols, None)?);
                 } else {
                     pending_operations.push(OrdinaryConcreteOperationPending {
                         instance_id: instance.instance_id.clone(),

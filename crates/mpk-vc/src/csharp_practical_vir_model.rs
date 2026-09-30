@@ -7446,12 +7446,16 @@ pub use ordinary_carriers::{
 };
 pub use ordinary_carriers::{
     generate_csharp_practical_ordinary_concrete_operation_proofs,
+    generate_csharp_practical_ordinary_concrete_operation_proofs_with_allocations,
     generate_csharp_practical_ordinary_concrete_operations,
+    generate_csharp_practical_ordinary_concrete_operations_with_allocations,
     generate_csharp_practical_ordinary_concrete_type_proofs,
     generate_csharp_practical_ordinary_concrete_types,
     generate_csharp_practical_ordinary_source_invariants,
     import_csharp_practical_ordinary_concrete_operation_proofs,
+    import_csharp_practical_ordinary_concrete_operation_proofs_with_allocations,
     import_csharp_practical_ordinary_concrete_operations,
+    import_csharp_practical_ordinary_concrete_operations_with_allocations,
     import_csharp_practical_ordinary_concrete_type_proofs,
     import_csharp_practical_ordinary_concrete_types,
     import_csharp_practical_ordinary_source_invariants, OrdinaryConcreteFailureComponent,

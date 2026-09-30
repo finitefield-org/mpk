@@ -2276,6 +2276,25 @@ all 987 application IDs remain pending, W09 stays In progress and the full T06
 gate stays deferred to W12. See
 `ordinary-foundation/unit-7-concrete-operation-transport-review.md`.
 
+The additional allocation route appends six complete original W06 allocation
+operations, including reachable uninvoked operations, and supplies 442 universal
+proof candidates across the same 45 source contexts. It retains the old
+certificate prefix, both public i32/Bool input premises, ordered negative-length
+and construction-bound failures, and complete internal storage results. The
+existing 436-operation route and all 45 original pins remain unchanged; all 91
+old proof exports are byte-identical. Three targeted tests, Clippy and both
+format checks pass locally, including actual Rust kernel acceptance and a
+well-typed wrong allocation result rejected at core checking when proofs are
+supplied. The tested promotion verifies 744 source and 173 fixture hashes.
+Both unchanged checkers pass the 26 affected stages; 158 unchanged stages are
+retained only after exact input/binary/raw-report/stderr comparison. The terminal
+184-stage audit confirms matching hashes/counts, zero axioms, all hash rejections
+and both typed wrong-normal core rejections. Exact published-source Linux replay
+remains pending. The 25 remaining operations, six internal type instances, seven
+is_binding refinements and all 987 application proof IDs stay pending. W09
+remains In progress, W10-W12 remain Blocked and the full T06 gate is deferred
+to W12. See `ordinary-foundation/unit-7-concrete-allocation-proofs-review.md`.
+
 Owns: translation of every already-expanded concrete foundation definition in
 monomorphic VIR into ordinary core definitions and proof terms for all new
 finite values and operations; the successor program-assembly profile;
