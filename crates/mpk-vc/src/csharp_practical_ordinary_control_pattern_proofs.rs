@@ -7,6 +7,17 @@ const EQ: &str = "Std.Eq";
 const AND: &str = "Std.Logic.And";
 const AND_REC: &str = "Std.Logic.And.rec";
 
+#[path = "csharp_practical_ordinary_control_pattern_environment.rs"]
+mod environment;
+pub use environment::{OrdinaryControlPatternEnvironment, OrdinaryControlPatternEnvironmentField};
+
+#[derive(Clone, Copy)]
+pub(super) enum ProofEnvironment {
+    None,
+    SeparateArguments,
+    Packed,
+}
+
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
 pub struct OrdinaryControlPatternPremiseProof {
     pub source: OrdinaryControlStepComponent,
@@ -24,6 +35,8 @@ pub struct OrdinaryControlPatternProofType {
     /// Original goal arguments, projected from this path's full environment.
     pub goal_argument_indices: Vec<usize>,
     pub goal_definition: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub packed_environment: Option<OrdinaryControlPatternEnvironment>,
     /// A function from physical arguments to an ordinary conjunction of their
     /// component truth propositions. It does not assert that they hold.
     pub scope_proposition_definition: Option<String>,
@@ -141,6 +154,7 @@ fn emit_path(
         components: p.components.clone(),
         goal_argument_indices,
         goal_definition,
+        packed_environment: None,
         scope_proposition_definition: None,
         refinement_proposition_definition: None,
         premise_proofs: vec![],
@@ -244,6 +258,7 @@ pub(super) fn emit(
     c: &mut Clauses<'_>,
     scopes: &[OrdinaryControlPatternScope],
     sequents: &[OrdinaryControlSequentDefinition],
+    mode: ProofEnvironment,
 ) -> R<Vec<OrdinaryControlPatternProofType>> {
     if scopes.is_empty() {
         return Ok(vec![]);
@@ -257,7 +272,15 @@ pub(super) fn emit(
             .find(|s| s.source.id == scope.source_sequent_id)
             .ok_or(OrdinaryCarrierError::Linkage)?;
         for path in &scope.executions {
-            types.push(emit_path(&mut c.b, scope, path, sequent, &c.carriers)?);
+            types.push(match mode {
+                ProofEnvironment::Packed => {
+                    environment::emit_path(&mut c.b, scope, path, sequent, &c.carriers)?
+                }
+                ProofEnvironment::SeparateArguments => {
+                    emit_path(&mut c.b, scope, path, sequent, &c.carriers)?
+                }
+                ProofEnvironment::None => return Err(OrdinaryCarrierError::Linkage),
+            });
         }
     }
     Ok(types)

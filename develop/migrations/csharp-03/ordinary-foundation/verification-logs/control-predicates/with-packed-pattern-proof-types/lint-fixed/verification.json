@@ -1,0 +1,40 @@
+{
+  "status": "passed",
+  "selection_reason": "Only test identity OR-zero expression changed; no product source changed after original-context replay. T06 full gate deferred to W12.",
+  "stages": [
+    {
+      "stage": "clippy",
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--tests",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-09-30T04:19:20.951254+00:00",
+      "finished_at": "2026-09-30T04:19:31.840473+00:00",
+      "elapsed_seconds": 10.889,
+      "log_sha256": "8585fbcc454163031e9de7a71b6c88632cb15de070808dffa3f27bde6ad0519d"
+    },
+    {
+      "stage": "fmt",
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-09-30T04:19:31.841618+00:00",
+      "finished_at": "2026-09-30T04:19:36.518157+00:00",
+      "elapsed_seconds": 4.677,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

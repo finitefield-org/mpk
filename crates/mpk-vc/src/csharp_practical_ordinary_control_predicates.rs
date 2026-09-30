@@ -22,7 +22,10 @@ mod pattern_sources;
 pub use pattern_sources::OrdinaryControlPatternSourceDefinition;
 #[path = "csharp_practical_ordinary_control_pattern_proofs.rs"]
 mod pattern_proofs;
-pub use pattern_proofs::{OrdinaryControlPatternPremiseProof, OrdinaryControlPatternProofType};
+pub use pattern_proofs::{
+    OrdinaryControlPatternEnvironment, OrdinaryControlPatternEnvironmentField,
+    OrdinaryControlPatternPremiseProof, OrdinaryControlPatternProofType,
+};
 
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
 pub struct OrdinaryControlMeasureDefinition {
@@ -466,41 +469,89 @@ fn sequent(
 pub fn generate_csharp_practical_ordinary_control_predicates(
     vir: &ValidatedPracticalVir,
 ) -> R<OrdinaryControlPredicateProgram> {
-    generate(vir, false, false, false, false, false, false)
+    generate(
+        vir,
+        false,
+        false,
+        false,
+        false,
+        false,
+        pattern_proofs::ProofEnvironment::None,
+    )
 }
 /// Share exact native source definitions and reuse guards only at their source
 /// edges. Source execution/loop induction still require application proofs.
 pub fn generate_csharp_practical_ordinary_control_predicates_with_execution(
     vir: &ValidatedPracticalVir,
 ) -> R<OrdinaryControlPredicateProgram> {
-    generate(vir, true, false, false, false, false, false)
+    generate(
+        vir,
+        true,
+        false,
+        false,
+        false,
+        false,
+        pattern_proofs::ProofEnvironment::None,
+    )
 }
 /// Retain complete native path premises and physical observation transport for
 /// original pattern steps. Pattern predicates and their proofs remain pending.
 pub fn generate_csharp_practical_ordinary_control_predicates_with_pattern_scopes(
     vir: &ValidatedPracticalVir,
 ) -> R<OrdinaryControlPredicateProgram> {
-    generate(vir, true, true, false, false, false, false)
+    generate(
+        vir,
+        true,
+        true,
+        false,
+        false,
+        false,
+        pattern_proofs::ProofEnvironment::None,
+    )
 }
 /// Compose the original governing producer and consuming native path under
 /// explicit premises. Establishing those premises still requires source proofs.
 pub fn generate_csharp_practical_ordinary_control_predicates_with_pattern_captures(
     vir: &ValidatedPracticalVir,
 ) -> R<OrdinaryControlPredicateProgram> {
-    generate(vir, true, true, true, false, false, false)
+    generate(
+        vir,
+        true,
+        true,
+        true,
+        false,
+        false,
+        pattern_proofs::ProofEnvironment::None,
+    )
 }
 /// Compile original source conditions with exact operands and slot phases.
 /// Execution establishment and native/source equivalence still require proofs.
 pub fn generate_csharp_practical_ordinary_control_predicates_with_pattern_observations(
     vir: &ValidatedPracticalVir,
 ) -> R<OrdinaryControlPredicateProgram> {
-    generate(vir, true, true, true, true, false, false)
+    generate(
+        vir,
+        true,
+        true,
+        true,
+        true,
+        false,
+        pattern_proofs::ProofEnvironment::None,
+    )
 }
 /// Observe exact source successor choices under explicit native path premises.
 pub fn generate_csharp_practical_ordinary_control_predicates_with_pattern_routes(
     vir: &ValidatedPracticalVir,
 ) -> R<OrdinaryControlPredicateProgram> {
-    generate(vir, true, true, true, true, true, false)
+    generate(
+        vir,
+        true,
+        true,
+        true,
+        true,
+        true,
+        pattern_proofs::ProofEnvironment::None,
+    )
 }
 
 /// Compile exact source refinement types and checked scope-premise projections.
@@ -508,7 +559,32 @@ pub fn generate_csharp_practical_ordinary_control_predicates_with_pattern_routes
 pub fn generate_csharp_practical_ordinary_control_predicates_with_pattern_proof_types(
     vir: &ValidatedPracticalVir,
 ) -> R<OrdinaryControlPredicateProgram> {
-    generate(vir, true, true, true, true, true, true)
+    generate(
+        vir,
+        true,
+        true,
+        true,
+        true,
+        true,
+        pattern_proofs::ProofEnvironment::SeparateArguments,
+    )
+}
+
+/// Retain every exact source argument in an addressed finite environment.
+/// Scope projections and pointwise storage transports are checked proofs;
+/// source refinement and execution establishment still require witnesses.
+pub fn generate_csharp_practical_ordinary_control_predicates_with_packed_pattern_proof_types(
+    vir: &ValidatedPracticalVir,
+) -> R<OrdinaryControlPredicateProgram> {
+    generate(
+        vir,
+        true,
+        true,
+        true,
+        true,
+        true,
+        pattern_proofs::ProofEnvironment::Packed,
+    )
 }
 
 fn generate(
@@ -518,7 +594,7 @@ fn generate(
     with_pattern_captures: bool,
     with_pattern_observations: bool,
     with_pattern_routes: bool,
-    with_pattern_proof_types: bool,
+    proof_environment: pattern_proofs::ProofEnvironment,
 ) -> R<OrdinaryControlPredicateProgram> {
     use crate::csharp_practical_vir_model::data_vc::DataDefinitionFamily;
     let data = crate::csharp_practical_vir_model::data_vc::generate_data_vcs(vir)
@@ -629,11 +705,17 @@ fn generate(
     } else {
         (vec![], vec![])
     };
-    let pattern_proof_types = if with_pattern_proof_types {
-        pattern_proofs::emit(&mut c, &pattern_capture_scopes, &sequents)?
-    } else {
-        vec![]
-    };
+    let pattern_proof_types =
+        if !matches!(proof_environment, pattern_proofs::ProofEnvironment::None) {
+            pattern_proofs::emit(
+                &mut c,
+                &pattern_capture_scopes,
+                &sequents,
+                proof_environment,
+            )?
+        } else {
+            vec![]
+        };
     let certificate = c.b.finish()?;
     let p = OrdinaryControlPredicateProgram {
         schema: "mpk.csharp.ordinary_control_predicates.v1".into(),
@@ -764,8 +846,25 @@ pub fn import_csharp_practical_ordinary_control_predicates_with_pattern_observat
     Ok(p)
 }
 
+pub fn import_csharp_practical_ordinary_control_predicates_with_packed_pattern_proof_types(
+    input: &[u8],
+    certificate: &[u8],
+    vir: &ValidatedPracticalVir,
+) -> R<OrdinaryControlPredicateProgram> {
+    if input.len() > 16 * 1024 * 1024 || certificate.len() > 16 * 1024 * 1024 {
+        return Err(OrdinaryCarrierError::Limit);
+    }
+    let p =
+        generate_csharp_practical_ordinary_control_predicates_with_packed_pattern_proof_types(vir)?;
+    if input != p.canonical_bytes() || certificate != p.certificate_bytes() {
+        return Err(OrdinaryCarrierError::Linkage);
+    }
+    Ok(p)
+}
+
 #[cfg(test)]
 mod tests {
+
     use super::super::super::super::test_eval::{bit as observed, run, V};
     use super::*;
 

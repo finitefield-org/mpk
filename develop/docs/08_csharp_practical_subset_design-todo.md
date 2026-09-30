@@ -2179,6 +2179,19 @@ All execution/equivalence/application
 proofs remain open; this does not complete unit 5 or W09.
 See `ordinary-foundation/unit-5-pattern-routes-review.md`.
 
+The private packed pattern-proof route retains every original argument in a
+finite addressed environment, including the five scopes previously limited by
+256/274/276 separate arguments. All 18 original contexts pass local preservation
+and kernel checks: 113 path proposition types, 703 complete premises/projections
+and 37,598 field-bit observations. Both unchanged checkers accept the universal
+field read-after-write fixture with zero axioms and matching hashes and reject a
+well-typed no-op write at core checking. Five affected scope units, the exact-name
+ownership unit, Clippy and format pass. The source checkpoint's Linux replay is
+pending. Source-refinement, execution-establishment and all 987 application
+proofs remain open; unit 5 and W09 remain In progress, W10-W12 remain Blocked and
+the full T06 gate remains deferred to W12.
+See `ordinary-foundation/unit-5-packed-pattern-proof-types-review.md`.
+
 Owns: translation of every already-expanded concrete foundation definition in
 monomorphic VIR into ordinary core definitions and proof terms for all new
 finite values and operations; the successor program-assembly profile;

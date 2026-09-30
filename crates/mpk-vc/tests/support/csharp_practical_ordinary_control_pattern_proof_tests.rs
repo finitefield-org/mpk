@@ -2,6 +2,9 @@
 use super::*;
 use mpk_cert::encode::{Certificate, DeclarationKind, TermNode};
 
+#[path = "csharp_practical_ordinary_control_pattern_packed_proof_tests.rs"]
+mod packed;
+
 fn constant_name(c: &Certificate, id: u32) -> &str {
     let TermNode::Const { global, .. } = c.term_table[id as usize] else {
         panic!("expected a named proposition constituent");
