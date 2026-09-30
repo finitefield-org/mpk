@@ -1,0 +1,155 @@
+{
+  "application_proofs_pending": 987,
+  "finished_at": "2026-09-30T06:50:44.977784+00:00",
+  "full_t_gate": "deferred to T06-W12",
+  "native_source_equivalence_proofs_pending": true,
+  "original_pattern_predicates_defined": 102,
+  "original_pattern_predicates_pending": 0,
+  "process_pid": 3077741,
+  "selection_reason": "Verify complete candidate generation, contextual Boolean proofs and affected consumers.\n\nThe contextual units use actual equality proof terms under free branch binders;\nmissing facts fail and wrong proofs reject. A small shared DAG checks generator\nbounds without declaring kernel acceptance. Candidate units require every named\noriginal refinement and an unchanged certificate prefix. The free-selector unit\nand both original ownership/default consumers use the changed normalizer; their\noriginal pins must remain identical. These are eight distinct targeted tests.\nThe prior fixed-source 18-context packed replay is already terminal and its\nproduction generators are unchanged here, so it is retained. Clippy includes\nlibrary and test targets. Source/application proofs remain pending; the original\nis_binding probe still cannot produce its seven required refinements. The full\nT06 gate is deferred to T06-W12.\n",
+  "stage": "format",
+  "stages": [
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "context_boolean_normalization_",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 136.89,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T06:41:53.029479+00:00",
+      "log_sha256": "d9a824c26ba2f6af1a7582cad467fdb6d443d8ea61c856eaebbd6e3bfffac6e7",
+      "stage": "context-units",
+      "started_at": "2026-09-30T06:39:36.139055+00:00"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "pattern_refinement_candidate_",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 0.443,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T06:41:54.057520+00:00",
+      "log_sha256": "4b5a036097d1d3b2aa50437c5fde02ce8bcb68566faafea283c7720287c9ffe7",
+      "stage": "candidate-units",
+      "started_at": "2026-09-30T06:41:53.614766+00:00"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "ownership_normalization_preserves_free_selector_under_binder",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 0.169,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T06:41:54.819213+00:00",
+      "log_sha256": "afda1e80f9609084bb41d1baf2dea6c1e0a5a75e51a0f058c7a113787b5d55b2",
+      "stage": "ownership-unit",
+      "started_at": "2026-09-30T06:41:54.650340+00:00"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_ownership_proof_candidates",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 427.575,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T06:49:02.992640+00:00",
+      "log_sha256": "44204f76c96418f00caf41d183ea204fa2fb3f6cfe9361f827930faf2da88ee5",
+      "stage": "ownership-consumer",
+      "started_at": "2026-09-30T06:41:55.418030+00:00"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_binding_defaults_closed_boolean_proof_candidates",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 6.871,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T06:49:10.495899+00:00",
+      "log_sha256": "9796ff48f0f8ea33d1abfa584f79ec3660de64bd4e1622042597c9c8a28054b5",
+      "stage": "closed-default-consumer",
+      "started_at": "2026-09-30T06:49:03.625377+00:00"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--tests",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "elapsed_seconds": 87.933,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T06:50:39.058802+00:00",
+      "log_sha256": "d05eab81fdae09918e81aed7611904bc5f4b9464172062bcc5c9c755918c3339",
+      "stage": "clippy",
+      "started_at": "2026-09-30T06:49:11.125320+00:00"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "fmt",
+        "-p",
+        "mpk-vc",
+        "--",
+        "--check"
+      ],
+      "elapsed_seconds": 5.034,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T06:50:44.686702+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stage": "format",
+      "started_at": "2026-09-30T06:50:39.652636+00:00"
+    }
+  ],
+  "started_at": "2026-09-30T06:39:35.542070+00:00",
+  "status": "passed_targeted_tests_lint_format",
+  "supervisor_pid": 3076029,
+  "test_binaries": {
+    "/root/mpk-w09-context-refinement-candidates-eeffcb02-target/debug/deps/csharp_practical_vc-18f294cebe272f30": "3e5ec41f4f904db26f91ed9956367ad2753c04ab616c8aa45f7c347d27f9ced2",
+    "/root/mpk-w09-context-refinement-candidates-eeffcb02-target/debug/deps/mpk_vc-00fd1477de0503ec": "388ecaabff833964adb996908129c5e8981f195ae8a18feef6b30cae9a0fac80"
+  },
+  "unique_tests_passed": 8,
+  "verified_fixture_hashes": 384,
+  "verified_source_hashes": 782
+}

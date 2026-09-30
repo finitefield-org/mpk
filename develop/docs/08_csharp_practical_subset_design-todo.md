@@ -2221,7 +2221,9 @@ universal candidate and correct contextual fixtures with zero axioms and reject
 wrong proofs. The original `is_binding` capability probe still cannot generate
 its seven source refinements. These small fixtures do not discharge those source
 proofs or any of the 987 application proofs. Linux replay of this latest source
-is pending; W09 stays In progress and the full T06 gate is deferred to W12.
+passes all eight targeted tests, Clippy and format at fixed source `eeffcb02`;
+the terminal audit verifies 1,162 Git blobs and all log/test-binary hashes.
+W09 stays In progress and the full T06 gate is deferred to W12.
 
 Owns: translation of every already-expanded concrete foundation definition in
 monomorphic VIR into ordinary core definitions and proof terms for all new

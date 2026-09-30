@@ -68,7 +68,13 @@ small universal candidate and the true/false contextual fixtures with zero
 axioms and matching hashes, and reject the wrong proof fixtures at core checking.
 The shared-DAG certificate is checked separately; its terminal or pending status
 is recorded explicitly in the checkpoint receipts. Linux replay of the latest
-candidate-generation source is still pending.
+candidate-generation source passed all eight targeted tests, Clippy and format
+at fixed public commit `eeffcb023a0c1051d5b0b26948ce7fc10616c0fc` on the requested
+server. Its terminal audit verifies 1,162 distinct Git blobs, a clean checkout
+and all log/test-binary hashes. Launch and final receipts are under
+`verification-logs/control-predicates/with-context-refinement-candidates/server-linux/`.
+This receipt-only update rechecks the archived bytes and recorded hashes;
+the tested source is unchanged, so source tests are not repeated.
 
 An independent original-source capability probe reconstructs `is_binding` and
 requests all seven required refinements. Generation currently returns `Linkage`,
