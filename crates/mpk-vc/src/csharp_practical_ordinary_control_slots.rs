@@ -79,7 +79,7 @@ fn option_payloads(vir: &ValidatedPracticalVir) -> R<BTreeMap<String, String>> {
     crate::csharp_practical_vir_model::control_vc::option_payload_types(vir)
         .map_err(|_| OrdinaryCarrierError::Linkage)
 }
-fn some_storage(b: &mut Builder, child: u32) -> R<String> {
+pub(super) fn some_storage(b: &mut Builder, child: u32) -> R<String> {
     let name = format!("{PREFIX}.ControlSlots.Some.D{child}");
     if b.globals.contains_key(&name) {
         return Ok(name);

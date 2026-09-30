@@ -567,7 +567,13 @@ fn generate(
         measures.push(d);
     }
     let pattern_sources = if with_pattern_observations {
-        pattern_sources::emit(&mut c, vir, &control, &layouts)?
+        pattern_sources::emit(
+            &mut c,
+            vir,
+            &control,
+            &layouts,
+            native.as_ref().ok_or(OrdinaryCarrierError::Linkage)?,
+        )?
     } else {
         vec![]
     };

@@ -2146,6 +2146,17 @@ See `ordinary-foundation/unit-5-pattern-source-conditions-review.md`.
 Unit 5 and W09 remain In progress; W10-W12 remain Blocked and the full T06 gate
 stays deferred to W12.
 
+The next source-condition checkpoint defines 81 of the same 102 conditions.
+Its 20 additions compose ordinary guards and result relations for updates,
+arithmetic/equality/comparisons, exact type tests, nullable payload binding,
+stored-field/array reads, string length and null conversion. The candidate
+passes 102 positive and 183 changed-value/state observations and preserves
+all previous condition bodies. The 21 ordered-control/exception conditions,
+one Unit operand connection and all execution/equivalence/application proofs
+remain open. The six targeted local tests, Clippy and format pass; checker
+and Linux replays are in progress.
+See `ordinary-foundation/unit-5-pattern-source-primitives-review.md`.
+
 Owns: translation of every already-expanded concrete foundation definition in
 monomorphic VIR into ordinary core definitions and proof terms for all new
 finite values and operations; the successor program-assembly profile;

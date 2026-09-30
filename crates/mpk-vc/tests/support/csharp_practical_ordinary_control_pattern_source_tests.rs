@@ -97,8 +97,84 @@ fn flip(value: &mut V) {
     }
 }
 
+fn word(value: i32) -> V {
+    V::Cube((0..32).map(|i| value as u32 & (1 << i) != 0).collect())
+}
+
+fn prepare_primitive(
+    entry: &OrdinaryControlPatternSourceDefinition,
+    args: &mut [V],
+    depths: &BTreeMap<&str, u32>,
+) {
+    let result = entry.source.original_binding_count - 1;
+    let input = entry.source.operands.first().map(|o| o.binding_index);
+    match entry.source_step.operation.as_str() {
+        "unary_update" => {
+            args[result] = word(
+                if entry.source_step.source_kind.as_deref() == Some("Increment") {
+                    0i32.checked_add(1).unwrap()
+                } else {
+                    0i32.checked_sub(1).unwrap()
+                },
+            );
+        }
+        "pattern_equal" => args[result] = V::Bit(true),
+        "binary"
+            if entry
+                .source_step
+                .source_traits
+                .as_deref()
+                .unwrap()
+                .starts_with("Equals|") =>
+        {
+            args[result] = V::Bit(true)
+        }
+        "binary"
+            if entry
+                .source_step
+                .source_traits
+                .as_deref()
+                .unwrap()
+                .starts_with("Divide|") =>
+        {
+            args[input.unwrap()] = word(7);
+            args[entry.source.operands[1].binding_index] = word(2);
+            args[result] = word(7i32.checked_div(2).unwrap());
+        }
+        "pattern_type" if entry.semantic_rule == "source_nonnullable_type_presence" => {
+            args[result] = V::Bit(true)
+        }
+        "pattern_bind"
+            if entry.semantic_rule
+                == "successful_source_payload_extraction_and_assigned_slot_store" =>
+        {
+            // Independent canonical Some tag; the payload is the zero Box.
+            flip(&mut args[input.unwrap()]);
+        }
+        "element" => {
+            let operand = &entry.source.operands[0];
+            args[operand.binding_index] = super::super::native_array(
+                depths[operand.native_value.type_id.as_str()],
+                false,
+                &[0, 19],
+                true,
+            );
+        }
+        _ => {}
+    }
+}
+
 #[test]
 fn csharp_03_t06_w09_pattern_sources_original_conditions() {
+    std::thread::Builder::new()
+        .stack_size(64 * 1024 * 1024)
+        .spawn(original_conditions)
+        .unwrap()
+        .join()
+        .unwrap();
+}
+
+fn original_conditions() {
     let mut coverage = [0usize; 5];
     let mut previous: Option<Vec<u8>> = None;
     each_context(|id, vir| {
@@ -137,6 +213,23 @@ fn csharp_03_t06_w09_pattern_sources_original_conditions() {
             if !replaced_scopes.contains(&name) {
                 assert_eq!(bodies.get(&name), Some(&body), "{id}: preserved {name}");
             }
+        }
+        let prior_conditions = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+            .join("../../develop/migrations/csharp-03/ordinary-foundation/control-predicates/with-pattern-observations");
+        let hex = fs::read_to_string(prior_conditions.join(format!("{id}.hex"))).unwrap();
+        let old_bytes = hex
+            .trim()
+            .as_bytes()
+            .chunks_exact(2)
+            .map(|pair| u8::from_str_radix(std::str::from_utf8(pair).unwrap(), 16).unwrap())
+            .collect::<Vec<_>>();
+        let old_conditions = mpk_cert::decode_canonical_certificate(&old_bytes).unwrap();
+        for (name, body) in declaration_bodies(&old_conditions) {
+            assert_eq!(
+                bodies.get(&name),
+                Some(&body),
+                "{id}: preserved condition checkpoint {name}"
+            );
         }
         let metadata: Value = serde_json::from_slice(&p.canonical_bytes()).unwrap();
         let old_metadata: Value = serde_json::from_slice(&prior.canonical_bytes()).unwrap();
@@ -245,6 +338,7 @@ fn csharp_03_t06_w09_pattern_sources_original_conditions() {
                     args[slot.before_assigned_index] = V::Bit(true);
                 }
             }
+            prepare_primitive(entry, &mut args, &depths);
             assert!(
                 observed(run(&cert, definition, args.clone())),
                 "{id}: {}",
@@ -258,6 +352,93 @@ fn csharp_03_t06_w09_pattern_sources_original_conditions() {
                 "{id}: wrong result"
             );
             coverage[4] += 1;
+            let inputs = &entry.source.operands;
+            let mut reject = |values| {
+                assert!(
+                    !observed(run(&cert, definition, values)),
+                    "{id}: {} rejected input",
+                    entry.source_step.operation
+                );
+                coverage[4] += 1;
+            };
+            match entry.source_step.operation.as_str() {
+                "unary_update" => {
+                    let mut wrong = args.clone();
+                    wrong[inputs[0].binding_index] = word(
+                        if entry.source_step.source_kind.as_deref() == Some("Increment") {
+                            i32::MAX
+                        } else {
+                            i32::MIN
+                        },
+                    );
+                    reject(wrong);
+                    let mut changed = args.clone();
+                    changed[inputs[0].binding_index] = word(4);
+                    changed[result] = word(
+                        if entry.source_step.source_kind.as_deref() == Some("Increment") {
+                            5
+                        } else {
+                            3
+                        },
+                    );
+                    assert!(
+                        observed(run(&cert, definition, changed)),
+                        "{id}: changed update input"
+                    );
+                    coverage[3] += 1;
+                }
+                "binary"
+                    if entry
+                        .source_step
+                        .source_traits
+                        .as_deref()
+                        .unwrap()
+                        .starts_with("Divide|") =>
+                {
+                    let mut wrong = args.clone();
+                    wrong[inputs[1].binding_index] = word(0);
+                    reject(wrong);
+                    let mut wrong = args.clone();
+                    wrong[inputs[0].binding_index] = word(i32::MIN);
+                    wrong[inputs[1].binding_index] = word(-1);
+                    reject(wrong);
+                }
+                "pattern_bind" if !entry.native_primitive_definitions.is_empty() => {
+                    let mut none = args.clone();
+                    flip(&mut none[inputs[0].binding_index]);
+                    reject(none);
+                    let mut wrong = args.clone();
+                    if let V::Cube(bits) = &mut wrong[inputs[0].binding_index] {
+                        // Option payload starts in role one, after low padding.
+                        let payload = entry.source_step.result.as_ref().unwrap();
+                        let input_depth = depths[inputs[0].native_value.type_id.as_str()];
+                        let payload_depth = depths[payload.type_id.as_str()];
+                        bits[1 | (1 << (input_depth - payload_depth))] = true;
+                    }
+                    reject(wrong);
+                }
+                "element" => {
+                    for index in [-1, 2, 4096] {
+                        let mut wrong = args.clone();
+                        wrong[inputs[1].binding_index] = word(index);
+                        reject(wrong);
+                    }
+                    let mut changed = args.clone();
+                    changed[inputs[1].binding_index] = word(1);
+                    changed[result] = word(19);
+                    assert!(
+                        observed(run(&cert, definition, changed)),
+                        "{id}: second source element"
+                    );
+                    coverage[3] += 1;
+                }
+                "convert" => {
+                    let mut wrong = args.clone();
+                    flip(&mut wrong[inputs[0].binding_index]);
+                    reject(wrong);
+                }
+                _ => {}
+            }
             if let Some(slot) = &entry.source.slot {
                 let mut wrong = args.clone();
                 wrong[slot.after_assigned_index] = V::Bit(false);
@@ -327,7 +508,7 @@ fn csharp_03_t06_w09_pattern_sources_original_conditions() {
         }
         let output = std::env::var_os("MPK_W09_CONTROL_PATTERN_SOURCE_OUTPUT");
         let root = output.as_ref().map(PathBuf::from).unwrap_or_else(|| PathBuf::from(env!("CARGO_MANIFEST_DIR"))
-            .join("../../develop/migrations/csharp-03/ordinary-foundation/control-predicates/with-pattern-observations"));
+            .join("../../develop/migrations/csharp-03/ordinary-foundation/control-predicates/with-pattern-primitives"));
         let hex = p
             .certificate_bytes()
             .iter()
@@ -347,6 +528,6 @@ fn csharp_03_t06_w09_pattern_sources_original_conditions() {
         }
     });
     assert_eq!(coverage[0], 102);
-    assert_eq!(coverage[1..3], [61, 41]);
+    assert_eq!(coverage[1..3], [81, 21]);
     eprintln!("original pattern source conditions: {} goals, {} definitions, {} pending; {} positive and {} changed-value/state observations", coverage[0], coverage[1], coverage[2], coverage[3], coverage[4]);
 }
