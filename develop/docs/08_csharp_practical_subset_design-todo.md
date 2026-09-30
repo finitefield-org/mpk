@@ -2241,6 +2241,19 @@ This is a partial unit 7 checkpoint; W09 remains In progress, W10-W12 remain Blo
 the full T06 gate remains deferred to W12.
 See `ordinary-foundation/unit-7-concrete-type-proofs-review.md`.
 
+The original concrete-operation proof route now supplies 436 universal proof
+candidates across all 45 source contexts. It preserves every original W06
+domain assumption, normal guard, complete result operands and ordered
+first-failure/success agreement. The unchanged Rust kernel accepts every emitted
+certificate with zero axioms and rejects a well-typed wrong normal implementation
+only when the supplied proofs are present; its definition-only certificate
+accepts. Both targeted integration tests, Clippy and crate/support format pass.
+All 45 original operation pins are unchanged. Independent same-byte Go/Rust
+replay and exact public-source Linux replay are pending terminal receipts.
+All 31 pending operations and all 987 application proof IDs remain pending;
+W09 remains In progress, W10-W12 remain Blocked and the full T06 gate is deferred
+to W12. See `ordinary-foundation/unit-7-concrete-operation-proofs-review.md`.
+
 Owns: translation of every already-expanded concrete foundation definition in
 monomorphic VIR into ordinary core definitions and proof terms for all new
 finite values and operations; the successor program-assembly profile;

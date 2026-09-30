@@ -4,6 +4,188 @@ use super::*;
 use core_eval::V;
 use mpk_cert::encode::{Certificate, DeclarationKind, TermNode};
 
+#[test]
+fn csharp_03_t06_w09_concrete_operation_proofs_original_source() {
+    std::thread::Builder::new().stack_size(64 * 1024 * 1024).spawn(|| {
+        let bundle = b();
+        let output = std::env::var_os("MPK_W09_CONCRETE_OPERATION_PROOFS_OUT").map(std::path::PathBuf::from);
+        if let Some(dir) = &output { fs::create_dir_all(dir).unwrap(); }
+        let (mut contexts, mut proofs, mut pending, mut original_ids) = (0,0,0,0);
+        let mut arities = BTreeSet::new();
+        let mut previous: Option<(Vec<u8>,Vec<u8>)> = None;
+        for (id,row,facts) in sources() {
+            let (context,captures)=support::replay_context(&bundle,&row);
+            let source=ValidatedDataSource::import_captured_facts(&bundle,&context,&captures,&serde_json::to_vec(&facts).unwrap()).unwrap();
+            let emitted=emit_data_phase(&bundle,&context,&captures,&source).unwrap();
+            let vir=emitted.vir();
+            let original=generate_csharp_practical_ordinary_concrete_operations(vir).unwrap();
+            let p=generate_csharp_practical_ordinary_concrete_operation_proofs(vir).unwrap_or_else(|error| panic!("{id}: {error:?}"));
+            assert_eq!(p.proofs().iter().map(|p| &p.sequent).collect::<Vec<_>>(),original.conditions().iter().map(|c| &c.sequent).collect::<Vec<_>>());
+            assert_eq!(p.pending_operations(),original.pending_operations());
+            assert_eq!(p.pending_condition_ids(),original.pending_condition_ids());
+            assert_eq!(p.pending_proof_ids(),original.pending_proof_ids());
+            let metadata:Value=serde_json::from_slice(&p.canonical_bytes()).unwrap();
+            assert_eq!(metadata["proof_check_pending"],true);
+            assert_eq!(metadata["application_scope_pending"],true);
+            let before=mpk_cert::decode_canonical_certificate(original.certificate_bytes()).unwrap();
+            let after=mpk_cert::decode_canonical_certificate(p.certificate_bytes()).unwrap();
+            assert!(after.term_table.starts_with(&before.term_table));
+            assert_eq!(after.module,before.module);
+            assert_eq!(after.source_manifest,before.source_manifest);
+            assert_eq!(after.imports,before.imports);
+            for (a,z) in before.declarations.iter().zip(&after.declarations) {
+                assert_eq!(before.name_table[a.name as usize],after.name_table[z.name as usize]);
+                assert_eq!(a.kind,z.kind);
+            }
+            validate_csharp_practical_certificate_structure(&after).unwrap();
+            assert_eq!(mpk_kernel::verify_certificate_bytes(p.certificate_bytes()).unwrap_or_else(|e|panic!("{id}: {e:?}")).axiom_count,0);
+            let layouts=generate_csharp_practical_ordinary_carriers(vir).unwrap();
+            let depths=layouts.carriers().iter().map(|c|(c.type_id.as_str(),c.depth)).collect::<BTreeMap<_,_>>();
+            let mut symbols=original.public_domains().iter().map(|d|(d.symbol.clone(),d.valid_definition.clone())).collect::<BTreeMap<_,_>>();
+            for (a,z) in [("Not","not"),("And","and"),("Or","or"),("true","true"),("false","false")] {
+                symbols.insert(format!("Mpk.CSharp.Bool.{a}"),format!("Std.Bool.{z}"));
+            }
+            for d in original.definitions() {
+                symbols.insert(d.component.operation_id.clone(),d.normal_definition.clone());
+                symbols.insert(d.concrete_symbol.clone(),d.concrete_definition.clone());
+                for f in &d.failures {symbols.insert(f.check_symbol.clone(),f.failure_definition.clone());}
+            }
+            fn equal(c:&Certificate,t:u32)->&[u32] {
+                let TermNode::App {function,arguments}=&c.term_table[t as usize] else {panic!("missing equality")};
+                assert_eq!(syntax(c,*function),json!(["const","Std.Eq"]));
+                assert_eq!(arguments.len(),3);
+                arguments
+            }
+            fn and(c:&Certificate,t:u32)->&[u32] {
+                let TermNode::App {function,arguments}=&c.term_table[t as usize] else {panic!("missing original goals")};
+                assert_eq!(syntax(c,*function),json!(["const","Std.Logic.And"]));
+                assert_eq!(arguments.len(),2);
+                arguments
+            }
+            fn shifted(v:Value,offset:usize)->Value {
+                match v {
+                    Value::Array(xs) if xs.first()==Some(&json!("var"))=>json!(["var",xs[1].as_u64().unwrap()+offset as u64]),
+                    Value::Array(xs)=>Value::Array(xs.into_iter().map(|v|shifted(v,offset)).collect()),
+                    other=>other,
+                }
+            }
+            for proof in p.proofs() {
+                let d=original.definitions().iter().find(|d|d.component.operation_id==proof.sequent.owner_id).unwrap();
+                assert_eq!(proof.all_outcomes.len(),d.failures.len()+2);
+                for (a,f) in proof.all_outcomes.iter().zip(&d.failures) {
+                    assert_eq!(a.outcome,"first_failure");
+                    assert_eq!(a.failure_label.as_ref(),Some(&f.label));
+                    assert_eq!(a.actual_definition,f.first_failure_definition);
+                    assert_eq!(a.concrete_definition,f.concrete_first_failure_definition);
+                }
+                let [success,normal]=&proof.all_outcomes[d.failures.len()..] else {panic!("missing outcomes")};
+                assert_eq!((&success.actual_definition,&success.concrete_definition),(&d.success_definition,&d.concrete_success_definition));
+                assert_eq!((&normal.actual_definition,&normal.concrete_definition),(&d.normal_definition,&d.concrete_definition));
+                let sequent=&proof.sequent;
+                arities.insert(sequent.subjects.len());
+                let mut t=body(&after,&proof.proposition_definition);
+                for s in &sequent.subjects {
+                    let TermNode::Pi {ty,body} = after.term_table[t as usize] else {panic!("missing original operand")};
+                    assert_eq!(cube_depth(&after,ty),depths[s.type_id.as_str()]);t=body;
+                }
+                for (i,a) in sequent.assumptions.iter().enumerate() {
+                    let TermNode::Pi {ty,body}=after.term_table[t as usize] else {panic!("missing original domain premise")};
+                    let args=equal(&after,ty);
+                    assert_eq!(syntax(&after,args[1]),shifted(formula(a,&sequent.subjects,&symbols),i));
+                    assert_eq!(syntax(&after,args[2]),json!(["const","Std.Bool.true"]));t=body;
+                }
+                let goals=and(&after,t);
+                let TermNode::Pi {ty:guard_type,body:normal_type}=after.term_table[goals[0] as usize] else {panic!("missing complete normal guard")};
+                let ContractTerm::App {function,..}=&sequent.goals[0] else {panic!("missing original implication")};
+                let ContractTerm::App {argument:negative,..}=function.as_ref() else {panic!("missing original guard")};
+                let ContractTerm::App {argument:guard,..}=negative.as_ref() else {panic!("missing original negative guard")};
+                let guard_eq=equal(&after,guard_type);
+                assert_eq!(syntax(&after,guard_eq[1]),shifted(formula(guard,&sequent.subjects,&symbols),sequent.assumptions.len()));
+                assert_eq!(syntax(&after,guard_eq[2]),json!(["const","Std.Bool.true"]));
+                let normal_eq=equal(&after,normal_type);
+                assert_eq!(cube_depth(&after,normal_eq[0]),depths[d.component.result_type_id.as_str()]);
+                let ContractTerm::App {argument:agreement,..}=&sequent.goals[0] else {panic!("missing original normal goal")};
+                let ContractTerm::App {function,argument:right,..}=agreement.as_ref() else {panic!("missing original right operand")};
+                let ContractTerm::App {argument:left,..}=function.as_ref() else {panic!("missing original left operand")};
+                for (actual,original) in [(normal_eq[1],left),(normal_eq[2],right)] {
+                    assert_eq!(syntax(&after,actual),shifted(formula(original,&sequent.subjects,&symbols),sequent.assumptions.len()+1));
+                }
+                let mut outcome=goals[1];
+                for a in &proof.all_outcomes[..proof.all_outcomes.len()-1] {
+                    let pair=and(&after,outcome);
+                    let eq=equal(&after,pair[0]);
+                    for (value,name) in [(eq[1],&a.actual_definition),(eq[2],&a.concrete_definition)] {
+                        let expected=(0..sequent.subjects.len()).fold(json!(["const",name]),|f,i|json!(["app",f,["var",sequent.subjects.len()-1-i+sequent.assumptions.len()]]));
+                        assert_eq!(syntax(&after,value),expected);
+                    }
+                    outcome=pair[1];
+                }
+                let TermNode::Pi {ty,body:normal_type}=after.term_table[outcome as usize] else {panic!("missing normal success premise")};
+                let success_eq=equal(&after,ty);
+                let expected=(0..sequent.subjects.len()).fold(json!(["const",d.success_definition]),|f,i|json!(["app",f,["var",sequent.subjects.len()-1-i+sequent.assumptions.len()]]));
+                assert_eq!(syntax(&after,success_eq[1]),expected);
+                assert_eq!(syntax(&after,success_eq[2]),json!(["const","Std.Bool.true"]));
+                assert_eq!(normal_type,normal_eq_id(&after,goals[0]));
+            }
+            assert_eq!(import_csharp_practical_ordinary_concrete_operation_proofs(&p.canonical_bytes(),p.certificate_bytes(),vir).unwrap(),p);
+            if let Some((metadata,certificate))=&previous {
+                assert!(import_csharp_practical_ordinary_concrete_operation_proofs(metadata,certificate,vir).is_err());
+            }
+            if contexts==0 {
+                for field in metadata.as_object().unwrap().keys() {
+                    let mut changed=metadata.clone();changed[field]=json!("forged");
+                    assert!(import_csharp_practical_ordinary_concrete_operation_proofs(&serde_json::to_vec(&changed).unwrap(),p.certificate_bytes(),vir).is_err(),"{field}");
+                }
+                let too_large=vec![0;16*1024*1024+1];
+                assert!(import_csharp_practical_ordinary_concrete_operation_proofs(&too_large,&[],vir).is_err());
+                assert!(import_csharp_practical_ordinary_concrete_operation_proofs(&[],&too_large,vir).is_err());
+                let d=original.definitions().iter().find(|d|d.component.argument_type_ids.len()==1).unwrap();
+                eprintln!("{id}: wrong normal-value proof probe for {}",d.component.operation_id);
+                fn wrong_value(mut c:Certificate,name:&str,depth:u32)->Vec<u8> {
+                    let index=global(&c,name) as usize;
+                    let DeclarationKind::Def {ty,mut value,reducibility}=c.declarations[index].kind else {panic!("missing normal implementation")};
+                    let mut binders=vec![];
+                    while let TermNode::Lam {ty,body}=c.term_table[value as usize] {binders.push(ty);value=body;}
+                    let zero=global(&c,&format!("Mpk.CSharp.Ordinary.Cube.D{depth}.Zero"));
+                    value=c.term_table.len() as u32;c.term_table.push(TermNode::Const {global:zero,levels:vec![]});
+                    for binder in binders.into_iter().rev() {
+                        let next=c.term_table.len() as u32;c.term_table.push(TermNode::Lam {ty:binder,body:value});value=next;
+                    }
+                    c.declarations[index].kind=DeclarationKind::Def {ty,value,reducibility};
+                    c.export_block=mpk_cert::build_export_block(&c).unwrap();
+                    c.axiom_report=mpk_cert::build_axiom_report(&c).unwrap();
+                    c.hashes.export_hash=mpk_cert::export_block_hash(&c.export_block);
+                    c.hashes.axiom_report_hash=mpk_cert::axiom_report_hash_for_report(&c.axiom_report);
+                    mpk_cert::encode::encode_certificate(&c)
+                }
+                let depth=depths[d.component.result_type_id.as_str()];
+                let wrong_definitions=wrong_value(before.clone(),&d.concrete_definition,depth);
+                assert_eq!(mpk_kernel::verify_certificate_bytes(&wrong_definitions).unwrap().axiom_count,0);
+                let wrong=wrong_value(after.clone(),&d.concrete_definition,depth);
+                assert_eq!(mpk_kernel::verify_certificate_bytes(&wrong).unwrap_err().kind(),mpk_kernel::VerificationErrorKind::CoreCheck);
+                assert!(import_csharp_practical_ordinary_concrete_operation_proofs(&p.canonical_bytes(),&wrong,vir).is_err());
+                if let Some(dir)=&output {fs::write(dir.join(format!("{id}-wrong.hex")),wrong.iter().map(|b|format!("{b:02x}")).collect::<String>()+"\n").unwrap();}
+            }
+            previous=Some((p.canonical_bytes(),p.certificate_bytes().to_vec()));
+            if let Some(dir)=&output {
+                fs::write(dir.join(format!("{id}.json")),p.canonical_bytes()).unwrap();
+                fs::write(dir.join(format!("{id}.hex")),p.certificate_bytes().iter().map(|b|format!("{b:02x}")).collect::<String>()+"\n").unwrap();
+            }
+            contexts+=1;proofs+=p.proofs().len();pending+=p.pending_operations().len();original_ids+=p.pending_proof_ids().len();
+            eprintln!("{id}: {} complete operation proof candidates; {} operations and {} application IDs pending",p.proofs().len(),p.pending_operations().len(),p.pending_proof_ids().len());
+        }
+        assert_eq!((contexts,proofs,pending,original_ids),(45,436,31,987));
+        assert_eq!(arities,BTreeSet::from([0,1,2,3,4]));
+    }).unwrap().join().unwrap();
+}
+
+fn normal_eq_id(c: &Certificate, t: u32) -> u32 {
+    let TermNode::Pi { body, .. } = c.term_table[t as usize] else {
+        panic!("missing normal implication")
+    };
+    body
+}
+
 fn global(c: &Certificate, name: &str) -> u32 {
     c.declarations
         .iter()

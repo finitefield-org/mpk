@@ -5,6 +5,14 @@ use super::*;
 
 const U32_TYPE_ID: &str = "mpk.csharp.value.u32.v1";
 
+#[path = "csharp_practical_ordinary_concrete_operation_proofs.rs"]
+mod proofs;
+pub use proofs::{
+    generate_csharp_practical_ordinary_concrete_operation_proofs,
+    import_csharp_practical_ordinary_concrete_operation_proofs, OrdinaryConcreteOperationAgreement,
+    OrdinaryConcreteOperationProof, OrdinaryConcreteOperationProofProgram,
+};
+
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
 pub struct OrdinaryConcreteFailureComponent {
     pub label: String,

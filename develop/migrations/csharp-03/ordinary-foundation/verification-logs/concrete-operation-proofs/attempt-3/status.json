@@ -1,0 +1,109 @@
+{
+  "child_pid": 77248,
+  "command": [
+    "rustfmt",
+    "--edition",
+    "2021",
+    "--check",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_concrete_operation_tests.rs"
+  ],
+  "finished_at": "2026-09-30T10:34:31.839089+00:00",
+  "full_t_gate": "deferred to T06-W12",
+  "process_pid": 69064,
+  "selection_reason": "Check complete original W06 concrete-definition equivalence sequents in all 45 source contexts: all input domains and normal guards, every ordered first-failure and success equality, and the complete normal result. Require actual Rust kernel acceptance for every emitted certificate and core rejection of a well-typed wrong implementation whose definition-only certificate remains accepted. Preserve all 436 original defined operations, 31 pending operations and all 987 application IDs. Recheck all 45 original operation pins; the appended proof route does not change the old generator or shared Builder.resume. Existing type proof generators and pattern routes are unchanged. Clippy covers library/tests and crate/support format checks run. The full T06 gate remains deferred to W12.",
+  "stage": "support-format",
+  "stages": [
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_concrete_operation_proofs_original_source",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 2086.148,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T10:31:40.025118+00:00",
+      "log_sha256": "2a547e4a7cef272a929ae0aee4d62a5073faeb85c9a48749084a5b2ce6d5de17",
+      "stage": "original-operation-proofs",
+      "started_at": "2026-09-30T09:56:53.874935+00:00"
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_concrete_operations_original_source_certificates",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 119.62,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T10:33:39.679147+00:00",
+      "log_sha256": "92411dde367f5f4027d3609f397dbdd53cceeda5d4c3af9a12dfd45c019699ba",
+      "stage": "original-operation-pins",
+      "started_at": "2026-09-30T10:31:40.058838+00:00"
+    },
+    {
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--tests",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "elapsed_seconds": 47.195,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T10:34:26.906631+00:00",
+      "log_sha256": "71bbec7c90ced451653e22940c3c2eeefd3958fc6d1b9b176d2785e91ee42705",
+      "stage": "clippy",
+      "started_at": "2026-09-30T10:33:39.711109+00:00"
+    },
+    {
+      "command": [
+        "cargo",
+        "fmt",
+        "-p",
+        "mpk-vc",
+        "--",
+        "--check"
+      ],
+      "elapsed_seconds": 4.757,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T10:34:31.697861+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stage": "format",
+      "started_at": "2026-09-30T10:34:26.941220+00:00"
+    },
+    {
+      "command": [
+        "rustfmt",
+        "--edition",
+        "2021",
+        "--check",
+        "crates/mpk-vc/tests/support/csharp_practical_ordinary_concrete_operation_tests.rs"
+      ],
+      "elapsed_seconds": 0.102,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T10:34:31.838704+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stage": "support-format",
+      "started_at": "2026-09-30T10:34:31.736433+00:00"
+    }
+  ],
+  "status": "passed_targeted_tests_lint_format",
+  "unique_tests_passed": 2
+}

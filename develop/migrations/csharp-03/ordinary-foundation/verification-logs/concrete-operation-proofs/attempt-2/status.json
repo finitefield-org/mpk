@@ -1,0 +1,42 @@
+{
+  "child_pid": 64467,
+  "command": [
+    "cargo",
+    "test",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "csharp_practical_vc",
+    "csharp_03_t06_w09_concrete_operation_proofs_original_source",
+    "--",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "full_t_gate": "deferred to T06-W12",
+  "process_pid": 64458,
+  "selection_reason": "Check complete original W06 concrete-definition equivalence sequents in all 45 source contexts: all input domains and normal guards, every ordered first-failure and success equality, and the complete normal result. Require actual Rust kernel acceptance for every emitted certificate and core rejection of a well-typed wrong implementation whose definition-only certificate remains accepted. Preserve all 436 original defined operations, 31 pending operations and all 987 application IDs. Recheck all 45 original operation pins; the appended proof route does not change the old generator or shared Builder.resume. Existing type proof generators and pattern routes are unchanged. Clippy covers library/tests and crate/support format checks run. The full T06 gate remains deferred to W12.",
+  "stage": "original-operation-proofs",
+  "stages": [
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_concrete_operation_proofs_original_source",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 1577.808,
+      "exit_code": 101,
+      "finished_at": "2026-09-30T09:55:19.641942+00:00",
+      "log_sha256": "0f90f31c78f9b2650a38530b9f741a0b0aad922b2ba732429c3102c8d447c679",
+      "stage": "original-operation-proofs",
+      "started_at": "2026-09-30T09:29:01.831324+00:00"
+    }
+  ],
+  "status": "failed"
+}

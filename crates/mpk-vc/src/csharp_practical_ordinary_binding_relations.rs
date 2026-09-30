@@ -15,11 +15,15 @@ pub use binding_defaults::{
 #[path = "csharp_practical_ordinary_concrete_operations.rs"]
 mod concrete_operations;
 pub use concrete_operations::{
+    generate_csharp_practical_ordinary_concrete_operation_proofs,
     generate_csharp_practical_ordinary_concrete_operations,
+    import_csharp_practical_ordinary_concrete_operation_proofs,
     import_csharp_practical_ordinary_concrete_operations, OrdinaryConcreteFailureComponent,
-    OrdinaryConcreteOperationComponent, OrdinaryConcreteOperationDefinition,
-    OrdinaryConcreteOperationFailure, OrdinaryConcreteOperationPending,
-    OrdinaryConcreteOperationPendingReason, OrdinaryConcreteOperationProgram,
+    OrdinaryConcreteOperationAgreement, OrdinaryConcreteOperationComponent,
+    OrdinaryConcreteOperationDefinition, OrdinaryConcreteOperationFailure,
+    OrdinaryConcreteOperationPending, OrdinaryConcreteOperationPendingReason,
+    OrdinaryConcreteOperationProgram, OrdinaryConcreteOperationProof,
+    OrdinaryConcreteOperationProofProgram,
 };
 #[path = "csharp_practical_ordinary_concrete_types.rs"]
 mod concrete_types;
