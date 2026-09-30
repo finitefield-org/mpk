@@ -76,12 +76,14 @@ The separate earlier Money probe is retained as historical evidence; the full
 45-context replay is authoritative. See
 `verification-logs/concrete-operation-transport/checks/receipt-audit.json`.
 
-The requested Linux replay is prepared for an exact public source commit in a
-new detached checkout. Both targeted tests run afresh, followed by Clippy and
-both format checks. The replay checks source/fixture hashes throughout and
-requires all 91 metadata/positive/negative files to match the local bytes. Its
-terminal receipt remains pending. The earlier `aac0ea64` Linux receipt covers
-the previous recipe and is not reused as verification of this source change.
+The requested Linux replay passes both targeted tests afresh, Clippy and both
+format checks at fixed public source `c7421af8`. The detached checkout
+matches all 916 source/fixture Git blobs and all three harness blobs. The terminal
+audit verifies every test log and the test binary, requires a clean checkout,
+and confirms all 91 exported metadata/positive/negative files match local bytes.
+The exact fetched archive, SSH execution receipt and independent audit script
+are retained in `verification-logs/concrete-operation-transport/server-linux/`.
+The earlier `aac0ea64` receipt remains separate historical evidence.
 
 The original pattern-refinement source capability, internal construction states,
 source ownership and the application-owned Money.create currency predicate

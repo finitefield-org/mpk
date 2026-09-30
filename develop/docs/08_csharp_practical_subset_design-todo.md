@@ -2268,7 +2268,9 @@ implementation rejection. The exact tested source/fixtures are promoted with a
 743-source/173-fixture byte audit. Both unchanged Go/Rust checkers accept all
 45 certificates with zero axioms and matching hashes/counts; all 182 positive,
 hash-corruption and wrong-normal-value stages are terminal and independently
-audited. Linux replay of this new recipe remains pending its terminal receipt.
+audited. Fixed public source `c7421af8` also passes both targeted tests,
+Clippy and both format checks on the requested Linux server; its terminal audit
+verifies all 916 source/fixture Git blobs and all 91 exact exported files.
 All 31 pending operations and
 all 987 application IDs remain pending, W09 stays In progress and the full T06
 gate stays deferred to W12. See
