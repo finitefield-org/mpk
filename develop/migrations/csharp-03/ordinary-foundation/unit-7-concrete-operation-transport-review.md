@@ -66,11 +66,15 @@ All 45 complete metadata records match the preceding recipe after removing
 only `certificate_sha256`. Evidence is preserved under
 `verification-logs/concrete-operation-transport/`.
 
-Both fixed unchanged Go/Rust binaries are replaying the exact new certificate
-bytes. The separate Money probe has already been accepted by the unchanged Go
-kernel with zero axioms; it is not a substitute for the 45-context replay.
-The full result remains pending until all 182 positive/hash/wrong-proof stages
-terminate and their raw reports are independently audited.
+Both fixed unchanged Go/Rust binaries accept all 45 exact new certificates
+with matching module/declaration/axiom counts and all three hashes. All 182
+stages are terminal: 90 positive backend executions, 90 hash-corruption
+rejections and two wrong-normal-value core rejections. Every axiom summary is
+zero. The independent audit verifies all exact inputs, fixed binary hashes,
+raw reports and stderr, and confirms current source/fixture hashes still match.
+The separate earlier Money probe is retained as historical evidence; the full
+45-context replay is authoritative. See
+`verification-logs/concrete-operation-transport/checks/receipt-audit.json`.
 
 The requested Linux replay is prepared for an exact public source commit in a
 new detached checkout. Both targeted tests run afresh, followed by Clippy and

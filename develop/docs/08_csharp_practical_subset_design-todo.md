@@ -2265,8 +2265,11 @@ except emitted certificate hashes; original definitions and pins are unchanged.
 Both targeted integrations, Clippy and crate/support format pass locally,
 including actual Rust kernel checking of all certificates and a well-typed wrong
 implementation rejection. The exact tested source/fixtures are promoted with a
-743-source/173-fixture byte audit. Same-byte dual checking and Linux replay of
-this new recipe remain pending terminal receipts. All 31 pending operations and
+743-source/173-fixture byte audit. Both unchanged Go/Rust checkers accept all
+45 certificates with zero axioms and matching hashes/counts; all 182 positive,
+hash-corruption and wrong-normal-value stages are terminal and independently
+audited. Linux replay of this new recipe remains pending its terminal receipt.
+All 31 pending operations and
 all 987 application IDs remain pending, W09 stays In progress and the full T06
 gate stays deferred to W12. See
 `ordinary-foundation/unit-7-concrete-operation-transport-review.md`.
