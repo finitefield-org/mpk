@@ -2233,9 +2233,11 @@ Both unchanged Go/Rust kernels accept all resulting certificates with zero
 axioms and matching hashes; all 182 positive/hash/wrong-proof stages are terminal.
 Five affected tests, Clippy and crate/support format pass locally. Ten contexts
 have genuinely empty type groups; six internal construction-state type instances
-and all 987 application proof IDs remain explicitly pending. Exact public-source
-Linux replay is prepared but its terminal receipt is still pending. This is a
-partial unit 7 checkpoint; W09 remains In progress, W10-W12 remain Blocked and
+and all 987 application proof IDs remain explicitly pending. The fixed public
+source `69c32d10` also passes all five targeted tests, Clippy and both format
+checks on the requested Linux server; its terminal audit verifies 915 source/
+fixture Git blobs, all log/test-binary hashes and all 91 exact exported files.
+This is a partial unit 7 checkpoint; W09 remains In progress, W10-W12 remain Blocked and
 the full T06 gate remains deferred to W12.
 See `ordinary-foundation/unit-7-concrete-type-proofs-review.md`.
 

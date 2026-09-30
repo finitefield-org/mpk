@@ -80,12 +80,15 @@ none. The overall audit verifies all 742 current Rust/Cargo source files and
 173 relevant source/foundation/pin fixtures. Source metadata and certificate
 outputs are deterministic and retained in the final attempt.
 
-The requested Linux replay is prepared for an exact public source commit in a
-new detached checkout. It runs all five targeted tests afresh, Clippy and both
-format checks, verifies source/fixture hashes before and after execution, and
-requires all 91 exported metadata/positive/negative files to match the local
-bytes. Its result remains pending until a terminal server receipt is fetched
-and audited. See `verification-logs/concrete-type-proofs/verification.json`.
+The requested Linux replay passes all five targeted tests afresh, Clippy and
+both format checks at fixed public source `69c32d10`. Its detached checkout
+matches all 915 source/fixture Git blobs and all three harness blobs. The terminal
+audit verifies every test log and both test binaries, requires a clean checkout,
+and confirms all 91 exported metadata/positive/negative files match the local
+bytes. The exact fetched archive, SSH execution receipt and independent audit
+script are retained separately. See
+`verification-logs/concrete-type-proofs/server-linux/final/final-audit.json` and
+`verification-logs/concrete-type-proofs/verification.json`.
 
 The original pattern-refinement capability remains open, including the seven
 `is_binding` refinements. These concrete-type proofs do not prove execution,
