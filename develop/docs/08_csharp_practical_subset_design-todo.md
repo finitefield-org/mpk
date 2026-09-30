@@ -2128,7 +2128,7 @@ server. Exact source/fixture hashes and the published Git commit are verified.
 The ordinary scope consumer and all original pattern bodies/proofs remain open.
 See `ordinary-foundation/unit-5-pattern-observations-review.md`.
 
-The ordinary pattern consumer now composes the richer observations into its
+The 61-condition checkpoint composes the richer observations into its
 native/capture scopes and defines 61 of the 102 original conditions: 17 exact
 source constants, nine selected-input joins, 19 assigned loads, 12 stores and
 four bindings with matching input/result types. Generated bodies pass 77
@@ -2153,8 +2153,13 @@ stored-field/array reads, string length and null conversion. The candidate
 passes 102 positive and 183 changed-value/state observations and preserves
 all previous condition bodies. The 21 ordered-control/exception conditions,
 one Unit operand connection and all execution/equivalence/application proofs
-remain open. The six targeted local tests, Clippy and format pass; checker
-and Linux replays are in progress.
+remain open. The six targeted tests, Clippy and format pass locally and at
+the exact published `0aed36d4` Linux checkout; 674 distinct input files match
+their Git blobs, and the checkout, logs and binaries are independently
+verified. All 72 Go/Rust stages and the report audit pass, with 28 new stages
+and 44 retained after exact input/binary comparison. Both checkers report
+zero axioms and reject hash corruption. Unit 5 and W09 remain In progress;
+the full T06 gate stays deferred to W12.
 See `ordinary-foundation/unit-5-pattern-source-primitives-review.md`.
 
 Owns: translation of every already-expanded concrete foundation definition in

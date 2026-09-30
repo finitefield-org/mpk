@@ -37,8 +37,13 @@ parser, scalar and codec tests are not repeated. The runner verifies 384
 source and 294 fixture hashes before and after each stage; there are 674
 distinct inputs. Logs and execution receipts are kept under
 `verification-logs/control-predicates/with-pattern-primitives/`.
-The six targeted tests, Clippy and format pass locally. The dual-checker
-audit and specified Linux replay remain in progress at this source checkpoint.
+The six targeted tests, Clippy and format pass locally and on the specified
+Linux server at the exact published `0aed36d4` commit. The clean server
+checkout, all 674 Git blobs, execution logs and both test binaries are
+independently verified. All 72 Go/Rust stages and the independent report audit
+pass: 28 stages were executed for the seven changed certificates, and 44
+predecessor exits were retained after exact input/binary comparison. Both
+checkers report zero axioms and reject hash corruption.
 
 The 21 remaining source conditions are seven governing-expression markers,
 11 ordered branches, two break/handler completions and one no-match builtin

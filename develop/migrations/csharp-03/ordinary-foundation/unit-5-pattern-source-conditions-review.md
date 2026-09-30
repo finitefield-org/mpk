@@ -1,5 +1,8 @@
 # Original pattern source conditions — partial W09 review
 
+Historical 61-condition checkpoint. The later 81-condition extension is
+recorded in `unit-5-pattern-source-primitives-review.md`.
+
 The ordinary predicate consumer now accepts the exact W04 source operands and
 before/after slot observations. It retains all 215 sequents across the original
 18 contexts and defines 61 of their 102 original PatternStep conditions:
