@@ -70,8 +70,14 @@ The independent terminal audit verifies all 184 stages, including 158 retained
 only after exact current input, binary, raw report and stderr comparison. All
 45 positive certificates have matching module/declaration/axiom counts and all
 three hashes, with zero axioms. Both checkers reject all hash corruptions and
-the two typed wrong-normal results at core checking. Requested Linux verification
-remains pending an exact published-source terminal receipt.
+the two typed wrong-normal results at core checking. The requested Linux server
+passes all three targeted tests afresh, Clippy and both format checks at fixed
+public source `cba21634`. Its clean detached checkout matches all 917
+source/fixture Git blobs and all three harness blobs. The terminal audit verifies
+all test log and test binary hashes, all 92 new-route outputs matching local
+bytes and all 91 legacy outputs matching the prior published corpus exactly.
+The fetched archive, SSH execution receipt and independent audit script are
+retained in `verification-logs/concrete-allocation-proofs/server-linux/`.
 See `verification-logs/concrete-allocation-proofs/`.
 W09 remains In progress, W10-W12 remain Blocked, and all 987 application proof
 IDs remain pending. The original is_binding generator still cannot supply its

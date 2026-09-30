@@ -2289,8 +2289,11 @@ supplied. The tested promotion verifies 744 source and 173 fixture hashes.
 Both unchanged checkers pass the 26 affected stages; 158 unchanged stages are
 retained only after exact input/binary/raw-report/stderr comparison. The terminal
 184-stage audit confirms matching hashes/counts, zero axioms, all hash rejections
-and both typed wrong-normal core rejections. Exact published-source Linux replay
-remains pending. The 25 remaining operations, six internal type instances, seven
+and both typed wrong-normal core rejections. Fixed public source `cba21634`
+also passes all three targeted tests, Clippy and both format checks on the
+requested Linux server. Its terminal audit verifies all 917 source/fixture Git
+blobs, 92 exact new-route exports and all 91 unchanged legacy exports.
+The 25 remaining operations, six internal type instances, seven
 is_binding refinements and all 987 application proof IDs stay pending. W09
 remains In progress, W10-W12 remain Blocked and the full T06 gate is deferred
 to W12. See `ordinary-foundation/unit-7-concrete-allocation-proofs-review.md`.
