@@ -13,5 +13,8 @@ serde = { version = "1", features = ["derive"] }
 serde_json = { version = "1", features = ["raw_value", "unbounded_depth"] }
 sha2 = "0.10"
 
+[dev-dependencies]
+mpk-kernel = { path = "../mpk-kernel" }
+
 [lints]
 workspace = true

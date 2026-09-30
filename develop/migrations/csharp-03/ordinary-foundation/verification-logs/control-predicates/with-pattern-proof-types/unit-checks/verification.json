@@ -1,0 +1,74 @@
+{
+  "binaries": {
+    "go": {
+      "path": "/tmp/mpk-w09-default-closed-proofs/go-checker",
+      "sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2"
+    },
+    "rust": {
+      "path": "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91"
+    }
+  },
+  "scope": "Universal projections under free Boolean arguments; wrong complete proof rejected; application proofs pending",
+  "stages": [
+    {
+      "backend": "go",
+      "case": "projection",
+      "certificate_sha256": "9e4edff92a76cec53d1ee6f6799bb10f0f459f2bae339e1f83e4c4b1ecc221d0",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-pattern-proof-types/unit-checks/projection-go.mpcert"
+      ],
+      "elapsed_seconds": 0.011,
+      "exit_code": 0,
+      "report_sha256": "bab3fa06a1bb3d950c64ae61f07ea538ac0cdb7084ba6f0338c8e9ffe6a893cf",
+      "started_at": "2026-09-30T03:22:51.798994+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "case": "projection",
+      "certificate_sha256": "9e4edff92a76cec53d1ee6f6799bb10f0f459f2bae339e1f83e4c4b1ecc221d0",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-pattern-proof-types/unit-checks/projection-rust.mpcert"
+      ],
+      "elapsed_seconds": 0.005,
+      "exit_code": 0,
+      "report_sha256": "bc8825452ccbca8ee8070c0fa183c3cd91e5b4bca3bacdd039a7c9871b72c57c",
+      "started_at": "2026-09-30T03:22:51.811074+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "case": "wrong-projection",
+      "certificate_sha256": "31938f4633dda974f0c20b3067a8a94b06cb34f729a01867fe323b054d049f18",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-pattern-proof-types/unit-checks/wrong-projection-go.mpcert"
+      ],
+      "elapsed_seconds": 0.006,
+      "exit_code": 1,
+      "report_sha256": "9ff864570136bf9ab92a5d903d08ec2488c5ca7c8a2c654ded769113ebc90526",
+      "started_at": "2026-09-30T03:22:51.816544+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "case": "wrong-projection",
+      "certificate_sha256": "31938f4633dda974f0c20b3067a8a94b06cb34f729a01867fe323b054d049f18",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-pattern-proof-types/unit-checks/wrong-projection-rust.mpcert"
+      ],
+      "elapsed_seconds": 0.004,
+      "exit_code": 1,
+      "report_sha256": "95796a3c15f73895d62dc99e824c204185ab9dc7483c1d5d96b990be59a0712d",
+      "started_at": "2026-09-30T03:22:51.822566+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "status": "passed"
+}

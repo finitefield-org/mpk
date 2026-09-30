@@ -2,6 +2,8 @@
 use super::bit as observed;
 use super::*;
 
+#[path = "csharp_practical_ordinary_control_pattern_proof_tests.rs"]
+mod proof_types;
 #[path = "csharp_practical_ordinary_control_pattern_route_tests.rs"]
 mod routes;
 

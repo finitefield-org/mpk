@@ -3,6 +3,7 @@
 use super::*;
 use sha2::{Digest, Sha256};
 const EQ_HEX: &[u8] = include_bytes!("../../../proofs/std/eq/std-eq.hex");
+const LOGIC_HEX: &[u8] = include_bytes!("../../../proofs/std/logic/std-logic.hex");
 const EQ: &str = "Std.Eq";
 const REFL: &str = "Std.Eq.refl";
 
@@ -46,13 +47,27 @@ impl OrdinaryOwnershipProofProgram {
 
 // Copy the exact registered equality foundation. No generated axiom, custom
 // equality interface or proof-node shortcut is introduced.
-fn equality(b: &mut Builder) -> R<()> {
-    if format!("{:x}", Sha256::digest(EQ_HEX))
-        != "80d71a2ef388a6ad1dea166cca4bd10d9093d538edc4999743b6fb1ad80d03a1"
-    {
+pub(super) fn equality(b: &mut Builder) -> R<()> {
+    foundation(
+        b,
+        EQ_HEX,
+        "80d71a2ef388a6ad1dea166cca4bd10d9093d538edc4999743b6fb1ad80d03a1",
+    )
+}
+
+pub(super) fn logic(b: &mut Builder) -> R<()> {
+    foundation(
+        b,
+        LOGIC_HEX,
+        "2321ea04d91d9fd8a6889a3f55dcdb955a2d6f38c32eb05efbc42d155b13805a",
+    )
+}
+
+fn foundation(b: &mut Builder, source: &[u8], expected_sha256: &str) -> R<()> {
+    if format!("{:x}", Sha256::digest(source)) != expected_sha256 {
         return Err(OrdinaryCarrierError::Linkage);
     }
-    let hex = std::str::from_utf8(EQ_HEX)
+    let hex = std::str::from_utf8(source)
         .map_err(|_| OrdinaryCarrierError::Linkage)?
         .split_whitespace()
         .collect::<String>();
@@ -62,6 +77,17 @@ fn equality(b: &mut Builder) -> R<()> {
         .collect::<R<Vec<_>>>()?;
     let c = decode_canonical_certificate(&bytes).map_err(|_| OrdinaryCarrierError::Linkage)?;
     if !c.proof_node_table.is_empty() || !c.theory_certificates.is_empty() {
+        return Err(OrdinaryCarrierError::Linkage);
+    }
+    let present = c
+        .declarations
+        .iter()
+        .filter(|d| b.globals.contains_key(&c.name_table[d.name as usize]))
+        .count();
+    if present == c.declarations.len() {
+        return Ok(());
+    }
+    if present != 0 {
         return Err(OrdinaryCarrierError::Linkage);
     }
     let mut names = vec![];
