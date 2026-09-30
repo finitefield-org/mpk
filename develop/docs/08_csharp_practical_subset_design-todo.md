@@ -2248,8 +2248,11 @@ first-failure/success agreement. The unchanged Rust kernel accepts every emitted
 certificate with zero axioms and rejects a well-typed wrong normal implementation
 only when the supplied proofs are present; its definition-only certificate
 accepts. Both targeted integration tests, Clippy and crate/support format pass.
-All 45 original operation pins are unchanged. Independent same-byte Go/Rust
-replay and exact public-source Linux replay are pending terminal receipts.
+All 45 original operation pins are unchanged. Fixed public source `aac0ea64`
+passes both targeted tests, Clippy and both format checks on the requested Linux
+server; the terminal audit verifies 916 source/fixture Git blobs and all 91 exact
+exported files. Independent same-byte Go/Rust replay remains pending its terminal
+receipt.
 All 31 pending operations and all 987 application proof IDs remain pending;
 W09 remains In progress, W10-W12 remain Blocked and the full T06 gate is deferred
 to W12. See `ordinary-foundation/unit-7-concrete-operation-proofs-review.md`.

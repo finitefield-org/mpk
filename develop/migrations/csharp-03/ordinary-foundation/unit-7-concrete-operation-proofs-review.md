@@ -4,8 +4,9 @@ This partial T06-W09 checkpoint supplies 436 universal proof candidates for the
 complete original W06 operation sequents across 45 actual source contexts. The
 unchanged Rust kernel accepts every emitted certificate with zero axioms. All
 31 pending operations and all 987 application proof IDs remain pending. W09,
-complete application assembly and the full T06 gate remain open. Independent
-Go/Rust replay and the requested Linux replay still require terminal receipts.
+complete application assembly and the full T06 gate remain open. The requested
+Linux replay passes at a fixed public commit. Independent Go/Rust replay still
+requires its terminal receipt.
 
 ## Complete original propositions
 
@@ -86,11 +87,14 @@ The required terminal receipt covers 45 positive certificates per backend,
 rejection per backend, with matching hashes/counts and zero axioms. This result
 remains pending until all 182 stages terminate and their raw outputs are audited.
 
-The requested Linux replay is prepared for an exact public source commit in a
-new detached checkout. It runs both targeted tests afresh, Clippy and both format
-checks, verifies source/fixture hashes before and after execution, and requires
-all 91 exported metadata/positive/negative files to match the local bytes. Its
-result remains pending until a terminal server receipt is fetched and audited.
+The requested Linux replay passes both targeted tests afresh, Clippy and both
+format checks at fixed public source `aac0ea64`. Its detached checkout
+matches all 916 source/fixture Git blobs and all three harness blobs. The terminal
+audit verifies every test log and the test binary, requires a clean checkout,
+and confirms all 91 exported metadata/positive/negative files match local bytes.
+The exact fetched archive, SSH execution receipt and independent audit script
+are retained in `verification-logs/concrete-operation-proofs/server-linux/`.
+Independent same-byte Go/Rust replay remains pending its terminal receipt.
 
 Construction-state operations, source ownership and the application-owned
 Money.create currency predicate account for the 31 explicit pending operations.
