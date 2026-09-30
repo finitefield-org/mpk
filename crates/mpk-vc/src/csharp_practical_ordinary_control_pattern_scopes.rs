@@ -7,12 +7,12 @@ use crate::csharp_practical_vir_model::{ControlVcProgram, PatternStepVc};
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
 pub struct OrdinaryControlPatternObservation {
     pub source: ControlBinding,
-    /// A single SSA definition in this exact native function. The original
-    /// observation point is retained separately, including before/after points.
+    /// The exact SSA definition or source slot phase in this native function.
+    /// The original observation point is retained separately.
     pub native_definition_point: ControlBinding,
     pub observation_argument_index: usize,
     pub native_argument_index: Option<usize>,
-    /// Exact governing producer argument, under the explicit capture premise.
+    /// Exact matched producer argument, under the explicit capture premise.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub captured_argument_index: Option<usize>,
 }
@@ -133,6 +133,10 @@ pub(super) fn emit(
             let [goal] = sequent.goals.as_slice() else {
                 return Err(OrdinaryCarrierError::Linkage);
             };
+            let source_observation = control
+                .pattern_observations()
+                .iter()
+                .find(|o| o.sequent_id == source_sequent_id);
             if sequent.function_id != pattern.function_id
                 || sequent.source_node_id != step.entry_node_id
                 || sequent.target_node_id.as_ref() != Some(&step.exit_node_id)
@@ -149,7 +153,10 @@ pub(super) fn emit(
                 excluded_unreachable: flow
                     .excluded_unreachable_source_node_ids
                     .contains(&step.source_node_id),
-                original_pattern_predicate_pending: true,
+                original_pattern_predicate_pending: !c.constants.contains_key(&format!(
+                    "Mpk.CSharp.Control.PatternStep.{}.{}",
+                    pattern.id, step.source_node_id
+                )),
             };
             for execution in flow
                 .source_executions
@@ -223,19 +230,71 @@ pub(super) fn emit(
                     }
                 }
                 for (i, source) in goal.bindings.iter().enumerate() {
-                    let point = values
-                        .get(&source.value_id)
-                        .filter(|p| source.kind == "ssa" && p.type_id == source.type_id)
-                        .ok_or(OrdinaryCarrierError::Linkage)?;
-                    let native_index = execution.arguments.iter().position(|a| a == point);
-                    let captured_index = if i == 0 {
+                    let point = if source.kind == "ssa" {
+                        values
+                            .get(&source.value_id)
+                            .filter(|p| p.type_id == source.type_id)
+                            .cloned()
+                            .ok_or(OrdinaryCarrierError::Linkage)?
+                    } else {
+                        let slot = source_observation
+                            .and_then(|o| o.slot.as_ref())
+                            .ok_or(OrdinaryCarrierError::Linkage)?;
+                        let phases = [
+                            (
+                                slot.before_assigned_index,
+                                "source_entry_assigned",
+                                &step.entry_node_id,
+                                SOURCE_BOOL,
+                            ),
+                            (
+                                slot.before_value_index,
+                                "source_entry_slot",
+                                &step.entry_node_id,
+                                slot.storage_type_id.as_str(),
+                            ),
+                            (
+                                slot.after_assigned_index,
+                                "source_exit_assigned",
+                                &step.exit_node_id,
+                                SOURCE_BOOL,
+                            ),
+                            (
+                                slot.after_value_index,
+                                "source_exit_slot",
+                                &step.exit_node_id,
+                                slot.storage_type_id.as_str(),
+                            ),
+                        ];
+                        if !phases.iter().any(|(index, kind, node, ty)| {
+                            *index == i
+                                && source.kind == *kind
+                                && &source.node_id == *node
+                                && source.type_id == *ty
+                                && source.value_id == slot.source.slot
+                                && source.edge_id.is_none()
+                        }) {
+                            return Err(OrdinaryCarrierError::Linkage);
+                        }
+                        source.clone()
+                    };
+                    let native_index = execution.arguments.iter().position(|a| a == &point);
+                    let captured_index = if source_observation.is_some() {
+                        p.capture_dependency.as_ref().and_then(|dependency| {
+                            dependency
+                                .argument_indices
+                                .iter()
+                                .copied()
+                                .find(|&index| p.arguments[index] == point)
+                        })
+                    } else if i == 0 {
                         p.capture_dependency
                             .as_ref()
                             .map(|dependency| dependency.governing_argument_index)
                     } else {
                         None
                     };
-                    if captured_index.is_some_and(|i| &p.arguments[i] != point) {
+                    if captured_index.is_some_and(|i| p.arguments[i] != point) {
                         return Err(OrdinaryCarrierError::Linkage);
                     }
                     let observed = argument(&mut p.arguments, source.clone());
@@ -265,19 +324,39 @@ pub(super) fn emit(
                         p.pending_observation_binding_indices.push(i);
                     }
                 }
-                let id = name(
+                let role = if source_observation.is_some() {
                     if captures.is_some() {
-                        "PatternExecutionScopeWithCapture"
+                        "PatternExecutionScopeWithCaptureAndSourceObservations"
                     } else {
-                        "PatternExecutionScope"
-                    },
-                    &(
-                        vir.hash(),
-                        &sequent.id,
-                        &execution.edge_id,
-                        &execution.component_map_sha256,
-                    ),
-                );
+                        "PatternExecutionScopeWithSourceObservations"
+                    }
+                } else if captures.is_some() {
+                    "PatternExecutionScopeWithCapture"
+                } else {
+                    "PatternExecutionScope"
+                };
+                let id = if source_observation.is_some() {
+                    name(
+                        role,
+                        &(
+                            vir.hash(),
+                            control.hash(),
+                            &sequent.id,
+                            &execution.edge_id,
+                            &execution.component_map_sha256,
+                        ),
+                    )
+                } else {
+                    name(
+                        role,
+                        &(
+                            vir.hash(),
+                            &sequent.id,
+                            &execution.edge_id,
+                            &execution.component_map_sha256,
+                        ),
+                    )
+                };
                 let depths = p
                     .arguments
                     .iter()

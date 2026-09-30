@@ -98,7 +98,7 @@ fn some_storage(b: &mut Builder, child: u32) -> R<String> {
     define(b, &name, &[child], depth, body)?;
     Ok(name)
 }
-fn transfer_equal(
+pub(super) fn transfer_equal(
     b: &mut Builder,
     depth: u32,
     slot: u32,

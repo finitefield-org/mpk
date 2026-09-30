@@ -2680,7 +2680,10 @@ impl Emitter<'_> {
         Ok(result)
     }
 }
-fn source_literal(type_id: &str, constant: &str) -> Result<MonomorphicValue, DataPhaseError> {
+pub(crate) fn source_literal(
+    type_id: &str,
+    constant: &str,
+) -> Result<MonomorphicValue, DataPhaseError> {
     let fail = DataPhaseError::Emission;
     let type_id = type_id.to_owned();
     let (kind, text) = constant.split_once(':').ok_or(fail.clone())?;

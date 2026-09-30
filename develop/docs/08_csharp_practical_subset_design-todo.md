@@ -2128,6 +2128,20 @@ server. Exact source/fixture hashes and the published Git commit are verified.
 The ordinary scope consumer and all original pattern bodies/proofs remain open.
 See `ordinary-foundation/unit-5-pattern-observations-review.md`.
 
+The ordinary pattern consumer now composes the richer observations into its
+native/capture scopes and defines 61 of the 102 original conditions: 17 exact
+source constants, nine selected-input joins, 19 assigned loads, 12 stores and
+four bindings with matching input/result types. Generated bodies pass 77
+positive and 150 changed-value/state observations. All 215 original sequents
+and the historical API pins survive; six targeted tests, Clippy and format pass
+locally. The richer scopes retain 113 paths and 423 observations, with one Unit
+conversion operand explicitly unconnected. The other 41 source conditions,
+execution/equivalence establishment and all 987 application proofs remain open.
+Same-byte Go/Rust checks and the exact-commit Linux replay are in progress.
+See `ordinary-foundation/unit-5-pattern-source-conditions-review.md`.
+Unit 5 and W09 remain In progress; W10-W12 remain Blocked and the full T06 gate
+stays deferred to W12.
+
 Owns: translation of every already-expanded concrete foundation definition in
 monomorphic VIR into ordinary core definitions and proof terms for all new
 finite values and operations; the successor program-assembly profile;
