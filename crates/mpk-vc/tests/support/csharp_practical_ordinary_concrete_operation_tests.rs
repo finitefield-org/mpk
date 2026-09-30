@@ -115,8 +115,14 @@ fn csharp_03_t06_w09_concrete_operation_proofs_original_source() {
                     let pair=and(&after,outcome);
                     let eq=equal(&after,pair[0]);
                     for (value,name) in [(eq[1],&a.actual_definition),(eq[2],&a.concrete_definition)] {
-                        let expected=(0..sequent.subjects.len()).fold(json!(["const",name]),|f,i|json!(["app",f,["var",sequent.subjects.len()-1-i+sequent.assumptions.len()]]));
+                        let mut original_body=body(&before,name);
+                        for _ in &sequent.subjects {
+                            let TermNode::Lam {body:inner,..}=before.term_table[original_body as usize] else {panic!("missing original failure-selection operand")};
+                            original_body=inner;
+                        }
+                        let expected=shifted(syntax(&before,original_body),sequent.assumptions.len());
                         assert_eq!(syntax(&after,value),expected);
+
                     }
                     outcome=pair[1];
                 }

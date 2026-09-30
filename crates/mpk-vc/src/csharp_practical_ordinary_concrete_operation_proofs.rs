@@ -122,6 +122,219 @@ fn reflexive(b: &mut Builder, carrier: u32, left: u32, right: u32) -> R<(u32, u3
     Ok((proposition, proof))
 }
 
+#[derive(Clone, Copy)]
+enum Replacement {
+    Global(u32),
+    Binder,
+}
+
+// Capture-preserving transformation of the existing ordinary DAG. This changes
+// no original declaration or source expression; it instantiates an Eq motive.
+fn transform(
+    b: &mut Builder,
+    root: u32,
+    amount: u32,
+    replacements: &BTreeMap<u32, Replacement>,
+) -> R<u32> {
+    fn visit(
+        b: &mut Builder,
+        t: u32,
+        depth: u32,
+        amount: u32,
+        replacements: &BTreeMap<u32, Replacement>,
+        memo: &mut BTreeMap<(u32, u32), u32>,
+    ) -> R<u32> {
+        if let Some(&v) = memo.get(&(t, depth)) {
+            return Ok(v);
+        }
+        let node = b.c.term_table[t as usize].clone();
+        let result = match node {
+            TermNode::Var(i) if i >= depth => {
+                b.var(i.checked_add(amount).ok_or(OrdinaryCarrierError::Limit)?)?
+            }
+            TermNode::Const { global, levels } if replacements.contains_key(&global) => {
+                if !levels.is_empty() {
+                    return Err(OrdinaryCarrierError::Linkage);
+                }
+                match replacements[&global] {
+                    Replacement::Global(global) => b.term(TermNode::Const { global, levels })?,
+                    Replacement::Binder => b.var(depth)?,
+                }
+            }
+            TermNode::App {
+                function,
+                arguments,
+            } => {
+                let f = visit(b, function, depth, amount, replacements, memo)?;
+                let a = arguments
+                    .into_iter()
+                    .map(|t| visit(b, t, depth, amount, replacements, memo))
+                    .collect::<R<Vec<_>>>()?;
+                b.app(f, a)?
+            }
+            TermNode::Lam { ty, body } => {
+                let ty = visit(b, ty, depth, amount, replacements, memo)?;
+                let body = visit(b, body, depth + 1, amount, replacements, memo)?;
+                b.lam(ty, body)?
+            }
+            TermNode::Pi { ty, body } => {
+                let ty = visit(b, ty, depth, amount, replacements, memo)?;
+                let body = visit(b, body, depth + 1, amount, replacements, memo)?;
+                b.pi(ty, body)?
+            }
+            TermNode::Let { ty, value, body } => {
+                let ty = visit(b, ty, depth, amount, replacements, memo)?;
+                let value = visit(b, value, depth, amount, replacements, memo)?;
+                let body = visit(b, body, depth + 1, amount, replacements, memo)?;
+                b.term(TermNode::Let { ty, value, body })?
+            }
+            other => b.term(other)?,
+        };
+        memo.insert((t, depth), result);
+        Ok(result)
+    }
+    visit(b, root, 0, amount, replacements, &mut BTreeMap::new())
+}
+
+fn global(b: &Builder, name: &str) -> R<u32> {
+    b.globals
+        .get(name)
+        .copied()
+        .ok_or(OrdinaryCarrierError::Linkage)
+}
+
+fn function_equality(
+    b: &mut Builder,
+    left: &str,
+    right: &str,
+    program_hash: &str,
+) -> R<(u32, u32)> {
+    let l = global(b, left)?;
+    let r = global(b, right)?;
+    let DeclarationKind::Def { ty, .. } = b.c.declarations[l as usize].kind else {
+        return Err(OrdinaryCarrierError::Linkage);
+    };
+    let DeclarationKind::Def { ty: right_ty, .. } = b.c.declarations[r as usize].kind else {
+        return Err(OrdinaryCarrierError::Linkage);
+    };
+    if ty != right_ty {
+        return Err(OrdinaryCarrierError::Linkage);
+    }
+    let hash = format!(
+        "{:x}",
+        Sha256::digest(
+            serde_json::to_vec(&(program_hash, left, right))
+                .map_err(|_| OrdinaryCarrierError::Linkage)?
+        )
+    );
+    let name = format!("{PREFIX}.ConcreteOperationProof.Function.H{hash}");
+    if !b.globals.contains_key(&name) {
+        let actual = b.constant(left)?;
+        let concrete = b.constant(right)?;
+        let (proposition, proof) = reflexive(b, ty, actual, concrete)?;
+        publish_theorem(b, &name, proposition, proof)?;
+    }
+    Ok((ty, b.constant(&name)?))
+}
+
+fn rewrite_operand(
+    b: &mut Builder,
+    carrier: u32,
+    left: u32,
+    initial_right: u32,
+    pairs: &[(String, String)],
+    program_hash: &str,
+) -> R<(u32, u32)> {
+    let mut right = initial_right;
+    // A matching complete operand is required before any transport. Host-side
+    // replacement does not admit a changed mask or omitted failure.
+    if right != left {
+        return Err(OrdinaryCarrierError::Linkage);
+    }
+    let mut proof = call(b, "Std.Eq.refl", vec![carrier, left])?;
+    for (actual, concrete) in pairs {
+        let actual_global = global(b, actual)?;
+        let concrete_global = global(b, concrete)?;
+        let next = transform(
+            b,
+            right,
+            0,
+            &BTreeMap::from([(actual_global, Replacement::Global(concrete_global))]),
+        )?;
+        if next == right {
+            continue;
+        }
+        let (function_type, equation) = function_equality(b, actual, concrete, program_hash)?;
+        let shifted_left = transform(b, left, 1, &BTreeMap::new())?;
+        let abstract_right = transform(
+            b,
+            right,
+            1,
+            &BTreeMap::from([(actual_global, Replacement::Binder)]),
+        )?;
+        let predicate = call(b, "Std.Eq", vec![carrier, shifted_left, abstract_right])?;
+        let predicate = b.lam(function_type, predicate)?;
+        let actual = b.constant(actual)?;
+        let concrete = b.constant(concrete)?;
+        proof = call(
+            b,
+            "Std.Eq.rewrite",
+            vec![function_type, actual, concrete, predicate, equation, proof],
+        )?;
+        right = next;
+    }
+    Ok((proof, right))
+}
+
+fn mask_body(b: &mut Builder, name: &str, count: usize, offset: u32) -> R<u32> {
+    let DeclarationKind::Def { mut value, .. } = b.c.declarations[global(b, name)? as usize].kind
+    else {
+        return Err(OrdinaryCarrierError::Linkage);
+    };
+    for _ in 0..count {
+        let TermNode::Lam { body, .. } = b.c.term_table[value as usize] else {
+            return Err(OrdinaryCarrierError::Linkage);
+        };
+        value = body;
+    }
+    transform(b, value, offset, &BTreeMap::new())
+}
+
+fn mask_equality(
+    b: &mut Builder,
+    actual: &str,
+    concrete: &str,
+    count: usize,
+    offset: u32,
+    d: &OrdinaryConcreteOperationDefinition,
+    program_hash: &str,
+) -> R<(u32, u32)> {
+    let left = mask_body(b, actual, count, offset)?;
+    let right = mask_body(b, concrete, count, offset)?;
+    let pairs = d
+        .failures
+        .iter()
+        .map(|f| {
+            (
+                f.failure_definition.clone(),
+                f.concrete_failure_definition.clone(),
+            )
+        })
+        .collect::<Vec<_>>();
+    let replacements = pairs
+        .iter()
+        .map(|(a, c)| Ok((global(b, c)?, Replacement::Global(global(b, a)?))))
+        .collect::<R<BTreeMap<_, _>>>()?;
+    let initial = transform(b, right, 0, &replacements)?;
+    let boolean = b.boolean;
+    let (proof, final_right) = rewrite_operand(b, boolean, left, initial, &pairs, program_hash)?;
+    if final_right != right {
+        return Err(OrdinaryCarrierError::Linkage);
+    }
+    let ty = call(b, "Std.Eq", vec![boolean, left, right])?;
+    Ok((ty, proof))
+}
+
 fn conjoin(b: &mut Builder, statements: &[(u32, u32)]) -> R<(u32, u32)> {
     let (&last, rest) = statements
         .split_last()
@@ -181,15 +394,27 @@ fn operands<'a>(
 
 fn normal_equality(
     b: &mut Builder,
-    operands: &Operands<'_>,
     sequent: &BindingSequent,
     symbols: &BTreeMap<String, String>,
     carrier: u32,
     offset: u32,
+    d: &OrdinaryConcreteOperationDefinition,
+    program_hash: &str,
 ) -> R<(u32, u32)> {
+    let operands = operands(sequent, d)?;
     let left = term(b, operands.left, &sequent.subjects, symbols, offset)?;
     let right = term(b, operands.right, &sequent.subjects, symbols, offset)?;
-    reflexive(b, carrier, left, right)
+    let replacements = BTreeMap::from([(
+        global(b, &d.concrete_definition)?,
+        Replacement::Global(global(b, &d.normal_definition)?),
+    )]);
+    let initial = transform(b, right, 0, &replacements)?;
+    let pairs = vec![(d.normal_definition.clone(), d.concrete_definition.clone())];
+    let (proof, final_right) = rewrite_operand(b, carrier, left, initial, &pairs, program_hash)?;
+    if final_right != right {
+        return Err(OrdinaryCarrierError::Linkage);
+    }
+    Ok((call(b, "Std.Eq", vec![carrier, left, right])?, proof))
 }
 
 fn named(b: &mut Builder, name: &str, count: usize, offset: u32) -> R<u32> {
@@ -283,26 +508,28 @@ fn emit(
         let offset = premises.len() as u32;
         let guard = term(&mut b, operands.guard, &sequent.subjects, &symbols, offset)?;
         let guard = truth(&mut b, guard)?;
-        let (normal_type, normal_proof) =
-            normal_equality(&mut b, &operands, sequent, &symbols, carrier, offset + 1)?;
+        let (normal_type, normal_proof) = normal_equality(
+            &mut b,
+            sequent,
+            &symbols,
+            carrier,
+            offset + 1,
+            d,
+            &original_program_sha256,
+        )?;
         let guarded_normal = (b.pi(guard, normal_type)?, b.lam(guard, normal_proof)?);
         let mut statements = vec![];
         let mut all_outcomes = vec![];
         for f in &d.failures {
-            let actual = named(
+            statements.push(mask_equality(
                 &mut b,
                 &f.first_failure_definition,
-                sequent.subjects.len(),
-                offset,
-            )?;
-            let concrete = named(
-                &mut b,
                 &f.concrete_first_failure_definition,
                 sequent.subjects.len(),
                 offset,
-            )?;
-            let boolean = b.boolean;
-            statements.push(reflexive(&mut b, boolean, actual, concrete)?);
+                d,
+                &original_program_sha256,
+            )?);
             all_outcomes.push(OrdinaryConcreteOperationAgreement {
                 outcome: "first_failure".into(),
                 failure_label: Some(f.label.clone()),
@@ -316,14 +543,15 @@ fn emit(
             sequent.subjects.len(),
             offset,
         )?;
-        let concrete = named(
+        statements.push(mask_equality(
             &mut b,
+            &d.success_definition,
             &d.concrete_success_definition,
             sequent.subjects.len(),
             offset,
-        )?;
-        let boolean = b.boolean;
-        statements.push(reflexive(&mut b, boolean, actual, concrete)?);
+            d,
+            &original_program_sha256,
+        )?);
         all_outcomes.push(OrdinaryConcreteOperationAgreement {
             outcome: "success".into(),
             failure_label: None,

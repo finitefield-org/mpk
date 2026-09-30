@@ -1,0 +1,80 @@
+{
+  "child_pid": 78049,
+  "command": [
+    "cargo",
+    "clippy",
+    "-p",
+    "mpk-vc",
+    "--lib",
+    "--tests",
+    "--",
+    "-D",
+    "warnings"
+  ],
+  "full_t_gate": "deferred to T06-W12",
+  "process_pid": 75625,
+  "selection_reason": "Check complete original W06 concrete-definition equivalence sequents in all 45 source contexts: all input domains and normal guards, every ordered first-failure and success equality, and the complete normal result. Require actual Rust kernel acceptance for every emitted certificate and core rejection of a well-typed wrong implementation whose definition-only certificate remains accepted. Preserve all 436 original defined operations, 31 pending operations and all 987 application IDs. Recheck all 45 original operation pins; the appended proof route does not change the old generator or shared Builder.resume. Existing type proof generators and pattern routes are unchanged. Clippy covers library/tests and crate/support format checks run. The full T06 gate remains deferred to W12.",
+  "stage": "clippy",
+  "stages": [
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_concrete_operation_proofs_original_source",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 481.652,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T10:37:35.218634+00:00",
+      "log_sha256": "43616f82a3cb5b3e047280e18292c4fe1a60ae1d85c04d9cef99ae707cdab083",
+      "stage": "original-operation-proofs",
+      "started_at": "2026-09-30T10:29:33.566648+00:00"
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_concrete_operations_original_source_certificates",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 11.867,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T10:37:47.117137+00:00",
+      "log_sha256": "e30de571e4b80fd7e0efc7ed55881d743152dad6502bc6e117ea1923bb259627",
+      "stage": "original-operation-pins",
+      "started_at": "2026-09-30T10:37:35.250053+00:00"
+    },
+    {
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--tests",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "elapsed_seconds": 60.275,
+      "exit_code": 101,
+      "finished_at": "2026-09-30T10:38:47.424395+00:00",
+      "log_sha256": "295a7a7ba01fa83b5f9d0a7e8eb3dbd4e1d10d9ae07fd19b66dfa4231bf35351",
+      "stage": "clippy",
+      "started_at": "2026-09-30T10:37:47.149473+00:00"
+    }
+  ],
+  "status": "failed"
+}

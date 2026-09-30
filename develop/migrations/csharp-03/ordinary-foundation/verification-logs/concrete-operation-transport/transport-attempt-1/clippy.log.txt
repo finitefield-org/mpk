@@ -1,0 +1,45 @@
+   Compiling version_check v0.9.5
+    Checking typenum v1.20.1
+   Compiling generic-array v0.14.7
+   Compiling proc-macro2 v1.0.106
+   Compiling libc v0.2.186
+   Compiling quote v1.0.46
+   Compiling unicode-ident v1.0.24
+    Checking crypto-common v0.1.7
+    Checking block-buffer v0.10.4
+   Compiling serde_core v1.0.228
+    Checking cpufeatures v0.2.17
+    Checking digest v0.10.7
+   Compiling zmij v1.0.21
+    Checking cfg-if v1.0.4
+    Checking sha2 v0.10.9
+   Compiling syn v2.0.118
+   Compiling serde v1.0.228
+   Compiling serde_json v1.0.150
+    Checking mpk-core v0.1.0 (/private/tmp/mpk-w09-operation-proof-transport/crates/mpk-core)
+   Compiling serde_derive v1.0.228
+    Checking mpk-cert v0.1.0 (/private/tmp/mpk-w09-operation-proof-transport/crates/mpk-cert)
+    Checking itoa v1.0.18
+    Checking memchr v2.8.2
+    Checking mpk-theory v0.1.0 (/private/tmp/mpk-w09-operation-proof-transport/crates/mpk-theory)
+    Checking mpk-vc v0.1.0 (/private/tmp/mpk-w09-operation-proof-transport/crates/mpk-vc)
+    Checking mpk-kernel v0.1.0 (/private/tmp/mpk-w09-operation-proof-transport/crates/mpk-kernel)
+error: this function has too many arguments (8/7)
+   --> crates/mpk-vc/src/csharp_practical_ordinary_concrete_operation_proofs.rs:395:1
+    |
+395 | / fn normal_equality(
+396 | |     b: &mut Builder,
+397 | |     operands: &Operands<'_>,
+398 | |     sequent: &BindingSequent,
+...   |
+403 | |     program_hash: &str,
+404 | | ) -> R<(u32, u32)> {
+    | |__________________^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#too_many_arguments
+    = note: `-D clippy::too-many-arguments` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::too_many_arguments)]`
+
+error: could not compile `mpk-vc` (lib) due to 1 previous error
+warning: build failed, waiting for other jobs to finish...
+error: could not compile `mpk-vc` (lib test) due to 1 previous error

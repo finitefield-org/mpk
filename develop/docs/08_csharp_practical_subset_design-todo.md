@@ -2257,6 +2257,20 @@ All 31 pending operations and all 987 application proof IDs remain pending;
 W09 remains In progress, W10-W12 remain Blocked and the full T06 gate is deferred
 to W12. See `ordinary-foundation/unit-7-concrete-operation-proofs-review.md`.
 
+The same 436 complete original operation sequents now use checked ordinary
+wrapper-function equations and `Std.Eq.rewrite` to preserve the complete result
+and ordered first-failure/success masks while reducing repeated circuit
+substitution. All 45 original metadata records agree with the preceding recipe
+except emitted certificate hashes; original definitions and pins are unchanged.
+Both targeted integrations, Clippy and crate/support format pass locally,
+including actual Rust kernel checking of all certificates and a well-typed wrong
+implementation rejection. The exact tested source/fixtures are promoted with a
+743-source/173-fixture byte audit. Same-byte dual checking and Linux replay of
+this new recipe remain pending terminal receipts. All 31 pending operations and
+all 987 application IDs remain pending, W09 stays In progress and the full T06
+gate stays deferred to W12. See
+`ordinary-foundation/unit-7-concrete-operation-transport-review.md`.
+
 Owns: translation of every already-expanded concrete foundation definition in
 monomorphic VIR into ordinary core definitions and proof terms for all new
 finite values and operations; the successor program-assembly profile;
