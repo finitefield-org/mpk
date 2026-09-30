@@ -71,5 +71,11 @@ input/binary/raw-report/stderr comparison. All positive hashes and module/
 declaration/axiom counts agree with zero axioms; both checkers reject all hash
 mutations and both typed wrong proofs at core checking. Their actual inputs
 exactly match the final proof exports after the semantic test fixture repair.
-Requested Linux verification remains pending an exact published-source terminal receipt.
+The requested Linux server passes all four targeted tests afresh, Clippy
+and both format checks at fixed public source `5a1b89a2`. Its clean detached
+checkout matches all 920 source/fixture Git blobs and all three harness blobs.
+The terminal audit verifies every test log and binary hash, all 92 new-route
+outputs matching local bytes and all 91 unchanged legacy outputs. The fetched
+archive, SSH execution receipt and audit scripts are retained in
+verification-logs/construction-storage-types/server-linux/.
 See verification-logs/construction-storage-types/.

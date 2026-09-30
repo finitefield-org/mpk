@@ -2309,7 +2309,10 @@ checks pass locally. The old 81-proof route, all 45 original type pins and all
 173 fixture hashes. The independently audited dual-checker receipt passes all
 184 stages (26 fresh and 158 retained only after exact input/binary/raw-report/
 stderr comparison), with matching positive hashes/counts, zero axioms and both
-typed core rejections. Exact published-source Linux replay remains pending. All 25 remaining operations,
+typed core rejections. Fixed public source `5a1b89a2` also passes all four
+targeted tests, Clippy and both format checks on the requested Linux server. Its
+terminal audit verifies all 920 source/fixture Git blobs, all 92 exact new-route
+exports and all 91 unchanged legacy exports. All 25 remaining operations,
 seven original is_binding refinements, source ownership and all 987 application
 proof IDs stay pending. W09 remains In progress, W10-W12 remain Blocked and the
 full T06 gate remains deferred to W12. See
