@@ -2146,7 +2146,7 @@ See `ordinary-foundation/unit-5-pattern-source-conditions-review.md`.
 Unit 5 and W09 remain In progress; W10-W12 remain Blocked and the full T06 gate
 stays deferred to W12.
 
-The next source-condition checkpoint defines 81 of the same 102 conditions.
+The 81-condition checkpoint defines 81 of the same 102 conditions.
 Its 20 additions compose ordinary guards and result relations for updates,
 arithmetic/equality/comparisons, exact type tests, nullable payload binding,
 stored-field/array reads, string length and null conversion. The candidate
@@ -2170,7 +2170,11 @@ Capture scopes record 54 route transports under explicit native execution
 premises and constrain the erased null Unit operand without inventing a native
 argument. Candidate tests cover all 88 Boolean branch states and preserve the
 historical condition/native bodies. Seven targeted tests, Clippy and format
-pass locally; dual-checker and specified Linux verification is in progress.
+pass locally and at the exact published `a9d2e6fe` Linux checkout. All 732
+distinct inputs match their Git blobs; the checkout, logs and binaries pass
+an independent audit. All 72 Go/Rust stages and their report audit pass,
+with 28 new stages and 44 retained after exact input/binary comparison.
+Both checkers report zero axioms and reject hash corruption.
 All execution/equivalence/application
 proofs remain open; this does not complete unit 5 or W09.
 See `ordinary-foundation/unit-5-pattern-routes-review.md`.

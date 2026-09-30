@@ -39,8 +39,13 @@ test, capture compatibility, typed observations, three scope units, Clippy
 and format. These cover the changed conditions and their consumers; unrelated
 parser, scalar and codec tests are not repeated. The manifest pins 388 source
 and 348 fixture hashes, comprising 732 distinct inputs. All seven targeted
-tests, Clippy and format pass locally. Same-byte dual-checker validation and
-the specified Linux replay remain in progress. Receipts are under
+tests, Clippy and format pass locally and on the specified Linux server at
+the exact published `a9d2e6fe` commit. The clean checkout, all 732 Git blobs,
+execution logs and both test binaries pass an independent audit. All 72
+Go/Rust stages and their independent report audit pass: 28 were executed for
+the seven changed certificates, and 44 predecessor exits were retained after
+exact input/binary comparison. Both checkers report zero axioms and reject
+hash corruption. Receipts are under
 `verification-logs/control-predicates/with-pattern-routes/`.
 
 Condition availability does not establish source execution, native/source

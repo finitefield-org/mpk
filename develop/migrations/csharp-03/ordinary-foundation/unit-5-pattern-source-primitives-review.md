@@ -1,5 +1,8 @@
 # Original pattern primitive conditions — partial W09 review
 
+Historical 81-condition checkpoint. The later 102-condition source-route mode
+is recorded in `unit-5-pattern-routes-review.md`.
+
 This extends the historical 61-condition checkpoint in
 `unit-5-pattern-source-conditions-review.md` to 81 of the 102 original
 PatternStep conditions. All 215 sequents and the 18 original source contexts
