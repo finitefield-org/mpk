@@ -1,0 +1,83 @@
+{
+  "status": "passed",
+  "selection_reason": "Check complete universal refinement fixtures at their exact named types with unchanged Go and Rust binaries. An incorrect proof can pass structural linkage but must reject at core checking; compare exact export, certificate and axiom-report hashes. Original source/application execution proofs remain pending.",
+  "binaries": {
+    "go": {
+      "path": "/tmp/mpk-w09-default-closed-proofs/go-checker",
+      "sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2"
+    },
+    "rust": {
+      "path": "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91"
+    }
+  },
+  "stages": [
+    {
+      "case": "candidate",
+      "backend": "go",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-pattern-candidates/unit-checks/candidate-go.mpcert"
+      ],
+      "started_at": "2026-09-30T05:10:52.989560+00:00",
+      "finished_at": "2026-09-30T05:10:53.005035+00:00",
+      "elapsed_seconds": 0.015,
+      "exit_code": 0,
+      "certificate_sha256": "989b2c602b27528b2863fc85a1cdd03ca55f0c16fa6d239b1905a47b4551f60d",
+      "input_file_sha256": "45f1681bf9c2b32238dc9d30aa9fb8da2ba9c69bde304574fa80e1f301d46f5f",
+      "report_sha256": "34eed9b9cff92d6ebe27bbbd5a5efe6248da45a468f6a4563cb4718297f3623b",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "case": "candidate",
+      "backend": "rust",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-pattern-candidates/unit-checks/candidate-rust.mpcert"
+      ],
+      "started_at": "2026-09-30T05:10:53.005944+00:00",
+      "finished_at": "2026-09-30T05:10:53.015070+00:00",
+      "elapsed_seconds": 0.009,
+      "exit_code": 0,
+      "certificate_sha256": "989b2c602b27528b2863fc85a1cdd03ca55f0c16fa6d239b1905a47b4551f60d",
+      "input_file_sha256": "45f1681bf9c2b32238dc9d30aa9fb8da2ba9c69bde304574fa80e1f301d46f5f",
+      "report_sha256": "7ac147291884c08f9258a03e42697a6ab9b264dde1c53e433d7992ea763fff90",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "case": "wrong-candidate",
+      "backend": "go",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-pattern-candidates/unit-checks/wrong-candidate-go.mpcert"
+      ],
+      "started_at": "2026-09-30T05:10:53.015499+00:00",
+      "finished_at": "2026-09-30T05:10:53.025908+00:00",
+      "elapsed_seconds": 0.01,
+      "exit_code": 1,
+      "certificate_sha256": "3059b2d7de82cc0e670030a1e0cb5da024b88170629d63acb3608a8dc572d987",
+      "input_file_sha256": "b8f56e82b65950d29a94d5f054c36b87b0acc00b39a6364886783acc9f4b6357",
+      "report_sha256": "39c694741f863cf29d79bb7e9b5cac7c6190f58f6789ed769b499aad2ea53e45",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "case": "wrong-candidate",
+      "backend": "rust",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-pattern-candidates/unit-checks/wrong-candidate-rust.mpcert"
+      ],
+      "started_at": "2026-09-30T05:10:53.026217+00:00",
+      "finished_at": "2026-09-30T05:10:53.031721+00:00",
+      "elapsed_seconds": 0.006,
+      "exit_code": 1,
+      "certificate_sha256": "3059b2d7de82cc0e670030a1e0cb5da024b88170629d63acb3608a8dc572d987",
+      "input_file_sha256": "b8f56e82b65950d29a94d5f054c36b87b0acc00b39a6364886783acc9f4b6357",
+      "report_sha256": "d9826273c2a9a25701fefa8c42d9897d74d2f0d15dd5e57c4ddbcacdf6a94749",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "full_t_gate": "deferred to T06-W12"
+}

@@ -1,0 +1,78 @@
+{
+  "status": "passed",
+  "selection_reason": "Test the new candidate envelope and all affected scope/projection consumers, then bind all 113 reconstructed original paths and reject all helper-only original certificates across 18 contexts. Preserve all old declaration bodies and source goals. Clippy includes library and integration targets. Full T06 gate deferred to W12.",
+  "unique_tests_passed": 8,
+  "stages": [
+    {
+      "stage": "scope-units",
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "pattern_",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-09-30T05:10:53.717849+00:00",
+      "finished_at": "2026-09-30T05:10:53.849341+00:00",
+      "elapsed_seconds": 0.131,
+      "log_sha256": "378c90d99740560667c387f576f590c0488d00a4ed8c3ad46e8069fdf9fb67f5"
+    },
+    {
+      "stage": "original-contexts",
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_packed_pattern_proof_types_cover_complete_original_environments",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-09-30T05:10:53.913251+00:00",
+      "finished_at": "2026-09-30T05:19:53.457693+00:00",
+      "elapsed_seconds": 539.546,
+      "log_sha256": "8c2c134b8bf5a7825697e5babe98fa6036f2a5cbf3b7b6bb6cc410fe39193917"
+    },
+    {
+      "stage": "clippy",
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--tests",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-09-30T05:19:53.530078+00:00",
+      "finished_at": "2026-09-30T05:20:37.471398+00:00",
+      "elapsed_seconds": 43.941,
+      "log_sha256": "99b8939dac176009198c6671b82b8211822209529335c07d90739f7aef8959f0"
+    },
+    {
+      "stage": "format",
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-09-30T05:20:37.564612+00:00",
+      "finished_at": "2026-09-30T05:20:41.301755+00:00",
+      "elapsed_seconds": 3.737,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

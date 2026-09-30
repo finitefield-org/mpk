@@ -80,7 +80,7 @@ fn premises(b: &mut Builder, p: &OrdinaryControlPatternExecutionScope, offset: u
 }
 
 // Nonempty right-associated conjunction; no true sentinel or omitted premise.
-fn conjunctions(b: &mut Builder, terms: &[u32]) -> R<Vec<u32>> {
+pub(super) fn conjunctions(b: &mut Builder, terms: &[u32]) -> R<Vec<u32>> {
     let mut tails = terms.to_vec();
     if tails.is_empty() {
         return Err(OrdinaryCarrierError::Linkage);
@@ -91,7 +91,12 @@ fn conjunctions(b: &mut Builder, terms: &[u32]) -> R<Vec<u32>> {
     Ok(tails)
 }
 
-fn projection(b: &mut Builder, terms: &[u32], shifted: &[u32], selected: usize) -> R<u32> {
+pub(super) fn projection(
+    b: &mut Builder,
+    terms: &[u32],
+    shifted: &[u32],
+    selected: usize,
+) -> R<u32> {
     if terms.len() != shifted.len() || selected >= terms.len() {
         return Err(OrdinaryCarrierError::Linkage);
     }

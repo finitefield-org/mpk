@@ -26,6 +26,13 @@ pub use pattern_proofs::{
     OrdinaryControlPatternEnvironment, OrdinaryControlPatternEnvironmentField,
     OrdinaryControlPatternPremiseProof, OrdinaryControlPatternProofType,
 };
+#[path = "csharp_practical_ordinary_control_pattern_candidates.rs"]
+mod pattern_candidates;
+pub use pattern_candidates::{
+    csharp_practical_ordinary_pattern_refinement_candidate_theorems,
+    link_csharp_practical_ordinary_pattern_refinement_candidate,
+    OrdinaryControlPatternRefinementCandidate, OrdinaryControlPatternRefinementCandidateTheorem,
+};
 
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
 pub struct OrdinaryControlMeasureDefinition {

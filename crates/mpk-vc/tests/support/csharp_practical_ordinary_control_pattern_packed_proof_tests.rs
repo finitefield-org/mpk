@@ -68,6 +68,25 @@ fn original_packed_types() {
                 vir,
             )
             .unwrap_or_else(|e| panic!("{id}: {e:?}"));
+        // A helper-only certificate can never supply the required refinements.
+        assert!(link_csharp_practical_ordinary_pattern_refinement_candidate(
+            &p,
+            p.certificate_bytes()
+        )
+        .is_err());
+        if !p.pattern_proof_types().is_empty() {
+            let expected =
+                csharp_practical_ordinary_pattern_refinement_candidate_theorems(&p).unwrap();
+            assert_eq!(expected.len(), p.pattern_proof_types().len());
+            for (theorem, path) in expected.iter().zip(p.pattern_proof_types()) {
+                assert_eq!(theorem.source_sequent_id, path.source_sequent_id);
+                assert_eq!(theorem.native_edge_id, path.native_edge_id);
+                assert_eq!(
+                    Some(&theorem.proposition_definition),
+                    path.refinement_proposition_definition.as_ref()
+                );
+            }
+        }
         let old = mpk_cert::decode_canonical_certificate(prior.certificate_bytes()).unwrap();
         let cert = mpk_cert::decode_canonical_certificate(p.certificate_bytes()).unwrap();
         let bodies = declaration_bodies(&cert);

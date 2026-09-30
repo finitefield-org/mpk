@@ -2186,11 +2186,28 @@ and kernel checks: 113 path proposition types, 703 complete premises/projections
 and 37,598 field-bit observations. Both unchanged checkers accept the universal
 field read-after-write fixture with zero axioms and matching hashes and reject a
 well-typed no-op write at core checking. Five affected scope units, the exact-name
-ownership unit, Clippy and format pass. The source checkpoint's Linux replay is
-pending. Source-refinement, execution-establishment and all 987 application
+ownership unit, Clippy and format pass. The fixed source commit `130a3ca4`
+also passes eight unique targeted tests, Clippy and format on the requested
+Linux server; the terminal audit verifies 926 Git blobs and all log/binary
+hashes. The separate original-certificate dual-checker replay is still pending.
+Source-refinement, execution-establishment and all 987 application
 proofs remain open; unit 5 and W09 remain In progress, W10-W12 remain Blocked and
 the full T06 gate remains deferred to W12.
 See `ordinary-foundation/unit-5-packed-pattern-proof-types-review.md`.
+
+The private refinement-candidate route binds every required theorem to the
+whole reconstructed source/context program and its exact original named
+refinement type. Missing paths, changed original declarations, wrong context
+and substituted theorem types are rejected; ordinary auxiliary lemmas are
+allowed without weakening the required type. Linkage always records proof and
+application checks as pending. Two targeted units pass, including a used helper;
+both unchanged checkers accept the correct universal fixture with zero axioms
+and reject the wrong proof at core checking. The 18-context replay binds all
+113 required paths and preserves all 36 original metadata/certificate pins.
+Clippy and format pass. Linux replay of this new candidate source is pending.
+This is a partial unit 7 checkpoint; W09 and all 987 application proofs remain
+open, and the full T06 gate remains deferred to W12.
+See `ordinary-foundation/unit-7-pattern-refinement-candidates-review.md`.
 
 Owns: translation of every already-expanded concrete foundation definition in
 monomorphic VIR into ordinary core definitions and proof terms for all new

@@ -33,8 +33,13 @@ test selection, unchanged checker hashes and source manifests are under
 `verification-logs/control-predicates/with-packed-pattern-proof-types/`.
 The initial ownership filter selected zero tests; its receipt is retained and
 the separate exact-name passing run provides the ownership test evidence.
-Linux replay uses a separate checkout of the fixed public source commit. Its
-result is pending at this checkpoint. The packed source is published on a
+Linux replay passed eight unique targeted tests, Clippy and format on the
+fixed public source commit `130a3ca4380868953f8ec56c5aad99582715e089`.
+The final audit verified 926 distinct Git blobs, a clean checkout, all stage
+log hashes and both compiled test-binary hashes. Its terminal receipts are
+under `server-linux/final/`. The full 72-stage original-certificate Go/Rust
+replay is still running separately; the terminal Linux result does not claim
+completion of that replay. The packed source is published on a
 separate branch so the previous source checkout can finish its live tests
 without source edits.
 

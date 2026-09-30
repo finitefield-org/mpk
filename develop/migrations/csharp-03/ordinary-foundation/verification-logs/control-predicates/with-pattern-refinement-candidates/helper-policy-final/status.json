@@ -1,0 +1,41 @@
+{
+  "status": "passed",
+  "selection_reason": "Recheck Clippy and format after allowing ordinary auxiliary definitions and theorem candidates. Attempt 3 tests exact required declarations, a used checked helper, original-prefix preservation, wrong-context rejection and kernel rejection of incorrect proofs. The previously passed 18-context generation replay remains applicable: producers and required theorem naming/type generation are unchanged. Full T06 gate deferred to W12.",
+  "unique_tests_passed": 0,
+  "stages": [
+    {
+      "stage": "clippy",
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--tests",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-09-30T05:33:55.815596+00:00",
+      "finished_at": "2026-09-30T05:34:12.487254+00:00",
+      "elapsed_seconds": 16.671,
+      "log_sha256": "16de3c58ba8e95f72a17180a6a95b8250346024c3ad66342bf1cbc515ef52412"
+    },
+    {
+      "stage": "format",
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-09-30T05:34:12.569937+00:00",
+      "finished_at": "2026-09-30T05:34:17.026446+00:00",
+      "elapsed_seconds": 4.456,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

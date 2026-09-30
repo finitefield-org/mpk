@@ -1854,6 +1854,7 @@ pub use control_edges::{
 #[path = "csharp_practical_ordinary_control_predicates.rs"]
 mod control_predicates;
 pub use control_predicates::{
+    csharp_practical_ordinary_pattern_refinement_candidate_theorems,
     generate_csharp_practical_ordinary_control_predicates,
     generate_csharp_practical_ordinary_control_predicates_with_execution,
     generate_csharp_practical_ordinary_control_predicates_with_packed_pattern_proof_types,
@@ -1870,13 +1871,14 @@ pub use control_predicates::{
     import_csharp_practical_ordinary_control_predicates_with_pattern_proof_types,
     import_csharp_practical_ordinary_control_predicates_with_pattern_routes,
     import_csharp_practical_ordinary_control_predicates_with_pattern_scopes,
-    OrdinaryControlGuardDependency, OrdinaryControlMeasureDefinition,
-    OrdinaryControlPatternCapture, OrdinaryControlPatternCaptureAlternative,
-    OrdinaryControlPatternCaptureDependency, OrdinaryControlPatternEnvironment,
-    OrdinaryControlPatternEnvironmentField, OrdinaryControlPatternExecutionScope,
-    OrdinaryControlPatternObservation, OrdinaryControlPatternPremiseProof,
-    OrdinaryControlPatternProofType, OrdinaryControlPatternRouteObservation,
-    OrdinaryControlPatternScope, OrdinaryControlPatternSourceDefinition,
-    OrdinaryControlPredicateDefinition, OrdinaryControlPredicateProgram,
-    OrdinaryControlSequentDefinition,
+    link_csharp_practical_ordinary_pattern_refinement_candidate, OrdinaryControlGuardDependency,
+    OrdinaryControlMeasureDefinition, OrdinaryControlPatternCapture,
+    OrdinaryControlPatternCaptureAlternative, OrdinaryControlPatternCaptureDependency,
+    OrdinaryControlPatternEnvironment, OrdinaryControlPatternEnvironmentField,
+    OrdinaryControlPatternExecutionScope, OrdinaryControlPatternObservation,
+    OrdinaryControlPatternPremiseProof, OrdinaryControlPatternProofType,
+    OrdinaryControlPatternRefinementCandidate, OrdinaryControlPatternRefinementCandidateTheorem,
+    OrdinaryControlPatternRouteObservation, OrdinaryControlPatternScope,
+    OrdinaryControlPatternSourceDefinition, OrdinaryControlPredicateDefinition,
+    OrdinaryControlPredicateProgram, OrdinaryControlSequentDefinition,
 };
