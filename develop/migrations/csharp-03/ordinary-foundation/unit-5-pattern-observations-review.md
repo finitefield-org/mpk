@@ -1,5 +1,10 @@
 # Original pattern source observations — partial W09 review
 
+This records the typed-observation prerequisite at `63525b49`. The succeeding
+[source-condition checkpoint](unit-5-pattern-source-conditions-review.md)
+composes these observations into ordinary scopes and defines 61 original
+conditions; the remaining conditions and all application proofs stay open.
+
 The historical pattern formula observes the governing value and step result.
 That pair cannot distinguish a guard's updated operand from the captured
 governing value. The additional candidate API retains every original obligation

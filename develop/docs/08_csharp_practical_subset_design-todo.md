@@ -2137,7 +2137,11 @@ and the historical API pins survive; six targeted tests, Clippy and format pass
 locally. The richer scopes retain 113 paths and 423 observations, with one Unit
 conversion operand explicitly unconnected. The other 41 source conditions,
 execution/equivalence establishment and all 987 application proofs remain open.
-Same-byte Go/Rust checks and the exact-commit Linux replay are in progress.
+All 72 same-byte Go/Rust stages pass and their reports are audited: 28 are newly
+executed and 44 are retained after exact input/binary comparison. Both checkers
+report zero axioms and reject hash corruption. The exact `039bbc10` Linux replay
+also passes all six targeted tests, Clippy and format; its source/fixture hashes,
+test binaries, Git commit and clean checkout are independently verified.
 See `ordinary-foundation/unit-5-pattern-source-conditions-review.md`.
 Unit 5 and W09 remain In progress; W10-W12 remain Blocked and the full T06 gate
 stays deferred to W12.

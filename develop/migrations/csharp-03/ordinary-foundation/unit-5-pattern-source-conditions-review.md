@@ -38,6 +38,13 @@ compatibility, typed observations, three premise/transport/binder units,
 Clippy and format. Source and fixture hashes are checked before and after each
 stage. The changed seven certificates are checked with the unchanged Go/Rust
 binaries; unchanged predecessor stages require exact input and binary hashes.
+All 72 stages and report/hash comparisons pass, with 28 newly executed stages
+and 44 retained stages. Both checkers report zero axioms and reject hash
+corruption. The six selected tests, Clippy and format pass both locally and on
+the specified Linux server at the exact published `039bbc10` commit. The runner
+verifies 381 source and 258 fixture hashes before and after execution. Its
+635 distinct inputs are also matched to Git blobs. The server checkout remains
+clean and both test binary hashes are independently checked after completion.
 Completed execution receipts are under
 `verification-logs/control-predicates/with-pattern-observations/`.
 
