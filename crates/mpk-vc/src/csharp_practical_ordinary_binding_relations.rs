@@ -24,9 +24,11 @@ pub use concrete_operations::{
 #[path = "csharp_practical_ordinary_concrete_types.rs"]
 mod concrete_types;
 pub use concrete_types::{
+    generate_csharp_practical_ordinary_concrete_type_proofs,
     generate_csharp_practical_ordinary_concrete_types,
+    import_csharp_practical_ordinary_concrete_type_proofs,
     import_csharp_practical_ordinary_concrete_types, OrdinaryConcreteTypeDefinition,
-    OrdinaryConcreteTypeProgram,
+    OrdinaryConcreteTypeProgram, OrdinaryConcreteTypeProof, OrdinaryConcreteTypeProofProgram,
 };
 #[path = "csharp_practical_ordinary_source_invariants.rs"]
 mod source_invariants;

@@ -1,0 +1,64 @@
+{
+  "child_pid": 29429,
+  "command": [
+    "cargo",
+    "test",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "csharp_practical_vc",
+    "csharp_03_t06_w09_concrete_type_proofs_original_source",
+    "--",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "full_t_gate": "deferred to T06-W12",
+  "process_pid": 29420,
+  "retained_stages": [
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "pattern_refinement_candidate_",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 28.611,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T07:58:13.878087+00:00",
+      "log_sha256": "e8a9ef7be2ae1a2adf3c7cf8c33be0ae807df3c7d6132dcdac7d94a8cb8cc183",
+      "stage": "pattern-candidate-units",
+      "started_at": "2026-09-30T07:57:45.267394+00:00"
+    }
+  ],
+  "retention_reason": "Only the integration test Vec type annotation changed after the three pattern units passed; all production and library-test source hashes are identical.",
+  "selection_reason": "Check original W06 concrete-type equality propositions and proofs in all 45 source contexts; retain all 81 public conditions, six pending internal states and original application IDs. Use actual kernel checking for every exported certificate and a wrong-proof core rejection. Recheck the unchanged original concrete-type fixture bytes. The pattern candidate units use the extracted Builder.resume method; their exact prefix and proof checks cover that refactor. Other generators and proof normalizers are unchanged, so unrelated expensive consumers are retained. Clippy covers library/test targets; format covers the crate and the changed support test. The T06-wide gate is deferred to T06-W12.",
+  "stage": "original-type-proofs",
+  "stages": [
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_concrete_type_proofs_original_source",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 33.306,
+      "exit_code": 101,
+      "finished_at": "2026-09-30T08:01:34.108158+00:00",
+      "log_sha256": "3dcd72739fa42da3cd2e4566dfbbd0af1b619028aa34923218fd6f4d9b7196c2",
+      "stage": "original-type-proofs",
+      "started_at": "2026-09-30T08:01:00.802225+00:00"
+    }
+  ],
+  "status": "failed"
+}

@@ -118,32 +118,7 @@ fn preserves_prefix(base: &Certificate, candidate: &Certificate) -> R<()> {
 }
 
 fn append_builder(certificate: &[u8]) -> R<Builder> {
-    let c = decode_canonical_certificate(certificate).map_err(|_| OrdinaryCarrierError::Linkage)?;
-    crate::csharp_practical_vc_model::validate_csharp_practical_certificate_structure(&c)
-        .map_err(|_| OrdinaryCarrierError::Limit)?;
-    let mut b = Builder::new()?;
-    b.c = c;
-    b.terms.clear();
-    b.binders.clear();
-    b.globals =
-        b.c.declarations
-            .iter()
-            .enumerate()
-            .map(|(i, d)| (b.c.name_table[d.name as usize].clone(), i as u32))
-            .collect();
-    for i in 0..b.c.term_table.len() {
-        let node = &b.c.term_table[i];
-        let depth = b.depth(node)?;
-        b.terms.entry(key(node)).or_insert(i as u32);
-        b.binders.push(depth);
-    }
-    let DeclarationKind::Inductive { ty } = b.c.declarations[b.globals["Std.Bool"] as usize].kind
-    else {
-        return Err(OrdinaryCarrierError::Linkage);
-    };
-    b.sort = ty;
-    b.boolean = b.constant("Std.Bool")?;
-    Ok(b)
+    Builder::resume(certificate)
 }
 
 fn definition_body(b: &Builder, name: &str) -> R<u32> {

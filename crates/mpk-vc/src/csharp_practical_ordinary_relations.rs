@@ -34,15 +34,18 @@ pub use binding_relations::{
 };
 pub use binding_relations::{
     generate_csharp_practical_ordinary_concrete_operations,
+    generate_csharp_practical_ordinary_concrete_type_proofs,
     generate_csharp_practical_ordinary_concrete_types,
     generate_csharp_practical_ordinary_source_invariants,
     import_csharp_practical_ordinary_concrete_operations,
+    import_csharp_practical_ordinary_concrete_type_proofs,
     import_csharp_practical_ordinary_concrete_types,
     import_csharp_practical_ordinary_source_invariants, OrdinaryConcreteFailureComponent,
     OrdinaryConcreteOperationComponent, OrdinaryConcreteOperationDefinition,
     OrdinaryConcreteOperationFailure, OrdinaryConcreteOperationPending,
     OrdinaryConcreteOperationPendingReason, OrdinaryConcreteOperationProgram,
-    OrdinaryConcreteTypeDefinition, OrdinaryConcreteTypeProgram, OrdinarySourceInvariantDefinition,
+    OrdinaryConcreteTypeDefinition, OrdinaryConcreteTypeProgram, OrdinaryConcreteTypeProof,
+    OrdinaryConcreteTypeProofProgram, OrdinarySourceInvariantDefinition,
     OrdinarySourceInvariantEnumCase, OrdinarySourceInvariantProgram,
 };
 #[path = "csharp_practical_ordinary_observations.rs"]

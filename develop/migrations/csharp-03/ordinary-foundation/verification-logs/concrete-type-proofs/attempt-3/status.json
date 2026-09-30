@@ -1,0 +1,135 @@
+{
+  "child_pid": 31394,
+  "command": [
+    "rustfmt",
+    "--edition",
+    "2021",
+    "--check",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_concrete_type_tests.rs"
+  ],
+  "finished_at": "2026-09-30T08:08:47.783656+00:00",
+  "full_t_gate": "deferred to T06-W12",
+  "process_pid": 30340,
+  "retained_source_delta": [
+    "crates/mpk-vc/src/csharp_practical_ordinary_concrete_types.rs",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_concrete_type_tests.rs"
+  ],
+  "retained_stages": [
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "pattern_refinement_candidate_",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 28.611,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T07:58:13.878087+00:00",
+      "log_sha256": "e8a9ef7be2ae1a2adf3c7cf8c33be0ae807df3c7d6132dcdac7d94a8cb8cc183",
+      "stage": "pattern-candidate-units",
+      "started_at": "2026-09-30T07:57:45.267394+00:00"
+    }
+  ],
+  "retention_reason": "Only the new concrete-type proof generator and its integration test changed after the three pattern units passed. The original concrete-type generator, Builder.resume, the pattern generator and its library-test sources are unchanged; pattern units do not call the new proof generator.",
+  "selection_reason": "Check original W06 concrete-type equality propositions and proofs in all 45 source contexts; retain all 81 public conditions, six pending internal states and original application IDs. Use actual kernel checking for every exported certificate and a wrong-proof core rejection. Recheck the unchanged original concrete-type fixture bytes. The pattern candidate units use the extracted Builder.resume method; their exact prefix and proof checks cover that refactor. Other generators and proof normalizers are unchanged, so unrelated expensive consumers are retained. Clippy covers library/test targets; format covers the crate and the changed support test. The T06-wide gate is deferred to T06-W12.",
+  "stage": "support-format",
+  "stages": [
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_concrete_type_proofs_original_source",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 92.247,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T08:07:23.530547+00:00",
+      "log_sha256": "a5435d838736a85a4833f7e355bba96d194edcd6c2e8e364721c7d739ebfdf24",
+      "stage": "original-type-proofs",
+      "started_at": "2026-09-30T08:05:51.287325+00:00"
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_concrete_types_original_source_certificates",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 40.851,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T08:08:04.432811+00:00",
+      "log_sha256": "eb07e1edaa3833a7cc36110660685dce77ffc6200dffa0c9e85a45d3d18a099c",
+      "stage": "original-type-pins",
+      "started_at": "2026-09-30T08:07:23.581563+00:00"
+    },
+    {
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--tests",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "elapsed_seconds": 38.409,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T08:08:42.878650+00:00",
+      "log_sha256": "966c09774400c831b7845639d3ca5d4b54e9a710ca7ea1df70226796c4288d29",
+      "stage": "clippy",
+      "started_at": "2026-09-30T08:08:04.469557+00:00"
+    },
+    {
+      "command": [
+        "cargo",
+        "fmt",
+        "-p",
+        "mpk-vc",
+        "--",
+        "--check"
+      ],
+      "elapsed_seconds": 4.705,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T08:08:47.616321+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stage": "format",
+      "started_at": "2026-09-30T08:08:42.911351+00:00"
+    },
+    {
+      "command": [
+        "rustfmt",
+        "--edition",
+        "2021",
+        "--check",
+        "crates/mpk-vc/tests/support/csharp_practical_ordinary_concrete_type_tests.rs"
+      ],
+      "elapsed_seconds": 0.131,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T08:08:47.783197+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stage": "support-format",
+      "started_at": "2026-09-30T08:08:47.651758+00:00"
+    }
+  ],
+  "status": "passed_targeted_tests_lint_format",
+  "unique_tests_passed": 5
+}

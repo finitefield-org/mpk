@@ -3,6 +3,221 @@ use core_eval::V;
 use mpk_cert::encode::{Certificate, DeclarationKind, TermNode};
 
 #[test]
+fn csharp_03_t06_w09_concrete_type_proofs_original_source() {
+    std::thread::Builder::new()
+        .stack_size(64 * 1024 * 1024)
+        .spawn(|| {
+            let bundle = b();
+            let output =
+                std::env::var_os("MPK_W09_CONCRETE_TYPE_PROOFS_OUT").map(std::path::PathBuf::from);
+            if let Some(dir) = &output {
+                fs::create_dir_all(dir).unwrap();
+            }
+            let mut count = 0;
+            let mut pending_states = 0;
+            let mut contexts = 0;
+            let mut previous: Option<(Vec<u8>, Vec<u8>)> = None;
+            for (id, row, facts) in sources() {
+                let (context, captures) = support::replay_context(&bundle, &row);
+                let source = ValidatedDataSource::import_captured_facts(
+                    &bundle,
+                    &context,
+                    &captures,
+                    &serde_json::to_vec(&facts).unwrap(),
+                )
+                .unwrap();
+                let emitted = emit_data_phase(&bundle, &context, &captures, &source).unwrap();
+                let vir = emitted.vir();
+                let original = generate_csharp_practical_ordinary_concrete_types(vir).unwrap();
+                let p = generate_csharp_practical_ordinary_concrete_type_proofs(vir)
+                    .unwrap_or_else(|error| panic!("{id}: {error:?}"));
+                assert_eq!(
+                    p.proofs().iter().map(|p| &p.sequent).collect::<Vec<_>>(),
+                    original
+                        .conditions()
+                        .iter()
+                        .map(|c| &c.sequent)
+                        .collect::<Vec<_>>()
+                );
+                assert_eq!(p.pending_proof_ids(), original.pending_proof_ids());
+                assert_eq!(
+                    p.pending_type_instances(),
+                    original.pending_type_instances()
+                );
+                let before =
+                    mpk_cert::decode_canonical_certificate(original.certificate_bytes()).unwrap();
+                let after = mpk_cert::decode_canonical_certificate(p.certificate_bytes()).unwrap();
+                assert!(after.term_table.starts_with(&before.term_table));
+                assert_eq!(after.module, before.module);
+                assert_eq!(after.source_manifest, before.source_manifest);
+                assert_eq!(after.imports, before.imports);
+                for (old, new) in before.declarations.iter().zip(&after.declarations) {
+                    assert_eq!(
+                        before.name_table[old.name as usize],
+                        after.name_table[new.name as usize]
+                    );
+                    assert_eq!(old.kind, new.kind);
+                }
+                validate_csharp_practical_certificate_structure(&after).unwrap();
+                let checked = mpk_kernel::verify_certificate_bytes(p.certificate_bytes())
+                    .unwrap_or_else(|error| panic!("{id}: {error:?}"));
+                assert_eq!(checked.axiom_count, 0);
+                for proof in p.proofs() {
+                    assert!(proof.sequent.assumptions.is_empty());
+                    assert_eq!(proof.sequent.subjects.len(), 1);
+                    assert_eq!(proof.sequent.goals.len(), 1);
+                    let theorem = after
+                        .declarations
+                        .iter()
+                        .find(|d| after.name_table[d.name as usize] == proof.theorem)
+                        .unwrap();
+                    let DeclarationKind::Theorem { ty, .. } = theorem.kind else {
+                        panic!("missing theorem")
+                    };
+                    let TermNode::Const { global, ref levels } = after.term_table[ty as usize]
+                    else {
+                        panic!("missing original named proposition")
+                    };
+                    assert!(levels.is_empty());
+                    assert_eq!(
+                        after.name_table[after.declarations[global as usize].name as usize],
+                        proof.proposition_definition
+                    );
+                    let DeclarationKind::Def { mut value, .. } =
+                        after.declarations[global as usize].kind
+                    else {
+                        panic!("missing proposition body")
+                    };
+                    let TermNode::Pi { body, .. } = after.term_table[value as usize] else {
+                        panic!("missing universal subject")
+                    };
+                    value = body;
+                    let TermNode::App {
+                        function,
+                        ref arguments,
+                    } = after.term_table[value as usize]
+                    else {
+                        panic!("missing exact equality")
+                    };
+                    assert_eq!(arguments.len(), 3);
+                    let TermNode::Const { global, .. } = after.term_table[function as usize] else {
+                        panic!("missing equality foundation")
+                    };
+                    assert_eq!(
+                        after.name_table[after.declarations[global as usize].name as usize],
+                        "Std.Eq"
+                    );
+                }
+                assert_eq!(
+                    import_csharp_practical_ordinary_concrete_type_proofs(
+                        &p.canonical_bytes(),
+                        p.certificate_bytes(),
+                        vir
+                    )
+                    .unwrap(),
+                    p
+                );
+                if let Some((metadata, certificate)) = &previous {
+                    assert!(import_csharp_practical_ordinary_concrete_type_proofs(
+                        metadata,
+                        certificate,
+                        vir
+                    )
+                    .is_err());
+                }
+                if contexts == 0 {
+                    let mut wrong = after.clone();
+                    let proof_name = &p.proofs()[0].theorem;
+                    let false_global = wrong
+                        .declarations
+                        .iter()
+                        .position(|d| wrong.name_table[d.name as usize] == "Std.Bool.false")
+                        .unwrap() as u32;
+                    let false_term = wrong
+                        .term_table
+                        .iter()
+                        .position(|t| matches!(t, TermNode::Const {global, levels} if *global == false_global && levels.is_empty()))
+                        .unwrap() as u32;
+                    let declaration = wrong
+                        .declarations
+                        .iter_mut()
+                        .find(|d| after.name_table[d.name as usize] == *proof_name)
+                        .unwrap();
+                    let DeclarationKind::Theorem {ty, ..} = declaration.kind else { panic!("missing theorem") };
+                    declaration.kind=DeclarationKind::Theorem {ty, proof:false_term};
+                    wrong.export_block = mpk_cert::build_export_block(&wrong).unwrap();
+                    wrong.axiom_report = mpk_cert::build_axiom_report(&wrong).unwrap();
+                    wrong.hashes.export_hash = mpk_cert::export_block_hash(&wrong.export_block);
+                    wrong.hashes.axiom_report_hash =
+                        mpk_cert::axiom_report_hash_for_report(&wrong.axiom_report);
+                    let wrong_bytes=mpk_cert::encode::encode_certificate(&wrong);
+                    assert_eq!(
+                        mpk_kernel::verify_certificate_bytes(&wrong_bytes)
+                            .unwrap_err()
+                            .kind(),
+                        mpk_kernel::VerificationErrorKind::CoreCheck
+                    );
+                    assert!(import_csharp_practical_ordinary_concrete_type_proofs(&p.canonical_bytes(),&wrong_bytes,vir).is_err());
+                    if let Some(dir)=&output {
+                        let hex=wrong_bytes.iter().map(|byte| format!("{byte:02x}")).collect::<String>()+"\n";
+                        fs::write(dir.join(format!("{id}-wrong.hex")),hex).unwrap();
+                    }
+                    let metadata: Value = serde_json::from_slice(&p.canonical_bytes()).unwrap();
+                    for field in metadata.as_object().unwrap().keys() {
+                        let mut changed = metadata.clone();
+                        changed[field] = json!("forged");
+                        assert!(
+                            import_csharp_practical_ordinary_concrete_type_proofs(
+                                &serde_json::to_vec(&changed).unwrap(),
+                                p.certificate_bytes(),
+                                vir
+                            )
+                            .is_err(),
+                            "{field}"
+                        );
+                    }
+                    let too_large = vec![0; 16 * 1024 * 1024 + 1];
+                    assert!(import_csharp_practical_ordinary_concrete_type_proofs(
+                        &too_large,
+                        &[],
+                        vir
+                    )
+                    .is_err());
+                    assert!(import_csharp_practical_ordinary_concrete_type_proofs(
+                        &[],
+                        &too_large,
+                        vir
+                    )
+                    .is_err());
+                }
+                previous = Some((p.canonical_bytes(), p.certificate_bytes().to_vec()));
+                if let Some(dir) = &output {
+                    fs::write(dir.join(format!("{id}.json")), p.canonical_bytes()).unwrap();
+                    let hex = p
+                        .certificate_bytes()
+                        .iter()
+                        .map(|byte| format!("{byte:02x}"))
+                        .collect::<String>()
+                        + "\n";
+                    fs::write(dir.join(format!("{id}.hex")), hex).unwrap();
+                }
+                contexts += 1;
+                count += p.proofs().len();
+                pending_states += p.pending_type_instances().len();
+                println!(
+                    "Original concrete type proofs {id}: {} supplied; {} internal states pending",
+                    p.proofs().len(),
+                    p.pending_type_instances().len()
+                );
+            }
+            assert_eq!((contexts, count, pending_states), (45, 81, 6));
+        })
+        .unwrap()
+        .join()
+        .unwrap();
+}
+
+#[test]
 fn csharp_03_t06_w09_concrete_types_original_source_certificates() {
     let bundle = b();
     let output = std::env::var_os("MPK_W09_CONCRETE_TYPES_OUT").map(std::path::PathBuf::from);

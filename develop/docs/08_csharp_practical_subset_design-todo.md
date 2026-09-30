@@ -2225,6 +2225,20 @@ passes all eight targeted tests, Clippy and format at fixed source `eeffcb02`;
 the terminal audit verifies 1,162 Git blobs and all log/test-binary hashes.
 W09 stays In progress and the full T06 gate is deferred to W12.
 
+The original concrete-type proof route now supplies 81 universal equality
+proofs across all 45 source contexts. It lowers the complete original W06
+proof-level equality operands to registered ordinary `Std.Eq` and retains every
+original Boolean condition/certificate prefix and all 45 historical pins.
+Both unchanged Go/Rust kernels accept all resulting certificates with zero
+axioms and matching hashes; all 182 positive/hash/wrong-proof stages are terminal.
+Five affected tests, Clippy and crate/support format pass locally. Ten contexts
+have genuinely empty type groups; six internal construction-state type instances
+and all 987 application proof IDs remain explicitly pending. Exact public-source
+Linux replay is prepared but its terminal receipt is still pending. This is a
+partial unit 7 checkpoint; W09 remains In progress, W10-W12 remain Blocked and
+the full T06 gate remains deferred to W12.
+See `ordinary-foundation/unit-7-concrete-type-proofs-review.md`.
+
 Owns: translation of every already-expanded concrete foundation definition in
 monomorphic VIR into ordinary core definitions and proof terms for all new
 finite values and operations; the successor program-assembly profile;

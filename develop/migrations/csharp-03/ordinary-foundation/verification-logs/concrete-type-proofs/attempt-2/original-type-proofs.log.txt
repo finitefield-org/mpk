@@ -1,0 +1,24 @@
+   Compiling mpk-vc v0.1.0 (/private/tmp/mpk-w09-packed-pattern-proofs/crates/mpk-vc)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 26.16s
+     Running tests/csharp_practical_vc.rs (/tmp/mpk-w09-pattern-candidates-target/debug/deps/csharp_practical_vc-e6d58012f705dea2)
+
+running 1 test
+test ordinary_carriers::projection_tests::binding_relation_tests::concrete_type_tests::csharp_03_t06_w09_concrete_type_proofs_original_source ... Original concrete type proofs binding-vc-boundary_field: 1 supplied; 0 internal states pending
+Original concrete type proofs binding-vc-bounded_sequence: 1 supplied; 0 internal states pending
+
+thread '<unnamed>' (5452317) panicked at crates/mpk-vc/tests/support/csharp_practical_ordinary_concrete_type_tests.rs:33:45:
+binding-vc-instant: Linkage
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'ordinary_carriers::projection_tests::binding_relation_tests::concrete_type_tests::csharp_03_t06_w09_concrete_type_proofs_original_source' (5452316) panicked at crates/mpk-vc/tests/support/csharp_practical_ordinary_concrete_type_tests.rs:217:10:
+called `Result::unwrap()` on an `Err` value: Any { .. }
+FAILED
+
+failures:
+
+failures:
+    ordinary_carriers::projection_tests::binding_relation_tests::concrete_type_tests::csharp_03_t06_w09_concrete_type_proofs_original_source
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 396 filtered out; finished in 4.92s
+
+error: test failed, to rerun pass `-p mpk-vc --test csharp_practical_vc`

@@ -577,6 +577,39 @@ impl Builder {
         b.boolean = b.constant(BOOL)?;
         Ok(b)
     }
+    // Resume a canonical generated program without renumbering its globals,
+    // terms or declaration bodies. Only appended names may be sorted again.
+    fn resume(certificate: &[u8]) -> R<Self> {
+        let c =
+            decode_canonical_certificate(certificate).map_err(|_| OrdinaryCarrierError::Linkage)?;
+        crate::csharp_practical_vc_model::validate_csharp_practical_certificate_structure(&c)
+            .map_err(|_| OrdinaryCarrierError::Limit)?;
+        let mut b = Self::new()?;
+        b.c = c;
+        b.terms.clear();
+        b.binders.clear();
+        b.globals =
+            b.c.declarations
+                .iter()
+                .enumerate()
+                .map(|(i, d)| (b.c.name_table[d.name as usize].clone(), i as u32))
+                .collect();
+        for i in 0..b.c.term_table.len() {
+            let node = &b.c.term_table[i];
+            let depth = b.depth(node)?;
+            b.terms.entry(key(node)).or_insert(i as u32);
+            b.binders.push(depth);
+        }
+        let DeclarationKind::Inductive { ty } = b.c.declarations
+            [*b.globals.get(BOOL).ok_or(OrdinaryCarrierError::Linkage)? as usize]
+            .kind
+        else {
+            return Err(OrdinaryCarrierError::Linkage);
+        };
+        b.sort = ty;
+        b.boolean = b.constant(BOOL)?;
+        Ok(b)
+    }
     fn depth(&self, n: &TermNode) -> R<u32> {
         let d = |i: &u32| {
             self.binders
@@ -1254,15 +1287,18 @@ pub use structural::{
 };
 pub use structural::{
     generate_csharp_practical_ordinary_concrete_operations,
+    generate_csharp_practical_ordinary_concrete_type_proofs,
     generate_csharp_practical_ordinary_concrete_types,
     generate_csharp_practical_ordinary_source_invariants,
     import_csharp_practical_ordinary_concrete_operations,
+    import_csharp_practical_ordinary_concrete_type_proofs,
     import_csharp_practical_ordinary_concrete_types,
     import_csharp_practical_ordinary_source_invariants, OrdinaryConcreteFailureComponent,
     OrdinaryConcreteOperationComponent, OrdinaryConcreteOperationDefinition,
     OrdinaryConcreteOperationFailure, OrdinaryConcreteOperationPending,
     OrdinaryConcreteOperationPendingReason, OrdinaryConcreteOperationProgram,
-    OrdinaryConcreteTypeDefinition, OrdinaryConcreteTypeProgram, OrdinarySourceInvariantDefinition,
+    OrdinaryConcreteTypeDefinition, OrdinaryConcreteTypeProgram, OrdinaryConcreteTypeProof,
+    OrdinaryConcreteTypeProofProgram, OrdinarySourceInvariantDefinition,
     OrdinarySourceInvariantEnumCase, OrdinarySourceInvariantProgram,
 };
 pub use structural::{

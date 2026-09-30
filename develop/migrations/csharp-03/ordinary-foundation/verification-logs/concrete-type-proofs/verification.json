@@ -1,0 +1,23 @@
+{
+  "application_proofs_pending": 987,
+  "complete_application_assembly_pending": true,
+  "contexts_with_empty_type_group": 10,
+  "dual_checker_agreement": true,
+  "full_t_gate": "deferred to T06-W12",
+  "internal_type_instances_pending": 6,
+  "linux_verification": "pending fixed public source commit",
+  "retained_source_delta": [
+    "crates/mpk-vc/src/csharp_practical_ordinary_concrete_types.rs",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_concrete_type_tests.rs"
+  ],
+  "retention_reason": "Only the new concrete-type proof generator and its integration test changed after the three pattern units passed. The original concrete-type generator, Builder.resume, the pattern generator and its library-test sources are unchanged; pattern units do not call the new proof generator.",
+  "review": "../../unit-7-concrete-type-proofs-review.md",
+  "selection_reason": "Check original W06 concrete-type equality propositions and proofs in all 45 source contexts; retain all 81 public conditions, six pending internal states and original application IDs. Use actual kernel checking for every exported certificate and a wrong-proof core rejection. Recheck the unchanged original concrete-type fixture bytes. The pattern candidate units use the extracted Builder.resume method; their exact prefix and proof checks cover that refactor. Other generators and proof normalizers are unchanged, so unrelated expensive consumers are retained. Clippy covers library/test targets; format covers the crate and the changed support test. The T06-wide gate is deferred to T06-W12.",
+  "source_contexts": 45,
+  "status": "passed_local_targeted_verification",
+  "supplied_public_type_proofs": 81,
+  "terminal_dual_checker_stages": 182,
+  "total_axiom_count": 0,
+  "unique_targeted_tests_passed": 5,
+  "wrong_proof_core_rejection": true
+}

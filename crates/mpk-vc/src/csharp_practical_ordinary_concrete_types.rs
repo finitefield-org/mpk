@@ -4,6 +4,201 @@ use super::super::super::source_clauses;
 use super::*;
 
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
+pub struct OrdinaryConcreteTypeProof {
+    /// The independently reconstructed, complete original W06 sequent.
+    pub sequent: BindingSequent,
+    pub proposition_definition: String,
+    pub theorem: String,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq, Serialize)]
+pub struct OrdinaryConcreteTypeProofProgram {
+    schema: String,
+    source_ir_sha256: String,
+    foundation_sha256: String,
+    binding_vc_sha256: String,
+    original_program_sha256: String,
+    original_certificate_sha256: String,
+    proofs: Vec<OrdinaryConcreteTypeProof>,
+    /// A supplied proof is a candidate until both unchanged kernels check it.
+    proof_check_pending: bool,
+    application_scope_pending: bool,
+    pending_type_instances: Vec<FoundationInstanceVc>,
+    /// Keep every original application proof ID until complete assembly checks.
+    pending_proof_ids: Vec<String>,
+    certificate_sha256: String,
+    #[serde(skip)]
+    certificate: Vec<u8>,
+}
+
+impl OrdinaryConcreteTypeProofProgram {
+    pub fn proofs(&self) -> &[OrdinaryConcreteTypeProof] {
+        &self.proofs
+    }
+    pub fn pending_type_instances(&self) -> &[FoundationInstanceVc] {
+        &self.pending_type_instances
+    }
+    pub fn pending_proof_ids(&self) -> &[String] {
+        &self.pending_proof_ids
+    }
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
+    pub fn canonical_bytes(&self) -> Vec<u8> {
+        serde_json::to_vec(self).expect("original concrete type equality proof candidates")
+    }
+}
+
+// Binding.Equal.Bool is W06 proof-level equality. Lower its complete operands
+// directly to Std.Eq; do not try to prove a Boolean comparison circuit reflexive
+// by treating arbitrary free Boolean values as known literals.
+fn equality_operands(goal: &ContractTerm) -> R<(&ContractTerm, &ContractTerm)> {
+    let ContractTerm::App {
+        function,
+        argument: right,
+        type_id,
+    } = goal
+    else {
+        return Err(OrdinaryCarrierError::Linkage);
+    };
+    let ContractTerm::App {
+        function,
+        argument: left,
+        ..
+    } = function.as_ref()
+    else {
+        return Err(OrdinaryCarrierError::Linkage);
+    };
+    let ContractTerm::Const { name, .. } = function.as_ref() else {
+        return Err(OrdinaryCarrierError::Linkage);
+    };
+    if name != "Mpk.CSharp.Binding.Equal.mpk.csharp.value.bool.v1"
+        || type_id != "mpk.csharp.value.bool.v1"
+        || left.type_id() != "mpk.csharp.value.bool.v1"
+        || right.type_id() != "mpk.csharp.value.bool.v1"
+    {
+        return Err(OrdinaryCarrierError::Linkage);
+    }
+    Ok((left, right))
+}
+
+fn emit_type_proofs(program: &OrdinaryConcreteTypeProgram) -> R<OrdinaryConcreteTypeProofProgram> {
+    if program.conditions.len() != program.definitions.len() {
+        return Err(OrdinaryCarrierError::Linkage);
+    }
+    let original_program_sha256 = format!("{:x}", Sha256::digest(program.canonical_bytes()));
+    let mut b = Builder::resume(program.certificate_bytes())?;
+    if !program.conditions.is_empty() {
+        super::super::super::ownership_proofs::equality(&mut b)?;
+    }
+    let mut symbols = program
+        .public_domains
+        .iter()
+        .map(|d| (d.symbol.clone(), d.valid_definition.clone()))
+        .collect::<BTreeMap<_, _>>();
+    for d in &program.definitions {
+        if symbols
+            .insert(d.symbol.clone(), d.definition.clone())
+            .is_some()
+        {
+            return Err(OrdinaryCarrierError::Linkage);
+        }
+    }
+    let mut seen = BTreeSet::new();
+    let mut proofs = vec![];
+    for condition in &program.conditions {
+        let sequent = &condition.sequent;
+        let [subject] = sequent.subjects.as_slice() else {
+            return Err(OrdinaryCarrierError::Linkage);
+        };
+        let [goal] = sequent.goals.as_slice() else {
+            return Err(OrdinaryCarrierError::Linkage);
+        };
+        let definition = program
+            .definitions
+            .iter()
+            .find(|d| d.instance.instance_id == sequent.owner_id)
+            .ok_or(OrdinaryCarrierError::Linkage)?;
+        if sequent.kind != "concrete_type_equivalence"
+            || subject.type_id != sequent.owner_id
+            || !sequent.assumptions.is_empty()
+            || !seen.insert(sequent.owner_id.clone())
+        {
+            return Err(OrdinaryCarrierError::Linkage);
+        }
+        let (left, right) = equality_operands(goal)?;
+        let left = reconstruction::term(&mut b, left, subject, &symbols, &[])?;
+        let right = reconstruction::term(&mut b, right, subject, &symbols, &[])?;
+        let boolean = b.boolean;
+        let proposition = call(&mut b, "Std.Eq", vec![boolean, left, right])?;
+        let binder = b.cube(definition.carrier.depth)?;
+        let ty = b.pi(binder, proposition)?;
+        let hash = format!(
+            "{:x}",
+            Sha256::digest(
+                serde_json::to_vec(&(&original_program_sha256, sequent))
+                    .map_err(|_| OrdinaryCarrierError::Linkage)?
+            )
+        );
+        let proposition_definition = format!("{PREFIX}.ConcreteTypeProof.Type.H{hash}");
+        b.define(&proposition_definition, b.sort, ty)?;
+        let proof = call(&mut b, "Std.Eq.refl", vec![boolean, left])?;
+        let proof = b.lam(binder, proof)?;
+        let theorem = format!("{PREFIX}.ConcreteTypeProof.Theorem.H{hash}");
+        let ty = b.constant(&proposition_definition)?;
+        super::super::super::ownership_proofs::publish_theorem(&mut b, &theorem, ty, proof)?;
+        proofs.push(OrdinaryConcreteTypeProof {
+            sequent: sequent.clone(),
+            proposition_definition,
+            theorem,
+        });
+    }
+    let certificate = b.finish()?;
+    let result = OrdinaryConcreteTypeProofProgram {
+        schema: "mpk.csharp.ordinary_concrete_type_proofs.v1".into(),
+        source_ir_sha256: program.source_ir_sha256.clone(),
+        foundation_sha256: program.foundation_sha256.clone(),
+        binding_vc_sha256: program.binding_vc_sha256.clone(),
+        original_program_sha256,
+        original_certificate_sha256: program.certificate_sha256.clone(),
+        proofs,
+        proof_check_pending: true,
+        application_scope_pending: true,
+        pending_type_instances: program.pending_type_instances.clone(),
+        pending_proof_ids: program.pending_proof_ids.clone(),
+        certificate_sha256: mpk_cert::hash_hex(&mpk_cert::certificate_hash(&certificate)),
+        certificate,
+    };
+    if result.canonical_bytes().len() > 16 * 1024 * 1024 {
+        return Err(OrdinaryCarrierError::Limit);
+    }
+    Ok(result)
+}
+
+/// Supply all original public concrete-type equivalence proof candidates.
+/// Internal states and all other application obligations remain explicitly open.
+pub fn generate_csharp_practical_ordinary_concrete_type_proofs(
+    vir: &ValidatedPracticalVir,
+) -> R<OrdinaryConcreteTypeProofProgram> {
+    emit_type_proofs(&generate_csharp_practical_ordinary_concrete_types(vir)?)
+}
+
+pub fn import_csharp_practical_ordinary_concrete_type_proofs(
+    input: &[u8],
+    certificate: &[u8],
+    vir: &ValidatedPracticalVir,
+) -> R<OrdinaryConcreteTypeProofProgram> {
+    if input.len() > 16 * 1024 * 1024 || certificate.len() > 16 * 1024 * 1024 {
+        return Err(OrdinaryCarrierError::Limit);
+    }
+    let expected = generate_csharp_practical_ordinary_concrete_type_proofs(vir)?;
+    if input != expected.canonical_bytes() || certificate != expected.certificate_bytes() {
+        return Err(OrdinaryCarrierError::Linkage);
+    }
+    Ok(expected)
+}
+
+#[derive(Clone, Debug, Eq, PartialEq, Serialize)]
 pub struct OrdinaryConcreteTypeDefinition {
     pub instance: FoundationInstanceVc,
     pub carrier: OrdinaryCarrier,
