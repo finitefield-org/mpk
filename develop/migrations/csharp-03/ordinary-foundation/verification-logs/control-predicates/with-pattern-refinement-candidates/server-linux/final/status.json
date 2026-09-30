@@ -1,0 +1,97 @@
+{
+  "application_proofs_pending": 987,
+  "finished_at": "2026-09-30T05:54:06.994697+00:00",
+  "full_t_gate": "deferred to T06-W12",
+  "native_source_equivalence_proofs_pending": true,
+  "original_pattern_predicates_defined": 102,
+  "original_pattern_predicates_pending": 0,
+  "process_pid": 3072205,
+  "selection_reason": "Check exact complete refinement candidate linkage and affected packed scope consumers.\n\nRun all seven pattern units, including both candidate units and a used ordinary\nhelper, plus the original 18-context integration. Preserve the exact source\nprefix and require every original named refinement; structurally linked proofs\nremain untrusted until both kernels check their bytes. The original integration\nrejects helper-only certificates and verifies 113 required types. Clippy checks\nlibrary and test targets. Original application and execution proofs remain\npending. The full T06 gate is deferred to T06-W12.\n",
+  "stage": "format",
+  "stages": [
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "pattern_",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 129.747,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T05:45:04.600297+00:00",
+      "log_sha256": "c17028db8f9ca4722c997a9ee8c8c62f010c0d0c05119ef20df708fde9db9d6b",
+      "stage": "scope-units",
+      "started_at": "2026-09-30T05:42:54.853715+00:00"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_packed_pattern_proof_types_cover_complete_original_environments",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 451.421,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T05:52:36.657156+00:00",
+      "log_sha256": "1ab0460985c92f3f78373565b5f16a6fba2eb527c68a36363f036b7bf7cdc6de",
+      "stage": "proof-types",
+      "started_at": "2026-09-30T05:45:05.236633+00:00"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--tests",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "elapsed_seconds": 83.518,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T05:54:00.843341+00:00",
+      "log_sha256": "9dc81e9f9e3bd4f5759e4b42a675fee2c6b52d69de8e3e498f74a7e1d5a659ee",
+      "stage": "clippy",
+      "started_at": "2026-09-30T05:52:37.325040+00:00"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "fmt",
+        "-p",
+        "mpk-vc",
+        "--",
+        "--check"
+      ],
+      "elapsed_seconds": 5.009,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T05:54:06.717676+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stage": "format",
+      "started_at": "2026-09-30T05:54:01.708680+00:00"
+    }
+  ],
+  "started_at": "2026-09-30T05:42:54.218478+00:00",
+  "status": "passed_targeted_tests_lint_format",
+  "supervisor_pid": 3070587,
+  "test_binaries": {
+    "/root/mpk-w09-pattern-refinement-candidates-a45fd22f-target/debug/deps/csharp_practical_vc-18f294cebe272f30": "cd0e5e3aadc51685f83723ea1e6ccfb79ac41c80593c757577408e62b0da4a4d",
+    "/root/mpk-w09-pattern-refinement-candidates-a45fd22f-target/debug/deps/mpk_vc-00fd1477de0503ec": "a045e4ced3e2d5b547a65a3c466dfbe5b2bdfcb771ecbb9770338634ec671d8b"
+  },
+  "unique_tests_passed": 8,
+  "verified_fixture_hashes": 384,
+  "verified_source_hashes": 770
+}

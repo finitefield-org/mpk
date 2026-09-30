@@ -7839,6 +7839,7 @@ pub use ordinary_carriers::{
     generate_csharp_practical_ordinary_control_predicates_with_pattern_proof_types,
     generate_csharp_practical_ordinary_control_predicates_with_pattern_routes,
     generate_csharp_practical_ordinary_control_predicates_with_pattern_scopes,
+    generate_csharp_practical_ordinary_pattern_refinement_candidate,
     import_csharp_practical_ordinary_control_predicates,
     import_csharp_practical_ordinary_control_predicates_with_execution,
     import_csharp_practical_ordinary_control_predicates_with_packed_pattern_proof_types,

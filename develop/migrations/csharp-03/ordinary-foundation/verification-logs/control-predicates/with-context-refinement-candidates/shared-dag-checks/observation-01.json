@@ -1,0 +1,46 @@
+{
+  "live_processes": {
+    "go": {
+      "observed_alive": true,
+      "process_pid": 5804,
+      "ps_output": "  PID  PPID ELAPSED STAT  %CPU    RSS COMM\n 5804  5794   10:56 R     87.3   4688 /tmp/mpk-w09-default-closed-proofs/go-checker\n"
+    },
+    "rust": {
+      "observed_alive": true,
+      "process_pid": 5805,
+      "ps_output": "  PID  PPID ELAPSED STAT  %CPU    RSS COMM\n 5805  5794   10:56 R     79.5   2688 /Users/kazuyoshitoshiya/mpk/target/release/mpk\n"
+    }
+  },
+  "original_application_proofs_pending": 987,
+  "proof_acceptance_pending": true,
+  "recorded_at": "2026-09-30T06:34:46.274353+00:00",
+  "state": {
+    "full_t_gate": "deferred to T06-W12",
+    "launches": {
+      "go": {
+        "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+        "command": [
+          "/tmp/mpk-w09-default-closed-proofs/go-checker",
+          "/tmp/mpk-w09-context-refinement/shared-dag-checks/go.mpcert"
+        ],
+        "input_file_sha256": "14ae8dd9946c38bc024e0157f03d780e696b1ea8a86521d9a5dc00ea0e4395f5",
+        "process_pid": 5804,
+        "started_at": "2026-09-30T06:23:50.048390+00:00"
+      },
+      "rust": {
+        "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+        "command": [
+          "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+          "check",
+          "/tmp/mpk-w09-context-refinement/shared-dag-checks/rust.mpcert"
+        ],
+        "input_file_sha256": "14ae8dd9946c38bc024e0157f03d780e696b1ea8a86521d9a5dc00ea0e4395f5",
+        "process_pid": 5805,
+        "started_at": "2026-09-30T06:23:50.052079+00:00"
+      }
+    },
+    "selection_reason": "Verify the actual canonical shared-DAG certificate after saturating the expanded sharing cost. Both unchanged checkers must accept the same byte sequence with zero axioms and matching export/certificate/axiom hashes. Compiler profile checks alone are not acceptance. Original application proofs remain pending.",
+    "stages": {},
+    "status": "running"
+  }
+}

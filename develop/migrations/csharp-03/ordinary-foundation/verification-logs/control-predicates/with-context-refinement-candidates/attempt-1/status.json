@@ -1,0 +1,95 @@
+{
+  "status": "passed",
+  "unique_tests_passed": 5,
+  "selection_reason": "Verify proof-producing contextual Boolean reduction with actual equality proof terms, free branch values and let substitution; missing/conflicting facts reject and wrong proof terms fail core checking. Test full candidate generation plus all candidate linkage regressions and the shared substitution consumer. Clippy includes tests. Original source/application proofs and the full T06-W12 gate remain pending.",
+  "stages": [
+    {
+      "stage": "context-unit",
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "context_boolean_normalization_",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-09-30T06:01:20.227047+00:00",
+      "finished_at": "2026-09-30T06:01:37.764592+00:00",
+      "elapsed_seconds": 17.537,
+      "log_sha256": "db14823b7e62a0b87a2b822ee7e3186be796f159d78bfdc89d0d5b71c110960d"
+    },
+    {
+      "stage": "candidate-units",
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "pattern_refinement_candidate_",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-09-30T06:01:37.843388+00:00",
+      "finished_at": "2026-09-30T06:01:38.001065+00:00",
+      "elapsed_seconds": 0.158,
+      "log_sha256": "d43285a9a413ddd9425e9e36239c730d8ffae36a0650908fc43747ca90f0c966"
+    },
+    {
+      "stage": "ownership-unit",
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "ownership_normalization_preserves_free_selector_under_binder",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-09-30T06:01:38.070706+00:00",
+      "finished_at": "2026-09-30T06:01:38.194538+00:00",
+      "elapsed_seconds": 0.124,
+      "log_sha256": "da70a815e91851d2b717be7e69c29fe973fe0e7e3b5eacbad385a732bb80ea99"
+    },
+    {
+      "stage": "clippy",
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--tests",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-09-30T06:01:38.261903+00:00",
+      "finished_at": "2026-09-30T06:01:59.801889+00:00",
+      "elapsed_seconds": 21.54,
+      "log_sha256": "c795f588fdbe7d8591451ba9beef3f6ecf63b88760a996556082e5629eb61da1"
+    },
+    {
+      "stage": "format",
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-09-30T06:01:59.957906+00:00",
+      "finished_at": "2026-09-30T06:02:04.699332+00:00",
+      "elapsed_seconds": 4.741,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

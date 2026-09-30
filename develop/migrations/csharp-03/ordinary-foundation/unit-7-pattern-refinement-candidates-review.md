@@ -39,7 +39,43 @@ reasons are under
 The previous packed generation checkpoint separately passed its requested
 Linux replay at fixed source commit `130a3ca4`; its terminal receipts are under
 `with-packed-pattern-proof-types/server-linux/final/`. Linux verification of
-this new candidate source remains pending until its fixed public commit is run.
+the candidate-linkage source passed eight targeted tests, Clippy and format at
+fixed public commit `a45fd22f325463aa1753d693acac812da144fc00` on the requested
+Linux server. The terminal audit verifies 1,150 distinct Git blobs, a clean
+checkout and all log/test-binary hashes; receipts are in `server-linux/final/`.
+
+The next candidate-generation checkpoint builds proof terms from every complete
+scope projection and targets every original named refinement definition. Its
+Boolean normalizer uses supplied ordinary equality proofs, congruence and
+transitivity. It rejects unknown computations and contradictory facts; a missing
+path proof fails the whole generation route. The resulting candidate still
+requires both kernels and keeps application checks pending.
+
+Congruence shifts free branch values under newly introduced binders. Context
+proofs remain inside their enclosing theorem and never become open auxiliary
+declarations. Expanded sharing costs saturate, and the context mode keeps sharing
+disabled even at saturation. A small shared DAG exercises this boundary without
+exceeding the ordinary node/binder/byte limits. Closed modes retain their small
+sharing thresholds, so child costs remain below the threshold and cannot reach
+the new saturation case. Their existing original ownership and closed-default
+pin replays pass unchanged.
+
+The three candidate units, two contextual Boolean units, the existing free
+selector unit and both affected original consumers pass (eight unique tests,
+with the consumers retained after the context-cost boundary fix). Clippy with
+test targets and format pass. Both unchanged checkers accept the actual generated
+small universal candidate and the true/false contextual fixtures with zero
+axioms and matching hashes, and reject the wrong proof fixtures at core checking.
+The shared-DAG certificate is checked separately; its terminal or pending status
+is recorded explicitly in the checkpoint receipts. Linux replay of the latest
+candidate-generation source is still pending.
+
+An independent original-source capability probe reconstructs `is_binding` and
+requests all seven required refinements. Generation currently returns `Linkage`,
+so all seven source proofs remain pending. Its successful diagnostic process
+only confirms that observation; it is not proof acceptance. The temporary probe
+source is preserved with its receipt, and the original test source was restored
+byte for byte afterward.
 
 No original application refinement or execution proof is supplied by this
 linkage API or its small fixtures. All 987 application proofs remain pending.

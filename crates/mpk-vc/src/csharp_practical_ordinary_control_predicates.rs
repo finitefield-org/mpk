@@ -30,6 +30,7 @@ pub use pattern_proofs::{
 mod pattern_candidates;
 pub use pattern_candidates::{
     csharp_practical_ordinary_pattern_refinement_candidate_theorems,
+    generate_csharp_practical_ordinary_pattern_refinement_candidate,
     link_csharp_practical_ordinary_pattern_refinement_candidate,
     OrdinaryControlPatternRefinementCandidate, OrdinaryControlPatternRefinementCandidateTheorem,
 };

@@ -219,6 +219,7 @@ struct Normalizer<'a> {
     substitutions: BTreeMap<(u32, u32, u32), u32>,
     shifts: BTreeMap<(u32, u32, u32), u32>,
     proofs: BTreeMap<u32, (bool, u32, u32)>,
+    context_facts: BTreeMap<u32, (bool, u32)>,
     inline_limit: u32,
     share_atoms: bool,
     share_word_transport: bool,
@@ -742,6 +743,9 @@ impl Normalizer<'_> {
         } else {
             self.head(t)?
         };
+        if let Some(&(value, proof)) = self.context_facts.get(&h) {
+            return Ok((value, proof, 1));
+        }
         if let Some(r) = self.proofs.get(&h) {
             return Ok(*r);
         }
@@ -789,7 +793,8 @@ impl Normalizer<'_> {
                     )?
                 } else {
                     let variable = self.b.var(0)?;
-                    let left_body = self.b.app(function, vec![variable, arguments[1]])?;
+                    let right_argument = self.shift(arguments[1], 1, 0)?;
+                    let left_body = self.b.app(function, vec![variable, right_argument])?;
                     let left_fun = self.b.lam(cube, left_body)?;
                     let left_refl = call(self.b, REFL, vec![cube, canonical[0]])?;
                     let left = call(
@@ -804,7 +809,8 @@ impl Normalizer<'_> {
                             left_refl,
                         ],
                     )?;
-                    let right_body = self.b.app(function, vec![canonical[0], variable])?;
+                    let left_argument = self.shift(canonical[0], 1, 0)?;
+                    let right_body = self.b.app(function, vec![left_argument, variable])?;
                     let right_fun = self.b.lam(cube, right_body)?;
                     let right_refl = call(self.b, REFL, vec![cube, canonical[1]])?;
                     let right = call(
@@ -831,13 +837,19 @@ impl Normalizer<'_> {
                         vec![self.b.boolean, h, shared, expected, joined, reduced],
                     )?
                 };
-                let ty = call(self.b, EQ, vec![self.b.boolean, h, expected])?;
-                let name = format!(
-                    "{PREFIX}.OwnershipProof.Word.N{}",
-                    self.b.c.declarations.len()
-                );
-                self.publish(&name, ty, proof)?;
-                (value, self.b.constant(&name)?, 1)
+                if self.inline_limit == u32::MAX {
+                    // Context proofs may contain free variables. Keep them in
+                    // their enclosing theorem, rather than publishing an open lemma.
+                    (value, proof, 1)
+                } else {
+                    let ty = call(self.b, EQ, vec![self.b.boolean, h, expected])?;
+                    let name = format!(
+                        "{PREFIX}.OwnershipProof.Word.N{}",
+                        self.b.c.declarations.len()
+                    );
+                    self.publish(&name, ty, proof)?;
+                    (value, self.b.constant(&name)?, 1)
+                }
             } else {
                 let TermNode::Const { global, .. } = self.b.c.term_table[function as usize] else {
                     return Err(OrdinaryCarrierError::Linkage);
@@ -904,8 +916,10 @@ impl Normalizer<'_> {
                     )?
                 } else {
                     let variable = self.b.var(0)?;
-                    let body = self.b.app(function, vec![no, yes, variable])?;
-                    // Both branches are closed; wrapping a new binder needs no shift.
+                    let inner_no = self.shift(no, 1, 0)?;
+                    let inner_yes = self.shift(yes, 1, 0)?;
+                    let body = self.b.app(function, vec![inner_no, inner_yes, variable])?;
+                    // Context facts can leave free values in either branch.
                     let fun = self.b.lam(self.b.boolean, body)?;
                     let condition = bit(self.b, selected)?;
                     let congr = call(
@@ -933,12 +947,16 @@ impl Normalizer<'_> {
                         ],
                     )?
                 };
-                (value, proof, condition_cost + branch_cost + 1)
+                (
+                    value,
+                    proof,
+                    condition_cost.saturating_add(branch_cost).saturating_add(1),
+                )
             }
             _ => return Err(OrdinaryCarrierError::Linkage),
         };
         let (value, proof, cost) = result;
-        let result = if cost >= self.inline_limit {
+        let result = if self.inline_limit != u32::MAX && cost >= self.inline_limit {
             let reference = h;
             let expected = bit(self.b, value)?;
             let ty = call(self.b, EQ, vec![self.b.boolean, reference, expected])?;
@@ -1003,6 +1021,7 @@ pub(super) fn prove_record(
         substitutions: BTreeMap::new(),
         shifts: BTreeMap::new(),
         proofs: BTreeMap::new(),
+        context_facts: BTreeMap::new(),
         inline_limit: if function.state_depth > 5 { 4 } else { 8 },
         share_atoms: function.state_depth > 5,
         share_word_transport: function.state_depth > 6,
@@ -1063,6 +1082,7 @@ pub(super) fn emit_proofs(
         substitutions: BTreeMap::new(),
         shifts: BTreeMap::new(),
         proofs: BTreeMap::new(),
+        context_facts: BTreeMap::new(),
         inline_limit: 8,
         share_atoms: false,
         share_word_transport: false,
@@ -1112,6 +1132,7 @@ pub(super) fn prove_closed_boolean_definitions(
         substitutions: BTreeMap::new(),
         shifts: BTreeMap::new(),
         proofs: BTreeMap::new(),
+        context_facts: BTreeMap::new(),
         inline_limit: 8,
         share_atoms: false,
         share_word_transport: false,
@@ -1124,6 +1145,47 @@ pub(super) fn prove_closed_boolean_definitions(
         .map(|definition| normalizer.theorem(definition, true))
         .collect()
 }
+/// Construct an ordinary equality proof using only the supplied equality
+/// proof terms. This never validates those terms or accepts a certificate.
+/// Unknown values and conflicting facts fail instead of becoming assumptions.
+pub(super) fn prove_boolean_in_context(
+    b: &mut Builder,
+    expression: u32,
+    expected: bool,
+    facts: &[(u32, bool, u32)],
+) -> R<u32> {
+    let mut n = Normalizer {
+        b,
+        step_label: "ContextBooleanProof",
+        heads: BTreeMap::new(),
+        substitutions: BTreeMap::new(),
+        shifts: BTreeMap::new(),
+        proofs: BTreeMap::new(),
+        context_facts: BTreeMap::new(),
+        inline_limit: u32::MAX,
+        share_atoms: false,
+        share_word_transport: false,
+        atoms: BTreeMap::new(),
+        word_values: BTreeMap::new(),
+        word_muxes: BTreeMap::new(),
+    };
+    for &(expression, value, proof) in facts {
+        let head = n.head(expression)?;
+        if let Some(&(prior, _)) = n.context_facts.get(&head) {
+            if prior != value {
+                return Err(OrdinaryCarrierError::Linkage);
+            }
+        } else {
+            n.context_facts.insert(head, (value, proof));
+        }
+    }
+    let (actual, proof, _) = n.normalize(expression)?;
+    if actual != expected {
+        return Err(OrdinaryCarrierError::Linkage);
+    }
+    Ok(proof)
+}
+
 pub fn import_csharp_practical_ordinary_ownership_proofs(
     input: &[u8],
     certificate: &[u8],
@@ -1142,6 +1204,132 @@ pub fn import_csharp_practical_ordinary_ownership_proofs(
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    fn context_boolean_certificate(selected: bool, wrong: bool) -> Vec<u8> {
+        let mut b = Builder::new().unwrap();
+        equality(&mut b).unwrap();
+        let boolean = b.boolean;
+        let chosen = bit(&mut b, selected).unwrap();
+        let yes = bit(&mut b, true).unwrap();
+        let a = b.var(1).unwrap();
+        let a_type = call(&mut b, EQ, vec![boolean, a, chosen]).unwrap();
+        let b_value = b.var(1).unwrap();
+        let b_type = call(&mut b, EQ, vec![boolean, b_value, yes]).unwrap();
+        let binders = [boolean, boolean, a_type, b_type];
+        let a = b.var(3).unwrap();
+        let b_value = b.var(2).unwrap();
+        let a_proof = b.var(u32::from(!wrong)).unwrap();
+        let b_proof = b.var(u32::from(wrong)).unwrap();
+        let no = bit(&mut b, false).unwrap();
+        // Under the let binder, b remains the original free value.
+        let inner_b = b.var(3).unwrap();
+        let variable = b.var(0).unwrap();
+        let body = call(&mut b, "Std.Bool.rec", vec![no, inner_b, variable]).unwrap();
+        let expression = b
+            .term(TermNode::Let {
+                ty: boolean,
+                value: a,
+                body,
+            })
+            .unwrap();
+        let facts = [(a, selected, a_proof), (b_value, true, b_proof)];
+        if selected {
+            let mut missing = b.clone();
+            assert!(prove_boolean_in_context(&mut missing, expression, true, &facts[..1]).is_err());
+            let mut conflict = b.clone();
+            assert!(prove_boolean_in_context(
+                &mut conflict,
+                expression,
+                true,
+                &[(a, true, a_proof), (a, false, a_proof)]
+            )
+            .is_err());
+        }
+        let declarations = b.c.declarations.len();
+        let mut proof = prove_boolean_in_context(&mut b, expression, selected, &facts).unwrap();
+        assert_eq!(
+            b.c.declarations.len(),
+            declarations,
+            "No open auxiliary lemma"
+        );
+        let mut ty = call(&mut b, EQ, vec![boolean, expression, chosen]).unwrap();
+        for binder in binders.into_iter().rev() {
+            proof = b.lam(binder, proof).unwrap();
+            ty = b.pi(binder, ty).unwrap();
+        }
+        publish_theorem(&mut b, "Mpk.ContextBoolean.Complete", ty, proof).unwrap();
+        b.finish().unwrap()
+    }
+
+    #[test]
+    fn context_boolean_normalization_preserves_free_branches_and_requires_proofs() {
+        let yes = context_boolean_certificate(true, false);
+        let no = context_boolean_certificate(false, false);
+        for bytes in [&yes, &no] {
+            assert_eq!(
+                mpk_kernel::verify_certificate_bytes(bytes)
+                    .unwrap()
+                    .axiom_count,
+                0
+            );
+        }
+        let wrong = context_boolean_certificate(true, true);
+        assert_eq!(
+            mpk_kernel::verify_certificate_bytes(&wrong)
+                .unwrap_err()
+                .kind(),
+            mpk_kernel::VerificationErrorKind::CoreCheck
+        );
+        if let Ok(path) = std::env::var("MPK_W09_CONTEXT_BOOLEAN_UNIT_OUTPUT") {
+            std::fs::create_dir_all(&path).unwrap();
+            for (name, bytes) in [("true", yes), ("false", no), ("wrong", wrong)] {
+                std::fs::write(
+                    std::path::Path::new(&path).join(format!("{name}.mpcert")),
+                    bytes,
+                )
+                .unwrap();
+            }
+        }
+    }
+
+    #[test]
+    fn context_boolean_normalization_bounds_shared_proof_dags() {
+        let mut b = Builder::new().unwrap();
+        equality(&mut b).unwrap();
+        let boolean = b.boolean;
+        let yes = bit(&mut b, true).unwrap();
+        let no = bit(&mut b, false).unwrap();
+        let variable = b.var(0).unwrap();
+        let hypothesis_type = call(&mut b, EQ, vec![boolean, variable, yes]).unwrap();
+        let value = b.var(1).unwrap();
+        let hypothesis = b.var(0).unwrap();
+        let mut expression = value;
+        // The ordinary DAG is small; its expanded inline cost exceeds u32.
+        for _ in 0..35 {
+            expression = call(&mut b, "Std.Bool.rec", vec![no, expression, expression]).unwrap();
+        }
+        let declarations = b.c.declarations.len();
+        let proof =
+            prove_boolean_in_context(&mut b, expression, true, &[(value, true, hypothesis)])
+                .unwrap();
+        assert_eq!(b.c.declarations.len(), declarations);
+        let ty = call(&mut b, EQ, vec![boolean, expression, yes]).unwrap();
+        let ty = b.pi(hypothesis_type, ty).unwrap();
+        let ty = b.pi(boolean, ty).unwrap();
+        let proof = b.lam(hypothesis_type, proof).unwrap();
+        let proof = b.lam(boolean, proof).unwrap();
+        publish_theorem(&mut b, "Mpk.ContextBoolean.SharedDag", ty, proof).unwrap();
+        // This checks generation/profile bounds; kernel acceptance is separate.
+        let certificate = b.finish().unwrap();
+        if let Ok(path) = std::env::var("MPK_W09_CONTEXT_BOOLEAN_UNIT_OUTPUT") {
+            std::fs::create_dir_all(&path).unwrap();
+            std::fs::write(
+                std::path::Path::new(&path).join("shared-dag.mpcert"),
+                certificate,
+            )
+            .unwrap();
+        }
+    }
 
     #[test]
     fn ownership_normalization_preserves_free_selector_under_binder() {
@@ -1166,6 +1354,7 @@ mod tests {
             substitutions: BTreeMap::new(),
             shifts: BTreeMap::new(),
             proofs: BTreeMap::new(),
+            context_facts: BTreeMap::new(),
             inline_limit: 4,
             share_atoms: true,
             share_word_transport: true,

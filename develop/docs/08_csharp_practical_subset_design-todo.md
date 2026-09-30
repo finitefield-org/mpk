@@ -2204,10 +2204,24 @@ application checks as pending. Two targeted units pass, including a used helper;
 both unchanged checkers accept the correct universal fixture with zero axioms
 and reject the wrong proof at core checking. The 18-context replay binds all
 113 required paths and preserves all 36 original metadata/certificate pins.
-Clippy and format pass. Linux replay of this new candidate source is pending.
+Clippy and format pass. The fixed candidate-linkage source `a45fd22f` passes
+eight targeted tests, Clippy and format on the requested Linux server; its
+terminal audit verifies 1,150 Git blobs and all log/test-binary hashes.
 This is a partial unit 7 checkpoint; W09 and all 987 application proofs remain
 open, and the full T06 gate remains deferred to W12.
 See `ordinary-foundation/unit-7-pattern-refinement-candidates-review.md`.
+
+Candidate generation now constructs every required refinement from complete
+scope projections and contextual Boolean equality proofs. Unknown computations
+or missing proofs fail the whole route. Free values are shifted under congruence
+binders, open helper declarations are excluded and expanded sharing costs are
+bounded. Eight affected tests pass, including unchanged ownership/default pins;
+Clippy and format pass. Both unchanged checkers accept the generated small
+universal candidate and correct contextual fixtures with zero axioms and reject
+wrong proofs. The original `is_binding` capability probe still cannot generate
+its seven source refinements. These small fixtures do not discharge those source
+proofs or any of the 987 application proofs. Linux replay of this latest source
+is pending; W09 stays In progress and the full T06 gate is deferred to W12.
 
 Owns: translation of every already-expanded concrete foundation definition in
 monomorphic VIR into ordinary core definitions and proof terms for all new

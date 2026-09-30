@@ -117,6 +117,144 @@ fn preserves_prefix(base: &Certificate, candidate: &Certificate) -> R<()> {
     Ok(())
 }
 
+fn append_builder(certificate: &[u8]) -> R<Builder> {
+    let c = decode_canonical_certificate(certificate).map_err(|_| OrdinaryCarrierError::Linkage)?;
+    crate::csharp_practical_vc_model::validate_csharp_practical_certificate_structure(&c)
+        .map_err(|_| OrdinaryCarrierError::Limit)?;
+    let mut b = Builder::new()?;
+    b.c = c;
+    b.terms.clear();
+    b.binders.clear();
+    b.globals =
+        b.c.declarations
+            .iter()
+            .enumerate()
+            .map(|(i, d)| (b.c.name_table[d.name as usize].clone(), i as u32))
+            .collect();
+    for i in 0..b.c.term_table.len() {
+        let node = &b.c.term_table[i];
+        let depth = b.depth(node)?;
+        b.terms.entry(key(node)).or_insert(i as u32);
+        b.binders.push(depth);
+    }
+    let DeclarationKind::Inductive { ty } = b.c.declarations[b.globals["Std.Bool"] as usize].kind
+    else {
+        return Err(OrdinaryCarrierError::Linkage);
+    };
+    b.sort = ty;
+    b.boolean = b.constant("Std.Bool")?;
+    Ok(b)
+}
+
+fn definition_body(b: &Builder, name: &str) -> R<u32> {
+    let id = *b.globals.get(name).ok_or(OrdinaryCarrierError::Linkage)?;
+    let DeclarationKind::Def { value, .. } = b.c.declarations[id as usize].kind else {
+        return Err(OrdinaryCarrierError::Linkage);
+    };
+    Ok(value)
+}
+
+fn truth_expression(b: &Builder, term: u32) -> R<u32> {
+    let TermNode::App {
+        function,
+        arguments,
+    } = &b.c.term_table[term as usize]
+    else {
+        return Err(OrdinaryCarrierError::Linkage);
+    };
+    let TermNode::Const { global, levels } = &b.c.term_table[*function as usize] else {
+        return Err(OrdinaryCarrierError::Linkage);
+    };
+    if !levels.is_empty()
+        || b.c.name_table[b.c.declarations[*global as usize].name as usize] != "Std.Eq"
+        || arguments.len() != 3
+    {
+        return Err(OrdinaryCarrierError::Linkage);
+    }
+    for (&term, expected) in [arguments[0], arguments[2]]
+        .iter()
+        .zip(["Std.Bool", "Std.Bool.true"])
+    {
+        let TermNode::Const { global, levels } = &b.c.term_table[term as usize] else {
+            return Err(OrdinaryCarrierError::Linkage);
+        };
+        if !levels.is_empty()
+            || b.c.name_table[b.c.declarations[*global as usize].name as usize] != expected
+        {
+            return Err(OrdinaryCarrierError::Linkage);
+        }
+    }
+    Ok(arguments[1])
+}
+
+/// Construct every required refinement using only the existing complete scope
+/// projections. Unknown computations and missing proofs fail the entire route.
+/// The result remains an untrusted candidate requiring both unchanged kernels.
+pub fn generate_csharp_practical_ordinary_pattern_refinement_candidate(
+    program: &OrdinaryControlPredicateProgram,
+) -> R<OrdinaryControlPatternRefinementCandidate> {
+    let required = csharp_practical_ordinary_pattern_refinement_candidate_theorems(program)?;
+    let mut b = append_builder(program.certificate_bytes())?;
+    for (path, expected) in program.pattern_proof_types.iter().zip(&required) {
+        let mut goal = definition_body(&b, &expected.proposition_definition)?;
+        let mut binders = vec![];
+        while let TermNode::Pi { ty, body } = b.c.term_table[goal as usize] {
+            binders.push(ty);
+            goal = body;
+        }
+        let count = if path.packed_environment.is_some() {
+            1
+        } else {
+            path.arguments.len()
+        };
+        if binders.len() != count + 1 || path.premise_proofs.len() != path.components.len() {
+            return Err(OrdinaryCarrierError::Linkage);
+        }
+        let arguments = (0..count)
+            .map(|i| b.var((count - i) as u32))
+            .collect::<R<Vec<_>>>()?;
+        let hypothesis = b.var(0)?;
+        let mut facts = vec![];
+        for projection in &path.premise_proofs {
+            let declaration = b.c.declarations[*b
+                .globals
+                .get(&projection.theorem)
+                .ok_or(OrdinaryCarrierError::Linkage)?
+                as usize]
+                .clone();
+            let DeclarationKind::Theorem { mut ty, .. } = declaration.kind else {
+                return Err(OrdinaryCarrierError::Linkage);
+            };
+            for _ in 0..binders.len() {
+                let TermNode::Pi { body, .. } = b.c.term_table[ty as usize] else {
+                    return Err(OrdinaryCarrierError::Linkage);
+                };
+                ty = body;
+            }
+            let expression = truth_expression(&b, ty)?;
+            let mut inputs = arguments.clone();
+            inputs.push(hypothesis);
+            let proof = call(&mut b, &projection.theorem, inputs)?;
+            facts.push((expression, true, proof));
+        }
+        let expression = truth_expression(&b, goal)?;
+        let mut proof = super::super::super::ownership_proofs::prove_boolean_in_context(
+            &mut b, expression, true, &facts,
+        )?;
+        for binder in binders.into_iter().rev() {
+            proof = b.lam(binder, proof)?;
+        }
+        let ty = b.constant(&expected.proposition_definition)?;
+        super::super::super::ownership_proofs::publish_theorem(
+            &mut b,
+            &expected.theorem,
+            ty,
+            proof,
+        )?;
+    }
+    link_csharp_practical_ordinary_pattern_refinement_candidate(program, &b.finish()?)
+}
+
 /// Link a complete ordinary candidate to the independently generated program.
 /// This performs no proof search or proof checking and never reports acceptance.
 pub fn link_csharp_practical_ordinary_pattern_refinement_candidate(
@@ -295,6 +433,30 @@ mod tests {
                 source_refinement_proof_pending: true,
                 execution_establishment_proof_pending: true,
             });
+        }
+        let mut ty = b.pi(scope, shifted[2]).unwrap();
+        let mut proof = projection(&mut b, &shifted, &minor, 2).unwrap();
+        proof = b.lam(scope, proof).unwrap();
+        for _ in 0..3 {
+            ty = b.pi(b.boolean, ty).unwrap();
+            proof = b.lam(b.boolean, proof).unwrap();
+        }
+        super::super::super::super::ownership_proofs::publish_theorem(
+            &mut b,
+            "Mpk.Candidate.Projection.P2",
+            ty,
+            proof,
+        )
+        .unwrap();
+        for row in &mut rows {
+            row.premise_proofs = components
+                .iter()
+                .enumerate()
+                .map(|(i, source)| OrdinaryControlPatternPremiseProof {
+                    source: source.clone(),
+                    theorem: format!("Mpk.Candidate.Projection.P{i}"),
+                })
+                .collect();
         }
         let certificate = b.clone().finish().unwrap();
         let program = OrdinaryControlPredicateProgram {
@@ -477,5 +639,31 @@ mod tests {
             )
             .unwrap();
         }
+    }
+
+    #[test]
+    fn pattern_refinement_candidate_generation_uses_only_complete_scope_proofs() {
+        let (_, program) = sample();
+        let candidate =
+            generate_csharp_practical_ordinary_pattern_refinement_candidate(&program).unwrap();
+        assert!(candidate.proof_check_pending());
+        assert_eq!(candidate.theorems().len(), 2);
+        assert_eq!(
+            mpk_kernel::verify_certificate_bytes(candidate.certificate_bytes())
+                .unwrap()
+                .axiom_count,
+            0
+        );
+        if let Ok(path) = std::env::var("MPK_W09_PATTERN_CANDIDATE_UNIT_OUTPUT") {
+            std::fs::create_dir_all(&path).unwrap();
+            std::fs::write(
+                std::path::Path::new(&path).join("generated.mpcert"),
+                candidate.certificate_bytes(),
+            )
+            .unwrap();
+        }
+        let mut missing = program.clone();
+        missing.pattern_proof_types[0].premise_proofs.clear();
+        assert!(generate_csharp_practical_ordinary_pattern_refinement_candidate(&missing).is_err());
     }
 }

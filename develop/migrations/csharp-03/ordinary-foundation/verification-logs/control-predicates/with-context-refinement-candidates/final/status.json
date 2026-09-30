@@ -1,0 +1,133 @@
+{
+  "status": "passed",
+  "unique_tests_passed": 7,
+  "selection_reason": "Verify proof-producing contextual Boolean reduction with actual equality proof terms, free branch values and let substitution; missing/conflicting facts reject and wrong proof terms fail core checking. Test full candidate generation plus all candidate linkage regressions and the shared substitution consumer. Also replay the exact ownership-proof and closed-default consumers against their unchanged original pins because they use the same normalizer. Clippy includes tests. Original source/application proofs and the full T06-W12 gate remain pending.",
+  "stages": [
+    {
+      "stage": "context-unit",
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "context_boolean_normalization_",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-09-30T06:08:02.343180+00:00",
+      "finished_at": "2026-09-30T06:08:09.026660+00:00",
+      "elapsed_seconds": 6.683,
+      "log_sha256": "359e027d8ffe77ab1264d887ee9d2b993025f430571a0719d6cb35dce431b741"
+    },
+    {
+      "stage": "candidate-units",
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "pattern_refinement_candidate_",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-09-30T06:08:09.100618+00:00",
+      "finished_at": "2026-09-30T06:08:09.296649+00:00",
+      "elapsed_seconds": 0.196,
+      "log_sha256": "49d4ec60fa7120f68cd581a23aa4c56219d3376fe07d2349ae4cecd108b8b82f"
+    },
+    {
+      "stage": "ownership-unit",
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "ownership_normalization_preserves_free_selector_under_binder",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-09-30T06:08:09.359652+00:00",
+      "finished_at": "2026-09-30T06:08:09.467103+00:00",
+      "elapsed_seconds": 0.107,
+      "log_sha256": "42181151e449e72dd1a0c5ac8e17974808bcc7f3b034360f524a09013069cc6b"
+    },
+    {
+      "stage": "ownership-consumer",
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_ownership_proof_candidates",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-09-30T06:08:09.537674+00:00",
+      "finished_at": "2026-09-30T06:09:57.731470+00:00",
+      "elapsed_seconds": 108.193,
+      "log_sha256": "21ef785f3cda9867aae3db1444cb7aac7c7097ac5e7dd9ebb406b64057d508ef"
+    },
+    {
+      "stage": "closed-default-consumer",
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_binding_defaults_closed_boolean_proof_candidates",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-09-30T06:09:57.892684+00:00",
+      "finished_at": "2026-09-30T06:10:34.423558+00:00",
+      "elapsed_seconds": 36.531,
+      "log_sha256": "47bc32c337616279718d9bd3a978c09dcd2a81c923fe015b8f50e77e9c193005"
+    },
+    {
+      "stage": "clippy",
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--tests",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-09-30T06:10:34.491949+00:00",
+      "finished_at": "2026-09-30T06:10:51.036978+00:00",
+      "elapsed_seconds": 16.546,
+      "log_sha256": "8285852017de50bbc97e7bd2243a2579e811be2d0e65d7d8f6652ff83e176f2e"
+    },
+    {
+      "stage": "format",
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-09-30T06:10:51.107251+00:00",
+      "finished_at": "2026-09-30T06:10:55.054420+00:00",
+      "elapsed_seconds": 3.947,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}
