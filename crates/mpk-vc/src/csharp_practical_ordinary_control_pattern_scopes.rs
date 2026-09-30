@@ -15,6 +15,21 @@ pub struct OrdinaryControlPatternObservation {
     /// Exact matched producer argument, under the explicit capture premise.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub captured_argument_index: Option<usize>,
+    /// Independently represented pure source literal when native lowering erases it.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub source_literal_definition: Option<String>,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq, Serialize)]
+pub struct OrdinaryControlPatternRouteObservation {
+    pub source: ControlBinding,
+    pub observation_argument_index: usize,
+    pub successor_source_node_id: String,
+    pub native_edge_id: String,
+    pub native_target_node_id: Option<String>,
+    /// Conditional on the explicit native source-execution premise below.
+    pub selected: bool,
+    pub definition: String,
 }
 
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
@@ -24,6 +39,8 @@ pub struct OrdinaryControlPatternExecutionScope {
     pub arguments: Vec<ControlBinding>,
     pub native_argument_indices: Vec<usize>,
     pub observations: Vec<OrdinaryControlPatternObservation>,
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    pub route_observations: Vec<OrdinaryControlPatternRouteObservation>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub capture_dependency: Option<OrdinaryControlPatternCaptureDependency>,
     pub components: Vec<OrdinaryControlStepComponent>,
@@ -54,6 +71,103 @@ fn argument(arguments: &mut Vec<ControlBinding>, binding: ControlBinding) -> usi
         arguments.push(binding);
         arguments.len() - 1
     }
+}
+
+fn route_selection(
+    flow: &OrdinaryControlEdgeFunction,
+    edge: &control_edges::OrdinaryControlEdgeDefinition,
+    observation: &crate::csharp_practical_vir_model::PatternStepObservation,
+) -> R<usize> {
+    let route = observation
+        .route
+        .as_ref()
+        .ok_or(OrdinaryCarrierError::Linkage)?;
+    if route.source_kind == "builtin_throw" {
+        let exception = route
+            .closed_exception_type
+            .as_deref()
+            .ok_or(OrdinaryCarrierError::Linkage)?;
+        if route.binding_indices.len() != 1
+            || edge.builtin_throw_source_node_id.as_deref()
+                != Some(observation.source_node_id.as_str())
+            || edge.source.kind != "exception"
+            || edge.source.check_id.as_deref()
+                != Some(format!("exception.closed.{exception}").as_str())
+        {
+            return Err(OrdinaryCarrierError::Linkage);
+        }
+        return Ok(0);
+    }
+    if edge.source.kind != "normal" {
+        return Err(OrdinaryCarrierError::Linkage);
+    }
+    let branch = route.source_kind == "branch";
+    let guard_index = if branch {
+        let [input] = observation.operands.as_slice() else {
+            return Err(OrdinaryCarrierError::Linkage);
+        };
+        let [binding] = edge.source.guard.bindings.as_slice() else {
+            return Err(OrdinaryCarrierError::Linkage);
+        };
+        if binding.kind != "ssa"
+            || binding.value_id != input.native_value.id
+            || binding.type_id != SOURCE_BOOL
+        {
+            return Err(OrdinaryCarrierError::Linkage);
+        }
+        let variable = ContractTerm::Var {
+            index: 0,
+            type_id: SOURCE_BOOL.into(),
+        };
+        if edge.source.guard.term == variable {
+            Some(0)
+        } else if edge.source.guard.term
+            == (ContractTerm::App {
+                function: Box::new(ContractTerm::Const {
+                    name: "Mpk.CSharp.Bool.Not".into(),
+                    type_id: format!("({SOURCE_BOOL}->{SOURCE_BOOL})"),
+                }),
+                argument: Box::new(variable),
+                type_id: SOURCE_BOOL.into(),
+            })
+        {
+            Some(1)
+        } else {
+            return Err(OrdinaryCarrierError::Linkage);
+        }
+    } else {
+        None
+    };
+    let mut matches =
+        route
+            .successor_source_node_ids
+            .iter()
+            .enumerate()
+            .filter(|(index, source)| {
+                guard_index.is_none_or(|selected| selected == *index)
+                    && flow.source_frames.iter().any(|frame| {
+                        frame.source_node_id == **source
+                            && frame.entry_node_id.is_some()
+                            && frame.entry_node_id == edge.source.target_node_id
+                    })
+            });
+    let (index, _) = matches.next().ok_or(OrdinaryCarrierError::Linkage)?;
+    if matches.next().is_some() {
+        return Err(OrdinaryCarrierError::Linkage);
+    }
+    Ok(index)
+}
+
+fn fixed_observation(b: &mut Builder, selected: bool) -> R<String> {
+    let name = name("PatternPathObservedSelection", &selected);
+    if !b.globals.contains_key(&name) {
+        let equality = construction_data::physical_equal(b, 0)?;
+        let value = b.var(0)?;
+        let expected = bit(b, selected)?;
+        let body = call(b, &equality, vec![value, expected])?;
+        define(b, &name, &[0], 0, body)?;
+    }
+    Ok(name)
 }
 
 fn finish(
@@ -174,6 +288,7 @@ pub(super) fn emit(
                     arguments: execution.arguments.clone(),
                     native_argument_indices: (0..execution.arguments.len()).collect(),
                     observations: vec![],
+                    route_observations: vec![],
                     capture_dependency: None,
                     components: vec![],
                     pending_observation_binding_indices: vec![],
@@ -230,6 +345,45 @@ pub(super) fn emit(
                     }
                 }
                 for (i, source) in goal.bindings.iter().enumerate() {
+                    if source.kind == "source_route_selected" {
+                        let observation =
+                            source_observation.ok_or(OrdinaryCarrierError::Linkage)?;
+                        let route = observation
+                            .route
+                            .as_ref()
+                            .ok_or(OrdinaryCarrierError::Linkage)?;
+                        let route_index = route
+                            .binding_indices
+                            .iter()
+                            .position(|&index| index == i)
+                            .ok_or(OrdinaryCarrierError::Linkage)?;
+                        if source.type_id != SOURCE_BOOL
+                            || source.edge_id.is_some()
+                            || source.node_id != step.exit_node_id
+                            || source.value_id != route.successor_source_node_ids[route_index]
+                        {
+                            return Err(OrdinaryCarrierError::Linkage);
+                        }
+                        let selected = route_selection(flow, edge, observation)? == route_index;
+                        let observed = argument(&mut p.arguments, source.clone());
+                        let definition = fixed_observation(&mut c.b, selected)?;
+                        p.components.push(OrdinaryControlStepComponent {
+                            role: format!("source_route_observation:{i}"),
+                            definition: definition.clone(),
+                            argument_indices: vec![observed],
+                        });
+                        p.route_observations
+                            .push(OrdinaryControlPatternRouteObservation {
+                                source: source.clone(),
+                                observation_argument_index: observed,
+                                successor_source_node_id: source.value_id.clone(),
+                                native_edge_id: edge.source.id.clone(),
+                                native_target_node_id: edge.source.target_node_id.clone(),
+                                selected,
+                                definition,
+                            });
+                        continue;
+                    }
                     let point = if source.kind == "ssa" {
                         values
                             .get(&source.value_id)
@@ -304,6 +458,7 @@ pub(super) fn emit(
                         observation_argument_index: observed,
                         native_argument_index: native_index,
                         captured_argument_index: captured_index,
+                        source_literal_definition: None,
                     });
                     if let Some(native_index) = native_index.or(captured_index) {
                         let depth = c
@@ -320,6 +475,47 @@ pub(super) fn emit(
                             definition,
                             argument_indices: vec![observed, native_index],
                         });
+                    } else if source_observation.is_some()
+                        && control
+                            .pattern_observations()
+                            .iter()
+                            .any(|o| o.route.is_some())
+                        && source.type_id == "mpk.csharp.value.unit.v1"
+                    {
+                        let operand = source_observation
+                            .and_then(|o| o.operands.iter().find(|o| o.binding_index == i))
+                            .ok_or(OrdinaryCarrierError::Linkage)?;
+                        let graph = flow
+                            .source
+                            .source_graph
+                            .as_ref()
+                            .ok_or(OrdinaryCarrierError::Linkage)?;
+                        let producer = graph
+                            .nodes
+                            .iter()
+                            .find(|n| n.id == operand.producer_source_node_id)
+                            .ok_or(OrdinaryCarrierError::Linkage)?;
+                        let literal = producer
+                            .source_ordinal
+                            .and_then(|ordinal| graph.operations.get(ordinal))
+                            .ok_or(OrdinaryCarrierError::Linkage)?;
+                        if producer.operation != "constant"
+                            || literal.constant.as_deref() != Some("null")
+                            || producer.result != operand.source_value_id
+                            || !producer.exceptional_successors.is_empty()
+                        {
+                            return Err(OrdinaryCarrierError::Linkage);
+                        }
+                        let definition = fixed_observation(&mut c.b, false)?;
+                        p.components.push(OrdinaryControlStepComponent {
+                            role: format!("pure_source_null_unit_observation:{i}"),
+                            definition: definition.clone(),
+                            argument_indices: vec![observed],
+                        });
+                        p.observations
+                            .last_mut()
+                            .ok_or(OrdinaryCarrierError::Linkage)?
+                            .source_literal_definition = Some(definition);
                     } else {
                         p.pending_observation_binding_indices.push(i);
                     }
@@ -422,6 +618,7 @@ mod tests {
             arguments: bindings,
             native_argument_indices: vec![2, 3],
             observations: vec![],
+            route_observations: vec![],
             capture_dependency: None,
             components: vec![
                 OrdinaryControlStepComponent {
@@ -504,6 +701,7 @@ mod tests {
             arguments: bindings,
             native_argument_indices: vec![0, 1],
             observations: vec![],
+            route_observations: vec![],
             capture_dependency: None,
             components: vec![
                 OrdinaryControlStepComponent {

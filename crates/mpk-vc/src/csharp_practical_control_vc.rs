@@ -13,8 +13,11 @@ pub(crate) use slot_storage::{option_payload_types, represented_slot_types};
 mod pattern_observations;
 pub use pattern_observations::{
     generate_csharp_practical_control_vcs_with_pattern_observations,
-    import_csharp_practical_control_vcs_with_pattern_observations, PatternObservationError,
-    PatternOperandObservation, PatternSlotObservation, PatternStepObservation,
+    generate_csharp_practical_control_vcs_with_pattern_routes,
+    import_csharp_practical_control_vcs_with_pattern_observations,
+    import_csharp_practical_control_vcs_with_pattern_routes, PatternObservationError,
+    PatternOperandObservation, PatternRouteObservation, PatternSlotObservation,
+    PatternStepObservation,
 };
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub(crate) enum ControlVcError {

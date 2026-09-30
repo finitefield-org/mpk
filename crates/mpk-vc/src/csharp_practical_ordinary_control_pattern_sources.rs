@@ -284,92 +284,198 @@ pub(super) fn emit(
         if let Some(result) = result {
             input_terms.push(terms[result]);
         }
-        let body = match step.operation.as_str() {
-            "constant" => {
-                let result = result.ok_or(OrdinaryCarrierError::Linkage)?;
-                let expected = c.b.constant(
-                    literal_names
-                        .get(&observation.sequent_id)
-                        .ok_or(OrdinaryCarrierError::Linkage)?,
-                )?;
-                entry.semantic_rule = "exact_source_literal_result".into();
-                Some(equal(&mut c.b, depths[result], terms[result], expected)?)
+        let body = if let Some(route) = &observation.route {
+            if route.binding_indices.len() != route.successor_source_node_ids.len()
+                || route
+                    .binding_indices
+                    .iter()
+                    .any(|&i| bindings[i].kind != "source_route_selected" || depths[i] != 0)
+            {
+                return Err(OrdinaryCarrierError::Linkage);
             }
-            "join_value" => {
-                let [input] = observation.operands.as_slice() else {
-                    return Err(OrdinaryCarrierError::Linkage);
-                };
-                let result = result.ok_or(OrdinaryCarrierError::Linkage)?;
-                if bindings[input.binding_index].type_id != bindings[result].type_id {
-                    return Err(OrdinaryCarrierError::Linkage);
-                }
-                entry.semantic_rule = "selected_source_input_result_transport".into();
-                Some(equal(
-                    &mut c.b,
-                    depths[result],
-                    terms[input.binding_index],
-                    terms[result],
-                )?)
-            }
-            "load" | "store" | "pattern_bind" => {
-                let slot = observation
-                    .slot
-                    .as_ref()
-                    .ok_or(OrdinaryCarrierError::Linkage)?;
-                let result = result.ok_or(OrdinaryCarrierError::Linkage)?;
-                let before_assigned = terms[slot.before_assigned_index];
-                let after_assigned = terms[slot.after_assigned_index];
-                let before = terms[slot.before_value_index];
-                let after = terms[slot.after_value_index];
-                let storage_depth = depths[slot.before_value_index];
-                let payload_depth = (payloads.get(&slot.storage_type_id)
-                    == Some(&bindings[result].type_id))
-                .then_some(depths[result]);
-                if step.operation == "load" {
-                    if !observation.operands.is_empty() {
-                        return Err(OrdinaryCarrierError::Linkage);
-                    }
-                    let flags = equal(&mut c.b, 0, before_assigned, after_assigned)?;
-                    let framed = equal(&mut c.b, storage_depth, before, after)?;
-                    let loaded = control_slots::transfer_equal(
-                        &mut c.b,
-                        storage_depth,
-                        before,
-                        terms[result],
-                        payload_depth,
-                        None,
-                    )?;
-                    let a = call(&mut c.b, "Std.Bool.and", vec![before_assigned, flags])?;
-                    let a = call(&mut c.b, "Std.Bool.and", vec![a, framed])?;
-                    entry.semantic_rule = "assigned_source_slot_load_and_frame".into();
-                    Some(call(&mut c.b, "Std.Bool.and", vec![a, loaded])?)
-                } else {
+            match route.source_kind.as_str() {
+                "pattern_decision" => {
                     let [input] = observation.operands.as_slice() else {
                         return Err(OrdinaryCarrierError::Linkage);
                     };
+                    let [selected] = route.binding_indices.as_slice() else {
+                        return Err(OrdinaryCarrierError::Linkage);
+                    };
+                    if pattern.governing_value != input.native_value
+                        || bindings[0].type_id != input.native_value.type_id
+                    {
+                        return Err(OrdinaryCarrierError::Linkage);
+                    }
+                    let captured =
+                        equal(&mut c.b, depths[0], terms[0], terms[input.binding_index])?;
+                    entry.semantic_rule =
+                        "source_once_evaluated_governing_capture_and_normal_successor".into();
+                    Some(call(
+                        &mut c.b,
+                        "Std.Bool.and",
+                        vec![captured, terms[*selected]],
+                    )?)
+                }
+                "branch" => {
+                    let [input] = observation.operands.as_slice() else {
+                        return Err(OrdinaryCarrierError::Linkage);
+                    };
+                    let [yes, no] = route.binding_indices.as_slice() else {
+                        return Err(OrdinaryCarrierError::Linkage);
+                    };
+                    if input.native_value.type_id != SOURCE_BOOL || step.result.is_some() {
+                        return Err(OrdinaryCarrierError::Linkage);
+                    }
+                    let yes = equal(&mut c.b, 0, terms[input.binding_index], terms[*yes])?;
+                    let inverse = call(&mut c.b, "Std.Bool.not", vec![terms[input.binding_index]])?;
+                    let no = equal(&mut c.b, 0, inverse, terms[*no])?;
+                    entry.semantic_rule =
+                        "source_true_first_false_second_exclusive_successor_choice".into();
+                    Some(call(&mut c.b, "Std.Bool.and", vec![yes, no])?)
+                }
+                "handler_completion"
+                    if step.operation == "normal"
+                        && step.source_kind.as_deref() == Some("Branch")
+                        && step.source_traits.as_deref() == Some("Break") =>
+                {
+                    let [selected] = route.binding_indices.as_slice() else {
+                        return Err(OrdinaryCarrierError::Linkage);
+                    };
+                    if !inputs.is_empty() || step.result.is_some() {
+                        return Err(OrdinaryCarrierError::Linkage);
+                    }
+                    entry.semantic_rule = "source_break_completion_to_exact_successor".into();
+                    Some(terms[*selected])
+                }
+                "builtin_throw"
+                    if step.source_kind.as_deref() == Some("SwitchExpression")
+                        && route.closed_exception_type.as_deref()
+                            == Some(
+                                "System.Runtime.CompilerServices.SwitchExpressionException",
+                            ) =>
+                {
+                    let [selected] = route.binding_indices.as_slice() else {
+                        return Err(OrdinaryCarrierError::Linkage);
+                    };
+                    if !inputs.is_empty() || step.result.is_some() {
+                        return Err(OrdinaryCarrierError::Linkage);
+                    }
+                    entry.semantic_rule =
+                        "source_no_match_closed_switch_expression_exception_route".into();
+                    Some(terms[*selected])
+                }
+                _ => return Err(OrdinaryCarrierError::Linkage),
+            }
+        } else {
+            match step.operation.as_str() {
+                "constant" => {
+                    let result = result.ok_or(OrdinaryCarrierError::Linkage)?;
+                    let expected = c.b.constant(
+                        literal_names
+                            .get(&observation.sequent_id)
+                            .ok_or(OrdinaryCarrierError::Linkage)?,
+                    )?;
+                    entry.semantic_rule = "exact_source_literal_result".into();
+                    Some(equal(&mut c.b, depths[result], terms[result], expected)?)
+                }
+                "join_value" => {
+                    let [input] = observation.operands.as_slice() else {
+                        return Err(OrdinaryCarrierError::Linkage);
+                    };
+                    let result = result.ok_or(OrdinaryCarrierError::Linkage)?;
                     if bindings[input.binding_index].type_id != bindings[result].type_id {
-                        if step.operation != "pattern_bind"
-                            || payloads.get(&inputs[0].type_id) != Some(&bindings[result].type_id)
-                            || !exact_pattern_type(step, &bindings[result].type_id)
-                        {
-                            entry
-                                .pending_definition_reasons
-                                .push("source_payload_extraction".into());
-                            None
+                        return Err(OrdinaryCarrierError::Linkage);
+                    }
+                    entry.semantic_rule = "selected_source_input_result_transport".into();
+                    Some(equal(
+                        &mut c.b,
+                        depths[result],
+                        terms[input.binding_index],
+                        terms[result],
+                    )?)
+                }
+                "load" | "store" | "pattern_bind" => {
+                    let slot = observation
+                        .slot
+                        .as_ref()
+                        .ok_or(OrdinaryCarrierError::Linkage)?;
+                    let result = result.ok_or(OrdinaryCarrierError::Linkage)?;
+                    let before_assigned = terms[slot.before_assigned_index];
+                    let after_assigned = terms[slot.after_assigned_index];
+                    let before = terms[slot.before_value_index];
+                    let after = terms[slot.after_value_index];
+                    let storage_depth = depths[slot.before_value_index];
+                    let payload_depth = (payloads.get(&slot.storage_type_id)
+                        == Some(&bindings[result].type_id))
+                    .then_some(depths[result]);
+                    if step.operation == "load" {
+                        if !observation.operands.is_empty() {
+                            return Err(OrdinaryCarrierError::Linkage);
+                        }
+                        let flags = equal(&mut c.b, 0, before_assigned, after_assigned)?;
+                        let framed = equal(&mut c.b, storage_depth, before, after)?;
+                        let loaded = control_slots::transfer_equal(
+                            &mut c.b,
+                            storage_depth,
+                            before,
+                            terms[result],
+                            payload_depth,
+                            None,
+                        )?;
+                        let a = call(&mut c.b, "Std.Bool.and", vec![before_assigned, flags])?;
+                        let a = call(&mut c.b, "Std.Bool.and", vec![a, framed])?;
+                        entry.semantic_rule = "assigned_source_slot_load_and_frame".into();
+                        Some(call(&mut c.b, "Std.Bool.and", vec![a, loaded])?)
+                    } else {
+                        let [input] = observation.operands.as_slice() else {
+                            return Err(OrdinaryCarrierError::Linkage);
+                        };
+                        if bindings[input.binding_index].type_id != bindings[result].type_id {
+                            if step.operation != "pattern_bind"
+                                || payloads.get(&inputs[0].type_id)
+                                    != Some(&bindings[result].type_id)
+                                || !exact_pattern_type(step, &bindings[result].type_id)
+                            {
+                                entry
+                                    .pending_definition_reasons
+                                    .push("source_payload_extraction".into());
+                                None
+                            } else {
+                                let operation = primitive(
+                                    native,
+                                    observation,
+                                    step,
+                                    &format!("{}.value", inputs[0].type_id),
+                                )?;
+                                let extracted = normal_relation(
+                                    c,
+                                    operation,
+                                    &inputs,
+                                    step.result.as_ref().ok_or(OrdinaryCarrierError::Linkage)?,
+                                    input_terms,
+                                    &mut entry,
+                                )?;
+                                let stored = control_slots::transfer_equal(
+                                    &mut c.b,
+                                    storage_depth,
+                                    after,
+                                    terms[result],
+                                    payload_depth,
+                                    None,
+                                )?;
+                                let stored =
+                                    call(&mut c.b, "Std.Bool.and", vec![after_assigned, stored])?;
+                                entry.semantic_rule =
+                                    "successful_source_payload_extraction_and_assigned_slot_store"
+                                        .into();
+                                Some(call(&mut c.b, "Std.Bool.and", vec![extracted, stored])?)
+                            }
                         } else {
-                            let operation = primitive(
-                                native,
-                                observation,
-                                step,
-                                &format!("{}.value", inputs[0].type_id),
-                            )?;
-                            let extracted = normal_relation(
-                                c,
-                                operation,
-                                &inputs,
-                                step.result.as_ref().ok_or(OrdinaryCarrierError::Linkage)?,
-                                input_terms,
-                                &mut entry,
+                            let input_result = equal(
+                                &mut c.b,
+                                depths[result],
+                                terms[input.binding_index],
+                                terms[result],
                             )?;
                             let stored = control_slots::transfer_equal(
                                 &mut c.b,
@@ -382,172 +488,56 @@ pub(super) fn emit(
                             let stored =
                                 call(&mut c.b, "Std.Bool.and", vec![after_assigned, stored])?;
                             entry.semantic_rule =
-                                "successful_source_payload_extraction_and_assigned_slot_store"
-                                    .into();
-                            Some(call(&mut c.b, "Std.Bool.and", vec![extracted, stored])?)
+                                "source_input_result_and_assigned_slot_store".into();
+                            Some(call(&mut c.b, "Std.Bool.and", vec![input_result, stored])?)
                         }
-                    } else {
-                        let input_result = equal(
-                            &mut c.b,
-                            depths[result],
-                            terms[input.binding_index],
-                            terms[result],
-                        )?;
-                        let stored = control_slots::transfer_equal(
-                            &mut c.b,
-                            storage_depth,
-                            after,
-                            terms[result],
-                            payload_depth,
-                            None,
-                        )?;
-                        let stored = call(&mut c.b, "Std.Bool.and", vec![after_assigned, stored])?;
-                        entry.semantic_rule = "source_input_result_and_assigned_slot_store".into();
-                        Some(call(&mut c.b, "Std.Bool.and", vec![input_result, stored])?)
                     }
                 }
-            }
-            "binary" | "pattern_equal" | "pattern_relational" => {
-                let [left, right] = inputs.as_slice() else {
-                    return Err(OrdinaryCarrierError::Linkage);
-                };
-                if left.type_id != right.type_id {
-                    return Err(OrdinaryCarrierError::Linkage);
-                }
-                let operator = if step.operation == "pattern_equal" {
-                    "Equals"
-                } else {
-                    op.traits
-                        .split('|')
-                        .next()
-                        .ok_or(OrdinaryCarrierError::Linkage)?
-                };
-                let operation_id = if operator == "Equals" {
-                    format!("structural.equal.{}", left.type_id)
-                } else {
-                    let token = left
-                        .type_id
-                        .strip_prefix("mpk.csharp.value.")
-                        .and_then(|s| s.strip_suffix(".v1"))
-                        .ok_or(OrdinaryCarrierError::Linkage)?;
-                    let operation = match operator {
-                        "GreaterThan" => "greater",
-                        "GreaterThanOrEqual" => "greater_equal",
-                        "LessThan" => "less",
-                        "LessThanOrEqual" => "less_equal",
-                        "Divide" => "divide",
-                        "Add" => "add",
-                        "Subtract" => "subtract",
-                        "Multiply" => "multiply",
-                        _ => return Err(OrdinaryCarrierError::Linkage),
+                "binary" | "pattern_equal" | "pattern_relational" => {
+                    let [left, right] = inputs.as_slice() else {
+                        return Err(OrdinaryCarrierError::Linkage);
                     };
-                    let mode = if step.operation == "binary"
-                        && op.traits.split('|').nth(1) == Some("True")
-                    {
-                        "checked"
+                    if left.type_id != right.type_id {
+                        return Err(OrdinaryCarrierError::Linkage);
+                    }
+                    let operator = if step.operation == "pattern_equal" {
+                        "Equals"
                     } else {
-                        "unchecked"
+                        op.traits
+                            .split('|')
+                            .next()
+                            .ok_or(OrdinaryCarrierError::Linkage)?
                     };
-                    format!("integer.{token}.{operation}.{mode}")
-                };
-                let operation = primitive(native, observation, step, &operation_id)?;
-                entry.semantic_rule = "source_typed_primitive_guard_and_result".into();
-                Some(normal_relation(
-                    c,
-                    operation,
-                    &inputs,
-                    step.result.as_ref().ok_or(OrdinaryCarrierError::Linkage)?,
-                    input_terms,
-                    &mut entry,
-                )?)
-            }
-            "unary_update" => {
-                let [input] = inputs.as_slice() else {
-                    return Err(OrdinaryCarrierError::Linkage);
-                };
-                let token = input
-                    .type_id
-                    .strip_prefix("mpk.csharp.value.")
-                    .and_then(|s| s.strip_suffix(".v1"))
-                    .ok_or(OrdinaryCarrierError::Linkage)?;
-                let operator = match op.kind.as_str() {
-                    "Increment" => "add",
-                    "Decrement" => "subtract",
-                    _ => return Err(OrdinaryCarrierError::Linkage),
-                };
-                let mode = if op.traits.split('|').nth(1) == Some("True") {
-                    "checked"
-                } else {
-                    "unchecked"
-                };
-                let operation = primitive(
-                    native,
-                    observation,
-                    step,
-                    &format!("integer.{token}.{operator}.{mode}"),
-                )?;
-                let [left, one] = operation.invocation.operands.as_slice() else {
-                    return Err(OrdinaryCarrierError::Linkage);
-                };
-                if left != input || one.type_id != input.type_id {
-                    return Err(OrdinaryCarrierError::Linkage);
-                }
-                let expected = if matches!(token, "u32" | "u64") {
-                    MonomorphicValue::Unsigned {
-                        type_id: input.type_id.clone(),
-                        value: "1".into(),
-                    }
-                } else {
-                    MonomorphicValue::Signed {
-                        type_id: input.type_id.clone(),
-                        value: "1".into(),
-                    }
-                };
-                let literal = native
-                    .functions()
-                    .iter()
-                    .find(|f| f.source.function_id == observation.function_id)
-                    .and_then(|f| {
-                        f.native_literals
-                            .iter()
-                            .find(|l| l.source.result == *one && l.source.value == expected)
-                    })
-                    .ok_or(OrdinaryCarrierError::Linkage)?;
-                let one_term = c.b.constant(&literal.literal_definition)?;
-                entry
-                    .native_primitive_definitions
-                    .push(literal.literal_definition.clone());
-                entry.semantic_rule = "source_slot_update_primitive_with_literal_one".into();
-                Some(normal_relation(
-                    c,
-                    operation,
-                    &operation.invocation.operands,
-                    step.result.as_ref().ok_or(OrdinaryCarrierError::Linkage)?,
-                    vec![
-                        input_terms[0],
-                        one_term,
-                        *input_terms.last().ok_or(OrdinaryCarrierError::Linkage)?,
-                    ],
-                    &mut entry,
-                )?)
-            }
-            "pattern_type" => {
-                let [input] = inputs.as_slice() else {
-                    return Err(OrdinaryCarrierError::Linkage);
-                };
-                let result = result.ok_or(OrdinaryCarrierError::Linkage)?;
-                let target = payloads.get(&input.type_id).unwrap_or(&input.type_id);
-                if !exact_pattern_type(step, target) {
-                    return Err(OrdinaryCarrierError::Linkage);
-                }
-                if payloads.contains_key(&input.type_id) {
-                    let operation = primitive(
-                        native,
-                        observation,
-                        step,
-                        &format!("{}.has_value", input.type_id),
-                    )?;
-                    entry.semantic_rule = "source_nullable_type_presence".into();
+                    let operation_id = if operator == "Equals" {
+                        format!("structural.equal.{}", left.type_id)
+                    } else {
+                        let token = left
+                            .type_id
+                            .strip_prefix("mpk.csharp.value.")
+                            .and_then(|s| s.strip_suffix(".v1"))
+                            .ok_or(OrdinaryCarrierError::Linkage)?;
+                        let operation = match operator {
+                            "GreaterThan" => "greater",
+                            "GreaterThanOrEqual" => "greater_equal",
+                            "LessThan" => "less",
+                            "LessThanOrEqual" => "less_equal",
+                            "Divide" => "divide",
+                            "Add" => "add",
+                            "Subtract" => "subtract",
+                            "Multiply" => "multiply",
+                            _ => return Err(OrdinaryCarrierError::Linkage),
+                        };
+                        let mode = if step.operation == "binary"
+                            && op.traits.split('|').nth(1) == Some("True")
+                        {
+                            "checked"
+                        } else {
+                            "unchecked"
+                        };
+                        format!("integer.{token}.{operation}.{mode}")
+                    };
+                    let operation = primitive(native, observation, step, &operation_id)?;
+                    entry.semantic_rule = "source_typed_primitive_guard_and_result".into();
                     Some(normal_relation(
                         c,
                         operation,
@@ -556,144 +546,241 @@ pub(super) fn emit(
                         input_terms,
                         &mut entry,
                     )?)
-                } else {
+                }
+                "unary_update" => {
+                    let [input] = inputs.as_slice() else {
+                        return Err(OrdinaryCarrierError::Linkage);
+                    };
+                    let token = input
+                        .type_id
+                        .strip_prefix("mpk.csharp.value.")
+                        .and_then(|s| s.strip_suffix(".v1"))
+                        .ok_or(OrdinaryCarrierError::Linkage)?;
+                    let operator = match op.kind.as_str() {
+                        "Increment" => "add",
+                        "Decrement" => "subtract",
+                        _ => return Err(OrdinaryCarrierError::Linkage),
+                    };
+                    let mode = if op.traits.split('|').nth(1) == Some("True") {
+                        "checked"
+                    } else {
+                        "unchecked"
+                    };
+                    let operation = primitive(
+                        native,
+                        observation,
+                        step,
+                        &format!("integer.{token}.{operator}.{mode}"),
+                    )?;
+                    let [left, one] = operation.invocation.operands.as_slice() else {
+                        return Err(OrdinaryCarrierError::Linkage);
+                    };
+                    if left != input || one.type_id != input.type_id {
+                        return Err(OrdinaryCarrierError::Linkage);
+                    }
+                    let expected = if matches!(token, "u32" | "u64") {
+                        MonomorphicValue::Unsigned {
+                            type_id: input.type_id.clone(),
+                            value: "1".into(),
+                        }
+                    } else {
+                        MonomorphicValue::Signed {
+                            type_id: input.type_id.clone(),
+                            value: "1".into(),
+                        }
+                    };
                     let literal = native
                         .functions()
                         .iter()
                         .find(|f| f.source.function_id == observation.function_id)
                         .and_then(|f| {
-                            f.native_literals.iter().find(|l| {
-                                Some(&l.source.result) == step.result.as_ref()
-                                    && l.source.value
-                                        == MonomorphicValue::Bool {
-                                            type_id: SOURCE_BOOL.into(),
-                                            value: true,
-                                        }
-                            })
+                            f.native_literals
+                                .iter()
+                                .find(|l| l.source.result == *one && l.source.value == expected)
                         })
                         .ok_or(OrdinaryCarrierError::Linkage)?;
-                    let present = c.b.constant(&literal.literal_definition)?;
-                    entry.semantic_rule = "source_nonnullable_type_presence".into();
-                    Some(equal(&mut c.b, depths[result], terms[result], present)?)
+                    let one_term = c.b.constant(&literal.literal_definition)?;
+                    entry
+                        .native_primitive_definitions
+                        .push(literal.literal_definition.clone());
+                    entry.semantic_rule = "source_slot_update_primitive_with_literal_one".into();
+                    Some(normal_relation(
+                        c,
+                        operation,
+                        &operation.invocation.operands,
+                        step.result.as_ref().ok_or(OrdinaryCarrierError::Linkage)?,
+                        vec![
+                            input_terms[0],
+                            one_term,
+                            *input_terms.last().ok_or(OrdinaryCarrierError::Linkage)?,
+                        ],
+                        &mut entry,
+                    )?)
                 }
-            }
-            "member" => {
-                let [input] = inputs.as_slice() else {
-                    return Err(OrdinaryCarrierError::Linkage);
-                };
-                let roots = vir.construction_context().1;
-                let member = roots
-                    .source_types
-                    .get(&input.type_id)
-                    .and_then(|s| {
-                        s.members
+                "pattern_type" => {
+                    let [input] = inputs.as_slice() else {
+                        return Err(OrdinaryCarrierError::Linkage);
+                    };
+                    let result = result.ok_or(OrdinaryCarrierError::Linkage)?;
+                    let target = payloads.get(&input.type_id).unwrap_or(&input.type_id);
+                    if !exact_pattern_type(step, target) {
+                        return Err(OrdinaryCarrierError::Linkage);
+                    }
+                    if payloads.contains_key(&input.type_id) {
+                        let operation = primitive(
+                            native,
+                            observation,
+                            step,
+                            &format!("{}.has_value", input.type_id),
+                        )?;
+                        entry.semantic_rule = "source_nullable_type_presence".into();
+                        Some(normal_relation(
+                            c,
+                            operation,
+                            &inputs,
+                            step.result.as_ref().ok_or(OrdinaryCarrierError::Linkage)?,
+                            input_terms,
+                            &mut entry,
+                        )?)
+                    } else {
+                        let literal = native
+                            .functions()
                             .iter()
-                            .find(|m| op.symbol == format!("{}.{}", input.type_id, m.name))
-                    })
-                    .ok_or(OrdinaryCarrierError::Linkage)?;
-                let signature = crate::csharp_practical_vir_model::source_field_operation(
-                    roots,
-                    vir.data_closed(),
-                    &member.id,
-                )
-                .map_err(|_| OrdinaryCarrierError::Linkage)?;
-                let operation = primitive(native, observation, step, &signature.id)?;
-                entry.semantic_rule = "source_declared_stored_member_read".into();
-                Some(normal_relation(
-                    c,
-                    operation,
-                    &inputs,
-                    step.result.as_ref().ok_or(OrdinaryCarrierError::Linkage)?,
-                    input_terms,
-                    &mut entry,
-                )?)
-            }
-            "element" => {
-                let [receiver, _] = inputs.as_slice() else {
-                    return Err(OrdinaryCarrierError::Linkage);
-                };
-                let operation = primitive(
-                    native,
-                    observation,
-                    step,
-                    &format!("{}.read", receiver.type_id),
-                )?;
-                entry.semantic_rule = "source_element_range_guard_and_result".into();
-                Some(normal_relation(
-                    c,
-                    operation,
-                    &inputs,
-                    step.result.as_ref().ok_or(OrdinaryCarrierError::Linkage)?,
-                    input_terms,
-                    &mut entry,
-                )?)
-            }
-            "pattern_member" if op.symbol == "System.Runtime|string.Length" => {
-                let [input] = inputs.as_slice() else {
-                    return Err(OrdinaryCarrierError::Linkage);
-                };
-                let result = result.ok_or(OrdinaryCarrierError::Linkage)?;
-                let length = primitive(native, observation, step, "string.length")?;
-                let [receiver] = length.invocation.operands.as_slice() else {
-                    return Err(OrdinaryCarrierError::Linkage);
-                };
-                if payloads.get(&receiver.type_id) != Some(&input.type_id) {
-                    return Err(OrdinaryCarrierError::Linkage);
+                            .find(|f| f.source.function_id == observation.function_id)
+                            .and_then(|f| {
+                                f.native_literals.iter().find(|l| {
+                                    Some(&l.source.result) == step.result.as_ref()
+                                        && l.source.value
+                                            == MonomorphicValue::Bool {
+                                                type_id: SOURCE_BOOL.into(),
+                                                value: true,
+                                            }
+                                })
+                            })
+                            .ok_or(OrdinaryCarrierError::Linkage)?;
+                        let present = c.b.constant(&literal.literal_definition)?;
+                        entry.semantic_rule = "source_nonnullable_type_presence".into();
+                        Some(equal(&mut c.b, depths[result], terms[result], present)?)
+                    }
                 }
-                let some = primitive(
-                    native,
-                    observation,
-                    step,
-                    &format!("{}.some", receiver.type_id),
-                )?;
-                let input_index = observation.operands[0].binding_index;
-                let constructor = control_slots::some_storage(&mut c.b, depths[input_index])?;
-                let option = call(&mut c.b, &constructor, vec![terms[input_index]])?;
-                let wrapped = normal_relation(
-                    c,
-                    some,
-                    &inputs,
-                    receiver,
-                    vec![terms[input_index], option],
-                    &mut entry,
-                )?;
-                let read = normal_relation(
-                    c,
-                    length,
-                    &length.invocation.operands,
-                    step.result.as_ref().ok_or(OrdinaryCarrierError::Linkage)?,
-                    vec![option, terms[result]],
-                    &mut entry,
-                )?;
-                entry.semantic_rule = "source_string_length_through_canonical_some".into();
-                Some(call(&mut c.b, "Std.Bool.and", vec![wrapped, read])?)
-            }
-            "convert" if op.constant.as_deref() == Some("null") => {
-                let [input] = inputs.as_slice() else {
-                    return Err(OrdinaryCarrierError::Linkage);
-                };
-                let result = result.ok_or(OrdinaryCarrierError::Linkage)?;
-                if input.type_id != "mpk.csharp.value.unit.v1"
-                    || !payloads.contains_key(&bindings[result].type_id)
-                {
-                    return Err(OrdinaryCarrierError::Linkage);
+                "member" => {
+                    let [input] = inputs.as_slice() else {
+                        return Err(OrdinaryCarrierError::Linkage);
+                    };
+                    let roots = vir.construction_context().1;
+                    let member = roots
+                        .source_types
+                        .get(&input.type_id)
+                        .and_then(|s| {
+                            s.members
+                                .iter()
+                                .find(|m| op.symbol == format!("{}.{}", input.type_id, m.name))
+                        })
+                        .ok_or(OrdinaryCarrierError::Linkage)?;
+                    let signature = crate::csharp_practical_vir_model::source_field_operation(
+                        roots,
+                        vir.data_closed(),
+                        &member.id,
+                    )
+                    .map_err(|_| OrdinaryCarrierError::Linkage)?;
+                    let operation = primitive(native, observation, step, &signature.id)?;
+                    entry.semantic_rule = "source_declared_stored_member_read".into();
+                    Some(normal_relation(
+                        c,
+                        operation,
+                        &inputs,
+                        step.result.as_ref().ok_or(OrdinaryCarrierError::Linkage)?,
+                        input_terms,
+                        &mut entry,
+                    )?)
                 }
-                let unit = c.b.constant("Std.Bool.false")?;
-                let unit_input = equal(&mut c.b, 0, input_terms[0], unit)?;
-                let none = c.b.constant(
-                    literal_names
-                        .get(&observation.sequent_id)
-                        .ok_or(OrdinaryCarrierError::Linkage)?,
-                )?;
-                let converted = equal(&mut c.b, depths[result], terms[result], none)?;
-                entry.semantic_rule = "source_null_unit_to_complete_nullable_none".into();
-                Some(call(&mut c.b, "Std.Bool.and", vec![unit_input, converted])?)
-            }
-            _ => {
-                entry
-                    .pending_definition_reasons
-                    .push(format!("source_operation:{}", step.operation));
-                None
+                "element" => {
+                    let [receiver, _] = inputs.as_slice() else {
+                        return Err(OrdinaryCarrierError::Linkage);
+                    };
+                    let operation = primitive(
+                        native,
+                        observation,
+                        step,
+                        &format!("{}.read", receiver.type_id),
+                    )?;
+                    entry.semantic_rule = "source_element_range_guard_and_result".into();
+                    Some(normal_relation(
+                        c,
+                        operation,
+                        &inputs,
+                        step.result.as_ref().ok_or(OrdinaryCarrierError::Linkage)?,
+                        input_terms,
+                        &mut entry,
+                    )?)
+                }
+                "pattern_member" if op.symbol == "System.Runtime|string.Length" => {
+                    let [input] = inputs.as_slice() else {
+                        return Err(OrdinaryCarrierError::Linkage);
+                    };
+                    let result = result.ok_or(OrdinaryCarrierError::Linkage)?;
+                    let length = primitive(native, observation, step, "string.length")?;
+                    let [receiver] = length.invocation.operands.as_slice() else {
+                        return Err(OrdinaryCarrierError::Linkage);
+                    };
+                    if payloads.get(&receiver.type_id) != Some(&input.type_id) {
+                        return Err(OrdinaryCarrierError::Linkage);
+                    }
+                    let some = primitive(
+                        native,
+                        observation,
+                        step,
+                        &format!("{}.some", receiver.type_id),
+                    )?;
+                    let input_index = observation.operands[0].binding_index;
+                    let constructor = control_slots::some_storage(&mut c.b, depths[input_index])?;
+                    let option = call(&mut c.b, &constructor, vec![terms[input_index]])?;
+                    let wrapped = normal_relation(
+                        c,
+                        some,
+                        &inputs,
+                        receiver,
+                        vec![terms[input_index], option],
+                        &mut entry,
+                    )?;
+                    let read = normal_relation(
+                        c,
+                        length,
+                        &length.invocation.operands,
+                        step.result.as_ref().ok_or(OrdinaryCarrierError::Linkage)?,
+                        vec![option, terms[result]],
+                        &mut entry,
+                    )?;
+                    entry.semantic_rule = "source_string_length_through_canonical_some".into();
+                    Some(call(&mut c.b, "Std.Bool.and", vec![wrapped, read])?)
+                }
+                "convert" if op.constant.as_deref() == Some("null") => {
+                    let [input] = inputs.as_slice() else {
+                        return Err(OrdinaryCarrierError::Linkage);
+                    };
+                    let result = result.ok_or(OrdinaryCarrierError::Linkage)?;
+                    if input.type_id != "mpk.csharp.value.unit.v1"
+                        || !payloads.contains_key(&bindings[result].type_id)
+                    {
+                        return Err(OrdinaryCarrierError::Linkage);
+                    }
+                    let unit = c.b.constant("Std.Bool.false")?;
+                    let unit_input = equal(&mut c.b, 0, input_terms[0], unit)?;
+                    let none = c.b.constant(
+                        literal_names
+                            .get(&observation.sequent_id)
+                            .ok_or(OrdinaryCarrierError::Linkage)?,
+                    )?;
+                    let converted = equal(&mut c.b, depths[result], terms[result], none)?;
+                    entry.semantic_rule = "source_null_unit_to_complete_nullable_none".into();
+                    Some(call(&mut c.b, "Std.Bool.and", vec![unit_input, converted])?)
+                }
+                _ => {
+                    entry
+                        .pending_definition_reasons
+                        .push(format!("source_operation:{}", step.operation));
+                    None
+                }
             }
         };
         if let Some(body) = body {

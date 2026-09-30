@@ -2,6 +2,9 @@
 use super::bit as observed;
 use super::*;
 
+#[path = "csharp_practical_ordinary_control_pattern_route_tests.rs"]
+mod routes;
+
 fn each_context(mut check: impl FnMut(&str, &ValidatedPracticalVir)) {
     let bundle = b();
     let mut requests = read("control-vc/loop-requests.json");

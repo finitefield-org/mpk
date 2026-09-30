@@ -32,6 +32,15 @@ pub struct PatternSlotObservation {
 }
 
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
+pub struct PatternRouteObservation {
+    pub source_kind: String,
+    /// Original source order: true then false for a branch.
+    pub successor_source_node_ids: Vec<String>,
+    pub binding_indices: Vec<usize>,
+    pub closed_exception_type: Option<String>,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq, Serialize)]
 pub struct PatternStepObservation {
     pub sequent_id: String,
     pub function_id: String,
@@ -41,6 +50,8 @@ pub struct PatternStepObservation {
     pub operands: Vec<PatternOperandObservation>,
     pub slot: Option<PatternSlotObservation>,
     pub source_semantics_pending: bool,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub route: Option<PatternRouteObservation>,
 }
 
 fn contract(error: ControlVcError) -> PatternObservationError {
@@ -70,6 +81,19 @@ fn append_slot(
 
 pub fn generate_csharp_practical_control_vcs_with_pattern_observations(
     vir: &ValidatedPracticalVir,
+) -> Result<ControlVcProgram, PatternObservationError> {
+    generate(vir, false)
+}
+
+pub fn generate_csharp_practical_control_vcs_with_pattern_routes(
+    vir: &ValidatedPracticalVir,
+) -> Result<ControlVcProgram, PatternObservationError> {
+    generate(vir, true)
+}
+
+fn generate(
+    vir: &ValidatedPracticalVir,
+    with_routes: bool,
 ) -> Result<ControlVcProgram, PatternObservationError> {
     let data = crate::csharp_practical_vir_model::data_vc::generate_data_vcs(vir)
         .map_err(|_| PatternObservationError::Contract)?;
@@ -138,6 +162,7 @@ pub fn generate_csharp_practical_control_vcs_with_pattern_observations(
                 operands: vec![],
                 slot: None,
                 source_semantics_pending: true,
+                route: None,
             };
             for (source_input_index, source_value_id) in step.source_inputs.iter().enumerate() {
                 let mut producers = graph.nodes.iter().filter(|n| &n.result == source_value_id);
@@ -231,6 +256,48 @@ pub fn generate_csharp_practical_control_vcs_with_pattern_observations(
                     after_value_index,
                 });
             }
+            if with_routes {
+                let node = graph
+                    .nodes
+                    .iter()
+                    .find(|n| n.id == step.source_node_id)
+                    .ok_or(PatternObservationError::Contract)?;
+                let successors = match node.kind.as_str() {
+                    "pattern_decision" | "handler_completion" if node.successors.len() == 1 => {
+                        Some(node.successors.clone())
+                    }
+                    "branch" if node.successors.len() == 2 => Some(node.successors.clone()),
+                    "builtin_throw"
+                        if node.successors.is_empty() && node.exceptional_successors.len() == 1 =>
+                    {
+                        Some(node.exceptional_successors.clone())
+                    }
+                    "pattern_decision" | "handler_completion" | "branch" | "builtin_throw" => {
+                        return Err(PatternObservationError::Contract)
+                    }
+                    _ => None,
+                };
+                if let Some(successors) = successors {
+                    let mut indices = Vec::new();
+                    for successor in &successors {
+                        indices.push(goal.bindings.len());
+                        goal.bindings.push(ControlBinding {
+                            kind: "source_route_selected".into(),
+                            edge_id: None,
+                            node_id: step.exit_node_id.clone(),
+                            value_id: successor.clone(),
+                            type_id: BOOL.into(),
+                        });
+                    }
+                    observation.route = Some(PatternRouteObservation {
+                        source_kind: node.kind.clone(),
+                        successor_source_node_ids: successors,
+                        binding_indices: indices,
+                        closed_exception_type: (node.kind == "builtin_throw")
+                            .then(|| node.slot.clone()),
+                    });
+                }
+            }
             goal.term = apply(&symbol, arguments(&goal.bindings), BOOL);
             if goal.bindings.len() > 256 {
                 return Err(PatternObservationError::Limit);
@@ -248,6 +315,20 @@ pub fn generate_csharp_practical_control_vcs_with_pattern_observations(
     // New free arguments add application/variable nodes, not new symbols or
     // lexical binders. Preserve the complete original flow/formula cost and
     // symbol inventory, including guards and entry conditions.
+    Ok(program)
+}
+
+pub fn import_csharp_practical_control_vcs_with_pattern_routes(
+    input: &[u8],
+    vir: &ValidatedPracticalVir,
+) -> Result<ControlVcProgram, PatternObservationError> {
+    if input.len() > 16 * 1024 * 1024 {
+        return Err(PatternObservationError::Limit);
+    }
+    let program = generate_csharp_practical_control_vcs_with_pattern_routes(vir)?;
+    if input != program.canonical_bytes() {
+        return Err(PatternObservationError::Contract);
+    }
     Ok(program)
 }
 

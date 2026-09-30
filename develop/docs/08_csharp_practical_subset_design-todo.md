@@ -2162,6 +2162,19 @@ zero axioms and reject hash corruption. Unit 5 and W09 remain In progress;
 the full T06 gate stays deferred to W12.
 See `ordinary-foundation/unit-5-pattern-source-primitives-review.md`.
 
+The private source-route mode defines all 102 original pattern conditions,
+retains all 215 sequents and their existing binding prefixes, and adds 32
+successor-choice observations. Seven governing markers, 11 ordered branches,
+two break completions and one closed no-match exception are now defined.
+Capture scopes record 54 route transports under explicit native execution
+premises and constrain the erased null Unit operand without inventing a native
+argument. Candidate tests cover all 88 Boolean branch states and preserve the
+historical condition/native bodies. Seven targeted tests, Clippy and format
+pass locally; dual-checker and specified Linux verification is in progress.
+All execution/equivalence/application
+proofs remain open; this does not complete unit 5 or W09.
+See `ordinary-foundation/unit-5-pattern-routes-review.md`.
+
 Owns: translation of every already-expanded concrete foundation definition in
 monomorphic VIR into ordinary core definitions and proof terms for all new
 finite values and operations; the successor program-assembly profile;

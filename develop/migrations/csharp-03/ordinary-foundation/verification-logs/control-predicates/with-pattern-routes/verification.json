@@ -1,0 +1,210 @@
+{
+  "application_proofs_pending": 987,
+  "checker_audit_complete": false,
+  "checker_expected_stages": 72,
+  "checker_terminal_stages": 57,
+  "coverage": {
+    "changed_certificates": 7,
+    "contexts": 18,
+    "defined_conditions": 102,
+    "original_goals": 102,
+    "pending_conditions": 0
+  },
+  "defined_operations": {
+    "": 19,
+    "binary": 5,
+    "constant": 17,
+    "convert": 1,
+    "element": 1,
+    "join_value": 9,
+    "load": 19,
+    "member": 1,
+    "normal": 2,
+    "pattern_bind": 5,
+    "pattern_equal": 3,
+    "pattern_member": 1,
+    "pattern_relational": 2,
+    "pattern_type": 2,
+    "store": 12,
+    "unary_update": 3
+  },
+  "full_t_gate": "deferred to T06-W12",
+  "hosts": {
+    "local": {
+      "application_proofs_pending": 987,
+      "finished_at": "2026-09-30T02:27:37.114939+00:00",
+      "full_t_gate": "deferred to T06-W12",
+      "native_source_equivalence_proofs_pending": true,
+      "original_pattern_predicates_defined": 102,
+      "original_pattern_predicates_pending": 0,
+      "process_pid": 28469,
+      "selection_reason": "Verify ordered source routes and their affected consumers.\n\nThe new route regression retains all 102 original conditions, adds 32 successor\nchoice observations, checks all eight states of each of 11 branches, governing\ncapture changes, exact native edge transport and the erased null Unit literal.\nThe historical 81-condition test, capture compatibility, typed observations and\nthree scope units cover unchanged APIs, producer premises and binder limits.\nClippy and format cover the changed library/test code. Unaffected parser, scalar,\ncodec and unrelated application tests are not repeated. The full T06 gate is\nstill deferred to T06-W12; no application proof is claimed by these checks.\n",
+      "source_condition_observations": {
+        "changed": 183,
+        "positive": 102
+      },
+      "stage": "format",
+      "stages": [
+        {
+          "command": [
+            "cargo",
+            "test",
+            "-p",
+            "mpk-vc",
+            "--test",
+            "csharp_practical_vc",
+            "csharp_03_t06_w09_pattern_routes_original_conditions",
+            "--",
+            "--nocapture",
+            "--test-threads=1"
+          ],
+          "elapsed_seconds": 363.926,
+          "exit_code": 0,
+          "finished_at": "2026-09-30T02:21:18.486283+00:00",
+          "log_sha256": "3ba0d1fed0f8bc707804d46f06921666a69507b74537416bddc88d395e667cf9",
+          "stage": "routes",
+          "started_at": "2026-09-30T02:15:14.560146+00:00"
+        },
+        {
+          "command": [
+            "cargo",
+            "test",
+            "-p",
+            "mpk-vc",
+            "--test",
+            "csharp_practical_vc",
+            "csharp_03_t06_w09_pattern_sources_original_conditions",
+            "--",
+            "--nocapture",
+            "--test-threads=1"
+          ],
+          "elapsed_seconds": 113.964,
+          "exit_code": 0,
+          "finished_at": "2026-09-30T02:23:12.922735+00:00",
+          "log_sha256": "c8e3df50ba4655f44fd0a2a8b31a1681343a85295afd0a1790299fa80996f246",
+          "stage": "source-conditions",
+          "started_at": "2026-09-30T02:21:18.958287+00:00"
+        },
+        {
+          "command": [
+            "cargo",
+            "test",
+            "-p",
+            "mpk-vc",
+            "--test",
+            "csharp_practical_vc",
+            "csharp_03_t06_w09_control_predicates_with_pattern_captures_original_sources",
+            "--",
+            "--nocapture",
+            "--test-threads=1"
+          ],
+          "elapsed_seconds": 67.124,
+          "exit_code": 0,
+          "finished_at": "2026-09-30T02:24:20.471597+00:00",
+          "log_sha256": "b3ca5f68b3e8428421e659da31deb31df978a8478a2b01a85d1fb014cf3cfba3",
+          "stage": "capture-compatibility",
+          "started_at": "2026-09-30T02:23:13.347721+00:00"
+        },
+        {
+          "command": [
+            "cargo",
+            "test",
+            "-p",
+            "mpk-vc",
+            "--test",
+            "csharp_practical_vc",
+            "csharp_03_t06_w09_pattern_observations_original_sources",
+            "--",
+            "--nocapture",
+            "--test-threads=1"
+          ],
+          "elapsed_seconds": 2.097,
+          "exit_code": 0,
+          "finished_at": "2026-09-30T02:24:23.001941+00:00",
+          "log_sha256": "1e375943dcd23a85a6af684f21ebf1191e756e62a089ed0a893e64f391c1b9e6",
+          "stage": "observations",
+          "started_at": "2026-09-30T02:24:20.904574+00:00"
+        },
+        {
+          "command": [
+            "cargo",
+            "test",
+            "-p",
+            "mpk-vc",
+            "--lib",
+            "pattern_",
+            "--",
+            "--nocapture",
+            "--test-threads=1"
+          ],
+          "elapsed_seconds": 122.189,
+          "exit_code": 0,
+          "finished_at": "2026-09-30T02:26:25.719836+00:00",
+          "log_sha256": "d2960b0d7b9eadf51969b2b1e8a3221d5a289592a112b36bb44a70b1e53deee0",
+          "stage": "scope-units",
+          "started_at": "2026-09-30T02:24:23.529774+00:00"
+        },
+        {
+          "command": [
+            "cargo",
+            "clippy",
+            "-p",
+            "mpk-vc",
+            "--lib",
+            "--test",
+            "csharp_practical_vc",
+            "--",
+            "-D",
+            "warnings"
+          ],
+          "elapsed_seconds": 65.599,
+          "exit_code": 0,
+          "finished_at": "2026-09-30T02:27:31.899908+00:00",
+          "log_sha256": "208ae254052bbc9c1c50d73b95b0e592920a26a936ad3f941caba7fdb2bff584",
+          "stage": "clippy",
+          "started_at": "2026-09-30T02:26:26.300349+00:00"
+        },
+        {
+          "command": [
+            "cargo",
+            "fmt",
+            "-p",
+            "mpk-vc",
+            "--",
+            "--check"
+          ],
+          "elapsed_seconds": 4.677,
+          "exit_code": 0,
+          "finished_at": "2026-09-30T02:27:36.945271+00:00",
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stage": "format",
+          "started_at": "2026-09-30T02:27:32.267889+00:00"
+        }
+      ],
+      "started_at": "2026-09-30T02:15:14.274685+00:00",
+      "status": "passed_targeted_tests_lint_format",
+      "supervisor_pid": 24566,
+      "test_binaries": {
+        "/tmp/mpk-w09-pattern-routes-target/debug/deps/csharp_practical_vc-9eed0564ce83fca4": "f2a65a87252742f628a3e3e946db82b9b78ec8aa283e1b690c5f64f3b8da574a",
+        "/tmp/mpk-w09-pattern-routes-target/debug/deps/mpk_vc-7d68e49fdb9730c4": "35382c568af27b49414bc526a11334e01338f7865ba1acc0660384738f3682ce"
+      },
+      "unique_tests_passed": 7,
+      "verified_fixture_hashes": 348,
+      "verified_source_hashes": 388
+    },
+    "server-linux": {
+      "status": "pending"
+    }
+  },
+  "native_source_equivalence_proofs_pending": true,
+  "recorded_at": "2026-09-30T02:30:04.673783+00:00",
+  "route_coverage": {
+    "capture_route_transports": 54,
+    "control_conditions": 21,
+    "erased_literal_transports": 1,
+    "source_route_bindings": 32
+  },
+  "status": "passed_source_condition_checkpoint",
+  "unit_5_complete": false,
+  "w09_complete": false
+}

@@ -9,7 +9,7 @@ use sha2::{Digest, Sha256};
 mod pattern_scopes;
 pub use pattern_scopes::{
     OrdinaryControlPatternExecutionScope, OrdinaryControlPatternObservation,
-    OrdinaryControlPatternScope,
+    OrdinaryControlPatternRouteObservation, OrdinaryControlPatternScope,
 };
 #[path = "csharp_practical_ordinary_control_pattern_captures.rs"]
 mod pattern_captures;
@@ -458,47 +458,58 @@ fn sequent(
 pub fn generate_csharp_practical_ordinary_control_predicates(
     vir: &ValidatedPracticalVir,
 ) -> R<OrdinaryControlPredicateProgram> {
-    generate(vir, false, false, false, false)
+    generate(vir, false, false, false, false, false)
 }
 /// Share exact native source definitions and reuse guards only at their source
 /// edges. Source execution/loop induction still require application proofs.
 pub fn generate_csharp_practical_ordinary_control_predicates_with_execution(
     vir: &ValidatedPracticalVir,
 ) -> R<OrdinaryControlPredicateProgram> {
-    generate(vir, true, false, false, false)
+    generate(vir, true, false, false, false, false)
 }
 /// Retain complete native path premises and physical observation transport for
 /// original pattern steps. Pattern predicates and their proofs remain pending.
 pub fn generate_csharp_practical_ordinary_control_predicates_with_pattern_scopes(
     vir: &ValidatedPracticalVir,
 ) -> R<OrdinaryControlPredicateProgram> {
-    generate(vir, true, true, false, false)
+    generate(vir, true, true, false, false, false)
 }
 /// Compose the original governing producer and consuming native path under
 /// explicit premises. Establishing those premises still requires source proofs.
 pub fn generate_csharp_practical_ordinary_control_predicates_with_pattern_captures(
     vir: &ValidatedPracticalVir,
 ) -> R<OrdinaryControlPredicateProgram> {
-    generate(vir, true, true, true, false)
+    generate(vir, true, true, true, false, false)
 }
 /// Compile original source conditions with exact operands and slot phases.
 /// Execution establishment and native/source equivalence still require proofs.
 pub fn generate_csharp_practical_ordinary_control_predicates_with_pattern_observations(
     vir: &ValidatedPracticalVir,
 ) -> R<OrdinaryControlPredicateProgram> {
-    generate(vir, true, true, true, true)
+    generate(vir, true, true, true, true, false)
 }
+/// Observe exact source successor choices under explicit native path premises.
+pub fn generate_csharp_practical_ordinary_control_predicates_with_pattern_routes(
+    vir: &ValidatedPracticalVir,
+) -> R<OrdinaryControlPredicateProgram> {
+    generate(vir, true, true, true, true, true)
+}
+
 fn generate(
     vir: &ValidatedPracticalVir,
     with_execution: bool,
     with_pattern_scopes: bool,
     with_pattern_captures: bool,
     with_pattern_observations: bool,
+    with_pattern_routes: bool,
 ) -> R<OrdinaryControlPredicateProgram> {
     use crate::csharp_practical_vir_model::data_vc::DataDefinitionFamily;
     let data = crate::csharp_practical_vir_model::data_vc::generate_data_vcs(vir)
         .map_err(|_| OrdinaryCarrierError::Linkage)?;
-    let control = if with_pattern_observations {
+    let control = if with_pattern_routes {
+        crate::csharp_practical_vir_model::generate_csharp_practical_control_vcs_with_pattern_routes(vir)
+            .map_err(|_| OrdinaryCarrierError::Linkage)?
+    } else if with_pattern_observations {
         crate::csharp_practical_vir_model::generate_csharp_practical_control_vcs_with_pattern_observations(vir)
             .map_err(|_| OrdinaryCarrierError::Linkage)?
     } else {
@@ -685,6 +696,21 @@ pub fn import_csharp_practical_ordinary_control_predicates_with_pattern_captures
     }
     Ok(p)
 }
+pub fn import_csharp_practical_ordinary_control_predicates_with_pattern_routes(
+    input: &[u8],
+    certificate: &[u8],
+    vir: &ValidatedPracticalVir,
+) -> R<OrdinaryControlPredicateProgram> {
+    if input.len() > 16 * 1024 * 1024 || certificate.len() > 16 * 1024 * 1024 {
+        return Err(OrdinaryCarrierError::Limit);
+    }
+    let program = generate_csharp_practical_ordinary_control_predicates_with_pattern_routes(vir)?;
+    if input != program.canonical_bytes() || certificate != program.certificate_bytes() {
+        return Err(OrdinaryCarrierError::Linkage);
+    }
+    Ok(program)
+}
+
 pub fn import_csharp_practical_ordinary_control_predicates_with_pattern_observations(
     input: &[u8],
     certificate: &[u8],

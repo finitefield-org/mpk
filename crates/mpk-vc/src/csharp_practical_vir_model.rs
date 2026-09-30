@@ -7387,10 +7387,13 @@ mod control_vc;
 pub(crate) use control_vc::{generate_control_vcs, ControlVcError};
 pub use control_vc::{
     generate_csharp_practical_control_vcs_with_pattern_observations,
-    import_csharp_practical_control_vcs_with_pattern_observations, ControlBinding, ControlFlowEdge,
+    generate_csharp_practical_control_vcs_with_pattern_routes,
+    import_csharp_practical_control_vcs_with_pattern_observations,
+    import_csharp_practical_control_vcs_with_pattern_routes, ControlBinding, ControlFlowEdge,
     ControlFunctionVc, ControlPredicate, ControlSequent, ControlSlotTransfer, ControlVcProgram,
-    LoopEdgeVc, LoopVc, PatternObservationError, PatternOperandObservation, PatternSlotObservation,
-    PatternStepObservation, PatternStepVc, PatternVc,
+    LoopEdgeVc, LoopVc, PatternObservationError, PatternOperandObservation,
+    PatternRouteObservation, PatternSlotObservation, PatternStepObservation, PatternStepVc,
+    PatternVc,
 };
 
 #[path = "csharp_practical_exception_vc.rs"]
@@ -7831,16 +7834,19 @@ pub use ordinary_carriers::{
     generate_csharp_practical_ordinary_control_predicates_with_execution,
     generate_csharp_practical_ordinary_control_predicates_with_pattern_captures,
     generate_csharp_practical_ordinary_control_predicates_with_pattern_observations,
+    generate_csharp_practical_ordinary_control_predicates_with_pattern_routes,
     generate_csharp_practical_ordinary_control_predicates_with_pattern_scopes,
     import_csharp_practical_ordinary_control_predicates,
     import_csharp_practical_ordinary_control_predicates_with_execution,
     import_csharp_practical_ordinary_control_predicates_with_pattern_captures,
     import_csharp_practical_ordinary_control_predicates_with_pattern_observations,
+    import_csharp_practical_ordinary_control_predicates_with_pattern_routes,
     import_csharp_practical_ordinary_control_predicates_with_pattern_scopes,
     OrdinaryControlGuardDependency, OrdinaryControlMeasureDefinition,
     OrdinaryControlPatternCapture, OrdinaryControlPatternCaptureAlternative,
     OrdinaryControlPatternCaptureDependency, OrdinaryControlPatternExecutionScope,
-    OrdinaryControlPatternObservation, OrdinaryControlPatternScope,
-    OrdinaryControlPatternSourceDefinition, OrdinaryControlPredicateDefinition,
-    OrdinaryControlPredicateProgram, OrdinaryControlSequentDefinition,
+    OrdinaryControlPatternObservation, OrdinaryControlPatternRouteObservation,
+    OrdinaryControlPatternScope, OrdinaryControlPatternSourceDefinition,
+    OrdinaryControlPredicateDefinition, OrdinaryControlPredicateProgram,
+    OrdinaryControlSequentDefinition,
 };
