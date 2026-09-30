@@ -1,12 +1,37 @@
 use super::*;
 use core_eval::V;
 use mpk_cert::encode::{Certificate, DeclarationKind, TermNode};
+use mpk_vc::csharp_practical_vir_validation::ValidatedPracticalVir;
+#[path = "csharp_practical_ordinary_construction_type_tests.rs"]
+mod construction_storage_tests;
 
 #[test]
 fn csharp_03_t06_w09_concrete_type_proofs_original_source() {
+    type_proofs_source(false);
+}
+
+#[test]
+fn csharp_03_t06_w09_construction_type_proofs_original_source() {
+    type_proofs_source(true);
+}
+
+type TypeGenerator =
+    fn(&ValidatedPracticalVir) -> Result<OrdinaryConcreteTypeProgram, OrdinaryCarrierError>;
+type TypeProofGenerator =
+    fn(&ValidatedPracticalVir) -> Result<OrdinaryConcreteTypeProofProgram, OrdinaryCarrierError>;
+type TypeProofImporter = fn(
+    &[u8],
+    &[u8],
+    &ValidatedPracticalVir,
+) -> Result<OrdinaryConcreteTypeProofProgram, OrdinaryCarrierError>;
+
+fn type_proofs_source(with_storage: bool) {
     std::thread::Builder::new()
         .stack_size(64 * 1024 * 1024)
-        .spawn(|| {
+        .spawn(move || {
+            let generate_types: TypeGenerator = if with_storage { generate_csharp_practical_ordinary_concrete_types_with_construction_storage } else { generate_csharp_practical_ordinary_concrete_types };
+            let generate_proofs: TypeProofGenerator = if with_storage { generate_csharp_practical_ordinary_concrete_type_proofs_with_construction_storage } else { generate_csharp_practical_ordinary_concrete_type_proofs };
+            let import_proofs: TypeProofImporter = if with_storage { import_csharp_practical_ordinary_concrete_type_proofs_with_construction_storage } else { import_csharp_practical_ordinary_concrete_type_proofs };
             let bundle = b();
             let output =
                 std::env::var_os("MPK_W09_CONCRETE_TYPE_PROOFS_OUT").map(std::path::PathBuf::from);
@@ -28,8 +53,8 @@ fn csharp_03_t06_w09_concrete_type_proofs_original_source() {
                 .unwrap();
                 let emitted = emit_data_phase(&bundle, &context, &captures, &source).unwrap();
                 let vir = emitted.vir();
-                let original = generate_csharp_practical_ordinary_concrete_types(vir).unwrap();
-                let p = generate_csharp_practical_ordinary_concrete_type_proofs(vir)
+                let original = generate_types(vir).unwrap();
+                let p = generate_proofs(vir)
                     .unwrap_or_else(|error| panic!("{id}: {error:?}"));
                 assert_eq!(
                     p.proofs().iter().map(|p| &p.sequent).collect::<Vec<_>>(),
@@ -40,6 +65,32 @@ fn csharp_03_t06_w09_concrete_type_proofs_original_source() {
                         .collect::<Vec<_>>()
                 );
                 assert_eq!(p.pending_proof_ids(), original.pending_proof_ids());
+                if with_storage {
+                    let legacy = generate_csharp_practical_ordinary_concrete_types(vir).unwrap();
+                    let old = mpk_cert::decode_canonical_certificate(legacy.certificate_bytes()).unwrap();
+                    let extended = mpk_cert::decode_canonical_certificate(original.certificate_bytes()).unwrap();
+                    assert!(extended.term_table.starts_with(&old.term_table));
+                    assert_eq!((&extended.module, &extended.source_manifest, &extended.imports), (&old.module, &old.source_manifest, &old.imports));
+                    for (a, z) in old.declarations.iter().zip(&extended.declarations) {
+                        assert_eq!(old.name_table[a.name as usize], extended.name_table[z.name as usize]);
+                        assert_eq!(a.kind, z.kind);
+                    }
+                    assert_eq!(original.public_domains(), legacy.public_domains());
+                    assert_eq!(original.source_clauses(), legacy.source_clauses());
+                    assert_eq!(original.pending_proof_ids(), legacy.pending_proof_ids());
+                    assert_eq!(p.construction_storage_domains(), original.construction_storage_domains());
+                    assert_eq!(original.construction_storage_domains().len(), legacy.pending_type_instances().len());
+                    assert!(original.construction_storage_domains().iter().all(|d| d.private_storage_only && d.ownership_pending));
+                    for d in legacy.definitions() { assert_eq!(Some(d), original.definitions().iter().find(|n| n.instance.instance_id == d.instance.instance_id)); }
+                    for c in legacy.conditions() { assert_eq!(Some(c), original.conditions().iter().find(|n| n.sequent.id == c.sequent.id)); }
+                    let full = generate_csharp_practical_vc(PracticalVcSource { artifact_context: &context, captured_inputs: &captures, vir }).unwrap();
+                    assert_eq!(original.definitions().iter().map(|d| &d.instance).collect::<Vec<_>>(), full.binding_vcs().instances().iter().collect::<Vec<_>>());
+                    assert_eq!(original.conditions().iter().map(|c| &c.sequent).collect::<Vec<_>>(), full.binding_vcs().sequents().iter().filter(|s| s.kind == "concrete_type_equivalence").collect::<Vec<_>>());
+                    assert!(original.pending_type_instances().is_empty());
+                    assert_eq!(import_csharp_practical_ordinary_concrete_types_with_construction_storage(&original.canonical_bytes(), original.certificate_bytes(), vir).unwrap(), original);
+                    if legacy.pending_type_instances().is_empty() { assert_eq!(original, legacy); }
+                }
+
                 assert_eq!(
                     p.pending_type_instances(),
                     original.pending_type_instances()
@@ -107,9 +158,19 @@ fn csharp_03_t06_w09_concrete_type_proofs_original_source() {
                         after.name_table[after.declarations[global as usize].name as usize],
                         "Std.Eq"
                     );
+                    let d = original.definitions().iter().find(|d| d.instance.instance_id == proof.sequent.owner_id).unwrap();
+                    for (operand, expected) in [(arguments[1], &d.public_domain), (arguments[2], &d.definition)] {
+                        let TermNode::App { function, arguments } = &after.term_table[operand as usize] else { panic!("missing complete original operand") };
+                        assert_eq!(arguments.len(), 1);
+                        assert!(matches!(after.term_table[arguments[0] as usize], TermNode::Var(0)));
+                        let TermNode::Const { global, ref levels } = after.term_table[*function as usize] else { panic!("missing original operand definition") };
+                        assert!(levels.is_empty());
+                        assert_eq!(&after.name_table[after.declarations[global as usize].name as usize], expected);
+                    }
+
                 }
                 assert_eq!(
-                    import_csharp_practical_ordinary_concrete_type_proofs(
+                    import_proofs(
                         &p.canonical_bytes(),
                         p.certificate_bytes(),
                         vir
@@ -118,14 +179,14 @@ fn csharp_03_t06_w09_concrete_type_proofs_original_source() {
                     p
                 );
                 if let Some((metadata, certificate)) = &previous {
-                    assert!(import_csharp_practical_ordinary_concrete_type_proofs(
+                    assert!(import_proofs(
                         metadata,
                         certificate,
                         vir
                     )
                     .is_err());
                 }
-                if contexts == 0 {
+                if contexts == 0 || (with_storage && id == "bool-construction") {
                     let mut wrong = after.clone();
                     let proof_name = &p.proofs()[0].theorem;
                     let false_global = wrong
@@ -138,6 +199,7 @@ fn csharp_03_t06_w09_concrete_type_proofs_original_source() {
                         .iter()
                         .position(|t| matches!(t, TermNode::Const {global, levels} if *global == false_global && levels.is_empty()))
                         .unwrap() as u32;
+                    if contexts == 0 {
                     let declaration = wrong
                         .declarations
                         .iter_mut()
@@ -145,6 +207,18 @@ fn csharp_03_t06_w09_concrete_type_proofs_original_source() {
                         .unwrap();
                     let DeclarationKind::Theorem {ty, ..} = declaration.kind else { panic!("missing theorem") };
                     declaration.kind=DeclarationKind::Theorem {ty, proof:false_term};
+                    } else {
+                        let d = original.definitions().iter().find(|d| original.construction_storage_domains().iter().any(|s| s.carrier.type_id == d.instance.instance_id)).unwrap();
+                        let mut definitions_only = before.clone();
+                        replace_predicate(&mut definitions_only, &d.definition, true);
+                        definitions_only.export_block = mpk_cert::build_export_block(&definitions_only).unwrap();
+                        definitions_only.axiom_report = mpk_cert::build_axiom_report(&definitions_only).unwrap();
+                        definitions_only.hashes.export_hash = mpk_cert::export_block_hash(&definitions_only.export_block);
+                        definitions_only.hashes.axiom_report_hash = mpk_cert::axiom_report_hash_for_report(&definitions_only.axiom_report);
+                        let definitions_only = mpk_cert::encode::encode_certificate(&definitions_only);
+                        assert_eq!(mpk_kernel::verify_certificate_bytes(&definitions_only).unwrap().axiom_count, 0);
+                        replace_predicate(&mut wrong, &d.definition, true);
+                    }
                     wrong.export_block = mpk_cert::build_export_block(&wrong).unwrap();
                     wrong.axiom_report = mpk_cert::build_axiom_report(&wrong).unwrap();
                     wrong.hashes.export_hash = mpk_cert::export_block_hash(&wrong.export_block);
@@ -157,7 +231,7 @@ fn csharp_03_t06_w09_concrete_type_proofs_original_source() {
                             .kind(),
                         mpk_kernel::VerificationErrorKind::CoreCheck
                     );
-                    assert!(import_csharp_practical_ordinary_concrete_type_proofs(&p.canonical_bytes(),&wrong_bytes,vir).is_err());
+                    assert!(import_proofs(&p.canonical_bytes(),&wrong_bytes,vir).is_err());
                     if let Some(dir)=&output {
                         let hex=wrong_bytes.iter().map(|byte| format!("{byte:02x}")).collect::<String>()+"\n";
                         fs::write(dir.join(format!("{id}-wrong.hex")),hex).unwrap();
@@ -167,7 +241,7 @@ fn csharp_03_t06_w09_concrete_type_proofs_original_source() {
                         let mut changed = metadata.clone();
                         changed[field] = json!("forged");
                         assert!(
-                            import_csharp_practical_ordinary_concrete_type_proofs(
+                            import_proofs(
                                 &serde_json::to_vec(&changed).unwrap(),
                                 p.certificate_bytes(),
                                 vir
@@ -177,13 +251,13 @@ fn csharp_03_t06_w09_concrete_type_proofs_original_source() {
                         );
                     }
                     let too_large = vec![0; 16 * 1024 * 1024 + 1];
-                    assert!(import_csharp_practical_ordinary_concrete_type_proofs(
+                    assert!(import_proofs(
                         &too_large,
                         &[],
                         vir
                     )
                     .is_err());
-                    assert!(import_csharp_practical_ordinary_concrete_type_proofs(
+                    assert!(import_proofs(
                         &[],
                         &too_large,
                         vir
@@ -210,7 +284,7 @@ fn csharp_03_t06_w09_concrete_type_proofs_original_source() {
                     p.pending_type_instances().len()
                 );
             }
-            assert_eq!((contexts, count, pending_states), (45, 81, 6));
+            assert_eq!((contexts, count, pending_states), if with_storage { (45, 87, 0) } else { (45, 81, 6) });
         })
         .unwrap()
         .join()

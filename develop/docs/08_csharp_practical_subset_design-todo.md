@@ -2298,6 +2298,23 @@ is_binding refinements and all 987 application proof IDs stay pending. W09
 remains In progress, W10-W12 remain Blocked and the full T06 gate is deferred
 to W12. See `ordinary-foundation/unit-7-concrete-allocation-proofs-review.md`.
 
+The opt-in private construction storage type route now adds the six original
+internal type instances and supplies all 87 original type-equivalence proof
+candidates across 45 source contexts. Every added domain retains private-only
+storage and ownership_pending=true. Complete length/cell/bitmap/padding/tail and
+recursive source child domains enforce the 16,384-element and 65,536-cell bounds.
+Four targeted tests, 247 complete semantic observations, Clippy and both format
+checks pass locally. The old 81-proof route, all 45 original type pins and all
+91 legacy outputs remain unchanged. The tested audit verifies 747 source and
+173 fixture hashes. The independently audited dual-checker receipt passes all
+184 stages (26 fresh and 158 retained only after exact input/binary/raw-report/
+stderr comparison), with matching positive hashes/counts, zero axioms and both
+typed core rejections. Exact published-source Linux replay remains pending. All 25 remaining operations,
+seven original is_binding refinements, source ownership and all 987 application
+proof IDs stay pending. W09 remains In progress, W10-W12 remain Blocked and the
+full T06 gate remains deferred to W12. See
+`ordinary-foundation/unit-7-construction-storage-types-review.md`.
+
 Owns: translation of every already-expanded concrete foundation definition in
 monomorphic VIR into ordinary core definitions and proof terms for all new
 finite values and operations; the successor program-assembly profile;

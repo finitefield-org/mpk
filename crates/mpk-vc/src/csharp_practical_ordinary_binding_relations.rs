@@ -33,10 +33,15 @@ pub use concrete_operations::{
 mod concrete_types;
 pub use concrete_types::{
     generate_csharp_practical_ordinary_concrete_type_proofs,
+    generate_csharp_practical_ordinary_concrete_type_proofs_with_construction_storage,
     generate_csharp_practical_ordinary_concrete_types,
+    generate_csharp_practical_ordinary_concrete_types_with_construction_storage,
     import_csharp_practical_ordinary_concrete_type_proofs,
-    import_csharp_practical_ordinary_concrete_types, OrdinaryConcreteTypeDefinition,
-    OrdinaryConcreteTypeProgram, OrdinaryConcreteTypeProof, OrdinaryConcreteTypeProofProgram,
+    import_csharp_practical_ordinary_concrete_type_proofs_with_construction_storage,
+    import_csharp_practical_ordinary_concrete_types,
+    import_csharp_practical_ordinary_concrete_types_with_construction_storage,
+    OrdinaryConcreteTypeDefinition, OrdinaryConcreteTypeProgram, OrdinaryConcreteTypeProof,
+    OrdinaryConcreteTypeProofProgram, OrdinaryConstructionStorageDomainDefinition,
 };
 #[path = "csharp_practical_ordinary_source_invariants.rs"]
 mod source_invariants;

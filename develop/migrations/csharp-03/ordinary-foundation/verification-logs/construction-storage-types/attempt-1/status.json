@@ -1,0 +1,57 @@
+{
+  "application_proofs_pending": 987,
+  "complete_application_assembly_pending": true,
+  "error": "AssertionError(('private-storage-semantics', 101))",
+  "finished_at": "2026-09-30T14:23:00.820050+00:00",
+  "full_t_gate": "deferred to T06-W12",
+  "process_pid": 54414,
+  "selection_reason": "Verify all six original private construction type equivalence sequents and\ncomplete storage validity, keeping source ownership and every application proof\nID pending. Test all 45 original contexts/87 proofs with the actual kernel,\ncomplete theorem operands, prefix preservation, strict imports and typed negative\nproofs. Exercise full length 16,384, all field/tail/bitmap/uninitialized storage\nand real nullable-string aggregate cell counts at 65,535/65,536/65,537. Include the\nlegacy type proof regression and all 45 original type pins because the shared\nproof helper and serialized type structures changed. Other generators and\noperation algorithms are unchanged. Run crate Clippy and crate/support format.\nThe full T06 gate remains deferred to T06-W12.\n",
+  "stage": "private-storage-semantics",
+  "stages": [
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_construction_type_proofs_original_source",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 514.62,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T14:13:52.737153+00:00",
+      "log_sha256": "1c6d96122044e293eed24fe5984b156243773739b4468c402eac75293cf1f15e",
+      "stage": "storage-type-proofs",
+      "started_at": "2026-09-30T14:05:18.114956+00:00"
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_construction_storage_domains_original_semantics",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 547.915,
+      "exit_code": 101,
+      "finished_at": "2026-09-30T14:23:00.819309+00:00",
+      "log_sha256": "ef16c6e9cc6bb34a0f4ab91e24f947d0ddae118ba7ae86ad2b5c6dbac50d88f2",
+      "stage": "private-storage-semantics",
+      "started_at": "2026-09-30T14:13:52.899859+00:00"
+    }
+  ],
+  "started_at": "2026-09-30T14:05:17.984925+00:00",
+  "status": "failed",
+  "supervisor_pid": 51565,
+  "verified_fixture_hashes": 173,
+  "verified_source_hashes": 747
+}

@@ -1,7 +1,16 @@
 //! Exact closed foundation type predicates and the original W06 equivalence
 //! conditions. A recipe identity selects a compiled domain, never a truth value.
 use super::super::super::source_clauses;
+pub use super::super::domains::OrdinaryConstructionStorageDomainDefinition;
 use super::*;
+#[path = "csharp_practical_ordinary_construction_types.rs"]
+mod construction_types;
+pub use construction_types::{
+    generate_csharp_practical_ordinary_concrete_type_proofs_with_construction_storage,
+    generate_csharp_practical_ordinary_concrete_types_with_construction_storage,
+    import_csharp_practical_ordinary_concrete_type_proofs_with_construction_storage,
+    import_csharp_practical_ordinary_concrete_types_with_construction_storage,
+};
 
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
 pub struct OrdinaryConcreteTypeProof {
@@ -20,6 +29,8 @@ pub struct OrdinaryConcreteTypeProofProgram {
     original_program_sha256: String,
     original_certificate_sha256: String,
     proofs: Vec<OrdinaryConcreteTypeProof>,
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    construction_storage_domains: Vec<OrdinaryConstructionStorageDomainDefinition>,
     /// A supplied proof is a candidate until both unchanged kernels check it.
     proof_check_pending: bool,
     application_scope_pending: bool,
@@ -32,6 +43,9 @@ pub struct OrdinaryConcreteTypeProofProgram {
 }
 
 impl OrdinaryConcreteTypeProofProgram {
+    pub fn construction_storage_domains(&self) -> &[OrdinaryConstructionStorageDomainDefinition] {
+        &self.construction_storage_domains
+    }
     pub fn proofs(&self) -> &[OrdinaryConcreteTypeProof] {
         &self.proofs
     }
@@ -105,6 +119,14 @@ fn emit_type_proofs(program: &OrdinaryConcreteTypeProgram) -> R<OrdinaryConcrete
         }
     }
     let mut seen = BTreeSet::new();
+    for d in &program.construction_storage_domains {
+        if symbols
+            .insert(d.symbol.clone(), d.valid_definition.clone())
+            .is_some()
+        {
+            return Err(OrdinaryCarrierError::Linkage);
+        }
+    }
     let mut proofs = vec![];
     for condition in &program.conditions {
         let sequent = &condition.sequent;
@@ -162,6 +184,7 @@ fn emit_type_proofs(program: &OrdinaryConcreteTypeProgram) -> R<OrdinaryConcrete
         original_program_sha256,
         original_certificate_sha256: program.certificate_sha256.clone(),
         proofs,
+        construction_storage_domains: program.construction_storage_domains.clone(),
         proof_check_pending: true,
         application_scope_pending: true,
         pending_type_instances: program.pending_type_instances.clone(),
@@ -216,6 +239,8 @@ pub struct OrdinaryConcreteTypeProgram {
     construction_sha256: String,
     source_clauses: Vec<OrdinarySourceClauseDefinition>,
     public_domains: Vec<OrdinaryPublicDomainDefinition>,
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    construction_storage_domains: Vec<OrdinaryConstructionStorageDomainDefinition>,
     definitions: Vec<OrdinaryConcreteTypeDefinition>,
     /// Internal construction states require their separate ownership model.
     pending_type_instances: Vec<FoundationInstanceVc>,
@@ -228,6 +253,9 @@ pub struct OrdinaryConcreteTypeProgram {
     certificate: Vec<u8>,
 }
 impl OrdinaryConcreteTypeProgram {
+    pub fn construction_storage_domains(&self) -> &[OrdinaryConstructionStorageDomainDefinition] {
+        &self.construction_storage_domains
+    }
     pub fn definitions(&self) -> &[OrdinaryConcreteTypeDefinition] {
         &self.definitions
     }
@@ -369,6 +397,7 @@ pub fn generate_csharp_practical_ordinary_concrete_types(
         construction_sha256,
         source_clauses,
         public_domains,
+        construction_storage_domains: vec![],
         definitions,
         pending_type_instances,
         conditions,

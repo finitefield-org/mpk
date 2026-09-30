@@ -22,6 +22,10 @@ pub use collection_ops::{
     OrdinaryCollectionProgram,
 };
 use ordered_fold::{helper as fold_helper, read_bit, word};
+#[path = "csharp_practical_ordinary_construction_domains.rs"]
+mod construction_domains;
+pub(super) use construction_domains::emit as emit_construction_storage_domains;
+pub use construction_domains::OrdinaryConstructionStorageDomainDefinition;
 const INVALID: u32 = (TOTAL_VALUE_CELLS_MAX + 1) as u32;
 
 #[derive(Clone, Debug)]
