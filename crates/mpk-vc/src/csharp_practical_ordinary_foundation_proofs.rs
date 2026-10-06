@@ -5,8 +5,11 @@ use super::*;
 #[path = "csharp_practical_ordinary_identity_proofs.rs"]
 mod identity_proofs;
 pub use identity_proofs::{
+    generate_csharp_practical_ordinary_default_proofs,
     generate_csharp_practical_ordinary_identity_proofs,
-    import_csharp_practical_ordinary_identity_proofs, OrdinaryIdentityProjectionProof,
+    import_csharp_practical_ordinary_default_proofs,
+    import_csharp_practical_ordinary_identity_proofs, OrdinaryActualDefaultProof,
+    OrdinaryDefaultGoalProof, OrdinaryDefaultProofProgram, OrdinaryIdentityProjectionProof,
     OrdinaryIdentityProofProgram,
 };
 

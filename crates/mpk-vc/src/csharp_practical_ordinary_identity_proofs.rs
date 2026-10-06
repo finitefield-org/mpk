@@ -4,6 +4,14 @@ use super::super::super::super::super::binding_projections;
 use super::super::super::super::super::ownership_proofs::{logic, publish_theorem};
 use super::*;
 
+#[path = "csharp_practical_ordinary_default_proofs.rs"]
+mod default_proofs;
+pub use default_proofs::{
+    generate_csharp_practical_ordinary_default_proofs,
+    import_csharp_practical_ordinary_default_proofs, OrdinaryActualDefaultProof,
+    OrdinaryDefaultGoalProof, OrdinaryDefaultProofProgram,
+};
+
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
 pub struct OrdinaryIdentityProjectionProof {
     pub sequent: BindingSequent,
@@ -32,6 +40,9 @@ pub struct OrdinaryIdentityProofProgram {
 }
 
 impl OrdinaryIdentityProofProgram {
+    pub fn static_transformers(&self) -> usize {
+        self.static_transformers
+    }
     pub fn foundation(&self) -> &OrdinaryFoundationProofProgram {
         &self.foundation
     }

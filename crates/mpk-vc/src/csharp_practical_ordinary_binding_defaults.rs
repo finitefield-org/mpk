@@ -79,6 +79,9 @@ pub struct OrdinaryBindingDefaultProgram {
     certificate: Vec<u8>,
 }
 impl OrdinaryBindingDefaultProgram {
+    pub fn static_transformers(&self) -> usize {
+        self.static_transformers
+    }
     pub fn defaults(&self) -> &[OrdinaryDefaultDefinition] {
         &self.defaults
     }

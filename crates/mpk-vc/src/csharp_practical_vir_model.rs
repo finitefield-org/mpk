@@ -14,10 +14,13 @@ use crate::csharp_practical_registry::{
 };
 use crate::hash::{hash_canonical_json, sha256_raw_file_bytes, HashDomain};
 pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_default_proofs,
     generate_csharp_practical_ordinary_foundation_proofs,
     generate_csharp_practical_ordinary_identity_proofs,
+    import_csharp_practical_ordinary_default_proofs,
     import_csharp_practical_ordinary_foundation_proofs,
-    import_csharp_practical_ordinary_identity_proofs, OrdinaryFoundationProofProgram,
+    import_csharp_practical_ordinary_identity_proofs, OrdinaryActualDefaultProof,
+    OrdinaryDefaultGoalProof, OrdinaryDefaultProofProgram, OrdinaryFoundationProofProgram,
     OrdinaryIdentityProjectionProof, OrdinaryIdentityProofProgram,
 };
 pub use ordinary_carriers::{

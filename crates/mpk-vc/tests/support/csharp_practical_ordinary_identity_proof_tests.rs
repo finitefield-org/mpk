@@ -2,7 +2,7 @@ use super::*;
 use foundation_proof_tests::{false_type, unchanged_prefix};
 use mpk_cert::encode::{Certificate, DeclarationKind, TermNode};
 
-fn app<'a>(c: &'a Certificate, t: u32, name: &str) -> &'a [u32] {
+pub(super) fn app<'a>(c: &'a Certificate, t: u32, name: &str) -> &'a [u32] {
     let TermNode::App {
         function,
         ref arguments,

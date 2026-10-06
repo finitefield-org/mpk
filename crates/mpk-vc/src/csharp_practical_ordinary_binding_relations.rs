@@ -8,10 +8,13 @@ pub use concrete_operations::{
     OrdinaryScopedConstructionOwnership,
 };
 pub use concrete_types::{
+    generate_csharp_practical_ordinary_default_proofs,
     generate_csharp_practical_ordinary_foundation_proofs,
     generate_csharp_practical_ordinary_identity_proofs,
+    import_csharp_practical_ordinary_default_proofs,
     import_csharp_practical_ordinary_foundation_proofs,
-    import_csharp_practical_ordinary_identity_proofs, OrdinaryFoundationProofProgram,
+    import_csharp_practical_ordinary_identity_proofs, OrdinaryActualDefaultProof,
+    OrdinaryDefaultGoalProof, OrdinaryDefaultProofProgram, OrdinaryFoundationProofProgram,
     OrdinaryIdentityProjectionProof, OrdinaryIdentityProofProgram,
 };
 use sha2::{Digest, Sha256};
