@@ -58,6 +58,11 @@ An initial tuple-destructuring compile error was repaired before the successful
 library check. A passing Bool-only prototype is retained separately; the final
 verification reruns every original source after the final metadata/test changes.
 
-Same-byte Go/Rust verification is running; its terminal independent audit remains
-pending. Requested Linux replay awaits an exact published-source receipt.
+Both unchanged Go/Rust checkers pass all 50 fresh stages. The independent
+terminal audit matches every actual input with the final source export and
+verifies checker binary, raw report and stderr hashes. All 24 positive stages
+agree on export/certificate/axiom-report hashes, module/declaration counts and
+zero axioms; all 24 hash mutations and both typed ownership mutations reject.
+Requested Linux verification of public source 2c4613aa has passed all three
+targeted tests. Lint, format and terminal archive auditing remain pending.
 See verification-logs/scoped-construction-proofs/.

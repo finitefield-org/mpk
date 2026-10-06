@@ -1,7 +1,8 @@
 {
   "application_proofs_pending": 987,
   "complete_application_assembly_pending": true,
-  "dual_checker_verification": "running; terminal independent audit pending",
+  "dual_checker_audit": "dual-audit.json",
+  "dual_checker_verification": "passed independent terminal audit; 50 fresh stages",
   "exported_files_verified": 70,
   "fixture_files_verified": 173,
   "full_t_gate": "deferred to T06-W12",
@@ -18,6 +19,7 @@
   ],
   "original_is_binding_refinement_proofs_pending": 7,
   "recorded_at": "2026-10-06T05:34:48.123476+00:00",
+  "same_byte_positive_cases_verified": 12,
   "scoped_candidates": 12,
   "selection_reason": "Test all 45 original contexts and 12 scoped fill/freeze source points with exact original W06 sequents, checked flow/receiver dependencies, strict imports, unchanged certificate prefixes and an actual-kernel typed ownership mutation. Include the legacy 442-proof allocation route and all 45 original operation pins because shared serialized operation/proof structures and domain-symbol lowering changed. Run crate Clippy and crate/support format. Generic ownership, original is_binding refinements, native execution and all 987 application proof IDs remain pending. The full T06 gate is deferred to T06-W12.",
   "source_contexts": 45,

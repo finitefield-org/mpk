@@ -2326,8 +2326,10 @@ proof dependencies, the private storage domain and original ordered failures.
 Three targeted tests, Clippy and both format checks pass locally. All 70 new
 exports are retained, all 92 legacy allocation exports remain byte-identical and
 all 45 original operation pins are unchanged. The tested audit verifies 749
-source and 173 fixture hashes. Same-byte Go/Rust and exact published-source Linux
-terminal receipts are pending. Generic ownership, all 25 original pending
+source and 173 fixture hashes. The independent same-byte Go/Rust audit passes
+all 50 fresh stages, with matching positive hashes/counts, zero axioms and both
+typed core rejections. Exact published-source Linux tests pass all three selected
+tests; lint/format and terminal archive auditing remain pending. Generic ownership, all 25 original pending
 operations, seven is_binding refinements and all 987 application proof IDs
 remain pending. W09 stays In progress, W10-W12 stay Blocked and the full T06 gate
 is deferred to W12. See
