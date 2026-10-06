@@ -2346,8 +2346,8 @@ limits, Clippy and format pass. All 91 new exports and both 92-file unchanged
 component export sets are audited against 751 source and 173 fixture hashes.
 Both unchanged Go/Rust checkers and the independent terminal audit pass all 182
 fresh stages; all 45 inputs are identical to the final source exports. Exact
-public-source Linux verification is running at 1e5338e9; its terminal receipt
-remains pending. Generic ownership/currency, native bodies, original refinements and
+public-source Linux verification at 1e5338e9 passes all three targeted tests,
+Clippy, format and its independent terminal archive audit. Generic ownership/currency, native bodies, original refinements and
 complete application assembly remain open. W09 stays In progress, W10-W12 stay
 Blocked and the full T06 gate is deferred to W12. See
 `ordinary-foundation/unit-7-foundation-proofs-review.md`.

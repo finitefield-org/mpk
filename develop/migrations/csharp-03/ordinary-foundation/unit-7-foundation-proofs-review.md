@@ -57,7 +57,10 @@ Both unchanged Go/Rust checkers pass all 182 fresh stages and the independent
 terminal audit: 90 positive stages agree on all report hashes/counts with zero
 axioms, all 90 hash mutations reject, and both typed false-domain mutations
 reject at core checking. All 45 distinct inputs match the final source exports.
-Exact published-source Linux verification is running at 1e5338e9 after verifying
-924 source/fixture Git blobs. A setup path typo was repaired on the same clean
-checkout before any test had started; both setup attempts are retained.
-Its terminal audit is pending. See verification-logs/foundation-proofs/.
+Exact published-source Linux verification at 1e5338e9 passes all three targeted
+tests, Clippy and format. Its independent terminal audit verifies 924 source/
+fixture Git blobs, all test logs and actual test-binary hashes, 91 exact new
+outputs and both 92-file unchanged legacy sets. A setup path typo was repaired
+on the same clean checkout before any test had started; both attempts remain.
+These scoped checks do not complete application proof assembly or W09.
+See verification-logs/foundation-proofs/.
