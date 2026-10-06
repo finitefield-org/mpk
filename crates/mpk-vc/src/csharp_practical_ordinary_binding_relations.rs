@@ -7,6 +7,10 @@ pub use concrete_operations::{
     OrdinaryScopedConstructionOperationCandidate, OrdinaryScopedConstructionOperationProofProgram,
     OrdinaryScopedConstructionOwnership,
 };
+pub use concrete_types::{
+    generate_csharp_practical_ordinary_foundation_proofs,
+    import_csharp_practical_ordinary_foundation_proofs, OrdinaryFoundationProofProgram,
+};
 use sha2::{Digest, Sha256};
 #[path = "csharp_practical_ordinary_binding_defaults.rs"]
 mod binding_defaults;

@@ -115,6 +115,9 @@ pub struct OrdinaryConcreteOperationProgram {
     certificate: Vec<u8>,
 }
 impl OrdinaryConcreteOperationProgram {
+    pub fn static_transformers(&self) -> usize {
+        self.static_transformers
+    }
     pub fn construction_storage_domains(&self) -> &[OrdinaryConstructionStorageDomainDefinition] {
         &self.construction_storage_domains
     }

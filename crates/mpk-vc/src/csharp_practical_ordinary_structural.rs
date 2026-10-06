@@ -3,6 +3,10 @@
 //! source constructor invariants, validation bounds or application VCs.
 use super::*;
 pub use relations::{
+    generate_csharp_practical_ordinary_foundation_proofs,
+    import_csharp_practical_ordinary_foundation_proofs, OrdinaryFoundationProofProgram,
+};
+pub use relations::{
     generate_csharp_practical_ordinary_scoped_construction_operation_proofs,
     import_csharp_practical_ordinary_scoped_construction_operation_proofs,
     OrdinaryScopedConstructionOperationCandidate, OrdinaryScopedConstructionOperationProofProgram,

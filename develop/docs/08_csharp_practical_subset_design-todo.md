@@ -2335,6 +2335,21 @@ remain pending. W09 stays In progress, W10-W12 stay Blocked and the full T06 gat
 is deferred to W12. See
 `ordinary-foundation/unit-7-scoped-construction-proofs-review.md`.
 
+The integrated original foundation proof adapter now places all 87 concrete-type
+and 442 currently supplied operation proofs in one ordinary context across all
+45 source contexts. Its ordered supplied list covers 529 original W06 sequents;
+458 binding sequents remain without supplied component proofs, and all 987
+application proof IDs remain pending. Full original theorem types, operation
+proof prefixes, source clauses and public/private domains are preserved. The
+actual Rust kernel, strict imports, a typed false-domain mutation, cumulative
+limits, Clippy and format pass. All 91 new exports and both 92-file unchanged
+component export sets are audited against 751 source and 173 fixture hashes.
+Same-byte dual-checker and published-source Linux terminal receipts remain
+pending. Generic ownership/currency, native bodies, original refinements and
+complete application assembly remain open. W09 stays In progress, W10-W12 stay
+Blocked and the full T06 gate is deferred to W12. See
+`ordinary-foundation/unit-7-foundation-proofs-review.md`.
+
 Owns: translation of every already-expanded concrete foundation definition in
 monomorphic VIR into ordinary core definitions and proof terms for all new
 finite values and operations; the successor program-assembly profile;

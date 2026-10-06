@@ -12,6 +12,13 @@ pub use construction_types::{
     import_csharp_practical_ordinary_concrete_types_with_construction_storage,
 };
 
+#[path = "csharp_practical_ordinary_foundation_proofs.rs"]
+mod foundation_proofs;
+pub use foundation_proofs::{
+    generate_csharp_practical_ordinary_foundation_proofs,
+    import_csharp_practical_ordinary_foundation_proofs, OrdinaryFoundationProofProgram,
+};
+
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
 pub struct OrdinaryConcreteTypeProof {
     /// The independently reconstructed, complete original W06 sequent.

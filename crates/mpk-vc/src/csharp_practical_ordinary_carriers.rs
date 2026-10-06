@@ -11,6 +11,10 @@ use mpk_cert::{
     decode_canonical_certificate, encode_certificate_bounded, export_block_hash,
 };
 pub use structural::{
+    generate_csharp_practical_ordinary_foundation_proofs,
+    import_csharp_practical_ordinary_foundation_proofs, OrdinaryFoundationProofProgram,
+};
+pub use structural::{
     generate_csharp_practical_ordinary_scoped_construction_operation_proofs,
     import_csharp_practical_ordinary_scoped_construction_operation_proofs,
     OrdinaryScopedConstructionOperationCandidate, OrdinaryScopedConstructionOperationProofProgram,
