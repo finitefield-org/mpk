@@ -159,3 +159,47 @@ control dependencies, standalone/wrapper changed certificates and relation
 metrics are still under validation. All 987 original application proof IDs
 remain pending. W09/W10 are not complete; whole gates remain final T01-W10
 and T06-W12.
+
+
+The standalone linkage checkpoint regenerates 198 deterministic programs and
+reconciles 178 current metadata occurrences. Ninety-three changed certificate
+pairs preserve their complete typed declaration/term/name/level/export graphs
+after independently derived attachment-name substitutions; all 186 fresh
+Rust/Go acceptance stages agree on module/certificate/export hashes and report
+zero axioms. The original and cached graph comparers produce identical reports.
+Thirteen control-slot and structural-boundary certificate sets retain their
+original bytes while their source metadata and three document aliases refresh.
+These overlap earlier owner corpora and are not added blindly to corpus totals.
+
+Fourteen selected standalone owner pin/dependency tests pass. Eight existing
+candidate branches avoid repeating unaffected scalar native-value matrices;
+contract scope/old-result, source-clause, JSON product and calendar consumers
+cover the changed linkage. The failed JSON product runs retain real exit 101:
+the first detects three missing document hex aliases, the second detects a
+single trailing newline in otherwise identical complete aggregate metadata.
+The three aliases equal the actual producer bytes, and both assertion byte
+arrays prove complete JSON equality before restoring exact producer serialization.
+The full product owner and calendar capture consumer then pass.
+
+Two more complete eighteen-source owners reconcile execution and pattern
+scopes. Their 36 certificate sets comprise six exact byte retentions and
+nineteen distinct changed pairs with complete graph checks and 38 fresh matching
+zero-axiom checker acceptances. Eleven scope cases reuse the execution reports
+only after exact old/fresh certificate-pair comparison and proof that additional
+scope-name mappings are absent from the complete predecessor certificate.
+All 103 source-sequent names and 113 scope names follow their actual ordered
+producer hash inputs; native execution records and source/argument order remain
+exact. The initial scope metadata comparison failure is kept losslessly.
+
+The tests gain two optional predecessor input directories with unchanged
+defaults. A Git-backed byte comparison proves that every other original test
+byte stays unchanged, including full canonical JSON/hex equality, declaration
+closure, value observations and hostile import checks. The eighteen-source
+scope and capture owner runs, both affected VC-test Clippy checks and format
+pass. Capture acceptance is recorded separately and remains pending here.
+See `standalone-execution-checkpoint/receipt.json`, its complete evidence
+manifest, and `previous-context-5-standalone-execution/manifest.json`.
+Remaining pattern consumers, JSON wrapper dual acceptance and relation metrics
+are still under verification. All 987 original application proof IDs remain
+pending. T01-W09 is In progress, T01-W10 is Blocked, and the practical profile
+remains inactive; whole gates remain final T01-W10 and T06-W12.

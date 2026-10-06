@@ -1,0 +1,26 @@
+{
+  "checks": [
+    {
+      "after_sha256": "256b669f7c7fb5bc1155ff3667e6cc7892a28c81b06634453945bae6d4959c27",
+      "all_other_test_bytes_preserved": true,
+      "before_sha256": "96ab09673e04eb5db2820cf69b494e6a5a9d6489631ab22b299e13f94f185197",
+      "default_path": "../../develop/migrations/csharp-03/ordinary-foundation/control-predicates/with-execution",
+      "only_edit": "optional predecessor input directory with exact unchanged default",
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_predicate_tests.rs",
+      "variable": "MPK_W09_CONTROL_PREDICATE_EXECUTION_INPUT"
+    },
+    {
+      "after_sha256": "f743381d0890db05e8850386ad7743a828aef753023503babf00f0fc18697792",
+      "all_other_test_bytes_preserved": true,
+      "before_sha256": "1e7c90d24234d8d7e753af69473c1cbc0800d01d1cae5fe15194d91c090f6aa7",
+      "default_path": "../../develop/migrations/csharp-03/ordinary-foundation/control-predicates/with-pattern-scopes",
+      "only_edit": "optional predecessor input directory with exact unchanged default",
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_pattern_capture_tests.rs",
+      "variable": "MPK_W09_CONTROL_PATTERN_SCOPE_INPUT"
+    }
+  ],
+  "selection_reason": "Actual integration owners need their completed fresh predecessor metadata before those changed parent certificates are promoted. Only the input directory is optional; default paths, full canonical JSON/hex equality, declaration closure, native/source value cases and hostile import checks are unchanged. Both affected Clippy checks, format, the eighteen-source scope owner and eighteen-source capture owner pass.",
+  "source_commit": "f7333bc9b34c9df73ad19fece69c7127b608131c",
+  "status": "passed_exact_original_test_body_preservation_except_explicit_input_path",
+  "whole_gate": "deferred_to_final_T01_W10_and_T06_W12"
+}
