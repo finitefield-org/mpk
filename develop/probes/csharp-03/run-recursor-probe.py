@@ -75,6 +75,9 @@ def main():
     group.add_argument("--update", action="store_true")
     group.add_argument("--check", action="store_true")
     args = parser.parse_args()
+    target = Path(os.environ.get("CARGO_TARGET_DIR", str(ROOT / "target")))
+    if not target.is_absolute():
+        target = ROOT / target
     checked(["cargo", "build", "-p", "mpk-cli"])
     with tempfile.TemporaryDirectory(prefix="mpk-w09-recursor-") as directory:
         temporary = Path(directory)
@@ -92,7 +95,7 @@ def main():
                 data = bytes.fromhex(case["certificate_hex"])
                 assert digest(data) == case["raw_sha256"]
                 path.write_bytes(data)
-                rust = observe([str(ROOT / "target/debug/mpk"), "verify", str(path)], "rust")
+                rust = observe([str(target / "debug/mpk"), "verify", str(path)], "rust")
                 other = observe([str(reference), "verify", str(path)], "reference")
                 assert rust["result"] == other["result"] == case["expected"], case["id"]
                 observations.append({"id": case["id"], "rust": rust, "reference": other})

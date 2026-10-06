@@ -1,0 +1,108 @@
+{
+  "full_t01_gate": "deferred to renewed T01-W10",
+  "full_t06_gate": "deferred to T06-W12",
+  "process_pid": 49235,
+  "selection_reason": "Refreeze changes the foundation specification raw hash, private immutable registry revision and source request context identities while retaining all value definitions and native source/contract bodies. Select T01-W08/W09 specification owners, registry/context/projection owners, descriptor/specialization/value consumers, mpk-vc specification Clippy/format and deterministic freeze/foundation generators. Changed request corpora retain source and contract projection bytes; their capture/import replay is still pending and must pass before completion. No intermediate whole gate; T01 whole gate belongs to final W10 and T06 remains deferred to W12. Fresh predecessor recursor and capacity probes now retain all original certificate bytes and all 108 checker outputs, with current source hashes. Preserve the first failed W09 replay separately; reuse the unchanged successful W08 specification checks.",
+  "stage": "format",
+  "stages": [
+    {
+      "command": [
+        "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_spec",
+        "csharp_03_t01_w09_",
+        "--",
+        "--nocapture"
+      ],
+      "elapsed_seconds": 0.219,
+      "exit_code": 0,
+      "log_sha256": "2104bd11934b399dcb8ce119e9077d1f89abd03af3ef05f67be7855ab41e155f",
+      "stage": "w09-spec",
+      "test_counts": [
+        "8"
+      ]
+    },
+    {
+      "command": [
+        "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_registry",
+        "--",
+        "--nocapture"
+      ],
+      "elapsed_seconds": 2.086,
+      "exit_code": 0,
+      "log_sha256": "9a4bc58da837321d8e991bc68f119d182e1eca26f20254cac736521aeb80c420",
+      "stage": "registry-consumers",
+      "test_counts": [
+        "6"
+      ]
+    },
+    {
+      "command": [
+        "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vir_model",
+        "csharp_03_t02_w02_",
+        "--",
+        "--nocapture"
+      ],
+      "elapsed_seconds": 3.336,
+      "exit_code": 0,
+      "log_sha256": "bb21fd263bde3a83d27f5109fce12147e70503fbe8b92984aa419c71a1822a1e",
+      "stage": "foundation-consumers",
+      "test_counts": [
+        "4"
+      ]
+    },
+    {
+      "command": [
+        "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_spec",
+        "--test",
+        "csharp_practical_registry",
+        "--test",
+        "csharp_practical_vir_model",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "elapsed_seconds": 9.988,
+      "exit_code": 0,
+      "log_sha256": "bfd0d02f88981351af0bbe4b28e47fcea94b5bfae89cdfbfac78cd6d125dd911",
+      "stage": "vc-clippy",
+      "test_counts": []
+    },
+    {
+      "command": [
+        "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+        "fmt",
+        "-p",
+        "mpk-vc",
+        "--",
+        "--check"
+      ],
+      "elapsed_seconds": 2.423,
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stage": "format",
+      "test_counts": []
+    }
+  ],
+  "status": "passed_selected_refreeze_specification_and_consumers",
+  "supervisor_pid": 49146,
+  "tests": 18
+}

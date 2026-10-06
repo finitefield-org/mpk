@@ -244,8 +244,8 @@ fn csharp_03_t06_w06_original_returned_errors_and_rounding_commutations() {
         matches!(
             r["id"].as_str(),
             Some(
-                "1d420cdfab591490568d24323e3474d89ce7d8ada62f3693a657647c6235afe5"
-                    | "b6462c82b9eb05a4cfc242d1d4dbff193b39ec4f5c0a83f5e959c6457c73a2ec"
+                "06a6796fe35a672f4de9d2d4dbf48dfb8c21ee3cc852657fa4094b58ab472453"
+                    | "4600c2eefe2dacc394e9760070e5b86bae3007472fd14579a07de2d0c1260718"
             )
         )
     }) {

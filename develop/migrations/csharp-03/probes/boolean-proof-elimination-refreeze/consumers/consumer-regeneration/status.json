@@ -1,0 +1,98 @@
+{
+  "error": "AssertionError('boundary-run')",
+  "full_t01_gate": "deferred to renewed T01-W10",
+  "full_t06_gate": "deferred to T06-W12",
+  "process_pid": 83583,
+  "selection_reason": "Approved descriptor/context rebind affects original captured source attachment, semantic bindings, boundary/transition snapshots, and context-bound VC golden hashes. Regenerate only affected W02-W08 VC goldens through their production owner tests; preserve original source, clauses and obligation counts. Exercise affected CLI source-snapshot consumers and original attachment/import. Whole T01 gate deferred to renewed W10 and T06 gate to W12.",
+  "stage": "boundary-run",
+  "stages": [
+    {
+      "destination": "construction-vc/goldens.json",
+      "elapsed_seconds": 24.136565375003556,
+      "exit_code": 0,
+      "generated_sha256": "d5908d4a68117fbeeab7c1d708ddf1da1f00d1a329e41ccb5c50430b4fcd0baf",
+      "log_sha256": "d93fadec07f16730a5535d759348bb42b73fe07ac544fd6fc890502fd39e5060",
+      "previous_sha256": "6bd0983a0bea73da22ede988972a58b8f22ce71c75085319d58718b472dcbb3f",
+      "selector": "csharp_03_t06_w02_actual_source_goldens_and_failing_conditions",
+      "stage": "construction",
+      "test_counts": [
+        "1"
+      ]
+    },
+    {
+      "destination": "data-vc/goldens.json",
+      "elapsed_seconds": 17.395212290997733,
+      "exit_code": 0,
+      "generated_sha256": "8c1316ff95ade95a2946b8cf8e2e191af2cb72f2b42c9d29e81865b84773a379",
+      "log_sha256": "404dfe8ab1617a0f93b1aa8fcf36cbd33f0f9bd9797e6884a454d244d085ef21",
+      "previous_sha256": "8e51c5c32b1ce3196f16d6f96459d2ff63bda2175ea13dad577803a99113f0a4",
+      "selector": "csharp_03_t06_w03_replay_semantic_rows_and_ordering",
+      "stage": "data",
+      "test_counts": [
+        "1"
+      ]
+    },
+    {
+      "destination": "control-vc/goldens.json",
+      "elapsed_seconds": 60.233123041005456,
+      "exit_code": 0,
+      "generated_sha256": "2130c858139817f043035a493f8a2c2474318ed4cb886e33813e390a16b2dd1c",
+      "log_sha256": "a95eed2af948311dbe4eb47f9867d3bebf6c289204027e11fe100cf7564a96c4",
+      "previous_sha256": "d3e001751e350f5f1481e78b50c10c2945477dec98c89e3e45d0cb8538c281c5",
+      "selector": "csharp_03_t06_w04_original_control_paths_and_stable_ids",
+      "stage": "control",
+      "test_counts": [
+        "1"
+      ]
+    },
+    {
+      "destination": "exception-vc/goldens.json",
+      "elapsed_seconds": 43.32856529199489,
+      "exit_code": 0,
+      "generated_sha256": "a6aca1e4f7c25947c8402fdeb7dc1ebdc933989e3004b0ba84cd06aa0a2bbdac",
+      "log_sha256": "27170ce1b2b1c57704c7b757917de9bbef240273d14a087af5300012edbeba96",
+      "previous_sha256": "98034b87cc15cd625a5565d98c1d242eed04063613eb10c4c6bc7d9fdf6e3281",
+      "selector": "csharp_03_t06_w05_original_exception_handlers_and_mutations",
+      "stage": "exception",
+      "test_counts": [
+        "1"
+      ]
+    },
+    {
+      "destination": "binding-vc/goldens.json",
+      "elapsed_seconds": 4.499244250000629,
+      "exit_code": 0,
+      "generated_sha256": "cd6024a908af3dfca90ca7638d4bfe2f2ddfa9284c2e6bfc6403609aa0ef1f2e",
+      "log_sha256": "fab69e170526c7cc5be291e02076a14075eda094c2e4d517d802e64dbb5e2b92",
+      "previous_sha256": "ab408cf75af18cfcfcb156e14398a462466ab11abb73db9e2155212c56d41181",
+      "selector": "csharp_03_t06_w06_all_binding_roles_and_closed_handoff_mutations",
+      "stage": "binding",
+      "test_counts": [
+        "1"
+      ]
+    },
+    {
+      "destination": "boundary-vc/goldens.json",
+      "elapsed_seconds": 4.93142245800118,
+      "exit_code": 0,
+      "generated_sha256": "1644a6d4f2faf8a976afb9cc7db7a724ffcac2e70575fabebf5e1e1249fe84eb",
+      "log_sha256": "bd00583027ed6f352cfa0f707c449b4b25fd9514c36a4b90bc59640da61065c9",
+      "previous_sha256": "c566edda663a386ba468a8bb2fcd049c9de9fd07b878541321464e2412a8aee6",
+      "selector": "csharp_03_t06_w07_original_contracts_and_three_state_obligations",
+      "stage": "boundary",
+      "test_counts": [
+        "1"
+      ]
+    },
+    {
+      "destination": "boundary-vc/run-goldens.json",
+      "elapsed_seconds": 3.9122755409989622,
+      "exit_code": 101,
+      "log_sha256": "09ac3f561d9b1e1467ecccf3ca0eeab4c4558ced7489aa511b38c8b91f3f142e",
+      "selector": "csharp_03_t06_w07_complete_run_relations_and_hostile_serializers",
+      "stage": "boundary-run",
+      "test_counts": []
+    }
+  ],
+  "status": "failed"
+}

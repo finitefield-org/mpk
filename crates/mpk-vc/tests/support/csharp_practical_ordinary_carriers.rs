@@ -297,8 +297,8 @@ fn csharp_03_t06_w09_temporal_source_linkage_rejects_substitution() {
     let requests = read("data-phase/data-sidecar-requests.json");
     let responses = read("data-phase/data-sidecar-responses.json");
     for id in [
-        "1d420cdfab591490568d24323e3474d89ce7d8ada62f3693a657647c6235afe5",
-        "e321919bbcc2dc31606907fd91a8d1f373ab1480dd506a38ed8ffd0c698138f7",
+        "06a6796fe35a672f4de9d2d4dbf48dfb8c21ee3cc852657fa4094b58ab472453",
+        "41cb92a52e1b583e30e1eb4e876dffeaddf8054494869a3461d469be187b1531",
     ] {
         let mut row = requests
             .as_array()
@@ -327,11 +327,11 @@ fn csharp_03_t06_w09_temporal_source_linkage_rejects_substitution() {
             "time.add_duration",
         ),
         (
-            "1d420cdfab591490568d24323e3474d89ce7d8ada62f3693a657647c6235afe5",
+            "06a6796fe35a672f4de9d2d4dbf48dfb8c21ee3cc852657fa4094b58ab472453",
             "instant.add_duration",
         ),
         (
-            "e321919bbcc2dc31606907fd91a8d1f373ab1480dd506a38ed8ffd0c698138f7",
+            "41cb92a52e1b583e30e1eb4e876dffeaddf8054494869a3461d469be187b1531",
             "instant.add_duration",
         ),
     ];

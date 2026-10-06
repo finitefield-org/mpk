@@ -165,7 +165,7 @@ fn csharp_03_t06_w09_json_products_sources_and_dependency_preservation() {
             assert!(p.products().is_empty());
             continue;
         }
-        assert_eq!(p.products().len(), usize::from(id.starts_with("calendar-")) + usize::from(id == "document-decb5507362a7672c711a5befd63efc1038c2c0a86ee20137a1c4c472e0d1684") + usize::from(id == "document-7a157feb27ed416752b5dde8aa2bf373b9a2c82755d2caa89e955057176ee57b"));
+        assert_eq!(p.products().len(), usize::from(id.starts_with("calendar-")) + usize::from(id == "document-7d781ce1b08e716daf1b4a733544c5a6750b27a35b938ca49d4c5b77c0619f19") + usize::from(id == "document-41dc96a4a1a5d49fa3ad6bb9e9408db0403bb5ac9ac63f7b6b6977745f0375f6"));
         let mut forged: Value = serde_json::from_slice(&p.canonical_bytes()).unwrap();
         forged["deferred_type_ids"] = json!(["forged"]);
         assert!(import_csharp_practical_ordinary_json_products(

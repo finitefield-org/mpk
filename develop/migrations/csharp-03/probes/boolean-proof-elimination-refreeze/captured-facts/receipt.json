@@ -1,0 +1,62 @@
+{
+  "allowed_derived_result_changes": [
+    "contract_expressions[].attachment_sha256",
+    "contract_expressions collection ordering by contract hash"
+  ],
+  "complete_result_rows_unchanged": 194,
+  "contract_attachment_hashes_recomputed": 1258,
+  "expression_bodies_definitions_terms_routes_and_boundary_transition_counts_unchanged": true,
+  "expression_collections_reordered_by_recomputed_contract_hashes": 1,
+  "facts_rows": 370,
+  "files": {
+    "compare-fact-replays.py": "26700b1f2b027ba96d2f815cf1954732bb186efd277fa0fafd4a71466be19bd7",
+    "complete-input-lineage.py": "c351ad6415165cf3e9a527b735b1451d5353d432bf0a971af95349b59801f78b",
+    "facts-replay-new-2/source-manifest.json": "00cd8380e3cd122cd2b45470c2f564db583e920947372a782bd7fef6491b0605",
+    "facts-replay-new-2/status.json": "120a22844ede7b9a3f7ef5533d92056231e157357c3c9c4b56946aa33dd5e8c8",
+    "facts-replay-new-2/stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "facts-replay-new-2/stdout.jsonl": "9a1fb336548a1f2ea5f1e20f8ba281d55b65614c39ed8b12c73686fdcb9b8580",
+    "facts-replay-old/source-manifest.json": "2acd3a9a32e5e274a7c8a7da246caabb9ac98bff4bfbd2e07ed4622860ae06c4",
+    "facts-replay-old/status.json": "a1915a668d61e4312d4c73a893db578394adff8e5a346828fb8785fc419ae148",
+    "facts-replay-old/stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "facts-replay-old/stdout.jsonl": "0fbca4a8d1623d68388c1f9feb0f66a57625f07228b1bb4034710a48db890340",
+    "input-lineage-final.json": "6da585d110299fd3c36cb28c54f3ee38a5dc83a013bfe1f572f2f65ae2e57c9f",
+    "prepare-response-candidates.py": "11a411a127e90e3ce20a0e257a2ab1b0670fb8e916ceedf9894808c6733eee77",
+    "rehash-sidecars.rs": "d2c381ae60f09fec2ee27c1fc435e245da57051d032728299d6992ec23211e12",
+    "replay-facts.rs": "2493a23d2fce7c18612a6e21ca1784c13121701cfc1e9772fcad0d7529a37731",
+    "request-candidate-plan-2.json": "e9538061cc3ffa0233e45906f63809afe643bbd23faa51d14ff49b32c9d95e5c",
+    "response-candidate-plan-2.json": "6653ac04562ed09e2a0a501288c54e06cf4fa91f46b89ebcce548ec00090e1fc",
+    "run-fact-replay.py": "efc2d722b6a99c00988207e9b197c0caf7a8fbdeeac516832028a477a95a7ffc",
+    "sidecar-envelope-rehash-3.jsonl": "29769a30eafbe5b91a323782844cfdc5c8cf69e1973957f89e3387bc8e787758",
+    "sidecar-envelope-rehash-status-3.json": "80ee9f7abc265afeae3907a77f5ef8ecb4ddfa76cd6cb7c7e51a9faf5967f7be",
+    "snapshot-id-map.json": "6598ba52a19b089b27b1dfc751288484b01a612000ed7a497c39e74927ef4e64",
+    "snapshot-map-new.jsonl": "3091e5b29d2a71f2c636cc5165629ff868fa2ac43d0027f9e4ef2468e017925f",
+    "snapshot-map-old.jsonl": "1de4c13a2ecb84fef502a9f2734b18aba067fe5378c578ec0ee7afe94a7939d0",
+    "snapshot-map.rs": "378e247a1006ee9c23a100ec011ddd99e1e72cabf55fec4daf5aa4bd61b6480a"
+  },
+  "full_t01_gate": "deferred to renewed T01-W10",
+  "full_t06_gate": "deferred to T06-W12",
+  "native_source_inputs_preserved": 384,
+  "new_compiled_context": {
+    "foundation_sha256": "99369543ab96e97e971118fe980322fe0b138f253a31ab7f8a9b08565bad0844",
+    "kind": "compiled_context",
+    "registry_sha256": "a0e72c39dad791f3bc99cc980ab7b42bc8e0209a0fc18f7342cb64bc59d173b8",
+    "revision": 5
+  },
+  "old_compiled_context": {
+    "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+    "kind": "compiled_context",
+    "registry_sha256": "b675e26ad35f1a4604f77006cd11b63cc20c680c65eadd2b12a3d3b2df0f1e24",
+    "revision": 4
+  },
+  "original_compiler_reexecuted": false,
+  "replay_scope": "all captured facts imported and emitted by real production APIs at old revision 4 and approved revision 5; native source rejection rows preserved exactly",
+  "request_corpora": 63,
+  "results": {
+    "emission_rejected": 104,
+    "emitted": 266,
+    "native_source_rejection": 14
+  },
+  "rows": 384,
+  "schema": "mpk.csharp_practical.t01_w09.captured_fact_replay.v1",
+  "status": "passed_original_native_facts_and_contract_bodies_preserved"
+}

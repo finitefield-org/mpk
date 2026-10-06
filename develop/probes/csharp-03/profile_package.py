@@ -21,6 +21,7 @@ OUTPUT_PATH = "develop/specs/vectors/csharp-practical-profile-v1.json"
 PROFILE_SPEC = "develop/specs/CSHARP_PRACTICAL_PROFILE_V1.md"
 SHARED_SPEC = "develop/specs/CSHARP_PRACTICAL_SHARED_ARTIFACTS_V1.md"
 FOUNDATION_SPEC = "develop/specs/CSHARP_PRACTICAL_FOUNDATION_V1.md"
+CORE_SPEC = "develop/specs/CORE_V0.md"
 DESIGN = "develop/docs/08_csharp_practical_subset_design.md"
 PLAN = "develop/docs/08_csharp_practical_subset_design-todo.md"
 LEDGER = "develop/docs/csharp-03-implementation-traceability-ledger.md"
@@ -105,6 +106,11 @@ EVIDENCE_RECORDS = [
     ),
     (W09_FREEZE, "CSHARP-03-T01-W09", "private_freeze"),
     (W09_VECTORS, "CSHARP-03-T01-W09", "private_freeze_vectors"),
+    (
+        "develop/migrations/csharp-03/probes/boolean-proof-elimination.json",
+        "CSHARP-03-T01-W09",
+        "generic_boolean_proof_capability",
+    ),
 ]
 
 FREEZE_REQUIREMENTS = [
@@ -623,6 +629,7 @@ def package() -> dict[str, Any]:
         file_record(PROFILE_SPEC, "normative_profile_specification"),
         file_record(SHARED_SPEC, "normative_successor_shared_artifact_specification"),
         file_record(FOUNDATION_SPEC, "normative_foundation_specification"),
+        file_record(CORE_SPEC, "normative_core_proof_interface"),
     ]
     inventory_raw = sha(raw(INVENTORY))
     if freeze["ownership"]["inventory_raw_sha256"] != inventory_raw:

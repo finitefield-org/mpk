@@ -20,6 +20,7 @@ INVENTORY = ROOT / "develop/migrations/csharp-03/artifact-consumer-inventory.jso
 FOUNDATION = ROOT / "develop/migrations/csharp-03/foundation/foundation-descriptor.json"
 RECURSOR = ROOT / "develop/migrations/csharp-03/probes/recursor-feasibility.json"
 CAPACITY = ROOT / "develop/migrations/csharp-03/probes/checker-capacity.json"
+BOOLEAN_PROOFS = ROOT / "develop/migrations/csharp-03/probes/boolean-proof-elimination.json"
 LIMIT_SOURCE = ROOT / "csharp-tools/csharp2vir/FrontendLimits.cs"
 OWNER = "crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W09"
 DOMAIN = "MPK-CSHARP-PRACTICAL-FREEZE-1.0"
@@ -815,11 +816,40 @@ def diagnostics() -> dict:
     }
 
 
+def validate_boolean_proofs(value: dict) -> None:
+    preimage = copy.deepcopy(value)
+    digest = preimage.pop("content_sha256")
+    assert digest == domain_hash("MPK-CSHARP-BOOL-PROOF-ELIMINATION-1.0", preimage)
+    assert value["status"] == "passed_local_and_exact_public_source_linux"
+    assert value["work_item"] == "CSHARP-03-T01-W09"
+    assert value["core_or_checker_change"] is True
+    assert value["value_definitions_change"] is False
+    assert value["activation"] == "candidate_only"
+    for field in ("new_axioms", "new_theory_primitives", "new_proof_nodes", "new_theory_certificates"):
+        assert value[field] == 0
+    assert value["accepted_cases"] == 6 and value["rejected_cases"] == 13
+    assert value["predecessor_cases"] == 3 and len(value["cases"]) == 19
+    assert sum(row["expected"] == "accepted" for row in value["cases"]) == 6
+    for row in value["cases"]:
+        data = (ROOT / row["path"]).read_bytes()
+        assert sha(data) == row["raw_sha256"]
+        assert sha(bytes.fromhex(data.decode())) == row["certificate_sha256"]
+    for path, expected in value["core_source_hashes"].items():
+        assert sha((ROOT / path).read_bytes()) == expected, path
+    for backend in ("local", "linux"):
+        record = value[backend]
+        assert record["checker_stages"] == 44
+        key = "receipt" if backend == "local" else "audit"
+        assert sha((ROOT / record[key + "_path"]).read_bytes()) == record[key + "_raw_sha256"]
+
+
 def make_freeze() -> dict:
     inventory = read_json(INVENTORY)
     foundation = read_json(FOUNDATION)
     recursor = read_json(RECURSOR)
     capacity = read_json(CAPACITY)
+    boolean_proofs = read_json(BOOLEAN_PROOFS)
+    validate_boolean_proofs(boolean_proofs)
     family_rows = identity_families(inventory)
     schema_rows = schemas()
     result = {
@@ -970,7 +1000,11 @@ def make_freeze() -> dict:
             "capacity_source_inventory_sha256": capacity["source_inventory_sha256"],
             "checker_invocations": 48,
             "checker_acceptances": 48,
-            "core_or_checker_change": False,
+            "core_or_checker_change": True,
+            "boolean_proof_evidence_path": "develop/migrations/csharp-03/probes/boolean-proof-elimination.json",
+            "boolean_proof_evidence_raw_sha256": sha(BOOLEAN_PROOFS.read_bytes()),
+            "boolean_proof_evidence_content_sha256": boolean_proofs["content_sha256"],
+            "value_definitions_change": False,
         },
         "amendments": [{
             "id": "explicit_codec_parameters",
@@ -990,6 +1024,16 @@ def make_freeze() -> dict:
             "base_commit": "5e2979c162e01a1e6b1e006aec4c5d9f566384ee",
             "rule": "decreases remains required; only analysis-only partial methods may use an empty array; total methods require nonempty well-founded decreases; partial callees remain forbidden on total routes",
             "scope": "user-approved inactive W09/W10 prerequisite amendment; no installed profile or checker change",
+        }, {
+            "id": "sort_zero_dependent_boolean_proof_elimination",
+            "date": "2026-10-07",
+            "previous_freeze_content_sha256": "5518468c7f478f9c02fd37df6f9de157545935c261bc30022fa9c19bc2383f06",
+            "previous_publication_raw_sha256": "de401830e1cd4221465d25c6fe31dad7d704ae8959edfc1145db8099f7bfffa6",
+            "previous_foundation_content_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+            "owner": "CSHARP-03-T01-W09",
+            "base_commit": "9755987798ec65b266035f1d0418fc7f2890182a",
+            "rule": "canonical generated cases accepts motives Bool->Sort0 and two dependent branches; closes constructors at registration; rejects nonempty universe arguments during inference and reduction; retains existing rec interfaces and Certificate v0 wire format",
+            "scope": "user-approved generic Rust/Go checker extension and inactive T01-W09/W10 refreeze; value definitions retained; candidate descriptor and immutable registry references recomputed; original application proof assembly remains separate",
         }],
         "publication_owner": "CSHARP-03-T01-W10",
         "content_hash_domain": DOMAIN,

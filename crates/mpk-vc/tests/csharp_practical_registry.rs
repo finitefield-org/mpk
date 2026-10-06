@@ -117,14 +117,16 @@ fn csharp_03_t02_w01_candidate_registry_is_closed_and_strict() {
         "entry shape precedes ordering",
     );
 
-    let mut old_revision = fixture.clone();
-    old_revision["revision"] = json!(3);
-    rehash_registry(&mut old_revision);
-    assert_error(
-        validate_candidate_successor_registry(&registry_transport(&old_revision)),
-        SuccessorRegistryErrorCode::Scalar,
-        "wrong successor revision",
-    );
+    for revision in [3, 4] {
+        let mut old_revision = fixture.clone();
+        old_revision["revision"] = json!(revision);
+        rehash_registry(&mut old_revision);
+        assert_error(
+            validate_candidate_successor_registry(&registry_transport(&old_revision)),
+            SuccessorRegistryErrorCode::Scalar,
+            "wrong successor revision",
+        );
+    }
 
     let mut reordered = fixture.clone();
     reordered["profiles"]
