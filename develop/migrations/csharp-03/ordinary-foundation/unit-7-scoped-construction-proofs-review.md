@@ -63,6 +63,9 @@ terminal audit matches every actual input with the final source export and
 verifies checker binary, raw report and stderr hashes. All 24 positive stages
 agree on export/certificate/axiom-report hashes, module/declaration counts and
 zero axioms; all 24 hash mutations and both typed ownership mutations reject.
-Requested Linux verification of public source 2c4613aa has passed all three
-targeted tests. Lint, format and terminal archive auditing remain pending.
+Requested Linux verification of exact public source 2c4613aa passes all three
+targeted tests, Clippy and format. The independent terminal archive audit verifies
+922 source/fixture Git blobs, all test logs/binary hashes, 70 byte-identical new
+exports and 92 unchanged legacy exports. The long lint stage completed normally;
+the earlier SSH observation failures did not terminate or restart the job.
 See verification-logs/scoped-construction-proofs/.

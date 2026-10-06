@@ -1,0 +1,27 @@
+{
+  "command": [
+    "ssh",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ConnectTimeout=12",
+    "-o",
+    "ServerAliveInterval=10",
+    "-o",
+    "ServerAliveCountMax=2",
+    "-i",
+    "/Users/kazuyoshitoshiya/ffvps.pem",
+    "root@162.43.92.154",
+    "python3",
+    "-"
+  ],
+  "elapsed_seconds": 16.919,
+  "exit_code": 0,
+  "finished_at": "2026-10-06T07:36:13.355762+00:00",
+  "purpose": "Observe prior 2c4613aa Linux job and its exact supervisor/lint PIDs; no test or process restarted",
+  "script_sha256": "2691401d093653a156e46484c18379603fa7ea66b8c8ce244610aaf73a417c6f",
+  "server_job_terminal_state_observed": true,
+  "started_at": "2026-10-06T07:35:56.437080+00:00",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout_sha256": "2a8fba053e113929709eeace8d85ed32589670c79d57ef4873272490c714f19e"
+}

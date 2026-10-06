@@ -53,5 +53,11 @@ removed that requirement and the full original corpus passed. The cumulative
 budget finding was fixed before final-source verification. These earlier
 attempts are retained separately and do not count as final verification.
 
-Same-byte Go/Rust checking is running. Exact published-source Linux replay and
-terminal auditing are pending. See verification-logs/foundation-proofs/.
+Both unchanged Go/Rust checkers pass all 182 fresh stages and the independent
+terminal audit: 90 positive stages agree on all report hashes/counts with zero
+axioms, all 90 hash mutations reject, and both typed false-domain mutations
+reject at core checking. All 45 distinct inputs match the final source exports.
+Exact published-source Linux verification is running at 1e5338e9 after verifying
+924 source/fixture Git blobs. A setup path typo was repaired on the same clean
+checkout before any test had started; both setup attempts are retained.
+Its terminal audit is pending. See verification-logs/foundation-proofs/.

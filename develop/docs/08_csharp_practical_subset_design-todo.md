@@ -2328,8 +2328,8 @@ exports are retained, all 92 legacy allocation exports remain byte-identical and
 all 45 original operation pins are unchanged. The tested audit verifies 749
 source and 173 fixture hashes. The independent same-byte Go/Rust audit passes
 all 50 fresh stages, with matching positive hashes/counts, zero axioms and both
-typed core rejections. Exact published-source Linux tests pass all three selected
-tests; lint/format and terminal archive auditing remain pending. Generic ownership, all 25 original pending
+typed core rejections. Exact published-source Linux verification passes all three selected tests,
+Clippy, format and its independent final archive audit. Generic ownership, all 25 original pending
 operations, seven is_binding refinements and all 987 application proof IDs
 remain pending. W09 stays In progress, W10-W12 stay Blocked and the full T06 gate
 is deferred to W12. See
@@ -2344,8 +2344,10 @@ proof prefixes, source clauses and public/private domains are preserved. The
 actual Rust kernel, strict imports, a typed false-domain mutation, cumulative
 limits, Clippy and format pass. All 91 new exports and both 92-file unchanged
 component export sets are audited against 751 source and 173 fixture hashes.
-Same-byte dual-checker and published-source Linux terminal receipts remain
-pending. Generic ownership/currency, native bodies, original refinements and
+Both unchanged Go/Rust checkers and the independent terminal audit pass all 182
+fresh stages; all 45 inputs are identical to the final source exports. Exact
+public-source Linux verification is running at 1e5338e9; its terminal receipt
+remains pending. Generic ownership/currency, native bodies, original refinements and
 complete application assembly remain open. W09 stays In progress, W10-W12 stay
 Blocked and the full T06 gate is deferred to W12. See
 `ordinary-foundation/unit-7-foundation-proofs-review.md`.
