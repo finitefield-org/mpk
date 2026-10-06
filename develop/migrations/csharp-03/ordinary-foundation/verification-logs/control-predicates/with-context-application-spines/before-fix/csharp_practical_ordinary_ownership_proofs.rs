@@ -459,24 +459,7 @@ impl Normalizer<'_> {
                 function,
                 arguments,
             } => {
-                let mut function = self.head(function)?;
-                let mut arguments = arguments;
-                if self.inline_limit == u32::MAX {
-                    // Captured source predicates apply curried functions one
-                    // argument at a time. Preserve Builder's original syntax,
-                    // but expose the complete spine before recognizing a
-                    // Boolean recursor or substituting its lambda binders.
-                    while let TermNode::App {
-                        function: inner,
-                        arguments: prefix,
-                    } = self.b.c.term_table[function as usize].clone()
-                    {
-                        let mut all = prefix;
-                        all.append(&mut arguments);
-                        arguments = all;
-                        function = self.head(inner)?;
-                    }
-                }
+                let function = self.head(function)?;
                 if let TermNode::Lam { body, .. } = self.b.c.term_table[function as usize] {
                     let reduced = self.substitute(body, 0, arguments[0])?;
                     let reduced = self.b.app(reduced, arguments[1..].to_vec())?;
