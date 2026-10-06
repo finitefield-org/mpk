@@ -87,8 +87,20 @@ fn reduce_recursor_iota_with_budget(
         };
     }
 
-    let info = generated_recursor_info(env, recursor_spine.head, inductive, term)?;
-    let arity = recursor_arity(info.shape);
+    let info = generated_recursor_info(env, terms, recursor_spine.head, inductive, term)?;
+    let arity = if info.bool_cases {
+        4
+    } else {
+        recursor_arity(info.shape)
+    };
+    if info.bool_cases && !recursor_spine.levels.is_empty() {
+        return Err(iota_error(
+            IotaReductionErrorKind::MalformedGeneratedRecursor,
+            term,
+            Some(recursor_spine.head),
+            Some(inductive),
+        ));
+    }
     if recursor_spine.arguments.len() < arity {
         return missing_iota(
             term,
@@ -124,6 +136,9 @@ fn reduce_recursor_iota_with_budget(
         );
     };
     if constructor_inductive != inductive || !generated {
+        return unknown_equation(term, recursor_spine.head, inductive, major_spine.head);
+    }
+    if info.bool_cases && !major_spine.levels.is_empty() {
         return unknown_equation(term, recursor_spine.head, inductive, major_spine.head);
     }
 
@@ -169,9 +184,9 @@ fn reduce_bool_iota(
         return unknown_equation(term, recursor, inductive, major_spine.head);
     }
     if major_spine.head == info.constructors[0] {
-        Ok(recursor_arguments[0])
+        Ok(recursor_arguments[usize::from(info.bool_cases)])
     } else if major_spine.head == info.constructors[1] {
-        Ok(recursor_arguments[1])
+        Ok(recursor_arguments[1 + usize::from(info.bool_cases)])
     } else {
         unknown_equation(term, recursor, inductive, major_spine.head)
     }
@@ -234,6 +249,7 @@ fn apply_trailing_arguments(terms: &mut TermArena, reduced: TermId, trailing: &[
 
 fn generated_recursor_info(
     env: &Environment,
+    terms: &mut TermArena,
     recursor: GlobalId,
     inductive: GlobalId,
     term: TermId,
@@ -251,6 +267,22 @@ fn generated_recursor_info(
         .lookup(recursor)
         .map(|declaration| declaration.name().as_str())
         .unwrap_or_default();
+    if recursor_name == format!("{family_name}.cases") {
+        let signature = crate::bool_cases::bool_cases_signature(terms, env, inductive)?;
+        if env.lookup(recursor).expect("looked up recursor").ty() != signature.ty {
+            return Err(iota_error(
+                IotaReductionErrorKind::MalformedGeneratedRecursor,
+                term,
+                Some(recursor),
+                Some(inductive),
+            ));
+        }
+        return Ok(GeneratedRecursorInfo {
+            shape: MvpInductiveShape::Bool,
+            constructors: signature.constructors.to_vec(),
+            bool_cases: true,
+        });
+    }
     if recursor_name != format!("{family_name}.rec") {
         return Err(iota_error(
             IotaReductionErrorKind::MalformedGeneratedRecursor,
@@ -290,6 +322,7 @@ fn generated_recursor_info(
             return Ok(GeneratedRecursorInfo {
                 shape,
                 constructors: constructors.iter().map(|(global, _)| *global).collect(),
+                bool_cases: false,
             });
         }
     }
@@ -430,6 +463,7 @@ struct ConstSpine {
 struct GeneratedRecursorInfo {
     shape: MvpInductiveShape,
     constructors: Vec<GlobalId>,
+    bool_cases: bool,
 }
 
 #[cfg(test)]

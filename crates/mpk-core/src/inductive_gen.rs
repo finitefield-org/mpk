@@ -128,6 +128,39 @@ pub fn generate_mvp_inductive_declarations(
     build_generated_output(levels, terms, env, &input, registered)
 }
 
+/// Generate an additional Sort0-dependent eliminator without changing the
+/// existing Boolean family, constructor, recursor, or interface hashes.
+pub fn generate_bool_cases_declaration(
+    levels: &mut LevelArena,
+    terms: &mut TermArena,
+    env: &mut Environment,
+    family: GlobalId,
+) -> Result<GeneratedArtifact, CoreError> {
+    let signature = crate::bool_cases::bool_cases_signature(terms, env, family)?;
+    let declaration = env.lookup(family).expect("signature checked the family");
+    let family_name = declaration.name().as_str().to_owned();
+    let input = InductiveGenerationInput::new(
+        MvpInductiveShape::Bool,
+        &family_name,
+        vec![],
+        declaration.ty(),
+    );
+    let global =
+        env.register_generated_recursor(format!("{family_name}.cases"), signature.ty, family)?;
+    let declaration = ExportedInductiveDeclaration {
+        global,
+        name: env.lookup(global).expect("just registered").name().clone(),
+        ty: signature.ty,
+    };
+    Ok(generated_artifact(
+        levels,
+        terms,
+        &input,
+        GeneratedArtifactKind::Recursor,
+        &declaration,
+    ))
+}
+
 fn generated_constructor_types(
     shape: MvpInductiveShape,
     terms: &mut TermArena,

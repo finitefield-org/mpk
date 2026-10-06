@@ -161,8 +161,24 @@ func (s *coreState) tryReduceGeneratedRecursor(term coreTermID, fuel *uint32) (c
 	if !ok || familyDecl.tag != DeclInductive {
 		return 0, true, newCoreError(CoreCheckInvalidDeclaration, "generated recursor references missing family")
 	}
-	if recursorDecl.name != familyDecl.name+".rec" {
+	isCases := recursorDecl.name == familyDecl.name+".cases"
+	if recursorDecl.name != familyDecl.name+".rec" && !isCases {
 		return 0, true, newCoreError(CoreCheckInvalidDeclaration, "generated recursor name does not match family")
+	}
+	arity := 3
+	branchOffset := 0
+	if isCases {
+		if err := s.checkBoolCasesDeclaration(recursorDecl.name, recursorDecl.ty, recursorDecl.inductive, true); err != nil {
+			return 0, true, err
+		}
+		if len(function.Levels) != 0 {
+			return 0, true, newCoreError(CoreCheckInvalidDeclaration, "Bool cases is monomorphic")
+		}
+		arity = 4
+		branchOffset = 1
+		if len(node.Arguments) < arity {
+			return term, false, nil
+		}
 	}
 
 	constructors := s.generatedConstructors(recursorDecl.inductive)
@@ -176,7 +192,7 @@ func (s *coreState) tryReduceGeneratedRecursor(term coreTermID, fuel *uint32) (c
 		return 0, true, newCoreError(CoreCheckInvalidDeclaration, "generated recursor constructors do not match supported Bool/Nat shape")
 	}
 
-	majorHead, majorArgs, ok := s.constSpine(node.Arguments[2])
+	majorHead, majorArgs, ok := s.constSpine(node.Arguments[arity-1])
 	if !ok {
 		return term, false, nil
 	}
@@ -190,6 +206,9 @@ func (s *coreState) tryReduceGeneratedRecursor(term coreTermID, fuel *uint32) (c
 	if majorDecl.inductive != recursorDecl.inductive || !majorDecl.generated {
 		return 0, true, newCoreError(CoreCheckInvalidDeclaration, "generated recursor has unknown major constructor")
 	}
+	if isCases && len(s.terms.node(node.Arguments[arity-1]).Levels) != 0 {
+		return 0, true, newCoreError(CoreCheckInvalidDeclaration, "Bool cases constructor is monomorphic")
+	}
 
 	var reduced coreTermID
 	if isBoolShape {
@@ -198,9 +217,9 @@ func (s *coreState) tryReduceGeneratedRecursor(term coreTermID, fuel *uint32) (c
 		}
 		switch majorHead {
 		case constructors[0].global:
-			reduced = node.Arguments[0]
+			reduced = node.Arguments[branchOffset]
 		case constructors[1].global:
-			reduced = node.Arguments[1]
+			reduced = node.Arguments[1+branchOffset]
 		default:
 			return 0, true, newCoreError(CoreCheckInvalidDeclaration, "generated recursor has unknown major constructor")
 		}
@@ -224,8 +243,8 @@ func (s *coreState) tryReduceGeneratedRecursor(term coreTermID, fuel *uint32) (c
 	if err := consumeCoreFuel(fuel); err != nil {
 		return 0, true, err
 	}
-	if len(node.Arguments) > 3 {
-		reduced = s.terms.app(reduced, node.Arguments[3:])
+	if len(node.Arguments) > arity {
+		reduced = s.terms.app(reduced, node.Arguments[arity:])
 	}
 	return reduced, true, nil
 }

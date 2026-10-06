@@ -316,6 +316,13 @@ Bool itself uses `C(0)`. Signed values use fixed-width two's complement; char
 uses 16 bits, GUID 128 N-order bits, and decimal sign/scale/coefficient uses the
 W07 exact representation. No 64/96/128-bit scalar is converted to unary Nat.
 
+The approved 2026-10-07 amendment separately permits the generic generated
+Sort0-dependent `Bool.cases` proof eliminator specified in `CORE_V0.md`. Its
+motive and proof branches establish ordinary propositions; it is not a carrier
+mux or a replacement value encoding. The existing `Bool.rec` carrier equations
+above remain Bool-valued. Practical use awaits the renewed T01 freeze and
+complete W09 proof acceptance; the profile remains inactive.
+
 For `a <= d`, `pad(a,d,x)` adds `d-a` leading selector binders and returns
 `x` only when every added selector is false; all other padding addresses return
 `Z(a)`. `unpad` applies false for those exact binders. Both operations expand

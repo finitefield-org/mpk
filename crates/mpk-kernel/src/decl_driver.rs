@@ -232,6 +232,15 @@ impl<'certificate> CheckedDeclarationContext<'certificate> {
                     let ty = self.translate_term(*ty)?;
                     let inductive = self.global_by_dependency(*inductive)?;
                     self.expect_term_type_is_sort(index, "recursor_type", ty)?;
+                    mpk_core::check_bool_cases_declaration(
+                        &mut self.terms,
+                        &self.env,
+                        &name,
+                        ty,
+                        inductive,
+                        *generated,
+                    )
+                    .map_err(DeclarationCheckError::core)?;
                     if *generated {
                         self.env
                             .register_generated_recursor(name, ty, inductive)

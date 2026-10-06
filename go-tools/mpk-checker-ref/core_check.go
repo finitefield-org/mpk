@@ -157,6 +157,11 @@ func (c *coreCheckContext) checkDeclarations() error {
 			if err := c.expectTermTypeIsSort(index, "generated_type", ty); err != nil {
 				return err
 			}
+			if declaration.Tag == DeclRecursor {
+				if err := c.state.checkBoolCasesDeclaration(name, ty, inductive, declaration.Generated); err != nil {
+					return err
+				}
+			}
 			global, err = c.state.env.registerGenerated(name, declaration.Tag, ty, inductive, declaration.Generated)
 			if err != nil {
 				return err
@@ -376,6 +381,9 @@ func (s *coreState) infer(term coreTermID, context coreLocalContext) (coreTermID
 		}
 		return s.lift(ty, amount)
 	case TermConst:
+		if err := s.checkBoolCasesConstantLevels(coreGlobalID(node.A), len(node.Levels) != 0); err != nil {
+			return 0, err
+		}
 		declaration, ok := s.env.lookup(coreGlobalID(node.A))
 		if !ok {
 			return 0, newCoreError(CoreCheckUnknownGlobal, "unknown global "+formatUint64(uint64(node.A)))
@@ -788,6 +796,9 @@ func (e *coreEnvironment) registerGenerated(name string, tag DeclarationTag, ty 
 }
 
 func (e *coreEnvironment) register(name string, declaration coreDeclaration) (coreGlobalID, error) {
+	if declaration.tag == DeclConstructor && e.hasBoolCases(declaration.inductive) {
+		return 0, newCoreError(CoreCheckInvalidDeclaration, "constructor added to closed Bool cases family")
+	}
 	for _, existing := range e.declarations {
 		if existing.name == name {
 			return 0, newCoreError(CoreCheckInvalidDeclaration, "duplicate declaration "+name)

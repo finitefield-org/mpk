@@ -2,6 +2,9 @@
 
 #![forbid(unsafe_code)]
 
+#[cfg(test)]
+mod bool_cases_tests;
+
 pub mod cache;
 pub mod decl_driver;
 pub mod json_output;

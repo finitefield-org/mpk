@@ -2,6 +2,7 @@
 
 #![forbid(unsafe_code)]
 
+pub mod bool_cases;
 pub mod context;
 pub mod decl_check;
 pub mod defeq;
@@ -18,6 +19,7 @@ pub mod reduce_inductive;
 pub mod subst;
 pub mod term;
 
+pub use bool_cases::check_bool_cases_declaration;
 pub use context::{LocalContext, LocalDecl, LocalDefinition};
 pub use decl_check::{check_theorem, register_checked_theorem};
 pub use defeq::{definitionally_equal, definitionally_equal_with_fuel, DEFAULT_DEFEQ_FUEL};
@@ -31,8 +33,9 @@ pub use inductive::{
     RegisteredInductive,
 };
 pub use inductive_gen::{
-    generate_mvp_inductive_declarations, GeneratedArtifact, GeneratedArtifactHash,
-    GeneratedArtifactKind, GeneratedInductiveDeclarations, InductiveGenerationInput,
+    generate_bool_cases_declaration, generate_mvp_inductive_declarations, GeneratedArtifact,
+    GeneratedArtifactHash, GeneratedArtifactKind, GeneratedInductiveDeclarations,
+    InductiveGenerationInput,
 };
 pub use infer::{check, infer, infer_sort};
 pub use level::{LevelArena, LevelHash, LevelId, LevelNode};

@@ -1,5 +1,12 @@
 # CSHARP-03 Practical C# Implementation Milestones and Tasks
 
+The user-approved 2026-10-07 generic Sort0 Boolean proof-elimination amendment
+reopens `CSHARP-03-T01-W09` (In progress) and `CSHARP-03-T01-W10` (Blocked).
+Their previous completion records below are historical. T06-W09 retains its
+partial definitions and evidence but cannot complete or advance proof assembly
+until the renewed freeze is complete. The practical profile remains inactive.
+See [the approved amendment](../migrations/csharp-03/ordinary-foundation/unit-7-boolean-elimination-proposal.md).
+
 Status: current reviewed implementation decomposition, revised on 2026-09-08.
 The native `JAVA-03-T10` x86-64 Linux release receipt is accepted and
 `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10` have completed the entry audit,
@@ -35,7 +42,7 @@ normative but inactive specifications and, after the approved W14 codec
 parameter and W01 partial-loop amendments, 709 vectors.
 `CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09` and
 `CSHARP-03-T03-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10/W11/W12/W13/W14` are complete.
-`CSHARP-03-T04-W01/W02/W03/W04/W05/W06` and `CSHARP-03-T05-W01/W02/W03/W04/W05/W06` are complete; `CSHARP-03-T06-W01/W02/W03/W04/W05/W06/W07/W08` are complete. `CSHARP-03-T06-W09` is In progress.
+`CSHARP-03-T04-W01/W02/W03/W04/W05/W06` and `CSHARP-03-T05-W01/W02/W03/W04/W05/W06` are complete; `CSHARP-03-T06-W01/W02/W03/W04/W05/W06/W07/W08` are complete. `CSHARP-03-T06-W09` is Blocked pending the approved Boolean proof-elimination re-freeze.
 The 2026-09-22 reconstruction audit retracts the T01 stop classification:
 `remapped-boundary-sequence` is a W09 definition fixture, not a frozen positive
 verified compilation. Its noninjective binding must fail final proof acceptance.
@@ -675,7 +682,7 @@ ledger section 10 records exact hashes, verification and the review/fix loop.
 
 Depends on: T01-W08.
 
-Current status: `Complete`. The private feasibility probe retains the original
+Current status: `In progress` under the approved 2026-10-07 Boolean proof-elimination amendment. Previous freeze completion is historical. The private feasibility probe retains the original
 cross-result rejections and demonstrates the replacement Boolean-cube
 selection and concrete state-transformer fold in both checkers. F01 is resolved
 without changing core or using `Std.Nat.rec` in the replacement. The private
@@ -727,7 +734,7 @@ are private candidate inputs to W10, not published or installed schemas.
 
 Depends on: T01-W09.
 
-Current status: `Complete`.
+Current status: `Blocked` under the approved 2026-10-07 Boolean proof-elimination amendment. Previous freeze completion is historical.
 
 Owns: the practical-profile specification package, successor shared-artifact
 specifications, exact vectors and manifest entries, canonical probe records,
@@ -1927,6 +1934,8 @@ Verification: transition matrix covering accept/error/replay/snapshot mismatch/
 version conflict/capacity and broken invariant/event/response/equality cases.
 
 ### CSHARP-03-T06-W09 — Encode ordinary foundations and close zero-axiom checking
+
+Current status: `Blocked` pending renewed T01-W09/W10 freeze. Existing checkpoints below remain historical partial W09 evidence.
 
 Depends on: T06-W08.
 

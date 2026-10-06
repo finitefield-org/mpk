@@ -1,10 +1,10 @@
 # CSHARP-03 Implementation Traceability Ledger
 
-Current implementation: `CSHARP-03-T06-W09` is `In progress`. Its completed
-checkpoints, reconstruction audit correction and pending acceptance gate are tracked in
-`develop/migrations/csharp-03/ordinary-foundation/w09-completion-audit.json`.
-The W09 definition counterexample does not require repeating T01. W10 and later items remain blocked;
-the historical completion records below do not constitute a W09 receipt.
+Current implementation: `CSHARP-03-T01-W09` is `In progress` for the user-approved
+2026-10-07 generic Sort0 Boolean proof-elimination amendment. T01-W10 and T06-W09
+are `Blocked` pending the renewed freeze. Earlier completion records and W09
+checkpoints below are historical; all 987 application proofs remain pending.
+See `develop/migrations/csharp-03/ordinary-foundation/unit-7-boolean-elimination-proposal.md`.
 
 Status: `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10`,
 `CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09`, and
@@ -108,8 +108,8 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T01-W06` | `Complete` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W06` | `22673dbc96d8ba4f0d9a4cb97c3f2490c00d1804` |
 | `CSHARP-03-T01-W07` | `Complete` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W07` | `b0ff7daec663b95b1f88ecc1d98f0b7c1f6fdf00` |
 | `CSHARP-03-T01-W08` | `Complete` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W08` | `4ffd8b3a9918b6cae9e4d4704e4bc6b09a12cd5c` |
-| `CSHARP-03-T01-W09` | `Complete` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W09` | `17525292755c4e508acd9300cfa72d20cdf9bb92` |
-| `CSHARP-03-T01-W10` | `Complete` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W10` | `d4459f16562c9f5a7d4d0074571c9d0af17c0dd5` |
+| `CSHARP-03-T01-W09` | `In progress` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W09` | `17525292755c4e508acd9300cfa72d20cdf9bb92` |
+| `CSHARP-03-T01-W10` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W10` | `d4459f16562c9f5a7d4d0074571c9d0af17c0dd5` |
 | `CSHARP-03-T02-W01` | `Complete` | `crates/mpk-vc/tests/csharp_practical_registry.rs#CSHARP-03-T02-W01` | `4a9e8afef62eaf54a8184119b4e62e50cb73de06` |
 | `CSHARP-03-T02-W02` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vir_model.rs#CSHARP-03-T02-W02` | `026243eae673672c45ed96d348b3248afcde40b5` |
 | `CSHARP-03-T02-W03` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vir_model.rs#CSHARP-03-T02-W03` | `cb2c2eb419adceaf84d4b610a19deb4b8205bf96` |
@@ -153,7 +153,7 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T06-W06` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W06` | `594c5e7b5f9210775b55284b05035151155225af` |
 | `CSHARP-03-T06-W07` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W07` | `f332894025c604f6a45bb1f4fe2eec56d0df7737` |
 | `CSHARP-03-T06-W08` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W08` | `SELF` |
-| `CSHARP-03-T06-W09` | `In progress` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W09` | `—` |
+| `CSHARP-03-T06-W09` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W09` | `—` |
 | `CSHARP-03-T06-W10` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_policy_verify.rs#CSHARP-03-T06-W10` | `—` |
 | `CSHARP-03-T06-W11` | `Blocked` | `crates/mpk-api/tests/csharp_practical_api.rs#CSHARP-03-T06-W11` | `—` |
 | `CSHARP-03-T06-W12` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_end_to_end.rs#CSHARP-03-T06-W12` | `—` |
@@ -6064,3 +6064,27 @@ and `ordinary-foundation/unit-5-pattern-captures-review.md`.
 Producer/consumer execution establishment, the 102 original pattern predicate
 bodies and all 987 application proofs remain open. Unit 5 and W09 remain In
 progress, W10-W12 stay Blocked and the full T06 gate stays deferred to W12.
+
+## 69. Approved Sort0 Boolean proof-elimination amendment (2026-10-07)
+
+The user approved the concrete generic Boolean eliminator and renewed freeze
+proposal. T01-W09 is reopened as the sole active work item; T01-W10 and further
+T06-W09 proof assembly await it. `CORE_V0.md` specifies the new canonical
+`<family>.cases` interface while retaining existing `rec` interfaces and the
+Certificate v0 wire format. Feasibility, source-free dual checking, mutation
+coverage, predecessor compatibility, descriptor/package reconciliation and
+the renewed freeze remain required. This entry is not a completion receipt.
+
+The generic implementation checkpoint passes 64 current Rust tests, 16 selected
+Go top-level tests, changed-package lint/format, and 44 standalone checker
+stages. Six new proof certificates accept with zero axioms, thirteen mutations
+reject at core checking, and three predecessor certificates retain acceptance
+and matching hashes. Review reproduced and fixed late constructor registration
+and nonempty universe arguments accepted without reduction. The exact inputs,
+reports, source manifests and selection rationale are recorded in
+`develop/migrations/csharp-03/probes/boolean-proof-elimination-logs/receipt.json`;
+`ordinary-foundation/unit-7-boolean-elimination-review.md` records both review
+passes. The baseline diagnostic also passes ten checker stages on exact public
+Linux source `f02dcb32`; new-rule Linux validation remains pending. Renewed
+T01's whole gate is deferred to final W10, and T06's remains deferred to W12.
+All 987 original application proof IDs remain pending.

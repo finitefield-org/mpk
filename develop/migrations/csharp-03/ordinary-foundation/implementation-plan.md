@@ -1,5 +1,11 @@
 # CSHARP-03-T06-W09 implementation work plan (not a completion receipt)
 
+Current amendment status (2026-10-07): the user approved generic Sort0 Boolean
+proof elimination and a renewed T01 freeze. T01-W09 is In progress; T01-W10 and
+T06-W09 are Blocked until that freeze completes. The W09 checkpoints and internal
+unit statuses below describe the prior freeze and remain partial evidence.
+See `unit-7-boolean-elimination-proposal.md` for the authorized scope.
+
 Baseline: `1e1f6a4` (T06-W08). The canonical work-item ledger records W09
 In progress; W10 must not become ready until all W09 obligations are complete.
 

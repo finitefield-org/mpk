@@ -1,0 +1,26 @@
+{
+  "input_sha256": "9ba0b8f459950a399171fe5880d5689c4e7584590993d66977e5b7b94cfd93d6",
+  "reports": {
+    "rust": {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/before-constructor-closure-fix/rust-checker",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/before-constructor-closure-fix/late-constructor.mpcert"
+      ],
+      "exit_code": 0,
+      "verdict": "accepted",
+      "report_sha256": "6c449752c6377e5bb128caefc4bd9d28365415cbb1fc3863fcc6738f79fa10bc"
+    },
+    "go": {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/before-constructor-closure-fix/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/before-constructor-closure-fix/late-constructor.mpcert"
+      ],
+      "exit_code": 0,
+      "verdict": "accepted",
+      "report_sha256": "e429eb2a0d77d2a83621548b3abf8898b4310c042e36fe05048d02b8f20f9140"
+    }
+  },
+  "reason": "Existing cases declaration accepted before later third constructor; theorem has neutral major and an open motive so no constructor equation was exercised."
+}

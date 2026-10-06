@@ -15,7 +15,10 @@ pub fn infer(
     match terms.node(term).clone() {
         TermNode::Sort(level) => Ok(infer_sort(levels, terms, level)),
         TermNode::Var(index) => infer_var(terms, context, term, index),
-        TermNode::Const { global, .. } => infer_const(env, term, global),
+        TermNode::Const { global, levels } => {
+            crate::bool_cases::check_bool_cases_constant_levels(env, global, !levels.is_empty())?;
+            infer_const(env, term, global)
+        }
         TermNode::Lam { ty, body } => infer_lam(levels, terms, context, env, term, ty, body),
         TermNode::App {
             function,

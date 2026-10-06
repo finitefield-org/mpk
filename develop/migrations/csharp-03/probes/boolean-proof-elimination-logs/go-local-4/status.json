@@ -1,0 +1,37 @@
+{
+  "application_scope_pending": true,
+  "go_checker_sha256": "e9ca299f060620ed691ea6eed40d877e3f9bbd53fb2340f1c19230a8a3afc9ce",
+  "process_pid": 9137,
+  "selection_reason": "Review fixes nonempty universe arguments on the monomorphic Bool cases interface at inference even for neutral/partial terms. Select core Bool cases, environment and inference tests; kernel cases and declaration consumers; T01-W09 feasibility owner; selected Go core/defeq tests; changed-package lint/format and both checker builds. Reuse unchanged reduction/defeq/inductive-generation/kernel proof-check successes from local-3 with explicit per-file hashes. New same-byte corpus has six accepted and thirteen rejected certificates. Renewed T01 full gate deferred to final W10; T06 full gate remains deferred to W12.",
+  "stage": "go-checker-build",
+  "stages": [
+    {
+      "command": [
+        "/usr/local/go/bin/go",
+        "test",
+        "-count=1",
+        "-v",
+        "-run",
+        "^Test(BoolCases|Defeq|Core|CheckCore)",
+        "./..."
+      ],
+      "exit_code": 0,
+      "log_sha256": "3734f5b459b141e3a48aaf668d8befa2f230ef7417b6fd86b03ee0bbcdab98a8",
+      "stage": "selected-core-defeq-tests"
+    },
+    {
+      "command": [
+        "/usr/local/go/bin/go",
+        "build",
+        "-o",
+        "/private/tmp/mpk-w09-bool-cases-reports/go-local-4/go-checker",
+        "./cmd/mpk-checker-ref"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stage": "go-checker-build"
+    }
+  ],
+  "status": "passed_selected_go_tests_build",
+  "supervisor_pid": 9067
+}

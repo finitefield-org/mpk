@@ -32,6 +32,70 @@ const AGGREGATE_GATE: &str = "scripts/check-all.sh";
 const PRACTICAL_GATE: &str = "scripts/check-csharp-practical-release.sh";
 const OWNER: &str = "crates/mpk-vc/tests/csharp_practical_spec.rs";
 
+#[test]
+fn csharp_03_t01_w09_boolean_proof_elimination_feasibility() {
+    for name in [
+        "right-identity",
+        "constructor-false",
+        "constructor-true",
+        "open-motive",
+        "conjunction-left",
+        "conjunction-right",
+        "wrong-branch",
+        "wrong-conjunction-left",
+        "wrong-conjunction-right",
+        "wrong-motive-universe",
+        "wrong-interface",
+        "nongenerated",
+        "extra-constructor",
+        "extra-constructor-after-cases",
+        "renamed",
+        "wrong-case-levels",
+        "wrong-major-levels",
+        "wrong-case-levels-open",
+        "wrong-major-levels-open",
+    ] {
+        let text =
+            String::from_utf8(read(&format!("fixtures/core-bool-cases/{name}.hex"))).unwrap();
+        let text = text.trim();
+        let bytes = (0..text.len())
+            .step_by(2)
+            .map(|i| u8::from_str_radix(&text[i..i + 2], 16).unwrap())
+            .collect::<Vec<_>>();
+        let certificate = mpk_cert::decode_canonical_certificate(&bytes).unwrap();
+        assert!(certificate.proof_node_table.is_empty());
+        assert!(certificate.theory_certificates.is_empty());
+        let good = matches!(
+            name,
+            "right-identity"
+                | "constructor-false"
+                | "constructor-true"
+                | "open-motive"
+                | "conjunction-left"
+                | "conjunction-right"
+        );
+        let report: Value =
+            serde_json::from_str(&mpk_kernel::verify_certificate_bytes_json(&bytes)).unwrap();
+        assert_eq!(
+            report["verdict"],
+            if good { "accepted" } else { "rejected" },
+            "{name}: {report}"
+        );
+        if good {
+            assert_eq!(report["axiom_count"], 0);
+            for count in report["axiom_report"]["summary"]
+                .as_object()
+                .unwrap()
+                .values()
+            {
+                assert_eq!(count, 0);
+            }
+        } else {
+            assert_eq!(report["error_code"], "KERNEL_CORE_CHECK");
+        }
+    }
+}
+
 #[path = "../../../develop/probes/csharp-03/recursor_feasibility.rs"]
 mod recursor_feasibility;
 
