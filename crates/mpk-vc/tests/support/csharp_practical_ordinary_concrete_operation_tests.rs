@@ -4,6 +4,8 @@ use super::*;
 use core_eval::V;
 use mpk_cert::encode::{Certificate, DeclarationKind, TermNode};
 use mpk_vc::csharp_practical_vir_validation::ValidatedPracticalVir;
+#[path = "csharp_practical_ordinary_scoped_construction_tests.rs"]
+mod scoped_construction_tests;
 
 #[test]
 fn csharp_03_t06_w09_concrete_operation_proofs_original_source() {

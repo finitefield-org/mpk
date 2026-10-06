@@ -1,6 +1,12 @@
 //! W06 field-complete observations and projected result agreement.
 //! Reconstruction witnesses, domains, native outcomes and proofs remain required.
 use super::*;
+pub use concrete_operations::{
+    generate_csharp_practical_ordinary_scoped_construction_operation_proofs,
+    import_csharp_practical_ordinary_scoped_construction_operation_proofs,
+    OrdinaryScopedConstructionOperationCandidate, OrdinaryScopedConstructionOperationProofProgram,
+    OrdinaryScopedConstructionOwnership,
+};
 use sha2::{Digest, Sha256};
 #[path = "csharp_practical_ordinary_binding_defaults.rs"]
 mod binding_defaults;

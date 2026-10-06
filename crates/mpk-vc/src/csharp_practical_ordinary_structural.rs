@@ -2,6 +2,12 @@
 //! These functions require valid child values. They do not discharge domains,
 //! source constructor invariants, validation bounds or application VCs.
 use super::*;
+pub use relations::{
+    generate_csharp_practical_ordinary_scoped_construction_operation_proofs,
+    import_csharp_practical_ordinary_scoped_construction_operation_proofs,
+    OrdinaryScopedConstructionOperationCandidate, OrdinaryScopedConstructionOperationProofProgram,
+    OrdinaryScopedConstructionOwnership,
+};
 #[path = "csharp_practical_ordinary_binding_projections.rs"]
 mod binding_projections;
 pub use binding_projections::{

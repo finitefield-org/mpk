@@ -10,6 +10,12 @@ use mpk_cert::{
     axiom_report_hash_for_report, build_axiom_report, build_export_block,
     decode_canonical_certificate, encode_certificate_bounded, export_block_hash,
 };
+pub use structural::{
+    generate_csharp_practical_ordinary_scoped_construction_operation_proofs,
+    import_csharp_practical_ordinary_scoped_construction_operation_proofs,
+    OrdinaryScopedConstructionOperationCandidate, OrdinaryScopedConstructionOperationProofProgram,
+    OrdinaryScopedConstructionOwnership,
+};
 const BOOL: &str = "Std.Bool";
 const PREFIX: &str = "Mpk.CSharp.Ordinary";
 const BOOL_HEX: &[u8] = include_bytes!("../../../proofs/std/bool/std-bool.hex");

@@ -22,6 +22,15 @@ pub use allocations::{
     import_csharp_practical_ordinary_concrete_operations_with_allocations,
 };
 
+#[path = "csharp_practical_ordinary_scoped_construction_proofs.rs"]
+mod scoped_construction;
+pub use scoped_construction::{
+    generate_csharp_practical_ordinary_scoped_construction_operation_proofs,
+    import_csharp_practical_ordinary_scoped_construction_operation_proofs,
+    OrdinaryScopedConstructionOperationCandidate, OrdinaryScopedConstructionOperationProofProgram,
+    OrdinaryScopedConstructionOwnership,
+};
+
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
 pub struct OrdinaryConcreteFailureComponent {
     pub label: String,
@@ -91,6 +100,8 @@ pub struct OrdinaryConcreteOperationProgram {
     binding_vc_sha256: String,
     instances: Vec<FoundationInstanceVc>,
     public_domains: Vec<OrdinaryPublicDomainDefinition>,
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    construction_storage_domains: Vec<OrdinaryConstructionStorageDomainDefinition>,
     source_clauses: Vec<OrdinarySourceClauseDefinition>,
     source_observations: Vec<OrdinaryObservationDefinition>,
     definitions: Vec<OrdinaryConcreteOperationDefinition>,
@@ -104,6 +115,9 @@ pub struct OrdinaryConcreteOperationProgram {
     certificate: Vec<u8>,
 }
 impl OrdinaryConcreteOperationProgram {
+    pub fn construction_storage_domains(&self) -> &[OrdinaryConstructionStorageDomainDefinition] {
+        &self.construction_storage_domains
+    }
     pub fn instances(&self) -> &[FoundationInstanceVc] {
         &self.instances
     }
@@ -671,6 +685,7 @@ pub fn generate_csharp_practical_ordinary_concrete_operations(
         binding_vc_sha256: vc.hash(),
         instances: vc.instances().to_vec(),
         public_domains,
+        construction_storage_domains: vec![],
         source_clauses,
         source_observations,
         definitions,

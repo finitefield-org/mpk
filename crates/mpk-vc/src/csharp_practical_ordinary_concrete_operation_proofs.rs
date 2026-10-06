@@ -30,6 +30,8 @@ pub struct OrdinaryConcreteOperationProofProgram {
     original_program_sha256: String,
     original_certificate_sha256: String,
     proofs: Vec<OrdinaryConcreteOperationProof>,
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    construction_storage_domains: Vec<OrdinaryConstructionStorageDomainDefinition>,
     proof_check_pending: bool,
     application_scope_pending: bool,
     pending_operations: Vec<OrdinaryConcreteOperationPending>,
@@ -42,6 +44,9 @@ pub struct OrdinaryConcreteOperationProofProgram {
 }
 
 impl OrdinaryConcreteOperationProofProgram {
+    pub fn construction_storage_domains(&self) -> &[OrdinaryConstructionStorageDomainDefinition] {
+        &self.construction_storage_domains
+    }
     pub fn proofs(&self) -> &[OrdinaryConcreteOperationProof] {
         &self.proofs
     }
@@ -442,6 +447,16 @@ pub(super) fn emit(
         .map(|d| (d.symbol.clone(), d.valid_definition.clone()))
         .collect::<BTreeMap<_, _>>();
     super::super::conditions::boolean_symbols(&mut symbols);
+    for domain in &program.construction_storage_domains {
+        if !domain.private_storage_only
+            || !domain.ownership_pending
+            || symbols
+                .insert(domain.symbol.clone(), domain.valid_definition.clone())
+                .is_some()
+        {
+            return Err(OrdinaryCarrierError::Linkage);
+        }
+    }
     for d in &program.definitions {
         for (symbol, definition) in [
             (&d.component.operation_id, &d.normal_definition),
@@ -611,6 +626,7 @@ pub(super) fn emit(
         original_program_sha256,
         original_certificate_sha256: program.certificate_sha256.clone(),
         proofs,
+        construction_storage_domains: program.construction_storage_domains.clone(),
         proof_check_pending: true,
         application_scope_pending: true,
         pending_operations: program.pending_operations.clone(),

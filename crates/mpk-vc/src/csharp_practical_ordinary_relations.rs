@@ -4,6 +4,12 @@ use super::super::scalar_bits::{
     bits_relation, sequence_subtraction, special_relation, ScalarRelations,
 };
 use super::*;
+pub use binding_relations::{
+    generate_csharp_practical_ordinary_scoped_construction_operation_proofs,
+    import_csharp_practical_ordinary_scoped_construction_operation_proofs,
+    OrdinaryScopedConstructionOperationCandidate, OrdinaryScopedConstructionOperationProofProgram,
+    OrdinaryScopedConstructionOwnership,
+};
 #[path = "csharp_practical_ordinary_binding_relations.rs"]
 mod binding_relations;
 pub use binding_relations::{

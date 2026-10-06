@@ -2318,6 +2318,21 @@ proof IDs stay pending. W09 remains In progress, W10-W12 remain Blocked and the
 full T06 gate remains deferred to W12. See
 `ordinary-foundation/unit-7-construction-storage-types-review.md`.
 
+The opt-in source-scoped construction operation route now supplies 12 candidates
+at exact original source ownership points across all 45 contexts. All eligible
+invoked fill/freeze operations have candidates; each retains the complete original
+DataOperationVc and W06 operation sequent, checked whole-flow and receiver-point
+proof dependencies, the private storage domain and original ordered failures.
+Three targeted tests, Clippy and both format checks pass locally. All 70 new
+exports are retained, all 92 legacy allocation exports remain byte-identical and
+all 45 original operation pins are unchanged. The tested audit verifies 749
+source and 173 fixture hashes. Same-byte Go/Rust and exact published-source Linux
+terminal receipts are pending. Generic ownership, all 25 original pending
+operations, seven is_binding refinements and all 987 application proof IDs
+remain pending. W09 stays In progress, W10-W12 stay Blocked and the full T06 gate
+is deferred to W12. See
+`ordinary-foundation/unit-7-scoped-construction-proofs-review.md`.
+
 Owns: translation of every already-expanded concrete foundation definition in
 monomorphic VIR into ordinary core definitions and proof terms for all new
 finite values and operations; the successor program-assembly profile;

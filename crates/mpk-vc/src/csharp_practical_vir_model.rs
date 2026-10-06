@@ -13,6 +13,12 @@ use crate::csharp_practical_registry::{
     FOUNDATION_DESCRIPTOR_ID, FOUNDATION_DESCRIPTOR_SCHEMA,
 };
 use crate::hash::{hash_canonical_json, sha256_raw_file_bytes, HashDomain};
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_scoped_construction_operation_proofs,
+    import_csharp_practical_ordinary_scoped_construction_operation_proofs,
+    OrdinaryScopedConstructionOperationCandidate, OrdinaryScopedConstructionOperationProofProgram,
+    OrdinaryScopedConstructionOwnership,
+};
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Map, Number, Value};
 use std::cmp::Ordering;
