@@ -35,6 +35,14 @@ An initial checker harness read failure is preserved externally: Go rejection
 reports omit the accepted-report hash object. The corrected harness reuses the
 five fully recorded earlier stages, reruns the unrecorded Go rejection, and runs
 all six new nested-case stages. The final audit verifies all twelve reports.
-Linux replay of this fix must be recorded after its public commit is available.
+Linux replay of public commit `f02dcb32ee0ff420a86083ea95067879455dec81`
+passes the same seven selected tests, Clippy, and crate format. Before launch,
+the supervisor verifies all 1,065 source and fixture Git blobs against that
+commit; the checkout is clean before and after execution. The final audit pins
+the executed test binary, all five stage logs, and the runner/control sources.
+All seven exported certificates are byte for byte identical to the local
+exports. The downloaded receipts and their hashes are recorded under `linux/`.
+This receipt update changes no production source or tested fixture, so the
+completed affected tests are reused without another execution.
 W09 remains In progress, W10–W12 remain Blocked, and the whole T06 gate
 `./scripts/check-fast.sh` remains deferred to T06-W12.
