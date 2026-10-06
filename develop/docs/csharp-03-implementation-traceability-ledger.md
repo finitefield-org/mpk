@@ -6211,3 +6211,29 @@ unchanged names and leaves the reviewed count-helper/body and original archive
 intact. See `ordinary-checkpoint-review/receipt.json`. This remains an
 intermediate checkpoint; other ordinary consumer metadata and all original
 proofs are pending, and whole gates are deferred to final T01-W10/T06-W12.
+
+
+Thirteen additional completed source owners now reconcile the two binding
+guard/order corpora and eleven string/data/ownership/fold corpora. Their 70
+metadata files are promoted only after exact original-source generation, strict
+imports and semantic comparisons; all 146 corresponding certificate byte sets
+remain unchanged. This checkpoint totals 52 owner corpora and 958 certificates:
+943 exact byte retentions and the fifteen previously validated name changes.
+Post-promotion pin validation is recorded separately in
+`ordinary-metadata-6-7-completed/receipt.json`; this paragraph does not close W09.
+
+The next integrated control owner detects its still-old control-edge metadata
+dependency. Its real exit 101 and complete failed log are retained with lossless
+gzip and checked raw/archive hashes. The control-edge source owner is regenerated
+before retrying integrated predicates. Other binding/transition/boundary owners
+continue from an unchanged checkout. Contract attachment and control-sequent
+identity changes are checked through their actual producer hash rules; complete
+name graphs and dual acceptance remain separate requirements before their
+changed bytes are promoted. Other ordinary consumer/alias linkage and all 987
+original application proof IDs remain pending. Whole gates remain final
+T01-W10 and T06-W12.
+
+Post-promotion validation of these thirteen owner pin branches and format
+passes. The initial compilation-only ENOSPC failure (101; no test executed)
+is preserved alongside the successful retry and immutable source/fixture
+manifests. T01-W10 and T06-W12 retain their respective whole-gate duties.

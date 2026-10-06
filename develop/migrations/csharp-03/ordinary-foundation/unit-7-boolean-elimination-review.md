@@ -109,3 +109,22 @@ unchanged names and leaves the reviewed count-helper/body and original archive
 intact. See `ordinary-checkpoint-review/receipt.json`. This remains an
 intermediate checkpoint; other ordinary consumer metadata and all original
 proofs are pending, and whole gates are deferred to final T01-W10/T06-W12.
+
+
+The following intermediate linkage checkpoint promotes only thirteen completed
+source owners: binding guards/orders plus string/data/ownership/fold corpora.
+All 146 certificate byte sets are preserved; 70 metadata files exactly match
+the successful original-source outputs. A consumer dependency failure in the
+next integrated control owner is retained rather than counted as a pass. Its
+full log is stored losslessly and the current control-edge source owner runs
+before retry. Post-promotion pins are required by the separate checkpoint
+receipt. Remaining source owners, changed contract/control names and nested
+JSON wrapper linkage remain under validation. All 987 original application
+proof IDs remain pending; W09/W10 are not complete.
+
+The thirteen normal owner pin tests and format check pass after promotion.
+The first pin run failed during compilation with ENOSPC and executed no test;
+its exit 101 and log are retained separately from the successful retry.
+Only unused incremental build caches were removed to recover disk capacity.
+Source and fixture manifests match before and after both runs.
+Whole gates remain deferred to final T01-W10 and T06-W12.
