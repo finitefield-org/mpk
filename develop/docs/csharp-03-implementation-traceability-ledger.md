@@ -6141,3 +6141,73 @@ See `probes/boolean-proof-elimination-refreeze/descriptor-lineage.json`, its
 `consumers/consumer-semantic-comparison.json` for exact selection reasons,
 inputs, outputs and terminal results. The renewed T01 whole gate remains
 scheduled for final W10; the T06 whole gate remains scheduled for W12.
+
+The next 29 ordinary carrier, domain, construction, binding, boundary and JSON
+owner corpora regenerate and strictly import against the actual renewed
+source contexts. Of 622 certificates, 607 retain their exact bytes. Fifteen
+boundary-rule certificates change only actual context-bound symbol names and
+the internal definition names computed from them; independent canonical
+term/declaration graph comparisons preserve every body, type, argument and
+level after those validated name substitutions. All fifteen fresh byte sets
+pass both standalone checkers with matching reports and zero axioms. Their
+preceding context-4 fixture labels and metadata remain archived.
+
+The first seven owner corpora independently pass on Linux at exact public
+source `40469d298f1d69558713d02ea0b553a1dd583bf5`. All 234 generated files
+(227 certificates and seven metadata files) match Darwin exactly. The audit
+checks the public commit's 4,285 source/fixture Git blobs, every terminal log
+and both control files. The complete evidence is stored with lossless gzip.
+
+Five JSON owners retain all nineteen certificate byte sets. The initial
+metadata comparison detected boundary field owner hashes; the final comparison
+uses their actual validated canonical contract hashes and preserves field
+names, order, literals, bodies and counts. Its first comparison remains recorded.
+
+A scalar owner run exposes a preexisting stale historical parser comparison
+after the reviewed count-helper refresh. Both parser owners now compare the
+complete current pinned definition closure, including exact aggregate bodies,
+without term normalization. The integer original-source owner passes its
+54 pins and 456 semantic cases; the remaining scalar/codec and decimal owners
+are still running from an immutable checkout. Their ongoing execution is not
+a pass. Other ordinary metadata, including historical/current aliases, remains
+under reconciliation. None of this closes renewed W09/W10 or changes the 987
+pending application proofs. See the `ordinary-metadata-1/2/3/5` and
+`parser-current-pin-audit` checkpoint receipts. Whole gates remain deferred
+to final T01-W10 and T06-W12.
+
+The scalar/storage/codec follow-up now passes all ten affected owner corpora
+and preserves all 190 certificate byte sets and semantic metadata. Both
+parser owners compare complete current pinned definition closures; the initial
+stale-archive failure is retained. Four new certificate-only test entries
+share their original owner body; a Git-backed syntax audit verifies that every
+original source/import/mutation and semantic observation remains exactly
+unchanged apart from the explicit observation branch. The original full
+semantic owners still execute all their value cases. Their separate ongoing
+run is not included in this selected pass. The first owner-split compilation
+failed because its selector shadowed an existing observation function; the
+renamed selector's complete nine-owner rerun passes and both logs are retained.
+
+The ordinary checkpoint totals 39 owner corpora and 812 certificates: 797
+exact byte retentions and fifteen validated context-name graph changes with
+fresh dual-checker acceptance. The actual predecessor/current 384-source
+identity replay independently derives 251 distinct VIR hash rebindings, with
+the same 266 emissions, 104 expected emission rejections and fourteen native
+source rejections. See `ordinary-metadata-4` and `actual-vir-identities`.
+Other ordinary consumer and alias lineage is pending; all 987 application
+proof IDs remain pending. The final whole gates remain T01-W10 and T06-W12.
+
+Six normal scalar/codec pin consumers pass after promotion. The selected
+aggregate regrouping mutation audit independently finds the same stale
+count-helper archive dependency; its failed log remains retained. Its repaired
+baseline first compares all retained aggregate types and non-pipeline bodies,
+then copies only the independent historical pipeline tree into the current
+producer-pinned declaration graph. `same_aggregate_scan` remains unchanged
+and still validates the exact 8,192-step order plus every baseline declaration
+closure; all shortened-group, changed-helper and changed-argument mutations
+reject. The actual current aggregate producer pin, repaired mutation audit,
+affected VC-test Clippy and format checks pass. Second review confirms the
+copy preserves term/argument/binder/level order, resolves globals only by their
+unchanged names and leaves the reviewed count-helper/body and original archive
+intact. See `ordinary-checkpoint-review/receipt.json`. This remains an
+intermediate checkpoint; other ordinary consumer metadata and all original
+proofs are pending, and whole gates are deferred to final T01-W10/T06-W12.

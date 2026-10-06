@@ -188,6 +188,17 @@ fn format_case(
 }
 #[test]
 fn csharp_03_t06_w09_hex_codecs_original_sources() {
+    hex_codecs_original_sources(true);
+}
+
+// Context/metadata changes can replay all source imports and pins separately
+// from the unchanged exhaustive value observations retained by the owner above.
+#[test]
+fn csharp_03_t06_w09_hex_codecs_original_source_certificates() {
+    hex_codecs_original_sources(false);
+}
+
+fn hex_codecs_original_sources(observe_values: bool) {
     let bundle = b();
     let out = std::env::var_os("MPK_W09_HEX_CODECS_OUT").map(std::path::PathBuf::from);
     if let Some(p) = &out {
@@ -290,6 +301,9 @@ fn csharp_03_t06_w09_hex_codecs_original_sources() {
             read("ordinary-foundation/hex-codecs/certificates.json"),
             manifest
         );
+    }
+    if !observe_values {
+        return;
     }
     let mut parse_count = 0;
     let mut format_count = 0;

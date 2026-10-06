@@ -1,0 +1,82 @@
+{
+  "full_t01_gate": "deferred_to_final_W10",
+  "full_t06_gate": "deferred_to_W12",
+  "selection_reason": "Repair the independently reproduced stale-count aggregate mutation baseline. Check the current actual aggregate producer pin, every reassociation mutation and affected test-target lint/format. The six unaffected scalar/codec pin checks already passed on identical production sources and fixtures; retain those terminal results rather than rerunning them. Whole gates stay deferred to final T01-W10 and T06-W12.",
+  "stage": "format",
+  "stages": [
+    {
+      "command": [
+        "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "aggregate_fold_certificates_replay_and_limits",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 30.192708166003285,
+      "exit_code": 0,
+      "log_sha256": "de90bf19a65944312b0a085d90f7cb17fc41348352d5df015d0376471f2b93ac",
+      "stage": "aggregate-producer-pin",
+      "test_counts": [
+        "1"
+      ]
+    },
+    {
+      "command": [
+        "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_aggregate_regroup_audit_mutations",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 11.586699041996326,
+      "exit_code": 0,
+      "log_sha256": "0544992cde901629a1d89d17a1271d23fcfd2a3646192e5c98b8bfaea12f0204",
+      "stage": "aggregate-mutation-audit",
+      "test_counts": [
+        "1"
+      ]
+    },
+    {
+      "command": [
+        "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "elapsed_seconds": 37.92403633399954,
+      "exit_code": 0,
+      "log_sha256": "8646378fe55ec17bb8fe2adc29d671c359c90ad5809abaa109b317aff602f84b",
+      "stage": "clippy-vc-test",
+      "test_counts": []
+    },
+    {
+      "command": [
+        "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "elapsed_seconds": 3.235240791000251,
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stage": "format",
+      "test_counts": []
+    }
+  ],
+  "status": "passed_selected_pins_mutation_audit_lint_and_format"
+}

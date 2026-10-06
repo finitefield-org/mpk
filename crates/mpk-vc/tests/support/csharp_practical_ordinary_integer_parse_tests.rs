@@ -153,12 +153,20 @@ fn csharp_03_t06_w09_integer_parsers_original_sources() {
         if p.definitions().is_empty() {
             continue;
         }
+        // The current pin includes the reviewed count-helper refresh. The
+        // older regrouping archive predates it; compare every current definition
+        // and dependency without normalizing any parser or aggregate body.
         let old = super::super::structural_equivalence_tests::certificate(
-            "integer-parsers/previous-step-eight",
+            "integer-parsers",
             &format!("{id}.hex"),
         );
-        super::super::structural_equivalence_tests::same_aggregate_scan(&old, &cert)
-            .unwrap_or_else(|e| panic!("{id} aggregate preservation: {e}"));
+        let roots = old
+            .declarations
+            .iter()
+            .map(|d| old.name_table[d.name as usize].clone())
+            .collect();
+        super::super::structural_equivalence_tests::same_definition_closure(&old, &cert, &roots)
+            .unwrap_or_else(|e| panic!("{id} current definition preservation: {e}"));
         let hex = p
             .certificate_bytes()
             .iter()

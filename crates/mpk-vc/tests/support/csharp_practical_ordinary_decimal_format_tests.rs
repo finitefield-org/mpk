@@ -11,6 +11,17 @@ fn observe(cert: &mpk_cert::encode::Certificate, value: &V, at: usize) -> bool {
 }
 #[test]
 fn csharp_03_t06_w09_decimal_formats_original_sources() {
+    decimal_formats_original_sources(true);
+}
+
+// Context/metadata changes can replay all source imports and pins separately
+// from the unchanged exhaustive value observations retained by the owner above.
+#[test]
+fn csharp_03_t06_w09_decimal_formats_original_source_certificates() {
+    decimal_formats_original_sources(false);
+}
+
+fn decimal_formats_original_sources(observe_values: bool) {
     let bundle = b();
     let out = std::env::var_os("MPK_W09_DECIMAL_FORMATS_OUT").map(std::path::PathBuf::from);
     if let Some(p) = &out {
@@ -122,6 +133,9 @@ fn csharp_03_t06_w09_decimal_formats_original_sources() {
         );
     }
     let (d, cert, roots, closed) = tested.expect("actual captured decimal literal source");
+    if !observe_values {
+        return;
+    }
     let max = (1u128 << 96) - 1;
     let mut inputs = BTreeSet::from([
         (false, 0, 0u128),

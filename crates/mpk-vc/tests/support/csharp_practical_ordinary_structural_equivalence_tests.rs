@@ -571,9 +571,110 @@ fn csharp_03_t06_w09_decimal_json_collection_definition_closure() {
 
 #[test]
 fn csharp_03_t06_w09_aggregate_regroup_audit_mutations() {
-    let old = certificate("aggregate-folds/previous-step-eight", "core.hex");
+    let historical = certificate("aggregate-folds/previous-step-eight", "core.hex");
     let dir = std::env::var("MPK_W09_AGGREGATE_OUT").unwrap_or("aggregate-folds".into());
     let new = certificate(&dir, "core.hex");
+    // The archived pipeline predates the reviewed count-helper refresh. Keep
+    // its independent composition tree, but use the current pinned helpers as
+    // the mutation baseline. First require every retained aggregate type and
+    // non-pipeline body to match; no reassociation or helper-body normalization
+    // is allowed by these checks. The producer separately pins the entire core.
+    let prefix = "Mpk.CSharp.Ordinary.AggregateFold.";
+    let roots = historical
+        .declarations
+        .iter()
+        .map(|d| historical.name_table[d.name as usize].clone())
+        .filter(|n| n.starts_with(prefix))
+        .collect::<BTreeSet<_>>();
+    same_definition_types(&historical, &new, &roots).unwrap();
+    let bodies = roots
+        .iter()
+        .filter(|n| !n.ends_with(".Pipeline"))
+        .cloned()
+        .collect();
+    same_definition_bodies(&historical, &new, &bodies).unwrap();
+    assert_eq!(historical.level_table, new.level_table);
+    let pipeline = |c: &Certificate| {
+        c.declarations
+            .iter()
+            .position(|d| c.name_table[d.name as usize] == format!("{prefix}Pipeline"))
+            .unwrap()
+    };
+    let DeclarationKind::Def { value, .. } = historical.declarations[pipeline(&historical)].kind
+    else {
+        panic!("historical pipeline kind")
+    };
+    let mut pending = vec![value];
+    let mut terms = BTreeSet::new();
+    while let Some(term) = pending.pop() {
+        if !terms.insert(term) {
+            continue;
+        }
+        match &historical.term_table[term as usize] {
+            TermNode::Sort(_) | TermNode::Var(_) | TermNode::Const { .. } => {}
+            TermNode::App {
+                function,
+                arguments,
+            } => {
+                pending.push(*function);
+                pending.extend(arguments);
+            }
+            TermNode::Lam { ty, body } | TermNode::Pi { ty, body } => {
+                pending.extend([ty, body]);
+            }
+            TermNode::Let { ty, value, body } => pending.extend([ty, value, body]),
+        }
+    }
+    let globals = new
+        .declarations
+        .iter()
+        .enumerate()
+        .map(|(i, d)| (new.name_table[d.name as usize].clone(), i as u32))
+        .collect::<BTreeMap<_, _>>();
+    let mut old = new.clone();
+    let mut copied = BTreeMap::new();
+    for id in terms {
+        let term = match &historical.term_table[id as usize] {
+            TermNode::Sort(level) => TermNode::Sort(*level),
+            TermNode::Var(index) => TermNode::Var(*index),
+            TermNode::Const { global, levels } => TermNode::Const {
+                global: globals[&historical.name_table
+                    [historical.declarations[*global as usize].name as usize]],
+                levels: levels.clone(),
+            },
+            TermNode::App {
+                function,
+                arguments,
+            } => TermNode::App {
+                function: copied[function],
+                arguments: arguments.iter().map(|a| copied[a]).collect(),
+            },
+            TermNode::Lam { ty, body } => TermNode::Lam {
+                ty: copied[ty],
+                body: copied[body],
+            },
+            TermNode::Pi { ty, body } => TermNode::Pi {
+                ty: copied[ty],
+                body: copied[body],
+            },
+            TermNode::Let { ty, value, body } => TermNode::Let {
+                ty: copied[ty],
+                value: copied[value],
+                body: copied[body],
+            },
+        };
+        copied.insert(id, old.term_table.len() as u32);
+        old.term_table.push(term);
+    }
+    let old_pipeline = pipeline(&old);
+    let DeclarationKind::Def {
+        value: old_value, ..
+    } = &mut old.declarations[old_pipeline].kind
+    else {
+        panic!("current pipeline kind")
+    };
+    *old_value = copied[&value];
+    validate_csharp_practical_certificate_structure(&old).unwrap();
     same_aggregate_scan(&old, &new).unwrap();
     let value = |c: &Certificate, suffix: &str| {
         let d = c
