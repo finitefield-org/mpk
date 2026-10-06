@@ -1,0 +1,9 @@
+   Compiling mpk-vc v0.1.0 (/private/tmp/mpk-w09-packed-pattern-proofs/crates/mpk-vc)
+error[E0425]: cannot find function `bytes` in this scope
+  --> crates/mpk-vc/tests/support/csharp_practical_ordinary_identity_proof_tests.rs:42:29
+   |
+42 |             let old_bytes = bytes(original.join(format!("{id}.hex")));
+   |                             ^^^^^ not found in this scope
+
+For more information about this error, try `rustc --explain E0425`.
+error: could not compile `mpk-vc` (test "csharp_practical_vc") due to 1 previous error

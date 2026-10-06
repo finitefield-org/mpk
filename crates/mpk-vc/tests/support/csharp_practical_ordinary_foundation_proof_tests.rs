@@ -9,7 +9,7 @@ fn encode(mut c: Certificate) -> Vec<u8> {
     mpk_cert::encode::encode_certificate(&c)
 }
 
-fn false_type(mut c: Certificate, name: &str) -> Vec<u8> {
+pub(super) fn false_type(mut c: Certificate, name: &str) -> Vec<u8> {
     let declaration = c
         .declarations
         .iter()
@@ -51,7 +51,7 @@ fn false_type(mut c: Certificate, name: &str) -> Vec<u8> {
     encode(c)
 }
 
-fn unchanged_prefix(before: &Certificate, after: &Certificate) {
+pub(super) fn unchanged_prefix(before: &Certificate, after: &Certificate) {
     assert!(after.term_table.starts_with(&before.term_table));
     assert_eq!(
         (&after.module, &after.source_manifest, &after.imports),

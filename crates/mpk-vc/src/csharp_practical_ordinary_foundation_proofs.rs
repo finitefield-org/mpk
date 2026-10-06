@@ -2,6 +2,14 @@
 //! This is a partial binding proof assembly, not a checked application result.
 use super::*;
 
+#[path = "csharp_practical_ordinary_identity_proofs.rs"]
+mod identity_proofs;
+pub use identity_proofs::{
+    generate_csharp_practical_ordinary_identity_proofs,
+    import_csharp_practical_ordinary_identity_proofs, OrdinaryIdentityProjectionProof,
+    OrdinaryIdentityProofProgram,
+};
+
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
 pub struct OrdinaryFoundationProofProgram {
     schema: String,

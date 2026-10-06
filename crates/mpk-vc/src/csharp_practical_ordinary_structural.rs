@@ -4,7 +4,10 @@
 use super::*;
 pub use relations::{
     generate_csharp_practical_ordinary_foundation_proofs,
-    import_csharp_practical_ordinary_foundation_proofs, OrdinaryFoundationProofProgram,
+    generate_csharp_practical_ordinary_identity_proofs,
+    import_csharp_practical_ordinary_foundation_proofs,
+    import_csharp_practical_ordinary_identity_proofs, OrdinaryFoundationProofProgram,
+    OrdinaryIdentityProjectionProof, OrdinaryIdentityProofProgram,
 };
 pub use relations::{
     generate_csharp_practical_ordinary_scoped_construction_operation_proofs,

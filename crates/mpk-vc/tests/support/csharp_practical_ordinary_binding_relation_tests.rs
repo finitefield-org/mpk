@@ -564,6 +564,9 @@ mod concrete_type_tests;
 #[path = "csharp_practical_ordinary_foundation_proof_tests.rs"]
 mod foundation_proof_tests;
 
+#[path = "csharp_practical_ordinary_identity_proof_tests.rs"]
+mod identity_proof_tests;
+
 #[path = "csharp_practical_ordinary_concrete_operation_tests.rs"]
 mod concrete_operation_tests;
 

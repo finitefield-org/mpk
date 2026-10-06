@@ -2352,6 +2352,20 @@ complete application assembly remain open. W09 stays In progress, W10-W12 stay
 Blocked and the full T06 gate is deferred to W12. See
 `ordinary-foundation/unit-7-foundation-proofs-review.md`.
 
+The original identity-projection proof family is now integrated on the unchanged
+foundation context: Bool and f32 retain their original source receiver, domain
+premise and both project/reconstruct equality goals. Across the same 45 source
+contexts, 531 component sequent proofs are supplied and 456 binding sequents
+remain. All original 529 foundation components and their API exports stay
+unchanged; 44 contexts reuse their exact certificate bytes. The new context
+passes both unchanged checkers with zero axioms, hash corruption rejection and
+typed false-projection CoreCheck rejection. The source test, Clippy, format and
+independent local/dual audits pass. Published-source Linux verification remains
+pending. All 987 original application proof IDs, 25 generic operations, native
+bodies and complete application assembly remain pending; W09 stays In progress
+and the full T06 gate is deferred to W12. See
+`ordinary-foundation/unit-7-identity-proofs-review.md`.
+
 Owns: translation of every already-expanded concrete foundation definition in
 monomorphic VIR into ordinary core definitions and proof terms for all new
 finite values and operations; the successor program-assembly profile;

@@ -9,7 +9,10 @@ pub use concrete_operations::{
 };
 pub use concrete_types::{
     generate_csharp_practical_ordinary_foundation_proofs,
-    import_csharp_practical_ordinary_foundation_proofs, OrdinaryFoundationProofProgram,
+    generate_csharp_practical_ordinary_identity_proofs,
+    import_csharp_practical_ordinary_foundation_proofs,
+    import_csharp_practical_ordinary_identity_proofs, OrdinaryFoundationProofProgram,
+    OrdinaryIdentityProjectionProof, OrdinaryIdentityProofProgram,
 };
 use sha2::{Digest, Sha256};
 #[path = "csharp_practical_ordinary_binding_defaults.rs"]

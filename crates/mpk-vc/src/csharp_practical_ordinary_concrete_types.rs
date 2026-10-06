@@ -16,7 +16,10 @@ pub use construction_types::{
 mod foundation_proofs;
 pub use foundation_proofs::{
     generate_csharp_practical_ordinary_foundation_proofs,
-    import_csharp_practical_ordinary_foundation_proofs, OrdinaryFoundationProofProgram,
+    generate_csharp_practical_ordinary_identity_proofs,
+    import_csharp_practical_ordinary_foundation_proofs,
+    import_csharp_practical_ordinary_identity_proofs, OrdinaryFoundationProofProgram,
+    OrdinaryIdentityProjectionProof, OrdinaryIdentityProofProgram,
 };
 
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
