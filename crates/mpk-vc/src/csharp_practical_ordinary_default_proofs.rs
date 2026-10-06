@@ -1,8 +1,7 @@
 //! Complete eligible actual-default goals on the original foundation context.
 //! Ineligible source-use obligations remain explicit until native proofs exist.
-use super::super::super::super::super::super::ownership_proofs::{
-    logic, prove_closed_boolean_definitions, publish_theorem,
-};
+use super::super::super::super::super::super::closed_proofs::prove_closed_boolean_definitions;
+use super::super::super::super::super::super::ownership_proofs::{logic, publish_theorem};
 use super::*;
 use mpk_cert::encode::Certificate;
 

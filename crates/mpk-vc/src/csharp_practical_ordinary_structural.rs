@@ -1084,6 +1084,9 @@ pub use ownership_flow::{
     OrdinaryOwnershipState,
 };
 
+#[path = "csharp_practical_ordinary_closed_proofs.rs"]
+mod closed_proofs;
+
 #[path = "csharp_practical_ordinary_ownership_proofs.rs"]
 mod ownership_proofs;
 pub use ownership_proofs::{
