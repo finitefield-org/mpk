@@ -46,5 +46,9 @@ consumed for preservation assertions; original source fixtures are unchanged.
 
 An initial test-only missing hex loader caused compilation failure before any
 test ran; the repaired complete run is final. The failed compile log remains in
-probe/. Published-source Linux verification remains pending. See
+probe/. Exact public-source Linux verification at 1b32c186 passes the targeted test,
+Clippy and format. Its independent terminal audit verifies 1,016 source/fixture
+Git blobs, four harness files, all logs and the actual test binary, and all 47
+exports against the local outputs. This remains scoped evidence; W09 and the
+application assembly are incomplete. See
 verification-logs/identity-proofs/verification.json.

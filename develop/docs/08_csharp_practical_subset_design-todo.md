@@ -2360,8 +2360,10 @@ remain. All original 529 foundation components and their API exports stay
 unchanged; 44 contexts reuse their exact certificate bytes. The new context
 passes both unchanged checkers with zero axioms, hash corruption rejection and
 typed false-projection CoreCheck rejection. The source test, Clippy, format and
-independent local/dual audits pass. Published-source Linux verification remains
-pending. All 987 original application proof IDs, 25 generic operations, native
+independent local/dual audits pass. Exact public-source Linux verification passes the same targeted test,
+Clippy and format; its terminal audit verifies 1,016 Git blobs, four harness
+files, all logs/test binary and 47 exact exports. All 987 original application
+proof IDs, 25 generic operations, native
 bodies and complete application assembly remain pending; W09 stays In progress
 and the full T06 gate is deferred to W12. See
 `ordinary-foundation/unit-7-identity-proofs-review.md`.
