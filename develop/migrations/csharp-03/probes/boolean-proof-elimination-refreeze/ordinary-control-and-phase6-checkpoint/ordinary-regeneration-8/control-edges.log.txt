@@ -1,0 +1,44 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.06s
+     Running tests/csharp_practical_vc.rs (/private/tmp/mpk-w09-refreeze-metadata-target/debug/deps/csharp_practical_vc-e6d58012f705dea2)
+
+running 1 test
+test ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_source_frames_original_sources ... source frame pending reasons: {"exception_execution_separate": 2, "function_entry_relation_separate": 1}
+control source frames while: 156 observations
+control edges while: generated/imported exact candidate; 0 pending guards
+source frame pending reasons: {"exception_execution_separate": 5, "function_entry_relation_separate": 1}
+control source frames for: 448 observations
+control edges for: generated/imported exact candidate; 0 pending guards
+source frame pending reasons: {"exception_execution_separate": 6, "function_entry_relation_separate": 1}
+control source frames short_circuit: 340 observations
+control edges short_circuit: generated/imported exact candidate; 0 pending guards
+source frame pending reasons: {"exception_execution_separate": 2, "function_entry_relation_separate": 1, "unreachable_source_node": 1}
+control source frames switch: 198 observations
+control edges switch: generated/imported exact candidate; 0 pending guards
+source frame pending reasons: {"exception_execution_separate": 1, "function_entry_relation_separate": 1}
+control source frames is_binding: 148 observations
+control edges is_binding: generated/imported exact candidate; 0 pending guards
+source frame pending reasons: {"exception_execution_separate": 7, "function_entry_relation_separate": 1, "unreachable_source_node": 3}
+control source frames guard_order: 846 observations
+control edges guard_order: generated/imported exact candidate; 0 pending guards
+source frame pending reasons: {"exception_execution_separate": 2, "function_entry_relation_separate": 1, "unreachable_source_node": 3}
+control source frames guard_throw: 258 observations
+control edges guard_throw: generated/imported exact candidate; 0 pending guards
+source frame pending reasons: {"exception_execution_separate": 2, "function_entry_relation_separate": 1}
+control source frames total_variable: 156 observations
+control edges total_variable: generated/imported exact candidate; 0 pending guards
+
+thread 'ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_source_frames_original_sources' (2276473) panicked at crates/mpk-vc/tests/support/csharp_practical_ordinary_control_edge_tests.rs:2306:13:
+assertion `left == right` failed
+  left: ["local:1", "local:2", "parameter:0", "parameter:1", "parameter:2"]
+ right: ["local:0", "local:1", "local:2", "parameter:0", "parameter:1", "parameter:2"]
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+FAILED
+
+failures:
+
+failures:
+    ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_source_frames_original_sources
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 408 filtered out; finished in 132.92s
+
+error: test failed, to rerun pass `-p mpk-vc --test csharp_practical_vc`

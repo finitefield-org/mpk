@@ -1,0 +1,82 @@
+{
+  "application_proof_ids_pending": 987,
+  "changes": [
+    {
+      "before_raw_sha256": "3f7e2b785be6f899a8b3a2c565dbba036eb641afc869e2eaf2fb1ad0d8952fe4",
+      "kind": "metadata",
+      "path": "develop/migrations/csharp-03/ordinary-foundation/json-string-parsers/certificates.json",
+      "raw_sha256": "2d66df7d0e4b3a18094f3b46dc81929dd0f493ff0ee88d9f28ad9cf262c3998e"
+    },
+    {
+      "before_raw_sha256": "289304eeb4bb9e2206124857a53bdaf6f0743e42ce0a86e840af3c83c24f31aa",
+      "kind": "metadata",
+      "path": "develop/migrations/csharp-03/ordinary-foundation/json-calendar/certificates.json",
+      "raw_sha256": "a29568477a9708fffdc978126c304a385c91b612520bf72d51967b835381487a"
+    },
+    {
+      "before_raw_sha256": "6c90fbf6886e3d24aaea9619673bffbdd76ec24e72d5464ed8e85bb96e6a4213",
+      "kind": "metadata",
+      "path": "develop/migrations/csharp-03/ordinary-foundation/json-tokens/certificates.json",
+      "raw_sha256": "0351719adbd9449b14e0f865233152473bf9466c1729d94c17393327119aa6d6"
+    }
+  ],
+  "full_t01_gate": "deferred_to_final_W10",
+  "full_t06_gate": "deferred_to_W12",
+  "post_promotion_exact_file_checks": "passed_three_changed_metadata_aggregates",
+  "program_occurrences": 10,
+  "programs": [
+    {
+      "certificate_bytes_changed": false,
+      "label": "json_string_parsers-3c706bb36d5d68ed",
+      "occurrences": 1
+    },
+    {
+      "certificate_bytes_changed": false,
+      "label": "json_string_parsers-db528d90eb5b1cad",
+      "occurrences": 1
+    },
+    {
+      "certificate_bytes_changed": false,
+      "label": "json_string_parsers-def79ea5f2c445c0",
+      "occurrences": 1
+    },
+    {
+      "certificate_bytes_changed": false,
+      "label": "json_tokens-1b5d5dd24ca81203",
+      "occurrences": 1
+    },
+    {
+      "certificate_bytes_changed": false,
+      "label": "json_tokens-3c706bb36d5d68ed",
+      "occurrences": 1
+    },
+    {
+      "certificate_bytes_changed": false,
+      "label": "json_tokens-6d69216d47c3f385",
+      "occurrences": 1
+    },
+    {
+      "certificate_bytes_changed": false,
+      "label": "json_tokens-ba11184d4e899133",
+      "occurrences": 1
+    },
+    {
+      "certificate_bytes_changed": false,
+      "label": "json_tokens-c843aae639d83ef2",
+      "occurrences": 1
+    },
+    {
+      "certificate_bytes_changed": false,
+      "label": "json_tokens-db528d90eb5b1cad",
+      "occurrences": 1
+    },
+    {
+      "certificate_bytes_changed": false,
+      "label": "json_tokens-def79ea5f2c445c0",
+      "occurrences": 1
+    }
+  ],
+  "remaining_owner_pin_dependencies": "Calendar/product and whole-wrapper parents still under separate validation; their complete pin branches remain pending.",
+  "selection_reason": "Promote actual standalone producer metadata at its 178 validated occurrences, excluding nested parsers handled by whole-wrapper producers. Changed certificate graphs already compare exactly after independently replayed attachment/name mappings; both checkers and owner pins remain required.",
+  "status": "promoted_ten_actual_source_bound_parser_token_aliases_all_certificate_bytes_preserved"
+}

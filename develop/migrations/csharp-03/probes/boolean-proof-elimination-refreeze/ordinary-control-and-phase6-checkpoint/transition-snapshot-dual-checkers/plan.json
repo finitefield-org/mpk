@@ -1,0 +1,74 @@
+{
+  "binaries": {
+    "go": {
+      "path": "/private/tmp/mpk-w09-bool-cases-reports/go-local-4/go-checker",
+      "sha256": "e9ca299f060620ed691ea6eed40d877e3f9bbd53fb2340f1c19230a8a3afc9ce"
+    },
+    "rust": {
+      "path": "/private/tmp/mpk-w09-bool-cases-target/debug/mpk",
+      "previous_binary_sha256": "c9e1deb480b30e1a6050ddaba3e0839a6dd8f6bc5befaed1422fed6179e900e3",
+      "sha256": "723d98e8a1a49d97b72296914d76ff1f5939b00b3c4010e134b297f16bf247aa"
+    }
+  },
+  "cases": [
+    {
+      "label": "transition-snapshots-idempotency-omitted_context_body",
+      "path": "/private/tmp/mpk-w09-bool-cases-reports/refreeze/ordinary-regeneration-6/goldens/transition-snapshots/idempotency-omitted_context_body.hex",
+      "raw_sha256": "dce183c0030b3b7d3d69c00ddb0e0b98f8651f3bc3df2981c6d508cc04051603"
+    },
+    {
+      "label": "transition-snapshots-idempotency-valid",
+      "path": "/private/tmp/mpk-w09-bool-cases-reports/refreeze/ordinary-regeneration-6/goldens/transition-snapshots/idempotency-valid.hex",
+      "raw_sha256": "16d325b6f06bc9e7965ac5e1970b9a81727024e44a35cb5cd7306e6eb7ecfe07"
+    }
+  ],
+  "selection_reason": "Run both standalone source-free checkers on the 2 actually changed complete transition-snapshot definition byte sets. Require accepted verdicts, matching certificate/export hashes and zero axioms; exact name-only graph comparison is a separate check. Ordinary helper acceptance does not discharge any of the 987 application proof IDs.",
+  "source_hashes": {
+    "crates/mpk-cert/Cargo.toml": "b99ff7fde6a4f0cb50a091eb02997c97d5f2e934b42eddfd375f53b96bfc3a47",
+    "crates/mpk-cert/src/axiom_report.rs": "cae850ba9adf8f52485f25d3322a479e5effb3b5044c4998b8dbe10e395e9843",
+    "crates/mpk-cert/src/binary_tags.rs": "f557165a3d1fad17ea5c4b5ad27b92170dbb203931b30ef157e22856d5f2616b",
+    "crates/mpk-cert/src/canonical.rs": "704d3f04bf3219cbc9bca5b7ca8b4ff6723bc834d777fcf5219ecc900c2b8e74",
+    "crates/mpk-cert/src/cert_basic.rs": "ca8e2bd5c7ffbc5c54e51a1e65eb2f2b559b5d6f8efd6a0d74581197d8d7e295",
+    "crates/mpk-cert/src/decode.rs": "e77619d5d464db0e5d5538b1349c1cb1b1d8b39da227c3f7aa36fbb5e9d11a13",
+    "crates/mpk-cert/src/encode.rs": "406c310d53e464c9fe0f079e4186a0501e2eb84fae6c443d40d029d53a2beecf",
+    "crates/mpk-cert/src/export.rs": "b846726ef91b02583aee70849459c5856ea14cebaee226a5d71fedb0a61da2cd",
+    "crates/mpk-cert/src/hash.rs": "dc80a4db8fbd2965093daa90d4b32cebc8116659a95323df987ebeaa7dec2a83",
+    "crates/mpk-cert/src/imports.rs": "3b2edcf9305e5a5ed355fe194219826c97571da0ca47656562cf4bdde2983183",
+    "crates/mpk-cert/src/lib.rs": "38b44e99c13ea9a76c0c08c8a1cfd1ec23922b33c9d252a96beef59f8634b553",
+    "crates/mpk-core/Cargo.toml": "7d23784732e23fd78029884f2b9a5bc6200e7192c31ae10ada567e61a15607a3",
+    "crates/mpk-core/src/bool_cases.rs": "18509af2637c7c15afa86d07a7989faa7883e280070268cc9fba318244722df6",
+    "crates/mpk-core/src/context.rs": "e426d6d43b99106bd80c8e946325b1f8d712109865f6b8c340146908d273352d",
+    "crates/mpk-core/src/decl_check.rs": "8a6afd03f5e19831815f59b069f319cfd947ce123b8ad10e29d511c869f43783",
+    "crates/mpk-core/src/defeq.rs": "940fd74971a889239e8168fb13fd5cf9099e4efdbac1c2ffbce5780724a2c270",
+    "crates/mpk-core/src/env.rs": "ed50466ecf9e1c6f1549022aa61812c1561cd725325633931a57efb1715ae5b8",
+    "crates/mpk-core/src/error.rs": "76bbf92e086713711c26310fd2f02f58bf5a1d298251cd93c66e4af0c14189bb",
+    "crates/mpk-core/src/inductive.rs": "41bc938dfdb03ef8a8973a9abecd917171e25efc55c58ebeb43bf4b8ad59be9d",
+    "crates/mpk-core/src/inductive_gen.rs": "8849a62c2a5aad8531ff33c11da7a8e76073dbd792470b559e0b8d6e88f7b119",
+    "crates/mpk-core/src/infer.rs": "7cf169404b6fdd251e7884056c7204e285da904780d1e3ea9ca642d4c87991bd",
+    "crates/mpk-core/src/level.rs": "00b030888a20ae9015c94968e8e4dc63f8c924224df36d3a186ba9d4dcfff1ad",
+    "crates/mpk-core/src/lib.rs": "a0488ee47d656918dc05a7909bfb87a4ed970388600fced26e8eea5b73ba637f",
+    "crates/mpk-core/src/name.rs": "6a6c8659f556bb63d782ca4aa9c465b05a7b8987327a2e02cbbb95669ca15e99",
+    "crates/mpk-core/src/positivity.rs": "5ad6d3d072a8db9bba5c98b02a0d9da9e096faca1836762aecf4cebb1ad460bd",
+    "crates/mpk-core/src/reduce.rs": "bbd58360f97eba191a9c12208e1488668ed8b39c96be6d354065a7c4d9c02d37",
+    "crates/mpk-core/src/reduce_inductive.rs": "123277c8989902c207d6b0fec994ff5c4223fe5bcc9a331bc381f7dc4412492f",
+    "crates/mpk-core/src/subst.rs": "e1843f9aafe2d4349bf6bd8a1bcfff4eb39c318c87e37b47a36c23cb8e2cd23f",
+    "crates/mpk-core/src/term.rs": "4fcd1dba9916b8b3d22ffabd889c2949bb14cf468420b5e839b779108e91bb60",
+    "crates/mpk-kernel/Cargo.toml": "3226dc567ef89c9488b61e6c79df2134eb7b1dd36c7cbe19abb3e3e7916ac826",
+    "crates/mpk-kernel/src/bool_cases_tests.rs": "311acd46519987cb8eaae0140d0baaa09342576c2e8d3cc9ed6725ae46ce9456",
+    "crates/mpk-kernel/src/cache.rs": "fb9bd805c365f6f614e2f0cb432bc92964e78faa4749df15ad62c4a82ed767ad",
+    "crates/mpk-kernel/src/decl_driver.rs": "afe75c89bb7e43bb4a73c56aaa4a1bddc20c8ba789066fae5f0f27b7839278c3",
+    "crates/mpk-kernel/src/json_output.rs": "82992d18824fd25f7c1fcd58d569e4e339bda8be2f60588bb20d2537b9b6cdb5",
+    "crates/mpk-kernel/src/lib.rs": "ff4c1550532e2896bce4374145242f9a54d24502c8f2a79454067d664c383d72",
+    "crates/mpk-kernel/src/profile.rs": "e44ce30ffbc29617073456ce8dd9bd46ce731549c423a01a747c82542cffc580",
+    "crates/mpk-kernel/src/proof_check.rs": "27e8f109d9241cee011984021d74f57088f4ebf30012a858e0fe6416cae96027",
+    "crates/mpk-kernel/src/proof_structural.rs": "6117063aa07e3ac5882ebba60ab907518a2c9844f96d35887f5a31c8d66906c0",
+    "crates/mpk-kernel/src/proof_theory.rs": "81d52c5be4e325c3cccb1d6e0096b0e118f245f53234d5496dfdac066fee95af",
+    "crates/mpk-kernel/src/verifier.rs": "e8932a62713b8f8af18a980093a6ff162b3510b4b4e7da924d9b421552a9e3f2",
+    "crates/mpk-kernel/tests/certificate_decoder_fuzz_smoke.rs": "bd7589eb77846f61a1958ce539e2edbace4d422aaaed096e3c12f49c7b2288e0",
+    "crates/mpk-kernel/tests/fast_kernel_profile.rs": "c8b68b7a4b22fbe9b23a02c5609cb083be7c843f3521f7e6f05f38c1caf06b88",
+    "crates/mpk-kernel/tests/theory_certificate_encoders.rs": "568342571c0d9971c4e2b2a6ce6c38d12e957a81e722e2962574088cb3968cc4",
+    "crates/mpk-kernel/tests/theory_certificate_fuzz_smoke.rs": "e793e24646335a47cba9465046835bed86ba413d7d5384a9cbc53f88c67e2cc1",
+    "go-tools/mpk-checker-ref/bool_cases.go": "d92ae9d459ea30072bf03f1e3d523885a414eb03bf4bbe6234ea39deaafd9536",
+    "go-tools/mpk-checker-ref/bool_cases_test.go": "37f95c556c7bd5adec0838c9391f41cc0ee88679e8fcc411130fec1b06d0e84a"
+  }
+}

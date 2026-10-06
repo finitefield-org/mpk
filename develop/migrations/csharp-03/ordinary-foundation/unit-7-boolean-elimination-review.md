@@ -128,3 +128,34 @@ its exit 101 and log are retained separately from the successful retry.
 Only unused incremental build caches were removed to recover disk capacity.
 Source and fixture manifests match before and after both runs.
 Whole gates remain deferred to final T01-W10 and T06-W12.
+
+
+Twelve additional original source owner corpora now pass: the ten remaining
+binding reconstruction, collection, literal, transition, default and boundary
+owners, plus control edges and baseline control predicates. Their 186
+certificate sets comprise 172 exact byte retentions and fourteen complete
+context-name graph rebindings with fresh matching zero-axiom acceptance from
+both checkers. The checkpoint totals 64 owner corpora and 1,144 certificates:
+1,115 exact byte retentions and 29 validated name rebindings. Ten overlapping
+JSON token/parser aliases also reconcile through their actual original-source
+producers; their definition bytes stay unchanged and are not added to corpus
+totals. Exact output-file checks verify every promoted file against the passed
+source-owner outputs on identical production sources.
+
+The same eighteen original source-frame cases pass after correcting the
+expected equality frame to exclude the array receiver slot changed by its
+memory effect. All original value and mutation observations remain. The
+selected C# practical VC integration-test Clippy and format checks pass. The
+initial source-frame failure and the copied runner's test-selection correction
+are retained with real exit codes; no incomplete child test is counted as a
+pass. The corrected runner passes the baseline control pin and integrated
+execution source owner. The next pattern-scope owner detects the not-yet-
+promoted execution dependency and fails 101; the execution lineage and changed
+certificate acceptance are checked before that dependency is promoted.
+
+See `ordinary-control-and-phase6-checkpoint/receipt.json` for exact selection,
+completed stages, predecessor bytes and manifests. Remaining integrated
+control dependencies, standalone/wrapper changed certificates and relation
+metrics are still under validation. All 987 original application proof IDs
+remain pending. W09/W10 are not complete; whole gates remain final T01-W10
+and T06-W12.

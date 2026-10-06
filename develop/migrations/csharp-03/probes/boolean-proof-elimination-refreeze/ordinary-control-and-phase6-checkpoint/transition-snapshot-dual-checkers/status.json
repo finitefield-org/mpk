@@ -1,0 +1,67 @@
+{
+  "binaries": {
+    "go": {
+      "path": "/private/tmp/mpk-w09-bool-cases-reports/go-local-4/go-checker",
+      "sha256": "e9ca299f060620ed691ea6eed40d877e3f9bbd53fb2340f1c19230a8a3afc9ce"
+    },
+    "rust": {
+      "path": "/private/tmp/mpk-w09-bool-cases-target/debug/mpk",
+      "previous_binary_sha256": "c9e1deb480b30e1a6050ddaba3e0839a6dd8f6bc5befaed1422fed6179e900e3",
+      "sha256": "723d98e8a1a49d97b72296914d76ff1f5939b00b3c4010e134b297f16bf247aa"
+    }
+  },
+  "full_t01_gate": "deferred_to_final_W10",
+  "full_t06_gate": "deferred_to_W12",
+  "original_application_proof_ids_pending": 987,
+  "process_pid": 39629,
+  "selection_reason": "Run both standalone source-free checkers on the 2 actually changed complete transition-snapshot definition byte sets. Require accepted verdicts, matching certificate/export hashes and zero axioms; exact name-only graph comparison is a separate check. Ordinary helper acceptance does not discharge any of the 987 application proof IDs.",
+  "stage": "transition-snapshots-idempotency-valid-rust",
+  "stages": [
+    {
+      "backend": "go",
+      "case": "transition-snapshots-idempotency-omitted_context_body",
+      "elapsed_seconds": 10.047821250002016,
+      "exit_code": 0,
+      "input_sha256": "c426c454ac624e1145f060fbb6d9d1b00166f7a819a8e9054a20ca018bcaeaba",
+      "report_sha256": "f82cbc249b8941b8cb82211a9a00137ba63884d19a4d8b2ca67c4c7bc303b532",
+      "stage": "transition-snapshots-idempotency-omitted_context_body-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "backend": "rust",
+      "case": "transition-snapshots-idempotency-omitted_context_body",
+      "elapsed_seconds": 0.6928389590029838,
+      "exit_code": 0,
+      "input_sha256": "c426c454ac624e1145f060fbb6d9d1b00166f7a819a8e9054a20ca018bcaeaba",
+      "report_sha256": "e1d4946de8b8ae4d97e80d448e2d4ff1c06930d8d5e84ba8b58765ac6a0fcb47",
+      "stage": "transition-snapshots-idempotency-omitted_context_body-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "backend": "go",
+      "case": "transition-snapshots-idempotency-valid",
+      "elapsed_seconds": 11.494886499989661,
+      "exit_code": 0,
+      "input_sha256": "66b7bb2e791197c458c0de132aa18db162ef44d0be87e540824ca4798b56a9e8",
+      "report_sha256": "6bf3a4263e032117762cbee3cf6b9dbbc7b538aab688042a652b27d86a8235af",
+      "stage": "transition-snapshots-idempotency-valid-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "backend": "rust",
+      "case": "transition-snapshots-idempotency-valid",
+      "elapsed_seconds": 0.6212087919993792,
+      "exit_code": 0,
+      "input_sha256": "66b7bb2e791197c458c0de132aa18db162ef44d0be87e540824ca4798b56a9e8",
+      "report_sha256": "d4cefe02dfa730f128a78acb113eeec5aa83e80390cc9fd8c2c8a5f61c0fb957",
+      "stage": "transition-snapshots-idempotency-valid-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    }
+  ],
+  "status": "passed_all_2_changed_definition_certificates_both_checkers_zero_axioms",
+  "supervisor_pid": 39598
+}
