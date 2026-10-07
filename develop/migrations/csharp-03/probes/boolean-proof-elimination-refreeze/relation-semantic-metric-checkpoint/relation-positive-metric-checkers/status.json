@@ -1,0 +1,40 @@
+{
+  "application_proof_ids_pending": 987,
+  "binaries": {
+    "go": {
+      "path": "/private/tmp/mpk-w09-bool-cases-reports/go-local-4/go-checker",
+      "sha256": "e9ca299f060620ed691ea6eed40d877e3f9bbd53fb2340f1c19230a8a3afc9ce"
+    },
+    "rust": {
+      "path": "/private/tmp/mpk-w09-bool-cases-target/debug/mpk",
+      "previous_binary_sha256": "c9e1deb480b30e1a6050ddaba3e0839a6dd8f6bc5befaed1422fed6179e900e3",
+      "sha256": "723d98e8a1a49d97b72296914d76ff1f5939b00b3c4010e134b297f16bf247aa"
+    }
+  },
+  "process_pid": 73430,
+  "selection_reason": "Select only the positive-constructor certificate whose complete metrics alias adds the already-current Bool carrier and four real semantic observations. All21 regenerated certificates exactly match current pins;20 unchanged relation cases require no repeated checker run. Independently confirm this current78-declaration certificate on both immutable source-free binaries, with matching module/certificate/export/axiom hashes and zero axioms. Whole gates stay final T01-W10/T06-W12; no application proof is discharged.",
+  "stage": "positive-constructor-rust",
+  "stages": [
+    {
+      "backend": "go",
+      "elapsed_seconds": 0.10564854099357035,
+      "exit_code": 0,
+      "input_sha256": "450c2e9f55c0871b9e51c44b2fa6c516527623068bcd17787f9e9ef20e080b24",
+      "report_sha256": "f759f9452222dc26f2b5a7f23465a49a4ea423bd5d0d078780017e4ba4930a10",
+      "stage": "positive-constructor-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "backend": "rust",
+      "elapsed_seconds": 0.07962029200280085,
+      "exit_code": 0,
+      "input_sha256": "450c2e9f55c0871b9e51c44b2fa6c516527623068bcd17787f9e9ef20e080b24",
+      "report_sha256": "43eb0eb5ca4e0074b0027195b40121cefa3f0f44122ce176a5fe89f528b40caa",
+      "stage": "positive-constructor-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    }
+  ],
+  "status": "passed_positive_constructor_current_certificate_both_checkers_matching_zero_axiom_reports"
+}

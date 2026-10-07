@@ -6313,3 +6313,52 @@ Remaining pattern consumers, JSON wrapper dual acceptance and relation metrics
 are still under verification. All 987 original application proof IDs remain
 pending. T01-W09 is In progress, T01-W10 is Blocked, and the practical profile
 remains inactive; whole gates remain final T01-W10 and T06-W12.
+
+
+## 71. Approved-freeze capture and complete original-owner checkpoint
+
+The eighteen original capture programs now have complete metadata lineage,
+seven distinct full typed declaration/term/name/level/export graph comparisons
+and fourteen fresh matching zero-axiom Rust/Go acceptances. Eleven other cases
+reuse accepted execution reports only after exact complete predecessor/current
+certificate-pair comparison and proof that additional capture mappings are
+absent from every predecessor name. All 36 capture fixture files match the
+passed original source-owner output. The initial metadata comparison failure
+is retained losslessly and distinguished from the successful derived-name
+comparison.
+
+All four affected original eighteen-source pattern owners pass: primitive
+conditions, routes, unpacked proof types and packed proof types. Their complete
+126 primitive/route/packed JSON/control/hex outputs exactly match independent
+54-program generation. Unpacked checks retain 113 paths, 703 premises, 108
+refinement types, 664 checked projections and five binder-limited paths. Packed
+checks retain all 113 paths and 703 premises/projections and pass 37,598
+original field-bit observations. The historical eighteen 61-condition fixtures
+retain their bytes and every complete typed declaration closure after only
+SHA-pinned, independently derived name substitutions. Three narrow test changes
+add that historical-name comparison and two optional exact predecessor input
+directories; every other original test byte, goal/argument/source check, value
+observation and mutation assertion remains unchanged. The affected VC-test
+Clippy and format checks pass on these exact test sources.
+
+The full original 21-source relation semantic owner passes all value, import
+and mutation observations after 9,028.72 seconds. Its complete metadata and
+all 21 certificate byte sets exactly match the current certificate-owner pins.
+Twenty complete old non-identity observation/count records stay unchanged.
+The positive-constructor record retains both original complete carriers and
+adds the actual Bool carrier: observations rise from 20 to 24, declarations
+from 66 to 78 and terms from 2,572 to 2,733. The exact current certificate
+passes both immutable source-free checkers with matching module, certificate,
+export and zero-axiom report hashes. Only the complete actual metrics JSON is
+promoted; no counter is guessed and no certificate byte is changed.
+
+See `capture-and-original-owner-checkpoint/receipt.json` and
+`relation-semantic-metric-checkpoint/receipt.json` under the approved Boolean
+re-freeze probes, with complete evidence and immutable predecessor manifests.
+The remaining 126 current pattern fixture files are not promoted until all
+21 distinct fresh certificate pairs pass both checkers. Whole JSON wrapper
+acceptance and original-owner/dependency validation, ongoing scalar/codec
+semantic observations and final freeze/publication closure remain pending.
+All 987 original application proof IDs remain pending; the practical profile
+remains inactive. T01-W09 is In progress and T01-W10 is Blocked. Whole gates
+remain final T01-W10 and T06-W12.
