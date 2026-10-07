@@ -1,0 +1,39 @@
+{
+  "application_proof_ids_pending": 987,
+  "decimal_fixed_formats_keeps_its_original_execution": true,
+  "execution": "Use the exact already compiled original test binary, independently verify unique original selector names, then run --exact --nocapture --test-threads=1 per process. Verify all5381 immutable sources/controls/binary before/after, full normal success count and actual output bytes. No build or test-source mutation.",
+  "execution_host": "root@162.43.92.154",
+  "jobs": [
+    [
+      "structural-storage",
+      "csharp_03_t06_w09_structural_source_linkage_rejects_substitution",
+      "MPK_W09_STRUCTURAL_OUT"
+    ],
+    [
+      "scalar-domains",
+      "csharp_03_t06_w09_scalar_domains_original_sources_and_mutations",
+      "MPK_W09_SCALAR_DOMAINS_OUT"
+    ],
+    [
+      "scalar-domain-ranges",
+      "csharp_03_t06_w09_scalar_domains_ranges_from_original_sources",
+      "MPK_W09_SCALAR_DOMAIN_RANGES_OUT"
+    ]
+  ],
+  "original_owner_binary": {
+    "path": "/root/mpk-w09-bool-cases-fd99c03c-target/debug/deps/csharp_practical_vc-18f294cebe272f30",
+    "raw_sha256": "c6c381c36d49c95d1a1d2c13cad4011ebba2e88a8c3f06b447815ff240cebb5d"
+  },
+  "original_owner_test_source": {
+    "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_carriers.rs",
+    "raw_sha256": "2b6d39aa43c9ab6fb0c1a889e3a3a9e83b85666d784f5490d829f0a8786af22e"
+  },
+  "original_serial_controller_modified": false,
+  "requires_server_syntax_before_launch": true,
+  "source_commit": "e89c2a0f24e1f4a1c562c6a60c3199473781f101",
+  "source_independence_review": "All three original functions create their own bundle, immutable source replay, metadata, previous-observation state and output variable. They read shared frozen files only; their selected output directories and process memory are separate. All original shape/source/type/value/import/cross-source/hash/mutation assertions remain unchanged. No input/output dependency connects the three owners or decimal fixed-format observations.",
+  "source_manifest_raw_sha256": "9855a32171205f8641ed7c970e0367c1f5fe5d5dce5807a3e1cf7802f1981295",
+  "status": "prepared_three_original_independent_scalar_owners_not_launched",
+  "tests_launched": false,
+  "whole_gate": "deferred_to_final_T01_W10_and_T06_W12_on_server"
+}

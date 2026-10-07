@@ -6751,3 +6751,23 @@ and normative paragraph reconciliation. It uses `/usr/bin/cargo`, a separate
 final target and optimized code with debug assertions/overflow checks enabled.
 The runner is not executed and still requires its server syntax check. Neither
 generation nor a new complete scalar owner is claimed by this preparation.
+
+
+## 83. Independent remaining scalar owner execution preparation
+
+The three remaining structural/scalar/range owners have independent immutable
+input reads, process-local observations and distinct optional output variables.
+The complete original functions retain their source/type/value/import/mutation
+assertions. An additional server controller is prepared to execute those three
+original tests concurrently using the exact already compiled source-pinned
+owner binary. It first verifies all 5,381 source/input hashes, unchanged controls,
+binary SHA and a unique exact original test name for each selector. Each complete
+result must retain its actual log, success count, output hashes and byte equality
+to current fixtures. The decimal fixed-format observation and original serial
+controller remain unchanged.
+
+`independent-scalar-owner-checkpoint` retains the preparation source and review.
+Server syntax is required before launch; this preparation claims no new owner
+result. Completed unrelated checks are excluded. All 987 application proofs and
+final freeze/publication remain pending, with whole gates deferred to final
+T01-W10/T06-W12 on the server.
