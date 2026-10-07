@@ -85,3 +85,18 @@ A shared-artifact specification paragraph still states that both checker rules
 are unchanged; its prepared correction must reconcile the approved cases rule
 at that final closure. Neither this evidence checkpoint nor that correction
 completes W09, W10 or any of the 987 application proof IDs.
+
+
+All fourteen original wrapper source/dependency/import owners now pass in the
+isolated review checkout with normal candidate fixture comparisons. The full
+source/value/mutation checks, compound definition closures, semantic-root
+aliases, retained unguarded metadata and hostile-linkage rejection checks
+remain unchanged. The independent review verifies all actual terminal logs,
+4,430 original source/input hashes, all 288 candidate files and the current
+checkout's exact pre-promotion fixture bytes. Execution remains attributed to
+the original frozen source and its reviewed registration-only correspondence.
+This source-validation evidence is in `wrapper-original-owner-checkpoint`.
+The earlier real boundary-field owner failure and independently replayed parent
+identity repair are retained. All 230 checker stages remain required before
+promoting these candidate fixtures; this checkpoint does not promote them or
+complete W09, W10 or any application proof.
