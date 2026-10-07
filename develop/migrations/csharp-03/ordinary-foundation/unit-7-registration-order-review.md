@@ -130,3 +130,17 @@ source/binary execution. `six-semantic-owner-checkpoint` retains the complete
 source and comparison records. Remaining four owner results are not claimed
 passed. This record changes no production source, fixture or application proof;
 final pattern/semantic-owner gates and approved freeze/publication remain open.
+
+
+The explicit user execution-host amendment requires all subsequent tests and
+final gates on `root@162.43.92.154` through the named SSH key, and no local
+tests. Six completed scalar owners and thirty completed pattern checker stages
+retain their actual earlier provenance. Interrupted stages are not passes.
+Seven task-owned local test process groups are stopped at that instruction.
+The user explicitly approves the prepared six-certificate/control archive
+after an initial automatic transfer rejection. Its exact SHA and all source/
+control hashes pass server preflight, and the remaining twelve checker stages
+and four complete original scalar owners are launched on an independent
+public-source checkout. `server-only-execution-checkpoint` retains the actual
+receipts. This launch record claims no new test completion, fixture promotion,
+freeze/publication completion or application proof.

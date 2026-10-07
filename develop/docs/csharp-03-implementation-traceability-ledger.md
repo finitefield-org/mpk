@@ -6542,3 +6542,40 @@ closure/publication remain pending. T01-W09 stays In progress, T01-W10 stays
 Blocked, and the practical profile remains inactive. All 987 original
 application proof IDs remain pending. Targeted verification is retained here;
 the whole gates remain deferred to final T01-W10 and T06-W12.
+
+
+## 78. Explicit server-only test execution amendment
+
+The user now requires all tests to execute via `ssh -i ~/ffvps.pem
+root@162.43.92.154` and prohibits local tests. This explicit instruction
+supersedes the earlier local-execution instruction for this task. All seven
+identified local test process groups, containing sixteen processes, are stopped
+at that instruction; the actual interruption receipt and original partial
+statuses are retained. Thirty completed pattern checker stages and six
+completed scalar/codec owners keep their original source/binary provenance.
+No interrupted execution is counted as pass. No new local test executes.
+
+The exact prepared 2.44 MB archive contains six source-free certificate inputs,
+control scripts and hashes, without C# source bodies. The initial SCP action was
+rejected by automatic approval review because the prior approval covered two
+specific JSON payloads. The user then explicitly approved this archive and
+the named destination. The same archive is transferred unchanged; its SHA,
+all ten control/input hashes and 5,381 public Git source hashes pass the actual
+server preflight. The independent server checkout pins public commit
+`e89c2a0f24e1f4a1c562c6a60c3199473781f101`; existing server source trees are
+unchanged. The already validated fixed Linux Rust/Go checker hashes are exact.
+
+`server-only-execution-checkpoint` retains the actual source preflight and
+remote launch receipts, approved transfer record and interruption evidence.
+The first path-resolution preparation failure is retained and precedes all
+payload writes and tests. Two server runners now execute only the twelve
+remaining pattern checker stages and four unfinished original scalar/codec
+owners. Their successful completion is not claimed by this launch checkpoint.
+The Rust owner runner uses optimized test code with debug assertions and
+overflow checks enabled; every original observation/import/mutation assertion
+remains. No production source, current fixture or application proof changes.
+
+T01-W09 remains In progress, T01-W10 remains Blocked, and the practical profile
+is inactive. All 987 original application proof IDs remain pending. Remaining
+selected checks and final T01-W10/T06-W12 whole gates will execute only on the
+server. Historical records retain their actual execution hosts.

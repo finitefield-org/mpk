@@ -1,0 +1,37 @@
+{
+  "cargo_version": "cargo 1.95.0 (f2d3ce0bd 2026-03-21)",
+  "execution_host": "root@162.43.92.154",
+  "full_t01_gate": "deferred_to_final_W10_on_server",
+  "full_t06_gate": "deferred_to_W12_on_server",
+  "go_version": "go version go1.23.2 linux/amd64",
+  "local_tests_executed": 0,
+  "original_application_proof_ids_pending": 987,
+  "rustc_version": "rustc 1.95.0 (59807616e 2026-04-14)",
+  "source_commit": "e89c2a0f24e1f4a1c562c6a60c3199473781f101",
+  "started": [
+    {
+      "command": [
+        "python3",
+        "/root/mpk-w09-server-e89c2a0f-control/run-server-remaining-tests.py",
+        "--kind",
+        "pattern"
+      ],
+      "kind": "pattern",
+      "log": "/root/mpk-w09-server-e89c2a0f-control/pattern-supervisor.log.txt",
+      "supervisor_pid": 3780929
+    },
+    {
+      "command": [
+        "python3",
+        "/root/mpk-w09-server-e89c2a0f-control/run-server-remaining-tests.py",
+        "--kind",
+        "scalar"
+      ],
+      "kind": "scalar",
+      "log": "/root/mpk-w09-server-e89c2a0f-control/scalar-supervisor.log.txt",
+      "supervisor_pid": 3780930
+    }
+  ],
+  "started_at_epoch": 1791374674.1667984,
+  "status": "launched_remaining_tests_on_server_only"
+}
