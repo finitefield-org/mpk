@@ -1,0 +1,42 @@
+{
+  "application_proof_ids_pending": 987,
+  "complete_current_published_vector_rows_equal_private": true,
+  "current_boolean_proof_source_commit": "9755987798ec65b266035f1d0418fc7f2890182a",
+  "current_source_w09_commit": "17525292755c4e508acd9300cfa72d20cdf9bb92",
+  "full_t01_gate": "deferred_to_final_W10",
+  "full_t06_gate": "deferred_to_W12",
+  "new_w09_commit": "derive_only_from_actual_completed_reviewed_W09_commit",
+  "private_vector_count": 709,
+  "required_before_w10": [
+    "terminal all42 pattern checker stages and126 promotion/evidence",
+    "terminal all230 wrapper checker stages andall14 original wrapper owners and288 promotion/evidence",
+    "terminal all10 scalar/codec owners andexact output/evidence",
+    "guarded31case36sourcepin proof evidence update; all709 vector rows unchanged",
+    "renewed W09 selected freeze/generation checks andzero-finding review",
+    "commit andpush actualcompleteW09"
+  ],
+  "sources": {
+    "crates/mpk-vc/tests/csharp_practical_spec.rs": "1babbccd9c8bf63664f23be6b3d71154c4e21bad3566908e155f3fc0dda3cdcc",
+    "develop/probes/csharp-03/profile_package.py": "879ed3ee0ae84c8785716e42f7623f749506c08212b9ea9472e5102827b115f3",
+    "develop/specs/CSHARP_PRACTICAL_PROFILE_V1.md": "1b2b5c235807765d8d91406cd3624f8403bc1b61cc4912138e0bced1e936abfb",
+    "develop/specs/CSHARP_PRACTICAL_SHARED_ARTIFACTS_V1.md": "7c7465a7caa34e5e5acbd5c72ed8cac8c416f8dacee793ceb418a08841b331dd",
+    "develop/specs/vectors/csharp-practical-profile-v1.json": "de401830e1cd4221465d25c6fe31dad7d704ae8959edfc1145db8099f7bfffa6",
+    "develop/specs/vectors/manifest.json": "e9bd0950f5c0a186ad7c0c01e9953de61ce1d84557128058e086088f361dd268",
+    "scripts/check-fast.sh": "9706ca55ce452e4fa5ea8d611e809a5e8a787c6e840d2aee72f2af7714a641d2",
+    "scripts/check-spec-vectors.py": "cc9384fcb05085a88bd39182c941e6e8d80e0b28cb0cbbd7f9608873f18c94bb"
+  },
+  "status": "prepared_serial_w10_republication_plan_not_executed",
+  "w10_changes": [
+    "replace exactlyone historical W09 commit in publisher andprimary owner assertion withactualfinalW09commit",
+    "generate package preservingall709 completevectorrows",
+    "update onlymatchingmanifestvector record hashes/schema/count usingactualfilebytes",
+    "documentfinalsource andreview andinactiveprofile status"
+  ],
+  "w10_validation": [
+    "python3 develop/probes/csharp-03/profile_package.py --check",
+    "python3 scripts/check-spec-vectors.py --check",
+    "cargo test -p mpk-vc --test csharp_practical_spec csharp_03_t01_w10_ -- --test-threads=1",
+    "./scripts/check-fast.sh afterfinalT01-W10changes"
+  ],
+  "w10_validation_selection_reason": "The amended evidence/sourcecommit andfrozencontract affectall fourT01-W10package owner tests. The vector manifest checkrecomputes declaredfiles. The repositoryfinalT01gate executescheck-fast onlyafterW09complete; no split equivalentwholegate duringW09."
+}

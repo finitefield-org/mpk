@@ -100,3 +100,21 @@ The earlier real boundary-field owner failure and independently replayed parent
 identity repair are retained. All 230 checker stages remain required before
 promoting these candidate fixtures; this checkpoint does not promote them or
 complete W09, W10 or any application proof.
+
+
+All 115 changed wrapper certificates now pass all 230 actual checker stages,
+with matching module/certificate/export/axiom hashes, declaration counts and
+zero axioms. Together with the fourteen unchanged original owners and all 115
+complete definition-graph comparisons, this permits the exact 288-file
+promotion from the actual generated candidate. The complete predecessor bytes
+are retained under `previous-context-7-wrapper-consumers`; full successful
+checks, source lineage and real initial failures are retained in
+`wrapper-consumer-checkpoint`. Parent-identity repair leaves all 115 certificate
+outputs unchanged and independently accounts for the 198 changed bindings.
+
+The remaining pattern promotion must recognize precisely these 288 already
+validated changes against its old source manifest. Its prepared guard pins the
+complete wrapper promotion receipt and every original-to-current hash; every
+other original source/input guard and all 42 pattern checker stages remain
+required. Pattern acceptance, scalar/codec owners and final freeze/publication
+remain pending. No application proof is completed by this wrapper promotion.
