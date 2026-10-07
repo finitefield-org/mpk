@@ -157,3 +157,16 @@ server audit before assembly or promotion. Existing exact source guards remain
 in force. No terminal checker/owner pass, fixture change, final freeze or
 application proof is claimed by this syntax-only preparation checkpoint.
 All subsequent tests and final gates remain server-only.
+
+
+The independent Go term-search index preserves every full structural equality
+field, first term ID and constructor-owned slice; exact reconstruction retains
+all other prior source bytes, including the canonical-cases registration rule.
+All affected Go package tests and three new regressions, six actual approved
+pattern pairs, 34 Boolean/predecessor fixtures and 54 exact capacity/recursor
+results pass on the server. The latter reports match their previous complete
+Go JSON, while original Rust observations retain their original provenance.
+`go-term-interning-checkpoint` records the exact source and independent actual
+audit. The prepared two-step source guard permits only the pinned registration
+change followed by this exact indexed term source. No application proof,
+pattern fixture promotion or final freeze completion is claimed here.

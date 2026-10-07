@@ -6616,3 +6616,53 @@ In progress, T01-W10 remains Blocked and the practical profile is inactive.
 All 987 original application proof IDs remain pending. Selected syntax results
 are recorded here; the whole gates remain deferred to final T01-W10/T06-W12
 on the server.
+
+
+## 80. Exact Go core term search index and actual server acceptance
+
+A non-stopping five-second sample of the original packed `guard_order` Go
+checker reports 76.71% of cycles in linear term interning and 20.81% in full
+node equality, with no lost samples. The indexed implementation uses all
+Tag/A/B/C fields and separate ordered fixed-width level/argument byte strings.
+It preserves nil/empty equality, the first existing term ID, append order and
+constructor-owned slices. Independent exact source reconstruction proves that
+every other inference, reduction, fuel, declaration and canonical Boolean
+cases registration byte is unchanged. The original active sources/binaries
+and controller remain preserved.
+
+Public candidate `7505badc6684191a7dad9833e67d29af32529ee9` is validated only on
+`root@162.43.92.154`. The complete Go checker package tests, three new linear
+first-ID/prepopulated/slice-ownership regressions, selected format checks, vet
+and candidate build pass. All six exact approved remaining pattern certificate
+pairs accept under indexed Go and fixed Rust, with identical module,
+declaration, export and certificate hashes and zero axioms. Exactly one prior
+complete Rust report is reused after full input/report/stderr/binary SHA
+correspondence; five missing Rust cases execute. Indexed Go accepts
+`guard_order` in 51.41 seconds. The old same-input Go execution was still active
+at this measurement, so no finished baseline or exact speedup is invented.
+
+The indexed Go checker also passes all 31 Boolean rule/order success/failure
+fixtures and the three retained basic/Bool/Nat predecessors. All 54 exact
+capacity/recursor executions match their previous actual complete Go JSON
+reports. Unchanged original Rust observations and their original execution
+provenance remain retained. The maximum indexed Go capacity time is 956 ms,
+within the existing 60,000 ms bound. Candidate probe records update exactly
+one additional source pin and actual reference runtime metadata; current
+production probe/freeze records remain unchanged until final refresh.
+
+`go-term-interning-checkpoint` retains the actual 441-source manifest, all
+logs/raw inputs/results, source correspondence and independent server audit.
+The first fixture collector's wrong diagnostic field and second preparation's
+shell-quotation assertion failure are retained as real failures. Four actual
+completed fixture results are reused by hash and only the remaining thirty
+execute. A local unused full-checkout preparation failed for disk space; Git
+removed it, and a sparse Go-only checkout succeeds without deleting prior
+evidence or stopping a test. No local test executes. The prepared source guard
+allows exactly the reviewed registration delta followed by this exact one-file
+index delta; original source pins and all other guards remain required.
+
+The indexed source is integrated after actual server validation. Pattern
+fixture promotion, complete scalar/codec owners, final freeze/publication and
+all 987 original application proofs remain pending. T01-W09 is In progress,
+T01-W10 is Blocked and the practical profile is inactive. The targeted results
+are recorded above; whole gates remain final T01-W10/T06-W12 on the server.
