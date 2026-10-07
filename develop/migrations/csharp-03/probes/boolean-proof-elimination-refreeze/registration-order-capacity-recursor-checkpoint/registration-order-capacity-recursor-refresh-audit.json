@@ -1,0 +1,38 @@
+{
+  "accepted_report_pairs": 44,
+  "actual_status_raw_sha256": "80e5f0a800774ec91f960aa8571810d32835cf3d9156380abb3cd76dff1b70d6",
+  "application_proof_ids_pending": 987,
+  "binaries": {
+    "go": {
+      "path": "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+      "sha256": "a3b600849aa18079dd6a855f0d7d206ab17ab05ec7e330809b10a17e363ac944"
+    },
+    "rust": {
+      "path": "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+      "sha256": "3ab2afb4fcf1ab4cfd75dbbc3a01571bd0d22108a092987ab19f947162a8db01"
+    }
+  },
+  "candidate_records": {
+    "capacity": "2cc771cb88bbec1c48e7574f207d5fe90f0bcabe7854d9766e79f1f508f7b872",
+    "recursor": "e6b0d17c72363df44982adb160ab77e8593d26a499853d4a75d43e40fd8615bb"
+  },
+  "capacity_invocation_bound_ms": 60000,
+  "capacity_max_elapsed_ms": 3335,
+  "checker_stages": 108,
+  "complete_capacity_observations_unchanged_except_timings": true,
+  "complete_probe_objects_unchanged": true,
+  "complete_recursor_observations_unchanged": true,
+  "current_I_probe_record_bytes_unchanged": true,
+  "fresh_toolchain_observations_match_retained_records": {
+    "go": "go version go1.23.2 darwin/arm64",
+    "rustc": "rustc 1.97.1 (8bab26f4f 2026-07-14)"
+  },
+  "full_t01_gate": "deferred_to_final_W10",
+  "full_t06_gate": "deferred_to_W12",
+  "selection_reason": "The registration-order fix changes five source pins owned by both original W09 capacity/recursor reproducibility probes. Re-export exactly12 capacity and15 recursor certificates from their unchanged original owners; require both complete probe objects and rawcertificatehashes unchanged, then rerun48 capacity and60 recursor checker invocations with the already validated fixed binaries. Capture actual reports/timings andfresh source inventories. Keep all live source/input trees andcurrent I probe records untouched until their terminal promotions; whole gate stays finalW10.",
+  "source_commit": "fd99c03c8e3535bcc31f0b9d1441d4b74de80ebf",
+  "source_inventory_deltas": 5,
+  "status": "passed_independent_108_actual_fixed_checker_observations_exact_prior_probe_bytes_source_and_binary_hashes",
+  "successful_export_owner_tests": 2,
+  "type_mismatch_report_pairs": 10
+}

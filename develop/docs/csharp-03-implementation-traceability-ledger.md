@@ -6422,3 +6422,37 @@ success. Final proof-evidence/freeze summary refresh and publication are still
 required. All 987 application proof IDs remain pending; W09 is In progress,
 W10 is Blocked, and the practical profile is inactive. Whole gates remain
 final T01-W10 and T06-W12.
+
+
+## 74. Fixed-source capacity and recursor closure checkpoint
+
+The registration-order correction changes five source pins consumed by the
+original T01-W09 capacity and recursor reproducibility owners. Keeping the
+previous records as current would fail their source-hash checks. The unchanged
+owners export all 12 capacity and 15 recursor certificates from the independently
+validated fixed source. Both complete probe objects and certificate byte sets
+match their predecessors exactly. The already validated fixed Rust/Go binaries
+then pass all 108 checker invocations: 48 capacity accepts and 60 recursor
+observations. The original five cross-result rejections per run remain. Every
+recursor result is identical; capacity results differ only in actual timings.
+The maximum capacity invocation is 3,335 ms, below the frozen 60,000 ms bound.
+
+The independent review verifies actual terminal owner logs, every input/report/
+stderr SHA, exact binaries and source inventories, accepted module/declaration
+counts and zero-axiom reports, rejection classes and matching toolchain versions.
+Complete actual inputs, outputs, predecessor records and reviewed final-refresh
+plans are retained in `registration-order-capacity-recursor-checkpoint`.
+
+The selection covers only the two source-pinned probes affected by this fix;
+it does not repeat unaffected native/source matrices. Current capacity/recursor
+records, proof summary, freeze generator and vectors remain unchanged while
+pending original consumer/source validation uses their pinned bytes. The guarded
+final refresh must preserve six predecessor files and validate exactly six
+changed evidence digests, with all 709 complete vector rows and all non-evidence
+freeze fields unchanged. A remaining normative shared-artifact paragraph claims
+unchanged checker acceptance; its exact correction is prepared for final freeze
+closure, after these pinned runs. That finding remains open until applied.
+
+T01-W09 remains In progress, T01-W10 is Blocked, and the practical profile remains
+inactive. All 987 original application proof IDs remain pending. Whole gates
+remain final T01-W10 and T06-W12.

@@ -64,3 +64,24 @@ unexecuted stages run after the missing public inputs are added. Final evidence
 summary/freeze refresh remains deferred until all current original owner and
 consumer acceptance runs complete. See the source-correspondence guard review
 for the exact original-to-fixed source deltas used by later promotions.
+
+
+The final closure review also found five changed source pins in the original
+capacity and recursor reproducibility records. Their unchanged owners export
+all twelve capacity and fifteen recursor certificate byte sets again. The fixed
+Rust and Go binaries pass all 108 invocations: 48 capacity accepts and 60
+recursor observations, including the ten retained type-mismatch report pairs.
+Both complete probe objects remain identical. All recursor observations remain
+identical; capacity observations differ only in measured elapsed times, with a
+maximum of 3,335 ms below the frozen 60,000 ms bound. Binary, source, input,
+report, stderr and actual toolchain observations are independently audited in
+`registration-order-capacity-recursor-checkpoint`.
+
+The current probe records and freeze stay pinned while the remaining original
+consumer/source runs execute. Their final refresh must preserve six predecessor
+files and change only the six reviewed evidence digests. Every complete row of
+the 709 private vectors and every non-evidence freeze field must remain exact.
+A shared-artifact specification paragraph still states that both checker rules
+are unchanged; its prepared correction must reconcile the approved cases rule
+at that final closure. Neither this evidence checkpoint nor that correction
+completes W09, W10 or any of the 987 application proof IDs.
