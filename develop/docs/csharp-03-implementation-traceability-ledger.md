@@ -6741,3 +6741,13 @@ Four scalar/codec owners remain pending; T01-W09 is In progress and T01-W10
 is Blocked. All 987 application proof IDs remain pending and the profile is
 inactive. Targeted prior publication hashes are verified on the server; whole
 gates remain deferred to final T01-W10/T06-W12 on the server.
+
+
+The two published final-generation controls also pass selected server syntax
+and static Linux/ten-owner guards. The actual receipt is retained. A separate
+prepared server runner will execute private freeze --check, all eight original
+W09 normal-pin owners and selected spec Clippy only after complete generation
+and normative paragraph reconciliation. It uses `/usr/bin/cargo`, a separate
+final target and optimized code with debug assertions/overflow checks enabled.
+The runner is not executed and still requires its server syntax check. Neither
+generation nor a new complete scalar owner is claimed by this preparation.

@@ -1,4 +1,10 @@
 {
+  "actual_generator_control_syntax": {
+    "generator_executed": false,
+    "raw_sha256": "34782a9b0237045db8d6ea67a81207eb589551d1a49f5220710732467a78c431",
+    "receipt": "final-server-freeze-preparation-syntax.json",
+    "server_passed_controls": 2
+  },
   "all_application_proof_ids_still_pending": 987,
   "allowed_changed_freeze_evidence_fields": [
     "freeze_generator_raw_sha256",
@@ -38,6 +44,15 @@
   "historical_local_final_selected_runner_executed": false,
   "local_work_permitted": "Edit source and prepare immutable evidence/hash inventories; copy server-generated outputs only after server verification; no local test, checker, lint, or freeze --check.",
   "old_scripts_are_retained_historical_unexecuted": true,
+  "prepared_final_selected_server_runner": {
+    "executed": false,
+    "path": "run-final-w09-selected-validation-on-server-2.py",
+    "raw_sha256": "0a30e0a1573c3b9c493d03bbf126cacc767c3006370147d7ea3016ad9be4facd",
+    "requires_server_syntax_before_execution": true,
+    "selected_w09_owner_count": 8,
+    "target_directory": "/root/mpk-w09-final-freeze-target",
+    "target_is_separate_from_live_scalar_build": true
+  },
   "prepared_generation_controls": {
     "final-rule-and-index-freeze-generator-candidate.py": "8a9e0250bd6eef04fed76fd0f39d6da7f0f5b8095c308cf484a9420a5ef74f2f",
     "refresh-final-proof-evidence-on-server-3.py": "d45d10cd06d9181db4ec72c6d71456baed91b25601341dc9fcbc38ce8b0f4b45"
