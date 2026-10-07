@@ -144,3 +144,16 @@ and four complete original scalar owners are launched on an independent
 public-source checkout. `server-only-execution-checkpoint` retains the actual
 receipts. This launch record claims no new test completion, fixture promotion,
 freeze/publication completion or application proof.
+
+
+The separate six-script integration archive is explicitly approved and
+transferred unchanged after the actual initial automatic review rejection.
+All six hashes and selected syntax checks pass on the server; the actual
+receipt and original preparation sources are retained in
+`server-result-integration-checkpoint`. Prepared result integration preserves
+the old interrupted statuses and every completed historical execution's
+source/binary/host provenance. It requires an actual independent terminal
+server audit before assembly or promotion. Existing exact source guards remain
+in force. No terminal checker/owner pass, fixture change, final freeze or
+application proof is claimed by this syntax-only preparation checkpoint.
+All subsequent tests and final gates remain server-only.

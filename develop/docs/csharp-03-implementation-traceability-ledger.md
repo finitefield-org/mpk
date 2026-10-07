@@ -6579,3 +6579,40 @@ T01-W09 remains In progress, T01-W10 remains Blocked, and the practical profile
 is inactive. All 987 original application proof IDs remain pending. Remaining
 selected checks and final T01-W10/T06-W12 whole gates will execute only on the
 server. Historical records retain their actual execution hosts.
+
+
+## 79. Approved server result integration controls
+
+The user explicitly approves the separate 9.9 KB archive containing six new
+evidence integration scripts after automatic review rejects the initial
+unpublished-script transmission. The same fixed archive transfers to
+`root@162.43.92.154`; its actual SHA and all six file hashes are verified there.
+All six selected syntax checks pass on the server.
+`server-result-integration-checkpoint` retains the actual transfer/syntax
+receipt, approval, rejection reason and exact script sources. No new local
+test, original owner or checker executes for this preparation change.
+
+The prepared integration requires actual terminal server results and an
+independent server audit before use. It retains all original thirty completed
+checker stages and six complete scalar/codec owners with their original
+source/binary/host provenance, together with the original interrupted status
+bytes. It may add only the twelve actually completed server checker stages and
+four actually completed original server owners. The prepared promotion keeps
+the exact 290 reviewed predecessor changes, nine separately reviewed core
+source paths and every other original source/input guard. Neither prepared
+assembly nor fixture promotion is executed by this checkpoint.
+
+The final-freeze execution plan explicitly moves generation comparisons, all
+709 complete vector checks, selected W09 owners, W10 republication checks and
+the final T01/T06 whole gates to the server. Historical completed capacity/
+recursor results keep their actual execution provenance; unaffected completed
+checks are not repeated. The six complete predecessor files and exactly six
+evidence hash changes remain required at final refresh.
+
+The remaining server tests continue on their unchanged frozen checkout and
+controller. This checkpoint claims no new terminal checker/owner result,
+fixture promotion, freeze completion or application proof. T01-W09 remains
+In progress, T01-W10 remains Blocked and the practical profile is inactive.
+All 987 original application proof IDs remain pending. Selected syntax results
+are recorded here; the whole gates remain deferred to final T01-W10/T06-W12
+on the server.
