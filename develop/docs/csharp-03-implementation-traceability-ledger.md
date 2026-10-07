@@ -6790,3 +6790,13 @@ runner statuses into a separate four-result folder. Neither original status
 is edited or relabeled successful. This join remains unexecuted and requires
 server syntax before use. Final freeze/publication, all 987 application proofs
 and the final whole gates remain pending.
+
+
+The four-result join's selected syntax check also passes on the server. It
+preserves the exact one-time status snapshots used for review while the old
+serial controller may advance. The prepared hash-only result assembler keeps
+those audited snapshots alongside the original interrupted six-owner history.
+A proposal reconciliation candidate explicitly distinguishes historical fixed
+checker executions and the reviewed indexed reference executions. All these
+integration/generation steps remain unexecuted until the complete original
+decimal fixed-format owner passes. Current normative inputs remain unchanged.
