@@ -6701,3 +6701,43 @@ checkout. Approved final freeze/publication and all 987 original application
 proof IDs remain pending. T01-W09 is In progress, T01-W10 is Blocked and the
 practical profile remains inactive. Selected checks are recorded above; whole
 gates remain deferred to final T01-W10/T06-W12 on the server.
+
+
+## 82. Published pattern audit and prepared indexed final server freeze
+
+The server independently verifies published commit `ec5b54e6` against all
+126 current fixture hashes, all 126 complete predecessors and all 324 evidence
+file hashes. This closes the exact pattern fixture publication audit without
+repeating unaffected producer or checker execution.
+
+After all twelve actual replacement checker results and the independent
+42-result union complete, only the original superseded linear-interning pattern
+process group is stopped. Its original one-success running status is preserved
+byte-for-byte and no incomplete result becomes a pass. The actual process
+commands, reviewed replacement hashes and stop receipt are retained. A first
+precondition attempt expected twelve rows in the Rust-only six-row paired
+status and stopped before any signal; the failure is retained. The corrected
+precondition independently verifies six actual Rust and six actual Go rows.
+Scalar and unrelated process groups remain untouched.
+
+`final-server-freeze-preparation-checkpoint` preserves the actual publication/
+stop receipts and prepares a new server-only generator. It requires the full
+ten-owner checkpoint, exact current pattern/wrapper files, the reviewed core
+registration and Go index records, all current probe source pins and immutable
+six-file predecessor hashes before isolated candidate mutation. It uses the
+actual indexed reference probe records and preserves the historical fixed Rust
+observations and both original execution source commits. The proof evidence
+will pin 36 current core sources and explicitly attribute the new 34 Boolean/
+predecessor, 54 capacity/recursor and six pattern-pair results to indexed Go.
+
+Generation and complete 709-row/non-evidence-field comparison execute only
+on the server after all four remaining scalar owners complete. Only the six
+specified evidence hash fields may change. The old local refresh/selected
+runner remains retained as unexecuted history. Prepared generator controls
+require server syntax validation before execution; this checkpoint claims
+no generation, owner pass, freeze completion or application proof.
+
+Four scalar/codec owners remain pending; T01-W09 is In progress and T01-W10
+is Blocked. All 987 application proof IDs remain pending and the profile is
+inactive. Targeted prior publication hashes are verified on the server; whole
+gates remain deferred to final T01-W10/T06-W12 on the server.

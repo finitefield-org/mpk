@@ -1,0 +1,72 @@
+{
+  "all_application_proof_ids_still_pending": 987,
+  "allowed_changed_freeze_evidence_fields": [
+    "freeze_generator_raw_sha256",
+    "boolean_proof_evidence_raw_sha256",
+    "boolean_proof_evidence_content_sha256",
+    "recursor_evidence_raw_sha256",
+    "capacity_evidence_raw_sha256",
+    "capacity_source_inventory_sha256"
+  ],
+  "completed_capacity_recursor_results_preserved": {
+    "candidate_records": {
+      "capacity": "e45cf6c9e05d90ba7de3dd99939ab27081427b713d8e458fd2fedf26b7c9f968",
+      "recursor": "98150898d27578a5ffa61e86720a600e467c185eb3aac97c39b0e3b9818df317"
+    },
+    "execution_provenance": "Completed before the server-only instruction, with actual source inventories and binary/report hashes. Future normal-pin reproducibility tests execute on the server; these completed stages need no unaffected rerun.",
+    "fixed_checker_stages": 108,
+    "indexed_go_actual_server_results": 54,
+    "indexed_go_audit_raw_sha256": "18b68f0871177a26e89a30355ea3605a6b74c7807ede68b2f67ebf1b26c8e346",
+    "original_export_tests": 2
+  },
+  "core_source_pin_count": 36,
+  "current_go_core_source_sha256": "19008b25758b9a00919f468d6bf0f8d8275bd918fe7678156971bd48dde097f8",
+  "current_pattern_publication": {
+    "commit": "ec5b54e6ce42d2caa5c926f36fb27f68626c2b2c",
+    "complete_predecessor_files": 126,
+    "current_fixture_files": 126,
+    "evidence_files": 324,
+    "server_audit_raw_sha256": "af4174a6172a3dca082ad013307586cabe6cf9ae24eaf4228a94a7f0631886af"
+  },
+  "execution_host": "root@162.43.92.154",
+  "generation_validation_location": "server_only",
+  "historical_execution_source_commits_preserved": [
+    "fd99c03c8e3535bcc31f0b9d1441d4b74de80ebf",
+    "7505badc6684191a7dad9833e67d29af32529ee9"
+  ],
+  "historical_local_final_refresh_script_executed": false,
+  "historical_local_final_selected_runner_executed": false,
+  "local_work_permitted": "Edit source and prepare immutable evidence/hash inventories; copy server-generated outputs only after server verification; no local test, checker, lint, or freeze --check.",
+  "old_scripts_are_retained_historical_unexecuted": true,
+  "prepared_generation_controls": {
+    "final-rule-and-index-freeze-generator-candidate.py": "8a9e0250bd6eef04fed76fd0f39d6da7f0f5b8095c308cf484a9420a5ef74f2f",
+    "refresh-final-proof-evidence-on-server-3.py": "d45d10cd06d9181db4ec72c6d71456baed91b25601341dc9fcbc38ce8b0f4b45"
+  },
+  "required_actual_results_before_mutation": {
+    "pattern_checker_stages": {
+      "actual_independent_server_terminal_audit_required": true,
+      "historical_completed": 30,
+      "new_server_completed": 12
+    },
+    "pattern_current_fixture_promotions": 126,
+    "published_original_wrapper_owners": 14,
+    "published_wrapper_checker_stages": 230,
+    "scalar_codec_owners": {
+      "actual_independent_server_terminal_audit_required": true,
+      "historical_completed": 6,
+      "new_server_completed": 4
+    }
+  },
+  "requires_server_syntax_before_execution": true,
+  "selection_reason": "The explicit user instruction applies to all remaining checks and generation validation. Preserve completed predecessor execution provenance; generate and validate the final freeze on the approved SSH host after actual owner/checker result integration and pattern promotion. Do not run the old local final refresh/selected runner.",
+  "server_validation_sequence": [
+    "Generate the final freeze in an independent exact published candidate checkout, retaining all six complete old evidence/input files.",
+    "Compare all 709 complete vector bodies and all non-evidence freeze fields against their exact predecessor bytes; permit only the six specified evidence hash fields to change.",
+    "Retrieve the two exact server-generated freeze output files and actual comparison receipt; preserve current sources and separate live checkouts.",
+    "Run eight W09 original normal-pin owners, private freeze --check and affected spec quality checks on the server.",
+    "Review and commit/push actual W09 completion; republish W10 with the exact complete W09 commit.",
+    "Run four affected W10 owners and the final T01 check-fast gate only on the server; repair until pass before advancing to T06."
+  ],
+  "source_plan_predecessor_raw_sha256": "708b675b302806d8bd071243c4647708130fa86d47d5882923a75238b44f7565",
+  "status": "prepared_indexed_server_only_final_freeze_plan_not_executed"
+}
