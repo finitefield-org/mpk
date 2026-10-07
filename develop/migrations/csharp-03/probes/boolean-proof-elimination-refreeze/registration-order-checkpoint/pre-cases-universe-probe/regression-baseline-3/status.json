@@ -1,0 +1,374 @@
+{
+  "binary_sha256": {
+    "go": "e9ca299f060620ed691ea6eed40d877e3f9bbd53fb2340f1c19230a8a3afc9ce",
+    "rust": "723d98e8a1a49d97b72296914d76ff1f5939b00b3c4010e134b297f16bf247aa"
+  },
+  "producer_sha256": {
+    "builder.rs": "dd3a7ec39bb7aa86663a71fdc9ff55197e5f64df86a9adfd3cac41b7c9d90db3",
+    "regression-main.rs": "be43c3481c1d0a6e5932ba6a938e473498eac1a4178ec018c664d8bdb2d1ead7"
+  },
+  "selection_reason": "Reproduce preceding-type/value/proof universe-argument acceptance and verify legacy, unused-term and other-family controls before the registration-order fix. Only the later-use case should already reject.",
+  "stages": [
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/regression-inputs-3/later-constructor-value-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.015223791997414082,
+      "exit_code": 1,
+      "input_sha256": "a48d50b7f967571d3fe9fcf9be7f400b40b5f1ad2c63b52412adbf162f7280ae",
+      "report_sha256": "9a9f5da5a7ff5a425583b053c2310bd095c41a9d7806d6aa9d8ae3733a8dcfb0",
+      "stage": "later-constructor-value-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected",
+      "wanted_baseline_verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/regression-inputs-3/later-constructor-value-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.017301041996688582,
+      "exit_code": 1,
+      "input_sha256": "a48d50b7f967571d3fe9fcf9be7f400b40b5f1ad2c63b52412adbf162f7280ae",
+      "report_sha256": "94b08a6a37f1f77172d2c8b86362315a6ff9098379a6d4559a0405aae1560159",
+      "stage": "later-constructor-value-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected",
+      "wanted_baseline_verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/regression-inputs-3/legacy-prior-constructor-value-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.020271625005989335,
+      "exit_code": 0,
+      "input_sha256": "7037a385b5c3b557a1375d3d52f1c249d983aba33b4504342536e92e64d07ad7",
+      "report_sha256": "af91e9bde0d04373cf2973eff17b688c66915439573f87cca3eb2531b8ee579d",
+      "stage": "legacy-prior-constructor-value-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted",
+      "wanted_baseline_verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/regression-inputs-3/legacy-prior-constructor-value-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.021101917009218596,
+      "exit_code": 0,
+      "input_sha256": "7037a385b5c3b557a1375d3d52f1c249d983aba33b4504342536e92e64d07ad7",
+      "report_sha256": "c850ec675ef681f0d6794a97c77d4defe8d8490251795f9b8e8143cb29978b96",
+      "stage": "legacy-prior-constructor-value-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted",
+      "wanted_baseline_verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/regression-inputs-3/legacy-prior-theorem-proof-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.022303792007733136,
+      "exit_code": 0,
+      "input_sha256": "5cf054a28d5eb43c91ff174f13126fac07ec4d72c6fb0e4945bfb2f121bf629f",
+      "report_sha256": "a3ccde77c7d22b1678dd2fd4ef0c5d27e08bbe5365b75d1974a8a81c44b50c36",
+      "stage": "legacy-prior-theorem-proof-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted",
+      "wanted_baseline_verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/regression-inputs-3/legacy-prior-theorem-proof-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.01889312498678919,
+      "exit_code": 0,
+      "input_sha256": "5cf054a28d5eb43c91ff174f13126fac07ec4d72c6fb0e4945bfb2f121bf629f",
+      "report_sha256": "97b0ca7be50d5ce749cba55795d3dfa77e98607097fa7b5f44a4388e566fae71",
+      "stage": "legacy-prior-theorem-proof-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted",
+      "wanted_baseline_verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/regression-inputs-3/prior-constructor-value-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.02915420899807941,
+      "exit_code": 0,
+      "input_sha256": "cd0df04e57572c238c4c878e6032f58741b2e7cc4fb4bd783966e8c7f73d5002",
+      "report_sha256": "6cd95832210284e7fbead01efa33ca3158f7e79b1890f2d575165fac0fd7ff2b",
+      "stage": "prior-constructor-value-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted",
+      "wanted_baseline_verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/regression-inputs-3/prior-constructor-value-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.020784209002158605,
+      "exit_code": 0,
+      "input_sha256": "cd0df04e57572c238c4c878e6032f58741b2e7cc4fb4bd783966e8c7f73d5002",
+      "report_sha256": "8130219373dbf8356c0a3012f3a13d91d28ef825ba744ee179eeb0ef3180495f",
+      "stage": "prior-constructor-value-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted",
+      "wanted_baseline_verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/regression-inputs-3/prior-family-type-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.021104833998833783,
+      "exit_code": 0,
+      "input_sha256": "05137f509488a5233a46f8de82defb8d8e0a6a83780bd04140ed7a7b32b252e0",
+      "report_sha256": "093445ef784aeb9f9f4ccc3dca60f3bf751ea3a4744edeec2ee7bb040b83c234",
+      "stage": "prior-family-type-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted",
+      "wanted_baseline_verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/regression-inputs-3/prior-family-type-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.03083162500115577,
+      "exit_code": 0,
+      "input_sha256": "05137f509488a5233a46f8de82defb8d8e0a6a83780bd04140ed7a7b32b252e0",
+      "report_sha256": "95a778b7a1df60fb86b8cba926f0215e4c778782dcdd455f8c9c919259c99f27",
+      "stage": "prior-family-type-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted",
+      "wanted_baseline_verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/regression-inputs-3/prior-lambda-body-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.012450207999791019,
+      "exit_code": 0,
+      "input_sha256": "33795daf9794631e24661c25a84d0c54f3fc8829791052ff11c41d52888c633c",
+      "report_sha256": "e57cb8c6b73ed513b1aaa701765a0d615d6d8c4ec9244d1ab8976fc3592e960a",
+      "stage": "prior-lambda-body-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted",
+      "wanted_baseline_verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/regression-inputs-3/prior-lambda-body-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.014655708990176208,
+      "exit_code": 0,
+      "input_sha256": "33795daf9794631e24661c25a84d0c54f3fc8829791052ff11c41d52888c633c",
+      "report_sha256": "fceb4c10523c060f173bdf3683e066f4c0fe05d5a30adc35dd1196bef4069be5",
+      "stage": "prior-lambda-body-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted",
+      "wanted_baseline_verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/regression-inputs-3/prior-let-value-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.0127847920084605,
+      "exit_code": 0,
+      "input_sha256": "fe171d58df5d4301851b5550a7150e576e0631c11462d9c0894fc7571fd56a92",
+      "report_sha256": "43fb18c98c2b7caba77ea526dd1eb1984f5279c70132c7144d8aac5a53d2cf82",
+      "stage": "prior-let-value-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted",
+      "wanted_baseline_verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/regression-inputs-3/prior-let-value-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.018450750008923933,
+      "exit_code": 0,
+      "input_sha256": "fe171d58df5d4301851b5550a7150e576e0631c11462d9c0894fc7571fd56a92",
+      "report_sha256": "f165daf67eb093ffab07f8b08b1b3a369b35d180d460d482155463f183e4ec61",
+      "stage": "prior-let-value-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted",
+      "wanted_baseline_verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/regression-inputs-3/prior-opaque-value-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.015190042002359405,
+      "exit_code": 0,
+      "input_sha256": "ce38264588d1280e0c9e87947f654a2025b0ffc3034abf3c82dca9bbeac3f1bd",
+      "report_sha256": "3c7b060f485a9d7ea40ebab71e01fcf8fef832c280382f134bc8596df298047a",
+      "stage": "prior-opaque-value-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted",
+      "wanted_baseline_verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/regression-inputs-3/prior-opaque-value-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.01849129199399613,
+      "exit_code": 0,
+      "input_sha256": "ce38264588d1280e0c9e87947f654a2025b0ffc3034abf3c82dca9bbeac3f1bd",
+      "report_sha256": "2737dd31854cf22accd010ae18fd15c967abed585670406ef664e184e7767a30",
+      "stage": "prior-opaque-value-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted",
+      "wanted_baseline_verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/regression-inputs-3/prior-other-family-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.01340137499209959,
+      "exit_code": 0,
+      "input_sha256": "32b96682f3fc42a73e4270460cd61091305090b4e01cfdb53c00fcefc728dd3b",
+      "report_sha256": "2c99e99f039d010b76ae306f31ad125d6528b5536ae790f9cdfa7feed7727806",
+      "stage": "prior-other-family-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted",
+      "wanted_baseline_verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/regression-inputs-3/prior-other-family-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.01596525000059046,
+      "exit_code": 0,
+      "input_sha256": "32b96682f3fc42a73e4270460cd61091305090b4e01cfdb53c00fcefc728dd3b",
+      "report_sha256": "bb7f67fdf593b7d4d68c16271c302022ba9073e23496496667b0dbb169d2b8ca",
+      "stage": "prior-other-family-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted",
+      "wanted_baseline_verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/regression-inputs-3/prior-pi-domain-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.011413250002078712,
+      "exit_code": 0,
+      "input_sha256": "3bb8de9dadafb8ecaea2f6a10499a04ea5dff44b6750676412e56cb52005463a",
+      "report_sha256": "9e1cda1aacdda0375c22cfa6268eaaaffec9ec121807a763d4d25ea9dc68b108",
+      "stage": "prior-pi-domain-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted",
+      "wanted_baseline_verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/regression-inputs-3/prior-pi-domain-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.013021124992519617,
+      "exit_code": 0,
+      "input_sha256": "3bb8de9dadafb8ecaea2f6a10499a04ea5dff44b6750676412e56cb52005463a",
+      "report_sha256": "345b2e8560fe5c4ceb200bd791837d77c1d9759312435303cb69783391ce8505",
+      "stage": "prior-pi-domain-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted",
+      "wanted_baseline_verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/regression-inputs-3/prior-theorem-proof-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.009926124999765307,
+      "exit_code": 0,
+      "input_sha256": "9dd26dc502b6ddd1ee53e1c89047e0349d748dcb57db1a722a1d79a69c980086",
+      "report_sha256": "9390ca26b0f3b640773b39c22df11b402c2aa7f5742a3b32fef872b1559b4960",
+      "stage": "prior-theorem-proof-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted",
+      "wanted_baseline_verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/regression-inputs-3/prior-theorem-proof-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.014107750001130626,
+      "exit_code": 0,
+      "input_sha256": "9dd26dc502b6ddd1ee53e1c89047e0349d748dcb57db1a722a1d79a69c980086",
+      "report_sha256": "0d99768690132b4877b5caea14bb44a103f59802bdc3ff4ad1232dad9ba60b16",
+      "stage": "prior-theorem-proof-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted",
+      "wanted_baseline_verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/regression-inputs-3/unused-constructor-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.011875249998411164,
+      "exit_code": 0,
+      "input_sha256": "6d20daf03dba3fff173a049009e366457522f3670ebd3468f7cca97c3527953a",
+      "report_sha256": "923a182d7578a498838e2e713e270a3ca851f0726c85cc0856ad7d973da36fad",
+      "stage": "unused-constructor-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted",
+      "wanted_baseline_verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/regression-inputs-3/unused-constructor-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.01255858299555257,
+      "exit_code": 0,
+      "input_sha256": "6d20daf03dba3fff173a049009e366457522f3670ebd3468f7cca97c3527953a",
+      "report_sha256": "94ac8262ffc472610aa467f35ff63e618f2070a13672c2dca23d95d5aa61fe43",
+      "stage": "unused-constructor-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted",
+      "wanted_baseline_verdict": "accepted"
+    }
+  ],
+  "status": "reproduced_prior_use_gap_with_legacy_unused_and_other_family_controls"
+}

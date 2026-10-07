@@ -137,8 +137,12 @@ any later constructor for the family rejects, even if the eliminator is only
 used with a neutral major and never reduced. The interface has no universe
 parameters: nonempty universe arguments on `cases`, its family or its
 constructors reject during type inference as well as reduction, including
-neutral and partial applications. Nongenerated or
-malformed reserved `cases` declarations reject; other recursor names gain no
+neutral and partial applications.
+Registration also rejects these universe arguments in the types, definition
+values (including opaque values), or proofs of preceding checked declarations.
+Only terms reachable from those declarations are checked; unused term-table
+entries and families without this `cases` interface retain their prior rules.
+Nongenerated or malformed reserved `cases` declarations reject; other recursor names gain no
 new equations. Neutral majors remain neutral, partial applications remain
 partial, and surplus arguments apply to the selected branch. This introduces
 neither eta nor proof irrelevance, and changes no existing `<family>.rec` type,

@@ -1,0 +1,150 @@
+{
+  "binary_sha256": {
+    "go": "e9ca299f060620ed691ea6eed40d877e3f9bbd53fb2340f1c19230a8a3afc9ce",
+    "rust": "723d98e8a1a49d97b72296914d76ff1f5939b00b3c4010e134b297f16bf247aa"
+  },
+  "error": "AssertionError({'stage': 'prior-family-type-levels-rust', 'command': ['/private/tmp/mpk-w09-bool-cases-target/debug/mpk', 'check', '/private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/regression-inputs-2/prior-family-type-levels.mpcert'], 'exit_code': 1, 'verdict': 'rejected', 'wanted_baseline_verdict': 'accepted', 'input_sha256': '524c4ef9c120994cf0f8934286df88888250add5f7e05d2a70a011a20736c043', 'report_sha256': '98d676fffa6f89e9c21b34b4aec07c20b89e07c4e29d90657e455e403b09cf0c', 'stderr_sha256': 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', 'elapsed_seconds': 0.01999012500164099})",
+  "producer_sha256": {
+    "builder.rs": "dd3a7ec39bb7aa86663a71fdc9ff55197e5f64df86a9adfd3cac41b7c9d90db3",
+    "regression-main.rs": "27adb9f22e50bad594b93ae9ed782164e59739fcd399cbd8d122e05c84746b93"
+  },
+  "selection_reason": "Reproduce preceding-type/value/proof universe-argument acceptance and verify legacy, unused-term and other-family controls before the registration-order fix. Only the later-use case should already reject.",
+  "stages": [
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/regression-inputs-2/later-constructor-value-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.017121500000939704,
+      "exit_code": 1,
+      "input_sha256": "a48d50b7f967571d3fe9fcf9be7f400b40b5f1ad2c63b52412adbf162f7280ae",
+      "report_sha256": "9a9f5da5a7ff5a425583b053c2310bd095c41a9d7806d6aa9d8ae3733a8dcfb0",
+      "stage": "later-constructor-value-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected",
+      "wanted_baseline_verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/regression-inputs-2/later-constructor-value-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.014713582990225405,
+      "exit_code": 1,
+      "input_sha256": "a48d50b7f967571d3fe9fcf9be7f400b40b5f1ad2c63b52412adbf162f7280ae",
+      "report_sha256": "94b08a6a37f1f77172d2c8b86362315a6ff9098379a6d4559a0405aae1560159",
+      "stage": "later-constructor-value-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected",
+      "wanted_baseline_verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/regression-inputs-2/legacy-prior-constructor-value-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.020938500005286187,
+      "exit_code": 0,
+      "input_sha256": "7037a385b5c3b557a1375d3d52f1c249d983aba33b4504342536e92e64d07ad7",
+      "report_sha256": "af91e9bde0d04373cf2973eff17b688c66915439573f87cca3eb2531b8ee579d",
+      "stage": "legacy-prior-constructor-value-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted",
+      "wanted_baseline_verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/regression-inputs-2/legacy-prior-constructor-value-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.01808191700547468,
+      "exit_code": 0,
+      "input_sha256": "7037a385b5c3b557a1375d3d52f1c249d983aba33b4504342536e92e64d07ad7",
+      "report_sha256": "c850ec675ef681f0d6794a97c77d4defe8d8490251795f9b8e8143cb29978b96",
+      "stage": "legacy-prior-constructor-value-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted",
+      "wanted_baseline_verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/regression-inputs-2/legacy-prior-theorem-proof-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.019864999994751997,
+      "exit_code": 0,
+      "input_sha256": "5cf054a28d5eb43c91ff174f13126fac07ec4d72c6fb0e4945bfb2f121bf629f",
+      "report_sha256": "a3ccde77c7d22b1678dd2fd4ef0c5d27e08bbe5365b75d1974a8a81c44b50c36",
+      "stage": "legacy-prior-theorem-proof-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted",
+      "wanted_baseline_verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/regression-inputs-2/legacy-prior-theorem-proof-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.014357916996232234,
+      "exit_code": 0,
+      "input_sha256": "5cf054a28d5eb43c91ff174f13126fac07ec4d72c6fb0e4945bfb2f121bf629f",
+      "report_sha256": "97b0ca7be50d5ce749cba55795d3dfa77e98607097fa7b5f44a4388e566fae71",
+      "stage": "legacy-prior-theorem-proof-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted",
+      "wanted_baseline_verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/regression-inputs-2/prior-constructor-value-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.014697416001581587,
+      "exit_code": 0,
+      "input_sha256": "cd0df04e57572c238c4c878e6032f58741b2e7cc4fb4bd783966e8c7f73d5002",
+      "report_sha256": "6cd95832210284e7fbead01efa33ca3158f7e79b1890f2d575165fac0fd7ff2b",
+      "stage": "prior-constructor-value-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted",
+      "wanted_baseline_verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/regression-inputs-2/prior-constructor-value-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.02233070800139103,
+      "exit_code": 0,
+      "input_sha256": "cd0df04e57572c238c4c878e6032f58741b2e7cc4fb4bd783966e8c7f73d5002",
+      "report_sha256": "8130219373dbf8356c0a3012f3a13d91d28ef825ba744ee179eeb0ef3180495f",
+      "stage": "prior-constructor-value-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted",
+      "wanted_baseline_verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/regression-inputs-2/prior-family-type-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.01999012500164099,
+      "exit_code": 1,
+      "input_sha256": "524c4ef9c120994cf0f8934286df88888250add5f7e05d2a70a011a20736c043",
+      "report_sha256": "98d676fffa6f89e9c21b34b4aec07c20b89e07c4e29d90657e455e403b09cf0c",
+      "stage": "prior-family-type-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected",
+      "wanted_baseline_verdict": "accepted"
+    }
+  ],
+  "status": "failed"
+}

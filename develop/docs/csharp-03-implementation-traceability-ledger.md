@@ -6362,3 +6362,33 @@ semantic observations and final freeze/publication closure remain pending.
 All 987 original application proof IDs remain pending; the practical profile
 remains inactive. T01-W09 is In progress and T01-W10 is Blocked. Whole gates
 remain final T01-W10 and T06-W12.
+
+
+## 72. Boolean cases registration-order closure checkpoint
+
+Both source-free checkers accepted nonempty Bool constructor universe arguments
+in a checked declaration preceding `Bool.cases`, while rejecting the same use
+after cases. The canonical registration check now traverses every preceding
+declaration's reachable type, reducible/opaque value and theorem proof; the
+Rust direct generator validates before registration. The shared regressions
+reject all seven preceding-use forms and the later-use form, while preserving
+legacy families, unused terms and unrelated-family controls.
+
+All 31 shared fixtures and three predecessor certificates pass 68 checked
+Rust/Go stages. Rust passes 56 selected core/kernel/W09 feasibility tests; Go
+passes 16 selected top-level tests including 31 shared fixture subcases.
+Affected Clippy and format pass, and the actual producer regenerates all twelve
+new pinned byte sets exactly. Test selection follows the validator/generator,
+environment/inference/declaration consumers and both standalone checkers.
+Initial producer and report-shape harness failures are retained with real
+statuses. See `unit-7-registration-order-review.md` and the complete
+`registration-order-checkpoint/receipt.json` and file manifest.
+
+An exact read-only inventory excludes the new reserved cases interface from
+1,920 current ordinary/candidate certificate paths, preserving code
+correspondence without misattributing old execution to new binaries. Pending
+original owner/checker runs still require terminal success and exact source
+pins before promotion. Exact-public-source Linux fix validation and final
+freeze/publication remain pending. All 987 application proofs remain pending;
+W09 is In progress, W10 is Blocked, and the practical profile is inactive.
+Whole gates remain final T01-W10 and T06-W12.

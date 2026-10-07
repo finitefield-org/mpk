@@ -1,0 +1,28 @@
+warning: constant `EQ` is never used
+ --> /private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/builder.rs:3:7
+  |
+3 | const EQ: &str = "Std.Eq";
+  |       ^^
+  |
+  = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: constant `REFL` is never used
+ --> /private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/builder.rs:4:7
+  |
+4 | const REFL: &str = "Std.Eq.refl";
+  |       ^^^^
+
+warning: function `call` is never used
+   --> /private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/builder.rs:122:4
+    |
+122 | fn call(b: &mut Builder, name: &str, args: Vec<u32>) -> R<u32> {
+    |    ^^^^
+
+warning: function `bit` is never used
+   --> /private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/builder.rs:126:4
+    |
+126 | fn bit(b: &mut Builder, yes: bool) -> R<u32> {
+    |    ^^^
+
+warning: 4 warnings emitted
+

@@ -3,7 +3,7 @@
 Both source-free checkers consume these exact canonical Certificate v0 bytes.
 The generated `Std.Bool.cases` declaration has motive `Bool -> Sort0`, two
 dependent branches and a Boolean major. Existing `Std.Bool.rec` is unchanged.
-All six positive certificates have zero axioms, empty proof-node tables and
+All ten positive certificates have zero axioms, empty proof-node tables and
 empty theory-certificate tables.
 
 Accepted cases are universal right identity, both constructor equations, an
@@ -23,3 +23,9 @@ The producer and executed local reports are retained in
 The kernel tests, Go tests and CSHARP-03-T01-W09 feasibility owner share this
 corpus. These generic proof-capability certificates do not discharge any
 original C# application VC.
+
+Registration-order regressions cover preceding reducible and opaque values,
+checked theorem proofs, dependent types and Pi domains, and nested Lam/App/Let
+terms. These uses reject both before and after cases registration. Positive
+controls retain legacy definitions and proofs without cases, unused term-table
+entries, and universe arguments on an unrelated family.

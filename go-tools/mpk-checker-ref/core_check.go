@@ -161,6 +161,9 @@ func (c *coreCheckContext) checkDeclarations() error {
 				if err := c.state.checkBoolCasesDeclaration(name, ty, inductive, declaration.Generated); err != nil {
 					return err
 				}
+				if err := c.state.checkPriorBoolCasesUses(name, inductive); err != nil {
+					return err
+				}
 			}
 			global, err = c.state.env.registerGenerated(name, declaration.Tag, ty, inductive, declaration.Generated)
 			if err != nil {

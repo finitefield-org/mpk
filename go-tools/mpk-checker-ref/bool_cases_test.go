@@ -3,14 +3,14 @@ package mpkcheckerref
 import "testing"
 
 func TestBoolCasesCertificatesMatchRust(t *testing.T) {
-	for _, name := range []string{"right-identity", "constructor-false", "constructor-true", "open-motive", "conjunction-left", "conjunction-right", "wrong-branch", "wrong-conjunction-left", "wrong-conjunction-right", "wrong-motive-universe", "wrong-interface", "nongenerated", "extra-constructor", "extra-constructor-after-cases", "renamed", "wrong-case-levels", "wrong-major-levels", "wrong-case-levels-open", "wrong-major-levels-open"} {
+	for _, name := range []string{"right-identity", "constructor-false", "constructor-true", "open-motive", "conjunction-left", "conjunction-right", "wrong-branch", "wrong-conjunction-left", "wrong-conjunction-right", "wrong-motive-universe", "wrong-interface", "nongenerated", "extra-constructor", "extra-constructor-after-cases", "renamed", "wrong-case-levels", "wrong-major-levels", "wrong-case-levels-open", "wrong-major-levels-open", "later-constructor-value-levels", "legacy-prior-constructor-value-levels", "legacy-prior-theorem-proof-levels", "prior-constructor-value-levels", "prior-family-type-levels", "prior-lambda-body-levels", "prior-let-value-levels", "prior-opaque-value-levels", "prior-other-family-levels", "prior-pi-domain-levels", "prior-theorem-proof-levels", "unused-constructor-levels"} {
 		t.Run(name, func(t *testing.T) {
 			certificate, err := DecodeCertificate(readHexFixture(t, "fixtures/core-bool-cases/"+name+".hex"))
 			if err != nil {
 				t.Fatal(err)
 			}
 			_, err = CheckCoreDeclarations(certificate)
-			good := name == "right-identity" || name == "constructor-false" || name == "constructor-true" || name == "open-motive" || name == "conjunction-left" || name == "conjunction-right"
+			good := name == "right-identity" || name == "constructor-false" || name == "constructor-true" || name == "open-motive" || name == "conjunction-left" || name == "conjunction-right" || name == "legacy-prior-constructor-value-levels" || name == "legacy-prior-theorem-proof-levels" || name == "unused-constructor-levels" || name == "prior-other-family-levels"
 			if (err == nil) != good {
 				t.Fatalf("accepted = %v, want %v: %v", err == nil, good, err)
 			}

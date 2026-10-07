@@ -145,8 +145,9 @@ pub fn generate_bool_cases_declaration(
         vec![],
         declaration.ty(),
     );
-    let global =
-        env.register_generated_recursor(format!("{family_name}.cases"), signature.ty, family)?;
+    let name = format!("{family_name}.cases");
+    crate::bool_cases::check_bool_cases_declaration(terms, env, &name, signature.ty, family, true)?;
+    let global = env.register_generated_recursor(name, signature.ty, family)?;
     let declaration = ExportedInductiveDeclaration {
         global,
         name: env.lookup(global).expect("just registered").name().clone(),

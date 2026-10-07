@@ -99,3 +99,49 @@ func (s *coreState) checkBoolCasesDeclaration(name string, ty coreTermID, family
 	}
 	return nil
 }
+
+// Earlier checked declarations may precede the monomorphic cases interface.
+// Follow their actual term DAGs, including opaque values and theorem proofs.
+// This is a registration check, not work repeated at each reduction.
+func (s *coreState) checkPriorBoolCasesUses(name string, family coreGlobalID) error {
+	declaration, ok := s.env.lookup(family)
+	if !ok || name != declaration.name+".cases" {
+		return nil
+	}
+	interfaceGlobals := map[coreGlobalID]bool{family: true}
+	pending := make([]coreTermID, 0, len(s.env.declarations))
+	for index, previous := range s.env.declarations {
+		if previous.tag == DeclConstructor && previous.inductive == family {
+			interfaceGlobals[coreGlobalID(index)] = true
+		}
+		pending = append(pending, previous.ty)
+		if previous.tag == DeclDef || previous.tag == DeclTheorem {
+			pending = append(pending, previous.value)
+		}
+	}
+	seen := make(map[coreTermID]bool)
+	for len(pending) != 0 {
+		last := len(pending) - 1
+		term := pending[last]
+		pending = pending[:last]
+		if seen[term] {
+			continue
+		}
+		seen[term] = true
+		node := s.terms.node(term)
+		switch node.Tag {
+		case TermConst:
+			if interfaceGlobals[coreGlobalID(node.A)] && len(node.Levels) != 0 {
+				return newCoreError(CoreCheckInvalidDeclaration, "universe argument in declaration preceding Bool cases")
+			}
+		case TermLam, TermPi:
+			pending = append(pending, coreTermID(node.A), coreTermID(node.B))
+		case TermApp:
+			pending = append(pending, coreTermID(node.A))
+			pending = append(pending, node.Arguments...)
+		case TermLet:
+			pending = append(pending, coreTermID(node.A), coreTermID(node.B), coreTermID(node.C))
+		}
+	}
+	return nil
+}

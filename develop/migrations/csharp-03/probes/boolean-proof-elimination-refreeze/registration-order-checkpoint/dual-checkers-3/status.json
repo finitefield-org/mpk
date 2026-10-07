@@ -1,0 +1,1042 @@
+{
+  "binaries": {
+    "go": {
+      "path": "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+      "sha256": "a3b600849aa18079dd6a855f0d7d206ab17ab05ec7e330809b10a17e363ac944"
+    },
+    "rust": {
+      "path": "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+      "sha256": "3ab2afb4fcf1ab4cfd75dbbc3a01571bd0d22108a092987ab19f947162a8db01"
+    }
+  },
+  "cases": 34,
+  "checker_stages": 68,
+  "exact_completed_prefix_reports_reused": 66,
+  "full_t01_gate": "deferred_to_final_W10",
+  "original_application_proof_ids_pending": 987,
+  "process_pid": 29481,
+  "selection_reason": "Registration-order fix only: canonical Bool.cases checking/generation and preceding declaration types, definition values and theorem proofs. Run Bool cases plus relevant environment/inference/declaration checking and source-free checker/CSHARP-03-T01-W09 feasibility owners, selected lint/format; legacy/unused/unrelated-family positive controls share exact bytes. No application proof is discharged; whole T01 gate deferred to final W10.",
+  "stage": "predecessor-one-theorem-go",
+  "stages": [
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers/conjunction-left.mpcert"
+      ],
+      "elapsed_seconds": 0.8270010840060422,
+      "exit_code": 0,
+      "input_sha256": "19ec3ca922fec2f30298066c6a43bb69ccc7a352bfdf88a331d96fd4118ee4fb",
+      "report_sha256": "4444be1d8fcf95aae1d818e9f400311e8059cf9cc5dced20c4b049cacbfe835e",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "conjunction-left-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers/conjunction-left.mpcert"
+      ],
+      "elapsed_seconds": 0.6243915410013869,
+      "exit_code": 0,
+      "input_sha256": "19ec3ca922fec2f30298066c6a43bb69ccc7a352bfdf88a331d96fd4118ee4fb",
+      "report_sha256": "d6f6b6a39fb6d6cdf72699641c84353eca645aaf5ac2da8e9ac34e7f02e95b1f",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "conjunction-left-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers/conjunction-right.mpcert"
+      ],
+      "elapsed_seconds": 0.015773499995702878,
+      "exit_code": 0,
+      "input_sha256": "505a9a2b5f85556f1ef30e7128ef7671d639fe10cfd6d7587dd6d339674a9265",
+      "report_sha256": "ab4777bf2497f68c5aba70b48013e33d2f64c3801cdca0215aa42b26b7687717",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "conjunction-right-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers/conjunction-right.mpcert"
+      ],
+      "elapsed_seconds": 0.024075000008451752,
+      "exit_code": 0,
+      "input_sha256": "505a9a2b5f85556f1ef30e7128ef7671d639fe10cfd6d7587dd6d339674a9265",
+      "report_sha256": "de3fda171986b26db187cf64e305690d724e22993f0f25857e274632ae542964",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "conjunction-right-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers/constructor-false.mpcert"
+      ],
+      "elapsed_seconds": 0.013814374993671663,
+      "exit_code": 0,
+      "input_sha256": "3569931c69a00364dffead931375ca03dcd3ddaa722d7633d1ac4660985a11d4",
+      "report_sha256": "5bba70c1c920cef735318d9565b469f6c513b8632c3e5021f38e02fd74f8e516",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "constructor-false-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers/constructor-false.mpcert"
+      ],
+      "elapsed_seconds": 0.022857999996631406,
+      "exit_code": 0,
+      "input_sha256": "3569931c69a00364dffead931375ca03dcd3ddaa722d7633d1ac4660985a11d4",
+      "report_sha256": "d68c9fd06fc9ae3908386154748bbad1bbe9c1b964316cf0fbdee42d1462c68b",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "constructor-false-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers/constructor-true.mpcert"
+      ],
+      "elapsed_seconds": 0.013601041995570995,
+      "exit_code": 0,
+      "input_sha256": "a5c7d1b1bc773104bb7db40db6b87ec5bd2d9cf0e87eb68ddaf36484a0cbc0a0",
+      "report_sha256": "f04f5d0e0d89f75966936afc003ff05bd6fa53e9ee1787f7adaef3d3c901a018",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "constructor-true-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers/constructor-true.mpcert"
+      ],
+      "elapsed_seconds": 0.020796832992346026,
+      "exit_code": 0,
+      "input_sha256": "a5c7d1b1bc773104bb7db40db6b87ec5bd2d9cf0e87eb68ddaf36484a0cbc0a0",
+      "report_sha256": "d3c5c1e0acb3bfcdb2baca730a3ecf63068587704db49d239dc4f84737eeaf05",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "constructor-true-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/extra-constructor-after-cases.mpcert"
+      ],
+      "elapsed_seconds": 0.01731229199504014,
+      "exit_code": 1,
+      "input_sha256": "9ba0b8f459950a399171fe5880d5689c4e7584590993d66977e5b7b94cfd93d6",
+      "report_sha256": "3562e666a084808a1a617fecc7cc63aa3f2a6d9403cb195ff3609aa561024bb7",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "extra-constructor-after-cases-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/extra-constructor-after-cases.mpcert"
+      ],
+      "elapsed_seconds": 0.01559754200570751,
+      "exit_code": 1,
+      "input_sha256": "9ba0b8f459950a399171fe5880d5689c4e7584590993d66977e5b7b94cfd93d6",
+      "report_sha256": "34583af710174e7bb92253bad57fa991239932bbb6abd14a23a9c1cd1d354362",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "extra-constructor-after-cases-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/extra-constructor.mpcert"
+      ],
+      "elapsed_seconds": 0.019906499990611337,
+      "exit_code": 1,
+      "input_sha256": "21c848550850b4143b45697cf7bbd61cc2bf84379a04ddf58f4ae64f54d2edd6",
+      "report_sha256": "0dc8bb07628f23e88df5d641e0daad89a049fb11dfc16b2dc4b7ccaa121fe094",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "extra-constructor-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/extra-constructor.mpcert"
+      ],
+      "elapsed_seconds": 0.01610462499957066,
+      "exit_code": 1,
+      "input_sha256": "21c848550850b4143b45697cf7bbd61cc2bf84379a04ddf58f4ae64f54d2edd6",
+      "report_sha256": "146ce0952404245c87550888faba25c21b1c728cc8b16033560a6a66076b7e19",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "extra-constructor-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/later-constructor-value-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.014203375001670793,
+      "exit_code": 1,
+      "input_sha256": "a48d50b7f967571d3fe9fcf9be7f400b40b5f1ad2c63b52412adbf162f7280ae",
+      "report_sha256": "9a9f5da5a7ff5a425583b053c2310bd095c41a9d7806d6aa9d8ae3733a8dcfb0",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "later-constructor-value-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/later-constructor-value-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.021343625005101785,
+      "exit_code": 1,
+      "input_sha256": "a48d50b7f967571d3fe9fcf9be7f400b40b5f1ad2c63b52412adbf162f7280ae",
+      "report_sha256": "94b08a6a37f1f77172d2c8b86362315a6ff9098379a6d4559a0405aae1560159",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "later-constructor-value-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/legacy-prior-constructor-value-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.019544291993952356,
+      "exit_code": 0,
+      "input_sha256": "7037a385b5c3b557a1375d3d52f1c249d983aba33b4504342536e92e64d07ad7",
+      "report_sha256": "af91e9bde0d04373cf2973eff17b688c66915439573f87cca3eb2531b8ee579d",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "legacy-prior-constructor-value-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/legacy-prior-constructor-value-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.026051124994410202,
+      "exit_code": 0,
+      "input_sha256": "7037a385b5c3b557a1375d3d52f1c249d983aba33b4504342536e92e64d07ad7",
+      "report_sha256": "c850ec675ef681f0d6794a97c77d4defe8d8490251795f9b8e8143cb29978b96",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "legacy-prior-constructor-value-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/legacy-prior-theorem-proof-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.022643791991868056,
+      "exit_code": 0,
+      "input_sha256": "5cf054a28d5eb43c91ff174f13126fac07ec4d72c6fb0e4945bfb2f121bf629f",
+      "report_sha256": "a3ccde77c7d22b1678dd2fd4ef0c5d27e08bbe5365b75d1974a8a81c44b50c36",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "legacy-prior-theorem-proof-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/legacy-prior-theorem-proof-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.021507666999241337,
+      "exit_code": 0,
+      "input_sha256": "5cf054a28d5eb43c91ff174f13126fac07ec4d72c6fb0e4945bfb2f121bf629f",
+      "report_sha256": "97b0ca7be50d5ce749cba55795d3dfa77e98607097fa7b5f44a4388e566fae71",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "legacy-prior-theorem-proof-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/nongenerated.mpcert"
+      ],
+      "elapsed_seconds": 0.014413166994927451,
+      "exit_code": 1,
+      "input_sha256": "9d39ff3d39de394f12fe35daa35a3594439d513bd4db6868d4bafc0c3512f7ae",
+      "report_sha256": "41ca79476f8e2c88d5adebbbfce242101cc5c0b45bf066684a013c8e6cbf2a9d",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "nongenerated-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/nongenerated.mpcert"
+      ],
+      "elapsed_seconds": 0.014570125000318512,
+      "exit_code": 1,
+      "input_sha256": "9d39ff3d39de394f12fe35daa35a3594439d513bd4db6868d4bafc0c3512f7ae",
+      "report_sha256": "50e54f16a67fd8c23947028221e819bd1fd7100cc6cc12a3b19a23f30aaf9336",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "nongenerated-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/open-motive.mpcert"
+      ],
+      "elapsed_seconds": 0.012762499987729825,
+      "exit_code": 0,
+      "input_sha256": "2e0114f4eb5446975cf06ca0d46ebc4313cd9ef62c5646d002b7dbcbc4acf5ab",
+      "report_sha256": "748a105e82d71d2d1798fca6a19782f476e91ed149a396ca39de416609cf0bb0",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "open-motive-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/open-motive.mpcert"
+      ],
+      "elapsed_seconds": 0.05406641599256545,
+      "exit_code": 0,
+      "input_sha256": "2e0114f4eb5446975cf06ca0d46ebc4313cd9ef62c5646d002b7dbcbc4acf5ab",
+      "report_sha256": "93a5e45d8b5d4ecce9e66f401c2eb7b7d4c7584cdf5124a1ef1561093e360ef1",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "open-motive-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/prior-constructor-value-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.010922082990873605,
+      "exit_code": 1,
+      "input_sha256": "cd0df04e57572c238c4c878e6032f58741b2e7cc4fb4bd783966e8c7f73d5002",
+      "report_sha256": "c38ea68ddc097a8b76787f7b6cb8aaf203ae07a02c6bd212924cf94d15fcccab",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "prior-constructor-value-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/prior-constructor-value-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.017216374995769,
+      "exit_code": 1,
+      "input_sha256": "cd0df04e57572c238c4c878e6032f58741b2e7cc4fb4bd783966e8c7f73d5002",
+      "report_sha256": "4c3b8b283f793d2df85751e4ec1a04cb4c00a31e525ca9ae89d6bff800e82855",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "prior-constructor-value-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/prior-family-type-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.015036999990115874,
+      "exit_code": 1,
+      "input_sha256": "05137f509488a5233a46f8de82defb8d8e0a6a83780bd04140ed7a7b32b252e0",
+      "report_sha256": "9d45452057baa2a47e4587a488d42c1ce90bdc8bd405d10caf7c38cf12b446ed",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "prior-family-type-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/prior-family-type-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.012122959000407718,
+      "exit_code": 1,
+      "input_sha256": "05137f509488a5233a46f8de82defb8d8e0a6a83780bd04140ed7a7b32b252e0",
+      "report_sha256": "4c3b8b283f793d2df85751e4ec1a04cb4c00a31e525ca9ae89d6bff800e82855",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "prior-family-type-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/prior-lambda-body-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.008939708000980318,
+      "exit_code": 1,
+      "input_sha256": "33795daf9794631e24661c25a84d0c54f3fc8829791052ff11c41d52888c633c",
+      "report_sha256": "9b1ee47cdf975b48deb7597bd87b7c789177674ac0670a149141b287888a5053",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "prior-lambda-body-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/prior-lambda-body-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.01730320800561458,
+      "exit_code": 1,
+      "input_sha256": "33795daf9794631e24661c25a84d0c54f3fc8829791052ff11c41d52888c633c",
+      "report_sha256": "4c3b8b283f793d2df85751e4ec1a04cb4c00a31e525ca9ae89d6bff800e82855",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "prior-lambda-body-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/prior-let-value-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.010034457998699509,
+      "exit_code": 1,
+      "input_sha256": "fe171d58df5d4301851b5550a7150e576e0631c11462d9c0894fc7571fd56a92",
+      "report_sha256": "ac672079f770cb2c1b7b659888c6971c6c12b9250f1ab833e30987fdf893b281",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "prior-let-value-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/prior-let-value-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.019775541994022205,
+      "exit_code": 1,
+      "input_sha256": "fe171d58df5d4301851b5550a7150e576e0631c11462d9c0894fc7571fd56a92",
+      "report_sha256": "4c3b8b283f793d2df85751e4ec1a04cb4c00a31e525ca9ae89d6bff800e82855",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "prior-let-value-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/prior-opaque-value-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.01203741600329522,
+      "exit_code": 1,
+      "input_sha256": "ce38264588d1280e0c9e87947f654a2025b0ffc3034abf3c82dca9bbeac3f1bd",
+      "report_sha256": "9f08789d5b2c03441fb69125e9d6bd42ebc24c4d5d9d1e0680c767cbc14190cb",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "prior-opaque-value-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/prior-opaque-value-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.0134933329973137,
+      "exit_code": 1,
+      "input_sha256": "ce38264588d1280e0c9e87947f654a2025b0ffc3034abf3c82dca9bbeac3f1bd",
+      "report_sha256": "4c3b8b283f793d2df85751e4ec1a04cb4c00a31e525ca9ae89d6bff800e82855",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "prior-opaque-value-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/prior-other-family-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.021658625002601184,
+      "exit_code": 0,
+      "input_sha256": "32b96682f3fc42a73e4270460cd61091305090b4e01cfdb53c00fcefc728dd3b",
+      "report_sha256": "2c99e99f039d010b76ae306f31ad125d6528b5536ae790f9cdfa7feed7727806",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "prior-other-family-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/prior-other-family-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.02057599999534432,
+      "exit_code": 0,
+      "input_sha256": "32b96682f3fc42a73e4270460cd61091305090b4e01cfdb53c00fcefc728dd3b",
+      "report_sha256": "bb7f67fdf593b7d4d68c16271c302022ba9073e23496496667b0dbb169d2b8ca",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "prior-other-family-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/prior-pi-domain-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.02116570799262263,
+      "exit_code": 1,
+      "input_sha256": "3bb8de9dadafb8ecaea2f6a10499a04ea5dff44b6750676412e56cb52005463a",
+      "report_sha256": "a14c0773a7f0f2aef82baf4a9424ea544fd51b68002fc0a6ac02874d2fe30819",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "prior-pi-domain-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/prior-pi-domain-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.018644583004061133,
+      "exit_code": 1,
+      "input_sha256": "3bb8de9dadafb8ecaea2f6a10499a04ea5dff44b6750676412e56cb52005463a",
+      "report_sha256": "4c3b8b283f793d2df85751e4ec1a04cb4c00a31e525ca9ae89d6bff800e82855",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "prior-pi-domain-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/prior-theorem-proof-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.013603375002276152,
+      "exit_code": 1,
+      "input_sha256": "9dd26dc502b6ddd1ee53e1c89047e0349d748dcb57db1a722a1d79a69c980086",
+      "report_sha256": "869149665d76815aedac1d43eb96b97099d2032c1916ab9d534e8c1b775e6af1",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "prior-theorem-proof-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/prior-theorem-proof-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.01379616699705366,
+      "exit_code": 1,
+      "input_sha256": "9dd26dc502b6ddd1ee53e1c89047e0349d748dcb57db1a722a1d79a69c980086",
+      "report_sha256": "4c3b8b283f793d2df85751e4ec1a04cb4c00a31e525ca9ae89d6bff800e82855",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "prior-theorem-proof-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/renamed.mpcert"
+      ],
+      "elapsed_seconds": 0.017602042004000396,
+      "exit_code": 1,
+      "input_sha256": "2ed32afc886ac21e39bdc1896010a5fc87aa8a1bfed77dd0def03ea3ccd49af7",
+      "report_sha256": "4f8ec1721f7192aec90556ca23c0689f2aac923680856fae7466c8e098754a3b",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "renamed-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/renamed.mpcert"
+      ],
+      "elapsed_seconds": 0.0139307499921415,
+      "exit_code": 1,
+      "input_sha256": "2ed32afc886ac21e39bdc1896010a5fc87aa8a1bfed77dd0def03ea3ccd49af7",
+      "report_sha256": "c337449912549256ad23d89efaab0896012c21b3743f48bb9014bf09283e9a9a",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "renamed-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/right-identity.mpcert"
+      ],
+      "elapsed_seconds": 0.01538237500062678,
+      "exit_code": 0,
+      "input_sha256": "13b36cbcad82ecbd4e74b2f0f2c653c34f60fc07cf366729f0ab54c3df673e43",
+      "report_sha256": "83bd7e6f9792c96d858afeca580fc5e42b541226ba2d7ea197763929131c6377",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "right-identity-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/right-identity.mpcert"
+      ],
+      "elapsed_seconds": 0.014710874995216727,
+      "exit_code": 0,
+      "input_sha256": "13b36cbcad82ecbd4e74b2f0f2c653c34f60fc07cf366729f0ab54c3df673e43",
+      "report_sha256": "0bba1b14d8ff9ae3d12ec4e2b38c8056bc9283f6801c3452ddd576c6fc6b97ff",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "right-identity-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/unused-constructor-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.01310216699494049,
+      "exit_code": 0,
+      "input_sha256": "6d20daf03dba3fff173a049009e366457522f3670ebd3468f7cca97c3527953a",
+      "report_sha256": "923a182d7578a498838e2e713e270a3ca851f0726c85cc0856ad7d973da36fad",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "unused-constructor-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/unused-constructor-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.012569208003696986,
+      "exit_code": 0,
+      "input_sha256": "6d20daf03dba3fff173a049009e366457522f3670ebd3468f7cca97c3527953a",
+      "report_sha256": "94ac8262ffc472610aa467f35ff63e618f2070a13672c2dca23d95d5aa61fe43",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "unused-constructor-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/wrong-branch.mpcert"
+      ],
+      "elapsed_seconds": 0.008966958004748449,
+      "exit_code": 1,
+      "input_sha256": "95eed3dfd1606e7bfe8b11f5a981e03d31968ffc3a74cb1bd8f88ac5bd4475d3",
+      "report_sha256": "b1c34d0eaf8bfa0538604022f4c5db040c4312dfd6acd82604964d4aa8e3e89d",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "wrong-branch-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/wrong-branch.mpcert"
+      ],
+      "elapsed_seconds": 0.022203166998224333,
+      "exit_code": 1,
+      "input_sha256": "95eed3dfd1606e7bfe8b11f5a981e03d31968ffc3a74cb1bd8f88ac5bd4475d3",
+      "report_sha256": "646f9eec9237b50b63dbe3b1e992fe524b659c125daea72d3a68f8ccdde34e8f",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "wrong-branch-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/wrong-case-levels-open.mpcert"
+      ],
+      "elapsed_seconds": 0.012957333005033433,
+      "exit_code": 1,
+      "input_sha256": "a810d92406f98608cf378b2f96c1ca74bc8b8eaa25002ac8dd6fe13cb7287371",
+      "report_sha256": "68641e578357c4b4c38c15a2cd262bf69932656293cedeb8b9347413eaf037f1",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "wrong-case-levels-open-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/wrong-case-levels-open.mpcert"
+      ],
+      "elapsed_seconds": 0.007746000002953224,
+      "exit_code": 1,
+      "input_sha256": "a810d92406f98608cf378b2f96c1ca74bc8b8eaa25002ac8dd6fe13cb7287371",
+      "report_sha256": "94b08a6a37f1f77172d2c8b86362315a6ff9098379a6d4559a0405aae1560159",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "wrong-case-levels-open-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/wrong-case-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.015762291994178668,
+      "exit_code": 1,
+      "input_sha256": "2caa439d292e7067845b779b107f689d355ac186dec76c3ee1cfa1b9bc2b0053",
+      "report_sha256": "876ecd648168480a9bb0b797ebea16a3d6cc077ec2266e9e249dddf5a0a1804f",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "wrong-case-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/wrong-case-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.011403540993342176,
+      "exit_code": 1,
+      "input_sha256": "2caa439d292e7067845b779b107f689d355ac186dec76c3ee1cfa1b9bc2b0053",
+      "report_sha256": "94b08a6a37f1f77172d2c8b86362315a6ff9098379a6d4559a0405aae1560159",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "wrong-case-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/wrong-conjunction-left.mpcert"
+      ],
+      "elapsed_seconds": 0.014073083002585918,
+      "exit_code": 1,
+      "input_sha256": "24fcb9198dff2a85fdcd81014c6ea330f3b3e0c356852867e4eedbfe17ef7738",
+      "report_sha256": "10b9fc3fac76e1dd580e5dd90f92fdf2621b7a2a6ee059d4d4decf2125f2ca79",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "wrong-conjunction-left-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/wrong-conjunction-left.mpcert"
+      ],
+      "elapsed_seconds": 0.012164042011136189,
+      "exit_code": 1,
+      "input_sha256": "24fcb9198dff2a85fdcd81014c6ea330f3b3e0c356852867e4eedbfe17ef7738",
+      "report_sha256": "63ca66b85e0c3370e08473104d2dabe3eac260355b837d7205d095e32d75ce8a",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "wrong-conjunction-left-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/wrong-conjunction-right.mpcert"
+      ],
+      "elapsed_seconds": 0.01448720799817238,
+      "exit_code": 1,
+      "input_sha256": "ba9f0a06d63d1036f9248262180880b28422b17ed6ea931af8b6a85bb4981aeb",
+      "report_sha256": "8b2f67d729ee9d5203c5b937f0771a60d5bf41ea21c4fb6ca41dcb51cd53ef53",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "wrong-conjunction-right-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/wrong-conjunction-right.mpcert"
+      ],
+      "elapsed_seconds": 0.01669320800283458,
+      "exit_code": 1,
+      "input_sha256": "ba9f0a06d63d1036f9248262180880b28422b17ed6ea931af8b6a85bb4981aeb",
+      "report_sha256": "671049728a6c476b325e434a92c853acb14dca2c1b1c15e4a33ed9fff05f598b",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "wrong-conjunction-right-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/wrong-interface.mpcert"
+      ],
+      "elapsed_seconds": 0.016759500009356998,
+      "exit_code": 1,
+      "input_sha256": "66ed5c4b577d9de994c0b75f667cd9154e2baa9c9743044d367b68258db30387",
+      "report_sha256": "59525aba4b416547f490230ff78035e62a66e74d024b2470a49e9a2c1664309c",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "wrong-interface-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/wrong-interface.mpcert"
+      ],
+      "elapsed_seconds": 0.015179583002463914,
+      "exit_code": 1,
+      "input_sha256": "66ed5c4b577d9de994c0b75f667cd9154e2baa9c9743044d367b68258db30387",
+      "report_sha256": "de5b57644c3b1531ec7d4349a76f43ff2a18c8dd7ab706686a9b5dfec37c4b4e",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "wrong-interface-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/wrong-major-levels-open.mpcert"
+      ],
+      "elapsed_seconds": 0.013878666999517009,
+      "exit_code": 1,
+      "input_sha256": "605148ddc547e8b4bdb3874bacbd3c14e7312247e2cf5f221c5a3275fd33def5",
+      "report_sha256": "c23d6f3bd9c16fed2f4edb041b033c1055b25ec839cde05b86ee0fe62d890294",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "wrong-major-levels-open-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/wrong-major-levels-open.mpcert"
+      ],
+      "elapsed_seconds": 0.01685141699272208,
+      "exit_code": 1,
+      "input_sha256": "605148ddc547e8b4bdb3874bacbd3c14e7312247e2cf5f221c5a3275fd33def5",
+      "report_sha256": "94b08a6a37f1f77172d2c8b86362315a6ff9098379a6d4559a0405aae1560159",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "wrong-major-levels-open-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/wrong-major-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.023697916010860354,
+      "exit_code": 1,
+      "input_sha256": "10b310606f29dc68f7a6fb0e75b084d986826eb9816ec964d7e7d356016e5ec9",
+      "report_sha256": "675fa931d28d8dee9b9bca277c2674ad18c094044dcbe9a19ea90fa387a46663",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "wrong-major-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/wrong-major-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.02307245900738053,
+      "exit_code": 1,
+      "input_sha256": "10b310606f29dc68f7a6fb0e75b084d986826eb9816ec964d7e7d356016e5ec9",
+      "report_sha256": "94b08a6a37f1f77172d2c8b86362315a6ff9098379a6d4559a0405aae1560159",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "wrong-major-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/wrong-motive-universe.mpcert"
+      ],
+      "elapsed_seconds": 0.019312292002723552,
+      "exit_code": 1,
+      "input_sha256": "a170ea4bfe94a5165ad86af343ee968d4cb8a2f81cdcb87a183cba955ccd175f",
+      "report_sha256": "d4b3d9ea86f72805fb92f61a0f920c26c908d53bea40615dc575c1a9b7fc1ac8",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "wrong-motive-universe-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/wrong-motive-universe.mpcert"
+      ],
+      "elapsed_seconds": 0.0164751249976689,
+      "exit_code": 1,
+      "input_sha256": "a170ea4bfe94a5165ad86af343ee968d4cb8a2f81cdcb87a183cba955ccd175f",
+      "report_sha256": "de5b57644c3b1531ec7d4349a76f43ff2a18c8dd7ab706686a9b5dfec37c4b4e",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "wrong-motive-universe-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/predecessor-std-bool.mpcert"
+      ],
+      "elapsed_seconds": 0.00965295899368357,
+      "exit_code": 0,
+      "input_sha256": "f6ac14e1d1d2f6abd68518bf83d4a97be94e5731366ef1a6c0cafbbd93faa09e",
+      "report_sha256": "6e9edd819b73a13fbd3bead8ab7648b243e2baa7982763349319e9ab4af7d8a5",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "predecessor-std-bool-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/predecessor-std-bool.mpcert"
+      ],
+      "elapsed_seconds": 0.02096458298910875,
+      "exit_code": 0,
+      "input_sha256": "f6ac14e1d1d2f6abd68518bf83d4a97be94e5731366ef1a6c0cafbbd93faa09e",
+      "report_sha256": "414442e5787536c5c74624955cc031192153e3f2f353ebd9b29015fdadfb4334",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "predecessor-std-bool-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/predecessor-zero-axiom.mpcert"
+      ],
+      "elapsed_seconds": 0.005948959005763754,
+      "exit_code": 0,
+      "input_sha256": "752f87e795bbe5ad2bd8a4c119b56dbc837a8ab5bde34beec3f560581598ae8a",
+      "report_sha256": "d9b07e50f0fec94f6e599ea23a76c80bafe7e7d0ea3551cfa13c26c9dbc6c996",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "predecessor-zero-axiom-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-2/predecessor-zero-axiom.mpcert"
+      ],
+      "elapsed_seconds": 0.018668124990654178,
+      "exit_code": 0,
+      "input_sha256": "752f87e795bbe5ad2bd8a4c119b56dbc837a8ab5bde34beec3f560581598ae8a",
+      "report_sha256": "ca9c51351eb06916ee81593af7de0c1682c39f993bc4912bfcfcd2f37507d938",
+      "reused_exact_completed_prefix_report": true,
+      "stage": "predecessor-zero-axiom-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-3/predecessor-one-theorem.mpcert"
+      ],
+      "elapsed_seconds": 0.018729624993284233,
+      "exit_code": 0,
+      "input_sha256": "32ba0b2342d1e28d626bcf4d32e5800ed04171161627a2c7e031204e03a980d6",
+      "report_sha256": "e40a9d43aaf7675fcac9f56403b381c5e57b197d8d624dad21e3aa2eecca5f60",
+      "stage": "predecessor-one-theorem-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers-3/predecessor-one-theorem.mpcert"
+      ],
+      "elapsed_seconds": 0.016542249999474734,
+      "exit_code": 0,
+      "input_sha256": "32ba0b2342d1e28d626bcf4d32e5800ed04171161627a2c7e031204e03a980d6",
+      "report_sha256": "b7ce7aff53fd44686866a5bfc9bc11159d6657470f40cf80308d975049554fd5",
+      "stage": "predecessor-one-theorem-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    }
+  ],
+  "status": "passed_31_shared_fixtures_three_predecessors_both_checkers",
+  "supervisor_pid": 29472
+}

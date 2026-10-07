@@ -118,8 +118,44 @@ pub fn check_bool_cases_declaration(
     if !generated {
         return Err(invalid("nongenerated_cases"));
     }
-    if ty != bool_cases_signature(terms, env, family)?.ty {
+    let signature = bool_cases_signature(terms, env, family)?;
+    if ty != signature.ty {
         return Err(invalid("noncanonical_eliminator_type"));
+    }
+    // Earlier declarations were checked before this family became monomorphic.
+    // Inspect their actual types, values and proofs so declaration order cannot
+    // hide a universe argument in a reducible or opaque definition.
+    let interface = [family, signature.constructors[0], signature.constructors[1]];
+    let mut pending = Vec::new();
+    for declaration in env.iter() {
+        pending.push(declaration.ty());
+        pending.extend(declaration.kind().definition_value());
+        pending.extend(declaration.kind().theorem_proof());
+    }
+    let mut seen = std::collections::HashSet::new();
+    while let Some(term) = pending.pop() {
+        if !seen.insert(term) {
+            continue;
+        }
+        match terms.node(term) {
+            TermNode::Const { global, levels }
+                if interface.contains(global) && !levels.is_empty() =>
+            {
+                return Err(invalid("prior_nonempty_universe_arguments"));
+            }
+            TermNode::Lam { ty, body } | TermNode::Pi { ty, body } => {
+                pending.extend([*ty, *body]);
+            }
+            TermNode::App {
+                function,
+                arguments,
+            } => {
+                pending.push(*function);
+                pending.extend(arguments.iter().copied());
+            }
+            TermNode::Let { ty, value, body } => pending.extend([*ty, *value, *body]),
+            TermNode::Sort(_) | TermNode::Var(_) | TermNode::Const { .. } => {}
+        }
     }
     Ok(())
 }
@@ -301,6 +337,57 @@ mod tests {
                 constant
             )
             .is_err());
+        }
+    }
+
+    #[test]
+    fn bool_cases_generation_rejects_prior_checked_uses_without_registering_cases() {
+        for kind in ["reducible", "opaque", "proof", "type"] {
+            let (mut levels, mut terms, mut env, family, constructors) = setup();
+            let boolean = terms.constant(family, []);
+            let no = terms.constant(constructors[0], [levels.zero()]);
+            let (ty, value) = if kind == "type" {
+                let domain = terms.constant(family, [levels.zero()]);
+                let ty = terms.pi(domain, domain);
+                let body = terms.var(0);
+                (ty, terms.lam(domain, body))
+            } else {
+                (boolean, no)
+            };
+            crate::check(
+                &mut levels,
+                &mut terms,
+                &LocalContext::new(),
+                &env,
+                value,
+                ty,
+            )
+            .unwrap();
+            if matches!(kind, "proof" | "type") {
+                env.register_theorem("Test.Prior", ty, value).unwrap();
+            } else {
+                let reducibility = if kind == "opaque" {
+                    crate::DefinitionReducibility::Opaque
+                } else {
+                    crate::DefinitionReducibility::Reducible
+                };
+                env.register_definition("Test.Prior", ty, value, reducibility)
+                    .unwrap();
+            }
+            let before = env
+                .iter()
+                .map(|declaration| (declaration.name().clone(), declaration.kind()))
+                .collect::<Vec<_>>();
+            let error = generate_bool_cases_declaration(&mut levels, &mut terms, &mut env, family)
+                .unwrap_err();
+            assert_eq!(error.code(), CoreErrorCode::InvalidDeclaration, "{kind}");
+            assert!(env.resolve("Test.Bool.cases").unwrap().is_none());
+            assert_eq!(
+                before,
+                env.iter()
+                    .map(|declaration| (declaration.name().clone(), declaration.kind()))
+                    .collect::<Vec<_>>()
+            );
         }
     }
 

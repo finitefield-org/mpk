@@ -22,6 +22,10 @@ fn bool_cases_accepts_universal_proofs_and_constructor_equations() {
         "open-motive",
         "conjunction-left",
         "conjunction-right",
+        "legacy-prior-constructor-value-levels",
+        "legacy-prior-theorem-proof-levels",
+        "unused-constructor-levels",
+        "prior-other-family-levels",
     ] {
         let certificate = fixture(name);
         assert!(certificate.proof_node_table.is_empty());
@@ -50,6 +54,14 @@ fn bool_cases_rejects_mutated_interfaces_proofs_and_universe_arguments() {
         "wrong-major-levels",
         "wrong-case-levels-open",
         "wrong-major-levels-open",
+        "prior-constructor-value-levels",
+        "prior-opaque-value-levels",
+        "prior-family-type-levels",
+        "prior-theorem-proof-levels",
+        "prior-let-value-levels",
+        "prior-lambda-body-levels",
+        "prior-pi-domain-levels",
+        "later-constructor-value-levels",
     ] {
         assert!(check_declarations(&fixture(name)).is_err(), "{name}");
     }

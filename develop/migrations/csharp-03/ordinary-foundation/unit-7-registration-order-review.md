@@ -1,0 +1,55 @@
+# W09 Boolean cases registration-order review
+
+This follows the user-approved Sort0-dependent Boolean elimination amendment.
+W09 remains In progress, W10 remains Blocked, the practical profile remains
+inactive, and all 987 original application proof IDs remain pending.
+
+Both pinned checkers accepted a checked definition with `Bool.false.{0}` before
+`Bool.cases`, but rejected the same definition after cases registration. The
+before/after certificates, actual exit codes, reports and exact producer/binary
+hashes are retained in `registration-order-checkpoint`. This concrete finding
+supersedes the earlier historical core/specification review's absence of new
+findings; the earlier review is preserved rather than rewritten.
+
+The canonical cases registration validator now checks the term DAGs reachable
+from all preceding declaration types, reducible and opaque definition values,
+and theorem proofs. Both implementations visit Lam/Pi, App and Let children
+and reject nonempty universe arguments on this exact family or its canonical
+constructors. The Rust high-level generator validates before registering cases;
+its regression checks that failure leaves the declaration environment intact.
+Unused arena entries and unrelated families retain their previous behavior.
+The prefix scan runs only at canonical cases registration. Existing inference,
+reduction, ordinary producer code and Certificate v0 encoding are retained.
+
+Twelve exact producer-generated shared fixtures add seven preceding-use
+regressions, a later-use regression, and four positive legacy/unused/unrelated-
+family controls. Every preceding-use regression was accepted by both prior
+checkers, then rejected by both fixed checkers. All 31 shared fixtures plus
+three predecessor certificates pass 68 source-free checker stages with matching
+accepted module/certificate/export/declaration counts and zero axioms. Existing
+completed reports are reused only after exact input/report/stderr/binary hashes
+and every acceptance/rejection condition are checked. Rust passes 56 selected
+core/kernel/feasibility tests; Go passes 16 selected top-level tests including
+31 shared fixture subcases. Affected Clippy and format checks pass. The actual
+producer recompiles and regenerates all twelve pinned byte sets exactly.
+
+The selection covers the changed cases validator/generator, environment and
+inference consumers, declaration checking, the W09 feasibility owner and the
+source-free checker interface. The whole gate is deferred to final T01-W10 and
+T06-W12. Linux validation of the exact public fix source remains pending here.
+The initial invalid-name producer and type-mismatch producer runs, and two
+report-shape harness failures, retain their real failure statuses and inputs;
+none is counted as a successful verification.
+
+A read-only inspection records all 1,920 current ordinary fixture and explicitly
+unapplied candidate certificate paths (1,443 distinct byte sets). None contains
+the reserved `.cases` name bytes. The new registration-only branch therefore
+cannot execute for these exact ordinary bytes. This is a code correspondence
+review, not new checker acceptance: older semantic/checker executions remain
+attributed to their actual frozen source checkouts and binaries. Their normal
+source/value/mutation tests continue unchanged, and pending executions remain
+pending. Future promotions must verify both their exact original source pins
+and the explicit reviewed source deltas, preserving this provenance.
+
+See the complete checkpoint receipt and file manifest under
+`../probes/boolean-proof-elimination-refreeze/registration-order-checkpoint/`.

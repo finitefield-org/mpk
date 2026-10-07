@@ -1,0 +1,37 @@
+{
+  "application_scope_pending": true,
+  "go_checker_sha256": "a3b600849aa18079dd6a855f0d7d206ab17ab05ec7e330809b10a17e363ac944",
+  "process_pid": 27892,
+  "selection_reason": "Registration-order fix only: canonical Bool.cases checking/generation and preceding declaration types, definition values and theorem proofs. Run Bool cases plus relevant environment/inference/declaration checking and source-free checker/CSHARP-03-T01-W09 feasibility owners, selected lint/format; legacy/unused/unrelated-family positive controls share exact bytes. No application proof is discharged; whole T01 gate deferred to final W10.",
+  "stage": "go-checker-build",
+  "stages": [
+    {
+      "command": [
+        "/usr/local/go/bin/go",
+        "test",
+        "-count=1",
+        "-v",
+        "-run",
+        "^Test(BoolCases|Defeq|Core|CheckCore)",
+        "./..."
+      ],
+      "exit_code": 0,
+      "log_sha256": "dd8b0ab033aa1f0b12d8588bfe7cf39c1414a8e15b951556f13386bdab4e44f9",
+      "stage": "selected-core-defeq-tests"
+    },
+    {
+      "command": [
+        "/usr/local/go/bin/go",
+        "build",
+        "-o",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+        "./cmd/mpk-checker-ref"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stage": "go-checker-build"
+    }
+  ],
+  "status": "passed_selected_go_tests_build",
+  "supervisor_pid": 27561
+}

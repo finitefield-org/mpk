@@ -54,6 +54,18 @@ fn csharp_03_t01_w09_boolean_proof_elimination_feasibility() {
         "wrong-major-levels",
         "wrong-case-levels-open",
         "wrong-major-levels-open",
+        "prior-constructor-value-levels",
+        "prior-opaque-value-levels",
+        "prior-family-type-levels",
+        "prior-theorem-proof-levels",
+        "prior-let-value-levels",
+        "prior-lambda-body-levels",
+        "prior-pi-domain-levels",
+        "later-constructor-value-levels",
+        "legacy-prior-constructor-value-levels",
+        "legacy-prior-theorem-proof-levels",
+        "unused-constructor-levels",
+        "prior-other-family-levels",
     ] {
         let text =
             String::from_utf8(read(&format!("fixtures/core-bool-cases/{name}.hex"))).unwrap();
@@ -73,6 +85,10 @@ fn csharp_03_t01_w09_boolean_proof_elimination_feasibility() {
                 | "open-motive"
                 | "conjunction-left"
                 | "conjunction-right"
+                | "legacy-prior-constructor-value-levels"
+                | "legacy-prior-theorem-proof-levels"
+                | "unused-constructor-levels"
+                | "prior-other-family-levels"
         );
         let report: Value =
             serde_json::from_str(&mpk_kernel::verify_certificate_bytes_json(&bytes)).unwrap();
