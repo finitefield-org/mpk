@@ -6771,3 +6771,22 @@ Server syntax is required before launch; this preparation claims no new owner
 result. Completed unrelated checks are excluded. All 987 application proofs and
 final freeze/publication remain pending, with whole gates deferred to final
 T01-W10/T06-W12 on the server.
+
+
+All three exact original structural/scalar/range owners now pass on the server.
+The independent terminal audit verifies all 5,381 immutable source/input hashes,
+unchanged controls and the original compiled test binary, all three complete
+logs/success counts and all 53 complete output files against current fixture
+bytes. The archive and full raw outputs are retained. Together with the six
+completed historical owners, nine of the ten original semantic owners are
+complete. The full decimal fixed-format owner remains running; no individual
+rounding observation is counted as complete.
+
+The two published controls also pass server syntax: the independent owner
+controller and the prepared final normal W09 runner. A new server join/audit
+script is prepared to require a complete decimal result plus all three complete
+independent results; it keeps every actual stage field and copies both original
+runner statuses into a separate four-result folder. Neither original status
+is edited or relabeled successful. This join remains unexecuted and requires
+server syntax before use. Final freeze/publication, all 987 application proofs
+and the final whole gates remain pending.

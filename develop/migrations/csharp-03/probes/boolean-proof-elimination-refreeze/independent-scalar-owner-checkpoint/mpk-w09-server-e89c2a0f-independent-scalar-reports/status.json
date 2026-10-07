@@ -1,0 +1,148 @@
+{
+  "active": {},
+  "application_proof_ids_pending": 987,
+  "execution_host": "root@162.43.92.154",
+  "full_t01_gate": "deferred_to_final_W10_on_server",
+  "full_t06_gate": "deferred_to_W12_on_server",
+  "original_owner_binary": {
+    "path": "/root/mpk-w09-bool-cases-fd99c03c-target/debug/deps/csharp_practical_vc-18f294cebe272f30",
+    "raw_sha256": "c6c381c36d49c95d1a1d2c13cad4011ebba2e88a8c3f06b447815ff240cebb5d"
+  },
+  "original_selected_test_names": {
+    "scalar-domain-ranges": "ordinary_carriers::csharp_03_t06_w09_scalar_domains_ranges_from_original_sources",
+    "scalar-domains": "ordinary_carriers::csharp_03_t06_w09_scalar_domains_original_sources_and_mutations",
+    "structural-storage": "ordinary_carriers::csharp_03_t06_w09_structural_source_linkage_rejects_substitution"
+  },
+  "original_serial_controller_modified": false,
+  "original_test_list_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "original_test_list_stdout_sha256": "eba33bf6c22f2ae70877555fedd12634ee98cc84b44985e526b84169cf2a50f4",
+  "selection_reason": "The three unfinished structural/scalar/range owners read independent immutable inputs, keep process-local state and write only their separately selected output directories. Execute the original compiled test selectors concurrently; no source assertion changes, rebuild, fixture overwrite or unrelated owner rerun.",
+  "source_commit": "e89c2a0f24e1f4a1c562c6a60c3199473781f101",
+  "source_manifest_raw_sha256": "9855a32171205f8641ed7c970e0367c1f5fe5d5dce5807a3e1cf7802f1981295",
+  "stages": [
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-target/debug/deps/csharp_practical_vc-18f294cebe272f30",
+        "ordinary_carriers::csharp_03_t06_w09_scalar_domains_ranges_from_original_sources",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "destination": "scalar-domain-ranges",
+      "elapsed_seconds": 1.0010162638500333,
+      "execution_host": "root@162.43.92.154",
+      "exit_code": 0,
+      "generated_files": {
+        "05e148b20eb9017bdab9a113ab247301fa596ef171961443f1c68727025fe98f.hex": "d6f9b5a349c7dd9f5035f2ad7dc8fb33deef28ac47fd395ade9fece19fb35550",
+        "dec3e56d4ee60ff5a7696151300fdf3cb592d5dee385e0da40e9b2a8ce46ebc9.hex": "9d32edcec0e311e8c1bd641b51aeb47d7384ece65780409a8fa48aad2204756f",
+        "metrics.json": "f523e44ebf70223d8d9f2e76c4aaad59d203d18c4a4b7225cd747b5bf9487d96"
+      },
+      "log_sha256": "3a5fb873cbef3e9898c99e909f6e351c4dd80fc48e9ac4babf5464d3438c0d6b",
+      "original_test_binary_raw_sha256": "c6c381c36d49c95d1a1d2c13cad4011ebba2e88a8c3f06b447815ff240cebb5d",
+      "selector": "csharp_03_t06_w09_scalar_domains_ranges_from_original_sources",
+      "source_commit": "e89c2a0f24e1f4a1c562c6a60c3199473781f101",
+      "stage": "scalar-domain-ranges",
+      "test_counts": [
+        "1"
+      ]
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-target/debug/deps/csharp_practical_vc-18f294cebe272f30",
+        "ordinary_carriers::csharp_03_t06_w09_structural_source_linkage_rejects_substitution",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "destination": "structural-storage",
+      "elapsed_seconds": 9.058317497372627,
+      "execution_host": "root@162.43.92.154",
+      "exit_code": 0,
+      "generated_files": {
+        "binding-vc-boundary_field.hex": "bedd73f1ebdadaf3efed2bdaa72a8ead5df806913fbb08222d1115ab413e0084",
+        "binding-vc-bounded_sequence.hex": "4d59690ac44fd94e662e0c698941b91ef99ca7e5c46f345f9de4d8ef4a6521d8",
+        "binding-vc-instant.hex": "74715d2da2988876458fd2ad80d4a1e7b644b9873ffd1c0fa58b8d5503f8631f",
+        "binding-vc-lookup.hex": "74f1adfd8d6284f98192351224dc1c48fc3ad83580dbeb61b9ba53d7416251a5",
+        "binding-vc-money.hex": "e87aa87fee5a345b438d4aba949cc7f0e9da9ef116535a094028be39ac43d66b",
+        "binding-vc-option.hex": "f372a8de712453d6583c7171d9cda7d9782db84b0e6f3e1cb20f936dd9ef8f96",
+        "binding-vc-ordered_entry.hex": "36e473a38b6a3dbd12ff90328a54a460e020e67f773639e3b4a9beb219d76501",
+        "binding-vc-ordered_map.hex": "083e8a37fe5ec6d4386541304f88892eef4d63537f8bb710e59de83e5ce95ed4",
+        "binding-vc-ordered_set.hex": "4d59690ac44fd94e662e0c698941b91ef99ca7e5c46f345f9de4d8ef4a6521d8",
+        "binding-vc-result.hex": "d62111e812966bb7c84cf82e6c322c6176c69c56080faa9470314276956cadd7",
+        "binding-vc-transition.hex": "036602ffe3186e8e97fec7e7d749db99c058131221eafb8a75a27b6c06ff70b4",
+        "binding-vc-validation.hex": "2fa1f78f876cc6fbd12939fdef2e17c2e2d2db204b9690e4e2a6d62e33002e67",
+        "construction-vc-broken_constructor.hex": "a6147c441fac78f8db3aed8be360c1758d8c873b7c00ddb24176a4449d180e12",
+        "construction-vc-broken_default.hex": "17177651b0a283fc66faa16d439dae0a4569d9fd751efa7e36c66e39db06b6d1",
+        "construction-vc-broken_initializer.hex": "e3c40a9b3df2f4712898450906ce80183aa3e82e095b7622ed61dd6b58837f10",
+        "construction-vc-enum_zero.hex": "93ae7ea5217263cc20f3f9b3d11780d81392764648c13ce85e0c8deada99b08d",
+        "construction-vc-positive_constructor.hex": "17177651b0a283fc66faa16d439dae0a4569d9fd751efa7e36c66e39db06b6d1",
+        "construction-vc-positive_default.hex": "17177651b0a283fc66faa16d439dae0a4569d9fd751efa7e36c66e39db06b6d1",
+        "construction-vc-positive_initializer.hex": "e3c40a9b3df2f4712898450906ce80183aa3e82e095b7622ed61dd6b58837f10",
+        "exception-vc-allowed.hex": "1307d04724074f8486379d9a082ae9cb57bd88fcd483c1422a726d705c98ec30",
+        "exception-vc-broken.hex": "1307d04724074f8486379d9a082ae9cb57bd88fcd483c1422a726d705c98ec30",
+        "exception-vc-empty.hex": "1307d04724074f8486379d9a082ae9cb57bd88fcd483c1422a726d705c98ec30",
+        "metrics.json": "91e68a375fd70cb63442306e051a4fd28643054d5145c361249ec0e1d07fd7b2",
+        "transition-vc-business_history_capacity.hex": "ddaf4978e9e1b2d4de2e4eefbe856945aad0520a70573246119e0985af2fae84",
+        "transition-vc-business_idempotency_conflict.hex": "ddaf4978e9e1b2d4de2e4eefbe856945aad0520a70573246119e0985af2fae84"
+      },
+      "log_sha256": "f4a5b4ff3eacc172032c6830c087c601e464fe5840743e9da1a224a92bad02bd",
+      "original_test_binary_raw_sha256": "c6c381c36d49c95d1a1d2c13cad4011ebba2e88a8c3f06b447815ff240cebb5d",
+      "selector": "csharp_03_t06_w09_structural_source_linkage_rejects_substitution",
+      "source_commit": "e89c2a0f24e1f4a1c562c6a60c3199473781f101",
+      "stage": "structural-storage",
+      "test_counts": [
+        "1"
+      ]
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-target/debug/deps/csharp_practical_vc-18f294cebe272f30",
+        "ordinary_carriers::csharp_03_t06_w09_scalar_domains_original_sources_and_mutations",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "destination": "scalar-domains",
+      "elapsed_seconds": 11.109854942187667,
+      "execution_host": "root@162.43.92.154",
+      "exit_code": 0,
+      "generated_files": {
+        "binding-vc-boundary_field.hex": "d369f8103d9cf2d0172540f4ca5ce657f6066970dae9d9c93f7bea54cca9eab8",
+        "binding-vc-bounded_sequence.hex": "aa75e12bad22dfa5b211730b5f855fccee00568009792767e300013f1af38235",
+        "binding-vc-instant.hex": "dcee054999f6d13ed46866636931aad6e37624dc1755626f3ecb8cfd5ea85112",
+        "binding-vc-lookup.hex": "478dcc31ed31f186d6238254b00a8bc77d1386a53da0724e6ad04898566ac3d4",
+        "binding-vc-money.hex": "f216feb1104fc17874c17d0612032077dd8ef90dbf77fdc2d7b59a98e979d11f",
+        "binding-vc-option.hex": "478dcc31ed31f186d6238254b00a8bc77d1386a53da0724e6ad04898566ac3d4",
+        "binding-vc-ordered_entry.hex": "23b9d7ed85516d65de88ff45b6b541bc1224e509c6b96cc8fb91e15922ca3c5a",
+        "binding-vc-ordered_map.hex": "aa75e12bad22dfa5b211730b5f855fccee00568009792767e300013f1af38235",
+        "binding-vc-ordered_set.hex": "aa75e12bad22dfa5b211730b5f855fccee00568009792767e300013f1af38235",
+        "binding-vc-result.hex": "478dcc31ed31f186d6238254b00a8bc77d1386a53da0724e6ad04898566ac3d4",
+        "binding-vc-transition.hex": "aa75e12bad22dfa5b211730b5f855fccee00568009792767e300013f1af38235",
+        "binding-vc-validation.hex": "e52d7b0464bdeb0c7a26c3029358bcae29c6d5fbb7bdf7d9b23d11cb519396ff",
+        "construction-vc-broken_constructor.hex": "23b9d7ed85516d65de88ff45b6b541bc1224e509c6b96cc8fb91e15922ca3c5a",
+        "construction-vc-broken_default.hex": "23b9d7ed85516d65de88ff45b6b541bc1224e509c6b96cc8fb91e15922ca3c5a",
+        "construction-vc-broken_initializer.hex": "aa75e12bad22dfa5b211730b5f855fccee00568009792767e300013f1af38235",
+        "construction-vc-enum_zero.hex": "803d05b243a05302e8b6cb93cf77edbdb48a563b7803711ce784a76a1d3d7688",
+        "construction-vc-positive_constructor.hex": "23b9d7ed85516d65de88ff45b6b541bc1224e509c6b96cc8fb91e15922ca3c5a",
+        "construction-vc-positive_default.hex": "23b9d7ed85516d65de88ff45b6b541bc1224e509c6b96cc8fb91e15922ca3c5a",
+        "construction-vc-positive_initializer.hex": "aa75e12bad22dfa5b211730b5f855fccee00568009792767e300013f1af38235",
+        "exception-vc-allowed.hex": "23b9d7ed85516d65de88ff45b6b541bc1224e509c6b96cc8fb91e15922ca3c5a",
+        "exception-vc-broken.hex": "23b9d7ed85516d65de88ff45b6b541bc1224e509c6b96cc8fb91e15922ca3c5a",
+        "exception-vc-empty.hex": "23b9d7ed85516d65de88ff45b6b541bc1224e509c6b96cc8fb91e15922ca3c5a",
+        "metrics.json": "13b47ec118998a10b29df20fef73890e1c4026e194cd911eec6d598f35303ca1",
+        "transition-vc-business_history_capacity.hex": "3b8dc386554667185612bd2ac92242bde6a2caf00bf0b174cb780c91f8cf93c0",
+        "transition-vc-business_idempotency_conflict.hex": "3b8dc386554667185612bd2ac92242bde6a2caf00bf0b174cb780c91f8cf93c0"
+      },
+      "log_sha256": "58d5be93a0d95fb0a13fe6977ec8fd9648e9d8ae7a1b886b5ede1559d66accaa",
+      "original_test_binary_raw_sha256": "c6c381c36d49c95d1a1d2c13cad4011ebba2e88a8c3f06b447815ff240cebb5d",
+      "selector": "csharp_03_t06_w09_scalar_domains_original_sources_and_mutations",
+      "source_commit": "e89c2a0f24e1f4a1c562c6a60c3199473781f101",
+      "stage": "scalar-domains",
+      "test_counts": [
+        "1"
+      ]
+    }
+  ],
+  "status": "passed_all_three_independent_original_scalar_owners_and_exact_current_output_bytes_on_server",
+  "supervisor_pid": 3803182
+}

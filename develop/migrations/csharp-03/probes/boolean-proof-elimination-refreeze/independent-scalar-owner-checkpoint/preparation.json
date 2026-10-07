@@ -1,4 +1,22 @@
 {
+  "actual_independently_audited_result": {
+    "archive_sha256": "493d54eb66245e4bdfb4d18abc75ab57774cf4b39e28749fb0cd445ebf170f0b",
+    "audit_raw_sha256": "f2eed5542d0c497c143c943ca6bfede00b217fb4d2ed75253d38c8aee914adb0",
+    "current_output_files_verified": 53,
+    "owners_passed": 3,
+    "source_files_verified": 5381,
+    "status": "passed_independent_server_three_complete_original_scalar_owner_results_sources_binary_and_current_output_bytes"
+  },
+  "actual_server_launch": {
+    "raw_sha256": "8e1e4ec6adfbbfeb1a451bdaff98c5e9382120058cc16068e98021ecb107dcb8",
+    "receipt": "independent-scalar-launch-receipt.json",
+    "supervisor_pid": 3803182
+  },
+  "actual_server_syntax": {
+    "checks_passed": 2,
+    "raw_sha256": "e6d693071437e483107cbe28acd0b5fa46882dfa45ccb28b4d814e4dbd02d54c",
+    "receipt": "independent-scalar-and-final-runner-syntax-receipt.json"
+  },
   "application_proof_ids_pending": 987,
   "decimal_fixed_formats_keeps_its_original_execution": true,
   "execution": "Use the exact already compiled original test binary, independently verify unique original selector names, then run --exact --nocapture --test-threads=1 per process. Verify all5381 immutable sources/controls/binary before/after, full normal success count and actual output bytes. No build or test-source mutation.",
@@ -29,6 +47,13 @@
     "raw_sha256": "2b6d39aa43c9ab6fb0c1a889e3a3a9e83b85666d784f5490d829f0a8786af22e"
   },
   "original_serial_controller_modified": false,
+  "prepared_four_result_join": {
+    "executed": false,
+    "original_runner_statuses_never_edited": true,
+    "path": "assemble-and-audit-four-server-scalar-owner-results.py",
+    "raw_sha256": "6a3e30f35d2bd3302da8d1b2b4844dc370d7ddbdef22089502e2a471344fd16b",
+    "requires_complete_actual_decimal_and_all_three_independent_owners": true
+  },
   "requires_server_syntax_before_launch": true,
   "source_commit": "e89c2a0f24e1f4a1c562c6a60c3199473781f101",
   "source_independence_review": "All three original functions create their own bundle, immutable source replay, metadata, previous-observation state and output variable. They read shared frozen files only; their selected output directories and process memory are separate. All original shape/source/type/value/import/cross-source/hash/mutation assertions remain unchanged. No input/output dependency connects the three owners or decimal fixed-format observations.",
