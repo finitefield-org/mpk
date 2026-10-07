@@ -118,3 +118,15 @@ complete wrapper promotion receipt and every original-to-current hash; every
 other original source/input guard and all 42 pattern checker stages remain
 required. Pattern acceptance, scalar/codec owners and final freeze/publication
 remain pending. No application proof is completed by this wrapper promotion.
+
+
+Six complete original scalar/codec source owners now pass, preserving all
+source/value/import/mutation checks and all 140 current fixture byte sets.
+The independent review verifies the original source pins, all six actual
+terminal logs, normal success counts and decimal formatting's 72 observations.
+All 194 owner production source paths exactly match the current checkout;
+registration-rule deltas remain separately attributed to their reviewed
+source/binary execution. `six-semantic-owner-checkpoint` retains the complete
+source and comparison records. Remaining four owner results are not claimed
+passed. This record changes no production source, fixture or application proof;
+final pattern/semantic-owner gates and approved freeze/publication remain open.

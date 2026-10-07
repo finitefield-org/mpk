@@ -6515,3 +6515,30 @@ owners, final approved-freeze closure/publication and all 987 original
 application proof IDs remain pending. T01-W09 remains In progress, T01-W10 is
 Blocked, and the practical profile is inactive. Whole gates remain final
 T01-W10 and T06-W12. No unaffected source/native matrix is repeated.
+
+
+## 77. Completed scalar and codec source-owner checkpoint
+
+The first six complete original scalar/codec owners pass: integer parsers,
+integer formats, hex codecs, calendar codecs, decimal parsers and decimal
+formats. Their unchanged source/value/import/mutation assertions execute from
+the original frozen source checkout. All 140 complete generated files equal
+the current fixture bytes exactly. Decimal formatting includes all 72 original
+native/model observations, and its actual terminal one-test log passes after
+21,805.70 seconds. The selected owner production subset contains 194 source
+paths, all exactly equal in the original and current checkout. Reviewed
+canonical-cases registration deltas retain their separate execution provenance.
+
+The independent review verifies every successful terminal log and success
+count, all current output hashes, the original source inventory and the actual
+72-observation count. `six-semantic-owner-checkpoint` retains these logs, source
+pins, exact comparison records and the live runner's truthful partial-status
+snapshot. No source or fixture is changed, and no unaffected test is repeated.
+The remaining decimal fixed formats, structural storage, scalar domains and
+scalar domain ranges are not claimed as passed by this checkpoint.
+
+Pattern acceptance, remaining scalar/codec owners and final approved-freeze
+closure/publication remain pending. T01-W09 stays In progress, T01-W10 stays
+Blocked, and the practical profile remains inactive. All 987 original
+application proof IDs remain pending. Targeted verification is retained here;
+the whole gates remain deferred to final T01-W10 and T06-W12.
