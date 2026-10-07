@@ -5,6 +5,13 @@
     "receipt": "final-server-freeze-preparation-syntax.json",
     "server_passed_controls": 2
   },
+  "actual_prebuild_publication_recovery": {
+    "exact_remote_branch_verified": true,
+    "first_two_attempts_failed_remote_http500": true,
+    "force_or_payload_bypass_used": false,
+    "published_commit": "7abd5b7b3dc7d8a8b900365827f7bb238a4a35e7",
+    "third_same_commit_push_passed": true
+  },
   "all_application_proof_ids_still_pending": 987,
   "allowed_changed_freeze_evidence_fields": [
     "freeze_generator_raw_sha256",
@@ -69,6 +76,11 @@
   "local_work_permitted": "Edit source and prepare immutable evidence/hash inventories; copy server-generated outputs only after server verification; no local test, checker, lint, or freeze --check.",
   "old_scripts_are_retained_historical_unexecuted": true,
   "prepared_final_selected_server_runner": {
+    "actual_server_syntax": {
+      "passed": true,
+      "raw_sha256": "912524f5746517de138ba9ba8666feb7410316a6dad4291dd7b4d421a1a4140e",
+      "receipt": "final-normal-runner3-server-syntax-receipt.json"
+    },
     "dev_profile_matches_prebuild_with_assertions_and_overflow_checks": true,
     "earlier_runner_and_actual_server_syntax_retained": true,
     "embedded_public_package_foundation_and_original_standard_probe_input_hashes_pinned": true,

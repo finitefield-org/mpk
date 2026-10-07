@@ -6830,3 +6830,21 @@ is not executed and requires its new server syntax check. The complete decimal
 fixed-format owner remains running; nine original owners are complete.
 Final freeze/publication, all 987 application proofs and the final whole gates
 remain pending. T01-W09 is In progress; T01-W10 is Blocked.
+
+
+The final normal runner3 passes exact published-source syntax on the server.
+Its normal-test manifest additionally pins the embedded public package,
+foundation specifications/descriptor/definitions and original standard probe
+inputs. A read-only manual review of the term index finds no actionable issue
+within that scope: every structural equality field participates, fixed-width
+ordered slice keys are injective, first IDs/append order/nil-empty equality
+remain, and production terms/slice elements have no mutation outside interning.
+The actual earlier server differential regressions and complete report/source
+reconstruction remain its runtime evidence. The record is a source review,
+not an additional test result or final W09 completion claim.
+
+Two normal same-commit pushes receive actual GitHub Internal Server Errors;
+those failures are retained. A later same-commit push succeeds and the exact
+remote branch is verified. No force, alternate credentials or payload bypass
+is used. The original decimal test continues throughout. Final source/owner
+closure and the whole gates remain pending.
