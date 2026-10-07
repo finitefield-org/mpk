@@ -1,0 +1,159 @@
+{
+  "application_proof_ids_pending": 987,
+  "partial_status_snapshots": {
+    "control-pattern-consumer-dual-checkers": {
+      "interrupted_stage": "with-packed-pattern-proof-types--guard_order-go",
+      "original_status": "running",
+      "raw_sha256": "e950aae7a9533ba459ca6597abf0f0fbaa98b3773ec8cfcc75f8d70664ec26fc",
+      "successful_stages": 30
+    },
+    "ordinary-regeneration-4b": {
+      "interrupted_stage": "decimal-fixed-formats",
+      "original_status": "running",
+      "raw_sha256": "38e5343d106f12afba0716d886ce05d0d0a7125704dee0bbb59f5a4a2c09b153",
+      "successful_stages": 6
+    }
+  },
+  "processes_before": [
+    {
+      "command": "/Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python /private/tmp/mpk-w09-generic-transport-probe/check-positive.py",
+      "elapsed": "21:45:33",
+      "pgid": 10141,
+      "pid": 10141,
+      "ppid": 4493,
+      "state": "Ss"
+    },
+    {
+      "command": "/private/tmp/mpk-w09-scoped-construction/go-checker verify /private/tmp/mpk-w09-generic-transport-probe/generation-1/candidate.mpcert",
+      "elapsed": "21:45:33",
+      "pgid": 10141,
+      "pid": 10144,
+      "ppid": 10141,
+      "state": "R"
+    },
+    {
+      "command": "/Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python /private/tmp/mpk-w09-actual-default-proofs/run-targeted.py --repo /private/tmp/mpk-w09-packed-pattern-proofs --reports /private/tmp/mpk-w09-actual-default-proofs/local --manifest /private/tmp/mpk-w09-actual-default-proofs/source-manifest.json --target /private/tmp/mpk-w09-scoped-construction-target",
+      "elapsed": "01-02:33:06",
+      "pgid": 13620,
+      "pid": 13620,
+      "ppid": 4493,
+      "state": "Ss"
+    },
+    {
+      "command": "/Users/kazuyoshitoshiya/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_actual_default_proofs_original_source -- --nocapture --test-threads=1",
+      "elapsed": "01-02:32:04",
+      "pgid": 13620,
+      "pid": 13885,
+      "ppid": 13620,
+      "state": "S"
+    },
+    {
+      "command": "/private/tmp/mpk-w09-scoped-construction-target/debug/deps/csharp_practical_vc-4c8820476077418f csharp_03_t06_w09_actual_default_proofs_original_source --nocapture --test-threads=1",
+      "elapsed": "01-02:28:22",
+      "pgid": 13620,
+      "pid": 14751,
+      "ppid": 13885,
+      "state": "R"
+    },
+    {
+      "command": "/Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python /private/tmp/mpk-w09-generic-transport-probe/check-mutations.py",
+      "elapsed": "21:28:26",
+      "pgid": 14809,
+      "pid": 14809,
+      "ppid": 4493,
+      "state": "Ss"
+    },
+    {
+      "command": "/private/tmp/mpk-w09-scoped-construction/go-checker verify /private/tmp/mpk-w09-generic-transport-probe/wrong-proof.mpcert",
+      "elapsed": "21:28:21",
+      "pgid": 14809,
+      "pid": 14894,
+      "ppid": 14809,
+      "state": "R"
+    },
+    {
+      "command": "/Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python /private/tmp/mpk-w09-state-default-reports/check-final.py",
+      "elapsed": "21:25:59",
+      "pgid": 15321,
+      "pid": 15321,
+      "ppid": 4493,
+      "state": "Ss"
+    },
+    {
+      "command": "/private/tmp/mpk-w09-scoped-construction/go-checker verify /private/tmp/mpk-w09-state-default-reports/checks/binding-vc-lookup-positive.mpcert",
+      "elapsed": "21:25:59",
+      "pgid": 15321,
+      "pid": 15325,
+      "ppid": 15321,
+      "state": "R"
+    },
+    {
+      "command": "/Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python /private/tmp/mpk-w09-bool-cases-reports/refreeze/run-ordinary-regeneration-4b.py",
+      "elapsed": "15:55:11",
+      "pgid": 15870,
+      "pid": 15870,
+      "ppid": 4493,
+      "state": "Ss"
+    },
+    {
+      "command": "/Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python /private/tmp/mpk-w09-actual-default-proofs/check.py",
+      "elapsed": "01-01:54:02",
+      "pgid": 27770,
+      "pid": 27770,
+      "ppid": 4493,
+      "state": "Ss"
+    },
+    {
+      "command": "/private/tmp/mpk-w09-scoped-construction/go-checker verify /private/tmp/mpk-w09-actual-default-proofs/checks/binding-vc-lookup-hash.mpcert",
+      "elapsed": "07:10:43",
+      "pgid": 27770,
+      "pid": 47926,
+      "ppid": 27770,
+      "state": "R"
+    },
+    {
+      "command": "/Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python run-control-pattern-consumer-dual-checkers.py",
+      "elapsed": "12:24:57",
+      "pgid": 59420,
+      "pid": 59420,
+      "ppid": 4493,
+      "state": "Ss"
+    },
+    {
+      "command": "/private/tmp/mpk-w09-bool-cases-reports/go-local-4/go-checker verify /private/tmp/mpk-w09-bool-cases-reports/refreeze/control-pattern-consumer-dual-checkers/with-packed-pattern-proof-types--guard_order.mpcert",
+      "elapsed": "11:08:45",
+      "pgid": 59420,
+      "pid": 71259,
+      "ppid": 59420,
+      "state": "R"
+    },
+    {
+      "command": "/Users/kazuyoshitoshiya/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_decimal_fixed_formats_original_sources -- --nocapture --test-threads=1",
+      "elapsed": "05:33:16",
+      "pgid": 15870,
+      "pid": 84044,
+      "ppid": 15870,
+      "state": "S"
+    },
+    {
+      "command": "/private/tmp/mpk-w09-bool-cases-target/debug/deps/csharp_practical_vc-e6d58012f705dea2 csharp_03_t06_w09_decimal_fixed_formats_original_sources --nocapture --test-threads=1",
+      "elapsed": "05:33:16",
+      "pgid": 15870,
+      "pid": 84045,
+      "ppid": 84044,
+      "state": "R"
+    }
+  ],
+  "processes_remaining": [],
+  "reason": "The user now requires every test to execute via ssh on root@162.43.92.154 and prohibits local tests. Stop only identified task-owned local test process groups; preserve all completed and partial evidence. This interruption is not a test result.",
+  "status": "stopped_all_seven_identified_local_test_process_groups_at_explicit_user_instruction",
+  "terminated_process_groups": [
+    10141,
+    13620,
+    14809,
+    15321,
+    15870,
+    27770,
+    59420
+  ]
+}
