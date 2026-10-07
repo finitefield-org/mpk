@@ -6800,3 +6800,33 @@ A proposal reconciliation candidate explicitly distinguishes historical fixed
 checker executions and the reviewed indexed reference executions. All these
 integration/generation steps remain unexecuted until the complete original
 decimal fixed-format owner passes. Current normative inputs remain unchanged.
+
+
+## 84. Independent final owner compile preparation on the server
+
+A separate public-source sparse checkout and target prebuild only the affected
+`mpk-vc/csharp_practical_spec` executable with `cargo test --no-run`. The
+selected compile passes in 5m14s; all 675 source hashes and clean Git state
+remain exact. The independent server audit retains the actual executable SHA
+and all logs. No owner test, freeze generation or whole gate executes here.
+The separate lean target uses optimized test/dev code with debug assertions
+and overflow checks enabled, preserving the original assertions.
+
+The initial no-checkout sparse setup retains an empty index with staged
+deletions. Only this newly created .git-only checkout is repaired after exact
+head/empty-state checks; existing live checkouts remain unchanged. A dependent
+launch was attempted before this successful preflight, but log-path redirection
+fails before Cargo launches; that real preparation failure is retained. The
+first actual compile then fails with five references to two absent public
+embedded assets. Both original failure logs and receipts remain. Adding exactly
+the foundation specification and profile package preserves all preceding 673
+source bytes; only the affected compile is repeated.
+
+`final-server-freeze-preparation-checkpoint` retains the complete source and
+compile records, actual independent audit, initial preparation failures and
+prepared final normal runner. The runner aligns its separate target's dev
+profile with this prebuild while retaining assertions and overflow checks. It
+is not executed and requires its new server syntax check. The complete decimal
+fixed-format owner remains running; nine original owners are complete.
+Final freeze/publication, all 987 application proofs and the final whole gates
+remain pending. T01-W09 is In progress; T01-W10 is Blocked.

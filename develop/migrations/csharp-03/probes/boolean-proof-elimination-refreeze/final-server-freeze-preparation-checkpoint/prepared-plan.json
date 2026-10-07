@@ -35,6 +35,30 @@
     "server_audit_raw_sha256": "af4174a6172a3dca082ad013307586cabe6cf9ae24eaf4228a94a7f0631886af"
   },
   "execution_host": "root@162.43.92.154",
+  "final_source_prebuild": {
+    "actual_binary": {
+      "bytes": 2734880,
+      "path": "/root/mpk-w09-final-freeze-target/debug/deps/csharp_practical_spec-3740eb5f5b177657",
+      "sha256": "4fa5f0b2a572286c853f8086620d3f634e9b0e2655e5a3a25960a27bd8bae192"
+    },
+    "actual_compile_exit_code": 0,
+    "actual_evidence_archive_sha256": "8461d0ac1ee5980897a2b9219ad4d154b7aad98237f657bcd51e7e2f4c6d4600",
+    "actual_server_audit_raw_sha256": "5a08e4aaba2eab78cc78717739979584300a5ae89a2fbbcc85cd582a732b05b4",
+    "compile_source_immutable_during_entire_actual_execution": true,
+    "first_actual_compile_exit_code": 101,
+    "first_empty_index_preflight_and_premature_log_path_failures_retained": true,
+    "generation_executions": 0,
+    "initial_failed_compile_log_sha256": "35a356998fcaf26f6bf2655c43d8f26d56a54e2bb061ec5892e73f64faff8117",
+    "repository": "/root/mpk-w09-final-freeze-candidate",
+    "source_clean_after_compile": true,
+    "source_commit": "aa7b589143fe67f96dcc054b28b101e510ae67d1",
+    "source_immutable_until_compile_terminates": false,
+    "source_paths_after_missing_assets": 675,
+    "source_paths_before_missing_assets": 673,
+    "status": "passed_independent_exact_final_owner_compile_only_source_and_binary_audit",
+    "target": "/root/mpk-w09-final-freeze-target",
+    "test_executions": 0
+  },
   "generation_validation_location": "server_only",
   "historical_execution_source_commits_preserved": [
     "fd99c03c8e3535bcc31f0b9d1441d4b74de80ebf",
@@ -45,9 +69,12 @@
   "local_work_permitted": "Edit source and prepare immutable evidence/hash inventories; copy server-generated outputs only after server verification; no local test, checker, lint, or freeze --check.",
   "old_scripts_are_retained_historical_unexecuted": true,
   "prepared_final_selected_server_runner": {
+    "dev_profile_matches_prebuild_with_assertions_and_overflow_checks": true,
+    "earlier_runner_and_actual_server_syntax_retained": true,
+    "embedded_public_package_foundation_and_original_standard_probe_input_hashes_pinned": true,
     "executed": false,
-    "path": "run-final-w09-selected-validation-on-server-2.py",
-    "raw_sha256": "0a30e0a1573c3b9c493d03bbf126cacc767c3006370147d7ea3016ad9be4facd",
+    "path": "run-final-w09-selected-validation-on-server-3.py",
+    "raw_sha256": "9a61298ebb0855c5343aa7440478411c484648b1c7e49a3c8e0e3f1f3cf67bec",
     "requires_server_syntax_before_execution": true,
     "selected_w09_owner_count": 8,
     "target_directory": "/root/mpk-w09-final-freeze-target",
