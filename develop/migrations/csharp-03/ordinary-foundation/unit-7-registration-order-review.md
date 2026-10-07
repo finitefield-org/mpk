@@ -170,3 +170,14 @@ Go JSON, while original Rust observations retain their original provenance.
 audit. The prepared two-step source guard permits only the pinned registration
 change followed by this exact indexed term source. No application proof,
 pattern fixture promotion or final freeze completion is claimed here.
+
+
+The independent server union now verifies all 42 actual pattern results and
+21 complete pairs, with unchanged original execution fields and source/host/
+binary provenance. Three published promotion controls pass server syntax.
+Exactly 126 primitive/route/packed fixture files are promoted after all four
+original owner outputs match by byte and all source guards pass. Complete
+predecessors remain in `previous-context-6-pattern-consumers`; actual evidence
+remains in `pattern-consumer-checkpoint`. Capture36 and wrapper288 are prior
+completed work. Four scalar/codec owners, final freeze/publication and all 987
+application proofs remain pending. All new tests and final gates remain server-only.

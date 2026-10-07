@@ -6666,3 +6666,38 @@ fixture promotion, complete scalar/codec owners, final freeze/publication and
 all 987 original application proofs remain pending. T01-W09 is In progress,
 T01-W10 is Blocked and the practical profile is inactive. The targeted results
 are recorded above; whole gates remain final T01-W10/T06-W12 on the server.
+
+
+## 81. Exact pattern consumer promotion after server acceptance
+
+The independent server audit verifies all 42 actual case/backend results and
+21 complete certificate pairs: thirty historical completed results and twelve
+server results. Indexed Go executes all six approved remaining inputs; fixed
+Rust executes the five missing inputs and reuses exactly one completed report
+after full input/report/stderr/binary correspondence. All original execution
+fields, source hashes and host provenance remain. The original interrupted
+status is retained unchanged. Every accepted pair agrees on module, declaration,
+export and certificate hashes with zero axioms.
+
+After the three published promotion controls pass selected syntax checks on
+the server, the hash-only artifact promotion updates exactly 126 remaining
+pattern primitive/route/packed proof-type files. All 126 bytes match the actual
+passed output files of the four unchanged original owners. Thirty-six unpacked
+outputs also retain their original owner hashes. The exact 290 previously
+reviewed wrapper/metric/review changes and separately reviewed nine registration
+paths plus one Go term-index delta remain required by the original source
+guards; no other source/input exception is added.
+
+`previous-context-6-pattern-consumers` retains all 126 complete predecessor
+files. `pattern-consumer-checkpoint` retains the actual producer, original-owner,
+complete graph/lineage, 42-result provenance, independent server audit and three
+server syntax checks. Capture36 and wrapper288 were already published and are
+not counted again. Artifact copies and hash preparation execute locally; all
+new software checks execute only on the approved SSH server. No unaffected
+owner matrix or whole gate is repeated for this evidence/fixture publication.
+
+Four original scalar/codec owners remain pending on their frozen server
+checkout. Approved final freeze/publication and all 987 original application
+proof IDs remain pending. T01-W09 is In progress, T01-W10 is Blocked and the
+practical profile remains inactive. Selected checks are recorded above; whole
+gates remain deferred to final T01-W10/T06-W12 on the server.
