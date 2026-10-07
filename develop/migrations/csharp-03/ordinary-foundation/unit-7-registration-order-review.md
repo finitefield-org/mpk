@@ -36,7 +36,9 @@ producer recompiles and regenerates all twelve pinned byte sets exactly.
 The selection covers the changed cases validator/generator, environment and
 inference consumers, declaration checking, the W09 feasibility owner and the
 source-free checker interface. The whole gate is deferred to final T01-W10 and
-T06-W12. Linux validation of the exact public fix source remains pending here.
+T06-W12. The exact public fix source now passes Linux validation, recorded separately
+in `registration-order-linux-checkpoint`: 61 Rust tests, 16 Go top-level tests,
+31 shared subcases, lint/format and all 68 source-free checker stages.
 The initial invalid-name producer and type-mismatch producer runs, and two
 report-shape harness failures, retain their real failure statuses and inputs;
 none is counted as a successful verification.
@@ -53,3 +55,12 @@ and the explicit reviewed source deltas, preserving this provenance.
 
 See the complete checkpoint receipt and file manifest under
 `../probes/boolean-proof-elimination-refreeze/registration-order-checkpoint/`.
+
+The Linux source remains clean at public commit `fd99c03c`; 371 selected and
+embedded input Git blobs are verified. The initial empty-checkout guard failure
+and missing-embedded-input compile failure 101 are preserved. The six already
+passed core/kernel checks retain exact source/log provenance; the failed and
+unexecuted stages run after the missing public inputs are added. Final evidence
+summary/freeze refresh remains deferred until all current original owner and
+consumer acceptance runs complete. See the source-correspondence guard review
+for the exact original-to-fixed source deltas used by later promotions.

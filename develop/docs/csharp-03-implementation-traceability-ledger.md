@@ -6392,3 +6392,33 @@ pins before promotion. Exact-public-source Linux fix validation and final
 freeze/publication remain pending. All 987 application proofs remain pending;
 W09 is In progress, W10 is Blocked, and the practical profile is inactive.
 Whole gates remain final T01-W10 and T06-W12.
+
+
+## 73. Exact public Boolean registration-order fix Linux checkpoint
+
+The clean public `fd99c03c` fix passes x86-64 Linux verification: 61
+selected Rust tests, 16 Go top-level tests including 31 shared fixture subcases,
+Clippy/format/build and all 68 checker stages over 31 shared fixtures and three
+predecessor certificates. All accepted reports match the fixed local module,
+certificate, export, declaration and zero-axiom data; rejected reports retain
+their expected core rejection classes. Input/report/stderr hashes and the
+certificate hash domain are checked independently. All 371 selected source and
+embedded input Git blobs match the public commit, and the source stays clean.
+
+The initial empty-checkout guard failure and missing-embedded-input compile
+failure 101 are preserved. Six already passed core/kernel checks retain exact
+source/log provenance; only the failed VC compilation and remaining unexecuted
+stages run after public embedded inputs are added. Selection follows the changed
+validator/generator and affected environment/inference/declaration/feasibility
+owners. See `registration-order-linux-checkpoint/receipt.json` and its complete
+file manifest. No new C# source payload is transferred.
+
+Prepared later promotion guards retain exact frozen owner source inputs and
+permit only SHA-pinned reviewed canonical-cases registration source deltas.
+Their exact ordinary certificate bytes lack the reserved cases interface, so
+old executions keep their actual source/binary provenance. Current pattern,
+wrapper and scalar/codec original-owner results remain pending until terminal
+success. Final proof-evidence/freeze summary refresh and publication are still
+required. All 987 application proof IDs remain pending; W09 is In progress,
+W10 is Blocked, and the practical profile is inactive. Whole gates remain
+final T01-W10 and T06-W12.
