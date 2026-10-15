@@ -239,6 +239,8 @@ scripts/                generation and verification gates
 - [Alpha Demo Guide](docs/alpha-demo.md)
 - [C# Samples and Supported Subset](docs/csharp-samples-and-subset.md)
 - [Practical C# Expansion Design](develop/docs/08_csharp_practical_subset_design.md)
+- [Go Practical Expansion Design (proposal)](develop/docs/09_go_practical_subset_design.md)
+- [Go Practical Expansion Work Plan (proposal)](develop/docs/09_go_practical_subset_design-todo.md)
 - [Practical C# Profile v1 (normative, inactive)](develop/specs/CSHARP_PRACTICAL_PROFILE_V1.md)
 - [Practical C# Successor Shared Artifacts v1 (normative, inactive)](develop/specs/CSHARP_PRACTICAL_SHARED_ARTIFACTS_V1.md)
 - [ProofOps Policy Local Verification](docs/proof-ops-policy-ci.md)

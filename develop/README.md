@@ -133,6 +133,15 @@ The files under `tasks/` remain the original baseline tracker seed. Post-Rust
 task IDs are dependency-ordered by the `05_*_todo.md` and `06_*_todo.md`
 programs and are not duplicated into that legacy seed.
 
+The [Go practical expansion design](docs/09_go_practical_subset_design.md)
+and [serial work plan](docs/09_go_practical_subset_design-todo.md) propose
+existing-module selection followed by ordinary Go types/syntax, multi-result
+errors, strings, slices, maps, and restricted pointers. The first proposed
+release covers strings/slices and the second adds maps/pointers. These are
+design records, not normative specifications or active profiles; their
+recommended insertion after practical C# does not change the production order
+above. No implementation work item in that proposal has started.
+
 ## Normative specification routes
 
 Checker and governance foundations:
