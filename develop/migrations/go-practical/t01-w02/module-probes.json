@@ -1,0 +1,3374 @@
+{
+  "analysis_dependencies": {
+    "inventory_sha256": "e3a8db5f624dea207f93106141de04207395959d29a5577d18cefd57fb34339e",
+    "vendor_files": 133
+  },
+  "case_count": 39,
+  "case_matrix_sha256": "b8aae7daac943cfec28581d994455c276d649411a1bb509c540bcc4e21a59af9",
+  "cases": [
+    {
+      "application_init_or_generate_executed": false,
+      "fixture_inputs": [
+        {
+          "bytes": 36,
+          "path": "go.mod",
+          "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a"
+        },
+        {
+          "bytes": 116,
+          "path": "policy.go",
+          "sha256": "e9f9a01d3fff0f73f0c5e0ac34db00341040c95f6493c0cd9683bd10f44e4933"
+        }
+      ],
+      "id": "unused-unsupported-body",
+      "observations": {
+        "compiler": "go1.25.0",
+        "diagnostics": [],
+        "findings": [],
+        "functions": [
+          {
+            "disposition": "selected_root",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.23",
+            "id": "example.com/pracapp.Selected",
+            "signature": "func() int64"
+          },
+          {
+            "disposition": "type_check_only",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.23",
+            "id": "example.com/pracapp.Unused",
+            "signature": "func(m map[string]int) *int"
+          }
+        ],
+        "module_graph": [
+          {
+            "go_mod_sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a",
+            "go_version": "1.23",
+            "path": "example.com/pracapp",
+            "replacement": "",
+            "version": ""
+          }
+        ],
+        "observed_loaded_inputs": [
+          {
+            "path": "<module-root>/go.mod",
+            "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a",
+            "source_role": "resolved_module_manifest"
+          },
+          {
+            "go_version": "go1.23",
+            "path": "<module-root>/policy.go",
+            "raw_go_version": "go1.23",
+            "sha256": "e9f9a01d3fff0f73f0c5e0ac34db00341040c95f6493c0cd9683bd10f44e4933",
+            "source_role": "typecheck_source"
+          }
+        ],
+        "pointer_width": 64,
+        "schema": "mpk.go_practical.module_probe.v0",
+        "scope": "private compiler/closure observations and early exclusions; not complete profile admission or proof",
+        "standard_packages": [],
+        "status": "closed",
+        "target": "linux/amd64",
+        "type_constant_dependencies": []
+      },
+      "request": {
+        "build_tags": [],
+        "capture_roots": [],
+        "function": "example.com/pracapp.Selected",
+        "package": "example.com/pracapp",
+        "root": "<module-root>",
+        "schema": "mpk.go_practical.module_probe_request.v0"
+      },
+      "source_snapshot_unchanged": true
+    },
+    {
+      "application_init_or_generate_executed": false,
+      "fixture_inputs": [
+        {
+          "bytes": 36,
+          "path": "go.mod",
+          "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a"
+        },
+        {
+          "bytes": 154,
+          "path": "policy.go",
+          "sha256": "949c7f0b2fa321ef31f7afe1e01525ba7b28ad727f07ae59119c1beb51bbfedc"
+        }
+      ],
+      "id": "unused-http-handler",
+      "observations": {
+        "compiler": "go1.25.0",
+        "diagnostics": [],
+        "findings": [],
+        "functions": [
+          {
+            "disposition": "type_check_only",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.23",
+            "id": "example.com/pracapp.Handler",
+            "signature": "func(w net/http.ResponseWriter, r *net/http.Request)"
+          },
+          {
+            "disposition": "selected_root",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.23",
+            "id": "example.com/pracapp.Selected",
+            "signature": "func() int64"
+          }
+        ],
+        "module_graph": [
+          {
+            "go_mod_sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a",
+            "go_version": "1.23",
+            "path": "example.com/pracapp",
+            "replacement": "",
+            "version": ""
+          }
+        ],
+        "observed_loaded_inputs": [
+          {
+            "path": "<module-root>/go.mod",
+            "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a",
+            "source_role": "resolved_module_manifest"
+          },
+          {
+            "go_version": "go1.23",
+            "path": "<module-root>/policy.go",
+            "raw_go_version": "go1.23",
+            "sha256": "949c7f0b2fa321ef31f7afe1e01525ba7b28ad727f07ae59119c1beb51bbfedc",
+            "source_role": "typecheck_source"
+          }
+        ],
+        "pointer_width": 64,
+        "schema": "mpk.go_practical.module_probe.v0",
+        "scope": "private compiler/closure observations and early exclusions; not complete profile admission or proof",
+        "standard_packages": [
+          "bufio",
+          "bytes",
+          "cmp",
+          "compress/flate",
+          "compress/gzip",
+          "container/list",
+          "context",
+          "crypto",
+          "crypto/aes",
+          "crypto/cipher",
+          "crypto/des",
+          "crypto/dsa",
+          "crypto/ecdh",
+          "crypto/ecdsa",
+          "crypto/ed25519",
+          "crypto/elliptic",
+          "crypto/fips140",
+          "crypto/hkdf",
+          "crypto/hmac",
+          "crypto/internal/boring",
+          "crypto/internal/boring/bbig",
+          "crypto/internal/boring/sig",
+          "crypto/internal/entropy",
+          "crypto/internal/fips140",
+          "crypto/internal/fips140/aes",
+          "crypto/internal/fips140/aes/gcm",
+          "crypto/internal/fips140/alias",
+          "crypto/internal/fips140/bigmod",
+          "crypto/internal/fips140/check",
+          "crypto/internal/fips140/drbg",
+          "crypto/internal/fips140/ecdh",
+          "crypto/internal/fips140/ecdsa",
+          "crypto/internal/fips140/ed25519",
+          "crypto/internal/fips140/edwards25519",
+          "crypto/internal/fips140/edwards25519/field",
+          "crypto/internal/fips140/hkdf",
+          "crypto/internal/fips140/hmac",
+          "crypto/internal/fips140/mlkem",
+          "crypto/internal/fips140/nistec",
+          "crypto/internal/fips140/nistec/fiat",
+          "crypto/internal/fips140/rsa",
+          "crypto/internal/fips140/sha256",
+          "crypto/internal/fips140/sha3",
+          "crypto/internal/fips140/sha512",
+          "crypto/internal/fips140/subtle",
+          "crypto/internal/fips140/tls12",
+          "crypto/internal/fips140/tls13",
+          "crypto/internal/fips140cache",
+          "crypto/internal/fips140deps/byteorder",
+          "crypto/internal/fips140deps/cpu",
+          "crypto/internal/fips140deps/godebug",
+          "crypto/internal/fips140hash",
+          "crypto/internal/fips140only",
+          "crypto/internal/hpke",
+          "crypto/internal/impl",
+          "crypto/internal/randutil",
+          "crypto/internal/sysrand",
+          "crypto/md5",
+          "crypto/rand",
+          "crypto/rc4",
+          "crypto/rsa",
+          "crypto/sha1",
+          "crypto/sha256",
+          "crypto/sha3",
+          "crypto/sha512",
+          "crypto/subtle",
+          "crypto/tls",
+          "crypto/tls/internal/fips140tls",
+          "crypto/x509",
+          "crypto/x509/pkix",
+          "encoding/asn1",
+          "encoding/base64",
+          "encoding/binary",
+          "encoding/hex",
+          "encoding/pem",
+          "errors",
+          "fmt",
+          "hash",
+          "hash/crc32",
+          "internal/abi",
+          "internal/asan",
+          "internal/bisect",
+          "internal/bytealg",
+          "internal/byteorder",
+          "internal/chacha8rand",
+          "internal/coverage/rtcov",
+          "internal/cpu",
+          "internal/filepathlite",
+          "internal/fmtsort",
+          "internal/goarch",
+          "internal/godebug",
+          "internal/godebugs",
+          "internal/goexperiment",
+          "internal/goos",
+          "internal/itoa",
+          "internal/msan",
+          "internal/nettrace",
+          "internal/oserror",
+          "internal/poll",
+          "internal/profilerecord",
+          "internal/race",
+          "internal/reflectlite",
+          "internal/runtime/atomic",
+          "internal/runtime/cgroup",
+          "internal/runtime/exithook",
+          "internal/runtime/gc",
+          "internal/runtime/maps",
+          "internal/runtime/math",
+          "internal/runtime/strconv",
+          "internal/runtime/sys",
+          "internal/runtime/syscall",
+          "internal/singleflight",
+          "internal/stringslite",
+          "internal/sync",
+          "internal/synctest",
+          "internal/syscall/execenv",
+          "internal/syscall/unix",
+          "internal/testlog",
+          "internal/trace/tracev2",
+          "internal/unsafeheader",
+          "io",
+          "io/fs",
+          "iter",
+          "log",
+          "log/internal",
+          "maps",
+          "math",
+          "math/big",
+          "math/bits",
+          "math/rand",
+          "math/rand/v2",
+          "mime",
+          "mime/multipart",
+          "mime/quotedprintable",
+          "net",
+          "net/http",
+          "net/http/httptrace",
+          "net/http/internal",
+          "net/http/internal/ascii",
+          "net/http/internal/httpcommon",
+          "net/netip",
+          "net/textproto",
+          "net/url",
+          "os",
+          "path",
+          "path/filepath",
+          "reflect",
+          "runtime",
+          "slices",
+          "sort",
+          "strconv",
+          "strings",
+          "sync",
+          "sync/atomic",
+          "syscall",
+          "time",
+          "unicode",
+          "unicode/utf16",
+          "unicode/utf8",
+          "unique",
+          "unsafe",
+          "vendor/golang.org/x/crypto/chacha20",
+          "vendor/golang.org/x/crypto/chacha20poly1305",
+          "vendor/golang.org/x/crypto/cryptobyte",
+          "vendor/golang.org/x/crypto/cryptobyte/asn1",
+          "vendor/golang.org/x/crypto/internal/alias",
+          "vendor/golang.org/x/crypto/internal/poly1305",
+          "vendor/golang.org/x/net/dns/dnsmessage",
+          "vendor/golang.org/x/net/http/httpguts",
+          "vendor/golang.org/x/net/http/httpproxy",
+          "vendor/golang.org/x/net/http2/hpack",
+          "vendor/golang.org/x/net/idna",
+          "vendor/golang.org/x/sys/cpu",
+          "vendor/golang.org/x/text/secure/bidirule",
+          "vendor/golang.org/x/text/transform",
+          "vendor/golang.org/x/text/unicode/bidi",
+          "vendor/golang.org/x/text/unicode/norm",
+          "weak"
+        ],
+        "status": "closed",
+        "target": "linux/amd64",
+        "type_constant_dependencies": []
+      },
+      "request": {
+        "build_tags": [],
+        "capture_roots": [],
+        "function": "example.com/pracapp.Selected",
+        "package": "example.com/pracapp",
+        "root": "<module-root>",
+        "schema": "mpk.go_practical.module_probe_request.v0"
+      },
+      "source_snapshot_unchanged": true
+    },
+    {
+      "application_init_or_generate_executed": false,
+      "fixture_inputs": [
+        {
+          "bytes": 36,
+          "path": "go.mod",
+          "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a"
+        },
+        {
+          "bytes": 100,
+          "path": "policy.go",
+          "sha256": "7b1779ada4c3a8fc6207f25571f3c0fa8daff00194a85ef28e001923a1efbf90"
+        }
+      ],
+      "id": "direct-helper",
+      "observations": {
+        "compiler": "go1.25.0",
+        "diagnostics": [],
+        "findings": [],
+        "functions": [
+          {
+            "disposition": "body_dependency",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.23",
+            "id": "example.com/pracapp.Helper",
+            "signature": "func(x int64) int64"
+          },
+          {
+            "disposition": "selected_root",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.23",
+            "id": "example.com/pracapp.Selected",
+            "signature": "func() int64"
+          }
+        ],
+        "module_graph": [
+          {
+            "go_mod_sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a",
+            "go_version": "1.23",
+            "path": "example.com/pracapp",
+            "replacement": "",
+            "version": ""
+          }
+        ],
+        "observed_loaded_inputs": [
+          {
+            "path": "<module-root>/go.mod",
+            "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a",
+            "source_role": "resolved_module_manifest"
+          },
+          {
+            "go_version": "go1.23",
+            "path": "<module-root>/policy.go",
+            "raw_go_version": "go1.23",
+            "sha256": "7b1779ada4c3a8fc6207f25571f3c0fa8daff00194a85ef28e001923a1efbf90",
+            "source_role": "typecheck_source"
+          }
+        ],
+        "pointer_width": 64,
+        "schema": "mpk.go_practical.module_probe.v0",
+        "scope": "private compiler/closure observations and early exclusions; not complete profile admission or proof",
+        "standard_packages": [],
+        "status": "closed",
+        "target": "linux/amd64",
+        "type_constant_dependencies": []
+      },
+      "request": {
+        "build_tags": [],
+        "capture_roots": [],
+        "function": "example.com/pracapp.Selected",
+        "package": "example.com/pracapp",
+        "root": "<module-root>",
+        "schema": "mpk.go_practical.module_probe_request.v0"
+      },
+      "source_snapshot_unchanged": true
+    },
+    {
+      "application_init_or_generate_executed": false,
+      "fixture_inputs": [
+        {
+          "bytes": 71,
+          "path": "go.mod",
+          "sha256": "3d4669d5000fafdaa9a8c542ed42c3b077002aa97d39d6f28f2a94adf478d9fa"
+        },
+        {
+          "bytes": 157,
+          "path": "go.sum",
+          "sha256": "bd1b8f5f51bb4a4440061bfeb3acd7002490f9de222d4319ff5ed1cb4d6d19fa"
+        },
+        {
+          "bytes": 90,
+          "path": "policy.go",
+          "sha256": "c4c2027f9d8ec1343424e839ae458fe60d459ec54c2b77f043b6af21a8c3506d"
+        }
+      ],
+      "id": "external-helper",
+      "observations": {
+        "compiler": "go1.25.0",
+        "diagnostics": [],
+        "findings": [],
+        "functions": [
+          {
+            "disposition": "selected_root",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.23",
+            "id": "example.com/pracapp.Selected",
+            "signature": "func() int64"
+          },
+          {
+            "disposition": "body_dependency",
+            "file": "<module-cache>/example.com/pracdep@v1.0.0/dep.go",
+            "go_version": "go1.22",
+            "id": "example.com/pracdep.Twice",
+            "signature": "func(x int64) int64"
+          },
+          {
+            "disposition": "type_check_only",
+            "file": "<module-cache>/example.com/pracdep@v1.0.0/dep.go",
+            "go_version": "go1.22",
+            "id": "example.com/pracdep.init@<module-cache>/example.com/pracdep@v1.0.0/dep.go:93",
+            "signature": "func()"
+          }
+        ],
+        "module_graph": [
+          {
+            "go_mod_sha256": "3d4669d5000fafdaa9a8c542ed42c3b077002aa97d39d6f28f2a94adf478d9fa",
+            "go_version": "1.23",
+            "path": "example.com/pracapp",
+            "replacement": "",
+            "version": ""
+          },
+          {
+            "go_mod_sha256": "a093d5cade700e6d6c0c547712306c08bf8ab4abb439b7c6d1d997f791da0c83",
+            "go_version": "1.22",
+            "path": "example.com/pracdep",
+            "replacement": "",
+            "version": "v1.0.0"
+          }
+        ],
+        "observed_loaded_inputs": [
+          {
+            "path": "<module-cache>/cache/download/example.com/pracdep/@v/v1.0.0.mod",
+            "sha256": "a093d5cade700e6d6c0c547712306c08bf8ab4abb439b7c6d1d997f791da0c83",
+            "source_role": "resolved_module_manifest"
+          },
+          {
+            "go_version": "go1.22",
+            "path": "<module-cache>/example.com/pracdep@v1.0.0/dep.go",
+            "raw_go_version": "go1.22",
+            "sha256": "f3285d0a89d57d265ce5808abf19b0c9ba37cbd7a99597bf55cd1031131cb549",
+            "source_role": "typecheck_source"
+          },
+          {
+            "path": "<module-root>/go.mod",
+            "sha256": "3d4669d5000fafdaa9a8c542ed42c3b077002aa97d39d6f28f2a94adf478d9fa",
+            "source_role": "resolved_module_manifest"
+          },
+          {
+            "path": "<module-root>/go.sum",
+            "sha256": "bd1b8f5f51bb4a4440061bfeb3acd7002490f9de222d4319ff5ed1cb4d6d19fa",
+            "source_role": "lockfile"
+          },
+          {
+            "go_version": "go1.23",
+            "path": "<module-root>/policy.go",
+            "raw_go_version": "go1.23",
+            "sha256": "c4c2027f9d8ec1343424e839ae458fe60d459ec54c2b77f043b6af21a8c3506d",
+            "source_role": "typecheck_source"
+          }
+        ],
+        "pointer_width": 64,
+        "schema": "mpk.go_practical.module_probe.v0",
+        "scope": "private compiler/closure observations and early exclusions; not complete profile admission or proof",
+        "standard_packages": [],
+        "status": "closed",
+        "target": "linux/amd64",
+        "type_constant_dependencies": []
+      },
+      "request": {
+        "build_tags": [],
+        "capture_roots": [],
+        "function": "example.com/pracapp.Selected",
+        "package": "example.com/pracapp",
+        "root": "<module-root>",
+        "schema": "mpk.go_practical.module_probe_request.v0"
+      },
+      "source_snapshot_unchanged": true
+    },
+    {
+      "application_init_or_generate_executed": false,
+      "fixture_inputs": [
+        {
+          "bytes": 71,
+          "path": "go.mod",
+          "sha256": "3d4669d5000fafdaa9a8c542ed42c3b077002aa97d39d6f28f2a94adf478d9fa"
+        },
+        {
+          "bytes": 157,
+          "path": "go.sum",
+          "sha256": "bd1b8f5f51bb4a4440061bfeb3acd7002490f9de222d4319ff5ed1cb4d6d19fa"
+        },
+        {
+          "bytes": 124,
+          "path": "policy.go",
+          "sha256": "c6e0055e798b5dcebafeed1ad6f5ae4528968fc310648266150474981762bf9f"
+        }
+      ],
+      "id": "unused-external-initializer",
+      "observations": {
+        "compiler": "go1.25.0",
+        "diagnostics": [],
+        "findings": [],
+        "functions": [
+          {
+            "disposition": "type_check_only",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.23",
+            "id": "example.com/pracapp.Handler",
+            "signature": "func() int64"
+          },
+          {
+            "disposition": "selected_root",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.23",
+            "id": "example.com/pracapp.Selected",
+            "signature": "func() int64"
+          },
+          {
+            "disposition": "type_check_only",
+            "file": "<module-cache>/example.com/pracdep@v1.0.0/dep.go",
+            "go_version": "go1.22",
+            "id": "example.com/pracdep.Twice",
+            "signature": "func(x int64) int64"
+          },
+          {
+            "disposition": "type_check_only",
+            "file": "<module-cache>/example.com/pracdep@v1.0.0/dep.go",
+            "go_version": "go1.22",
+            "id": "example.com/pracdep.init@<module-cache>/example.com/pracdep@v1.0.0/dep.go:93",
+            "signature": "func()"
+          }
+        ],
+        "module_graph": [
+          {
+            "go_mod_sha256": "3d4669d5000fafdaa9a8c542ed42c3b077002aa97d39d6f28f2a94adf478d9fa",
+            "go_version": "1.23",
+            "path": "example.com/pracapp",
+            "replacement": "",
+            "version": ""
+          },
+          {
+            "go_mod_sha256": "a093d5cade700e6d6c0c547712306c08bf8ab4abb439b7c6d1d997f791da0c83",
+            "go_version": "1.22",
+            "path": "example.com/pracdep",
+            "replacement": "",
+            "version": "v1.0.0"
+          }
+        ],
+        "observed_loaded_inputs": [
+          {
+            "path": "<module-cache>/cache/download/example.com/pracdep/@v/v1.0.0.mod",
+            "sha256": "a093d5cade700e6d6c0c547712306c08bf8ab4abb439b7c6d1d997f791da0c83",
+            "source_role": "resolved_module_manifest"
+          },
+          {
+            "go_version": "go1.22",
+            "path": "<module-cache>/example.com/pracdep@v1.0.0/dep.go",
+            "raw_go_version": "go1.22",
+            "sha256": "f3285d0a89d57d265ce5808abf19b0c9ba37cbd7a99597bf55cd1031131cb549",
+            "source_role": "typecheck_source"
+          },
+          {
+            "path": "<module-root>/go.mod",
+            "sha256": "3d4669d5000fafdaa9a8c542ed42c3b077002aa97d39d6f28f2a94adf478d9fa",
+            "source_role": "resolved_module_manifest"
+          },
+          {
+            "path": "<module-root>/go.sum",
+            "sha256": "bd1b8f5f51bb4a4440061bfeb3acd7002490f9de222d4319ff5ed1cb4d6d19fa",
+            "source_role": "lockfile"
+          },
+          {
+            "go_version": "go1.23",
+            "path": "<module-root>/policy.go",
+            "raw_go_version": "go1.23",
+            "sha256": "c6e0055e798b5dcebafeed1ad6f5ae4528968fc310648266150474981762bf9f",
+            "source_role": "typecheck_source"
+          }
+        ],
+        "pointer_width": 64,
+        "schema": "mpk.go_practical.module_probe.v0",
+        "scope": "private compiler/closure observations and early exclusions; not complete profile admission or proof",
+        "standard_packages": [],
+        "status": "closed",
+        "target": "linux/amd64",
+        "type_constant_dependencies": []
+      },
+      "request": {
+        "build_tags": [],
+        "capture_roots": [],
+        "function": "example.com/pracapp.Selected",
+        "package": "example.com/pracapp",
+        "root": "<module-root>",
+        "schema": "mpk.go_practical.module_probe_request.v0"
+      },
+      "source_snapshot_unchanged": true
+    },
+    {
+      "application_init_or_generate_executed": false,
+      "fixture_inputs": [
+        {
+          "bytes": 71,
+          "path": "go.mod",
+          "sha256": "3d4669d5000fafdaa9a8c542ed42c3b077002aa97d39d6f28f2a94adf478d9fa"
+        },
+        {
+          "bytes": 157,
+          "path": "go.sum",
+          "sha256": "bd1b8f5f51bb4a4440061bfeb3acd7002490f9de222d4319ff5ed1cb4d6d19fa"
+        },
+        {
+          "bytes": 50,
+          "path": "policy.go",
+          "sha256": "1f109cf66b6948bf8e180029877cd674379a7229b9263b011dbcfdffb16a4dcb"
+        }
+      ],
+      "id": "unused-require-metadata",
+      "observations": {
+        "compiler": "go1.25.0",
+        "diagnostics": [],
+        "findings": [],
+        "functions": [
+          {
+            "disposition": "selected_root",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.23",
+            "id": "example.com/pracapp.Selected",
+            "signature": "func() int64"
+          }
+        ],
+        "module_graph": [
+          {
+            "go_mod_sha256": "3d4669d5000fafdaa9a8c542ed42c3b077002aa97d39d6f28f2a94adf478d9fa",
+            "go_version": "1.23",
+            "path": "example.com/pracapp",
+            "replacement": "",
+            "version": ""
+          },
+          {
+            "go_mod_sha256": "a093d5cade700e6d6c0c547712306c08bf8ab4abb439b7c6d1d997f791da0c83",
+            "go_version": "1.22",
+            "path": "example.com/pracdep",
+            "replacement": "",
+            "version": "v1.0.0"
+          }
+        ],
+        "observed_loaded_inputs": [
+          {
+            "path": "<module-cache>/cache/download/example.com/pracdep/@v/v1.0.0.mod",
+            "sha256": "a093d5cade700e6d6c0c547712306c08bf8ab4abb439b7c6d1d997f791da0c83",
+            "source_role": "resolved_module_manifest"
+          },
+          {
+            "path": "<module-root>/go.mod",
+            "sha256": "3d4669d5000fafdaa9a8c542ed42c3b077002aa97d39d6f28f2a94adf478d9fa",
+            "source_role": "resolved_module_manifest"
+          },
+          {
+            "path": "<module-root>/go.sum",
+            "sha256": "bd1b8f5f51bb4a4440061bfeb3acd7002490f9de222d4319ff5ed1cb4d6d19fa",
+            "source_role": "lockfile"
+          },
+          {
+            "go_version": "go1.23",
+            "path": "<module-root>/policy.go",
+            "raw_go_version": "go1.23",
+            "sha256": "1f109cf66b6948bf8e180029877cd674379a7229b9263b011dbcfdffb16a4dcb",
+            "source_role": "typecheck_source"
+          }
+        ],
+        "pointer_width": 64,
+        "schema": "mpk.go_practical.module_probe.v0",
+        "scope": "private compiler/closure observations and early exclusions; not complete profile admission or proof",
+        "standard_packages": [],
+        "status": "closed",
+        "target": "linux/amd64",
+        "type_constant_dependencies": []
+      },
+      "request": {
+        "build_tags": [],
+        "capture_roots": [],
+        "function": "example.com/pracapp.Selected",
+        "package": "example.com/pracapp",
+        "root": "<module-root>",
+        "schema": "mpk.go_practical.module_probe_request.v0"
+      },
+      "source_snapshot_unchanged": true
+    },
+    {
+      "application_init_or_generate_executed": false,
+      "fixture_inputs": [
+        {
+          "bytes": 71,
+          "path": "go.mod",
+          "sha256": "3d4669d5000fafdaa9a8c542ed42c3b077002aa97d39d6f28f2a94adf478d9fa"
+        },
+        {
+          "bytes": 157,
+          "path": "go.sum",
+          "sha256": "bd1b8f5f51bb4a4440061bfeb3acd7002490f9de222d4319ff5ed1cb4d6d19fa"
+        },
+        {
+          "bytes": 96,
+          "path": "policy.go",
+          "sha256": "57640e54e8dc91f856cb2a4df224d736669616f4802a78c377e0160c1f55f6ad"
+        }
+      ],
+      "id": "imported-domain-type",
+      "observations": {
+        "compiler": "go1.25.0",
+        "diagnostics": [],
+        "findings": [],
+        "functions": [
+          {
+            "disposition": "selected_root",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.23",
+            "id": "example.com/pracapp.Selected",
+            "signature": "func(x example.com/pracdep.Amount) example.com/pracdep.Amount"
+          },
+          {
+            "disposition": "type_check_only",
+            "file": "<module-cache>/example.com/pracdep@v1.0.0/dep.go",
+            "go_version": "go1.22",
+            "id": "example.com/pracdep.Twice",
+            "signature": "func(x int64) int64"
+          },
+          {
+            "disposition": "type_check_only",
+            "file": "<module-cache>/example.com/pracdep@v1.0.0/dep.go",
+            "go_version": "go1.22",
+            "id": "example.com/pracdep.init@<module-cache>/example.com/pracdep@v1.0.0/dep.go:93",
+            "signature": "func()"
+          }
+        ],
+        "module_graph": [
+          {
+            "go_mod_sha256": "3d4669d5000fafdaa9a8c542ed42c3b077002aa97d39d6f28f2a94adf478d9fa",
+            "go_version": "1.23",
+            "path": "example.com/pracapp",
+            "replacement": "",
+            "version": ""
+          },
+          {
+            "go_mod_sha256": "a093d5cade700e6d6c0c547712306c08bf8ab4abb439b7c6d1d997f791da0c83",
+            "go_version": "1.22",
+            "path": "example.com/pracdep",
+            "replacement": "",
+            "version": "v1.0.0"
+          }
+        ],
+        "observed_loaded_inputs": [
+          {
+            "path": "<module-cache>/cache/download/example.com/pracdep/@v/v1.0.0.mod",
+            "sha256": "a093d5cade700e6d6c0c547712306c08bf8ab4abb439b7c6d1d997f791da0c83",
+            "source_role": "resolved_module_manifest"
+          },
+          {
+            "go_version": "go1.22",
+            "path": "<module-cache>/example.com/pracdep@v1.0.0/dep.go",
+            "raw_go_version": "go1.22",
+            "sha256": "f3285d0a89d57d265ce5808abf19b0c9ba37cbd7a99597bf55cd1031131cb549",
+            "source_role": "typecheck_source"
+          },
+          {
+            "path": "<module-root>/go.mod",
+            "sha256": "3d4669d5000fafdaa9a8c542ed42c3b077002aa97d39d6f28f2a94adf478d9fa",
+            "source_role": "resolved_module_manifest"
+          },
+          {
+            "path": "<module-root>/go.sum",
+            "sha256": "bd1b8f5f51bb4a4440061bfeb3acd7002490f9de222d4319ff5ed1cb4d6d19fa",
+            "source_role": "lockfile"
+          },
+          {
+            "go_version": "go1.23",
+            "path": "<module-root>/policy.go",
+            "raw_go_version": "go1.23",
+            "sha256": "57640e54e8dc91f856cb2a4df224d736669616f4802a78c377e0160c1f55f6ad",
+            "source_role": "typecheck_source"
+          }
+        ],
+        "pointer_width": 64,
+        "schema": "mpk.go_practical.module_probe.v0",
+        "scope": "private compiler/closure observations and early exclusions; not complete profile admission or proof",
+        "standard_packages": [],
+        "status": "closed",
+        "target": "linux/amd64",
+        "type_constant_dependencies": [
+          "example.com/pracdep.Amount"
+        ]
+      },
+      "request": {
+        "build_tags": [],
+        "capture_roots": [],
+        "function": "example.com/pracapp.Selected",
+        "package": "example.com/pracapp",
+        "root": "<module-root>",
+        "schema": "mpk.go_practical.module_probe_request.v0"
+      },
+      "source_snapshot_unchanged": true
+    },
+    {
+      "application_init_or_generate_executed": false,
+      "fixture_inputs": [
+        {
+          "bytes": 36,
+          "path": "go.mod",
+          "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a"
+        },
+        {
+          "bytes": 204,
+          "path": "policy.go",
+          "sha256": "03d6a9f958542ec1942c35535e4c51b48ec208c8ba259190f41fad15c15dc7e6"
+        }
+      ],
+      "id": "unused-init-and-generate",
+      "observations": {
+        "compiler": "go1.25.0",
+        "diagnostics": [],
+        "findings": [],
+        "functions": [
+          {
+            "disposition": "selected_root",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.23",
+            "id": "example.com/pracapp.Selected",
+            "signature": "func() int64"
+          },
+          {
+            "disposition": "type_check_only",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.23",
+            "id": "example.com/pracapp.init@<module-root>/policy.go:115",
+            "signature": "func()"
+          },
+          {
+            "disposition": "type_check_only",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.23",
+            "id": "example.com/pracapp.init@<module-root>/policy.go:73",
+            "signature": "func()"
+          }
+        ],
+        "module_graph": [
+          {
+            "go_mod_sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a",
+            "go_version": "1.23",
+            "path": "example.com/pracapp",
+            "replacement": "",
+            "version": ""
+          }
+        ],
+        "observed_loaded_inputs": [
+          {
+            "path": "<module-root>/go.mod",
+            "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a",
+            "source_role": "resolved_module_manifest"
+          },
+          {
+            "go_version": "go1.23",
+            "path": "<module-root>/policy.go",
+            "raw_go_version": "go1.23",
+            "sha256": "03d6a9f958542ec1942c35535e4c51b48ec208c8ba259190f41fad15c15dc7e6",
+            "source_role": "typecheck_source"
+          }
+        ],
+        "pointer_width": 64,
+        "schema": "mpk.go_practical.module_probe.v0",
+        "scope": "private compiler/closure observations and early exclusions; not complete profile admission or proof",
+        "standard_packages": [],
+        "status": "closed",
+        "target": "linux/amd64",
+        "type_constant_dependencies": []
+      },
+      "request": {
+        "build_tags": [],
+        "capture_roots": [],
+        "function": "example.com/pracapp.Selected",
+        "package": "example.com/pracapp",
+        "root": "<module-root>",
+        "schema": "mpk.go_practical.module_probe_request.v0"
+      },
+      "source_snapshot_unchanged": true
+    },
+    {
+      "application_init_or_generate_executed": false,
+      "fixture_inputs": [
+        {
+          "bytes": 36,
+          "path": "go.mod",
+          "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a"
+        },
+        {
+          "bytes": 76,
+          "path": "policy.go",
+          "sha256": "5fb2ba8d5ea820b6224830e170c58a1694e3b983b24aa29831a3d8c3f13649b3"
+        }
+      ],
+      "id": "reachable-global",
+      "observations": {
+        "compiler": "go1.25.0",
+        "diagnostics": [],
+        "findings": [
+          {
+            "code": "GO_PROBE_GLOBAL_STATE",
+            "detail": "example.com/pracapp.Global",
+            "function": "example.com/pracapp.Selected",
+            "path_from_root": [
+              "example.com/pracapp.Selected"
+            ]
+          }
+        ],
+        "functions": [
+          {
+            "disposition": "selected_root",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.23",
+            "id": "example.com/pracapp.Selected",
+            "signature": "func() int64"
+          }
+        ],
+        "module_graph": [
+          {
+            "go_mod_sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a",
+            "go_version": "1.23",
+            "path": "example.com/pracapp",
+            "replacement": "",
+            "version": ""
+          }
+        ],
+        "observed_loaded_inputs": [
+          {
+            "path": "<module-root>/go.mod",
+            "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a",
+            "source_role": "resolved_module_manifest"
+          },
+          {
+            "go_version": "go1.23",
+            "path": "<module-root>/policy.go",
+            "raw_go_version": "go1.23",
+            "sha256": "5fb2ba8d5ea820b6224830e170c58a1694e3b983b24aa29831a3d8c3f13649b3",
+            "source_role": "typecheck_source"
+          }
+        ],
+        "pointer_width": 64,
+        "schema": "mpk.go_practical.module_probe.v0",
+        "scope": "private compiler/closure observations and early exclusions; not complete profile admission or proof",
+        "standard_packages": [],
+        "status": "rejected",
+        "target": "linux/amd64",
+        "type_constant_dependencies": []
+      },
+      "request": {
+        "build_tags": [],
+        "capture_roots": [],
+        "function": "example.com/pracapp.Selected",
+        "package": "example.com/pracapp",
+        "root": "<module-root>",
+        "schema": "mpk.go_practical.module_probe_request.v0"
+      },
+      "source_snapshot_unchanged": true
+    },
+    {
+      "application_init_or_generate_executed": false,
+      "fixture_inputs": [
+        {
+          "bytes": 36,
+          "path": "go.mod",
+          "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a"
+        },
+        {
+          "bytes": 139,
+          "path": "policy.go",
+          "sha256": "0fe3f80cc29334e4d24c89bed788c250e6c7e62d37f6ed7b7893405d33b47456"
+        }
+      ],
+      "id": "unproved-unreachable-branch",
+      "observations": {
+        "compiler": "go1.25.0",
+        "diagnostics": [],
+        "findings": [
+          {
+            "code": "GO_PROBE_GLOBAL_STATE",
+            "detail": "example.com/pracapp.Global",
+            "function": "example.com/pracapp.Hidden",
+            "path_from_root": [
+              "example.com/pracapp.Selected",
+              "example.com/pracapp.Hidden"
+            ]
+          }
+        ],
+        "functions": [
+          {
+            "disposition": "body_dependency",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.23",
+            "id": "example.com/pracapp.Hidden",
+            "signature": "func() int64"
+          },
+          {
+            "disposition": "selected_root",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.23",
+            "id": "example.com/pracapp.Selected",
+            "signature": "func() int64"
+          }
+        ],
+        "module_graph": [
+          {
+            "go_mod_sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a",
+            "go_version": "1.23",
+            "path": "example.com/pracapp",
+            "replacement": "",
+            "version": ""
+          }
+        ],
+        "observed_loaded_inputs": [
+          {
+            "path": "<module-root>/go.mod",
+            "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a",
+            "source_role": "resolved_module_manifest"
+          },
+          {
+            "go_version": "go1.23",
+            "path": "<module-root>/policy.go",
+            "raw_go_version": "go1.23",
+            "sha256": "0fe3f80cc29334e4d24c89bed788c250e6c7e62d37f6ed7b7893405d33b47456",
+            "source_role": "typecheck_source"
+          }
+        ],
+        "pointer_width": 64,
+        "schema": "mpk.go_practical.module_probe.v0",
+        "scope": "private compiler/closure observations and early exclusions; not complete profile admission or proof",
+        "standard_packages": [],
+        "status": "rejected",
+        "target": "linux/amd64",
+        "type_constant_dependencies": []
+      },
+      "request": {
+        "build_tags": [],
+        "capture_roots": [],
+        "function": "example.com/pracapp.Selected",
+        "package": "example.com/pracapp",
+        "root": "<module-root>",
+        "schema": "mpk.go_practical.module_probe_request.v0"
+      },
+      "source_snapshot_unchanged": true
+    },
+    {
+      "application_init_or_generate_executed": false,
+      "fixture_inputs": [
+        {
+          "bytes": 36,
+          "path": "go.mod",
+          "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a"
+        },
+        {
+          "bytes": 114,
+          "path": "policy.go",
+          "sha256": "4413ea596daad07dd91d40797dc7cbf4307ce00cbe68290fec30a8270d20f300"
+        }
+      ],
+      "id": "reachable-map-helper",
+      "observations": {
+        "compiler": "go1.25.0",
+        "diagnostics": [],
+        "findings": [
+          {
+            "code": "GO_PROBE_UNSUPPORTED_TYPE",
+            "detail": "*ast.MapType",
+            "function": "example.com/pracapp.Bad",
+            "path_from_root": [
+              "example.com/pracapp.Selected",
+              "example.com/pracapp.Bad"
+            ]
+          }
+        ],
+        "functions": [
+          {
+            "disposition": "body_dependency",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.23",
+            "id": "example.com/pracapp.Bad",
+            "signature": "func() int64"
+          },
+          {
+            "disposition": "selected_root",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.23",
+            "id": "example.com/pracapp.Selected",
+            "signature": "func() int64"
+          }
+        ],
+        "module_graph": [
+          {
+            "go_mod_sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a",
+            "go_version": "1.23",
+            "path": "example.com/pracapp",
+            "replacement": "",
+            "version": ""
+          }
+        ],
+        "observed_loaded_inputs": [
+          {
+            "path": "<module-root>/go.mod",
+            "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a",
+            "source_role": "resolved_module_manifest"
+          },
+          {
+            "go_version": "go1.23",
+            "path": "<module-root>/policy.go",
+            "raw_go_version": "go1.23",
+            "sha256": "4413ea596daad07dd91d40797dc7cbf4307ce00cbe68290fec30a8270d20f300",
+            "source_role": "typecheck_source"
+          }
+        ],
+        "pointer_width": 64,
+        "schema": "mpk.go_practical.module_probe.v0",
+        "scope": "private compiler/closure observations and early exclusions; not complete profile admission or proof",
+        "standard_packages": [],
+        "status": "rejected",
+        "target": "linux/amd64",
+        "type_constant_dependencies": []
+      },
+      "request": {
+        "build_tags": [],
+        "capture_roots": [],
+        "function": "example.com/pracapp.Selected",
+        "package": "example.com/pracapp",
+        "root": "<module-root>",
+        "schema": "mpk.go_practical.module_probe_request.v0"
+      },
+      "source_snapshot_unchanged": true
+    },
+    {
+      "application_init_or_generate_executed": false,
+      "fixture_inputs": [
+        {
+          "bytes": 36,
+          "path": "go.mod",
+          "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a"
+        },
+        {
+          "bytes": 66,
+          "path": "policy.go",
+          "sha256": "9bb7ba968bbbf0f471539bd5d569f51af991baf55d3a155eb5c02e45968bd5ef"
+        }
+      ],
+      "id": "indirect-call",
+      "observations": {
+        "compiler": "go1.25.0",
+        "diagnostics": [],
+        "findings": [
+          {
+            "code": "GO_PROBE_INDIRECT_CALL",
+            "detail": "call target is not a direct concrete function",
+            "function": "example.com/pracapp.Selected",
+            "path_from_root": [
+              "example.com/pracapp.Selected"
+            ]
+          },
+          {
+            "code": "GO_PROBE_UNSUPPORTED_TYPE",
+            "detail": "func() int64",
+            "function": "example.com/pracapp.Selected",
+            "path_from_root": [
+              "example.com/pracapp.Selected"
+            ]
+          }
+        ],
+        "functions": [
+          {
+            "disposition": "selected_root",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.23",
+            "id": "example.com/pracapp.Selected",
+            "signature": "func(f func() int64) int64"
+          }
+        ],
+        "module_graph": [
+          {
+            "go_mod_sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a",
+            "go_version": "1.23",
+            "path": "example.com/pracapp",
+            "replacement": "",
+            "version": ""
+          }
+        ],
+        "observed_loaded_inputs": [
+          {
+            "path": "<module-root>/go.mod",
+            "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a",
+            "source_role": "resolved_module_manifest"
+          },
+          {
+            "go_version": "go1.23",
+            "path": "<module-root>/policy.go",
+            "raw_go_version": "go1.23",
+            "sha256": "9bb7ba968bbbf0f471539bd5d569f51af991baf55d3a155eb5c02e45968bd5ef",
+            "source_role": "typecheck_source"
+          }
+        ],
+        "pointer_width": 64,
+        "schema": "mpk.go_practical.module_probe.v0",
+        "scope": "private compiler/closure observations and early exclusions; not complete profile admission or proof",
+        "standard_packages": [],
+        "status": "rejected",
+        "target": "linux/amd64",
+        "type_constant_dependencies": []
+      },
+      "request": {
+        "build_tags": [],
+        "capture_roots": [],
+        "function": "example.com/pracapp.Selected",
+        "package": "example.com/pracapp",
+        "root": "<module-root>",
+        "schema": "mpk.go_practical.module_probe_request.v0"
+      },
+      "source_snapshot_unchanged": true
+    },
+    {
+      "application_init_or_generate_executed": false,
+      "fixture_inputs": [
+        {
+          "bytes": 36,
+          "path": "go.mod",
+          "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a"
+        },
+        {
+          "bytes": 106,
+          "path": "policy.go",
+          "sha256": "421bd907c6973ef73ef4bf9a829102ff4acbd88b224d51f58d2ac7e6a01d17dd"
+        }
+      ],
+      "id": "interface-dispatch",
+      "observations": {
+        "compiler": "go1.25.0",
+        "diagnostics": [],
+        "findings": [
+          {
+            "code": "GO_PROBE_INDIRECT_CALL",
+            "detail": "call target is not a direct concrete function",
+            "function": "example.com/pracapp.Selected",
+            "path_from_root": [
+              "example.com/pracapp.Selected"
+            ]
+          },
+          {
+            "code": "GO_PROBE_UNSUPPORTED_TYPE",
+            "detail": "interface{Value() int64}",
+            "function": "example.com/pracapp.Selected",
+            "path_from_root": [
+              "example.com/pracapp.Selected"
+            ]
+          }
+        ],
+        "functions": [
+          {
+            "disposition": "selected_root",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.23",
+            "id": "example.com/pracapp.Selected",
+            "signature": "func(x example.com/pracapp.Reader) int64"
+          }
+        ],
+        "module_graph": [
+          {
+            "go_mod_sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a",
+            "go_version": "1.23",
+            "path": "example.com/pracapp",
+            "replacement": "",
+            "version": ""
+          }
+        ],
+        "observed_loaded_inputs": [
+          {
+            "path": "<module-root>/go.mod",
+            "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a",
+            "source_role": "resolved_module_manifest"
+          },
+          {
+            "go_version": "go1.23",
+            "path": "<module-root>/policy.go",
+            "raw_go_version": "go1.23",
+            "sha256": "421bd907c6973ef73ef4bf9a829102ff4acbd88b224d51f58d2ac7e6a01d17dd",
+            "source_role": "typecheck_source"
+          }
+        ],
+        "pointer_width": 64,
+        "schema": "mpk.go_practical.module_probe.v0",
+        "scope": "private compiler/closure observations and early exclusions; not complete profile admission or proof",
+        "standard_packages": [],
+        "status": "rejected",
+        "target": "linux/amd64",
+        "type_constant_dependencies": [
+          "example.com/pracapp.Reader"
+        ]
+      },
+      "request": {
+        "build_tags": [],
+        "capture_roots": [],
+        "function": "example.com/pracapp.Selected",
+        "package": "example.com/pracapp",
+        "root": "<module-root>",
+        "schema": "mpk.go_practical.module_probe_request.v0"
+      },
+      "source_snapshot_unchanged": true
+    },
+    {
+      "application_init_or_generate_executed": false,
+      "fixture_inputs": [
+        {
+          "bytes": 36,
+          "path": "go.mod",
+          "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a"
+        },
+        {
+          "bytes": 97,
+          "path": "policy.go",
+          "sha256": "85899442dc69350b509ae4ce41a6db8c50c6dc46e0a8d9f7900f6afeb6ffb116"
+        }
+      ],
+      "id": "recursive-call",
+      "observations": {
+        "compiler": "go1.25.0",
+        "diagnostics": [],
+        "findings": [
+          {
+            "code": "GO_PROBE_CALL_CYCLE",
+            "detail": "recursive verification closure",
+            "function": "example.com/pracapp.Selected",
+            "path_from_root": [
+              "example.com/pracapp.Selected"
+            ]
+          }
+        ],
+        "functions": [
+          {
+            "disposition": "body_dependency",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.23",
+            "id": "example.com/pracapp.Other",
+            "signature": "func() int64"
+          },
+          {
+            "disposition": "selected_root",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.23",
+            "id": "example.com/pracapp.Selected",
+            "signature": "func() int64"
+          }
+        ],
+        "module_graph": [
+          {
+            "go_mod_sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a",
+            "go_version": "1.23",
+            "path": "example.com/pracapp",
+            "replacement": "",
+            "version": ""
+          }
+        ],
+        "observed_loaded_inputs": [
+          {
+            "path": "<module-root>/go.mod",
+            "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a",
+            "source_role": "resolved_module_manifest"
+          },
+          {
+            "go_version": "go1.23",
+            "path": "<module-root>/policy.go",
+            "raw_go_version": "go1.23",
+            "sha256": "85899442dc69350b509ae4ce41a6db8c50c6dc46e0a8d9f7900f6afeb6ffb116",
+            "source_role": "typecheck_source"
+          }
+        ],
+        "pointer_width": 64,
+        "schema": "mpk.go_practical.module_probe.v0",
+        "scope": "private compiler/closure observations and early exclusions; not complete profile admission or proof",
+        "standard_packages": [],
+        "status": "rejected",
+        "target": "linux/amd64",
+        "type_constant_dependencies": []
+      },
+      "request": {
+        "build_tags": [],
+        "capture_roots": [],
+        "function": "example.com/pracapp.Selected",
+        "package": "example.com/pracapp",
+        "root": "<module-root>",
+        "schema": "mpk.go_practical.module_probe_request.v0"
+      },
+      "source_snapshot_unchanged": true
+    },
+    {
+      "application_init_or_generate_executed": false,
+      "fixture_inputs": [
+        {
+          "bytes": 36,
+          "path": "go.mod",
+          "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a"
+        },
+        {
+          "bytes": 90,
+          "path": "policy.go",
+          "sha256": "376fa441e1b5d8b4016e4c13dd93d8d84ce820fde98438afe54735f81a45a21c"
+        }
+      ],
+      "id": "unused-generic",
+      "observations": {
+        "compiler": "go1.25.0",
+        "diagnostics": [],
+        "findings": [],
+        "functions": [
+          {
+            "disposition": "type_check_only",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.23",
+            "id": "example.com/pracapp.Generic",
+            "signature": "func[T any](x T) T"
+          },
+          {
+            "disposition": "selected_root",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.23",
+            "id": "example.com/pracapp.Selected",
+            "signature": "func() int64"
+          }
+        ],
+        "module_graph": [
+          {
+            "go_mod_sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a",
+            "go_version": "1.23",
+            "path": "example.com/pracapp",
+            "replacement": "",
+            "version": ""
+          }
+        ],
+        "observed_loaded_inputs": [
+          {
+            "path": "<module-root>/go.mod",
+            "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a",
+            "source_role": "resolved_module_manifest"
+          },
+          {
+            "go_version": "go1.23",
+            "path": "<module-root>/policy.go",
+            "raw_go_version": "go1.23",
+            "sha256": "376fa441e1b5d8b4016e4c13dd93d8d84ce820fde98438afe54735f81a45a21c",
+            "source_role": "typecheck_source"
+          }
+        ],
+        "pointer_width": 64,
+        "schema": "mpk.go_practical.module_probe.v0",
+        "scope": "private compiler/closure observations and early exclusions; not complete profile admission or proof",
+        "standard_packages": [],
+        "status": "closed",
+        "target": "linux/amd64",
+        "type_constant_dependencies": []
+      },
+      "request": {
+        "build_tags": [],
+        "capture_roots": [],
+        "function": "example.com/pracapp.Selected",
+        "package": "example.com/pracapp",
+        "root": "<module-root>",
+        "schema": "mpk.go_practical.module_probe_request.v0"
+      },
+      "source_snapshot_unchanged": true
+    },
+    {
+      "application_init_or_generate_executed": false,
+      "fixture_inputs": [
+        {
+          "bytes": 36,
+          "path": "go.mod",
+          "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a"
+        },
+        {
+          "bytes": 106,
+          "path": "policy.go",
+          "sha256": "1202fcaae049a9fd376b434b23e8721aaa79210543211339b27685c17ae4db99"
+        }
+      ],
+      "id": "reachable-generic",
+      "observations": {
+        "compiler": "go1.25.0",
+        "diagnostics": [],
+        "findings": [
+          {
+            "code": "GO_PROBE_GENERICS",
+            "detail": "generic body in verification closure",
+            "function": "example.com/pracapp.Generic",
+            "path_from_root": [
+              "example.com/pracapp.Selected",
+              "example.com/pracapp.Generic"
+            ]
+          },
+          {
+            "code": "GO_PROBE_UNSUPPORTED_TYPE",
+            "detail": "T",
+            "function": "example.com/pracapp.Generic",
+            "path_from_root": [
+              "example.com/pracapp.Selected",
+              "example.com/pracapp.Generic"
+            ]
+          },
+          {
+            "code": "GO_PROBE_UNSUPPORTED_TYPE",
+            "detail": "T",
+            "function": "example.com/pracapp.Generic",
+            "path_from_root": [
+              "example.com/pracapp.Selected",
+              "example.com/pracapp.Generic"
+            ]
+          },
+          {
+            "code": "GO_PROBE_GENERICS",
+            "detail": "example.com/pracapp.Generic",
+            "function": "example.com/pracapp.Selected",
+            "path_from_root": [
+              "example.com/pracapp.Selected"
+            ]
+          }
+        ],
+        "functions": [
+          {
+            "disposition": "body_dependency",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.23",
+            "id": "example.com/pracapp.Generic",
+            "signature": "func[T any](x T) T"
+          },
+          {
+            "disposition": "selected_root",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.23",
+            "id": "example.com/pracapp.Selected",
+            "signature": "func() int64"
+          }
+        ],
+        "module_graph": [
+          {
+            "go_mod_sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a",
+            "go_version": "1.23",
+            "path": "example.com/pracapp",
+            "replacement": "",
+            "version": ""
+          }
+        ],
+        "observed_loaded_inputs": [
+          {
+            "path": "<module-root>/go.mod",
+            "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a",
+            "source_role": "resolved_module_manifest"
+          },
+          {
+            "go_version": "go1.23",
+            "path": "<module-root>/policy.go",
+            "raw_go_version": "go1.23",
+            "sha256": "1202fcaae049a9fd376b434b23e8721aaa79210543211339b27685c17ae4db99",
+            "source_role": "typecheck_source"
+          }
+        ],
+        "pointer_width": 64,
+        "schema": "mpk.go_practical.module_probe.v0",
+        "scope": "private compiler/closure observations and early exclusions; not complete profile admission or proof",
+        "standard_packages": [],
+        "status": "rejected",
+        "target": "linux/amd64",
+        "type_constant_dependencies": [
+          "example.com/pracapp.T"
+        ]
+      },
+      "request": {
+        "build_tags": [],
+        "capture_roots": [],
+        "function": "example.com/pracapp.Selected",
+        "package": "example.com/pracapp",
+        "root": "<module-root>",
+        "schema": "mpk.go_practical.module_probe_request.v0"
+      },
+      "source_snapshot_unchanged": true
+    },
+    {
+      "application_init_or_generate_executed": false,
+      "fixture_inputs": [
+        {
+          "bytes": 36,
+          "path": "go.mod",
+          "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a"
+        },
+        {
+          "bytes": 98,
+          "path": "policy.go",
+          "sha256": "7101a17f70c74027e9d3920bde78388f1a26455fb9b5b0ba26b8313dea3ee9c6"
+        }
+      ],
+      "id": "original-package-type-error",
+      "observations": {
+        "compiler": "go1.25.0",
+        "diagnostics": [
+          "<module-root>/policy.go:3:30: cannot use \"not an integer\" (untyped string constant) as int64 value in return statement"
+        ],
+        "findings": [],
+        "functions": [
+          {
+            "disposition": "selected_root",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.23",
+            "id": "example.com/pracapp.Selected",
+            "signature": "func() int64"
+          },
+          {
+            "disposition": "type_check_only",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.23",
+            "id": "example.com/pracapp.Unused",
+            "signature": "func() int64"
+          }
+        ],
+        "module_graph": [
+          {
+            "go_mod_sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a",
+            "go_version": "1.23",
+            "path": "example.com/pracapp",
+            "replacement": "",
+            "version": ""
+          }
+        ],
+        "observed_loaded_inputs": [
+          {
+            "path": "<module-root>/go.mod",
+            "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a",
+            "source_role": "resolved_module_manifest"
+          },
+          {
+            "go_version": "go1.23",
+            "path": "<module-root>/policy.go",
+            "raw_go_version": "go1.23",
+            "sha256": "7101a17f70c74027e9d3920bde78388f1a26455fb9b5b0ba26b8313dea3ee9c6",
+            "source_role": "typecheck_source"
+          }
+        ],
+        "pointer_width": 64,
+        "schema": "mpk.go_practical.module_probe.v0",
+        "scope": "private compiler/closure observations and early exclusions; not complete profile admission or proof",
+        "standard_packages": [],
+        "status": "source_error",
+        "target": "linux/amd64",
+        "type_constant_dependencies": []
+      },
+      "request": {
+        "build_tags": [],
+        "capture_roots": [],
+        "function": "example.com/pracapp.Selected",
+        "package": "example.com/pracapp",
+        "root": "<module-root>",
+        "schema": "mpk.go_practical.module_probe_request.v0"
+      },
+      "source_snapshot_unchanged": true
+    },
+    {
+      "application_init_or_generate_executed": false,
+      "fixture_inputs": [
+        {
+          "bytes": 36,
+          "path": "go.mod",
+          "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a"
+        },
+        {
+          "bytes": 79,
+          "path": "policy.go",
+          "sha256": "f5739813d506f87ad2802a75d796d6a27f1ee33f4c1c8a150ea3e3b9dd690d25"
+        }
+      ],
+      "id": "unmodeled-standard-call",
+      "observations": {
+        "compiler": "go1.25.0",
+        "diagnostics": [],
+        "findings": [
+          {
+            "code": "GO_PROBE_UNMODELED_EXTERNAL_CALL",
+            "detail": "fmt.Println",
+            "function": "example.com/pracapp.Selected",
+            "path_from_root": [
+              "example.com/pracapp.Selected"
+            ]
+          }
+        ],
+        "functions": [
+          {
+            "disposition": "selected_root",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.23",
+            "id": "example.com/pracapp.Selected",
+            "signature": "func() int64"
+          }
+        ],
+        "module_graph": [
+          {
+            "go_mod_sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a",
+            "go_version": "1.23",
+            "path": "example.com/pracapp",
+            "replacement": "",
+            "version": ""
+          }
+        ],
+        "observed_loaded_inputs": [
+          {
+            "path": "<module-root>/go.mod",
+            "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a",
+            "source_role": "resolved_module_manifest"
+          },
+          {
+            "go_version": "go1.23",
+            "path": "<module-root>/policy.go",
+            "raw_go_version": "go1.23",
+            "sha256": "f5739813d506f87ad2802a75d796d6a27f1ee33f4c1c8a150ea3e3b9dd690d25",
+            "source_role": "typecheck_source"
+          }
+        ],
+        "pointer_width": 64,
+        "schema": "mpk.go_practical.module_probe.v0",
+        "scope": "private compiler/closure observations and early exclusions; not complete profile admission or proof",
+        "standard_packages": [
+          "cmp",
+          "errors",
+          "fmt",
+          "internal/abi",
+          "internal/asan",
+          "internal/bisect",
+          "internal/bytealg",
+          "internal/byteorder",
+          "internal/chacha8rand",
+          "internal/coverage/rtcov",
+          "internal/cpu",
+          "internal/filepathlite",
+          "internal/fmtsort",
+          "internal/goarch",
+          "internal/godebug",
+          "internal/godebugs",
+          "internal/goexperiment",
+          "internal/goos",
+          "internal/itoa",
+          "internal/msan",
+          "internal/oserror",
+          "internal/poll",
+          "internal/profilerecord",
+          "internal/race",
+          "internal/reflectlite",
+          "internal/runtime/atomic",
+          "internal/runtime/cgroup",
+          "internal/runtime/exithook",
+          "internal/runtime/gc",
+          "internal/runtime/maps",
+          "internal/runtime/math",
+          "internal/runtime/strconv",
+          "internal/runtime/sys",
+          "internal/runtime/syscall",
+          "internal/stringslite",
+          "internal/sync",
+          "internal/synctest",
+          "internal/syscall/execenv",
+          "internal/syscall/unix",
+          "internal/testlog",
+          "internal/trace/tracev2",
+          "internal/unsafeheader",
+          "io",
+          "io/fs",
+          "iter",
+          "math",
+          "math/bits",
+          "os",
+          "path",
+          "reflect",
+          "runtime",
+          "slices",
+          "strconv",
+          "sync",
+          "sync/atomic",
+          "syscall",
+          "time",
+          "unicode",
+          "unicode/utf8",
+          "unsafe"
+        ],
+        "status": "rejected",
+        "target": "linux/amd64",
+        "type_constant_dependencies": []
+      },
+      "request": {
+        "build_tags": [],
+        "capture_roots": [],
+        "function": "example.com/pracapp.Selected",
+        "package": "example.com/pracapp",
+        "root": "<module-root>",
+        "schema": "mpk.go_practical.module_probe_request.v0"
+      },
+      "source_snapshot_unchanged": true
+    },
+    {
+      "application_init_or_generate_executed": false,
+      "fixture_inputs": [
+        {
+          "bytes": 36,
+          "path": "go.mod",
+          "sha256": "3f61e221be8dd1501aeba8c865faf30ed4e061df56fe6d6632316f9d226af92e"
+        },
+        {
+          "bytes": 50,
+          "path": "policy.go",
+          "sha256": "1f109cf66b6948bf8e180029877cd674379a7229b9263b011dbcfdffb16a4dcb"
+        }
+      ],
+      "id": "language-go122",
+      "observations": {
+        "compiler": "go1.25.0",
+        "diagnostics": [],
+        "findings": [],
+        "functions": [
+          {
+            "disposition": "selected_root",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.22",
+            "id": "example.com/pracapp.Selected",
+            "signature": "func() int64"
+          }
+        ],
+        "module_graph": [
+          {
+            "go_mod_sha256": "3f61e221be8dd1501aeba8c865faf30ed4e061df56fe6d6632316f9d226af92e",
+            "go_version": "1.22",
+            "path": "example.com/pracapp",
+            "replacement": "",
+            "version": ""
+          }
+        ],
+        "observed_loaded_inputs": [
+          {
+            "path": "<module-root>/go.mod",
+            "sha256": "3f61e221be8dd1501aeba8c865faf30ed4e061df56fe6d6632316f9d226af92e",
+            "source_role": "resolved_module_manifest"
+          },
+          {
+            "go_version": "go1.22",
+            "path": "<module-root>/policy.go",
+            "raw_go_version": "go1.22",
+            "sha256": "1f109cf66b6948bf8e180029877cd674379a7229b9263b011dbcfdffb16a4dcb",
+            "source_role": "typecheck_source"
+          }
+        ],
+        "pointer_width": 64,
+        "schema": "mpk.go_practical.module_probe.v0",
+        "scope": "private compiler/closure observations and early exclusions; not complete profile admission or proof",
+        "standard_packages": [],
+        "status": "closed",
+        "target": "linux/amd64",
+        "type_constant_dependencies": []
+      },
+      "request": {
+        "build_tags": [],
+        "capture_roots": [],
+        "function": "example.com/pracapp.Selected",
+        "package": "example.com/pracapp",
+        "root": "<module-root>",
+        "schema": "mpk.go_practical.module_probe_request.v0"
+      },
+      "source_snapshot_unchanged": true
+    },
+    {
+      "application_init_or_generate_executed": false,
+      "fixture_inputs": [
+        {
+          "bytes": 36,
+          "path": "go.mod",
+          "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a"
+        },
+        {
+          "bytes": 50,
+          "path": "policy.go",
+          "sha256": "1f109cf66b6948bf8e180029877cd674379a7229b9263b011dbcfdffb16a4dcb"
+        }
+      ],
+      "id": "language-go123",
+      "observations": {
+        "compiler": "go1.25.0",
+        "diagnostics": [],
+        "findings": [],
+        "functions": [
+          {
+            "disposition": "selected_root",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.23",
+            "id": "example.com/pracapp.Selected",
+            "signature": "func() int64"
+          }
+        ],
+        "module_graph": [
+          {
+            "go_mod_sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a",
+            "go_version": "1.23",
+            "path": "example.com/pracapp",
+            "replacement": "",
+            "version": ""
+          }
+        ],
+        "observed_loaded_inputs": [
+          {
+            "path": "<module-root>/go.mod",
+            "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a",
+            "source_role": "resolved_module_manifest"
+          },
+          {
+            "go_version": "go1.23",
+            "path": "<module-root>/policy.go",
+            "raw_go_version": "go1.23",
+            "sha256": "1f109cf66b6948bf8e180029877cd674379a7229b9263b011dbcfdffb16a4dcb",
+            "source_role": "typecheck_source"
+          }
+        ],
+        "pointer_width": 64,
+        "schema": "mpk.go_practical.module_probe.v0",
+        "scope": "private compiler/closure observations and early exclusions; not complete profile admission or proof",
+        "standard_packages": [],
+        "status": "closed",
+        "target": "linux/amd64",
+        "type_constant_dependencies": []
+      },
+      "request": {
+        "build_tags": [],
+        "capture_roots": [],
+        "function": "example.com/pracapp.Selected",
+        "package": "example.com/pracapp",
+        "root": "<module-root>",
+        "schema": "mpk.go_practical.module_probe_request.v0"
+      },
+      "source_snapshot_unchanged": true
+    },
+    {
+      "application_init_or_generate_executed": false,
+      "fixture_inputs": [
+        {
+          "bytes": 36,
+          "path": "go.mod",
+          "sha256": "667d27bce54110f558faa45776d31d9646034a80f82868410358418934b75f3f"
+        },
+        {
+          "bytes": 50,
+          "path": "policy.go",
+          "sha256": "1f109cf66b6948bf8e180029877cd674379a7229b9263b011dbcfdffb16a4dcb"
+        }
+      ],
+      "id": "language-go124",
+      "observations": {
+        "compiler": "go1.25.0",
+        "diagnostics": [],
+        "findings": [],
+        "functions": [
+          {
+            "disposition": "selected_root",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.24",
+            "id": "example.com/pracapp.Selected",
+            "signature": "func() int64"
+          }
+        ],
+        "module_graph": [
+          {
+            "go_mod_sha256": "667d27bce54110f558faa45776d31d9646034a80f82868410358418934b75f3f",
+            "go_version": "1.24",
+            "path": "example.com/pracapp",
+            "replacement": "",
+            "version": ""
+          }
+        ],
+        "observed_loaded_inputs": [
+          {
+            "path": "<module-root>/go.mod",
+            "sha256": "667d27bce54110f558faa45776d31d9646034a80f82868410358418934b75f3f",
+            "source_role": "resolved_module_manifest"
+          },
+          {
+            "go_version": "go1.24",
+            "path": "<module-root>/policy.go",
+            "raw_go_version": "go1.24",
+            "sha256": "1f109cf66b6948bf8e180029877cd674379a7229b9263b011dbcfdffb16a4dcb",
+            "source_role": "typecheck_source"
+          }
+        ],
+        "pointer_width": 64,
+        "schema": "mpk.go_practical.module_probe.v0",
+        "scope": "private compiler/closure observations and early exclusions; not complete profile admission or proof",
+        "standard_packages": [],
+        "status": "closed",
+        "target": "linux/amd64",
+        "type_constant_dependencies": []
+      },
+      "request": {
+        "build_tags": [],
+        "capture_roots": [],
+        "function": "example.com/pracapp.Selected",
+        "package": "example.com/pracapp",
+        "root": "<module-root>",
+        "schema": "mpk.go_practical.module_probe_request.v0"
+      },
+      "source_snapshot_unchanged": true
+    },
+    {
+      "application_init_or_generate_executed": false,
+      "fixture_inputs": [
+        {
+          "bytes": 38,
+          "path": "go.mod",
+          "sha256": "7857749e4e0786d2a6ce806144736ba9c5c1735be2098bccca52b8ab1b993ec1"
+        },
+        {
+          "bytes": 50,
+          "path": "policy.go",
+          "sha256": "1f109cf66b6948bf8e180029877cd674379a7229b9263b011dbcfdffb16a4dcb"
+        }
+      ],
+      "id": "language-go125",
+      "observations": {
+        "compiler": "go1.25.0",
+        "diagnostics": [],
+        "findings": [],
+        "functions": [
+          {
+            "disposition": "selected_root",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.25",
+            "id": "example.com/pracapp.Selected",
+            "signature": "func() int64"
+          }
+        ],
+        "module_graph": [
+          {
+            "go_mod_sha256": "7857749e4e0786d2a6ce806144736ba9c5c1735be2098bccca52b8ab1b993ec1",
+            "go_version": "1.25.0",
+            "path": "example.com/pracapp",
+            "replacement": "",
+            "version": ""
+          }
+        ],
+        "observed_loaded_inputs": [
+          {
+            "path": "<module-root>/go.mod",
+            "sha256": "7857749e4e0786d2a6ce806144736ba9c5c1735be2098bccca52b8ab1b993ec1",
+            "source_role": "resolved_module_manifest"
+          },
+          {
+            "go_version": "go1.25",
+            "path": "<module-root>/policy.go",
+            "raw_go_version": "go1.25.0",
+            "sha256": "1f109cf66b6948bf8e180029877cd674379a7229b9263b011dbcfdffb16a4dcb",
+            "source_role": "typecheck_source"
+          }
+        ],
+        "pointer_width": 64,
+        "schema": "mpk.go_practical.module_probe.v0",
+        "scope": "private compiler/closure observations and early exclusions; not complete profile admission or proof",
+        "standard_packages": [],
+        "status": "closed",
+        "target": "linux/amd64",
+        "type_constant_dependencies": []
+      },
+      "request": {
+        "build_tags": [],
+        "capture_roots": [],
+        "function": "example.com/pracapp.Selected",
+        "package": "example.com/pracapp",
+        "root": "<module-root>",
+        "schema": "mpk.go_practical.module_probe_request.v0"
+      },
+      "source_snapshot_unchanged": true
+    },
+    {
+      "application_init_or_generate_executed": false,
+      "fixture_inputs": [
+        {
+          "bytes": 36,
+          "path": "go.mod",
+          "sha256": "59c4baef75f722ba1e3d45064221e93b9c9fbfd14971e3917c81b20af805e104"
+        },
+        {
+          "bytes": 50,
+          "path": "policy.go",
+          "sha256": "1f109cf66b6948bf8e180029877cd674379a7229b9263b011dbcfdffb16a4dcb"
+        }
+      ],
+      "id": "old-module-language",
+      "observations": {
+        "compiler": "go1.25.0",
+        "diagnostics": [],
+        "findings": [
+          {
+            "code": "GO_PROBE_LANGUAGE_VERSION",
+            "detail": "1.21",
+            "function": "",
+            "path_from_root": []
+          }
+        ],
+        "functions": [],
+        "module_graph": [],
+        "observed_loaded_inputs": [],
+        "pointer_width": 0,
+        "schema": "mpk.go_practical.module_probe.v0",
+        "scope": "private compiler/closure observations and early exclusions; not complete profile admission or proof",
+        "standard_packages": [],
+        "status": "rejected",
+        "target": "linux/amd64",
+        "type_constant_dependencies": []
+      },
+      "request": {
+        "build_tags": [],
+        "capture_roots": [],
+        "function": "example.com/pracapp.Selected",
+        "package": "example.com/pracapp",
+        "root": "<module-root>",
+        "schema": "mpk.go_practical.module_probe_request.v0"
+      },
+      "source_snapshot_unchanged": true
+    },
+    {
+      "application_init_or_generate_executed": false,
+      "fixture_inputs": [
+        {
+          "bytes": 36,
+          "path": "go.mod",
+          "sha256": "33fe68bb4ee6e635a097a9aef552de2fb41c3f443b60788e041efed2ec5f0f86"
+        },
+        {
+          "bytes": 50,
+          "path": "policy.go",
+          "sha256": "1f109cf66b6948bf8e180029877cd674379a7229b9263b011dbcfdffb16a4dcb"
+        }
+      ],
+      "id": "future-module-language",
+      "observations": {
+        "compiler": "go1.25.0",
+        "diagnostics": [],
+        "findings": [
+          {
+            "code": "GO_PROBE_LANGUAGE_VERSION",
+            "detail": "1.26",
+            "function": "",
+            "path_from_root": []
+          }
+        ],
+        "functions": [],
+        "module_graph": [],
+        "observed_loaded_inputs": [],
+        "pointer_width": 0,
+        "schema": "mpk.go_practical.module_probe.v0",
+        "scope": "private compiler/closure observations and early exclusions; not complete profile admission or proof",
+        "standard_packages": [],
+        "status": "rejected",
+        "target": "linux/amd64",
+        "type_constant_dependencies": []
+      },
+      "request": {
+        "build_tags": [],
+        "capture_roots": [],
+        "function": "example.com/pracapp.Selected",
+        "package": "example.com/pracapp",
+        "root": "<module-root>",
+        "schema": "mpk.go_practical.module_probe_request.v0"
+      },
+      "source_snapshot_unchanged": true
+    },
+    {
+      "application_init_or_generate_executed": false,
+      "fixture_inputs": [
+        {
+          "bytes": 38,
+          "path": "go.mod",
+          "sha256": "872f4aaa79ad2b2e67b9f0b578276b10f254dae49e7970de03d718380d4f7a06"
+        },
+        {
+          "bytes": 50,
+          "path": "policy.go",
+          "sha256": "1f109cf66b6948bf8e180029877cd674379a7229b9263b011dbcfdffb16a4dcb"
+        }
+      ],
+      "id": "newer-module-patch",
+      "observations": {
+        "compiler": "go1.25.0",
+        "diagnostics": [],
+        "findings": [
+          {
+            "code": "GO_PROBE_TOOLCHAIN_REQUIREMENT",
+            "detail": "pinned compiler cannot satisfy module/toolchain requirement",
+            "function": "",
+            "path_from_root": []
+          }
+        ],
+        "functions": [],
+        "module_graph": [],
+        "observed_loaded_inputs": [],
+        "pointer_width": 0,
+        "schema": "mpk.go_practical.module_probe.v0",
+        "scope": "private compiler/closure observations and early exclusions; not complete profile admission or proof",
+        "standard_packages": [],
+        "status": "rejected",
+        "target": "linux/amd64",
+        "type_constant_dependencies": []
+      },
+      "request": {
+        "build_tags": [],
+        "capture_roots": [],
+        "function": "example.com/pracapp.Selected",
+        "package": "example.com/pracapp",
+        "root": "<module-root>",
+        "schema": "mpk.go_practical.module_probe_request.v0"
+      },
+      "source_snapshot_unchanged": true
+    },
+    {
+      "application_init_or_generate_executed": false,
+      "fixture_inputs": [
+        {
+          "bytes": 55,
+          "path": "go.mod",
+          "sha256": "f9f5cd68652ae32b1cde4c0581353bef3f74bcc22a74881f9e21347dcc427eb3"
+        },
+        {
+          "bytes": 50,
+          "path": "policy.go",
+          "sha256": "1f109cf66b6948bf8e180029877cd674379a7229b9263b011dbcfdffb16a4dcb"
+        }
+      ],
+      "id": "newer-toolchain-directive",
+      "observations": {
+        "compiler": "go1.25.0",
+        "diagnostics": [],
+        "findings": [
+          {
+            "code": "GO_PROBE_TOOLCHAIN_REQUIREMENT",
+            "detail": "pinned compiler cannot satisfy module/toolchain requirement",
+            "function": "",
+            "path_from_root": []
+          }
+        ],
+        "functions": [],
+        "module_graph": [],
+        "observed_loaded_inputs": [],
+        "pointer_width": 0,
+        "schema": "mpk.go_practical.module_probe.v0",
+        "scope": "private compiler/closure observations and early exclusions; not complete profile admission or proof",
+        "standard_packages": [],
+        "status": "rejected",
+        "target": "linux/amd64",
+        "type_constant_dependencies": []
+      },
+      "request": {
+        "build_tags": [],
+        "capture_roots": [],
+        "function": "example.com/pracapp.Selected",
+        "package": "example.com/pracapp",
+        "root": "<module-root>",
+        "schema": "mpk.go_practical.module_probe_request.v0"
+      },
+      "source_snapshot_unchanged": true
+    },
+    {
+      "application_init_or_generate_executed": false,
+      "fixture_inputs": [
+        {
+          "bytes": 38,
+          "path": "go.mod",
+          "sha256": "7857749e4e0786d2a6ce806144736ba9c5c1735be2098bccca52b8ab1b993ec1"
+        },
+        {
+          "bytes": 69,
+          "path": "policy.go",
+          "sha256": "8b83a3bf5d489c332b4f38d830dc0d721431ce155aa28bacd38ba99a2d7a7c93"
+        }
+      ],
+      "id": "file-language-downgrade",
+      "observations": {
+        "compiler": "go1.25.0",
+        "diagnostics": [],
+        "findings": [
+          {
+            "code": "GO_PROBE_LANGUAGE_VERSION",
+            "detail": "go1.21",
+            "function": "example.com/pracapp.Selected",
+            "path_from_root": [
+              "example.com/pracapp.Selected"
+            ]
+          }
+        ],
+        "functions": [
+          {
+            "disposition": "selected_root",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.21",
+            "id": "example.com/pracapp.Selected",
+            "signature": "func() int64"
+          }
+        ],
+        "module_graph": [
+          {
+            "go_mod_sha256": "7857749e4e0786d2a6ce806144736ba9c5c1735be2098bccca52b8ab1b993ec1",
+            "go_version": "1.25.0",
+            "path": "example.com/pracapp",
+            "replacement": "",
+            "version": ""
+          }
+        ],
+        "observed_loaded_inputs": [
+          {
+            "path": "<module-root>/go.mod",
+            "sha256": "7857749e4e0786d2a6ce806144736ba9c5c1735be2098bccca52b8ab1b993ec1",
+            "source_role": "resolved_module_manifest"
+          },
+          {
+            "go_version": "go1.21",
+            "path": "<module-root>/policy.go",
+            "raw_go_version": "go1.21",
+            "sha256": "8b83a3bf5d489c332b4f38d830dc0d721431ce155aa28bacd38ba99a2d7a7c93",
+            "source_role": "typecheck_source"
+          }
+        ],
+        "pointer_width": 64,
+        "schema": "mpk.go_practical.module_probe.v0",
+        "scope": "private compiler/closure observations and early exclusions; not complete profile admission or proof",
+        "standard_packages": [],
+        "status": "rejected",
+        "target": "linux/amd64",
+        "type_constant_dependencies": []
+      },
+      "request": {
+        "build_tags": [],
+        "capture_roots": [],
+        "function": "example.com/pracapp.Selected",
+        "package": "example.com/pracapp",
+        "root": "<module-root>",
+        "schema": "mpk.go_practical.module_probe_request.v0"
+      },
+      "source_snapshot_unchanged": true
+    },
+    {
+      "application_init_or_generate_executed": false,
+      "fixture_inputs": [
+        {
+          "bytes": 71,
+          "path": "enterprise.go",
+          "sha256": "071488f21a8b6a3d24b914254b8420cbc788bdc88f69376965541319c6eb3c33"
+        },
+        {
+          "bytes": 36,
+          "path": "go.mod",
+          "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a"
+        },
+        {
+          "bytes": 72,
+          "path": "plain.go",
+          "sha256": "721830aacb86262a4a15b468710b8b06cdddced7b0c37ab00ce3435749aa8829"
+        },
+        {
+          "bytes": 57,
+          "path": "policy.go",
+          "sha256": "262c7a9f206f8327db435c57b4a3e016f9cf7832322843b9f9750dae143cd9cc"
+        }
+      ],
+      "id": "explicit-build-tag",
+      "observations": {
+        "compiler": "go1.25.0",
+        "diagnostics": [],
+        "findings": [],
+        "functions": [
+          {
+            "disposition": "body_dependency",
+            "file": "<module-root>/enterprise.go",
+            "go_version": "go1.23",
+            "id": "example.com/pracapp.Chosen",
+            "signature": "func() int64"
+          },
+          {
+            "disposition": "selected_root",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.23",
+            "id": "example.com/pracapp.Selected",
+            "signature": "func() int64"
+          }
+        ],
+        "module_graph": [
+          {
+            "go_mod_sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a",
+            "go_version": "1.23",
+            "path": "example.com/pracapp",
+            "replacement": "",
+            "version": ""
+          }
+        ],
+        "observed_loaded_inputs": [
+          {
+            "go_version": "go1.23",
+            "path": "<module-root>/enterprise.go",
+            "raw_go_version": "go1.23",
+            "sha256": "071488f21a8b6a3d24b914254b8420cbc788bdc88f69376965541319c6eb3c33",
+            "source_role": "typecheck_source"
+          },
+          {
+            "path": "<module-root>/go.mod",
+            "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a",
+            "source_role": "resolved_module_manifest"
+          },
+          {
+            "path": "<module-root>/plain.go",
+            "sha256": "721830aacb86262a4a15b468710b8b06cdddced7b0c37ab00ce3435749aa8829",
+            "source_role": "build_excluded_source"
+          },
+          {
+            "go_version": "go1.23",
+            "path": "<module-root>/policy.go",
+            "raw_go_version": "go1.23",
+            "sha256": "262c7a9f206f8327db435c57b4a3e016f9cf7832322843b9f9750dae143cd9cc",
+            "source_role": "typecheck_source"
+          }
+        ],
+        "pointer_width": 64,
+        "schema": "mpk.go_practical.module_probe.v0",
+        "scope": "private compiler/closure observations and early exclusions; not complete profile admission or proof",
+        "standard_packages": [],
+        "status": "closed",
+        "target": "linux/amd64",
+        "type_constant_dependencies": []
+      },
+      "request": {
+        "build_tags": [
+          "enterprise"
+        ],
+        "capture_roots": [],
+        "function": "example.com/pracapp.Selected",
+        "package": "example.com/pracapp",
+        "root": "<module-root>",
+        "schema": "mpk.go_practical.module_probe_request.v0"
+      },
+      "source_snapshot_unchanged": true
+    },
+    {
+      "application_init_or_generate_executed": false,
+      "fixture_inputs": [
+        {
+          "bytes": 36,
+          "path": "go.mod",
+          "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a"
+        },
+        {
+          "bytes": 41,
+          "path": "policy_darwin.go",
+          "sha256": "810840faf5e3de0a39dd87ad94346e708ea9754d72c2a199f9b85f220397c586"
+        },
+        {
+          "bytes": 53,
+          "path": "policy_linux.go",
+          "sha256": "f16b113dc9a6b2e1b8bc507fbce7eac92db4114cb02f58b834c9452ba2c265c7"
+        }
+      ],
+      "id": "explicit-linux-target",
+      "observations": {
+        "compiler": "go1.25.0",
+        "diagnostics": [],
+        "findings": [],
+        "functions": [
+          {
+            "disposition": "selected_root",
+            "file": "<module-root>/policy_linux.go",
+            "go_version": "go1.23",
+            "id": "example.com/pracapp.Selected",
+            "signature": "func(x int) int"
+          }
+        ],
+        "module_graph": [
+          {
+            "go_mod_sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a",
+            "go_version": "1.23",
+            "path": "example.com/pracapp",
+            "replacement": "",
+            "version": ""
+          }
+        ],
+        "observed_loaded_inputs": [
+          {
+            "path": "<module-root>/go.mod",
+            "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a",
+            "source_role": "resolved_module_manifest"
+          },
+          {
+            "path": "<module-root>/policy_darwin.go",
+            "sha256": "810840faf5e3de0a39dd87ad94346e708ea9754d72c2a199f9b85f220397c586",
+            "source_role": "build_excluded_source"
+          },
+          {
+            "go_version": "go1.23",
+            "path": "<module-root>/policy_linux.go",
+            "raw_go_version": "go1.23",
+            "sha256": "f16b113dc9a6b2e1b8bc507fbce7eac92db4114cb02f58b834c9452ba2c265c7",
+            "source_role": "typecheck_source"
+          }
+        ],
+        "pointer_width": 64,
+        "schema": "mpk.go_practical.module_probe.v0",
+        "scope": "private compiler/closure observations and early exclusions; not complete profile admission or proof",
+        "standard_packages": [],
+        "status": "closed",
+        "target": "linux/amd64",
+        "type_constant_dependencies": []
+      },
+      "request": {
+        "build_tags": [],
+        "capture_roots": [],
+        "function": "example.com/pracapp.Selected",
+        "package": "example.com/pracapp",
+        "root": "<module-root>",
+        "schema": "mpk.go_practical.module_probe_request.v0"
+      },
+      "source_snapshot_unchanged": true
+    },
+    {
+      "application_init_or_generate_executed": false,
+      "fixture_inputs": [
+        {
+          "bytes": 109,
+          "path": "go.mod",
+          "sha256": "05484c0d0e83a2f70f7360954c74d56df1a7c649d635bf464d7a1a7a427c66d0"
+        },
+        {
+          "bytes": 90,
+          "path": "policy.go",
+          "sha256": "426ee4fc9c712ab1fa74582557d37235ca55672b3053c3f818f40628983dd3ae"
+        }
+      ],
+      "id": "local-replacement-in-capability",
+      "observations": {
+        "compiler": "go1.25.0",
+        "diagnostics": [],
+        "findings": [],
+        "functions": [
+          {
+            "disposition": "selected_root",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.23",
+            "id": "example.com/pracapp.Selected",
+            "signature": "func() int64"
+          },
+          {
+            "disposition": "body_dependency",
+            "file": "<dependency-root>/dep.go",
+            "go_version": "go1.22",
+            "id": "example.com/pracdep.Twice",
+            "signature": "func(x int64) int64"
+          },
+          {
+            "disposition": "type_check_only",
+            "file": "<dependency-root>/dep.go",
+            "go_version": "go1.22",
+            "id": "example.com/pracdep.init@<dependency-root>/dep.go:93",
+            "signature": "func()"
+          }
+        ],
+        "module_graph": [
+          {
+            "go_mod_sha256": "05484c0d0e83a2f70f7360954c74d56df1a7c649d635bf464d7a1a7a427c66d0",
+            "go_version": "1.23",
+            "path": "example.com/pracapp",
+            "replacement": "",
+            "version": ""
+          },
+          {
+            "go_mod_sha256": "a093d5cade700e6d6c0c547712306c08bf8ab4abb439b7c6d1d997f791da0c83",
+            "go_version": "1.22",
+            "path": "example.com/pracdep",
+            "replacement": "../dep@",
+            "version": "v1.0.0"
+          }
+        ],
+        "observed_loaded_inputs": [
+          {
+            "path": "<module-root>/go.mod",
+            "sha256": "05484c0d0e83a2f70f7360954c74d56df1a7c649d635bf464d7a1a7a427c66d0",
+            "source_role": "resolved_module_manifest"
+          },
+          {
+            "go_version": "go1.23",
+            "path": "<module-root>/policy.go",
+            "raw_go_version": "go1.23",
+            "sha256": "426ee4fc9c712ab1fa74582557d37235ca55672b3053c3f818f40628983dd3ae",
+            "source_role": "typecheck_source"
+          },
+          {
+            "go_version": "go1.22",
+            "path": "<dependency-root>/dep.go",
+            "raw_go_version": "go1.22",
+            "sha256": "f3285d0a89d57d265ce5808abf19b0c9ba37cbd7a99597bf55cd1031131cb549",
+            "source_role": "typecheck_source"
+          },
+          {
+            "path": "<dependency-root>/go.mod",
+            "sha256": "a093d5cade700e6d6c0c547712306c08bf8ab4abb439b7c6d1d997f791da0c83",
+            "source_role": "resolved_module_manifest"
+          }
+        ],
+        "pointer_width": 64,
+        "schema": "mpk.go_practical.module_probe.v0",
+        "scope": "private compiler/closure observations and early exclusions; not complete profile admission or proof",
+        "standard_packages": [],
+        "status": "closed",
+        "target": "linux/amd64",
+        "type_constant_dependencies": []
+      },
+      "request": {
+        "build_tags": [],
+        "capture_roots": [
+          "<dependency-root>"
+        ],
+        "function": "example.com/pracapp.Selected",
+        "package": "example.com/pracapp",
+        "root": "<module-root>",
+        "schema": "mpk.go_practical.module_probe_request.v0"
+      },
+      "source_snapshot_unchanged": true
+    },
+    {
+      "application_init_or_generate_executed": false,
+      "fixture_inputs": [
+        {
+          "bytes": 109,
+          "path": "go.mod",
+          "sha256": "05484c0d0e83a2f70f7360954c74d56df1a7c649d635bf464d7a1a7a427c66d0"
+        },
+        {
+          "bytes": 90,
+          "path": "policy.go",
+          "sha256": "426ee4fc9c712ab1fa74582557d37235ca55672b3053c3f818f40628983dd3ae"
+        }
+      ],
+      "id": "local-replacement-escape",
+      "observations": {
+        "compiler": "go1.25.0",
+        "diagnostics": [],
+        "findings": [
+          {
+            "code": "GO_PROBE_REPLACEMENT_ESCAPE",
+            "detail": "example.com/pracdep",
+            "function": "",
+            "path_from_root": []
+          }
+        ],
+        "functions": [],
+        "module_graph": [],
+        "observed_loaded_inputs": [],
+        "pointer_width": 0,
+        "schema": "mpk.go_practical.module_probe.v0",
+        "scope": "private compiler/closure observations and early exclusions; not complete profile admission or proof",
+        "standard_packages": [],
+        "status": "rejected",
+        "target": "linux/amd64",
+        "type_constant_dependencies": []
+      },
+      "request": {
+        "build_tags": [],
+        "capture_roots": [],
+        "function": "example.com/pracapp.Selected",
+        "package": "example.com/pracapp",
+        "root": "<module-root>",
+        "schema": "mpk.go_practical.module_probe_request.v0"
+      },
+      "source_snapshot_unchanged": true
+    },
+    {
+      "application_init_or_generate_executed": false,
+      "fixture_inputs": [
+        {
+          "bytes": 136,
+          "path": "go.mod",
+          "sha256": "9192f02c5d623e95b6ae5719cc0dade5579b7c47c2d5fcc0e95a535c1d26d686"
+        },
+        {
+          "bytes": 157,
+          "path": "go.sum",
+          "sha256": "bd1b8f5f51bb4a4440061bfeb3acd7002490f9de222d4319ff5ed1cb4d6d19fa"
+        },
+        {
+          "bytes": 90,
+          "path": "policy.go",
+          "sha256": "426ee4fc9c712ab1fa74582557d37235ca55672b3053c3f818f40628983dd3ae"
+        }
+      ],
+      "id": "versioned-replacement",
+      "observations": {
+        "compiler": "go1.25.0",
+        "diagnostics": [],
+        "findings": [],
+        "functions": [
+          {
+            "disposition": "selected_root",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.23",
+            "id": "example.com/pracapp.Selected",
+            "signature": "func() int64"
+          },
+          {
+            "disposition": "body_dependency",
+            "file": "<module-cache>/example.com/pracdep@v1.0.0/dep.go",
+            "go_version": "go1.22",
+            "id": "example.com/pracdep.Twice",
+            "signature": "func(x int64) int64"
+          },
+          {
+            "disposition": "type_check_only",
+            "file": "<module-cache>/example.com/pracdep@v1.0.0/dep.go",
+            "go_version": "go1.22",
+            "id": "example.com/pracdep.init@<module-cache>/example.com/pracdep@v1.0.0/dep.go:93",
+            "signature": "func()"
+          }
+        ],
+        "module_graph": [
+          {
+            "go_mod_sha256": "9192f02c5d623e95b6ae5719cc0dade5579b7c47c2d5fcc0e95a535c1d26d686",
+            "go_version": "1.23",
+            "path": "example.com/pracapp",
+            "replacement": "",
+            "version": ""
+          },
+          {
+            "go_mod_sha256": "a093d5cade700e6d6c0c547712306c08bf8ab4abb439b7c6d1d997f791da0c83",
+            "go_version": "1.22",
+            "path": "example.com/pracdep",
+            "replacement": "example.com/pracdep@v1.0.0",
+            "version": "v0.9.0"
+          }
+        ],
+        "observed_loaded_inputs": [
+          {
+            "path": "<module-cache>/cache/download/example.com/pracdep/@v/v1.0.0.mod",
+            "sha256": "a093d5cade700e6d6c0c547712306c08bf8ab4abb439b7c6d1d997f791da0c83",
+            "source_role": "resolved_module_manifest"
+          },
+          {
+            "go_version": "go1.22",
+            "path": "<module-cache>/example.com/pracdep@v1.0.0/dep.go",
+            "raw_go_version": "go1.22",
+            "sha256": "f3285d0a89d57d265ce5808abf19b0c9ba37cbd7a99597bf55cd1031131cb549",
+            "source_role": "typecheck_source"
+          },
+          {
+            "path": "<module-root>/go.mod",
+            "sha256": "9192f02c5d623e95b6ae5719cc0dade5579b7c47c2d5fcc0e95a535c1d26d686",
+            "source_role": "resolved_module_manifest"
+          },
+          {
+            "path": "<module-root>/go.sum",
+            "sha256": "bd1b8f5f51bb4a4440061bfeb3acd7002490f9de222d4319ff5ed1cb4d6d19fa",
+            "source_role": "lockfile"
+          },
+          {
+            "go_version": "go1.23",
+            "path": "<module-root>/policy.go",
+            "raw_go_version": "go1.23",
+            "sha256": "426ee4fc9c712ab1fa74582557d37235ca55672b3053c3f818f40628983dd3ae",
+            "source_role": "typecheck_source"
+          }
+        ],
+        "pointer_width": 64,
+        "schema": "mpk.go_practical.module_probe.v0",
+        "scope": "private compiler/closure observations and early exclusions; not complete profile admission or proof",
+        "standard_packages": [],
+        "status": "closed",
+        "target": "linux/amd64",
+        "type_constant_dependencies": []
+      },
+      "request": {
+        "build_tags": [],
+        "capture_roots": [],
+        "function": "example.com/pracapp.Selected",
+        "package": "example.com/pracapp",
+        "root": "<module-root>",
+        "schema": "mpk.go_practical.module_probe_request.v0"
+      },
+      "source_snapshot_unchanged": true
+    },
+    {
+      "application_init_or_generate_executed": false,
+      "fixture_inputs": [
+        {
+          "bytes": 71,
+          "path": "go.mod",
+          "sha256": "aabdb2c5ba46493bf7b7a85f778f27ce29ebcf838460b2be1e48b2e919685f10"
+        },
+        {
+          "bytes": 50,
+          "path": "policy.go",
+          "sha256": "1f109cf66b6948bf8e180029877cd674379a7229b9263b011dbcfdffb16a4dcb"
+        }
+      ],
+      "id": "missing-offline-module",
+      "observations": {
+        "compiler": "go1.25.0",
+        "diagnostics": [
+          "go: module lookup disabled by GOPROXY=off\ngo: example.com/missing@v1.0.0: missing go.sum entry for go.mod file; to add it:\n\tgo mod download example.com/missing\n",
+          "offline module graph unavailable"
+        ],
+        "findings": [],
+        "functions": [],
+        "module_graph": [],
+        "observed_loaded_inputs": [
+          {
+            "path": "<module-root>/go.mod",
+            "sha256": "aabdb2c5ba46493bf7b7a85f778f27ce29ebcf838460b2be1e48b2e919685f10",
+            "source_role": "build_manifest"
+          }
+        ],
+        "pointer_width": 0,
+        "schema": "mpk.go_practical.module_probe.v0",
+        "scope": "private compiler/closure observations and early exclusions; not complete profile admission or proof",
+        "standard_packages": [],
+        "status": "source_error",
+        "target": "linux/amd64",
+        "type_constant_dependencies": []
+      },
+      "request": {
+        "build_tags": [],
+        "capture_roots": [],
+        "function": "example.com/pracapp.Selected",
+        "package": "example.com/pracapp",
+        "root": "<module-root>",
+        "schema": "mpk.go_practical.module_probe_request.v0"
+      },
+      "source_snapshot_unchanged": true
+    },
+    {
+      "application_init_or_generate_executed": false,
+      "fixture_inputs": [
+        {
+          "bytes": 36,
+          "path": "go.mod",
+          "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a"
+        },
+        {
+          "bytes": 14,
+          "path": "go.work",
+          "sha256": "169d266cc42ad6ffd91d56768ab2edf4a884c677371febd7d632cc791f99f04c"
+        },
+        {
+          "bytes": 50,
+          "path": "policy.go",
+          "sha256": "1f109cf66b6948bf8e180029877cd674379a7229b9263b011dbcfdffb16a4dcb"
+        }
+      ],
+      "id": "root-workspace-rejected",
+      "observations": {
+        "compiler": "go1.25.0",
+        "diagnostics": [],
+        "findings": [
+          {
+            "code": "GO_PROBE_BUILD_POLICY",
+            "detail": "unsupported workspace/vendor input: go.work",
+            "function": "",
+            "path_from_root": []
+          }
+        ],
+        "functions": [],
+        "module_graph": [],
+        "observed_loaded_inputs": [],
+        "pointer_width": 0,
+        "schema": "mpk.go_practical.module_probe.v0",
+        "scope": "private compiler/closure observations and early exclusions; not complete profile admission or proof",
+        "standard_packages": [],
+        "status": "rejected",
+        "target": "linux/amd64",
+        "type_constant_dependencies": []
+      },
+      "request": {
+        "build_tags": [],
+        "capture_roots": [],
+        "function": "example.com/pracapp.Selected",
+        "package": "example.com/pracapp",
+        "root": "<module-root>",
+        "schema": "mpk.go_practical.module_probe_request.v0"
+      },
+      "source_snapshot_unchanged": true
+    },
+    {
+      "application_init_or_generate_executed": false,
+      "fixture_inputs": [
+        {
+          "bytes": 36,
+          "path": "go.mod",
+          "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a"
+        },
+        {
+          "bytes": 50,
+          "path": "policy.go",
+          "sha256": "1f109cf66b6948bf8e180029877cd674379a7229b9263b011dbcfdffb16a4dcb"
+        },
+        {
+          "bytes": 0,
+          "path": "vendor/modules.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "id": "vendor-mode-rejected",
+      "observations": {
+        "compiler": "go1.25.0",
+        "diagnostics": [],
+        "findings": [
+          {
+            "code": "GO_PROBE_BUILD_POLICY",
+            "detail": "unsupported workspace/vendor input: vendor",
+            "function": "",
+            "path_from_root": []
+          }
+        ],
+        "functions": [],
+        "module_graph": [],
+        "observed_loaded_inputs": [],
+        "pointer_width": 0,
+        "schema": "mpk.go_practical.module_probe.v0",
+        "scope": "private compiler/closure observations and early exclusions; not complete profile admission or proof",
+        "standard_packages": [],
+        "status": "rejected",
+        "target": "linux/amd64",
+        "type_constant_dependencies": []
+      },
+      "request": {
+        "build_tags": [],
+        "capture_roots": [],
+        "function": "example.com/pracapp.Selected",
+        "package": "example.com/pracapp",
+        "root": "<module-root>",
+        "schema": "mpk.go_practical.module_probe_request.v0"
+      },
+      "source_snapshot_unchanged": true
+    },
+    {
+      "application_init_or_generate_executed": false,
+      "fixture_inputs": [
+        {
+          "bytes": 150,
+          "path": "go.mod",
+          "sha256": "328bc08b02cb96551390aea4f17af90d08004205c073a6f48ec20910b7997a29"
+        },
+        {
+          "bytes": 157,
+          "path": "go.sum",
+          "sha256": "bd1b8f5f51bb4a4440061bfeb3acd7002490f9de222d4319ff5ed1cb4d6d19fa"
+        },
+        {
+          "bytes": 90,
+          "path": "policy.go",
+          "sha256": "426ee4fc9c712ab1fa74582557d37235ca55672b3053c3f818f40628983dd3ae"
+        }
+      ],
+      "id": "module-metadata",
+      "observations": {
+        "compiler": "go1.25.0",
+        "diagnostics": [],
+        "findings": [],
+        "functions": [
+          {
+            "disposition": "selected_root",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.23",
+            "id": "example.com/pracapp.Selected",
+            "signature": "func() int64"
+          },
+          {
+            "disposition": "body_dependency",
+            "file": "<module-cache>/example.com/pracdep@v1.0.0/dep.go",
+            "go_version": "go1.22",
+            "id": "example.com/pracdep.Twice",
+            "signature": "func(x int64) int64"
+          },
+          {
+            "disposition": "type_check_only",
+            "file": "<module-cache>/example.com/pracdep@v1.0.0/dep.go",
+            "go_version": "go1.22",
+            "id": "example.com/pracdep.init@<module-cache>/example.com/pracdep@v1.0.0/dep.go:93",
+            "signature": "func()"
+          }
+        ],
+        "module_graph": [
+          {
+            "go_mod_sha256": "328bc08b02cb96551390aea4f17af90d08004205c073a6f48ec20910b7997a29",
+            "go_version": "1.23",
+            "path": "example.com/pracapp",
+            "replacement": "",
+            "version": ""
+          },
+          {
+            "go_mod_sha256": "a093d5cade700e6d6c0c547712306c08bf8ab4abb439b7c6d1d997f791da0c83",
+            "go_version": "1.22",
+            "path": "example.com/pracdep",
+            "replacement": "",
+            "version": "v1.0.0"
+          }
+        ],
+        "observed_loaded_inputs": [
+          {
+            "path": "<module-cache>/cache/download/example.com/pracdep/@v/v1.0.0.mod",
+            "sha256": "a093d5cade700e6d6c0c547712306c08bf8ab4abb439b7c6d1d997f791da0c83",
+            "source_role": "resolved_module_manifest"
+          },
+          {
+            "go_version": "go1.22",
+            "path": "<module-cache>/example.com/pracdep@v1.0.0/dep.go",
+            "raw_go_version": "go1.22",
+            "sha256": "f3285d0a89d57d265ce5808abf19b0c9ba37cbd7a99597bf55cd1031131cb549",
+            "source_role": "typecheck_source"
+          },
+          {
+            "path": "<module-root>/go.mod",
+            "sha256": "328bc08b02cb96551390aea4f17af90d08004205c073a6f48ec20910b7997a29",
+            "source_role": "resolved_module_manifest"
+          },
+          {
+            "path": "<module-root>/go.sum",
+            "sha256": "bd1b8f5f51bb4a4440061bfeb3acd7002490f9de222d4319ff5ed1cb4d6d19fa",
+            "source_role": "lockfile"
+          },
+          {
+            "go_version": "go1.23",
+            "path": "<module-root>/policy.go",
+            "raw_go_version": "go1.23",
+            "sha256": "426ee4fc9c712ab1fa74582557d37235ca55672b3053c3f818f40628983dd3ae",
+            "source_role": "typecheck_source"
+          }
+        ],
+        "pointer_width": 64,
+        "schema": "mpk.go_practical.module_probe.v0",
+        "scope": "private compiler/closure observations and early exclusions; not complete profile admission or proof",
+        "standard_packages": [],
+        "status": "closed",
+        "target": "linux/amd64",
+        "type_constant_dependencies": []
+      },
+      "request": {
+        "build_tags": [],
+        "capture_roots": [],
+        "function": "example.com/pracapp.Selected",
+        "package": "example.com/pracapp",
+        "root": "<module-root>",
+        "schema": "mpk.go_practical.module_probe_request.v0"
+      },
+      "source_snapshot_unchanged": true
+    },
+    {
+      "application_init_or_generate_executed": false,
+      "fixture_inputs": [
+        {
+          "bytes": 36,
+          "path": "go.mod",
+          "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a"
+        },
+        {
+          "bytes": 188,
+          "path": "policy.go",
+          "sha256": "b3642b03fe789dbf2f7677382108e08980d84fa64590c010f857fd69b05aa8d5"
+        }
+      ],
+      "id": "closed-value-error-signature",
+      "observations": {
+        "compiler": "go1.25.0",
+        "diagnostics": [],
+        "findings": [],
+        "functions": [
+          {
+            "disposition": "type_check_only",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.23",
+            "id": "example.com/pracapp.RejectCode.Error",
+            "signature": "func() string"
+          },
+          {
+            "disposition": "selected_root",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.23",
+            "id": "example.com/pracapp.Selected",
+            "signature": "func(ok bool) (int64, error)"
+          }
+        ],
+        "module_graph": [
+          {
+            "go_mod_sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a",
+            "go_version": "1.23",
+            "path": "example.com/pracapp",
+            "replacement": "",
+            "version": ""
+          }
+        ],
+        "observed_loaded_inputs": [
+          {
+            "path": "<module-root>/go.mod",
+            "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a",
+            "source_role": "resolved_module_manifest"
+          },
+          {
+            "go_version": "go1.23",
+            "path": "<module-root>/policy.go",
+            "raw_go_version": "go1.23",
+            "sha256": "b3642b03fe789dbf2f7677382108e08980d84fa64590c010f857fd69b05aa8d5",
+            "source_role": "typecheck_source"
+          }
+        ],
+        "pointer_width": 64,
+        "schema": "mpk.go_practical.module_probe.v0",
+        "scope": "private compiler/closure observations and early exclusions; not complete profile admission or proof",
+        "standard_packages": [],
+        "status": "closed",
+        "target": "linux/amd64",
+        "type_constant_dependencies": [
+          "example.com/pracapp.RejectCode"
+        ]
+      },
+      "request": {
+        "build_tags": [],
+        "capture_roots": [],
+        "function": "example.com/pracapp.Selected",
+        "package": "example.com/pracapp",
+        "root": "<module-root>",
+        "schema": "mpk.go_practical.module_probe_request.v0"
+      },
+      "source_snapshot_unchanged": true
+    },
+    {
+      "application_init_or_generate_executed": false,
+      "fixture_inputs": [
+        {
+          "bytes": 36,
+          "path": "go.mod",
+          "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a"
+        },
+        {
+          "bytes": 82,
+          "path": "helper_amd64.s",
+          "sha256": "bd4ec4cdf76abac16d89f6e593235fe60ab735d6e5930bd14323f382cdc932ba"
+        },
+        {
+          "bytes": 72,
+          "path": "policy.go",
+          "sha256": "942ad554623e81309e416b808cc6fdfd94999237d714f988669830ab53c1fa2a"
+        }
+      ],
+      "id": "unused-assembly-input",
+      "observations": {
+        "compiler": "go1.25.0",
+        "diagnostics": [],
+        "findings": [],
+        "functions": [
+          {
+            "disposition": "selected_root",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.23",
+            "id": "example.com/pracapp.Selected",
+            "signature": "func() int64"
+          }
+        ],
+        "module_graph": [
+          {
+            "go_mod_sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a",
+            "go_version": "1.23",
+            "path": "example.com/pracapp",
+            "replacement": "",
+            "version": ""
+          }
+        ],
+        "observed_loaded_inputs": [
+          {
+            "path": "<module-root>/go.mod",
+            "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a",
+            "source_role": "resolved_module_manifest"
+          },
+          {
+            "path": "<module-root>/helper_amd64.s",
+            "sha256": "bd4ec4cdf76abac16d89f6e593235fe60ab735d6e5930bd14323f382cdc932ba",
+            "source_role": "auxiliary_build_input"
+          },
+          {
+            "go_version": "go1.23",
+            "path": "<module-root>/policy.go",
+            "raw_go_version": "go1.23",
+            "sha256": "942ad554623e81309e416b808cc6fdfd94999237d714f988669830ab53c1fa2a",
+            "source_role": "typecheck_source"
+          }
+        ],
+        "pointer_width": 64,
+        "schema": "mpk.go_practical.module_probe.v0",
+        "scope": "private compiler/closure observations and early exclusions; not complete profile admission or proof",
+        "standard_packages": [],
+        "status": "closed",
+        "target": "linux/amd64",
+        "type_constant_dependencies": []
+      },
+      "request": {
+        "build_tags": [],
+        "capture_roots": [],
+        "function": "example.com/pracapp.Selected",
+        "package": "example.com/pracapp",
+        "root": "<module-root>",
+        "schema": "mpk.go_practical.module_probe_request.v0"
+      },
+      "source_snapshot_unchanged": true
+    },
+    {
+      "application_init_or_generate_executed": false,
+      "fixture_inputs": [
+        {
+          "bytes": 36,
+          "path": "go.mod",
+          "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a"
+        },
+        {
+          "bytes": 82,
+          "path": "helper_amd64.s",
+          "sha256": "bd4ec4cdf76abac16d89f6e593235fe60ab735d6e5930bd14323f382cdc932ba"
+        },
+        {
+          "bytes": 81,
+          "path": "policy.go",
+          "sha256": "afc2d6f4899c32bda0c5bccd86296845898319e81dbbf1a247a5822f2f179fa6"
+        }
+      ],
+      "id": "reachable-assembly-rejected",
+      "observations": {
+        "compiler": "go1.25.0",
+        "diagnostics": [],
+        "findings": [
+          {
+            "code": "GO_PROBE_UNMODELED_EXTERNAL_CALL",
+            "detail": "example.com/pracapp.Assembly",
+            "function": "example.com/pracapp.Selected",
+            "path_from_root": [
+              "example.com/pracapp.Selected"
+            ]
+          }
+        ],
+        "functions": [
+          {
+            "disposition": "selected_root",
+            "file": "<module-root>/policy.go",
+            "go_version": "go1.23",
+            "id": "example.com/pracapp.Selected",
+            "signature": "func() int64"
+          }
+        ],
+        "module_graph": [
+          {
+            "go_mod_sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a",
+            "go_version": "1.23",
+            "path": "example.com/pracapp",
+            "replacement": "",
+            "version": ""
+          }
+        ],
+        "observed_loaded_inputs": [
+          {
+            "path": "<module-root>/go.mod",
+            "sha256": "38895141e7b326b9fc9158f727ebedb3445fc7229d42b382923f63cb0fe8849a",
+            "source_role": "resolved_module_manifest"
+          },
+          {
+            "path": "<module-root>/helper_amd64.s",
+            "sha256": "bd4ec4cdf76abac16d89f6e593235fe60ab735d6e5930bd14323f382cdc932ba",
+            "source_role": "auxiliary_build_input"
+          },
+          {
+            "go_version": "go1.23",
+            "path": "<module-root>/policy.go",
+            "raw_go_version": "go1.23",
+            "sha256": "afc2d6f4899c32bda0c5bccd86296845898319e81dbbf1a247a5822f2f179fa6",
+            "source_role": "typecheck_source"
+          }
+        ],
+        "pointer_width": 64,
+        "schema": "mpk.go_practical.module_probe.v0",
+        "scope": "private compiler/closure observations and early exclusions; not complete profile admission or proof",
+        "standard_packages": [],
+        "status": "rejected",
+        "target": "linux/amd64",
+        "type_constant_dependencies": []
+      },
+      "request": {
+        "build_tags": [],
+        "capture_roots": [],
+        "function": "example.com/pracapp.Selected",
+        "package": "example.com/pracapp",
+        "root": "<module-root>",
+        "schema": "mpk.go_practical.module_probe_request.v0"
+      },
+      "source_snapshot_unchanged": true
+    }
+  ],
+  "compiler_version": "go version go1.25.0 darwin/arm64",
+  "dependency_snapshot": {
+    "archive_sha256": "3682ab212046b810d06b59e5c18019a233cb9e1565a9994f0f7fe969fc0bc5ec",
+    "go_mod_sum": "h1:RNha+Ovptpv+50nN2NH8md8DuZZwwlLUzexiDm4kE8g=",
+    "module": "example.com/pracdep",
+    "preparation_transport": "local file proxy; no network",
+    "sum": "h1:MTsAUxsuzB4cUq0dDw78AH8ovfJ05oBPSyUb+5y8IPA=",
+    "verification_transport": "GOPROXY=off; sealed prepopulated cache",
+    "version": "v1.0.0"
+  },
+  "dependency_snapshot_unchanged": true,
+  "deterministic_passes": 2,
+  "go_downloads_during_measurement": false,
+  "host": "darwin/arm64",
+  "host_archive_sha256": "544932844156d8172f7a28f77f2ac9c15a23046698b6243f633b0a0b00c0749c",
+  "host_compiler_sha256": "c812de5f1e8307431c5bce8ebc4887c180827abc5834a72cd640a8a14200a93b",
+  "host_toolchain_inventory": {
+    "files": 14496,
+    "sha256": "85d1dd7ca77c9263d83e25f05e4c32105738fdc002434d61b27671aee4e259bc"
+  },
+  "network_scope": "Go proxy/checksum/toolchain/telemetry disabled; no OS-level egress-isolation receipt on macOS",
+  "probe_source_sha256": "5d50beb0bc79cae467c88f5e72c47110ae570ff383ade7b46413bab3663b99d2",
+  "runner_sha256": "95cf152ef7538f97e51f68831c2c7f9521445a18612d0bde0ba22d5b503d205c",
+  "schema": "mpk.go_practical.module_probe_report.v0",
+  "scope": "compiler/type/closure feasibility; not VIR, VC, theorem or native release acceptance",
+  "specification_sha256": "42a4ff1c01efe8dc23eca4378b8fb03d76e9f2f079dab01298ffd74d8b0e3149",
+  "target": "linux/amd64",
+  "work_item": "GO-PRAC-T01-W02"
+}

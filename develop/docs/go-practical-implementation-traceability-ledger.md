@@ -25,7 +25,7 @@ after reconciling the intervening shared artifacts and active registry.
 | Work item | Status | Evidence / next condition |
 | --- | --- | --- |
 | GO-PRAC-T01-W01 | Complete | Reviewed implementation commit `bd5ee8047d8925f9c9d0f7502627fca33bb2c836`; completion audit below |
-| GO-PRAC-T01-W02 | Ready | Original-package/dependency/build/version/closure probes |
+| GO-PRAC-T01-W02 | In progress | 39 compiler/closure cases passed twice; final review and commit handoff pending |
 | GO-PRAC-T01-W03 | Blocked by W02 | Ordinary encodings, conditional lemmas and resource feasibility |
 | GO-PRAC-T01-W04 | Blocked by W03 | Exact v1 source/shared/contract/limit freeze |
 | GO-PRAC-T01-W05 | Blocked by W04 | Publish inactive package, review and full T01 gate |
@@ -112,3 +112,78 @@ corpus, candidate compiler/target and proposed language table each have the
 evidence described above. No W01 requirement remains pending. W02 is Ready.
 Full T01 validation remains explicitly deferred to W05. No native
 practical-Go release or new application-proof claim is made.
+
+## 5. T01-W02 original-package and closure measurements
+
+W01 completed before this work began. The measurement uses the exact
+Go 1.25.0 analysis release, not host Go 1.23.2. The official
+`go1.25.0.darwin-arm64.tar.gz` archive has SHA-256
+`544932844156d8172f7a28f77f2ac9c15a23046698b6243f633b0a0b00c0749c` and
+57,906,112 bytes. All 14,496 extracted files, digests, membership and
+executable modes match the archive. Its specification witness matches the
+registered Linux release. The host remains darwin/arm64; the compiler analyzes
+linux/amd64 with GOAMD64 v1 and 64-bit target sizes.
+
+Artifacts and implementation owners:
+
+- [Pinned host compiler](../probes/go-practical/host-toolchain.json) and
+  [explicit provisioner](../probes/go-practical/provision_host_toolchain.py).
+- [Original-package analyzer](../probes/go-practical/module_probe.go),
+  [offline two-pass runner](../probes/go-practical/run_module_probes.py), and
+  [39 input/expectation cases](../probes/go-practical/module-cases.json).
+- [Actual observations](../migrations/go-practical/t01-w02/module-probes.json),
+  [readable closure matrix](../migrations/go-practical/t01-w02/module-matrix.md),
+  and [candidate snapshot contract](../migrations/go-practical/t01-w02/offline-snapshot-contract.md).
+- [Retained-report checker](../probes/go-practical/check_module_report.py),
+  [adversarial checks](../probes/go-practical/test_module_report.py), and
+  [preliminary findings](../migrations/go-practical/t01-w02/preliminary-findings.json).
+
+The original package is loaded without removing an unused handler, unsupported
+function or generic declaration. Captured external helpers can enter the
+verification closure; unused module metadata, external initializers and HTTP
+imports remain in the type-check/capture context. Reachable mutable globals,
+unknown/indirect calls, recursive calls, unsupported maps/generics and assembly
+bodies reject under the candidate v1 early exclusions. Original package type
+errors and missing offline modules remain source errors. The probe does not
+implement complete production profile admission.
+
+Both fresh-source passes give the same normalized observations in all 39
+cases: 20 closed early-exclusion closures, 17 explicit rejections, and two
+source/module errors. Target/tag-excluded files and auxiliary assembly files
+are inventoried. Local/versioned replacements, `require`/`exclude`/`retract`,
+nonempty checksums, initializer and generation non-execution, imported domain
+types and error-signature dependencies have concrete cases. Source and sealed
+dependency-cache bytes remain unchanged.
+
+All four proposed language minors were measured. A file downgraded to go1.21
+by its build expression rejects. A module requiring Go 1.25.1 or a newer
+toolchain rejects without downloading it. The initial probe incorrectly
+compared raw `go1.25.0` file-version data to the `go1.25` language table;
+the corrected representation retains both raw version and language minor,
+while preserving the full toolchain requirement check. The complete final
+evidence uses the corrected source. Preliminary attempts have no retained
+source hash and are not promoted to positive proof evidence.
+
+## 6. T01-W02 targeted verification and remaining gate
+
+Selected compiler/source/metadata/replay tests because W02 changes only private
+feasibility tools and their candidate snapshot contract. It changes no
+production frontend, frozen specification, registry or old Go fixture. W01's
+old-Go baseline is rechecked by identity rather than unnecessarily rerunning
+unaffected production suites.
+
+| Check | Observed result | Scope |
+| --- | --- | --- |
+| `python3 -B develop/probes/go-practical/provision_host_toolchain.py` | Passed, 14,496 files match | Actual host archive/tree identity; no Linux-execution claim |
+| `python3 -B develop/probes/go-practical/run_module_probes.py --write` | 39 cases x 2 fresh-source passes passed | Original package, version, dependency, closure and unchanged-input measurements |
+| `python3 -B develop/probes/go-practical/check_module_report.py` | Passed | Exact source pins, case coverage, observed loaded-source identity and evidence scope |
+| `python3 -B -m unittest discover -s develop/probes/go-practical -p 'test_module_report.py' -v` | 7 tests passed | Reject lost cases/bodies, altered inputs, stale source, host/target confusion and invented theorem claims |
+| `python3 -B develop/probes/go-practical/entry_audit.py --check` | Passed | Retained W01 source/fixture/compiler baseline identities still match |
+
+The Go transport settings disable proxy/checksum/toolchain/telemetry access
+during measurement; synthetic dependency preparation uses only a local file
+proxy. The macOS probes do not claim OS-level egress isolation or native
+Linux release acceptance. They produce no VIR, VC or accepted application
+theorem. W03 owns the next ordinary-encoding and both-checker proof feasibility
+work. Final format/link/diff review and the commit handoff are pending here.
+The full T01 gate is explicitly deferred to W05.
