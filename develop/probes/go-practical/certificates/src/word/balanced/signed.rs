@@ -3,8 +3,12 @@
 //! equality of cross sums, rather than assuming unsigned and signed coincide.
 
 use super::*;
+mod bytes;
 mod fold;
 mod order;
+pub(super) fn generate_bytes(root: &Path, output: &Path, capacity: usize, trace: bool) {
+    bytes::generate(root, output, capacity, trace);
+}
 pub(super) fn generate_returned(root: &Path, output: &Path, count: usize, trace: bool) {
     fold::generate_returned(root, output, count, trace);
 }

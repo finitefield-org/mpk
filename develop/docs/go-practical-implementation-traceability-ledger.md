@@ -26,7 +26,7 @@ after reconciling the intervening shared artifacts and active registry.
 | --- | --- | --- |
 | GO-PRAC-T01-W01 | Complete | Reviewed implementation commit `bd5ee8047d8925f9c9d0f7502627fca33bb2c836`; completion audit below |
 | GO-PRAC-T01-W02 | Complete | Reviewed implementation commit `fed1cf6047f97b1f73c0fc37c5023e19f4f9f035`; 39 cases reproduced twice |
-| GO-PRAC-T01-W03 | In progress | Halting Quote model preserves stopped full frames and derives bounds/exact sums from actual success; complete Go source/string/slice/loop/return/error/descriptor bindings and resource closure remain open |
+| GO-PRAC-T01-W03 | In progress | Halting Quote and finite-byte tail/index/equality/order ingredients measured; complete Go source/byte/slice/loop/return/error/descriptor bindings, remaining laws and resource closure stay open |
 | GO-PRAC-T01-W04 | Blocked by W03 | Exact v1 source/shared/contract/limit freeze |
 | GO-PRAC-T01-W05 | Blocked by W04 | Publish inactive package, review and full T01 gate |
 | GO-PRAC-T02–T07 | Not started | Sequential v1 implementation and public release |
@@ -696,3 +696,99 @@ operator/string/slice/loop/return/error/descriptor bindings, remaining byte/
 collection/control laws and aggregate resource closure remain open. W03
 stays In progress and W04 has not started. The full authorized 11-stage
 objective remains active.
+
+## 16. T01-W03 canonical index values and finite string tails
+
+Predecessor checkpoint: `53d274dc827e2df7f782e601f92a7aa79886176e` retains
+the halting Quote model. The new
+[byte producer](../probes/go-practical/certificates/src/word/balanced/signed/bytes.rs)
+proves canonical word projections, full bit preservation, idempotence and
+congruence using ordinary checked equalities. A total byte read canonicalizes
+its full 64-bit index. Pointwise-equal index values therefore read the same
+complete byte without adding general function extensionality or record eta.
+A checked finite-store lift instantiates this interface with every backing
+byte/padding bit; it is not an out-of-range Go read rule. Defined indexing
+separately requires the actual nonnegative/less-than-length guard.
+
+Checked typed conditional and canonical-index laws prove mask/read
+idempotence and preservation of defined full-byte reads. Balanced Boolean
+and continuation folds consume pointwise checked equalities, proving that
+string equality and bytewise lexicographic order ignore normalized tails.
+Lengths/indices remain full source-width words, both comparison backings
+remain quantified, and no complete operand or collection contents are
+enumerated. This does not discard slice tail data, which can be observable
+after re-slicing. Complete Go admission, source/operator binding and remaining
+byte operations remain open.
+
+[The complete 46-case matrix](../migrations/go-practical/t01-w03/byte-tails/README.md)
+uses capacities 0/1/32/256 and six families. Empty defined-index cases are
+excluded to avoid a vacuous positive. Every group has two identical fresh
+generations; both checkers accept 25 zero-axiom claims with identical hashes
+and reject 21 altered payload/guard/index-relation/comparison claims at core
+type checking. No new fuel failure is hidden or counted as false-claim
+evidence. Capacity256 retains 2,048 bits per backing, 64-bit lengths and
+indices. Its ordering claim has 150 declarations, 2,811 terms and 31,722
+bytes, checking at observed Rust/Go 0.357/0.857 seconds and
+5,439,488/14,057,472 resident bytes on Darwin/arm64. These remain private
+ingredient measurements, not frozen profile/application budgets.
+
+The [pinned original-Go observer](../probes/go-practical/byte_reference.go)
+matches all 2,791 independent bit-loop observations, including NUL, invalid
+UTF-8, multibyte text, full/empty/equal-prefix strings and negative/extreme/
+end-point 64-bit indices. It observes 646 defined/2,145 undefined indices,
+224 equal and 1,249 less-than results, 138 equal-string/different-padding
+cases and 337 cases where padding would change the comparison order.
+Exact input/output bytes, executable identity and child resources remain
+empirical evidence, separate from the ordinary model certificates.
+The separate final byte `--check` replay passes all 46 candidates in both
+checkers and reproduces the exact original-Go input/output bytes. All 29
+new adversarial evidence tests pass. No new axiom, checker rule, conversion
+fuel or unfinished C# theorem is used; no Go source entry bound is silently
+strengthened.
+
+Review also binds accepted results to their actual retained candidate bytes
+using the existing `MPK-MODULE-CERT-0.1` hash domain. An adversarial test
+rejects replacing both accepted checker observations with those of another
+same-module/same-declaration-count candidate. This integrity check complements
+the actual independent proof replay; it does not replace proof execution.
+
+The Go observer actually attempts invalid indices and recovers their bounds
+panics outside the proof closure. Its 2,145 undefined cases therefore observe
+runtime failures rather than only repeating a bounds guard. This does not
+admit recovery or defer in v1. The complete byte measurement/replay and its
+29 affected tests are rerun after that observation correction; exact output
+bytes remain unchanged.
+
+Selected validation covers the changed private producer and measurement
+helper, finite lifts/canonical constructors, actual defined-index guards,
+tail observations, complete payloads and evidence integrity. Because earlier
+families share the producer/helper, all 386 previous candidates are
+remeasured: 27 representation, four local-Nat, 48 balanced, 55 unsigned-
+prefix, 32 signed-prefix, 40 guard, 72 continuing-prefix and 108 halting-
+return cases. Every canonical certificate and complete candidate index
+remains unchanged against the predecessor commit. Their 160 affected
+evidence tests pass, for 189 targeted tests including the 29 new tests.
+Historical diagnostic source/certificate checks also pass; unchanged
+expensive linear-word proofs are not needlessly rerun.
+
+Offline locked release Clippy passes with warnings denied. Explicit private
+Rust formatting, pinned Go formatting, Python syntax, six changed documents/
+95 local links and Git whitespace checks pass. W01's unchanged production/
+regression identity audit and W02's retained 39-case closure report pass;
+unaffected production suites and W01/W02 adversarial helpers are not rerun.
+Production frontend/checker, normative specification and public registry
+remain at W01. The complete T01 gate stays deferred to W05. Complete Go
+source/carrier/operator bindings (including bounded-index coverage and guard
+equivalence), substring/concatenation/prefix/suffix and remaining byte laws,
+slice/descriptor/control composition and aggregate resource closure remain
+open. W03 stays In progress, W04 has not started, and the full authorized
+11-stage implementation objective remains active.
+
+Review identified two true one-cell index-coherence claims whose proposed
+witness supplied an index self-equality to the general theorem. Their type
+failures are not false-claim evidence. The [original bytes, both results and
+private sources](../migrations/go-practical/t01-w03/byte-initial/README.md)
+remain preserved. Reflexivity of the actual single backing byte now proves
+both accepted controls, without an axiom or stronger entry predicate. The
+other 44 candidate bytes and complete case rows are unchanged. Earlier
+families are remeasured with the final producer before this checkpoint.

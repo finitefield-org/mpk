@@ -318,3 +318,34 @@ Debug commands `returned-generate` / `returned-trace` take
 return representation still require complete production Go bindings.
 Remaining byte/collection/control laws and aggregate resource freeze remain
 open. W03 stays In progress; the full T01 gate stays deferred to W05.
+
+## T01-W03 canonical indices and finite string tails (in progress)
+
+```sh
+python3 -B develop/probes/go-practical/run_byte_probes.py --check
+python3 -B develop/probes/go-practical/check_byte_report.py
+python3 -B -m unittest discover -s develop/probes/go-practical -p 'test_byte_report.py' -v
+```
+
+The [byte-tail model and evidence](../../migrations/go-practical/t01-w03/byte-tails/README.md)
+measure full 64-bit canonical-index laws and finite byte read/equality/order
+observations. Complete backings and padding stay quantified at capacities
+0/1/32/256. Checked canonical constructors avoid general function
+extensionality; defined indexing consumes its actual guard, independently
+of totalized model projections. Empty defined-index positives are excluded.
+All 46 candidates have two identical generations: 25 zero-axiom claims pass
+both checkers with matching hashes and 21 altered claims fail at core type
+checking. A separate `--check` replay reproduces certificates and Go bytes.
+
+The pinned standalone Go observer matches 2,791 bit-loop observations,
+including invalid UTF-8/NUL, full/empty/equal-prefix inputs and 64-bit index
+boundaries. Logical versus padded comparisons remain distinct. The shared
+measurement helper uses a configurable empirical-observation key, retaining
+the existing Quote key by default. Existing candidate bytes/indexes must
+remain unchanged when the shared producer/helper is revalidated.
+
+Debug commands `bytes-generate` / `bytes-trace` take
+`REPO_ROOT OUTPUT CAPACITY`. These are ordinary string ingredients, not Go
+source/carrier admission or a function proof. Remaining byte laws, complete
+source/operator/slice/descriptor/control bindings and aggregate resources
+stay open. The whole T01 gate remains deferred to W05.

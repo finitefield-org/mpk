@@ -286,3 +286,25 @@ empirical, separate from these ordinary model certificates. Complete source,
 string/slice/operator/loop/return/error/descriptor bindings, remaining byte/
 collection/control laws and aggregate resource closure remain open. W03 is
 In progress; W04 has not started and the full T01 gate remains due at W05.
+
+## Canonical index values and unobservable finite string tails
+
+The [finite-byte model and 46-case evidence](byte-tails/README.md) prove
+value-based 64-bit index coherence, full finite backing reads, tail-mask
+idempotence and preservation of defined full-byte reads/equality/bytewise
+order. The finite backing retains every byte and padding bit at capacities
+0/1/32/256; comparisons quantify both backings. No function-extensionality
+axiom, record eta, operand-value enumeration or smaller source word is used.
+The source-defined-index guard remains separate from total model projections.
+There is no empty defined-index positive.
+
+Both checkers accept 25 zero-axiom claims with matching hashes and reject 21
+altered claims at core type checking. Two fresh generations are identical,
+and a separate replay passes all 46 candidates and exact Go observation
+bytes. All 2,791 original-Go byte observations match the independent bit-loop
+model, including invalid UTF-8/NUL, equal prefixes, logical versus padded
+comparison and negative/extreme/boundary indexing. They remain empirical,
+distinct from captured-source application proofs. Complete Go source/carrier/
+operator binding, substring/concatenation/prefix/suffix and remaining length/
+content laws, slice/descriptor/control composition and aggregate resource
+closure stay open. W03 remains In progress; the whole T01 gate stays due in W05.

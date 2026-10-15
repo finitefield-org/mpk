@@ -678,6 +678,19 @@ fn main() {
     let args = std::env::args().collect::<Vec<_>>();
     if matches!(
         args.get(1).map(String::as_str),
+        Some("bytes-generate" | "bytes-trace")
+    ) {
+        assert_eq!(args.len(), 5, "bytes-generate REPO_ROOT OUTPUT CAPACITY");
+        word::generate_bytes(
+            Path::new(&args[2]),
+            Path::new(&args[3]),
+            args[4].parse().unwrap(),
+            args[1] == "bytes-trace",
+        );
+        return;
+    }
+    if matches!(
+        args.get(1).map(String::as_str),
         Some("returned-generate" | "returned-trace")
     ) {
         assert_eq!(args.len(), 5, "returned-generate REPO_ROOT OUTPUT COUNT");

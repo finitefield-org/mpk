@@ -185,7 +185,7 @@ def main(model=None):
                   "outcomes": {key: sum(r["classification"] == key for r in rows) for key in
                                ("accepted_zero_axiom", "core_type_mismatch", "candidate_fuel_failure_not_false_claim_evidence")}}
         if extra is not None:
-            report["quote_observations"] = extra
+            report[getattr(model, "EXTRA_REPORT_KEY", "quote_observations")] = extra
         if args.write:
             for filename in getattr(model, "EXTRA_FILES", ()):
                 shutil.copyfile(temp / filename, record / filename)
