@@ -33,7 +33,7 @@ pub struct OrdinaryControlSourceStep {
 }
 
 type Values = BTreeMap<String, ControlBinding>;
-fn values(native: &PracticalVirFunction) -> R<Values> {
+pub(super) fn values(native: &PracticalVirFunction) -> R<Values> {
     let entry = &native
         .blocks
         .first()

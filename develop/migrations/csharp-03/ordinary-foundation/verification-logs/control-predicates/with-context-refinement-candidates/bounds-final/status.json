@@ -1,0 +1,95 @@
+{
+  "status": "passed",
+  "unique_tests_passed": 6,
+  "selection_reason": "Verify proof-producing contextual Boolean reduction with actual equality proof terms, free branch values and let substitution; missing/conflicting facts reject and wrong proof terms fail core checking. Test full candidate generation plus all candidate linkage regressions and the shared substitution consumer. Exercise a small shared DAG whose expanded proof cost exceeds u32, keep all proof terms inside the enclosing theorem and saturate only the sharing heuristic. The closed modes always return child costs below their small sharing threshold, so their already passed original ownership/default consumer replays remain applicable. Clippy includes tests. Original source/application proofs and the full T06-W12 gate remain pending.",
+  "stages": [
+    {
+      "stage": "context-unit",
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "context_boolean_normalization_",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-09-30T06:22:01.348465+00:00",
+      "finished_at": "2026-09-30T06:22:10.381515+00:00",
+      "elapsed_seconds": 9.033,
+      "log_sha256": "fbf71fe4178a6e6056e22ea3b3ee15d6c593176b955b0924b89ffff575450b4e"
+    },
+    {
+      "stage": "candidate-units",
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "pattern_refinement_candidate_",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-09-30T06:22:10.458616+00:00",
+      "finished_at": "2026-09-30T06:22:10.595298+00:00",
+      "elapsed_seconds": 0.137,
+      "log_sha256": "cd4cbd00444b15f7904a174f058c6f0a8bfc0673cd917f7f194a147afd431de6"
+    },
+    {
+      "stage": "ownership-unit",
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "ownership_normalization_preserves_free_selector_under_binder",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-09-30T06:22:10.662484+00:00",
+      "finished_at": "2026-09-30T06:22:10.759250+00:00",
+      "elapsed_seconds": 0.097,
+      "log_sha256": "7cb54aa33940682d89805cb28b2bc895b45a0d65e6a1228fef31ad6f330c2c43"
+    },
+    {
+      "stage": "clippy",
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--tests",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-09-30T06:22:10.832279+00:00",
+      "finished_at": "2026-09-30T06:22:26.291129+00:00",
+      "elapsed_seconds": 15.459,
+      "log_sha256": "ee0d0836dca8436d88f4f4a03b739e9f7ea50c4a70acfe30553c36ed97ac2683"
+    },
+    {
+      "stage": "format",
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-09-30T06:22:26.367972+00:00",
+      "finished_at": "2026-09-30T06:22:30.261644+00:00",
+      "elapsed_seconds": 3.894,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

@@ -1823,6 +1823,7 @@ pub use reference_data::{
 
 #[path = "csharp_practical_ordinary_construction_data.rs"]
 mod construction_data;
+pub(super) use construction_data::physical_equal;
 pub use construction_data::{
     generate_csharp_practical_ordinary_construction_data,
     import_csharp_practical_ordinary_construction_data, OrdinaryConstructionDataDefinition,
@@ -1849,4 +1850,37 @@ pub use control_edges::{
     OrdinaryControlNativeLiteral, OrdinaryControlNativeOperation, OrdinaryControlNodeEntry,
     OrdinaryControlSourceExecution, OrdinaryControlSourceFrame, OrdinaryControlSourceStep,
     OrdinaryControlStepComponent,
+};
+
+#[path = "csharp_practical_ordinary_control_predicates.rs"]
+mod control_predicates;
+pub use control_predicates::{
+    csharp_practical_ordinary_pattern_refinement_candidate_theorems,
+    generate_csharp_practical_ordinary_control_predicates,
+    generate_csharp_practical_ordinary_control_predicates_with_execution,
+    generate_csharp_practical_ordinary_control_predicates_with_packed_pattern_proof_types,
+    generate_csharp_practical_ordinary_control_predicates_with_pattern_captures,
+    generate_csharp_practical_ordinary_control_predicates_with_pattern_observations,
+    generate_csharp_practical_ordinary_control_predicates_with_pattern_proof_types,
+    generate_csharp_practical_ordinary_control_predicates_with_pattern_routes,
+    generate_csharp_practical_ordinary_control_predicates_with_pattern_scopes,
+    generate_csharp_practical_ordinary_pattern_refinement_candidate,
+    import_csharp_practical_ordinary_control_predicates,
+    import_csharp_practical_ordinary_control_predicates_with_execution,
+    import_csharp_practical_ordinary_control_predicates_with_packed_pattern_proof_types,
+    import_csharp_practical_ordinary_control_predicates_with_pattern_captures,
+    import_csharp_practical_ordinary_control_predicates_with_pattern_observations,
+    import_csharp_practical_ordinary_control_predicates_with_pattern_proof_types,
+    import_csharp_practical_ordinary_control_predicates_with_pattern_routes,
+    import_csharp_practical_ordinary_control_predicates_with_pattern_scopes,
+    link_csharp_practical_ordinary_pattern_refinement_candidate, OrdinaryControlGuardDependency,
+    OrdinaryControlMeasureDefinition, OrdinaryControlPatternCapture,
+    OrdinaryControlPatternCaptureAlternative, OrdinaryControlPatternCaptureDependency,
+    OrdinaryControlPatternEnvironment, OrdinaryControlPatternEnvironmentField,
+    OrdinaryControlPatternExecutionScope, OrdinaryControlPatternObservation,
+    OrdinaryControlPatternPremiseProof, OrdinaryControlPatternProofType,
+    OrdinaryControlPatternRefinementCandidate, OrdinaryControlPatternRefinementCandidateTheorem,
+    OrdinaryControlPatternRouteObservation, OrdinaryControlPatternScope,
+    OrdinaryControlPatternSourceDefinition, OrdinaryControlPredicateDefinition,
+    OrdinaryControlPredicateProgram, OrdinaryControlSequentDefinition,
 };

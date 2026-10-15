@@ -1,0 +1,116 @@
+{
+  "status": "passed",
+  "selection_reason": "Check universal contextual Boolean reductions under free branch and equality-proof binders with unchanged Go and Rust binaries. An incorrect proof can pass structural linkage but must reject at core checking; compare exact export, certificate and axiom-report hashes. Original source/application execution proofs remain pending.",
+  "binaries": {
+    "go": {
+      "path": "/tmp/mpk-w09-default-closed-proofs/go-checker",
+      "sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2"
+    },
+    "rust": {
+      "path": "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91"
+    }
+  },
+  "stages": [
+    {
+      "case": "true",
+      "backend": "go",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-context-refinement/context-checks/true-go.mpcert"
+      ],
+      "started_at": "2026-09-30T06:05:49.138125+00:00",
+      "finished_at": "2026-09-30T06:05:49.156367+00:00",
+      "elapsed_seconds": 0.018,
+      "exit_code": 0,
+      "certificate_sha256": "eb69d9ceacd3548846cc4365fdc7b59335a0d434be32afaea93f2e438963d07e",
+      "input_file_sha256": "f6ac14e1d1d2f6abd68518bf83d4a97be94e5731366ef1a6c0cafbbd93faa09e",
+      "report_sha256": "bbccf55afe15d2b6fdc3424f2bff5f7bad5e78397318e0aedf4b829dab8eae0c",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "case": "true",
+      "backend": "rust",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-context-refinement/context-checks/true-rust.mpcert"
+      ],
+      "started_at": "2026-09-30T06:05:49.156731+00:00",
+      "finished_at": "2026-09-30T06:05:49.163322+00:00",
+      "elapsed_seconds": 0.007,
+      "exit_code": 0,
+      "certificate_sha256": "eb69d9ceacd3548846cc4365fdc7b59335a0d434be32afaea93f2e438963d07e",
+      "input_file_sha256": "f6ac14e1d1d2f6abd68518bf83d4a97be94e5731366ef1a6c0cafbbd93faa09e",
+      "report_sha256": "6e9edd819b73a13fbd3bead8ab7648b243e2baa7982763349319e9ab4af7d8a5",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "case": "false",
+      "backend": "go",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-context-refinement/context-checks/false-go.mpcert"
+      ],
+      "started_at": "2026-09-30T06:05:49.163779+00:00",
+      "finished_at": "2026-09-30T06:05:49.179096+00:00",
+      "elapsed_seconds": 0.015,
+      "exit_code": 0,
+      "certificate_sha256": "be3e99e3b668cb273534e7e6aa46b62b4aec728efe73a04b9f9ac341a2f25a06",
+      "input_file_sha256": "e00ec6b2cea44fa9e59d99da16e8e454db578e7b69eed64c842ea6e0ae86d3f4",
+      "report_sha256": "0a79b509f12615ea4032bcf1d1d7b9864ef7c00154b4315f844ea57d4d6aa427",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "case": "false",
+      "backend": "rust",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-context-refinement/context-checks/false-rust.mpcert"
+      ],
+      "started_at": "2026-09-30T06:05:49.179417+00:00",
+      "finished_at": "2026-09-30T06:05:49.189809+00:00",
+      "elapsed_seconds": 0.01,
+      "exit_code": 0,
+      "certificate_sha256": "be3e99e3b668cb273534e7e6aa46b62b4aec728efe73a04b9f9ac341a2f25a06",
+      "input_file_sha256": "e00ec6b2cea44fa9e59d99da16e8e454db578e7b69eed64c842ea6e0ae86d3f4",
+      "report_sha256": "b24612ac3ca4d6863557929eb08ad068e3d721b33b64edc34ea3ffa92fd7705e",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "case": "wrong",
+      "backend": "go",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-context-refinement/context-checks/wrong-go.mpcert"
+      ],
+      "started_at": "2026-09-30T06:05:49.190439+00:00",
+      "finished_at": "2026-09-30T06:05:49.209142+00:00",
+      "elapsed_seconds": 0.019,
+      "exit_code": 1,
+      "certificate_sha256": "c75641ee9637694d9d68c6efb233d914a11e8a76c23051ac0f25b016eacb2e81",
+      "input_file_sha256": "50b0439616fc6b1b3410f343f0ce0274a1f5836ab7055738082265a44220d752",
+      "report_sha256": "974ed88e8a2fb98162b0510ccac90df2e62a1e411fcab26c5b515295a0a624d1",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "case": "wrong",
+      "backend": "rust",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-context-refinement/context-checks/wrong-rust.mpcert"
+      ],
+      "started_at": "2026-09-30T06:05:49.209779+00:00",
+      "finished_at": "2026-09-30T06:05:49.217860+00:00",
+      "elapsed_seconds": 0.008,
+      "exit_code": 1,
+      "certificate_sha256": "c75641ee9637694d9d68c6efb233d914a11e8a76c23051ac0f25b016eacb2e81",
+      "input_file_sha256": "50b0439616fc6b1b3410f343f0ce0274a1f5836ab7055738082265a44220d752",
+      "report_sha256": "b2bceed35746a67252d2a1ad81cecdc82d3540b6d26f13b504b4730b2cd4afe3",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "full_t_gate": "deferred to T06-W12"
+}

@@ -2366,7 +2366,11 @@ Activation requires all of the following:
   obligations, checker verdicts, and axiom categories;
 - all active Go, Rust, and Java cases retain their source behavior,
   obligations, checker verdicts, and axiom categories;
-- Certificate v0 and both checker acceptance rules are unchanged;
+- Certificate v0 keeps its existing wire format. Both checkers implement the
+  canonical generic Sort0-dependent Boolean `cases` rule specified in
+  `CORE_V0.md`, under the user-approved 2026-10-07 amendment and renewed T01
+  freeze. Existing Boolean `rec` interfaces/equations and predecessor behavior
+  must retain their recorded acceptance and rejection evidence;
 - float, decimal, collection, option/lookup/result/validation,
   calendar/GUID/codec, boundary-presence/transition, exception,
   source-binding, and closed-specialization encodings retain an empty

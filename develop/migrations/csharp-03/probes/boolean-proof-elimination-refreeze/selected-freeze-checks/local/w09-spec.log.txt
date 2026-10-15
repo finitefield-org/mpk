@@ -1,0 +1,48 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.04s
+     Running tests/csharp_practical_spec.rs (/private/tmp/mpk-w09-bool-cases-target/debug/deps/csharp_practical_spec-141d1020d802f1c9)
+
+running 8 tests
+
+thread 'recursor_feasibility::csharp_03_t01_w09_checker_capacity_bytes_are_reproducible' (1845229) panicked at crates/mpk-vc/tests/../../../develop/probes/csharp-03/recursor_feasibility.rs:930:9:
+assertion `left == right` failed
+  left: String("7022ea1468c663f4f5280ea8d94fec3d03c0a28667304f80608157946d5a9f60")
+ right: "56c0d4cc86c66186689944447b5a832e0fac640ec4078c633097dbe47ce423fd"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test csharp_03_t01_w09_contract_boundary_transition_and_dispatch_are_closed ... ok
+test recursor_feasibility::csharp_03_t01_w09_checker_capacity_bytes_are_reproducible ... FAILED
+test csharp_03_t01_w09_limits_capacity_and_diagnostics_have_total_boundaries ... ok
+
+thread 'recursor_feasibility::csharp_03_t01_w09_recursor_probe_bytes_are_reproducible' (1845230) panicked at crates/mpk-vc/tests/../../../develop/probes/csharp-03/recursor_feasibility.rs:840:9:
+assertion `left == right` failed
+  left: String("7022ea1468c663f4f5280ea8d94fec3d03c0a28667304f80608157946d5a9f60")
+ right: "56c0d4cc86c66186689944447b5a832e0fac640ec4078c633097dbe47ce423fd"
+test csharp_03_t01_w09_successor_identities_schemas_and_owners_are_frozen ... ok
+test recursor_feasibility::csharp_03_t01_w09_recursor_probe_bytes_are_reproducible ... FAILED
+test csharp_03_t01_w09_vectors_cover_all_strict_mutations_limits_and_precedence ... ok
+test csharp_03_t01_w09_boolean_proof_elimination_feasibility ... ok
+
+thread 'csharp_03_t01_w09_freeze_generator_is_reproducible' (1845225) panicked at crates/mpk-vc/tests/csharp_practical_spec.rs:1593:5:
+Traceback (most recent call last):
+  File "/private/tmp/mpk-w09-context-application-integration/crates/mpk-vc/../../develop/probes/csharp-03/profile_freeze.py", line 1433, in <module>
+    main()
+  File "/private/tmp/mpk-w09-context-application-integration/crates/mpk-vc/../../develop/probes/csharp-03/profile_freeze.py", line 1419, in main
+    freeze = make_freeze()
+             ^^^^^^^^^^^^^
+  File "/private/tmp/mpk-w09-context-application-integration/crates/mpk-vc/../../develop/probes/csharp-03/profile_freeze.py", line 852, in make_freeze
+    validate_boolean_proofs(boolean_proofs)
+  File "/private/tmp/mpk-w09-context-application-integration/crates/mpk-vc/../../develop/probes/csharp-03/profile_freeze.py", line 843, in validate_boolean_proofs
+    assert sha((ROOT / record[key + "_path"]).read_bytes()) == record[key + "_raw_sha256"]
+AssertionError
+
+test csharp_03_t01_w09_freeze_generator_is_reproducible ... FAILED
+
+failures:
+
+failures:
+    csharp_03_t01_w09_freeze_generator_is_reproducible
+    recursor_feasibility::csharp_03_t01_w09_checker_capacity_bytes_are_reproducible
+    recursor_feasibility::csharp_03_t01_w09_recursor_probe_bytes_are_reproducible
+
+test result: FAILED. 5 passed; 3 failed; 0 ignored; 0 measured; 9 filtered out; finished in 0.07s
+
+error: test failed, to rerun pass `-p mpk-vc --test csharp_practical_spec`

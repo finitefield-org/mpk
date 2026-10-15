@@ -1,0 +1,23 @@
+{
+  "actual_server_independent_audit_raw_sha256": "18b68f0871177a26e89a30355ea3605a6b74c7807ede68b2f67ebf1b26c8e346",
+  "actual_server_source_review_raw_sha256": "f40b4d5025f3d6cdeb32bebfa17bcd2f1b700b9671a22f1ae661dc85f3c1c080",
+  "application_proof_ids_pending": 987,
+  "checks": [
+    "The key contains exactly every field compared by coreTermNodeEqual: Tag/A/B/C and both ordered slices.",
+    "Both ID types are uint32; fixed-width little-endian encoding is injective and separate string fields keep levels and arguments distinct.",
+    "Both nil and empty slices have the same empty key, matching the original length-based equality.",
+    "Lazy prepopulation retains the first duplicate ID; new IDs retain append order.",
+    "The production term arena appends only inside intern; no production assignment mutates existing Arguments/Levels slice elements. Separate level arena appends are unrelated.",
+    "Constant/application constructors retain existing owned copies; string keys cannot be changed through caller slice mutation.",
+    "Independent server reconstruction proves all other inference/reduction/fuel/declaration/registration source bytes remain exact; actual package regressions, six pairs, 34 fixtures and 54 complete reference reports retain their audited results."
+  ],
+  "final_freeze_complete": false,
+  "findings": [],
+  "review_date_jst": "2026-10-08",
+  "review_type": "Read-only source review, no software test or checker execution",
+  "reviewed_source_files": {
+    "go-tools/mpk-checker-ref/core_check.go": "19008b25758b9a00919f468d6bf0f8d8275bd918fe7678156971bd48dde097f8",
+    "go-tools/mpk-checker-ref/core_term_intern_test.go": "1703507c1036e184508a0a4a082173414f10f01688b20b9ffdb2a3ddc2d24fde"
+  },
+  "status": "manual_source_review_no_actionable_findings_in_complete_structural_term_index_scope"
+}

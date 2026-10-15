@@ -1,0 +1,21 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/crates/mpk-vc)
+    Finished `test` profile [optimized] target(s) in 5m 51s
+     Running tests/csharp_practical_vc.rs (/tmp/mpk-w09-pattern-sources-target/debug/deps/csharp_practical_vc-9eed0564ce83fca4)
+
+running 1 test
+test ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::predicates::source_relations::csharp_03_t06_w09_pattern_sources_original_conditions ... 
+thread 'ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::predicates::source_relations::csharp_03_t06_w09_pattern_sources_original_conditions' (4625734) panicked at crates/mpk-vc/tests/support/csharp_practical_ordinary_control_pattern_source_tests.rs:120:13:
+assertion `left == right` failed: switch: preserved Mpk.CSharp.Ordinary.ControlPredicate.PatternExecutionScope.H4191b7d3d1ffa90daa5eae9d28cdd434ca1fa3d031d49d603d5fca7b681825e9
+  left: None
+ right: Some(Array [String("def"), Array [Number(94), Number(189), Number(94), Number(254), Number(138), Number(47), Number(49), Number(104), Number(62), Number(116), Number(44), Number(214), Number(73), Number(84), Number(144), Number(11), Number(148), Number(64), Number(46), Number(119), Number(101), Number(173), Number(101), Number(192), Number(168), Number(142), Number(224), Number(116), Number(230), Number(231), Number(229), Number(38)], Array [Number(255), Number(4), Number(45), Number(135), Number(206), Number(31), Number(87), Number(14), Number(53), Number(62), Number(108), Number(96), Number(16), Number(123), Number(194), Number(246), Number(110), Number(238), Number(4), Number(202), Number(127), Number(10), Number(211), Number(215), Number(218), Number(11), Number(140), Number(7), Number(221), Number(65), Number(186), Number(4)], String("Reducible")])
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+FAILED
+
+failures:
+
+failures:
+    ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::predicates::source_relations::csharp_03_t06_w09_pattern_sources_original_conditions
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 392 filtered out; finished in 5.43s
+
+error: test failed, to rerun pass `-p mpk-vc --test csharp_practical_vc`

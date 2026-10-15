@@ -1,0 +1,50 @@
+   Compiling mpk-vc v0.1.0 (/root/mpk-w09-bool-cases-fd99c03c/crates/mpk-vc)
+   Compiling mpk-kernel v0.1.0 (/root/mpk-w09-bool-cases-fd99c03c/crates/mpk-kernel)
+error: couldn't read `/root/mpk-w09-bool-cases-fd99c03c/crates/mpk-vc/../../develop/migrations/csharp-03/foundation/foundation-descriptor.json`: No such file or directory (os error 2)
+  --> crates/mpk-vc/src/csharp_practical_vir_model.rs:84:48
+   |
+84 |   const REGISTERED_DESCRIPTOR_TRANSPORT: &[u8] = include_bytes!(concat!(
+   |  ________________________________________________^
+85 | |     env!("CARGO_MANIFEST_DIR"),
+86 | |     "/../../develop/migrations/csharp-03/foundation/foundation-descriptor.json"
+87 | | ));
+   | |__^
+
+error: couldn't read `/root/mpk-w09-bool-cases-fd99c03c/crates/mpk-vc/../../develop/migrations/csharp-03/foundation/foundation-definitions.json`: No such file or directory (os error 2)
+  --> crates/mpk-vc/src/csharp_practical_vir_model.rs:88:49
+   |
+88 |   const REGISTERED_DEFINITIONS_TRANSPORT: &[u8] = include_bytes!(concat!(
+   |  _________________________________________________^
+89 | |     env!("CARGO_MANIFEST_DIR"),
+90 | |     "/../../develop/migrations/csharp-03/foundation/foundation-definitions.json"
+91 | | ));
+   | |__^
+
+error: couldn't read `crates/mpk-vc/src/../../../proofs/std/bool/std-bool.hex`: No such file or directory (os error 2)
+  --> crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs:31:25
+   |
+31 | const BOOL_HEX: &[u8] = include_bytes!("../../../proofs/std/bool/std-bool.hex");
+   |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: couldn't read `crates/mpk-vc/src/../../../proofs/std/eq/std-eq.hex`: No such file or directory (os error 2)
+ --> crates/mpk-vc/src/csharp_practical_ordinary_ownership_proofs.rs:5:23
+  |
+5 | const EQ_HEX: &[u8] = include_bytes!("../../../proofs/std/eq/std-eq.hex");
+  |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: couldn't read `crates/mpk-vc/src/../../../proofs/std/logic/std-logic.hex`: No such file or directory (os error 2)
+ --> crates/mpk-vc/src/csharp_practical_ordinary_ownership_proofs.rs:6:26
+  |
+6 | const LOGIC_HEX: &[u8] = include_bytes!("../../../proofs/std/logic/std-logic.hex");
+  |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: couldn't read `crates/mpk-vc/src/../../../release/bundles/candidates/java.json`: No such file or directory (os error 2)
+  --> crates/mpk-vc/src/java_release.rs:73:32
+   |
+73 |           serde_json::from_slice(include_bytes!(
+   |  ________________________________^
+74 | |             "../../../release/bundles/candidates/java.json"
+75 | |         ))
+   | |_________^
+
+error: could not compile `mpk-vc` (lib) due to 6 previous errors

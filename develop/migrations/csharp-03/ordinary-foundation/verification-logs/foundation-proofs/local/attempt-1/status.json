@@ -1,0 +1,37 @@
+{
+  "application_proofs_pending": 987,
+  "complete_application_assembly_pending": true,
+  "error": "AssertionError(('foundation-proofs', 101))",
+  "finished_at": "2026-10-06T07:07:04.780441+00:00",
+  "full_t_gate": "deferred to T06-W12",
+  "process_pid": 69708,
+  "selection_reason": "Test the unified original concrete-type/operation proof assembly in all 45 original source contexts. Independently match all complete W06 sequents and original checked operation prefixes; check named universal type/equation operands, strict metadata and cross-context imports, and a typed false concrete-type mutation in the actual Rust kernel. Include the existing private-storage type proof and allocation proof exporters to confirm both consumed component routes remain unchanged. Run crate Clippy and crate/support format. All 25 generic operations, original refinements, native/application scopes and 987 original application proof IDs remain pending. Defer the full T06 gate to T06-W12.\n",
+  "stage": "foundation-proofs",
+  "stages": [
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_foundation_proof_assembly_original_source",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 1.175,
+      "exit_code": 101,
+      "finished_at": "2026-10-06T07:07:04.779870+00:00",
+      "log_sha256": "710f5389806784b5f2d730679004a3dd46d70fce4c8f6deb1f687c177317e5e8",
+      "stage": "foundation-proofs",
+      "started_at": "2026-10-06T07:07:03.604896+00:00"
+    }
+  ],
+  "started_at": "2026-10-06T07:07:03.486552+00:00",
+  "status": "failed",
+  "supervisor_pid": 69692,
+  "verified_fixture_hashes": 173,
+  "verified_source_hashes": 751
+}

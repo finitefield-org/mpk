@@ -28,6 +28,30 @@ pub struct OrdinaryBindingDefaultPending {
     pub reason: OrdinaryBindingDefaultPendingReason,
 }
 
+/// Exact captured source nodes that can produce or refer to an ineligible
+/// source value. This is a proof input, not a source-use theorem: constructor
+/// temporary state and native execution still require ordinary relations.
+#[derive(Clone, Debug, Eq, PartialEq, Serialize)]
+pub struct OrdinaryBindingSourceUseNode {
+    pub callable_id: String,
+    pub body_sha256: String,
+    pub node_ordinal: usize,
+    pub kind: String,
+    pub implicit: bool,
+    pub initialization_plan: bool,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq, Serialize)]
+pub struct OrdinaryBindingSourceUseTrace {
+    pub projection_id: String,
+    pub source_type_id: String,
+    pub source_ir_sha256: String,
+    pub captured_source_available: bool,
+    pub captured_callable_count: usize,
+    pub nodes: Vec<OrdinaryBindingSourceUseNode>,
+    pub native_execution_proof_pending: bool,
+}
+
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
 pub struct OrdinaryBindingDefaultProgram {
     schema: String,
@@ -43,6 +67,9 @@ pub struct OrdinaryBindingDefaultProgram {
     predicates: Vec<OrdinaryBindingPredicate>,
     conditions: Vec<OrdinaryBindingCondition>,
     pending_defaults: Vec<OrdinaryBindingDefaultPending>,
+    source_use_traces: Vec<OrdinaryBindingSourceUseTrace>,
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    closed_condition_theorems: Vec<String>,
     unresolved_vc_symbols: Vec<String>,
     pending_condition_ids: Vec<String>,
     pending_proof_ids: Vec<String>,
@@ -52,6 +79,9 @@ pub struct OrdinaryBindingDefaultProgram {
     certificate: Vec<u8>,
 }
 impl OrdinaryBindingDefaultProgram {
+    pub fn static_transformers(&self) -> usize {
+        self.static_transformers
+    }
     pub fn defaults(&self) -> &[OrdinaryDefaultDefinition] {
         &self.defaults
     }
@@ -72,6 +102,12 @@ impl OrdinaryBindingDefaultProgram {
     }
     pub fn pending_defaults(&self) -> &[OrdinaryBindingDefaultPending] {
         &self.pending_defaults
+    }
+    pub fn source_use_traces(&self) -> &[OrdinaryBindingSourceUseTrace] {
+        &self.source_use_traces
+    }
+    pub fn closed_condition_theorems(&self) -> &[String] {
+        &self.closed_condition_theorems
     }
     pub fn unresolved_vc_symbols(&self) -> &[String] {
         &self.unresolved_vc_symbols
@@ -160,8 +196,80 @@ fn closed_condition(
     })
 }
 
+fn source_use_traces(
+    vir: &ValidatedPracticalVir,
+    actual_defaults: &[OrdinaryBindingActualDefault],
+) -> R<Vec<OrdinaryBindingSourceUseTrace>> {
+    let (bundle, _, source) = vir.construction_context();
+    let mut traces = Vec::new();
+    for actual in actual_defaults
+        .iter()
+        .filter(|actual| actual.declared_arm == "ineligible")
+    {
+        let mut nodes = Vec::new();
+        if let Some(source) = source {
+            for callable in source.callables() {
+                let body = source
+                    .body(callable.id())
+                    .ok_or(OrdinaryCarrierError::Linkage)?;
+                for (node_ordinal, op) in body.iter().enumerate() {
+                    let Some(key) = op.type_key() else { continue };
+                    if key.starts_with("intrinsic_argument:")
+                        || key.starts_with("source_exception:")
+                    {
+                        continue;
+                    }
+                    let ty = parse_data_type_key(bundle, key)
+                        .map_err(|_| OrdinaryCarrierError::Linkage)?;
+                    let type_id = ClosedType::parse(&ty)
+                        .and_then(|ty| closed_type_id(bundle, &ty))
+                        .map_err(|_| OrdinaryCarrierError::Linkage)?;
+                    if type_id == actual.source_type_id {
+                        nodes.push(OrdinaryBindingSourceUseNode {
+                            callable_id: callable.id().into(),
+                            body_sha256: callable.body_sha256().into(),
+                            node_ordinal,
+                            kind: op.kind().into(),
+                            implicit: op.is_implicit(),
+                            initialization_plan: callable
+                                .initialization_plans()
+                                .iter()
+                                .any(|plan| plan.node_ordinal == node_ordinal),
+                        });
+                    }
+                }
+            }
+        }
+        traces.push(OrdinaryBindingSourceUseTrace {
+            projection_id: actual.projection_id.clone(),
+            source_type_id: actual.source_type_id.clone(),
+            source_ir_sha256: vir.hash().into(),
+            captured_source_available: source.is_some(),
+            captured_callable_count: source.map_or(0, |source| source.callables().len()),
+            nodes,
+            native_execution_proof_pending: true,
+        });
+    }
+    Ok(traces)
+}
+
 pub fn generate_csharp_practical_ordinary_binding_defaults(
     vir: &ValidatedPracticalVir,
+) -> R<OrdinaryBindingDefaultProgram> {
+    generate_binding_defaults(vir, false)
+}
+
+/// Separate proof-bearing candidate for the closed eligible-default conditions.
+/// The source-use conditions and original W06 application proofs stay pending.
+pub fn generate_csharp_practical_ordinary_binding_default_closed_proofs(
+    vir: &ValidatedPracticalVir,
+) -> R<OrdinaryBindingDefaultProgram> {
+    generate_binding_defaults(vir, true)
+}
+
+fn generate_binding_defaults(
+    vir: &ValidatedPracticalVir,
+    prove_closed_conditions: bool,
 ) -> R<OrdinaryBindingDefaultProgram> {
     let construction = generate_construction_vcs(vir).map_err(|_| OrdinaryCarrierError::Linkage)?;
     let vc = generate_binding_vcs(vir, &construction).map_err(|_| OrdinaryCarrierError::Linkage)?;
@@ -240,6 +348,7 @@ pub fn generate_csharp_practical_ordinary_binding_defaults(
     let mut conditions = vec![];
     let mut pending_defaults = vec![];
     let mut pending_condition_ids = vec![];
+    let source_use_traces = source_use_traces(vir, &actual_defaults)?;
     for sequent in vc.sequents() {
         if sequent.kind != "actual_default" {
             pending_condition_ids.push(sequent.id.clone());
@@ -274,6 +383,17 @@ pub fn generate_csharp_practical_ordinary_binding_defaults(
         .cloned()
         .collect();
     let pending_proof_ids = vc.sequents().iter().map(|s| s.id.clone()).collect();
+    let closed_condition_theorems = if prove_closed_conditions {
+        super::super::super::ownership_proofs::prove_closed_boolean_definitions(
+            &mut r.b,
+            &conditions
+                .iter()
+                .map(|condition| condition.condition_definition.clone())
+                .collect::<Vec<_>>(),
+        )?
+    } else {
+        vec![]
+    };
     let static_transformers = r.b.static_transformers;
     let certificate = r.b.finish()?;
     let p = OrdinaryBindingDefaultProgram {
@@ -290,6 +410,8 @@ pub fn generate_csharp_practical_ordinary_binding_defaults(
         predicates,
         conditions,
         pending_defaults,
+        source_use_traces,
+        closed_condition_theorems,
         unresolved_vc_symbols,
         pending_condition_ids,
         pending_proof_ids,
@@ -312,6 +434,23 @@ pub fn import_csharp_practical_ordinary_binding_defaults(
         return Err(OrdinaryCarrierError::Limit);
     }
     let expected = generate_csharp_practical_ordinary_binding_defaults(vir)?;
+    if input != expected.canonical_bytes() || certificate != expected.certificate_bytes() {
+        return Err(OrdinaryCarrierError::Linkage);
+    }
+    Ok(expected)
+}
+
+/// Recompute and bind the closed-condition candidate to its exact VIR and
+/// certificate bytes. The original application VC proofs remain pending.
+pub fn import_csharp_practical_ordinary_binding_default_closed_proofs(
+    input: &[u8],
+    certificate: &[u8],
+    vir: &ValidatedPracticalVir,
+) -> R<OrdinaryBindingDefaultProgram> {
+    if input.len() > 16 * 1024 * 1024 || certificate.len() > 16 * 1024 * 1024 {
+        return Err(OrdinaryCarrierError::Limit);
+    }
+    let expected = generate_csharp_practical_ordinary_binding_default_closed_proofs(vir)?;
     if input != expected.canonical_bytes() || certificate != expected.certificate_bytes() {
         return Err(OrdinaryCarrierError::Linkage);
     }

@@ -87,6 +87,7 @@
         "unit-4-binding-default-review.md",
         "verification-logs/binding-defaults/verification.json",
         "verification-logs/binding-defaults/source-use-inventory.json",
+        "verification-logs/binding-defaults/source-use-traces/verification.json",
         "verification-logs/source-invariants/direct-member-reads/start.json",
         "verification-logs/source-invariants/direct-member-reads/verification.json",
         "unit-4-concrete-type-progress.json",
@@ -326,6 +327,29 @@
         "source": "crates/mpk-vc/src/csharp_practical_vc_model.rs",
         "source_sha256": "e8d9eaf127e9e2f5e2fd18d7d4ff280a197ab706b13be5f7add26c05fcb39483",
         "scope": "PracticalTheoremSkeleton still records obligation identity/dependencies/owner, without core theorem types or proof terms. The existing assembly plan validates lineage, limits and a zero-axiom profile. It is not complete program proof assembly."
+      },
+      "integrated_original_foundation_checkpoint": {
+        "status": "passed_scoped_local_same_byte_dual_checker_and_linux_checks",
+        "evidence": "verification-logs/foundation-proofs/verification.json",
+        "review": "unit-7-foundation-proofs-review.md",
+        "source_contexts": 45,
+        "supplied_type_proofs": 87,
+        "supplied_operation_proofs": 442,
+        "supplied_binding_sequents": 529,
+        "remaining_binding_sequents": 458,
+        "original_application_proofs_pending": 987,
+        "scope": "A single ordinary context preserves the full checked operation prefix and exact original universal type equations. All 182 fresh dual-checker stages and the exact public-source Linux tests/lint/format pass independent terminal audits. All 25 generic pending operations, 458 binding sequents without supplied component proofs, native/application scopes and every original application proof ID remain open; W09 is not complete."
+      },
+      "original_identity_projection_checkpoint": {
+        "status": "passed_scoped_local_same_byte_dual_checker_and_linux_checks",
+        "evidence": "verification-logs/identity-proofs/verification.json",
+        "review": "unit-7-identity-proofs-review.md",
+        "source_contexts": 45,
+        "identity_proofs": 2,
+        "supplied_binding_sequents": 531,
+        "remaining_binding_sequents": 456,
+        "original_application_proofs_pending": 987,
+        "scope": "All original identity projection sequents retain receiver/domain/complete equality operands on the unchanged foundation proof prefix; 44 unchanged contexts reuse exact prior checker evidence. Exact public-source Linux target test, Clippy and format pass independent terminal audit of 1016 Git blobs and all 47 local-matching exports. All 987 application proof IDs and 456 remaining binding sequents stay pending; this does not complete W09."
       }
     },
     {

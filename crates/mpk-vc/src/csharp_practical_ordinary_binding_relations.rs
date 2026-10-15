@@ -1,30 +1,63 @@
 //! W06 field-complete observations and projected result agreement.
 //! Reconstruction witnesses, domains, native outcomes and proofs remain required.
 use super::*;
+pub use concrete_operations::{
+    generate_csharp_practical_ordinary_scoped_construction_operation_proofs,
+    import_csharp_practical_ordinary_scoped_construction_operation_proofs,
+    OrdinaryScopedConstructionOperationCandidate, OrdinaryScopedConstructionOperationProofProgram,
+    OrdinaryScopedConstructionOwnership,
+};
+pub use concrete_types::{
+    generate_csharp_practical_ordinary_default_proofs,
+    generate_csharp_practical_ordinary_foundation_proofs,
+    generate_csharp_practical_ordinary_identity_proofs,
+    import_csharp_practical_ordinary_default_proofs,
+    import_csharp_practical_ordinary_foundation_proofs,
+    import_csharp_practical_ordinary_identity_proofs, OrdinaryActualDefaultProof,
+    OrdinaryDefaultGoalProof, OrdinaryDefaultProofProgram, OrdinaryFoundationProofProgram,
+    OrdinaryIdentityProjectionProof, OrdinaryIdentityProofProgram,
+};
 use sha2::{Digest, Sha256};
 #[path = "csharp_practical_ordinary_binding_defaults.rs"]
 mod binding_defaults;
 pub use binding_defaults::{
+    generate_csharp_practical_ordinary_binding_default_closed_proofs,
     generate_csharp_practical_ordinary_binding_defaults,
+    import_csharp_practical_ordinary_binding_default_closed_proofs,
     import_csharp_practical_ordinary_binding_defaults, OrdinaryBindingActualDefault,
     OrdinaryBindingDefaultPending, OrdinaryBindingDefaultPendingReason,
-    OrdinaryBindingDefaultProgram,
+    OrdinaryBindingDefaultProgram, OrdinaryBindingSourceUseNode, OrdinaryBindingSourceUseTrace,
 };
 #[path = "csharp_practical_ordinary_concrete_operations.rs"]
 mod concrete_operations;
 pub use concrete_operations::{
+    generate_csharp_practical_ordinary_concrete_operation_proofs,
+    generate_csharp_practical_ordinary_concrete_operation_proofs_with_allocations,
     generate_csharp_practical_ordinary_concrete_operations,
-    import_csharp_practical_ordinary_concrete_operations, OrdinaryConcreteFailureComponent,
+    generate_csharp_practical_ordinary_concrete_operations_with_allocations,
+    import_csharp_practical_ordinary_concrete_operation_proofs,
+    import_csharp_practical_ordinary_concrete_operation_proofs_with_allocations,
+    import_csharp_practical_ordinary_concrete_operations,
+    import_csharp_practical_ordinary_concrete_operations_with_allocations,
+    OrdinaryConcreteFailureComponent, OrdinaryConcreteOperationAgreement,
     OrdinaryConcreteOperationComponent, OrdinaryConcreteOperationDefinition,
     OrdinaryConcreteOperationFailure, OrdinaryConcreteOperationPending,
     OrdinaryConcreteOperationPendingReason, OrdinaryConcreteOperationProgram,
+    OrdinaryConcreteOperationProof, OrdinaryConcreteOperationProofProgram,
 };
 #[path = "csharp_practical_ordinary_concrete_types.rs"]
 mod concrete_types;
 pub use concrete_types::{
+    generate_csharp_practical_ordinary_concrete_type_proofs,
+    generate_csharp_practical_ordinary_concrete_type_proofs_with_construction_storage,
     generate_csharp_practical_ordinary_concrete_types,
-    import_csharp_practical_ordinary_concrete_types, OrdinaryConcreteTypeDefinition,
-    OrdinaryConcreteTypeProgram,
+    generate_csharp_practical_ordinary_concrete_types_with_construction_storage,
+    import_csharp_practical_ordinary_concrete_type_proofs,
+    import_csharp_practical_ordinary_concrete_type_proofs_with_construction_storage,
+    import_csharp_practical_ordinary_concrete_types,
+    import_csharp_practical_ordinary_concrete_types_with_construction_storage,
+    OrdinaryConcreteTypeDefinition, OrdinaryConcreteTypeProgram, OrdinaryConcreteTypeProof,
+    OrdinaryConcreteTypeProofProgram, OrdinaryConstructionStorageDomainDefinition,
 };
 #[path = "csharp_practical_ordinary_source_invariants.rs"]
 mod source_invariants;

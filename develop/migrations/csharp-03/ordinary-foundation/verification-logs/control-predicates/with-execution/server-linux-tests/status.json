@@ -1,0 +1,138 @@
+{
+  "application_proofs": "pending",
+  "base_head": "5cf114ba63a85d6dec31ffa4b4f9df233d79ccff",
+  "finished_at": "2026-09-29T19:40:06.880121+00:00",
+  "full_t_gate": "deferred to T06-W12",
+  "process_pid": 3027390,
+  "stage": "exception-handoffs",
+  "stages": [
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_control_predicates_",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 440.984,
+      "exit_code": 0,
+      "finished_at": "2026-09-29T19:37:57.175905+00:00",
+      "log_sha256": "789af970df4e3d622ec1b0bbcb3ef37443b43be3fd74a3d6adcf49b51f1991eb",
+      "stage": "predicate-regressions",
+      "started_at": "2026-09-29T19:30:36.192014+00:00"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "control_predicates::tests",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 105.371,
+      "exit_code": 0,
+      "finished_at": "2026-09-29T19:39:42.609767+00:00",
+      "log_sha256": "0e892bfd5b2de8675c231756bb5d5c19bb40ba512faea9d947a88a869c212434",
+      "stage": "measures",
+      "started_at": "2026-09-29T19:37:57.238479+00:00"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w01_scopes_normalization_and_parser_fuzz",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 0.192,
+      "exit_code": 0,
+      "finished_at": "2026-09-29T19:39:42.815972+00:00",
+      "log_sha256": "a9dbbffb27c2e78bd9c0a68f6a7920e7a6375410de930feedf3ad46890b0ef60",
+      "stage": "parser",
+      "started_at": "2026-09-29T19:39:42.624447+00:00"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w03_",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 3.647,
+      "exit_code": 0,
+      "finished_at": "2026-09-29T19:39:46.522976+00:00",
+      "log_sha256": "c991a52645b03c04c9d638a2470fbb329a9f7ab88cde337b55360f6f92f938d8",
+      "stage": "data-handoffs",
+      "started_at": "2026-09-29T19:39:42.876249+00:00"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w04_",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 11.225,
+      "exit_code": 0,
+      "finished_at": "2026-09-29T19:39:57.782392+00:00",
+      "log_sha256": "eef4595b98cf5e86a8dc3a7ed58e88e2be8183b3a7eba5bc2c9c32973a19be0d",
+      "stage": "control-handoffs",
+      "started_at": "2026-09-29T19:39:46.557039+00:00"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w05_original_exception_handlers_and_mutations",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 8.901,
+      "exit_code": 0,
+      "finished_at": "2026-09-29T19:40:06.717326+00:00",
+      "log_sha256": "6935469792eb7b0f616602be455cd1e8dd4884949bbc038ef2142da7890e0a9c",
+      "stage": "exception-handoffs",
+      "started_at": "2026-09-29T19:39:57.816023+00:00"
+    }
+  ],
+  "started_at": "2026-09-29T19:30:36.100673+00:00",
+  "status": "passed_targeted_linux_tests",
+  "supervisor_pid": 3026385,
+  "test_binaries": {
+    "/root/mpk-w09-control-predicates-target/debug/deps/csharp_practical_vc-bb5f372f714b0f03": "47242e03b0f302c7d47a7d9588c715fa4d97bce3643c5544a8b721b2196cf94d",
+    "/root/mpk-w09-control-predicates-target/debug/deps/mpk_vc-4a52d3d7fc00a2f4": "3dbf923427c1362e17fb080c53d19e026757cc097fcce46e9f302a1977556949"
+  },
+  "verified_pin_hashes": 36,
+  "verified_source_hashes": 370
+}

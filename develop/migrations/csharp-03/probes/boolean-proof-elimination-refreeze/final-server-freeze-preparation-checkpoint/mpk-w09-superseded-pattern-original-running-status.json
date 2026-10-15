@@ -1,0 +1,44 @@
+{
+  "application_proof_ids_pending": 987,
+  "binaries": {
+    "go": {
+      "path": "/root/mpk-w09-bool-cases-fd99c03c-linux-2/go-checker",
+      "sha256": "b2ed6f87bc9f3a0a2db2f9b299b870cfe245d6dfc71ca11c44469530253fe341"
+    },
+    "rust": {
+      "path": "/root/mpk-w09-bool-cases-fd99c03c-target/debug/mpk",
+      "sha256": "430e87dece4619c8c363bd6ef59cd8d292af2f131e54e3d030e257955a177f52"
+    }
+  },
+  "execution_host": "root@162.43.92.154",
+  "full_t01_gate": "deferred_to_final_W10_on_server",
+  "full_t06_gate": "deferred_to_W12_on_server",
+  "kind": "pattern",
+  "process_pid": 3781530,
+  "selection_reason": "At the user instruction requiring server-only testing, interrupt seven task-owned local test groups. Preserve all actual successful local predecessor stages, which predate that instruction, with their original sources and binaries; no interrupted stage counts as pass. Execute only the six remaining exact pattern certificates with both already validated fixed Linux checkers and the four unfinished original scalar/codec owners from the exact current public Git source. Whole gates stay final T01-W10/T06-W12 and will also run only on the server.",
+  "source_commit": "e89c2a0f24e1f4a1c562c6a60c3199473781f101",
+  "stage": "with-packed-pattern-proof-types--guard_order-go",
+  "stages": [
+    {
+      "backend": "rust",
+      "case": "with-packed-pattern-proof-types--guard_order",
+      "checker_source_commit": "fd99c03c8e3535bcc31f0b9d1441d4b74de80ebf",
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-target/debug/mpk",
+        "check",
+        "/root/mpk-w09-server-e89c2a0f-control/pattern-inputs/with-packed-pattern-proof-types--guard_order.mpcert"
+      ],
+      "elapsed_seconds": 117.62918552663177,
+      "execution_host": "root@162.43.92.154",
+      "exit_code": 0,
+      "input_sha256": "ff994e2bc3f4ca2568ececabc6c0276e00abcb1d233a1ac4b735db28d69a7592",
+      "report_sha256": "7f2eb237320058b4be196ef1e64b7fcc58d7a170c11b51bab52115257d4dbc7e",
+      "source_commit": "e89c2a0f24e1f4a1c562c6a60c3199473781f101",
+      "stage": "with-packed-pattern-proof-types--guard_order-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    }
+  ],
+  "status": "running",
+  "supervisor_pid": 3780929
+}

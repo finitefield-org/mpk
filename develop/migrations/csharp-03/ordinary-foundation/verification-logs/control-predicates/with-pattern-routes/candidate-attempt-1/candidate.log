@@ -1,0 +1,68 @@
+   Compiling version_check v0.9.5
+   Compiling proc-macro2 v1.0.106
+   Compiling generic-array v0.14.7
+   Compiling typenum v1.20.1
+   Compiling libc v0.2.186
+   Compiling quote v1.0.46
+   Compiling unicode-ident v1.0.24
+   Compiling serde_core v1.0.228
+   Compiling crypto-common v0.1.7
+   Compiling block-buffer v0.10.4
+   Compiling zmij v1.0.21
+   Compiling digest v0.10.7
+   Compiling syn v2.0.118
+   Compiling cpufeatures v0.2.17
+   Compiling serde_json v1.0.150
+   Compiling cfg-if v1.0.4
+   Compiling serde v1.0.228
+   Compiling sha2 v0.10.9
+   Compiling serde_derive v1.0.228
+   Compiling mpk-core v0.1.0 (/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/crates/mpk-core)
+   Compiling itoa v1.0.18
+   Compiling memchr v2.8.2
+   Compiling mpk-cert v0.1.0 (/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/crates/mpk-cert)
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/crates/mpk-vc)
+error[E0432]: unresolved imports `source_clauses::generate_csharp_practical_ordinary_control_predicates_with_pattern_routes`, `source_clauses::import_csharp_practical_ordinary_control_predicates_with_pattern_routes`, `source_clauses::OrdinaryControlPatternRouteObservation`
+    --> crates/mpk-vc/src/csharp_practical_ordinary_structural.rs:1086:5
+     |
+1086 |     generate_csharp_practical_ordinary_control_predicates_with_pattern_routes,
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `generate_csharp_practical_ordinary_control_predicates_with_pattern_routes` in `csharp_practical_vir_model::ordinary_carriers::structural::source_clauses`
+...
+1092 |     import_csharp_practical_ordinary_control_predicates_with_pattern_routes,
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `import_csharp_practical_ordinary_control_predicates_with_pattern_routes` in `csharp_practical_vir_model::ordinary_carriers::structural::source_clauses`
+...
+1097 |     OrdinaryControlPatternObservation, OrdinaryControlPatternRouteObservation,
+     |                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `OrdinaryControlPatternRouteObservation` in `csharp_practical_vir_model::ordinary_carriers::structural::source_clauses`
+     |
+note: struct `crate::csharp_practical_vir_model::ordinary_carriers::structural::source_clauses::control_predicates::OrdinaryControlPatternRouteObservation` exists but is inaccessible
+    --> crates/mpk-vc/src/csharp_practical_ordinary_control_pattern_scopes.rs:24:1
+     |
+  24 | pub struct OrdinaryControlPatternRouteObservation {
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ not accessible
+help: a similar name exists in the module
+     |
+1086 -     generate_csharp_practical_ordinary_control_predicates_with_pattern_routes,
+1086 +     generate_csharp_practical_ordinary_control_predicates_with_pattern_scopes,
+     |
+help: a similar name exists in the module
+     |
+1092 -     import_csharp_practical_ordinary_control_predicates_with_pattern_routes,
+1092 +     import_csharp_practical_ordinary_control_predicates_with_pattern_scopes,
+     |
+help: a similar name exists in the module
+     |
+1097 -     OrdinaryControlPatternObservation, OrdinaryControlPatternRouteObservation,
+1097 +     OrdinaryControlPatternObservation, OrdinaryControlPatternObservation,
+     |
+
+warning: unused import: `OrdinaryControlPatternRouteObservation`
+  --> crates/mpk-vc/src/csharp_practical_ordinary_control_predicates.rs:12:5
+   |
+12 |     OrdinaryControlPatternRouteObservation, OrdinaryControlPatternScope,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+For more information about this error, try `rustc --explain E0432`.
+warning: `mpk-vc` (lib) generated 1 warning
+error: could not compile `mpk-vc` (lib) due to 1 previous error; 1 warning emitted

@@ -1,0 +1,107 @@
+{
+  "application_scope_pending": true,
+  "exported_hashes": {
+    "false.mpcert": "e00ec6b2cea44fa9e59d99da16e8e454db578e7b69eed64c842ea6e0ae86d3f4",
+    "nested-false.mpcert": "567efcbe0e223f39f36f4da4ebe01e3ebab9a6593707803dec1e0482f2654013",
+    "nested-true.mpcert": "126eef6e902ec6d813ca04440d331123a787615cba5c1574aa18ecd871620116",
+    "nested-wrong.mpcert": "c37a4b03d4181a57bee2170294e473a038430f5c601d752f5797ca3908ef5f3c",
+    "shared-dag.mpcert": "14ae8dd9946c38bc024e0157f03d780e696b1ea8a86521d9a5dc00ea0e4395f5",
+    "true.mpcert": "f6ac14e1d1d2f6abd68518bf83d4a97be94e5731366ef1a6c0cafbbd93faa09e",
+    "wrong.mpcert": "50b0439616fc6b1b3410f343f0ce0274a1f5836ab7055738082265a44220d752"
+  },
+  "finished_at": "2026-10-06T15:50:50.880347+00:00",
+  "full_t_gate": "deferred to T06-W12",
+  "process_pid": 3744397,
+  "selection_reason": "Reproduce nested application rejection before the fix, then test context Boolean proof generation, missing/conflicting/incorrect proof facts, all direct pattern candidate consumers and capture-preserving substitution. Reuse unchanged closed ownership/default source evidence because the new flattening branch is enabled only for context mode. Check Clippy and crate format; defer the whole T06 gate to W12.",
+  "stage": "format",
+  "stages": [
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "context_boolean_normalization_",
+        "--",
+        "--nocapture"
+      ],
+      "elapsed_seconds": 144.99,
+      "exit_code": 0,
+      "log_sha256": "b0bffee1403d755dd7be6ad98c041e915b2b5a47779d519555104ab4464228fc",
+      "stage": "context-units"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "pattern_refinement_candidate_",
+        "--",
+        "--nocapture"
+      ],
+      "elapsed_seconds": 0.215,
+      "exit_code": 0,
+      "log_sha256": "eb1f31155ca1b8f54de6c881eb8cadaaad15119d7ba0260b3714e54f5d1c093d",
+      "stage": "candidate-units"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "ownership_normalization_preserves_free_selector_under_binder",
+        "--",
+        "--nocapture"
+      ],
+      "elapsed_seconds": 0.186,
+      "exit_code": 0,
+      "log_sha256": "48ce4d077af36f8082919d83c09ac75c413c4796c7f1dd52598558718bc30899",
+      "stage": "substitution-unit"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--tests",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "elapsed_seconds": 93.83,
+      "exit_code": 0,
+      "log_sha256": "8d1bd365c3fd5ee5135e11bdb8cf4ade1e64112c754472d8d81eae79add75885",
+      "stage": "clippy"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "fmt",
+        "-p",
+        "mpk-vc",
+        "--",
+        "--check"
+      ],
+      "elapsed_seconds": 5.341,
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stage": "format"
+    }
+  ],
+  "started_at": "2026-10-06T15:46:44.945721+00:00",
+  "status": "passed_targeted_tests_lint_format",
+  "supervisor_pid": 3743037,
+  "test_binaries": {
+    "/root/mpk-w09-context-application-f02dcb32-target/debug/deps/mpk_vc-00fd1477de0503ec": "3dd402aefc7b4341e692319a8ae8c9ffb24d3b9d959ed5b0f517296a90d0764d"
+  },
+  "tests": 7,
+  "verified_fixture_hashes": 309,
+  "verified_source_hashes": 756
+}

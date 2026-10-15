@@ -1,10 +1,10 @@
 # CSHARP-03 Implementation Traceability Ledger
 
-Current implementation: `CSHARP-03-T06-W09` is `In progress`. Its completed
-checkpoints, reconstruction audit correction and pending acceptance gate are tracked in
-`develop/migrations/csharp-03/ordinary-foundation/w09-completion-audit.json`.
-The W09 definition counterexample does not require repeating T01. W10 and later items remain blocked;
-the historical completion records below do not constitute a W09 receipt.
+Current implementation: `CSHARP-03-T01-W09` is `In progress` for the user-approved
+2026-10-07 generic Sort0 Boolean proof-elimination amendment. T01-W10 and T06-W09
+are `Blocked` pending the renewed freeze. Earlier completion records and W09
+checkpoints below are historical; all 987 application proofs remain pending.
+See `develop/migrations/csharp-03/ordinary-foundation/unit-7-boolean-elimination-proposal.md`.
 
 Status: `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10`,
 `CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09`, and
@@ -108,8 +108,8 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T01-W06` | `Complete` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W06` | `22673dbc96d8ba4f0d9a4cb97c3f2490c00d1804` |
 | `CSHARP-03-T01-W07` | `Complete` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W07` | `b0ff7daec663b95b1f88ecc1d98f0b7c1f6fdf00` |
 | `CSHARP-03-T01-W08` | `Complete` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W08` | `4ffd8b3a9918b6cae9e4d4704e4bc6b09a12cd5c` |
-| `CSHARP-03-T01-W09` | `Complete` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W09` | `17525292755c4e508acd9300cfa72d20cdf9bb92` |
-| `CSHARP-03-T01-W10` | `Complete` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W10` | `d4459f16562c9f5a7d4d0074571c9d0af17c0dd5` |
+| `CSHARP-03-T01-W09` | `In progress` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W09` | `17525292755c4e508acd9300cfa72d20cdf9bb92` |
+| `CSHARP-03-T01-W10` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W10` | `d4459f16562c9f5a7d4d0074571c9d0af17c0dd5` |
 | `CSHARP-03-T02-W01` | `Complete` | `crates/mpk-vc/tests/csharp_practical_registry.rs#CSHARP-03-T02-W01` | `4a9e8afef62eaf54a8184119b4e62e50cb73de06` |
 | `CSHARP-03-T02-W02` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vir_model.rs#CSHARP-03-T02-W02` | `026243eae673672c45ed96d348b3248afcde40b5` |
 | `CSHARP-03-T02-W03` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vir_model.rs#CSHARP-03-T02-W03` | `cb2c2eb419adceaf84d4b610a19deb4b8205bf96` |
@@ -153,7 +153,7 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T06-W06` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W06` | `594c5e7b5f9210775b55284b05035151155225af` |
 | `CSHARP-03-T06-W07` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W07` | `f332894025c604f6a45bb1f4fe2eec56d0df7737` |
 | `CSHARP-03-T06-W08` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W08` | `SELF` |
-| `CSHARP-03-T06-W09` | `In progress` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W09` | `—` |
+| `CSHARP-03-T06-W09` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W09` | `—` |
 | `CSHARP-03-T06-W10` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_policy_verify.rs#CSHARP-03-T06-W10` | `—` |
 | `CSHARP-03-T06-W11` | `Blocked` | `crates/mpk-api/tests/csharp_practical_api.rs#CSHARP-03-T06-W11` | `—` |
 | `CSHARP-03-T06-W12` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_end_to_end.rs#CSHARP-03-T06-W12` | `—` |
@@ -6034,3 +6034,817 @@ all 32 original bits before substituting zero, and retains every original case
 and guard. The complete rerun is still in progress; current Clippy, inventory,
 formatting and 45-context pin replay pass. No application proof, internal-unit
 or W09 completion is claimed. The whole T06 gate stays deferred to W12.
+
+## 68. CSHARP-03-T06-W09 original governing producer premises
+
+The scope-only checkpoint retains 102 original pattern goals and 113 native
+paths, with 108 physical observation links and 86 explicitly missing governing
+links. Its complete 72 checker stages and four Linux tests plus lint/format are
+audited over the exact 371-source snapshot. The initial automatic transfer
+rejection remains recorded; the same destination was subsequently approved after
+all 47 payload contents were verified against the public `dd3ed0c8` commit.
+
+The capture adapter connects those 86 observations under explicit normal
+execution premises for seven original source producers. Complete binding equality
+keeps the once-evaluated governing value separate from a mutated current slot.
+All 194 observations and 113 paths retain every premise. There are 108 compact
+definitions and five complete component sets at the combined binder bound; no
+condition is omitted to fit the bound. Prior pins and declaration bodies survive.
+
+Four source regression modes and three units pass; pinned replay, Clippy and
+format also pass. Independent observations include 388 physical transports,
+398 complete-scope comparisons, 59 true joint scopes and 96 Boolean cases.
+The failed test compilation and initial audit assumption are retained separately.
+All 72 new-snapshot checker stages are terminal and audited (28 new, 44 retained
+after exact input/checker comparison). Linux tests for this new snapshot
+remain pending. See
+`ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/verification.json`
+and `ordinary-foundation/unit-5-pattern-captures-review.md`.
+
+Producer/consumer execution establishment, the 102 original pattern predicate
+bodies and all 987 application proofs remain open. Unit 5 and W09 remain In
+progress, W10-W12 stay Blocked and the full T06 gate stays deferred to W12.
+
+## 69. Approved Sort0 Boolean proof-elimination amendment (2026-10-07)
+
+The user approved the concrete generic Boolean eliminator and renewed freeze
+proposal. T01-W09 is reopened as the sole active work item; T01-W10 and further
+T06-W09 proof assembly await it. `CORE_V0.md` specifies the new canonical
+`<family>.cases` interface while retaining existing `rec` interfaces and the
+Certificate v0 wire format. Feasibility, source-free dual checking, mutation
+coverage, predecessor compatibility, descriptor/package reconciliation and
+the renewed freeze remain required. This entry is not a completion receipt.
+
+The generic implementation checkpoint passes 64 current Rust tests, 16 selected
+Go top-level tests, changed-package lint/format, and 44 standalone checker
+stages. Six new proof certificates accept with zero axioms, thirteen mutations
+reject at core checking, and three predecessor certificates retain acceptance
+and matching hashes. Review reproduced and fixed late constructor registration
+and nonempty universe arguments accepted without reduction. The exact inputs,
+reports, source manifests and selection rationale are recorded in
+`develop/migrations/csharp-03/probes/boolean-proof-elimination-logs/receipt.json`;
+`ordinary-foundation/unit-7-boolean-elimination-review.md` records both review
+passes. The baseline diagnostic also passes ten checker stages on exact public
+Linux source `f02dcb32`. The new rule separately passes 86 Rust tests, 16
+selected Go top-level tests and 44 dual-checker stages on exact public Linux
+source `9755987798ec65b266035f1d0418fc7f2890182a`; its 1,088 source/fixture
+Git blobs, executed binaries and downloaded reports are independently audited. Renewed
+T01's whole gate is deferred to final W10, and T06's remains deferred to W12.
+All 987 original application proof IDs remain pending.
+
+
+The renewed descriptor is
+`99369543ab96e97e971118fe980322fe0b138f253a31ab7f8a9b08565bad0844`;
+its specification bytes changed for the approved proof interface. All 12
+semantic template IDs, four non-template IDs and 18,511 definition bytes remain
+unchanged. The private candidate registry advances from revision 4 to revision
+5, with recomputed entry/registry hashes. The installed revision-3 registry
+remains unchanged. The freeze retains all 709 vector IDs and bodies, with
+renewed linkage only; 2,063 foundation vectors are regenerated against the
+actual descriptor.
+
+All 63 original source request/response corpora are rebound through the actual
+canonical envelope and source capture hash functions. The source files, roots,
+contract expressions and native fact bodies are preserved; invalid hashes,
+duplicate JSON fields and noncanonical transport remain negative inputs.
+Actual predecessor/current import and VC emission replays agree on all 384
+rows: 266 emitted, 104 intentional emission rejections and 14 native source
+rejections. Attachment hashes change; their expression bodies, subjects,
+definitions, routes and counts agree, including the one hash-sorted expression
+collection whose order changed.
+
+Both pinned Roslyn harnesses are reexecuted on exact public Linux source
+`9755987798ec65b266035f1d0418fc7f2890182a`, with 86 native source/harness/build
+inputs checked before and after execution. All 384 response objects agree,
+including each harness's second capture and retained CLR observations. Three
+negative boundary parent hashes were subsequently rebound before applying the
+original stale-body, duplicate-field and trailing-newline mutations. Those
+three requests are separately replayed through the actual local import/emitter
+and native Linux capture, retaining `Sidecar` rejection. The immutable initial
+384-row checkpoint and targeted three-row correction establish the final 384
+response rows. The large raw native output is stored with lossless gzip and
+independently verified raw and archive hashes.
+
+Six VC owners first pass; a seventh detects an obsolete hardcoded source
+snapshot selector. That failed run is retained. The selector and other
+literal references are rebound to the same original sources, and 11 selected
+source/boundary/transition consumers then pass. Ten VC/boundary evidence corpora
+are regenerated by their production owners; source clauses, term bodies,
+argument/value data, route/edge roles and obligation counts remain unchanged
+apart from context-bound digest fields and their canonical ordering. All ten normal pinned owner checks, the focused shared JSON/collection library
+fixture regression and affected VC/CLI lint/format checks pass. Remaining
+ordinary-definition receipt lineage is still being reconciled. This is a checkpoint, not renewed W09/W10
+completion or acceptance of the pending original application proofs.
+
+See `probes/boolean-proof-elimination-refreeze/descriptor-lineage.json`, its
+`captured-facts/receipt.json`, `native-linux/receipt.json` and
+`consumers/consumer-semantic-comparison.json` for exact selection reasons,
+inputs, outputs and terminal results. The renewed T01 whole gate remains
+scheduled for final W10; the T06 whole gate remains scheduled for W12.
+
+The next 29 ordinary carrier, domain, construction, binding, boundary and JSON
+owner corpora regenerate and strictly import against the actual renewed
+source contexts. Of 622 certificates, 607 retain their exact bytes. Fifteen
+boundary-rule certificates change only actual context-bound symbol names and
+the internal definition names computed from them; independent canonical
+term/declaration graph comparisons preserve every body, type, argument and
+level after those validated name substitutions. All fifteen fresh byte sets
+pass both standalone checkers with matching reports and zero axioms. Their
+preceding context-4 fixture labels and metadata remain archived.
+
+The first seven owner corpora independently pass on Linux at exact public
+source `40469d298f1d69558713d02ea0b553a1dd583bf5`. All 234 generated files
+(227 certificates and seven metadata files) match Darwin exactly. The audit
+checks the public commit's 4,285 source/fixture Git blobs, every terminal log
+and both control files. The complete evidence is stored with lossless gzip.
+
+Five JSON owners retain all nineteen certificate byte sets. The initial
+metadata comparison detected boundary field owner hashes; the final comparison
+uses their actual validated canonical contract hashes and preserves field
+names, order, literals, bodies and counts. Its first comparison remains recorded.
+
+A scalar owner run exposes a preexisting stale historical parser comparison
+after the reviewed count-helper refresh. Both parser owners now compare the
+complete current pinned definition closure, including exact aggregate bodies,
+without term normalization. The integer original-source owner passes its
+54 pins and 456 semantic cases; the remaining scalar/codec and decimal owners
+are still running from an immutable checkout. Their ongoing execution is not
+a pass. Other ordinary metadata, including historical/current aliases, remains
+under reconciliation. None of this closes renewed W09/W10 or changes the 987
+pending application proofs. See the `ordinary-metadata-1/2/3/5` and
+`parser-current-pin-audit` checkpoint receipts. Whole gates remain deferred
+to final T01-W10 and T06-W12.
+
+The scalar/storage/codec follow-up now passes all ten affected owner corpora
+and preserves all 190 certificate byte sets and semantic metadata. Both
+parser owners compare complete current pinned definition closures; the initial
+stale-archive failure is retained. Four new certificate-only test entries
+share their original owner body; a Git-backed syntax audit verifies that every
+original source/import/mutation and semantic observation remains exactly
+unchanged apart from the explicit observation branch. The original full
+semantic owners still execute all their value cases. Their separate ongoing
+run is not included in this selected pass. The first owner-split compilation
+failed because its selector shadowed an existing observation function; the
+renamed selector's complete nine-owner rerun passes and both logs are retained.
+
+The ordinary checkpoint totals 39 owner corpora and 812 certificates: 797
+exact byte retentions and fifteen validated context-name graph changes with
+fresh dual-checker acceptance. The actual predecessor/current 384-source
+identity replay independently derives 251 distinct VIR hash rebindings, with
+the same 266 emissions, 104 expected emission rejections and fourteen native
+source rejections. See `ordinary-metadata-4` and `actual-vir-identities`.
+Other ordinary consumer and alias lineage is pending; all 987 application
+proof IDs remain pending. The final whole gates remain T01-W10 and T06-W12.
+
+Six normal scalar/codec pin consumers pass after promotion. The selected
+aggregate regrouping mutation audit independently finds the same stale
+count-helper archive dependency; its failed log remains retained. Its repaired
+baseline first compares all retained aggregate types and non-pipeline bodies,
+then copies only the independent historical pipeline tree into the current
+producer-pinned declaration graph. `same_aggregate_scan` remains unchanged
+and still validates the exact 8,192-step order plus every baseline declaration
+closure; all shortened-group, changed-helper and changed-argument mutations
+reject. The actual current aggregate producer pin, repaired mutation audit,
+affected VC-test Clippy and format checks pass. Second review confirms the
+copy preserves term/argument/binder/level order, resolves globals only by their
+unchanged names and leaves the reviewed count-helper/body and original archive
+intact. See `ordinary-checkpoint-review/receipt.json`. This remains an
+intermediate checkpoint; other ordinary consumer metadata and all original
+proofs are pending, and whole gates are deferred to final T01-W10/T06-W12.
+
+
+Thirteen additional completed source owners now reconcile the two binding
+guard/order corpora and eleven string/data/ownership/fold corpora. Their 70
+metadata files are promoted only after exact original-source generation, strict
+imports and semantic comparisons; all 146 corresponding certificate byte sets
+remain unchanged. This checkpoint totals 52 owner corpora and 958 certificates:
+943 exact byte retentions and the fifteen previously validated name changes.
+Post-promotion pin validation is recorded separately in
+`ordinary-metadata-6-7-completed/receipt.json`; this paragraph does not close W09.
+
+The next integrated control owner detects its still-old control-edge metadata
+dependency. Its real exit 101 and complete failed log are retained with lossless
+gzip and checked raw/archive hashes. The control-edge source owner is regenerated
+before retrying integrated predicates. Other binding/transition/boundary owners
+continue from an unchanged checkout. Contract attachment and control-sequent
+identity changes are checked through their actual producer hash rules; complete
+name graphs and dual acceptance remain separate requirements before their
+changed bytes are promoted. Other ordinary consumer/alias linkage and all 987
+original application proof IDs remain pending. Whole gates remain final
+T01-W10 and T06-W12.
+
+Post-promotion validation of these thirteen owner pin branches and format
+passes. The initial compilation-only ENOSPC failure (101; no test executed)
+is preserved alongside the successful retry and immutable source/fixture
+manifests. T01-W10 and T06-W12 retain their respective whole-gate duties.
+
+
+Twelve additional original source owner corpora now pass: the ten remaining
+binding reconstruction, collection, literal, transition, default and boundary
+owners, plus control edges and baseline control predicates. Their 186
+certificate sets comprise 172 exact byte retentions and fourteen complete
+context-name graph rebindings with fresh matching zero-axiom acceptance from
+both checkers. The checkpoint totals 64 owner corpora and 1,144 certificates:
+1,115 exact byte retentions and 29 validated name rebindings. Ten overlapping
+JSON token/parser aliases also reconcile through their actual original-source
+producers; their definition bytes stay unchanged and are not added to corpus
+totals. Exact output-file checks verify every promoted file against the passed
+source-owner outputs on identical production sources.
+
+The same eighteen original source-frame cases pass after correcting the
+expected equality frame to exclude the array receiver slot changed by its
+memory effect. All original value and mutation observations remain. The
+selected C# practical VC integration-test Clippy and format checks pass. The
+initial source-frame failure and the copied runner's test-selection correction
+are retained with real exit codes; no incomplete child test is counted as a
+pass. The corrected runner passes the baseline control pin and integrated
+execution source owner. The next pattern-scope owner detects the not-yet-
+promoted execution dependency and fails 101; the execution lineage and changed
+certificate acceptance are checked before that dependency is promoted.
+
+See `ordinary-control-and-phase6-checkpoint/receipt.json` for exact selection,
+completed stages, predecessor bytes and manifests. Remaining integrated
+control dependencies, standalone/wrapper changed certificates and relation
+metrics are still under validation. All 987 original application proof IDs
+remain pending. W09/W10 are not complete; whole gates remain final T01-W10
+and T06-W12.
+
+## 70. Approved-freeze standalone and execution consumer checkpoint
+
+The standalone linkage checkpoint regenerates 198 deterministic programs and
+reconciles 178 current metadata occurrences. Ninety-three changed certificate
+pairs preserve their complete typed declaration/term/name/level/export graphs
+after independently derived attachment-name substitutions; all 186 fresh
+Rust/Go acceptance stages agree on module/certificate/export hashes and report
+zero axioms. The original and cached graph comparers produce identical reports.
+Thirteen control-slot and structural-boundary certificate sets retain their
+original bytes while their source metadata and three document aliases refresh.
+These overlap earlier owner corpora and are not added blindly to corpus totals.
+
+Fourteen selected standalone owner pin/dependency tests pass. Eight existing
+candidate branches avoid repeating unaffected scalar native-value matrices;
+contract scope/old-result, source-clause, JSON product and calendar consumers
+cover the changed linkage. The failed JSON product runs retain real exit 101:
+the first detects three missing document hex aliases, the second detects a
+single trailing newline in otherwise identical complete aggregate metadata.
+The three aliases equal the actual producer bytes, and both assertion byte
+arrays prove complete JSON equality before restoring exact producer serialization.
+The full product owner and calendar capture consumer then pass.
+
+Two more complete eighteen-source owners reconcile execution and pattern
+scopes. Their 36 certificate sets comprise six exact byte retentions and
+nineteen distinct changed pairs with complete graph checks and 38 fresh matching
+zero-axiom checker acceptances. Eleven scope cases reuse the execution reports
+only after exact old/fresh certificate-pair comparison and proof that additional
+scope-name mappings are absent from the complete predecessor certificate.
+All 103 source-sequent names and 113 scope names follow their actual ordered
+producer hash inputs; native execution records and source/argument order remain
+exact. The initial scope metadata comparison failure is kept losslessly.
+
+The tests gain two optional predecessor input directories with unchanged
+defaults. A Git-backed byte comparison proves that every other original test
+byte stays unchanged, including full canonical JSON/hex equality, declaration
+closure, value observations and hostile import checks. The eighteen-source
+scope and capture owner runs, both affected VC-test Clippy checks and format
+pass. Capture acceptance is recorded separately and remains pending here.
+See `standalone-execution-checkpoint/receipt.json`, its complete evidence
+manifest, and `previous-context-5-standalone-execution/manifest.json`.
+Remaining pattern consumers, JSON wrapper dual acceptance and relation metrics
+are still under verification. All 987 original application proof IDs remain
+pending. T01-W09 is In progress, T01-W10 is Blocked, and the practical profile
+remains inactive; whole gates remain final T01-W10 and T06-W12.
+
+
+## 71. Approved-freeze capture and complete original-owner checkpoint
+
+The eighteen original capture programs now have complete metadata lineage,
+seven distinct full typed declaration/term/name/level/export graph comparisons
+and fourteen fresh matching zero-axiom Rust/Go acceptances. Eleven other cases
+reuse accepted execution reports only after exact complete predecessor/current
+certificate-pair comparison and proof that additional capture mappings are
+absent from every predecessor name. All 36 capture fixture files match the
+passed original source-owner output. The initial metadata comparison failure
+is retained losslessly and distinguished from the successful derived-name
+comparison.
+
+All four affected original eighteen-source pattern owners pass: primitive
+conditions, routes, unpacked proof types and packed proof types. Their complete
+126 primitive/route/packed JSON/control/hex outputs exactly match independent
+54-program generation. Unpacked checks retain 113 paths, 703 premises, 108
+refinement types, 664 checked projections and five binder-limited paths. Packed
+checks retain all 113 paths and 703 premises/projections and pass 37,598
+original field-bit observations. The historical eighteen 61-condition fixtures
+retain their bytes and every complete typed declaration closure after only
+SHA-pinned, independently derived name substitutions. Three narrow test changes
+add that historical-name comparison and two optional exact predecessor input
+directories; every other original test byte, goal/argument/source check, value
+observation and mutation assertion remains unchanged. The affected VC-test
+Clippy and format checks pass on these exact test sources.
+
+The full original 21-source relation semantic owner passes all value, import
+and mutation observations after 9,028.72 seconds. Its complete metadata and
+all 21 certificate byte sets exactly match the current certificate-owner pins.
+Twenty complete old non-identity observation/count records stay unchanged.
+The positive-constructor record retains both original complete carriers and
+adds the actual Bool carrier: observations rise from 20 to 24, declarations
+from 66 to 78 and terms from 2,572 to 2,733. The exact current certificate
+passes both immutable source-free checkers with matching module, certificate,
+export and zero-axiom report hashes. Only the complete actual metrics JSON is
+promoted; no counter is guessed and no certificate byte is changed.
+
+See `capture-and-original-owner-checkpoint/receipt.json` and
+`relation-semantic-metric-checkpoint/receipt.json` under the approved Boolean
+re-freeze probes, with complete evidence and immutable predecessor manifests.
+The remaining 126 current pattern fixture files are not promoted until all
+21 distinct fresh certificate pairs pass both checkers. Whole JSON wrapper
+acceptance and original-owner/dependency validation, ongoing scalar/codec
+semantic observations and final freeze/publication closure remain pending.
+All 987 original application proof IDs remain pending; the practical profile
+remains inactive. T01-W09 is In progress and T01-W10 is Blocked. Whole gates
+remain final T01-W10 and T06-W12.
+
+
+## 72. Boolean cases registration-order closure checkpoint
+
+Both source-free checkers accepted nonempty Bool constructor universe arguments
+in a checked declaration preceding `Bool.cases`, while rejecting the same use
+after cases. The canonical registration check now traverses every preceding
+declaration's reachable type, reducible/opaque value and theorem proof; the
+Rust direct generator validates before registration. The shared regressions
+reject all seven preceding-use forms and the later-use form, while preserving
+legacy families, unused terms and unrelated-family controls.
+
+All 31 shared fixtures and three predecessor certificates pass 68 checked
+Rust/Go stages. Rust passes 56 selected core/kernel/W09 feasibility tests; Go
+passes 16 selected top-level tests including 31 shared fixture subcases.
+Affected Clippy and format pass, and the actual producer regenerates all twelve
+new pinned byte sets exactly. Test selection follows the validator/generator,
+environment/inference/declaration consumers and both standalone checkers.
+Initial producer and report-shape harness failures are retained with real
+statuses. See `unit-7-registration-order-review.md` and the complete
+`registration-order-checkpoint/receipt.json` and file manifest.
+
+An exact read-only inventory excludes the new reserved cases interface from
+1,920 current ordinary/candidate certificate paths, preserving code
+correspondence without misattributing old execution to new binaries. Pending
+original owner/checker runs still require terminal success and exact source
+pins before promotion. Exact-public-source Linux fix validation and final
+freeze/publication remain pending. All 987 application proofs remain pending;
+W09 is In progress, W10 is Blocked, and the practical profile is inactive.
+Whole gates remain final T01-W10 and T06-W12.
+
+
+## 73. Exact public Boolean registration-order fix Linux checkpoint
+
+The clean public `fd99c03c` fix passes x86-64 Linux verification: 61
+selected Rust tests, 16 Go top-level tests including 31 shared fixture subcases,
+Clippy/format/build and all 68 checker stages over 31 shared fixtures and three
+predecessor certificates. All accepted reports match the fixed local module,
+certificate, export, declaration and zero-axiom data; rejected reports retain
+their expected core rejection classes. Input/report/stderr hashes and the
+certificate hash domain are checked independently. All 371 selected source and
+embedded input Git blobs match the public commit, and the source stays clean.
+
+The initial empty-checkout guard failure and missing-embedded-input compile
+failure 101 are preserved. Six already passed core/kernel checks retain exact
+source/log provenance; only the failed VC compilation and remaining unexecuted
+stages run after public embedded inputs are added. Selection follows the changed
+validator/generator and affected environment/inference/declaration/feasibility
+owners. See `registration-order-linux-checkpoint/receipt.json` and its complete
+file manifest. No new C# source payload is transferred.
+
+Prepared later promotion guards retain exact frozen owner source inputs and
+permit only SHA-pinned reviewed canonical-cases registration source deltas.
+Their exact ordinary certificate bytes lack the reserved cases interface, so
+old executions keep their actual source/binary provenance. Current pattern,
+wrapper and scalar/codec original-owner results remain pending until terminal
+success. Final proof-evidence/freeze summary refresh and publication are still
+required. All 987 application proof IDs remain pending; W09 is In progress,
+W10 is Blocked, and the practical profile is inactive. Whole gates remain
+final T01-W10 and T06-W12.
+
+
+## 74. Fixed-source capacity and recursor closure checkpoint
+
+The registration-order correction changes five source pins consumed by the
+original T01-W09 capacity and recursor reproducibility owners. Keeping the
+previous records as current would fail their source-hash checks. The unchanged
+owners export all 12 capacity and 15 recursor certificates from the independently
+validated fixed source. Both complete probe objects and certificate byte sets
+match their predecessors exactly. The already validated fixed Rust/Go binaries
+then pass all 108 checker invocations: 48 capacity accepts and 60 recursor
+observations. The original five cross-result rejections per run remain. Every
+recursor result is identical; capacity results differ only in actual timings.
+The maximum capacity invocation is 3,335 ms, below the frozen 60,000 ms bound.
+
+The independent review verifies actual terminal owner logs, every input/report/
+stderr SHA, exact binaries and source inventories, accepted module/declaration
+counts and zero-axiom reports, rejection classes and matching toolchain versions.
+Complete actual inputs, outputs, predecessor records and reviewed final-refresh
+plans are retained in `registration-order-capacity-recursor-checkpoint`.
+
+The selection covers only the two source-pinned probes affected by this fix;
+it does not repeat unaffected native/source matrices. Current capacity/recursor
+records, proof summary, freeze generator and vectors remain unchanged while
+pending original consumer/source validation uses their pinned bytes. The guarded
+final refresh must preserve six predecessor files and validate exactly six
+changed evidence digests, with all 709 complete vector rows and all non-evidence
+freeze fields unchanged. A remaining normative shared-artifact paragraph claims
+unchanged checker acceptance; its exact correction is prepared for final freeze
+closure, after these pinned runs. That finding remains open until applied.
+
+T01-W09 remains In progress, T01-W10 is Blocked, and the practical profile remains
+inactive. All 987 original application proof IDs remain pending. Whole gates
+remain final T01-W10 and T06-W12.
+
+
+## 75. Complete original wrapper owner validation checkpoint
+
+The isolated candidate checkout passes all fourteen original wrapper source,
+dependency and import owners with normal fixture comparisons and every original
+source/value/mutation/structural assertion. The selection covers the affected
+field/envelope/depth/type/count/compound metadata, complete definition closures,
+semantic-root parser aliases, preserved unguarded metadata and hostile-linkage
+rejections. Actual terminal logs, one-test success counts, all 4,430 frozen
+source/input hashes and all 288 candidate file hashes are independently checked.
+Current unpromoted fixture bytes remain exact. The current source's registration-
+only deltas are explicitly reviewed; the older execution stays attributed to
+its original source checkout. No unchanged scalar/native matrix is repeated.
+
+`wrapper-original-owner-checkpoint` retains the complete successful runner and
+source manifest, source-correspondence reviews, the real first boundary-field
+failure 101 and the independent parent-identity repair review. That repair
+replays 198 request bindings across 105 metadata files without changing any
+of the 115 candidate certificates. Neither the first failure nor pending
+checker executions are counted as successful owner evidence.
+
+The 288 candidate files are not promoted here: all 230 actual checker stages
+remain a separate required gate. Pattern acceptance and scalar/codec owners,
+final approved-freeze closure/publication and all 987 original application
+proof IDs remain pending. T01-W09 is In progress, T01-W10 is Blocked, and the
+practical profile remains inactive. Whole gates remain final T01-W10 and T06-W12.
+
+
+## 76. Approved-freeze complete wrapper consumer checkpoint
+
+All 115 changed wrapper certificate byte sets pass the 230 actual Rust/Go
+checker stages with identical accepted module, certificate/export/axiom hashes,
+declaration counts and zero axioms. Independent review verifies every input,
+report and stderr hash against the exact executed binaries. All fourteen
+original source/dependency/import owners and all 115 complete definition-graph
+comparisons have also passed. The exact 288 actual generated candidate files
+(173 metadata and 115 certificates) are therefore promoted; no remaining
+acceptance or owner result is inferred from an unfinished execution.
+
+The parent-identity repair independently replays 198 bindings across 105 JSON
+files. Every other metadata field, ordered source/native observation and all
+115 certificate outputs are retained exactly. The initial metadata/graph
+failures, real original owner failure 101 and optional-case repair harness
+failure retain their actual inputs/logs/statuses; none is counted as pass.
+`wrapper-consumer-checkpoint` retains complete evidence and manifests, and
+`previous-context-7-wrapper-consumers` retains all 288 complete predecessor
+files. Original checker/owner runs remain attributed to their actual sources
+and binaries; the registration-only source correspondence is explicit.
+
+The pending pattern promotion pins exactly these 288 validated prior changes
+against its old source manifest, alongside only its two previously reviewed
+metadata/document changes and the explicit registration-source deltas. Every
+other source/input hash and all 42 actual pattern checker stages remain
+required. The 126 pattern files are not promoted here. Ongoing scalar/codec
+owners, final approved-freeze closure/publication and all 987 original
+application proof IDs remain pending. T01-W09 remains In progress, T01-W10 is
+Blocked, and the practical profile is inactive. Whole gates remain final
+T01-W10 and T06-W12. No unaffected source/native matrix is repeated.
+
+
+## 77. Completed scalar and codec source-owner checkpoint
+
+The first six complete original scalar/codec owners pass: integer parsers,
+integer formats, hex codecs, calendar codecs, decimal parsers and decimal
+formats. Their unchanged source/value/import/mutation assertions execute from
+the original frozen source checkout. All 140 complete generated files equal
+the current fixture bytes exactly. Decimal formatting includes all 72 original
+native/model observations, and its actual terminal one-test log passes after
+21,805.70 seconds. The selected owner production subset contains 194 source
+paths, all exactly equal in the original and current checkout. Reviewed
+canonical-cases registration deltas retain their separate execution provenance.
+
+The independent review verifies every successful terminal log and success
+count, all current output hashes, the original source inventory and the actual
+72-observation count. `six-semantic-owner-checkpoint` retains these logs, source
+pins, exact comparison records and the live runner's truthful partial-status
+snapshot. No source or fixture is changed, and no unaffected test is repeated.
+The remaining decimal fixed formats, structural storage, scalar domains and
+scalar domain ranges are not claimed as passed by this checkpoint.
+
+Pattern acceptance, remaining scalar/codec owners and final approved-freeze
+closure/publication remain pending. T01-W09 stays In progress, T01-W10 stays
+Blocked, and the practical profile remains inactive. All 987 original
+application proof IDs remain pending. Targeted verification is retained here;
+the whole gates remain deferred to final T01-W10 and T06-W12.
+
+
+## 78. Explicit server-only test execution amendment
+
+The user now requires all tests to execute via `ssh -i ~/ffvps.pem
+root@162.43.92.154` and prohibits local tests. This explicit instruction
+supersedes the earlier local-execution instruction for this task. All seven
+identified local test process groups, containing sixteen processes, are stopped
+at that instruction; the actual interruption receipt and original partial
+statuses are retained. Thirty completed pattern checker stages and six
+completed scalar/codec owners keep their original source/binary provenance.
+No interrupted execution is counted as pass. No new local test executes.
+
+The exact prepared 2.44 MB archive contains six source-free certificate inputs,
+control scripts and hashes, without C# source bodies. The initial SCP action was
+rejected by automatic approval review because the prior approval covered two
+specific JSON payloads. The user then explicitly approved this archive and
+the named destination. The same archive is transferred unchanged; its SHA,
+all ten control/input hashes and 5,381 public Git source hashes pass the actual
+server preflight. The independent server checkout pins public commit
+`e89c2a0f24e1f4a1c562c6a60c3199473781f101`; existing server source trees are
+unchanged. The already validated fixed Linux Rust/Go checker hashes are exact.
+
+`server-only-execution-checkpoint` retains the actual source preflight and
+remote launch receipts, approved transfer record and interruption evidence.
+The first path-resolution preparation failure is retained and precedes all
+payload writes and tests. Two server runners now execute only the twelve
+remaining pattern checker stages and four unfinished original scalar/codec
+owners. Their successful completion is not claimed by this launch checkpoint.
+The Rust owner runner uses optimized test code with debug assertions and
+overflow checks enabled; every original observation/import/mutation assertion
+remains. No production source, current fixture or application proof changes.
+
+T01-W09 remains In progress, T01-W10 remains Blocked, and the practical profile
+is inactive. All 987 original application proof IDs remain pending. Remaining
+selected checks and final T01-W10/T06-W12 whole gates will execute only on the
+server. Historical records retain their actual execution hosts.
+
+
+## 79. Approved server result integration controls
+
+The user explicitly approves the separate 9.9 KB archive containing six new
+evidence integration scripts after automatic review rejects the initial
+unpublished-script transmission. The same fixed archive transfers to
+`root@162.43.92.154`; its actual SHA and all six file hashes are verified there.
+All six selected syntax checks pass on the server.
+`server-result-integration-checkpoint` retains the actual transfer/syntax
+receipt, approval, rejection reason and exact script sources. No new local
+test, original owner or checker executes for this preparation change.
+
+The prepared integration requires actual terminal server results and an
+independent server audit before use. It retains all original thirty completed
+checker stages and six complete scalar/codec owners with their original
+source/binary/host provenance, together with the original interrupted status
+bytes. It may add only the twelve actually completed server checker stages and
+four actually completed original server owners. The prepared promotion keeps
+the exact 290 reviewed predecessor changes, nine separately reviewed core
+source paths and every other original source/input guard. Neither prepared
+assembly nor fixture promotion is executed by this checkpoint.
+
+The final-freeze execution plan explicitly moves generation comparisons, all
+709 complete vector checks, selected W09 owners, W10 republication checks and
+the final T01/T06 whole gates to the server. Historical completed capacity/
+recursor results keep their actual execution provenance; unaffected completed
+checks are not repeated. The six complete predecessor files and exactly six
+evidence hash changes remain required at final refresh.
+
+The remaining server tests continue on their unchanged frozen checkout and
+controller. This checkpoint claims no new terminal checker/owner result,
+fixture promotion, freeze completion or application proof. T01-W09 remains
+In progress, T01-W10 remains Blocked and the practical profile is inactive.
+All 987 original application proof IDs remain pending. Selected syntax results
+are recorded here; the whole gates remain deferred to final T01-W10/T06-W12
+on the server.
+
+
+## 80. Exact Go core term search index and actual server acceptance
+
+A non-stopping five-second sample of the original packed `guard_order` Go
+checker reports 76.71% of cycles in linear term interning and 20.81% in full
+node equality, with no lost samples. The indexed implementation uses all
+Tag/A/B/C fields and separate ordered fixed-width level/argument byte strings.
+It preserves nil/empty equality, the first existing term ID, append order and
+constructor-owned slices. Independent exact source reconstruction proves that
+every other inference, reduction, fuel, declaration and canonical Boolean
+cases registration byte is unchanged. The original active sources/binaries
+and controller remain preserved.
+
+Public candidate `7505badc6684191a7dad9833e67d29af32529ee9` is validated only on
+`root@162.43.92.154`. The complete Go checker package tests, three new linear
+first-ID/prepopulated/slice-ownership regressions, selected format checks, vet
+and candidate build pass. All six exact approved remaining pattern certificate
+pairs accept under indexed Go and fixed Rust, with identical module,
+declaration, export and certificate hashes and zero axioms. Exactly one prior
+complete Rust report is reused after full input/report/stderr/binary SHA
+correspondence; five missing Rust cases execute. Indexed Go accepts
+`guard_order` in 51.41 seconds. The old same-input Go execution was still active
+at this measurement, so no finished baseline or exact speedup is invented.
+
+The indexed Go checker also passes all 31 Boolean rule/order success/failure
+fixtures and the three retained basic/Bool/Nat predecessors. All 54 exact
+capacity/recursor executions match their previous actual complete Go JSON
+reports. Unchanged original Rust observations and their original execution
+provenance remain retained. The maximum indexed Go capacity time is 956 ms,
+within the existing 60,000 ms bound. Candidate probe records update exactly
+one additional source pin and actual reference runtime metadata; current
+production probe/freeze records remain unchanged until final refresh.
+
+`go-term-interning-checkpoint` retains the actual 441-source manifest, all
+logs/raw inputs/results, source correspondence and independent server audit.
+The first fixture collector's wrong diagnostic field and second preparation's
+shell-quotation assertion failure are retained as real failures. Four actual
+completed fixture results are reused by hash and only the remaining thirty
+execute. A local unused full-checkout preparation failed for disk space; Git
+removed it, and a sparse Go-only checkout succeeds without deleting prior
+evidence or stopping a test. No local test executes. The prepared source guard
+allows exactly the reviewed registration delta followed by this exact one-file
+index delta; original source pins and all other guards remain required.
+
+The indexed source is integrated after actual server validation. Pattern
+fixture promotion, complete scalar/codec owners, final freeze/publication and
+all 987 original application proofs remain pending. T01-W09 is In progress,
+T01-W10 is Blocked and the practical profile is inactive. The targeted results
+are recorded above; whole gates remain final T01-W10/T06-W12 on the server.
+
+
+## 81. Exact pattern consumer promotion after server acceptance
+
+The independent server audit verifies all 42 actual case/backend results and
+21 complete certificate pairs: thirty historical completed results and twelve
+server results. Indexed Go executes all six approved remaining inputs; fixed
+Rust executes the five missing inputs and reuses exactly one completed report
+after full input/report/stderr/binary correspondence. All original execution
+fields, source hashes and host provenance remain. The original interrupted
+status is retained unchanged. Every accepted pair agrees on module, declaration,
+export and certificate hashes with zero axioms.
+
+After the three published promotion controls pass selected syntax checks on
+the server, the hash-only artifact promotion updates exactly 126 remaining
+pattern primitive/route/packed proof-type files. All 126 bytes match the actual
+passed output files of the four unchanged original owners. Thirty-six unpacked
+outputs also retain their original owner hashes. The exact 290 previously
+reviewed wrapper/metric/review changes and separately reviewed nine registration
+paths plus one Go term-index delta remain required by the original source
+guards; no other source/input exception is added.
+
+`previous-context-6-pattern-consumers` retains all 126 complete predecessor
+files. `pattern-consumer-checkpoint` retains the actual producer, original-owner,
+complete graph/lineage, 42-result provenance, independent server audit and three
+server syntax checks. Capture36 and wrapper288 were already published and are
+not counted again. Artifact copies and hash preparation execute locally; all
+new software checks execute only on the approved SSH server. No unaffected
+owner matrix or whole gate is repeated for this evidence/fixture publication.
+
+Four original scalar/codec owners remain pending on their frozen server
+checkout. Approved final freeze/publication and all 987 original application
+proof IDs remain pending. T01-W09 is In progress, T01-W10 is Blocked and the
+practical profile remains inactive. Selected checks are recorded above; whole
+gates remain deferred to final T01-W10/T06-W12 on the server.
+
+
+## 82. Published pattern audit and prepared indexed final server freeze
+
+The server independently verifies published commit `ec5b54e6` against all
+126 current fixture hashes, all 126 complete predecessors and all 324 evidence
+file hashes. This closes the exact pattern fixture publication audit without
+repeating unaffected producer or checker execution.
+
+After all twelve actual replacement checker results and the independent
+42-result union complete, only the original superseded linear-interning pattern
+process group is stopped. Its original one-success running status is preserved
+byte-for-byte and no incomplete result becomes a pass. The actual process
+commands, reviewed replacement hashes and stop receipt are retained. A first
+precondition attempt expected twelve rows in the Rust-only six-row paired
+status and stopped before any signal; the failure is retained. The corrected
+precondition independently verifies six actual Rust and six actual Go rows.
+Scalar and unrelated process groups remain untouched.
+
+`final-server-freeze-preparation-checkpoint` preserves the actual publication/
+stop receipts and prepares a new server-only generator. It requires the full
+ten-owner checkpoint, exact current pattern/wrapper files, the reviewed core
+registration and Go index records, all current probe source pins and immutable
+six-file predecessor hashes before isolated candidate mutation. It uses the
+actual indexed reference probe records and preserves the historical fixed Rust
+observations and both original execution source commits. The proof evidence
+will pin 36 current core sources and explicitly attribute the new 34 Boolean/
+predecessor, 54 capacity/recursor and six pattern-pair results to indexed Go.
+
+Generation and complete 709-row/non-evidence-field comparison execute only
+on the server after all four remaining scalar owners complete. Only the six
+specified evidence hash fields may change. The old local refresh/selected
+runner remains retained as unexecuted history. Prepared generator controls
+require server syntax validation before execution; this checkpoint claims
+no generation, owner pass, freeze completion or application proof.
+
+Four scalar/codec owners remain pending; T01-W09 is In progress and T01-W10
+is Blocked. All 987 application proof IDs remain pending and the profile is
+inactive. Targeted prior publication hashes are verified on the server; whole
+gates remain deferred to final T01-W10/T06-W12 on the server.
+
+
+The two published final-generation controls also pass selected server syntax
+and static Linux/ten-owner guards. The actual receipt is retained. A separate
+prepared server runner will execute private freeze --check, all eight original
+W09 normal-pin owners and selected spec Clippy only after complete generation
+and normative paragraph reconciliation. It uses `/usr/bin/cargo`, a separate
+final target and optimized code with debug assertions/overflow checks enabled.
+The runner is not executed and still requires its server syntax check. Neither
+generation nor a new complete scalar owner is claimed by this preparation.
+
+
+## 83. Independent remaining scalar owner execution preparation
+
+The three remaining structural/scalar/range owners have independent immutable
+input reads, process-local observations and distinct optional output variables.
+The complete original functions retain their source/type/value/import/mutation
+assertions. An additional server controller is prepared to execute those three
+original tests concurrently using the exact already compiled source-pinned
+owner binary. It first verifies all 5,381 source/input hashes, unchanged controls,
+binary SHA and a unique exact original test name for each selector. Each complete
+result must retain its actual log, success count, output hashes and byte equality
+to current fixtures. The decimal fixed-format observation and original serial
+controller remain unchanged.
+
+`independent-scalar-owner-checkpoint` retains the preparation source and review.
+Server syntax is required before launch; this preparation claims no new owner
+result. Completed unrelated checks are excluded. All 987 application proofs and
+final freeze/publication remain pending, with whole gates deferred to final
+T01-W10/T06-W12 on the server.
+
+
+All three exact original structural/scalar/range owners now pass on the server.
+The independent terminal audit verifies all 5,381 immutable source/input hashes,
+unchanged controls and the original compiled test binary, all three complete
+logs/success counts and all 53 complete output files against current fixture
+bytes. The archive and full raw outputs are retained. Together with the six
+completed historical owners, nine of the ten original semantic owners are
+complete. The full decimal fixed-format owner remains running; no individual
+rounding observation is counted as complete.
+
+The two published controls also pass server syntax: the independent owner
+controller and the prepared final normal W09 runner. A new server join/audit
+script is prepared to require a complete decimal result plus all three complete
+independent results; it keeps every actual stage field and copies both original
+runner statuses into a separate four-result folder. Neither original status
+is edited or relabeled successful. This join remains unexecuted and requires
+server syntax before use. Final freeze/publication, all 987 application proofs
+and the final whole gates remain pending.
+
+
+The four-result join's selected syntax check also passes on the server. It
+preserves the exact one-time status snapshots used for review while the old
+serial controller may advance. The prepared hash-only result assembler keeps
+those audited snapshots alongside the original interrupted six-owner history.
+A proposal reconciliation candidate explicitly distinguishes historical fixed
+checker executions and the reviewed indexed reference executions. All these
+integration/generation steps remain unexecuted until the complete original
+decimal fixed-format owner passes. Current normative inputs remain unchanged.
+
+
+## 84. Independent final owner compile preparation on the server
+
+A separate public-source sparse checkout and target prebuild only the affected
+`mpk-vc/csharp_practical_spec` executable with `cargo test --no-run`. The
+selected compile passes in 5m14s; all 675 source hashes and clean Git state
+remain exact. The independent server audit retains the actual executable SHA
+and all logs. No owner test, freeze generation or whole gate executes here.
+The separate lean target uses optimized test/dev code with debug assertions
+and overflow checks enabled, preserving the original assertions.
+
+The initial no-checkout sparse setup retains an empty index with staged
+deletions. Only this newly created .git-only checkout is repaired after exact
+head/empty-state checks; existing live checkouts remain unchanged. A dependent
+launch was attempted before this successful preflight, but log-path redirection
+fails before Cargo launches; that real preparation failure is retained. The
+first actual compile then fails with five references to two absent public
+embedded assets. Both original failure logs and receipts remain. Adding exactly
+the foundation specification and profile package preserves all preceding 673
+source bytes; only the affected compile is repeated.
+
+`final-server-freeze-preparation-checkpoint` retains the complete source and
+compile records, actual independent audit, initial preparation failures and
+prepared final normal runner. The runner aligns its separate target's dev
+profile with this prebuild while retaining assertions and overflow checks. It
+is not executed and requires its new server syntax check. The complete decimal
+fixed-format owner remains running; nine original owners are complete.
+Final freeze/publication, all 987 application proofs and the final whole gates
+remain pending. T01-W09 is In progress; T01-W10 is Blocked.
+
+
+The final normal runner3 passes exact published-source syntax on the server.
+Its normal-test manifest additionally pins the embedded public package,
+foundation specifications/descriptor/definitions and original standard probe
+inputs. A read-only manual review of the term index finds no actionable issue
+within that scope: every structural equality field participates, fixed-width
+ordered slice keys are injective, first IDs/append order/nil-empty equality
+remain, and production terms/slice elements have no mutation outside interning.
+The actual earlier server differential regressions and complete report/source
+reconstruction remain its runtime evidence. The record is a source review,
+not an additional test result or final W09 completion claim.
+
+Two normal same-commit pushes receive actual GitHub Internal Server Errors;
+those failures are retained. A later same-commit push succeeds and the exact
+remote branch is verified. No force, alternate credentials or payload bypass
+is used. The original decimal test continues throughout. Final source/owner
+closure and the whole gates remain pending.

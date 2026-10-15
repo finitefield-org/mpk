@@ -1,0 +1,37 @@
+{
+  "after_sha256": "c88aea3a8a1b7485b387be135165aa503397ee3ef82d91f7b40f84b54547da21",
+  "before_sha256": "26d24e86b1aecaf54df10f49a45886a78a91c3fbb957e37fb8d1ebdc384a4e41",
+  "change": "Rebind the recorded valid parent envelope hash before applying each original stale-hash, duplicate-field or noncanonical transport mutation, matching the actual current test producer. Zero-hash mutation remains zero.",
+  "linux_native_rows": 3,
+  "local_replay_receipt": "negative-parent-3/inputs/local-replay.json",
+  "original_mutations_preserved": true,
+  "path": "develop/migrations/csharp-03/boundary-attachment/requests.json",
+  "request_sha256": "6569df825d6817e2e512aa4fb28cbf3f6214bc041f6320fc6303ad15b810301a",
+  "response_sha256": "294f9ecb5e62f5642b5ec36a859ee5217ab33c0ed8ebd9260ad7257727aca80b",
+  "rows": [
+    {
+      "case": "stale_hash",
+      "index": 46,
+      "old_sidecar_raw_sha256": "66530ed56c57bb3734252a3b3507bf37c82be8a92a7565d8a2d956c79f00ff89",
+      "old_snapshot_id": "2ac594d79965ec6ad4c746b9f35dd2eb6a9662e76a47b88764dd25a4f6c59273"
+    },
+    {
+      "case": "duplicate_json",
+      "index": 48,
+      "old_sidecar_raw_sha256": "dbc886c358e19ac18c1074203b99a093800d42e710d506a445902ecf4874a1e4",
+      "old_snapshot_id": "a6a6d0c8b58b278217b5bdca62b703a19afde2a9cbddebf49fa331448d27ea38"
+    },
+    {
+      "case": "noncanonical",
+      "index": 55,
+      "old_sidecar_raw_sha256": "672ea3acda918526c8290bda46ec466f9fdfcb013937b739efec40518fadc3b8",
+      "old_snapshot_id": "4fa7a89c600178b454b5e18aa78bea47aca0770ed9e3ee891638c019218523dd"
+    }
+  ],
+  "snapshot_id_changes": {
+    "2ac594d79965ec6ad4c746b9f35dd2eb6a9662e76a47b88764dd25a4f6c59273": "ee8806ee47de7191fdeae4cad52ad889fe28818b3eb6d5c80ea360842694908c",
+    "4fa7a89c600178b454b5e18aa78bea47aca0770ed9e3ee891638c019218523dd": "e7dfadfba85d3f5bf4f8ebf6623953b55291ced2babd6a68e741553550c19f02",
+    "a6a6d0c8b58b278217b5bdca62b703a19afde2a9cbddebf49fa331448d27ea38": "1c830bb0c44ecc8b4f2471d8a53eab6c8f0ec7b39ead994d043b43e86a9e9641"
+  },
+  "status": "passed_actual_local_emission_rejection_and_linux_native_capture"
+}

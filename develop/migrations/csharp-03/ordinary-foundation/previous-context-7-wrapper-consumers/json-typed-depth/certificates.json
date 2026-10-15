@@ -1,0 +1,690 @@
+[
+  {
+    "id": "active-depth",
+    "certificate_sha256": "4548a9d6938175f72762f2ec32faba3558f82a6ab4f898e5ab05ec1f734aa0e7",
+    "scope": "252 actual core depth cases;valid semantic representation is a precondition;not input admission."
+  },
+  {
+    "certificate_sha256": "e2efff844a060079921f0db74e6aa5927f6a3ae514d16191e11fd5f55d78a28c",
+    "declarations": 20,
+    "id": "decimal_default",
+    "program": {
+      "boundary_program_sha256": "df9d73eee160ca6bfc5d78142d536b407126dae1eaa4637bf9389098fff07d0b",
+      "certificate_sha256": "e2efff844a060079921f0db74e6aa5927f6a3ae514d16191e11fd5f55d78a28c",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 9,
+            "shape": {
+              "fields": [
+                {
+                  "id": "negative",
+                  "shape": {
+                    "kind": "bits",
+                    "width": 1
+                  }
+                },
+                {
+                  "id": "scale",
+                  "shape": {
+                    "kind": "bits",
+                    "width": 8
+                  }
+                },
+                {
+                  "id": "coefficient",
+                  "shape": {
+                    "kind": "bits",
+                    "width": 96
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.value.decimal.v1"
+          },
+          "definition": "Mpk.CSharp.Ordinary.JsonTypedDepth.T6d706b2e6373686172702e76616c75652e646563696d616c2e7631"
+        },
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "kind": "bits",
+              "width": 64
+            },
+            "type_id": "mpk.csharp.value.i64.v1"
+          },
+          "definition": "Mpk.CSharp.Ordinary.JsonTypedDepth.T6d706b2e6373686172702e76616c75652e6936342e7631"
+        }
+      ],
+      "schema": "mpk.csharp.ordinary_json_typed_depth.v1",
+      "source_ir_sha256": "3033c0bc3e7b71544f91b11cc0f49df623eedbde090f4ada403bbe7da5397503",
+      "static_transformers": 2
+    },
+    "source_snapshot_sha256": "9ae890de59c73629469a23da4cfe4de517b1edd0c16244603c5ba66b7dfe8448",
+    "terms": 1082
+  },
+  {
+    "certificate_sha256": "b68c9a2c3179f87d96f69566239ad5cf7eb20dd4327f8b43a7bef39912f72f0a",
+    "declarations": 19,
+    "id": "enum_default",
+    "program": {
+      "boundary_program_sha256": "4a1b15ee363c9f0b8223ee87d400e6987595d25a5c4513ac22812c803ceba95e",
+      "certificate_sha256": "b68c9a2c3179f87d96f69566239ad5cf7eb20dd4327f8b43a7bef39912f72f0a",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.source.0ce09f1c93d3da49eb08fa107a0d074a7e86a3d23a88904d1a6bb6934a3e2093"
+          },
+          "definition": "Mpk.CSharp.Ordinary.JsonTypedDepth.T6d706b2e6373686172702e736f757263652e30636530396631633933643364613439656230386661313037613064303734613765383661336432336138383930346431613662623639333461336532303933"
+        }
+      ],
+      "schema": "mpk.csharp.ordinary_json_typed_depth.v1",
+      "source_ir_sha256": "1b04be413173f74a9b491dcb138b058102dff340839d7e6afdc33290298f820c",
+      "static_transformers": 2
+    },
+    "source_snapshot_sha256": "2038aca98ab673a1b4b0f4262e7aae936f7b91f2d3cb2edee0fd5c4ab7ea90bc",
+    "terms": 1080
+  },
+  {
+    "certificate_sha256": "d5ff3d20ebbcf0ecd3198bde26ce15c4a2b447bf648e0114d02c83717235371d",
+    "declarations": 32,
+    "id": "nullable_default",
+    "program": {
+      "boundary_program_sha256": "082cae87963fd9ef7d2c6aaf15d7e3a449317285aaca1101690db1409f358e97",
+      "certificate_sha256": "d5ff3d20ebbcf0ecd3198bde26ce15c4a2b447bf648e0114d02c83717235371d",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "arms": [
+                {
+                  "fields": [],
+                  "id": "none",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "some",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "type_id": "mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338"
+          },
+          "definition": "Mpk.CSharp.Ordinary.JsonTypedDepth.T6d706b2e6373686172702e696e7374616e63652e39663761636463663036323830376132666439353432666531363138346661363832666633336136653634626434333937346231343935333434376637333338"
+        }
+      ],
+      "schema": "mpk.csharp.ordinary_json_typed_depth.v1",
+      "source_ir_sha256": "856139dcdaca34bf83832a00a0a97639635de2ee07f3abdb16c9a27c7e63310b",
+      "static_transformers": 6
+    },
+    "source_snapshot_sha256": "5adfe57d61669e49361e0a079e9ea4f092be57bd2be9a8b49ed31b24cd1d9fd3",
+    "terms": 2119
+  },
+  {
+    "certificate_sha256": "d5ff3d20ebbcf0ecd3198bde26ce15c4a2b447bf648e0114d02c83717235371d",
+    "declarations": 32,
+    "id": "nullable_nonnull",
+    "program": {
+      "boundary_program_sha256": "a361eda4996a0297bcdda769f94ec79abc879cbb52f58ae67c19b3ad3e9a678c",
+      "certificate_sha256": "d5ff3d20ebbcf0ecd3198bde26ce15c4a2b447bf648e0114d02c83717235371d",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "arms": [
+                {
+                  "fields": [],
+                  "id": "none",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "some",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "type_id": "mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338"
+          },
+          "definition": "Mpk.CSharp.Ordinary.JsonTypedDepth.T6d706b2e6373686172702e696e7374616e63652e39663761636463663036323830376132666439353432666531363138346661363832666633336136653634626434333937346231343935333434376637333338"
+        }
+      ],
+      "schema": "mpk.csharp.ordinary_json_typed_depth.v1",
+      "source_ir_sha256": "46c21245fed6afc491f8f011b08dd839f6a1fe2facf81e03153e2c65453cdf4a",
+      "static_transformers": 6
+    },
+    "source_snapshot_sha256": "fb4493bd7051ed18810de679ffcc17dd13f5bcac3d07872b0ebe244e0bb7c38c",
+    "terms": 2119
+  },
+  {
+    "certificate_sha256": "d5ff3d20ebbcf0ecd3198bde26ce15c4a2b447bf648e0114d02c83717235371d",
+    "declarations": 32,
+    "id": "nullable_required",
+    "program": {
+      "boundary_program_sha256": "cb8370060b91864c54e2683e38ffbff2db20b98f81e409148b07107b6a083000",
+      "certificate_sha256": "d5ff3d20ebbcf0ecd3198bde26ce15c4a2b447bf648e0114d02c83717235371d",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "arms": [
+                {
+                  "fields": [],
+                  "id": "none",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "some",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "type_id": "mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338"
+          },
+          "definition": "Mpk.CSharp.Ordinary.JsonTypedDepth.T6d706b2e6373686172702e696e7374616e63652e39663761636463663036323830376132666439353432666531363138346661363832666633336136653634626434333937346231343935333434376637333338"
+        }
+      ],
+      "schema": "mpk.csharp.ordinary_json_typed_depth.v1",
+      "source_ir_sha256": "a6009149e7d9a9ea21e8d85b1714258a6d9475e7cf34e14e7f14132fb1aa4ce1",
+      "static_transformers": 6
+    },
+    "source_snapshot_sha256": "cc4b043b72dff34c395fea8b3300b2f0db09b9201e57d486ef7d41477a2a646d",
+    "terms": 2119
+  },
+  {
+    "certificate_sha256": "fc95752ddd8ba6dbd589c4b6f34554a93ec7f70a109a2d3f181bad7470b0a5db",
+    "declarations": 20,
+    "id": "optional_default",
+    "program": {
+      "boundary_program_sha256": "992c2760f465669322c784875985bf135975429a584f63a6f375ccbc9b8ff300",
+      "certificate_sha256": "fc95752ddd8ba6dbd589c4b6f34554a93ec7f70a109a2d3f181bad7470b0a5db",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.value.i32.v1"
+          },
+          "definition": "Mpk.CSharp.Ordinary.JsonTypedDepth.T6d706b2e6373686172702e76616c75652e6933322e7631"
+        },
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "kind": "bits",
+              "width": 64
+            },
+            "type_id": "mpk.csharp.value.i64.v1"
+          },
+          "definition": "Mpk.CSharp.Ordinary.JsonTypedDepth.T6d706b2e6373686172702e76616c75652e6936342e7631"
+        }
+      ],
+      "schema": "mpk.csharp.ordinary_json_typed_depth.v1",
+      "source_ir_sha256": "202cb42391c9d4b392816bb9723e9e141a3b1fea638a0a48f1bc6c6f99a3a831",
+      "static_transformers": 2
+    },
+    "source_snapshot_sha256": "e68a897d5f37595f9d13c9d178aa531783c9cc20cb4eb3fa1f83a6bb0e5607df",
+    "terms": 1082
+  },
+  {
+    "certificate_sha256": "dccb0fbd2272b1621f13f781d103c2fb971f4f8a091f0c49ba3349d043e23daa",
+    "declarations": 32,
+    "id": "presence_default",
+    "program": {
+      "boundary_program_sha256": "0f073df6fc993f4a08da8bd52df366f4b52b8ca580fda08cfb4d433583101dcc",
+      "certificate_sha256": "dccb0fbd2272b1621f13f781d103c2fb971f4f8a091f0c49ba3349d043e23daa",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "arms": [
+                {
+                  "fields": [],
+                  "id": "missing",
+                  "tag": 0
+                },
+                {
+                  "fields": [],
+                  "id": "null",
+                  "tag": 1
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "value",
+                  "tag": 2
+                }
+              ],
+              "kind": "sum"
+            },
+            "type_id": "mpk.csharp.instance.b82463e0c4162ceab115a2382e0ee90aac8c2b675cc636a0c6d4e27dc96b746b"
+          },
+          "definition": "Mpk.CSharp.Ordinary.JsonTypedDepth.T6d706b2e6373686172702e696e7374616e63652e62383234363365306334313632636561623131356132333832653065653930616163386332623637356363363336613063366434653237646339366237343662"
+        }
+      ],
+      "schema": "mpk.csharp.ordinary_json_typed_depth.v1",
+      "source_ir_sha256": "bee5af6629006cfced7f45df6eb560a45ad22424dda4f73983fe04de023b3750",
+      "static_transformers": 6
+    },
+    "source_snapshot_sha256": "c519174bf610aadfb520c5f6df975423da3a3a680362c1279089cd69cc73e329",
+    "terms": 2151
+  },
+  {
+    "certificate_sha256": "dccb0fbd2272b1621f13f781d103c2fb971f4f8a091f0c49ba3349d043e23daa",
+    "declarations": 32,
+    "id": "presence_exposed",
+    "program": {
+      "boundary_program_sha256": "195093a3faab156886c9bc156bf91ef95d8b44c74f767242ab7605726e4757c7",
+      "certificate_sha256": "dccb0fbd2272b1621f13f781d103c2fb971f4f8a091f0c49ba3349d043e23daa",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "arms": [
+                {
+                  "fields": [],
+                  "id": "missing",
+                  "tag": 0
+                },
+                {
+                  "fields": [],
+                  "id": "null",
+                  "tag": 1
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "value",
+                  "tag": 2
+                }
+              ],
+              "kind": "sum"
+            },
+            "type_id": "mpk.csharp.instance.b82463e0c4162ceab115a2382e0ee90aac8c2b675cc636a0c6d4e27dc96b746b"
+          },
+          "definition": "Mpk.CSharp.Ordinary.JsonTypedDepth.T6d706b2e6373686172702e696e7374616e63652e62383234363365306334313632636561623131356132333832653065653930616163386332623637356363363336613063366434653237646339366237343662"
+        }
+      ],
+      "schema": "mpk.csharp.ordinary_json_typed_depth.v1",
+      "source_ir_sha256": "165ba58756621a1a4f3451a630bbe161555e224adbe86e75afdf05935a5da821",
+      "static_transformers": 6
+    },
+    "source_snapshot_sha256": "85781d93b9aedd83637a3578660c26625c6dc4c41a0ee1eac8cb0202bb5e758b",
+    "terms": 2151
+  },
+  {
+    "certificate_sha256": "ddee7d1a0f2e33029426178c6768b58b5b4aec6270bec6b482d6b9c9b154495b",
+    "declarations": 32,
+    "id": "presence_instant",
+    "program": {
+      "boundary_program_sha256": "c239b3b27adf6814a521c2568c97c50d26e3b61b7b9ce78c51a9889e97a0417a",
+      "certificate_sha256": "ddee7d1a0f2e33029426178c6768b58b5b4aec6270bec6b482d6b9c9b154495b",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 7,
+            "shape": {
+              "arms": [
+                {
+                  "fields": [],
+                  "id": "missing",
+                  "tag": 0
+                },
+                {
+                  "fields": [],
+                  "id": "null",
+                  "tag": 1
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.instant.v1"
+                      }
+                    }
+                  ],
+                  "id": "value",
+                  "tag": 2
+                }
+              ],
+              "kind": "sum"
+            },
+            "type_id": "mpk.csharp.instance.ca60e0543e2223339a781ef4eb4bcdb3a7ae61b52eab205caa43b4647a6cccae"
+          },
+          "definition": "Mpk.CSharp.Ordinary.JsonTypedDepth.T6d706b2e6373686172702e696e7374616e63652e63613630653035343365323232333333396137383165663465623462636462336137616536316235326561623230356361613433623436343761366363636165"
+        }
+      ],
+      "schema": "mpk.csharp.ordinary_json_typed_depth.v1",
+      "source_ir_sha256": "8a5512f8cfc72bf52042c47bae8eecc3770245983f7a734ad0c4d6347c43ad65",
+      "static_transformers": 6
+    },
+    "source_snapshot_sha256": "16786ad535baf4bab28fc070f34786ffb1e772e1a94f2e8798453b843ff9d3eb",
+    "terms": 2151
+  },
+  {
+    "certificate_sha256": "dccb0fbd2272b1621f13f781d103c2fb971f4f8a091f0c49ba3349d043e23daa",
+    "declarations": 32,
+    "id": "presence_missing_default",
+    "program": {
+      "boundary_program_sha256": "6ed46f0b6c6f446c93493de69ca62b72bb9e3d1928bd269ff78ae22622d8ac08",
+      "certificate_sha256": "dccb0fbd2272b1621f13f781d103c2fb971f4f8a091f0c49ba3349d043e23daa",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "arms": [
+                {
+                  "fields": [],
+                  "id": "missing",
+                  "tag": 0
+                },
+                {
+                  "fields": [],
+                  "id": "null",
+                  "tag": 1
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "value",
+                  "tag": 2
+                }
+              ],
+              "kind": "sum"
+            },
+            "type_id": "mpk.csharp.instance.b82463e0c4162ceab115a2382e0ee90aac8c2b675cc636a0c6d4e27dc96b746b"
+          },
+          "definition": "Mpk.CSharp.Ordinary.JsonTypedDepth.T6d706b2e6373686172702e696e7374616e63652e62383234363365306334313632636561623131356132333832653065653930616163386332623637356363363336613063366434653237646339366237343662"
+        }
+      ],
+      "schema": "mpk.csharp.ordinary_json_typed_depth.v1",
+      "source_ir_sha256": "206909a91b515360460880300e3095d1220a4e7e62fd22af86e4362ad3305fa9",
+      "static_transformers": 6
+    },
+    "source_snapshot_sha256": "3bb993aa94bb6867062778a676cce55d0efa04e0e1d9810a64e7eec99779004e",
+    "terms": 2151
+  },
+  {
+    "certificate_sha256": "dccb0fbd2272b1621f13f781d103c2fb971f4f8a091f0c49ba3349d043e23daa",
+    "declarations": 32,
+    "id": "presence_nonmissing_zero",
+    "program": {
+      "boundary_program_sha256": "907ebeb06b69178fb64cb6bb351aaae9f2e558229600fab7b38aab9ae637575b",
+      "certificate_sha256": "dccb0fbd2272b1621f13f781d103c2fb971f4f8a091f0c49ba3349d043e23daa",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "arms": [
+                {
+                  "fields": [],
+                  "id": "missing",
+                  "tag": 0
+                },
+                {
+                  "fields": [],
+                  "id": "null",
+                  "tag": 1
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "value",
+                  "tag": 2
+                }
+              ],
+              "kind": "sum"
+            },
+            "type_id": "mpk.csharp.instance.b82463e0c4162ceab115a2382e0ee90aac8c2b675cc636a0c6d4e27dc96b746b"
+          },
+          "definition": "Mpk.CSharp.Ordinary.JsonTypedDepth.T6d706b2e6373686172702e696e7374616e63652e62383234363365306334313632636561623131356132333832653065653930616163386332623637356363363336613063366434653237646339366237343662"
+        }
+      ],
+      "schema": "mpk.csharp.ordinary_json_typed_depth.v1",
+      "source_ir_sha256": "c23ddc3e7ab57d24c25185410082c1c69c2b92ac11c8383583d20a9387caff83",
+      "static_transformers": 6
+    },
+    "source_snapshot_sha256": "36ec0116f7511350c56643272e55bc55eb8fd667d920251b7f1081dbe87a0ea8",
+    "terms": 2151
+  },
+  {
+    "certificate_sha256": "dccb0fbd2272b1621f13f781d103c2fb971f4f8a091f0c49ba3349d043e23daa",
+    "declarations": 32,
+    "id": "presence_required",
+    "program": {
+      "boundary_program_sha256": "ec853558174695628ddfd7c88b56a16ddae4939f5fbb75bffcab602642745733",
+      "certificate_sha256": "dccb0fbd2272b1621f13f781d103c2fb971f4f8a091f0c49ba3349d043e23daa",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "arms": [
+                {
+                  "fields": [],
+                  "id": "missing",
+                  "tag": 0
+                },
+                {
+                  "fields": [],
+                  "id": "null",
+                  "tag": 1
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "value",
+                  "tag": 2
+                }
+              ],
+              "kind": "sum"
+            },
+            "type_id": "mpk.csharp.instance.b82463e0c4162ceab115a2382e0ee90aac8c2b675cc636a0c6d4e27dc96b746b"
+          },
+          "definition": "Mpk.CSharp.Ordinary.JsonTypedDepth.T6d706b2e6373686172702e696e7374616e63652e62383234363365306334313632636561623131356132333832653065653930616163386332623637356363363336613063366434653237646339366237343662"
+        }
+      ],
+      "schema": "mpk.csharp.ordinary_json_typed_depth.v1",
+      "source_ir_sha256": "e1339c9750ac80ac9fc32dae0e32ee5f6c67301a0a942bc55c7bce9f403e6bd2",
+      "static_transformers": 6
+    },
+    "source_snapshot_sha256": "279f904b70985c470ea59bb297c1b17099ddcf94985c6237aff8629870f498ba",
+    "terms": 2151
+  },
+  {
+    "certificate_sha256": "fc95752ddd8ba6dbd589c4b6f34554a93ec7f70a109a2d3f181bad7470b0a5db",
+    "declarations": 20,
+    "id": "raw_instant",
+    "program": {
+      "boundary_program_sha256": "6fdd8bd366c9c3ac4c605bb22b38e12d5503b39bb5349fadbd8dd865c68cce92",
+      "certificate_sha256": "fc95752ddd8ba6dbd589c4b6f34554a93ec7f70a109a2d3f181bad7470b0a5db",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.value.i32.v1"
+          },
+          "definition": "Mpk.CSharp.Ordinary.JsonTypedDepth.T6d706b2e6373686172702e76616c75652e6933322e7631"
+        },
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "kind": "bits",
+              "width": 64
+            },
+            "type_id": "mpk.csharp.value.i64.v1"
+          },
+          "definition": "Mpk.CSharp.Ordinary.JsonTypedDepth.T6d706b2e6373686172702e76616c75652e6936342e7631"
+        }
+      ],
+      "schema": "mpk.csharp.ordinary_json_typed_depth.v1",
+      "source_ir_sha256": "049fae54987512e0312630c224c9c873c4c276d025924e5fc3af9b6580303274",
+      "static_transformers": 2
+    },
+    "source_snapshot_sha256": "0d963a50a225aeafc36760bc4fe3b69f4545d01aa7561bfba7c5b7a977e4daf0",
+    "terms": 1082
+  },
+  {
+    "certificate_sha256": "fc95752ddd8ba6dbd589c4b6f34554a93ec7f70a109a2d3f181bad7470b0a5db",
+    "declarations": 20,
+    "id": "required",
+    "program": {
+      "boundary_program_sha256": "4ee323b359a9bf7c7beb7643ba8ee4dacfc7e4ff6f00483f37fa9b1c82c3558f",
+      "certificate_sha256": "fc95752ddd8ba6dbd589c4b6f34554a93ec7f70a109a2d3f181bad7470b0a5db",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.value.i32.v1"
+          },
+          "definition": "Mpk.CSharp.Ordinary.JsonTypedDepth.T6d706b2e6373686172702e76616c75652e6933322e7631"
+        },
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "kind": "bits",
+              "width": 64
+            },
+            "type_id": "mpk.csharp.value.i64.v1"
+          },
+          "definition": "Mpk.CSharp.Ordinary.JsonTypedDepth.T6d706b2e6373686172702e76616c75652e6936342e7631"
+        }
+      ],
+      "schema": "mpk.csharp.ordinary_json_typed_depth.v1",
+      "source_ir_sha256": "d4d8cd4799e914c5a1f0f167924ebd941dd51913240ab983b57bdd113e92e222",
+      "static_transformers": 2
+    },
+    "source_snapshot_sha256": "6c6da225b92133721ffbb6af5f549b2098a8e13c7e57070282f3c9475561a46f",
+    "terms": 1082
+  },
+  {
+    "certificate_sha256": "fc95752ddd8ba6dbd589c4b6f34554a93ec7f70a109a2d3f181bad7470b0a5db",
+    "declarations": 20,
+    "id": "surrogate_name",
+    "program": {
+      "boundary_program_sha256": "7fb2e87bf93c0d306e7405a71babf36c6517769f8a1ad2d72eb39ba5181b975e",
+      "certificate_sha256": "fc95752ddd8ba6dbd589c4b6f34554a93ec7f70a109a2d3f181bad7470b0a5db",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.value.i32.v1"
+          },
+          "definition": "Mpk.CSharp.Ordinary.JsonTypedDepth.T6d706b2e6373686172702e76616c75652e6933322e7631"
+        },
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "kind": "bits",
+              "width": 64
+            },
+            "type_id": "mpk.csharp.value.i64.v1"
+          },
+          "definition": "Mpk.CSharp.Ordinary.JsonTypedDepth.T6d706b2e6373686172702e76616c75652e6936342e7631"
+        }
+      ],
+      "schema": "mpk.csharp.ordinary_json_typed_depth.v1",
+      "source_ir_sha256": "bd275e8ffd147c038e8341c31cda4d595bde673471e4c2ad268d045edec4f911",
+      "static_transformers": 2
+    },
+    "source_snapshot_sha256": "25d15c6c99af868bfa116184d7c4faac3bf7c8d90dd2996ee4005d70f0b334c6",
+    "terms": 1082
+  }
+]

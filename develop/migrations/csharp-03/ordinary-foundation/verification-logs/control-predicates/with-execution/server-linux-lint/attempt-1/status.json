@@ -1,0 +1,33 @@
+{
+  "base_head": "5cf114ba63a85d6dec31ffa4b4f9df233d79ccff",
+  "error": "AssertionError(('clippy', 101))",
+  "finished_at": "2026-09-29T19:24:04.712167+00:00",
+  "process_pid": 3025581,
+  "stage": "clippy",
+  "stages": [
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "elapsed_seconds": 67.299,
+      "exit_code": 101,
+      "finished_at": "2026-09-29T19:24:04.711347+00:00",
+      "log_sha256": "c27a83cd8a1a8bc1fb3652b961513542870bbb490e73994d6370e8b7b1be7d59",
+      "stage": "clippy",
+      "started_at": "2026-09-29T19:22:57.412646+00:00"
+    }
+  ],
+  "started_at": "2026-09-29T19:22:57.331184+00:00",
+  "status": "failed",
+  "supervisor_pid": 3025579,
+  "verified_source_hashes": 370
+}

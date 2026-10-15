@@ -1,7 +1,7 @@
 //! Candidate-only semantic registry and context for the practical C# profile.
 //!
 //! The installed release continues to use `semantic_profile_registry` and its
-//! revision-3 v1 root. This module validates the closed v2/revision-4 candidate
+//! revision-3 v1 root. This module validates the closed v2/revision-5 candidate
 //! only when a caller explicitly injects its bytes. It performs no discovery,
 //! installation, negotiation, fallback, or public-route selection.
 
@@ -35,8 +35,8 @@ pub const CSHARP_PRACTICAL_PROFILE: &str = "mpk.csharp.practical.v1";
 pub const FOUNDATION_DESCRIPTOR_SCHEMA: &str = "mpk.csharp.foundation_descriptor.v1";
 pub const FOUNDATION_DESCRIPTOR_ID: &str = "mpk.csharp.practical.foundation.v1";
 pub const FOUNDATION_DESCRIPTOR_CONTENT_SHA256: &str =
-    "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2";
-pub const SUCCESSOR_CANDIDATE_REVISION: u64 = 4;
+    "99369543ab96e97e971118fe980322fe0b138f253a31ab7f8a9b08565bad0844";
+pub const SUCCESSOR_CANDIDATE_REVISION: u64 = 5;
 
 pub const SUCCESSOR_PROFILE_ENTRY_HASH_DOMAIN: HashDomain =
     HashDomain::new("MPK-SEMANTIC-PROFILE-ENTRY-2.0");
@@ -56,17 +56,17 @@ pub const SUCCESSOR_COMPILED_PROFILE_CONTRACT_HASH_DOMAIN: HashDomain =
 // Frozen from the canonical candidate asserted by the W01 production-owner
 // tests; validation also recomputes every digest before constructing a value.
 pub const CSHARP_PRACTICAL_ENTRY_SHA256: &str =
-    "b0c3cc5c2525c4b602de22bd99275be9c7f4a10a650b54900053e0acd8e9c9c3";
+    "51bda1d45f1db998282f7a9b88a4701afc5433cba3046580abc2e6325220b3fa";
 pub const SUCCESSOR_CSHARP_SCALAR_ENTRY_SHA256: &str =
-    "c630295d4261d66055ab04ba5b92de2e5a578d7e281a049e5d0129fd3e83d1c5";
+    "7b6c2fc9ff0cad9f3a80c38422cd021ddb2156aade19d0d8bd33a859913f5d94";
 pub const SUCCESSOR_GO_FIXED_ENTRY_SHA256: &str =
-    "88659da3c694de897bddbb3a4a3b4d6c18cc18281361f5f5c92bb630f668fc90";
+    "c4c325861c33256db2d15f967c2e162fd96906d069549157f50f20da3b38ae14";
 pub const SUCCESSOR_JAVA_SCALAR_ENTRY_SHA256: &str =
-    "02bb4d849fa0b27dc597595efe0b22b78e0c05350db6974893bb1488551bdc1a";
+    "f625e26dce961ed3d2b2bde9d7689e9e331479804cba348e6a738d3c5c8e71c7";
 pub const SUCCESSOR_RUST_CHECKED_ENTRY_SHA256: &str =
-    "68fab30033fccd980c65dc734b4b301ef8fd645288d27dfe7c7f88f56a1b452e";
+    "556856e1922b6dbdafffca438eb181d8a849da58c63be4c8c155f1b87b5e24d5";
 pub const SUCCESSOR_CANDIDATE_REGISTRY_SHA256: &str =
-    "b675e26ad35f1a4604f77006cd11b63cc20c680c65eadd2b12a3d3b2df0f1e24";
+    "a0e72c39dad791f3bc99cc980ab7b42bc8e0209a0fc18f7342cb64bc59d173b8";
 
 pub const SUCCESSOR_REGISTRY_CANONICAL_BYTES_MAX: u64 = REGISTRY_CANONICAL_BYTES_MAX;
 pub const SUCCESSOR_REGISTRY_TRANSPORT_BYTES_MAX: u64 = REGISTRY_TRANSPORT_BYTES_MAX;

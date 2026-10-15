@@ -1,0 +1,1152 @@
+{
+  "application_scope_pending": true,
+  "binaries": {
+    "go": {
+      "path": "/root/mpk-w09-bool-cases-fd99c03c-linux-2/go-checker",
+      "sha256": "b2ed6f87bc9f3a0a2db2f9b299b870cfe245d6dfc71ca11c44469530253fe341"
+    },
+    "rust": {
+      "path": "/root/mpk-w09-bool-cases-fd99c03c-target/debug/mpk",
+      "sha256": "430e87dece4619c8c363bd6ef59cd8d292af2f131e54e3d030e257955a177f52"
+    }
+  },
+  "cases": 34,
+  "checker_stages": 68,
+  "failed_initial_compile_preserved": "/root/mpk-w09-bool-cases-fd99c03c-linux/status.json",
+  "finished_at": "2026-10-07T03:16:42.964991+00:00",
+  "full_t01_gate": "deferred to renewed T01-W10",
+  "full_t06_gate": "deferred to T06-W12",
+  "process_pid": 3770358,
+  "rust_tests": 61,
+  "selection_reason": "Registration-order fix only: canonical Bool.cases checking/generation and preceding declaration types, definition values and theorem proofs. Run Bool cases plus relevant environment/inference/declaration checking and source-free checker/CSHARP-03-T01-W09 feasibility owners, selected lint/format; legacy/unused/unrelated-family positive controls share exact bytes. No application proof is discharged; whole T01 gate deferred to final W10.",
+  "source_clean_after": true,
+  "source_commit": "fd99c03c8e3535bcc31f0b9d1441d4b74de80ebf",
+  "stage": "wrong-motive-universe-go",
+  "stages": [
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "test",
+        "-p",
+        "mpk-core",
+        "--lib",
+        "bool_cases::",
+        "--",
+        "--nocapture"
+      ],
+      "elapsed_seconds": 16.373,
+      "exit_code": 0,
+      "log_sha256": "5ba1b5e557aadc8df8277a9dc48f4c1543d2f07894edd6b91fe6083ca1758de8",
+      "reused_exact_completed_prefix_stage": true,
+      "stage": "core-bool_cases"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "test",
+        "-p",
+        "mpk-core",
+        "--lib",
+        "env::",
+        "--",
+        "--nocapture"
+      ],
+      "elapsed_seconds": 0.141,
+      "exit_code": 0,
+      "log_sha256": "566a57256368928d88e98e824ad1e1b021560d03786824539822d225485131d0",
+      "reused_exact_completed_prefix_stage": true,
+      "stage": "core-env"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "test",
+        "-p",
+        "mpk-core",
+        "--lib",
+        "infer::",
+        "--",
+        "--nocapture"
+      ],
+      "elapsed_seconds": 0.131,
+      "exit_code": 0,
+      "log_sha256": "ac81e3d780a31d9e8e06594dd7ef4be4eccfef409d13c56c3c2f7cc27c30d6be",
+      "reused_exact_completed_prefix_stage": true,
+      "stage": "core-infer"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "test",
+        "-p",
+        "mpk-core",
+        "--lib",
+        "inductive_gen::",
+        "--",
+        "--nocapture"
+      ],
+      "elapsed_seconds": 0.131,
+      "exit_code": 0,
+      "log_sha256": "d15a0c3d70d611bec9d26f721628b7a72451842d92e954fb5a6738d285c750a5",
+      "reused_exact_completed_prefix_stage": true,
+      "stage": "core-inductive_gen"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "test",
+        "-p",
+        "mpk-kernel",
+        "--lib",
+        "bool_cases",
+        "--",
+        "--nocapture"
+      ],
+      "elapsed_seconds": 11.281,
+      "exit_code": 0,
+      "log_sha256": "4428caec5c958d278413146628bb184c6351f634fdf989956bc19051a161bb93",
+      "reused_exact_completed_prefix_stage": true,
+      "stage": "kernel-bool_cases"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "test",
+        "-p",
+        "mpk-kernel",
+        "--lib",
+        "decl_driver::",
+        "--",
+        "--nocapture"
+      ],
+      "elapsed_seconds": 0.153,
+      "exit_code": 0,
+      "log_sha256": "aea145a6d2f2413f1eb011d185389ff699edaeef40e9b091013a15070f3d80a2",
+      "reused_exact_completed_prefix_stage": true,
+      "stage": "kernel-decl_driver"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_spec",
+        "csharp_03_t01_w09_boolean_proof_elimination_feasibility",
+        "--",
+        "--nocapture"
+      ],
+      "elapsed_seconds": 267.802,
+      "exit_code": 0,
+      "log_sha256": "2553cfff7fdecbc552821c681a8ab33009645dd391139f9d201faf3a757b8db2",
+      "stage": "t01-feasibility"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "clippy",
+        "-p",
+        "mpk-core",
+        "--lib",
+        "--tests",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "elapsed_seconds": 2.141,
+      "exit_code": 0,
+      "log_sha256": "684c0ea9d05bc3345b894d2abcc1500b6c54157019ace27628c72a3c1b163739",
+      "stage": "mpk-core-clippy"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "clippy",
+        "-p",
+        "mpk-kernel",
+        "--lib",
+        "--tests",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "elapsed_seconds": 2.881,
+      "exit_code": 0,
+      "log_sha256": "70bfb54005a74b2eed7b28ff48f32eb346c359713cdb2d443b8dec5b524999ea",
+      "stage": "mpk-kernel-clippy"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_spec",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "elapsed_seconds": 59.01,
+      "exit_code": 0,
+      "log_sha256": "746bb06da02e7f0b6704a92847bb06c858b71797ce4a9250595328deb94bd7f0",
+      "stage": "vc-spec-clippy"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "fmt",
+        "-p",
+        "mpk-core",
+        "-p",
+        "mpk-kernel",
+        "-p",
+        "mpk-vc",
+        "--",
+        "--check"
+      ],
+      "elapsed_seconds": 8.069,
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stage": "format"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "build",
+        "-p",
+        "mpk-cli",
+        "--bin",
+        "mpk"
+      ],
+      "elapsed_seconds": 117.549,
+      "exit_code": 0,
+      "log_sha256": "5e72a8d054d5642bc58d9dcd9a39b96d0c40b17d706a0df647de139a533654f6",
+      "stage": "rust-checker-build"
+    },
+    {
+      "command": [
+        "/usr/bin/go",
+        "test",
+        "-count=1",
+        "-v",
+        "-run",
+        "^Test(BoolCases|Defeq|Core|CheckCore)",
+        "./..."
+      ],
+      "elapsed_seconds": 6.671,
+      "exit_code": 0,
+      "log_sha256": "025d6e1cd865dc88cdc553f1b6dd62d53fe23810794ecd07c93ddaed24af2b32",
+      "stage": "go-core-defeq-tests"
+    },
+    {
+      "command": [
+        "/usr/bin/go",
+        "build",
+        "-o",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/go-checker",
+        "./cmd/mpk-checker-ref"
+      ],
+      "elapsed_seconds": 0.41,
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stage": "go-checker-build"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-target/debug/mpk",
+        "check",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/conjunction-left.mpcert"
+      ],
+      "elapsed_seconds": 0.01,
+      "exit_code": 0,
+      "input_sha256": "19ec3ca922fec2f30298066c6a43bb69ccc7a352bfdf88a331d96fd4118ee4fb",
+      "report_sha256": "4444be1d8fcf95aae1d818e9f400311e8059cf9cc5dced20c4b049cacbfe835e",
+      "stage": "conjunction-left-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/go-checker",
+        "verify",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/conjunction-left.mpcert"
+      ],
+      "elapsed_seconds": 0.01,
+      "exit_code": 0,
+      "input_sha256": "19ec3ca922fec2f30298066c6a43bb69ccc7a352bfdf88a331d96fd4118ee4fb",
+      "report_sha256": "d6f6b6a39fb6d6cdf72699641c84353eca645aaf5ac2da8e9ac34e7f02e95b1f",
+      "stage": "conjunction-left-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-target/debug/mpk",
+        "check",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/conjunction-right.mpcert"
+      ],
+      "elapsed_seconds": 0.012,
+      "exit_code": 0,
+      "input_sha256": "505a9a2b5f85556f1ef30e7128ef7671d639fe10cfd6d7587dd6d339674a9265",
+      "report_sha256": "ab4777bf2497f68c5aba70b48013e33d2f64c3801cdca0215aa42b26b7687717",
+      "stage": "conjunction-right-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/go-checker",
+        "verify",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/conjunction-right.mpcert"
+      ],
+      "elapsed_seconds": 0.012,
+      "exit_code": 0,
+      "input_sha256": "505a9a2b5f85556f1ef30e7128ef7671d639fe10cfd6d7587dd6d339674a9265",
+      "report_sha256": "de3fda171986b26db187cf64e305690d724e22993f0f25857e274632ae542964",
+      "stage": "conjunction-right-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-target/debug/mpk",
+        "check",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/constructor-false.mpcert"
+      ],
+      "elapsed_seconds": 0.011,
+      "exit_code": 0,
+      "input_sha256": "3569931c69a00364dffead931375ca03dcd3ddaa722d7633d1ac4660985a11d4",
+      "report_sha256": "5bba70c1c920cef735318d9565b469f6c513b8632c3e5021f38e02fd74f8e516",
+      "stage": "constructor-false-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/go-checker",
+        "verify",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/constructor-false.mpcert"
+      ],
+      "elapsed_seconds": 0.039,
+      "exit_code": 0,
+      "input_sha256": "3569931c69a00364dffead931375ca03dcd3ddaa722d7633d1ac4660985a11d4",
+      "report_sha256": "d68c9fd06fc9ae3908386154748bbad1bbe9c1b964316cf0fbdee42d1462c68b",
+      "stage": "constructor-false-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-target/debug/mpk",
+        "check",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/constructor-true.mpcert"
+      ],
+      "elapsed_seconds": 0.009,
+      "exit_code": 0,
+      "input_sha256": "a5c7d1b1bc773104bb7db40db6b87ec5bd2d9cf0e87eb68ddaf36484a0cbc0a0",
+      "report_sha256": "f04f5d0e0d89f75966936afc003ff05bd6fa53e9ee1787f7adaef3d3c901a018",
+      "stage": "constructor-true-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/go-checker",
+        "verify",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/constructor-true.mpcert"
+      ],
+      "elapsed_seconds": 0.01,
+      "exit_code": 0,
+      "input_sha256": "a5c7d1b1bc773104bb7db40db6b87ec5bd2d9cf0e87eb68ddaf36484a0cbc0a0",
+      "report_sha256": "d3c5c1e0acb3bfcdb2baca730a3ecf63068587704db49d239dc4f84737eeaf05",
+      "stage": "constructor-true-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-target/debug/mpk",
+        "check",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/extra-constructor.mpcert"
+      ],
+      "elapsed_seconds": 0.009,
+      "exit_code": 1,
+      "input_sha256": "21c848550850b4143b45697cf7bbd61cc2bf84379a04ddf58f4ae64f54d2edd6",
+      "report_sha256": "0dc8bb07628f23e88df5d641e0daad89a049fb11dfc16b2dc4b7ccaa121fe094",
+      "stage": "extra-constructor-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/go-checker",
+        "verify",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/extra-constructor.mpcert"
+      ],
+      "elapsed_seconds": 0.007,
+      "exit_code": 1,
+      "input_sha256": "21c848550850b4143b45697cf7bbd61cc2bf84379a04ddf58f4ae64f54d2edd6",
+      "report_sha256": "146ce0952404245c87550888faba25c21b1c728cc8b16033560a6a66076b7e19",
+      "stage": "extra-constructor-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-target/debug/mpk",
+        "check",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/extra-constructor-after-cases.mpcert"
+      ],
+      "elapsed_seconds": 0.007,
+      "exit_code": 1,
+      "input_sha256": "9ba0b8f459950a399171fe5880d5689c4e7584590993d66977e5b7b94cfd93d6",
+      "report_sha256": "3562e666a084808a1a617fecc7cc63aa3f2a6d9403cb195ff3609aa561024bb7",
+      "stage": "extra-constructor-after-cases-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/go-checker",
+        "verify",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/extra-constructor-after-cases.mpcert"
+      ],
+      "elapsed_seconds": 0.007,
+      "exit_code": 1,
+      "input_sha256": "9ba0b8f459950a399171fe5880d5689c4e7584590993d66977e5b7b94cfd93d6",
+      "report_sha256": "34583af710174e7bb92253bad57fa991239932bbb6abd14a23a9c1cd1d354362",
+      "stage": "extra-constructor-after-cases-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-target/debug/mpk",
+        "check",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/later-constructor-value-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.008,
+      "exit_code": 1,
+      "input_sha256": "a48d50b7f967571d3fe9fcf9be7f400b40b5f1ad2c63b52412adbf162f7280ae",
+      "report_sha256": "9a9f5da5a7ff5a425583b053c2310bd095c41a9d7806d6aa9d8ae3733a8dcfb0",
+      "stage": "later-constructor-value-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/go-checker",
+        "verify",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/later-constructor-value-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.007,
+      "exit_code": 1,
+      "input_sha256": "a48d50b7f967571d3fe9fcf9be7f400b40b5f1ad2c63b52412adbf162f7280ae",
+      "report_sha256": "94b08a6a37f1f77172d2c8b86362315a6ff9098379a6d4559a0405aae1560159",
+      "stage": "later-constructor-value-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-target/debug/mpk",
+        "check",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/legacy-prior-constructor-value-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.05,
+      "exit_code": 0,
+      "input_sha256": "7037a385b5c3b557a1375d3d52f1c249d983aba33b4504342536e92e64d07ad7",
+      "report_sha256": "af91e9bde0d04373cf2973eff17b688c66915439573f87cca3eb2531b8ee579d",
+      "stage": "legacy-prior-constructor-value-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/go-checker",
+        "verify",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/legacy-prior-constructor-value-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.007,
+      "exit_code": 0,
+      "input_sha256": "7037a385b5c3b557a1375d3d52f1c249d983aba33b4504342536e92e64d07ad7",
+      "report_sha256": "c850ec675ef681f0d6794a97c77d4defe8d8490251795f9b8e8143cb29978b96",
+      "stage": "legacy-prior-constructor-value-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-target/debug/mpk",
+        "check",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/legacy-prior-theorem-proof-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.081,
+      "exit_code": 0,
+      "input_sha256": "5cf054a28d5eb43c91ff174f13126fac07ec4d72c6fb0e4945bfb2f121bf629f",
+      "report_sha256": "a3ccde77c7d22b1678dd2fd4ef0c5d27e08bbe5365b75d1974a8a81c44b50c36",
+      "stage": "legacy-prior-theorem-proof-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/go-checker",
+        "verify",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/legacy-prior-theorem-proof-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.009,
+      "exit_code": 0,
+      "input_sha256": "5cf054a28d5eb43c91ff174f13126fac07ec4d72c6fb0e4945bfb2f121bf629f",
+      "report_sha256": "97b0ca7be50d5ce749cba55795d3dfa77e98607097fa7b5f44a4388e566fae71",
+      "stage": "legacy-prior-theorem-proof-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-target/debug/mpk",
+        "check",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/nongenerated.mpcert"
+      ],
+      "elapsed_seconds": 0.008,
+      "exit_code": 1,
+      "input_sha256": "9d39ff3d39de394f12fe35daa35a3594439d513bd4db6868d4bafc0c3512f7ae",
+      "report_sha256": "41ca79476f8e2c88d5adebbbfce242101cc5c0b45bf066684a013c8e6cbf2a9d",
+      "stage": "nongenerated-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/go-checker",
+        "verify",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/nongenerated.mpcert"
+      ],
+      "elapsed_seconds": 0.012,
+      "exit_code": 1,
+      "input_sha256": "9d39ff3d39de394f12fe35daa35a3594439d513bd4db6868d4bafc0c3512f7ae",
+      "report_sha256": "50e54f16a67fd8c23947028221e819bd1fd7100cc6cc12a3b19a23f30aaf9336",
+      "stage": "nongenerated-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-target/debug/mpk",
+        "check",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/open-motive.mpcert"
+      ],
+      "elapsed_seconds": 0.011,
+      "exit_code": 0,
+      "input_sha256": "2e0114f4eb5446975cf06ca0d46ebc4313cd9ef62c5646d002b7dbcbc4acf5ab",
+      "report_sha256": "748a105e82d71d2d1798fca6a19782f476e91ed149a396ca39de416609cf0bb0",
+      "stage": "open-motive-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/go-checker",
+        "verify",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/open-motive.mpcert"
+      ],
+      "elapsed_seconds": 0.01,
+      "exit_code": 0,
+      "input_sha256": "2e0114f4eb5446975cf06ca0d46ebc4313cd9ef62c5646d002b7dbcbc4acf5ab",
+      "report_sha256": "93a5e45d8b5d4ecce9e66f401c2eb7b7d4c7584cdf5124a1ef1561093e360ef1",
+      "stage": "open-motive-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-target/debug/mpk",
+        "check",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/predecessor-one-theorem.mpcert"
+      ],
+      "elapsed_seconds": 0.114,
+      "exit_code": 0,
+      "input_sha256": "32ba0b2342d1e28d626bcf4d32e5800ed04171161627a2c7e031204e03a980d6",
+      "report_sha256": "e40a9d43aaf7675fcac9f56403b381c5e57b197d8d624dad21e3aa2eecca5f60",
+      "stage": "predecessor-one-theorem-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/go-checker",
+        "verify",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/predecessor-one-theorem.mpcert"
+      ],
+      "elapsed_seconds": 0.038,
+      "exit_code": 0,
+      "input_sha256": "32ba0b2342d1e28d626bcf4d32e5800ed04171161627a2c7e031204e03a980d6",
+      "report_sha256": "b7ce7aff53fd44686866a5bfc9bc11159d6657470f40cf80308d975049554fd5",
+      "stage": "predecessor-one-theorem-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-target/debug/mpk",
+        "check",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/predecessor-std-bool.mpcert"
+      ],
+      "elapsed_seconds": 0.007,
+      "exit_code": 0,
+      "input_sha256": "f6ac14e1d1d2f6abd68518bf83d4a97be94e5731366ef1a6c0cafbbd93faa09e",
+      "report_sha256": "6e9edd819b73a13fbd3bead8ab7648b243e2baa7982763349319e9ab4af7d8a5",
+      "stage": "predecessor-std-bool-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/go-checker",
+        "verify",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/predecessor-std-bool.mpcert"
+      ],
+      "elapsed_seconds": 0.021,
+      "exit_code": 0,
+      "input_sha256": "f6ac14e1d1d2f6abd68518bf83d4a97be94e5731366ef1a6c0cafbbd93faa09e",
+      "report_sha256": "414442e5787536c5c74624955cc031192153e3f2f353ebd9b29015fdadfb4334",
+      "stage": "predecessor-std-bool-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-target/debug/mpk",
+        "check",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/predecessor-zero-axiom.mpcert"
+      ],
+      "elapsed_seconds": 0.005,
+      "exit_code": 0,
+      "input_sha256": "752f87e795bbe5ad2bd8a4c119b56dbc837a8ab5bde34beec3f560581598ae8a",
+      "report_sha256": "d9b07e50f0fec94f6e599ea23a76c80bafe7e7d0ea3551cfa13c26c9dbc6c996",
+      "stage": "predecessor-zero-axiom-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/go-checker",
+        "verify",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/predecessor-zero-axiom.mpcert"
+      ],
+      "elapsed_seconds": 0.003,
+      "exit_code": 0,
+      "input_sha256": "752f87e795bbe5ad2bd8a4c119b56dbc837a8ab5bde34beec3f560581598ae8a",
+      "report_sha256": "ca9c51351eb06916ee81593af7de0c1682c39f993bc4912bfcfcd2f37507d938",
+      "stage": "predecessor-zero-axiom-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-target/debug/mpk",
+        "check",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/prior-constructor-value-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.007,
+      "exit_code": 1,
+      "input_sha256": "cd0df04e57572c238c4c878e6032f58741b2e7cc4fb4bd783966e8c7f73d5002",
+      "report_sha256": "c38ea68ddc097a8b76787f7b6cb8aaf203ae07a02c6bd212924cf94d15fcccab",
+      "stage": "prior-constructor-value-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/go-checker",
+        "verify",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/prior-constructor-value-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.006,
+      "exit_code": 1,
+      "input_sha256": "cd0df04e57572c238c4c878e6032f58741b2e7cc4fb4bd783966e8c7f73d5002",
+      "report_sha256": "4c3b8b283f793d2df85751e4ec1a04cb4c00a31e525ca9ae89d6bff800e82855",
+      "stage": "prior-constructor-value-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-target/debug/mpk",
+        "check",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/prior-family-type-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.008,
+      "exit_code": 1,
+      "input_sha256": "05137f509488a5233a46f8de82defb8d8e0a6a83780bd04140ed7a7b32b252e0",
+      "report_sha256": "9d45452057baa2a47e4587a488d42c1ce90bdc8bd405d10caf7c38cf12b446ed",
+      "stage": "prior-family-type-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/go-checker",
+        "verify",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/prior-family-type-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.006,
+      "exit_code": 1,
+      "input_sha256": "05137f509488a5233a46f8de82defb8d8e0a6a83780bd04140ed7a7b32b252e0",
+      "report_sha256": "4c3b8b283f793d2df85751e4ec1a04cb4c00a31e525ca9ae89d6bff800e82855",
+      "stage": "prior-family-type-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-target/debug/mpk",
+        "check",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/prior-lambda-body-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.009,
+      "exit_code": 1,
+      "input_sha256": "33795daf9794631e24661c25a84d0c54f3fc8829791052ff11c41d52888c633c",
+      "report_sha256": "9b1ee47cdf975b48deb7597bd87b7c789177674ac0670a149141b287888a5053",
+      "stage": "prior-lambda-body-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/go-checker",
+        "verify",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/prior-lambda-body-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.007,
+      "exit_code": 1,
+      "input_sha256": "33795daf9794631e24661c25a84d0c54f3fc8829791052ff11c41d52888c633c",
+      "report_sha256": "4c3b8b283f793d2df85751e4ec1a04cb4c00a31e525ca9ae89d6bff800e82855",
+      "stage": "prior-lambda-body-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-target/debug/mpk",
+        "check",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/prior-let-value-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.009,
+      "exit_code": 1,
+      "input_sha256": "fe171d58df5d4301851b5550a7150e576e0631c11462d9c0894fc7571fd56a92",
+      "report_sha256": "ac672079f770cb2c1b7b659888c6971c6c12b9250f1ab833e30987fdf893b281",
+      "stage": "prior-let-value-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/go-checker",
+        "verify",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/prior-let-value-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.007,
+      "exit_code": 1,
+      "input_sha256": "fe171d58df5d4301851b5550a7150e576e0631c11462d9c0894fc7571fd56a92",
+      "report_sha256": "4c3b8b283f793d2df85751e4ec1a04cb4c00a31e525ca9ae89d6bff800e82855",
+      "stage": "prior-let-value-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-target/debug/mpk",
+        "check",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/prior-opaque-value-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.008,
+      "exit_code": 1,
+      "input_sha256": "ce38264588d1280e0c9e87947f654a2025b0ffc3034abf3c82dca9bbeac3f1bd",
+      "report_sha256": "9f08789d5b2c03441fb69125e9d6bd42ebc24c4d5d9d1e0680c767cbc14190cb",
+      "stage": "prior-opaque-value-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/go-checker",
+        "verify",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/prior-opaque-value-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.006,
+      "exit_code": 1,
+      "input_sha256": "ce38264588d1280e0c9e87947f654a2025b0ffc3034abf3c82dca9bbeac3f1bd",
+      "report_sha256": "4c3b8b283f793d2df85751e4ec1a04cb4c00a31e525ca9ae89d6bff800e82855",
+      "stage": "prior-opaque-value-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-target/debug/mpk",
+        "check",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/prior-other-family-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.009,
+      "exit_code": 0,
+      "input_sha256": "32b96682f3fc42a73e4270460cd61091305090b4e01cfdb53c00fcefc728dd3b",
+      "report_sha256": "2c99e99f039d010b76ae306f31ad125d6528b5536ae790f9cdfa7feed7727806",
+      "stage": "prior-other-family-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/go-checker",
+        "verify",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/prior-other-family-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.016,
+      "exit_code": 0,
+      "input_sha256": "32b96682f3fc42a73e4270460cd61091305090b4e01cfdb53c00fcefc728dd3b",
+      "report_sha256": "bb7f67fdf593b7d4d68c16271c302022ba9073e23496496667b0dbb169d2b8ca",
+      "stage": "prior-other-family-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-target/debug/mpk",
+        "check",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/prior-pi-domain-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.008,
+      "exit_code": 1,
+      "input_sha256": "3bb8de9dadafb8ecaea2f6a10499a04ea5dff44b6750676412e56cb52005463a",
+      "report_sha256": "a14c0773a7f0f2aef82baf4a9424ea544fd51b68002fc0a6ac02874d2fe30819",
+      "stage": "prior-pi-domain-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/go-checker",
+        "verify",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/prior-pi-domain-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.036,
+      "exit_code": 1,
+      "input_sha256": "3bb8de9dadafb8ecaea2f6a10499a04ea5dff44b6750676412e56cb52005463a",
+      "report_sha256": "4c3b8b283f793d2df85751e4ec1a04cb4c00a31e525ca9ae89d6bff800e82855",
+      "stage": "prior-pi-domain-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-target/debug/mpk",
+        "check",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/prior-theorem-proof-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.009,
+      "exit_code": 1,
+      "input_sha256": "9dd26dc502b6ddd1ee53e1c89047e0349d748dcb57db1a722a1d79a69c980086",
+      "report_sha256": "869149665d76815aedac1d43eb96b97099d2032c1916ab9d534e8c1b775e6af1",
+      "stage": "prior-theorem-proof-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/go-checker",
+        "verify",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/prior-theorem-proof-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.006,
+      "exit_code": 1,
+      "input_sha256": "9dd26dc502b6ddd1ee53e1c89047e0349d748dcb57db1a722a1d79a69c980086",
+      "report_sha256": "4c3b8b283f793d2df85751e4ec1a04cb4c00a31e525ca9ae89d6bff800e82855",
+      "stage": "prior-theorem-proof-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-target/debug/mpk",
+        "check",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/renamed.mpcert"
+      ],
+      "elapsed_seconds": 0.009,
+      "exit_code": 1,
+      "input_sha256": "2ed32afc886ac21e39bdc1896010a5fc87aa8a1bfed77dd0def03ea3ccd49af7",
+      "report_sha256": "4f8ec1721f7192aec90556ca23c0689f2aac923680856fae7466c8e098754a3b",
+      "stage": "renamed-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/go-checker",
+        "verify",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/renamed.mpcert"
+      ],
+      "elapsed_seconds": 0.007,
+      "exit_code": 1,
+      "input_sha256": "2ed32afc886ac21e39bdc1896010a5fc87aa8a1bfed77dd0def03ea3ccd49af7",
+      "report_sha256": "c337449912549256ad23d89efaab0896012c21b3743f48bb9014bf09283e9a9a",
+      "stage": "renamed-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-target/debug/mpk",
+        "check",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/right-identity.mpcert"
+      ],
+      "elapsed_seconds": 0.049,
+      "exit_code": 0,
+      "input_sha256": "13b36cbcad82ecbd4e74b2f0f2c653c34f60fc07cf366729f0ab54c3df673e43",
+      "report_sha256": "83bd7e6f9792c96d858afeca580fc5e42b541226ba2d7ea197763929131c6377",
+      "stage": "right-identity-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/go-checker",
+        "verify",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/right-identity.mpcert"
+      ],
+      "elapsed_seconds": 0.011,
+      "exit_code": 0,
+      "input_sha256": "13b36cbcad82ecbd4e74b2f0f2c653c34f60fc07cf366729f0ab54c3df673e43",
+      "report_sha256": "0bba1b14d8ff9ae3d12ec4e2b38c8056bc9283f6801c3452ddd576c6fc6b97ff",
+      "stage": "right-identity-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-target/debug/mpk",
+        "check",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/unused-constructor-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.043,
+      "exit_code": 0,
+      "input_sha256": "6d20daf03dba3fff173a049009e366457522f3670ebd3468f7cca97c3527953a",
+      "report_sha256": "923a182d7578a498838e2e713e270a3ca851f0726c85cc0856ad7d973da36fad",
+      "stage": "unused-constructor-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/go-checker",
+        "verify",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/unused-constructor-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.051,
+      "exit_code": 0,
+      "input_sha256": "6d20daf03dba3fff173a049009e366457522f3670ebd3468f7cca97c3527953a",
+      "report_sha256": "94ac8262ffc472610aa467f35ff63e618f2070a13672c2dca23d95d5aa61fe43",
+      "stage": "unused-constructor-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-target/debug/mpk",
+        "check",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/wrong-branch.mpcert"
+      ],
+      "elapsed_seconds": 0.008,
+      "exit_code": 1,
+      "input_sha256": "95eed3dfd1606e7bfe8b11f5a981e03d31968ffc3a74cb1bd8f88ac5bd4475d3",
+      "report_sha256": "b1c34d0eaf8bfa0538604022f4c5db040c4312dfd6acd82604964d4aa8e3e89d",
+      "stage": "wrong-branch-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/go-checker",
+        "verify",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/wrong-branch.mpcert"
+      ],
+      "elapsed_seconds": 0.007,
+      "exit_code": 1,
+      "input_sha256": "95eed3dfd1606e7bfe8b11f5a981e03d31968ffc3a74cb1bd8f88ac5bd4475d3",
+      "report_sha256": "646f9eec9237b50b63dbe3b1e992fe524b659c125daea72d3a68f8ccdde34e8f",
+      "stage": "wrong-branch-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-target/debug/mpk",
+        "check",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/wrong-case-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.009,
+      "exit_code": 1,
+      "input_sha256": "2caa439d292e7067845b779b107f689d355ac186dec76c3ee1cfa1b9bc2b0053",
+      "report_sha256": "876ecd648168480a9bb0b797ebea16a3d6cc077ec2266e9e249dddf5a0a1804f",
+      "stage": "wrong-case-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/go-checker",
+        "verify",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/wrong-case-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.007,
+      "exit_code": 1,
+      "input_sha256": "2caa439d292e7067845b779b107f689d355ac186dec76c3ee1cfa1b9bc2b0053",
+      "report_sha256": "94b08a6a37f1f77172d2c8b86362315a6ff9098379a6d4559a0405aae1560159",
+      "stage": "wrong-case-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-target/debug/mpk",
+        "check",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/wrong-case-levels-open.mpcert"
+      ],
+      "elapsed_seconds": 0.008,
+      "exit_code": 1,
+      "input_sha256": "a810d92406f98608cf378b2f96c1ca74bc8b8eaa25002ac8dd6fe13cb7287371",
+      "report_sha256": "68641e578357c4b4c38c15a2cd262bf69932656293cedeb8b9347413eaf037f1",
+      "stage": "wrong-case-levels-open-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/go-checker",
+        "verify",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/wrong-case-levels-open.mpcert"
+      ],
+      "elapsed_seconds": 0.05,
+      "exit_code": 1,
+      "input_sha256": "a810d92406f98608cf378b2f96c1ca74bc8b8eaa25002ac8dd6fe13cb7287371",
+      "report_sha256": "94b08a6a37f1f77172d2c8b86362315a6ff9098379a6d4559a0405aae1560159",
+      "stage": "wrong-case-levels-open-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-target/debug/mpk",
+        "check",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/wrong-conjunction-left.mpcert"
+      ],
+      "elapsed_seconds": 0.008,
+      "exit_code": 1,
+      "input_sha256": "24fcb9198dff2a85fdcd81014c6ea330f3b3e0c356852867e4eedbfe17ef7738",
+      "report_sha256": "10b9fc3fac76e1dd580e5dd90f92fdf2621b7a2a6ee059d4d4decf2125f2ca79",
+      "stage": "wrong-conjunction-left-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/go-checker",
+        "verify",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/wrong-conjunction-left.mpcert"
+      ],
+      "elapsed_seconds": 0.049,
+      "exit_code": 1,
+      "input_sha256": "24fcb9198dff2a85fdcd81014c6ea330f3b3e0c356852867e4eedbfe17ef7738",
+      "report_sha256": "63ca66b85e0c3370e08473104d2dabe3eac260355b837d7205d095e32d75ce8a",
+      "stage": "wrong-conjunction-left-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-target/debug/mpk",
+        "check",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/wrong-conjunction-right.mpcert"
+      ],
+      "elapsed_seconds": 0.007,
+      "exit_code": 1,
+      "input_sha256": "ba9f0a06d63d1036f9248262180880b28422b17ed6ea931af8b6a85bb4981aeb",
+      "report_sha256": "8b2f67d729ee9d5203c5b937f0771a60d5bf41ea21c4fb6ca41dcb51cd53ef53",
+      "stage": "wrong-conjunction-right-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/go-checker",
+        "verify",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/wrong-conjunction-right.mpcert"
+      ],
+      "elapsed_seconds": 0.01,
+      "exit_code": 1,
+      "input_sha256": "ba9f0a06d63d1036f9248262180880b28422b17ed6ea931af8b6a85bb4981aeb",
+      "report_sha256": "671049728a6c476b325e434a92c853acb14dca2c1b1c15e4a33ed9fff05f598b",
+      "stage": "wrong-conjunction-right-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-target/debug/mpk",
+        "check",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/wrong-interface.mpcert"
+      ],
+      "elapsed_seconds": 0.008,
+      "exit_code": 1,
+      "input_sha256": "66ed5c4b577d9de994c0b75f667cd9154e2baa9c9743044d367b68258db30387",
+      "report_sha256": "59525aba4b416547f490230ff78035e62a66e74d024b2470a49e9a2c1664309c",
+      "stage": "wrong-interface-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/go-checker",
+        "verify",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/wrong-interface.mpcert"
+      ],
+      "elapsed_seconds": 0.006,
+      "exit_code": 1,
+      "input_sha256": "66ed5c4b577d9de994c0b75f667cd9154e2baa9c9743044d367b68258db30387",
+      "report_sha256": "de5b57644c3b1531ec7d4349a76f43ff2a18c8dd7ab706686a9b5dfec37c4b4e",
+      "stage": "wrong-interface-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-target/debug/mpk",
+        "check",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/wrong-major-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.009,
+      "exit_code": 1,
+      "input_sha256": "10b310606f29dc68f7a6fb0e75b084d986826eb9816ec964d7e7d356016e5ec9",
+      "report_sha256": "675fa931d28d8dee9b9bca277c2674ad18c094044dcbe9a19ea90fa387a46663",
+      "stage": "wrong-major-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/go-checker",
+        "verify",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/wrong-major-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.006,
+      "exit_code": 1,
+      "input_sha256": "10b310606f29dc68f7a6fb0e75b084d986826eb9816ec964d7e7d356016e5ec9",
+      "report_sha256": "94b08a6a37f1f77172d2c8b86362315a6ff9098379a6d4559a0405aae1560159",
+      "stage": "wrong-major-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-target/debug/mpk",
+        "check",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/wrong-major-levels-open.mpcert"
+      ],
+      "elapsed_seconds": 0.04,
+      "exit_code": 1,
+      "input_sha256": "605148ddc547e8b4bdb3874bacbd3c14e7312247e2cf5f221c5a3275fd33def5",
+      "report_sha256": "c23d6f3bd9c16fed2f4edb041b033c1055b25ec839cde05b86ee0fe62d890294",
+      "stage": "wrong-major-levels-open-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/go-checker",
+        "verify",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/wrong-major-levels-open.mpcert"
+      ],
+      "elapsed_seconds": 0.006,
+      "exit_code": 1,
+      "input_sha256": "605148ddc547e8b4bdb3874bacbd3c14e7312247e2cf5f221c5a3275fd33def5",
+      "report_sha256": "94b08a6a37f1f77172d2c8b86362315a6ff9098379a6d4559a0405aae1560159",
+      "stage": "wrong-major-levels-open-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-target/debug/mpk",
+        "check",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/wrong-motive-universe.mpcert"
+      ],
+      "elapsed_seconds": 0.045,
+      "exit_code": 1,
+      "input_sha256": "a170ea4bfe94a5165ad86af343ee968d4cb8a2f81cdcb87a183cba955ccd175f",
+      "report_sha256": "d4b3d9ea86f72805fb92f61a0f920c26c908d53bea40615dc575c1a9b7fc1ac8",
+      "stage": "wrong-motive-universe-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/go-checker",
+        "verify",
+        "/root/mpk-w09-bool-cases-fd99c03c-linux-2/wrong-motive-universe.mpcert"
+      ],
+      "elapsed_seconds": 0.044,
+      "exit_code": 1,
+      "input_sha256": "a170ea4bfe94a5165ad86af343ee968d4cb8a2f81cdcb87a183cba955ccd175f",
+      "report_sha256": "de5b57644c3b1531ec7d4349a76f43ff2a18c8dd7ab706686a9b5dfec37c4b4e",
+      "stage": "wrong-motive-universe-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "started_at": "2026-10-07T03:08:54.929670+00:00",
+  "status": "passed_exact_public_source_linux_tests_and_dual_checkers",
+  "successful_unchanged_prefix_stages_reused": 6,
+  "supervisor_pid": 3768989,
+  "test_binaries": {
+    "/root/mpk-w09-bool-cases-fd99c03c-target/debug/deps/csharp_practical_spec-3740eb5f5b177657": "b9ad0be6b7023a573999d44335e83c4fd4e1fb06ef2aaca73e3a8574c77fe30b",
+    "/root/mpk-w09-bool-cases-fd99c03c-target/debug/deps/mpk_core-0bf9426a84a64333": "7151de47c58f9717187860ff33caa0219f4ae399f3cbe3f6ce2591443cf451eb",
+    "/root/mpk-w09-bool-cases-fd99c03c-target/debug/deps/mpk_kernel-398ce865a9786c5a": "84dda1ec4b57404f6da7cec579039cbd17efa1780523fc9c5cc9fe6217ac3837"
+  },
+  "verified_fixture_files": 31,
+  "verified_source_files": 283
+}

@@ -1,0 +1,19 @@
+{
+  "all_log_archive_script_hashes_rechecked": true,
+  "application_proofs_pending": 987,
+  "clippy": "passed",
+  "final_audit": "final/final-audit.json",
+  "format": "passed",
+  "full_t_gate": "deferred to T06-W12",
+  "git_blob_files_verified": 1162,
+  "host": "root@162.43.92.154",
+  "original_is_binding_refinements_pending": 7,
+  "receipt_only_change_verification": "Only Linux receipts and documentation are added after the tested source commit. Verify recorded hashes and review the diff; no source tests are repeated.",
+  "recorded_at": "2026-09-30T07:17:29.406015+00:00",
+  "shared_dag_kernel_checks": "separate and pending at the existing observation",
+  "source_commit": "eeffcb023a0c1051d5b0b26948ce7fc10616c0fc",
+  "status": "passed_targeted_tests_lint_format",
+  "terminal_test_receipt": "final/status.json",
+  "test_selection_reason": "Verify complete candidate generation, contextual Boolean proofs and affected consumers.\n\nThe contextual units use actual equality proof terms under free branch binders;\nmissing facts fail and wrong proofs reject. A small shared DAG checks generator\nbounds without declaring kernel acceptance. Candidate units require every named\noriginal refinement and an unchanged certificate prefix. The free-selector unit\nand both original ownership/default consumers use the changed normalizer; their\noriginal pins must remain identical. These are eight distinct targeted tests.\nThe prior fixed-source 18-context packed replay is already terminal and its\nproduction generators are unchanged here, so it is retained. Clippy includes\nlibrary and test targets. Source/application proofs remain pending; the original\nis_binding probe still cannot produce its seven required refinements. The full\nT06 gate is deferred to T06-W12.\n",
+  "unique_targeted_tests_passed": 8
+}

@@ -1,0 +1,12 @@
+import hashlib,json,pathlib
+b=pathlib.Path(__file__).parent;r=pathlib.Path('/private/tmp/mpk-w09-refreeze-consumer-continuation');h=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();d=json.loads((b/'completed-ordinary-owner-stages-6-final-with-control-sequent-names.json').read_bytes());assert not d['failures'] and d['parent_run_status']=='passed_selected_source_bound_ordinary_owners'
+for name,n in [('transition-snapshot-name-graphs',2),('transition-snapshot-dual-checkers',4)]:
+ s=json.loads((b/name/'status.json').read_bytes());assert s['status'].startswith('passed_all_2') and len(s['stages'])==n and all(x['exit_code']==0 for x in s['stages'])
+changes=[];families=set();certs=[]
+for x in d['files']:
+ if x['family'] in ['binding-guards','binding-orders']:continue
+ families.add(x['family']);path='develop/migrations/csharp-03/ordinary-foundation/'+x['family']+'/'+x['original_path'];old=r/path;fresh=b/'ordinary-regeneration-6/goldens'/x['family']/x['generated_path'];assert h(old)==x['original_raw_sha256'] and h(fresh)==x['generated_raw_sha256']
+ if 'certificate_bytes_preserved' in x:certs.append(x)
+ if old.read_bytes()!=fresh.read_bytes():changes.append({'path':path,'actual_generated_path':str(fresh),'before_sha256':h(old),'sha256':h(fresh),'kind':'certificate' if fresh.suffix=='.hex' else 'metadata'})
+assert len(families)==10 and len(certs)==150 and sum(not x['certificate_bytes_preserved'] for x in certs)==2
+receipt={'status':'reviewable_exact_actual_owner_file_promotion_pending_current_checkout_checks','owner_corpora':sorted(families),'owners':10,'certificate_sets':150,'exact_byte_retention':148,'name_graph_rebinding_and_both_checker_acceptance':2,'changes':changes,'selection_reason':'All ten original source owners completed generation, strict imports and their original mutations/value observations on unchanged production sources. Promote their exact actual output files; preserve 148 complete certificate byte sets and require full typed graph equality plus fresh dual-checker zero-axiom acceptance for the two changed idempotency snapshots. Do not repeat the already completed unaffected semantic matrices.','original_application_proof_ids_pending':987,'whole_gates':'deferred_to_final_T01_W10_and_T06_W12'};(b/'phase6-remaining-promotion-plan.json').write_text(json.dumps(receipt,sort_keys=True,indent=2)+'\n');print('owners',len(families),'metadata',sum(x['kind']=='metadata' for x in changes),'changedcerts',sum(x['kind']=='certificate' for x in changes))

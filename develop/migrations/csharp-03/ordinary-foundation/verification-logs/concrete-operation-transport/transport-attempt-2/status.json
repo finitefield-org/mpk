@@ -1,0 +1,115 @@
+{
+  "child_pid": 81461,
+  "command": [
+    "rustfmt",
+    "--edition",
+    "2021",
+    "--check",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_concrete_operation_tests.rs"
+  ],
+  "finished_at": "2026-09-30T10:54:31.061867+00:00",
+  "full_t_gate": "deferred to T06-W12",
+  "process_pid": 80751,
+  "retained_source_delta": [
+    "crates/mpk-vc/src/csharp_practical_ordinary_concrete_operation_proofs.rs"
+  ],
+  "retained_stages": [
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_concrete_operations_original_source_certificates",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 11.867,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T10:37:47.117137+00:00",
+      "log_sha256": "e30de571e4b80fd7e0efc7ed55881d743152dad6502bc6e117ea1923bb259627",
+      "stage": "original-operation-pins",
+      "started_at": "2026-09-30T10:37:35.250053+00:00"
+    }
+  ],
+  "retention_reason": "Only the new proof helper argument grouping changed after the original-operation pin test passed. Original source definitions, generator, test and fixture bytes are unchanged; all 45 original pin results are retained. The affected proof/import integration, Clippy and format are rerun.",
+  "selection_reason": "Check complete original W06 concrete-definition equivalence sequents in all 45 source contexts: all input domains and normal guards, every ordered first-failure and success equality, and the complete normal result. Require actual Rust kernel acceptance for every emitted certificate and core rejection of a well-typed wrong implementation whose definition-only certificate remains accepted. Preserve all 436 original defined operations, 31 pending operations and all 987 application IDs. Recheck all 45 original operation pins; the appended proof route does not change the old generator or shared Builder.resume. Existing type proof generators and pattern routes are unchanged. Clippy covers library/tests and crate/support format checks run. The full T06 gate remains deferred to W12.",
+  "stage": "support-format",
+  "stages": [
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_concrete_operation_proofs_original_source",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 73.642,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T10:52:58.637048+00:00",
+      "log_sha256": "d56d399f410a59b07502f3dd79c5457288d25d4c0bfcfa5263e952d1ff051731",
+      "stage": "original-operation-proofs",
+      "started_at": "2026-09-30T10:51:44.995147+00:00"
+    },
+    {
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--tests",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "elapsed_seconds": 87.404,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T10:54:26.078690+00:00",
+      "log_sha256": "d7d6ee011d0032290e5c6f1dd96bf649f2c99bc4bc92ce0da8d1f7762e2e8f1d",
+      "stage": "clippy",
+      "started_at": "2026-09-30T10:52:58.674388+00:00"
+    },
+    {
+      "command": [
+        "cargo",
+        "fmt",
+        "-p",
+        "mpk-vc",
+        "--",
+        "--check"
+      ],
+      "elapsed_seconds": 4.804,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T10:54:30.918666+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stage": "format",
+      "started_at": "2026-09-30T10:54:26.114895+00:00"
+    },
+    {
+      "command": [
+        "rustfmt",
+        "--edition",
+        "2021",
+        "--check",
+        "crates/mpk-vc/tests/support/csharp_practical_ordinary_concrete_operation_tests.rs"
+      ],
+      "elapsed_seconds": 0.102,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T10:54:31.061461+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stage": "support-format",
+      "started_at": "2026-09-30T10:54:30.959332+00:00"
+    }
+  ],
+  "status": "passed_targeted_tests_lint_format",
+  "unique_tests_passed": 2
+}

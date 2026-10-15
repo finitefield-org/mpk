@@ -1,0 +1,132 @@
+{
+  "actual_generator_control_syntax": {
+    "generator_executed": false,
+    "raw_sha256": "34782a9b0237045db8d6ea67a81207eb589551d1a49f5220710732467a78c431",
+    "receipt": "final-server-freeze-preparation-syntax.json",
+    "server_passed_controls": 2
+  },
+  "actual_prebuild_publication_recovery": {
+    "exact_remote_branch_verified": true,
+    "first_two_attempts_failed_remote_http500": true,
+    "force_or_payload_bypass_used": false,
+    "published_commit": "7abd5b7b3dc7d8a8b900365827f7bb238a4a35e7",
+    "third_same_commit_push_passed": true
+  },
+  "all_application_proof_ids_still_pending": 987,
+  "allowed_changed_freeze_evidence_fields": [
+    "freeze_generator_raw_sha256",
+    "boolean_proof_evidence_raw_sha256",
+    "boolean_proof_evidence_content_sha256",
+    "recursor_evidence_raw_sha256",
+    "capacity_evidence_raw_sha256",
+    "capacity_source_inventory_sha256"
+  ],
+  "completed_capacity_recursor_results_preserved": {
+    "candidate_records": {
+      "capacity": "e45cf6c9e05d90ba7de3dd99939ab27081427b713d8e458fd2fedf26b7c9f968",
+      "recursor": "98150898d27578a5ffa61e86720a600e467c185eb3aac97c39b0e3b9818df317"
+    },
+    "execution_provenance": "Completed before the server-only instruction, with actual source inventories and binary/report hashes. Future normal-pin reproducibility tests execute on the server; these completed stages need no unaffected rerun.",
+    "fixed_checker_stages": 108,
+    "indexed_go_actual_server_results": 54,
+    "indexed_go_audit_raw_sha256": "18b68f0871177a26e89a30355ea3605a6b74c7807ede68b2f67ebf1b26c8e346",
+    "original_export_tests": 2
+  },
+  "core_source_pin_count": 36,
+  "current_go_core_source_sha256": "19008b25758b9a00919f468d6bf0f8d8275bd918fe7678156971bd48dde097f8",
+  "current_pattern_publication": {
+    "commit": "ec5b54e6ce42d2caa5c926f36fb27f68626c2b2c",
+    "complete_predecessor_files": 126,
+    "current_fixture_files": 126,
+    "evidence_files": 324,
+    "server_audit_raw_sha256": "af4174a6172a3dca082ad013307586cabe6cf9ae24eaf4228a94a7f0631886af"
+  },
+  "execution_host": "root@162.43.92.154",
+  "final_source_prebuild": {
+    "actual_binary": {
+      "bytes": 2734880,
+      "path": "/root/mpk-w09-final-freeze-target/debug/deps/csharp_practical_spec-3740eb5f5b177657",
+      "sha256": "4fa5f0b2a572286c853f8086620d3f634e9b0e2655e5a3a25960a27bd8bae192"
+    },
+    "actual_compile_exit_code": 0,
+    "actual_evidence_archive_sha256": "8461d0ac1ee5980897a2b9219ad4d154b7aad98237f657bcd51e7e2f4c6d4600",
+    "actual_server_audit_raw_sha256": "5a08e4aaba2eab78cc78717739979584300a5ae89a2fbbcc85cd582a732b05b4",
+    "compile_source_immutable_during_entire_actual_execution": true,
+    "first_actual_compile_exit_code": 101,
+    "first_empty_index_preflight_and_premature_log_path_failures_retained": true,
+    "generation_executions": 0,
+    "initial_failed_compile_log_sha256": "35a356998fcaf26f6bf2655c43d8f26d56a54e2bb061ec5892e73f64faff8117",
+    "repository": "/root/mpk-w09-final-freeze-candidate",
+    "source_clean_after_compile": true,
+    "source_commit": "aa7b589143fe67f96dcc054b28b101e510ae67d1",
+    "source_immutable_until_compile_terminates": false,
+    "source_paths_after_missing_assets": 675,
+    "source_paths_before_missing_assets": 673,
+    "status": "passed_independent_exact_final_owner_compile_only_source_and_binary_audit",
+    "target": "/root/mpk-w09-final-freeze-target",
+    "test_executions": 0
+  },
+  "generation_validation_location": "server_only",
+  "historical_execution_source_commits_preserved": [
+    "fd99c03c8e3535bcc31f0b9d1441d4b74de80ebf",
+    "7505badc6684191a7dad9833e67d29af32529ee9"
+  ],
+  "historical_local_final_refresh_script_executed": false,
+  "historical_local_final_selected_runner_executed": false,
+  "local_work_permitted": "Edit source and prepare immutable evidence/hash inventories; copy server-generated outputs only after server verification; no local test, checker, lint, or freeze --check.",
+  "old_scripts_are_retained_historical_unexecuted": true,
+  "prepared_final_selected_server_runner": {
+    "actual_server_syntax": {
+      "passed": true,
+      "raw_sha256": "912524f5746517de138ba9ba8666feb7410316a6dad4291dd7b4d421a1a4140e",
+      "receipt": "final-normal-runner3-server-syntax-receipt.json"
+    },
+    "dev_profile_matches_prebuild_with_assertions_and_overflow_checks": true,
+    "earlier_runner_and_actual_server_syntax_retained": true,
+    "embedded_public_package_foundation_and_original_standard_probe_input_hashes_pinned": true,
+    "executed": false,
+    "path": "run-final-w09-selected-validation-on-server-3.py",
+    "raw_sha256": "9a61298ebb0855c5343aa7440478411c484648b1c7e49a3c8e0e3f1f3cf67bec",
+    "requires_server_syntax_before_execution": true,
+    "selected_w09_owner_count": 8,
+    "target_directory": "/root/mpk-w09-final-freeze-target",
+    "target_is_separate_from_live_scalar_build": true
+  },
+  "prepared_generation_controls": {
+    "final-rule-and-index-freeze-generator-candidate.py": "8a9e0250bd6eef04fed76fd0f39d6da7f0f5b8095c308cf484a9420a5ef74f2f",
+    "refresh-final-proof-evidence-on-server-3.py": "d45d10cd06d9181db4ec72c6d71456baed91b25601341dc9fcbc38ce8b0f4b45"
+  },
+  "prepared_proposal_reconciliation": {
+    "applied": false,
+    "historic_sources_and_indexed_reference_results_explicit": true,
+    "path": "final-boolean-elimination-proposal-candidate-2.md",
+    "raw_sha256": "cb92edba4da84ac63454139e9e180b4904582557810cf9d3ac6057e89fef71b2"
+  },
+  "required_actual_results_before_mutation": {
+    "pattern_checker_stages": {
+      "actual_independent_server_terminal_audit_required": true,
+      "historical_completed": 30,
+      "new_server_completed": 12
+    },
+    "pattern_current_fixture_promotions": 126,
+    "published_original_wrapper_owners": 14,
+    "published_wrapper_checker_stages": 230,
+    "scalar_codec_owners": {
+      "actual_independent_server_terminal_audit_required": true,
+      "historical_completed": 6,
+      "new_server_completed": 4
+    }
+  },
+  "requires_server_syntax_before_execution": true,
+  "selection_reason": "The explicit user instruction applies to all remaining checks and generation validation. Preserve completed predecessor execution provenance; generate and validate the final freeze on the approved SSH host after actual owner/checker result integration and pattern promotion. Do not run the old local final refresh/selected runner.",
+  "server_validation_sequence": [
+    "Generate the final freeze in an independent exact published candidate checkout, retaining all six complete old evidence/input files.",
+    "Compare all 709 complete vector bodies and all non-evidence freeze fields against their exact predecessor bytes; permit only the six specified evidence hash fields to change.",
+    "Retrieve the two exact server-generated freeze output files and actual comparison receipt; preserve current sources and separate live checkouts.",
+    "Run eight W09 original normal-pin owners, private freeze --check and affected spec quality checks on the server.",
+    "Review and commit/push actual W09 completion; republish W10 with the exact complete W09 commit.",
+    "Run four affected W10 owners and the final T01 check-fast gate only on the server; repair until pass before advancing to T06."
+  ],
+  "source_plan_predecessor_raw_sha256": "708b675b302806d8bd071243c4647708130fa86d47d5882923a75238b44f7565",
+  "status": "prepared_indexed_server_only_final_freeze_plan_not_executed"
+}

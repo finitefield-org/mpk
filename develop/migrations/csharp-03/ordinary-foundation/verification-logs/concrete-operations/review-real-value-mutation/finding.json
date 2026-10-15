@@ -1,5 +1,5 @@
 {
-  "status": "diagnosed_test_counterexample_requires_verification",
+  "status": "resolved_with_full_real_value_verification",
   "original_receipt": "../real.json",
   "original_receipt_sha256": "09ecb3ba7603994cab649d24d55cf96c49b2715ea5ac9f8d04c73103f1268fc7",
   "previous_test_sha256": "e43f0fe066bc67868b841d2234943ff1f33240691b73c5b6fb84ac03bf112037",
@@ -7,5 +7,6 @@
   "correction": "Independently check all 32 source result bits as -1, then use an all-zero concrete result for this case. Retain every original source, operation, guard and assertion, and run the complete real-value matrix. Other concrete result mutants and all production definitions remain unchanged.",
   "full_gate": "deferred_to_T06_W12",
   "current_test_sha256": "50ad8208bc6982fa88b68f7be9784ba75bff38f4431b5353a6b947add6704c3f",
+  "verification": "real.json: 6 normal observations, 1 closed operation, 1 NaN observation, and 5 rejected-input guards passed in the complete 6146.32-second test; source and binary hashes match build.json.",
   "previous_goal_turn_classification": "progress: inspected terminal decimal/count results and identified the concrete-operation runtime failure; this turn corrects the test and reconciles completed validation."
 }

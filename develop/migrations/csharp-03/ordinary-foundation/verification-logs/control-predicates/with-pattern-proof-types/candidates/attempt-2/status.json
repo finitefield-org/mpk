@@ -1,0 +1,26 @@
+{
+  "selection_reason": "Kernel-check free-argument scope projections and reject a fully encoded wrong projection. Reconstruct all 18 original source contexts, preserve every previous declaration and original goal, inspect all premise and conclusion binders, and kernel-check the complete generated certificates. Full T06 gate is deferred to W12.",
+  "stage": "unit",
+  "stages": [
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "pattern_scope_projections_are_kernel_checked_under_free_arguments",
+        "--",
+        "--nocapture"
+      ],
+      "elapsed_seconds": 30.909,
+      "exit_code": 101,
+      "finished_at": "2026-09-30T03:19:14.767167+00:00",
+      "log_sha256": "7f245c81f435fd3b2842277650cc2fb8d01a7ca31e2d3daf4da696e57c7b4582",
+      "stage": "unit",
+      "started_at": "2026-09-30T03:18:43.857658+00:00"
+    }
+  ],
+  "started_at": "2026-09-30T03:18:43.857658+00:00",
+  "status": "failed"
+}

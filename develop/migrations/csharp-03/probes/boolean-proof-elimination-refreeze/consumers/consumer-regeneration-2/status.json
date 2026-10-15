@@ -1,0 +1,139 @@
+{
+  "full_t01_gate": "deferred to renewed T01-W10",
+  "full_t06_gate": "deferred to T06-W12",
+  "process_pid": 93831,
+  "selection_reason": "Approved descriptor/context rebind affects original captured source attachment, semantic bindings, boundary/transition snapshots, and context-bound VC golden hashes. Regenerate only affected W02-W08 VC goldens through their production owner tests; preserve original source, clauses and obligation counts. Exercise affected CLI source-snapshot consumers and original attachment/import. Whole T01 gate deferred to renewed W10 and T06 gate to W12. The first consumer run detected a hardcoded old snapshot selector; keep the same selected original source with its recomputed ID. Also regenerate boundary input/output evidence through their actual owners and replay the complete boundary factory matrix, including preserved negative mutations.",
+  "stage": "temporal-source",
+  "stages": [
+    {
+      "destination": "boundary-vc/run-goldens.json",
+      "elapsed_seconds": 15.4127969580004,
+      "exit_code": 0,
+      "generated_sha256": "513dafaf7207b291eec4cf48a322d6478037115e5d7bdbdee0f35a4d7b68e259",
+      "log_sha256": "805d6d977b63fae973f32aebd2c709cf9222f2570ea090189aba92fc359911a1",
+      "previous_sha256": "2a6c71f7b552a0b5aba9ea6e88fcee9e3cc04e07db6579dc613569e037c8db35",
+      "selector": "csharp_03_t06_w07_complete_run_relations_and_hostile_serializers",
+      "stage": "boundary-run",
+      "test_counts": [
+        "1"
+      ]
+    },
+    {
+      "destination": "transition-vc/goldens.json",
+      "elapsed_seconds": 238.66448908299935,
+      "exit_code": 0,
+      "generated_sha256": "82d17f83f24f526cc5c43571818b42d13770f0eb510fdca36f04feadb4f26379",
+      "log_sha256": "93aa86a21bd429407aaaa7ced18645a3e68901c2e84c8f9bf304abf365ff0ca7",
+      "previous_sha256": "90535b4109036deaa40b19f90b7d6b9e819557d8581066b4a37df741a0975571",
+      "selector": "csharp_03_t06_w08_original_source_programs_and_mutations",
+      "stage": "transition",
+      "test_counts": [
+        "1"
+      ]
+    },
+    {
+      "destination": "boundary-input/conformance.json",
+      "elapsed_seconds": 65.29504208300204,
+      "exit_code": 0,
+      "generated_sha256": "28974b0f66e663516f2d71ec36246f993c688f9f4b2fcb63e54cd796d62fefa7",
+      "log_sha256": "305cdf6ccdfe601f1dc2913ca91bc90b2f19a9510c99aefb3cce6fa7ee3980f1",
+      "previous_sha256": "0d8c5d473a1503025735cd4d46146ddee511d55152f6a63fb94de39091c05e1c",
+      "selector": "csharp_03_t05_w02_real_source_input_matrix_and_two_run_identity",
+      "stage": "boundary-input",
+      "test_counts": [
+        "1"
+      ]
+    },
+    {
+      "destination": "boundary-output/conformance.json",
+      "elapsed_seconds": 0.5169143329985673,
+      "exit_code": 0,
+      "generated_sha256": "e3fbc54e7034a4028323717f52d0543145db4f2f8875cfff5285813bc565ab6e",
+      "log_sha256": "ed0df141d7102fb2dbc3a5796503777a7b838f4a1fab6c955e905fd31c442402",
+      "previous_sha256": "0a31ca07a8abe48f88b6569044624aa9f0093e33249b4ae8b55b120cd6720c6f",
+      "selector": "csharp_03_t05_w03_original_source_output_and_cumulative_identity",
+      "stage": "boundary-output",
+      "test_counts": [
+        "1"
+      ]
+    },
+    {
+      "destination": null,
+      "elapsed_seconds": 2.3536351660004584,
+      "exit_code": 0,
+      "log_sha256": "14fe34646baf47c7855b739d03794e8aae0fe3e796a8eaa02443bd714a771dbe",
+      "selector": "csharp_03_t05_w01_real_source_boundary_matrix",
+      "stage": "boundary-factory",
+      "test_counts": [
+        "1"
+      ]
+    },
+    {
+      "destination": null,
+      "elapsed_seconds": 2.829298500000732,
+      "exit_code": 0,
+      "log_sha256": "933edc0553075a3d2ebd596e20704b1fd79edc91eaa007549797698fbb3cf5b1",
+      "selector": "csharp_03_t03_w14_source_facts_cannot_move_between_sidecar_snapshots",
+      "stage": "source-snapshots",
+      "test_counts": [
+        "1"
+      ]
+    },
+    {
+      "destination": null,
+      "elapsed_seconds": 43.44314420799492,
+      "exit_code": 0,
+      "log_sha256": "7bda601a40729cbc5cddf0b79878029745585f19272da5df9f0809876c593056",
+      "selector": "csharp_03_t05_w06_cumulative_emission_and_barriers",
+      "stage": "control-snapshots",
+      "test_counts": [
+        "1"
+      ]
+    },
+    {
+      "destination": null,
+      "elapsed_seconds": 0.2363333339962992,
+      "exit_code": 0,
+      "log_sha256": "3cd4f55e7cec42138e4d217f2e18ff199c8180df6efe771cda4c776b02c04ed6",
+      "selector": "csharp_03_t05_w06_data_route_totality",
+      "stage": "data-snapshots",
+      "test_counts": [
+        "1"
+      ]
+    },
+    {
+      "destination": null,
+      "elapsed_seconds": 18.858582667002338,
+      "exit_code": 0,
+      "log_sha256": "6506903a3a4e6807596b5089df74141c440d0226f3f9b8b28173f849a15489b4",
+      "selector": "csharp_03_t06_w01_original_attachment_and_vc_handoff",
+      "stage": "original-attachment",
+      "test_counts": [
+        "1"
+      ]
+    },
+    {
+      "destination": null,
+      "elapsed_seconds": 0.8969455419937731,
+      "exit_code": 0,
+      "log_sha256": "39ffbefaf40c9ac83fcffb6ff55c26a2c93a9fac2eda63506c7e69fc9157d2ed",
+      "selector": "csharp_03_t06_w06_original_returned_errors_and_rounding_commutations",
+      "stage": "returned-errors",
+      "test_counts": [
+        "1"
+      ]
+    },
+    {
+      "destination": null,
+      "elapsed_seconds": 10.690454042000056,
+      "exit_code": 0,
+      "log_sha256": "0f55c6a2ac3fdf3ee90fc5b2bf8ca1756582d3afe39ad3689d8946fc8f8d79cc",
+      "selector": "csharp_03_t06_w09_temporal_source_linkage_rejects_substitution",
+      "stage": "temporal-source",
+      "test_counts": [
+        "1"
+      ]
+    }
+  ],
+  "status": "passed_affected_source_snapshot_consumers_and_remaining_regeneration"
+}

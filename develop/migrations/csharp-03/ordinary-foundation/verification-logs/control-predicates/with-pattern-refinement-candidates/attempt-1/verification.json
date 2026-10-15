@@ -1,0 +1,18 @@
+{
+  "selection_reason": "Validate exact original theorem-type and whole-context binding. Reject partial candidates, source rewrites and declaration type swaps. Verify a complete universal fixture with the unchanged kernel and require wrong proofs to fail at core checking even when structural linkage succeeds. Full T06 gate deferred to W12.",
+  "command": [
+    "cargo",
+    "test",
+    "-p",
+    "mpk-vc",
+    "--lib",
+    "pattern_refinement_candidate_",
+    "--",
+    "--nocapture"
+  ],
+  "exit_code": 101,
+  "started_at": "2026-09-30T05:04:47.992389+00:00",
+  "finished_at": "2026-09-30T05:05:13.382811+00:00",
+  "elapsed_seconds": 25.39,
+  "log_sha256": "9a8a17d8ba85af26a86ca506d8deb3c281c3f1b040a4807af06c88e1da7e19de"
+}

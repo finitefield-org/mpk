@@ -1,0 +1,61 @@
+{
+  "child_pid": 28835,
+  "command": [
+    "cargo",
+    "test",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "csharp_practical_vc",
+    "csharp_03_t06_w09_concrete_type_proofs_original_source",
+    "--",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "full_t_gate": "deferred to T06-W12",
+  "process_pid": 28750,
+  "selection_reason": "Check original W06 concrete-type equality propositions and proofs in all 45 source contexts; retain all 81 public conditions, six pending internal states and original application IDs. Use actual kernel checking for every exported certificate and a wrong-proof core rejection. Recheck the unchanged original concrete-type fixture bytes. The pattern candidate units use the extracted Builder.resume method; their exact prefix and proof checks cover that refactor. Other generators and proof normalizers are unchanged, so unrelated expensive consumers are retained. Clippy covers library/test targets; format covers the crate and the changed support test. The T06-wide gate is deferred to T06-W12.",
+  "stage": "original-type-proofs",
+  "stages": [
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "pattern_refinement_candidate_",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 28.611,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T07:58:13.878087+00:00",
+      "log_sha256": "e8a9ef7be2ae1a2adf3c7cf8c33be0ae807df3c7d6132dcdac7d94a8cb8cc183",
+      "stage": "pattern-candidate-units",
+      "started_at": "2026-09-30T07:57:45.267394+00:00"
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_concrete_type_proofs_original_source",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 55.782,
+      "exit_code": 101,
+      "finished_at": "2026-09-30T07:59:09.723573+00:00",
+      "log_sha256": "35ec89269d1b1aed4ffa00c029f480f04fbebfad69adf4878284cb3250a3a466",
+      "stage": "original-type-proofs",
+      "started_at": "2026-09-30T07:58:13.941360+00:00"
+    }
+  ],
+  "status": "failed"
+}

@@ -1,0 +1,40 @@
+    Finished `test` profile [optimized] target(s) in 0.08s
+     Running unittests src/lib.rs (/root/mpk-w09-bool-cases-97559877-target/debug/deps/mpk_core-0bf9426a84a64333)
+
+running 33 tests
+test infer::tests::application_rejects_non_function_type_deterministically ... ok
+test infer::tests::infers_application_after_whnf_function_type_to_pi ... ok
+test infer::tests::check_by_inference_accepts_reducible_definition_expected_type ... ok
+test infer::tests::checks_lambda_against_expected_pi ... ok
+test infer::tests::infers_application_by_checking_argument_against_pi_domain ... ok
+test infer::tests::infers_dependent_pi_body_in_extended_context ... ok
+test infer::tests::infers_application_substitutes_dependent_result_type ... ok
+test infer::tests::infers_const_from_environment ... ok
+test infer::tests::infers_lambda_as_pi_type ... ok
+test infer::tests::infers_lambda_with_dependent_domain_lifted_under_body_binder ... ok
+test infer::tests::infers_let_body_with_local_definition ... ok
+test infer::tests::infers_let_body_type_after_discharging_local_definition ... ok
+test infer::tests::infers_multi_argument_application_spine ... ok
+test infer::tests::infers_sort_zero_as_sort_succ_zero ... ok
+test infer::tests::infers_non_dependent_pi_sort_from_domain_and_body_sorts ... ok
+test infer::tests::infers_sort_successor_type ... ok
+test infer::tests::infers_var_from_local_context ... ok
+test infer::tests::infers_var_lifts_dependent_local_type ... ok
+test infer::tests::infers_var_from_local_definition_type ... ok
+test infer::tests::lambda_check_accepts_definitionally_equal_domain ... ok
+test infer::tests::lambda_check_rejects_body_mismatch_deterministically ... ok
+test infer::tests::lambda_check_rejects_domain_mismatch_deterministically ... ok
+test infer::tests::lambda_check_rejects_non_pi_expected_deterministically ... ok
+test infer::tests::lambda_domain_must_infer_to_sort_deterministically ... ok
+test infer::tests::pi_body_must_infer_to_sort_deterministically ... ok
+test infer::tests::let_type_must_infer_to_sort_deterministically ... ok
+test infer::tests::let_value_must_check_against_annotation_deterministically ... ok
+test infer::tests::unbound_var_inference_rejects_deterministically ... ok
+test infer::tests::pi_domain_must_infer_to_sort_deterministically ... ok
+test infer::tests::unknown_const_inference_rejects_deterministically ... ok
+test infer::tests::application_rejects_argument_type_mismatch_deterministically ... ok
+test infer::tests::check_by_inference_accepts_definitionally_equal_expected_type ... ok
+test infer::tests::infer_sort_reuses_interned_successor_sort ... ok
+
+test result: ok. 33 passed; 0 failed; 0 ignored; 0 measured; 96 filtered out; finished in 0.01s
+

@@ -1,0 +1,620 @@
+   Compiling version_check v0.9.5
+   Compiling typenum v1.20.1
+   Compiling proc-macro2 v1.0.106
+   Compiling libc v0.2.186
+   Compiling quote v1.0.46
+   Compiling unicode-ident v1.0.24
+   Compiling serde_core v1.0.228
+   Compiling zmij v1.0.21
+   Compiling cfg-if v1.0.4
+   Compiling mpk-core v0.1.0 (/private/tmp/mpk-w09-refreeze-metadata-integration/crates/mpk-core)
+   Compiling serde_json v1.0.150
+   Compiling serde v1.0.228
+   Compiling generic-array v0.14.7
+   Compiling itoa v1.0.18
+   Compiling memchr v2.8.2
+   Compiling mpk-theory v0.1.0 (/private/tmp/mpk-w09-refreeze-metadata-integration/crates/mpk-theory)
+   Compiling cpufeatures v0.2.17
+   Compiling syn v2.0.118
+   Compiling block-buffer v0.10.4
+   Compiling crypto-common v0.1.7
+   Compiling digest v0.10.7
+   Compiling sha2 v0.10.9
+   Compiling mpk-cert v0.1.0 (/private/tmp/mpk-w09-refreeze-metadata-integration/crates/mpk-cert)
+   Compiling mpk-kernel v0.1.0 (/private/tmp/mpk-w09-refreeze-metadata-integration/crates/mpk-kernel)
+   Compiling serde_derive v1.0.228
+   Compiling mpk-vc v0.1.0 (/private/tmp/mpk-w09-refreeze-metadata-integration/crates/mpk-vc)
+error[E0618]: expected function, found `bool`
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_sequence_tests.rs:46:1
+    |
+ 46 |   pub(super) fn observe(c: &Certificate, value: V, expected: &[bool]) {
+    |   ------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_transition_ops_tests.rs:169:1
+    |
+169 | / fn observe(
+170 | |     c: &mpk_cert::Certificate,
+171 | |     out: V,
+172 | |     expected: &MonomorphicValue,
+173 | |     types: &BTreeMap<String, OrdinaryCarrier>,
+174 | | ) -> usize {
+    | |__________- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_collection_tests.rs:158:1
+    |
+158 | / fn observe(
+159 | |     c: &mpk_cert::encode::Certificate,
+160 | |     actual: V,
+161 | |     expected: &MonomorphicValue,
+162 | |     types: &BTreeMap<String, OrdinaryCarrier>,
+163 | | ) {
+    | |_- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_integer_format_tests.rs:67:1
+    |
+ 67 |   fn observe(cert: &mpk_cert::encode::Certificate, v: &V, at: usize) -> bool {
+    |   -------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_format_tests.rs:5:1
+    |
+  5 |   fn observe(cert: &mpk_cert::encode::Certificate, value: &V, at: usize) -> bool {
+    |   ------------------------------------------------------------------------------ this function of the same name is available here, but it's shadowed by the local binding
+...
+ 24 |   fn decimal_formats_original_sources(observe: bool) {
+    |                                       ------- `observe` has type `bool`
+...
+188 |               n | (u32::from(observe(&cert, &result, i << 14)) << i)
+    |                              ^^^^^^^-------------------------
+    |                              |
+    |                              call expression requires function
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_fixed_format_tests.rs:5:1
+    |
+  5 |   fn observe(cert: &mpk_cert::encode::Certificate, value: &V, at: usize) -> bool {
+    |   ------------------------------------------------------------------------------ this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_calendar_codec_tests.rs:33:1
+    |
+ 33 |   fn observe(cert: &mpk_cert::encode::Certificate, value: &V, depth: u32, address: usize) -> bool {
+    |   ----------------------------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_boundary_document_tests.rs:26:1
+    |
+ 26 |   fn observe(cert: &mpk_cert::encode::Certificate, v: &V, depth: u32, index: usize) -> bool {
+    |   ----------------------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_json_string_parse_tests.rs:26:1
+    |
+ 26 |   fn observe(c: &mpk_cert::encode::Certificate, root: &V, depth: u32, index: usize) -> bool {
+    |   ----------------------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_fixed_codec_clause_tests.rs:193:1
+    |
+193 |   fn observe(c: &mpk_cert::encode::Certificate, value: &V, depth: u32, at: usize) -> bool {
+    |   --------------------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_transition_clause_tests.rs:197:1
+    |
+197 |   fn observe(c: &mpk_cert::Certificate, value: V, depth: u32, index: usize) -> bool {
+    |   --------------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+
+error[E0618]: expected function, found `bool`
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_sequence_tests.rs:46:1
+    |
+ 46 |   pub(super) fn observe(c: &Certificate, value: V, expected: &[bool]) {
+    |   ------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_transition_ops_tests.rs:169:1
+    |
+169 | / fn observe(
+170 | |     c: &mpk_cert::Certificate,
+171 | |     out: V,
+172 | |     expected: &MonomorphicValue,
+173 | |     types: &BTreeMap<String, OrdinaryCarrier>,
+174 | | ) -> usize {
+    | |__________- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_collection_tests.rs:158:1
+    |
+158 | / fn observe(
+159 | |     c: &mpk_cert::encode::Certificate,
+160 | |     actual: V,
+161 | |     expected: &MonomorphicValue,
+162 | |     types: &BTreeMap<String, OrdinaryCarrier>,
+163 | | ) {
+    | |_- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_integer_format_tests.rs:67:1
+    |
+ 67 |   fn observe(cert: &mpk_cert::encode::Certificate, v: &V, at: usize) -> bool {
+    |   -------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_format_tests.rs:5:1
+    |
+  5 |   fn observe(cert: &mpk_cert::encode::Certificate, value: &V, at: usize) -> bool {
+    |   ------------------------------------------------------------------------------ this function of the same name is available here, but it's shadowed by the local binding
+...
+ 24 |   fn decimal_formats_original_sources(observe: bool) {
+    |                                       ------- `observe` has type `bool`
+...
+194 |                       n | (u16::from(observe(&cert, &result, 1 | (i << 1) | (k << 15))) << k)
+    |                                      ^^^^^^^------------------------------------------
+    |                                      |
+    |                                      call expression requires function
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_fixed_format_tests.rs:5:1
+    |
+  5 |   fn observe(cert: &mpk_cert::encode::Certificate, value: &V, at: usize) -> bool {
+    |   ------------------------------------------------------------------------------ this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_calendar_codec_tests.rs:33:1
+    |
+ 33 |   fn observe(cert: &mpk_cert::encode::Certificate, value: &V, depth: u32, address: usize) -> bool {
+    |   ----------------------------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_boundary_document_tests.rs:26:1
+    |
+ 26 |   fn observe(cert: &mpk_cert::encode::Certificate, v: &V, depth: u32, index: usize) -> bool {
+    |   ----------------------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_json_string_parse_tests.rs:26:1
+    |
+ 26 |   fn observe(c: &mpk_cert::encode::Certificate, root: &V, depth: u32, index: usize) -> bool {
+    |   ----------------------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_fixed_codec_clause_tests.rs:193:1
+    |
+193 |   fn observe(c: &mpk_cert::encode::Certificate, value: &V, depth: u32, at: usize) -> bool {
+    |   --------------------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_transition_clause_tests.rs:197:1
+    |
+197 |   fn observe(c: &mpk_cert::Certificate, value: V, depth: u32, index: usize) -> bool {
+    |   --------------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+
+error[E0618]: expected function, found `bool`
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_sequence_tests.rs:46:1
+    |
+ 46 |   pub(super) fn observe(c: &Certificate, value: V, expected: &[bool]) {
+    |   ------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_transition_ops_tests.rs:169:1
+    |
+169 | / fn observe(
+170 | |     c: &mpk_cert::Certificate,
+171 | |     out: V,
+172 | |     expected: &MonomorphicValue,
+173 | |     types: &BTreeMap<String, OrdinaryCarrier>,
+174 | | ) -> usize {
+    | |__________- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_collection_tests.rs:158:1
+    |
+158 | / fn observe(
+159 | |     c: &mpk_cert::encode::Certificate,
+160 | |     actual: V,
+161 | |     expected: &MonomorphicValue,
+162 | |     types: &BTreeMap<String, OrdinaryCarrier>,
+163 | | ) {
+    | |_- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_integer_format_tests.rs:67:1
+    |
+ 67 |   fn observe(cert: &mpk_cert::encode::Certificate, v: &V, at: usize) -> bool {
+    |   -------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_format_tests.rs:5:1
+    |
+  5 |   fn observe(cert: &mpk_cert::encode::Certificate, value: &V, at: usize) -> bool {
+    |   ------------------------------------------------------------------------------ this function of the same name is available here, but it's shadowed by the local binding
+...
+ 24 |   fn decimal_formats_original_sources(observe: bool) {
+    |                                       ------- `observe` has type `bool`
+...
+201 |                   assert!(!observe(&cert, &result, (1 << pad) | (k << 14)));
+    |                            ^^^^^^^----------------------------------------
+    |                            |
+    |                            call expression requires function
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_fixed_format_tests.rs:5:1
+    |
+  5 |   fn observe(cert: &mpk_cert::encode::Certificate, value: &V, at: usize) -> bool {
+    |   ------------------------------------------------------------------------------ this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_calendar_codec_tests.rs:33:1
+    |
+ 33 |   fn observe(cert: &mpk_cert::encode::Certificate, value: &V, depth: u32, address: usize) -> bool {
+    |   ----------------------------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_boundary_document_tests.rs:26:1
+    |
+ 26 |   fn observe(cert: &mpk_cert::encode::Certificate, v: &V, depth: u32, index: usize) -> bool {
+    |   ----------------------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_json_string_parse_tests.rs:26:1
+    |
+ 26 |   fn observe(c: &mpk_cert::encode::Certificate, root: &V, depth: u32, index: usize) -> bool {
+    |   ----------------------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_fixed_codec_clause_tests.rs:193:1
+    |
+193 |   fn observe(c: &mpk_cert::encode::Certificate, value: &V, depth: u32, at: usize) -> bool {
+    |   --------------------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_transition_clause_tests.rs:197:1
+    |
+197 |   fn observe(c: &mpk_cert::Certificate, value: V, depth: u32, index: usize) -> bool {
+    |   --------------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+
+error[E0618]: expected function, found `bool`
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_sequence_tests.rs:46:1
+    |
+ 46 |   pub(super) fn observe(c: &Certificate, value: V, expected: &[bool]) {
+    |   ------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_transition_ops_tests.rs:169:1
+    |
+169 | / fn observe(
+170 | |     c: &mpk_cert::Certificate,
+171 | |     out: V,
+172 | |     expected: &MonomorphicValue,
+173 | |     types: &BTreeMap<String, OrdinaryCarrier>,
+174 | | ) -> usize {
+    | |__________- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_collection_tests.rs:158:1
+    |
+158 | / fn observe(
+159 | |     c: &mpk_cert::encode::Certificate,
+160 | |     actual: V,
+161 | |     expected: &MonomorphicValue,
+162 | |     types: &BTreeMap<String, OrdinaryCarrier>,
+163 | | ) {
+    | |_- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_integer_format_tests.rs:67:1
+    |
+ 67 |   fn observe(cert: &mpk_cert::encode::Certificate, v: &V, at: usize) -> bool {
+    |   -------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_format_tests.rs:5:1
+    |
+  5 |   fn observe(cert: &mpk_cert::encode::Certificate, value: &V, at: usize) -> bool {
+    |   ------------------------------------------------------------------------------ this function of the same name is available here, but it's shadowed by the local binding
+...
+ 24 |   fn decimal_formats_original_sources(observe: bool) {
+    |                                       ------- `observe` has type `bool`
+...
+222 |                           !observe(&cert, &result, 1 | (i << 1) | (k << 15)),
+    |                            ^^^^^^^------------------------------------------
+    |                            |
+    |                            call expression requires function
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_fixed_format_tests.rs:5:1
+    |
+  5 |   fn observe(cert: &mpk_cert::encode::Certificate, value: &V, at: usize) -> bool {
+    |   ------------------------------------------------------------------------------ this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_calendar_codec_tests.rs:33:1
+    |
+ 33 |   fn observe(cert: &mpk_cert::encode::Certificate, value: &V, depth: u32, address: usize) -> bool {
+    |   ----------------------------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_boundary_document_tests.rs:26:1
+    |
+ 26 |   fn observe(cert: &mpk_cert::encode::Certificate, v: &V, depth: u32, index: usize) -> bool {
+    |   ----------------------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_json_string_parse_tests.rs:26:1
+    |
+ 26 |   fn observe(c: &mpk_cert::encode::Certificate, root: &V, depth: u32, index: usize) -> bool {
+    |   ----------------------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_fixed_codec_clause_tests.rs:193:1
+    |
+193 |   fn observe(c: &mpk_cert::encode::Certificate, value: &V, depth: u32, at: usize) -> bool {
+    |   --------------------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_transition_clause_tests.rs:197:1
+    |
+197 |   fn observe(c: &mpk_cert::Certificate, value: V, depth: u32, index: usize) -> bool {
+    |   --------------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+
+error[E0618]: expected function, found `bool`
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_sequence_tests.rs:46:1
+    |
+ 46 |   pub(super) fn observe(c: &Certificate, value: V, expected: &[bool]) {
+    |   ------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_transition_ops_tests.rs:169:1
+    |
+169 | / fn observe(
+170 | |     c: &mpk_cert::Certificate,
+171 | |     out: V,
+172 | |     expected: &MonomorphicValue,
+173 | |     types: &BTreeMap<String, OrdinaryCarrier>,
+174 | | ) -> usize {
+    | |__________- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_collection_tests.rs:158:1
+    |
+158 | / fn observe(
+159 | |     c: &mpk_cert::encode::Certificate,
+160 | |     actual: V,
+161 | |     expected: &MonomorphicValue,
+162 | |     types: &BTreeMap<String, OrdinaryCarrier>,
+163 | | ) {
+    | |_- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_integer_format_tests.rs:67:1
+    |
+ 67 |   fn observe(cert: &mpk_cert::encode::Certificate, v: &V, at: usize) -> bool {
+    |   -------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_format_tests.rs:5:1
+    |
+  5 |   fn observe(cert: &mpk_cert::encode::Certificate, value: &V, at: usize) -> bool {
+    |   ------------------------------------------------------------------------------ this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_fixed_format_tests.rs:5:1
+    |
+  5 |   fn observe(cert: &mpk_cert::encode::Certificate, value: &V, at: usize) -> bool {
+    |   ------------------------------------------------------------------------------ this function of the same name is available here, but it's shadowed by the local binding
+...
+ 24 |   fn decimal_fixed_formats_original_sources(observe: bool) {
+    |                                             ------- `observe` has type `bool`
+...
+213 |                   n | (u32::from(observe(&cert, &result, i << 14)) << i)
+    |                                  ^^^^^^^-------------------------
+    |                                  |
+    |                                  call expression requires function
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_calendar_codec_tests.rs:33:1
+    |
+ 33 |   fn observe(cert: &mpk_cert::encode::Certificate, value: &V, depth: u32, address: usize) -> bool {
+    |   ----------------------------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_boundary_document_tests.rs:26:1
+    |
+ 26 |   fn observe(cert: &mpk_cert::encode::Certificate, v: &V, depth: u32, index: usize) -> bool {
+    |   ----------------------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_json_string_parse_tests.rs:26:1
+    |
+ 26 |   fn observe(c: &mpk_cert::encode::Certificate, root: &V, depth: u32, index: usize) -> bool {
+    |   ----------------------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_fixed_codec_clause_tests.rs:193:1
+    |
+193 |   fn observe(c: &mpk_cert::encode::Certificate, value: &V, depth: u32, at: usize) -> bool {
+    |   --------------------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_transition_clause_tests.rs:197:1
+    |
+197 |   fn observe(c: &mpk_cert::Certificate, value: V, depth: u32, index: usize) -> bool {
+    |   --------------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+
+error[E0618]: expected function, found `bool`
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_sequence_tests.rs:46:1
+    |
+ 46 |   pub(super) fn observe(c: &Certificate, value: V, expected: &[bool]) {
+    |   ------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_transition_ops_tests.rs:169:1
+    |
+169 | / fn observe(
+170 | |     c: &mpk_cert::Certificate,
+171 | |     out: V,
+172 | |     expected: &MonomorphicValue,
+173 | |     types: &BTreeMap<String, OrdinaryCarrier>,
+174 | | ) -> usize {
+    | |__________- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_collection_tests.rs:158:1
+    |
+158 | / fn observe(
+159 | |     c: &mpk_cert::encode::Certificate,
+160 | |     actual: V,
+161 | |     expected: &MonomorphicValue,
+162 | |     types: &BTreeMap<String, OrdinaryCarrier>,
+163 | | ) {
+    | |_- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_integer_format_tests.rs:67:1
+    |
+ 67 |   fn observe(cert: &mpk_cert::encode::Certificate, v: &V, at: usize) -> bool {
+    |   -------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_format_tests.rs:5:1
+    |
+  5 |   fn observe(cert: &mpk_cert::encode::Certificate, value: &V, at: usize) -> bool {
+    |   ------------------------------------------------------------------------------ this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_fixed_format_tests.rs:5:1
+    |
+  5 |   fn observe(cert: &mpk_cert::encode::Certificate, value: &V, at: usize) -> bool {
+    |   ------------------------------------------------------------------------------ this function of the same name is available here, but it's shadowed by the local binding
+...
+ 24 |   fn decimal_fixed_formats_original_sources(observe: bool) {
+    |                                             ------- `observe` has type `bool`
+...
+219 |                           n | (u16::from(observe(&cert, &result, 1 | (i << 1) | (k << 15))) << k)
+    |                                          ^^^^^^^------------------------------------------
+    |                                          |
+    |                                          call expression requires function
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_calendar_codec_tests.rs:33:1
+    |
+ 33 |   fn observe(cert: &mpk_cert::encode::Certificate, value: &V, depth: u32, address: usize) -> bool {
+    |   ----------------------------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_boundary_document_tests.rs:26:1
+    |
+ 26 |   fn observe(cert: &mpk_cert::encode::Certificate, v: &V, depth: u32, index: usize) -> bool {
+    |   ----------------------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_json_string_parse_tests.rs:26:1
+    |
+ 26 |   fn observe(c: &mpk_cert::encode::Certificate, root: &V, depth: u32, index: usize) -> bool {
+    |   ----------------------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_fixed_codec_clause_tests.rs:193:1
+    |
+193 |   fn observe(c: &mpk_cert::encode::Certificate, value: &V, depth: u32, at: usize) -> bool {
+    |   --------------------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_transition_clause_tests.rs:197:1
+    |
+197 |   fn observe(c: &mpk_cert::Certificate, value: V, depth: u32, index: usize) -> bool {
+    |   --------------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+
+error[E0618]: expected function, found `bool`
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_sequence_tests.rs:46:1
+    |
+ 46 |   pub(super) fn observe(c: &Certificate, value: V, expected: &[bool]) {
+    |   ------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_transition_ops_tests.rs:169:1
+    |
+169 | / fn observe(
+170 | |     c: &mpk_cert::Certificate,
+171 | |     out: V,
+172 | |     expected: &MonomorphicValue,
+173 | |     types: &BTreeMap<String, OrdinaryCarrier>,
+174 | | ) -> usize {
+    | |__________- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_collection_tests.rs:158:1
+    |
+158 | / fn observe(
+159 | |     c: &mpk_cert::encode::Certificate,
+160 | |     actual: V,
+161 | |     expected: &MonomorphicValue,
+162 | |     types: &BTreeMap<String, OrdinaryCarrier>,
+163 | | ) {
+    | |_- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_integer_format_tests.rs:67:1
+    |
+ 67 |   fn observe(cert: &mpk_cert::encode::Certificate, v: &V, at: usize) -> bool {
+    |   -------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_format_tests.rs:5:1
+    |
+  5 |   fn observe(cert: &mpk_cert::encode::Certificate, value: &V, at: usize) -> bool {
+    |   ------------------------------------------------------------------------------ this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_fixed_format_tests.rs:5:1
+    |
+  5 |   fn observe(cert: &mpk_cert::encode::Certificate, value: &V, at: usize) -> bool {
+    |   ------------------------------------------------------------------------------ this function of the same name is available here, but it's shadowed by the local binding
+...
+ 24 |   fn decimal_fixed_formats_original_sources(observe: bool) {
+    |                                             ------- `observe` has type `bool`
+...
+226 |                       assert!(!observe(&cert, &result, (1 << pad) | (k << 14)));
+    |                                ^^^^^^^----------------------------------------
+    |                                |
+    |                                call expression requires function
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_calendar_codec_tests.rs:33:1
+    |
+ 33 |   fn observe(cert: &mpk_cert::encode::Certificate, value: &V, depth: u32, address: usize) -> bool {
+    |   ----------------------------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_boundary_document_tests.rs:26:1
+    |
+ 26 |   fn observe(cert: &mpk_cert::encode::Certificate, v: &V, depth: u32, index: usize) -> bool {
+    |   ----------------------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_json_string_parse_tests.rs:26:1
+    |
+ 26 |   fn observe(c: &mpk_cert::encode::Certificate, root: &V, depth: u32, index: usize) -> bool {
+    |   ----------------------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_fixed_codec_clause_tests.rs:193:1
+    |
+193 |   fn observe(c: &mpk_cert::encode::Certificate, value: &V, depth: u32, at: usize) -> bool {
+    |   --------------------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_transition_clause_tests.rs:197:1
+    |
+197 |   fn observe(c: &mpk_cert::Certificate, value: V, depth: u32, index: usize) -> bool {
+    |   --------------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+
+error[E0618]: expected function, found `bool`
+   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_sequence_tests.rs:46:1
+    |
+ 46 |   pub(super) fn observe(c: &Certificate, value: V, expected: &[bool]) {
+    |   ------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_transition_ops_tests.rs:169:1
+    |
+169 | / fn observe(
+170 | |     c: &mpk_cert::Certificate,
+171 | |     out: V,
+172 | |     expected: &MonomorphicValue,
+173 | |     types: &BTreeMap<String, OrdinaryCarrier>,
+174 | | ) -> usize {
+    | |__________- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_collection_tests.rs:158:1
+    |
+158 | / fn observe(
+159 | |     c: &mpk_cert::encode::Certificate,
+160 | |     actual: V,
+161 | |     expected: &MonomorphicValue,
+162 | |     types: &BTreeMap<String, OrdinaryCarrier>,
+163 | | ) {
+    | |_- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_integer_format_tests.rs:67:1
+    |
+ 67 |   fn observe(cert: &mpk_cert::encode::Certificate, v: &V, at: usize) -> bool {
+    |   -------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_format_tests.rs:5:1
+    |
+  5 |   fn observe(cert: &mpk_cert::encode::Certificate, value: &V, at: usize) -> bool {
+    |   ------------------------------------------------------------------------------ this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_fixed_format_tests.rs:5:1
+    |
+  5 |   fn observe(cert: &mpk_cert::encode::Certificate, value: &V, at: usize) -> bool {
+    |   ------------------------------------------------------------------------------ this function of the same name is available here, but it's shadowed by the local binding
+...
+ 24 |   fn decimal_fixed_formats_original_sources(observe: bool) {
+    |                                             ------- `observe` has type `bool`
+...
+247 |                               !observe(&cert, &result, 1 | (i << 1) | (k << 15)),
+    |                                ^^^^^^^------------------------------------------
+    |                                |
+    |                                call expression requires function
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_calendar_codec_tests.rs:33:1
+    |
+ 33 |   fn observe(cert: &mpk_cert::encode::Certificate, value: &V, depth: u32, address: usize) -> bool {
+    |   ----------------------------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_boundary_document_tests.rs:26:1
+    |
+ 26 |   fn observe(cert: &mpk_cert::encode::Certificate, v: &V, depth: u32, index: usize) -> bool {
+    |   ----------------------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_json_string_parse_tests.rs:26:1
+    |
+ 26 |   fn observe(c: &mpk_cert::encode::Certificate, root: &V, depth: u32, index: usize) -> bool {
+    |   ----------------------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_fixed_codec_clause_tests.rs:193:1
+    |
+193 |   fn observe(c: &mpk_cert::encode::Certificate, value: &V, depth: u32, at: usize) -> bool {
+    |   --------------------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/tests/support/csharp_practical_ordinary_transition_clause_tests.rs:197:1
+    |
+197 |   fn observe(c: &mpk_cert::Certificate, value: V, depth: u32, index: usize) -> bool {
+    |   --------------------------------------------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+
+For more information about this error, try `rustc --explain E0618`.
+error: could not compile `mpk-vc` (test "csharp_practical_vc") due to 8 previous errors

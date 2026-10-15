@@ -1,0 +1,108 @@
+{
+  "execution_host": "root@162.43.92.154",
+  "go_binary_sha256": "cfc449b2ac1352d793618bc72155b6e43b17eedcbb12ac5a3a486998f9465928",
+  "go_checker_source_commit": "7505badc6684191a7dad9833e67d29af32529ee9",
+  "process_pid": 3788569,
+  "rust_binary_sha256": "430e87dece4619c8c363bd6ef59cd8d292af2f131e54e3d030e257955a177f52",
+  "rust_checker_source_commit": "fd99c03c8e3535bcc31f0b9d1441d4b74de80ebf",
+  "selection_reason": "Compare six exact approved certificates under the indexed Go checker and unchanged fixed Rust checker. Reuse only the already completed guard_order Rust report after exact input/report/stderr/binary SHA verification; execute the five not-yet-completed Rust cases. Preserve all interrupted/live predecessor statuses and actual execution provenance.",
+  "source_commit": "e89c2a0f24e1f4a1c562c6a60c3199473781f101",
+  "stage": "with-packed-pattern-proof-types--type-rust",
+  "stages": [
+    {
+      "backend": "rust",
+      "case": "with-packed-pattern-proof-types--guard_order",
+      "checker_source_commit": "fd99c03c8e3535bcc31f0b9d1441d4b74de80ebf",
+      "command": [
+        "/root/mpk-w09-bool-cases-fd99c03c-target/debug/mpk",
+        "check",
+        "/root/mpk-w09-server-e89c2a0f-control/pattern-inputs/with-packed-pattern-proof-types--guard_order.mpcert"
+      ],
+      "elapsed_seconds": 117.62918552663177,
+      "execution_host": "root@162.43.92.154",
+      "exit_code": 0,
+      "input_sha256": "ff994e2bc3f4ca2568ececabc6c0276e00abcb1d233a1ac4b735db28d69a7592",
+      "report_sha256": "7f2eb237320058b4be196ef1e64b7fcc58d7a170c11b51bab52115257d4dbc7e",
+      "reused_exact_completed_rust_report": {
+        "binary_sha256": "430e87dece4619c8c363bd6ef59cd8d292af2f131e54e3d030e257955a177f52",
+        "original_directory": "/root/mpk-w09-server-e89c2a0f-pattern-reports",
+        "original_status_raw_sha256": "20b018d69b27285671be0e595ab427401cc4fa142a204e459dbb33b6e722d9a0"
+      },
+      "source_commit": "e89c2a0f24e1f4a1c562c6a60c3199473781f101",
+      "stage": "with-packed-pattern-proof-types--guard_order-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "430e87dece4619c8c363bd6ef59cd8d292af2f131e54e3d030e257955a177f52",
+      "case": "with-packed-pattern-proof-types--guard_throw",
+      "checker_source_commit": "fd99c03c8e3535bcc31f0b9d1441d4b74de80ebf",
+      "elapsed_seconds": 31.852031758986413,
+      "execution_host": "root@162.43.92.154",
+      "exit_code": 0,
+      "input_sha256": "517d743a00d95774c0c8cd714c79a78c4376e5215f6bb692fdf753ff2f938097",
+      "report_sha256": "adba30a3c715d3abf67d9eaeaabedf89158ade8b00ae7b49561a8ba8a2fa2d63",
+      "stage": "with-packed-pattern-proof-types--guard_throw-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "430e87dece4619c8c363bd6ef59cd8d292af2f131e54e3d030e257955a177f52",
+      "case": "with-packed-pattern-proof-types--is_binding",
+      "checker_source_commit": "fd99c03c8e3535bcc31f0b9d1441d4b74de80ebf",
+      "elapsed_seconds": 13.133766736835241,
+      "execution_host": "root@162.43.92.154",
+      "exit_code": 0,
+      "input_sha256": "f472316c9f809a5739589098a125219a65495cd685dabe4c74a8a4ec51adf3fe",
+      "report_sha256": "f8053bdf55b1ada130ab4deb6782963dd684e6e0beab89e8a9fdd99202849cad",
+      "stage": "with-packed-pattern-proof-types--is_binding-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "430e87dece4619c8c363bd6ef59cd8d292af2f131e54e3d030e257955a177f52",
+      "case": "with-packed-pattern-proof-types--string_property",
+      "checker_source_commit": "fd99c03c8e3535bcc31f0b9d1441d4b74de80ebf",
+      "elapsed_seconds": 17.438223245553672,
+      "execution_host": "root@162.43.92.154",
+      "exit_code": 0,
+      "input_sha256": "0b239006cb95a50d902e19619b16996fc5341d2f5f452b6415756abfca1d652d",
+      "report_sha256": "f4e48161158ea3d67379a7395b173ab1757025da1a0ca1b416ad2d5133c1cb4e",
+      "stage": "with-packed-pattern-proof-types--string_property-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "430e87dece4619c8c363bd6ef59cd8d292af2f131e54e3d030e257955a177f52",
+      "case": "with-packed-pattern-proof-types--switch",
+      "checker_source_commit": "fd99c03c8e3535bcc31f0b9d1441d4b74de80ebf",
+      "elapsed_seconds": 11.623123161494732,
+      "execution_host": "root@162.43.92.154",
+      "exit_code": 0,
+      "input_sha256": "ec31025bd4141564272458ee1bc8dc93367260bdac030f36c53da8ddf787d717",
+      "report_sha256": "303bf2448df639097ce03068ed3ca3100f0230cbd5e40d8bfeacbf406301832b",
+      "stage": "with-packed-pattern-proof-types--switch-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "430e87dece4619c8c363bd6ef59cd8d292af2f131e54e3d030e257955a177f52",
+      "case": "with-packed-pattern-proof-types--type",
+      "checker_source_commit": "fd99c03c8e3535bcc31f0b9d1441d4b74de80ebf",
+      "elapsed_seconds": 58.81340980529785,
+      "execution_host": "root@162.43.92.154",
+      "exit_code": 0,
+      "input_sha256": "2e83ee71e0c56170afe1b9297b0fb9a6528b7c28ef1c477439c1e6662a47299b",
+      "report_sha256": "1566d4d4fbb950c50154c2535906f1f8465845cf9cf42921ee3dfddf9d5120e6",
+      "stage": "with-packed-pattern-proof-types--type-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    }
+  ],
+  "status": "passed_all_six_exact_certificate_pairs_fixed_rust_and_indexed_go_zero_axioms"
+}

@@ -1,0 +1,302 @@
+{
+  "application_scope_pending": true,
+  "document_files": 7,
+  "finished_at": "2026-10-06T17:10:31.063504+00:00",
+  "fixture_files": 326,
+  "full_t01_gate": "deferred to renewed T01-W10",
+  "full_t06_gate": "deferred to T06-W12",
+  "process_pid": 1230,
+  "rust_checker_sha256": "ed222705f8fc36e9cb5f6cf7352dde6c7b0329829876ed7d6501cf2beb756a17",
+  "selection_reason": "Approved generic Sort0 Bool cases changes declaration registration and core reduction. Select Bool cases and closed-family regression (six accepted and eleven rejected same-byte certificates), core environment/inference/defeq/inductive-generation/reduction consumers, kernel declaration and proof consumers, T01-W09 feasibility owner, Go core/defeq tests, and changed-package lint/format. Preserve earlier successful results separately. Unrelated frontend/runtime tests are not rerun. Renewed T01 whole gate is deferred to final W10; T06 whole gate remains deferred to W12.",
+  "source_files": 760,
+  "stage": "rust-checker-build",
+  "stages": [
+    {
+      "command": [
+        "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+        "test",
+        "-p",
+        "mpk-core",
+        "--lib",
+        "bool_cases::",
+        "--",
+        "--nocapture"
+      ],
+      "elapsed_seconds": 1.642,
+      "exit_code": 0,
+      "log_sha256": "782c8c8b1e1f774a05e5234e8d660ca6d25fcebd27f8fbafea8c36610d30dcb6",
+      "stage": "core-bool_cases",
+      "test_counts": [
+        "5"
+      ]
+    },
+    {
+      "command": [
+        "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+        "test",
+        "-p",
+        "mpk-core",
+        "--lib",
+        "env::",
+        "--",
+        "--nocapture"
+      ],
+      "elapsed_seconds": 0.074,
+      "exit_code": 0,
+      "log_sha256": "44a7d59a224b90b40739d8fe1a19520706d750cbdf9c5497b4afeda868dd7479",
+      "stage": "core-env",
+      "test_counts": [
+        "10"
+      ]
+    },
+    {
+      "command": [
+        "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+        "test",
+        "-p",
+        "mpk-core",
+        "--lib",
+        "reduce_inductive::",
+        "--",
+        "--nocapture"
+      ],
+      "elapsed_seconds": 0.097,
+      "exit_code": 0,
+      "log_sha256": "3ae4080fa362a66e21c8a52ff59dfb4e0440d63be45b68510154386a83f0377f",
+      "stage": "core-reduce_inductive",
+      "test_counts": [
+        "8"
+      ]
+    },
+    {
+      "command": [
+        "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+        "test",
+        "-p",
+        "mpk-core",
+        "--lib",
+        "defeq::",
+        "--",
+        "--nocapture"
+      ],
+      "elapsed_seconds": 0.071,
+      "exit_code": 0,
+      "log_sha256": "f25982108b3ecbc0c1949778468c66acf396df5aaf44a2db8fbf65c926d6db4f",
+      "stage": "core-defeq",
+      "test_counts": [
+        "9"
+      ]
+    },
+    {
+      "command": [
+        "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+        "test",
+        "-p",
+        "mpk-core",
+        "--lib",
+        "infer::",
+        "--",
+        "--nocapture"
+      ],
+      "elapsed_seconds": 0.064,
+      "exit_code": 0,
+      "log_sha256": "487c91b0ed7318e3a16c22b070dcf052f92e334796d0f548392493792e48653b",
+      "stage": "core-infer",
+      "test_counts": [
+        "33"
+      ]
+    },
+    {
+      "command": [
+        "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+        "test",
+        "-p",
+        "mpk-core",
+        "--lib",
+        "inductive_gen::",
+        "--",
+        "--nocapture"
+      ],
+      "elapsed_seconds": 0.067,
+      "exit_code": 0,
+      "log_sha256": "dfd7b6776040e25f0f65286e26b5a952845f2142aa776f3393b51214174d64d9",
+      "stage": "core-inductive_gen",
+      "test_counts": [
+        "5"
+      ]
+    },
+    {
+      "command": [
+        "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+        "test",
+        "-p",
+        "mpk-kernel",
+        "--lib",
+        "bool_cases",
+        "--",
+        "--nocapture"
+      ],
+      "elapsed_seconds": 1.796,
+      "exit_code": 0,
+      "log_sha256": "02b6ed8a6b944985d74c31d9568c81eb7ab129b8740c52c189664c07ee135503",
+      "stage": "kernel-bool_cases",
+      "test_counts": [
+        "2"
+      ]
+    },
+    {
+      "command": [
+        "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+        "test",
+        "-p",
+        "mpk-kernel",
+        "--lib",
+        "decl_driver::",
+        "--",
+        "--nocapture"
+      ],
+      "elapsed_seconds": 0.073,
+      "exit_code": 0,
+      "log_sha256": "952fb935802f342ef19406e6f8116fb2122d4dbea02ba76f8c137b42edd5ef76",
+      "stage": "kernel-decl_driver",
+      "test_counts": [
+        "3"
+      ]
+    },
+    {
+      "command": [
+        "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+        "test",
+        "-p",
+        "mpk-kernel",
+        "--lib",
+        "proof_check::",
+        "--",
+        "--nocapture"
+      ],
+      "elapsed_seconds": 0.07,
+      "exit_code": 0,
+      "log_sha256": "11b0510d996c73c6a00ce5b3d40746b38f384dc2b385036bfd727006d7f60640",
+      "stage": "kernel-proof_check",
+      "test_counts": [
+        "9"
+      ]
+    },
+    {
+      "command": [
+        "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_spec",
+        "csharp_03_t01_w09_boolean_proof_elimination_feasibility",
+        "--",
+        "--nocapture"
+      ],
+      "elapsed_seconds": 17.084,
+      "exit_code": 0,
+      "log_sha256": "8f8c1e8995eec366f625c728c799e29ce9bfa8a2227c44eda8c44bcc348c39e8",
+      "stage": "t01-feasibility",
+      "test_counts": [
+        "1"
+      ]
+    },
+    {
+      "command": [
+        "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+        "clippy",
+        "-p",
+        "mpk-core",
+        "--lib",
+        "--tests",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "elapsed_seconds": 0.581,
+      "exit_code": 0,
+      "log_sha256": "c98c14c78f69a713be8b26a649b4d8f9dac46c7910181160f19e68af6fcc4026",
+      "stage": "core-clippy",
+      "test_counts": []
+    },
+    {
+      "command": [
+        "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+        "clippy",
+        "-p",
+        "mpk-kernel",
+        "--lib",
+        "--tests",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "elapsed_seconds": 0.613,
+      "exit_code": 0,
+      "log_sha256": "ee30c544eb07f457b61b2a5b6a7ad1e573b49cc18a3b3ccba0396fd54becb834",
+      "stage": "kernel-clippy",
+      "test_counts": []
+    },
+    {
+      "command": [
+        "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_spec",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "elapsed_seconds": 9.365,
+      "exit_code": 0,
+      "log_sha256": "14984e60ea52886c6151dc8aaa3d00f7078d7b245509963a7e073073574a13ba",
+      "stage": "vc-spec-clippy",
+      "test_counts": []
+    },
+    {
+      "command": [
+        "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+        "fmt",
+        "-p",
+        "mpk-core",
+        "-p",
+        "mpk-kernel",
+        "-p",
+        "mpk-vc",
+        "--",
+        "--check"
+      ],
+      "elapsed_seconds": 2.399,
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stage": "format",
+      "test_counts": []
+    },
+    {
+      "command": [
+        "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+        "build",
+        "-p",
+        "mpk-cli",
+        "--bin",
+        "mpk"
+      ],
+      "elapsed_seconds": 31.902,
+      "exit_code": 0,
+      "log_sha256": "1d659e9755e3687bac46df545df58b74df3ac8983cff22ea157f59c6b41e2713",
+      "stage": "rust-checker-build",
+      "test_counts": []
+    }
+  ],
+  "status": "passed_selected_tests_lint_format_build",
+  "supervisor_pid": 935,
+  "test_binaries": {
+    "/private/tmp/mpk-w09-bool-cases-target/debug/deps/csharp_practical_spec-141d1020d802f1c9": "185eb408e2d9a1216d4c0baaffac8683c260b2b9606eb191971806e619a96081",
+    "/private/tmp/mpk-w09-bool-cases-target/debug/deps/mpk_core-7fceecc54f161188": "c73cd38e5c9fb406e4d3fe0563d73efc868579c36bbfb43d7d063c1e572f1b76",
+    "/private/tmp/mpk-w09-bool-cases-target/debug/deps/mpk_kernel-c80f407248612cc1": "41f7415ca16e0f674c7ae1dd38e21c0278149f28caa8dd85d61e003cfc30ef27"
+  },
+  "tests": 85
+}

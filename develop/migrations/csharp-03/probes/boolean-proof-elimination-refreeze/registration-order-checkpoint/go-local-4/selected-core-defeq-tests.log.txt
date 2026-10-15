@@ -1,0 +1,107 @@
+=== RUN   TestBoolCasesCertificatesMatchRust
+=== RUN   TestBoolCasesCertificatesMatchRust/right-identity
+=== RUN   TestBoolCasesCertificatesMatchRust/constructor-false
+=== RUN   TestBoolCasesCertificatesMatchRust/constructor-true
+=== RUN   TestBoolCasesCertificatesMatchRust/open-motive
+=== RUN   TestBoolCasesCertificatesMatchRust/conjunction-left
+=== RUN   TestBoolCasesCertificatesMatchRust/conjunction-right
+=== RUN   TestBoolCasesCertificatesMatchRust/wrong-branch
+=== RUN   TestBoolCasesCertificatesMatchRust/wrong-conjunction-left
+=== RUN   TestBoolCasesCertificatesMatchRust/wrong-conjunction-right
+=== RUN   TestBoolCasesCertificatesMatchRust/wrong-motive-universe
+=== RUN   TestBoolCasesCertificatesMatchRust/wrong-interface
+=== RUN   TestBoolCasesCertificatesMatchRust/nongenerated
+=== RUN   TestBoolCasesCertificatesMatchRust/extra-constructor
+=== RUN   TestBoolCasesCertificatesMatchRust/extra-constructor-after-cases
+=== RUN   TestBoolCasesCertificatesMatchRust/renamed
+=== RUN   TestBoolCasesCertificatesMatchRust/wrong-case-levels
+=== RUN   TestBoolCasesCertificatesMatchRust/wrong-major-levels
+=== RUN   TestBoolCasesCertificatesMatchRust/wrong-case-levels-open
+=== RUN   TestBoolCasesCertificatesMatchRust/wrong-major-levels-open
+=== RUN   TestBoolCasesCertificatesMatchRust/later-constructor-value-levels
+=== RUN   TestBoolCasesCertificatesMatchRust/legacy-prior-constructor-value-levels
+=== RUN   TestBoolCasesCertificatesMatchRust/legacy-prior-theorem-proof-levels
+=== RUN   TestBoolCasesCertificatesMatchRust/prior-constructor-value-levels
+=== RUN   TestBoolCasesCertificatesMatchRust/prior-family-type-levels
+=== RUN   TestBoolCasesCertificatesMatchRust/prior-lambda-body-levels
+=== RUN   TestBoolCasesCertificatesMatchRust/prior-let-value-levels
+=== RUN   TestBoolCasesCertificatesMatchRust/prior-opaque-value-levels
+=== RUN   TestBoolCasesCertificatesMatchRust/prior-other-family-levels
+=== RUN   TestBoolCasesCertificatesMatchRust/prior-pi-domain-levels
+=== RUN   TestBoolCasesCertificatesMatchRust/prior-theorem-proof-levels
+=== RUN   TestBoolCasesCertificatesMatchRust/unused-constructor-levels
+--- PASS: TestBoolCasesCertificatesMatchRust (0.07s)
+    --- PASS: TestBoolCasesCertificatesMatchRust/right-identity (0.00s)
+    --- PASS: TestBoolCasesCertificatesMatchRust/constructor-false (0.00s)
+    --- PASS: TestBoolCasesCertificatesMatchRust/constructor-true (0.00s)
+    --- PASS: TestBoolCasesCertificatesMatchRust/open-motive (0.00s)
+    --- PASS: TestBoolCasesCertificatesMatchRust/conjunction-left (0.00s)
+    --- PASS: TestBoolCasesCertificatesMatchRust/conjunction-right (0.00s)
+    --- PASS: TestBoolCasesCertificatesMatchRust/wrong-branch (0.00s)
+    --- PASS: TestBoolCasesCertificatesMatchRust/wrong-conjunction-left (0.00s)
+    --- PASS: TestBoolCasesCertificatesMatchRust/wrong-conjunction-right (0.00s)
+    --- PASS: TestBoolCasesCertificatesMatchRust/wrong-motive-universe (0.00s)
+    --- PASS: TestBoolCasesCertificatesMatchRust/wrong-interface (0.00s)
+    --- PASS: TestBoolCasesCertificatesMatchRust/nongenerated (0.00s)
+    --- PASS: TestBoolCasesCertificatesMatchRust/extra-constructor (0.00s)
+    --- PASS: TestBoolCasesCertificatesMatchRust/extra-constructor-after-cases (0.00s)
+    --- PASS: TestBoolCasesCertificatesMatchRust/renamed (0.00s)
+    --- PASS: TestBoolCasesCertificatesMatchRust/wrong-case-levels (0.00s)
+    --- PASS: TestBoolCasesCertificatesMatchRust/wrong-major-levels (0.00s)
+    --- PASS: TestBoolCasesCertificatesMatchRust/wrong-case-levels-open (0.00s)
+    --- PASS: TestBoolCasesCertificatesMatchRust/wrong-major-levels-open (0.00s)
+    --- PASS: TestBoolCasesCertificatesMatchRust/later-constructor-value-levels (0.01s)
+    --- PASS: TestBoolCasesCertificatesMatchRust/legacy-prior-constructor-value-levels (0.00s)
+    --- PASS: TestBoolCasesCertificatesMatchRust/legacy-prior-theorem-proof-levels (0.00s)
+    --- PASS: TestBoolCasesCertificatesMatchRust/prior-constructor-value-levels (0.00s)
+    --- PASS: TestBoolCasesCertificatesMatchRust/prior-family-type-levels (0.00s)
+    --- PASS: TestBoolCasesCertificatesMatchRust/prior-lambda-body-levels (0.00s)
+    --- PASS: TestBoolCasesCertificatesMatchRust/prior-let-value-levels (0.00s)
+    --- PASS: TestBoolCasesCertificatesMatchRust/prior-opaque-value-levels (0.00s)
+    --- PASS: TestBoolCasesCertificatesMatchRust/prior-other-family-levels (0.00s)
+    --- PASS: TestBoolCasesCertificatesMatchRust/prior-pi-domain-levels (0.00s)
+    --- PASS: TestBoolCasesCertificatesMatchRust/prior-theorem-proof-levels (0.00s)
+    --- PASS: TestBoolCasesCertificatesMatchRust/unused-constructor-levels (0.00s)
+=== RUN   TestBoolCasesClosesConstructorRegistrationWithoutChangingLegacyFamilies
+--- PASS: TestBoolCasesClosesConstructorRegistrationWithoutChangingLegacyFamilies (0.00s)
+=== RUN   TestBoolCasesOpenMotiveStaysDependentAndNeutral
+--- PASS: TestBoolCasesOpenMotiveStaysDependentAndNeutral (0.00s)
+=== RUN   TestBoolCasesRejectsMalformedFamilyBeforeReduction
+--- PASS: TestBoolCasesRejectsMalformedFamilyBeforeReduction (0.00s)
+=== RUN   TestBoolCasesRejectsUniverseArgumentsWithoutNeedingAnIotaRedex
+--- PASS: TestBoolCasesRejectsUniverseArgumentsWithoutNeedingAnIotaRedex (0.00s)
+=== RUN   TestCheckCoreBasicCertificateFixturesMatchRustVerdicts
+=== RUN   TestCheckCoreBasicCertificateFixturesMatchRustVerdicts/fixtures/cert-basic/zero-axiom.hex
+=== RUN   TestCheckCoreBasicCertificateFixturesMatchRustVerdicts/fixtures/cert-basic/one-theorem.hex
+--- PASS: TestCheckCoreBasicCertificateFixturesMatchRustVerdicts (0.00s)
+    --- PASS: TestCheckCoreBasicCertificateFixturesMatchRustVerdicts/fixtures/cert-basic/zero-axiom.hex (0.00s)
+    --- PASS: TestCheckCoreBasicCertificateFixturesMatchRustVerdicts/fixtures/cert-basic/one-theorem.hex (0.00s)
+=== RUN   TestCheckCoreDependencyVerdictsMatchRust
+=== RUN   TestCheckCoreDependencyVerdictsMatchRust/out_of_order
+=== RUN   TestCheckCoreDependencyVerdictsMatchRust/missing_global
+--- PASS: TestCheckCoreDependencyVerdictsMatchRust (0.00s)
+    --- PASS: TestCheckCoreDependencyVerdictsMatchRust/out_of_order (0.00s)
+    --- PASS: TestCheckCoreDependencyVerdictsMatchRust/missing_global (0.00s)
+=== RUN   TestCoreTermTypingMatchesRustInferCases
+--- PASS: TestCoreTermTypingMatchesRustInferCases (0.00s)
+=== RUN   TestCoreCheckUsesReducibleDefinitionsForExpectedTypes
+--- PASS: TestCoreCheckUsesReducibleDefinitionsForExpectedTypes (0.00s)
+=== RUN   TestCoreTermTypingRejectsMismatchedApplicationArgument
+--- PASS: TestCoreTermTypingRejectsMismatchedApplicationArgument (0.00s)
+=== RUN   TestDefeqCoreNegativeFixturesMatchRust
+--- PASS: TestDefeqCoreNegativeFixturesMatchRust (0.00s)
+=== RUN   TestDefeqReducesBetaZetaAndReducibleDefinitions
+--- PASS: TestDefeqReducesBetaZetaAndReducibleDefinitions (0.00s)
+=== RUN   TestDefeqReducesGeneratedBoolRecursorIota
+--- PASS: TestDefeqReducesGeneratedBoolRecursorIota (0.00s)
+=== RUN   TestDefeqReducesGeneratedNatRecursorIota
+--- PASS: TestDefeqReducesGeneratedNatRecursorIota (0.00s)
+=== RUN   TestDefeqDoesNotUnfoldOpaqueDefinitionsOrTheorems
+--- PASS: TestDefeqDoesNotUnfoldOpaqueDefinitionsOrTheorems (0.00s)
+=== RUN   TestDefeqFuelExhaustionIsDeterministic
+--- PASS: TestDefeqFuelExhaustionIsDeterministic (0.00s)
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref	0.666s
+testing: warning: no tests to run
+PASS
+ok  	github.com/finitefield-org/mpk/go-tools/mpk-checker-ref/cmd/mpk-checker-ref	0.598s [no tests to run]

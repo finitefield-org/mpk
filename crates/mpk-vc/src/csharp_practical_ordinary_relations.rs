@@ -4,6 +4,22 @@ use super::super::scalar_bits::{
     bits_relation, sequence_subtraction, special_relation, ScalarRelations,
 };
 use super::*;
+pub use binding_relations::{
+    generate_csharp_practical_ordinary_default_proofs,
+    generate_csharp_practical_ordinary_foundation_proofs,
+    generate_csharp_practical_ordinary_identity_proofs,
+    import_csharp_practical_ordinary_default_proofs,
+    import_csharp_practical_ordinary_foundation_proofs,
+    import_csharp_practical_ordinary_identity_proofs, OrdinaryActualDefaultProof,
+    OrdinaryDefaultGoalProof, OrdinaryDefaultProofProgram, OrdinaryFoundationProofProgram,
+    OrdinaryIdentityProjectionProof, OrdinaryIdentityProofProgram,
+};
+pub use binding_relations::{
+    generate_csharp_practical_ordinary_scoped_construction_operation_proofs,
+    import_csharp_practical_ordinary_scoped_construction_operation_proofs,
+    OrdinaryScopedConstructionOperationCandidate, OrdinaryScopedConstructionOperationProofProgram,
+    OrdinaryScopedConstructionOwnership,
+};
 #[path = "csharp_practical_ordinary_binding_relations.rs"]
 mod binding_relations;
 pub use binding_relations::{
@@ -25,22 +41,39 @@ pub use binding_relations::{
     OrdinaryBoundaryRuleProgram,
 };
 pub use binding_relations::{
+    generate_csharp_practical_ordinary_binding_default_closed_proofs,
     generate_csharp_practical_ordinary_binding_defaults,
+    import_csharp_practical_ordinary_binding_default_closed_proofs,
     import_csharp_practical_ordinary_binding_defaults, OrdinaryBindingActualDefault,
     OrdinaryBindingDefaultPending, OrdinaryBindingDefaultPendingReason,
-    OrdinaryBindingDefaultProgram,
+    OrdinaryBindingDefaultProgram, OrdinaryBindingSourceUseNode, OrdinaryBindingSourceUseTrace,
 };
 pub use binding_relations::{
+    generate_csharp_practical_ordinary_concrete_operation_proofs,
+    generate_csharp_practical_ordinary_concrete_operation_proofs_with_allocations,
     generate_csharp_practical_ordinary_concrete_operations,
+    generate_csharp_practical_ordinary_concrete_operations_with_allocations,
+    generate_csharp_practical_ordinary_concrete_type_proofs,
+    generate_csharp_practical_ordinary_concrete_type_proofs_with_construction_storage,
     generate_csharp_practical_ordinary_concrete_types,
+    generate_csharp_practical_ordinary_concrete_types_with_construction_storage,
     generate_csharp_practical_ordinary_source_invariants,
+    import_csharp_practical_ordinary_concrete_operation_proofs,
+    import_csharp_practical_ordinary_concrete_operation_proofs_with_allocations,
     import_csharp_practical_ordinary_concrete_operations,
+    import_csharp_practical_ordinary_concrete_operations_with_allocations,
+    import_csharp_practical_ordinary_concrete_type_proofs,
+    import_csharp_practical_ordinary_concrete_type_proofs_with_construction_storage,
     import_csharp_practical_ordinary_concrete_types,
+    import_csharp_practical_ordinary_concrete_types_with_construction_storage,
     import_csharp_practical_ordinary_source_invariants, OrdinaryConcreteFailureComponent,
-    OrdinaryConcreteOperationComponent, OrdinaryConcreteOperationDefinition,
-    OrdinaryConcreteOperationFailure, OrdinaryConcreteOperationPending,
-    OrdinaryConcreteOperationPendingReason, OrdinaryConcreteOperationProgram,
-    OrdinaryConcreteTypeDefinition, OrdinaryConcreteTypeProgram, OrdinarySourceInvariantDefinition,
+    OrdinaryConcreteOperationAgreement, OrdinaryConcreteOperationComponent,
+    OrdinaryConcreteOperationDefinition, OrdinaryConcreteOperationFailure,
+    OrdinaryConcreteOperationPending, OrdinaryConcreteOperationPendingReason,
+    OrdinaryConcreteOperationProgram, OrdinaryConcreteOperationProof,
+    OrdinaryConcreteOperationProofProgram, OrdinaryConcreteTypeDefinition,
+    OrdinaryConcreteTypeProgram, OrdinaryConcreteTypeProof, OrdinaryConcreteTypeProofProgram,
+    OrdinaryConstructionStorageDomainDefinition, OrdinarySourceInvariantDefinition,
     OrdinarySourceInvariantEnumCase, OrdinarySourceInvariantProgram,
 };
 #[path = "csharp_practical_ordinary_observations.rs"]

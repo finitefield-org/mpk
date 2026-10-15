@@ -1,0 +1,177 @@
+{
+  "binaries": {
+    "go": {
+      "path": "/private/tmp/mpk-w09-bool-cases-reports/go-local-4/go-checker",
+      "sha256": "e9ca299f060620ed691ea6eed40d877e3f9bbd53fb2340f1c19230a8a3afc9ce"
+    },
+    "rust": {
+      "path": "/private/tmp/mpk-w09-bool-cases-target/debug/mpk",
+      "previous_binary_sha256": "c9e1deb480b30e1a6050ddaba3e0839a6dd8f6bc5befaed1422fed6179e900e3",
+      "sha256": "723d98e8a1a49d97b72296914d76ff1f5939b00b3c4010e134b297f16bf247aa"
+    }
+  },
+  "full_t01_gate": "deferred_to_final_W10",
+  "full_t06_gate": "deferred_to_W12",
+  "original_application_proof_ids_pending": 987,
+  "process_pid": 52244,
+  "selection_reason": "Run both standalone source-free checkers on the seven distinct changed pattern-scope definition byte sets; eleven exact byte-identical fresh certificates reuse the execution acceptance reports when those complete. Require accepted verdicts, matching certificate/export hashes and zero axioms; exact name-only graph comparison is a separate check. Ordinary helper acceptance does not discharge any of the 987 application proof IDs.",
+  "stage": "type-rust",
+  "stages": [
+    {
+      "backend": "go",
+      "case": "governing_throw",
+      "elapsed_seconds": 13.12112366699148,
+      "exit_code": 0,
+      "input_sha256": "2303660b79c623ed917c5f46c3b21585a2762863b8a3e28a82373353416bbfc5",
+      "report_sha256": "da7e760fb4efde4b305241adb313d66b822d08cef906304b35b6e6b04cb4c6e4",
+      "stage": "governing_throw-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "backend": "rust",
+      "case": "governing_throw",
+      "elapsed_seconds": 1.158561208008905,
+      "exit_code": 0,
+      "input_sha256": "2303660b79c623ed917c5f46c3b21585a2762863b8a3e28a82373353416bbfc5",
+      "report_sha256": "34dadb73377d5b4d0fd742462f3eaf3497b572451edea162d9a4aef182145427",
+      "stage": "governing_throw-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "backend": "go",
+      "case": "guard_order",
+      "elapsed_seconds": 368.9236410829908,
+      "exit_code": 0,
+      "input_sha256": "09d4db7ab9532550819f8f54975dee18bdaf4b9f96b3f74225f84d6be8b5d98b",
+      "report_sha256": "bedeba56f6c17b8298d56cfb65fb9411e0fd04d185d4cf962fbf4f7fd3c894be",
+      "stage": "guard_order-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "backend": "rust",
+      "case": "guard_order",
+      "elapsed_seconds": 7.644035999997868,
+      "exit_code": 0,
+      "input_sha256": "09d4db7ab9532550819f8f54975dee18bdaf4b9f96b3f74225f84d6be8b5d98b",
+      "report_sha256": "3a8e31766c4312510c7b5bfd92b95d81ac0d93ab0b2ca93f1cd9d94bb585cecc",
+      "stage": "guard_order-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "backend": "go",
+      "case": "guard_throw",
+      "elapsed_seconds": 73.08250712500012,
+      "exit_code": 0,
+      "input_sha256": "c13be6ffe39f1e7b0563b4bc95f3b6abb7564f9db0be7b17f76716625e7d5bf6",
+      "report_sha256": "b6e8730d4c93a3bd47963a347bd0bc0404e187f2352e36593f7bc660375f30a8",
+      "stage": "guard_throw-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "backend": "rust",
+      "case": "guard_throw",
+      "elapsed_seconds": 2.8113101670023752,
+      "exit_code": 0,
+      "input_sha256": "c13be6ffe39f1e7b0563b4bc95f3b6abb7564f9db0be7b17f76716625e7d5bf6",
+      "report_sha256": "d584bb7713e04193cb0cc39aa55654e99535321eba0297a403b7d7a75592b14d",
+      "stage": "guard_throw-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "backend": "go",
+      "case": "is_binding",
+      "elapsed_seconds": 3.5470861250068992,
+      "exit_code": 0,
+      "input_sha256": "7651285e8686e9861ba7e69617e8ee2adfab27e7e4f57aaa63b4ee3830589f9c",
+      "report_sha256": "a307c198580c2019d2601c62dd5a056fa77d7288ee096d32dc10cc081b0ba688",
+      "stage": "is_binding-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "backend": "rust",
+      "case": "is_binding",
+      "elapsed_seconds": 0.5518112919962732,
+      "exit_code": 0,
+      "input_sha256": "7651285e8686e9861ba7e69617e8ee2adfab27e7e4f57aaa63b4ee3830589f9c",
+      "report_sha256": "a16fcc9655d9020cd796467913d73e04bf77cf0cf4c81719a277ad918f563a3d",
+      "stage": "is_binding-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "backend": "go",
+      "case": "string_property",
+      "elapsed_seconds": 8.731259917010902,
+      "exit_code": 0,
+      "input_sha256": "2d13ef32fc37511ee855bc5db6e944728b463ad3ff3b7dea2613eaf6948420cb",
+      "report_sha256": "cfbee00f13ea9b1360a6c09b5c1dd312c085b87cae5756e9c9ec104e98f4940d",
+      "stage": "string_property-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "backend": "rust",
+      "case": "string_property",
+      "elapsed_seconds": 1.2960047090018634,
+      "exit_code": 0,
+      "input_sha256": "2d13ef32fc37511ee855bc5db6e944728b463ad3ff3b7dea2613eaf6948420cb",
+      "report_sha256": "d2e0384abf4447a0459e3350fad74cb970e7ffce074182628f8ce3c8b4b523c1",
+      "stage": "string_property-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "backend": "go",
+      "case": "switch",
+      "elapsed_seconds": 5.947692667003139,
+      "exit_code": 0,
+      "input_sha256": "1075c282576c00206fa63c9fefd56318d4986815f5cdd0a3c345b845cb1374f7",
+      "report_sha256": "c4fd5433fe2869e743a003797a308cee208eb5fb0cd291707a4e3ad7b972014e",
+      "stage": "switch-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "backend": "rust",
+      "case": "switch",
+      "elapsed_seconds": 0.7294533749955008,
+      "exit_code": 0,
+      "input_sha256": "1075c282576c00206fa63c9fefd56318d4986815f5cdd0a3c345b845cb1374f7",
+      "report_sha256": "18563128dcde52ab2828a34b9e4423a7df8da4df4cbd8bafab76563abdf901ea",
+      "stage": "switch-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "backend": "go",
+      "case": "type",
+      "elapsed_seconds": 70.46678516699467,
+      "exit_code": 0,
+      "input_sha256": "c0fb6fbf41fc5d79da248630ed1982e0bab812d15b44aff35aba028abffef1b6",
+      "report_sha256": "1eb8ec4bf05fef5e0ba8cf0b5a68003c40c484115d00b7fbda03225e85739f30",
+      "stage": "type-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "backend": "rust",
+      "case": "type",
+      "elapsed_seconds": 4.556340583003475,
+      "exit_code": 0,
+      "input_sha256": "c0fb6fbf41fc5d79da248630ed1982e0bab812d15b44aff35aba028abffef1b6",
+      "report_sha256": "96560c2a2620ca9baa5bbfd1a5a11968cf0d9ce2346607123ded03bd1e702830",
+      "stage": "type-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    }
+  ],
+  "status": "passed_all_7_distinct_scope_definition_certificates_both_checkers_zero_axioms",
+  "supervisor_pid": 48211
+}

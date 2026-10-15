@@ -1,0 +1,89 @@
+{
+  "base_commit": "fd8683e54cebdb898cfc9769f3cf9f7dbde7c6c6",
+  "changed_existing_files": [
+    {
+      "before_raw_sha256": "18509af2637c7c15afa86d07a7989faa7883e280070268cc9fba318244722df6",
+      "path": "crates/mpk-core/src/bool_cases.rs",
+      "raw_sha256": "b920fd682eaa4de8d93dc0a143b8d1241b1240fc7294425c8792dfd811756f01"
+    },
+    {
+      "before_raw_sha256": "8849a62c2a5aad8531ff33c11da7a8e76073dbd792470b559e0b8d6e88f7b119",
+      "path": "crates/mpk-core/src/inductive_gen.rs",
+      "raw_sha256": "4758d3cf280f0d9c107e4af886f0880fd29670e9a23f2ddffa7728f958075cc2"
+    },
+    {
+      "before_raw_sha256": "311acd46519987cb8eaae0140d0baaa09342576c2e8d3cc9ed6725ae46ce9456",
+      "path": "crates/mpk-kernel/src/bool_cases_tests.rs",
+      "raw_sha256": "1ec5b21c3a581fcdd0fd234f7a25c26651958b1f9f96792061fd9936395ca460"
+    },
+    {
+      "before_raw_sha256": "05c34ceeedcf313f890d4c414d524480be66c8f03451a4aaa4429bdff8f60ecd",
+      "path": "crates/mpk-vc/tests/csharp_practical_spec.rs",
+      "raw_sha256": "1babbccd9c8bf63664f23be6b3d71154c4e21bad3566908e155f3fc0dda3cdcc"
+    },
+    {
+      "before_raw_sha256": "d92ae9d459ea30072bf03f1e3d523885a414eb03bf4bbe6234ea39deaafd9536",
+      "path": "go-tools/mpk-checker-ref/bool_cases.go",
+      "raw_sha256": "99112f01a5a83465e7d28e47a8995fcba41dd3f3c99d6cbd423bd3e4bd709432"
+    },
+    {
+      "before_raw_sha256": "37f95c556c7bd5adec0838c9391f41cc0ee88679e8fcc411130fec1b06d0e84a",
+      "path": "go-tools/mpk-checker-ref/bool_cases_test.go",
+      "raw_sha256": "c2f1f22c035fcd8640ee7f697820c7c7a258b09c3ed6add072eef1978a79fa1c"
+    },
+    {
+      "before_raw_sha256": "ec2b6d47c688ec3660177c08a1e552e0446ce679f5cf987fee66b6e7bebca342",
+      "path": "go-tools/mpk-checker-ref/core_check.go",
+      "raw_sha256": "20f51e083e3ee604db977990cad62021b476232a98a2a530babe7c8469d15a77"
+    },
+    {
+      "before_raw_sha256": "7c3b4dcb7663261fefc3c264aa8514b3764cdf7c87ba802cb51ae0d33853a043",
+      "path": "develop/specs/CORE_V0.md",
+      "raw_sha256": "cc3f19b874d82fa8bf7684b6ef71e25e6a54fd9641e7185e8c4484f22cf4f814"
+    },
+    {
+      "before_raw_sha256": "22af51274233f7c5cbc069d0b5092f957afba9f6d0d741a9c27f8f059aa81523",
+      "path": "fixtures/core-bool-cases/README.md",
+      "raw_sha256": "01d4b1417c402a4cf2c1c57e8df4189f76162c60ccd4dc6e1952871343532803"
+    }
+  ],
+  "checker_stages": 68,
+  "existing_go_declaration_driver_except_registration_hook_byte_preserved": true,
+  "existing_go_inference_canonical_signature_functions_byte_preserved": true,
+  "existing_ordinary_producer_and_term_check_reduction_sources_byte_preserved": true,
+  "failed_harnesses_retained": [
+    "pre-cases-universe-probe/regression-baseline/status.json: invalid declaration name producer; error KERNEL_CANONICAL_CERTIFICATE",
+    "pre-cases-universe-probe/regression-baseline-2/status.json: actual type-mismatch producer; error KERNEL_CORE_CHECK",
+    "dual-checkers/status.json: Go rejected report has no hashes; real harness KeyError, checker rejection preserved",
+    "dual-checkers-2/status.json: Go zero-declaration predecessor omits declaration_count; real harness KeyError; all existing completed reports audited and reused exactly"
+  ],
+  "full_t01_gate": "deferred_to_final_W10",
+  "full_t06_gate": "deferred_to_W12",
+  "go_shared_fixture_subcases": 31,
+  "go_top_level_tests": 16,
+  "linux_validation": "pending_exact_public_fix_source",
+  "new_shared_fixture_files": 12,
+  "ordinary_interface_inspection": {
+    "acceptance_claim": false,
+    "distinct_certificate_byte_sets": 1443,
+    "inspected_paths": 1920,
+    "reserved_cases_names": 0
+  },
+  "original_application_proof_ids_pending": 987,
+  "practical_profile": "inactive",
+  "predecessor_certificates": 3,
+  "review": [
+    "Both declaration drivers validate canonical shape before checking prior reachable declaration terms and before cases registration.",
+    "The Rust direct generator uses the same validator and the checked prior-use unit test verifies no declaration registration on failure.",
+    "Both walks cover preceding types, reducible/opaque values and theorem proofs, all Lam/Pi/App/Let edges, only exact family/constructor globals and only nonempty universe argument lists.",
+    "Neither walker scans unused arena entries; ordinary recursor names exit before the prefix walk. Existing Go inference/signature and all Rust/Go reduction behavior remains byte-identical.",
+    "Legacy certificates have no reserved cases name, so the new registration-only branch cannot execute for these exact bytes. Older accepted-report provenance remains explicitly attached to its original binaries/source.",
+    "The earlier no-new-findings core review is historical and is superseded by the actual accepted-before/rejected-after reproduction and this fix."
+  ],
+  "rust_tests": 56,
+  "shared_negative_certificates": 21,
+  "shared_positive_certificates": 10,
+  "status": "passed_reviewed_registration_order_fix_with_selected_tests_and_exact_legacy_correspondence",
+  "w09_status": "In progress",
+  "w10_status": "Blocked"
+}

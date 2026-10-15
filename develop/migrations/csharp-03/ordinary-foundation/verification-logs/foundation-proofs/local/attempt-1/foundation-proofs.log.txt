@@ -1,0 +1,24 @@
+    Finished `test` profile [optimized] target(s) in 0.04s
+     Running tests/csharp_practical_vc.rs (/private/tmp/mpk-w09-scoped-construction-target/debug/deps/csharp_practical_vc-4c8820476077418f)
+
+running 1 test
+test ordinary_carriers::projection_tests::binding_relation_tests::foundation_proof_tests::csharp_03_t06_w09_foundation_proof_assembly_original_source ... binding-vc-boundary_field: integrate exact original type and operation proofs
+binding-vc-bounded_sequence: integrate exact original type and operation proofs
+binding-vc-instant: integrate exact original type and operation proofs
+
+thread '<unnamed>' (376797) panicked at crates/mpk-vc/tests/support/csharp_practical_ordinary_foundation_proof_tests.rs:97:45:
+binding-vc-instant: Linkage
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'ordinary_carriers::projection_tests::binding_relation_tests::foundation_proof_tests::csharp_03_t06_w09_foundation_proof_assembly_original_source' (376796) panicked at crates/mpk-vc/tests/support/csharp_practical_ordinary_foundation_proof_tests.rs:193:26:
+called `Result::unwrap()` on an `Err` value: Any { .. }
+FAILED
+
+failures:
+
+failures:
+    ordinary_carriers::projection_tests::binding_relation_tests::foundation_proof_tests::csharp_03_t06_w09_foundation_proof_assembly_original_source
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 402 filtered out; finished in 1.10s
+
+error: test failed, to rerun pass `-p mpk-vc --test csharp_practical_vc`

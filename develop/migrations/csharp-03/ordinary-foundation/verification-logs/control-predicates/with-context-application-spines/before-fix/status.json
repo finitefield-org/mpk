@@ -1,0 +1,21 @@
+{
+  "status": "terminal",
+  "supervisor_pid": 70715,
+  "source_sha256": "fd24c8c551528ff4db71c4c7199006b946b5be68e9182d0eaa86049c60b36910",
+  "command": [
+    "cargo",
+    "test",
+    "-p",
+    "mpk-vc",
+    "--lib",
+    "context_boolean_normalization_handles_nested_application_spines",
+    "--",
+    "--nocapture"
+  ],
+  "expected_result": "regression fails before context spine flattening",
+  "full_t_gate": "deferred to T06-W12",
+  "process_pid": 70736,
+  "exit_code": 101,
+  "elapsed_seconds": 142.958594249998,
+  "log_sha256": "7c6ef85fd15f7970b09664ff51dd285b582763852e6eab02ead750baa9a225aa"
+}

@@ -263,7 +263,7 @@ fn csharp_03_t06_w07_complete_run_relations_and_hostile_serializers() {
     let mut goldens = vec![];
     for r in
         requests.as_array().unwrap().iter().filter(|r| {
-            r["id"] != "decb5507362a7672c711a5befd63efc1038c2c0a86ee20137a1c4c472e0d1684"
+            r["id"] != "7d781ce1b08e716daf1b4a733544c5a6750b27a35b938ca49d4c5b77c0619f19"
         })
     {
         let response = responses

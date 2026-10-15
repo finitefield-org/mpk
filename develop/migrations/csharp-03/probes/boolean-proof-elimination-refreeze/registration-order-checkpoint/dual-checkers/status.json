@@ -1,0 +1,162 @@
+{
+  "binaries": {
+    "go": {
+      "path": "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+      "sha256": "a3b600849aa18079dd6a855f0d7d206ab17ab05ec7e330809b10a17e363ac944"
+    },
+    "rust": {
+      "path": "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+      "sha256": "3ab2afb4fcf1ab4cfd75dbbc3a01571bd0d22108a092987ab19f947162a8db01"
+    }
+  },
+  "error": "KeyError('hashes')",
+  "full_t01_gate": "deferred_to_final_W10",
+  "original_application_proof_ids_pending": 987,
+  "process_pid": 29099,
+  "selection_reason": "Registration-order fix only: canonical Bool.cases checking/generation and preceding declaration types, definition values and theorem proofs. Run Bool cases plus relevant environment/inference/declaration checking and source-free checker/CSHARP-03-T01-W09 feasibility owners, selected lint/format; legacy/unused/unrelated-family positive controls share exact bytes. No application proof is discharged; whole T01 gate deferred to final W10.",
+  "stage": "extra-constructor-after-cases-go",
+  "stages": [
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers/conjunction-left.mpcert"
+      ],
+      "elapsed_seconds": 0.8270010840060422,
+      "exit_code": 0,
+      "input_sha256": "19ec3ca922fec2f30298066c6a43bb69ccc7a352bfdf88a331d96fd4118ee4fb",
+      "report_sha256": "4444be1d8fcf95aae1d818e9f400311e8059cf9cc5dced20c4b049cacbfe835e",
+      "stage": "conjunction-left-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers/conjunction-left.mpcert"
+      ],
+      "elapsed_seconds": 0.6243915410013869,
+      "exit_code": 0,
+      "input_sha256": "19ec3ca922fec2f30298066c6a43bb69ccc7a352bfdf88a331d96fd4118ee4fb",
+      "report_sha256": "d6f6b6a39fb6d6cdf72699641c84353eca645aaf5ac2da8e9ac34e7f02e95b1f",
+      "stage": "conjunction-left-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers/conjunction-right.mpcert"
+      ],
+      "elapsed_seconds": 0.015773499995702878,
+      "exit_code": 0,
+      "input_sha256": "505a9a2b5f85556f1ef30e7128ef7671d639fe10cfd6d7587dd6d339674a9265",
+      "report_sha256": "ab4777bf2497f68c5aba70b48013e33d2f64c3801cdca0215aa42b26b7687717",
+      "stage": "conjunction-right-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers/conjunction-right.mpcert"
+      ],
+      "elapsed_seconds": 0.024075000008451752,
+      "exit_code": 0,
+      "input_sha256": "505a9a2b5f85556f1ef30e7128ef7671d639fe10cfd6d7587dd6d339674a9265",
+      "report_sha256": "de3fda171986b26db187cf64e305690d724e22993f0f25857e274632ae542964",
+      "stage": "conjunction-right-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers/constructor-false.mpcert"
+      ],
+      "elapsed_seconds": 0.013814374993671663,
+      "exit_code": 0,
+      "input_sha256": "3569931c69a00364dffead931375ca03dcd3ddaa722d7633d1ac4660985a11d4",
+      "report_sha256": "5bba70c1c920cef735318d9565b469f6c513b8632c3e5021f38e02fd74f8e516",
+      "stage": "constructor-false-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers/constructor-false.mpcert"
+      ],
+      "elapsed_seconds": 0.022857999996631406,
+      "exit_code": 0,
+      "input_sha256": "3569931c69a00364dffead931375ca03dcd3ddaa722d7633d1ac4660985a11d4",
+      "report_sha256": "d68c9fd06fc9ae3908386154748bbad1bbe9c1b964316cf0fbdee42d1462c68b",
+      "stage": "constructor-false-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers/constructor-true.mpcert"
+      ],
+      "elapsed_seconds": 0.013601041995570995,
+      "exit_code": 0,
+      "input_sha256": "a5c7d1b1bc773104bb7db40db6b87ec5bd2d9cf0e87eb68ddaf36484a0cbc0a0",
+      "report_sha256": "f04f5d0e0d89f75966936afc003ff05bd6fa53e9ee1787f7adaef3d3c901a018",
+      "stage": "constructor-true-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers/constructor-true.mpcert"
+      ],
+      "elapsed_seconds": 0.020796832992346026,
+      "exit_code": 0,
+      "input_sha256": "a5c7d1b1bc773104bb7db40db6b87ec5bd2d9cf0e87eb68ddaf36484a0cbc0a0",
+      "report_sha256": "d3c5c1e0acb3bfcdb2baca730a3ecf63068587704db49d239dc4f84737eeaf05",
+      "stage": "constructor-true-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "accepted"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-registration-order-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers/extra-constructor-after-cases.mpcert"
+      ],
+      "elapsed_seconds": 0.011093875000369735,
+      "exit_code": 1,
+      "input_sha256": "9ba0b8f459950a399171fe5880d5689c4e7584590993d66977e5b7b94cfd93d6",
+      "report_sha256": "3562e666a084808a1a617fecc7cc63aa3f2a6d9403cb195ff3609aa561024bb7",
+      "stage": "extra-constructor-after-cases-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/dual-checkers/extra-constructor-after-cases.mpcert"
+      ],
+      "elapsed_seconds": 0.013797791005345061,
+      "exit_code": 1,
+      "input_sha256": "9ba0b8f459950a399171fe5880d5689c4e7584590993d66977e5b7b94cfd93d6",
+      "report_sha256": "34583af710174e7bb92253bad57fa991239932bbb6abd14a23a9c1cd1d354362",
+      "stage": "extra-constructor-after-cases-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected"
+    }
+  ],
+  "status": "failed",
+  "supervisor_pid": 29077
+}

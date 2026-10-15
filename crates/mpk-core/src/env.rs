@@ -313,6 +313,18 @@ impl Environment {
             return Err(duplicate_declaration_error(name.as_str()));
         }
 
+        if let DeclarationKind::Constructor { inductive, .. } = kind {
+            if self.has_bool_cases(inductive) {
+                return Err(CoreError::new(
+                    CoreErrorCode::InvalidDeclaration,
+                    declarations_location(),
+                )
+                .with_detail("kind", "closed_bool_cases_family")
+                .with_detail("name", name.as_str())
+                .with_detail("inductive", inductive.as_u32().to_string()));
+            }
+        }
+
         let global = self.names.register_name(name.clone());
         if global.index() != self.declarations.len() {
             return Err(
@@ -352,6 +364,16 @@ impl Environment {
 
     pub fn iter(&self) -> impl Iterator<Item = &Declaration> {
         self.declarations.iter()
+    }
+
+    pub(crate) fn has_bool_cases(&self, family: GlobalId) -> bool {
+        let Some(declaration) = self.lookup(family) else {
+            return false;
+        };
+        let name = format!("{}.cases", declaration.name().as_str());
+        self.lookup_by_name(name).ok().flatten().is_some_and(|cases| {
+            matches!(cases.kind(), DeclarationKind::Recursor { inductive, .. } if inductive == family)
+        })
     }
 
     fn validate_inductive_reference(

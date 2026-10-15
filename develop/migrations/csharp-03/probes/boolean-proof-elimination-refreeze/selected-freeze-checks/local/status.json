@@ -1,0 +1,50 @@
+{
+  "error": "AssertionError('w09-spec')",
+  "full_t01_gate": "deferred to renewed T01-W10",
+  "full_t06_gate": "deferred to T06-W12",
+  "process_pid": 42785,
+  "selection_reason": "Refreeze changes the foundation specification raw hash, private immutable registry revision and source request context identities while retaining all value definitions and native source/contract bodies. Select T01-W08/W09 specification owners, registry/context/projection owners, descriptor/specialization/value consumers, mpk-vc specification Clippy/format and deterministic freeze/foundation generators. Changed request corpora retain source and contract projection bytes; their capture/import replay is still pending and must pass before completion. No intermediate whole gate; T01 whole gate belongs to final W10 and T06 remains deferred to W12.",
+  "stage": "w09-spec",
+  "stages": [
+    {
+      "command": [
+        "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_spec",
+        "csharp_03_t01_w08_",
+        "--",
+        "--nocapture"
+      ],
+      "elapsed_seconds": 12.681,
+      "exit_code": 0,
+      "log_sha256": "861e74feafd2711a24822f1626e9a538b1d44642c6367cf2daf5702edc19a4c7",
+      "stage": "w08-spec",
+      "test_counts": [
+        "5"
+      ]
+    },
+    {
+      "command": [
+        "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_spec",
+        "csharp_03_t01_w09_",
+        "--",
+        "--nocapture"
+      ],
+      "elapsed_seconds": 0.149,
+      "exit_code": 101,
+      "log_sha256": "0bda04a3ee1b01f1af45a6fdf49351a8ea69084a4c6b054c4be40d05a36c4484",
+      "stage": "w09-spec",
+      "test_counts": []
+    }
+  ],
+  "status": "failed",
+  "supervisor_pid": 42721
+}

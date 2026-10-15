@@ -1,0 +1,6 @@
+{
+  "exit_code": 1,
+  "fixed_resolution": "Resolve every existing plan path against the report root; retain exact input hashes.",
+  "reason": "Existing checker-plan generated paths are relative to the refreeze report root. The first preparation resolved them against cwd and could not read guard_order.hex. No certificate input was written and no test was run.",
+  "status": "failed_before_payload_or_repository_mutation"
+}

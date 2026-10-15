@@ -1,0 +1,136 @@
+{
+  "application_proofs_pending": 987,
+  "finished_at": "2026-09-30T04:44:43.027914+00:00",
+  "full_t_gate": "deferred to T06-W12",
+  "native_source_equivalence_proofs_pending": true,
+  "original_pattern_predicates_defined": 102,
+  "original_pattern_predicates_pending": 0,
+  "process_pid": 3066448,
+  "selection_reason": "Verify packed complete pattern environments and their affected consumers.\n\nKernel-check complete source-derived certificates and inspect every original goal,\nfull native/capture/transport premise and exact binding order. Universal scope\nprojection proofs and a wrong fully encoded proof are checked in the scope units.\nThe ownership unit consumes the extracted equality-foundation importer. Historical\nsource routes preserve old APIs and original successor behavior. Clippy checks unit\nand integration targets after the new dev dependency; unrelated runtime tests are\nnot repeated. Application proofs remain pending. The full T06 gate is deferred\nuntil T06-W12.\n",
+  "stage": "format",
+  "stages": [
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "pattern_",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 134.741,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T04:35:08.212233+00:00",
+      "log_sha256": "04cd6d945d493a9008fa06e92791e3c01921834a5970e8a1fc6f66f53b0e5a3d",
+      "stage": "scope-units",
+      "started_at": "2026-09-30T04:32:53.471456+00:00"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "ownership_normalization_preserves_free_selector_under_binder",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 0.305,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T04:35:09.100488+00:00",
+      "log_sha256": "364d5f5060b29874e5c74acecf383e92c3fc4fd647ebdaf451d3d4dea2c821ce",
+      "stage": "ownership-unit",
+      "started_at": "2026-09-30T04:35:08.795666+00:00"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_packed_pattern_proof_types_cover_complete_original_environments",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 455.153,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T04:42:44.810891+00:00",
+      "log_sha256": "36d00632410bb9a8f3cccf3e5c49b6819965ac246d70f4daf11942311a39afbf",
+      "stage": "proof-types",
+      "started_at": "2026-09-30T04:35:09.657497+00:00"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_pattern_routes_original_conditions",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 18.577,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T04:43:04.005590+00:00",
+      "log_sha256": "2f3cae2c64b709746305b28c710d98fc860264c624c4192b6fcbcc2ea1481960",
+      "stage": "routes",
+      "started_at": "2026-09-30T04:42:45.428553+00:00"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--tests",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "elapsed_seconds": 92.303,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T04:44:36.947981+00:00",
+      "log_sha256": "4621df832d4ea6904130e5e7a4895bc625081b5b83c17887f2f52bf5cf180917",
+      "stage": "clippy",
+      "started_at": "2026-09-30T04:43:04.644870+00:00"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "fmt",
+        "-p",
+        "mpk-vc",
+        "--",
+        "--check"
+      ],
+      "elapsed_seconds": 5.102,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T04:44:42.751813+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stage": "format",
+      "started_at": "2026-09-30T04:44:37.649748+00:00"
+    }
+  ],
+  "started_at": "2026-09-30T04:32:52.449924+00:00",
+  "status": "passed_targeted_tests_lint_format",
+  "supervisor_pid": 3064523,
+  "test_binaries": {
+    "/root/mpk-w09-packed-pattern-types-130a3ca4-target/debug/deps/csharp_practical_vc-18f294cebe272f30": "23e1db656ca6dfcdba7a414ea7b171926fb5dfa27393c504134e01acc87295b1",
+    "/root/mpk-w09-packed-pattern-types-130a3ca4-target/debug/deps/mpk_vc-00fd1477de0503ec": "71a71ccf75d759870bcf97ffebead562b1333d9748c1419619f39c61fe8e9c54"
+  },
+  "unique_tests_passed": 8,
+  "verified_fixture_hashes": 384,
+  "verified_source_hashes": 546
+}

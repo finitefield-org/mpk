@@ -1,0 +1,68 @@
+[
+  {
+    "case": "roundtrip",
+    "backend": "go",
+    "command": [
+      "/tmp/mpk-w09-default-closed-proofs/go-checker",
+      "/tmp/mpk-w09-packed-pattern/unit-checks/roundtrip-go.mpcert"
+    ],
+    "started_at": "2026-09-30T04:18:27.813021+00:00",
+    "finished_at": "2026-09-30T04:18:27.836325+00:00",
+    "elapsed_seconds": 0.023,
+    "exit_code": 0,
+    "certificate_sha256": "2a9305136832b28ec277040bebf8a346140487d440ba9a267365015de4d6ed88",
+    "input_file_sha256": "2af1506fb51c90d509608186dbacbd16259874f394ebc0a68f31e1c2db702739",
+    "report_sha256": "4bc8241e9d01161ba6b6be80ef65be48f19a51f897ff91fd49c8c1e909af6751",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "case": "roundtrip",
+    "backend": "rust",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "check",
+      "/tmp/mpk-w09-packed-pattern/unit-checks/roundtrip-rust.mpcert"
+    ],
+    "started_at": "2026-09-30T04:18:27.836730+00:00",
+    "finished_at": "2026-09-30T04:18:27.844494+00:00",
+    "elapsed_seconds": 0.008,
+    "exit_code": 0,
+    "certificate_sha256": "2a9305136832b28ec277040bebf8a346140487d440ba9a267365015de4d6ed88",
+    "input_file_sha256": "2af1506fb51c90d509608186dbacbd16259874f394ebc0a68f31e1c2db702739",
+    "report_sha256": "3e88023834612bd2efd5e425cb435b8d7d337984a3a9b24eacb8b58d2fc28775",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "case": "wrong-roundtrip",
+    "backend": "go",
+    "command": [
+      "/tmp/mpk-w09-default-closed-proofs/go-checker",
+      "/tmp/mpk-w09-packed-pattern/unit-checks/wrong-roundtrip-go.mpcert"
+    ],
+    "started_at": "2026-09-30T04:18:27.845628+00:00",
+    "finished_at": "2026-09-30T04:18:27.856161+00:00",
+    "elapsed_seconds": 0.011,
+    "exit_code": 1,
+    "certificate_sha256": "cd06ab4ddafe266a14c5ff10ecaa4cbc148d80a0baa741a51ff0afa0d9d49ecb",
+    "input_file_sha256": "e935680b5007e69459b2f6418a63f8de65f9dc37fee6430fc9593974b1165420",
+    "report_sha256": "b666752e5e3478e8ff9496887bde88af292a9ac16a95b65a9609b4a581a80af3",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "case": "wrong-roundtrip",
+    "backend": "rust",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "check",
+      "/tmp/mpk-w09-packed-pattern/unit-checks/wrong-roundtrip-rust.mpcert"
+    ],
+    "started_at": "2026-09-30T04:18:27.856569+00:00",
+    "finished_at": "2026-09-30T04:18:27.867652+00:00",
+    "elapsed_seconds": 0.011,
+    "exit_code": 1,
+    "certificate_sha256": "cd06ab4ddafe266a14c5ff10ecaa4cbc148d80a0baa741a51ff0afa0d9d49ecb",
+    "input_file_sha256": "e935680b5007e69459b2f6418a63f8de65f9dc37fee6430fc9593974b1165420",
+    "report_sha256": "41a12821f1e01b7a6ea43c5c5781a8c1f281c4ae31c7270c04b5929ab9702333",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]

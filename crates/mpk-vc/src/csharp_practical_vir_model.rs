@@ -13,6 +13,22 @@ use crate::csharp_practical_registry::{
     FOUNDATION_DESCRIPTOR_ID, FOUNDATION_DESCRIPTOR_SCHEMA,
 };
 use crate::hash::{hash_canonical_json, sha256_raw_file_bytes, HashDomain};
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_default_proofs,
+    generate_csharp_practical_ordinary_foundation_proofs,
+    generate_csharp_practical_ordinary_identity_proofs,
+    import_csharp_practical_ordinary_default_proofs,
+    import_csharp_practical_ordinary_foundation_proofs,
+    import_csharp_practical_ordinary_identity_proofs, OrdinaryActualDefaultProof,
+    OrdinaryDefaultGoalProof, OrdinaryDefaultProofProgram, OrdinaryFoundationProofProgram,
+    OrdinaryIdentityProjectionProof, OrdinaryIdentityProofProgram,
+};
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_scoped_construction_operation_proofs,
+    import_csharp_practical_ordinary_scoped_construction_operation_proofs,
+    OrdinaryScopedConstructionOperationCandidate, OrdinaryScopedConstructionOperationProofProgram,
+    OrdinaryScopedConstructionOwnership,
+};
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Map, Number, Value};
 use std::cmp::Ordering;
@@ -58,9 +74,9 @@ const FOUNDATION_STRING_BYTES_MAX: u64 = 262_144;
 const FOUNDATION_DEFINITIONS_RAW_SHA256: &str =
     "c49766ae45a9c74e066ea91035dfc47ad4fe296154ad89d826697df691cd193c";
 const FOUNDATION_SEMANTICS_RAW_SHA256: &str =
-    "d3623ade42f68ed94b9abf9b4cb2693b0c5898a6a9e9b5b650a7802a8e7926c3";
+    "073461d06954cb1b545663193355978736e43966977c266d066ce98b698696f2";
 const FOUNDATION_DEFINITIONS_SIZE_BYTES: u64 = 18511;
-const FOUNDATION_SEMANTICS_SIZE_BYTES: u64 = 62222;
+const FOUNDATION_SEMANTICS_SIZE_BYTES: u64 = 62668;
 const FOUNDATION_DEFINITIONS_PATH: &str =
     "develop/migrations/csharp-03/foundation/foundation-definitions.json";
 const FOUNDATION_SEMANTICS_PATH: &str = "develop/specs/CSHARP_PRACTICAL_FOUNDATION_V1.md";
@@ -4522,7 +4538,7 @@ fn require_abrupt_shape(
     } else {
         node.loop_id.is_none()
     };
-    if node.normal_successor_ids.is_empty() == !normal_edge
+    if node.normal_successor_ids.is_empty() != normal_edge
         && node.exceptional_successors.len() == exceptional_count
         && node.condition_type_id.is_none()
         && node.abrupt.as_ref().map(AbruptCompletion::tag) == Some(expected)
@@ -4659,13 +4675,13 @@ fn validate_loops(
         match &node.abrupt {
             Some(AbruptCompletion::Break { loop_id, target_id }) => {
                 let loop_region = loops.iter().find(|item| item.id == *loop_id);
-                if !loop_region.is_some_and(|item| item.break_target_node_id == *target_id) {
+                if loop_region.is_none_or(|item| item.break_target_node_id != *target_id) {
                     return Err(vir_failure(phase, PracticalVirErrorCode::LoopShape));
                 }
             }
             Some(AbruptCompletion::Continue { loop_id, target_id }) => {
                 let loop_region = loops.iter().find(|item| item.id == *loop_id);
-                if !loop_region.is_some_and(|item| item.continue_target_node_id == *target_id) {
+                if loop_region.is_none_or(|item| item.continue_target_node_id != *target_id) {
                     return Err(vir_failure(phase, PracticalVirErrorCode::LoopShape));
                 }
             }
@@ -7386,8 +7402,14 @@ pub use data_vc::{
 mod control_vc;
 pub(crate) use control_vc::{generate_control_vcs, ControlVcError};
 pub use control_vc::{
-    ControlBinding, ControlFlowEdge, ControlFunctionVc, ControlPredicate, ControlSequent,
-    ControlSlotTransfer, ControlVcProgram, LoopEdgeVc, LoopVc, PatternStepVc, PatternVc,
+    generate_csharp_practical_control_vcs_with_pattern_observations,
+    generate_csharp_practical_control_vcs_with_pattern_routes,
+    import_csharp_practical_control_vcs_with_pattern_observations,
+    import_csharp_practical_control_vcs_with_pattern_routes, ControlBinding, ControlFlowEdge,
+    ControlFunctionVc, ControlPredicate, ControlSequent, ControlSlotTransfer, ControlVcProgram,
+    LoopEdgeVc, LoopVc, PatternObservationError, PatternOperandObservation,
+    PatternRouteObservation, PatternSlotObservation, PatternStepObservation, PatternStepVc,
+    PatternVc,
 };
 
 #[path = "csharp_practical_exception_vc.rs"]
@@ -7431,22 +7453,39 @@ pub use ordinary_carriers::{
     OrdinaryCarrierProgram, OrdinaryField, OrdinaryShape,
 };
 pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_binding_default_closed_proofs,
     generate_csharp_practical_ordinary_binding_defaults,
+    import_csharp_practical_ordinary_binding_default_closed_proofs,
     import_csharp_practical_ordinary_binding_defaults, OrdinaryBindingActualDefault,
     OrdinaryBindingDefaultPending, OrdinaryBindingDefaultPendingReason,
-    OrdinaryBindingDefaultProgram,
+    OrdinaryBindingDefaultProgram, OrdinaryBindingSourceUseNode, OrdinaryBindingSourceUseTrace,
 };
 pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_concrete_operation_proofs,
+    generate_csharp_practical_ordinary_concrete_operation_proofs_with_allocations,
     generate_csharp_practical_ordinary_concrete_operations,
+    generate_csharp_practical_ordinary_concrete_operations_with_allocations,
+    generate_csharp_practical_ordinary_concrete_type_proofs,
+    generate_csharp_practical_ordinary_concrete_type_proofs_with_construction_storage,
     generate_csharp_practical_ordinary_concrete_types,
+    generate_csharp_practical_ordinary_concrete_types_with_construction_storage,
     generate_csharp_practical_ordinary_source_invariants,
+    import_csharp_practical_ordinary_concrete_operation_proofs,
+    import_csharp_practical_ordinary_concrete_operation_proofs_with_allocations,
     import_csharp_practical_ordinary_concrete_operations,
+    import_csharp_practical_ordinary_concrete_operations_with_allocations,
+    import_csharp_practical_ordinary_concrete_type_proofs,
+    import_csharp_practical_ordinary_concrete_type_proofs_with_construction_storage,
     import_csharp_practical_ordinary_concrete_types,
+    import_csharp_practical_ordinary_concrete_types_with_construction_storage,
     import_csharp_practical_ordinary_source_invariants, OrdinaryConcreteFailureComponent,
-    OrdinaryConcreteOperationComponent, OrdinaryConcreteOperationDefinition,
-    OrdinaryConcreteOperationFailure, OrdinaryConcreteOperationPending,
-    OrdinaryConcreteOperationPendingReason, OrdinaryConcreteOperationProgram,
-    OrdinaryConcreteTypeDefinition, OrdinaryConcreteTypeProgram, OrdinarySourceInvariantDefinition,
+    OrdinaryConcreteOperationAgreement, OrdinaryConcreteOperationComponent,
+    OrdinaryConcreteOperationDefinition, OrdinaryConcreteOperationFailure,
+    OrdinaryConcreteOperationPending, OrdinaryConcreteOperationPendingReason,
+    OrdinaryConcreteOperationProgram, OrdinaryConcreteOperationProof,
+    OrdinaryConcreteOperationProofProgram, OrdinaryConcreteTypeDefinition,
+    OrdinaryConcreteTypeProgram, OrdinaryConcreteTypeProof, OrdinaryConcreteTypeProofProgram,
+    OrdinaryConstructionStorageDomainDefinition, OrdinarySourceInvariantDefinition,
     OrdinarySourceInvariantEnumCase, OrdinarySourceInvariantProgram,
 };
 pub use ordinary_carriers::{
@@ -7819,4 +7858,35 @@ pub use ordinary_carriers::{
     OrdinaryControlNativeLiteral, OrdinaryControlNativeOperation, OrdinaryControlNodeEntry,
     OrdinaryControlSourceExecution, OrdinaryControlSourceFrame, OrdinaryControlSourceStep,
     OrdinaryControlStepComponent,
+};
+
+pub use ordinary_carriers::{
+    csharp_practical_ordinary_pattern_refinement_candidate_theorems,
+    generate_csharp_practical_ordinary_control_predicates,
+    generate_csharp_practical_ordinary_control_predicates_with_execution,
+    generate_csharp_practical_ordinary_control_predicates_with_packed_pattern_proof_types,
+    generate_csharp_practical_ordinary_control_predicates_with_pattern_captures,
+    generate_csharp_practical_ordinary_control_predicates_with_pattern_observations,
+    generate_csharp_practical_ordinary_control_predicates_with_pattern_proof_types,
+    generate_csharp_practical_ordinary_control_predicates_with_pattern_routes,
+    generate_csharp_practical_ordinary_control_predicates_with_pattern_scopes,
+    generate_csharp_practical_ordinary_pattern_refinement_candidate,
+    import_csharp_practical_ordinary_control_predicates,
+    import_csharp_practical_ordinary_control_predicates_with_execution,
+    import_csharp_practical_ordinary_control_predicates_with_packed_pattern_proof_types,
+    import_csharp_practical_ordinary_control_predicates_with_pattern_captures,
+    import_csharp_practical_ordinary_control_predicates_with_pattern_observations,
+    import_csharp_practical_ordinary_control_predicates_with_pattern_proof_types,
+    import_csharp_practical_ordinary_control_predicates_with_pattern_routes,
+    import_csharp_practical_ordinary_control_predicates_with_pattern_scopes,
+    link_csharp_practical_ordinary_pattern_refinement_candidate, OrdinaryControlGuardDependency,
+    OrdinaryControlMeasureDefinition, OrdinaryControlPatternCapture,
+    OrdinaryControlPatternCaptureAlternative, OrdinaryControlPatternCaptureDependency,
+    OrdinaryControlPatternEnvironment, OrdinaryControlPatternEnvironmentField,
+    OrdinaryControlPatternExecutionScope, OrdinaryControlPatternObservation,
+    OrdinaryControlPatternPremiseProof, OrdinaryControlPatternProofType,
+    OrdinaryControlPatternRefinementCandidate, OrdinaryControlPatternRefinementCandidateTheorem,
+    OrdinaryControlPatternRouteObservation, OrdinaryControlPatternScope,
+    OrdinaryControlPatternSourceDefinition, OrdinaryControlPredicateDefinition,
+    OrdinaryControlPredicateProgram, OrdinaryControlSequentDefinition,
 };

@@ -1,0 +1,196 @@
+{
+  "status": "passed",
+  "supervisor_pid": 72847,
+  "stages": [
+    {
+      "case": "true",
+      "backend": "rust",
+      "reused_from": "/private/tmp/mpk-w09-context-application-reports/checks",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/private/tmp/mpk-w09-context-application-reports/local/certificates/true.mpcert"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.002,
+      "input_file_sha256": "f6ac14e1d1d2f6abd68518bf83d4a97be94e5731366ef1a6c0cafbbd93faa09e",
+      "report_sha256": "6e9edd819b73a13fbd3bead8ab7648b243e2baa7982763349319e9ab4af7d8a5",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "case": "true",
+      "backend": "go",
+      "reused_from": "/private/tmp/mpk-w09-context-application-reports/checks",
+      "command": [
+        "/private/tmp/mpk-w09-scoped-construction/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-context-application-reports/local/certificates/true.mpcert"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.0,
+      "input_file_sha256": "f6ac14e1d1d2f6abd68518bf83d4a97be94e5731366ef1a6c0cafbbd93faa09e",
+      "report_sha256": "414442e5787536c5c74624955cc031192153e3f2f353ebd9b29015fdadfb4334",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "case": "false",
+      "backend": "rust",
+      "reused_from": "/private/tmp/mpk-w09-context-application-reports/checks",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/private/tmp/mpk-w09-context-application-reports/local/certificates/false.mpcert"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.0,
+      "input_file_sha256": "e00ec6b2cea44fa9e59d99da16e8e454db578e7b69eed64c842ea6e0ae86d3f4",
+      "report_sha256": "b24612ac3ca4d6863557929eb08ad068e3d721b33b64edc34ea3ffa92fd7705e",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "case": "false",
+      "backend": "go",
+      "reused_from": "/private/tmp/mpk-w09-context-application-reports/checks",
+      "command": [
+        "/private/tmp/mpk-w09-scoped-construction/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-context-application-reports/local/certificates/false.mpcert"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.0,
+      "input_file_sha256": "e00ec6b2cea44fa9e59d99da16e8e454db578e7b69eed64c842ea6e0ae86d3f4",
+      "report_sha256": "ca7ed4c5bfd5d86e8f8c43c8081fa623a6940efd8e3eaa8f5bca987d136e6455",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "case": "wrong",
+      "backend": "rust",
+      "reused_from": "/private/tmp/mpk-w09-context-application-reports/checks",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/private/tmp/mpk-w09-context-application-reports/local/certificates/wrong.mpcert"
+      ],
+      "exit_code": 1,
+      "elapsed_seconds": 0.0,
+      "input_file_sha256": "50b0439616fc6b1b3410f343f0ce0274a1f5836ab7055738082265a44220d752",
+      "report_sha256": "b2bceed35746a67252d2a1ad81cecdc82d3540b6d26f13b504b4730b2cd4afe3",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "case": "wrong",
+      "backend": "go",
+      "reused_from": null,
+      "command": [
+        "/private/tmp/mpk-w09-scoped-construction/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-context-application-reports/local/certificates/wrong.mpcert"
+      ],
+      "exit_code": 1,
+      "elapsed_seconds": 0.01,
+      "input_file_sha256": "50b0439616fc6b1b3410f343f0ce0274a1f5836ab7055738082265a44220d752",
+      "report_sha256": "913580c6ee47e87290e8a182f56e119af24493826b043ac2e969999602655551",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "case": "nested-true",
+      "backend": "rust",
+      "reused_from": null,
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/private/tmp/mpk-w09-context-application-reports/local/certificates/nested-true.mpcert"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.014,
+      "input_file_sha256": "126eef6e902ec6d813ca04440d331123a787615cba5c1574aa18ecd871620116",
+      "report_sha256": "ecfa4e597c7ba167b59fa5b3d24fb1808c007c388c9a456ba7943b9ac7296a15",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "case": "nested-true",
+      "backend": "go",
+      "reused_from": null,
+      "command": [
+        "/private/tmp/mpk-w09-scoped-construction/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-context-application-reports/local/certificates/nested-true.mpcert"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.011,
+      "input_file_sha256": "126eef6e902ec6d813ca04440d331123a787615cba5c1574aa18ecd871620116",
+      "report_sha256": "9f26a9e894955a78e94a56cb62c8167a05a53b520ff53797e2c0752f5e309d7b",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "case": "nested-false",
+      "backend": "rust",
+      "reused_from": null,
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/private/tmp/mpk-w09-context-application-reports/local/certificates/nested-false.mpcert"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.008,
+      "input_file_sha256": "567efcbe0e223f39f36f4da4ebe01e3ebab9a6593707803dec1e0482f2654013",
+      "report_sha256": "049969d3438cb0d43b8c1a2cdc3cb451ebfb6dfce024e19462b86b741f7d400d",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "case": "nested-false",
+      "backend": "go",
+      "reused_from": null,
+      "command": [
+        "/private/tmp/mpk-w09-scoped-construction/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-context-application-reports/local/certificates/nested-false.mpcert"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.011,
+      "input_file_sha256": "567efcbe0e223f39f36f4da4ebe01e3ebab9a6593707803dec1e0482f2654013",
+      "report_sha256": "b619ac05a1d9734d6cd78866d30c88570add1ee5da5fddb6094394f0e8521c79",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "case": "nested-wrong",
+      "backend": "rust",
+      "reused_from": null,
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/private/tmp/mpk-w09-context-application-reports/local/certificates/nested-wrong.mpcert"
+      ],
+      "exit_code": 1,
+      "elapsed_seconds": 0.007,
+      "input_file_sha256": "c37a4b03d4181a57bee2170294e473a038430f5c601d752f5797ca3908ef5f3c",
+      "report_sha256": "ce6fc9ef84dde1d3e5bfb659efc387d0e8673e08c08aa18eae6dcea85576ab37",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "case": "nested-wrong",
+      "backend": "go",
+      "reused_from": null,
+      "command": [
+        "/private/tmp/mpk-w09-scoped-construction/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-context-application-reports/local/certificates/nested-wrong.mpcert"
+      ],
+      "exit_code": 1,
+      "elapsed_seconds": 0.008,
+      "input_file_sha256": "c37a4b03d4181a57bee2170294e473a038430f5c601d752f5797ca3908ef5f3c",
+      "report_sha256": "913580c6ee47e87290e8a182f56e119af24493826b043ac2e969999602655551",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "binaries": {
+    "rust": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+    "go": "b953943f226faf8e516c6677277c75b73607aa600f27cd0f04b761f097e719a7"
+  },
+  "application_scope_pending": true,
+  "selection_reason": "Check same bytes for true/false original context cases and nested application regressions with both unchanged backends. Wrong actual equality proofs must fail at core checking. Shared DAG bytes are compared to prior evidence, not rechecked solely for this syntax fix.",
+  "full_t_gate": "deferred to T06-W12",
+  "stage": "nested-wrong-go",
+  "process_pid": 72857,
+  "stage_count": 12
+}

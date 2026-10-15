@@ -1,0 +1,44 @@
+{
+  "selection_reason": "Check universal stored-field transports, reject a typed but semantically incorrect write, observe preservation of distinct field addresses, reconstruct all 18 original source contexts including all five large scopes, preserve all prior declarations and original goals, inspect each premise/goal address and kernel-check every complete packed certificate. Full T06 gate remains deferred to W12.",
+  "stage": "original-packed",
+  "stages": [
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "packed_pattern_environment_roundtrips_and_preserves_other_fields",
+        "--",
+        "--nocapture"
+      ],
+      "elapsed_seconds": 55.521,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T04:06:31.477689+00:00",
+      "log_sha256": "1255005eb338bedbedf19329db6810de94ebe5d272d4905163530069043a7c2c",
+      "stage": "environment-unit",
+      "started_at": "2026-09-30T04:05:35.955953+00:00"
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_packed_pattern_proof_types_cover_complete_original_environments",
+        "--",
+        "--nocapture"
+      ],
+      "elapsed_seconds": 658.643,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T04:17:30.122552+00:00",
+      "log_sha256": "0c8d9814e8ac932a14aed26278e564b48bcf4793de6678ed6e4d0417936b230f",
+      "stage": "original-packed",
+      "started_at": "2026-09-30T04:06:31.477903+00:00"
+    }
+  ],
+  "status": "passed"
+}

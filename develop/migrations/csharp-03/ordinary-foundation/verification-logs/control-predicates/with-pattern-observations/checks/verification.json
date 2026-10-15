@@ -1,0 +1,929 @@
+{
+  "binaries": {
+    "go": {
+      "path": "/tmp/mpk-w09-default-closed-proofs/go-checker",
+      "sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2"
+    },
+    "rust": {
+      "path": "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91"
+    }
+  },
+  "case_count": 18,
+  "distinct_certificate_count": 18,
+  "fixtures": [
+    {
+      "bytes_sha256": "b470c3d2bcd0cab686dd6b81090ad22a829d6cf749de23738cbb2f4e188e0bcc",
+      "certificate_sha256": "924f229956a975aca91c507bc16bc2813e73b86399f48f1871762f0ca9e46012",
+      "id": "count_fill",
+      "metadata_sha256": "7adc1f868d6b74d97c2a394fa555dc2413d7e286a7778173c9338365f81b972f"
+    },
+    {
+      "bytes_sha256": "834593a54a8390fbc9845b5f84dbe64bdb1d8728460a17b095d546a906ab3c66",
+      "certificate_sha256": "f7dff51f3ce72bb34b838c849d08d3a17a2c5c556912a6fa3eb7070403d33aba",
+      "id": "while",
+      "metadata_sha256": "ed0611576f130fff365a620ba5e1d0e484c1dcdd70099db4b23e58d44680401e"
+    },
+    {
+      "bytes_sha256": "3f429903273f4c87316650369b4b6556ba959edf7a5c5b1092dcc7fdd369ce28",
+      "certificate_sha256": "2016657ce2724599b325a8ebdc0891fde7e7c3737f8e7a8eb2a2130c0a628761",
+      "id": "for",
+      "metadata_sha256": "3ddb22c7a8c422511a132e386de52bebd9d693ee33c5152acc04825096093bc2"
+    },
+    {
+      "bytes_sha256": "71f844878cef0b441fbba2a53651f73ca7e325ebff0da0a0b83373feb72ba95e",
+      "certificate_sha256": "a7b3c7d0a604c4a261fc4edcdc747903f82d0c4bc35851d95f64a988a120282f",
+      "id": "short_circuit",
+      "metadata_sha256": "3cd6f5e5ba7185e96726f62c013fe1551a11aabc5ea26a91d18b8f7632ef784f"
+    },
+    {
+      "bytes_sha256": "480b67091c7fdc95df7d2561a622b40a7e6a1db7322bf9431995e5782f157696",
+      "certificate_sha256": "c0e3d0f3ba528bfe53d9697ece0ed9ed5ceb68d265619ba7fba659006229d31d",
+      "id": "switch",
+      "metadata_sha256": "24253a9d63a13ce8e747544fb974e85f9abeac30c60acbed6d73fd748bc578d7"
+    },
+    {
+      "bytes_sha256": "92e9ee7fbd9f68aa37a74233792c9b1761a0c8fca017e2dcf0b3a4a78319576d",
+      "certificate_sha256": "ae7a7eff76a5d726be182ad322d925a14e80644a5f1711394b34883deaca6ec9",
+      "id": "is_binding",
+      "metadata_sha256": "290ada22c788c57ece040665b060692930bf18bb6a5ae1bcca263ea58b9c2ce8"
+    },
+    {
+      "bytes_sha256": "a5b9f368385ee0d780f4ae09e21afa02e8739f9bc7a1115bb5584acad5e5f647",
+      "certificate_sha256": "d9141029486f4279a3f233eea580c70be481b53cc605d392b37323cb1d85d6c7",
+      "id": "guard_order",
+      "metadata_sha256": "0b29583a3dc47c07e67e8705d77ef429b93236396bb2109a0fb48676aa72a11c"
+    },
+    {
+      "bytes_sha256": "357d70d9d57b27171df97135b5463b8ef9c22733aaf886c8c1c0354e8cff7feb",
+      "certificate_sha256": "4e5163812e43841c4122c8d1fb6280df8c9279a985c0b7a1bfac7dc8d444c6c8",
+      "id": "guard_throw",
+      "metadata_sha256": "1ba1cab3a7e4766522442a3d92eb06852a7d1eae65c2c50e38fbe7dfe6cebff4"
+    },
+    {
+      "bytes_sha256": "c195f1c54cfe97f3d16dbad3700b440ee9233683f8d847eabd0a2859efed62c6",
+      "certificate_sha256": "492a5450f6b55bb5b2aa9581e8b0b407545c0e4da9ed6854fd2bc74d2d5aaa19",
+      "id": "total_variable",
+      "metadata_sha256": "9b349a0b74ba27925a8fd4ea7b7bff55d71f8a71b2cd65f76e767cc6a3307a26"
+    },
+    {
+      "bytes_sha256": "fbe9a9a35052808f3f0ae8b7515c9bd989b1cd334368677a822a2918e1e697fa",
+      "certificate_sha256": "314957983f3bfe9c9c6c36dcf3ff449a3fe1de951d1367a6a6190e459fa57fbe",
+      "id": "index_update",
+      "metadata_sha256": "04e1acf268e40e7f32eb995f6f7da3c5dabe605e56aebb37e8bd884d06d7d7a0"
+    },
+    {
+      "bytes_sha256": "46b94360bcad0d63c85f6f9abd288d59737081d3c007e3bd616b2a2f6e719a97",
+      "certificate_sha256": "688c5d5e9ea9a59b130d6fbf441165f3e2a380d0cdeffe85567b87ec17f8d4a8",
+      "id": "foreach_string",
+      "metadata_sha256": "d5178c1cd15edee54b527246e82e653ea6700cbb05a3c13d136264545b238ad6"
+    },
+    {
+      "bytes_sha256": "5dff33094a37ac5475d6c5f751e9b0e54c9beaa62b2537affc0a841be098745e",
+      "certificate_sha256": "1f077145b189c36e923b3aa71b626158ccf4370d3db85b1948563070a56f5b1c",
+      "id": "foreach_string_var",
+      "metadata_sha256": "e1b678428823a3597048af97339da6712f9236828da660a68240fd38aa94d901"
+    },
+    {
+      "bytes_sha256": "2cddd24a4addf96d3a419d0303a553e634a91889fea48d760a3e84163bb6c9c0",
+      "certificate_sha256": "6333060670f3b7106b0649473ad52414f6df0b1dc2330ac3c6a193135b7e800d",
+      "id": "foreach_array",
+      "metadata_sha256": "2ebd2b93b2977b166647cfd164566ba724ba66cd0867c463e780e1c5168f97b1"
+    },
+    {
+      "bytes_sha256": "23b551983283efb312ed309957687adfdbe3d53264905577930aee9495ff35e1",
+      "certificate_sha256": "bfe311d797886f61635c1ab88c4eee20298f4bc87c7704ef1f615807fe3dca78",
+      "id": "foreach_array_var",
+      "metadata_sha256": "977f6a721275c57cb55412baf9673d03646a06296e8bdfa704af5dd42f6a6940"
+    },
+    {
+      "bytes_sha256": "5c6e5eefb7f3fa8cefed667a2e31f6dec1c1f3e810be277e8e6a3b4874e3e034",
+      "certificate_sha256": "87171c4eaf88b9ebc3fb3dd1b56540ae96867353a9a4f35ccd9591502c56bc4a",
+      "id": "lookup",
+      "metadata_sha256": "13a0c2ad217a305fb15c14199528993c39d7477f32c5a20e46a4cd13ece9443d"
+    },
+    {
+      "bytes_sha256": "65799e88969892839662013df1191874acf8edbbbaf4007ecf9a60ec240d9776",
+      "certificate_sha256": "c894833e5abd496f8c3eb18dad2514b81708114916169441a0eb3d19d89cb1d3",
+      "id": "governing_throw",
+      "metadata_sha256": "cbfbe1117d6af8be1c99c95f1d4be146df7386211c90963be2348c257595b887"
+    },
+    {
+      "bytes_sha256": "ee6bd09284cc956a60bed678d6ac529569cecf4a501e77f3ed7f92802a09586e",
+      "certificate_sha256": "9a04a8d4174ec5f051bbbe1c6cf0f14f679da30f7dfb0491395a54124cd21fd9",
+      "id": "type",
+      "metadata_sha256": "948741b50f729d5a2bda9ab0cb437b8efe39e1eb73321648ffef25196e830708"
+    },
+    {
+      "bytes_sha256": "691ed87fe10738fa33f5b908c875f9d9c9cc4ea762b4b3f38d2ad4b0a671ccb2",
+      "certificate_sha256": "1fe363acbe1533a1eb4bc4db39cb1360ad74abd55b06f7b7c5b76e8d54418ca9",
+      "id": "string_property",
+      "metadata_sha256": "406a6174a1e524849cd014932416fe577e1fa115a94b064e82f888125f395438"
+    }
+  ],
+  "newly_executed_stages": 28,
+  "proof_scope": "predicate definitions only; application proofs pending",
+  "retained_stage_count": 44,
+  "retained_stages": {
+    "count_fill-hash-go": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "count_fill-hash-rust": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "count_fill-positive-go": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "count_fill-positive-rust": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "for-hash-go": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "for-hash-rust": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "for-positive-go": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "for-positive-rust": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "foreach_array-hash-go": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "foreach_array-hash-rust": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "foreach_array-positive-go": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "foreach_array-positive-rust": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "foreach_array_var-hash-go": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "foreach_array_var-hash-rust": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "foreach_array_var-positive-go": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "foreach_array_var-positive-rust": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "foreach_string-hash-go": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "foreach_string-hash-rust": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "foreach_string-positive-go": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "foreach_string-positive-rust": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "foreach_string_var-hash-go": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "foreach_string_var-hash-rust": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "foreach_string_var-positive-go": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "foreach_string_var-positive-rust": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "index_update-hash-go": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "index_update-hash-rust": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "index_update-positive-go": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "index_update-positive-rust": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "lookup-hash-go": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "lookup-hash-rust": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "lookup-positive-go": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "lookup-positive-rust": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "short_circuit-hash-go": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "short_circuit-hash-rust": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "short_circuit-positive-go": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "short_circuit-positive-rust": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "total_variable-hash-go": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "total_variable-hash-rust": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "total_variable-positive-go": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "total_variable-positive-rust": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "while-hash-go": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "while-hash-rust": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "while-positive-go": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    },
+    "while-positive-rust": {
+      "reason": "Identical certificate and checker bytes; observed predecessor exit retained",
+      "receipt_sha256": "6bbbddba69d15891348c1813cc25da12c47cd56942eb32d3315ba653483b2976",
+      "source_reports": "/Users/kazuyoshitoshiya/.codex/worktrees/w09-default-use/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/checks"
+    }
+  },
+  "stage_count": 72,
+  "stages": {
+    "count_fill-hash-go": {
+      "certificate_sha256": "3dd1d147d7b304f88607b857a0e5f2048190bceaa69591a30f9073d13c708385",
+      "elapsed_seconds": 1626.248,
+      "exit_code": 1,
+      "report_sha256": "789b683eac5c5de3f20c305698b221460109ce9e69991d583be1a4a2eeb4a872",
+      "started_at": "2026-09-29T19:20:52.675158+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "count_fill-hash-rust": {
+      "certificate_sha256": "3dd1d147d7b304f88607b857a0e5f2048190bceaa69591a30f9073d13c708385",
+      "elapsed_seconds": 2.66,
+      "exit_code": 1,
+      "report_sha256": "401ddf5046f22ed8861a7b71cb50c2ed502a7954375567f6b8ae72d3c4c0d1e5",
+      "started_at": "2026-09-29T19:47:58.931927+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "count_fill-positive-go": {
+      "certificate_sha256": "924f229956a975aca91c507bc16bc2813e73b86399f48f1871762f0ca9e46012",
+      "elapsed_seconds": 1628.924,
+      "exit_code": 0,
+      "report_sha256": "319e6bad68f2197827da92558c5f93b3495bfb42f12ea7615fec8aeffb40efa0",
+      "started_at": "2026-09-29T19:20:50.307758+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "count_fill-positive-rust": {
+      "certificate_sha256": "924f229956a975aca91c507bc16bc2813e73b86399f48f1871762f0ca9e46012",
+      "elapsed_seconds": 2.366,
+      "exit_code": 0,
+      "report_sha256": "f368b581f48b5b2c0f7fc20509e32d11dd0268494b0eb96605e6cc13ee6599b0",
+      "started_at": "2026-09-29T19:20:50.307881+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "for-hash-go": {
+      "certificate_sha256": "4a2e27de455cf2d438000145853a128043aa41d091982a2ee09bc6547a3eed0e",
+      "elapsed_seconds": 7.424,
+      "exit_code": 1,
+      "report_sha256": "043fd901710183ef3cf30833c8af21aa0cf9111409eb84b643dba221770ac1b2",
+      "started_at": "2026-09-29T19:48:04.243649+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "for-hash-rust": {
+      "certificate_sha256": "4a2e27de455cf2d438000145853a128043aa41d091982a2ee09bc6547a3eed0e",
+      "elapsed_seconds": 0.24,
+      "exit_code": 1,
+      "report_sha256": "0ae3fbaec1bb5555fa74a8a0136702a5c4f25aee04bb7f701a4e70695139f95c",
+      "started_at": "2026-09-29T19:48:09.602218+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "for-positive-go": {
+      "certificate_sha256": "2016657ce2724599b325a8ebdc0891fde7e7c3737f8e7a8eb2a2130c0a628761",
+      "elapsed_seconds": 7.525,
+      "exit_code": 0,
+      "report_sha256": "6caec10cf0b0ef13b5ae67eceb5511d871254d10aed8da31d79a28f1372600b0",
+      "started_at": "2026-09-29T19:48:02.076827+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "for-positive-rust": {
+      "certificate_sha256": "2016657ce2724599b325a8ebdc0891fde7e7c3737f8e7a8eb2a2130c0a628761",
+      "elapsed_seconds": 0.243,
+      "exit_code": 0,
+      "report_sha256": "3e9c92546cb66ff8ec913b831b98a2020269e16f41bc6db95a75c12b76b5a8e3",
+      "started_at": "2026-09-29T19:48:03.999748+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "foreach_array-hash-go": {
+      "certificate_sha256": "cac6b90a9b2b728fa3556d4f6c646c781304c77873fd8d59db30c8ce0ceaa85a",
+      "elapsed_seconds": 29.577,
+      "exit_code": 1,
+      "report_sha256": "f463e62c1fa3a4f087294707ff1ef7c0402a3288d4f82b88b31faba5df0fc545",
+      "started_at": "2026-09-29T19:59:42.390375+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "foreach_array-hash-rust": {
+      "certificate_sha256": "cac6b90a9b2b728fa3556d4f6c646c781304c77873fd8d59db30c8ce0ceaa85a",
+      "elapsed_seconds": 0.474,
+      "exit_code": 1,
+      "report_sha256": "b778aa6ec0e9ece1b977e23b532d49bae895da8934225c3b09d3b9e9a977e44f",
+      "started_at": "2026-09-29T20:00:10.520392+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "foreach_array-positive-go": {
+      "certificate_sha256": "6333060670f3b7106b0649473ad52414f6df0b1dc2330ac3c6a193135b7e800d",
+      "elapsed_seconds": 28.71,
+      "exit_code": 0,
+      "report_sha256": "e0a149f8450c3f2db9ede9a38715cf679c4990a762f57ab74d707b00a02c5995",
+      "started_at": "2026-09-29T19:59:41.807212+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "foreach_array-positive-rust": {
+      "certificate_sha256": "6333060670f3b7106b0649473ad52414f6df0b1dc2330ac3c6a193135b7e800d",
+      "elapsed_seconds": 0.581,
+      "exit_code": 0,
+      "report_sha256": "f4ed8ae25a573bd0b2598d6928a31078a120c008ac82c12bb23c7a336ec18e7a",
+      "started_at": "2026-09-29T19:59:41.807287+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "foreach_array_var-hash-go": {
+      "certificate_sha256": "d742bfcb7aa3b581e02fc53e56ca44d43614fb592f39670f5003605737b7d6fc",
+      "elapsed_seconds": 28.616,
+      "exit_code": 1,
+      "report_sha256": "318d6f80dba0cebdd184bba659ded1d047d646ad22438fe0f34d365935fb8067",
+      "started_at": "2026-09-29T20:00:12.405467+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "foreach_array_var-hash-rust": {
+      "certificate_sha256": "d742bfcb7aa3b581e02fc53e56ca44d43614fb592f39670f5003605737b7d6fc",
+      "elapsed_seconds": 0.588,
+      "exit_code": 1,
+      "report_sha256": "52bf53c68d1178e27a9661609991e3290c06123725723c811fdd23de90c9db41",
+      "started_at": "2026-09-29T20:00:39.379909+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "foreach_array_var-positive-go": {
+      "certificate_sha256": "bfe311d797886f61635c1ab88c4eee20298f4bc87c7704ef1f615807fe3dca78",
+      "elapsed_seconds": 28.381,
+      "exit_code": 0,
+      "report_sha256": "69bd62e7b5f613d6e71cb5cf9427c70ddaa883afbfd4e1cecdf0865950695b99",
+      "started_at": "2026-09-29T20:00:10.997339+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "foreach_array_var-positive-rust": {
+      "certificate_sha256": "bfe311d797886f61635c1ab88c4eee20298f4bc87c7704ef1f615807fe3dca78",
+      "elapsed_seconds": 0.435,
+      "exit_code": 0,
+      "report_sha256": "f4e020478fbf3128a474a6e28161cb4c674f026eb58e02cee4aa6fca615b2580",
+      "started_at": "2026-09-29T20:00:11.968679+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "foreach_string-hash-go": {
+      "certificate_sha256": "36eae152a2b7a40228ac76042faaabdedd376b5bdc3a6c4a11e56ee07f298b05",
+      "elapsed_seconds": 28.264,
+      "exit_code": 1,
+      "report_sha256": "bab4153936d0e4ce2d598ac41abad110f2cee3854552986084052d005b793170",
+      "started_at": "2026-09-29T19:58:44.742872+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "foreach_string-hash-rust": {
+      "certificate_sha256": "36eae152a2b7a40228ac76042faaabdedd376b5bdc3a6c4a11e56ee07f298b05",
+      "elapsed_seconds": 0.549,
+      "exit_code": 1,
+      "report_sha256": "e1ea256194c51eef1c3f10613fe784a2f91fb8772431b5f0b872849397a8199e",
+      "started_at": "2026-09-29T19:59:12.448437+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "foreach_string-positive-go": {
+      "certificate_sha256": "688c5d5e9ea9a59b130d6fbf441165f3e2a380d0cdeffe85567b87ec17f8d4a8",
+      "elapsed_seconds": 28.611,
+      "exit_code": 0,
+      "report_sha256": "8618bfcda54a9f339c8e2d6c5f998a50d5107121af6c75661996f48d1d63455f",
+      "started_at": "2026-09-29T19:58:43.835818+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "foreach_string-positive-rust": {
+      "certificate_sha256": "688c5d5e9ea9a59b130d6fbf441165f3e2a380d0cdeffe85567b87ec17f8d4a8",
+      "elapsed_seconds": 0.557,
+      "exit_code": 0,
+      "report_sha256": "ad33852f6570006464551f58cec960ccd5030ae3f34fd20a4348492c6fb9aeab",
+      "started_at": "2026-09-29T19:58:44.183997+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "foreach_string_var-hash-go": {
+      "certificate_sha256": "f77bd81d8e42aa38ba504c491f39e4ac687e93a69fecad1e06b4fef2c18219e2",
+      "elapsed_seconds": 28.125,
+      "exit_code": 1,
+      "report_sha256": "35283556b44802cb3585be704d507a6e649220542c9dfa091230c09182b8d758",
+      "started_at": "2026-09-29T19:59:13.677287+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "foreach_string_var-hash-rust": {
+      "certificate_sha256": "f77bd81d8e42aa38ba504c491f39e4ac687e93a69fecad1e06b4fef2c18219e2",
+      "elapsed_seconds": 0.62,
+      "exit_code": 1,
+      "report_sha256": "b9a1e3924e3fd060f26416fd9c0c3c544dc45bb3ace5c555a0dcc9416559e20d",
+      "started_at": "2026-09-29T19:59:41.182685+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "foreach_string_var-positive-go": {
+      "certificate_sha256": "1f077145b189c36e923b3aa71b626158ccf4370d3db85b1948563070a56f5b1c",
+      "elapsed_seconds": 28.18,
+      "exit_code": 0,
+      "report_sha256": "a8cff9da72c425ea96556f2a0d430e73fb96dfccbb769e812f67da26749e7429",
+      "started_at": "2026-09-29T19:59:12.998613+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "foreach_string_var-positive-rust": {
+      "certificate_sha256": "1f077145b189c36e923b3aa71b626158ccf4370d3db85b1948563070a56f5b1c",
+      "elapsed_seconds": 0.666,
+      "exit_code": 0,
+      "report_sha256": "a3197148a64954781a42400a12791f8dafc446500d319edabdd56e97fe15713e",
+      "started_at": "2026-09-29T19:59:13.009622+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "governing_throw-hash-go": {
+      "certificate_sha256": "02312af6e8eebd6d70123626daba770d1fa4c949157a9f68f16cd31406fc4561",
+      "elapsed_seconds": 25.626,
+      "exit_code": 1,
+      "report_sha256": "1d9081d0d8cb0207350209704e7af3126a7156db9d4bb49647c8d006463244cc",
+      "started_at": "2026-09-30T00:25:42.975726+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "governing_throw-hash-rust": {
+      "certificate_sha256": "02312af6e8eebd6d70123626daba770d1fa4c949157a9f68f16cd31406fc4561",
+      "elapsed_seconds": 0.296,
+      "exit_code": 1,
+      "report_sha256": "fae09dd1b7a447ac3d0053a72f11495e894a704c2959851480b0158f7b10b6aa",
+      "started_at": "2026-09-30T00:26:01.048965+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "governing_throw-positive-go": {
+      "certificate_sha256": "c894833e5abd496f8c3eb18dad2514b81708114916169441a0eb3d19d89cb1d3",
+      "elapsed_seconds": 25.512,
+      "exit_code": 0,
+      "report_sha256": "efc2cf33617211aa3fc4f7450da1c8bb4fdacaac407471a3d2dcdbf70346b692",
+      "started_at": "2026-09-30T00:25:35.535144+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "governing_throw-positive-rust": {
+      "certificate_sha256": "c894833e5abd496f8c3eb18dad2514b81708114916169441a0eb3d19d89cb1d3",
+      "elapsed_seconds": 0.351,
+      "exit_code": 0,
+      "report_sha256": "8e1f6fb0f8de52d1d0e5923918d112665bad2c0ee739b5389ef574c7a5a04913",
+      "started_at": "2026-09-30T00:25:42.624734+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "guard_order-hash-go": {
+      "certificate_sha256": "f30bc1633273ac16a7fa5d1e9978bc4474df6211b5edfa1a61efc960c38f5cdc",
+      "elapsed_seconds": 652.569,
+      "exit_code": 1,
+      "report_sha256": "ef54f0b86f382be1d91b8b493729b150644e1c1311b5757fe315eb43b5ea284e",
+      "started_at": "2026-09-30T00:12:36.370981+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "guard_order-hash-rust": {
+      "certificate_sha256": "f30bc1633273ac16a7fa5d1e9978bc4474df6211b5edfa1a61efc960c38f5cdc",
+      "elapsed_seconds": 2.16,
+      "exit_code": 1,
+      "report_sha256": "1d7812c990cc639d749b63fd3a14f9dc7a64b0bd3e5b689864360fd8792c87fd",
+      "started_at": "2026-09-30T00:23:19.286834+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "guard_order-positive-go": {
+      "certificate_sha256": "d9141029486f4279a3f233eea580c70be481b53cc605d392b37323cb1d85d6c7",
+      "elapsed_seconds": 645.776,
+      "exit_code": 0,
+      "report_sha256": "9b9a7596fa553f27fa9f412e365b630f9689d4d58741d88f642906ef0f413828",
+      "started_at": "2026-09-30T00:12:33.505705+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "guard_order-positive-rust": {
+      "certificate_sha256": "d9141029486f4279a3f233eea580c70be481b53cc605d392b37323cb1d85d6c7",
+      "elapsed_seconds": 2.729,
+      "exit_code": 0,
+      "report_sha256": "8ea475206543192e0ed3cc4d00144c29e6d42b9b2a909fdf0658bd9bbd7cd5fd",
+      "started_at": "2026-09-30T00:12:33.639115+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "guard_throw-hash-go": {
+      "certificate_sha256": "5eb78d4cf3df12eb0f53a0276b36fe4048b125b96512d157b1111c01a706eee8",
+      "elapsed_seconds": 133.11,
+      "exit_code": 1,
+      "report_sha256": "2dd6b36d7aa5b2962a34c3029d5ba22e955fe83a26338824fbd4bbf60f072308",
+      "started_at": "2026-09-30T00:23:29.514413+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "guard_throw-hash-rust": {
+      "certificate_sha256": "5eb78d4cf3df12eb0f53a0276b36fe4048b125b96512d157b1111c01a706eee8",
+      "elapsed_seconds": 0.546,
+      "exit_code": 1,
+      "report_sha256": "3736113d0bd99a3f9e7f4eb10f2ded179b803c061de100ea4082046b5499b5c4",
+      "started_at": "2026-09-30T00:25:34.988313+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "guard_throw-positive-go": {
+      "certificate_sha256": "4e5163812e43841c4122c8d1fb6280df8c9279a985c0b7a1bfac7dc8d444c6c8",
+      "elapsed_seconds": 133.542,
+      "exit_code": 0,
+      "report_sha256": "7d425ce0800255a54def7222e12ffde264fdf9dcb2ae14ab4cbd0d6c8cf5d984",
+      "started_at": "2026-09-30T00:23:21.448176+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "guard_throw-positive-rust": {
+      "certificate_sha256": "4e5163812e43841c4122c8d1fb6280df8c9279a985c0b7a1bfac7dc8d444c6c8",
+      "elapsed_seconds": 0.558,
+      "exit_code": 0,
+      "report_sha256": "9d9df395883dfb529d95d8adc747a9885531cd2bae03040c882a406f6a4aac7e",
+      "started_at": "2026-09-30T00:23:28.954155+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "index_update-hash-go": {
+      "certificate_sha256": "3e74b703be1518b9e96bfdbcf3a88905a386a1d7c4ba06d95d1b65f7c3db5880",
+      "elapsed_seconds": 366.46,
+      "exit_code": 1,
+      "report_sha256": "b6c2f9d00aa5a07ac7bd784eae347ac899e0913879fbab6ca14b535c7fa45306",
+      "started_at": "2026-09-29T19:52:37.720629+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "index_update-hash-rust": {
+      "certificate_sha256": "3e74b703be1518b9e96bfdbcf3a88905a386a1d7c4ba06d95d1b65f7c3db5880",
+      "elapsed_seconds": 1.103,
+      "exit_code": 1,
+      "report_sha256": "914f655c6cc2465868fcf92979407c418c15063b23bc61010052032764cb8028",
+      "started_at": "2026-09-29T19:58:42.731177+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "index_update-positive-go": {
+      "certificate_sha256": "314957983f3bfe9c9c6c36dcf3ff449a3fe1de951d1367a6a6190e459fa57fbe",
+      "elapsed_seconds": 365.94,
+      "exit_code": 0,
+      "report_sha256": "d7fca7a50766825b20d7dd4b040eeb0777d34ad6f622ed231d16ef3240f6a877",
+      "started_at": "2026-09-29T19:52:36.787922+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "index_update-positive-rust": {
+      "certificate_sha256": "314957983f3bfe9c9c6c36dcf3ff449a3fe1de951d1367a6a6190e459fa57fbe",
+      "elapsed_seconds": 0.861,
+      "exit_code": 0,
+      "report_sha256": "592da820cc4e504c170d83c6e62e7d0d14fb8db35967372c155ff854bb80d304",
+      "started_at": "2026-09-29T19:52:36.859504+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "is_binding-hash-go": {
+      "certificate_sha256": "bf3f4508f3c6169e71c0b1363d105182f9ff87f9eb56df77f5ef3eaa13b3c5a7",
+      "elapsed_seconds": 6.654,
+      "exit_code": 1,
+      "report_sha256": "5b1ff8b2ce0486e0cad6422e8b18543519655a12ebc626b9d56d01ea37b34ae9",
+      "started_at": "2026-09-30T00:12:26.980503+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "is_binding-hash-rust": {
+      "certificate_sha256": "bf3f4508f3c6169e71c0b1363d105182f9ff87f9eb56df77f5ef3eaa13b3c5a7",
+      "elapsed_seconds": 0.142,
+      "exit_code": 1,
+      "report_sha256": "036414bdf671e925b08fc5152e54c28aa597db60b6ff80b3bddb5d839bf7c83e",
+      "started_at": "2026-09-30T00:12:33.361810+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "is_binding-positive-go": {
+      "certificate_sha256": "ae7a7eff76a5d726be182ad322d925a14e80644a5f1711394b34883deaca6ec9",
+      "elapsed_seconds": 6.673,
+      "exit_code": 0,
+      "report_sha256": "d3688093e415a6f2bc1164a016832f1653a664e029cdf0fc1d25e17e73fa9ea0",
+      "started_at": "2026-09-30T00:12:26.686954+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "is_binding-positive-rust": {
+      "certificate_sha256": "ae7a7eff76a5d726be182ad322d925a14e80644a5f1711394b34883deaca6ec9",
+      "elapsed_seconds": 0.15,
+      "exit_code": 0,
+      "report_sha256": "a749e278fe8e85754d9d95da5a3c2d90bc7ceeed1c97c8691764c7150b7d3a16",
+      "started_at": "2026-09-30T00:12:26.830282+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "lookup-hash-go": {
+      "certificate_sha256": "e765c960b904f288261a64664f6feb2c10c8a2da09af1149332b048b9498f0f7",
+      "elapsed_seconds": 13.614,
+      "exit_code": 1,
+      "report_sha256": "6103c186c5bc929d0d29ea0cc5e8262a2854c2eaa24d53e9fcac4c86bc2f7040",
+      "started_at": "2026-09-29T20:00:41.198215+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "lookup-hash-rust": {
+      "certificate_sha256": "e765c960b904f288261a64664f6feb2c10c8a2da09af1149332b048b9498f0f7",
+      "elapsed_seconds": 0.182,
+      "exit_code": 1,
+      "report_sha256": "4c80ee289ac9e5ff9928466bbe7dd284af0c2d8a424b85ee32bbf165bacaa95f",
+      "started_at": "2026-09-29T20:00:54.232164+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "lookup-positive-go": {
+      "certificate_sha256": "87171c4eaf88b9ebc3fb3dd1b56540ae96867353a9a4f35ccd9591502c56bc4a",
+      "elapsed_seconds": 14.259,
+      "exit_code": 0,
+      "report_sha256": "f3c5aa94071101053f8810fc500ef68e9e2b4405e4d196634d31a0e643e775f4",
+      "started_at": "2026-09-29T20:00:39.968636+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "lookup-positive-rust": {
+      "certificate_sha256": "87171c4eaf88b9ebc3fb3dd1b56540ae96867353a9a4f35ccd9591502c56bc4a",
+      "elapsed_seconds": 0.173,
+      "exit_code": 0,
+      "report_sha256": "1824b6fa2c852ff61c04e2c12f264ecbd3589e7d84910e5c1c6216245b2e1079",
+      "started_at": "2026-09-29T20:00:41.022181+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "short_circuit-hash-go": {
+      "certificate_sha256": "235acfc9f36e40eb1df5253f11dcc730282d749773c48eb1f117a3ff177a158f",
+      "elapsed_seconds": 49.846,
+      "exit_code": 1,
+      "report_sha256": "4e5e63d5f5d07d79f6a2ec675879a6122192257d70d69aa883af8f8b0fce9e9f",
+      "started_at": "2026-09-29T19:48:11.945470+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "short_circuit-hash-rust": {
+      "certificate_sha256": "235acfc9f36e40eb1df5253f11dcc730282d749773c48eb1f117a3ff177a158f",
+      "elapsed_seconds": 0.298,
+      "exit_code": 1,
+      "report_sha256": "28e4d61b7783ec8167b5564ea701db4523b4739d60e1fb1b4fc0aa5cfdb8665a",
+      "started_at": "2026-09-29T19:48:59.546047+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "short_circuit-positive-go": {
+      "certificate_sha256": "a7b3c7d0a604c4a261fc4edcdc747903f82d0c4bc35851d95f64a988a120282f",
+      "elapsed_seconds": 49.702,
+      "exit_code": 0,
+      "report_sha256": "1d67c8ac7448759cb6f410a91497f579a811547a3e6311c841b13c91f2c8b3d0",
+      "started_at": "2026-09-29T19:48:09.843295+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "short_circuit-positive-rust": {
+      "certificate_sha256": "a7b3c7d0a604c4a261fc4edcdc747903f82d0c4bc35851d95f64a988a120282f",
+      "elapsed_seconds": 0.275,
+      "exit_code": 0,
+      "report_sha256": "e54297df8508b28694d529b0b37b851daa745049301bae97109915a79f245419",
+      "started_at": "2026-09-29T19:48:11.668892+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "string_property-hash-go": {
+      "certificate_sha256": "465c4a68f860b0663c6502a3e85c398d2b522608f56b0f182c3b4879703c6288",
+      "elapsed_seconds": 13.355,
+      "exit_code": 1,
+      "report_sha256": "890dd294b984ed3c4af7b619aaa01a649ebe3a00e1b43d0e65f56046ec327eb0",
+      "started_at": "2026-09-30T00:28:27.355344+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "string_property-hash-rust": {
+      "certificate_sha256": "465c4a68f860b0663c6502a3e85c398d2b522608f56b0f182c3b4879703c6288",
+      "elapsed_seconds": 0.251,
+      "exit_code": 1,
+      "report_sha256": "b733ca87d610106d267ec6502da102f31659a808cbd7d6d556db61cbcdb4e01d",
+      "started_at": "2026-09-30T00:28:34.513862+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "string_property-positive-go": {
+      "certificate_sha256": "1fe363acbe1533a1eb4bc4db39cb1360ad74abd55b06f7b7c5b76e8d54418ca9",
+      "elapsed_seconds": 13.305,
+      "exit_code": 0,
+      "report_sha256": "f39607ca06a29db2a0f6b3d0b6a4719a99f6617887628d585c9c10a2e9c71051",
+      "started_at": "2026-09-30T00:28:21.207005+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "string_property-positive-rust": {
+      "certificate_sha256": "1fe363acbe1533a1eb4bc4db39cb1360ad74abd55b06f7b7c5b76e8d54418ca9",
+      "elapsed_seconds": 0.257,
+      "exit_code": 0,
+      "report_sha256": "408cf6cef24db14c3d05d514287a72e9c41cb531804e4c5aef810a0c89745315",
+      "started_at": "2026-09-30T00:28:27.096277+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "switch-hash-go": {
+      "certificate_sha256": "69d78c8a2c74b88d978c04233fe3557a5e35baddf512c5c4605de9bc47d3acdc",
+      "elapsed_seconds": 9.69,
+      "exit_code": 1,
+      "report_sha256": "ac94565512a1af15c6b01bff4d7a4046399a1ba251e4af307b89d94de38c6bac",
+      "started_at": "2026-09-30T00:12:16.952290+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "switch-hash-rust": {
+      "certificate_sha256": "69d78c8a2c74b88d978c04233fe3557a5e35baddf512c5c4605de9bc47d3acdc",
+      "elapsed_seconds": 0.185,
+      "exit_code": 1,
+      "report_sha256": "8bee4e3e726f0b7571ed7bb057ae696c8ac85ccab48c4bd8f32a5ee535a50db0",
+      "started_at": "2026-09-30T00:12:26.643766+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "switch-positive-go": {
+      "certificate_sha256": "c0e3d0f3ba528bfe53d9697ece0ed9ed5ceb68d265619ba7fba659006229d31d",
+      "elapsed_seconds": 9.96,
+      "exit_code": 0,
+      "report_sha256": "ec96d0d3aeba0a6f8589b99d06fcad987150a438e99c14f63d68558deb17b91b",
+      "started_at": "2026-09-30T00:12:16.725201+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "switch-positive-rust": {
+      "certificate_sha256": "c0e3d0f3ba528bfe53d9697ece0ed9ed5ceb68d265619ba7fba659006229d31d",
+      "elapsed_seconds": 0.225,
+      "exit_code": 0,
+      "report_sha256": "ff5308d88e72cbd23e50620f8913ec1b4fcc7f1a031b9ff574107eb71bc49e07",
+      "started_at": "2026-09-30T00:12:16.725435+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "total_variable-hash-go": {
+      "certificate_sha256": "a8fe5960ea1b7255ed662bbdbffc11949d7a566ae78d39af121dc8a76789ce39",
+      "elapsed_seconds": 2.691,
+      "exit_code": 1,
+      "report_sha256": "a7b871874b96039f10fbb56239c65f3993d6ecd84043777b040556930f18186e",
+      "started_at": "2026-09-29T19:52:34.165557+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "total_variable-hash-rust": {
+      "certificate_sha256": "a8fe5960ea1b7255ed662bbdbffc11949d7a566ae78d39af121dc8a76789ce39",
+      "elapsed_seconds": 0.106,
+      "exit_code": 1,
+      "report_sha256": "eff8486275b15293bac44eb54fe89a22c8ef1c87a5e9c6dbe164cdc2faf5131c",
+      "started_at": "2026-09-29T19:52:36.680842+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "total_variable-positive-go": {
+      "certificate_sha256": "492a5450f6b55bb5b2aa9581e8b0b407545c0e4da9ed6854fd2bc74d2d5aaa19",
+      "elapsed_seconds": 2.697,
+      "exit_code": 0,
+      "report_sha256": "4a38dd8e8dbfcba4c4bac1ad44b4893b78a62952084632ba2c8cc1c3d862369e",
+      "started_at": "2026-09-29T19:52:33.982984+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "total_variable-positive-rust": {
+      "certificate_sha256": "492a5450f6b55bb5b2aa9581e8b0b407545c0e4da9ed6854fd2bc74d2d5aaa19",
+      "elapsed_seconds": 0.101,
+      "exit_code": 0,
+      "report_sha256": "aecd4be66a629c167fc8f49403725f2cb562efdda6cb5f6ce24337e4a434201d",
+      "started_at": "2026-09-29T19:52:34.063103+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "type-hash-go": {
+      "certificate_sha256": "b0f34588ac25ebe938d355b8e69aacaa2f68308aea7872fc47039b6259b4ea02",
+      "elapsed_seconds": 137.394,
+      "exit_code": 1,
+      "report_sha256": "23e3b8c7599d7e31374deae9f65e6d42c36da544454784bb8b9898f71f4a764c",
+      "started_at": "2026-09-30T00:26:09.700755+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "type-hash-rust": {
+      "certificate_sha256": "b0f34588ac25ebe938d355b8e69aacaa2f68308aea7872fc47039b6259b4ea02",
+      "elapsed_seconds": 1.416,
+      "exit_code": 1,
+      "report_sha256": "e09b57b59df2dd7b01f9e121247ff26004eb2749022aaef8038fc10c79774b82",
+      "started_at": "2026-09-30T00:28:19.789553+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "type-positive-go": {
+      "certificate_sha256": "9a04a8d4174ec5f051bbbe1c6cf0f14f679da30f7dfb0491395a54124cd21fd9",
+      "elapsed_seconds": 138.442,
+      "exit_code": 0,
+      "report_sha256": "3d1f4a46b4443a8ca4ea2620cc35400abe0421981de227456c08a71db82d96a9",
+      "started_at": "2026-09-30T00:26:01.345954+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "type-positive-rust": {
+      "certificate_sha256": "9a04a8d4174ec5f051bbbe1c6cf0f14f679da30f7dfb0491395a54124cd21fd9",
+      "elapsed_seconds": 1.096,
+      "exit_code": 0,
+      "report_sha256": "874a093b9ac49064c566099a40a3ddc2f2942f7197d338736f86aec62a97872e",
+      "started_at": "2026-09-30T00:26:08.603673+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "while-hash-go": {
+      "certificate_sha256": "0a19f0dacda70133992c0f89aa66dec91ad63e40377c32e6ea8b999f835a0e2d",
+      "elapsed_seconds": 2.321,
+      "exit_code": 1,
+      "report_sha256": "f799e1a322a70c9596a62bc234ff1c0ab5f7687286722c205d0147f799a9897e",
+      "started_at": "2026-09-29T19:48:01.677755+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "while-hash-rust": {
+      "certificate_sha256": "0a19f0dacda70133992c0f89aa66dec91ad63e40377c32e6ea8b999f835a0e2d",
+      "elapsed_seconds": 0.081,
+      "exit_code": 1,
+      "report_sha256": "c31747bff0c8be19a8620b9a92234bcc6b75d5bf44741d03909b7038c089d121",
+      "started_at": "2026-09-29T19:48:01.994748+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "while-positive-go": {
+      "certificate_sha256": "f7dff51f3ce72bb34b838c849d08d3a17a2c5c556912a6fa3eb7070403d33aba",
+      "elapsed_seconds": 2.755,
+      "exit_code": 0,
+      "report_sha256": "8a6679dac385614f61a5cfa3e5ca11a3c424f767dbcc751f81abc901918efabb",
+      "started_at": "2026-09-29T19:47:59.239603+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "while-positive-rust": {
+      "certificate_sha256": "f7dff51f3ce72bb34b838c849d08d3a17a2c5c556912a6fa3eb7070403d33aba",
+      "elapsed_seconds": 0.083,
+      "exit_code": 0,
+      "report_sha256": "0a901e52b23b6db31bc7c3c5a4bdebaa022b9780599cee45ccaaba5eb73254a6",
+      "started_at": "2026-09-29T19:48:01.593009+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "status": "passed"
+}

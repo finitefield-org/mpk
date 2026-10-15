@@ -32,6 +32,86 @@ const AGGREGATE_GATE: &str = "scripts/check-all.sh";
 const PRACTICAL_GATE: &str = "scripts/check-csharp-practical-release.sh";
 const OWNER: &str = "crates/mpk-vc/tests/csharp_practical_spec.rs";
 
+#[test]
+fn csharp_03_t01_w09_boolean_proof_elimination_feasibility() {
+    for name in [
+        "right-identity",
+        "constructor-false",
+        "constructor-true",
+        "open-motive",
+        "conjunction-left",
+        "conjunction-right",
+        "wrong-branch",
+        "wrong-conjunction-left",
+        "wrong-conjunction-right",
+        "wrong-motive-universe",
+        "wrong-interface",
+        "nongenerated",
+        "extra-constructor",
+        "extra-constructor-after-cases",
+        "renamed",
+        "wrong-case-levels",
+        "wrong-major-levels",
+        "wrong-case-levels-open",
+        "wrong-major-levels-open",
+        "prior-constructor-value-levels",
+        "prior-opaque-value-levels",
+        "prior-family-type-levels",
+        "prior-theorem-proof-levels",
+        "prior-let-value-levels",
+        "prior-lambda-body-levels",
+        "prior-pi-domain-levels",
+        "later-constructor-value-levels",
+        "legacy-prior-constructor-value-levels",
+        "legacy-prior-theorem-proof-levels",
+        "unused-constructor-levels",
+        "prior-other-family-levels",
+    ] {
+        let text =
+            String::from_utf8(read(&format!("fixtures/core-bool-cases/{name}.hex"))).unwrap();
+        let text = text.trim();
+        let bytes = (0..text.len())
+            .step_by(2)
+            .map(|i| u8::from_str_radix(&text[i..i + 2], 16).unwrap())
+            .collect::<Vec<_>>();
+        let certificate = mpk_cert::decode_canonical_certificate(&bytes).unwrap();
+        assert!(certificate.proof_node_table.is_empty());
+        assert!(certificate.theory_certificates.is_empty());
+        let good = matches!(
+            name,
+            "right-identity"
+                | "constructor-false"
+                | "constructor-true"
+                | "open-motive"
+                | "conjunction-left"
+                | "conjunction-right"
+                | "legacy-prior-constructor-value-levels"
+                | "legacy-prior-theorem-proof-levels"
+                | "unused-constructor-levels"
+                | "prior-other-family-levels"
+        );
+        let report: Value =
+            serde_json::from_str(&mpk_kernel::verify_certificate_bytes_json(&bytes)).unwrap();
+        assert_eq!(
+            report["verdict"],
+            if good { "accepted" } else { "rejected" },
+            "{name}: {report}"
+        );
+        if good {
+            assert_eq!(report["axiom_count"], 0);
+            for count in report["axiom_report"]["summary"]
+                .as_object()
+                .unwrap()
+                .values()
+            {
+                assert_eq!(count, 0);
+            }
+        } else {
+            assert_eq!(report["error_code"], "KERNEL_CORE_CHECK");
+        }
+    }
+}
+
 #[path = "../../../develop/probes/csharp-03/recursor_feasibility.rs"]
 mod recursor_feasibility;
 
@@ -590,7 +670,7 @@ fn csharp_03_t01_w09_successor_identities_schemas_and_owners_are_frozen() {
     assert_eq!(freeze["activation"], "candidate_only");
     assert_eq!(freeze["semantic_profile"], "mpk.csharp.practical.v1");
     assert_eq!(freeze["publication_owner"], "CSHARP-03-T01-W10");
-    assert_eq!(array(&freeze["amendments"]).len(), 2);
+    assert_eq!(array(&freeze["amendments"]).len(), 3);
     let amendment = &freeze["amendments"][0];
     assert_eq!(amendment["id"], "explicit_codec_parameters");
     assert_eq!(amendment["owner"], "CSHARP-03-T03-W14");
@@ -620,6 +700,38 @@ fn csharp_03_t01_w09_successor_identities_schemas_and_owners_are_frozen() {
     assert_eq!(
         partial["previous_publication_raw_sha256"],
         "f53e93f71564662518d941f7f1f7aca70dd48e233c8afa456d7b16a1e587454c"
+    );
+    let boolean = &freeze["amendments"][2];
+    assert_eq!(
+        boolean["id"],
+        "sort_zero_dependent_boolean_proof_elimination"
+    );
+    assert_eq!(boolean["owner"], "CSHARP-03-T01-W09");
+    assert_eq!(
+        boolean["base_commit"],
+        "9755987798ec65b266035f1d0418fc7f2890182a"
+    );
+    assert_eq!(freeze["evidence"]["core_or_checker_change"], true);
+    assert_eq!(freeze["evidence"]["value_definitions_change"], false);
+    let proof_path = text(&freeze["evidence"]["boolean_proof_evidence_path"]);
+    let proof = document(proof_path);
+    assert_eq!(
+        proof["status"],
+        "passed_local_and_exact_public_source_linux"
+    );
+    assert_eq!(
+        freeze["evidence"]["boolean_proof_evidence_raw_sha256"],
+        sha(&read(proof_path))
+    );
+    assert_eq!(
+        freeze["evidence"]["boolean_proof_evidence_content_sha256"],
+        proof["content_sha256"]
+    );
+    let mut preimage = proof.clone();
+    preimage.as_object_mut().unwrap().remove("content_sha256");
+    assert_eq!(
+        proof["content_sha256"],
+        domain_hash("MPK-CSHARP-BOOL-PROOF-ELIMINATION-1.0", &preimage)
     );
     let loop_record = array(&freeze["schema_type_system"]["nested_records"])
         .iter()
@@ -1584,6 +1696,7 @@ fn csharp_03_t01_w10_publication_reproduces_the_complete_private_freeze() {
         W09_CAPACITY,
         W09_FREEZE,
         W09_VECTORS,
+        "develop/migrations/csharp-03/probes/boolean-proof-elimination.json",
     ]);
     let evidence = array(&package["canonical_evidence"]);
     assert_eq!(evidence.len(), expected_evidence.len());
@@ -1613,6 +1726,7 @@ fn csharp_03_t01_w10_publication_reproduces_the_complete_private_freeze() {
     );
 
     let expected_members = BTreeMap::from([
+        ("develop/specs/CORE_V0.md", "normative_core_proof_interface"),
         (SPEC, "normative_foundation_specification"),
         (W10_PROFILE_SPEC, "normative_profile_specification"),
         (

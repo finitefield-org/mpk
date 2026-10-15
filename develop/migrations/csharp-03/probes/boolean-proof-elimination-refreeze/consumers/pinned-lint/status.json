@@ -1,0 +1,34 @@
+{
+  "full_t01_gate": "deferred to renewed T01-W10",
+  "full_t06_gate": "deferred to T06-W12",
+  "process_pid": 98881,
+  "selection_reason": "The changed cfg(test) snapshot fixture path and affected VC/CLI test code require one focused library regression plus scoped lint/format; renewed full T01 gate is deferred to final W10.",
+  "stage": "format",
+  "stages": [
+    {
+      "elapsed_seconds": 37.027052790996095,
+      "exit_code": 0,
+      "log_sha256": "6e57573844f72de7668f8828f1ea20f88e11d6a29fe7683be84083d4ca4b06f1",
+      "stage": "shared-json-library-fixture"
+    },
+    {
+      "elapsed_seconds": 18.829442875001405,
+      "exit_code": 0,
+      "log_sha256": "68964e09364010a7d2337a912a20ac389b2e2205454d6f3c025a76928540748b",
+      "stage": "vc-clippy"
+    },
+    {
+      "elapsed_seconds": 54.61453800000163,
+      "exit_code": 0,
+      "log_sha256": "83f990faac00a4149bafa9014c7b5d8121cde5409e61b1cbf5f6f8abda45c9af",
+      "stage": "cli-clippy"
+    },
+    {
+      "elapsed_seconds": 3.2172056250055903,
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stage": "format"
+    }
+  ],
+  "status": "passed_selected_library_fixture_and_affected_lint_format"
+}

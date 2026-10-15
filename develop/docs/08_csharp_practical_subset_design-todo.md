@@ -1,5 +1,12 @@
 # CSHARP-03 Practical C# Implementation Milestones and Tasks
 
+The user-approved 2026-10-07 generic Sort0 Boolean proof-elimination amendment
+reopens `CSHARP-03-T01-W09` (In progress) and `CSHARP-03-T01-W10` (Blocked).
+Their previous completion records below are historical. T06-W09 retains its
+partial definitions and evidence but cannot complete or advance proof assembly
+until the renewed freeze is complete. The practical profile remains inactive.
+See [the approved amendment](../migrations/csharp-03/ordinary-foundation/unit-7-boolean-elimination-proposal.md).
+
 Status: current reviewed implementation decomposition, revised on 2026-09-08.
 The native `JAVA-03-T10` x86-64 Linux release receipt is accepted and
 `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10` have completed the entry audit,
@@ -35,7 +42,7 @@ normative but inactive specifications and, after the approved W14 codec
 parameter and W01 partial-loop amendments, 709 vectors.
 `CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09` and
 `CSHARP-03-T03-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10/W11/W12/W13/W14` are complete.
-`CSHARP-03-T04-W01/W02/W03/W04/W05/W06` and `CSHARP-03-T05-W01/W02/W03/W04/W05/W06` are complete; `CSHARP-03-T06-W01/W02/W03/W04/W05/W06/W07/W08` are complete. `CSHARP-03-T06-W09` is In progress.
+`CSHARP-03-T04-W01/W02/W03/W04/W05/W06` and `CSHARP-03-T05-W01/W02/W03/W04/W05/W06` are complete; `CSHARP-03-T06-W01/W02/W03/W04/W05/W06/W07/W08` are complete. `CSHARP-03-T06-W09` is Blocked pending the approved Boolean proof-elimination re-freeze.
 The 2026-09-22 reconstruction audit retracts the T01 stop classification:
 `remapped-boundary-sequence` is a W09 definition fixture, not a frozen positive
 verified compilation. Its noninjective binding must fail final proof acceptance.
@@ -675,7 +682,7 @@ ledger section 10 records exact hashes, verification and the review/fix loop.
 
 Depends on: T01-W08.
 
-Current status: `Complete`. The private feasibility probe retains the original
+Current status: `In progress` under the approved 2026-10-07 Boolean proof-elimination amendment. Previous freeze completion is historical. The private feasibility probe retains the original
 cross-result rejections and demonstrates the replacement Boolean-cube
 selection and concrete state-transformer fold in both checkers. F01 is resolved
 without changing core or using `Std.Nat.rec` in the replacement. The private
@@ -727,7 +734,7 @@ are private candidate inputs to W10, not published or installed schemas.
 
 Depends on: T01-W09.
 
-Current status: `Complete`.
+Current status: `Blocked` under the approved 2026-10-07 Boolean proof-elimination amendment. Previous freeze completion is historical.
 
 Owns: the practical-profile specification package, successor shared-artifact
 specifications, exact vectors and manifest entries, canonical probe records,
@@ -1928,6 +1935,8 @@ version conflict/capacity and broken invariant/event/response/equality cases.
 
 ### CSHARP-03-T06-W09 — Encode ordinary foundations and close zero-axiom checking
 
+Current status: `Blocked` pending renewed T01-W09/W10 freeze. Existing checkpoints below remain historical partial W09 evidence.
+
 Depends on: T06-W08.
 
 Execution note: the user approved eight internal implementation/review/commit
@@ -2025,7 +2034,9 @@ The original W06 closed actual-default conditions now pass targeted verification
 over the 45 retained binding sources, including both checkers. They use exact CLR
 default values, source public-domain membership and the declared semantic arm.
 DefaultUseForbidden remains an explicit source-use proof obligation, and every
-original proof ID remains pending. See
+original proof ID remains pending. All 32 ineligible cases now carry a
+source-bound trace of the 23 typed nodes in the original 22 contexts; the
+trace does not prove absence of implicit or native default publication. See
 `ordinary-foundation/unit-4-binding-default-progress.json`. This does not close
 unit 4 or W09; the full T06 gate remains deferred to W12.
 
@@ -2046,8 +2057,325 @@ and all six same-byte checker cases pass. Evidence is under
 and `ordinary-foundation/verification-logs/decimal-fixed-formats-terminal/verification.json`.
 The concrete-operation adapter retains 436 defined conditions and 31 pending
 prerequisites. Its original real-value test exposed an unchanged Option.value
-counterexample (the source already returned -1); a corrected complete rerun is
-in progress. All original application proofs and internal units 4-8 remain open.
+counterexample (the source already returned -1). The corrected complete rerun
+passed in 6,146.32 seconds: six normal observations, one closed operation,
+one NaN observation and five rejected-input guards. The audit matched all 333
+source hashes, the test binary, log and prior 45 zero-axiom checker pins; see
+`ordinary-foundation/verification-logs/concrete-operations/verification.json`.
+All 987 original application proofs and internal units 4-8 remain open.
+
+The W04 predicate adapter now retains all 215 original sequents over the
+18-source control corpus, defining 383 predicates and 98 logical implications
+while explicitly retaining 117 predicates with missing pattern/data constants.
+All eight integral mathematical comparison/nonnegative helpers pass 1,800
+boundary/bit observations; the original variable-decrease and binding-map
+regressions also pass. All 19 certificate occurrences (14 distinct byte sets)
+pass unchanged Go/Rust checking with zero axioms and hash-mutation rejection.
+See `ordinary-foundation/verification-logs/control-predicates/verification.json`.
+These free-state predicate definitions do not establish native execution,
+loop induction or an application proof. At revision `5cf114ba`, the targeted
+Linux measure and 18-source tests passed; Clippy exposed fourteen existing
+library style diagnostics. Their equivalent repairs and one later Linux test
+style diagnostic are recorded with the succeeding checkpoint. The original
+terminal Linux logs and source/binary hashes are retained under
+`verification-logs/server-linux-control-predicates-5cf114ba/`.
+
+The integrated W04 adapter now shares the exact native definitions while
+retaining every prior native JSON/hex pin and resolved declaration body. It
+reuses 100 exact function/source/target/edge guards with their binding order,
+including four ownership prerequisites. Over the same 215 original sequents,
+398 predicates and 113 logical implications are defined; the 102 remaining
+predicates all name missing pattern-step constants. Local and Linux targeted
+tests each pass ten tests: pinned regressions, 1,800 integral observations and
+affected parser/data/control/exception handoffs; both lint/format scopes pass.
+All 72 same-byte Go/Rust stages pass over 18 distinct certificates with matching
+reports, zero axioms and hash-mutation rejection; the final fixed-commit audit is recorded under
+`ordinary-foundation/verification-logs/control-predicates/with-execution/verification.json`;
+all actual exits and exact inputs/reports are retained. Execution scopes, state transport,
+loop induction and all 987 application proofs remain open. Unit 5 and W09
+remain In progress; the full T06 gate remains deferred to W12.
+
+The subsequent pattern-scope adapter retains all 102 original pattern goals and
+113 native paths with their full premises and environments. It defines 113
+scope bodies and 108 physical observation transports while retaining 86 missing
+governing-observation producer links explicitly. Regressions pass 216 physical
+observations and 336 complete-scope checks, including 69 true native premises;
+the unit exhausts 16 Boolean combinations and the combined binder-limit fallback.
+All prior native/integrated pins and resolved declaration bodies survive. The
+seven changed certificates pass 28 Go/Rust stages; another 44 stages are retained
+after exact input/checker-byte comparison. See
+`ordinary-foundation/verification-logs/control-predicates/with-pattern-scopes/verification.json`
+for local/checker results and the separate Linux state. The 102 original
+PatternStep predicates and all 987 original application proofs remain pending.
+Unit 5 and W09 remain In progress; the T06-wide gate is deferred to W12.
+
+The governing-capture adapter adds explicit normal-execution premises for seven
+exact original source producers. It connects all 86 previously missing governing
+observations across 113 consuming paths while preserving every prior scope pin
+and resolved declaration body. There are 108 compact scope definitions and five
+complete indexed component sets retained at the combined binder bound. Four
+source regression modes and three unit tests pass, with 388 physical transport
+checks, 398 complete-scope comparisons and 59 true joint scopes; pinned replay,
+Clippy and format also pass. All 72 exact-input checker stages are terminal and
+audited (28 new, 44 retained after exact input/checker comparison). The preceding
+scope-only snapshot separately passes its four Linux tests plus lint/format.
+The capture snapshot passes all seven Linux tests plus lint/format; its exact
+373-source and 36-pin hashes were verified before and after execution. See
+`ordinary-foundation/verification-logs/control-predicates/with-pattern-captures/verification.json`.
+Producer/consumer execution establishment, 102 original pattern predicate bodies
+and all 987 original application proofs remain open. Unit 5 and W09 stay In
+progress; W10-W12 remain Blocked and the full T06 gate stays deferred to W12.
+
+The typed source-observation prerequisite retains all 102 original pattern
+obligation IDs and their binding prefixes, adding 74 exact source operands and
+four before/after observations for each of 36 slot transfers. One slot retains
+its closed nullable storage separately from its nominal payload. The new source
+regression distinguishes two guard updates with identical historical observations
+and different current operands. Candidate generation and the three affected
+pinned/consumer tests plus lint/format pass locally and on the specified Linux
+server. Exact source/fixture hashes and the published Git commit are verified.
+The ordinary scope consumer and all original pattern bodies/proofs remain open.
+See `ordinary-foundation/unit-5-pattern-observations-review.md`.
+
+The 61-condition checkpoint composes the richer observations into its
+native/capture scopes and defines 61 of the 102 original conditions: 17 exact
+source constants, nine selected-input joins, 19 assigned loads, 12 stores and
+four bindings with matching input/result types. Generated bodies pass 77
+positive and 150 changed-value/state observations. All 215 original sequents
+and the historical API pins survive; six targeted tests, Clippy and format pass
+locally. The richer scopes retain 113 paths and 423 observations, with one Unit
+conversion operand explicitly unconnected. The other 41 source conditions,
+execution/equivalence establishment and all 987 application proofs remain open.
+All 72 same-byte Go/Rust stages pass and their reports are audited: 28 are newly
+executed and 44 are retained after exact input/binary comparison. Both checkers
+report zero axioms and reject hash corruption. The exact `039bbc10` Linux replay
+also passes all six targeted tests, Clippy and format; its source/fixture hashes,
+test binaries, Git commit and clean checkout are independently verified.
+See `ordinary-foundation/unit-5-pattern-source-conditions-review.md`.
+Unit 5 and W09 remain In progress; W10-W12 remain Blocked and the full T06 gate
+stays deferred to W12.
+
+The 81-condition checkpoint defines 81 of the same 102 conditions.
+Its 20 additions compose ordinary guards and result relations for updates,
+arithmetic/equality/comparisons, exact type tests, nullable payload binding,
+stored-field/array reads, string length and null conversion. The candidate
+passes 102 positive and 183 changed-value/state observations and preserves
+all previous condition bodies. The 21 ordered-control/exception conditions,
+one Unit operand connection and all execution/equivalence/application proofs
+remain open. The six targeted tests, Clippy and format pass locally and at
+the exact published `0aed36d4` Linux checkout; 674 distinct input files match
+their Git blobs, and the checkout, logs and binaries are independently
+verified. All 72 Go/Rust stages and the report audit pass, with 28 new stages
+and 44 retained after exact input/binary comparison. Both checkers report
+zero axioms and reject hash corruption. Unit 5 and W09 remain In progress;
+the full T06 gate stays deferred to W12.
+See `ordinary-foundation/unit-5-pattern-source-primitives-review.md`.
+
+The private source-route mode defines all 102 original pattern conditions,
+retains all 215 sequents and their existing binding prefixes, and adds 32
+successor-choice observations. Seven governing markers, 11 ordered branches,
+two break completions and one closed no-match exception are now defined.
+Capture scopes record 54 route transports under explicit native execution
+premises and constrain the erased null Unit operand without inventing a native
+argument. Candidate tests cover all 88 Boolean branch states and preserve the
+historical condition/native bodies. Seven targeted tests, Clippy and format
+pass locally and at the exact published `a9d2e6fe` Linux checkout. All 732
+distinct inputs match their Git blobs; the checkout, logs and binaries pass
+an independent audit. All 72 Go/Rust stages and their report audit pass,
+with 28 new stages and 44 retained after exact input/binary comparison.
+Both checkers report zero axioms and reject hash corruption.
+All execution/equivalence/application
+proofs remain open; this does not complete unit 5 or W09.
+See `ordinary-foundation/unit-5-pattern-routes-review.md`.
+
+The private packed pattern-proof route retains every original argument in a
+finite addressed environment, including the five scopes previously limited by
+256/274/276 separate arguments. All 18 original contexts pass local preservation
+and kernel checks: 113 path proposition types, 703 complete premises/projections
+and 37,598 field-bit observations. Both unchanged checkers accept the universal
+field read-after-write fixture with zero axioms and matching hashes and reject a
+well-typed no-op write at core checking. Five affected scope units, the exact-name
+ownership unit, Clippy and format pass. The fixed source commit `130a3ca4`
+also passes eight unique targeted tests, Clippy and format on the requested
+Linux server; the terminal audit verifies 926 Git blobs and all log/binary
+hashes. The separate original-certificate dual-checker replay is still pending.
+Source-refinement, execution-establishment and all 987 application
+proofs remain open; unit 5 and W09 remain In progress, W10-W12 remain Blocked and
+the full T06 gate remains deferred to W12.
+See `ordinary-foundation/unit-5-packed-pattern-proof-types-review.md`.
+
+The private refinement-candidate route binds every required theorem to the
+whole reconstructed source/context program and its exact original named
+refinement type. Missing paths, changed original declarations, wrong context
+and substituted theorem types are rejected; ordinary auxiliary lemmas are
+allowed without weakening the required type. Linkage always records proof and
+application checks as pending. Two targeted units pass, including a used helper;
+both unchanged checkers accept the correct universal fixture with zero axioms
+and reject the wrong proof at core checking. The 18-context replay binds all
+113 required paths and preserves all 36 original metadata/certificate pins.
+Clippy and format pass. The fixed candidate-linkage source `a45fd22f` passes
+eight targeted tests, Clippy and format on the requested Linux server; its
+terminal audit verifies 1,150 Git blobs and all log/test-binary hashes.
+This is a partial unit 7 checkpoint; W09 and all 987 application proofs remain
+open, and the full T06 gate remains deferred to W12.
+See `ordinary-foundation/unit-7-pattern-refinement-candidates-review.md`.
+
+Candidate generation now constructs every required refinement from complete
+scope projections and contextual Boolean equality proofs. Unknown computations
+or missing proofs fail the whole route. Free values are shifted under congruence
+binders, open helper declarations are excluded and expanded sharing costs are
+bounded. Eight affected tests pass, including unchanged ownership/default pins;
+Clippy and format pass. Both unchanged checkers accept the generated small
+universal candidate and correct contextual fixtures with zero axioms and reject
+wrong proofs. The original `is_binding` capability probe still cannot generate
+its seven source refinements. These small fixtures do not discharge those source
+proofs or any of the 987 application proofs. Linux replay of this latest source
+passes all eight targeted tests, Clippy and format at fixed source `eeffcb02`;
+the terminal audit verifies 1,162 Git blobs and all log/test-binary hashes.
+W09 stays In progress and the full T06 gate is deferred to W12.
+
+The original concrete-type proof route now supplies 81 universal equality
+proofs across all 45 source contexts. It lowers the complete original W06
+proof-level equality operands to registered ordinary `Std.Eq` and retains every
+original Boolean condition/certificate prefix and all 45 historical pins.
+Both unchanged Go/Rust kernels accept all resulting certificates with zero
+axioms and matching hashes; all 182 positive/hash/wrong-proof stages are terminal.
+Five affected tests, Clippy and crate/support format pass locally. Ten contexts
+have genuinely empty type groups; six internal construction-state type instances
+and all 987 application proof IDs remain explicitly pending. The fixed public
+source `69c32d10` also passes all five targeted tests, Clippy and both format
+checks on the requested Linux server; its terminal audit verifies 915 source/
+fixture Git blobs, all log/test-binary hashes and all 91 exact exported files.
+This is a partial unit 7 checkpoint; W09 remains In progress, W10-W12 remain Blocked and
+the full T06 gate remains deferred to W12.
+See `ordinary-foundation/unit-7-concrete-type-proofs-review.md`.
+
+The original concrete-operation proof route now supplies 436 universal proof
+candidates across all 45 source contexts. It preserves every original W06
+domain assumption, normal guard, complete result operands and ordered
+first-failure/success agreement. The unchanged Rust kernel accepts every emitted
+certificate with zero axioms and rejects a well-typed wrong normal implementation
+only when the supplied proofs are present; its definition-only certificate
+accepts. Both targeted integration tests, Clippy and crate/support format pass.
+All 45 original operation pins are unchanged. Fixed public source `aac0ea64`
+passes both targeted tests, Clippy and both format checks on the requested Linux
+server; the terminal audit verifies 916 source/fixture Git blobs and all 91 exact
+exported files. Independent same-byte Go/Rust replay remains pending its terminal
+receipt.
+All 31 pending operations and all 987 application proof IDs remain pending;
+W09 remains In progress, W10-W12 remain Blocked and the full T06 gate is deferred
+to W12. See `ordinary-foundation/unit-7-concrete-operation-proofs-review.md`.
+
+The same 436 complete original operation sequents now use checked ordinary
+wrapper-function equations and `Std.Eq.rewrite` to preserve the complete result
+and ordered first-failure/success masks while reducing repeated circuit
+substitution. All 45 original metadata records agree with the preceding recipe
+except emitted certificate hashes; original definitions and pins are unchanged.
+Both targeted integrations, Clippy and crate/support format pass locally,
+including actual Rust kernel checking of all certificates and a well-typed wrong
+implementation rejection. The exact tested source/fixtures are promoted with a
+743-source/173-fixture byte audit. Both unchanged Go/Rust checkers accept all
+45 certificates with zero axioms and matching hashes/counts; all 182 positive,
+hash-corruption and wrong-normal-value stages are terminal and independently
+audited. Fixed public source `c7421af8` also passes both targeted tests,
+Clippy and both format checks on the requested Linux server; its terminal audit
+verifies all 916 source/fixture Git blobs and all 91 exact exported files.
+All 31 pending operations and
+all 987 application IDs remain pending, W09 stays In progress and the full T06
+gate stays deferred to W12. See
+`ordinary-foundation/unit-7-concrete-operation-transport-review.md`.
+
+The additional allocation route appends six complete original W06 allocation
+operations, including reachable uninvoked operations, and supplies 442 universal
+proof candidates across the same 45 source contexts. It retains the old
+certificate prefix, both public i32/Bool input premises, ordered negative-length
+and construction-bound failures, and complete internal storage results. The
+existing 436-operation route and all 45 original pins remain unchanged; all 91
+old proof exports are byte-identical. Three targeted tests, Clippy and both
+format checks pass locally, including actual Rust kernel acceptance and a
+well-typed wrong allocation result rejected at core checking when proofs are
+supplied. The tested promotion verifies 744 source and 173 fixture hashes.
+Both unchanged checkers pass the 26 affected stages; 158 unchanged stages are
+retained only after exact input/binary/raw-report/stderr comparison. The terminal
+184-stage audit confirms matching hashes/counts, zero axioms, all hash rejections
+and both typed wrong-normal core rejections. Fixed public source `cba21634`
+also passes all three targeted tests, Clippy and both format checks on the
+requested Linux server. Its terminal audit verifies all 917 source/fixture Git
+blobs, 92 exact new-route exports and all 91 unchanged legacy exports.
+The 25 remaining operations, six internal type instances, seven
+is_binding refinements and all 987 application proof IDs stay pending. W09
+remains In progress, W10-W12 remain Blocked and the full T06 gate is deferred
+to W12. See `ordinary-foundation/unit-7-concrete-allocation-proofs-review.md`.
+
+The opt-in private construction storage type route now adds the six original
+internal type instances and supplies all 87 original type-equivalence proof
+candidates across 45 source contexts. Every added domain retains private-only
+storage and ownership_pending=true. Complete length/cell/bitmap/padding/tail and
+recursive source child domains enforce the 16,384-element and 65,536-cell bounds.
+Four targeted tests, 247 complete semantic observations, Clippy and both format
+checks pass locally. The old 81-proof route, all 45 original type pins and all
+91 legacy outputs remain unchanged. The tested audit verifies 747 source and
+173 fixture hashes. The independently audited dual-checker receipt passes all
+184 stages (26 fresh and 158 retained only after exact input/binary/raw-report/
+stderr comparison), with matching positive hashes/counts, zero axioms and both
+typed core rejections. Fixed public source `5a1b89a2` also passes all four
+targeted tests, Clippy and both format checks on the requested Linux server. Its
+terminal audit verifies all 920 source/fixture Git blobs, all 92 exact new-route
+exports and all 91 unchanged legacy exports. All 25 remaining operations,
+seven original is_binding refinements, source ownership and all 987 application
+proof IDs stay pending. W09 remains In progress, W10-W12 remain Blocked and the
+full T06 gate remains deferred to W12. See
+`ordinary-foundation/unit-7-construction-storage-types-review.md`.
+
+The opt-in source-scoped construction operation route now supplies 12 candidates
+at exact original source ownership points across all 45 contexts. All eligible
+invoked fill/freeze operations have candidates; each retains the complete original
+DataOperationVc and W06 operation sequent, checked whole-flow and receiver-point
+proof dependencies, the private storage domain and original ordered failures.
+Three targeted tests, Clippy and both format checks pass locally. All 70 new
+exports are retained, all 92 legacy allocation exports remain byte-identical and
+all 45 original operation pins are unchanged. The tested audit verifies 749
+source and 173 fixture hashes. The independent same-byte Go/Rust audit passes
+all 50 fresh stages, with matching positive hashes/counts, zero axioms and both
+typed core rejections. Exact published-source Linux verification passes all three selected tests,
+Clippy, format and its independent final archive audit. Generic ownership, all 25 original pending
+operations, seven is_binding refinements and all 987 application proof IDs
+remain pending. W09 stays In progress, W10-W12 stay Blocked and the full T06 gate
+is deferred to W12. See
+`ordinary-foundation/unit-7-scoped-construction-proofs-review.md`.
+
+The integrated original foundation proof adapter now places all 87 concrete-type
+and 442 currently supplied operation proofs in one ordinary context across all
+45 source contexts. Its ordered supplied list covers 529 original W06 sequents;
+458 binding sequents remain without supplied component proofs, and all 987
+application proof IDs remain pending. Full original theorem types, operation
+proof prefixes, source clauses and public/private domains are preserved. The
+actual Rust kernel, strict imports, a typed false-domain mutation, cumulative
+limits, Clippy and format pass. All 91 new exports and both 92-file unchanged
+component export sets are audited against 751 source and 173 fixture hashes.
+Both unchanged Go/Rust checkers and the independent terminal audit pass all 182
+fresh stages; all 45 inputs are identical to the final source exports. Exact
+public-source Linux verification at 1e5338e9 passes all three targeted tests,
+Clippy, format and its independent terminal archive audit. Generic ownership/currency, native bodies, original refinements and
+complete application assembly remain open. W09 stays In progress, W10-W12 stay
+Blocked and the full T06 gate is deferred to W12. See
+`ordinary-foundation/unit-7-foundation-proofs-review.md`.
+
+The original identity-projection proof family is now integrated on the unchanged
+foundation context: Bool and f32 retain their original source receiver, domain
+premise and both project/reconstruct equality goals. Across the same 45 source
+contexts, 531 component sequent proofs are supplied and 456 binding sequents
+remain. All original 529 foundation components and their API exports stay
+unchanged; 44 contexts reuse their exact certificate bytes. The new context
+passes both unchanged checkers with zero axioms, hash corruption rejection and
+typed false-projection CoreCheck rejection. The source test, Clippy, format and
+independent local/dual audits pass. Exact public-source Linux verification passes the same targeted test,
+Clippy and format; its terminal audit verifies 1,016 Git blobs, four harness
+files, all logs/test binary and 47 exact exports. All 987 original application
+proof IDs, 25 generic operations, native
+bodies and complete application assembly remain pending; W09 stays In progress
+and the full T06 gate is deferred to W12. See
+`ordinary-foundation/unit-7-identity-proofs-review.md`.
 
 Owns: translation of every already-expanded concrete foundation definition in
 monomorphic VIR into ordinary core definitions and proof terms for all new

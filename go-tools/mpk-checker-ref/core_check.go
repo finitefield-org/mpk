@@ -1,5 +1,7 @@
 package mpkcheckerref
 
+import "encoding/binary"
+
 type CoreCheckReport struct {
 	DeclarationCount int
 }
@@ -156,6 +158,14 @@ func (c *coreCheckContext) checkDeclarations() error {
 			}
 			if err := c.expectTermTypeIsSort(index, "generated_type", ty); err != nil {
 				return err
+			}
+			if declaration.Tag == DeclRecursor {
+				if err := c.state.checkBoolCasesDeclaration(name, ty, inductive, declaration.Generated); err != nil {
+					return err
+				}
+				if err := c.state.checkPriorBoolCasesUses(name, inductive); err != nil {
+					return err
+				}
 			}
 			global, err = c.state.env.registerGenerated(name, declaration.Tag, ty, inductive, declaration.Generated)
 			if err != nil {
@@ -376,6 +386,9 @@ func (s *coreState) infer(term coreTermID, context coreLocalContext) (coreTermID
 		}
 		return s.lift(ty, amount)
 	case TermConst:
+		if err := s.checkBoolCasesConstantLevels(coreGlobalID(node.A), len(node.Levels) != 0); err != nil {
+			return 0, err
+		}
 		declaration, ok := s.env.lookup(coreGlobalID(node.A))
 		if !ok {
 			return 0, newCoreError(CoreCheckUnknownGlobal, "unknown global "+formatUint64(uint64(node.A)))
@@ -788,6 +801,9 @@ func (e *coreEnvironment) registerGenerated(name string, tag DeclarationTag, ty 
 }
 
 func (e *coreEnvironment) register(name string, declaration coreDeclaration) (coreGlobalID, error) {
+	if declaration.tag == DeclConstructor && e.hasBoolCases(declaration.inductive) {
+		return 0, newCoreError(CoreCheckInvalidDeclaration, "constructor added to closed Bool cases family")
+	}
 	for _, existing := range e.declarations {
 		if existing.name == name {
 			return 0, newCoreError(CoreCheckInvalidDeclaration, "duplicate declaration "+name)
@@ -937,6 +953,29 @@ func (a *coreLevelArena) intern(node coreLevelNode) coreLevelID {
 
 type coreTermArena struct {
 	nodes []coreTermNode
+	index map[coreTermInternKey]coreTermID
+}
+
+type coreTermInternKey struct {
+	Tag       TermTag
+	A, B, C   uint32
+	Levels    string
+	Arguments string
+}
+
+func termInternKey(node coreTermNode) coreTermInternKey {
+	levels := make([]byte, 4*len(node.Levels))
+	for i, level := range node.Levels {
+		binary.LittleEndian.PutUint32(levels[4*i:], uint32(level))
+	}
+	arguments := make([]byte, 4*len(node.Arguments))
+	for i, argument := range node.Arguments {
+		binary.LittleEndian.PutUint32(arguments[4*i:], uint32(argument))
+	}
+	return coreTermInternKey{
+		Tag: node.Tag, A: node.A, B: node.B, C: node.C,
+		Levels: string(levels), Arguments: string(arguments),
+	}
 }
 
 type coreTermNode struct {
@@ -996,13 +1035,22 @@ func (a *coreTermArena) letTerm(ty coreTermID, value coreTermID, body coreTermID
 }
 
 func (a *coreTermArena) intern(node coreTermNode) coreTermID {
-	for index, existing := range a.nodes {
-		if coreTermNodeEqual(existing, node) {
-			return coreTermID(index)
+	if a.index == nil {
+		a.index = make(map[coreTermInternKey]coreTermID)
+		for id, existing := range a.nodes {
+			key := termInternKey(existing)
+			if _, exists := a.index[key]; !exists {
+				a.index[key] = coreTermID(id)
+			}
 		}
+	}
+	key := termInternKey(node)
+	if id, exists := a.index[key]; exists {
+		return id
 	}
 	id := coreTermID(len(a.nodes))
 	a.nodes = append(a.nodes, node)
+	a.index[key] = id
 	return id
 }
 

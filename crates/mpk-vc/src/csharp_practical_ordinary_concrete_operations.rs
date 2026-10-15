@@ -5,6 +5,32 @@ use super::*;
 
 const U32_TYPE_ID: &str = "mpk.csharp.value.u32.v1";
 
+#[path = "csharp_practical_ordinary_concrete_operation_proofs.rs"]
+mod proofs;
+pub use proofs::{
+    generate_csharp_practical_ordinary_concrete_operation_proofs,
+    import_csharp_practical_ordinary_concrete_operation_proofs, OrdinaryConcreteOperationAgreement,
+    OrdinaryConcreteOperationProof, OrdinaryConcreteOperationProofProgram,
+};
+
+#[path = "csharp_practical_ordinary_concrete_allocations.rs"]
+mod allocations;
+pub use allocations::{
+    generate_csharp_practical_ordinary_concrete_operation_proofs_with_allocations,
+    generate_csharp_practical_ordinary_concrete_operations_with_allocations,
+    import_csharp_practical_ordinary_concrete_operation_proofs_with_allocations,
+    import_csharp_practical_ordinary_concrete_operations_with_allocations,
+};
+
+#[path = "csharp_practical_ordinary_scoped_construction_proofs.rs"]
+mod scoped_construction;
+pub use scoped_construction::{
+    generate_csharp_practical_ordinary_scoped_construction_operation_proofs,
+    import_csharp_practical_ordinary_scoped_construction_operation_proofs,
+    OrdinaryScopedConstructionOperationCandidate, OrdinaryScopedConstructionOperationProofProgram,
+    OrdinaryScopedConstructionOwnership,
+};
+
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
 pub struct OrdinaryConcreteFailureComponent {
     pub label: String,
@@ -74,6 +100,8 @@ pub struct OrdinaryConcreteOperationProgram {
     binding_vc_sha256: String,
     instances: Vec<FoundationInstanceVc>,
     public_domains: Vec<OrdinaryPublicDomainDefinition>,
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    construction_storage_domains: Vec<OrdinaryConstructionStorageDomainDefinition>,
     source_clauses: Vec<OrdinarySourceClauseDefinition>,
     source_observations: Vec<OrdinaryObservationDefinition>,
     definitions: Vec<OrdinaryConcreteOperationDefinition>,
@@ -87,6 +115,12 @@ pub struct OrdinaryConcreteOperationProgram {
     certificate: Vec<u8>,
 }
 impl OrdinaryConcreteOperationProgram {
+    pub fn static_transformers(&self) -> usize {
+        self.static_transformers
+    }
+    pub fn construction_storage_domains(&self) -> &[OrdinaryConstructionStorageDomainDefinition] {
+        &self.construction_storage_domains
+    }
     pub fn instances(&self) -> &[FoundationInstanceVc] {
         &self.instances
     }
@@ -384,6 +418,7 @@ fn emit_operation(
     recipe: &Value,
     c: OrdinaryConcreteOperationComponent,
     symbols: &mut BTreeMap<String, String>,
+    existing_boolean_equal: Option<&str>,
 ) -> R<OrdinaryConcreteOperationDefinition> {
     let count = c.argument_type_ids.len();
     let depth = |id: &str| {
@@ -413,7 +448,10 @@ fn emit_operation(
     }
     symbols.insert(c.operation_id.clone(), normal_definition.clone());
     symbols.insert(concrete_symbol.clone(), concrete_definition.clone());
-    let boolean_equal = r.raw(1, false)?.equal;
+    let boolean_equal = match existing_boolean_equal {
+        Some(name) => name.to_owned(),
+        None => r.raw(1, false)?.equal,
+    };
     let mut failures = vec![];
     let mut actual_clear = bit(&mut r.b, true)?;
     let mut concrete_clear = bit(&mut r.b, true)?;
@@ -590,7 +628,7 @@ pub fn generate_csharp_practical_ordinary_concrete_operations(
                         .push(OrdinaryConcreteOperationPendingReason::ApplicationCurrencyPredicate);
                 }
                 if reasons.is_empty() {
-                    definitions.push(emit_operation(r, instance, recipe, c, &mut symbols)?);
+                    definitions.push(emit_operation(r, instance, recipe, c, &mut symbols, None)?);
                 } else {
                     pending_operations.push(OrdinaryConcreteOperationPending {
                         instance_id: instance.instance_id.clone(),
@@ -650,6 +688,7 @@ pub fn generate_csharp_practical_ordinary_concrete_operations(
         binding_vc_sha256: vc.hash(),
         instances: vc.instances().to_vec(),
         public_domains,
+        construction_storage_domains: vec![],
         source_clauses,
         source_observations,
         definitions,

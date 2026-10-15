@@ -1,0 +1,99 @@
+{
+  "certificate_library_sha256": "1d6cdf4e6cb16af8ca3e294cc1fee18c745586660d458cebaaca63b5d98a7979",
+  "producer_binary_sha256": "25ea34e02dbc27f32e464fa1731914374d7407450fff94affa550ed76690e886",
+  "producer_sources": {
+    "builder.rs": "dd3a7ec39bb7aa86663a71fdc9ff55197e5f64df86a9adfd3cac41b7c9d90db3",
+    "regression-main.rs": "be43c3481c1d0a6e5932ba6a938e473498eac1a4178ec018c664d8bdb2d1ead7"
+  },
+  "rows": [
+    {
+      "exact_pinned_bytes": true,
+      "path": "later-constructor-value-levels.hex",
+      "raw_sha256": "28eff0b2475c37668002096561a80dbccace04ca79169af1968a59670abf59a2"
+    },
+    {
+      "exact_pinned_bytes": true,
+      "path": "legacy-prior-constructor-value-levels.hex",
+      "raw_sha256": "d997b48efd9afb4c24d3a6be639660e8850c47cc07705078417a13638fc0177f"
+    },
+    {
+      "exact_pinned_bytes": true,
+      "path": "legacy-prior-theorem-proof-levels.hex",
+      "raw_sha256": "506b7a8ede277e9590532e989010979b53b3151383783d57d49c4cdb1fc009ef"
+    },
+    {
+      "exact_pinned_bytes": true,
+      "path": "prior-constructor-value-levels.hex",
+      "raw_sha256": "9156ac822b5ee30f8e6b802212de0a9612dcdf3e4c505aeee82e3f800619eb92"
+    },
+    {
+      "exact_pinned_bytes": true,
+      "path": "prior-family-type-levels.hex",
+      "raw_sha256": "ae5b9f5fb5fa07f53514244a00679a66219b2a0717e2401ec04fb82d38a78723"
+    },
+    {
+      "exact_pinned_bytes": true,
+      "path": "prior-lambda-body-levels.hex",
+      "raw_sha256": "4c9cf7aae5339585ddacafce2ae53b978bb8debfb7beaec12be2b0054c6ef9cb"
+    },
+    {
+      "exact_pinned_bytes": true,
+      "path": "prior-let-value-levels.hex",
+      "raw_sha256": "85151a64e1e348f5284070529f59d1f94f3adfc6178906e8954daad35651d783"
+    },
+    {
+      "exact_pinned_bytes": true,
+      "path": "prior-opaque-value-levels.hex",
+      "raw_sha256": "338baa1cdcfa74ef3295fe6a04b268c920b64a36089b0146e19e4764098b79f2"
+    },
+    {
+      "exact_pinned_bytes": true,
+      "path": "prior-other-family-levels.hex",
+      "raw_sha256": "86a41d4333d2397557cb3eaa2daa2c58e10ed882459f38c273d239e1039bbd4a"
+    },
+    {
+      "exact_pinned_bytes": true,
+      "path": "prior-pi-domain-levels.hex",
+      "raw_sha256": "c41cf6c4fd98684b0c586a18676d99677950bc16f1cce625b2bb7ce8f9b68fc1"
+    },
+    {
+      "exact_pinned_bytes": true,
+      "path": "prior-theorem-proof-levels.hex",
+      "raw_sha256": "36bfc3cc837dd4748da251f38360e8b31e548d537fb365ac07c07cdb36d39751"
+    },
+    {
+      "exact_pinned_bytes": true,
+      "path": "unused-constructor-levels.hex",
+      "raw_sha256": "e082e969058b58046f7dd3f1fa70f408e60a1a6827de79785184c1b593c8db85"
+    }
+  ],
+  "stages": [
+    {
+      "command": [
+        "/Users/kazuyoshitoshiya/.cargo/bin/rustc",
+        "--edition=2021",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/regression-main.rs",
+        "-L",
+        "dependency=/private/tmp/mpk-w09-bool-cases-target/debug/deps",
+        "--extern",
+        "mpk_cert=/private/tmp/mpk-w09-bool-cases-target/debug/deps/libmpk_cert-73d78a7ad244656d.rlib",
+        "-o",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/producer-replay/producer"
+      ],
+      "exit_code": 0,
+      "log_sha256": "0759c9887326d5eb113216e424866ca971b2e9e966562186eb975af912cf8668",
+      "stage": "compile"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/producer-replay/producer",
+        "/private/tmp/mpk-w09-bool-cases-registration-order/fixtures/core-bool-cases/right-identity.hex",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/registration-order-fix/producer-replay/generated"
+      ],
+      "exit_code": 0,
+      "log_sha256": "b25875899ebdc99af741f490440f03cfe81ee3914598da000ab693ed092bc578",
+      "stage": "generate"
+    }
+  ],
+  "status": "passed_all_12_actual_producer_outputs_exact_pinned_bytes"
+}

@@ -1,0 +1,102 @@
+[
+  {
+    "command": [
+      "cargo",
+      "test",
+      "-p",
+      "mpk-vc",
+      "--test",
+      "csharp_practical_vc",
+      "csharp_03_t06_w09_control_predicates",
+      "--",
+      "--nocapture",
+      "--test-threads=1"
+    ],
+    "exit_code": 0,
+    "log_sha256": "1bb10c7e59a96c81d7f4ec41edf2c590949ea4b1ad013f8a7c209d9a04522408",
+    "observed_exec_session": "90296",
+    "output_environment": {
+      "MPK_W09_CONTROL_PATTERN_SCOPE_OUTPUT": "/tmp/mpk-w09-pattern-scopes"
+    },
+    "retained_reason": "Only the scope-mode test changed for equivalent if-let style; emitter, library unit and other two mode bodies are unchanged",
+    "source_manifest": "attempt-1/source-manifest.json",
+    "source_manifest_sha256": "7f3ec6e8f6369f1b7894b732b1f77e929214e1e0fc43589945be2fdb5ee86c90",
+    "stage": "predicate-regressions",
+    "tests_passed": 3
+  },
+  {
+    "command": [
+      "cargo",
+      "test",
+      "-p",
+      "mpk-vc",
+      "--lib",
+      "pattern_scopes::tests",
+      "--",
+      "--nocapture",
+      "--test-threads=1"
+    ],
+    "elapsed_seconds": 103.722,
+    "exit_code": 0,
+    "log_sha256": "4ba1ccb16bd62d7495a38b85d26db94f1d16d06bd63edde57fd5af26d686ae94",
+    "retained_reason": "Only the scope-mode test changed for equivalent if-let style; emitter, library unit and other two mode bodies are unchanged",
+    "source_manifest": "attempt-1/source-manifest.json",
+    "source_manifest_sha256": "7f3ec6e8f6369f1b7894b732b1f77e929214e1e0fc43589945be2fdb5ee86c90",
+    "stage": "scope-composition",
+    "started_at": "2026-09-29T20:40:54.222998+00:00",
+    "tests_passed": 1
+  },
+  {
+    "command": [
+      "cargo",
+      "test",
+      "-p",
+      "mpk-vc",
+      "--test",
+      "csharp_practical_vc",
+      "csharp_03_t06_w09_control_predicates_with_pattern_scopes_original_sources",
+      "--",
+      "--nocapture",
+      "--test-threads=1"
+    ],
+    "elapsed_seconds": 141.478,
+    "exit_code": 0,
+    "log_sha256": "171d488d486fc0a00bf00f09cd164f1f1bd93971b3255b4a6b6b6c4bab8c1334",
+    "stage": "pinned-scopes",
+    "tests_passed": 1
+  },
+  {
+    "command": [
+      "cargo",
+      "clippy",
+      "-p",
+      "mpk-vc",
+      "--lib",
+      "--test",
+      "csharp_practical_vc",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "elapsed_seconds": 9.985,
+    "exit_code": 0,
+    "log_sha256": "1585a8eb60d7a009e41adab3a655386cf21ffaa6210f6f5f80aa90443de0f5db",
+    "stage": "clippy",
+    "tests_passed": 0
+  },
+  {
+    "command": [
+      "cargo",
+      "fmt",
+      "-p",
+      "mpk-vc",
+      "--",
+      "--check"
+    ],
+    "elapsed_seconds": 3.27,
+    "exit_code": 0,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stage": "format",
+    "tests_passed": 0
+  }
+]

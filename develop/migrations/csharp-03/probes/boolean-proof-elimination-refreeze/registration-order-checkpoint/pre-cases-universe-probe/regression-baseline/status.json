@@ -1,0 +1,56 @@
+{
+  "binary_sha256": {
+    "go": "e9ca299f060620ed691ea6eed40d877e3f9bbd53fb2340f1c19230a8a3afc9ce",
+    "rust": "723d98e8a1a49d97b72296914d76ff1f5939b00b3c4010e134b297f16bf247aa"
+  },
+  "error": "AssertionError({'stage': 'legacy-prior-constructor-value-levels-rust', 'command': ['/private/tmp/mpk-w09-bool-cases-target/debug/mpk', 'check', '/private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/regression-inputs/legacy-prior-constructor-value-levels.mpcert'], 'exit_code': 1, 'verdict': 'rejected', 'wanted_baseline_verdict': 'accepted', 'input_sha256': '7ec661e3730e486996735691494496fb8e17c77db8ccb7008f477d69573fe740', 'report_sha256': '97759cccc2fa6cc825d486c2af3b608ccbc02478c46910b03ecaa79cbe935caa', 'stderr_sha256': 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', 'elapsed_seconds': 0.005828166991705075})",
+  "selection_reason": "Reproduce preceding-type/value/proof universe-argument acceptance and verify legacy, unused-term and other-family controls before the registration-order fix. Only the later-use case should already reject.",
+  "stages": [
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/regression-inputs/later-constructor-value-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.016015208006137982,
+      "exit_code": 1,
+      "input_sha256": "978d2ed8b2e93ad3a1a667a8374e2f07e863d1cdcc00d33844bace110bc539f9",
+      "report_sha256": "f5709a238307ad2beb93ba086b701b2f90bdf64b72485a75f6105f75f2a14a5e",
+      "stage": "later-constructor-value-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected",
+      "wanted_baseline_verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-reports/go-local-4/go-checker",
+        "verify",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/regression-inputs/later-constructor-value-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.009633417008444667,
+      "exit_code": 1,
+      "input_sha256": "978d2ed8b2e93ad3a1a667a8374e2f07e863d1cdcc00d33844bace110bc539f9",
+      "report_sha256": "cdcf04660d615882cb8f1797d3dfe5395fa0c4f59b8f1bab97a7a7d0b6f55887",
+      "stage": "later-constructor-value-levels-go",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected",
+      "wanted_baseline_verdict": "rejected"
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-w09-bool-cases-target/debug/mpk",
+        "check",
+        "/private/tmp/mpk-w09-bool-cases-reports/refreeze/pre-cases-universe-probe/regression-inputs/legacy-prior-constructor-value-levels.mpcert"
+      ],
+      "elapsed_seconds": 0.005828166991705075,
+      "exit_code": 1,
+      "input_sha256": "7ec661e3730e486996735691494496fb8e17c77db8ccb7008f477d69573fe740",
+      "report_sha256": "97759cccc2fa6cc825d486c2af3b608ccbc02478c46910b03ecaa79cbe935caa",
+      "stage": "legacy-prior-constructor-value-levels-rust",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verdict": "rejected",
+      "wanted_baseline_verdict": "accepted"
+    }
+  ],
+  "status": "failed"
+}

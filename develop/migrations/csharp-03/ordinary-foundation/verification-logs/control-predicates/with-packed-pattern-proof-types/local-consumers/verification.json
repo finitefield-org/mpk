@@ -1,0 +1,61 @@
+{
+  "selection_reason": "The changed private generation selector is shared by the existing pattern APIs. Run their scope/projection units and ownership foundation unit, compile all test targets with Clippy, and check formatting. The source integration already runs separately. T06-wide gate is deferred to W12.",
+  "status": "failed",
+  "stages": [
+    {
+      "stage": "scope-units",
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "pattern_",
+        "--",
+        "--nocapture"
+      ],
+      "started_at": "2026-09-30T04:16:19.871984+00:00",
+      "finished_at": "2026-09-30T04:16:20.149824+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.278,
+      "log_sha256": "371b653705a703d29eb7209e5b882da98a33d38521c3cb11a5d42d50c072516c"
+    },
+    {
+      "stage": "ownership-unit",
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "ownership_transport_primitives_have_pointwise_theorems",
+        "--",
+        "--nocapture"
+      ],
+      "started_at": "2026-09-30T04:16:20.150375+00:00",
+      "finished_at": "2026-09-30T04:16:20.260111+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.11,
+      "log_sha256": "3a935ff37e8f93297d6a5d0eb5bbd9d59fa275787e0b36e943bb91a43fa1a0b7"
+    },
+    {
+      "stage": "clippy",
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--tests",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "started_at": "2026-09-30T04:16:20.260807+00:00",
+      "finished_at": "2026-09-30T04:17:17.488780+00:00",
+      "exit_code": 101,
+      "elapsed_seconds": 57.228,
+      "log_sha256": "dc30d4f2f76d70ac30845a32e235e3fd657cffea5cdff0d537c77b33b2d88e64"
+    }
+  ]
+}

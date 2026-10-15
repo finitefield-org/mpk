@@ -1,0 +1,155 @@
+{
+  "error": "AssertionError('aggregate-mutation-audit')",
+  "full_t01_gate": "deferred_to_final_W10",
+  "full_t06_gate": "deferred_to_W12",
+  "selection_reason": "Review the two repaired parser baselines and four separated certificate-owner entries; rerun only six affected scalar/codec pin consumers and the unchanged aggregate mutation audit, then lint the affected VC test target and check formatting. All other generation outputs have exact promotion audits. Whole gates stay deferred to final T01-W10 and T06-W12.",
+  "stage": "aggregate-mutation-audit",
+  "stages": [
+    {
+      "command": [
+        "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_integer_parsers_pinned_sources",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 22.741491832995962,
+      "exit_code": 0,
+      "log_sha256": "047adbe5a2eca15b1bcea24fd2663cbfc2df172a6a6536cc746ac2ca4e3af445",
+      "stage": "integer_parsers-pins",
+      "test_counts": [
+        "1"
+      ]
+    },
+    {
+      "command": [
+        "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_integer_formats_pinned_sources",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 14.378778916005103,
+      "exit_code": 0,
+      "log_sha256": "50a4c2acddbb3590686af7bca5ce03c6cd2238bd36fb33f5a3be81f60cfaa318",
+      "stage": "integer_formats-pins",
+      "test_counts": [
+        "1"
+      ]
+    },
+    {
+      "command": [
+        "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_hex_codecs_pinned_sources",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 7.426455542001349,
+      "exit_code": 0,
+      "log_sha256": "14a685fba84d012f9136b9613e657fbf9ecef69922cde50c02b281639bb659d4",
+      "stage": "hex_codecs-pins",
+      "test_counts": [
+        "1"
+      ]
+    },
+    {
+      "command": [
+        "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_decimal_formats_pinned_sources",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 9.434842957998626,
+      "exit_code": 0,
+      "log_sha256": "16d9f4cd9eed9e9bd2d59e29fec90b8004dba4be0525a59d831a7921d4cc5688",
+      "stage": "decimal_formats-pins",
+      "test_counts": [
+        "1"
+      ]
+    },
+    {
+      "command": [
+        "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_decimal_fixed_formats_pinned_sources",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 10.931846082996344,
+      "exit_code": 0,
+      "log_sha256": "51b82441b9d92374dd8c9348bc589b60fcb973562cb8f08fabd9c652c1ce09d6",
+      "stage": "decimal_fixed_formats-pins",
+      "test_counts": [
+        "1"
+      ]
+    },
+    {
+      "command": [
+        "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_calendar_codecs_pinned_bytes",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 3.618336207997345,
+      "exit_code": 0,
+      "log_sha256": "9a9f7a8a269317cb801f9da5f9df82c8905b02de0f327c52d7bfae5b2aac11a1",
+      "stage": "calendar-codec-pins",
+      "test_counts": [
+        "1"
+      ]
+    },
+    {
+      "command": [
+        "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_aggregate_regroup_audit_mutations",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 0.1053423749981448,
+      "exit_code": 101,
+      "log_sha256": "6f16652fb2c744b42f30bc61ec4d8f9db480ace4bb1693dc5e1bf5c0eafafa76",
+      "stage": "aggregate-mutation-audit",
+      "test_counts": []
+    }
+  ],
+  "status": "failed"
+}

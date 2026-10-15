@@ -613,7 +613,7 @@ pub fn validate_object_construction_protocol(
             .constructor_assignment(&function.id)
             .ok_or_else(ownership_failure)?;
         if returned != Some((summary.definitely_assigned, summary.possibly_assigned))
-            || used_delegation != !delegation.is_empty()
+            || used_delegation == delegation.is_empty()
         {
             return Err(ownership_failure());
         }

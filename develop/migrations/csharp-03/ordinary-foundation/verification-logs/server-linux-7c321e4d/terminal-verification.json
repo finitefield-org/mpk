@@ -1,0 +1,40 @@
+{
+  "status": "passed_three_targeted_server_tests",
+  "recorded_utc": "2026-09-29T22:57:31.121284+00:00",
+  "server": "root@162.43.92.154",
+  "head": "7c321e4dd103941d72f864ef8d1877400ca8c521",
+  "completed_tests": [
+    {
+      "label": "definitions",
+      "started_utc": "2026-09-29T16:17:52Z",
+      "ended_utc": "2026-09-29T16:24:56Z",
+      "exit_code": 0,
+      "log": "definitions.log",
+      "log_sha256": "02ed7e0eba83c485446dec19f56fa00fd8291eab3a242aedb482d4e4904d3ec7"
+    },
+    {
+      "label": "decimal-pins",
+      "started_utc": "2026-09-29T16:24:56Z",
+      "ended_utc": "2026-09-29T16:25:00Z",
+      "exit_code": 0,
+      "log": "decimal-pins.log",
+      "log_sha256": "ea96a1f9706fc4a5730082e0fe4a835df688649951dfa380ea18a85df0bc5b47"
+    },
+    {
+      "label": "real-values",
+      "started_utc": "2026-09-29T16:25:00Z",
+      "ended_utc": "2026-09-29T21:15:06Z",
+      "exit_code": 0,
+      "log": "real-values.log",
+      "log_sha256": "ef1370493ed7c2bb4fd7e85722e1eaf90f01aa2c9540fc4d3b187aa814960ec0"
+    }
+  ],
+  "unique_tests_passed": 3,
+  "scp_session": "85269",
+  "scp_exit_code": 0,
+  "script_sha256": "77d7ad42d48841bd2f2f3210a86d1b739f067dd8a7b1033b7b2ca5e24bc1341f",
+  "selection_reason": "Current concrete-operation test fixture changed and fixed-decimal pins are affected; run these exact cases on the user-requested Linux server before the long real-value/guard case. Full T06 gate remains deferred to W12.",
+  "source_identity_evidence": "HEAD was checked by the original runner; per-file before/after source hashes were not recorded. This result applies to that historical checkpoint, not subsequent observation-route edits.",
+  "application_proofs_pending": 987,
+  "full_gate": "deferred_to_T06_W12"
+}

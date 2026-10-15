@@ -1,0 +1,200 @@
+   Compiling version_check v0.9.5
+   Compiling proc-macro2 v1.0.106
+   Compiling generic-array v0.14.7
+    Checking typenum v1.20.1
+   Compiling unicode-ident v1.0.24
+   Compiling quote v1.0.46
+   Compiling serde_core v1.0.228
+    Checking crypto-common v0.1.7
+    Checking block-buffer v0.10.4
+   Compiling zmij v1.0.21
+   Compiling syn v2.0.118
+    Checking digest v0.10.7
+   Compiling serde_json v1.0.150
+    Checking cfg-if v1.0.4
+    Checking cpufeatures v0.2.17
+   Compiling serde v1.0.228
+   Compiling serde_derive v1.0.228
+    Checking sha2 v0.10.9
+    Checking mpk-core v0.1.0 (/root/mpk-w09-control-predicates/crates/mpk-core)
+    Checking itoa v1.0.18
+    Checking memchr v2.8.2
+    Checking mpk-cert v0.1.0 (/root/mpk-w09-control-predicates/crates/mpk-cert)
+    Checking mpk-vc v0.1.0 (/root/mpk-w09-control-predicates/crates/mpk-vc)
+error: this boolean expression can be simplified
+    --> crates/mpk-vc/src/csharp_practical_vir_model.rs:4525:8
+     |
+4525 |     if node.normal_successor_ids.is_empty() == !normal_edge
+     |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `node.normal_successor_ids.is_empty() != normal_edge`
+     |
+     = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.95.0/index.html#nonminimal_bool
+     = note: `-D clippy::nonminimal-bool` implied by `-D warnings`
+     = help: to override `-D warnings` add `#[allow(clippy::nonminimal_bool)]`
+
+error: this boolean expression can be simplified
+    --> crates/mpk-vc/src/csharp_practical_vir_model.rs:4662:20
+     |
+4662 |                 if !loop_region.is_some_and(|item| item.break_target_node_id == *target_id) {
+     |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `loop_region.is_none_or(|item| item.break_target_node_id != *target_id)`
+     |
+     = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.95.0/index.html#nonminimal_bool
+
+error: this boolean expression can be simplified
+    --> crates/mpk-vc/src/csharp_practical_vir_model.rs:4668:20
+     |
+4668 |                 if !loop_region.is_some_and(|item| item.continue_target_node_id == *target_id) {
+     |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `loop_region.is_none_or(|item| item.continue_target_node_id != *target_id)`
+     |
+     = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.95.0/index.html#nonminimal_bool
+
+error: this boolean expression can be simplified
+   --> crates/mpk-vc/src/csharp_practical_domain.rs:170:12
+    |
+170 |           && !closed
+    |  ____________^
+171 | |             .metadata
+172 | |             .get(payload)
+173 | |             .is_some_and(|m| template_name(&m.template_id) == Some("bounded_sequence"))
+    | |_______________________________________________________________________________________^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.95.0/index.html#nonminimal_bool
+help: try
+    |
+170 ~         && closed
+171 +             .metadata
+172 +             .get(payload).is_none_or(|m| template_name(&m.template_id) != Some("bounded_sequence"))
+    |
+
+error: this boolean expression can be simplified
+   --> crates/mpk-vc/src/csharp_practical_data_phase.rs:269:24
+    |
+269 |                     if !bindings.get(&e).is_some_and(|b| b.role == "ordered_entry") {
+    |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `bindings.get(&e).is_none_or(|b| b.role != "ordered_entry")`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.95.0/index.html#nonminimal_bool
+
+error: this `if` can be collapsed into the outer `match`
+    --> crates/mpk-vc/src/csharp_practical_data_phase.rs:1133:21
+     |
+1133 | /                     if value != &J::Null {
+1134 | |                         shape(value, shapes)?;
+1135 | |                     }
+     | |_____________________^
+     |
+     = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.95.0/index.html#collapsible_match
+     = note: `-D clippy::collapsible-match` implied by `-D warnings`
+     = help: to override `-D warnings` add `#[allow(clippy::collapsible_match)]`
+help: collapse nested if block
+     |
+1132 ~                 "contract_expression_or_null"
+1133 ~                     if value != &J::Null => {
+1134 |                         shape(value, shapes)?;
+1135 ~                     }
+     |
+
+error: this boolean expression can be simplified
+    --> crates/mpk-vc/src/csharp_practical_data_source.rs:1022:20
+     |
+1022 |                 || (o.family == "array") != !o.predicate.is_empty()
+     |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `(o.family == "array") == o.predicate.is_empty()`
+     |
+     = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.95.0/index.html#nonminimal_bool
+
+error: this boolean expression can be simplified
+   --> crates/mpk-vc/src/csharp_practical_data_emission.rs:431:18
+    |
+431 |               ) || !self
+    |  __________________^
+432 | |                 .control
+433 | |                 .as_ref()
+434 | |                 .is_some_and(|c| c.universe().arm(exception).is_some())
+    | |_______________________________________________________________________^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.95.0/index.html#nonminimal_bool
+help: try
+    |
+431 ~             ) || self
+432 +                 .control
+433 +                 .as_ref().is_none_or(|c| c.universe().arm(exception).is_none())
+    |
+
+error: this boolean expression can be simplified
+   --> crates/mpk-vc/src/csharp_practical_data_emission.rs:550:12
+    |
+550 |           if !self
+    |  ____________^
+551 | |             .c
+552 | |             .metadata
+553 | |             .get(&value.type_id)
+554 | |             .is_some_and(|m| template_name(&m.template_id) == Some("sequence_construction"))
+    | |____________________________________________________________________________________________^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.95.0/index.html#nonminimal_bool
+help: try
+    |
+550 ~         if self
+551 +             .c
+552 +             .metadata
+553 +             .get(&value.type_id).is_none_or(|m| template_name(&m.template_id) != Some("sequence_construction"))
+    |
+
+error: this boolean expression can be simplified
+   --> crates/mpk-vc/src/csharp_practical_loop_lowering.rs:653:16
+    |
+653 |             || !n.operation.is_empty() && !(handlers && n.kind == "handler_completion")
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `!(n.operation.is_empty() || handlers && n.kind == "handler_completion")`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.95.0/index.html#nonminimal_bool
+
+error: this `if` can be collapsed into the outer `match`
+   --> crates/mpk-vc/src/csharp_practical_data_vc.rs:572:13
+    |
+572 | /             if !name.starts_with("contract.def.") {
+573 | |                 output.insert(name.clone());
+574 | |             }
+    | |_____________^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.95.0/index.html#collapsible_match
+help: collapse nested if block
+    |
+571 ~         ContractTerm::Const { name, .. }
+572 ~             if !name.starts_with("contract.def.") => {
+573 |                 output.insert(name.clone());
+574 ~             }
+    |
+
+error: this boolean expression can be simplified
+   --> crates/mpk-vc/src/csharp_practical_ordinary_contract_codecs.rs:121:43
+    |
+121 |             || (id == "decimal.fixed" && (!scale.is_some_and(|s| s <= 28) || rounding.is_none()))
+    |                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `scale.is_none_or(|s| s > 28)`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.95.0/index.html#nonminimal_bool
+
+error: this boolean expression can be simplified
+   --> crates/mpk-vc/src/csharp_practical_object_ownership.rs:616:16
+    |
+616 |             || used_delegation != !delegation.is_empty()
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `used_delegation == delegation.is_empty()`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.95.0/index.html#nonminimal_bool
+
+error: this boolean expression can be simplified
+    --> crates/mpk-vc/src/csharp_practical_vir_validation.rs:3455:12
+     |
+3455 |           && !prepared
+     |  ____________^
+3456 | |             .actual_source
+3457 | |             .as_ref()
+3458 | |             .is_some_and(|s| s.control_lowering().is_some())
+     | |____________________________________________________________^
+     |
+     = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.95.0/index.html#nonminimal_bool
+help: try
+     |
+3455 ~         && prepared
+3456 +             .actual_source
+3457 +             .as_ref().is_none_or(|s| s.control_lowering().is_none())
+     |
+
+error: could not compile `mpk-vc` (lib) due to 14 previous errors

@@ -1,0 +1,24 @@
+{
+  "actual_profile": {
+    "coreTermArena_intern_percent": 76.71,
+    "coreTermNodeEqual_percent": 20.81,
+    "cycle_samples": 292,
+    "execution_host": "root@162.43.92.154",
+    "lost_samples": 0,
+    "process_pid": 3781530,
+    "sample_seconds": 5
+  },
+  "all_application_proof_ids_pending": 987,
+  "frozen_existing_server_sources_binaries_or_controllers_modified": false,
+  "full_t01_gate": "deferred_to_final_W10_on_server",
+  "full_t06_gate": "deferred_to_W12_on_server",
+  "implementation": "Index each complete immutable term node by comparable Tag/A/B/C and separate fixed-width level/argument byte strings. Nil and empty slices keep identical equality; map lookup returns the first existing ID and appends new nodes in the same order. No reduction, inference, fuel, declaration-order validation, certificate or hash-domain rule changes.",
+  "parent_commit": "7c74ea8a8546f43a67ee06e99cdeb6b94e111d6c",
+  "server_only": true,
+  "source_hashes": {
+    "go-tools/mpk-checker-ref/core_check.go": "19008b25758b9a00919f468d6bf0f8d8275bd918fe7678156971bd48dde097f8",
+    "go-tools/mpk-checker-ref/core_term_intern_test.go": "1703507c1036e184508a0a4a082173414f10f01688b20b9ffdb2a3ddc2d24fde"
+  },
+  "status": "prepared_indexed_term_candidate_not_yet_executed",
+  "verification_selection_reason": "The change is inside the Go core term arena used by every Go checker core term operation. Run the full Go checker package tests, new differential first-ID/prepopulated/argument-ownership regressions, go vet and selected gofmt checks on the SSH server. Then compare actual indexed checker outputs on the six approved exact remaining pattern certificates with the fixed Rust outputs and any completed historical Go reports. Rust production sources are unchanged; no local test executes and full T gates stay deferred."
+}

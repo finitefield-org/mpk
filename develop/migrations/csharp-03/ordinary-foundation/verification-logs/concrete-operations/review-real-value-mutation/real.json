@@ -1,5 +1,5 @@
 {
-  "status": "running",
+  "status": "passed",
   "supervisor_pid": 15644,
   "profile": {
     "CARGO_TARGET_DIR": "/tmp/mpk-w09-optimized-target",
@@ -19,9 +19,12 @@
         "--nocapture",
         "--test-threads=1"
       ],
-      "status": "running",
+      "status": "passed",
       "log": "real.log",
-      "pid": 15647
+      "pid": 15647,
+      "exit_code": 0,
+      "elapsed_seconds": 6147.753,
+      "log_sha256": "df672ea94c6b67c4d797b63b5e637ebab105bdcc39b1dc80f645ca422684cfdc"
     }
   ],
   "full_gate": "deferred_to_T06_W12",

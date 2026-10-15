@@ -1,0 +1,73 @@
+{
+  "error": "AssertionError(('clippy', 101))",
+  "expected_head": "5cf114ba63a85d6dec31ffa4b4f9df233d79ccff",
+  "finished_at": "2026-09-29T18:55:15.448890+00:00",
+  "head": "5cf114ba63a85d6dec31ffa4b4f9df233d79ccff",
+  "process_pid": 3023850,
+  "stage": "clippy",
+  "stages": [
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "control_predicates::tests",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 147.235,
+      "exit_code": 0,
+      "finished_at": "2026-09-29T18:47:18.431440+00:00",
+      "log_sha256": "d41efa6551c2603f15925ca94a32fba8f9e433799ba8e1155655a311a86a61da",
+      "stage": "measures",
+      "started_at": "2026-09-29T18:44:51.196208+00:00"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_vc",
+        "csharp_03_t06_w09_control_predicates_original_sources",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 416.153,
+      "exit_code": 0,
+      "finished_at": "2026-09-29T18:54:14.584903+00:00",
+      "log_sha256": "cd410843efb77c46860f04838563243d52ddec7c40bc5ca116041b7af47033c3",
+      "stage": "original-sources",
+      "started_at": "2026-09-29T18:47:18.432414+00:00"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--test",
+        "csharp_practical_vc",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "elapsed_seconds": 60.86,
+      "exit_code": 101,
+      "finished_at": "2026-09-29T18:55:15.447773+00:00",
+      "log_sha256": "fdf8de9c23117b2c86a56fa3cd0882e9fde4630faa714b28612fd878d419316c",
+      "stage": "clippy",
+      "started_at": "2026-09-29T18:54:14.587411+00:00"
+    }
+  ],
+  "started_at": "2026-09-29T18:44:50.657683+00:00",
+  "status": "failed",
+  "supervisor_pid": 3022820,
+  "verified_source_hashes": 370
+}

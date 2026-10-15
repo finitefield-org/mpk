@@ -10,6 +10,22 @@ use mpk_cert::{
     axiom_report_hash_for_report, build_axiom_report, build_export_block,
     decode_canonical_certificate, encode_certificate_bounded, export_block_hash,
 };
+pub use structural::{
+    generate_csharp_practical_ordinary_default_proofs,
+    generate_csharp_practical_ordinary_foundation_proofs,
+    generate_csharp_practical_ordinary_identity_proofs,
+    import_csharp_practical_ordinary_default_proofs,
+    import_csharp_practical_ordinary_foundation_proofs,
+    import_csharp_practical_ordinary_identity_proofs, OrdinaryActualDefaultProof,
+    OrdinaryDefaultGoalProof, OrdinaryDefaultProofProgram, OrdinaryFoundationProofProgram,
+    OrdinaryIdentityProjectionProof, OrdinaryIdentityProofProgram,
+};
+pub use structural::{
+    generate_csharp_practical_ordinary_scoped_construction_operation_proofs,
+    import_csharp_practical_ordinary_scoped_construction_operation_proofs,
+    OrdinaryScopedConstructionOperationCandidate, OrdinaryScopedConstructionOperationProofProgram,
+    OrdinaryScopedConstructionOwnership,
+};
 const BOOL: &str = "Std.Bool";
 const PREFIX: &str = "Mpk.CSharp.Ordinary";
 const BOOL_HEX: &[u8] = include_bytes!("../../../proofs/std/bool/std-bool.hex");
@@ -508,6 +524,7 @@ fn key(n: &TermNode) -> Key {
         TermNode::Let { ty, value, body } => Key::Let(*ty, *value, *body),
     }
 }
+#[derive(Clone)]
 struct Builder {
     c: Certificate,
     terms: BTreeMap<Key, u32>,
@@ -573,6 +590,39 @@ impl Builder {
             b.binders.push(d);
             b.c.term_table.push(n);
         }
+        b.boolean = b.constant(BOOL)?;
+        Ok(b)
+    }
+    // Resume a canonical generated program without renumbering its globals,
+    // terms or declaration bodies. Only appended names may be sorted again.
+    fn resume(certificate: &[u8]) -> R<Self> {
+        let c =
+            decode_canonical_certificate(certificate).map_err(|_| OrdinaryCarrierError::Linkage)?;
+        crate::csharp_practical_vc_model::validate_csharp_practical_certificate_structure(&c)
+            .map_err(|_| OrdinaryCarrierError::Limit)?;
+        let mut b = Self::new()?;
+        b.c = c;
+        b.terms.clear();
+        b.binders.clear();
+        b.globals =
+            b.c.declarations
+                .iter()
+                .enumerate()
+                .map(|(i, d)| (b.c.name_table[d.name as usize].clone(), i as u32))
+                .collect();
+        for i in 0..b.c.term_table.len() {
+            let node = &b.c.term_table[i];
+            let depth = b.depth(node)?;
+            b.terms.entry(key(node)).or_insert(i as u32);
+            b.binders.push(depth);
+        }
+        let DeclarationKind::Inductive { ty } = b.c.declarations
+            [*b.globals.get(BOOL).ok_or(OrdinaryCarrierError::Linkage)? as usize]
+            .kind
+        else {
+            return Err(OrdinaryCarrierError::Linkage);
+        };
+        b.sort = ty;
         b.boolean = b.constant(BOOL)?;
         Ok(b)
     }
@@ -1244,22 +1294,39 @@ pub use structural::{
     OrdinaryStructuralOperations, OrdinaryStructuralProgram,
 };
 pub use structural::{
+    generate_csharp_practical_ordinary_binding_default_closed_proofs,
     generate_csharp_practical_ordinary_binding_defaults,
+    import_csharp_practical_ordinary_binding_default_closed_proofs,
     import_csharp_practical_ordinary_binding_defaults, OrdinaryBindingActualDefault,
     OrdinaryBindingDefaultPending, OrdinaryBindingDefaultPendingReason,
-    OrdinaryBindingDefaultProgram,
+    OrdinaryBindingDefaultProgram, OrdinaryBindingSourceUseNode, OrdinaryBindingSourceUseTrace,
 };
 pub use structural::{
+    generate_csharp_practical_ordinary_concrete_operation_proofs,
+    generate_csharp_practical_ordinary_concrete_operation_proofs_with_allocations,
     generate_csharp_practical_ordinary_concrete_operations,
+    generate_csharp_practical_ordinary_concrete_operations_with_allocations,
+    generate_csharp_practical_ordinary_concrete_type_proofs,
+    generate_csharp_practical_ordinary_concrete_type_proofs_with_construction_storage,
     generate_csharp_practical_ordinary_concrete_types,
+    generate_csharp_practical_ordinary_concrete_types_with_construction_storage,
     generate_csharp_practical_ordinary_source_invariants,
+    import_csharp_practical_ordinary_concrete_operation_proofs,
+    import_csharp_practical_ordinary_concrete_operation_proofs_with_allocations,
     import_csharp_practical_ordinary_concrete_operations,
+    import_csharp_practical_ordinary_concrete_operations_with_allocations,
+    import_csharp_practical_ordinary_concrete_type_proofs,
+    import_csharp_practical_ordinary_concrete_type_proofs_with_construction_storage,
     import_csharp_practical_ordinary_concrete_types,
+    import_csharp_practical_ordinary_concrete_types_with_construction_storage,
     import_csharp_practical_ordinary_source_invariants, OrdinaryConcreteFailureComponent,
-    OrdinaryConcreteOperationComponent, OrdinaryConcreteOperationDefinition,
-    OrdinaryConcreteOperationFailure, OrdinaryConcreteOperationPending,
-    OrdinaryConcreteOperationPendingReason, OrdinaryConcreteOperationProgram,
-    OrdinaryConcreteTypeDefinition, OrdinaryConcreteTypeProgram, OrdinarySourceInvariantDefinition,
+    OrdinaryConcreteOperationAgreement, OrdinaryConcreteOperationComponent,
+    OrdinaryConcreteOperationDefinition, OrdinaryConcreteOperationFailure,
+    OrdinaryConcreteOperationPending, OrdinaryConcreteOperationPendingReason,
+    OrdinaryConcreteOperationProgram, OrdinaryConcreteOperationProof,
+    OrdinaryConcreteOperationProofProgram, OrdinaryConcreteTypeDefinition,
+    OrdinaryConcreteTypeProgram, OrdinaryConcreteTypeProof, OrdinaryConcreteTypeProofProgram,
+    OrdinaryConstructionStorageDomainDefinition, OrdinarySourceInvariantDefinition,
     OrdinarySourceInvariantEnumCase, OrdinarySourceInvariantProgram,
 };
 pub use structural::{
@@ -1614,4 +1681,35 @@ pub use structural::{
     OrdinaryControlNativeLiteral, OrdinaryControlNativeOperation, OrdinaryControlNodeEntry,
     OrdinaryControlSourceExecution, OrdinaryControlSourceFrame, OrdinaryControlSourceStep,
     OrdinaryControlStepComponent,
+};
+
+pub use structural::{
+    csharp_practical_ordinary_pattern_refinement_candidate_theorems,
+    generate_csharp_practical_ordinary_control_predicates,
+    generate_csharp_practical_ordinary_control_predicates_with_execution,
+    generate_csharp_practical_ordinary_control_predicates_with_packed_pattern_proof_types,
+    generate_csharp_practical_ordinary_control_predicates_with_pattern_captures,
+    generate_csharp_practical_ordinary_control_predicates_with_pattern_observations,
+    generate_csharp_practical_ordinary_control_predicates_with_pattern_proof_types,
+    generate_csharp_practical_ordinary_control_predicates_with_pattern_routes,
+    generate_csharp_practical_ordinary_control_predicates_with_pattern_scopes,
+    generate_csharp_practical_ordinary_pattern_refinement_candidate,
+    import_csharp_practical_ordinary_control_predicates,
+    import_csharp_practical_ordinary_control_predicates_with_execution,
+    import_csharp_practical_ordinary_control_predicates_with_packed_pattern_proof_types,
+    import_csharp_practical_ordinary_control_predicates_with_pattern_captures,
+    import_csharp_practical_ordinary_control_predicates_with_pattern_observations,
+    import_csharp_practical_ordinary_control_predicates_with_pattern_proof_types,
+    import_csharp_practical_ordinary_control_predicates_with_pattern_routes,
+    import_csharp_practical_ordinary_control_predicates_with_pattern_scopes,
+    link_csharp_practical_ordinary_pattern_refinement_candidate, OrdinaryControlGuardDependency,
+    OrdinaryControlMeasureDefinition, OrdinaryControlPatternCapture,
+    OrdinaryControlPatternCaptureAlternative, OrdinaryControlPatternCaptureDependency,
+    OrdinaryControlPatternEnvironment, OrdinaryControlPatternEnvironmentField,
+    OrdinaryControlPatternExecutionScope, OrdinaryControlPatternObservation,
+    OrdinaryControlPatternPremiseProof, OrdinaryControlPatternProofType,
+    OrdinaryControlPatternRefinementCandidate, OrdinaryControlPatternRefinementCandidateTheorem,
+    OrdinaryControlPatternRouteObservation, OrdinaryControlPatternScope,
+    OrdinaryControlPatternSourceDefinition, OrdinaryControlPredicateDefinition,
+    OrdinaryControlPredicateProgram, OrdinaryControlSequentDefinition,
 };

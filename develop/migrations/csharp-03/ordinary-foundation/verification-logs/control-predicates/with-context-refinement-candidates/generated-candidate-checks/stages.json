@@ -1,0 +1,101 @@
+[
+  {
+    "case": "candidate",
+    "backend": "go",
+    "command": [
+      "/tmp/mpk-w09-default-closed-proofs/go-checker",
+      "/tmp/mpk-w09-context-refinement/generated-candidate-checks/candidate-go.mpcert"
+    ],
+    "started_at": "2026-09-30T06:09:50.074143+00:00",
+    "finished_at": "2026-09-30T06:09:50.092202+00:00",
+    "elapsed_seconds": 0.018,
+    "exit_code": 0,
+    "certificate_sha256": "ff7f2e3c562e56f8e8fb4919b1b038552616d5124c89b023f0e2d5352beadc3b",
+    "input_file_sha256": "ada8cce5b860c9772c651cb09323dee28175f7b3bd6199643f8fd62f9acda657",
+    "report_sha256": "dc5d32f7208784b720d278d9ace4af8ef1a4f59b18d85881496a1c09d4afd466",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "case": "candidate",
+    "backend": "rust",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "check",
+      "/tmp/mpk-w09-context-refinement/generated-candidate-checks/candidate-rust.mpcert"
+    ],
+    "started_at": "2026-09-30T06:09:50.092576+00:00",
+    "finished_at": "2026-09-30T06:09:50.099956+00:00",
+    "elapsed_seconds": 0.007,
+    "exit_code": 0,
+    "certificate_sha256": "ff7f2e3c562e56f8e8fb4919b1b038552616d5124c89b023f0e2d5352beadc3b",
+    "input_file_sha256": "ada8cce5b860c9772c651cb09323dee28175f7b3bd6199643f8fd62f9acda657",
+    "report_sha256": "578dffe7d226a8380f0f64bdbeccd2ed0e0a7bdd1690691be505c62e39b15770",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "case": "generated",
+    "backend": "go",
+    "command": [
+      "/tmp/mpk-w09-default-closed-proofs/go-checker",
+      "/tmp/mpk-w09-context-refinement/generated-candidate-checks/generated-go.mpcert"
+    ],
+    "started_at": "2026-09-30T06:09:50.100714+00:00",
+    "finished_at": "2026-09-30T06:09:50.121361+00:00",
+    "elapsed_seconds": 0.021,
+    "exit_code": 0,
+    "certificate_sha256": "e4272d3978b0e12374306ead6eba92ca182f0116f653f30f30c61bbd09428ebc",
+    "input_file_sha256": "b5715e8dc070256b4b5676d1a5b0b2144a229b735d1b02eb753528cd4d1f1ff4",
+    "report_sha256": "45d8c4e398558bdadd31b510d9162abefed025ed556700727060b7e9ea99d3e5",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "case": "generated",
+    "backend": "rust",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "check",
+      "/tmp/mpk-w09-context-refinement/generated-candidate-checks/generated-rust.mpcert"
+    ],
+    "started_at": "2026-09-30T06:09:50.121711+00:00",
+    "finished_at": "2026-09-30T06:09:50.131617+00:00",
+    "elapsed_seconds": 0.01,
+    "exit_code": 0,
+    "certificate_sha256": "e4272d3978b0e12374306ead6eba92ca182f0116f653f30f30c61bbd09428ebc",
+    "input_file_sha256": "b5715e8dc070256b4b5676d1a5b0b2144a229b735d1b02eb753528cd4d1f1ff4",
+    "report_sha256": "ba0f9acc14bb023c56c9e6a33daa1fe177cb7583e16b111f807aa5cef5a1ea37",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "case": "wrong-candidate",
+    "backend": "go",
+    "command": [
+      "/tmp/mpk-w09-default-closed-proofs/go-checker",
+      "/tmp/mpk-w09-context-refinement/generated-candidate-checks/wrong-candidate-go.mpcert"
+    ],
+    "started_at": "2026-09-30T06:09:50.132189+00:00",
+    "finished_at": "2026-09-30T06:09:50.148408+00:00",
+    "elapsed_seconds": 0.016,
+    "exit_code": 1,
+    "certificate_sha256": "2ea6be606956249459dafcc4c859a4227f8975b53b04beb24fdbf4b866c2e0fa",
+    "input_file_sha256": "6fdcbca370cac5e7f4448609445b1309eaac7f1bdbb5eb7f87122696d995fe03",
+    "report_sha256": "dafc144f0afb7202906fc6931dbc655a05611f498eeab75c740caf3b69f8d638",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "case": "wrong-candidate",
+    "backend": "rust",
+    "command": [
+      "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+      "check",
+      "/tmp/mpk-w09-context-refinement/generated-candidate-checks/wrong-candidate-rust.mpcert"
+    ],
+    "started_at": "2026-09-30T06:09:50.148776+00:00",
+    "finished_at": "2026-09-30T06:09:50.154980+00:00",
+    "elapsed_seconds": 0.006,
+    "exit_code": 1,
+    "certificate_sha256": "2ea6be606956249459dafcc4c859a4227f8975b53b04beb24fdbf4b866c2e0fa",
+    "input_file_sha256": "6fdcbca370cac5e7f4448609445b1309eaac7f1bdbb5eb7f87122696d995fe03",
+    "report_sha256": "2faaafc1a025d52fa4f95108c4f18d490e986ff3082f23fef62a4b241fd95e68",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]

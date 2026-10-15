@@ -1,0 +1,3568 @@
+{
+  "application_proofs_pending": 987,
+  "binaries": {
+    "go": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+    "rust": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91"
+  },
+  "concrete_operations_pending": 31,
+  "finished_at": "2026-09-30T11:20:43.639609+00:00",
+  "full_t_gate": "deferred to T06-W12",
+  "launches": {},
+  "proofs_supplied": 436,
+  "selection_reason": "Check the exact 45 original-source complete concrete-operation proof certificates with both unchanged binaries, compare hashes and counts, require zero axioms, and reject per-certificate hash corruption plus a well-typed wrong normal implementation at core checking; the definition-only certificate accepts and the supplied proof must reject. Empty concrete-operation groups have zero supplied theorems and retain all their other obligations; this is not complete application acceptance.",
+  "source_contexts": 45,
+  "stage": "unit-void-source-hash",
+  "stages": [
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "binding-vc-boundary_field",
+      "certificate_sha256": "1005ffd9a381830f4b454c5722dbf961c3358e3f902e54975f7fb068138aedc8",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-boundary_field-positive.mpcert"
+      ],
+      "elapsed_seconds": 0.685,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T10:58:46.091940+00:00",
+      "input_file_sha256": "a208d0ce32aace20209b14418f75dd4cb9f17085d542f78976b516d1ed293d56",
+      "kind": "positive",
+      "process_pid": 82424,
+      "report_sha256": "50958b8808bf311571bf8dab0d2b2a48415adf5ef07b258a28ed76028adcacc5",
+      "started_at": "2026-09-30T10:58:45.407084+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "binding-vc-boundary_field",
+      "certificate_sha256": "1005ffd9a381830f4b454c5722dbf961c3358e3f902e54975f7fb068138aedc8",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-boundary_field-positive.mpcert"
+      ],
+      "elapsed_seconds": 0.683,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T10:58:46.093190+00:00",
+      "input_file_sha256": "a208d0ce32aace20209b14418f75dd4cb9f17085d542f78976b516d1ed293d56",
+      "kind": "positive",
+      "process_pid": 82425,
+      "report_sha256": "7f7efe4bb82003a8c8eaada8e931b46ceb0ab6bf060100ea9c945499b493e8f3",
+      "started_at": "2026-09-30T10:58:45.410274+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "binding-vc-boundary_field",
+      "certificate_sha256": "a8ecda6c1fb8f76c092aa95dbc14fc1a392160e438b2a4a1e82ee4bdff67347c",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-boundary_field-hash.mpcert"
+      ],
+      "elapsed_seconds": 0.668,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T10:58:46.761983+00:00",
+      "input_file_sha256": "8ba29970e2975006fdbcb8f1dbefc60f76023b96c2d5ae23adeaeb682e6434e7",
+      "kind": "hash",
+      "process_pid": 82426,
+      "report_sha256": "fa8d83f7b15a78a12322d9e1892039dda3b0ea4707f739cb29a2c9eda2d019aa",
+      "started_at": "2026-09-30T10:58:46.093697+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "binding-vc-boundary_field",
+      "certificate_sha256": "a8ecda6c1fb8f76c092aa95dbc14fc1a392160e438b2a4a1e82ee4bdff67347c",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-boundary_field-hash.mpcert"
+      ],
+      "elapsed_seconds": 0.665,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T10:58:46.762689+00:00",
+      "input_file_sha256": "8ba29970e2975006fdbcb8f1dbefc60f76023b96c2d5ae23adeaeb682e6434e7",
+      "kind": "hash",
+      "process_pid": 82427,
+      "report_sha256": "e82d6f2f4bda57d6665012456b3ff19567b8e2cdf8d22ffaf519c44804181a5f",
+      "started_at": "2026-09-30T10:58:46.097422+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "binding-vc-boundary_field",
+      "certificate_sha256": "f5d950817a6f6146ae8baba40c548447e856351380b6fd0e71f9773e143a39b7",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-boundary_field-wrong.mpcert"
+      ],
+      "elapsed_seconds": 0.279,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T10:58:47.042051+00:00",
+      "input_file_sha256": "d7ab306f42a00582e8b7c63f70e633715fe15603af920ef02c704b57e13b141c",
+      "kind": "wrong",
+      "process_pid": 82429,
+      "report_sha256": "89cdf2c96c80fb283e5369c98defd1c2a0e30ef7d0dc2cbed4843a228092d36b",
+      "started_at": "2026-09-30T10:58:46.763265+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "binding-vc-boundary_field",
+      "certificate_sha256": "f5d950817a6f6146ae8baba40c548447e856351380b6fd0e71f9773e143a39b7",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-boundary_field-wrong.mpcert"
+      ],
+      "elapsed_seconds": 0.277,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T10:58:47.042783+00:00",
+      "input_file_sha256": "d7ab306f42a00582e8b7c63f70e633715fe15603af920ef02c704b57e13b141c",
+      "kind": "wrong",
+      "process_pid": 82430,
+      "report_sha256": "95053352171b42ce241ee651490737ac55ead5478f8a27e5b0c00c7431970433",
+      "started_at": "2026-09-30T10:58:46.765420+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "binding-vc-bounded_sequence",
+      "certificate_sha256": "e979592c965af288b89f25340eecf7cda470d9d6980aa192118084646e3f2ecd",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-bounded_sequence-positive.mpcert"
+      ],
+      "elapsed_seconds": 4.009,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T10:58:51.052288+00:00",
+      "input_file_sha256": "a701a4cf6ab072ca67a260c74dc53e83c26306a823fc15667fd72560e7a15845",
+      "kind": "positive",
+      "process_pid": 82431,
+      "report_sha256": "bf4a1301846305b82a7b230a27eec46f59d3302cbd85b49f22011c1ae2535536",
+      "started_at": "2026-09-30T10:58:47.043602+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "binding-vc-bounded_sequence",
+      "certificate_sha256": "e979592c965af288b89f25340eecf7cda470d9d6980aa192118084646e3f2ecd",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-bounded_sequence-positive.mpcert"
+      ],
+      "elapsed_seconds": 4.007,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T10:58:51.053192+00:00",
+      "input_file_sha256": "a701a4cf6ab072ca67a260c74dc53e83c26306a823fc15667fd72560e7a15845",
+      "kind": "positive",
+      "process_pid": 82432,
+      "report_sha256": "196c2dc5af8057696aeca9db8917039cf0a958415aeec8699958b787abfe1fa4",
+      "started_at": "2026-09-30T10:58:47.046125+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "binding-vc-bounded_sequence",
+      "certificate_sha256": "d659eaaeb4c5f829435c13d32551ccabb9bfaa4c430b49b5a5bb3609563b1d60",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-bounded_sequence-hash.mpcert"
+      ],
+      "elapsed_seconds": 4.121,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T10:58:55.177033+00:00",
+      "input_file_sha256": "509035f460b329efcf33c570a9b7f2172a01e7999ee5c0d099085c147fde0655",
+      "kind": "hash",
+      "process_pid": 82435,
+      "report_sha256": "89e090a8da7acca926e8c14f39cce17b9762d43aaed65fea49ba5cdb673b6945",
+      "started_at": "2026-09-30T10:58:51.055870+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "binding-vc-bounded_sequence",
+      "certificate_sha256": "d659eaaeb4c5f829435c13d32551ccabb9bfaa4c430b49b5a5bb3609563b1d60",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-bounded_sequence-hash.mpcert"
+      ],
+      "elapsed_seconds": 4.12,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T10:58:55.178749+00:00",
+      "input_file_sha256": "509035f460b329efcf33c570a9b7f2172a01e7999ee5c0d099085c147fde0655",
+      "kind": "hash",
+      "process_pid": 82436,
+      "report_sha256": "61453ed604c3a594741bea4a0c6228be92e94cc5d88c0eb8b7789d783cf97de8",
+      "started_at": "2026-09-30T10:58:51.058812+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "binding-vc-instant",
+      "certificate_sha256": "bc855c4b983579bec89a3a58df5a4cecb64b35070d60c07cf5a5eb575ac07ee4",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-instant-positive.mpcert"
+      ],
+      "elapsed_seconds": 0.599,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T10:58:55.779977+00:00",
+      "input_file_sha256": "19e66936946c8101a9da1def434de21d955ebd7908e624f97e38edc4d7575b89",
+      "kind": "positive",
+      "process_pid": 82449,
+      "report_sha256": "2acdd628ae31d3cd35b0c3f8c5a615a3f6e8cf8432a801dfc65b0eb55695d792",
+      "started_at": "2026-09-30T10:58:55.180827+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "binding-vc-instant",
+      "certificate_sha256": "bc855c4b983579bec89a3a58df5a4cecb64b35070d60c07cf5a5eb575ac07ee4",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-instant-positive.mpcert"
+      ],
+      "elapsed_seconds": 0.597,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T10:58:55.781623+00:00",
+      "input_file_sha256": "19e66936946c8101a9da1def434de21d955ebd7908e624f97e38edc4d7575b89",
+      "kind": "positive",
+      "process_pid": 82451,
+      "report_sha256": "015ff89d6f99e2410b8380574526a02f11592de345539575f9a79fa65f073883",
+      "started_at": "2026-09-30T10:58:55.184226+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "binding-vc-instant",
+      "certificate_sha256": "1d322c770ea9c9312ef3f3155ce43ec3f365c966d9e2eeb79de39e288729dbe0",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-instant-hash.mpcert"
+      ],
+      "elapsed_seconds": 0.625,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T10:58:56.411595+00:00",
+      "input_file_sha256": "a56378295e4b7759d8b2ab297d193c91bbc92f9a62e036d4b75b592729346225",
+      "kind": "hash",
+      "process_pid": 82453,
+      "report_sha256": "3d35db7060152bdeb0ef6dfeb05b2fd5624c951aa070ed7e4efaa5e03181c028",
+      "started_at": "2026-09-30T10:58:55.786171+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "binding-vc-instant",
+      "certificate_sha256": "1d322c770ea9c9312ef3f3155ce43ec3f365c966d9e2eeb79de39e288729dbe0",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-instant-hash.mpcert"
+      ],
+      "elapsed_seconds": 0.624,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T10:58:56.412888+00:00",
+      "input_file_sha256": "a56378295e4b7759d8b2ab297d193c91bbc92f9a62e036d4b75b592729346225",
+      "kind": "hash",
+      "process_pid": 82454,
+      "report_sha256": "c296cb979b2843625728cddc141c9cfbd8721d8acf175a39fc081226e6df99cc",
+      "started_at": "2026-09-30T10:58:55.788836+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "binding-vc-lookup",
+      "certificate_sha256": "eafaef2d0dbd96e29c1e62ca6484d16267dddfb178c80258e963fb77a59767b1",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-lookup-positive.mpcert"
+      ],
+      "elapsed_seconds": 0.595,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T10:58:57.008542+00:00",
+      "input_file_sha256": "cf44757e82a3c262cb3e65b0e6eb35ec66ecb4938c0daf0a22f2761537bab29b",
+      "kind": "positive",
+      "process_pid": 82459,
+      "report_sha256": "86f984d3309ab1a57abba18581eca99fbf7ad2e8ca40433eda2395e7874615a8",
+      "started_at": "2026-09-30T10:58:56.413754+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "binding-vc-lookup",
+      "certificate_sha256": "eafaef2d0dbd96e29c1e62ca6484d16267dddfb178c80258e963fb77a59767b1",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-lookup-positive.mpcert"
+      ],
+      "elapsed_seconds": 0.593,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T10:58:57.009325+00:00",
+      "input_file_sha256": "cf44757e82a3c262cb3e65b0e6eb35ec66ecb4938c0daf0a22f2761537bab29b",
+      "kind": "positive",
+      "process_pid": 82460,
+      "report_sha256": "2575b1afaa17c7ad3b0776f8944eac03205c864c116b3e18caa8351bc351c642",
+      "started_at": "2026-09-30T10:58:56.416200+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "binding-vc-lookup",
+      "certificate_sha256": "c34c61096aca6bdb4849fb28e15d9948f67671ea46e2956243dac3423dd81d5e",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-lookup-hash.mpcert"
+      ],
+      "elapsed_seconds": 0.63,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T10:58:57.640378+00:00",
+      "input_file_sha256": "99286578e6616619c51f1c2db5da75e3a3560c64eca183b0ec7b62bbc9dc6ead",
+      "kind": "hash",
+      "process_pid": 82461,
+      "report_sha256": "59f311ce84a1a5cca53bebc329ed4b240a5f71a45b615b917cccce677a2097b7",
+      "started_at": "2026-09-30T10:58:57.010017+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "binding-vc-lookup",
+      "certificate_sha256": "c34c61096aca6bdb4849fb28e15d9948f67671ea46e2956243dac3423dd81d5e",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-lookup-hash.mpcert"
+      ],
+      "elapsed_seconds": 0.628,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T10:58:57.641149+00:00",
+      "input_file_sha256": "99286578e6616619c51f1c2db5da75e3a3560c64eca183b0ec7b62bbc9dc6ead",
+      "kind": "hash",
+      "process_pid": 82462,
+      "report_sha256": "283d3f14fc88fe3111fa9ecb402dbcc4e5a42719eea8a357bf88e8241378ca5d",
+      "started_at": "2026-09-30T10:58:57.012747+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "binding-vc-money",
+      "certificate_sha256": "e42f5bfe0d927a97fee040b0157a879c8ae2955dbf9e6dbb075ba69f6b77752c",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-money-positive.mpcert"
+      ],
+      "elapsed_seconds": 264.289,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:03:21.941267+00:00",
+      "input_file_sha256": "762f87eb02d862bf82010d9a5c85b08a9442610a93ecfdc6ba45676c1b0bd640",
+      "kind": "positive",
+      "process_pid": 82463,
+      "report_sha256": "8a6d1a4fb4e429c5f95c0360822986b73afb526604e9d911470b07bb249992ef",
+      "started_at": "2026-09-30T10:58:57.651991+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "binding-vc-money",
+      "certificate_sha256": "e42f5bfe0d927a97fee040b0157a879c8ae2955dbf9e6dbb075ba69f6b77752c",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-money-positive.mpcert"
+      ],
+      "elapsed_seconds": 264.287,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:03:21.943328+00:00",
+      "input_file_sha256": "762f87eb02d862bf82010d9a5c85b08a9442610a93ecfdc6ba45676c1b0bd640",
+      "kind": "positive",
+      "process_pid": 82464,
+      "report_sha256": "204e2756b63f3676a49a9134d868d367d54a515832aadf4961f197399a0c2430",
+      "started_at": "2026-09-30T10:58:57.656245+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "binding-vc-money",
+      "certificate_sha256": "548c8e691757a68c425de7232301d16e3e622074ccd1c1a95d6123a51b7a28d7",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-money-hash.mpcert"
+      ],
+      "elapsed_seconds": 269.482,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:07:51.426849+00:00",
+      "input_file_sha256": "43f40139f0dbe7f0e7f90b984ba80e24956896a1d6478ef49a19f393e50ec1fe",
+      "kind": "hash",
+      "process_pid": 83380,
+      "report_sha256": "5b7ab237676b11a0e75d4b2e09e5e9df719407f720e9d9f92a211f73bed79c9c",
+      "started_at": "2026-09-30T11:03:21.944576+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "binding-vc-money",
+      "certificate_sha256": "548c8e691757a68c425de7232301d16e3e622074ccd1c1a95d6123a51b7a28d7",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-money-hash.mpcert"
+      ],
+      "elapsed_seconds": 269.478,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:07:51.428598+00:00",
+      "input_file_sha256": "43f40139f0dbe7f0e7f90b984ba80e24956896a1d6478ef49a19f393e50ec1fe",
+      "kind": "hash",
+      "process_pid": 83382,
+      "report_sha256": "df60bb599d2ef3d59ab0c6f9212c7c710837eb1b006d8580f408ba041e566e4d",
+      "started_at": "2026-09-30T11:03:21.950061+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "binding-vc-option",
+      "certificate_sha256": "20316c437a2bc04c094f701b8b604f85b44c62825fb00abdc3b7a432992e38e4",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-option-positive.mpcert"
+      ],
+      "elapsed_seconds": 0.587,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:07:52.017697+00:00",
+      "input_file_sha256": "b7e702b4659f2b6e471c2dd414942cdfe17909eb3a942c8e600d7c5f6923a2d8",
+      "kind": "positive",
+      "process_pid": 84527,
+      "report_sha256": "032f7741a6dd120f570f996f11e986cb8712a2807d5c729e86350e2106dc4c66",
+      "started_at": "2026-09-30T11:07:51.430325+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "binding-vc-option",
+      "certificate_sha256": "20316c437a2bc04c094f701b8b604f85b44c62825fb00abdc3b7a432992e38e4",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-option-positive.mpcert"
+      ],
+      "elapsed_seconds": 0.583,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:07:52.018602+00:00",
+      "input_file_sha256": "b7e702b4659f2b6e471c2dd414942cdfe17909eb3a942c8e600d7c5f6923a2d8",
+      "kind": "positive",
+      "process_pid": 84528,
+      "report_sha256": "812571d28d94ea63049472abd91227b551374537615eada6e22ea2aebf2dccb6",
+      "started_at": "2026-09-30T11:07:51.435159+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "binding-vc-option",
+      "certificate_sha256": "fcaa7e1a15bc49f96afdffe5f788a24f740f1e5211946e515d41f75f78c9baca",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-option-hash.mpcert"
+      ],
+      "elapsed_seconds": 0.592,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:07:52.611699+00:00",
+      "input_file_sha256": "b8b6351a97f86f55808d3116583b62c6847a10073370d199429576674f45437d",
+      "kind": "hash",
+      "process_pid": 84529,
+      "report_sha256": "244dfb98e6326ae96f245fa585e71c68f96043058884823d6098d4d9b1e05651",
+      "started_at": "2026-09-30T11:07:52.019317+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "binding-vc-option",
+      "certificate_sha256": "fcaa7e1a15bc49f96afdffe5f788a24f740f1e5211946e515d41f75f78c9baca",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-option-hash.mpcert"
+      ],
+      "elapsed_seconds": 0.592,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:07:52.614368+00:00",
+      "input_file_sha256": "b8b6351a97f86f55808d3116583b62c6847a10073370d199429576674f45437d",
+      "kind": "hash",
+      "process_pid": 84530,
+      "report_sha256": "7df191517630f2a90cdd94783d6bbd12abfb86d677e185a7d35cb4c90a21f8bd",
+      "started_at": "2026-09-30T11:07:52.022200+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "binding-vc-ordered_entry",
+      "certificate_sha256": "7a4b1f6ca39d9dc22867b6395e9a3d4cafba2c7337fa2864f0a387b736214c5a",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-ordered_entry-positive.mpcert"
+      ],
+      "elapsed_seconds": 0.399,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:07:53.015360+00:00",
+      "input_file_sha256": "abf327a3efe7a4206d97fc5d8ca1577927e39f8d0a5eb30c56263658d048b0f2",
+      "kind": "positive",
+      "process_pid": 84532,
+      "report_sha256": "202b18757e4335aea0e60fe229d771e2ae6447c9888081d6c414ea2505cbbb11",
+      "started_at": "2026-09-30T11:07:52.615953+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "binding-vc-ordered_entry",
+      "certificate_sha256": "7a4b1f6ca39d9dc22867b6395e9a3d4cafba2c7337fa2864f0a387b736214c5a",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-ordered_entry-positive.mpcert"
+      ],
+      "elapsed_seconds": 0.397,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:07:53.016259+00:00",
+      "input_file_sha256": "abf327a3efe7a4206d97fc5d8ca1577927e39f8d0a5eb30c56263658d048b0f2",
+      "kind": "positive",
+      "process_pid": 84533,
+      "report_sha256": "cc03a7df4f6ac667112340d1517b608191b17d3e87d6e8723ef51ba57667588e",
+      "started_at": "2026-09-30T11:07:52.618890+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "binding-vc-ordered_entry",
+      "certificate_sha256": "cf0ab2debc6e39ac00fd673c3db7b54862716270428d44d43736226314282902",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-ordered_entry-hash.mpcert"
+      ],
+      "elapsed_seconds": 0.378,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:07:53.395224+00:00",
+      "input_file_sha256": "6f303bb06dadd01a103fb7d43a01bc29bda4a38af37de8534573b9c9423b19d2",
+      "kind": "hash",
+      "process_pid": 84534,
+      "report_sha256": "3d42fe053c19837ecfe23b96e1c8800125f10609092700820b7b5651e565886e",
+      "started_at": "2026-09-30T11:07:53.016948+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "binding-vc-ordered_entry",
+      "certificate_sha256": "cf0ab2debc6e39ac00fd673c3db7b54862716270428d44d43736226314282902",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-ordered_entry-hash.mpcert"
+      ],
+      "elapsed_seconds": 0.377,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:07:53.396988+00:00",
+      "input_file_sha256": "6f303bb06dadd01a103fb7d43a01bc29bda4a38af37de8534573b9c9423b19d2",
+      "kind": "hash",
+      "process_pid": 84535,
+      "report_sha256": "4642a768196805381acae0f77ebb7e222e99720b806a1e2588a06fd6cf060645",
+      "started_at": "2026-09-30T11:07:53.019565+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "binding-vc-ordered_map",
+      "certificate_sha256": "5bf2460912429334a86916dd3a9d4c780ae7d32dfa1e649f15efc8e97fc2dcba",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-ordered_map-positive.mpcert"
+      ],
+      "elapsed_seconds": 9.435,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:08:02.834348+00:00",
+      "input_file_sha256": "a1b9764622b6b0099c07c7dab55aee077c2cffd7ec285689d380b151009b3643",
+      "kind": "positive",
+      "process_pid": 84537,
+      "report_sha256": "d31b4061433fc6975321927d5523bec9366313ce57749df7bd9817d9609f1d8a",
+      "started_at": "2026-09-30T11:07:53.399199+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "binding-vc-ordered_map",
+      "certificate_sha256": "5bf2460912429334a86916dd3a9d4c780ae7d32dfa1e649f15efc8e97fc2dcba",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-ordered_map-positive.mpcert"
+      ],
+      "elapsed_seconds": 9.433,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:08:02.835298+00:00",
+      "input_file_sha256": "a1b9764622b6b0099c07c7dab55aee077c2cffd7ec285689d380b151009b3643",
+      "kind": "positive",
+      "process_pid": 84538,
+      "report_sha256": "60a9e06d1a12fe1199462fa1f7f665f255b40e0c0b4191e4f38e0039937e2293",
+      "started_at": "2026-09-30T11:07:53.402501+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "binding-vc-ordered_map",
+      "certificate_sha256": "fca9e8c7b1e4c6fe6ab525db71da877b76ab67248c76bb122784cd60f8059426",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-ordered_map-hash.mpcert"
+      ],
+      "elapsed_seconds": 10.49,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:08:13.325788+00:00",
+      "input_file_sha256": "3c6d6a8665562ccb988f8eceabb93bad3d6a52039aeacf550a663fa5079e1f23",
+      "kind": "hash",
+      "process_pid": 84560,
+      "report_sha256": "5eb95445464fa680b8549422af770ec126b555553a7a6e056e66ff07ee3e806b",
+      "started_at": "2026-09-30T11:08:02.836106+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "binding-vc-ordered_map",
+      "certificate_sha256": "fca9e8c7b1e4c6fe6ab525db71da877b76ab67248c76bb122784cd60f8059426",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-ordered_map-hash.mpcert"
+      ],
+      "elapsed_seconds": 10.489,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:08:13.328224+00:00",
+      "input_file_sha256": "3c6d6a8665562ccb988f8eceabb93bad3d6a52039aeacf550a663fa5079e1f23",
+      "kind": "hash",
+      "process_pid": 84561,
+      "report_sha256": "01928b50f902ed1970894f3be96d0a610ee0eaee22f0dd5fe28c1db066df528f",
+      "started_at": "2026-09-30T11:08:02.839122+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "binding-vc-ordered_set",
+      "certificate_sha256": "799f3f2f1311b46c00b7659c10ffdff09b444023a3763e7b781666fa0b4fda4f",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-ordered_set-positive.mpcert"
+      ],
+      "elapsed_seconds": 6.707,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:08:20.038547+00:00",
+      "input_file_sha256": "3d07ee17e60cc590c91874704fe85ba90a94a52653586b76a84f9a5828ec054b",
+      "kind": "positive",
+      "process_pid": 84604,
+      "report_sha256": "8bc2d69a8f0fbfda9d57c305e000fea8365988de9965efd2be24e591d83f5fac",
+      "started_at": "2026-09-30T11:08:13.331306+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "binding-vc-ordered_set",
+      "certificate_sha256": "799f3f2f1311b46c00b7659c10ffdff09b444023a3763e7b781666fa0b4fda4f",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-ordered_set-positive.mpcert"
+      ],
+      "elapsed_seconds": 6.706,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:08:20.039766+00:00",
+      "input_file_sha256": "3d07ee17e60cc590c91874704fe85ba90a94a52653586b76a84f9a5828ec054b",
+      "kind": "positive",
+      "process_pid": 84606,
+      "report_sha256": "523a7ef1b54ecfe60de46f9486783fe74bc0f4e10bfb23e7ebe649d908494243",
+      "started_at": "2026-09-30T11:08:13.334232+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "binding-vc-ordered_set",
+      "certificate_sha256": "dd0a36527cd2df39a9eb440ca97761da67ab9e745e51ea6b9b3255190fc99bcf",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-ordered_set-hash.mpcert"
+      ],
+      "elapsed_seconds": 6.618,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:08:26.659017+00:00",
+      "input_file_sha256": "0d0d99b96e7cc36b94d0eeb807dea51acd05bf558c4958bac17a7d7a7f3cf83f",
+      "kind": "hash",
+      "process_pid": 84627,
+      "report_sha256": "422670d9a8c9b6ec00883b0c5b3ef2675a376339b502e239999487de703ee2dd",
+      "started_at": "2026-09-30T11:08:20.041049+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "binding-vc-ordered_set",
+      "certificate_sha256": "dd0a36527cd2df39a9eb440ca97761da67ab9e745e51ea6b9b3255190fc99bcf",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-ordered_set-hash.mpcert"
+      ],
+      "elapsed_seconds": 6.618,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:08:26.662033+00:00",
+      "input_file_sha256": "0d0d99b96e7cc36b94d0eeb807dea51acd05bf558c4958bac17a7d7a7f3cf83f",
+      "kind": "hash",
+      "process_pid": 84628,
+      "report_sha256": "d13b7fdb8f50a1b7faf942b8e5cc906aba7cc1424062296ce6cdb9ad0ec7a961",
+      "started_at": "2026-09-30T11:08:20.043984+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "binding-vc-result",
+      "certificate_sha256": "bf105de313104fb30fe26e92c3017014d3133a9f3826717bd59e4275281fbd95",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-result-positive.mpcert"
+      ],
+      "elapsed_seconds": 0.681,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:08:27.346769+00:00",
+      "input_file_sha256": "8270660a69f93a16d6a06b8722eabddd43193944e84f3c1e2936570492aa5803",
+      "kind": "positive",
+      "process_pid": 84636,
+      "report_sha256": "d518f57f6d0e56baef989ddbab07889f19eac3917ac742c3071782f1e2f9f686",
+      "started_at": "2026-09-30T11:08:26.665736+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "binding-vc-result",
+      "certificate_sha256": "bf105de313104fb30fe26e92c3017014d3133a9f3826717bd59e4275281fbd95",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-result-positive.mpcert"
+      ],
+      "elapsed_seconds": 0.68,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:08:27.348338+00:00",
+      "input_file_sha256": "8270660a69f93a16d6a06b8722eabddd43193944e84f3c1e2936570492aa5803",
+      "kind": "positive",
+      "process_pid": 84638,
+      "report_sha256": "b4034be9193ee7273761af37c45f0c1b7d0672dd8aaba1525b5e5261da61c3e2",
+      "started_at": "2026-09-30T11:08:26.668581+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "binding-vc-result",
+      "certificate_sha256": "1bb7b4ebc28665d3f9bbff34c8c4fb6d510ea98a415f4e2b91108ce1230662e9",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-result-hash.mpcert"
+      ],
+      "elapsed_seconds": 0.692,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:08:28.040948+00:00",
+      "input_file_sha256": "2353749064be2a03e2e7eb1b18e2cf26b577995e0ee77ce6fc704cb25757cc8d",
+      "kind": "hash",
+      "process_pid": 84643,
+      "report_sha256": "cb3c144eaa1f901ff89cdbb6d72f0eea05c8114320b9370132e991842d86a8a8",
+      "started_at": "2026-09-30T11:08:27.349239+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "binding-vc-result",
+      "certificate_sha256": "1bb7b4ebc28665d3f9bbff34c8c4fb6d510ea98a415f4e2b91108ce1230662e9",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-result-hash.mpcert"
+      ],
+      "elapsed_seconds": 0.69,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:08:28.041964+00:00",
+      "input_file_sha256": "2353749064be2a03e2e7eb1b18e2cf26b577995e0ee77ce6fc704cb25757cc8d",
+      "kind": "hash",
+      "process_pid": 84644,
+      "report_sha256": "ea980a38b499ab605573dc97ad6124ab748f8ff9762876eefd465818d4be43ea",
+      "started_at": "2026-09-30T11:08:27.352287+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "binding-vc-transition",
+      "certificate_sha256": "7f904f4cc30ce57cef3c1fc3659080946dba745fc35a3eb32a6e1005b3dc400d",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-transition-positive.mpcert"
+      ],
+      "elapsed_seconds": 2.607,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:08:30.651034+00:00",
+      "input_file_sha256": "e6a98f84583eb6679f8c7c023e3f1d0714e9ac0890c2f41eff01dc886a5d8fa7",
+      "kind": "positive",
+      "process_pid": 84645,
+      "report_sha256": "d4dcb7f5c8bade7bc95249f8465be1474e41807fdaa17944d7968f88c86925f9",
+      "started_at": "2026-09-30T11:08:28.043615+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "binding-vc-transition",
+      "certificate_sha256": "7f904f4cc30ce57cef3c1fc3659080946dba745fc35a3eb32a6e1005b3dc400d",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-transition-positive.mpcert"
+      ],
+      "elapsed_seconds": 2.605,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:08:30.653915+00:00",
+      "input_file_sha256": "e6a98f84583eb6679f8c7c023e3f1d0714e9ac0890c2f41eff01dc886a5d8fa7",
+      "kind": "positive",
+      "process_pid": 84646,
+      "report_sha256": "b076c3a942621c0b13e478c3e94fd13af83d105e4c2156108c2212a1707619e4",
+      "started_at": "2026-09-30T11:08:28.048504+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "binding-vc-transition",
+      "certificate_sha256": "4f3acfcf0aa2abf0d0b3230f0a4819e86483b50ea1a4eb189fb993b760f175ba",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-transition-hash.mpcert"
+      ],
+      "elapsed_seconds": 2.832,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:08:33.488620+00:00",
+      "input_file_sha256": "8068427ad126bc936e49398170edcb2e4352a4b6e7db2b6531b398c6536867b5",
+      "kind": "hash",
+      "process_pid": 84648,
+      "report_sha256": "f5d547ab024e55a1e698f5a6dfb19ff77111144d35cc2ff3bacda7b4f6f016ca",
+      "started_at": "2026-09-30T11:08:30.656752+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "binding-vc-transition",
+      "certificate_sha256": "4f3acfcf0aa2abf0d0b3230f0a4819e86483b50ea1a4eb189fb993b760f175ba",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-transition-hash.mpcert"
+      ],
+      "elapsed_seconds": 2.827,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:08:33.489819+00:00",
+      "input_file_sha256": "8068427ad126bc936e49398170edcb2e4352a4b6e7db2b6531b398c6536867b5",
+      "kind": "hash",
+      "process_pid": 84649,
+      "report_sha256": "8f168c8fa99b1a00a84d9b116224d4a57a09560687d76d67da4cdfdd09363b35",
+      "started_at": "2026-09-30T11:08:30.662640+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "binding-vc-validation",
+      "certificate_sha256": "d9bc06be597679430256415eede2aff186fbfe7fa776dec72433da99d901e31a",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-validation-positive.mpcert"
+      ],
+      "elapsed_seconds": 3.929,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:08:37.420374+00:00",
+      "input_file_sha256": "7295e67c212837a7f648f5a4cab8f61caebc88a8f066513ed628070c25d9887f",
+      "kind": "positive",
+      "process_pid": 84657,
+      "report_sha256": "804144d592a1e8b405160fc39340c372c7d02034f04b4c242da69e5b4c6bcf7d",
+      "started_at": "2026-09-30T11:08:33.491819+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "binding-vc-validation",
+      "certificate_sha256": "d9bc06be597679430256415eede2aff186fbfe7fa776dec72433da99d901e31a",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-validation-positive.mpcert"
+      ],
+      "elapsed_seconds": 3.926,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:08:37.422289+00:00",
+      "input_file_sha256": "7295e67c212837a7f648f5a4cab8f61caebc88a8f066513ed628070c25d9887f",
+      "kind": "positive",
+      "process_pid": 84659,
+      "report_sha256": "30fe006b3b59786f65475e6a20472c99845470f2fe65c3717095dbaa027b43cc",
+      "started_at": "2026-09-30T11:08:33.496763+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "binding-vc-validation",
+      "certificate_sha256": "f83d2448777b3b69ce6766e339ac0d659d1b8c00736101bc1221b97b3cbd82a5",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-validation-hash.mpcert"
+      ],
+      "elapsed_seconds": 3.862,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:08:41.285122+00:00",
+      "input_file_sha256": "9c91439610c41a92e2e1ca41308fa425e81760e6541ec4a1a01387595c9c4522",
+      "kind": "hash",
+      "process_pid": 84666,
+      "report_sha256": "1df8cb6a1a6801ece87fd0b3eefe7b0d2ddbb02d35cb1a4dc58428f15fd4e154",
+      "started_at": "2026-09-30T11:08:37.423353+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "binding-vc-validation",
+      "certificate_sha256": "f83d2448777b3b69ce6766e339ac0d659d1b8c00736101bc1221b97b3cbd82a5",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/binding-vc-validation-hash.mpcert"
+      ],
+      "elapsed_seconds": 3.859,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:08:41.288340+00:00",
+      "input_file_sha256": "9c91439610c41a92e2e1ca41308fa425e81760e6541ec4a1a01387595c9c4522",
+      "kind": "hash",
+      "process_pid": 84667,
+      "report_sha256": "cc777b1607f2b529e4cd5ddefe8f0253a45bf3287bb703873b2e2f81ada96072",
+      "started_at": "2026-09-30T11:08:37.428964+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "bool-construction",
+      "certificate_sha256": "b8332a450d3e37a30eed57541bb37615974ae2735b80656c466d3187b8f143ee",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/bool-construction-positive.mpcert"
+      ],
+      "elapsed_seconds": 1.928,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:08:43.219229+00:00",
+      "input_file_sha256": "187983db3855baf804e6ba6bc6331d5e458e2c891337593f67d2f3f473257928",
+      "kind": "positive",
+      "process_pid": 84670,
+      "report_sha256": "7bd6f969f6aae7108a352b6c6620e9958988a9e5588c04d94de0e2aebd68b94e",
+      "started_at": "2026-09-30T11:08:41.291433+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "bool-construction",
+      "certificate_sha256": "b8332a450d3e37a30eed57541bb37615974ae2735b80656c466d3187b8f143ee",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/bool-construction-positive.mpcert"
+      ],
+      "elapsed_seconds": 1.927,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:08:43.222360+00:00",
+      "input_file_sha256": "187983db3855baf804e6ba6bc6331d5e458e2c891337593f67d2f3f473257928",
+      "kind": "positive",
+      "process_pid": 84672,
+      "report_sha256": "e1b1059588f77cc3419603d6c7f323696edfb0f33c8b6fcab5d81173a3180a06",
+      "started_at": "2026-09-30T11:08:41.294972+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "bool-construction",
+      "certificate_sha256": "3e9d17edcb9d13d5a88c182a2c9a264467c2e7dec7fad4b5e0ac7d526964c1dd",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/bool-construction-hash.mpcert"
+      ],
+      "elapsed_seconds": 1.816,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:08:45.041148+00:00",
+      "input_file_sha256": "65d5eebc65ea1cdc2978f3094ade1d3cc2a6395cde54903f0d9c815cf7857e75",
+      "kind": "hash",
+      "process_pid": 84674,
+      "report_sha256": "319f9e21bf0606919da0e535ff163896d656c100b02b9b509a4674ed09cb9d44",
+      "started_at": "2026-09-30T11:08:43.225270+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "bool-construction",
+      "certificate_sha256": "3e9d17edcb9d13d5a88c182a2c9a264467c2e7dec7fad4b5e0ac7d526964c1dd",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/bool-construction-hash.mpcert"
+      ],
+      "elapsed_seconds": 1.814,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:08:45.042483+00:00",
+      "input_file_sha256": "65d5eebc65ea1cdc2978f3094ade1d3cc2a6395cde54903f0d9c815cf7857e75",
+      "kind": "hash",
+      "process_pid": 84675,
+      "report_sha256": "37d3c167433656da51ce9e8c6b8819f93ece7223f2e1872fd44d29fa2ec166bd",
+      "started_at": "2026-09-30T11:08:43.228507+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "bool-float-entry",
+      "certificate_sha256": "6963ed16816dcc23948a95e8ef0d1a5740498f2e1ef2f81e4708380d82478537",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/bool-float-entry-positive.mpcert"
+      ],
+      "elapsed_seconds": 0.431,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:08:45.474923+00:00",
+      "input_file_sha256": "7388f30fde73a4a779993e7090a6689a44d66db3f45a9e820c983e0d3fc84040",
+      "kind": "positive",
+      "process_pid": 84679,
+      "report_sha256": "c31e892102980f02390f3f280ca351830fae46befdfaa5a2b15c22a5eb9f9a0a",
+      "started_at": "2026-09-30T11:08:45.044280+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "bool-float-entry",
+      "certificate_sha256": "6963ed16816dcc23948a95e8ef0d1a5740498f2e1ef2f81e4708380d82478537",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/bool-float-entry-positive.mpcert"
+      ],
+      "elapsed_seconds": 0.43,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:08:45.479998+00:00",
+      "input_file_sha256": "7388f30fde73a4a779993e7090a6689a44d66db3f45a9e820c983e0d3fc84040",
+      "kind": "positive",
+      "process_pid": 84680,
+      "report_sha256": "33a7307890a077af5faac7f7e7f091f7c463eadf24479a4a4e216e6a0d9954d7",
+      "started_at": "2026-09-30T11:08:45.050133+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "bool-float-entry",
+      "certificate_sha256": "f824fce8ecca33b92a31a2d3afb83b77793e427040f625af1e25397a992a57fe",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/bool-float-entry-hash.mpcert"
+      ],
+      "elapsed_seconds": 0.575,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:08:46.056428+00:00",
+      "input_file_sha256": "11d0fb4ce69914da596f3c5bd3a89e1cc20dfdc997632ad997df515b00bfb90d",
+      "kind": "hash",
+      "process_pid": 84681,
+      "report_sha256": "3e25f2152a2fac0dcd6c6704e2918089a5101c71df7ddd16b55212595e1d2ed2",
+      "started_at": "2026-09-30T11:08:45.481347+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "bool-float-entry",
+      "certificate_sha256": "f824fce8ecca33b92a31a2d3afb83b77793e427040f625af1e25397a992a57fe",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/bool-float-entry-hash.mpcert"
+      ],
+      "elapsed_seconds": 0.575,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:08:46.062459+00:00",
+      "input_file_sha256": "11d0fb4ce69914da596f3c5bd3a89e1cc20dfdc997632ad997df515b00bfb90d",
+      "kind": "hash",
+      "process_pid": 84682,
+      "report_sha256": "94678f404d89fe060052aec2a609d65834d6b6775f33df438f1f99c7427a7b98",
+      "started_at": "2026-09-30T11:08:45.487167+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "boundary-exception-empty",
+      "certificate_sha256": "07621391a3ccd8eb1577ca56389df3e066069ed483036e74369d604528f26c75",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/boundary-exception-empty-positive.mpcert"
+      ],
+      "elapsed_seconds": 0.296,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:08:46.360311+00:00",
+      "input_file_sha256": "2f05e7f65f45e69c19ac7b36e2fa45e17cddd69a1ff009366b309bde307617fb",
+      "kind": "positive",
+      "process_pid": 84684,
+      "report_sha256": "19785c6ca1ff10b33aea92f3835c8e031f9a6cd2f51b69d2fc42fe589ffb4cc8",
+      "started_at": "2026-09-30T11:08:46.064369+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "boundary-exception-empty",
+      "certificate_sha256": "07621391a3ccd8eb1577ca56389df3e066069ed483036e74369d604528f26c75",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/boundary-exception-empty-positive.mpcert"
+      ],
+      "elapsed_seconds": 0.293,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:08:46.361774+00:00",
+      "input_file_sha256": "2f05e7f65f45e69c19ac7b36e2fa45e17cddd69a1ff009366b309bde307617fb",
+      "kind": "positive",
+      "process_pid": 84685,
+      "report_sha256": "7d32391e952f26a651f998ef607b8f4ee7bd3d16a9e2693e7a10c1d459cd7198",
+      "started_at": "2026-09-30T11:08:46.068452+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "boundary-exception-empty",
+      "certificate_sha256": "64d8beb3511f3f9f776ddde9accd16f2229317896308cbf84db23d29238dcae7",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/boundary-exception-empty-hash.mpcert"
+      ],
+      "elapsed_seconds": 0.304,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:08:46.667501+00:00",
+      "input_file_sha256": "890b987e418d6fbd993da0a75f808db82097ec94617a8ad362b33d022a4517ef",
+      "kind": "hash",
+      "process_pid": 84686,
+      "report_sha256": "ea82af4e0d42c4cc2f263e902c53ae243fcd31085d0ac16e214e21d2401f748f",
+      "started_at": "2026-09-30T11:08:46.363715+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "boundary-exception-empty",
+      "certificate_sha256": "64d8beb3511f3f9f776ddde9accd16f2229317896308cbf84db23d29238dcae7",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/boundary-exception-empty-hash.mpcert"
+      ],
+      "elapsed_seconds": 0.302,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:08:46.670881+00:00",
+      "input_file_sha256": "890b987e418d6fbd993da0a75f808db82097ec94617a8ad362b33d022a4517ef",
+      "kind": "hash",
+      "process_pid": 84687,
+      "report_sha256": "39027b9f6862417d1347763c6e5447dedcf53149929b2b8c91cc8721715541f4",
+      "started_at": "2026-09-30T11:08:46.368506+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "boundary-exception-payload",
+      "certificate_sha256": "7d38f5326dc6b8bce7313f493d3e8a33d11c1e3e9f62faa784a0359f09f004ab",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/boundary-exception-payload-positive.mpcert"
+      ],
+      "elapsed_seconds": 0.495,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:08:47.173807+00:00",
+      "input_file_sha256": "c2dd807a98f10fc10377f2bb78aa9fd38d9737c877194feaeaf7652371e3b6e8",
+      "kind": "positive",
+      "process_pid": 84688,
+      "report_sha256": "804d36ed26ab26381f896428815a0723bc55fb736ec5c6c53b4f3aa926c9e096",
+      "started_at": "2026-09-30T11:08:46.679053+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "boundary-exception-payload",
+      "certificate_sha256": "7d38f5326dc6b8bce7313f493d3e8a33d11c1e3e9f62faa784a0359f09f004ab",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/boundary-exception-payload-positive.mpcert"
+      ],
+      "elapsed_seconds": 0.494,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:08:47.178949+00:00",
+      "input_file_sha256": "c2dd807a98f10fc10377f2bb78aa9fd38d9737c877194feaeaf7652371e3b6e8",
+      "kind": "positive",
+      "process_pid": 84689,
+      "report_sha256": "30d4be9b87e7373e370a9465d0d047430d372f0a674b284a924b64010cf51c0f",
+      "started_at": "2026-09-30T11:08:46.685425+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "boundary-exception-payload",
+      "certificate_sha256": "3e3ac8d6bfd41e34efe9273a516c99874d65133cd4f8ad46e6e9b29e87d8f97b",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/boundary-exception-payload-hash.mpcert"
+      ],
+      "elapsed_seconds": 0.501,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:08:47.681088+00:00",
+      "input_file_sha256": "167319954bba5e69e95dd1aa1d0c8817d2e60e036bc1d335fa8e387a617e0060",
+      "kind": "hash",
+      "process_pid": 84691,
+      "report_sha256": "d0d765d6f05c7fa41adf9c2a142af200015d90c37de5614836ae00389603be57",
+      "started_at": "2026-09-30T11:08:47.180458+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "boundary-exception-payload",
+      "certificate_sha256": "3e3ac8d6bfd41e34efe9273a516c99874d65133cd4f8ad46e6e9b29e87d8f97b",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/boundary-exception-payload-hash.mpcert"
+      ],
+      "elapsed_seconds": 0.5,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:08:47.683523+00:00",
+      "input_file_sha256": "167319954bba5e69e95dd1aa1d0c8817d2e60e036bc1d335fa8e387a617e0060",
+      "kind": "hash",
+      "process_pid": 84692,
+      "report_sha256": "a696f0e265789bdd1c99a49567aa206f9a138220cd560f4f1ae031e8318041c9",
+      "started_at": "2026-09-30T11:08:47.183239+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "boundary-map-compound",
+      "certificate_sha256": "b3d2dd1a4f8f61aaa478c13a31e6aefd7d155ffb9dfcce9d9c31384655c401e0",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/boundary-map-compound-positive.mpcert"
+      ],
+      "elapsed_seconds": 24.75,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:09:12.436732+00:00",
+      "input_file_sha256": "cd91437dc3794adbfc59a0c63b9cdd57ff78b978f1b8b603cf3151877981ba0a",
+      "kind": "positive",
+      "process_pid": 84698,
+      "report_sha256": "7aacbdc403440c15a6619206a8db2cc6a55aa904b3b7206af175e75f3cd75ac8",
+      "started_at": "2026-09-30T11:08:47.686716+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "boundary-map-compound",
+      "certificate_sha256": "b3d2dd1a4f8f61aaa478c13a31e6aefd7d155ffb9dfcce9d9c31384655c401e0",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/boundary-map-compound-positive.mpcert"
+      ],
+      "elapsed_seconds": 24.749,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:09:12.438477+00:00",
+      "input_file_sha256": "cd91437dc3794adbfc59a0c63b9cdd57ff78b978f1b8b603cf3151877981ba0a",
+      "kind": "positive",
+      "process_pid": 84699,
+      "report_sha256": "5d0a102e241bb0a3749872fa505289ba80bea2e688b40c380847763895ed4765",
+      "started_at": "2026-09-30T11:08:47.689183+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "boundary-map-compound",
+      "certificate_sha256": "e25b01d99ccd80260878065d5cb602e93d10e448b76ef170e5beea44b652c447",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/boundary-map-compound-hash.mpcert"
+      ],
+      "elapsed_seconds": 19.786,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:09:32.225486+00:00",
+      "input_file_sha256": "e78f9b64961e582edfd723df2fa399542400b605570c74621775aa0bd10a4d34",
+      "kind": "hash",
+      "process_pid": 84735,
+      "report_sha256": "81d330bde4787f49ad3b7e9dadc39dd59c492924a428f4c88699bcfdbaf42c83",
+      "started_at": "2026-09-30T11:09:12.439793+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "boundary-map-compound",
+      "certificate_sha256": "e25b01d99ccd80260878065d5cb602e93d10e448b76ef170e5beea44b652c447",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/boundary-map-compound-hash.mpcert"
+      ],
+      "elapsed_seconds": 19.787,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:09:32.229803+00:00",
+      "input_file_sha256": "e78f9b64961e582edfd723df2fa399542400b605570c74621775aa0bd10a4d34",
+      "kind": "hash",
+      "process_pid": 84736,
+      "report_sha256": "e0c3c4fa590eefd31247aa45f5dd143f9fd1f1110fe47b2128b32ece8a79cffd",
+      "started_at": "2026-09-30T11:09:12.442413+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "boundary-map-decimal",
+      "certificate_sha256": "ec4de028f25fa76078dc0329ee4a1bf98ff15e3f099798a31779eafedc37814b",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/boundary-map-decimal-positive.mpcert"
+      ],
+      "elapsed_seconds": 93.794,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:11:06.029976+00:00",
+      "input_file_sha256": "39461a3e48e0afb8a29e071121f7f973c0adbb155bff9fa7e1cca6ddb7640f5d",
+      "kind": "positive",
+      "process_pid": 84812,
+      "report_sha256": "8c19de5354b78008ccd0bf67d6e03a237ba9687d49e1750c9f9d10334d413b5f",
+      "started_at": "2026-09-30T11:09:32.235725+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "boundary-map-decimal",
+      "certificate_sha256": "ec4de028f25fa76078dc0329ee4a1bf98ff15e3f099798a31779eafedc37814b",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/boundary-map-decimal-positive.mpcert"
+      ],
+      "elapsed_seconds": 93.793,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:11:06.032852+00:00",
+      "input_file_sha256": "39461a3e48e0afb8a29e071121f7f973c0adbb155bff9fa7e1cca6ddb7640f5d",
+      "kind": "positive",
+      "process_pid": 84814,
+      "report_sha256": "1a3bd8a36bbcfdcc7d64b9b67d3db72071fd612604962efbf2b46c0b8378bf03",
+      "started_at": "2026-09-30T11:09:32.239407+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "boundary-map-decimal",
+      "certificate_sha256": "2f32be8636ec31e4ffb9b0e6f486f139661e17de4f1694c7fd623cb1b9f7f3fd",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/boundary-map-decimal-hash.mpcert"
+      ],
+      "elapsed_seconds": 107.652,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:12:53.686124+00:00",
+      "input_file_sha256": "e4ff61db5730a62c07aba07da3a9c742f02a46eb4ee2aa43ac733b06a9a237ca",
+      "kind": "hash",
+      "process_pid": 85020,
+      "report_sha256": "f501a32632290716ce3a1143737ec34fb3f5884bb636690ee6621c1dd5501318",
+      "started_at": "2026-09-30T11:11:06.034269+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "boundary-map-decimal",
+      "certificate_sha256": "2f32be8636ec31e4ffb9b0e6f486f139661e17de4f1694c7fd623cb1b9f7f3fd",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/boundary-map-decimal-hash.mpcert"
+      ],
+      "elapsed_seconds": 107.653,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:12:53.690898+00:00",
+      "input_file_sha256": "e4ff61db5730a62c07aba07da3a9c742f02a46eb4ee2aa43ac733b06a9a237ca",
+      "kind": "hash",
+      "process_pid": 85021,
+      "report_sha256": "086b307172165a4259b556e948c0edbb45c6eba59617d757dbcfdb84d9c877ab",
+      "started_at": "2026-09-30T11:11:06.037656+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "boundary-map-string",
+      "certificate_sha256": "c012354c89ebc7ef23f427093149ac17586f5988c43dcf337fbed17cd11bd25e",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/boundary-map-string-positive.mpcert"
+      ],
+      "elapsed_seconds": 17.831,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:13:11.524435+00:00",
+      "input_file_sha256": "a53889847d02cd94118b01e75c110cfa0e1d621b5a377c08158af49be0c26fe3",
+      "kind": "positive",
+      "process_pid": 85616,
+      "report_sha256": "e531179750f1ce4de9503ef5ab21efe7a3dc12d40e1cebf22b8f0225fa078192",
+      "started_at": "2026-09-30T11:12:53.693631+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "boundary-map-string",
+      "certificate_sha256": "c012354c89ebc7ef23f427093149ac17586f5988c43dcf337fbed17cd11bd25e",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/boundary-map-string-positive.mpcert"
+      ],
+      "elapsed_seconds": 17.829,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:13:11.526035+00:00",
+      "input_file_sha256": "a53889847d02cd94118b01e75c110cfa0e1d621b5a377c08158af49be0c26fe3",
+      "kind": "positive",
+      "process_pid": 85618,
+      "report_sha256": "e305b1cf6618e43a09fbc8c72378e9a9a093b99418e6a00152ef1035db869497",
+      "started_at": "2026-09-30T11:12:53.696713+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "boundary-map-string",
+      "certificate_sha256": "3c265af748f87ddfd649ccf3c152a2e3e05588540759211c1e41613775ac18e6",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/boundary-map-string-hash.mpcert"
+      ],
+      "elapsed_seconds": 17.458,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:13:28.985735+00:00",
+      "input_file_sha256": "b76bed22422593c12ff3d9a76eedb6c5ba193867eb234d1440154a5b90747366",
+      "kind": "hash",
+      "process_pid": 85694,
+      "report_sha256": "a0e4c67fbae6e96fa19713f25b1675389b396acf4bd77d58200e570127da2420",
+      "started_at": "2026-09-30T11:13:11.527729+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "boundary-map-string",
+      "certificate_sha256": "3c265af748f87ddfd649ccf3c152a2e3e05588540759211c1e41613775ac18e6",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/boundary-map-string-hash.mpcert"
+      ],
+      "elapsed_seconds": 17.459,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:13:28.990608+00:00",
+      "input_file_sha256": "b76bed22422593c12ff3d9a76eedb6c5ba193867eb234d1440154a5b90747366",
+      "kind": "hash",
+      "process_pid": 85696,
+      "report_sha256": "c71c699d37a330b2d39bd49160f04d76bc07d2f1d369cd8ba7fc1ff4c8f17d69",
+      "started_at": "2026-09-30T11:13:11.532017+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "boundary-set-decimal",
+      "certificate_sha256": "259684edeee3f4437dfcc7499f754ca351788b593eb13c3e008b9d75c307e6e2",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/boundary-set-decimal-positive.mpcert"
+      ],
+      "elapsed_seconds": 64.94,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:14:33.934956+00:00",
+      "input_file_sha256": "4a59bd40c7f95b4f6630c5a2b3b44a708b3d1d1ec42edc1f698a196b4ac2753f",
+      "kind": "positive",
+      "process_pid": 85727,
+      "report_sha256": "017afa52da03d81026c69e95c59be81b58062990d845a494e9cfdf1125eb02f8",
+      "started_at": "2026-09-30T11:13:28.994915+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "boundary-set-decimal",
+      "certificate_sha256": "259684edeee3f4437dfcc7499f754ca351788b593eb13c3e008b9d75c307e6e2",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/boundary-set-decimal-positive.mpcert"
+      ],
+      "elapsed_seconds": 64.941,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:14:33.939704+00:00",
+      "input_file_sha256": "4a59bd40c7f95b4f6630c5a2b3b44a708b3d1d1ec42edc1f698a196b4ac2753f",
+      "kind": "positive",
+      "process_pid": 85729,
+      "report_sha256": "58008396afe7ebf35450de3652b525199d396aa68e0399889c89bdf26f421995",
+      "started_at": "2026-09-30T11:13:28.998142+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "boundary-set-decimal",
+      "certificate_sha256": "49c27880ac74fa1097b082d636d3ab093f5e16952d24bc95c32e998f5aa82b76",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/boundary-set-decimal-hash.mpcert"
+      ],
+      "elapsed_seconds": 75.886,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:15:49.827473+00:00",
+      "input_file_sha256": "22371096fdfbec459be3a8826644e9f29aed14c849395fb6d9bc1a746dae2b41",
+      "kind": "hash",
+      "process_pid": 86603,
+      "report_sha256": "bea229c85c873e840ddaac53958065a84eae811238d78803e79546606816d247",
+      "started_at": "2026-09-30T11:14:33.941310+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "boundary-set-decimal",
+      "certificate_sha256": "49c27880ac74fa1097b082d636d3ab093f5e16952d24bc95c32e998f5aa82b76",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/boundary-set-decimal-hash.mpcert"
+      ],
+      "elapsed_seconds": 75.885,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:15:49.830429+00:00",
+      "input_file_sha256": "22371096fdfbec459be3a8826644e9f29aed14c849395fb6d9bc1a746dae2b41",
+      "kind": "hash",
+      "process_pid": 86604,
+      "report_sha256": "1dc1844ce27b01ed4bf0745542b53beac17301efc8a07ecd483424f9f75782d8",
+      "started_at": "2026-09-30T11:14:33.944830+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "boundary-total-cells",
+      "certificate_sha256": "f6388d23f37a80d7d661631386adbdc12dc2e275a1d8b402100f2904e609ccb5",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/boundary-total-cells-positive.mpcert"
+      ],
+      "elapsed_seconds": 5.164,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:15:54.997653+00:00",
+      "input_file_sha256": "156fd2dbf476cd65af2a28a2d456d15fbcf23937fe505b35cc677828284d50a0",
+      "kind": "positive",
+      "process_pid": 86904,
+      "report_sha256": "9af908e1bb0e55554ffd17e399d1fd0b05920125ca8d789d94e7d8e5e85094ac",
+      "started_at": "2026-09-30T11:15:49.833558+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "boundary-total-cells",
+      "certificate_sha256": "f6388d23f37a80d7d661631386adbdc12dc2e275a1d8b402100f2904e609ccb5",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/boundary-total-cells-positive.mpcert"
+      ],
+      "elapsed_seconds": 5.163,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:15:55.000590+00:00",
+      "input_file_sha256": "156fd2dbf476cd65af2a28a2d456d15fbcf23937fe505b35cc677828284d50a0",
+      "kind": "positive",
+      "process_pid": 86906,
+      "report_sha256": "acc5ee13f78f6815ff480d9cc6d2ec5a5e3b0056a33aa915c4e72e3d069dd365",
+      "started_at": "2026-09-30T11:15:49.837297+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "boundary-total-cells",
+      "certificate_sha256": "79c64589f3755df485450f8c4b4415ce4a357dee5be95c44be14deee7616494f",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/boundary-total-cells-hash.mpcert"
+      ],
+      "elapsed_seconds": 5.355,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:16:00.357436+00:00",
+      "input_file_sha256": "2ae7598373fd00fdfb93d9cd105a8cde6db262d7a53fd3c9382efdd66b1f6490",
+      "kind": "hash",
+      "process_pid": 86915,
+      "report_sha256": "db29e24c4f0e0646c4557dc3428c381a42371b192f745075c2cfeb57bc9075ad",
+      "started_at": "2026-09-30T11:15:55.002225+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "boundary-total-cells",
+      "certificate_sha256": "79c64589f3755df485450f8c4b4415ce4a357dee5be95c44be14deee7616494f",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/boundary-total-cells-hash.mpcert"
+      ],
+      "elapsed_seconds": 5.355,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:16:00.362417+00:00",
+      "input_file_sha256": "2ae7598373fd00fdfb93d9cd105a8cde6db262d7a53fd3c9382efdd66b1f6490",
+      "kind": "hash",
+      "process_pid": 86917,
+      "report_sha256": "7b2cf52d96d45f6991ee37ac56ff6abf1555b5ec1a7cdba2b2ead254c374c41c",
+      "started_at": "2026-09-30T11:15:55.006985+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "complete-snapshot",
+      "certificate_sha256": "3b57ba138a31db45bfaf761c2a5072d8f9de4ad91434ff3ef3d2fe06e6d9c90c",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/complete-snapshot-positive.mpcert"
+      ],
+      "elapsed_seconds": 41.508,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:16:41.873946+00:00",
+      "input_file_sha256": "3b558e2ed93ff908617683f02891d33bf604e94e2cb34f5e2f65a021738db6cd",
+      "kind": "positive",
+      "process_pid": 86930,
+      "report_sha256": "681c28704e5e49d168e3fe2213865c0849495c86439aff724feeb1ab27f4b3ec",
+      "started_at": "2026-09-30T11:16:00.366240+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "complete-snapshot",
+      "certificate_sha256": "3b57ba138a31db45bfaf761c2a5072d8f9de4ad91434ff3ef3d2fe06e6d9c90c",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/complete-snapshot-positive.mpcert"
+      ],
+      "elapsed_seconds": 41.507,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:16:41.877089+00:00",
+      "input_file_sha256": "3b558e2ed93ff908617683f02891d33bf604e94e2cb34f5e2f65a021738db6cd",
+      "kind": "positive",
+      "process_pid": 86932,
+      "report_sha256": "ca499e5aa06efb12a9d0a10bb45ae9bbd8aa8874a89898878a0382c6b922f058",
+      "started_at": "2026-09-30T11:16:00.369837+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "complete-snapshot",
+      "certificate_sha256": "75ffa22e870891d99efdbc7f1a223f7fc11c5e3899fc7355cfe7f47dcc4f98c6",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/complete-snapshot-hash.mpcert"
+      ],
+      "elapsed_seconds": 40.007,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:17:21.885473+00:00",
+      "input_file_sha256": "9362e32ce6760226bf72790254909d6c164ee9611cca282dbc74198bf298a187",
+      "kind": "hash",
+      "process_pid": 86997,
+      "report_sha256": "a179ab2d434b19311dcb5b31424427ac4a665d8f9be1f3c9c50e8a0fcef5da64",
+      "started_at": "2026-09-30T11:16:41.878521+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "complete-snapshot",
+      "certificate_sha256": "75ffa22e870891d99efdbc7f1a223f7fc11c5e3899fc7355cfe7f47dcc4f98c6",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/complete-snapshot-hash.mpcert"
+      ],
+      "elapsed_seconds": 40.003,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:17:21.887454+00:00",
+      "input_file_sha256": "9362e32ce6760226bf72790254909d6c164ee9611cca282dbc74198bf298a187",
+      "kind": "hash",
+      "process_pid": 86999,
+      "report_sha256": "7d6fc877a473ff91866f4d992802be52184ff88b4db1e929640c33ea4a54a14f",
+      "started_at": "2026-09-30T11:16:41.883907+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "construction-vc-enum_zero",
+      "certificate_sha256": "df71e22ce8cbf7f7cb9ddb1934f838e32591fc5dd87b640c485f33962fbb7b1b",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/construction-vc-enum_zero-positive.mpcert"
+      ],
+      "elapsed_seconds": 0.153,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:17:22.041959+00:00",
+      "input_file_sha256": "5b7aef1fef9956b512c25a1acbdbcbda7b0dda68e8bf03bbfb5b44dfc468af2a",
+      "kind": "positive",
+      "process_pid": 87116,
+      "report_sha256": "023d744d106f08273379d5ce2f639194993008b6048ddf0586a763e31674f083",
+      "started_at": "2026-09-30T11:17:21.889290+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "construction-vc-enum_zero",
+      "certificate_sha256": "df71e22ce8cbf7f7cb9ddb1934f838e32591fc5dd87b640c485f33962fbb7b1b",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/construction-vc-enum_zero-positive.mpcert"
+      ],
+      "elapsed_seconds": 0.151,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:17:22.043682+00:00",
+      "input_file_sha256": "5b7aef1fef9956b512c25a1acbdbcbda7b0dda68e8bf03bbfb5b44dfc468af2a",
+      "kind": "positive",
+      "process_pid": 87118,
+      "report_sha256": "213778c1513509d6b0eaf3f1ec5bc07d5d71e03bc79be9dc3b1035d5fd98f595",
+      "started_at": "2026-09-30T11:17:21.892757+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "construction-vc-enum_zero",
+      "certificate_sha256": "694e9298f3c96c33266dc48f7a0a8517d845b748ab4ef71189f5a1738877e226",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/construction-vc-enum_zero-hash.mpcert"
+      ],
+      "elapsed_seconds": 0.144,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:17:22.188922+00:00",
+      "input_file_sha256": "de3c64f0727f29850359ddf43e071d329375102281d4f023ec1003d09024663c",
+      "kind": "hash",
+      "process_pid": 87120,
+      "report_sha256": "6feb7aafc806111ae1b859d80c5e5dfb1639b8afa1cf205c6d2fff44a7d28849",
+      "started_at": "2026-09-30T11:17:22.045001+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "construction-vc-enum_zero",
+      "certificate_sha256": "694e9298f3c96c33266dc48f7a0a8517d845b748ab4ef71189f5a1738877e226",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/construction-vc-enum_zero-hash.mpcert"
+      ],
+      "elapsed_seconds": 0.145,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:17:22.192894+00:00",
+      "input_file_sha256": "de3c64f0727f29850359ddf43e071d329375102281d4f023ec1003d09024663c",
+      "kind": "hash",
+      "process_pid": 87121,
+      "report_sha256": "f4dc68697348fbbaf5c30ab40befcb226e66be6b94682f6cf14f3982dcddfc70",
+      "started_at": "2026-09-30T11:17:22.048068+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "construction-vc-positive_constructor",
+      "certificate_sha256": "7b4e26e36b7eafad34e62c6efe39348cc662d8abf490ec15f91093554d229c26",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/construction-vc-positive_constructor-positive.mpcert"
+      ],
+      "elapsed_seconds": 0.138,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:17:22.332996+00:00",
+      "input_file_sha256": "7ba69f61b6d72e4d4226fc912c5f906251a5138c12481d956807aefdf7da48c6",
+      "kind": "positive",
+      "process_pid": 87122,
+      "report_sha256": "f5e6c57c0ab2b5c13a8919db1380bc27a768554a5eca31e0f037dc4d57ebda31",
+      "started_at": "2026-09-30T11:17:22.195424+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "construction-vc-positive_constructor",
+      "certificate_sha256": "7b4e26e36b7eafad34e62c6efe39348cc662d8abf490ec15f91093554d229c26",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/construction-vc-positive_constructor-positive.mpcert"
+      ],
+      "elapsed_seconds": 0.14,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:17:22.338659+00:00",
+      "input_file_sha256": "7ba69f61b6d72e4d4226fc912c5f906251a5138c12481d956807aefdf7da48c6",
+      "kind": "positive",
+      "process_pid": 87123,
+      "report_sha256": "b79ef241322a3600caec8a8ba3d116bd44eab68064fdc5f8b0512ea3471bc391",
+      "started_at": "2026-09-30T11:17:22.198921+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "construction-vc-positive_constructor",
+      "certificate_sha256": "761a6629c4d212ccb7d0e0ce94a217c172927ade783568506813963fc2e2c8d8",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/construction-vc-positive_constructor-hash.mpcert"
+      ],
+      "elapsed_seconds": 0.15,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:17:22.492600+00:00",
+      "input_file_sha256": "4db4dbf8a2426841eb0c717e58f1577d0c2d0fbdf3c4f1d5c2b2351151569a08",
+      "kind": "hash",
+      "process_pid": 87124,
+      "report_sha256": "3e6e0bbecc6b3e49c5037d5e72ee1ef5e5bb6eb60184f140e6e91161f620a0dc",
+      "started_at": "2026-09-30T11:17:22.343001+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "construction-vc-positive_constructor",
+      "certificate_sha256": "761a6629c4d212ccb7d0e0ce94a217c172927ade783568506813963fc2e2c8d8",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/construction-vc-positive_constructor-hash.mpcert"
+      ],
+      "elapsed_seconds": 0.153,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:17:22.499382+00:00",
+      "input_file_sha256": "4db4dbf8a2426841eb0c717e58f1577d0c2d0fbdf3c4f1d5c2b2351151569a08",
+      "kind": "hash",
+      "process_pid": 87125,
+      "report_sha256": "b188abe6df20ce50a171645fe210b53eef7541e11e6552e543f612b1fdf19d41",
+      "started_at": "2026-09-30T11:17:22.345877+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "date",
+      "certificate_sha256": "736950e9d1ad2feabfa00bef7ec65f46939f14249e02323092e0427e5f358875",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/date-positive.mpcert"
+      ],
+      "elapsed_seconds": 0.168,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:17:22.684623+00:00",
+      "input_file_sha256": "726be3eb70cf5f8aa5dd3db1993bf981f92d8f2354ee10549955ae1a165a0646",
+      "kind": "positive",
+      "process_pid": 87126,
+      "report_sha256": "d905797b6fba99bdd49a5e261719148ba74c6c3a24dbd681a1d1ad9cb40beb39",
+      "started_at": "2026-09-30T11:17:22.517008+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "date",
+      "certificate_sha256": "736950e9d1ad2feabfa00bef7ec65f46939f14249e02323092e0427e5f358875",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/date-positive.mpcert"
+      ],
+      "elapsed_seconds": 0.165,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:17:22.687499+00:00",
+      "input_file_sha256": "726be3eb70cf5f8aa5dd3db1993bf981f92d8f2354ee10549955ae1a165a0646",
+      "kind": "positive",
+      "process_pid": 87127,
+      "report_sha256": "00b49b8205caa3bd69ab5798f238053c8985cebe5da42844aa57d9ed6b1cf235",
+      "started_at": "2026-09-30T11:17:22.522896+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "date",
+      "certificate_sha256": "0fd33e2d5cbb8503de07a7ac619874b59ab26d987d9c78273aeaaf3625ab0490",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/date-hash.mpcert"
+      ],
+      "elapsed_seconds": 0.137,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:17:22.826477+00:00",
+      "input_file_sha256": "abc9bafbfd78e5245785f3d6bce28661436ebc03d5772eb93e9e10ceb864ac51",
+      "kind": "hash",
+      "process_pid": 87129,
+      "report_sha256": "c5b73891b89c796ea57f5313629e124ac8692e70732ff3f9d5d7d2e5b4d595c2",
+      "started_at": "2026-09-30T11:17:22.689500+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "date",
+      "certificate_sha256": "0fd33e2d5cbb8503de07a7ac619874b59ab26d987d9c78273aeaaf3625ab0490",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/date-hash.mpcert"
+      ],
+      "elapsed_seconds": 0.139,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:17:22.831414+00:00",
+      "input_file_sha256": "abc9bafbfd78e5245785f3d6bce28661436ebc03d5772eb93e9e10ceb864ac51",
+      "kind": "hash",
+      "process_pid": 87130,
+      "report_sha256": "c323b59a53b5820983c56dff2e3b453730222c97101e374605e36c127e4eb333",
+      "started_at": "2026-09-30T11:17:22.692688+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "enum-construction",
+      "certificate_sha256": "ab099ab6765acb705fd44da17c51ae94b71e8a3684de92c2fff3e0b230fbf570",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/enum-construction-positive.mpcert"
+      ],
+      "elapsed_seconds": 3.944,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:17:26.780119+00:00",
+      "input_file_sha256": "0b8ccca3d635e4db92a71bfde40abc5b15a29a38c40d250a3dab363bc68b0568",
+      "kind": "positive",
+      "process_pid": 87131,
+      "report_sha256": "fcac3058edacea35a277f4fa53099070c5ac8f7f21573908e89cd787a7f2b09a",
+      "started_at": "2026-09-30T11:17:22.836349+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "enum-construction",
+      "certificate_sha256": "ab099ab6765acb705fd44da17c51ae94b71e8a3684de92c2fff3e0b230fbf570",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/enum-construction-positive.mpcert"
+      ],
+      "elapsed_seconds": 3.949,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:17:26.788011+00:00",
+      "input_file_sha256": "0b8ccca3d635e4db92a71bfde40abc5b15a29a38c40d250a3dab363bc68b0568",
+      "kind": "positive",
+      "process_pid": 87132,
+      "report_sha256": "bb04634a284fe10cd01e4e8918a05ae13390008cc92c687cb74ebb00423d637f",
+      "started_at": "2026-09-30T11:17:22.839413+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "enum-construction",
+      "certificate_sha256": "5628a246b164154f6b37c57ac1092bcb9dec56760981bc459343b8560aa98c05",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/enum-construction-hash.mpcert"
+      ],
+      "elapsed_seconds": 3.862,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:17:30.652226+00:00",
+      "input_file_sha256": "374f21132d7f07e9bff5d71d42ad15e0ae2fcf660739aa2d0f8c7797975d1558",
+      "kind": "hash",
+      "process_pid": 87133,
+      "report_sha256": "94bfc484cef500278a3dc4cf0bcec984cdb55addc73ef9c9a023e03ca497ed77",
+      "started_at": "2026-09-30T11:17:26.789888+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "enum-construction",
+      "certificate_sha256": "5628a246b164154f6b37c57ac1092bcb9dec56760981bc459343b8560aa98c05",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/enum-construction-hash.mpcert"
+      ],
+      "elapsed_seconds": 3.864,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:17:30.656859+00:00",
+      "input_file_sha256": "374f21132d7f07e9bff5d71d42ad15e0ae2fcf660739aa2d0f8c7797975d1558",
+      "kind": "hash",
+      "process_pid": 87134,
+      "report_sha256": "0a90e92d82853338b2c112b9e679a9d961203f8adf82d25009f7234e3648d9e3",
+      "started_at": "2026-09-30T11:17:26.792941+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "exception-vc-allowed",
+      "certificate_sha256": "02d845085b60721fe2d043799e9c3987b2cd466600d1786f0cf94c17256d5406",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/exception-vc-allowed-positive.mpcert"
+      ],
+      "elapsed_seconds": 0.303,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:17:30.966564+00:00",
+      "input_file_sha256": "d927117024710c946271314957718304b6722c75b912877c397e0e37c8533af9",
+      "kind": "positive",
+      "process_pid": 87143,
+      "report_sha256": "f75243fa3e55ea90d7a06721506f62317c3f1ac1e7e60ff59310cb2a9aae2fcc",
+      "started_at": "2026-09-30T11:17:30.663824+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "exception-vc-allowed",
+      "certificate_sha256": "02d845085b60721fe2d043799e9c3987b2cd466600d1786f0cf94c17256d5406",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/exception-vc-allowed-positive.mpcert"
+      ],
+      "elapsed_seconds": 0.301,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:17:30.968839+00:00",
+      "input_file_sha256": "d927117024710c946271314957718304b6722c75b912877c397e0e37c8533af9",
+      "kind": "positive",
+      "process_pid": 87145,
+      "report_sha256": "2528943ded5cd7d521069b923b8cbfc159a6a9872ecc3c12bd427c9617a16e43",
+      "started_at": "2026-09-30T11:17:30.667454+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "exception-vc-allowed",
+      "certificate_sha256": "6daf2fa780ef28b3c5c9054aa13cfdc8b2a4a688ab6655bb4294b7604a00b7c6",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/exception-vc-allowed-hash.mpcert"
+      ],
+      "elapsed_seconds": 0.301,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:17:31.271192+00:00",
+      "input_file_sha256": "2d7d130c843ce9ba5404be4190df8a296ecd96c83a1545ba832f746ece51a9a6",
+      "kind": "hash",
+      "process_pid": 87147,
+      "report_sha256": "1d49b68f365fa618fd28866909d63720c2e330cdd33d466e0ad3aa15991ce87a",
+      "started_at": "2026-09-30T11:17:30.970515+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "exception-vc-allowed",
+      "certificate_sha256": "6daf2fa780ef28b3c5c9054aa13cfdc8b2a4a688ab6655bb4294b7604a00b7c6",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/exception-vc-allowed-hash.mpcert"
+      ],
+      "elapsed_seconds": 0.301,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:17:31.275550+00:00",
+      "input_file_sha256": "2d7d130c843ce9ba5404be4190df8a296ecd96c83a1545ba832f746ece51a9a6",
+      "kind": "hash",
+      "process_pid": 87148,
+      "report_sha256": "a383b8934be2c63d900edb974148c8889e2b7001d8754508c64576f59265d73c",
+      "started_at": "2026-09-30T11:17:30.974353+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "extra-bool-float-map",
+      "certificate_sha256": "673672097f76d0953ac89ef1fc506e2131b9e6e96cdbffd9f6c607d870c08bcc",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/extra-bool-float-map-positive.mpcert"
+      ],
+      "elapsed_seconds": 10.281,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:17:41.559478+00:00",
+      "input_file_sha256": "2c8d42a5f0dcb57725e295d08f93f91d147bc703bd0ce559a8242609648253e3",
+      "kind": "positive",
+      "process_pid": 87149,
+      "report_sha256": "c0228668b98d993992a7fc8d703d2961bea193bf0fe80a7db9d198490b617bcd",
+      "started_at": "2026-09-30T11:17:31.278219+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "extra-bool-float-map",
+      "certificate_sha256": "673672097f76d0953ac89ef1fc506e2131b9e6e96cdbffd9f6c607d870c08bcc",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/extra-bool-float-map-positive.mpcert"
+      ],
+      "elapsed_seconds": 10.281,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:17:41.564293+00:00",
+      "input_file_sha256": "2c8d42a5f0dcb57725e295d08f93f91d147bc703bd0ce559a8242609648253e3",
+      "kind": "positive",
+      "process_pid": 87150,
+      "report_sha256": "9361cf7f025d35340328f26d04ffcb698c70ec630de4d193a1ba30affb5a3305",
+      "started_at": "2026-09-30T11:17:31.283029+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "extra-bool-float-map",
+      "certificate_sha256": "396379ee206ddab6c677f318433f700403d565fad2c0aed0b247d05026836238",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/extra-bool-float-map-hash.mpcert"
+      ],
+      "elapsed_seconds": 11.51,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:17:53.078072+00:00",
+      "input_file_sha256": "5afae15680817076c6fbf8d4f7911c961f60e978b624a4f8ece0f7037614c54b",
+      "kind": "hash",
+      "process_pid": 87185,
+      "report_sha256": "87d71bacfaa62327869ec6bb0cc75b1bc6085841ed124cb62353497225d0a874",
+      "started_at": "2026-09-30T11:17:41.568067+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "extra-bool-float-map",
+      "certificate_sha256": "396379ee206ddab6c677f318433f700403d565fad2c0aed0b247d05026836238",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/extra-bool-float-map-hash.mpcert"
+      ],
+      "elapsed_seconds": 11.511,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:17:53.082905+00:00",
+      "input_file_sha256": "5afae15680817076c6fbf8d4f7911c961f60e978b624a4f8ece0f7037614c54b",
+      "kind": "hash",
+      "process_pid": 87187,
+      "report_sha256": "0028ad9aaa41efa51f638e09d570d99ef45a20884df8367d76769fb8d90d1913",
+      "started_at": "2026-09-30T11:17:41.572343+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "extra-bool-nullable-map",
+      "certificate_sha256": "f96782710bd08468f6269ce84221fb60f6432119b918190e28846b99d7fcdfce",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/extra-bool-nullable-map-positive.mpcert"
+      ],
+      "elapsed_seconds": 13.26,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:18:06.350357+00:00",
+      "input_file_sha256": "8ce7d5593172058edff50cc3b62ee76cfa24784b5614b7c4d0e1e17c13b61147",
+      "kind": "positive",
+      "process_pid": 87221,
+      "report_sha256": "234456572be7cc4290df58e55e9f951626fbdaff55cd66786adf1c0a18465719",
+      "started_at": "2026-09-30T11:17:53.090079+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "extra-bool-nullable-map",
+      "certificate_sha256": "f96782710bd08468f6269ce84221fb60f6432119b918190e28846b99d7fcdfce",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/extra-bool-nullable-map-positive.mpcert"
+      ],
+      "elapsed_seconds": 13.261,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:18:06.354792+00:00",
+      "input_file_sha256": "8ce7d5593172058edff50cc3b62ee76cfa24784b5614b7c4d0e1e17c13b61147",
+      "kind": "positive",
+      "process_pid": 87222,
+      "report_sha256": "0807af036084c7a72dda8e84e250069f1adbb3a71972636030afa03c5cc7ed48",
+      "started_at": "2026-09-30T11:17:53.093453+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "extra-bool-nullable-map",
+      "certificate_sha256": "9bd71ec0ea1f9b01d9dc17394ee932e3257ee4c42c16ff91ed507f4651ae8a9a",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/extra-bool-nullable-map-hash.mpcert"
+      ],
+      "elapsed_seconds": 12.279,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:18:18.635670+00:00",
+      "input_file_sha256": "b09c51b48736dda8cc4f8341a2a4701f84fa293daf5f04c04a71bf35c7df2642",
+      "kind": "hash",
+      "process_pid": 87259,
+      "report_sha256": "4a02e1c279c1f750d01a2cd8be563ca0ce6af4d4ee6fa703ba40e6c4f2958398",
+      "started_at": "2026-09-30T11:18:06.356540+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "extra-bool-nullable-map",
+      "certificate_sha256": "9bd71ec0ea1f9b01d9dc17394ee932e3257ee4c42c16ff91ed507f4651ae8a9a",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/extra-bool-nullable-map-hash.mpcert"
+      ],
+      "elapsed_seconds": 12.276,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:18:18.637505+00:00",
+      "input_file_sha256": "b09c51b48736dda8cc4f8341a2a4701f84fa293daf5f04c04a71bf35c7df2642",
+      "kind": "hash",
+      "process_pid": 87261,
+      "report_sha256": "875d9024292b1066b5da1db677cc02a60caf2259f9aeb64cd746b76e4f5d947e",
+      "started_at": "2026-09-30T11:18:06.361567+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "extra-lookup-nullable",
+      "certificate_sha256": "26557699d5b272e4b78def07ded82aa0f8b3225887370fad3bce6f9ac80c7a10",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/extra-lookup-nullable-positive.mpcert"
+      ],
+      "elapsed_seconds": 1.546,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:18:20.185374+00:00",
+      "input_file_sha256": "0292f09b8d9a19ba5f1a3cdbce27bb8ebe8e268123a4a8f076cb62e08ca3e12b",
+      "kind": "positive",
+      "process_pid": 87271,
+      "report_sha256": "dadda86131c942c1b810ebad94b141aa1a069c5cfc15595e9eeb4dd7649b6863",
+      "started_at": "2026-09-30T11:18:18.639547+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "extra-lookup-nullable",
+      "certificate_sha256": "26557699d5b272e4b78def07ded82aa0f8b3225887370fad3bce6f9ac80c7a10",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/extra-lookup-nullable-positive.mpcert"
+      ],
+      "elapsed_seconds": 1.546,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:18:20.189401+00:00",
+      "input_file_sha256": "0292f09b8d9a19ba5f1a3cdbce27bb8ebe8e268123a4a8f076cb62e08ca3e12b",
+      "kind": "positive",
+      "process_pid": 87272,
+      "report_sha256": "bcfa422e8db92cc08431ffd05065342b41a2075313383cdfed8cd5db2a676672",
+      "started_at": "2026-09-30T11:18:18.643373+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "extra-lookup-nullable",
+      "certificate_sha256": "4bf7133b142850fa83fa821dd648a5a0ffebf3a1a8fc163d5824cb4bce1dc0bc",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/extra-lookup-nullable-hash.mpcert"
+      ],
+      "elapsed_seconds": 1.142,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:18:21.333416+00:00",
+      "input_file_sha256": "121d15a54e06f54b947bb1278fcf8f8383c6fdb6e1fdd5bfd92dabe7696be218",
+      "kind": "hash",
+      "process_pid": 87275,
+      "report_sha256": "5adc573fab58941be75ae54419be8a9753e15ec2db7b7bea37fb36b3d867718d",
+      "started_at": "2026-09-30T11:18:20.191124+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "extra-lookup-nullable",
+      "certificate_sha256": "4bf7133b142850fa83fa821dd648a5a0ffebf3a1a8fc163d5824cb4bce1dc0bc",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/extra-lookup-nullable-hash.mpcert"
+      ],
+      "elapsed_seconds": 1.144,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:18:21.338248+00:00",
+      "input_file_sha256": "121d15a54e06f54b947bb1278fcf8f8383c6fdb6e1fdd5bfd92dabe7696be218",
+      "kind": "hash",
+      "process_pid": 87276,
+      "report_sha256": "c2ad15f9aefa00b6a59f2d65263dbc999c636686c5775b7b39b68c9535e7dc66",
+      "started_at": "2026-09-30T11:18:20.193836+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "extra-shared-lookup-maps",
+      "certificate_sha256": "e3f6969d9cfb3cf803993799eb7f314524fa0bce72b5aa434a625753eb0d2e20",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/extra-shared-lookup-maps-positive.mpcert"
+      ],
+      "elapsed_seconds": 19.638,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:18:40.979948+00:00",
+      "input_file_sha256": "07b0d3115016d905a6a59b6aab65d3d890d3340686eab5fb1280de18e626f568",
+      "kind": "positive",
+      "process_pid": 87281,
+      "report_sha256": "baf0037634e56cb6a0ac86e053863d4249b9b415db5f4cdcc114a6de1bdf0260",
+      "started_at": "2026-09-30T11:18:21.341836+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "extra-shared-lookup-maps",
+      "certificate_sha256": "e3f6969d9cfb3cf803993799eb7f314524fa0bce72b5aa434a625753eb0d2e20",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/extra-shared-lookup-maps-positive.mpcert"
+      ],
+      "elapsed_seconds": 19.639,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:18:40.983632+00:00",
+      "input_file_sha256": "07b0d3115016d905a6a59b6aab65d3d890d3340686eab5fb1280de18e626f568",
+      "kind": "positive",
+      "process_pid": 87282,
+      "report_sha256": "cd25063453ac183c2b85c615a553228cb23004b3830188eb32aed79d626910c2",
+      "started_at": "2026-09-30T11:18:21.344310+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "extra-shared-lookup-maps",
+      "certificate_sha256": "e11923060157cccf64ff13c98cf7ee5d54bf71ada194716678a0a9f70ef2e0c6",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/extra-shared-lookup-maps-hash.mpcert"
+      ],
+      "elapsed_seconds": 16.963,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:18:57.948972+00:00",
+      "input_file_sha256": "c7923b9ee6c260099aa115e4b8609a6c101b6c8fd36a7f793ec8c2c38d56de8a",
+      "kind": "hash",
+      "process_pid": 87597,
+      "report_sha256": "c88f48fdaa3526359e5394d349db729dc91a9c4aa1c8ca4299bf334855df0268",
+      "started_at": "2026-09-30T11:18:40.985544+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "extra-shared-lookup-maps",
+      "certificate_sha256": "e11923060157cccf64ff13c98cf7ee5d54bf71ada194716678a0a9f70ef2e0c6",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/extra-shared-lookup-maps-hash.mpcert"
+      ],
+      "elapsed_seconds": 16.962,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:18:57.951190+00:00",
+      "input_file_sha256": "c7923b9ee6c260099aa115e4b8609a6c101b6c8fd36a7f793ec8c2c38d56de8a",
+      "kind": "hash",
+      "process_pid": 87598,
+      "report_sha256": "2f01470cb9243bbfb56ddb8872ca48da8f3eb4ff0bfe868d6c6e99fda22d35f0",
+      "started_at": "2026-09-30T11:18:40.989036+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "extra-validation-bool",
+      "certificate_sha256": "bf6e9bde5df2adc01557b6e7484f9d17400164d1eedc0b120e760bae82335e23",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/extra-validation-bool-positive.mpcert"
+      ],
+      "elapsed_seconds": 4.212,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:19:02.165636+00:00",
+      "input_file_sha256": "89979a2db856f2d6ee7e39c8cacfe64417294189a7ade55e8d323ef455e9bad4",
+      "kind": "positive",
+      "process_pid": 87624,
+      "report_sha256": "1ff8799726609932f5fe6826af8903ed6e0886261cd29f6e587772376f34e6dc",
+      "started_at": "2026-09-30T11:18:57.953716+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "extra-validation-bool",
+      "certificate_sha256": "bf6e9bde5df2adc01557b6e7484f9d17400164d1eedc0b120e760bae82335e23",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/extra-validation-bool-positive.mpcert"
+      ],
+      "elapsed_seconds": 4.212,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:19:02.168294+00:00",
+      "input_file_sha256": "89979a2db856f2d6ee7e39c8cacfe64417294189a7ade55e8d323ef455e9bad4",
+      "kind": "positive",
+      "process_pid": 87625,
+      "report_sha256": "f46310d8c10a531640ad9469d467c32e916dde1fd3a55ebfe5bf1c441822072a",
+      "started_at": "2026-09-30T11:18:57.956698+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "extra-validation-bool",
+      "certificate_sha256": "d53ea49395cb445014c9b008c382eabc0fecd7e2a9d9135c5991c1a2480cbe99",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/extra-validation-bool-hash.mpcert"
+      ],
+      "elapsed_seconds": 3.731,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:19:05.900946+00:00",
+      "input_file_sha256": "04b7b3591d0ff35d80cc6e3e33130a69d4e770a4775f5eeed37ef373e88dcd38",
+      "kind": "hash",
+      "process_pid": 87656,
+      "report_sha256": "7c5148d94b7b5452e7ec3cafb84432d09f23b01078d2efda4f77d723d9eb0bde",
+      "started_at": "2026-09-30T11:19:02.170204+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "extra-validation-bool",
+      "certificate_sha256": "d53ea49395cb445014c9b008c382eabc0fecd7e2a9d9135c5991c1a2480cbe99",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/extra-validation-bool-hash.mpcert"
+      ],
+      "elapsed_seconds": 3.732,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:19:05.907162+00:00",
+      "input_file_sha256": "04b7b3591d0ff35d80cc6e3e33130a69d4e770a4775f5eeed37ef373e88dcd38",
+      "kind": "hash",
+      "process_pid": 87657,
+      "report_sha256": "26121225c8cc8c1c168add729a152a275cad262f39d6f07ae4801ff4ebb222fc",
+      "started_at": "2026-09-30T11:19:02.174822+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "extra-validation-product",
+      "certificate_sha256": "68195ee52e597782caa493c0066b6a5d4abe3e950b0d7494e19d971be44c8670",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/extra-validation-product-positive.mpcert"
+      ],
+      "elapsed_seconds": 3.971,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:19:09.884239+00:00",
+      "input_file_sha256": "897d707e8f66c8f071e7c07ec2322fb319fe879febd9794de633c1d30de56865",
+      "kind": "positive",
+      "process_pid": 87671,
+      "report_sha256": "af183c694fa8aef1f29472c4596e8410faa1d222e18260873c7097f21349a62a",
+      "started_at": "2026-09-30T11:19:05.913274+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "extra-validation-product",
+      "certificate_sha256": "68195ee52e597782caa493c0066b6a5d4abe3e950b0d7494e19d971be44c8670",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/extra-validation-product-positive.mpcert"
+      ],
+      "elapsed_seconds": 3.979,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:19:09.895508+00:00",
+      "input_file_sha256": "897d707e8f66c8f071e7c07ec2322fb319fe879febd9794de633c1d30de56865",
+      "kind": "positive",
+      "process_pid": 87672,
+      "report_sha256": "1344148e12b35d7886c2d52f432e892be8fbf190e107e6870f54d9fcfc7cad09",
+      "started_at": "2026-09-30T11:19:05.916557+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "extra-validation-product",
+      "certificate_sha256": "0104a1e90d13f7572d2431d3eaf57c82a3971f961f12679621f58680917d340b",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/extra-validation-product-hash.mpcert"
+      ],
+      "elapsed_seconds": 3.957,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:19:13.854177+00:00",
+      "input_file_sha256": "a9e8c6c33e1c58cd7d60ad53516f4bf6eed9ca7129ef0364eba530167cb429f9",
+      "kind": "hash",
+      "process_pid": 87676,
+      "report_sha256": "8f457f07188bfc219c2db9ac079458e98324770b611fff29e85fa8038af8ab30",
+      "started_at": "2026-09-30T11:19:09.897380+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "extra-validation-product",
+      "certificate_sha256": "0104a1e90d13f7572d2431d3eaf57c82a3971f961f12679621f58680917d340b",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/extra-validation-product-hash.mpcert"
+      ],
+      "elapsed_seconds": 3.958,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:19:13.857921+00:00",
+      "input_file_sha256": "a9e8c6c33e1c58cd7d60ad53516f4bf6eed9ca7129ef0364eba530167cb429f9",
+      "kind": "hash",
+      "process_pid": 87677,
+      "report_sha256": "45f6097aedc9b776f4ad11feb238a6c4362f05262f1a33dc2d7b2dd25467b600",
+      "started_at": "2026-09-30T11:19:09.900122+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "float-make-commutation",
+      "certificate_sha256": "20aba3a7be81f18b8b130c31fe139fb464ee636a22de414b7eca915ec83e0216",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/float-make-commutation-positive.mpcert"
+      ],
+      "elapsed_seconds": 0.405,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:19:14.266266+00:00",
+      "input_file_sha256": "42bc9049e686b0a6a75632968a0a465d793615db56046a09e7d7af4179d76385",
+      "kind": "positive",
+      "process_pid": 87757,
+      "report_sha256": "f5f4c18efc5d61c1c630bf09acd776a4a3331d6ad75a387b68669878976a44b3",
+      "started_at": "2026-09-30T11:19:13.861418+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "float-make-commutation",
+      "certificate_sha256": "20aba3a7be81f18b8b130c31fe139fb464ee636a22de414b7eca915ec83e0216",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/float-make-commutation-positive.mpcert"
+      ],
+      "elapsed_seconds": 0.4,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:19:14.268296+00:00",
+      "input_file_sha256": "42bc9049e686b0a6a75632968a0a465d793615db56046a09e7d7af4179d76385",
+      "kind": "positive",
+      "process_pid": 87758,
+      "report_sha256": "d384a63e88f859dc2937889776980d1a2f06d5af8edc64a388e7b1d4c1c87406",
+      "started_at": "2026-09-30T11:19:13.868159+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "float-make-commutation",
+      "certificate_sha256": "52b6c53065b344ab6f7bc2e991707436e2bfa1b40789e5581c145270f3f63153",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/float-make-commutation-hash.mpcert"
+      ],
+      "elapsed_seconds": 0.396,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:19:14.666503+00:00",
+      "input_file_sha256": "62d7e3929a8cd1a0ba8a3b1d2f1616d26a53e4d49cb37ef91a01ca1c330e4d4b",
+      "kind": "hash",
+      "process_pid": 87760,
+      "report_sha256": "d1702e4cac6dd32b50205170bc02758235c7aca3daf226369b4e8405d1adc1fd",
+      "started_at": "2026-09-30T11:19:14.270442+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "float-make-commutation",
+      "certificate_sha256": "52b6c53065b344ab6f7bc2e991707436e2bfa1b40789e5581c145270f3f63153",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/float-make-commutation-hash.mpcert"
+      ],
+      "elapsed_seconds": 0.395,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:19:14.669302+00:00",
+      "input_file_sha256": "62d7e3929a8cd1a0ba8a3b1d2f1616d26a53e4d49cb37ef91a01ca1c330e4d4b",
+      "kind": "hash",
+      "process_pid": 87761,
+      "report_sha256": "35ba2ce5f68df3c2392e59a54850edc34c4d33bf2f454b89833f94c8cd0c60fc",
+      "started_at": "2026-09-30T11:19:14.274021+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "float-sequence",
+      "certificate_sha256": "1a9f611c87a5e4f871377c14ee1bbf61dfe89c924272d44cddc61a3dcd91d29c",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/float-sequence-positive.mpcert"
+      ],
+      "elapsed_seconds": 1.932,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:19:16.605231+00:00",
+      "input_file_sha256": "99c860a7d6794ad08e9e97116f10f1946358049472ba71f6979db79ae4940aea",
+      "kind": "positive",
+      "process_pid": 87762,
+      "report_sha256": "0a7f0f7b08521fe28d343caf8b187b84d5bebe6b6cac4bfe5e471df1b55c0814",
+      "started_at": "2026-09-30T11:19:14.673467+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "float-sequence",
+      "certificate_sha256": "1a9f611c87a5e4f871377c14ee1bbf61dfe89c924272d44cddc61a3dcd91d29c",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/float-sequence-positive.mpcert"
+      ],
+      "elapsed_seconds": 1.93,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:19:16.607279+00:00",
+      "input_file_sha256": "99c860a7d6794ad08e9e97116f10f1946358049472ba71f6979db79ae4940aea",
+      "kind": "positive",
+      "process_pid": 87763,
+      "report_sha256": "c4014f0ccd350bf69579fccba30761e9006c69ed72c365a4b11ddd1d257aa1c6",
+      "started_at": "2026-09-30T11:19:14.676893+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "float-sequence",
+      "certificate_sha256": "30afaa187aef8fd797eee7a8a3a6f1c8ddba7d7bb833d90a357ecdd629a4b70b",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/float-sequence-hash.mpcert"
+      ],
+      "elapsed_seconds": 1.806,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:19:18.414760+00:00",
+      "input_file_sha256": "748c197be93e7804718f613da82e9370a16d592a9e7b1b7e830d29aae786e889",
+      "kind": "hash",
+      "process_pid": 87764,
+      "report_sha256": "58de96b1509f9c19fb5df5ae2176efaaeb460e305ed6177f538a5c09f1807d0c",
+      "started_at": "2026-09-30T11:19:16.609112+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "float-sequence",
+      "certificate_sha256": "30afaa187aef8fd797eee7a8a3a6f1c8ddba7d7bb833d90a357ecdd629a4b70b",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/float-sequence-hash.mpcert"
+      ],
+      "elapsed_seconds": 1.804,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:19:18.417027+00:00",
+      "input_file_sha256": "748c197be93e7804718f613da82e9370a16d592a9e7b1b7e830d29aae786e889",
+      "kind": "hash",
+      "process_pid": 87765,
+      "report_sha256": "4b7fe050ac35cb15b7884f25c1e2114db41039bb6c3a2b77ac28384746cc7228",
+      "started_at": "2026-09-30T11:19:16.612769+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "floats",
+      "certificate_sha256": "af055c3e1448c67c6f2e656b7d4f6e5944eae8dc56b28336fdc6079c494afdbf",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/floats-positive.mpcert"
+      ],
+      "elapsed_seconds": 1.385,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:19:19.805111+00:00",
+      "input_file_sha256": "1b5ae43ca49b9af4a146cdb46363762f678c24d7316519dc37d13bc7653ce0f5",
+      "kind": "positive",
+      "process_pid": 87766,
+      "report_sha256": "0960ae6f4bf63d2a4423506eebc268588768a90b66eaa1536849cd4b492d73f4",
+      "started_at": "2026-09-30T11:19:18.419716+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "floats",
+      "certificate_sha256": "af055c3e1448c67c6f2e656b7d4f6e5944eae8dc56b28336fdc6079c494afdbf",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/floats-positive.mpcert"
+      ],
+      "elapsed_seconds": 1.388,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:19:19.810723+00:00",
+      "input_file_sha256": "1b5ae43ca49b9af4a146cdb46363762f678c24d7316519dc37d13bc7653ce0f5",
+      "kind": "positive",
+      "process_pid": 87767,
+      "report_sha256": "e99b14650144963c22c538498457d2b756a0f58dbff9e536d64555dc79ec6636",
+      "started_at": "2026-09-30T11:19:18.422611+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "floats",
+      "certificate_sha256": "756f9a833781955736e09da019f82e7eca681039533ec37751a13752b7901f2a",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/floats-hash.mpcert"
+      ],
+      "elapsed_seconds": 1.472,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:19:21.288523+00:00",
+      "input_file_sha256": "bf63e5975257d6fddc7aceab10c52700849d5eab49845a6f0356b127442f2d46",
+      "kind": "hash",
+      "process_pid": 87768,
+      "report_sha256": "8c9943d9967033e385970fccd72bb1b97e57ba6cb5e16f315a07e689e8e7126d",
+      "started_at": "2026-09-30T11:19:19.816699+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "floats",
+      "certificate_sha256": "756f9a833781955736e09da019f82e7eca681039533ec37751a13752b7901f2a",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/floats-hash.mpcert"
+      ],
+      "elapsed_seconds": 1.474,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:19:21.294200+00:00",
+      "input_file_sha256": "bf63e5975257d6fddc7aceab10c52700849d5eab49845a6f0356b127442f2d46",
+      "kind": "hash",
+      "process_pid": 87769,
+      "report_sha256": "76761ca36a05990b7a743a8291c090a1d0e0dbba25e1198702f0012b74c02ffd",
+      "started_at": "2026-09-30T11:19:19.820678+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "guid",
+      "certificate_sha256": "4dd196d79decc7b4177ea58533db66f6428fbae72666d01a4f2994199abfa0e3",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/guid-positive.mpcert"
+      ],
+      "elapsed_seconds": 1.523,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:19:22.823845+00:00",
+      "input_file_sha256": "c45e52fa6ff4f019ae03a1fa8c3430e9b47fe3bd32bbe29eeda91af04c76f395",
+      "kind": "positive",
+      "process_pid": 87771,
+      "report_sha256": "58f716ad6443d2e709bfe16f212e1de7efabf95d758210f9600da898cf75a302",
+      "started_at": "2026-09-30T11:19:21.300719+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "guid",
+      "certificate_sha256": "4dd196d79decc7b4177ea58533db66f6428fbae72666d01a4f2994199abfa0e3",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/guid-positive.mpcert"
+      ],
+      "elapsed_seconds": 1.522,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:19:22.829822+00:00",
+      "input_file_sha256": "c45e52fa6ff4f019ae03a1fa8c3430e9b47fe3bd32bbe29eeda91af04c76f395",
+      "kind": "positive",
+      "process_pid": 87772,
+      "report_sha256": "3e8106ed6f4d5f301b09876484855355146cdee495426e7547d7b1ef9f8373fc",
+      "started_at": "2026-09-30T11:19:21.307858+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "guid",
+      "certificate_sha256": "9a2fed496c57b0fb27c2abe6d36b2b238b6ebc1629594a5e103142b2e1cc5e33",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/guid-hash.mpcert"
+      ],
+      "elapsed_seconds": 1.686,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:19:24.518081+00:00",
+      "input_file_sha256": "aac1e1ba6e6b04f6e3f2571549752d992f7004c7ac260ca2202f5042aaaea1de",
+      "kind": "hash",
+      "process_pid": 87776,
+      "report_sha256": "ddbeb1262499c500d65992a03f5d06ec6fbe11a55ff09e198712666e9e7ab61b",
+      "started_at": "2026-09-30T11:19:22.831931+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "guid",
+      "certificate_sha256": "9a2fed496c57b0fb27c2abe6d36b2b238b6ebc1629594a5e103142b2e1cc5e33",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/guid-hash.mpcert"
+      ],
+      "elapsed_seconds": 1.688,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:19:24.524898+00:00",
+      "input_file_sha256": "aac1e1ba6e6b04f6e3f2571549752d992f7004c7ac260ca2202f5042aaaea1de",
+      "kind": "hash",
+      "process_pid": 87778,
+      "report_sha256": "1d02a25736c609aadc1b68953ae667ffe0cbd74fe00ee6f7a70ee3452c8d5080",
+      "started_at": "2026-09-30T11:19:22.836398+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "nested-box",
+      "certificate_sha256": "5de1a95d49d6db002d64f12e309887dd7c9f8191226aa6d32fc82a9288094f75",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/nested-box-positive.mpcert"
+      ],
+      "elapsed_seconds": 6.184,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:19:30.711831+00:00",
+      "input_file_sha256": "65da187246c20ad57cf3c5b917e75e01f590150768ec3f56675ca164d40aee7f",
+      "kind": "positive",
+      "process_pid": 87782,
+      "report_sha256": "59e501ea215f53c8b481f2701425c881a465852b82948a803e7a4fca8a02b419",
+      "started_at": "2026-09-30T11:19:24.527647+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "nested-box",
+      "certificate_sha256": "5de1a95d49d6db002d64f12e309887dd7c9f8191226aa6d32fc82a9288094f75",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/nested-box-positive.mpcert"
+      ],
+      "elapsed_seconds": 6.184,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:19:30.715271+00:00",
+      "input_file_sha256": "65da187246c20ad57cf3c5b917e75e01f590150768ec3f56675ca164d40aee7f",
+      "kind": "positive",
+      "process_pid": 87783,
+      "report_sha256": "76224729d0870df02b4c55ad90046f6f893ae93cebfb9a19aebd2b666c62f0e0",
+      "started_at": "2026-09-30T11:19:24.530912+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "nested-box",
+      "certificate_sha256": "ad65d2b463ff2c4270c38e7b4f25fb9ff6009b64f703985e6ef0ae389475034f",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/nested-box-hash.mpcert"
+      ],
+      "elapsed_seconds": 7.196,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:19:37.913452+00:00",
+      "input_file_sha256": "f41e53c2b9396c892ea7cddf58adc79adc534ffc3b47dec461ecf33844e03ab0",
+      "kind": "hash",
+      "process_pid": 87825,
+      "report_sha256": "6316acdfc588889f5ad8fd3d43d01175d1ba7f638d699f814394985d25cbd2b9",
+      "started_at": "2026-09-30T11:19:30.717205+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "nested-box",
+      "certificate_sha256": "ad65d2b463ff2c4270c38e7b4f25fb9ff6009b64f703985e6ef0ae389475034f",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/nested-box-hash.mpcert"
+      ],
+      "elapsed_seconds": 7.197,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:19:37.917451+00:00",
+      "input_file_sha256": "f41e53c2b9396c892ea7cddf58adc79adc534ffc3b47dec461ecf33844e03ab0",
+      "kind": "hash",
+      "process_pid": 87826,
+      "report_sha256": "44559c47c18cd610b219b666c5f806f88826e821d7cba351c1be3e2359704aee",
+      "started_at": "2026-09-30T11:19:30.720210+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "nullable-float",
+      "certificate_sha256": "63fe3a5122f79fd7724fdb2485d5b71ce5d48ebb28c80d9a83b1bde8f486eaa7",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/nullable-float-positive.mpcert"
+      ],
+      "elapsed_seconds": 1.233,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:19:39.156836+00:00",
+      "input_file_sha256": "786ed9489b868ad007b6e91b365acae18b6c1955aab4088f783da2a9e246e4b5",
+      "kind": "positive",
+      "process_pid": 88326,
+      "report_sha256": "1530b282f2ad3713bd2213748358288904cc7f1393da3224a208ef63b0df6b6e",
+      "started_at": "2026-09-30T11:19:37.923410+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "nullable-float",
+      "certificate_sha256": "63fe3a5122f79fd7724fdb2485d5b71ce5d48ebb28c80d9a83b1bde8f486eaa7",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/nullable-float-positive.mpcert"
+      ],
+      "elapsed_seconds": 1.232,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:19:39.159732+00:00",
+      "input_file_sha256": "786ed9489b868ad007b6e91b365acae18b6c1955aab4088f783da2a9e246e4b5",
+      "kind": "positive",
+      "process_pid": 88327,
+      "report_sha256": "442d5a11352d0794cff625314a5e9ca0bbe6b521a544c63527f5b3ad2cadbe30",
+      "started_at": "2026-09-30T11:19:37.927493+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "nullable-float",
+      "certificate_sha256": "8b3aec6fa62c1aeb708ffe373aa9e20e09282a982df46f594410ce5c7150447b",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/nullable-float-hash.mpcert"
+      ],
+      "elapsed_seconds": 1.293,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:19:40.454999+00:00",
+      "input_file_sha256": "3729eb76747b4e0748380e67474fb87ce4d618c3b6e4aa800b098be0a0b60cb3",
+      "kind": "hash",
+      "process_pid": 88527,
+      "report_sha256": "c3491df0830b61437f4ade5a76d61d213ccb24bdb4f6cfded7e0cceda9694e6f",
+      "started_at": "2026-09-30T11:19:39.161904+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "nullable-float",
+      "certificate_sha256": "8b3aec6fa62c1aeb708ffe373aa9e20e09282a982df46f594410ce5c7150447b",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/nullable-float-hash.mpcert"
+      ],
+      "elapsed_seconds": 1.292,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:19:40.457414+00:00",
+      "input_file_sha256": "3729eb76747b4e0748380e67474fb87ce4d618c3b6e4aa800b098be0a0b60cb3",
+      "kind": "hash",
+      "process_pid": 88528,
+      "report_sha256": "f2c9dde91c6009db11ff8afd675f2501e1943bb62975a5958b2c4ab3e0e4b08f",
+      "started_at": "2026-09-30T11:19:39.165070+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "nullable-string-default",
+      "certificate_sha256": "6b511b9cf50558060a7a25b241f3931a5f5e1670b6fc0506f8fa13325295b00b",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/nullable-string-default-positive.mpcert"
+      ],
+      "elapsed_seconds": 16.6,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:19:57.063888+00:00",
+      "input_file_sha256": "8f5f42e3f990acfdb4667faa7fdb6d016cae1bca459be5997ec4bf6b4daa5318",
+      "kind": "positive",
+      "process_pid": 88560,
+      "report_sha256": "c859a64f5f96b0c40d8ea66e89f984378e9911712c766e268efe437489ade23b",
+      "started_at": "2026-09-30T11:19:40.464121+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "nullable-string-default",
+      "certificate_sha256": "6b511b9cf50558060a7a25b241f3931a5f5e1670b6fc0506f8fa13325295b00b",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/nullable-string-default-positive.mpcert"
+      ],
+      "elapsed_seconds": 16.588,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:19:57.066220+00:00",
+      "input_file_sha256": "8f5f42e3f990acfdb4667faa7fdb6d016cae1bca459be5997ec4bf6b4daa5318",
+      "kind": "positive",
+      "process_pid": 88561,
+      "report_sha256": "8747652b5c2c1e46128a7b04eb2e9309d4a2330e6a6914cb8babe7f88a037157",
+      "started_at": "2026-09-30T11:19:40.477874+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "nullable-string-default",
+      "certificate_sha256": "4e3d46c77504bca3e2e46ab7c6fe722d7728ff5eaf126748e253008a61cccdbf",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/nullable-string-default-hash.mpcert"
+      ],
+      "elapsed_seconds": 12.514,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:20:09.582474+00:00",
+      "input_file_sha256": "45856267b6391dd50ac7e85fc8e0ba3173b40261b4e22fd99037e57a674bc0da",
+      "kind": "hash",
+      "process_pid": 88600,
+      "report_sha256": "468a647aad99989e5381673da4d0f15e49d5a2058ed3247872a10b0018a6d10d",
+      "started_at": "2026-09-30T11:19:57.068258+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "nullable-string-default",
+      "certificate_sha256": "4e3d46c77504bca3e2e46ab7c6fe722d7728ff5eaf126748e253008a61cccdbf",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/nullable-string-default-hash.mpcert"
+      ],
+      "elapsed_seconds": 12.513,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:20:09.584886+00:00",
+      "input_file_sha256": "45856267b6391dd50ac7e85fc8e0ba3173b40261b4e22fd99037e57a674bc0da",
+      "kind": "hash",
+      "process_pid": 88602,
+      "report_sha256": "19798102de93bceb6912be78bbf9a4b642003245aab0013a35ed4ecbd2cd575d",
+      "started_at": "2026-09-30T11:19:57.072286+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "parse-error-contract",
+      "certificate_sha256": "5963e2fc08b5269516ed9129156b2ee66411ebf36bcf5b032b749f9b996b8ce3",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/parse-error-contract-positive.mpcert"
+      ],
+      "elapsed_seconds": 0.177,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:20:09.764007+00:00",
+      "input_file_sha256": "518dd66ffe3249c8db123103b05013a6de77cc2d82f51b88ddf6c9144baeb908",
+      "kind": "positive",
+      "process_pid": 88735,
+      "report_sha256": "eec9066af6879667505bdb418a089f4a4621d4f3096e22a13c9870d632db4fdf",
+      "started_at": "2026-09-30T11:20:09.587442+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "parse-error-contract",
+      "certificate_sha256": "5963e2fc08b5269516ed9129156b2ee66411ebf36bcf5b032b749f9b996b8ce3",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/parse-error-contract-positive.mpcert"
+      ],
+      "elapsed_seconds": 0.177,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:20:09.767876+00:00",
+      "input_file_sha256": "518dd66ffe3249c8db123103b05013a6de77cc2d82f51b88ddf6c9144baeb908",
+      "kind": "positive",
+      "process_pid": 88739,
+      "report_sha256": "c898d7d28b2cb617ac775dcbe85e816355420345f777bebbe3dca5b7524f8806",
+      "started_at": "2026-09-30T11:20:09.591368+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "parse-error-contract",
+      "certificate_sha256": "e612403c09276042ab1b503dbc45793025e1b43e9a73e317f796c7fdce085892",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/parse-error-contract-hash.mpcert"
+      ],
+      "elapsed_seconds": 0.19,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:20:09.960277+00:00",
+      "input_file_sha256": "02389cb39eda7ee5624ed9227aeeea80a077c4ad0280432428a9aab141c39014",
+      "kind": "hash",
+      "process_pid": 88779,
+      "report_sha256": "04311f2e0c7fa0fd256f540b19d441efaff219ef7f41a4048638b19912929f22",
+      "started_at": "2026-09-30T11:20:09.770389+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "parse-error-contract",
+      "certificate_sha256": "e612403c09276042ab1b503dbc45793025e1b43e9a73e317f796c7fdce085892",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/parse-error-contract-hash.mpcert"
+      ],
+      "elapsed_seconds": 0.194,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:20:09.967667+00:00",
+      "input_file_sha256": "02389cb39eda7ee5624ed9227aeeea80a077c4ad0280432428a9aab141c39014",
+      "kind": "hash",
+      "process_pid": 88781,
+      "report_sha256": "a5e59fc94f81fd72aa518074461511fef673dee6a288a68f8e3c3e204a3a0fcd",
+      "started_at": "2026-09-30T11:20:09.773398+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "product-construction",
+      "certificate_sha256": "1c55a8aecd80e1404f1ee5ffbcbac413fcace917f62a1aa462dc33661dc03228",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/product-construction-positive.mpcert"
+      ],
+      "elapsed_seconds": 4.886,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:20:14.856598+00:00",
+      "input_file_sha256": "da10ee56731fbd5899d03284e758ba46008b694236f4bbc2247f1d93fcfa0d64",
+      "kind": "positive",
+      "process_pid": 88789,
+      "report_sha256": "226787af35f77df7c0bd53a34e64a8307e05f6a28a573cb9ce60fec144696764",
+      "started_at": "2026-09-30T11:20:09.971025+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "product-construction",
+      "certificate_sha256": "1c55a8aecd80e1404f1ee5ffbcbac413fcace917f62a1aa462dc33661dc03228",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/product-construction-positive.mpcert"
+      ],
+      "elapsed_seconds": 4.888,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:20:14.863329+00:00",
+      "input_file_sha256": "da10ee56731fbd5899d03284e758ba46008b694236f4bbc2247f1d93fcfa0d64",
+      "kind": "positive",
+      "process_pid": 88790,
+      "report_sha256": "94ea74ac1fa2aedcca2267c7bd428b24ce59dd1551da12a2995ee3a5ad935f21",
+      "started_at": "2026-09-30T11:20:09.975669+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "product-construction",
+      "certificate_sha256": "8b3f20caeb5584282bcd78f5002285ffc61f5bc333b2d9aea7256d3a15988d84",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/product-construction-hash.mpcert"
+      ],
+      "elapsed_seconds": 5.087,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:20:19.957032+00:00",
+      "input_file_sha256": "bb632750e0874d2c2d8332c6f61990b0de1d165ed1e7967d4b2325dc89150a17",
+      "kind": "hash",
+      "process_pid": 88804,
+      "report_sha256": "b018422be7ca39fa4177f01c8ed2035d23da5808ca8081ce017f340023067dc6",
+      "started_at": "2026-09-30T11:20:14.869621+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "product-construction",
+      "certificate_sha256": "8b3f20caeb5584282bcd78f5002285ffc61f5bc333b2d9aea7256d3a15988d84",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/product-construction-hash.mpcert"
+      ],
+      "elapsed_seconds": 5.089,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:20:19.963869+00:00",
+      "input_file_sha256": "bb632750e0874d2c2d8332c6f61990b0de1d165ed1e7967d4b2325dc89150a17",
+      "kind": "hash",
+      "process_pid": 88805,
+      "report_sha256": "ea1807f3a71dd11c3bfdc9148feddb51a66f3e3ddf26238469748e8f9b81c92d",
+      "started_at": "2026-09-30T11:20:14.874357+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "remapped-boundary-sequence",
+      "certificate_sha256": "ee4bf695a2f8a35f31c56b353584fe7944b108c7d25dffe76f5740235c1096b0",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/remapped-boundary-sequence-positive.mpcert"
+      ],
+      "elapsed_seconds": 8.394,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:20:28.366268+00:00",
+      "input_file_sha256": "ceff8e05e8560b8eb311dc8993bd7b908a975fd04cc0f09fc45ac0ed3d0b5411",
+      "kind": "positive",
+      "process_pid": 88836,
+      "report_sha256": "db1c1dc92014019a433c5079549a5a066e41e97155218ef6518241036165852b",
+      "started_at": "2026-09-30T11:20:19.971901+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "remapped-boundary-sequence",
+      "certificate_sha256": "ee4bf695a2f8a35f31c56b353584fe7944b108c7d25dffe76f5740235c1096b0",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/remapped-boundary-sequence-positive.mpcert"
+      ],
+      "elapsed_seconds": 8.397,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:20:28.372004+00:00",
+      "input_file_sha256": "ceff8e05e8560b8eb311dc8993bd7b908a975fd04cc0f09fc45ac0ed3d0b5411",
+      "kind": "positive",
+      "process_pid": 88838,
+      "report_sha256": "b13f9a827f7571a675fc738e123c98c1c67e7282c829975df36fcd9a393d3886",
+      "started_at": "2026-09-30T11:20:19.975198+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "remapped-boundary-sequence",
+      "certificate_sha256": "2c1a079ff78ef6e633b6fde0032034af1e81175a54d92514b99d122c9fd6e105",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/remapped-boundary-sequence-hash.mpcert"
+      ],
+      "elapsed_seconds": 8.015,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:20:36.389609+00:00",
+      "input_file_sha256": "51d693233b517c0aab94f47b7ee5d5c58ab1439b70eaa03fb6382ecf0708a29c",
+      "kind": "hash",
+      "process_pid": 88849,
+      "report_sha256": "5e97dfab343c7594cf5fed8d8a2d4e2a0c8b228ff8857b67ceace6e8b0cc61fa",
+      "started_at": "2026-09-30T11:20:28.374759+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "remapped-boundary-sequence",
+      "certificate_sha256": "2c1a079ff78ef6e633b6fde0032034af1e81175a54d92514b99d122c9fd6e105",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/remapped-boundary-sequence-hash.mpcert"
+      ],
+      "elapsed_seconds": 8.015,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:20:36.392532+00:00",
+      "input_file_sha256": "51d693233b517c0aab94f47b7ee5d5c58ab1439b70eaa03fb6382ecf0708a29c",
+      "kind": "hash",
+      "process_pid": 88851,
+      "report_sha256": "300d48f781667252377c35a6ec91074e535fce3b056d2cb8a38a11b84df72fb8",
+      "started_at": "2026-09-30T11:20:28.377688+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "string",
+      "certificate_sha256": "a7f973d45e51a1e78047c78cc84527be0f3aa82ac7a658d6fd995551fbb700b9",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/string-positive.mpcert"
+      ],
+      "elapsed_seconds": 3.487,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:20:39.883418+00:00",
+      "input_file_sha256": "db5b4958d1ccebe68ec115dbfe84a03d09e765d8cfccc8d9e18bb043ce8272dd",
+      "kind": "positive",
+      "process_pid": 88861,
+      "report_sha256": "2fb7c28e64aa4457f029b2a1100a12cc2a02b21397b2e9bc822d4bc36db9a309",
+      "started_at": "2026-09-30T11:20:36.396075+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "string",
+      "certificate_sha256": "a7f973d45e51a1e78047c78cc84527be0f3aa82ac7a658d6fd995551fbb700b9",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/string-positive.mpcert"
+      ],
+      "elapsed_seconds": 3.487,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:20:39.886647+00:00",
+      "input_file_sha256": "db5b4958d1ccebe68ec115dbfe84a03d09e765d8cfccc8d9e18bb043ce8272dd",
+      "kind": "positive",
+      "process_pid": 88863,
+      "report_sha256": "b1030c0040113979cc316b309825889f7be8e7b81d9cf7c6e52a7c45e147e97b",
+      "started_at": "2026-09-30T11:20:36.399293+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "string",
+      "certificate_sha256": "a276d17c6c06c63841fe3f5e02d6dcd3003895024cacb8ba2cae768213d3f7e1",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/string-hash.mpcert"
+      ],
+      "elapsed_seconds": 2.493,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:20:42.382021+00:00",
+      "input_file_sha256": "cd129fc4c4a9b415d8dd86dc50b2e5f8706cb5a3e447b02802ec159040991b2d",
+      "kind": "hash",
+      "process_pid": 88876,
+      "report_sha256": "7f7787cccc8d7d416e97b7d4f34865b20a53dc9cf470dcfc2f2f55e765375d5b",
+      "started_at": "2026-09-30T11:20:39.888851+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "string",
+      "certificate_sha256": "a276d17c6c06c63841fe3f5e02d6dcd3003895024cacb8ba2cae768213d3f7e1",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/string-hash.mpcert"
+      ],
+      "elapsed_seconds": 2.493,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:20:42.384550+00:00",
+      "input_file_sha256": "cd129fc4c4a9b415d8dd86dc50b2e5f8706cb5a3e447b02802ec159040991b2d",
+      "kind": "hash",
+      "process_pid": 88877,
+      "report_sha256": "73c270c55b8851793bc421f06d94449251d9307bd4d3404a6fb14566e67da5b4",
+      "started_at": "2026-09-30T11:20:39.891992+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "unit-void-source",
+      "certificate_sha256": "8a1b450d05502ab077ae5351dd7161c2fb627498f768de5b6a50d5f7a9b730b2",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/unit-void-source-positive.mpcert"
+      ],
+      "elapsed_seconds": 0.609,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:20:42.996311+00:00",
+      "input_file_sha256": "1acc131c2ec524abc5621a417e2231d1fa23939e7cbb4b1dee3fff077aae0369",
+      "kind": "positive",
+      "process_pid": 88909,
+      "report_sha256": "c2c736cc69918af2aaa5f2099a7e75296a56a71b3dcdc40b819d1c02c3a91555",
+      "started_at": "2026-09-30T11:20:42.387757+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "unit-void-source",
+      "certificate_sha256": "8a1b450d05502ab077ae5351dd7161c2fb627498f768de5b6a50d5f7a9b730b2",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/unit-void-source-positive.mpcert"
+      ],
+      "elapsed_seconds": 0.608,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T11:20:42.998985+00:00",
+      "input_file_sha256": "1acc131c2ec524abc5621a417e2231d1fa23939e7cbb4b1dee3fff077aae0369",
+      "kind": "positive",
+      "process_pid": 88911,
+      "report_sha256": "b8bf9a69420609159697c4db77c6069400cbdcbb3282744af8f350233b305d38",
+      "started_at": "2026-09-30T11:20:42.390979+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "go",
+      "binary_sha256": "d631f01eb0beaab7b83bebd53e9f66b02f3a6a8c04e173b3af0acb48b9b305a2",
+      "case": "unit-void-source",
+      "certificate_sha256": "1bcdd286016b0d3952ca6587dda654f61972fd2e60240d8a10cb336a03299b78",
+      "command": [
+        "/tmp/mpk-w09-default-closed-proofs/go-checker",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/unit-void-source-hash.mpcert"
+      ],
+      "elapsed_seconds": 0.632,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:20:43.633207+00:00",
+      "input_file_sha256": "b19418f12700404f80a4342b001f9b91cbbfc51b4f6a0dca30b370c65a0962e6",
+      "kind": "hash",
+      "process_pid": 88919,
+      "report_sha256": "045027fc2c14d94835ef1637a790a9a32aad687e1675c75aee8a341e024a7d51",
+      "started_at": "2026-09-30T11:20:43.001376+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "backend": "rust",
+      "binary_sha256": "b5207abd1d92acc1fd8b92a995ed700e1a2d929e6254ffe20b6f9f5d868bac91",
+      "case": "unit-void-source",
+      "certificate_sha256": "1bcdd286016b0d3952ca6587dda654f61972fd2e60240d8a10cb336a03299b78",
+      "command": [
+        "/Users/kazuyoshitoshiya/mpk/target/release/mpk",
+        "check",
+        "/tmp/mpk-w09-concrete-operation-proofs/transport-checks/unit-void-source-hash.mpcert"
+      ],
+      "elapsed_seconds": 0.633,
+      "exit_code": 1,
+      "finished_at": "2026-09-30T11:20:43.637201+00:00",
+      "input_file_sha256": "b19418f12700404f80a4342b001f9b91cbbfc51b4f6a0dca30b370c65a0962e6",
+      "kind": "hash",
+      "process_pid": 88920,
+      "report_sha256": "14904fa771bc1aa2a4401d125b1c0f26cd621319012c9fcf228cbd9ba438322d",
+      "started_at": "2026-09-30T11:20:43.004662+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "status": "passed",
+  "supervisor_pid": 82415
+}

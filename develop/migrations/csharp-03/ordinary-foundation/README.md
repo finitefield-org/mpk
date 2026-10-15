@@ -1528,3 +1528,46 @@ reconstruction certificates and 45 same-byte Go/Rust checks pass. All original
 proof obligations remain pending. Exact results are tracked in
 `unit-4-binding-condition-progress.json`
 and `unit-4-binding-condition-review.md`. This does not complete unit 4 or W09.
+
+## Original pattern execution scopes (partial unit 5)
+
+The adapter retains 102 original W04 pattern goals and 113 native alternatives
+(112 normal, one exceptional) with their complete environments. All 113 scope
+bodies compose exact native premises and 108 available physical observation
+transports. Another 86 governing observations retain pending producer links.
+
+The regression passes 216 physical matching/changed-bit observations and 336
+complete-scope observations, including 69 true native premises. The unit exhausts
+16 Boolean inputs and checks the combined binder-limit fallback. All prior
+native/integrated pins and resolved declaration bodies survive. Seven changed
+certificate byte sets pass 28 Go/Rust stages; 44 prior stages are retained after
+exact input/checker-byte comparison. All 72 exact inputs, exits and reports are
+audited with zero axioms and hash-mutation rejection.
+
+See `unit-5-pattern-scopes-review.md` and
+`verification-logs/control-predicates/with-pattern-scopes/verification.json` for
+selected tests/lint, the failed style attempt and Linux state. Pattern-step
+definitions, scope establishment and all 987 original application proofs remain
+pending. Unit 5 and W09 remain In progress; the T06 gate is deferred to W12.
+
+## Original governing producer premises (partial unit 5)
+
+Seven governing values now link to their exact original producers and typed
+native SSA definition points. Explicit normal-execution premises connect all
+86 previously missing observations in the consuming scopes. All 113 paths retain
+their native environments and every condition: 108 have compact definitions and
+five retain complete indexed components because of the combined binder limit.
+The original scope pins and definition bodies remain unchanged.
+
+Four source regressions and three units pass, including 388 physical transport
+checks and 398 complete-scope comparisons with 59 true joint scopes. Pinned
+replay, Clippy and format pass. All 72 new-snapshot checker stages are audited:
+28 newly executed and 44 retained after exact input/checker comparison. The preceding scope-only checkpoint
+separately passes all 72 stages and the four Linux tests plus lint/format. Linux
+verification of the capture snapshot remains pending.
+
+See `unit-5-pattern-captures-review.md` and
+`verification-logs/control-predicates/with-pattern-captures/verification.json`.
+Producer/consumer execution establishment, 102 original pattern predicate bodies
+and all 987 application proofs remain open. Unit 5 and W09 remain In progress;
+the full T06 gate is deferred to W12.

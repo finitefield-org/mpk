@@ -1,0 +1,79 @@
+{
+  "selection_reason": "Scope and ownership units consume the extracted equality foundation and new proposition builder. Clippy includes library unit tests and all mpk-vc test targets because the new dev dependency changes their builds; format checks the changed crate. Unrelated runtime tests are not repeated. The full T06 gate stays deferred to W12.",
+  "stage": "format",
+  "stages": [
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "pattern_",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "elapsed_seconds": 0.351,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T03:30:25.805080+00:00",
+      "log_sha256": "28f241c0c0e5e2b842e6f6ab5e9ffcbb995c715d7a1028a059409dedfbff3703",
+      "stage": "scope-units",
+      "started_at": "2026-09-30T03:30:25.453712+00:00"
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "ownership_normalization_preserves_free_selector_under_binder",
+        "--",
+        "--nocapture"
+      ],
+      "elapsed_seconds": 0.16,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T03:30:25.965247+00:00",
+      "log_sha256": "0c3ad877cbeebb5c74264b0f1c8d76588b70ca5eda15f644563f324c4bfe9ff3",
+      "stage": "ownership-unit",
+      "started_at": "2026-09-30T03:30:25.805406+00:00"
+    },
+    {
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--tests",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "elapsed_seconds": 41.916,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T03:31:07.881638+00:00",
+      "log_sha256": "80b068efc22b9bdf0ca4fa66c3f23e3adfb56c7501952d52ed9e12d7bd94bd68",
+      "stage": "clippy",
+      "started_at": "2026-09-30T03:30:25.965645+00:00"
+    },
+    {
+      "command": [
+        "cargo",
+        "fmt",
+        "-p",
+        "mpk-vc",
+        "--",
+        "--check"
+      ],
+      "elapsed_seconds": 2.791,
+      "exit_code": 0,
+      "finished_at": "2026-09-30T03:31:10.673307+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stage": "format",
+      "started_at": "2026-09-30T03:31:07.882262+00:00"
+    }
+  ],
+  "status": "passed"
+}

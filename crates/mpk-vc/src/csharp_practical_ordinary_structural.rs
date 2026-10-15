@@ -2,6 +2,22 @@
 //! These functions require valid child values. They do not discharge domains,
 //! source constructor invariants, validation bounds or application VCs.
 use super::*;
+pub use relations::{
+    generate_csharp_practical_ordinary_default_proofs,
+    generate_csharp_practical_ordinary_foundation_proofs,
+    generate_csharp_practical_ordinary_identity_proofs,
+    import_csharp_practical_ordinary_default_proofs,
+    import_csharp_practical_ordinary_foundation_proofs,
+    import_csharp_practical_ordinary_identity_proofs, OrdinaryActualDefaultProof,
+    OrdinaryDefaultGoalProof, OrdinaryDefaultProofProgram, OrdinaryFoundationProofProgram,
+    OrdinaryIdentityProjectionProof, OrdinaryIdentityProofProgram,
+};
+pub use relations::{
+    generate_csharp_practical_ordinary_scoped_construction_operation_proofs,
+    import_csharp_practical_ordinary_scoped_construction_operation_proofs,
+    OrdinaryScopedConstructionOperationCandidate, OrdinaryScopedConstructionOperationProofProgram,
+    OrdinaryScopedConstructionOwnership,
+};
 #[path = "csharp_practical_ordinary_binding_projections.rs"]
 mod binding_projections;
 pub use binding_projections::{
@@ -857,22 +873,39 @@ pub use ordered_fold::{
 mod relations;
 pub(super) use relations::emit_ordered_key_relations;
 pub use relations::{
+    generate_csharp_practical_ordinary_binding_default_closed_proofs,
     generate_csharp_practical_ordinary_binding_defaults,
+    import_csharp_practical_ordinary_binding_default_closed_proofs,
     import_csharp_practical_ordinary_binding_defaults, OrdinaryBindingActualDefault,
     OrdinaryBindingDefaultPending, OrdinaryBindingDefaultPendingReason,
-    OrdinaryBindingDefaultProgram,
+    OrdinaryBindingDefaultProgram, OrdinaryBindingSourceUseNode, OrdinaryBindingSourceUseTrace,
 };
 pub use relations::{
+    generate_csharp_practical_ordinary_concrete_operation_proofs,
+    generate_csharp_practical_ordinary_concrete_operation_proofs_with_allocations,
     generate_csharp_practical_ordinary_concrete_operations,
+    generate_csharp_practical_ordinary_concrete_operations_with_allocations,
+    generate_csharp_practical_ordinary_concrete_type_proofs,
+    generate_csharp_practical_ordinary_concrete_type_proofs_with_construction_storage,
     generate_csharp_practical_ordinary_concrete_types,
+    generate_csharp_practical_ordinary_concrete_types_with_construction_storage,
     generate_csharp_practical_ordinary_source_invariants,
+    import_csharp_practical_ordinary_concrete_operation_proofs,
+    import_csharp_practical_ordinary_concrete_operation_proofs_with_allocations,
     import_csharp_practical_ordinary_concrete_operations,
+    import_csharp_practical_ordinary_concrete_operations_with_allocations,
+    import_csharp_practical_ordinary_concrete_type_proofs,
+    import_csharp_practical_ordinary_concrete_type_proofs_with_construction_storage,
     import_csharp_practical_ordinary_concrete_types,
+    import_csharp_practical_ordinary_concrete_types_with_construction_storage,
     import_csharp_practical_ordinary_source_invariants, OrdinaryConcreteFailureComponent,
-    OrdinaryConcreteOperationComponent, OrdinaryConcreteOperationDefinition,
-    OrdinaryConcreteOperationFailure, OrdinaryConcreteOperationPending,
-    OrdinaryConcreteOperationPendingReason, OrdinaryConcreteOperationProgram,
-    OrdinaryConcreteTypeDefinition, OrdinaryConcreteTypeProgram, OrdinarySourceInvariantDefinition,
+    OrdinaryConcreteOperationAgreement, OrdinaryConcreteOperationComponent,
+    OrdinaryConcreteOperationDefinition, OrdinaryConcreteOperationFailure,
+    OrdinaryConcreteOperationPending, OrdinaryConcreteOperationPendingReason,
+    OrdinaryConcreteOperationProgram, OrdinaryConcreteOperationProof,
+    OrdinaryConcreteOperationProofProgram, OrdinaryConcreteTypeDefinition,
+    OrdinaryConcreteTypeProgram, OrdinaryConcreteTypeProof, OrdinaryConcreteTypeProofProgram,
+    OrdinaryConstructionStorageDomainDefinition, OrdinarySourceInvariantDefinition,
     OrdinarySourceInvariantEnumCase, OrdinarySourceInvariantProgram,
 };
 pub use relations::{
@@ -1051,6 +1084,9 @@ pub use ownership_flow::{
     OrdinaryOwnershipState,
 };
 
+#[path = "csharp_practical_ordinary_closed_proofs.rs"]
+mod closed_proofs;
+
 #[path = "csharp_practical_ordinary_ownership_proofs.rs"]
 mod ownership_proofs;
 pub use ownership_proofs::{
@@ -1074,4 +1110,35 @@ pub use source_clauses::{
     OrdinaryControlNativeLiteral, OrdinaryControlNativeOperation, OrdinaryControlNodeEntry,
     OrdinaryControlSourceExecution, OrdinaryControlSourceFrame, OrdinaryControlSourceStep,
     OrdinaryControlStepComponent,
+};
+
+pub use source_clauses::{
+    csharp_practical_ordinary_pattern_refinement_candidate_theorems,
+    generate_csharp_practical_ordinary_control_predicates,
+    generate_csharp_practical_ordinary_control_predicates_with_execution,
+    generate_csharp_practical_ordinary_control_predicates_with_packed_pattern_proof_types,
+    generate_csharp_practical_ordinary_control_predicates_with_pattern_captures,
+    generate_csharp_practical_ordinary_control_predicates_with_pattern_observations,
+    generate_csharp_practical_ordinary_control_predicates_with_pattern_proof_types,
+    generate_csharp_practical_ordinary_control_predicates_with_pattern_routes,
+    generate_csharp_practical_ordinary_control_predicates_with_pattern_scopes,
+    generate_csharp_practical_ordinary_pattern_refinement_candidate,
+    import_csharp_practical_ordinary_control_predicates,
+    import_csharp_practical_ordinary_control_predicates_with_execution,
+    import_csharp_practical_ordinary_control_predicates_with_packed_pattern_proof_types,
+    import_csharp_practical_ordinary_control_predicates_with_pattern_captures,
+    import_csharp_practical_ordinary_control_predicates_with_pattern_observations,
+    import_csharp_practical_ordinary_control_predicates_with_pattern_proof_types,
+    import_csharp_practical_ordinary_control_predicates_with_pattern_routes,
+    import_csharp_practical_ordinary_control_predicates_with_pattern_scopes,
+    link_csharp_practical_ordinary_pattern_refinement_candidate, OrdinaryControlGuardDependency,
+    OrdinaryControlMeasureDefinition, OrdinaryControlPatternCapture,
+    OrdinaryControlPatternCaptureAlternative, OrdinaryControlPatternCaptureDependency,
+    OrdinaryControlPatternEnvironment, OrdinaryControlPatternEnvironmentField,
+    OrdinaryControlPatternExecutionScope, OrdinaryControlPatternObservation,
+    OrdinaryControlPatternPremiseProof, OrdinaryControlPatternProofType,
+    OrdinaryControlPatternRefinementCandidate, OrdinaryControlPatternRefinementCandidateTheorem,
+    OrdinaryControlPatternRouteObservation, OrdinaryControlPatternScope,
+    OrdinaryControlPatternSourceDefinition, OrdinaryControlPredicateDefinition,
+    OrdinaryControlPredicateProgram, OrdinaryControlSequentDefinition,
 };

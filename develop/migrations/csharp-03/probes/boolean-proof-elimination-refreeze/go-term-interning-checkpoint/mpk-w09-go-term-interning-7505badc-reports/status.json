@@ -1,0 +1,60 @@
+{
+  "binary_sha256": "cfc449b2ac1352d793618bc72155b6e43b17eedcbb12ac5a3a486998f9465928",
+  "execution_host": "root@162.43.92.154",
+  "full_t01_gate": "deferred_to_final_W10_on_server",
+  "full_t06_gate": "deferred_to_W12_on_server",
+  "process_pid": 3787704,
+  "selection_reason": "Go core term interning is used by the whole reference checker. Select all tests in the Go checker package, the three new differential/ownership regressions, go vet and two changed-file format checks; Rust source and unrelated language producer tests are unchanged. Then measure exact existing approved pattern certificates; whole T gates remain deferred.",
+  "source_commit": "7505badc6684191a7dad9833e67d29af32529ee9",
+  "stage": "indexed-go-checker-build",
+  "stages": [
+    {
+      "command": [
+        "gofmt",
+        "-l",
+        "core_check.go",
+        "core_term_intern_test.go"
+      ],
+      "elapsed_seconds": 0.11811910010874271,
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stage": "changed-go-format"
+    },
+    {
+      "command": [
+        "go",
+        "test",
+        "./..."
+      ],
+      "elapsed_seconds": 5.909727556630969,
+      "exit_code": 0,
+      "log_sha256": "5031c5e754345a63cffe486e11a1a8593b2ac53c6597ee7f4f9b0cae07d875f0",
+      "stage": "all-go-checker-tests"
+    },
+    {
+      "command": [
+        "go",
+        "vet",
+        "./..."
+      ],
+      "elapsed_seconds": 2.1774710146710277,
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stage": "go-checker-vet"
+    },
+    {
+      "command": [
+        "go",
+        "build",
+        "-o",
+        "/root/mpk-w09-go-term-interning-7505badc-reports/go-checker",
+        "./cmd/mpk-checker-ref"
+      ],
+      "elapsed_seconds": 0.38348947279155254,
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stage": "indexed-go-checker-build"
+    }
+  ],
+  "status": "passed_all_affected_go_checker_tests_vet_format_and_indexed_build"
+}

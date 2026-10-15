@@ -5,6 +5,8 @@ use std::path::PathBuf;
 mod exceptions;
 #[path = "csharp_practical_ordinary_control_literal_tests.rs"]
 mod native_literals;
+#[path = "csharp_practical_ordinary_control_predicate_tests.rs"]
+mod predicates;
 #[path = "csharp_practical_ordinary_control_step_tests.rs"]
 mod steps;
 
@@ -2291,14 +2293,31 @@ fn run_source_frames(
                 continue;
             }
             let definition = frame.definition.as_ref().unwrap();
+            let updated_slot = if source.operation == "update" {
+                let effects = f
+                    .memory_effects
+                    .iter()
+                    .filter(|effect| effect.source_node_id == source.id)
+                    .collect::<Vec<_>>();
+                assert_eq!(effects.len(), 1);
+                let receiver = &effects[0].receiver_transfer;
+                assert_eq!(receiver.kind, "load");
+                assert!(f.source.transfers.contains(receiver));
+                // The receiver's storage is changed by the memory effect.
+                // Only the other source slots satisfy the equality frame.
+                Some(receiver.slot.as_str())
+            } else {
+                None
+            };
             let slots = f
                 .source
                 .slots
                 .iter()
                 .filter(|(slot, _)| {
-                    !transfer.is_some_and(|t| {
-                        &t.slot == slot && matches!(t.kind.as_str(), "store" | "pattern_bind")
-                    })
+                    updated_slot != Some(slot.as_str())
+                        && !transfer.is_some_and(|t| {
+                            &t.slot == slot && matches!(t.kind.as_str(), "store" | "pattern_bind")
+                        })
                 })
                 .collect::<Vec<_>>();
             assert_eq!(

@@ -568,10 +568,8 @@ fn operation(
 }
 fn names(t: &ContractTerm, output: &mut BTreeSet<String>) {
     match t {
-        ContractTerm::Const { name, .. } => {
-            if !name.starts_with("contract.def.") {
-                output.insert(name.clone());
-            }
+        ContractTerm::Const { name, .. } if !name.starts_with("contract.def.") => {
+            output.insert(name.clone());
         }
         ContractTerm::App {
             function, argument, ..

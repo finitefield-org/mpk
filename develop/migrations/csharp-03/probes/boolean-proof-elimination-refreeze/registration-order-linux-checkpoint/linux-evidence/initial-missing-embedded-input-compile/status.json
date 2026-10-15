@@ -1,0 +1,129 @@
+{
+  "application_scope_pending": true,
+  "error": "AssertionError('t01-feasibility')",
+  "finished_at": "2026-10-07T03:02:49.212179+00:00",
+  "full_t01_gate": "deferred to renewed T01-W10",
+  "full_t06_gate": "deferred to T06-W12",
+  "process_pid": 3768178,
+  "selection_reason": "Registration-order fix only: canonical Bool.cases checking/generation and preceding declaration types, definition values and theorem proofs. Run Bool cases plus relevant environment/inference/declaration checking and source-free checker/CSHARP-03-T01-W09 feasibility owners, selected lint/format; legacy/unused/unrelated-family positive controls share exact bytes. No application proof is discharged; whole T01 gate deferred to final W10.",
+  "source_commit": "fd99c03c8e3535bcc31f0b9d1441d4b74de80ebf",
+  "stage": "t01-feasibility",
+  "stages": [
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "test",
+        "-p",
+        "mpk-core",
+        "--lib",
+        "bool_cases::",
+        "--",
+        "--nocapture"
+      ],
+      "elapsed_seconds": 16.373,
+      "exit_code": 0,
+      "log_sha256": "5ba1b5e557aadc8df8277a9dc48f4c1543d2f07894edd6b91fe6083ca1758de8",
+      "stage": "core-bool_cases"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "test",
+        "-p",
+        "mpk-core",
+        "--lib",
+        "env::",
+        "--",
+        "--nocapture"
+      ],
+      "elapsed_seconds": 0.141,
+      "exit_code": 0,
+      "log_sha256": "566a57256368928d88e98e824ad1e1b021560d03786824539822d225485131d0",
+      "stage": "core-env"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "test",
+        "-p",
+        "mpk-core",
+        "--lib",
+        "infer::",
+        "--",
+        "--nocapture"
+      ],
+      "elapsed_seconds": 0.131,
+      "exit_code": 0,
+      "log_sha256": "ac81e3d780a31d9e8e06594dd7ef4be4eccfef409d13c56c3c2f7cc27c30d6be",
+      "stage": "core-infer"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "test",
+        "-p",
+        "mpk-core",
+        "--lib",
+        "inductive_gen::",
+        "--",
+        "--nocapture"
+      ],
+      "elapsed_seconds": 0.131,
+      "exit_code": 0,
+      "log_sha256": "d15a0c3d70d611bec9d26f721628b7a72451842d92e954fb5a6738d285c750a5",
+      "stage": "core-inductive_gen"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "test",
+        "-p",
+        "mpk-kernel",
+        "--lib",
+        "bool_cases",
+        "--",
+        "--nocapture"
+      ],
+      "elapsed_seconds": 11.281,
+      "exit_code": 0,
+      "log_sha256": "4428caec5c958d278413146628bb184c6351f634fdf989956bc19051a161bb93",
+      "stage": "kernel-bool_cases"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "test",
+        "-p",
+        "mpk-kernel",
+        "--lib",
+        "decl_driver::",
+        "--",
+        "--nocapture"
+      ],
+      "elapsed_seconds": 0.153,
+      "exit_code": 0,
+      "log_sha256": "aea145a6d2f2413f1eb011d185389ff699edaeef40e9b091013a15070f3d80a2",
+      "stage": "kernel-decl_driver"
+    },
+    {
+      "command": [
+        "/usr/bin/cargo",
+        "test",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "csharp_practical_spec",
+        "csharp_03_t01_w09_boolean_proof_elimination_feasibility",
+        "--",
+        "--nocapture"
+      ],
+      "elapsed_seconds": 37.184,
+      "exit_code": 101,
+      "log_sha256": "1cb660958f09e34c9d8eae8ee948941666f188c7fcd95c5b11ba79957b1b7ac6",
+      "stage": "t01-feasibility"
+    }
+  ],
+  "started_at": "2026-10-07T03:01:39.329884+00:00",
+  "status": "failed",
+  "supervisor_pid": 3767737
+}

@@ -43,7 +43,11 @@ The companion
 successor shared-artifact migration. The registered foundation and its closed
 specialization semantics are defined by
 `develop/specs/CSHARP_PRACTICAL_FOUNDATION_V1.md`. Certificate v0 and both
-source-free checker specifications retain higher authority and are unchanged.
+source-free checker specifications retain higher authority. Certificate v0's
+wire format is unchanged. The user-approved 2026-10-07 amendment adds generic
+Sort0-dependent Boolean proof elimination as specified in `CORE_V0.md`, with
+both checker implementations independently validating the canonical interface.
+Existing Bool-valued carrier recursion and value equations are retained.
 
 ## 2. Trust and application boundary
 

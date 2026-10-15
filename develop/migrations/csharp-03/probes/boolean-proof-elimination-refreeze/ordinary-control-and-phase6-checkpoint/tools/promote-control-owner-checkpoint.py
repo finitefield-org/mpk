@@ -1,0 +1,14 @@
+import hashlib,json,pathlib,shutil
+b=pathlib.Path(__file__).parent;r=pathlib.Path('/private/tmp/mpk-w09-refreeze-consumer-continuation');g=pathlib.Path('/private/tmp/mpk-w09-refreeze-metadata-integration');h=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();assert json.loads((b/'ordinary-regeneration-8-retry/status.json').read_bytes())['status']=='passed_selected_source_bound_ordinary_owners'
+for name,count in [('control-predicate-name-graphs',12),('control-predicate-dual-checkers',24)]:
+ s=json.loads((b/name/'status.json').read_bytes());assert s['status'].startswith('passed_all_12') and len(s['stages'])==count and all(x['exit_code']==0 for x in s['stages'])
+rows=[];backup=b/'control-owner-before';backup.mkdir(exist_ok=False)
+for receipt_name,family,generated in [('completed-ordinary-owner-stages-7-with-control-sequent-names.json','control-predicates','ordinary-regeneration-7'),('completed-ordinary-owner-stages-8-retry-with-control-sequent-names.json','control-edges','ordinary-regeneration-8-retry')]:
+ d=json.loads((b/receipt_name).read_bytes());assert not d['failures']
+ for row in d['files']:
+  if row['family']!=family:continue
+  path='develop/migrations/csharp-03/ordinary-foundation/'+family+'/'+row['original_path'];old=r/path;new=b/generated/'goldens'/family/row['generated_path'];assert h(old)==row['original_raw_sha256'] and h(new)==row['generated_raw_sha256']
+  if row.get('certificate_bytes_preserved'):assert bytes.fromhex(old.read_text())==bytes.fromhex(new.read_text())
+  if old.read_bytes()==new.read_bytes():continue
+  dest=backup/path;dest.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(old,dest);shutil.copyfile(new,old);rows.append({'path':path,'original_raw_sha256':row['original_raw_sha256'],'raw_sha256':h(old),'actual_generator_file':str(new),'certificate_bytes_preserved':row.get('certificate_bytes_preserved'),'semantic_metadata_preserved':row.get('semantic_metadata_preserved')})
+receipt={'status':'promoted_actual_control_owner_bytes_pending_post_promotion_pins_and_integrated_generation','source_commit':'561db360ef32766fd9fb71aa3093958367a68824','selection_reason':'Promote only the completed control-edge and baseline control-predicate source owners. All eighteen edge certificates and six baseline predicate certificates retain exact bytes; twelve predicate certificates preserve their complete typed graphs after independently verified sequent identities and pass both checkers with zero axioms. The same eighteen original frame value/mutation cases pass after correcting the expected receiver-slot equality frame.','files':rows,'source_owners':2,'certificate_sets':36,'exact_certificate_byte_retention':24,'name_graph_rebinding_and_dual_acceptance':12,'application_proof_ids_pending':987,'full_t01_gate':'deferred_to_final_W10','full_t06_gate':'deferred_to_W12'};(b/'control-owner-promotion.json').write_text(json.dumps(receipt,sort_keys=True,indent=2)+'\n');print('changedfiles',len(rows))

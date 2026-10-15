@@ -163,6 +163,17 @@ pub(in crate::ordinary_carriers) fn format_case(
 }
 #[test]
 fn csharp_03_t06_w09_integer_formats_original_sources() {
+    integer_formats_original_sources(true);
+}
+
+// Context/metadata changes can replay all source imports and pins separately
+// from the unchanged exhaustive value observations retained by the owner above.
+#[test]
+fn csharp_03_t06_w09_integer_formats_original_source_certificates() {
+    integer_formats_original_sources(false);
+}
+
+fn integer_formats_original_sources(observe_values: bool) {
     let bundle = b();
     let out = std::env::var_os("MPK_W09_INTEGER_FORMATS_OUT").map(std::path::PathBuf::from);
     if let Some(p) = &out {
@@ -273,6 +284,9 @@ fn csharp_03_t06_w09_integer_formats_original_sources() {
             read("ordinary-foundation/integer-formats/certificates.json"),
             manifest
         );
+    }
+    if !observe_values {
+        return;
     }
     let mut count = 0;
     for (id, (d, cert, roots, closed)) in unique {
