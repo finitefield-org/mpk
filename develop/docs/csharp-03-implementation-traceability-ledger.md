@@ -6848,3 +6848,19 @@ those failures are retained. A later same-commit push succeeds and the exact
 remote branch is verified. No force, alternate credentials or payload bypass
 is used. The original decimal test continues throughout. Final source/owner
 closure and the whole gates remain pending.
+
+## 85. User-authorized Go-first scheduling amendment (2026-10-16)
+
+The user explicitly requests: “実用C#プロファイルのリリース前にGo実装を進めて良いように計画を変更し、進めてください。”
+The serial queue therefore starts GO-PRAC practical v1/v2 from the registered
+four-language release and audited source baseline, then resumes the remaining
+CSHARP-03 work before Dart/TypeScript/Python. The 06/08/09 plans and roadmap
+record the same order. This is a scheduling amendment, not a C# completion
+receipt or proof that the inactive foundation is correct.
+
+Retain all current unresolved W09/W10 and application-proof items. Before C#
+resumes, reconcile the intervening Go/common artifact, registry, and foundation
+inputs. GO-PRAC validates every reused facility through its own gates. Prior
+mentions of running server jobs describe historical observations; this entry
+does not establish that any such process is live now and does not use them
+as a reason to wait. No C# proof or status is promoted by this amendment.

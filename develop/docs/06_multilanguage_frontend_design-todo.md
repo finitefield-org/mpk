@@ -2,6 +2,12 @@
 
 Source design: `develop/docs/06_multilanguage_frontend_design.md`
 
+2026-10-16 scheduling amendment: GO-PRAC is authorized before completion of
+the practical C# release. The [Go work plan](09_go_practical_subset_design-todo.md)
+and its implementation ledger own the Go work. Retain the CSHARP-03 checkpoint
+and its unresolved proofs; resume it after the two Go practical releases.
+Historical C# status below is not a completion receipt or a Go entry gate.
+
 Status: Gate C, `MLANG-01`, and Gate D are complete after the completed Rust
 and `MLANG-00` gates. `CSHARP-02-T01` through `CSHARP-02-T20` and
 `JAVA-03-T01` through T10 are complete, including the native x86-64 two-pass
@@ -25,8 +31,8 @@ T03-W14 is ready, and all later items remain serially blocked.
 
 ## Scope and sequencing
 
-This plan queues C#, Java, the published but inactive practical C# expansion,
-Dart, TypeScript, and Python after the complete Go/VIR/Rust critical path. It
+This plan queues C#, Java, Go practical v1/v2, the remaining practical C#
+expansion, Dart, TypeScript, and Python after the Go/VIR/Rust baseline. It
 defines one flow; none of its production milestones overlap the Rust program
 or another language milestone.
 
@@ -37,13 +43,19 @@ VIR-00 -> VIR-01 -> GO-VIR-02 -> RUST-03 -> RUST-04 -> RUST-05
   -> MLANG-01 successor contract freeze
   -> CSHARP-02
   -> JAVA-03
-  -> CSHARP-03 practical C# expansion
+  -> retained CSHARP-03 checkpoint (not complete)
+  -> GO-PRAC-T01..T07 practical Go v1
+  -> GO-PRAC-T08..T11 practical Go v2
+  -> remaining CSHARP-03 practical C# expansion
   -> DART-04
   -> TYPESCRIPT-05
   -> PYTHON-06
 ```
 
-Every production phase starts only after the preceding phase's exit gate. A
+The 2026-10-16 amendment permits the GO-PRAC entry from an audited current
+source baseline and the last installed four-language release; it does not
+require the unfinished CSHARP-03 exit gate. All other production phases
+start after their serial predecessor's exit gate. A
 later language or source-profile expansion's feasibility, specification, and
 implementation work are contained in its production phase and start only
 after the preceding production phase's final release gate. A proposal-only

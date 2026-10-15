@@ -14,6 +14,13 @@ checker.
 
 ## Current status
 
+The 2026-10-16 user-authorized order starts practical Go before the practical
+C# release. Follow the [Go work plan](develop/docs/09_go_practical_subset_design-todo.md)
+and [implementation ledger](develop/docs/go-practical-implementation-traceability-ledger.md).
+The unresolved CSHARP-03 checkpoint is retained for later resumption; Go
+independently validates the common facilities it needs. This scheduling change
+activates no new profile.
+
 The workspace version is `0.1.0`, and the installed CLI is `mpk`.
 `JAVA-03-T10` completed the four-language atomic successor cutover:
 
@@ -239,8 +246,8 @@ scripts/                generation and verification gates
 - [Alpha Demo Guide](docs/alpha-demo.md)
 - [C# Samples and Supported Subset](docs/csharp-samples-and-subset.md)
 - [Practical C# Expansion Design](develop/docs/08_csharp_practical_subset_design.md)
-- [Go Practical Expansion Design (proposal)](develop/docs/09_go_practical_subset_design.md)
-- [Go Practical Expansion Work Plan (proposal)](develop/docs/09_go_practical_subset_design-todo.md)
+- [Go Practical Expansion Design](develop/docs/09_go_practical_subset_design.md)
+- [Go Practical Expansion Work Plan](develop/docs/09_go_practical_subset_design-todo.md)
 - [Practical C# Profile v1 (normative, inactive)](develop/specs/CSHARP_PRACTICAL_PROFILE_V1.md)
 - [Practical C# Successor Shared Artifacts v1 (normative, inactive)](develop/specs/CSHARP_PRACTICAL_SHARED_ARTIFACTS_V1.md)
 - [ProofOps Policy Local Verification](docs/proof-ops-policy-ci.md)

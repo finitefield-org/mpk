@@ -54,9 +54,10 @@ follow-on flow now has this status and order:
 
 1. `MLANG-00`, `MLANG-01`, and the C# scalar release are complete;
 2. Java is complete through the T10 atomic public activation; and
-3. next implement the published but inactive practical C# profile from
-   `CSHARP-03-T02-W01`, then implement Dart, TypeScript, and Python one phase
-   at a time.
+3. the user-authorized 2026-10-16 amendment starts GO-PRAC practical Go v1/v2
+   from the audited source baseline before the practical C# release;
+4. retain the unresolved CSHARP-03 checkpoint, resume it after GO-PRAC, then
+   implement Dart, TypeScript, and Python one phase at a time.
 
 `MLANG-00-T01` through `MLANG-00-T03`, `MLANG-01-T01` through
 `MLANG-01-T03`, and `CSHARP-02-T01` through `CSHARP-02-T20` are complete. The
@@ -134,13 +135,14 @@ task IDs are dependency-ordered by the `05_*_todo.md` and `06_*_todo.md`
 programs and are not duplicated into that legacy seed.
 
 The [Go practical expansion design](docs/09_go_practical_subset_design.md)
-and [serial work plan](docs/09_go_practical_subset_design-todo.md) propose
+and [serial work plan](docs/09_go_practical_subset_design-todo.md) define
 existing-module selection followed by ordinary Go types/syntax, multi-result
 errors, strings, slices, maps, and restricted pointers. The first proposed
 release covers strings/slices and the second adds maps/pointers. These are
-design records, not normative specifications or active profiles; their
-recommended insertion after practical C# does not change the production order
-above. No implementation work item in that proposal has started.
+design records, not normative specifications or active profiles. The user
+authorized pre-C# implementation on 2026-10-16, starting with GO-PRAC-T01-W01.
+Go's own freeze, proof and release gates apply; incomplete C# work is not
+treated as a proved dependency.
 
 ## Normative specification routes
 

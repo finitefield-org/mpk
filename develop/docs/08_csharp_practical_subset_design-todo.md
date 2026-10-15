@@ -1,5 +1,12 @@
 # CSHARP-03 Practical C# Implementation Milestones and Tasks
 
+Scheduling amendment — 2026-10-16: remaining implementation is queued after
+GO-PRAC practical v1/v2 at the user's request. Preserve the checkpoint and
+pending proof/freeze items below. Their historical `In progress` status
+describes retained incomplete work, not permission for a concurrent production
+phase. Before resuming, reconcile all shared artifact and foundation inputs
+against the then-active Go release. This does not mark any C# work complete.
+
 The user-approved 2026-10-07 generic Sort0 Boolean proof-elimination amendment
 reopens `CSHARP-03-T01-W09` (In progress) and `CSHARP-03-T01-W10` (Blocked).
 Their previous completion records below are historical. T06-W09 retains its

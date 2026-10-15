@@ -22,10 +22,12 @@ Post-Rust source-language expansion is governed by
 `../docs/06_multilanguage_frontend_design-todo.md`. It is one continuation of
 the same flow, not a parallel track. The flow completed `RUST-07-T05`,
 `MLANG-00`, `MLANG-01`, the C# scalar release, and Java through T10, including
-its native x86-64 Linux receipt. `CSHARP-03-T01` has published the normative but
-inactive practical C# package and `CSHARP-03-T02-W01` is next; Dart,
-TypeScript, and Python follow the complete practical-profile release in that
-order. A governance or inactive specification record may prepare a later
+its native x86-64 Linux receipt. The user-authorized 2026-10-16 scheduling
+amendment starts GO-PRAC practical Go v1/v2 from the audited source baseline
+before the practical C# release. Preserve CSHARP-03's unresolved checkpoint;
+resume it after Go, then continue Dart, TypeScript, and Python. The Go entry
+does not require a CSHARP-03 release receipt. Go's own feasibility, freeze,
+proof, stage and release gates remain required. A governance record may prepare a later
 phase, but no production profile, selection branch, release tuple, bundle, or
 frontend starts before its entry gate.
 

@@ -1,18 +1,23 @@
 # Go Practical Subset Implementation Work Plan
 
-Status: proposed sequence, prepared 2026-10-16. Every implementation work
-item below is not started. Writing and reviewing this plan does not complete
-T01 or authorize a new public profile. The scope and semantic decisions are
+Status: implementation authorized 2026-10-16, with T01-W01 in progress.
+The user-authorized amendment moves Go before the practical C# release.
+Writing and reviewing this plan does not complete T01 or authorize a new
+public profile. The scope and semantic decisions are
 owned by [the design](09_go_practical_subset_design.md).
 
 ## 1. Entry, ordering, and execution
 
-The current production phase must finish with its required local release
-receipt before Go practical implementation begins. The recommended insertion
-after practical C# and before Dart is a proposal until T01-W01 records the
-governance amendment in the existing multi-language program. The current C#
+Go practical implementation may start before the practical C# release, as
+explicitly authorized by the user on 2026-10-16. T01-W01 records the amendment,
+an exact clean source baseline, and the last installed Go/Rust/scalar-C#/Java
+release receipt. The historical receipt proves only its own release, not all
+later source changes. The current C#
 [work-plan status](08_csharp_practical_subset_design-todo.md) includes reopened
-foundation work; do not use historical completion prose as the entry receipt.
+foundation work; it is neither a completed prerequisite nor proof of shared
+facilities. Go validates every facility it needs through its own gates.
+Remaining practical C# work resumes after GO-PRAC and reconciles any intervening
+shared-artifact changes. Production language phases remain serial.
 
 Execute T01 through T11 serially, and W01 through the last W serially within
 each T. Each W has a concrete review boundary. Multiple requested work items
@@ -77,12 +82,14 @@ test family for a local change without an impact reason.
 
 ## 3. GO-PRAC-T01 — Feasibility and v1 freeze
 
-Entry: the serial predecessor has its complete release receipt. Design-only
-review can precede this entry; production changes cannot.
+Entry: the user-authorized pre-C# order, the last installed four-language
+release, and an audited clean source baseline. Practical C# completion is not
+required. T01-W01 must distinguish historical release evidence from the
+current source state; T01-W05 still requires its cumulative whole gate.
 
 | Work item | Deliverable and acceptance evidence |
 | --- | --- |
-| T01-W01 | Record the schedule amendment, exact baseline, clean predecessor receipt, new ledger, current consumer inventory, and fixed-profile regression corpus. Pin the proposed target/compiler and supported effective-language-version table. |
+| T01-W01 | Record the pre-C# schedule amendment, exact clean source baseline and last installed-release receipt with their distinct scopes, new ledger, current consumer inventory, and fixed-profile regression corpus. Pin the proposed target/compiler and supported effective-language-version table. |
 | T01-W02 | Probe original-package type checking with unused unsupported functions, external modules, replacements, module metadata, build tags, initializers, and reachable global effects. Produce a capture/verification-closure matrix and exact offline snapshot contract. |
 | T01-W03 | Demonstrate ordinary encodings for nominal values, multi-results/errors, bounded bytes, slice descriptors/stores and abrupt loop control. Both checkers must accept representative conditional lemmas, not only definitions. Measure the design's v1 workload points and reject unsound projections. |
 | T01-W04 | Freeze v1 source admission/rejection, operation/check table, closure/effect rules, contract expressions, exact numeric limits/budgets, all changed schema/hash identities, producer/consumer migrations, and positive/negative vectors. Assign every requirement a production executor. |

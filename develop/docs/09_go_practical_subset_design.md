@@ -1,7 +1,9 @@
 # Go Practical Subset Expansion Design
 
-Status: design proposal, prepared 2026-10-16. No specification, profile,
-registry entry, public command, or implementation is activated by this document.
+Status: implementation authorized on 2026-10-16, starting with
+`GO-PRAC-T01-W01`. The user-authorized scheduling amendment permits Go work
+before the practical C# release. No specification, profile, registry entry,
+or public command is activated by this document.
 The implementation sequence is in
 [the companion work plan](09_go_practical_subset_design-todo.md).
 
@@ -61,21 +63,24 @@ Go profile retains its accepted inputs, diagnostics, limits, and semantics.
 The new profile carries its own source rules, dependency policy, target,
 limits, operations, contracts, and conformance vectors.
 
-The recommended serial insertion is:
+The user-authorized serial order is:
 
 ```text
-complete the current practical C# production phase and its release gate
-  -> Go practical v1
+registered Go/Rust/scalar-C#/Java release + audited current source baseline
+  -> Go practical v1 (T01–T07)
   -> Go practical v2
-  -> resume Dart, TypeScript, and Python
+  -> resume and finish practical C# from its retained checkpoint
+  -> Dart, TypeScript, and Python
 ```
 
-This is a scheduling proposal. The active order in
-[the multi-language design](06_multilanguage_frontend_design.md) is not
-changed here. T01-W01 records the scheduling amendment and exact predecessor
-receipt before implementation starts. Its justification is reuse of the
-completed common foundation, earlier value for existing Go applications, and
-the extra critical-path cost of the two Go releases. No production language
+This replaces the original proposal to wait for practical C#. The amendment
+is also recorded in [the multi-language design](06_multilanguage_frontend_design.md).
+T01-W01 pins the clean source baseline and the last installed-release receipt
+separately: that historical receipt does not certify subsequent source
+changes. Go's own feasibility, freeze, stage gates, and native release gates
+remain required. Earlier Go integration value justifies moving this work onto
+the critical path; the cost is deferring remaining practical C# work and
+reconciling its shared artifacts before it resumes. No production language
 phases run concurrently.
 
 The practical C# work plan currently records reopened foundation work and
@@ -83,7 +88,8 @@ pending proof completion. Its
 [current status and amendment](08_csharp_practical_subset_design-todo.md)
 are authoritative; older completion prose is not evidence that Go can already
 reuse a finished foundation. Planning this Go extension does not depend on
-declaring that work complete.
+declaring that work complete. Its release receipt is no longer an entry
+condition for GO-PRAC. A C# completion claim cannot replace Go's own proofs.
 
 ## 3. Trust and artifact strategy
 
@@ -115,9 +121,14 @@ correct. If a required construction cannot be expressed and checked within
 the available kernel and resource limits, the corresponding milestone stays
 incomplete; a checker change would need its own explicit design and review.
 
-After the C# release, reuse the installed common mechanisms for closed
-specialization, ordinary definitions, explicit control, and source binding
-where their meanings fit. Go owns its bindings: C# UTF-16 strings, ordered
+Start from the registered release and audited source baseline. Common
+mechanisms for closed specialization, ordinary definitions, explicit control,
+and source binding may be reused only after their Go-required scope passes
+Go's own independent validation and proof gates. Inactive C# code is a
+candidate implementation, not an established dependency. If a needed common
+facility is unfinished, complete and verify that bounded facility in GO-PRAC
+instead of waiting for the entire C# profile or assuming its correctness.
+Go owns its bindings: C# UTF-16 strings, ordered
 collections, exceptions, and overflow rules are not Go semantics. Do not
 copy the C# frontend's source-specific types into a Go interface.
 

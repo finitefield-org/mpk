@@ -1,5 +1,14 @@
 # C# Practical Subset Expansion Design
 
+Scheduling amendment — 2026-10-16: the user authorizes Go practical v1/v2
+before this profile's release. Retain the current unresolved CSHARP-03
+checkpoint and resume the remaining implementation after GO-PRAC. This
+changes scheduling, not completion or proof claims. On resumption reconcile
+the pinned common artifact/foundation/registry inputs with the then-active
+Go release. The [Go design](09_go_practical_subset_design.md) owns the amended
+serial order; no shared facility is assumed correct merely because it exists
+in the inactive C# implementation.
+
 Status: normative freeze package published through `CSHARP-03-T01-W10` and
 private implementation in progress at `CSHARP-03-T06-W09`. Its definition
 checkpoints do not yet discharge application verification conditions.

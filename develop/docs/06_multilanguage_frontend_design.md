@@ -1,5 +1,15 @@
 # Post-Rust Multi-Language Frontend Expansion Design
 
+Scheduling amendment — 2026-10-16: the user authorizes GO-PRAC to start
+before the practical C# release. The current serial order is the registered
+Go/Rust/scalar-C#/Java release and audited source baseline -> GO-PRAC v1 ->
+GO-PRAC v2 -> remaining CSHARP-03 -> Dart -> TypeScript -> Python. The
+[Go design](09_go_practical_subset_design.md) and
+[work plan](09_go_practical_subset_design-todo.md) own its new work items.
+CSHARP-03 retains its unresolved checkpoint; it is not declared complete.
+Historical status and ordering paragraphs below are superseded where they
+conflict with this amendment. No two production language phases run together.
+
 Status: Gate B, `MLANG-00`, Gate C, `MLANG-01`, and Gate D are complete after
 the completed `RUST-07-T05` entry gate. `CSHARP-02-T01` through
 `CSHARP-02-T20` completed serially; `JAVA-03-T01` through T10 are also
@@ -47,9 +57,9 @@ The sequencing decision is:
    feasibility work for all five candidate languages.
 3. `MLANG-01` then audits the completed Go/Rust implementation and freezes the
    successor extension mechanism and first C# specification package.
-4. New production frontends are then added serially. C# and Java are followed
-   by the published `CSHARP-03` practical C# expansion before Dart, TypeScript,
-   and Python.
+4. New production frontends and source-profile expansions are added serially.
+   After C# scalar and Java, the 2026-10-16 amendment inserts GO-PRAC v1/v2
+   before the remaining `CSHARP-03` work, then Dart, TypeScript, and Python.
 5. “Rust v0 complete” means the deliberately restricted Rust profile in
    `05_rust_frontend_design.md` satisfies its release gates. It does not mean
    waiting for full-language Rust support.
@@ -134,6 +144,16 @@ The order may change only through a reviewed governance amendment that records
 the user value, semantic risk, compiler integration quality, and effect on the
 critical path. It must not be changed merely to start several frontend
 implementations in parallel.
+
+The 2026-10-16 Go amendment has the following reviewed rationale:
+
+| Required consideration | Disposition |
+| --- | --- |
+| User value | Existing Go modules can gain domain types, outcomes, byte strings and slices earlier; maps and restricted state mutation follow in the requested order. |
+| Semantic risk | The incomplete practical C# foundation is not treated as proved. GO-PRAC owns conditional application proofs, both-checker acceptance, and source-specific bindings before reuse or release. |
+| Compiler integration | Reuse the registered Go toolchain identity as the initial candidate, audit public Go loader/type APIs, and freeze an explicit language-version table after the new probes. |
+| Critical path | Remaining CSHARP-03 work and later languages move after the two Go releases. Record and reconcile common schema/hash/registry migrations before C# resumes. |
+| Preserved gates | Source/certificate trust, immutable profiles, local targeted checks, final-W whole gates and native release receipts continue to apply. The C# release receipt alone is removed as a Go entry condition. |
 
 ## 2. Authority and relationship to the active program
 
