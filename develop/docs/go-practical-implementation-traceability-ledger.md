@@ -25,8 +25,8 @@ after reconciling the intervening shared artifacts and active registry.
 | Work item | Status | Evidence / next condition |
 | --- | --- | --- |
 | GO-PRAC-T01-W01 | Complete | Reviewed implementation commit `bd5ee8047d8925f9c9d0f7502627fca33bb2c836`; completion audit below |
-| GO-PRAC-T01-W02 | In progress | 39 compiler/closure cases passed twice; final review and commit handoff pending |
-| GO-PRAC-T01-W03 | Blocked by W02 | Ordinary encodings, conditional lemmas and resource feasibility |
+| GO-PRAC-T01-W02 | Complete | Reviewed implementation commit `fed1cf6047f97b1f73c0fc37c5023e19f4f9f035`; 39 cases reproduced twice |
+| GO-PRAC-T01-W03 | Ready | Ordinary encodings, conditional lemmas and resource feasibility |
 | GO-PRAC-T01-W04 | Blocked by W03 | Exact v1 source/shared/contract/limit freeze |
 | GO-PRAC-T01-W05 | Blocked by W04 | Publish inactive package, review and full T01 gate |
 | GO-PRAC-T02–T07 | Not started | Sequential v1 implementation and public release |
@@ -184,6 +184,17 @@ The Go transport settings disable proxy/checksum/toolchain/telemetry access
 during measurement; synthetic dependency preparation uses only a local file
 proxy. The macOS probes do not claim OS-level egress isolation or native
 Linux release acceptance. They produce no VIR, VC or accepted application
-theorem. W03 owns the next ordinary-encoding and both-checker proof feasibility
-work. Final format/link/diff review and the commit handoff are pending here.
-The full T01 gate is explicitly deferred to W05.
+theorem. Final review passed Python/strict-JSON syntax, exact Go 1.25.0
+`gofmt`, five documents and 27 local links, the matrix/report digest and all
+39 rows, plus `git diff --check`. Production sources, frozen specifications,
+registries, and old Go fixtures remain unchanged from W01. Implementation and
+evidence were committed as `fed1cf6047f97b1f73c0fc37c5023e19f4f9f035` before
+this completion handoff.
+
+Completion audit: every W02 package/dependency/replacement/build/initialization/
+global/version requirement has an observed case, a source identity and an
+expected result in the retained matrix. The capture/verification-closure
+matrix and exact candidate offline snapshot contract are present, and no W02
+requirement remains pending. W03 is Ready and owns the next ordinary-encoding
+and both-checker proof feasibility work. The full T01 gate remains explicitly
+deferred to W05; T01 is not complete.
