@@ -1,6 +1,8 @@
 # Go Practical Subset Implementation Work Plan
 
-Status: implementation authorized 2026-10-16, with T01-W01 in progress.
+Status: implementation authorized 2026-10-16; T01-W01 is complete and W02 is
+Ready. The [implementation ledger](go-practical-implementation-traceability-ledger.md)
+owns detailed current status and verification evidence.
 The user-authorized amendment moves Go before the practical C# release.
 Writing and reviewing this plan does not complete T01 or authorize a new
 public profile. The scope and semantic decisions are

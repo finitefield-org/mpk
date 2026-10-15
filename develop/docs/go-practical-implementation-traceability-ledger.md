@@ -24,8 +24,8 @@ after reconciling the intervening shared artifacts and active registry.
 
 | Work item | Status | Evidence / next condition |
 | --- | --- | --- |
-| GO-PRAC-T01-W01 | In progress | All targeted checks passed; finalize the reviewed commit and handoff below |
-| GO-PRAC-T01-W02 | Blocked by W01 | Original-package/dependency/build/version/closure probes |
+| GO-PRAC-T01-W01 | Complete | Reviewed implementation commit `bd5ee8047d8925f9c9d0f7502627fca33bb2c836`; completion audit below |
+| GO-PRAC-T01-W02 | Ready | Original-package/dependency/build/version/closure probes |
 | GO-PRAC-T01-W03 | Blocked by W02 | Ordinary encodings, conditional lemmas and resource feasibility |
 | GO-PRAC-T01-W04 | Blocked by W03 | Exact v1 source/shared/contract/limit freeze |
 | GO-PRAC-T01-W05 | Blocked by W04 | Publish inactive package, review and full T01 gate |
@@ -99,7 +99,16 @@ The Go command used host Go 1.23.2 darwin/arm64, vendor-only dependencies,
 temporary GOCACHE. It is regression evidence, not the Go 1.25.0/version-table
 probe or native Linux acceptance. Cargo ran offline.
 
-Adversarial helper tests passed. Final link/whitespace review and the commit
-boundary are recorded with the completion handoff. Full T01 validation is
-explicitly deferred to W05. No
-native practical-Go release or new application-proof claim is made.
+Adversarial helper tests passed. Final review checked 11 documents and 57
+local links, balanced code fences, Python syntax, and `git diff --check`.
+There were no changes under `crates`, `go-tools`, `scripts`, `release`,
+`fixtures`, `examples`, `proofs`, or `develop/specs` relative to the source
+baseline. The implementation and evidence were committed as
+`bd5ee8047d8925f9c9d0f7502627fca33bb2c836` before this completion handoff.
+
+Completion audit: the authorized schedule amendment, clean starting point,
+historical release witness, ledger, initial consumer inventory, fixed-profile
+corpus, candidate compiler/target and proposed language table each have the
+evidence described above. No W01 requirement remains pending. W02 is Ready.
+Full T01 validation remains explicitly deferred to W05. No native
+practical-Go release or new application-proof claim is made.
