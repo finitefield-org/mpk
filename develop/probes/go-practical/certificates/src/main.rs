@@ -676,6 +676,32 @@ fn describe_term(c: &Certificate, id: u32, scope: &mut Vec<String>) -> String {
 
 fn main() {
     let args = std::env::args().collect::<Vec<_>>();
+    if matches!(
+        args.get(1).map(String::as_str),
+        Some("signed-generate" | "signed-trace")
+    ) {
+        assert_eq!(args.len(), 5, "signed-generate REPO_ROOT OUTPUT DEPTH");
+        word::generate_signed(
+            Path::new(&args[2]),
+            Path::new(&args[3]),
+            args[4].parse().unwrap(),
+            args[1] == "signed-trace",
+        );
+        return;
+    }
+    if matches!(
+        args.get(1).map(String::as_str),
+        Some("tree-generate" | "tree-trace")
+    ) {
+        assert_eq!(args.len(), 5, "tree-generate REPO_ROOT OUTPUT DEPTH");
+        word::generate_balanced(
+            Path::new(&args[2]),
+            Path::new(&args[3]),
+            args[4].parse().unwrap(),
+            args[1] == "tree-trace",
+        );
+        return;
+    }
     if args.get(1).map(String::as_str) == Some("word-generate") {
         assert_eq!(args.len(), 5, "word-generate REPO_ROOT OUTPUT WIDTH");
         word::generate(

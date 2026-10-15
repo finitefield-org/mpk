@@ -155,3 +155,27 @@ a complete replay/matrix or a frozen application resource budget. The next
 candidate will use the existing Bool-addressed cube and balanced half-word
 composition to reduce the work without reducing the input domain. W03 and
 its existing remaining requirements stay open.
+
+## Balanced word and signed bridge measurements
+
+The [balanced model and actual 48-case evidence](balanced-words/README.md)
+now replace the long operand telescope with full Bool-addressed operands.
+Both checkers accept all 16 unsigned/conditional-signed positive claims with
+zero axioms and identical logical hashes. Twenty-five incorrect candidates
+fail at core type checking; seven offset-removal candidates reach conversion
+fuel and are explicitly not counted as semantic negatives.
+
+The unsigned64 theorem checks in about 0.126/0.266 s and the signed64 theorem
+under its actual no-overflow guard in 0.186/0.353 s. Both generations are
+identical for every width and family. The signed proof ties its guard to the
+actual incoming/outgoing sign-stage carries and proves equality of natural
+cross sums for two's-complement values. This is a conditional addition bridge,
+not all integer operations, a completed prefix-sum bridge or a Go application
+proof. Internal width128 probes do not admit Go 128-bit source integers.
+
+The first balanced positive failures at 16 and 32 bits are retained in
+`tree-initial/`. Explicit checked projection and carry equalities resolve
+those positive-proof fuel failures without changing either checker. Complete
+prefix-sum composition, Go source/operation binding and guard discharge,
+collection/control laws and aggregate boundary/resource freeze remain open.
+W03 stays In progress and the full T01 gate stays deferred to W05.

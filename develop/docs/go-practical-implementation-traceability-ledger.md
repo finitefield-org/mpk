@@ -26,7 +26,7 @@ after reconciling the intervening shared artifacts and active registry.
 | --- | --- | --- |
 | GO-PRAC-T01-W01 | Complete | Reviewed implementation commit `bd5ee8047d8925f9c9d0f7502627fca33bb2c836`; completion audit below |
 | GO-PRAC-T01-W02 | Complete | Reviewed implementation commit `fed1cf6047f97b1f73c0fc37c5023e19f4f9f035`; 39 cases reproduced twice |
-| GO-PRAC-T01-W03 | In progress | Representation/local Nat pilots plus both-checker 64-bit unsigned diagnostic; signed/sum bindings, operation laws and resource closure remain open |
+| GO-PRAC-T01-W03 | In progress | Balanced unsigned / conditional signed addition measured; prefix sums, source/collection laws and resource closure remain open |
 | GO-PRAC-T01-W04 | Blocked by W03 | Exact v1 source/shared/contract/limit freeze |
 | GO-PRAC-T01-W05 | Blocked by W04 | Publish inactive package, review and full T01 gate |
 | GO-PRAC-T02–T07 | Not started | Sequential v1 implementation and public release |
@@ -323,3 +323,52 @@ both-checker validation and full workload/boundary measurement remain due.
 Signed interpretation, no-overflow/order, mathematical prefix sums, complete
 source/operation bindings and aggregate resource closure remain open. W03 is
 In progress and W04 has not started.
+
+## 10. T01-W03 balanced unsigned and conditional signed addition
+
+The [balanced producer](../probes/go-practical/certificates/src/word/balanced.rs)
+and [signed layer](../probes/go-practical/certificates/src/word/balanced/signed.rs)
+use complete Bool-addressed operands and checked half-word composition.
+Neither bit-pattern enumeration nor a reduced source integer width is used.
+[The model and measured evidence](../migrations/go-practical/t01-w03/balanced-words/README.md)
+cover 48 cases at widths 1/2/4/8/16/32/64/128. Every group has two byte-identical
+fresh generations. All 16 positives pass Rust and Go with zero axioms and
+matching logical hashes; 25 incorrect candidates fail at core type checking.
+Seven offset-removal candidates exhaust conversion fuel and are explicitly
+not counted as semantic negatives or certified counterexamples.
+
+Unsigned64 has 5,634 terms / 65,068 bytes and checks in 0.126/0.266 s, using
+11,452,416 / 24,969,216 peak resident bytes. Its three-candidate batch takes
+0.098 s / 8,142,848 bytes to construct. Signed64 has 7,741 terms / 89,106 bytes
+and checks in 0.186/0.353 s. These local observations are not a frozen
+application budget. Width128 is an internal widened mathematical-domain probe,
+not Go source type admission.
+
+The signed claim proves equality of natural cross sums for two's-complement
+balanced differences under the actual sign-stage carry-agreement guard.
+Checked sum-sign and carry-binding lemmas connect that predicate to the same
+word adder. Replacing it by an unrelated true premise rejects at core checking
+at every width. Establishing the guard from a Go source path remains an
+application obligation. The positive 16/32-bit fuel findings and original
+sources are retained in
+[tree-initial](../migrations/go-practical/t01-w03/tree-initial/observations.json)
+and its [projection attempt](../migrations/go-practical/t01-w03/tree-initial/projection-attempt/observations.json).
+Explicit checked projection/carry equalities resolve those findings without
+changing either checker or its conversion budget.
+
+Targeted validation covers the new private representation, arithmetic/sign
+bindings, guard substitution, deterministic replay, checker routes and
+evidence helpers. The 48-case local measurement, retained-report check and
+all 15 new adversarial tests pass. Offline locked release Clippy passes with
+warnings denied; Rust formatting and Python syntax pass. The affected older
+pilots were remeasured: 27 representation and four local-Nat cases pass, with
+all 28 existing report tests passing. The historical word checkpoint and its
+nine adversarial tests also pass. Existing 31 certificate/index bytes remain
+unchanged. Production frontend/checker, specification and registry source
+identities remain at W01, so unrelated production suites are not rerun.
+
+This closes a conditional addition ingredient, not the full W03 scope. Exact
+prefix-sum composition, source/operation bindings and guard discharge,
+string/slice/descriptor/control-law closure and aggregate/boundary/resource
+freeze remain open. W03 stays In progress, W04 has not started, and the whole
+T01 gate remains due in W05.

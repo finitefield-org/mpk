@@ -6,6 +6,14 @@
 use super::*;
 use mpk_cert::encode::DefinitionReducibility;
 
+mod balanced;
+pub(super) fn generate_balanced(root: &Path, output: &Path, depth: usize, trace: bool) {
+    balanced::generate(root, output, depth, trace);
+}
+pub(super) fn generate_signed(root: &Path, output: &Path, depth: usize, trace: bool) {
+    balanced::generate_signed(root, output, depth, trace);
+}
+
 const PREFIX: &str = "Probe.GoPractical.Word";
 fn name(suffix: &str) -> String {
     format!("{PREFIX}.{suffix}")
@@ -475,6 +483,48 @@ impl Producer {
         let Expr::Apply(head, args) = &expr else {
             return reflexive(expr);
         };
+        if **head == c("Std.Bool.cases") && args.len() == 4 {
+            let (condition, proof) = normalize_ground_boolean(&args[3], &mut self.fresh);
+            let selected = if condition == literal(false) {
+                args[1].clone()
+            } else {
+                assert_eq!(condition, literal(true));
+                args[2].clone()
+            };
+            let n = format!("__local_function_condition_{}", self.fresh);
+            self.fresh += 1;
+            let mut context_args = args.clone();
+            context_args[3] = v(&n);
+            let context = lambda(&n, bool_ty(), apply((**head).clone(), context_args));
+            let mut rewritten = args.clone();
+            rewritten[3] = condition.clone();
+            let middle = apply((**head).clone(), rewritten);
+            let e = Equality {
+                left: expr.clone(),
+                right: middle.clone(),
+                proof: apply(
+                    c("Std.Eq.congr"),
+                    vec![
+                        bool_ty(),
+                        function(),
+                        context,
+                        args[3].clone(),
+                        condition,
+                        proof,
+                    ],
+                ),
+            };
+            let e = transit(
+                e,
+                Equality {
+                    left: middle,
+                    right: selected.clone(),
+                    proof: reflf(selected.clone()),
+                },
+            );
+            let tail = self.normalize_local(selected);
+            return transit(e, tail);
+        }
         if **head != c(&name("Maybe")) {
             return reflexive(expr);
         }

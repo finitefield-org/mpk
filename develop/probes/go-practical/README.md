@@ -141,3 +141,34 @@ low/high split to reduce binder/lemma work while retaining the complete
 input domain. It still requires actual both-checker and resource evidence.
 Signed arithmetic, exact prefix sums, operation/source bindings and full
 W03 closure remain pending. No checker source or logical rule is changed.
+
+## T01-W03 balanced word bridges (in progress)
+
+```sh
+python3 -B develop/probes/go-practical/run_balanced_probes.py --check
+python3 -B develop/probes/go-practical/check_balanced_report.py
+python3 -B -m unittest discover -s develop/probes/go-practical -p 'test_balanced_report.py' -v
+```
+
+The [balanced model and evidence](../../migrations/go-practical/t01-w03/balanced-words/README.md)
+cover the complete operand space through Bool-addressed cubes. Half-word
+composition plus checked projection/carry lemmas replaces the long operand
+telescope without changing either checker. The runner measures 48 cases at
+widths 1/2/4/8/16/32/64/128, produces identical bytes twice and executes both
+source-free checkers. All 16 positive claims are zero-axiom. Type-mismatch
+negatives and candidate fuel failures have separate recorded classifications.
+`--write` is only for an intentional reviewed evidence update.
+
+Unsigned claims retain final carry. Signed claims compare natural cross sums
+for the two's-complement interpretation, under the actual sign-stage carry
+agreement. They do not prove a Go application establishes that guard. The
+128-bit cases probe an internal widened domain, not a new Go source type.
+Exact prefix sums, Go operation/source binding, collection/control closure
+and aggregate/boundary budgets remain open. W03 is not complete.
+
+Private debug commands are `tree-generate` / `tree-trace` and
+`signed-generate` / `signed-trace`, each taking `REPO_ROOT OUTPUT DEPTH`;
+depth 0–7 represents 1–128 bits. Trace mode retains intermediate certificates.
+The archived failed producers belong to their original observations and must
+not be used as the current producer or silently rewritten. Full T validation
+remains due in T01-W05.
