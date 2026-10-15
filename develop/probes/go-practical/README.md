@@ -172,3 +172,33 @@ depth 0–7 represents 1–128 bits. Trace mode retains intermediate certificate
 The archived failed producers belong to their original observations and must
 not be used as the current producer or silently rewritten. Full T validation
 remains due in T01-W05.
+
+## T01-W03 exact unsigned prefix folds (in progress)
+
+```sh
+python3 -B develop/probes/go-practical/run_prefix_probes.py --check
+python3 -B develop/probes/go-practical/check_prefix_report.py
+python3 -B -m unittest discover -s develop/probes/go-practical -p 'test_prefix_report.py' -v
+```
+
+The [prefix model and evidence](../../migrations/go-practical/t01-w03/prefix-sums/README.md)
+measure 55 candidates at counts `0/1/3/8/32/127/128/129`. The fold threads
+actual modular64 accumulator states. One theorem uses each actual step's
+zero-carry condition; a second unconditionally retains all actual overflow
+corrections. Both relate to an exact `Std.Nat` sum with universally quantified
+payloads, padding, accumulator and initial natural. Every candidate is
+generated identically twice and checked by Rust and Go on the same bytes.
+
+Eighteen zero-axiom claims pass, including valid empty-prefix controls;
+23 mutations reject at core type checking. Fourteen last-summand/correction
+removals exhaust conversion fuel and count only as resource findings.
+The checker preserves the original positive fuel failure using its source
+snapshots. `--write` intentionally refreshes retained measurement evidence;
+the quick report check validates integrity without executing proofs.
+
+Debug commands `fold-generate` and `fold-trace` take `REPO_ROOT OUTPUT COUNT`
+through the internal count129 boundary probe. They do not expose a Go
+frontend or freeze a size limit. Signed/nonnegative prefix interpretation,
+source guard/order bindings, remaining operation/collection/control laws and
+aggregate resource freeze remain due. W03 is In progress; the complete T01
+gate remains deferred to W05.

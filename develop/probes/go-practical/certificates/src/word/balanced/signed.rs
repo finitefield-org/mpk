@@ -3,6 +3,10 @@
 //! equality of cross sums, rather than assuming unsigned and signed coincide.
 
 use super::*;
+mod fold;
+pub(super) fn generate_fold(root: &Path, output: &Path, count: usize, trace: bool) {
+    fold::generate(root, output, count, trace);
+}
 
 #[derive(Clone)]
 struct Typed {

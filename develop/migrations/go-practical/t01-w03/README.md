@@ -179,3 +179,25 @@ those positive-proof fuel failures without changing either checker. Complete
 prefix-sum composition, Go source/operation binding and guard discharge,
 collection/control laws and aggregate boundary/resource freeze remain open.
 W03 stays In progress and the full T01 gate stays deferred to W05.
+
+## Exact unsigned prefix-sum ingredients
+
+The [prefix model and actual 55-case evidence](prefix-sums/README.md) now
+compose the full 64-bit adder through a real left-to-right accumulator.
+Both checkers accept 18 zero-axiom claims with matching hashes: exact sums
+under the actual step-carry premise, unconditional sums with actual carry
+corrections, and valid empty-prefix controls. Twenty-three altered claims
+fail at core type checking; fourteen offset/last-summand removals reach fuel
+and are recorded separately as resource outcomes.
+
+Counts `0/1/3/8/32/127/128/129` preserve all input/padding bits. Each group
+has two identical fresh generations. Count129 probes a boundary and does
+not change Go admission. The initial empty-prefix fuel failure and original
+sources remain in `prefix-initial/`; explicit checked identity/composition
+steps resolve that positive failure without changing a checker rule.
+
+This is unsigned arithmetic evidence. Signed/nonnegative prefix interpretation,
+the `Quote` guard/order/subtraction bridge, complete Go operation/source
+binding, collection/control closure and aggregate/resource freeze stay open.
+W03 remains In progress and W04 has not started. The full T01 gate remains
+deferred to W05.

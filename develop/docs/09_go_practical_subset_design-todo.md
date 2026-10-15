@@ -2,9 +2,11 @@
 
 Status: implementation authorized 2026-10-16. T01-W01 and W02 are complete;
 T01-W03 is In progress. Its representation pilots and balanced unsigned /
-conditional signed addition bridges have both-checker evidence. Exact prefix
-sums, complete operation/binding/collection laws and resource boundaries
-remain open, so W04 has not started.
+conditional signed addition bridges have both-checker evidence. Unsigned
+prefix folds now have conditional exact-sum and unconditional actual-carry
+correction evidence. Signed/nonnegative prefix and source guard bindings,
+complete operation/binding/collection laws and resource boundaries remain
+open, so W04 has not started.
 The [implementation ledger](go-practical-implementation-traceability-ledger.md)
 owns detailed current status and verification evidence.
 The user-authorized amendment moves Go before the practical C# release.

@@ -26,7 +26,7 @@ after reconciling the intervening shared artifacts and active registry.
 | --- | --- | --- |
 | GO-PRAC-T01-W01 | Complete | Reviewed implementation commit `bd5ee8047d8925f9c9d0f7502627fca33bb2c836`; completion audit below |
 | GO-PRAC-T01-W02 | Complete | Reviewed implementation commit `fed1cf6047f97b1f73c0fc37c5023e19f4f9f035`; 39 cases reproduced twice |
-| GO-PRAC-T01-W03 | In progress | Balanced unsigned / conditional signed addition measured; prefix sums, source/collection laws and resource closure remain open |
+| GO-PRAC-T01-W03 | In progress | Unsigned prefix sums with actual-carry conditions/corrections measured; signed/nonnegative prefix, source/collection laws and resource closure remain open |
 | GO-PRAC-T01-W04 | Blocked by W03 | Exact v1 source/shared/contract/limit freeze |
 | GO-PRAC-T01-W05 | Blocked by W04 | Publish inactive package, review and full T01 gate |
 | GO-PRAC-T02–T07 | Not started | Sequential v1 implementation and public release |
@@ -372,3 +372,58 @@ prefix-sum composition, source/operation bindings and guard discharge,
 string/slice/descriptor/control-law closure and aggregate/boundary/resource
 freeze remain open. W03 stays In progress, W04 has not started, and the whole
 T01 gate remains due in W05.
+
+## 11. T01-W03 exact unsigned prefix-sum ingredients
+
+The [prefix producer](../probes/go-practical/certificates/src/word/balanced/signed/fold.rs)
+threads actual left-to-right modular64 accumulator states, independently
+defines the exact `Std.Nat` mathematical sum, and proves two relations:
+exact equality under each actual intermediate zero-carry premise, and an
+unconditional equality retaining `2^64` for each actual carry. Checked
+definition/projection equalities and ordinary composition/commutation proofs
+connect the same full-word adder through partial and complete prefix trees.
+No input payload is enumerated and no checker rule, fuel budget, axiom or
+unfinished C# theorem is introduced.
+
+[The model and measured evidence](../migrations/go-practical/t01-w03/prefix-sums/README.md)
+cover counts 0/1/3/8/32/127/128/129 and 55 candidates. Both fresh generations
+are byte-identical. Rust and Go accept 18 zero-axiom claims with matching
+logical hashes, reject 23 altered claims at core type checking, and report
+14 fuel outcomes for last-summand/correction removal. Fuel outcomes remain
+resource findings, never semantic negatives or certified counterexamples.
+The two extra empty-prefix claims are valid controls: its safety condition
+is vacuous and its overflow correction is the identity.
+
+The 128-element claims each have 355 declarations and 11,549 terms in
+138,756/138,764 bytes. In the retained run, conditional checking costs
+0.212/0.486 s and 19,628,032/39,731,200 peak resident bytes for Rust/Go;
+unconditional checking costs 0.231/0.515 s and 19,595,264/37,076,992 bytes.
+All 8,192 storage bits, 64 accumulator bits and the initial natural are
+universally quantified. The count129 case retains all 16,384 bits in its
+256-cell padded store; this is an internal boundary probe, not Go admission
+or a frozen resource budget. Host observations remain Darwin/arm64.
+
+The [original empty-prefix positive fuel failure](../migrations/go-practical/t01-w03/prefix-initial/observations.json)
+retains its canonical bytes, raw results and exact source snapshots. The
+correction proves right identity for the word's known composite function
+and lifts it with checked congruence/transitivity. It does not assume an eta
+law for arbitrary functions or silently replace the intended sum claim.
+
+Targeted validation covers actual accumulator/carry bindings, complete
+payload/padding quantification, empty and boundary cases, altered claims,
+deterministic construction and evidence integrity. The full 55-case local
+measurement and separate `--check` proof replay pass; all 19 new adversarial tests pass, including historical
+snapshot validation. The changed private producer also remeasures the 27
+representation, four local-Nat and 48 balanced word candidates. Their
+earlier certificate/index bytes stay unchanged. All 52 existing evidence
+tests pass, for 71 targeted tests total. Offline locked release Clippy passes
+with warnings denied; Rust formatting, Python syntax, retained-report checks,
+the W01 identity audit, document links and Git whitespace checks pass.
+Production frontend/checker, specification and registry identities remain
+at W01, so unrelated production suites are not rerun.
+
+Unsigned interpretation does not establish the signed/nonnegative `Quote`
+prefix invariant. Signed prefix/order/subtraction and source guard discharge,
+complete source/operation bindings, descriptor/collection/control laws and
+aggregate boundary/resource closure remain due. W03 remains In progress;
+W04 has not started. The full T01 gate stays deferred to W05.

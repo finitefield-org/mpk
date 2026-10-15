@@ -13,6 +13,9 @@ pub(super) fn generate_balanced(root: &Path, output: &Path, depth: usize, trace:
 pub(super) fn generate_signed(root: &Path, output: &Path, depth: usize, trace: bool) {
     balanced::generate_signed(root, output, depth, trace);
 }
+pub(super) fn generate_fold(root: &Path, output: &Path, count: usize, trace: bool) {
+    balanced::generate_fold(root, output, count, trace);
+}
 
 const PREFIX: &str = "Probe.GoPractical.Word";
 fn name(suffix: &str) -> String {
