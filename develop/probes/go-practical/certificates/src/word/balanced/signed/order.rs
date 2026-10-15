@@ -2,6 +2,47 @@
 //! Four interacting bit carry chains preserve a six-state local invariant.
 use super::*;
 mod path;
+pub(super) fn install_primitives(p: &mut Producer) {
+    primitives(p);
+    path::primitives(p);
+}
+pub(super) fn install_word(p: &mut Producer, d: usize, trace: Option<&Path>) {
+    build(p, d, trace);
+    path::build(p, d, trace);
+}
+pub(super) fn compare(d: usize, a: Expr, b: Expr) -> Expr {
+    named("LE", d, vec![a, b])
+}
+pub(super) fn subtract(d: usize, l: Expr, a: Expr) -> Expr {
+    sum(d, l, complement(d, a), literal(true))
+}
+pub(super) fn complement_word(d: usize, x: Expr) -> Expr {
+    complement(d, x)
+}
+pub(super) fn path_result(
+    d: usize,
+    suffix: &str,
+    l: Expr,
+    a: Expr,
+    x: Expr,
+    premises: [Expr; 5],
+) -> Typed {
+    let result = sum(d, a.clone(), x.clone(), literal(false));
+    let mut args = vec![l.clone(), a.clone(), x.clone()];
+    args.extend(premises);
+    let (left, right) = match suffix {
+        "NoWrap" => (carry(d, a, x, literal(false)), literal(false)),
+        "Nonnegative" => (sign(d, result), literal(false)),
+        "WithinLimit" => (compare(d, result, l), literal(true)),
+        _ => panic!("unsupported continuation result"),
+    };
+    typed(
+        bool_ty(),
+        left,
+        right,
+        apply(c(&name(&format!("TreeOrderPath{suffix}{d}"))), args),
+    )
+}
 
 fn named(base: &str, d: usize, args: Vec<Expr>) -> Expr {
     tree(&format!("Order{base}"), d, args)
@@ -25,7 +66,7 @@ fn complement_body(d: usize, x: Expr) -> Expr {
         )
     }
 }
-fn complementary_projection(d: usize, x: Expr, high: bool) -> Typed {
+pub(super) fn complementary_projection(d: usize, x: Expr, high: bool) -> Typed {
     typed(
         cube_type(d - 1),
         project(complement(d, x.clone()), high),
@@ -54,7 +95,7 @@ fn sum_projection(d: usize, x: Expr, y: Expr, incoming: Expr, high: bool) -> Typ
         ),
     )
 }
-fn carry_definition(d: usize, x: Expr, y: Expr, incoming: Expr) -> Typed {
+pub(super) fn carry_definition(d: usize, x: Expr, y: Expr, incoming: Expr) -> Typed {
     let body = if d == 0 {
         local(x.clone(), y.clone(), incoming.clone()).1
     } else {
@@ -137,11 +178,11 @@ fn conserved(d: usize, l: Expr, a: Expr, x: Expr, ins: &[Expr], h: Expr) -> Type
         apply(c(&name(&format!("TreeOrderConservation{d}"))), args),
     )
 }
-fn normalized(expr: Expr, p: &mut Producer) -> Typed {
+pub(super) fn normalized(expr: Expr, p: &mut Producer) -> Typed {
     let (normal, proof) = normalize_ground_boolean(&expr, &mut p.fresh);
     typed(bool_ty(), expr, normal, proof)
 }
-fn under(
+pub(super) fn under(
     p: &mut Producer,
     condition: Expr,
     result: Expr,

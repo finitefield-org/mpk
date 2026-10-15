@@ -258,3 +258,35 @@ follow from source-shaped comparisons; production Go operator/branch and
 whole-loop bindings remain due. W03 is In progress. Aggregate resources and
 remaining collection/control/byte laws stay open, with the full T01 gate
 deferred to W05.
+
+## T01-W03 continuing prefixes and zero entry (in progress)
+
+```sh
+python3 -B develop/probes/go-practical/run_continuation_probes.py --check
+python3 -B develop/probes/go-practical/check_continuation_report.py
+python3 -B -m unittest discover -s develop/probes/go-practical -p 'test_continuation_report.py' -v
+```
+
+The [composed prefix model and evidence](../../migrations/go-practical/t01-w03/continuing-prefixes/README.md)
+derive all intermediate bounds and carries from actual item checks, then
+discharge literal-zero entry with checked zero/complement/comparison/value
+lemmas. Bounded arbitrary-entry and zero-entry families each prove state
+bounds and exact natural sums. Counts 0/1/3/8/32/127/128/129 retain every
+payload and padding bit; 36 claims pass both checkers with zero axioms and
+36 substitutions reject at core type checking. Empty-prefix controls remain
+accepted, and every group is generated identically twice.
+
+The same command builds and executes an ordinary-Go `Quote` fixture on 769
+cases. Empirical success/error/frame observations remain separate from proof
+acceptance; no source-bound or whole-function theorem is claimed. The runner
+retains exact input/output bytes and checks replay. Historical failed zero
+proof source and checker results remain separately preserved.
+
+Debug commands `continuation-generate` / `continuation-trace` take
+`REPO_ROOT OUTPUT COUNT` through internal boundary count129. Go build
+commands explicitly disable VCS stamping; Git operations are managed
+separately according to repository instructions. Canonical certificate
+preservation is checked across affected earlier pilots. Complete Go
+source/loop/return/error/descriptor composition, remaining collection/byte/
+control laws and aggregate resource freeze remain open. W03 is In progress,
+with the full T01 gate deferred to W05.

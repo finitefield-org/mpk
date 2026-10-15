@@ -76,8 +76,8 @@ def main():
         reference, go_operations = temp / "mpk-checker-ref", temp / "go-order-observer"
         env = {**os.environ, "GOENV": "off", "GOWORK": "off", "GOTOOLCHAIN": "local", "GOPROXY": "off", "GOTELEMETRY": "off",
                "CGO_ENABLED": "0", "GOCACHE": "/private/tmp/mpk-go-practical-checker-cache"}
-        checked([str(DEFAULT_GOROOT / "bin/go"), "build", "-trimpath", "-o", str(reference), "./cmd/mpk-checker-ref"], cwd=ROOT / "go-tools/mpk-checker-ref", env=env)
-        checked([str(DEFAULT_GOROOT / "bin/go"), "build", "-trimpath", "-o", str(go_operations), str(HERE / "order_reference.go")], env=env)
+        checked([str(DEFAULT_GOROOT / "bin/go"), "build", "-trimpath", "-buildvcs=false", "-o", str(reference), "./cmd/mpk-checker-ref"], cwd=ROOT / "go-tools/mpk-checker-ref", env=env)
+        checked([str(DEFAULT_GOROOT / "bin/go"), "build", "-trimpath", "-buildvcs=false", "-o", str(go_operations), str(HERE / "order_reference.go")], env=env)
         binaries = {"rust": sha(producer.read_bytes()), "go": sha(reference.read_bytes())}
 
         def attempt(active=None):

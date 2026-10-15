@@ -678,6 +678,23 @@ fn main() {
     let args = std::env::args().collect::<Vec<_>>();
     if matches!(
         args.get(1).map(String::as_str),
+        Some("continuation-generate" | "continuation-trace")
+    ) {
+        assert_eq!(
+            args.len(),
+            5,
+            "continuation-generate REPO_ROOT OUTPUT COUNT"
+        );
+        word::generate_continuation(
+            Path::new(&args[2]),
+            Path::new(&args[3]),
+            args[4].parse().unwrap(),
+            args[1] == "continuation-trace",
+        );
+        return;
+    }
+    if matches!(
+        args.get(1).map(String::as_str),
         Some("order-generate" | "order-trace")
     ) {
         assert_eq!(args.len(), 5, "order-generate REPO_ROOT OUTPUT DEPTH");

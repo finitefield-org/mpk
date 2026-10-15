@@ -243,3 +243,27 @@ Production Go branch/operator binding, whole-loop/prefix/return composition,
 collection/control/byte law closure and aggregate resource freeze remain
 open. W03 stays In progress, W04 has not started, and the whole T01 gate
 remains deferred to W05.
+
+## Continuing-prefix composition and literal zero entry
+
+The [continuing-prefix model and 72-case evidence](continuing-prefixes/README.md)
+now derive every intermediate accumulator bound and carry from the actual
+item-sign/remaining-amount checks and the initial invariant. No per-step
+invariant or carry safety is supplied as a caller oracle. Checked zero-word
+sign/comparison/value lemmas also discharge the source-shaped literal-zero
+initializer, giving bounded zero-entry results and exact natural sums.
+
+Counts 0/1/3/8/32/127/128/129 retain all input/padding values. The four
+families have two identical fresh generations: 36 zero-axiom claims pass
+both checkers and 36 substitutions reject at core type checking. The
+empty-prefix check replacements remain accepted controls. The initial
+zero-complement candidate failure is retained with its original source and
+corrected by explicit checked congruence.
+
+An ordinary-Go `Quote` fixture also matches an independent bit-loop model
+on 769 cases, covering 169 successes, 456 bad-input and 144 limit-exceeded
+results, input preservation and nil/non-nil empties. Those are empirical
+observations, not a formal source/loop/error/frame proof. Complete source
+binding, actual loop/return/error/descriptor composition, remaining
+byte/collection/control laws and aggregate resources stay open. W03 remains
+In progress; W04 has not started and the full T01 gate stays due in W05.

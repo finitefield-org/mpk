@@ -4,10 +4,21 @@
 
 use super::*;
 use std::collections::BTreeSet;
+mod continuation;
 mod signed_prefix;
 
+#[derive(Clone, Copy, Eq, PartialEq)]
+enum Mode {
+    Unsigned,
+    Signed,
+    Continuation,
+}
+pub(super) fn generate_continuation(root: &Path, output: &Path, count: usize, trace: bool) {
+    generate_mode(root, output, count, trace, Mode::Continuation);
+}
+
 pub(super) fn generate_signed(root: &Path, output: &Path, count: usize, trace: bool) {
-    generate_mode(root, output, count, trace, true);
+    generate_mode(root, output, count, trace, Mode::Signed);
 }
 
 const W: usize = 6;
@@ -888,9 +899,11 @@ fn raw_claim(p: &mut Producer, node: Node, mutation: usize) -> Expr {
 }
 
 pub(super) fn generate(root: &Path, output: &Path, count: usize, trace: bool) {
-    generate_mode(root, output, count, trace, false);
+    generate_mode(root, output, count, trace, Mode::Unsigned);
 }
-fn generate_mode(root: &Path, output: &Path, count: usize, trace: bool, signed: bool) {
+fn generate_mode(root: &Path, output: &Path, count: usize, trace: bool, mode: Mode) {
+    let signed = mode != Mode::Unsigned;
+    let bounded = mode == Mode::Continuation;
     assert!(
         count <= 129,
         "private boundary measurement through 129 elements"
@@ -919,11 +932,21 @@ fn generate_mode(root: &Path, output: &Path, count: usize, trace: bool, signed: 
     };
     p.builder.c.module = format!(
         "{PREFIX}.{}PrefixCount{count}",
-        if signed { "Signed" } else { "" }
+        if bounded {
+            "Continuation"
+        } else if signed {
+            "Signed"
+        } else {
+            ""
+        }
     );
     p.primitive_library();
     if signed {
         super::primitives(&mut p);
+    }
+    if bounded {
+        order::install_primitives(&mut p);
+        continuation::primitives(&mut p);
     }
     for d in 0..=W {
         super::super::definitions(&mut p, d, None);
@@ -932,6 +955,10 @@ fn generate_mode(root: &Path, output: &Path, count: usize, trace: bool, signed: 
         if signed {
             super::build(&mut p, d, None);
         }
+        if bounded {
+            order::install_word(&mut p, d, None);
+            continuation::zero_library(&mut p, d, trace.then_some(output));
+        }
     }
     algebra(&mut p, trace.then_some(output));
     for n in nodes {
@@ -939,11 +966,18 @@ fn generate_mode(root: &Path, output: &Path, count: usize, trace: bool, signed: 
         commutative_sums(&mut p, n, trace.then_some(output));
         prove_raw(&mut p, n, trace.then_some(output));
         prove_node(&mut p, n, trace.then_some(output));
-        if signed {
+        if signed && !bounded {
             signed_prefix::build(&mut p, n, trace.then_some(output));
+        }
+        if bounded {
+            continuation::build(&mut p, n, trace.then_some(output));
         }
     }
     let base = p.builder.c;
+    if bounded {
+        continuation::emit(base, output, node);
+        return;
+    }
     if signed {
         signed_prefix::emit(base, output, node);
         return;

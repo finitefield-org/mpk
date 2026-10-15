@@ -128,7 +128,7 @@ def main(model=None):
         reference = temp / "mpk-checker-ref"
         env = {**os.environ, "GOENV": "off", "GOWORK": "off", "GOTOOLCHAIN": "local", "GOPROXY": "off",
                "GOTELEMETRY": "off", "CGO_ENABLED": "0", "GOCACHE": "/private/tmp/mpk-go-practical-checker-cache"}
-        checked([str(DEFAULT_GOROOT / "bin/go"), "build", "-trimpath", "-o", str(reference), "./cmd/mpk-checker-ref"],
+        checked([str(DEFAULT_GOROOT / "bin/go"), "build", "-trimpath", "-buildvcs=false", "-o", str(reference), "./cmd/mpk-checker-ref"],
                 cwd=ROOT / "go-tools/mpk-checker-ref", env=env)
         binaries = {"rust": sha(producer.read_bytes()), "go": sha(reference.read_bytes())}
 
@@ -151,8 +151,9 @@ def main(model=None):
                     (first / n).read_bytes() != (second / n).read_bytes() for n in names):
                 raise RuntimeError("prefix generation is nondeterministic")
             index = json.loads((first / "index.json").read_text())
-            if index["schema"] != model.INDEX_SCHEMA:
-                raise RuntimeError("prefix index identity")
+            ids = [case["id"] for case in index["cases"]]
+            if index["schema"] != model.INDEX_SCHEMA or len(ids) != len(set(ids)) or names != sorted([i + ".mpcert" for i in ids] + ["index.json"]):
+                raise RuntimeError("prefix index identity or duplicate/shadowed candidate")
             groups.append({"count": count, "scope": "complete candidate group and shared ordinary library", "first": one, "second": two})
             for case in index["cases"]:
                 path = first / (case["id"] + ".mpcert")
@@ -168,6 +169,7 @@ def main(model=None):
                     raise RuntimeError("retained prefix certificate differs")
                 retain_attempt()
                 print(f"{case['id']}: {outcome}; Rust {observations['rust']['wall_seconds']:.3f}s, Go {observations['go']['wall_seconds']:.3f}s", flush=True)
+        extra = model.measure_extra(temp, env) if hasattr(model, "measure_extra") else None
         if before != model.proof_sources():
             raise RuntimeError("source changed during prefix measurement")
         report = {"schema": model.REPORT_SCHEMA, "work_item": "GO-PRAC-T01-W03",
@@ -182,13 +184,19 @@ def main(model=None):
                   "construction_groups": groups, "cases": rows,
                   "outcomes": {key: sum(r["classification"] == key for r in rows) for key in
                                ("accepted_zero_axiom", "core_type_mismatch", "candidate_fuel_failure_not_false_claim_evidence")}}
+        if extra is not None:
+            report["quote_observations"] = extra
         if args.write:
+            for filename in getattr(model, "EXTRA_FILES", ()):
+                shutil.copyfile(temp / filename, record / filename)
             (record / "observations.json").write_bytes(json_bytes(report))
             (record / "attempt.json").unlink()
         retained = json.loads((record / "observations.json").read_text())
         model.check_retained(retained)
         if [r["case"] for r in retained["cases"]] != [r["case"] for r in rows]:
             raise RuntimeError("retained prefix theorem index differs")
+        if args.check and any((record / n).read_bytes() != (temp / n).read_bytes() for n in getattr(model, "EXTRA_FILES", ())):
+            raise RuntimeError("retained Go observations differ")
         print(f"PASS: {len(rows)} measured candidates; actual guards/corrections explicit; W03 incomplete")
 
 

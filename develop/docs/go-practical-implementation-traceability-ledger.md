@@ -26,7 +26,7 @@ after reconciling the intervening shared artifacts and active registry.
 | --- | --- | --- |
 | GO-PRAC-T01-W01 | Complete | Reviewed implementation commit `bd5ee8047d8925f9c9d0f7502627fca33bb2c836`; completion audit below |
 | GO-PRAC-T01-W02 | Complete | Reviewed implementation commit `fed1cf6047f97b1f73c0fc37c5023e19f4f9f035`; 39 cases reproduced twice |
-| GO-PRAC-T01-W03 | In progress | Prefix sums and source-shaped comparison/subtraction-to-addition guards measured; complete Go source/loop/collection laws and resource closure remain open |
+| GO-PRAC-T01-W03 | In progress | Continuing-prefix bounds/carries and zero-entry exact sums measured; complete Go source/loop/return/error/descriptor laws and resource closure remain open |
 | GO-PRAC-T01-W04 | Blocked by W03 | Exact v1 source/shared/contract/limit freeze |
 | GO-PRAC-T01-W05 | Blocked by W04 | Publish inactive package, review and full T01 gate |
 | GO-PRAC-T02–T07 | Not started | Sequential v1 implementation and public release |
@@ -547,3 +547,76 @@ Complete production Go operator/branch/source binding, actual
 byte-operation law closure and aggregate boundary/resource freeze remain
 open. W03 stays In progress; W04 has not started. The entire authorized
 11-stage objective remains active.
+
+## 14. T01-W03 continuing-prefix bounds and literal-zero entry
+
+Predecessor checkpoint: `ea164f5599fa7835839ecb0bf5ec3a5be633b136` retains
+the step arithmetic. The
+[continuation layer](../probes/go-practical/certificates/src/word/balanced/signed/fold/continuation.rs)
+now composes that law across the actual left-to-right prefix. Its check cube
+contains each actual item's sign/remaining-bound tests at the actual
+intermediate accumulator. The low-prefix result proves the high prefix's
+initial bounds. No per-step invariant or carry truth is supplied as an
+oracle. It derives a nonnegative bounded final accumulator, all actual
+zero-carry equalities, and exact processed-prefix natural sums.
+
+Checked zero projection/sign/complement-carry/comparison/value lemmas also
+discharge the actual all-zero initializer. Zero-entry state and exact-sum
+claims require only the nonnegative limit and actual item checks. The
+initial zero-complement proof failed in both checkers because its producer
+assumed evaluation of a named recursor major. The
+[original failure and source snapshots](../migrations/go-practical/t01-w03/continuation-initial/README.md)
+are preserved. Explicit checked congruence transports the zero equality;
+the correction adds no premise, axiom, eta/extensionality rule or checker
+change. This is a corrected positive proof, not semantic-negative evidence.
+
+[The measured 72-case matrix](../migrations/go-practical/t01-w03/continuing-prefixes/README.md)
+covers bounded and zero entry, state and exact-natural conclusions, at
+counts 0/1/3/8/32/127/128/129. Every group has two identical fresh generations.
+Both checkers accept 36 zero-axiom claims with matching hashes and reject
+36 deliberate substitutions at core type checking. Empty-prefix check
+replacements remain valid accepted controls. Count128 preserves all 8,192
+backing bits and 64 limit bits; bounded-entry claims also quantify 64 initial
+accumulator bits. Its zero-entry natural claim has 685 declarations,
+30,399 terms and 374,906 bytes, checking in 1.262/2.840 s with
+40,878,080/102,449,152 peak resident bytes for Rust/Go in the retained run.
+Count129 retains all 16,384 padded backing bits and is an internal boundary
+probe, not Go capacity admission or a frozen budget. The host is Darwin/arm64.
+
+The [ordinary-Go Quote fixture](../probes/go-practical/quote_reference.go)
+and separate observer execute 769 deterministic cases, including nil and
+non-nil empties, entry failures, negative/extreme amounts and limit failures.
+The independent bit-loop model matches 169 successes, 456 bad-input and
+144 limit-exceeded results, zero decisions on failure and input/nil
+preservation. Exact input/output bytes and binary/resources are retained.
+These empirical observations do not claim a formal source/return/error/
+frame proof. The source-shaped arithmetic prefix remains the certified scope.
+
+Go feasibility builds now explicitly pass `-buildvcs=false`; their automatic
+Git metadata/status lookup was still enabled and has been removed. A newly
+built reference binary has no VCS build-info fields and SHA-256
+`bc21d279807f5994a16287a532db65cac3bbb170bfa4d0ca5c6729825e24c62c`,
+matching the measured checker. Explicit Git commands continue to use
+`/usr/bin/git` outside the sandbox. Historical helper bytes are copied only
+when they match each original report's exact source hash, keeping old
+findings independently readable after this build-setting correction.
+
+Targeted verification covers derived intermediate bounds, actual check/
+carry projections, zero entry, exact natural observation, complete payload/
+padding domains, altered claims, original-Go observations and evidence
+integrity. The complete 72-case measurement and all 25 new adversarial tests
+pass. The changed producer/measurement helpers also remeasure the earlier
+206 candidates, with every canonical certificate/index unchanged; all
+110 earlier evidence tests pass, for 135 targeted tests total. Offline locked
+release Clippy passes with warnings denied; Rust and pinned Go formatting,
+Python syntax, retained-report/historical-snapshot checks, W01 identity
+audit and the W02 retained closure report pass. Document links and Git
+whitespace checks pass. Unchanged production suites are not rerun. The
+separate final `--check` prefix/Go replay also passes all 72 candidates and
+reproduces the exact Go input/output bytes. The full T01 gate remains
+deferred to W05.
+
+Complete production source/operator binding, actual loop/return/closed-error
+and descriptor composition, remaining byte/collection/control laws and
+aggregate boundary/resource closure remain open. W03 stays In progress;
+W04 has not started. The full 11-stage objective remains active.

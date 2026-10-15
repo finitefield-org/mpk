@@ -5,6 +5,9 @@
 use super::*;
 mod fold;
 mod order;
+pub(super) fn generate_continuation(root: &Path, output: &Path, count: usize, trace: bool) {
+    fold::generate_continuation(root, output, count, trace);
+}
 pub(super) fn generate_order(root: &Path, output: &Path, depth: usize, trace: bool) {
     order::generate(root, output, depth, trace);
 }
