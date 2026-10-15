@@ -136,3 +136,22 @@ binary identities and resource observations are recorded for the new build.
 
 `scripts/check-fast.sh` remains deferred to the last W of T01, W05. No
 native Linux release or public-profile acceptance check is claimed here.
+
+## Compositional unsigned-word diagnostic
+
+The [word model](word-conservation-model.md) and
+[retained diagnostic](word-initial/README.md) extend the one-bit ingredient
+to all 128 operand bits of an unsigned 64-bit addition. Both checkers accept
+its exact natural-value theorem, including final carry, with zero axioms and
+identical logical hashes. The certificate has 81,514 terms and 1,043,626 bytes.
+This remains a partial arithmetic bridge, not signed interpretation, an exact
+processed-prefix sum, or a source-bound Go theorem.
+
+The initial matrix stops at the 32-bit dropped-carry candidate because both
+checkers exhaust conversion fuel. Its raw result is retained as a resource
+failure and is not added to the semantic-negative count. The separate 64-bit
+positive diagnostic passes at about 198 s in Rust and 476 s in Go; it is not
+a complete replay/matrix or a frozen application resource budget. The next
+candidate will use the existing Bool-addressed cube and balanced half-word
+composition to reduce the work without reducing the input domain. W03 and
+its existing remaining requirements stay open.

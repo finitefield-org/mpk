@@ -26,7 +26,7 @@ after reconciling the intervening shared artifacts and active registry.
 | --- | --- | --- |
 | GO-PRAC-T01-W01 | Complete | Reviewed implementation commit `bd5ee8047d8925f9c9d0f7502627fca33bb2c836`; completion audit below |
 | GO-PRAC-T01-W02 | Complete | Reviewed implementation commit `fed1cf6047f97b1f73c0fc37c5023e19f4f9f035`; 39 cases reproduced twice |
-| GO-PRAC-T01-W03 | In progress | 27 representation + 4 local Nat conservation candidates; full arithmetic, bindings/operation laws and resource boundaries remain open |
+| GO-PRAC-T01-W03 | In progress | Representation/local Nat pilots plus both-checker 64-bit unsigned diagnostic; signed/sum bindings, operation laws and resource closure remain open |
 | GO-PRAC-T01-W04 | Blocked by W03 | Exact v1 source/shared/contract/limit freeze |
 | GO-PRAC-T01-W05 | Blocked by W04 | Publish inactive package, review and full T01 gate |
 | GO-PRAC-T02–T07 | Not started | Sequential v1 implementation and public release |
@@ -276,3 +276,50 @@ commit. The natural-mode `--check` exercises measurement replay against the
 retained arithmetic bytes as well as the report-integrity branch.
 
 The whole T01 gate remains deferred to W05; W03 remains In progress.
+
+## 9. T01-W03 compositional unsigned-word diagnostic (not completion)
+
+The [private word producer](../probes/go-practical/certificates/src/word.rs)
+builds ordinary function-equality lemmas for composition, commutation and
+width induction. Its full-adder proof splits three local flags; the complete
+operand space is not enumerated. The
+[model](../migrations/go-practical/t01-w03/word-conservation-model.md) explains
+the exact natural denotation and outstanding signed/sum obligations.
+
+The [retained diagnostic](../migrations/go-practical/t01-w03/word-initial/README.md)
+and [raw observations](../migrations/go-practical/t01-w03/word-initial/observations.json)
+prove actual both-checker acceptance of the unsigned 64-bit/final-carry
+theorem with zero axioms and matching hashes. It quantifies all 128 operand
+bits, the incoming carry and the initial natural. Its self-contained
+certificate contains 423 declarations, 81,514 terms and 1,043,626 bytes.
+Construction takes 69.432 s / 688,193,536 peak resident bytes; optimized Rust
+checking takes 198.099 s / 431,833,088 bytes and Go takes 476.319 s /
+1,018,724,352 bytes. This is one measured diagnostic, not a complete two-pass
+matrix, a signed bridge, a Go theorem or a frozen resource budget.
+
+The original matrix stopped at a 32-bit dropped-carry candidate. Rust reports
+`CORE_FUEL_EXHAUSTED`; Go reports `core reduction fuel exhausted`. Both raw
+results, original candidate bytes and exact private source snapshots are
+retained. They count as candidate resource failures, never core type-mismatch
+negatives or certified counterexamples. Batch output lacking retained raw
+checker results is explicitly only an artifact. The current producer's
+additional low-bit mutation has a both-checker type-mismatch debug result at
+one bit; its larger matrix remains unmeasured.
+
+Targeted validation covers the new word producer, unchanged earlier pilot
+outputs, and diagnostic evidence classification. Offline locked Clippy passes
+with warnings denied; Rust formatting and Python syntax pass. Both earlier
+pilot modes were remeasured against the current producer: 27 representation
+and four local-Nat cases, with all 28 existing evidence tests passing. The
+new diagnostic-integrity check and nine adversarial tests pass. Kernel,
+reference checker, normative specification and registry sources are unchanged.
+The full T01 gate remains deferred to W05.
+
+Before resource freeze, the next private candidate replaces the long operand
+bit telescope with the existing Bool-addressed cube and balanced half-word
+composition. It preserves the full 64-bit domain and exact final-carry
+statement. No performance or proof success is assumed for that redesign;
+both-checker validation and full workload/boundary measurement remain due.
+Signed interpretation, no-overflow/order, mathematical prefix sums, complete
+source/operation bindings and aggregate resource closure remain open. W03 is
+In progress and W04 has not started.

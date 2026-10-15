@@ -115,7 +115,7 @@ fn decode_hex(path: &Path) -> Certificate {
     mpk_cert::decode_canonical_certificate(&raw).unwrap()
 }
 
-fn foundation(root: &Path) -> Certificate {
+pub(super) fn foundation(root: &Path) -> Certificate {
     let mut result = decode_hex(&root.join("fixtures/core-bool-cases/right-identity.hex"));
     let source = decode_hex(&root.join("proofs/std/nat/std-nat.hex"));
     for input in [&result, &source] {

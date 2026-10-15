@@ -11,6 +11,7 @@ use serde_json::{json, Value};
 use std::{fs, path::Path};
 
 mod natural;
+mod word;
 
 #[derive(Clone, Debug, Eq, PartialEq)]
 enum Expr {
@@ -675,6 +676,15 @@ fn describe_term(c: &Certificate, id: u32, scope: &mut Vec<String>) -> String {
 
 fn main() {
     let args = std::env::args().collect::<Vec<_>>();
+    if args.get(1).map(String::as_str) == Some("word-generate") {
+        assert_eq!(args.len(), 5, "word-generate REPO_ROOT OUTPUT WIDTH");
+        word::generate(
+            Path::new(&args[2]),
+            Path::new(&args[3]),
+            args[4].parse().unwrap(),
+        );
+        return;
+    }
     if args.get(1).map(String::as_str) == Some("natural-generate") {
         assert!(
             (4..=5).contains(&args.len()),

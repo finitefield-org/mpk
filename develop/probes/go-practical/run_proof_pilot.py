@@ -62,7 +62,7 @@ def sources():
     return [{"path": p.relative_to(ROOT).as_posix(), "sha256": sha(p.read_bytes())} for p in sorted(paths)]
 
 
-def timed(command):
+def timed(command, *, limit_seconds=60):
     start = time.perf_counter()
     # wait4 reads this process's own child usage without the kern.clockrate
     # sysctl required by BSD time, which the workspace sandbox forbids.
@@ -74,7 +74,7 @@ def timed(command):
             if pid:
                 process.returncode = os.waitstatus_to_exitcode(status)
                 break
-            if time.perf_counter() - start > 60:
+            if time.perf_counter() - start > limit_seconds:
                 process.kill()
                 _, status, _ = os.wait4(process.pid, 0)
                 process.returncode = os.waitstatus_to_exitcode(status)
@@ -90,13 +90,13 @@ def timed(command):
             "stderr": errors}
 
 
-def observe(executable, path):
-    result = timed([executable, "verify", path])
+def observe(executable, path, *, limit_seconds=60):
+    result = timed([executable, "verify", path], limit_seconds=limit_seconds)
     result["report"] = json.loads(result.pop("stdout"))
     return result
 
 
-def semantic_expectation(item, observations, *, declarations=19):
+def semantic_expectation(item, observations, *, declarations=19, module=None):
     for name, observed in observations.items():
         report = observed["report"]
         if report.get("verdict") != item["expected"]:
@@ -107,7 +107,8 @@ def semantic_expectation(item, observations, *, declarations=19):
             count = report.get("axiom_count", 0 if name == "go" else None)
             if observed["exit_code"] != 0 or type(count) is not int or count != 0:
                 raise RuntimeError("accepted ordinary pilot is not zero-axiom")
-            if report.get("module") != item["theorem"].removesuffix(".Claim") or report.get("declaration_count") != declarations:
+            expected_module = module if module is not None else item["theorem"].removesuffix(".Claim")
+            if report.get("module") != expected_module or report.get("declaration_count") != declarations:
                 raise RuntimeError("accepted checker module/declaration identity differs")
             hashes = report.get("hashes", {})
             if set(hashes) != {"export", "certificate", "axiom_report"} or any(

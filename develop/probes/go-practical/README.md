@@ -113,3 +113,31 @@ inside the sandbox and remain explicitly unknown. A construction/checker
 timeout is an unresolved resource finding, never a semantic rejection or
 permission to declare the profile supported. No whole T gate runs here;
 `scripts/check-fast.sh` remains due in T01-W05.
+
+## T01-W03 compositional word diagnostics (in progress)
+
+```sh
+python3 -B develop/probes/go-practical/check_word_checkpoint.py
+python3 -B -m unittest discover -s develop/probes/go-practical -p 'test_word_checkpoint.py' -v
+```
+
+The private Rust binary also accepts `word-generate REPO_ROOT OUTPUT WIDTH`
+for widths 1–72. Its ordinary function-equality library composes the local
+full adder into a universal unsigned word/natural-value theorem, retaining
+the final carry. The current prototype emits the positive claim, a dropped
+carry and a low-result-bit mutation. It has no public frontend route.
+
+The [retained diagnostics](../../migrations/go-practical/t01-w03/word-initial/README.md)
+include actual zero-axiom acceptance of the 64-bit claim by Rust and Go,
+plus the 32-bit dropped-carry fuel failure. Source snapshots and binary
+identities distinguish those historical runs from later experiments. The
+retained-checkpoint command checks evidence integrity only; it does not
+execute a proof replay or certify the incomplete matrix.
+
+The initial 64-bit check costs about 198 s in Rust and 476 s in Go. A full
+application budget cannot be inferred from that expensive partial proof.
+The next candidate uses the existing Bool-addressed cube and a balanced
+low/high split to reduce binder/lemma work while retaining the complete
+input domain. It still requires actual both-checker and resource evidence.
+Signed arithmetic, exact prefix sums, operation/source bindings and full
+W03 closure remain pending. No checker source or logical rule is changed.
