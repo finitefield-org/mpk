@@ -3,6 +3,9 @@
 
 use super::*;
 mod signed;
+pub(super) fn generate_order(root: &Path, output: &Path, depth: usize, trace: bool) {
+    signed::generate_order(root, output, depth, trace);
+}
 pub(super) fn generate_fold(root: &Path, output: &Path, count: usize, trace: bool) {
     signed::generate_fold(root, output, count, trace);
 }

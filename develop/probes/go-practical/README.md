@@ -227,3 +227,34 @@ No checker rule, axiom, source width or public profile changes. Go source
 guard/order/subtraction discharge and the nonnegative `Quote` invariant,
 remaining collection/operation/control laws and aggregate resource freeze
 remain due. W03 stays In progress; the full T01 gate stays deferred to W05.
+
+## T01-W03 order/subtraction and continuing-path guards (in progress)
+
+```sh
+python3 -B develop/probes/go-practical/run_order_probes.py --check
+python3 -B develop/probes/go-practical/check_order_report.py
+python3 -B -m unittest discover -s develop/probes/go-practical -p 'test_order_report.py' -v
+```
+
+The [model and measured evidence](../../migrations/go-practical/t01-w03/order-guards/README.md)
+cover 40 ordinary proof candidates. Carry composition spans widths 1–128;
+source-shaped signed path and exact-Nat addition use actual Go widths
+8/16/32/64. Each group is generated twice identically and checked by both
+source-free verifiers. Sixteen zero-axiom claims pass; 24 altered
+premise/operand bindings reject at core type checking. The runner rejects
+duplicate/shadowed candidate IDs and mismatched file/index coverage.
+
+The same command builds a pinned Go observation tool and compares 3,428
+actual typed arithmetic/compare observations with an independent bit-loop
+model. It retains exact input/output bytes and separates that empirical
+scope from proof acceptance. Negative/noncontinuing inputs remain observed.
+The quick retained-report check does not rerun proofs or Go execution;
+`--write` is reserved for intentional reviewed evidence refreshes.
+
+Debug commands `order-generate` / `order-trace` take `REPO_ROOT OUTPUT DEPTH`
+with depth0–7. Width128 is an internal probe, not Go source admission.
+The actual addition carry guard, nonnegative bounded result and exact sum
+follow from source-shaped comparisons; production Go operator/branch and
+whole-loop bindings remain due. W03 is In progress. Aggregate resources and
+remaining collection/control/byte laws stay open, with the full T01 gate
+deferred to W05.

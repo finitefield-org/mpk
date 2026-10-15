@@ -678,6 +678,19 @@ fn main() {
     let args = std::env::args().collect::<Vec<_>>();
     if matches!(
         args.get(1).map(String::as_str),
+        Some("order-generate" | "order-trace")
+    ) {
+        assert_eq!(args.len(), 5, "order-generate REPO_ROOT OUTPUT DEPTH");
+        word::generate_order(
+            Path::new(&args[2]),
+            Path::new(&args[3]),
+            args[4].parse().unwrap(),
+            args[1] == "order-trace",
+        );
+        return;
+    }
+    if matches!(
+        args.get(1).map(String::as_str),
         Some("signed-fold-generate" | "signed-fold-trace")
     ) {
         assert_eq!(args.len(), 5, "signed-fold-generate REPO_ROOT OUTPUT COUNT");

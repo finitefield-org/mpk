@@ -26,7 +26,7 @@ after reconciling the intervening shared artifacts and active registry.
 | --- | --- | --- |
 | GO-PRAC-T01-W01 | Complete | Reviewed implementation commit `bd5ee8047d8925f9c9d0f7502627fca33bb2c836`; completion audit below |
 | GO-PRAC-T01-W02 | Complete | Reviewed implementation commit `fed1cf6047f97b1f73c0fc37c5023e19f4f9f035`; 39 cases reproduced twice |
-| GO-PRAC-T01-W03 | In progress | Unsigned and conditional signed prefix sums measured; Go guard/order, source/collection laws and resource closure remain open |
+| GO-PRAC-T01-W03 | In progress | Prefix sums and source-shaped comparison/subtraction-to-addition guards measured; complete Go source/loop/collection laws and resource closure remain open |
 | GO-PRAC-T01-W04 | Blocked by W03 | Exact v1 source/shared/contract/limit freeze |
 | GO-PRAC-T01-W05 | Blocked by W04 | Publish inactive package, review and full T01 gate |
 | GO-PRAC-T02–T07 | Not started | Sequential v1 implementation and public release |
@@ -477,3 +477,73 @@ nonnegative invariant, complete operation/source bindings,
 descriptor/collection/control-law closure and aggregate boundary/resource
 freeze remain due. W03 stays In progress; W04 has not started. The full
 11-stage implementation objective remains active.
+
+## 13. T01-W03 comparison/subtraction-to-addition guard discharge
+
+Predecessor checkpoint: `116e962a394ddc08a52483b97d6852732ea27fbf` retains
+the conditional signed prefix composition. The
+[order producer](../probes/go-practical/certificates/src/word/balanced/signed/order.rs)
+and [path layer](../probes/go-practical/certificates/src/word/balanced/signed/order/path.rs)
+now define complete word complementation, modular subtraction and signed
+comparison, compose a six-state invariant through four actual carry chains,
+and derive the addition guard from source-shaped continuing-path conditions.
+The conditions are nonnegative limit/accumulator/item, accumulator within
+limit, and item within the wrapping remaining amount. The proof derives
+nonnegative remaining amount, no unsigned wrap, a nonnegative bounded result,
+and actual sign-stage carry agreement. A genuine `Std.Nat` theorem gives
+exact addition for every initial natural under those same conditions.
+It does not assume the final addition guard, enumerate full operand values,
+add an axiom, change conversion fuel or rely on unfinished C# theorems.
+
+[The model and actual 40-case measurements](../migrations/go-practical/t01-w03/order-guards/README.md)
+cover carry composition at widths 1/2/4/8/16/32/64/128 and continuing-path /
+natural-addition claims at actual signed Go widths 8/16/32/64. Both fresh
+generations are identical. Rust and Go accept 16 zero-axiom claims with
+matching hashes and reject 24 deliberate substitutions at core type checking.
+No fuel failure is counted as a semantic negative. Width128 is an internal
+arithmetic probe, not a new Go source type. The 64-bit step claim has 300
+declarations, 20,459 terms and 233,086 bytes; the exact-natural claim has
+20,387 terms and 232,314 bytes. All 192 operand bits remain quantified;
+the latter also quantifies its initial natural. Per-case resources and
+exact source/checker identities remain in the report, not a frozen budget.
+
+The [pinned Go observer](../probes/go-practical/order_reference.go) executes
+3,428 typed boundary/sign/full-range cases, including wrapping and
+noncontinuing inputs. All observations agree with an independent bit-loop
+model; the 152 continuing cases also exhibit exact addition and the bounded
+nonnegative result. Exact input/output bytes and observer resources/binary
+identity are retained separately. These are empirical observations, not a
+universal application proof or a production frontend/operator binding.
+
+Two construction findings are recorded with their corrections: rewrite a
+dependent guard before its carry subexpression, and include the family in
+each candidate ID to prevent file shadowing. The runner rejects duplicate
+IDs and any file/index coverage mismatch. The observation validator also
+requires actual JSON booleans; numeric zero/one cannot impersonate them.
+Neither correction changes the intended theorem or strengthens its premises.
+
+Targeted verification covers actual carry/state binding, modeled signed
+comparison and subtraction, continuing-path arithmetic, exact natural
+observation, altered claims, typed Go observations and evidence integrity.
+The complete 40-case measurement and all 22 new adversarial tests pass.
+Because the private producer changes, the prior 27 representation, four
+local-Nat, 48 balanced-word, 55 unsigned-prefix and 32 signed-prefix
+candidates are remeasured. Certificate bytes for all 166 candidates and their
+retained indexes remain unchanged; all 88 earlier evidence tests pass, for
+110 targeted tests total.
+Offline locked release Clippy passes with warnings denied; Rust formatting,
+pinned Go formatting, Python syntax, retained-report checks, W01 identity
+audit, local document links and Git whitespace checks pass.
+The W02 retained closure report also passes; its analyzer explicitly copies
+only `module_probe.go` into an isolated build, so the observer cannot join
+that package. Production
+frontend/checker, normative specification and registry identities remain
+at W01, so unrelated production suites are not rerun. The complete T01 gate
+remains deferred to W05. The separate final `--check` replay also passes
+all 40 proof candidates and reproduces the exact Go input/output bytes.
+
+Complete production Go operator/branch/source binding, actual
+`Quote` loop/prefix/return composition, collection/descriptor/control and
+byte-operation law closure and aggregate boundary/resource freeze remain
+open. W03 stays In progress; W04 has not started. The entire authorized
+11-stage objective remains active.

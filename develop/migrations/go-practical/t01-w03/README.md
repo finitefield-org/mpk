@@ -220,3 +220,26 @@ conditional signed prefix-composition ingredient; the actual Go source
 guard/order/subtraction discharge and nonnegative `Quote` invariant remain
 open. Collection/control/operation bindings and aggregate resource closure
 stay due. W03 remains In progress and the full T01 gate stays deferred to W05.
+
+## Source-shaped comparison/subtraction guard discharge
+
+The [order/guard model and 40-case evidence](order-guards/README.md) now
+derive the actual addition guard from full-word signed comparison,
+nonnegative loop-state conditions and the wrapping remaining-amount
+subtraction. A six-state relation between four carry chains composes local
+bit facts through complete operands. The resulting step has no unsigned
+wrap, a nonnegative bounded result, and exact `Std.Nat` addition. It does
+not take the final addition guard as an unrelated premise.
+
+Carry composition covers widths 1–128; source-shaped path and mathematical
+claims cover actual signed Go widths 8/16/32/64. Both checkers accept 16
+zero-axiom claims and reject 24 substitutions at core type checking. Two
+fresh generations are identical for each group. A pinned Go observer also
+matches the independent bit-loop model on 3,428 boundary/sign/full-range
+cases, including noncontinuing and wrapping inputs. Those empirical
+observations remain distinct from proof evidence.
+
+Production Go branch/operator binding, whole-loop/prefix/return composition,
+collection/control/byte law closure and aggregate resource freeze remain
+open. W03 stays In progress, W04 has not started, and the whole T01 gate
+remains deferred to W05.
