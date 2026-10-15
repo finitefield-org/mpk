@@ -7,6 +7,9 @@ use super::*;
 use mpk_cert::encode::DefinitionReducibility;
 
 mod balanced;
+pub(super) fn generate_returned(root: &Path, output: &Path, count: usize, trace: bool) {
+    balanced::generate_returned(root, output, count, trace);
+}
 pub(super) fn generate_continuation(root: &Path, output: &Path, count: usize, trace: bool) {
     balanced::generate_continuation(root, output, count, trace);
 }

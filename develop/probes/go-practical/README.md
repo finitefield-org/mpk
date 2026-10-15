@@ -290,3 +290,31 @@ preservation is checked across affected earlier pilots. Complete Go
 source/loop/return/error/descriptor composition, remaining collection/byte/
 control laws and aggregate resource freeze remain open. W03 is In progress,
 with the full T01 gate deferred to W05.
+
+## T01-W03 halting returns and success-derived sums (in progress)
+
+```sh
+python3 -B develop/probes/go-practical/run_returned_probes.py --check
+python3 -B develop/probes/go-practical/check_returned_report.py
+python3 -B -m unittest discover -s develop/probes/go-practical -p 'test_returned_report.py' -v
+```
+
+The [halting return model and evidence](../../migrations/go-practical/t01-w03/halting-returns/README.md)
+extend the ordinary continuing-prefix model with complete return frames,
+distinct closed error tags and actual early return. A stopped frame remains
+identical through the tail. Actual root success derives entry/item checks,
+nonnegative bounded results and exact natural sums from the literal-zero
+initializer. Actual failure derives this Quote model's zero decision.
+No per-step check/invariant oracle or extra source entry bound is introduced.
+
+Counts 0/1/3/8/32/127/128/129 preserve all backing and padding bits; arbitrary
+incoming frames preserve all 128 payload/metadata bits. First-failure cases
+also check that an actual failed low prefix survives the later prefix.
+The closed-outcome partition is a representation law, not Go interface or
+source admission. The same pinned original-Go observer stays empirical.
+
+Debug commands `returned-generate` / `returned-trace` take
+`REPO_ROOT OUTPUT COUNT`. The abstract empty-name flag, fixed-count store and
+return representation still require complete production Go bindings.
+Remaining byte/collection/control laws and aggregate resource freeze remain
+open. W03 stays In progress; the full T01 gate stays deferred to W05.

@@ -12,6 +12,10 @@ enum Mode {
     Unsigned,
     Signed,
     Continuation,
+    Returned,
+}
+pub(super) fn generate_returned(root: &Path, output: &Path, count: usize, trace: bool) {
+    generate_mode(root, output, count, trace, Mode::Returned);
 }
 pub(super) fn generate_continuation(root: &Path, output: &Path, count: usize, trace: bool) {
     generate_mode(root, output, count, trace, Mode::Continuation);
@@ -903,7 +907,8 @@ pub(super) fn generate(root: &Path, output: &Path, count: usize, trace: bool) {
 }
 fn generate_mode(root: &Path, output: &Path, count: usize, trace: bool, mode: Mode) {
     let signed = mode != Mode::Unsigned;
-    let bounded = mode == Mode::Continuation;
+    let returned = mode == Mode::Returned;
+    let bounded = mode == Mode::Continuation || returned;
     assert!(
         count <= 129,
         "private boundary measurement through 129 elements"
@@ -932,7 +937,9 @@ fn generate_mode(root: &Path, output: &Path, count: usize, trace: bool, mode: Mo
     };
     p.builder.c.module = format!(
         "{PREFIX}.{}PrefixCount{count}",
-        if bounded {
+        if returned {
+            "Return"
+        } else if bounded {
             "Continuation"
         } else if signed {
             "Signed"
@@ -961,6 +968,9 @@ fn generate_mode(root: &Path, output: &Path, count: usize, trace: bool, mode: Mo
         }
     }
     algebra(&mut p, trace.then_some(output));
+    if returned {
+        continuation::returned_primitives(&mut p, trace.then_some(output));
+    }
     for n in nodes {
         definitions(&mut p, n, trace.then_some(output));
         commutative_sums(&mut p, n, trace.then_some(output));
@@ -972,8 +982,15 @@ fn generate_mode(root: &Path, output: &Path, count: usize, trace: bool, mode: Mo
         if bounded {
             continuation::build(&mut p, n, trace.then_some(output));
         }
+        if returned {
+            continuation::returned_build(&mut p, n, trace.then_some(output));
+        }
     }
     let base = p.builder.c;
+    if returned {
+        continuation::returned_emit(base, output, node);
+        return;
+    }
     if bounded {
         continuation::emit(base, output, node);
         return;

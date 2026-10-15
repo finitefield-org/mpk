@@ -1,6 +1,16 @@
 //! Compose actual continuing-branch checks, deriving every intermediate bound.
 //! Neither per-step loop invariants nor carry safety are input assumptions.
 use super::*;
+mod returned;
+pub(super) fn returned_primitives(p: &mut Producer, trace: Option<&Path>) {
+    returned::primitives(p, trace);
+}
+pub(super) fn returned_build(p: &mut Producer, node: Node, trace: Option<&Path>) {
+    returned::build(p, node, trace);
+}
+pub(super) fn returned_emit(base: Certificate, output: &Path, node: Node) {
+    returned::emit(base, output, node);
+}
 
 fn zero(d: usize) -> Expr {
     tree("ContinueZero", d, vec![])
@@ -769,14 +779,27 @@ fn observe(e: Equality) -> Typed {
     )
 }
 fn zero_hypotheses(l: Expr) -> [Expr; 4] {
+    zero_hypotheses_with(l, v("limit_nonnegative"), v("checks"))
+}
+fn zero_hypotheses_with(l: Expr, hlimit: Expr, hchecks: Expr) -> [Expr; 4] {
     [
-        v("limit_nonnegative"),
+        hlimit.clone(),
         zero_sign(W).proof,
-        zero_within(W, l, v("limit_nonnegative")).proof,
-        v("checks"),
+        zero_within(W, l, hlimit).proof,
+        hchecks,
     ]
 }
 fn zero_math(p: &mut Producer, node: Node, l: Expr, xs: Expr) -> Typed {
+    zero_math_with(p, node, l, xs, v("limit_nonnegative"), v("checks"))
+}
+fn zero_math_with(
+    p: &mut Producer,
+    node: Node,
+    l: Expr,
+    xs: Expr,
+    hlimit: Expr,
+    hchecks: Expr,
+) -> Typed {
     let f = c("Std.Nat.succ");
     let e = bounded_math(
         node,
@@ -784,7 +807,7 @@ fn zero_math(p: &mut Producer, node: Node, l: Expr, xs: Expr) -> Typed {
         l.clone(),
         zero(W),
         xs.clone(),
-        &zero_hypotheses(l),
+        &zero_hypotheses_with(l, hlimit, hchecks),
     );
     let observed = observe(e);
     let start = replace(

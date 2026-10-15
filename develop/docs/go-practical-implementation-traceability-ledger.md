@@ -26,7 +26,7 @@ after reconciling the intervening shared artifacts and active registry.
 | --- | --- | --- |
 | GO-PRAC-T01-W01 | Complete | Reviewed implementation commit `bd5ee8047d8925f9c9d0f7502627fca33bb2c836`; completion audit below |
 | GO-PRAC-T01-W02 | Complete | Reviewed implementation commit `fed1cf6047f97b1f73c0fc37c5023e19f4f9f035`; 39 cases reproduced twice |
-| GO-PRAC-T01-W03 | In progress | Continuing-prefix bounds/carries and zero-entry exact sums measured; complete Go source/loop/return/error/descriptor laws and resource closure remain open |
+| GO-PRAC-T01-W03 | In progress | Halting Quote model preserves stopped full frames and derives bounds/exact sums from actual success; complete Go source/string/slice/loop/return/error/descriptor bindings and resource closure remain open |
 | GO-PRAC-T01-W04 | Blocked by W03 | Exact v1 source/shared/contract/limit freeze |
 | GO-PRAC-T01-W05 | Blocked by W04 | Publish inactive package, review and full T01 gate |
 | GO-PRAC-T02–T07 | Not started | Sequential v1 implementation and public release |
@@ -620,3 +620,79 @@ Complete production source/operator binding, actual loop/return/closed-error
 and descriptor composition, remaining byte/collection/control laws and
 aggregate boundary/resource closure remain open. W03 stays In progress;
 W04 has not started. The full 11-stage objective remains active.
+
+## 15. T01-W03 halting returns and success-derived exact sums
+
+Predecessor checkpoint: `157abf5f64804fd293698f60a5108edad51090d2` retains
+the continuing-prefix/zero-entry evidence. The
+[return-frame producer](../probes/go-practical/certificates/src/word/balanced/signed/fold/continuation/returned.rs),
+[halting fold](../probes/go-practical/certificates/src/word/balanced/signed/fold/continuation/returned/run.rs)
+and [root composition](../probes/go-practical/certificates/src/word/balanced/signed/fold/continuation/returned/quote.rs)
+add ordinary checked control and payload equalities. A frame contains a
+complete 64-bit accumulator plus 64 metadata bits. Arbitrary incoming
+frames quantify all 128 bits; stopped absorption preserves the original
+whole frame, without record eta or function extensionality. Actual negative
+items and remaining-bound failures return distinct closed model errors.
+
+The actual low-prefix result feeds the high prefix. A stopped low result
+equals the whole enclosing result, retaining its payload and error reason.
+An actually running output proves that both actual children were running,
+derives each actual item check at the actual accumulator, and yields the
+ordinary modular-fold payload. The root's abstract empty-name/negative-limit
+guard precedes literal-zero initialization and the halting fold. Actual root
+success alone derives its nonnegative limit, all item checks, nonnegative
+bounded output and exact genuine-natural sum. Caller-supplied check/carry or
+intermediate-invariant oracles are absent. Actual root failure proves zero
+payload; this is the Quote policy, not a general restriction on Go error
+results. Closed outcome exhaustiveness/disjointness is a representation law.
+The empty flag, fixed-count store and closed return carrier still need
+production Go string/slice/source/interface bindings.
+
+[The complete 108-case measurement](../migrations/go-practical/t01-w03/halting-returns/README.md)
+covers counts 0/1/3/8/32/127/128/129 and seven claim families. First-failure
+composition applies to the six non-leaf counts; the other six families span
+all eight counts. Every group has two identical fresh generations. Both
+checkers accept 54 zero-axiom claims with matching hashes and reject 54
+altered stop/payload/success-premise/error/partition/first-failure claims at
+core type checking. No new fuel failure is counted or hidden. At count128,
+the rooted exact-sum candidate has 1,008 declarations, 38,354 terms and
+488,435 bytes. Its observed Rust/Go resources are 1.424/3.148 seconds and
+65,372,160/136,167,424 resident bytes. All 8,192 backing bits, 64 limit bits
+and the abstract empty flag remain quantified; count129 retains all 16,384
+padded backing bits and remains an internal boundary probe. Resources are
+actual Darwin/arm64 child measurements, not a frozen profile budget.
+
+The pinned original-Go fixture again matches all 769 independent bit-loop
+observations: 169 successes, 456 bad-input and 144 limit-exceeded returns,
+with zero failure decisions and preserved input/nil observations. Exact
+input/output bytes, binary identity and resources are retained separately.
+They do not establish a source-bound Go application or frame theorem. The
+model uses no added axiom, checker rule, conversion fuel, unfinished C#
+theorem or stronger Go entry precondition. Production frontend/checker,
+normative specification and public registry remain at the W01 baseline.
+
+Targeted validation was selected for the changed private producer, actual
+halting/status-to-check composition, full frame/padding domains, zero-entry
+natural observation and retained evidence readers. All 108 new candidates
+were measured; 25 new adversarial evidence tests pass. Because the shared
+producer changes, the earlier 27 representation, four local-Nat, 48 balanced,
+55 unsigned-prefix, 32 signed-prefix, 40 guard and 72 continuing-prefix
+candidates were remeasured. All 278 canonical certificate bytes and complete
+candidate indexes remain unchanged against the predecessor commit. Their
+135 affected evidence tests pass, for 160 targeted tests in this checkpoint.
+The separate final `run_returned_probes.py --check` replay passes all 108
+candidates through both checkers and reproduces the exact original-Go
+input/output bytes.
+Historical diagnostic source/certificate checks also pass; the expensive
+unchanged linear-word proof is not unnecessarily replayed.
+
+Offline locked release Clippy passes with warnings denied. Explicit private
+Rust formatting, Python syntax, five changed documents/88 local links and
+Git whitespace checks pass. W01's 77-owner/198-regression-file/83-artifact
+identity audit and W02's 39-case retained closure report pass; unchanged
+production suites and unchanged W01/W02 adversarial helpers are not rerun.
+The complete T01 gate remains deferred to W05. Complete production source/
+operator/string/slice/loop/return/error/descriptor bindings, remaining byte/
+collection/control laws and aggregate resource closure remain open. W03
+stays In progress and W04 has not started. The full authorized 11-stage
+objective remains active.

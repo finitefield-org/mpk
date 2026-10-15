@@ -9,7 +9,9 @@ sign-stage carry guard. Source-shaped signed comparison/subtraction
 conditions now derive the actual addition guard, nonnegative bounded result
 and exact Nat addition. Continuing-prefix composition derives intermediate
 bounds/carries from actual item checks and discharges the literal-zero entry.
-Complete Go source/operation bindings, whole-loop/return/error/descriptor and
+The private halting Quote model now derives those checks from actual success,
+preserves stopped full frames/error reasons and proves zero failure results.
+Complete Go source/operation/string/slice/loop/return/error/descriptor bindings and
 remaining collection/control laws and resource boundaries remain open, so
 W04 has not started.
 The [implementation ledger](go-practical-implementation-traceability-ledger.md)

@@ -267,3 +267,22 @@ observations, not a formal source/loop/error/frame proof. Complete source
 binding, actual loop/return/error/descriptor composition, remaining
 byte/collection/control laws and aggregate resources stay open. W03 remains
 In progress; W04 has not started and the full T01 gate stays due in W05.
+
+## Halting returns and actual-success arithmetic
+
+The [ordinary halting Quote model and 108-case evidence](halting-returns/README.md)
+extend the previous continuing-prefix ingredient with actual return status,
+distinct closed error tags and whole-frame stop absorption. Actual root
+success derives its entry/item checks, nonnegative bounded result and exact
+natural sum from literal-zero entry; actual failure yields the model's zero
+decision. A failed low prefix survives the later prefix unchanged. Arbitrary
+input frames retain all 128 payload/metadata bits, and backing/padding cells
+remain quantified at the eight workload counts.
+
+Both checkers accept 54 zero-axiom claims with matching hashes and reject 54
+altered claims at core type checking. Each group has two identical fresh
+generations and no fuel failure. The same original-Go observer remains
+empirical, separate from these ordinary model certificates. Complete source,
+string/slice/operator/loop/return/error/descriptor bindings, remaining byte/
+collection/control laws and aggregate resource closure remain open. W03 is
+In progress; W04 has not started and the full T01 gate remains due at W05.
