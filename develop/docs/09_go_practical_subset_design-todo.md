@@ -1,7 +1,9 @@
 # Go Practical Subset Implementation Work Plan
 
 Status: implementation authorized 2026-10-16. T01-W01 and W02 are complete;
-T01-W03 is Ready.
+T01-W03 is In progress. Its initial symbolic pilot has both-checker evidence;
+the complete arithmetic, operation/binding and resource-boundary scope remains
+open, so W04 has not started.
 The [implementation ledger](go-practical-implementation-traceability-ledger.md)
 owns detailed current status and verification evidence.
 The user-authorized amendment moves Go before the practical C# release.

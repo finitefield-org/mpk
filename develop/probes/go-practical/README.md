@@ -65,3 +65,42 @@ and [snapshot contract](../../migrations/go-practical/t01-w02/offline-snapshot-c
 These are compiler/closure observations, not VIR/VC generation, an application
 proof, or an OS-level Linux isolation receipt. W03 owns the next actual
 ordinary-encoding and both-checker feasibility work.
+
+## T01-W03 ordinary proof pilot (in progress)
+
+```sh
+python3 -B develop/probes/go-practical/run_proof_pilot.py --check
+python3 -B develop/probes/go-practical/check_proof_report.py
+python3 -B -m unittest discover -s develop/probes/go-practical -p 'test_proof_report.py' -v
+CARGO_TARGET_DIR=/private/tmp/mpk-go-practical-proof-target cargo clippy --offline --locked --manifest-path develop/probes/go-practical/certificates/Cargo.toml -- -D warnings
+```
+
+The runner builds a private Rust candidate producer/verifier and the separate
+production Go reference verifier, verifies the pinned host compiler tree,
+constructs byte-identical certificates twice and runs both source-free
+checkers on every candidate. It downloads nothing. `--write` is reserved for
+an intentional reviewed evidence update. The fast retained-report check
+validates evidence integrity; only the replay command executes the checkers.
+
+The first 27 candidates cover full-payload nominal/result/error projections,
+abrupt-control frame properties, a three-input carry lemma, and symbolic
+backing/cell updates at all proposed v1 string/slice workload capacities. The
+store and value payloads are universally quantified. Only finite addresses
+are split into cases; complete collection payloads are never enumerated.
+This pilot is **not complete W03 feasibility**, a complete signed-integer or
+mathematical-sum bridge, a full operation library, a Go application proof, or
+public-profile admission. Retained evidence and remaining requirements are in
+[the W03 checkpoint](../../migrations/go-practical/t01-w03/README.md).
+
+All accepted candidates have zero axioms, no imported proof premise and no
+theory certificate. A reused archived C# file is only an untrusted term
+encoder; this pilot does not rely on unfinished C# proof status. Initial
+candidate failures are retained separately. Their correction supplies
+explicit checked congruence/transitivity steps and changes neither checker.
+
+Resource measurements use Darwin `os.wait4` usage for each direct child
+(RSS is bytes), wall time and CPU time. Hardware model/RAM are unavailable
+inside the sandbox and remain explicitly unknown. A construction/checker
+timeout is an unresolved resource finding, never a semantic rejection or
+permission to declare the profile supported. No whole T gate runs here;
+`scripts/check-fast.sh` remains due in T01-W05.

@@ -26,13 +26,13 @@ after reconciling the intervening shared artifacts and active registry.
 | --- | --- | --- |
 | GO-PRAC-T01-W01 | Complete | Reviewed implementation commit `bd5ee8047d8925f9c9d0f7502627fca33bb2c836`; completion audit below |
 | GO-PRAC-T01-W02 | Complete | Reviewed implementation commit `fed1cf6047f97b1f73c0fc37c5023e19f4f9f035`; 39 cases reproduced twice |
-| GO-PRAC-T01-W03 | Ready | Ordinary encodings, conditional lemmas and resource feasibility |
+| GO-PRAC-T01-W03 | In progress | 27 pilot candidates measured; arithmetic, complete bindings/operation laws and resource boundaries remain open |
 | GO-PRAC-T01-W04 | Blocked by W03 | Exact v1 source/shared/contract/limit freeze |
 | GO-PRAC-T01-W05 | Blocked by W04 | Publish inactive package, review and full T01 gate |
 | GO-PRAC-T02–T07 | Not started | Sequential v1 implementation and public release |
 | GO-PRAC-T08–T11 | Not started | Sequential v2 freeze, maps, pointers and public release |
 
-No T is complete. `scripts/check-fast.sh` is due in T01-W05, not W01.
+No T is complete. `scripts/check-fast.sh` is due in T01-W05, not an intermediate W.
 
 ## 3. T01-W01 baseline and deliverables
 
@@ -198,3 +198,47 @@ matrix and exact candidate offline snapshot contract are present, and no W02
 requirement remains pending. W03 is Ready and owns the next ordinary-encoding
 and both-checker proof feasibility work. The full T01 gate remains explicitly
 deferred to W05; T01 is not complete.
+
+## 7. T01-W03 symbolic pilot checkpoint (not completion)
+
+W02 completed before W03 began. The
+[W03 checkpoint](../migrations/go-practical/t01-w03/README.md) retains the
+initial failed candidates, correction and exact final evidence. The
+[private Rust producer](../probes/go-practical/certificates/src/main.rs),
+[local measurement runner](../probes/go-practical/run_proof_pilot.py),
+[retained-report checker](../probes/go-practical/check_proof_report.py) and
+[adversarial tests](../probes/go-practical/test_proof_report.py) register no
+profile and modify neither checker.
+
+The corrected pilot constructs 27 universal ordinary candidates twice with
+identical bytes: 17 accepted zero-axiom lemmas and ten deliberate false claims
+rejected at core checking by both Rust and Go. It measures the proposed v1
+string and slice capacity points using complete symbolic stores and payloads.
+The largest positive certificate has 13,392 terms and 113,603 bytes. Exact
+per-case construction/checker times, CPU time and peak resident bytes are in
+[the final observation report](../migrations/go-practical/t01-w03/pilot-corrected/observations.json).
+Measurements identify Darwin/arm64; unavailable hardware model/RAM remain
+unknown. No native Linux release check is claimed.
+
+The initial untrusted normalizer incorrectly assumed nested recursor-major
+conversion. Four intended positives rejected in both checkers. The correction
+retains the original claims and supplies explicit checked congruence and
+transitivity; it does not alter conversion, add an axiom or use unfinished C#
+theorems. The archived C# encoder contributes only untrusted candidate terms.
+
+Targeted verification was selected for the changed private producer and
+evidence/measurement helpers; production source and old Go fixtures are
+unchanged. The complete local `run_proof_pilot.py --write` measurement passed,
+including two generations, isolated per-case construction and both independent
+verifiers for every candidate. The retained-report check passed and all 13
+adversarial tests passed. Private-crate offline locked Clippy passed with
+warnings denied, and Rust formatting passed. The W01 identity audit passed;
+unaffected production regression suites were not rerun. Documentation links,
+balanced fences and Git whitespace checks are part of this checkpoint review.
+
+This is partial feasibility. Complete source/model bindings, descriptor
+validity and operation-law closure, the full signed bitvector/exact
+mathematical-sum bridge, aggregate interactions and resource boundaries
+remain open. The local three-input carry lemma is not that full arithmetic
+bridge. W03 remains In progress, W04 has not started, and the full T01 gate
+remains deferred to W05. No W03 or T completion is claimed.

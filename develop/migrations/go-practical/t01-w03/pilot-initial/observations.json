@@ -1,0 +1,520 @@
+{
+  "cases": [
+    {
+      "case": {
+        "address_bits": 3,
+        "bytes": 2146,
+        "description": "A quantity-tagged 64-bit value does not satisfy the money-tag predicate, for every payload",
+        "expected": "accepted",
+        "goal_debug": "Forall(\"payload\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))), Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Lambda(\"__tag_field\", Constant(\"Std.Bool\"), Lambda(\"__payload_0\", Constant(\"Std.Bool\"), Lambda(\"__payload_1\", Constant(\"Std.Bool\"), Lambda(\"__payload_2\", Constant(\"Std.Bool\"), Lambda(\"__payload_3\", Constant(\"Std.Bool\"), Lambda(\"__payload_4\", Constant(\"Std.Bool\"), Lambda(\"__payload_5\", Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Apply(Variable(\"payload\"), [Variable(\"__payload_0\"), Variable(\"__payload_1\"), Variable(\"__payload_2\"), Variable(\"__payload_3\"), Variable(\"__payload_4\"), Variable(\"__payload_5\")]), Variable(\"__tag_field\")])))))))), [Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\")])]), Constant(\"Std.Bool.false\")]))",
+        "id": "nominal-tag",
+        "quantified_binders": 1,
+        "scope": "ordinary representation lemma; source-binding, complete operations and full arithmetic bridge are not discharged",
+        "terms": 229,
+        "theorem": "Probe.GoPractical.nominal_tag.Claim"
+      },
+      "observations": {
+        "go": {
+          "exit_code": 1,
+          "stderr": "",
+          "stdout": {
+            "error_detail": "term 449 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          }
+        },
+        "rust": {
+          "exit_code": 1,
+          "stderr": "",
+          "stdout": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"492\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"461\",\"kind\":\"check_type_mismatch\",\"term_index\":\"449\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "10e31b139d9f297d6016e41e34cbe115540425e8ea4f49c937610c1291c687bf",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          }
+        }
+      },
+      "raw_sha256": "965f3794c6c14da5cf5e3aa9fc523b441b426822667b84bf29b9b9d43670c5a0"
+    },
+    {
+      "case": {
+        "address_bits": 3,
+        "bytes": 2209,
+        "description": "First projection of a joint pair returns the first 64-bit payload at every address",
+        "expected": "accepted",
+        "goal_debug": "Forall(\"left\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))), Forall(\"right\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))), Forall(\"i0\", Constant(\"Std.Bool\"), Forall(\"i1\", Constant(\"Std.Bool\"), Forall(\"i2\", Constant(\"Std.Bool\"), Forall(\"i3\", Constant(\"Std.Bool\"), Forall(\"i4\", Constant(\"Std.Bool\"), Forall(\"i5\", Constant(\"Std.Bool\"), Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Apply(Lambda(\"__field\", Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__pair_type\", Constant(\"Std.Bool\"), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Variable(\"left\"), Variable(\"right\"), Variable(\"__field\")])), [Constant(\"Std.Bool.false\")]), [Variable(\"i0\"), Variable(\"i1\"), Variable(\"i2\"), Variable(\"i3\"), Variable(\"i4\"), Variable(\"i5\")]), Apply(Variable(\"left\"), [Variable(\"i0\"), Variable(\"i1\"), Variable(\"i2\"), Variable(\"i3\"), Variable(\"i4\"), Variable(\"i5\")])])))))))))",
+        "id": "multi-result-projection",
+        "quantified_binders": 8,
+        "scope": "ordinary representation lemma; source-binding, complete operations and full arithmetic bridge are not discharged",
+        "terms": 239,
+        "theorem": "Probe.GoPractical.multi_result_projection.Claim"
+      },
+      "observations": {
+        "go": {
+          "exit_code": 0,
+          "stderr": "",
+          "stdout": {
+            "declaration_count": 19,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "71b8edded655c7bccd7abf33ff855dfd4803b7456735be4149a20d9ef82f93ee",
+              "export": "7324ca5ab2d72efca00558e7e4ba3493ba15a300e51928de4b701b3f241a49af"
+            },
+            "module": "Probe.GoPractical.multi_result_projection",
+            "verdict": "accepted"
+          }
+        },
+        "rust": {
+          "exit_code": 0,
+          "stderr": "",
+          "stdout": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 19,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "71b8edded655c7bccd7abf33ff855dfd4803b7456735be4149a20d9ef82f93ee",
+              "export": "7324ca5ab2d72efca00558e7e4ba3493ba15a300e51928de4b701b3f241a49af"
+            },
+            "module": "Probe.GoPractical.multi_result_projection",
+            "verdict": "accepted"
+          }
+        }
+      },
+      "raw_sha256": "8f88fe58807ba51b0dd395f62dfdb453af662933790a82963dc72272a526541c"
+    },
+    {
+      "case": {
+        "address_bits": 3,
+        "bytes": 2158,
+        "description": "A quantity-tagged 64-bit value does not satisfy the money-tag predicate, for every payload",
+        "expected": "rejected",
+        "goal_debug": "Forall(\"payload\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))), Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Lambda(\"__tag_field\", Constant(\"Std.Bool\"), Lambda(\"__payload_0\", Constant(\"Std.Bool\"), Lambda(\"__payload_1\", Constant(\"Std.Bool\"), Lambda(\"__payload_2\", Constant(\"Std.Bool\"), Lambda(\"__payload_3\", Constant(\"Std.Bool\"), Lambda(\"__payload_4\", Constant(\"Std.Bool\"), Lambda(\"__payload_5\", Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Variable(\"payload\"), [Variable(\"__payload_0\"), Variable(\"__payload_1\"), Variable(\"__payload_2\"), Variable(\"__payload_3\"), Variable(\"__payload_4\"), Variable(\"__payload_5\")]), Variable(\"__tag_field\")])))))))), [Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\")])]), Constant(\"Std.Bool.false\")]))",
+        "id": "nominal-tag-wrong",
+        "quantified_binders": 1,
+        "scope": "ordinary representation lemma; source-binding, complete operations and full arithmetic bridge are not discharged",
+        "terms": 229,
+        "theorem": "Probe.GoPractical.nominal_tag_wrong.Claim"
+      },
+      "observations": {
+        "go": {
+          "exit_code": 1,
+          "stderr": "",
+          "stdout": {
+            "error_detail": "term 449 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          }
+        },
+        "rust": {
+          "exit_code": 1,
+          "stderr": "",
+          "stdout": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"492\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"461\",\"kind\":\"check_type_mismatch\",\"term_index\":\"449\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "d8354bb594e6175791d7c708b13cb9bc056428f6f2763699d5f8976983e2f05f",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          }
+        }
+      },
+      "raw_sha256": "5b4ac186db830f8ff6a3b460ba9118bf285b7c8617c2c22dfb7f78848c03dfb6"
+    },
+    {
+      "case": {
+        "address_bits": 3,
+        "bytes": 2221,
+        "description": "First projection of a joint pair returns the first 64-bit payload at every address",
+        "expected": "rejected",
+        "goal_debug": "Forall(\"left\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))), Forall(\"right\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))), Forall(\"i0\", Constant(\"Std.Bool\"), Forall(\"i1\", Constant(\"Std.Bool\"), Forall(\"i2\", Constant(\"Std.Bool\"), Forall(\"i3\", Constant(\"Std.Bool\"), Forall(\"i4\", Constant(\"Std.Bool\"), Forall(\"i5\", Constant(\"Std.Bool\"), Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Apply(Lambda(\"__field\", Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__pair_type\", Constant(\"Std.Bool\"), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Variable(\"right\"), Variable(\"left\"), Variable(\"__field\")])), [Constant(\"Std.Bool.false\")]), [Variable(\"i0\"), Variable(\"i1\"), Variable(\"i2\"), Variable(\"i3\"), Variable(\"i4\"), Variable(\"i5\")]), Apply(Variable(\"left\"), [Variable(\"i0\"), Variable(\"i1\"), Variable(\"i2\"), Variable(\"i3\"), Variable(\"i4\"), Variable(\"i5\")])])))))))))",
+        "id": "multi-result-projection-wrong",
+        "quantified_binders": 8,
+        "scope": "ordinary representation lemma; source-binding, complete operations and full arithmetic bridge are not discharged",
+        "terms": 239,
+        "theorem": "Probe.GoPractical.multi_result_projection_wrong.Claim"
+      },
+      "observations": {
+        "go": {
+          "exit_code": 1,
+          "stderr": "",
+          "stdout": {
+            "error_detail": "term 494 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          }
+        },
+        "rust": {
+          "exit_code": 1,
+          "stderr": "",
+          "stdout": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"485\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"509\",\"kind\":\"check_type_mismatch\",\"term_index\":\"494\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "a70391d9fbaef408bb186c49e00c1b8fda52a25365302c437252fa88dda42d34",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          }
+        }
+      },
+      "raw_sha256": "ab503fc4b8df4f7442903d658eb7af9095e51813266287025fdee8e6eac3ab5c"
+    },
+    {
+      "case": {
+        "address_bits": 3,
+        "bytes": 2288,
+        "description": "A closed value-error outcome is non-nil on failure and nil on success, for all flags and payloads",
+        "expected": "accepted",
+        "goal_debug": "Forall(\"payload\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))), Forall(\"failed\", Constant(\"Std.Bool\"), Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.true\")]), Constant(\"Std.Bool.true\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Lambda(\"__tag_field\", Constant(\"Std.Bool\"), Lambda(\"__payload_0\", Constant(\"Std.Bool\"), Lambda(\"__payload_1\", Constant(\"Std.Bool\"), Lambda(\"__payload_2\", Constant(\"Std.Bool\"), Lambda(\"__payload_3\", Constant(\"Std.Bool\"), Lambda(\"__payload_4\", Constant(\"Std.Bool\"), Lambda(\"__payload_5\", Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Variable(\"failed\"), Apply(Variable(\"payload\"), [Variable(\"__payload_0\"), Variable(\"__payload_1\"), Variable(\"__payload_2\"), Variable(\"__payload_3\"), Variable(\"__payload_4\"), Variable(\"__payload_5\")]), Variable(\"__tag_field\")])))))))), [Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\")])])]), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\")]), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Lambda(\"__tag_field\", Constant(\"Std.Bool\"), Lambda(\"__payload_0\", Constant(\"Std.Bool\"), Lambda(\"__payload_1\", Constant(\"Std.Bool\"), Lambda(\"__payload_2\", Constant(\"Std.Bool\"), Lambda(\"__payload_3\", Constant(\"Std.Bool\"), Lambda(\"__payload_4\", Constant(\"Std.Bool\"), Lambda(\"__payload_5\", Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Variable(\"failed\"), Apply(Variable(\"payload\"), [Variable(\"__payload_0\"), Variable(\"__payload_1\"), Variable(\"__payload_2\"), Variable(\"__payload_3\"), Variable(\"__payload_4\"), Variable(\"__payload_5\")]), Variable(\"__tag_field\")])))))))), [Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\")])])]), Variable(\"failed\")]), Constant(\"Std.Bool.true\")])))",
+        "id": "closed-error-outcome",
+        "quantified_binders": 2,
+        "scope": "ordinary representation lemma; source-binding, complete operations and full arithmetic bridge are not discharged",
+        "terms": 244,
+        "theorem": "Probe.GoPractical.closed_error_outcome.Claim"
+      },
+      "observations": {
+        "go": {
+          "exit_code": 1,
+          "stderr": "",
+          "stdout": {
+            "error_detail": "term 450 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          }
+        },
+        "rust": {
+          "exit_code": 1,
+          "stderr": "",
+          "stdout": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"532\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"469\",\"kind\":\"check_type_mismatch\",\"term_index\":\"450\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "96b8f5a98c07950e48f7f34d56cadc791b6c23beac4287e1f71e3887773335af",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          }
+        }
+      },
+      "raw_sha256": "aded24b0c4c375934e93b5083a46ad8fec5e06899aae390a4d3b92ff43dbd1d2"
+    },
+    {
+      "case": {
+        "address_bits": 3,
+        "bytes": 2353,
+        "description": "A terminal return preserves every bit of arbitrary 64-bit old state against arbitrary later state updates",
+        "expected": "accepted",
+        "goal_debug": "Forall(\"old\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))), Forall(\"next\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))), Forall(\"returned\", Constant(\"Std.Bool\"), Forall(\"i0\", Constant(\"Std.Bool\"), Forall(\"i1\", Constant(\"Std.Bool\"), Forall(\"i2\", Constant(\"Std.Bool\"), Forall(\"i3\", Constant(\"Std.Bool\"), Forall(\"i4\", Constant(\"Std.Bool\"), Forall(\"i5\", Constant(\"Std.Bool\"), Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Variable(\"old\"), [Variable(\"i0\"), Variable(\"i1\"), Variable(\"i2\"), Variable(\"i3\"), Variable(\"i4\"), Variable(\"i5\")])]), Apply(Variable(\"old\"), [Variable(\"i0\"), Variable(\"i1\"), Variable(\"i2\"), Variable(\"i3\"), Variable(\"i4\"), Variable(\"i5\")]), Apply(Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Variable(\"next\"), Variable(\"old\"), Variable(\"returned\")]), [Variable(\"i0\"), Variable(\"i1\"), Variable(\"i2\"), Variable(\"i3\"), Variable(\"i4\"), Variable(\"i5\")])]), Variable(\"returned\")]), Constant(\"Std.Bool.true\")]))))))))))",
+        "id": "return-frame-bit",
+        "quantified_binders": 9,
+        "scope": "ordinary representation lemma; source-binding, complete operations and full arithmetic bridge are not discharged",
+        "terms": 256,
+        "theorem": "Probe.GoPractical.return_frame_bit.Claim"
+      },
+      "observations": {
+        "go": {
+          "exit_code": 0,
+          "stderr": "",
+          "stdout": {
+            "declaration_count": 19,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "98f79f0aea0cefae49ba8e41829250377dca3d40203bbccf704ea980b1558998",
+              "export": "4e371e9e3412a8ba89a1a979a68150f4731c1e570c5bd468a5ee2218f2a10267"
+            },
+            "module": "Probe.GoPractical.return_frame_bit",
+            "verdict": "accepted"
+          }
+        },
+        "rust": {
+          "exit_code": 0,
+          "stderr": "",
+          "stdout": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 19,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "98f79f0aea0cefae49ba8e41829250377dca3d40203bbccf704ea980b1558998",
+              "export": "4e371e9e3412a8ba89a1a979a68150f4731c1e570c5bd468a5ee2218f2a10267"
+            },
+            "module": "Probe.GoPractical.return_frame_bit",
+            "verdict": "accepted"
+          }
+        }
+      },
+      "raw_sha256": "b8b190af964d4fc5177cfba75562a0487e4ad80f40af27d1cfa67ed3e72b4d6a"
+    },
+    {
+      "case": {
+        "address_bits": 3,
+        "bytes": 2399,
+        "description": "Continue skips the body but still executes an arbitrary post transformation on a full 64-bit state",
+        "expected": "accepted",
+        "goal_debug": "Forall(\"body\", Forall(\"__input_state\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"post\", Forall(\"__input_state\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"old\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))), Forall(\"continued\", Constant(\"Std.Bool\"), Forall(\"i0\", Constant(\"Std.Bool\"), Forall(\"i1\", Constant(\"Std.Bool\"), Forall(\"i2\", Constant(\"Std.Bool\"), Forall(\"i3\", Constant(\"Std.Bool\"), Forall(\"i4\", Constant(\"Std.Bool\"), Forall(\"i5\", Constant(\"Std.Bool\"), Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Apply(Variable(\"post\"), [Variable(\"old\")]), [Variable(\"i0\"), Variable(\"i1\"), Variable(\"i2\"), Variable(\"i3\"), Variable(\"i4\"), Variable(\"i5\")])]), Apply(Apply(Variable(\"post\"), [Variable(\"old\")]), [Variable(\"i0\"), Variable(\"i1\"), Variable(\"i2\"), Variable(\"i3\"), Variable(\"i4\"), Variable(\"i5\")]), Apply(Apply(Variable(\"post\"), [Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Apply(Variable(\"body\"), [Variable(\"old\")]), Variable(\"old\"), Variable(\"continued\")])]), [Variable(\"i0\"), Variable(\"i1\"), Variable(\"i2\"), Variable(\"i3\"), Variable(\"i4\"), Variable(\"i5\")])]), Variable(\"continued\")]), Constant(\"Std.Bool.true\")])))))))))))",
+        "id": "continue-post-bit",
+        "quantified_binders": 10,
+        "scope": "ordinary representation lemma; source-binding, complete operations and full arithmetic bridge are not discharged",
+        "terms": 265,
+        "theorem": "Probe.GoPractical.continue_post_bit.Claim"
+      },
+      "observations": {
+        "go": {
+          "exit_code": 0,
+          "stderr": "",
+          "stdout": {
+            "declaration_count": 19,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "af21e1c5dc16d403b8cb4c956df65f81a934439f6c76b828e4f7ad4458f6995d",
+              "export": "9312f79aa9da362c3770e2ab5994de662dbd2d8d0b6f75e470611b71ac2207f8"
+            },
+            "module": "Probe.GoPractical.continue_post_bit",
+            "verdict": "accepted"
+          }
+        },
+        "rust": {
+          "exit_code": 0,
+          "stderr": "",
+          "stdout": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 19,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "af21e1c5dc16d403b8cb4c956df65f81a934439f6c76b828e4f7ad4458f6995d",
+              "export": "9312f79aa9da362c3770e2ab5994de662dbd2d8d0b6f75e470611b71ac2207f8"
+            },
+            "module": "Probe.GoPractical.continue_post_bit",
+            "verdict": "accepted"
+          }
+        }
+      },
+      "raw_sha256": "40896df8b6cdb38b36110d07d92fb7cc573548687485a70a4ef56cdedde6a41d"
+    },
+    {
+      "case": {
+        "address_bits": 3,
+        "bytes": 2413,
+        "description": "Universal three-input carry lemma; a building block, not the full signed-integer/mathematical-sum bridge",
+        "expected": "accepted",
+        "goal_debug": "Forall(\"x\", Constant(\"Std.Bool\"), Forall(\"y\", Constant(\"Std.Bool\"), Forall(\"carry\", Constant(\"Std.Bool\"), Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Variable(\"y\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Variable(\"y\")]), Variable(\"x\")]), Variable(\"carry\")]), Constant(\"Std.Bool.true\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Variable(\"y\"), Variable(\"x\")])]), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Variable(\"carry\"), Variable(\"y\")]), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Variable(\"carry\"), Constant(\"Std.Bool.true\"), Variable(\"y\")]), Variable(\"x\")])]))))",
+        "id": "full-adder-carry-bit",
+        "quantified_binders": 3,
+        "scope": "ordinary representation lemma; source-binding, complete operations and full arithmetic bridge are not discharged",
+        "terms": 253,
+        "theorem": "Probe.GoPractical.full_adder_carry_bit.Claim"
+      },
+      "observations": {
+        "go": {
+          "exit_code": 1,
+          "stderr": "",
+          "stdout": {
+            "error_detail": "term 510 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          }
+        },
+        "rust": {
+          "exit_code": 1,
+          "stderr": "",
+          "stdout": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"532\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"604\",\"kind\":\"check_type_mismatch\",\"term_index\":\"510\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "7cc890b502739fb2e06f75090123ec2dfe773c2173f5e233030e280c338a917c",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          }
+        }
+      },
+      "raw_sha256": "e038d5beca1c50eeeb26860c6f051912e5eb88b3b1a58e5164bfc39ac168c5d0"
+    },
+    {
+      "case": {
+        "address_bits": 3,
+        "bytes": 2621,
+        "description": "Write is visible through an alias of the same backing store, for all stores, values and addresses",
+        "expected": "accepted",
+        "goal_debug": "Forall(\"store\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))), Forall(\"value\", Constant(\"Std.Bool\"), Forall(\"i0\", Constant(\"Std.Bool\"), Forall(\"i1\", Constant(\"Std.Bool\"), Forall(\"i2\", Constant(\"Std.Bool\"), Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Lambda(\"__write_0\", Constant(\"Std.Bool\"), Lambda(\"__write_1\", Constant(\"Std.Bool\"), Lambda(\"__write_2\", Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Apply(Variable(\"store\"), [Variable(\"__write_0\"), Variable(\"__write_1\"), Variable(\"__write_2\")]), Variable(\"value\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Variable(\"i2\")]), Variable(\"i2\"), Variable(\"__write_2\")]), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Variable(\"i1\")]), Variable(\"i1\"), Variable(\"__write_1\")]), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Variable(\"i0\")]), Variable(\"i0\"), Variable(\"__write_0\")]), Constant(\"Std.Bool.true\")])])])])))), [Variable(\"i0\"), Variable(\"i1\"), Variable(\"i2\")]), Variable(\"value\")]))))))",
+        "id": "backing-read-after-write-3",
+        "quantified_binders": 5,
+        "scope": "ordinary representation lemma; source-binding, complete operations and full arithmetic bridge are not discharged",
+        "terms": 283,
+        "theorem": "Probe.GoPractical.backing_read_after_write_3.Claim"
+      },
+      "observations": {
+        "go": {
+          "exit_code": 1,
+          "stderr": "",
+          "stdout": {
+            "error_detail": "term 520 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          }
+        },
+        "rust": {
+          "exit_code": 1,
+          "stderr": "",
+          "stdout": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"624\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"638\",\"kind\":\"check_type_mismatch\",\"term_index\":\"520\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "8dba694909ef91c18b0ed98380c6e310297e7ad2a8d72a1c9b7f4aecc1255954",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          }
+        }
+      },
+      "raw_sha256": "50dc767ee865fab9295cf1c4a116d0c5998b8aa31ccdc1dd94e922404fcb72be"
+    },
+    {
+      "case": {
+        "address_bits": 3,
+        "bytes": 2641,
+        "description": "Write is visible through an alias of the same backing store, for all stores, values and addresses",
+        "expected": "rejected",
+        "goal_debug": "Forall(\"store\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))), Forall(\"value\", Constant(\"Std.Bool\"), Forall(\"i0\", Constant(\"Std.Bool\"), Forall(\"i1\", Constant(\"Std.Bool\"), Forall(\"i2\", Constant(\"Std.Bool\"), Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Lambda(\"__write_0\", Constant(\"Std.Bool\"), Lambda(\"__write_1\", Constant(\"Std.Bool\"), Lambda(\"__write_2\", Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Apply(Variable(\"store\"), [Variable(\"__write_0\"), Variable(\"__write_1\"), Variable(\"__write_2\")]), Apply(Variable(\"store\"), [Variable(\"__write_0\"), Variable(\"__write_1\"), Variable(\"__write_2\")]), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Variable(\"i2\")]), Variable(\"i2\"), Variable(\"__write_2\")]), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Variable(\"i1\")]), Variable(\"i1\"), Variable(\"__write_1\")]), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Variable(\"i0\")]), Variable(\"i0\"), Variable(\"__write_0\")]), Constant(\"Std.Bool.true\")])])])])))), [Variable(\"i0\"), Variable(\"i1\"), Variable(\"i2\")]), Variable(\"value\")]))))))",
+        "id": "backing-read-after-write-3-wrong",
+        "quantified_binders": 5,
+        "scope": "ordinary representation lemma; source-binding, complete operations and full arithmetic bridge are not discharged",
+        "terms": 283,
+        "theorem": "Probe.GoPractical.backing_read_after_write_3_wrong.Claim"
+      },
+      "observations": {
+        "go": {
+          "exit_code": 1,
+          "stderr": "",
+          "stdout": {
+            "error_detail": "term 520 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          }
+        },
+        "rust": {
+          "exit_code": 1,
+          "stderr": "",
+          "stdout": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"624\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"638\",\"kind\":\"check_type_mismatch\",\"term_index\":\"520\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "f4aaed84026886a36b65a545dc74f235612330cc4aed94c8f862c964c6e01667",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          }
+        }
+      },
+      "raw_sha256": "b86a20fd5f86ec86f906f0f737ab372636e246d63fdf231e30d7d89db13b0a4b"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "develop/probes/go-practical/certificates/src/main.rs",
+      "sha256": "fbbd5b70f2fa66052b4d0c07578cb874b303aa19c1a3a3407e646451070bfc69"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/Cargo.toml",
+      "sha256": "7b97e6284a5777e58aeff7c938ac9fa985a987961cf8b5fa52588aa18efcc66f"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/Cargo.lock",
+      "sha256": "908d07d9ab55bf4923537df208e6e451d5573e1d5a3c0de03853b9efe8e241ae"
+    },
+    {
+      "path": "develop/migrations/csharp-03/probes/boolean-proof-elimination-logs/producer/builder.rs",
+      "sha256": "dd3a7ec39bb7aa86663a71fdc9ff55197e5f64df86a9adfd3cac41b7c9d90db3"
+    },
+    {
+      "path": "fixtures/core-bool-cases/right-identity.hex",
+      "sha256": "0232430bd7abff3b231b0898a512f85b4b4471906afc43e192c9407a6b414063"
+    }
+  ],
+  "open_findings": [
+    "nominal-tag",
+    "closed-error-outcome",
+    "full-adder-carry-bit",
+    "backing-read-after-write-3"
+  ],
+  "parser_correction": "Go verifier omits zero axiom_count; Rust rejections use error_code rather than error_kind",
+  "schema": "mpk.go_practical.initial_proof_pilot.v0",
+  "scope": "failed preliminary candidate run; not W03 completion"
+}
