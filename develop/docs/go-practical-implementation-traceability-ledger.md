@@ -26,7 +26,7 @@ after reconciling the intervening shared artifacts and active registry.
 | --- | --- | --- |
 | GO-PRAC-T01-W01 | Complete | Reviewed implementation commit `bd5ee8047d8925f9c9d0f7502627fca33bb2c836`; completion audit below |
 | GO-PRAC-T01-W02 | Complete | Reviewed implementation commit `fed1cf6047f97b1f73c0fc37c5023e19f4f9f035`; 39 cases reproduced twice |
-| GO-PRAC-T01-W03 | In progress | 27 pilot candidates measured; arithmetic, complete bindings/operation laws and resource boundaries remain open |
+| GO-PRAC-T01-W03 | In progress | 27 representation + 4 local Nat conservation candidates; full arithmetic, bindings/operation laws and resource boundaries remain open |
 | GO-PRAC-T01-W04 | Blocked by W03 | Exact v1 source/shared/contract/limit freeze |
 | GO-PRAC-T01-W05 | Blocked by W04 | Publish inactive package, review and full T01 gate |
 | GO-PRAC-T02–T07 | Not started | Sequential v1 implementation and public release |
@@ -201,7 +201,8 @@ deferred to W05; T01 is not complete.
 
 ## 7. T01-W03 symbolic pilot checkpoint (not completion)
 
-W02 completed before W03 began. The
+W02 completed before W03 began. The initial pilot checkpoint is committed as
+`488ccea4` (`test(go): retain ordinary symbolic proof feasibility pilot`). The
 [W03 checkpoint](../migrations/go-practical/t01-w03/README.md) retains the
 initial failed candidates, correction and exact final evidence. The
 [private Rust producer](../probes/go-practical/certificates/src/main.rs),
@@ -242,3 +243,36 @@ mathematical-sum bridge, aggregate interactions and resource boundaries
 remain open. The local three-input carry lemma is not that full arithmetic
 bridge. W03 remains In progress, W04 has not started, and the full T01 gate
 remains deferred to W05. No W03 or T completion is claimed.
+
+## 8. T01-W03 local exact arithmetic ingredient (not completion)
+
+[The next private producer](../probes/go-practical/certificates/src/natural.rs)
+adds four candidates with the actual zero-axiom `Std.Nat` constructors:
+one-bit full-adder value conservation, the same law for an arbitrary unary
+natural-number step, and a dropped-carry mutation for each. The
+[arithmetic report](../migrations/go-practical/t01-w03/natural-conservation/observations.json)
+records both-checker acceptance for two universal claims and core rejection
+for both false variants. The initial natural number is arbitrary. These are
+actual equality theorems, with no axioms, imported premises or new checker
+rule; they are not the full signed 64-bit/overflow/mathematical-prefix-sum
+bridge. Positive certificates have 753/754 terms and 8,024/7,972 bytes.
+
+The same local runner measures both pilots using separate `--natural` mode
+and report directory. Both replay generations are byte-identical and match
+isolated case construction. The 27 representation certificates remain
+byte-identical after the arithmetic addition; their source/binary/resource
+observations are refreshed against the new build. Report-integrity checks
+cover both modes and preserve the same explicit pending requirements.
+
+The targeted validation covers the new natural-number source/foundation,
+changed measurement/report routing and affected representation pilot. Offline
+locked private-crate Clippy passed with warnings denied; Rust formatting and
+both retained-report checks passed. The local two-generation measurement
+passed in both modes: 19 accepted zero-axiom claims and 12 core-rejected false
+claims across 31 candidates, each checked by Rust and Go. All 28 report
+adversarial tests passed. Exact Git byte comparison confirms that the 27
+representation certificate/index files are unchanged from the initial pilot
+commit. The natural-mode `--check` exercises measurement replay against the
+retained arithmetic bytes as well as the report-integrity branch.
+
+The whole T01 gate remains deferred to W05; W03 remains In progress.

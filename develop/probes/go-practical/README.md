@@ -71,6 +71,8 @@ ordinary-encoding and both-checker feasibility work.
 ```sh
 python3 -B develop/probes/go-practical/run_proof_pilot.py --check
 python3 -B develop/probes/go-practical/check_proof_report.py
+python3 -B develop/probes/go-practical/run_proof_pilot.py --natural --check
+python3 -B develop/probes/go-practical/check_proof_report.py --natural
 python3 -B -m unittest discover -s develop/probes/go-practical -p 'test_proof_report.py' -v
 CARGO_TARGET_DIR=/private/tmp/mpk-go-practical-proof-target cargo clippy --offline --locked --manifest-path develop/probes/go-practical/certificates/Cargo.toml -- -D warnings
 ```
@@ -91,6 +93,13 @@ This pilot is **not complete W03 feasibility**, a complete signed-integer or
 mathematical-sum bridge, a full operation library, a Go application proof, or
 public-profile admission. Retained evidence and remaining requirements are in
 [the W03 checkpoint](../../migrations/go-practical/t01-w03/README.md).
+
+The separate four-candidate `--natural` measurement adds genuine `Std.Nat`
+value conservation for one full-adder stage, generalized conservation for
+every unary natural-number step, and two dropped-carry mutations. It uses
+ordinary constructor/equality proofs, with an arbitrary initial natural
+number. It does not complete the signed 64-bit, overflow or prefix-sum
+bridge. Its report retains that pending scope explicitly.
 
 All accepted candidates have zero axioms, no imported proof premise and no
 theory certificate. A reused archived C# file is only an untrusted term

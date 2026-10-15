@@ -10,6 +10,8 @@ include!(
 use serde_json::{json, Value};
 use std::{fs, path::Path};
 
+mod natural;
+
 #[derive(Clone, Debug, Eq, PartialEq)]
 enum Expr {
     Constant(String),
@@ -673,6 +675,14 @@ fn describe_term(c: &Certificate, id: u32, scope: &mut Vec<String>) -> String {
 
 fn main() {
     let args = std::env::args().collect::<Vec<_>>();
+    if args.get(1).map(String::as_str) == Some("natural-generate") {
+        assert!(
+            (4..=5).contains(&args.len()),
+            "natural-generate REPO_ROOT OUTPUT [CASE_ID]"
+        );
+        natural::generate(Path::new(&args[2]), Path::new(&args[3]), args.get(4));
+        return;
+    }
     if args.get(1).map(String::as_str) == Some("describe") {
         let certificate =
             mpk_cert::decode_canonical_certificate(&fs::read(&args[2]).unwrap()).unwrap();

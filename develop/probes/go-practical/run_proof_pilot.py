@@ -23,6 +23,9 @@ from run_module_probes import DEFAULT_GOROOT, HERE, ROOT, verify_host_toolchain
 
 TARGET = Path("/private/tmp/mpk-go-practical-proof-target")
 RECORD = ROOT / "develop/migrations/go-practical/t01-w03/pilot-corrected"
+NATURAL_RECORD = ROOT / "develop/migrations/go-practical/t01-w03/natural-conservation"
+PILOT_SCOPE = "ordinary universal representation/control/carry lemmas; no full Go function proof or public-profile acceptance"
+NATURAL_SCOPE = "exact one-bit natural/step value conservation; no full signed 64-bit mathematical-sum bridge or Go function proof"
 
 
 def sha(data):
@@ -54,6 +57,7 @@ def sources():
                   HERE / "run_module_probes.py", HERE / "provision_host_toolchain.py",
                   HERE / "check_proof_report.py", HERE / "entry_audit.py",
                   ROOT / "fixtures/core-bool-cases/right-identity.hex",
+                  ROOT / "proofs/std/nat/std-nat.hex",
                   ROOT / "develop/migrations/csharp-03/probes/boolean-proof-elimination-logs/producer/builder.rs"])
     return [{"path": p.relative_to(ROOT).as_posix(), "sha256": sha(p.read_bytes())} for p in sorted(paths)]
 
@@ -92,7 +96,7 @@ def observe(executable, path):
     return result
 
 
-def semantic_expectation(item, observations):
+def semantic_expectation(item, observations, *, declarations=19):
     for name, observed in observations.items():
         report = observed["report"]
         if report.get("verdict") != item["expected"]:
@@ -103,7 +107,7 @@ def semantic_expectation(item, observations):
             count = report.get("axiom_count", 0 if name == "go" else None)
             if observed["exit_code"] != 0 or type(count) is not int or count != 0:
                 raise RuntimeError("accepted ordinary pilot is not zero-axiom")
-            if report.get("module") != item["theorem"].removesuffix(".Claim") or report.get("declaration_count") != 19:
+            if report.get("module") != item["theorem"].removesuffix(".Claim") or report.get("declaration_count") != declarations:
                 raise RuntimeError("accepted checker module/declaration identity differs")
             hashes = report.get("hashes", {})
             if set(hashes) != {"export", "certificate", "axiom_report"} or any(
@@ -121,7 +125,18 @@ def main():
     mode = parser.add_mutually_exclusive_group(required=True)
     mode.add_argument("--write", action="store_true")
     mode.add_argument("--check", action="store_true")
+    parser.add_argument("--natural", action="store_true", help="measure the separate exact Nat conservation pilot")
     args = parser.parse_args()
+    record = NATURAL_RECORD if args.natural else RECORD
+    scope = NATURAL_SCOPE if args.natural else PILOT_SCOPE
+
+    def generation_command(binary, output, case=None):
+        command = [str(binary), "natural-generate" if args.natural else "generate", str(ROOT), str(output)]
+        if not args.natural:
+            command.append("3")
+        if case is not None:
+            command.append(case)
+        return command
     if platform.system() != "Darwin" or platform.machine() != "arm64":
         raise RuntimeError("pilot resource units/toolchain pin are darwin/arm64-specific")
     pin = json.loads((HERE / "host-toolchain.json").read_text())
@@ -144,9 +159,9 @@ def main():
                 cwd=ROOT / "go-tools/mpk-checker-ref", env=go_env)
         first, second = temp / "first", temp / "second"
         construction_start = time.perf_counter()
-        checked([str(rust), "generate", str(ROOT), str(first), "3"])
+        checked(generation_command(rust, first))
         construction_seconds = time.perf_counter() - construction_start
-        checked([str(rust), "generate", str(ROOT), str(second), "3"])
+        checked(generation_command(rust, second))
         names = sorted(p.name for p in first.iterdir())
         if names != sorted(p.name for p in second.iterdir()) or any((first / n).read_bytes() != (second / n).read_bytes() for n in names):
             raise RuntimeError("candidate generation is nondeterministic")
@@ -155,13 +170,13 @@ def main():
         for item in index["cases"]:
             path = first / (item["id"] + ".mpcert")
             generated = temp / "individual" / item["id"]
-            construction = timed([rust, "generate", ROOT, generated, "3", item["id"]])
+            construction = timed(generation_command(rust, generated, item["id"]))
             if construction["exit_code"] or (generated / path.name).read_bytes() != path.read_bytes():
                 raise RuntimeError("individual candidate construction differs from the complete run")
             observations = {"rust": observe(rust, path), "go": observe(reference, path)}
-            semantic_expectation(item, observations)
+            semantic_expectation(item, observations, declarations=23 if args.natural else 19)
             data = path.read_bytes()
-            if args.check and (RECORD / path.name).read_bytes() != data:
+            if args.check and (record / path.name).read_bytes() != data:
                 raise RuntimeError(f"retained certificate differs: {path.name}")
             rows.append({"case": item, "raw_sha256": sha(data), "construction": construction, "observations": observations})
             print(f"{item['id']}: {item['expected']} by both; Rust {observations['rust']['wall_seconds']:.3f}s, Go {observations['go']['wall_seconds']:.3f}s", flush=True)
@@ -169,7 +184,7 @@ def main():
             raise RuntimeError("source changed during construction/checking")
         report = {"schema": "mpk.go_practical.proof_pilot_report.v0", "work_item": "GO-PRAC-T01-W03",
                   "status": "partial feasibility; W03 is not complete",
-                  "scope": "ordinary universal representation/control/carry lemmas; no full Go function proof or public-profile acceptance",
+                  "scope": scope,
                   "pending": ["complete source/model bindings and validity invariants", "index/length/capacity and operation law closure",
                               "full signed-integer and exact mathematical-sum bridge", "profile-wide resource/boundary freeze"],
                   "inputs": source_before, "host_toolchain_inventory": host_inventory,
@@ -181,17 +196,17 @@ def main():
                   "deterministic_generations": 2, "construction_wall_seconds": construction_seconds,
                   "cases": rows}
         if args.write:
-            RECORD.mkdir(parents=True, exist_ok=True)
+            record.mkdir(parents=True, exist_ok=True)
             for name in names:
-                shutil.copyfile(first / name, RECORD / name)
-            (RECORD / "observations.json").write_bytes(json_bytes(report))
+                shutil.copyfile(first / name, record / name)
+            (record / "observations.json").write_bytes(json_bytes(report))
         else:
-            retained = json.loads((RECORD / "observations.json").read_text())
+            retained = json.loads((record / "observations.json").read_text())
             if retained["inputs"] != source_before:
                 raise RuntimeError("retained pilot source identity differs")
             from check_proof_report import check
-            check(retained)
-            if (RECORD / "index.json").read_bytes() != (first / "index.json").read_bytes():
+            check(retained, natural=args.natural)
+            if (record / "index.json").read_bytes() != (first / "index.json").read_bytes():
                 raise RuntimeError("retained theorem index differs")
         print(f"PASS: {len(rows)} candidates; each checked by Rust and Go; W03 remains in progress")
 

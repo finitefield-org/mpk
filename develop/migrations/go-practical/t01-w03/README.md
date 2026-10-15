@@ -46,6 +46,42 @@ slice, `Quote`, or filter proofs. Volatile time/RSS values remain in the
 machine-readable report; no frozen profile budget is inferred from this
 partial workload.
 
+## Exact local natural-number conservation
+
+The subsequent [four-candidate arithmetic measurement](natural-conservation/observations.json)
+and its [index](natural-conservation/index.json) use the
+[natural-number producer](../../../probes/go-practical/certificates/src/natural.rs).
+It copies the existing zero-axiom `Std.Nat` constructor/recursor interfaces
+into the self-contained certificate, with remapped indices. Both checkers
+validate all 23 declarations, including the new theorem. No imported premise
+or completion claim for another language is involved.
+
+For Boolean inputs `x`, `y` and incoming carry `c`, define
+`s = x xor y xor c` and
+`k = (x and y) or (c and (x xor y))`. If `inc_b(n)` means `succ(n)` when
+`b` is true and `n` otherwise, the first accepted theorem proves, for every
+natural `n` and all three flags:
+
+```text
+inc_x(inc_y(inc_c(n))) = inc_s(if k then succ(succ(n)) else n)
+```
+
+The second accepted theorem generalizes `succ` to every function
+`step : Std.Nat -> Std.Nat`, applying that same step twice for the carried
+place. This permits later composition at a weighted place without treating
+the local carry flag itself as the mathematical-value theorem. The two
+mutations discard the carried place and reject at core checking in both
+checkers. Positive certificates contain 753/754 terms and 8,024/7,972 bytes.
+They require no natural-number recursor application or new checker rule.
+
+Each claim universally quantifies its initial natural and input flags. The
+proof splits only the three flags, then supplies explicit equality steps.
+This is exact local mathematical-value conservation, not the complete
+signed 64-bit, overflow, multiword or processed-prefix sum bridge. Those
+requirements remain open below. The runner measured construction and both
+checkers for all four cases, produced identical bytes twice, and checked
+isolated generation against the complete generation.
+
 ## Retained initial finding and correction
 
 [The initial ten-case run](pilot-initial/observations.json) includes its
@@ -92,6 +128,11 @@ results, axioms, checker hash disagreement, stale source identities,
 non-core negative failures and invented completion. Offline Clippy checks
 the private Rust crate. Unchanged production source/old Go fixture identity
 is checked with the W01 audit rather than rerunning unrelated suites.
+
+The same runner remeasured the 27 representation candidates after adding the
+natural-number producer so both reports pin the current private source. The
+previous representation certificate bytes are unchanged; source/checker
+binary identities and resource observations are recorded for the new build.
 
 `scripts/check-fast.sh` remains deferred to the last W of T01, W05. No
 native Linux release or public-profile acceptance check is claimed here.
