@@ -201,3 +201,22 @@ the `Quote` guard/order/subtraction bridge, complete Go operation/source
 binding, collection/control closure and aggregate/resource freeze stay open.
 W03 remains In progress and W04 has not started. The full T01 gate remains
 deferred to W05.
+
+## Conditional signed prefix composition
+
+The [signed prefix model and 32-case evidence](signed-prefix-sums/README.md)
+compose the unsigned carry-correction law with a checked balance between
+actual intermediate carries and actual operand/result signs. Both checkers
+accept nine zero-axiom claims, including the valid empty guard control.
+Fifteen altered claims fail at core type checking; eight dropped-result-sign
+candidates reach fuel and remain separately classified resource findings.
+
+All negative two's-complement patterns remain in the quantified domain.
+The only arithmetic premise is each actual update's sign-stage carry
+agreement, with checked projection to the same intermediate fold states.
+Counts `0/1/3/8/32/127/128/129` have two identical fresh generations. The
+128-element positive has 17,736 terms and 214,747 bytes. This closes a
+conditional signed prefix-composition ingredient; the actual Go source
+guard/order/subtraction discharge and nonnegative `Quote` invariant remain
+open. Collection/control/operation bindings and aggregate resource closure
+stay due. W03 remains In progress and the full T01 gate stays deferred to W05.

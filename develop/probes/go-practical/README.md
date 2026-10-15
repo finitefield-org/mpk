@@ -202,3 +202,28 @@ frontend or freeze a size limit. Signed/nonnegative prefix interpretation,
 source guard/order bindings, remaining operation/collection/control laws and
 aggregate resource freeze remain due. W03 is In progress; the complete T01
 gate remains deferred to W05.
+
+## T01-W03 conditional signed prefix folds (in progress)
+
+```sh
+python3 -B develop/probes/go-practical/run_signed_prefix_probes.py --check
+python3 -B develop/probes/go-practical/check_signed_prefix_report.py
+python3 -B -m unittest discover -s develop/probes/go-practical -p 'test_signed_prefix_report.py' -v
+```
+
+The [signed prefix model and evidence](../../migrations/go-practical/t01-w03/signed-prefix-sums/README.md)
+measure 32 candidates at the same eight prefix counts, with all 64-bit values
+and backing padding quantified. A checked balance composes actual unsigned
+overflow corrections with actual operand/result signs. It proves exact
+two's-complement cross sums under every actual sign-stage carry guard.
+Both generations are identical; nine zero-axiom claims pass Rust and Go,
+15 altered claims fail at core type checking, and eight sign-removal
+candidates reach conversion fuel and remain resource findings.
+
+The shared prefix measurement runner keeps independent schemas, theorem
+validators, commands and retained evidence for each mode. Debug commands
+`signed-fold-generate` / `signed-fold-trace` take `REPO_ROOT OUTPUT COUNT`.
+No checker rule, axiom, source width or public profile changes. Go source
+guard/order/subtraction discharge and the nonnegative `Quote` invariant,
+remaining collection/operation/control laws and aggregate resource freeze
+remain due. W03 stays In progress; the full T01 gate stays deferred to W05.

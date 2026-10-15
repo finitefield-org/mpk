@@ -7,6 +7,9 @@ mod fold;
 pub(super) fn generate_fold(root: &Path, output: &Path, count: usize, trace: bool) {
     fold::generate(root, output, count, trace);
 }
+pub(super) fn generate_signed_fold(root: &Path, output: &Path, count: usize, trace: bool) {
+    fold::generate_signed(root, output, count, trace);
+}
 
 #[derive(Clone)]
 struct Typed {

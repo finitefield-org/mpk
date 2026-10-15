@@ -7,6 +7,7 @@ import os
 from pathlib import Path
 import platform
 import shutil
+import sys
 import tempfile
 
 from run_proof_pilot import (
@@ -23,6 +24,11 @@ PENDING = ["signed/nonnegative prefix interpretation and Go guard discharge", "c
 BOUNDARY_SCOPE = "129 elements is an internal boundary probe, not Go profile admission; padding remains universally quantified"
 CONDITIONAL_SCOPE = "conditional exact fixed-count modular64 prefix fold to Nat sum; signed/nonnegative and Go guard bindings remain pending"
 RAW_SCOPE = "unconditional exact fixed-count modular64 prefix fold plus actual step-carry correction to Nat sum; signed/nonnegative and Go bindings remain pending"
+GENERATE_COMMAND = "fold-generate"
+INDEX_SCHEMA = "mpk.go_practical.prefix_pilot.v0"
+REPORT_SCHEMA = "mpk.go_practical.prefix_report.v0"
+ATTEMPT_SCHEMA = "mpk.go_practical.prefix_attempt.v0"
+STATUS = "prefix ingredients measured; W03 remains incomplete"
 
 
 def proof_sources():
@@ -37,7 +43,7 @@ def depth(count):
     return max(count - 1, 0).bit_length()
 
 
-def declaration_count(count):
+def prefix_nodes(count):
     nodes = set()
 
     def visit(d, n):
@@ -51,7 +57,11 @@ def declaration_count(count):
     visit(depth(count), count)
     if count:
         visit(depth(count), count - 1)
-    return 135 + sum(12 + 2 * bool(d and n) for d, n in nodes)
+    return nodes
+
+
+def declaration_count(count):
+    return 135 + sum(12 + 2 * bool(d and n) for d, n in prefix_nodes(count))
 
 
 def variants(count, family):
@@ -88,8 +98,15 @@ def verify_case(case, observations):
     raise RuntimeError("unexpected prefix failure; resource failures cannot count as semantic negatives")
 
 
-def main():
-    parser = argparse.ArgumentParser(description=__doc__)
+def check_retained(report):
+    from check_prefix_report import check
+    return check(report)
+
+
+def main(model=None):
+    model = sys.modules[__name__] if model is None else model
+    record = model.RECORD
+    parser = argparse.ArgumentParser(description=model.__doc__)
     mode = parser.add_mutually_exclusive_group(required=True)
     mode.add_argument("--write", action="store_true")
     mode.add_argument("--check", action="store_true")
@@ -104,7 +121,7 @@ def main():
     checked([cargo, "build", "--release", "--offline", "--locked", "--manifest-path", str(HERE / "certificates/Cargo.toml")],
             env={**os.environ, "CARGO_TARGET_DIR": str(TARGET)})
     producer = TARGET / "release/go-practical-proof-probe"
-    before = proof_sources()
+    before = model.proof_sources()
     rows, groups = [], []
     with tempfile.TemporaryDirectory(prefix="mpk-go-prefix-", dir="/private/tmp") as temporary:
         temp = Path(temporary)
@@ -117,16 +134,16 @@ def main():
 
         def retain_attempt(active=None):
             if args.write:
-                RECORD.mkdir(parents=True, exist_ok=True)
-                (RECORD / "attempt.json").write_bytes(json_bytes({
-                    "schema": "mpk.go_practical.prefix_attempt.v0", "status": "incomplete measurement",
+                record.mkdir(parents=True, exist_ok=True)
+                (record / "attempt.json").write_bytes(json_bytes({
+                    "schema": model.ATTEMPT_SCHEMA, "status": "incomplete measurement",
                     "inputs": before, "construction_groups": groups, "cases": rows, "active": active,
                     "checker_binaries": binaries}))
         retain_attempt()
-        for count in COUNTS:
+        for count in model.COUNTS:
             first, second = temp / f"first-{count}", temp / f"second-{count}"
-            one = timed([producer, "fold-generate", ROOT, first, str(count)])
-            two = timed([producer, "fold-generate", ROOT, second, str(count)])
+            one = timed([producer, model.GENERATE_COMMAND, ROOT, first, str(count)])
+            two = timed([producer, model.GENERATE_COMMAND, ROOT, second, str(count)])
             if one["exit_code"] or two["exit_code"]:
                 raise RuntimeError("prefix construction failed; W03 remains pending")
             names = sorted(p.name for p in first.iterdir())
@@ -134,43 +151,42 @@ def main():
                     (first / n).read_bytes() != (second / n).read_bytes() for n in names):
                 raise RuntimeError("prefix generation is nondeterministic")
             index = json.loads((first / "index.json").read_text())
-            if index["schema"] != "mpk.go_practical.prefix_pilot.v0":
+            if index["schema"] != model.INDEX_SCHEMA:
                 raise RuntimeError("prefix index identity")
             groups.append({"count": count, "scope": "complete candidate group and shared ordinary library", "first": one, "second": two})
             for case in index["cases"]:
                 path = first / (case["id"] + ".mpcert")
                 if args.write:
-                    shutil.copyfile(path, RECORD / path.name)
+                    shutil.copyfile(path, record / path.name)
                 observations = {}
                 for checker, exe in (("rust", producer), ("go", reference)):
                     observations[checker] = observe(exe, path)
                     retain_attempt({"case": case, "observations": observations, "raw_sha256": sha(path.read_bytes())})
-                outcome = verify_case(case, observations)
+                outcome = model.verify_case(case, observations)
                 rows.append({"case": case, "classification": outcome, "raw_sha256": sha(path.read_bytes()), "observations": observations})
-                if args.check and (RECORD / path.name).read_bytes() != path.read_bytes():
+                if args.check and (record / path.name).read_bytes() != path.read_bytes():
                     raise RuntimeError("retained prefix certificate differs")
                 retain_attempt()
                 print(f"{case['id']}: {outcome}; Rust {observations['rust']['wall_seconds']:.3f}s, Go {observations['go']['wall_seconds']:.3f}s", flush=True)
-        if before != proof_sources():
+        if before != model.proof_sources():
             raise RuntimeError("source changed during prefix measurement")
-        report = {"schema": "mpk.go_practical.prefix_report.v0", "work_item": "GO-PRAC-T01-W03",
-                  "status": "prefix ingredients measured; W03 remains incomplete", "scope": SCOPE, "pending": PENDING,
+        report = {"schema": model.REPORT_SCHEMA, "work_item": "GO-PRAC-T01-W03",
+                  "status": model.STATUS, "scope": model.SCOPE, "pending": model.PENDING,
                   "inputs": before, "host_toolchain_inventory": host_inventory, "checker_binaries": binaries,
                   "host": {"system": platform.system(), "release": platform.release(), "machine": platform.machine(),
                            "cpu_count": os.cpu_count(), "model": None, "physical_memory_bytes": None},
                   "rustc": checked([shutil.which("rustc"), "--version"]).strip(), "cargo": checked([cargo, "--version"]).strip(),
                   "build": "Rust release offline locked; Go 1.25.0 pinned host trimpath",
                   "measurement_child_ceiling_seconds": 60, "ceiling_scope": "private measurement, not a profile budget",
-                  "boundary_probe_scope": BOUNDARY_SCOPE, "deterministic_generations": 2,
+                  "boundary_probe_scope": model.BOUNDARY_SCOPE, "deterministic_generations": 2,
                   "construction_groups": groups, "cases": rows,
                   "outcomes": {key: sum(r["classification"] == key for r in rows) for key in
                                ("accepted_zero_axiom", "core_type_mismatch", "candidate_fuel_failure_not_false_claim_evidence")}}
         if args.write:
-            (RECORD / "observations.json").write_bytes(json_bytes(report))
-            (RECORD / "attempt.json").unlink()
-        from check_prefix_report import check
-        retained = json.loads((RECORD / "observations.json").read_text())
-        check(retained)
+            (record / "observations.json").write_bytes(json_bytes(report))
+            (record / "attempt.json").unlink()
+        retained = json.loads((record / "observations.json").read_text())
+        model.check_retained(retained)
         if [r["case"] for r in retained["cases"]] != [r["case"] for r in rows]:
             raise RuntimeError("retained prefix theorem index differs")
         print(f"PASS: {len(rows)} measured candidates; actual guards/corrections explicit; W03 incomplete")

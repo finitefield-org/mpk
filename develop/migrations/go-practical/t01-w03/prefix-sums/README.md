@@ -120,3 +120,8 @@ suites are not rerun. The complete T01 gate remains deferred to W05.
 W03 remains In progress. The signed/nonnegative prefix and guard/order bridge,
 complete source/operation bindings, collection/descriptor/control-law closure
 and aggregate boundary/resource freeze remain open. W04 has not started.
+
+The subsequent [signed prefix experiment](../signed-prefix-sums/README.md)
+adds conditional two's-complement cross-sum composition over this same fold.
+It still leaves Go guard/order/subtraction and the nonnegative application
+invariant open; it does not change this unsigned experiment's proof scope.

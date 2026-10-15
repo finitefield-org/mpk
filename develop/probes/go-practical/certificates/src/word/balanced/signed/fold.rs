@@ -4,6 +4,11 @@
 
 use super::*;
 use std::collections::BTreeSet;
+mod signed_prefix;
+
+pub(super) fn generate_signed(root: &Path, output: &Path, count: usize, trace: bool) {
+    generate_mode(root, output, count, trace, true);
+}
 
 const W: usize = 6;
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd)]
@@ -883,6 +888,9 @@ fn raw_claim(p: &mut Producer, node: Node, mutation: usize) -> Expr {
 }
 
 pub(super) fn generate(root: &Path, output: &Path, count: usize, trace: bool) {
+    generate_mode(root, output, count, trace, false);
+}
+fn generate_mode(root: &Path, output: &Path, count: usize, trace: bool, signed: bool) {
     assert!(
         count <= 129,
         "private boundary measurement through 129 elements"
@@ -909,12 +917,21 @@ pub(super) fn generate(root: &Path, output: &Path, count: usize, trace: bool) {
         builder: Builder::from(natural::foundation(root)),
         fresh: 0,
     };
-    p.builder.c.module = format!("{PREFIX}.PrefixCount{count}");
+    p.builder.c.module = format!(
+        "{PREFIX}.{}PrefixCount{count}",
+        if signed { "Signed" } else { "" }
+    );
     p.primitive_library();
+    if signed {
+        super::primitives(&mut p);
+    }
     for d in 0..=W {
         super::super::definitions(&mut p, d, None);
         commutation(&mut p, d, None);
         adding(&mut p, d);
+        if signed {
+            super::build(&mut p, d, None);
+        }
     }
     algebra(&mut p, trace.then_some(output));
     for n in nodes {
@@ -922,8 +939,15 @@ pub(super) fn generate(root: &Path, output: &Path, count: usize, trace: bool) {
         commutative_sums(&mut p, n, trace.then_some(output));
         prove_raw(&mut p, n, trace.then_some(output));
         prove_node(&mut p, n, trace.then_some(output));
+        if signed {
+            signed_prefix::build(&mut p, n, trace.then_some(output));
+        }
     }
     let base = p.builder.c;
+    if signed {
+        signed_prefix::emit(base, output, node);
+        return;
+    }
     let mut cases = vec![];
     for mutation in 0..if count == 0 { 3 } else { 4 } {
         let id = format!(

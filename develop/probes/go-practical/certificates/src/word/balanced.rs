@@ -6,6 +6,9 @@ mod signed;
 pub(super) fn generate_fold(root: &Path, output: &Path, count: usize, trace: bool) {
     signed::generate_fold(root, output, count, trace);
 }
+pub(super) fn generate_signed_fold(root: &Path, output: &Path, count: usize, trace: bool) {
+    signed::generate_signed_fold(root, output, count, trace);
+}
 
 fn tree(suffix: &str, depth: usize, args: Vec<Expr>) -> Expr {
     apply(c(&name(&format!("Tree{suffix}{depth}"))), args)

@@ -26,7 +26,7 @@ after reconciling the intervening shared artifacts and active registry.
 | --- | --- | --- |
 | GO-PRAC-T01-W01 | Complete | Reviewed implementation commit `bd5ee8047d8925f9c9d0f7502627fca33bb2c836`; completion audit below |
 | GO-PRAC-T01-W02 | Complete | Reviewed implementation commit `fed1cf6047f97b1f73c0fc37c5023e19f4f9f035`; 39 cases reproduced twice |
-| GO-PRAC-T01-W03 | In progress | Unsigned prefix sums with actual-carry conditions/corrections measured; signed/nonnegative prefix, source/collection laws and resource closure remain open |
+| GO-PRAC-T01-W03 | In progress | Unsigned and conditional signed prefix sums measured; Go guard/order, source/collection laws and resource closure remain open |
 | GO-PRAC-T01-W04 | Blocked by W03 | Exact v1 source/shared/contract/limit freeze |
 | GO-PRAC-T01-W05 | Blocked by W04 | Publish inactive package, review and full T01 gate |
 | GO-PRAC-T02–T07 | Not started | Sequential v1 implementation and public release |
@@ -412,8 +412,9 @@ law for arbitrary functions or silently replace the intended sum claim.
 Targeted validation covers actual accumulator/carry bindings, complete
 payload/padding quantification, empty and boundary cases, altered claims,
 deterministic construction and evidence integrity. The full 55-case local
-measurement and separate `--check` proof replay pass; all 19 new adversarial tests pass, including historical
-snapshot validation. The changed private producer also remeasures the 27
+measurement and separate `--check` proof replay pass; all 19 new adversarial
+tests pass, including historical snapshot validation. The changed private
+producer also remeasures the 27
 representation, four local-Nat and 48 balanced word candidates. Their
 earlier certificate/index bytes stay unchanged. All 52 existing evidence
 tests pass, for 71 targeted tests total. Offline locked release Clippy passes
@@ -427,3 +428,52 @@ prefix invariant. Signed prefix/order/subtraction and source guard discharge,
 complete source/operation bindings, descriptor/collection/control laws and
 aggregate boundary/resource closure remain due. W03 remains In progress;
 W04 has not started. The full T01 gate stays deferred to W05.
+
+## 12. T01-W03 conditional signed prefix composition
+
+Predecessor checkpoint: `ea627414` retains the unsigned prefix ingredients
+and their original feasibility finding. The
+[signed prefix layer](../probes/go-practical/certificates/src/word/balanced/signed/fold/signed_prefix.rs)
+adds actual sign-stage guard cubes, checked child projections, a carry/sign
+balance across all intermediate states, and exact two's-complement prefix
+cross sums. It composes the existing unconditional unsigned theorem with
+the balance law. All 64-bit values, including negative patterns, remain
+quantified; there is no implicit nonnegative source precondition. Its
+arithmetic premise is every actual update's sign-stage carry agreement.
+
+[The model and actual 32-case evidence](../migrations/go-practical/t01-w03/signed-prefix-sums/README.md)
+cover counts 0/1/3/8/32/127/128/129, with two identical fresh generations.
+Both checkers accept nine zero-axiom claims with matching hashes, including
+the valid vacuous empty-prefix guard control. Fifteen altered claims fail
+at core type checking. Eight dropped-result-sign candidates exhaust
+conversion fuel and remain resource findings, not semantic negatives.
+No checker rule, conversion budget, source width or public profile changes.
+
+The count128 positive has 537 declarations, 17,736 terms and 214,747 bytes.
+It quantifies all 8,192 storage bits, the 64-bit accumulator and initial
+natural. Rust/Go checking takes 0.322/0.833 s with 35,684,352/66,895,872 peak
+resident bytes in the retained Darwin/arm64 run. Count129 retains the full
+256-cell/16,384-bit padded store and is an internal boundary probe. These
+observations do not freeze a Go capacity or an application resource budget.
+
+Targeted verification covers signed denotation, actual guard/state linkage,
+partial/empty/boundary trees, complete payloads, altered claims and evidence
+integrity. The 32-case local measurement and separate signed and unsigned
+`--check` proof replays pass; all 17 new adversarial tests pass. The signed
+and unsigned runners share the measurement implementation
+but retain separate command/schema/theorem validators. Because the producer
+and shared runner changed, the prior 55 unsigned-prefix, 48 balanced-word,
+27 representation and four local-Nat candidates are remeasured. All earlier
+certificate/index bytes remain unchanged. The complete targeted evidence
+suite has 88 passing tests. Offline locked release Clippy passes with
+warnings denied; Rust formatting, Python syntax, retained-report checks,
+W01 identity audit, document links and Git whitespace checks pass.
+Unchanged production suites are not rerun. The whole T01 gate remains
+deferred to W05.
+
+This closes conditional signed prefix composition, not the source-bound
+`Quote` invariant. Actual Go guard/order/subtraction discharge, the
+nonnegative invariant, complete operation/source bindings,
+descriptor/collection/control-law closure and aggregate boundary/resource
+freeze remain due. W03 stays In progress; W04 has not started. The full
+11-stage implementation objective remains active.
