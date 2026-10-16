@@ -342,8 +342,11 @@ It derives substring lengths and source indexes from actual signed checks,
 preserves all eight byte bits under input-tail normalization, and derives
 concatenation carry and index relations with an explicit result-bound
 obligation. Semantic bounds and finite padding remain separate. This evidence
-does not activate a profile or complete source/library binding; checked
-prefix/suffix relations and full application composition remain due.
+does not activate a profile or complete source/library binding. The next
+[private prefix/suffix checkpoint](go-practical-implementation-traceability-ledger.md#24-t01-w03-byte-prefixsuffix-and-selected-body-correspondence)
+adds checked relations, actual range/index facts and exact selected Go 1.25.0
+source identities. Production adapters and full application composition remain
+due; the whole `strings` package is not admitted by name.
 
 ## 8. Priority 4: slices and useful loops
 

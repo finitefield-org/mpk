@@ -493,3 +493,23 @@ The 1,113 predecessor certificates, two standalone indexes and 15 complete
 case indexes/outcomes remain unchanged; source pins and adjacent hardware
 identity are refreshed. No current incomplete attempt remains, and the full
 T01 gate is still deferred to W05.
+
+## Byte prefix/suffix and selected source-body correspondence
+
+The [prefix/suffix checkpoint](affix/README.md) retains full64 lengths/indexes
+and all eight byte bits. The actual length comparison derives substring
+safety and exact pattern length. Closed length/slice/equality formulas
+correspond to both internal relations; true results derive actual source
+indexes and full-byte equality. Empty/longer patterns, input-tail masking and
+complete finite-index coverage remain distinct from semantic padding.
+
+Original Go 1.25.0 library calls and literal bodies match 5,395 independent
+observations. An AST receipt identifies exactly the two `strings` wrappers
+and their two `internal/stringslite` callees. This does not install an adapter
+or approve the whole package. Archived type/fuel failures stay separate from
+semantic-negative controls. A deterministic standalone Rust extension checks
+46 generated input identities and preserves all predecessor producer pins,
+certificates and observations. Unchanged kernel measurements are not repeated.
+Production capture/model/effect/operation binding, registered adapters,
+remaining control/aggregate and full applications remain due. W03 stays
+In progress and the full T01 gate remains deferred to W05.

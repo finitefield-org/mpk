@@ -26,7 +26,7 @@ after reconciling the intervening shared artifacts and active registry.
 | --- | --- | --- |
 | GO-PRAC-T01-W01 | Complete | Reviewed implementation commit `bd5ee8047d8925f9c9d0f7502627fca33bb2c836`; completion audit below |
 | GO-PRAC-T01-W02 | Complete | Reviewed implementation commit `fed1cf6047f97b1f73c0fc37c5023e19f4f9f035`; 39 cases reproduced twice |
-| GO-PRAC-T01-W03 | In progress | Halting Quote, byte/index, descriptor/store, computed validity/access, reslice, copy, construction/append and substring/concat ingredients measured; production source/ownership/operation bindings, remaining laws and aggregate resources stay open |
+| GO-PRAC-T01-W03 | In progress | Halting Quote, byte/index, descriptor/store, computed validity/access, reslice, copy, construction/append, substring/concat and prefix/suffix ingredients measured; coupled aggregate proof/resource measurements remain open; production bindings belong to T02–T06 |
 | GO-PRAC-T01-W04 | Blocked by W03 | Exact v1 source/shared/contract/limit freeze |
 | GO-PRAC-T01-W05 | Blocked by W04 | Publish inactive package, review and full T01 gate |
 | GO-PRAC-T02–T07 | Not started | Sequential v1 implementation and public release |
@@ -1510,3 +1510,116 @@ complete application composition, and aggregate boundary/resource closure
 remain open. W03 stays In progress, W04 has not started and the complete T01
 gate remains deferred to W05. The full authorized 11-stage objective remains
 active.
+
+
+## 24. T01-W03 byte prefix/suffix and selected body correspondence
+
+Predecessor checkpoint: `170bf04ccde2203de1d2821a3ac3021cea0805df` retains
+ordinary substring/concat ingredients. The new
+[prefix/suffix checkpoint](../migrations/go-practical/t01-w03/affix/README.md)
+uses a separate private Rust crate with complete 64-bit lengths/indexes and
+arbitrary eight-bit bytes. Semantic B=0/1/31/32/33/255/256/257 stays separate
+from padding P=1/1/32/32/64/256/256/512. Both complete stores and all padding
+remain quantified. No production frontend, checker, normative specification,
+registry or public selection changes.
+
+Actual nonnegative lengths and the computed length comparison derive both
+ordinary substring guards. Restoration/cancellation proves the prefix/suffix
+substring length equals the pattern length. The signed length/slice/equality
+formulas then correspond to the internal relations. Empty patterns match;
+longer patterns return false through short-circuiting. A computed true
+source-shaped result derives the actual guard, actual source indexes and
+all eight byte bits at every defined pattern index. Semantic bounds derive
+complete finite-index reconstruction. Input-tail canonicalization preserves
+both relations. The nonnegative facts are derived from actual bounded
+lengths in emitted claims rather than added as independent caller oracles.
+
+The native observer compiles the original Go 1.25.0 packages and compares
+both actual library calls with literal bodies and independent byte/bit
+loops. An AST receipt identifies exactly `strings.HasPrefix/HasSuffix` and
+their two `internal/stringslite` callees, including whole-file and formatted
+body hashes. The toolchain inventory retains the original package context.
+The ordinary formulas and exact identities are private correspondence
+evidence; they do not register an adapter or prove the production capture/
+import/operation pipeline. No Go package is reduced to manufactured stubs.
+
+All 5,395 original-Go observations match. They include 1,055 prefix and 1,061
+suffix matches, 316 empty and 1,988 longer patterns, 330 differing prefix/
+suffix results, 207/213 defined matched source reads, and 664 high-bit
+rejections despite matching low bits. NUL patterns, invalid UTF-8 and
+multibyte inputs remain bytes. Eight outside-B inputs yield 16 finite-
+projection counterexamples, and eight actual source reads lack full finite
+coverage. Original library calls never panic in this corpus; unguarded
+substring and optional-index failures retain distinct meanings.
+
+The matrix has 304 candidates: 152 correct and 152 false mutations. Each
+mutation has an explicit witness. B0 omits indexed false controls with empty
+domains. The full-byte mutation is meaningful at B1; prefix/suffix confusion
+is used only where the bound permits distinct results. Longer-pattern guard
+erasure uses zero-valued unobservable source padding. The original call
+returns false, unguarded Go slicing panics, and the wrong total model returns
+true. The initial arbitrary padding did not provide that particular witness;
+an explicit zero-padding row was added before measurement. This reference
+fixture correction is not a kernel rejection or semantic proof result.
+
+The [initial diagnostic](../migrations/go-practical/t01-w03/affix-initial/scope.json)
+retains an intended positive rejected by both kernels at core typing. An
+untrusted rewrite of a small sign expression prevented a later larger
+signed-order rewrite; the range lemma retained a residual condition, and its
+stronger call failed. The correction orders larger rewrites first and checks
+exact theorem endpoints. A separate
+[fuel diagnostic](../migrations/go-practical/t01-w03/affix-initial/fuel/scope.json)
+retains eager conversion of a closed fold. Explicit checked projection
+congruence reuses the prior fold lemma without changing either kernel's fuel
+or any semantic bound. Eight diagnostic rows pass integrity checks. Neither
+failure class is semantic-negative evidence.
+
+The [standalone crate](../probes/go-practical/affix-certificates/Cargo.toml)
+keeps all existing producer sources and input identities unchanged. Its
+explicit Rust build recipe extends only generated untrusted candidate code;
+an independent replay checks all 46 generated inputs. Exact source and binary
+pins surround measurement. The prior 1,361 canonical certificates, two
+standalone indexes, 16 complete case indexes/outcomes and raw verdicts remain
+unchanged against the predecessor. All 16 retained-report integrity checks,
+the W01 identity audit and W02 retained closure check are selected; old kernel
+measurements and unchanged adversarial suites need no repeat because their
+source, binaries and canonical input bytes are unchanged.
+
+The first new matrix passes: both checkers accept all 152 correct claims
+with zero axioms and matching hashes, and reject all 152 false mutations at
+core type checking. The separate final `--check` replay passes all 304 candidates through
+both checkers and reproduces exact canonical certificates and original-Go
+input/output bytes. No incomplete measurement attempt remains. The cumulative retained matrix is 1,665 candidates: 808 accepted,
+828 core type mismatches and 29 historical diagnostic fuel outcomes. Fuel
+failures remain resource evidence, never semantic negatives.
+
+All 81 new targeted tests pass in three disjoint batches: 70 report/native
+tests (20.367 s), ten generation/diagnostic tests (0.103 s), and one adjacent
+hardware-receipt check (0.039 s). The selection follows the separate producer
+and its evidence/native consumers; unchanged predecessor inputs and checkers
+are verified by preservation and report integrity rather than redundant old
+kernel measurements or adversarial-suite reruns. Explicit formatting of four
+current Rust files, pinned Go formatting, changed Python syntax and offline
+locked release Clippy with warnings denied pass.
+
+The B256 suffix matched-read certificate has 626 declarations, 50,922 terms
+and 635,594 bytes. Observed Rust/Go wall time is 5.506/11.775 seconds and peak
+resident size is 69,599,232/173,080,576 bytes. The adjacent hardware receipt
+binds the report and identifies an M1 Max Darwin/arm64 host with 64 GiB of RAM
+and ten physical/logical cores, retaining the original report's model/RAM
+nulls. Direct-child measurements can overlap. The 60-second child ceiling and
+three concurrent workload groups do not establish isolated or aggregate
+profile budgets.
+
+Final review passes 16 strict JSON artifacts, seven changed documents/156
+local links, balanced fences, ordered ledger sections, six Python sources and
+staged Git whitespace. Historical snapshots are excluded from current Rust
+formatting. No GitHub Actions/workflow is created, run or consulted.
+
+Production capture/model/effect/operation and registered-symbol bindings are
+owned by T02–T06, and complete source-to-certificate applications are required
+before their feature stages finish. W03's remaining feasibility work is the
+coupled aggregate/control composition and boundary/resource measurements;
+those must precede W04's exact scope/budget freeze. W03 stays In progress,
+W04 has not started and the full T01 gate remains deferred to W05. The full
+11-stage objective remains active.

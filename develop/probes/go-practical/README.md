@@ -607,3 +607,47 @@ tests pass, and 1,113 predecessor candidates, two standalone indexes and
 Production source/effect/operation bindings, checked prefix/suffix, remaining
 control/aggregate and complete application composition stay open. W03 remains
 In progress; W04 has not started and the full T01 gate remains due in W05.
+
+## T01-W03 byte prefix/suffix and exact selected bodies (in progress)
+
+```sh
+python3 -B develop/probes/go-practical/run_affix_probes.py --check
+python3 -B develop/probes/go-practical/check_affix_report.py
+python3 -B develop/probes/go-practical/check_affix_initial.py
+PYTHONPATH=develop/probes/go-practical python3 -B -m unittest test_affix_report -v
+```
+
+The [prefix/suffix checkpoint](../../migrations/go-practical/t01-w03/affix/README.md)
+uses a standalone Rust candidate-producer crate. Its generated source recipe
+is checked against all 46 expected inputs while existing producer sources,
+input pins and prior certificates remain unchanged. Debug `affix-generate` /
+`affix-trace` take `REPO_ROOT OUTPUT CAPACITY` in the separate
+`go-practical-affix-probe` executable. Use the same external CARGO_TARGET_DIR
+and offline locked release build as the other private probes.
+
+The relations retain full64 lengths/indexes and arbitrary eight-bit bytes.
+Signed length comparison derives safe substring guards and exact pattern
+length, and the length/slice/equality body corresponds to the internal
+relation. Empty and longer patterns, actual matched indexes, all byte bits,
+finite-index coverage and input-tail preservation have ordinary checked laws.
+The matrix uses semantic bounds 0/1/31/32/33/255/256/257 independently of
+power-of-two padding. Source nonnegativity is derived from bounded lengths;
+a caller fit or carry Boolean does not replace the derivation.
+
+Original Go 1.25.0 library calls and literal helpers match 5,395 independent
+byte/bit-loop observations. The AST receipt pins four exact wrapper/internal
+functions and their whole-file/body hashes. It registers no adapter and admits
+no package by name. Invalid UTF-8, NUL, multibyte byte boundaries, differing
+prefix/suffix results, optional-index panics and finite-projection failures
+outside B remain separate. Original library calls do not panic in the corpus.
+The archived intended-positive type and fuel failures remain diagnostics,
+with exact sources, canonical inputs and both checker outcomes.
+
+The runner constructs every workload twice, checks each candidate in both
+kernels and records canonical ordering with atomic active attempts. A separate
+`--check` re-executes both checkers and reproduces exact certificate/native
+bytes. Three concurrent workload groups and the 60-second child ceiling are
+private measurement settings without an isolated or aggregate budget claim.
+W03 remains In progress. Production capture/effect/operation bindings,
+registered adapters, remaining control/aggregate and complete application
+composition stay due. The full T01 gate remains assigned to W05.

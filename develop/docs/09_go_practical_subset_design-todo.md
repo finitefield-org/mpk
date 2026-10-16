@@ -42,9 +42,16 @@ The private workloads are 0/1/31/32/33/255/256/257; exceeding a concatenation
 bound can succeed in Go and remains a profile-domain obligation. Its
 248-candidate matrix and separate replay pass both checkers; all 537 selected
 tests pass and 1,113 predecessor candidates are preserved unchanged.
-Complete Go source/operation/string/slice/loop/return/error/descriptor bindings and
-remaining collection/control laws and resource boundaries remain open, so
-W04 has not started.
+Private prefix/suffix relations now add actual substring guards, length
+restoration, complete matched-byte/index observations and input-tail
+preservation. Exact Go 1.25.0 wrapper/internal-body identities and ordinary
+source-shaped correspondence remain separate from production adapter admission.
+The new standalone producer preserves existing source pins and artifacts.
+Its 304-candidate matrix, separate replay and all 81 new targeted tests
+pass with the same canonical bytes. W03 still needs coupled aggregate/
+control feasibility and resource-boundary measurements before W04 freezes
+scope and budgets. Complete production capture/source/operation bindings
+belong to T02–T06 and remain due there. W04 has not started.
 The [implementation ledger](go-practical-implementation-traceability-ledger.md)
 owns detailed current status and verification evidence.
 The user-authorized amendment moves Go before the practical C# release.

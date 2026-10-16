@@ -1,0 +1,103 @@
+[
+  {
+    "observations": {
+      "go": {
+        "cpu_system_seconds": 0.055707,
+        "cpu_user_seconds": 5.008623,
+        "exit_code": 0,
+        "peak_rss_bytes": 106053632,
+        "report": {
+          "declaration_count": 578,
+          "hashes": {
+            "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+            "certificate": "7064475467694da80798e4a42bc96c4d5858dbaff34d5674ff477d59c68dea5b",
+            "export": "66ed9544ef1e190629007cc99a9966786583f00742516e0029fda1aae6a9084f"
+          },
+          "module": "Probe.GoPractical.Word.StringAffixCapacity256",
+          "verdict": "accepted"
+        },
+        "resource_provider": "Darwin os.wait4 child rusage",
+        "stderr": "",
+        "wall_seconds": 5.295209625037387
+      },
+      "rust": {
+        "cpu_system_seconds": 0.011164,
+        "cpu_user_seconds": 2.102308,
+        "exit_code": 0,
+        "peak_rss_bytes": 39223296,
+        "report": {
+          "axiom_count": 0,
+          "axiom_report": {
+            "declaration_dependencies": [],
+            "entries": [],
+            "summary": {
+              "builtin_theory_axiom_count": 0,
+              "core_axiom_count": 0,
+              "external_axiom_count": 0,
+              "go_semantics_axiom_count": 0,
+              "total_axiom_count": 0
+            }
+          },
+          "declaration_count": 578,
+          "error_code": null,
+          "error_detail": null,
+          "hashes": {
+            "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+            "certificate": "7064475467694da80798e4a42bc96c4d5858dbaff34d5674ff477d59c68dea5b",
+            "export": "66ed9544ef1e190629007cc99a9966786583f00742516e0029fda1aae6a9084f"
+          },
+          "module": "Probe.GoPractical.Word.StringAffixCapacity256",
+          "verdict": "accepted"
+        },
+        "resource_provider": "Darwin os.wait4 child rusage",
+        "stderr": "",
+        "wall_seconds": 2.128849667031318
+      }
+    },
+    "path": "stage-affix-zero-read.mpcert",
+    "raw_sha256": "0a0259d031cd98a95087a58121de18adf0573d2debe4a7625c60e034b701010c"
+  },
+  {
+    "observations": {
+      "go": {
+        "cpu_system_seconds": 0.027017,
+        "cpu_user_seconds": 2.388116,
+        "exit_code": 1,
+        "peak_rss_bytes": 96600064,
+        "report": {
+          "error_detail": "core reduction fuel exhausted",
+          "error_kind": "core_check",
+          "verdict": "rejected"
+        },
+        "resource_provider": "Darwin os.wait4 child rusage",
+        "stderr": "",
+        "wall_seconds": 2.299099500000011
+      },
+      "rust": {
+        "cpu_system_seconds": 0.012411,
+        "cpu_user_seconds": 2.08453,
+        "exit_code": 1,
+        "peak_rss_bytes": 40681472,
+        "report": {
+          "axiom_count": null,
+          "axiom_report": null,
+          "declaration_count": null,
+          "error_code": "KERNEL_CORE_CHECK",
+          "error_detail": "{\"code\":\"CORE_FUEL_EXHAUSTED\",\"location\":[{\"field\":\"defeq\"},{\"field\":\"rhs\"},{\"field\":\"whnf\"}],\"details\":{\"lhs_term_index\":\"206277\",\"operation\":\"defeq_whnf\",\"rhs_term_index\":\"207517\",\"side\":\"rhs\",\"term_index\":\"207521\"}}",
+          "hashes": {
+            "axiom_report": null,
+            "certificate": "94274ef46548fe3786996f6e38c4c02e5b5bf7dc59ec1d2bb47e04e348aa8100",
+            "export": null
+          },
+          "module": null,
+          "verdict": "rejected"
+        },
+        "resource_provider": "Darwin os.wait4 child rusage",
+        "stderr": "",
+        "wall_seconds": 2.1124298329814337
+      }
+    },
+    "path": "stage-affix-folds.mpcert",
+    "raw_sha256": "0ce9e72df91f6dcba9637caec8cce570220e32fc61ee2706561c9e8ec22121d5"
+  }
+]
