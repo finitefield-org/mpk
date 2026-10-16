@@ -1,0 +1,200 @@
+{
+  "sources": [
+    {
+      "id": "root-slice-aggregate",
+      "source": "package p\ntype Line struct { Amount int64; SKU string }\ntype Rows []Line\ntype Root struct { Lines Rows; Nested [2]Rows }\nfunc F(r Root) int { c := r; a := c.Nested; return len(c.Lines)+cap(a[0]) }\n"
+    },
+    {
+      "id": "root-descriptor-rebind",
+      "source": "package p\ntype Root struct { Values []int64 }\nfunc F(r Root) Root { c := r; c.Values = []int64{23}; return c }\n"
+    },
+    {
+      "id": "root-fixed-array-of-slices",
+      "source": "package p\nfunc F(r [2][]int64) int { c := r; return len(c[0])+cap(c[1]) }\n"
+    },
+    {
+      "id": "plain-struct-slice-cell",
+      "source": "package p\ntype Line struct { Amount int64; SKU string; Flags [2]bool }\nfunc F(s []Line) int64 { if len(s)==0 { return 0 }; return s[0].Amount }\n"
+    },
+    {
+      "id": "nested-slice-cell",
+      "source": "package p\nfunc F(s [][]int64) int { return len(s) }\n"
+    },
+    {
+      "id": "nested-struct-slice-cell",
+      "source": "package p\ntype Box struct { Values []int64 }\nfunc F(s []Box) int { return len(s) }\n"
+    },
+    {
+      "id": "nested-array-slice-cell",
+      "source": "package p\nfunc F(s [][2][]int64) int { return len(s) }\n"
+    },
+    {
+      "id": "recursive-slice-element",
+      "source": "package p\ntype Node struct { Children []Node }\nfunc F(n Node) int { return len(n.Children) }\n"
+    },
+    {
+      "id": "named-and-alias-types",
+      "source": "package p\ntype Amount int\ntype Status bool\ntype Label string\ntype Rows []Amount\ntype Alias = Amount\ntype Bytes = []byte\nfunc F(n Alias, r Rows, b Bytes, label Label, ok Status) (Amount, Rows) {\n    if ok && len(label)>0 && len(b)>0 { return Amount(n)+Amount(b[0]), append(r, Rows{}...) }\n    return n, r\n}\n"
+    },
+    {
+      "id": "nominal-assignment-confusion",
+      "source": "package p\ntype A int64\ntype B int64\nfunc F(a A) B { return a }\n"
+    },
+    {
+      "id": "integer-constant-overflow",
+      "source": "package p\nfunc F() int8 { return 128 }\n"
+    },
+    {
+      "id": "uintptr-is-outside-v1",
+      "source": "package p\nfunc F(n uintptr) uintptr { return n }\n"
+    },
+    {
+      "id": "float-is-outside-v1",
+      "source": "package p\nfunc F(n float64) float64 { return n }\n"
+    },
+    {
+      "id": "bool-value-error",
+      "source": "package p\ntype Flag bool\nfunc (Flag) Error() string { return \"flag\" }\nfunc F() error { return Flag(false) }\n"
+    },
+    {
+      "id": "integer-value-error",
+      "source": "package p\ntype Code int64\nfunc (Code) Error() string { return \"code\" }\nfunc F() (int64, error) { return 7, Code(0) }\n"
+    },
+    {
+      "id": "plain-struct-error",
+      "source": "package p\ntype Failure struct { Code int64; Message string }\nfunc (Failure) Error() string { return \"failure\" }\nfunc F() error { return Failure{} }\n"
+    },
+    {
+      "id": "root-slice-error",
+      "source": "package p\ntype Failure struct { Values []int64 }\nfunc (Failure) Error() string { return \"failure\" }\nfunc F(s []int64) error { return Failure{Values:s} }\n"
+    },
+    {
+      "id": "plain-closed-error-cells",
+      "source": "package p\ntype Code int64\nfunc (Code) Error() string { return \"code\" }\nfunc F(s []error) int { return len(s) }\n"
+    },
+    {
+      "id": "reference-closed-error-cells",
+      "source": "package p\ntype Failure struct { Values []int64 }\nfunc (Failure) Error() string { return \"failure\" }\nfunc F(s []error) int { return len(s) }\n"
+    },
+    {
+      "id": "recursive-error-payload",
+      "source": "package p\ntype Failure struct { Cause error }\nfunc (Failure) Error() string { return \"failure\" }\nfunc F() error { return Failure{} }\n"
+    },
+    {
+      "id": "string-concrete-error",
+      "source": "package p\ntype Failure string\nfunc (Failure) Error() string { return string(Failure(\"\")) }\nfunc F() error { return Failure(\"\") }\n"
+    },
+    {
+      "id": "pointer-concrete-error",
+      "source": "package p\ntype Code int64\nfunc (Code) Error() string { return \"code\" }\nfunc F() error { var p *Code; return p }\n"
+    },
+    {
+      "id": "wrong-error-result-type",
+      "source": "package p\ntype Message string\ntype Code int64\nfunc (Code) Error() Message { return \"\" }\nfunc F() error { return Code(0) }\n"
+    },
+    {
+      "id": "boxing-signature-only",
+      "source": "package p\ntype Code int64\nvar calls int\nfunc (Code) Error() string { calls++; return \"code\" }\nfunc F() error { return Code(0) }\n"
+    },
+    {
+      "id": "direct-error-body-call",
+      "source": "package p\ntype Code int64\nfunc (Code) Error() string { return \"code\" }\nfunc F(c Code) string { return c.Error() }\n"
+    },
+    {
+      "id": "closed-error-body-call",
+      "source": "package p\ntype Code int64\ntype Flag bool\nfunc (Code) Error() string { return \"code\" }\nfunc (Flag) Error() string { return \"flag\" }\nfunc F(e error) string { if e == nil { return \"\" }; return e.Error() }\n"
+    },
+    {
+      "id": "closed-error-call-without-nil-guard",
+      "source": "package p\ntype Code int64\nfunc (Code) Error() string { return \"code\" }\nfunc F(e error) string { return e.Error() }\n"
+    },
+    {
+      "id": "closed-error-body-global-effect",
+      "source": "package p\ntype Code int64\nvar calls int\nfunc (Code) Error() string { calls++; return \"code\" }\nfunc F(e error) string { if e == nil { return \"\" }; return e.Error() }\n"
+    },
+    {
+      "id": "unclosed-error-input",
+      "source": "package p\nfunc F(e error) string { if e == nil { return \"\" }; return e.Error() }\n"
+    },
+    {
+      "id": "error-alias-input",
+      "source": "package p\ntype Code int64\ntype Alias = error\nfunc (Code) Error() string { return \"code\" }\nfunc F(e Alias) string { if e == nil { return \"\" }; return e.Error() }\n"
+    },
+    {
+      "id": "defined-error-interface",
+      "source": "package p\ntype Other error\nfunc F(e Other) bool { return e==nil }\n"
+    },
+    {
+      "id": "anonymous-error-interface",
+      "source": "package p\nfunc F(e interface { Error() string }) bool { return e==nil }\n"
+    },
+    {
+      "id": "array-concrete-error",
+      "source": "package p\ntype Failure [1]int64\nfunc (Failure) Error() string { return \"failure\" }\nfunc F() error { return Failure{} }\n"
+    },
+    {
+      "id": "empty-error-entry-universe",
+      "source": "package p\nfunc F(e error) bool { return e==nil }\n"
+    },
+    {
+      "id": "open-interface-call",
+      "source": "package p\ntype Message interface { Text() string }\nfunc F(m Message) string { return m.Text() }\n"
+    },
+    {
+      "id": "error-to-error-comparison",
+      "source": "package p\ntype Code int64\nfunc (Code) Error() string { return \"code\" }\nfunc F(a,b error) bool { return a==b }\n"
+    },
+    {
+      "id": "error-comparison-to-typed-nil",
+      "source": "package p\ntype Code int64\nfunc (Code) Error() string { return \"code\" }\nfunc F(e error) bool { return e==error(nil) }\n"
+    },
+    {
+      "id": "root-slice-struct-comparison",
+      "source": "package p\ntype Root struct { Values []int64 }\nfunc F(a,b Root) bool { return a==b }\n"
+    },
+    {
+      "id": "zero-slice-nil-test",
+      "source": "package p\nfunc F(s []int64) (bool,int,int) { return s==nil,len(s),cap(s) }\n"
+    },
+    {
+      "id": "zero-slice-construction",
+      "source": "package p\ntype Rows []int64\nfunc F() (Rows, bool) { s:=make(Rows,0,0); return s,s==nil }\n"
+    },
+    {
+      "id": "zero-slice-tail-view",
+      "source": "package p\nfunc F(s []int64) []int64 { return s[len(s):len(s):len(s)] }\n"
+    },
+    {
+      "id": "positive-capacity-empty-view",
+      "source": "package p\nfunc F(s []int64) int64 {\n    t := s[:0:cap(s)]\n    if cap(t)==0 { return 0 }\n    return t[:1][0]\n}\n"
+    },
+    {
+      "id": "zero-count-borrowed-copy",
+      "source": "package p\nfunc F(dst,src []int64) int { return copy(dst[:0:0],src) }\n"
+    },
+    {
+      "id": "zero-count-named-append",
+      "source": "package p\ntype Rows []int64\nfunc F(s Rows) Rows { return append(s,Rows{}...) }\n"
+    },
+    {
+      "id": "positive-append-to-zero",
+      "source": "package p\nfunc F() []int64 { return append(make([]int64,0,0),41) }\n"
+    },
+    {
+      "id": "unused-unsupported-body",
+      "source": "package p\nfunc unused() map[string]int { return map[string]int{\"a\":1} }\nfunc F(n int64) int64 { return n }\n"
+    },
+    {
+      "id": "reachable-unsupported-body",
+      "source": "package p\nfunc helper() map[string]int { return map[string]int{\"a\":1} }\nfunc F() int { return len(helper()) }\n"
+    },
+    {
+      "id": "unused-type-error",
+      "source": "package p\nfunc unused() int { return \"wrong\" }\nfunc F(n int64) int64 { return n }\n"
+    },
+    {
+      "id": "source-parse-error",
+      "source": "package p\nfunc F( { }\n"
+    }
+  ]
+}

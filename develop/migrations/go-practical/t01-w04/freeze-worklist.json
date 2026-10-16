@@ -2,9 +2,8 @@
   "delivery_scope": "all v1 priorities1–4; v2 maps/pointers remain T08–T11, full eleven-stage objective unchanged",
   "entry_commit": "7e5f94bda47968aeec938098d5e2a324370a6218",
   "open_decisions": [
-    "root aggregates containing slice descriptors versus forbidden reference-valued heap cells",
-    "exact closed-error method invocation rule and dependency/body closure",
-    "zero-capacity non-nil descriptors and typed physical-region accounting without hidden separation assumptions",
+    "complete source/type/statement/call/effect admission and exact operation/check ordering beyond the selected TG/ER/ZS draft rules",
+    "typed physical-region accounting and numeric limits/enforcement; zero-access representative normalization proof and frame composition must be assigned and reviewed",
     "capture/count budgets and their compiler/snapshot enforcement",
     "variant/default contract/readiness rules and ordinary well-founded reasoning members",
     "exact successor schema identities and private/public dispatch boundary"
@@ -55,7 +54,7 @@
     },
     {
       "component": "closure",
-      "freeze_status": "draft; exact schemas/rules/vectors still required",
+      "freeze_status": "selected TG/ER/ZS rules and native vectors drafted; complete operation/overlay/wire/limits and review still required",
       "id": "GO-V1-R004",
       "name": "two_closures",
       "negative_boundary": "reachable unsupported body or unknown/cyclic call rejects with a root path",
@@ -77,7 +76,7 @@
     },
     {
       "component": "types",
-      "freeze_status": "draft; exact schemas/rules/vectors still required",
+      "freeze_status": "selected TG/ER/ZS rules and native vectors drafted; complete operation/overlay/wire/limits and review still required",
       "id": "GO-V1-R006",
       "name": "nominal",
       "negative_boundary": "nominal assignment confusion, wrong width and constant overflow reject",
@@ -110,7 +109,7 @@
     },
     {
       "component": "errors",
-      "freeze_status": "draft; exact schemas/rules/vectors still required",
+      "freeze_status": "selected TG/ER/ZS rules and native vectors drafted; complete operation/overlay/wire/limits and review still required",
       "id": "GO-V1-R009",
       "name": "closed_errors",
       "negative_boundary": "unlisted dynamic type, pointer error and concrete zero collapsed to nil reject",
@@ -154,7 +153,7 @@
     },
     {
       "component": "slices",
-      "freeze_status": "draft; exact schemas/rules/vectors still required",
+      "freeze_status": "selected TG/ER/ZS rules and native vectors drafted; complete operation/overlay/wire/limits and review still required",
       "id": "GO-V1-R013",
       "name": "descriptor",
       "negative_boundary": "fresh region per incoming slice or copied-list alias models reject",
@@ -176,7 +175,7 @@
     },
     {
       "component": "construction",
-      "freeze_status": "draft; exact schemas/rules/vectors still required",
+      "freeze_status": "selected TG/ER/ZS rules and native vectors drafted; complete operation/overlay/wire/limits and review still required",
       "id": "GO-V1-R015",
       "name": "fresh_updates",
       "negative_boundary": "borrowed-input writes, naive forward overlap and reallocating append reject",
@@ -286,6 +285,42 @@
     }
   ],
   "schema": "mpk.go_practical.w04_contract_worklist_draft.v0",
+  "semantic_decision_draft": {
+    "native_cases": 49,
+    "native_receipt": "develop/migrations/go-practical/t01-w04/scope-observations/observations.json",
+    "path": "develop/migrations/go-practical/t01-w04/type-error-zero-decisions.md",
+    "production_admission_executed": false,
+    "rule_ids": [
+      "TG01",
+      "TG02",
+      "TG03",
+      "TG04",
+      "TG05",
+      "TG06",
+      "TG07",
+      "ER01",
+      "ER02",
+      "ER03",
+      "ER04",
+      "ER05",
+      "ER06",
+      "ER07",
+      "ER08",
+      "ER09",
+      "ER10",
+      "ZS01",
+      "ZS02",
+      "ZS03",
+      "ZS04",
+      "ZS05",
+      "ZS06",
+      "ZS07",
+      "ZS08",
+      "ZS09"
+    ],
+    "status": "selected semantic rules drafted with native observations; full W04 review/freeze and production proofs remain due",
+    "vectors": "develop/migrations/go-practical/t01-w04/source-vectors.json"
+  },
   "semantic_profile": "mpk.go.practical.v1",
   "shared_identity_decision": {
     "activation": "one installed family after atomic migration; retain four existing semantic profiles and add Go practical; do not activate an inactive C# profile",

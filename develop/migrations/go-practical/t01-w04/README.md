@@ -19,6 +19,18 @@ remain T08–T11 work; the complete eleven-stage objective is unchanged.
 - [Candidate limits](candidate-limits.json): W03-derived semantic and proof
   budget inputs. They change no runtime limit. Structural/capture counters,
   source-domain rules and exact enforcement remain to be frozen.
+- [Root/error/empty-slice decisions](type-error-zero-decisions.md): 26 draft
+  semantic rules distinguishing root values from backing cells, finite error
+  dispatch from boxing, and zero-access descriptors from positive-capacity
+  empty views. Production normalization and source/operation binding proofs
+  remain due.
+- [Source vectors](source-vectors.json) and
+  [native observations](scope-observations/observations.json): 49 intact Go
+  snippets, exact selected type/call facts and runtime observations. Go1.25.0
+  accepts 43 snippets, reports five original type errors and one parse error.
+  The future profile's 22 accepted-model, two pending, one configuration
+  rejection and 24 source-rejection expectations are draft outcomes, not
+  observations from an implemented practical frontend.
 
 ## Shared-family decision
 
@@ -41,23 +53,29 @@ There will be one installed shared-artifact family. The inactive C# profile
 is not activated as a dependency; its later resumption must reconcile the Go
 shared changes as already required by the schedule amendment.
 
-## Semantic decisions still to close
+## Selected semantic decisions and remaining freeze
 
-The full design's source scope is retained. The draft must make these rules
-exact before freeze:
+The full design's source scope is retained. The
+[selected rules](type-error-zero-decisions.md) now specify:
 
-1. Distinguish root value aggregates carrying slice descriptors from forbidden
-   mutable-reference values inside slice backing cells; preserve sharing across
-   all reachable parameter paths, not merely direct slice parameters.
-2. Specify closed-error method invocation, exact signature/body dependencies,
-   nil safety and finite dispatch without silently accepting open interfaces.
-3. Bind zero-capacity non-nil descriptors and typed region accounting to actual
-   observable Go behavior; never create a hidden separation/fit assumption.
-4. Freeze capture/module/source/count budgets and the real snapshot/compiler
+1. Root value aggregates can carry slice descriptors; backing cells cannot
+   contain nested mutable references. All root paths preserve sharing.
+2. Boxing requires the Error signature without calling its body. A closed
+   Error invocation includes every finite target body and its safety/effect
+   obligations. Concrete zero and NilInterface remain distinct.
+3. A capacity-zero non-nil descriptor uses a valid NoAccess representative.
+   Positive-capacity empty descriptors preserve full tails and aliases.
+   Canonicalization grants no separation or write permission.
+
+The complete source and operation tables still need review. Other open work is:
+
+1. Freeze typed physical-region counts, storage bounds and their entry/allocation
+   enforcement; assign the ordinary zero-access normalization/frame proofs.
+2. Freeze capture/module/source/count budgets and the real snapshot/compiler
    enforcement, separately from measured proof budgets.
-5. Specify loop-contract defaults, variant obligations and pending-proof states
+3. Specify loop-contract defaults, variant obligations and pending-proof states
    so inferred invariants or missing strategies cannot become assumptions.
-6. Close every successor identity, schema, hash domain/preimage and vector,
+4. Close every successor identity, schema, hash domain/preimage and vector,
    including old/new crossing and preservation of all four installed profiles.
 
 These decisions are W04 work, not reasons to mark the freeze complete or to
@@ -71,11 +89,17 @@ program fits. Final application gates must meet the frozen values.
 
 ## Verification and next boundary
 
-This checkpoint edits only draft JSON and documentation. Selected checks
-validate strict JSON, exact existing-anchor/discovered-file hashes, unique
-requirement/component IDs, executor/test ownership, prerequisite/resource
-identity, local links and whitespace. No production/compiler/kernel test is
-rerun for metadata alone. W04 remains open until every listed freeze deliverable
-is exact and reviewed. W05 owns inactive specification/vector publication,
+Selected checks cover the new private native observer and evidence validator:
+49 original-Go cases reproduce across two executions and a fresh-build replay;
+35 evidence/adversarial checks pass. Strict JSON, exact source/toolchain/artifact
+identity, existing-anchor hashes, unique rule/vector IDs, planned executor/test
+ownership, local links, formatting and whitespace are also checked.
+The [metadata checker](../../../probes/go-practical/check_scope_metadata.py)
+validates this draft boundary; the
+[verification record](scope-observations/verification/verification.json)
+retains the selected commands, outputs and deferred gate.
+Unchanged production/kernel suites need no repeat for these private draft
+changes. W04 remains open until every listed freeze deliverable is exact and
+reviewed. W05 owns inactive specification/vector publication,
 source-model feasibility review and the complete `./scripts/check-fast.sh`
 T01 gate. No workflow or GitHub Actions is introduced or used.

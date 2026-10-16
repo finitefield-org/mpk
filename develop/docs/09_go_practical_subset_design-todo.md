@@ -14,8 +14,10 @@ hardware resources. W04 owns the exact additional interface, semantic limits,
 resource budgets, schema identities, migrations and production executors.
 Complete production source/operation/application binding belongs to T02–T06.
 W04 is In progress: [draft requirements, owners, surfaces and candidate limits](../migrations/go-practical/t01-w04/README.md)
-are recorded; exact rules/schemas/hash identities/migrations/vectors remain
-open. T01 is incomplete and no practical Go profile is active.
+are recorded. Root/error/empty-slice rules now have 49 original-Go vectors
+and native observations with 35 evidence checks. Complete operation/overlay
+tables, limits, schemas/hash identities and migration review remain open.
+T01 is incomplete and no practical Go profile is active.
 
 The [implementation ledger](go-practical-implementation-traceability-ledger.md)
 owns detailed status, source/checker identities and local verification.

@@ -1,6 +1,6 @@
 # Go Practical Implementation Traceability Ledger
 
-Updated: 2026-10-16. Objective: execute
+Updated: 2026-10-17. Objective: execute
 [the Go design](09_go_practical_subset_design.md) and
 [work plan](09_go_practical_subset_design-todo.md), starting at T01-W01.
 This ledger owns implementation status. No practical Go profile is active.
@@ -27,7 +27,7 @@ after reconciling the intervening shared artifacts and active registry.
 | GO-PRAC-T01-W01 | Complete | Reviewed implementation commit `bd5ee8047d8925f9c9d0f7502627fca33bb2c836`; completion audit below |
 | GO-PRAC-T01-W02 | Complete | Reviewed implementation commit `fed1cf6047f97b1f73c0fc37c5023e19f4f9f035`; 39 cases reproduced twice |
 | GO-PRAC-T01-W03 | Complete | Reviewed implementation `9d4e6fb7855a66d9fff309e6dbd9143652ee6e21`; requirement-by-requirement completion audit in section28 |
-| GO-PRAC-T01-W04 | In progress | Draft requirement/owner/surface/limit inventory; exact schemas, rules, migrations and vectors remain open |
+| GO-PRAC-T01-W04 | In progress | Draft inventory and TG/ER/ZS semantic rules; 49 native vectors/35 evidence checks; complete operation/overlay/limit/wire/migration freeze remains open |
 | GO-PRAC-T01-W05 | Blocked by W04 | Publish inactive package, review and full T01 gate |
 | GO-PRAC-T02–T07 | Not started | Sequential v1 implementation and public release |
 | GO-PRAC-T08–T11 | Not started | Sequential v2 freeze, maps, pointers and public release |
@@ -1911,3 +1911,72 @@ headroom, three documents/107 local links and ordered ledger sections.
 Unchanged production and old kernel suites need no repeat.
 W04 remains In progress, W05 is blocked by W04 and the complete T01 gate
 remains deferred to W05. The full eleven-stage objective remains active.
+
+## 30. T01-W04 root/error/empty-slice rules and native vectors
+
+Entry: `9cdbb85d3c45fe973788b4923850ec2ab643b161`, clean before private
+observer edits. The
+[semantic decisions](../migrations/go-practical/t01-w04/type-error-zero-decisions.md)
+give 26 draft TG/ER/ZS rules and planned production/test ownership.
+Root structs/fixed arrays can carry slice descriptors; slice backing cells
+must be plain. Expanded type graphs include all closed-error payloads and
+must be acyclic. Root copies preserve descriptor associations rather than
+deep-copying backing.
+
+The closed error universe is explicit for inputs and includes all reachable
+concrete boxing cases. Application non-pointer Bool/integer/struct payloads
+retain complete values and nil distinctions. Boxing uses the exact Error
+signature without executing its body. Direct/finite closed interface calls
+include every target body, its contract/effects and a nil safety obligation.
+Open interfaces, pointer errors and error-to-error comparison remain excluded.
+An error carrying a slice-bearing root payload does not become a plain cell.
+
+Capacity-zero non-nil slices use a live typed NoAccess representative without
+granting separation or write permissions. The nil tag is retained. Empty
+positive-capacity views keep their real capacity-visible tails and sharing.
+Zero-count copy in either direction and empty append preserve backing.
+Positive append to capacity zero succeeds in Go and leaves the v1 no-growth
+domain obligation unproved; it is not a fabricated runtime panic.
+The numeric region-count policy and ordinary normalization/frame proof review
+remain pending. This checkpoint does not claim those proofs are implemented.
+
+The [49 source vectors](../migrations/go-practical/t01-w04/source-vectors.json)
+name an intended executor and test owner for each future profile outcome.
+The [native receipt](../migrations/go-practical/t01-w04/scope-observations/observations.json)
+retains all intact source bytes and native output with eight input/source pins.
+Original Go reports 43 successful type checks, five type errors and one parse
+error. Separately, the prospective profile vectors expect 22 accepted models,
+one accepted model pending safety, one pending domain, one configuration
+rejection and 24 source rejections. These are design expectations; no practical
+frontend has executed them.
+
+The private observer uses the exact Go1.25.0 darwin-arm64 distribution, whose
+14,496-file tree is revalidated against the retained archive. Type inspection
+explicitly selects gc/amd64 sizes and language go1.25.0. Runtime observations
+run on the host, outside any verified root; reflection, recovery and the
+counter used to observe method evaluation are not admitted product features.
+The observer binary hash is
+`7cd34b039e0c3c483cb987264b67b2911ba7dfb8a42d98ae5192e4385066f8ad`.
+Both runs of each observation are identical, and a fresh build replays the
+same input/output and binary identities. This is not a Linux release receipt
+or a source/model theorem.
+
+Selected verification covers only the new private observer, report validator,
+draft vectors and documentation. `run_scope_probes.py --write` and
+`--check` pass; `python3 -m unittest -v test_scope_report` passes 35 checks
+(0.104s). They reject dropped/crossed source pins, erased original type errors,
+wrong nominal aliases/call targets, repeated method evaluation, lost sharing,
+wrong nil tags, lost positive-capacity tails, fictitious append panic,
+noncomparable-error equality, type-confused JSON and false completion/support
+claims. Strict JSON/owner/link validation and Python/pinned-Go formatting pass.
+The [verification record](../migrations/go-practical/t01-w04/scope-observations/verification/verification.json)
+retains the commands and tool-captured outputs. Git whitespace is checked at
+the commit boundary.
+Unchanged production/frontend/kernel and old W03 proof matrices need no rerun.
+
+The complete source/operation/check table, typed loop/contract expressions,
+capture/structural/resource limits, exact successor schemas/hash preimages
+and exhaustive reviewed migration inventory remain W04 work. W04 stays
+In progress; no T is complete. T01's full gate remains deferred to W05.
+The installed four-profile family and public selection remain unchanged,
+and the complete eleven-stage objective stays active.
