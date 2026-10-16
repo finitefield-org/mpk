@@ -27,7 +27,7 @@ after reconciling the intervening shared artifacts and active registry.
 | GO-PRAC-T01-W01 | Complete | Reviewed implementation commit `bd5ee8047d8925f9c9d0f7502627fca33bb2c836`; completion audit below |
 | GO-PRAC-T01-W02 | Complete | Reviewed implementation commit `fed1cf6047f97b1f73c0fc37c5023e19f4f9f035`; 39 cases reproduced twice |
 | GO-PRAC-T01-W03 | Complete | Reviewed implementation `9d4e6fb7855a66d9fff309e6dbd9143652ee6e21`; requirement-by-requirement completion audit in section28 |
-| GO-PRAC-T01-W04 | Ready | Exact v1 source/shared/contract/limit freeze |
+| GO-PRAC-T01-W04 | In progress | Draft requirement/owner/surface/limit inventory; exact schemas, rules, migrations and vectors remain open |
 | GO-PRAC-T01-W05 | Blocked by W04 | Publish inactive package, review and full T01 gate |
 | GO-PRAC-T02–T07 | Not started | Sequential v1 implementation and public release |
 | GO-PRAC-T08–T11 | Not started | Sequential v2 freeze, maps, pointers and public release |
@@ -1873,3 +1873,41 @@ one production executor per requirement. W05 still owns inactive publication,
 the final source-model feasibility review and the complete `check-fast.sh`
 T01 gate. No T is complete; no profile is active and no Linux/public release
 or completion of the eleven-stage objective is claimed.
+
+
+## 29. T01-W04 entry and draft freeze inventory
+
+W03 completion commit: `7e5f94bda47968aeec938098d5e2a324370a6218`, clean
+before W04 edits. The [W04 preparation](../migrations/go-practical/t01-w04/README.md)
+records 24 requirement groups, 17 planned production/test components and
+143 discovered existing implementation/test files with exact hashes. Those
+counts describe a draft inventory, not completed coverage or implementation.
+Every planned new executor is marked unimplemented. Indirect consumers and
+all final migration/retention dispositions still need review.
+
+The active registry's own revision rule requires successor schemas for a
+changed common operation vocabulary. The inactive C# v2 context binds its
+own C# foundation and cannot silently admit Go. A separate Go-owned v3 family
+is the candidate decision; exact schemas/identities/preimages and crossing
+vectors remain to be frozen. Existing four-profile source semantics and
+certificate verdicts must be preserved, with one atomic installed family.
+No release root, active parser, production source or public profile changes.
+
+The resource draft records candidate byte256/storage128, result arity16,
+full64 target words and two-slot measured heaps, plus 2MiB/131,072-term/
+4,096-declaration and 60s/1GiB proof-budget candidates. These are W03-backed
+freeze inputs with explicit headroom, not new runtime guarantees. Typed region
+accounting, zero-capacity semantics, root reference aggregates, closed-error
+invocation, contract/variant readiness, capture/count budgets and every wire/
+hash/migration/vector row still need exact review. No design priority is
+removed to make the draft easier.
+
+Validation is selected for metadata/document changes: strict JSON, exact
+baseline and discovered/anchor hashes, unique requirement/component IDs and
+planned executor/test ownership, resource identity/headroom, local links and
+Git whitespace. The check passes three strict draft JSON files, 24 unique
+requirements/17 owners, 143 discovered-file identities, measured budget
+headroom, three documents/107 local links and ordered ledger sections.
+Unchanged production and old kernel suites need no repeat.
+W04 remains In progress, W05 is blocked by W04 and the complete T01 gate
+remains deferred to W05. The full eleven-stage objective remains active.

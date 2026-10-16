@@ -1,0 +1,305 @@
+{
+  "delivery_scope": "all v1 priorities1–4; v2 maps/pointers remain T08–T11, full eleven-stage objective unchanged",
+  "entry_commit": "7e5f94bda47968aeec938098d5e2a324370a6218",
+  "open_decisions": [
+    "root aggregates containing slice descriptors versus forbidden reference-valued heap cells",
+    "exact closed-error method invocation rule and dependency/body closure",
+    "zero-capacity non-nil descriptors and typed physical-region accounting without hidden separation assumptions",
+    "capture/count budgets and their compiler/snapshot enforcement",
+    "variant/default contract/readiness rules and ordinary well-founded reasoning members",
+    "exact successor schema identities and private/public dispatch boundary"
+  ],
+  "remaining_freeze_deliverables": [
+    "exact source/type/statement/call/effect admission matrix",
+    "exact operation/check signatures, evaluation and proof-obligation order",
+    "exact overlay expressions and loop/result/frame linkage",
+    "all numeric semantic/transport/resource limits and enforcement owners",
+    "all root/nested/union schemas, identities, hash domains/preimages and migration vectors",
+    "exhaustive reviewed active/inactive producer/consumer migration dispositions",
+    "positive/negative conformance vectors and production test ownership",
+    "reviewed immutable draft package for W05 publication"
+  ],
+  "requirements": [
+    {
+      "component": "capture",
+      "freeze_status": "draft; exact schemas/rules/vectors still required",
+      "id": "GO-V1-R001",
+      "name": "original_package",
+      "negative_boundary": "original type error still rejects; no deleted declarations or stubs",
+      "primary_production_executor": "go-tools/go2vir/practical_capture.go",
+      "primary_test_owner": "go-tools/go2vir/practical_capture_test.go",
+      "required_meaning": "Original source/package type checks are retained; unused unsupported bodies can remain type-check-only.",
+      "work_item": "GO-PRAC-T02-W01"
+    },
+    {
+      "component": "capture",
+      "freeze_status": "draft; exact schemas/rules/vectors still required",
+      "id": "GO-V1-R002",
+      "name": "offline_modules",
+      "negative_boundary": "missing snapshot, path escape, VCS/network/generation/toolchain fallback rejects",
+      "primary_production_executor": "go-tools/go2vir/practical_capture.go",
+      "primary_test_owner": "go-tools/go2vir/practical_capture_test.go",
+      "required_meaning": "Allow require/go.sum and captured versioned/local replacements; retain resolved graph, tags and full compiler provenance.",
+      "work_item": "GO-PRAC-T02-W01"
+    },
+    {
+      "component": "capture",
+      "freeze_status": "draft; exact schemas/rules/vectors still required",
+      "id": "GO-V1-R003",
+      "name": "versions",
+      "negative_boundary": "unsatisfied patch/toolchain requirement or effective go1.21 rejects",
+      "primary_production_executor": "go-tools/go2vir/practical_capture.go",
+      "primary_test_owner": "go-tools/go2vir/practical_capture_test.go",
+      "required_meaning": "Go1.25.0, linux/amd64, GOAMD64v1, 64-bit int/uint; effective language minors go1.22..go1.25.",
+      "work_item": "GO-PRAC-T02-W01"
+    },
+    {
+      "component": "closure",
+      "freeze_status": "draft; exact schemas/rules/vectors still required",
+      "id": "GO-V1-R004",
+      "name": "two_closures",
+      "negative_boundary": "reachable unsupported body or unknown/cyclic call rejects with a root path",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go",
+      "required_meaning": "Separate complete capture/type-check context from selected root fixed-point body/type/constant/contract closure.",
+      "work_item": "GO-PRAC-T02-W02"
+    },
+    {
+      "component": "closure",
+      "freeze_status": "draft; exact schemas/rules/vectors still required",
+      "id": "GO-V1-R005",
+      "name": "effects",
+      "negative_boundary": "unused handlers/init may exist but cannot hide a reachable effect",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go",
+      "required_meaning": "Function-entry theorem excludes initialization; reachable globals, I/O, clocks, randomness and concurrency reject.",
+      "work_item": "GO-PRAC-T02-W02"
+    },
+    {
+      "component": "types",
+      "freeze_status": "draft; exact schemas/rules/vectors still required",
+      "id": "GO-V1-R006",
+      "name": "nominal",
+      "negative_boundary": "nominal assignment confusion, wrong width and constant overflow reject",
+      "primary_production_executor": "go-tools/go2vir/practical_types.go",
+      "primary_test_owner": "go-tools/go2vir/practical_types_test.go",
+      "required_meaning": "Target-sized ints, named scalar/array/string/slice/struct types and aliases preserve captured nominal identity.",
+      "work_item": "GO-PRAC-T03-W01"
+    },
+    {
+      "component": "syntax",
+      "freeze_status": "draft; exact schemas/rules/vectors still required",
+      "id": "GO-V1-R007",
+      "name": "ordinary_syntax",
+      "negative_boundary": "fallthrough/type-switch/labels/goto and duplicated target evaluation reject",
+      "primary_production_executor": "go-tools/go2vir/practical_lower.go",
+      "primary_test_owner": "go-tools/go2vir/practical_lower_test.go",
+      "required_meaning": "Grouped/inferred constants/iota, partial zero-filled values, else-if, expression switch and local value updates retain Go evaluation.",
+      "work_item": "GO-PRAC-T03-W02"
+    },
+    {
+      "component": "calls",
+      "freeze_status": "draft; exact schemas/rules/vectors still required",
+      "id": "GO-V1-R008",
+      "name": "joint_results",
+      "negative_boundary": "tuple permutation, repeated call and stale result/effect linkage reject",
+      "primary_production_executor": "go-tools/go2vir/practical_calls.go",
+      "primary_test_owner": "go-tools/go2vir/practical_calls_test.go",
+      "required_meaning": "Fixed products0..16, one call execution, two-phase/parallel assignment, shadowing, blank results and forwarded/named returns.",
+      "work_item": "GO-PRAC-T04-W01"
+    },
+    {
+      "component": "errors",
+      "freeze_status": "draft; exact schemas/rules/vectors still required",
+      "id": "GO-V1-R009",
+      "name": "closed_errors",
+      "negative_boundary": "unlisted dynamic type, pointer error and concrete zero collapsed to nil reject",
+      "primary_production_executor": "go-tools/go2vir/practical_errors.go",
+      "primary_test_owner": "go-tools/go2vir/practical_errors_test.go",
+      "required_meaning": "NilInterface and concrete non-pointer application Bool/integer/struct errors remain distinct; Error signature alone does not call its body.",
+      "work_item": "GO-PRAC-T04-W02"
+    },
+    {
+      "component": "strings",
+      "freeze_status": "draft; exact schemas/rules/vectors still required",
+      "id": "GO-V1-R010",
+      "name": "complete_bytes",
+      "negative_boundary": "NUL/invalidUTF8 are admitted; low-bit or Unicode-character reinterpretation rejects",
+      "primary_production_executor": "go-tools/go2vir/practical_strings.go",
+      "primary_test_owner": "go-tools/go2vir/practical_strings_test.go",
+      "required_meaning": "Literal/zero/equality/bytewise order/len/index/substring/concat retain arbitrary8-bit bytes and full64 indexes.",
+      "work_item": "GO-PRAC-T05-W01"
+    },
+    {
+      "component": "strings",
+      "freeze_status": "draft; exact schemas/rules/vectors still required",
+      "id": "GO-V1-R011",
+      "name": "exact_adapters",
+      "negative_boundary": "package-name-only or caller-defined semantic adapters reject",
+      "primary_production_executor": "go-tools/go2vir/practical_strings.go",
+      "primary_test_owner": "go-tools/go2vir/practical_strings_test.go",
+      "required_meaning": "HasPrefix/HasSuffix need exact registered Go1.25.0 symbol/body bindings or verified captured source.",
+      "work_item": "GO-PRAC-T05-W01"
+    },
+    {
+      "component": "strings",
+      "freeze_status": "draft; exact schemas/rules/vectors still required",
+      "id": "GO-V1-R012",
+      "name": "string_domain",
+      "negative_boundary": "B+1 successful Go concat is not a fabricated runtime panic",
+      "primary_production_executor": "go-tools/go2vir/practical_strings.go",
+      "primary_test_owner": "go-tools/go2vir/practical_strings_test.go",
+      "required_meaning": "Entry bounds and concat result bounds are explicit profile-domain obligations, separate from index/substring panic safety.",
+      "work_item": "GO-PRAC-T05-W01"
+    },
+    {
+      "component": "slices",
+      "freeze_status": "draft; exact schemas/rules/vectors still required",
+      "id": "GO-V1-R013",
+      "name": "descriptor",
+      "negative_boundary": "fresh region per incoming slice or copied-list alias models reject",
+      "primary_production_executor": "go-tools/go2vir/practical_slices.go",
+      "primary_test_owner": "go-tools/go2vir/practical_slices_test.go",
+      "required_meaning": "Nil tag, typed region, offset/length/capacity and initialized backing retain aliasing, observable tails and array copy/view distinctions.",
+      "work_item": "GO-PRAC-T06-W01"
+    },
+    {
+      "component": "slices",
+      "freeze_status": "draft; exact schemas/rules/vectors still required",
+      "id": "GO-V1-R014",
+      "name": "access",
+      "negative_boundary": "caller fit/no-wrap oracle and low-address-only projection reject",
+      "primary_production_executor": "go-tools/go2vir/practical_slices.go",
+      "primary_test_owner": "go-tools/go2vir/practical_slices_test.go",
+      "required_meaning": "Computed validity and actual local guards derive complete absolute-address safety and finite reconstruction.",
+      "work_item": "GO-PRAC-T06-W01"
+    },
+    {
+      "component": "construction",
+      "freeze_status": "draft; exact schemas/rules/vectors still required",
+      "id": "GO-V1-R015",
+      "name": "fresh_updates",
+      "negative_boundary": "borrowed-input writes, naive forward overlap and reallocating append reject",
+      "primary_production_executor": "go-tools/go2vir/practical_construction.go",
+      "primary_test_owner": "go-tools/go2vir/practical_construction_test.go",
+      "required_meaning": "Fresh local storage, make, value writes, overlap-correct copy and append within existing capacity have checked effects/frames.",
+      "work_item": "GO-PRAC-T06-W02"
+    },
+    {
+      "component": "loops",
+      "freeze_status": "draft; exact schemas/rules/vectors still required",
+      "id": "GO-V1-R016",
+      "name": "control",
+      "negative_boundary": "continue skipping post, break assuming false test, early-return paths dropped and other range kinds reject",
+      "primary_production_executor": "go-tools/go2vir/practical_loops.go",
+      "primary_test_owner": "go-tools/go2vir/practical_loops_test.go",
+      "required_meaning": "Array/slice range, baseline loop forms, condition-only/nested loops and unlabeled abrupt exits bind exact source identities and effective versions.",
+      "work_item": "GO-PRAC-T06-W03"
+    },
+    {
+      "component": "loops",
+      "freeze_status": "draft; exact schemas/rules/vectors still required",
+      "id": "GO-V1-R017",
+      "name": "invariant_totality",
+      "negative_boundary": "inferred candidates are not assumptions; a finite slice bound alone does not prove arbitrary-loop termination",
+      "primary_production_executor": "go-tools/go2vir/practical_loops.go",
+      "primary_test_owner": "go-tools/go2vir/practical_loops_test.go",
+      "required_meaning": "Initialization/preservation/each exit/safety are proved; totality needs a checked well-founded variant.",
+      "work_item": "GO-PRAC-T06-W03"
+    },
+    {
+      "component": "contracts",
+      "freeze_status": "draft; exact schemas/rules/vectors still required",
+      "id": "GO-V1-R018",
+      "name": "overlay",
+      "negative_boundary": "unknown forms, crossed bounds/nominal types and executable semantic adapters reject",
+      "primary_production_executor": "go-tools/go2vir/practical_contract.go",
+      "primary_test_owner": "go-tools/go2vir/practical_contract_test.go",
+      "required_meaning": "Closed typed overlays describe positional results, data bounds/observations, loops, checked calls and frames without an application MPK dependency.",
+      "work_item": "GO-PRAC-T02-W03"
+    },
+    {
+      "component": "core_nat",
+      "freeze_status": "draft; exact schemas/rules/vectors still required",
+      "id": "GO-V1-R019",
+      "name": "nat_induction",
+      "negative_boundary": "malformed/late constructors and prior/neutral/partial universe arguments reject; legacy Nat/Bool remain unchanged",
+      "primary_production_executor": "crates/mpk-core/src/nat_induct.rs",
+      "primary_test_owner": "crates/mpk-core/src/nat_induct.rs",
+      "required_meaning": "Freeze the independently prototyped additive Sort0 Nat.induct signature, canonical declarations, monomorphism and iota equations.",
+      "work_item": "GO-PRAC-T02-W03"
+    },
+    {
+      "component": "foundation",
+      "freeze_status": "draft; exact schemas/rules/vectors still required",
+      "id": "GO-V1-R020",
+      "name": "ordinary_proofs",
+      "negative_boundary": "definition-only, unproved callee contracts, added axioms and fuel-as-false claims do not establish support",
+      "primary_production_executor": "crates/mpk-vc/src/go_practical_foundation.rs",
+      "primary_test_owner": "crates/mpk-vc/tests/go_practical_foundation.rs",
+      "required_meaning": "Closed zero-axiom ordinary definitions, full64/Nat bridges, byte/descriptor/control lemmas and required source-model obligations.",
+      "work_item": "GO-PRAC-T02-W03"
+    },
+    {
+      "component": "artifacts",
+      "freeze_status": "draft; exact schemas/rules/vectors still required",
+      "id": "GO-V1-R021",
+      "name": "shared_wire",
+      "negative_boundary": "mixed old/new context, schema/hash aliases and old schemas with new meaning reject",
+      "primary_production_executor": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_test_owner": "crates/mpk-vc/tests/go_practical_artifacts.rs",
+      "required_meaning": "New closed successor identities and complete typed context/source/contract/VIR/VC linkage are frozen before migration.",
+      "work_item": "GO-PRAC-T02-W03"
+    },
+    {
+      "component": "vcs",
+      "freeze_status": "draft; exact schemas/rules/vectors still required",
+      "id": "GO-V1-R022",
+      "name": "obligations",
+      "negative_boundary": "pending member, ignored failure path or crossed theorem is never fully proved",
+      "primary_production_executor": "crates/mpk-vc/src/go_practical_vc.rs",
+      "primary_test_owner": "crates/mpk-vc/tests/go_practical_vc.rs",
+      "required_meaning": "Every operation/path/call/loop/result/effect obligation remains independently checked and scope-linked.",
+      "work_item": "GO-PRAC-T03-W03"
+    },
+    {
+      "component": "policy",
+      "freeze_status": "draft; exact schemas/rules/vectors still required",
+      "id": "GO-V1-R023",
+      "name": "readiness",
+      "negative_boundary": "unknown/timeout/unsupported strategy is not success or a certified false claim",
+      "primary_production_executor": "crates/mpk-api/src/go_practical_policy.rs",
+      "primary_test_owner": "crates/mpk-api/tests/go_practical_policy.rs",
+      "required_meaning": "Distinguish source/config rejection, accepted model/pending proof, candidate failure and fully checked claim.",
+      "work_item": "GO-PRAC-T07-W01"
+    },
+    {
+      "component": "release",
+      "freeze_status": "draft; exact schemas/rules/vectors still required",
+      "id": "GO-V1-R024",
+      "name": "activation",
+      "negative_boundary": "inactive prototype evidence, C# status or host fallback cannot activate the Go profile",
+      "primary_production_executor": "crates/mpk-cli/src/go_practical_release.rs",
+      "primary_test_owner": "crates/mpk-cli/tests/go_practical_release.rs",
+      "required_meaning": "Keep current four profiles and installed roots unchanged until local Linux gates, both-checker application proofs and atomic release replay pass.",
+      "work_item": "GO-PRAC-T07-W02"
+    }
+  ],
+  "schema": "mpk.go_practical.w04_contract_worklist_draft.v0",
+  "semantic_profile": "mpk.go.practical.v1",
+  "shared_identity_decision": {
+    "activation": "one installed family after atomic migration; retain four existing semantic profiles and add Go practical; do not activate an inactive C# profile",
+    "active_family": "semantic registryv1 revision3; VIRv1, VCv2 and related four-language artifacts",
+    "candidate_family": "Go-owned shared v3 family, VC/policy/API v4 where v3 is already reserved",
+    "reason": "active registry section11 requires new schemas for common operation vocabulary changes; frozen C#v2 context binds a C#-specific foundation and cannot be widened silently",
+    "reserved_inactive_family": "practical C# v2 shared family, including its C#-specific foundation reference",
+    "status": "candidate; exact schema and hash inventory pending"
+  },
+  "specification_owners": [
+    "GO_PRACTICAL_PROFILE_V1.md",
+    "GO_PRACTICAL_FOUNDATION_V1.md",
+    "GO_PRACTICAL_SHARED_ARTIFACTS_V1.md",
+    "CORE_NAT_INDUCTION_V1.md"
+  ],
+  "status": "in progress; not frozen or published"
+}

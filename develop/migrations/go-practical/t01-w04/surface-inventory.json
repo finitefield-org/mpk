@@ -1,0 +1,1651 @@
+{
+  "baseline": [
+    {
+      "path": "release/bundles/semantic-profile-registry.json",
+      "sha256": "1c9671f7db1f872f93d21757c271b39ddedd4fe612f4f388fe1700acd9808080"
+    },
+    {
+      "path": "release/bundles/bundle-registry.json",
+      "sha256": "f2da0168c30ac72b2d624a2af76959231114b5ad862fad9d893c4e15b48395d0"
+    },
+    {
+      "path": "develop/specs/SEMANTIC_PROFILE_REGISTRY_V1.md",
+      "sha256": "e9770f4cfb955bb712791b89012b82ee065404f2fa5907cf75a07c573b59a4fe"
+    },
+    {
+      "path": "develop/specs/CSHARP_PRACTICAL_SHARED_ARTIFACTS_V1.md",
+      "sha256": "7c7465a7caa34e5e5acbd5c72ed8cac8c416f8dacee793ceb418a08841b331dd"
+    },
+    {
+      "path": "develop/specs/vectors/csharp-practical-profile-v1.json",
+      "sha256": "de401830e1cd4221465d25c6fe31dad7d704ae8959edfc1145db8099f7bfffa6"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w03/completion-audit.json",
+      "sha256": "539b11ffe265ae22031883eb57766114577ebcbe728b5edb523bd76d2709ecbd"
+    }
+  ],
+  "component_owners": [
+    {
+      "component": "capture",
+      "executor_status": "planned; not implemented or validated",
+      "existing_anchors": [
+        {
+          "path": "go-tools/go2vir/preflight.go",
+          "sha256": "8faf415d2954ac1821dd3c8f7bbf6d58e48ce9a5bbf56fd8d46d91651120d711"
+        },
+        {
+          "path": "go-tools/go2vir/snapshot.go",
+          "sha256": "b67ac51476f2d28b37a75fa3cd800c78c0745cdbf2cb9dd16f659be436d9e3ab"
+        },
+        {
+          "path": "go-tools/go2vir/loader.go",
+          "sha256": "6034f01b6e9b2e46adfc131299f21a8b38bbc1415a93de0de91db39eb2f296eb"
+        }
+      ],
+      "primary_production_executor": "go-tools/go2vir/practical_capture.go",
+      "primary_test_owner": "go-tools/go2vir/practical_capture_test.go",
+      "work_item": "GO-PRAC-T02-W01"
+    },
+    {
+      "component": "closure",
+      "executor_status": "planned; not implemented or validated",
+      "existing_anchors": [
+        {
+          "path": "go-tools/go2vir/features.go",
+          "sha256": "050c9e7f59d429aeceb82a8fdbbac7a2ef2d78bad4e6759e237ab60508eb69fc"
+        },
+        {
+          "path": "go-tools/go2vir/ssa.go",
+          "sha256": "871a444533e536a62aadb828b4c407a58cbd48b595617a17f94075934cb4384e"
+        }
+      ],
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go",
+      "work_item": "GO-PRAC-T02-W02"
+    },
+    {
+      "component": "types",
+      "executor_status": "planned; not implemented or validated",
+      "existing_anchors": [
+        {
+          "path": "go-tools/go2vir/lower_types.go",
+          "sha256": "40378faf14b85bd585b0425b333d1e0b4b66738912e2fbb7a0f3479ce90c33f1"
+        },
+        {
+          "path": "go-tools/go2vir/vir_types.go",
+          "sha256": "51023734e8eba6bb65aa1bc7759feadbc8c171ce8d66db313c8eaa65f4121088"
+        }
+      ],
+      "primary_production_executor": "go-tools/go2vir/practical_types.go",
+      "primary_test_owner": "go-tools/go2vir/practical_types_test.go",
+      "work_item": "GO-PRAC-T03-W01"
+    },
+    {
+      "component": "syntax",
+      "executor_status": "planned; not implemented or validated",
+      "existing_anchors": [
+        {
+          "path": "go-tools/go2vir/lower.go",
+          "sha256": "82b8eaad794af22071073a223a7f24cb3bae7ba8143a487f1a9fa794db140052"
+        },
+        {
+          "path": "go-tools/go2vir/source_map.go",
+          "sha256": "393d0d1d7b17f7ceb27b8003fc4aefc85bdd35844621b9a34a974cdb0fdef3f3"
+        }
+      ],
+      "primary_production_executor": "go-tools/go2vir/practical_lower.go",
+      "primary_test_owner": "go-tools/go2vir/practical_lower_test.go",
+      "work_item": "GO-PRAC-T03-W02"
+    },
+    {
+      "component": "calls",
+      "executor_status": "planned; not implemented or validated",
+      "existing_anchors": [
+        {
+          "path": "go-tools/go2vir/lower.go",
+          "sha256": "82b8eaad794af22071073a223a7f24cb3bae7ba8143a487f1a9fa794db140052"
+        },
+        {
+          "path": "go-tools/go2vir/ssa.go",
+          "sha256": "871a444533e536a62aadb828b4c407a58cbd48b595617a17f94075934cb4384e"
+        }
+      ],
+      "primary_production_executor": "go-tools/go2vir/practical_calls.go",
+      "primary_test_owner": "go-tools/go2vir/practical_calls_test.go",
+      "work_item": "GO-PRAC-T04-W01"
+    },
+    {
+      "component": "errors",
+      "executor_status": "planned; not implemented or validated",
+      "existing_anchors": [
+        {
+          "path": "go-tools/go2vir/features.go",
+          "sha256": "050c9e7f59d429aeceb82a8fdbbac7a2ef2d78bad4e6759e237ab60508eb69fc"
+        },
+        {
+          "path": "go-tools/go2vir/contract.go",
+          "sha256": "51316ed3fecbf200f569567f46fd9065c912a41d03299b96021e44c2418c9bda"
+        }
+      ],
+      "primary_production_executor": "go-tools/go2vir/practical_errors.go",
+      "primary_test_owner": "go-tools/go2vir/practical_errors_test.go",
+      "work_item": "GO-PRAC-T04-W02"
+    },
+    {
+      "component": "strings",
+      "executor_status": "planned; not implemented or validated",
+      "existing_anchors": [
+        {
+          "path": "go-tools/go2vir/lower_types.go",
+          "sha256": "40378faf14b85bd585b0425b333d1e0b4b66738912e2fbb7a0f3479ce90c33f1"
+        },
+        {
+          "path": "go-tools/go2vir/lower.go",
+          "sha256": "82b8eaad794af22071073a223a7f24cb3bae7ba8143a487f1a9fa794db140052"
+        }
+      ],
+      "primary_production_executor": "go-tools/go2vir/practical_strings.go",
+      "primary_test_owner": "go-tools/go2vir/practical_strings_test.go",
+      "work_item": "GO-PRAC-T05-W01"
+    },
+    {
+      "component": "slices",
+      "executor_status": "planned; not implemented or validated",
+      "existing_anchors": [
+        {
+          "path": "go-tools/go2vir/lower_types.go",
+          "sha256": "40378faf14b85bd585b0425b333d1e0b4b66738912e2fbb7a0f3479ce90c33f1"
+        },
+        {
+          "path": "go-tools/go2vir/lower.go",
+          "sha256": "82b8eaad794af22071073a223a7f24cb3bae7ba8143a487f1a9fa794db140052"
+        }
+      ],
+      "primary_production_executor": "go-tools/go2vir/practical_slices.go",
+      "primary_test_owner": "go-tools/go2vir/practical_slices_test.go",
+      "work_item": "GO-PRAC-T06-W01"
+    },
+    {
+      "component": "construction",
+      "executor_status": "planned; not implemented or validated",
+      "existing_anchors": [
+        {
+          "path": "go-tools/go2vir/lower.go",
+          "sha256": "82b8eaad794af22071073a223a7f24cb3bae7ba8143a487f1a9fa794db140052"
+        },
+        {
+          "path": "go-tools/go2vir/ssa.go",
+          "sha256": "871a444533e536a62aadb828b4c407a58cbd48b595617a17f94075934cb4384e"
+        }
+      ],
+      "primary_production_executor": "go-tools/go2vir/practical_construction.go",
+      "primary_test_owner": "go-tools/go2vir/practical_construction_test.go",
+      "work_item": "GO-PRAC-T06-W02"
+    },
+    {
+      "component": "loops",
+      "executor_status": "planned; not implemented or validated",
+      "existing_anchors": [
+        {
+          "path": "go-tools/go2vir/lower.go",
+          "sha256": "82b8eaad794af22071073a223a7f24cb3bae7ba8143a487f1a9fa794db140052"
+        },
+        {
+          "path": "go-tools/go2vir/contract.go",
+          "sha256": "51316ed3fecbf200f569567f46fd9065c912a41d03299b96021e44c2418c9bda"
+        }
+      ],
+      "primary_production_executor": "go-tools/go2vir/practical_loops.go",
+      "primary_test_owner": "go-tools/go2vir/practical_loops_test.go",
+      "work_item": "GO-PRAC-T06-W03"
+    },
+    {
+      "component": "contracts",
+      "executor_status": "planned; not implemented or validated",
+      "existing_anchors": [
+        {
+          "path": "go-tools/go2vir/contract.go",
+          "sha256": "51316ed3fecbf200f569567f46fd9065c912a41d03299b96021e44c2418c9bda"
+        },
+        {
+          "path": "go-tools/go2vir/hash.go",
+          "sha256": "180957d685df429f8c458e503d7e3a3ce4235458dc65daeaa53e4c2e4549d7d8"
+        }
+      ],
+      "primary_production_executor": "go-tools/go2vir/practical_contract.go",
+      "primary_test_owner": "go-tools/go2vir/practical_contract_test.go",
+      "work_item": "GO-PRAC-T02-W03"
+    },
+    {
+      "component": "artifacts",
+      "executor_status": "planned; not implemented or validated",
+      "existing_anchors": [
+        {
+          "path": "crates/mpk-vc/src/successor_source_artifacts.rs",
+          "sha256": "9951da4ed987a6f11d439965b3eb62e2e6dfd6b1676c8905b1d37d0f69f34b76"
+        },
+        {
+          "path": "crates/mpk-vc/src/vir_validate.rs",
+          "sha256": "e2848dd1f659b44b1de9248a6bcc0a48aed735a63b87cc4a50815438f333415d"
+        },
+        {
+          "path": "crates/mpk-vc/src/hash.rs",
+          "sha256": "0babc5ff1a7bd5da5e34d84758b2f9507f27221ff55f57b87e40146fea277a00"
+        }
+      ],
+      "primary_production_executor": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_test_owner": "crates/mpk-vc/tests/go_practical_artifacts.rs",
+      "work_item": "GO-PRAC-T02-W03"
+    },
+    {
+      "component": "foundation",
+      "executor_status": "planned; not implemented or validated",
+      "existing_anchors": [
+        {
+          "path": "crates/mpk-vc/src/program_encode.rs",
+          "sha256": "ef25ffa9ced0549858ba3c54b84885d7dd896659f941f8061c97c204ac4c5292"
+        },
+        {
+          "path": "crates/mpk-vc/src/program_wp.rs",
+          "sha256": "a5816540b20e75ae890bb10dc7808edeba84f1893d7077c4c17c9f0288746c35"
+        }
+      ],
+      "primary_production_executor": "crates/mpk-vc/src/go_practical_foundation.rs",
+      "primary_test_owner": "crates/mpk-vc/tests/go_practical_foundation.rs",
+      "work_item": "GO-PRAC-T02-W03"
+    },
+    {
+      "component": "core_nat",
+      "executor_status": "planned; not implemented or validated",
+      "existing_anchors": [
+        {
+          "path": "crates/mpk-core/src/bool_cases.rs",
+          "sha256": "b920fd682eaa4de8d93dc0a143b8d1241b1240fc7294425c8792dfd811756f01"
+        },
+        {
+          "path": "crates/mpk-core/src/reduce_inductive.rs",
+          "sha256": "123277c8989902c207d6b0fec994ff5c4223fe5bcc9a331bc381f7dc4412492f"
+        },
+        {
+          "path": "crates/mpk-kernel/src/decl_driver.rs",
+          "sha256": "afe75c89bb7e43bb4a73c56aaa4a1bddc20c8ba789066fae5f0f27b7839278c3"
+        },
+        {
+          "path": "go-tools/mpk-checker-ref/core_check.go",
+          "sha256": "19008b25758b9a00919f468d6bf0f8d8275bd918fe7678156971bd48dde097f8"
+        },
+        {
+          "path": "go-tools/mpk-checker-ref/defeq.go",
+          "sha256": "4e73baf6738ca272e34287440750f4a8f1df2aa6785dffd77be205b43cf70c85"
+        }
+      ],
+      "primary_production_executor": "crates/mpk-core/src/nat_induct.rs",
+      "primary_test_owner": "crates/mpk-core/src/nat_induct.rs",
+      "work_item": "GO-PRAC-T02-W03"
+    },
+    {
+      "component": "vcs",
+      "executor_status": "planned; not implemented or validated",
+      "existing_anchors": [
+        {
+          "path": "crates/mpk-vc/src/successor_vc.rs",
+          "sha256": "fb97322316b37dc7c425d4c7a87fa00e181e3eee2d01e7581297fca46c3a038d"
+        },
+        {
+          "path": "crates/mpk-vc/src/program_wp.rs",
+          "sha256": "a5816540b20e75ae890bb10dc7808edeba84f1893d7077c4c17c9f0288746c35"
+        }
+      ],
+      "primary_production_executor": "crates/mpk-vc/src/go_practical_vc.rs",
+      "primary_test_owner": "crates/mpk-vc/tests/go_practical_vc.rs",
+      "work_item": "GO-PRAC-T03-W03"
+    },
+    {
+      "component": "policy",
+      "executor_status": "planned; not implemented or validated",
+      "existing_anchors": [
+        {
+          "path": "crates/mpk-api/src/policy_strategy.rs",
+          "sha256": "51183e351b25b0dfcd3f1ded4a8936f88464907ec4131737d6c4718bc7dcdc92"
+        },
+        {
+          "path": "crates/mpk-cli/src/successor_policy.rs",
+          "sha256": "1569596b5571ddf875b59f61cb86468249a7735d4274f5317c3489053d7680a0"
+        }
+      ],
+      "primary_production_executor": "crates/mpk-api/src/go_practical_policy.rs",
+      "primary_test_owner": "crates/mpk-api/tests/go_practical_policy.rs",
+      "work_item": "GO-PRAC-T07-W01"
+    },
+    {
+      "component": "release",
+      "executor_status": "planned; not implemented or validated",
+      "existing_anchors": [
+        {
+          "path": "crates/mpk-cli/src/successor_release_bundle.rs",
+          "sha256": "586d35ea1cd18fc94c1cdd1ef632f2c4d2eec16ec9f4a9a1c0ae7b43efec94d3"
+        },
+        {
+          "path": "crates/mpk-cli/src/successor_frontend_runner.rs",
+          "sha256": "8b8081561715de130bf04f0566b8a65d9349af1c30a6639833cd2cd52e243418"
+        },
+        {
+          "path": "crates/mpk-cli/src/successor_frontend_protocol.rs",
+          "sha256": "7fc320909c96751705982b901fecaaedaf3a0ba0bd8ae635452230cfe4669915"
+        }
+      ],
+      "primary_production_executor": "crates/mpk-cli/src/go_practical_release.rs",
+      "primary_test_owner": "crates/mpk-cli/tests/go_practical_release.rs",
+      "work_item": "GO-PRAC-T07-W02"
+    }
+  ],
+  "discovered_files": [
+    {
+      "bytes": 12458,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-api/src/policy_strategy.rs",
+      "role": "implementation",
+      "sha256": "51183e351b25b0dfcd3f1ded4a8936f88464907ec4131737d6c4718bc7dcdc92"
+    },
+    {
+      "bytes": 65206,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-api/src/successor_api.rs",
+      "role": "implementation",
+      "sha256": "bde90cf8e4270e85913468d5aed4b88e842022d73103b1ad5406a076c404252b"
+    },
+    {
+      "bytes": 43300,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-api/src/v2_tests.rs",
+      "role": "test",
+      "sha256": "51eb44458e179d165c59f287ce742fc6d2fc737261ae8b7ffab05dc749654fe4"
+    },
+    {
+      "bytes": 15492,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-api/tests/policy_strategy.rs",
+      "role": "test",
+      "sha256": "e6f858ff011ca4b5f38edcfbae3249c57805d8084787ab696a4f6c067f2b276d"
+    },
+    {
+      "bytes": 122669,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-cli/src/ai_explain.rs",
+      "role": "implementation",
+      "sha256": "b717bde506447acd7ee271e5d6d9b2c5254ca004f4ed6c960eac4d808ee5759b"
+    },
+    {
+      "bytes": 66501,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": true,
+      "path": "crates/mpk-cli/src/csharp_practical_consumer_migration.rs",
+      "role": "implementation",
+      "sha256": "1afe5a5ca5275152dfcf9ac647f8265ae01c2a311e3f3f345630a7fe4a71ffc4"
+    },
+    {
+      "bytes": 61197,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": true,
+      "path": "crates/mpk-cli/src/csharp_practical_migration.rs",
+      "role": "implementation",
+      "sha256": "bcbdd41bfb06cd7171169757e57b7cf486d191170384b8017c0feaa13947b930"
+    },
+    {
+      "bytes": 55147,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-cli/src/frontend_protocol.rs",
+      "role": "implementation",
+      "sha256": "859cc5bd3c80e6f60202714fba6315c945a871585623fca9888e15b643b1f215"
+    },
+    {
+      "bytes": 19410,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-cli/src/frontend_registry.rs",
+      "role": "implementation",
+      "sha256": "77ee8257071d5c653ceb963c8f826c7c1caa7832c3199c720b231d8bc0dc602d"
+    },
+    {
+      "bytes": 25497,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-cli/src/frontend_runner.rs",
+      "role": "implementation",
+      "sha256": "d541a3b2a7b105df4ba707aa29d57eba71e930a51b6697213b14c03405461783"
+    },
+    {
+      "bytes": 10032,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-cli/src/java_frontend_runner.rs",
+      "role": "implementation",
+      "sha256": "19cf91df681a2d4ec922dc77e0fb32f343aa8956a1f533be27f40a46517b985f"
+    },
+    {
+      "bytes": 10754,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-cli/src/policy_profile.rs",
+      "role": "implementation",
+      "sha256": "5a553718f994255b640f6f64f9df6ee9d72627cb157ad0a2e109e04ff6212dac"
+    },
+    {
+      "bytes": 114363,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-cli/src/policy_scan.rs",
+      "role": "implementation",
+      "sha256": "f7ff9aad5bee2205834d77d2b132262f71acfb673bd136199746221305e25d8f"
+    },
+    {
+      "bytes": 114459,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-cli/src/policy_schema.rs",
+      "role": "implementation",
+      "sha256": "c2174e197ea64547fe5f3c2f57b66bf0d16cb876d09de3a1d29ece4cb056246c"
+    },
+    {
+      "bytes": 60748,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-cli/src/successor_ai_explain.rs",
+      "role": "implementation",
+      "sha256": "2cc49008953772d7ff19a69832ec229e1a5e829427e5012169db8d293e600139"
+    },
+    {
+      "bytes": 30053,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-cli/src/successor_cli.rs",
+      "role": "implementation",
+      "sha256": "3e0ed602068f8350e335ecca26bf2e233cdf78e2a17ab64e3540594c8eabeaf9"
+    },
+    {
+      "bytes": 34793,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-cli/src/successor_frontend_protocol.rs",
+      "role": "implementation",
+      "sha256": "7fc320909c96751705982b901fecaaedaf3a0ba0bd8ae635452230cfe4669915"
+    },
+    {
+      "bytes": 56849,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-cli/src/successor_frontend_runner.rs",
+      "role": "implementation",
+      "sha256": "8b8081561715de130bf04f0566b8a65d9349af1c30a6639833cd2cd52e243418"
+    },
+    {
+      "bytes": 73120,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-cli/src/successor_policy.rs",
+      "role": "implementation",
+      "sha256": "1569596b5571ddf875b59f61cb86468249a7735d4274f5317c3489053d7680a0"
+    },
+    {
+      "bytes": 912,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-cli/src/successor_release_bundle.rs",
+      "role": "implementation",
+      "sha256": "586d35ea1cd18fc94c1cdd1ef632f2c4d2eec16ec9f4a9a1c0ae7b43efec94d3"
+    },
+    {
+      "bytes": 9848,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-cli/tests/csharp_build_inputs.rs",
+      "role": "test",
+      "sha256": "5aed31b9322c969d91abfdd5b58c7dc3e06da383050f489cbb2dceb1bad8fa97"
+    },
+    {
+      "bytes": 11552,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-cli/tests/csharp_contracts.rs",
+      "role": "test",
+      "sha256": "f711e820662daf039ab9a92f241318146344dec3ac96cc70186050294acbf94d"
+    },
+    {
+      "bytes": 33742,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-cli/tests/csharp_contracts_harness.cs",
+      "role": "test",
+      "sha256": "e2923010ab0acf09d42cc018f12224dc3497da639997de396e5a0fe290af9bbc"
+    },
+    {
+      "bytes": 21615,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-cli/tests/csharp_emission.rs",
+      "role": "test",
+      "sha256": "813502e36888b416cd40afa95815f3da4da7437e5c12c031666ff65d22b26cc3"
+    },
+    {
+      "bytes": 15030,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-cli/tests/csharp_frontend_vectors.rs",
+      "role": "test",
+      "sha256": "fd7696ae79ded77a736e9fdb45183a8613ba2d3954285ac5b411e7621c8803f1"
+    },
+    {
+      "bytes": 17376,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-cli/tests/csharp_policy_verify.rs",
+      "role": "test",
+      "sha256": "72e5477e01506775a62d934e4ca29833645153ad9a8afc47f5b613c15ec66df8"
+    },
+    {
+      "bytes": 97562,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": true,
+      "path": "crates/mpk-cli/tests/csharp_practical_migration.rs",
+      "role": "test",
+      "sha256": "3f2f9345e6182d46a91f3d8a3fbd70be541dc2d9d9bcbe7b226e69306b50c16f"
+    },
+    {
+      "bytes": 23569,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-cli/tests/csharp_profile_vectors.rs",
+      "role": "test",
+      "sha256": "65531a35700f05b91756f3d2abfe9b65647baa60eaaa36bf49eb9e8c7e0eb4e2"
+    },
+    {
+      "bytes": 11003,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-cli/tests/csharp_subset.rs",
+      "role": "test",
+      "sha256": "4f7e0332fb8ff7e99986f92185e67c41bedb58be6086d981fdca7d23659a4a3d"
+    },
+    {
+      "bytes": 18766,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-cli/tests/frontend_limits.rs",
+      "role": "test",
+      "sha256": "daeb99545dc8e5ff9b2ffe349c5fd142bf65b7c2f2311c2a94c732efac2de4c4"
+    },
+    {
+      "bytes": 18574,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-cli/tests/java_build_inputs.rs",
+      "role": "test",
+      "sha256": "d1b979ebce8931382b655a20ff982b6f0f92d332cf1bdb99dd0610cfd09ed868"
+    },
+    {
+      "bytes": 11439,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-cli/tests/java_frontend_vectors.rs",
+      "role": "test",
+      "sha256": "861d9389ced5408dbdf361ca70cccfae9326cf7335ab62e5a8a670de2f82cffa"
+    },
+    {
+      "bytes": 19336,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-cli/tests/java_policy_verify.rs",
+      "role": "test",
+      "sha256": "851c018ae50d32f8876588aeb6617c7753bcdd4bf11e345abd1f47539749fdea"
+    },
+    {
+      "bytes": 12113,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-cli/tests/policy_profiles.rs",
+      "role": "test",
+      "sha256": "cd00cad38fbd93b7b2dc9100c6e8a771a65f0fe2aec6032308acb3719ac89394"
+    },
+    {
+      "bytes": 29473,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-cli/tests/successor_atomic_cutover.rs",
+      "role": "test",
+      "sha256": "61373906e6c63f967a073ce8dbf97832b1be19bf74b21b6569564398f41837fa"
+    },
+    {
+      "bytes": 13570,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-cli/tests/successor_frontend_protocol.rs",
+      "role": "test",
+      "sha256": "01a61259a6aab3a12b9fa6fed483e38714be17c2fcac78bd0078a04ace3f35d3"
+    },
+    {
+      "bytes": 8382,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-cli/tests/successor_go_protocol.rs",
+      "role": "test",
+      "sha256": "20cacdbc1df748e7a563765d4db59f4f207c424c0933c18df575d1b8084bce5e"
+    },
+    {
+      "bytes": 5730,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-cli/tests/successor_go_release.rs",
+      "role": "test",
+      "sha256": "95b0197bfec829c0ac6aaf29f7fcbb273d2456d20dc1ad17cc94587ceed2e597"
+    },
+    {
+      "bytes": 6480,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-cli/tests/successor_rust_protocol.rs",
+      "role": "test",
+      "sha256": "4a7268b02323fa9e3702ccf06cf3f6873a19f8702c94eaf7965de23c5f5b1766"
+    },
+    {
+      "bytes": 6431,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-cli/tests/successor_rust_release.rs",
+      "role": "test",
+      "sha256": "a9039eb36fb4094cd58cf3a3a9fa6288ebcb747a65e80e38628297f89dfc7f82"
+    },
+    {
+      "bytes": 7685,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-cli/tests/support/java_lowering.rs",
+      "role": "test",
+      "sha256": "68aac86b2239db4716ad2227356d72bb3a072ad87dc0d24d7375fc7198195398"
+    },
+    {
+      "bytes": 38731,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-cli/tests/support/successor_policy.rs",
+      "role": "test",
+      "sha256": "e07d58651d6051146aa0261625b0366e228f1afd8a9e73266ede843e0c4e7696"
+    },
+    {
+      "bytes": 15479,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-core/src/bool_cases.rs",
+      "role": "implementation",
+      "sha256": "b920fd682eaa4de8d93dc0a143b8d1241b1240fc7294425c8792dfd811756f01"
+    },
+    {
+      "bytes": 28853,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-core/src/reduce_inductive.rs",
+      "role": "implementation",
+      "sha256": "123277c8989902c207d6b0fec994ff5c4223fe5bcc9a331bc381f7dc4412492f"
+    },
+    {
+      "bytes": 19581,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-kernel/src/decl_driver.rs",
+      "role": "implementation",
+      "sha256": "afe75c89bb7e43bb4a73c56aaa4a1bddc20c8ba789066fae5f0f27b7839278c3"
+    },
+    {
+      "bytes": 11278,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-vc/src/call_wp.rs",
+      "role": "implementation",
+      "sha256": "6ba037523704ba6409d7dcdf336493fab63c72a3abc28efb3cdebae7f61614bd"
+    },
+    {
+      "bytes": 20163,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": true,
+      "path": "crates/mpk-vc/src/csharp_practical_consumer.rs",
+      "role": "implementation",
+      "sha256": "330f72cc7d084cf68bf8e90d1652c5fecddca8c17b77e45bf0877ee9581800ee"
+    },
+    {
+      "bytes": 73067,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": true,
+      "path": "crates/mpk-vc/src/csharp_practical_registry.rs",
+      "role": "implementation",
+      "sha256": "fbcf370c81881e45df837845af6152301ede4f1e8e0ebdebf011005b3016757c"
+    },
+    {
+      "bytes": 162016,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": true,
+      "path": "crates/mpk-vc/src/csharp_practical_source_artifacts.rs",
+      "role": "implementation",
+      "sha256": "561ed0bda2aff116502baf508c5f00a15c3899820166458f2a003111156e4ee8"
+    },
+    {
+      "bytes": 285981,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": true,
+      "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+      "role": "implementation",
+      "sha256": "00fc77538cf53b6dcdf7a28c0b1ec36543787da52669f771415e233ddd6954db"
+    },
+    {
+      "bytes": 4997,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-vc/src/hash.rs",
+      "role": "implementation",
+      "sha256": "0babc5ff1a7bd5da5e34d84758b2f9507f27221ff55f57b87e40146fea277a00"
+    },
+    {
+      "bytes": 9588,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-vc/src/lib.rs",
+      "role": "implementation",
+      "sha256": "1e6609288eb24b39ff12ebcda1489de20adb730dbd1eb9ec80b2a25c0829974f"
+    },
+    {
+      "bytes": 46177,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-vc/src/program_encode.rs",
+      "role": "implementation",
+      "sha256": "ef25ffa9ced0549858ba3c54b84885d7dd896659f941f8061c97c204ac4c5292"
+    },
+    {
+      "bytes": 120835,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-vc/src/program_wp.rs",
+      "role": "implementation",
+      "sha256": "a5816540b20e75ae890bb10dc7808edeba84f1893d7077c4c17c9f0288746c35"
+    },
+    {
+      "bytes": 94913,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-vc/src/release_bundle.rs",
+      "role": "implementation",
+      "sha256": "0e9080c946446aaf3ad85e5b77847c3a0ac26ea3b70c88a42de9a00c8a3b89ae"
+    },
+    {
+      "bytes": 53819,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-vc/src/release_bundle_v1.rs",
+      "role": "implementation",
+      "sha256": "1a8296ecfcaa53b1b2d4461ee0bb2f2233b8deec074e1299bbc2cfbe42c5767b"
+    },
+    {
+      "bytes": 40822,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-vc/src/safety_check.rs",
+      "role": "implementation",
+      "sha256": "da4ec3cfd53cb187e9ce07eb2d56ac00a3bbc99bbc13f437bb1f0a673c239fde"
+    },
+    {
+      "bytes": 7671,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-vc/src/semantic_profile.rs",
+      "role": "implementation",
+      "sha256": "92a3fc01f642d251b65a20c1a6de51ef63702acff17018400bc326d7a2fd493a"
+    },
+    {
+      "bytes": 78980,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-vc/src/semantic_profile_registry.rs",
+      "role": "implementation",
+      "sha256": "64013e00230aab720d993859589549bfa7283609ae1f1a7d5f6316530bd22e50"
+    },
+    {
+      "bytes": 62477,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-vc/src/source_manifest.rs",
+      "role": "implementation",
+      "sha256": "11c4515b833385bcbf981a90e93e91c5890f454acd142f2453bb88043e50d822"
+    },
+    {
+      "bytes": 69477,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-vc/src/successor_source_artifacts.rs",
+      "role": "implementation",
+      "sha256": "9951da4ed987a6f11d439965b3eb62e2e6dfd6b1676c8905b1d37d0f69f34b76"
+    },
+    {
+      "bytes": 53827,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-vc/src/successor_vc.rs",
+      "role": "implementation",
+      "sha256": "fb97322316b37dc7c425d4c7a87fa00e181e3eee2d01e7581297fca46c3a038d"
+    },
+    {
+      "bytes": 10787,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-vc/src/type_encode.rs",
+      "role": "implementation",
+      "sha256": "4bdf361e3d71cec329685fb6a66aafcd340d0fd6e69928dc5657b060cb4a416d"
+    },
+    {
+      "bytes": 25718,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-vc/src/vir.rs",
+      "role": "implementation",
+      "sha256": "0d9141447f46d85468a2737be2c37e45606505adce9577aa3005d1de412ba9f9"
+    },
+    {
+      "bytes": 107139,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-vc/src/vir_validate.rs",
+      "role": "implementation",
+      "sha256": "e2848dd1f659b44b1de9248a6bcc0a48aed735a63b87cc4a50815438f333415d"
+    },
+    {
+      "bytes": 79232,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": true,
+      "path": "crates/mpk-vc/tests/csharp_practical_inventory.rs",
+      "role": "test",
+      "sha256": "c96fdd786b0a0439bc2383b7fd061d294bd455b895df1dfdb32c6509ded4559e"
+    },
+    {
+      "bytes": 44215,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": true,
+      "path": "crates/mpk-vc/tests/csharp_practical_registry.rs",
+      "role": "test",
+      "sha256": "559714234093cdc5353a803312fa86ca8b964dd7749a6978bbf040b5f77f0104"
+    },
+    {
+      "bytes": 47730,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": true,
+      "path": "crates/mpk-vc/tests/csharp_practical_vc_model.rs",
+      "role": "test",
+      "sha256": "49fe76328be14463563416e8a48385530fb53d930ba8411f83697c615f524a04"
+    },
+    {
+      "bytes": 76918,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": true,
+      "path": "crates/mpk-vc/tests/csharp_practical_vir_validation.rs",
+      "role": "test",
+      "sha256": "8c8d1d358f3b670bce49739d0f79fe9e027310e6bf69c37a8ce48070d94aa186"
+    },
+    {
+      "bytes": 59243,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-vc/tests/csharp_profile_spec.rs",
+      "role": "test",
+      "sha256": "db9d539df66eadc2d5c31b766f4e4974e0d41aba63038bdaa08cc8ad269429b0"
+    },
+    {
+      "bytes": 1890,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-vc/tests/go_profile_vectors.rs",
+      "role": "test",
+      "sha256": "76822719c49cd4b644b0998c59aad1bb507ae24f309c4ceb866d5fa731a1615c"
+    },
+    {
+      "bytes": 24483,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-vc/tests/go_vir_corpus.rs",
+      "role": "test",
+      "sha256": "7bd11af93cd3b0f8518dfd3a38a7be76cba9073f166e7fe4e1743dea51dabccc"
+    },
+    {
+      "bytes": 62232,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-vc/tests/java_profile_spec.rs",
+      "role": "test",
+      "sha256": "126d0f1d6732e253ffc7b4e54b3bde47389ba311b6940f39031fecd616224af3"
+    },
+    {
+      "bytes": 58209,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-vc/tests/java_profile_vectors.rs",
+      "role": "test",
+      "sha256": "5adeb8f9e7ab7887722955c9d98f0fd829f1c52112649fd0aa38583779a1dd3d"
+    },
+    {
+      "bytes": 27765,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-vc/tests/program_encoding.rs",
+      "role": "test",
+      "sha256": "19fc269954e585897d261002159aaace499da3a22b90137ccbf14c585a510443"
+    },
+    {
+      "bytes": 26036,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-vc/tests/program_wp.rs",
+      "role": "test",
+      "sha256": "870319085739561f6b287102ce8c9d92820b6f9b733e8a94a68e51f3781519c1"
+    },
+    {
+      "bytes": 34109,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-vc/tests/release_bundle.rs",
+      "role": "test",
+      "sha256": "45558b653104b6d6fc120f43ec70c099e74b63989bcf779afcd06d30fc9c81a9"
+    },
+    {
+      "bytes": 5664,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-vc/tests/rust_positive_corpus.rs",
+      "role": "test",
+      "sha256": "351ac3d17b81eb26b26bfbdfb8641c759f97dfcd72bd06de9091be34b7b8e54e"
+    },
+    {
+      "bytes": 39570,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-vc/tests/safety_profiles.rs",
+      "role": "test",
+      "sha256": "8fd62bad1ee0419a68d84c10737b8a56fc3cbd452ab20f1303384f7751fd2bbc"
+    },
+    {
+      "bytes": 47798,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-vc/tests/semantic_profile_registry.rs",
+      "role": "test",
+      "sha256": "9815a1adb9384b75adb38412845c558469dda309b1c840bbb5036e968ad47122"
+    },
+    {
+      "bytes": 35367,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-vc/tests/semantic_profile_registry_runtime.rs",
+      "role": "test",
+      "sha256": "dd7aaef6a2e9e8dfd53ff1732659694e852028612103d1399750ac74f1852688"
+    },
+    {
+      "bytes": 34510,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-vc/tests/source_manifest.rs",
+      "role": "test",
+      "sha256": "d7ea385ab474e6216d05631ed6ae6e57b082e8dd95b5ce548d0e7a033d52b1fa"
+    },
+    {
+      "bytes": 12726,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-vc/tests/successor_go_migration.rs",
+      "role": "test",
+      "sha256": "36c583acad42d1fae33e0bc90a9939ecd7bc90c458d6191e7bf823fd4684bf59"
+    },
+    {
+      "bytes": 15695,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-vc/tests/successor_rust_migration.rs",
+      "role": "test",
+      "sha256": "93c1bf1dbbfcb3a63cee3cfcbefb2f3eaae5eee448b2e584aefd467c9cea8166"
+    },
+    {
+      "bytes": 18154,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-vc/tests/successor_source_artifacts.rs",
+      "role": "test",
+      "sha256": "29015cba2646a12957aa2e54f7647ae63b68163cdf804c4f4d7725b48a3ad2e9"
+    },
+    {
+      "bytes": 36645,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-vc/tests/successor_vc.rs",
+      "role": "test",
+      "sha256": "a982cd64c6b7d0a27c4cfdb2f29b336df558d8e0d43ae89ba22740418d35173b"
+    },
+    {
+      "bytes": 24132,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-vc/tests/verification_limits.rs",
+      "role": "test",
+      "sha256": "c8c73513e5004fb6b7aad6ad2c6246860bf003f1bd803aae8b59922544335a67"
+    },
+    {
+      "bytes": 20121,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-vc/tests/vir_loops.rs",
+      "role": "test",
+      "sha256": "5fe0304e1c42d10f4c8ba26d338bde6aeb9639056fb4ddd1064ce7840e94f8da"
+    },
+    {
+      "bytes": 16107,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-vc/tests/vir_model.rs",
+      "role": "test",
+      "sha256": "fb4e490abdbe25234b291052abbb116b7cc3f6675cecc0eb7d1c5ce5f2717593"
+    },
+    {
+      "bytes": 6681,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-vc/tests/vir_semantics_gate.rs",
+      "role": "test",
+      "sha256": "abae93e382a7328e2f7ef08bbb4e4ff2af22899a61b844ef5527288acb6681fb"
+    },
+    {
+      "bytes": 43210,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "crates/mpk-vc/tests/vir_validation.rs",
+      "role": "test",
+      "sha256": "b6c7c3343f9e8076286674b60631bce7ef80ee8e1d523e7909ce714df7860931"
+    },
+    {
+      "bytes": 14054,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "csharp-tools/csharp2vir/ContractCanonical.cs",
+      "role": "implementation",
+      "sha256": "e973d1b1c89ec7092cc9667331bb1548959e628e55bcb20123944fbb9edbbf96"
+    },
+    {
+      "bytes": 4550,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "csharp-tools/csharp2vir/EmissionCanonical.cs",
+      "role": "implementation",
+      "sha256": "277e57374372844cbe7419aa7afeba3dfa665a4f5e7255df049f4fc52fc542ba"
+    },
+    {
+      "bytes": 4187,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "csharp-tools/csharp2vir/EmissionProfiles.cs",
+      "role": "implementation",
+      "sha256": "af1ce4bc682a0664bd0d03f20028b22fe52314247877b478a28fe79bfeb5fe38"
+    },
+    {
+      "bytes": 6975,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "csharp-tools/csharp2vir/FrontendModel.cs",
+      "role": "implementation",
+      "sha256": "3ee2b72c406860f9282a77ffcdbb3a2409b2ca6a1acecd144cae83dd444c64fa"
+    },
+    {
+      "bytes": 3731,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "csharp-tools/csharp2vir/FrontendProtocol.cs",
+      "role": "implementation",
+      "sha256": "c7042bb80dfb9d7e0a67c2b37ab9208ffa9cc85971b08df93a15edd526dfd2b7"
+    },
+    {
+      "bytes": 4187,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "csharp-tools/csharp2vir/FrontendSuccessEmitter.cs",
+      "role": "implementation",
+      "sha256": "3bd8f3a1a9f36797849cec4ad1d1116e3784017e24f61ac42c222a4e32a0a5e7"
+    },
+    {
+      "bytes": 9835,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "csharp-tools/csharp2vir/SourceManifestEmitter.cs",
+      "role": "implementation",
+      "sha256": "4b41907dd89b57eabb8dd3a818ef2c8320acbab9a01d284928c92b36b74d7e57"
+    },
+    {
+      "bytes": 13984,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "csharp-tools/csharp2vir/SourceMapEmitter.cs",
+      "role": "implementation",
+      "sha256": "b0994d7fc2e1e8e8221e0be84cd549f03bc94a2e413a5eaf29b102e47c7f484a"
+    },
+    {
+      "bytes": 15975,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "csharp-tools/csharp2vir/VirEmitter.cs",
+      "role": "implementation",
+      "sha256": "b8cf50d1af691a163ffe12469456a590b186f551b3230255e16aa5467f2d265f"
+    },
+    {
+      "bytes": 19494,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "go-tools/go2vir/active_corpus_test.go",
+      "role": "test",
+      "sha256": "fdd64563b0103dcf833816455b181daf3df270e5d50446fee6860c4362b46369"
+    },
+    {
+      "bytes": 12027,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "go-tools/go2vir/bundle_candidate_test.go",
+      "role": "test",
+      "sha256": "ca92ebb2c1b153c750db5f80724f2aa04bc60758508d77c5a6f5c72514548e41"
+    },
+    {
+      "bytes": 30100,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "go-tools/go2vir/contract.go",
+      "role": "implementation",
+      "sha256": "51316ed3fecbf200f569567f46fd9065c912a41d03299b96021e44c2418c9bda"
+    },
+    {
+      "bytes": 16972,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "go-tools/go2vir/corpus_test.go",
+      "role": "test",
+      "sha256": "08007ed264fcc6da716241e72d7fb26bb53918aed84b13cfd1a66f17d6711f87"
+    },
+    {
+      "bytes": 10285,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "go-tools/go2vir/emit.go",
+      "role": "implementation",
+      "sha256": "8e9457ca250c53bbe01de30644dc9085946e807df75737fef5933a3de42916ec"
+    },
+    {
+      "bytes": 18090,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "go-tools/go2vir/features.go",
+      "role": "implementation",
+      "sha256": "050c9e7f59d429aeceb82a8fdbbac7a2ef2d78bad4e6759e237ab60508eb69fc"
+    },
+    {
+      "bytes": 1258,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "go-tools/go2vir/hash.go",
+      "role": "implementation",
+      "sha256": "180957d685df429f8c458e503d7e3a3ce4235458dc65daeaa53e4c2e4549d7d8"
+    },
+    {
+      "bytes": 11318,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "go-tools/go2vir/loader.go",
+      "role": "implementation",
+      "sha256": "6034f01b6e9b2e46adfc131299f21a8b38bbc1415a93de0de91db39eb2f296eb"
+    },
+    {
+      "bytes": 50967,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "go-tools/go2vir/lower.go",
+      "role": "implementation",
+      "sha256": "82b8eaad794af22071073a223a7f24cb3bae7ba8143a487f1a9fa794db140052"
+    },
+    {
+      "bytes": 5075,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "go-tools/go2vir/lower_types.go",
+      "role": "implementation",
+      "sha256": "40378faf14b85bd585b0425b333d1e0b4b66738912e2fbb7a0f3479ce90c33f1"
+    },
+    {
+      "bytes": 14048,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "go-tools/go2vir/main.go",
+      "role": "implementation",
+      "sha256": "353468be619893d2235442d8fc686b03c4ab0e15751fc73e94f5777932d50911"
+    },
+    {
+      "bytes": 37853,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "go-tools/go2vir/main_test.go",
+      "role": "test",
+      "sha256": "ec42bf8fea669fff426d89f8e18411a4cfeae6aa8933ccfb702ae41288e73aa5"
+    },
+    {
+      "bytes": 9152,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "go-tools/go2vir/manifest.go",
+      "role": "implementation",
+      "sha256": "37c20f41cb3a11b90f5dadba2aaca5e694f4ddb1d058b7d7bfde985e039a6176"
+    },
+    {
+      "bytes": 27204,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "go-tools/go2vir/preflight.go",
+      "role": "implementation",
+      "sha256": "8faf415d2954ac1821dd3c8f7bbf6d58e48ce9a5bbf56fd8d46d91651120d711"
+    },
+    {
+      "bytes": 12140,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "go-tools/go2vir/preflight_test.go",
+      "role": "test",
+      "sha256": "adfa1f4844a44d66190ff8b4e7a4e5015add7f9ece73bd1d2f5cbd6547f0e100"
+    },
+    {
+      "bytes": 3294,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "go-tools/go2vir/profile_v0_test.go",
+      "role": "test",
+      "sha256": "72205ffe1b8ed8fa42982fc61284cb56c9c94e1723ee7e80104ca65d346e067c"
+    },
+    {
+      "bytes": 2115,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "go-tools/go2vir/profile_v0_vectors_test.go",
+      "role": "test",
+      "sha256": "c0960b21d6eb8ff4864fa7f4632222c54b67d331a26ecc1c6c811d63d7940c64"
+    },
+    {
+      "bytes": 9548,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "go-tools/go2vir/protocol.go",
+      "role": "implementation",
+      "sha256": "11a2088602b48cb339dbff6c1647387df92e0d2308174c56eb2d40bbf088883f"
+    },
+    {
+      "bytes": 5346,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "go-tools/go2vir/snapshot.go",
+      "role": "implementation",
+      "sha256": "b67ac51476f2d28b37a75fa3cd800c78c0745cdbf2cb9dd16f659be436d9e3ab"
+    },
+    {
+      "bytes": 5166,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "go-tools/go2vir/source_map.go",
+      "role": "implementation",
+      "sha256": "393d0d1d7b17f7ceb27b8003fc4aefc85bdd35844621b9a34a974cdb0fdef3f3"
+    },
+    {
+      "bytes": 1183,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "go-tools/go2vir/ssa.go",
+      "role": "implementation",
+      "sha256": "871a444533e536a62aadb828b4c407a58cbd48b595617a17f94075934cb4384e"
+    },
+    {
+      "bytes": 21694,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "go-tools/go2vir/successor_migration_test.go",
+      "role": "test",
+      "sha256": "77b22bf193270f3fb639ce299479f8cb113c978d15145e1291c0683f1e69c213"
+    },
+    {
+      "bytes": 16722,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "go-tools/go2vir/vir_types.go",
+      "role": "implementation",
+      "sha256": "51023734e8eba6bb65aa1bc7759feadbc8c171ce8d66db313c8eaa65f4121088"
+    },
+    {
+      "bytes": 31706,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "go-tools/mpk-checker-ref/core_check.go",
+      "role": "implementation",
+      "sha256": "19008b25758b9a00919f468d6bf0f8d8275bd918fe7678156971bd48dde097f8"
+    },
+    {
+      "bytes": 9433,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "go-tools/mpk-checker-ref/defeq.go",
+      "role": "implementation",
+      "sha256": "4e73baf6738ca272e34287440750f4a8f1df2aa6785dffd77be205b43cf70c85"
+    },
+    {
+      "bytes": 3484,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "java-tools/java2vir/src/mpk/java2vir/FrontendArguments.java",
+      "role": "implementation",
+      "sha256": "89618c3dca3b0b632d159b841bc04b8c98e1a1bc681b487b072acc2b250c47a3"
+    },
+    {
+      "bytes": 15152,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "java-tools/java2vir/src/mpk/java2vir/JavaContracts.java",
+      "role": "implementation",
+      "sha256": "3ad5b21a2a9b947614291eb5a8160f1f2939e3440e9fca5012b255f8b74c897a"
+    },
+    {
+      "bytes": 5697,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "java-tools/java2vir/src/mpk/java2vir/JavaEmission.java",
+      "role": "implementation",
+      "sha256": "2cb9390e700313c3ece896794cef01d278b1c523c1438957ab653bb5e9e660f4"
+    },
+    {
+      "bytes": 4801,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "java-tools/java2vir/src/mpk/java2vir/JavaSourceMaps.java",
+      "role": "implementation",
+      "sha256": "f38369065d4a2ebf52cb4b5a272d52614a7c05717534ca6802555075186088d1"
+    },
+    {
+      "bytes": 4755,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "java-tools/java2vir/src/mpk/java2vir/Protocol.java",
+      "role": "implementation",
+      "sha256": "1af1cdeeb2c08b8c425cea02831531f67d402716fdac94eb3565041494acb370"
+    },
+    {
+      "bytes": 23644,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "rust-tools/rust2vir/src/contract_typecheck.rs",
+      "role": "implementation",
+      "sha256": "f6af7f0fc14d6b322805d73fd4141fa0cff74892d601f38e51c9e1fb14af4384"
+    },
+    {
+      "bytes": 65944,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "rust-tools/rust2vir/src/driver_protocol.rs",
+      "role": "implementation",
+      "sha256": "3261ee28e96cc9e1f63bf039dbbdc3f326be5b614a6308f55d12cd70ff0d70c9"
+    },
+    {
+      "bytes": 13133,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "rust-tools/rust2vir/src/emit.rs",
+      "role": "implementation",
+      "sha256": "be94a94386d9375abcc00dfebc08c79ab7e0bd298f4fd155b31ba0f5d465e4d6"
+    },
+    {
+      "bytes": 128269,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "rust-tools/rust2vir/src/mir_lower.rs",
+      "role": "implementation",
+      "sha256": "dd30ab3311e40384870fa3c18eb143afde9d7152d7fe31c9750fd5ac5912ecba"
+    },
+    {
+      "bytes": 5112,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "rust-tools/rust2vir/src/source_map.rs",
+      "role": "implementation",
+      "sha256": "05e2d9a9d425203db8c62920426d143becc0246744c4990e2ce62b078ad9c4ed"
+    },
+    {
+      "bytes": 3260,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "rust-tools/rust2vir/src/successor.rs",
+      "role": "implementation",
+      "sha256": "bc3aaf9e923e1dad34b3c9612545ed1790a58598846b4794a6c48d6624aece7e"
+    },
+    {
+      "bytes": 38601,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "rust-tools/rust2vir/tests/driver_protocol.rs",
+      "role": "test",
+      "sha256": "49ddf6ab9b28bef1c235af8ccc4a227c96ba0ab320ab23a8d64804597ade7d6d"
+    },
+    {
+      "bytes": 12022,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "rust-tools/rust2vir/tests/preflight_paths.rs",
+      "role": "test",
+      "sha256": "ea1b85a26ea5437e782b7bfa7ed1449d243602cfb691fcbf4bb8eb6d417e1697"
+    },
+    {
+      "bytes": 29209,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "scripts/csharp_release_bundles.py",
+      "role": "implementation",
+      "sha256": "26c011bc787064da980900f01d0769345205bc8d4d50b3d9389a71829bc6babb"
+    },
+    {
+      "bytes": 37139,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "scripts/java_admission_tests.py",
+      "role": "implementation",
+      "sha256": "82e1803a145740adf25e2d34112c948e12aa59b1af2339653ef143a75af8cfb5"
+    },
+    {
+      "bytes": 24408,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "scripts/java_lowering_tests.py",
+      "role": "implementation",
+      "sha256": "65c421d728e446dc49b97c81b0bc5d29e2aa34f8da024d8cabf88affb01ac77b"
+    },
+    {
+      "bytes": 58413,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "scripts/release_bundles.py",
+      "role": "implementation",
+      "sha256": "05877c8c796d0e80d36f8133a8fe3e051526d16d5e87411c172399a3ba9200e3"
+    },
+    {
+      "bytes": 19591,
+      "discovery": "baseline owner and/or direct shared identity/symbol reference",
+      "disposition": "review_required",
+      "inactive_csharp_candidate": false,
+      "path": "scripts/successor_release_report.py",
+      "role": "implementation",
+      "sha256": "629ab69f666ca808bc772c8bb7ba4a7a382543492dd0ec3f3ee400672c0388ad"
+    }
+  ],
+  "entry_commit": "7e5f94bda47968aeec938098d5e2a324370a6218",
+  "pending": [
+    "trace indirect producers/consumers and assign every discovered file a migration or retention disposition",
+    "freeze exact schemas/hash preimages and vectors before implementing changed wire formats",
+    "distinguish validated shared mechanisms from inactive C# candidates",
+    "reconcile deferred practical C# after the Go releases"
+  ],
+  "schema": "mpk.go_practical.w04_surface_inventory_draft.v0",
+  "scope": "current production/shared consumers and inactive candidates; discovery is not proof of readiness",
+  "search_pattern": "mpk\\.(vir\\.v1|vc\\.v2|source_map\\.v1|source_manifest\\.v1|semantic_profile\\.registry\\.v1)|MPK-(VIR-1\\.0|CONTRACT-1\\.0)|SemanticContext|SemanticProfileRegistry",
+  "search_roots": [
+    "crates",
+    "go-tools",
+    "rust-tools",
+    "csharp-tools",
+    "java-tools",
+    "scripts"
+  ],
+  "status": "draft; not exhaustive until each shared migration surface has a reviewed disposition"
+}

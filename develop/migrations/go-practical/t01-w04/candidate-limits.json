@@ -1,0 +1,44 @@
+{
+  "budget_rationale": "transport/term/declaration candidates exceed two times the observed representative maxima after power-of-two rounding; memory exceeds two times producer peak; time retains the measured private ceiling. These are headroom candidates, not evidence every Go source program fits.",
+  "candidate_proof_budgets": {
+    "certificate_bytes": 2097152,
+    "certificate_declarations": 4096,
+    "certificate_terms": 131072,
+    "checker_wall_seconds_each": 60,
+    "construction_wall_seconds": 60,
+    "peak_rss_bytes_each_child": 1073741824
+  },
+  "evidence": "develop/migrations/go-practical/t01-w03/sequential-resources/observations.json",
+  "observed_resource_maxima": {
+    "certificate_bytes": 698048,
+    "construction": {
+      "peak_rss_bytes": 466616320,
+      "wall_seconds": 7.146788874990307
+    },
+    "declarations": 1333,
+    "go": {
+      "peak_rss_bytes": 188055552,
+      "wall_seconds": 13.008823584008496
+    },
+    "rust": {
+      "peak_rss_bytes": 72499200,
+      "wall_seconds": 5.6660961249726824
+    },
+    "terms": 55744
+  },
+  "pending": [
+    "freeze counters, rejection/pending outcomes and exact child enforcement before publication",
+    "inventory preservation of all predecessor source-admission and artifact-budget semantics",
+    "measure or justify any extra type/region/count limit before claiming it supported",
+    "production complete applications must meet frozen budgets; resource failures cannot be hidden by widening limits"
+  ],
+  "schema": "mpk.go_practical.w04_candidate_limits.v0",
+  "semantic_candidates": {
+    "joint_results": 16,
+    "slice_storage_elements": 128,
+    "source_integer_bits": 64,
+    "string_bytes": 256,
+    "typed_region_slots_per_measured_heap": 2
+  },
+  "status": "candidate freeze inputs; no normative or runtime limit changed"
+}
