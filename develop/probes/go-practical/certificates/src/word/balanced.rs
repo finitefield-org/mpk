@@ -3,6 +3,9 @@
 
 use super::*;
 mod signed;
+pub(super) fn generate_stringops(root: &Path, output: &Path, capacity: usize, trace: bool) {
+    signed::generate_stringops(root, output, capacity, trace);
+}
 pub(super) fn generate_construction(root: &Path, output: &Path, capacity: usize, trace: bool) {
     signed::generate_construction(root, output, capacity, trace);
 }

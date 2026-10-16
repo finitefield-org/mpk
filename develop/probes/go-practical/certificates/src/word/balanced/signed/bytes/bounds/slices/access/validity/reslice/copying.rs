@@ -5,6 +5,13 @@ mod emit;
 mod shift;
 mod store;
 
+pub(super) fn install_shift(p: &mut Producer, trace: Option<&Path>) {
+    shift::install(p, trace);
+}
+pub(super) fn cancel_sum(x: numeric::Word, y: numeric::Word) -> Typed {
+    shift::undo(x, y)
+}
+
 fn bc(s: &str, args: Vec<Expr>) -> Expr {
     rc(&format!("Bulk{s}"), args)
 }

@@ -52,7 +52,7 @@ fn equal_literal(p: &mut Producer, d: usize, a: u64, b: u64) -> Typed {
     assert_eq!(e.right, literal(a == b));
     e
 }
-fn less_literal(p: &mut Producer, d: usize, a: u64, b: u64) -> Typed {
+pub(super) fn less_literal(p: &mut Producer, d: usize, a: u64, b: u64) -> Typed {
     let (a, b) = (mask(d, a), mask(d, b));
     let x = literal_word(d, a);
     let y = literal_word(d, b);

@@ -567,3 +567,43 @@ outcomes remain unchanged. W03 remains In progress. Production capture/model/own
 remaining byte/control and complete application proofs, and aggregate
 boundary/resource closure remain due. W04 has not started; the complete T01
 gate remains assigned to W05.
+
+## T01-W03 guarded byte substring and concatenation (in progress)
+
+```sh
+python3 -B develop/probes/go-practical/run_stringop_probes.py --check
+python3 -B develop/probes/go-practical/check_stringop_report.py
+python3 -B -m unittest discover -s develop/probes/go-practical -p 'test_stringop_report.py' -v
+```
+
+The [string-operation matrix](../../migrations/go-practical/t01-w03/stringop/README.md)
+uses complete 64-bit lengths/indexes and arbitrary eight-bit bytes. Substring
+checks are the actual signed `0 <= lower <= upper <= len(source)`. Checked
+difference/monotonicity laws derive nonnegative bounded result lengths and
+actual old-source indexes. Concat derives unsigned carry absence from input
+lengths, preserves left/right bytes, and requires an explicit result bound.
+The result's nonnegative sign is derived from that bound, not supplied as an
+unrelated caller assumption. All defined reads preserve input-tail masking.
+
+Semantic bounds B=0/1/31/32/33/255/256/257 stay separate from padding
+P=1/1/32/32/64/256/256/512. Actual guards/bounds derive complete index
+reconstruction. No payload enumeration, new axiom, checker rule or fuel change
+is used. B0 omits indexed false controls. False witnesses distinguish bounded
+source behavior, actual substring panics, and successful Go concatenation
+outside the profile bound. Native observations preserve NUL, invalid UTF-8,
+multibyte byte boundaries, empty results and extreme signed endpoints.
+
+Debug `stringop-generate` / `stringop-trace` take `REPO_ROOT OUTPUT CAPACITY`.
+Three workload groups run concurrently within this runner. Direct-child
+resources and its 60-second ceiling do not establish isolated or aggregate
+profile budgets. Retained checks validate integrity; `--check` executes both
+checkers and reproduces exact certificates and native input/output bytes.
+Initial measurement and a separate replay pass all 248 candidates: 124
+accepted zero-axiom claims and 124 core-rejected false mutations. Exact
+canonical certificates and original-Go bytes reproduce. All 537 selected
+tests pass, and 1,113 predecessor candidates, two standalone indexes and
+15 complete case indexes/outcomes remain unchanged.
+
+Production source/effect/operation bindings, checked prefix/suffix, remaining
+control/aggregate and complete application composition stay open. W03 remains
+In progress; W04 has not started and the full T01 gate remains due in W05.

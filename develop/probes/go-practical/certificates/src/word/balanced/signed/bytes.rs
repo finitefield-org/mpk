@@ -2,6 +2,9 @@
 //! A total backing function is an ordinary proof interface, not Go admission.
 use super::*;
 mod bounds;
+pub(super) fn generate_stringops(root: &Path, output: &Path, capacity: usize, trace: bool) {
+    bounds::generate_stringops(root, output, capacity, trace);
+}
 pub(super) fn generate_construction(root: &Path, output: &Path, capacity: usize, trace: bool) {
     bounds::generate_construction(root, output, capacity, trace);
 }
@@ -822,6 +825,10 @@ fn finite_library(p: &mut Producer, d: usize) {
     let mut args = args;
     args.push(("index".into(), word_ty()));
     theorem(p, &format!("ByteFiniteBackingRead{d}"), &args, e);
+}
+pub(super) fn install_string_primitives(p: &mut Producer, depth: usize) {
+    primitives(p);
+    finite_library(p, depth);
 }
 pub(super) fn generate(root: &Path, output: &Path, capacity: usize, trace: bool) {
     assert!([0, 1, 32, 256].contains(&capacity));

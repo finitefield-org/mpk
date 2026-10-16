@@ -58,7 +58,7 @@ pub(super) fn projection(three: bool, f: usize, d: Expr, l: Expr, h: Expr, m: Ex
         call(three, &format!("Field{f}"), arguments(three, d, l, h, m)),
     )
 }
-fn signed_le(x: Expr, y: Expr) -> Expr {
+pub(super) fn signed_le(x: Expr, y: Expr) -> Expr {
     let sx = sign_bit(WORD, x.clone());
     let sy = sign_bit(WORD, y.clone());
     choose(bool_eq(sx.clone(), sy), numeric::le(x, y), sx)
@@ -210,7 +210,7 @@ fn derive_guard(p: &mut Producer, three: bool) -> GuardFacts {
     }
     g
 }
-pub(super) fn install(p: &mut Producer, trace: Option<&Path>) {
+pub(super) fn install_signed(p: &mut Producer) {
     let (sx, sy, rev) = (v("sx"), v("sy"), v("reverse"));
     let source = choose(
         bool_eq(sx.clone(), sy.clone()),
@@ -224,6 +224,9 @@ pub(super) fn install(p: &mut Producer, trace: Option<&Path>) {
         choose(and(not(sx), source), and(not(sy), not(rev)), literal(true)),
         literal(true),
     );
+}
+pub(super) fn install(p: &mut Producer, trace: Option<&Path>) {
+    install_signed(p);
     for three in [false, true] {
         let (d, l, h, m) = (v("descriptor"), v("lower"), v("upper"), v("maximum"));
         let a = data(three);

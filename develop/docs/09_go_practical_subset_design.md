@@ -336,6 +336,15 @@ equal prefixes of different lengths, substring endpoints, and concatenation
 at the bound and one above it. “Character count” must not silently mean byte
 length in a contract or diagnostic.
 
+Private T01-W03 substring/concatenation feasibility evidence is recorded in
+[the implementation ledger, section 23](go-practical-implementation-traceability-ledger.md#23-t01-w03-guarded-substring-and-bounded-concatenation).
+It derives substring lengths and source indexes from actual signed checks,
+preserves all eight byte bits under input-tail normalization, and derives
+concatenation carry and index relations with an explicit result-bound
+obligation. Semantic bounds and finite padding remain separate. This evidence
+does not activate a profile or complete source/library binding; checked
+prefix/suffix relations and full application composition remain due.
+
 ## 8. Priority 4: slices and useful loops
 
 ### 8.1 Representation and admission

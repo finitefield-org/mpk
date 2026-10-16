@@ -11,6 +11,19 @@ mod model;
 mod numeric;
 mod preservation;
 mod readable;
+mod stringops;
+
+pub(super) fn install_stringops(p: &mut Producer, count: usize, trace: Option<&Path>) {
+    arith::install(p, trace);
+    assoc::install(p, trace);
+    numeric::install(p, trace);
+    model::install_signed(p);
+    copying::install_shift(p, trace);
+    stringops::install(p, count, trace);
+}
+pub(super) fn emit_stringops(base: Certificate, output: &Path, count: usize) {
+    stringops::emit(base, output, count);
+}
 
 fn rc(s: &str, args: Vec<Expr>) -> Expr {
     vc(&format!("Reslice{s}"), args)

@@ -2,6 +2,12 @@
 use super::*;
 mod embedding;
 mod reslice;
+pub(super) fn stringops(p: &mut Producer, count: usize, trace: Option<&Path>) {
+    reslice::install_stringops(p, count, trace);
+}
+pub(super) fn emit_stringops(base: Certificate, output: &Path, count: usize) {
+    reslice::emit_stringops(base, output, count);
+}
 pub(super) fn copying(p: &mut Producer, trace: Option<&Path>) {
     reslice::install_copy(p, trace);
 }

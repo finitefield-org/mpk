@@ -2,6 +2,51 @@
 use super::*;
 mod validity;
 
+pub(super) fn generate_stringops(root: &Path, output: &Path, count: usize, trace: bool) {
+    assert!([0, 1, 31, 32, 33, 255, 256, 257].contains(&count));
+    fs::create_dir_all(output).unwrap();
+    let mut p = Producer {
+        builder: Builder::from(natural::foundation(root)),
+        fresh: 0,
+    };
+    p.builder.c.module = format!("{PREFIX}.StringOperationCapacity{count}");
+    primitives(&mut p);
+    for d in 0..=WORD {
+        word_library(&mut p, d);
+        super::super::build(&mut p, d, trace.then_some(output));
+    }
+    super::definitions(&mut p, trace.then_some(output));
+    super::super::super::install_string_primitives(&mut p, max_depth(count));
+    install_local(&mut p);
+    for d in 0..=WORD {
+        install_word(&mut p, d, trace.then_some(output));
+    }
+    super::super::coverage::install_unsigned(
+        &mut p,
+        1usize << max_depth(count),
+        trace.then_some(output),
+    );
+    validity::stringops(&mut p, count, trace.then_some(output));
+    if trace {
+        fs::write(
+            output.join("library.mpcert"),
+            Builder::from(p.builder.c.clone()).finish(),
+        )
+        .unwrap();
+    }
+    validity::emit_stringops(p.builder.c, output, count);
+}
+fn string_reconstruction(count: usize, index: Expr) -> Expr {
+    super::super::coverage::reconstruction(1usize << max_depth(count), index)
+}
+fn max_depth(count: usize) -> usize {
+    if count <= 1 {
+        0
+    } else {
+        (count - 1).ilog2() as usize + 1
+    }
+}
+
 pub(super) fn generate_construction(root: &Path, output: &Path, count: usize, trace: bool) {
     assert!(CAPACITIES.contains(&count));
     fs::create_dir_all(output).unwrap();

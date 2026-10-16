@@ -35,6 +35,13 @@ composition proofs at representative workloads. Original-Go observations match
 the independent bit-loop/snapshot reference. Their 276-candidate matrix,
 independent replay and 473 selected tests pass; 837 prior candidates are
 preserved unchanged.
+Guarded substring and bounded concatenation now add full-byte source/result
+read and input-tail preservation ingredients. Complete 64-bit indexes are
+reconstructed from actual semantic bounds independently of finite padding.
+The private workloads are 0/1/31/32/33/255/256/257; exceeding a concatenation
+bound can succeed in Go and remains a profile-domain obligation. Its
+248-candidate matrix and separate replay pass both checkers; all 537 selected
+tests pass and 1,113 predecessor candidates are preserved unchanged.
 Complete Go source/operation/string/slice/loop/return/error/descriptor bindings and
 remaining collection/control laws and resource boundaries remain open, so
 W04 has not started.

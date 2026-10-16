@@ -678,6 +678,19 @@ fn main() {
     let args = std::env::args().collect::<Vec<_>>();
     if matches!(
         args.get(1).map(String::as_str),
+        Some("stringop-generate" | "stringop-trace")
+    ) {
+        assert_eq!(args.len(), 5, "stringop-generate REPO_ROOT OUTPUT CAPACITY");
+        word::generate_stringops(
+            Path::new(&args[2]),
+            Path::new(&args[3]),
+            args[4].parse().unwrap(),
+            args[1] == "stringop-trace",
+        );
+        return;
+    }
+    if matches!(
+        args.get(1).map(String::as_str),
         Some("construct-generate" | "construct-trace")
     ) {
         assert_eq!(

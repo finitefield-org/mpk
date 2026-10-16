@@ -467,3 +467,29 @@ resources remain per-child observations without an isolated-machine or
 profile-budget claim. W03 stays In progress, W04 has not started and the
 complete T01 gate remains deferred to W05. Production bindings, remaining
 byte/control and application proofs, and aggregate resource closure stay due.
+
+## Guarded substring and bounded concatenation
+
+The [string-operation checkpoint](stringop/README.md) derives substring length
+bounds and actual old-source indexes from the signed source checks. Concat
+computes full64 length addition, derives carry absence from the input lengths,
+requires an explicit result bound and preserves both source byte ranges.
+Defined-result reads retain all eight byte bits and preserve canonicalization
+of input tails. Semantic bounds 0/1/31/32/33/255/256/257 derive full index
+reconstruction independently of finite padding 1/1/32/32/64/256/256/512.
+
+Actual Go and the independent bit-loop reference retain arbitrary bytes,
+empty/NUL/invalid-UTF8/multibyte boundaries, extreme endpoints, range/index
+panics and successful concatenation above the private bound. False witnesses
+distinguish source panics from profile-domain failure. Native recovery and I/O
+remain observer-only. These ingredients do not complete production source/
+effect/operation bindings, checked prefix/suffix or full applications. W03
+remains In progress and the complete T01 gate remains assigned to W05.
+
+The initial 248-candidate matrix and independent final replay both pass: 124
+zero-axiom acceptances and 124 core type mismatches, with exact canonical
+certificate and native-byte reproduction. All 537 selected tests pass.
+The 1,113 predecessor certificates, two standalone indexes and 15 complete
+case indexes/outcomes remain unchanged; source pins and adjacent hardware
+identity are refreshed. No current incomplete attempt remains, and the full
+T01 gate is still deferred to W05.

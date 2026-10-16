@@ -2,6 +2,9 @@
 //! Logical region names are two Bool constructors, not source pointer bits.
 use super::*;
 mod access;
+pub(super) fn generate_stringops(root: &Path, output: &Path, capacity: usize, trace: bool) {
+    access::generate_stringops(root, output, capacity, trace);
+}
 pub(super) fn generate_construction(root: &Path, output: &Path, capacity: usize, trace: bool) {
     access::generate_construction(root, output, capacity, trace);
 }

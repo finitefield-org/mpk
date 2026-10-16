@@ -26,7 +26,7 @@ after reconciling the intervening shared artifacts and active registry.
 | --- | --- | --- |
 | GO-PRAC-T01-W01 | Complete | Reviewed implementation commit `bd5ee8047d8925f9c9d0f7502627fca33bb2c836`; completion audit below |
 | GO-PRAC-T01-W02 | Complete | Reviewed implementation commit `fed1cf6047f97b1f73c0fc37c5023e19f4f9f035`; 39 cases reproduced twice |
-| GO-PRAC-T01-W03 | In progress | Halting Quote, byte/index, descriptor/store, computed validity/access, reslice, copy and construction/append ingredients measured; production source/ownership/operation bindings, remaining laws and aggregate resources stay open |
+| GO-PRAC-T01-W03 | In progress | Halting Quote, byte/index, descriptor/store, computed validity/access, reslice, copy, construction/append and substring/concat ingredients measured; production source/ownership/operation bindings, remaining laws and aggregate resources stay open |
 | GO-PRAC-T01-W04 | Blocked by W03 | Exact v1 source/shared/contract/limit freeze |
 | GO-PRAC-T01-W05 | Blocked by W04 | Publish inactive package, review and full T01 gate |
 | GO-PRAC-T02–T07 | Not started | Sequential v1 implementation and public release |
@@ -1411,3 +1411,102 @@ control composition and complete application proofs, and aggregate boundary/
 resource closure remain due. W03 stays In progress, W04 has not started and
 the complete T01 gate remains deferred to W05. The full authorized 11-stage
 objective remains active.
+
+
+## 23. T01-W03 guarded substring and bounded concatenation
+
+Predecessor checkpoint: `7eddc34ac28003c78eddce2223bf267bfba39bfc` retains
+fresh construction and capacity-preserving append. The new
+[string-operation model and matrix](../migrations/go-practical/t01-w03/stringop/README.md)
+keep complete 64-bit lengths/indexes and arbitrary eight-bit bytes. The
+private workloads B=0/1/31/32/33/255/256/257 remain separate from padding
+P=1/1/32/32/64/256/256/512; all padding bytes and both concat stores remain
+quantified. No source/checker rule, axiom, fuel or public profile changes.
+
+Actual signed substring checks `0 <= lower <= upper <= length` derive
+nonnegative bounded result length and the actual old-source index for every
+defined result index. The complete result byte equals the old byte at
+`lower+index`. Concat derives no unsigned length carry from actual nonnegative
+input lengths. An explicit result-bound obligation derives the result sign;
+actual left/right source indexes lift into the result and preserve complete
+byte values. Two input bounds do not imply the concat output bound. The
+`concat-length` candidate deliberately retains that obligation explicitly.
+Defined-result observations preserve canonicalizing both operations' input
+tails, using derived source indexes and the existing byte-tail theorem.
+
+Semantic bounds and actual index checks also derive equality of each complete
+canonical index with its zero-extended finite reconstruction. Value equality
+at an accidentally equal out-of-bound cell is not used as index coverage.
+The kernel checks ordinary difference/restoration/monotonicity/cancellation
+proofs; constructor canonicalization and carry/fit facts stay internal.
+The pinned compiler/specification inventory identifies the native semantics
+reference, while production source/effect/operation linkage remains due.
+
+The matrix has 248 candidates: 124 correct and 124 false mutations. B0 has
+five length/carry families and omits empty-domain indexed false claims; each
+nonzero bound has 17 families. False witnesses distinguish bounded source
+behavior, actual substring panics after guard erasure, and successful source
+concat of length B+1 after output-bound erasure. Source panics, profile-domain
+conditions and checker resource failures retain separate meanings.
+
+Actual Go agrees with 1,957 independent full64 bit-loop/byte-loop observations:
+902 successful substrings, 1,055 substring panics, 290 empty results, 206
+defined substring reads and 696 subsequent index panics. All 1,957 concat
+operations succeed; 872 exceed B despite both inputs satisfying it. The
+corpus includes 696 left/662 right concat source reads, 360 invalid-UTF8
+substring observations and 729 concat observations containing NUL. Eight
+source reads lie beyond B and three lack complete finite coverage. Extreme
+signed endpoints, multibyte byte boundaries and failed-parent index attempts
+remain explicit. Native recovery/I/O/allocation is observer-only.
+
+The initial matrix passes both unchanged checker implementations: 124
+zero-axiom claims have matching accepted hashes, and 124 false mutations fail
+at core type checking. No current fuel/resource outcome is a semantic negative.
+The B256 concat-right-read candidate has 550 declarations, 36,360 terms and
+436,117 bytes. Observed Rust/Go wall time is 4.718/7.703 seconds and peak
+resident size is 39,026,688/116,948,992 bytes. Direct-child observations can
+overlap other work and do not establish isolated or aggregate budgets.
+
+A separate final `--check` replay passes all 248 candidates in both checkers
+and reproduces exact canonical certificates and original-Go input/output
+bytes. Three independent workload groups run concurrently within the runner;
+canonical result order, exact source/binary pins and atomic active-attempt
+records are retained. No current incomplete attempt remains. The worker count
+and 60-second child ceiling are private measurement settings, not a frozen
+profile budget.
+
+All 1,113 predecessor candidates are refreshed because the shared producer
+pins all current Rust source. Their canonical certificates, two standalone
+indexes, 15 complete case indexes/outcomes and raw checker verdicts remain
+unchanged against the predecessor. The complete current matrix has 1,361
+candidates: 656 accepted, 676 core type mismatches and 29 retained diagnostic
+fuel outcomes. Fuel outcomes are not semantic-negative evidence. Production
+frontend/checkers, normative specifications and registry remain unchanged
+from W01. The adjacent hardware receipt is refreshed to the current slice-store
+report hash, preserving original model/RAM nulls. W01's 77-owner/198-regression-
+file/83-artifact audit and W02's retained 39-case closure check pass.
+
+All 537 selected tests pass in four disjoint batches: 64 new tests (12.401 s),
+267 affected representation/arithmetic/control/byte/index/access tests
+(33.254 s), 40 slice-store tests (1.243 s), and 166 reslice/copy/construction
+tests (30.822 s). The selection follows the changed private producer and every
+source-bound report consumer. It covers actual range/index conditions, all
+byte bits, NUL/invalid UTF-8, explicit output-bound obligations, finite
+coverage, failed-parent attempts, both checker identities and false-witness
+scope. Unchanged expensive linear-word diagnostic proofs, unaffected
+production suites and unchanged W01/W02 adversarial helpers are not rerun.
+The complete T01 gate remains deferred to W05.
+
+Offline locked release Clippy passes with warnings denied. Explicit Rust
+formatting covers 15 changed current files and excludes historical snapshots.
+Pinned Go formatting, changed Python syntax, 19 strict JSON artifacts, six
+changed documents/143 local links, balanced fences, ordered ledger sections
+and Git whitespace pass. These checks match the private producer/evidence/doc
+scope. No GitHub Actions/workflow is created, run or consulted.
+
+Production source/model/effect/operation bindings, checked prefix/suffix and
+their exact library/helper binding, remaining byte/control/aggregate and
+complete application composition, and aggregate boundary/resource closure
+remain open. W03 stays In progress, W04 has not started and the complete T01
+gate remains deferred to W05. The full authorized 11-stage objective remains
+active.
