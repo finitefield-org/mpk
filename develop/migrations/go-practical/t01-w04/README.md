@@ -31,6 +31,16 @@ remain T08–T11 work; the complete eleven-stage objective is unchanged.
   The future profile's 22 accepted-model, two pending, one configuration
   rejection and 24 source-rejection expectations are draft outcomes, not
   observations from an implemented practical frontend.
+- [Operation table](operation-table.json) and
+  [evaluation/contract/loop decisions](operation-loop-decisions.md):
+  56 logical operation families and 25 draft rules with planned producer,
+  independent validator, VC and test ownership. Operation IDs are design
+  references; exact wire tags/schemas remain pending.
+- [Evaluation vectors](evaluation-vectors.json) and
+  [native receipt](evaluation-observations/observations.json): 54 original-Go
+  cases over 35 forms, including two-phase lvalues, single-call results,
+  switch targets, array/slice range, byte/string copy/append and integer edges.
+  Native observations do not establish loop termination or profile admission.
 
 ## Shared-family decision
 
@@ -73,8 +83,10 @@ The complete source and operation tables still need review. Other open work is:
    enforcement; assign the ordinary zero-access normalization/frame proofs.
 2. Freeze capture/module/source/count budgets and the real snapshot/compiler
    enforcement, separately from measured proof budgets.
-3. Specify loop-contract defaults, variant obligations and pending-proof states
-   so inferred invariants or missing strategies cannot become assumptions.
+3. Finish the closed typed overlay grammar and ordinary termination foundation.
+   Root termination is now explicitly partial/total, missing invariants are
+   untrusted true candidates, and missing total variants stay pending.
+   Exact well-founded/variant members, identities, proofs and budgets remain due.
 4. Close every successor identity, schema, hash domain/preimage and vector,
    including old/new crossing and preservation of all four installed profiles.
 
@@ -89,13 +101,13 @@ program fits. Final application gates must meet the frozen values.
 
 ## Verification and next boundary
 
-Selected checks cover the new private native observer and evidence validator:
-49 original-Go cases reproduce across two executions and a fresh-build replay;
-35 evidence/adversarial checks pass. Strict JSON, exact source/toolchain/artifact
+The earlier root/error/zero checkpoint reproduced 49 original-Go cases across
+two executions and a fresh-build replay; 35 evidence/adversarial checks passed.
+Strict JSON, exact source/toolchain/artifact
 identity, existing-anchor hashes, unique rule/vector IDs, planned executor/test
 ownership, local links, formatting and whitespace are also checked.
-The [metadata checker](../../../probes/go-practical/check_scope_metadata.py)
-validates this draft boundary; the
+Its [metadata checker](../../../probes/go-practical/check_scope_metadata.py)
+records that original section30 boundary; the
 [verification record](scope-observations/verification/verification.json)
 retains the selected commands, outputs and deferred gate.
 Unchanged production/kernel suites need no repeat for these private draft
@@ -103,3 +115,13 @@ changes. W04 remains open until every listed freeze deliverable is exact and
 reviewed. W05 owns inactive specification/vector publication,
 source-model feasibility review and the complete `./scripts/check-fast.sh`
 T01 gate. No workflow or GitHub Actions is introduced or used.
+
+The operation/evaluation checkpoint additionally passes 54 cases over35 forms
+and 52 evidence checks. Its
+[metadata checker](../../../probes/go-practical/check_operation_metadata.py)
+checks the current cumulative draft; the earlier scope metadata log retains
+its original section30 checkpoint.
+The [new verification record](evaluation-observations/verification/verification.json)
+separates native facts, metadata consistency and deferred ordinary proofs/gates.
+Neither operation catalogue generation nor native replay is a source-to-certificate
+or universal termination proof.

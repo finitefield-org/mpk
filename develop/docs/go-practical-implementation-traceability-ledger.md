@@ -27,7 +27,7 @@ after reconciling the intervening shared artifacts and active registry.
 | GO-PRAC-T01-W01 | Complete | Reviewed implementation commit `bd5ee8047d8925f9c9d0f7502627fca33bb2c836`; completion audit below |
 | GO-PRAC-T01-W02 | Complete | Reviewed implementation commit `fed1cf6047f97b1f73c0fc37c5023e19f4f9f035`; 39 cases reproduced twice |
 | GO-PRAC-T01-W03 | Complete | Reviewed implementation `9d4e6fb7855a66d9fff309e6dbd9143652ee6e21`; requirement-by-requirement completion audit in section28 |
-| GO-PRAC-T01-W04 | In progress | Draft inventory and TG/ER/ZS semantic rules; 49 native vectors/35 evidence checks; complete operation/overlay/limit/wire/migration freeze remains open |
+| GO-PRAC-T01-W04 | In progress | 56 logical operations, TG/ER/ZS and EV/CT/LC rules; 49+54 native vectors and 35+52 evidence checks; complete source/overlay/limit/wire/foundation/migration freeze remains open |
 | GO-PRAC-T01-W05 | Blocked by W04 | Publish inactive package, review and full T01 gate |
 | GO-PRAC-T02–T07 | Not started | Sequential v1 implementation and public release |
 | GO-PRAC-T08–T11 | Not started | Sequential v2 freeze, maps, pointers and public release |
@@ -1980,3 +1980,79 @@ and exhaustive reviewed migration inventory remain W04 work. W04 stays
 In progress; no T is complete. T01's full gate remains deferred to W05.
 The installed four-profile family and public selection remain unchanged,
 and the complete eleven-stage objective stays active.
+
+## 31. T01-W04 logical operations, evaluation and loop contracts
+
+Entry: `18ac6aee085cefa027ef7064cc1dfdded762f867`, clean before these edits.
+The previous goal turn made concrete progress by committing the root/error/
+zero-access draft and native evidence. This checkpoint continues that freeze;
+it does not replace the full eleven-stage implementation objective.
+
+The [operation table](../migrations/go-practical/t01-w04/operation-table.json)
+contains 56 logical families for v1 priorities1–4, each with a signature,
+source forms, complete value relation, runtime safety, profile-domain and
+permission obligations, effects, evaluation rule and planned primary
+executor/test plus independent artifact/VC ownership. GP-OP IDs are design
+references, not frozen serialized tags. Integer wrapping, minimum/-1 division,
+full shift counts and exact mathematical indices are explicit. String growth
+and append no-growth remain domain obligations rather than fabricated panics.
+Array/struct equality excludes error fields at every depth.
+
+The [EV/CT/LC decisions](../migrations/go-practical/t01-w04/operation-loop-decisions.md)
+specify 25 rules. Parallel assignment freezes operands then stores left-to-right;
+local array/struct locations survive whole-value replacement, while slice
+targets retain their old descriptors. Field reconstruction uses the current
+cell/root. Calls/results/post-state share one invocation. Switch default
+position has no priority; switch break is distinct from loop break, and
+continue runs its enclosing loop's post.
+
+Array range copies values shallowly and retains descriptor backing; slice
+range captures descriptor/length but reads current cells. The constant-length
+exception never silently deletes an actual array-returning call. Range
+assignment uses the same two-phase destinations. Effective Go>=1.22 binding
+transitions happen before post. Every true/false/break/continue/return path
+binds its actual complete state.
+
+Selected practical roots require an explicit partial/total termination mode.
+Missing loop invariants synthesize true as an untrusted candidate, and total
+mode requires checked Nat variants and terminating component calls. Missing
+strategy stays pending, not an original Go type error. The draft lists the
+remaining ordinary order/well-founded induction, word64/Nat bridge, variant
+and abrupt-frame composition members. Existing private Nat.induct evidence
+does not establish those general termination/source proofs. Exact overlay
+AST, member/instance identities and proof budgets remain freeze work.
+
+The [native evidence](../migrations/go-practical/t01-w04/evaluation-observations/observations.json)
+records 54 cases over35 source forms and nine source/input pins under the
+unchanged exact Go1.25.0 host distribution. Independent expected facts use
+closed values and mathematical counts, rather than the observer's control
+implementation. Two executions agree and fresh-build replay agrees. The
+observer-only counters, recovery, function literals and JSON aggregation
+are outside verified roots. This is not profile admission, a source-model
+theorem, a universal termination proof or a Linux release.
+
+The byte/string special copy/append cases preserve NUL, invalidUTF8 and named
+types within existing capacity. Their ordinary binding composition and budget
+review are explicit outstanding obligations. The operation table does not
+pretend the earlier slice-only binding proofs automatically establish them.
+
+Selected checks target the new observer/evidence and changed draft metadata.
+`run_evaluation_probes.py --write` and `--check` pass; the new unittest
+module passes 52 checks (0.155s), including current-cell merge, old-slice/new-
+array locations, call/projection duplication, panic ordering, switch/continue
+targets, range snapshot/live reads, byte preservation, full shift counts,
+nil-range/count/JSON-type metadata and false support/termination promotion. Cumulative
+metadata validation checks exact catalogue consistency, IDs, planned owners,
+strict JSON, unchanged 143 predecessor files, old49 scope-evidence integrity,
+local links and ledger order; Python/pinned-Go formatting and commit whitespace
+are checked. The
+[verification record](../migrations/go-practical/t01-w04/evaluation-observations/verification/verification.json)
+retains selected outputs and why unrelated production/W03 suites are not rerun.
+
+W04 stays In progress. Full source/type/statement/effect admission, complete
+closed overlay/wire schemas and hash preimages, semantic/capture/type/region/
+resource limits and enforcement, ordinary foundation signatures/proofs/budget
+review and exhaustive migration dispositions remain due. W05 owns inactive
+publication, source-model feasibility review and the cumulative T01 gate.
+No T is complete, no practical Go profile is active, and the goal remains
+the complete T01–T11 sequence.

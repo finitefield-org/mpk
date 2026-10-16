@@ -1,0 +1,69 @@
+{
+  "catalog_generator_sha256": "1ba19528eafefbf82b4af8bd560a577e57d0bda111057eefae5c3a20a0dda8ca",
+  "checks": [
+    {
+      "command": "python3 -m unittest -v test_evaluation_report",
+      "cwd": "develop/probes/go-practical",
+      "eof_newlines_removed": 0,
+      "exit_code": 0,
+      "log": "unittest-evaluation.log",
+      "reason": "New report facts and false identity/alias/evaluation/proof-promotion cases; 52 tests passed",
+      "tool_captured_utf8_bytes": 5329,
+      "tool_captured_utf8_sha256": "d7bc23430e692669df088b017d5a5016a1dfc2b6c0d1be29ba99335d59009438"
+    },
+    {
+      "command": "python3 develop/probes/go-practical/run_evaluation_probes.py --check",
+      "cwd": ".",
+      "eof_newlines_removed": 0,
+      "exit_code": 0,
+      "log": "native-replay.log",
+      "reason": "Fresh build reproduces exact binary, 54 inputs/outputs over35 forms and two identical executions",
+      "tool_captured_utf8_bytes": 97,
+      "tool_captured_utf8_sha256": "be99f9e092b03b5932e35c5be0ae6111d2034140c73c25363ee7c7a94f9f051b"
+    },
+    {
+      "command": "compile six new Python sources and pinned gofmt -l evaluation_reference.go; recompile final operation_catalog.py after constant-routing review",
+      "cwd": ".",
+      "eof_newlines_removed": 0,
+      "exit_code": 0,
+      "log": "format-python.log",
+      "reason": "Changed private source syntax/formatting and final catalogue constant-type/array-location review",
+      "tool_captured_utf8_bytes": 189,
+      "tool_captured_utf8_sha256": "16a841b41b76d1a36a5198d47873880182edd673ff3fe1f09f1853f2770e8624"
+    },
+    {
+      "command": "python3 develop/probes/go-practical/check_operation_metadata.py",
+      "cwd": ".",
+      "eof_newlines_removed": 0,
+      "exit_code": 0,
+      "log": "metadata.log",
+      "reason": "Current draft consistency/ownership, strict JSON, unchanged predecessor/source-evidence identities and local links",
+      "tool_captured_utf8_bytes": 174,
+      "tool_captured_utf8_sha256": "99981f0d8e2967cb8b65b51a6e7295f418e85cf042a2484712273fdc5047cdbf"
+    }
+  ],
+  "entry_commit": "18ac6aee085cefa027ef7064cc1dfdded762f867",
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "owner": "GO-PRAC-T01-W05",
+    "reason": "Intermediate W04 checkpoint; cumulative whole T01 gate is reserved for its final W",
+    "status": "deferred"
+  },
+  "metadata_checker_sha256": "668fb4e2933bbd0392673e87acca7787a704924928ea0c432528175f51538491",
+  "not_repeated": [
+    "unchanged production/frontend/kernel suites",
+    "unchanged W03 proof matrices",
+    "unchanged 49-case native source execution and its 35 tests; retained integrity checked instead"
+  ],
+  "output_scope": "UTF-8 text returned by exec_command/write_stdin; not separately captured raw process streams",
+  "outstanding": [
+    "complete source/overlay/wire/hash/limits/migration freeze",
+    "zero-access/array-location and special string-byte copy/append ordinary binding composition",
+    "exact well-founded/variant foundation signatures, proofs and budget review",
+    "T02\u2013T06 production/source-to-certificate application proofs"
+  ],
+  "schema": "mpk.go_practical.w04_evaluation_verification.v0",
+  "scope": "new private evaluation observer/independent expected facts, operation/loop metadata; no production admission or universal termination/source proof",
+  "status": "W04 in progress; no T complete",
+  "work_item": "GO-PRAC-T01-W04"
+}

@@ -15,8 +15,10 @@ resource budgets, schema identities, migrations and production executors.
 Complete production source/operation/application binding belongs to T02–T06.
 W04 is In progress: [draft requirements, owners, surfaces and candidate limits](../migrations/go-practical/t01-w04/README.md)
 are recorded. Root/error/empty-slice rules now have 49 original-Go vectors
-and native observations with 35 evidence checks. Complete operation/overlay
-tables, limits, schemas/hash identities and migration review remain open.
+and native observations with 35 evidence checks. A 56-family logical operation
+table and evaluation/contract/loop rules add 54 native cases with 52 evidence
+checks. Complete source/overlay/wire tables, ordinary termination foundation,
+limits, schemas/hash identities and migration review remain open.
 T01 is incomplete and no practical Go profile is active.
 
 The [implementation ledger](go-practical-implementation-traceability-ledger.md)

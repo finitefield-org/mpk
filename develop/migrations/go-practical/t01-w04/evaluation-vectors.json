@@ -1,0 +1,759 @@
+{
+  "cases": [
+    {
+      "expected": {
+        "i": 1,
+        "s": [
+          2,
+          5,
+          7
+        ],
+        "trace": []
+      },
+      "input": {
+        "flag": false,
+        "id": "parallel-index",
+        "n": 0
+      }
+    },
+    {
+      "expected": {
+        "s": [
+          2
+        ],
+        "trace": []
+      },
+      "input": {
+        "flag": false,
+        "id": "duplicate-target",
+        "n": 0
+      }
+    },
+    {
+      "expected": {
+        "old": [
+          9,
+          2
+        ],
+        "s": [
+          3,
+          4
+        ],
+        "trace": []
+      },
+      "input": {
+        "flag": false,
+        "id": "slice-rebind-target",
+        "n": 0
+      }
+    },
+    {
+      "expected": {
+        "a": [
+          9,
+          4
+        ],
+        "b": [
+          3,
+          4
+        ],
+        "trace": []
+      },
+      "input": {
+        "flag": false,
+        "id": "array-rebind-target",
+        "n": 0
+      }
+    },
+    {
+      "expected": {
+        "a": [
+          3,
+          4
+        ],
+        "b": [
+          8,
+          4
+        ],
+        "trace": [],
+        "view": [
+          3,
+          4
+        ]
+      },
+      "input": {
+        "flag": false,
+        "id": "array-view-assignment",
+        "n": 0
+      }
+    },
+    {
+      "expected": {
+        "trace": [],
+        "v": 9
+      },
+      "input": {
+        "flag": false,
+        "id": "struct-rebind-target",
+        "n": 0
+      }
+    },
+    {
+      "expected": {
+        "old": [
+          9,
+          2
+        ],
+        "s": [
+          3,
+          4
+        ],
+        "trace": [],
+        "v": 3
+      },
+      "input": {
+        "flag": false,
+        "id": "struct-slice-rebind-target",
+        "n": 0
+      }
+    },
+    {
+      "expected": {
+        "a": 2,
+        "b": 1,
+        "trace": []
+      },
+      "input": {
+        "flag": false,
+        "id": "cell-field-merge",
+        "n": 0
+      }
+    },
+    {
+      "expected": {
+        "a": 7,
+        "b": 9,
+        "trace": [
+          1
+        ]
+      },
+      "input": {
+        "flag": false,
+        "id": "joint-call-once",
+        "n": 0
+      }
+    },
+    {
+      "expected": {
+        "a": 7,
+        "trace": [
+          1
+        ]
+      },
+      "input": {
+        "flag": false,
+        "id": "discarded-result",
+        "n": 0
+      }
+    },
+    {
+      "expected": {
+        "a": 7,
+        "b": 9,
+        "trace": [
+          1
+        ]
+      },
+      "input": {
+        "flag": false,
+        "id": "forwarded-return",
+        "n": 0
+      }
+    },
+    {
+      "expected": {
+        "s": [
+          17
+        ],
+        "trace": [
+          1,
+          2
+        ]
+      },
+      "input": {
+        "flag": false,
+        "id": "compound-once",
+        "n": 0
+      }
+    },
+    {
+      "expected": {
+        "panicked": true,
+        "s": [
+          7,
+          2
+        ],
+        "trace": [
+          1,
+          2
+        ]
+      },
+      "input": {
+        "flag": false,
+        "id": "assignment-calls-before-store-panic",
+        "n": 0
+      }
+    },
+    {
+      "expected": {
+        "panicked": true,
+        "s": [
+          1,
+          2
+        ],
+        "trace": [
+          2,
+          1
+        ]
+      },
+      "input": {
+        "flag": false,
+        "id": "rhs-panic-before-writes",
+        "n": 0
+      }
+    },
+    {
+      "expected": {
+        "trace": [
+          1,
+          2,
+          3
+        ],
+        "v": 7
+      },
+      "input": {
+        "flag": false,
+        "id": "switch-case-order",
+        "n": 0
+      }
+    },
+    {
+      "expected": {
+        "trace": [
+          1,
+          2
+        ],
+        "v": 7
+      },
+      "input": {
+        "flag": false,
+        "id": "switch-default-first",
+        "n": 0
+      }
+    },
+    {
+      "expected": {
+        "a": [
+          1,
+          20,
+          3
+        ],
+        "seen": [
+          1,
+          2,
+          3
+        ],
+        "trace": []
+      },
+      "input": {
+        "flag": false,
+        "id": "range-array-copy",
+        "n": 0
+      }
+    },
+    {
+      "expected": {
+        "rebound": 9,
+        "seen": [
+          7,
+          7
+        ],
+        "trace": []
+      },
+      "input": {
+        "flag": false,
+        "id": "range-array-descriptor-copy",
+        "n": 0
+      }
+    },
+    {
+      "expected": {
+        "s": [
+          1
+        ],
+        "seen": [
+          1,
+          20,
+          3
+        ],
+        "trace": []
+      },
+      "input": {
+        "flag": false,
+        "id": "range-slice-capture",
+        "n": 0
+      }
+    },
+    {
+      "expected": {
+        "iterations": 0,
+        "trace": []
+      },
+      "input": {
+        "flag": false,
+        "id": "range-slice-nil",
+        "n": 0
+      }
+    },
+    {
+      "expected": {
+        "i": 0,
+        "s": [
+          3,
+          5,
+          3
+        ],
+        "trace": []
+      },
+      "input": {
+        "flag": false,
+        "id": "range-assignment-target",
+        "n": 0
+      }
+    },
+    {
+      "expected": {
+        "sum": 3,
+        "trace": [
+          1
+        ]
+      },
+      "input": {
+        "flag": false,
+        "id": "range-array-call-once",
+        "n": 0
+      }
+    },
+    {
+      "expected": {
+        "sum": 3,
+        "trace": [
+          1
+        ]
+      },
+      "input": {
+        "flag": false,
+        "id": "range-blank-second-variable",
+        "n": 0
+      }
+    },
+    {
+      "expected": {
+        "sum": 3,
+        "trace": []
+      },
+      "input": {
+        "flag": false,
+        "id": "range-no-element-read",
+        "n": 0
+      }
+    },
+    {
+      "expected": {
+        "capacity": 3,
+        "length": 3,
+        "trace": [
+          1,
+          1
+        ]
+      },
+      "input": {
+        "flag": false,
+        "id": "array-size-call",
+        "n": 0
+      }
+    },
+    {
+      "expected": {
+        "posts": 0,
+        "trace": [],
+        "value": 7
+      },
+      "input": {
+        "flag": false,
+        "id": "early-return-skips-post",
+        "n": 0
+      }
+    },
+    {
+      "expected": {
+        "ok": false,
+        "trace": [],
+        "value": 0
+      },
+      "input": {
+        "flag": false,
+        "id": "named-return-zero",
+        "n": 0
+      }
+    },
+    {
+      "expected": {
+        "bytes": [
+          0,
+          128,
+          120
+        ],
+        "count": 3,
+        "trace": []
+      },
+      "input": {
+        "flag": false,
+        "id": "byte-string-copy",
+        "n": 0
+      }
+    },
+    {
+      "expected": {
+        "bytes": [
+          7,
+          0,
+          128,
+          120
+        ],
+        "capacity": 4,
+        "trace": []
+      },
+      "input": {
+        "flag": false,
+        "id": "byte-string-append",
+        "n": 0
+      }
+    },
+    {
+      "expected": {
+        "div": -9223372036854775808,
+        "left": 0,
+        "rem": 0,
+        "signed_right": -1,
+        "trace": [],
+        "unsigned_right": 0
+      },
+      "input": {
+        "flag": false,
+        "id": "integer-defined-edges",
+        "n": 0
+      }
+    },
+    {
+      "expected": {
+        "panicked": true,
+        "trace": []
+      },
+      "input": {
+        "flag": false,
+        "id": "aggregate-error-equality",
+        "n": 0
+      }
+    },
+    {
+      "expected": {
+        "a": false,
+        "b": true,
+        "trace": [
+          2
+        ]
+      },
+      "input": {
+        "flag": false,
+        "id": "short-circuit",
+        "n": 0
+      }
+    },
+    {
+      "expected": {
+        "a": true,
+        "b": true,
+        "trace": [
+          1
+        ]
+      },
+      "input": {
+        "flag": true,
+        "id": "short-circuit",
+        "n": 0
+      }
+    },
+    {
+      "expected": {
+        "iterations": 0,
+        "total": 0,
+        "trace": []
+      },
+      "input": {
+        "flag": false,
+        "id": "switch-break-target",
+        "n": -1
+      }
+    },
+    {
+      "expected": {
+        "iterations": 0,
+        "total": 0,
+        "trace": []
+      },
+      "input": {
+        "flag": false,
+        "id": "switch-break-target",
+        "n": 0
+      }
+    },
+    {
+      "expected": {
+        "iterations": 1,
+        "total": 110,
+        "trace": []
+      },
+      "input": {
+        "flag": false,
+        "id": "switch-break-target",
+        "n": 1
+      }
+    },
+    {
+      "expected": {
+        "iterations": 2,
+        "total": 211,
+        "trace": []
+      },
+      "input": {
+        "flag": false,
+        "id": "switch-break-target",
+        "n": 2
+      }
+    },
+    {
+      "expected": {
+        "iterations": 5,
+        "total": 532,
+        "trace": []
+      },
+      "input": {
+        "flag": false,
+        "id": "switch-break-target",
+        "n": 5
+      }
+    },
+    {
+      "expected": {
+        "iterations": 128,
+        "total": 13504,
+        "trace": []
+      },
+      "input": {
+        "flag": false,
+        "id": "switch-break-target",
+        "n": 128
+      }
+    },
+    {
+      "expected": {
+        "iterations": 129,
+        "total": 13614,
+        "trace": []
+      },
+      "input": {
+        "flag": false,
+        "id": "switch-break-target",
+        "n": 129
+      }
+    },
+    {
+      "expected": {
+        "posts": 0,
+        "total": 0,
+        "trace": []
+      },
+      "input": {
+        "flag": false,
+        "id": "switch-continue-target",
+        "n": -1
+      }
+    },
+    {
+      "expected": {
+        "posts": 0,
+        "total": 0,
+        "trace": []
+      },
+      "input": {
+        "flag": false,
+        "id": "switch-continue-target",
+        "n": 0
+      }
+    },
+    {
+      "expected": {
+        "posts": 1,
+        "total": 0,
+        "trace": []
+      },
+      "input": {
+        "flag": false,
+        "id": "switch-continue-target",
+        "n": 1
+      }
+    },
+    {
+      "expected": {
+        "posts": 2,
+        "total": 1,
+        "trace": []
+      },
+      "input": {
+        "flag": false,
+        "id": "switch-continue-target",
+        "n": 2
+      }
+    },
+    {
+      "expected": {
+        "posts": 5,
+        "total": 2,
+        "trace": []
+      },
+      "input": {
+        "flag": false,
+        "id": "switch-continue-target",
+        "n": 5
+      }
+    },
+    {
+      "expected": {
+        "posts": 128,
+        "total": 64,
+        "trace": []
+      },
+      "input": {
+        "flag": false,
+        "id": "switch-continue-target",
+        "n": 128
+      }
+    },
+    {
+      "expected": {
+        "posts": 129,
+        "total": 64,
+        "trace": []
+      },
+      "input": {
+        "flag": false,
+        "id": "switch-continue-target",
+        "n": 129
+      }
+    },
+    {
+      "expected": {
+        "inner": 0,
+        "outer": 0,
+        "trace": []
+      },
+      "input": {
+        "flag": false,
+        "id": "nested-loop-break",
+        "n": -1
+      }
+    },
+    {
+      "expected": {
+        "inner": 0,
+        "outer": 0,
+        "trace": []
+      },
+      "input": {
+        "flag": false,
+        "id": "nested-loop-break",
+        "n": 0
+      }
+    },
+    {
+      "expected": {
+        "inner": 1,
+        "outer": 1,
+        "trace": []
+      },
+      "input": {
+        "flag": false,
+        "id": "nested-loop-break",
+        "n": 1
+      }
+    },
+    {
+      "expected": {
+        "inner": 2,
+        "outer": 2,
+        "trace": []
+      },
+      "input": {
+        "flag": false,
+        "id": "nested-loop-break",
+        "n": 2
+      }
+    },
+    {
+      "expected": {
+        "inner": 5,
+        "outer": 5,
+        "trace": []
+      },
+      "input": {
+        "flag": false,
+        "id": "nested-loop-break",
+        "n": 5
+      }
+    },
+    {
+      "expected": {
+        "inner": 128,
+        "outer": 128,
+        "trace": []
+      },
+      "input": {
+        "flag": false,
+        "id": "nested-loop-break",
+        "n": 128
+      }
+    },
+    {
+      "expected": {
+        "inner": 129,
+        "outer": 129,
+        "trace": []
+      },
+      "input": {
+        "flag": false,
+        "id": "nested-loop-break",
+        "n": 129
+      }
+    }
+  ],
+  "observer_only": [
+    "global trace counters and function literals used to expose evaluation",
+    "recovery used to observe panic order; verified code still excludes recovery",
+    "JSON result maps and observation aggregation outside verified functions"
+  ],
+  "schema": "mpk.go_practical.w04_evaluation_vectors_draft.v0",
+  "scope": "private original-Go evaluation/control observations versus independent expected facts; no practical-profile admission, source-model theorem, loop termination proof or Linux release",
+  "source": "develop/probes/go-practical/evaluation_reference.go",
+  "status": "native semantic observations; not profile admission or proof"
+}
