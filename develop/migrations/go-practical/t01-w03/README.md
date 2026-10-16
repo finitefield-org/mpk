@@ -308,3 +308,21 @@ distinct from captured-source application proofs. Complete Go source/carrier/
 operator binding, substring/concatenation/prefix/suffix and remaining length/
 content laws, slice/descriptor/control composition and aggregate resource
 closure stay open. W03 remains In progress; the whole T01 gate stays due in W05.
+
+## Full-width bounded-index coverage and signed guards
+
+The [index-bound model and 27-case evidence](index-bounds/README.md) derive
+length nonnegativity and agreement of the actual source-shaped signed index
+condition with the byte model guard from the full-width length bound. A
+valid index then equals its finite embedding as a complete canonical 64-bit
+value. This closes an ordinary prerequisite for the earlier finite byte
+lift. There is no caller fit oracle or modulo-only equality. Capacity0
+proves absence of valid indexes; capacity1 proves that a valid index is zero.
+
+The four capacities 0/1/32/256 remain private workloads. The matrix contains
+12 zero-axiom claims and 15 altered-result/erased-bound/erased-guard
+mutations. Actual-Go/bit-loop counterexamples identify false claims
+separately from core type rejection. Production Go source/operator/carrier
+bindings, remaining string operations, slice/descriptor/control composition
+and aggregate resource closure remain due. W03 remains In progress; W04
+has not started and the full T01 gate remains deferred to W05.

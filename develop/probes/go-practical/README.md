@@ -349,3 +349,30 @@ Debug commands `bytes-generate` / `bytes-trace` take
 source/carrier admission or a function proof. Remaining byte laws, complete
 source/operator/slice/descriptor/control bindings and aggregate resources
 stay open. The whole T01 gate remains deferred to W05.
+
+## T01-W03 full-width bounded-index coverage (in progress)
+
+```sh
+python3 -B develop/probes/go-practical/run_index_probes.py --check
+python3 -B develop/probes/go-practical/check_index_report.py
+python3 -B -m unittest discover -s develop/probes/go-practical -p 'test_index_report.py' -v
+```
+
+The [index-bound model and evidence](../../migrations/go-practical/t01-w03/index-bounds/README.md)
+derive length nonnegativity, signed-guard agreement and value-preserving
+finite index embedding from full-width length bounds and actual source-shaped
+index conditions. All 64 length/index bits remain quantified. The zero
+capacity proves absence of a valid index; capacity1 proves the full index is
+zero. No caller fit oracle, function extensionality or smaller source word
+is introduced. Debug commands `bounds-generate` / `bounds-trace` take
+`REPO_ROOT OUTPUT CAPACITY` for private capacities 0/1/32/256.
+
+The matrix has 27 candidates: 12 zero-axiom claims and 15 deliberately false
+mutations. Actual-Go/independent-bit-loop witnesses establish falsity
+separately from checker type failures, including valid Go reads beyond a
+private capacity and unsafe negative indexes after guard erasure. Retained
+integrity checks bind accepted results to exact certificate bytes; the
+separate `--check` command executes both checkers and reproduces native
+observation bytes. Complete production source/operator/carrier bindings,
+remaining string/slice/control laws and aggregate resources remain open.
+The full T01 gate remains deferred to W05.

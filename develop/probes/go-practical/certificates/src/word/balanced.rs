@@ -3,6 +3,9 @@
 
 use super::*;
 mod signed;
+pub(super) fn generate_bounds(root: &Path, output: &Path, capacity: usize, trace: bool) {
+    signed::generate_bounds(root, output, capacity, trace);
+}
 pub(super) fn generate_bytes(root: &Path, output: &Path, capacity: usize, trace: bool) {
     signed::generate_bytes(root, output, capacity, trace);
 }

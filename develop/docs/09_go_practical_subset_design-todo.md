@@ -13,6 +13,8 @@ The private halting Quote model now derives those checks from actual success,
 preserves stopped full frames/error reasons and proves zero failure results.
 Canonical index/finite-byte lemmas now preserve defined reads, equality and
 bytewise order under string-tail normalization, with both-checker evidence.
+Full-width length bounds and actual source-shaped signed index conditions
+now derive value-preserving finite index coverage without a caller fit oracle.
 Complete Go source/operation/string/slice/loop/return/error/descriptor bindings and
 remaining collection/control laws and resource boundaries remain open, so
 W04 has not started.

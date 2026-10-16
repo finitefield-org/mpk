@@ -1,6 +1,10 @@
 //! Canonical-index byte observations and unobservable string tails.
 //! A total backing function is an ordinary proof interface, not Go admission.
 use super::*;
+mod bounds;
+pub(super) fn generate_bounds(root: &Path, output: &Path, capacity: usize, trace: bool) {
+    bounds::generate(root, output, capacity, trace);
+}
 
 const WORD: usize = 6;
 const BYTE: usize = 3;

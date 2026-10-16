@@ -33,10 +33,11 @@ grounded, reduced to one bit, or enumerated.
 The finite lift gives a total model projection through the low address bits.
 Its checked read law preserves every byte bit. This totalization is **not**
 permission for an out-of-range Go index: the separate defined-index theorem
-requires the actual nonnegative-and-less-than-length guard. Under the
-explicit length bound, the production binding still must prove that its
-source-defined index is covered by the finite backing and that its guard
-agrees with the captured Go operators.
+requires the actual nonnegative-and-less-than-length guard. The subsequent
+[index-bound ingredient](../index-bounds/README.md) derives full-value index
+coverage and agreement of source-shaped signed guards under the actual
+full-width length bound. Binding those ordinary operations and premises to
+the captured production Go source remains due.
 The empty workload intentionally has no defined-index positive, avoiding a
 vacuous indexing demonstration. Complete production admission and binding
 of the guard and length/capacity relation remain pending.
@@ -85,10 +86,13 @@ are no fuel failures in this matrix. A separate `--check` replay repeats
 both checkers and reproduces all candidate and original-Go observation bytes.
 
 The capacity256 ordering claim has 150 declarations, 2,811 terms and 31,722
-bytes. Its retained Rust/Go observations are 0.357/0.857 seconds and
+bytes. At the byte-tail checkpoint, its Rust/Go observations were
+0.357/0.857 seconds and
 5,439,488/14,057,472 peak resident bytes on Darwin/arm64. Construction and
 every checker's wall/CPU/RSS and exact source/binary identities are retained.
-These are ingredient measurements, not a frozen application budget or
+Subsequent shared-producer replays refresh the source pins and resources in
+the JSON report; those timings are checkpoint observations. These are
+ingredient measurements, not a frozen application budget or
 native Linux release evidence.
 
 The [ordinary Go observer](../../../../probes/go-practical/byte_reference.go)

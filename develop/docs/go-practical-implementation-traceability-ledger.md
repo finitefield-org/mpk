@@ -26,7 +26,7 @@ after reconciling the intervening shared artifacts and active registry.
 | --- | --- | --- |
 | GO-PRAC-T01-W01 | Complete | Reviewed implementation commit `bd5ee8047d8925f9c9d0f7502627fca33bb2c836`; completion audit below |
 | GO-PRAC-T01-W02 | Complete | Reviewed implementation commit `fed1cf6047f97b1f73c0fc37c5023e19f4f9f035`; 39 cases reproduced twice |
-| GO-PRAC-T01-W03 | In progress | Halting Quote and finite-byte tail/index/equality/order ingredients measured; complete Go source/byte/slice/loop/return/error/descriptor bindings, remaining laws and resource closure stay open |
+| GO-PRAC-T01-W03 | In progress | Halting Quote, finite-byte tail/index/equality/order and full-width bounded-index coverage ingredients measured; complete Go source/byte/slice/loop/return/error/descriptor bindings, remaining laws and resource closure stay open |
 | GO-PRAC-T01-W04 | Blocked by W03 | Exact v1 source/shared/contract/limit freeze |
 | GO-PRAC-T01-W05 | Blocked by W04 | Publish inactive package, review and full T01 gate |
 | GO-PRAC-T02–T07 | Not started | Sequential v1 implementation and public release |
@@ -792,3 +792,83 @@ remain preserved. Reflexivity of the actual single backing byte now proves
 both accepted controls, without an axiom or stronger entry predicate. The
 other 44 candidate bytes and complete case rows are unchanged. Earlier
 families are remeasured with the final producer before this checkpoint.
+
+## 17. T01-W03 full-width bounded-index coverage
+
+Predecessor checkpoint: `1640f295e1c1afa433e47e5d81d8de924160e4e8` retains
+the finite byte/tail ingredient and its true one-cell controls. The new
+[order library](../probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds.rs)
+proves comparison trichotomy/transitivity, equality substitution, sign/order
+compatibility and zero/one bounds. Checked Boolean cases and congruence
+compose these laws over every source bit; operand values are never enumerated.
+
+The [coverage composition](../probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/coverage.rs)
+derives length nonnegativity from the actual full-width length bound and
+proves agreement between the source-shaped signed index condition and the
+existing byte-mask condition. An actually valid index then equals its
+zero-extended finite embedding as a complete canonical 64-bit value. The
+finite-fit predicate is derived internally, with no caller fit oracle.
+Capacity1 proves that a valid index is zero; capacity0 proves the absence of
+any valid index. This closes an ordinary prerequisite for the finite byte
+store lift without replacing full-value equality with modulo equality.
+Complete production Go source/operator/carrier bindings remain due.
+
+[The 27-case evidence](../migrations/go-practical/t01-w03/index-bounds/README.md)
+covers capacities 0/1/32/256 with two identical fresh generations per group.
+Rust and Go accept 12 zero-axiom claims with matching hashes and reject 15
+altered-result/erased-bound/erased-guard candidates at core type checking.
+No new fuel failure is hidden or counted. Accepted results bind to the exact
+retained certificate bytes through the existing module-certificate hash
+domain. The capacity256 coverage claim has 243 declarations, 26,360 terms
+and 316,659 bytes. Its observed Rust/Go resources are 5.676/13.218 seconds
+and 37,126,144/92,520,448 resident bytes. The host reports Darwin27/arm64
+and 10 CPUs; model/RAM queries are unavailable. Independent private replays
+may overlap; these are child-resource observations, not an isolated-machine
+guarantee or a frozen application budget.
+
+The pinned [original-Go observer](../probes/go-practical/index_reference.go)
+matches all 116 independent bit-loop observations. These include 15 bounded
+safe and 70 bounded unsafe cases, four valid reads beyond private coverage,
+30 negative-index panics and 15 maximum-positive-index panics. Every one of
+the 15 false mutations has an explicit input/output witness, separate from
+its type failure. For example, length2/index1 is a valid Go read outside
+capacity1 and differs from the low-bit zero embedding; erasing the source
+guard admits index-1 at length0; erasing the zero-capacity bound admits
+length1/index0. Exact input/output bytes, binary identity and resources are
+retained. These observations are empirical; they establish no captured Go
+function theorem or support for observer-only recovery in the proof closure.
+
+Selected validation covers the changed private producer, full-source
+comparison/guard/bound composition, finite embedding, empty/one boundaries
+and evidence integrity. Because the shared producer changes, all 432 prior
+candidates are remeasured: 27 representation, four local-Nat, 48 balanced,
+55 unsigned-prefix, 32 signed-prefix, 40 guard, 72 continuing-prefix,
+108 halting-return and 46 byte-tail cases. Every canonical certificate,
+both standalone indexes and all nine complete case indexes/outcomes remain
+unchanged against the predecessor commit. Earlier prose resource examples
+describe their respective checkpoints; refreshed JSON reports hold the
+current source/binary identities and observations. Unchanged expensive
+linear-word proofs are not needlessly replayed.
+
+All 32 new adversarial evidence tests pass. The 189 affected earlier
+evidence tests also pass, for 221 selected tests. Offline locked release
+Clippy passes with warnings denied; explicit private Rust formatting,
+pinned Go formatting and changed Python syntax checks pass. W01's
+77-owner/198-regression-file/83-artifact identity audit and W02's retained
+39-case closure report pass. Unaffected production suites and unchanged
+W01/W02 adversarial helpers are not rerun.
+
+The separate final index `--check` replay passes all 27 candidates through
+both checkers and reproduces the exact original-Go input/output bytes.
+Final review checks six changed documents/108 local links, balanced code
+fences, source/diff scope and Git whitespace. No incomplete measurement
+attempt remains.
+
+No new axiom, checker rule, conversion fuel, record eta, function
+extensionality, unfinished C# theorem or stronger Go entry condition is
+introduced. Production frontend/checker, normative specification and public
+registry remain at W01. Remaining string operations, slice/descriptor/control
+composition, complete Go source/operator/carrier bindings and aggregate
+resource closure stay open. W03 remains In progress, W04 has not started,
+and the complete T01 gate remains deferred to W05. The full authorized
+11-stage implementation objective remains active.

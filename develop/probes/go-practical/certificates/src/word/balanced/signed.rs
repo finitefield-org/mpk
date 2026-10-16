@@ -4,6 +4,9 @@
 
 use super::*;
 mod bytes;
+pub(super) fn generate_bounds(root: &Path, output: &Path, capacity: usize, trace: bool) {
+    bytes::generate_bounds(root, output, capacity, trace);
+}
 mod fold;
 mod order;
 pub(super) fn generate_bytes(root: &Path, output: &Path, capacity: usize, trace: bool) {
