@@ -4,6 +4,9 @@
 
 use super::*;
 mod bytes;
+pub(super) fn generate_construction(root: &Path, output: &Path, capacity: usize, trace: bool) {
+    bytes::generate_construction(root, output, capacity, trace);
+}
 pub(super) fn generate_bulk_copy(root: &Path, output: &Path, capacity: usize, trace: bool) {
     bytes::generate_bulk_copy(root, output, capacity, trace);
 }

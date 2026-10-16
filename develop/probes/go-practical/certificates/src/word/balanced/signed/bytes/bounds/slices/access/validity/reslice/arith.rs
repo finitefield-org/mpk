@@ -72,7 +72,7 @@ pub(super) fn zero_sum(d: usize, x: Expr) -> Typed {
         rn("ZeroSum", d, vec![x]),
     )
 }
-fn zero_carry(d: usize, x: Expr) -> Typed {
+pub(super) fn zero_carry(d: usize, x: Expr) -> Typed {
     typed(
         bool_ty(),
         carry(d, x.clone(), literal_word(d, 0), literal(false)),

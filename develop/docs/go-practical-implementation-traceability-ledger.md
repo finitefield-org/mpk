@@ -26,7 +26,7 @@ after reconciling the intervening shared artifacts and active registry.
 | --- | --- | --- |
 | GO-PRAC-T01-W01 | Complete | Reviewed implementation commit `bd5ee8047d8925f9c9d0f7502627fca33bb2c836`; completion audit below |
 | GO-PRAC-T01-W02 | Complete | Reviewed implementation commit `fed1cf6047f97b1f73c0fc37c5023e19f4f9f035`; 39 cases reproduced twice |
-| GO-PRAC-T01-W03 | In progress | Halting Quote, byte/index, descriptor/store, computed validity/access, reslice and overlapping copy ingredients measured; production source/ownership/operation bindings, remaining laws and aggregate resources stay open |
+| GO-PRAC-T01-W03 | In progress | Halting Quote, byte/index, descriptor/store, computed validity/access, reslice, copy and construction/append ingredients measured; production source/ownership/operation bindings, remaining laws and aggregate resources stay open |
 | GO-PRAC-T01-W04 | Blocked by W03 | Exact v1 source/shared/contract/limit freeze |
 | GO-PRAC-T01-W05 | Blocked by W04 | Publish inactive package, review and full T01 gate |
 | GO-PRAC-T02–T07 | Not started | Sequential v1 implementation and public release |
@@ -1300,3 +1300,114 @@ and capacity-preserving `append`, remaining byte/control composition and
 aggregate boundary/resource closure remain open. W03 stays In progress,
 W04 has not started and the complete T01 gate remains deferred to W05.
 The full authorized 11-stage objective remains active.
+
+## 22. T01-W03 fresh construction and non-reallocating append
+
+Predecessor checkpoint: `dc9a5a9c056f21c9c8f15694774b3937c193661a` retains
+ordinary overlapping-copy closure. The new
+[construction model and matrix](../migrations/go-practical/t01-w03/construction/README.md)
+retain full64 operands, 512-bit descriptors and complete 128-bit cells in
+both logical stores/padding at B=0/1/8/32/127/128/129. No source pointer bits,
+new checker rule, fuel adjustment, axiom, eta or unfinished C# theorem is used.
+
+Actual signed make size checks produce a non-nil descriptor, including the
+zero-length case. Every element within capacity is initialized, so later
+re-slicing exposes zero values rather than arbitrary discarded tails. A
+computed old-live-mask false fact at the allocation's region excludes equality
+with any old live query region. Boolean congruence proves complete old-live
+frames; an unrelated NoAlias Boolean does not replace that derivation.
+Allocation resource exclusions and private bounds remain explicit.
+
+The append model computes actual full-word length/carry and capacity checks,
+then an absolute element interval from old offset/length to the result end.
+Each write reads the immutable pre-append source. Existing validity derives
+no-wrap/nonnegative/bounded endpoints, result validity and actual result/
+saved-full index guards. Source indexes map to old length plus index. Old
+descriptor length, nil tag, region, offset and capacity retain their meanings;
+full aliases see appended values while the old prefix, unused capacity,
+other regions and queries outside the actual interval remain unchanged.
+
+The composed make/append proof preserves an old source's validity as the live
+mask grows, preserves its indexed values across fresh allocation, then invokes
+the ordinary append read. The result therefore contains values from before
+both operations. Formerly live regions stay unchanged, and empty preallocation
+plus empty append remains non-nil. The common bounded-span composition and
+actual no-reallocation condition are explicit; production source/effect
+capture still has to prove generated obligations. Borrowed-write permission
+and a complete filter-loop theorem are not inferred from this conditional law.
+
+Representative make validity/zero/read/live-frame, active-index, append
+validity/result/alias index/read/prefix/tail/other/physical-frame and composed
+read/borrowed-frame stages pass both unchanged checkers. The full matrix has
+276 candidates (138 correct and 138 false mutations) across all seven semantic
+bounds. B0 avoids vacuous indexed/frame negatives; B1 omits post-state-source
+substitution without enough overlapping cells to falsify it.
+
+Actual Go and independent bit-loop/snapshot observations match 2,806 cases.
+They include 758 successful make operations and 170 make panics, 211 reads of
+initialized capacity tails, 796 standalone append operations, 354 successful
+standalone reallocations, 128 bounded copied/alias reads, 150 right and 50
+left overlaps, 60 post-state-source and 40 naive-forward-loop counterexamples.
+The composed corpus has 949 successful operations, 58 bounded source reads,
+126 old-live frame queries, 119 non-nil empty results and 350 successful
+reallocations. Growth capacity is checked against the language's constraints;
+its runtime policy is not guessed or admitted as a proved append operation.
+
+All 138 false mutations have typed witnesses. Domains distinguish bounded
+source behavior, actual make panics, forged fresh-region bindings, and source
+reallocation that succeeds outside the no-reallocation condition. Twenty-eight
+make reads outside complete finite-address coverage still return zero;
+value equality alone cannot raise the semantic bound. Invalid metadata,
+construction failures and subsequent index attempts remain separate.
+Observer-only seeding, allocation, recovery, I/O and value-based alias probes
+do not complete production capture/ownership bindings.
+
+The independent observation reference initially predicted a full-view attempt
+when its parent descriptor failed construction. It was corrected to preserve
+neither a read nor a read panic in that case, and a selected regression keeps
+the raw invalid nil metadata in scope. Explicit no-reallocation observations
+beyond B were added to avoid an empty boundary category. These reference/
+coverage corrections are not kernel failures or false-claim proof results.
+
+Both unchanged checkers accept 138 zero-axiom candidates with matching
+accepted hashes and reject all 138 false mutations at core type checking.
+No current resource failure is counted as a semantic negative. The B128
+composed-read candidate has 641 declarations, 44,978 terms and 545,819 bytes;
+observed Rust/Go wall time is 4.448/10.922 seconds and peak resident size is
+64,831,488/139,575,296 bytes. These are direct-child observations, not isolated
+or aggregate budgets.
+
+Initial measurement and a separate final `--check` replay pass all 276
+candidates in both unchanged checkers and reproduce exact canonical
+certificates and original-Go input/output bytes. The new runner measures three
+independent capacity groups concurrently, retains canonical ordering and
+atomically records active attempts. That count is local to the runner;
+wall/CPU/RSS can overlap other work and the 60-second ceiling is not a frozen
+or isolated profile budget. No incomplete attempt remains.
+
+Shared-source identity requires refreshing all 837 predecessor reports.
+Their canonical certificates, two standalone indexes, 14 complete case
+indexes/outcomes and raw checker verdicts remain unchanged against the
+predecessor. Production frontend/checkers, normative specifications and
+registry remain at W01. The adjacent hardware receipt is refreshed to the
+current slice-store report hash, preserving its original model/RAM nulls.
+W01's 77-owner/198-regression-file/83-artifact identity audit and W02's retained
+39-case closure check pass.
+
+All 473 selected tests pass: 70 new and 403 affected prior evidence tests.
+They cover source/proof/witness identity, initialization, nil/empty, actual
+guards, all frames, aliases, overlap, growth scope, failed-parent observations
+and preallocation composition. This scope follows the changed producer and
+all source-bound report consumers. Offline locked release Clippy passes with
+warnings denied. Explicit formatting covers the 22 changed current Rust
+files and excludes historical snapshots. Pinned Go formatting, changed Python/
+JSON syntax, five changed documents/136 local links, balanced fences, ordered
+ledger sections and Git whitespace pass. Unchanged expensive linear-word
+proofs, unaffected production suites and unchanged W01/W02 adversarial
+helpers are not rerun. The full T01 gate remains deferred to W05.
+
+Production Go capture/model/ownership/operation bindings, remaining byte/
+control composition and complete application proofs, and aggregate boundary/
+resource closure remain due. W03 stays In progress, W04 has not started and
+the complete T01 gate remains deferred to W05. The full authorized 11-stage
+objective remains active.

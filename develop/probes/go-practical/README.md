@@ -522,3 +522,48 @@ writes and recovery are observer-only. Production Go capture/model/ownership/
 operation bindings, bounded construction/capacity-preserving `append`,
 remaining byte/control composition and aggregate resources stay open. W03
 remains In progress; the complete T01 gate remains due in W05.
+
+## T01-W03 fresh construction and capacity-preserving append (in progress)
+
+```sh
+python3 -B develop/probes/go-practical/run_construction_probes.py --check
+python3 -B develop/probes/go-practical/check_construction_report.py
+python3 -B -m unittest discover -s develop/probes/go-practical -p 'test_construction_report.py' -v
+```
+
+The [construction matrix](../../migrations/go-practical/t01-w03/construction/README.md)
+adds full-capacity zero initialization, non-nil empty construction and computed
+fresh/live separation. Append uses an actual full64 capacity condition and an
+absolute element write interval. Result and saved-full alias indexes are
+proved defined; complete source values come from the pre-append heap, and
+old prefixes, capacity tails and all actual outside-range queries are framed.
+
+A composed make/append proof preserves borrowed source validity/values across
+allocation and returns values from before either operation. Formerly live
+regions remain unchanged. These are conditional ordinary proofs over complete
+128-bit cells; production source/effect capture and a complete filter-loop
+proof remain due. No borrowed-write permission follows from the model.
+
+The 276-candidate matrix includes explicit false-claim witnesses, avoids
+vacuous indexed/frame negatives at zero and omits the overlapping-source
+mutation at one cell. Actual Go matches 2,806 independent bit-loop/snapshot
+observations, including successful reallocation outside the profile condition,
+zero-valued out-of-bound reads, raw invalid bindings and failed constructions.
+The reference never treats capacity/padding restrictions as Go panics or
+models the runtime's exact growth-capacity policy.
+
+Debug `construct-generate` / `construct-trace` take
+`REPO_ROOT OUTPUT CAPACITY`. The measurement helper checks three independent
+capacity groups concurrently, retains canonical order and records each direct
+child's resources. Concurrency and the 60-second child ceiling establish no
+isolated or aggregate profile budget. `--check` performs an actual independent
+replay; the retained checker validates evidence integrity only.
+
+Both checkers accept 138 zero-axiom candidates and reject 138 false mutations
+at core type checking. Independent replay reproduces all 276 canonical
+certificates and exact native bytes. All 473 selected tests pass, and 837
+predecessor certificates, two standalone indexes and 14 complete case indexes/
+outcomes remain unchanged. W03 remains In progress. Production capture/model/ownership/operation bindings,
+remaining byte/control and complete application proofs, and aggregate
+boundary/resource closure remain due. W04 has not started; the complete T01
+gate remains assigned to W05.

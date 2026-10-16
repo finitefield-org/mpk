@@ -20,3 +20,11 @@ pub(super) fn install(p: &mut Producer, trace: Option<&Path>) {
 pub(super) fn emit(base: Certificate, output: &Path, count: usize) {
     emit::generate(base, output, count);
 }
+
+mod construction;
+pub(super) fn construction(p: &mut Producer, trace: Option<&Path>) {
+    construction::install(p, trace);
+}
+pub(super) fn emit_construction(base: Certificate, output: &Path, count: usize) {
+    construction::emit(base, output, count);
+}

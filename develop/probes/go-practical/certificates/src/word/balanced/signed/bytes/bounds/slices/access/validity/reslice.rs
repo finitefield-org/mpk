@@ -40,3 +40,10 @@ pub(super) fn emit(base: Certificate, output: &Path, count: usize) {
 pub(super) fn emit_copy(base: Certificate, output: &Path, count: usize) {
     copying::emit(base, output, count);
 }
+
+pub(super) fn install_construction(p: &mut Producer, trace: Option<&Path>) {
+    copying::construction(p, trace);
+}
+pub(super) fn emit_construction(base: Certificate, output: &Path, count: usize) {
+    copying::emit_construction(base, output, count);
+}

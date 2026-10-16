@@ -29,6 +29,12 @@ Overlapping-copy ingredients now use immutable pre-state source reads, computed
 min-length bounds and both actual index guards, with destination/other-region
 frames. Native Go copy and independent bit-loop/snapshot observations match;
 the retained both-checker matrix and separate replay pass.
+Fresh construction and capacity-preserving append now have ordinary guard,
+zero-initialization, actual result/alias index, absolute-frame and borrowed-input
+composition proofs at representative workloads. Original-Go observations match
+the independent bit-loop/snapshot reference. Their 276-candidate matrix,
+independent replay and 473 selected tests pass; 837 prior candidates are
+preserved unchanged.
 Complete Go source/operation/string/slice/loop/return/error/descriptor bindings and
 remaining collection/control laws and resource boundaries remain open, so
 W04 has not started.

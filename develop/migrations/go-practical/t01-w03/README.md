@@ -437,3 +437,33 @@ corrected and its single-test rerun passes. W03 stays In progress. Production Go
 operation bindings, bounded construction/capacity-preserving `append`,
 remaining byte/control laws and aggregate resource closure stay due. W04 has
 not started; the complete T01 gate stays deferred to W05.
+
+## Fresh construction, append and preallocation composition
+
+The [construction checkpoint](construction/README.md) initializes complete
+capacity, retains non-nil empty construction and derives separation from the
+computed old live mask. Non-reallocating append computes full64 extent/carry
+and capacity conditions, preserves metadata, proves actual result/saved-full
+index guards and reads immutable pre-append source values. Old prefixes,
+capacity tails, other regions and queries outside the absolute write interval
+are framed. Composed allocation/append retains borrowed input values from
+before both operations and preserves all formerly live regions.
+
+The matrix has 276 candidates and explicit typed witnesses for its 138 false
+mutations. Actual Go agrees with 2,806 independent bit-loop/snapshot cases.
+Successful source reallocation stays outside the proved no-reallocation
+condition and is never relabeled as a panic. Its exact growth policy remains
+unmodeled. Invalid live/allocation bindings and failed-parent construction
+observations stay distinct from actual source index attempts. Observer-only
+allocation, seeding, I/O, recovery and value-based alias probes do not grant
+production source or borrowed-write ownership admission.
+
+Both checkers accept 138 zero-axiom candidates and reject 138 false mutations
+at core type checking. A separate replay reproduces all 276 canonical cases
+and exact native bytes. All 473 selected tests pass. The 837 predecessor
+certificates, two standalone indexes and 14 complete case indexes/outcomes
+remain unchanged. Three capacity groups are measured concurrently;
+resources remain per-child observations without an isolated-machine or
+profile-budget claim. W03 stays In progress, W04 has not started and the
+complete T01 gate remains deferred to W05. Production bindings, remaining
+byte/control and application proofs, and aggregate resource closure stay due.

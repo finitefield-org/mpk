@@ -592,3 +592,10 @@ pub(super) fn emit(base: Certificate, output: &Path, count: usize) {
 pub(super) fn emit_copy(base: Certificate, output: &Path, count: usize) {
     reslice::emit_copy(base, output, count);
 }
+
+pub(super) fn construction(p: &mut Producer, trace: Option<&Path>) {
+    reslice::install_construction(p, trace);
+}
+pub(super) fn emit_construction(base: Certificate, output: &Path, count: usize) {
+    reslice::emit_construction(base, output, count);
+}

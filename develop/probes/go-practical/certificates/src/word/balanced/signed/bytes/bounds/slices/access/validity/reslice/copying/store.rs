@@ -37,7 +37,7 @@ fn cell_def(h: Expr, d: Expr, s: Expr, r: Expr, i: Expr) -> Typed {
         bc("CellDefinition", std::mem::take(&mut a)),
     )
 }
-fn read_canonical(h: Expr, d: Expr, i: Expr) -> Typed {
+pub(super) fn read_canonical(h: Expr, d: Expr, i: Expr) -> Typed {
     typed(
         element(),
         read(h.clone(), d.clone(), canon(WORD, i.clone())),
