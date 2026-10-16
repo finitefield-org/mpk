@@ -2,6 +2,9 @@
 //! A total backing function is an ordinary proof interface, not Go admission.
 use super::*;
 mod bounds;
+pub(super) fn generate_bulk_copy(root: &Path, output: &Path, capacity: usize, trace: bool) {
+    bounds::generate_bulk_copy(root, output, capacity, trace);
+}
 pub(super) fn generate_reslice(root: &Path, output: &Path, capacity: usize, trace: bool) {
     bounds::generate_reslice(root, output, capacity, trace);
 }

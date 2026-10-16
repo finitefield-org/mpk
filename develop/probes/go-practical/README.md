@@ -487,3 +487,38 @@ executes both checkers and reproduces exact native bytes. Production Go
 capture/model/ownership/operation bindings, overlapping `copy`, bounded
 construction/`append`, remaining byte/control laws and aggregate resources
 stay due. W03 remains In progress; the complete T01 gate remains due in W05.
+
+## T01-W03 overlapping min-length copy (in progress)
+
+```sh
+python3 -B develop/probes/go-practical/run_copy_probes.py --check
+python3 -B develop/probes/go-practical/check_copy_report.py
+python3 -B -m unittest discover -s develop/probes/go-practical -p 'test_copy_report.py' -v
+```
+
+The [copy model and matrix](../../migrations/go-practical/t01-w03/bulk-copy/README.md)
+use an explicit heap lambda whose source reads always refer to the pre-state.
+Computed `min(len(dst), len(src))` bounds and actual signed copied-index checks
+derive both source/destination definedness, including nil/empty cases.
+Complete 128-bit copied reads, unchanged destination reads beyond the copied
+prefix and other-region frames retain full 64-bit addresses, descriptor
+fields and both logical stores/padding. No internal canonicalization or
+unrelated no-wrap assumption is added to source callers.
+
+The matrix has 84 candidates at semantic storage bounds
+0/1/8/32/127/128/129. B0 has only count properties; B1 omits the source-after-copy
+mutation that needs multiple overlapping cells to be false. The native Go
+observer agrees with 341 independent bit-loop/snapshot observations,
+including both overlap directions and counterexamples to a naive forward
+loop and source-after-copy substitution. Construction/index failures,
+invalid raw bindings and legal operations outside the private bound remain
+separate. Actual descriptor metadata and complete outside-range cells are
+observed independently from the proof model.
+
+Debug `copy-generate` / `copy-trace` take `REPO_ROOT OUTPUT CAPACITY`. Retained
+checks establish evidence integrity; `--check` actually executes both
+checkers and reproduces exact certificate/native bytes. Native allocation,
+writes and recovery are observer-only. Production Go capture/model/ownership/
+operation bindings, bounded construction/capacity-preserving `append`,
+remaining byte/control composition and aggregate resources stay open. W03
+remains In progress; the complete T01 gate remains due in W05.

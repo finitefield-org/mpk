@@ -410,3 +410,30 @@ model/ownership/operation bindings, overlapping `copy`, bounded construction/
 `append`, remaining byte/control laws and aggregate resources stay pending.
 W03 remains In progress; W04 has not started and the full T01 gate remains
 deferred to W05.
+
+## Overlapping min-length copy
+
+The [bulk-copy checkpoint](bulk-copy/README.md) adds an explicit immutable
+pre-state heap relation, full64 relative-index cancellation, computed
+min-length bounds, both actual source/destination guards, whole-cell copied
+reads and destination/other-region frames. Its 84 candidates retain private
+semantic storage bounds independently of padding. Nil/empty count claims
+remain nonvacuous, and the source-after-copy mutation is emitted only where
+an overlapping bounded-source counterexample exists.
+
+Actual Go `copy` agrees with 341 independent bit-loop/snapshot observations.
+Right and left overlaps, unequal lengths, nil/empty operations, full frames,
+construction/index failures and out-of-profile reads remain distinct. Twelve
+observations refute a naive forward-loop lowering and 17 refute substituting
+the post-state source for its pre-state values. Observer-only allocation,
+mutation and recovery prove no production capture or borrowed-write ownership.
+
+Both checkers accept 42 zero-axiom claims and reject 42 false mutations at
+core type checking. A separate replay reproduces all 84 canonical candidates
+and exact native Go bytes. The 753 predecessor certificates, two standalone
+indexes and 13 complete case indexes/outcomes remain unchanged. The selected
+403 tests have passing applicable results after one negative test fixture is
+corrected and its single-test rerun passes. W03 stays In progress. Production Go capture/model/ownership/
+operation bindings, bounded construction/capacity-preserving `append`,
+remaining byte/control laws and aggregate resource closure stay due. W04 has
+not started; the complete T01 gate stays deferred to W05.

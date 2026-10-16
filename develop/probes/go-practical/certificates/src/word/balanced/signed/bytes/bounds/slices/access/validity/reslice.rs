@@ -2,7 +2,11 @@
 use super::*;
 mod arith;
 mod assoc;
+mod copying;
 mod emit;
+pub(super) fn install_copy(p: &mut Producer, trace: Option<&Path>) {
+    copying::install(p, trace);
+}
 mod model;
 mod numeric;
 mod preservation;
@@ -31,4 +35,8 @@ pub(super) fn install(p: &mut Producer, _count: usize, trace: Option<&Path>) {
 }
 pub(super) fn emit(base: Certificate, output: &Path, count: usize) {
     emit::generate(base, output, count);
+}
+
+pub(super) fn emit_copy(base: Certificate, output: &Path, count: usize) {
+    copying::emit(base, output, count);
 }

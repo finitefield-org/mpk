@@ -26,7 +26,7 @@ fn not_body(d: usize, x: Expr) -> Expr {
         )
     }
 }
-fn not_def(d: usize, x: Expr) -> Typed {
+pub(super) fn not_def(d: usize, x: Expr) -> Typed {
     typed(
         cube_type(d),
         bit_not(d, x.clone()),
@@ -34,7 +34,7 @@ fn not_def(d: usize, x: Expr) -> Typed {
         rn("NotDefinition", d, vec![x]),
     )
 }
-fn not_part(d: usize, x: Expr, high: bool) -> Typed {
+pub(super) fn not_part(d: usize, x: Expr, high: bool) -> Typed {
     typed(
         cube_type(d - 1),
         project(bit_not(d, x.clone()), high),

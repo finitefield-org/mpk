@@ -26,7 +26,7 @@ after reconciling the intervening shared artifacts and active registry.
 | --- | --- | --- |
 | GO-PRAC-T01-W01 | Complete | Reviewed implementation commit `bd5ee8047d8925f9c9d0f7502627fca33bb2c836`; completion audit below |
 | GO-PRAC-T01-W02 | Complete | Reviewed implementation commit `fed1cf6047f97b1f73c0fc37c5023e19f4f9f035`; 39 cases reproduced twice |
-| GO-PRAC-T01-W03 | In progress | Halting Quote, byte/index, descriptor/store, computed validity/access and general reslice ingredients measured; production source/ownership/operation bindings, remaining laws and aggregate resources stay open |
+| GO-PRAC-T01-W03 | In progress | Halting Quote, byte/index, descriptor/store, computed validity/access, reslice and overlapping copy ingredients measured; production source/ownership/operation bindings, remaining laws and aggregate resources stay open |
 | GO-PRAC-T01-W04 | Blocked by W03 | Exact v1 source/shared/contract/limit freeze |
 | GO-PRAC-T01-W05 | Blocked by W04 | Publish inactive package, review and full T01 gate |
 | GO-PRAC-T02–T07 | Not started | Sequential v1 implementation and public release |
@@ -1201,3 +1201,102 @@ construction/`append`, remaining byte/control laws and aggregate resource
 closure remain due. W03 stays In progress, W04 has not started and the full
 T01 gate remains deferred to W05. The full authorized 11-stage implementation
 objective remains active.
+
+## 21. T01-W03 overlapping min-length copy closure
+
+Predecessor checkpoint: `9f93641e86bccc77c7c0d38fdb48190828fd5522` retains
+ordinary signed reslicing. The new
+[copy model](../probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying.rs)
+computes unsigned `min` of the complete canonical 64-bit destination/source
+lengths. An explicit heap lambda reads every copied cell from the immutable
+pre-state heap, so both overlap directions retain Go's source-value behavior.
+Neither a forward assignment loop nor the post-state source is substituted.
+
+Checked complement/inverse/commutative identities derive full64 relative-index
+cancellation without a new checker rule, axiom, fuel adjustment, eta or
+function extensionality. Constructor canonicalization proofs remain internal.
+Computed validity derives nonnegative lengths, including nil length zero;
+actual `0 <= index < min_length` then derives both actual source/destination
+index guards. Nil and non-nil empty states remain distinct. The complete
+128-bit copied read, unchanged destination read beyond the copied prefix,
+and other-region frame are ordinary checked relations over the same heap.
+Production Go capture/operation/ownership bindings remain due; these heap
+lemmas do not grant write permission for borrowed input regions.
+
+The [matrix](../migrations/go-practical/t01-w03/bulk-copy/README.md) has 84
+candidates at semantic bounds B=0/1/8/32/127/128/129, independently of padding
+P=1/1/8/32/128/128/256. Both complete stores and all padding cells remain
+quantified. B0 emits count properties only. B1 omits the post-state-source
+mutation, which requires multiple overlapping cells to be false. Every
+emitted mutation has an explicit bounded-source counterexample, separately
+from the proof's rejection class.
+
+The [actual Go observer](../probes/go-practical/copy_reference.go) agrees with
+all 341 [independent bit-loop/snapshot observations](../probes/go-practical/copy_differential.py).
+It records 278 actual copies, 262 valid bounded operations, 72 copied reads,
+22 destination reads outside the copied prefix and 16,595 other-region cells
+within the proof domain. Categories overlap: 33 right and 20 left overlaps,
+23 different-region operations, 108 unequal-length operations, 48 nil and
+53 non-nil empty operations. Twelve observations refute a naive forward loop;
+17 refute the post-state-source substitution. Actual descriptor metadata is
+preserved, and complete heap cells outside the write range are compared.
+
+The same corpus retains 63 rows with a construction rejection, 253 rows
+with a subsequent index panic, six constructible operations with invalid live bindings, ten reads
+outside B, three within padding but outside B, and seven source reads without
+complete finite-address coverage. Copy on nil/empty slices is not treated as
+a panic. Invalid raw metadata, forged region bindings and source construction/
+index failures are distinct. Native allocation, I/O, mutation and recovery
+are observer-only; no complete captured-source theorem follows from them.
+
+Both unchanged checkers accept all 42 positive candidates with zero axioms
+and matching accepted hashes, and reject all 42 false mutations at core type
+checking. No current fuel outcome is counted as a semantic negative. The B128
+copied-read candidate has 615 declarations, 40,945 terms and 494,268 bytes.
+Observed Rust/Go wall time is 2.839/6.543 seconds and peak resident size is
+66,191,360/131,547,136 bytes. Direct-child wall/CPU/RSS can overlap other
+private replays; no isolated or aggregate budget is inferred.
+
+The shared producer pins all current Rust source, so all 753 predecessor
+candidates were remeasured despite unchanged canonical claims. Their raw
+certificates, two standalone indexes, 13 complete case indexes, semantic
+outcomes and raw checker verdicts remain unchanged against the predecessor.
+Production frontend/checkers, specifications and registry remain at W01.
+The hardware receipt is refreshed to the current slice-store report hash,
+preserving the original report's model/RAM nulls.
+
+Selected verification covers min-length bounds, actual guards, nil/empty
+paths, full64 cancellation, complete copied cells, both frames, overlap,
+evidence/witness domains and all affected source/report identities. The
+403 selected tests comprise 48 new copy tests and 355 affected prior evidence
+tests. Initially 402 passed; one negative fixture crosses modules and therefore
+hits module identity before its intended certificate-identity check. Changing
+that fixture to cross two accepted results inside the same module makes the
+focused single-test rerun pass at the intended guard. The other 402 passing
+tests are unaffected by that test-only edit and are not repeated. Unchanged
+expensive linear-word diagnostic proofs and unrelated production suites are
+not rerun. W01's 77-owner/198-regression-file/83-artifact identity audit and
+W02's retained 39-case closure check pass.
+
+A separate final copy `--check` replay passes all 84 candidates in both
+checkers and reproduces exact canonical certificates and original-Go input/
+output bytes. No incomplete measurement attempt remains. Offline locked
+release Clippy passes with warnings denied; explicit Rust formatting checks
+the 16 changed current files and excludes historical snapshots. Pinned Go
+formatting, changed Python syntax, five changed documents/132 local links,
+balanced fences, ordered ledger sections and Git whitespace pass. These
+checks match the private producer/evidence/doc changes. The complete T01 gate
+remains deferred to W05, and unaffected production suites are not run.
+
+The next collection probe must derive fresh initialized construction from
+actual signed length/capacity checks, then use a proved no-reallocation
+condition for preallocated `append`. It must preserve local aliases and
+capacity tails while keeping fresh writable storage disjoint from borrowed
+inputs. Failure to establish that capacity condition is a profile-domain
+obligation, not a Go panic; reallocating append remains deferred by the design.
+
+Production capture/model/ownership/operation bindings, bounded construction
+and capacity-preserving `append`, remaining byte/control composition and
+aggregate boundary/resource closure remain open. W03 stays In progress,
+W04 has not started and the complete T01 gate remains deferred to W05.
+The full authorized 11-stage objective remains active.

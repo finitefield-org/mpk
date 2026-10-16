@@ -2,6 +2,9 @@
 use super::*;
 mod coverage;
 mod slices;
+pub(super) fn generate_bulk_copy(root: &Path, output: &Path, capacity: usize, trace: bool) {
+    slices::generate_bulk_copy(root, output, capacity, trace);
+}
 pub(super) fn generate_reslice(root: &Path, output: &Path, capacity: usize, trace: bool) {
     slices::generate_reslice(root, output, capacity, trace);
 }

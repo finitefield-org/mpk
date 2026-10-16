@@ -2,6 +2,9 @@
 use super::*;
 mod embedding;
 mod reslice;
+pub(super) fn copying(p: &mut Producer, trace: Option<&Path>) {
+    reslice::install_copy(p, trace);
+}
 pub(super) fn reslice(p: &mut Producer, count: usize, trace: Option<&Path>) {
     reslice::install(p, count, trace);
 }
@@ -584,4 +587,8 @@ pub(super) fn install(p: &mut Producer, count: usize, trace: Option<&Path>) {
 }
 pub(super) fn emit(base: Certificate, output: &Path, count: usize) {
     embedding::emit(base, output, count);
+}
+
+pub(super) fn emit_copy(base: Certificate, output: &Path, count: usize) {
+    reslice::emit_copy(base, output, count);
 }

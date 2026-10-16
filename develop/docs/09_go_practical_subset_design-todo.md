@@ -25,6 +25,10 @@ those bounds. Production source/ownership and full operation bindings remain
 open. General signed two-/three-index slice ingredients now preserve
 descriptor validity, exact capacity and full-width/backing read relations,
 including nil/empty endpoints and re-slicing beyond the old logical length.
+Overlapping-copy ingredients now use immutable pre-state source reads, computed
+min-length bounds and both actual index guards, with destination/other-region
+frames. Native Go copy and independent bit-loop/snapshot observations match;
+the retained both-checker matrix and separate replay pass.
 Complete Go source/operation/string/slice/loop/return/error/descriptor bindings and
 remaining collection/control laws and resource boundaries remain open, so
 W04 has not started.
