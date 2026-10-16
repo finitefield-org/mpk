@@ -667,7 +667,10 @@ conditional theorem at nine byte/storage-bound pairs. This is indexed recipe
 feasibility; complete program composition and isolated budgets remain separate.
 Legacy `Std.Nat.rec` returns only Nat. General loop invariants therefore need
 an additive, independently checked dependent-induction interface before freeze;
-its prototype does not change production checker or profile admission.
+the [private prototype](../migrations/go-practical/t01-w03/control-induction/README.md)
+passes ordinary invariant/control claims and malformed-interface controls in
+two mirrored checkers. It changes no production checker or profile admission.
+W04 freezes the exact addition and T02 owns its production integration.
 
 Freeze exact limits and local resource budgets from those measurements in
 T01 for v1 and T08 for v2. Measure limit-minus-one, limit, and limit-plus-one

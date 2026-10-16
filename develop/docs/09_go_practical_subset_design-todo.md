@@ -52,8 +52,10 @@ pass with the same canonical bytes. W03 still needs coupled aggregate/
 control feasibility and resource-boundary measurements before W04 freezes
 scope and budgets. A coupled struct/descriptor/byte matrix now adds 98 candidates, separate
 replay, 732 original-Go observations and 37 targeted tests; all pass.
-The legacy Nat recursor lacks dependent induction, so a private additive
-interface and isolated resource review still precede W04. Complete production
+A private additive dependent Nat interface now passes both mirrored checkers;
+it preserves production sources and the old Nat recursor. W03 still needs
+sequential resources and cumulative exit review before W04 freezes that
+interface, ownership and budgets. Complete production
 capture/source/operation bindings belong to T02–T06 and remain due there.
 W04 has not started.
 The [implementation ledger](go-practical-implementation-traceability-ledger.md)

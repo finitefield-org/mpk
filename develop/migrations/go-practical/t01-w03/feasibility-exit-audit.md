@@ -14,7 +14,7 @@ applications remain required in their assigned T02–T06 stages.
 | Source-width arithmetic and mathematical sums | [Guard discharge](../../../docs/go-practical-implementation-traceability-ledger.md#13-t01-w03-comparisonsubtraction-to-addition-guard-discharge), continuing prefixes and [actual halting Quote](halting-returns/README.md) | Full64 operands, actual continuing/success guards and genuine Nat sums demonstrated |
 | Complete bytes and actual indexes | [Substring/concat](stringop/README.md) and [prefix/suffix](affix/README.md) | Complete bytes and full64 reconstruction demonstrated; no Unicode-character interpretation |
 | Descriptor/store and construction laws | [Descriptor/access](../../../docs/go-practical-implementation-traceability-ledger.md#19-t01-w03-computed-descriptor-validity-and-absolute-access-closure), reslice, overlap copy and construction checkpoints | Nil/empty, alias/copy/tails, physical guards and bounded construction demonstrated |
-| Abrupt control and loop proof shape | Initial continue/post observation and complete halting-frame composition | Fixed finite-prefix proofs demonstrated; the old Std.Nat.rec is Nat-to-Nat only, so general invariants need a measured additive dependent-induction interface |
+| Abrupt control and loop proof shape | Initial continue/post observation and complete halting-frame composition | [Private dependent Nat induction](control-induction/README.md) and abrupt edges pass both extended checkers; the additive interface must be frozen in W04 and integrated in T02 |
 | Proposed standalone workload points and false projections | Byte 0/1/32/256 and slice 0/1/8/32/128, including proposed maximum minus/plus-one cases | Measured with complete payloads; per-case observations are private rather than profile budgets |
 | Coupled bounds | [Struct/slice/byte matrix](aggregate/README.md) | 98 candidates and separate replay pass; 49 zero-axiom accepts and 49 core type rejections |
 | Identified-hardware resources and exact freeze inputs | Adjacent per-case resources and host receipts | Isolated representative resource envelope and cumulative exit review remain due |
@@ -23,12 +23,11 @@ The remaining W03 sequence is bounded:
 
 1. The corrected aggregate matrix, independent replay and all 37 affected tests
    are complete. Preserve their exact source/checker/artifact identities.
-2. Check an additive monomorphic Sort0 Nat induction interface in private
-   mirrored Rust/Go checkers, preserving the old Nat.rec interface. Check an
-   ordinary induction/invariant and abrupt-control candidate set
-   for arbitrary natural iteration counts, including continue/post, stop and
-   erased-premise negatives. Its preservation assumptions are generated body
-   proof obligations, not new caller entry assumptions.
+2. The private additive monomorphic Sort0 Nat induction interface, ordinary
+   invariant/stop schemas and abrupt edges now pass both mirrored checkers.
+   The old Nat.rec interface is preserved. W04 must freeze its exact additional
+   rule and ownership; T02 must integrate it. Body preservation is a generated
+   proof obligation, not a new caller entry assumption.
 3. Measure representative expensive positive candidates sequentially on the
    identified host. Record construction versus per-checker resources, actual
    boundaries and scope; distinguish recipe feasibility from guarantees for

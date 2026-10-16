@@ -26,7 +26,7 @@ after reconciling the intervening shared artifacts and active registry.
 | --- | --- | --- |
 | GO-PRAC-T01-W01 | Complete | Reviewed implementation commit `bd5ee8047d8925f9c9d0f7502627fca33bb2c836`; completion audit below |
 | GO-PRAC-T01-W02 | Complete | Reviewed implementation commit `fed1cf6047f97b1f73c0fc37c5023e19f4f9f035`; 39 cases reproduced twice |
-| GO-PRAC-T01-W03 | In progress | Halting Quote, byte/index, descriptor/store, computed validity/access, reslice, copy, construction/append, substring/concat, prefix/suffix and coupled struct/descriptor/byte ingredients measured; general dependent induction and isolated resource review remain open; production bindings belong to T02–T06 |
+| GO-PRAC-T01-W03 | In progress | Halting Quote, byte/index, descriptor/store, computed validity/access, reslice, copy, construction/append, substring/concat, prefix/suffix and coupled struct/descriptor/byte ingredients measured; private dependent-induction prototype passes; isolated resource and cumulative exit review remain open; production bindings belong to T02–T06 |
 | GO-PRAC-T01-W04 | Blocked by W03 | Exact v1 source/shared/contract/limit freeze |
 | GO-PRAC-T01-W05 | Blocked by W04 | Publish inactive package, review and full T01 gate |
 | GO-PRAC-T02–T07 | Not started | Sequential v1 implementation and public release |
@@ -1707,3 +1707,76 @@ A private additive dependent-induction interface and isolated resource review
 must finish before W04. Production source/operation/adapter bindings remain
 assigned to T02–T06. W03 stays In progress, W04 has not started and the full
 T01 gate remains deferred to W05. The full eleven-stage objective stays active.
+
+
+## 26. T01-W03 proposed dependent Nat induction and abrupt control
+
+Predecessor checkpoint: `cfb9e961a1e96a3ce29654a2e41767d04db61cb9`. The
+[private induction record](../migrations/go-practical/t01-w03/control-induction/README.md)
+resolves a real feasibility gap in the legacy Nat-to-Nat recursor. The proposed
+additive monomorphic Sort0 `Nat.induct` has a dependent motive, checked zero
+case and successor induction step. Its canonical family/constructor/eliminator
+signature, generated flag, closed constructor set and monomorphic uses are
+validated independently in mirrored Rust/Go checkers. Prior actual checked
+types, opaque values and proofs cannot hide universe arguments. The old Nat
+and Boolean interfaces, production checker sources, wire format and public
+registry remain unchanged. There is no added axiom, eta, proof irrelevance or
+fuel increase. W04 must freeze this additional core/foundation interface and
+its production/migration ownership; T02 must integrate and verify it.
+
+An ordinary full128-frame iteration schema proves an arbitrary invariant for
+arbitrary genuine Nat counts from initialization and body preservation proofs.
+Those are generated source-body proof obligations, not caller entry oracles.
+A halted wrapper preserves the complete stopped frame for every count. Other
+schemas prove continue/post, break without post and return-before-break edges.
+The claims do not discharge a particular Go body's preservation, exit or
+variant obligations; production source/loop linkage remains T06 work.
+
+Both private checkers accept six zero-axiom ordinary claims with matching
+hashes and reject six erased-premise/incorrect-edge candidates at core typing.
+Fifteen distinct interface cases accept two legacy/unused-term controls and
+reject thirteen malformed declarations/uses. Wrong successor typing rejects
+at function typing; the other forgeries reject as invalid declarations.
+Those thirteen outcomes are interface-validation negatives, not semantic
+counterexamples. Two original-checker diagnostics remain separately archived:
+the first assumed the wrong old recursor type, and the corrected new-interface
+candidate still lacks a production reduction rule. Production rejection is
+explicitly retained rather than reported as production induction support.
+
+All 576 original-Go observations agree with independent full64 bit arithmetic:
+144 preserved invariants, 32 bad-entry/16 bad-step refutations, 288 whole stopped
+frames, 72 continue/post observations, 144 break exits and 144 return-precedence
+observations. Concrete counts span 0/1/2/31/32/33/127/128/129; the ordinary
+proofs separately quantify arbitrary Nat. Each of the six false ordinary
+claims has an explicit nonvacuous source observation. Native allocation,
+recovery and I/O are observer-only; this is not production source binding.
+
+The private recipe checks 75 mirrored checker inputs and 45 generated
+candidate inputs. Complete source and both binary identities surround the
+measurement. The separate final replay passes all 27 cases with two fresh
+generations, exact certificate/native bytes and the same checker binary hashes.
+The six ordinary claims and fifteen interface cases retain distinct scopes.
+They are not added to the unchanged-production 1,763-candidate matrix as if
+the original checkers already supported the new rule.
+
+The invariant candidate has 26 declarations, 287 terms and 2,869 bytes.
+Observed Rust/Go wall time is 0.006/0.582 seconds; peak resident size is
+2,965,504/5,652,480 bytes. The original resources retain cold startup and the
+adjacent hardware receipt identifies the Darwin/arm64 M1 Max host with 64 GiB
+RAM. These per-child observations do not freeze a profile budget.
+
+Targeted validation passes seven new Rust and five new Go interface tests,
+seven existing Rust and four Go Boolean regressions, 35 report/native/build/
+diagnostic adversarial tests (1.953 s) and two receipt tests. Retained test
+logs and final mirrored checker source identities agree. Offline locked
+release Clippy with warnings denied and current-source formatting pass;
+archived snapshots are excluded. Existing production matrices and suites
+need preservation checks rather than redundant execution. Final review passes
+12 strict JSON artifacts, eight documents/179 local links, balanced fences,
+ordered ledger sections, six Python sources, four current Rust files, three
+pinned Go files and staged Git whitespace. No workflow/Actions is used.
+
+The [W03 exit audit](../migrations/go-practical/t01-w03/feasibility-exit-audit.md)
+now leaves the sequential resource envelope and cumulative review. W03 stays
+In progress, W04 has not started, and T01's full gate stays deferred to W05.
+The eleven-stage objective remains active.

@@ -531,3 +531,20 @@ T02–T06's production integration. General loop induction requires an additive
 dependent interface because legacy Std.Nat.rec is Nat-to-Nat only. That
 private prototype and the isolated resource-envelope review remain due before
 W04. The full T01 gate remains deferred to W05.
+
+
+## Private dependent induction and abrupt edges
+
+The [proposed Nat.induct checkpoint](control-induction/README.md) adds a
+canonical monomorphic Sort0 dependent interface only in mirrored Rust/Go
+checkers. It preserves production files and the old Nat.rec/Boolean rules.
+Six arbitrary-Nat invariant/stop and single-edge claims pass with zero axioms;
+six false variants reject at core typing. Fifteen separate interface cases
+admit two controls and reject thirteen forgeries. A separate replay and all
+576 original-Go observations pass. Targeted checks include twelve new
+interface tests, eleven Boolean regressions and 37 evidence/receipt tests.
+
+The [two original-checker diagnostics](control-initial/README.md) remain
+explicit. The new rule requires W04 freeze and T02 integration. Sequential
+resource measurements and the cumulative [exit audit](feasibility-exit-audit.md)
+remain before W03 completion; the full T01 gate stays deferred to W05.

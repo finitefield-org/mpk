@@ -676,3 +676,27 @@ observations. The paired zero-storage frame law is nonvacuous; indexed laws
 are emitted only for nonempty domains. Finite padding and per-child ceilings
 are private proof settings. They never enlarge source admission or establish
 an entire-program resource budget.
+
+
+## Private dependent natural induction
+
+`control_foundation_build.py` mirrors four Rust crates and the Go checker,
+then applies a proposed monomorphic Sort0 Nat.induct extension. It preserves
+production sources and the old Nat.rec/Boolean interfaces. This is a proposed
+core/foundation change to freeze in W04 and integrate in T02, not an existing
+production proof rule. `control-certificates` constructs ordinary invariant,
+stopped-frame and abrupt-edge candidates under that private extension.
+
+```sh
+python3 -B develop/probes/go-practical/run_control_probes.py --write
+python3 -B develop/probes/go-practical/run_control_probes.py --check
+python3 -B develop/probes/go-practical/check_control_report.py
+python3 -B develop/probes/go-practical/check_control_initial.py
+PYTHONPATH=develop/probes/go-practical python3 -B -m unittest test_control_report -v
+```
+
+The [record](../../migrations/go-practical/t01-w03/control-induction/README.md)
+keeps twelve ordinary claims, fifteen interface cases and 576 original-Go
+observations separate. Arbitrary-Nat proofs do not use finite unrolling;
+body preservation and source-specific variant/exit linkage remain actual
+proof obligations. Both original-checker limitations are retained separately.

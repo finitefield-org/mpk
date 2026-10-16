@@ -1,0 +1,49 @@
+{
+  "go_passed_tests": [
+    "TestBoolCasesClosesConstructorRegistrationWithoutChangingLegacyFamilies",
+    "TestBoolCasesOpenMotiveStaysDependentAndNeutral",
+    "TestBoolCasesRejectsMalformedFamilyBeforeReduction",
+    "TestBoolCasesRejectsUniverseArgumentsWithoutNeedingAnIotaRedex",
+    "TestNatInductEquationsAndNestedSuccessors",
+    "TestNatInductMalformedSignatureFlagsAndConstructorSet",
+    "TestNatInductClosesLaterConstructors",
+    "TestNatInductMonomorphicNeutralAndPartialUses",
+    "TestNatInductPriorOpaqueAndTheoremUses"
+  ],
+  "log_inputs": [
+    {
+      "eof_newlines_removed": 1,
+      "path": "verification/rust-nat-tests.log",
+      "raw_sha256": "80e53811d23ac3faebcee5a6b47228a0e808b969b7e23adf3878f27c7722b60f",
+      "sha256": "d0b38f4f35b2a433f8c69df15c8d0fc3ebccc0fea7c631f5c0e3e9ea603cb006"
+    },
+    {
+      "eof_newlines_removed": 1,
+      "path": "verification/rust-bool-regression.log",
+      "raw_sha256": "63310828737ab462c3c0237db0a4bc8a8e5b23eb8a43fce0672969417ab0b960",
+      "sha256": "b112438cd5957d60be7ad4e9bf88f96193044ffcbf54c69a9ca32a1984ca39f4"
+    },
+    {
+      "path": "verification/go-interface-tests.jsonl",
+      "sha256": "16f3671cde494c0ed9fd82a60174eb5c0ddee8e7567739757d0b08e54079f5df"
+    },
+    {
+      "path": "verification/release-clippy.log",
+      "sha256": "3457eeab842433014a2205f96f71cd169422f5493779533745a9e216fafa9672"
+    },
+    {
+      "path": "verification/report-native-tests.log",
+      "sha256": "72895296f0f7968a2e44f423b84de65bb21352fb29e228de6e70362f6ae16465"
+    },
+    {
+      "path": "verification/receipt-tests.log",
+      "sha256": "3888428f52d2c4436d2a547763968185eae4a89e4a38821f07d9182c7e2acdf0"
+    }
+  ],
+  "log_normalization": "only trailing blank lines removed where recorded; raw bytes reconstruct by appending the recorded newline count",
+  "python_tests": 35,
+  "receipt_tests": 2,
+  "rust_bool_regressions": 7,
+  "rust_new_tests": 7,
+  "scope": "targeted private mirrored foundation and associated Bool regressions; source/producer evidence identities are in adjacent observations"
+}
