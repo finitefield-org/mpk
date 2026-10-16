@@ -1,69 +1,23 @@
 # Go Practical Subset Implementation Work Plan
 
 Status: implementation authorized 2026-10-16. T01-W01 and W02 are complete;
-T01-W03 is In progress. Its representation pilots and balanced unsigned /
-conditional signed addition bridges have both-checker evidence. Unsigned
-prefix folds now have conditional exact-sum and unconditional actual-carry
-correction evidence. Signed prefix cross sums also pass under every actual
-sign-stage carry guard. Source-shaped signed comparison/subtraction
-conditions now derive the actual addition guard, nonnegative bounded result
-and exact Nat addition. Continuing-prefix composition derives intermediate
-bounds/carries from actual item checks and discharges the literal-zero entry.
-The private halting Quote model now derives those checks from actual success,
-preserves stopped full frames/error reasons and proves zero failure results.
-Canonical index/finite-byte lemmas now preserve defined reads, equality and
-bytewise order under string-tail normalization, with both-checker evidence.
-Full-width length bounds and actual source-shaped signed index conditions
-now derive value-preserving finite index coverage without a caller fit oracle.
-Descriptor/store ingredients now preserve nil/empty tags, complete value
-cells, view sharing, separate-region frames, array snapshots and observable
-slice tails. Computed descriptor validity and actual local guards now derive
-absolute-address no-wrap, nonnegativity, physical bounds and live-region
-facts. Semantic storage bounds then derive complete 64-bit address
-reconstruction and whole-cell finite reads; internal padding does not raise
-those bounds. Production source/ownership and full operation bindings remain
-open. General signed two-/three-index slice ingredients now preserve
-descriptor validity, exact capacity and full-width/backing read relations,
-including nil/empty endpoints and re-slicing beyond the old logical length.
-Overlapping-copy ingredients now use immutable pre-state source reads, computed
-min-length bounds and both actual index guards, with destination/other-region
-frames. Native Go copy and independent bit-loop/snapshot observations match;
-the retained both-checker matrix and separate replay pass.
-Fresh construction and capacity-preserving append now have ordinary guard,
-zero-initialization, actual result/alias index, absolute-frame and borrowed-input
-composition proofs at representative workloads. Original-Go observations match
-the independent bit-loop/snapshot reference. Their 276-candidate matrix,
-independent replay and 473 selected tests pass; 837 prior candidates are
-preserved unchanged.
-Guarded substring and bounded concatenation now add full-byte source/result
-read and input-tail preservation ingredients. Complete 64-bit indexes are
-reconstructed from actual semantic bounds independently of finite padding.
-The private workloads are 0/1/31/32/33/255/256/257; exceeding a concatenation
-bound can succeed in Go and remains a profile-domain obligation. Its
-248-candidate matrix and separate replay pass both checkers; all 537 selected
-tests pass and 1,113 predecessor candidates are preserved unchanged.
-Private prefix/suffix relations now add actual substring guards, length
-restoration, complete matched-byte/index observations and input-tail
-preservation. Exact Go 1.25.0 wrapper/internal-body identities and ordinary
-source-shaped correspondence remain separate from production adapter admission.
-The new standalone producer preserves existing source pins and artifacts.
-Its 304-candidate matrix, separate replay and all 81 new targeted tests
-pass with the same canonical bytes. W03 still needs coupled aggregate/
-control feasibility and resource-boundary measurements before W04 freezes
-scope and budgets. A coupled struct/descriptor/byte matrix now adds 98 candidates, separate
-replay, 732 original-Go observations and 37 targeted tests; all pass.
-A private additive dependent Nat interface now passes both mirrored checkers;
-it preserves production sources and the old Nat recursor. W03 still needs
-sequential resources and cumulative exit review before W04 freezes that
-interface, ownership and budgets. Complete production
-capture/source/operation bindings belong to T02–T06 and remain due there.
-W04 has not started.
+T01-W03's final completion review is in progress. Its ordinary representations,
+full64 arithmetic/Nat sums, complete bytes, descriptor/store/construction laws,
+actual branch guards and coupled bound proofs have retained both-checker and
+original-Go evidence. The separate private dependent Nat.induct prototype
+resolves general invariant/abrupt-control feasibility and preserves production
+sources and the old Nat/Boolean rules. Fourteen sequential upper/boundary
+recipes now reproduce exact certificates and accepted hashes with identified
+hardware resources. W04 owns the exact additional interface, semantic limits,
+resource budgets, schema identities, migrations and production executors.
+Complete production source/operation/application binding belongs to T02–T06.
+W04 has not started; no practical Go profile is active.
+
 The [implementation ledger](go-practical-implementation-traceability-ledger.md)
-owns detailed current status and verification evidence.
+owns detailed status, source/checker identities and local verification.
 The user-authorized amendment moves Go before the practical C# release.
-Writing and reviewing this plan does not complete T01 or authorize a new
-public profile. The scope and semantic decisions are
-owned by [the design](09_go_practical_subset_design.md).
+T01's full gate remains due in W05. Scope and semantic decisions are owned by
+[the design](09_go_practical_subset_design.md).
 
 ## 1. Entry, ordering, and execution
 

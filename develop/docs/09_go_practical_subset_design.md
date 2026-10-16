@@ -672,6 +672,12 @@ passes ordinary invariant/control claims and malformed-interface controls in
 two mirrored checkers. It changes no production checker or profile admission.
 W04 freezes the exact addition and T02 owns its production integration.
 
+The [sequential resource checkpoint](../migrations/go-practical/t01-w03/sequential-resources/README.md)
+now measures fourteen representative upper/boundary recipes with one direct
+child at a time. It preserves exact canonical/accepted hashes and separates
+complete-group construction from each checker. It does not guarantee every
+source program or an isolated host.
+
 Freeze exact limits and local resource budgets from those measurements in
 T01 for v1 and T08 for v2. Measure limit-minus-one, limit, and limit-plus-one
 at each relevant boundary. The implementation cannot raise a frozen limit to

@@ -26,7 +26,7 @@ after reconciling the intervening shared artifacts and active registry.
 | --- | --- | --- |
 | GO-PRAC-T01-W01 | Complete | Reviewed implementation commit `bd5ee8047d8925f9c9d0f7502627fca33bb2c836`; completion audit below |
 | GO-PRAC-T01-W02 | Complete | Reviewed implementation commit `fed1cf6047f97b1f73c0fc37c5023e19f4f9f035`; 39 cases reproduced twice |
-| GO-PRAC-T01-W03 | In progress | Halting Quote, byte/index, descriptor/store, computed validity/access, reslice, copy, construction/append, substring/concat, prefix/suffix and coupled struct/descriptor/byte ingredients measured; private dependent-induction prototype passes; isolated resource and cumulative exit review remain open; production bindings belong to T02–T06 |
+| GO-PRAC-T01-W03 | In progress | Halting Quote, byte/index, descriptor/store, computed validity/access, reslice, copy, construction/append, substring/concat, prefix/suffix and coupled struct/descriptor/byte ingredients measured; private dependent induction and 14 sequential resource recipes pass; final cumulative completion review remains; production bindings belong to T02–T06 |
 | GO-PRAC-T01-W04 | Blocked by W03 | Exact v1 source/shared/contract/limit freeze |
 | GO-PRAC-T01-W05 | Blocked by W04 | Publish inactive package, review and full T01 gate |
 | GO-PRAC-T02–T07 | Not started | Sequential v1 implementation and public release |
@@ -1780,3 +1780,48 @@ The [W03 exit audit](../migrations/go-practical/t01-w03/feasibility-exit-audit.m
 now leaves the sequential resource envelope and cumulative review. W03 stays
 In progress, W04 has not started, and T01's full gate stays deferred to W05.
 The eleven-stage objective remains active.
+
+
+## 27. T01-W03 sequential representative resource envelope
+
+Predecessor checkpoint: `b6b283b0630314883403bfa159a60c82ff0eabfc`. The
+[sequential record](../migrations/go-practical/t01-w03/sequential-resources/README.md)
+measures fourteen existing positive proof recipes with one direct child at
+a time. The selection addresses the remaining upper/boundary and coupled
+resource question: exact sums, descriptor reads, overlap snapshots, borrowed
+construction, substring/concat/affix reads, struct/descriptor/byte composition
+and arbitrary-Nat invariant/stop schemas. Twelve use unchanged production
+checker implementations and two use the separately scoped proposed extension.
+All source/report/artifact and checker binary identities are checked.
+
+Each fresh complete-group construction reproduces the selected canonical
+certificate. Both source-free verifiers accept it with zero axioms and the
+original logical hashes. Construction measures the entire group/library,
+not just that one theorem. All fourteen pass. Observed maxima are 7.147 s /
+466,616,320 RSS bytes for construction, 5.666 s / 72,499,200 bytes for Rust,
+and 13.009 s / 188,055,552 bytes for Go. The largest selected certificate is
+698,048 bytes; selected maxima are 55,744 terms and 1,333 declarations.
+Per-component maxima may come from different rows. The report pins 195 source
+inputs and 22 predecessor artifacts, with the adjacent M1 Max/64 GiB hardware
+receipt. Other host processes remain uncontrolled; no isolated-machine or
+native Linux release claim is made.
+
+These measurements support retaining proposed byte/storage candidates
+256/128 for W04. Boundary 257/129 does not enlarge source admission. W04
+must freeze exact semantic/transport/resource limits and executors from this
+evidence. Actual source-to-certificate feature applications still belong to
+T02–T06 and must satisfy those frozen limits; a budget failure cannot be
+reported as proof success, a semantic counterexample or a Go panic.
+
+All eighteen new targeted resource-evidence tests pass (2.454 s). The selected
+fresh kernel checks are necessary for resource feasibility and original
+canonical/hash preservation; unrelated production suites and old adversarial
+matrices are not rerun. Retained-report integrity checks across the complete
+W03 evidence pass: 18 original-checker groups/1,763 candidates, 27 separate
+private control/interface cases and fourteen resource rows. Nine retained
+initial/checkpoint diagnostic families pass integrity/classification checks.
+Final review passes two strict JSON artifacts, seven documents/178 local
+links, balanced fences, ordered ledger sections, three Python sources and
+staged Git whitespace. No GitHub Actions/workflow is created or used. T01's full
+gate remains deferred to W05. W03's final completion audit follows; no public
+profile or complete eleven-stage objective is claimed.

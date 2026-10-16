@@ -548,3 +548,14 @@ The [two original-checker diagnostics](control-initial/README.md) remain
 explicit. The new rule requires W04 freeze and T02 integration. Sequential
 resource measurements and the cumulative [exit audit](feasibility-exit-audit.md)
 remain before W03 completion; the full T01 gate stays deferred to W05.
+
+
+## Sequential upper/boundary resource review
+
+The [sequential measurement](sequential-resources/README.md) freshly generates
+and checks fourteen representative upper/boundary recipes, one child at a
+time, preserving exact canonical and accepted hashes. Construction, each
+checker and complete certificate size/counts are recorded separately. All
+fourteen checks and eighteen new evidence tests pass. Other host processes
+remain uncontrolled. Exact limits/budgets remain W04 freeze work; the full
+T01 gate remains W05 work. The final cumulative W03 exit review follows.

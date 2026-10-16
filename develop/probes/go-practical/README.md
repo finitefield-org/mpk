@@ -700,3 +700,23 @@ keeps twelve ordinary claims, fifteen interface cases and 576 original-Go
 observations separate. Arbitrary-Nat proofs do not use finite unrolling;
 body preservation and source-specific variant/exit linkage remain actual
 proof obligations. Both original-checker limitations are retained separately.
+
+
+## Sequential representative resources
+
+`measure_sequential_resources.py --write` measures fourteen selected existing
+upper/boundary positives with one direct child at a time. It requires the
+original pinned producer/checker binaries and reproduces exact canonical and
+accepted hashes. The private Nat-induction checker remains a separate scope.
+`--check` validates retained evidence without repeating timing measurements.
+
+```sh
+python3 -B develop/probes/go-practical/measure_sequential_resources.py --write
+python3 -B develop/probes/go-practical/measure_sequential_resources.py --check
+PYTHONPATH=develop/probes/go-practical python3 -B -m unittest test_resource_envelope -v
+```
+
+The [record](../../migrations/go-practical/t01-w03/sequential-resources/README.md)
+separates full-group construction, each verifier and semantic boundary probes.
+Other host processes remain uncontrolled. W04 owns the exact budget/limit
+freeze; this is neither a whole-program cost guarantee nor Linux acceptance.
