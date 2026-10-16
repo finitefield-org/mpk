@@ -513,3 +513,21 @@ certificates and observations. Unchanged kernel measurements are not repeated.
 Production capture/model/effect/operation binding, registered adapters,
 remaining control/aggregate and full applications remain due. W03 stays
 In progress and the full T01 gate remains deferred to W05.
+
+
+## Coupled struct, descriptor-address and byte bounds
+
+The [aggregate checkpoint](aggregate/README.md) combines complete value cells,
+64-bit physical descriptor addresses and prefix/suffix byte observations in
+one theorem. Separate semantic byte/storage bounds remain distinct from
+shared padding. Nine B/S pairs, through 256/128 and boundary 257/129, retain
+all cell and heap bits. Both checkers accept 49 zero-axiom claims and reject
+49 deliberate false mutations at core typing. The independent final replay,
+732 original-Go observations and all 37 new targeted tests pass. Existing
+1,665 candidates remain unchanged; no production source or registry changes.
+
+The [W03 exit audit](feasibility-exit-audit.md) separates feasibility from
+T02–T06's production integration. General loop induction requires an additive
+dependent interface because legacy Std.Nat.rec is Nat-to-Nat only. That
+private prototype and the isolated resource-envelope review remain due before
+W04. The full T01 gate remains deferred to W05.

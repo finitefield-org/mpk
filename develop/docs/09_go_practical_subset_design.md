@@ -661,6 +661,14 @@ obligations, not only ground evaluations or empty definitions. Record proof
 construction time, checker time per checker, peak memory, certificate bytes,
 term/node counts, and aggregate-bound interactions on identified hardware.
 
+The private [coupled T01-W03 checkpoint](../migrations/go-practical/t01-w03/aggregate/README.md)
+measures complete struct fields, descriptor addresses and matched bytes in one
+conditional theorem at nine byte/storage-bound pairs. This is indexed recipe
+feasibility; complete program composition and isolated budgets remain separate.
+Legacy `Std.Nat.rec` returns only Nat. General loop invariants therefore need
+an additive, independently checked dependent-induction interface before freeze;
+its prototype does not change production checker or profile admission.
+
 Freeze exact limits and local resource budgets from those measurements in
 T01 for v1 and T08 for v2. Measure limit-minus-one, limit, and limit-plus-one
 at each relevant boundary. The implementation cannot raise a frozen limit to

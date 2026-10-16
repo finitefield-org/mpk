@@ -26,7 +26,7 @@ after reconciling the intervening shared artifacts and active registry.
 | --- | --- | --- |
 | GO-PRAC-T01-W01 | Complete | Reviewed implementation commit `bd5ee8047d8925f9c9d0f7502627fca33bb2c836`; completion audit below |
 | GO-PRAC-T01-W02 | Complete | Reviewed implementation commit `fed1cf6047f97b1f73c0fc37c5023e19f4f9f035`; 39 cases reproduced twice |
-| GO-PRAC-T01-W03 | In progress | Halting Quote, byte/index, descriptor/store, computed validity/access, reslice, copy, construction/append, substring/concat and prefix/suffix ingredients measured; coupled aggregate proof/resource measurements remain open; production bindings belong to T02–T06 |
+| GO-PRAC-T01-W03 | In progress | Halting Quote, byte/index, descriptor/store, computed validity/access, reslice, copy, construction/append, substring/concat, prefix/suffix and coupled struct/descriptor/byte ingredients measured; general dependent induction and isolated resource review remain open; production bindings belong to T02–T06 |
 | GO-PRAC-T01-W04 | Blocked by W03 | Exact v1 source/shared/contract/limit freeze |
 | GO-PRAC-T01-W05 | Blocked by W04 | Publish inactive package, review and full T01 gate |
 | GO-PRAC-T02–T07 | Not started | Sequential v1 implementation and public release |
@@ -1623,3 +1623,87 @@ coupled aggregate/control composition and boundary/resource measurements;
 those must precede W04's exact scope/budget freeze. W03 stays In progress,
 W04 has not started and the full T01 gate remains deferred to W05. The full
 11-stage objective remains active.
+
+
+## 25. T01-W03 coupled struct fields, descriptor addresses and byte matches
+
+Predecessor checkpoint: `f54d8bbbbee66d00c615f9894827e2b3ab34099a`. The
+[aggregate record](../migrations/go-practical/t01-w03/aggregate/README.md) and
+[independent producer](../probes/go-practical/aggregate-certificates/src/aggregate.rs)
+compose complete value-cell equality with computed descriptor validity and
+complete prefix/suffix byte observations. Source Amount and length words stay
+64 bits; byte comparisons retain every bit. All fields, cell padding and both
+complete 64-bit-addressed heaps remain arbitrary. Actual validity/index and
+semantic storage bound S derive physical-address reconstruction; no caller
+fit, no-wrap, carry or sign oracle is introduced.
+
+The actual original cell's source-shaped success and pattern-index guard
+then derive equality of its pattern byte with the byte in the complete cell
+read through that finite physical projection. Lengths are bounded by B, while
+internal padding P is the next power of two of max(1,B,S). Neither source
+bound is raised to P. A local value assignment to Amount preserves the entire
+SKU-length/byte subframe through explicit product projections. Indexed laws
+observe one selected element; they are not entire collection-program proofs.
+
+Nine B/S pairs are 0/0, 1/1, 32/8, 31/31, 32/32, 33/33, 255/127, 256/128 and
+257/129. The matrix has 98 candidates: 49 accepted zero-axiom claims with
+matching hashes and 49 false mutations rejected at core typing by both
+unchanged checker implementations. B0/S0 has only a nonvacuous value-frame
+pair. Every negative has an explicit bounded source witness. An independent
+final `--check` replay passes all 98 candidates and reproduces canonical
+certificates and exact original-Go input/output bytes. A prior interrupted
+replay had a missing session handle and no live process; only the subsequent
+complete full replay is used as final evidence.
+
+The ordinary original-Go observer and independent full64 bit-loop/byte model
+agree on 732 cases: 664 profile-domain inputs, 685 successful line reads,
+38 actual index panics, nine invalid descriptors, 68 outside-domain inputs
+and nine whole-cell projection counterexamples. There are 128 matched reads
+for each affix relation, 676 negative Amount observations, 190 NUL and
+366 invalid-UTF8 source values, seven empty views, three nil views and
+595 valid nonzero offsets. Profile bounds, physical coverage and actual
+source panics retain separate meanings. Native allocation/recovery/I/O and
+reflection are observer-only.
+
+The B256/S128 suffix matched-read certificate contains 649 declarations,
+53,098 terms and 661,754 bytes. Observed Rust/Go wall time is 5.289/11.990
+seconds; peak resident size is 69,533,696/178,896,896 bytes. Its shared padding
+is 256 and each complete cell has 8,192 bits. The 4,194,304-bit finite
+observable footprint does not bound the quantified original heap. The
+adjacent hardware receipt identifies the Darwin/arm64 M1 Max host with
+64 GiB RAM and ten physical/logical cores. Direct-child measurements can
+overlap; three workload groups and 60-second ceilings are private settings.
+
+The build recipe extends only generated private Rust code and an independent
+replay checks all 47 generated source inputs. Production and predecessor
+source files remain unchanged. All 1,665 predecessor canonical certificates,
+two standalone indexes, 17 complete case indexes/outcomes and raw verdicts
+are preserved. The cumulative retained matrix now has 1,763 candidates:
+857 accepted, 877 core mismatches and 29 historical diagnostic fuel outcomes.
+Fuel/resource outcomes are not semantic-negative evidence. W01's exact
+identity audit and W02's retained 39-case closure report pass.
+
+Three actually checked initial positives were rejected at core typing by
+both checkers and remain in [a separate diagnostic](../migrations/go-practical/t01-w03/aggregate-initial/README.md).
+The untrusted constructor used negation elimination in the wrong direction
+for a literal-bound fact and lacked a checked function-valued field relation.
+Checked negation congruence and explicit product-field updates correct the
+construction without changing either kernel, fuel, bounds or source widths.
+Those initial positive rejections do not count as false-claim evidence.
+
+All 37 new targeted tests pass: 32 report/native tests (1.586 s), four
+source-generation/diagnostic tests (0.078 s) and one adjacent host test
+(0.012 s). Selection follows the new producer and its consumers; unchanged
+predecessor measurements and adversarial suites need no redundant repeat.
+Offline locked release Clippy with warnings denied, explicit current Rust
+formatting, pinned Go formatting and six changed Python sources pass. Final
+review passes eight strict JSON artifacts, eight documents/171 local links,
+balanced fences, ordered ledger sections and staged Git whitespace. No
+GitHub Actions/workflow is created, used or consulted.
+
+The [W03 exit audit](../migrations/go-practical/t01-w03/feasibility-exit-audit.md)
+records a real remaining foundation gap: old Std.Nat.rec is Nat-to-Nat only.
+A private additive dependent-induction interface and isolated resource review
+must finish before W04. Production source/operation/adapter bindings remain
+assigned to T02–T06. W03 stays In progress, W04 has not started and the full
+T01 gate remains deferred to W05. The full eleven-stage objective stays active.

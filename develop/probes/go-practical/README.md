@@ -651,3 +651,28 @@ private measurement settings without an isolated or aggregate budget claim.
 W03 remains In progress. Production capture/effect/operation bindings,
 registered adapters, remaining control/aggregate and complete application
 composition stay due. The full T01 gate remains assigned to W05.
+
+
+## Coupled aggregate feasibility
+
+`aggregate-certificates` is an independent private extension of the frozen
+producer. It combines complete value fields, actual descriptor addressing
+and full-byte prefix/suffix observations. `aggregate_build_sources.py`
+independently checks all 47 generated Rust inputs. Original Go source and all
+predecessor source pins remain unchanged. The original-Go observer uses
+actual value structs and slice views.
+
+```sh
+python3 -B develop/probes/go-practical/run_aggregate_probes.py --write
+python3 -B develop/probes/go-practical/run_aggregate_probes.py --check
+python3 -B develop/probes/go-practical/check_aggregate_report.py
+python3 -B develop/probes/go-practical/check_aggregate_initial.py
+PYTHONPATH=develop/probes/go-practical python3 -B -m unittest test_aggregate_report -v
+```
+
+The [retained record](../../migrations/go-practical/t01-w03/aggregate/README.md)
+contains 98 candidates, nine byte/storage-bound pairs and 732 original-Go
+observations. The paired zero-storage frame law is nonvacuous; indexed laws
+are emitted only for nonempty domains. Finite padding and per-child ceilings
+are private proof settings. They never enlarge source admission or establish
+an entire-program resource budget.

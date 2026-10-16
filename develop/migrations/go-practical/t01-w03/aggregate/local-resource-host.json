@@ -1,0 +1,32 @@
+{
+  "captured_at_utc": "2026-10-16 09:36:39 UTC",
+  "command": [
+    "/usr/sbin/sysctl",
+    "hw.model",
+    "hw.memsize",
+    "hw.physicalcpu",
+    "hw.logicalcpu",
+    "machdep.cpu.brand_string"
+  ],
+  "hardware": {
+    "logical_cpu_count": 10,
+    "model": "MacBookPro18,4",
+    "physical_cpu_count": 10,
+    "physical_memory_bytes": 68719476736,
+    "processor": "Apple M1 Max"
+  },
+  "measurement_ref": {
+    "path": "develop/migrations/go-practical/t01-w03/aggregate/observations.json",
+    "sha256": "758de2b24fd6e178743833e32dcb24de381cb4587b67d3cb2cc3c5a490d4e241"
+  },
+  "observed_host": {
+    "cpu_count": 10,
+    "machine": "arm64",
+    "release": "27.0.0",
+    "system": "Darwin"
+  },
+  "provider": "read-only /usr/sbin/sysctl outside workspace sandbox",
+  "raw_stdout": "hw.model: MacBookPro18,4\nhw.memsize: 68719476736\nhw.physicalcpu: 10\nhw.logicalcpu: 10\nmachdep.cpu.brand_string: Apple M1 Max\n",
+  "schema": "mpk.go_practical.local_resource_host.v0",
+  "scope": "adjacent identity of the local Darwin development host for the referenced measurement; original report model/RAM remain null; no isolated-machine guarantee, profile budget or native Linux release receipt"
+}
