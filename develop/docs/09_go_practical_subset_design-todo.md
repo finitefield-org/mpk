@@ -17,8 +17,12 @@ Full-width length bounds and actual source-shaped signed index conditions
 now derive value-preserving finite index coverage without a caller fit oracle.
 Descriptor/store ingredients now preserve nil/empty tags, complete value
 cells, view sharing, separate-region frames, array snapshots and observable
-slice tails. Absolute offset/descriptor validity, ownership and full operation
-bindings remain open.
+slice tails. Computed descriptor validity and actual local guards now derive
+absolute-address no-wrap, nonnegativity, physical bounds and live-region
+facts. Semantic storage bounds then derive complete 64-bit address
+reconstruction and whole-cell finite reads; internal padding does not raise
+those bounds. Production source/ownership and full operation bindings remain
+open.
 Complete Go source/operation/string/slice/loop/return/error/descriptor bindings and
 remaining collection/control laws and resource boundaries remain open, so
 W04 has not started.

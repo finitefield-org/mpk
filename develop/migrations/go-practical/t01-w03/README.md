@@ -344,8 +344,39 @@ all 1,596 cases, and every false mutation has an empirical witness distinct
 from type failure. Original positive type/fuel failures remain preserved in
 [the diagnostic archive](slice-initial/README.md).
 
-These are ordinary store/descriptor ingredients. Absolute-address coverage,
-descriptor validity/live typed regions, source/ownership bindings, general
-slicing, overlapping `copy`, bounded `append`, remaining byte/control laws
-and aggregate resources remain due. W03 stays In progress; W04 has not
-started and the full T01 gate remains deferred to W05.
+These are ordinary store/descriptor ingredients. The following checkpoint
+discharges ordinary absolute-address coverage and computed validity/access
+composition. Source/ownership bindings, general slicing, overlapping `copy`,
+bounded `append`, remaining byte/control laws and aggregate resources remain
+due. W03 stays In progress; W04 has not started and the full T01 gate remains
+deferred to W05.
+
+## Computed validity, actual guards and absolute address coverage
+
+The [slice-access model and 104-case matrix](slice-access/README.md) connect
+the earlier descriptor/store algebra to computed validity. Non-nil validity
+computes live-region, nonnegative/order and actual offset-plus-capacity
+extent conditions. Its 65-bit extent is the actual carry plus 64-bit sum,
+not a free safety flag or a new Go source integer type. Nil validity keeps
+zero length/capacity. Descriptor copying and full re-slicing preserve it.
+
+Computed validity plus the actual local signed index guard derives a live
+region and a nonnegative, nonwrapping absolute address below storage length.
+The separate semantic storage bound then yields complete canonical 64-bit
+address equality with its zero-extended low-bit reconstruction, followed by
+whole 128-bit finite reads. Both backings/padding remain quantified. The
+semantic 127 and 129 bounds stay distinct from padding128 and padding256.
+Zero storage excludes access, avoiding a vacuous indexed-read positive.
+
+Original-Go construction and index outcomes are recorded independently of
+raw-model validity. Invalid length/capacity metadata, a forged dead binding,
+and legal Go reads outside the private bound have distinct false-claim
+witness domains. A total modulo-heap self-read alone cannot establish full
+numeric address coverage. Empirical observer results remain separate from
+ordinary certificates and captured-source application proofs.
+
+This closes ordinary validity/access ingredients, leaving production Go
+capture/model/ownership/operation bindings, general slicing, overlapping
+`copy`, bounded construction/`append`, remaining byte/control laws and
+aggregate resource closure pending. W03 remains In progress; W04 has not
+started and the complete T01 gate stays deferred to W05.

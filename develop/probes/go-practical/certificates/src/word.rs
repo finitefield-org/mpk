@@ -7,6 +7,9 @@ use super::*;
 use mpk_cert::encode::DefinitionReducibility;
 
 mod balanced;
+pub(super) fn generate_access(root: &Path, output: &Path, capacity: usize, trace: bool) {
+    balanced::generate_access(root, output, capacity, trace);
+}
 pub(super) fn generate_slices(root: &Path, output: &Path, capacity: usize, trace: bool) {
     balanced::generate_slices(root, output, capacity, trace);
 }

@@ -261,6 +261,43 @@ fn compatible_literal(p: &mut Producer, capacity: usize) -> Typed {
     let h = cube_lambda(WORD, "__coverage_literal_", proof);
     equal_from_bits(WORD, a, b, h)
 }
+pub(super) fn reconstruction(capacity: usize, index: Expr) -> Expr {
+    prefix(
+        Node {
+            d: WORD,
+            p: capacity.ilog2() as usize,
+        },
+        canon(WORD, index),
+    )
+}
+pub(super) fn install_unsigned(p: &mut Producer, capacity: usize, trace: Option<&Path>) {
+    assert!(capacity.is_power_of_two());
+    let n = Node {
+        d: WORD,
+        p: capacity.ilog2() as usize,
+    };
+    let mut nodes = BTreeSet::new();
+    collect(n, &mut nodes);
+    for node in nodes {
+        build_node(p, node, trace);
+    }
+    let i = v("index");
+    let x = canon(WORD, i.clone());
+    let bound = word_less(WORD, x.clone(), literal_word(WORD, capacity as u64));
+    let fit = less_fit(n, x.clone(), v("less"));
+    let h = fit_bits(n, x.clone(), fit.proof);
+    let q = canon_congr(WORD, x.clone(), prefix(n, x), h);
+    let q = next(backwards(canon_idem(WORD, i.clone())), q);
+    theorem(
+        p,
+        "IndexUnsignedPrefix",
+        &[
+            ("index".into(), word_ty()),
+            ("less".into(), eq(bound, literal(true))),
+        ],
+        q,
+    );
+}
 fn embedding_bits(p: &mut Producer, n: Node, x: Expr) -> Expr {
     assert_eq!(n.d, WORD);
     let qs = addresses(WORD, "__coverage_embedding_");

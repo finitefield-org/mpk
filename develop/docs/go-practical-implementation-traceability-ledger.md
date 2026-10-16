@@ -26,7 +26,7 @@ after reconciling the intervening shared artifacts and active registry.
 | --- | --- | --- |
 | GO-PRAC-T01-W01 | Complete | Reviewed implementation commit `bd5ee8047d8925f9c9d0f7502627fca33bb2c836`; completion audit below |
 | GO-PRAC-T01-W02 | Complete | Reviewed implementation commit `fed1cf6047f97b1f73c0fc37c5023e19f4f9f035`; 39 cases reproduced twice |
-| GO-PRAC-T01-W03 | In progress | Halting Quote, byte/index and descriptor/store/array-copy/tail ingredients measured; absolute bounds/validity/ownership, full bindings, remaining laws and resource closure stay open |
+| GO-PRAC-T01-W03 | In progress | Halting Quote, byte/index, descriptor/store and computed validity/access ingredients measured; production source/ownership/operation bindings, remaining laws and aggregate resources stay open |
 | GO-PRAC-T01-W04 | Blocked by W03 | Exact v1 source/shared/contract/limit freeze |
 | GO-PRAC-T01-W05 | Blocked by W04 | Publish inactive package, review and full T01 gate |
 | GO-PRAC-T02–T07 | Not started | Sequential v1 implementation and public release |
@@ -970,3 +970,117 @@ bounded `append`, remaining byte/control laws and aggregate resource closure
 also stay open. W03 remains In progress and W04 has not started. The full
 T01 gate stays deferred to W05 and the full authorized 11-stage objective
 remains active.
+
+## 19. T01-W03 computed descriptor validity and absolute access closure
+
+Predecessor checkpoint: `f6d56227394536083e703c20101bbbe66171369c` retains
+the descriptor/store and array-copy ingredients. The new
+[access producer](../probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access.rs),
+[validity composition](../probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity.rs)
+and [full-value embedding](../probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/embedding.rs)
+connect them to actual absolute-address safety. Source numeric fields,
+storage length and indexes remain full 64-bit words. Descriptors retain
+512 quantified packing bits, elements 128 bits and two logical region names;
+no source pointer operation is admitted.
+
+Non-nil validity computes a live region, nonnegative offset/length/capacity/
+storage, length no greater than capacity, the actual zero carry of
+offset-plus-capacity, and the actual resulting extent no greater than
+storage length. Its 65-bit extent is the computed carry and modular64 sum,
+rather than a new Go source type or a caller no-wrap oracle. Nil validity
+requires zero length/capacity and leaves inaccessible offset/region ghosts.
+Checked descriptor projections prove that assignment copying and full
+re-slicing preserve computed validity.
+
+An ordinary six-state comparison/carry relation derives offset-addition
+monotonicity across complete words. Computed validity and the actual local
+signed index guard then establish the live-region fact, no index-addition
+carry, a nonnegative absolute address and strict physical storage bounds.
+Only local Boolean flags and bit addresses are split; source numeric values
+and payloads remain universally quantified. No caller per-access fit or
+safety premise replaces the actual conditions.
+
+The [matrix and semantics](../migrations/go-practical/t01-w03/slice-access/README.md)
+keep semantic storage bounds B=0/1/8/32/127/128/129 separate from internal
+padding P=1/1/8/32/128/128/256. The checked unsigned-prefix composition proves
+equality of the complete canonical 64-bit absolute value to its zero-extended
+low-bit reconstruction, then congruence transfers it to a whole-cell read.
+Both finite backings and all padding remain quantified. Nil is unindexable;
+valid storage bounded by zero has no local defined access. There is no
+zero-storage indexed-read positive or promotion of padding to admission.
+
+The pinned [original-Go observer](../probes/go-practical/access_reference.go)
+and [independent bit-loop model](../probes/go-practical/access_differential.py)
+compare raw computed validity/address arithmetic separately from actual Go
+slice construction and subsequent indexing. Erased-validity physical-bound
+witnesses use invalid raw length/capacity metadata that Go cannot construct.
+Erased live-region validity uses a forged dead model binding, while Go's
+real allocation remains readable. Erased storage bounds use legal Go
+N=P+1/index=P reads whose complete value differs from the low-bit
+reconstruction. These domains remain distinct from bounded source witnesses.
+Type failure alone is not a falsity witness.
+
+A total finite-heap lift still reads low bits outside its admitted domain.
+Consequently its self-read equality can remain true after bound erasure;
+that is not evidence for complete numeric address coverage. The explicit
+full-value theorem closes that ordinary gap, and false finite-read
+mutations instead replace a nonzero whole payload by zero. Observer-only
+allocation, `math/bits`, I/O and panic recovery stay outside the proof
+closure. Native observations establish no captured Go function theorem.
+
+The 104 candidates cover nine claim families, with four metadata/exclusion
+families at B0. Two fresh generations are identical. Both checkers accept
+52 zero-axiom claims with matching hashes and reject 52 false mutations at
+core type checking. No new fuel failure is counted as a semantic negative.
+The B128 complete-value candidate has 420 declarations, 21,701 terms and
+248,640 bytes. Its observed Rust/Go resources are 2.657/5.028 seconds and
+22,593,536/68,157,440 resident bytes. B128 keeps 32,768 backing bits and
+B129 keeps 65,536 including padding. Direct-child wall/CPU/RSS may overlap
+other private replays; these are not aggregate or frozen profile budgets.
+
+All 1,307 original-Go/bit-loop observations match: 157 proof-domain reads,
+174 source reads, 98 rejected constructions and 1,035 subsequent index
+panics. Overlapping categories include 21 raw-invalid tuples with a true
+local guard, seven constructible forged dead bindings, 11 source reads
+outside the semantic bound, four readable padding cases outside admission,
+and seven source reads whose full address differs from reconstruction.
+Every false mutation has an explicit domain-classified witness; exact
+input/output bytes, binary identity and resources remain retained.
+
+Selected validation covers the changed private producer, computed full-word
+validity/guard/address composition, semantic versus padded capacity, full
+cells and native/evidence domain distinctions. All 46 new adversarial tests
+and 261 affected earlier evidence tests pass, for 307 selected tests. The
+shared producer requires all 549 prior candidates to be remeasured:
+27 representation, four local-Nat, 48 balanced, 55 unsigned-prefix,
+32 signed-prefix, 40 guard, 72 continuing-prefix, 108 halting-return,
+46 byte-tail, 27 bounded-index and 90 slice-store cases. Their canonical
+bytes, two standalone indexes and all 11 complete case indexes/outcomes
+remain unchanged against the predecessor commit. Earlier prose resources
+describe their original checkpoints; refreshed reports retain current
+source/binary identities and observations. The adjacent hardware receipt is
+refreshed to the exact current slice-store report hash, preserving original
+model/RAM nulls. Unchanged expensive linear-word proofs are not replayed.
+
+Offline locked release Clippy passes with warnings denied. Formatting checks
+cover the 11 changed current private Rust files and pinned Go observer;
+changed Python syntax passes. W01's 77-owner/198-regression-file/83-artifact
+identity audit and W02's retained 39-case closure check pass. Unaffected
+production suites and unchanged W01/W02 adversarial helpers are not rerun.
+Production frontend/checker, normative specifications and public registry
+remain at W01.
+
+The separate final access `--check` replay passes all 104 candidates through
+both checkers and reproduces exact canonical certificate and original-Go
+input/output bytes. Final review checks six documents/131 local links,
+balanced fences, ordered ledger sections, source/diff scope and Git
+whitespace. No incomplete measurement attempt remains.
+
+No axiom, checker rule, conversion fuel, record eta, function extensionality,
+smaller source domain, stronger Go entry condition or unfinished C# theorem
+is introduced. Ordinary computed validity/access closure is complete for
+these ingredients; production Go capture/model/ownership/operation bindings,
+general slicing, overlapping `copy`, bounded construction/`append`, remaining
+byte/control laws and aggregate resource closure remain due. W03 stays
+In progress, W04 has not started and the full T01 gate remains deferred to
+W05. The full authorized 11-stage implementation objective remains active.

@@ -401,7 +401,46 @@ resolve their type/fuel problems without changing either checker.
 
 Debug commands `slices-generate` / `slices-trace` take
 `REPO_ROOT OUTPUT CAPACITY`. Physical model reads use full canonical keys;
-absolute range/descriptor validity, ownership and production source/operator
-binding remain due. General slicing, overlapping `copy`, bounded `append`,
+the following access checkpoint addresses absolute range/descriptor validity.
+Ownership and production source/operator binding remain due. General
+slicing, overlapping `copy`, bounded `append`,
 remaining byte/control laws and aggregate resources stay open. W03 remains
 In progress and the full T01 gate remains deferred to W05.
+
+## T01-W03 computed validity and absolute slice access (in progress)
+
+```sh
+python3 -B develop/probes/go-practical/run_access_probes.py --check
+python3 -B develop/probes/go-practical/check_access_report.py
+python3 -B -m unittest discover -s develop/probes/go-practical -p 'test_access_report.py' -v
+```
+
+The [slice-access model and matrix](../../migrations/go-practical/t01-w03/slice-access/README.md)
+derive absolute no-wrap/nonnegative/bounded addresses and live-region facts
+from computed descriptor validity and actual local signed-index guards.
+Validity computes the actual 65-bit offset-plus-capacity extent as a carry
+and full 64-bit sum; no independent safety/fit Boolean replaces it. Copying
+and full re-slicing preserve validity. Nil and zero storage exclude access.
+
+Semantic storage bounds 0/1/8/32/127/128/129 stay distinct from internal
+power-of-two padding. A separate theorem preserves the complete canonical
+64-bit physical value under zero-extended low-bit reconstruction, then
+congruence transfers it to whole 128-bit cell reads. Both regions and all
+padding remain quantified. A totalized modulo heap self-read alone cannot
+establish this full numeric equality.
+
+The matrix has 104 candidates across nine families. Counterexamples keep
+invalid raw representations, forged live-region bindings and legal Go reads
+outside the private bound distinct. Actual three-index construction and
+subsequent index panics are separate original-Go observations, compared with
+independent bit loops. These observations remain empirical; they do not
+complete production capture/model/ownership/operation bindings.
+
+Debug commands `access-generate` / `access-trace` take
+`REPO_ROOT OUTPUT CAPACITY`. Keep diagnostic trace sources outside the
+current producer's source tree. Retained checks validate evidence integrity;
+`--check` actually replays the same canonical candidates in both checkers
+and reproduces exact native bytes. General slicing, overlapping `copy`,
+bounded construction/`append`, remaining byte/control laws and aggregate
+resources remain due. W03 stays In progress, W04 has not started, and the
+complete T01 gate stays deferred to W05.

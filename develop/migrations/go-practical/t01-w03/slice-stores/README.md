@@ -2,7 +2,8 @@
 
 GO-PRAC-T01-W03 remains In progress. These ordinary ingredients preserve
 descriptor observations, shared backing and complete cell values. Complete
-absolute-address coverage, descriptor/live-region validity, ownership and
+absolute-address and validity/access composition is recorded separately in
+[the later access checkpoint](../slice-access/README.md). Ownership and
 production Go source/operator bindings remain due. General two-/three-index
 slicing, overlapping `copy`, bounded `append`, remaining byte/control laws
 and aggregate resources stay open. No practical Go profile is active; the
@@ -40,13 +41,16 @@ source index guards appear in the corresponding final conditional claims;
 the store algebra itself holds for its total ordinary operations.
 
 `SliceDefined` is the local nil-and-signed-index guard. Descriptor validity
-is a separate remaining obligation: it must establish ordered nonnegative
+is a separate obligation: it must establish ordered nonnegative
 length/capacity, a live typed region, and nonnegative offset plus capacity
 within its actual storage. The present guard alone does not establish the
 absolute address's validity. The initial finite-heap lift projects internal
-queries through the low address bits; valid source binding must prove the
-complete physical index is covered. No source input is truncated or admitted
-by this private experiment, and no caller fit oracle closes that obligation.
+queries through the low address bits. The later access checkpoint discharges
+complete physical-index coverage from computed validity, the actual local
+guard and the semantic storage bound. Production source/ownership binding
+still must establish those computed conditions. No source input is truncated
+or admitted by this private experiment, and no caller fit oracle closes the
+source-binding obligation.
 
 View assignment copies the descriptor and retains the region name. Full
 re-slicing keeps the nil/region/offset/capacity observations and sets length

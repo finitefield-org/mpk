@@ -1,6 +1,10 @@
 //! Ordinary descriptor/keyed-store algebra. Absolute bounds/ownership stay due.
 //! Logical region names are two Bool constructors, not source pointer bits.
 use super::*;
+mod access;
+pub(super) fn generate_access(root: &Path, output: &Path, capacity: usize, trace: bool) {
+    access::generate(root, output, capacity, trace);
+}
 
 const ELEMENT: usize = 7;
 const FIELDS: usize = 3;
