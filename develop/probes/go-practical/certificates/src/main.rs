@@ -678,6 +678,19 @@ fn main() {
     let args = std::env::args().collect::<Vec<_>>();
     if matches!(
         args.get(1).map(String::as_str),
+        Some("slices-generate" | "slices-trace")
+    ) {
+        assert_eq!(args.len(), 5, "slices-generate REPO_ROOT OUTPUT CAPACITY");
+        word::generate_slices(
+            Path::new(&args[2]),
+            Path::new(&args[3]),
+            args[4].parse().unwrap(),
+            args[1] == "slices-trace",
+        );
+        return;
+    }
+    if matches!(
+        args.get(1).map(String::as_str),
         Some("bounds-generate" | "bounds-trace")
     ) {
         assert_eq!(args.len(), 5, "bounds-generate REPO_ROOT OUTPUT CAPACITY");

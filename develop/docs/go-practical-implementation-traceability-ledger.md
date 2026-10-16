@@ -26,7 +26,7 @@ after reconciling the intervening shared artifacts and active registry.
 | --- | --- | --- |
 | GO-PRAC-T01-W01 | Complete | Reviewed implementation commit `bd5ee8047d8925f9c9d0f7502627fca33bb2c836`; completion audit below |
 | GO-PRAC-T01-W02 | Complete | Reviewed implementation commit `fed1cf6047f97b1f73c0fc37c5023e19f4f9f035`; 39 cases reproduced twice |
-| GO-PRAC-T01-W03 | In progress | Halting Quote, finite-byte tail/index/equality/order and full-width bounded-index coverage ingredients measured; complete Go source/byte/slice/loop/return/error/descriptor bindings, remaining laws and resource closure stay open |
+| GO-PRAC-T01-W03 | In progress | Halting Quote, byte/index and descriptor/store/array-copy/tail ingredients measured; absolute bounds/validity/ownership, full bindings, remaining laws and resource closure stay open |
 | GO-PRAC-T01-W04 | Blocked by W03 | Exact v1 source/shared/contract/limit freeze |
 | GO-PRAC-T01-W05 | Blocked by W04 | Publish inactive package, review and full T01 gate |
 | GO-PRAC-T02–T07 | Not started | Sequential v1 implementation and public release |
@@ -872,3 +872,101 @@ composition, complete Go source/operator/carrier bindings and aggregate
 resource closure stay open. W03 remains In progress, W04 has not started,
 and the complete T01 gate remains deferred to W05. The full authorized
 11-stage implementation objective remains active.
+
+## 18. T01-W03 descriptor stores, array copies and observable tails
+
+Predecessor checkpoint: `7b0d2e80b3403c863f31cc6795e7f970668e391c` retains
+the full-width bounded-index ingredient. The new
+[descriptor/store producer](../probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices.rs)
+preserves nil/region/offset/length/capacity observations, complete 128-bit
+cells and both finite backings/padding. Source numeric fields remain full
+64-bit words. The descriptor carrier has 512 quantified packing bits;
+region names are two logical identities and do not admit source pointer
+operations. Physical addresses use the actual balanced modular64 adder
+over canonical source words, rather than an uninterpreted address oracle.
+
+Checked constructor/read/write/key/view lemmas establish that a write through
+one view is visible through an alias with the same region/offset, even when
+length/capacity metadata differ. Distinct regions preserve complete cell
+values. Array copying snapshots the original source cells in the other
+region, and a later source update preserves that snapshot. Full re-slicing
+retains its region/offset/capacity and exposes existing nonzero tail data;
+string tail normalization cannot discard those observable slice cells.
+Nil and non-nil empty descriptors remain distinct.
+
+[The 90-case matrix](../migrations/go-practical/t01-w03/slice-stores/README.md)
+covers 0/1/8/32/127/128/129 cells and seven claim families. Empty storage has
+only the three metadata families. Each group has two identical fresh
+generations. Both checkers accept 45 zero-axiom candidates with matching
+hashes and reject 45 altered-result/region/array/tail candidates at core
+type checking. No current fuel result is counted as a semantic negative.
+The capacity128 array-copy candidate has 273 declarations, 8,972 terms and
+99,641 bytes. Its observed Rust/Go resources are 0.219/0.509 seconds and
+10,829,824/31,686,656 resident bytes. Both 128-cell stores retain 32,768
+bits; the internal 129-cell boundary retains 65,536 including padding.
+Resources are per-child Darwin27/arm64/10-CPU observations, possibly
+overlapping independent private replays, with original model/RAM nulls.
+They freeze neither a source/profile limit nor an application budget.
+
+[The pinned original-Go observer](../probes/go-practical/slice_reference.go)
+matches all 1,596 independent cell/bit-loop observations: 28 nil and 600
+non-nil empty rows, 240 defined shared writes/array snapshots, 300 nonzero
+tail observations, 514 restricted-capacity views and 1,356 rows with
+recovered original-view bounds failures. A 129-cell source view accepts
+index128; the private boundary is not mislabeled as a Go runtime panic.
+Every false mutation has a concrete empirical witness, separate from its
+checker type failure. Native exact bytes, executable identity and child
+resources remain empirical, rather than a captured-source function theorem.
+The observer's three arrays and observer-only I/O/recovery do not establish
+a shared source binding for the two-region ordinary laws.
+
+[The retained positive diagnostics](../migrations/go-practical/t01-w03/slice-initial/README.md)
+preserve three raw failed attempts and two exact private-source snapshots.
+The original predicate-based tag projection failed type conversion; a
+direct ordinary tag constructor resolves it. Inline view/store composition
+then reached conversion fuel. Explicit checked constructor projections,
+read/write definitions, key facts and view observations resolve that
+composition at the existing budget. These findings remain failed positive
+attempts and are not counted as false claims. No checker rule, fuel, axiom,
+function extensionality, record eta or unfinished C# theorem is added.
+
+An adjacent read-only `/usr/sbin/sysctl` query outside the workspace sandbox
+identifies MacBookPro18,4 / Apple M1 Max, 68,719,476,736 physical memory bytes
+(64 GiB) and 10 physical / 10 logical CPUs. The
+[hardware receipt](../migrations/go-practical/t01-w03/local-resource-host.json)
+retains the exact query output, timestamp and raw slice-report hash. Original
+report model/RAM nulls remain intact. This identifies the development host;
+it is not an installed native Linux or isolated-budget receipt.
+
+The separate final slice `--check` replay passes all 90 candidates through
+both checkers and reproduces exact native bytes. All 40 new adversarial
+evidence tests pass. Selected validation covers the changed private producer,
+descriptor/physical-store composition, complete cells/frames/padding,
+array/view identity, actual native bounds observations and retained evidence.
+All 459 earlier candidates are remeasured because they share the producer:
+27 representation, four local-Nat, 48 balanced, 55 unsigned-prefix,
+32 signed-prefix, 40 guard, 72 continuing-prefix, 108 halting-return,
+46 byte-tail and 27 bounded-index cases. Their canonical bytes, both
+standalone indexes and all ten complete case indexes/outcomes remain
+unchanged against the predecessor commit. All 221 affected earlier evidence
+tests pass, giving 261 selected tests with the 40 new tests. Unchanged
+expensive linear-word proofs are not needlessly replayed.
+
+Offline locked release Clippy passes with warnings denied. Explicit current
+private Rust formatting, pinned Go formatting, changed Python syntax,
+six changed documents/113 local links, ordered ledger sections and Git
+whitespace checks pass. W01's unchanged production/regression identity audit
+and W02's retained 39-case closure report pass. Unaffected production suites
+and unchanged W01/W02 adversarial helpers are not rerun; the selected
+validation covers the actual private producer/evidence changes. No incomplete
+measurement attempt remains. Production frontend/checker, normative
+specification and public registry remain at W01.
+
+Absolute-address coverage and no-wrap, descriptor/live-region validity,
+ownership/admission and complete Go operation/source bindings remain due.
+`SliceDefined` is only the local nil/signed-index guard; it does not discharge
+those representation obligations. General slicing, overlapping `copy`,
+bounded `append`, remaining byte/control laws and aggregate resource closure
+also stay open. W03 remains In progress and W04 has not started. The full
+T01 gate stays deferred to W05 and the full authorized 11-stage objective
+remains active.

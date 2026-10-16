@@ -376,3 +376,32 @@ separate `--check` command executes both checkers and reproduces native
 observation bytes. Complete production source/operator/carrier bindings,
 remaining string/slice/control laws and aggregate resources remain open.
 The full T01 gate remains deferred to W05.
+
+## T01-W03 descriptor/store and array-copy ingredients (in progress)
+
+```sh
+python3 -B develop/probes/go-practical/run_slice_probes.py --check
+python3 -B develop/probes/go-practical/check_slice_report.py
+python3 -B -m unittest discover -s develop/probes/go-practical -p 'test_slice_report.py' -v
+```
+
+The [slice-store model and evidence](../../migrations/go-practical/t01-w03/slice-stores/README.md)
+measure complete descriptor observations, nil/empty distinction, view-copy
+sharing, separate-region frames, array snapshots and full re-slice tail
+observations. Source numeric fields retain 64 bits, elements retain 128 bits,
+and both finite backings/padding remain quantified at 0/1/8/32/127/128/129
+cells. The two logical region names do not admit source pointer operations.
+
+Both checkers accept 45 zero-axiom claims and reject 45 false mutations at
+core type checking, with matching accepted hashes. Exact Go observation bytes
+cover 1,596 source runs and explicit witnesses to every false mutation.
+[Original positive failures](../../migrations/go-practical/t01-w03/slice-initial/README.md)
+remain diagnostic evidence. Checked constructor/read/write/guard lemmas
+resolve their type/fuel problems without changing either checker.
+
+Debug commands `slices-generate` / `slices-trace` take
+`REPO_ROOT OUTPUT CAPACITY`. Physical model reads use full canonical keys;
+absolute range/descriptor validity, ownership and production source/operator
+binding remain due. General slicing, overlapping `copy`, bounded `append`,
+remaining byte/control laws and aggregate resources stay open. W03 remains
+In progress and the full T01 gate remains deferred to W05.

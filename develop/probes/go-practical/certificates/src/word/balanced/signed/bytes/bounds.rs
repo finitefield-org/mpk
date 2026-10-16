@@ -1,6 +1,10 @@
 //! Derive full-width index coverage; no caller-supplied fit oracle.
 use super::*;
 mod coverage;
+mod slices;
+pub(super) fn generate_slices(root: &Path, output: &Path, capacity: usize, trace: bool) {
+    slices::generate(root, output, capacity, trace);
+}
 
 fn named(base: &str, d: usize, args: Vec<Expr>) -> Expr {
     tree(&format!("Index{base}"), d, args)

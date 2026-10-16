@@ -326,3 +326,26 @@ separately from core type rejection. Production Go source/operator/carrier
 bindings, remaining string operations, slice/descriptor/control composition
 and aggregate resource closure remain due. W03 remains In progress; W04
 has not started and the full T01 gate remains deferred to W05.
+
+## Descriptor/store sharing, array snapshots and observable slice tails
+
+The [slice-store model and 90-case evidence](slice-stores/README.md) now
+preserve explicit nil/region/offset/length/capacity observations, whole
+128-bit cells, view assignment sharing, distinct-region frames and array
+value-copy snapshots. Full re-slicing retains the descriptor's capacity and
+exposes existing tail data. It does not apply string tail normalization to
+slice storage. All source numeric fields remain 64-bit words; region names
+are two symbolic identities rather than source pointer bits.
+
+The private workloads are 0/1/8/32/127/128/129 cells. Both checkers accept
+45 zero-axiom candidates and reject 45 altered-result/region/tail candidates
+at core type checking. Actual-Go/independent-bit-loop observations match
+all 1,596 cases, and every false mutation has an empirical witness distinct
+from type failure. Original positive type/fuel failures remain preserved in
+[the diagnostic archive](slice-initial/README.md).
+
+These are ordinary store/descriptor ingredients. Absolute-address coverage,
+descriptor validity/live typed regions, source/ownership bindings, general
+slicing, overlapping `copy`, bounded `append`, remaining byte/control laws
+and aggregate resources remain due. W03 stays In progress; W04 has not
+started and the full T01 gate remains deferred to W05.
