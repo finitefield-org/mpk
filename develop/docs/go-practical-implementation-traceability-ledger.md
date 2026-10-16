@@ -26,8 +26,8 @@ after reconciling the intervening shared artifacts and active registry.
 | --- | --- | --- |
 | GO-PRAC-T01-W01 | Complete | Reviewed implementation commit `bd5ee8047d8925f9c9d0f7502627fca33bb2c836`; completion audit below |
 | GO-PRAC-T01-W02 | Complete | Reviewed implementation commit `fed1cf6047f97b1f73c0fc37c5023e19f4f9f035`; 39 cases reproduced twice |
-| GO-PRAC-T01-W03 | In progress | Halting Quote, byte/index, descriptor/store, computed validity/access, reslice, copy, construction/append, substring/concat, prefix/suffix and coupled struct/descriptor/byte ingredients measured; private dependent induction and 14 sequential resource recipes pass; final cumulative completion review remains; production bindings belong to T02–T06 |
-| GO-PRAC-T01-W04 | Blocked by W03 | Exact v1 source/shared/contract/limit freeze |
+| GO-PRAC-T01-W03 | Complete | Reviewed implementation `9d4e6fb7855a66d9fff309e6dbd9143652ee6e21`; requirement-by-requirement completion audit in section28 |
+| GO-PRAC-T01-W04 | Ready | Exact v1 source/shared/contract/limit freeze |
 | GO-PRAC-T01-W05 | Blocked by W04 | Publish inactive package, review and full T01 gate |
 | GO-PRAC-T02–T07 | Not started | Sequential v1 implementation and public release |
 | GO-PRAC-T08–T11 | Not started | Sequential v2 freeze, maps, pointers and public release |
@@ -1825,3 +1825,51 @@ links, balanced fences, ordered ledger sections, three Python sources and
 staged Git whitespace. No GitHub Actions/workflow is created or used. T01's full
 gate remains deferred to W05. W03's final completion audit follows; no public
 profile or complete eleven-stage objective is claimed.
+
+
+## 28. T01-W03 completion audit and W04 handoff
+
+Reviewed implementation commit: `9d4e6fb7855a66d9fff309e6dbd9143652ee6e21`.
+The worktree was clean before these completion-record edits. W01 and W02's
+completed predecessors remain unchanged. The
+[machine-readable audit](../migrations/go-practical/t01-w03/completion-audit.json)
+pins all eighteen original-checker report groups, the private induction report
+and sequential resources. The
+[readable exit review](../migrations/go-practical/t01-w03/feasibility-exit-audit.md)
+matches each explicit W03 representation, conditional-lemma, workload,
+projection-negative and resource requirement to its actual retained evidence.
+
+W03 is Complete. Ordinary full-payload nominal/product/error, full64 arithmetic
+and genuine-Nat sums, complete bytes/indexes and descriptor/store/control laws
+have representative conditional proofs. Proposed byte0/1/32/256 and
+slice0/1/8/32/128 workloads, relevant maximum-minus/plus-one probes and coupled
+bounds are measured. The necessary dependent-Nat addition is an explicit
+freeze amendment with separately scoped mirrored-checker proof evidence;
+production integration remains T02 work. No W03 feasibility requirement
+remains pending, and production feature applications are still required in
+T02–T06 under their existing completion rules.
+
+The final integrity review validates 1,763 original-checker candidates in
+18 groups: 857 accepted, 877 core type mismatches and 29 historical diagnostic
+fuel outcomes. The fuel outcomes remain non-semantic diagnostics. Separately,
+twelve private ordinary claims give six zero-axiom accepts/six core mismatches,
+and fifteen interface cases give two accepts/thirteen declaration rejections.
+Fourteen selected fresh sequential resource checks preserve exact original
+canonical bytes and accepted hashes. Nine initial/checkpoint diagnostic
+families retain their actual failure classes. Checkpoint records own the
+specific affected tests, independent replays, source/binary/canonical
+preservation and lint/format review; unchanged old matrices and adversarial
+suites are not redundantly rerun for completion metadata.
+
+This completion-record-only review checks all eight requirement findings,
+twenty exact report hashes, strict JSON, four documents/148 local links,
+balanced fences, ordered ledger sections and staged Git whitespace. Runtime
+or kernel suites need no new execution for these metadata edits.
+
+W04 is Ready. It freezes exact source/operation/check/closure/effect/contract
+rules, semantic/transport/resource limits, the additive Nat interface,
+changed schema/hash identities, migrations, positive/negative vectors and
+one production executor per requirement. W05 still owns inactive publication,
+the final source-model feasibility review and the complete `check-fast.sh`
+T01 gate. No T is complete; no profile is active and no Linux/public release
+or completion of the eleven-stage objective is claimed.

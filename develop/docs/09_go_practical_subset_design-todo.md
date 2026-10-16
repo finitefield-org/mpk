@@ -1,7 +1,9 @@
 # Go Practical Subset Implementation Work Plan
 
-Status: implementation authorized 2026-10-16. T01-W01 and W02 are complete;
-T01-W03's final completion review is in progress. Its ordinary representations,
+Status: implementation authorized 2026-10-16. T01-W01, W02 and W03 are complete.
+W03's [completion audit](../migrations/go-practical/t01-w03/completion-audit.json)
+pins reviewed implementation `9d4e6fb7855a66d9fff309e6dbd9143652ee6e21`.
+Its ordinary representations,
 full64 arithmetic/Nat sums, complete bytes, descriptor/store/construction laws,
 actual branch guards and coupled bound proofs have retained both-checker and
 original-Go evidence. The separate private dependent Nat.induct prototype
@@ -11,7 +13,7 @@ recipes now reproduce exact certificates and accepted hashes with identified
 hardware resources. W04 owns the exact additional interface, semantic limits,
 resource budgets, schema identities, migrations and production executors.
 Complete production source/operation/application binding belongs to T02–T06.
-W04 has not started; no practical Go profile is active.
+W04 is Ready. T01 is incomplete and no practical Go profile is active.
 
 The [implementation ledger](go-practical-implementation-traceability-ledger.md)
 owns detailed status, source/checker identities and local verification.

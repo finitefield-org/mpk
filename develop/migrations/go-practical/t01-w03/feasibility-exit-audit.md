@@ -1,6 +1,9 @@
 # T01-W03 feasibility exit audit
 
-Status: final completion review. This is an audit against T01-W03's acceptance condition,
+Status: Complete. Reviewed implementation commit:
+`9d4e6fb7855a66d9fff309e6dbd9143652ee6e21`. The reviewed worktree was clean.
+The [machine-readable completion audit](completion-audit.json) pins every
+retained report and records each requirement. This audit uses T01-W03's acceptance condition,
 not an expansion of W03 into production implementation. The
 [work plan](../../../docs/09_go_practical_subset_design-todo.md#3-go-prac-t01--feasibility-and-v1-freeze)
 requires ordinary representations, representative conditional theorems in both
@@ -19,7 +22,7 @@ applications remain required in their assigned T02–T06 stages.
 | Coupled bounds | [Struct/slice/byte matrix](aggregate/README.md) | 98 candidates and separate replay pass; 49 zero-axiom accepts and 49 core type rejections |
 | Identified-hardware resources and exact freeze inputs | Adjacent per-case resources and host receipts | [Fourteen sequential upper/boundary recipes](sequential-resources/README.md) pass; exact observed costs and hardware identity are retained for W04 |
 
-The remaining W03 sequence is bounded:
+Completion review:
 
 1. The corrected aggregate matrix, independent replay and all 37 affected tests
    are complete. Preserve their exact source/checker/artifact identities.
@@ -32,9 +35,11 @@ The remaining W03 sequence is bounded:
    fresh construction and both checker measurements. Whole-group construction,
    separate per-checker costs, exact canonical/hash preservation and identified
    hardware are recorded. Other host processes remain uncontrolled.
-4. Review every W03 acceptance row, record any required scope correction and
-   mark W03 complete only when no feasibility question remains. W04 then owns
-   exact admission, limits/budgets, schema identities, migrations and executors.
+4. Every W03 acceptance row has direct retained evidence. The necessary
+   additive Nat interface is explicitly recorded as a freeze amendment, with
+   its independent private implementation and negative checks. No W03
+   feasibility requirement remains pending. W04 is Ready and owns exact
+   admission, limits/budgets, schema identities, migrations and executors.
 
 No production adapter, parser, registry or source-to-certificate application
 is claimed here. T01-W05 owns the cumulative `check-fast.sh` gate. W03 does not
