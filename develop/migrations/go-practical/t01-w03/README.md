@@ -380,3 +380,33 @@ capture/model/ownership/operation bindings, general slicing, overlapping
 `copy`, bounded construction/`append`, remaining byte/control laws and
 aggregate resource closure pending. W03 remains In progress; W04 has not
 started and the complete T01 gate stays deferred to W05.
+
+## General signed two-/three-index slicing
+
+The [general reslice model and 100-case matrix](reslicing/README.md) now
+derive descriptor validity and exact capacity from the actual signed
+low/high/maximum guards. Every numeric input remains 64 bits. Checked
+inverse/associative carry composition and non-strict bounds preserve nil,
+non-nil empty and equal-endpoint cases. Two-index high bounds use capacity,
+including values above the old logical length; three-index capacity uses
+the explicit maximum.
+
+Defined new indexes map to defined indexes in the old view expanded to its
+existing capacity. Full-word address/key equality then preserves complete
+128-bit reads in the original backing, with both stores/padding quantified.
+The semantic bounds remain 0/1/8/32/127/128/129, separately from their
+power-of-two padding. Zero emits no indexed-read positive.
+
+All 4,261 actual-Go/bit-loop observations match, including capacity changes,
+nil/empty results, tail exposure, alias-visible updates, source range
+panics, index panics and out-of-profile reads. The
+[original failed-positive records](reslice-initial/README.md) remain
+separate from false-claim witnesses. Actual source guards cannot be
+replaced by the computed result's validity alone. Observer-only writes and
+recovery remain outside the proof closure.
+
+This closes ordinary general-reslice ingredients. Production Go capture/
+model/ownership/operation bindings, overlapping `copy`, bounded construction/
+`append`, remaining byte/control laws and aggregate resources stay pending.
+W03 remains In progress; W04 has not started and the full T01 gate remains
+deferred to W05.

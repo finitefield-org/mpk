@@ -22,7 +22,9 @@ absolute-address no-wrap, nonnegativity, physical bounds and live-region
 facts. Semantic storage bounds then derive complete 64-bit address
 reconstruction and whole-cell finite reads; internal padding does not raise
 those bounds. Production source/ownership and full operation bindings remain
-open.
+open. General signed two-/three-index slice ingredients now preserve
+descriptor validity, exact capacity and full-width/backing read relations,
+including nil/empty endpoints and re-slicing beyond the old logical length.
 Complete Go source/operation/string/slice/loop/return/error/descriptor bindings and
 remaining collection/control laws and resource boundaries remain open, so
 W04 has not started.

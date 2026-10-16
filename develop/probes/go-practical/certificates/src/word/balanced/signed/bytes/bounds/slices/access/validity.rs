@@ -1,6 +1,13 @@
 //! Concrete descriptor validity and actual local-index discharge.
 use super::*;
 mod embedding;
+mod reslice;
+pub(super) fn reslice(p: &mut Producer, count: usize, trace: Option<&Path>) {
+    reslice::install(p, count, trace);
+}
+pub(super) fn emit_reslice(base: Certificate, output: &Path, count: usize) {
+    reslice::emit(base, output, count);
+}
 
 fn vc(s: &str, args: Vec<Expr>) -> Expr {
     ac(&format!("Validity{s}"), args)

@@ -2,6 +2,36 @@
 use super::*;
 mod validity;
 
+pub(super) fn generate_reslice(root: &Path, output: &Path, count: usize, trace: bool) {
+    assert!(CAPACITIES.contains(&count));
+    fs::create_dir_all(output).unwrap();
+    let mut p = Producer {
+        builder: Builder::from(natural::foundation(root)),
+        fresh: 0,
+    };
+    p.builder.c.module = format!("{PREFIX}.SliceResliceCapacity{count}");
+    primitives(&mut p);
+    for d in 0..=WORD {
+        word_library(&mut p, d);
+        super::super::build(&mut p, d, trace.then_some(output));
+    }
+    super::definitions(&mut p, trace.then_some(output));
+    install_local(&mut p);
+    for d in 0..=WORD {
+        install_word(&mut p, d, trace.then_some(output));
+    }
+    validity::install(&mut p, count, trace.then_some(output));
+    validity::reslice(&mut p, count, trace.then_some(output));
+    if trace {
+        fs::write(
+            output.join("library.mpcert"),
+            Builder::from(p.builder.c.clone()).finish(),
+        )
+        .unwrap();
+    }
+    validity::emit_reslice(p.builder.c, output, count);
+}
+
 fn ac(suffix: &str, args: Vec<Expr>) -> Expr {
     at(&format!("Access{suffix}"), args)
 }

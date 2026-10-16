@@ -1,0 +1,103 @@
+[
+  {
+    "path": "stage-reslice-sum-lower.mpcert",
+    "raw_sha256": "61f3375575a1e950457c702c8f7da83cd80f0f737394f586d88e48605443d62e",
+    "rust": {
+      "cpu_system_seconds": 0.047552,
+      "cpu_user_seconds": 2.346558,
+      "exit_code": 0,
+      "peak_rss_bytes": 40566784,
+      "report": {
+        "axiom_count": 0,
+        "axiom_report": {
+          "declaration_dependencies": [],
+          "entries": [],
+          "summary": {
+            "builtin_theory_axiom_count": 0,
+            "core_axiom_count": 0,
+            "external_axiom_count": 0,
+            "go_semantics_axiom_count": 0,
+            "total_axiom_count": 0
+          }
+        },
+        "declaration_count": 548,
+        "error_code": null,
+        "error_detail": null,
+        "hashes": {
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "3554f8e9bae9c26c79586b2edfe4d5637b6a31035cb5178cdbf7811098fcbf03",
+          "export": "2d140ea07f7a4f3942378dd577b191efd4a60e0d689a6339d0a0b4b1307849fe"
+        },
+        "module": "Probe.GoPractical.Word.SliceResliceCapacity128",
+        "verdict": "accepted"
+      },
+      "resource_provider": "Darwin os.wait4 child rusage",
+      "stderr": "",
+      "wall_seconds": 5.654376792022958
+    }
+  },
+  {
+    "path": "stage-reslice-sub-carry.mpcert",
+    "raw_sha256": "98841106e2ef4f8961702442c6d3ae344330bfd6cda9e8ce53fae906fe2df8ff",
+    "rust": {
+      "cpu_system_seconds": 0.01051,
+      "cpu_user_seconds": 2.199704,
+      "exit_code": 0,
+      "peak_rss_bytes": 39108608,
+      "report": {
+        "axiom_count": 0,
+        "axiom_report": {
+          "declaration_dependencies": [],
+          "entries": [],
+          "summary": {
+            "builtin_theory_axiom_count": 0,
+            "core_axiom_count": 0,
+            "external_axiom_count": 0,
+            "go_semantics_axiom_count": 0,
+            "total_axiom_count": 0
+          }
+        },
+        "declaration_count": 549,
+        "error_code": null,
+        "error_detail": null,
+        "hashes": {
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "672bab0f22e8bc349b45b096c303dff750822b1b0595698b82ca55435ea6f1ef",
+          "export": "8543d4f4e1ce0477eaffd1a135b6fd490dbc4915657ef9a52af0b76db78330eb"
+        },
+        "module": "Probe.GoPractical.Word.SliceResliceCapacity128",
+        "verdict": "accepted"
+      },
+      "resource_provider": "Darwin os.wait4 child rusage",
+      "stderr": "",
+      "wall_seconds": 2.2213672500220127
+    }
+  },
+  {
+    "path": "stage-reslice-restore-false-false.mpcert",
+    "raw_sha256": "678f6f0233ac9bc19bb0b4f24129255a44935ef65d996bf00e482267fc068bb5",
+    "rust": {
+      "cpu_system_seconds": 0.009694,
+      "cpu_user_seconds": 2.178128,
+      "exit_code": 1,
+      "peak_rss_bytes": 42336256,
+      "report": {
+        "axiom_count": null,
+        "axiom_report": null,
+        "declaration_count": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"198093\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"198107\",\"kind\":\"check_type_mismatch\",\"term_index\":\"198067\"}}",
+        "hashes": {
+          "axiom_report": null,
+          "certificate": "3d1576e8c6d357bc21fb82e98cdbe1a48739f762b32593185686eb11540ce8a7",
+          "export": null
+        },
+        "module": null,
+        "verdict": "rejected"
+      },
+      "resource_provider": "Darwin os.wait4 child rusage",
+      "stderr": "",
+      "wall_seconds": 2.1994297499768436
+    }
+  }
+]

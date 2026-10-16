@@ -4,8 +4,9 @@ GO-PRAC-T01-W03 remains In progress. These ordinary ingredients preserve
 descriptor observations, shared backing and complete cell values. Complete
 absolute-address and validity/access composition is recorded separately in
 [the later access checkpoint](../slice-access/README.md). Ownership and
-production Go source/operator bindings remain due. General two-/three-index
-slicing, overlapping `copy`, bounded `append`, remaining byte/control laws
+production Go source/operator bindings remain due. General signed slicing
+is covered by [the later reslice checkpoint](../reslicing/README.md).
+Overlapping `copy`, bounded `append`, remaining byte/control laws
 and aggregate resources stay open. No practical Go profile is active; the
 whole T01 gate remains deferred to W05.
 

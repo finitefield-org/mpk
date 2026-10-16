@@ -8,6 +8,11 @@ capture/model/ownership/operation bindings, general slicing, overlapping
 aggregate resources stay open. No practical Go profile is active; the full
 T01 gate remains due in W05.
 
+The later [general reslice checkpoint](../reslicing/README.md) closes the
+ordinary signed two-/three-index validity/capacity/mapped-read ingredients.
+Production source/ownership binding and the remaining operation/aggregate
+requirements still apply.
+
 ## Computed validity and actual access conditions
 
 The [access producer](../../../../probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access.rs)

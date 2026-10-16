@@ -2,6 +2,9 @@
 //! Logical region names are two Bool constructors, not source pointer bits.
 use super::*;
 mod access;
+pub(super) fn generate_reslice(root: &Path, output: &Path, capacity: usize, trace: bool) {
+    access::generate_reslice(root, output, capacity, trace);
+}
 pub(super) fn generate_access(root: &Path, output: &Path, capacity: usize, trace: bool) {
     access::generate(root, output, capacity, trace);
 }

@@ -444,3 +444,46 @@ and reproduces exact native bytes. General slicing, overlapping `copy`,
 bounded construction/`append`, remaining byte/control laws and aggregate
 resources remain due. W03 stays In progress, W04 has not started, and the
 complete T01 gate stays deferred to W05.
+
+## T01-W03 general signed two-/three-index slices (in progress)
+
+```sh
+python3 -B develop/probes/go-practical/run_reslice_probes.py --check
+python3 -B develop/probes/go-practical/check_reslice_report.py
+python3 -B -m unittest discover -s develop/probes/go-practical -p 'test_reslice_report.py' -v
+```
+
+The [general reslice model and matrix](../../migrations/go-practical/t01-w03/reslicing/README.md)
+connect actual signed low/high/maximum checks to computed descriptor
+validity, exact capacities and complete backing reads. Source words retain
+64 bits, descriptor packing 512, and whole cells 128. Checked modular
+inverse/associative and non-strict bounds include equal endpoints and
+capacity-end empty views. No caller canonicalization, fit or no-wrap oracle
+replaces the derived source conditions.
+
+The two-index upper bound is the old capacity. Three-index capacity uses
+the explicit maximum. New indexes map to the old view expanded to its
+existing capacity, preserving access to observable tails; mapping to the
+old logical length would reject valid reads. Both stores and padding stay
+quantified at private bounds 0/1/8/32/127/128/129. Zero emits validity cases
+only. The 100-candidate matrix separates correct operations from guard,
+capacity, original-length and zeroed-read mutations.
+
+The original-Go observer matches 4,261 independent bit-loop observations,
+including shared-backing updates, nil/empty distinctions, range versus
+index panics and reads outside private bounds. Observer-only writes do not
+establish borrowed-input permissions. Output descriptor validity alone is
+also insufficient for source definedness. All false mutations have explicit
+typed source witnesses. The
+[retained original diagnostics](../../migrations/go-practical/t01-w03/reslice-initial/README.md)
+preserve three failed-positive attempts in two source groups, corrected by
+checked Boolean congruence without altering the mathematical claims or
+either checker.
+
+Debug `reslice-generate` / `reslice-trace` commands take
+`REPO_ROOT OUTPUT CAPACITY`; keep trace sources outside current source
+trees. The retained checker validates evidence integrity; `--check`
+executes both checkers and reproduces exact native bytes. Production Go
+capture/model/ownership/operation bindings, overlapping `copy`, bounded
+construction/`append`, remaining byte/control laws and aggregate resources
+stay due. W03 remains In progress; the complete T01 gate remains due in W05.

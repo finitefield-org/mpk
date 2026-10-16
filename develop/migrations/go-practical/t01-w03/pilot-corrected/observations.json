@@ -15,482 +15,38 @@
         "theorem": "Probe.GoPractical.nominal_tag.Claim"
       },
       "construction": {
-        "cpu_system_seconds": 0.0020499999999999997,
-        "cpu_user_seconds": 0.0031209999999999996,
+        "cpu_system_seconds": 0.0026119999999999997,
+        "cpu_user_seconds": 0.0032459999999999998,
         "exit_code": 0,
-        "peak_rss_bytes": 4210688,
+        "peak_rss_bytes": 4472832,
         "resource_provider": "Darwin os.wait4 child rusage",
         "stderr": "",
         "stdout": "",
-        "wall_seconds": 0.011515124992001802
+        "wall_seconds": 0.016230916022323072
       },
       "observations": {
         "go": {
-          "cpu_system_seconds": 0.0030529999999999997,
-          "cpu_user_seconds": 0.002287,
-          "exit_code": 0,
-          "peak_rss_bytes": 5619712,
-          "report": {
-            "declaration_count": 19,
-            "hashes": {
-              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
-              "certificate": "41c40ec326b2c30a8bcadd1854fa8f323c02e6262fbd29fb55ccfefef244034c",
-              "export": "08f1c13752bf232207b864ad8791dcd662e9a5e47a434e57ce462bd24df2933a"
-            },
-            "module": "Probe.GoPractical.nominal_tag",
-            "verdict": "accepted"
-          },
-          "resource_provider": "Darwin os.wait4 child rusage",
-          "stderr": "",
-          "wall_seconds": 0.18753162497887388
-        },
-        "rust": {
-          "cpu_system_seconds": 0.0017749999999999999,
-          "cpu_user_seconds": 0.0055,
-          "exit_code": 0,
-          "peak_rss_bytes": 3784704,
-          "report": {
-            "axiom_count": 0,
-            "axiom_report": {
-              "declaration_dependencies": [],
-              "entries": [],
-              "summary": {
-                "builtin_theory_axiom_count": 0,
-                "core_axiom_count": 0,
-                "external_axiom_count": 0,
-                "go_semantics_axiom_count": 0,
-                "total_axiom_count": 0
-              }
-            },
-            "declaration_count": 19,
-            "error_code": null,
-            "error_detail": null,
-            "hashes": {
-              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
-              "certificate": "41c40ec326b2c30a8bcadd1854fa8f323c02e6262fbd29fb55ccfefef244034c",
-              "export": "08f1c13752bf232207b864ad8791dcd662e9a5e47a434e57ce462bd24df2933a"
-            },
-            "module": "Probe.GoPractical.nominal_tag",
-            "verdict": "accepted"
-          },
-          "resource_provider": "Darwin os.wait4 child rusage",
-          "stderr": "",
-          "wall_seconds": 0.013451291946694255
-        }
-      },
-      "raw_sha256": "01876f574f4df783d6b706bbd74d134a8e76aa6626d9d787b9b03a12601e2836"
-    },
-    {
-      "case": {
-        "bytes": 2209,
-        "description": "First projection of a joint pair returns the first 64-bit payload at every address",
-        "expected": "accepted",
-        "goal_debug": "Forall(\"left\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))), Forall(\"right\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))), Forall(\"i0\", Constant(\"Std.Bool\"), Forall(\"i1\", Constant(\"Std.Bool\"), Forall(\"i2\", Constant(\"Std.Bool\"), Forall(\"i3\", Constant(\"Std.Bool\"), Forall(\"i4\", Constant(\"Std.Bool\"), Forall(\"i5\", Constant(\"Std.Bool\"), Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Apply(Lambda(\"__field\", Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__pair_type\", Constant(\"Std.Bool\"), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Variable(\"left\"), Variable(\"right\"), Variable(\"__field\")])), [Constant(\"Std.Bool.false\")]), [Variable(\"i0\"), Variable(\"i1\"), Variable(\"i2\"), Variable(\"i3\"), Variable(\"i4\"), Variable(\"i5\")]), Apply(Variable(\"left\"), [Variable(\"i0\"), Variable(\"i1\"), Variable(\"i2\"), Variable(\"i3\"), Variable(\"i4\"), Variable(\"i5\")])])))))))))",
-        "id": "multi-result-projection",
-        "pilot_address_bits": 3,
-        "quantified_binders": 8,
-        "scope": "ordinary representation lemma; source-binding, complete operations and full arithmetic bridge are not discharged",
-        "terms": 239,
-        "theorem": "Probe.GoPractical.multi_result_projection.Claim"
-      },
-      "construction": {
-        "cpu_system_seconds": 0.0017909999999999998,
-        "cpu_user_seconds": 0.00276,
-        "exit_code": 0,
-        "peak_rss_bytes": 4227072,
-        "resource_provider": "Darwin os.wait4 child rusage",
-        "stderr": "",
-        "stdout": "",
-        "wall_seconds": 0.009323665988631546
-      },
-      "observations": {
-        "go": {
-          "cpu_system_seconds": 0.002312,
-          "cpu_user_seconds": 0.002129,
+          "cpu_system_seconds": 0.0035429999999999997,
+          "cpu_user_seconds": 0.002479,
           "exit_code": 0,
           "peak_rss_bytes": 5554176,
           "report": {
             "declaration_count": 19,
             "hashes": {
               "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
-              "certificate": "71b8edded655c7bccd7abf33ff855dfd4803b7456735be4149a20d9ef82f93ee",
-              "export": "7324ca5ab2d72efca00558e7e4ba3493ba15a300e51928de4b701b3f241a49af"
+              "certificate": "41c40ec326b2c30a8bcadd1854fa8f323c02e6262fbd29fb55ccfefef244034c",
+              "export": "08f1c13752bf232207b864ad8791dcd662e9a5e47a434e57ce462bd24df2933a"
             },
-            "module": "Probe.GoPractical.multi_result_projection",
+            "module": "Probe.GoPractical.nominal_tag",
             "verdict": "accepted"
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 0.009923083009198308
+          "wall_seconds": 0.20752516703214496
         },
         "rust": {
-          "cpu_system_seconds": 0.001485,
-          "cpu_user_seconds": 0.004641999999999999,
-          "exit_code": 0,
-          "peak_rss_bytes": 3883008,
-          "report": {
-            "axiom_count": 0,
-            "axiom_report": {
-              "declaration_dependencies": [],
-              "entries": [],
-              "summary": {
-                "builtin_theory_axiom_count": 0,
-                "core_axiom_count": 0,
-                "external_axiom_count": 0,
-                "go_semantics_axiom_count": 0,
-                "total_axiom_count": 0
-              }
-            },
-            "declaration_count": 19,
-            "error_code": null,
-            "error_detail": null,
-            "hashes": {
-              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
-              "certificate": "71b8edded655c7bccd7abf33ff855dfd4803b7456735be4149a20d9ef82f93ee",
-              "export": "7324ca5ab2d72efca00558e7e4ba3493ba15a300e51928de4b701b3f241a49af"
-            },
-            "module": "Probe.GoPractical.multi_result_projection",
-            "verdict": "accepted"
-          },
-          "resource_provider": "Darwin os.wait4 child rusage",
-          "stderr": "",
-          "wall_seconds": 0.009682999982032925
-        }
-      },
-      "raw_sha256": "8f88fe58807ba51b0dd395f62dfdb453af662933790a82963dc72272a526541c"
-    },
-    {
-      "case": {
-        "bytes": 2158,
-        "description": "A quantity-tagged 64-bit value does not satisfy the money-tag predicate, for every payload",
-        "expected": "rejected",
-        "goal_debug": "Forall(\"payload\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))), Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Lambda(\"__tag_field\", Constant(\"Std.Bool\"), Lambda(\"__payload_0\", Constant(\"Std.Bool\"), Lambda(\"__payload_1\", Constant(\"Std.Bool\"), Lambda(\"__payload_2\", Constant(\"Std.Bool\"), Lambda(\"__payload_3\", Constant(\"Std.Bool\"), Lambda(\"__payload_4\", Constant(\"Std.Bool\"), Lambda(\"__payload_5\", Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Variable(\"payload\"), [Variable(\"__payload_0\"), Variable(\"__payload_1\"), Variable(\"__payload_2\"), Variable(\"__payload_3\"), Variable(\"__payload_4\"), Variable(\"__payload_5\")]), Variable(\"__tag_field\")])))))))), [Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\")])]), Constant(\"Std.Bool.false\")]))",
-        "id": "nominal-tag-wrong",
-        "pilot_address_bits": 3,
-        "quantified_binders": 1,
-        "scope": "ordinary representation lemma; source-binding, complete operations and full arithmetic bridge are not discharged",
-        "terms": 229,
-        "theorem": "Probe.GoPractical.nominal_tag_wrong.Claim"
-      },
-      "construction": {
-        "cpu_system_seconds": 0.001952,
-        "cpu_user_seconds": 0.002957,
-        "exit_code": 0,
-        "peak_rss_bytes": 4243456,
-        "resource_provider": "Darwin os.wait4 child rusage",
-        "stderr": "",
-        "stdout": "",
-        "wall_seconds": 0.009694583946838975
-      },
-      "observations": {
-        "go": {
-          "cpu_system_seconds": 0.002204,
-          "cpu_user_seconds": 0.0017909999999999998,
-          "exit_code": 1,
-          "peak_rss_bytes": 5079040,
-          "report": {
-            "error_detail": "term 449 inferred app but expected app",
-            "error_kind": "core_check",
-            "verdict": "rejected"
-          },
-          "resource_provider": "Darwin os.wait4 child rusage",
-          "stderr": "",
-          "wall_seconds": 0.010119959013536572
-        },
-        "rust": {
-          "cpu_system_seconds": 0.00132,
-          "cpu_user_seconds": 0.003492,
-          "exit_code": 1,
-          "peak_rss_bytes": 3653632,
-          "report": {
-            "axiom_count": null,
-            "axiom_report": null,
-            "declaration_count": null,
-            "error_code": "KERNEL_CORE_CHECK",
-            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"492\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"461\",\"kind\":\"check_type_mismatch\",\"term_index\":\"449\"}}",
-            "hashes": {
-              "axiom_report": null,
-              "certificate": "d8354bb594e6175791d7c708b13cb9bc056428f6f2763699d5f8976983e2f05f",
-              "export": null
-            },
-            "module": null,
-            "verdict": "rejected"
-          },
-          "resource_provider": "Darwin os.wait4 child rusage",
-          "stderr": "",
-          "wall_seconds": 0.009101208008360118
-        }
-      },
-      "raw_sha256": "5b4ac186db830f8ff6a3b460ba9118bf285b7c8617c2c22dfb7f78848c03dfb6"
-    },
-    {
-      "case": {
-        "bytes": 2221,
-        "description": "First projection of a joint pair returns the first 64-bit payload at every address",
-        "expected": "rejected",
-        "goal_debug": "Forall(\"left\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))), Forall(\"right\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))), Forall(\"i0\", Constant(\"Std.Bool\"), Forall(\"i1\", Constant(\"Std.Bool\"), Forall(\"i2\", Constant(\"Std.Bool\"), Forall(\"i3\", Constant(\"Std.Bool\"), Forall(\"i4\", Constant(\"Std.Bool\"), Forall(\"i5\", Constant(\"Std.Bool\"), Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Apply(Lambda(\"__field\", Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__pair_type\", Constant(\"Std.Bool\"), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Variable(\"right\"), Variable(\"left\"), Variable(\"__field\")])), [Constant(\"Std.Bool.false\")]), [Variable(\"i0\"), Variable(\"i1\"), Variable(\"i2\"), Variable(\"i3\"), Variable(\"i4\"), Variable(\"i5\")]), Apply(Variable(\"left\"), [Variable(\"i0\"), Variable(\"i1\"), Variable(\"i2\"), Variable(\"i3\"), Variable(\"i4\"), Variable(\"i5\")])])))))))))",
-        "id": "multi-result-projection-wrong",
-        "pilot_address_bits": 3,
-        "quantified_binders": 8,
-        "scope": "ordinary representation lemma; source-binding, complete operations and full arithmetic bridge are not discharged",
-        "terms": 239,
-        "theorem": "Probe.GoPractical.multi_result_projection_wrong.Claim"
-      },
-      "construction": {
-        "cpu_system_seconds": 0.002104,
-        "cpu_user_seconds": 0.002892,
-        "exit_code": 0,
-        "peak_rss_bytes": 4227072,
-        "resource_provider": "Darwin os.wait4 child rusage",
-        "stderr": "",
-        "stdout": "",
-        "wall_seconds": 0.01019966701278463
-      },
-      "observations": {
-        "go": {
-          "cpu_system_seconds": 0.0017109999999999998,
-          "cpu_user_seconds": 0.00173,
-          "exit_code": 1,
-          "peak_rss_bytes": 4947968,
-          "report": {
-            "error_detail": "term 494 inferred app but expected app",
-            "error_kind": "core_check",
-            "verdict": "rejected"
-          },
-          "resource_provider": "Darwin os.wait4 child rusage",
-          "stderr": "",
-          "wall_seconds": 0.0091981670120731
-        },
-        "rust": {
-          "cpu_system_seconds": 0.001449,
-          "cpu_user_seconds": 0.004128,
-          "exit_code": 1,
-          "peak_rss_bytes": 3719168,
-          "report": {
-            "axiom_count": null,
-            "axiom_report": null,
-            "declaration_count": null,
-            "error_code": "KERNEL_CORE_CHECK",
-            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"485\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"509\",\"kind\":\"check_type_mismatch\",\"term_index\":\"494\"}}",
-            "hashes": {
-              "axiom_report": null,
-              "certificate": "a70391d9fbaef408bb186c49e00c1b8fda52a25365302c437252fa88dda42d34",
-              "export": null
-            },
-            "module": null,
-            "verdict": "rejected"
-          },
-          "resource_provider": "Darwin os.wait4 child rusage",
-          "stderr": "",
-          "wall_seconds": 0.011198459018487483
-        }
-      },
-      "raw_sha256": "ab503fc4b8df4f7442903d658eb7af9095e51813266287025fdee8e6eac3ab5c"
-    },
-    {
-      "case": {
-        "bytes": 3296,
-        "description": "A closed value-error outcome is non-nil on failure and nil on success, for all flags and payloads",
-        "expected": "accepted",
-        "goal_debug": "Forall(\"payload\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))), Forall(\"failed\", Constant(\"Std.Bool\"), Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.true\")]), Constant(\"Std.Bool.true\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Lambda(\"__tag_field\", Constant(\"Std.Bool\"), Lambda(\"__payload_0\", Constant(\"Std.Bool\"), Lambda(\"__payload_1\", Constant(\"Std.Bool\"), Lambda(\"__payload_2\", Constant(\"Std.Bool\"), Lambda(\"__payload_3\", Constant(\"Std.Bool\"), Lambda(\"__payload_4\", Constant(\"Std.Bool\"), Lambda(\"__payload_5\", Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Variable(\"failed\"), Apply(Variable(\"payload\"), [Variable(\"__payload_0\"), Variable(\"__payload_1\"), Variable(\"__payload_2\"), Variable(\"__payload_3\"), Variable(\"__payload_4\"), Variable(\"__payload_5\")]), Variable(\"__tag_field\")])))))))), [Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\")])])]), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\")]), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Lambda(\"__tag_field\", Constant(\"Std.Bool\"), Lambda(\"__payload_0\", Constant(\"Std.Bool\"), Lambda(\"__payload_1\", Constant(\"Std.Bool\"), Lambda(\"__payload_2\", Constant(\"Std.Bool\"), Lambda(\"__payload_3\", Constant(\"Std.Bool\"), Lambda(\"__payload_4\", Constant(\"Std.Bool\"), Lambda(\"__payload_5\", Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Variable(\"failed\"), Apply(Variable(\"payload\"), [Variable(\"__payload_0\"), Variable(\"__payload_1\"), Variable(\"__payload_2\"), Variable(\"__payload_3\"), Variable(\"__payload_4\"), Variable(\"__payload_5\")]), Variable(\"__tag_field\")])))))))), [Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\")])])]), Variable(\"failed\")]), Constant(\"Std.Bool.true\")])))",
-        "id": "closed-error-outcome",
-        "pilot_address_bits": 3,
-        "quantified_binders": 2,
-        "scope": "ordinary representation lemma; source-binding, complete operations and full arithmetic bridge are not discharged",
-        "terms": 362,
-        "theorem": "Probe.GoPractical.closed_error_outcome.Claim"
-      },
-      "construction": {
-        "cpu_system_seconds": 0.001767,
-        "cpu_user_seconds": 0.005147,
-        "exit_code": 0,
-        "peak_rss_bytes": 4472832,
-        "resource_provider": "Darwin os.wait4 child rusage",
-        "stderr": "",
-        "stdout": "",
-        "wall_seconds": 0.01252862496767193
-      },
-      "observations": {
-        "go": {
-          "cpu_system_seconds": 0.001844,
-          "cpu_user_seconds": 0.004791999999999999,
-          "exit_code": 0,
-          "peak_rss_bytes": 6553600,
-          "report": {
-            "declaration_count": 19,
-            "hashes": {
-              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
-              "certificate": "4dfd8fd5d5fb0208f0e421083bf02a1c982d7e9d8b673190a6d1c8cc4a8ee825",
-              "export": "408a851b3f533e33a534eb3a0e0f6679aae8878c5131a7b1f6ecc497db390751"
-            },
-            "module": "Probe.GoPractical.closed_error_outcome",
-            "verdict": "accepted"
-          },
-          "resource_provider": "Darwin os.wait4 child rusage",
-          "stderr": "",
-          "wall_seconds": 0.011475667008198798
-        },
-        "rust": {
-          "cpu_system_seconds": 0.001562,
-          "cpu_user_seconds": 0.014903999999999999,
-          "exit_code": 0,
-          "peak_rss_bytes": 4096000,
-          "report": {
-            "axiom_count": 0,
-            "axiom_report": {
-              "declaration_dependencies": [],
-              "entries": [],
-              "summary": {
-                "builtin_theory_axiom_count": 0,
-                "core_axiom_count": 0,
-                "external_axiom_count": 0,
-                "go_semantics_axiom_count": 0,
-                "total_axiom_count": 0
-              }
-            },
-            "declaration_count": 19,
-            "error_code": null,
-            "error_detail": null,
-            "hashes": {
-              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
-              "certificate": "4dfd8fd5d5fb0208f0e421083bf02a1c982d7e9d8b673190a6d1c8cc4a8ee825",
-              "export": "408a851b3f533e33a534eb3a0e0f6679aae8878c5131a7b1f6ecc497db390751"
-            },
-            "module": "Probe.GoPractical.closed_error_outcome",
-            "verdict": "accepted"
-          },
-          "resource_provider": "Darwin os.wait4 child rusage",
-          "stderr": "",
-          "wall_seconds": 0.020952290971763432
-        }
-      },
-      "raw_sha256": "3b114c40ed5f32458bf5edc8b66cdbcb15459809923c73c5d3741f87639417ac"
-    },
-    {
-      "case": {
-        "bytes": 2353,
-        "description": "A terminal return preserves every bit of arbitrary 64-bit old state against arbitrary later state updates",
-        "expected": "accepted",
-        "goal_debug": "Forall(\"old\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))), Forall(\"next\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))), Forall(\"returned\", Constant(\"Std.Bool\"), Forall(\"i0\", Constant(\"Std.Bool\"), Forall(\"i1\", Constant(\"Std.Bool\"), Forall(\"i2\", Constant(\"Std.Bool\"), Forall(\"i3\", Constant(\"Std.Bool\"), Forall(\"i4\", Constant(\"Std.Bool\"), Forall(\"i5\", Constant(\"Std.Bool\"), Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Variable(\"old\"), [Variable(\"i0\"), Variable(\"i1\"), Variable(\"i2\"), Variable(\"i3\"), Variable(\"i4\"), Variable(\"i5\")])]), Apply(Variable(\"old\"), [Variable(\"i0\"), Variable(\"i1\"), Variable(\"i2\"), Variable(\"i3\"), Variable(\"i4\"), Variable(\"i5\")]), Apply(Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Variable(\"next\"), Variable(\"old\"), Variable(\"returned\")]), [Variable(\"i0\"), Variable(\"i1\"), Variable(\"i2\"), Variable(\"i3\"), Variable(\"i4\"), Variable(\"i5\")])]), Variable(\"returned\")]), Constant(\"Std.Bool.true\")]))))))))))",
-        "id": "return-frame-bit",
-        "pilot_address_bits": 3,
-        "quantified_binders": 9,
-        "scope": "ordinary representation lemma; source-binding, complete operations and full arithmetic bridge are not discharged",
-        "terms": 256,
-        "theorem": "Probe.GoPractical.return_frame_bit.Claim"
-      },
-      "construction": {
-        "cpu_system_seconds": 0.001798,
-        "cpu_user_seconds": 0.002992,
-        "exit_code": 0,
-        "peak_rss_bytes": 4292608,
-        "resource_provider": "Darwin os.wait4 child rusage",
-        "stderr": "",
-        "stdout": "",
-        "wall_seconds": 0.009326459025032818
-      },
-      "observations": {
-        "go": {
-          "cpu_system_seconds": 0.001653,
-          "cpu_user_seconds": 0.002273,
-          "exit_code": 0,
-          "peak_rss_bytes": 5341184,
-          "report": {
-            "declaration_count": 19,
-            "hashes": {
-              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
-              "certificate": "98f79f0aea0cefae49ba8e41829250377dca3d40203bbccf704ea980b1558998",
-              "export": "4e371e9e3412a8ba89a1a979a68150f4731c1e570c5bd468a5ee2218f2a10267"
-            },
-            "module": "Probe.GoPractical.return_frame_bit",
-            "verdict": "accepted"
-          },
-          "resource_provider": "Darwin os.wait4 child rusage",
-          "stderr": "",
-          "wall_seconds": 0.008692125033121556
-        },
-        "rust": {
-          "cpu_system_seconds": 0.001462,
-          "cpu_user_seconds": 0.005664,
-          "exit_code": 0,
-          "peak_rss_bytes": 3915776,
-          "report": {
-            "axiom_count": 0,
-            "axiom_report": {
-              "declaration_dependencies": [],
-              "entries": [],
-              "summary": {
-                "builtin_theory_axiom_count": 0,
-                "core_axiom_count": 0,
-                "external_axiom_count": 0,
-                "go_semantics_axiom_count": 0,
-                "total_axiom_count": 0
-              }
-            },
-            "declaration_count": 19,
-            "error_code": null,
-            "error_detail": null,
-            "hashes": {
-              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
-              "certificate": "98f79f0aea0cefae49ba8e41829250377dca3d40203bbccf704ea980b1558998",
-              "export": "4e371e9e3412a8ba89a1a979a68150f4731c1e570c5bd468a5ee2218f2a10267"
-            },
-            "module": "Probe.GoPractical.return_frame_bit",
-            "verdict": "accepted"
-          },
-          "resource_provider": "Darwin os.wait4 child rusage",
-          "stderr": "",
-          "wall_seconds": 0.012524249963462353
-        }
-      },
-      "raw_sha256": "b8b190af964d4fc5177cfba75562a0487e4ad80f40af27d1cfa67ed3e72b4d6a"
-    },
-    {
-      "case": {
-        "bytes": 2399,
-        "description": "Continue skips the body but still executes an arbitrary post transformation on a full 64-bit state",
-        "expected": "accepted",
-        "goal_debug": "Forall(\"body\", Forall(\"__input_state\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"post\", Forall(\"__input_state\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"old\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))), Forall(\"continued\", Constant(\"Std.Bool\"), Forall(\"i0\", Constant(\"Std.Bool\"), Forall(\"i1\", Constant(\"Std.Bool\"), Forall(\"i2\", Constant(\"Std.Bool\"), Forall(\"i3\", Constant(\"Std.Bool\"), Forall(\"i4\", Constant(\"Std.Bool\"), Forall(\"i5\", Constant(\"Std.Bool\"), Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Apply(Variable(\"post\"), [Variable(\"old\")]), [Variable(\"i0\"), Variable(\"i1\"), Variable(\"i2\"), Variable(\"i3\"), Variable(\"i4\"), Variable(\"i5\")])]), Apply(Apply(Variable(\"post\"), [Variable(\"old\")]), [Variable(\"i0\"), Variable(\"i1\"), Variable(\"i2\"), Variable(\"i3\"), Variable(\"i4\"), Variable(\"i5\")]), Apply(Apply(Variable(\"post\"), [Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Apply(Variable(\"body\"), [Variable(\"old\")]), Variable(\"old\"), Variable(\"continued\")])]), [Variable(\"i0\"), Variable(\"i1\"), Variable(\"i2\"), Variable(\"i3\"), Variable(\"i4\"), Variable(\"i5\")])]), Variable(\"continued\")]), Constant(\"Std.Bool.true\")])))))))))))",
-        "id": "continue-post-bit",
-        "pilot_address_bits": 3,
-        "quantified_binders": 10,
-        "scope": "ordinary representation lemma; source-binding, complete operations and full arithmetic bridge are not discharged",
-        "terms": 265,
-        "theorem": "Probe.GoPractical.continue_post_bit.Claim"
-      },
-      "construction": {
-        "cpu_system_seconds": 0.001843,
-        "cpu_user_seconds": 0.003146,
-        "exit_code": 0,
-        "peak_rss_bytes": 4276224,
-        "resource_provider": "Darwin os.wait4 child rusage",
-        "stderr": "",
-        "stdout": "",
-        "wall_seconds": 0.008638040977530181
-      },
-      "observations": {
-        "go": {
-          "cpu_system_seconds": 0.002168,
-          "cpu_user_seconds": 0.002644,
-          "exit_code": 0,
-          "peak_rss_bytes": 5472256,
-          "report": {
-            "declaration_count": 19,
-            "hashes": {
-              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
-              "certificate": "af21e1c5dc16d403b8cb4c956df65f81a934439f6c76b828e4f7ad4458f6995d",
-              "export": "9312f79aa9da362c3770e2ab5994de662dbd2d8d0b6f75e470611b71ac2207f8"
-            },
-            "module": "Probe.GoPractical.continue_post_bit",
-            "verdict": "accepted"
-          },
-          "resource_provider": "Darwin os.wait4 child rusage",
-          "stderr": "",
-          "wall_seconds": 0.0098957089940086
-        },
-        "rust": {
-          "cpu_system_seconds": 0.0014579999999999999,
-          "cpu_user_seconds": 0.0061779999999999995,
+          "cpu_system_seconds": 0.002322,
+          "cpu_user_seconds": 0.005836,
           "exit_code": 0,
           "peak_rss_bytes": 3981312,
           "report": {
@@ -511,6 +67,417 @@
             "error_detail": null,
             "hashes": {
               "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "41c40ec326b2c30a8bcadd1854fa8f323c02e6262fbd29fb55ccfefef244034c",
+              "export": "08f1c13752bf232207b864ad8791dcd662e9a5e47a434e57ce462bd24df2933a"
+            },
+            "module": "Probe.GoPractical.nominal_tag",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.015872041985858232
+        }
+      },
+      "raw_sha256": "01876f574f4df783d6b706bbd74d134a8e76aa6626d9d787b9b03a12601e2836"
+    },
+    {
+      "case": {
+        "bytes": 2209,
+        "description": "First projection of a joint pair returns the first 64-bit payload at every address",
+        "expected": "accepted",
+        "goal_debug": "Forall(\"left\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))), Forall(\"right\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))), Forall(\"i0\", Constant(\"Std.Bool\"), Forall(\"i1\", Constant(\"Std.Bool\"), Forall(\"i2\", Constant(\"Std.Bool\"), Forall(\"i3\", Constant(\"Std.Bool\"), Forall(\"i4\", Constant(\"Std.Bool\"), Forall(\"i5\", Constant(\"Std.Bool\"), Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Apply(Lambda(\"__field\", Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__pair_type\", Constant(\"Std.Bool\"), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Variable(\"left\"), Variable(\"right\"), Variable(\"__field\")])), [Constant(\"Std.Bool.false\")]), [Variable(\"i0\"), Variable(\"i1\"), Variable(\"i2\"), Variable(\"i3\"), Variable(\"i4\"), Variable(\"i5\")]), Apply(Variable(\"left\"), [Variable(\"i0\"), Variable(\"i1\"), Variable(\"i2\"), Variable(\"i3\"), Variable(\"i4\"), Variable(\"i5\")])])))))))))",
+        "id": "multi-result-projection",
+        "pilot_address_bits": 3,
+        "quantified_binders": 8,
+        "scope": "ordinary representation lemma; source-binding, complete operations and full arithmetic bridge are not discharged",
+        "terms": 239,
+        "theorem": "Probe.GoPractical.multi_result_projection.Claim"
+      },
+      "construction": {
+        "cpu_system_seconds": 0.002189,
+        "cpu_user_seconds": 0.003057,
+        "exit_code": 0,
+        "peak_rss_bytes": 4521984,
+        "resource_provider": "Darwin os.wait4 child rusage",
+        "stderr": "",
+        "stdout": "",
+        "wall_seconds": 0.011921457946300507
+      },
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.002111,
+          "cpu_user_seconds": 0.002198,
+          "exit_code": 0,
+          "peak_rss_bytes": 5324800,
+          "report": {
+            "declaration_count": 19,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "71b8edded655c7bccd7abf33ff855dfd4803b7456735be4149a20d9ef82f93ee",
+              "export": "7324ca5ab2d72efca00558e7e4ba3493ba15a300e51928de4b701b3f241a49af"
+            },
+            "module": "Probe.GoPractical.multi_result_projection",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.01021908299298957
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001918,
+          "cpu_user_seconds": 0.004778999999999999,
+          "exit_code": 0,
+          "peak_rss_bytes": 3964928,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 19,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "71b8edded655c7bccd7abf33ff855dfd4803b7456735be4149a20d9ef82f93ee",
+              "export": "7324ca5ab2d72efca00558e7e4ba3493ba15a300e51928de4b701b3f241a49af"
+            },
+            "module": "Probe.GoPractical.multi_result_projection",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.014625624986365438
+        }
+      },
+      "raw_sha256": "8f88fe58807ba51b0dd395f62dfdb453af662933790a82963dc72272a526541c"
+    },
+    {
+      "case": {
+        "bytes": 2158,
+        "description": "A quantity-tagged 64-bit value does not satisfy the money-tag predicate, for every payload",
+        "expected": "rejected",
+        "goal_debug": "Forall(\"payload\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))), Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Lambda(\"__tag_field\", Constant(\"Std.Bool\"), Lambda(\"__payload_0\", Constant(\"Std.Bool\"), Lambda(\"__payload_1\", Constant(\"Std.Bool\"), Lambda(\"__payload_2\", Constant(\"Std.Bool\"), Lambda(\"__payload_3\", Constant(\"Std.Bool\"), Lambda(\"__payload_4\", Constant(\"Std.Bool\"), Lambda(\"__payload_5\", Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Variable(\"payload\"), [Variable(\"__payload_0\"), Variable(\"__payload_1\"), Variable(\"__payload_2\"), Variable(\"__payload_3\"), Variable(\"__payload_4\"), Variable(\"__payload_5\")]), Variable(\"__tag_field\")])))))))), [Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\")])]), Constant(\"Std.Bool.false\")]))",
+        "id": "nominal-tag-wrong",
+        "pilot_address_bits": 3,
+        "quantified_binders": 1,
+        "scope": "ordinary representation lemma; source-binding, complete operations and full arithmetic bridge are not discharged",
+        "terms": 229,
+        "theorem": "Probe.GoPractical.nominal_tag_wrong.Claim"
+      },
+      "construction": {
+        "cpu_system_seconds": 0.00217,
+        "cpu_user_seconds": 0.00307,
+        "exit_code": 0,
+        "peak_rss_bytes": 4489216,
+        "resource_provider": "Darwin os.wait4 child rusage",
+        "stderr": "",
+        "stdout": "",
+        "wall_seconds": 0.01167274999897927
+      },
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.002206,
+          "cpu_user_seconds": 0.00174,
+          "exit_code": 1,
+          "peak_rss_bytes": 5095424,
+          "report": {
+            "error_detail": "term 449 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.01443766604643315
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001911,
+          "cpu_user_seconds": 0.0036379999999999997,
+          "exit_code": 1,
+          "peak_rss_bytes": 3768320,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"492\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"461\",\"kind\":\"check_type_mismatch\",\"term_index\":\"449\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "d8354bb594e6175791d7c708b13cb9bc056428f6f2763699d5f8976983e2f05f",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.011690584011375904
+        }
+      },
+      "raw_sha256": "5b4ac186db830f8ff6a3b460ba9118bf285b7c8617c2c22dfb7f78848c03dfb6"
+    },
+    {
+      "case": {
+        "bytes": 2221,
+        "description": "First projection of a joint pair returns the first 64-bit payload at every address",
+        "expected": "rejected",
+        "goal_debug": "Forall(\"left\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))), Forall(\"right\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))), Forall(\"i0\", Constant(\"Std.Bool\"), Forall(\"i1\", Constant(\"Std.Bool\"), Forall(\"i2\", Constant(\"Std.Bool\"), Forall(\"i3\", Constant(\"Std.Bool\"), Forall(\"i4\", Constant(\"Std.Bool\"), Forall(\"i5\", Constant(\"Std.Bool\"), Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Apply(Lambda(\"__field\", Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__pair_type\", Constant(\"Std.Bool\"), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Variable(\"right\"), Variable(\"left\"), Variable(\"__field\")])), [Constant(\"Std.Bool.false\")]), [Variable(\"i0\"), Variable(\"i1\"), Variable(\"i2\"), Variable(\"i3\"), Variable(\"i4\"), Variable(\"i5\")]), Apply(Variable(\"left\"), [Variable(\"i0\"), Variable(\"i1\"), Variable(\"i2\"), Variable(\"i3\"), Variable(\"i4\"), Variable(\"i5\")])])))))))))",
+        "id": "multi-result-projection-wrong",
+        "pilot_address_bits": 3,
+        "quantified_binders": 8,
+        "scope": "ordinary representation lemma; source-binding, complete operations and full arithmetic bridge are not discharged",
+        "terms": 239,
+        "theorem": "Probe.GoPractical.multi_result_projection_wrong.Claim"
+      },
+      "construction": {
+        "cpu_system_seconds": 0.001956,
+        "cpu_user_seconds": 0.002993,
+        "exit_code": 0,
+        "peak_rss_bytes": 4554752,
+        "resource_provider": "Darwin os.wait4 child rusage",
+        "stderr": "",
+        "stdout": "",
+        "wall_seconds": 0.009351791988592595
+      },
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.00202,
+          "cpu_user_seconds": 0.001795,
+          "exit_code": 1,
+          "peak_rss_bytes": 4947968,
+          "report": {
+            "error_detail": "term 494 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.00855587498517707
+        },
+        "rust": {
+          "cpu_system_seconds": 0.00171,
+          "cpu_user_seconds": 0.004249,
+          "exit_code": 1,
+          "peak_rss_bytes": 3932160,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"485\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"509\",\"kind\":\"check_type_mismatch\",\"term_index\":\"494\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "a70391d9fbaef408bb186c49e00c1b8fda52a25365302c437252fa88dda42d34",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.012652458972297609
+        }
+      },
+      "raw_sha256": "ab503fc4b8df4f7442903d658eb7af9095e51813266287025fdee8e6eac3ab5c"
+    },
+    {
+      "case": {
+        "bytes": 3296,
+        "description": "A closed value-error outcome is non-nil on failure and nil on success, for all flags and payloads",
+        "expected": "accepted",
+        "goal_debug": "Forall(\"payload\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))), Forall(\"failed\", Constant(\"Std.Bool\"), Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.true\")]), Constant(\"Std.Bool.true\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Lambda(\"__tag_field\", Constant(\"Std.Bool\"), Lambda(\"__payload_0\", Constant(\"Std.Bool\"), Lambda(\"__payload_1\", Constant(\"Std.Bool\"), Lambda(\"__payload_2\", Constant(\"Std.Bool\"), Lambda(\"__payload_3\", Constant(\"Std.Bool\"), Lambda(\"__payload_4\", Constant(\"Std.Bool\"), Lambda(\"__payload_5\", Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Variable(\"failed\"), Apply(Variable(\"payload\"), [Variable(\"__payload_0\"), Variable(\"__payload_1\"), Variable(\"__payload_2\"), Variable(\"__payload_3\"), Variable(\"__payload_4\"), Variable(\"__payload_5\")]), Variable(\"__tag_field\")])))))))), [Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\")])])]), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\")]), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Lambda(\"__tag_field\", Constant(\"Std.Bool\"), Lambda(\"__payload_0\", Constant(\"Std.Bool\"), Lambda(\"__payload_1\", Constant(\"Std.Bool\"), Lambda(\"__payload_2\", Constant(\"Std.Bool\"), Lambda(\"__payload_3\", Constant(\"Std.Bool\"), Lambda(\"__payload_4\", Constant(\"Std.Bool\"), Lambda(\"__payload_5\", Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Variable(\"failed\"), Apply(Variable(\"payload\"), [Variable(\"__payload_0\"), Variable(\"__payload_1\"), Variable(\"__payload_2\"), Variable(\"__payload_3\"), Variable(\"__payload_4\"), Variable(\"__payload_5\")]), Variable(\"__tag_field\")])))))))), [Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\"), Constant(\"Std.Bool.false\")])])]), Variable(\"failed\")]), Constant(\"Std.Bool.true\")])))",
+        "id": "closed-error-outcome",
+        "pilot_address_bits": 3,
+        "quantified_binders": 2,
+        "scope": "ordinary representation lemma; source-binding, complete operations and full arithmetic bridge are not discharged",
+        "terms": 362,
+        "theorem": "Probe.GoPractical.closed_error_outcome.Claim"
+      },
+      "construction": {
+        "cpu_system_seconds": 0.001956,
+        "cpu_user_seconds": 0.005510999999999999,
+        "exit_code": 0,
+        "peak_rss_bytes": 4784128,
+        "resource_provider": "Darwin os.wait4 child rusage",
+        "stderr": "",
+        "stdout": "",
+        "wall_seconds": 0.011919790995307267
+      },
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.0024059999999999997,
+          "cpu_user_seconds": 0.005003,
+          "exit_code": 0,
+          "peak_rss_bytes": 6504448,
+          "report": {
+            "declaration_count": 19,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "4dfd8fd5d5fb0208f0e421083bf02a1c982d7e9d8b673190a6d1c8cc4a8ee825",
+              "export": "408a851b3f533e33a534eb3a0e0f6679aae8878c5131a7b1f6ecc497db390751"
+            },
+            "module": "Probe.GoPractical.closed_error_outcome",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.014187499997206032
+        },
+        "rust": {
+          "cpu_system_seconds": 0.0018189999999999999,
+          "cpu_user_seconds": 0.015321999999999999,
+          "exit_code": 0,
+          "peak_rss_bytes": 4210688,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 19,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "4dfd8fd5d5fb0208f0e421083bf02a1c982d7e9d8b673190a6d1c8cc4a8ee825",
+              "export": "408a851b3f533e33a534eb3a0e0f6679aae8878c5131a7b1f6ecc497db390751"
+            },
+            "module": "Probe.GoPractical.closed_error_outcome",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.02568708301987499
+        }
+      },
+      "raw_sha256": "3b114c40ed5f32458bf5edc8b66cdbcb15459809923c73c5d3741f87639417ac"
+    },
+    {
+      "case": {
+        "bytes": 2353,
+        "description": "A terminal return preserves every bit of arbitrary 64-bit old state against arbitrary later state updates",
+        "expected": "accepted",
+        "goal_debug": "Forall(\"old\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))), Forall(\"next\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))), Forall(\"returned\", Constant(\"Std.Bool\"), Forall(\"i0\", Constant(\"Std.Bool\"), Forall(\"i1\", Constant(\"Std.Bool\"), Forall(\"i2\", Constant(\"Std.Bool\"), Forall(\"i3\", Constant(\"Std.Bool\"), Forall(\"i4\", Constant(\"Std.Bool\"), Forall(\"i5\", Constant(\"Std.Bool\"), Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Variable(\"old\"), [Variable(\"i0\"), Variable(\"i1\"), Variable(\"i2\"), Variable(\"i3\"), Variable(\"i4\"), Variable(\"i5\")])]), Apply(Variable(\"old\"), [Variable(\"i0\"), Variable(\"i1\"), Variable(\"i2\"), Variable(\"i3\"), Variable(\"i4\"), Variable(\"i5\")]), Apply(Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Variable(\"next\"), Variable(\"old\"), Variable(\"returned\")]), [Variable(\"i0\"), Variable(\"i1\"), Variable(\"i2\"), Variable(\"i3\"), Variable(\"i4\"), Variable(\"i5\")])]), Variable(\"returned\")]), Constant(\"Std.Bool.true\")]))))))))))",
+        "id": "return-frame-bit",
+        "pilot_address_bits": 3,
+        "quantified_binders": 9,
+        "scope": "ordinary representation lemma; source-binding, complete operations and full arithmetic bridge are not discharged",
+        "terms": 256,
+        "theorem": "Probe.GoPractical.return_frame_bit.Claim"
+      },
+      "construction": {
+        "cpu_system_seconds": 0.00224,
+        "cpu_user_seconds": 0.003417,
+        "exit_code": 0,
+        "peak_rss_bytes": 4456448,
+        "resource_provider": "Darwin os.wait4 child rusage",
+        "stderr": "",
+        "stdout": "",
+        "wall_seconds": 0.013646416016854346
+      },
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.002198,
+          "cpu_user_seconds": 0.002564,
+          "exit_code": 0,
+          "peak_rss_bytes": 5439488,
+          "report": {
+            "declaration_count": 19,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "98f79f0aea0cefae49ba8e41829250377dca3d40203bbccf704ea980b1558998",
+              "export": "4e371e9e3412a8ba89a1a979a68150f4731c1e570c5bd468a5ee2218f2a10267"
+            },
+            "module": "Probe.GoPractical.return_frame_bit",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.008829916012473404
+        },
+        "rust": {
+          "cpu_system_seconds": 0.002208,
+          "cpu_user_seconds": 0.005836,
+          "exit_code": 0,
+          "peak_rss_bytes": 4014080,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 19,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "98f79f0aea0cefae49ba8e41829250377dca3d40203bbccf704ea980b1558998",
+              "export": "4e371e9e3412a8ba89a1a979a68150f4731c1e570c5bd468a5ee2218f2a10267"
+            },
+            "module": "Probe.GoPractical.return_frame_bit",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.019696583040058613
+        }
+      },
+      "raw_sha256": "b8b190af964d4fc5177cfba75562a0487e4ad80f40af27d1cfa67ed3e72b4d6a"
+    },
+    {
+      "case": {
+        "bytes": 2399,
+        "description": "Continue skips the body but still executes an arbitrary post transformation on a full 64-bit state",
+        "expected": "accepted",
+        "goal_debug": "Forall(\"body\", Forall(\"__input_state\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"post\", Forall(\"__input_state\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"old\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))), Forall(\"continued\", Constant(\"Std.Bool\"), Forall(\"i0\", Constant(\"Std.Bool\"), Forall(\"i1\", Constant(\"Std.Bool\"), Forall(\"i2\", Constant(\"Std.Bool\"), Forall(\"i3\", Constant(\"Std.Bool\"), Forall(\"i4\", Constant(\"Std.Bool\"), Forall(\"i5\", Constant(\"Std.Bool\"), Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Apply(Variable(\"post\"), [Variable(\"old\")]), [Variable(\"i0\"), Variable(\"i1\"), Variable(\"i2\"), Variable(\"i3\"), Variable(\"i4\"), Variable(\"i5\")])]), Apply(Apply(Variable(\"post\"), [Variable(\"old\")]), [Variable(\"i0\"), Variable(\"i1\"), Variable(\"i2\"), Variable(\"i3\"), Variable(\"i4\"), Variable(\"i5\")]), Apply(Apply(Variable(\"post\"), [Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Apply(Variable(\"body\"), [Variable(\"old\")]), Variable(\"old\"), Variable(\"continued\")])]), [Variable(\"i0\"), Variable(\"i1\"), Variable(\"i2\"), Variable(\"i3\"), Variable(\"i4\"), Variable(\"i5\")])]), Variable(\"continued\")]), Constant(\"Std.Bool.true\")])))))))))))",
+        "id": "continue-post-bit",
+        "pilot_address_bits": 3,
+        "quantified_binders": 10,
+        "scope": "ordinary representation lemma; source-binding, complete operations and full arithmetic bridge are not discharged",
+        "terms": 265,
+        "theorem": "Probe.GoPractical.continue_post_bit.Claim"
+      },
+      "construction": {
+        "cpu_system_seconds": 0.0020859999999999997,
+        "cpu_user_seconds": 0.00329,
+        "exit_code": 0,
+        "peak_rss_bytes": 4538368,
+        "resource_provider": "Darwin os.wait4 child rusage",
+        "stderr": "",
+        "stdout": "",
+        "wall_seconds": 0.012174792005680501
+      },
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.002276,
+          "cpu_user_seconds": 0.002639,
+          "exit_code": 0,
+          "peak_rss_bytes": 5341184,
+          "report": {
+            "declaration_count": 19,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
               "certificate": "af21e1c5dc16d403b8cb4c956df65f81a934439f6c76b828e4f7ad4458f6995d",
               "export": "9312f79aa9da362c3770e2ab5994de662dbd2d8d0b6f75e470611b71ac2207f8"
             },
@@ -519,7 +486,40 @@
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 0.012729125039186329
+          "wall_seconds": 0.009534832963254303
+        },
+        "rust": {
+          "cpu_system_seconds": 0.002114,
+          "cpu_user_seconds": 0.00632,
+          "exit_code": 0,
+          "peak_rss_bytes": 4030464,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 19,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "af21e1c5dc16d403b8cb4c956df65f81a934439f6c76b828e4f7ad4458f6995d",
+              "export": "9312f79aa9da362c3770e2ab5994de662dbd2d8d0b6f75e470611b71ac2207f8"
+            },
+            "module": "Probe.GoPractical.continue_post_bit",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.014584041957277805
         }
       },
       "raw_sha256": "40896df8b6cdb38b36110d07d92fb7cc573548687485a70a4ef56cdedde6a41d"
@@ -538,21 +538,21 @@
         "theorem": "Probe.GoPractical.full_adder_carry_bit.Claim"
       },
       "construction": {
-        "cpu_system_seconds": 0.0017239999999999998,
-        "cpu_user_seconds": 0.00806,
+        "cpu_system_seconds": 0.002335,
+        "cpu_user_seconds": 0.008269,
         "exit_code": 0,
-        "peak_rss_bytes": 4653056,
+        "peak_rss_bytes": 4866048,
         "resource_provider": "Darwin os.wait4 child rusage",
         "stderr": "",
         "stdout": "",
-        "wall_seconds": 0.015478457964491099
+        "wall_seconds": 0.01773287495598197
       },
       "observations": {
         "go": {
-          "cpu_system_seconds": 0.0021609999999999997,
-          "cpu_user_seconds": 0.007948,
+          "cpu_system_seconds": 0.002281,
+          "cpu_user_seconds": 0.008114,
           "exit_code": 0,
-          "peak_rss_bytes": 7487488,
+          "peak_rss_bytes": 7553024,
           "report": {
             "declaration_count": 19,
             "hashes": {
@@ -565,13 +565,13 @@
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 0.014999791979789734
+          "wall_seconds": 0.016337124980054796
         },
         "rust": {
-          "cpu_system_seconds": 0.0015559999999999999,
-          "cpu_user_seconds": 0.028874999999999998,
+          "cpu_system_seconds": 0.00164,
+          "cpu_user_seconds": 0.029056,
           "exit_code": 0,
-          "peak_rss_bytes": 4145152,
+          "peak_rss_bytes": 4341760,
           "report": {
             "axiom_count": 0,
             "axiom_report": {
@@ -598,7 +598,7 @@
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 0.03475533297751099
+          "wall_seconds": 0.036200208007358015
         }
       },
       "raw_sha256": "7f5746cccebd9392558ba73c9ab93960a41b676822fd28533dc2092f0e5f6c1b"
@@ -617,21 +617,21 @@
         "theorem": "Probe.GoPractical.backing_read_after_write_3.Claim"
       },
       "construction": {
-        "cpu_system_seconds": 0.002103,
-        "cpu_user_seconds": 0.014088999999999999,
+        "cpu_system_seconds": 0.002533,
+        "cpu_user_seconds": 0.014499,
         "exit_code": 0,
-        "peak_rss_bytes": 5144576,
+        "peak_rss_bytes": 5373952,
         "resource_provider": "Darwin os.wait4 child rusage",
         "stderr": "",
         "stdout": "",
-        "wall_seconds": 0.022040707990527153
+        "wall_seconds": 0.024263958970550448
       },
       "observations": {
         "go": {
-          "cpu_system_seconds": 0.002375,
-          "cpu_user_seconds": 0.017544999999999998,
+          "cpu_system_seconds": 0.0052179999999999995,
+          "cpu_user_seconds": 0.021169999999999998,
           "exit_code": 0,
-          "peak_rss_bytes": 9388032,
+          "peak_rss_bytes": 9191424,
           "report": {
             "declaration_count": 19,
             "hashes": {
@@ -644,13 +644,13 @@
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 0.02392737497575581
+          "wall_seconds": 0.04491641704225913
         },
         "rust": {
-          "cpu_system_seconds": 0.001665,
-          "cpu_user_seconds": 0.064483,
+          "cpu_system_seconds": 0.003377,
+          "cpu_user_seconds": 0.069022,
           "exit_code": 0,
-          "peak_rss_bytes": 4390912,
+          "peak_rss_bytes": 4554752,
           "report": {
             "axiom_count": 0,
             "axiom_report": {
@@ -677,7 +677,7 @@
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 0.0719667500234209
+          "wall_seconds": 0.09914058400318027
         }
       },
       "raw_sha256": "bbe04b82111b2652c748610dd7c33351bcec09342728ec8aa9a76db41811cc66"
@@ -696,21 +696,21 @@
         "theorem": "Probe.GoPractical.backing_read_after_write_3_wrong.Claim"
       },
       "construction": {
-        "cpu_system_seconds": 0.001727,
-        "cpu_user_seconds": 0.005326,
+        "cpu_system_seconds": 0.0040869999999999995,
+        "cpu_user_seconds": 0.006101,
         "exit_code": 0,
-        "peak_rss_bytes": 4440064,
+        "peak_rss_bytes": 4620288,
         "resource_provider": "Darwin os.wait4 child rusage",
         "stderr": "",
         "stdout": "",
-        "wall_seconds": 0.011697374982759356
+        "wall_seconds": 0.020794750016648322
       },
       "observations": {
         "go": {
-          "cpu_system_seconds": 0.002062,
-          "cpu_user_seconds": 0.002398,
+          "cpu_system_seconds": 0.0032419999999999997,
+          "cpu_user_seconds": 0.002804,
           "exit_code": 1,
-          "peak_rss_bytes": 5308416,
+          "peak_rss_bytes": 5242880,
           "report": {
             "error_detail": "term 536 inferred app but expected app",
             "error_kind": "core_check",
@@ -718,13 +718,13 @@
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 0.010479582997504622
+          "wall_seconds": 0.017647458997089416
         },
         "rust": {
-          "cpu_system_seconds": 0.0015539999999999998,
-          "cpu_user_seconds": 0.008879,
+          "cpu_system_seconds": 0.002594,
+          "cpu_user_seconds": 0.009673,
           "exit_code": 1,
-          "peak_rss_bytes": 3686400,
+          "peak_rss_bytes": 3850240,
           "report": {
             "axiom_count": null,
             "axiom_report": null,
@@ -741,7 +741,7 @@
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 0.014923417009413242
+          "wall_seconds": 0.036757207999471575
         }
       },
       "raw_sha256": "0ce25ea1d526cfea920f43e6b2dbe7a9b059f0b649340478beecbda2fd37465a"
@@ -760,21 +760,21 @@
         "theorem": "Probe.GoPractical.string_capacity_0_length_zero.Claim"
       },
       "construction": {
-        "cpu_system_seconds": 0.0021449999999999998,
-        "cpu_user_seconds": 0.002904,
+        "cpu_system_seconds": 0.002401,
+        "cpu_user_seconds": 0.0034159999999999998,
         "exit_code": 0,
-        "peak_rss_bytes": 4210688,
+        "peak_rss_bytes": 4505600,
         "resource_provider": "Darwin os.wait4 child rusage",
         "stderr": "",
         "stdout": "",
-        "wall_seconds": 0.01016337500186637
+        "wall_seconds": 0.017375542025547475
       },
       "observations": {
         "go": {
-          "cpu_system_seconds": 0.001756,
-          "cpu_user_seconds": 0.001989,
+          "cpu_system_seconds": 0.003224,
+          "cpu_user_seconds": 0.00226,
           "exit_code": 0,
-          "peak_rss_bytes": 5259264,
+          "peak_rss_bytes": 5406720,
           "report": {
             "declaration_count": 19,
             "hashes": {
@@ -787,13 +787,13 @@
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 0.0088527089683339
+          "wall_seconds": 0.016629124991595745
         },
         "rust": {
-          "cpu_system_seconds": 0.001663,
-          "cpu_user_seconds": 0.004118,
+          "cpu_system_seconds": 0.00262,
+          "cpu_user_seconds": 0.004789,
           "exit_code": 0,
-          "peak_rss_bytes": 3817472,
+          "peak_rss_bytes": 3997696,
           "report": {
             "axiom_count": 0,
             "axiom_report": {
@@ -820,7 +820,7 @@
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 0.010004499985370785
+          "wall_seconds": 0.017589292023330927
         }
       },
       "raw_sha256": "0c3b11e36c40f0c23d50f03f8ebabf9e67d607f1c5d39ddb547ddfbe597f79f3"
@@ -839,21 +839,21 @@
         "theorem": "Probe.GoPractical.string_capacity_1_cell_write.Claim"
       },
       "construction": {
-        "cpu_system_seconds": 0.0019329999999999998,
-        "cpu_user_seconds": 0.002973,
+        "cpu_system_seconds": 0.0023079999999999997,
+        "cpu_user_seconds": 0.0031969999999999998,
         "exit_code": 0,
-        "peak_rss_bytes": 4210688,
+        "peak_rss_bytes": 4472832,
         "resource_provider": "Darwin os.wait4 child rusage",
         "stderr": "",
         "stdout": "",
-        "wall_seconds": 0.008664541994221509
+        "wall_seconds": 0.015407250029966235
       },
       "observations": {
         "go": {
-          "cpu_system_seconds": 0.002472,
-          "cpu_user_seconds": 0.002204,
+          "cpu_system_seconds": 0.002737,
+          "cpu_user_seconds": 0.002525,
           "exit_code": 0,
-          "peak_rss_bytes": 5423104,
+          "peak_rss_bytes": 5603328,
           "report": {
             "declaration_count": 19,
             "hashes": {
@@ -866,13 +866,13 @@
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 0.011017457989510149
+          "wall_seconds": 0.010745332983788103
         },
         "rust": {
-          "cpu_system_seconds": 0.001383,
-          "cpu_user_seconds": 0.004967,
+          "cpu_system_seconds": 0.0018139999999999999,
+          "cpu_user_seconds": 0.005213,
           "exit_code": 0,
-          "peak_rss_bytes": 3801088,
+          "peak_rss_bytes": 3883008,
           "report": {
             "axiom_count": 0,
             "axiom_report": {
@@ -899,7 +899,7 @@
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 0.012006792007014155
+          "wall_seconds": 0.011828540998976678
         }
       },
       "raw_sha256": "672651fd606a67edcf0360cb1b8de449484782fa15910e032709a421bca96822"
@@ -918,19 +918,19 @@
         "theorem": "Probe.GoPractical.string_capacity_1_cell_write_wrong.Claim"
       },
       "construction": {
-        "cpu_system_seconds": 0.0015919999999999999,
-        "cpu_user_seconds": 0.002686,
+        "cpu_system_seconds": 0.0031019999999999997,
+        "cpu_user_seconds": 0.0034379999999999997,
         "exit_code": 0,
-        "peak_rss_bytes": 4227072,
+        "peak_rss_bytes": 4538368,
         "resource_provider": "Darwin os.wait4 child rusage",
         "stderr": "",
         "stdout": "",
-        "wall_seconds": 0.009743999980855733
+        "wall_seconds": 0.026047541003208607
       },
       "observations": {
         "go": {
-          "cpu_system_seconds": 0.001753,
-          "cpu_user_seconds": 0.001586,
+          "cpu_system_seconds": 0.002371,
+          "cpu_user_seconds": 0.001745,
           "exit_code": 1,
           "peak_rss_bytes": 4898816,
           "report": {
@@ -940,13 +940,13 @@
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 0.008907333016395569
+          "wall_seconds": 0.010783707955852151
         },
         "rust": {
-          "cpu_system_seconds": 0.00158,
-          "cpu_user_seconds": 0.0036769999999999997,
+          "cpu_system_seconds": 0.001984,
+          "cpu_user_seconds": 0.004019,
           "exit_code": 1,
-          "peak_rss_bytes": 3637248,
+          "peak_rss_bytes": 3768320,
           "report": {
             "axiom_count": null,
             "axiom_report": null,
@@ -963,7 +963,7 @@
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 0.009649040992371738
+          "wall_seconds": 0.01932141702855006
         }
       },
       "raw_sha256": "aab1d04d9aff0e7fb8b574b23964c67d06a42ca50ff5f1dee986f46f60d6dcc0"
@@ -982,21 +982,21 @@
         "theorem": "Probe.GoPractical.string_capacity_32_cell_write.Claim"
       },
       "construction": {
-        "cpu_system_seconds": 0.002853,
-        "cpu_user_seconds": 0.094678,
+        "cpu_system_seconds": 0.004183,
+        "cpu_user_seconds": 0.097132,
         "exit_code": 0,
-        "peak_rss_bytes": 10518528,
+        "peak_rss_bytes": 10764288,
         "resource_provider": "Darwin os.wait4 child rusage",
         "stderr": "",
         "stdout": "",
-        "wall_seconds": 0.10477670800173655
+        "wall_seconds": 0.13906862499425188
       },
       "observations": {
         "go": {
-          "cpu_system_seconds": 0.012735999999999999,
-          "cpu_user_seconds": 0.166925,
+          "cpu_system_seconds": 0.009205999999999999,
+          "cpu_user_seconds": 0.166235,
           "exit_code": 0,
-          "peak_rss_bytes": 14647296,
+          "peak_rss_bytes": 14221312,
           "report": {
             "declaration_count": 19,
             "hashes": {
@@ -1009,13 +1009,13 @@
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 0.19386125000892207
+          "wall_seconds": 0.21240762498928234
         },
         "rust": {
-          "cpu_system_seconds": 0.043819,
-          "cpu_user_seconds": 0.642046,
+          "cpu_system_seconds": 0.007784999999999999,
+          "cpu_user_seconds": 0.577434,
           "exit_code": 0,
-          "peak_rss_bytes": 7766016,
+          "peak_rss_bytes": 7847936,
           "report": {
             "axiom_count": 0,
             "axiom_report": {
@@ -1042,7 +1042,7 @@
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 2.67522429197561
+          "wall_seconds": 0.652919624990318
         }
       },
       "raw_sha256": "40c46334d5e1ee6a477c7a7a8416e4f867fa2d76d9b99ec617ebde4bdcbec329"
@@ -1061,21 +1061,21 @@
         "theorem": "Probe.GoPractical.string_capacity_32_cell_write_wrong.Claim"
       },
       "construction": {
-        "cpu_system_seconds": 0.002698,
-        "cpu_user_seconds": 0.02445,
+        "cpu_system_seconds": 0.002438,
+        "cpu_user_seconds": 0.025053,
         "exit_code": 0,
-        "peak_rss_bytes": 4997120,
+        "peak_rss_bytes": 5242880,
         "resource_provider": "Darwin os.wait4 child rusage",
         "stderr": "",
         "stdout": "",
-        "wall_seconds": 0.0344817090081051
+        "wall_seconds": 0.034806541982106864
       },
       "observations": {
         "go": {
-          "cpu_system_seconds": 0.002636,
-          "cpu_user_seconds": 0.006960999999999999,
+          "cpu_system_seconds": 0.003087,
+          "cpu_user_seconds": 0.006912,
           "exit_code": 1,
-          "peak_rss_bytes": 7520256,
+          "peak_rss_bytes": 7225344,
           "report": {
             "error_detail": "term 624 inferred app but expected app",
             "error_kind": "core_check",
@@ -1083,11 +1083,11 @@
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 0.01572699996177107
+          "wall_seconds": 0.03733637498226017
         },
         "rust": {
-          "cpu_system_seconds": 0.002015,
-          "cpu_user_seconds": 0.040834999999999996,
+          "cpu_system_seconds": 0.002753,
+          "cpu_user_seconds": 0.042665999999999996,
           "exit_code": 1,
           "peak_rss_bytes": 4308992,
           "report": {
@@ -1106,7 +1106,7 @@
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 0.04959116695681587
+          "wall_seconds": 0.054240958008449525
         }
       },
       "raw_sha256": "5b39ee49875a57e988c7ec2dd24fb648f493d8f28f2c74e72558242aeef6f172"
@@ -1125,21 +1125,21 @@
         "theorem": "Probe.GoPractical.string_capacity_256_cell_write.Claim"
       },
       "construction": {
-        "cpu_system_seconds": 0.031553,
-        "cpu_user_seconds": 1.491279,
+        "cpu_system_seconds": 0.029037999999999998,
+        "cpu_user_seconds": 1.483728,
         "exit_code": 0,
-        "peak_rss_bytes": 85737472,
+        "peak_rss_bytes": 85999616,
         "resource_provider": "Darwin os.wait4 child rusage",
         "stderr": "",
         "stdout": "",
-        "wall_seconds": 3.2802918330417015
+        "wall_seconds": 2.36550591600826
       },
       "observations": {
         "go": {
-          "cpu_system_seconds": 0.07103,
-          "cpu_user_seconds": 2.482603,
+          "cpu_system_seconds": 0.11257099999999999,
+          "cpu_user_seconds": 2.484051,
           "exit_code": 0,
-          "peak_rss_bytes": 85164032,
+          "peak_rss_bytes": 95322112,
           "report": {
             "declaration_count": 19,
             "hashes": {
@@ -1152,13 +1152,13 @@
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 3.9661877079633996
+          "wall_seconds": 6.03465495799901
         },
         "rust": {
-          "cpu_system_seconds": 0.025432,
-          "cpu_user_seconds": 8.015091,
+          "cpu_system_seconds": 0.12628,
+          "cpu_user_seconds": 8.495932,
           "exit_code": 0,
-          "peak_rss_bytes": 35373056,
+          "peak_rss_bytes": 34062336,
           "report": {
             "axiom_count": 0,
             "axiom_report": {
@@ -1185,7 +1185,7 @@
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 8.268461208033841
+          "wall_seconds": 18.13362945796689
         }
       },
       "raw_sha256": "8d9cfd95d3c0300246ec917793c1ffa686d6edb2c9793aa47b9f6296bacdb777"
@@ -1204,21 +1204,21 @@
         "theorem": "Probe.GoPractical.string_capacity_256_cell_write_wrong.Claim"
       },
       "construction": {
-        "cpu_system_seconds": 0.0071909999999999995,
-        "cpu_user_seconds": 0.329204,
+        "cpu_system_seconds": 0.010385,
+        "cpu_user_seconds": 0.32623599999999997,
         "exit_code": 0,
-        "peak_rss_bytes": 9961472,
+        "peak_rss_bytes": 10190848,
         "resource_provider": "Darwin os.wait4 child rusage",
         "stderr": "",
         "stdout": "",
-        "wall_seconds": 0.36306224996224046
+        "wall_seconds": 0.5557987079955637
       },
       "observations": {
         "go": {
-          "cpu_system_seconds": 0.0036669999999999997,
-          "cpu_user_seconds": 0.019958,
+          "cpu_system_seconds": 0.00416,
+          "cpu_user_seconds": 0.020172,
           "exit_code": 1,
-          "peak_rss_bytes": 10600448,
+          "peak_rss_bytes": 11059200,
           "report": {
             "error_detail": "term 740 inferred app but expected app",
             "error_kind": "core_check",
@@ -1226,13 +1226,13 @@
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 0.029984124994371086
+          "wall_seconds": 0.03697820799425244
         },
         "rust": {
-          "cpu_system_seconds": 0.0025659999999999997,
-          "cpu_user_seconds": 0.12157399999999999,
+          "cpu_system_seconds": 0.003034,
+          "cpu_user_seconds": 0.124177,
           "exit_code": 1,
-          "peak_rss_bytes": 5816320,
+          "peak_rss_bytes": 5849088,
           "report": {
             "axiom_count": null,
             "axiom_report": null,
@@ -1249,7 +1249,7 @@
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 0.13077470799908042
+          "wall_seconds": 0.1429595000226982
         }
       },
       "raw_sha256": "8f327d6c378c580c872a3387ac485e7b69061a5f36acefeaf595df6194dab3a2"
@@ -1268,19 +1268,19 @@
         "theorem": "Probe.GoPractical.slice_capacity_0_length_zero.Claim"
       },
       "construction": {
-        "cpu_system_seconds": 0.001749,
-        "cpu_user_seconds": 0.002764,
+        "cpu_system_seconds": 0.002802,
+        "cpu_user_seconds": 0.002925,
         "exit_code": 0,
-        "peak_rss_bytes": 4210688,
+        "peak_rss_bytes": 4440064,
         "resource_provider": "Darwin os.wait4 child rusage",
         "stderr": "",
         "stdout": "",
-        "wall_seconds": 0.009899874974507838
+        "wall_seconds": 0.014287833997514099
       },
       "observations": {
         "go": {
-          "cpu_system_seconds": 0.00174,
-          "cpu_user_seconds": 0.0018709999999999998,
+          "cpu_system_seconds": 0.0027589999999999997,
+          "cpu_user_seconds": 0.002128,
           "exit_code": 0,
           "peak_rss_bytes": 5259264,
           "report": {
@@ -1295,13 +1295,13 @@
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 0.009402166993822902
+          "wall_seconds": 0.01675250002881512
         },
         "rust": {
-          "cpu_system_seconds": 0.0013579999999999998,
-          "cpu_user_seconds": 0.0040809999999999996,
+          "cpu_system_seconds": 0.001753,
+          "cpu_user_seconds": 0.004313,
           "exit_code": 0,
-          "peak_rss_bytes": 3833856,
+          "peak_rss_bytes": 3932160,
           "report": {
             "axiom_count": 0,
             "axiom_report": {
@@ -1328,7 +1328,7 @@
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 0.009797665989026427
+          "wall_seconds": 0.01410587498685345
         }
       },
       "raw_sha256": "1ca54ebc148b5c74dbf545f041d6e9d3ca3203cee96c4ced534e66fcdb1cbe09"
@@ -1347,21 +1347,21 @@
         "theorem": "Probe.GoPractical.slice_nonnil_empty_tag.Claim"
       },
       "construction": {
-        "cpu_system_seconds": 0.002051,
-        "cpu_user_seconds": 0.0029579999999999997,
+        "cpu_system_seconds": 0.002263,
+        "cpu_user_seconds": 0.0030559999999999997,
         "exit_code": 0,
-        "peak_rss_bytes": 4243456,
+        "peak_rss_bytes": 4456448,
         "resource_provider": "Darwin os.wait4 child rusage",
         "stderr": "",
         "stdout": "",
-        "wall_seconds": 0.010227708029560745
+        "wall_seconds": 0.011599124991334975
       },
       "observations": {
         "go": {
-          "cpu_system_seconds": 0.00226,
-          "cpu_user_seconds": 0.0021509999999999997,
+          "cpu_system_seconds": 0.0021639999999999997,
+          "cpu_user_seconds": 0.002167,
           "exit_code": 0,
-          "peak_rss_bytes": 5570560,
+          "peak_rss_bytes": 5308416,
           "report": {
             "declaration_count": 19,
             "hashes": {
@@ -1374,13 +1374,13 @@
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 0.0096508749993518
+          "wall_seconds": 0.012818959017749876
         },
         "rust": {
-          "cpu_system_seconds": 0.001714,
-          "cpu_user_seconds": 0.004673,
+          "cpu_system_seconds": 0.002025,
+          "cpu_user_seconds": 0.004824999999999999,
           "exit_code": 0,
-          "peak_rss_bytes": 3751936,
+          "peak_rss_bytes": 3899392,
           "report": {
             "axiom_count": 0,
             "axiom_report": {
@@ -1407,7 +1407,7 @@
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 0.012935457983985543
+          "wall_seconds": 0.014331582991871983
         }
       },
       "raw_sha256": "8f766a7864b087bd5a65cd0784c44b79fc95016ba9fff5baa29eca8d5756cb69"
@@ -1426,21 +1426,21 @@
         "theorem": "Probe.GoPractical.slice_capacity_1_cell_write.Claim"
       },
       "construction": {
-        "cpu_system_seconds": 0.001811,
-        "cpu_user_seconds": 0.0032159999999999997,
+        "cpu_system_seconds": 0.002075,
+        "cpu_user_seconds": 0.003237,
         "exit_code": 0,
-        "peak_rss_bytes": 4259840,
+        "peak_rss_bytes": 4489216,
         "resource_provider": "Darwin os.wait4 child rusage",
         "stderr": "",
         "stdout": "",
-        "wall_seconds": 0.009654209017753601
+        "wall_seconds": 0.011210082971956581
       },
       "observations": {
         "go": {
-          "cpu_system_seconds": 0.001996,
-          "cpu_user_seconds": 0.002528,
+          "cpu_system_seconds": 0.0025039999999999997,
+          "cpu_user_seconds": 0.002577,
           "exit_code": 0,
-          "peak_rss_bytes": 5586944,
+          "peak_rss_bytes": 5636096,
           "report": {
             "declaration_count": 19,
             "hashes": {
@@ -1453,13 +1453,13 @@
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 0.009969749953597784
+          "wall_seconds": 0.00922149996040389
         },
         "rust": {
-          "cpu_system_seconds": 0.002217,
-          "cpu_user_seconds": 0.006222999999999999,
+          "cpu_system_seconds": 0.002387,
+          "cpu_user_seconds": 0.006209999999999999,
           "exit_code": 0,
-          "peak_rss_bytes": 3948544,
+          "peak_rss_bytes": 4014080,
           "report": {
             "axiom_count": 0,
             "axiom_report": {
@@ -1486,7 +1486,7 @@
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 0.013853040989488363
+          "wall_seconds": 0.013856792007572949
         }
       },
       "raw_sha256": "864b00f47e6d5de0e4b6ebb197dab190e2501f599e75d8e7123b1dc0d882c3a6"
@@ -1505,21 +1505,21 @@
         "theorem": "Probe.GoPractical.slice_capacity_1_cell_write_wrong.Claim"
       },
       "construction": {
-        "cpu_system_seconds": 0.0020829999999999998,
-        "cpu_user_seconds": 0.00292,
+        "cpu_system_seconds": 0.001974,
+        "cpu_user_seconds": 0.0029579999999999997,
         "exit_code": 0,
-        "peak_rss_bytes": 4243456,
+        "peak_rss_bytes": 4489216,
         "resource_provider": "Darwin os.wait4 child rusage",
         "stderr": "",
         "stdout": "",
-        "wall_seconds": 0.00993549998383969
+        "wall_seconds": 0.009332792018540204
       },
       "observations": {
         "go": {
-          "cpu_system_seconds": 0.001758,
-          "cpu_user_seconds": 0.0017569999999999999,
+          "cpu_system_seconds": 0.002231,
+          "cpu_user_seconds": 0.001865,
           "exit_code": 1,
-          "peak_rss_bytes": 4980736,
+          "peak_rss_bytes": 5226496,
           "report": {
             "error_detail": "term 501 inferred app but expected app",
             "error_kind": "core_check",
@@ -1527,13 +1527,13 @@
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 0.00960262503940612
+          "wall_seconds": 0.012152417039033026
         },
         "rust": {
-          "cpu_system_seconds": 0.001756,
-          "cpu_user_seconds": 0.004358,
+          "cpu_system_seconds": 0.001834,
+          "cpu_user_seconds": 0.004474,
           "exit_code": 1,
-          "peak_rss_bytes": 3719168,
+          "peak_rss_bytes": 3850240,
           "report": {
             "axiom_count": null,
             "axiom_report": null,
@@ -1550,7 +1550,7 @@
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 0.010331250028684735
+          "wall_seconds": 0.015646249987185
         }
       },
       "raw_sha256": "67b4f811f5f84006728ce92664160910620bca8af3d8bc2c38ba68d8d638bd4d"
@@ -1569,21 +1569,21 @@
         "theorem": "Probe.GoPractical.slice_capacity_8_cell_write.Claim"
       },
       "construction": {
-        "cpu_system_seconds": 0.0022819999999999997,
-        "cpu_user_seconds": 0.017048999999999998,
+        "cpu_system_seconds": 0.0029609999999999997,
+        "cpu_user_seconds": 0.017807,
         "exit_code": 0,
-        "peak_rss_bytes": 5292032,
+        "peak_rss_bytes": 5603328,
         "resource_provider": "Darwin os.wait4 child rusage",
         "stderr": "",
         "stdout": "",
-        "wall_seconds": 0.025219750008545816
+        "wall_seconds": 0.04045266698813066
       },
       "observations": {
         "go": {
-          "cpu_system_seconds": 0.003251,
-          "cpu_user_seconds": 0.031678,
+          "cpu_system_seconds": 0.004026,
+          "cpu_user_seconds": 0.031937,
           "exit_code": 0,
-          "peak_rss_bytes": 10207232,
+          "peak_rss_bytes": 10076160,
           "report": {
             "declaration_count": 19,
             "hashes": {
@@ -1596,13 +1596,13 @@
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 0.040349957998842
+          "wall_seconds": 0.062329665990546346
         },
         "rust": {
-          "cpu_system_seconds": 0.0020989999999999997,
-          "cpu_user_seconds": 0.109719,
+          "cpu_system_seconds": 0.0030819999999999997,
+          "cpu_user_seconds": 0.11218099999999999,
           "exit_code": 0,
-          "peak_rss_bytes": 4898816,
+          "peak_rss_bytes": 5177344,
           "report": {
             "axiom_count": 0,
             "axiom_report": {
@@ -1629,7 +1629,7 @@
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 0.11757666600169614
+          "wall_seconds": 0.1399667919613421
         }
       },
       "raw_sha256": "b2560aa0501f97e89e69490cb53b346c8a8ceb276109f55bba64ad21c9e99012"
@@ -1648,21 +1648,21 @@
         "theorem": "Probe.GoPractical.slice_capacity_8_cell_write_wrong.Claim"
       },
       "construction": {
-        "cpu_system_seconds": 0.003064,
-        "cpu_user_seconds": 0.007490999999999999,
+        "cpu_system_seconds": 0.002489,
+        "cpu_user_seconds": 0.006763,
         "exit_code": 0,
-        "peak_rss_bytes": 4472832,
+        "peak_rss_bytes": 4685824,
         "resource_provider": "Darwin os.wait4 child rusage",
         "stderr": "",
         "stdout": "",
-        "wall_seconds": 0.026506291003897786
+        "wall_seconds": 0.02129487501224503
       },
       "observations": {
         "go": {
-          "cpu_system_seconds": 0.002071,
-          "cpu_user_seconds": 0.005105999999999999,
+          "cpu_system_seconds": 0.003101,
+          "cpu_user_seconds": 0.005507,
           "exit_code": 1,
-          "peak_rss_bytes": 6602752,
+          "peak_rss_bytes": 6471680,
           "report": {
             "error_detail": "term 581 inferred app but expected app",
             "error_kind": "core_check",
@@ -1670,13 +1670,13 @@
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 0.01372383302077651
+          "wall_seconds": 0.03737412497866899
         },
         "rust": {
-          "cpu_system_seconds": 0.001767,
-          "cpu_user_seconds": 0.026855,
+          "cpu_system_seconds": 0.002613,
+          "cpu_user_seconds": 0.029595,
           "exit_code": 1,
-          "peak_rss_bytes": 4046848,
+          "peak_rss_bytes": 4145152,
           "report": {
             "axiom_count": null,
             "axiom_report": null,
@@ -1693,7 +1693,7 @@
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 0.03479100001277402
+          "wall_seconds": 0.15290200000163168
         }
       },
       "raw_sha256": "1d6a60d8af21c8d67df96ee9854264bdce9b7f0e2d0d570e8fe89751d2baede0"
@@ -1712,21 +1712,21 @@
         "theorem": "Probe.GoPractical.slice_capacity_32_cell_write.Claim"
       },
       "construction": {
-        "cpu_system_seconds": 0.00262,
-        "cpu_user_seconds": 0.09616899999999999,
+        "cpu_system_seconds": 0.008062,
+        "cpu_user_seconds": 0.104673,
         "exit_code": 0,
-        "peak_rss_bytes": 10715136,
+        "peak_rss_bytes": 11075584,
         "resource_provider": "Darwin os.wait4 child rusage",
         "stderr": "",
         "stdout": "",
-        "wall_seconds": 0.10663408297114074
+        "wall_seconds": 0.5562290840316564
       },
       "observations": {
         "go": {
-          "cpu_system_seconds": 0.008622,
-          "cpu_user_seconds": 0.19494799999999998,
+          "cpu_system_seconds": 0.015781,
+          "cpu_user_seconds": 0.21132599999999999,
           "exit_code": 0,
-          "peak_rss_bytes": 16859136,
+          "peak_rss_bytes": 17580032,
           "report": {
             "declaration_count": 19,
             "hashes": {
@@ -1739,13 +1739,13 @@
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 0.1933447909541428
+          "wall_seconds": 0.361262375023216
         },
         "rust": {
-          "cpu_system_seconds": 0.0039169999999999995,
-          "cpu_user_seconds": 0.6671239999999999,
+          "cpu_system_seconds": 0.022727,
+          "cpu_user_seconds": 0.727818,
           "exit_code": 0,
-          "peak_rss_bytes": 7520256,
+          "peak_rss_bytes": 7864320,
           "report": {
             "axiom_count": 0,
             "axiom_report": {
@@ -1772,7 +1772,7 @@
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 0.6819325829856098
+          "wall_seconds": 2.3949318330269307
         }
       },
       "raw_sha256": "f40181c51ae6da9667cea3a2ac0ce2d3f26c2b4a69b0e651f180fb1a2a8611d3"
@@ -1791,21 +1791,21 @@
         "theorem": "Probe.GoPractical.slice_capacity_32_cell_write_wrong.Claim"
       },
       "construction": {
-        "cpu_system_seconds": 0.002421,
-        "cpu_user_seconds": 0.026848,
+        "cpu_system_seconds": 0.004014,
+        "cpu_user_seconds": 0.029134999999999998,
         "exit_code": 0,
-        "peak_rss_bytes": 5062656,
+        "peak_rss_bytes": 5324800,
         "resource_provider": "Darwin os.wait4 child rusage",
         "stderr": "",
         "stdout": "",
-        "wall_seconds": 0.03558629198232666
+        "wall_seconds": 0.09437195799546316
       },
       "observations": {
         "go": {
-          "cpu_system_seconds": 0.0025989999999999997,
-          "cpu_user_seconds": 0.01018,
+          "cpu_system_seconds": 0.004764,
+          "cpu_user_seconds": 0.010910999999999999,
           "exit_code": 1,
-          "peak_rss_bytes": 8732672,
+          "peak_rss_bytes": 9502720,
           "report": {
             "error_detail": "term 650 inferred app but expected app",
             "error_kind": "core_check",
@@ -1813,13 +1813,13 @@
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 0.018307958031073213
+          "wall_seconds": 0.030229666968807578
         },
         "rust": {
-          "cpu_system_seconds": 0.00178,
-          "cpu_user_seconds": 0.061764,
+          "cpu_system_seconds": 0.004071,
+          "cpu_user_seconds": 0.07299,
           "exit_code": 1,
-          "peak_rss_bytes": 4407296,
+          "peak_rss_bytes": 4390912,
           "report": {
             "axiom_count": null,
             "axiom_report": null,
@@ -1836,7 +1836,7 @@
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 0.07032662502024323
+          "wall_seconds": 0.2516005840152502
         }
       },
       "raw_sha256": "cdc13405179f54bc51435e37da7d0fa24c0d50fceced80a25c3fb839b85bd4ac"
@@ -1855,21 +1855,21 @@
         "theorem": "Probe.GoPractical.slice_capacity_128_cell_write.Claim"
       },
       "construction": {
-        "cpu_system_seconds": 0.008313,
-        "cpu_user_seconds": 0.5835699999999999,
+        "cpu_system_seconds": 0.027697,
+        "cpu_user_seconds": 0.649581,
         "exit_code": 0,
-        "peak_rss_bytes": 40255488,
+        "peak_rss_bytes": 40419328,
         "resource_provider": "Darwin os.wait4 child rusage",
         "stderr": "",
         "stdout": "",
-        "wall_seconds": 0.6086082079564221
+        "wall_seconds": 2.7472804579883814
       },
       "observations": {
         "go": {
-          "cpu_system_seconds": 0.06834,
-          "cpu_user_seconds": 1.259941,
+          "cpu_system_seconds": 0.04301,
+          "cpu_user_seconds": 1.166042,
           "exit_code": 0,
-          "peak_rss_bytes": 43745280,
+          "peak_rss_bytes": 42205184,
           "report": {
             "declaration_count": 19,
             "hashes": {
@@ -1882,13 +1882,13 @@
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 3.2385136669618078
+          "wall_seconds": 1.2908298330148682
         },
         "rust": {
-          "cpu_system_seconds": 0.041673999999999996,
-          "cpu_user_seconds": 3.999457,
+          "cpu_system_seconds": 0.101856,
+          "cpu_user_seconds": 4.210638,
           "exit_code": 0,
-          "peak_rss_bytes": 21168128,
+          "peak_rss_bytes": 21905408,
           "report": {
             "axiom_count": 0,
             "axiom_report": {
@@ -1915,7 +1915,7 @@
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 7.039632125000935
+          "wall_seconds": 13.661571666016243
         }
       },
       "raw_sha256": "4abe7c513df0f64e2fc71027934c83956bc55da590dfd9eb88cc19422c3ab418"
@@ -1934,21 +1934,21 @@
         "theorem": "Probe.GoPractical.slice_capacity_128_cell_write_wrong.Claim"
       },
       "construction": {
-        "cpu_system_seconds": 0.009174999999999999,
-        "cpu_user_seconds": 0.152827,
+        "cpu_system_seconds": 0.0039369999999999995,
+        "cpu_user_seconds": 0.15092899999999998,
         "exit_code": 0,
-        "peak_rss_bytes": 7225344,
+        "peak_rss_bytes": 7421952,
         "resource_provider": "Darwin os.wait4 child rusage",
         "stderr": "",
         "stdout": "",
-        "wall_seconds": 0.23264395800651982
+        "wall_seconds": 0.17061450000619516
       },
       "observations": {
         "go": {
-          "cpu_system_seconds": 0.0032419999999999997,
-          "cpu_user_seconds": 0.019777,
+          "cpu_system_seconds": 0.004731,
+          "cpu_user_seconds": 0.021408,
           "exit_code": 1,
-          "peak_rss_bytes": 9830400,
+          "peak_rss_bytes": 10551296,
           "report": {
             "error_detail": "term 731 inferred app but expected app",
             "error_kind": "core_check",
@@ -1956,11 +1956,11 @@
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 0.027262791991233826
+          "wall_seconds": 0.07550254097441211
         },
         "rust": {
-          "cpu_system_seconds": 0.002386,
-          "cpu_user_seconds": 0.126491,
+          "cpu_system_seconds": 0.004091,
+          "cpu_user_seconds": 0.134164,
           "exit_code": 1,
           "peak_rss_bytes": 5046272,
           "report": {
@@ -1979,7 +1979,7 @@
           },
           "resource_provider": "Darwin os.wait4 child rusage",
           "stderr": "",
-          "wall_seconds": 0.15335870801936835
+          "wall_seconds": 0.29182112502167
         }
       },
       "raw_sha256": "b8689914e0e0a17ea5dcf356d4428ef70be0c3dea3a716602de83247602e0f8a"
@@ -1987,9 +1987,9 @@
   ],
   "checker_binaries": {
     "go_sha256": "bc21d279807f5994a16287a532db65cac3bbb170bfa4d0ca5c6729825e24c62c",
-    "rust_sha256": "99dfef24dbcdc5ff8fa726e81b3651f0b848c33a7bf7213fd8a108e03f3118a1"
+    "rust_sha256": "a457fce1e13b4096ed7c5d4feff48141f37385cfb2566b25477f3ead443693ce"
   },
-  "construction_wall_seconds": 3.30566504097078,
+  "construction_wall_seconds": 9.993189624976367,
   "deterministic_generations": 2,
   "host": {
     "cpu_count": 10,
@@ -2207,7 +2207,7 @@
     },
     {
       "path": "develop/probes/go-practical/certificates/src/main.rs",
-      "sha256": "34d6480d3bf0b183735de5aad7bfe46812c1a890d188072fa31e8e57d57a34c1"
+      "sha256": "d504c956be45f638b4a49c8caccb0bfb4460e90a0960e730201d7e777ecffa49"
     },
     {
       "path": "develop/probes/go-practical/certificates/src/natural.rs",
@@ -2222,24 +2222,56 @@
       "sha256": "d49244466a95a83aa75c34c4bc83be709b17200d6dfe29b59b958333faf1eba8"
     },
     {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/arith.rs",
+      "sha256": "20e31988a4bb10d55e465de8a5bbf2e62f69259405d7a01395144aa7a0718f0a"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/assoc.rs",
+      "sha256": "23f441a888c555b1ef335c28122366718b217681d3a98f645ed44cd89ba4106e"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/emit.rs",
+      "sha256": "d14ccac606a7565f60878730f799dbc9c8bd7915af044543fc0698d29f4e6603"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/model.rs",
+      "sha256": "69301d57d1231950b1fd770c86f73bd215fa401753492e6a1b7f8776daef4095"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/numeric.rs",
+      "sha256": "4b55a2e36203e8bb69342e62c51008cf1f814952519b0b619d09cc56cde6b9c8"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/preservation.rs",
+      "sha256": "b2e28805ada6ee0f47b4dfda0c299706a2b788129b3e1a796f6acea5d6d941fa"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/readable.rs",
+      "sha256": "1abaa9ccc87de6d36451f0b77ebb70e2b65940cce14a49804086c5da584d8063"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice.rs",
+      "sha256": "6488c331e1e72afdd94f1732633efe472a4f8aa92312384043cfd842da3e5aa5"
+    },
+    {
       "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity.rs",
-      "sha256": "c9355fce78b86700ebf05c0755d304580b220e20c46a44ccb869c08d503bbe7d"
+      "sha256": "1dfe127bc99a6396826c84b239dafe47fb775ccdf4500ae7a7955a376ca4730d"
     },
     {
       "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access.rs",
-      "sha256": "af35f4eaba83dcf47004133aa48b12c6328de98536a165a7291f1b35c73b40a9"
+      "sha256": "be5b34b36304d36455fee06a241031b1a69ef01889df6f9c81a1d8c46342f70b"
     },
     {
       "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices.rs",
-      "sha256": "ae9c6a130ce9dc8357b8464bb974f49ff5c3825c5b9048506c052b45a4b00e96"
+      "sha256": "22a2bfd46abbd151327046eabd2c6e9e3df6242bf4e97a896b64686ebf726bf3"
     },
     {
       "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds.rs",
-      "sha256": "6fae77fc4fea226671340682696f936c05f6d1c5671a270de42a307c44d46b9e"
+      "sha256": "1e6fdf738abd193159b36db55554a1fab04e35821f1fc1184a2137a8e7fb3bda"
     },
     {
       "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes.rs",
-      "sha256": "b36da716a49b81213db860fb8ee8211eecf0bd76de088e49df8534b8a9e47eb8"
+      "sha256": "1e536512fbb3a6f461e6bd9d05fedf0f904a24f9cd53ade9ca7a20bc94ebdbb5"
     },
     {
       "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold/continuation/returned/quote.rs",
@@ -2275,15 +2307,15 @@
     },
     {
       "path": "develop/probes/go-practical/certificates/src/word/balanced/signed.rs",
-      "sha256": "d45cf01aa1346032c553a76f877780ec1cefcc44b2cc6805fcc93ef03a470693"
+      "sha256": "cfffd3eaa3d790059556d6c94a596bc54b183762139c7eeedc201ab5b831c5c0"
     },
     {
       "path": "develop/probes/go-practical/certificates/src/word/balanced.rs",
-      "sha256": "0497b2d0c5293cbc75e3572910891dc2edbe1dcfb7b40260a962fad66eb8fa21"
+      "sha256": "11f607145d58278afef136456048fe9467313ed4637723a751e13e83776f01cf"
     },
     {
       "path": "develop/probes/go-practical/certificates/src/word.rs",
-      "sha256": "e44b1c0d4558ae92992841979d109c29ea43a22470fe037e94de3e6ade4194cb"
+      "sha256": "d43bc025bdaf4c9089d8062125d922673ff2aae4ce092bccc8ee9a45a7b38981"
     },
     {
       "path": "develop/probes/go-practical/check_proof_report.py",

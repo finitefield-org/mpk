@@ -678,6 +678,19 @@ fn main() {
     let args = std::env::args().collect::<Vec<_>>();
     if matches!(
         args.get(1).map(String::as_str),
+        Some("reslice-generate" | "reslice-trace")
+    ) {
+        assert_eq!(args.len(), 5, "reslice-generate REPO_ROOT OUTPUT CAPACITY");
+        word::generate_reslice(
+            Path::new(&args[2]),
+            Path::new(&args[3]),
+            args[4].parse().unwrap(),
+            args[1] == "reslice-trace",
+        );
+        return;
+    }
+    if matches!(
+        args.get(1).map(String::as_str),
         Some("access-generate" | "access-trace")
     ) {
         assert_eq!(args.len(), 5, "access-generate REPO_ROOT OUTPUT CAPACITY");
@@ -838,6 +851,31 @@ fn main() {
             "natural-generate REPO_ROOT OUTPUT [CASE_ID]"
         );
         natural::generate(Path::new(&args[2]), Path::new(&args[3]), args.get(4));
+        return;
+    }
+    if args.get(1).map(String::as_str) == Some("inspect-terms") {
+        let certificate =
+            mpk_cert::decode_canonical_certificate(&fs::read(&args[2]).unwrap()).unwrap();
+        println!(
+            "terms: {}, declarations: {}",
+            certificate.term_table.len(),
+            certificate.declarations.len()
+        );
+        for decl in certificate.declarations.iter().rev().take(20).rev() {
+            println!(
+                "{}: {:?}",
+                certificate.name_table[decl.name as usize], decl.kind
+            );
+        }
+        for text in &args[3..] {
+            let id: usize = text.parse().unwrap();
+            if let Some(node) = certificate.term_table.get(id) {
+                println!("term {id}: {node:?}");
+                println!("{}", describe_term(&certificate, id as u32, &mut vec![]));
+            } else {
+                println!("term {id}: outside the stored table; checker IDs may refer to expanded core terms");
+            }
+        }
         return;
     }
     if args.get(1).map(String::as_str) == Some("describe") {

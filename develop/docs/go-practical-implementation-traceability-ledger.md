@@ -26,7 +26,7 @@ after reconciling the intervening shared artifacts and active registry.
 | --- | --- | --- |
 | GO-PRAC-T01-W01 | Complete | Reviewed implementation commit `bd5ee8047d8925f9c9d0f7502627fca33bb2c836`; completion audit below |
 | GO-PRAC-T01-W02 | Complete | Reviewed implementation commit `fed1cf6047f97b1f73c0fc37c5023e19f4f9f035`; 39 cases reproduced twice |
-| GO-PRAC-T01-W03 | In progress | Halting Quote, byte/index, descriptor/store and computed validity/access ingredients measured; production source/ownership/operation bindings, remaining laws and aggregate resources stay open |
+| GO-PRAC-T01-W03 | In progress | Halting Quote, byte/index, descriptor/store, computed validity/access and general reslice ingredients measured; production source/ownership/operation bindings, remaining laws and aggregate resources stay open |
 | GO-PRAC-T01-W04 | Blocked by W03 | Exact v1 source/shared/contract/limit freeze |
 | GO-PRAC-T01-W05 | Blocked by W04 | Publish inactive package, review and full T01 gate |
 | GO-PRAC-T02–T07 | Not started | Sequential v1 implementation and public release |
@@ -1084,3 +1084,120 @@ general slicing, overlapping `copy`, bounded construction/`append`, remaining
 byte/control laws and aggregate resource closure remain due. W03 stays
 In progress, W04 has not started and the full T01 gate remains deferred to
 W05. The full authorized 11-stage implementation objective remains active.
+
+## 20. T01-W03 general signed two-/three-index slice closure
+
+Predecessor checkpoint: `94752d34168df9aa71dc420126bb25fdf29bace5` retains
+the computed validity/access ingredients. The new
+[reslice model](../probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/model.rs)
+computes the actual signed two-index `0 <= low <= high <= capacity`
+and three-index `0 <= low <= high <= maximum <= capacity` conditions.
+Source words remain 64 bits; descriptor packing retains 512 bits, cells
+128 and both logical backings/padding remain quantified. Region names
+remain logical identities, not source pointer bits.
+
+Checked modular inverse/commutative/associative identities and actual carry
+composition derive full-width non-strict endpoint bounds. A six-state
+relation preserves the count of the two carry chains on each association.
+Equal endpoints, capacity-end empty views and nil cases stay in scope.
+Canonical constructor facts are discharged inside the proof and are not
+added as caller assumptions. No checker rule, conversion fuel, axiom,
+record eta, function extensionality or unfinished C# theorem is introduced.
+
+[Validity preservation](../probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/preservation.rs)
+connects new offset/length/capacity and the actual 65-bit extent back to old
+computed validity. Two-index capacity remains old capacity minus low;
+three-index capacity is explicit maximum minus low. Substituting the new
+length for the first, or retaining the old capacity in the second, changes
+actual observable behavior. Nil and non-nil empty tags remain distinct.
+
+[Mapped guard and read composition](../probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/readable.rs)
+prove that each actually defined new index maps to a defined index in the
+old descriptor expanded to its existing capacity. This includes re-slicing
+above the old logical length. Actual relative-index no-wrap and complete
+physical/key equality preserve full 128-bit reads in the same backing.
+Algebraic totalized reads alone do not discharge the source guard.
+
+The [matrix and semantics](../migrations/go-practical/t01-w03/reslicing/README.md)
+retain semantic storage bounds B=0/1/8/32/127/128/129 separately from
+padding P=1/1/8/32/128/128/256. B0 emits only validity claims, avoiding a
+vacuous indexed-read positive or a true zero-capacity control mislabeled as
+false. The 100 candidates cover both source forms and validity, exact
+capacity, mapped guards and complete-read families, with two identical
+fresh generations for each group.
+
+The [original-Go observer](../probes/go-practical/reslice_reference.go) and
+[independent bit-loop model](../probes/go-practical/reslice_differential.py)
+match all 4,261 observations: 4,103 source operations, 130 operation panics,
+28 rejected constructions, 692 reads and 3,411 subsequent index panics.
+Overlapping categories include 658 proof-domain reads, 388 tail exposures,
+602 restricted three-index capacities, 14 nil results, 1,765 non-nil empty
+results and 692 observed shared-backing updates. Twenty-two source reads
+are outside the semantic bound, eight remain inside padding but outside
+admission, and 14 lose complete-address coverage. They remain valid Go
+reads, not invented capacity panics.
+
+Seven source panics nevertheless have a valid total model result: negative
+equal variable endpoints on a nil slice yield zero modeled length/capacity.
+Thus output validity cannot replace the actual range condition. Invalid raw
+parent descriptors, forged dead bindings, construction failures, source
+operation panics and subsequent index panics stay distinct. Every false
+mutation has an explicit typed source witness, separate from type failure.
+Observer-only allocation, writes, I/O and recovery establish neither a
+captured-source function theorem nor borrowed-input write permission.
+
+[The diagnostic archive](../migrations/go-practical/t01-w03/reslice-initial/README.md)
+retains three raw failed-positive attempts in two exact source groups.
+Rust localization accepts two earlier prefixes, then rejects the first
+restored sum. Its inverse theorem used nested `not(true)` as the incoming
+carry; silently annotating it as `false` was not checked transport.
+Explicit Boolean congruence corrects that composition without changing the
+claim. Producer-only guard-rewrite ordering and comparison-direction
+assertions stop before an operation certificate; they are not counted as
+kernel rejections or false claims. The corrected numeric, source guards,
+validity and mapped-read library stages pass both unchanged checkers.
+
+Both checkers accept 50 zero-axiom candidates with matching hashes and
+reject 50 false guard/capacity/original-length/read mutations at core type
+checking. No current fuel outcome is counted as a semantic negative. The
+B128 three-index complete-read candidate has 594 declarations, 39,715
+terms and 478,655 bytes. Its observed Rust/Go resources are 2.909/6.934
+seconds and 42,893,312/143,851,520 resident bytes. Direct-child wall/CPU/RSS
+may overlap private replays; these are no isolated or aggregate budgets.
+
+Selected validation covers the new full-width endpoint arithmetic, source
+guards, nil/equal endpoints, exact capacities, actual mapped definedness,
+whole-cell sharing and evidence/witness domains. All 48 new adversarial
+tests and 307 affected earlier evidence tests pass, for 355 selected tests.
+The shared producer requires all 653 prior candidates to be remeasured:
+27 representation, four local-Nat, 48 balanced, 55 unsigned-prefix,
+32 signed-prefix, 40 guard, 72 continuing-prefix, 108 halting-return,
+46 byte-tail, 27 bounded-index, 90 slice-store and 104 validity/access cases.
+Their canonical bytes, two standalone indexes and 12 complete case indexes/
+outcomes remain unchanged against the predecessor commit. Earlier prose
+resources describe original checkpoints; refreshed reports retain current
+source/binary identities and observations. The adjacent hardware receipt
+is refreshed to the current slice-store report hash, preserving model/RAM
+nulls. Unchanged expensive linear-word proofs are not replayed.
+
+Offline locked release Clippy passes with warnings denied. Explicit Rust
+formatting covers the 17 changed current files and excludes preserved
+historical snapshots. Pinned Go formatting and changed Python syntax pass.
+W01's 77-owner/198-regression-file/83-artifact identity audit and W02's
+retained 39-case closure check pass. Unaffected production suites and
+unchanged W01/W02 adversarial helpers are not rerun. Production frontend/
+checker, normative specifications and public registry remain at W01.
+
+The separate final reslice `--check` replay passes all 100 candidates through
+both checkers and reproduces exact canonical certificates and original-Go
+input/output bytes. Final review checks eight documents/168 local links,
+balanced fences, ordered ledger sections, source/diff scope and Git
+whitespace. No incomplete measurement attempt remains.
+
+Ordinary signed two-/three-index validity, exact-capacity, mapped-guard and
+backing-read closure is complete for these ingredients. Production Go
+capture/model/ownership/operation bindings, overlapping `copy`, bounded
+construction/`append`, remaining byte/control laws and aggregate resource
+closure remain due. W03 stays In progress, W04 has not started and the full
+T01 gate remains deferred to W05. The full authorized 11-stage implementation
+objective remains active.

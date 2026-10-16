@@ -4,6 +4,9 @@
 
 use super::*;
 mod bytes;
+pub(super) fn generate_reslice(root: &Path, output: &Path, capacity: usize, trace: bool) {
+    bytes::generate_reslice(root, output, capacity, trace);
+}
 pub(super) fn generate_access(root: &Path, output: &Path, capacity: usize, trace: bool) {
     bytes::generate_access(root, output, capacity, trace);
 }
