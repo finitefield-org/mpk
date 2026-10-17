@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/ordinary_arithmetic.py", line 173, in plan
+    def plan():return Arithmetic().build()
+                      ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/ordinary_arithmetic.py", line 169, in build
+    Integers(self.lib).build()
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/ordinary_integers.py", line 144, in build
+    def build(self):self.definitions();self.algebra();self.equivalence()
+                                                      ^^^^^^^^^^^^^^^^^^
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/ordinary_integers.py", line 107, in equivalence
+    x,y,z=var('x'),var('y'),var('z');px,py,pz=pos(x),pos(y),pos(z);nx,ny,nz=neg(x),neg(y),neg(z)
+                                                                            ^^^
+UnboundLocalError: cannot access local variable 'neg' where it is not associated with a value

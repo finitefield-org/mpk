@@ -3422,3 +3422,73 @@ Go statement/program/skeleton assembly,downstream roots and reviewed migrations
 remain required. The preceding169 Go requests stay unelaborated. W05 owns
 inactive publication and the T01 gate; all T02–T11 work stays active. No practical
 Go profile is activated.
+
+## 51. T01-W04 ordinary unbounded arithmetic and closed logical components
+
+Entry: `61c8569f7ad0b3b6e3f31089f90b9432b9a11046`, clean before this work.
+The [ordinary arithmetic component](../migrations/go-practical/t01-w04/ordinary-arithmetic/README.md)
+adds599 ordinary members:36 definitions and563 theorems,including small checked
+equality checkpoints. Genuine Std.Nat induction proves addition/multiplication
+algebra,cancellation,equality/order translation and truncated-subtraction laws.
+Theorems quantify unbounded naturals. The unchanged35-declaration induction
+seed is rechecked in every certificate; neither core reduction nor parser or
+conversion budgets change.
+
+Logical Int uses a redundant Bool->Nat pair p-n. Equiv is genuine Nat cross-sum
+equality,not core equality of pair functions. Ordinary proofs establish
+equivalence,ring laws,operation congruence and representative independence of
+equality/order. Half-open forall,exists,Nat sum and Int sum use the exact count
+upper-lower. Empty rules include reversed bounds. Checked fold-preservation
+theorems require only actual bounded FoldForall equality over the visited
+prefix; no outside-range premise or normalization assumption is introduced.
+
+All27 existing normalized closed logical heads now construct ordinary
+Value/Defined definitions with independently inferred types,payloads,arity
+and lexical Nat binder scopes. Exact decimal literals use binary declaration
+DAGs. The compiler emits unproved Boolean statements; ordinary_proof remains
+null. Accepting a false clause's Value definition establishes its type without
+proving the clause. Complete reconstruction rejects caller proof/source flags.
+Twenty-two component cases retain one typed/unproved clause,19 configuration
+rejections and two pending cases. Source/word/storage expressions and private
+construction limits remain explicit pending boundaries.
+
+Two ordinary sets pass both independent Rust/Go checkers with zero axioms and
+matching certificate/export/axiom hashes. The theory set contains634
+declarations,11,424 terms and153,208 bytes. The combined set typechecks149
+closed components,including ten large values. Eight altered definitions or
+proofs fail by paired ordinary type mismatch:bad addition,unrelated
+equality/order premises,positive-only Int equality,incomplete multiplication,
+false empty forall,inclusive upper bounds and a forged proof of a false clause.
+Every certificate emits twice identically. No resource failure is counted as
+false-claim evidence. The unchanged77-source private proposal and emitter are
+built fresh; production sources,Certificate v0 and installed profiles do not
+change.
+
+All149 real pinned Go/math-big results agree with an independent integer
+oracle,including negative/redundant integers,nested binders,empty/reversed
+ranges and values beyond2^64 and10^70. Actual ordinary-AST execution also agrees
+on139. Ten large cases reach its private512 unary-loop ceiling and remain
+model_resource_pending; they still pass component typechecking and native/
+integer comparison. This ceiling does not bound logical Nat/Int or invalidate
+a proof. Finite comparisons do not establish general elaborator correctness.
+The retained14,496-file Go1.25.0 inventory remains pinned along with714 inputs.
+
+The [verification record](../migrations/go-practical/t01-w04/ordinary-arithmetic/verification/verification.json)
+retains selected local commands,raw logs and the initial producer error.
+A local variable shadowed the negative-projection constructor; renaming it
+repairs generation. The exact original sources and traceback remain preserved.
+No certificate or source claim was produced by that failed construction.
+Sixteen targeted tests cover native proof outcomes,all logical heads,complete
+reconstruction,integer representatives,bounded folds,nested binders,large-value
+limits and unproved/source boundaries. Unaffected older matrices are not
+rerun; preceding numeric/word/proof evidence and all143 predecessor paths are
+checked. The cumulative T01 gate remains deferred to W05.
+
+W04 remains In progress. The connection from actual word denotations to this
+general arithmetic,remaining word/source arithmetic,partial expressions,
+bounded definedness and independent elaborator correctness remain required.
+All remaining state/permission/frame/control/totality proofs,complete Go
+statement/program/skeleton assembly,downstream roots and reviewed migrations
+stay open. All169 retained complete Go requests remain unelaborated. W05 owns
+inactive publication and the T01 gate; all T02–T11 work remains active. No
+practical Go profile is activated.

@@ -1,0 +1,165 @@
+"""Logical integers as observational balanced Nat pairs,with checked laws.
+
+The carrier has redundant representatives. Equality/order use cross sums;
+core equality of the pair function is never substituted for integer equality.
+"""
+from arithmetic_terms import *
+from word_foundation import choose,bc,EvaluationProof
+
+
+def integer():return pi('_part',boolean(),nat())
+def pos(x):return ic('Positive',x)
+def neg(x):return ic('Negative',x)
+def cross(x,y):return add(pos(x),neg(y)),add(pos(y),neg(x))
+def equiv(x,y):return ic('Equivalent',x,y)
+
+
+class Integers:
+    def __init__(self,lib):self.lib=lib;self.serial=0;self.args=[]
+    def emit(self,name,args,result,body,kind='definition'):self.lib.emit(I+name,args,result,body,kind)
+    def theorem(self,name,args,result,proof):self.emit(name,args,result,proof,'theorem')
+    def checkpoint(self,e):
+        if e.left==e.right:return e
+        name='CheckedStep'+str(self.serial);self.serial+=1
+        self.theorem(name,self.args,eq(e.ty,e.left,e.right),e.proof)
+        return Equality(e.left,e.right,ic(name,*[var(n) for n,_ in self.args]),e.ty)
+    def definitions(self):
+        p,n=var('positive'),var('negative');x,y=var('x'),var('y');xy=[('x',integer()),('y',integer())]
+        self.emit('Make',[('positive',nat()),('negative',nat())],integer(),lam('_tag',boolean(),choose(var('_tag'),n,p,nat())))
+        self.emit('Positive',[('x',integer())],nat(),app(x,bit(False)))
+        self.emit('Negative',[('x',integer())],nat(),app(x,bit(True)))
+        self.emit('Zero',[],integer(),ic('Make',zero(),zero()))
+        self.emit('FromNat',[('positive',nat())],integer(),ic('Make',p,zero()))
+        self.emit('Negate',[('x',integer())],integer(),ic('Make',neg(x),pos(x)))
+        self.emit('Add',xy,integer(),ic('Make',add(pos(x),pos(y)),add(neg(x),neg(y))))
+        self.emit('Sub',xy,integer(),ic('Add',x,ic('Negate',y)))
+        self.emit('Mul',xy,integer(),ic('Make',add(mul(pos(x),pos(y)),mul(neg(x),neg(y))),add(mul(pos(x),neg(y)),mul(neg(x),pos(y)))))
+        left,right=cross(x,y)
+        self.emit('Equivalent',xy,{'kind':'sort0'},eq(nat(),left,right))
+        self.emit('Equal',xy,boolean(),nc('Equal',left,right))
+        self.emit('Less',xy,boolean(),nc('Less',left,right))
+        self.emit('LessEqual',xy,boolean(),bc('Not',ic('Less',y,x)))
+        # All computation rules are checked statements over arbitrary values.
+        for name,flag in (('Positive',False),('Negative',True)):
+            pick=neg if flag else pos;value=n if flag else p
+            self.theorem(name+'OfMake',[('positive',nat()),('negative',nat())],eq(nat(),pick(ic('Make',p,n)),value),refl(nat(),value))
+            self.theorem(name+'OfZero',[],eq(nat(),pick(ic('Zero')),zero()),refl(nat(),zero()))
+            self.theorem(name+'OfFromNat',[('positive',nat())],eq(nat(),pick(ic('FromNat',p)),zero() if flag else p),refl(nat(),zero() if flag else p))
+            value=pos(x) if flag else neg(x)
+            self.theorem(name+'OfNegate',[('x',integer())],eq(nat(),pick(ic('Negate',x)),value),refl(nat(),value))
+            value=add(pick(x),pick(y))
+            self.theorem(name+'OfAdd',xy,eq(nat(),pick(ic('Add',x,y)),value),refl(nat(),value))
+            value=add(neg(x),pos(y)) if flag else add(pos(x),neg(y))
+            self.theorem(name+'OfSub',xy,eq(nat(),pick(ic('Sub',x,y)),value),refl(nat(),value))
+            value=add(mul(pos(x),neg(y)),mul(neg(x),pos(y))) if flag else add(mul(pos(x),pos(y)),mul(neg(x),neg(y)))
+            self.theorem(name+'OfMul',xy,eq(nat(),pick(ic('Mul',x,y)),value),refl(nat(),value))
+    def project(self,node):
+        # Only these closed typed computation rules are eligible for expansion.
+        for name,part in (('Positive',False),('Negative',True)):
+            if node.get('kind')=='app' and node['function']==const(I+name):
+                value=node['arguments'][0];head=value.get('function',value)
+                if head.get('kind')=='const' and head['name'].startswith(I):
+                    op=head['name'][len(I):];args=value.get('arguments',[])
+                    if op not in {'Make','Zero','FromNat','Negate','Add','Sub','Mul'}:return reflexive(node)
+                    pick=neg if part else pos
+                    if op=='Make':target=args[1] if part else args[0]
+                    elif op=='Zero':target=zero()
+                    elif op=='FromNat':target=zero() if part else args[0]
+                    elif op=='Negate':target=pos(args[0]) if part else neg(args[0])
+                    elif op=='Add':target=add(pick(args[0]),pick(args[1]))
+                    elif op=='Sub':target=add(neg(args[0]),pos(args[1])) if part else add(pos(args[0]),neg(args[1]))
+                    else:
+                        a,b=args
+                        target=add(mul(pos(a),neg(b)),mul(neg(a),pos(b))) if part else add(mul(pos(a),pos(b)),mul(neg(a),neg(b)))
+                    return Equality(node,target,ic(name+'Of'+op,*args)).then(self.project(target))
+                return reflexive(node)
+        a=split(node,'Add');m=split(node,'Mul')
+        if a:
+            x,y=a;p=self.project(x);q=self.project(y);return on_left(p,y).then(on_right(p.right,q))
+        if m:
+            x,y=m;p=self.project(x);q=self.project(y);return mul_on_left(p,y).then(mul_on_right(p.right,q))
+        return reflexive(node)
+    def relation(self,name,args,left,right,custom=None):
+        self.args=args;l,r=cross(left,right);lp=self.checkpoint(self.project(l));rp=self.checkpoint(self.project(r))
+        norm=PolynomialNormalizer(self.checkpoint)
+        middle=norm.prove(lp.right,rp.right) if custom is None else custom(lp.right,rp.right,norm)
+        e=lp.then(middle).then(rp.reverse());self.theorem(name,args,equiv(left,right),e.proof)
+    def algebra(self):
+        x,y,z=var('x'),var('y'),var('z');xy=[('x',integer()),('y',integer())];xyz=xy+[('z',integer())]
+        self.relation('Reflexive',[('x',integer())],x,x)
+        a,b=cross(x,y)
+        self.theorem('Symmetric',xy+[('_same',equiv(x,y))],equiv(y,x),call('Std.Eq.symm',nat(),a,b,var('_same')))
+        for name,args,left,right in (
+            ('AddZero',[('x',integer())],ic('Add',x,ic('Zero')),x),
+            ('AddComm',xy,ic('Add',x,y),ic('Add',y,x)),
+            ('AddAssoc',xyz,ic('Add',ic('Add',x,y),z),ic('Add',x,ic('Add',y,z))),
+            ('NegateTwice',[('x',integer())],ic('Negate',ic('Negate',x)),x),
+            ('AddInverse',[('x',integer())],ic('Add',x,ic('Negate',x)),ic('Zero')),
+            ('SubtractSelf',[('x',integer())],ic('Sub',x,x),ic('Zero')),
+            ('MulZero',[('x',integer())],ic('Mul',x,ic('Zero')),ic('Zero')),
+            ('MulOne',[('x',integer())],ic('Mul',x,ic('FromNat',one())),x),
+            ('MulComm',xy,ic('Mul',x,y),ic('Mul',y,x)),
+            ('MulAddLeft',xyz,ic('Mul',ic('Add',x,y),z),ic('Add',ic('Mul',x,z),ic('Mul',y,z))),
+            ('MulAddRight',xyz,ic('Mul',x,ic('Add',y,z)),ic('Add',ic('Mul',x,y),ic('Mul',x,z))),
+            ('MulAssoc',xyz,ic('Mul',ic('Mul',x,y),z),ic('Mul',x,ic('Mul',y,z)))):
+            self.relation(name,args,left,right)
+    def equivalence(self):
+        x,y,z=var('x'),var('y'),var('z');px,py,pz=pos(x),pos(y),pos(z);nx,ny,nz=neg(x),neg(y),neg(z)
+        args=[('x',integer()),('y',integer()),('z',integer()),('_xy',equiv(x,y)),('_yz',equiv(y,z))];self.args=args
+        l,r=cross(x,z);padding=add(py,ny);start=add(l,padding);finish=add(r,padding)
+        norm=PolynomialNormalizer(self.checkpoint);first=add(add(px,ny),add(py,nz))
+        e=norm.prove(start,first)
+        hxy=Equality(add(px,ny),add(py,nx),var('_xy'));hyz=Equality(add(py,nz),add(pz,ny),var('_yz'))
+        e=e.then(on_left(hxy,add(py,nz))).then(on_right(add(py,nx),hyz))
+        e=e.then(norm.prove(e.right,finish))
+        self.theorem('Transitive',args,equiv(x,z),nc('AddCancel',l,r,padding,e.proof))
+        u,v=var('u'),var('v');pu,pv=pos(u),pos(v);nu,nv=neg(u),neg(v)
+        args=[('x',integer()),('y',integer()),('u',integer()),('v',integer()),('_xu',equiv(x,u)),('_yv',equiv(y,v))]
+        def add_respect(l,r,norm):
+            first=add(add(px,nu),add(py,nv));e=norm.prove(l,first)
+            e=e.then(on_left(Equality(add(px,nu),add(pu,nx),var('_xu')),add(py,nv)))
+            e=e.then(on_right(add(pu,nx),Equality(add(py,nv),add(pv,ny),var('_yv'))))
+            return e.then(norm.prove(e.right,r))
+        self.relation('AddRespects',args,ic('Add',x,y),ic('Add',u,v),add_respect)
+        args=[('x',integer()),('u',integer()),('_xu',equiv(x,u))]
+        def negate_respect(l,r,norm):
+            e=norm.prove(l,add(pu,nx)).then(Equality(add(px,nu),add(pu,nx),var('_xu')).reverse())
+            return e.then(norm.prove(e.right,r))
+        self.relation('NegateRespects',args,ic('Negate',x),ic('Negate',u),negate_respect)
+        for side in ('Left','Right'):
+            args=[('x',integer()),('u',integer()),('z',integer()),('_xu',equiv(x,u))]
+            def respect(l,r,norm):
+                a,b=add(px,nu),add(pu,nx);first=add(mul(a,pz),mul(b,nz));e=norm.prove(l,first)
+                h=Equality(a,b,var('_xu'))
+                e=e.then(on_left(mul_on_left(h,pz),mul(b,nz))).then(on_right(mul(b,pz),mul_on_left(h.reverse(),nz)))
+                return e.then(norm.prove(e.right,r))
+            left=ic('Mul',x,z) if side=='Left' else ic('Mul',z,x)
+            right=ic('Mul',u,z) if side=='Left' else ic('Mul',z,u)
+            self.relation('MulRespects'+side,args,left,right,respect)
+        args=[('x',integer()),('y',integer()),('u',integer()),('v',integer()),('_xu',equiv(x,u)),('_yv',equiv(y,v))]
+        p=ic('MulRespectsLeft',x,u,y,var('_xu'));q=ic('MulRespectsRight',y,v,u,var('_yv'))
+        self.theorem('MulRespects',args,equiv(ic('Mul',x,y),ic('Mul',u,v)),ic('Transitive',ic('Mul',x,y),ic('Mul',u,y),ic('Mul',u,v),p,q))
+        negative_proof=ic('NegateRespects',y,v,var('_yv'))
+        self.theorem('SubRespects',args,equiv(ic('Sub',x,y),ic('Sub',u,v)),ic('AddRespects',x,ic('Negate',y),u,ic('Negate',v),var('_xu'),negative_proof))
+    def observations(self):
+        x,y,u,v=var('x'),var('y'),var('u'),var('v');xy=[('x',integer()),('y',integer())]
+        l,r=cross(x,y);condition=eq(boolean(),ic('Equal',x,y),bit(True))
+        self.theorem('EqualFromEquivalent',xy+[('_same',equiv(x,y))],condition,nc('EqualComplete',l,r,var('_same')))
+        self.theorem('EqualReflect',xy+[('_true',condition)],equiv(x,y),nc('EqualReflect',l,r,var('_true')))
+        a,b=cross(x,y);aa,bb=cross(u,v);padding=add(neg(u),neg(v));other=add(neg(x),neg(y))
+        args=xy+[('u',integer()),('v',integer()),('_xu',equiv(x,u)),('_yv',equiv(y,v))];self.args=args
+        norm=PolynomialNormalizer(self.checkpoint)
+        pa=norm.prove(add(a,padding),add(add(pos(x),neg(u)),add(neg(y),neg(v))))
+        h=Equality(add(pos(x),neg(u)),add(pos(u),neg(x)),var('_xu'))
+        pa=pa.then(on_left(h,add(neg(y),neg(v))));pa=pa.then(norm.prove(pa.right,add(aa,other)))
+        pb=norm.prove(add(b,padding),add(add(pos(y),neg(v)),add(neg(x),neg(u))))
+        h=Equality(add(pos(y),neg(v)),add(pos(v),neg(y)),var('_yv'))
+        pb=pb.then(on_left(h,add(neg(x),neg(u))));pb=pb.then(norm.prove(pb.right,add(bb,other)))
+        for name in ('Equal','Less'):
+            left=nc(name,a,b);right=nc(name,aa,bb);translated=nc(name,add(a,padding),add(b,padding))
+            e=Equality(translated,left,nc(name+'Translate',a,b,padding),boolean()).reverse()
+            e=e.then(pa.mapped(lam('_value',nat(),nc(name,var('_value'),add(b,padding))),translated,nc(name,add(aa,other),add(b,padding)),boolean()))
+            e=e.then(pb.mapped(lam('_value',nat(),nc(name,add(aa,other),var('_value'))),nc(name,add(aa,other),add(b,padding)),nc(name,add(aa,other),add(bb,other)),boolean()))
+            e=e.then(Equality(nc(name,add(aa,other),add(bb,other)),right,nc(name+'Translate',aa,bb,other),boolean()))
+            self.theorem(name+'Respects',args,eq(boolean(),ic(name,x,y),ic(name,u,v)),e.proof)
+    def build(self):self.definitions();self.algebra();self.equivalence();self.observations()

@@ -149,6 +149,18 @@ constants. Both checkers accept all four sets with zero axioms. Fourteen altered
 statements reject by type mismatch; two dropped-carry candidates remain distinct
 conversion-fuel failures. All288 actual ripple/Go/big-integer observations agree.
 Remaining word/Nat/Int/contract/source proofs and complete Go elaboration stay open.
+The [ordinary arithmetic component](../migrations/go-practical/t01-w04/ordinary-arithmetic/README.md)
+adds unbounded Nat algebra,balanced-pair Int algebra and representative-safe
+comparisons,and half-open logical quantifiers/sums. Two ordinary sets pass both
+checkers with zero axioms; eight altered candidates reject by type mismatch.
+All27 existing closed logical heads now construct typed values and unproved
+Boolean statements. All149 Go/big-integer observations agree with an independent
+oracle;139 also agree with actual ordinary-AST execution,while ten large cases
+remain pending at that interpreter's private unary-loop ceiling. Sixteen
+targeted tests preserve false-clause,source and full-Go proof boundaries.
+The word-to-general-arithmetic connection,partial/source expressions and
+independent elaborator correctness remain required. All169 complete Go
+requests stay unelaborated; W04 remains open.
 Shared/downstream wire tables, remaining variant/source foundation,
 limits, schemas/hash identities and migration review remain open.
 T01 is incomplete and no practical Go profile is active.

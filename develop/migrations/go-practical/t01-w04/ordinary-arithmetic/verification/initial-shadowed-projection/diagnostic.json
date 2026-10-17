@@ -1,0 +1,24 @@
+{
+  "exit_code": 1,
+  "finding": "local proof variable neg shadows the negative-projection constructor",
+  "inputs": [
+    {
+      "path": "arithmetic_terms.py.txt",
+      "sha256": "bf7e1e80045764053b5fcac04df747ada8020dd1b87c34d6f6bc4cffc62f6055"
+    },
+    {
+      "path": "ordinary_arithmetic.py.txt",
+      "sha256": "9e22996db7e6bc7a78ea82b4e5a1a353a521bd4aa2edb341dd37f31d9576f186"
+    },
+    {
+      "path": "ordinary_integers.py.txt",
+      "sha256": "7e9432023414b0f860367b77f1b54dc9d341db1c734018f17d44bcf26e3e0b32"
+    },
+    {
+      "path": "output.log",
+      "sha256": "eec1a1f1334feae7c78dc788eb97e00c85269d323d7d4ea9cc5755a60d057c6e"
+    }
+  ],
+  "repair": "rename the local proof variable negative_proof",
+  "scope": "untrusted producer construction error; no certificate or source claim"
+}

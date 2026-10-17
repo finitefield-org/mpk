@@ -370,10 +370,28 @@ conservation,with conditional signed cross sums and13 exact typed Value
 specializations. Four sets pass both checkers with zero axioms;14 type-mismatch
 controls and two conversion-fuel failures remain separate. All288 actual
 ripple/Go/big-integer observations agree. The
-[current metadata checker](../../../probes/go-practical/check_numeric_metadata.py)
+[section50 metadata checker](../../../probes/go-practical/check_numeric_metadata.py)
 retains prior word/proof/capture evidence and143 predecessor paths. Its
 [verification record](word-numeric-bridge/verification/verification.json) retains
 the initial root/source-wrapper conversion findings,including the Rust-fuel/
 Go-accepted candidate repaired by explicit equality lifting. Remaining word,
 Nat/Int/contract/source/state/frame/control proofs and final Go assembly stay
 required. W04 remains open; W05 owns the T01 gate and all T02–T11 work remains.
+
+The [ordinary arithmetic component](ordinary-arithmetic/README.md) adds genuine
+unbounded Nat algebra,balanced-pair Int algebra/comparisons and half-open
+logical folds with preservation under actual bounded equality. Two sets pass
+both checkers at zero axioms; eight false/altered candidates reject by paired
+type mismatch. All27 existing closed logical heads construct typed ordinary
+Value/Defined definitions and unproved Boolean statements. All149 native
+Go/big-integer observations agree with an independent oracle;139 agree with
+actual ordinary-AST execution and ten large cases remain private-model pending.
+The [current metadata checker](../../../probes/go-practical/check_arithmetic_metadata.py)
+retains preceding numeric/word/proof evidence and143 predecessor paths. Its
+[verification record](ordinary-arithmetic/verification/verification.json) records
+16 targeted tests and the repaired producer variable-shadowing failure.
+The word/general-arithmetic bridge,partial/source expressions,bounded
+definedness,independent elaborator correctness and remaining ordinary
+source/state/frame/control/totality proofs remain due. All169 complete Go
+requests stay unelaborated. W04 is open; W05 owns the T01 gate and all T02–T11
+implementation/application/release work remains active.
