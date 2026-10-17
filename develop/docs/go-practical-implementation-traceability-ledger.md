@@ -2380,3 +2380,67 @@ metadata, source compilation and format checks, with selection reasons.
 Unaffected production/kernel suites are not repeated. The cumulative T01 gate
 is deferred to W05. W04 remains In progress, no T is complete and no practical
 Go profile is active. T02–T11 and the full implementation/release goal remain.
+
+## 37. T01-W04 closed syntax catalog and selected-call closure
+
+Entry: `af62c97bb2788638303b2c9d7e38a5046d664076`, clean before this work.
+The preceding checkpoint committed derived lifetime roots and slot-reuse
+evidence. This checkpoint advances source-admission freeze preparation while
+preserving the complete eleven-stage implementation/release objective.
+
+The [closed source catalog](../migrations/go-practical/t01-w04/source-admission/README.md)
+assigns explicit dispositions to all56 concrete pinned Go1.25 AST node kinds
+and all18 predeclared builtins. Seventeen AST kinds reject in selected code,
+seven describe captured structure and32 have typed/control/effect conditions.
+Only append/cap/copy/len/make are conditional builtin candidates. Each row
+names planned practical_closure/types/lower and test ownership, with independent
+artifact validation assigned to go_practical_artifacts. No production source,
+profile, installed registry, core rule or ordinary certificate changes.
+
+An original-source observer parses/type-checks intact single-file packages
+using pinned Go1.25.0 and explicit gc/amd64 sizes. It does not execute observed
+bodies or initializers. The candidate classifier follows all direct captured
+calls from one root, retaining physical UTF-8 declaration identities and
+qualified receiver methods. Parenthesized calls and method expressions work.
+A generic call retains its statically known body before generic use rejects;
+it is not mislabeled as an unknown indirect call. Call cycles and ambient
+state yield transitive root-to-declaration diagnostics. Apparently unreachable
+branches stay in closure without an accepted unreachability proof.
+
+Unsupported unselected function bodies remain type-check-only. Concrete error
+boxing requires the Error() string signature without calling its body. An
+explicit concrete method call adds that body; interface dispatch rejects.
+Original parse/type errors still reject the original package, including errors
+in unselected declarations. Constants and nominal representability are checked
+before candidate classification; exact untyped numeric computation is distinct
+from runtime floating/complex values and forbidden integer-to-string conversion.
+
+Eighty-one source vectors retain exact native JSON lines and derived results:
+31 candidate-unproved,46 rejected candidates, three Go type errors and one
+syntax error. Two identical observer runs per source and a fresh pinned rebuild
+reproduce native/source/binary identities. All four supported effective
+languages appear. The first draft's expected method display names were aligned
+to the observer's full captured package path, and an initial new-helper brace
+error was corrected before retained evidence; neither was a semantic outcome.
+
+The observer has no importer and is not the production capture/module loader.
+W02's retained module/replacement feasibility remains separate. Full captured
+type/constant/declaration manifests, compiler directives, adapters, Root/Plain
+global-error closure, independent import, source/evaluation/effect/permission/
+domain/call/frame/loop proofs and all counters remain required. In particular,
+the observer's predeclared error branch defers U/plainness validation; a candidate
+never authorizes an arbitrary error payload or unsupported actual application.
+Candidate rejection and compiler failure are not certified semantic falsity.
+
+Fifteen targeted tests cover the81-vector matrix, closed catalog, type-only
+versus selected/error body scope, transitive paths/cycles/generic calls,
+receiver identities, original errors, physical UTF-8 spans and source/target/
+binding crossings. The [verification record](../migrations/go-practical/t01-w04/source-admission/verification/verification.json)
+retains selected replay, metadata/predecessor/diagnostic integrity, syntax and
+format checks with scope/reasons. Unchanged production/kernel and older native/
+proof matrices are not rerun. The cumulative T01 gate is deferred to W05.
+
+W04 remains In progress. Complete semantic predicates, numeric/structural/
+capture/resource bounds, schema/hash identities, independent import and reviewed
+migrations remain due before freeze. W05 owns inactive publication and the
+T01 gate. No T is complete; all T02–T11 source/application/release work remains.

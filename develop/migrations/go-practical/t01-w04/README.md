@@ -68,6 +68,12 @@ remain T08–T11 work; the complete eleven-stage objective is unchanged.
   active entry values, pending operands/results/targets and error payloads;
   old/post stores remain independent across reuse. Source root completeness,
   safe retirement/translation and concrete bounded-state proofs remain due.
+- [Closed source/selected-call draft](source-admission/README.md): all 56 pinned
+  AST node kinds and 18 predeclared builtins have explicit dispositions and
+  planned owners. Eighty-one original packages retain 31 unproved candidates,
+  46 rejections and four compiler failures. Unselected/type-only bodies stay
+  separate from transitive selected calls. Complete typed/effect/capture/
+  adapter predicates and independent source/proof validation remain required.
 
 ## Shared-family decision
 
@@ -180,9 +186,16 @@ checks current native/model/ordinary evidence, retained receipts and unchanged
 predecessor files. Its [verification record](storage-views/verification/verification.json)
 keeps pointwise coupling proofs distinct from complete source normalization.
 
-The lifetime checkpoint's [current metadata checker](../../../probes/go-practical/check_lifetime_metadata.py)
+The lifetime checkpoint's [section36 metadata checker](../../../probes/go-practical/check_lifetime_metadata.py)
 checks derived-root/reuse evidence, retained owner/overlay/foundation receipts,
 planned executor scope and unchanged predecessor/diagnostic files. Its
 [verification record](storage-lifetimes/verification/verification.json)
 keeps model reachability and ordinary masked-store facts distinct from actual
 source/allocator correspondence. The cumulative T01 gate stays due in W05.
+
+The source checkpoint's [current metadata checker](../../../probes/go-practical/check_admission_metadata.py)
+checks closed AST/builtin ownership, all original/native/classifier identities,
+retained proof receipts and unchanged predecessor inputs. Its
+[verification record](source-admission/verification/verification.json)
+keeps compiler facts and candidate classifications distinct from production
+admission and source/model proof acceptance. W04 remains open.

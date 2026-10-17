@@ -41,6 +41,13 @@ Twelve native/model observations, 24 targeted tests and two accepted ordinary
 masked-frame/past-namespace statements support the design; three altered
 proofs reject. Source/root completeness and allocator/translation correctness
 remain unproved, and no actual Go GC or finite-carrier guarantee is claimed.
+The [closed source/closure draft](../migrations/go-practical/t01-w04/source-admission/README.md)
+assigns all 56 pinned AST nodes and 18 builtins explicit dispositions. Its
+81 intact original-source fixtures yield 31 unproved candidates, 46 candidate
+rejections and four original Go failures. Type-check-only functions, concrete
+error method signatures and selected body dependencies stay distinct; static
+call cycles and ambient state retain transitive paths. Complete independent
+capture/import, typed/effect predicates and source/proof binding remain due.
 Complete source/wire tables, remaining variant/source foundation,
 limits, schemas/hash identities and migration review remain open.
 T01 is incomplete and no practical Go profile is active.
