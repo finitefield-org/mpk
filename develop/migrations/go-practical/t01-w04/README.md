@@ -230,9 +230,22 @@ registry/entry/context/request/Go-parameter/selection roots. Existing four
 profiles use actual unchanged compiled Rust parameter/selection validators,
 including both Rust32/64 targets. The152 vectors and31 actual native queries
 separate configuration acceptance from source, complete foundation and proof
-acceptance. The [current metadata checker](../../../probes/go-practical/check_context_metadata.py)
+acceptance. The [section40 metadata checker](../../../probes/go-practical/check_context_metadata.py)
 checks retained identities/proofs, sources, diagnostics and draft scope.
 Its [verification record](context-protocol/verification/verification.json)
 records20 targeted tests and fresh native policy replay. W04 stays open;
 full roots/unions, foundation/limits/source predicates and migrations remain
 required. The cumulative T01 gate remains assigned to W05.
+
+The [foundation/limits packaging draft](foundation-limits/README.md) closes
+three roots with64 numeric/unit/outcome records,56 logical operations and the
+exact two-rule joint core proposal. Its recipe inventory is explicitly not
+a complete ordinary kernel/source foundation. Exact raw member bytes and
+acyclic descriptor/registry/context linkage have102 configuration vectors,
+21 three-observer hash preimages and20 targeted tests. The
+[current metadata checker](../../../probes/go-practical/check_foundation_limits_metadata.py)
+checks all earlier evidence,143 predecessor pins and both diagnostics.
+The [verification record](foundation-limits/verification/verification.json)
+retains selected checks and reasons. W04 stays open with full ordinary
+specialization/expansion/binding, source/contract/downstream schemas and
+reviewed migrations remaining. The cumulative T01 gate stays due in W05.

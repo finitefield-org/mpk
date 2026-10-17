@@ -69,6 +69,14 @@ and an exact private Go reference prevent profile mixing. The152 vectors,
 31 actual legacy-policy queries and20 targeted tests cover full typed
 context linkage and rehashed-registry attacks. Complete foundation/limits,
 source resolution and downstream schema/migration proofs remain required.
+The [foundation/limits package draft](../migrations/go-practical/t01-w04/foundation-limits/README.md)
+closes three more packaging roots with64 counter/unit/outcome records, all56
+logical operations in eight recipe families and the exact joint core proposal.
+Its descriptor binds original member bytes through an acyclic limits-to-
+definitions-to-descriptor-to-context chain. The102 configuration vectors,
+21 Python/Rust/Go preimages and20 targeted tests preserve both private
+generations and four existing profile policies. The recipe inventory remains
+explicitly incomplete ordinary kernel/source foundation work.
 Complete source/wire tables, remaining variant/source foundation,
 limits, schemas/hash identities and migration review remain open.
 T01 is incomplete and no practical Go profile is active.

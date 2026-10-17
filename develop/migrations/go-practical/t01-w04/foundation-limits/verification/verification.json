@@ -1,0 +1,86 @@
+{
+  "checks": [
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "-v",
+        "test_foundation_limits"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "unittest-foundation-limits.log",
+      "reason": "20 typed authority/unit/outcome/weight/core/operation/member-byte/symlink/private-generation linkage tests",
+      "sha256": "bd7af67fbfe0781d9bd1a34a123bebfcf72586ba6bc5a648a0feee8343c9fd07",
+      "wall_seconds": 1.5859463749802671
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/run_foundation_limits.py",
+        "--check"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "fresh-replay.log",
+      "reason": "Fresh offline locked Rust/Go canonicalization builds;21 complete hash preimages twice each,102 expected configuration vectors and exact pinned toolchain/source/binary identities",
+      "sha256": "998e670c20105adc228d5d72511a982e9c9f4252b023e2e88ff3f6ff5cb86f46",
+      "wall_seconds": 9.752177625021432
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/check_foundation_limits_metadata.py"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "metadata.log",
+      "reason": "Three-root/incomplete-ordinary scope, prior152/44/192/81/5/10/24/13/39 receipts,143 predecessor pins,two diagnostics,links and ledger41",
+      "sha256": "c767ba27e8b8f4fd44113fc59f1484763e191a1b0dee42750a7067866661941a",
+      "wall_seconds": 5.328833999985363
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "-c",
+        "import pathlib;p=pathlib.Path('develop/probes/go-practical');names=('foundation_limits_protocol.py','foundation_limits_vectors.py','test_foundation_limits.py','run_foundation_limits.py','check_foundation_limits_metadata.py');[compile((p/n).read_bytes(),str(p/n),'exec') for n in names];print('PASS: five new Python sources compile')"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "python-compile.log",
+      "reason": "Syntax compilation of five new packaging/model/vector/test/replay/metadata sources",
+      "sha256": "e7ef511670e20fa204fd39ff40fc62592d2b415aea4e870561a5113d2fbcbf21",
+      "wall_seconds": 0.03626279201125726
+    }
+  ],
+  "entry_commit": "15f6833f2931a3a39fa8cad450f1c48a2f813b60",
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "owner": "GO-PRAC-T01-W05",
+    "reason": "Intermediate W04; cumulative gate reserved for final W",
+    "status": "deferred"
+  },
+  "metadata_checker_sha256": "79b70a55d74e8ff52376d23891fc4bf589d82de3bb922d9036998807b15530b5",
+  "not_repeated": [
+    "unchanged production/kernel unit suites",
+    "old proof/native/operator/overlay matrices; retained source/receipt integrity checked",
+    "Rust/Go format checks: native hash observer sources unchanged and byte-pinned"
+  ],
+  "observed_tests": 20,
+  "output_scope": "complete raw combined stdout/stderr captured from local subprocesses",
+  "python_sources_compiled": 5,
+  "remaining": [
+    "complete ordinary carrier/operation/contract specialization/expansion/binding schemas and all source obligations",
+    "production joint core integration and four-profile migration/preservation, complete foundation bundle review/freeze, W05/T01 gate and T02\u2013T11"
+  ],
+  "schema": "mpk.go_practical.w04_foundation_limits_verification.v0",
+  "scope": "three private limits/definition-recipe-inventory/descriptor roots and exact context/member binding; not a complete ordinary/source foundation or production migration",
+  "source_inputs": 544,
+  "status": "W04 in progress; no T complete",
+  "work_item": "GO-PRAC-T01-W04"
+}

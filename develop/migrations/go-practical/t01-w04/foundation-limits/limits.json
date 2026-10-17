@@ -1,0 +1,534 @@
+{
+  "content_sha256": "49ab79bb15643fa34b5b0d9b15ce4c833d098e38b70e89f0af3206bdac570551",
+  "counters": [
+    {
+      "category": "source_capture",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/GO_VIR_PROFILE_V0.md ## 13. Deterministic limits",
+      "exceeded": "capture_rejected",
+      "id": "capture.bytes_per_captured_candidate",
+      "maximum": 16777216,
+      "unit": "bytes"
+    },
+    {
+      "category": "source_capture",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/GO_VIR_PROFILE_V0.md ## 13. Deterministic limits",
+      "exceeded": "capture_rejected",
+      "id": "capture.bytes_per_contract_candidate",
+      "maximum": 1048576,
+      "unit": "bytes"
+    },
+    {
+      "category": "source_capture",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/GO_VIR_PROFILE_V0.md ## 13. Deterministic limits",
+      "exceeded": "capture_rejected",
+      "id": "capture.contract_candidates_explicit_contract_paths",
+      "maximum": 128,
+      "unit": "count"
+    },
+    {
+      "category": "source_capture",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/GO_VIR_PROFILE_V0.md ## 13. Deterministic limits",
+      "exceeded": "capture_rejected",
+      "id": "capture.directories_visited_before_nested_module_pruning",
+      "maximum": 32768,
+      "unit": "count"
+    },
+    {
+      "category": "source_capture",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/GO_VIR_PROFILE_V0.md ## 13. Deterministic limits",
+      "exceeded": "capture_rejected",
+      "id": "capture.directory_entries_examined",
+      "maximum": 131072,
+      "unit": "count"
+    },
+    {
+      "category": "source_capture",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/GO_VIR_PROFILE_V0.md ## 13. Deterministic limits",
+      "exceeded": "capture_rejected",
+      "id": "capture.loader_relevant_candidate_entries",
+      "maximum": 32768,
+      "unit": "count"
+    },
+    {
+      "category": "source_capture",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/GO_VIR_PROFILE_V0.md ## 13. Deterministic limits",
+      "exceeded": "capture_rejected",
+      "id": "capture.manifest_inputs",
+      "maximum": 32768,
+      "unit": "count"
+    },
+    {
+      "category": "source_capture",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/GO_VIR_PROFILE_V0.md ## 13. Deterministic limits",
+      "exceeded": "capture_rejected",
+      "id": "capture.total_captured_candidate_bytes",
+      "maximum": 268435456,
+      "unit": "bytes"
+    },
+    {
+      "category": "source_capture",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/GO_VIR_PROFILE_V0.md ## 13. Deterministic limits",
+      "exceeded": "capture_rejected",
+      "id": "capture.total_contract_candidate_bytes",
+      "maximum": 8388608,
+      "unit": "bytes"
+    },
+    {
+      "category": "source_capture",
+      "counting_rule": "all materialized loaded go/ast nodes, including standard-library syntax; each tree once; new practical candidate only, predecessor remains1,000,000",
+      "exceeded": "capture_rejected",
+      "id": "capture.typed_syntax_nodes_across_included_packages",
+      "maximum": 4194304,
+      "unit": "count"
+    },
+    {
+      "category": "capture_manifest",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/SOURCE_MANIFEST_V0.md ## 11. Limits",
+      "exceeded": "model_rejected_limit",
+      "id": "manifest.canonical_json_bytes",
+      "maximum": 4194304,
+      "unit": "bytes"
+    },
+    {
+      "category": "capture_manifest",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/SOURCE_MANIFEST_V0.md ## 11. Limits",
+      "exceeded": "model_rejected_limit",
+      "id": "manifest.cfg_entries",
+      "maximum": 16384,
+      "unit": "count"
+    },
+    {
+      "category": "capture_manifest",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/SOURCE_MANIFEST_V0.md ## 11. Limits",
+      "exceeded": "model_rejected_limit",
+      "id": "manifest.frontend_subordinates",
+      "maximum": 0,
+      "unit": "count"
+    },
+    {
+      "category": "capture_manifest",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/SOURCE_MANIFEST_V0.md ## 11. Limits",
+      "exceeded": "model_rejected_limit",
+      "id": "manifest.inputs",
+      "maximum": 32768,
+      "unit": "count"
+    },
+    {
+      "category": "capture_manifest",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/SOURCE_MANIFEST_V0.md ## 11. Limits",
+      "exceeded": "model_rejected_limit",
+      "id": "manifest.json_nesting",
+      "maximum": 256,
+      "unit": "depth"
+    },
+    {
+      "category": "capture_manifest",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/SOURCE_MANIFEST_V0.md ## 11. Limits",
+      "exceeded": "model_rejected_limit",
+      "id": "manifest.normalized_path_bytes",
+      "maximum": 1024,
+      "unit": "bytes"
+    },
+    {
+      "category": "capture_manifest",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/SOURCE_MANIFEST_V0.md ## 11. Limits",
+      "exceeded": "model_rejected_limit",
+      "id": "manifest.string_bytes",
+      "maximum": 1048576,
+      "unit": "bytes"
+    },
+    {
+      "category": "capture_manifest",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/SOURCE_MANIFEST_V0.md ## 11. Limits",
+      "exceeded": "model_rejected_limit",
+      "id": "manifest.toolchain_components",
+      "maximum": 8192,
+      "unit": "count"
+    },
+    {
+      "category": "capture_manifest",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/SOURCE_MANIFEST_V0.md ## 11. Limits",
+      "exceeded": "model_rejected_limit",
+      "id": "manifest.units",
+      "maximum": 256,
+      "unit": "count"
+    },
+    {
+      "category": "proof_resources",
+      "counting_rule": "one bounded direct child/certificate; wall clock in monotonic nanoseconds and RSS in bytes; no false-claim inference",
+      "exceeded": "proof_pending_resource",
+      "id": "proof.certificate_bytes",
+      "maximum": 2097152,
+      "unit": "bytes"
+    },
+    {
+      "category": "proof_resources",
+      "counting_rule": "one bounded direct child/certificate; wall clock in monotonic nanoseconds and RSS in bytes; no false-claim inference",
+      "exceeded": "proof_pending_resource",
+      "id": "proof.certificate_declarations",
+      "maximum": 4096,
+      "unit": "count"
+    },
+    {
+      "category": "proof_resources",
+      "counting_rule": "one bounded direct child/certificate; wall clock in monotonic nanoseconds and RSS in bytes; no false-claim inference",
+      "exceeded": "proof_pending_resource",
+      "id": "proof.certificate_terms",
+      "maximum": 131072,
+      "unit": "count"
+    },
+    {
+      "category": "proof_resources",
+      "counting_rule": "one bounded direct child/certificate; wall clock in monotonic nanoseconds and RSS in bytes; no false-claim inference",
+      "exceeded": "proof_pending_resource",
+      "id": "proof.checker_wall_ns_each",
+      "maximum": 60000000000,
+      "unit": "monotonic_nanoseconds"
+    },
+    {
+      "category": "proof_resources",
+      "counting_rule": "one bounded direct child/certificate; wall clock in monotonic nanoseconds and RSS in bytes; no false-claim inference",
+      "exceeded": "proof_pending_resource",
+      "id": "proof.construction_wall_ns",
+      "maximum": 60000000000,
+      "unit": "monotonic_nanoseconds"
+    },
+    {
+      "category": "proof_resources",
+      "counting_rule": "one bounded direct child/certificate; wall clock in monotonic nanoseconds and RSS in bytes; no false-claim inference",
+      "exceeded": "proof_pending_resource",
+      "id": "proof.peak_rss_bytes_each_child",
+      "maximum": 1073741824,
+      "unit": "bytes"
+    },
+    {
+      "category": "semantic_domain",
+      "counting_rule": "registered-profile candidate dimension; all typing/validity/source and domain members remain independently required",
+      "exceeded": "domain_obligation_unproved",
+      "id": "semantic.joint_results",
+      "maximum": 16,
+      "unit": "count"
+    },
+    {
+      "category": "semantic_domain",
+      "counting_rule": "registered-profile candidate dimension; all typing/validity/source and domain members remain independently required",
+      "exceeded": "domain_obligation_unproved",
+      "id": "semantic.positive_owners_per_exact_root_type",
+      "maximum": 2,
+      "unit": "count"
+    },
+    {
+      "category": "semantic_domain",
+      "counting_rule": "registered-profile candidate dimension; all typing/validity/source and domain members remain independently required",
+      "exceeded": "domain_obligation_unproved",
+      "id": "semantic.slice_capacity",
+      "maximum": 128,
+      "unit": "count"
+    },
+    {
+      "category": "semantic_domain",
+      "counting_rule": "registered-profile candidate dimension; all typing/validity/source and domain members remain independently required",
+      "exceeded": "domain_obligation_unproved",
+      "id": "semantic.source_word_bits",
+      "maximum": 64,
+      "unit": "bits"
+    },
+    {
+      "category": "semantic_domain",
+      "counting_rule": "registered-profile candidate dimension; all typing/validity/source and domain members remain independently required",
+      "exceeded": "domain_obligation_unproved",
+      "id": "semantic.string_bytes",
+      "maximum": 256,
+      "unit": "bytes"
+    },
+    {
+      "category": "structural_artifact",
+      "counting_rule": "successor candidate: array/slice element, struct field and closed-error payload edges add one; named/alias edges add zero; predecessor array/struct meaning retained",
+      "exceeded": "model_rejected_limit",
+      "id": "shared.aggregate_type_nesting",
+      "maximum": 16,
+      "unit": "depth"
+    },
+    {
+      "category": "structural_artifact",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/VIR_V0.md ## 12. Shared deterministic limits",
+      "exceeded": "model_rejected_limit",
+      "id": "shared.array_elements",
+      "maximum": 256,
+      "unit": "count"
+    },
+    {
+      "category": "structural_artifact",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/VIR_V0.md ## 12. Shared deterministic limits",
+      "exceeded": "model_rejected_limit",
+      "id": "shared.block_parameters",
+      "maximum": 4096,
+      "unit": "count"
+    },
+    {
+      "category": "structural_artifact",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/VIR_V0.md ## 12. Shared deterministic limits",
+      "exceeded": "model_rejected_limit",
+      "id": "shared.blocks_per_function",
+      "maximum": 8192,
+      "unit": "count"
+    },
+    {
+      "category": "structural_artifact",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/VIR_V0.md ## 12. Shared deterministic limits",
+      "exceeded": "model_rejected_limit",
+      "id": "shared.blocks_per_module",
+      "maximum": 65536,
+      "unit": "count"
+    },
+    {
+      "category": "structural_artifact",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/VIR_V0.md ## 12. Shared deterministic limits",
+      "exceeded": "model_rejected_limit",
+      "id": "shared.call_args",
+      "maximum": 256,
+      "unit": "count"
+    },
+    {
+      "category": "structural_artifact",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/VIR_V0.md ## 12. Shared deterministic limits",
+      "exceeded": "model_rejected_limit",
+      "id": "shared.canonical_json_bytes",
+      "maximum": 201326592,
+      "unit": "bytes"
+    },
+    {
+      "category": "structural_artifact",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/VIR_V0.md ## 12. Shared deterministic limits",
+      "exceeded": "model_rejected_limit",
+      "id": "shared.cfg_edges_per_function",
+      "maximum": 16000,
+      "unit": "count"
+    },
+    {
+      "category": "structural_artifact",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/VIR_V0.md ## 12. Shared deterministic limits",
+      "exceeded": "model_rejected_limit",
+      "id": "shared.const_decls",
+      "maximum": 65536,
+      "unit": "count"
+    },
+    {
+      "category": "structural_artifact",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/VIR_V0.md ## 12. Shared deterministic limits",
+      "exceeded": "model_rejected_limit",
+      "id": "shared.contract_clauses",
+      "maximum": 64,
+      "unit": "count"
+    },
+    {
+      "category": "structural_artifact",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/VIR_V0.md ## 12. Shared deterministic limits",
+      "exceeded": "model_rejected_limit",
+      "id": "shared.contract_expr_nesting",
+      "maximum": 32,
+      "unit": "depth"
+    },
+    {
+      "category": "structural_artifact",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/VIR_V0.md ## 12. Shared deterministic limits",
+      "exceeded": "model_rejected_limit",
+      "id": "shared.contract_expr_nodes_per_function",
+      "maximum": 1024,
+      "unit": "count"
+    },
+    {
+      "category": "structural_artifact",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/VIR_V0.md ## 12. Shared deterministic limits",
+      "exceeded": "model_rejected_limit",
+      "id": "shared.contract_expr_nodes_per_module",
+      "maximum": 8192,
+      "unit": "count"
+    },
+    {
+      "category": "structural_artifact",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/VIR_V0.md ## 12. Shared deterministic limits",
+      "exceeded": "model_rejected_limit",
+      "id": "shared.functions",
+      "maximum": 8192,
+      "unit": "count"
+    },
+    {
+      "category": "structural_artifact",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/VIR_V0.md ## 12. Shared deterministic limits",
+      "exceeded": "model_rejected_limit",
+      "id": "shared.identifier_bytes",
+      "maximum": 1024,
+      "unit": "bytes"
+    },
+    {
+      "category": "structural_artifact",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/VIR_V0.md ## 12. Shared deterministic limits",
+      "exceeded": "model_rejected_limit",
+      "id": "shared.input_json_bytes",
+      "maximum": 268435456,
+      "unit": "bytes"
+    },
+    {
+      "category": "structural_artifact",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/VIR_V0.md ## 12. Shared deterministic limits",
+      "exceeded": "model_rejected_limit",
+      "id": "shared.instructions_per_block",
+      "maximum": 100000,
+      "unit": "count"
+    },
+    {
+      "category": "structural_artifact",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/VIR_V0.md ## 12. Shared deterministic limits",
+      "exceeded": "model_rejected_limit",
+      "id": "shared.instructions_per_function",
+      "maximum": 100000,
+      "unit": "count"
+    },
+    {
+      "category": "structural_artifact",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/VIR_V0.md ## 12. Shared deterministic limits",
+      "exceeded": "model_rejected_limit",
+      "id": "shared.instructions_per_module",
+      "maximum": 250000,
+      "unit": "count"
+    },
+    {
+      "category": "structural_artifact",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/VIR_V0.md ## 12. Shared deterministic limits",
+      "exceeded": "model_rejected_limit",
+      "id": "shared.json_nesting",
+      "maximum": 256,
+      "unit": "depth"
+    },
+    {
+      "category": "structural_artifact",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/VIR_V0.md ## 12. Shared deterministic limits",
+      "exceeded": "model_rejected_limit",
+      "id": "shared.locals",
+      "maximum": 65536,
+      "unit": "count"
+    },
+    {
+      "category": "structural_artifact",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/VIR_V0.md ## 12. Shared deterministic limits",
+      "exceeded": "model_rejected_limit",
+      "id": "shared.loop_decreases",
+      "maximum": 64,
+      "unit": "count"
+    },
+    {
+      "category": "structural_artifact",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/VIR_V0.md ## 12. Shared deterministic limits",
+      "exceeded": "model_rejected_limit",
+      "id": "shared.loop_invariants",
+      "maximum": 64,
+      "unit": "count"
+    },
+    {
+      "category": "structural_artifact",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/VIR_V0.md ## 12. Shared deterministic limits",
+      "exceeded": "model_rejected_limit",
+      "id": "shared.loops",
+      "maximum": 1024,
+      "unit": "count"
+    },
+    {
+      "category": "structural_artifact",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/VIR_V0.md ## 12. Shared deterministic limits",
+      "exceeded": "model_rejected_limit",
+      "id": "shared.params",
+      "maximum": 256,
+      "unit": "count"
+    },
+    {
+      "category": "structural_artifact",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/VIR_V0.md ## 12. Shared deterministic limits",
+      "exceeded": "model_rejected_limit",
+      "id": "shared.results",
+      "maximum": 16,
+      "unit": "count"
+    },
+    {
+      "category": "structural_artifact",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/VIR_V0.md ## 12. Shared deterministic limits",
+      "exceeded": "model_rejected_limit",
+      "id": "shared.string_bytes",
+      "maximum": 1048576,
+      "unit": "bytes"
+    },
+    {
+      "category": "structural_artifact",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/VIR_V0.md ## 12. Shared deterministic limits",
+      "exceeded": "model_rejected_limit",
+      "id": "shared.struct_fields",
+      "maximum": 64,
+      "unit": "count"
+    },
+    {
+      "category": "structural_artifact",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/VIR_V0.md ## 12. Shared deterministic limits",
+      "exceeded": "model_rejected_limit",
+      "id": "shared.type_decls",
+      "maximum": 4096,
+      "unit": "count"
+    },
+    {
+      "category": "structural_artifact",
+      "counting_rule": "unchanged predecessor counting rule in develop/specs/VIR_V0.md ## 12. Shared deterministic limits",
+      "exceeded": "model_rejected_limit",
+      "id": "shared.units",
+      "maximum": 256,
+      "unit": "count"
+    },
+    {
+      "category": "carrier_accounting",
+      "counting_rule": "complete fixed abstract value/owner/role/entry/result/target/past-store accounting; no live set supplied; saturated value above-limit count is a lower bound",
+      "exceeded": "domain_obligation_unproved",
+      "id": "weighted.all_store_units",
+      "maximum": 33554432,
+      "unit": "abstract_carrier_units"
+    },
+    {
+      "category": "carrier_accounting",
+      "counting_rule": "complete fixed abstract value/owner/role/entry/result/target/past-store accounting; no live set supplied; saturated value above-limit count is a lower bound",
+      "exceeded": "domain_obligation_unproved",
+      "id": "weighted.current_store_units",
+      "maximum": 8388608,
+      "unit": "abstract_carrier_units"
+    },
+    {
+      "category": "carrier_accounting",
+      "counting_rule": "complete fixed abstract value/owner/role/entry/result/target/past-store accounting; no live set supplied; saturated value above-limit count is a lower bound",
+      "exceeded": "domain_obligation_unproved",
+      "id": "weighted.past_store_units",
+      "maximum": 8388608,
+      "unit": "abstract_carrier_units"
+    },
+    {
+      "category": "carrier_accounting",
+      "counting_rule": "each source root/inline/observation value and each materialized Plain heap cell; backing array collections use store totals, not the per-value ceiling",
+      "exceeded": "domain_obligation_unproved",
+      "id": "weighted.value_units",
+      "maximum": 2097152,
+      "unit": "abstract_carrier_units"
+    }
+  ],
+  "id": "mpk.go.practical.limits.v1",
+  "schema": "mpk.go.practical.limits.v1",
+  "semantic_profile": "mpk.go.practical.v1",
+  "version": 1,
+  "weights": {
+    "array": "1+n*W(element)",
+    "bool_or_full_word": 1,
+    "byte_string": 257,
+    "closed_error": "1+sum(W(each global-U payload))",
+    "named_alias": "W(resolved underlying)",
+    "owner_header": 1,
+    "scope_or_packet_header": 1,
+    "slice_descriptor": 37,
+    "snapshot_observation_header": 1,
+    "struct": "1+sum(W(field))",
+    "typed_location": 33
+  }
+}

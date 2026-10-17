@@ -2659,3 +2659,82 @@ binding/call/contract and downstream shared root/union schemas, independent
 import/source proofs, reviewed migration/semantic preservation and activation/
 rollback gates remain required. W05 owns inactive publication and the T01
 gate. No T is complete; T02–T11 implementation/application/release remain active.
+
+## 41. T01-W04 exact limits and foundation packaging references
+
+Entry: `15f6833f2931a3a39fa8cad450f1c48a2f813b60`, clean before this work.
+The preceding checkpoint closed context/request roots with deliberately
+incomplete private foundation/limits fixtures. This checkpoint adds exact
+packaging records while keeping full ordinary/source foundation completion
+and the eleven-stage objective required.
+
+The [packaging draft](../migrations/go-practical/t01-w04/foundation-limits/README.md)
+closes three root shapes: limits, definition recipe inventory and descriptor.
+Every required field enters its domain-separated typed hash, except its own
+content_sha256. The entire record must match compiled values after hashing;
+rehashing caller limits, weights, core interfaces, operations or members
+does not authorize a new candidate. Unknown/missing/extra fields reject.
+Old normative schemas, active registry, reserved C# meanings and Certificate
+v0 remain unchanged.
+
+All64 preceding independent numeric candidates have explicit maximum, unit,
+category, counting rule and exceeded outcome. The4,194,304 practical syntax
+candidate remains separate from predecessor1,000,000. Units distinguish
+byte counts, full word bits, depth, nanoseconds, abstract carrier units and
+the exact counted object. Domain/unproved-resource outcomes cannot become
+Go panic, semantic falsity or success. Full current/past weights retain all
+bytes, fields, inactive global-U payloads, copied values and observations.
+The source counter, finite-id, allocator and production supervisor proofs
+remain required rather than inferred from serialized numbers.
+
+The definitions record is explicitly operation_recipe_inventory_draft,
+containing all56 logical operations in eight component families and six
+common source/validity/evaluation/safety/value-effect/frame members. It pins
+the exact operation table and six historical evidence receipts. Those proofs
+retain their own scopes and do not prove missing concrete specialization or
+source body/contract obligations. Empty source-callable and caller-extension
+lists cannot register an executable application adapter.
+
+The joint core proposal binds exact Sort0 Nat.induct and Bool.recType types,
+iota equations, canonical generated family/constructor checks, monomorphism
+including prior opaque/theorem uses and later-constructor rejection. The four
+existing Rust/Go implementations and77-file mirrored closure match retained
+private evidence. Production core integration remains T02 work. Complete
+ordinary concrete definitions and specialization/expansion/binding schemas
+are not replaced by this operation recipe index.
+
+Descriptor members are exactly the two canonical limits/definitions files
+and the semantic-rules document, with raw SHA256 and byte length including LF.
+Missing/extra/stale/altered/escaping members reject; filesystem symlinks reject
+before reading. The descriptor excludes its own bytes, contexts, instances
+and executable/release outputs. Limits precede definitions, both precede
+descriptor and registry/context. Later release binding cannot introduce a
+self-hash cycle.
+
+Freshly linked private registry/contexts/requests use the new exact limits
+and descriptor references. The earlier private generation remains unchanged;
+mixing its registry/foundation/limits rejects. This draft assembly is not
+production migration or normative publication. All four retained profiles
+keep null foundations and actual compiled policies, including Rust32/64.
+The102 reconstructible vectors have16 configuration candidates and86
+configuration rejections. They are not checker/source verdicts.
+
+Twenty-one complete canonical preimages cover the three roots, five entries,
+registry, six contexts and six requests. Python, unchanged Rust canonicalizer
+and independent Go observer agree on every byte/digest, with two identical
+native runs each. Fresh replay verifies pinned Go1.25.0 and binary/source
+identities. Twenty targeted tests cover compiled authority, counter/unit/
+outcome/weight integrity, joint core/source references, all logical operations,
+raw member sets/LF/symlink guards and private-generation crossings.
+The [verification record](../migrations/go-practical/t01-w04/foundation-limits/verification/verification.json)
+retains selected tests, native replay, metadata, Python compilation, complete
+raw logs and reasons. Earlier receipts/diagnostics and143 predecessor files
+remain unchanged. Unaffected production/kernel and old proof/native matrices
+are not rerun. The cumulative T01 gate remains deferred to W05.
+
+W04 remains In progress. Complete ordinary concrete carrier/operation/
+contract definitions, specialization/expansion/binding/type/downstream
+schemas and source predicates, reviewed producer/consumer migration and
+four-profile semantic preservation/activation/rollback remain required.
+W05 owns inactive publication and the cumulative T01 gate. No T is complete;
+the complete T02–T11 application/implementation/release objective stays active.
