@@ -1,0 +1,96 @@
+{
+  "checks": [
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "-v",
+        "test_contract_wire"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "unittest-contract-wire.log",
+      "reason": "20 selected raw-byte/nominal/binding/namespace/de-Bruijn/full-width/path/limit/mutation tests",
+      "sha256": "6c2c4aa560f3caa08fc07f07a1fdaa54d498a9712418d1a3cf73a5f6ebf54da1",
+      "wall_seconds": 35.745061292022
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/run_contract_wire.py",
+        "--check"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "fresh-replay.log",
+      "reason": "Fresh unchanged native hash-observer builds;24 full source contract cases,70 typed components,97 Python/Rust/Go complete preimages with two identical native runs each and source/binary stability",
+      "sha256": "fd3b2c1d8d7d75a9a0a68af9d91bab032a1fa5187e697094aae4b4095e3fd5f2",
+      "wall_seconds": 281.9859296249924
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/check_contract_wire_metadata.py"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "metadata.log",
+      "reason": "Closed root/arm/domain/worklist consistency, all retained evidence,143 predecessor pins,two diagnostics,links and ledger43",
+      "sha256": "5e89d42553b5194eee04631dcac53caecf96190e47f327e2a4d3033c521a2510",
+      "wall_seconds": 144.3476852919557
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "-c",
+        "import pathlib;p=pathlib.Path('develop/probes/go-practical');names=('contract_scope.py', 'contract_wire.py', 'contract_catalog.py', 'contract_wire_vectors.py', 'run_contract_wire.py', 'test_contract_wire.py', 'check_contract_wire_metadata.py');[compile((p/n).read_bytes(),str(p/n),'exec') for n in names];print('PASS: seven new Python sources compile')"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "python-compile.log",
+      "reason": "Syntax compilation of all seven new private scope/wire/catalog/vector/replay/test/metadata sources",
+      "sha256": "e4df2efa2dfb72a9d50afd17f0b66f9e2d048c04d71549f84108eced152ce344",
+      "wall_seconds": 0.07812004099832848
+    }
+  ],
+  "entry_commit": "87d3d4e000339ff155cf72c9e7c8e8285efcc7c0",
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "owner": "GO-PRAC-T01-W05",
+    "reason": "Intermediate W04; cumulative gate reserved for final W",
+    "status": "deferred"
+  },
+  "metadata_checker_sha256": "bc9da072808f988341344678560272a9ab480f0410d186c13a24e815d8932350",
+  "not_repeated": [
+    "unchanged production/kernel and older proof/native matrices; retained source/data/certificate integrity checked",
+    "Rust/Go format checks: neither language source changed"
+  ],
+  "observed_tests": 20,
+  "output_scope": "complete raw combined stdout/stderr captured from local subprocesses",
+  "python_sources_compiled": 7,
+  "remaining": [
+    "independent complete source/capture/alias/type/lexical binding/global-U root derivation and all source/definedness/value/permission/frame/loop proofs",
+    "shared VIR/source-map/manifest/VC/policy/API/release roots/unions, reviewed four-profile migration, W05/T01 gate and T02\u2013T11"
+  ],
+  "review": {
+    "actionable_findings": [],
+    "checked": [
+      "raw-overlay/capture hash order and complete-context/source/loop binding",
+      "nominal/alias/field identity and header/result/range scope reconstruction",
+      "de-Bruijn binder freshness, entry/header/return namespaces and old-observation boundaries",
+      "partial-operation obligations, pending variants and explicit limits of typed/hash evidence",
+      "W04 versus T02\u2013T06 production ownership and unchanged frozen source/receipt pins"
+    ],
+    "kind": "local manual review of new fixture/model and selected diffs"
+  },
+  "schema": "mpk.go_practical.w04_contract_wire_verification.v0",
+  "scope": "private closed source/scope/normalized contract model; no independent production import or source/definedness proof",
+  "source_inputs": 577,
+  "status": "W04 in progress; selected checks passed; no T complete",
+  "work_item": "GO-PRAC-T01-W04"
+}

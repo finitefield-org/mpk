@@ -254,9 +254,22 @@ The [closed carrier/ordinary expansion draft](closed-carriers/README.md)
 derives42/43 instances from39 source/fixture types and emits complete ordinary
 carriers/zeros with46/47 new checked theorems. Both unchanged private checkers
 accept the two full sets and reject six controls. Two legacy certificates
-also reproduce. The [current metadata checker](../../../probes/go-practical/check_carrier_metadata.py)
+also reproduce. The [section42 metadata checker](../../../probes/go-practical/check_carrier_metadata.py)
 checks exact schemas/closure/certificates, all retained evidence and source
 pins. Its [verification record](closed-carriers/verification/verification.json)
 records20 selected tests and full local replay. Source/validity/finite-id
 and operation bindings remain unproved; W04 and the complete objective stay
 open. The cumulative T01 gate remains assigned to W05.
+
+The [closed contract wire draft](contract-wire/README.md) closes source-overlay,
+source-scope and normalized-contract roots plus all70 expression arms. Exact
+nominal types, lexical binding/loop IDs, de Bruijn depths and full snapshot
+namespaces have20 selected tests. The24 source cases retain5 unproved,
+1 pending-variant and18 rejected outcomes. Ninety-seven Python/Rust/Go hash
+preimages agree; component hashes are private tests and no source/definedness
+proof verdict is claimed. The [current metadata checker](../../../probes/go-practical/check_contract_wire_metadata.py)
+checks all retained evidence, source pins,143 predecessor paths and both
+diagnostics. Its [verification record](contract-wire/verification/verification.json)
+records selected checks and reasons. Independent production import/proofs,
+shared/downstream roots/unions and reviewed migration remain due. W04 stays
+open, with the cumulative T01 gate due in W05 and all T02–T11 still active.

@@ -85,7 +85,14 @@ nominal identity, full word/byte shapes, global-U-dependent Plain and ordered
 result arity remain explicit. Owner labels stay Nat ghosts, with finite-id,
 input validity, complete source/operation bindings and normalization proofs
 still required. Twenty targeted tests cover the concrete expansion boundary.
-Complete source/wire tables, remaining variant/source foundation,
+The [closed contract wire draft](../migrations/go-practical/t01-w04/contract-wire/README.md)
+closes three roots and all70 source/normalized expression arms with exact
+nominal type IDs, lexical bindings, de Bruijn depths and observation namespaces.
+Twenty targeted tests,24 source cases and97 Python/Rust/Go canonical preimages
+cover the private model. Original overlay bytes precede capture-dependent
+identities. Independent production capture/import, source and definedness
+proofs remain due; typed normalization is not a proof verdict.
+Shared/downstream wire tables, remaining variant/source foundation,
 limits, schemas/hash identities and migration review remain open.
 T01 is incomplete and no practical Go profile is active.
 

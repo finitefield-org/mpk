@@ -2824,3 +2824,82 @@ operation/contract/control/source-binding laws, downstream artifacts and
 reviewed producer/consumer migration/preservation remain required. W05 owns
 inactive publication and the T01 gate. No T is complete; all T02–T11
 implementation/application/release scope remains active.
+
+## 43. T01-W04 closed source scope and normalized contract wire
+
+Entry: `87d3d4e000339ff155cf72c9e7c8e8285efcc7c0`, clean before this work.
+The preceding concrete carrier checkpoint left complete source/contract wire
+shapes open. The [contract wire draft](../migrations/go-practical/t01-w04/contract-wire/README.md)
+now closes three roots, 70 source heads and 70 normalized heads, preserving
+the complete eleven-stage objective and earlier private/core evidence.
+
+Two new scope/binding schema identities and hash domains avoid all prior Go
+and reserved C# names. Source-overlay and contract reuse their proposed v1
+names. Exact required roots/payloads, complete typed contexts and whole-value
+preimages reject unknown/inactive fields and rehashed caller substitutions.
+No producer proof-status flag is trusted. Raw overlay bytes, including their
+original whitespace/escapes, enter capture before binding/loop identities;
+normalized hashes stay outside capture. Duplicate JSON names reject. Physical
+loop selectors precede derived capture-dependent loop refs, avoiding a cycle.
+
+The private model uses one original Go source, one overlay, literal fixture
+module metadata, 33 native type facts and six synthetic boundary shapes.
+Fixture declaration/line/token locators and supplied roots/error U remain
+private inputs. Their structural consistency does not prove independent
+source/capture/alias/underlying/binding/U completeness. Full immutable project
+capture and general independent production import remain T02 work.
+
+Twelve-field bindings retain capture/source/function/type and physical span.
+Inputs are signature-ordered, receiver first; joint results retain order.
+Header membership uses exact lexical IDs, preserving shadowing. Aliases share
+their target type ID while distinct nominal types remain distinct. Field and
+error paths retain exact owner/ordinal/case IDs. Entry error paths include all
+capacity tails; empty cases mean nil-only and confer no ownership. Lexical
+identity supplies no runtime invocation or post-state proof by itself.
+
+Normalized input/result/header/range/heap references retain entry/header/return
+namespaces. Whole-observation old differs from an old descriptor observed in
+the current state. Entry cannot read result/header/range locals. Finite
+quantifiers and sums use typed de Bruijn depths with outer-scope bounds and
+a body-only Nat binder. Shape decoding reconstructs and independently retypes
+fixture expressions. Scope reconstruction detects mutated authority objects.
+Neither reference-model validation nor equal core carriers proves Go source
+semantics, nominal assignment, definedness, permission or termination.
+
+All 70 arms retain fixed arity and complete source/logical types, full word
+literals and shift counts. Per-function 1024-node/depth 32 and clause/loop
+limits have boundary controls. The catalog lists 13 partial-operation proof
+member kinds without claiming their implementation. The older private digit
+resource guard is not a semantic Nat bound. Truncated Nat subtraction, finite
+intervals, guarded definedness and snapshot-sensitive observations retain
+their existing meaning. Complete ordinary proofs belong to T02–T06.
+
+Twenty-four source vectors retain 5 normalized unproved candidates, 1 pending
+variant and 18 configuration rejections. Three total for-loop variants remain
+missing in the pending case; generated invariants/ranks are candidates only.
+Seventy typed component queries cover every source/normalized head; they are
+not all literal members of one captured overlay. Six complete normalized
+contracts retain raw overlay bytes and full scopes for reconstruction.
+
+Ninety-seven complete canonical preimages cover six scopes, six contracts,
+fifteen bindings and 70 components. Component hashes use the existing private
+pilot domain and create no public expression identity. Fresh unchanged Rust
+and Go hash observers agree with Python on canonical bytes/digests, with two
+identical native runs each. The receipt pins 577 source/data inputs and the
+same 14,496-file Go 1.25.0 inventory. Hash agreement is not source or checker
+acceptance evidence.
+
+Twenty selected tests cover source raw bytes, aliases, shadowed/named bindings,
+old/current namespaces, nested binders, nominal/full-width types, capacity
+paths, limits and rehashed/mutated records. The
+[verification record](../migrations/go-practical/t01-w04/contract-wire/verification/verification.json)
+retains selected unit/replay/metadata/compile logs and selection reasons.
+All earlier receipts/diagnostics and143 predecessor paths remain unchanged.
+No Rust/Go source changed, so earlier format/proof/kernel suites are not
+rerun. The cumulative T01 gate remains deferred to W05.
+
+W04 remains In progress. Complete shared VIR/map/manifest/VC/policy/API/release
+roots/unions and producer/consumer migration review remain required. W05 owns
+inactive publication and the T01 full gate. Source/ordinary operation/body
+proof implementation and application/release work remain T02–T11; no T is
+complete and the Go practical profile is inactive.

@@ -1,0 +1,2066 @@
+{
+  "binding_required_fields": [
+    "schema",
+    "capture_context_id",
+    "source_object_id",
+    "function_decl_id",
+    "kind",
+    "position",
+    "name",
+    "start_byte",
+    "end_byte",
+    "source_type_id",
+    "id"
+  ],
+  "binding_schema": "mpk.go.binding.v1",
+  "contract_schema": "mpk.go.practical.contract.v1",
+  "expression_type_union": {
+    "logical": [
+      "kind",
+      "name"
+    ],
+    "source": [
+      "kind",
+      "source_type_id"
+    ]
+  },
+  "logical_types": [
+    "Bool",
+    "Nat",
+    "Int"
+  ],
+  "new_identities": [
+    {
+      "domain": "MPK-GO-CONTRACT-SCOPE-1.0",
+      "schema": "mpk.go.contract_scope.v1"
+    },
+    {
+      "domain": "MPK-GO-BINDING-1.0",
+      "schema": "mpk.go.binding.v1"
+    }
+  ],
+  "normalized_arms": [
+    {
+      "args_count": null,
+      "definedness_members": [],
+      "op": "binding",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "binding_id",
+        "loop_ref_id",
+        "namespace"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 2,
+      "definedness_members": [],
+      "op": "bool.and",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 2,
+      "definedness_members": [],
+      "op": "bool.implies",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": null,
+      "definedness_members": [],
+      "op": "bool.literal",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "value"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 1,
+      "definedness_members": [],
+      "op": "bool.not",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 2,
+      "definedness_members": [],
+      "op": "bool.or",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 1,
+      "definedness_members": [],
+      "op": "bool.value",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": null,
+      "definedness_members": [],
+      "op": "bound",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "depth"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 2,
+      "definedness_members": [
+        "index less than logical byte length"
+      ],
+      "op": "byte_at",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 2,
+      "definedness_members": [
+        "result byte length within registered256-byte domain; not a Go panic"
+      ],
+      "op": "bytes.concat",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": null,
+      "definedness_members": [],
+      "op": "bytes.literal",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "value"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 2,
+      "definedness_members": [],
+      "op": "bytes.prefix",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 3,
+      "definedness_members": [
+        "ordered endpoints within logical byte length"
+      ],
+      "op": "bytes.slice",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 2,
+      "definedness_members": [],
+      "op": "bytes.suffix",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 1,
+      "definedness_members": [],
+      "op": "capacity",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 2,
+      "definedness_members": [
+        "index less than actual array/slice length",
+        "same-snapshot live typed slice owner and permitted observation"
+      ],
+      "op": "element",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args",
+        "namespace"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 2,
+      "definedness_members": [],
+      "op": "eq",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": null,
+      "definedness_members": [],
+      "op": "error.is",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "value",
+        "case_type_id"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": null,
+      "definedness_members": [
+        "exact matching dynamic case in common global U"
+      ],
+      "op": "error.payload",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "value",
+        "case_type_id"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": null,
+      "definedness_members": [],
+      "op": "exists",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "lower",
+        "upper",
+        "body"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": null,
+      "definedness_members": [],
+      "op": "field",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "value",
+        "owner_type_id",
+        "field_ordinal"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": null,
+      "definedness_members": [],
+      "op": "forall",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "lower",
+        "upper",
+        "body"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 2,
+      "definedness_members": [],
+      "op": "ge",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 2,
+      "definedness_members": [],
+      "op": "gt",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 3,
+      "definedness_members": [],
+      "op": "if",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": null,
+      "definedness_members": [],
+      "op": "input",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "position",
+        "binding_id",
+        "namespace"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 2,
+      "definedness_members": [],
+      "op": "int.add",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 1,
+      "definedness_members": [],
+      "op": "int.from_signed",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 1,
+      "definedness_members": [],
+      "op": "int.from_unsigned",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": null,
+      "definedness_members": [],
+      "op": "int.literal",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "value"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 2,
+      "definedness_members": [],
+      "op": "int.mul",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 1,
+      "definedness_members": [],
+      "op": "int.neg",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 2,
+      "definedness_members": [],
+      "op": "int.sub",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": null,
+      "definedness_members": [],
+      "op": "int.sum",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "lower",
+        "upper",
+        "body"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 1,
+      "definedness_members": [],
+      "op": "is_nil",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 2,
+      "definedness_members": [],
+      "op": "le",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 1,
+      "definedness_members": [],
+      "op": "length",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 2,
+      "definedness_members": [],
+      "op": "lt",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 2,
+      "definedness_members": [],
+      "op": "nat.add",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 1,
+      "definedness_members": [
+        "nonnegative source word before conversion to Nat"
+      ],
+      "op": "nat.from_signed",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 1,
+      "definedness_members": [],
+      "op": "nat.from_unsigned",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": null,
+      "definedness_members": [],
+      "op": "nat.literal",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "value"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 2,
+      "definedness_members": [],
+      "op": "nat.mul",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 2,
+      "definedness_members": [],
+      "op": "nat.sub",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": null,
+      "definedness_members": [],
+      "op": "nat.sum",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "lower",
+        "upper",
+        "body"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 1,
+      "definedness_members": [],
+      "op": "nat.to_int",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 2,
+      "definedness_members": [],
+      "op": "ne",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": null,
+      "definedness_members": [],
+      "op": "old",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "namespace",
+        "value"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": null,
+      "definedness_members": [],
+      "op": "range.index",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "loop_ref_id",
+        "namespace"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": null,
+      "definedness_members": [],
+      "op": "range.length",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "loop_ref_id",
+        "namespace"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": null,
+      "definedness_members": [],
+      "op": "result",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "position",
+        "binding_id",
+        "namespace"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 2,
+      "definedness_members": [
+        "both actual lengths and all guarded same-snapshot element observations",
+        "value comparison only; no slice identity equality"
+      ],
+      "op": "sequence.equal",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args",
+        "namespace"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 3,
+      "definedness_members": [
+        "ordered endpoints within capacity",
+        "same-snapshot descriptor validity and permission; no copied-list semantics"
+      ],
+      "op": "slice.view2",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 4,
+      "definedness_members": [
+        "ordered lo<=hi<=max<=capacity",
+        "same-snapshot descriptor validity and permission"
+      ],
+      "op": "slice.view3",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": null,
+      "definedness_members": [],
+      "op": "source.zero",
+      "optional_fields": [],
+      "payload_required_fields": [],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 2,
+      "definedness_members": [],
+      "op": "word.add",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 2,
+      "definedness_members": [],
+      "op": "word.and",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 2,
+      "definedness_members": [],
+      "op": "word.andnot",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": null,
+      "definedness_members": [],
+      "op": "word.convert",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "value"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 2,
+      "definedness_members": [
+        "nonzero divisor; Go min/-1 wraps, with no invented overflow panic"
+      ],
+      "op": "word.div",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": null,
+      "definedness_members": [],
+      "op": "word.literal",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "value"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 2,
+      "definedness_members": [],
+      "op": "word.mul",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 1,
+      "definedness_members": [],
+      "op": "word.neg",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 1,
+      "definedness_members": [],
+      "op": "word.not",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 2,
+      "definedness_members": [],
+      "op": "word.or",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 2,
+      "definedness_members": [
+        "nonzero divisor; Go min%-1 is zero"
+      ],
+      "op": "word.rem",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 2,
+      "definedness_members": [
+        "nonnegative signed count; full unsigned count allowed without a width ceiling"
+      ],
+      "op": "word.shl",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 2,
+      "definedness_members": [
+        "nonnegative signed count; full unsigned count allowed without masking"
+      ],
+      "op": "word.shr",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 2,
+      "definedness_members": [],
+      "op": "word.sub",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "args_count": 2,
+      "definedness_members": [],
+      "op": "word.xor",
+      "optional_fields": [],
+      "payload_required_fields": [
+        "args"
+      ],
+      "proof_boundary": "typing is not definedness/value/source/frame proof; empty member list introduces no axiom",
+      "required_fields": [
+        "op",
+        "type",
+        "payload"
+      ],
+      "unknown_fields": "reject"
+    }
+  ],
+  "normalized_path_union": {
+    "elements": [
+      "kind",
+      "owner_type_id",
+      "extent"
+    ],
+    "field": [
+      "kind",
+      "owner_type_id",
+      "ordinal"
+    ]
+  },
+  "normalized_variant_union": {
+    "absent": [
+      "kind"
+    ],
+    "candidate": [
+      "kind",
+      "origin",
+      "expression"
+    ]
+  },
+  "remaining": [
+    "independent complete source/capture/alias/type/lexical binding/global-U root derivation and all source/definedness/value/permission/frame/loop proofs",
+    "shared VIR/source-map/manifest/VC/policy/API/release roots/unions, reviewed four-profile migration, W05/T01 gate and T02\u2013T11"
+  ],
+  "roots": [
+    {
+      "field_types": {
+        "ensures": "ordered logical Bool expressions,1..64",
+        "error_inputs": "complete typed entry paths and explicit case selectors",
+        "function": "closed Go selector with required nullable value receiver",
+        "loops": "unique exact physical loop selectors with invariants/tagged variants",
+        "modifies": "empty array",
+        "requires": "ordered logical Bool expressions,0..64",
+        "schema": "literal source_overlay.v1",
+        "source": "captured logical source path",
+        "termination": "partial or total"
+      },
+      "hash_domain": null,
+      "hash_field": null,
+      "hash_preimage_fields": [
+        "schema",
+        "source",
+        "function",
+        "termination",
+        "requires",
+        "ensures",
+        "error_inputs",
+        "loops",
+        "modifies"
+      ],
+      "name": "source_overlay",
+      "optional_fields": [],
+      "required_fields": [
+        "schema",
+        "source",
+        "function",
+        "termination",
+        "requires",
+        "ensures",
+        "error_inputs",
+        "loops",
+        "modifies"
+      ],
+      "schema": "mpk.go.practical.source_overlay.v1",
+      "unknown_fields": "reject"
+    },
+    {
+      "field_types": {
+        "bindings": "id-sorted closed binding records",
+        "capture_context_id": "same complete raw-source/overlay capture id",
+        "content_sha256": "lowercase sha256",
+        "error_universe_id": "one same global-U id",
+        "function_decl_id": "exact same-package function/value method id",
+        "headers": "loop-preorder exact headers with sorted live binding ids",
+        "identity_nodes": "complete source/capture/function/signature/loop identity DAG",
+        "identity_roots": "complete private supplied identity roots",
+        "inputs": "signature-ordered binding ids,receiver first",
+        "results": "signature-ordered result binding ids",
+        "schema": "literal contract_scope.v1",
+        "semantic_context": "complete validated Go practical context.v3",
+        "signature_id": "exact receiver/parameter/result signature id",
+        "source_object_id": "exact captured Go source object id",
+        "source_overlay_object_id": "exact raw overlay object id",
+        "type_definitions": "complete source type definition package"
+      },
+      "hash_domain": "MPK-GO-CONTRACT-SCOPE-1.0",
+      "hash_field": "content_sha256",
+      "hash_preimage_fields": [
+        "schema",
+        "semantic_context",
+        "capture_context_id",
+        "source_overlay_object_id",
+        "source_object_id",
+        "function_decl_id",
+        "signature_id",
+        "error_universe_id",
+        "type_definitions",
+        "identity_nodes",
+        "identity_roots",
+        "bindings",
+        "inputs",
+        "results",
+        "headers"
+      ],
+      "name": "source_scope",
+      "optional_fields": [],
+      "required_fields": [
+        "schema",
+        "semantic_context",
+        "capture_context_id",
+        "source_overlay_object_id",
+        "source_object_id",
+        "function_decl_id",
+        "signature_id",
+        "error_universe_id",
+        "type_definitions",
+        "identity_nodes",
+        "identity_roots",
+        "bindings",
+        "inputs",
+        "results",
+        "headers",
+        "content_sha256"
+      ],
+      "schema": "mpk.go.contract_scope.v1",
+      "unknown_fields": "reject"
+    },
+    {
+      "field_types": {
+        "capture_context_id": "scope-equal capture id",
+        "contract_hash": "lowercase sha256",
+        "ensures": "nonempty ordered typed logical Bool nodes",
+        "entry_storage": "fixed read_only/forbidden external mutation conditions",
+        "error_inputs": "complete binding/typed-path/sorted case-id records",
+        "function_decl_id": "scope-equal source function id",
+        "loops": "source-preorder complete loop refs/invariants/tagged variants",
+        "modifies": "empty array",
+        "pending_candidates": "derived missing total variant candidates,not a proof verdict",
+        "requires": "ordered typed logical Bool nodes",
+        "schema": "literal practical.contract.v1",
+        "semantic_context": "scope-equal full typed context",
+        "signature_id": "scope-equal source signature id",
+        "source_overlay_object_id": "scope-equal raw overlay object id",
+        "source_scope_sha256": "complete independently reconstructed scope hash",
+        "termination": "partial or total"
+      },
+      "hash_domain": "MPK-GO-PRACTICAL-CONTRACT-1.0",
+      "hash_field": "contract_hash",
+      "hash_preimage_fields": [
+        "schema",
+        "semantic_context",
+        "source_scope_sha256",
+        "source_overlay_object_id",
+        "capture_context_id",
+        "function_decl_id",
+        "signature_id",
+        "termination",
+        "requires",
+        "ensures",
+        "error_inputs",
+        "modifies",
+        "loops",
+        "entry_storage",
+        "pending_candidates"
+      ],
+      "name": "contract",
+      "optional_fields": [],
+      "required_fields": [
+        "schema",
+        "semantic_context",
+        "source_scope_sha256",
+        "source_overlay_object_id",
+        "capture_context_id",
+        "function_decl_id",
+        "signature_id",
+        "termination",
+        "requires",
+        "ensures",
+        "error_inputs",
+        "modifies",
+        "loops",
+        "entry_storage",
+        "pending_candidates",
+        "contract_hash"
+      ],
+      "schema": "mpk.go.practical.contract.v1",
+      "unknown_fields": "reject"
+    }
+  ],
+  "schema": "mpk.go_practical.contract_wire_draft.v0",
+  "scope_schema": "mpk.go.contract_scope.v1",
+  "source_arms": [
+    {
+      "op": "bool.and",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "bool.implies",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "bool.literal",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "value"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "bool.not",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "bool.or",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "bool.value",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "bound",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "name"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "byte_at",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "bytes.concat",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "bytes.literal",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "type",
+        "value"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "bytes.prefix",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "bytes.slice",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "bytes.suffix",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "capacity",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "element",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "eq",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "error.is",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "value",
+        "case"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "error.payload",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "value",
+        "case"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "exists",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "name",
+        "lower",
+        "upper",
+        "body"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "field",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "value",
+        "field"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "forall",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "name",
+        "lower",
+        "upper",
+        "body"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "ge",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "gt",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "if",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "input",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "position"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "int.add",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "int.from_signed",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "int.from_unsigned",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "int.literal",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "value"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "int.mul",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "int.neg",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "int.sub",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "int.sum",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "name",
+        "lower",
+        "upper",
+        "body"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "is_nil",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "le",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "length",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "local",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "name"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "lt",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "nat.add",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "nat.from_signed",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "nat.from_unsigned",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "nat.literal",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "value"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "nat.mul",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "nat.sub",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "nat.sum",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "name",
+        "lower",
+        "upper",
+        "body"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "nat.to_int",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "ne",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "old",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "value"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "range.index",
+      "optional_fields": [],
+      "required_fields": [
+        "op"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "range.length",
+      "optional_fields": [],
+      "required_fields": [
+        "op"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "result",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "position"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "sequence.equal",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "slice.view2",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "slice.view3",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "source.zero",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "type"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "word.add",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "word.and",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "word.andnot",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "word.convert",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "type",
+        "value"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "word.div",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "word.literal",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "type",
+        "value"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "word.mul",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "word.neg",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "word.not",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "word.or",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "word.rem",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "word.shl",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "word.shr",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "word.sub",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    },
+    {
+      "op": "word.xor",
+      "optional_fields": [],
+      "required_fields": [
+        "op",
+        "args"
+      ],
+      "unknown_fields": "reject"
+    }
+  ],
+  "source_path_union": {
+    "elements": [
+      "kind"
+    ],
+    "field": [
+      "kind",
+      "name"
+    ]
+  },
+  "source_schema": "mpk.go.practical.source_overlay.v1"
+}
