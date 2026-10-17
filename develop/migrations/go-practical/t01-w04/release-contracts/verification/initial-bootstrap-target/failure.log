@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "<stdin>", line 5, in <module>
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/release_native_build.py", line 18, in build
+    command(p+['cargo','generate-lockfile','--offline','--manifest-path','/target/release-bootstrap/Cargo.toml'])
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/policy_native_build.py", line 24, in command
+    require(p.returncode==0,'local public policy observer command: '+p.stderr.decode())
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/check_scope_report.py", line 11, in require
+    raise ValueError(reason)
+ValueError: local public policy observer command: error: failed to parse manifest at `/target/release-bootstrap/Cargo.toml`
+
+Caused by:
+  no targets specified in the manifest
+  either src/lib.rs, src/main.rs, a [lib] section, or [[bin]] section must be present
+

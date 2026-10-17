@@ -27,7 +27,7 @@ after reconciling the intervening shared artifacts and active registry.
 | GO-PRAC-T01-W01 | Complete | Reviewed implementation commit `bd5ee8047d8925f9c9d0f7502627fca33bb2c836`; completion audit below |
 | GO-PRAC-T01-W02 | Complete | Reviewed implementation commit `fed1cf6047f97b1f73c0fc37c5023e19f4f9f035`; 39 cases reproduced twice |
 | GO-PRAC-T01-W03 | Complete | Reviewed implementation `9d4e6fb7855a66d9fff309e6dbd9143652ee6e21`; requirement-by-requirement completion audit in section28 |
-| GO-PRAC-T01-W04 | In progress | Source/operation/contracts/limits and common frontend/policy/API designs with targeted evidence; Release roots,ordinary-program/materialized-policy signatures and final consumer migration review remain open |
+| GO-PRAC-T01-W04 | In progress | Source/operation/contracts/limits and common frontend/policy/API designs with targeted evidence; Ordinary-program/materialized-policy signatures,Go host/budget closure and final consumer/axiom-policy/source-epoch migration review remain open |
 | GO-PRAC-T01-W05 | Blocked by W04 | Publish inactive package, review and full T01 gate |
 | GO-PRAC-T02–T07 | Not started | Sequential v1 implementation and public release |
 | GO-PRAC-T08–T11 | Not started | Sequential v2 freeze, maps, pointers and public release |
@@ -3863,3 +3863,63 @@ baseline handling. W05 owns inactive normative publication and the cumulative
 T01 gate before T02. All general compiler/source/ordinary/definedness/state/
 frame/control/application proofs remain required in T02–T06,actual AI/API/
 policy/release integration in T07,and complete v2 T08–T11 work remains active.
+
+
+## 57. T01-W04 release roots,metadata provenance and non-promotable candidates
+
+Entry: `0a51f97caac7b2fc9654fa95d48896bd118526d5`, clean before this work.
+The [release contract design](../migrations/go-practical/t01-w04/release-contracts/README.md)
+closes seven root/nested/hash/transport shapes. Generic inventory.v1 retains
+its exact member format; executable modes are separately bound by the whole
+versioned descriptor hash. Existing runtime/component/host/layout semantics
+are retained. New bundle IDs require new component inventory owner scopes,
+existing-domain0.1 component hashes and matching target-library refs. A review
+preserves the initial wrong-scope projection; actual file bytes/modes do not
+change and historical hashes remain at their original source epoch.
+
+The new graph contains4 frontend/4 toolchain metadata projections and5 old
+profile/target tuples. All are explicitly metadata-only. The6 required
+contexts include an absent practical-Go tuple; no old Go binary is relabeled
+as practical Go. Valid metadata and rehashed passed flags cannot authorize
+new-protocol execution or activation. Candidate/evidence/receipt states remain
+incomplete/not-run,with proof authority none. No source or kernel failure is
+invented when a builder,host primitive or gate observation is absent.
+
+The acyclic order is semantic/foundation inputs -> frontends/toolchains ->
+bundle registry -> consumer embeds those refs -> outer image registry ->
+candidate -> actual gate evidence -> receipt -> atomic activation. A consumer
+never embeds its own outer release hash,and a frontend never embeds a registry
+hash containing its own binary hash. Complete byte/mode snapshots,two matching
+native gate runs,all required contexts,source/corpus/four-profile preservation
+and compare-and-swap whole-image activation/rollback remain required in T07.
+Historical frontend linkage-fixture hashes cannot identify the new full
+registry; T02 must regenerate the whole source/VC/certificate/downstream graph.
+
+A new compact native observer calls the unchanged actual release validator
+and selector for every existing tuple. It resolves all4 languages/5 targets
+and rejects reserved-v2,unknown-field and hash controls. Two complete runs
+match. All13 full descriptor/registry/candidate/evidence/receipt preimages
+agree with independent Rust and Go canonical/domain hash implementations,
+each run twice. Chunk transport avoids inflating a public decoded-string
+limit. The229 vector cases reconstruct exactly and ten targeted tests pass;
+three affected tests recheck component-owner/hash linkage and all final graph
+refs after review. The [verification record](../migrations/go-practical/t01-w04/release-contracts/verification/verification.json)
+records selection reasons and distinguishes targeted checks from the T01 gate
+deferred to W05.
+
+Initial setup findings preserve read-only lockfile generation,missing cache
+target and a dummy bootstrap executable overwriting the real observer output.
+The empty exit0 output was rejected as setup failure,not treated as a validator
+success. Bootstrap uses a separate target directory; the actual leaf package
+was cleaned/rebuilt and the real protocol was queried. Authoritative builds
+pin complete before/after source bytes and exact root-lock dependency versions.
+No old helper,installed registry,production source or public profile changes.
+Local Linux-amd64 emulation proves metadata/hash observations only; the native
+Linux installed-release/cgroup/process-tree gates remain mandatory T07/T11.
+
+W04 remains open for ordinary-program/skeleton/source-binding and materialized
+policy/AI signatures,exact Go host/resource budgets,and all143 consumer
+migration dispositions including retained axiom policies and historical/new
+source epochs. W05 owns reviewed inactive publication and the cumulative T01
+gate before T02. All general source/compiler/ordinary/application proofs and
+the complete T02–T11 implementation/activation/release objective remain active.

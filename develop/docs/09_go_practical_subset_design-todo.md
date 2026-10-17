@@ -219,6 +219,16 @@ remain T07 work. Release roots,ordinary-program/materialized-policy signatures
 and exhaustive consumer migration review remain W04 work; W05 owns publication
 and the cumulative T01 gate.
 
+The [release metadata design](../migrations/go-practical/t01-w04/release-contracts/README.md)
+closes seven root shapes and the acyclic build/image/hash/readiness contract.
+Actual old validators resolve all4 languages/5 target tuples; metadata-only
+projections cannot run as new-protocol binaries or authorize activation. New
+IDs rebind component scope/content refs without mutating old inventories.
+229 cases and13 independent Rust/Go hashes pass. Actual new-family builders,
+byte handles,native gates and atomic activation/rollback remain T07 work.
+W04 still needs final ordinary-program/materialized-policy and host/budget
+closure plus exhaustive consumer migration/axiom-policy/source-epoch review.
+
 ## 1. Entry, ordering, and execution
 
 Go practical implementation may start before the practical C# release, as

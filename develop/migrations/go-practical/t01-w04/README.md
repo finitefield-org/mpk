@@ -473,9 +473,24 @@ stay pending; no prose,hash or origin flag can grant proof authority. Its
 configuration/prose/transport cases,16 bilingual bundles/24 batches,40 raw
 hashes and two actual unchanged native AI tests run twice over GoFixed,Rust
 and CSharp. Java's wire model is covered; native Java AI execution is not
-claimed. The [current metadata checker](../../../probes/go-practical/check_ai_metadata.py)
+claimed. The [section56 metadata checker](../../../probes/go-practical/check_ai_metadata.py)
 retains the API predecessor and143 inventoried consumers. W04 still needs
 release roots,ordinary-program/materialized-policy signatures and final
 migration review,including all retained axiom policies and historical probe
 source epochs. W05 owns inactive publication and the cumulative T01 gate;
 all T02–T11 implementation/proof/activation/native-release work remains due.
+
+
+The [release metadata design](release-contracts/README.md) adds seven exact v3
+roots,an acyclic bundle/consumer/image/evidence graph and explicit independent
+readiness/activation conditions. Metadata projections preserve file bytes/modes
+and runtime meaning; component scopes and existing-domain hashes rebind to new
+owner IDs. They cannot run as new-protocol binaries,and no GoFixed-to-practical
+fallback exists. The [verification](release-contracts/verification/verification.json)
+separates229 design cases,13 independent hashes and actual old release
+validation/selection over4 languages/5 targets from new-family materialization
+and native release gates. The [current metadata checker](../../../probes/go-practical/check_release_metadata.py)
+retains the AI predecessor and143 consumers. W04 still needs ordinary-program/
+materialized-policy signatures,exact Go host/budget closure and all consumer/
+axiom-policy/historical-source-epoch migration review. W05 owns inactive
+publication and the cumulative T01 gate; the complete T02–T11 scope remains.

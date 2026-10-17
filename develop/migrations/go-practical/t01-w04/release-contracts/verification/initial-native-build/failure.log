@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "<stdin>", line 7, in <module>
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/release_native_build.py", line 15, in build
+    command(p+['cargo','generate-lockfile','--offline','--manifest-path','/workspace/develop/probes/go-practical/release-native/Cargo.toml'])
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/policy_native_build.py", line 24, in command
+    require(p.returncode==0,'local public policy observer command: '+p.stderr.decode())
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/check_scope_report.py", line 11, in require
+    raise ValueError(reason)
+ValueError: local public policy observer command: error: failed to write /workspace/develop/probes/go-practical/release-native/Cargo.lock
+
+Caused by:
+  failed to open: /workspace/develop/probes/go-practical/release-native/Cargo.lock
+
+Caused by:
+  Read-only file system (os error 30)
+

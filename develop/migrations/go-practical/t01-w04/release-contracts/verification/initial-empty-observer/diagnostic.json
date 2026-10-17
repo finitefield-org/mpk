@@ -1,0 +1,20 @@
+{
+  "scope": "bootstrap dummy target overwrote same named actual observer output; empty stdout with exit0 is a setup failure,not successful native release validation",
+  "binary_sha256": "33285bc08cd0ed3b084fd6be339d189fe7df7df1d781de34d5a76a7eb2929bf0",
+  "binary_bytes": 439488,
+  "fix": "separate bootstrap target directory,clean only this observer package,then rebuild and probe actual protocol",
+  "inputs": [
+    {
+      "path": "main.rs",
+      "sha256": "59aba22869b39e3d5f9f349b8bf3b8e6c8299054888294f9123fef9841823149"
+    },
+    {
+      "path": "release_native_build.py",
+      "sha256": "6f229d0608604db24875e2c76747ae425d17751dcc628f268769ecd97f7846a6"
+    },
+    {
+      "path": "stdout.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}
