@@ -106,6 +106,16 @@ components,three body candidates,20 graph vectors and21 selected tests cover
 the private structural boundary. Sixty-nine full-limit Python/Rust/Go hash
 vectors retain depth256. Complete shared VIR/source/dynamic-invocation and
 ordinary semantic proofs remain required; no application claim is established.
+The [shared VIR/contract module draft](../migrations/go-practical/t01-w04/shared-vir/README.md)
+now closes the five-profile envelopes and Go whole-capture body/contract/scope
+sets, including multiple actual overlays and unannotated callees. Seven modules,
+73 cases and22 selected tests check exact context dispatch, source-buffer
+authority, acyclic dependency closure and module counters. Sixty-two canonical
+preimages agree across Python/Rust/Go. Actual retained importer/type/WP execution
+preserves the complete typed projection and serialized VC data in five target
+contexts. These fixture comparisons and typed Go models supply no general
+source-equivalence or ordinary proof. Downstream artifact roots/migrations
+and the full T02–T11 implementation remain required.
 Shared/downstream wire tables, remaining variant/source foundation,
 limits, schemas/hash identities and migration review remain open.
 T01 is incomplete and no practical Go profile is active.

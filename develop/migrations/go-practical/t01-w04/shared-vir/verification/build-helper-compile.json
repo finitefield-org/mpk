@@ -1,0 +1,14 @@
+{
+  "command": [
+    "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+    "-B",
+    "-c",
+    "from pathlib import Path;p=Path('develop/probes/go-practical/shared_native_build.py');compile(p.read_bytes(),str(p),'exec');print('PASS: deterministic private build helper compiles')"
+  ],
+  "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+  "exit_code": 0,
+  "wall_seconds": 0.03402962500695139,
+  "log": "build-helper-compile.log",
+  "sha256": "ad659e3a8ef1c0ec7925b35ec16a7d82bfdedcc88ba651f66d0f048ee42bd987",
+  "reason": "Only private build helper changed after prior seven-source compile; verify new deterministic build settings without repeating unaffected checks"
+}

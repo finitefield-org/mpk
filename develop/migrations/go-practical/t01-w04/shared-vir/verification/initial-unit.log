@@ -1,0 +1,48 @@
+test_alias_resolved_duplicate_roots_and_overlays_reject (test_shared_vir.SharedTests.test_alias_resolved_duplicate_roots_and_overlays_reject) ... ok
+test_all73_module_cases (test_shared_vir.SharedTests.test_all73_module_cases) ... ok
+test_all_five_target_contexts_match_original_typed_projection_and_vcs (test_shared_vir.SharedTests.test_all_five_target_contexts_match_original_typed_projection_and_vcs) ... ok
+test_all_module_nodes_and_regions_count_across_functions (test_shared_vir.SharedTests.test_all_module_nodes_and_regions_count_across_functions) ... ok
+test_caller_mutation_after_validator_construction_has_no_authority (test_shared_vir.SharedTests.test_caller_mutation_after_validator_construction_has_no_authority) ... ok
+test_deep_contract_uses_shared_limits_without_old64_depth_hash_cap (test_shared_vir.SharedTests.test_deep_contract_uses_shared_limits_without_old64_depth_hash_cap) ... ok
+test_default_callee_contract_still_requires_source_body_relation (test_shared_vir.SharedTests.test_default_callee_contract_still_requires_source_body_relation) ... ok
+test_duplicate_and_unsorted_overlay_paths_reject (test_shared_vir.SharedTests.test_duplicate_and_unsorted_overlay_paths_reject) ... ok
+test_duplicate_body_and_crossed_contract_sets_reject (test_shared_vir.SharedTests.test_duplicate_body_and_crossed_contract_sets_reject) ... ok
+test_full_context_and_compiled_profile_contract_control_dispatch (test_shared_vir.SharedTests.test_full_context_and_compiled_profile_contract_control_dispatch) ... FAIL
+test_malformed_go_collections_reject_as_configuration_errors (test_shared_vir.SharedTests.test_malformed_go_collections_reject_as_configuration_errors) ... ok
+test_mutable_producer_scope_cannot_override_consumer_raw_authority (test_shared_vir.SharedTests.test_mutable_producer_scope_cannot_override_consumer_raw_authority) ... ok
+test_native_type_validation_and_wp_reject_both_corruptions_for_every_profile (test_shared_vir.SharedTests.test_native_type_validation_and_wp_reject_both_corruptions_for_every_profile) ... ok
+test_new_identity_hashes_cover_every_family_without_schema_substitution (test_shared_vir.SharedTests.test_new_identity_hashes_cover_every_family_without_schema_substitution) ... ok
+test_old_and_future_modules_and_unrecognized_fields_are_rejected (test_shared_vir.SharedTests.test_old_and_future_modules_and_unrecognized_fields_are_rejected) ... ok
+test_one_capture_binds_every_scope_binding_loop_operation_and_body (test_shared_vir.SharedTests.test_one_capture_binds_every_scope_binding_loop_operation_and_body) ... ok
+test_only_actual_raw_overlays_become_capture_objects (test_shared_vir.SharedTests.test_only_actual_raw_overlays_become_capture_objects) ... ok
+test_oracle_never_assumes_unobserved_query_is_rejected (test_shared_vir.SharedTests.test_oracle_never_assumes_unobserved_query_is_rejected) ... ok
+test_raw_overlay_whitespace_changes_all_capture_dependent_ids (test_shared_vir.SharedTests.test_raw_overlay_whitespace_changes_all_capture_dependent_ids) ... ok
+test_selected_roots_need_bodies_and_go_sets_have_no_unreachable_extras (test_shared_vir.SharedTests.test_selected_roots_need_bodies_and_go_sets_have_no_unreachable_extras) ... ok
+test_shared_callee_hash_checked_before_legacy_rehash (test_shared_vir.SharedTests.test_shared_callee_hash_checked_before_legacy_rehash) ... ok
+test_unannotated_error_inputs_admit_all_same_universe_cases_without_raw_sidecar (test_shared_vir.SharedTests.test_unannotated_error_inputs_admit_all_same_universe_cases_without_raw_sidecar) ... ok
+
+======================================================================
+FAIL: test_full_context_and_compiled_profile_contract_control_dispatch (test_shared_vir.SharedTests.test_full_context_and_compiled_profile_contract_control_dispatch)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/test_shared_vir.py", line 46, in test_full_context_and_compiled_profile_contract_control_dispatch
+    with self.assertRaises(ValueError):self.validate(name,rehash(v))
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/test_shared_vir.py", line 20, in validate
+    b=self.by_id[name];return ModuleValidator(self.policy,b.get('project_spec')).validate(b['module'] if value is None else value)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/shared_vir.py", line 118, in validate
+    context=value['semantic_context'];self.contexts.validate_context(context)
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/context_protocol.py", line 138, in validate_context
+    need(self.legacy_policy(legacy_projection(context))["context_accepted"],"actual retained compiled parameter policy")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/run_context_protocol.py", line 44, in policy
+    if key not in cache:raise AssertionError("unobserved legacy query; never treat absent oracle evidence as rejection/success")
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: unobserved legacy query; never treat absent oracle evidence as rejection/success
+
+----------------------------------------------------------------------
+Ran 22 tests in 162.884s
+
+FAILED (failures=1)

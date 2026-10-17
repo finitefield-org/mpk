@@ -1,0 +1,224 @@
+{
+  "closure": "exact sorted unique body/contract/scope sets; DFS from every selected root; reject missing callees, cycles and unreachable extras; count all instruction nodes and regions across bodies",
+  "default_contract": "partial, no requires, true ensures, all same-U cases at every error input path, empty modifies; unproved candidate requiring actual source-body relation",
+  "dispatch": [
+    {
+      "kind": "go_fixed",
+      "profile_contract": "mpk.profile.vir.go_fixed.v2",
+      "semantic_profile": "mpk.go.fixed.v0"
+    },
+    {
+      "kind": "rust_checked",
+      "profile_contract": "mpk.profile.vir.rust_checked.v2",
+      "semantic_profile": "mpk.rust.checked.v0"
+    },
+    {
+      "kind": "csharp_scalar",
+      "profile_contract": "mpk.profile.vir.csharp_scalar.v2",
+      "semantic_profile": "mpk.csharp.scalar.v0"
+    },
+    {
+      "kind": "java_scalar",
+      "profile_contract": "mpk.profile.vir.java_scalar.v2",
+      "semantic_profile": "mpk.java.scalar.v0"
+    },
+    {
+      "kind": "go_practical",
+      "profile_contract": "mpk.profile.vir.go_practical.v2",
+      "semantic_profile": "mpk.go.practical.v1"
+    }
+  ],
+  "go_contract_fields": [
+    "kind",
+    "value"
+  ],
+  "go_program_fields": [
+    "kind",
+    "capture_context",
+    "source_scopes",
+    "contracts",
+    "function_bodies"
+  ],
+  "hash_rule": "exact schema and every required field except its own hash; shared-limit narrow canonical JSON; ASCII domain, NUL, canonical bytes; no implicit omitted/default members",
+  "nested_shapes": "source/type/signature/binding/loop shapes and 70 expression arms unchanged from contract-wire; operation parameters/requirements unchanged from operation-signatures; seven body nodes/three terminators unchanged from vir-body; v2 bodies bind common contract v3 and v2 operations",
+  "new_go_identities": [
+    {
+      "domain": "MPK-GO-SOURCE-SCOPE-1.0",
+      "fields": [
+        "schema",
+        "semantic_context",
+        "capture_context_id",
+        "source_overlay_object_id",
+        "source_object_id",
+        "function_decl_id",
+        "signature_id",
+        "error_universe_id",
+        "type_definitions",
+        "identity_nodes",
+        "identity_roots",
+        "bindings",
+        "inputs",
+        "results",
+        "headers",
+        "content_sha256"
+      ],
+      "hash_field": "content_sha256",
+      "schema": "mpk.go.source_scope.v1"
+    },
+    {
+      "domain": "MPK-GO-SOURCE-SCOPE-SET-1.0",
+      "fields": [
+        "schema",
+        "semantic_context",
+        "capture_context",
+        "overlay_objects",
+        "selected_root_ids",
+        "functions",
+        "content_sha256"
+      ],
+      "hash_field": "content_sha256",
+      "schema": "mpk.go.source_scope_set.v1"
+    },
+    {
+      "domain": "MPK-GO-PRACTICAL-CONTRACT-2.0",
+      "fields": [
+        "schema",
+        "semantic_context",
+        "source_scope_sha256",
+        "source_overlay_object_id",
+        "origin",
+        "capture_context_id",
+        "function_decl_id",
+        "signature_id",
+        "termination",
+        "requires",
+        "ensures",
+        "error_inputs",
+        "modifies",
+        "loops",
+        "entry_storage",
+        "pending_candidates",
+        "contract_hash"
+      ],
+      "hash_field": "contract_hash",
+      "schema": "mpk.go.practical.contract.v2"
+    },
+    {
+      "domain": "MPK-GO-OPERATION-DEFINITION-2.0",
+      "fields": [
+        "schema",
+        "semantic_context",
+        "capture_context_id",
+        "source_scope_sha256",
+        "function_decl_id",
+        "signature_id",
+        "type_definitions_sha256",
+        "error_universe_id",
+        "operation_table_sha256",
+        "op",
+        "parameters",
+        "inputs",
+        "outputs",
+        "regions",
+        "obligations",
+        "binding_requirements",
+        "operation_hash"
+      ],
+      "hash_field": "operation_hash",
+      "schema": "mpk.go.operation_definition.v2"
+    },
+    {
+      "domain": "MPK-GO-FUNCTION-BODY-2.0",
+      "fields": [
+        "schema",
+        "semantic_context",
+        "capture_context_id",
+        "source_scope_sha256",
+        "function_decl_id",
+        "signature_id",
+        "contract_hash",
+        "operation_definitions",
+        "entry_arguments",
+        "body",
+        "obligation_sites",
+        "body_hash"
+      ],
+      "hash_field": "body_hash",
+      "schema": "mpk.go.function_body.v2"
+    }
+  ],
+  "origin_union": [
+    {
+      "fields": [
+        "kind"
+      ],
+      "kind": "default"
+    },
+    {
+      "fields": [
+        "kind",
+        "object_id"
+      ],
+      "kind": "source_overlay"
+    }
+  ],
+  "owners": {
+    "importer": "crates/mpk-vc/src/go_practical_artifacts.rs (planned)",
+    "producer": "go-tools/go2vir/practical_lower.go (planned)",
+    "shared_dispatch": "crates/mpk-vc/src/successor_source_artifacts.rs (migration review due)",
+    "tests": "develop/probes/go-practical/test_shared_vir.py",
+    "vc": "crates/mpk-vc/src/go_practical_vc.rs (planned)"
+  },
+  "preservation_scope": "five fixture target contexts, with raw original Go/Rust64 roots and independently formed Rust32/C#/Java old-family inputs; full typed projection and all serialized VC data compared, not just acceptance or hashes",
+  "remaining": [
+    "complete source-map/manifest/VC/policy/API/release roots and reviewed producer/consumer migrations",
+    "independent general Go source/call/control/lifetime/activation import and all ordinary source/operation/permission/frame/totality proofs",
+    "W04 completion, W05 inactive publication and cumulative T01 gate; all T02\u2013T11 implementation and local release gates"
+  ],
+  "retained_contract_fields": [
+    "kind",
+    "unit_id",
+    "function_id",
+    "requires",
+    "ensures",
+    "modifies",
+    "panic",
+    "termination",
+    "loops"
+  ],
+  "retained_oracle": "unchanged production source files copied to an owned private workspace; one appended observation facade calls actual importer/projection/type-validation/WP; original Cargo dependency versions/checksums retained",
+  "retained_program_fields": [
+    "kind",
+    "units"
+  ],
+  "schema": "mpk.go_practical.shared_vir_catalogue.v0",
+  "scope": "closed five-profile shared VIR v3/contract v3 draft, whole multi-overlay/default-contract Go model closure and retained native importer/type/WP observations; no independent general source import, source/ordinary proof, complete artifact-family freeze or activation",
+  "scope_change": "new source_scope root requires nullable source_overlay_object_id; no fabricated raw overlay for defaults; source_scope_set binds all actual overlay objects, selected roots and all body scopes",
+  "shared_roots": {
+    "contract": {
+      "domain": "MPK-CONTRACT-3.0",
+      "fields": [
+        "schema",
+        "semantic_context",
+        "profile_contract",
+        "contract",
+        "contract_hash"
+      ],
+      "hash_field": "contract_hash",
+      "schema": "mpk.contract.v3"
+    },
+    "vir": {
+      "domain": "MPK-VIR-3.0",
+      "fields": [
+        "schema",
+        "semantic_context",
+        "profile_contract",
+        "program",
+        "vir_hash"
+      ],
+      "hash_field": "vir_hash",
+      "schema": "mpk.vir.v3"
+    }
+  },
+  "whole_project": "private immutable fixture input rebuilt from original Go facts, raw overlays and explicit same-U set; all capture-dependent bindings/loops/types/operations/contracts/bodies share the one capture"
+}

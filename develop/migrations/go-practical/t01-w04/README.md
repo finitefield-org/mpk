@@ -293,9 +293,24 @@ provenance, normal-only continuations and deferred location access sites.
 Fifty-six component queries,three function candidates and20 graph cases have
 21 targeted tests. Sixty-nine Python/Rust/Go hash inputs include actual256-
 container boundaries using new untrusted observers. The
-[current metadata checker](../../../probes/go-practical/check_vir_body_metadata.py)
+[section45 metadata checker](../../../probes/go-practical/check_vir_body_metadata.py)
 retains the preceding operation corpus,143 predecessor pins and document
 linkage. Its [verification record](vir-body/verification/verification.json)
 distinguishes structural checking from absent complete shared VIR,source,
 dynamic invocation and ordinary semantics. W04 and the full objective remain
 open; the cumulative T01 gate remains assigned to W05.
+
+The [shared VIR/contract module draft](shared-vir/README.md) closes the exact
+five-profile envelopes and Go whole-capture scope/contract/body sets. Multiple
+actual overlays and unannotated default-contract callees share one immutable
+capture. Seven module candidates,73 vectors and22 targeted tests cover dispatch,
+call closure/cycles, raw-buffer authority and cumulative module counters.
+Sixty-two Python/Rust/Go preimages agree. The actual unchanged retained
+importer/type validator/WP engine preserves full typed projection and serialized
+VC data in five target contexts, with thirteen native positive/negative queries.
+The [current metadata checker](../../../probes/go-practical/check_shared_vir_metadata.py)
+retains preceding body evidence,143 predecessor pins and document linkage.
+Its [verification record](shared-vir/verification/verification.json) distinguishes
+fixture preservation and Go model typing from source/ordinary proof acceptance.
+Source-map/manifest/VC/policy/API/release roots and reviewed migrations remain
+due. W04, W05/T01 and all T02–T11 remain open; the full gate stays assigned to W05.

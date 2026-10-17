@@ -1,0 +1,14 @@
+{
+  "command": [
+    "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+    "-B",
+    "-c",
+    "from pathlib import Path;p=Path('develop/probes/go-practical');names=('shared_project.py', 'shared_vir.py', 'shared_vir_vectors.py', 'shared_native_build.py', 'run_shared_vir.py', 'test_shared_vir.py', 'check_shared_vir_metadata.py');[compile((p/n).read_bytes(),str(p/n),'exec') for n in names];print('PASS: seven new Python sources compile')"
+  ],
+  "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+  "exit_code": 0,
+  "wall_seconds": 0.09345008304808289,
+  "log": "python-compile.log",
+  "sha256": "e4df2efa2dfb72a9d50afd17f0b66f9e2d048c04d71549f84108eced152ce344",
+  "reason": "All seven new project/shared/bridge-build/replay/test/metadata Python sources"
+}

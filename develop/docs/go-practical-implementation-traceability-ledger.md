@@ -3066,3 +3066,68 @@ source-map/manifests/VC/policy/API/release roots/unions and reviewed migrations
 remain due. Source/dynamic/ordinary operation, permission, frame and totality
 implementation remain T02–T06. W05 owns inactive publication and the T01 gate;
 all T02–T11 work stays active and no practical Go profile is activated.
+
+## 46. T01-W04 shared VIR/contract and whole Go module closure
+
+Entry: `2cb486e6731d182a7ef62abe82eb72ccedb55dd2`, clean before this work.
+The [shared module draft](../migrations/go-practical/t01-w04/shared-vir/README.md)
+closes the exact five-profile common VIR v3 and contract v3 envelopes, preserving
+the full eleven-stage objective. Full context/registry/entry/parameter/foundation
+validation precedes compiled profile-contract and tagged payload dispatch.
+Old/future roots, caller fields, profile/context/hash crossings and stale common
+callee contract hashes reject before the private observation conversion.
+
+Five new Go candidate identities/domains add source-scope/set v1 and normalized
+contract/operation-definition/body v2 without changing earlier private roots or
+reserved inactive C# identities. A required nullable source-overlay ID and exact
+origin distinguish actual sidecars from derived default contracts. Every actual
+raw overlay joins one immutable capture; no absent overlay becomes a fabricated
+raw object. All dependent bindings/loops/types/operations/contracts/bodies are
+recomputed. Raw whitespace changes propagate while declarations/signatures stay
+stable. Alias-resolved duplicate roots/overlays reject.
+
+The Go arm contains exact declaration-ordered scope/contract/body sets. The
+consumer rebuilds authority from original buffers, derives every operation/body
+and follows dependencies from all selected roots. Missing callees, cycles and
+unreachable extras reject. Nine nodes and three regions across each candidate's
+three functions count against the existing whole-module caps. Unannotated
+callees retain unproved partial/true/all-same-U contracts and require their actual
+source-body relation. No default grants a trusted callee theorem.
+
+The source model remains the preceding pinned single Go fixture package with
+multiple actual overlays, not a general independent project importer. Quote and
+Error bodies remain typed candidates without source equivalence; InputErrors
+keeps the preceding discard-only candidate with erasure proof due. Full source,
+dynamic activation and ordinary operation/permission/frame/totality proofs remain
+required in T02–T06.
+
+A private owned source mirror preserves all236 Rust sources and the original
+dependency versions/checksums. One appended observation bridge calls the actual
+unchanged retained importer, projection, type validator and profile-specific WP
+engine. Five independent old-family baselines cover Go fixed, Rust32/64, C# and
+Java; Go/Rust64 use the original fixture roots unchanged. Complete typed
+projections and serialized VC data match the common representations exactly.
+This is fixture evidence, not a universal preservation theorem or discharged
+proof. Thirteen actual native queries add eight malformed-instruction/type
+negatives across all four profiles. An unobserved query is an infrastructure
+failure, never an assumed rejection.
+
+Seven modules and73 vectors yield five native-accepted, two Go typed-unproved
+and66 configuration-rejected outcomes. Twenty-two targeted tests exercise
+dispatch, origin/capture authority, deep expressions, exact closure and counters.
+All62 preimages agree across Python/Rust/Go: seven modules,17 common contracts,
+two scope sets,six scopes,six normalized contracts,18 operations and six bodies.
+Each native observer runs twice identically. The receipt pins625 inputs and the
+same14,496-file Go1.25.0 inventory. Hash/VC parity supplies no source/ordinary
+proof verdict.
+
+The [verification record](../migrations/go-practical/t01-w04/shared-vir/verification/verification.json)
+retains selected local unit/replay/metadata/new-source format/compile logs,
+selection reasons, repairs and review. Prior body evidence and all143
+inventoried predecessor paths remain unchanged. Unaffected older proof/native
+matrices are not repeated. The cumulative T01 gate stays deferred to W05.
+
+W04 remains In progress. Source-map/manifest/VC/policy/API/release roots/unions,
+complete source/foundation bindings and reviewed producer/consumer migrations
+remain due. W05 owns inactive publication and the T01 gate. No T is complete,
+all T02–T11 work stays active and no practical Go profile is activated.

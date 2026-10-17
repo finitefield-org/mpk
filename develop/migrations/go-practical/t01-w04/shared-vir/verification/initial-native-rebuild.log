@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/run_shared_vir.py", line 183, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/run_shared_vir.py", line 179, in main
+    old=check_retained(data);require(old['native_binaries']==binaries and old['retained_source_audit']==audit,'reproduced shared native binaries/source bridge')
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/check_scope_report.py", line 11, in require
+    raise ValueError(reason)
+ValueError: reproduced shared native binaries/source bridge
