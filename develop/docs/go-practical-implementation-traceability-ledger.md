@@ -3641,3 +3641,88 @@ word/source/partial/definedness/elaborator/state/permission/frame/control/
 totality proofs,complete Go program/skeleton assembly,policy/API/release roots
 and complete reviewed migrations remain due. W05 owns inactive publication
 and the cumulative T01 gate; the full T02–T11 objective remains active.
+
+
+## 54. T01-W04 policy roots and exact-source ordinary certificate evidence
+
+Entry: `e23fa47a2768d9cf41cec7be0cee9341dfe5f7d5`, clean before this work.
+The [policy evidence draft](../migrations/go-practical/t01-w04/policy-api/README.md)
+adds closed scan,evidence,reproduction and receipt v4 roots. They bind the
+complete independent context,selection,compiled contracts,frontend request/
+success and source artifact graph. Evidence binds the VC and certificate
+manifest. Receipt status is regenerated from actual proof state,not caller
+readiness,AI/CI output or a supplied checked flag. Canonical scan identity is
+raw SHA256; the other roots use their distinct reserved v4 domains. The DAG
+has no evidence/receipt back edge into certificate source metadata.
+
+A new untrusted observer calls unchanged actual public policy and API methods.
+All six retained source bundles pass scan and API generation. Two Rust targets
+reach actual dual-checker ordinary certificate acceptance at zero axioms.
+Four other private source-shape fixtures stop at the existing public assembly
+interface with a non-Std.Bool carrier error. Those are recorded as assembly
+failures. No false source/compiler verdict or ordinary typing counterexample
+is inferred,and fixtures are not replaced to turn the matrix green. Complete
+profile-preservation and actual application proof coverage remain required.
+
+For checked sets,the actual complete VC functions and statement declarations
+match the retained common source graph. The untrusted adapter changes only
+Certificate v0's opaque source-manifest payload to the whole validated common
+certificate manifest. Both unchanged source-free checkers recheck identical
+resulting bytes. Export and axiom-report hashes remain exactly unchanged;
+the certificate hash now covers the actual common source metadata. Checked
+declaration interfaces,zero counts,all paired hashes and embedded bytes are
+bound into the evidence. Old certificate hashes are not relabeled.
+
+Two actual counterexamples stamp checked Rust proof bytes with each Go
+common certificate manifest. Both kernels accept those mathematical proofs,
+but policy rejects the purported checked-Go evidence: all169 Go demands are
+still unelaborated and no complete ordinary context/statement/skeleton exists.
+A source hash plus kernel acceptance is insufficient to prove Go source goals.
+A corrupted-magic control records format rejection separately. Imported scan/
+evidence controls exercise actual public regeneration and reject altered
+source,contract,helper,checker,property and canonical-transport claims.
+
+Six actual API traces cover all seven context-aware operations. Thirty helper
+responses reach session/import/VC/list/target states;72 failures leave mutation
+counts unchanged. Unknown candidates/proofs,source-context/selection/hash
+mixing,unknown fields,transport variants,repeated state transitions and unknown
+targets remain fail closed. Existing APIv2 routes remain unchanged. New APIv4
+and AI-explanation roots are still unfrozen work; helper responses confer no
+source-proof authority.
+
+The [verification record](../migrations/go-practical/t01-w04/policy-api/verification/verification.json)
+retains selected local commands,source/binary pins,actual results,review and
+initial observer compile/cache/source-binding/report-shape findings. The
+observer uses a cached pinned Linux-amd64 Rust1.95 image on the local arm64
+Docker engine with no network,read-only repository and unprivileged UID.
+Exact dependency archives match the retained root lock and unpack only into
+a task-owned cache. This is emulated targeted consumer evidence,not native
+Linux release acceptance or checker/process-tree resource measurement. The
+native README release gates remain required. Source mutation during an early
+bootstrap build was detected and that stale build was discarded; authoritative
+builds require complete before/after source-pin equality.
+
+The immutable source-authority comparison prevents a cached ID from blessing
+a modified row or a Go-to-retained dispatch change. The retained reference
+checker legitimately omits zero counts and uses short hash keys; the new
+adapter validates that exact protocol and compares all three hashes to the
+Rust report. Probe construction/transport errors remain distinct from actual
+assembly,checker and source/readiness outcomes. Production sources,old helpers,
+installed profiles and the core/certificate rules remain unchanged.
+
+The866-case matrix,79 actual Linux queries and44 hash vectors reconstruct
+exactly. Twenty selected tests pass. A focused adapter trial found that copied
+valid reports could accompany an altered byte carrier; the adapter now also
+recomputes the existing Certificate v0 domain hash over those exact bytes.
+The modified test reruns after repair,and the original source/trial remains
+preserved. All real native observations and mathematical proofs remain
+unchanged. The receipt pins833 inputs,including313 linked consumer/build files.
+Metadata checks186 strict JSON files,143 predecessors and29 documents/504 links.
+The full T01 gate remains deferred to W05.
+
+W04 remains In progress. New API/AI/release roots,full Go ordinary statement/
+program/assembly/skeleton definitions,remaining word/source/state/frame/control/
+permission/definedness/totality and elaborator proofs,complete reviewed migrations
+and activation review remain due. W05 owns inactive publication and the
+cumulative T01 gate. The full T02–T11 implementation/application/release scope
+remains active; no practical Go profile is activated.

@@ -1,0 +1,10 @@
+go_fixed assembly_error
+Traceback (most recent call last):
+  File "<stdin>", line 15, in <module>
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/policy_roots.py", line 113, in build
+    certificate=paired_certificate(checked,b['certificate_manifest'])
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/policy_roots.py", line 40, in paired_certificate
+    report=g['stdout'];need(r['accepted'] is True and report['verdict']=='accepted' and r['axiom_count']==report['axiom_count']==0,'two actual zero-axiom acceptances')
+                                                                                                          ~~~~~~^^^^^^^^^^^^^^^
+KeyError: 'axiom_count'

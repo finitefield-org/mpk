@@ -422,10 +422,26 @@ check retained projections,codebooks,paths,transport and artifact links; five
 independent old-context baselines match. New Go diagnostics resolve exact
 captured object/byte/function identities and remain unregistered model data.
 No accepted response grants runner provenance or a source-correctness proof.
-The [current metadata checker](../../../probes/go-practical/check_frontend_metadata.py)
+The [section53 metadata checker](../../../probes/go-practical/check_frontend_metadata.py)
 retains preceding word/arithmetic evidence and143 inventoried predecessors.
 The [verification record](frontend-envelope/verification/verification.json)
 separates native API outcomes,configuration/process/resource failures and
 initial probe findings. Policy/API/release roots,reviewed migrations,full Go
 ordinary assembly and source proofs remain due. W04 remains open; W05 owns
 inactive publication/T01 gate and all T02–T11 work remains active.
+
+The [policy evidence draft](policy-api/README.md) adds exact scan/evidence/
+reproduction/receipt v4 roots and actual retained policy/API observations.
+Two real ordinary certificates are rebound to the complete common certificate
+manifest and rechecked by both unchanged zero-axiom checkers. Four actual
+assembly interface errors remain errors. A valid kernel certificate stamped
+with Go metadata still cannot discharge its169 unelaborated source demands.
+All seven retained API operations are observed,including72 atomic failures;
+helper responses supply no source-proof authority. The
+[current metadata checker](../../../probes/go-practical/check_policy_metadata.py)
+retains preceding frontend evidence and143 inventoried paths. The
+[verification record](policy-api/verification/verification.json) separates
+setup,transport,assembly,checker and source/readiness findings. New API/AI/
+release roots,complete Go ordinary assembly and reviewed migrations remain due.
+W04 stays open; W05 owns inactive publication/T01 gate and all T02–T11 work
+remains active. Local Linux emulation does not replace native release gates.

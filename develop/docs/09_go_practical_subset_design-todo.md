@@ -184,6 +184,15 @@ Shared/downstream wire tables, remaining variant/source foundation,
 limits, schemas/hash identities and migration review remain open.
 T01 is incomplete and no practical Go profile is active.
 
+The [policy evidence draft](../migrations/go-practical/t01-w04/policy-api/README.md)
+now binds scan/evidence/reproduction/receipt v4 to complete source graphs and
+real source-free certificate bytes. Two retained Rust certificates reach both
+zero-axiom checkers after common-manifest rebinding. Four observed assembly
+errors remain errors; unrelated valid certificates cannot discharge Go's169
+unelaborated demands. Six retained API traces cover seven operations and72
+atomic failures. New API/AI/release roots,full ordinary Go assembly,reviewed
+migrations and native release gates remain required before activation.
+
 The [implementation ledger](go-practical-implementation-traceability-ledger.md)
 owns detailed status, source/checker identities and local verification.
 The user-authorized amendment moves Go before the practical C# release.

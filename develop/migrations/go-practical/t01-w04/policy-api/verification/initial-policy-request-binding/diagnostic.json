@@ -1,0 +1,15 @@
+{
+  "classification": "probe_legacy_request_binding_failure",
+  "meaning": "Retained Go/Rust profile envelopes used the common-family entry hash instead of the exact projected retained entry; API transport omitted required LF. Scalar C#/Java scans validated. No proof execution occurred.",
+  "repair": "Use legacy_projection entry identity for old compiled envelope; append exactly one LF to actual old API requests.",
+  "inputs": [
+    {
+      "path": "policy_sources.py",
+      "sha256": "6236a0ad2dd0eae337f195e80d934bb8782fa6be5151bfb514b3a38a726f1017"
+    },
+    {
+      "path": "policy-native/src/main.rs",
+      "sha256": "eebce8e14e1e125b52564c5955b37b6745168ad615cdcf543d4302241bb751ea"
+    }
+  ]
+}
