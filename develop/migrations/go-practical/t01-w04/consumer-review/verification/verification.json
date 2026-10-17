@@ -1,0 +1,85 @@
+{
+  "checks": [
+    {
+      "command": [
+        "python3",
+        "develop/probes/go-practical/check_program_handoff.py"
+      ],
+      "exit_code": 0,
+      "reason": "Changed ordinary/source/resource interfaces and complete consumer/requirement handoff; reconstruct existing169 requests and56 typed fragments without rerunning unchanged proof workloads.",
+      "stderr": "handoff.stderr.log",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout": "handoff.stdout.log",
+      "stdout_sha256": "d5805b8214ad41d2ae178baf7d11e32a201a13d6ff9d170c6a6c9d4bc258f70d"
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "develop/probes/go-practical",
+        "-p",
+        "test_source_epoch.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "reason": "New historical-export tool: altered epoch,unsafe/duplicate paths,source byte/mode changes and symlink replacement.",
+      "stderr": "epoch-tests.stderr.log",
+      "stderr_sha256": "5803bb3941f9541412a07115448646930d36747f8aa7d912c6672c2e584cf6f7",
+      "stdout": "epoch-tests.stdout.log",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "entry_commit": "e19887077b7de9f512be72bfed52227ed4beebec",
+  "findings": [
+    {
+      "fixed": "all historical tracked Python sources included; cold replay passed",
+      "initial": "cached pyc hid a source module; cold replay failed with ModuleNotFoundError",
+      "phase": "historical snapshot setup",
+      "record": "initial-missing-import/diagnostic.json"
+    },
+    {
+      "fixed": "mkdir exist_ok; all3 tests passed",
+      "initial": "FileExistsError for a root-level input parent in two tests",
+      "phase": "test setup"
+    }
+  ],
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "owner": "GO-PRAC-T01-W05",
+    "status": "deferred"
+  },
+  "historical_replay": {
+    "exit_code": 0,
+    "meaning": "actual unchanged historical helper, not a new native source/proof execution",
+    "path": "develop/migrations/go-practical/t01-w04/consumer-review/historical-replay.json",
+    "sha256": "5fc72a286cbfcfa56f8aa9ddfdb7fbb3ed32f63f01fcdad1d7b19e2f65d97110"
+  },
+  "python_AST": "all5 sources parsed",
+  "schema": "mpk.go_practical.w04_handoff_verification.v0",
+  "scope": "inactive design/historical replay only; no Go ordinary elaboration or new native host/release evidence",
+  "source_inputs": [
+    {
+      "path": "develop/probes/go-practical/program_design.py",
+      "sha256": "b37f67581d37878b870f5e72e657ef2d1d2e770e2fcc4e28017e221ef45f92b2"
+    },
+    {
+      "path": "develop/probes/go-practical/migration_review.py",
+      "sha256": "6bfbec7e9fd462253dfb4000df7e275026b48bbcf49d9d05cc8dd47c18627d33"
+    },
+    {
+      "path": "develop/probes/go-practical/source_epoch.py",
+      "sha256": "e72e1e5bb9762823bc3824da92173c817ff11770d5766682cf22071a01e7516e"
+    },
+    {
+      "path": "develop/probes/go-practical/test_source_epoch.py",
+      "sha256": "b0cb09416fae86a2382c2f6e48a0068944936805639b004297bcb6e99bfa3eac"
+    },
+    {
+      "path": "develop/probes/go-practical/check_program_handoff.py",
+      "sha256": "1b0a55e65212ed874a4a89dcfc4ead0983ed216486a02032daaa4c0e4676a1b5"
+    }
+  ]
+}

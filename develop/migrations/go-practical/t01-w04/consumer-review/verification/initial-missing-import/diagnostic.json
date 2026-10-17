@@ -1,0 +1,9 @@
+{
+  "phase": "historical_checkpoint_reconstruction",
+  "exit_code": 1,
+  "failure": "ModuleNotFoundError: termination_foundation_build",
+  "cause": "Python imported cached bytecode; tracing open/read events and excluding pyc did not capture every source import. The snapshot was rejected; no success receipt was written.",
+  "correction": "include every tracked Python source in the historical probe package in addition to the observed reads and explicit input pins",
+  "source_snapshot_note": "snapshot taken after removing an unrelated redundant SHA256/SHA1-length assertion, before the import-closure correction",
+  "not_a_source_or_theorem_failure": true
+}

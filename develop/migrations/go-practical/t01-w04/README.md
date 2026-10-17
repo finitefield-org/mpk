@@ -1,10 +1,51 @@
 # GO-PRAC T01-W04 freeze preparation
 
-Status: In progress, not frozen or published. Entry is W03 completion commit
+Status: Design freeze complete; inactive normative publication and the cumulative
+T01 gate remain W05 work. The [completion audit](completion-audit.json) and final
+sections below supersede the earlier checkpoint descriptions of open design
+questions. Full implementation/proofs and activation remain T02–T11 work.
+Entry is W03 completion commit
 `7e5f94bda47968aeec938098d5e2a324370a6218`. Its requirement-by-requirement
 [completion audit](../t01-w03/completion-audit.json) pins the measured foundation.
 All v1 priorities1–4 remain required. Maps/pointers and the second release
 remain T08–T11 work; the complete eleven-stage objective is unchanged.
+
+## Final design review and handoff
+
+The [program/source binding design](program-binding/README.md) closes all19
+theorem-family signatures, exact ordinary context/statement identity, the
+acyclic materialization/skeleton/manifest DAG and complete materialized
+policy/AI property coverage. The existing169 Go demands stay unelaborated;
+metadata is never a proof. General compiler, source, state, frame, call and
+control proofs remain assigned to T02–T06. The strong-induction, full-word,
+byte/storage and variant probes provide the measured representative feasibility
+required at this boundary, with their original limitations and failed attempts.
+
+The [resource contract](program-binding/host-resources.json) fixes a separate
+native practical-Go host,120-second/2GiB frontend tree and existing60-second/
+1GiB proof ceilings. All earlier source, semantic, structural and transport
+counter meanings are retained. Native enforcement, corpus fit and complete
+process-tree cleanup are mandatory T07 acceptance gates; absent resources
+cannot become source rejection, theorem falsehood or a fallback host.
+
+The [consumer review](consumer-review/README.md) assigns all143 original and40
+additional indirect/owner consumers to explicit migration/retention actions,
+production files, test owners and work items. It preserves the exact retained
+axiom policies and inactive C# namespace. All24 v1 requirement groups have a
+separate [design/implementation handoff](consumer-review/requirements.json).
+Historical evidence replays from its own Git epoch; future production changes
+require fresh source identities and execution. The actual unchanged historical
+release checkpoint reconstructs from1,025 tracked files in a cold temporary
+tree, retaining229 cases,13 hash vectors and the5 old tuples.
+
+The final targeted verification checks the complete handoff, all new local
+links/JSON/Python syntax, the actual historical replay and adversarial epoch
+identity/byte/mode/path rejection. The [verification record](consumer-review/verification/verification.json)
+records selection reasons and the initial import-cache/test-setup findings.
+No production executable or installed registry changes in W04. W05 must publish
+the inactive specification/vector package, review its ownership/pins and run
+`./scripts/check-fast.sh` for the whole T01 before T02 can begin. The full gate
+was intentionally deferred throughout W04.
 
 ## Current draft artifacts
 

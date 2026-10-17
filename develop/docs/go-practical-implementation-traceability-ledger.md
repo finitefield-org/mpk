@@ -3923,3 +3923,53 @@ migration dispositions including retained axiom policies and historical/new
 source epochs. W05 owns reviewed inactive publication and the cumulative T01
 gate before T02. All general source/compiler/ordinary/application proofs and
 the complete T02–T11 implementation/activation/release objective remain active.
+
+
+## 58. T01-W04 final interfaces,consumer review and design freeze
+
+Entry: `e19887077b7de9f512be72bfed52227ed4beebec`. The
+[program binding design](../migrations/go-practical/t01-w04/program-binding/README.md)
+specifies19 ordinary theorem families, complete source/IR/contract/representation
+definitions and the source/assembly/binding/VC/skeleton/manifest DAG. An existing
+declaration interface hash contains a term index, so the whole context tables,
+exact ordinary types and unchanged final-certificate prefix must also bind the
+statement. Source well-formedness/correspondence cannot become caller axioms.
+All169 Go demands remain unelaborated; all56 concrete operation interfaces
+reconstruct. Materialized policy properties must enumerate all exact statements
+and dependencies; AI cannot supply proof or target authority.
+
+A distinct practical-Go host fixes120 seconds/2GiB for the frontend tree,
+zero swap,128 tasks,512MiB scratch and exact inherited capture/transport limits.
+Proof construction and each checker retain60 seconds/1GiB and2MiB/131,072-term/
+4,096-declaration certificate caps, with whole-tree enforcement required.
+Representative Darwin measurements motivate these budgets without promising
+every admitted source fits. Actual native Linux enforcement, process cleanup
+and complete application-corpus fit remain T07 gates.
+
+The [migration review](../migrations/go-practical/t01-w04/consumer-review/README.md)
+assigns every original143 consumer and40 additional indirect/owner files to
+explicit action, source/test owner and work item. All24 v1 requirements have
+concrete design evidence and future implementation/proof ownership. Go's
+zero-axiom policy and retained mvp-theory formats/allowlists/five-category
+accounting remain distinct. Inactive C# namespaces stay reserved. No existing
+assembly-error fixture or historical helper is rewritten to imply acceptance.
+
+A real historical checkpoint is replayed from the exact entry commit/tree:
+1,025 tracked files/218,743,291 bytes, including the observed reads, explicit896
+pins and the complete historical Python package. Export/import uses
+`/usr/bin/git` outside the sandbox, changes no ref or checkout and removes the
+temporary tree. Exact bytes/modes match before and after the unchanged helper;
+229 cases,13 hashes and5 old target tuples reconstruct. The first incomplete
+read trace omitted a source module loaded from cached bytecode and correctly
+failed with ModuleNotFoundError. The final package includes all historical
+Python sources, so cold imports succeed. Initial epoch test setup also needed
+exist_ok when an input lives at the repository root; all3 adversarial tests
+pass after that correction. These are setup findings, not source/proof failures.
+
+The [completion audit](../migrations/go-practical/t01-w04/completion-audit.json)
+closes W04's design boundary. Selected checks cover only changed interfaces,
+readiness/retention handoff, epoch replay and metadata consistency; full
+`check-fast` is deferred to W05. W05 still owns reviewed inactive normative
+publication and the cumulative T01 gate. No actual Go proposition, compiler
+correctness proof, native new frontend, host gate or activation is claimed.
+All T02–T11 implementation/application/proof/release requirements remain active.
