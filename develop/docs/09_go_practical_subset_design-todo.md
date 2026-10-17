@@ -199,6 +199,15 @@ The user-authorized amendment moves Go before the practical C# release.
 T01's full gate remains due in W05. Scope and semantic decisions are owned by
 [the design](09_go_practical_subset_design.md).
 
+The [common API contract design](../migrations/go-practical/t01-w04/api-contracts/README.md)
+defines request/response/session v4 for all33 declared routes,exact snapshots,
+atomic preparation/commit and source-derived ordinary readiness. Its6800
+configuration/transport cases and96 model exchanges remain separate from102
+fresh actual v2 operations. All169 Go demands remain unelaborated. APIv4
+execution is assigned to T07-W01; source imports migrate in T02-W03.
+AI/release roots,complete ordinary-program signatures and the final reviewed
+consumer migration table remain W04 design work.
+
 ## 1. Entry, ordering, and execution
 
 Go practical implementation may start before the practical C# release, as
@@ -297,6 +306,17 @@ the C# design alone.
 Exit: a measured, implementable frozen v1 scope with zero unresolved semantic
 questions. Any proposed workload above a viable bound is explicitly excluded
 or redesigned before freeze, rather than advertised as supported.
+
+W04 freezes semantic predicates,ordinary statement/program signatures,exact
+limits and the producer/consumer contract. General compiler/elaborator
+correctness,all operation/definedness/control/frame lemmas and complete
+application proofs remain mandatory in their assigned T02–T06 gates. Their
+unfinished implementation proofs alone do not extend W04; an undefined
+semantic rule or unmeasured feasibility problem still prevents design freeze.
+Finish the remaining AI/release roots,ordinary-program signature closure and
+consumer migration dispositions,then perform the W04 review and W05 publication
+and cumulative gate before starting T02. This changes no implementation or
+release acceptance condition and does not activate the private profile.
 
 ## 4. GO-PRAC-T02 — Captured modules and function selection
 

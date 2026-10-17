@@ -1,6 +1,6 @@
 # Go Practical Implementation Traceability Ledger
 
-Updated: 2026-10-17. Objective: execute
+Updated: 2026-10-18. Objective: execute
 [the Go design](09_go_practical_subset_design.md) and
 [work plan](09_go_practical_subset_design-todo.md), starting at T01-W01.
 This ledger owns implementation status. No practical Go profile is active.
@@ -27,7 +27,7 @@ after reconciling the intervening shared artifacts and active registry.
 | GO-PRAC-T01-W01 | Complete | Reviewed implementation commit `bd5ee8047d8925f9c9d0f7502627fca33bb2c836`; completion audit below |
 | GO-PRAC-T01-W02 | Complete | Reviewed implementation commit `fed1cf6047f97b1f73c0fc37c5023e19f4f9f035`; 39 cases reproduced twice |
 | GO-PRAC-T01-W03 | Complete | Reviewed implementation `9d4e6fb7855a66d9fff309e6dbd9143652ee6e21`; requirement-by-requirement completion audit in section28 |
-| GO-PRAC-T01-W04 | In progress | Logical/native draft plus39 private order/type/strong-induction and regression cases; complete source/overlay/limit/wire/variant/foundation/migration freeze remains open |
+| GO-PRAC-T01-W04 | In progress | Source/operation/contracts/limits and common frontend/policy/API designs with targeted evidence; AI/release roots,ordinary-program signatures and final consumer migration review remain open |
 | GO-PRAC-T01-W05 | Blocked by W04 | Publish inactive package, review and full T01 gate |
 | GO-PRAC-T02–T07 | Not started | Sequential v1 implementation and public release |
 | GO-PRAC-T08–T11 | Not started | Sequential v2 freeze, maps, pointers and public release |
@@ -3726,3 +3726,76 @@ permission/definedness/totality and elaborator proofs,complete reviewed migratio
 and activation review remain due. W05 owns inactive publication and the
 cumulative T01 gate. The full T02–T11 implementation/application/release scope
 remains active; no practical Go profile is activated.
+
+
+## 55. T01-W04 complete API route contracts and source-bound helper transactions
+
+Entry: `c4ba7a93116f22bd1f8c922396928187e48aa63d`, clean before this work.
+The [API contract design](../migrations/go-practical/t01-w04/api-contracts/README.md)
+closes request,response and session v4 shapes for all33 currently declared
+routes,including the ordinary term/proof/module family. Every field is
+required,objects are closed,IDs reject Boolean coercion,structural routes
+retain checker-profile requirements,and full source/context/selection
+identities precede dispatch. Practical CSharp's reserved v3 family and all
+existing routes/profiles remain unchanged. A declared route is not evidence
+that its executor exists; the model explicitly rejects ordinary/candidate
+operations requiring a real typed executor instead of simulating success.
+
+All three root identities are raw SHA256 of complete canonical values without
+LF. API transport has exactly one LF. The envelope retains the existing1MiB
+allowance and adds four levels around common768-depth source artifacts;
+embedded limits and source validation remain independent. The copied
+iterative JSON algorithm changes only those two envelope constants. Actual
+native raw hashes cover24 small complete documents; they do not claim native
+implementation of the full new API envelope budgets. Generated VC output
+retains the full common VC and VIR import retains unit/function counts.
+The preserved response-shape review prevents a ref-only migration from
+silently losing the existing usable VC result.
+
+Snapshots bind server ID,incarnation,revision,full semantic context/selection,
+module/proof profile,lifecycle and exact source state. They are server-owned
+helper data,not importable authority. Successful mutations commit prepared
+state once,after output validation/encoding. Stale snapshots,restarts,cross-
+session/context requests,revision exhaustion,failed imports,encoding failures
+and frozen writes cannot change source state or leak new interned IDs.
+Read-only listing preserves revision. Actual arena rollback/serialization
+and production incarnation generation remain explicit T07 obligations.
+
+Across eight source bundles,the96 model transactions include48 atomic
+operation failures. All169 Go demands remain unelaborated; list returns no
+invented ordinary members,and candidate routes/source export reject while
+pending. Ordinary-ready retained VCs are proof targets,not proved claims.
+Every response/snapshot is helper-only. Response import compares exact locally
+regenerated transaction bytes; valid hashes alone cannot bless a forged result.
+Transport/preflight errors,operation errors,executor/setup/resource failures
+and theorem/kernel verdicts retain their distinct meanings.
+
+A review reproduced a Python equality defect: replacing an integer with a
+Boolean in supplied VIR left Python dictionaries equal despite different
+canonical bytes and a stale claimed hash. The exact candidate,accepted private
+model response,old source and receipt are preserved. Source/context/selection
+comparisons now use complete canonical bytes. The dedicated adversarial test
+requires source-binding rejection with no state change. This was a private
+model defect,not an observed native API or kernel acceptance bug.
+
+Six fresh unchanged public APIv2 traces reproduce all102 prior operations and
+72 atomic failures. The local pinned Linux-amd64 observer and both independent
+Rust/Go canonical/raw hash observations each run twice. They preserve the
+complete old outputs,errors and mutation counts. Linux execution remains local
+emulation on the arm64 engine; native Linux release/resource gates remain due.
+The [verification record](../migrations/go-practical/t01-w04/api-contracts/verification/verification.json)
+separates19 targeted tests,the affected response-payload rechecks,initial review
+findings and the full gate deferred to W05. The6800 configuration/transport
+vectors and847 source pins reconstruct exactly. The metadata check retains
+all143 inventoried predecessor paths. Production source and old helpers are
+unchanged; no new public API endpoint/profile is activated.
+
+The W04 completion boundary is now explicit in the worklist and work plan:
+finish AI/release roots,ordinary statement/program/skeleton/source-binding
+predicate signatures and budget closure,then audit every consumer migration
+and requirement owner. Undefined semantic rules still prevent freeze.
+Full general compiler/elaborator/source/operation/definedness/state/frame/
+control/totality proofs remain mandatory in their assigned T02–T06 gates;
+they are not all preconditions for finishing the design-only W04. W05 owns
+reviewed inactive normative publication and the cumulative T01 gate before T02.
+W04 and T01 remain open and the complete T02–T11 objective remains active.

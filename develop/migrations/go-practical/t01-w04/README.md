@@ -438,10 +438,28 @@ assembly interface errors remain errors. A valid kernel certificate stamped
 with Go metadata still cannot discharge its169 unelaborated source demands.
 All seven retained API operations are observed,including72 atomic failures;
 helper responses supply no source-proof authority. The
-[current metadata checker](../../../probes/go-practical/check_policy_metadata.py)
+[section54 metadata checker](../../../probes/go-practical/check_policy_metadata.py)
 retains preceding frontend evidence and143 inventoried paths. The
 [verification record](policy-api/verification/verification.json) separates
 setup,transport,assembly,checker and source/readiness findings. New API/AI/
 release roots,complete Go ordinary assembly and reviewed migrations remain due.
 W04 stays open; W05 owns inactive publication/T01 gate and all T02–T11 work
 remains active. Local Linux emulation does not replace native release gates.
+
+
+The [common API contract design](api-contracts/README.md) covers all33 declared
+routes and the exact request/response/session v4 roots. Its source state binds
+the full independent source graph and preserves all169 unelaborated Go demands.
+Opaque server identity,incarnation,revision and exact stored snapshots prevent
+cross-session/restart/stale-request updates. Freeze and all operation failures
+preserve the intended mutation boundary. Every output remains helper data.
+The [current metadata checker](../../../probes/go-practical/check_api_metadata.py)
+retains the preceding policy evidence and143 inventoried source paths. Its
+[verification](api-contracts/verification/verification.json) separates6800
+wire/configuration cases,96 model transactions,102 fresh old-API operations
+and24 independently hashed roots. An initial integer/Boolean source-comparison
+defect is preserved and rejected after canonical-byte comparison. No new API
+endpoint or profile is activated. AI/release roots,ordinary-program signature
+closure and final migration review remain W04 work; W05 owns publication and
+the cumulative T01 gate. Full implementation proofs remain due in T02–T06,
+with API/release integration in T07 and the complete T08–T11 scope unchanged.
