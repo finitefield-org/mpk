@@ -1,0 +1,29 @@
+{
+  "full_gate": {
+    "command": [
+      "./scripts/check-fast.sh"
+    ],
+    "result": "check-fast-result.json",
+    "selected_reason": "T01 final W; cumulative full local gate is mandatory; no T02 implementation starts until it passes",
+    "status": "running",
+    "stderr": "check-fast.stderr.log",
+    "stdout": "check-fast.stdout.log"
+  },
+  "historical_replay_after_publication": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/historical-replay-after-publication.json",
+    "sha256": "5fc72a286cbfcfa56f8aa9ddfdb7fbb3ed32f63f01fcdad1d7b19e2f65d97110"
+  },
+  "installed_registry_check": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/installed-registry-preservation.json",
+    "sha256": "b604a3f8928bcfa7525119b6b98374ecbef2b404109b46a30c9a62e7db65f99f"
+  },
+  "native_Linux_release_gate_executed": false,
+  "profile_activated": false,
+  "schema": "mpk.go_practical.w05_verification.v0",
+  "source_semantics_proved": false,
+  "status": "targeted_passed_cumulative_gate_running",
+  "targeted_results": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/targeted-results.json",
+    "sha256": "ea675b508555ed889741c5e47bdfc54a02e05f1b258b7b4c26c5d2a446a8ab6a"
+  }
+}

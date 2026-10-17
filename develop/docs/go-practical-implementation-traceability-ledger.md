@@ -3973,3 +3973,38 @@ readiness/retention handoff, epoch replay and metadata consistency; full
 publication and the cumulative T01 gate. No actual Go proposition, compiler
 correctness proof, native new frontend, host gate or activation is claimed.
 All T02–T11 implementation/application/proof/release requirements remain active.
+
+
+## 59. T01-W05 inactive normative publication; cumulative gate running
+
+Entry: `68a44416e1b1a6dc3a84587cca784fc4b3a2b862`, W04 design complete.
+Five inactive [specifications](../migrations/go-practical/t01-w05/README.md)
+publish the profile, ordinary foundation, shared artifacts and exact additive
+Nat/Bool interfaces. Five conformance sets join the normative manifest; all26
+predecessor sets and their contents remain unchanged, giving31 sets total.
+Exact generation checks all255 immutable W04 pins, complete new member bytes,
+owner/spec references and explicit unimplemented/proof/activation statuses.
+No placeholder production test or profile route is added.
+
+Publication reconstruction and the normal specification-vector checker pass.
+Both installed registry files retain their original hashes and contain no
+practical-Go entry. The [source/feasibility review](../migrations/go-practical/t01-w05/source-feasibility-review.json)
+records independent source/IR interpretation, exact context/type binding,
+canonical table/name-prefix construction and measured representative proof
+feasibility. General source/compiler/operation/application proofs and native
+host/application/release gates remain explicitly assigned. All169 Go demands
+remain unelaborated.
+
+After publication, the unchanged historical release checkpoint again
+reconstructs229 cases/13 hashes/5 target tuples from its original1,025-file Git
+epoch. No historical helper, observation or frozen source input is rewritten.
+Current implementation evidence must use a fresh source epoch and execution.
+
+The cumulative local `./scripts/check-fast.sh` is actually running for all T01
+changes at this final W. Format and workflow-absence checks have passed; the
+5GiB/approximately29,000-file obsolete-interface scan is still active. Clippy,
+workspace tests and final certificate acceptance/rejection checks have not yet
+completed. Its [result record](../migrations/go-practical/t01-w05/verification/check-fast-result.json)
+and raw logs are authoritative. W05/T01 remain **In progress** until the complete
+gate passes; T02 has not started. This is progress on the active full T01–T11
+objective, not a completion or release claim.

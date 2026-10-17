@@ -318,11 +318,11 @@ current source state; T01-W05 still requires its cumulative whole gate.
 | T01-W04 | Freeze v1 source admission/rejection, operation/check table, closure/effect rules, contract expressions, exact numeric limits/budgets, all changed schema/hash identities, producer/consumer migrations, and positive/negative vectors. Assign every requirement a production executor. |
 | T01-W05 | Publish the reviewed inactive specification package and manifest entries, review source-model binding and proof feasibility, run targeted freeze checks and the full T gate. Keep public selection and the installed registry unchanged. |
 
-Proposed specification owners, whose exact names are frozen in W04:
-`GO_PRACTICAL_PROFILE_V1.md`, a Go practical foundation specification, and a
-shared-artifact delta specification if required. These are future files, not
-existing normative references. Kernel feasibility must not be inferred from
-the C# design alone.
+W04's exact specification owners are `GO_PRACTICAL_PROFILE_V1.md`,
+`GO_PRACTICAL_FOUNDATION_V1.md`, `GO_PRACTICAL_SHARED_ARTIFACTS_V1.md`,
+`CORE_NAT_INDUCTION_V1.md` and `CORE_BOOL_TYPE_CASES_V1.md`. W05 publishes
+these inactive normative references and their conformance manifest entries.
+Kernel feasibility is measured independently of the C# design.
 
 Exit: a measured, implementable frozen v1 scope with zero unresolved semantic
 questions. Any proposed workload above a viable bound is explicitly excluded
@@ -334,10 +334,10 @@ correctness,all operation/definedness/control/frame lemmas and complete
 application proofs remain mandatory in their assigned T02–T06 gates. Their
 unfinished implementation proofs alone do not extend W04; an undefined
 semantic rule or unmeasured feasibility problem still prevents design freeze.
-Finish the remaining AI/release roots,ordinary-program signature closure and
-consumer migration dispositions,then perform the W04 review and W05 publication
-and cumulative gate before starting T02. This changes no implementation or
-release acceptance condition and does not activate the private profile.
+W04 closes the AI/release roots,ordinary-program signature/budget contract and
+all183 consumer dispositions in its completion audit. W05 publication and the
+cumulative T01 gate must pass before T02 starts. This changes no implementation
+or release acceptance condition and does not activate the private profile.
 
 ## 4. GO-PRAC-T02 — Captured modules and function selection
 

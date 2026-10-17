@@ -1,0 +1,158 @@
+{
+  "contract_members": [
+    {
+      "bytes": 76777,
+      "path": "develop/migrations/go-practical/t01-w04/foundation-limits/definitions.json",
+      "sha256": "06ffabd6dc93dfe878da340b6898b94ac6f88750d5549a487d55be905c9f1d16"
+    },
+    {
+      "bytes": 6608,
+      "path": "develop/migrations/go-practical/t01-w04/nat-termination/README.md",
+      "sha256": "78684f5b32e3829dc554af7148e58e3d3b5266fa8b9d34d1ed4c517fc9afdbd8"
+    }
+  ],
+  "core_interfaces": [
+    {
+      "constructors": [
+        "false : Bool",
+        "true : Bool"
+      ],
+      "family": "Std.Bool",
+      "guards": [
+        "generated reserved recursor name",
+        "family at Sort0",
+        "exact two generated constructors in declaration order",
+        "canonical constructor names/types",
+        "exact eliminator type",
+        "no universe arguments even in partial/neutral uses",
+        "scan all prior types/opaque values/theorem proofs",
+        "reject later constructors without environment mutation",
+        "legacy rec/cases keep their existing rules"
+      ],
+      "iota": [
+        "recType A B false = A",
+        "recType A B true = B"
+      ],
+      "name": "Std.Bool.recType",
+      "signature": "Sort0 -> Sort0 -> Bool -> Sort0",
+      "sources": [
+        {
+          "path": "develop/probes/go-practical/termination-foundation/rust/bool_rec_type.rs",
+          "schema": null,
+          "sha256": "d37836b7bcb1e11fa318b6431129d79ebd185d6a0f9e21985b5baeb0ae0dcfcd",
+          "size_bytes": 5837
+        },
+        {
+          "path": "develop/probes/go-practical/termination-foundation/go/bool_rec_type.go",
+          "schema": null,
+          "sha256": "6758331d5eb519ba97a4526a2619501fa9a037d50b259dc78ef33fa7fe6d15cc",
+          "size_bytes": 4815
+        }
+      ]
+    }
+  ],
+  "design_completion": {
+    "bytes": 47962,
+    "path": "develop/migrations/go-practical/t01-w04/completion-audit.json",
+    "sha256": "aa7369cdbb46ab1ef9b276e113f54ea6bead8de8b88ff92f155ccca99b043143"
+  },
+  "historical_evidence_rule": "exact original Git epoch/receipts; current implementation requires new inputs and execution; metadata cannot promote proof or release readiness",
+  "implementation_status": {
+    "Go_program_proof": false,
+    "installed_activation": false,
+    "native_host_gate": false,
+    "registered_producer": false
+  },
+  "measured_evidence": [
+    {
+      "bytes": 131430,
+      "path": "develop/migrations/go-practical/t01-w04/nat-termination/observations.json",
+      "sha256": "70a67a8b0c3913f11b18d16362dd74cb9a0d103d6d4db2bc41f791582b64c6a5"
+    }
+  ],
+  "measured_interface_cases": {
+    "bytes": 8086,
+    "path": "develop/migrations/go-practical/t01-w04/nat-termination/interfaces.json",
+    "sha256": "3a72c15785910a1566aee2e129a52daead00d5317cf9c420081c6ddb3a75a62b"
+  },
+  "owner_tests": [
+    "crates/mpk-core/src/bool_rec_type.rs",
+    "go-tools/mpk-checker-ref/bool_rec_type_test.go"
+  ],
+  "owning_spec": {
+    "bytes": 2029,
+    "path": "develop/specs/CORE_BOOL_TYPE_CASES_V1.md",
+    "sha256": "23a2f8f5aef3eef80e195208deb5b61db6aad5212757d12ab79e99b13b157e0d"
+  },
+  "predecessor_commit": "68a44416e1b1a6dc3a84587cca784fc4b3a2b862",
+  "publication_generator": {
+    "bytes": 8288,
+    "path": "develop/probes/go-practical/publish_spec.py",
+    "sha256": "bebf9d60edceea092570244653c0ccd01ca23803c982cb5673bd4b40c75231d9"
+  },
+  "required_later_gates": [
+    "T02–T06 complete source/ordinary/application proofs and stage gates",
+    "T07 first native release",
+    "T08–T11 maps/pointers and second native release"
+  ],
+  "schema": "mpk.core.bool_type_cases.conformance.v1",
+  "semantic_profile": "mpk.go.practical.v1",
+  "status": "frozen_inactive_design",
+  "vectors": [
+    {
+      "condition": "generated reserved recursor name",
+      "expected": "enforce_exact_guard",
+      "id": "core-bool-type-cases-v1-1",
+      "production_observed": false
+    },
+    {
+      "condition": "family at Sort0",
+      "expected": "enforce_exact_guard",
+      "id": "core-bool-type-cases-v1-2",
+      "production_observed": false
+    },
+    {
+      "condition": "exact two generated constructors in declaration order",
+      "expected": "enforce_exact_guard",
+      "id": "core-bool-type-cases-v1-3",
+      "production_observed": false
+    },
+    {
+      "condition": "canonical constructor names/types",
+      "expected": "enforce_exact_guard",
+      "id": "core-bool-type-cases-v1-4",
+      "production_observed": false
+    },
+    {
+      "condition": "exact eliminator type",
+      "expected": "enforce_exact_guard",
+      "id": "core-bool-type-cases-v1-5",
+      "production_observed": false
+    },
+    {
+      "condition": "no universe arguments even in partial/neutral uses",
+      "expected": "enforce_exact_guard",
+      "id": "core-bool-type-cases-v1-6",
+      "production_observed": false
+    },
+    {
+      "condition": "scan all prior types/opaque values/theorem proofs",
+      "expected": "enforce_exact_guard",
+      "id": "core-bool-type-cases-v1-7",
+      "production_observed": false
+    },
+    {
+      "condition": "reject later constructors without environment mutation",
+      "expected": "enforce_exact_guard",
+      "id": "core-bool-type-cases-v1-8",
+      "production_observed": false
+    },
+    {
+      "condition": "legacy rec/cases keep their existing rules",
+      "expected": "enforce_exact_guard",
+      "id": "core-bool-type-cases-v1-9",
+      "production_observed": false
+    }
+  ],
+  "work_item": "GO-PRAC-T01-W05"
+}

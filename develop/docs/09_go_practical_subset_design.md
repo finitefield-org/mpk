@@ -7,6 +7,14 @@ or public command is activated by this document.
 The implementation sequence is in
 [the companion work plan](09_go_practical_subset_design-todo.md).
 
+T01-W04's design freeze is complete. T01-W05 publishes the inactive
+[profile](../specs/GO_PRACTICAL_PROFILE_V1.md),
+[ordinary foundation](../specs/GO_PRACTICAL_FOUNDATION_V1.md) and
+[shared artifacts](../specs/GO_PRACTICAL_SHARED_ARTIFACTS_V1.md), with separately
+owned Sort0 Nat/Bool core extensions. The publication and implementation status
+is recorded in the [ledger](go-practical-implementation-traceability-ledger.md).
+The cumulative T01 gate must pass before T02 implementation starts.
+
 ## 1. Decision and delivery order
 
 Extend verification of ordinary Go business functions in the priority order
@@ -30,8 +38,8 @@ deliver these capabilities in order:
 The first useful public milestone is priorities 1–4: a function taking
 application structs, strings, and slices and returning `(T, error)`, verified
 in its original module. Maps and pointers follow as a second immutable
-profile. `mpk.go.practical.v1` and `mpk.go.practical.v2` are proposed names in
-this design, not registered identities. v1 is never widened in place to
+profile. `mpk.go.practical.v1` is frozen inactive; `mpk.go.practical.v2` remains
+a proposed successor. Neither is installed. v1 is never widened in place to
 implement v2. There are no caller-selectable experimental feature switches.
 
 “Supported” requires source admission, faithful lowering, independent artifact

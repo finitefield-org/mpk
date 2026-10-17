@@ -1,0 +1,22 @@
+[
+  {
+    "command": [
+      "./scripts/check-go-practical-spec.sh"
+    ],
+    "exit_code": 0,
+    "reason": "Exact new publication bytes,W04 immutable pins,existing26 vector preservation and31-entry manifest.",
+    "stderr": "publication-1.stderr.log",
+    "stdout": "publication-1.stdout.log"
+  },
+  {
+    "command": [
+      "python3",
+      "scripts/check-spec-vectors.py",
+      "--check"
+    ],
+    "exit_code": 0,
+    "reason": "Changed normative manifest and all five added specification/vector ownership references.",
+    "stderr": "publication-2.stderr.log",
+    "stdout": "publication-2.stdout.log"
+  }
+]
