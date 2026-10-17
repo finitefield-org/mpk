@@ -291,7 +291,7 @@
     },
     {
       "component": "foundation",
-      "freeze_status": "ordinary arbitrary-Nat/general Sort0 strong induction checked privately; complete variant/source/binding laws and exact foundation identities remain required",
+      "freeze_status": "ordinary arbitrary-Nat/Sort0 strong induction and backedge-only rank termination checked privately; complete source/binding laws, budgets and exact foundation identities remain required",
       "id": "GO-V1-R020",
       "name": "ordinary_proofs",
       "negative_boundary": "definition-only, unproved callee contracts, added axioms and fuel-as-false claims do not establish support",
@@ -398,5 +398,21 @@
     "CORE_NAT_INDUCTION_V1.md",
     "CORE_BOOL_TYPE_CASES_V1.md"
   ],
-  "status": "in progress; not frozen or published"
+  "status": "in progress; not frozen or published",
+  "variant_termination_feasibility_draft": {
+    "accepted_zero_axiom_claims": 3,
+    "altered_core_type_mismatch_claims": 7,
+    "arbitrary_nat_rank_bound_checked": true,
+    "backedge_only_preservation_and_decrease": true,
+    "complete_source_variant_termination_proved": false,
+    "exit_requires_rank_decrease": false,
+    "initial_bound_derived_from_rank": true,
+    "ordinary_claims": 10,
+    "path": "develop/migrations/go-practical/t01-w04/variant-termination/README.md",
+    "private_checker_sources_changed": false,
+    "production_checker_changed": false,
+    "receipt": "develop/migrations/go-practical/t01-w04/variant-termination/observations.json",
+    "retained_regression_certificates": 3,
+    "status": "ordinary arbitrary-Nat rank+1 finite-stop schema checked; source composition and exact freeze pending"
+  }
 }

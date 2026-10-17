@@ -2123,3 +2123,65 @@ migration freeze, complete source variant termination and application bindings
 remain due. W05 owns inactive publication, feasibility review and the complete
 T01 gate. No T is complete or public Go profile active. T02–T11 and the full
 requested implementation/release scope remain required.
+
+## 33. T01-W04 arbitrary-Nat decreasing-rank finite stop
+
+Entry: `540ee9033324c62b7f204f3bca337f2f4c976e81`, clean before this work.
+The preceding goal turn made progress with general Sort0 strong induction and
+the private canonical Bool type selector. This checkpoint carries the
+foundation forward without changing the complete T01–T11 objective.
+
+The [ordinary variant proof and source-binding decisions](../migrations/go-practical/t01-w04/variant-termination/README.md)
+prove finite stopping for arbitrary genuine Nat ranks/counts and complete
+128-bit frames. The general theorem accepts an explicit strict rank bound;
+the corollary derives rank+1 internally, eliminating a separate bound oracle.
+Preservation and strict decrease are required only on continuing backedges.
+Already stopped and newly exiting states absorb remaining steps. A checked
+constant-zero-rank exit instance supplies every premise and exercises that
+boundary. No finite producer unrolling or native machine-word count is used.
+
+The new producer derives ordinary strict-order transitivity, bound lowering,
+frame absorption and iteration advance using the retained private Nat.induct,
+Bool type selection and Eq rules. No new trusted rule is added; all77 mirrored
+checker sources are byte-identical to section32, as is the rebuilt Go checker
+binary. The Rust binary changes because it includes the new untrusted
+generator. Retained producer/helper snapshots and all production code stay
+unchanged. A routine Rust ownership error in the first new producer build was
+corrected before proof verification; it was not counted as a semantic result.
+
+Ten ordinary candidates are checked in both implementations: three accepted
+zero-axiom claims (general bound, rank+1 and zero-rank exit) and seven altered
+candidates rejected with CORE_TYPE_MISMATCH. The alterations weaken
+preservation, decrease, entry or bound, relax the general bound by one, change
+the stopped result or omit the rank-count successor. They are candidate
+rejections, not certified counterexamples. The preceding strong-induction,
+arbitrary-Nat invariant and legacy Bool certificates retain zero-axiom
+acceptance and matching export/certificate/axiom hashes.
+
+The source binding must separately prove total, safe condition/body/post/callee
+execution and exact transition/frame correspondence. H reads a captured
+condition/control boundary instead of reevaluating a source expression. Loop
+break/return/false-condition exits, continue/post order, switch break targets,
+range snapshots and version-specific bindings retain explicit source proof
+obligations. A total logical transition cannot hide a diverging Go call. Exact
+word/Nat rank bridges, overlay typing, complete state representation and
+application/budget composition remain due.
+
+Selected validation covers this new untrusted producer and its evidence,
+fresh source/toolchain/binary/canonical-byte replay, current draft metadata,
+retained proof/diagnostic integrity, predecessor source pins and formatting.
+Twenty-four evidence/adversarial tests pass (0.375s). Fresh replay checks all13
+current cases in both implementations. The receipt pins152 source inputs;
+observed maxima are8,475 bytes/921 terms/46 declarations. Metadata validation
+checks20 strict JSON documents,39 retained cases, two diagnostics,143 unchanged
+predecessor files and six documents/152 links. Five new Python sources compile,
+and the three new Rust sources pass targeted formatting checks.
+The [verification record](../migrations/go-practical/t01-w04/variant-termination/verification/verification.json)
+retains commands, results and why unchanged production/core/collection/native
+suites are not repeated. The cumulative T01 gate is explicitly deferred to
+W05, as required for an intermediate W.
+
+W04 remains In progress. Exact joint source/foundation/overlay/wire/hash/limit
+freeze and reviewed migration dispositions remain open. W05 owns inactive
+publication, full feasibility review and the T01 gate. No T is complete and no
+practical Go profile is active; T02–T11 and full requested scope remain required.

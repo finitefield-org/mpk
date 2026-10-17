@@ -1,0 +1,125 @@
+{
+  "cases": [
+    {
+      "bytes": 8277,
+      "declarations": 46,
+      "expected": "accepted",
+      "frame_bits": 128,
+      "id": "variant-valid",
+      "iteration_domain": "arbitrary genuine Std.Nat; no finite unrolling",
+      "mutation": "valid",
+      "scope": "ordinary rank-bound termination schema; preservation and strict decrease only on continuing backedges; general bound explicit, rank+1 corollary derives it; no Go source totality claim",
+      "terms": 887,
+      "theorem": "Probe.GoPractical.VariantTermination.VariantClaim"
+    },
+    {
+      "bytes": 8328,
+      "declarations": 46,
+      "expected": "rejected",
+      "frame_bits": 128,
+      "id": "variant-preservation",
+      "iteration_domain": "arbitrary genuine Std.Nat; no finite unrolling",
+      "mutation": "preservation",
+      "scope": "ordinary rank-bound termination schema; preservation and strict decrease only on continuing backedges; general bound explicit, rank+1 corollary derives it; no Go source totality claim",
+      "terms": 897,
+      "theorem": "Probe.GoPractical.VariantTermination.VariantClaim"
+    },
+    {
+      "bytes": 8336,
+      "declarations": 46,
+      "expected": "rejected",
+      "frame_bits": 128,
+      "id": "variant-decrease",
+      "iteration_domain": "arbitrary genuine Std.Nat; no finite unrolling",
+      "mutation": "decrease",
+      "scope": "ordinary rank-bound termination schema; preservation and strict decrease only on continuing backedges; general bound explicit, rank+1 corollary derives it; no Go source totality claim",
+      "terms": 898,
+      "theorem": "Probe.GoPractical.VariantTermination.VariantClaim"
+    },
+    {
+      "bytes": 8328,
+      "declarations": 46,
+      "expected": "rejected",
+      "frame_bits": 128,
+      "id": "variant-entry",
+      "iteration_domain": "arbitrary genuine Std.Nat; no finite unrolling",
+      "mutation": "entry",
+      "scope": "ordinary rank-bound termination schema; preservation and strict decrease only on continuing backedges; general bound explicit, rank+1 corollary derives it; no Go source totality claim",
+      "terms": 897,
+      "theorem": "Probe.GoPractical.VariantTermination.VariantClaim"
+    },
+    {
+      "bytes": 8333,
+      "declarations": 46,
+      "expected": "rejected",
+      "frame_bits": 128,
+      "id": "variant-bound",
+      "iteration_domain": "arbitrary genuine Std.Nat; no finite unrolling",
+      "mutation": "bound",
+      "scope": "ordinary rank-bound termination schema; preservation and strict decrease only on continuing backedges; general bound explicit, rank+1 corollary derives it; no Go source totality claim",
+      "terms": 898,
+      "theorem": "Probe.GoPractical.VariantTermination.VariantClaim"
+    },
+    {
+      "bytes": 8342,
+      "declarations": 46,
+      "expected": "rejected",
+      "frame_bits": 128,
+      "id": "variant-weak-bound",
+      "iteration_domain": "arbitrary genuine Std.Nat; no finite unrolling",
+      "mutation": "weak-bound",
+      "scope": "ordinary rank-bound termination schema; preservation and strict decrease only on continuing backedges; general bound explicit, rank+1 corollary derives it; no Go source totality claim",
+      "terms": 899,
+      "theorem": "Probe.GoPractical.VariantTermination.VariantClaim"
+    },
+    {
+      "bytes": 8334,
+      "declarations": 46,
+      "expected": "rejected",
+      "frame_bits": 128,
+      "id": "variant-result",
+      "iteration_domain": "arbitrary genuine Std.Nat; no finite unrolling",
+      "mutation": "result",
+      "scope": "ordinary rank-bound termination schema; preservation and strict decrease only on continuing backedges; general bound explicit, rank+1 corollary derives it; no Go source totality claim",
+      "terms": 898,
+      "theorem": "Probe.GoPractical.VariantTermination.VariantClaim"
+    },
+    {
+      "bytes": 8266,
+      "declarations": 46,
+      "expected": "accepted",
+      "frame_bits": 128,
+      "id": "variant-rank-count-valid",
+      "iteration_domain": "arbitrary genuine Std.Nat; no finite unrolling",
+      "mutation": "rank-count-valid",
+      "scope": "ordinary rank-bound termination schema; preservation and strict decrease only on continuing backedges; general bound explicit, rank+1 corollary derives it; no Go source totality claim",
+      "terms": 886,
+      "theorem": "Probe.GoPractical.VariantTermination.VariantClaim"
+    },
+    {
+      "bytes": 8327,
+      "declarations": 46,
+      "expected": "rejected",
+      "frame_bits": 128,
+      "id": "variant-rank-count-off-by-one",
+      "iteration_domain": "arbitrary genuine Std.Nat; no finite unrolling",
+      "mutation": "rank-count-off-by-one",
+      "scope": "ordinary rank-bound termination schema; preservation and strict decrease only on continuing backedges; general bound explicit, rank+1 corollary derives it; no Go source totality claim",
+      "terms": 897,
+      "theorem": "Probe.GoPractical.VariantTermination.VariantClaim"
+    },
+    {
+      "bytes": 8475,
+      "declarations": 46,
+      "expected": "accepted",
+      "frame_bits": 128,
+      "id": "variant-zero-rank-exit",
+      "iteration_domain": "rank zero; arbitrary full frame; universal theorem instance",
+      "mutation": "zero-rank-exit",
+      "scope": "ordinary rank-bound termination schema; preservation and strict decrease only on continuing backedges; general bound explicit, rank+1 corollary derives it; no Go source totality claim",
+      "terms": 921,
+      "theorem": "Probe.GoPractical.VariantTermination.VariantClaim"
+    }
+  ],
+  "schema": "mpk.go_practical.variant_termination_pilot.v0"
+}

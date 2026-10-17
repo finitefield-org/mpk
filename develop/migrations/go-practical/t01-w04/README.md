@@ -46,6 +46,11 @@ remain T08–T11 work; the complete eleven-stage objective is unchanged.
   three retained regression certificates checked by both private verifiers.
   General Sort0 strong induction is measured; complete source-variant
   termination and the additive core-interface freeze remain open.
+- [Private variant-termination evidence](variant-termination/README.md):
+  ten ordinary candidates and three retained regression certificates. The
+  arbitrary-Nat rank+1 stop theorem requires preservation/decrease only on
+  continuing backedges; an exiting rank-zero instance is checked. Complete
+  Go source totality and exact foundation/overlay identities remain open.
 
 ## Shared-family decision
 
@@ -93,7 +98,9 @@ The complete source and operation tables still need review. Other open work is:
    untrusted true candidates, and missing total variants stay pending.
    General Sort0 strong induction now has private both-checker evidence with a
    proposed Bool.recType interface. Exact joint core/foundation identities,
-   complete variant members, source composition and budgets remain due.
+   remaining variant/source members and budgets remain due. An ordinary
+   rank+1 stop schema now has private both-checker evidence, including exits
+   that require no rank decrease; complete Go source totality remains due.
 4. Close every successor identity, schema, hash domain/preimage and vector,
    including old/new crossing and preservation of all four installed profiles.
 
@@ -134,7 +141,13 @@ Neither operation catalogue generation nor native replay is a source-to-certific
 or universal termination proof.
 
 The foundation checkpoint's
-[current metadata checker](../../../probes/go-practical/check_termination_metadata.py)
+[section32 metadata checker](../../../probes/go-practical/check_termination_metadata.py)
 validates its proof receipt, retained failed constructions, planned core
 ownership and unchanged predecessor inputs. It does not close W04 or establish
 termination of a complete Go application.
+
+The variant checkpoint's [current metadata checker](../../../probes/go-practical/check_variant_metadata.py)
+checks the ordinary stop schema, preceding foundation evidence, diagnostics,
+unchanged checker/production inputs and current draft scope. Its
+[verification record](variant-termination/verification/verification.json)
+retains selected replay/evidence checks; the whole T01 gate remains due in W05.

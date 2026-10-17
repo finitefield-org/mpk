@@ -19,7 +19,11 @@ and native observations with 35 evidence checks. A 56-family logical operation
 table and evaluation/contract/loop rules add 54 native cases with 52 evidence
 checks. Private order/general Sort0 strong induction adds 39 both-checker
 proof/interface/regression cases with a proposed fixed Bool type selector.
-Complete source/overlay/wire tables, complete variant termination foundation,
+An ordinary arbitrary-Nat rank+1 finite-stop schema adds 13 both-checker
+candidate/regression cases, including zero-rank exits without decrease. Its
+invariant/decrease obligations apply only to continuing backedges; full Go
+source totality still requires separate bindings and terminating calls.
+Complete source/overlay/wire tables, remaining variant/source foundation,
 limits, schemas/hash identities and migration review remain open.
 T01 is incomplete and no practical Go profile is active.
 
