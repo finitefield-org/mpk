@@ -1,0 +1,427 @@
+[
+  {
+    "id": "ordinary-domain",
+    "language": "go1.25",
+    "source": "package policy\ntype Amount int64; type Decision struct {OK bool; Sum Amount}; const (No = iota; Yes); func Root(n Amount) Decision {switch {case n>0:return Decision{OK:true,Sum:n}; default:return Decision{}}}\n"
+  },
+  {
+    "id": "aliases-constants",
+    "language": "go1.25",
+    "source": "package policy\ntype Amount int64; type Alias = Amount; const (A = 1<<60; B = A+1); func Root(x Alias) Amount {return x+Amount(B)}\n"
+  },
+  {
+    "id": "exact-untyped-constant",
+    "language": "go1.25",
+    "source": "package policy\nconst C = 1.5+0.5; func Root() int {return int(C)}\n"
+  },
+  {
+    "id": "string-bytes",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root(s string) bool {return len(s)==0 || s[0]==255 && s[1:]<\"x\\x00\"}\n"
+  },
+  {
+    "id": "fresh-slice-builtins",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root(s string) []byte {d:=make([]byte,0,8); d=append(d,s...); n:=copy(d,d); _=n; return d[:len(d):cap(d)]}\n"
+  },
+  {
+    "id": "root-aggregate-descriptors",
+    "language": "go1.25",
+    "source": "package policy\ntype Bundle struct {Data []int; Groups [2][]int}; func Root(b Bundle) []int {c:=b;return c.Groups[0]}\n"
+  },
+  {
+    "id": "named-naked-results",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root(n int) (x int,ok bool) {x=n;ok=true;return}\n"
+  },
+  {
+    "id": "forwarded-product",
+    "language": "go1.25",
+    "source": "package policy\nfunc Pair(n int)(int,bool){return n,true};func Root(n int)(int,bool){return Pair(n)}\n"
+  },
+  {
+    "id": "discarded-product",
+    "language": "go1.25",
+    "source": "package policy\nfunc Pair(n int)(int,bool){return n,true};func Root(n int)int{x,_:=Pair(n);return x}\n"
+  },
+  {
+    "id": "mixed-declaration",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root(x int)int{x,y:=x+1,x;x,y=y,x; x+=y; x++; x--;return x}\n"
+  },
+  {
+    "id": "direct-value-method",
+    "language": "go1.25",
+    "source": "package policy\ntype Code int;func(c Code) Add(n int)int{return int(c)+n};func Root(c Code)int{return c.Add(2)}\n"
+  },
+  {
+    "id": "method-expression",
+    "language": "go1.25",
+    "source": "package policy\ntype Code int;func(c Code) Add(n int)int{return int(c)+n};func Root(c Code)int{return Code.Add(c,2)}\n"
+  },
+  {
+    "id": "error-box-signature-only",
+    "language": "go1.25",
+    "source": "package policy\ntype Code int;func(Code)Error()string{panic(\"must stay outside proof\")};func Root()error{return Code(0)}\n"
+  },
+  {
+    "id": "called-concrete-error-method",
+    "language": "go1.25",
+    "source": "package policy\ntype Code int;func(Code)Error()string{return \"code\"};func Root()string{return Code(0).Error()}\n"
+  },
+  {
+    "id": "error-nil",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root(e error)bool{return e==nil || e!=nil}\n"
+  },
+  {
+    "id": "array-local-views",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root()int{a:=[3]int{1,2,3};s:=a[:];a[0]=4;s[1]=5;return s[0]+a[1]}\n"
+  },
+  {
+    "id": "array-range",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root(a [3]int)int{n:=0;for i,x:=range a {if i==0 {continue};n+=x};return n}\n"
+  },
+  {
+    "id": "slice-range",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root(a []int)int{n:=0;for _,x:=range a {n+=x};return n}\n"
+  },
+  {
+    "id": "nested-control",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root(a []int)int{n:=0;for i:=0;i<len(a);i++ {for {switch a[i] {case 0:break;default:n++};break};if n>4 {break}};return n}\n"
+  },
+  {
+    "id": "unselected-map-and-init",
+    "language": "go1.25",
+    "source": "package policy\nvar ambient int;func init(){panic(\"application init must never execute\")};func Other(){m:=make(map[string]int);m[\"x\"]=1};func Root(n int)int{return n+1}\n"
+  },
+  {
+    "id": "struct-tag-conversion",
+    "language": "go1.25",
+    "source": "package policy\ntype A struct {N int `json:\"a\"`};type B struct {N int `json:\"b\"`};func Root(a A)B{return B(a)}\n"
+  },
+  {
+    "id": "nil-slice-conversion",
+    "language": "go1.25",
+    "source": "package policy\ntype Values []int;func Root()Values{return Values(nil)}\n"
+  },
+  {
+    "id": "error-entry-needs-universe",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root(e error)error{return e}\n"
+  },
+  {
+    "id": "zero-arity-call",
+    "language": "go1.25",
+    "source": "package policy\nfunc Helper(){};func Root(){Helper()}\n"
+  },
+  {
+    "id": "inferred-keyed-array",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root()int{a:=[...]int{2:7};return a[2]}\n"
+  },
+  {
+    "id": "local-type-constant",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root(n int)int{type Local int;const K=2;var x Local=Local(n);return int(x)+K}\n"
+  },
+  {
+    "id": "parenthesized-call",
+    "language": "go1.25",
+    "source": "package policy\nfunc Helper(n int)int{return n};func Root(n int)int{return ((Helper))(n)}\n"
+  },
+  {
+    "id": "utf8-physical-span",
+    "language": "go1.25",
+    "source": "package policy\n// \u65e5\u672c\u8a9e\u306e\u8b58\u5225\u5b50\u3068\u7269\u7406\u30d0\u30a4\u30c8\u4f4d\u7f6e\nfunc Root(\u984d int)int{return \u984d+1}\n"
+  },
+  {
+    "id": "map-root",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root(m map[int]int)int{return len(m)}\n"
+  },
+  {
+    "id": "pointer-root",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root(p *int)int{return *p}\n"
+  },
+  {
+    "id": "float-root",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root(x float64)float64{return x+1}\n"
+  },
+  {
+    "id": "uintptr-root",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root(x uintptr)uintptr{return x}\n"
+  },
+  {
+    "id": "complex-root",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root(x complex128)complex128{return x}\n"
+  },
+  {
+    "id": "open-interface",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root(x any)any{return x}\n"
+  },
+  {
+    "id": "nonplain-slice-cell",
+    "language": "go1.25",
+    "source": "package policy\ntype Row struct {Data []int};func Root(x []Row)int{return len(x)}\n"
+  },
+  {
+    "id": "recursive-slice-type",
+    "language": "go1.25",
+    "source": "package policy\ntype Node struct {Next []Node};func Root(n Node)int{return len(n.Next)}\n"
+  },
+  {
+    "id": "embedded-field",
+    "language": "go1.25",
+    "source": "package policy\ntype Base struct{N int};type Outer struct{Base};func Root(x Outer)int{return x.N}\n"
+  },
+  {
+    "id": "string-range",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root(s string)int{n:=0;for range s {n++};return n}\n"
+  },
+  {
+    "id": "integer-range",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root(n int)int{v:=0;for range n{v++};return v}\n"
+  },
+  {
+    "id": "pointer-array-range",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root(a *[2]int)int{n:=0;for _,x:=range a {n+=x};return n}\n"
+  },
+  {
+    "id": "iterator-range",
+    "language": "go1.25",
+    "source": "package policy\nfunc Iter(y func(int)bool){y(1)};func Root()int{n:=0;for x:=range Iter{n+=x};return n}\n"
+  },
+  {
+    "id": "type-assertion",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root(e error)bool{_,ok:=e.(interface{Error()string});return ok}\n"
+  },
+  {
+    "id": "type-switch",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root(e error)int{switch e.(type){case nil:return 0;default:return 1}}\n"
+  },
+  {
+    "id": "function-literal",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root()int{return func()int{return 1}()}\n"
+  },
+  {
+    "id": "function-value",
+    "language": "go1.25",
+    "source": "package policy\nfunc Helper()int{return 1};func Root()int{f:=Helper;return f()}\n"
+  },
+  {
+    "id": "indirect-parameter",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root(f func()int)int{return f()}\n"
+  },
+  {
+    "id": "generic-function",
+    "language": "go1.25",
+    "source": "package policy\nfunc Helper[T ~int](x T)T{return x};func Root(x int)int{return Helper[int](x)}\n"
+  },
+  {
+    "id": "generic-type",
+    "language": "go1.25",
+    "source": "package policy\ntype Box[T any]struct{N T};func Root(b Box[int])int{return b.N}\n"
+  },
+  {
+    "id": "defer",
+    "language": "go1.25",
+    "source": "package policy\nfunc Helper(){};func Root(){defer Helper()}\n"
+  },
+  {
+    "id": "goroutine",
+    "language": "go1.25",
+    "source": "package policy\nfunc Helper(){};func Root(){go Helper()}\n"
+  },
+  {
+    "id": "select-channel",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root(ch chan int)int{select{case n:=<-ch:return n;default:return 0}}\n"
+  },
+  {
+    "id": "send-channel",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root(ch chan int){ch<-1}\n"
+  },
+  {
+    "id": "labeled-goto",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root()int{L:return 0;goto L}\n"
+  },
+  {
+    "id": "fallthrough",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root(n int)int{switch n{case 0:n++;fallthrough;default:n++};return n}\n"
+  },
+  {
+    "id": "panic-builtin",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root(){panic(\"no\")}\n"
+  },
+  {
+    "id": "min-builtin",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root(n int)int{return min(n,1)}\n"
+  },
+  {
+    "id": "clear-builtin",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root(s []int){clear(s)}\n"
+  },
+  {
+    "id": "new-builtin",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root(){_=new(int)}\n"
+  },
+  {
+    "id": "constant-integer-to-string",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root()string{return string(65)}\n"
+  },
+  {
+    "id": "slice-to-array",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root(s []int)[2]int{return [2]int(s)}\n"
+  },
+  {
+    "id": "string-to-bytes",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root(s string)[]byte{return []byte(s)}\n"
+  },
+  {
+    "id": "ambient-read",
+    "language": "go1.25",
+    "source": "package policy\nvar counter int;func Root()int{return counter}\n"
+  },
+  {
+    "id": "ambient-write",
+    "language": "go1.25",
+    "source": "package policy\nvar counter int;func Root(){counter++}\n"
+  },
+  {
+    "id": "helper-ambient",
+    "language": "go1.25",
+    "source": "package policy\nvar counter int;func Helper()int{return counter};func Root()int{return Helper()}\n"
+  },
+  {
+    "id": "call-cycle",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root()int{return Helper()};func Helper()int{return Root()}\n"
+  },
+  {
+    "id": "unreachable-cycle",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root()int{if false{return Helper()};return 0};func Helper()int{return Helper()}\n"
+  },
+  {
+    "id": "interface-error-dispatch",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root(e error)string{return e.Error()}\n"
+  },
+  {
+    "id": "called-error-panic",
+    "language": "go1.25",
+    "source": "package policy\ntype Code int;func(Code)Error()string{panic(\"selected\")};func Root()string{return Code(0).Error()}\n"
+  },
+  {
+    "id": "arity-seventeen",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root()(int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int){return 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}\n"
+  },
+  {
+    "id": "variadic-function",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root(xs ...int)int{return len(xs)}\n"
+  },
+  {
+    "id": "missing-callee-body",
+    "language": "go1.25",
+    "source": "package policy\nfunc Helper()int;func Root()int{return Helper()}\n"
+  },
+  {
+    "id": "error-value-comparison",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root(a,b error)bool{return a==b}\n"
+  },
+  {
+    "id": "address-taking",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root(n int){_=&n}\n"
+  },
+  {
+    "id": "receive",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root(ch chan int)int{return <-ch}\n"
+  },
+  {
+    "id": "unselected-type-error",
+    "language": "go1.25",
+    "source": "package policy\nfunc Other()int{return \"bad\"};func Root()int{return 1}\n"
+  },
+  {
+    "id": "unselected-syntax-error",
+    "language": "go1.25",
+    "source": "package policy\nfunc Other(){if };func Root()int{return 1}\n"
+  },
+  {
+    "id": "constant-overflow",
+    "language": "go1.25",
+    "source": "package policy\nfunc Root()uint8{return uint8(256)}\n"
+  },
+  {
+    "id": "nominal-type-error",
+    "language": "go1.25",
+    "source": "package policy\ntype A int;type B int;func Root(a A)B{return a}\n"
+  },
+  {
+    "id": "effective-go1.22",
+    "language": "go1.22",
+    "source": "package policy\nfunc Root(a [2]int)int{n:=0;for i:=range a {n+=i};return n}\n"
+  },
+  {
+    "id": "effective-go1.23",
+    "language": "go1.23",
+    "source": "package policy\nfunc Root(a [2]int)int{n:=0;for i:=range a {n+=i};return n}\n"
+  },
+  {
+    "id": "effective-go1.24",
+    "language": "go1.24",
+    "source": "package policy\nfunc Root(a [2]int)int{n:=0;for i:=range a {n+=i};return n}\n"
+  },
+  {
+    "id": "original-overlay-quote",
+    "language": "go1.25",
+    "source": "package policy\n\n// \u5951\u7d04\u306e\u30d8\u30c3\u30c0\u30fc\u306f\u6761\u4ef6\u8a55\u4fa1\u306e\u524d\u3002\u4f4d\u7f6e\u306fUTF-8\u306e\u7269\u7406\u30d0\u30a4\u30c8\u3002\n\ntype Amount int64\ntype OtherAmount int64\ntype Money = Amount\ntype RejectAlias = RejectCode\ntype Flag bool\ntype LineArray [2]Line\ntype Root struct { List []Line; Err error }\ntype Blank struct { _ int64 }\nvar ambient int64\ntype Line struct { Amount Amount }\ntype Decision struct { Total Amount }\ntype RejectCode uint8\nfunc (RejectCode) Error() string { return \"order rejected\" }\ntype SliceError struct { Data []uint8 }\nfunc (SliceError) Error() string { return \"bytes\" }\n\nfunc Quote(customerID string, lines []Line, limit Amount) (Decision, error) {\n    if customerID == \"\" || limit < 0 { return Decision{}, RejectCode(1) }\n    total := Amount(0)\n    for _, line := range lines {\n        if line.Amount < 0 { return Decision{}, RejectCode(1) }\n        if line.Amount > limit-total { return Decision{}, RejectCode(2) }\n        total += line.Amount\n    }\n    return Decision{Total: total}, nil\n}\n\nfunc Scopes(xs []int64, other OtherAmount, flag bool, bytes []uint8, es []error) (total Amount, err error) {\n    _ = other; _ = flag; _ = bytes; _ = es\n    for i := 0; i < len(xs); i++ {\n        total := Amount(xs[i])\n        for j := 0; j < 1; j++ { total += Amount(j) }\n        _ = total\n    }\n    for index, value := range xs {\n        for k := 0; k < 1; k++ { total += Amount(index) + Amount(value) }\n    }\n    var index int\n    var value int64\n    for index, value = range xs { total += Amount(index) + Amount(value) }\n    after := total\n    _ = after\n    return\n}\n\n// The original file is type checked intact, including unselected Go features.\nfunc Unselected(m map[string]int) int { return m[\"unused\"] + int(ambient) }\n\nfunc InputErrors(root Root, errors []error) { _ = root; _ = errors }\n"
+  },
+  {
+    "id": "weighted-value-2097151",
+    "language": "go1.25",
+    "source": "package policy\ntype BudgetValue struct{b0 [256][256]int64;b1 [256][256]int64;b2 [256][256]int64;b3 [256][256]int64;b4 [256][256]int64;b5 [256][256]int64;b6 [256][256]int64;b7 [256][256]int64;b8 [256][256]int64;b9 [256][256]int64;b10 [256][256]int64;b11 [256][256]int64;b12 [256][256]int64;b13 [256][256]int64;b14 [256][256]int64;b15 [256][256]int64;b16 [256][256]int64;b17 [256][256]int64;b18 [256][256]int64;b19 [256][256]int64;b20 [256][256]int64;b21 [256][256]int64;b22 [256][256]int64;b23 [256][256]int64;b24 [256][256]int64;b25 [256][256]int64;b26 [256][256]int64;b27 [256][256]int64;b28 [256][256]int64;b29 [256][256]int64;b30 [256][256]int64;remainder struct{a [223][256]int64;b [253]int64}}\nfunc Root(v BudgetValue)int{return 0}\n"
+  },
+  {
+    "id": "weighted-value-2097152",
+    "language": "go1.25",
+    "source": "package policy\ntype BudgetValue struct{b0 [256][256]int64;b1 [256][256]int64;b2 [256][256]int64;b3 [256][256]int64;b4 [256][256]int64;b5 [256][256]int64;b6 [256][256]int64;b7 [256][256]int64;b8 [256][256]int64;b9 [256][256]int64;b10 [256][256]int64;b11 [256][256]int64;b12 [256][256]int64;b13 [256][256]int64;b14 [256][256]int64;b15 [256][256]int64;b16 [256][256]int64;b17 [256][256]int64;b18 [256][256]int64;b19 [256][256]int64;b20 [256][256]int64;b21 [256][256]int64;b22 [256][256]int64;b23 [256][256]int64;b24 [256][256]int64;b25 [256][256]int64;b26 [256][256]int64;b27 [256][256]int64;b28 [256][256]int64;b29 [256][256]int64;b30 [256][256]int64;remainder struct{a [223][256]int64;b [254]int64}}\nfunc Root(v BudgetValue)int{return 0}\n"
+  },
+  {
+    "id": "weighted-value-2097153",
+    "language": "go1.25",
+    "source": "package policy\ntype BudgetValue struct{b0 [256][256]int64;b1 [256][256]int64;b2 [256][256]int64;b3 [256][256]int64;b4 [256][256]int64;b5 [256][256]int64;b6 [256][256]int64;b7 [256][256]int64;b8 [256][256]int64;b9 [256][256]int64;b10 [256][256]int64;b11 [256][256]int64;b12 [256][256]int64;b13 [256][256]int64;b14 [256][256]int64;b15 [256][256]int64;b16 [256][256]int64;b17 [256][256]int64;b18 [256][256]int64;b19 [256][256]int64;b20 [256][256]int64;b21 [256][256]int64;b22 [256][256]int64;b23 [256][256]int64;b24 [256][256]int64;b25 [256][256]int64;b26 [256][256]int64;b27 [256][256]int64;b28 [256][256]int64;b29 [256][256]int64;b30 [256][256]int64;remainder struct{a [223][256]int64;b [255]int64}}\nfunc Root(v BudgetValue)int{return 0}\n"
+  }
+]

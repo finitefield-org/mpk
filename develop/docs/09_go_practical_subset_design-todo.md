@@ -48,6 +48,13 @@ rejections and four original Go failures. Type-check-only functions, concrete
 error method signatures and selected body dependencies stay distinct; static
 call cycles and ambient state retain transitive paths. Complete independent
 capture/import, typed/effect predicates and source/proof binding remain due.
+The [numeric/carrier draft](../migrations/go-practical/t01-w04/structural-limits/README.md)
+adds64 explicit counter candidates and192 isolated boundary vectors, with
+85 original native layout sources and complete current/past accounting.
+The unused-HTTP capture measures1,417,549 syntax nodes, so practical Go's
+candidate becomes4,194,304 while the predecessor's1,000,000 stays unchanged.
+Abstract2Mi-value/8Mi-store/32Mi-total units charge full bounded shapes,
+copies, roots and observations; source/allocator/finite-ID proofs remain due.
 Complete source/wire tables, remaining variant/source foundation,
 limits, schemas/hash identities and migration review remain open.
 T01 is incomplete and no practical Go profile is active.

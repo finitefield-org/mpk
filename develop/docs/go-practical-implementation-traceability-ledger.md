@@ -2444,3 +2444,80 @@ W04 remains In progress. Complete semantic predicates, numeric/structural/
 capture/resource bounds, schema/hash identities, independent import and reviewed
 migrations remain due before freeze. W05 owns inactive publication and the
 T01 gate. No T is complete; all T02–T11 source/application/release work remains.
+
+## 38. T01-W04 numeric candidates and complete carrier accounting
+
+Entry: `b9ec95fce4361b0a37f6ab9bc3297a772593dac3`, clean before this work.
+The preceding checkpoint committed closed source/closure candidates. This
+checkpoint advances numeric/counter freeze preparation and retains the full
+eleven-stage implementation/release objective.
+
+The [numeric inventory](../migrations/go-practical/t01-w04/structural-limits/README.md)
+defines64 separate candidate counters:49 inherited capture/shared/manifest
+dimensions, five semantic, four weighted carrier and six proof-resource
+dimensions. Original specifications are pinned and production/test owners
+assigned. No normative source, installed profile, core rule or proof certificate
+changes. Forty-eight inherited numeric candidates stay the same. One concrete
+integration measurement requires an explicit practical-only syntax change.
+
+A new offline loaded-syntax observer measures the intact W02 unused-HTTP module
+under pinned Go1.25.0/x-tools0.36.0 and Linux/amd64. All materialized standard
+and module trees contribute:179 packages,1,025 syntax files,1,417,549 nodes
+(1,417,510 standard and39 application). The predecessor's1,000,000 would reject
+the required pure-root/unused-handler use case. The practical candidate is
+4,194,304, the next power of two above twice the measurement. Existing profiles
+keep their1,000,000 rule. Shared function/type limits apply to represented
+verification closure rather than all type-check-only library bodies. Complete
+sealed capture/export/directive/namespace enforcement remains required.
+
+Fixed abstract units charge full word/Bool slots, all256 byte slots plus string
+length, typed slice/location paths, every aggregate field/cell, all global error
+payloads and role/owner/observation headers. Values have a2Mi-unit candidate,
+individual current/past stores8Mi and total namespaces32Mi. These are not Go
+bytes/RSS/proof costs or supported-workload guarantees. A full16-result product
+of[256]string costs1,052,689; a[256] array of64-string structs costs4,210,945 and
+cannot be assumed to fit from its individual axes. Backing collections are
+store totals, with each Plain cell checked as a value;128 cells of64-string
+structs therefore use2,105,474 owner units without a spurious per-value failure.
+
+Complete graph validation precedes saturated weight arithmetic, including zero
+arrays and inactive error payloads. Nominal/alias edges do not erase source
+identity; array/slice/struct/error edges retain exact depth. No huge value
+expansion is required. Current owners, inline entry/evaluation/result values,
+captured targets and every immutable entry/post namespace are charged. Sharing
+one store cannot hide distinct observation packets, while identical contents
+in distinct stores do not merge their costs. Full copied values are charged;
+shared current heap cells are charged once. Ghost serial/history are not a
+proved finite concrete carrier and remain explicitly outside semantic units.
+
+Retained Quote type facts yield input weights257/37/1 and result weights2/2.
+A constructed128-Line frame costs1,578 current/past units; return evidence
+costs1,421. Packed windows use four current cells while retaining the full256
+source cells in post evidence (416 total units). One thousand allocation
+iterations have111 peak/36 final units and sum499500. These are accounting
+probes, not source executions or allocator/source/finite-ID proofs.
+
+There are192 isolated counter vectors:127 within,64 above, one invalid negative
+input below a zero ceiling. Arithmetic preflight avoids unsigned wrap/partial
+commit. Failure classes distinguish capture/structural rejection, unproved
+domain bounds and resource-pending proof work from Go panics/semantic falsity.
+Three constructible array/struct types reach exact2Mi-unit minus/at/plus-one
+weights; pinned Go type-checks all three, with measured native sizes
+16,711,656/16,711,664/16,711,672. Eighty-five original source layouts and two
+identical complete HTTP observations reproduce raw and binary identities.
+All source layouts are measured without instantiating their large values.
+
+Twenty selected tests cover arithmetic and shape boundaries, inactive/zero
+graphs, shared deep paths, heap/inline/copy/target accounting, namespace sharing
+and HTTP syntax fit. A test observation initially named an Int layout absent
+from its empty past registry; registering that test type before capture fixed
+the invalid fixture. The [verification record](../migrations/go-practical/t01-w04/structural-limits/verification/verification.json)
+retains selected native/model/replay/metadata/format results and scope/reasons.
+Unchanged production/kernel and older proof/native matrices are not rerun.
+The cumulative T01 gate remains deferred to W05.
+
+W04 remains In progress. Full source/counter/lifetime/normalization/finite-ID
+and allocator proofs, exact shared/Go schema/hash identities, independent import,
+reviewed migrations and production resource supervision remain required. W05
+owns inactive publication and the T01 gate; no T is complete. All T02–T11
+source/application/release work remains part of the active objective.

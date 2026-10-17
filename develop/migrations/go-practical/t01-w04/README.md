@@ -74,6 +74,12 @@ remain T08–T11 work; the complete eleven-stage objective is unchanged.
   46 rejections and four compiler failures. Unselected/type-only bodies stay
   separate from transitive selected calls. Complete typed/effect/capture/
   adapter predicates and independent source/proof validation remain required.
+- [Numeric/carrier accounting draft](structural-limits/README.md):64 candidate
+  counters,192 isolated boundaries,85 original native layout sources and full
+  current/past-state charges. An actual unused-HTTP load has1,417,549 syntax
+  nodes, requiring a practical-only4,194,304 candidate while preserving the
+  predecessor's1,000,000. Exact production preflight, source/finite-ID/allocator
+  proofs and successor identities remain open.
 
 ## Shared-family decision
 
@@ -193,9 +199,16 @@ planned executor scope and unchanged predecessor/diagnostic files. Its
 keeps model reachability and ordinary masked-store facts distinct from actual
 source/allocator correspondence. The cumulative T01 gate stays due in W05.
 
-The source checkpoint's [current metadata checker](../../../probes/go-practical/check_admission_metadata.py)
+The source checkpoint's [section37 metadata checker](../../../probes/go-practical/check_admission_metadata.py)
 checks closed AST/builtin ownership, all original/native/classifier identities,
 retained proof receipts and unchanged predecessor inputs. Its
 [verification record](source-admission/verification/verification.json)
 keeps compiler facts and candidate classifications distinct from production
 admission and source/model proof acceptance. W04 remains open.
+
+The numeric checkpoint's [current metadata checker](../../../probes/go-practical/check_structural_metadata.py)
+checks explicit units/result classes, original native/layout/HTTP counts,
+planned enforcement owners and unchanged predecessor evidence. Its
+[verification record](structural-limits/verification/verification.json)
+keeps isolated counter and model-state measurements separate from complete
+source/allocator enforcement. The full T01 gate remains deferred to W05.
