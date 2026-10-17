@@ -2185,3 +2185,68 @@ W04 remains In progress. Exact joint source/foundation/overlay/wire/hash/limit
 freeze and reviewed migration dispositions remain open. W05 owns inactive
 publication, full feasibility review and the T01 gate. No T is complete and no
 practical Go profile is active; T02–T11 and full requested scope remain required.
+
+## 34. T01-W04 closed typed overlay and native header scope
+
+Entry: `48ab07a0622c3d5993070f52ddb9eb3b58cdeced`, clean before this work.
+The preceding goal turn made progress with the arbitrary-Nat rank stop schema
+and its accepted/rejected proof evidence. This checkpoint retains the complete
+eleven-stage implementation objective and advances the outstanding overlay
+freeze rather than changing its scope.
+
+The [closed typed overlay draft](../migrations/go-practical/t01-w04/overlay-contracts/README.md)
+specifies 70 source expression heads and 70 normalized heads, with exact private
+root/loop/variant shapes. Logical Bool/Nat/Int remain distinct from source
+nominal types; aliases resolve to the same captured type. Input/return/header
+phases, old heap observations, mathematical finite sums, word conversions,
+full shift counts, byte/sequence/descriptor observations and closed error
+tag/payload queries are explicit. Nested error-bearing entry paths include
+accessible tails, preserve the global U and assert no alias disjointness.
+The source-to-capture-to-normalized identity DAG avoids self-referential hashes;
+production identity/preimage and independent importer freeze remains due.
+
+Two identical observations use pinned Go1.25.0 to parse/type check the intact
+UTF-8 fixture, including an unselected map function. Native scopes distinguish
+named-result/body shadowing, for-init locals, missing future/body declarations,
+range := variables before first assignment, outer range variables at nested
+headers and range = destinations. Method receivers and source aliases are
+captured. Physical byte spans and source/observer pins remain reproducible.
+The observer does not execute the application or implement full capture,
+closure/source/effect admission or a normalized artifact proof validator.
+
+Twenty-four source-overlay vectors yield five normalized unproved candidates,
+one with missing nonrange total-variant candidates and 18 configuration
+rejections. Quote's prefix-sum invariant, positional/error postconditions,
+header local bindings, nested error domains and value receiver contracts are
+typed. Old schemas, wrong contexts/spans, duplicate/stale loop attachment,
+wrong nominal/variant/result phases, missing entry error sets, nonplain global
+error cells, source calls and external write annotations reject. All generated
+invariants/range measures remain candidates; no source/VC proof is discharged.
+
+Review found the prior variant application memo's initial/next-test scheduling
+conflicted with LC02. The corrected composition observes invariant/rank at the
+header before the current condition. H reads only a stopped tag; N executes
+current Test, then false exit or body/binding/post to the next live header.
+Init executes once and the next Test belongs to the next N step. This avoids
+duplicate tests and preserves effectful-test state. Body backedges decrease
+rank even when the later condition will be false. Abstract Nat theorem and all
+checked certificate bytes remain unchanged; the prior application scheduling
+proposal is superseded, not treated as a source proof.
+
+Twenty targeted tests pass, including a typed witness for every closed head
+and exclusion of package variables from header locals. Native predeclared
+types cover all admitted word widths even when absent from source signatures;
+the unsigned64 maximum shift count is retained exactly.
+Fresh build/replay checks original source, observer and normalized candidate
+identities. Metadata checks preserve current vector boundaries, both operator
+sets, all retained 13+39 proof cases, two construction diagnostics and 143
+predecessor inputs; source/format/link/ledger checks are selected for this
+private producer/doc change. The [verification record](../migrations/go-practical/t01-w04/overlay-contracts/verification/verification.json)
+retains commands/reasons and the T01 gate deferred to W05. Unchanged production
+and core/proof/native matrices need no repeat.
+
+W04 remains In progress. Complete source/effect admission, numeric/capture/
+region/resource counters, exact shared/Go schema/hash identities, independent
+typed/definedness reconstruction, remaining foundation proofs/budgets and
+reviewed producer/consumer migrations remain due. No T is complete and no
+practical Go profile is active. T02–T11 and full requested scope remain required.

@@ -51,6 +51,11 @@ remain T08–T11 work; the complete eleven-stage objective is unchanged.
   arbitrary-Nat rank+1 stop theorem requires preservation/decrease only on
   continuing backedges; an exiting rank-zero instance is checked. Complete
   Go source totality and exact foundation/overlay identities remain open.
+- [Closed typed overlay draft](overlay-contracts/README.md): 70 source and 70
+  normalized expression heads, 24 source-overlay vectors and intact native
+  lexical/type observations. Old/current/result/finite-sum and error entry
+  semantics are explicit. The rank theorem uses the LC02 pre-condition header;
+  production schema/hash/importer/definedness/proof review remains open.
 
 ## Shared-family decision
 
@@ -93,7 +98,7 @@ The complete source and operation tables still need review. Other open work is:
    enforcement; assign the ordinary zero-access normalization/frame proofs.
 2. Freeze capture/module/source/count budgets and the real snapshot/compiler
    enforcement, separately from measured proof budgets.
-3. Finish the closed typed overlay grammar and ordinary termination foundation.
+3. Review the closed typed overlay draft and finish the ordinary foundation.
    Root termination is now explicitly partial/total, missing invariants are
    untrusted true candidates, and missing total variants stay pending.
    General Sort0 strong induction now has private both-checker evidence with a
@@ -146,8 +151,14 @@ validates its proof receipt, retained failed constructions, planned core
 ownership and unchanged predecessor inputs. It does not close W04 or establish
 termination of a complete Go application.
 
-The variant checkpoint's [current metadata checker](../../../probes/go-practical/check_variant_metadata.py)
+The variant checkpoint's [section33 metadata checker](../../../probes/go-practical/check_variant_metadata.py)
 checks the ordinary stop schema, preceding foundation evidence, diagnostics,
 unchanged checker/production inputs and current draft scope. Its
 [verification record](variant-termination/verification/verification.json)
 retains selected replay/evidence checks; the whole T01 gate remains due in W05.
+
+The overlay checkpoint's [current metadata checker](../../../probes/go-practical/check_overlay_metadata.py)
+validates closed operator coverage, native grammar/scope receipts, prior proof
+integrity and unchanged predecessor inputs. Its
+[verification record](overlay-contracts/verification/verification.json)
+keeps candidate type acceptance distinct from source/VC/proof acceptance.

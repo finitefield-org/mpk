@@ -1,0 +1,53 @@
+package policy
+
+// 契約のヘッダーは条件評価の前。位置はUTF-8の物理バイト。
+
+type Amount int64
+type OtherAmount int64
+type Money = Amount
+type RejectAlias = RejectCode
+type Flag bool
+type LineArray [2]Line
+type Root struct { List []Line; Err error }
+type Blank struct { _ int64 }
+var ambient int64
+type Line struct { Amount Amount }
+type Decision struct { Total Amount }
+type RejectCode uint8
+func (RejectCode) Error() string { return "order rejected" }
+type SliceError struct { Data []uint8 }
+func (SliceError) Error() string { return "bytes" }
+
+func Quote(customerID string, lines []Line, limit Amount) (Decision, error) {
+    if customerID == "" || limit < 0 { return Decision{}, RejectCode(1) }
+    total := Amount(0)
+    for _, line := range lines {
+        if line.Amount < 0 { return Decision{}, RejectCode(1) }
+        if line.Amount > limit-total { return Decision{}, RejectCode(2) }
+        total += line.Amount
+    }
+    return Decision{Total: total}, nil
+}
+
+func Scopes(xs []int64, other OtherAmount, flag bool, bytes []uint8, es []error) (total Amount, err error) {
+    _ = other; _ = flag; _ = bytes; _ = es
+    for i := 0; i < len(xs); i++ {
+        total := Amount(xs[i])
+        for j := 0; j < 1; j++ { total += Amount(j) }
+        _ = total
+    }
+    for index, value := range xs {
+        for k := 0; k < 1; k++ { total += Amount(index) + Amount(value) }
+    }
+    var index int
+    var value int64
+    for index, value = range xs { total += Amount(index) + Amount(value) }
+    after := total
+    _ = after
+    return
+}
+
+// The original file is type checked intact, including unselected Go features.
+func Unselected(m map[string]int) int { return m["unused"] + int(ambient) }
+
+func InputErrors(root Root, errors []error) { _ = root; _ = errors }

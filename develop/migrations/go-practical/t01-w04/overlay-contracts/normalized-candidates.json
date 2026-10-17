@@ -1,0 +1,1050 @@
+{
+  "cases": [
+    {
+      "capture_context_id": "db473b76a7c18e85a7862776ed1e3282ce0c05eaa89d28b560403f1383b97a2b",
+      "configuration_error": "",
+      "id": "quote-prefix-sum-and-results",
+      "normalized": {
+        "capture_context_id": "db473b76a7c18e85a7862776ed1e3282ce0c05eaa89d28b560403f1383b97a2b",
+        "ensures": [
+          {
+            "args": [
+              {
+                "args": [
+                  {
+                    "op": "result",
+                    "position": 1
+                  }
+                ],
+                "op": "is_nil"
+              },
+              {
+                "args": [
+                  {
+                    "args": [
+                      {
+                        "field": "field:0",
+                        "op": "field",
+                        "owner_type": "fixture/policy.Decision",
+                        "value": {
+                          "op": "result",
+                          "position": 0
+                        }
+                      }
+                    ],
+                    "op": "int.from_signed"
+                  },
+                  {
+                    "body": {
+                      "args": [
+                        {
+                          "field": "field:0",
+                          "op": "field",
+                          "owner_type": "fixture/policy.Line",
+                          "value": {
+                            "op": "old",
+                            "value": {
+                              "args": [
+                                {
+                                  "op": "input",
+                                  "position": 1
+                                },
+                                {
+                                  "name": "j",
+                                  "op": "bound"
+                                }
+                              ],
+                              "op": "element"
+                            }
+                          }
+                        }
+                      ],
+                      "op": "int.from_signed"
+                    },
+                    "lower": {
+                      "op": "nat.literal",
+                      "value": "0"
+                    },
+                    "name": "j",
+                    "op": "int.sum",
+                    "upper": {
+                      "args": [
+                        {
+                          "op": "input",
+                          "position": 1
+                        }
+                      ],
+                      "op": "length"
+                    }
+                  }
+                ],
+                "op": "eq"
+              },
+              {
+                "args": [
+                  {
+                    "case": "fixture/policy.RejectCode",
+                    "op": "error.is",
+                    "value": {
+                      "op": "result",
+                      "position": 1
+                    }
+                  },
+                  {
+                    "args": [
+                      {
+                        "field": "field:0",
+                        "op": "field",
+                        "owner_type": "fixture/policy.Decision",
+                        "value": {
+                          "op": "result",
+                          "position": 0
+                        }
+                      },
+                      {
+                        "op": "word.literal",
+                        "type": "fixture/policy.Amount",
+                        "value": "0"
+                      }
+                    ],
+                    "op": "eq"
+                  }
+                ],
+                "op": "bool.and"
+              }
+            ],
+            "op": "if"
+          }
+        ],
+        "entry_storage": {
+          "concurrent_external_mutation": "forbidden",
+          "input_access": "read_only"
+        },
+        "error_inputs": [],
+        "function_decl_id": "decl:571:992",
+        "loops": [
+          {
+            "invariant_origin": "supplied",
+            "invariants": [
+              {
+                "args": [
+                  {
+                    "args": [
+                      {
+                        "op": "int.literal",
+                        "value": "0"
+                      },
+                      {
+                        "args": [
+                          {
+                            "id": "binding:727",
+                            "op": "binding"
+                          }
+                        ],
+                        "op": "int.from_signed"
+                      }
+                    ],
+                    "op": "le"
+                  },
+                  {
+                    "args": [
+                      {
+                        "args": [
+                          {
+                            "id": "binding:727",
+                            "op": "binding"
+                          }
+                        ],
+                        "op": "int.from_signed"
+                      },
+                      {
+                        "args": [
+                          {
+                            "op": "input",
+                            "position": 2
+                          }
+                        ],
+                        "op": "int.from_signed"
+                      }
+                    ],
+                    "op": "le"
+                  }
+                ],
+                "op": "bool.and"
+              },
+              {
+                "args": [
+                  {
+                    "args": [
+                      {
+                        "id": "binding:727",
+                        "op": "binding"
+                      }
+                    ],
+                    "op": "int.from_signed"
+                  },
+                  {
+                    "body": {
+                      "args": [
+                        {
+                          "field": "field:0",
+                          "op": "field",
+                          "owner_type": "fixture/policy.Line",
+                          "value": {
+                            "op": "old",
+                            "value": {
+                              "args": [
+                                {
+                                  "op": "input",
+                                  "position": 1
+                                },
+                                {
+                                  "name": "j",
+                                  "op": "bound"
+                                }
+                              ],
+                              "op": "element"
+                            }
+                          }
+                        }
+                      ],
+                      "op": "int.from_signed"
+                    },
+                    "lower": {
+                      "op": "nat.literal",
+                      "value": "0"
+                    },
+                    "name": "j",
+                    "op": "int.sum",
+                    "upper": {
+                      "op": "range.index"
+                    }
+                  }
+                ],
+                "op": "eq"
+              }
+            ],
+            "loop_ref": {
+              "ast_kind": "range",
+              "capture_context_id": "db473b76a7c18e85a7862776ed1e3282ce0c05eaa89d28b560403f1383b97a2b",
+              "effective_language": "go1.25",
+              "end_byte": 951,
+              "function_decl_id": "decl:571:992",
+              "function_preorder_ordinal": 0,
+              "source_object_id": "6cf82f7a5f7ce26c768989d91883cfdb2bacbecbfe5f164d08868070fe68b1ad",
+              "start_byte": 750
+            },
+            "variant": {
+              "expression": {
+                "args": [
+                  {
+                    "op": "range.length"
+                  },
+                  {
+                    "op": "range.index"
+                  }
+                ],
+                "op": "nat.sub"
+              },
+              "kind": "candidate",
+              "origin": "generated_range"
+            }
+          }
+        ],
+        "modifies": [],
+        "pending_candidates": [],
+        "proof_status": "unproved design candidate; all source/safety/domain/frame/post/termination members remain required",
+        "requires": [
+          {
+            "args": [
+              {
+                "args": [
+                  {
+                    "op": "input",
+                    "position": 0
+                  }
+                ],
+                "op": "length"
+              },
+              {
+                "op": "nat.literal",
+                "value": "256"
+              }
+            ],
+            "op": "le"
+          }
+        ],
+        "schema": "mpk.go_practical.normalized_overlay_draft.v0",
+        "source_object_id": "6cf82f7a5f7ce26c768989d91883cfdb2bacbecbfe5f164d08868070fe68b1ad",
+        "termination": "total"
+      },
+      "outcome": "normalized_unproved"
+    },
+    {
+      "capture_context_id": "b5f3e3faf3cc7022eaadf68ae60d6d113c2418c2c3888ecfb8bb7806d965f97a",
+      "configuration_error": "",
+      "id": "missing-invariants-partial",
+      "normalized": {
+        "capture_context_id": "b5f3e3faf3cc7022eaadf68ae60d6d113c2418c2c3888ecfb8bb7806d965f97a",
+        "ensures": [
+          {
+            "op": "bool.literal",
+            "value": true
+          }
+        ],
+        "entry_storage": {
+          "concurrent_external_mutation": "forbidden",
+          "input_access": "read_only"
+        },
+        "error_inputs": [
+          {
+            "cases": [],
+            "input": 4,
+            "path": [
+              "elements"
+            ]
+          }
+        ],
+        "function_decl_id": "decl:994:1563",
+        "loops": [
+          {
+            "invariant_origin": "generated_candidate",
+            "invariants": [
+              {
+                "op": "bool.literal",
+                "value": true
+              }
+            ],
+            "loop_ref": {
+              "ast_kind": "for",
+              "capture_context_id": "b5f3e3faf3cc7022eaadf68ae60d6d113c2418c2c3888ecfb8bb7806d965f97a",
+              "effective_language": "go1.25",
+              "end_byte": 1289,
+              "function_decl_id": "decl:994:1563",
+              "function_preorder_ordinal": 0,
+              "source_object_id": "6cf82f7a5f7ce26c768989d91883cfdb2bacbecbfe5f164d08868070fe68b1ad",
+              "start_byte": 1150
+            },
+            "variant": {
+              "kind": "absent"
+            }
+          },
+          {
+            "invariant_origin": "generated_candidate",
+            "invariants": [
+              {
+                "op": "bool.literal",
+                "value": true
+              }
+            ],
+            "loop_ref": {
+              "ast_kind": "for",
+              "capture_context_id": "b5f3e3faf3cc7022eaadf68ae60d6d113c2418c2c3888ecfb8bb7806d965f97a",
+              "effective_language": "go1.25",
+              "end_byte": 1265,
+              "function_decl_id": "decl:994:1563",
+              "function_preorder_ordinal": 1,
+              "source_object_id": "6cf82f7a5f7ce26c768989d91883cfdb2bacbecbfe5f164d08868070fe68b1ad",
+              "start_byte": 1220
+            },
+            "variant": {
+              "kind": "absent"
+            }
+          },
+          {
+            "invariant_origin": "generated_candidate",
+            "invariants": [
+              {
+                "op": "bool.literal",
+                "value": true
+              }
+            ],
+            "loop_ref": {
+              "ast_kind": "range",
+              "capture_context_id": "b5f3e3faf3cc7022eaadf68ae60d6d113c2418c2c3888ecfb8bb7806d965f97a",
+              "effective_language": "go1.25",
+              "end_byte": 1404,
+              "function_decl_id": "decl:994:1563",
+              "function_preorder_ordinal": 2,
+              "source_object_id": "6cf82f7a5f7ce26c768989d91883cfdb2bacbecbfe5f164d08868070fe68b1ad",
+              "start_byte": 1294
+            },
+            "variant": {
+              "kind": "absent"
+            }
+          },
+          {
+            "invariant_origin": "generated_candidate",
+            "invariants": [
+              {
+                "op": "bool.literal",
+                "value": true
+              }
+            ],
+            "loop_ref": {
+              "ast_kind": "for",
+              "capture_context_id": "b5f3e3faf3cc7022eaadf68ae60d6d113c2418c2c3888ecfb8bb7806d965f97a",
+              "effective_language": "go1.25",
+              "end_byte": 1398,
+              "function_decl_id": "decl:994:1563",
+              "function_preorder_ordinal": 3,
+              "source_object_id": "6cf82f7a5f7ce26c768989d91883cfdb2bacbecbfe5f164d08868070fe68b1ad",
+              "start_byte": 1333
+            },
+            "variant": {
+              "kind": "absent"
+            }
+          },
+          {
+            "invariant_origin": "generated_candidate",
+            "invariants": [
+              {
+                "op": "bool.literal",
+                "value": true
+              }
+            ],
+            "loop_ref": {
+              "ast_kind": "range",
+              "capture_context_id": "b5f3e3faf3cc7022eaadf68ae60d6d113c2418c2c3888ecfb8bb7806d965f97a",
+              "effective_language": "go1.25",
+              "end_byte": 1517,
+              "function_decl_id": "decl:994:1563",
+              "function_preorder_ordinal": 4,
+              "source_object_id": "6cf82f7a5f7ce26c768989d91883cfdb2bacbecbfe5f164d08868070fe68b1ad",
+              "start_byte": 1447
+            },
+            "variant": {
+              "kind": "absent"
+            }
+          }
+        ],
+        "modifies": [],
+        "pending_candidates": [],
+        "proof_status": "unproved design candidate; all source/safety/domain/frame/post/termination members remain required",
+        "requires": [],
+        "schema": "mpk.go_practical.normalized_overlay_draft.v0",
+        "source_object_id": "6cf82f7a5f7ce26c768989d91883cfdb2bacbecbfe5f164d08868070fe68b1ad",
+        "termination": "partial"
+      },
+      "outcome": "normalized_unproved"
+    },
+    {
+      "capture_context_id": "578880476248d694f28027aaa959df107472570274e5bc4e164230b5d09f13b1",
+      "configuration_error": "",
+      "id": "missing-for-variants-pending",
+      "normalized": {
+        "capture_context_id": "578880476248d694f28027aaa959df107472570274e5bc4e164230b5d09f13b1",
+        "ensures": [
+          {
+            "op": "bool.literal",
+            "value": true
+          }
+        ],
+        "entry_storage": {
+          "concurrent_external_mutation": "forbidden",
+          "input_access": "read_only"
+        },
+        "error_inputs": [
+          {
+            "cases": [],
+            "input": 4,
+            "path": [
+              "elements"
+            ]
+          }
+        ],
+        "function_decl_id": "decl:994:1563",
+        "loops": [
+          {
+            "invariant_origin": "generated_candidate",
+            "invariants": [
+              {
+                "op": "bool.literal",
+                "value": true
+              }
+            ],
+            "loop_ref": {
+              "ast_kind": "for",
+              "capture_context_id": "578880476248d694f28027aaa959df107472570274e5bc4e164230b5d09f13b1",
+              "effective_language": "go1.25",
+              "end_byte": 1289,
+              "function_decl_id": "decl:994:1563",
+              "function_preorder_ordinal": 0,
+              "source_object_id": "6cf82f7a5f7ce26c768989d91883cfdb2bacbecbfe5f164d08868070fe68b1ad",
+              "start_byte": 1150
+            },
+            "variant": {
+              "kind": "absent"
+            }
+          },
+          {
+            "invariant_origin": "generated_candidate",
+            "invariants": [
+              {
+                "op": "bool.literal",
+                "value": true
+              }
+            ],
+            "loop_ref": {
+              "ast_kind": "for",
+              "capture_context_id": "578880476248d694f28027aaa959df107472570274e5bc4e164230b5d09f13b1",
+              "effective_language": "go1.25",
+              "end_byte": 1265,
+              "function_decl_id": "decl:994:1563",
+              "function_preorder_ordinal": 1,
+              "source_object_id": "6cf82f7a5f7ce26c768989d91883cfdb2bacbecbfe5f164d08868070fe68b1ad",
+              "start_byte": 1220
+            },
+            "variant": {
+              "kind": "absent"
+            }
+          },
+          {
+            "invariant_origin": "generated_candidate",
+            "invariants": [
+              {
+                "op": "bool.literal",
+                "value": true
+              }
+            ],
+            "loop_ref": {
+              "ast_kind": "range",
+              "capture_context_id": "578880476248d694f28027aaa959df107472570274e5bc4e164230b5d09f13b1",
+              "effective_language": "go1.25",
+              "end_byte": 1404,
+              "function_decl_id": "decl:994:1563",
+              "function_preorder_ordinal": 2,
+              "source_object_id": "6cf82f7a5f7ce26c768989d91883cfdb2bacbecbfe5f164d08868070fe68b1ad",
+              "start_byte": 1294
+            },
+            "variant": {
+              "expression": {
+                "args": [
+                  {
+                    "op": "range.length"
+                  },
+                  {
+                    "op": "range.index"
+                  }
+                ],
+                "op": "nat.sub"
+              },
+              "kind": "candidate",
+              "origin": "generated_range"
+            }
+          },
+          {
+            "invariant_origin": "generated_candidate",
+            "invariants": [
+              {
+                "op": "bool.literal",
+                "value": true
+              }
+            ],
+            "loop_ref": {
+              "ast_kind": "for",
+              "capture_context_id": "578880476248d694f28027aaa959df107472570274e5bc4e164230b5d09f13b1",
+              "effective_language": "go1.25",
+              "end_byte": 1398,
+              "function_decl_id": "decl:994:1563",
+              "function_preorder_ordinal": 3,
+              "source_object_id": "6cf82f7a5f7ce26c768989d91883cfdb2bacbecbfe5f164d08868070fe68b1ad",
+              "start_byte": 1333
+            },
+            "variant": {
+              "kind": "absent"
+            }
+          },
+          {
+            "invariant_origin": "generated_candidate",
+            "invariants": [
+              {
+                "op": "bool.literal",
+                "value": true
+              }
+            ],
+            "loop_ref": {
+              "ast_kind": "range",
+              "capture_context_id": "578880476248d694f28027aaa959df107472570274e5bc4e164230b5d09f13b1",
+              "effective_language": "go1.25",
+              "end_byte": 1517,
+              "function_decl_id": "decl:994:1563",
+              "function_preorder_ordinal": 4,
+              "source_object_id": "6cf82f7a5f7ce26c768989d91883cfdb2bacbecbfe5f164d08868070fe68b1ad",
+              "start_byte": 1447
+            },
+            "variant": {
+              "expression": {
+                "args": [
+                  {
+                    "op": "range.length"
+                  },
+                  {
+                    "op": "range.index"
+                  }
+                ],
+                "op": "nat.sub"
+              },
+              "kind": "candidate",
+              "origin": "generated_range"
+            }
+          }
+        ],
+        "modifies": [],
+        "pending_candidates": [
+          {
+            "ordinal": 0,
+            "reason": "missing checked variant candidate"
+          },
+          {
+            "ordinal": 1,
+            "reason": "missing checked variant candidate"
+          },
+          {
+            "ordinal": 3,
+            "reason": "missing checked variant candidate"
+          }
+        ],
+        "proof_status": "unproved design candidate; all source/safety/domain/frame/post/termination members remain required",
+        "requires": [],
+        "schema": "mpk.go_practical.normalized_overlay_draft.v0",
+        "source_object_id": "6cf82f7a5f7ce26c768989d91883cfdb2bacbecbfe5f164d08868070fe68b1ad",
+        "termination": "total"
+      },
+      "outcome": "normalized_pending_variant"
+    },
+    {
+      "capture_context_id": "8deb15b5f926a20bab3124042ad69895dfa3211fbbf795df51bf58e11418ea8a",
+      "configuration_error": "",
+      "id": "exact-header-shadowing",
+      "normalized": {
+        "capture_context_id": "8deb15b5f926a20bab3124042ad69895dfa3211fbbf795df51bf58e11418ea8a",
+        "ensures": [
+          {
+            "op": "bool.literal",
+            "value": true
+          }
+        ],
+        "entry_storage": {
+          "concurrent_external_mutation": "forbidden",
+          "input_access": "read_only"
+        },
+        "error_inputs": [
+          {
+            "cases": [],
+            "input": 4,
+            "path": [
+              "elements"
+            ]
+          }
+        ],
+        "function_decl_id": "decl:994:1563",
+        "loops": [
+          {
+            "invariant_origin": "supplied",
+            "invariants": [
+              {
+                "args": [
+                  {
+                    "id": "binding:1076",
+                    "op": "binding"
+                  },
+                  {
+                    "id": "binding:1076",
+                    "op": "binding"
+                  }
+                ],
+                "op": "eq"
+              }
+            ],
+            "loop_ref": {
+              "ast_kind": "for",
+              "capture_context_id": "8deb15b5f926a20bab3124042ad69895dfa3211fbbf795df51bf58e11418ea8a",
+              "effective_language": "go1.25",
+              "end_byte": 1289,
+              "function_decl_id": "decl:994:1563",
+              "function_preorder_ordinal": 0,
+              "source_object_id": "6cf82f7a5f7ce26c768989d91883cfdb2bacbecbfe5f164d08868070fe68b1ad",
+              "start_byte": 1150
+            },
+            "variant": {
+              "expression": {
+                "op": "nat.literal",
+                "value": "0"
+              },
+              "kind": "candidate",
+              "origin": "supplied"
+            }
+          },
+          {
+            "invariant_origin": "supplied",
+            "invariants": [
+              {
+                "args": [
+                  {
+                    "id": "binding:1189",
+                    "op": "binding"
+                  },
+                  {
+                    "id": "binding:1189",
+                    "op": "binding"
+                  }
+                ],
+                "op": "eq"
+              }
+            ],
+            "loop_ref": {
+              "ast_kind": "for",
+              "capture_context_id": "8deb15b5f926a20bab3124042ad69895dfa3211fbbf795df51bf58e11418ea8a",
+              "effective_language": "go1.25",
+              "end_byte": 1265,
+              "function_decl_id": "decl:994:1563",
+              "function_preorder_ordinal": 1,
+              "source_object_id": "6cf82f7a5f7ce26c768989d91883cfdb2bacbecbfe5f164d08868070fe68b1ad",
+              "start_byte": 1220
+            },
+            "variant": {
+              "expression": {
+                "op": "nat.literal",
+                "value": "0"
+              },
+              "kind": "candidate",
+              "origin": "supplied"
+            }
+          },
+          {
+            "invariant_origin": "supplied",
+            "invariants": [
+              {
+                "args": [
+                  {
+                    "id": "binding:1076",
+                    "op": "binding"
+                  },
+                  {
+                    "id": "binding:1076",
+                    "op": "binding"
+                  }
+                ],
+                "op": "eq"
+              }
+            ],
+            "loop_ref": {
+              "ast_kind": "range",
+              "capture_context_id": "8deb15b5f926a20bab3124042ad69895dfa3211fbbf795df51bf58e11418ea8a",
+              "effective_language": "go1.25",
+              "end_byte": 1404,
+              "function_decl_id": "decl:994:1563",
+              "function_preorder_ordinal": 2,
+              "source_object_id": "6cf82f7a5f7ce26c768989d91883cfdb2bacbecbfe5f164d08868070fe68b1ad",
+              "start_byte": 1294
+            },
+            "variant": {
+              "expression": {
+                "op": "nat.literal",
+                "value": "0"
+              },
+              "kind": "candidate",
+              "origin": "supplied"
+            }
+          },
+          {
+            "invariant_origin": "supplied",
+            "invariants": [
+              {
+                "args": [
+                  {
+                    "id": "binding:1076",
+                    "op": "binding"
+                  },
+                  {
+                    "id": "binding:1076",
+                    "op": "binding"
+                  }
+                ],
+                "op": "eq"
+              }
+            ],
+            "loop_ref": {
+              "ast_kind": "for",
+              "capture_context_id": "8deb15b5f926a20bab3124042ad69895dfa3211fbbf795df51bf58e11418ea8a",
+              "effective_language": "go1.25",
+              "end_byte": 1398,
+              "function_decl_id": "decl:994:1563",
+              "function_preorder_ordinal": 3,
+              "source_object_id": "6cf82f7a5f7ce26c768989d91883cfdb2bacbecbfe5f164d08868070fe68b1ad",
+              "start_byte": 1333
+            },
+            "variant": {
+              "expression": {
+                "op": "nat.literal",
+                "value": "0"
+              },
+              "kind": "candidate",
+              "origin": "supplied"
+            }
+          },
+          {
+            "invariant_origin": "supplied",
+            "invariants": [
+              {
+                "args": [
+                  {
+                    "id": "binding:1076",
+                    "op": "binding"
+                  },
+                  {
+                    "id": "binding:1076",
+                    "op": "binding"
+                  }
+                ],
+                "op": "eq"
+              }
+            ],
+            "loop_ref": {
+              "ast_kind": "range",
+              "capture_context_id": "8deb15b5f926a20bab3124042ad69895dfa3211fbbf795df51bf58e11418ea8a",
+              "effective_language": "go1.25",
+              "end_byte": 1517,
+              "function_decl_id": "decl:994:1563",
+              "function_preorder_ordinal": 4,
+              "source_object_id": "6cf82f7a5f7ce26c768989d91883cfdb2bacbecbfe5f164d08868070fe68b1ad",
+              "start_byte": 1447
+            },
+            "variant": {
+              "expression": {
+                "op": "nat.literal",
+                "value": "0"
+              },
+              "kind": "candidate",
+              "origin": "supplied"
+            }
+          }
+        ],
+        "modifies": [],
+        "pending_candidates": [],
+        "proof_status": "unproved design candidate; all source/safety/domain/frame/post/termination members remain required",
+        "requires": [],
+        "schema": "mpk.go_practical.normalized_overlay_draft.v0",
+        "source_object_id": "6cf82f7a5f7ce26c768989d91883cfdb2bacbecbfe5f164d08868070fe68b1ad",
+        "termination": "total"
+      },
+      "outcome": "normalized_unproved"
+    },
+    {
+      "capture_context_id": "b65ff453bf3958bcedac98fd89fc5cd7562c73577b8b9078a1e1538ca48ebd97",
+      "configuration_error": "",
+      "id": "value-receiver-alias",
+      "normalized": {
+        "capture_context_id": "b65ff453bf3958bcedac98fd89fc5cd7562c73577b8b9078a1e1538ca48ebd97",
+        "ensures": [
+          {
+            "args": [
+              {
+                "args": [
+                  {
+                    "op": "result",
+                    "position": 0
+                  }
+                ],
+                "op": "length"
+              },
+              {
+                "op": "nat.literal",
+                "value": "14"
+              }
+            ],
+            "op": "eq"
+          }
+        ],
+        "entry_storage": {
+          "concurrent_external_mutation": "forbidden",
+          "input_access": "read_only"
+        },
+        "error_inputs": [],
+        "function_decl_id": "decl:417:477",
+        "loops": [],
+        "modifies": [],
+        "pending_candidates": [],
+        "proof_status": "unproved design candidate; all source/safety/domain/frame/post/termination members remain required",
+        "requires": [],
+        "schema": "mpk.go_practical.normalized_overlay_draft.v0",
+        "source_object_id": "6cf82f7a5f7ce26c768989d91883cfdb2bacbecbfe5f164d08868070fe68b1ad",
+        "termination": "total"
+      },
+      "outcome": "normalized_unproved"
+    },
+    {
+      "capture_context_id": "0593b08ebb5c0e8a2f719b078d567d6d01b90cc637f1f59e7fa09518aef5a5e6",
+      "configuration_error": "",
+      "id": "nested-and-tail-error-entry-sets",
+      "normalized": {
+        "capture_context_id": "0593b08ebb5c0e8a2f719b078d567d6d01b90cc637f1f59e7fa09518aef5a5e6",
+        "ensures": [
+          {
+            "op": "bool.literal",
+            "value": true
+          }
+        ],
+        "entry_storage": {
+          "concurrent_external_mutation": "forbidden",
+          "input_access": "read_only"
+        },
+        "error_inputs": [
+          {
+            "cases": [
+              "fixture/policy.RejectCode"
+            ],
+            "input": 0,
+            "path": [
+              "field:1"
+            ]
+          },
+          {
+            "cases": [],
+            "input": 1,
+            "path": [
+              "elements"
+            ]
+          }
+        ],
+        "function_decl_id": "decl:1721:1789",
+        "loops": [],
+        "modifies": [],
+        "pending_candidates": [],
+        "proof_status": "unproved design candidate; all source/safety/domain/frame/post/termination members remain required",
+        "requires": [],
+        "schema": "mpk.go_practical.normalized_overlay_draft.v0",
+        "source_object_id": "6cf82f7a5f7ce26c768989d91883cfdb2bacbecbfe5f164d08868070fe68b1ad",
+        "termination": "total"
+      },
+      "outcome": "normalized_unproved"
+    },
+    {
+      "capture_context_id": "41209c58d8c77a78f9426073839ae6fcf21fdec0da5f82c6d32db4e0730408c9",
+      "configuration_error": "closed object fields",
+      "id": "missing-mode",
+      "normalized": {},
+      "outcome": "configuration_rejection"
+    },
+    {
+      "capture_context_id": "42e679e04f40536b8ce8f3f0c3ad52be1b7a21de4aab91090b3aa6e544d135e5",
+      "configuration_error": "new private source overlay schema",
+      "id": "old-schema",
+      "normalized": {},
+      "outcome": "configuration_rejection"
+    },
+    {
+      "capture_context_id": "5d58ba01b9248172e9605075b8b0ba3e7bb0683cb4ab33535da0e2260acef88f",
+      "configuration_error": "nonempty Boolean clause list",
+      "id": "empty-ensures",
+      "normalized": {},
+      "outcome": "configuration_rejection"
+    },
+    {
+      "capture_context_id": "429e2ac795366dfd1199a2a90ae80964957bebce843b0c0b54984c4d6ce7b1d2",
+      "configuration_error": "closed object fields",
+      "id": "extra-root-field",
+      "normalized": {},
+      "outcome": "configuration_rejection"
+    },
+    {
+      "capture_context_id": "db75b50598541d2cd67310d16c69a3d6c69b7f9057f48642dc72a8c570371db1",
+      "configuration_error": "v1 input storage is read-only; no ownership assertion",
+      "id": "external-write-annotation",
+      "normalized": {},
+      "outcome": "configuration_rejection"
+    },
+    {
+      "capture_context_id": "30b2eae44be5f6b780858d46f929c9f5923b105162d67d3bcaaae0f9f4a2557d",
+      "configuration_error": "exact captured source/language",
+      "id": "wrong-source-object",
+      "normalized": {},
+      "outcome": "configuration_rejection"
+    },
+    {
+      "capture_context_id": "891fa04da10df8a659ab66c21396b53c28afccd172871dd92fe4efdd8e658d56",
+      "configuration_error": "exact physical source LoopRef selector",
+      "id": "stale-loop-span",
+      "normalized": {},
+      "outcome": "configuration_rejection"
+    },
+    {
+      "capture_context_id": "179e991f91bc2c377e4b5809fa4ecaa368228f071c47a7569c96f2cfa28232b7",
+      "configuration_error": "duplicate loop overlay",
+      "id": "duplicate-loop",
+      "normalized": {},
+      "outcome": "configuration_rejection"
+    },
+    {
+      "capture_context_id": "facecff37baef2b15068a041a52802ee704f2a5a7a5c4252ad48adc7539126e3",
+      "configuration_error": "nonempty Boolean clause list",
+      "id": "empty-explicit-invariant",
+      "normalized": {},
+      "outcome": "configuration_rejection"
+    },
+    {
+      "capture_context_id": "6bc88933d2bd2b78c0047c9d889e2ed68a35c0b25f5ed66c808e14cb4637f4cf",
+      "configuration_error": "one Nat-valued variant",
+      "id": "word-variant",
+      "normalized": {},
+      "outcome": "configuration_rejection"
+    },
+    {
+      "capture_context_id": "cdfbff6d75477e9d5af7968eb5622842575b4c4b1950d93a92c43de0e68aa9c8",
+      "configuration_error": "result exists only at same invocation return",
+      "id": "result-in-invariant",
+      "normalized": {},
+      "outcome": "configuration_rejection"
+    },
+    {
+      "capture_context_id": "97de84be024d54646cd56fc3194260e6e00b2efc243e05e5e0dc04adc1272b72",
+      "configuration_error": "exact live lexical header binding",
+      "id": "range-declared-variable-before-first-assignment",
+      "normalized": {},
+      "outcome": "configuration_rejection"
+    },
+    {
+      "capture_context_id": "5e1150125649a85cbf5f0645857d5a94a4720a39ae72473bab06190aff347980",
+      "configuration_error": "local unavailable in this phase",
+      "id": "local-in-postcondition",
+      "normalized": {},
+      "outcome": "configuration_rejection"
+    },
+    {
+      "capture_context_id": "008448bdd4f3a36e8854b1bbfb5005076f203fd02cd6e21539fb582b7e9e2f31",
+      "configuration_error": "operator outside closed practical v1 contract vocabulary",
+      "id": "source-call-in-overlay",
+      "normalized": {},
+      "outcome": "configuration_rejection"
+    },
+    {
+      "capture_context_id": "2e21ca8597ac327cd9d090e7f75e5fe89e74cf96a98ea37c2c9bb1b4d3711de0",
+      "configuration_error": "result exists only at same invocation return",
+      "id": "result-under-old",
+      "normalized": {},
+      "outcome": "configuration_rejection"
+    },
+    {
+      "capture_context_id": "5ca6ddd24fc82907ad50418583c21c4edc54c2df054e5468e02af767b601e9d3",
+      "configuration_error": "closed object fields",
+      "id": "unbounded-quantifier",
+      "normalized": {},
+      "outcome": "configuration_rejection"
+    },
+    {
+      "capture_context_id": "ff60e23ecf4589cb4289b0fd785e61f84774fe11c058102a52bb2b98c5f36ce8",
+      "configuration_error": "all nested error-bearing inputs explicitly constrained",
+      "id": "unconstrained-nested-error-input",
+      "normalized": {},
+      "outcome": "configuration_rejection"
+    },
+    {
+      "capture_context_id": "a9bea6d4b5c63489a4a60341da2693ff3796bf71a9a04521cb74f1888f1c6fb0",
+      "configuration_error": "plain backing cell cannot contain mutable reference",
+      "id": "nonplain-global-universe-for-error-cells",
+      "normalized": {},
+      "outcome": "configuration_rejection"
+    }
+  ]
+}

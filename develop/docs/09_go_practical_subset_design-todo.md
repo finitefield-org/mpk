@@ -23,7 +23,12 @@ An ordinary arbitrary-Nat rank+1 finite-stop schema adds 13 both-checker
 candidate/regression cases, including zero-rank exits without decrease. Its
 invariant/decrease obligations apply only to continuing backedges; full Go
 source totality still requires separate bindings and terminating calls.
-Complete source/overlay/wire tables, remaining variant/source foundation,
+The closed overlay draft adds 70 source/normalized expression heads, 24 vectors
+and intact native Go type/scope observations. A scheduling clarification keeps
+invariants/ranks before condition evaluation under LC02; abstract proof bytes
+are unchanged. Normative identities, independent import and complete
+definedness/source/proof reconstruction remain due.
+Complete source/wire tables, remaining variant/source foundation,
 limits, schemas/hash identities and migration review remain open.
 T01 is incomplete and no practical Go profile is active.
 

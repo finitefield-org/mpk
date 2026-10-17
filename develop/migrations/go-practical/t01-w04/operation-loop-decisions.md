@@ -56,8 +56,12 @@ to the actual Go execution states and paths.
 | CT04 | Every call needs a checked precondition/result/effect/frame dependency. A total root also needs termination of every reached callee/nested loop; a partial callee contract alone is insufficient. A separately checked termination member may establish the needed stronger dependency without pretending the original partial contract claimed it. |
 | CT05 | Requested safety, postcondition, entry/source binding and frame members are mandatory. Totality adds mandatory termination members. Unknown/timeout/fuel/unsupported strategy/missing candidate is pending; a rejected candidate is not a proof of semantic falsity. Fully checked partial and fully checked total claims remain explicitly distinct. |
 
-The full typed expression AST and normalized contract wire grammar are still
-pending. These semantic defaults are fixed draft decisions for that grammar.
+The [closed typed overlay draft](overlay-contracts/README.md) now specifies
+70 expression heads, phase/snapshot/finite-binder typing and private source/
+normalized shapes. Its compiler-scope/type probe is not production admission
+or an independent artifact validator. Normative successor wire/hash/bound
+identities and complete definedness/VC reconstruction remain pending. These
+semantic defaults remain authoritative for that grammar.
 The overlay cannot execute Go, introduce an arbitrary semantic adapter, or
 observe numeric region IDs/pointers/absolute descriptor offsets.
 
@@ -85,7 +89,7 @@ successor wire freeze; a generated CFG block number cannot replace LoopRef.
 | LC09 | Partial correctness proves safety for every finite execution prefix and ensures/frame on normal returns; it makes no stopping promise. It cannot drop checks inside a possibly infinite loop. An inferred true invariant may leave required members pending. |
 | LC10 | Total correctness requires a single Nat-valued variant per loop, nonnegative/exact representation and strict decrease from h to each next header h'. Break/return edges do not require decrease. Every executed condition/body/post call and nested loop must also terminate. No arbitrary iteration cutoff or collection bound substitutes for these proofs. |
 | LC11 | For range, generate captured_length-index as a candidate Nat variant plus proved counter/step facts. For other loops, use an explicit supported Nat expression or a checked generated candidate. A missing strategy/variant leaves totality pending, while the original source/model may still be accepted. A malformed/type-invalid supplied expression rejects configuration. |
-| LC12 | Nat measure observations include exact unsigned conversion, signed conversion with a nonnegative proof, finite lengths/capacities, ordinary Nat addition/truncated subtraction and typed conditional measures with branch-local definedness. A negative signed value is not silently reinterpreted or clamped to justify a variant. Full expression schemas and their closed operator vocabulary remain part of the overlay freeze. |
+| LC12 | Nat measure observations include exact unsigned conversion, signed conversion with a nonnegative proof, finite lengths/capacities, ordinary Nat addition/truncated subtraction and typed conditional measures with branch-local definedness. A negative signed value is not silently reinterpreted or clamped to justify a variant. The private typed draft also names multiplication and bounded folds; every ordinary law/bridge and exact successor identity remains required before production support. |
 
 For each loop L, the required members have these meanings:
 

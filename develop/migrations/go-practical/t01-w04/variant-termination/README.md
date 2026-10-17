@@ -64,16 +64,18 @@ fuel exhaustion is never classified as one of these rejections.
 
 ## Application binding decisions and remaining obligations
 
-The source binding in T06-W03/W04 must use checked loop boundaries. A boundary
-stores the already evaluated condition and control state; H reads that state
-without reevaluating a source expression. The initial condition evaluation is
-a separate terminating, safe, domain-valid source obligation. A live N step
-executes the body, applicable post statement and next condition evaluation in
-the specified order, with all calls and joint results evaluated exactly once.
-The source/model theorem must show this complete transition equals N.
+The source binding in T06-W03/W04 uses LC02 headers before condition evaluation.
+H reads a stopped control tag; it never reevaluates a source condition. One live
+N step evaluates the current condition once, then exits with its post-test
+state or executes body and binding transition/post to the next header. Init
+and range capture execute once before the first header. The next condition
+belongs to the next N step. The [header scheduling clarification](../overlay-contracts/README.md#4-header-scheduling-clarification)
+replaces this checkpoint's earlier initial/next-test proposal. The abstract
+theorem and checked certificate bytes are unchanged; source/model binding of
+this complete transition remains required.
 
 Normal completion and continue take the proper post/backedge path. Loop break,
-return and a false next condition produce a stopped frame. A break consumed
+return and a false current condition produce a stopped frame. A break consumed
 by a switch does not stop its enclosing loop. Missing conditions, range
 snapshots, language-version iteration bindings and nested loops retain the
 [operation/loop decisions](../operation-loop-decisions.md); this theorem
