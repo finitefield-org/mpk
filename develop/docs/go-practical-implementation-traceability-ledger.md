@@ -3204,3 +3204,86 @@ remain due. General independent capture/import and all source/AST/control/
 lifetime/activation/ordinary operation/permission/frame/totality proofs stay
 required in T02–T06. W05 owns inactive publication and the T01 gate; all T02–T11
 work remains active and no practical Go profile is activated.
+
+## 48. T01-W04 common VC/certificate-source bindings and Go theorem demands
+
+Entry: `bdd7099a5845b83452149155f695effbe582e1f2`, clean before this work.
+The [proof-artifact draft](../migrations/go-practical/t01-w04/proof-artifacts/README.md)
+adds common VC v4/certificate-source-manifest v3 roots and retained skeleton v4
+regeneration. Two new Go identities/domains define closed theorem-demand
+programs and requests,avoiding earlier Go and reserved inactive C# names.
+Full context,compiled profile contracts,exact source references and all
+function/request data enter canonical hashes. Old/future/crossed/rehashed
+members reject against complete source regeneration. The full eleven-stage
+objective and every earlier helper/production/core/Certificate v0 meaning stay
+unchanged. Complete Go ordinary expansion/final skeleton closure remains due.
+
+Actual unchanged public source validators,VC generate/import,skeleton emit/
+import and certificate-stage manifest import preserve full old generated
+values in five target contexts. Forty-four native queries cover intact
+programs,changed members/groups/conclusions/statement bodies and wrong
+required-check profiles. The additional authorized synthetic Go source works.
+The observer pins226 unchanged linked production sources and original
+dependency versions/checksums; no appended facade or copied semantic validator
+is used. Native data and returned skeleton declarations are independently
+cloned,preventing producer mutation from changing expected source authority.
+The native query itself must match the complete validated common source tuple.
+
+The unchanged canonicalizer rejects configured nesting beyond768. The initial
+1024-depth probe failure is retained with raw queries/results. Common VC and
+skeleton roots therefore keep retained function/declaration arrays directly at
+root,spending no extra container over old terms. New iterative Python
+parse/canonical/clone and independent Go hashing retain256MiB,768 containers,
+1MiB strings,safe integers,scalar Unicode,UTF16 key order and domain-NUL hashes.
+Older64/256-depth helpers remain unchanged. Eleven boundaries retain768/769,
+empty containers,duplicates,unsafe integers and Unicode failures separately.
+
+Go has19 closed demand families. Every request binds complete context,VIR,
+scope/body/contract,exact requirement/origin and callee request dependencies.
+Fixed member coordinates resolve through the exact typed body/concrete
+operation,with full access current/prefix-state/location and invocation data.
+Function source refinement,entry representation,frame,partial correctness,
+clause definedness/postconditions,region control and all loop invariant/rank
+obligations remain explicit. Zero-node functions still require function/source
+proof work. Demands concern all reachable activations,not one evaluated sample.
+
+Calls retain same-U source-body/contract dependencies and caller precondition/
+relation checks; defaults grant no theorem. Total callers add conditional call
+termination for their actual invocation arguments without falsely declaring a
+default partial callee globally total. Adapters retain registered source-binding
+requirements. The current incomplete foundation has no ordinary elaborator for
+these requests,so all169 request IDs stay unelaborated. Go skeleton emission
+raises a distinct pending exception. Caller ready/expanded flags and empty
+contexts cannot override it. These requests are not ordinary propositions or
+proofs; final signatures/definitions,statement expansion and program assembly/
+skeleton closure remain W04 requirements and T02–T06 implementation/proof work.
+
+Certificate source manifests link exact frontend-manifest and validated common
+VC schema/hash. VCs depend on frontend manifests only,so the graph stays
+acyclic. Linked metadata does not supply a certificate or proof verdict.
+Registered practical producer/toolchain/release provenance remains required.
+
+Eight proof bundles and181 cases yield six retained VCs,six retained skeletons,
+eight linked-unproved certificate source manifests,two unelaborated Go VCs,two
+pending Go skeleton requests and157 configuration rejections. Twenty-five
+targeted tests include false postconditions,conditional call totality,copied
+authority,zero-node functions and malformed/deep JSON. Fifty-six project-bound
+local fragments retain416 member/access demands. All260 Python/Rust/Go inputs
+agree: eight VCs,eight certificate manifests,six private skeleton hashes,two Go
+programs,169 requests,56 private fragment hashes and11 boundaries. Native
+observers run twice identically; the receipt pins673 inputs and the same14,496-
+file Go1.25.0 inventory. No universal source or preservation proof is inferred.
+
+The [verification record](../migrations/go-practical/t01-w04/proof-artifacts/verification/verification.json)
+retains selected raw unit/replay/metadata/new-source format/compile logs and
+selection reasons,with the initial canonicalizer setup failure. Preceding
+capture/module evidence and all143 predecessor paths stay unchanged. Unaffected
+older proof/native matrices are not repeated. The cumulative T01 gate stays
+deferred to W05.
+
+W04 remains In progress. Complete Go ordinary elaboration/final skeleton,
+frontend-envelope/policy/API/release roots,complete foundation/source signatures
+and reviewed migrations remain due. All independent source/AST/control/lifetime/
+activation and ordinary operation/permission/frame/totality proofs remain
+required. W05 owns inactive publication and the T01 gate; all T02–T11 work
+stays active and no practical Go profile is activated.

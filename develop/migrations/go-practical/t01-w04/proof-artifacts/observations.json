@@ -1,0 +1,3737 @@
+{
+  "direct_child_parallelism": 1,
+  "go_ordinary_terms_materialized": false,
+  "go_requests": 169,
+  "go_skeleton_emitted": false,
+  "hash_vectors": 260,
+  "host_toolchain_inventory": {
+    "files": 14496,
+    "sha256": "85d1dd7ca77c9263d83e25f05e4c32105738fdc002434d61b27671aee4e259bc"
+  },
+  "inputs": [
+    {
+      "path": "Cargo.lock",
+      "sha256": "56c0d4cc86c66186689944447b5a832e0fac640ec4078c633097dbe47ce423fd"
+    },
+    {
+      "path": "Cargo.toml",
+      "sha256": "72e430895ee3fb12a4067714d819e0311ec7db7906215f6608bb4054652a2017"
+    },
+    {
+      "path": "crates/mpk-cert/Cargo.toml",
+      "sha256": "b99ff7fde6a4f0cb50a091eb02997c97d5f2e934b42eddfd375f53b96bfc3a47"
+    },
+    {
+      "path": "crates/mpk-cert/src/axiom_report.rs",
+      "sha256": "cae850ba9adf8f52485f25d3322a479e5effb3b5044c4998b8dbe10e395e9843"
+    },
+    {
+      "path": "crates/mpk-cert/src/binary_tags.rs",
+      "sha256": "f557165a3d1fad17ea5c4b5ad27b92170dbb203931b30ef157e22856d5f2616b"
+    },
+    {
+      "path": "crates/mpk-cert/src/canonical.rs",
+      "sha256": "704d3f04bf3219cbc9bca5b7ca8b4ff6723bc834d777fcf5219ecc900c2b8e74"
+    },
+    {
+      "path": "crates/mpk-cert/src/cert_basic.rs",
+      "sha256": "ca8e2bd5c7ffbc5c54e51a1e65eb2f2b559b5d6f8efd6a0d74581197d8d7e295"
+    },
+    {
+      "path": "crates/mpk-cert/src/decode.rs",
+      "sha256": "e77619d5d464db0e5d5538b1349c1cb1b1d8b39da227c3f7aa36fbb5e9d11a13"
+    },
+    {
+      "path": "crates/mpk-cert/src/encode.rs",
+      "sha256": "406c310d53e464c9fe0f079e4186a0501e2eb84fae6c443d40d029d53a2beecf"
+    },
+    {
+      "path": "crates/mpk-cert/src/export.rs",
+      "sha256": "b846726ef91b02583aee70849459c5856ea14cebaee226a5d71fedb0a61da2cd"
+    },
+    {
+      "path": "crates/mpk-cert/src/hash.rs",
+      "sha256": "dc80a4db8fbd2965093daa90d4b32cebc8116659a95323df987ebeaa7dec2a83"
+    },
+    {
+      "path": "crates/mpk-cert/src/imports.rs",
+      "sha256": "3b2edcf9305e5a5ed355fe194219826c97571da0ca47656562cf4bdde2983183"
+    },
+    {
+      "path": "crates/mpk-cert/src/lib.rs",
+      "sha256": "38b44e99c13ea9a76c0c08c8a1cfd1ec23922b33c9d252a96beef59f8634b553"
+    },
+    {
+      "path": "crates/mpk-core/Cargo.toml",
+      "sha256": "7d23784732e23fd78029884f2b9a5bc6200e7192c31ae10ada567e61a15607a3"
+    },
+    {
+      "path": "crates/mpk-core/src/bool_cases.rs",
+      "sha256": "b920fd682eaa4de8d93dc0a143b8d1241b1240fc7294425c8792dfd811756f01"
+    },
+    {
+      "path": "crates/mpk-core/src/context.rs",
+      "sha256": "e426d6d43b99106bd80c8e946325b1f8d712109865f6b8c340146908d273352d"
+    },
+    {
+      "path": "crates/mpk-core/src/decl_check.rs",
+      "sha256": "8a6afd03f5e19831815f59b069f319cfd947ce123b8ad10e29d511c869f43783"
+    },
+    {
+      "path": "crates/mpk-core/src/defeq.rs",
+      "sha256": "940fd74971a889239e8168fb13fd5cf9099e4efdbac1c2ffbce5780724a2c270"
+    },
+    {
+      "path": "crates/mpk-core/src/env.rs",
+      "sha256": "ed50466ecf9e1c6f1549022aa61812c1561cd725325633931a57efb1715ae5b8"
+    },
+    {
+      "path": "crates/mpk-core/src/error.rs",
+      "sha256": "76bbf92e086713711c26310fd2f02f58bf5a1d298251cd93c66e4af0c14189bb"
+    },
+    {
+      "path": "crates/mpk-core/src/inductive.rs",
+      "sha256": "41bc938dfdb03ef8a8973a9abecd917171e25efc55c58ebeb43bf4b8ad59be9d"
+    },
+    {
+      "path": "crates/mpk-core/src/inductive_gen.rs",
+      "sha256": "4758d3cf280f0d9c107e4af886f0880fd29670e9a23f2ddffa7728f958075cc2"
+    },
+    {
+      "path": "crates/mpk-core/src/infer.rs",
+      "sha256": "7cf169404b6fdd251e7884056c7204e285da904780d1e3ea9ca642d4c87991bd"
+    },
+    {
+      "path": "crates/mpk-core/src/level.rs",
+      "sha256": "00b030888a20ae9015c94968e8e4dc63f8c924224df36d3a186ba9d4dcfff1ad"
+    },
+    {
+      "path": "crates/mpk-core/src/lib.rs",
+      "sha256": "a0488ee47d656918dc05a7909bfb87a4ed970388600fced26e8eea5b73ba637f"
+    },
+    {
+      "path": "crates/mpk-core/src/name.rs",
+      "sha256": "6a6c8659f556bb63d782ca4aa9c465b05a7b8987327a2e02cbbb95669ca15e99"
+    },
+    {
+      "path": "crates/mpk-core/src/positivity.rs",
+      "sha256": "5ad6d3d072a8db9bba5c98b02a0d9da9e096faca1836762aecf4cebb1ad460bd"
+    },
+    {
+      "path": "crates/mpk-core/src/reduce.rs",
+      "sha256": "bbd58360f97eba191a9c12208e1488668ed8b39c96be6d354065a7c4d9c02d37"
+    },
+    {
+      "path": "crates/mpk-core/src/reduce_inductive.rs",
+      "sha256": "123277c8989902c207d6b0fec994ff5c4223fe5bcc9a331bc381f7dc4412492f"
+    },
+    {
+      "path": "crates/mpk-core/src/subst.rs",
+      "sha256": "e1843f9aafe2d4349bf6bd8a1bcfff4eb39c318c87e37b47a36c23cb8e2cd23f"
+    },
+    {
+      "path": "crates/mpk-core/src/term.rs",
+      "sha256": "4fcd1dba9916b8b3d22ffabd889c2949bb14cf468420b5e839b779108e91bb60"
+    },
+    {
+      "path": "crates/mpk-kernel/Cargo.toml",
+      "sha256": "3226dc567ef89c9488b61e6c79df2134eb7b1dd36c7cbe19abb3e3e7916ac826"
+    },
+    {
+      "path": "crates/mpk-kernel/src/bool_cases_tests.rs",
+      "sha256": "1ec5b21c3a581fcdd0fd234f7a25c26651958b1f9f96792061fd9936395ca460"
+    },
+    {
+      "path": "crates/mpk-kernel/src/cache.rs",
+      "sha256": "fb9bd805c365f6f614e2f0cb432bc92964e78faa4749df15ad62c4a82ed767ad"
+    },
+    {
+      "path": "crates/mpk-kernel/src/decl_driver.rs",
+      "sha256": "afe75c89bb7e43bb4a73c56aaa4a1bddc20c8ba789066fae5f0f27b7839278c3"
+    },
+    {
+      "path": "crates/mpk-kernel/src/json_output.rs",
+      "sha256": "82992d18824fd25f7c1fcd58d569e4e339bda8be2f60588bb20d2537b9b6cdb5"
+    },
+    {
+      "path": "crates/mpk-kernel/src/lib.rs",
+      "sha256": "ff4c1550532e2896bce4374145242f9a54d24502c8f2a79454067d664c383d72"
+    },
+    {
+      "path": "crates/mpk-kernel/src/profile.rs",
+      "sha256": "e44ce30ffbc29617073456ce8dd9bd46ce731549c423a01a747c82542cffc580"
+    },
+    {
+      "path": "crates/mpk-kernel/src/proof_check.rs",
+      "sha256": "27e8f109d9241cee011984021d74f57088f4ebf30012a858e0fe6416cae96027"
+    },
+    {
+      "path": "crates/mpk-kernel/src/proof_structural.rs",
+      "sha256": "6117063aa07e3ac5882ebba60ab907518a2c9844f96d35887f5a31c8d66906c0"
+    },
+    {
+      "path": "crates/mpk-kernel/src/proof_theory.rs",
+      "sha256": "81d52c5be4e325c3cccb1d6e0096b0e118f245f53234d5496dfdac066fee95af"
+    },
+    {
+      "path": "crates/mpk-kernel/src/verifier.rs",
+      "sha256": "e8932a62713b8f8af18a980093a6ff162b3510b4b4e7da924d9b421552a9e3f2"
+    },
+    {
+      "path": "crates/mpk-theory/Cargo.toml",
+      "sha256": "120227c9b1a0bbbe48e146d6d2412793b9e357cb43e7d21585c760a268081908"
+    },
+    {
+      "path": "crates/mpk-theory/src/array_cert.rs",
+      "sha256": "7b6261cbedc9200ffe8ce5513374e2c14aa6b999926607e450440e26bb25cace"
+    },
+    {
+      "path": "crates/mpk-theory/src/bitvec_eval.rs",
+      "sha256": "3fa7578174f4e3a489d395653687899d1d06fc59780b9224d652638b7d589ac4"
+    },
+    {
+      "path": "crates/mpk-theory/src/bool_cert.rs",
+      "sha256": "17bcac0225e8281ecf754115734cf254addf87bc44a6da4fddaebabbea226c14"
+    },
+    {
+      "path": "crates/mpk-theory/src/lib.rs",
+      "sha256": "10719601e65de998218739cd2b5b61a6bf69df6692c1b829c307c6cf57d61ccd"
+    },
+    {
+      "path": "crates/mpk-theory/src/linarith_cert.rs",
+      "sha256": "3606832e69432a08295e014f0810e5f20aa7d10fdef2bc8789448ebf98d6895a"
+    },
+    {
+      "path": "crates/mpk-vc/Cargo.toml",
+      "sha256": "53d13ebf6bd7a6af816bc3d642587227d96229d04663dd07746565f4a7dcc4fa"
+    },
+    {
+      "path": "crates/mpk-vc/src/call_wp.rs",
+      "sha256": "6ba037523704ba6409d7dcdf336493fab63c72a3abc28efb3cdebae7f61614bd"
+    },
+    {
+      "path": "crates/mpk-vc/src/canonical_json.rs",
+      "sha256": "84596ebf620729801d04dac7851def07b7e24274f9f03b499dbcffd1fb0268d6"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_binding_vc.rs",
+      "sha256": "0a522f79bc6ad21bee9ff504ad06ef3fbc1cde62cfb38809d11501ad8b23e2b7"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_boundary.rs",
+      "sha256": "e41644d35ec907b1bc5bcaf2c3add36a14a4b5c2d526db21510e0fe2388fe44b"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_boundary_input.rs",
+      "sha256": "2f881c454b43dde90f2c55e3acb89a52ced84bc2bf2ccd14515e3b3cb8a6dfef"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_boundary_output.rs",
+      "sha256": "4a7eb21bf4868cbf9c591097e0e2bb857537e84c44f7dc20184f992e2dc2489f"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_boundary_vc.rs",
+      "sha256": "f8ec2c2537ab5fe9c16f77278df9312859f7616953169bca794f79334ea938d6"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_business.rs",
+      "sha256": "500b59cbc31a3933946da002f0d88ff91b6b0ef31c4fb6e4d36000ca9116eb47"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_codecs.rs",
+      "sha256": "07cc3c52b8b72e3bcfa9e669a2d53aee35f65cabf8b7e5a4fa72df5706954122"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_construction_vc.rs",
+      "sha256": "3d2157b96aba2212d57dae8510edca5471cef8bfdba0c2029364290fe91d8552"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_consumer.rs",
+      "sha256": "330f72cc7d084cf68bf8e90d1652c5fecddca8c17b77e45bf0877ee9581800ee"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_contract_import.rs",
+      "sha256": "5207bf310a8d898e4c5e6fe4ddb2c2b4b5673e5f5cfe004419193d9f4416f8a2"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_contract_values.rs",
+      "sha256": "c3442360322bd50925fdaf98ec3861ad7473194d3b214dcffa2fd3c696ac7e32"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_control_completions.rs",
+      "sha256": "6d00d55806aa54774583cd59482fd3f6c9bd231eccda7229ad1cc50203a92155"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_control_constructors.rs",
+      "sha256": "1fd8a6a5a83d582e0a2de9e4ef4b7a31aea7b2d0d7383e9bd53a0f579c494c1d"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_control_emission.rs",
+      "sha256": "bb7fc2a64bbefa53c2613e663fc1c2dd211f031f3a54bc5d1e8cc10942021e2e"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_control_exceptions.rs",
+      "sha256": "b5c99de0c356cc99044ef6f10c3aa14419d1a99f811b8d56409b0145e422884b"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_control_handlers.rs",
+      "sha256": "25a139ed36fee6da70a328d7863480bb0e90ac5b914ac1842ab666766a135c68"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_control_memory.rs",
+      "sha256": "eeabc1e4b20486979b859842d21e479cd80eeaf3e04bbef6cdafe87613ae4b94"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_control_patterns.rs",
+      "sha256": "1e8fb56650d01a77c3f51e1577123f9c908f78e6f94cab2ea7b6d9725b236440"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_control_slot_storage.rs",
+      "sha256": "cfb846bb0292982df8ec279f8a999e4ada0148c6e3a91e0e820ce92cc1824eda"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_control_source.rs",
+      "sha256": "fd2c77776683fd4f84112fc6df38b893b3ff39b3ca637d92aedabab60f71e98c"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_control_ssa.rs",
+      "sha256": "8e5da608d26ea7ef753f31fd22db49ddcaa35be4603137226e5808865d0dc7d4"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_control_vc.rs",
+      "sha256": "055024fc722bdc2c00c2b79ecc382b20ea9ea387e24ad52f1c3bf900f760bce0"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_data_emission.rs",
+      "sha256": "65b0d7b308a4317afce1f1e0bfd5b1f3eccd633381fbfe76f64adff4f45f76cf"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_data_phase.rs",
+      "sha256": "ef250069d02ea87f20d71cae81ee4d704c02a1876c0f93e262ea990488203f6a"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_data_sidecars.rs",
+      "sha256": "3e8d8f0eba5352f6ba36ced1adab0bcbde39ed5228133551a4895d51a1f00602"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_data_source.rs",
+      "sha256": "eb349bbd0272be3f75d6bd131c843383e9a1f394e20d2df3a7bc8da292f471d9"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_data_vc.rs",
+      "sha256": "49e80ccf8fba3668ad3cda98ae7a49ca1660e1c32660d5ced388cac557739fd0"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_domain.rs",
+      "sha256": "c95190f05115aa8edf99f185a20cc1e02d216f6297c16d1b95a5def5dd7aa212"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_exception_vc.rs",
+      "sha256": "3ef15e5e54567dbfdc4296c371a4c9e8e93121cfc7fe8753d5d643a13180578e"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_handler_lowering.rs",
+      "sha256": "86af89fc3ec8d1f437e38e48c1c576091c8db3a91010cbce8aa552d75cc609f6"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_idempotency.rs",
+      "sha256": "c1483f07d95f4398b2dd3f1dca3cf94003ceaf6fbc1ae7831a7d63df6c09bdee"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_loop_contracts.rs",
+      "sha256": "7ac0061d438849d3178a389dea215b253cf1fe7a9ff500ba337191ab3e37145d"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_loop_lowering.rs",
+      "sha256": "e74949d12f7941b5ebeea0fc8d824043ae3fa63c1b891bb61f59b06d270cbce1"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_numeric.rs",
+      "sha256": "104554ca1bb02e075bf98d6b8a3a199131af749adc1691d0252e066a93a58152"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_object_construction.rs",
+      "sha256": "25766aa73102d82d4063bf8c3d570c78ba5c212d5be0bc612a69c1d4ce5ce469"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_object_ownership.rs",
+      "sha256": "b6302ae7a49d3f25b8ac0fe6099b13def0b9f32fb5daed74b45ced98ffb3d2c1"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordered_collections.rs",
+      "sha256": "c1b620bac7c3a4ac552583fc8c00bb2bf3dbceea3b7f94d79400aa48c30614da"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_aggregate_fold.rs",
+      "sha256": "50b30f339311c88a7e1b7d6cf39d173a0b4aa2065d57f35d2cd3300b69d4f4b8"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_binding_conditions.rs",
+      "sha256": "8e9db5a753292363a3235c2f933b1acbfcff9f39cf682e823eff0b4947c8d534"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_binding_defaults.rs",
+      "sha256": "ad4f978bb510512f59ab2a0841f824bb5e2d518e0c1d3d26b745c35bb8008176"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_binding_guards.rs",
+      "sha256": "8b1d86a37790617dd92ec70f52ebca9e61543824f228e43875e0756e851aa83f"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_binding_orders.rs",
+      "sha256": "e0dd0516b57b65e37afd167b23e682f902e4e5f45d56e15b0474b71e220dc3b2"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_binding_projections.rs",
+      "sha256": "a38eaaff22d7632d49b2ed3019188684b125ed1e891a9a9096862197b50432f7"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_binding_rebuilds.rs",
+      "sha256": "7202b44982ca0a681641140a416284cde923d2078b60f230c1cacf4a1eb74d09"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_binding_reconstruction.rs",
+      "sha256": "f9ad67132e7ddc0cf3808d249a07ee900b9726d90481c240e7ac114665a23c6f"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_binding_relations.rs",
+      "sha256": "a0c830a7b80862bcacef1dad044b69bf43082ca6e45021edbf799b5bc2dfa4d6"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_boundary_document.rs",
+      "sha256": "88aebab1200bcaa5929ad6efb3eea6176d0a434ffce1be5cf8418aa4b95348d1"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_boundary_fragments.rs",
+      "sha256": "598aec666ad96bd280f528fcb0ebe926f789d9f46efabc7a72ccccb63b981900"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_boundary_literals.rs",
+      "sha256": "addfe18ed8b435eb560ffbac2839674f647617ed25a24e34ccfc4a04972f37d1"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_boundary_rules.rs",
+      "sha256": "ce371f650d8826c0d5e34f886ccffd139e524f8d3563b2f44f8b1b7e79e2599f"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_boundary_utf8.rs",
+      "sha256": "87685ddc237d909742b3aa20e0797f99fd65325f7c46077c5f64b38b8f909059"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_calendar.rs",
+      "sha256": "16d97129e84a8038728176443ad7ad4832387ec1a15bc5986ff99f0951fa2059"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_calendar_codecs.rs",
+      "sha256": "e5e7a815cd0125c5f5214c9d52e9c03ecea4afba9a227443aebed1a75f799921"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_calendar_data.rs",
+      "sha256": "55a3d81de693b966dcf2aa141b90a3697634e55b9b783dbdb6d63fd237a9bc5b"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs",
+      "sha256": "0bf2ed36a5f15ea6870c29e0ab1ea15a367357d18cd0cf01be463b8c493464b2"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_closed_proofs.rs",
+      "sha256": "3213173ee32820719e2415c49ec35eb38b01a017f8b20154a7648c7b39347542"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_collection_ops.rs",
+      "sha256": "de1f1a8152cd4b7f99864d122a105d60a486323f44c0c01f9c8da1eb7f62916a"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_concrete_allocations.rs",
+      "sha256": "2f8bf2510e0d969dcef062a7a612a2291ade3707bd3f2dcd54322425be289cf4"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_concrete_operation_proofs.rs",
+      "sha256": "1da836ac03668e7c363560f0a539e8482ca33eb49d9e2c9f2b40db092b9d9fc5"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_concrete_operations.rs",
+      "sha256": "64f8e1a80aed97aa9d9cdf38daf9a090814906900b3062444d657f99f4bc9873"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_concrete_types.rs",
+      "sha256": "d85586027ffcccf0572c9b8f7f017413207dfc21d63b6f281689102ba3fbedd6"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_construction_data.rs",
+      "sha256": "52b40784e42b3a3be160a0ebb95175902c6fc74a9988c2c70fed0ac9940c3e58"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_construction_domains.rs",
+      "sha256": "08ace6c75465e5939684e0312b0081c8142a9eee09703d98ae2d0669514d3cef"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_construction_ops.rs",
+      "sha256": "9f5e8f82e404afd8f3055c34b5970aac9ba38ae04812985770e10caafc3c4332"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_construction_types.rs",
+      "sha256": "f0560f4f80624db873b3f4617bab130aa5b66531b99b39b81c7f85124c9c9f12"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_contract_codecs.rs",
+      "sha256": "09813a87b4e51156566c4f2ae24441d192108f7f506d12d6c7915589c1808a6e"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_contract_expressions.rs",
+      "sha256": "44d45158911d7604205fd643511b94f96450c2bcd589aa29064d6444ebc5a382"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_control_edges.rs",
+      "sha256": "2721cb6e06bf2f3be4878e7996b18303754382e10407feae95a0bde83931eeac"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_control_exceptions.rs",
+      "sha256": "2ff99f5d4e6b31d7c1bdf7a77470823e63a8ad476a0b2b9e4ba32f1737e1336d"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_control_execution.rs",
+      "sha256": "f9620bd080612215900101b5066101a8f7e4b84e7e46af0c486addeb2e20689c"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_control_literals.rs",
+      "sha256": "7ddb4c0b5bceed5d239cf884a223df03d75d00415e9aff0c9f2ea5ac2527d6e6"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_control_pattern_candidates.rs",
+      "sha256": "81ee36415a1baefcd18c5385450c4539c2ae82badea18f0e2e2bc47d5035032a"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_control_pattern_captures.rs",
+      "sha256": "783f775f5a18b53eee7efefd487ec36103a9b196f97de2aca2f3075bd78040c4"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_control_pattern_environment.rs",
+      "sha256": "5f33b1daa5d3e94afe7b4d4673fb5916164f3a735ca9c723e398509bf9b73b27"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_control_pattern_proofs.rs",
+      "sha256": "e5fa8336eca1fb90b360d5745700a2629e29cce3cabbd569956aa20817d2bfd4"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_control_pattern_scopes.rs",
+      "sha256": "fd6e145ea92fd81b528bb99741a6cd2f0a07297490b5a480ace14aa51993e3a7"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_control_pattern_sources.rs",
+      "sha256": "037177ea51ad8dfb2851e727deb81d468356a6259614f0c7293d5e7db877b562"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_control_predicates.rs",
+      "sha256": "314b4012ef0088e011d8f1ced7682d318eafe7cc843c346317445922bc7fa7a6"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_control_slots.rs",
+      "sha256": "8698ec42dcadb6fd08b04f0d0dea7949303bab60549a7feeb0cb633394dad089"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_control_source_execution.rs",
+      "sha256": "50195b5245c6694db371345177d897defedace12c9415f6ae0f17887633473f0"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_control_steps.rs",
+      "sha256": "5774d2e2882b4421f1ac9209fda0efa3f26727ff609192939abc196e12676f81"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_decimal.rs",
+      "sha256": "05445069bb89a54ff8de1c1e909f5e89b87e302f10af8173e27feeef905638bb"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_decimal_arithmetic.rs",
+      "sha256": "78f3cf789d97b3676d827d36675fb7e9999840ac88386f7c016fa5793e1653eb"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_decimal_data.rs",
+      "sha256": "197a4785e48d813357e81d5ef7958f729d1c40b9337ade60daf088901f6fdaef"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_decimal_fixed_format.rs",
+      "sha256": "2d5474656b1741431373d4baa79ddca963a2c5ae020987b432e8060c35808dd1"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_decimal_format.rs",
+      "sha256": "738d13a44db6f0d62493fe9f211ab5ee783c363ccf3c7a6e00577bd5bc0ba1be"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_decimal_parse.rs",
+      "sha256": "acb76e2945a55556163304ced43103c4c92d4b6b2a2781d1e6be21061525d71b"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_default_proofs.rs",
+      "sha256": "cbb9472ae3ebd1af6fdb6506ff332d2039aee4afac230e9cdb3dea47122d9b89"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_defaults.rs",
+      "sha256": "9d93390920fa1bac69ed3a58c0435a2437e81aa3a1ce6c35426fa7be33f8bedd"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_domains.rs",
+      "sha256": "f5b0785704f7c5b9f74168f805959aee2c6fff42839c5b6e85d40e6654492150"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_entry_ops.rs",
+      "sha256": "726e5fcb7aa06103e947be960ce73a935fd5dbda8d3fc5f01cb9f8218632dc69"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_float.rs",
+      "sha256": "7e261694767ebf49310e79aff23757f6752acf2b5034bf0399febf4f1d4330a6"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_float_conversion.rs",
+      "sha256": "503d2e251d80016d885c1f219e360a68dafb014f84ebe0819cca5b8e041bddff"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_floating_data.rs",
+      "sha256": "55270969ca74297f36e6fe97120138a32463406108cb81dba5fcca00c56b579b"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_foundation_proofs.rs",
+      "sha256": "a46c7a0e219c1f0298ed4a5adc617fb130b294541b1fb23af98cda4d26ef3f97"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_hex_codecs.rs",
+      "sha256": "72e19a05940f9485acde70c15ec7f654c54be88d0a38de193567ce2317393e43"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_identity_proofs.rs",
+      "sha256": "2f77074d01146a9a166ca8682d2926467bee475c2940712cd107f1045ba9eb5f"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_integer_data.rs",
+      "sha256": "3eee8761668645fa9bc6762b8a2f92546e0ccae4c7a6eb298fcb2478d23cef80"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_integer_format.rs",
+      "sha256": "15173b6269315b472a5f3d78baf3a3bca519a48c842392c6f54bcfe09fae57fa"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_integer_parse.rs",
+      "sha256": "c62aeacfeb41ccc45d5f3cf7192b3e580d4388857c44dfef286d6481c0e86ab4"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_boundary_fields.rs",
+      "sha256": "591976f3bf83d4d493bf6a70ecce027982708c63d4d29c2b30bb06815e91244c"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_collections.rs",
+      "sha256": "93843fa3bdcab1b1039b2956c010879996eb767eb1ace1f294fd964fad4e127d"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_enums.rs",
+      "sha256": "3f17c53dec718a3d6c7559ddfceab22eed57697f6b597ce54d2c793f29344568"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_envelopes.rs",
+      "sha256": "86a6e0d2a623d9f7684c25ffc397f447a341a090b80f2ee86771ff4ab4be49a4"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_grammar.rs",
+      "sha256": "b0a04f17970494c95efe183e74d4e560eac05404eb335b03a9d622c503a6fc39"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_keywords.rs",
+      "sha256": "e85fbfbd55f3868634457be74d78a777ac0adc0f2261c6e569f00d1743487245"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_products.rs",
+      "sha256": "7b1e283efa0b242bbf25c5410115c770ee36aaf280edd3b5f9d119434b57ec02"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_raw_limits.rs",
+      "sha256": "e3ef42d14dd01f495abf15dbb3e639b8111d6e8905e16b94ae9a27fb056f6102"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_sequences.rs",
+      "sha256": "32100b244093e93ee21c52d9032d763d2fb3e06762f3df4420a1478c88d65d32"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_string.rs",
+      "sha256": "81e31ee4afa1154a4c2726e0853f7e8fc10b5c508d1e94176c181578f9396d9f"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_string_parse.rs",
+      "sha256": "2b26a4fe13061ac9cf0a1d941307a69a16f8d893bbb6ed1077de304860b82fc2"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_sums.rs",
+      "sha256": "a9ad772664d78cb0a8dfeeab98cd10f350310b367ee9d7f37238cee7a18b4bcb"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_syntax.rs",
+      "sha256": "03356e416b4fb2d07458f17638ca6ee0d79ec08f777ab61599cc3f731f634266"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_tokens.rs",
+      "sha256": "35601f1e5ca09a0ba2a9f4cfe2131a49769f37f040366d2e465b709ddb93df30"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_typed_depth.rs",
+      "sha256": "1a26f7a789bbf0b9a8f98b86a4db13e23ee26c3d90fac4960f3328c090f1307a"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_typed_nodes.rs",
+      "sha256": "e8cac204bd63df1a8402f700d3f0c9331e9ef9b8f03abaa30ee4d5ead263fda6"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_values.rs",
+      "sha256": "829fde91c040cb133e2b94956a00166bc7af05f7030936525262a3d76e3e7ac6"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_vocabulary.rs",
+      "sha256": "068c22305c1512e21e8bfc3d04c9ad62c87602e8ad1fb11fecc05f5758961ffd"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_lifted_data.rs",
+      "sha256": "177a82553be63a5c7ef74de4f587b2a81f0db7e758cf1e12b2895c37f0786362"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_literals.rs",
+      "sha256": "176c43467ec8e68c7b59c495ed7f02c8887542de3e1bb27a2fa1349dae04fb47"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_money_ops.rs",
+      "sha256": "4229b23626c8dd926d29554fb1f93f271b063f8d685a53a0410356bc2567db59"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_non_templates.rs",
+      "sha256": "1b317e36aa3c8eb2c79e7d2bddef23b23b3c2c1d0ed22ac3fa7b76242cfad423"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_observations.rs",
+      "sha256": "4c926a6a6766867172f9bdcb621d5b61714ee2c199899e3737a1f63769bf4122"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_option_data.rs",
+      "sha256": "d3e6276e294df8c30055b97a677491392db6dd79a74ff304134ca88fe75f1488"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_ordered_fold.rs",
+      "sha256": "55aba70a15271d5f91665181145045b7757f4b8bb7378335f92f637c5db36623"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_outcome_ops.rs",
+      "sha256": "3534b83552b3190056a160e28efbd28e5507c663cb2da298ed4f9017d6a25ef3"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_ownership_flow.rs",
+      "sha256": "99d4143d61371a53751bad0a76ca7e3a29ecd388b0acc2dfa19c6835db09ad21"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_ownership_proofs.rs",
+      "sha256": "6bd254cdf66c04ab96c4a0e5d092e7a40d6794ceaeb0469b804b3f88e4bb9fff"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_public_domains.rs",
+      "sha256": "9de1f71e3c90d6bdcbe7d4f0fa70cc8068db03ecce55715c11790072ba465753"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_quantifiers.rs",
+      "sha256": "f70e6e7db4c07b13250cd3f10fda485416dc3084b2dc41b8e0fe22614ed3d625"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_reference_data.rs",
+      "sha256": "5864c9494df97d42f568f530f0c8535fc467f59b07813527b1f574febb200441"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_relations.rs",
+      "sha256": "128428774c23aceb57fb980b48336996149d8ab37646592e45b2a38a72354e71"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_scalar_bits.rs",
+      "sha256": "9c3757dc88c5a653885891773a5b786d255e740900581c6e0902d241f556d2cb"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_scalar_domains.rs",
+      "sha256": "b79c9a047d23da82f590332f1015942f257e143ee22aa6f7d6e35d8a0b26fa13"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_scalar_relations.rs",
+      "sha256": "865872b3dba0a54503c6bd5991c1cda247c73cbec817080c736d175ea5b1549e"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_scoped_construction_proofs.rs",
+      "sha256": "b90e9d4992b07e994321147027861ed0aa4738ce223e75a9d807e37406f9818b"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_sequence_data.rs",
+      "sha256": "0945776b418dbdf37fcf4d63418aedadb4efef802a03153ca1f8a585014ca205"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_sequence_ops.rs",
+      "sha256": "dbc5cd30cdaec935760e3dd33f1bc1b8fe7badd4a3b9c8005a113c51f450a636"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_source_clauses.rs",
+      "sha256": "f0188b8eaf482063aba6127b7f2ec3915b0dda54fe05e73a1daa9d3bf1cad0ba"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_source_invariants.rs",
+      "sha256": "cca763a783bbab197194d1413a2c46dcedcd1ed55c5f71fd16e5243bbbfef462"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_source_value_data.rs",
+      "sha256": "7169c9d5ce43b7394bce74aa17528ca0c4dfb1d9baaee758164865686772c673"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_string.rs",
+      "sha256": "e32dab1fd209893ce7d6cb4a0704c5a2d3f6d7b493936b0bcbcfbcdbe44bfbab"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_string_construct.rs",
+      "sha256": "e078c74dd887679b2243d030ad6d12eefb524ce19fe244a0dc5e57b4248f6a5b"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_string_data.rs",
+      "sha256": "444c3688f6ae426a7df69761f24add51f6dcd4e9512e6924d2076c7504855f16"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_string_ordinal.rs",
+      "sha256": "9e84c5408dcd44d81b94be27775b9147f3d9c39a68a4bfb9da97a2acda60a927"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_structural.rs",
+      "sha256": "f8655b41ed81bb5f8192b2e0c0e684944f4b8d721d01b5b362f5db7a229ff086"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_structural_data.rs",
+      "sha256": "6c153b10179c75bbfce636915ee7ae36478726049e19ae70c26f0c19ecf8289c"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_structural_foundations.rs",
+      "sha256": "dc410b69690676f5a35f15dedf859ed2b3fbd05564c891e9db166b2d09726d76"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_temporal.rs",
+      "sha256": "004c06a137aa07c7b3abff98ed80f29248268032564791a8072812fbffa14ee7"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_test_eval.rs",
+      "sha256": "d4160220aa77546cb3911df2d66bbd0e8684f3020d128db9306288a87c661c8f"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_test_eval_tests.rs",
+      "sha256": "9c521d1be3c96d28de9f2da7144c67395222921ae83221874e0c3b5d3da5cb1a"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_transition_ops.rs",
+      "sha256": "a468ceba63f714f93e2c585d3de473aef30155443885594a9a06efda83c82296"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_transition_snapshots.rs",
+      "sha256": "c6b8450e70e5d6245f231fa44ed43e27a3d5ae16ef3bbac63362cbc6b0e63056"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_pattern_observations.rs",
+      "sha256": "1a37c43b49b519caf7fa5eb7c3a536a6f3daf3c42bbaeaa7211bcbba094acbd1"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_registry.rs",
+      "sha256": "fbcf370c81881e45df837845af6152301ede4f1e8e0ebdebf011005b3016757c"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_release.rs",
+      "sha256": "35885419dd82bcbe9651f85bad20af765896e6440bf61cdc321818498d42bd58"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_scalar_signatures.rs",
+      "sha256": "39b0cbbe656bdeac0091c643e2bc3c84e27b6cd4225c3e5351084f83310652a9"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_sequences.rs",
+      "sha256": "08ce1b2f61dfce8498dfbd0e3e818f83767e9a94dac9ff33691ab355bc257f51"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_source_artifacts.rs",
+      "sha256": "561ed0bda2aff116502baf508c5f00a15c3899820166458f2a003111156e4ee8"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_strings.rs",
+      "sha256": "9d281bf27bde0819a6db745916f6ba997f26b88ee564182fc184e5b9478d8262"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_structural.rs",
+      "sha256": "b5e33724782fd54d12c3f3c7c24fff00075de306c237452b25e62f435b36103c"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_transition.rs",
+      "sha256": "b9f54ea922821aec862df39d51009c5fb6c1acf44cc29ff0e2b91848e8fd1b82"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_transition_vc.rs",
+      "sha256": "af489df71be2d5dc3b53d32e86073533625f841e7ae2d5a62e860cb0a655d011"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vc_model.rs",
+      "sha256": "e8d9eaf127e9e2f5e2fd18d7d4ff280a197ab706b13be5f7add26c05fcb39483"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+      "sha256": "00fc77538cf53b6dcdf7a28c0b1ec36543787da52669f771415e233ddd6954db"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_validation.rs",
+      "sha256": "b3020234632a54145054adc40c8417eb176a0bd9be46090984c85df1ce217692"
+    },
+    {
+      "path": "crates/mpk-vc/src/expr_encode.rs",
+      "sha256": "fec8a0000ee024dbfc58625ed18b11c8b016daabcd0bae6ff80f1ce609abe57b"
+    },
+    {
+      "path": "crates/mpk-vc/src/grouping.rs",
+      "sha256": "e4f8bbd156e96bb735bb8ba2bc3be4a7a6e260d635a0a6a1bd010d54f7adba59"
+    },
+    {
+      "path": "crates/mpk-vc/src/hash.rs",
+      "sha256": "0babc5ff1a7bd5da5e34d84758b2f9507f27221ff55f57b87e40146fea277a00"
+    },
+    {
+      "path": "crates/mpk-vc/src/java_profile.rs",
+      "sha256": "68a0a9f68ba517848a122910e63a47e0428bca7106b6a640963459a56ceb15dc"
+    },
+    {
+      "path": "crates/mpk-vc/src/java_release.rs",
+      "sha256": "da672145d5a8dcf1e876d1b85a6164a5ae553fae3ecdbb87249b6c90b84501d4"
+    },
+    {
+      "path": "crates/mpk-vc/src/java_source_artifacts.rs",
+      "sha256": "900359507a10340d09611ff910f94f64bbc5a313f21cf393371356c38246a2bf"
+    },
+    {
+      "path": "crates/mpk-vc/src/lib.rs",
+      "sha256": "1e6609288eb24b39ff12ebcda1489de20adb730dbd1eb9ec80b2a25c0829974f"
+    },
+    {
+      "path": "crates/mpk-vc/src/program_encode.rs",
+      "sha256": "ef25ffa9ced0549858ba3c54b84885d7dd896659f941f8061c97c204ac4c5292"
+    },
+    {
+      "path": "crates/mpk-vc/src/program_wp.rs",
+      "sha256": "a5816540b20e75ae890bb10dc7808edeba84f1893d7077c4c17c9f0288746c35"
+    },
+    {
+      "path": "crates/mpk-vc/src/release_bundle.rs",
+      "sha256": "0e9080c946446aaf3ad85e5b77847c3a0ac26ea3b70c88a42de9a00c8a3b89ae"
+    },
+    {
+      "path": "crates/mpk-vc/src/release_bundle_v1.rs",
+      "sha256": "1a8296ecfcaa53b1b2d4461ee0bb2f2233b8deec074e1299bbc2cfbe42c5767b"
+    },
+    {
+      "path": "crates/mpk-vc/src/safety_check.rs",
+      "sha256": "da4ec3cfd53cb187e9ce07eb2d56ac00a3bbc99bbc13f437bb1f0a673c239fde"
+    },
+    {
+      "path": "crates/mpk-vc/src/semantic_profile.rs",
+      "sha256": "92a3fc01f642d251b65a20c1a6de51ef63702acff17018400bc326d7a2fd493a"
+    },
+    {
+      "path": "crates/mpk-vc/src/semantic_profile_registry.rs",
+      "sha256": "64013e00230aab720d993859589549bfa7283609ae1f1a7d5f6316530bd22e50"
+    },
+    {
+      "path": "crates/mpk-vc/src/source_manifest.rs",
+      "sha256": "11c4515b833385bcbf981a90e93e91c5890f454acd142f2453bb88043e50d822"
+    },
+    {
+      "path": "crates/mpk-vc/src/source_map.rs",
+      "sha256": "55ca097effe1363eca882baa0120dd4de5955d3ab98a184e9b85605b2f7b433c"
+    },
+    {
+      "path": "crates/mpk-vc/src/successor_source_artifacts.rs",
+      "sha256": "9951da4ed987a6f11d439965b3eb62e2e6dfd6b1676c8905b1d37d0f69f34b76"
+    },
+    {
+      "path": "crates/mpk-vc/src/successor_vc.rs",
+      "sha256": "fb97322316b37dc7c425d4c7a87fa00e181e3eee2d01e7581297fca46c3a038d"
+    },
+    {
+      "path": "crates/mpk-vc/src/type_encode.rs",
+      "sha256": "4bdf361e3d71cec329685fb6a66aafcd340d0fd6e69928dc5657b060cb4a416d"
+    },
+    {
+      "path": "crates/mpk-vc/src/vc.rs",
+      "sha256": "0140ad88d40aa910bbe441fe19e9a5e52c7ec91a7e0d4f2b56aec51196583b9b"
+    },
+    {
+      "path": "crates/mpk-vc/src/vc_canonical.rs",
+      "sha256": "ee88298cae99bfda7d65cab069cf773a304f396c2d3b72aabd065b02758efa6c"
+    },
+    {
+      "path": "crates/mpk-vc/src/vc_skeleton.rs",
+      "sha256": "4b7822e1b90267e2cf229450deb9664f8691f84e1b7f77cd85c80f753460f95e"
+    },
+    {
+      "path": "crates/mpk-vc/src/verification_limits.rs",
+      "sha256": "e19ee03cee7f08858566918f30acf89b37f892d793fbd5128e2f02527b978aa8"
+    },
+    {
+      "path": "crates/mpk-vc/src/vir.rs",
+      "sha256": "0d9141447f46d85468a2737be2c37e45606505adce9577aa3005d1de412ba9f9"
+    },
+    {
+      "path": "crates/mpk-vc/src/vir_canonical.rs",
+      "sha256": "c85a5e304522fff63653208ac8f43d2e4f9829ffbb12aa448ceaf5698f985763"
+    },
+    {
+      "path": "crates/mpk-vc/src/vir_validate.rs",
+      "sha256": "e2848dd1f659b44b1de9248a6bcc0a48aed735a63b87cc4a50815438f333415d"
+    },
+    {
+      "path": "crates/mpk-vc/tests/successor_vc.rs",
+      "sha256": "a982cd64c6b7d0a27c4cfdb2f29b336df558d8e0d43ae89ba22740418d35173b"
+    },
+    {
+      "path": "develop/migrations/csharp-03/probes/boolean-proof-elimination-logs/producer/builder.rs",
+      "sha256": "dd3a7ec39bb7aa86663a71fdc9ff55197e5f64df86a9adfd3cac41b7c9d90db3"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w03/completion-audit.json",
+      "sha256": "539b11ffe265ae22031883eb57766114577ebcbe728b5edb523bd76d2709ecbd"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/capture-artifacts/artifacts.json",
+      "sha256": "db60b18290a603e9312ca635928e88c335e5392de723315c55e93a618423f6ac"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/capture-artifacts/baseline-queries.json",
+      "sha256": "07e17fd8e92e999e137e087d1341e73154e08eade0e3139c9020b6803af9c68e"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/capture-artifacts/native-queries.json",
+      "sha256": "94e28b73ddea6b28e1f006f503fef0c2210da826771ac0282f69d7969a4ab36e"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/capture-artifacts/observations.json",
+      "sha256": "6db19111ea5e60c8976da4cc9b67f030546f8936fc546b58e1cb1a40e690852e"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/capture-artifacts/outcomes.json",
+      "sha256": "0c8bce03cad4345473b52c88663d4ae1be88c298f508b5db5243264271f98cf3"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/capture-artifacts/schema.json",
+      "sha256": "84b371003f97560b01b887c419f4aea4c9a1f0234140760e4d7946ce5fa88c59"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/capture-artifacts/vectors.json",
+      "sha256": "7e37e2f42b9caaf4398059594909725044573faa8b9147494d3b819d890884e2"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/closed-carriers/cases.json",
+      "sha256": "f87c9c4e8c01b6f02df6658704329f873cffbcbddfd0ebe582f0cc676db192d9"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/closed-carriers/expansion.json",
+      "sha256": "a5182a1adc9fbfeeeccc3162058a4f210a3559e6d663f5b1d506c23c51b722f9"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/closed-carriers/fixture.json",
+      "sha256": "5d858b7fa3b6813aa2e796ce21da4be0cbb99e6a5aaf34db16a98c056af24449"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/closed-carriers/instances.json",
+      "sha256": "a9984ea8f6eb22678268ea3251aeac18d927b1eb38fbdb68f2faea7b1fbec89f"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/closed-carriers/plain-error-expansion.json",
+      "sha256": "8e061a5d921d9d6ffae6de76ef3d3fc25d88fe08ba4a83ffb42fb18025bdc557"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/closed-carriers/plain-error-instances.json",
+      "sha256": "b2a10334ca64ac0e1890086284cb7e20e801b8e4d1690d245889430ba3a9e947"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/closed-carriers/plain-error-roots.json",
+      "sha256": "e414842e07082e245471433fa9699a91c39109f4ac96095f9986e21a1e96b977"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/closed-carriers/plain-error-types.json",
+      "sha256": "fe0ebe2384e28057fda20f3bcb7179d79e163d2da1fe6c50b14b8a22c1a741d5"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/closed-carriers/schemas.json",
+      "sha256": "c77bfa99e98417d1127b1301481b5c686e5d3923c7b68cb0c684d39e693205a9"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/context-protocol/legacy-queries.json",
+      "sha256": "cacfcfce71b9605a5c519636df0a46df2c0d38190689b22de58cbd4870ef43ad"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/context-protocol/registration-fixture.json",
+      "sha256": "6031ecfe920965be82320184e616e86edbd337e0352f570558f59c87a1d67845"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/context-protocol/schemas.json",
+      "sha256": "58c95a99f8a4beaa20cfdeaf0a9f2739dbdd713a9019c5d828a22bc1eb12ab83"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/context-protocol/vectors.json",
+      "sha256": "6cd76d8da278c5f62531fa44c13fe39ce5d16bbd0c89e22bafd3911bf2633dd7"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/contract-wire/catalog.json",
+      "sha256": "7485ef825c851d486953711d577b8fb59334eacf1ea30e9d79785fca35d113f0"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/contract-wire/expression-witnesses.json",
+      "sha256": "aef6d55342a2d4a3e6103f6e503f318099d03d5ea79a026b663d9b7777a16796"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/contract-wire/normalized-contracts.json",
+      "sha256": "bb9d39fdd7c81cb0c46eee247d51edbc34d11c4e0bb9f64151583e2babe79bfb"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/contract-wire/observations.json",
+      "sha256": "27edd11a4c8a73aa80ac152feacedabed4e603f8144dbdab7a61a0fce9bfe543"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/contract-wire/outcomes.json",
+      "sha256": "0bf714be2fb7eade62e7755d7b7ff9598ca791a264e75c087888e1db14d2c415"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/contract-wire/source-vectors.json",
+      "sha256": "989cbe191eb1cdadb5c5301581ce7b96ddf5e283dc0ae3c3a9ba612dc17c1c9e"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/foundation-limits/definitions.json",
+      "sha256": "06ffabd6dc93dfe878da340b6898b94ac6f88750d5549a487d55be905c9f1d16"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/foundation-limits/descriptor.json",
+      "sha256": "a71a342c9e3a540f79d54c9fb7d285c6d72c59b33488e2664f8571f2d88b532b"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/foundation-limits/hash-vectors.json",
+      "sha256": "60fa17aa304e465e504334b6291f52730a75a31b6a6eb6339140a965653679a0"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/foundation-limits/limits.json",
+      "sha256": "17713ff650e66bb731b7bd6e6f5bfc6daecb4bdf08832224b68e4b9153236ad5"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/foundation-limits/linked-contexts.json",
+      "sha256": "0fa328ded5dd607d575ae5b1ea9440ab2888d46d1ac52bedd8193f85e9e918a7"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/foundation-limits/schemas.json",
+      "sha256": "a7d95586c27fb4c5b11aed7ea69850ff62c8d09f444e703262d95b83253f0c9b"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/foundation-limits/semantic-rules.md",
+      "sha256": "60e4dde24357bbcbd8383167962fb3de971bbfdd0e0b939149d29d72402b2460"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/foundation-limits/vectors.json",
+      "sha256": "bfc70c4aa5f8fb089b11456c05a9d751c0426df24ef1030f891f9b38573be708"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/identity-dag/catalog.json",
+      "sha256": "2db3e44ec276247534a0304a1487879ec305ea5f1520f28352989235c118b97f"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/identity-dag/fixture.json",
+      "sha256": "d680e429dbb4d5616962e57841b76abdd077a7fb9848e9c24895a3b7c645393a"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/identity-dag/migration-proposal.json",
+      "sha256": "4f7810f032e443205fe7b72613b8a04956f49ae08d42b63d7542a4e257cf6353"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/identity-dag/vectors.json",
+      "sha256": "be6f7331efcc9337a442502cfc76825a24cfa178e365fc9ffe8ad8baf7dfdc3a"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/nat-termination/observations.json",
+      "sha256": "70a67a8b0c3913f11b18d16362dd74cb9a0d103d6d4db2bc41f791582b64c6a5"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/nat-termination/type-select-zero-valid.mpcert",
+      "sha256": "74d9612355604f8b6137237c619e320ef88aea5fdbff178b15f6788cf7e0da26"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/operation-signatures/catalog.json",
+      "sha256": "88b749878cd902aa6f126534afae7c25f917b9bda7eac2c5020747098e303ae1"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/operation-signatures/definitions.json",
+      "sha256": "9bfa1c615a8bbad5313dc72f15d5e6b426f00cb35d3add726709a56dac5599ef"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/operation-signatures/observations.json",
+      "sha256": "a2e1b62d0d7cd8404ee4b9ae951a29a646c70c789eb7527e44da07bca8698c62"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/operation-signatures/outcomes.json",
+      "sha256": "4c018174761a8e911c1485c9d8abd99f55eb38a07e45c2c2bce27bc64bb6b229"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/operation-signatures/vectors.json",
+      "sha256": "7186d5dac98476280168aacf99c02d1780337ddc2db8dc3a097739a960108fa4"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/operation-table.json",
+      "sha256": "2eb0f811cf0000aa5666116af90d356426ead1e93d85479fff7fc5857b73b027"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/overlay-contracts/native-facts.json",
+      "sha256": "ffbb435f2b68f63d01e3b81a7191b31301215a8f1ae8233f9765fc466a198115"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/proof-artifacts/artifacts.json",
+      "sha256": "5433b9436786fe8544a4cd3d41773ef4187c6d80d9a9b6570fa7821ffaa7cf21"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/proof-artifacts/baseline-queries.json",
+      "sha256": "36b6b0dde6311148df46ab09bc66ab9429c4dc70e52fe984eb4f5a3bb25242e7"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/proof-artifacts/components.json",
+      "sha256": "15e866017aac42d2772916616129f73f53ffe9c1ef57f31de6aab1e06872151b"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/proof-artifacts/native-queries.json",
+      "sha256": "49b2d3f69a870bdfa29ee13e04267d1f226d0d6c2db6aa2d413feb700e814e85"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/proof-artifacts/outcomes.json",
+      "sha256": "4576c02bb917e4891888ce0381852d3013bc7042b4eae85dca71284a22150bb3"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/proof-artifacts/schema.json",
+      "sha256": "6ed42ead4a104b90d0a701ed8857830bd947aebba20a7283694dd8bdc670c9b4"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/proof-artifacts/vectors.json",
+      "sha256": "bdb92e573d83094cf46da759b981a38d08ebcd29fac71884bbf8bdc2d468745d"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/shared-vir/baseline-queries.json",
+      "sha256": "25342be11fa5b757d6cfed5a756709a3fe7c4f781c22ba602db755c8dee77cb5"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/shared-vir/modules.json",
+      "sha256": "e9d10afa43b62f62ebacaeaf6888996b36c133006c661eb719520d7aa3cf4056"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/shared-vir/native-queries.json",
+      "sha256": "07a0d639fb261056cca782123c2b852298996f8aa5ff62d49bb71d11e96fd204"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/shared-vir/observations.json",
+      "sha256": "b9cf69318584fe4969cad70f197968af8a21a30a097b318b96b6d258e2d2035b"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/shared-vir/outcomes.json",
+      "sha256": "b10133d9fb5515e253daf1141cbda2261fbe44305b56149d939363937d0ea0b3"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/shared-vir/schema.json",
+      "sha256": "dd958e2ae1636ebbae1c2b5351b416d0bd1b84b563888df9d3af446405e098d8"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/shared-vir/vectors.json",
+      "sha256": "62c0cf4633a5b2790ec4416be6d5254dcabbe2c0bb78410e2dbe6f7f34c623a5"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/source-admission/catalog.json",
+      "sha256": "3882a7b8b8143a9e51eee4b42c29206da3d9c01e29c6cf334eb4e2ebf210d593"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/source-admission/source-vectors.json",
+      "sha256": "81e7c48cb20d4c51c40b95edd00f54942420d3f3a6225e40159fd1c9d884f0cc"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/storage-lifetimes/observations.json",
+      "sha256": "dcd841f2d1a80cdf8cc2162a171b22213e21d0de5e3d38c5e3a24230d8ce0cc0"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/storage-views/observations.json",
+      "sha256": "0b54d2185ba397499324bd91f80ece8cd79e63100eeed0222afce62732e9622a"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/structural-limits/limits.json",
+      "sha256": "f7fc449440896dd6b20fc6490801589b4c3b71e91e20ae9063e0d601e4d2a512"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/structural-limits/observations.json",
+      "sha256": "171c24171a51192ca69d39395df9eff9234d9092b06dd2fc22ba9ba908c8fc16"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/structural-limits/source-vectors.json",
+      "sha256": "b786f19a8fffe65cbf6f2ad9f91a346692eaa2dff743c8677ea99094a6b50c46"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/variant-termination/observations.json",
+      "sha256": "bb05a91fd19e419c2fe9029a78e845433f8f7161d7f4356a1fbc52b271eb1641"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/vir-body/components.json",
+      "sha256": "a81120c832278b1c82ea6390b25a4a6ddf8a9559d4c8a0a5f5047c438dfd4544"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/vir-body/functions.json",
+      "sha256": "7ec8bbdea9e5116b7a7be7863900d8aaf1480aefbe27424f7777953263384efa"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/vir-body/observations.json",
+      "sha256": "346afde800fbb022f96b2e205c3d1cd950426ffea2bed4caa66f4c3304c5a6ff"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/vir-body/outcomes.json",
+      "sha256": "e1bf98a3c775806dd592d2e52697e4ec1bae31cb11ac5a94790042dfa2201084"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/vir-body/schema.json",
+      "sha256": "11c1ca279382d637d76837de50f4dfb9c85ecfed17449aae505c4f73cb145d77"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/vir-body/vectors.json",
+      "sha256": "9c8af0a517edd03374e6395694adb453954bf79d07e73f5c6c84d756c6e18dfc"
+    },
+    {
+      "path": "develop/probes/go-practical/admission_catalog.py",
+      "sha256": "2ae1016d81fc4652d3b0289873a9c50030783567dd5eb58283bb5c1f725951be"
+    },
+    {
+      "path": "develop/probes/go-practical/admission_closure.py",
+      "sha256": "cffde5ba820edc38c51ad6cf8ea3f6a57d950381a50c44ab71275c8f890e3386"
+    },
+    {
+      "path": "develop/probes/go-practical/admission_go_facts.go",
+      "sha256": "ed5a884c4d4d2a8ee5d53bb56c4c5e750561efeb97b4345d4d6870e3b9c4e5c3"
+    },
+    {
+      "path": "develop/probes/go-practical/admission_vectors.py",
+      "sha256": "425bfe66e20509eb15777b19d029240c75f4c835af4de9b1e77eab59b5912c0d"
+    },
+    {
+      "path": "develop/probes/go-practical/body-hashes/Cargo.lock",
+      "sha256": "c8ad6962feed29fb9d524cf3d52ce7dfa80a04e568d846223aba78d8082c54b9"
+    },
+    {
+      "path": "develop/probes/go-practical/body-hashes/Cargo.toml",
+      "sha256": "823779e51f38bf82014e764978732bf61f2f93a823fa31f3619a3c99850e5764"
+    },
+    {
+      "path": "develop/probes/go-practical/body-hashes/src/main.rs",
+      "sha256": "a6f5389cc6a652013a8a96fc8b2305d01f4b8ca74b6cf0091506c0f33c8a5e9b"
+    },
+    {
+      "path": "develop/probes/go-practical/body_canonical.py",
+      "sha256": "9045387a9ae169ecaf9aae3d6837178b486ccdc3749bd47594fad6a2b424f343"
+    },
+    {
+      "path": "develop/probes/go-practical/body_hashes.go",
+      "sha256": "2694a1586e18b63c1e7d947e54423449a8dca6737d7c7d3d915c86703476eb99"
+    },
+    {
+      "path": "develop/probes/go-practical/capture-native/Cargo.lock",
+      "sha256": "6436947485350be9155ef5aa81d387ee16d75b4eb07c47f805b9068a1fe1d190"
+    },
+    {
+      "path": "develop/probes/go-practical/capture-native/Cargo.toml",
+      "sha256": "31ae7e5485a2fa7beaa9fd1d6f74cdaebd3890538d960a513c78dd661fde6da8"
+    },
+    {
+      "path": "develop/probes/go-practical/capture-native/src/main.rs",
+      "sha256": "a90a292ac161aac71acaf9c473c5316bd655546f529f58cbb474b21e32ea480a"
+    },
+    {
+      "path": "develop/probes/go-practical/capture_artifact_vectors.py",
+      "sha256": "90d95020d3453a72f60a696ebe61cc5d6c304ba8f1c0d07faa2c361d7bc44d85"
+    },
+    {
+      "path": "develop/probes/go-practical/capture_artifacts.py",
+      "sha256": "c7967595b04ae0b150617cd5009aecc4f12f1ef8339d5cb799b035e2beba0315"
+    },
+    {
+      "path": "develop/probes/go-practical/capture_native_build.py",
+      "sha256": "72403b5f6127526c11752dfcf305063c82a297bd9b11c7e9674587363be66218"
+    },
+    {
+      "path": "develop/probes/go-practical/carrier_build.py",
+      "sha256": "212b8f0842bf12f396f1c91c069cfba7fde7106af0da4669552954a8d94f9426"
+    },
+    {
+      "path": "develop/probes/go-practical/carrier_cases.py",
+      "sha256": "4d1817b786b16c2f7cbede4d60e7985f9f5fce4785c784439c2f5e2b341e20c5"
+    },
+    {
+      "path": "develop/probes/go-practical/carrier_terms.py",
+      "sha256": "d64b391643f6bd0ddc5968039bb28df4fe56cfdc6d4dbd8f575a7b9a34136d95"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/Cargo.lock",
+      "sha256": "908d07d9ab55bf4923537df208e6e451d5573e1d5a3c0de03853b9efe8e241ae"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/Cargo.toml",
+      "sha256": "7b97e6284a5777e58aeff7c938ac9fa985a987961cf8b5fa52588aa18efcc66f"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/main.rs",
+      "sha256": "30f6276e54f49f6b6d51b04aeb42150f11ad42182a8b6d4a6d4d82af18fde257"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/natural.rs",
+      "sha256": "ab70591c8fcaacbe09b24776e95bc381055200ffd11e5d19c367fc2434d19e20"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word.rs",
+      "sha256": "d7c6bf2c68c4fcca0d9a111801d15cca64806cd4d4666c23b0b35cee1a547826"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced.rs",
+      "sha256": "613e28fd7c0188fc2ef49d8452610a1492a093d5cf4a99f4191fe3da25eb8313"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed.rs",
+      "sha256": "fe1a7afc6be4a264844101ef9c0cda781543c651b3b4242d17c94472273d2729"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes.rs",
+      "sha256": "66e3961995d9dc5dd836eefa1e3f762b7f8afbd825a49100a279ad78b221d959"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds.rs",
+      "sha256": "9ae75866e7315aca7bd531d09da4ccf4a24519a26c6cca172eb4fe77418906c1"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/coverage.rs",
+      "sha256": "5ce6eb686f3b2231fa650ef1495fc9ddef88d1165ec1562b196e5f10d8af1610"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices.rs",
+      "sha256": "63fe8df6b803f9d885ac9659e0915bf3dfbd3a6a0e4afebf1f63442ffa496784"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access.rs",
+      "sha256": "e33d56d0ef4c36f6219c5e05e3b467639e2c560889150f3535b06f3285db7962"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity.rs",
+      "sha256": "d7986e03fc3e5e90f595002c2e706d719568cc1c51df9d7d7751575d63c1380e"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/embedding.rs",
+      "sha256": "39f3ef83ae8d1eb4916a4cef20403382ace335294ddd01678be906f4cceb7ff6"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice.rs",
+      "sha256": "c4c90026cd3b86873eeab2397ab9fd73ad66634ba76f2fc9354f8a76d04348f7"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/arith.rs",
+      "sha256": "903c68c44f93e3caf1ca2d8ca99a9d93bc42c64044b51c239d529a2a513c8c89"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/assoc.rs",
+      "sha256": "23f441a888c555b1ef335c28122366718b217681d3a98f645ed44cd89ba4106e"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying.rs",
+      "sha256": "5523909155b80740f88bcac2eea910ca315013e9e2a1b608da43e56b3fc4006b"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction.rs",
+      "sha256": "6587ef8f5cd707e976218e7ed824f9c1a18c628c9c2e5bf7d565bb25154aba0d"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/appended.rs",
+      "sha256": "1be6f2e82e5062629b00489ae47c26232e83869b410e099bd1e67e53283f98c7"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/appended/emit.rs",
+      "sha256": "f9e2763ad5463f4dee39394ff43b99d578fc08ab46bb7381fe372d113f65e95e"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/appended/indices.rs",
+      "sha256": "533049f98d496edb606f21ae4a1797227f2acf062ad493a950126b32845cf7f1"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/appended/reads.rs",
+      "sha256": "26b111790fcde91173b6472269abed36efae0c6ac2d027460566fe26ecf5d736"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/appended/validity.rs",
+      "sha256": "a730f529dd364f937c18195461ac92efe2c7f22d05ab9e42960e513082972f93"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/indexed.rs",
+      "sha256": "9a66489607c424c22ce00938431bad9b14a0c30a60b3e9238b0102fb4f3f79e3"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/made.rs",
+      "sha256": "3dd38d9959d2d14094e8789fcfbccad47e01595efca5b8a5b29ab358bea00a0d"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/made/composed.rs",
+      "sha256": "1653576edab404256da3d1164746b79a4895a86339216c91f3b092e216a309b3"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/counts.rs",
+      "sha256": "2ba520e731ae25b74b613603ee092ff3a6b407c714e3a49d4d77bce90e02f9a0"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/emit.rs",
+      "sha256": "966f336423d01e34efec46471d3347d64e2f155d5c68a91d492719a58e588fae"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/shift.rs",
+      "sha256": "dbf47196405be7975ae27d1b126a810e9a3591c34b6b7688dbac47193ad8a8e5"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/store.rs",
+      "sha256": "bb2dc947d6e6d2561ec1b74806f3c4a6c609fe8a4eb0dcdf3ec0be46214686ce"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/emit.rs",
+      "sha256": "d14ccac606a7565f60878730f799dbc9c8bd7915af044543fc0698d29f4e6603"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/model.rs",
+      "sha256": "dfebf52c56b1084669fa81ae353744c7847dc91551d4998e0a4f3d6239c5defc"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/numeric.rs",
+      "sha256": "4b55a2e36203e8bb69342e62c51008cf1f814952519b0b619d09cc56cde6b9c8"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/preservation.rs",
+      "sha256": "b2e28805ada6ee0f47b4dfda0c299706a2b788129b3e1a796f6acea5d6d941fa"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/readable.rs",
+      "sha256": "1abaa9ccc87de6d36451f0b77ebb70e2b65940cce14a49804086c5da584d8063"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/stringops.rs",
+      "sha256": "c559d9c5a9e6e9d9be6be51a4558faf717983ff97a601304a4dd1901b41143e2"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/stringops/emit.rs",
+      "sha256": "95c20db80309e146fb279fa7a0b195e1d054fc07ba1383e7d06c3706870415d0"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold.rs",
+      "sha256": "9bf23d6363dbcb9508607d381f48205e2b2228ca50d172f926632f65be8d8840"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold/continuation.rs",
+      "sha256": "aca248cc9693ec594ffa95df059dc42ea02e4ccc385a4f0b63f5f407f3a84af9"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold/continuation/returned.rs",
+      "sha256": "9c4bdf37ba79d69568956629d588e2db679d6f3b99f3d62a7bc447429fcb3167"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold/continuation/returned/quote.rs",
+      "sha256": "c7deb1f6a2ea0de3b4a4b9000b4041fef49c405723c0863be506b2d2214b7552"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold/continuation/returned/run.rs",
+      "sha256": "f2f03b5069d4d9c9816ee179de737d7ddc881e49ea551b00b5d2df7609f481ab"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold/signed_prefix.rs",
+      "sha256": "a58589540f394e72d216e985da8bb9daaa2d2b75c5bebcf51837651e7a404977"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/order.rs",
+      "sha256": "52b24efd55c9d0df7397b0b9e21961dd15671322fd276ce15708c1eeef111582"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/order/path.rs",
+      "sha256": "d92785a0ad8d1da68ddf398803a9e37a3f124b2e01aa52159ced339c99b2f860"
+    },
+    {
+      "path": "develop/probes/go-practical/check_admission_metadata.py",
+      "sha256": "977874a2e99afeb1e9996c0a2b3676b88a2f57bc52c18861de588d9e5b8e1060"
+    },
+    {
+      "path": "develop/probes/go-practical/check_capture_artifact_metadata.py",
+      "sha256": "bfa8855675a1331d24acb66a77229218c31d3de24b816d9a014e6c7c871b37e7"
+    },
+    {
+      "path": "develop/probes/go-practical/check_carrier_metadata.py",
+      "sha256": "f303525c8ebcb78997e02bf2347e19504cdb678b9d64e4b6a1fb6a215c6d78c1"
+    },
+    {
+      "path": "develop/probes/go-practical/check_context_metadata.py",
+      "sha256": "56ec3857696013e98b2ef3b01720a9055daf1414f42b2d52b442b1a049dc6619"
+    },
+    {
+      "path": "develop/probes/go-practical/check_contract_wire_metadata.py",
+      "sha256": "bc9da072808f988341344678560272a9ab480f0410d186c13a24e815d8932350"
+    },
+    {
+      "path": "develop/probes/go-practical/check_foundation_limits_metadata.py",
+      "sha256": "79b70a55d74e8ff52376d23891fc4bf589d82de3bb922d9036998807b15530b5"
+    },
+    {
+      "path": "develop/probes/go-practical/check_identity_metadata.py",
+      "sha256": "ef0b973dd284eea65056e644ca5d73ad04d21014fab408680227b00184925da7"
+    },
+    {
+      "path": "develop/probes/go-practical/check_lifetime_metadata.py",
+      "sha256": "8d75263b54ee31bee4dae3f64593198bf1ad3fa86d053db8690d056bae13fe75"
+    },
+    {
+      "path": "develop/probes/go-practical/check_operation_signature_metadata.py",
+      "sha256": "1e689b234cbb9b0768e673cc70988ca7b81169eb39e022a4b02953e5a2fce365"
+    },
+    {
+      "path": "develop/probes/go-practical/check_proof_artifact_metadata.py",
+      "sha256": "21dc425c883517275574e5c9235e485ee740ee84066c6fee6972be6fc78408fc"
+    },
+    {
+      "path": "develop/probes/go-practical/check_proof_report.py",
+      "sha256": "182bbac0b4146329c9f951c1b34dbb97adef35d58bc67901c74c5a1229ea4ba2"
+    },
+    {
+      "path": "develop/probes/go-practical/check_shared_vir_metadata.py",
+      "sha256": "f818ffa5e9cad61e2d2bb05be0f41c3b054a4854bd58dad2ebb0759124668214"
+    },
+    {
+      "path": "develop/probes/go-practical/check_structural_metadata.py",
+      "sha256": "54792064466a3957fd7628247a59bcf454521f2d8ca7d29296e7c6dca1539a1f"
+    },
+    {
+      "path": "develop/probes/go-practical/check_vir_body_metadata.py",
+      "sha256": "0db5442adbe1302d91df6e4701e4fa6cc13a8a35871e9e94c7b2b17f30dcbda9"
+    },
+    {
+      "path": "develop/probes/go-practical/closed-carriers/Cargo.lock",
+      "sha256": "55cb05aba595d2860c4aa99a259581400179665b80eac5a55bffc8d501017f98"
+    },
+    {
+      "path": "develop/probes/go-practical/closed-carriers/Cargo.toml",
+      "sha256": "5dee9a97ab9a46df20cd567d463a623b5205933c3ccc049f805cea6895cb721d"
+    },
+    {
+      "path": "develop/probes/go-practical/closed-carriers/src/main.rs",
+      "sha256": "f3c86f26f0f2aae64c3e4a5262a509a87b58165e0e8c503993df6bc434ffa3da"
+    },
+    {
+      "path": "develop/probes/go-practical/closed_carriers.py",
+      "sha256": "7127bad4c5561885e97ea210a5558ba519365501fe831409c80db83f65711a34"
+    },
+    {
+      "path": "develop/probes/go-practical/context-legacy/Cargo.lock",
+      "sha256": "070f53c993edd43e43369341e8abf7fb4ecaffa5b2af2d8d862737e2bfe7a28f"
+    },
+    {
+      "path": "develop/probes/go-practical/context-legacy/Cargo.toml",
+      "sha256": "5270f7781f51859dd9587029b73e9bdf51ef1a021be9e94d83bc6f5443af45e1"
+    },
+    {
+      "path": "develop/probes/go-practical/context-legacy/src/main.rs",
+      "sha256": "e1ddfa99f1c1aaea7d8a9856e1cae5ca6363463d85ce4f7371af549988d94a39"
+    },
+    {
+      "path": "develop/probes/go-practical/context_protocol.py",
+      "sha256": "a94b3e1e3a1a4fbb3ec2cae7deb91240bb0303519c216f2d25741876eb0fd54f"
+    },
+    {
+      "path": "develop/probes/go-practical/context_vectors.py",
+      "sha256": "ea013ce48c3733fda9b4e776abb96146df455aa3b0a119fd82d5fb1cfc6c5f52"
+    },
+    {
+      "path": "develop/probes/go-practical/contract_catalog.py",
+      "sha256": "dd06db8213f4a2fc1c4f1298c1eec877e0b776180bac8a3d05ca55c67c6c59fa"
+    },
+    {
+      "path": "develop/probes/go-practical/contract_scope.py",
+      "sha256": "d3a09d17e43aa43027d96867941d75a35c5cd2a5da8b82381327cebbee47c81d"
+    },
+    {
+      "path": "develop/probes/go-practical/contract_wire.py",
+      "sha256": "82dfd52c52647773904303f62c3e74e5332f22d16b8b67618cf8961e9316e761"
+    },
+    {
+      "path": "develop/probes/go-practical/contract_wire_vectors.py",
+      "sha256": "11d2fd5dcad7c04846874d11b5c971a217d771b369bde78ef5f48a56208a6d1a"
+    },
+    {
+      "path": "develop/probes/go-practical/control-foundation/go/nat_induct.go",
+      "sha256": "c11b4a95db2d988c6efde61cfc472698c975d273af67c6b8d4b85193261d5b36"
+    },
+    {
+      "path": "develop/probes/go-practical/control-foundation/rust/nat_induct.rs",
+      "sha256": "730a8d6e56d08a8873e9d052351ea41810eef26da0af5369d34b6c8879de48c6"
+    },
+    {
+      "path": "develop/probes/go-practical/entry_audit.py",
+      "sha256": "0730c5598b4e3c885ed1b59d8b5925f72e0c09c614261cf0a33189327dd6ef2a"
+    },
+    {
+      "path": "develop/probes/go-practical/foundation_limits_protocol.py",
+      "sha256": "3ce91d3c93b8d8bd70b89419328b6cfc492d5257e2b40c50892a961d48554988"
+    },
+    {
+      "path": "develop/probes/go-practical/foundation_limits_vectors.py",
+      "sha256": "f9700b177861e2172b7c1e2eeb08c6c089e8d5f043f7487aeceda894f83509c4"
+    },
+    {
+      "path": "develop/probes/go-practical/go_obligations.py",
+      "sha256": "5202c38370255f987cc2123d8b888086c8c598813e859274ec32932f6080b3ef"
+    },
+    {
+      "path": "develop/probes/go-practical/host-toolchain.json",
+      "sha256": "1927d5c54d8e62d2e479e9b30969f4ff4d482163d1da11dce8c0595e0d060bb4"
+    },
+    {
+      "path": "develop/probes/go-practical/identity-hashes/Cargo.lock",
+      "sha256": "ce8949b4a166146ab1535dc6bf3eb8379c7a258eee93b0413be3d7ef68da1c8b"
+    },
+    {
+      "path": "develop/probes/go-practical/identity-hashes/Cargo.toml",
+      "sha256": "b782195fea9d1c9d4ee44f883f336b5782ebe4f30951ddca1b614cf7c7249355"
+    },
+    {
+      "path": "develop/probes/go-practical/identity-hashes/src/main.rs",
+      "sha256": "aea0c92bf721c5cc808713e810b0a92c918defc9cf7f1caf032293260e69c2b3"
+    },
+    {
+      "path": "develop/probes/go-practical/identity_catalog.py",
+      "sha256": "be18181f9fe9f8f323f4b33f9b8ee985e70c36d27482eddf3ad1c3f38325855d"
+    },
+    {
+      "path": "develop/probes/go-practical/identity_hashes.go",
+      "sha256": "d0ba0297d23ba11d1b34332fe3c136412b12bc1dc3353c7167cbadb95a108437"
+    },
+    {
+      "path": "develop/probes/go-practical/identity_migration.py",
+      "sha256": "97a8c5bd6506e2a2ee3793a8000cfc99cac57d1fcadffa8c2dd0f8df6979febf"
+    },
+    {
+      "path": "develop/probes/go-practical/identity_vectors.py",
+      "sha256": "7aa0b6d41539db6bd99403d75ceaaa20e6e1699c61d79764a19ca4d01797ab4c"
+    },
+    {
+      "path": "develop/probes/go-practical/identity_wire.py",
+      "sha256": "0cc43b19f8132dd1ab6df2dd0551e9a4cd82c6f61a6375f7386223211a8de5fd"
+    },
+    {
+      "path": "develop/probes/go-practical/lifetime-certificates/Cargo.lock",
+      "sha256": "83ce4fd0a94762444e7debd399b7c9d7553788c7df9268df86d8edf9addbe9fb"
+    },
+    {
+      "path": "develop/probes/go-practical/lifetime-certificates/Cargo.toml",
+      "sha256": "dbd7cde689a30eca96b3d16fde227fa30c9d3ef8e6fa3052d86701adbca6f2e1"
+    },
+    {
+      "path": "develop/probes/go-practical/lifetime-certificates/build.rs",
+      "sha256": "94ff97019b43deda21bfd16b6efc7dc9ec509f81a63122464e942770532bb2b7"
+    },
+    {
+      "path": "develop/probes/go-practical/lifetime-certificates/src/lifetime.rs",
+      "sha256": "98f068b58ed04bf8c723af3a1c537baca146aeefd1b94720e5c7246c7313232f"
+    },
+    {
+      "path": "develop/probes/go-practical/lifetime-certificates/src/main.rs",
+      "sha256": "c80cf447351e15af8b4e76c1eea9b41ea21bfd3fd37ed0d9fb42dba8aeaf3968"
+    },
+    {
+      "path": "develop/probes/go-practical/lifetime_cases.py",
+      "sha256": "51bd2ce2b435259412fabb05eff1d01871af4d1108eaa4935c857645db06d4a8"
+    },
+    {
+      "path": "develop/probes/go-practical/lifetime_reference.go",
+      "sha256": "99ab801e5bb2680ee05007046ec787c014360234cd6e796f05d17255937746c0"
+    },
+    {
+      "path": "develop/probes/go-practical/module-cases.json",
+      "sha256": "b8aae7daac943cfec28581d994455c276d649411a1bb509c540bcc4e21a59af9"
+    },
+    {
+      "path": "develop/probes/go-practical/operation_signature_vectors.py",
+      "sha256": "6c15373a669e31e7393771b34ef227fbdef86281c561ec0564f343c789b1c38b"
+    },
+    {
+      "path": "develop/probes/go-practical/operation_signatures.py",
+      "sha256": "6c9cf6902020bd55a293ae96530de909a964e4c3ad0a7ca8277a83df5c79c801"
+    },
+    {
+      "path": "develop/probes/go-practical/overlay-fixture.go.txt",
+      "sha256": "6cf82f7a5f7ce26c768989d91883cfdb2bacbecbfe5f164d08868070fe68b1ad"
+    },
+    {
+      "path": "develop/probes/go-practical/proof-native/Cargo.lock",
+      "sha256": "89482564f18920fadec4ea66412f8e850b2f284e3339bf862090b2b9973b7f10"
+    },
+    {
+      "path": "develop/probes/go-practical/proof-native/Cargo.toml",
+      "sha256": "59bc9697e2e17c5850b7a0635b343300c8a1d3b10d36223de4d8509b653ba954"
+    },
+    {
+      "path": "develop/probes/go-practical/proof-native/src/main.rs",
+      "sha256": "50b92791719d019f3a85c26c8515b43e5f7e8277e81849b431119b9c79b5e8fa"
+    },
+    {
+      "path": "develop/probes/go-practical/proof_artifact_vectors.py",
+      "sha256": "96169bff42ee97292cfa96d24df3b7fb7f002c7b6208046e9cd24cd83381ba33"
+    },
+    {
+      "path": "develop/probes/go-practical/proof_artifacts.py",
+      "sha256": "e427ca1c9360a0ed20bdca087a6e03ec6f1a8ffe8bd8c9707de3ea6121034e9b"
+    },
+    {
+      "path": "develop/probes/go-practical/proof_canonical.py",
+      "sha256": "1ed88857b8cd8ebc528e93ccdbeac92a9f95528a3139673a090b2a383500d258"
+    },
+    {
+      "path": "develop/probes/go-practical/proof_components.py",
+      "sha256": "0d98c58e9242589b29bbe488d5909ebedfe0643d9deca94d7e36891420c00085"
+    },
+    {
+      "path": "develop/probes/go-practical/proof_hashes.go",
+      "sha256": "53e418f32400457b4412f26f0cde3a662d33aae56595d04b95a736da5eb862de"
+    },
+    {
+      "path": "develop/probes/go-practical/proof_native_build.py",
+      "sha256": "73d785a03919d467fc005b62450fa0f332ba9969e2ee339ffe876592baa89cb7"
+    },
+    {
+      "path": "develop/probes/go-practical/provision_host_toolchain.py",
+      "sha256": "acde3a9d67daae64ac03f2695b14a90b5283d73b58d4a83b69cb564f4f613d81"
+    },
+    {
+      "path": "develop/probes/go-practical/run_capture_artifacts.py",
+      "sha256": "a5d02321d86e0e88dd5390f81b09b46327c9d7835031e9970f645282c06835f9"
+    },
+    {
+      "path": "develop/probes/go-practical/run_closed_carriers.py",
+      "sha256": "777ede20e9e677bda7432d384efcd0d911006519715d2316a09d90ab18952cd2"
+    },
+    {
+      "path": "develop/probes/go-practical/run_context_protocol.py",
+      "sha256": "60e7eade7e25fbb97d8ea2324474be7d2f10c37aab01d99bfb3b9d0e487b2e44"
+    },
+    {
+      "path": "develop/probes/go-practical/run_contract_wire.py",
+      "sha256": "1d64324326f90adb9060e3eda655027cab28baaaee83b4430d1f39def8612246"
+    },
+    {
+      "path": "develop/probes/go-practical/run_foundation_limits.py",
+      "sha256": "b55cb99c5bc4d8aa2823d1261c00964a6ba1b410b758ec7e7045eb0f7682b560"
+    },
+    {
+      "path": "develop/probes/go-practical/run_identity_dag.py",
+      "sha256": "bb44479ade3f18ed87f2af8a7bf5e073c93c2d92223190cff5411c0c4d321d41"
+    },
+    {
+      "path": "develop/probes/go-practical/run_lifetime_probes.py",
+      "sha256": "5672db249bf6a20aa0de6759c12e7c0137288b5506a883f31c801d7336bee119"
+    },
+    {
+      "path": "develop/probes/go-practical/run_module_probes.py",
+      "sha256": "95cf152ef7538f97e51f68831c2c7f9521445a18612d0bde0ba22d5b503d205c"
+    },
+    {
+      "path": "develop/probes/go-practical/run_operation_signatures.py",
+      "sha256": "1b0f328f80ff9427ed791b767292f82b63b6668760c09e738465362e22544e10"
+    },
+    {
+      "path": "develop/probes/go-practical/run_proof_artifacts.py",
+      "sha256": "17d672a1d02d960be5a903db833e4e0966f1d16ce64413d73cc60a6af1b6d799"
+    },
+    {
+      "path": "develop/probes/go-practical/run_proof_pilot.py",
+      "sha256": "3ddaffd920a0aada1c91678a7d35de9314b5009c15dbe05ca025256cfb22a1d5"
+    },
+    {
+      "path": "develop/probes/go-practical/run_shared_vir.py",
+      "sha256": "871e74f09042706db4280957724ff695ee12bf38c41d5dcaefcb3bdf75b63f4a"
+    },
+    {
+      "path": "develop/probes/go-practical/run_source_admission.py",
+      "sha256": "62a071d8d86018ce70eebcdc682458aa682cb1388654bf7db2c25c63d397507f"
+    },
+    {
+      "path": "develop/probes/go-practical/run_storage_view_probes.py",
+      "sha256": "5a391c4b3b0cae6c5af8842c3e308f68a6eba48cf4bf6cb73a6cd630d3196a1d"
+    },
+    {
+      "path": "develop/probes/go-practical/run_structural_limits.py",
+      "sha256": "c0364625710bc0c933ee62d7837a32186ce065018b04c0f6b859c582b98e1f95"
+    },
+    {
+      "path": "develop/probes/go-practical/run_vir_body.py",
+      "sha256": "e5597c4416b14e6cce1a56f74a174ab114c477eadb390d3b64c3561a18a9ff37"
+    },
+    {
+      "path": "develop/probes/go-practical/shared-native/bridge.rs",
+      "sha256": "6b24d87261950caec0310ff6c9f11d0bbaa36ae657d5f34f3d68d7603dd40e95"
+    },
+    {
+      "path": "develop/probes/go-practical/shared-native/main.rs",
+      "sha256": "453d315f6bdb85ad885de25f4d863c28508814130320a3a4dda48c237a891077"
+    },
+    {
+      "path": "develop/probes/go-practical/shared_native_build.py",
+      "sha256": "7997a6d064d1e4dca9026f4be7906929ee39d06e357f50e9feda344f5007aeb6"
+    },
+    {
+      "path": "develop/probes/go-practical/shared_project.py",
+      "sha256": "fdc2de90bd2d0294a5bf8a8f29e5cceabb016952b678336c70d7dbdb0071cd52"
+    },
+    {
+      "path": "develop/probes/go-practical/shared_vir.py",
+      "sha256": "b6649c27bf67fe1cbf062aa4b50e58878c4e675af8796f6ce815f8b16ade1c5b"
+    },
+    {
+      "path": "develop/probes/go-practical/shared_vir_vectors.py",
+      "sha256": "06bfe923c6ba1aa106285568b5b2b0b7c70769cf395e993f30f7e6328acf4364"
+    },
+    {
+      "path": "develop/probes/go-practical/storage_lifetimes.py",
+      "sha256": "e002eea79b9609ecb2f80b8b3a8bfea8ea7c1294fadfbd8baaabc8f5f7e3fb41"
+    },
+    {
+      "path": "develop/probes/go-practical/storage_view_cases.py",
+      "sha256": "c0af403b9c9dc31a91c38c46fb68554587c48ff45f07548a7c269e19c6a72e87"
+    },
+    {
+      "path": "develop/probes/go-practical/storage_views.py",
+      "sha256": "a6035a000b142f25bd83bcfee7fd47700c31376ad365bededf28e01ef51bfe58"
+    },
+    {
+      "path": "develop/probes/go-practical/structural_counter_cases.py",
+      "sha256": "3fcc02c3e0f21ff4f84b351811e34422835907c40cce3effc070ec4c0a9cf06d"
+    },
+    {
+      "path": "develop/probes/go-practical/structural_counters.py",
+      "sha256": "14c91c724b4879cc7cb8995b4c9cd8c4a07f1d63c904b9377b40570502c46140"
+    },
+    {
+      "path": "develop/probes/go-practical/structural_go_metrics.go",
+      "sha256": "aa214f72ac502a468335bc2c7ae18ebaf9b0236c683b0da6e547ba10456eeb02"
+    },
+    {
+      "path": "develop/probes/go-practical/structural_limit_catalog.py",
+      "sha256": "487e0e102a4d735c5edb129ec9ec81a2c1ca5eb302656a5495e72920f79d654a"
+    },
+    {
+      "path": "develop/probes/go-practical/structural_module_metrics.go",
+      "sha256": "9ff7bc82754a7aa785536d7a6af3d1e172566127f7be34c52ec9237dc1a0af61"
+    },
+    {
+      "path": "develop/probes/go-practical/termination-foundation/go/bool_rec_type.go",
+      "sha256": "6758331d5eb519ba97a4526a2619501fa9a037d50b259dc78ef33fa7fe6d15cc"
+    },
+    {
+      "path": "develop/probes/go-practical/termination-foundation/rust/bool_rec_type.rs",
+      "sha256": "d37836b7bcb1e11fa318b6431129d79ebd185d6a0f9e21985b5baeb0ae0dcfcd"
+    },
+    {
+      "path": "develop/probes/go-practical/test_capture_artifacts.py",
+      "sha256": "db91a14d9448bf8aa2841d2b4366677ac311ba32216ee74dbb9565f4f83917ad"
+    },
+    {
+      "path": "develop/probes/go-practical/test_closed_carriers.py",
+      "sha256": "8a72cbef738b209c65368b4215f93bbbe1b56cdf1a32ac7211be855d3fb38291"
+    },
+    {
+      "path": "develop/probes/go-practical/test_context_protocol.py",
+      "sha256": "67b2299604ab159cb9471927f54251a1337412346b513819286389bbc06eeb22"
+    },
+    {
+      "path": "develop/probes/go-practical/test_contract_wire.py",
+      "sha256": "35d0998676b88eb54993054d3011da3c8145c48902e6c6726e4e1f24e4e50938"
+    },
+    {
+      "path": "develop/probes/go-practical/test_foundation_limits.py",
+      "sha256": "feeefc212bc30345322e7947204e22a6f7446162b87664d758ad2145bedcb70b"
+    },
+    {
+      "path": "develop/probes/go-practical/test_identity_wire.py",
+      "sha256": "b5c909e1224890cfbcbeae99e7fa8918b83f228319425997ba4acad53d304518"
+    },
+    {
+      "path": "develop/probes/go-practical/test_operation_signatures.py",
+      "sha256": "7df978d01c991c8600e3b00bcbd92db5e955cf1b451b2eb6fd8e48423f264c72"
+    },
+    {
+      "path": "develop/probes/go-practical/test_proof_artifacts.py",
+      "sha256": "0a55539a3a4d1195fae72118c277b077fe8aefd04f446919fc36a67c9064c068"
+    },
+    {
+      "path": "develop/probes/go-practical/test_shared_vir.py",
+      "sha256": "037b1b36a01b03b33e27dde39ae67f340bb0711a0da02b0f3501c3c44328d105"
+    },
+    {
+      "path": "develop/probes/go-practical/test_source_admission.py",
+      "sha256": "6c4ddc55cfa32d606b0c23c2e3509bdf85f519ef14bb66240de3103c11c10ecf"
+    },
+    {
+      "path": "develop/probes/go-practical/test_storage_lifetimes.py",
+      "sha256": "093a9c50f9a1ceb04b041b46b5efd223fd4e714068056dda3b45d21c784fdbca"
+    },
+    {
+      "path": "develop/probes/go-practical/test_storage_views.py",
+      "sha256": "83636ce8e79a05608ac6a51ae73505751c12b418a4110ecf50b60d3ff80beaf2"
+    },
+    {
+      "path": "develop/probes/go-practical/test_structural_counters.py",
+      "sha256": "20abbbcca3fd9edfec91550086e8f9f55e0da7aeee1be56a67690a9dcf2572e4"
+    },
+    {
+      "path": "develop/probes/go-practical/test_vir_body.py",
+      "sha256": "28491f79a64beb262bbcf0472f4d93bde00b416cf8678cb98be96a8c057898e4"
+    },
+    {
+      "path": "develop/probes/go-practical/view-certificates/Cargo.lock",
+      "sha256": "df1668230f2a16366062d745dcb26f147796b5b6869f0815c1f1e386f7f2596d"
+    },
+    {
+      "path": "develop/probes/go-practical/view-certificates/Cargo.toml",
+      "sha256": "754c3750a36fb2f81e0444fcfb8d21dd0ebed6280e642b87ceb89646dc7955a7"
+    },
+    {
+      "path": "develop/probes/go-practical/view-certificates/build.rs",
+      "sha256": "6c3ae4d217f9624c487b5d3e990be97f260e639f5dcc1885f5b17681d3d531b8"
+    },
+    {
+      "path": "develop/probes/go-practical/view-certificates/src/main.rs",
+      "sha256": "c80cf447351e15af8b4e76c1eea9b41ea21bfd3fd37ed0d9fb42dba8aeaf3968"
+    },
+    {
+      "path": "develop/probes/go-practical/view-certificates/src/views.rs",
+      "sha256": "1ac585f3faf623c0ac712d78ad86d725be1f2cfea5bdee9b25d48e829b38bcb3"
+    },
+    {
+      "path": "develop/probes/go-practical/view_reference.go",
+      "sha256": "3b7c58179f25758b9fa2dcb0740a88a80b8770c4f869819153635a9fc9ecd16f"
+    },
+    {
+      "path": "develop/probes/go-practical/vir_body.py",
+      "sha256": "56e29acef0bb686c97deb084274e50f8337f80b78c8284fe4c11787c7b5194c5"
+    },
+    {
+      "path": "develop/probes/go-practical/vir_body_build.py",
+      "sha256": "fe9e41e8aa5f3872bd6d60dc46d8807b143af972aab190f78c32dba757b8c528"
+    },
+    {
+      "path": "develop/probes/go-practical/vir_body_vectors.py",
+      "sha256": "32e334d79a8414b3bd7459348e38c651c2f39c5b95761fabc2d75dda2359216f"
+    },
+    {
+      "path": "develop/specs/CSHARP_PRACTICAL_SHARED_ARTIFACTS_V1.md",
+      "sha256": "7c7465a7caa34e5e5acbd5c72ed8cac8c416f8dacee793ceb418a08841b331dd"
+    },
+    {
+      "path": "develop/specs/GO_VIR_PROFILE_V0.md",
+      "sha256": "98eedb11e226cf5d4797419866d11f4f5588f800b85941d3de1eeaa38c8331a8"
+    },
+    {
+      "path": "develop/specs/SEMANTIC_PROFILE_REGISTRY_V1.md",
+      "sha256": "e9770f4cfb955bb712791b89012b82ee065404f2fa5907cf75a07c573b59a4fe"
+    },
+    {
+      "path": "develop/specs/SOURCE_MANIFEST_V0.md",
+      "sha256": "71ffc2cdfccdaa065edb00bf9eb3a7ca53e37091db3def79aaea05e59d974277"
+    },
+    {
+      "path": "develop/specs/VIR_V0.md",
+      "sha256": "3e8923e3475b12a09bdd028380c4586dbeaab635e6d050ad66cc4bf3468f4cd6"
+    },
+    {
+      "path": "develop/specs/vectors/csharp-practical-profile-v1.json",
+      "sha256": "de401830e1cd4221465d25c6fe31dad7d704ae8959edfc1145db8099f7bfffa6"
+    },
+    {
+      "path": "develop/specs/vectors/semantic-profile-registry-v3.json",
+      "sha256": "fde7ed93585f6d3f9772f2703d3bdd3f87793520981d4472a8673101fdb24c4b"
+    },
+    {
+      "path": "fixtures/core-bool-cases/right-identity.hex",
+      "sha256": "0232430bd7abff3b231b0898a512f85b4b4471906afc43e192c9407a6b414063"
+    },
+    {
+      "path": "fixtures/go-basic/go.mod",
+      "sha256": "fbaecf3a2fa13def8774c5ed6d6439b5032975224b7569e1464cfd0a014e903a"
+    },
+    {
+      "path": "fixtures/go-basic/positive/arith/arith.go",
+      "sha256": "be472595e9029249dcc0f35c43c6a441cb935c78a03ec0d06c07c2123fbaf28c"
+    },
+    {
+      "path": "fixtures/rust-basic/positive/module-calls/artifacts/source-manifest.frontend.json",
+      "sha256": "6ec7bd2438c6ef4166825ef666055ba14d0ad44dc25c975167a345d55b9bed07"
+    },
+    {
+      "path": "fixtures/rust-basic/positive/module-calls/artifacts/source-map.json",
+      "sha256": "a5d9ac5d47ce2ebecb9e6f31f4b7c49d06252eca6c4c2a2e8fcb5bc8f3c65568"
+    },
+    {
+      "path": "fixtures/rust-basic/positive/module-calls/artifacts/vir.json",
+      "sha256": "e3ecc534abfd76ecd400e305d65d62161e4eabf4c66639c7ba22b3d51a8bcfd2"
+    },
+    {
+      "path": "fixtures/rust-basic/positive/module-calls/source/contracts/private.json",
+      "sha256": "3e7933a16b2ca2d9ff70e87fc57041bc6d0e04d2c3dcd09dad4e1f507582bbad"
+    },
+    {
+      "path": "fixtures/rust-basic/positive/module-calls/source/contracts/public.json",
+      "sha256": "9d296ca7b2848ed24c6f4080c50974399f9580f3574ca0ca4002d4ba1728221a"
+    },
+    {
+      "path": "fixtures/rust-basic/positive/module-calls/source/contracts/selected.json",
+      "sha256": "509b3cf4ece61efaba58e40b6b94fd44c90137d72da0efc6f48d9df9f0d1b098"
+    },
+    {
+      "path": "fixtures/rust-basic/positive/module-calls/source/src/lib.rs",
+      "sha256": "21c3d0ecf917ae461c20b2d59f9452009026c9d72c80683f4b36ace130ab8240"
+    },
+    {
+      "path": "fixtures/vir-go/frontend/basic-arith/source-manifest.frontend.json",
+      "sha256": "5336669081dce3f2f10e08a3cfb401518c38d2a19d8828a7fc5f8868938b92ab"
+    },
+    {
+      "path": "fixtures/vir-go/frontend/basic-arith/source-map.json",
+      "sha256": "771503445fb15977604900f2373830fc3bf7d4946ff087c7b6522fdd68a3a0f6"
+    },
+    {
+      "path": "fixtures/vir-go/frontend/basic-arith/vir.json",
+      "sha256": "0a911348915a1044bb02cf5f8c66e661746672cd5dc12ddb0da674f2ddec1afe"
+    },
+    {
+      "path": "go-tools/go2vir/go.mod",
+      "sha256": "b90bfc21fd7a30139ab5852b895e0e1fcb7f8442d01ca4e2463c2ad1cfd15af3"
+    },
+    {
+      "path": "go-tools/go2vir/go.sum",
+      "sha256": "3b423539c29460b977ec958cd53a84c813d2c15a3d2cdfb841f07f3ef7a6104c"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/mod/LICENSE",
+      "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/mod/PATENTS",
+      "sha256": "96f408bfae65bf137fc2525d3ecb030271c50c1e90799f87abf8846d8dd505cc"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/mod/internal/lazyregexp/lazyre.go",
+      "sha256": "2c98e15329ce3fb10d4348f791446d1a7f557b92c954a26a7188dad26f78974b"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/mod/modfile/print.go",
+      "sha256": "f69e398d1c0f1dad8b704f6b2b7f20e294fc2b7d90ea4ca862c17fbc3fd35514"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/mod/modfile/read.go",
+      "sha256": "ae587831de240effc4b9a3f84fffb1d3e1a73ac29930ccaec0b9db8897370be9"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/mod/modfile/rule.go",
+      "sha256": "2aca758f4006e1f6698fa5570c36ac826959e763d729bf76f44f0514e4510731"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/mod/modfile/work.go",
+      "sha256": "ad31b233b102190481c0b6bb6a4b350c9b34ae8836f349431fe297687cb68fc5"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/mod/module/module.go",
+      "sha256": "d4ca5a29e60707f0566cc9b2fd1b6c4aef406403440c64d358f51c27da63cfbf"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/mod/module/pseudo.go",
+      "sha256": "55f36593e394a3595a52f636028442f6be9ed010a6a7e0403dac980b545a374d"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/mod/semver/semver.go",
+      "sha256": "23305fff81d9a4a2bcf643f65087287349dfd03c97aea8b7f947b1da1cd1b6a2"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/sync/LICENSE",
+      "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/sync/PATENTS",
+      "sha256": "96f408bfae65bf137fc2525d3ecb030271c50c1e90799f87abf8846d8dd505cc"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/sync/errgroup/errgroup.go",
+      "sha256": "696b0385dd5f1a165c7d0251160afc3d652b9f64f4a8f64b9a9495e6ac4695eb"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/LICENSE",
+      "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/PATENTS",
+      "sha256": "96f408bfae65bf137fc2525d3ecb030271c50c1e90799f87abf8846d8dd505cc"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ast/astutil/enclosing.go",
+      "sha256": "d4b16aa6d161c540127e68793394f33aabfd1a405f21dbdc606531b27bb26514"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ast/astutil/imports.go",
+      "sha256": "22a81e013209847faef4e3ef07d77048c0eef52872a45fdaf1f18e461cbf3a14"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ast/astutil/rewrite.go",
+      "sha256": "9f4e08f8ae25f0ad3841656bdccfa82f92ef6dcc9c35630771df2d5b2a9a7691"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ast/astutil/util.go",
+      "sha256": "c4fd6def2830db96b562cebddbe0e253f50f42f06b902a02ddbbb307e4a4884f"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/buildutil/allpackages.go",
+      "sha256": "6d6e3c1cf1165f5c9b0aa22679e6273c71cc65010e242dafadacf31801df4c9b"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/buildutil/fakecontext.go",
+      "sha256": "6ded146e1702086fbc8c280cc6c44386c3987c76b919d670912effb7380b4a76"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/buildutil/overlay.go",
+      "sha256": "8f815669fe88022c66f2c300ae140720f09bc80100cd263b85b02c4f0159d760"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/buildutil/tags.go",
+      "sha256": "0eb4410cbe907f4dbbb0495159120665e523e83c7293972ddcbfe1eb48e7126d"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/buildutil/util.go",
+      "sha256": "44ab7b94eee0b950e1a67e7830b651359552ec2f8eec7fb6f8d63e778fb5d90c"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/gcexportdata/gcexportdata.go",
+      "sha256": "11d7509118b6ea206c3eed768f3d9f48208cd1263e7b40adf92da7ec0b63e0e4"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/gcexportdata/importer.go",
+      "sha256": "144f9060e1cf20b36b8ca2930da56b08d3ea79fece33424bc13f420b56ea08da"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/internal/cgo/cgo.go",
+      "sha256": "144d7ea9c29a7e301bd39ecdacb697730c45d3c8988474d1ad40f943bc8ff043"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/internal/cgo/cgo_pkgconfig.go",
+      "sha256": "a092411fb0cba1e8d8dfbdbfbd9f739c584e7dd7525d8d63c295c4180710f3aa"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/loader/doc.go",
+      "sha256": "340f40b536bba5ff9032e872d08e258a927e035b46e60629237fc73df59e8451"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/loader/loader.go",
+      "sha256": "065421b19cfa4e89d859c2d160d9957b4e6d7a0b090c4895132b452a8cc9d8de"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/loader/util.go",
+      "sha256": "102a6f34c9675e5087ae99647c36afa9b12f7dc786e2109cc9a7d5e01b438444"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/packages/doc.go",
+      "sha256": "4a6d8ed8c653c2c3dfbe566ce30a0eece34df2bcadc012cc230b4ac92ca4d9fe"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/packages/external.go",
+      "sha256": "913aeda530dbc214b50ebd179d3a5aded8855ed2e121451b512903eb1b174974"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/packages/golist.go",
+      "sha256": "3cefc07d6729d09989d99f293d51e2755efdfdfaee4acbc33d79650822db6133"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/packages/golist_overlay.go",
+      "sha256": "771f2fc0133663f07056923ccd0bc22a00732d1d58cf3dd40961812e477ad9df"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/packages/loadmode_string.go",
+      "sha256": "b2ab5a9e57f504018fa50045ee8af11db90e7097bb3aa910a820b8a1cf757b39"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/packages/packages.go",
+      "sha256": "578858b8bc69e9cd19effaa8d6b7a141eb4d161a44d4deda57b9c1bfef6ff73b"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/packages/visit.go",
+      "sha256": "0d697e86d8c1673d1c1cfa0014f3da44faf3ffd18fab7632e8f88b5084c46ac5"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/TODO",
+      "sha256": "c7a1ffbdd0275b2ee2f249537c7a34dc2e9cec1b3394f0e51e68274e76fc2863"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/block.go",
+      "sha256": "2ad41f66924645eb5238cc4475c5cd0e219adbcbcf05bbc004f8a07ca35ba483"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/blockopt.go",
+      "sha256": "f6af102e18988740f4f78c321dfc5942a3d71d69501a17f7cabecfeb1dd8882a"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/builder.go",
+      "sha256": "9cce5e887959a2c8d7dc025bbfca1a364725fe99cc45f2833c000704533acf12"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/const.go",
+      "sha256": "1e6747e387435f242da8baa22d45c4ff19220f7be298c1dbd8d55a5c76e17c6d"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/create.go",
+      "sha256": "92e39cf494ce588cc0e5aa2e0bdfb56b0a1dc0e43a440d3918b43211d210f8ee"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/doc.go",
+      "sha256": "6b395cddfeccacbc321c6511d6e48dc5b74b707f9c8a6f4034f0646ed8b30957"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/dom.go",
+      "sha256": "9871bc1973a6a506b1a2422c8b7ade7283b7ba2ee9d7b797ae17522492cde5f9"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/emit.go",
+      "sha256": "0e6233bd623c8a72cdeef46fc1976726df65a47995a6cd69f32e7196732a3d07"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/func.go",
+      "sha256": "c708d9fc7d788d5176c4f490ed685841ee68949ec565351f71c4ac3283f6d43a"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/instantiate.go",
+      "sha256": "0ffe4cc113fb4dabd3038cd01e59aa6f9b3f9e5ca7960e9b6cf4a0707b1f73aa"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/lift.go",
+      "sha256": "b9da517437891c942788bbe22ab9e98bfa069cf227d7ddc64b283610b19fad76"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/lvalue.go",
+      "sha256": "32f162a4303393ebd80d615b56b58ac075a35c9361d125e3b2557221977805b4"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/methods.go",
+      "sha256": "3a8356704edb80ac102f7db1474bdcb94470d96cab44a04d67cf9150dc5280e6"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/mode.go",
+      "sha256": "e8c757b27722b7cf60bdc802c125376bf9ae5f9c51014b9e3dad483f06906c76"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/print.go",
+      "sha256": "c344b1b6ab172da1230698fd7040f5c6f8253c29bb4eaac1d79b3dab01819f70"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/sanity.go",
+      "sha256": "9a2288a93f981531c55aad81e153d80bb06e2422e8ae249bcda2333fdcfb43a5"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/source.go",
+      "sha256": "28ac1e6ec3315042b116b16cb7000a7829765fed4e8a5af04374e9abb587e638"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/ssa.go",
+      "sha256": "53c7d3587184ef3870150ff2f36f061e02f426882afd73efd79ed4e81e624894"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/ssautil/deprecated.go",
+      "sha256": "ac67c09546bb1bae69cc0f50d6fbb5dcb9e9437d3c0413a2ba14198dcdbb9a7d"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/ssautil/load.go",
+      "sha256": "75d8dfc8c53af6a209147e419d6ebf0b637d21de527972b1ecaf5922d69715c0"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/ssautil/switch.go",
+      "sha256": "b482570dcd2c671ccecd79edc9fa2db4a0b8b63baf3fbdd97128478a4aba4617"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/ssautil/visit.go",
+      "sha256": "8a7a6bd2b641012ef17b06e4d4b43e0ea3df4a432979a5699eb1274459e31301"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/subst.go",
+      "sha256": "8d8412e368d69d2d88ccd082535307444a85b92459334eb53a3e6b4a0180e63d"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/task.go",
+      "sha256": "f90f38ebaea5edc6703885b3a7fc8b16f2078fadf20eaeb6331dd72760b7bfd1"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/typeset.go",
+      "sha256": "b040023683a602c27c8927b8b2b54578a664c53568a70973e8746d64bcad5d19"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/util.go",
+      "sha256": "39603595b62b4d8bc9c2c797bfc8268564d2ca3d3e0c6682aee42e3ced649106"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/wrappers.go",
+      "sha256": "16025b548f1236d9c0fadfe8c7d1348db6c711345b979182204b1f724228a9e1"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/types/objectpath/objectpath.go",
+      "sha256": "ccb1916e084d1de3d7ed826a570fd37d97ebb7234001fb3e182b73633cb93659"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/types/typeutil/callee.go",
+      "sha256": "b37197ad34f51938d5fbf72d10941f7d3d3d611b8c4dcca5bbebd9e3c9ce1c68"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/types/typeutil/imports.go",
+      "sha256": "0ae519946446f6dbe09a616e3c63373c2582b335ccf7b0f754b411dc2bcc407e"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/types/typeutil/map.go",
+      "sha256": "2ff104e4e79d0bff03184c502b02724f07fa778f4dd60d0ac4d15472ad6d8553"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/types/typeutil/methodsetcache.go",
+      "sha256": "100c78e2baf07de1d4a620904ffb0a57ef440392629c6324fce3a385811627f2"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/types/typeutil/ui.go",
+      "sha256": "f3fab1cec5e81bdf56207ebf00a54b739c636624a4c6ab3d9b2ec26a7a486560"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/aliases/aliases.go",
+      "sha256": "9ca766639a703d9c3b0ba68c6182068f42417e70fcca831dc6499077d87b4b90"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/aliases/aliases_go122.go",
+      "sha256": "7fa6b0412b405a2296016c7fdb0fab26639e2ea42d8bdde6d056be1e6b4a4f9a"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/event/core/event.go",
+      "sha256": "6d2acef1c114259b059f9228abde12c42fd0c5d8079c101aa2be4ab6701fe6e1"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/event/core/export.go",
+      "sha256": "5e21b09d6630036c00f5963ccbd8494b3138693880ad19ca4355fa3a02d5db60"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/event/core/fast.go",
+      "sha256": "eeca498a9f3c6057f571c9836a5f0c6ae2cfa9ae71a43961f935fb3db8dda83e"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/event/doc.go",
+      "sha256": "b445c134d90b26e77a83d413fc1be3033e2ba8979c10efb3d46280e70392e890"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/event/event.go",
+      "sha256": "7c047e8aae01bd441f81bb710e9dc26a639b0bd7cdf1f6b55d425103046f33a1"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/event/keys/keys.go",
+      "sha256": "a70eef67a67b5ae5ade4e3905466c06a7ef2a06e9fe615082b4f50f78ac3ecc0"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/event/keys/standard.go",
+      "sha256": "a148501721c061870eed1bd936028157e6b3b109391763dafb00888b3a221b60"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/event/keys/util.go",
+      "sha256": "0df0a7d65008baf347371eb61c8dd26d3c1eb6f22099f605ee9716d76f2dcd35"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/event/label/label.go",
+      "sha256": "3dba9ef645843ef0d98414482f60b5e0ca08c0a36427283e4e136c0bc94e8961"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gcimporter/bimport.go",
+      "sha256": "f5b8b401f4b36fdd589ba4c836fb1c74929ee63db2bad349d7092b9f24e1ad64"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gcimporter/exportdata.go",
+      "sha256": "5d3acd6def1174913b2f1256492a3ca671d578f67b6907fcb548294dfcc114dd"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gcimporter/gcimporter.go",
+      "sha256": "2e615f50e10859939ddb1f8baa3eb94c6ba7f9a5b4a39e87687f1d9c4c1b7d4f"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gcimporter/iexport.go",
+      "sha256": "8eb3cf50185b0a1861c8e33d016192ec42f32b8eb30ea547457d6c39f18c1fa4"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gcimporter/iimport.go",
+      "sha256": "b4b8ec555f6c97d1a74ea1fb2b9306b22424c90b9bc8ced656151c6ffc3d3ebc"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gcimporter/iimport_go122.go",
+      "sha256": "f11a6b62c87b052147f166374bc6885317575c866ec8cb5e2c33d94551ebffae"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gcimporter/predeclared.go",
+      "sha256": "c749f1f8f79b08ec0ff11e963f54b264e2edcf1d8a79e654c9776a550e0f936a"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gcimporter/support.go",
+      "sha256": "c03a9375b40c46a4ee4f8b4b89fc5b04abb60cff8f84815229febfaaffb28bc0"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gcimporter/ureader_yes.go",
+      "sha256": "d37b69bc6374e76004da2b1bb91c3c34e53b728ebf2ce2de271492f303b47706"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gocommand/invoke.go",
+      "sha256": "6a07f4ecd3e7566643810962ba551001b50bd4403e87a915327899f0cd6d55a5"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gocommand/invoke_notunix.go",
+      "sha256": "df5c54077bf4ba9f2674cef5ccaa81e779d15dbb405845dec4ffaa4522f0c211"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gocommand/invoke_unix.go",
+      "sha256": "d2157f049e3394fa873136bd180fd295e46d543b8f13dd1542ffa21665bdf0c6"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gocommand/vendor.go",
+      "sha256": "e945f1e01b59274b673488b1cbb5a0bdb470b47d26c0dfdc12f859e5860fe3be"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gocommand/version.go",
+      "sha256": "5fdbec1757ec9f0a9a4c19d52f5dacef9268210dd0997fce2930abd378cf03e8"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/packagesinternal/packages.go",
+      "sha256": "fc0553fc12bd0244147a183719504350895c81eea15ce8bd46a63568cb3dd2aa"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/pkgbits/codes.go",
+      "sha256": "5c461c53bbb51051b771cdf19529769d1f2ebfc477a55d79c577cec8d9fb36b8"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/pkgbits/decoder.go",
+      "sha256": "c33bc4c61be2941ad7e548add06486b9c42b6aa65cb15514089fccf19b946e06"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/pkgbits/doc.go",
+      "sha256": "1d77eb03ea757b7e5dfccb19f21cd37881afaf7c54a9168b12ed703ef6033744"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/pkgbits/encoder.go",
+      "sha256": "0518a4b2e6be4f9429d1b73b97388ae79574291383d131967700bb8101048cb3"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/pkgbits/flags.go",
+      "sha256": "4f999d54f9614c9c2aa162e048fdec78158bbcafebeef188a2fef9a347a8e488"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/pkgbits/reloc.go",
+      "sha256": "04fe1a5ee6398ee088d2c358ffbbf5610b9a86f4db79616ae7ca823fe5365e38"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/pkgbits/support.go",
+      "sha256": "b21d95c059b9f6c697d2e5a4fe6907650402d26bd6d0207f2297906cd7753543"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/pkgbits/sync.go",
+      "sha256": "4f6b2ae8d2bef0eced46e8baf60c4b0f096615fbd8e1c10ca351e2c1e181de7d"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/pkgbits/syncmarker_string.go",
+      "sha256": "0d2ff4992c445a0c06f3a99f53f743d169e3affd7a3b7602bfcd47c99290f994"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/pkgbits/version.go",
+      "sha256": "6ac51749ef68e607e0b517de0cb202ca19dbdea299be75e0ba3440837b45ca23"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/stdlib/deps.go",
+      "sha256": "45cc3b108d99b510dcc7e29c110d0750dc663faae26c468ce94013f8bd609732"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/stdlib/import.go",
+      "sha256": "616c6c669e1252a653965b65d8784bfb40a2f1185565bda3cb29fe6704ef0464"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/stdlib/manifest.go",
+      "sha256": "f82a44714aafdf9c1cf9da430737591d64fe71b3874ecf1a587e7c987e3bc068"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/stdlib/stdlib.go",
+      "sha256": "6eb0d62fad82e62b84d37c24b9bec2596f475b04466871414722ef1f0b83bf3a"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typeparams/common.go",
+      "sha256": "897b914268f42beefb0e6c22121b59b6f89d915e18923b1f65f5153331344ea7"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typeparams/coretype.go",
+      "sha256": "7dc166581791474e92609c5a176153a134d506a89ed9ed253283e163914f66b9"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typeparams/free.go",
+      "sha256": "b6411d6084f544aa7634356a009275c894cb8ce9a103bf17fe3a12640de0bb9a"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typeparams/normalize.go",
+      "sha256": "3466cd5d44ac24f1dd392cbc99217a04bbe03d94f6dac1122f74c2da54594131"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typeparams/termlist.go",
+      "sha256": "12c02e6bfb07862b3c689521de7f140d709764615ba45a217c0975fef36775bc"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typeparams/typeterm.go",
+      "sha256": "8b07ccdb692525921710ac25043c57b3a1472eda1bc2dfc701b9793835a662d2"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typesinternal/classify_call.go",
+      "sha256": "2a4cfa556b5a6c01e982a547ad18a65a7d36ca2b3783b1baeb0d74937becd0a9"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typesinternal/element.go",
+      "sha256": "4db7ab3cedff579a6fdd38f27e61afb4a1422f49c5c5fac4ae8ef3d5261d4136"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typesinternal/errorcode.go",
+      "sha256": "194f42c4cfa2bcb5ac5ebd9b8400a6424d4ffb4d2e4996d3763598791467207b"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typesinternal/errorcode_string.go",
+      "sha256": "32f91e4d3af45b513dffba82d283db0c5981ce6aa16172a74b65aed383956b8e"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typesinternal/qualifier.go",
+      "sha256": "83d9e4277e0c47c1003224a07b39c50d0b9b696a9dd744594c4d1e32692bd590"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typesinternal/recv.go",
+      "sha256": "c8787e980f61efeab19c99ca7dc4d1f318b9fa77c3952add7f82be3c947b47b0"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typesinternal/toonew.go",
+      "sha256": "54cff0151c458fce40c8e85746718c415087863df29229f6168ded7e338ba2c4"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typesinternal/types.go",
+      "sha256": "543aecec3a36dc1aaa3f9e04fe81d8c7bc69adce7eb3fb544ece5f7b4322650f"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typesinternal/varkind.go",
+      "sha256": "576a8a171f0363590ed52e599328684eab41aa40e6b908f95c1abaf411d967f8"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typesinternal/zerovalue.go",
+      "sha256": "b33371d9438a3cfcdcbe8409d5f5351ee2e0a427c0436d777c7f291337e873b3"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/versions/features.go",
+      "sha256": "98ab11824e7856eee2e4a3149b24bfa42bcf3a28297604edb3d8aedbdcbeddc5"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/versions/gover.go",
+      "sha256": "fe5a58b005181f17e132c3261ce552a58454d178356bf8a5f294914d3915a750"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/versions/types.go",
+      "sha256": "e08b60c8fe9503229f2e5dac29d84ba092e14aba41824e68f201b338e40930a6"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/versions/versions.go",
+      "sha256": "c63d071bcf95bb6a3f1f869a51255198980de8c36ddbff20227653cd33b4769d"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/modules.txt",
+      "sha256": "5706b9f47805cacfc68700e8bc6c59c29a9a76e623748b0291ed426616f1677a"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/axiom_report.go",
+      "sha256": "c4b90708cee28a9198de51b44882e4c6fb1b012331378ab82a1c2f9537472d57"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/bool_cases.go",
+      "sha256": "99112f01a5a83465e7d28e47a8995fcba41dd3f3c99d6cbd423bd3e4bd709432"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/cmd/mpk-checker-ref/main.go",
+      "sha256": "33961ea1b42b933405f3d18a05a13d9a08551879a92d699c75f674a1d7a056e0"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/core_check.go",
+      "sha256": "19008b25758b9a00919f468d6bf0f8d8275bd918fe7678156971bd48dde097f8"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/decoder.go",
+      "sha256": "636a3cefeebe2b8cdaf2191992f5ab08edb293aa019e366d33e7590a6e0e2a02"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/defeq.go",
+      "sha256": "4e73baf6738ca272e34287440750f4a8f1df2aa6785dffd77be205b43cf70c85"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/doc.go",
+      "sha256": "952a3da781b751eb063b2f4d859568453896d76ee8ab2122209720879c150b75"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/go.mod",
+      "sha256": "1dcc4212afe08523613abb23420df58c1bea4507db876e3ceac1e758a1b76250"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/hash.go",
+      "sha256": "9412b1bbabe87879061f142774bc8cbe7dd6210340855b445279bd7d1ba43c41"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/proof_check.go",
+      "sha256": "71f1b8648941e68c1bc67ae4cf640e35a31df20584b1f818f697fb5afc86e996"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/verify.go",
+      "sha256": "79d70ede0ea7453667009d4575265f8fdc2860e35026065bb4ae5d374faa1b5e"
+    },
+    {
+      "path": "proofs/std/bool/std-bool.hex",
+      "sha256": "88a37f9df68a18bc19d51c0832279ff97a2944fc1676326022269766933ee806"
+    },
+    {
+      "path": "proofs/std/eq/std-eq.hex",
+      "sha256": "80d71a2ef388a6ad1dea166cca4bd10d9093d538edc4999743b6fb1ad80d03a1"
+    },
+    {
+      "path": "proofs/std/logic/std-logic.hex",
+      "sha256": "2321ea04d91d9fd8a6889a3f55dcdb955a2d6f38c32eb05efbc42d155b13805a"
+    },
+    {
+      "path": "proofs/std/nat/std-nat.hex",
+      "sha256": "65bc5b701561d07b0f675668d942917da23c43606c0cfe0f9edfa113be99f583"
+    }
+  ],
+  "local_demands": 416,
+  "local_fragments": 56,
+  "native_binaries": {
+    "go": "d131646968abbd841595e187a2aa38dadc41232707a2ae00384e27465c651e5f",
+    "retained": "b451d6a9ec5a0a0ca1077a084dcba1c74d59dd011239310ccce00edd9a562241"
+  },
+  "native_queries": 44,
+  "native_runs": {
+    "baseline": [
+      {
+        "exit_code": 0,
+        "peak_rss_bytes": 10076160,
+        "resource_provider": "Darwin os.wait4 child rusage; not a process-tree RSS sum",
+        "stdout_sha256": "3399ed07134e5bd5519c19d6cc0e914122bb013d3811e112e1867cbdfa917b3f",
+        "wall_seconds": 0.5416820830432698
+      },
+      {
+        "exit_code": 0,
+        "peak_rss_bytes": 10059776,
+        "resource_provider": "Darwin os.wait4 child rusage; not a process-tree RSS sum",
+        "stdout_sha256": "3399ed07134e5bd5519c19d6cc0e914122bb013d3811e112e1867cbdfa917b3f",
+        "wall_seconds": 0.5379087079782039
+      }
+    ],
+    "go": [
+      {
+        "exit_code": 0,
+        "peak_rss_bytes": 27983872,
+        "resource_provider": "Darwin os.wait4 child rusage; not a process-tree RSS sum",
+        "stdout_sha256": "87bdf94d9f6712391db9048884167d9442ebab9b22a2223e34bc654768a42b4f",
+        "wall_seconds": 4.73864308395423
+      },
+      {
+        "exit_code": 0,
+        "peak_rss_bytes": 29540352,
+        "resource_provider": "Darwin os.wait4 child rusage; not a process-tree RSS sum",
+        "stdout_sha256": "87bdf94d9f6712391db9048884167d9442ebab9b22a2223e34bc654768a42b4f",
+        "wall_seconds": 0.20487216603942215
+      }
+    ],
+    "retained": [
+      {
+        "exit_code": 0,
+        "peak_rss_bytes": 16924672,
+        "resource_provider": "Darwin os.wait4 child rusage; not a process-tree RSS sum",
+        "stdout_sha256": "f19c306fc76fe20b13ef3620b68eae7fef43a2a4b3a47fc12659316c629ecc9c",
+        "wall_seconds": 3.1958904169732705
+      },
+      {
+        "exit_code": 0,
+        "peak_rss_bytes": 16990208,
+        "resource_provider": "Darwin os.wait4 child rusage; not a process-tree RSS sum",
+        "stdout_sha256": "f19c306fc76fe20b13ef3620b68eae7fef43a2a4b3a47fc12659316c629ecc9c",
+        "wall_seconds": 3.2038600409869105
+      }
+    ],
+    "rust": [
+      {
+        "exit_code": 0,
+        "peak_rss_bytes": 22740992,
+        "resource_provider": "Darwin os.wait4 child rusage; not a process-tree RSS sum",
+        "stdout_sha256": "87bdf94d9f6712391db9048884167d9442ebab9b22a2223e34bc654768a42b4f",
+        "wall_seconds": 0.9589017920661718
+      },
+      {
+        "exit_code": 0,
+        "peak_rss_bytes": 24150016,
+        "resource_provider": "Darwin os.wait4 child rusage; not a process-tree RSS sum",
+        "stdout_sha256": "87bdf94d9f6712391db9048884167d9442ebab9b22a2223e34bc654768a42b4f",
+        "wall_seconds": 0.4518782088998705
+      }
+    ]
+  },
+  "ordinary_semantic_proofs_checked": false,
+  "outcomes": {
+    "certificate_manifest_linked_unproved": 8,
+    "configuration_rejection": 157,
+    "go_obligations_unelaborated": 2,
+    "ordinary_elaboration_pending": 2,
+    "retained_skeleton_generated": 6,
+    "retained_vc_generated": 6
+  },
+  "preservation": [
+    {
+      "certificate_manifest_sha256": "09e31282c58e394912ab08523e7dc86a12e5687ea253199a1fb3c83387f42b04",
+      "id": "go_fixed",
+      "skeleton_sha256": "e34ad9add9e97204a19763aabc4d6082e5b593c94274370b51a893b1dc578416",
+      "vc_sha256": "17ee967a553181507cfa5fd261b0fe32daef3806f6b8d0ed9f17f1ef00dc99fd"
+    },
+    {
+      "certificate_manifest_sha256": "a1b7d059d74e7ed138379d2cf6d280c4b11c74dedd30c4a7e57eb54be0006cac",
+      "id": "rust64",
+      "skeleton_sha256": "004316066cb7e3bcdcdff439aac78a8136d9a1c35e4b4d3087138efc30162b5a",
+      "vc_sha256": "1e76a002f13f254fd3fe8f7170800418bf6a6eaf1829eef1feeeecb11d4e3844"
+    },
+    {
+      "certificate_manifest_sha256": "d5281f0b5e098fce9c964e5cacf9781f06b15bfb7bcac5d5a6a79e92f4aee02b",
+      "id": "rust32",
+      "skeleton_sha256": "b71adf27b354bc32ce9806613b9e95cf048d40f659c02419af53f9f0c8d46400",
+      "vc_sha256": "03f7a038ea2c59e5f4c4033706dbba2f6723f194e1989ce720deced5773e5ad6"
+    },
+    {
+      "certificate_manifest_sha256": "1b74fec29cf6e94a27bf0b983beec7dc7a7e78aeb28da08abf9e5bee9843855b",
+      "id": "csharp",
+      "skeleton_sha256": "3e44c9037c9e2f3bce5e652c40f04fe5b188793e4f924591b6d6e8a96b78dc0e",
+      "vc_sha256": "5044a5d17de223162e05f7a5b1b232d93f2d4e65fc2a1ec9fa57609e707360fa"
+    },
+    {
+      "certificate_manifest_sha256": "0f2dfb9e51c1fd9f2a115da2c096187adc95e6d9a1b0015fc27de57be058c6d4",
+      "id": "java",
+      "skeleton_sha256": "b8fc9114486735cd68fc2a4d6edb5bec43766b71e96299484a875ce19e18346f",
+      "vc_sha256": "fd026ed77502cc708a9cbe8484a8c5294c1c6a03c90ca4fe2db4bf2bf1571884"
+    }
+  ],
+  "profile_activated": false,
+  "public_source_audit": {
+    "build_environment": {
+      "CARGO_INCREMENTAL": "0",
+      "CARGO_PROFILE_DEV_CODEGEN_UNITS": "1",
+      "CARGO_PROFILE_DEV_DEBUG": "0"
+    },
+    "sources": [
+      {
+        "path": "crates/mpk-cert/src/axiom_report.rs",
+        "sha256": "cae850ba9adf8f52485f25d3322a479e5effb3b5044c4998b8dbe10e395e9843"
+      },
+      {
+        "path": "crates/mpk-cert/src/binary_tags.rs",
+        "sha256": "f557165a3d1fad17ea5c4b5ad27b92170dbb203931b30ef157e22856d5f2616b"
+      },
+      {
+        "path": "crates/mpk-cert/src/canonical.rs",
+        "sha256": "704d3f04bf3219cbc9bca5b7ca8b4ff6723bc834d777fcf5219ecc900c2b8e74"
+      },
+      {
+        "path": "crates/mpk-cert/src/cert_basic.rs",
+        "sha256": "ca8e2bd5c7ffbc5c54e51a1e65eb2f2b559b5d6f8efd6a0d74581197d8d7e295"
+      },
+      {
+        "path": "crates/mpk-cert/src/decode.rs",
+        "sha256": "e77619d5d464db0e5d5538b1349c1cb1b1d8b39da227c3f7aa36fbb5e9d11a13"
+      },
+      {
+        "path": "crates/mpk-cert/src/encode.rs",
+        "sha256": "406c310d53e464c9fe0f079e4186a0501e2eb84fae6c443d40d029d53a2beecf"
+      },
+      {
+        "path": "crates/mpk-cert/src/export.rs",
+        "sha256": "b846726ef91b02583aee70849459c5856ea14cebaee226a5d71fedb0a61da2cd"
+      },
+      {
+        "path": "crates/mpk-cert/src/hash.rs",
+        "sha256": "dc80a4db8fbd2965093daa90d4b32cebc8116659a95323df987ebeaa7dec2a83"
+      },
+      {
+        "path": "crates/mpk-cert/src/imports.rs",
+        "sha256": "3b2edcf9305e5a5ed355fe194219826c97571da0ca47656562cf4bdde2983183"
+      },
+      {
+        "path": "crates/mpk-cert/src/lib.rs",
+        "sha256": "38b44e99c13ea9a76c0c08c8a1cfd1ec23922b33c9d252a96beef59f8634b553"
+      },
+      {
+        "path": "crates/mpk-core/src/bool_cases.rs",
+        "sha256": "b920fd682eaa4de8d93dc0a143b8d1241b1240fc7294425c8792dfd811756f01"
+      },
+      {
+        "path": "crates/mpk-core/src/context.rs",
+        "sha256": "e426d6d43b99106bd80c8e946325b1f8d712109865f6b8c340146908d273352d"
+      },
+      {
+        "path": "crates/mpk-core/src/decl_check.rs",
+        "sha256": "8a6afd03f5e19831815f59b069f319cfd947ce123b8ad10e29d511c869f43783"
+      },
+      {
+        "path": "crates/mpk-core/src/defeq.rs",
+        "sha256": "940fd74971a889239e8168fb13fd5cf9099e4efdbac1c2ffbce5780724a2c270"
+      },
+      {
+        "path": "crates/mpk-core/src/env.rs",
+        "sha256": "ed50466ecf9e1c6f1549022aa61812c1561cd725325633931a57efb1715ae5b8"
+      },
+      {
+        "path": "crates/mpk-core/src/error.rs",
+        "sha256": "76bbf92e086713711c26310fd2f02f58bf5a1d298251cd93c66e4af0c14189bb"
+      },
+      {
+        "path": "crates/mpk-core/src/inductive.rs",
+        "sha256": "41bc938dfdb03ef8a8973a9abecd917171e25efc55c58ebeb43bf4b8ad59be9d"
+      },
+      {
+        "path": "crates/mpk-core/src/inductive_gen.rs",
+        "sha256": "4758d3cf280f0d9c107e4af886f0880fd29670e9a23f2ddffa7728f958075cc2"
+      },
+      {
+        "path": "crates/mpk-core/src/infer.rs",
+        "sha256": "7cf169404b6fdd251e7884056c7204e285da904780d1e3ea9ca642d4c87991bd"
+      },
+      {
+        "path": "crates/mpk-core/src/level.rs",
+        "sha256": "00b030888a20ae9015c94968e8e4dc63f8c924224df36d3a186ba9d4dcfff1ad"
+      },
+      {
+        "path": "crates/mpk-core/src/lib.rs",
+        "sha256": "a0488ee47d656918dc05a7909bfb87a4ed970388600fced26e8eea5b73ba637f"
+      },
+      {
+        "path": "crates/mpk-core/src/name.rs",
+        "sha256": "6a6c8659f556bb63d782ca4aa9c465b05a7b8987327a2e02cbbb95669ca15e99"
+      },
+      {
+        "path": "crates/mpk-core/src/positivity.rs",
+        "sha256": "5ad6d3d072a8db9bba5c98b02a0d9da9e096faca1836762aecf4cebb1ad460bd"
+      },
+      {
+        "path": "crates/mpk-core/src/reduce.rs",
+        "sha256": "bbd58360f97eba191a9c12208e1488668ed8b39c96be6d354065a7c4d9c02d37"
+      },
+      {
+        "path": "crates/mpk-core/src/reduce_inductive.rs",
+        "sha256": "123277c8989902c207d6b0fec994ff5c4223fe5bcc9a331bc381f7dc4412492f"
+      },
+      {
+        "path": "crates/mpk-core/src/subst.rs",
+        "sha256": "e1843f9aafe2d4349bf6bd8a1bcfff4eb39c318c87e37b47a36c23cb8e2cd23f"
+      },
+      {
+        "path": "crates/mpk-core/src/term.rs",
+        "sha256": "4fcd1dba9916b8b3d22ffabd889c2949bb14cf468420b5e839b779108e91bb60"
+      },
+      {
+        "path": "crates/mpk-theory/src/array_cert.rs",
+        "sha256": "7b6261cbedc9200ffe8ce5513374e2c14aa6b999926607e450440e26bb25cace"
+      },
+      {
+        "path": "crates/mpk-theory/src/bitvec_eval.rs",
+        "sha256": "3fa7578174f4e3a489d395653687899d1d06fc59780b9224d652638b7d589ac4"
+      },
+      {
+        "path": "crates/mpk-theory/src/bool_cert.rs",
+        "sha256": "17bcac0225e8281ecf754115734cf254addf87bc44a6da4fddaebabbea226c14"
+      },
+      {
+        "path": "crates/mpk-theory/src/lib.rs",
+        "sha256": "10719601e65de998218739cd2b5b61a6bf69df6692c1b829c307c6cf57d61ccd"
+      },
+      {
+        "path": "crates/mpk-theory/src/linarith_cert.rs",
+        "sha256": "3606832e69432a08295e014f0810e5f20aa7d10fdef2bc8789448ebf98d6895a"
+      },
+      {
+        "path": "crates/mpk-vc/src/call_wp.rs",
+        "sha256": "6ba037523704ba6409d7dcdf336493fab63c72a3abc28efb3cdebae7f61614bd"
+      },
+      {
+        "path": "crates/mpk-vc/src/canonical_json.rs",
+        "sha256": "84596ebf620729801d04dac7851def07b7e24274f9f03b499dbcffd1fb0268d6"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_binding_vc.rs",
+        "sha256": "0a522f79bc6ad21bee9ff504ad06ef3fbc1cde62cfb38809d11501ad8b23e2b7"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_boundary.rs",
+        "sha256": "e41644d35ec907b1bc5bcaf2c3add36a14a4b5c2d526db21510e0fe2388fe44b"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_boundary_input.rs",
+        "sha256": "2f881c454b43dde90f2c55e3acb89a52ced84bc2bf2ccd14515e3b3cb8a6dfef"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_boundary_output.rs",
+        "sha256": "4a7eb21bf4868cbf9c591097e0e2bb857537e84c44f7dc20184f992e2dc2489f"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_boundary_vc.rs",
+        "sha256": "f8ec2c2537ab5fe9c16f77278df9312859f7616953169bca794f79334ea938d6"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_business.rs",
+        "sha256": "500b59cbc31a3933946da002f0d88ff91b6b0ef31c4fb6e4d36000ca9116eb47"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_codecs.rs",
+        "sha256": "07cc3c52b8b72e3bcfa9e669a2d53aee35f65cabf8b7e5a4fa72df5706954122"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_construction_vc.rs",
+        "sha256": "3d2157b96aba2212d57dae8510edca5471cef8bfdba0c2029364290fe91d8552"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_consumer.rs",
+        "sha256": "330f72cc7d084cf68bf8e90d1652c5fecddca8c17b77e45bf0877ee9581800ee"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_contract_import.rs",
+        "sha256": "5207bf310a8d898e4c5e6fe4ddb2c2b4b5673e5f5cfe004419193d9f4416f8a2"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_contract_values.rs",
+        "sha256": "c3442360322bd50925fdaf98ec3861ad7473194d3b214dcffa2fd3c696ac7e32"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_control_completions.rs",
+        "sha256": "6d00d55806aa54774583cd59482fd3f6c9bd231eccda7229ad1cc50203a92155"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_control_constructors.rs",
+        "sha256": "1fd8a6a5a83d582e0a2de9e4ef4b7a31aea7b2d0d7383e9bd53a0f579c494c1d"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_control_emission.rs",
+        "sha256": "bb7fc2a64bbefa53c2613e663fc1c2dd211f031f3a54bc5d1e8cc10942021e2e"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_control_exceptions.rs",
+        "sha256": "b5c99de0c356cc99044ef6f10c3aa14419d1a99f811b8d56409b0145e422884b"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_control_handlers.rs",
+        "sha256": "25a139ed36fee6da70a328d7863480bb0e90ac5b914ac1842ab666766a135c68"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_control_memory.rs",
+        "sha256": "eeabc1e4b20486979b859842d21e479cd80eeaf3e04bbef6cdafe87613ae4b94"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_control_patterns.rs",
+        "sha256": "1e8fb56650d01a77c3f51e1577123f9c908f78e6f94cab2ea7b6d9725b236440"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_control_slot_storage.rs",
+        "sha256": "cfb846bb0292982df8ec279f8a999e4ada0148c6e3a91e0e820ce92cc1824eda"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_control_source.rs",
+        "sha256": "fd2c77776683fd4f84112fc6df38b893b3ff39b3ca637d92aedabab60f71e98c"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_control_ssa.rs",
+        "sha256": "8e5da608d26ea7ef753f31fd22db49ddcaa35be4603137226e5808865d0dc7d4"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_control_vc.rs",
+        "sha256": "055024fc722bdc2c00c2b79ecc382b20ea9ea387e24ad52f1c3bf900f760bce0"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_data_emission.rs",
+        "sha256": "65b0d7b308a4317afce1f1e0bfd5b1f3eccd633381fbfe76f64adff4f45f76cf"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_data_phase.rs",
+        "sha256": "ef250069d02ea87f20d71cae81ee4d704c02a1876c0f93e262ea990488203f6a"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_data_sidecars.rs",
+        "sha256": "3e8d8f0eba5352f6ba36ced1adab0bcbde39ed5228133551a4895d51a1f00602"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_data_source.rs",
+        "sha256": "eb349bbd0272be3f75d6bd131c843383e9a1f394e20d2df3a7bc8da292f471d9"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_data_vc.rs",
+        "sha256": "49e80ccf8fba3668ad3cda98ae7a49ca1660e1c32660d5ced388cac557739fd0"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_domain.rs",
+        "sha256": "c95190f05115aa8edf99f185a20cc1e02d216f6297c16d1b95a5def5dd7aa212"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_exception_vc.rs",
+        "sha256": "3ef15e5e54567dbfdc4296c371a4c9e8e93121cfc7fe8753d5d643a13180578e"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_handler_lowering.rs",
+        "sha256": "86af89fc3ec8d1f437e38e48c1c576091c8db3a91010cbce8aa552d75cc609f6"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_idempotency.rs",
+        "sha256": "c1483f07d95f4398b2dd3f1dca3cf94003ceaf6fbc1ae7831a7d63df6c09bdee"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_loop_contracts.rs",
+        "sha256": "7ac0061d438849d3178a389dea215b253cf1fe7a9ff500ba337191ab3e37145d"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_loop_lowering.rs",
+        "sha256": "e74949d12f7941b5ebeea0fc8d824043ae3fa63c1b891bb61f59b06d270cbce1"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_numeric.rs",
+        "sha256": "104554ca1bb02e075bf98d6b8a3a199131af749adc1691d0252e066a93a58152"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_object_construction.rs",
+        "sha256": "25766aa73102d82d4063bf8c3d570c78ba5c212d5be0bc612a69c1d4ce5ce469"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_object_ownership.rs",
+        "sha256": "b6302ae7a49d3f25b8ac0fe6099b13def0b9f32fb5daed74b45ced98ffb3d2c1"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordered_collections.rs",
+        "sha256": "c1b620bac7c3a4ac552583fc8c00bb2bf3dbceea3b7f94d79400aa48c30614da"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_aggregate_fold.rs",
+        "sha256": "50b30f339311c88a7e1b7d6cf39d173a0b4aa2065d57f35d2cd3300b69d4f4b8"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_binding_conditions.rs",
+        "sha256": "8e9db5a753292363a3235c2f933b1acbfcff9f39cf682e823eff0b4947c8d534"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_binding_defaults.rs",
+        "sha256": "ad4f978bb510512f59ab2a0841f824bb5e2d518e0c1d3d26b745c35bb8008176"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_binding_guards.rs",
+        "sha256": "8b1d86a37790617dd92ec70f52ebca9e61543824f228e43875e0756e851aa83f"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_binding_orders.rs",
+        "sha256": "e0dd0516b57b65e37afd167b23e682f902e4e5f45d56e15b0474b71e220dc3b2"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_binding_projections.rs",
+        "sha256": "a38eaaff22d7632d49b2ed3019188684b125ed1e891a9a9096862197b50432f7"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_binding_rebuilds.rs",
+        "sha256": "7202b44982ca0a681641140a416284cde923d2078b60f230c1cacf4a1eb74d09"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_binding_reconstruction.rs",
+        "sha256": "f9ad67132e7ddc0cf3808d249a07ee900b9726d90481c240e7ac114665a23c6f"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_binding_relations.rs",
+        "sha256": "a0c830a7b80862bcacef1dad044b69bf43082ca6e45021edbf799b5bc2dfa4d6"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_boundary_document.rs",
+        "sha256": "88aebab1200bcaa5929ad6efb3eea6176d0a434ffce1be5cf8418aa4b95348d1"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_boundary_fragments.rs",
+        "sha256": "598aec666ad96bd280f528fcb0ebe926f789d9f46efabc7a72ccccb63b981900"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_boundary_literals.rs",
+        "sha256": "addfe18ed8b435eb560ffbac2839674f647617ed25a24e34ccfc4a04972f37d1"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_boundary_rules.rs",
+        "sha256": "ce371f650d8826c0d5e34f886ccffd139e524f8d3563b2f44f8b1b7e79e2599f"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_boundary_utf8.rs",
+        "sha256": "87685ddc237d909742b3aa20e0797f99fd65325f7c46077c5f64b38b8f909059"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_calendar.rs",
+        "sha256": "16d97129e84a8038728176443ad7ad4832387ec1a15bc5986ff99f0951fa2059"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_calendar_codecs.rs",
+        "sha256": "e5e7a815cd0125c5f5214c9d52e9c03ecea4afba9a227443aebed1a75f799921"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_calendar_data.rs",
+        "sha256": "55a3d81de693b966dcf2aa141b90a3697634e55b9b783dbdb6d63fd237a9bc5b"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_carriers.rs",
+        "sha256": "0bf2ed36a5f15ea6870c29e0ab1ea15a367357d18cd0cf01be463b8c493464b2"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_closed_proofs.rs",
+        "sha256": "3213173ee32820719e2415c49ec35eb38b01a017f8b20154a7648c7b39347542"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_collection_ops.rs",
+        "sha256": "de1f1a8152cd4b7f99864d122a105d60a486323f44c0c01f9c8da1eb7f62916a"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_concrete_allocations.rs",
+        "sha256": "2f8bf2510e0d969dcef062a7a612a2291ade3707bd3f2dcd54322425be289cf4"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_concrete_operation_proofs.rs",
+        "sha256": "1da836ac03668e7c363560f0a539e8482ca33eb49d9e2c9f2b40db092b9d9fc5"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_concrete_operations.rs",
+        "sha256": "64f8e1a80aed97aa9d9cdf38daf9a090814906900b3062444d657f99f4bc9873"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_concrete_types.rs",
+        "sha256": "d85586027ffcccf0572c9b8f7f017413207dfc21d63b6f281689102ba3fbedd6"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_construction_data.rs",
+        "sha256": "52b40784e42b3a3be160a0ebb95175902c6fc74a9988c2c70fed0ac9940c3e58"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_construction_domains.rs",
+        "sha256": "08ace6c75465e5939684e0312b0081c8142a9eee09703d98ae2d0669514d3cef"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_construction_ops.rs",
+        "sha256": "9f5e8f82e404afd8f3055c34b5970aac9ba38ae04812985770e10caafc3c4332"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_construction_types.rs",
+        "sha256": "f0560f4f80624db873b3f4617bab130aa5b66531b99b39b81c7f85124c9c9f12"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_contract_codecs.rs",
+        "sha256": "09813a87b4e51156566c4f2ae24441d192108f7f506d12d6c7915589c1808a6e"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_contract_expressions.rs",
+        "sha256": "44d45158911d7604205fd643511b94f96450c2bcd589aa29064d6444ebc5a382"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_control_edges.rs",
+        "sha256": "2721cb6e06bf2f3be4878e7996b18303754382e10407feae95a0bde83931eeac"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_control_exceptions.rs",
+        "sha256": "2ff99f5d4e6b31d7c1bdf7a77470823e63a8ad476a0b2b9e4ba32f1737e1336d"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_control_execution.rs",
+        "sha256": "f9620bd080612215900101b5066101a8f7e4b84e7e46af0c486addeb2e20689c"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_control_literals.rs",
+        "sha256": "7ddb4c0b5bceed5d239cf884a223df03d75d00415e9aff0c9f2ea5ac2527d6e6"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_control_pattern_candidates.rs",
+        "sha256": "81ee36415a1baefcd18c5385450c4539c2ae82badea18f0e2e2bc47d5035032a"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_control_pattern_captures.rs",
+        "sha256": "783f775f5a18b53eee7efefd487ec36103a9b196f97de2aca2f3075bd78040c4"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_control_pattern_environment.rs",
+        "sha256": "5f33b1daa5d3e94afe7b4d4673fb5916164f3a735ca9c723e398509bf9b73b27"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_control_pattern_proofs.rs",
+        "sha256": "e5fa8336eca1fb90b360d5745700a2629e29cce3cabbd569956aa20817d2bfd4"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_control_pattern_scopes.rs",
+        "sha256": "fd6e145ea92fd81b528bb99741a6cd2f0a07297490b5a480ace14aa51993e3a7"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_control_pattern_sources.rs",
+        "sha256": "037177ea51ad8dfb2851e727deb81d468356a6259614f0c7293d5e7db877b562"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_control_predicates.rs",
+        "sha256": "314b4012ef0088e011d8f1ced7682d318eafe7cc843c346317445922bc7fa7a6"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_control_slots.rs",
+        "sha256": "8698ec42dcadb6fd08b04f0d0dea7949303bab60549a7feeb0cb633394dad089"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_control_source_execution.rs",
+        "sha256": "50195b5245c6694db371345177d897defedace12c9415f6ae0f17887633473f0"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_control_steps.rs",
+        "sha256": "5774d2e2882b4421f1ac9209fda0efa3f26727ff609192939abc196e12676f81"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_decimal.rs",
+        "sha256": "05445069bb89a54ff8de1c1e909f5e89b87e302f10af8173e27feeef905638bb"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_decimal_arithmetic.rs",
+        "sha256": "78f3cf789d97b3676d827d36675fb7e9999840ac88386f7c016fa5793e1653eb"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_decimal_data.rs",
+        "sha256": "197a4785e48d813357e81d5ef7958f729d1c40b9337ade60daf088901f6fdaef"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_decimal_fixed_format.rs",
+        "sha256": "2d5474656b1741431373d4baa79ddca963a2c5ae020987b432e8060c35808dd1"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_decimal_format.rs",
+        "sha256": "738d13a44db6f0d62493fe9f211ab5ee783c363ccf3c7a6e00577bd5bc0ba1be"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_decimal_parse.rs",
+        "sha256": "acb76e2945a55556163304ced43103c4c92d4b6b2a2781d1e6be21061525d71b"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_default_proofs.rs",
+        "sha256": "cbb9472ae3ebd1af6fdb6506ff332d2039aee4afac230e9cdb3dea47122d9b89"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_defaults.rs",
+        "sha256": "9d93390920fa1bac69ed3a58c0435a2437e81aa3a1ce6c35426fa7be33f8bedd"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_domains.rs",
+        "sha256": "f5b0785704f7c5b9f74168f805959aee2c6fff42839c5b6e85d40e6654492150"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_entry_ops.rs",
+        "sha256": "726e5fcb7aa06103e947be960ce73a935fd5dbda8d3fc5f01cb9f8218632dc69"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_float.rs",
+        "sha256": "7e261694767ebf49310e79aff23757f6752acf2b5034bf0399febf4f1d4330a6"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_float_conversion.rs",
+        "sha256": "503d2e251d80016d885c1f219e360a68dafb014f84ebe0819cca5b8e041bddff"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_floating_data.rs",
+        "sha256": "55270969ca74297f36e6fe97120138a32463406108cb81dba5fcca00c56b579b"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_foundation_proofs.rs",
+        "sha256": "a46c7a0e219c1f0298ed4a5adc617fb130b294541b1fb23af98cda4d26ef3f97"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_hex_codecs.rs",
+        "sha256": "72e19a05940f9485acde70c15ec7f654c54be88d0a38de193567ce2317393e43"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_identity_proofs.rs",
+        "sha256": "2f77074d01146a9a166ca8682d2926467bee475c2940712cd107f1045ba9eb5f"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_integer_data.rs",
+        "sha256": "3eee8761668645fa9bc6762b8a2f92546e0ccae4c7a6eb298fcb2478d23cef80"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_integer_format.rs",
+        "sha256": "15173b6269315b472a5f3d78baf3a3bca519a48c842392c6f54bcfe09fae57fa"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_integer_parse.rs",
+        "sha256": "c62aeacfeb41ccc45d5f3cf7192b3e580d4388857c44dfef286d6481c0e86ab4"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_boundary_fields.rs",
+        "sha256": "591976f3bf83d4d493bf6a70ecce027982708c63d4d29c2b30bb06815e91244c"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_collections.rs",
+        "sha256": "93843fa3bdcab1b1039b2956c010879996eb767eb1ace1f294fd964fad4e127d"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_enums.rs",
+        "sha256": "3f17c53dec718a3d6c7559ddfceab22eed57697f6b597ce54d2c793f29344568"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_envelopes.rs",
+        "sha256": "86a6e0d2a623d9f7684c25ffc397f447a341a090b80f2ee86771ff4ab4be49a4"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_grammar.rs",
+        "sha256": "b0a04f17970494c95efe183e74d4e560eac05404eb335b03a9d622c503a6fc39"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_keywords.rs",
+        "sha256": "e85fbfbd55f3868634457be74d78a777ac0adc0f2261c6e569f00d1743487245"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_products.rs",
+        "sha256": "7b1e283efa0b242bbf25c5410115c770ee36aaf280edd3b5f9d119434b57ec02"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_raw_limits.rs",
+        "sha256": "e3ef42d14dd01f495abf15dbb3e639b8111d6e8905e16b94ae9a27fb056f6102"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_sequences.rs",
+        "sha256": "32100b244093e93ee21c52d9032d763d2fb3e06762f3df4420a1478c88d65d32"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_string.rs",
+        "sha256": "81e31ee4afa1154a4c2726e0853f7e8fc10b5c508d1e94176c181578f9396d9f"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_string_parse.rs",
+        "sha256": "2b26a4fe13061ac9cf0a1d941307a69a16f8d893bbb6ed1077de304860b82fc2"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_sums.rs",
+        "sha256": "a9ad772664d78cb0a8dfeeab98cd10f350310b367ee9d7f37238cee7a18b4bcb"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_syntax.rs",
+        "sha256": "03356e416b4fb2d07458f17638ca6ee0d79ec08f777ab61599cc3f731f634266"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_tokens.rs",
+        "sha256": "35601f1e5ca09a0ba2a9f4cfe2131a49769f37f040366d2e465b709ddb93df30"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_typed_depth.rs",
+        "sha256": "1a26f7a789bbf0b9a8f98b86a4db13e23ee26c3d90fac4960f3328c090f1307a"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_typed_nodes.rs",
+        "sha256": "e8cac204bd63df1a8402f700d3f0c9331e9ef9b8f03abaa30ee4d5ead263fda6"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_values.rs",
+        "sha256": "829fde91c040cb133e2b94956a00166bc7af05f7030936525262a3d76e3e7ac6"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_json_vocabulary.rs",
+        "sha256": "068c22305c1512e21e8bfc3d04c9ad62c87602e8ad1fb11fecc05f5758961ffd"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_lifted_data.rs",
+        "sha256": "177a82553be63a5c7ef74de4f587b2a81f0db7e758cf1e12b2895c37f0786362"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_literals.rs",
+        "sha256": "176c43467ec8e68c7b59c495ed7f02c8887542de3e1bb27a2fa1349dae04fb47"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_money_ops.rs",
+        "sha256": "4229b23626c8dd926d29554fb1f93f271b063f8d685a53a0410356bc2567db59"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_non_templates.rs",
+        "sha256": "1b317e36aa3c8eb2c79e7d2bddef23b23b3c2c1d0ed22ac3fa7b76242cfad423"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_observations.rs",
+        "sha256": "4c926a6a6766867172f9bdcb621d5b61714ee2c199899e3737a1f63769bf4122"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_option_data.rs",
+        "sha256": "d3e6276e294df8c30055b97a677491392db6dd79a74ff304134ca88fe75f1488"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_ordered_fold.rs",
+        "sha256": "55aba70a15271d5f91665181145045b7757f4b8bb7378335f92f637c5db36623"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_outcome_ops.rs",
+        "sha256": "3534b83552b3190056a160e28efbd28e5507c663cb2da298ed4f9017d6a25ef3"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_ownership_flow.rs",
+        "sha256": "99d4143d61371a53751bad0a76ca7e3a29ecd388b0acc2dfa19c6835db09ad21"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_ownership_proofs.rs",
+        "sha256": "6bd254cdf66c04ab96c4a0e5d092e7a40d6794ceaeb0469b804b3f88e4bb9fff"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_public_domains.rs",
+        "sha256": "9de1f71e3c90d6bdcbe7d4f0fa70cc8068db03ecce55715c11790072ba465753"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_quantifiers.rs",
+        "sha256": "f70e6e7db4c07b13250cd3f10fda485416dc3084b2dc41b8e0fe22614ed3d625"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_reference_data.rs",
+        "sha256": "5864c9494df97d42f568f530f0c8535fc467f59b07813527b1f574febb200441"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_relations.rs",
+        "sha256": "128428774c23aceb57fb980b48336996149d8ab37646592e45b2a38a72354e71"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_scalar_bits.rs",
+        "sha256": "9c3757dc88c5a653885891773a5b786d255e740900581c6e0902d241f556d2cb"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_scalar_domains.rs",
+        "sha256": "b79c9a047d23da82f590332f1015942f257e143ee22aa6f7d6e35d8a0b26fa13"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_scalar_relations.rs",
+        "sha256": "865872b3dba0a54503c6bd5991c1cda247c73cbec817080c736d175ea5b1549e"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_scoped_construction_proofs.rs",
+        "sha256": "b90e9d4992b07e994321147027861ed0aa4738ce223e75a9d807e37406f9818b"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_sequence_data.rs",
+        "sha256": "0945776b418dbdf37fcf4d63418aedadb4efef802a03153ca1f8a585014ca205"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_sequence_ops.rs",
+        "sha256": "dbc5cd30cdaec935760e3dd33f1bc1b8fe7badd4a3b9c8005a113c51f450a636"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_source_clauses.rs",
+        "sha256": "f0188b8eaf482063aba6127b7f2ec3915b0dda54fe05e73a1daa9d3bf1cad0ba"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_source_invariants.rs",
+        "sha256": "cca763a783bbab197194d1413a2c46dcedcd1ed55c5f71fd16e5243bbbfef462"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_source_value_data.rs",
+        "sha256": "7169c9d5ce43b7394bce74aa17528ca0c4dfb1d9baaee758164865686772c673"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_string.rs",
+        "sha256": "e32dab1fd209893ce7d6cb4a0704c5a2d3f6d7b493936b0bcbcfbcdbe44bfbab"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_string_construct.rs",
+        "sha256": "e078c74dd887679b2243d030ad6d12eefb524ce19fe244a0dc5e57b4248f6a5b"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_string_data.rs",
+        "sha256": "444c3688f6ae426a7df69761f24add51f6dcd4e9512e6924d2076c7504855f16"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_string_ordinal.rs",
+        "sha256": "9e84c5408dcd44d81b94be27775b9147f3d9c39a68a4bfb9da97a2acda60a927"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_structural.rs",
+        "sha256": "f8655b41ed81bb5f8192b2e0c0e684944f4b8d721d01b5b362f5db7a229ff086"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_structural_data.rs",
+        "sha256": "6c153b10179c75bbfce636915ee7ae36478726049e19ae70c26f0c19ecf8289c"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_structural_foundations.rs",
+        "sha256": "dc410b69690676f5a35f15dedf859ed2b3fbd05564c891e9db166b2d09726d76"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_temporal.rs",
+        "sha256": "004c06a137aa07c7b3abff98ed80f29248268032564791a8072812fbffa14ee7"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_test_eval.rs",
+        "sha256": "d4160220aa77546cb3911df2d66bbd0e8684f3020d128db9306288a87c661c8f"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_test_eval_tests.rs",
+        "sha256": "9c521d1be3c96d28de9f2da7144c67395222921ae83221874e0c3b5d3da5cb1a"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_transition_ops.rs",
+        "sha256": "a468ceba63f714f93e2c585d3de473aef30155443885594a9a06efda83c82296"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_ordinary_transition_snapshots.rs",
+        "sha256": "c6b8450e70e5d6245f231fa44ed43e27a3d5ae16ef3bbac63362cbc6b0e63056"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_pattern_observations.rs",
+        "sha256": "1a37c43b49b519caf7fa5eb7c3a536a6f3daf3c42bbaeaa7211bcbba094acbd1"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_registry.rs",
+        "sha256": "fbcf370c81881e45df837845af6152301ede4f1e8e0ebdebf011005b3016757c"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_release.rs",
+        "sha256": "35885419dd82bcbe9651f85bad20af765896e6440bf61cdc321818498d42bd58"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_scalar_signatures.rs",
+        "sha256": "39b0cbbe656bdeac0091c643e2bc3c84e27b6cd4225c3e5351084f83310652a9"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_sequences.rs",
+        "sha256": "08ce1b2f61dfce8498dfbd0e3e818f83767e9a94dac9ff33691ab355bc257f51"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_source_artifacts.rs",
+        "sha256": "561ed0bda2aff116502baf508c5f00a15c3899820166458f2a003111156e4ee8"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_strings.rs",
+        "sha256": "9d281bf27bde0819a6db745916f6ba997f26b88ee564182fc184e5b9478d8262"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_structural.rs",
+        "sha256": "b5e33724782fd54d12c3f3c7c24fff00075de306c237452b25e62f435b36103c"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_transition.rs",
+        "sha256": "b9f54ea922821aec862df39d51009c5fb6c1acf44cc29ff0e2b91848e8fd1b82"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_transition_vc.rs",
+        "sha256": "af489df71be2d5dc3b53d32e86073533625f841e7ae2d5a62e860cb0a655d011"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_vc_model.rs",
+        "sha256": "e8d9eaf127e9e2f5e2fd18d7d4ff280a197ab706b13be5f7add26c05fcb39483"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+        "sha256": "00fc77538cf53b6dcdf7a28c0b1ec36543787da52669f771415e233ddd6954db"
+      },
+      {
+        "path": "crates/mpk-vc/src/csharp_practical_vir_validation.rs",
+        "sha256": "b3020234632a54145054adc40c8417eb176a0bd9be46090984c85df1ce217692"
+      },
+      {
+        "path": "crates/mpk-vc/src/expr_encode.rs",
+        "sha256": "fec8a0000ee024dbfc58625ed18b11c8b016daabcd0bae6ff80f1ce609abe57b"
+      },
+      {
+        "path": "crates/mpk-vc/src/grouping.rs",
+        "sha256": "e4f8bbd156e96bb735bb8ba2bc3be4a7a6e260d635a0a6a1bd010d54f7adba59"
+      },
+      {
+        "path": "crates/mpk-vc/src/hash.rs",
+        "sha256": "0babc5ff1a7bd5da5e34d84758b2f9507f27221ff55f57b87e40146fea277a00"
+      },
+      {
+        "path": "crates/mpk-vc/src/java_profile.rs",
+        "sha256": "68a0a9f68ba517848a122910e63a47e0428bca7106b6a640963459a56ceb15dc"
+      },
+      {
+        "path": "crates/mpk-vc/src/java_release.rs",
+        "sha256": "da672145d5a8dcf1e876d1b85a6164a5ae553fae3ecdbb87249b6c90b84501d4"
+      },
+      {
+        "path": "crates/mpk-vc/src/java_source_artifacts.rs",
+        "sha256": "900359507a10340d09611ff910f94f64bbc5a313f21cf393371356c38246a2bf"
+      },
+      {
+        "path": "crates/mpk-vc/src/lib.rs",
+        "sha256": "1e6609288eb24b39ff12ebcda1489de20adb730dbd1eb9ec80b2a25c0829974f"
+      },
+      {
+        "path": "crates/mpk-vc/src/program_encode.rs",
+        "sha256": "ef25ffa9ced0549858ba3c54b84885d7dd896659f941f8061c97c204ac4c5292"
+      },
+      {
+        "path": "crates/mpk-vc/src/program_wp.rs",
+        "sha256": "a5816540b20e75ae890bb10dc7808edeba84f1893d7077c4c17c9f0288746c35"
+      },
+      {
+        "path": "crates/mpk-vc/src/release_bundle.rs",
+        "sha256": "0e9080c946446aaf3ad85e5b77847c3a0ac26ea3b70c88a42de9a00c8a3b89ae"
+      },
+      {
+        "path": "crates/mpk-vc/src/release_bundle_v1.rs",
+        "sha256": "1a8296ecfcaa53b1b2d4461ee0bb2f2233b8deec074e1299bbc2cfbe42c5767b"
+      },
+      {
+        "path": "crates/mpk-vc/src/safety_check.rs",
+        "sha256": "da4ec3cfd53cb187e9ce07eb2d56ac00a3bbc99bbc13f437bb1f0a673c239fde"
+      },
+      {
+        "path": "crates/mpk-vc/src/semantic_profile.rs",
+        "sha256": "92a3fc01f642d251b65a20c1a6de51ef63702acff17018400bc326d7a2fd493a"
+      },
+      {
+        "path": "crates/mpk-vc/src/semantic_profile_registry.rs",
+        "sha256": "64013e00230aab720d993859589549bfa7283609ae1f1a7d5f6316530bd22e50"
+      },
+      {
+        "path": "crates/mpk-vc/src/source_manifest.rs",
+        "sha256": "11c4515b833385bcbf981a90e93e91c5890f454acd142f2453bb88043e50d822"
+      },
+      {
+        "path": "crates/mpk-vc/src/source_map.rs",
+        "sha256": "55ca097effe1363eca882baa0120dd4de5955d3ab98a184e9b85605b2f7b433c"
+      },
+      {
+        "path": "crates/mpk-vc/src/successor_source_artifacts.rs",
+        "sha256": "9951da4ed987a6f11d439965b3eb62e2e6dfd6b1676c8905b1d37d0f69f34b76"
+      },
+      {
+        "path": "crates/mpk-vc/src/successor_vc.rs",
+        "sha256": "fb97322316b37dc7c425d4c7a87fa00e181e3eee2d01e7581297fca46c3a038d"
+      },
+      {
+        "path": "crates/mpk-vc/src/type_encode.rs",
+        "sha256": "4bdf361e3d71cec329685fb6a66aafcd340d0fd6e69928dc5657b060cb4a416d"
+      },
+      {
+        "path": "crates/mpk-vc/src/vc.rs",
+        "sha256": "0140ad88d40aa910bbe441fe19e9a5e52c7ec91a7e0d4f2b56aec51196583b9b"
+      },
+      {
+        "path": "crates/mpk-vc/src/vc_canonical.rs",
+        "sha256": "ee88298cae99bfda7d65cab069cf773a304f396c2d3b72aabd065b02758efa6c"
+      },
+      {
+        "path": "crates/mpk-vc/src/vc_skeleton.rs",
+        "sha256": "4b7822e1b90267e2cf229450deb9664f8691f84e1b7f77cd85c80f753460f95e"
+      },
+      {
+        "path": "crates/mpk-vc/src/verification_limits.rs",
+        "sha256": "e19ee03cee7f08858566918f30acf89b37f892d793fbd5128e2f02527b978aa8"
+      },
+      {
+        "path": "crates/mpk-vc/src/vir.rs",
+        "sha256": "0d9141447f46d85468a2737be2c37e45606505adce9577aa3005d1de412ba9f9"
+      },
+      {
+        "path": "crates/mpk-vc/src/vir_canonical.rs",
+        "sha256": "c85a5e304522fff63653208ac8f43d2e4f9829ffbb12aa448ceaf5698f985763"
+      },
+      {
+        "path": "crates/mpk-vc/src/vir_validate.rs",
+        "sha256": "e2848dd1f659b44b1de9248a6bcc0a48aed735a63b87cc4a50815438f333415d"
+      }
+    ]
+  },
+  "schema": "mpk.go_practical.proof_artifact_probe.v0",
+  "scope": "common VC v4/certificate-source links,actual retained VC/skeleton regeneration and closed source-bound Go theorem-demand draft; Go ordinary proposition expansion/final skeleton and all source/ordinary proofs remain due; no activation",
+  "shared_family_frozen": false,
+  "source_proofs_checked": false
+}

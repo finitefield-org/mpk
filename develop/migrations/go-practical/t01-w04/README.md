@@ -323,7 +323,7 @@ Python/Rust/Go preimages agree;24 targeted tests cover nested region locators,
 immutable source authority, rehashed inputs and limits. The actual unchanged
 public retained validators preserve full map/manifest values in five target
 contexts, including their exact independent synthetic-permission boundaries.
-The [current metadata checker](../../../probes/go-practical/check_capture_artifact_metadata.py)
+The [section47 metadata checker](../../../probes/go-practical/check_capture_artifact_metadata.py)
 preserves prior module evidence and143 predecessor pins. Its
 [verification record](capture-artifacts/verification/verification.json) keeps
 the initial observer setup failure and selected final checks. The external
@@ -332,3 +332,20 @@ producer/toolchain provenance still due. Certificate-manifest/VC, frontend
 envelope, policy/API/release roots, reviewed migration and all source/ordinary
 proofs remain required. W04 stays open; W05 owns the cumulative T01 gate and
 all T02–T11 work remains active.
+
+The [VC/certificate-source draft](proof-artifacts/README.md) adds common source-
+bound VC/certificate references and retained skeleton regeneration through the
+actual unchanged public APIs. Flat term arrays preserve768-depth handling.
+Eight bundles,181 cases and25 targeted tests retain exact old VC/skeleton/
+certificate-source values in five target contexts. Nineteen Go theorem-demand
+families yield169 source-bound requests,with56 local fragments retaining416
+member/access demands. All260 Python/Rust/Go preimages agree. Go ordinary
+proposition expansion and final program-assembly/skeleton fields remain due;
+Go skeleton requests stay pending. The
+[current metadata checker](../../../probes/go-practical/check_proof_artifact_metadata.py)
+retains prior capture/module evidence and143 predecessor pins. Its
+[verification record](proof-artifacts/verification/verification.json) keeps
+selected checks and the initial unsupported1024-depth observer setup failure.
+Complete Go ordinary expansion,frontend-envelope/policy/API/release roots,
+reviewed migrations and all source/ordinary proofs remain required. W04 stays
+open,W05 owns the cumulative T01 gate and the full T02–T11 objective remains.

@@ -1,0 +1,3244 @@
+[
+  {
+    "id": "go_fixed",
+    "query": {
+      "captured_inputs": [
+        {
+          "kind": "build_manifest",
+          "normalized_path": "go.mod",
+          "raw_hex": "6d6f64756c65206769746875622e636f6d2f66696e6974656669656c642d6f72672f6d706b2f66697874757265732f676f2d62617369630a0a676f20312e32330a"
+        },
+        {
+          "kind": "lockfile",
+          "normalized_path": "go.sum",
+          "raw_hex": ""
+        },
+        {
+          "kind": "source",
+          "normalized_path": "positive/arith/arith.go",
+          "raw_hex": "7061636b6167652061726974680a0a66756e63204164643634286120696e7436342c206220696e7436342920696e743634207b0a0972657475726e2061202b20620a7d0a0a66756e63204d61736b382876616c75652075696e74382c206d61736b2075696e7438292075696e7438207b0a0972657475726e2076616c75652026206d61736b0a7d0a0a66756e6320426f6f6c416e64286c65667420626f6f6c2c20726967687420626f6f6c2920626f6f6c207b0a0972657475726e206c6566742026262072696768740a7d0a"
+        }
+      ],
+      "context": {
+        "profile_entry_sha256": "b10ec338d1f2b3fefc015e4d46c27def43e92ff3d87341624b48c93db951ca96",
+        "profile_registry": {
+          "id": "mpk.semantic_profile.registry.v1",
+          "registry_sha256": "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557",
+          "revision": 3,
+          "schema": "mpk.semantic_profile.registry.v1"
+        },
+        "semantic_parameters": {
+          "schema": "mpk.semantic_parameters.go_fixed.v0",
+          "value": {
+            "pointer_width": 64,
+            "target_id": "linux/amd64"
+          }
+        },
+        "semantic_profile": "mpk.go.fixed.v0",
+        "source_language": "go"
+      },
+      "entries": [
+        {
+          "origin": {
+            "end": 67,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "positive/arith/arith.go",
+            "start": 15
+          },
+          "reference": {
+            "function_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.Add64",
+            "kind": "function",
+            "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+          }
+        },
+        {
+          "origin": {
+            "end": 65,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "positive/arith/arith.go",
+            "start": 60
+          },
+          "reference": {
+            "block": "bb0",
+            "function_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.Add64",
+            "instruction": "t0",
+            "kind": "instruction",
+            "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+          }
+        },
+        {
+          "origin": {
+            "end": 65,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "positive/arith/arith.go",
+            "start": 53
+          },
+          "reference": {
+            "block": "bb0",
+            "function_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.Add64",
+            "kind": "terminator",
+            "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+          }
+        },
+        {
+          "origin": {
+            "end": 203,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "positive/arith/arith.go",
+            "start": 137
+          },
+          "reference": {
+            "function_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.BoolAnd",
+            "kind": "function",
+            "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+          }
+        },
+        {
+          "origin": {
+            "end": 201,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "positive/arith/arith.go",
+            "start": 188
+          },
+          "reference": {
+            "block": "bb0",
+            "function_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.BoolAnd",
+            "kind": "terminator",
+            "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+          }
+        },
+        {
+          "origin": {
+            "end": 201,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "positive/arith/arith.go",
+            "start": 181
+          },
+          "reference": {
+            "block": "bb1",
+            "function_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.BoolAnd",
+            "kind": "terminator",
+            "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+          }
+        },
+        {
+          "origin": {
+            "end": 201,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "positive/arith/arith.go",
+            "start": 181
+          },
+          "reference": {
+            "block": "bb2",
+            "function_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.BoolAnd",
+            "kind": "terminator",
+            "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+          }
+        },
+        {
+          "origin": {
+            "end": 201,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "positive/arith/arith.go",
+            "start": 181
+          },
+          "reference": {
+            "block": "bb3",
+            "function_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.BoolAnd",
+            "kind": "terminator",
+            "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+          }
+        },
+        {
+          "origin": {
+            "end": 135,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "positive/arith/arith.go",
+            "start": 69
+          },
+          "reference": {
+            "function_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.Mask8",
+            "kind": "function",
+            "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+          }
+        },
+        {
+          "origin": {
+            "end": 133,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "positive/arith/arith.go",
+            "start": 121
+          },
+          "reference": {
+            "block": "bb0",
+            "function_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.Mask8",
+            "instruction": "t0",
+            "kind": "instruction",
+            "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+          }
+        },
+        {
+          "origin": {
+            "end": 133,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "positive/arith/arith.go",
+            "start": 114
+          },
+          "reference": {
+            "block": "bb0",
+            "function_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.Mask8",
+            "kind": "terminator",
+            "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+          }
+        }
+      ],
+      "expected_release_registry": {
+        "id": "mpk.release.registry.v1",
+        "registry_sha256": "7877c7c04fae912815713a8a7f6f9900198721ea572788f6f48d1dbe3f00afbd",
+        "schema": "mpk.release.bundle_registry.v1"
+      },
+      "manifest": {
+        "frontend": {
+          "binary_sha256": "62dda4ba6589347eea5e4d59b035b41988fc6cab65088c1039e79ecbc92e8bff",
+          "bundle_id": "frontend.go.go2vir.candidate.v1",
+          "name": "go2vir",
+          "subordinate_binaries": [],
+          "version": "go1.25.0-profile-v1-staging"
+        },
+        "input_set_hash": "f9695ecd2d9b17673aa96341943fc651af8ba1bc61b52fda165758053b9761b3",
+        "inputs": [
+          {
+            "kind": "build_manifest",
+            "normalized_path": "go.mod",
+            "sha256": "fbaecf3a2fa13def8774c5ed6d6439b5032975224b7569e1464cfd0a014e903a",
+            "size_bytes": 65
+          },
+          {
+            "kind": "lockfile",
+            "normalized_path": "go.sum",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "size_bytes": 0
+          },
+          {
+            "kind": "source",
+            "normalized_path": "positive/arith/arith.go",
+            "sha256": "be472595e9029249dcc0f35c43c6a441cb935c78a03ec0d06c07c2123fbaf28c",
+            "size_bytes": 204
+          }
+        ],
+        "limit_profile": "mpk.vir.limits.v0",
+        "release_registry": {
+          "id": "mpk.release.registry.v1",
+          "registry_sha256": "7877c7c04fae912815713a8a7f6f9900198721ea572788f6f48d1dbe3f00afbd",
+          "schema": "mpk.release.bundle_registry.v1"
+        },
+        "selection": {
+          "schema": "mpk.selection.go_function.v0",
+          "value": {
+            "function": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.Add64",
+            "package": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+          }
+        },
+        "target": {
+          "id": "linux/amd64",
+          "pointer_width": 64
+        },
+        "toolchain": {
+          "bundle_id": "toolchain.go.go1.25.0.linux-amd64.candidate.v1",
+          "components": [
+            {
+              "binary_sha256": "b93cdfdbc72f1afc3f21498c80bf3d155a44a9b95e2d690c940511051574bc25",
+              "kind": "executable",
+              "name": "go",
+              "release": "go1.25.0"
+            },
+            {
+              "content_sha256": "5380dbbaf794293606958f98f1e0f2fdab25826eba775801becb9159119b6f50",
+              "kind": "content",
+              "name": "go-target-linux-amd64",
+              "release": "go1.25.0"
+            },
+            {
+              "binary_sha256": "a7ed400a04009488ea819eb06aeb912dc3537125cceef036743641060fd797f4",
+              "kind": "executable",
+              "name": "go-tool-asm",
+              "release": "go1.25.0"
+            },
+            {
+              "binary_sha256": "d61f87246456ff1175d057ad663a10dd1ac503c54dc770d14aaa5ffd3309b858",
+              "kind": "executable",
+              "name": "go-tool-cgo",
+              "release": "go1.25.0"
+            },
+            {
+              "binary_sha256": "20dbac54f9f897582aedafea7207976f0300cfd4992429814d00bccbea7a4083",
+              "kind": "executable",
+              "name": "go-tool-compile",
+              "release": "go1.25.0"
+            },
+            {
+              "binary_sha256": "64686d22f3b4055386bbcbf0aeac54249cdbff771ffd7b54c8d4abd330df8166",
+              "kind": "executable",
+              "name": "go-tool-cover",
+              "release": "go1.25.0"
+            },
+            {
+              "binary_sha256": "a4286eaff6094de7f88d55299a61a14d5aae2bfbd19687ba6d5330a730aee983",
+              "kind": "executable",
+              "name": "go-tool-link",
+              "release": "go1.25.0"
+            },
+            {
+              "binary_sha256": "eff3b19676f41d95eb598fa7520a9f44c2014db65a5a7470a2ca5c4cfa3f840b",
+              "kind": "executable",
+              "name": "go-tool-preprofile",
+              "release": "go1.25.0"
+            },
+            {
+              "binary_sha256": "9b9d776e7569c910de714790a1b9bab1287b49fdc210973158f3076cee683bf7",
+              "kind": "executable",
+              "name": "go-tool-vet",
+              "release": "go1.25.0"
+            },
+            {
+              "binary_sha256": "2aa4122abbd1593ee7c9e184366feef7cb06e52ce790b5ef2119e8aee8640a80",
+              "kind": "executable",
+              "name": "gofmt",
+              "release": "go1.25.0"
+            }
+          ],
+          "distribution_sha256": "0f90ec34b19ee271f1a31c923ff5ef0f805493a5890f22b5736e68741d4575be"
+        },
+        "units": [
+          {
+            "identity": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith",
+            "kind": "package",
+            "name": "arith"
+          }
+        ]
+      },
+      "profile_contract": {
+        "contract_id": "mpk.profile.vc.go_fixed.v0",
+        "profile_entry_sha256": "b10ec338d1f2b3fefc015e4d46c27def43e92ff3d87341624b48c93db951ca96",
+        "value": {
+          "contract_profile_id": "mpk.go.contract.v0",
+          "required_check_profile_id": "mpk.go.fixed.v0",
+          "verification_limit_profile_id": "mpk.verify.limits.v0"
+        }
+      },
+      "stage": "manifest",
+      "synthetic_permissions": [],
+      "units": [
+        {
+          "const_decls": [],
+          "functions": [
+            {
+              "blocks": [
+                {
+                  "instructions": [
+                    {
+                      "id": "t0",
+                      "kind": "BinOp",
+                      "lhs": {
+                        "var": "arg0"
+                      },
+                      "op": "bv_add",
+                      "rhs": {
+                        "var": "arg1"
+                      },
+                      "safety_checks": [],
+                      "type": {
+                        "kind": "bv",
+                        "signed": true,
+                        "width": 64
+                      }
+                    }
+                  ],
+                  "label": "bb0",
+                  "parameters": [],
+                  "terminator": {
+                    "kind": "Return",
+                    "values": [
+                      {
+                        "var": "t0"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "contracts": {
+                "ensures": [
+                  {
+                    "bool": true
+                  }
+                ],
+                "function_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.Add64",
+                "loops": [],
+                "modifies": [],
+                "panic": "forbidden",
+                "requires": [],
+                "termination": "total",
+                "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+              },
+              "features_used": [],
+              "id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.Add64",
+              "locals": [],
+              "name": "Add64",
+              "params": [
+                {
+                  "id": "arg0",
+                  "type": {
+                    "kind": "bv",
+                    "signed": true,
+                    "width": 64
+                  }
+                },
+                {
+                  "id": "arg1",
+                  "type": {
+                    "kind": "bv",
+                    "signed": true,
+                    "width": 64
+                  }
+                }
+              ],
+              "results": [
+                {
+                  "id": "result0",
+                  "type": {
+                    "kind": "bv",
+                    "signed": true,
+                    "width": 64
+                  }
+                }
+              ],
+              "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+            },
+            {
+              "blocks": [
+                {
+                  "instructions": [],
+                  "label": "bb0",
+                  "parameters": [],
+                  "terminator": {
+                    "cond": {
+                      "var": "arg0"
+                    },
+                    "else_args": [],
+                    "else_label": "bb1",
+                    "kind": "Branch",
+                    "then_args": [],
+                    "then_label": "bb2"
+                  }
+                },
+                {
+                  "instructions": [],
+                  "label": "bb1",
+                  "parameters": [],
+                  "terminator": {
+                    "kind": "Return",
+                    "values": [
+                      {
+                        "bool": false
+                      }
+                    ]
+                  }
+                },
+                {
+                  "instructions": [],
+                  "label": "bb2",
+                  "parameters": [],
+                  "terminator": {
+                    "cond": {
+                      "var": "arg1"
+                    },
+                    "else_args": [],
+                    "else_label": "bb1",
+                    "kind": "Branch",
+                    "then_args": [],
+                    "then_label": "bb3"
+                  }
+                },
+                {
+                  "instructions": [],
+                  "label": "bb3",
+                  "parameters": [],
+                  "terminator": {
+                    "kind": "Return",
+                    "values": [
+                      {
+                        "bool": true
+                      }
+                    ]
+                  }
+                }
+              ],
+              "contracts": {
+                "ensures": [
+                  {
+                    "bool": true
+                  }
+                ],
+                "function_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.BoolAnd",
+                "loops": [],
+                "modifies": [],
+                "panic": "forbidden",
+                "requires": [],
+                "termination": "total",
+                "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+              },
+              "features_used": [
+                "branch"
+              ],
+              "id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.BoolAnd",
+              "locals": [],
+              "name": "BoolAnd",
+              "params": [
+                {
+                  "id": "arg0",
+                  "type": {
+                    "kind": "bool"
+                  }
+                },
+                {
+                  "id": "arg1",
+                  "type": {
+                    "kind": "bool"
+                  }
+                }
+              ],
+              "results": [
+                {
+                  "id": "result0",
+                  "type": {
+                    "kind": "bool"
+                  }
+                }
+              ],
+              "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+            },
+            {
+              "blocks": [
+                {
+                  "instructions": [
+                    {
+                      "id": "t0",
+                      "kind": "BinOp",
+                      "lhs": {
+                        "var": "arg0"
+                      },
+                      "op": "bv_and",
+                      "rhs": {
+                        "var": "arg1"
+                      },
+                      "safety_checks": [],
+                      "type": {
+                        "kind": "bv",
+                        "signed": false,
+                        "width": 8
+                      }
+                    }
+                  ],
+                  "label": "bb0",
+                  "parameters": [],
+                  "terminator": {
+                    "kind": "Return",
+                    "values": [
+                      {
+                        "var": "t0"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "contracts": {
+                "ensures": [
+                  {
+                    "bool": true
+                  }
+                ],
+                "function_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.Mask8",
+                "loops": [],
+                "modifies": [],
+                "panic": "forbidden",
+                "requires": [],
+                "termination": "total",
+                "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+              },
+              "features_used": [],
+              "id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.Mask8",
+              "locals": [],
+              "name": "Mask8",
+              "params": [
+                {
+                  "id": "arg0",
+                  "type": {
+                    "kind": "bv",
+                    "signed": false,
+                    "width": 8
+                  }
+                },
+                {
+                  "id": "arg1",
+                  "type": {
+                    "kind": "bv",
+                    "signed": false,
+                    "width": 8
+                  }
+                }
+              ],
+              "results": [
+                {
+                  "id": "result0",
+                  "type": {
+                    "kind": "bv",
+                    "signed": false,
+                    "width": 8
+                  }
+                }
+              ],
+              "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+            }
+          ],
+          "id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith",
+          "name": "arith",
+          "type_decls": []
+        }
+      ]
+    }
+  },
+  {
+    "id": "rust64",
+    "query": {
+      "captured_inputs": [
+        {
+          "kind": "lockfile",
+          "normalized_path": "Cargo.lock",
+          "raw_hex": "2320546869732066696c65206973206175746f6d61746963616c6c79204067656e65726174656420627920436172676f2e0a23204974206973206e6f7420696e74656e64656420666f72206d616e75616c2065646974696e672e0a76657273696f6e203d20340a0a5b5b7061636b6167655d5d0a6e616d65203d2022766563746f72220a76657273696f6e203d2022302e312e30220a"
+        },
+        {
+          "kind": "build_manifest",
+          "normalized_path": "Cargo.toml",
+          "raw_hex": "5b7061636b6167655d0a6e616d65203d2022766563746f72220a76657273696f6e203d2022302e312e30220a65646974696f6e203d202232303231220a0a5b6c69625d0a6e616d65203d2022766563746f72220a70617468203d20227372632f6c69622e7273220a0a5b66656174757265735d0a64656661756c74203d205b5d0a"
+        },
+        {
+          "kind": "contract",
+          "normalized_path": "contracts/private.json",
+          "raw_hex": "7b22656e7375726573223a5b7b2261726773223a5b7b22726573756c74223a307d2c7b22706172616d65746572223a2276616c7565227d5d2c226f70223a226571227d5d2c2266756e6374696f6e223a22766563746f723a3a68656c706572733a3a707269766174655f6c656166222c226c6f6f7073223a5b5d2c226d6f646966696573223a5b5d2c2270616e6963223a22666f7262696464656e222c227265717569726573223a5b5d2c22736368656d61223a226d706b2e727573742e636f6e74726163742e7630222c2273656d616e7469635f70726f66696c65223a226d706b2e727573742e636865636b65642e7630222c227461726765745f706f696e7465725f7769647468223a36342c227465726d696e6174696f6e223a22746f74616c227d0a"
+        },
+        {
+          "kind": "contract",
+          "normalized_path": "contracts/public.json",
+          "raw_hex": "7b22656e7375726573223a5b7b2261726773223a5b7b22726573756c74223a307d2c7b22706172616d65746572223a2276616c7565227d5d2c226f70223a226571227d5d2c2266756e6374696f6e223a22766563746f723a3a68656c706572733a3a7075626c69635f68656c706572222c226c6f6f7073223a5b5d2c226d6f646966696573223a5b5d2c2270616e6963223a22666f7262696464656e222c227265717569726573223a5b5d2c22736368656d61223a226d706b2e727573742e636f6e74726163742e7630222c2273656d616e7469635f70726f66696c65223a226d706b2e727573742e636865636b65642e7630222c227461726765745f706f696e7465725f7769647468223a36342c227465726d696e6174696f6e223a22746f74616c227d0a"
+        },
+        {
+          "kind": "contract",
+          "normalized_path": "contracts/selected.json",
+          "raw_hex": "7b22656e7375726573223a5b7b2261726773223a5b7b22726573756c74223a307d2c7b22706172616d65746572223a2276616c7565227d5d2c226f70223a226571227d5d2c2266756e6374696f6e223a22766563746f723a3a63726f73735f6d6f64756c65222c226c6f6f7073223a5b5d2c226d6f646966696573223a5b5d2c2270616e6963223a22666f7262696464656e222c227265717569726573223a5b5d2c22736368656d61223a226d706b2e727573742e636f6e74726163742e7630222c2273656d616e7469635f70726f66696c65223a226d706b2e727573742e636865636b65642e7630222c227461726765745f706f696e7465725f7769647468223a36342c227465726d696e6174696f6e223a22746f74616c227d0a"
+        },
+        {
+          "kind": "source",
+          "normalized_path": "src/lib.rs",
+          "raw_hex": "6d6f642068656c70657273207b0a20202020666e20707269766174655f6c6561662876616c75653a20753829202d3e207538207b0a202020202020202076616c75650a202020207d0a0a2020202070756220666e207075626c69635f68656c7065722876616c75653a20753829202d3e207538207b0a2020202020202020707269766174655f6c6561662876616c7565290a202020207d0a7d0a0a70756220666e2063726f73735f6d6f64756c652876616c75653a20753829202d3e207538207b0a2020202063726174653a3a68656c706572733a3a7075626c69635f68656c7065722876616c7565290a7d0a"
+        }
+      ],
+      "context": {
+        "profile_entry_sha256": "1cee9716bb21d07e07b8bc1de59ecaf83437549a4d595039486312260816f057",
+        "profile_registry": {
+          "id": "mpk.semantic_profile.registry.v1",
+          "registry_sha256": "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557",
+          "revision": 3,
+          "schema": "mpk.semantic_profile.registry.v1"
+        },
+        "semantic_parameters": {
+          "schema": "mpk.semantic_parameters.rust_checked.v0",
+          "value": {
+            "overflow_mode": "checked",
+            "panic_mode": "abort",
+            "pointer_width": 64,
+            "target_id": "x86_64-unknown-linux-gnu"
+          }
+        },
+        "semantic_profile": "mpk.rust.checked.v0",
+        "source_language": "rust"
+      },
+      "entries": [
+        {
+          "origin": {
+            "end": 236,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "src/lib.rs",
+            "start": 155
+          },
+          "reference": {
+            "function_id": "vector::cross_module",
+            "kind": "function",
+            "unit_id": "vector"
+          }
+        },
+        {
+          "origin": {
+            "end": 234,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "src/lib.rs",
+            "start": 198
+          },
+          "reference": {
+            "block": "bb0",
+            "function_id": "vector::cross_module",
+            "instruction": "t0",
+            "kind": "instruction",
+            "unit_id": "vector"
+          }
+        },
+        {
+          "origin": {
+            "end": 234,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "src/lib.rs",
+            "start": 198
+          },
+          "reference": {
+            "block": "bb0",
+            "function_id": "vector::cross_module",
+            "kind": "terminator",
+            "unit_id": "vector"
+          }
+        },
+        {
+          "origin": {
+            "end": 234,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "src/lib.rs",
+            "start": 198
+          },
+          "reference": {
+            "block": "bb1",
+            "function_id": "vector::cross_module",
+            "kind": "terminator",
+            "unit_id": "vector"
+          }
+        },
+        {
+          "origin": {
+            "end": 72,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "src/lib.rs",
+            "start": 18
+          },
+          "reference": {
+            "function_id": "vector::helpers::private_leaf",
+            "kind": "function",
+            "unit_id": "vector"
+          }
+        },
+        {
+          "origin": {
+            "end": 66,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "src/lib.rs",
+            "start": 61
+          },
+          "reference": {
+            "block": "bb0",
+            "function_id": "vector::helpers::private_leaf",
+            "kind": "terminator",
+            "unit_id": "vector"
+          }
+        },
+        {
+          "origin": {
+            "end": 151,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "src/lib.rs",
+            "start": 78
+          },
+          "reference": {
+            "function_id": "vector::helpers::public_helper",
+            "kind": "function",
+            "unit_id": "vector"
+          }
+        },
+        {
+          "origin": {
+            "end": 145,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "src/lib.rs",
+            "start": 126
+          },
+          "reference": {
+            "block": "bb0",
+            "function_id": "vector::helpers::public_helper",
+            "instruction": "t0",
+            "kind": "instruction",
+            "unit_id": "vector"
+          }
+        },
+        {
+          "origin": {
+            "end": 145,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "src/lib.rs",
+            "start": 126
+          },
+          "reference": {
+            "block": "bb0",
+            "function_id": "vector::helpers::public_helper",
+            "kind": "terminator",
+            "unit_id": "vector"
+          }
+        },
+        {
+          "origin": {
+            "end": 145,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "src/lib.rs",
+            "start": 126
+          },
+          "reference": {
+            "block": "bb1",
+            "function_id": "vector::helpers::public_helper",
+            "kind": "terminator",
+            "unit_id": "vector"
+          }
+        }
+      ],
+      "expected_release_registry": {
+        "id": "mpk.release.registry.v1",
+        "registry_sha256": "7877c7c04fae912815713a8a7f6f9900198721ea572788f6f48d1dbe3f00afbd",
+        "schema": "mpk.release.bundle_registry.v1"
+      },
+      "manifest": {
+        "frontend": {
+          "binary_sha256": "dd8715c3a54e0e02a940cfac5b61ed87d0ca8afb9b6259e853c0dd700e32f344",
+          "bundle_id": "frontend.rust.rust2vir.candidate.v2",
+          "name": "rust2vir",
+          "subordinate_binaries": [
+            {
+              "binary_sha256": "84d2c05f7c9e49b68c5eb79dde3566791d52f2603baa10e2bcf8f9f4ad7c3da7",
+              "name": "rust2vir-driver",
+              "version": "0.1.0-profile-v1-staging"
+            }
+          ],
+          "version": "0.1.0-profile-v1-staging"
+        },
+        "input_set_hash": "31eff84891d68e5b40230f41e617e5f03778ecca1903c55bde38280b8bbe021e",
+        "inputs": [
+          {
+            "kind": "lockfile",
+            "normalized_path": "Cargo.lock",
+            "sha256": "125728d28ca607be7f9138e95a2e68558c73380338ffd0f948647a39c4f169c1",
+            "size_bytes": 150
+          },
+          {
+            "kind": "build_manifest",
+            "normalized_path": "Cargo.toml",
+            "sha256": "26513f032d673cec6eab2ee844f7b8a3ff1253769117033aa643aff0460bf36e",
+            "size_bytes": 129
+          },
+          {
+            "kind": "contract",
+            "normalized_path": "contracts/private.json",
+            "sha256": "3e7933a16b2ca2d9ff70e87fc57041bc6d0e04d2c3dcd09dad4e1f507582bbad",
+            "size_bytes": 293
+          },
+          {
+            "kind": "contract",
+            "normalized_path": "contracts/public.json",
+            "sha256": "9d296ca7b2848ed24c6f4080c50974399f9580f3574ca0ca4002d4ba1728221a",
+            "size_bytes": 294
+          },
+          {
+            "kind": "contract",
+            "normalized_path": "contracts/selected.json",
+            "sha256": "509b3cf4ece61efaba58e40b6b94fd44c90137d72da0efc6f48d9df9f0d1b098",
+            "size_bytes": 284
+          },
+          {
+            "kind": "source",
+            "normalized_path": "src/lib.rs",
+            "sha256": "21c3d0ecf917ae461c20b2d59f9452009026c9d72c80683f4b36ace130ab8240",
+            "size_bytes": 237
+          }
+        ],
+        "limit_profile": "mpk.vir.limits.v0",
+        "release_registry": {
+          "id": "mpk.release.registry.v1",
+          "registry_sha256": "7877c7c04fae912815713a8a7f6f9900198721ea572788f6f48d1dbe3f00afbd",
+          "schema": "mpk.release.bundle_registry.v1"
+        },
+        "selection": {
+          "schema": "mpk.selection.rust_function.v0",
+          "value": {
+            "crate": "vector",
+            "function": "vector::cross_module",
+            "kind": "lib",
+            "package": "vector"
+          }
+        },
+        "target": {
+          "id": "x86_64-unknown-linux-gnu",
+          "pointer_width": 64
+        },
+        "toolchain": {
+          "bundle_id": "toolchain.rust.nightly-2025-06-01.candidate.v1",
+          "components": [
+            {
+              "binary_sha256": "4ab49080934031ce3b87b1a8792e685f99819e8a3f537f110a339d7331f1dcea",
+              "kind": "executable",
+              "name": "cargo",
+              "release": "1.89.0-nightly"
+            },
+            {
+              "content_sha256": "6d8ebe276575c5019abdc97051baf78e166354249eca4d6b65f638c5fb171005",
+              "kind": "content",
+              "name": "native-runtime",
+              "release": "nightly-2025-06-01"
+            },
+            {
+              "content_sha256": "7698b22d00656113340f692fd9212a1494077fd470f924948945e690da401292",
+              "kind": "content",
+              "name": "rust-compiler-runtime",
+              "release": "nightly-2025-06-01"
+            },
+            {
+              "content_sha256": "8f606996b669eb0f4314309d145d93c6eeaad8b261791584387bcff46ccafb0a",
+              "kind": "content",
+              "name": "rust-target-i686",
+              "release": "nightly-2025-06-01"
+            },
+            {
+              "content_sha256": "d8c45533753e17186cefde3e0830f7b358a8b4c818eb732d8814a31861335a15",
+              "kind": "content",
+              "name": "rust-target-x86_64",
+              "release": "nightly-2025-06-01"
+            },
+            {
+              "binary_sha256": "a7c2179d845e8f40305bace1657b903f10d149cc6d72b0c08ecef75487418922",
+              "commit_hash": "4d08223c054cf5a56d9761ca925fd46ffebe7115",
+              "kind": "executable",
+              "name": "rustc",
+              "release": "1.89.0-nightly"
+            }
+          ],
+          "distribution_sha256": "86dab73dadd3a3184064e7d7da7e878562eba4cfc4c8a969bc8f44a5e865c90a"
+        },
+        "units": [
+          {
+            "identity": "vector",
+            "kind": "lib",
+            "name": "vector"
+          }
+        ]
+      },
+      "profile_contract": {
+        "contract_id": "mpk.profile.vc.rust_checked.v0",
+        "profile_entry_sha256": "1cee9716bb21d07e07b8bc1de59ecaf83437549a4d595039486312260816f057",
+        "value": {
+          "contract_profile_id": "mpk.rust.contract.v0",
+          "required_check_profile_id": "mpk.rust.checked.v0",
+          "verification_limit_profile_id": "mpk.verify.limits.v0"
+        }
+      },
+      "stage": "manifest",
+      "synthetic_permissions": [],
+      "units": [
+        {
+          "const_decls": [],
+          "functions": [
+            {
+              "blocks": [
+                {
+                  "instructions": [],
+                  "label": "bb0",
+                  "parameters": [],
+                  "terminator": {
+                    "kind": "Return",
+                    "values": [
+                      {
+                        "var": "arg0"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "contracts": {
+                "ensures": [
+                  {
+                    "lhs": {
+                      "result": 0
+                    },
+                    "op": "eq",
+                    "rhs": {
+                      "var": "arg0"
+                    }
+                  }
+                ],
+                "function_id": "vector::helpers::private_leaf",
+                "loops": [],
+                "modifies": [],
+                "panic": "forbidden",
+                "requires": [],
+                "termination": "total",
+                "unit_id": "vector"
+              },
+              "features_used": [],
+              "id": "vector::helpers::private_leaf",
+              "locals": [],
+              "name": "private_leaf",
+              "params": [
+                {
+                  "id": "arg0",
+                  "type": {
+                    "kind": "bv",
+                    "signed": false,
+                    "width": 8
+                  }
+                }
+              ],
+              "results": [
+                {
+                  "id": "result0",
+                  "type": {
+                    "kind": "bv",
+                    "signed": false,
+                    "width": 8
+                  }
+                }
+              ],
+              "unit_id": "vector"
+            },
+            {
+              "blocks": [
+                {
+                  "instructions": [
+                    {
+                      "args": [
+                        {
+                          "var": "arg0"
+                        }
+                      ],
+                      "contract_hash": "7c05d5726b380179ffbf99ad4454287e5ee24a2eb9e7caca3e66827302af9caf",
+                      "function": "vector::helpers::private_leaf",
+                      "id": "t0",
+                      "kind": "CallStatic",
+                      "safety_checks": [],
+                      "type": {
+                        "kind": "bv",
+                        "signed": false,
+                        "width": 8
+                      }
+                    }
+                  ],
+                  "label": "bb0",
+                  "parameters": [],
+                  "terminator": {
+                    "args": [
+                      {
+                        "var": "t0"
+                      }
+                    ],
+                    "kind": "Jump",
+                    "label": "bb1"
+                  }
+                },
+                {
+                  "instructions": [],
+                  "label": "bb1",
+                  "parameters": [
+                    {
+                      "id": "p0",
+                      "type": {
+                        "kind": "bv",
+                        "signed": false,
+                        "width": 8
+                      }
+                    }
+                  ],
+                  "terminator": {
+                    "kind": "Return",
+                    "values": [
+                      {
+                        "var": "p0"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "contracts": {
+                "ensures": [
+                  {
+                    "lhs": {
+                      "result": 0
+                    },
+                    "op": "eq",
+                    "rhs": {
+                      "var": "arg0"
+                    }
+                  }
+                ],
+                "function_id": "vector::helpers::public_helper",
+                "loops": [],
+                "modifies": [],
+                "panic": "forbidden",
+                "requires": [],
+                "termination": "total",
+                "unit_id": "vector"
+              },
+              "features_used": [
+                "call_static"
+              ],
+              "id": "vector::helpers::public_helper",
+              "locals": [],
+              "name": "public_helper",
+              "params": [
+                {
+                  "id": "arg0",
+                  "type": {
+                    "kind": "bv",
+                    "signed": false,
+                    "width": 8
+                  }
+                }
+              ],
+              "results": [
+                {
+                  "id": "result0",
+                  "type": {
+                    "kind": "bv",
+                    "signed": false,
+                    "width": 8
+                  }
+                }
+              ],
+              "unit_id": "vector"
+            },
+            {
+              "blocks": [
+                {
+                  "instructions": [
+                    {
+                      "args": [
+                        {
+                          "var": "arg0"
+                        }
+                      ],
+                      "contract_hash": "feb9eb81ba555ee2c1755c507c45d9d3b0777e99b3eeb8b4c4ff022fccb38761",
+                      "function": "vector::helpers::public_helper",
+                      "id": "t0",
+                      "kind": "CallStatic",
+                      "safety_checks": [],
+                      "type": {
+                        "kind": "bv",
+                        "signed": false,
+                        "width": 8
+                      }
+                    }
+                  ],
+                  "label": "bb0",
+                  "parameters": [],
+                  "terminator": {
+                    "args": [
+                      {
+                        "var": "t0"
+                      }
+                    ],
+                    "kind": "Jump",
+                    "label": "bb1"
+                  }
+                },
+                {
+                  "instructions": [],
+                  "label": "bb1",
+                  "parameters": [
+                    {
+                      "id": "p0",
+                      "type": {
+                        "kind": "bv",
+                        "signed": false,
+                        "width": 8
+                      }
+                    }
+                  ],
+                  "terminator": {
+                    "kind": "Return",
+                    "values": [
+                      {
+                        "var": "p0"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "contracts": {
+                "ensures": [
+                  {
+                    "lhs": {
+                      "result": 0
+                    },
+                    "op": "eq",
+                    "rhs": {
+                      "var": "arg0"
+                    }
+                  }
+                ],
+                "function_id": "vector::cross_module",
+                "loops": [],
+                "modifies": [],
+                "panic": "forbidden",
+                "requires": [],
+                "termination": "total",
+                "unit_id": "vector"
+              },
+              "features_used": [
+                "call_static"
+              ],
+              "id": "vector::cross_module",
+              "locals": [],
+              "name": "cross_module",
+              "params": [
+                {
+                  "id": "arg0",
+                  "type": {
+                    "kind": "bv",
+                    "signed": false,
+                    "width": 8
+                  }
+                }
+              ],
+              "results": [
+                {
+                  "id": "result0",
+                  "type": {
+                    "kind": "bv",
+                    "signed": false,
+                    "width": 8
+                  }
+                }
+              ],
+              "unit_id": "vector"
+            }
+          ],
+          "id": "vector",
+          "name": "vector",
+          "type_decls": []
+        }
+      ]
+    }
+  },
+  {
+    "id": "rust32",
+    "query": {
+      "captured_inputs": [
+        {
+          "kind": "lockfile",
+          "normalized_path": "Cargo.lock",
+          "raw_hex": "2320546869732066696c65206973206175746f6d61746963616c6c79204067656e65726174656420627920436172676f2e0a23204974206973206e6f7420696e74656e64656420666f72206d616e75616c2065646974696e672e0a76657273696f6e203d20340a0a5b5b7061636b6167655d5d0a6e616d65203d2022766563746f72220a76657273696f6e203d2022302e312e30220a"
+        },
+        {
+          "kind": "build_manifest",
+          "normalized_path": "Cargo.toml",
+          "raw_hex": "5b7061636b6167655d0a6e616d65203d2022766563746f72220a76657273696f6e203d2022302e312e30220a65646974696f6e203d202232303231220a0a5b6c69625d0a6e616d65203d2022766563746f72220a70617468203d20227372632f6c69622e7273220a0a5b66656174757265735d0a64656661756c74203d205b5d0a"
+        },
+        {
+          "kind": "contract",
+          "normalized_path": "contracts/private.json",
+          "raw_hex": "7b22656e7375726573223a5b7b2261726773223a5b7b22726573756c74223a307d2c7b22706172616d65746572223a2276616c7565227d5d2c226f70223a226571227d5d2c2266756e6374696f6e223a22766563746f723a3a68656c706572733a3a707269766174655f6c656166222c226c6f6f7073223a5b5d2c226d6f646966696573223a5b5d2c2270616e6963223a22666f7262696464656e222c227265717569726573223a5b5d2c22736368656d61223a226d706b2e727573742e636f6e74726163742e7630222c2273656d616e7469635f70726f66696c65223a226d706b2e727573742e636865636b65642e7630222c227461726765745f706f696e7465725f7769647468223a36342c227465726d696e6174696f6e223a22746f74616c227d0a"
+        },
+        {
+          "kind": "contract",
+          "normalized_path": "contracts/public.json",
+          "raw_hex": "7b22656e7375726573223a5b7b2261726773223a5b7b22726573756c74223a307d2c7b22706172616d65746572223a2276616c7565227d5d2c226f70223a226571227d5d2c2266756e6374696f6e223a22766563746f723a3a68656c706572733a3a7075626c69635f68656c706572222c226c6f6f7073223a5b5d2c226d6f646966696573223a5b5d2c2270616e6963223a22666f7262696464656e222c227265717569726573223a5b5d2c22736368656d61223a226d706b2e727573742e636f6e74726163742e7630222c2273656d616e7469635f70726f66696c65223a226d706b2e727573742e636865636b65642e7630222c227461726765745f706f696e7465725f7769647468223a36342c227465726d696e6174696f6e223a22746f74616c227d0a"
+        },
+        {
+          "kind": "contract",
+          "normalized_path": "contracts/selected.json",
+          "raw_hex": "7b22656e7375726573223a5b7b2261726773223a5b7b22726573756c74223a307d2c7b22706172616d65746572223a2276616c7565227d5d2c226f70223a226571227d5d2c2266756e6374696f6e223a22766563746f723a3a63726f73735f6d6f64756c65222c226c6f6f7073223a5b5d2c226d6f646966696573223a5b5d2c2270616e6963223a22666f7262696464656e222c227265717569726573223a5b5d2c22736368656d61223a226d706b2e727573742e636f6e74726163742e7630222c2273656d616e7469635f70726f66696c65223a226d706b2e727573742e636865636b65642e7630222c227461726765745f706f696e7465725f7769647468223a36342c227465726d696e6174696f6e223a22746f74616c227d0a"
+        },
+        {
+          "kind": "source",
+          "normalized_path": "src/lib.rs",
+          "raw_hex": "6d6f642068656c70657273207b0a20202020666e20707269766174655f6c6561662876616c75653a20753829202d3e207538207b0a202020202020202076616c75650a202020207d0a0a2020202070756220666e207075626c69635f68656c7065722876616c75653a20753829202d3e207538207b0a2020202020202020707269766174655f6c6561662876616c7565290a202020207d0a7d0a0a70756220666e2063726f73735f6d6f64756c652876616c75653a20753829202d3e207538207b0a2020202063726174653a3a68656c706572733a3a7075626c69635f68656c7065722876616c7565290a7d0a"
+        }
+      ],
+      "context": {
+        "profile_entry_sha256": "1cee9716bb21d07e07b8bc1de59ecaf83437549a4d595039486312260816f057",
+        "profile_registry": {
+          "id": "mpk.semantic_profile.registry.v1",
+          "registry_sha256": "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557",
+          "revision": 3,
+          "schema": "mpk.semantic_profile.registry.v1"
+        },
+        "semantic_parameters": {
+          "schema": "mpk.semantic_parameters.rust_checked.v0",
+          "value": {
+            "overflow_mode": "checked",
+            "panic_mode": "abort",
+            "pointer_width": 32,
+            "target_id": "i686-unknown-linux-gnu"
+          }
+        },
+        "semantic_profile": "mpk.rust.checked.v0",
+        "source_language": "rust"
+      },
+      "entries": [
+        {
+          "origin": {
+            "end": 236,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "src/lib.rs",
+            "start": 155
+          },
+          "reference": {
+            "function_id": "vector::cross_module",
+            "kind": "function",
+            "unit_id": "vector"
+          }
+        },
+        {
+          "origin": {
+            "end": 234,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "src/lib.rs",
+            "start": 198
+          },
+          "reference": {
+            "block": "bb0",
+            "function_id": "vector::cross_module",
+            "instruction": "t0",
+            "kind": "instruction",
+            "unit_id": "vector"
+          }
+        },
+        {
+          "origin": {
+            "end": 234,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "src/lib.rs",
+            "start": 198
+          },
+          "reference": {
+            "block": "bb0",
+            "function_id": "vector::cross_module",
+            "kind": "terminator",
+            "unit_id": "vector"
+          }
+        },
+        {
+          "origin": {
+            "end": 234,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "src/lib.rs",
+            "start": 198
+          },
+          "reference": {
+            "block": "bb1",
+            "function_id": "vector::cross_module",
+            "kind": "terminator",
+            "unit_id": "vector"
+          }
+        },
+        {
+          "origin": {
+            "end": 72,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "src/lib.rs",
+            "start": 18
+          },
+          "reference": {
+            "function_id": "vector::helpers::private_leaf",
+            "kind": "function",
+            "unit_id": "vector"
+          }
+        },
+        {
+          "origin": {
+            "end": 66,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "src/lib.rs",
+            "start": 61
+          },
+          "reference": {
+            "block": "bb0",
+            "function_id": "vector::helpers::private_leaf",
+            "kind": "terminator",
+            "unit_id": "vector"
+          }
+        },
+        {
+          "origin": {
+            "end": 151,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "src/lib.rs",
+            "start": 78
+          },
+          "reference": {
+            "function_id": "vector::helpers::public_helper",
+            "kind": "function",
+            "unit_id": "vector"
+          }
+        },
+        {
+          "origin": {
+            "end": 145,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "src/lib.rs",
+            "start": 126
+          },
+          "reference": {
+            "block": "bb0",
+            "function_id": "vector::helpers::public_helper",
+            "instruction": "t0",
+            "kind": "instruction",
+            "unit_id": "vector"
+          }
+        },
+        {
+          "origin": {
+            "end": 145,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "src/lib.rs",
+            "start": 126
+          },
+          "reference": {
+            "block": "bb0",
+            "function_id": "vector::helpers::public_helper",
+            "kind": "terminator",
+            "unit_id": "vector"
+          }
+        },
+        {
+          "origin": {
+            "end": 145,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "src/lib.rs",
+            "start": 126
+          },
+          "reference": {
+            "block": "bb1",
+            "function_id": "vector::helpers::public_helper",
+            "kind": "terminator",
+            "unit_id": "vector"
+          }
+        }
+      ],
+      "expected_release_registry": {
+        "id": "mpk.release.registry.v1",
+        "registry_sha256": "7877c7c04fae912815713a8a7f6f9900198721ea572788f6f48d1dbe3f00afbd",
+        "schema": "mpk.release.bundle_registry.v1"
+      },
+      "manifest": {
+        "frontend": {
+          "binary_sha256": "dd8715c3a54e0e02a940cfac5b61ed87d0ca8afb9b6259e853c0dd700e32f344",
+          "bundle_id": "frontend.rust.rust2vir.candidate.v2",
+          "name": "rust2vir",
+          "subordinate_binaries": [
+            {
+              "binary_sha256": "84d2c05f7c9e49b68c5eb79dde3566791d52f2603baa10e2bcf8f9f4ad7c3da7",
+              "name": "rust2vir-driver",
+              "version": "0.1.0-profile-v1-staging"
+            }
+          ],
+          "version": "0.1.0-profile-v1-staging"
+        },
+        "input_set_hash": "31eff84891d68e5b40230f41e617e5f03778ecca1903c55bde38280b8bbe021e",
+        "inputs": [
+          {
+            "kind": "lockfile",
+            "normalized_path": "Cargo.lock",
+            "sha256": "125728d28ca607be7f9138e95a2e68558c73380338ffd0f948647a39c4f169c1",
+            "size_bytes": 150
+          },
+          {
+            "kind": "build_manifest",
+            "normalized_path": "Cargo.toml",
+            "sha256": "26513f032d673cec6eab2ee844f7b8a3ff1253769117033aa643aff0460bf36e",
+            "size_bytes": 129
+          },
+          {
+            "kind": "contract",
+            "normalized_path": "contracts/private.json",
+            "sha256": "3e7933a16b2ca2d9ff70e87fc57041bc6d0e04d2c3dcd09dad4e1f507582bbad",
+            "size_bytes": 293
+          },
+          {
+            "kind": "contract",
+            "normalized_path": "contracts/public.json",
+            "sha256": "9d296ca7b2848ed24c6f4080c50974399f9580f3574ca0ca4002d4ba1728221a",
+            "size_bytes": 294
+          },
+          {
+            "kind": "contract",
+            "normalized_path": "contracts/selected.json",
+            "sha256": "509b3cf4ece61efaba58e40b6b94fd44c90137d72da0efc6f48d9df9f0d1b098",
+            "size_bytes": 284
+          },
+          {
+            "kind": "source",
+            "normalized_path": "src/lib.rs",
+            "sha256": "21c3d0ecf917ae461c20b2d59f9452009026c9d72c80683f4b36ace130ab8240",
+            "size_bytes": 237
+          }
+        ],
+        "limit_profile": "mpk.vir.limits.v0",
+        "release_registry": {
+          "id": "mpk.release.registry.v1",
+          "registry_sha256": "7877c7c04fae912815713a8a7f6f9900198721ea572788f6f48d1dbe3f00afbd",
+          "schema": "mpk.release.bundle_registry.v1"
+        },
+        "selection": {
+          "schema": "mpk.selection.rust_function.v0",
+          "value": {
+            "crate": "vector",
+            "function": "vector::cross_module",
+            "kind": "lib",
+            "package": "vector"
+          }
+        },
+        "target": {
+          "id": "i686-unknown-linux-gnu",
+          "pointer_width": 32
+        },
+        "toolchain": {
+          "bundle_id": "toolchain.rust.nightly-2025-06-01.candidate.v1",
+          "components": [
+            {
+              "binary_sha256": "4ab49080934031ce3b87b1a8792e685f99819e8a3f537f110a339d7331f1dcea",
+              "kind": "executable",
+              "name": "cargo",
+              "release": "1.89.0-nightly"
+            },
+            {
+              "content_sha256": "6d8ebe276575c5019abdc97051baf78e166354249eca4d6b65f638c5fb171005",
+              "kind": "content",
+              "name": "native-runtime",
+              "release": "nightly-2025-06-01"
+            },
+            {
+              "content_sha256": "7698b22d00656113340f692fd9212a1494077fd470f924948945e690da401292",
+              "kind": "content",
+              "name": "rust-compiler-runtime",
+              "release": "nightly-2025-06-01"
+            },
+            {
+              "content_sha256": "8f606996b669eb0f4314309d145d93c6eeaad8b261791584387bcff46ccafb0a",
+              "kind": "content",
+              "name": "rust-target-i686",
+              "release": "nightly-2025-06-01"
+            },
+            {
+              "content_sha256": "d8c45533753e17186cefde3e0830f7b358a8b4c818eb732d8814a31861335a15",
+              "kind": "content",
+              "name": "rust-target-x86_64",
+              "release": "nightly-2025-06-01"
+            },
+            {
+              "binary_sha256": "a7c2179d845e8f40305bace1657b903f10d149cc6d72b0c08ecef75487418922",
+              "commit_hash": "4d08223c054cf5a56d9761ca925fd46ffebe7115",
+              "kind": "executable",
+              "name": "rustc",
+              "release": "1.89.0-nightly"
+            }
+          ],
+          "distribution_sha256": "86dab73dadd3a3184064e7d7da7e878562eba4cfc4c8a969bc8f44a5e865c90a"
+        },
+        "units": [
+          {
+            "identity": "vector",
+            "kind": "lib",
+            "name": "vector"
+          }
+        ]
+      },
+      "profile_contract": {
+        "contract_id": "mpk.profile.vc.rust_checked.v0",
+        "profile_entry_sha256": "1cee9716bb21d07e07b8bc1de59ecaf83437549a4d595039486312260816f057",
+        "value": {
+          "contract_profile_id": "mpk.rust.contract.v0",
+          "required_check_profile_id": "mpk.rust.checked.v0",
+          "verification_limit_profile_id": "mpk.verify.limits.v0"
+        }
+      },
+      "stage": "manifest",
+      "synthetic_permissions": [],
+      "units": [
+        {
+          "const_decls": [],
+          "functions": [
+            {
+              "blocks": [
+                {
+                  "instructions": [],
+                  "label": "bb0",
+                  "parameters": [],
+                  "terminator": {
+                    "kind": "Return",
+                    "values": [
+                      {
+                        "var": "arg0"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "contracts": {
+                "ensures": [
+                  {
+                    "lhs": {
+                      "result": 0
+                    },
+                    "op": "eq",
+                    "rhs": {
+                      "var": "arg0"
+                    }
+                  }
+                ],
+                "function_id": "vector::helpers::private_leaf",
+                "loops": [],
+                "modifies": [],
+                "panic": "forbidden",
+                "requires": [],
+                "termination": "total",
+                "unit_id": "vector"
+              },
+              "features_used": [],
+              "id": "vector::helpers::private_leaf",
+              "locals": [],
+              "name": "private_leaf",
+              "params": [
+                {
+                  "id": "arg0",
+                  "type": {
+                    "kind": "bv",
+                    "signed": false,
+                    "width": 8
+                  }
+                }
+              ],
+              "results": [
+                {
+                  "id": "result0",
+                  "type": {
+                    "kind": "bv",
+                    "signed": false,
+                    "width": 8
+                  }
+                }
+              ],
+              "unit_id": "vector"
+            },
+            {
+              "blocks": [
+                {
+                  "instructions": [
+                    {
+                      "args": [
+                        {
+                          "var": "arg0"
+                        }
+                      ],
+                      "contract_hash": "df4044c438f3b5fcd58d939afc381fd17fde0889020821487b56ace2f6f763cd",
+                      "function": "vector::helpers::private_leaf",
+                      "id": "t0",
+                      "kind": "CallStatic",
+                      "safety_checks": [],
+                      "type": {
+                        "kind": "bv",
+                        "signed": false,
+                        "width": 8
+                      }
+                    }
+                  ],
+                  "label": "bb0",
+                  "parameters": [],
+                  "terminator": {
+                    "args": [
+                      {
+                        "var": "t0"
+                      }
+                    ],
+                    "kind": "Jump",
+                    "label": "bb1"
+                  }
+                },
+                {
+                  "instructions": [],
+                  "label": "bb1",
+                  "parameters": [
+                    {
+                      "id": "p0",
+                      "type": {
+                        "kind": "bv",
+                        "signed": false,
+                        "width": 8
+                      }
+                    }
+                  ],
+                  "terminator": {
+                    "kind": "Return",
+                    "values": [
+                      {
+                        "var": "p0"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "contracts": {
+                "ensures": [
+                  {
+                    "lhs": {
+                      "result": 0
+                    },
+                    "op": "eq",
+                    "rhs": {
+                      "var": "arg0"
+                    }
+                  }
+                ],
+                "function_id": "vector::helpers::public_helper",
+                "loops": [],
+                "modifies": [],
+                "panic": "forbidden",
+                "requires": [],
+                "termination": "total",
+                "unit_id": "vector"
+              },
+              "features_used": [
+                "call_static"
+              ],
+              "id": "vector::helpers::public_helper",
+              "locals": [],
+              "name": "public_helper",
+              "params": [
+                {
+                  "id": "arg0",
+                  "type": {
+                    "kind": "bv",
+                    "signed": false,
+                    "width": 8
+                  }
+                }
+              ],
+              "results": [
+                {
+                  "id": "result0",
+                  "type": {
+                    "kind": "bv",
+                    "signed": false,
+                    "width": 8
+                  }
+                }
+              ],
+              "unit_id": "vector"
+            },
+            {
+              "blocks": [
+                {
+                  "instructions": [
+                    {
+                      "args": [
+                        {
+                          "var": "arg0"
+                        }
+                      ],
+                      "contract_hash": "8b50fbad5cfade48b2c2f156b4e7ccb2026e37c22bef4b098a33a04af2b8fcf9",
+                      "function": "vector::helpers::public_helper",
+                      "id": "t0",
+                      "kind": "CallStatic",
+                      "safety_checks": [],
+                      "type": {
+                        "kind": "bv",
+                        "signed": false,
+                        "width": 8
+                      }
+                    }
+                  ],
+                  "label": "bb0",
+                  "parameters": [],
+                  "terminator": {
+                    "args": [
+                      {
+                        "var": "t0"
+                      }
+                    ],
+                    "kind": "Jump",
+                    "label": "bb1"
+                  }
+                },
+                {
+                  "instructions": [],
+                  "label": "bb1",
+                  "parameters": [
+                    {
+                      "id": "p0",
+                      "type": {
+                        "kind": "bv",
+                        "signed": false,
+                        "width": 8
+                      }
+                    }
+                  ],
+                  "terminator": {
+                    "kind": "Return",
+                    "values": [
+                      {
+                        "var": "p0"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "contracts": {
+                "ensures": [
+                  {
+                    "lhs": {
+                      "result": 0
+                    },
+                    "op": "eq",
+                    "rhs": {
+                      "var": "arg0"
+                    }
+                  }
+                ],
+                "function_id": "vector::cross_module",
+                "loops": [],
+                "modifies": [],
+                "panic": "forbidden",
+                "requires": [],
+                "termination": "total",
+                "unit_id": "vector"
+              },
+              "features_used": [
+                "call_static"
+              ],
+              "id": "vector::cross_module",
+              "locals": [],
+              "name": "cross_module",
+              "params": [
+                {
+                  "id": "arg0",
+                  "type": {
+                    "kind": "bv",
+                    "signed": false,
+                    "width": 8
+                  }
+                }
+              ],
+              "results": [
+                {
+                  "id": "result0",
+                  "type": {
+                    "kind": "bv",
+                    "signed": false,
+                    "width": 8
+                  }
+                }
+              ],
+              "unit_id": "vector"
+            }
+          ],
+          "id": "vector",
+          "name": "vector",
+          "type_decls": []
+        }
+      ]
+    }
+  },
+  {
+    "id": "csharp",
+    "query": {
+      "captured_inputs": [
+        {
+          "kind": "source",
+          "normalized_path": "src/Policy.cs",
+          "raw_hex": "2f2f20e381820a6e616d657370616365204578616d706c653b207075626c69632073746174696320636c61737320506f6c696379207b207075626c69632073746174696320626f6f6c20416e6428626f6f6c20612c20626f6f6c206229207b2072657475726e206120262620623b207d207d0a"
+        },
+        {
+          "kind": "contract",
+          "normalized_path": "contracts/Policy.json",
+          "raw_hex": "7b0a2020226162727570745f636f6d706c6574696f6e223a2022666f7262696464656e222c0a202022656e7375726573223a205b0a202020207b0a20202020202022626f6f6c223a20747275650a202020207d0a20205d2c0a2020226d6574686f64223a20224578616d706c652e506f6c6963793a3a416e6428626f6f6c2c626f6f6c292d3e626f6f6c222c0a2020226d6f646966696573223a205b5d2c0a2020227265717569726573223a205b5d2c0a202022736368656d61223a20226d706b2e6373686172702e636f6e74726163742e7630222c0a20202273656d616e7469635f70726f66696c65223a20226d706b2e6373686172702e7363616c61722e7630222c0a2020227465726d696e6174696f6e223a2022746f74616c220a7d0a"
+        }
+      ],
+      "context": {
+        "profile_entry_sha256": "d4cc54a5364af848af845a9044d0f5aec962e6e509554e9a9b75a7a9f0b6e7ac",
+        "profile_registry": {
+          "id": "mpk.semantic_profile.registry.v1",
+          "registry_sha256": "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557",
+          "revision": 3,
+          "schema": "mpk.semantic_profile.registry.v1"
+        },
+        "semantic_parameters": {
+          "schema": "mpk.semantic_parameters.csharp_scalar.v0",
+          "value": {
+            "check_overflow_default": false,
+            "documentation_mode": "none",
+            "language_version": "14.0",
+            "nullable_context": "disable",
+            "optimization": "release",
+            "platform": "x64",
+            "pointer_width": 64,
+            "preprocessor_symbols": [],
+            "source_kind": "regular",
+            "target_framework": "net10.0",
+            "target_id": "linux-x64",
+            "unsafe": false
+          }
+        },
+        "semantic_profile": "mpk.csharp.scalar.v0",
+        "source_language": "csharp"
+      },
+      "entries": [
+        {
+          "origin": {
+            "end": 115,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "src/Policy.cs",
+            "start": 0
+          },
+          "reference": {
+            "function_id": "Example.Policy::And(bool,bool)->bool",
+            "kind": "function",
+            "unit_id": "policy"
+          }
+        },
+        {
+          "origin": {
+            "end": 115,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "src/Policy.cs",
+            "start": 0
+          },
+          "reference": {
+            "block": "bb0",
+            "function_id": "Example.Policy::And(bool,bool)->bool",
+            "kind": "terminator",
+            "unit_id": "policy"
+          }
+        },
+        {
+          "origin": {
+            "end": 115,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "src/Policy.cs",
+            "start": 0
+          },
+          "reference": {
+            "block": "bb1",
+            "function_id": "Example.Policy::And(bool,bool)->bool",
+            "kind": "terminator",
+            "unit_id": "policy"
+          }
+        },
+        {
+          "origin": {
+            "end": 115,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "src/Policy.cs",
+            "start": 0
+          },
+          "reference": {
+            "block": "bb2",
+            "function_id": "Example.Policy::And(bool,bool)->bool",
+            "kind": "terminator",
+            "unit_id": "policy"
+          }
+        },
+        {
+          "origin": {
+            "end": 115,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "src/Policy.cs",
+            "start": 0
+          },
+          "reference": {
+            "block": "bb3",
+            "function_id": "Example.Policy::And(bool,bool)->bool",
+            "kind": "terminator",
+            "unit_id": "policy"
+          }
+        }
+      ],
+      "expected_release_registry": {
+        "id": "mpk.release.registry.v1",
+        "registry_sha256": "7877c7c04fae912815713a8a7f6f9900198721ea572788f6f48d1dbe3f00afbd",
+        "schema": "mpk.release.bundle_registry.v1"
+      },
+      "manifest": {
+        "frontend": {
+          "binary_sha256": "62dda4ba6589347eea5e4d59b035b41988fc6cab65088c1039e79ecbc92e8bff",
+          "bundle_id": "frontend.go.go2vir.candidate.v1",
+          "name": "go2vir",
+          "subordinate_binaries": [],
+          "version": "go1.25.0-profile-v1-staging"
+        },
+        "input_set_hash": "73e87d1b1f32c5ee3efb67ba8cba010a02440c19a650c9a118e9e15fed4936a9",
+        "inputs": [
+          {
+            "kind": "contract",
+            "normalized_path": "contracts/Policy.json",
+            "sha256": "9139bdea1af8dd61cffb58bec70eff23c93fbed797b24be7de8ae14560a42b59",
+            "size_bytes": 288
+          },
+          {
+            "kind": "source",
+            "normalized_path": "src/Policy.cs",
+            "sha256": "175c3fc444558c70d84c1bb25c4ed9449073a0b76ee9164c913c35876061c66f",
+            "size_bytes": 115
+          }
+        ],
+        "limit_profile": "mpk.vir.limits.v0",
+        "release_registry": {
+          "id": "mpk.release.registry.v1",
+          "registry_sha256": "7877c7c04fae912815713a8a7f6f9900198721ea572788f6f48d1dbe3f00afbd",
+          "schema": "mpk.release.bundle_registry.v1"
+        },
+        "selection": {
+          "schema": "mpk.selection.csharp_methods.v0",
+          "value": {
+            "compilation": "policy",
+            "contracts": [
+              "contracts/Policy.json"
+            ],
+            "methods": [
+              "Example.Policy::And(bool,bool)->bool"
+            ],
+            "sources": [
+              "src/Policy.cs"
+            ]
+          }
+        },
+        "target": {
+          "id": "linux-x64",
+          "pointer_width": 64
+        },
+        "toolchain": {
+          "bundle_id": "toolchain.go.go1.25.0.linux-amd64.candidate.v1",
+          "components": [
+            {
+              "binary_sha256": "b93cdfdbc72f1afc3f21498c80bf3d155a44a9b95e2d690c940511051574bc25",
+              "kind": "executable",
+              "name": "go",
+              "release": "go1.25.0"
+            },
+            {
+              "content_sha256": "5380dbbaf794293606958f98f1e0f2fdab25826eba775801becb9159119b6f50",
+              "kind": "content",
+              "name": "go-target-linux-amd64",
+              "release": "go1.25.0"
+            },
+            {
+              "binary_sha256": "a7ed400a04009488ea819eb06aeb912dc3537125cceef036743641060fd797f4",
+              "kind": "executable",
+              "name": "go-tool-asm",
+              "release": "go1.25.0"
+            },
+            {
+              "binary_sha256": "d61f87246456ff1175d057ad663a10dd1ac503c54dc770d14aaa5ffd3309b858",
+              "kind": "executable",
+              "name": "go-tool-cgo",
+              "release": "go1.25.0"
+            },
+            {
+              "binary_sha256": "20dbac54f9f897582aedafea7207976f0300cfd4992429814d00bccbea7a4083",
+              "kind": "executable",
+              "name": "go-tool-compile",
+              "release": "go1.25.0"
+            },
+            {
+              "binary_sha256": "64686d22f3b4055386bbcbf0aeac54249cdbff771ffd7b54c8d4abd330df8166",
+              "kind": "executable",
+              "name": "go-tool-cover",
+              "release": "go1.25.0"
+            },
+            {
+              "binary_sha256": "a4286eaff6094de7f88d55299a61a14d5aae2bfbd19687ba6d5330a730aee983",
+              "kind": "executable",
+              "name": "go-tool-link",
+              "release": "go1.25.0"
+            },
+            {
+              "binary_sha256": "eff3b19676f41d95eb598fa7520a9f44c2014db65a5a7470a2ca5c4cfa3f840b",
+              "kind": "executable",
+              "name": "go-tool-preprofile",
+              "release": "go1.25.0"
+            },
+            {
+              "binary_sha256": "9b9d776e7569c910de714790a1b9bab1287b49fdc210973158f3076cee683bf7",
+              "kind": "executable",
+              "name": "go-tool-vet",
+              "release": "go1.25.0"
+            },
+            {
+              "binary_sha256": "2aa4122abbd1593ee7c9e184366feef7cb06e52ce790b5ef2119e8aee8640a80",
+              "kind": "executable",
+              "name": "gofmt",
+              "release": "go1.25.0"
+            }
+          ],
+          "distribution_sha256": "0f90ec34b19ee271f1a31c923ff5ef0f805493a5890f22b5736e68741d4575be"
+        },
+        "units": [
+          {
+            "identity": "policy",
+            "kind": "compilation",
+            "name": "policy"
+          }
+        ]
+      },
+      "profile_contract": {
+        "contract_id": "mpk.profile.vc.csharp_scalar.v0",
+        "profile_entry_sha256": "d4cc54a5364af848af845a9044d0f5aec962e6e509554e9a9b75a7a9f0b6e7ac",
+        "value": {
+          "contract_profile_id": "mpk.csharp.contract.v0",
+          "required_check_profile_id": "mpk.csharp.required_checks.v0",
+          "verification_limit_profile_id": "mpk.verify.limits.v0"
+        }
+      },
+      "stage": "manifest",
+      "synthetic_permissions": [],
+      "units": [
+        {
+          "const_decls": [],
+          "functions": [
+            {
+              "blocks": [
+                {
+                  "instructions": [],
+                  "label": "bb0",
+                  "parameters": [],
+                  "terminator": {
+                    "cond": {
+                      "var": "arg0"
+                    },
+                    "else_args": [],
+                    "else_label": "bb1",
+                    "kind": "Branch",
+                    "then_args": [],
+                    "then_label": "bb2"
+                  }
+                },
+                {
+                  "instructions": [],
+                  "label": "bb1",
+                  "parameters": [],
+                  "terminator": {
+                    "kind": "Return",
+                    "values": [
+                      {
+                        "bool": false
+                      }
+                    ]
+                  }
+                },
+                {
+                  "instructions": [],
+                  "label": "bb2",
+                  "parameters": [],
+                  "terminator": {
+                    "cond": {
+                      "var": "arg1"
+                    },
+                    "else_args": [],
+                    "else_label": "bb1",
+                    "kind": "Branch",
+                    "then_args": [],
+                    "then_label": "bb3"
+                  }
+                },
+                {
+                  "instructions": [],
+                  "label": "bb3",
+                  "parameters": [],
+                  "terminator": {
+                    "kind": "Return",
+                    "values": [
+                      {
+                        "bool": true
+                      }
+                    ]
+                  }
+                }
+              ],
+              "contracts": {
+                "ensures": [
+                  {
+                    "bool": true
+                  }
+                ],
+                "function_id": "Example.Policy::And(bool,bool)->bool",
+                "loops": [],
+                "modifies": [],
+                "panic": "forbidden",
+                "requires": [],
+                "termination": "total",
+                "unit_id": "policy"
+              },
+              "features_used": [
+                "branch"
+              ],
+              "id": "Example.Policy::And(bool,bool)->bool",
+              "locals": [],
+              "name": "And",
+              "params": [
+                {
+                  "id": "arg0",
+                  "type": {
+                    "kind": "bool"
+                  }
+                },
+                {
+                  "id": "arg1",
+                  "type": {
+                    "kind": "bool"
+                  }
+                }
+              ],
+              "results": [
+                {
+                  "id": "result0",
+                  "type": {
+                    "kind": "bool"
+                  }
+                }
+              ],
+              "unit_id": "policy"
+            }
+          ],
+          "id": "policy",
+          "name": "policy",
+          "type_decls": []
+        }
+      ]
+    }
+  },
+  {
+    "id": "java",
+    "query": {
+      "captured_inputs": [
+        {
+          "kind": "source",
+          "normalized_path": "src/example/Policy.java",
+          "raw_hex": "2f2f20e381820a7061636b616765206578616d706c653b207075626c69632066696e616c20636c61737320506f6c696379207b207075626c69632073746174696320626f6f6c65616e20616e6428626f6f6c65616e20612c20626f6f6c65616e206229207b2072657475726e206120262620623b207d207d0a"
+        },
+        {
+          "kind": "contract",
+          "normalized_path": "contracts/Policy.json",
+          "raw_hex": "7b0a2020226162727570745f636f6d706c6574696f6e223a2022666f7262696464656e222c0a202022656e7375726573223a205b0a202020207b0a20202020202022626f6f6c223a20747275650a202020207d0a20205d2c0a2020226d6574686f64223a20226578616d706c652e506f6c6963793a3a616e6428626f6f6c65616e2c626f6f6c65616e292d3e626f6f6c65616e222c0a2020226d6f646966696573223a205b5d2c0a2020227265717569726573223a205b5d2c0a202022736368656d61223a20226d706b2e6a6176612e636f6e74726163742e7630222c0a20202273656d616e7469635f70726f66696c65223a20226d706b2e6a6176612e7363616c61722e7630222c0a2020227465726d696e6174696f6e223a2022746f74616c220a7d0a"
+        }
+      ],
+      "context": {
+        "profile_entry_sha256": "0d80d13f97c45557fa9978eccc2545ffdb3fc1b93a26856b365a9be200470301",
+        "profile_registry": {
+          "id": "mpk.semantic_profile.registry.v1",
+          "registry_sha256": "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557",
+          "revision": 3,
+          "schema": "mpk.semantic_profile.registry.v1"
+        },
+        "semantic_parameters": {
+          "schema": "mpk.semantic_parameters.java_scalar.v0",
+          "value": {
+            "annotation_processing": "none",
+            "encoding": "UTF-8",
+            "language_version": "25",
+            "preview": false,
+            "release": "25",
+            "target_id": "linux-x64"
+          }
+        },
+        "semantic_profile": "mpk.java.scalar.v0",
+        "source_language": "java"
+      },
+      "entries": [
+        {
+          "origin": {
+            "end": 121,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "src/example/Policy.java",
+            "start": 0
+          },
+          "reference": {
+            "function_id": "example.Policy::and(boolean,boolean)->boolean",
+            "kind": "function",
+            "unit_id": "policy"
+          }
+        },
+        {
+          "origin": {
+            "end": 121,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "src/example/Policy.java",
+            "start": 0
+          },
+          "reference": {
+            "block": "bb0",
+            "function_id": "example.Policy::and(boolean,boolean)->boolean",
+            "kind": "terminator",
+            "unit_id": "policy"
+          }
+        },
+        {
+          "origin": {
+            "end": 121,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "src/example/Policy.java",
+            "start": 0
+          },
+          "reference": {
+            "block": "bb1",
+            "function_id": "example.Policy::and(boolean,boolean)->boolean",
+            "kind": "terminator",
+            "unit_id": "policy"
+          }
+        },
+        {
+          "origin": {
+            "end": 121,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "src/example/Policy.java",
+            "start": 0
+          },
+          "reference": {
+            "block": "bb2",
+            "function_id": "example.Policy::and(boolean,boolean)->boolean",
+            "kind": "terminator",
+            "unit_id": "policy"
+          }
+        },
+        {
+          "origin": {
+            "end": 121,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "src/example/Policy.java",
+            "start": 0
+          },
+          "reference": {
+            "block": "bb3",
+            "function_id": "example.Policy::and(boolean,boolean)->boolean",
+            "kind": "terminator",
+            "unit_id": "policy"
+          }
+        }
+      ],
+      "expected_release_registry": {
+        "id": "mpk.release.registry.v1",
+        "registry_sha256": "7877c7c04fae912815713a8a7f6f9900198721ea572788f6f48d1dbe3f00afbd",
+        "schema": "mpk.release.bundle_registry.v1"
+      },
+      "manifest": {
+        "frontend": {
+          "binary_sha256": "62dda4ba6589347eea5e4d59b035b41988fc6cab65088c1039e79ecbc92e8bff",
+          "bundle_id": "frontend.go.go2vir.candidate.v1",
+          "name": "go2vir",
+          "subordinate_binaries": [],
+          "version": "go1.25.0-profile-v1-staging"
+        },
+        "input_set_hash": "0673d89711e491b694e8ab1be28f283cda8a2c80184be6ff66f2129cc82c6050",
+        "inputs": [
+          {
+            "kind": "contract",
+            "normalized_path": "contracts/Policy.json",
+            "sha256": "ff4d63269d0ef8087b37d8372aa93dbf579eda0e017279b08731c2eb855b6d74",
+            "size_bytes": 293
+          },
+          {
+            "kind": "source",
+            "normalized_path": "src/example/Policy.java",
+            "sha256": "34fba6fe4b5ecf6a719193971e280e94285da33880095cf8e25f4200691070b7",
+            "size_bytes": 121
+          }
+        ],
+        "limit_profile": "mpk.vir.limits.v0",
+        "release_registry": {
+          "id": "mpk.release.registry.v1",
+          "registry_sha256": "7877c7c04fae912815713a8a7f6f9900198721ea572788f6f48d1dbe3f00afbd",
+          "schema": "mpk.release.bundle_registry.v1"
+        },
+        "selection": {
+          "schema": "mpk.selection.java_methods.v0",
+          "value": {
+            "compilation": "policy",
+            "contracts": [
+              "contracts/Policy.json"
+            ],
+            "methods": [
+              "example.Policy::and(boolean,boolean)->boolean"
+            ],
+            "sources": [
+              "src/example/Policy.java"
+            ]
+          }
+        },
+        "target": {
+          "id": "linux-x64",
+          "pointer_width": 64
+        },
+        "toolchain": {
+          "bundle_id": "toolchain.go.go1.25.0.linux-amd64.candidate.v1",
+          "components": [
+            {
+              "binary_sha256": "b93cdfdbc72f1afc3f21498c80bf3d155a44a9b95e2d690c940511051574bc25",
+              "kind": "executable",
+              "name": "go",
+              "release": "go1.25.0"
+            },
+            {
+              "content_sha256": "5380dbbaf794293606958f98f1e0f2fdab25826eba775801becb9159119b6f50",
+              "kind": "content",
+              "name": "go-target-linux-amd64",
+              "release": "go1.25.0"
+            },
+            {
+              "binary_sha256": "a7ed400a04009488ea819eb06aeb912dc3537125cceef036743641060fd797f4",
+              "kind": "executable",
+              "name": "go-tool-asm",
+              "release": "go1.25.0"
+            },
+            {
+              "binary_sha256": "d61f87246456ff1175d057ad663a10dd1ac503c54dc770d14aaa5ffd3309b858",
+              "kind": "executable",
+              "name": "go-tool-cgo",
+              "release": "go1.25.0"
+            },
+            {
+              "binary_sha256": "20dbac54f9f897582aedafea7207976f0300cfd4992429814d00bccbea7a4083",
+              "kind": "executable",
+              "name": "go-tool-compile",
+              "release": "go1.25.0"
+            },
+            {
+              "binary_sha256": "64686d22f3b4055386bbcbf0aeac54249cdbff771ffd7b54c8d4abd330df8166",
+              "kind": "executable",
+              "name": "go-tool-cover",
+              "release": "go1.25.0"
+            },
+            {
+              "binary_sha256": "a4286eaff6094de7f88d55299a61a14d5aae2bfbd19687ba6d5330a730aee983",
+              "kind": "executable",
+              "name": "go-tool-link",
+              "release": "go1.25.0"
+            },
+            {
+              "binary_sha256": "eff3b19676f41d95eb598fa7520a9f44c2014db65a5a7470a2ca5c4cfa3f840b",
+              "kind": "executable",
+              "name": "go-tool-preprofile",
+              "release": "go1.25.0"
+            },
+            {
+              "binary_sha256": "9b9d776e7569c910de714790a1b9bab1287b49fdc210973158f3076cee683bf7",
+              "kind": "executable",
+              "name": "go-tool-vet",
+              "release": "go1.25.0"
+            },
+            {
+              "binary_sha256": "2aa4122abbd1593ee7c9e184366feef7cb06e52ce790b5ef2119e8aee8640a80",
+              "kind": "executable",
+              "name": "gofmt",
+              "release": "go1.25.0"
+            }
+          ],
+          "distribution_sha256": "0f90ec34b19ee271f1a31c923ff5ef0f805493a5890f22b5736e68741d4575be"
+        },
+        "units": [
+          {
+            "identity": "policy",
+            "kind": "compilation",
+            "name": "policy"
+          }
+        ]
+      },
+      "profile_contract": {
+        "contract_id": "mpk.profile.vc.java_scalar.v0",
+        "profile_entry_sha256": "0d80d13f97c45557fa9978eccc2545ffdb3fc1b93a26856b365a9be200470301",
+        "value": {
+          "contract_profile_id": "mpk.java.contract.v0",
+          "required_check_profile_id": "mpk.java.required_checks.v0",
+          "verification_limit_profile_id": "mpk.verify.limits.v0"
+        }
+      },
+      "stage": "manifest",
+      "synthetic_permissions": [],
+      "units": [
+        {
+          "const_decls": [],
+          "functions": [
+            {
+              "blocks": [
+                {
+                  "instructions": [],
+                  "label": "bb0",
+                  "parameters": [],
+                  "terminator": {
+                    "cond": {
+                      "var": "arg0"
+                    },
+                    "else_args": [],
+                    "else_label": "bb1",
+                    "kind": "Branch",
+                    "then_args": [],
+                    "then_label": "bb2"
+                  }
+                },
+                {
+                  "instructions": [],
+                  "label": "bb1",
+                  "parameters": [],
+                  "terminator": {
+                    "kind": "Return",
+                    "values": [
+                      {
+                        "bool": false
+                      }
+                    ]
+                  }
+                },
+                {
+                  "instructions": [],
+                  "label": "bb2",
+                  "parameters": [],
+                  "terminator": {
+                    "cond": {
+                      "var": "arg1"
+                    },
+                    "else_args": [],
+                    "else_label": "bb1",
+                    "kind": "Branch",
+                    "then_args": [],
+                    "then_label": "bb3"
+                  }
+                },
+                {
+                  "instructions": [],
+                  "label": "bb3",
+                  "parameters": [],
+                  "terminator": {
+                    "kind": "Return",
+                    "values": [
+                      {
+                        "bool": true
+                      }
+                    ]
+                  }
+                }
+              ],
+              "contracts": {
+                "ensures": [
+                  {
+                    "bool": true
+                  }
+                ],
+                "function_id": "example.Policy::and(boolean,boolean)->boolean",
+                "loops": [],
+                "modifies": [],
+                "panic": "forbidden",
+                "requires": [],
+                "termination": "total",
+                "unit_id": "policy"
+              },
+              "features_used": [
+                "branch"
+              ],
+              "id": "example.Policy::and(boolean,boolean)->boolean",
+              "locals": [],
+              "name": "and",
+              "params": [
+                {
+                  "id": "arg0",
+                  "type": {
+                    "kind": "bool"
+                  }
+                },
+                {
+                  "id": "arg1",
+                  "type": {
+                    "kind": "bool"
+                  }
+                }
+              ],
+              "results": [
+                {
+                  "id": "result0",
+                  "type": {
+                    "kind": "bool"
+                  }
+                }
+              ],
+              "unit_id": "policy"
+            }
+          ],
+          "id": "policy",
+          "name": "policy",
+          "type_decls": []
+        }
+      ]
+    }
+  },
+  {
+    "id": "go_fixed_synthetic",
+    "query": {
+      "captured_inputs": [
+        {
+          "kind": "build_manifest",
+          "normalized_path": "go.mod",
+          "raw_hex": "6d6f64756c65206769746875622e636f6d2f66696e6974656669656c642d6f72672f6d706b2f66697874757265732f676f2d62617369630a0a676f20312e32330a"
+        },
+        {
+          "kind": "lockfile",
+          "normalized_path": "go.sum",
+          "raw_hex": ""
+        },
+        {
+          "kind": "source",
+          "normalized_path": "positive/arith/arith.go",
+          "raw_hex": "7061636b6167652061726974680a0a66756e63204164643634286120696e7436342c206220696e7436342920696e743634207b0a0972657475726e2061202b20620a7d0a0a66756e63204d61736b382876616c75652075696e74382c206d61736b2075696e7438292075696e7438207b0a0972657475726e2076616c75652026206d61736b0a7d0a0a66756e6320426f6f6c416e64286c65667420626f6f6c2c20726967687420626f6f6c2920626f6f6c207b0a0972657475726e206c6566742026262072696768740a7d0a"
+        }
+      ],
+      "context": {
+        "profile_entry_sha256": "b10ec338d1f2b3fefc015e4d46c27def43e92ff3d87341624b48c93db951ca96",
+        "profile_registry": {
+          "id": "mpk.semantic_profile.registry.v1",
+          "registry_sha256": "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557",
+          "revision": 3,
+          "schema": "mpk.semantic_profile.registry.v1"
+        },
+        "semantic_parameters": {
+          "schema": "mpk.semantic_parameters.go_fixed.v0",
+          "value": {
+            "pointer_width": 64,
+            "target_id": "linux/amd64"
+          }
+        },
+        "semantic_profile": "mpk.go.fixed.v0",
+        "source_language": "go"
+      },
+      "entries": [
+        {
+          "origin": {
+            "end": 67,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "positive/arith/arith.go",
+            "start": 15
+          },
+          "reference": {
+            "function_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.Add64",
+            "kind": "function",
+            "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+          }
+        },
+        {
+          "origin": {
+            "kind": "synthetic",
+            "reason": "profile.private.test"
+          },
+          "reference": {
+            "block": "bb0",
+            "function_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.Add64",
+            "instruction": "t0",
+            "kind": "instruction",
+            "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+          }
+        },
+        {
+          "origin": {
+            "end": 65,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "positive/arith/arith.go",
+            "start": 53
+          },
+          "reference": {
+            "block": "bb0",
+            "function_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.Add64",
+            "kind": "terminator",
+            "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+          }
+        },
+        {
+          "origin": {
+            "end": 203,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "positive/arith/arith.go",
+            "start": 137
+          },
+          "reference": {
+            "function_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.BoolAnd",
+            "kind": "function",
+            "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+          }
+        },
+        {
+          "origin": {
+            "end": 201,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "positive/arith/arith.go",
+            "start": 188
+          },
+          "reference": {
+            "block": "bb0",
+            "function_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.BoolAnd",
+            "kind": "terminator",
+            "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+          }
+        },
+        {
+          "origin": {
+            "end": 201,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "positive/arith/arith.go",
+            "start": 181
+          },
+          "reference": {
+            "block": "bb1",
+            "function_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.BoolAnd",
+            "kind": "terminator",
+            "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+          }
+        },
+        {
+          "origin": {
+            "end": 201,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "positive/arith/arith.go",
+            "start": 181
+          },
+          "reference": {
+            "block": "bb2",
+            "function_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.BoolAnd",
+            "kind": "terminator",
+            "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+          }
+        },
+        {
+          "origin": {
+            "end": 201,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "positive/arith/arith.go",
+            "start": 181
+          },
+          "reference": {
+            "block": "bb3",
+            "function_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.BoolAnd",
+            "kind": "terminator",
+            "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+          }
+        },
+        {
+          "origin": {
+            "end": 135,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "positive/arith/arith.go",
+            "start": 69
+          },
+          "reference": {
+            "function_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.Mask8",
+            "kind": "function",
+            "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+          }
+        },
+        {
+          "origin": {
+            "end": 133,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "positive/arith/arith.go",
+            "start": 121
+          },
+          "reference": {
+            "block": "bb0",
+            "function_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.Mask8",
+            "instruction": "t0",
+            "kind": "instruction",
+            "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+          }
+        },
+        {
+          "origin": {
+            "end": 133,
+            "input_kind": "source",
+            "kind": "source",
+            "normalized_path": "positive/arith/arith.go",
+            "start": 114
+          },
+          "reference": {
+            "block": "bb0",
+            "function_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.Mask8",
+            "kind": "terminator",
+            "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+          }
+        }
+      ],
+      "expected_release_registry": {
+        "id": "mpk.release.registry.v1",
+        "registry_sha256": "7877c7c04fae912815713a8a7f6f9900198721ea572788f6f48d1dbe3f00afbd",
+        "schema": "mpk.release.bundle_registry.v1"
+      },
+      "manifest": {
+        "frontend": {
+          "binary_sha256": "62dda4ba6589347eea5e4d59b035b41988fc6cab65088c1039e79ecbc92e8bff",
+          "bundle_id": "frontend.go.go2vir.candidate.v1",
+          "name": "go2vir",
+          "subordinate_binaries": [],
+          "version": "go1.25.0-profile-v1-staging"
+        },
+        "input_set_hash": "f9695ecd2d9b17673aa96341943fc651af8ba1bc61b52fda165758053b9761b3",
+        "inputs": [
+          {
+            "kind": "build_manifest",
+            "normalized_path": "go.mod",
+            "sha256": "fbaecf3a2fa13def8774c5ed6d6439b5032975224b7569e1464cfd0a014e903a",
+            "size_bytes": 65
+          },
+          {
+            "kind": "lockfile",
+            "normalized_path": "go.sum",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "size_bytes": 0
+          },
+          {
+            "kind": "source",
+            "normalized_path": "positive/arith/arith.go",
+            "sha256": "be472595e9029249dcc0f35c43c6a441cb935c78a03ec0d06c07c2123fbaf28c",
+            "size_bytes": 204
+          }
+        ],
+        "limit_profile": "mpk.vir.limits.v0",
+        "release_registry": {
+          "id": "mpk.release.registry.v1",
+          "registry_sha256": "7877c7c04fae912815713a8a7f6f9900198721ea572788f6f48d1dbe3f00afbd",
+          "schema": "mpk.release.bundle_registry.v1"
+        },
+        "selection": {
+          "schema": "mpk.selection.go_function.v0",
+          "value": {
+            "function": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.Add64",
+            "package": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+          }
+        },
+        "target": {
+          "id": "linux/amd64",
+          "pointer_width": 64
+        },
+        "toolchain": {
+          "bundle_id": "toolchain.go.go1.25.0.linux-amd64.candidate.v1",
+          "components": [
+            {
+              "binary_sha256": "b93cdfdbc72f1afc3f21498c80bf3d155a44a9b95e2d690c940511051574bc25",
+              "kind": "executable",
+              "name": "go",
+              "release": "go1.25.0"
+            },
+            {
+              "content_sha256": "5380dbbaf794293606958f98f1e0f2fdab25826eba775801becb9159119b6f50",
+              "kind": "content",
+              "name": "go-target-linux-amd64",
+              "release": "go1.25.0"
+            },
+            {
+              "binary_sha256": "a7ed400a04009488ea819eb06aeb912dc3537125cceef036743641060fd797f4",
+              "kind": "executable",
+              "name": "go-tool-asm",
+              "release": "go1.25.0"
+            },
+            {
+              "binary_sha256": "d61f87246456ff1175d057ad663a10dd1ac503c54dc770d14aaa5ffd3309b858",
+              "kind": "executable",
+              "name": "go-tool-cgo",
+              "release": "go1.25.0"
+            },
+            {
+              "binary_sha256": "20dbac54f9f897582aedafea7207976f0300cfd4992429814d00bccbea7a4083",
+              "kind": "executable",
+              "name": "go-tool-compile",
+              "release": "go1.25.0"
+            },
+            {
+              "binary_sha256": "64686d22f3b4055386bbcbf0aeac54249cdbff771ffd7b54c8d4abd330df8166",
+              "kind": "executable",
+              "name": "go-tool-cover",
+              "release": "go1.25.0"
+            },
+            {
+              "binary_sha256": "a4286eaff6094de7f88d55299a61a14d5aae2bfbd19687ba6d5330a730aee983",
+              "kind": "executable",
+              "name": "go-tool-link",
+              "release": "go1.25.0"
+            },
+            {
+              "binary_sha256": "eff3b19676f41d95eb598fa7520a9f44c2014db65a5a7470a2ca5c4cfa3f840b",
+              "kind": "executable",
+              "name": "go-tool-preprofile",
+              "release": "go1.25.0"
+            },
+            {
+              "binary_sha256": "9b9d776e7569c910de714790a1b9bab1287b49fdc210973158f3076cee683bf7",
+              "kind": "executable",
+              "name": "go-tool-vet",
+              "release": "go1.25.0"
+            },
+            {
+              "binary_sha256": "2aa4122abbd1593ee7c9e184366feef7cb06e52ce790b5ef2119e8aee8640a80",
+              "kind": "executable",
+              "name": "gofmt",
+              "release": "go1.25.0"
+            }
+          ],
+          "distribution_sha256": "0f90ec34b19ee271f1a31c923ff5ef0f805493a5890f22b5736e68741d4575be"
+        },
+        "units": [
+          {
+            "identity": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith",
+            "kind": "package",
+            "name": "arith"
+          }
+        ]
+      },
+      "profile_contract": {
+        "contract_id": "mpk.profile.vc.go_fixed.v0",
+        "profile_entry_sha256": "b10ec338d1f2b3fefc015e4d46c27def43e92ff3d87341624b48c93db951ca96",
+        "value": {
+          "contract_profile_id": "mpk.go.contract.v0",
+          "required_check_profile_id": "mpk.go.fixed.v0",
+          "verification_limit_profile_id": "mpk.verify.limits.v0"
+        }
+      },
+      "stage": "manifest",
+      "synthetic_permissions": [
+        {
+          "reason": "profile.private.test",
+          "reference": {
+            "block": "bb0",
+            "function_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.Add64",
+            "instruction": "t0",
+            "kind": "instruction",
+            "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+          }
+        }
+      ],
+      "units": [
+        {
+          "const_decls": [],
+          "functions": [
+            {
+              "blocks": [
+                {
+                  "instructions": [
+                    {
+                      "id": "t0",
+                      "kind": "BinOp",
+                      "lhs": {
+                        "var": "arg0"
+                      },
+                      "op": "bv_add",
+                      "rhs": {
+                        "var": "arg1"
+                      },
+                      "safety_checks": [],
+                      "type": {
+                        "kind": "bv",
+                        "signed": true,
+                        "width": 64
+                      }
+                    }
+                  ],
+                  "label": "bb0",
+                  "parameters": [],
+                  "terminator": {
+                    "kind": "Return",
+                    "values": [
+                      {
+                        "var": "t0"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "contracts": {
+                "ensures": [
+                  {
+                    "bool": true
+                  }
+                ],
+                "function_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.Add64",
+                "loops": [],
+                "modifies": [],
+                "panic": "forbidden",
+                "requires": [],
+                "termination": "total",
+                "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+              },
+              "features_used": [],
+              "id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.Add64",
+              "locals": [],
+              "name": "Add64",
+              "params": [
+                {
+                  "id": "arg0",
+                  "type": {
+                    "kind": "bv",
+                    "signed": true,
+                    "width": 64
+                  }
+                },
+                {
+                  "id": "arg1",
+                  "type": {
+                    "kind": "bv",
+                    "signed": true,
+                    "width": 64
+                  }
+                }
+              ],
+              "results": [
+                {
+                  "id": "result0",
+                  "type": {
+                    "kind": "bv",
+                    "signed": true,
+                    "width": 64
+                  }
+                }
+              ],
+              "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+            },
+            {
+              "blocks": [
+                {
+                  "instructions": [],
+                  "label": "bb0",
+                  "parameters": [],
+                  "terminator": {
+                    "cond": {
+                      "var": "arg0"
+                    },
+                    "else_args": [],
+                    "else_label": "bb1",
+                    "kind": "Branch",
+                    "then_args": [],
+                    "then_label": "bb2"
+                  }
+                },
+                {
+                  "instructions": [],
+                  "label": "bb1",
+                  "parameters": [],
+                  "terminator": {
+                    "kind": "Return",
+                    "values": [
+                      {
+                        "bool": false
+                      }
+                    ]
+                  }
+                },
+                {
+                  "instructions": [],
+                  "label": "bb2",
+                  "parameters": [],
+                  "terminator": {
+                    "cond": {
+                      "var": "arg1"
+                    },
+                    "else_args": [],
+                    "else_label": "bb1",
+                    "kind": "Branch",
+                    "then_args": [],
+                    "then_label": "bb3"
+                  }
+                },
+                {
+                  "instructions": [],
+                  "label": "bb3",
+                  "parameters": [],
+                  "terminator": {
+                    "kind": "Return",
+                    "values": [
+                      {
+                        "bool": true
+                      }
+                    ]
+                  }
+                }
+              ],
+              "contracts": {
+                "ensures": [
+                  {
+                    "bool": true
+                  }
+                ],
+                "function_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.BoolAnd",
+                "loops": [],
+                "modifies": [],
+                "panic": "forbidden",
+                "requires": [],
+                "termination": "total",
+                "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+              },
+              "features_used": [
+                "branch"
+              ],
+              "id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.BoolAnd",
+              "locals": [],
+              "name": "BoolAnd",
+              "params": [
+                {
+                  "id": "arg0",
+                  "type": {
+                    "kind": "bool"
+                  }
+                },
+                {
+                  "id": "arg1",
+                  "type": {
+                    "kind": "bool"
+                  }
+                }
+              ],
+              "results": [
+                {
+                  "id": "result0",
+                  "type": {
+                    "kind": "bool"
+                  }
+                }
+              ],
+              "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+            },
+            {
+              "blocks": [
+                {
+                  "instructions": [
+                    {
+                      "id": "t0",
+                      "kind": "BinOp",
+                      "lhs": {
+                        "var": "arg0"
+                      },
+                      "op": "bv_and",
+                      "rhs": {
+                        "var": "arg1"
+                      },
+                      "safety_checks": [],
+                      "type": {
+                        "kind": "bv",
+                        "signed": false,
+                        "width": 8
+                      }
+                    }
+                  ],
+                  "label": "bb0",
+                  "parameters": [],
+                  "terminator": {
+                    "kind": "Return",
+                    "values": [
+                      {
+                        "var": "t0"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "contracts": {
+                "ensures": [
+                  {
+                    "bool": true
+                  }
+                ],
+                "function_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.Mask8",
+                "loops": [],
+                "modifies": [],
+                "panic": "forbidden",
+                "requires": [],
+                "termination": "total",
+                "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+              },
+              "features_used": [],
+              "id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.Mask8",
+              "locals": [],
+              "name": "Mask8",
+              "params": [
+                {
+                  "id": "arg0",
+                  "type": {
+                    "kind": "bv",
+                    "signed": false,
+                    "width": 8
+                  }
+                },
+                {
+                  "id": "arg1",
+                  "type": {
+                    "kind": "bv",
+                    "signed": false,
+                    "width": 8
+                  }
+                }
+              ],
+              "results": [
+                {
+                  "id": "result0",
+                  "type": {
+                    "kind": "bv",
+                    "signed": false,
+                    "width": 8
+                  }
+                }
+              ],
+              "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+            }
+          ],
+          "id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith",
+          "name": "arith",
+          "type_decls": []
+        }
+      ]
+    }
+  }
+]

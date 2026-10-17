@@ -1,0 +1,216 @@
+{
+  "checks": [
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "-v",
+        "test_proof_artifacts"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "environment": {
+        "PYTHONPATH": "develop/probes/go-practical"
+      },
+      "exit_code": 0,
+      "log": "initial-unit.log",
+      "reason": "All25 affected VC/certificate/skeleton/Go-demand tests,56 local interfaces,conditional call totality,false postcondition,authority cloning and768 JSON boundaries",
+      "sha256": "a05bb636db38ef26f7c7fd5c4c6add134301f73d34e61fd8cccbcc29e267a212",
+      "wall_seconds": 288.13914304203354
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "develop/probes/go-practical/run_proof_artifacts.py",
+        "--check"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "environment": {
+        "PYTHONPATH": "develop/probes/go-practical"
+      },
+      "exit_code": 0,
+      "log": "fresh-replay.log",
+      "reason": "Fresh source regeneration of8 proof bundles/181 cases/56 local interfaces/169 Go demands;44 actual native source/VC/skeleton queries,260 hashes,exact five-context baselines,binary/source/toolchain reproducibility",
+      "sha256": "8014aaa1a83543430db86f1991548c413e2f600fabb940fc3cc7ab2c25fd91f6",
+      "wall_seconds": 88.4698097090004
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "develop/probes/go-practical/check_proof_artifact_metadata.py"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "environment": {
+        "PYTHONPATH": "develop/probes/go-practical"
+      },
+      "exit_code": 0,
+      "log": "metadata.log",
+      "reason": "Closed identity/field/worklist/source closure,preceding capture reconstruction,143 predecessor pins,all strict JSONs/document links and ordered ledger48; full Go ordinary expansion remains open",
+      "sha256": "5ff1e023bbf0eef91c3fb2181ced4515f6d1263b176312de1714b591b71545e6",
+      "wall_seconds": 62.31118650001008
+    },
+    {
+      "command": [
+        "rustfmt",
+        "--edition",
+        "2021",
+        "--check",
+        "--config",
+        "skip_children=true",
+        "develop/probes/go-practical/proof-native/src/main.rs"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "rustfmt.log",
+      "reason": "Only the new public VC/canonical observer source; predecessor and production sources unchanged",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "wall_seconds": 0.1852811659919098
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/gofmt",
+        "-l",
+        "develop/probes/go-practical/proof_hashes.go"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "gofmt.log",
+      "reason": "Only new independent768-depth Go observer",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "wall_seconds": 0.033856207970529795
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "-c",
+        "from pathlib import Path;p=Path('develop/probes/go-practical');names=('proof_canonical.py', 'proof_artifacts.py', 'proof_artifact_vectors.py', 'go_obligations.py', 'proof_components.py', 'proof_native_build.py', 'run_proof_artifacts.py', 'test_proof_artifacts.py', 'check_proof_artifact_metadata.py');[compile((p/n).read_bytes(),str(p/n),'exec') for n in names];print('PASS: nine new Python sources compile')"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "python-compile.log",
+      "reason": "All nine new proof/canonical/demand/fixture/component/build/replay/test/metadata Python sources",
+      "sha256": "790c0da65fba14cfcd4b6047c66a4cf1d865209c86ed3f831d99682e15f0cbd6",
+      "wall_seconds": 0.04376320808660239
+    }
+  ],
+  "document_links": 386,
+  "documents": 23,
+  "entry_commit": "bdd7099a5845b83452149155f695effbe582e1f2",
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "owner": "GO-PRAC-T01-W05",
+    "reason": "Intermediate W04; cumulative whole T01 gate belongs to final W05",
+    "status": "deferred"
+  },
+  "go_ordinary_terms_materialized": false,
+  "go_requests": 169,
+  "go_skeleton_emitted": false,
+  "hash_vectors": 260,
+  "host_toolchain_inventory": {
+    "files": 14496,
+    "sha256": "85d1dd7ca77c9263d83e25f05e4c32105738fdc002434d61b27671aee4e259bc"
+  },
+  "initial_repaired_failures": [
+    {
+      "inputs": "initial-canonical-limit/queries.json",
+      "outputs": "initial-canonical-limit/results.json",
+      "record": "initial-canonical-limit/diagnostic.json",
+      "repair": "Retain768 and flatten retained function/theorem arrays in new common roots,so their depth stays identical to old roots; do not widen canonicalizer production bytes"
+    }
+  ],
+  "local_demands": 416,
+  "local_fragments": 56,
+  "materialization": {
+    "command": [
+      "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+      "-B",
+      "develop/probes/go-practical/run_proof_artifacts.py",
+      "--write"
+    ],
+    "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+    "environment": {
+      "PYTHONPATH": "develop/probes/go-practical"
+    },
+    "exit_code": 0,
+    "log": "initial-materialization.log",
+    "reason": "Materialize new source-linked proof bundles,cases,native observations and cross-language preimages; independent fresh replay then passes",
+    "sha256": "8014aaa1a83543430db86f1991548c413e2f600fabb940fc3cc7ab2c25fd91f6"
+  },
+  "metadata_checker_sha256": "21dc425c883517275574e5c9235e485ee740ee84066c6fee6972be6fc78408fc",
+  "native_queries": 44,
+  "not_repeated": [
+    "unchanged older kernel/ordinary/native proof matrices; preceding capture/module evidence and all143 predecessor/source pins checked",
+    "formatting prior/private/production Rust or Go sources; only new observer files checked"
+  ],
+  "observed_tests": 25,
+  "ordinary_semantic_proofs_checked": false,
+  "outcomes": {
+    "certificate_manifest_linked_unproved": 8,
+    "configuration_rejection": 157,
+    "go_obligations_unelaborated": 2,
+    "ordinary_elaboration_pending": 2,
+    "retained_skeleton_generated": 6,
+    "retained_vc_generated": 6
+  },
+  "output_scope": "complete raw combined stdout/stderr from selected local subprocesses and initial native setup query/result JSONs",
+  "profile_activated": false,
+  "proof_bundles": 8,
+  "remaining": [
+    "complete registered Go ordinary signatures/definitions/statement expansion and final Go program assembly/skeleton closure",
+    "frontend-envelope/policy/API/release roots and reviewed producer/consumer migrations",
+    "independent source capture/import and all AST/control/lifetime/activation/ordinary operation/permission/frame/totality proofs",
+    "W04 completion,W05 inactive publication/cumulative T01 gate and all T02–T11 implementation/release gates"
+  ],
+  "retained_target_contexts": 5,
+  "review": {
+    "checked": [
+      "whole validated context/profile-contract/VIR/map/frontend-manifest references before generating any common VC",
+      "native generation query reconstructed and compared in full against independently captured source authority; unknown native queries never assumed rejected",
+      "unchanged public retained VC/skeleton/certificate-stage manifest APIs with complete old-value equality in five target contexts",
+      "actual rehashed member/group/conclusion/statement-body and required-check-profile mutations reject against public regeneration",
+      "independent copied native inputs/results and returned skeleton declarations prevent caller mutation of generation authority",
+      "all56 concrete operation interfaces retain416 member/access demands; zero-node functions,loop control and source/contract/function obligations retained",
+      "callee source/body/default contract dependencies explicit; total caller requires termination only at actual invocation arguments",
+      "all169 Go requests remain unelaborated; pending ordinary expansion is distinct from configuration rejection; no caller ready flag,empty skeleton or false postcondition supplies proof",
+      "VC depends on frontend manifest and certificate manifest depends on frontend manifest/VC; no reverse cycle",
+      "flat retained term arrays preserve original depth768; iterative canonical parse/clone and Python/Rust/Go complete preimages agree",
+      "prior private helpers,production parser,core/kernel,Certificate v0 and reserved inactive C# meanings unchanged"
+    ],
+    "kind": "local review of new common proof roots,source/native authority,closed Go theorem demands,canonical limits and affected metadata diffs",
+    "remaining_requirements": [
+      "complete registered Go ordinary signatures/definitions/statement expansion and final Go program assembly/skeleton closure",
+      "frontend-envelope/policy/API/release roots and reviewed producer/consumer migrations",
+      "independent source capture/import and all AST/control/lifetime/activation/ordinary operation/permission/frame/totality proofs",
+      "W04 completion,W05 inactive publication/cumulative T01 gate and all T02–T11 implementation/release gates"
+    ],
+    "resolved_findings": [
+      "initial1024 observer configuration exceeds unchanged native maximum768; retain768 and keep old function/theorem arrays at root without extra nesting",
+      "statement corruption changes actual theorem_type.body rather than an unknown superficial metadata field",
+      "whole-project local fragments use a new construction adapter without modifying the preceding frozen component builder"
+    ]
+  },
+  "schema": "mpk.go_practical.w04_proof_artifact_verification.v0",
+  "scope": "common VC v4/certificate-source links,actual retained VC/skeleton regeneration and closed source-bound Go theorem-demand draft; Go ordinary proposition expansion/final skeleton and all source/ordinary proofs remain due; no activation",
+  "shared_family_frozen": false,
+  "source_inputs": 673,
+  "source_proofs_checked": false,
+  "status": "W04 in progress; six selected local checks passed; no T complete",
+  "strict_jsons": 129,
+  "unchanged_public_source_files": 226,
+  "unit_execution": {
+    "initial": {
+      "failed": 0,
+      "passed": 25,
+      "record": "initial-unit.json",
+      "tests": 25
+    },
+    "selection": "All new common VC/certificate/skeleton import and canonical layers plus affected retained public generation and source-bound Go operation/call/contract demands; unchanged earlier matrices not repeated",
+    "unique_tests_covered": 25
+  },
+  "vectors": 181,
+  "work_item": "GO-PRAC-T01-W04"
+}

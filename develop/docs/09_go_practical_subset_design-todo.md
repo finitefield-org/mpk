@@ -126,6 +126,15 @@ values in five retained target contexts and retain independently authorized
 synthetic origins. Source/AST/ordinary proofs, registered practical frontend/
 release provenance and certificate-manifest/VC/policy/API/envelope/release
 closure remain required; the private external reference fixture is uninstalled.
+The [VC/certificate-source draft](../migrations/go-practical/t01-w04/proof-artifacts/README.md)
+adds exact source-linked common VC/certificate references and actual retained
+VC/skeleton regeneration,with flat term arrays preserving depth768. Eight
+bundles,181 cases and25 targeted tests retain full native statement values in
+five target contexts. Go has19 closed theorem-demand families,169 concrete
+requests and56 local fragments retaining416 member/access demands. All260
+Python/Rust/Go hash inputs agree. Go ordinary proposition/statement expansion
+and final skeleton/program assembly remain unfrozen; skeleton requests stay
+pending and no caller context can promote them. No application proof is claimed.
 Shared/downstream wire tables, remaining variant/source foundation,
 limits, schemas/hash identities and migration review remain open.
 T01 is incomplete and no practical Go profile is active.
