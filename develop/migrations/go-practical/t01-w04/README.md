@@ -403,7 +403,7 @@ Int addition keeps the actual sign-stage guard. All13 exact typed Value
 definitions are lifted with their source identities. Four sets pass both
 checkers with zero axioms;16 altered candidates reject by paired type mismatch.
 All96 native Go/integer observations and24 selected8-bit actual denotations
-agree. The [current metadata checker](../../../probes/go-practical/check_word_arithmetic_metadata.py)
+agree. The [section52 metadata checker](../../../probes/go-practical/check_word_arithmetic_metadata.py)
 retains preceding arithmetic evidence and143 inventoried predecessors. The
 [verification record](word-arithmetic/verification/verification.json) preserves
 six repaired finding groups,including large-iteration conversion fuel solved
@@ -413,3 +413,19 @@ correctness,remaining ordinary source/state/frame/control/totality proofs,
 complete Go assembly and downstream roots/migrations remain due. All169
 complete Go requests stay unelaborated. W04 is open; W05 owns the T01 gate and
 all T02–T11 work remains active.
+
+The [common frontend envelope draft](frontend-envelope/README.md) binds requests
+to independent available input snapshots,semantic selections and release
+references before lowering. Closed success/diagnostic roots bind the complete
+request and context. The actual unchanged public CLI process/source validators
+check retained projections,codebooks,paths,transport and artifact links; five
+independent old-context baselines match. New Go diagnostics resolve exact
+captured object/byte/function identities and remain unregistered model data.
+No accepted response grants runner provenance or a source-correctness proof.
+The [current metadata checker](../../../probes/go-practical/check_frontend_metadata.py)
+retains preceding word/arithmetic evidence and143 inventoried predecessors.
+The [verification record](frontend-envelope/verification/verification.json)
+separates native API outcomes,configuration/process/resource failures and
+initial probe findings. Policy/API/release roots,reviewed migrations,full Go
+ordinary assembly and source proofs remain due. W04 remains open; W05 owns
+inactive publication/T01 gate and all T02–T11 work remains active.

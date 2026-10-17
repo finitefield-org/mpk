@@ -171,6 +171,15 @@ Go/integer observations and24 selected actual denotation executions agree.
 Generic checked application/conditional lemmas solve the initial32/64-bit
 conversion-fuel failure without changing checker budgets. Other word/source
 operations,full ordinary/Go proofs and W04 freeze remain required.
+
+The [common frontend envelope draft](../migrations/go-practical/t01-w04/frontend-envelope/README.md)
+binds pre-lowering requests to independent snapshots,context,selection and
+release references. It validates retained success/diagnostic projections with
+unchanged public APIs and preserves five independent old-context baselines.
+New Go diagnostic codes and object/byte/function spans remain model data;
+protocol acceptance supplies no registered-run or source-proof authority.
+Policy/API/release roots,complete ordinary Go assembly and reviewed migrations
+remain required before W04 can freeze. W05 still owns the cumulative T01 gate.
 Shared/downstream wire tables, remaining variant/source foundation,
 limits, schemas/hash identities and migration review remain open.
 T01 is incomplete and no practical Go profile is active.

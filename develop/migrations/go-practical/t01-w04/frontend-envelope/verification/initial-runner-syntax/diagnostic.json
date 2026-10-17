@@ -1,0 +1,11 @@
+{
+  "classification": "probe_runner_syntax_failure",
+  "meaning": "AST parse found a closing parenthesis where the new hash-query list required a bracket. No native replay or proof executed.",
+  "repair": "Close the list comprehension before the tuple.",
+  "inputs": [
+    {
+      "path": "run_frontend_wire.py",
+      "sha256": "412835efd8c01bd1f15cac52714bfac4c028fcadb7b4be6f239079114716d4f9"
+    }
+  ]
+}

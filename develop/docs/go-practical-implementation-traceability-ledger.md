@@ -3566,3 +3566,78 @@ program/skeleton assembly,downstream roots and reviewed migrations remain due.
 W05 owns inactive publication and the cumulative T01 gate. All T02–T11
 implementation/application/release work remains active; no practical Go profile
 is activated.
+
+
+## 53. T01-W04 common frontend request,success and diagnostic roots
+
+Entry: `b76e65ec96ef6da05e44153569a33808185e02e4`, clean before this work.
+The [frontend envelope draft](../migrations/go-practical/t01-w04/frontend-envelope/README.md)
+binds complete pre-lowering semantic requests,immutable available snapshots
+and independent release references. Closed success and diagnostic roots bind
+that complete request,context,selection and profile contract. Success requires
+complete linked VIR/map/frontend-manifest artifacts; diagnostic arms have no
+artifact fields. Each whole-root hash has its own domain. Caller readiness,
+proof and registered-run flags reject.
+
+A new private observer links unchanged public CLI/VC APIs. Native context and
+selection validators supply every actual retained request-policy observation;
+unknown queries never become assumed success or rejection. Common source
+artifacts project into the unchanged public successor process validator.
+Whole source-map/manifest values and VIR content hashes match five independent
+retained context/target baselines; a sixth retained bundle preserves its exact
+explicit synthetic-origin permission. Existing C# generic-code behavior and
+its prefixed codebook remain intact,while Java independently retains its closed
+codebook. These source-fixture comparisons do not prove a general migration.
+
+Available retained snapshots bind all staged bytes,while the success manifest
+selects an exact captured subset. Go snapshots use existing capability-bound
+source objects and do not require a returned capture-context ID before lowering.
+Successful Go model artifacts still require the whole independent ProjectSpec
+validator. Go diagnostic code/status/phase/messages form a closed fixed table;
+optional spans resolve captured source-object IDs and integer byte bounds,
+including EOF,with optional captured function/source agreement. Raw compiler
+prose and host paths are not public Go messages. Diagnostic acceptance remains
+model evidence and does not assert a compiler observed that error.
+
+The conformance matrix covers request/response/IR generation mixing,complete
+context/selection/request/source/release bindings,artifact omission and
+corruption,unknown fields,codebooks,span identities and byte bounds,canonical
+transport,exit/status/issue relationships and process/resource precedence.
+The actual compiled API is exercised at inclusive stdout/stderr limits,
+including real256MiB and256MiB+1 buffers. Canonical depth768 is inherited from
+the preceding proof canonicalizer; retained inner limits and public code remain
+unchanged. No extra256-depth wrapper precheck narrows retained term inputs.
+Native queries reproduce twice exactly,as do full request/success/diagnostic
+preimages across Python,Rust and the pinned Go observer.
+
+The [verification record](../migrations/go-practical/t01-w04/frontend-envelope/verification/verification.json)
+records selected local validation,raw results,source/binary pins and initial
+request-oracle,context-generation,runner-syntax and unobserved-query exception
+findings. Their failed
+construction/validation stages remain separate from native source rejection
+and from ordinary proof verdicts. The old request cache was left unchanged;
+a new actual public-policy observer handles the needed source selections.
+The current exact foundation-linked context factory replaces the accidentally
+chosen earlier context generation. No production code,installed profile,old
+helper or checker rule changes.
+
+All611 conformance cases match. The142 actual public-API queries and165 complete
+hash preimages reproduce twice identically; every new Go code/allowed phase is
+represented across33 fixed codes. Eighteen targeted tests pass,covering the
+complete matrix,independent baselines,input subsets,closed codebooks,source
+spans,actual limits,process precedence,unknown-query failure,all preimages and
+unproved/unregistered boundaries. The receipt pins810 inputs,including310
+linked public consumer/build sources. An absent cache query now raises a probe
+assertion that cannot be caught as an ordinary configuration rejection. Full
+source/model reconstruction remains checked; duplicate reconstruction during
+materialization is avoided without dropping any native or case observations.
+
+Every accepted fixture result keeps registered_execution and
+source_semantics_proved false. No frontend is invoked; no Go profile is
+activated. All169 complete Go requests remain unelaborated. Preceding word/
+arithmetic certificates and all143 inventoried predecessors remain pinned;
+unaffected native matrices are not rerun. W04 remains In progress. Other
+word/source/partial/definedness/elaborator/state/permission/frame/control/
+totality proofs,complete Go program/skeleton assembly,policy/API/release roots
+and complete reviewed migrations remain due. W05 owns inactive publication
+and the cumulative T01 gate; the full T02–T11 objective remains active.

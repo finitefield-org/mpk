@@ -1,0 +1,15 @@
+{
+  "classification": "probe_unobserved_query_failure_class",
+  "meaning": "Missing cached query raises ValueError,which a caller configuration-rejection classifier can catch. No actual registered query/output or semantic evidence is affected.",
+  "repair": "Raise AssertionError explicitly for an absent oracle query so it cannot become assumed rejection.",
+  "inputs": [
+    {
+      "path": "run_frontend_wire.py",
+      "sha256": "5ecdc64512597e982a0431a7493017bc7e5da4fc311554bd9e97d85fda98a4c8"
+    },
+    {
+      "path": "test_frontend_wire.py",
+      "sha256": "9f82685f7b49844374675c7e82c40f4b9ed0913603065fd8b28074033aab08ea"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "classification": "probe_request_oracle_coverage_failure",
+  "meaning": "A retained source-fixture selection is absent from the older closed context-query cache; no candidate or semantic rejection was observed.",
+  "repair": "Use a new observer mode calling unchanged actual public context/selection APIs for every needed request; preserve the older cache and helpers.",
+  "inputs": [
+    {
+      "path": "frontend_wire.py",
+      "sha256": "bd0fdd9d5ef9a3543e7df6a046d49200f846170775565032706225477d3fbf61"
+    },
+    {
+      "path": "frontend_native_build.py",
+      "sha256": "84a12091c60ddeecae3edf62026e9fe30efe9cd18498077a4b7999376ef49b8e"
+    },
+    {
+      "path": "frontend-native/src/main.rs",
+      "sha256": "d11e7e4bc8ddfcccc8c46b47a32fd06b615bd848a657dfd4c4116404ebfec8c6"
+    },
+    {
+      "path": "frontend-native/Cargo.toml",
+      "sha256": "00ca41dfc6b9cbffa3b84adc7606950a584ce735917b75be307810878bfd99b2"
+    },
+    {
+      "path": "frontend-native/Cargo.lock",
+      "sha256": "ac136ea484aafe4be107172a8e3d4b04f873c8410ca49f1dcd5183a34fa43ce9"
+    }
+  ]
+}
