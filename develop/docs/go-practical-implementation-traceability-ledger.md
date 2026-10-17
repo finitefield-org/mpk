@@ -2984,3 +2984,85 @@ roots/unions, actual source/SSA/ordinary-definition linkage and reviewed
 producer/consumer migration remain due. W05 owns inactive publication and the
 T01 gate. No T is complete; all T02–T11 work remains active and no practical
 Go profile is activated.
+
+## 45. T01-W04 typed function bodies and structured SSA/state/control
+
+Entry: `2c4c557129cc9f3998dc505f02a20edf2a6e3882`, clean before this work.
+The preceding 56-operation checkpoint supplied signatures, not a body graph.
+The [typed body proposal](../migrations/go-practical/t01-w04/vir-body/README.md)
+now closes a Go-owned function-body root, seven nodes, region interfaces and
+three terminators, retaining the complete eleven-stage objective. The shared
+five-profile VIR wrapper and full source/ordinary bindings remain required.
+
+One new candidate body identity/domain avoids every prior Go and reserved
+C# name. Whole typed context, capture/scope/function/signature/contract,
+complete concrete definitions, entry arguments, body and derived obligation
+sites enter the hash. Canonical value/node/region preorders enforce dominance,
+scope and exact explicit captures. Sibling/future values, stale states,
+unused/foreign definitions and rehashed altered sites reject. Source authority
+is rebuilt from raw buffers instead of mutable producer maps.
+
+Calls/finite error dispatch produce joint values and post-state together.
+Projection retains the same static producer and exact post-state; an ordinary
+pack or same-typed second call cannot substitute. Historical projection is
+read-only and cannot roll back current state. Actual dynamic activation/
+invocation correspondence remains unproved. Dependency sites require exact
+callee source-body relations and an overlay relation where present; no absent
+contract becomes a trusted callee theorem.
+
+Control values bar further instructions until propagated or resumed. Normal
+continuations run only after normal exits; abrupt exits propagate. Structured
+switches/loops consume only their exact break/continue target. Init/test/body/
+post interfaces stay ordered and missing-test/no-break loops have no normal
+exit. Static outcome sets do not prove source scheduling or termination.
+
+Internal addresses preserve local-root handles versus frozen slice descriptor
+roots and exact typed field/array paths. Read/write checks are attached to the
+access state, after target/RHS evaluation where required. Full bounds,
+initialization, validity, permission and frame requirements remain explicit;
+address formation grants no NoAccess write or source pointer capability.
+Explicit declarations and lexical scopes now enforce availability, with
+for-init locals shared only by that loop's test/body/post. Ordered multi-store
+access sites retain exact target-prefix state references, including blanks.
+Source block/activation correspondence, supplied switch spans and source
+anchors still require complete declaration/lifetime/AST proofs.
+
+Every explicit SSA definition counts toward 65536 locals; all regions count
+toward 8192 function blocks; parameters/captures count toward 4096 block
+parameters. All nodes count toward 100000 block/function instructions.
+Separate assignment-value sequences admit 32 values without changing result
+arity 16. Complete ordinary expansion/runtime accounting for these internal
+values, finite source identities and module-wide counting remain required.
+
+A new shared-limit Python canonicalizer and two untrusted native wrappers
+retain 192MiB canonical/256MiB input, 1MiB decoded string and 256-container limits.
+They preserve the earlier narrow integer/Unicode/domain rules; the old 64-depth
+pilot and production canonicalizer bytes stay unchanged. Rust imports that
+unchanged canonicalizer. No kernel/Certificate v0 rule changes.
+
+Fifty-six typed component queries cover every operation family. Three full
+function candidates cover straight return, loop/abrupt flow and a no-node
+candidate for the original discard-only InputErrors function. Blank-assignment
+erasure and source equivalence are unproved; the first two candidates are not
+claimed to match the source body. Twenty graph vectors classify 3 typed
+unproved/17 rejected. Twenty-one selected tests add invocation/pack/error,
+capture/dominance/state/location, 32-value,divergence and JSON boundary checks.
+
+Sixty-nine preimages cover three bodies, 56 private pilot component hashes and
+ten canonical boundaries. Python and fresh Rust/Go observers agree on 64
+accepted and five rejected inputs, with two identical native runs each.
+The receipt pins 604 source/data inputs and the same Go 1.25.0 inventory.
+Hash agreement is not source or ordinary proof acceptance.
+
+The [verification record](../migrations/go-practical/t01-w04/vir-body/verification/verification.json)
+retains selected unit/replay/metadata/new-source format/compile logs and
+selection reasons. The preceding operation corpus is reconstructed; unchanged
+production/kernel/older ordinary/native matrices are not repeated. All 143
+inventoried predecessor paths remain byte-identical. The cumulative T01 gate
+stays deferred to W05.
+
+W04 remains In progress. Complete shared VIR and four-profile preservation,
+source-map/manifests/VC/policy/API/release roots/unions and reviewed migrations
+remain due. Source/dynamic/ordinary operation, permission, frame and totality
+implementation remain T02–T06. W05 owns inactive publication and the T01 gate;
+all T02–T11 work stays active and no practical Go profile is activated.

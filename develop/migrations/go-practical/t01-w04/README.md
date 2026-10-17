@@ -279,10 +279,23 @@ parameters, ordered input/output and control-region interfaces, rule members
 and binding requirements for all 56 families. Its 224 vectors retain 56 typed
 unproved candidates and 168 altered-record rejections. Twenty-four selected
 tests and 56 Python/Rust/Go preimages cover the component boundary. The
-[current metadata checker](../../../probes/go-practical/check_operation_signature_metadata.py)
+[section44 metadata checker](../../../probes/go-practical/check_operation_signature_metadata.py)
 also reconstructs the preceding contract corpus and preserves source pins,
 143 predecessor paths and document links. The
 [verification record](operation-signatures/verification/verification.json)
 distinguishes typed signatures from missing executable VIR, source/SSA/call
 provenance and ordinary operation proofs. Shared/downstream roots, migrations,
 W05/T01 and the complete T02–T11 objective remain required.
+
+The [typed function-body/structured-region draft](vir-body/README.md) adds
+canonical SSA dominance/capture/state flow, exact static call-product/post
+provenance, normal-only continuations and deferred location access sites.
+Fifty-six component queries,three function candidates and20 graph cases have
+21 targeted tests. Sixty-nine Python/Rust/Go hash inputs include actual256-
+container boundaries using new untrusted observers. The
+[current metadata checker](../../../probes/go-practical/check_vir_body_metadata.py)
+retains the preceding operation corpus,143 predecessor pins and document
+linkage. Its [verification record](vir-body/verification/verification.json)
+distinguishes structural checking from absent complete shared VIR,source,
+dynamic invocation and ordinary semantics. W04 and the full objective remain
+open; the cumulative T01 gate remains assigned to W05.

@@ -99,6 +99,13 @@ members. Its 224 vectors, 24 selected tests and 56 three-observer hash preimages
 exercise signature integrity. Compound operators inherit their actual checks;
 assignment values retain a separate arity from function results. Executable
 VIR, source/SSA/provenance and ordinary operation proofs remain required.
+The [typed function-body draft](../migrations/go-practical/t01-w04/vir-body/README.md)
+adds explicit SSA/state/region flow, static call/post provenance, normal-only
+continuations and deferred typed-location access sites. All56 operation
+components,three body candidates,20 graph vectors and21 selected tests cover
+the private structural boundary. Sixty-nine full-limit Python/Rust/Go hash
+vectors retain depth256. Complete shared VIR/source/dynamic-invocation and
+ordinary semantic proofs remain required; no application claim is established.
 Shared/downstream wire tables, remaining variant/source foundation,
 limits, schemas/hash identities and migration review remain open.
 T01 is incomplete and no practical Go profile is active.

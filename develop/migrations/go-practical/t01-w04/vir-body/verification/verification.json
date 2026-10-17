@@ -1,0 +1,141 @@
+{
+  "checks": [
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "-v",
+        "test_vir_body"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "environment": {
+        "PYTHONPATH": "develop/probes/go-practical"
+      },
+      "exit_code": 0,
+      "log": "unittest-body.log",
+      "reason": "All21 affected body tests including56 components,20 vectors,pre-sort malformed definition guards,valid/escaping lexical scopes and ordered assignment prefix states after final repair",
+      "sha256": "639794304c9096ae715344f35e8d4716e32bdfb111d20305fa4bef2f8a1001f6",
+      "wall_seconds": 299.45431308302796
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/run_vir_body.py",
+        "--check"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "fresh-replay.log",
+      "reason": "Fresh reconstruction of56 components/3 candidates/20 graph cases and both full-limit native observers;69 complete hash inputs including256/257 containers,two identical runs each,source/binary/toolchain stability",
+      "sha256": "7c5830c0b7acc0a421add385b1c14c8b34b064f143782cbe681489c4b9719c14",
+      "wall_seconds": 60.576191708038095
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/check_vir_body_metadata.py"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "metadata.log",
+      "reason": "Closed schema/context/worklist/domain integrity,preceding operation reconstruction,143 predecessor pins,JSONs,links and ledger45",
+      "sha256": "07d9093d67ac43030b790d8b35f6fd3e09668dc82b1ab1720d65af343849ee9e",
+      "wall_seconds": 54.86404316598782
+    },
+    {
+      "command": [
+        "rustfmt",
+        "--edition",
+        "2021",
+        "--check",
+        "--config",
+        "skip_children=true",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/body-hashes/src/main.rs"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "rustfmt.log",
+      "reason": "Only new untrusted Rust observer source; imported production canonicalizer unchanged",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "wall_seconds": 0.05139083304675296
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/gofmt",
+        "-l",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/body_hashes.go"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "gofmt.log",
+      "reason": "Only new independent Go body hash observer",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "wall_seconds": 0.046978874946944416
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "-c",
+        "import pathlib;p=pathlib.Path('develop/probes/go-practical');names=('body_canonical.py', 'vir_body.py', 'vir_body_build.py', 'vir_body_vectors.py', 'test_vir_body.py', 'run_vir_body.py', 'check_vir_body_metadata.py');[compile((p/n).read_bytes(),str(p/n),'exec') for n in names];print('PASS: seven new Python sources compile')"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "python-compile.log",
+      "reason": "All seven new private body/schema/constructor/validator/canonical/replay/test sources",
+      "sha256": "e4df2efa2dfb72a9d50afd17f0b66f9e2d048c04d71549f84108eced152ce344",
+      "wall_seconds": 0.048760958947241306
+    }
+  ],
+  "entry_commit": "2c4c557129cc9f3998dc505f02a20edf2a6e3882",
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "owner": "GO-PRAC-T01-W05",
+    "reason": "Intermediate W04; cumulative gate reserved for final W",
+    "status": "deferred"
+  },
+  "initial_repaired_failure": "initial-malformed-definition-array/unit-result.json",
+  "metadata_checker_sha256": "0db5442adbe1302d91df6e4701e4fa6cc13a8a35871e9e94c7b2b17f30dcbda9",
+  "not_repeated": [
+    "unchanged production/kernel and older ordinary/native proof matrices; retained source/data/receipt integrity checked",
+    "formatting unchanged Rust canonicalizer and predecessor observers"
+  ],
+  "observed_tests": 21,
+  "output_scope": "complete raw combined stdout/stderr from selected local subprocesses",
+  "python_sources_compiled": 7,
+  "remaining": [
+    "complete shared VIR five-profile wrapper,source-map/manifests/VC/policy/API/release roots and reviewed producer/consumer migration",
+    "independent project/source/call/control/lifetime/activation reconstruction and all ordinary source/operation/permission/frame/totality proofs; W05/T01 and full T02\u2013T11"
+  ],
+  "repair": "Validate operation-definition array/member/hash shapes before sorting; re-ran all21 tests,including valid and escaping lexical scopes.",
+  "review": {
+    "checked": [
+      "canonical dominance/value/node/region order and exact lexical capture",
+      "current state versus historical immutable invocation post; pack/static-call/finite-error projection",
+      "normal-only continuations and exact abrupt handlers; no state/permission grant from typing",
+      "complete deferred access/dependency/ordinary member requirements and full source/context/contract binding",
+      "no production canonicalizer/kernel/Certificate v0 source change; only new helper sources formatted"
+    ],
+    "kind": "local manual review of all seven body node arms,three terminators,56 component interfaces and selected diffs",
+    "remaining_requirements": [
+      "complete shared VIR five-profile wrapper,source-map/manifests/VC/policy/API/release roots and reviewed producer/consumer migration",
+      "independent project/source/call/control/lifetime/activation reconstruction and all ordinary source/operation/permission/frame/totality proofs; W05/T01 and full T02\u2013T11"
+    ],
+    "resolved_findings": [
+      "source authority comes from reconstructed raw buffers,including the repeated root envelope",
+      "explicit declarations and lexical scopes replace header-only local availability; for-init bindings flow only to its own test/body/post",
+      "multi-assignment access sites use target-prefix states rather than replaying the entry state for every store",
+      "validate definition array/member/digest shapes before sorting; malformed data yields controlled rejection",
+      "registered JSON depth256 uses full-limit helpers without widening the old64-depth observer"
+    ]
+  },
+  "schema": "mpk.go_practical.w04_vir_body_verification.v0",
+  "scope": "typed Go structured SSA/state/control/capture/static-provenance body proposal; no complete shared VIR or source/dynamic/ordinary proof",
+  "source_inputs": 604,
+  "status": "W04 in progress; six selected checks passed; no T complete",
+  "work_item": "GO-PRAC-T01-W04"
+}
