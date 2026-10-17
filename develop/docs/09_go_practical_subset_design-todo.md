@@ -116,6 +116,16 @@ preserves the complete typed projection and serialized VC data in five target
 contexts. These fixture comparisons and typed Go models supply no general
 source-equivalence or ordinary proof. Downstream artifact roots/migrations
 and the full T02–T11 implementation remain required.
+The [source-map/frontend-manifest draft](../migrations/go-practical/t01-w04/capture-artifacts/README.md)
+adds exact common envelopes and Go raw input inventories. Full function/node/
+terminator locator coverage, actual captured-byte hashes, selected roots and
+capture/build/module/package references stay linked. Eight artifact triples,
+187 vectors,24 targeted tests and19 Python/Rust/Go preimages exercise the
+boundary. Actual unchanged public validators preserve full old map/manifest
+values in five retained target contexts and retain independently authorized
+synthetic origins. Source/AST/ordinary proofs, registered practical frontend/
+release provenance and certificate-manifest/VC/policy/API/envelope/release
+closure remain required; the private external reference fixture is uninstalled.
 Shared/downstream wire tables, remaining variant/source foundation,
 limits, schemas/hash identities and migration review remain open.
 T01 is incomplete and no practical Go profile is active.

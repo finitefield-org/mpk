@@ -1,0 +1,41 @@
+test_all187_cases_and_exact_classifications (test_capture_artifacts.CaptureTests.test_all187_cases_and_exact_classifications) ... ok
+test_cached_vir_is_keyed_by_all_bytes_and_does_not_trust_reused_hash (test_capture_artifacts.CaptureTests.test_cached_vir_is_keyed_by_all_bytes_and_does_not_trust_reused_hash) ... ok
+test_canonical_hash_vectors_cover_both_roots_inventory_and_external_fixture (test_capture_artifacts.CaptureTests.test_canonical_hash_vectors_cover_both_roots_inventory_and_external_fixture) ... ok
+test_capture_input_contract_and_byte_budgets_are_enforced (test_capture_artifacts.CaptureTests.test_capture_input_contract_and_byte_budgets_are_enforced) ... ok
+test_case_colliding_paths_in_one_capture_capability_reject (test_capture_artifacts.CaptureTests.test_case_colliding_paths_in_one_capture_capability_reject) ... FAIL
+test_constructor_copies_authority_and_project_before_caller_mutation (test_capture_artifacts.CaptureTests.test_constructor_copies_authority_and_project_before_caller_mutation) ... ok
+test_every_retained_input_and_selection_mutation_reaches_actual_native_rejection (test_capture_artifacts.CaptureTests.test_every_retained_input_and_selection_mutation_reaches_actual_native_rejection) ... ok
+test_external_release_reference_cannot_be_rehashed_into_authority (test_capture_artifacts.CaptureTests.test_external_release_reference_cannot_be_rehashed_into_authority) ... ok
+test_five_original_or_independent_native_baselines_match_full_values (test_capture_artifacts.CaptureTests.test_five_original_or_independent_native_baselines_match_full_values) ... ok
+test_full_map_context_vir_hash_and_manifest_map_hash_are_bound (test_capture_artifacts.CaptureTests.test_full_map_context_vir_hash_and_manifest_map_hash_are_bound) ... ok
+test_go_input_inventory_contains_only_actual_raw_objects (test_capture_artifacts.CaptureTests.test_go_input_inventory_contains_only_actual_raw_objects) ... ok
+test_go_three_functions_nine_nodes_three_terminators_are_all_mapped (test_capture_artifacts.CaptureTests.test_go_three_functions_nine_nodes_three_terminators_are_all_mapped) ... ok
+test_malformed_collections_and_provenance_reject_without_type_crashes (test_capture_artifacts.CaptureTests.test_malformed_collections_and_provenance_reject_without_type_crashes) ... ok
+test_missing_native_query_is_an_infrastructure_error (test_capture_artifacts.CaptureTests.test_missing_native_query_is_an_infrastructure_error) ... ok
+test_native_java_rejects_even_external_synthetic_permission (test_capture_artifacts.CaptureTests.test_native_java_rejects_even_external_synthetic_permission) ... ok
+test_native_synthetic_permission_is_independent_and_exact (test_capture_artifacts.CaptureTests.test_native_synthetic_permission_is_independent_and_exact) ... ok
+test_native_utf8_split_ranges_reject_for_both_scalar_profiles (test_capture_artifacts.CaptureTests.test_native_utf8_split_ranges_reject_for_both_scalar_profiles) ... ok
+test_nested_if_scope_and_resume_continuation_have_complete_go_map_coverage (test_capture_artifacts.CaptureTests.test_nested_if_scope_and_resume_continuation_have_complete_go_map_coverage) ... ok
+test_new_root_schema_and_profile_contracts_cannot_cross (test_capture_artifacts.CaptureTests.test_new_root_schema_and_profile_contracts_cannot_cross) ... ok
+test_old_or_certificate_roots_and_proof_status_members_reject (test_capture_artifacts.CaptureTests.test_old_or_certificate_roots_and_proof_status_members_reject) ... ok
+test_rehashed_go_inventory_and_capture_forgeries_are_rejected (test_capture_artifacts.CaptureTests.test_rehashed_go_inventory_and_capture_forgeries_are_rejected) ... ok
+test_same_bytes_different_overlay_path_stale_manifest_rejects (test_capture_artifacts.CaptureTests.test_same_bytes_different_overlay_path_stale_manifest_rejects) ... ok
+test_source_map_and_manifest_apply_their_own_complete_byte_and_entry_caps (test_capture_artifacts.CaptureTests.test_source_map_and_manifest_apply_their_own_complete_byte_and_entry_caps) ... ok
+test_untrusted_map_cannot_grant_its_own_synthetic_permission (test_capture_artifacts.CaptureTests.test_untrusted_map_cannot_grant_its_own_synthetic_permission) ... ok
+
+======================================================================
+FAIL: test_case_colliding_paths_in_one_capture_capability_reject (test_capture_artifacts.CaptureTests.test_case_colliding_paths_in_one_capture_capability_reject)
+----------------------------------------------------------------------
+identity_wire.IdentityError: unique captured logical path/ASCII case fold
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/test_capture_artifacts.py", line 145, in test_case_colliding_paths_in_one_capture_capability_reject
+    with self.assertRaisesRegex(ValueError,'case-stable'):input_inventory(Project(spec))
+AssertionError: "case-stable" does not match "unique captured logical path/ASCII case fold"
+
+----------------------------------------------------------------------
+Ran 24 tests in 78.935s
+
+FAILED (failures=1)

@@ -3131,3 +3131,76 @@ W04 remains In progress. Source-map/manifest/VC/policy/API/release roots/unions,
 complete source/foundation bindings and reviewed producer/consumer migrations
 remain due. W05 owns inactive publication and the T01 gate. No T is complete,
 all T02–T11 work stays active and no practical Go profile is activated.
+
+## 47. T01-W04 common source maps, frontend manifests and Go input inventories
+
+Entry: `84d66684822644ada2c3a9bf6c2479b350f17dbd`, clean before this work.
+The [capture-artifact draft](../migrations/go-practical/t01-w04/capture-artifacts/README.md)
+closes common source-map v3 and frontend-manifest v3 envelopes plus a new Go
+input-inventory v1 identity/domain. Every root field except its own hash enters
+the canonical preimage. Exact full context, compiled profile contract and
+tagged arm bind the validated common VIR and map references. Old/future/
+certificate roots, caller/proof fields and context/hash/reference crossings
+reject. Earlier private/production meanings and reserved inactive C# names
+remain unchanged; the complete eleven-stage objective is retained.
+
+Go maps cover every function, all seven body node arms and every terminator,
+including scope children and resume continuations. Declaration and canonical
+numeric IDs determine order. Functions use declaration spans; nodes use body
+anchors; terminators inherit enclosing anchors. Nonempty UTF8 byte boundaries
+must lie in captured Go source objects. These locators leave actual AST/
+lowering/execution correspondence to its required proof. Function+node+
+terminator accounting retains323,728 entries/32MiB; frontend manifests retain
+4MiB,32,768 inputs and256 units, alongside shared transport/depth/string bounds.
+
+The inventory binds every original capture object with its unchanged source-
+object record and actual size/SHA. ASCII-case collisions within a capability,
+missing/fabricated inputs and capture/contract count/byte overruns reject.
+Default contracts add no raw files. Exact selection,capture,limit,build,
+module/package and independent external provenance references enter the Go
+manifest. Source authority is copied from original buffers; successful module
+checks are cached by complete canonical VIR bytes rather than a caller digest.
+Rehashed nested inventory/object/capture and retained input-set mutations still
+reject against the independent byte/model authority.
+
+The new Rust observer calls unchanged public successor VIR/map/frontend-
+manifest importers directly, with226 unchanged linked production source files
+pinned and no appended facade. Original dependency versions/checksums and the
+nonincremental/no-debug/single-codegen-unit configuration are retained. Sixty
+native queries preserve original profile-specific range/input/selection/target
+and synthetic-permission policies. The extra Go synthetic case requires exact
+independent permission; Java still rejects such permission. Both scalar profiles
+reject UTF8 splits. Five independent old-family baselines preserve complete
+validated map/manifest values, including raw original Go/Rust64 roots.
+
+Existing literal empty go.sum and generated Rust Cargo bytes reproduce their
+original manifest size/SHA pins. C#/Java boolean source/contract fixtures are
+explicit. The successor external release reference is checked before deliberate
+old-family observation conversion. Its private fixture remains incomplete and
+uninstalled. Historical Go tool/frontend identity samples supply structure and
+linkage only; actual registered practical producer/toolchain/bundle execution
+provenance remains required for release. No source or release verdict follows.
+
+Eight artifact triples and187 cases yield eight linked-unproved maps,eight
+linked-unproved frontend manifests and171 configuration rejections. Twenty-four
+targeted tests cover nested if/scope/resume locators,full reference/input sets,
+immutable/cache authority,synthetic boundaries,rehashed metadata and budgets.
+Nineteen preimages agree across Python/Rust/Go: eight maps,eight frontend
+manifests,two inventories and one private external-reference fixture. Each
+native observer runs twice identically. The receipt pins652 inputs and the
+same14,496-file Go1.25.0 inventory.
+
+The [verification record](../migrations/go-practical/t01-w04/capture-artifacts/verification/verification.json)
+retains selected raw unit/replay/metadata/new-Rust-format/Python-compile logs and
+selection reasons. The initial observer omitted its required hash placeholder;
+raw queries/results retain that setup failure and the repaired classification
+is rechecked. Prior module evidence and all143 predecessor paths stay unchanged.
+Unaffected older proof/native matrices are not repeated. The cumulative T01
+gate stays deferred to W05.
+
+W04 remains In progress. Certificate-manifest/VC, frontend-envelope, policy/API/
+release roots, complete foundation/source signatures and reviewed migrations
+remain due. General independent capture/import and all source/AST/control/
+lifetime/activation/ordinary operation/permission/frame/totality proofs stay
+required in T02–T06. W05 owns inactive publication and the T01 gate; all T02–T11
+work remains active and no practical Go profile is activated.

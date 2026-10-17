@@ -308,9 +308,27 @@ call closure/cycles, raw-buffer authority and cumulative module counters.
 Sixty-two Python/Rust/Go preimages agree. The actual unchanged retained
 importer/type validator/WP engine preserves full typed projection and serialized
 VC data in five target contexts, with thirteen native positive/negative queries.
-The [current metadata checker](../../../probes/go-practical/check_shared_vir_metadata.py)
+The [section46 metadata checker](../../../probes/go-practical/check_shared_vir_metadata.py)
 retains preceding body evidence,143 predecessor pins and document linkage.
 Its [verification record](shared-vir/verification/verification.json) distinguishes
 fixture preservation and Go model typing from source/ordinary proof acceptance.
 Source-map/manifest/VC/policy/API/release roots and reviewed migrations remain
 due. W04, W05/T01 and all T02–T11 remain open; the full gate stays assigned to W05.
+
+The [source-map/frontend-manifest draft](capture-artifacts/README.md) adds exact
+common envelopes and Go input-inventory records with complete original byte/
+capture/build/module/package/selection linkage. Eight artifact triples and187
+cases retain16 linked-unproved outcomes and171 rejections. Nineteen full
+Python/Rust/Go preimages agree;24 targeted tests cover nested region locators,
+immutable source authority, rehashed inputs and limits. The actual unchanged
+public retained validators preserve full map/manifest values in five target
+contexts, including their exact independent synthetic-permission boundaries.
+The [current metadata checker](../../../probes/go-practical/check_capture_artifact_metadata.py)
+preserves prior module evidence and143 predecessor pins. Its
+[verification record](capture-artifacts/verification/verification.json) keeps
+the initial observer setup failure and selected final checks. The external
+release-reference fixture is incomplete/uninstalled, with registered practical
+producer/toolchain provenance still due. Certificate-manifest/VC, frontend
+envelope, policy/API/release roots, reviewed migration and all source/ordinary
+proofs remain required. W04 stays open; W05 owns the cumulative T01 gate and
+all T02–T11 work remains active.

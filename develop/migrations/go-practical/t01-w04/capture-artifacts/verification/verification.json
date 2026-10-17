@@ -1,0 +1,187 @@
+{
+  "artifact_triples": 8,
+  "checks": [
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "-v",
+        "test_capture_artifacts.CaptureTests.test_case_colliding_paths_in_one_capture_capability_reject"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "environment": {
+        "PYTHONPATH": "develop/probes/go-practical"
+      },
+      "exit_code": 0,
+      "log": "repaired-case-fold-unit.log",
+      "reason": "Re-run only initial failed assertion; existing graph guard correctly rejects case collision before inventory guard; other23 tests passed unchanged",
+      "sha256": "5652e2cf4a71109954aebe04a13e85196dba7fe471cad871e1c061a9ef0cad00",
+      "wall_seconds": 15.157486291020177
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "develop/probes/go-practical/run_capture_artifacts.py",
+        "--check"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "environment": {
+        "PYTHONPATH": "develop/probes/go-practical"
+      },
+      "exit_code": 0,
+      "log": "fresh-replay.log",
+      "reason": "Independent fresh process reproduces8 triples/187 cases/60 actual public validator queries/19 preimages,full retained map/manifest equality and native binaries/source/toolchain pins",
+      "sha256": "44b45c5e38e8419e61f00666b1cddcb615e98a291b29a95a511818ac88fc9ca2",
+      "wall_seconds": 51.40694750007242
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "develop/probes/go-practical/check_capture_artifact_metadata.py"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "environment": {
+        "PYTHONPATH": "develop/probes/go-practical"
+      },
+      "exit_code": 0,
+      "log": "metadata.log",
+      "reason": "Exact new root/domain/field/worklist closure,preceding shared module reconstruction,652 source pins,143 predecessors,strict JSONs/document links and ordered ledger47",
+      "sha256": "8115f228bd154ed235e811e057c1e0540dee2748a5b7d3268cc71a42c8c71acd",
+      "wall_seconds": 55.4769775000168
+    },
+    {
+      "command": [
+        "rustfmt",
+        "--edition",
+        "2021",
+        "--check",
+        "--config",
+        "skip_children=true",
+        "develop/probes/go-practical/capture-native/src/main.rs"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "rustfmt.log",
+      "reason": "Only the new standalone Rust public-validator observer; no prior/private/production Rust formatting",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "wall_seconds": 0.13178795902058482
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "-c",
+        "from pathlib import Path;p=Path('develop/probes/go-practical');names=('capture_artifacts.py', 'capture_artifact_vectors.py', 'capture_native_build.py', 'run_capture_artifacts.py', 'test_capture_artifacts.py', 'check_capture_artifact_metadata.py');[compile((p/n).read_bytes(),str(p/n),'exec') for n in names];print('PASS: six new Python sources compile')"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "python-compile.log",
+      "reason": "All six new capture artifact/fixture/native build/replay/test/metadata Python sources",
+      "sha256": "5f3537ba7604ac2b60bd9acce8ddff6181bb844aa6ce5a06c3175b95c2bbdc85",
+      "wall_seconds": 0.0493307919241488
+    }
+  ],
+  "document_links": 366,
+  "documents": 22,
+  "entry_commit": "84d66684822644ada2c3a9bf6c2479b350f17dbd",
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "owner": "GO-PRAC-T01-W05",
+    "reason": "Intermediate W04; cumulative whole T01 gate belongs to final W05",
+    "status": "deferred"
+  },
+  "hash_vectors": 19,
+  "initial_repaired_failures": [
+    {
+      "inputs": "initial-missing-manifest-hash/queries.json",
+      "outputs": "initial-missing-manifest-hash/results.json",
+      "record": "initial-missing-manifest-hash/diagnostic.json",
+      "repair": "Observer inserted the required zero source_manifest_hash placeholder before the unchanged hash helper; all final base map/manifest/native classifications and independent baselines pass."
+    },
+    {
+      "input": "initial-case-fold-input.json",
+      "record": "initial-unit.json",
+      "repair": "Existing identity-graph validation correctly rejects the collision before the inventory guard. Assert ValueError rejection without requiring a later-layer message; corrected targeted test passes."
+    }
+  ],
+  "materialization": {
+    "command": [
+      "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+      "-B",
+      "develop/probes/go-practical/run_capture_artifacts.py",
+      "--write"
+    ],
+    "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+    "environment": {
+      "PYTHONPATH": "develop/probes/go-practical"
+    },
+    "exit_code": 0,
+    "log": "final-materialization.log",
+    "reason": "Re-pin final test source after assertion repair; artifact/native/hash data unchanged,all187 classifications and19 full native preimages rechecked",
+    "sha256": "44b45c5e38e8419e61f00666b1cddcb615e98a291b29a95a511818ac88fc9ca2",
+    "wall_seconds": 54.471810917020775
+  },
+  "metadata_checker_sha256": "bfa8855675a1331d24acb66a77229218c31d3de24b816d9a014e6c7c871b37e7",
+  "native_queries": 60,
+  "not_repeated": [
+    "unchanged older kernel/ordinary/native proof matrices; preceding shared module corpus and all143 predecessor/source pins checked",
+    "formatting prior/private/production Rust/Go sources; only the new standalone Rust observer formatted"
+  ],
+  "observed_tests": 24,
+  "output_scope": "complete raw combined stdout/stderr from selected local subprocesses and initial native setup query/result JSONs",
+  "remaining": [
+    "certificate-manifest/VC/policy/API/frontend-envelope/release roots and reviewed producer/consumer migrations",
+    "independent general source capture/import,actual AST/control/lifetime/activation correspondence and all ordinary source/operation/permission/frame/totality proofs",
+    "W04 completion,W05 inactive publication/cumulative T01 gate and all T02\u2013T11 implementation/release gates"
+  ],
+  "retained_target_contexts": 5,
+  "review": {
+    "checked": [
+      "complete validated context/profile-contract/VIR/map linkage before retained observation projection",
+      "complete function/seven-node-arm/terminator reference coverage,scope/resume traversal,canonical numeric order and captured UTF8 source boundaries",
+      "every actual raw capture object,size/SHA and budget; no fabricated default-overlay file; build/module/package/selection binding",
+      "independent source/release/synthetic authority copied from original bytes; whole-VIR-byte cache key; no missing native query accepted or assumed rejected",
+      "actual unchanged public retained map/frontend-manifest validators with Java-specific source/permission/input rules; full original/independent old-family baseline equality",
+      "rehashed object/inventory/capture/input-set corruptions still compare against independent authority; root byte/entry limits retained",
+      "historical identity payloads and incomplete external release fixture remain untrusted linkage samples; no registered practical producer or provenance verdict",
+      "no previous helper,production parser,core/kernel,Certificate v0 or reserved inactive C# meaning changed"
+    ],
+    "kind": "local manual review of all new common capture roots,tagged reference/payload shapes,raw authority,native observation and affected diffs",
+    "remaining_requirements": [
+      "certificate-manifest/VC/policy/API/frontend-envelope/release roots and reviewed producer/consumer migrations",
+      "independent general source capture/import,actual AST/control/lifetime/activation correspondence and all ordinary source/operation/permission/frame/totality proofs",
+      "W04 completion,W05 inactive publication/cumulative T01 gate and all T02\u2013T11 implementation/release gates"
+    ],
+    "resolved_findings": [
+      "generated Rust metadata/empty go.sum use exact existing retained-test bytes with original size/SHA assertions",
+      "supply retained synthetic permissions only from independent authority,including authorized Go and forbidden Java paths",
+      "insert required own-hash placeholder before the actual native hash function",
+      "case collision is correctly rejected by the preexisting source-identity graph before the new inventory guard"
+    ]
+  },
+  "schema": "mpk.go_practical.w04_capture_artifact_verification.v0",
+  "scope": "closed common source-map/frontend-manifest and Go input-inventory draft with exact captured-byte/model linkage and retained public native validation; no general source import, AST/ordinary proof, registered release/tool provenance, certificate manifest or activation",
+  "source_inputs": 652,
+  "status": "W04 in progress; five selected checks passed; no T complete",
+  "strict_jsons": 117,
+  "unit_execution": {
+    "initial": {
+      "failed": 1,
+      "passed": 23,
+      "record": "initial-unit.json",
+      "tests": 24
+    },
+    "repaired_case_fold": {
+      "passed": 1,
+      "tests": 1
+    },
+    "selection": "Keep initial23 passing tests; re-run only the case-fold assertion after correcting its dependence on the validation layer/message",
+    "unique_tests_covered": 24
+  },
+  "vectors": 187,
+  "work_item": "GO-PRAC-T01-W04"
+}
