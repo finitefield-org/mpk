@@ -28,6 +28,11 @@ and intact native Go type/scope observations. A scheduling clarification keeps
 invariants/ranks before condition evaluation under LC02; abstract proof bytes
 are unchanged. Normative identities, independent import and complete
 definedness/source/proof reconstruction remain due.
+Canonical owner/typed-view work adds 15 native/model observations and ten
+ordinary coupling claims in unchanged production checkers, with five accepted
+zero-axiom proofs. Typed child views share their parent's store; escaped arrays
+retain aliasing across exact source scopes. General path/exposure/lifetime/live
+counter and source proofs remain due.
 Complete source/wire tables, remaining variant/source foundation,
 limits, schemas/hash identities and migration review remain open.
 T01 is incomplete and no practical Go profile is active.

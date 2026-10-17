@@ -40,5 +40,14 @@
     "string_bytes": 256,
     "typed_region_slots_per_measured_heap": 2
   },
-  "status": "candidate freeze inputs; no normative or runtime limit changed"
+  "status": "candidate freeze inputs; no normative or runtime limit changed",
+  "storage_view_interpretation_draft": {
+    "cell_candidate": 128,
+    "cell_unit": "accessible root array cells per heap owner; each cell has its complete captured Plain layout",
+    "not_a_limit_on": "number of child views, source machine addresses, all original allocation cells or cumulative allocations after proved retirement",
+    "receipt": "develop/migrations/go-practical/t01-w04/storage-views/observations.json",
+    "slot_candidate": 2,
+    "slot_unit": "canonical positive heap owner of an exact root storage element type; child typed views are projections",
+    "status": "draft interpretation; full local arena/live-frame/lifetime/counter proofs and numeric freeze remain open"
+  }
 }

@@ -2250,3 +2250,69 @@ region/resource counters, exact shared/Go schema/hash identities, independent
 typed/definedness reconstruction, remaining foundation proofs/budgets and
 reviewed producer/consumer migrations remain due. No T is complete and no
 practical Go profile is active. T02–T11 and full requested scope remain required.
+
+## 35. T01-W04 canonical storage owners and hierarchical typed views
+
+Entry: `9e7e896a6e9be01184c6b173b489fec2f20c8a4b`, clean before this work.
+The preceding goal turn made progress with the closed typed overlay and
+native header scopes. This checkpoint advances the unresolved storage/counter
+boundary while retaining the complete eleven-stage objective.
+
+The [canonical storage draft](../migrations/go-practical/t01-w04/storage-views/README.md)
+avoids independent writable stores for parent/child element types. One owner
+and validated field/index paths couple nested arrays and struct array fields.
+Whole value replacement updates existing views; by-value array copies acquire
+distinct storage while descriptor copies retain sharing. Source bounds use
+full indices, permissions follow owners through every descendant and NoAccess
+zero-capacity markers grant no physical alias/freshness fact.
+
+The private model distinguishes full local value roots from bounded heap
+owners. At an exact scope boundary it groups escaping array views by observed
+capacity containment, packs accessible root-cell windows without gaps or lost
+overlaps, and translates all shared child paths together. Caller roots whose
+scopes remain live retain their references; borrowed local owners cannot turn
+fresh through promotion. Ended locals are no longer another accessible store.
+Returned array values remain separate copies from the original escaping
+slices. General exhaustive escape closure, entry/source embedding, padding,
+scope/permission and live-state retirement proofs are still required.
+
+Fifteen independently specified native/model observations agree, including
+cross-type child writes, whole-parent replacement, sibling preservation,
+overlap snapshots, distant capped windows in a 256-element array and helper
+returns of caller-local views. Twenty targeted model tests pass, including
+128 child views on one owner, exact types/full indices, read-only descendants,
+zero-count copy, typed no-access, packing overlap and atomic quota failure.
+These are representative probes, not a complete admitted source pipeline.
+
+Five ordinary laws quantify over arbitrary A:Sort0 cells in two 64-cell rows
+and two distinct owners. The untrusted producer splits only relevant address
+flags (up to 7), never stored value patterns. Existing Bool cases and Eq rules
+prove child/parent observations, sibling and other-owner frames. No core rule,
+function extensionality, eta or semantic axiom is added. Both production Rust
+and Go checkers accept all five positives with zero axioms and matching hashes;
+five altered stale/wrong-view candidates fail CORE_TYPE_MISMATCH. Rejection
+is not a certified counterexample. Legacy Bool/Nat certificates remain accepted.
+
+The receipt pins 123 inputs and reproduces exact native/binary/certificate
+identities after a fresh build. Observed maxima are 51,647 bytes/5,823 stored
+terms/23 declarations. Direct children run sequentially with a private 60s
+measurement ceiling, not a normative budget. A copied predecessor lockfile
+needed offline regeneration for the production source dependencies; no root
+lockfile or production source changed. Native snapshot aggregation copies
+data before later alias mutations and remains outside verified roots.
+
+The two-slot/128-cell candidates are clarified as positive canonical heap
+owners and accessible root storage cells of exact layouts. Child views do not
+consume separate physical slots; aggregate payload and local arena costs are
+not free. Full live-frame/entry-snapshot accounting and proved retirement,
+all structural/resource limits and exact successor reference schemas/hashes
+remain due. Planned practical_storage Go lowering and independent Rust
+storage/path validation are assigned alongside existing slices/construction
+owners. They are not completed production executors.
+
+The [verification record](../migrations/go-practical/t01-w04/storage-views/verification/verification.json)
+retains selected native/model/proof replay, metadata and formatting results,
+and why unchanged production suites need no repeat. The cumulative T01 gate
+is deferred to W05 as required for an intermediate W. W04 remains In progress;
+no T is complete or practical Go profile active. Complete T02–T11 source,
+application and release scope remains required.

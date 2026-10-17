@@ -122,6 +122,12 @@ Complete operation/application proofs remain due in T02–T06. The
 [W03 descriptor/construction evidence](../t01-w03/feasibility-exit-audit.md)
 is a foundation feasibility prerequisite, not the final source binding.
 
+The [canonical owner/typed-view draft](storage-views/README.md) now addresses
+cross-type aliasing through nested Plain arrays and struct fields. Its NoAccess
+marker abstracts ZS03 and still needs production live-witness lowering. Its
+two-slot candidate refers to positive canonical root owners, not every child
+view; complete local/escape/live-state accounting and exact limits remain open.
+
 ## 4. Review and remaining freeze work
 
 The [native report checker](../../../probes/go-practical/check_scope_report.py)

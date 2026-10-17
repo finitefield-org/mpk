@@ -1,0 +1,100 @@
+{
+  "checks": [
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-m",
+        "unittest",
+        "-v",
+        "test_storage_views"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical",
+      "exit_code": 0,
+      "log": "unittest-storage.log",
+      "reason": "20 typed-owner/path, alias/copy/capacity/permission/scoped-export/packing/failure-boundary tests",
+      "sha256": "ddcb03de4261e9e1802967729de72fa32df2c924912ebe25f38205e7eaab0b00",
+      "wall_seconds": 0.047590749978553504
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/run_storage_view_probes.py",
+        "--check"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "fresh-replay.log",
+      "reason": "Fresh source/toolchain/binary replay: 15 native/model observations, 10 ordinary claims in both unchanged production checkers, 2 legacy certificates",
+      "sha256": "23736f5c0e11757d3fcbd566819730dda1ddea7454c4a3dca457c2a5e8e6ed1c",
+      "wall_seconds": 7.616599250002764
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/check_storage_view_metadata.py"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "metadata.log",
+      "reason": "Current and retained evidence; candidate/planned owner scope; 143 predecessor pins, diagnostics, links and ledger order",
+      "sha256": "4f533d49ea7ff2671fba5f9e08f00b37c2368511ba8546caf77e90a57176dabf",
+      "wall_seconds": 0.1448953750077635
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/gofmt",
+        "-l",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/view_reference.go"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "gofmt.log",
+      "reason": "Only the new native observer Go source",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "wall_seconds": 0.022829749970696867
+    },
+    {
+      "command": [
+        "rustfmt",
+        "--edition",
+        "2021",
+        "--check",
+        "--config",
+        "skip_children=true",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/view-certificates/build.rs",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/view-certificates/src/main.rs",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/view-certificates/src/views.rs"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "rustfmt.log",
+      "reason": "Only three new untrusted producer Rust sources; retained snapshots excluded",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "wall_seconds": 0.13199020799947903
+    }
+  ],
+  "entry_commit": "9e7e896a6e9be01184c6b173b489fec2f20c8a4b",
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "owner": "GO-PRAC-T01-W05",
+    "reason": "Intermediate W04; cumulative gate reserved for final W",
+    "status": "deferred"
+  },
+  "metadata_checker_sha256": "4ca76c34d3a9d09739fe8b9f0770a10d7ff86465ec44df5bf44b6a3de094bdb5",
+  "not_repeated": [
+    "unchanged production/core unit suites",
+    "old operation/overlay native matrices and unrelated collection proofs"
+  ],
+  "observed_tests": 20,
+  "output_scope": "complete raw combined stdout/stderr captured from local subprocesses",
+  "python_sources_compiled": 5,
+  "remaining": [
+    "complete general path/exposure/escape/lifetime/permission/live-counter/source-binding proofs",
+    "exact local/heap/structural/capture/resource limits and successor schema/hash/migration freeze",
+    "inactive publication, application and local release gates"
+  ],
+  "schema": "mpk.go_practical.w04_storage_view_verification.v0",
+  "scope": "private canonical owner/view design and ordinary coupling feasibility; no complete source/lifetime/counter normalization claim",
+  "status": "W04 in progress; no T complete",
+  "work_item": "GO-PRAC-T01-W04"
+}

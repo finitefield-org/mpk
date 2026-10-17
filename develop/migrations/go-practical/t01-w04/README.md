@@ -56,6 +56,12 @@ remain T08–T11 work; the complete eleven-stage objective is unchanged.
   lexical/type observations. Old/current/result/finite-sum and error entry
   semantics are explicit. The rank theorem uses the LC02 pre-condition header;
   production schema/hash/importer/definedness/proof review remains open.
+- [Canonical storage-owner/typed-view draft](storage-views/README.md):
+  15 native/model observations and ten ordinary coupling candidates in the
+  unchanged production checkers. Generic Sort0 cells retain parent/child
+  updates, sibling frames and distinct owners. The slot candidate counts
+  positive root owners; complete path/exposure/lifetime/live-counter/source
+  proofs and exact reference schemas remain required.
 
 ## Shared-family decision
 
@@ -94,7 +100,7 @@ The full design's source scope is retained. The
 
 The complete source and operation tables still need review. Other open work is:
 
-1. Freeze typed physical-region counts, storage bounds and their entry/allocation
+1. Review canonical owner/view, exposure and scope accounting; freeze storage bounds and their entry/allocation
    enforcement; assign the ordinary zero-access normalization/frame proofs.
 2. Freeze capture/module/source/count budgets and the real snapshot/compiler
    enforcement, separately from measured proof budgets.
@@ -157,8 +163,13 @@ unchanged checker/production inputs and current draft scope. Its
 [verification record](variant-termination/verification/verification.json)
 retains selected replay/evidence checks; the whole T01 gate remains due in W05.
 
-The overlay checkpoint's [current metadata checker](../../../probes/go-practical/check_overlay_metadata.py)
+The overlay checkpoint's [section34 metadata checker](../../../probes/go-practical/check_overlay_metadata.py)
 validates closed operator coverage, native grammar/scope receipts, prior proof
 integrity and unchanged predecessor inputs. Its
 [verification record](overlay-contracts/verification/verification.json)
 keeps candidate type acceptance distinct from source/VC/proof acceptance.
+
+The storage checkpoint's [current metadata checker](../../../probes/go-practical/check_storage_view_metadata.py)
+checks current native/model/ordinary evidence, retained receipts and unchanged
+predecessor files. Its [verification record](storage-views/verification/verification.json)
+keeps pointwise coupling proofs distinct from complete source normalization.
