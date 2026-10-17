@@ -55,6 +55,12 @@ The unused-HTTP capture measures1,417,549 syntax nodes, so practical Go's
 candidate becomes4,194,304 while the predecessor's1,000,000 stays unchanged.
 Abstract2Mi-value/8Mi-store/32Mi-total units charge full bounded shapes,
 copies, roots and observations; source/allocator/finite-ID proofs remain due.
+The [identity/DAG draft](../migrations/go-practical/t01-w04/identity-dag/README.md)
+proposes101 unreserved identities/41 domains and closes ten source-identity
+record shapes. A26-node/seven-root graph and44 Python/Rust/Go hash vectors
+exercise acyclic source/module/package/declaration/type/capture/loop linkage.
+All143 predecessor paths have candidate migration routes; full root/union/
+predicate/symbol migration review and independent source/registry proofs remain.
 Complete source/wire tables, remaining variant/source foundation,
 limits, schemas/hash identities and migration review remain open.
 T01 is incomplete and no practical Go profile is active.

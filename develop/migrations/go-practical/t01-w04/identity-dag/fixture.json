@@ -1,0 +1,314 @@
+{
+  "aliases": {
+    "d36b267f5746c403d325a484d846664bd1bdf2933a5e41ba1f17957886d30ba1": "5ea25729e002959d7373ddd97f4840927431ada7dafd1d456e34a5e52030ee23"
+  },
+  "declarations": {
+    "Amount": "d4efd85d8f111dcd25a96ffcc20bb0d76c9349f26a4d567bc2ddffe60971bda5",
+    "Code": "d8547f0c694f66edc8ccd2552708ac8f71589de137b28c33d16e7eeccacd54f2",
+    "Error": "32472146b8ab7f116679b904f9eb23188242fae9280d8246ceb78ccb70649fda",
+    "Money": "d36b267f5746c403d325a484d846664bd1bdf2933a5e41ba1f17957886d30ba1",
+    "Other": "84588825703c05580a86dcb345d05b3f624df25876eb1a4fdea3b7b39e760974",
+    "Root": "9e176a17d3c2930c8c9cc9bb157adfb89de798a11455a948be05849b8c80e556"
+  },
+  "nodes": [
+    {
+      "bytes": 37,
+      "capability": "main",
+      "id": "f7d14b4761905a4ddd1985e0e9a93d47dc3f0787dc5644c6bfc65bd5d3ccbb14",
+      "kind": "go_mod",
+      "path": "go.mod",
+      "raw_sha256": "c1495924a880569803eb8670c2cc6a5b19f7ff2e0f0bb919ab5c513a6d07c7d6",
+      "schema": "mpk.go.source_object.v1"
+    },
+    {
+      "bytes": 326,
+      "capability": "main",
+      "id": "823bcb4c2106594f9e14a96f461ce52f78fd2df7351428db7af68144c9bdfb3d",
+      "kind": "go_source",
+      "path": "policy.go",
+      "raw_sha256": "b6d9de8245061fea54b6ff873315abf9543f95e191465dbcadebfadce25699e6",
+      "schema": "mpk.go.source_object.v1"
+    },
+    {
+      "bytes": 29,
+      "capability": "overlays",
+      "id": "670aa6138dfdc42202f4aacc32f63368a932c29f5a3d546c894c7ab638b6190f",
+      "kind": "overlay",
+      "path": "contracts/root.json",
+      "raw_sha256": "351aa61abee713333e5cc44d2a85a4fc881c34dca5cd7ff8b8dfed03ae55b767",
+      "schema": "mpk.go.source_object.v1"
+    },
+    {
+      "go_mod": "f7d14b4761905a4ddd1985e0e9a93d47dc3f0787dc5644c6bfc65bd5d3ccbb14",
+      "id": "3ad483bbd8511ab2b4e269a97721b2e6986a718fc5b676b74ec86a951b599c05",
+      "kind": "main",
+      "module_path": "example.com/policy",
+      "objects": [
+        "823bcb4c2106594f9e14a96f461ce52f78fd2df7351428db7af68144c9bdfb3d",
+        "f7d14b4761905a4ddd1985e0e9a93d47dc3f0787dc5644c6bfc65bd5d3ccbb14"
+      ],
+      "replacement": {
+        "kind": "none",
+        "path": null,
+        "version": null
+      },
+      "schema": "mpk.go.module_instance.v1",
+      "version": ""
+    },
+    {
+      "id": "37c979b7c7d147951ea2609db8609bc9f24bc03faab001420d65a8a339b94619",
+      "import_path": "example.com/policy",
+      "module_id": "3ad483bbd8511ab2b4e269a97721b2e6986a718fc5b676b74ec86a951b599c05",
+      "objects": [
+        "823bcb4c2106594f9e14a96f461ce52f78fd2df7351428db7af68144c9bdfb3d"
+      ],
+      "package_name": "policy",
+      "schema": "mpk.go.package_instance.v1"
+    },
+    {
+      "id": "fad26af3cd40ef04599cdd89352d0d71da6c59fd43d56e68712b36404b2a1966",
+      "kind": "builtin",
+      "name": "int64",
+      "schema": "mpk.go.source_type.v1",
+      "signed": true,
+      "width": 64
+    },
+    {
+      "id": "8085faf40fb6ad61d9c7e2224e9871c4000c9f48a03e100b175ae1d5848c5b86",
+      "kind": "builtin",
+      "name": "uint8",
+      "schema": "mpk.go.source_type.v1",
+      "signed": false,
+      "width": 8
+    },
+    {
+      "id": "41302de891bf9ae8da809b454fefeebcdf2e6a9a74161b5e6f6cf838ba6328b8",
+      "kind": "builtin",
+      "name": "string",
+      "schema": "mpk.go.source_type.v1",
+      "signed": null,
+      "width": null
+    },
+    {
+      "id": "aa67ad2425305018fe37f006ab066ba4190aa6cd69cb1a8ab0e1078918d6fd2f",
+      "kind": "builtin",
+      "name": "error",
+      "schema": "mpk.go.source_type.v1",
+      "signed": null,
+      "width": null
+    },
+    {
+      "end_byte": 86,
+      "id": "d4efd85d8f111dcd25a96ffcc20bb0d76c9349f26a4d567bc2ddffe60971bda5",
+      "kind": "type",
+      "name": "Amount",
+      "ordinal": 0,
+      "package_id": "37c979b7c7d147951ea2609db8609bc9f24bc03faab001420d65a8a339b94619",
+      "receiver_type_id": null,
+      "schema": "mpk.go.declaration.v1",
+      "source_object_id": "823bcb4c2106594f9e14a96f461ce52f78fd2df7351428db7af68144c9bdfb3d",
+      "start_byte": 69
+    },
+    {
+      "declaration_id": "d4efd85d8f111dcd25a96ffcc20bb0d76c9349f26a4d567bc2ddffe60971bda5",
+      "id": "5ea25729e002959d7373ddd97f4840927431ada7dafd1d456e34a5e52030ee23",
+      "kind": "nominal",
+      "schema": "mpk.go.source_type.v1"
+    },
+    {
+      "end_byte": 103,
+      "id": "84588825703c05580a86dcb345d05b3f624df25876eb1a4fdea3b7b39e760974",
+      "kind": "type",
+      "name": "Other",
+      "ordinal": 1,
+      "package_id": "37c979b7c7d147951ea2609db8609bc9f24bc03faab001420d65a8a339b94619",
+      "receiver_type_id": null,
+      "schema": "mpk.go.declaration.v1",
+      "source_object_id": "823bcb4c2106594f9e14a96f461ce52f78fd2df7351428db7af68144c9bdfb3d",
+      "start_byte": 87
+    },
+    {
+      "declaration_id": "84588825703c05580a86dcb345d05b3f624df25876eb1a4fdea3b7b39e760974",
+      "id": "3f7d354f8a011773c9a506dce70383c55eeb9ee684ab782af20ff6761cc55aec",
+      "kind": "nominal",
+      "schema": "mpk.go.source_type.v1"
+    },
+    {
+      "end_byte": 119,
+      "id": "d8547f0c694f66edc8ccd2552708ac8f71589de137b28c33d16e7eeccacd54f2",
+      "kind": "type",
+      "name": "Code",
+      "ordinal": 2,
+      "package_id": "37c979b7c7d147951ea2609db8609bc9f24bc03faab001420d65a8a339b94619",
+      "receiver_type_id": null,
+      "schema": "mpk.go.declaration.v1",
+      "source_object_id": "823bcb4c2106594f9e14a96f461ce52f78fd2df7351428db7af68144c9bdfb3d",
+      "start_byte": 104
+    },
+    {
+      "declaration_id": "d8547f0c694f66edc8ccd2552708ac8f71589de137b28c33d16e7eeccacd54f2",
+      "id": "7af37f1130321c56ac7e066495f01d8cadb7b691f64960039c89017d93357673",
+      "kind": "nominal",
+      "schema": "mpk.go.source_type.v1"
+    },
+    {
+      "end_byte": 139,
+      "id": "d36b267f5746c403d325a484d846664bd1bdf2933a5e41ba1f17957886d30ba1",
+      "kind": "alias_type",
+      "name": "Money",
+      "ordinal": 3,
+      "package_id": "37c979b7c7d147951ea2609db8609bc9f24bc03faab001420d65a8a339b94619",
+      "receiver_type_id": null,
+      "schema": "mpk.go.declaration.v1",
+      "source_object_id": "823bcb4c2106594f9e14a96f461ce52f78fd2df7351428db7af68144c9bdfb3d",
+      "start_byte": 120
+    },
+    {
+      "end_byte": 183,
+      "id": "32472146b8ab7f116679b904f9eb23188242fae9280d8246ceb78ccb70649fda",
+      "kind": "method",
+      "name": "Error",
+      "ordinal": 4,
+      "package_id": "37c979b7c7d147951ea2609db8609bc9f24bc03faab001420d65a8a339b94619",
+      "receiver_type_id": "7af37f1130321c56ac7e066495f01d8cadb7b691f64960039c89017d93357673",
+      "schema": "mpk.go.declaration.v1",
+      "source_object_id": "823bcb4c2106594f9e14a96f461ce52f78fd2df7351428db7af68144c9bdfb3d",
+      "start_byte": 140
+    },
+    {
+      "end_byte": 325,
+      "id": "9e176a17d3c2930c8c9cc9bb157adfb89de798a11455a948be05849b8c80e556",
+      "kind": "function",
+      "name": "Root",
+      "ordinal": 5,
+      "package_id": "37c979b7c7d147951ea2609db8609bc9f24bc03faab001420d65a8a339b94619",
+      "receiver_type_id": null,
+      "schema": "mpk.go.declaration.v1",
+      "source_object_id": "823bcb4c2106594f9e14a96f461ce52f78fd2df7351428db7af68144c9bdfb3d",
+      "start_byte": 184
+    },
+    {
+      "element": "5ea25729e002959d7373ddd97f4840927431ada7dafd1d456e34a5e52030ee23",
+      "id": "43686d44fcfd6b090ef93fa715e7cc462f125f1cb44c4d74b043960b4b122437",
+      "kind": "slice",
+      "schema": "mpk.go.source_type.v1"
+    },
+    {
+      "fields": [
+        {
+          "name": "Value",
+          "tag_bytes_hex": "",
+          "type_id": "fad26af3cd40ef04599cdd89352d0d71da6c59fd43d56e68712b36404b2a1966",
+          "unexported_package_id": null
+        },
+        {
+          "name": "code",
+          "tag_bytes_hex": "ff",
+          "type_id": "8085faf40fb6ad61d9c7e2224e9871c4000c9f48a03e100b175ae1d5848c5b86",
+          "unexported_package_id": "37c979b7c7d147951ea2609db8609bc9f24bc03faab001420d65a8a339b94619"
+        }
+      ],
+      "id": "415e239249a416bd0b223a287e1a000675699fe9f2acbdaf735cf0f7813671f8",
+      "kind": "struct",
+      "schema": "mpk.go.source_type.v1"
+    },
+    {
+      "declaration_id": "9e176a17d3c2930c8c9cc9bb157adfb89de798a11455a948be05849b8c80e556",
+      "id": "e8c33f8b4fea6b84015a6c0c00c924addbf1e72c696eedc585e23e3ad4ce53ec",
+      "params": [
+        "43686d44fcfd6b090ef93fa715e7cc462f125f1cb44c4d74b043960b4b122437"
+      ],
+      "receiver": null,
+      "results": [
+        "5ea25729e002959d7373ddd97f4840927431ada7dafd1d456e34a5e52030ee23",
+        "aa67ad2425305018fe37f006ab066ba4190aa6cd69cb1a8ab0e1078918d6fd2f"
+      ],
+      "schema": "mpk.go.signature.v1"
+    },
+    {
+      "declaration_id": "32472146b8ab7f116679b904f9eb23188242fae9280d8246ceb78ccb70649fda",
+      "id": "c95f91fcabfe2025e19254121d99e9b83c2ec5a261aa973f9790fec5750616b5",
+      "params": [],
+      "receiver": "7af37f1130321c56ac7e066495f01d8cadb7b691f64960039c89017d93357673",
+      "results": [
+        "41302de891bf9ae8da809b454fefeebcdf2e6a9a74161b5e6f6cf838ba6328b8"
+      ],
+      "schema": "mpk.go.signature.v1"
+    },
+    {
+      "cases": [
+        "7af37f1130321c56ac7e066495f01d8cadb7b691f64960039c89017d93357673"
+      ],
+      "id": "295ad063a5858067f565d9646e6793af8a878aef45d7e6c684f5da76879900ef",
+      "schema": "mpk.go.error_universe.v1",
+      "source_error_type_id": "aa67ad2425305018fe37f006ab066ba4190aa6cd69cb1a8ab0e1078918d6fd2f"
+    },
+    {
+      "compiler_release": "go1.25.0",
+      "goamd64": "v1",
+      "goarch": "amd64",
+      "goos": "linux",
+      "id": "76dc7839cc40e7bc3f0619d2f8694d34ec7cab663e634427af80a17493069bcd",
+      "schema": "mpk.go.build_config.v1",
+      "tags": []
+    },
+    {
+      "build_config_id": "76dc7839cc40e7bc3f0619d2f8694d34ec7cab663e634427af80a17493069bcd",
+      "compiler_inventory_sha256": "98a9a87e735ac2ae363e31402aa0320a1a6f6934315b7c7954341bfb58b95b34",
+      "id": "c0a90163cdbb9ac62fa1bd75fd13cb99ce4e1bd56f47a9abf32c65a9683558f8",
+      "modules": [
+        "3ad483bbd8511ab2b4e269a97721b2e6986a718fc5b676b74ec86a951b599c05"
+      ],
+      "objects": [
+        "670aa6138dfdc42202f4aacc32f63368a932c29f5a3d546c894c7ab638b6190f",
+        "823bcb4c2106594f9e14a96f461ce52f78fd2df7351428db7af68144c9bdfb3d",
+        "f7d14b4761905a4ddd1985e0e9a93d47dc3f0787dc5644c6bfc65bd5d3ccbb14"
+      ],
+      "packages": [
+        "37c979b7c7d147951ea2609db8609bc9f24bc03faab001420d65a8a339b94619"
+      ],
+      "schema": "mpk.go.capture_context.v1",
+      "semantic_context_sha256": "2ce7267aaeb2991b109d9b8d4716ed293a9e84f08963eee7d169d5c245d5be7d"
+    },
+    {
+      "ast_kind": "range",
+      "capture_context_id": "c0a90163cdbb9ac62fa1bd75fd13cb99ce4e1bd56f47a9abf32c65a9683558f8",
+      "effective_language": "go1.25",
+      "end_byte": 272,
+      "function_decl_id": "9e176a17d3c2930c8c9cc9bb157adfb89de798a11455a948be05849b8c80e556",
+      "function_preorder_ordinal": 0,
+      "id": "14d332b276de5a7269cf87150ed1ac71d5a02e01257136b7facdd5856d9050ec",
+      "schema": "mpk.go.loop_ref.v1",
+      "source_object_id": "823bcb4c2106594f9e14a96f461ce52f78fd2df7351428db7af68144c9bdfb3d",
+      "start_byte": 242
+    }
+  ],
+  "raw_source_sha256": "b6d9de8245061fea54b6ff873315abf9543f95e191465dbcadebfadce25699e6",
+  "result": {
+    "capture_context_id": "c0a90163cdbb9ac62fa1bd75fd13cb99ce4e1bd56f47a9abf32c65a9683558f8",
+    "identity_nodes": 26,
+    "roots": 7,
+    "scope": "identity shape/hash/membership only; no registry/source/compiler/typing/U/loop semantic proof"
+  },
+  "roots": [
+    "e8c33f8b4fea6b84015a6c0c00c924addbf1e72c696eedc585e23e3ad4ce53ec",
+    "c95f91fcabfe2025e19254121d99e9b83c2ec5a261aa973f9790fec5750616b5",
+    "295ad063a5858067f565d9646e6793af8a878aef45d7e6c684f5da76879900ef",
+    "14d332b276de5a7269cf87150ed1ac71d5a02e01257136b7facdd5856d9050ec",
+    "3f7d354f8a011773c9a506dce70383c55eeb9ee684ab782af20ff6761cc55aec",
+    "415e239249a416bd0b223a287e1a000675699fe9f2acbdaf735cf0f7813671f8",
+    "d36b267f5746c403d325a484d846664bd1bdf2933a5e41ba1f17957886d30ba1"
+  ],
+  "scope": "supplied private roots and opaque external context/inventory hashes; no source/type/registry proof or production root derivation",
+  "types": {
+    "Amount": "5ea25729e002959d7373ddd97f4840927431ada7dafd1d456e34a5e52030ee23",
+    "Code": "7af37f1130321c56ac7e066495f01d8cadb7b691f64960039c89017d93357673",
+    "Other": "3f7d354f8a011773c9a506dce70383c55eeb9ee684ab782af20ff6761cc55aec",
+    "error": "aa67ad2425305018fe37f006ab066ba4190aa6cd69cb1a8ab0e1078918d6fd2f",
+    "int64": "fad26af3cd40ef04599cdd89352d0d71da6c59fd43d56e68712b36404b2a1966",
+    "lines": "43686d44fcfd6b090ef93fa715e7cc462f125f1cb44c4d74b043960b4b122437",
+    "string": "41302de891bf9ae8da809b454fefeebcdf2e6a9a74161b5e6f6cf838ba6328b8",
+    "struct": "415e239249a416bd0b223a287e1a000675699fe9f2acbdaf735cf0f7813671f8",
+    "uint8": "8085faf40fb6ad61d9c7e2224e9871c4000c9f48a03e100b175ae1d5848c5b86"
+  }
+}

@@ -1,0 +1,109 @@
+"""Private Go-owned schema/domain inventory; no installed routing changes."""
+import json
+from pathlib import Path
+from run_proof_pilot import ROOT,sha
+
+CSHARP_VECTOR=ROOT/"develop/specs/vectors/csharp-practical-profile-v1.json"
+RECORD=ROOT/"develop/migrations/go-practical/t01-w04/identity-dag"
+PROFILES=("mpk.csharp.scalar.v0","mpk.go.fixed.v0","mpk.java.scalar.v0","mpk.rust.checked.v0","mpk.go.practical.v1")
+SHARED={
+    "registry":("mpk.semantic_profile.registry.v3","MPK-SEMANTIC-PROFILE-REGISTRY-3.0"),
+    "registry_entry":("mpk.semantic_profile.entry.v3","MPK-SEMANTIC-PROFILE-ENTRY-3.0"),
+    "registry_limits":("mpk.semantic_profile.registry.limits.v3",None),
+    "context":("mpk.semantic_context.v3","MPK-SEMANTIC-CONTEXT-3.0"),
+    "validated_request":("mpk.validated_semantic_request.v3","MPK-VALIDATED-SEMANTIC-REQUEST-3.0"),
+    "source_artifacts":("mpk.frontend.source_artifacts.v3","MPK-FRONTEND-SOURCE-ARTIFACTS-3.0"),
+    "vir":("mpk.vir.v3","MPK-VIR-3.0"),
+    "contract":("mpk.contract.v3","MPK-CONTRACT-3.0"),
+    "frontend_cli":("mpk.frontend.cli.v3",None),
+    "frontend_request":("mpk.frontend.request.v3","MPK-FRONTEND-REQUEST-3.0"),
+    "frontend_success":("mpk.frontend.success.v3","MPK-FRONTEND-SUCCESS-3.0"),
+    "frontend_diagnostic":("mpk.frontend.diagnostic.v3","MPK-FRONTEND-DIAGNOSTIC-3.0"),
+    "source_map":("mpk.source_map.v3","MPK-SOURCE-MAP-3.0"),
+    "frontend_manifest":("mpk.source_manifest.frontend.v3","MPK-SOURCE-MANIFEST-FRONTEND-3.0"),
+    "certificate_manifest":("mpk.source_manifest.certificate.v3","MPK-SOURCE-MANIFEST-CERTIFICATE-3.0"),
+    "vc":("mpk.vc.v4","MPK-VC-4.0"),
+    "vc_skeleton":("mpk.vc.cert_skeleton.v4",None),
+    "program_assembly":("mpk.program_certificate.ordinary_context.v3","MPK-PROGRAM-ASSEMBLY-3.0"),
+    "release_registry":("mpk.release.registry.v3","MPK-RELEASE-REGISTRY-3.0"),
+    "bundle_registry":("mpk.release.bundle_registry.v3","MPK-BUNDLE-REGISTRY-3.0"),
+    "frontend_bundle":("mpk.release.frontend_bundle.v3",None),
+    "toolchain_bundle":("mpk.release.toolchain_bundle.v3",None),
+    "bundle_candidate":("mpk.release.bundle_candidate.v3",None),
+    "release_evidence":("mpk.release.evidence.v3",None),
+    "release_receipt":("mpk.release.receipt.v3","MPK-RELEASE-RECEIPT-3.0"),
+    "policy_evidence":("mpk.policy.evidence.v4","MPK-POLICY-EVIDENCE-4.0"),
+    "policy_receipt":("mpk.policy.receipt.v4","MPK-POLICY-RECEIPT-4.0"),
+    "policy_reproduction":("mpk.policy.reproduction.v4","MPK-POLICY-REPRODUCTION-4.0"),
+    "policy_scan":("mpk.policy.scan.v4",None),
+    "ai_explain_request":("mpk.ai.explain.request.v4",None),
+    "ai_explanation":("mpk.ai.explanation.v4",None),
+    "api":("mpk.ai.api.v4",None),
+    "api_request":("mpk.ai.api.request.v4",None),
+    "api_response":("mpk.ai.api.response.v4",None),
+    "api_session":("mpk.ai.api.session.v4",None),
+}
+GO={
+    "parameters":("mpk.semantic_parameters.go_practical.v1","MPK-GO-PRACTICAL-PARAMETERS-1.0"),
+    "selection":("mpk.selection.go_functions.v1","MPK-GO-PRACTICAL-SELECTION-1.0"),
+    "limits":("mpk.go.practical.limits.v1","MPK-GO-PRACTICAL-LIMITS-1.0"),
+    "source_overlay":("mpk.go.practical.source_overlay.v1",None),
+    "normalized_contract":("mpk.go.practical.contract.v1","MPK-GO-PRACTICAL-CONTRACT-1.0"),
+    "foundation":("mpk.go.practical.foundation.v1","MPK-GO-PRACTICAL-FOUNDATION-1.0"),
+    "foundation_descriptor":("mpk.go.foundation_descriptor.v1",None),
+    "foundation_definitions":("mpk.go.foundation_definitions.v1","MPK-GO-FOUNDATION-DEFINITIONS-1.0"),
+    "foundation_instances":("mpk.go.closed_instances.v1","MPK-GO-CLOSED-INSTANCES-1.0"),
+    "foundation_expansion":("mpk.go.foundation_expansion.v1","MPK-GO-FOUNDATION-EXPANSION-1.0"),
+    "source_binding":("mpk.go.semantic_binding.v1","MPK-GO-SEMANTIC-BINDING-1.0"),
+}
+# All fields are required. id is excluded from its own hash preimage.
+IDENTITY_SHAPES={
+    "source_object":("mpk.go.source_object.v1","MPK-GO-SOURCE-OBJECT-1.0",{"capability":"logical_path","path":"logical_path","kind":"source_kind","raw_sha256":"sha256","bytes":"uint"}),
+    "module_instance":("mpk.go.module_instance.v1","MPK-GO-MODULE-INSTANCE-1.0",{"kind":"module_kind","module_path":"text","version":"text","replacement":"replacement","objects":"sorted_sha256s","go_mod":"nullable_sha256"}),
+    "package_instance":("mpk.go.package_instance.v1","MPK-GO-PACKAGE-INSTANCE-1.0",{"module_id":"sha256","import_path":"text","package_name":"text","objects":"sorted_sha256s"}),
+    "declaration":("mpk.go.declaration.v1","MPK-GO-DECLARATION-1.0",{"package_id":"sha256","source_object_id":"sha256","kind":"declaration_kind","start_byte":"uint","end_byte":"uint","ordinal":"uint","name":"text","receiver_type_id":"nullable_sha256"}),
+    "source_type":("mpk.go.source_type.v1","MPK-GO-SOURCE-TYPE-1.0",{"kind":"type_union"}),
+    "signature":("mpk.go.signature.v1","MPK-GO-SIGNATURE-1.0",{"declaration_id":"sha256","receiver":"nullable_sha256","params":"sha256s","results":"sha256s"}),
+    "error_universe":("mpk.go.error_universe.v1","MPK-GO-ERROR-UNIVERSE-1.0",{"source_error_type_id":"sha256","cases":"sorted_sha256s"}),
+    "build_config":("mpk.go.build_config.v1","MPK-GO-BUILD-CONFIG-1.0",{"goos":"linux","goarch":"amd64","goamd64":"v1","compiler_release":"go1.25.0","tags":"sorted_texts"}),
+    "capture_context":("mpk.go.capture_context.v1","MPK-GO-CAPTURE-CONTEXT-1.0",{"semantic_context_sha256":"sha256","compiler_inventory_sha256":"sha256","build_config_id":"sha256","objects":"sorted_sha256s","modules":"sorted_sha256s","packages":"sorted_sha256s"}),
+    "loop_ref":("mpk.go.loop_ref.v1","MPK-GO-LOOP-REF-1.0",{"capture_context_id":"sha256","source_object_id":"sha256","function_decl_id":"sha256","ast_kind":"loop_kind","start_byte":"uint","end_byte":"uint","function_preorder_ordinal":"uint","effective_language":"language"}),
+}
+TYPE_ARMS={
+    "builtin":{"name":"builtin_name","width":"nullable_uint","signed":"nullable_bool"},
+    "nominal":{"declaration_id":"sha256"},
+    "array":{"length":"uint","element":"sha256"},
+    "slice":{"element":"sha256"},
+    "struct":{"fields":"type_fields"},
+}
+
+
+def generate():
+    frozen=json.loads(CSHARP_VECTOR.read_text())["frozen_contract"]
+    reserved_ids={s for f in frozen["identity_families"] for s in f["successor_identities"]}
+    reserved_domains={s for f in frozen["identity_families"] for s in f["successor_hash_domains"]}
+    rows=[]
+    for kind,table in (("shared",SHARED),("go",GO)):
+        for family,(identity,domain) in table.items():rows.append({"family":family,"scope":kind,"identity":identity,"domain":domain,"shape_status":"full root/nested/union freeze remains required"})
+    for family,(identity,domain,fields) in IDENTITY_SHAPES.items():
+        rows.append({"family":family,"scope":"go_source_identity","identity":identity,"domain":domain,"ordered_fields":["schema",*fields,"id"],"field_types":fields,"hash_preimage_fields":["schema",*fields],"shape_status":"closed identity-record draft; not source/typing correctness"})
+        if family=="source_type":
+            rows[-1]["ordered_fields"]=None;rows[-1]["hash_preimage_fields"]=None
+            rows[-1]["arms"]={kind:{"ordered_fields":["schema","kind",*arm,"id"],"hash_preimage_fields":["schema","kind",*arm],"field_types":arm} for kind,arm in TYPE_ARMS.items()}
+    for profile in ("csharp_scalar","go_fixed","java_scalar","rust_checked","go_practical"):
+        for kind in ("ai","evidence","frontend","manifest","policy","release","source_map","vc","vir"):
+            rows.append({"family":"compiled_profile_contract","scope":"shared","identity":f"mpk.profile.{kind}.{profile}.v2","domain":None,"shape_status":"compiled contract/source behavior equivalence freeze remains required"})
+    ids=[r["identity"] for r in rows];domains=[r["domain"] for r in rows if r["domain"]]
+    if len(ids)!=len(set(ids)) or len(domains)!=len(set(domains)) or set(ids)&reserved_ids or set(domains)&reserved_domains:raise ValueError("globally unique unreserved candidate identities/domains")
+    rows.append({"family":"compiled_profile_contract_hash","scope":"shared","identity":None,"domain":"MPK-COMPILED-PROFILE-CONTRACT-2.0","shape_status":"full compiled preimage freeze remains required"})
+    return {"schema":"mpk.go_practical.identity_family_draft.v0","status":"private candidate identities/identity DAG; not normative publication, dispatch or complete artifact freeze","profiles_at_v1_activation":list(PROFILES),"identities":rows,"type_identity_union":TYPE_ARMS,
+            "reserved_csharp":{"path":CSHARP_VECTOR.relative_to(ROOT).as_posix(),"sha256":sha(CSHARP_VECTOR.read_bytes()),"identities":sorted(reserved_ids),"domains":sorted(reserved_domains)},
+            "retained_generic_identities":["mpk.release.bundle_inventory.v1"],"retained_generic_domains":["MPK-INPUT-SET-0.1","MPK-BUNDLE-CONTENT-1.0"],
+            "retention_condition":"only exactly unchanged generic fields/preimages/meaning; no inactive C# profile dispatch or widening; full migration review remains due",
+            "hash_rule":"SHA256(ASCII(domain) || 0x00 || narrowed RFC8785 JSON of all exact preimage fields); no LF; lowercase hex",
+            "pending":["complete all shared/Go root/nested/tagged-union and operation/expression schemas and cross-artifact predicates","full reviewed producer/consumer migration and complete profile preservation/activation/rollback protocol","independent production source/typed import, hash/identifier/root closure proofs, W05/T01 gate and T02–T11 implementation/releases"]}
+
+
+if __name__=="__main__":
+    RECORD.mkdir(exist_ok=True)
+    (RECORD/"catalog.json").write_text(json.dumps(generate(),indent=2,sort_keys=True,ensure_ascii=False)+"\n")

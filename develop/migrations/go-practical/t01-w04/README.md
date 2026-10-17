@@ -80,6 +80,11 @@ remain T08–T11 work; the complete eleven-stage objective is unchanged.
   nodes, requiring a practical-only4,194,304 candidate while preserving the
   predecessor's1,000,000. Exact production preflight, source/finite-ID/allocator
   proofs and successor identities remain open.
+- [Identity/hash DAG draft](identity-dag/README.md):101 identity candidates/41
+  domains avoid the frozen inactive C# namespace. Ten closed source-identity
+  schemas yield a26-node/seven-root graph,44 three-observer JSON/hash vectors
+  and143 candidate migration routes. Full shared/Go roots/unions, independent
+  source/registry validity and complete reviewed migrations remain required.
 
 ## Shared-family decision
 
@@ -206,9 +211,16 @@ retained proof receipts and unchanged predecessor inputs. Its
 keeps compiler facts and candidate classifications distinct from production
 admission and source/model proof acceptance. W04 remains open.
 
-The numeric checkpoint's [current metadata checker](../../../probes/go-practical/check_structural_metadata.py)
+The numeric checkpoint's [section38 metadata checker](../../../probes/go-practical/check_structural_metadata.py)
 checks explicit units/result classes, original native/layout/HTTP counts,
 planned enforcement owners and unchanged predecessor evidence. Its
 [verification record](structural-limits/verification/verification.json)
 keeps isolated counter and model-state measurements separate from complete
 source/allocator enforcement. The full T01 gate remains deferred to W05.
+
+The identity checkpoint's [current metadata checker](../../../probes/go-practical/check_identity_metadata.py)
+checks complete identity preimages/DAG, reserved namespaces, native hash
+agreement, candidate migration scope and preserved predecessor evidence. Its
+[verification record](identity-dag/verification/verification.json)
+keeps hash/identity acceptance separate from full schema/source/profile
+completion. The cumulative T01 gate is still reserved for W05.

@@ -2521,3 +2521,72 @@ and allocator proofs, exact shared/Go schema/hash identities, independent import
 reviewed migrations and production resource supervision remain required. W05
 owns inactive publication and the T01 gate; no T is complete. All T02–T11
 source/application/release work remains part of the active objective.
+
+## 39. T01-W04 candidate identities and acyclic source-hash DAG
+
+Entry: `47b2a5e9846b5200ca1106ab9407de310af6e169`, clean before this work.
+The preceding checkpoint committed numeric/carrier candidates and the measured
+HTTP syntax-ceiling correction. This checkpoint advances identity/preimage
+and migration preparation while retaining the full eleven-stage objective.
+
+The [identity catalog](../migrations/go-practical/t01-w04/identity-dag/README.md)
+proposes101 globally unique identities and41 domains with no collision against
+the frozen inactive C# package's102 successor identities/42 domains. Shared
+registry/context/VIR/frontend/map/manifest/release names usev3; VC/policy/API/AI
+usev4; Go-specific source/foundation names usev1. Compiled profile contracts
+usev2 because inactive C# already reserves theirv1 names. Four old semantic
+profiles plus Go practical form the proposed future installed family; C#
+practical stays inactive. Generic retained domains require exact unchanged
+preimages/meaning review. No parser route, profile or normative package activates.
+
+Ten source-identity schemas and five exact source-type arms specify all required
+fields and complete self-hash projections. ASCII domain+NUL+narrowed RFC8785
+JSON without LF determines lowercase SHA256; only own id is excluded. Every
+active arm field is included. Raw source/overlay objects precede module,
+package, declaration, nominal/structural type, signature/error-U and capture/
+loop references. Capture excludes normalized contract digests. Nominal types
+use type-declaration locators before method-set/receiver binding, avoiding a
+hash cycle. Aliases retain the target identity rather than minting a new type.
+Go int versus int64, unexported-field package identity and arbitrary tag bytes
+stay explicit; source semantics are not inferred from equal representations.
+
+A strict26-node/seven-root private graph checks complete typed hashes,
+reference closure, capture/module/package membership, logical path and ASCII
+case uniqueness, physical UTF-8 spans, receiver/signature and same-context loop
+binding. Opaque external context/inventory hashes and supplied roots remain
+fixtures. Raw capture, registry validity, compiler/type/underlying definitions,
+global-U derivation, loop ordinals and execution correctness are unproved.
+The identity layer cannot replace independent source/import/body proofs.
+
+Forty-four canonical/hash vectors cover all26 node preimages plus UTF16 key
+ordering, controls/line separators, no Unicode normalization, full64 decimal
+strings, safe integers, negative zero and surrogate pairing. Thirty-four
+canonical values/digests agree between Python, unchanged Rust canonical_json
+and independent Go code. Ten malformed JSON/domain cases reject in all three.
+These are hash-observer outcomes, not kernel/checker verdicts or counterexamples.
+Both native binaries reproduce exact outputs twice after fresh builds.
+The private Rust crate imports the canonicalizer source without editing it;
+only its new main is formatted with skip_children=true. No production/core,
+installed registry, Certificate v0 or older helper snapshot changes.
+
+A143-path proposal assigns candidate migration actions and planned work/test
+owners for inactive C# retention, additive checker preservation, old-profile
+producer wrappers, API/policy consumers and atomic whole-image installation/
+rollback. Every row still requires exact symbol/preimage/behavior review;
+additional affected discovery and complete four-profile source/certificate
+equivalence remain required. Candidate routing is not a completed migration.
+
+Nineteen selected tests pass, including stale/extra/foreign schemas, complete
+preimages, paths/raw source hashes, alias/nominal distinction, methods/results,
+error/loop/context crossings, dangling/duplicate/unreachable graph nodes and
+namespace/migration scope. The [verification record](../migrations/go-practical/t01-w04/identity-dag/verification/verification.json)
+retains selected model/native/hash replay, metadata/predecessor/diagnostic
+integrity, compilation and targeted formatting with reasons. Unaffected
+production/kernel and prior native/proof matrices are not rerun. The full T01
+gate remains deferred to W05.
+
+W04 remains In progress: complete shared/Go root/nested/operation/expression
+unions, foundation/context/profile bindings, independent import/source proofs,
+all producer/consumer review and migration/activation/rollback gates remain.
+W05 owns inactive publication and the T01 gate. No T is complete; T02–T11
+implementation, full application and local release scope remains active.

@@ -1,0 +1,1234 @@
+{
+  "hash_rule": "SHA256(ASCII(domain) || 0x00 || narrowed RFC8785 JSON of all exact preimage fields); no LF; lowercase hex",
+  "identities": [
+    {
+      "domain": "MPK-SEMANTIC-PROFILE-REGISTRY-3.0",
+      "family": "registry",
+      "identity": "mpk.semantic_profile.registry.v3",
+      "scope": "shared",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": "MPK-SEMANTIC-PROFILE-ENTRY-3.0",
+      "family": "registry_entry",
+      "identity": "mpk.semantic_profile.entry.v3",
+      "scope": "shared",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "registry_limits",
+      "identity": "mpk.semantic_profile.registry.limits.v3",
+      "scope": "shared",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": "MPK-SEMANTIC-CONTEXT-3.0",
+      "family": "context",
+      "identity": "mpk.semantic_context.v3",
+      "scope": "shared",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": "MPK-VALIDATED-SEMANTIC-REQUEST-3.0",
+      "family": "validated_request",
+      "identity": "mpk.validated_semantic_request.v3",
+      "scope": "shared",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": "MPK-FRONTEND-SOURCE-ARTIFACTS-3.0",
+      "family": "source_artifacts",
+      "identity": "mpk.frontend.source_artifacts.v3",
+      "scope": "shared",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": "MPK-VIR-3.0",
+      "family": "vir",
+      "identity": "mpk.vir.v3",
+      "scope": "shared",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": "MPK-CONTRACT-3.0",
+      "family": "contract",
+      "identity": "mpk.contract.v3",
+      "scope": "shared",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "frontend_cli",
+      "identity": "mpk.frontend.cli.v3",
+      "scope": "shared",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": "MPK-FRONTEND-REQUEST-3.0",
+      "family": "frontend_request",
+      "identity": "mpk.frontend.request.v3",
+      "scope": "shared",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": "MPK-FRONTEND-SUCCESS-3.0",
+      "family": "frontend_success",
+      "identity": "mpk.frontend.success.v3",
+      "scope": "shared",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": "MPK-FRONTEND-DIAGNOSTIC-3.0",
+      "family": "frontend_diagnostic",
+      "identity": "mpk.frontend.diagnostic.v3",
+      "scope": "shared",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": "MPK-SOURCE-MAP-3.0",
+      "family": "source_map",
+      "identity": "mpk.source_map.v3",
+      "scope": "shared",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": "MPK-SOURCE-MANIFEST-FRONTEND-3.0",
+      "family": "frontend_manifest",
+      "identity": "mpk.source_manifest.frontend.v3",
+      "scope": "shared",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": "MPK-SOURCE-MANIFEST-CERTIFICATE-3.0",
+      "family": "certificate_manifest",
+      "identity": "mpk.source_manifest.certificate.v3",
+      "scope": "shared",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": "MPK-VC-4.0",
+      "family": "vc",
+      "identity": "mpk.vc.v4",
+      "scope": "shared",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "vc_skeleton",
+      "identity": "mpk.vc.cert_skeleton.v4",
+      "scope": "shared",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": "MPK-PROGRAM-ASSEMBLY-3.0",
+      "family": "program_assembly",
+      "identity": "mpk.program_certificate.ordinary_context.v3",
+      "scope": "shared",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": "MPK-RELEASE-REGISTRY-3.0",
+      "family": "release_registry",
+      "identity": "mpk.release.registry.v3",
+      "scope": "shared",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": "MPK-BUNDLE-REGISTRY-3.0",
+      "family": "bundle_registry",
+      "identity": "mpk.release.bundle_registry.v3",
+      "scope": "shared",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "frontend_bundle",
+      "identity": "mpk.release.frontend_bundle.v3",
+      "scope": "shared",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "toolchain_bundle",
+      "identity": "mpk.release.toolchain_bundle.v3",
+      "scope": "shared",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "bundle_candidate",
+      "identity": "mpk.release.bundle_candidate.v3",
+      "scope": "shared",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "release_evidence",
+      "identity": "mpk.release.evidence.v3",
+      "scope": "shared",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": "MPK-RELEASE-RECEIPT-3.0",
+      "family": "release_receipt",
+      "identity": "mpk.release.receipt.v3",
+      "scope": "shared",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": "MPK-POLICY-EVIDENCE-4.0",
+      "family": "policy_evidence",
+      "identity": "mpk.policy.evidence.v4",
+      "scope": "shared",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": "MPK-POLICY-RECEIPT-4.0",
+      "family": "policy_receipt",
+      "identity": "mpk.policy.receipt.v4",
+      "scope": "shared",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": "MPK-POLICY-REPRODUCTION-4.0",
+      "family": "policy_reproduction",
+      "identity": "mpk.policy.reproduction.v4",
+      "scope": "shared",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "policy_scan",
+      "identity": "mpk.policy.scan.v4",
+      "scope": "shared",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "ai_explain_request",
+      "identity": "mpk.ai.explain.request.v4",
+      "scope": "shared",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "ai_explanation",
+      "identity": "mpk.ai.explanation.v4",
+      "scope": "shared",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "api",
+      "identity": "mpk.ai.api.v4",
+      "scope": "shared",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "api_request",
+      "identity": "mpk.ai.api.request.v4",
+      "scope": "shared",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "api_response",
+      "identity": "mpk.ai.api.response.v4",
+      "scope": "shared",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "api_session",
+      "identity": "mpk.ai.api.session.v4",
+      "scope": "shared",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": "MPK-GO-PRACTICAL-PARAMETERS-1.0",
+      "family": "parameters",
+      "identity": "mpk.semantic_parameters.go_practical.v1",
+      "scope": "go",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": "MPK-GO-PRACTICAL-SELECTION-1.0",
+      "family": "selection",
+      "identity": "mpk.selection.go_functions.v1",
+      "scope": "go",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": "MPK-GO-PRACTICAL-LIMITS-1.0",
+      "family": "limits",
+      "identity": "mpk.go.practical.limits.v1",
+      "scope": "go",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "source_overlay",
+      "identity": "mpk.go.practical.source_overlay.v1",
+      "scope": "go",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": "MPK-GO-PRACTICAL-CONTRACT-1.0",
+      "family": "normalized_contract",
+      "identity": "mpk.go.practical.contract.v1",
+      "scope": "go",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": "MPK-GO-PRACTICAL-FOUNDATION-1.0",
+      "family": "foundation",
+      "identity": "mpk.go.practical.foundation.v1",
+      "scope": "go",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "foundation_descriptor",
+      "identity": "mpk.go.foundation_descriptor.v1",
+      "scope": "go",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": "MPK-GO-FOUNDATION-DEFINITIONS-1.0",
+      "family": "foundation_definitions",
+      "identity": "mpk.go.foundation_definitions.v1",
+      "scope": "go",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": "MPK-GO-CLOSED-INSTANCES-1.0",
+      "family": "foundation_instances",
+      "identity": "mpk.go.closed_instances.v1",
+      "scope": "go",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": "MPK-GO-FOUNDATION-EXPANSION-1.0",
+      "family": "foundation_expansion",
+      "identity": "mpk.go.foundation_expansion.v1",
+      "scope": "go",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": "MPK-GO-SEMANTIC-BINDING-1.0",
+      "family": "source_binding",
+      "identity": "mpk.go.semantic_binding.v1",
+      "scope": "go",
+      "shape_status": "full root/nested/union freeze remains required"
+    },
+    {
+      "domain": "MPK-GO-SOURCE-OBJECT-1.0",
+      "family": "source_object",
+      "field_types": {
+        "bytes": "uint",
+        "capability": "logical_path",
+        "kind": "source_kind",
+        "path": "logical_path",
+        "raw_sha256": "sha256"
+      },
+      "hash_preimage_fields": [
+        "schema",
+        "capability",
+        "path",
+        "kind",
+        "raw_sha256",
+        "bytes"
+      ],
+      "identity": "mpk.go.source_object.v1",
+      "ordered_fields": [
+        "schema",
+        "capability",
+        "path",
+        "kind",
+        "raw_sha256",
+        "bytes",
+        "id"
+      ],
+      "scope": "go_source_identity",
+      "shape_status": "closed identity-record draft; not source/typing correctness"
+    },
+    {
+      "domain": "MPK-GO-MODULE-INSTANCE-1.0",
+      "family": "module_instance",
+      "field_types": {
+        "go_mod": "nullable_sha256",
+        "kind": "module_kind",
+        "module_path": "text",
+        "objects": "sorted_sha256s",
+        "replacement": "replacement",
+        "version": "text"
+      },
+      "hash_preimage_fields": [
+        "schema",
+        "kind",
+        "module_path",
+        "version",
+        "replacement",
+        "objects",
+        "go_mod"
+      ],
+      "identity": "mpk.go.module_instance.v1",
+      "ordered_fields": [
+        "schema",
+        "kind",
+        "module_path",
+        "version",
+        "replacement",
+        "objects",
+        "go_mod",
+        "id"
+      ],
+      "scope": "go_source_identity",
+      "shape_status": "closed identity-record draft; not source/typing correctness"
+    },
+    {
+      "domain": "MPK-GO-PACKAGE-INSTANCE-1.0",
+      "family": "package_instance",
+      "field_types": {
+        "import_path": "text",
+        "module_id": "sha256",
+        "objects": "sorted_sha256s",
+        "package_name": "text"
+      },
+      "hash_preimage_fields": [
+        "schema",
+        "module_id",
+        "import_path",
+        "package_name",
+        "objects"
+      ],
+      "identity": "mpk.go.package_instance.v1",
+      "ordered_fields": [
+        "schema",
+        "module_id",
+        "import_path",
+        "package_name",
+        "objects",
+        "id"
+      ],
+      "scope": "go_source_identity",
+      "shape_status": "closed identity-record draft; not source/typing correctness"
+    },
+    {
+      "domain": "MPK-GO-DECLARATION-1.0",
+      "family": "declaration",
+      "field_types": {
+        "end_byte": "uint",
+        "kind": "declaration_kind",
+        "name": "text",
+        "ordinal": "uint",
+        "package_id": "sha256",
+        "receiver_type_id": "nullable_sha256",
+        "source_object_id": "sha256",
+        "start_byte": "uint"
+      },
+      "hash_preimage_fields": [
+        "schema",
+        "package_id",
+        "source_object_id",
+        "kind",
+        "start_byte",
+        "end_byte",
+        "ordinal",
+        "name",
+        "receiver_type_id"
+      ],
+      "identity": "mpk.go.declaration.v1",
+      "ordered_fields": [
+        "schema",
+        "package_id",
+        "source_object_id",
+        "kind",
+        "start_byte",
+        "end_byte",
+        "ordinal",
+        "name",
+        "receiver_type_id",
+        "id"
+      ],
+      "scope": "go_source_identity",
+      "shape_status": "closed identity-record draft; not source/typing correctness"
+    },
+    {
+      "arms": {
+        "array": {
+          "field_types": {
+            "element": "sha256",
+            "length": "uint"
+          },
+          "hash_preimage_fields": [
+            "schema",
+            "kind",
+            "length",
+            "element"
+          ],
+          "ordered_fields": [
+            "schema",
+            "kind",
+            "length",
+            "element",
+            "id"
+          ]
+        },
+        "builtin": {
+          "field_types": {
+            "name": "builtin_name",
+            "signed": "nullable_bool",
+            "width": "nullable_uint"
+          },
+          "hash_preimage_fields": [
+            "schema",
+            "kind",
+            "name",
+            "width",
+            "signed"
+          ],
+          "ordered_fields": [
+            "schema",
+            "kind",
+            "name",
+            "width",
+            "signed",
+            "id"
+          ]
+        },
+        "nominal": {
+          "field_types": {
+            "declaration_id": "sha256"
+          },
+          "hash_preimage_fields": [
+            "schema",
+            "kind",
+            "declaration_id"
+          ],
+          "ordered_fields": [
+            "schema",
+            "kind",
+            "declaration_id",
+            "id"
+          ]
+        },
+        "slice": {
+          "field_types": {
+            "element": "sha256"
+          },
+          "hash_preimage_fields": [
+            "schema",
+            "kind",
+            "element"
+          ],
+          "ordered_fields": [
+            "schema",
+            "kind",
+            "element",
+            "id"
+          ]
+        },
+        "struct": {
+          "field_types": {
+            "fields": "type_fields"
+          },
+          "hash_preimage_fields": [
+            "schema",
+            "kind",
+            "fields"
+          ],
+          "ordered_fields": [
+            "schema",
+            "kind",
+            "fields",
+            "id"
+          ]
+        }
+      },
+      "domain": "MPK-GO-SOURCE-TYPE-1.0",
+      "family": "source_type",
+      "field_types": {
+        "kind": "type_union"
+      },
+      "hash_preimage_fields": null,
+      "identity": "mpk.go.source_type.v1",
+      "ordered_fields": null,
+      "scope": "go_source_identity",
+      "shape_status": "closed identity-record draft; not source/typing correctness"
+    },
+    {
+      "domain": "MPK-GO-SIGNATURE-1.0",
+      "family": "signature",
+      "field_types": {
+        "declaration_id": "sha256",
+        "params": "sha256s",
+        "receiver": "nullable_sha256",
+        "results": "sha256s"
+      },
+      "hash_preimage_fields": [
+        "schema",
+        "declaration_id",
+        "receiver",
+        "params",
+        "results"
+      ],
+      "identity": "mpk.go.signature.v1",
+      "ordered_fields": [
+        "schema",
+        "declaration_id",
+        "receiver",
+        "params",
+        "results",
+        "id"
+      ],
+      "scope": "go_source_identity",
+      "shape_status": "closed identity-record draft; not source/typing correctness"
+    },
+    {
+      "domain": "MPK-GO-ERROR-UNIVERSE-1.0",
+      "family": "error_universe",
+      "field_types": {
+        "cases": "sorted_sha256s",
+        "source_error_type_id": "sha256"
+      },
+      "hash_preimage_fields": [
+        "schema",
+        "source_error_type_id",
+        "cases"
+      ],
+      "identity": "mpk.go.error_universe.v1",
+      "ordered_fields": [
+        "schema",
+        "source_error_type_id",
+        "cases",
+        "id"
+      ],
+      "scope": "go_source_identity",
+      "shape_status": "closed identity-record draft; not source/typing correctness"
+    },
+    {
+      "domain": "MPK-GO-BUILD-CONFIG-1.0",
+      "family": "build_config",
+      "field_types": {
+        "compiler_release": "go1.25.0",
+        "goamd64": "v1",
+        "goarch": "amd64",
+        "goos": "linux",
+        "tags": "sorted_texts"
+      },
+      "hash_preimage_fields": [
+        "schema",
+        "goos",
+        "goarch",
+        "goamd64",
+        "compiler_release",
+        "tags"
+      ],
+      "identity": "mpk.go.build_config.v1",
+      "ordered_fields": [
+        "schema",
+        "goos",
+        "goarch",
+        "goamd64",
+        "compiler_release",
+        "tags",
+        "id"
+      ],
+      "scope": "go_source_identity",
+      "shape_status": "closed identity-record draft; not source/typing correctness"
+    },
+    {
+      "domain": "MPK-GO-CAPTURE-CONTEXT-1.0",
+      "family": "capture_context",
+      "field_types": {
+        "build_config_id": "sha256",
+        "compiler_inventory_sha256": "sha256",
+        "modules": "sorted_sha256s",
+        "objects": "sorted_sha256s",
+        "packages": "sorted_sha256s",
+        "semantic_context_sha256": "sha256"
+      },
+      "hash_preimage_fields": [
+        "schema",
+        "semantic_context_sha256",
+        "compiler_inventory_sha256",
+        "build_config_id",
+        "objects",
+        "modules",
+        "packages"
+      ],
+      "identity": "mpk.go.capture_context.v1",
+      "ordered_fields": [
+        "schema",
+        "semantic_context_sha256",
+        "compiler_inventory_sha256",
+        "build_config_id",
+        "objects",
+        "modules",
+        "packages",
+        "id"
+      ],
+      "scope": "go_source_identity",
+      "shape_status": "closed identity-record draft; not source/typing correctness"
+    },
+    {
+      "domain": "MPK-GO-LOOP-REF-1.0",
+      "family": "loop_ref",
+      "field_types": {
+        "ast_kind": "loop_kind",
+        "capture_context_id": "sha256",
+        "effective_language": "language",
+        "end_byte": "uint",
+        "function_decl_id": "sha256",
+        "function_preorder_ordinal": "uint",
+        "source_object_id": "sha256",
+        "start_byte": "uint"
+      },
+      "hash_preimage_fields": [
+        "schema",
+        "capture_context_id",
+        "source_object_id",
+        "function_decl_id",
+        "ast_kind",
+        "start_byte",
+        "end_byte",
+        "function_preorder_ordinal",
+        "effective_language"
+      ],
+      "identity": "mpk.go.loop_ref.v1",
+      "ordered_fields": [
+        "schema",
+        "capture_context_id",
+        "source_object_id",
+        "function_decl_id",
+        "ast_kind",
+        "start_byte",
+        "end_byte",
+        "function_preorder_ordinal",
+        "effective_language",
+        "id"
+      ],
+      "scope": "go_source_identity",
+      "shape_status": "closed identity-record draft; not source/typing correctness"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.ai.csharp_scalar.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.evidence.csharp_scalar.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.frontend.csharp_scalar.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.manifest.csharp_scalar.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.policy.csharp_scalar.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.release.csharp_scalar.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.source_map.csharp_scalar.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.vc.csharp_scalar.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.vir.csharp_scalar.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.ai.go_fixed.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.evidence.go_fixed.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.frontend.go_fixed.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.manifest.go_fixed.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.policy.go_fixed.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.release.go_fixed.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.source_map.go_fixed.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.vc.go_fixed.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.vir.go_fixed.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.ai.java_scalar.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.evidence.java_scalar.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.frontend.java_scalar.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.manifest.java_scalar.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.policy.java_scalar.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.release.java_scalar.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.source_map.java_scalar.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.vc.java_scalar.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.vir.java_scalar.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.ai.rust_checked.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.evidence.rust_checked.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.frontend.rust_checked.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.manifest.rust_checked.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.policy.rust_checked.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.release.rust_checked.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.source_map.rust_checked.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.vc.rust_checked.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.vir.rust_checked.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.ai.go_practical.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.evidence.go_practical.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.frontend.go_practical.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.manifest.go_practical.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.policy.go_practical.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.release.go_practical.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.source_map.go_practical.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.vc.go_practical.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": null,
+      "family": "compiled_profile_contract",
+      "identity": "mpk.profile.vir.go_practical.v2",
+      "scope": "shared",
+      "shape_status": "compiled contract/source behavior equivalence freeze remains required"
+    },
+    {
+      "domain": "MPK-COMPILED-PROFILE-CONTRACT-2.0",
+      "family": "compiled_profile_contract_hash",
+      "identity": null,
+      "scope": "shared",
+      "shape_status": "full compiled preimage freeze remains required"
+    }
+  ],
+  "pending": [
+    "complete all shared/Go root/nested/tagged-union and operation/expression schemas and cross-artifact predicates",
+    "full reviewed producer/consumer migration and complete profile preservation/activation/rollback protocol",
+    "independent production source/typed import, hash/identifier/root closure proofs, W05/T01 gate and T02\u2013T11 implementation/releases"
+  ],
+  "profiles_at_v1_activation": [
+    "mpk.csharp.scalar.v0",
+    "mpk.go.fixed.v0",
+    "mpk.java.scalar.v0",
+    "mpk.rust.checked.v0",
+    "mpk.go.practical.v1"
+  ],
+  "reserved_csharp": {
+    "domains": [
+      "MPK-BUNDLE-CONTENT-1.0",
+      "MPK-BUNDLE-REGISTRY-2.0",
+      "MPK-COMPILED-PROFILE-CONTRACT-1.0",
+      "MPK-CONTRACT-2.0",
+      "MPK-CSHARP-BOUNDARY-CONTRACT-1.0",
+      "MPK-CSHARP-BOUNDARY-INPUT-1.0",
+      "MPK-CSHARP-BOUNDARY-OUTPUT-1.0",
+      "MPK-CSHARP-CANONICAL-VALUE-1.0",
+      "MPK-CSHARP-CLOSED-INSTANCES-1.0",
+      "MPK-CSHARP-DECLARATION-1.0",
+      "MPK-CSHARP-DECLARATION-PROVENANCE-1.0",
+      "MPK-CSHARP-FOUNDATION-MEMBER-1.0",
+      "MPK-CSHARP-LIMITS-1.0",
+      "MPK-CSHARP-METHOD-CONTRACT-1.0",
+      "MPK-CSHARP-OPERATIONS-1.0",
+      "MPK-CSHARP-PRACTICAL-FOUNDATION-1.0",
+      "MPK-CSHARP-PRACTICAL-PARAMETERS-1.0",
+      "MPK-CSHARP-REQUIRED-CHECKS-1.0",
+      "MPK-CSHARP-SELECTION-1.0",
+      "MPK-CSHARP-SEMANTIC-BINDING-1.0",
+      "MPK-CSHARP-SEMANTIC-BINDING-SET-1.0",
+      "MPK-CSHARP-SEMANTIC-INSTANCE-1.0",
+      "MPK-CSHARP-TRANSITION-CONTRACT-1.0",
+      "MPK-CSHARP-TYPE-CONTRACT-1.0",
+      "MPK-FRONTEND-DIAGNOSTIC-2.0",
+      "MPK-FRONTEND-REQUEST-2.0",
+      "MPK-FRONTEND-SOURCE-ARTIFACTS-2.0",
+      "MPK-FRONTEND-SUCCESS-2.0",
+      "MPK-POLICY-EVIDENCE-3.0",
+      "MPK-POLICY-RECEIPT-3.0",
+      "MPK-POLICY-REPRODUCTION-3.0",
+      "MPK-PROGRAM-ASSEMBLY-2.0",
+      "MPK-RELEASE-RECEIPT-2.0",
+      "MPK-RELEASE-REGISTRY-2.0",
+      "MPK-SEMANTIC-CONTEXT-2.0",
+      "MPK-SEMANTIC-PROFILE-ENTRY-2.0",
+      "MPK-SEMANTIC-PROFILE-REGISTRY-2.0",
+      "MPK-SOURCE-MANIFEST-2.0",
+      "MPK-SOURCE-MAP-2.0",
+      "MPK-VALIDATED-SEMANTIC-REQUEST-2.0",
+      "MPK-VC-3.0",
+      "MPK-VIR-2.0"
+    ],
+    "identities": [
+      "mpk.ai.api.request.v3",
+      "mpk.ai.api.response.v3",
+      "mpk.ai.api.session.v3",
+      "mpk.ai.api.v3",
+      "mpk.ai.explain.request.v3",
+      "mpk.ai.explanation.v3",
+      "mpk.csharp.boundary.v1",
+      "mpk.csharp.boundary_input.v1",
+      "mpk.csharp.boundary_output.v1",
+      "mpk.csharp.canonical_json.v1",
+      "mpk.csharp.closed_instances.v1",
+      "mpk.csharp.contract.v1",
+      "mpk.csharp.contract_expression.v1",
+      "mpk.csharp.foundation_definitions.v1",
+      "mpk.csharp.foundation_descriptor.v1",
+      "mpk.csharp.foundation_expansion.v1",
+      "mpk.csharp.limits.v1",
+      "mpk.csharp.operations.v1",
+      "mpk.csharp.parse_format.v1",
+      "mpk.csharp.practical.foundation.v1",
+      "mpk.csharp.practical.v1",
+      "mpk.csharp.required_checks.v1",
+      "mpk.csharp.semantic_binding.v1",
+      "mpk.csharp.semantic_bindings.v1",
+      "mpk.csharp.transition.v1",
+      "mpk.csharp.type_contract.v1",
+      "mpk.frontend.cli.v2",
+      "mpk.frontend.diagnostic.v2",
+      "mpk.frontend.request.v2",
+      "mpk.frontend.source_artifacts.v2",
+      "mpk.frontend.success.v2",
+      "mpk.policy.evidence.v3",
+      "mpk.policy.receipt.v3",
+      "mpk.policy.reproduction.v3",
+      "mpk.policy.scan.v3",
+      "mpk.profile.ai.csharp_practical.v1",
+      "mpk.profile.ai.csharp_scalar.v1",
+      "mpk.profile.ai.go_fixed.v1",
+      "mpk.profile.ai.java_scalar.v1",
+      "mpk.profile.ai.rust_checked.v1",
+      "mpk.profile.evidence.csharp_practical.v1",
+      "mpk.profile.evidence.csharp_scalar.v1",
+      "mpk.profile.evidence.go_fixed.v1",
+      "mpk.profile.evidence.java_scalar.v1",
+      "mpk.profile.evidence.rust_checked.v1",
+      "mpk.profile.frontend.csharp_practical.v1",
+      "mpk.profile.frontend.csharp_scalar.v1",
+      "mpk.profile.frontend.go_fixed.v1",
+      "mpk.profile.frontend.java_scalar.v1",
+      "mpk.profile.frontend.rust_checked.v1",
+      "mpk.profile.manifest.csharp_practical.v1",
+      "mpk.profile.manifest.csharp_scalar.v1",
+      "mpk.profile.manifest.go_fixed.v1",
+      "mpk.profile.manifest.java_scalar.v1",
+      "mpk.profile.manifest.rust_checked.v1",
+      "mpk.profile.policy.csharp_practical.v1",
+      "mpk.profile.policy.csharp_scalar.v1",
+      "mpk.profile.policy.go_fixed.v1",
+      "mpk.profile.policy.java_scalar.v1",
+      "mpk.profile.policy.rust_checked.v1",
+      "mpk.profile.release.csharp_practical.v1",
+      "mpk.profile.release.csharp_scalar.v1",
+      "mpk.profile.release.go_fixed.v1",
+      "mpk.profile.release.java_scalar.v1",
+      "mpk.profile.release.rust_checked.v1",
+      "mpk.profile.source_map.csharp_practical.v1",
+      "mpk.profile.source_map.csharp_scalar.v1",
+      "mpk.profile.source_map.go_fixed.v1",
+      "mpk.profile.source_map.java_scalar.v1",
+      "mpk.profile.source_map.rust_checked.v1",
+      "mpk.profile.vc.csharp_practical.v1",
+      "mpk.profile.vc.csharp_scalar.v1",
+      "mpk.profile.vc.go_fixed.v1",
+      "mpk.profile.vc.java_scalar.v1",
+      "mpk.profile.vc.rust_checked.v1",
+      "mpk.profile.vir.csharp_practical.v1",
+      "mpk.profile.vir.csharp_scalar.v1",
+      "mpk.profile.vir.go_fixed.v1",
+      "mpk.profile.vir.java_scalar.v1",
+      "mpk.profile.vir.rust_checked.v1",
+      "mpk.program_certificate.ordinary_context.v2",
+      "mpk.release.bundle_candidate.v2",
+      "mpk.release.bundle_inventory.v1",
+      "mpk.release.bundle_registry.v2",
+      "mpk.release.evidence.v2",
+      "mpk.release.frontend_bundle.v2",
+      "mpk.release.receipt.v2",
+      "mpk.release.registry.v2",
+      "mpk.release.toolchain_bundle.v2",
+      "mpk.selection.csharp_members.v1",
+      "mpk.semantic_context.v2",
+      "mpk.semantic_parameters.csharp_practical.v1",
+      "mpk.semantic_profile.entry.v2",
+      "mpk.semantic_profile.registry.limits.v2",
+      "mpk.semantic_profile.registry.v2",
+      "mpk.source_manifest.certificate.v2",
+      "mpk.source_manifest.frontend.v2",
+      "mpk.source_map.v2",
+      "mpk.validated_semantic_request.v2",
+      "mpk.vc.cert_skeleton.v3",
+      "mpk.vc.v3",
+      "mpk.vir.v2"
+    ],
+    "path": "develop/specs/vectors/csharp-practical-profile-v1.json",
+    "sha256": "de401830e1cd4221465d25c6fe31dad7d704ae8959edfc1145db8099f7bfffa6"
+  },
+  "retained_generic_domains": [
+    "MPK-INPUT-SET-0.1",
+    "MPK-BUNDLE-CONTENT-1.0"
+  ],
+  "retained_generic_identities": [
+    "mpk.release.bundle_inventory.v1"
+  ],
+  "retention_condition": "only exactly unchanged generic fields/preimages/meaning; no inactive C# profile dispatch or widening; full migration review remains due",
+  "schema": "mpk.go_practical.identity_family_draft.v0",
+  "status": "private candidate identities/identity DAG; not normative publication, dispatch or complete artifact freeze",
+  "type_identity_union": {
+    "array": {
+      "element": "sha256",
+      "length": "uint"
+    },
+    "builtin": {
+      "name": "builtin_name",
+      "signed": "nullable_bool",
+      "width": "nullable_uint"
+    },
+    "nominal": {
+      "declaration_id": "sha256"
+    },
+    "slice": {
+      "element": "sha256"
+    },
+    "struct": {
+      "fields": "type_fields"
+    }
+  }
+}
