@@ -1,0 +1,111 @@
+{
+  "scope": "untrusted exporter build assembly and test-only correction; all ordinary producer/case data,checker sources/binaries,20 certificates and96/24 observation files unchanged",
+  "changed_inputs": [
+    "develop/probes/go-practical/run_word_arithmetic.py",
+    "develop/probes/go-practical/test_word_arithmetic.py",
+    "develop/probes/go-practical/word_arithmetic_build.py"
+  ],
+  "removed_standalone_package_inputs": [
+    "develop/probes/go-practical/ordinary-word-seed/Cargo.lock",
+    "develop/probes/go-practical/ordinary-word-seed/Cargo.toml",
+    "develop/probes/go-practical/ordinary-word-seed/src/main.rs"
+  ],
+  "moved_Rust_source": [
+    "develop/probes/go-practical/word_arithmetic_export.rs"
+  ],
+  "new_inputs": 729,
+  "exporter_sha256": "698f07b2c9f26bd0f58597469aed3588ddd6bd0757da974b5fa2abe56db06a4e",
+  "unchanged_rust_checker_sha256": "b502ab86c98ebb031d5d78da1c81d92be9649d5882913b1b68914bc079328a38",
+  "proof_and_observation_files": [
+    {
+      "path": "develop/migrations/go-practical/t01-w04/word-arithmetic/w16-dropped-final-carry.mpcert",
+      "sha256": "bc4d8f1a55251383af85a0dedf957adfdcdf1592ddc8ad04b3304857e4948938"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/word-arithmetic/w16-missing-result-sign.mpcert",
+      "sha256": "bb26523d3d0b4a11324392a8fee5fd25f6dba584d7d14c137e4a5343c6e420dc"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/word-arithmetic/w16-unrelated-overflow.mpcert",
+      "sha256": "c0f59d0bc232f31e6b92e4643b502dc215c4204205440d107613c15e23c54ccd"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/word-arithmetic/w16-unsigned-as-signed.mpcert",
+      "sha256": "6766d499b407263f730414567c12c4372235e1f58e0cc4db55e5aaff8e50351a"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/word-arithmetic/w16-valid.mpcert",
+      "sha256": "5a36c2cf77b188d041eeedd7b8e814e731c37fa156eab318dd9fd0537f81e906"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/word-arithmetic/w32-dropped-final-carry.mpcert",
+      "sha256": "63a615fe9e0221ea40bb3b6b9ed8a84300b0b8a580ece17e56f853ba42429e99"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/word-arithmetic/w32-missing-result-sign.mpcert",
+      "sha256": "fde2480e196a12150678bc4ef4f89de2e19297610201fa18950cb76cfd8a4c25"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/word-arithmetic/w32-unrelated-overflow.mpcert",
+      "sha256": "554400565259f0e9b5f9803d25dcfd55fb7183f57e4e6d42ca832fc85817bb33"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/word-arithmetic/w32-unsigned-as-signed.mpcert",
+      "sha256": "d47baded1f09927700a9aab29b644bfaa602e060a72c4532d34584a0f41be0c4"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/word-arithmetic/w32-valid.mpcert",
+      "sha256": "e7001acc76e7f9c94b6f9743d0d32cb6c41ca89b5cc28cc4fb01d70b5249ca8b"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/word-arithmetic/w64-dropped-final-carry.mpcert",
+      "sha256": "4dd5d0018726ae03e0bf87efcb23583c0692fe9cdc4b427b4ad2783fc453b953"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/word-arithmetic/w64-missing-result-sign.mpcert",
+      "sha256": "a9b1fac65e56d77ea9048c803121c183f8a2c17025d35cb8bccabff94aab7777"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/word-arithmetic/w64-unrelated-overflow.mpcert",
+      "sha256": "970700c8b08c890d096c3ff722101b16be990240655672202b5b19bd08fe1d9c"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/word-arithmetic/w64-unsigned-as-signed.mpcert",
+      "sha256": "5f16448747c4fe9b041b124b6086817dbce5d91609809e43ad93c852b330a908"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/word-arithmetic/w64-valid.mpcert",
+      "sha256": "e67fa69020085ab9e7675df771513d894ea78f9fe0c577bf798d162451b7db16"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/word-arithmetic/w8-dropped-final-carry.mpcert",
+      "sha256": "a1fc4d3f99de53ae4d409cd12a47c316dfadad68ff96ef7090f215b00e637768"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/word-arithmetic/w8-missing-result-sign.mpcert",
+      "sha256": "126fe4e6bf22c60021c83956e9b3e0ba010978bf04389cad553bb0393440d948"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/word-arithmetic/w8-unrelated-overflow.mpcert",
+      "sha256": "a9418284e52ad23259fcf5e63c7823f3d56213f560e9c392086dcced7c4897bc"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/word-arithmetic/w8-unsigned-as-signed.mpcert",
+      "sha256": "7a41b8cf09e0725887888bf5f7cd5e43b690c613e153038069104d46da5cb297"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/word-arithmetic/w8-valid.mpcert",
+      "sha256": "978697d8294dba7f0746252d5326d0f1d303b6ff2cefe0691a71c98ddb30fb98"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/word-arithmetic/model.json",
+      "sha256": "09e029afc225ca633ac05b02d46973d6606eee0db4d197e0dca84eb5efd69b60"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/word-arithmetic/native.json",
+      "sha256": "9382c69026d937ebcbb0c4b0499d88a38ef8759752622955ce888b8b8560e49b"
+    }
+  ],
+  "two_fresh_exporter_builds": "mapped-exporter-builds.json",
+  "repair": "share the retained private package/lock with a second binary and use a fixed virtual source prefix; full fresh replay and final metadata will verify the resulting closure"
+}

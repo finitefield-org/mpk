@@ -1,0 +1,30 @@
+test_addition_does_not_promote_source_or_all_word_proofs (test_word_arithmetic.WordArithmeticTests.test_addition_does_not_promote_source_or_all_word_proofs) ... ok
+test_all13_source_identities_and_exact_Value_definitions_remain_bound (test_word_arithmetic.WordArithmeticTests.test_all13_source_identities_and_exact_Value_definitions_remain_bound) ... ok
+test_all169_complete_Go_requests_remain_unelaborated (test_word_arithmetic.WordArithmeticTests.test_all169_complete_Go_requests_remain_unelaborated) ... ok
+test_all20_actual_paired_outcomes_and_exact_certificate_bytes (test_word_arithmetic.WordArithmeticTests.test_all20_actual_paired_outcomes_and_exact_certificate_bytes) ... ok
+test_all24_selected_actual_new_denotations_reproduce (test_word_arithmetic.WordArithmeticTests.test_all24_selected_actual_new_denotations_reproduce) ... ok
+test_all96_native_results_agree_with_independent_integer_oracle (test_word_arithmetic.WordArithmeticTests.test_all96_native_results_agree_with_independent_integer_oracle) ... ok
+test_both_source_seeds_and_exact_shared_export_closure_are_pinned (test_word_arithmetic.WordArithmeticTests.test_both_source_seeds_and_exact_shared_export_closure_are_pinned) ... ok
+test_each_control_changes_one_intended_new_member (test_word_arithmetic.WordArithmeticTests.test_each_control_changes_one_intended_new_member) ... ok
+test_every_cube_depth_proves_arbitrary_pointwise_translation (test_word_arithmetic.WordArithmeticTests.test_every_cube_depth_proves_arbitrary_pointwise_translation) ... ok
+test_initial_findings_preserve_exact_inputs_and_resource_distinction (test_word_arithmetic.WordArithmeticTests.test_initial_findings_preserve_exact_inputs_and_resource_distinction) ... ok
+test_large_iterations_use_checked_generic_application_and_conditional_lemmas (test_word_arithmetic.WordArithmeticTests.test_large_iterations_use_checked_generic_application_and_conditional_lemmas) ... ok
+test_native_signed_guard_and_modular_overflow_remain_distinct (test_word_arithmetic.WordArithmeticTests.test_native_signed_guard_and_modular_overflow_remain_distinct) ... ok
+test_preceding_logical_components_keep_large_model_and_proof_boundaries (test_word_arithmetic.WordArithmeticTests.test_preceding_logical_components_keep_large_model_and_proof_boundaries) ... ok
+test_semantic_Int_uses_cross_sums_not_pair_function_equality (test_word_arithmetic.WordArithmeticTests.test_semantic_Int_uses_cross_sums_not_pair_function_equality) ... FAIL
+test_signed_source_claim_keeps_actual_incoming_and_outgoing_sign_carries (test_word_arithmetic.WordArithmeticTests.test_signed_source_claim_keeps_actual_incoming_and_outgoing_sign_carries) ... ok
+test_unsigned_equation_retains_actual_result_and_final_carry (test_word_arithmetic.WordArithmeticTests.test_unsigned_equation_retains_actual_result_and_final_carry) ... ok
+
+======================================================================
+FAIL: test_semantic_Int_uses_cross_sums_not_pair_function_equality (test_word_arithmetic.WordArithmeticTests.test_semantic_Int_uses_cross_sums_not_pair_function_equality)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/test_word_arithmetic.py", line 81, in test_semantic_Int_uses_cross_sums_not_pair_function_equality
+    d=next(d for d in self.docs['expansions.json'][str(w)]['declarations'] if d['name']==MODULE+'.W'+str(w)+'.SignedAddition');self.assertIn(I+'Equiv',set(constants(d['ty'])));self.assertIn(I+'PositiveOfAdd',set(constants(d['value'])));self.assertIn(I+'NegativeOfAdd',set(constants(d['value'])))
+                                                                                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'Probe.GoPractical.Arithmetic.Int.Equiv' not found in {'Probe.GoPractical.Arithmetic.Int.Add', 'Std.Nat.zero', 'Probe.GoPractical.Arithmetic.Int.FromNat', 'Probe.GoPractical.WordArithmetic.W8.SignedValue', 'Std.Bool', 'Probe.GoPractical.WordFoundation.W8.Carry8', 'Std.Nat', 'Std.Nat.succ', 'Std.Bool.cases', 'Probe.GoPractical.WordFoundation.W8.Carry7', 'Std.Eq', 'Probe.GoPractical.WordFoundation.W8.AddCarry', 'Probe.GoPractical.Arithmetic.Int.Equivalent'}
+
+----------------------------------------------------------------------
+Ran 16 tests in 68.093s
+
+FAILED (failures=1)

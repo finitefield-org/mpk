@@ -1,0 +1,324 @@
+{
+  "actual_AST_denotations": 24,
+  "all_word_operations_proved": false,
+  "checks": [
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "-v",
+        "test_word_arithmetic.WordArithmeticTests.test_semantic_Int_uses_cross_sums_not_pair_function_equality",
+        "test_word_arithmetic.WordArithmeticTests.test_initial_findings_preserve_exact_inputs_and_resource_distinction"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "environment": {
+        "PYTHONPATH": "develop/probes/go-practical"
+      },
+      "exit_code": 0,
+      "log": "unit-repair.log",
+      "reason": "Rerun the corrected Equivalent assertion and the finding-archive test affected by the newly preserved exporter-replay failure;14 unaffected tests already passed in the original16-test run",
+      "sha256": "302c7789ce4ac1957a8955fb76a81450936961d159e1c75efaa71800fc313de5",
+      "wall_seconds": 16.924033249961212
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "develop/probes/go-practical/run_word_arithmetic.py",
+        "--check"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "environment": {
+        "PYTHONPATH": "develop/probes/go-practical"
+      },
+      "exit_code": 0,
+      "log": "fresh-replay-final.log",
+      "reason": "Final shared-package exporter build with fixed virtual source prefix,fresh unchanged77-source checker build,two exact exports and20 paired ordinary cases/two byte-identical emissions,13 typed Values,96 Go/integer observations and24 actual denotations; complete binary/source replay after build-only correction",
+      "sha256": "f2e150b062188f1dabe19d5cd12dedb9871add94b9715a19a61b7c5d7db78f63",
+      "wall_seconds": 384.3083862500498
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "develop/probes/go-practical/check_word_arithmetic_metadata.py"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "environment": {
+        "PYTHONPATH": "develop/probes/go-practical"
+      },
+      "exit_code": 0,
+      "log": "metadata-final.log",
+      "reason": "Final729 input pins after moving the identical exporter Rust source into the shared private package,complete evidence reconstruction,all predecessors,strict JSON/doc links and ordered ledger1–52; byte-identical ordinary/certificate/native/model data",
+      "sha256": "ccbdc637dfe94d57081694a00e89cea6921d87cc677060cf10b6b2d973dee3cb",
+      "wall_seconds": 207.08475445909426
+    },
+    {
+      "command": [
+        "rustfmt",
+        "--check",
+        "--edition",
+        "2021",
+        "develop/probes/go-practical/word_arithmetic_export.rs"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "rustfmt-final.log",
+      "reason": "Only the new exporter Rust source at its final location; exact source bytes unchanged by package move",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "wall_seconds": 0.23268629191443324
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "-c",
+        "from pathlib import Path;p=Path('develop/probes/go-practical');names=('word_arithmetic.py','word_arithmetic_cases.py','word_arithmetic_build.py','run_word_arithmetic.py','test_word_arithmetic.py','check_word_arithmetic_metadata.py');[compile((p/n).read_bytes(),str(p/n),'exec') for n in names];print('PASS: six final Python sources compile')"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "python-compile-final.log",
+      "reason": "All six new Python sources,including the corrected build assembly and two affected test expectations",
+      "sha256": "2259c99a93dbaa3a6bce719c58dbe8321ffab8fe22c358170cd4b6d8352d3ac5",
+      "wall_seconds": 0.05114004202187061
+    }
+  ],
+  "complete_go_elaboration": false,
+  "document_links": 471,
+  "documents": 27,
+  "elaborator_correctness_proved": false,
+  "entry_commit": "d796283d544fbc17bd435583ff103353bba7dcbe",
+  "exporter_binary_replay": {
+    "distinct_fresh_workspaces": 2,
+    "exporter_sha256": "698f07b2c9f26bd0f58597469aed3588ddd6bd0757da974b5fa2abe56db06a4e",
+    "meaning": "second binary of unchanged retained private tool package and frozen lock,fixed virtual source prefix; standalone prefix remapping alone failed; final full fresh replay matches all binaries and certificate bytes",
+    "record": "mapped-exporter-builds.json",
+    "sha256": "71c5bb81250221db9f85a010df854b6efefa6fd900c1222c6c69a1733cfb489c"
+  },
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "owner": "GO-PRAC-T01-W05",
+    "reason": "Intermediate W04; final W05 owns cumulative whole T01 gate",
+    "status": "deferred"
+  },
+  "host_toolchain_inventory": {
+    "files": 14496,
+    "sha256": "85d1dd7ca77c9263d83e25f05e4c32105738fdc002434d61b27671aee4e259bc"
+  },
+  "initial_repaired_findings": [
+    {
+      "finding": "translation through a nested Compose changed a single outer addition instead of the complete initial-value context",
+      "record": "initial-composed-context/diagnostic.json",
+      "repair": "lift the inner equality through the complete syntactically reconstructed Nat context",
+      "scope": "producer equality-endpoint assertion before certificate generation; no proof or source claim",
+      "sha256": "8eb77eff8ba43ec6ba2545e57c22e8f4e1e99df8d2d2223c7cbcad3674758180"
+    },
+    {
+      "finding": "selected denotation observer read x/y decimal fields from retained x_hex/y_hex wire queries",
+      "record": "initial-denotation-query/diagnostic.json",
+      "repair": "read the exact retained hexadecimal input fields and preserve query IDs",
+      "scope": "private observation adapter construction failure; no checker or source claim",
+      "sha256": "8fc88bfe60f382a52aa6836a0c050f07a64bc29777b905438d86604b59124b74"
+    },
+    {
+      "finding": "new standalone exporter embeds temporary dependency source paths,so fresh exporter binary hash differs even though all20 native checker outcomes pass",
+      "record": "initial-exporter-binary-replay/diagnostic.json",
+      "repair": "standalone prefix remapping alone remained nonreproducible; final exporter builds as a second binary of the unchanged retained private tool package,with shared frozen dependency lock and fixed virtual source prefix",
+      "scope": "private untrusted-tool build reproducibility failure; not ordinary proof or Go source failure",
+      "sha256": "aa5064394f41b71ea1c4f5211f34c4f800ffe58693ef63321f681034a97acffb"
+    },
+    {
+      "finding": "copied and renamed exporter lock does not match the new package dependency resolution",
+      "record": "initial-exporter-lock/diagnostic.json",
+      "repair": "resolve the new package offline and retain its own lock; subsequent builds use offline locked mode",
+      "scope": "private exporter build configuration failure; no proof or source claim",
+      "sha256": "ab94379516f89823044a379ec261f22eb3afd2580cb7928f1a82a5c2f2f0040b"
+    },
+    {
+      "finding": "applying a function equality through a concrete iteration context forces beta conversion to weak-head-normalize WeightLaw5; both32/64 candidates exhaust fuel; naming powers alone does not repair it",
+      "record": "initial-large-translation-fuel/diagnostic.json",
+      "repair": "check generic ApplyEquality and MaybeTranslation with abstract functions first; apply their direct result types to concrete iterations; keep named power DAG definitions and existing checker budgets",
+      "scope": "positive proof construction resource failure; not false source evidence; no checker/budget change",
+      "sha256": "5c0e5c61ea705e1b8ab7974634e731df4298559273c65787ff77967c4de6764c"
+    },
+    {
+      "finding": "computed Bool-to-Nat literals and nested Int projections cannot silently normalize through outer Nat recursor majors",
+      "record": "initial-proof-typing/diagnostic.json",
+      "repair": "explicit Eq.congr lifts for computed literals,Positive/Negative computation laws for composed Int values,and exact zero-incoming specializations",
+      "scope": "positive proof construction failure; not false source evidence; initial incorrect Go CLI invocation retained separately from proper core result",
+      "sha256": "06da37277ad8b5ff0f94e3bc5fdfc70298c15bc6f86b7eead19901d93f33b3ac"
+    }
+  ],
+  "larger_unary_model_runs": "not selected; ordinary universal proofs cover all widths; no large unary execution claim",
+  "materialization": {
+    "command": [
+      "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+      "-B",
+      "develop/probes/go-practical/run_word_arithmetic.py",
+      "--write"
+    ],
+    "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+    "environment": {
+      "PYTHONPATH": "develop/probes/go-practical"
+    },
+    "exit_code": 0,
+    "log": "initial-materialization.log",
+    "reason": "Materialize the checked pointwise/full-width arithmetic connection,13 exact typed Value additions,20 paired native cases,two exact source exports and96 native/24 selected actual-AST observations",
+    "sha256": "f2e150b062188f1dabe19d5cd12dedb9871add94b9715a19a61b7c5d7db78f63",
+    "wall_seconds": 662.3668467079988
+  },
+  "materialization_followup": {
+    "meaning": "only untrusted exporter build assembly and test expectations changed; all20 certificates and all ordinary/native/model data stayed byte-identical; final fresh replay verifies complete final closure",
+    "record": "evidence-repair.json",
+    "sha256": "2c9675174aa3fb5e08c333734ac52d2712809d15bd11bb4ebfc930df92587a2c"
+  },
+  "maximum_direct_proof_child_rss_bytes": 554336256,
+  "maximum_direct_proof_child_wall_seconds": 3.5885127499932423,
+  "metadata_checker_sha256": "9c39dc9407be80b86a1cd388b2611822eda247ea80fcd1895c81e8a72204aad6",
+  "model_selected_widths": [
+    8
+  ],
+  "native_no_overflow": 70,
+  "native_observations": 96,
+  "native_overflow": 26,
+  "not_repeated": [
+    "14 unaffected test methods after a test-name/archive-count correction; exact AST identity and prior passes retained; only2 affected tests rerun",
+    "unaffected earlier native/ordinary matrices; each new certificate rechecks the relevant634-declaration seed and165 retained ordinary word members; preceding arithmetic evidence and143 predecessor paths verified",
+    "formatting old/private/production code; only new exporter Rust source checked; no new Go source"
+  ],
+  "observed_tests": 16,
+  "ordinary_cases": 20,
+  "outcomes": {
+    "accepted_zero_axiom": 4,
+    "ordinary_type_mismatch": 16
+  },
+  "output_scope": "complete raw stdout/stderr from selected local subprocesses; exact original construction/typing/resource/build/test failures retained separately",
+  "positive_certificates": [
+    {
+      "bytes": 315335,
+      "declarations": 1052,
+      "expected": "accepted",
+      "id": "w8-valid",
+      "module": "Probe.GoPractical.WordArithmetic.W8",
+      "mutation": "valid",
+      "new_definitions": 182,
+      "new_theorems": 236,
+      "terms": 23574,
+      "width": 8
+    },
+    {
+      "bytes": 346475,
+      "declarations": 1163,
+      "expected": "accepted",
+      "id": "w16-valid",
+      "module": "Probe.GoPractical.WordArithmetic.W16",
+      "mutation": "valid",
+      "new_definitions": 235,
+      "new_theorems": 294,
+      "terms": 25729,
+      "width": 16
+    },
+    {
+      "bytes": 408750,
+      "declarations": 1383,
+      "expected": "accepted",
+      "id": "w32-valid",
+      "module": "Probe.GoPractical.WordArithmetic.W32",
+      "mutation": "valid",
+      "new_definitions": 338,
+      "new_theorems": 411,
+      "terms": 29983,
+      "width": 32
+    },
+    {
+      "bytes": 539484,
+      "declarations": 1831,
+      "expected": "accepted",
+      "id": "w64-valid",
+      "module": "Probe.GoPractical.WordArithmetic.W64",
+      "mutation": "valid",
+      "new_definitions": 545,
+      "new_theorems": 652,
+      "terms": 38672,
+      "width": 64
+    }
+  ],
+  "preceding_logical_model_resource_pending": 10,
+  "profile_activated": false,
+  "proof_resource_scope": "60s/1GiB per direct proof child; Darwin measurement,not Linux release/process-tree evidence",
+  "remaining": [
+    "remaining word arithmetic/order/division/shift/conversion correctness and full source correspondence beyond this addition interpretation",
+    "source/storage/partial contract expressions,bounded definedness and independent elaborator correctness;169 complete Go requests remain unelaborated",
+    "ordinary state/permission/frame/control/totality proofs and complete Go statement/program/skeleton assembly",
+    "frontend-envelope/policy/API/release roots,reviewed migrations,W04 freeze,W05 inactive publication/T01 gate and full T02–T11"
+  ],
+  "retained_seed_declarations": 634,
+  "retained_word_seed_declarations": 187,
+  "review": {
+    "checked": [
+      "both seeds checked; all22 common kind/type/value/proof/level/family signatures equal; all165 ordinary exports rechecked in each complete certificate",
+      "arbitrary Nat coefficient/initial,whole words and explicit pointwise function premise; finite cube-depth composition,no operand enumeration or function extensionality",
+      "named powers square from1+1 with ordinary definition equality; generic ApplyEquality/MaybeTranslation avoid concrete huge-iteration beta conversion inside type matching",
+      "actual ripple result/final carry and actual sign-stage premise retained; source zero incoming is discharged explicitly",
+      "Int semantic Equivalent uses computed Positive/Negative cross sums,with no pair normalization or function equality assumption",
+      "13 exact typed Values keep source/operation/scope identities; word equality lifts each actual Value through new arithmetic denotations",
+      "four full-width sets pass both checkers at zero axioms and matching hashes;16 altered claims/definitions reject by type mismatch; every certificate emits twice identically",
+      "96 actual Go/math.bits/math.big observations and independent integer oracle agree;24 selected8-bit new denotations execute actual ordinary ASTs over actual ripple results",
+      "six original finding groups retain exact evidence; initial CLI/producer/type/resource/build failures are not promoted to false-source evidence",
+      "untrusted exporter is reproducible across distinct fresh workspaces; unchanged checker/emitter sources and dependency lock; final replay checks every binary and certificate byte",
+      "source evaluation,independent elaborator,state/frame/control/totality,full Go requests and installed activation remain unproved/inactive"
+    ],
+    "kind": "local manual review of shared symbolic export,pointwise Nat translations,full-word carry/signed interpretation,source Value lifting,computed projections,generic congruence,build reproducibility and evidence boundaries",
+    "remaining_requirements": [
+      "remaining word arithmetic/order/division/shift/conversion correctness and full source correspondence beyond this addition interpretation",
+      "source/storage/partial contract expressions,bounded definedness and independent elaborator correctness;169 complete Go requests remain unelaborated",
+      "ordinary state/permission/frame/control/totality proofs and complete Go statement/program/skeleton assembly",
+      "frontend-envelope/policy/API/release roots,reviewed migrations,W04 freeze,W05 inactive publication/T01 gate and full T02–T11"
+    ]
+  },
+  "schema": "mpk.go_practical.w04_word_arithmetic_verification.v0",
+  "scope": "checked successor-function/ordinary Nat translation at every bit-cube depth,actual full-width addition with final carry and conditional semantic Int equality,13 exact typed Value additions; no full word/source/Go elaboration proof",
+  "shared_declarations_compared": 22,
+  "source_evaluation_proved": false,
+  "source_inputs": 729,
+  "source_values": 13,
+  "status": "W04 in progress; five final selected checks passed;16 unique tests covered by14 unaffected prior passes and2 corrected reruns; no T complete",
+  "strict_jsons": 161,
+  "test_assertion_repair": {
+    "meaning": "test expectation correction and archive-count refresh only; no ordinary proposition/proof altered",
+    "record": "test-relation-name-repair/diagnostic.json",
+    "sha256": "d8e1cedb23639503b30c2e367b415131bf6aa3dd3eb006777d10f021e46afc88"
+  },
+  "unchanged_ordinary_word_exports": 165,
+  "unchanged_private_checker_sources": 77,
+  "unit_execution": {
+    "actual_executions": 18,
+    "affected_rerun": {
+      "failed": 0,
+      "methods": [
+        "test_initial_findings_preserve_exact_inputs_and_resource_distinction",
+        "test_semantic_Int_uses_cross_sums_not_pair_function_equality"
+      ],
+      "passed": 2,
+      "record": "unit-repair.json",
+      "tests": 2
+    },
+    "failed": 0,
+    "initial": {
+      "failed": 1,
+      "meaning": "one test expected the shorthand Equiv instead of the actual checked Equivalent name",
+      "passed": 15,
+      "record": "unit.json",
+      "tests": 16
+    },
+    "passed": 16,
+    "selection": "only the failed relation-name assertion and the finding-archive test affected by the new binary-replay snapshot were rerun; all other test methods and tested data unchanged",
+    "tests": 16,
+    "unaffected_passes_retained": 14,
+    "unchanged_test_methods_verified_by_AST": true
+  },
+  "word_addition_library_connection_proved": true,
+  "work_item": "GO-PRAC-T01-W04"
+}

@@ -386,7 +386,7 @@ type mismatch. All27 existing closed logical heads construct typed ordinary
 Value/Defined definitions and unproved Boolean statements. All149 native
 Go/big-integer observations agree with an independent oracle;139 agree with
 actual ordinary-AST execution and ten large cases remain private-model pending.
-The [current metadata checker](../../../probes/go-practical/check_arithmetic_metadata.py)
+The [section51 metadata checker](../../../probes/go-practical/check_arithmetic_metadata.py)
 retains preceding numeric/word/proof evidence and143 predecessor paths. Its
 [verification record](ordinary-arithmetic/verification/verification.json) records
 16 targeted tests and the repaired producer variable-shadowing failure.
@@ -395,3 +395,21 @@ definedness,independent elaborator correctness and remaining ordinary
 source/state/frame/control/totality proofs remain due. All169 complete Go
 requests stay unelaborated. W04 is open; W05 owns the T01 gate and all T02–T11
 implementation/application/release work remains active.
+
+The [word/arithmetic addition connection](word-arithmetic/README.md) proves
+unbounded pointwise Value/Weight interpretations and applies them to actual
+8/16/32/64-bit ripple results. Nat equations keep the final carry; semantic
+Int addition keeps the actual sign-stage guard. All13 exact typed Value
+definitions are lifted with their source identities. Four sets pass both
+checkers with zero axioms;16 altered candidates reject by paired type mismatch.
+All96 native Go/integer observations and24 selected8-bit actual denotations
+agree. The [current metadata checker](../../../probes/go-practical/check_word_arithmetic_metadata.py)
+retains preceding arithmetic evidence and143 inventoried predecessors. The
+[verification record](word-arithmetic/verification/verification.json) preserves
+six repaired finding groups,including large-iteration conversion fuel solved
+by generic checked application/conditional lemmas. No checker budgets change.
+Other word/source operations,partial expressions,independent elaborator
+correctness,remaining ordinary source/state/frame/control/totality proofs,
+complete Go assembly and downstream roots/migrations remain due. All169
+complete Go requests stay unelaborated. W04 is open; W05 owns the T01 gate and
+all T02–T11 work remains active.

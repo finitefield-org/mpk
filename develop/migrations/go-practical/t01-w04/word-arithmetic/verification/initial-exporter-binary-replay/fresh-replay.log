@@ -1,0 +1,30 @@
+w8-valid: accepted_zero_axiom
+w8-dropped-final-carry: ordinary_type_mismatch
+w8-unrelated-overflow: ordinary_type_mismatch
+w8-missing-result-sign: ordinary_type_mismatch
+w8-unsigned-as-signed: ordinary_type_mismatch
+w16-valid: accepted_zero_axiom
+w16-dropped-final-carry: ordinary_type_mismatch
+w16-unrelated-overflow: ordinary_type_mismatch
+w16-missing-result-sign: ordinary_type_mismatch
+w16-unsigned-as-signed: ordinary_type_mismatch
+w32-valid: accepted_zero_axiom
+w32-dropped-final-carry: ordinary_type_mismatch
+w32-unrelated-overflow: ordinary_type_mismatch
+w32-missing-result-sign: ordinary_type_mismatch
+w32-unsigned-as-signed: ordinary_type_mismatch
+w64-valid: accepted_zero_axiom
+w64-dropped-final-carry: ordinary_type_mismatch
+w64-unrelated-overflow: ordinary_type_mismatch
+w64-missing-result-sign: ordinary_type_mismatch
+w64-unsigned-as-signed: ordinary_type_mismatch
+Traceback (most recent call last):
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/run_word_arithmetic.py", line 140, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/run_word_arithmetic.py", line 136, in main
+    old=check_retained();require(old['checker_binaries']==binaries and all((RECORD/n).read_bytes()==b for n,b in outputs.items()),'fresh complete word arithmetic certificate/binary replay')
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/check_scope_report.py", line 11, in require
+    raise ValueError(reason)
+ValueError: fresh complete word arithmetic certificate/binary replay

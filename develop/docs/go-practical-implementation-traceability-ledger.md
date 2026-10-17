@@ -3492,3 +3492,77 @@ statement/program/skeleton assembly,downstream roots and reviewed migrations
 stay open. All169 retained complete Go requests remain unelaborated. W05 owns
 inactive publication and the T01 gate; all T02–T11 work remains active. No
 practical Go profile is activated.
+
+
+## 52. T01-W04 full-word addition in the ordinary Nat/Int library
+
+Entry: `d796283d544fbc17bd435583ff103353bba7dcbe`, clean before this work.
+The [word/arithmetic connection](../migrations/go-practical/t01-w04/word-arithmetic/README.md)
+uses the retained634-declaration arithmetic seed and exact187-declaration word
+seed. A new untrusted exporter checks both and compares complete symbolic
+kind/type/value/proof/level/family signatures of22 common declarations. It
+exports165 unchanged ordinary members,all rechecked by both independent cores.
+The export and every one of20 complete certificates reproduce twice exactly.
+No core rule,parser/conversion budget,old helper or semantic identity changes.
+
+At each cube depth,checked composition proves Value/Weight interpretation for
+arbitrary unbounded Nat coefficient k and initial n,whole words and an explicit
+pointwise premise forall n.f(n)=n+k. Named powers square from1+1 and each has a
+checked ordinary definition equality. Successor translation follows from the
+preceding AddOne theorem. No function extensionality or full operand-pattern
+enumeration is assumed. Actual ripple addition now has genuine Nat carry
+conservation and conditional semantic Int addition at8/16/32/64 bits. Signed
+interpretation is Int.Make(unsigned,sign-selected2^width); its cross sums use
+actual Positive/Negative computation laws and the actual sign-stage carry guard.
+
+Thirteen exact source-typed Value definitions preserve source type,operation
+hash,scope and preceding word definition theorem. Checked word equality lifts
+each actual Value through the new denotation. Unsigned claims retain final
+carry; signed claims retain the actual incoming/outgoing sign-stage equality.
+An explicit lemma removes literal zero incoming. These are arithmetic claims
+about Value definitions,with source/AST/evaluation/frame/enclosing-function
+proofs still unavailable. All169 complete Go requests remain unelaborated.
+
+Four positive sets pass both checkers with zero axioms and matching certificate,
+export and axiom hashes. The64-bit set contains1,831 declarations,38,672 terms
+and539,484 bytes,including the unchanged634-declaration seed. Sixteen altered
+final-carry,overflow-premise,result-sign or signed-denotation candidates reject
+by paired core type mismatch. No failed resource/format candidate is counted
+as a semantic negative. The unchanged77-source private proposal and ordinary
+emitter are rebuilt fresh along with the new untrusted exporter. Production
+checkers,Certificate v0 and installed profiles remain unchanged.
+
+All96 actual pinned Go addition/math-bits/math-big observations agree with an
+independent integer oracle across all four widths,both incoming bits,signed
+extrema,overflow,high-bit patterns and fixed-seed operands. Seventy no-overflow
+cases satisfy the signed relation;26 overflow cases stay modular. All24
+selected8-bit observations execute the actual new unsigned/signed denotation
+ASTs over actual ripple outputs and agree with the independent interpretation.
+Larger unary-model denotation executions were not selected; all full-width
+ordinary proofs are checked. Finite observations do not prove general source
+or compiler correctness,and the preceding ten logical-model resource-pending
+cases keep their status. The same14,496-file Go1.25.0 inventory is retained.
+
+The [verification record](../migrations/go-practical/t01-w04/word-arithmetic/verification/verification.json)
+preserves raw commands,selection reasons,review and five initial finding groups:
+exporter dependency lock,composed producer context,computed Nat/Int projection
+typing,large-iteration conversion fuel,observation query-field mismatch and
+embedded temporary dependency paths in the new exporter binary.
+Exact original sources/plans/certificates/results are retained as applicable.
+A wrong initial Go CLI invocation is separate from the proper core result.
+Generic checked ApplyEquality and MaybeTranslation theorems give direct result
+types for concrete iterations,repairing32/64-bit fuel without a budget change.
+Naming powers alone was insufficient. Explicit literal and projection equality
+lifting repairs nested recursor-major comparisons. Sixteen affected tests
+exercise proof bytes,isolated controls,export closure,all source identities,
+actual guards,independent observations and source/pending boundaries. The
+receipt pins729 inputs. Earlier native matrices are not rerun; preceding
+arithmetic evidence and all143 inventoried predecessors remain checked.
+
+W04 remains In progress. Other word arithmetic/order/division/shifts/conversions,
+source/partial expressions,bounded definedness,independent elaborator correctness,
+remaining state/permission/frame/control/totality proofs,complete Go statement/
+program/skeleton assembly,downstream roots and reviewed migrations remain due.
+W05 owns inactive publication and the cumulative T01 gate. All T02–T11
+implementation/application/release work remains active; no practical Go profile
+is activated.

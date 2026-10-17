@@ -1,0 +1,197 @@
+"""Connect unchanged full-word addition to ordinary Nat/observational Int."""
+import json
+from pathlib import Path
+from functools import lru_cache
+from arithmetic_terms import *
+from ordinary_integers import integer,equiv
+from word_foundation import Library,choose,at
+from word_numeric_bridge import (Bridge as PriorBridge,MODULE as PRIOR_MODULE,SEED as OLD_SEED,
+    cube,function,old,tree,composition,maybe)
+from run_proof_pilot import ROOT
+from proof_canonical import canonical
+
+MODULE='Probe.GoPractical.WordArithmetic'
+RECORD=ROOT/'develop/migrations/go-practical/t01-w04/word-arithmetic'
+SEED=ROOT/'develop/migrations/go-practical/t01-w04/ordinary-arithmetic/theory.mpcert'
+ARITHMETIC=SEED.parent/'expansion.json'
+
+
+def power(depth):
+    if depth==0:return add(one(),one())
+    p=power(depth-1);return mul(p,p)
+def applied(e,argument):return e.mapped(lam('_function',function(),app(var('_function'),argument)),app(e.left,argument),app(e.right,argument),nat())
+def bool_proof(name,proposition,false,true):
+    return lam(name,boolean(),call('Std.Bool.cases',lam(name,boolean(),proposition),false,true,var(name)))
+def replace(node,needle,value):
+    if node==needle:return value
+    if isinstance(node,dict):return {k:replace(v,needle,value) for k,v in node.items()}
+    if isinstance(node,list):return [replace(v,needle,value) for v in node]
+    return node
+
+
+@lru_cache(None)
+def retained():return json.loads((RECORD/'retained.json').read_bytes())
+@lru_cache(None)
+def seed_rows():return json.loads(ARITHMETIC.read_bytes())['declarations']
+
+
+class Bridge:
+    def __init__(self,width,exported=None):
+        self.prior=PriorBridge(width);p=self.prior.build();self.width=width;self.depth=self.prior.depth
+        self.prefix=MODULE+'.W'+str(width)+'.';self.lib=Library();self.source_rows=[];self.counter=0;self.checkpoint_args=[]
+        known={d['name']:d for d in seed_rows()}
+        for d in (retained() if exported is None else exported)['declarations']+p['declarations']:
+            if d['name'] in known:assert canonical(known[d['name']])==canonical(d),'unchanged duplicate ordinary member'
+            else:self.lib.rows.append(d);self.lib.names.add(d['name']);known[d['name']]=d
+        self.x,self.y,self.c=var('x'),var('y'),var('incoming')
+        self.args=[('x',cube(self.depth)),('y',cube(self.depth)),('incoming',boolean())]
+    def name(self,n):return self.prefix+n
+    def local(self,n,*args):return call(self.name(n),*args)
+    def emit(self,n,args,result,value,kind='theorem'):self.lib.emit(self.name(n),args,result,value,kind)
+    def theorem(self,n,args,e):self.emit(n,args,eq(e.ty,e.left,e.right),e.proof)
+    def checkpoint(self,e):
+        name='CheckedStep'+str(self.counter).zfill(3);self.counter+=1
+        self.theorem(name,self.checkpoint_args,e)
+        return Equality(e.left,e.right,self.local(name,*[var(n) for n,_ in self.checkpoint_args]),e.ty)
+    def unsigned(self,d,x):return self.local('Unsigned'+str(d),x)
+    def offset(self,b):return choose(b,power(self.depth),zero(),nat())
+    def bit_value(self,b):return choose(b,one(),zero(),nat())
+    def signed(self,x):return self.local('SignedValue',x)
+    def scalar_laws(self):
+        n,k,l,h,p=[var(s) for s in ('n','k','low','high','weight')]
+        self.checkpoint_args=[(s,nat()) for s in ('n','k','low','high','weight')]
+        left=add(add(n,mul(mul(k,p),h)),mul(k,l));right=add(n,mul(k,add(l,mul(p,h))))
+        self.theorem('ValueCombine',self.checkpoint_args,PolynomialNormalizer(self.checkpoint).prove(left,right))
+        e=lemma('MulAddRight',[k,one(),one()],mul(k,power(0)),add(mul(k,one()),mul(k,one())))
+        e=e.then(on_left(lemma('MulOne',[k],mul(k,one()),k),mul(k,one())))
+        e=e.then(on_right(k,lemma('MulOne',[k],mul(k,one()),k)))
+        self.theorem('MulTwo',[('k',nat())],e)
+    def definitions(self):
+        for d in range(self.depth+1):
+            x=var('word');body=self.bit_value(x) if d==0 else add(self.unsigned(d-1,app(x,bit(False))),mul(power(d-1),self.unsigned(d-1,app(x,bit(True)))))
+            self.emit('Unsigned'+str(d),[('word',cube(d))],nat(),body,'definition')
+        x=var('word');args=[('word',cube(self.depth))];u=self.unsigned(self.depth,x);offset=self.offset(at(x,self.width,self.width-1))
+        self.emit('UnsignedValue',args,nat(),u,'definition')
+        self.emit('SignedOffset',args,nat(),offset,'definition')
+        self.emit('SignedValue',args,integer(),ic('Make',u,offset),'definition')
+    def pointwise(self,k,f):return pi('_position',nat(),eq(nat(),app(f,var('_position')),add(var('_position'),k)))
+    def weights(self,d):
+        k,f,h,n=var('k'),var('f'),var('_translation'),var('n');args=[('k',nat()),('f',function()),('_translation',self.pointwise(k,f)),('n',nat())]
+        left=app(tree('Weight',d,f),n);body=old('Square',f) if d==0 else tree('Weight',d-1,tree('Weight',d-1,f))
+        e=applied(Equality(tree('Weight',d,f),body,tree('WeightDefinition',d,f),function()),n)
+        if d==0:
+            middle=app(f,app(f,n));e=e.then(Equality(app(body,n),middle,refl(nat(),middle)))
+            e=e.then(Equality(middle,add(app(f,n),k),app(h,app(f,n))))
+            e=e.then(on_left(Equality(app(f,n),add(n,k),app(h,n)),k)).then(assoc(n,k,k))
+            e=e.then(on_right(n,Equality(mul(k,power(0)),add(k,k),self.local('MulTwo',k)).reverse()))
+        else:
+            weight=tree('Weight',d-1,f);amount=mul(k,power(d-1));position=var('_position')
+            premise=lam('_position',nat(),self.local('WeightLaw'+str(d-1),k,f,h,position))
+            e=e.then(Equality(app(body,n),add(n,mul(amount,power(d-1))),self.local('WeightLaw'+str(d-1),amount,weight,premise,n)))
+            e=e.then(on_right(n,mul_assoc(k,power(d-1),power(d-1))))
+        self.theorem('WeightLaw'+str(d),args,e)
+    def values(self,d):
+        k,f,h,x,n=var('k'),var('f'),var('_translation'),var('word'),var('n')
+        args=[('k',nat()),('f',function()),('_translation',self.pointwise(k,f)),('word',cube(d)),('n',nat())]
+        left=app(tree('Value',d,f,x),n);right=add(n,mul(k,self.unsigned(d,x)))
+        if d==0:
+            proposition=eq(nat(),app(tree('Value',0,f,x),n),add(n,mul(k,self.unsigned(0,x))))
+            false=on_right(n,lemma('MulZero',[k],mul(k,zero()),zero())).then(add_zero(n)).reverse().proof
+            true=Equality(app(f,n),add(n,k),app(h,n)).then(on_right(n,lemma('MulOne',[k],mul(k,one()),k).reverse())).proof
+            proof=app(bool_proof('word',proposition,false,true),x)
+            e=Equality(left,right,proof)
+        else:
+            lo,hi=app(x,bit(False)),app(x,bit(True));weight=tree('Weight',d-1,f)
+            low=tree('Value',d-1,f,lo);high=tree('Value',d-1,weight,hi);body=composition(low,high)
+            e=applied(Equality(tree('Value',d,f,x),body,tree('ValueDefinition',d,f,x),function()),n)
+            oldhigh=app(high,n);computed=app(low,oldhigh)
+            e=e.then(Equality(app(body,n),computed,refl(nat(),computed)))
+            lowvalue,highvalue=self.unsigned(d-1,lo),self.unsigned(d-1,hi)
+            e=e.then(Equality(computed,add(oldhigh,mul(k,lowvalue)),self.local('ValueLaw'+str(d-1),k,f,h,lo,oldhigh)))
+            amount=mul(k,power(d-1));position=var('_position')
+            premise=lam('_position',nat(),self.local('WeightLaw'+str(d-1),k,f,h,position))
+            q=Equality(oldhigh,add(n,mul(amount,highvalue)),self.local('ValueLaw'+str(d-1),amount,weight,premise,hi,n))
+            e=e.then(on_left(q,mul(k,lowvalue)))
+            finish=add(n,mul(k,add(lowvalue,mul(power(d-1),highvalue))))
+            e=e.then(Equality(e.right,finish,self.local('ValueCombine',n,k,lowvalue,highvalue,power(d-1))))
+        self.emit('ValueLaw'+str(d),args,eq(nat(),left,right),e.proof)
+    def successor_laws(self):
+        d=self.depth;f=const('Std.Nat.succ');n,x,b=var('n'),var('word'),var('flag');pos=var('_position')
+        h=lam('_position',nat(),call('Std.Eq.symm',nat(),add(pos,one()),succ(pos),nc('AddOne',pos)))
+        value=app(tree('Value',d,f,x),n);u=self.unsigned(d,x)
+        e=Equality(value,add(n,mul(one(),u)),self.local('ValueLaw'+str(d),one(),f,h,x,n)).then(on_right(n,lemma('OneMul',[u],mul(one(),u),u)))
+        self.theorem('ValueSuccessor',[('word',cube(d)),('n',nat())],e)
+        weight=tree('Weight',d,f)
+        e=Equality(app(weight,n),add(n,mul(one(),power(d))),self.local('WeightLaw'+str(d),one(),f,h,n)).then(on_right(n,lemma('OneMul',[power(d)],mul(one(),power(d)),power(d))))
+        self.theorem('WeightSuccessor',[('n',nat())],e)
+        for name,step,amount,true in (('MaybeSuccessor',f,self.bit_value(b),nc('AddOne',n)),('MaybeWeight',weight,self.offset(b),self.local('WeightSuccessor',n))):
+            proposition=eq(nat(),app(maybe(step,b),n),add(n,amount))
+            false=add_zero(n).reverse().proof
+            if name=='MaybeSuccessor':true=call('Std.Eq.symm',nat(),add(n,one()),succ(n),true)
+            proof=app(bool_proof('flag',proposition,false,true),b)
+            self.emit(name,[('flag',boolean()),('n',nat())],proposition,proof)
+    def translate(self,f,n):
+        d=self.depth;args=f.get('arguments',[]);head=f.get('function',{}).get('name')
+        if head=='Probe.GoPractical.Word.Compose':
+            left,right=args;computed=app(left,app(right,n));e=Equality(app(f,n),computed,refl(nat(),computed))
+            p=self.translate(left,app(right,n));q=self.translate(right,n)
+            e=e.then(p);context=replace(p.right,q.left,var('_translated_initial'));target=replace(p.right,q.left,q.right)
+            assert context!=p.right,'exact initial-value context occurs'
+            return e.then(q.mapped(lam('_translated_initial',nat(),context),p.right,target))
+        if head=='Probe.GoPractical.Word.TreeValue'+str(d):
+            assert args[0]==const('Std.Nat.succ');return Equality(app(f,n),add(n,self.unsigned(d,args[1])),self.local('ValueSuccessor',args[1],n))
+        assert head=='Probe.GoPractical.Word.Maybe'
+        step,flag=args
+        if step==const('Std.Nat.succ'):return Equality(app(f,n),add(n,self.bit_value(flag)),self.local('MaybeSuccessor',flag,n))
+        assert step==tree('Weight',d,const('Std.Nat.succ'))
+        return Equality(app(f,n),add(n,self.offset(flag)),self.local('MaybeWeight',flag,n))
+    def conservation(self):
+        d=self.depth;x,y,c=self.x,self.y,self.c;f=const('Std.Nat.succ');result=self.prior.sum()
+        value=lambda w:tree('Value',d,f,w);weight=tree('Weight',d,f);out=self.prior.carry(self.width)
+        unsigned=composition(value(x),composition(value(y),maybe(f,c)))
+        rhs=composition(value(result),maybe(weight,out));left=add(add(self.unsigned(d,x),self.unsigned(d,y)),self.bit_value(c));right=add(self.unsigned(d,result),self.offset(out))
+        p=self.translate(unsigned,zero());p=p.then(AddNormalizer().prove(p.right,left))
+        q=self.translate(rhs,zero());q=q.then(AddNormalizer().prove(q.right,right))
+        retained=Equality(app(unsigned,zero()),app(rhs,zero()),self.prior.local('NatConservation',zero(),x,y,c))
+        self.theorem('UnsignedAddition',self.args,p.reverse().then(retained).then(q))
+        sx,sy,sr=[at(w,self.width,self.width-1) for w in (x,y,result)]
+        lhs=composition(unsigned,maybe(weight,sr));rhs=composition(value(result),composition(maybe(weight,sx),maybe(weight,sy)))
+        left=add(left,self.offset(sr));right=add(self.unsigned(d,result),add(self.offset(sx),self.offset(sy)))
+        p=self.translate(lhs,zero());p=p.then(AddNormalizer().prove(p.right,left))
+        q=self.translate(rhs,zero());q=q.then(AddNormalizer().prove(q.right,right))
+        premise=eq(boolean(),self.prior.carry(self.width-1),out);args=self.args+[('no_overflow',premise)]
+        retained=Equality(app(lhs,zero()),app(rhs,zero()),self.prior.local('SignedNatConservation',zero(),x,y,c,var('no_overflow')))
+        e=p.reverse().then(retained).then(q);self.theorem('SignedCrossSums',args,e)
+        integer_sum=ic('Add',ic('Add',self.signed(x),self.signed(y)),ic('FromNat',self.bit_value(c)))
+        self.emit('SignedAddition',args,equiv(integer_sum,self.signed(result)),e.proof)
+    def source_values(self):
+        d=self.depth;x,y=self.x,self.y;result=self.prior.wc('AddCarry',x,y,bit(False))
+        out=self.prior.wc('Carry'+str(self.width),x,y,bit(False));incoming=self.prior.wc('Carry'+str(self.width-1),x,y,bit(False))
+        for row in self.prior.source_rows:
+            actual=call(row['value_name'],x,y);name='SourceH'+row['operation_hash'];args=[('x',cube(d)),('y',cube(d))]
+            word_eq=Equality(actual,result,self.prior.local('SourceH'+row['operation_hash']+'ValueDefinition',x,y),cube(d)).reverse()
+            if row['signed']:
+                args+=[('no_overflow',eq(boolean(),incoming,out))]
+                left=add(add(self.unsigned(d,x),self.unsigned(d,y)),self.offset(at(result,self.width,self.width-1)))
+                right=add(self.unsigned(d,result),add(self.offset(at(x,self.width,self.width-1)),self.offset(at(y,self.width,self.width-1))))
+                # Remove the literal zero incoming contribution by computation.
+                e=Equality(left,right,self.local('SignedCrossSums',x,y,bit(False),var('no_overflow')))
+                target_left=add(add(self.unsigned(d,x),self.unsigned(d,y)),self.offset(at(actual,self.width,self.width-1)))
+                target_right=add(self.unsigned(d,actual),add(self.offset(at(x,self.width,self.width-1)),self.offset(at(y,self.width,self.width-1))))
+                p=word_eq.mapped(lam('_result',cube(d),add(add(self.unsigned(d,x),self.unsigned(d,y)),self.offset(at(var('_result'),self.width,self.width-1)))),left,target_left,nat())
+                q=word_eq.mapped(lam('_result',cube(d),add(self.unsigned(d,var('_result')),add(self.offset(at(x,self.width,self.width-1)),self.offset(at(y,self.width,self.width-1))))),right,target_right,nat())
+                proof=p.reverse().then(e).then(q).proof
+                self.emit(name+'Addition',args,equiv(ic('Add',self.signed(x),self.signed(y)),self.signed(actual)),proof)
+                meaning='conditional semantic Int equality of exact source-typed Value; actual sign-stage carry premise'
+            else:
+                left=add(self.unsigned(d,x),self.unsigned(d,y));right=add(self.unsigned(d,result),self.offset(out))
+                e=Equality(left,right,self.local('UnsignedAddition',x,y,bit(False)))
+                target=add(self.unsigned(d,actual),self.offset(out))
+                q=word_eq.mapped(lam('_result',cube(d),add(self.unsigned(d,var('_result')),self.offset(out))),right,target,nat())
+                self.theorem(name+'Addition',args,e.then(q));meaning='exact Nat addition of source-typed Value with actual final carry'
+            self.source_rows.append({**row,'theorem':self.name(name+'Addition'),'meaning':meaning,'source_evaluation_proved':False})
+    def build(self):
+        self.scalar_laws();self.definitions()
+        for d in range(self.depth+1):self.weights(d);self.values(d)
+        self.successor_laws();self.conservation();self.source_values()
+        return {'module':MODULE+'.W'+str(self.width),'declarations':self.lib.rows}

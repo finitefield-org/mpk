@@ -1,0 +1,28 @@
+{
+  "finding": "copied and renamed exporter lock does not match the new package dependency resolution",
+  "exit_code": 101,
+  "scope": "private exporter build configuration failure; no proof or source claim",
+  "repair": "resolve the new package offline and retain its own lock; subsequent builds use offline locked mode",
+  "inputs": [
+    {
+      "path": "Cargo.lock.txt",
+      "sha256": "754c74106e22ad20e1f2bdd6fd03b54a1364fff469683053ed70103709120fcb"
+    },
+    {
+      "path": "Cargo.toml.txt",
+      "sha256": "df3ece3fc98561fd233725a787224d5ba0e5d9fdf69d2e2718447ec8b110d9f6"
+    },
+    {
+      "path": "output.log",
+      "sha256": "083a6d0290abe1cb107da10dbd12c20d8aca8b195d117b9317db7c80858d8b3c"
+    },
+    {
+      "path": "private-Cargo.toml.txt",
+      "sha256": "403932ac733991f1a0b155dde568d194688c00b11ab0fae86e11e60de1bd6519"
+    },
+    {
+      "path": "src-main.rs.txt",
+      "sha256": "c2aff05ef4eec708d9513bbcf1db0ebb975f6d52916e1036ee433a9322afd79c"
+    }
+  ]
+}

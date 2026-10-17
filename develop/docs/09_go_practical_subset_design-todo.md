@@ -161,6 +161,16 @@ targeted tests preserve false-clause,source and full-Go proof boundaries.
 The word-to-general-arithmetic connection,partial/source expressions and
 independent elaborator correctness remain required. All169 complete Go
 requests stay unelaborated; W04 remains open.
+The [word/arithmetic addition connection](../migrations/go-practical/t01-w04/word-arithmetic/README.md)
+now proves pointwise successor-function interpretations at every cube depth
+and connects actual8/16/32/64-bit ripple results to genuine Nat carry equations
+and conditional semantic Int equality. All four sets pass both checkers at
+zero axioms;16 altered candidates reject by type mismatch. Thirteen exact
+typed Values retain their source identities and actual guards. All96 native
+Go/integer observations and24 selected actual denotation executions agree.
+Generic checked application/conditional lemmas solve the initial32/64-bit
+conversion-fuel failure without changing checker budgets. Other word/source
+operations,full ordinary/Go proofs and W04 freeze remain required.
 Shared/downstream wire tables, remaining variant/source foundation,
 limits, schemas/hash identities and migration review remain open.
 T01 is incomplete and no practical Go profile is active.
