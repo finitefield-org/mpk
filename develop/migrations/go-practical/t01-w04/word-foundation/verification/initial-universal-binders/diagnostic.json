@@ -1,0 +1,24 @@
+{
+  "finding": "universal Bool eliminator already returns lambdas; declaration helper wrapped the same parameters again",
+  "first_failing_declaration": "Probe.GoPractical.WordFoundation.Bit.NotNot",
+  "inputs": [
+    {
+      "path": "word_foundation.py.txt",
+      "sha256": "febd6ccbbac8babca25aba17a6c4d7eb82b0c83bc51e775a99cff67a795abea2"
+    },
+    {
+      "path": "plan.json",
+      "sha256": "7c284b3bab03e128c28a117232cc12e0a4fbfd20165c686710cfea745fd4c945"
+    },
+    {
+      "path": "candidate.mpcert",
+      "sha256": "243887d7f9e161ba90235afceaa045a2dcaba15db1bc7dc67155dd9f211e87d4"
+    },
+    {
+      "path": "results.json",
+      "sha256": "a529829d0138b03be675af579090da2a151069c536109e397e74d7a6bdf16676"
+    }
+  ],
+  "repair": "emit the complete quantified theorem type and already-bound proof without duplicate lambdas; preserve both independent checker rejections",
+  "scope": "incorrectly constructed proof term,not a Go source counterexample"
+}

@@ -1,0 +1,24 @@
+{
+  "finding": "specialized carry proof still used an implicit zero-bit evaluation in a nested eliminator argument",
+  "first_failing_declaration": "Probe.GoPractical.WordFoundation.W8.CarryZero1",
+  "inputs": [
+    {
+      "path": "word_foundation.py.txt",
+      "sha256": "c5f8809d5f7adf42c1943e8b55c6799dde24798994c16f44e9142e781a795be1"
+    },
+    {
+      "path": "plan.json",
+      "sha256": "2281d3e0e03721b0cfa3ff491e6d13e09ccc83a226988f480ec75544318ec4d4"
+    },
+    {
+      "path": "candidate.mpcert",
+      "sha256": "21024cba55ea7e685d217ee6f6c90352ed36a07263e2d61f35890dc5cc89059a"
+    },
+    {
+      "path": "results.json",
+      "sha256": "d91ae25ac709a8dbcaf4a310a4697b25058a189c98bcbe403aca5f2f49f8ac71"
+    }
+  ],
+  "repair": "prove the concrete zero-bit normalization explicitly with Eq.congr/trans; keep each carry step as a named compact universal lemma",
+  "scope": "ordinary proof composition mismatch,not source rejection"
+}

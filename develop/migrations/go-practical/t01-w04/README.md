@@ -342,10 +342,24 @@ families yield169 source-bound requests,with56 local fragments retaining416
 member/access demands. All260 Python/Rust/Go preimages agree. Go ordinary
 proposition expansion and final program-assembly/skeleton fields remain due;
 Go skeleton requests stay pending. The
-[current metadata checker](../../../probes/go-practical/check_proof_artifact_metadata.py)
+[section48 metadata checker](../../../probes/go-practical/check_proof_artifact_metadata.py)
 retains prior capture/module evidence and143 predecessor pins. Its
 [verification record](proof-artifacts/verification/verification.json) keeps
 selected checks and the initial unsupported1024-depth observer setup failure.
 Complete Go ordinary expansion,frontend-envelope/policy/API/release roots,
 reviewed migrations and all source/ordinary proofs remain required. W04 stays
 open,W05 owns the cumulative T01 gate and the full T02–T11 objective remains.
+
+The [ordinary word component](word-foundation/README.md) adds complete bit-circuit
+definitions for8/16/32/64-bit words, with explicit arithmetic-definedness guards
+and787 captured-source value specializations over13 nominal/builtin word types.
+Five sets pass both unchanged private checkers at zero axioms;12 false claims
+and four ill-typed shifts reject. All1,640 actual ordinary-AST/Go/integer
+observations agree,including40 real runtime-safety failures. The
+[current metadata checker](../../../probes/go-practical/check_word_metadata.py)
+preserves all prior evidence and143 predecessor paths. Its
+[verification record](word-foundation/verification/verification.json) retains
+initial failed proof constructions and exact repairs. Full Nat/source semantic
+proofs,remaining ordinary/source/state/control/frame definitions,complete Go
+statement/program/skeleton assembly and downstream roots/migrations remain due.
+W04 stays open; W05 owns the T01 gate and all T02–T11 work remains active.

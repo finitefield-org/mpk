@@ -3287,3 +3287,70 @@ and reviewed migrations remain due. All independent source/AST/control/lifetime/
 activation and ordinary operation/permission/frame/totality proofs remain
 required. W05 owns inactive publication and the T01 gate; all T02–T11 work
 stays active and no practical Go profile is activated.
+
+## 49. T01-W04 ordinary word circuits and captured value specializations
+
+Entry: `ee1083c14e7050e08a411f0fcda7e1d78ec1abba`, clean before this work.
+The [ordinary word component](../migrations/go-practical/t01-w04/word-foundation/README.md)
+adds actual ordinary full-bit8/16/32/64 definitions for arithmetic,bitwise
+operators,comparison,division/remainder,shifts and all width conversions.
+Shared carry/shift/division stages keep the graph polynomial. Unsigned division
+retains the lost high remainder bit; signed magnitude/sign correction preserves
+minimum/-1 wrapping and dividend-signed remainders. DivideDefined excludes
+zero divisors independently of explicit totalized model values. Shifts retain
+all64 count bits,with signed source counts sign-extended and separately guarded.
+Source literal representability precedes bit construction.
+
+The word carrier is exactly the retained full Bool-indexed vector. A new
+untrusted generator builds ordinary Bool.cases definitions and Eq.congr/trans/
+symm proofs; no core opcode,reduction rule,axiom,extensionality or eta rule is
+added. Universal Bool parity/majority/equality,compact carry-zero lemmas and
+pointwise AddZero/XorZero/AndOnes/NotNot quantify arbitrary input words and all
+addresses. They are basic model laws,not a full source arithmetic proof.
+
+Thirteen distinct nominal/builtin word types produce787 concrete captured
+GP-OP-01/02/03/04/05/06/07/09 specializations. Each whole operation is regenerated
+before selecting separate Value and Defined ordinary definitions. Full context,
+scope,operation hash and input/output nominal IDs remain bound; equal core
+widths do not identify source types. All word pairs and count types participate
+in conversion/shift specializations. Changed operations,caller formulas and
+proof flags reject. These are value/definedness components; parent source,
+evaluation,state,permission,frame and whole-function goals stay required.
+
+Both unchanged private Rust/Go checkers accept four word sets and the complete
+source-value set with zero axioms and identical output hashes. The combined
+certificate has2,756 declarations,19,718 terms and513,817 bytes,including2,575
+new definitions and146 new ordinary theorems. It fits the preceding candidate
+proof envelope. Twelve deliberately false carry/add/division-definedness claims
+and four ill-typed shifts reject in both cores. All21 cases emit twice byte
+identically. The original77-source joint Bool.recType/Nat.induct proposal and
+retained ordinary emitter stay unchanged; no production checker or Certificate
+v0 is modified.
+
+All1,640 actual ordinary-AST interpreter observations agree with an independent
+integer oracle and real pinned Go operators:1,312 word results,288 Boolean
+results and40 runtime-safety failures. Signed minima,overflow,high remainder
+bits,negative shifts,full64-bit shift counts and conversion signedness remain
+explicit. The real Go observer runs twice identically. Finite comparisons do
+not establish universal source correctness or registered capture provenance.
+The receipt pins685 inputs and the retained14,496-file Go1.25.0 inventory.
+
+The [verification record](../migrations/go-practical/t01-w04/word-foundation/verification/verification.json)
+retains targeted checks,selection reasons and six exact initial failure
+snapshots. Balancing finite predicates and naming carry lemmas solves emitter
+depth without changing its parser. Correct quantified binders and explicit
+congruence solve nested-iota proof composition within existing rules. Prefixing
+full operation hashes with H satisfies canonical declaration names. Failed
+constructions remain distinct from false source claims and intended controls.
+Sixteen targeted tests cover these interfaces and evidence boundaries.
+Unchanged older matrices are not rerun; prior proof/capture/module/source pins
+and all143 inventoried predecessor paths remain checked.
+
+W04 remains In progress. Full-width Nat/Int interpretation/conservation and
+source/arithmetic/division/shift proofs remain required,along with all remaining
+contract/operation/source/state/permission/frame/control/totality definitions.
+The preceding169 complete Go requests remain unelaborated. Final ordinary
+statement/program/skeleton assembly,frontend-envelope/policy/API/release roots,
+reviewed migrations and W04 freeze remain due. W05 owns inactive publication
+and the cumulative T01 gate; all T02–T11 implementation/application/release
+work stays active. No practical Go profile is activated.

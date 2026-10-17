@@ -1,0 +1,14 @@
+{
+  "command": [
+    "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+    "-B",
+    "-c",
+    "from pathlib import Path;p=Path('develop/probes/go-practical');names=('word_foundation.py','word_cases.py','word_bindings.py','run_word_foundation.py','test_word_foundation.py','check_word_metadata.py');[compile((p/n).read_bytes(),str(p/n),'exec') for n in names];print('PASS: six new Python sources compile')"
+  ],
+  "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+  "exit_code": 0,
+  "log": "python-compile.log",
+  "reason": "All six new ordinary-term/source-specialization/replay/test/metadata Python sources",
+  "sha256": "5f3537ba7604ac2b60bd9acce8ddff6181bb844aa6ce5a06c3175b95c2bbdc85",
+  "wall_seconds": 0.053149625076912344
+}

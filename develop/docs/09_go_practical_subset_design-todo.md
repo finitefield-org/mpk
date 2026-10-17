@@ -135,6 +135,13 @@ requests and56 local fragments retaining416 member/access demands. All260
 Python/Rust/Go hash inputs agree. Go ordinary proposition/statement expansion
 and final skeleton/program assembly remain unfrozen; skeleton requests stay
 pending and no caller context can promote them. No application proof is claimed.
+The [ordinary word component](../migrations/go-practical/t01-w04/word-foundation/README.md)
+now supplies full8/16/32/64-bit circuits and source-typed value/definedness
+specializations for787 operations over13 distinct word types. Five ordinary
+sets pass both unchanged private checkers with zero axioms;16 false/ill-typed
+controls reject. All1,640 actual ordinary-AST/Go/integer observations agree.
+Complete Nat/source correctness proofs and Go VC elaboration remain required;
+this component does not promote the preceding169 theorem requests.
 Shared/downstream wire tables, remaining variant/source foundation,
 limits, schemas/hash identities and migration review remain open.
 T01 is incomplete and no practical Go profile is active.

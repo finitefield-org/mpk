@@ -1,0 +1,301 @@
+"""Ordinary full-width word circuits; no primitive arithmetic or source axiom.
+
+The retained carrier is a Bool-indexed bit vector. Addresses are MSB first;
+integer bits are numbered from the least significant bit. All circuit nodes
+are ordinary definitions over Bool.cases, never a new checker opcode.
+"""
+from carrier_terms import const,var,app,pi,lam,boolean,bit,eq,refl,bind,word,validate_expr
+
+MODULE='Probe.GoPractical.WordFoundation'
+BOOL_PREFIX=MODULE+'.Bit.'
+WIDTHS=(8,16,32,64)
+
+
+def call(name,*args):return app(const(name),*args)
+def bc(name,*args):return call(BOOL_PREFIX+name,*args)
+def choose(condition,yes,no,ty=None):
+    return call('Std.Bool.cases',lam('_case',boolean(),boolean() if ty is None else ty),no,yes,condition)
+def address(width,index):return [bit(bool(index&(1<<i))) for i in reversed(range((width-1).bit_length()))]
+def at(value,width,index):return app(value,*address(width,index))
+def vector(width,bits):
+    assert len(bits)==width and width in WIDTHS
+    names=['_index'+str(i) for i in range((width-1).bit_length())]
+    def tree(xs,depth):
+        if len(xs)==1:return xs[0]
+        middle=len(xs)//2
+        return choose(var(names[depth]),tree(xs[middle:],depth+1),tree(xs[:middle],depth+1))
+    return bind('lam',[(n,boolean()) for n in names],tree(bits,0))
+def literal(width,value):return vector(width,[bit(bool(value&(1<<i))) for i in range(width)])
+def fold_bits(name,values,empty):
+    if not values:return bit(empty)
+    if len(values)==1:return values[0]
+    m=len(values)//2
+    return bc(name,fold_bits(name,values[:m],empty),fold_bits(name,values[m:],empty))
+
+
+def free_variables(node):
+    k=node['kind']
+    if k=='var':return {node['name']}
+    if k=='app':return free_variables(node['function'])|set().union(*(free_variables(x) for x in node['arguments']))
+    if k in {'lam','pi'}:return free_variables(node['domain'])|(free_variables(node['body'])-{node['name']})
+    return set()
+
+
+class EvaluationProof:
+    """Ordinary equality proof of a selected Bool computation.
+
+    The retained checker only performs iota on direct constructor majors.
+    Eq.congr explicitly replaces a computed major before applying iota;
+    no new reduction rule or word-evaluation primitive is required.
+    """
+    def __init__(self,rows):self.definitions={r['name']:r['value'] for r in rows if r['kind']=='definition'};self.fresh=0
+    def name(self):self.fresh+=1;return '_evaluation'+str(self.fresh)
+    def substitute(self,node,name,value):
+        k=node['kind']
+        if k=='var':return value if node['name']==name else node
+        if k=='app':return app(self.substitute(node['function'],name,value),*(self.substitute(x,name,value) for x in node['arguments']))
+        if k in {'lam','pi'}:
+            domain=self.substitute(node['domain'],name,value);n=node['name'];body=node['body']
+            if n==name:return {**node,'domain':domain}
+            if n in free_variables(value):
+                fresh=self.name();body=self.substitute(body,n,var(fresh));n=fresh
+            return (lam if k=='lam' else pi)(n,domain,self.substitute(body,name,value))
+        return node
+    def spine(self,node):
+        args=[]
+        while node['kind']=='app':args=node['arguments']+args;node=node['function']
+        return node,args
+    def head(self,node):
+        # This is an untrusted proof constructor. The checker verifies each
+        # claimed equality; these symbolic reductions grant no authority.
+        for _ in range(100000):
+            function,args=self.spine(node)
+            if function['kind']=='const' and function['name'] in self.definitions:
+                node=app(self.definitions[function['name']],*args);continue
+            if function['kind']=='lam' and args:
+                node=app(self.substitute(function['body'],function['name'],args[0]),*args[1:]);continue
+            if function==const('Std.Bool.cases') and len(args)>=4 and args[3] in (bit(False),bit(True)):
+                node=app(args[2] if args[3]==bit(True) else args[1],*args[4:]);continue
+            return app(function,*args)
+        raise RuntimeError('symbolic construction resource limit; not a semantic rejection')
+    def normalize(self,node):
+        h=self.head(node);function,args=self.spine(h)
+        if function==const('Std.Bool.cases') and len(args)>=4:
+            major=args[3];normal,proof=self.normalize(major)
+            if normal not in (bit(False),bit(True)):return h,refl(boolean(),h)
+            n=self.name();replace=lambda value:app(function,*(args[:3]+[value]+args[4:]))
+            changed=replace(normal);f=lam(n,boolean(),replace(var(n)))
+            congr=call('Std.Eq.congr',boolean(),boolean(),f,major,normal,proof)
+            result,tail=self.normalize(changed)
+            return result,call('Std.Eq.trans',boolean(),node,changed,result,congr,tail)
+        return h,refl(boolean(),h)
+    def equation(self,left,right):
+        normal,proof=self.normalize(left);other,reverse=self.normalize(right)
+        symmetry=call('Std.Eq.symm',boolean(),right,other,reverse)
+        # The independent core must establish normal == other. A wrong
+        # computation/proposition cannot be accepted by this constructor.
+        return call('Std.Eq.trans',boolean(),left,normal,right,proof,symmetry)
+
+
+class Library:
+    def __init__(self):self.rows=[];self.names=set()
+    def emit(self,name,args,result,body,kind='definition'):
+        assert name not in self.names
+        ty=bind('pi',args,result);value=bind('lam',args,body)
+        validate_expr(ty);validate_expr(value)
+        self.rows.append({'name':name,'kind':kind,'ty':ty,'value':value});self.names.add(name)
+
+
+def boolean_library(lib):
+    b=boolean();a,c,d=var('a'),var('b'),var('c')
+    def emit(n,args,body):lib.emit(BOOL_PREFIX+n,[(x,b) for x in args],b,body)
+    emit('Not',['a'],choose(a,bit(False),bit(True)))
+    emit('And',['a','b'],choose(c,a,bit(False)))
+    emit('Or',['a','b'],choose(c,bit(True),a))
+    emit('Xor',['a','b'],choose(c,bc('Not',a),a))
+    emit('Equal',['a','b'],bc('Not',bc('Xor',a,c)))
+    emit('Sum',['a','b','c'],bc('Xor',bc('Xor',a,c),d))
+    emit('Carry',['a','b','c'],bc('Or',bc('And',a,c),bc('And',bc('Xor',a,c),d)))
+
+
+def boolean_proof(names,left,right,evaluator,environment=None):
+    """Truth-table elimination proves a universal Bool equation in the core.
+
+    Other quantified values may remain neutral. Only the listed Bool
+    variables are eliminated, so word identities quantify arbitrary words.
+    """
+    env={} if environment is None else dict(environment)
+    if not names:return evaluator.equation(left(env),right(env))
+    name=names[0];tail=names[1:]
+    def proposition(e):return bind('pi',[(n,boolean()) for n in tail],eq(boolean(),left(e),right(e)))
+    motive=lam(name,boolean(),proposition({**env,name:var(name),**{n:var(n) for n in tail}}))
+    false=boolean_proof(tail,left,right,evaluator,{**env,name:bit(False)})
+    true=boolean_proof(tail,left,right,evaluator,{**env,name:bit(True)})
+    return lam(name,boolean(),call('Std.Bool.cases',motive,false,true,var(name)))
+
+
+def boolean_theorems(lib):
+    def emit(name,names,left,right):
+        env={n:var(n) for n in names}
+        ty=bind('pi',[(n,boolean()) for n in names],eq(boolean(),left(env),right(env)))
+        lib.emit(BOOL_PREFIX+name,[],ty,boolean_proof(names,left,right,EvaluationProof(lib.rows)),'theorem')
+    emit('NotNot',['a'],lambda e:bc('Not',bc('Not',e['a'])),lambda e:e['a'])
+    emit('XorAssociative',['a','b','c'],lambda e:bc('Sum',e['a'],e['b'],e['c']),lambda e:bc('Xor',e['a'],bc('Xor',e['b'],e['c'])))
+    emit('CarryMajority',['a','b','c'],lambda e:bc('Carry',e['a'],e['b'],e['c']),lambda e:choose(e['a'],bc('Or',e['b'],e['c']),bc('And',e['b'],e['c'])))
+    emit('EqualReflexive',['a'],lambda e:bc('Equal',e['a'],e['a']),lambda e:bit(True))
+
+
+def word_library(lib,width):
+    assert width in WIDTHS
+    prefix=MODULE+'.W'+str(width)+'.';ty=word(width)[0];count_ty=word(64)[0]
+    x,y,c=var('x'),var('y'),var('carry');xy=[('x',ty),('y',ty)]
+    def wc(name,*args):return call(prefix+name,*args)
+    def emit(name,args,result,value):lib.emit(prefix+name,args,result,value)
+    def unary(name,bits):emit(name,[('x',ty)],ty,vector(width,bits))
+    def binary(name,bits):emit(name,xy,ty,vector(width,bits))
+    def pointwise(name,op):
+        indices=[('_i'+str(i),boolean()) for i in range((width-1).bit_length())];av=[var(n) for n,_ in indices]
+        emit(name,xy,ty,bind('lam',indices,bc(op,app(x,*av),app(y,*av))))
+    emit('Zero',[],ty,literal(width,0));emit('One',[],ty,literal(width,1));emit('Ones',[],ty,literal(width,(1<<width)-1))
+    indices=[('_i'+str(i),boolean()) for i in range((width-1).bit_length())];av=[var(n) for n,_ in indices]
+    emit('Not',[('x',ty)],ty,bind('lam',indices,bc('Not',app(x,*av))))
+    for name in ('And','Or','Xor'):pointwise(name,name)
+    emit('AndNot',xy,ty,wc('And',x,wc('Not',y)))
+    emit('Select',[('condition',boolean()),('x',ty),('y',ty)],ty,choose(var('condition'),x,y,ty))
+    # Shared carries keep the ordinary term graph polynomial in the width.
+    args=xy+[('carry',boolean())]
+    emit('Carry0',args,boolean(),c)
+    for i in range(width):emit('Carry'+str(i+1),args,boolean(),bc('Carry',at(x,width,i),at(y,width,i),wc('Carry'+str(i),x,y,c)))
+    emit('AddCarry',args,ty,vector(width,[bc('Sum',at(x,width,i),at(y,width,i),wc('Carry'+str(i),x,y,c)) for i in range(width)]))
+    emit('Add',xy,ty,wc('AddCarry',x,y,bit(False)))
+    emit('Neg',[('x',ty)],ty,wc('AddCarry',wc('Not',x),wc('Zero'),bit(True)))
+    emit('Sub',xy,ty,wc('AddCarry',x,wc('Not',y),bit(True)))
+    equal=fold_bits('And',[bc('Equal',at(x,width,i),at(y,width,i)) for i in range(width)],True)
+    emit('Equal',xy,boolean(),equal);emit('NotEqual',xy,boolean(),bc('Not',wc('Equal',x,y)))
+    emit('IsZero',[('x',ty)],boolean(),wc('Equal',x,wc('Zero')))
+    emit('UnsignedLess',xy,boolean(),bc('Not',wc('Carry'+str(width),x,wc('Not',y),bit(True))))
+    emit('UnsignedLessEqual',xy,boolean(),bc('Not',wc('UnsignedLess',y,x)))
+    emit('SignedLess',xy,boolean(),choose(bc('Xor',at(x,width,width-1),at(y,width,width-1)),at(x,width,width-1),wc('UnsignedLess',x,y)))
+    emit('SignedLessEqual',xy,boolean(),bc('Not',wc('SignedLess',y,x)))
+    for n in range(width):unary('Left'+str(n),[bit(False) if i<n else at(x,width,i-n) for i in range(width)])
+    for n in [1<<i for i in range((width-1).bit_length())]:
+        unary('Right'+str(n),[at(x,width,i+n) if i+n<width else bit(False) for i in range(width)])
+        unary('SignedRight'+str(n),[at(x,width,min(i+n,width-1)) for i in range(width)])
+    # Full64 unsigned shift counts; any high count bit saturates the result.
+    shift_args=[('x',ty),('count',count_ty)];count=var('count');bits=(width-1).bit_length()
+    high=fold_bits('Or',[at(count,64,i) for i in range(bits,64)],False)
+    for name,shift in (('ShiftLeft','Left'),('ShiftRight','Right'),('SignedShiftRight','SignedRight')):
+        emit(name+'0',shift_args,ty,x)
+        for i in range(bits):
+            prev=wc(name+str(i),x,count)
+            emit(name+str(i+1),shift_args,ty,wc('Select',at(count,64,i),wc(shift+str(1<<i),prev),prev))
+        fill=wc('Select',at(x,width,width-1),wc('Ones'),wc('Zero')) if name=='SignedShiftRight' else wc('Zero')
+        emit(name,shift_args,ty,wc('Select',high,fill,wc(name+str(bits),x,count)))
+    emit('SignedCountDefined',[('count',count_ty)],boolean(),bc('Not',at(count,64,63)))
+    emit('Mul0',xy,ty,wc('Zero'))
+    for i in range(width):emit('Mul'+str(i+1),xy,ty,wc('Add',wc('Mul'+str(i),x,y),wc('Select',at(y,width,i),wc('Left'+str(i),x),wc('Zero'))))
+    emit('Mul',xy,ty,wc('Mul'+str(width),x,y))
+    # Restoring long division. The lost high remainder bit participates in
+    # comparison, so an intermediate wider than the word cannot be truncated.
+    emit('PushLow',[('x',ty),('low',boolean())],ty,vector(width,[var('low')]+[at(x,width,i-1) for i in range(1,width)]))
+    emit('Remainder0',xy,ty,wc('Zero'))
+    quotient=[]
+    for step in range(width):
+        previous=wc('Remainder'+str(step),x,y)
+        emit('DividendStep'+str(step),xy,ty,wc('PushLow',previous,at(x,width,width-1-step)))
+        current=wc('DividendStep'+str(step),x,y)
+        emit('QuotientBit'+str(step),xy,boolean(),bc('Or',at(previous,width,width-1),bc('Not',wc('UnsignedLess',current,y))))
+        q=wc('QuotientBit'+str(step),x,y);quotient.append(q)
+        emit('Remainder'+str(step+1),xy,ty,wc('Select',q,wc('Sub',current,y),current))
+    emit('DivideDefined',[('y',ty)],boolean(),bc('Not',wc('IsZero',y)))
+    # Totalizers at zero are explicit model values; DivideDefined is mandatory
+    # at the Go boundary. The zero branch grants no Go execution theorem.
+    emit('UnsignedDiv',xy,ty,wc('Select',wc('IsZero',y),wc('Zero'),vector(width,list(reversed(quotient)))))
+    emit('UnsignedRem',xy,ty,wc('Select',wc('IsZero',y),wc('Zero'),wc('Remainder'+str(width),x,y)))
+    emit('AbsBits',[('x',ty)],ty,wc('Select',at(x,width,width-1),wc('Neg',x),x))
+    uq=wc('UnsignedDiv',wc('AbsBits',x),wc('AbsBits',y));ur=wc('UnsignedRem',wc('AbsBits',x),wc('AbsBits',y))
+    emit('SignedDiv',xy,ty,wc('Select',bc('Xor',at(x,width,width-1),at(y,width,width-1)),wc('Neg',uq),uq))
+    emit('SignedRem',xy,ty,wc('Select',at(x,width,width-1),wc('Neg',ur),ur))
+    for target in WIDTHS:
+        for signed in (False,True):
+            body=vector(target,[at(x,width,i) if i<width else at(x,width,width-1) if signed else bit(False) for i in range(target)])
+            emit(('Signed' if signed else 'Unsigned')+'To'+str(target),[('x',ty)],word(target)[0],body)
+    return prefix
+
+
+def word_theorems(lib,width,prefix):
+    ty=word(width)[0];x=var('x');indices=['a'+str(i) for i in range((width-1).bit_length())]
+    def wc(n,*xs):return call(prefix+n,*xs)
+    def selected(value,e):return app(value,*[e[n] for n in indices])
+    for name,left,right in (
+        ('AddZeroAt',lambda e:selected(wc('Add',x,wc('Zero')),e),lambda e:selected(x,e)),
+        ('XorZeroAt',lambda e:selected(wc('Xor',x,wc('Zero')),e),lambda e:selected(x,e)),
+        ('AndOnesAt',lambda e:selected(wc('And',x,wc('Ones')),e),lambda e:selected(x,e))):
+        env={n:var(n) for n in indices}
+        theorem_ty=bind('pi',[('x',ty)]+[(n,boolean()) for n in indices],eq(boolean(),left(env),right(env)))
+        lib.emit(prefix+name,[],theorem_ty,lam('x',ty,boolean_proof(indices,left,right,EvaluationProof(lib.rows))),'theorem')
+    av=[var(n) for n in indices]
+    value=app(x,*av)
+    lib.emit(prefix+'NotNotAt',[('x',ty)]+[(n,boolean()) for n in indices],
+        eq(boolean(),app(wc('Not',wc('Not',x)),*av),value),call(BOOL_PREFIX+'NotNot',value),'theorem')
+
+
+def plan(width,theorems=True):
+    lib=Library();boolean_library(lib)
+    if theorems:boolean_theorems(lib)
+    prefix=word_library(lib,width)
+    if theorems:word_theorems(lib,width,prefix)
+    return {'module':MODULE+'.W'+str(width),'declarations':lib.rows}
+
+
+class Closure:
+    def __init__(self,evaluator,node,environment):self.evaluator=evaluator;self.node=node;self.environment=environment;self.cache={}
+    def __call__(self,arg):
+        if arg not in self.cache:self.cache[arg]=self.evaluator.eval(self.node['body'],self.environment+((self.node['name'],arg),))
+        return self.cache[arg]
+
+
+class Primitive:
+    def __init__(self,arguments=()):self.arguments=arguments
+    def __call__(self,arg):
+        args=self.arguments+(arg,)
+        return (args[2] if args[3] else args[1]) if len(args)==4 else Primitive(args)
+
+
+class Evaluator:
+    """Execute the actual emitted ordinary AST, not high-level integer recipes.
+
+    Core acceptance is independent. This interpreter supplies measured model
+    observations against real Go, not a universal source-correctness proof.
+    """
+    def __init__(self,plan):
+        self.rows={d['name']:d for d in plan['declarations']};self.constants={
+            'Std.Bool.true':True,'Std.Bool.false':False,'Std.Bool.cases':Primitive(),'Std.Bool':object()}
+    def eval(self,node,env=()):
+        k=node['kind']
+        if k=='var':return next(value for name,value in reversed(env) if name==node['name'])
+        if k=='const':
+            name=node['name']
+            if name not in self.constants:
+                row=self.rows[name];assert row['kind']=='definition'
+                self.constants[name]=self.eval(row['value'])
+            return self.constants[name]
+        if k in {'lam','pi'}:return Closure(self,node,env)
+        if k=='app':
+            result=self.eval(node['function'],env)
+            for a in node['arguments']:result=result(self.eval(a,env))
+            return result
+        raise ValueError('no unregistered ordinary AST evaluation')
+    def invoke(self,name,*args):
+        value=self.eval(const(name))
+        for a in args:value=value(a)
+        return value
+    def integer(self,width,value):
+        out=0
+        for i in range(width):
+            b=value
+            for a in address(width,i):b=b(a['name']=='Std.Bool.true')
+            assert type(b) is bool
+            out|=int(b)<<i
+        return out
+    def word(self,width,value):return self.eval(literal(width,value))
