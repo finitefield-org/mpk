@@ -2903,3 +2903,84 @@ roots/unions and producer/consumer migration review remain required. W05 owns
 inactive publication and the T01 full gate. Source/ordinary operation/body
 proof implementation and application/release work remain T02–T11; no T is
 complete and the Go practical profile is inactive.
+
+## 44. T01-W04 concrete operation signatures and complete check members
+
+Entry: `83674c5fe85443618e70e044a8e54461583401eb`, clean before this work.
+The preceding contract wire checkpoint left shared VIR operations and their
+exact interfaces open. The [operation-signature draft](../migrations/go-practical/t01-w04/operation-signatures/README.md)
+now derives all 56 families' complete concrete input/output/region interfaces,
+retaining the full eleven-stage objective. These are typed unproved operation
+definitions, not actual VIR or source/application certificates.
+Every selected input/result must satisfy Root under the same U. One-case U
+admits the fixture's []error backing; two-case U rejects that selected scope
+and instead uses a separately valid Quote scope to test finite dispatch.
+
+One new candidate operation-definition identity/domain avoids every earlier
+Go and reserved C# name. The complete typed context, capture/scope/function/
+signature/type/U, original table hash, operation/parameters, ordered interfaces,
+rule members and binding requirements enter its hash. Closed source/location/
+joint/ordered-values/state/control arms have no free type parameter. Source
+nominal identity, full word values and assignment-versus-explicit-conversion
+rules remain separate from equal ordinary carriers.
+
+The private fixture retains original native types/headers, supplied roots/U,
+literal module/capture and synthetic boundary shapes. The 56 definitions are
+component queries, not 56 parsed operations in one source function. An unchanged
+original source or matching signature proves no source/closure/SSA/region,
+same-invocation, allocator/finite-id or ordinary semantic law. Actual producers
+and independent consumers retain their existing planned T02–T06 owners.
+
+Short-circuit RHS has a guarded state region. Switch groups preserve every
+case-expression order/body and separate default position. For init/post return
+state; body returns control; missing test has no execution region. Array-range
+constant-length mode requires no second value; slice range always captures
+its descriptor. Actual constant-expression/source premises remain unproved.
+Break/continue select different innermost targets through switch contexts.
+Supplied switch spans are not independent AST facts; complete lexical source
+reconstruction is still required.
+
+Static calls retain exact declaration/signature, receiver-first parameters,
+joint results and post-state shapes. Projection must still prove actual
+same-invocation provenance. Function results retain arity 0..16, while ordinary
+parallel assignments use a separate ordered sequence and admit 32 values.
+Blank stores preserve RHS evaluation. Error boxing invokes no body; finite
+invocation requirements include every same-U target and nil/footprint checks.
+Prefix/suffix requirements pin exact Go 1.25.0 symbols, compiler inventory and
+both original source files; no source/value proof or trusted adapter is inferred.
+
+Every family retains all six common members and its runtime/domain/permission
+members. Compound assignment inherits its chosen arithmetic/divide/shift and
+store checks, rather than losing implicit divisor/count/write obligations.
+Unsigned full-width shifts have no invented count ceiling, and signed min/-1
+division has no invented overflow panic. NoAccess and positive copy/append
+writes retain their permissions. Member strings are the closed requirement
+inventory; ordinary predicate/equation terms and proofs remain T02–T06 work.
+
+Existing complete-source syntax bounds guard large parameter lists without
+new case/assignment/append semantic limits. A 129-value append can form a typed
+candidate while its no-growth domain remains unprovable. Literal/profile
+domain and Go panic safety stay distinct. Actual structural/resource counting
+and enforcement remain required in production.
+
+The 224 vectors have 56 typed unproved and 168 configuration-rejected outcomes:
+every family has an intact definition plus rehashed extra-parameter, altered-
+signature and missing-member controls. Twenty-four targeted tests add nominal,
+constant/byte, compound, short-circuit/switch, product/assignment, callee/error,
+adapter, Plain/permission, range/abrupt, domain and mutable-authority checks.
+All 56 canonical preimages agree in Python and fresh unchanged Rust/Go native
+observers, each running twice identically. The receipt pins 587 inputs and the
+preceding contract receipt, with the same 14,496-file Go 1.25.0 inventory.
+
+The [verification record](../migrations/go-practical/t01-w04/operation-signatures/verification/verification.json)
+retains raw selected unit/replay/metadata/compile logs and selection reasons.
+The direct preceding contract consumer is reconstructed; older production,
+kernel and ordinary/native matrices are not unnecessarily rerun. All 143
+inventoried predecessor paths remain byte-identical. No Rust/Go source changed.
+The cumulative T01 gate remains deferred to W05.
+
+W04 remains In progress. Complete shared VIR/VC/map/manifest/policy/API/release
+roots/unions, actual source/SSA/ordinary-definition linkage and reviewed
+producer/consumer migration remain due. W05 owns inactive publication and the
+T01 gate. No T is complete; all T02–T11 work remains active and no practical
+Go profile is activated.

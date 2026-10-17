@@ -1,0 +1,126 @@
+{
+  "checks": [
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "-v",
+        "test_operation_signatures"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "environment": {
+        "PYTHONPATH": "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical"
+      },
+      "exit_code": 0,
+      "log": "unittest-operations.log",
+      "reason": "All24 selected signature/nominal/control/call/U/domain/mutable-authority tests,all56 intact plus168 altered records,and seven malformed/missing/extra/later-root controls affected by the closed root guard",
+      "sha256": "5194b7e522feb2a79961cf0a5838d705ae3ac07b51e15699dd1d0caa756d9899",
+      "wall_seconds": 11.07640254200669
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/run_operation_signatures.py",
+        "--check"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "environment": {
+        "PYTHONPATH": "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical"
+      },
+      "exit_code": 0,
+      "log": "fresh-replay.log",
+      "reason": "Reconstruct all56 definitions/224 vectors and fresh unchanged native hash observers;56 complete preimages,two exact runs each,binary/toolchain/source stability",
+      "sha256": "8d5467780c91b8a8542f7f6ad604c6e6191c88b841d682c8a23e2fc7410694f2",
+      "wall_seconds": 14.750817708030809
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/check_operation_signature_metadata.py"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "environment": {
+        "PYTHONPATH": "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical"
+      },
+      "exit_code": 0,
+      "log": "metadata.log",
+      "reason": "Closed root/parameter/domain/member/worklist consistency,direct preceding contract reconstruction,143 predecessor pins,strict JSONs,links and ledger44",
+      "sha256": "03a49c626bee86e98eee0397f05f10737a973cb804b82ee88f275b254dc1a8e5",
+      "wall_seconds": 90.59400241600815
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "-c",
+        "import pathlib;p=pathlib.Path('develop/probes/go-practical');names=('operation_signatures.py', 'operation_signature_vectors.py', 'test_operation_signatures.py', 'run_operation_signatures.py', 'check_operation_signature_metadata.py');[compile((p/n).read_bytes(),str(p/n),'exec') for n in names];print('PASS: five new Python sources compile')"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "environment": {
+        "PYTHONPATH": "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical"
+      },
+      "exit_code": 0,
+      "log": "python-compile.log",
+      "reason": "Syntax compilation of all five new private operation-signature sources",
+      "sha256": "e7ef511670e20fa204fd39ff40fc62592d2b415aea4e870561a5113d2fbcbf21",
+      "wall_seconds": 0.04499675001716241
+    }
+  ],
+  "entry_commit": "83674c5fe85443618e70e044a8e54461583401eb",
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "owner": "GO-PRAC-T01-W05",
+    "reason": "Intermediate W04; cumulative gate reserved for final W",
+    "status": "deferred"
+  },
+  "metadata_checker_sha256": "1e689b234cbb9b0768e673cc70988ca7b81169eb39e022a4b02953e5a2fce365",
+  "not_repeated": [
+    "unchanged production/kernel and older ordinary/native proof matrices; retained source/data/receipt integrity checked",
+    "Rust/Go format checks: no Rust/Go source edited"
+  ],
+  "observed_tests": 24,
+  "output_scope": "complete raw combined stdout/stderr from selected local subprocesses",
+  "previous_checks": "before-root-shape-guard/verification.json",
+  "python_sources_compiled": 5,
+  "remaining": [
+    "actual independently reconstructed source/callee/adapter/control/SSA/region bindings and all ordinary operation/definedness/value/effect/frame proofs",
+    "complete shared VIR/VC/source-map/manifest/API/release roots and consumer/migration review; W05/T01 gate and full T02\u2013T11"
+  ],
+  "revalidation_reason": "Changed reference consumer now rejects malformed/missing/extra/later root shapes as configuration errors; all56-family classifier users plus seven new root controls are affected.",
+  "review": {
+    "checked": [
+      "full contexts/nominal identities/widths/constants and exact source/type/U hashes",
+      "ordered initializer/case/region/result/assignment interfaces and explicit control targets",
+      "conditional NoAccess/read/write/domain obligations and no invented Go panic",
+      "unproved adapter/callee/source/SSA/same-invocation boundary and W04/T02\u2013T06 ownership"
+    ],
+    "kind": "local manual review of all56 signature branches,reference reconstruction and selected diffs",
+    "original_compiler_sources": [
+      {
+        "path": "src/go/types/builtins.go",
+        "sha256": "8f77ad0a567edd256d14c15e8d5159d4d12037cd073d3b8d9853af80bf19bc59"
+      },
+      {
+        "path": "src/go/types/stmt.go",
+        "sha256": "9bdf60d51e7e682ba4ad4b1b88ac86f16cebe95dd1ef33550899c3d7acf7afd0"
+      }
+    ],
+    "remaining_findings": [],
+    "resolved_findings": [
+      "compound assignment inherits underlying divisor/count/write obligations",
+      "parallel assignment values have an arity separate from function result products",
+      "comparable aggregate switch tags remain admitted; nil-only tags require source-checked nil normalization",
+      "all selected function input/result Root predicates use the same global U",
+      "malformed/missing/extra/later roots now reject before member access"
+    ]
+  },
+  "schema": "mpk.go_practical.w04_operation_signature_verification.v0",
+  "scope": "all56 concrete operation signature/control-region/check/binding-requirement arms; no actual VIR or source/ordinary operation proofs",
+  "source_inputs": 587,
+  "status": "W04 in progress; selected checks passed; no T complete",
+  "work_item": "GO-PRAC-T01-W04"
+}

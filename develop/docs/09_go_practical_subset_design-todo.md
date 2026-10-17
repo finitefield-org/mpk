@@ -92,6 +92,13 @@ Twenty targeted tests,24 source cases and97 Python/Rust/Go canonical preimages
 cover the private model. Original overlay bytes precede capture-dependent
 identities. Independent production capture/import, source and definedness
 proofs remain due; typed normalization is not a proof verdict.
+The [concrete operation-signature draft](../migrations/go-practical/t01-w04/operation-signatures/README.md)
+covers all 56 families with concrete source identities, state/control/region
+interfaces, static-call binding requirements and complete required rule
+members. Its 224 vectors, 24 selected tests and 56 three-observer hash preimages
+exercise signature integrity. Compound operators inherit their actual checks;
+assignment values retain a separate arity from function results. Executable
+VIR, source/SSA/provenance and ordinary operation proofs remain required.
 Shared/downstream wire tables, remaining variant/source foundation,
 limits, schemas/hash identities and migration review remain open.
 T01 is incomplete and no practical Go profile is active.

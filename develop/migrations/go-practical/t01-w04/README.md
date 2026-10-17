@@ -267,9 +267,22 @@ nominal types, lexical binding/loop IDs, de Bruijn depths and full snapshot
 namespaces have20 selected tests. The24 source cases retain5 unproved,
 1 pending-variant and18 rejected outcomes. Ninety-seven Python/Rust/Go hash
 preimages agree; component hashes are private tests and no source/definedness
-proof verdict is claimed. The [current metadata checker](../../../probes/go-practical/check_contract_wire_metadata.py)
+proof verdict is claimed. The [section43 metadata checker](../../../probes/go-practical/check_contract_wire_metadata.py)
 checks all retained evidence, source pins,143 predecessor paths and both
 diagnostics. Its [verification record](contract-wire/verification/verification.json)
 records selected checks and reasons. Independent production import/proofs,
 shared/downstream roots/unions and reviewed migration remain due. W04 stays
 open, with the cumulative T01 gate due in W05 and all T02–T11 still active.
+
+The [concrete operation-signature draft](operation-signatures/README.md) closes
+parameters, ordered input/output and control-region interfaces, rule members
+and binding requirements for all 56 families. Its 224 vectors retain 56 typed
+unproved candidates and 168 altered-record rejections. Twenty-four selected
+tests and 56 Python/Rust/Go preimages cover the component boundary. The
+[current metadata checker](../../../probes/go-practical/check_operation_signature_metadata.py)
+also reconstructs the preceding contract corpus and preserves source pins,
+143 predecessor paths and document links. The
+[verification record](operation-signatures/verification/verification.json)
+distinguishes typed signatures from missing executable VIR, source/SSA/call
+provenance and ordinary operation proofs. Shared/downstream roots, migrations,
+W05/T01 and the complete T02–T11 objective remain required.

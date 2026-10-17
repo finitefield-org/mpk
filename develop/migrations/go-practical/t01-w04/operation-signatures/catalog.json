@@ -1,0 +1,1741 @@
+{
+  "adapter_source_fields": [
+    "path",
+    "raw_sha256",
+    "bytes"
+  ],
+  "binding_requirement_arms": {
+    "adapter": [
+      "symbol",
+      "compiler_release",
+      "compiler_inventory_sha256",
+      "sources"
+    ],
+    "control": [
+      "target"
+    ],
+    "error_target": [
+      "case_type_id",
+      "signature_id",
+      "function_decl_id"
+    ],
+    "static_callee": [
+      "function_decl_id",
+      "signature_id"
+    ]
+  },
+  "complete_source_syntax_ceiling": 4194304,
+  "control_target_kinds": [
+    "loop",
+    "switch"
+  ],
+  "control_target_required_fields": [
+    "kind",
+    "source_object_id",
+    "start_byte",
+    "end_byte",
+    "ordinal"
+  ],
+  "hash_domain": "MPK-GO-OPERATION-DEFINITION-1.0",
+  "hash_field": "operation_hash",
+  "hash_preimage_fields": [
+    "schema",
+    "semantic_context",
+    "capture_context_id",
+    "source_scope_sha256",
+    "function_decl_id",
+    "signature_id",
+    "type_definitions_sha256",
+    "error_universe_id",
+    "operation_table_sha256",
+    "op",
+    "parameters",
+    "inputs",
+    "outputs",
+    "regions",
+    "obligations",
+    "binding_requirements"
+  ],
+  "obligation_categories": [
+    "ordinary",
+    "runtime_safety",
+    "profile_domain",
+    "permission"
+  ],
+  "obligation_required_fields": [
+    "category",
+    "ordinal",
+    "predicate"
+  ],
+  "operation_schema": "mpk.go.operation_definition.v1",
+  "operations": [
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "ordinary",
+      "op": "GP-OP-01",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "type": "captured_source_type_id"
+      },
+      "parameter_required_fields": [
+        "type"
+      ],
+      "producer": "go-tools/go2vir/practical_types.go",
+      "source_model_derived": false,
+      "source_signature": "zero<T:Root>() -> T",
+      "test_owner": "go-tools/go2vir/practical_types_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "ordinary",
+      "op": "GP-OP-02",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "type": "captured_source_type_id",
+        "value": "type-directed Bool|canonical signed decimal|lowercase bytes hex"
+      },
+      "parameter_required_fields": [
+        "type",
+        "value"
+      ],
+      "producer": "go-tools/go2vir/practical_types.go",
+      "source_model_derived": false,
+      "source_signature": "constant<T>(exact Go constant) -> T",
+      "test_owner": "go-tools/go2vir/practical_types_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "ordinary",
+      "op": "GP-OP-03",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "from": "captured_source_type_id",
+        "to": "captured_source_type_id"
+      },
+      "parameter_required_fields": [
+        "from",
+        "to"
+      ],
+      "producer": "go-tools/go2vir/practical_types.go",
+      "source_model_derived": false,
+      "source_signature": "convert<S,T>(S) -> T",
+      "test_owner": "go-tools/go2vir/practical_types_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "ordinary",
+      "op": "GP-OP-04",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "operator": "closed operation-specific subtag",
+        "type": "captured_source_type_id"
+      },
+      "parameter_required_fields": [
+        "type",
+        "operator"
+      ],
+      "producer": "go-tools/go2vir/practical_lower.go",
+      "source_model_derived": false,
+      "source_signature": "integer_unary<T>(op,T) -> T",
+      "test_owner": "go-tools/go2vir/practical_lower_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "ordinary",
+      "op": "GP-OP-05",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "operator": "closed operation-specific subtag",
+        "type": "captured_source_type_id"
+      },
+      "parameter_required_fields": [
+        "type",
+        "operator"
+      ],
+      "producer": "go-tools/go2vir/practical_lower.go",
+      "source_model_derived": false,
+      "source_signature": "integer_binary<T>(op,T,T) -> T",
+      "test_owner": "go-tools/go2vir/practical_lower_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "ordinary",
+      "op": "GP-OP-06",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "operator": "closed operation-specific subtag",
+        "type": "captured_source_type_id"
+      },
+      "parameter_required_fields": [
+        "type",
+        "operator"
+      ],
+      "producer": "go-tools/go2vir/practical_lower.go",
+      "source_model_derived": false,
+      "source_signature": "integer_divrem<T>(op,T,T) -> T",
+      "test_owner": "go-tools/go2vir/practical_lower_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "ordinary",
+      "op": "GP-OP-07",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "count_type": "captured_source_type_id",
+        "operator": "closed operation-specific subtag",
+        "type": "captured_source_type_id"
+      },
+      "parameter_required_fields": [
+        "type",
+        "count_type",
+        "operator"
+      ],
+      "producer": "go-tools/go2vir/practical_lower.go",
+      "source_model_derived": false,
+      "source_signature": "shift<T,I>(op,T,I) -> T",
+      "test_owner": "go-tools/go2vir/practical_lower_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "short_circuit",
+      "op": "GP-OP-08",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "operator": "closed operation-specific subtag",
+        "type": "captured_source_type_id"
+      },
+      "parameter_required_fields": [
+        "type",
+        "operator"
+      ],
+      "producer": "go-tools/go2vir/practical_lower.go",
+      "source_model_derived": false,
+      "source_signature": "boolean(op,Bool[,Bool]) -> Bool",
+      "test_owner": "go-tools/go2vir/practical_lower_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "ordinary",
+      "op": "GP-OP-09",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "operator": "closed operation-specific subtag",
+        "type": "captured_source_type_id"
+      },
+      "parameter_required_fields": [
+        "type",
+        "operator"
+      ],
+      "producer": "go-tools/go2vir/practical_lower.go",
+      "source_model_derived": false,
+      "source_signature": "scalar_compare<T>(op,T,T) -> Bool",
+      "test_owner": "go-tools/go2vir/practical_lower_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "ordinary",
+      "op": "GP-OP-10",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "initializers": "ordered unique array<uint>, bounded by exact fields/length/storage",
+        "type": "captured_source_type_id"
+      },
+      "parameter_required_fields": [
+        "type",
+        "initializers"
+      ],
+      "producer": "go-tools/go2vir/practical_lower.go",
+      "source_model_derived": false,
+      "source_signature": "aggregate_construct<T:Root>(initializers) -> T",
+      "test_owner": "go-tools/go2vir/practical_lower_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "ordinary",
+      "op": "GP-OP-11",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "field": "uint exact nonblank field ordinal",
+        "type": "captured_source_type_id"
+      },
+      "parameter_required_fields": [
+        "type",
+        "field"
+      ],
+      "producer": "go-tools/go2vir/practical_lower.go",
+      "source_model_derived": false,
+      "source_signature": "field<T,F>(T,field_id) -> F",
+      "test_owner": "go-tools/go2vir/practical_lower_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "assignment",
+      "op": "GP-OP-12",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "type": "captured_source_type_id"
+      },
+      "parameter_required_fields": [
+        "type"
+      ],
+      "producer": "go-tools/go2vir/practical_lower.go",
+      "source_model_derived": false,
+      "source_signature": "local_store<T>(location<T>,T,state) -> state",
+      "test_owner": "go-tools/go2vir/practical_lower_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "ordinary",
+      "op": "GP-OP-13",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "index_type": "captured_source_type_id",
+        "type": "captured_source_type_id"
+      },
+      "parameter_required_fields": [
+        "type",
+        "index_type"
+      ],
+      "producer": "go-tools/go2vir/practical_lower.go",
+      "source_model_derived": false,
+      "source_signature": "array_read<T,N,I>([N]T,I) -> T",
+      "test_owner": "go-tools/go2vir/practical_lower_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "ordinary",
+      "op": "GP-OP-14",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "operator": "closed operation-specific subtag",
+        "type": "captured_source_type_id"
+      },
+      "parameter_required_fields": [
+        "type",
+        "operator"
+      ],
+      "producer": "go-tools/go2vir/practical_types.go",
+      "source_model_derived": false,
+      "source_signature": "aggregate_equal<T>(T,T) -> Bool",
+      "test_owner": "go-tools/go2vir/practical_types_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "short_circuit",
+      "op": "GP-OP-15",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "condition_type": "captured_source_type_id"
+      },
+      "parameter_required_fields": [
+        "condition_type"
+      ],
+      "producer": "go-tools/go2vir/practical_lower.go",
+      "source_model_derived": false,
+      "source_signature": "branch(Bool,state,then,else) -> control/state",
+      "test_owner": "go-tools/go2vir/practical_lower_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "switch",
+      "op": "GP-OP-16",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "case_arities": "ordered positive uint groups,total within complete source syntax budget",
+        "default_index": "required nullable uint source clause position",
+        "type": "captured_source_type_id"
+      },
+      "parameter_required_fields": [
+        "type",
+        "case_arities",
+        "default_index"
+      ],
+      "producer": "go-tools/go2vir/practical_lower.go",
+      "source_model_derived": false,
+      "source_signature": "switch(tag,cases,default,state) -> control/state",
+      "test_owner": "go-tools/go2vir/practical_lower_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "ordinary",
+      "op": "GP-OP-17",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "types": "ordered source_type_id array; pack0..16, assignment within source syntax budget"
+      },
+      "parameter_required_fields": [
+        "types"
+      ],
+      "producer": "go-tools/go2vir/practical_calls.go",
+      "source_model_derived": false,
+      "source_signature": "pack<T0..Tk>(T0..Tk) -> Product<T0..Tk>",
+      "test_owner": "go-tools/go2vir/practical_calls_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "ordinary",
+      "op": "GP-OP-18",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "callee": "captured function/method declaration id",
+        "index": "uint result projection ordinal"
+      },
+      "parameter_required_fields": [
+        "callee",
+        "index"
+      ],
+      "producer": "go-tools/go2vir/practical_calls.go",
+      "source_model_derived": false,
+      "source_signature": "project<j>(invocation.Product,invocation.post_state) -> Tj",
+      "test_owner": "go-tools/go2vir/practical_calls_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "call",
+      "op": "GP-OP-19",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "callee": "captured function/method declaration id"
+      },
+      "parameter_required_fields": [
+        "callee"
+      ],
+      "producer": "go-tools/go2vir/practical_calls.go",
+      "source_model_derived": false,
+      "source_signature": "call<F>(args,heap,permissions) -> (Product,heap,permissions)",
+      "test_owner": "go-tools/go2vir/practical_calls_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "return",
+      "op": "GP-OP-20",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {},
+      "parameter_required_fields": [],
+      "producer": "go-tools/go2vir/practical_calls.go",
+      "source_model_derived": false,
+      "source_signature": "return(Product,state) -> Return(Product,state)",
+      "test_owner": "go-tools/go2vir/practical_calls_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "assignment",
+      "op": "GP-OP-21",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "targets": "ordered nullable source_type_id array,exact assignment arity",
+        "types": "ordered source_type_id array; pack0..16, assignment within source syntax budget"
+      },
+      "parameter_required_fields": [
+        "targets",
+        "types"
+      ],
+      "producer": "go-tools/go2vir/practical_calls.go",
+      "source_model_derived": false,
+      "source_signature": "assign(locations,Product,state) -> state",
+      "test_owner": "go-tools/go2vir/practical_calls_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "compound",
+      "op": "GP-OP-22",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "operator": "closed operation-specific subtag",
+        "rhs_type": "captured_source_type_id",
+        "type": "captured_source_type_id"
+      },
+      "parameter_required_fields": [
+        "type",
+        "rhs_type",
+        "operator"
+      ],
+      "producer": "go-tools/go2vir/practical_lower.go",
+      "source_model_derived": false,
+      "source_signature": "compound(location<T>,op,T,state) -> state",
+      "test_owner": "go-tools/go2vir/practical_lower_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "ordinary",
+      "op": "GP-OP-23",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {},
+      "parameter_required_fields": [],
+      "producer": "go-tools/go2vir/practical_errors.go",
+      "source_model_derived": false,
+      "source_signature": "error_nil<U>() -> Error<U>",
+      "test_owner": "go-tools/go2vir/practical_errors_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "ordinary",
+      "op": "GP-OP-24",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "type": "captured_source_type_id"
+      },
+      "parameter_required_fields": [
+        "type"
+      ],
+      "producer": "go-tools/go2vir/practical_errors.go",
+      "source_model_derived": false,
+      "source_signature": "error_box<T in U>(T) -> Error<U>",
+      "test_owner": "go-tools/go2vir/practical_errors_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "ordinary",
+      "op": "GP-OP-25",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {},
+      "parameter_required_fields": [],
+      "producer": "go-tools/go2vir/practical_errors.go",
+      "source_model_derived": false,
+      "source_signature": "error_is_nil<U>(Error<U>) -> Bool",
+      "test_owner": "go-tools/go2vir/practical_errors_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "call",
+      "op": "GP-OP-26",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {},
+      "parameter_required_fields": [],
+      "producer": "go-tools/go2vir/practical_errors.go",
+      "source_model_derived": false,
+      "source_signature": "error_invoke<U>(Error<U>,state) -> (string,state)",
+      "test_owner": "go-tools/go2vir/practical_errors_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "ordinary",
+      "op": "GP-OP-27",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "bytes_hex": "lowercase even hex,0..256 bytes",
+        "type": "captured_source_type_id"
+      },
+      "parameter_required_fields": [
+        "type",
+        "bytes_hex"
+      ],
+      "producer": "go-tools/go2vir/practical_strings.go",
+      "source_model_derived": false,
+      "source_signature": "string_literal<T>(bytes) -> T",
+      "test_owner": "go-tools/go2vir/practical_strings_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "ordinary",
+      "op": "GP-OP-28",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "operator": "closed operation-specific subtag",
+        "type": "captured_source_type_id"
+      },
+      "parameter_required_fields": [
+        "type",
+        "operator"
+      ],
+      "producer": "go-tools/go2vir/practical_strings.go",
+      "source_model_derived": false,
+      "source_signature": "string_compare<T>(op,T,T) -> Bool",
+      "test_owner": "go-tools/go2vir/practical_strings_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "ordinary",
+      "op": "GP-OP-29",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "type": "captured_source_type_id"
+      },
+      "parameter_required_fields": [
+        "type"
+      ],
+      "producer": "go-tools/go2vir/practical_strings.go",
+      "source_model_derived": false,
+      "source_signature": "string_len<T>(T) -> int",
+      "test_owner": "go-tools/go2vir/practical_strings_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "ordinary",
+      "op": "GP-OP-30",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "index_type": "captured_source_type_id",
+        "type": "captured_source_type_id"
+      },
+      "parameter_required_fields": [
+        "type",
+        "index_type"
+      ],
+      "producer": "go-tools/go2vir/practical_strings.go",
+      "source_model_derived": false,
+      "source_signature": "string_byte<T,I>(T,I) -> byte",
+      "test_owner": "go-tools/go2vir/practical_strings_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "ordinary",
+      "op": "GP-OP-31",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "hi_type": "captured_source_type_id",
+        "lo_type": "captured_source_type_id",
+        "type": "captured_source_type_id"
+      },
+      "parameter_required_fields": [
+        "type",
+        "lo_type",
+        "hi_type"
+      ],
+      "producer": "go-tools/go2vir/practical_strings.go",
+      "source_model_derived": false,
+      "source_signature": "substring<T,I,J>(T,I,J) -> T",
+      "test_owner": "go-tools/go2vir/practical_strings_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "ordinary",
+      "op": "GP-OP-32",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "type": "captured_source_type_id"
+      },
+      "parameter_required_fields": [
+        "type"
+      ],
+      "producer": "go-tools/go2vir/practical_strings.go",
+      "source_model_derived": false,
+      "source_signature": "concat<T>(T,T) -> T",
+      "test_owner": "go-tools/go2vir/practical_strings_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "call",
+      "op": "GP-OP-33",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {},
+      "parameter_required_fields": [],
+      "producer": "go-tools/go2vir/practical_strings.go",
+      "source_model_derived": false,
+      "source_signature": "has_prefix(string,string) -> Bool",
+      "test_owner": "go-tools/go2vir/practical_strings_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "call",
+      "op": "GP-OP-34",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {},
+      "parameter_required_fields": [],
+      "producer": "go-tools/go2vir/practical_strings.go",
+      "source_model_derived": false,
+      "source_signature": "has_suffix(string,string) -> Bool",
+      "test_owner": "go-tools/go2vir/practical_strings_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "ordinary",
+      "op": "GP-OP-35",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "type": "captured_source_type_id"
+      },
+      "parameter_required_fields": [
+        "type"
+      ],
+      "producer": "go-tools/go2vir/practical_slices.go",
+      "source_model_derived": false,
+      "source_signature": "slice_nil<S>() -> S",
+      "test_owner": "go-tools/go2vir/practical_slices_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "ordinary",
+      "op": "GP-OP-36",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "type": "captured_source_type_id"
+      },
+      "parameter_required_fields": [
+        "type"
+      ],
+      "producer": "go-tools/go2vir/practical_slices.go",
+      "source_model_derived": false,
+      "source_signature": "slice_value<S>(S) -> S",
+      "test_owner": "go-tools/go2vir/practical_slices_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "ordinary",
+      "op": "GP-OP-37",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "size": "length|capacity",
+        "type": "captured_source_type_id"
+      },
+      "parameter_required_fields": [
+        "type",
+        "size"
+      ],
+      "producer": "go-tools/go2vir/practical_slices.go",
+      "source_model_derived": false,
+      "source_signature": "slice_size<S>(S,kind) -> int",
+      "test_owner": "go-tools/go2vir/practical_slices_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "ordinary",
+      "op": "GP-OP-38",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "type": "captured_source_type_id"
+      },
+      "parameter_required_fields": [
+        "type"
+      ],
+      "producer": "go-tools/go2vir/practical_slices.go",
+      "source_model_derived": false,
+      "source_signature": "slice_is_nil<S>(S) -> Bool",
+      "test_owner": "go-tools/go2vir/practical_slices_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "ordinary",
+      "op": "GP-OP-39",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "index_type": "captured_source_type_id",
+        "type": "captured_source_type_id"
+      },
+      "parameter_required_fields": [
+        "type",
+        "index_type"
+      ],
+      "producer": "go-tools/go2vir/practical_slices.go",
+      "source_model_derived": false,
+      "source_signature": "slice_read<S,I>(S,I,heap) -> Element<S>",
+      "test_owner": "go-tools/go2vir/practical_slices_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "ordinary",
+      "op": "GP-OP-40",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "hi_type": "captured_source_type_id",
+        "lo_type": "captured_source_type_id",
+        "type": "captured_source_type_id"
+      },
+      "parameter_required_fields": [
+        "type",
+        "lo_type",
+        "hi_type"
+      ],
+      "producer": "go-tools/go2vir/practical_slices.go",
+      "source_model_derived": false,
+      "source_signature": "slice_two<S,I,J>(S,I,J) -> S",
+      "test_owner": "go-tools/go2vir/practical_slices_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "ordinary",
+      "op": "GP-OP-41",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "hi_type": "captured_source_type_id",
+        "lo_type": "captured_source_type_id",
+        "max_type": "captured_source_type_id",
+        "type": "captured_source_type_id"
+      },
+      "parameter_required_fields": [
+        "type",
+        "lo_type",
+        "hi_type",
+        "max_type"
+      ],
+      "producer": "go-tools/go2vir/practical_slices.go",
+      "source_model_derived": false,
+      "source_signature": "slice_three<S,I,J,K>(S,I,J,K) -> S",
+      "test_owner": "go-tools/go2vir/practical_slices_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "ordinary",
+      "op": "GP-OP-42",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "hi_type": "captured_source_type_id",
+        "lo_type": "captured_source_type_id",
+        "max_type": "required nullable captured integer type id; null selects two-index view",
+        "slice_type": "captured_source_type_id",
+        "type": "captured_source_type_id"
+      },
+      "parameter_required_fields": [
+        "type",
+        "slice_type",
+        "lo_type",
+        "hi_type",
+        "max_type"
+      ],
+      "producer": "go-tools/go2vir/practical_slices.go",
+      "source_model_derived": false,
+      "source_signature": "array_view<T:Plain,N>(array_location,lo,hi[,max],state) -> ([]T,state)",
+      "test_owner": "go-tools/go2vir/practical_slices_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "ordinary",
+      "op": "GP-OP-43",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "cap_type": "captured_source_type_id",
+        "len_type": "captured_source_type_id",
+        "type": "captured_source_type_id"
+      },
+      "parameter_required_fields": [
+        "type",
+        "len_type",
+        "cap_type"
+      ],
+      "producer": "go-tools/go2vir/practical_construction.go",
+      "source_model_derived": false,
+      "source_signature": "slice_make<S,I,J>(I,J,state) -> (S,state)",
+      "test_owner": "go-tools/go2vir/practical_construction_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "ordinary",
+      "op": "GP-OP-44",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "initializers": "ordered unique array<uint>, bounded by exact fields/length/storage",
+        "type": "captured_source_type_id"
+      },
+      "parameter_required_fields": [
+        "type",
+        "initializers"
+      ],
+      "producer": "go-tools/go2vir/practical_construction.go",
+      "source_model_derived": false,
+      "source_signature": "slice_literal<S>(elements,state) -> (S,state)",
+      "test_owner": "go-tools/go2vir/practical_construction_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "assignment",
+      "op": "GP-OP-45",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "index_type": "captured_source_type_id",
+        "type": "captured_source_type_id"
+      },
+      "parameter_required_fields": [
+        "type",
+        "index_type"
+      ],
+      "producer": "go-tools/go2vir/practical_construction.go",
+      "source_model_derived": false,
+      "source_signature": "slice_store<S,I>(S,I,Element<S>,state) -> state",
+      "test_owner": "go-tools/go2vir/practical_construction_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "ordinary",
+      "op": "GP-OP-46",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "destination": "captured_source_type_id",
+        "source": "captured_source_type_id"
+      },
+      "parameter_required_fields": [
+        "destination",
+        "source"
+      ],
+      "producer": "go-tools/go2vir/practical_construction.go",
+      "source_model_derived": false,
+      "source_signature": "slice_copy<D,S>(D,S,state) -> (int,state)",
+      "test_owner": "go-tools/go2vir/practical_construction_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "ordinary",
+      "op": "GP-OP-47",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "type": "captured_source_type_id"
+      },
+      "parameter_required_fields": [
+        "type"
+      ],
+      "producer": "go-tools/go2vir/practical_construction.go",
+      "source_model_derived": false,
+      "source_signature": "byte_copy_string<D assignable []byte>(D,string,state) -> (int,state)",
+      "test_owner": "go-tools/go2vir/practical_construction_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "call",
+      "op": "GP-OP-48",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "count": "uint within complete source syntax budget",
+        "type": "captured_source_type_id"
+      },
+      "parameter_required_fields": [
+        "type",
+        "count"
+      ],
+      "producer": "go-tools/go2vir/practical_construction.go",
+      "source_model_derived": false,
+      "source_signature": "slice_append_values<S>(S,Element<S>...,state) -> (S,state)",
+      "test_owner": "go-tools/go2vir/practical_construction_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "call",
+      "op": "GP-OP-49",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "destination": "captured_source_type_id",
+        "source": "captured_source_type_id"
+      },
+      "parameter_required_fields": [
+        "destination",
+        "source"
+      ],
+      "producer": "go-tools/go2vir/practical_construction.go",
+      "source_model_derived": false,
+      "source_signature": "slice_append_spread<S,T>(S,T,state) -> (S,state)",
+      "test_owner": "go-tools/go2vir/practical_construction_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "call",
+      "op": "GP-OP-50",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "type": "captured_source_type_id"
+      },
+      "parameter_required_fields": [
+        "type"
+      ],
+      "producer": "go-tools/go2vir/practical_construction.go",
+      "source_model_derived": false,
+      "source_signature": "byte_append_string<S assignable []byte>(S,string,state) -> (S,state)",
+      "test_owner": "go-tools/go2vir/practical_construction_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "loop",
+      "op": "GP-OP-51",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "condition_type": "captured_source_type_id",
+        "has_test": "Bool",
+        "loop": "uint exact captured loop ordinal"
+      },
+      "parameter_required_fields": [
+        "loop",
+        "condition_type",
+        "has_test"
+      ],
+      "producer": "go-tools/go2vir/practical_loops.go",
+      "source_model_derived": false,
+      "source_signature": "for(init,test,body,post,state) -> control/state",
+      "test_owner": "go-tools/go2vir/practical_loops_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "range",
+      "op": "GP-OP-52",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "evaluation": "evaluate|constant_length",
+        "index": "Bool effective range index",
+        "loop": "uint exact captured loop ordinal",
+        "type": "captured_source_type_id",
+        "value": "Bool effective nonblank second range variable"
+      },
+      "parameter_required_fields": [
+        "loop",
+        "type",
+        "index",
+        "value",
+        "evaluation"
+      ],
+      "producer": "go-tools/go2vir/practical_loops.go",
+      "source_model_derived": false,
+      "source_signature": "range_array<[N]T:Root>(expression,bindings,body,state) -> control/state",
+      "test_owner": "go-tools/go2vir/practical_loops_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "range",
+      "op": "GP-OP-53",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "index": "Bool effective range index",
+        "loop": "uint exact captured loop ordinal",
+        "type": "captured_source_type_id",
+        "value": "Bool effective nonblank second range variable"
+      },
+      "parameter_required_fields": [
+        "loop",
+        "type",
+        "index",
+        "value"
+      ],
+      "producer": "go-tools/go2vir/practical_loops.go",
+      "source_model_derived": false,
+      "source_signature": "range_slice<S>(expression,bindings,body,state) -> control/state",
+      "test_owner": "go-tools/go2vir/practical_loops_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "abrupt",
+      "op": "GP-OP-54",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "enclosing": "nonempty outer-to-inner control_target records"
+      },
+      "parameter_required_fields": [
+        "enclosing"
+      ],
+      "producer": "go-tools/go2vir/practical_loops.go",
+      "source_model_derived": false,
+      "source_signature": "break(target_ref,state) -> Break(target_ref,state)",
+      "test_owner": "go-tools/go2vir/practical_loops_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "abrupt",
+      "op": "GP-OP-55",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "enclosing": "nonempty outer-to-inner control_target records"
+      },
+      "parameter_required_fields": [
+        "enclosing"
+      ],
+      "producer": "go-tools/go2vir/practical_loops.go",
+      "source_model_derived": false,
+      "source_signature": "continue(loop_ref,state) -> Continue(loop_ref,state)",
+      "test_owner": "go-tools/go2vir/practical_loops_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    },
+    {
+      "consumer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "evaluation_rule": "ordinary",
+      "op": "GP-OP-56",
+      "optional_fields": [],
+      "ordinary_members": [
+        "source_binding",
+        "input_validity",
+        "evaluation",
+        "safety_domain_permission",
+        "value_effect_output_validity",
+        "frame_joint_invocation"
+      ],
+      "ordinary_operation_proofs_checked": false,
+      "parameter_field_types": {
+        "size": "length|capacity",
+        "type": "captured_source_type_id"
+      },
+      "parameter_required_fields": [
+        "type",
+        "size"
+      ],
+      "producer": "go-tools/go2vir/practical_lower.go",
+      "source_model_derived": false,
+      "source_signature": "array_size<[N]T>(expression,kind,state) -> (int,state)",
+      "test_owner": "go-tools/go2vir/practical_lower_test.go",
+      "unknown_fields": "reject",
+      "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+    }
+  ],
+  "optional_fields": [],
+  "predicate_boundary": "closed6 ordinary member names plus exact indexed operation-table statements; implementations must construct/check ordinary terms,not treat these strings as proofs",
+  "region_required_fields": [
+    "role",
+    "inputs",
+    "outputs"
+  ],
+  "remaining": [
+    "actual independently reconstructed source/callee/adapter/control/SSA/region bindings and all ordinary operation/definedness/value/effect/frame proofs",
+    "complete shared VIR/VC/source-map/manifest/API/release roots and consumer/migration review; W05/T01 gate and full T02\u2013T11"
+  ],
+  "root_field_types": {
+    "binding_requirements": "closed op-directed binding requirement records",
+    "capture_context_id": "scope-equal capture id",
+    "error_universe_id": "same complete global-U id",
+    "function_decl_id": "scope-equal function declaration id",
+    "inputs": "ordered concrete operation_type array",
+    "obligations": "complete derived rule-member records,not checked terms",
+    "op": "one of the exact56 GP-OP tags",
+    "operation_hash": "lowercase sha256",
+    "operation_table_sha256": "exact original logical operation-table raw hash",
+    "outputs": "ordered concrete operation_type array",
+    "parameters": "closed op-directed concrete parameter record",
+    "regions": "ordered region interface records",
+    "schema": "literal mpk.go.operation_definition.v1",
+    "semantic_context": "full validated Go practical semantic_context.v3",
+    "signature_id": "scope-equal signature id",
+    "source_scope_sha256": "complete contract_scope hash",
+    "type_definitions_sha256": "scope-equal complete type-definition hash"
+  },
+  "root_required_fields": [
+    "schema",
+    "semantic_context",
+    "capture_context_id",
+    "source_scope_sha256",
+    "function_decl_id",
+    "signature_id",
+    "type_definitions_sha256",
+    "error_universe_id",
+    "operation_table_sha256",
+    "op",
+    "parameters",
+    "inputs",
+    "outputs",
+    "regions",
+    "obligations",
+    "binding_requirements",
+    "operation_hash"
+  ],
+  "schema": "mpk.go_practical.operation_signature_draft.v0",
+  "type_union": {
+    "control": [
+      "kind",
+      "result_types"
+    ],
+    "joint": [
+      "kind",
+      "result_types"
+    ],
+    "location": [
+      "kind",
+      "source_type_id"
+    ],
+    "source": [
+      "kind",
+      "source_type_id"
+    ],
+    "state": [
+      "kind"
+    ],
+    "values": [
+      "kind",
+      "types"
+    ]
+  },
+  "unknown_fields": "reject"
+}
