@@ -208,6 +208,17 @@ execution is assigned to T07-W01; source imports migrate in T02-W03.
 AI/release roots,complete ordinary-program signatures and the final reviewed
 consumer migration table remain W04 design work.
 
+The [AI request/explanation design](../migrations/go-practical/t01-w04/ai-explanation/README.md)
+closes the v4 wire and redaction/batching rules. All169 current Go demands
+remain pending across complete32-property batches. Local statuses,source
+bindings and full theory/axiom summaries come from policy; provider prose
+cannot change them. English/Japanese bundles and40 independent hashes remain
+separate from unchanged actual GoFixed/Rust/CSharp AI consumer tests. No
+provider is contacted. Native Java AI preservation and compiled v4 integration
+remain T07 work. Release roots,ordinary-program/materialized-policy signatures
+and exhaustive consumer migration review remain W04 work; W05 owns publication
+and the cumulative T01 gate.
+
 ## 1. Entry, ordering, and execution
 
 Go practical implementation may start before the practical C# release, as

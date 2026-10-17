@@ -453,7 +453,7 @@ the full independent source graph and preserves all169 unelaborated Go demands.
 Opaque server identity,incarnation,revision and exact stored snapshots prevent
 cross-session/restart/stale-request updates. Freeze and all operation failures
 preserve the intended mutation boundary. Every output remains helper data.
-The [current metadata checker](../../../probes/go-practical/check_api_metadata.py)
+The [section55 metadata checker](../../../probes/go-practical/check_api_metadata.py)
 retains the preceding policy evidence and143 inventoried source paths. Its
 [verification](api-contracts/verification/verification.json) separates6800
 wire/configuration cases,96 model transactions,102 fresh old-API operations
@@ -463,3 +463,19 @@ endpoint or profile is activated. AI/release roots,ordinary-program signature
 closure and final migration review remain W04 work; W05 owns publication and
 the cumulative T01 gate. Full implementation proofs remain due in T02–T06,
 with API/release integration in T07 and the complete T08–T11 scope unchanged.
+
+
+The [AI request/explanation design](ai-explanation/README.md) adds closed v4
+roots with complete32-property batching,source-private redaction,full retained
+theory/axiom summaries and local status/alias restoration. All169 Go demands
+stay pending; no prose,hash or origin flag can grant proof authority. Its
+[verification](ai-explanation/verification/verification.json) separates1328
+configuration/prose/transport cases,16 bilingual bundles/24 batches,40 raw
+hashes and two actual unchanged native AI tests run twice over GoFixed,Rust
+and CSharp. Java's wire model is covered; native Java AI execution is not
+claimed. The [current metadata checker](../../../probes/go-practical/check_ai_metadata.py)
+retains the API predecessor and143 inventoried consumers. W04 still needs
+release roots,ordinary-program/materialized-policy signatures and final
+migration review,including all retained axiom policies and historical probe
+source epochs. W05 owns inactive publication and the cumulative T01 gate;
+all T02–T11 implementation/proof/activation/native-release work remains due.

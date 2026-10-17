@@ -27,7 +27,7 @@ after reconciling the intervening shared artifacts and active registry.
 | GO-PRAC-T01-W01 | Complete | Reviewed implementation commit `bd5ee8047d8925f9c9d0f7502627fca33bb2c836`; completion audit below |
 | GO-PRAC-T01-W02 | Complete | Reviewed implementation commit `fed1cf6047f97b1f73c0fc37c5023e19f4f9f035`; 39 cases reproduced twice |
 | GO-PRAC-T01-W03 | Complete | Reviewed implementation `9d4e6fb7855a66d9fff309e6dbd9143652ee6e21`; requirement-by-requirement completion audit in section28 |
-| GO-PRAC-T01-W04 | In progress | Source/operation/contracts/limits and common frontend/policy/API designs with targeted evidence; AI/release roots,ordinary-program signatures and final consumer migration review remain open |
+| GO-PRAC-T01-W04 | In progress | Source/operation/contracts/limits and common frontend/policy/API designs with targeted evidence; Release roots,ordinary-program/materialized-policy signatures and final consumer migration review remain open |
 | GO-PRAC-T01-W05 | Blocked by W04 | Publish inactive package, review and full T01 gate |
 | GO-PRAC-T02–T07 | Not started | Sequential v1 implementation and public release |
 | GO-PRAC-T08–T11 | Not started | Sequential v2 freeze, maps, pointers and public release |
@@ -3799,3 +3799,67 @@ control/totality proofs remain mandatory in their assigned T02–T06 gates;
 they are not all preconditions for finishing the design-only W04. W05 owns
 reviewed inactive normative publication and the cumulative T01 gate before T02.
 W04 and T01 remain open and the complete T02–T11 objective remains active.
+
+
+## 56. T01-W04 complete AI explanation/redaction/batching contracts
+
+Entry: `021036e407684caa32f66aab4bc6d1af79849187`, clean before this work.
+The [AI contract design](../migrations/go-practical/t01-w04/ai-explanation/README.md)
+adds exact request/explanation v4 roots and new common projection/redaction
+recipes without widening reserved practical-CSharp v3 or active v2 contracts.
+Both roots use raw SHA256 of whole canonical JSON without LF. Required nested
+fields,language,public parameter/category allowlists,the complete old theory/
+axiom summary and local provenance arms are explicit. The existing prompt and
+prose response schema remain pinned; prepared provider bytes are inert.
+
+The source authority independently validates full source/context/selection,
+policy evidence and receipt. Providers receive no private names,paths,source
+text,contract descriptions,diagnostics,foundation/source/evidence hashes or
+preprocessor symbols. The local report restores source identities,source
+order,statuses and full context/contract/ref bindings from its own immutable
+prepared data. Import regenerates the whole report from the same source and
+separately retained prose/observations; valid hashes or provider flags alone
+are insufficient. Every explanation remains untrusted helper analysis with
+proof_evidence=false and source_access=false. Even prose claiming all source
+verified cannot promote a pending obligation.
+
+The32-property per-request limit stays fixed. Stable status/category/evidence/
+source-index ordering partitions the entire list; aliases have unique global
+ordinals across batches. Equal-size swapped responses reject. All169 Go
+unelaborated demands appear exactly once,85 and84 across three batches each.
+An empty assembly-error property set yields one zero-property diagnostic batch,
+with not-run checker state rather than an invented false theorem. Future
+materialized Go must use exact policy-owned ordinary targets/properties and
+the same full projection; that final binding remains with the ordinary-program
+and consumer-migration review. Registered retained axiom policies and all
+native Java AI preservation remain mandatory at activation.
+
+The1328-case matrix covers16 English/Japanese bundles and24 complete requests.
+All40 complete request/explanation raw identities agree with independent Rust
+and Go canonicalizers/hash observers,each repeated twice. Text limits count
+UTF8 bytes and reject forbidden controls/bidi,incomplete/duplicate/foreign
+aliases,extra status/context/proof/provenance fields and missing batches.
+The [verification record](../migrations/go-practical/t01-w04/ai-explanation/verification/verification.json)
+keeps targeted test reasons,raw logs,source pins and the initial report review.
+That review restored explicit language,locale-correct fixture prose and the
+existing checked-theory/format/five-category-axiom summary before final hashes.
+No provider was contacted and no Go demand was discharged.
+
+Two existing native test bodies each run twice in the pinned local offline
+Linux-amd64 container. They exercise real unchanged public AI consumers over
+GoFixed,Rust and CSharp policy/certificate fixtures,including deterministic
+redaction,report/provenance/status/prose rejection controls and frozen vector
+ownership. Exact root-lock dependency archives provision only a task-owned
+cache; repository sources/fixtures stay read-only and their before/after pins
+match. Java's native test is not executed here. This is local emulation on
+arm64,not a native installed-release/cgroup/process-tree gate. Source-free
+proof acceptance in preceding evidence remains scoped to its original claims;
+new wire/model validation supplies no new proof or registered-run authority.
+
+W04 remains open for release roots,ordinary-program/materialized-policy
+predicate/signature/budget closure and all143 consumer migration dispositions,
+including retained axiom-policy preservation and historical-probe/new-source
+baseline handling. W05 owns inactive normative publication and the cumulative
+T01 gate before T02. All general compiler/source/ordinary/definedness/state/
+frame/control/application proofs remain required in T02–T06,actual AI/API/
+policy/release integration in T07,and complete v2 T08–T11 work remains active.

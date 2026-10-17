@@ -1,0 +1,105 @@
+{
+  "W04_frozen": false,
+  "commands": [
+    {
+      "command": "python3 -B develop/probes/go-practical/run_ai_contracts.py --write",
+      "log": "probe-final.log",
+      "result": "pass; all40 independent Rust/Go hashes run twice"
+    },
+    {
+      "command": "PYTHONPATH=develop/probes/go-practical python3 -B -m unittest test_ai_contracts -v",
+      "log": "tests.log",
+      "result": "16 passed"
+    },
+    {
+      "command": "pinned local Docker cargo test --offline --locked -p mpk-cli --test csharp_ai_explain -- --nocapture --test-threads=1",
+      "manifest": "native-ai-checks.json",
+      "result": "2 real test bodies passed in each of2 runs; only GoFixed/Rust/CSharp consumers,not native Java"
+    },
+    {
+      "command": "AST parse of the six new Python sources",
+      "log": "syntax.log",
+      "result": "pass"
+    },
+    {
+      "command": "python3 -B develop/probes/go-practical/check_ai_metadata.py",
+      "log": "metadata.log",
+      "result": "pass; immediate API predecessor,143 source owners and all current JSON/document links retained"
+    }
+  ],
+  "compiled_AI_v4_executed": false,
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "reason": "AGENTS.md restricts cumulative T gate to final W; current item is W04; no equivalent full gate decomposed into separate commands",
+    "status": "deferred to GO-PRAC-T01-W05"
+  },
+  "initial_review": {
+    "disposition": "restore explicit explanation language,locale-correct fixture prose,and complete retained theory/axiom summary before final hash observations; original source/report/receipt bytes retained",
+    "path": "initial-report-review/diagnostic.json"
+  },
+  "log_hashes": {
+    "metadata.log": "30fc949fedf58188b2ed8ee38f2f42c18929c1759340140a5ca4a294d668f8c5",
+    "native-ai-1-stderr.log": "bebee9ec77a159fd3b0c494721691ada32bba461aba2454dba9a531903182858",
+    "native-ai-1-stdout.log": "1bcd0e6da77c93b0ce7f55338f92cf10b4a566dacb75cc28386fc0f736e466ae",
+    "native-ai-2-stderr.log": "90832f98834da3af2750b1c3d30578c6b174e96be4cb70c629f0a0413b9158fa",
+    "native-ai-2-stdout.log": "daf3b6f1d5cbea5dd623de00d81d7184d2ac95a5695be46f48ed615711ab901c",
+    "probe-final.log": "7f8f5ab78bc1738786de225c023931b30886bdf97e0decfde86d2ad92bb4f2f6",
+    "probe.log": "fbbaed885bddc77b00be11c5c9cf814c7f4cbec1cccd990a000841ff20c53474",
+    "syntax.log": "30b480c5c78afde24d3728d0028838110ac58cbdad0b5bba7943e0aee54fef98",
+    "tests.log": "9332c48db6abb5287994228b5e03964e8392cb4d202a9b60c190f6fb8ab37fb7"
+  },
+  "metadata_audit": {
+    "log": "metadata.log",
+    "result": "pass",
+    "summary": "PASS:202 strict JSONs,881 source pins,1328 AI cases/40 hashes,143 predecessors,31 documents/541 links; W04 open"
+  },
+  "native_release_gate": {
+    "scope": "local emulated Linux amd64 consumer tests/hashes only; no native installed-release/cgroup/process-tree evidence",
+    "status": "not run; remains mandatory T07/T11"
+  },
+  "observation_sha256": "d1be6c6064195bce202c5268098c9b7a960f2e6a3af8228f464f509fa9460392",
+  "profile_activated": false,
+  "provider_contacted": false,
+  "results": {
+    "Go_unelaborated_demands": 169,
+    "bundles": 16,
+    "cases": 1328,
+    "hash_vectors": 40,
+    "languages": [
+      "en",
+      "ja"
+    ],
+    "outcomes": {
+      "configuration_rejection": 1236,
+      "locally_regenerated_helper": 92
+    },
+    "profiles": 5,
+    "request_batches": 24
+  },
+  "review": {
+    "all_current_Go_demands_pending": true,
+    "all_private_source_bindings_local": true,
+    "cross_batch_aliases_unique": true,
+    "empty_property_assembly_errors_preserved": true,
+    "language_and_existing_theory_axiom_metadata_retained": true,
+    "materialized_Go_binding": "required in remaining W04 ordinary-program/policy migration review,then compiled T07 integration; no synthetic checked-Go state introduced",
+    "production_and_old_helpers_unchanged": true,
+    "provider_cannot_set_status_context_proof_or_execution_origin": true,
+    "remaining": "release roots,ordinary-program/source-binding/signature/budget closure,all consumer migrations and retained axiom-policy/historical-source-epoch audit",
+    "report_import_requires_local_regeneration": true,
+    "reserved_CSharp_and_active_profiles_unchanged": true
+  },
+  "schema": "mpk.go_practical.ai_contract_verification.v0",
+  "scope": "inactive AI v4 sanitized request and local explanation roots,complete deterministic32-property batching,source-owned status/alias restoration and inert provider fixtures; unchanged native GoFixed/Rust/CSharp AI consumers and independent raw canonical hashes",
+  "selection_reason": "New common AI request/report shapes,redaction,complete32-property batching,status/provenance trust boundary and narrow transport changed. Verify all8 current source authorities in both languages,all169 Go demands,cross-batch substitution,private-data exclusion,prose/alias/limit controls and exact regenerated report binding. Run only the two unchanged public AI test bodies required for the GoFixed/Rust/CSharp preservation baseline,twice. Java native setup/AI execution is not claimed; its full activation check remains T07. Existing compiler/kernel/proof code is unchanged,so do not repeat unrelated arithmetic/frontend/core test families. Reconstruct the immediate API predecessor in metadata audit.",
+  "source_inputs": 881,
+  "status": "selected checks passed; W04/T01 remain open",
+  "targeted_tests": 16,
+  "whitespace_review": {
+    "full_diff_observation": "git diff --cached --check reports only the actual Cargo stdout final blank line in native-ai-1-stdout.log and native-ai-2-stdout.log",
+    "raw_logs_preserved": true,
+    "scoped_check": "passed for every other staged path; exclude only those exact two immutable raw stdout logs,whose full bytes and hashes remain checked by native_retained",
+    "source_or_design_whitespace_findings": []
+  },
+  "work_item": "GO-PRAC-T01-W04"
+}
