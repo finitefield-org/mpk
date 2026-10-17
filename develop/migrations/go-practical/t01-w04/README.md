@@ -218,9 +218,21 @@ planned enforcement owners and unchanged predecessor evidence. Its
 keeps isolated counter and model-state measurements separate from complete
 source/allocator enforcement. The full T01 gate remains deferred to W05.
 
-The identity checkpoint's [current metadata checker](../../../probes/go-practical/check_identity_metadata.py)
+The identity checkpoint's [section39 metadata checker](../../../probes/go-practical/check_identity_metadata.py)
 checks complete identity preimages/DAG, reserved namespaces, native hash
 agreement, candidate migration scope and preserved predecessor evidence. Its
 [verification record](identity-dag/verification/verification.json)
 keeps hash/identity acceptance separate from full schema/source/profile
 completion. The cumulative T01 gate is still reserved for W05.
+
+The [context protocol draft](context-protocol/README.md) closes six private
+registry/entry/context/request/Go-parameter/selection roots. Existing four
+profiles use actual unchanged compiled Rust parameter/selection validators,
+including both Rust32/64 targets. The152 vectors and31 actual native queries
+separate configuration acceptance from source, complete foundation and proof
+acceptance. The [current metadata checker](../../../probes/go-practical/check_context_metadata.py)
+checks retained identities/proofs, sources, diagnostics and draft scope.
+Its [verification record](context-protocol/verification/verification.json)
+records20 targeted tests and fresh native policy replay. W04 stays open;
+full roots/unions, foundation/limits/source predicates and migrations remain
+required. The cumulative T01 gate remains assigned to W05.

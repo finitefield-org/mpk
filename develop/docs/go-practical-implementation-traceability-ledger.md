@@ -2590,3 +2590,72 @@ unions, foundation/context/profile bindings, independent import/source proofs,
 all producer/consumer review and migration/activation/rollback gates remain.
 W05 owns inactive publication and the T01 gate. No T is complete; T02–T11
 implementation, full application and local release scope remains active.
+
+## 40. T01-W04 closed registry/context/request draft and retained policy
+
+Entry: `4cc82980a6502fc0bb13813d6986307887613316`, clean before this work.
+The preceding checkpoint proposed identities and a source-hash DAG. This
+checkpoint closes six private root shapes without completing the full shared
+schema/foundation/source freeze or changing installed artifacts.
+
+The [context protocol draft](../migrations/go-practical/t01-w04/context-protocol/README.md)
+defines exact registryv3, entryv3, contextv3, validated requestv3, practical Go
+parametersv1 and Go selectionv1 fields. Complete canonical typed preimages,
+registered entry/schema/language/profile bindings and nine compiled profile
+contract names are checked. The entire registry must equal the private
+compiled registration fixture after self-hash checks; rehashing a changed
+contract/profile/foundation/order cannot create authority. This family avoids
+the reserved inactive C# identities and does not change their meanings.
+
+Each context has a required foundation field: null for all four retained
+profiles, the exact compiled Go reference for practical. The private Go
+foundation description explicitly lacks a complete definition bundle. Its
+hash and the64-counter/weight limits fixture hash are private data, not final
+published foundation/limits identities or proof evidence. Complete schemas,
+registered ordinary definitions and production import remain required.
+Fixed Go parameters include all target/compiler/effective-language/limits
+fields and allow no numeric or feature overrides. A typed repeated context
+must match every field; two valid Rust32/64 contexts cannot link. Request
+hashes cover the whole context and selection rather than a lossy projection.
+
+A new standalone Rust wrapper calls the actual unchanged revision3 compiled
+registry/context/selection validators, including their real Java name/path
+rules. It preserves both Rust checked targets and scalar Go/C#/Java settings.
+All linked mpk-vc/mpk-cert/mpk-core sources, private Cargo lock and wrapper
+binary are pinned. The initial wrapper omitted the registry transport LF and
+returned RegistryCanonical; using the existing canonical_registry_transport
+function fixes that construction error. No production validator changes.
+The31 distinct native-policy projections reproduce exact results twice.
+This is configuration-policy evidence rather than full semantic preservation
+or a completed four-profile producer/consumer migration.
+
+Raw Go roots contain package/function and a nullable local value-receiver
+selector, in unique canonical JSON order. The1–8192 bound, Unicode15 names,
+keyword/blank exclusions and package-versus-method init distinction are
+explicit. Raw receiver aliases can still resolve to the same method. Actual
+declaration/package/method existence, alias-resolved duplication, source
+closure and capture identity are later source predicates; no application
+source is executed or admitted by the private protocol probe.
+
+All152 vectors match expected outcomes:24 configuration candidates and128
+configuration rejections. Candidates are six target contexts, eleven
+requests, six identical links and one compiled registry. Negatives cover
+profile/language/schema/foundation/limits crossings, reserved/old/future
+families, rehashed registry attacks, omitted/extra/nested fields, stale or
+incomplete request hashes, raw selector order and strict malformed JSON.
+None is a checker verdict, certified false claim or source semantic result.
+
+Twenty targeted tests pass, including actual old policy results, Rust32/64,
+8192/8193 roots, full typed context linkage and absent-oracle fatal errors.
+Fresh replay rebuilds the native wrapper and preserves all source/binary
+identities. The [verification record](../migrations/go-practical/t01-w04/context-protocol/verification/verification.json)
+retains selected model/native/replay/metadata/format checks, raw logs and
+reasons. Prior receipts/diagnostics and143 predecessor paths remain unchanged;
+unaffected production/kernel and old proof/native matrices are not rerun.
+The cumulative T01 gate remains deferred to W05.
+
+W04 remains In progress. Complete Go foundation/limits, full source/type/
+binding/call/contract and downstream shared root/union schemas, independent
+import/source proofs, reviewed migration/semantic preservation and activation/
+rollback gates remain required. W05 owns inactive publication and the T01
+gate. No T is complete; T02–T11 implementation/application/release remain active.

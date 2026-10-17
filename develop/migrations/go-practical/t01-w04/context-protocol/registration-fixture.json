@@ -1,0 +1,223 @@
+{
+  "foundation_fixture": {
+    "complete_definition_bundle": false,
+    "limits_sha256": "de7f8d01b6da0cb66cb2066d48f440da77d942d8523c19739067fb67dedf323f",
+    "required_core_names": [
+      "Std.Nat.induct",
+      "Std.Bool.recType"
+    ],
+    "schema": "mpk.go_practical.foundation_registration_fixture.v0",
+    "semantic_profile": "mpk.go.practical.v1"
+  },
+  "go_parameters": {
+    "compiler_release": "go1.25.0",
+    "effective_languages": [
+      "go1.22",
+      "go1.23",
+      "go1.24",
+      "go1.25"
+    ],
+    "goamd64": "v1",
+    "goarch": "amd64",
+    "goos": "linux",
+    "limits_id": "mpk.go.practical.limits.v1",
+    "limits_sha256": "de7f8d01b6da0cb66cb2066d48f440da77d942d8523c19739067fb67dedf323f",
+    "pointer_width": 64,
+    "target_id": "linux/amd64"
+  },
+  "limits_fixture": {
+    "counters": {
+      "capture.bytes_per_captured_candidate": 16777216,
+      "capture.bytes_per_contract_candidate": 1048576,
+      "capture.contract_candidates_explicit_contract_paths": 128,
+      "capture.directories_visited_before_nested_module_pruning": 32768,
+      "capture.directory_entries_examined": 131072,
+      "capture.loader_relevant_candidate_entries": 32768,
+      "capture.manifest_inputs": 32768,
+      "capture.total_captured_candidate_bytes": 268435456,
+      "capture.total_contract_candidate_bytes": 8388608,
+      "capture.typed_syntax_nodes_across_included_packages": 4194304,
+      "manifest.canonical_json_bytes": 4194304,
+      "manifest.cfg_entries": 16384,
+      "manifest.frontend_subordinates": 0,
+      "manifest.inputs": 32768,
+      "manifest.json_nesting": 256,
+      "manifest.normalized_path_bytes": 1024,
+      "manifest.string_bytes": 1048576,
+      "manifest.toolchain_components": 8192,
+      "manifest.units": 256,
+      "proof.certificate_bytes": 2097152,
+      "proof.certificate_declarations": 4096,
+      "proof.certificate_terms": 131072,
+      "proof.checker_wall_ns_each": 60000000000,
+      "proof.construction_wall_ns": 60000000000,
+      "proof.peak_rss_bytes_each_child": 1073741824,
+      "semantic.joint_results": 16,
+      "semantic.positive_owners_per_exact_root_type": 2,
+      "semantic.slice_capacity": 128,
+      "semantic.source_word_bits": 64,
+      "semantic.string_bytes": 256,
+      "shared.aggregate_type_nesting": 16,
+      "shared.array_elements": 256,
+      "shared.block_parameters": 4096,
+      "shared.blocks_per_function": 8192,
+      "shared.blocks_per_module": 65536,
+      "shared.call_args": 256,
+      "shared.canonical_json_bytes": 201326592,
+      "shared.cfg_edges_per_function": 16000,
+      "shared.const_decls": 65536,
+      "shared.contract_clauses": 64,
+      "shared.contract_expr_nesting": 32,
+      "shared.contract_expr_nodes_per_function": 1024,
+      "shared.contract_expr_nodes_per_module": 8192,
+      "shared.functions": 8192,
+      "shared.identifier_bytes": 1024,
+      "shared.input_json_bytes": 268435456,
+      "shared.instructions_per_block": 100000,
+      "shared.instructions_per_function": 100000,
+      "shared.instructions_per_module": 250000,
+      "shared.json_nesting": 256,
+      "shared.locals": 65536,
+      "shared.loop_decreases": 64,
+      "shared.loop_invariants": 64,
+      "shared.loops": 1024,
+      "shared.params": 256,
+      "shared.results": 16,
+      "shared.string_bytes": 1048576,
+      "shared.struct_fields": 64,
+      "shared.type_decls": 4096,
+      "shared.units": 256,
+      "weighted.all_store_units": 33554432,
+      "weighted.current_store_units": 8388608,
+      "weighted.past_store_units": 8388608,
+      "weighted.value_units": 2097152
+    },
+    "schema": "mpk.go_practical.numeric_registration_fixture.v0",
+    "weights": {
+      "array": "1+n*W(element)",
+      "bool_or_full_word": 1,
+      "byte_string": 257,
+      "closed_error": "1+sum(W(each global-U payload))",
+      "named_alias": "W(resolved underlying)",
+      "owner_header": 1,
+      "scope_or_packet_header": 1,
+      "slice_descriptor": 37,
+      "snapshot_observation_header": 1,
+      "struct": "1+sum(W(field))",
+      "typed_location": 33
+    }
+  },
+  "registry": {
+    "id": "mpk.semantic_profile.registry.v3",
+    "profiles": [
+      {
+        "contracts": {
+          "ai": "mpk.profile.ai.csharp_scalar.v2",
+          "evidence": "mpk.profile.evidence.csharp_scalar.v2",
+          "frontend": "mpk.profile.frontend.csharp_scalar.v2",
+          "manifest": "mpk.profile.manifest.csharp_scalar.v2",
+          "policy": "mpk.profile.policy.csharp_scalar.v2",
+          "release": "mpk.profile.release.csharp_scalar.v2",
+          "source_map": "mpk.profile.source_map.csharp_scalar.v2",
+          "vc": "mpk.profile.vc.csharp_scalar.v2",
+          "vir": "mpk.profile.vir.csharp_scalar.v2"
+        },
+        "entry_sha256": "47a2762d91804cfc2a4e5357b8c392f4b3d71553dbc3a4780a47390307fc9e7a",
+        "foundation_descriptor": null,
+        "schema": "mpk.semantic_profile.entry.v3",
+        "selection_schema": "mpk.selection.csharp_methods.v0",
+        "semantic_parameters_schema": "mpk.semantic_parameters.csharp_scalar.v0",
+        "semantic_profile": "mpk.csharp.scalar.v0",
+        "source_language": "csharp"
+      },
+      {
+        "contracts": {
+          "ai": "mpk.profile.ai.go_fixed.v2",
+          "evidence": "mpk.profile.evidence.go_fixed.v2",
+          "frontend": "mpk.profile.frontend.go_fixed.v2",
+          "manifest": "mpk.profile.manifest.go_fixed.v2",
+          "policy": "mpk.profile.policy.go_fixed.v2",
+          "release": "mpk.profile.release.go_fixed.v2",
+          "source_map": "mpk.profile.source_map.go_fixed.v2",
+          "vc": "mpk.profile.vc.go_fixed.v2",
+          "vir": "mpk.profile.vir.go_fixed.v2"
+        },
+        "entry_sha256": "ccff8b793a2ed6cbdfd1fbb534216d5f75c87a172b931d0397c426f5e3bee70c",
+        "foundation_descriptor": null,
+        "schema": "mpk.semantic_profile.entry.v3",
+        "selection_schema": "mpk.selection.go_function.v0",
+        "semantic_parameters_schema": "mpk.semantic_parameters.go_fixed.v0",
+        "semantic_profile": "mpk.go.fixed.v0",
+        "source_language": "go"
+      },
+      {
+        "contracts": {
+          "ai": "mpk.profile.ai.go_practical.v2",
+          "evidence": "mpk.profile.evidence.go_practical.v2",
+          "frontend": "mpk.profile.frontend.go_practical.v2",
+          "manifest": "mpk.profile.manifest.go_practical.v2",
+          "policy": "mpk.profile.policy.go_practical.v2",
+          "release": "mpk.profile.release.go_practical.v2",
+          "source_map": "mpk.profile.source_map.go_practical.v2",
+          "vc": "mpk.profile.vc.go_practical.v2",
+          "vir": "mpk.profile.vir.go_practical.v2"
+        },
+        "entry_sha256": "baccc087342e3069c128dd1a3f0705040bf2525910e39875eeb55ba9a1baf714",
+        "foundation_descriptor": {
+          "content_sha256": "a526bddf86dc2409aeac8651e7df15373a17c0ae9b6c5e6f03eb400664ef62ad",
+          "id": "mpk.go.practical.foundation.v1",
+          "schema": "mpk.go.foundation_descriptor.v1"
+        },
+        "schema": "mpk.semantic_profile.entry.v3",
+        "selection_schema": "mpk.selection.go_functions.v1",
+        "semantic_parameters_schema": "mpk.semantic_parameters.go_practical.v1",
+        "semantic_profile": "mpk.go.practical.v1",
+        "source_language": "go"
+      },
+      {
+        "contracts": {
+          "ai": "mpk.profile.ai.java_scalar.v2",
+          "evidence": "mpk.profile.evidence.java_scalar.v2",
+          "frontend": "mpk.profile.frontend.java_scalar.v2",
+          "manifest": "mpk.profile.manifest.java_scalar.v2",
+          "policy": "mpk.profile.policy.java_scalar.v2",
+          "release": "mpk.profile.release.java_scalar.v2",
+          "source_map": "mpk.profile.source_map.java_scalar.v2",
+          "vc": "mpk.profile.vc.java_scalar.v2",
+          "vir": "mpk.profile.vir.java_scalar.v2"
+        },
+        "entry_sha256": "4dccebf47312d5610d3397393f304ad4833436038d483d9b68f532cfd42b85df",
+        "foundation_descriptor": null,
+        "schema": "mpk.semantic_profile.entry.v3",
+        "selection_schema": "mpk.selection.java_methods.v0",
+        "semantic_parameters_schema": "mpk.semantic_parameters.java_scalar.v0",
+        "semantic_profile": "mpk.java.scalar.v0",
+        "source_language": "java"
+      },
+      {
+        "contracts": {
+          "ai": "mpk.profile.ai.rust_checked.v2",
+          "evidence": "mpk.profile.evidence.rust_checked.v2",
+          "frontend": "mpk.profile.frontend.rust_checked.v2",
+          "manifest": "mpk.profile.manifest.rust_checked.v2",
+          "policy": "mpk.profile.policy.rust_checked.v2",
+          "release": "mpk.profile.release.rust_checked.v2",
+          "source_map": "mpk.profile.source_map.rust_checked.v2",
+          "vc": "mpk.profile.vc.rust_checked.v2",
+          "vir": "mpk.profile.vir.rust_checked.v2"
+        },
+        "entry_sha256": "05dfce894254c6e0b4b72aceb98ab0da8869eafcf45fa3331e3de5f67f4e4508",
+        "foundation_descriptor": null,
+        "schema": "mpk.semantic_profile.entry.v3",
+        "selection_schema": "mpk.selection.rust_function.v0",
+        "semantic_parameters_schema": "mpk.semantic_parameters.rust_checked.v0",
+        "semantic_profile": "mpk.rust.checked.v0",
+        "source_language": "rust"
+      }
+    ],
+    "registry_sha256": "1483a19dbb338da4670e8a056bed3520c9ce38ad85ca33f13beac41bccda20bb",
+    "revision": 1,
+    "schema": "mpk.semantic_profile.registry.v3"
+  },
+  "scope": "private compiled registration fixture; not registered foundation definitions, profile preservation proof or installed registry"
+}

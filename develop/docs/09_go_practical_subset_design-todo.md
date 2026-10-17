@@ -61,6 +61,14 @@ record shapes. A26-node/seven-root graph and44 Python/Rust/Go hash vectors
 exercise acyclic source/module/package/declaration/type/capture/loop linkage.
 All143 predecessor paths have candidate migration routes; full root/union/
 predicate/symbol migration review and independent source/registry proofs remain.
+The [context protocol draft](../migrations/go-practical/t01-w04/context-protocol/README.md)
+closes six private registry/entry/context/request/Go-parameter/selection roots.
+All four retained profiles delegate to actual unchanged Rust validators;
+both Rust32/64 targets remain valid. Nullable retained-profile foundations
+and an exact private Go reference prevent profile mixing. The152 vectors,
+31 actual legacy-policy queries and20 targeted tests cover full typed
+context linkage and rehashed-registry attacks. Complete foundation/limits,
+source resolution and downstream schema/migration proofs remain required.
 Complete source/wire tables, remaining variant/source foundation,
 limits, schemas/hash identities and migration review remain open.
 T01 is incomplete and no practical Go profile is active.
