@@ -1,0 +1,32 @@
+{
+  "finding": "implicitly equating the actual Value wrapper inside a complete Nat equation expands the denotation before finding the same word result",
+  "first_failing_declaration": "Probe.GoPractical.WordNumericBridge.W8.SourceHe1912b573e1a996186e7b251c135afe2addf0884d11a80de4dfce5f2f0d4ad02Conservation",
+  "inputs": [
+    {
+      "path": "word_numeric_bridge.py.txt",
+      "sha256": "fb006bded2e11bbde21281f031ba504c8f5e5b6a88d0a66936404f3e31de1063"
+    },
+    {
+      "path": "plan.json",
+      "sha256": "009de2122bdca31131f5a90d8b9b4a2d9d79427ea91c27ea4b848efac87bc406"
+    },
+    {
+      "path": "candidate.mpcert",
+      "sha256": "ff5f1547aaa9a9a8a32b4c426228fc7c5bdc78a3dccf2886a344559ddb552752"
+    },
+    {
+      "path": "rust.json",
+      "sha256": "5ecf7e9c461cc8ab2a207dde59342f81196388e3462784856c83ff070fcce77d"
+    },
+    {
+      "path": "go.json",
+      "sha256": "ba359c15c5601036ad4650cd15013687523978dc25be7391f1f097d3ce182272"
+    }
+  ],
+  "observed_outcomes": {
+    "go": "accepted zero-axiom candidate",
+    "rust": "candidate conversion-fuel failure"
+  },
+  "repair": "prove the actual source Value word equality first,then lift that equality explicitly through sign/value/Nat contexts; no checker or conversion-budget change",
+  "scope": "positive typed Value application exhausted unchanged core conversion budget; not a false claim or Go counterexample"
+}

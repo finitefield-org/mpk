@@ -3354,3 +3354,71 @@ statement/program/skeleton assembly,frontend-envelope/policy/API/release roots,
 reviewed migrations and W04 freeze remain due. W05 owns inactive publication
 and the cumulative T01 gate; all T02–T11 implementation/application/release
 work stays active. No practical Go profile is activated.
+
+## 50. T01-W04 exact Nat/signed bridge for the actual word addition
+
+Entry: `04fd6d9f267b705cdfc93d408b45a1ec5780a8bc`, clean before this work.
+The [numeric bridge](../migrations/go-practical/t01-w04/word-numeric-bridge/README.md)
+connects the actual full8/16/32/64-bit ripple definitions to the retained
+W03 balanced Nat/signed library. Every aligned binary block proves exact
+outgoing carry,pointwise sum and sign-stage incoming-carry correspondence.
+Parents compose checked children; only local three-bit full-adder flags and
+addresses are case-split. Arbitrary complete input words remain quantified.
+Pointwise value congruence follows the finite balanced definition and assumes
+no function extensionality or eta.
+
+The unsigned theorem proves genuine Std.Nat successor-denotation conservation
+with the actual final2^width carry,for every incoming Bool and arbitrary initial
+Nat. The signed theorem proves balanced natural cross sums under equality of
+the actual incoming/outgoing sign-stage carries,keeping both input signs and
+the same result sign. No caller true flag supplies that guard. It is a
+conditional mathematical integer-addition claim,while overflowing Go addition
+retains its modular result. General logical Int and remaining word arithmetic
+proofs are still due.
+
+Thirteen exact preceding GP-OP-05/add Value and Defined declarations are
+reconstructed and copied unchanged. A checked word definition equality is
+lifted through sign/value/Nat contexts to prove the value component's arithmetic
+for each distinct source type. Full operation/scope/nominal references remain
+bound; theorems for equal-width nominal types retain different names. These
+claims do not establish selected Go AST/evaluation,source correspondence,
+state/permission/frame or enclosing function correctness.
+
+Four positive sets pass both unchanged private checkers with zero axioms and
+identical certificate/export/axiom hashes. The64-bit set has1,159 declarations,
+25,583 terms and337,297 bytes,including the unchanged187-declaration W03 seed.
+Every one of20 cases emits twice byte identically. Fourteen altered local
+carry,leaf projection,overflow premise or dropped-carry statements reject by
+paired core type mismatch. The32/64-bit dropped-final-carry candidates exhaust
+conversion fuel in both checkers; they are retained failed candidates rather
+than false-source evidence. No resource/format failure is counted as a semantic
+negative. The unchanged77-source joint proposal and ordinary emitter are built
+fresh; production checkers,Certificate v0,old helpers and installed profiles
+are unchanged.
+
+All288 actual ordinary ripple/guard observations agree with actual typed Go
+addition,math/bits carries,math/big sums and a separate integer oracle. Both
+incoming carries,signed extrema,overflow,high-bit patterns and initial naturals
+0,17,10^50+37 remain explicit. All unsigned carry equations hold;210 actual
+signed no-overflow cases satisfy the cross sum and78 overflow cases do not.
+Finite comparisons do not replace the universal checked Nat theorem or supply
+a source/application proof. The same14,496-file Go1.25.0 inventory is retained.
+
+The [verification record](../migrations/go-practical/t01-w04/word-numeric-bridge/verification/verification.json)
+retains selected local checks,raw logs and two initial positive conversion
+findings. Using the exact incoming parameter avoids root Carry0 conversion.
+Explicit word equality before lifting the actual source Value avoids a whole
+Nat-expression conversion. In that initial source-wrapper candidate Rust
+exhausted fuel while Go accepted; both original outcomes remain recorded.
+All final positives pass both without changing checker budgets. Twelve targeted
+tests cover proof bytes,isolated mutations,source identities,complete block
+closure,actual ripple equations and fuel/pending boundaries. Unchanged older
+matrices are not rerun; the relevant seed and all143 predecessor/source paths
+remain checked. The cumulative T01 gate remains deferred to W05.
+
+W04 remains In progress. Full word/Nat/Int/contract arithmetic,all remaining
+source/state/permission/frame/control/totality definitions and proofs,complete
+Go statement/program/skeleton assembly,downstream roots and reviewed migrations
+remain required. The preceding169 Go requests stay unelaborated. W05 owns
+inactive publication and the T01 gate; all T02–T11 work stays active. No practical
+Go profile is activated.

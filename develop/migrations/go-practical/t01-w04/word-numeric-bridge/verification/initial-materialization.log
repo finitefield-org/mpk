@@ -1,0 +1,21 @@
+w8-valid: accepted_zero_axiom
+w8-wrong-local-carry: ordinary_type_mismatch
+w8-wrong-leaf-bit: ordinary_type_mismatch
+w8-unrelated-overflow: ordinary_type_mismatch
+w8-dropped-final-carry: ordinary_type_mismatch
+w16-valid: accepted_zero_axiom
+w16-wrong-local-carry: ordinary_type_mismatch
+w16-wrong-leaf-bit: ordinary_type_mismatch
+w16-unrelated-overflow: ordinary_type_mismatch
+w16-dropped-final-carry: ordinary_type_mismatch
+w32-valid: accepted_zero_axiom
+w32-wrong-local-carry: ordinary_type_mismatch
+w32-wrong-leaf-bit: ordinary_type_mismatch
+w32-unrelated-overflow: ordinary_type_mismatch
+w32-dropped-final-carry: candidate_conversion_fuel_failure
+w64-valid: accepted_zero_axiom
+w64-wrong-local-carry: ordinary_type_mismatch
+w64-wrong-leaf-bit: ordinary_type_mismatch
+w64-unrelated-overflow: ordinary_type_mismatch
+w64-dropped-final-carry: candidate_conversion_fuel_failure
+PASS:4 zero-axiom full-width Nat/signed/source-value sets,14 paired type mismatches,2 paired conversion-fuel controls (not false-claim evidence),13 exact typed additions and288 actual ripple/Go/integer observations; W04 open

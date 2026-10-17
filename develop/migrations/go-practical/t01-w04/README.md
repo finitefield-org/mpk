@@ -356,10 +356,24 @@ and787 captured-source value specializations over13 nominal/builtin word types.
 Five sets pass both unchanged private checkers at zero axioms;12 false claims
 and four ill-typed shifts reject. All1,640 actual ordinary-AST/Go/integer
 observations agree,including40 real runtime-safety failures. The
-[current metadata checker](../../../probes/go-practical/check_word_metadata.py)
+[section49 metadata checker](../../../probes/go-practical/check_word_metadata.py)
 preserves all prior evidence and143 predecessor paths. Its
 [verification record](word-foundation/verification/verification.json) retains
 initial failed proof constructions and exact repairs. Full Nat/source semantic
 proofs,remaining ordinary/source/state/control/frame definitions,complete Go
 statement/program/skeleton assembly and downstream roots/migrations remain due.
 W04 stays open; W05 owns the T01 gate and all T02–T11 work remains active.
+
+The [numeric addition bridge](word-numeric-bridge/README.md) proves full-width
+ripple/balanced result,carry and sign-stage correspondence and genuine Nat
+conservation,with conditional signed cross sums and13 exact typed Value
+specializations. Four sets pass both checkers with zero axioms;14 type-mismatch
+controls and two conversion-fuel failures remain separate. All288 actual
+ripple/Go/big-integer observations agree. The
+[current metadata checker](../../../probes/go-practical/check_numeric_metadata.py)
+retains prior word/proof/capture evidence and143 predecessor paths. Its
+[verification record](word-numeric-bridge/verification/verification.json) retains
+the initial root/source-wrapper conversion findings,including the Rust-fuel/
+Go-accepted candidate repaired by explicit equality lifting. Remaining word,
+Nat/Int/contract/source/state/frame/control proofs and final Go assembly stay
+required. W04 remains open; W05 owns the T01 gate and all T02–T11 work remains.

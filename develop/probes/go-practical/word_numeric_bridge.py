@@ -1,0 +1,307 @@
+"""Connect the actual ripple circuits to the retained exact Nat word library.
+
+Proofs quantify whole arbitrary word operands. A binary block proof composes
+the checked child carry/sum equalities; it never enumerates operand values.
+Only three local full-adder flags and address selectors use Bool elimination.
+"""
+from pathlib import Path
+from word_foundation import (MODULE as WORD,WIDTHS,Library,EvaluationProof,boolean_library,boolean_theorems,
+    word_library,word_theorems,boolean_proof,boolean,bit,var,const,app,pi,lam,bind,eq,refl,call,bc,at,address,choose)
+from carrier_terms import nat
+from run_proof_pilot import ROOT
+from proof_canonical import canonical,parse
+
+MODULE='Probe.GoPractical.WordNumericBridge'
+OLD='Probe.GoPractical.Word.'
+SEED=ROOT/'develop/migrations/go-practical/t01-w03/balanced-words/signed-tree-64-nat-conservation.mpcert'
+WORD_BINDINGS=ROOT/'develop/migrations/go-practical/t01-w04/word-foundation/bindings.json'
+
+
+def cube(depth):return bind('pi',[('_cube'+str(i),boolean()) for i in range(depth)],boolean())
+def function():return pi('_natural',nat(),nat())
+def old(name,*args):return call(OLD+name,*args)
+def tree(name,depth,*args):return old('Tree'+name+str(depth),*args)
+def composition(left,right):return old('Compose',left,right)
+def maybe(f,b):return old('Maybe',f,b)
+def old_equal(a,b):return choose(a,b,choose(b,bit(False),bit(True)))
+def trans(ty,left,middle,right,p,q):return call('Std.Eq.trans',ty,left,middle,right,p,q)
+def symmetry(ty,left,right,proof):return call('Std.Eq.symm',ty,left,right,proof)
+def congr(domain,codomain,f,left,right,proof):return call('Std.Eq.congr',domain,codomain,f,left,right,proof)
+
+
+def old_boolean_definitions():
+    """Untrusted normalization recipes for the exact retained one-bit bodies.
+
+    Every produced equality is checked against the actual seed definitions.
+    Recipes do not authorize a source fact or replace either core validator.
+    """
+    a,b,c=var('x'),var('y'),var('incoming')
+    and_=lambda x,y:choose(x,y,bit(False))
+    or_=lambda x,y:choose(x,bit(True),y)
+    not_=lambda x:choose(x,bit(False),bit(True))
+    xor=lambda x,y:choose(x,not_(y),y)
+    parity=xor(xor(a,b),c);carry=or_(and_(a,b),and_(c,xor(a,b)))
+    args=[('x',boolean()),('y',boolean()),('incoming',boolean())]
+    return [{'name':OLD+'Tree'+name+'0','kind':'definition','ty':bind('pi',args,boolean()),'value':bind('lam',args,value)} for name,value in (('Sum',parity),('Carry',carry))]
+
+
+class Bridge:
+    def __init__(self,width):
+        assert width in WIDTHS
+        self.width=width;self.depth=(width-1).bit_length();self.prefix=MODULE+'.W'+str(width)+'.';self.word_prefix=WORD+'.W'+str(width)+'.'
+        self.lib=Library();boolean_library(self.lib);boolean_theorems(self.lib);self.source_rows=[]
+        p=word_library(self.lib,width);word_theorems(self.lib,width,p)
+        self.x,self.y,self.c=var('x'),var('y'),var('incoming')
+        self.arguments=[('x',cube(self.depth)),('y',cube(self.depth)),('incoming',boolean())]
+    def name(self,n):return self.prefix+n
+    def local(self,n,*args):return call(self.name(n),*args)
+    def wc(self,n,*args):return call(self.word_prefix+n,*args)
+    def emit(self,n,args,result,proof,kind='theorem'):self.lib.emit(self.name(n),args,result,proof,kind)
+    def sub(self,x,offset,depth):
+        return app(x,*address(self.width,offset)[:self.depth-depth])
+    def carry(self,index):return self.c if index==0 else self.wc('Carry'+str(index),self.x,self.y,self.c)
+    def sum(self):return self.wc('AddCarry',self.x,self.y,self.c)
+    def tag(self,n,depth,offset):return n+str(depth)+'At'+str(offset)
+    def old_block(self,n,depth,offset):
+        return tree(n,depth,self.sub(self.x,offset,depth),self.sub(self.y,offset,depth),self.carry(offset))
+    def proof_at(self,ty,p,left,right,arguments):
+        return congr(ty,boolean(),lam('_selected',ty,app(var('_selected'),*arguments)),left,right,p)
+
+    def local_adder(self):
+        evaluator=EvaluationProof(self.lib.rows+old_boolean_definitions())
+        names=['a','b','c'];env={n:var(n) for n in names}
+        for name in ('Sum','Carry'):
+            left=lambda e,n=name:tree(n,0,e['a'],e['b'],e['c'])
+            right=lambda e,n=name:bc(n,e['a'],e['b'],e['c'])
+            ty=bind('pi',[(n,boolean()) for n in names],eq(boolean(),left(env),right(env)))
+            self.emit('Local'+name,[],ty,boolean_proof(names,left,right,evaluator))
+
+    def block(self,depth,offset):
+        size=1<<depth;x=self.sub(self.x,offset,depth);y=self.sub(self.y,offset,depth);incoming=self.carry(offset)
+        left=self.old_block('Carry',depth,offset);right=self.carry(offset+size)
+        if depth==0:
+            proof=self.local('LocalCarry',x,y,incoming)
+        else:
+            half=size//2;self.block(depth-1,offset);self.block(depth-1,offset+half)
+            xl,yl=app(x,bit(False)),app(y,bit(False));xh,yh=app(x,bit(True)),app(y,bit(True))
+            low=tree('Carry',depth-1,xl,yl,incoming);mid=self.carry(offset+half)
+            body=tree('Carry',depth-1,xh,yh,low);changed=tree('Carry',depth-1,xh,yh,mid)
+            first=tree('CarryDefinition',depth,x,y,incoming)
+            step=congr(boolean(),boolean(),lam('_low',boolean(),tree('Carry',depth-1,xh,yh,var('_low'))),low,mid,
+                self.local(self.tag('Carry',depth-1,offset),self.x,self.y,self.c))
+            last=self.local(self.tag('Carry',depth-1,offset+half),self.x,self.y,self.c)
+            proof=trans(boolean(),left,body,right,first,trans(boolean(),body,changed,right,step,last))
+        self.emit(self.tag('Carry',depth,offset),self.arguments,eq(boolean(),left,right),proof)
+        self.sum_block(depth,offset)
+        self.sign_incoming(depth,offset)
+
+    def sign_incoming(self,depth,offset):
+        x=self.sub(self.x,offset,depth);y=self.sub(self.y,offset,depth);incoming=self.carry(offset)
+        left=tree('SignIncoming',depth,x,y,incoming);right=self.carry(offset+(1<<depth)-1)
+        if depth==0:proof=refl(boolean(),incoming)
+        else:
+            half=1<<(depth-1);xh,yh=app(x,bit(True)),app(y,bit(True))
+            low=tree('Carry',depth-1,app(x,bit(False)),app(y,bit(False)),incoming);mid=self.carry(offset+half)
+            body=tree('SignIncoming',depth-1,xh,yh,low);changed=tree('SignIncoming',depth-1,xh,yh,mid)
+            p=congr(boolean(),boolean(),lam('_low',boolean(),tree('SignIncoming',depth-1,xh,yh,var('_low'))),low,mid,
+                self.local(self.tag('Carry',depth-1,offset),self.x,self.y,self.c))
+            proof=trans(boolean(),left,body,right,tree('SignIncomingDefinition',depth,x,y,incoming),
+                trans(boolean(),body,changed,right,p,self.local(self.tag('SignIncoming',depth-1,offset+half),self.x,self.y,self.c)))
+        self.emit(self.tag('SignIncoming',depth,offset),self.arguments,eq(boolean(),left,right),proof)
+
+    def sum_block(self,depth,offset):
+        x=self.sub(self.x,offset,depth);y=self.sub(self.y,offset,depth);incoming=self.carry(offset)
+        indices=['address'+str(i) for i in range(depth)];variables=[var(n) for n in indices]
+        source=tree('Sum',depth,x,y,incoming)
+        target=app(self.sum(),*(address(self.width,offset)[:self.depth-depth]+variables))
+        statement=eq(boolean(),app(source,*variables),target)
+        if depth==0:
+            # Literal address projection exposes precisely the ripple's bit i.
+            proof=self.local('LocalSum',x,y,incoming)
+        else:
+            half=1<<(depth-1);rest=[var(n) for n in indices[1:]];ty=cube(depth-1)
+            def branch(high):
+                child_offset=offset+(half if high else 0);xh,yh=app(x,bit(high)),app(y,bit(high))
+                low=tree('Carry',depth-1,app(x,bit(False)),app(y,bit(False)),incoming)
+                actual_in=low if high else incoming
+                child=tree('Sum',depth-1,xh,yh,actual_in)
+                projected=app(source,bit(high));first=old('TreeSumProjection'+str(depth)+('High' if high else 'Low'),x,y,incoming)
+                p=self.proof_at(ty,first,projected,child,rest)
+                start=app(projected,*rest);middle=app(child,*rest)
+                if high:
+                    mid=self.carry(offset+half);changed=tree('Sum',depth-1,xh,yh,mid)
+                    replacement=congr(boolean(),ty,lam('_low',boolean(),tree('Sum',depth-1,xh,yh,var('_low'))),low,mid,
+                        self.local(self.tag('Carry',depth-1,offset),self.x,self.y,self.c))
+                    step=self.proof_at(ty,replacement,child,changed,rest)
+                    p=trans(boolean(),start,middle,app(changed,*rest),p,step);middle=app(changed,*rest)
+                last=self.local(self.tag('Sum',depth-1,child_offset),self.x,self.y,self.c,*rest)
+                end=app(self.sum(),*(address(self.width,child_offset)[:self.depth-depth+1]+rest))
+                proof=trans(boolean(),start,middle,end,p,last)
+                return bind('lam',[(n,boolean()) for n in indices[1:]],proof)
+            motive=lam(indices[0],boolean(),bind('pi',[(n,boolean()) for n in indices[1:]],statement))
+            proof=lam(indices[0],boolean(),call('Std.Bool.cases',motive,branch(False),branch(True),variables[0]))
+        ty=bind('pi',self.arguments+[(n,boolean()) for n in indices],statement)
+        proof=bind('lam',self.arguments,proof)
+        self.emit(self.tag('Sum',depth,offset),[],ty,proof)
+
+    def value_congruence(self):
+        f=var('f');x,y=var('left_word'),var('right_word')
+        for d in range(self.depth+1):
+            indices=[('p'+str(i),boolean()) for i in range(d)];at_=[var(n) for n,_ in indices]
+            pointwise=bind('pi',indices,eq(boolean(),app(x,*at_),app(y,*at_)))
+            vx,vy=tree('Value',d,f,x),tree('Value',d,f,y)
+            args=[('f',function()),('left_word',cube(d)),('right_word',cube(d)),('pointwise',pointwise)]
+            if d==0:proof=congr(boolean(),function(),lam('_bit',boolean(),tree('Value',0,f,var('_bit'))),x,y,var('pointwise'))
+            else:
+                xl,yl=app(x,bit(False)),app(y,bit(False));xh,yh=app(x,bit(True)),app(y,bit(True));weight=tree('Weight',d-1,f)
+                lowx,lowy=tree('Value',d-1,f,xl),tree('Value',d-1,f,yl)
+                highx,highy=tree('Value',d-1,weight,xh),tree('Value',d-1,weight,yh)
+                lowproof=self.local('ValueCongruence'+str(d-1),f,xl,yl,app(var('pointwise'),bit(False)))
+                highproof=self.local('ValueCongruence'+str(d-1),weight,xh,yh,app(var('pointwise'),bit(True)))
+                oldbody=composition(lowx,highx);mid=composition(lowy,highx);newbody=composition(lowy,highy)
+                p=congr(function(),function(),lam('_value',function(),composition(var('_value'),highx)),lowx,lowy,lowproof)
+                q=congr(function(),function(),lam('_value',function(),composition(lowy,var('_value'))),highx,highy,highproof)
+                proof=trans(function(),vx,oldbody,vy,tree('ValueDefinition',d,f,x),
+                    trans(function(),oldbody,mid,vy,p,trans(function(),mid,newbody,vy,q,
+                        symmetry(function(),vy,newbody,tree('ValueDefinition',d,f,y)))))
+            self.emit('ValueCongruence'+str(d),args,eq(function(),vx,vy),proof)
+
+    def conservation(self):
+        d=self.depth;f=var('f');x,y,c=self.x,self.y,self.c;result=self.sum()
+        val=lambda w:tree('Value',d,f,w);weight=tree('Weight',d,f)
+        oldsum=tree('Sum',d,x,y,c);oldcarry=tree('Carry',d,x,y,c);newcarry=self.carry(self.width)
+        left=composition(val(x),composition(val(y),maybe(f,c)))
+        oldright=composition(val(oldsum),maybe(weight,oldcarry));mid=composition(val(result),maybe(weight,oldcarry));right=composition(val(result),maybe(weight,newcarry))
+        pointwise=self.local(self.tag('Sum',d,0),x,y,c)
+        values=self.local('ValueCongruence'+str(d),f,oldsum,result,pointwise)
+        p=congr(function(),function(),lam('_value',function(),composition(var('_value'),maybe(weight,oldcarry))),val(oldsum),val(result),values)
+        q=congr(boolean(),function(),lam('_carry',boolean(),composition(val(result),maybe(weight,var('_carry')))),oldcarry,newcarry,self.local(self.tag('Carry',d,0),x,y,c))
+        proof=trans(function(),left,oldright,right,tree('Addition',d,f,x,y,c),trans(function(),oldright,mid,right,p,q))
+        self.emit('Addition',[('f',function())]+self.arguments,eq(function(),left,right),proof)
+        initial=var('initial');args=[('initial',nat())]+self.arguments
+        left=app(composition(tree('Value',d,const('Std.Nat.succ'),x),composition(tree('Value',d,const('Std.Nat.succ'),y),maybe(const('Std.Nat.succ'),c))),initial)
+        right=app(composition(tree('Value',d,const('Std.Nat.succ'),result),maybe(tree('Weight',d,const('Std.Nat.succ')),newcarry)),initial)
+        p=congr(function(),nat(),lam('_value',function(),app(var('_value'),initial)),
+            composition(tree('Value',d,const('Std.Nat.succ'),x),composition(tree('Value',d,const('Std.Nat.succ'),y),maybe(const('Std.Nat.succ'),c))),
+            composition(tree('Value',d,const('Std.Nat.succ'),result),maybe(tree('Weight',d,const('Std.Nat.succ')),newcarry)),
+            self.local('Addition',const('Std.Nat.succ'),x,y,c))
+        self.emit('NatConservation',args,eq(nat(),left,right),p)
+        self.emit('UnsignedValue',[('x',cube(d))],nat(),app(tree('Value',d,const('Std.Nat.succ'),x),const('Std.Nat.zero')),'definition')
+
+    def sign_projection(self):
+        x=var('sign_word')
+        for d in range(self.depth+1):
+            left=tree('Sign',d,x);right=app(x,*[bit(True)]*d)
+            if d==0:proof=refl(boolean(),x)
+            else:
+                high=app(x,bit(True));body=tree('Sign',d-1,high)
+                proof=trans(boolean(),left,body,right,tree('SignDefinition',d,x),self.local('SignProjection'+str(d-1),high))
+            self.emit('SignProjection'+str(d),[('sign_word',cube(d))],eq(boolean(),left,right),proof)
+
+    def signed_conservation(self):
+        d=self.depth;f=var('f');x,y,c=self.x,self.y,self.c;result=self.sum();oldsum=tree('Sum',d,x,y,c)
+        signx,signy=at(x,self.width,self.width-1),at(y,self.width,self.width-1)
+        signresult=at(result,self.width,self.width-1);signoldresult=tree('Sign',d,oldsum)
+        oldin,oldout=tree('SignIncoming',d,x,y,c),tree('Carry',d,x,y,c)
+        cin,cout=self.carry(self.width-1),self.carry(self.width)
+        # Bind the retained sign-stage guard to the current ripple's exact
+        # incoming/outgoing carries, with no caller Boolean replacement.
+        self.emit('NoOverflow',self.arguments,boolean(),bc('Equal',cin,cout),'definition')
+        premise=eq(boolean(),cin,cout);oldguard=old_equal(oldin,oldout);midguard=old_equal(cin,oldout);newguard=old_equal(cin,cout)
+        p=congr(boolean(),boolean(),lam('_in',boolean(),old_equal(var('_in'),oldout)),oldin,cin,self.local(self.tag('SignIncoming',d,0),x,y,c))
+        q=congr(boolean(),boolean(),lam('_out',boolean(),old_equal(cin,var('_out'))),oldout,cout,self.local(self.tag('Carry',d,0),x,y,c))
+        diag=old_equal(cout,cout)
+        r=congr(boolean(),boolean(),lam('_in',boolean(),old_equal(var('_in'),cout)),cin,cout,var('no_overflow'))
+        env={'b':var('b')};evaluator=EvaluationProof(self.lib.rows)
+        left=lambda e:old_equal(e['b'],e['b']);right=lambda e:bit(True)
+        self.emit('OldEqualReflexive',[],pi('b',boolean(),eq(boolean(),left(env),bit(True))),boolean_proof(['b'],left,right,evaluator))
+        guard=trans(boolean(),oldguard,midguard,bit(True),p,
+            trans(boolean(),midguard,newguard,bit(True),q,trans(boolean(),newguard,diag,bit(True),r,self.local('OldEqualReflexive',cout))))
+        self.emit('RetainedSignedGuard',self.arguments+[('no_overflow',premise)],eq(boolean(),oldguard,bit(True)),guard)
+        weight=tree('Weight',d,f);val=lambda w:tree('Value',d,f,w)
+        unsigned=composition(val(x),composition(val(y),maybe(f,c)))
+        oldleft=composition(unsigned,maybe(weight,signoldresult));newleft=composition(unsigned,maybe(weight,signresult))
+        oldright=composition(val(oldsum),composition(maybe(weight,tree('Sign',d,x)),maybe(weight,tree('Sign',d,y))))
+        midright=composition(val(result),composition(maybe(weight,tree('Sign',d,x)),maybe(weight,tree('Sign',d,y))))
+        lastmid=composition(val(result),composition(maybe(weight,signx),maybe(weight,tree('Sign',d,y))))
+        newright=composition(val(result),composition(maybe(weight,signx),maybe(weight,signy)))
+        sum_bit=app(oldsum,*[bit(True)]*d)
+        signbinding=trans(boolean(),signoldresult,sum_bit,signresult,self.local('SignProjection'+str(d),oldsum),
+            self.local(self.tag('Sum',d,0),x,y,c,*[bit(True)]*d))
+        leftproof=congr(boolean(),function(),lam('_sign',boolean(),composition(unsigned,maybe(weight,var('_sign')))),signoldresult,signresult,signbinding)
+        valueproof=self.local('ValueCongruence'+str(d),f,oldsum,result,self.local(self.tag('Sum',d,0),x,y,c))
+        valuechange=congr(function(),function(),lam('_value',function(),composition(var('_value'),composition(maybe(weight,tree('Sign',d,x)),maybe(weight,tree('Sign',d,y))))),val(oldsum),val(result),valueproof)
+        xchange=congr(boolean(),function(),lam('_sign',boolean(),composition(val(result),composition(maybe(weight,var('_sign')),maybe(weight,tree('Sign',d,y))))),tree('Sign',d,x),signx,self.local('SignProjection'+str(d),x))
+        ychange=congr(boolean(),function(),lam('_sign',boolean(),composition(val(result),composition(maybe(weight,signx),maybe(weight,var('_sign'))))),tree('Sign',d,y),signy,self.local('SignProjection'+str(d),y))
+        retained=tree('SignedAddition',d,f,x,y,c,self.local('RetainedSignedGuard',x,y,c,var('no_overflow')))
+        proof=trans(function(),newleft,oldleft,newright,symmetry(function(),oldleft,newleft,leftproof),
+            trans(function(),oldleft,oldright,newright,retained,
+                trans(function(),oldright,midright,newright,valuechange,trans(function(),midright,lastmid,newright,xchange,ychange))))
+        self.emit('SignedAddition',[('f',function())]+self.arguments+[('no_overflow',premise)],eq(function(),newleft,newright),proof)
+        # The literal zero carry specializes this checked integer relation to
+        # Go addition. Both signs and the actual sign-stage guard are retained.
+        initial=var('initial');helper=EvaluationProof([])
+        fl=helper.substitute(newleft,'f',const('Std.Nat.succ'));fr=helper.substitute(newright,'f',const('Std.Nat.succ'))
+        naturalproof=congr(function(),nat(),lam('_value',function(),app(var('_value'),initial)),fl,fr,
+            self.local('SignedAddition',const('Std.Nat.succ'),x,y,c,var('no_overflow')))
+        self.emit('SignedNatConservation',[('initial',nat())]+self.arguments+[('no_overflow',premise)],eq(nat(),app(fl,initial),app(fr,initial)),naturalproof)
+        self.emit('SignedOffset',[('x',cube(d))],nat(),app(maybe(tree('Weight',d,const('Std.Nat.succ')),signx),const('Std.Nat.zero')),'definition')
+
+    def source_values(self):
+        from word_bindings import Bindings
+        data=parse(WORD_BINDINGS.read_bytes());compiler=Bindings(data['project_input'],data['function_decl_id']);model=compiler.model
+        by_hash={o['operation_hash']:o for o in data['operations']};used=[]
+        for binding in data['bindings']:
+            operation=by_hash[binding['operation_hash']]
+            if operation['op']!='GP-OP-05' or operation['parameters']['operator']!='add':continue
+            row=model.integer(operation['parameters']['type'])
+            if row['width']!=self.width:continue
+            compiler.validate(operation,binding)
+            for declaration in binding['declarations']:
+                assert declaration['name'] not in self.lib.names
+                self.lib.rows.append(declaration);self.lib.names.add(declaration['name'])
+            x,y=self.x,self.y;initial=var('initial');d=self.depth;f=const('Std.Nat.succ');weight=tree('Weight',d,f)
+            actual=call(binding['value_name'],x,y);actual_sum=self.wc('AddCarry',x,y,bit(False))
+            cout=self.wc('Carry'+str(self.width),x,y,bit(False));cin=self.wc('Carry'+str(self.width-1),x,y,bit(False))
+            unsigned=composition(tree('Value',d,f,x),composition(tree('Value',d,f,y),maybe(f,bit(False))))
+            args=[('initial',nat()),('x',cube(d)),('y',cube(d))]
+            token='SourceH'+operation['operation_hash'];value_definition=self.local(token+'ValueDefinition',x,y)
+            self.emit(token+'ValueDefinition',[('x',cube(d)),('y',cube(d))],eq(cube(d),actual,actual_sum),refl(cube(d),actual_sum))
+            reversed_value=symmetry(cube(d),actual,actual_sum,value_definition)
+            val=lambda w:tree('Value',d,f,w)
+            value_proof=congr(cube(d),function(),lam('_word',cube(d),val(var('_word'))),actual_sum,actual,reversed_value)
+            if row['signed']:
+                premise=eq(boolean(),cin,cout);args.append(('no_overflow',premise))
+                left=composition(unsigned,maybe(weight,at(actual,self.width,self.width-1)))
+                right=composition(tree('Value',d,f,actual),composition(maybe(weight,at(x,self.width,self.width-1)),maybe(weight,at(y,self.width,self.width-1))))
+                oldleft=composition(unsigned,maybe(weight,at(actual_sum,self.width,self.width-1)))
+                tail=composition(maybe(weight,at(x,self.width,self.width-1)),maybe(weight,at(y,self.width,self.width-1)))
+                oldright=composition(val(actual_sum),tail)
+                sign_proof=congr(cube(d),boolean(),lam('_word',cube(d),at(var('_word'),self.width,self.width-1)),actual_sum,actual,reversed_value)
+                change_left=congr(boolean(),nat(),lam('_sign',boolean(),app(composition(unsigned,maybe(weight,var('_sign'))),initial)),
+                    at(actual_sum,self.width,self.width-1),at(actual,self.width,self.width-1),sign_proof)
+                change_right=congr(function(),nat(),lam('_value',function(),app(composition(var('_value'),tail),initial)),val(actual_sum),val(actual),value_proof)
+                base=self.local('SignedNatConservation',initial,x,y,bit(False),var('no_overflow'))
+                proof=trans(nat(),app(left,initial),app(oldleft,initial),app(right,initial),
+                    symmetry(nat(),app(oldleft,initial),app(left,initial),change_left),
+                    trans(nat(),app(oldleft,initial),app(oldright,initial),app(right,initial),base,change_right))
+            else:
+                left=unsigned;right=composition(tree('Value',d,f,actual),maybe(weight,cout))
+                oldright=composition(val(actual_sum),maybe(weight,cout))
+                change_right=congr(function(),nat(),lam('_value',function(),app(composition(var('_value'),maybe(weight,cout)),initial)),val(actual_sum),val(actual),value_proof)
+                proof=trans(nat(),app(left,initial),app(oldright,initial),app(right,initial),self.local('NatConservation',initial,x,y,bit(False)),change_right)
+            name='SourceH'+operation['operation_hash']+'Conservation'
+            self.emit(name,args,eq(nat(),app(left,initial),app(right,initial)),proof)
+            used.append({'operation_hash':operation['operation_hash'],'source_type_id':operation['parameters']['type'],
+                'signed':row['signed'],'width':row['width'],'value_name':binding['value_name'],'theorem':self.name(name),
+                'value_definition_theorem':self.name(token+'ValueDefinition'),'source_scope_sha256':operation['source_scope_sha256'],
+                'source_evaluation_proved':False,'meaning':'arithmetic of the exact typed Value definition; no source/AST/evaluation/frame proof'})
+        return used
+
+    def build(self,source_values=True):
+        self.local_adder();self.block(self.depth,0);self.value_congruence();self.conservation();self.sign_projection();self.signed_conservation()
+        if source_values:self.source_rows=self.source_values()
+        return {'module':MODULE+'.W'+str(self.width),'declarations':self.lib.rows}
+
+
+def plan(width):return Bridge(width).build()

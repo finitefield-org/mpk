@@ -142,6 +142,13 @@ sets pass both unchanged private checkers with zero axioms;16 false/ill-typed
 controls reject. All1,640 actual ordinary-AST/Go/integer observations agree.
 Complete Nat/source correctness proofs and Go VC elaboration remain required;
 this component does not promote the preceding169 theorem requests.
+The [numeric addition bridge](../migrations/go-practical/t01-w04/word-numeric-bridge/README.md)
+now connects the actual ripple result/carries to genuine Nat conservation and
+conditional signed cross sums at all four widths,including13 exact typed Value
+constants. Both checkers accept all four sets with zero axioms. Fourteen altered
+statements reject by type mismatch; two dropped-carry candidates remain distinct
+conversion-fuel failures. All288 actual ripple/Go/big-integer observations agree.
+Remaining word/Nat/Int/contract/source proofs and complete Go elaboration stay open.
 Shared/downstream wire tables, remaining variant/source foundation,
 limits, schemas/hash identities and migration review remain open.
 T01 is incomplete and no practical Go profile is active.
