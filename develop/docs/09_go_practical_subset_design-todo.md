@@ -33,6 +33,14 @@ ordinary coupling claims in unchanged production checkers, with five accepted
 zero-axiom proofs. Typed child views share their parent's store; escaped arrays
 retain aliasing across exact source scopes. General path/exposure/lifetime/live
 counter and source proofs remain due.
+The [derived lifetime/accounting draft](../migrations/go-practical/t01-w04/storage-lifetimes/README.md)
+adds complete modeled roots for variables, entry arguments, evaluation/target
+temporaries, joint results and closed error payloads. It preserves independent
+entry/post observations, derives escape translations and reuses retired slots.
+Twelve native/model observations, 24 targeted tests and two accepted ordinary
+masked-frame/past-namespace statements support the design; three altered
+proofs reject. Source/root completeness and allocator/translation correctness
+remain unproved, and no actual Go GC or finite-carrier guarantee is claimed.
 Complete source/wire tables, remaining variant/source foundation,
 limits, schemas/hash identities and migration review remain open.
 T01 is incomplete and no practical Go profile is active.

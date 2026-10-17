@@ -62,6 +62,12 @@ remain T08–T11 work; the complete eleven-stage objective is unchanged.
   updates, sibling frames and distinct owners. The slot candidate counts
   positive root owners; complete path/exposure/lifetime/live-counter/source
   proofs and exact reference schemas remain required.
+- [Derived lifetime/slot-reuse draft](storage-lifetimes/README.md): 12 native/model
+  observations, 24 targeted tests and five ordinary candidates in unchanged
+  production checkers (two accepted, three type mismatches). Roots include
+  active entry values, pending operands/results/targets and error payloads;
+  old/post stores remain independent across reuse. Source root completeness,
+  safe retirement/translation and concrete bounded-state proofs remain due.
 
 ## Shared-family decision
 
@@ -169,7 +175,14 @@ integrity and unchanged predecessor inputs. Its
 [verification record](overlay-contracts/verification/verification.json)
 keeps candidate type acceptance distinct from source/VC/proof acceptance.
 
-The storage checkpoint's [current metadata checker](../../../probes/go-practical/check_storage_view_metadata.py)
+The storage checkpoint's [section35 metadata checker](../../../probes/go-practical/check_storage_view_metadata.py)
 checks current native/model/ordinary evidence, retained receipts and unchanged
 predecessor files. Its [verification record](storage-views/verification/verification.json)
 keeps pointwise coupling proofs distinct from complete source normalization.
+
+The lifetime checkpoint's [current metadata checker](../../../probes/go-practical/check_lifetime_metadata.py)
+checks derived-root/reuse evidence, retained owner/overlay/foundation receipts,
+planned executor scope and unchanged predecessor/diagnostic files. Its
+[verification record](storage-lifetimes/verification/verification.json)
+keeps model reachability and ordinary masked-store facts distinct from actual
+source/allocator correspondence. The cumulative T01 gate stays due in W05.

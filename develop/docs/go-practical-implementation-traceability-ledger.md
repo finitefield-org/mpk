@@ -2316,3 +2316,67 @@ and why unchanged production suites need no repeat. The cumulative T01 gate
 is deferred to W05 as required for an intermediate W. W04 remains In progress;
 no T is complete or practical Go profile active. Complete T02–T11 source,
 application and release scope remains required.
+
+## 36. T01-W04 derived live roots and reusable storage slots
+
+Entry: `cc6874975060743dde67fd399865caf6288d2b8b`, clean before this work.
+The preceding checkpoint established hierarchical owner/view coupling and
+scoped export, with complete live-root accounting still open. This checkpoint
+advances that design while preserving the full eleven-stage objective.
+
+The [lifetime/accounting draft](../migrations/go-practical/t01-w04/storage-lifetimes/README.md)
+derives roots from all active declared variables, constant entry argument
+values, pending evaluation and joint-result packets, captured targets and
+recursive root-array/struct/closed-error payload descriptors. Positive-capacity
+empty slices retain owners; nil/NoAccess values do not. Heap cells remain
+Plain under the complete global error universe. No caller live mask or escape
+list is accepted. Exact source evaluation/scope/call binding and the algorithm's
+ordinary root-completeness proof are still required.
+
+Slot reuse retains fresh semantic owner identities: a stale descriptor rejects
+instead of aliasing a new owner. Complete scope exit derives surviving escape
+references, retires dying owners before quota checks and promotes/rewrites
+shared windows atomically. Inherited caller owners remain shared and borrowed
+storage cannot become fresh. Ghost identity/history bookkeeping is not a
+bounded concrete semantic carrier; canonical finite-slot/world relations,
+local arena weights, activation/temporary limits and enforcement remain due.
+
+Active entry values retain their current-store observations after parameter
+reassignment. Past snapshots use a separate immutable store namespace. The
+same invocation's return-post snapshot is captured before retirement/escape
+translation, retaining entry/output/frame observations at that endpoint even
+if the caller later reuses a slot. Candidate snapshots/evidence are not an
+accepted serialized callee summary or a source/post/frame correctness proof.
+
+Two distinct ordinary statements quantify over arbitrary A:Sort0 data in two
+128-cell slots. A mask premise makes replacement of a dead slot preserve all
+masked reads; independent old-store reads remain unchanged by current-store
+updates. The first proof splits only the slot Boolean, without address/data
+enumeration; the second uses ordinary beta/equality rules. No extensionality,
+eta, semantic axiom or trusted computation is added. Both unchanged production
+checkers accept the two positives with zero axioms and matching hashes. Three
+altered claims weaken the mask premise or confuse masked/current/past reads
+and fail CORE_TYPE_MISMATCH. Rejection is not a certified counterexample.
+Legacy Bool/Nat certificates remain accepted.
+
+Twelve independently specified native/model observations match; 24 targeted
+tests check live slot quotas, operand/result/target roots, recursive errors,
+copies, entry/post isolation, scope escape and atomic failure. A 1,000-allocation
+loop has the native sum 499500 and model peak one positive slot. Physical Go
+address reuse, GC, OOM and whole-source bound correctness are not observed or
+proved. Observer maps/type assertions/snapshot aggregation remain outside
+verified roots. Largest ordinary candidates are3,234 bytes/352 terms/23
+declarations. The 60s sequential-child ceiling remains a private measurement.
+
+Planned practical_storage Go lowering, independent Rust storage validation and
+their tests keep the existing slice/construction ownership; root/retirement/
+translation validation is included in that responsibility. Full ordinary
+normalization/lifetime/source proofs, all limits, exact schemas/hash identities,
+independent import and migration freeze remain required.
+
+The [verification record](../migrations/go-practical/t01-w04/storage-lifetimes/verification/verification.json)
+retains selected model/native/ordinary replay, predecessor/diagnostic integrity,
+metadata, source compilation and format checks, with selection reasons.
+Unaffected production/kernel suites are not repeated. The cumulative T01 gate
+is deferred to W05. W04 remains In progress, no T is complete and no practical
+Go profile is active. T02–T11 and the full implementation/release goal remain.

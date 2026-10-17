@@ -9,6 +9,19 @@
     "peak_rss_bytes_each_child": 1073741824
   },
   "evidence": "develop/migrations/go-practical/t01-w03/sequential-resources/observations.json",
+  "lifetime_accounting_interpretation_draft": {
+    "cell_candidate": 128,
+    "model_iteration_allocations": 1000,
+    "model_iteration_peak_positive_slots": 1,
+    "native_gc_observed": false,
+    "not_a_limit_on": "cumulative source allocations, ghost owner identities/history, concrete Go addresses/GC behavior or OOM",
+    "past_observation": "separate immutable entry/post stores; active entry descriptors still root current storage until invocation exit",
+    "receipt": "develop/migrations/go-practical/t01-w04/storage-lifetimes/observations.json",
+    "slot_candidate": 2,
+    "slot_unit": "simultaneously live positive canonical owners per exact root element type, including complete modeled entry/evaluation/result/target/error roots",
+    "source_binding_proved": false,
+    "status": "draft live-owner accounting; source/root/retirement/finite-carrier proofs and numeric freeze remain open"
+  },
   "observed_resource_maxima": {
     "certificate_bytes": 698048,
     "construction": {
