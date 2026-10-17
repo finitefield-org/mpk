@@ -1,6 +1,18 @@
 {
   "delivery_scope": "all v1 priorities1–4; v2 maps/pointers remain T08–T11, full eleven-stage objective unchanged",
   "entry_commit": "7e5f94bda47968aeec938098d5e2a324370a6218",
+  "foundation_feasibility_draft": {
+    "additional_core_proposal": "Bool.recType : Sort0 -> Sort0 -> Bool -> Sort0; canonical monomorphic Bool type selection",
+    "general_sort0_strong_induction_checked": true,
+    "isolated_interface_cases": 20,
+    "legacy_regression_certificates": 3,
+    "ordinary_claims": 16,
+    "ordinary_complete_source_variant_termination_proved": false,
+    "path": "develop/migrations/go-practical/t01-w04/nat-termination/README.md",
+    "production_checker_changed": false,
+    "receipt": "develop/migrations/go-practical/t01-w04/nat-termination/observations.json",
+    "status": "private order and general Sort0 strong induction checked; W04 freeze/production integration pending"
+  },
   "open_decisions": [
     "full source/type/statement/call/effect admission matrix and review of the logical operation table against exact wire schemas",
     "typed physical-region accounting and numeric limits/enforcement; zero-access representative normalization proof and frame composition",
@@ -259,8 +271,16 @@
       "work_item": "GO-PRAC-T02-W03"
     },
     {
+      "additional_production_executors": [
+        "crates/mpk-core/src/bool_rec_type.rs",
+        "go-tools/mpk-checker-ref/bool_rec_type.go"
+      ],
+      "additional_test_owners": [
+        "crates/mpk-core/src/bool_rec_type.rs",
+        "go-tools/mpk-checker-ref/bool_rec_type_test.go"
+      ],
       "component": "core_nat",
-      "freeze_status": "draft; exact schemas/rules/vectors still required",
+      "freeze_status": "private Nat.induct and proposed Bool.recType checked; exact joint core interface and production review/freeze remain required",
       "id": "GO-V1-R019",
       "name": "nat_induction",
       "negative_boundary": "malformed/late constructors and prior/neutral/partial universe arguments reject; legacy Nat/Bool remain unchanged",
@@ -271,7 +291,7 @@
     },
     {
       "component": "foundation",
-      "freeze_status": "draft; exact schemas/rules/vectors still required",
+      "freeze_status": "ordinary arbitrary-Nat/general Sort0 strong induction checked privately; complete variant/source/binding laws and exact foundation identities remain required",
       "id": "GO-V1-R020",
       "name": "ordinary_proofs",
       "negative_boundary": "definition-only, unproved callee contracts, added axioms and fuel-as-false claims do not establish support",
@@ -375,7 +395,8 @@
     "GO_PRACTICAL_PROFILE_V1.md",
     "GO_PRACTICAL_FOUNDATION_V1.md",
     "GO_PRACTICAL_SHARED_ARTIFACTS_V1.md",
-    "CORE_NAT_INDUCTION_V1.md"
+    "CORE_NAT_INDUCTION_V1.md",
+    "CORE_BOOL_TYPE_CASES_V1.md"
   ],
   "status": "in progress; not frozen or published"
 }

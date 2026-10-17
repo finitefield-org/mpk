@@ -27,7 +27,7 @@ after reconciling the intervening shared artifacts and active registry.
 | GO-PRAC-T01-W01 | Complete | Reviewed implementation commit `bd5ee8047d8925f9c9d0f7502627fca33bb2c836`; completion audit below |
 | GO-PRAC-T01-W02 | Complete | Reviewed implementation commit `fed1cf6047f97b1f73c0fc37c5023e19f4f9f035`; 39 cases reproduced twice |
 | GO-PRAC-T01-W03 | Complete | Reviewed implementation `9d4e6fb7855a66d9fff309e6dbd9143652ee6e21`; requirement-by-requirement completion audit in section28 |
-| GO-PRAC-T01-W04 | In progress | 56 logical operations, TG/ER/ZS and EV/CT/LC rules; 49+54 native vectors and 35+52 evidence checks; complete source/overlay/limit/wire/foundation/migration freeze remains open |
+| GO-PRAC-T01-W04 | In progress | Logical/native draft plus39 private order/type/strong-induction and regression cases; complete source/overlay/limit/wire/variant/foundation/migration freeze remains open |
 | GO-PRAC-T01-W05 | Blocked by W04 | Publish inactive package, review and full T01 gate |
 | GO-PRAC-T02–T07 | Not started | Sequential v1 implementation and public release |
 | GO-PRAC-T08–T11 | Not started | Sequential v2 freeze, maps, pointers and public release |
@@ -2056,3 +2056,70 @@ review and exhaustive migration dispositions remain due. W05 owns inactive
 publication, source-model feasibility review and the cumulative T01 gate.
 No T is complete, no practical Go profile is active, and the goal remains
 the complete T01–T11 sequence.
+
+## 32. T01-W04 general Sort0 strong induction and proposed Bool type selection
+
+Entry: `b728e0f2543a894efb0b1039b4676126bbe6067a`, clean before this work.
+The preceding goal turn made progress by committing the logical operation/
+loop draft and54 native observations. This checkpoint measures a remaining
+foundation requirement without narrowing the complete eleven-stage objective.
+
+The [private proposal and evidence](../migrations/go-practical/t01-w04/nat-termination/README.md)
+derive ordinary Nat order and strong induction for arbitrary Nat counts and
+arbitrary Sort0 predicates. The step obligation remains explicit and must be
+proved by later application members. Predecessor/add/subtraction are definitions
+here; complete arithmetic/variant/range/source composition is still due.
+
+The additional core proposal is the fixed canonical
+`Bool.recType : Sort0 -> Sort0 -> Bool -> Sort0`, selecting its first type
+on false and second on true. It is a proposed trusted computation rule,
+independently implemented in private Rust/Go mirrors, not a hidden semantic
+axiom or ordinary-definition claim. Full canonical family/constructor/type
+checks, closed constructor registration and monomorphism apply, including
+neutral/partial/prior checked uses. Existing Nat.rec, Bool rules, retained
+Nat.induct, universe/eta/proof-irrelevance/normalization rules and production
+source stay intact. CORE_BOOL_TYPE_CASES_V1.md is an additional proposed
+specification owner; R019 names its planned production and independent tests.
+
+The retained report covers 16 ordinary claims (8 accepted zero-axiom, 8 altered
+candidates rejected with core type mismatch), 20 isolated interface cases
+(4 accepts, 16 malformed declaration rejections) and3 legacy certificates.
+All39 are checked from identical canonical bytes by both private verifiers.
+Accepted export/certificate/axiom hashes agree. Fresh build/replay reproduces
+binary and candidate identities. Source receipt counts are143 inputs/77
+mirrored checker files, separate from the unchanged143-file predecessor
+migration inventory.
+
+Observed maxima are4,596 bytes/464 terms/35 declarations, with slowest checker
+samples Rust0.009855s and Go0.337304s. The private 60s child ceiling changes no
+normative budget and certifies no complete application cost. Canonical Bool
+type selection uses no Bool.cases/Nat.induct fallback in its interface matrix.
+Both branches, nongenerated/wrong signatures or constructors, extra constructors,
+higher universes, active partial/neutral levels, prior opaque/theorem uses and
+unused term nodes have distinct intended boundaries.
+
+Two [intended-positive construction diagnostics](../migrations/go-practical/t01-w04/nat-type-selection-initial/observations.json)
+are retained with exact source/checker/candidate bytes. The attempted Nat type
+recursor left a computed major neutral; the corrected proposal selects Bool
+types directly. A second named History function-type alias failed application
+inference; exposing the ordinary Pi type corrected it. Neither failure is
+counted as a semantic negative or a checked proof. A mechanical name replacement
+also changed five Go field spellings in the initial build; those were corrected
+before the type-selection measurements. No production code was involved.
+
+Selected tests cover the proposed private core interface, ordinary proofs and
+affected existing elimination rules. Twenty-one report/adversarial checks pass
+(0.383s); 7 existing Rust Bool-case and7 retained Rust Nat.induct tests pass;
+4 existing Go Bool-case API and5 retained Go Nat.induct tests pass (1.232s).
+The old Bool, Nat and arbitrary-Nat invariant certificates retain both-checker
+zero-axiom acceptance. Strict JSON/source/snapshot/owner/link/format/whitespace
+checks are required at the commit boundary. The
+[verification record](../migrations/go-practical/t01-w04/nat-termination/verification/verification.json)
+retains selected commands and scope. Unchanged production suites, collection
+proof matrices and old native observations need no repeat for this proposal.
+
+W04 stays In progress. Exact joint core/foundation/overlay/wire/hash/limit and
+migration freeze, complete source variant termination and application bindings
+remain due. W05 owns inactive publication, feasibility review and the complete
+T01 gate. No T is complete or public Go profile active. T02–T11 and the full
+requested implementation/release scope remain required.

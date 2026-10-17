@@ -17,7 +17,9 @@ W04 is In progress: [draft requirements, owners, surfaces and candidate limits](
 are recorded. Root/error/empty-slice rules now have 49 original-Go vectors
 and native observations with 35 evidence checks. A 56-family logical operation
 table and evaluation/contract/loop rules add 54 native cases with 52 evidence
-checks. Complete source/overlay/wire tables, ordinary termination foundation,
+checks. Private order/general Sort0 strong induction adds 39 both-checker
+proof/interface/regression cases with a proposed fixed Bool type selector.
+Complete source/overlay/wire tables, complete variant termination foundation,
 limits, schemas/hash identities and migration review remain open.
 T01 is incomplete and no practical Go profile is active.
 

@@ -138,6 +138,12 @@ Exact declaration/instance identities and canonical proof descriptors remain
 foundation/wire freeze work; new required byte/string copy/append composition
 also remains explicit.
 
+The [next private foundation proposal](nat-termination/README.md) now checks
+the ordinary order equations and general Sort0 strong induction, with a fixed
+Bool type selector. It preserves the full predicate/count scope. Complete
+variant/range/word/source composition and the joint core/foundation identity
+freeze still remain due.
+
 ## 5. Ownership and next boundary
 
 Every operation row names its planned primary producer/test, independent

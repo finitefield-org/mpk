@@ -1,0 +1,37 @@
+{
+  "candidate_sha256": "9006c41430fb5002e4713e7feb06e9b0dabce4af3d87c68d77b933548faa1a84",
+  "classification": "CORE_NOT_A_FUNCTION in both private checkers",
+  "finding": "application inference unfolds beta/zeta but not named function-type aliases; expose the ordinary History Pi type directly in binders",
+  "observations": {
+    "go": {
+      "binary_sha256": "852fdd7d7123bf032fa7a874a6ce9ae6ace4b17df4b34a60d5b4115c5428ba84",
+      "exit_code": 1,
+      "report": {
+        "error_detail": "application 1135 argument 0 has non-pi function type app",
+        "error_kind": "core_check",
+        "verdict": "rejected"
+      }
+    },
+    "rust": {
+      "binary_sha256": "53431bf7b4c9efa1a19b7d243b7380ff93cebd9a7381d44f933a77f0ea2aadfc",
+      "exit_code": 1,
+      "report": {
+        "axiom_count": null,
+        "axiom_report": null,
+        "declaration_count": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_NOT_A_FUNCTION\",\"location\":[{\"field\":\"infer\"},{\"field\":\"app\"},{\"index\":0}],\"details\":{\"actual\":\"app\",\"argument_index\":\"0\",\"argument_term_index\":\"9\",\"function_term_index\":\"39\",\"function_type_index\":\"1233\",\"kind\":\"app_function_type_not_pi\",\"term_index\":\"1135\",\"whnf_type_index\":\"1234\"}}",
+        "hashes": {
+          "axiom_report": null,
+          "certificate": "b4579d472c00794080d6b576b4cab2e5ea2f5057748b5a3e16d7e90e4c7733f7",
+          "export": null
+        },
+        "module": null,
+        "verdict": "rejected"
+      }
+    }
+  },
+  "producer_sha256": "c30997beee17724e6586091b6a06904d3cd9f2fc5335525d3518205856eb3632",
+  "schema": "mpk.go_practical.history_alias_initial.v0",
+  "scope": "intended-positive proof construction diagnostic; not a semantic negative"
+}

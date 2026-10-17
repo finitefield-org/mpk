@@ -1,0 +1,3237 @@
+{
+  "cases": [
+    {
+      "case": {
+        "altered": false,
+        "bytes": 4552,
+        "declarations": 35,
+        "expected": "accepted",
+        "family": "less-zero",
+        "goal_debug": "Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Constant(\"Probe.GoPractical.NatTermination.Less\"), [Variable(\"m\"), Constant(\"Std.Nat.zero\")]), Constant(\"Std.Bool.false\")])",
+        "id": "less-zero-valid",
+        "scope": "ordinary arbitrary-Nat/Sort0 type and strong-induction schema; no source application or completed loop variant proof",
+        "terms": 457,
+        "theorem": "Probe.GoPractical.NatTermination.Claim"
+      },
+      "classification": "accepted_zero_axiom",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.0035139999999999998,
+          "cpu_user_seconds": 0.002987,
+          "exit_code": 0,
+          "peak_rss_bytes": 6144000,
+          "report": {
+            "declaration_count": 35,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "8ff7efb5cdd754b4a55230a7a3cd75d064cc0fe846e8224cf9c4372448c81e64",
+              "export": "20eba55a5852be64df34bd77af4b22d9c910d6d1a9b9be79641539c7fc72b9c3"
+            },
+            "module": "Probe.GoPractical.NatTermination",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.33730391605058685
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001731,
+          "cpu_user_seconds": 0.002464,
+          "exit_code": 0,
+          "peak_rss_bytes": 3162112,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 35,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "8ff7efb5cdd754b4a55230a7a3cd75d064cc0fe846e8224cf9c4372448c81e64",
+              "export": "20eba55a5852be64df34bd77af4b22d9c910d6d1a9b9be79641539c7fc72b9c3"
+            },
+            "module": "Probe.GoPractical.NatTermination",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.009502000000793487
+        }
+      },
+      "raw_sha256": "4399b2959ca1dcfe10eed5a2dce6bd8fa76d16e715cac534e7ac1c39b362199b"
+    },
+    {
+      "case": {
+        "altered": true,
+        "bytes": 4545,
+        "declarations": 35,
+        "expected": "rejected",
+        "family": "less-zero",
+        "goal_debug": "Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Constant(\"Probe.GoPractical.NatTermination.Less\"), [Variable(\"m\"), Constant(\"Std.Nat.zero\")]), Constant(\"Std.Bool.true\")])",
+        "id": "less-zero-altered",
+        "scope": "ordinary arbitrary-Nat/Sort0 type and strong-induction schema; no source application or completed loop variant proof",
+        "terms": 456,
+        "theorem": "Probe.GoPractical.NatTermination.Claim"
+      },
+      "classification": "core_type_mismatch",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.001999,
+          "cpu_user_seconds": 0.00211,
+          "exit_code": 1,
+          "peak_rss_bytes": 5455872,
+          "report": {
+            "error_detail": "term 449 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.009601458965335041
+        },
+        "rust": {
+          "cpu_system_seconds": 0.0018349999999999998,
+          "cpu_user_seconds": 0.00197,
+          "exit_code": 1,
+          "peak_rss_bytes": 3145728,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"650\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"461\",\"kind\":\"check_type_mismatch\",\"term_index\":\"449\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "90c7b3f1fbb001dad31d1053e834382de945dcd32fb64c73c307b7989cea8c4f",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.008723750011995435
+        }
+      },
+      "raw_sha256": "69ee3358c8248c62427484a017d3604444bdf36d443550091c804f90de695ce8"
+    },
+    {
+      "case": {
+        "altered": false,
+        "bytes": 4560,
+        "declarations": 35,
+        "expected": "accepted",
+        "family": "less-zero-successor",
+        "goal_debug": "Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Constant(\"Probe.GoPractical.NatTermination.Less\"), [Constant(\"Std.Nat.zero\"), Apply(Constant(\"Std.Nat.succ\"), [Variable(\"n\")])]), Constant(\"Std.Bool.true\")])",
+        "id": "less-zero-successor-valid",
+        "scope": "ordinary arbitrary-Nat/Sort0 type and strong-induction schema; no source application or completed loop variant proof",
+        "terms": 458,
+        "theorem": "Probe.GoPractical.NatTermination.Claim"
+      },
+      "classification": "accepted_zero_axiom",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.001967,
+          "cpu_user_seconds": 0.0028859999999999997,
+          "exit_code": 0,
+          "peak_rss_bytes": 6127616,
+          "report": {
+            "declaration_count": 35,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "3ea91c1d2f4d923568c12a3d8e95d5c4821a956e869547c1977914228a2bd571",
+              "export": "b464fdb67db9260f8d3effe2abd5be5d1c9dd859326787466631d264d0c9063f"
+            },
+            "module": "Probe.GoPractical.NatTermination",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.008446209016256034
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001444,
+          "cpu_user_seconds": 0.001979,
+          "exit_code": 0,
+          "peak_rss_bytes": 3211264,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 35,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "3ea91c1d2f4d923568c12a3d8e95d5c4821a956e869547c1977914228a2bd571",
+              "export": "b464fdb67db9260f8d3effe2abd5be5d1c9dd859326787466631d264d0c9063f"
+            },
+            "module": "Probe.GoPractical.NatTermination",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.008411125047132373
+        }
+      },
+      "raw_sha256": "b7313b26d4890b836c2fb098fdf96f164f929f30ec63fbca99c8236ba84c74d1"
+    },
+    {
+      "case": {
+        "altered": true,
+        "bytes": 4560,
+        "declarations": 35,
+        "expected": "rejected",
+        "family": "less-zero-successor",
+        "goal_debug": "Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Constant(\"Probe.GoPractical.NatTermination.Less\"), [Constant(\"Std.Nat.zero\"), Apply(Constant(\"Std.Nat.succ\"), [Variable(\"n\")])]), Constant(\"Std.Bool.false\")])",
+        "id": "less-zero-successor-altered",
+        "scope": "ordinary arbitrary-Nat/Sort0 type and strong-induction schema; no source application or completed loop variant proof",
+        "terms": 458,
+        "theorem": "Probe.GoPractical.NatTermination.Claim"
+      },
+      "classification": "core_type_mismatch",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.001958,
+          "cpu_user_seconds": 0.0021509999999999997,
+          "exit_code": 1,
+          "peak_rss_bytes": 5488640,
+          "report": {
+            "error_detail": "term 450 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.009361000033095479
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001665,
+          "cpu_user_seconds": 0.0019249999999999998,
+          "exit_code": 1,
+          "peak_rss_bytes": 3129344,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"1281\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"469\",\"kind\":\"check_type_mismatch\",\"term_index\":\"450\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "d15b260ff31aee31e08676e83a29b4f0e04f17403c9c7dbb1dc16a90b5e36cd0",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.009854665957391262
+        }
+      },
+      "raw_sha256": "5fcc35bc6285e93213944b00b1349413f62f568ba764d5e4ff6f50f352ed3e1d"
+    },
+    {
+      "case": {
+        "altered": false,
+        "bytes": 4583,
+        "declarations": 35,
+        "expected": "accepted",
+        "family": "less-successor-cancel",
+        "goal_debug": "Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Constant(\"Probe.GoPractical.NatTermination.Less\"), [Apply(Constant(\"Std.Nat.succ\"), [Variable(\"m\")]), Apply(Constant(\"Std.Nat.succ\"), [Variable(\"n\")])]), Apply(Constant(\"Probe.GoPractical.NatTermination.Less\"), [Variable(\"m\"), Variable(\"n\")])])",
+        "id": "less-successor-cancel-valid",
+        "scope": "ordinary arbitrary-Nat/Sort0 type and strong-induction schema; no source application or completed loop variant proof",
+        "terms": 462,
+        "theorem": "Probe.GoPractical.NatTermination.Claim"
+      },
+      "classification": "accepted_zero_axiom",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.002071,
+          "cpu_user_seconds": 0.002915,
+          "exit_code": 0,
+          "peak_rss_bytes": 6127616,
+          "report": {
+            "declaration_count": 35,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "494358d60129396dd91a28c8deb14dd2f8808de7be73a1662080c8d1c1cb6854",
+              "export": "2b50368c2bb2acfc201731045b787077c9e7dac5a326905595ef17e013efe02c"
+            },
+            "module": "Probe.GoPractical.NatTermination",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.009227790986187756
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001568,
+          "cpu_user_seconds": 0.002097,
+          "exit_code": 0,
+          "peak_rss_bytes": 3194880,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 35,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "494358d60129396dd91a28c8deb14dd2f8808de7be73a1662080c8d1c1cb6854",
+              "export": "2b50368c2bb2acfc201731045b787077c9e7dac5a326905595ef17e013efe02c"
+            },
+            "module": "Probe.GoPractical.NatTermination",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.009107999969273806
+        }
+      },
+      "raw_sha256": "eacb1a546be5b29c0ed7ecd9dfca59f2cbac9e1bab1ab4e0706a361c457f72dc"
+    },
+    {
+      "case": {
+        "altered": true,
+        "bytes": 4596,
+        "declarations": 35,
+        "expected": "rejected",
+        "family": "less-successor-cancel",
+        "goal_debug": "Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Constant(\"Probe.GoPractical.NatTermination.Less\"), [Apply(Constant(\"Std.Nat.succ\"), [Variable(\"m\")]), Apply(Constant(\"Std.Nat.succ\"), [Variable(\"n\")])]), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Constant(\"Probe.GoPractical.NatTermination.Less\"), [Variable(\"m\"), Variable(\"n\")])])])",
+        "id": "less-successor-cancel-altered",
+        "scope": "ordinary arbitrary-Nat/Sort0 type and strong-induction schema; no source application or completed loop variant proof",
+        "terms": 464,
+        "theorem": "Probe.GoPractical.NatTermination.Claim"
+      },
+      "classification": "core_type_mismatch",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.002237,
+          "cpu_user_seconds": 0.002251,
+          "exit_code": 1,
+          "peak_rss_bytes": 5570560,
+          "report": {
+            "error_detail": "term 1287 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.009726041986141354
+        },
+        "rust": {
+          "cpu_system_seconds": 0.0016049999999999999,
+          "cpu_user_seconds": 0.00195,
+          "exit_code": 1,
+          "peak_rss_bytes": 3145728,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"1284\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"1297\",\"kind\":\"check_type_mismatch\",\"term_index\":\"1287\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "526a520235a4fc59332a10c6a9eb62b0999ac037a2830595fdcc611c7f9a14fb",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.00951291702222079
+        }
+      },
+      "raw_sha256": "81459f4c63eb221574158ab44e48834399761608a1b718588dae7f5d2be9e1ac"
+    },
+    {
+      "case": {
+        "altered": false,
+        "bytes": 4583,
+        "declarations": 35,
+        "expected": "accepted",
+        "family": "less-irreflexive",
+        "goal_debug": "Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Constant(\"Probe.GoPractical.NatTermination.Less\"), [Variable(\"n\"), Variable(\"n\")]), Constant(\"Std.Bool.false\")])",
+        "id": "less-irreflexive-valid",
+        "scope": "ordinary arbitrary-Nat/Sort0 type and strong-induction schema; no source application or completed loop variant proof",
+        "terms": 462,
+        "theorem": "Probe.GoPractical.NatTermination.Claim"
+      },
+      "classification": "accepted_zero_axiom",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.002036,
+          "cpu_user_seconds": 0.00298,
+          "exit_code": 0,
+          "peak_rss_bytes": 6127616,
+          "report": {
+            "declaration_count": 35,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "0daaeefd466f2c35325797ea4a5d872def9023890dd9190690de35d2de4e3b08",
+              "export": "b464fdb67db9260f8d3effe2abd5be5d1c9dd859326787466631d264d0c9063f"
+            },
+            "module": "Probe.GoPractical.NatTermination",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.009445292002055794
+        },
+        "rust": {
+          "cpu_system_seconds": 0.0014939999999999999,
+          "cpu_user_seconds": 0.002008,
+          "exit_code": 0,
+          "peak_rss_bytes": 3211264,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 35,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "0daaeefd466f2c35325797ea4a5d872def9023890dd9190690de35d2de4e3b08",
+              "export": "b464fdb67db9260f8d3effe2abd5be5d1c9dd859326787466631d264d0c9063f"
+            },
+            "module": "Probe.GoPractical.NatTermination",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.009595792042091489
+        }
+      },
+      "raw_sha256": "dbbe9bc538daa1adfe706a61db20fc44aa67389504a480569f946514e4dcef68"
+    },
+    {
+      "case": {
+        "altered": true,
+        "bytes": 4590,
+        "declarations": 35,
+        "expected": "rejected",
+        "family": "less-irreflexive",
+        "goal_debug": "Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Constant(\"Probe.GoPractical.NatTermination.Less\"), [Variable(\"n\"), Variable(\"n\")]), Constant(\"Std.Bool.true\")])",
+        "id": "less-irreflexive-altered",
+        "scope": "ordinary arbitrary-Nat/Sort0 type and strong-induction schema; no source application or completed loop variant proof",
+        "terms": 463,
+        "theorem": "Probe.GoPractical.NatTermination.Claim"
+      },
+      "classification": "core_type_mismatch",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.0021119999999999997,
+          "cpu_user_seconds": 0.002147,
+          "exit_code": 1,
+          "peak_rss_bytes": 5636096,
+          "report": {
+            "error_detail": "term 1287 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.009320334007497877
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001694,
+          "cpu_user_seconds": 0.002028,
+          "exit_code": 1,
+          "peak_rss_bytes": 3178496,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"1281\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"1290\",\"kind\":\"check_type_mismatch\",\"term_index\":\"1287\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "5cbae76d96c62b94bbca1b48c0dad077407727496844cf2691add8a7e6c486ad",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.009606457955669612
+        }
+      },
+      "raw_sha256": "48ebc2be6dd496acc19f4fb9771f1c3e23a2db799d6fe2b0a17eaca5934aae21"
+    },
+    {
+      "case": {
+        "altered": false,
+        "bytes": 4560,
+        "declarations": 35,
+        "expected": "accepted",
+        "family": "strong-induction",
+        "goal_debug": "Apply(Variable(\"P\"), [Variable(\"n\")])",
+        "id": "strong-induction-valid",
+        "scope": "ordinary arbitrary-Nat/Sort0 type and strong-induction schema; no source application or completed loop variant proof",
+        "terms": 459,
+        "theorem": "Probe.GoPractical.NatTermination.Claim"
+      },
+      "classification": "accepted_zero_axiom",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.0019979999999999998,
+          "cpu_user_seconds": 0.002882,
+          "exit_code": 0,
+          "peak_rss_bytes": 6225920,
+          "report": {
+            "declaration_count": 35,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "e681599e4511585147a01e08abb4234b36241ea15e5265575e76835f2b25c2b5",
+              "export": "d4f4212e00366eb80a8b3bf8324a06ed5b9e30a9cb31d1f800eed3875090fea5"
+            },
+            "module": "Probe.GoPractical.NatTermination",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.008615875034593046
+        },
+        "rust": {
+          "cpu_system_seconds": 0.0016799999999999999,
+          "cpu_user_seconds": 0.0020239999999999998,
+          "exit_code": 0,
+          "peak_rss_bytes": 3227648,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 35,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "e681599e4511585147a01e08abb4234b36241ea15e5265575e76835f2b25c2b5",
+              "export": "d4f4212e00366eb80a8b3bf8324a06ed5b9e30a9cb31d1f800eed3875090fea5"
+            },
+            "module": "Probe.GoPractical.NatTermination",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.009469999989960343
+        }
+      },
+      "raw_sha256": "72bc062c454db93629162344051116277ed5b68273c91b216b3114a7940d08eb"
+    },
+    {
+      "case": {
+        "altered": true,
+        "bytes": 4586,
+        "declarations": 35,
+        "expected": "rejected",
+        "family": "strong-induction",
+        "goal_debug": "Apply(Variable(\"P\"), [Variable(\"n\")])",
+        "id": "strong-induction-altered",
+        "scope": "ordinary arbitrary-Nat/Sort0 type and strong-induction schema; no source application or completed loop variant proof",
+        "terms": 464,
+        "theorem": "Probe.GoPractical.NatTermination.Claim"
+      },
+      "classification": "core_type_mismatch",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.001896,
+          "cpu_user_seconds": 0.002121,
+          "exit_code": 1,
+          "peak_rss_bytes": 5455872,
+          "report": {
+            "error_detail": "term 8 inferred pi but expected pi",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.008463417005259544
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001423,
+          "cpu_user_seconds": 0.001857,
+          "exit_code": 1,
+          "peak_rss_bytes": 3112960,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"pi\",\"expected_term_index\":\"1153\",\"inferred_kind\":\"pi\",\"inferred_term_index\":\"1293\",\"kind\":\"check_type_mismatch\",\"term_index\":\"8\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "a0149153533622cf11d6526829558fca32536c5babaec3704fba3d54d50d0518",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.009435333020519465
+        }
+      },
+      "raw_sha256": "fc34b08baecdeccc0217e95e8f4a822e64d7015603b03fe55de4a37ae3d9a649"
+    },
+    {
+      "case": {
+        "altered": false,
+        "bytes": 4557,
+        "declarations": 35,
+        "expected": "accepted",
+        "family": "type-select-zero",
+        "goal_debug": "Apply(Constant(\"Probe.GoPractical.NatTermination.TypeSelect\"), [Constant(\"Std.Bool.false\"), Variable(\"A\"), Constant(\"Std.Bool\")])",
+        "id": "type-select-zero-valid",
+        "scope": "ordinary arbitrary-Nat/Sort0 type and strong-induction schema; no source application or completed loop variant proof",
+        "terms": 459,
+        "theorem": "Probe.GoPractical.NatTermination.Claim"
+      },
+      "classification": "accepted_zero_axiom",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.0018629999999999999,
+          "cpu_user_seconds": 0.002779,
+          "exit_code": 0,
+          "peak_rss_bytes": 6193152,
+          "report": {
+            "declaration_count": 35,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "25581e5bdc688f3df1c858de6a9c58cd02352a3abe5505b334834b3e3740c029",
+              "export": "b464fdb67db9260f8d3effe2abd5be5d1c9dd859326787466631d264d0c9063f"
+            },
+            "module": "Probe.GoPractical.NatTermination",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.008434082963503897
+        },
+        "rust": {
+          "cpu_system_seconds": 0.0015409999999999998,
+          "cpu_user_seconds": 0.002035,
+          "exit_code": 0,
+          "peak_rss_bytes": 3178496,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 35,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "25581e5bdc688f3df1c858de6a9c58cd02352a3abe5505b334834b3e3740c029",
+              "export": "b464fdb67db9260f8d3effe2abd5be5d1c9dd859326787466631d264d0c9063f"
+            },
+            "module": "Probe.GoPractical.NatTermination",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.009426125034224242
+        }
+      },
+      "raw_sha256": "74d9612355604f8b6137237c619e320ef88aea5fdbff178b15f6788cf7e0da26"
+    },
+    {
+      "case": {
+        "altered": true,
+        "bytes": 4557,
+        "declarations": 35,
+        "expected": "rejected",
+        "family": "type-select-zero",
+        "goal_debug": "Apply(Constant(\"Probe.GoPractical.NatTermination.TypeSelect\"), [Constant(\"Std.Bool.true\"), Variable(\"A\"), Constant(\"Std.Bool\")])",
+        "id": "type-select-zero-altered",
+        "scope": "ordinary arbitrary-Nat/Sort0 type and strong-induction schema; no source application or completed loop variant proof",
+        "terms": 459,
+        "theorem": "Probe.GoPractical.NatTermination.Claim"
+      },
+      "classification": "core_type_mismatch",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.001826,
+          "cpu_user_seconds": 0.0020859999999999997,
+          "exit_code": 1,
+          "peak_rss_bytes": 5521408,
+          "report": {
+            "error_detail": "term 7 inferred var but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.007906957995146513
+        },
+        "rust": {
+          "cpu_system_seconds": 0.0014759999999999999,
+          "cpu_user_seconds": 0.00189,
+          "exit_code": 1,
+          "peak_rss_bytes": 3129344,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"1280\",\"inferred_kind\":\"var\",\"inferred_term_index\":\"8\",\"kind\":\"check_type_mismatch\",\"term_index\":\"7\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "a2e6f1c74364dc86bed263028b23e7ebe2bc0b4fd686170f0f8a685116460c17",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.00933387503027916
+        }
+      },
+      "raw_sha256": "5ef0943d83e76f875a0962da30d51ceafe6f41575159b04e5618742b240bd311"
+    },
+    {
+      "case": {
+        "altered": false,
+        "bytes": 4543,
+        "declarations": 35,
+        "expected": "accepted",
+        "family": "type-select-successor",
+        "goal_debug": "Apply(Constant(\"Probe.GoPractical.NatTermination.TypeSelect\"), [Constant(\"Std.Bool.true\"), Constant(\"Std.Bool\"), Constant(\"Std.Nat\")])",
+        "id": "type-select-successor-valid",
+        "scope": "ordinary arbitrary-Nat/Sort0 type and strong-induction schema; no source application or completed loop variant proof",
+        "terms": 455,
+        "theorem": "Probe.GoPractical.NatTermination.Claim"
+      },
+      "classification": "accepted_zero_axiom",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.002253,
+          "cpu_user_seconds": 0.002967,
+          "exit_code": 0,
+          "peak_rss_bytes": 6209536,
+          "report": {
+            "declaration_count": 35,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "67baef4cf186240e4cb82584d13f4160652b8c2a6f940d52f08b2ac341dd588c",
+              "export": "51de0ce9e17a2df6bd320f96c436442da97ffcddb188db6e5ffaf27c13b2404a"
+            },
+            "module": "Probe.GoPractical.NatTermination",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.009956332971341908
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001611,
+          "cpu_user_seconds": 0.002061,
+          "exit_code": 0,
+          "peak_rss_bytes": 3162112,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 35,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "67baef4cf186240e4cb82584d13f4160652b8c2a6f940d52f08b2ac341dd588c",
+              "export": "51de0ce9e17a2df6bd320f96c436442da97ffcddb188db6e5ffaf27c13b2404a"
+            },
+            "module": "Probe.GoPractical.NatTermination",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.009425166994333267
+        }
+      },
+      "raw_sha256": "1c554844a06974d55c06c20f9ff982daca7451c2254d3c99dc472dcca98ac904"
+    },
+    {
+      "case": {
+        "altered": true,
+        "bytes": 4543,
+        "declarations": 35,
+        "expected": "rejected",
+        "family": "type-select-successor",
+        "goal_debug": "Apply(Constant(\"Probe.GoPractical.NatTermination.TypeSelect\"), [Constant(\"Std.Bool.false\"), Constant(\"Std.Bool\"), Constant(\"Std.Nat\")])",
+        "id": "type-select-successor-altered",
+        "scope": "ordinary arbitrary-Nat/Sort0 type and strong-induction schema; no source application or completed loop variant proof",
+        "terms": 455,
+        "theorem": "Probe.GoPractical.NatTermination.Claim"
+      },
+      "classification": "core_type_mismatch",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.0021809999999999998,
+          "cpu_user_seconds": 0.002189,
+          "exit_code": 1,
+          "peak_rss_bytes": 5455872,
+          "report": {
+            "error_detail": "term 483 inferred const but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.009123958996497095
+        },
+        "rust": {
+          "cpu_system_seconds": 0.0014529999999999999,
+          "cpu_user_seconds": 0.001898,
+          "exit_code": 1,
+          "peak_rss_bytes": 3129344,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"1280\",\"inferred_kind\":\"const\",\"inferred_term_index\":\"477\",\"kind\":\"check_type_mismatch\",\"term_index\":\"483\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "a5cba6ba81fba983d926310232aa54fa061373a9c1ae64349bba45bb2841e897",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.008911082986742258
+        }
+      },
+      "raw_sha256": "48bb5293a1ca3b1fd6392422281f93ddd0acae7adfd293df804c07ba5d77f088"
+    },
+    {
+      "case": {
+        "altered": false,
+        "bytes": 4550,
+        "declarations": 35,
+        "expected": "accepted",
+        "family": "false-elimination",
+        "goal_debug": "Variable(\"A\")",
+        "id": "false-elimination-valid",
+        "scope": "ordinary arbitrary-Nat/Sort0 type and strong-induction schema; no source application or completed loop variant proof",
+        "terms": 457,
+        "theorem": "Probe.GoPractical.NatTermination.Claim"
+      },
+      "classification": "accepted_zero_axiom",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.001996,
+          "cpu_user_seconds": 0.002846,
+          "exit_code": 0,
+          "peak_rss_bytes": 6209536,
+          "report": {
+            "declaration_count": 35,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "030e49e94bc815f6c0b51b4c788c8acf1fa9df2e36214cc503bb1161c98085a7",
+              "export": "cd26c287f735d414347f07e65c370f87f35fb6d518d3f4aea9512255b8fea665"
+            },
+            "module": "Probe.GoPractical.NatTermination",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.008411249960772693
+        },
+        "rust": {
+          "cpu_system_seconds": 0.0015769999999999998,
+          "cpu_user_seconds": 0.002046,
+          "exit_code": 0,
+          "peak_rss_bytes": 3194880,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 35,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "030e49e94bc815f6c0b51b4c788c8acf1fa9df2e36214cc503bb1161c98085a7",
+              "export": "cd26c287f735d414347f07e65c370f87f35fb6d518d3f4aea9512255b8fea665"
+            },
+            "module": "Probe.GoPractical.NatTermination",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.009559792000800371
+        }
+      },
+      "raw_sha256": "0e2c070f81db620d36760b39b41005d30b04a68a68566b67ecf6a0875ab6dab0"
+    },
+    {
+      "case": {
+        "altered": true,
+        "bytes": 4564,
+        "declarations": 35,
+        "expected": "rejected",
+        "family": "false-elimination",
+        "goal_debug": "Variable(\"A\")",
+        "id": "false-elimination-altered",
+        "scope": "ordinary arbitrary-Nat/Sort0 type and strong-induction schema; no source application or completed loop variant proof",
+        "terms": 460,
+        "theorem": "Probe.GoPractical.NatTermination.Claim"
+      },
+      "classification": "core_type_mismatch",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.001722,
+          "cpu_user_seconds": 0.002038,
+          "exit_code": 1,
+          "peak_rss_bytes": 5570560,
+          "report": {
+            "error_detail": "term 7 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.00825254200026393
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001434,
+          "cpu_user_seconds": 0.0018969999999999998,
+          "exit_code": 1,
+          "peak_rss_bytes": 3145728,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"566\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"469\",\"kind\":\"check_type_mismatch\",\"term_index\":\"7\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "1ebd28eb7ea1513f5aecb8a83d978ed076bb8cd1fe16c8a8f2bd8761fa849871",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.009190665965434164
+        }
+      },
+      "raw_sha256": "65109d77c5d865d29e34e91aeb0f9958ac41fe074a464ced4b58fb04f67a13a8"
+    }
+  ],
+  "ceiling_scope": "private measurement setting, not normative profile limits",
+  "checker_binaries": {
+    "go": "0bbf38aeb992220938698cbb810e82fc55e2797a184ec7bd35fb37400c6a5d92",
+    "rust": "d830412f839da7c47ace710202225f00e07e97dc99beaed7d0b24937a49545d1"
+  },
+  "child_ceiling_seconds": 60,
+  "direct_child_parallelism": 1,
+  "generations": [
+    {
+      "cpu_system_seconds": 0.008216,
+      "cpu_user_seconds": 0.01072,
+      "exit_code": 0,
+      "peak_rss_bytes": 3735552,
+      "resource_provider": "Darwin os.wait4 child rusage",
+      "stderr": "",
+      "stdout": "",
+      "wall_seconds": 0.3786437090020627
+    },
+    {
+      "cpu_system_seconds": 0.0066879999999999995,
+      "cpu_user_seconds": 0.009288,
+      "exit_code": 0,
+      "peak_rss_bytes": 3751936,
+      "resource_provider": "Darwin os.wait4 child rusage",
+      "stderr": "",
+      "stdout": "",
+      "wall_seconds": 0.02235304203350097
+    }
+  ],
+  "host_toolchain_inventory": {
+    "files": 14496,
+    "sha256": "85d1dd7ca77c9263d83e25f05e4c32105738fdc002434d61b27671aee4e259bc"
+  },
+  "inputs": [
+    {
+      "path": "crates/mpk-cert/Cargo.toml",
+      "sha256": "b99ff7fde6a4f0cb50a091eb02997c97d5f2e934b42eddfd375f53b96bfc3a47"
+    },
+    {
+      "path": "crates/mpk-cert/src/axiom_report.rs",
+      "sha256": "cae850ba9adf8f52485f25d3322a479e5effb3b5044c4998b8dbe10e395e9843"
+    },
+    {
+      "path": "crates/mpk-cert/src/binary_tags.rs",
+      "sha256": "f557165a3d1fad17ea5c4b5ad27b92170dbb203931b30ef157e22856d5f2616b"
+    },
+    {
+      "path": "crates/mpk-cert/src/canonical.rs",
+      "sha256": "704d3f04bf3219cbc9bca5b7ca8b4ff6723bc834d777fcf5219ecc900c2b8e74"
+    },
+    {
+      "path": "crates/mpk-cert/src/cert_basic.rs",
+      "sha256": "ca8e2bd5c7ffbc5c54e51a1e65eb2f2b559b5d6f8efd6a0d74581197d8d7e295"
+    },
+    {
+      "path": "crates/mpk-cert/src/decode.rs",
+      "sha256": "e77619d5d464db0e5d5538b1349c1cb1b1d8b39da227c3f7aa36fbb5e9d11a13"
+    },
+    {
+      "path": "crates/mpk-cert/src/encode.rs",
+      "sha256": "406c310d53e464c9fe0f079e4186a0501e2eb84fae6c443d40d029d53a2beecf"
+    },
+    {
+      "path": "crates/mpk-cert/src/export.rs",
+      "sha256": "b846726ef91b02583aee70849459c5856ea14cebaee226a5d71fedb0a61da2cd"
+    },
+    {
+      "path": "crates/mpk-cert/src/hash.rs",
+      "sha256": "dc80a4db8fbd2965093daa90d4b32cebc8116659a95323df987ebeaa7dec2a83"
+    },
+    {
+      "path": "crates/mpk-cert/src/imports.rs",
+      "sha256": "3b2edcf9305e5a5ed355fe194219826c97571da0ca47656562cf4bdde2983183"
+    },
+    {
+      "path": "crates/mpk-cert/src/lib.rs",
+      "sha256": "38b44e99c13ea9a76c0c08c8a1cfd1ec23922b33c9d252a96beef59f8634b553"
+    },
+    {
+      "path": "crates/mpk-core/Cargo.toml",
+      "sha256": "7d23784732e23fd78029884f2b9a5bc6200e7192c31ae10ada567e61a15607a3"
+    },
+    {
+      "path": "crates/mpk-core/src/bool_cases.rs",
+      "sha256": "b920fd682eaa4de8d93dc0a143b8d1241b1240fc7294425c8792dfd811756f01"
+    },
+    {
+      "path": "crates/mpk-core/src/context.rs",
+      "sha256": "e426d6d43b99106bd80c8e946325b1f8d712109865f6b8c340146908d273352d"
+    },
+    {
+      "path": "crates/mpk-core/src/decl_check.rs",
+      "sha256": "8a6afd03f5e19831815f59b069f319cfd947ce123b8ad10e29d511c869f43783"
+    },
+    {
+      "path": "crates/mpk-core/src/defeq.rs",
+      "sha256": "940fd74971a889239e8168fb13fd5cf9099e4efdbac1c2ffbce5780724a2c270"
+    },
+    {
+      "path": "crates/mpk-core/src/env.rs",
+      "sha256": "ed50466ecf9e1c6f1549022aa61812c1561cd725325633931a57efb1715ae5b8"
+    },
+    {
+      "path": "crates/mpk-core/src/error.rs",
+      "sha256": "76bbf92e086713711c26310fd2f02f58bf5a1d298251cd93c66e4af0c14189bb"
+    },
+    {
+      "path": "crates/mpk-core/src/inductive.rs",
+      "sha256": "41bc938dfdb03ef8a8973a9abecd917171e25efc55c58ebeb43bf4b8ad59be9d"
+    },
+    {
+      "path": "crates/mpk-core/src/inductive_gen.rs",
+      "sha256": "4758d3cf280f0d9c107e4af886f0880fd29670e9a23f2ddffa7728f958075cc2"
+    },
+    {
+      "path": "crates/mpk-core/src/infer.rs",
+      "sha256": "7cf169404b6fdd251e7884056c7204e285da904780d1e3ea9ca642d4c87991bd"
+    },
+    {
+      "path": "crates/mpk-core/src/level.rs",
+      "sha256": "00b030888a20ae9015c94968e8e4dc63f8c924224df36d3a186ba9d4dcfff1ad"
+    },
+    {
+      "path": "crates/mpk-core/src/lib.rs",
+      "sha256": "a0488ee47d656918dc05a7909bfb87a4ed970388600fced26e8eea5b73ba637f"
+    },
+    {
+      "path": "crates/mpk-core/src/name.rs",
+      "sha256": "6a6c8659f556bb63d782ca4aa9c465b05a7b8987327a2e02cbbb95669ca15e99"
+    },
+    {
+      "path": "crates/mpk-core/src/positivity.rs",
+      "sha256": "5ad6d3d072a8db9bba5c98b02a0d9da9e096faca1836762aecf4cebb1ad460bd"
+    },
+    {
+      "path": "crates/mpk-core/src/reduce.rs",
+      "sha256": "bbd58360f97eba191a9c12208e1488668ed8b39c96be6d354065a7c4d9c02d37"
+    },
+    {
+      "path": "crates/mpk-core/src/reduce_inductive.rs",
+      "sha256": "123277c8989902c207d6b0fec994ff5c4223fe5bcc9a331bc381f7dc4412492f"
+    },
+    {
+      "path": "crates/mpk-core/src/subst.rs",
+      "sha256": "e1843f9aafe2d4349bf6bd8a1bcfff4eb39c318c87e37b47a36c23cb8e2cd23f"
+    },
+    {
+      "path": "crates/mpk-core/src/term.rs",
+      "sha256": "4fcd1dba9916b8b3d22ffabd889c2949bb14cf468420b5e839b779108e91bb60"
+    },
+    {
+      "path": "crates/mpk-kernel/Cargo.toml",
+      "sha256": "3226dc567ef89c9488b61e6c79df2134eb7b1dd36c7cbe19abb3e3e7916ac826"
+    },
+    {
+      "path": "crates/mpk-kernel/src/bool_cases_tests.rs",
+      "sha256": "1ec5b21c3a581fcdd0fd234f7a25c26651958b1f9f96792061fd9936395ca460"
+    },
+    {
+      "path": "crates/mpk-kernel/src/cache.rs",
+      "sha256": "fb9bd805c365f6f614e2f0cb432bc92964e78faa4749df15ad62c4a82ed767ad"
+    },
+    {
+      "path": "crates/mpk-kernel/src/decl_driver.rs",
+      "sha256": "afe75c89bb7e43bb4a73c56aaa4a1bddc20c8ba789066fae5f0f27b7839278c3"
+    },
+    {
+      "path": "crates/mpk-kernel/src/json_output.rs",
+      "sha256": "82992d18824fd25f7c1fcd58d569e4e339bda8be2f60588bb20d2537b9b6cdb5"
+    },
+    {
+      "path": "crates/mpk-kernel/src/lib.rs",
+      "sha256": "ff4c1550532e2896bce4374145242f9a54d24502c8f2a79454067d664c383d72"
+    },
+    {
+      "path": "crates/mpk-kernel/src/profile.rs",
+      "sha256": "e44ce30ffbc29617073456ce8dd9bd46ce731549c423a01a747c82542cffc580"
+    },
+    {
+      "path": "crates/mpk-kernel/src/proof_check.rs",
+      "sha256": "27e8f109d9241cee011984021d74f57088f4ebf30012a858e0fe6416cae96027"
+    },
+    {
+      "path": "crates/mpk-kernel/src/proof_structural.rs",
+      "sha256": "6117063aa07e3ac5882ebba60ab907518a2c9844f96d35887f5a31c8d66906c0"
+    },
+    {
+      "path": "crates/mpk-kernel/src/proof_theory.rs",
+      "sha256": "81d52c5be4e325c3cccb1d6e0096b0e118f245f53234d5496dfdac066fee95af"
+    },
+    {
+      "path": "crates/mpk-kernel/src/verifier.rs",
+      "sha256": "e8932a62713b8f8af18a980093a6ff162b3510b4b4e7da924d9b421552a9e3f2"
+    },
+    {
+      "path": "crates/mpk-kernel/tests/certificate_decoder_fuzz_smoke.rs",
+      "sha256": "bd7589eb77846f61a1958ce539e2edbace4d422aaaed096e3c12f49c7b2288e0"
+    },
+    {
+      "path": "crates/mpk-kernel/tests/fast_kernel_profile.rs",
+      "sha256": "c8b68b7a4b22fbe9b23a02c5609cb083be7c843f3521f7e6f05f38c1caf06b88"
+    },
+    {
+      "path": "crates/mpk-kernel/tests/theory_certificate_encoders.rs",
+      "sha256": "568342571c0d9971c4e2b2a6ce6c38d12e957a81e722e2962574088cb3968cc4"
+    },
+    {
+      "path": "crates/mpk-kernel/tests/theory_certificate_fuzz_smoke.rs",
+      "sha256": "e793e24646335a47cba9465046835bed86ba413d7d5384a9cbc53f88c67e2cc1"
+    },
+    {
+      "path": "crates/mpk-theory/Cargo.toml",
+      "sha256": "120227c9b1a0bbbe48e146d6d2412793b9e357cb43e7d21585c760a268081908"
+    },
+    {
+      "path": "crates/mpk-theory/src/array_cert.rs",
+      "sha256": "7b6261cbedc9200ffe8ce5513374e2c14aa6b999926607e450440e26bb25cace"
+    },
+    {
+      "path": "crates/mpk-theory/src/bitvec_eval.rs",
+      "sha256": "3fa7578174f4e3a489d395653687899d1d06fc59780b9224d652638b7d589ac4"
+    },
+    {
+      "path": "crates/mpk-theory/src/bool_cert.rs",
+      "sha256": "17bcac0225e8281ecf754115734cf254addf87bc44a6da4fddaebabbea226c14"
+    },
+    {
+      "path": "crates/mpk-theory/src/lib.rs",
+      "sha256": "10719601e65de998218739cd2b5b61a6bf69df6692c1b829c307c6cf57d61ccd"
+    },
+    {
+      "path": "crates/mpk-theory/src/linarith_cert.rs",
+      "sha256": "3606832e69432a08295e014f0810e5f20aa7d10fdef2bc8789448ebf98d6895a"
+    },
+    {
+      "path": "develop/migrations/csharp-03/probes/boolean-proof-elimination-logs/producer/builder.rs",
+      "sha256": "dd3a7ec39bb7aa86663a71fdc9ff55197e5f64df86a9adfd3cac41b7c9d90db3"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/main.rs",
+      "sha256": "30f6276e54f49f6b6d51b04aeb42150f11ad42182a8b6d4a6d4d82af18fde257"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/natural.rs",
+      "sha256": "ab70591c8fcaacbe09b24776e95bc381055200ffd11e5d19c367fc2434d19e20"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word.rs",
+      "sha256": "d7c6bf2c68c4fcca0d9a111801d15cca64806cd4d4666c23b0b35cee1a547826"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced.rs",
+      "sha256": "613e28fd7c0188fc2ef49d8452610a1492a093d5cf4a99f4191fe3da25eb8313"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed.rs",
+      "sha256": "fe1a7afc6be4a264844101ef9c0cda781543c651b3b4242d17c94472273d2729"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes.rs",
+      "sha256": "66e3961995d9dc5dd836eefa1e3f762b7f8afbd825a49100a279ad78b221d959"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds.rs",
+      "sha256": "9ae75866e7315aca7bd531d09da4ccf4a24519a26c6cca172eb4fe77418906c1"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/coverage.rs",
+      "sha256": "5ce6eb686f3b2231fa650ef1495fc9ddef88d1165ec1562b196e5f10d8af1610"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices.rs",
+      "sha256": "63fe8df6b803f9d885ac9659e0915bf3dfbd3a6a0e4afebf1f63442ffa496784"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access.rs",
+      "sha256": "e33d56d0ef4c36f6219c5e05e3b467639e2c560889150f3535b06f3285db7962"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity.rs",
+      "sha256": "d7986e03fc3e5e90f595002c2e706d719568cc1c51df9d7d7751575d63c1380e"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/embedding.rs",
+      "sha256": "39f3ef83ae8d1eb4916a4cef20403382ace335294ddd01678be906f4cceb7ff6"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice.rs",
+      "sha256": "c4c90026cd3b86873eeab2397ab9fd73ad66634ba76f2fc9354f8a76d04348f7"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/arith.rs",
+      "sha256": "903c68c44f93e3caf1ca2d8ca99a9d93bc42c64044b51c239d529a2a513c8c89"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/assoc.rs",
+      "sha256": "23f441a888c555b1ef335c28122366718b217681d3a98f645ed44cd89ba4106e"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying.rs",
+      "sha256": "5523909155b80740f88bcac2eea910ca315013e9e2a1b608da43e56b3fc4006b"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction.rs",
+      "sha256": "6587ef8f5cd707e976218e7ed824f9c1a18c628c9c2e5bf7d565bb25154aba0d"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/appended.rs",
+      "sha256": "1be6f2e82e5062629b00489ae47c26232e83869b410e099bd1e67e53283f98c7"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/appended/emit.rs",
+      "sha256": "f9e2763ad5463f4dee39394ff43b99d578fc08ab46bb7381fe372d113f65e95e"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/appended/indices.rs",
+      "sha256": "533049f98d496edb606f21ae4a1797227f2acf062ad493a950126b32845cf7f1"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/appended/reads.rs",
+      "sha256": "26b111790fcde91173b6472269abed36efae0c6ac2d027460566fe26ecf5d736"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/appended/validity.rs",
+      "sha256": "a730f529dd364f937c18195461ac92efe2c7f22d05ab9e42960e513082972f93"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/indexed.rs",
+      "sha256": "9a66489607c424c22ce00938431bad9b14a0c30a60b3e9238b0102fb4f3f79e3"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/made.rs",
+      "sha256": "3dd38d9959d2d14094e8789fcfbccad47e01595efca5b8a5b29ab358bea00a0d"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/made/composed.rs",
+      "sha256": "1653576edab404256da3d1164746b79a4895a86339216c91f3b092e216a309b3"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/counts.rs",
+      "sha256": "2ba520e731ae25b74b613603ee092ff3a6b407c714e3a49d4d77bce90e02f9a0"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/emit.rs",
+      "sha256": "966f336423d01e34efec46471d3347d64e2f155d5c68a91d492719a58e588fae"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/shift.rs",
+      "sha256": "dbf47196405be7975ae27d1b126a810e9a3591c34b6b7688dbac47193ad8a8e5"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/store.rs",
+      "sha256": "bb2dc947d6e6d2561ec1b74806f3c4a6c609fe8a4eb0dcdf3ec0be46214686ce"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/emit.rs",
+      "sha256": "d14ccac606a7565f60878730f799dbc9c8bd7915af044543fc0698d29f4e6603"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/model.rs",
+      "sha256": "dfebf52c56b1084669fa81ae353744c7847dc91551d4998e0a4f3d6239c5defc"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/numeric.rs",
+      "sha256": "4b55a2e36203e8bb69342e62c51008cf1f814952519b0b619d09cc56cde6b9c8"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/preservation.rs",
+      "sha256": "b2e28805ada6ee0f47b4dfda0c299706a2b788129b3e1a796f6acea5d6d941fa"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/readable.rs",
+      "sha256": "1abaa9ccc87de6d36451f0b77ebb70e2b65940cce14a49804086c5da584d8063"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/stringops.rs",
+      "sha256": "c559d9c5a9e6e9d9be6be51a4558faf717983ff97a601304a4dd1901b41143e2"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/stringops/emit.rs",
+      "sha256": "95c20db80309e146fb279fa7a0b195e1d054fc07ba1383e7d06c3706870415d0"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold.rs",
+      "sha256": "9bf23d6363dbcb9508607d381f48205e2b2228ca50d172f926632f65be8d8840"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold/continuation.rs",
+      "sha256": "aca248cc9693ec594ffa95df059dc42ea02e4ccc385a4f0b63f5f407f3a84af9"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold/continuation/returned.rs",
+      "sha256": "9c4bdf37ba79d69568956629d588e2db679d6f3b99f3d62a7bc447429fcb3167"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold/continuation/returned/quote.rs",
+      "sha256": "c7deb1f6a2ea0de3b4a4b9000b4041fef49c405723c0863be506b2d2214b7552"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold/continuation/returned/run.rs",
+      "sha256": "f2f03b5069d4d9c9816ee179de737d7ddc881e49ea551b00b5d2df7609f481ab"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold/signed_prefix.rs",
+      "sha256": "a58589540f394e72d216e985da8bb9daaa2d2b75c5bebcf51837651e7a404977"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/order.rs",
+      "sha256": "52b24efd55c9d0df7397b0b9e21961dd15671322fd276ce15708c1eeef111582"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/order/path.rs",
+      "sha256": "d92785a0ad8d1da68ddf398803a9e37a3f124b2e01aa52159ced339c99b2f860"
+    },
+    {
+      "path": "develop/probes/go-practical/check_termination_report.py",
+      "sha256": "fdd62b0611b81baaf5cdf62525b6f5af4f7ff9808bae2b004bd744471babdb23"
+    },
+    {
+      "path": "develop/probes/go-practical/control-certificates/Cargo.lock",
+      "sha256": "d3d41f4ee34f3ec4c1dd7b8dc7b181098d2a6191057c097bf1d9ca5bb6176cb4"
+    },
+    {
+      "path": "develop/probes/go-practical/control-certificates/Cargo.toml",
+      "sha256": "54d8f52fe3af7d58f28c2756ffe4cfac9e73f6e19c933950a412268ff6a575f8"
+    },
+    {
+      "path": "develop/probes/go-practical/control-certificates/build.rs",
+      "sha256": "df23671295eb1b4fe49af6ab996bf8575eaa1ea3ac8a5cb3c923266b24fec142"
+    },
+    {
+      "path": "develop/probes/go-practical/control-certificates/src/control.rs",
+      "sha256": "e7ef8d9a08203ac80e9320ada553364c0df3f159023096fb2f1341f9c171fe42"
+    },
+    {
+      "path": "develop/probes/go-practical/control-certificates/src/main.rs",
+      "sha256": "c80cf447351e15af8b4e76c1eea9b41ea21bfd3fd37ed0d9fb42dba8aeaf3968"
+    },
+    {
+      "path": "develop/probes/go-practical/control-foundation/Cargo.lock",
+      "sha256": "3f36d81ffd725e16a3b20828331625fd7e3108e928371790fcc95eae731f9070"
+    },
+    {
+      "path": "develop/probes/go-practical/control-foundation/go/nat_induct.go",
+      "sha256": "c11b4a95db2d988c6efde61cfc472698c975d273af67c6b8d4b85193261d5b36"
+    },
+    {
+      "path": "develop/probes/go-practical/control-foundation/go/nat_induct_test.go",
+      "sha256": "7e9331ba6ac8f0c1da9d7d35eede58eb324018b0207124ad6f88c56f57777726"
+    },
+    {
+      "path": "develop/probes/go-practical/control-foundation/rust/nat_induct.rs",
+      "sha256": "730a8d6e56d08a8873e9d052351ea41810eef26da0af5369d34b6c8879de48c6"
+    },
+    {
+      "path": "develop/probes/go-practical/control_foundation_build.py",
+      "sha256": "79d6bb234224755fe8499ca74e6f67a7e5a1a60f1b0eb236ef54bd7a9440119d"
+    },
+    {
+      "path": "develop/probes/go-practical/host-toolchain.json",
+      "sha256": "1927d5c54d8e62d2e479e9b30969f4ff4d482163d1da11dce8c0595e0d060bb4"
+    },
+    {
+      "path": "develop/probes/go-practical/run_module_probes.py",
+      "sha256": "95cf152ef7538f97e51f68831c2c7f9521445a18612d0bde0ba22d5b503d205c"
+    },
+    {
+      "path": "develop/probes/go-practical/run_proof_pilot.py",
+      "sha256": "3ddaffd920a0aada1c91678a7d35de9314b5009c15dbe05ca025256cfb22a1d5"
+    },
+    {
+      "path": "develop/probes/go-practical/run_termination_probes.py",
+      "sha256": "b548b71dddbb4d6f969bd9d94edb5e2ca3915f2650a3e0d9cf32d744973979c0"
+    },
+    {
+      "path": "develop/probes/go-practical/termination-certificates/Cargo.lock",
+      "sha256": "ab72b328c19e6023a1ea51361d9b05596a75cc7f95f47416a952fea88cd67cda"
+    },
+    {
+      "path": "develop/probes/go-practical/termination-certificates/Cargo.toml",
+      "sha256": "ce918289109485b53052e02682ad31b4ab4743cc22675a02d11782c8592919ef"
+    },
+    {
+      "path": "develop/probes/go-practical/termination-certificates/build.rs",
+      "sha256": "c9c72275ba62729adceb2085dee894f7b05f5f6e7b73962e4b78b47f55db53c3"
+    },
+    {
+      "path": "develop/probes/go-practical/termination-certificates/src/main.rs",
+      "sha256": "c80cf447351e15af8b4e76c1eea9b41ea21bfd3fd37ed0d9fb42dba8aeaf3968"
+    },
+    {
+      "path": "develop/probes/go-practical/termination-certificates/src/termination.rs",
+      "sha256": "40e5be1c6c23f1cb9653688be671148f2f622d6f6d2546d88d56838191200c5c"
+    },
+    {
+      "path": "develop/probes/go-practical/termination-foundation/go/bool_rec_type.go",
+      "sha256": "6758331d5eb519ba97a4526a2619501fa9a037d50b259dc78ef33fa7fe6d15cc"
+    },
+    {
+      "path": "develop/probes/go-practical/termination-foundation/rust/bool_rec_type.rs",
+      "sha256": "d37836b7bcb1e11fa318b6431129d79ebd185d6a0f9e21985b5baeb0ae0dcfcd"
+    },
+    {
+      "path": "develop/probes/go-practical/termination_foundation_build.py",
+      "sha256": "d8b83f1b3a788d2f387db4661bfc49b224c593d689c4cda6980c4a70f04aae68"
+    },
+    {
+      "path": "develop/probes/go-practical/test_termination_report.py",
+      "sha256": "7c8d04123d72fefd083417ca5beeea382f9e78283371e22c917d80882146c033"
+    },
+    {
+      "path": "fixtures/core-bool-cases/right-identity.hex",
+      "sha256": "0232430bd7abff3b231b0898a512f85b4b4471906afc43e192c9407a6b414063"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/axiom_report.go",
+      "sha256": "c4b90708cee28a9198de51b44882e4c6fb1b012331378ab82a1c2f9537472d57"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/axiom_report_test.go",
+      "sha256": "d0b81bf2605439ccca678118c5074e0193a217cc372d12a41e2ad148c6ec6b8a"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/bool_cases.go",
+      "sha256": "99112f01a5a83465e7d28e47a8995fcba41dd3f3c99d6cbd423bd3e4bd709432"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/bool_cases_test.go",
+      "sha256": "c2f1f22c035fcd8640ee7f697820c7c7a258b09c3ed6add072eef1978a79fa1c"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "sha256": "415db8d600819882fde6e705a06f141c3c5d76836b6d0271a8970f6182a55f3e"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/cmd/mpk-checker-ref/main.go",
+      "sha256": "33961ea1b42b933405f3d18a05a13d9a08551879a92d699c75f674a1d7a056e0"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/cmd/mpk-checker-ref/main_test.go",
+      "sha256": "6496a4642d47c4cddabad6a9074f62516184978f88bb3043b3253518c0c635e4"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/core_check.go",
+      "sha256": "19008b25758b9a00919f468d6bf0f8d8275bd918fe7678156971bd48dde097f8"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/core_check_test.go",
+      "sha256": "ea726b6f4ecba51dd003e5acdda995f14cd9544e00fd0b6de5bcace599d1493a"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/core_term_intern_test.go",
+      "sha256": "1703507c1036e184508a0a4a082173414f10f01688b20b9ffdb2a3ddc2d24fde"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/decoder.go",
+      "sha256": "636a3cefeebe2b8cdaf2191992f5ab08edb293aa019e366d33e7590a6e0e2a02"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/decoder_test.go",
+      "sha256": "b9b6bc2753dc513cfc45ca1efe1cff2bca031791dd8293fa6a2873ef3d61c01e"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/defeq.go",
+      "sha256": "4e73baf6738ca272e34287440750f4a8f1df2aa6785dffd77be205b43cf70c85"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/defeq_test.go",
+      "sha256": "f199578a7845974c785a2d4da64d8b995d67fc0ef763a628aab6a6f3bf14a3d8"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/doc.go",
+      "sha256": "952a3da781b751eb063b2f4d859568453896d76ee8ab2122209720879c150b75"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/go.mod",
+      "sha256": "1dcc4212afe08523613abb23420df58c1bea4507db876e3ceac1e758a1b76250"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/hash.go",
+      "sha256": "9412b1bbabe87879061f142774bc8cbe7dd6210340855b445279bd7d1ba43c41"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/hash_test.go",
+      "sha256": "922bf39c91f2e715526dd6277939aa324e53809466fa053b2d35ab55ed540b86"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/proof_check.go",
+      "sha256": "71f1b8648941e68c1bc67ae4cf640e35a31df20584b1f818f697fb5afc86e996"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/proof_check_test.go",
+      "sha256": "5f29b974ebb641f59723eba732c6b2ec227c52b7ff871a7ce470050a94c1cc18"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/verify.go",
+      "sha256": "79d70ede0ea7453667009d4575265f8fdc2860e35026065bb4ae5d374faa1b5e"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/verify_test.go",
+      "sha256": "eb287ff774bb5415b4f4b9bfa0d2510203da6cd857f613aa0a8fe11802f68bd3"
+    },
+    {
+      "path": "proofs/std/nat/std-nat.hex",
+      "sha256": "65bc5b701561d07b0f675668d942917da23c43606c0cfe0f9edfa113be99f583"
+    }
+  ],
+  "interface_cases": [
+    {
+      "case": {
+        "bytes": 1596,
+        "declarations": 5,
+        "expected": "accepted",
+        "id": "type-interface-canonical-false",
+        "module": "Probe.GoPractical.BoolTypeInterface",
+        "scope": "isolated private Bool.recType interface with no Bool.cases/Nat.induct fallback; malformed interface is not a false semantic claim",
+        "terms": 218,
+        "variant": "canonical-false"
+      },
+      "classification": "accepted_zero_axiom",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.001681,
+          "cpu_user_seconds": 0.001339,
+          "exit_code": 0,
+          "peak_rss_bytes": 4636672,
+          "report": {
+            "declaration_count": 5,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "c35bad16df87a27fd2d75f0e6d43f177bb9f9c02e4ae40bff17bb3349407e28f",
+              "export": "a14aec800f746915975c79c54dc6779adb6f4c67926555bbb73c945b06d0b8eb"
+            },
+            "module": "Probe.GoPractical.BoolTypeInterface",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.008192959008738399
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001297,
+          "cpu_user_seconds": 0.001116,
+          "exit_code": 0,
+          "peak_rss_bytes": 2441216,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 5,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "c35bad16df87a27fd2d75f0e6d43f177bb9f9c02e4ae40bff17bb3349407e28f",
+              "export": "a14aec800f746915975c79c54dc6779adb6f4c67926555bbb73c945b06d0b8eb"
+            },
+            "module": "Probe.GoPractical.BoolTypeInterface",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.006025958980899304
+        }
+      },
+      "raw_sha256": "186f64641d68bbb6d6430dd3efa3d8d09657fe2aed994e7fa27ac1f7f2f5d3a9"
+    },
+    {
+      "case": {
+        "bytes": 1600,
+        "declarations": 5,
+        "expected": "accepted",
+        "id": "type-interface-canonical-true",
+        "module": "Probe.GoPractical.BoolTypeInterface",
+        "scope": "isolated private Bool.recType interface with no Bool.cases/Nat.induct fallback; malformed interface is not a false semantic claim",
+        "terms": 219,
+        "variant": "canonical-true"
+      },
+      "classification": "accepted_zero_axiom",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.001812,
+          "cpu_user_seconds": 0.001483,
+          "exit_code": 0,
+          "peak_rss_bytes": 4882432,
+          "report": {
+            "declaration_count": 5,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "61f9cbdea0a7fad3067307e07c8905cdfd73ec9252ecdebebac65de481f2e646",
+              "export": "a14aec800f746915975c79c54dc6779adb6f4c67926555bbb73c945b06d0b8eb"
+            },
+            "module": "Probe.GoPractical.BoolTypeInterface",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.008903125009965152
+        },
+        "rust": {
+          "cpu_system_seconds": 0.0018449999999999999,
+          "cpu_user_seconds": 0.001206,
+          "exit_code": 0,
+          "peak_rss_bytes": 2441216,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 5,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "61f9cbdea0a7fad3067307e07c8905cdfd73ec9252ecdebebac65de481f2e646",
+              "export": "a14aec800f746915975c79c54dc6779adb6f4c67926555bbb73c945b06d0b8eb"
+            },
+            "module": "Probe.GoPractical.BoolTypeInterface",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.006501541996840388
+        }
+      },
+      "raw_sha256": "e4cec16dd194007b35a5aa9045a51269bc5d56aafc0ed4ea6d9437b77314defd"
+    },
+    {
+      "case": {
+        "bytes": 1459,
+        "declarations": 3,
+        "expected": "accepted",
+        "id": "type-interface-legacy-without-type-cases",
+        "module": "Probe.GoPractical.BoolTypeInterface",
+        "scope": "isolated private Bool.recType interface with no Bool.cases/Nat.induct fallback; malformed interface is not a false semantic claim",
+        "terms": 216,
+        "variant": "legacy-without-type-cases"
+      },
+      "classification": "accepted_zero_axiom",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.001557,
+          "cpu_user_seconds": 0.001271,
+          "exit_code": 0,
+          "peak_rss_bytes": 4751360,
+          "report": {
+            "declaration_count": 3,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "0b5970b9cb955bfdca07268f4f5796fca0fc20303ac8274f912caa2fa5576c01",
+              "export": "5652d59cd509e3b49eaeaa153dab6fc3854e03240b1f879e6188a0b1e95e9f30"
+            },
+            "module": "Probe.GoPractical.BoolTypeInterface",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.00807200005510822
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001325,
+          "cpu_user_seconds": 0.001081,
+          "exit_code": 0,
+          "peak_rss_bytes": 2424832,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 3,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "0b5970b9cb955bfdca07268f4f5796fca0fc20303ac8274f912caa2fa5576c01",
+              "export": "5652d59cd509e3b49eaeaa153dab6fc3854e03240b1f879e6188a0b1e95e9f30"
+            },
+            "module": "Probe.GoPractical.BoolTypeInterface",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.006492875050753355
+        }
+      },
+      "raw_sha256": "d6190c9cabfe81950621386ad950b3f500586ba01feb2870cf8d16df71077c03"
+    },
+    {
+      "case": {
+        "bytes": 1516,
+        "declarations": 4,
+        "expected": "rejected",
+        "id": "type-interface-nongenerated",
+        "module": "Probe.GoPractical.BoolTypeInterface",
+        "scope": "isolated private Bool.recType interface with no Bool.cases/Nat.induct fallback; malformed interface is not a false semantic claim",
+        "terms": 216,
+        "variant": "nongenerated"
+      },
+      "classification": "malformed_interface_rejection",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.001761,
+          "cpu_user_seconds": 0.001302,
+          "exit_code": 1,
+          "peak_rss_bytes": 4587520,
+          "report": {
+            "error_detail": "Bool type selection must be generated",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.008279166999273002
+        },
+        "rust": {
+          "cpu_system_seconds": 0.0012699999999999999,
+          "cpu_user_seconds": 0.001144,
+          "exit_code": 1,
+          "peak_rss_bytes": 2424832,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_INVALID_DECLARATION\",\"location\":[],\"details\":{\"kind\":\"invalid_bool_rec_type_interface\",\"reason\":\"nongenerated_type_recursion\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "9588576e5ee796ed033b92d04ecdd7d248127613ec89a5faca148a5f3c840da0",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.005879957985598594
+        }
+      },
+      "raw_sha256": "f826454ccbb17b4cbbeca6d3cc489b60ea50c2f330030cd0cdf00ed7bbdc5ad8"
+    },
+    {
+      "case": {
+        "bytes": 1527,
+        "declarations": 4,
+        "expected": "rejected",
+        "id": "type-interface-wrong-interface",
+        "module": "Probe.GoPractical.BoolTypeInterface",
+        "scope": "isolated private Bool.recType interface with no Bool.cases/Nat.induct fallback; malformed interface is not a false semantic claim",
+        "terms": 219,
+        "variant": "wrong-interface"
+      },
+      "classification": "malformed_interface_rejection",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.0015949999999999998,
+          "cpu_user_seconds": 0.001269,
+          "exit_code": 1,
+          "peak_rss_bytes": 4603904,
+          "report": {
+            "error_detail": "Bool type selection eliminator type is not canonical",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.005808542016893625
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001436,
+          "cpu_user_seconds": 0.001085,
+          "exit_code": 1,
+          "peak_rss_bytes": 2424832,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_INVALID_DECLARATION\",\"location\":[],\"details\":{\"kind\":\"invalid_bool_rec_type_interface\",\"reason\":\"noncanonical_eliminator_type\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "13c06f6529f249105c96f4780d8e080fdbb706d2ab046741a8171d86cf0cdb36",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.00589787500211969
+        }
+      },
+      "raw_sha256": "2ce03fa3e9a56160b4068236229aa713651153caf8ff1d48c9e6abd62c5f44e8"
+    },
+    {
+      "case": {
+        "bytes": 1533,
+        "declarations": 4,
+        "expected": "rejected",
+        "id": "type-interface-wrong-false-name",
+        "module": "Probe.GoPractical.BoolTypeInterface",
+        "scope": "isolated private Bool.recType interface with no Bool.cases/Nat.induct fallback; malformed interface is not a false semantic claim",
+        "terms": 216,
+        "variant": "wrong-false-name"
+      },
+      "classification": "malformed_interface_rejection",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.0016129999999999999,
+          "cpu_user_seconds": 0.001286,
+          "exit_code": 1,
+          "peak_rss_bytes": 4587520,
+          "report": {
+            "error_detail": "Bool type selection constructor is not canonical",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.007962000032421201
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001276,
+          "cpu_user_seconds": 0.0010659999999999999,
+          "exit_code": 1,
+          "peak_rss_bytes": 2424832,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_INVALID_DECLARATION\",\"location\":[],\"details\":{\"kind\":\"invalid_bool_rec_type_interface\",\"reason\":\"noncanonical_constructor\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "168905603b0ccb7129336e82b72521f56c331cca4855d816f0255865c9b3d4fe",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.005955333996098489
+        }
+      },
+      "raw_sha256": "517fda23f6c733eadb013c085f7720920355aaeb14b774fcf90d1bb74daf36fd"
+    },
+    {
+      "case": {
+        "bytes": 1520,
+        "declarations": 4,
+        "expected": "rejected",
+        "id": "type-interface-wrong-true-type",
+        "module": "Probe.GoPractical.BoolTypeInterface",
+        "scope": "isolated private Bool.recType interface with no Bool.cases/Nat.induct fallback; malformed interface is not a false semantic claim",
+        "terms": 217,
+        "variant": "wrong-true-type"
+      },
+      "classification": "malformed_interface_rejection",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.001591,
+          "cpu_user_seconds": 0.001316,
+          "exit_code": 1,
+          "peak_rss_bytes": 4702208,
+          "report": {
+            "error_detail": "Bool type selection constructor is not canonical",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.008300458022858948
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001547,
+          "cpu_user_seconds": 0.00109,
+          "exit_code": 1,
+          "peak_rss_bytes": 2424832,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_INVALID_DECLARATION\",\"location\":[],\"details\":{\"kind\":\"invalid_bool_rec_type_interface\",\"reason\":\"noncanonical_constructor\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "cf806d3a16539694864e20e5565d74692bc43e116ac9cdddf7c67c4cc7400a10",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.006016916013322771
+        }
+      },
+      "raw_sha256": "e5ab84d255eea51c48b6d2fd703fa8cbea48e96181fd287e955b37b0898f7aa7"
+    },
+    {
+      "case": {
+        "bytes": 1516,
+        "declarations": 4,
+        "expected": "rejected",
+        "id": "type-interface-nongenerated-true",
+        "module": "Probe.GoPractical.BoolTypeInterface",
+        "scope": "isolated private Bool.recType interface with no Bool.cases/Nat.induct fallback; malformed interface is not a false semantic claim",
+        "terms": 216,
+        "variant": "nongenerated-true"
+      },
+      "classification": "malformed_interface_rejection",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.001674,
+          "cpu_user_seconds": 0.0013909999999999999,
+          "exit_code": 1,
+          "peak_rss_bytes": 4587520,
+          "report": {
+            "error_detail": "Bool type selection constructor is not canonical",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.008405999979004264
+        },
+        "rust": {
+          "cpu_system_seconds": 0.00158,
+          "cpu_user_seconds": 0.001122,
+          "exit_code": 1,
+          "peak_rss_bytes": 2457600,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_INVALID_DECLARATION\",\"location\":[],\"details\":{\"kind\":\"invalid_bool_rec_type_interface\",\"reason\":\"noncanonical_constructor\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "195b8521d338d8e47553db9e44c7d5b11dcbb68446329bec761e118e2ae18146",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.006513458036351949
+        }
+      },
+      "raw_sha256": "b4d53c73b47c92554d2bcbf33f531c02d2a781acf9a38969aeed3da0b01441d7"
+    },
+    {
+      "case": {
+        "bytes": 1570,
+        "declarations": 5,
+        "expected": "rejected",
+        "id": "type-interface-extra-constructor-before",
+        "module": "Probe.GoPractical.BoolTypeInterface",
+        "scope": "isolated private Bool.recType interface with no Bool.cases/Nat.induct fallback; malformed interface is not a false semantic claim",
+        "terms": 216,
+        "variant": "extra-constructor-before"
+      },
+      "classification": "malformed_interface_rejection",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.001469,
+          "cpu_user_seconds": 0.0012159999999999999,
+          "exit_code": 1,
+          "peak_rss_bytes": 4587520,
+          "report": {
+            "error_detail": "Bool type selection requires exactly two constructors",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.008059583022259176
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001328,
+          "cpu_user_seconds": 0.00107,
+          "exit_code": 1,
+          "peak_rss_bytes": 2441216,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_INVALID_DECLARATION\",\"location\":[],\"details\":{\"kind\":\"invalid_bool_rec_type_interface\",\"reason\":\"constructor_count\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "db302e94cf5ef2e5caf4cf6e73d3e76f4374032c5bd5fabc164842c385d0b26d",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.005806832981761545
+        }
+      },
+      "raw_sha256": "b5b0a0496c3ab7da64eed4522ec649b353147a001857448096ea64adbdeca81c"
+    },
+    {
+      "case": {
+        "bytes": 1570,
+        "declarations": 5,
+        "expected": "rejected",
+        "id": "type-interface-extra-constructor-after",
+        "module": "Probe.GoPractical.BoolTypeInterface",
+        "scope": "isolated private Bool.recType interface with no Bool.cases/Nat.induct fallback; malformed interface is not a false semantic claim",
+        "terms": 216,
+        "variant": "extra-constructor-after"
+      },
+      "classification": "malformed_interface_rejection",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.001462,
+          "cpu_user_seconds": 0.001217,
+          "exit_code": 1,
+          "peak_rss_bytes": 4587520,
+          "report": {
+            "error_detail": "constructor added to closed Bool type selection family",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.007571459049358964
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001189,
+          "cpu_user_seconds": 0.000997,
+          "exit_code": 1,
+          "peak_rss_bytes": 2424832,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_INVALID_DECLARATION\",\"location\":[{\"field\":\"declarations\"}],\"details\":{\"inductive\":\"0\",\"kind\":\"closed_bool_type_recursion_family\",\"name\":\"Std.Bool.extra\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "3ddabbcf0eca9f68a020eee22137fd817d467d86f01e37dc0794ce31e3769fbf",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.005740542022977024
+        }
+      },
+      "raw_sha256": "1be6c7f4ab1e5549470d085ccbf3debba78fe134d72c8df6ec9e3a0747fb65c0"
+    },
+    {
+      "case": {
+        "bytes": 1521,
+        "declarations": 4,
+        "expected": "rejected",
+        "id": "type-interface-higher-universe-family",
+        "module": "Probe.GoPractical.BoolTypeInterface",
+        "scope": "isolated private Bool.recType interface with no Bool.cases/Nat.induct fallback; malformed interface is not a false semantic claim",
+        "terms": 217,
+        "variant": "higher-universe-family"
+      },
+      "classification": "malformed_interface_rejection",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.001653,
+          "cpu_user_seconds": 0.001271,
+          "exit_code": 1,
+          "peak_rss_bytes": 4587520,
+          "report": {
+            "error_detail": "Bool type selection family must be Sort0",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.008168125001247972
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001322,
+          "cpu_user_seconds": 0.000997,
+          "exit_code": 1,
+          "peak_rss_bytes": 2424832,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_INVALID_DECLARATION\",\"location\":[],\"details\":{\"kind\":\"invalid_bool_rec_type_interface\",\"reason\":\"family_is_not_sort_zero\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "114ca925893c43a79c13906ba286ba708128f03ebc1910f83adfd72f5ea2b121",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.005628042039461434
+        }
+      },
+      "raw_sha256": "581a08b595f8d63b07cf3f157bc019a2330508d985e789b13fcf859c869a9b17"
+    },
+    {
+      "case": {
+        "bytes": 1534,
+        "declarations": 4,
+        "expected": "rejected",
+        "id": "type-interface-higher-result-universe",
+        "module": "Probe.GoPractical.BoolTypeInterface",
+        "scope": "isolated private Bool.recType interface with no Bool.cases/Nat.induct fallback; malformed interface is not a false semantic claim",
+        "terms": 220,
+        "variant": "higher-result-universe"
+      },
+      "classification": "malformed_interface_rejection",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.001465,
+          "cpu_user_seconds": 0.001189,
+          "exit_code": 1,
+          "peak_rss_bytes": 4603904,
+          "report": {
+            "error_detail": "Bool type selection eliminator type is not canonical",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.007756916980724782
+        },
+        "rust": {
+          "cpu_system_seconds": 0.0012779999999999998,
+          "cpu_user_seconds": 0.0010119999999999999,
+          "exit_code": 1,
+          "peak_rss_bytes": 2424832,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_INVALID_DECLARATION\",\"location\":[],\"details\":{\"kind\":\"invalid_bool_rec_type_interface\",\"reason\":\"noncanonical_eliminator_type\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "206f1b9d7878a1d985fe97fcb08fd034269189dc1fb11bd8526a3dd3ede7f585",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.006077166995964944
+        }
+      },
+      "raw_sha256": "b73a5458175a4411e7a53790e6ed5c8afb104765df9570b39b755f9fa58538fc"
+    },
+    {
+      "case": {
+        "bytes": 1592,
+        "declarations": 5,
+        "expected": "rejected",
+        "id": "type-interface-recursor-levels-partial",
+        "module": "Probe.GoPractical.BoolTypeInterface",
+        "scope": "isolated private Bool.recType interface with no Bool.cases/Nat.induct fallback; malformed interface is not a false semantic claim",
+        "terms": 217,
+        "variant": "recursor-levels-partial"
+      },
+      "classification": "malformed_interface_rejection",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.001666,
+          "cpu_user_seconds": 0.001289,
+          "exit_code": 1,
+          "peak_rss_bytes": 4767744,
+          "report": {
+            "error_detail": "Bool type selection interface has no universe arguments",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.00803083402570337
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001228,
+          "cpu_user_seconds": 0.001015,
+          "exit_code": 1,
+          "peak_rss_bytes": 2424832,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_INVALID_DECLARATION\",\"location\":[],\"details\":{\"kind\":\"invalid_bool_rec_type_interface\",\"reason\":\"nonempty_universe_arguments\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "391b0cd5ad53045a1e7cfdaaa0f1c90e3750c2daa2728f9bcccf15beba0c8f3e",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.005895790993236005
+        }
+      },
+      "raw_sha256": "c27edcd5907643d7f4f9bddf75e6c3cb4666ac0d6c2a30f846ef2b99402e2b15"
+    },
+    {
+      "case": {
+        "bytes": 1603,
+        "declarations": 5,
+        "expected": "rejected",
+        "id": "type-interface-recursor-levels-neutral",
+        "module": "Probe.GoPractical.BoolTypeInterface",
+        "scope": "isolated private Bool.recType interface with no Bool.cases/Nat.induct fallback; malformed interface is not a false semantic claim",
+        "terms": 219,
+        "variant": "recursor-levels-neutral"
+      },
+      "classification": "malformed_interface_rejection",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.001745,
+          "cpu_user_seconds": 0.001401,
+          "exit_code": 1,
+          "peak_rss_bytes": 4603904,
+          "report": {
+            "error_detail": "Bool type selection interface has no universe arguments",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.009050540975295007
+        },
+        "rust": {
+          "cpu_system_seconds": 0.0016719999999999999,
+          "cpu_user_seconds": 0.0011849999999999999,
+          "exit_code": 1,
+          "peak_rss_bytes": 2457600,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_INVALID_DECLARATION\",\"location\":[],\"details\":{\"kind\":\"invalid_bool_rec_type_interface\",\"reason\":\"nonempty_universe_arguments\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "1c3e52c11de28bdf416e33154382e2b40ca27b4b3334e41892dd8bb1c8e928cb",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.009550833026878536
+        }
+      },
+      "raw_sha256": "b1fa5c5e7acc0acbf0e97cc5cb0e577585eef84fed6d00c30f1b0fedab0fd41e"
+    },
+    {
+      "case": {
+        "bytes": 1591,
+        "declarations": 5,
+        "expected": "rejected",
+        "id": "type-interface-family-levels",
+        "module": "Probe.GoPractical.BoolTypeInterface",
+        "scope": "isolated private Bool.recType interface with no Bool.cases/Nat.induct fallback; malformed interface is not a false semantic claim",
+        "terms": 217,
+        "variant": "family-levels"
+      },
+      "classification": "malformed_interface_rejection",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.0017419999999999998,
+          "cpu_user_seconds": 0.001369,
+          "exit_code": 1,
+          "peak_rss_bytes": 4702208,
+          "report": {
+            "error_detail": "Bool type selection interface has no universe arguments",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.005934457993134856
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001508,
+          "cpu_user_seconds": 0.001137,
+          "exit_code": 1,
+          "peak_rss_bytes": 2424832,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_INVALID_DECLARATION\",\"location\":[],\"details\":{\"kind\":\"invalid_bool_rec_type_interface\",\"reason\":\"nonempty_universe_arguments\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "3e02d968b5bdf604272018b5573b69c8fa3e8b02a2f5b5e6a2fbcda107b7b7c4",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.006256708991713822
+        }
+      },
+      "raw_sha256": "670b84df5ad371071534cd9e33dce60f9886e904713f9e06c46ac822004781cc"
+    },
+    {
+      "case": {
+        "bytes": 1591,
+        "declarations": 5,
+        "expected": "rejected",
+        "id": "type-interface-constructor-levels",
+        "module": "Probe.GoPractical.BoolTypeInterface",
+        "scope": "isolated private Bool.recType interface with no Bool.cases/Nat.induct fallback; malformed interface is not a false semantic claim",
+        "terms": 217,
+        "variant": "constructor-levels"
+      },
+      "classification": "malformed_interface_rejection",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.00171,
+          "cpu_user_seconds": 0.001343,
+          "exit_code": 1,
+          "peak_rss_bytes": 4587520,
+          "report": {
+            "error_detail": "Bool type selection interface has no universe arguments",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.008515625027939677
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001424,
+          "cpu_user_seconds": 0.001134,
+          "exit_code": 1,
+          "peak_rss_bytes": 2408448,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_INVALID_DECLARATION\",\"location\":[],\"details\":{\"kind\":\"invalid_bool_rec_type_interface\",\"reason\":\"nonempty_universe_arguments\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "17e5bd1f45cfc6b9b00af0fb043a089101b7f3cb7d57f5fbf10fb754b3481ea4",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.006126749969553202
+        }
+      },
+      "raw_sha256": "4fd5c1b81ec344d84678b0ff8749d5776dbfc542f32585e5c51641a9e07aaace"
+    },
+    {
+      "case": {
+        "bytes": 1591,
+        "declarations": 5,
+        "expected": "rejected",
+        "id": "type-interface-prior-opaque-levels",
+        "module": "Probe.GoPractical.BoolTypeInterface",
+        "scope": "isolated private Bool.recType interface with no Bool.cases/Nat.induct fallback; malformed interface is not a false semantic claim",
+        "terms": 217,
+        "variant": "prior-opaque-levels"
+      },
+      "classification": "malformed_interface_rejection",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.001635,
+          "cpu_user_seconds": 0.001236,
+          "exit_code": 1,
+          "peak_rss_bytes": 4751360,
+          "report": {
+            "error_detail": "universe argument in declaration preceding Bool type selection",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.0077249999740161
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001599,
+          "cpu_user_seconds": 0.00116,
+          "exit_code": 1,
+          "peak_rss_bytes": 2424832,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_INVALID_DECLARATION\",\"location\":[],\"details\":{\"kind\":\"invalid_bool_rec_type_interface\",\"reason\":\"prior_nonempty_universe_arguments\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "48b8e0f8758bd90d14845d01a09efae4718a4166ff1b348053155e99beb6078d",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.006229084043297917
+        }
+      },
+      "raw_sha256": "ec7ff5f9e68300e7227bd743661ec2b778345d2043da1113f2a9012e343f6841"
+    },
+    {
+      "case": {
+        "bytes": 1590,
+        "declarations": 5,
+        "expected": "rejected",
+        "id": "type-interface-prior-theorem-levels",
+        "module": "Probe.GoPractical.BoolTypeInterface",
+        "scope": "isolated private Bool.recType interface with no Bool.cases/Nat.induct fallback; malformed interface is not a false semantic claim",
+        "terms": 217,
+        "variant": "prior-theorem-levels"
+      },
+      "classification": "malformed_interface_rejection",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.001607,
+          "cpu_user_seconds": 0.001263,
+          "exit_code": 1,
+          "peak_rss_bytes": 4587520,
+          "report": {
+            "error_detail": "universe argument in declaration preceding Bool type selection",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.008147582993842661
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001457,
+          "cpu_user_seconds": 0.001111,
+          "exit_code": 1,
+          "peak_rss_bytes": 2424832,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_INVALID_DECLARATION\",\"location\":[],\"details\":{\"kind\":\"invalid_bool_rec_type_interface\",\"reason\":\"prior_nonempty_universe_arguments\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "01d3f6dc3126e636a6bede376d76ca131922056fe57cd694b4270da92e95caa5",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.005998250038828701
+        }
+      },
+      "raw_sha256": "d7583e562e49ae57aacb1026bcd125038a62b48a618920d1ad9a5be302759745"
+    },
+    {
+      "case": {
+        "bytes": 1591,
+        "declarations": 5,
+        "expected": "rejected",
+        "id": "type-interface-prior-family-levels",
+        "module": "Probe.GoPractical.BoolTypeInterface",
+        "scope": "isolated private Bool.recType interface with no Bool.cases/Nat.induct fallback; malformed interface is not a false semantic claim",
+        "terms": 217,
+        "variant": "prior-family-levels"
+      },
+      "classification": "malformed_interface_rejection",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.0016439999999999998,
+          "cpu_user_seconds": 0.001317,
+          "exit_code": 1,
+          "peak_rss_bytes": 4587520,
+          "report": {
+            "error_detail": "universe argument in declaration preceding Bool type selection",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.007864250044804066
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001284,
+          "cpu_user_seconds": 0.001063,
+          "exit_code": 1,
+          "peak_rss_bytes": 2424832,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_INVALID_DECLARATION\",\"location\":[],\"details\":{\"kind\":\"invalid_bool_rec_type_interface\",\"reason\":\"prior_nonempty_universe_arguments\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "1c683f7389aae5e5df429f5ad2d7514c42f594973b2a0adfe5c3a22f962e2a48",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.006097249977756292
+        }
+      },
+      "raw_sha256": "cdcafcb678b721d01ca890198b1bf95810a4c55a8662c240a8fe50e81eea825d"
+    },
+    {
+      "case": {
+        "bytes": 1520,
+        "declarations": 4,
+        "expected": "accepted",
+        "id": "type-interface-unused-term-levels",
+        "module": "Probe.GoPractical.BoolTypeInterface",
+        "scope": "isolated private Bool.recType interface with no Bool.cases/Nat.induct fallback; malformed interface is not a false semantic claim",
+        "terms": 217,
+        "variant": "unused-term-levels"
+      },
+      "classification": "accepted_zero_axiom",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.0018169999999999998,
+          "cpu_user_seconds": 0.0013579999999999998,
+          "exit_code": 0,
+          "peak_rss_bytes": 4620288,
+          "report": {
+            "declaration_count": 4,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "fb72cd36c5bb7ea8b6bb58ac785e7effc03f044202233839f0da5327d2c4a4c8",
+              "export": "8addebf2a35caf7ef507e684e0fd0ebbf1731cfbd8776f6732964fb01887952a"
+            },
+            "module": "Probe.GoPractical.BoolTypeInterface",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.008142375038005412
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001414,
+          "cpu_user_seconds": 0.001135,
+          "exit_code": 0,
+          "peak_rss_bytes": 2473984,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 4,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "fb72cd36c5bb7ea8b6bb58ac785e7effc03f044202233839f0da5327d2c4a4c8",
+              "export": "8addebf2a35caf7ef507e684e0fd0ebbf1731cfbd8776f6732964fb01887952a"
+            },
+            "module": "Probe.GoPractical.BoolTypeInterface",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.006012166966684163
+        }
+      },
+      "raw_sha256": "4743b44cc4ef8189a18d716774cca44de8d7eb9e779d75f19aeca90fa06fee50"
+    }
+  ],
+  "mirrored_checker_inputs": [
+    {
+      "path": "crates/mpk-cert/Cargo.toml",
+      "sha256": "b99ff7fde6a4f0cb50a091eb02997c97d5f2e934b42eddfd375f53b96bfc3a47"
+    },
+    {
+      "path": "crates/mpk-cert/src/axiom_report.rs",
+      "sha256": "cae850ba9adf8f52485f25d3322a479e5effb3b5044c4998b8dbe10e395e9843"
+    },
+    {
+      "path": "crates/mpk-cert/src/binary_tags.rs",
+      "sha256": "f557165a3d1fad17ea5c4b5ad27b92170dbb203931b30ef157e22856d5f2616b"
+    },
+    {
+      "path": "crates/mpk-cert/src/canonical.rs",
+      "sha256": "704d3f04bf3219cbc9bca5b7ca8b4ff6723bc834d777fcf5219ecc900c2b8e74"
+    },
+    {
+      "path": "crates/mpk-cert/src/cert_basic.rs",
+      "sha256": "ca8e2bd5c7ffbc5c54e51a1e65eb2f2b559b5d6f8efd6a0d74581197d8d7e295"
+    },
+    {
+      "path": "crates/mpk-cert/src/decode.rs",
+      "sha256": "e77619d5d464db0e5d5538b1349c1cb1b1d8b39da227c3f7aa36fbb5e9d11a13"
+    },
+    {
+      "path": "crates/mpk-cert/src/encode.rs",
+      "sha256": "406c310d53e464c9fe0f079e4186a0501e2eb84fae6c443d40d029d53a2beecf"
+    },
+    {
+      "path": "crates/mpk-cert/src/export.rs",
+      "sha256": "b846726ef91b02583aee70849459c5856ea14cebaee226a5d71fedb0a61da2cd"
+    },
+    {
+      "path": "crates/mpk-cert/src/hash.rs",
+      "sha256": "dc80a4db8fbd2965093daa90d4b32cebc8116659a95323df987ebeaa7dec2a83"
+    },
+    {
+      "path": "crates/mpk-cert/src/imports.rs",
+      "sha256": "3b2edcf9305e5a5ed355fe194219826c97571da0ca47656562cf4bdde2983183"
+    },
+    {
+      "path": "crates/mpk-cert/src/lib.rs",
+      "sha256": "38b44e99c13ea9a76c0c08c8a1cfd1ec23922b33c9d252a96beef59f8634b553"
+    },
+    {
+      "path": "crates/mpk-core/Cargo.toml",
+      "sha256": "7d23784732e23fd78029884f2b9a5bc6200e7192c31ae10ada567e61a15607a3"
+    },
+    {
+      "path": "crates/mpk-core/src/bool_cases.rs",
+      "sha256": "b920fd682eaa4de8d93dc0a143b8d1241b1240fc7294425c8792dfd811756f01"
+    },
+    {
+      "path": "crates/mpk-core/src/bool_rec_type.rs",
+      "sha256": "d37836b7bcb1e11fa318b6431129d79ebd185d6a0f9e21985b5baeb0ae0dcfcd"
+    },
+    {
+      "path": "crates/mpk-core/src/context.rs",
+      "sha256": "e426d6d43b99106bd80c8e946325b1f8d712109865f6b8c340146908d273352d"
+    },
+    {
+      "path": "crates/mpk-core/src/decl_check.rs",
+      "sha256": "8a6afd03f5e19831815f59b069f319cfd947ce123b8ad10e29d511c869f43783"
+    },
+    {
+      "path": "crates/mpk-core/src/defeq.rs",
+      "sha256": "940fd74971a889239e8168fb13fd5cf9099e4efdbac1c2ffbce5780724a2c270"
+    },
+    {
+      "path": "crates/mpk-core/src/env.rs",
+      "sha256": "5f684220304a73c0b0b262b4af06a86b32aa644862b1629c0fb0986f9ee089a4"
+    },
+    {
+      "path": "crates/mpk-core/src/error.rs",
+      "sha256": "76bbf92e086713711c26310fd2f02f58bf5a1d298251cd93c66e4af0c14189bb"
+    },
+    {
+      "path": "crates/mpk-core/src/inductive.rs",
+      "sha256": "41bc938dfdb03ef8a8973a9abecd917171e25efc55c58ebeb43bf4b8ad59be9d"
+    },
+    {
+      "path": "crates/mpk-core/src/inductive_gen.rs",
+      "sha256": "4758d3cf280f0d9c107e4af886f0880fd29670e9a23f2ddffa7728f958075cc2"
+    },
+    {
+      "path": "crates/mpk-core/src/infer.rs",
+      "sha256": "07a67738fddb330c5870e8a9c81bb6693d56b02284ff0c04e996ea4aaa7840e3"
+    },
+    {
+      "path": "crates/mpk-core/src/level.rs",
+      "sha256": "00b030888a20ae9015c94968e8e4dc63f8c924224df36d3a186ba9d4dcfff1ad"
+    },
+    {
+      "path": "crates/mpk-core/src/lib.rs",
+      "sha256": "7b334d7d7a60bcd6bb080ed43ac55f150d651450a2664f19447479fea4fe2d9b"
+    },
+    {
+      "path": "crates/mpk-core/src/name.rs",
+      "sha256": "6a6c8659f556bb63d782ca4aa9c465b05a7b8987327a2e02cbbb95669ca15e99"
+    },
+    {
+      "path": "crates/mpk-core/src/nat_induct.rs",
+      "sha256": "730a8d6e56d08a8873e9d052351ea41810eef26da0af5369d34b6c8879de48c6"
+    },
+    {
+      "path": "crates/mpk-core/src/positivity.rs",
+      "sha256": "5ad6d3d072a8db9bba5c98b02a0d9da9e096faca1836762aecf4cebb1ad460bd"
+    },
+    {
+      "path": "crates/mpk-core/src/reduce.rs",
+      "sha256": "bbd58360f97eba191a9c12208e1488668ed8b39c96be6d354065a7c4d9c02d37"
+    },
+    {
+      "path": "crates/mpk-core/src/reduce_inductive.rs",
+      "sha256": "cc5a09e0d17e76d0d8c12b60a498de13d144086d6cd26999402def69f634d3c1"
+    },
+    {
+      "path": "crates/mpk-core/src/subst.rs",
+      "sha256": "e1843f9aafe2d4349bf6bd8a1bcfff4eb39c318c87e37b47a36c23cb8e2cd23f"
+    },
+    {
+      "path": "crates/mpk-core/src/term.rs",
+      "sha256": "4fcd1dba9916b8b3d22ffabd889c2949bb14cf468420b5e839b779108e91bb60"
+    },
+    {
+      "path": "crates/mpk-kernel/Cargo.toml",
+      "sha256": "3226dc567ef89c9488b61e6c79df2134eb7b1dd36c7cbe19abb3e3e7916ac826"
+    },
+    {
+      "path": "crates/mpk-kernel/src/bool_cases_tests.rs",
+      "sha256": "1ec5b21c3a581fcdd0fd234f7a25c26651958b1f9f96792061fd9936395ca460"
+    },
+    {
+      "path": "crates/mpk-kernel/src/cache.rs",
+      "sha256": "fb9bd805c365f6f614e2f0cb432bc92964e78faa4749df15ad62c4a82ed767ad"
+    },
+    {
+      "path": "crates/mpk-kernel/src/decl_driver.rs",
+      "sha256": "f7dc5ed58726ee9f15ed52d5ca0b240799247f6c8801fa129d24f0656c4fa14e"
+    },
+    {
+      "path": "crates/mpk-kernel/src/json_output.rs",
+      "sha256": "82992d18824fd25f7c1fcd58d569e4e339bda8be2f60588bb20d2537b9b6cdb5"
+    },
+    {
+      "path": "crates/mpk-kernel/src/lib.rs",
+      "sha256": "ff4c1550532e2896bce4374145242f9a54d24502c8f2a79454067d664c383d72"
+    },
+    {
+      "path": "crates/mpk-kernel/src/profile.rs",
+      "sha256": "e44ce30ffbc29617073456ce8dd9bd46ce731549c423a01a747c82542cffc580"
+    },
+    {
+      "path": "crates/mpk-kernel/src/proof_check.rs",
+      "sha256": "27e8f109d9241cee011984021d74f57088f4ebf30012a858e0fe6416cae96027"
+    },
+    {
+      "path": "crates/mpk-kernel/src/proof_structural.rs",
+      "sha256": "6117063aa07e3ac5882ebba60ab907518a2c9844f96d35887f5a31c8d66906c0"
+    },
+    {
+      "path": "crates/mpk-kernel/src/proof_theory.rs",
+      "sha256": "81d52c5be4e325c3cccb1d6e0096b0e118f245f53234d5496dfdac066fee95af"
+    },
+    {
+      "path": "crates/mpk-kernel/src/verifier.rs",
+      "sha256": "e8932a62713b8f8af18a980093a6ff162b3510b4b4e7da924d9b421552a9e3f2"
+    },
+    {
+      "path": "crates/mpk-kernel/tests/certificate_decoder_fuzz_smoke.rs",
+      "sha256": "bd7589eb77846f61a1958ce539e2edbace4d422aaaed096e3c12f49c7b2288e0"
+    },
+    {
+      "path": "crates/mpk-kernel/tests/fast_kernel_profile.rs",
+      "sha256": "c8b68b7a4b22fbe9b23a02c5609cb083be7c843f3521f7e6f05f38c1caf06b88"
+    },
+    {
+      "path": "crates/mpk-kernel/tests/theory_certificate_encoders.rs",
+      "sha256": "568342571c0d9971c4e2b2a6ce6c38d12e957a81e722e2962574088cb3968cc4"
+    },
+    {
+      "path": "crates/mpk-kernel/tests/theory_certificate_fuzz_smoke.rs",
+      "sha256": "e793e24646335a47cba9465046835bed86ba413d7d5384a9cbc53f88c67e2cc1"
+    },
+    {
+      "path": "crates/mpk-theory/Cargo.toml",
+      "sha256": "120227c9b1a0bbbe48e146d6d2412793b9e357cb43e7d21585c760a268081908"
+    },
+    {
+      "path": "crates/mpk-theory/src/array_cert.rs",
+      "sha256": "7b6261cbedc9200ffe8ce5513374e2c14aa6b999926607e450440e26bb25cace"
+    },
+    {
+      "path": "crates/mpk-theory/src/bitvec_eval.rs",
+      "sha256": "3fa7578174f4e3a489d395653687899d1d06fc59780b9224d652638b7d589ac4"
+    },
+    {
+      "path": "crates/mpk-theory/src/bool_cert.rs",
+      "sha256": "17bcac0225e8281ecf754115734cf254addf87bc44a6da4fddaebabbea226c14"
+    },
+    {
+      "path": "crates/mpk-theory/src/lib.rs",
+      "sha256": "10719601e65de998218739cd2b5b61a6bf69df6692c1b829c307c6cf57d61ccd"
+    },
+    {
+      "path": "crates/mpk-theory/src/linarith_cert.rs",
+      "sha256": "3606832e69432a08295e014f0810e5f20aa7d10fdef2bc8789448ebf98d6895a"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/axiom_report.go",
+      "sha256": "c4b90708cee28a9198de51b44882e4c6fb1b012331378ab82a1c2f9537472d57"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/axiom_report_test.go",
+      "sha256": "d0b81bf2605439ccca678118c5074e0193a217cc372d12a41e2ad148c6ec6b8a"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/bool_cases.go",
+      "sha256": "99112f01a5a83465e7d28e47a8995fcba41dd3f3c99d6cbd423bd3e4bd709432"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/bool_cases_test.go",
+      "sha256": "c2f1f22c035fcd8640ee7f697820c7c7a258b09c3ed6add072eef1978a79fa1c"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/bool_rec_type.go",
+      "sha256": "6758331d5eb519ba97a4526a2619501fa9a037d50b259dc78ef33fa7fe6d15cc"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "sha256": "415db8d600819882fde6e705a06f141c3c5d76836b6d0271a8970f6182a55f3e"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/cmd/mpk-checker-ref/main.go",
+      "sha256": "33961ea1b42b933405f3d18a05a13d9a08551879a92d699c75f674a1d7a056e0"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/cmd/mpk-checker-ref/main_test.go",
+      "sha256": "6496a4642d47c4cddabad6a9074f62516184978f88bb3043b3253518c0c635e4"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/core_check.go",
+      "sha256": "04c994f351a58109f05a4b665e9a899f198f86b54679ae7f903f9e82d25d3ac3"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/core_check_test.go",
+      "sha256": "ea726b6f4ecba51dd003e5acdda995f14cd9544e00fd0b6de5bcace599d1493a"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/core_term_intern_test.go",
+      "sha256": "1703507c1036e184508a0a4a082173414f10f01688b20b9ffdb2a3ddc2d24fde"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/decoder.go",
+      "sha256": "636a3cefeebe2b8cdaf2191992f5ab08edb293aa019e366d33e7590a6e0e2a02"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/decoder_test.go",
+      "sha256": "b9b6bc2753dc513cfc45ca1efe1cff2bca031791dd8293fa6a2873ef3d61c01e"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/defeq.go",
+      "sha256": "a11a348e8679ec125b22c38924026468f218401e68b4e22fff2c24b330b0fda2"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/defeq_test.go",
+      "sha256": "f199578a7845974c785a2d4da64d8b995d67fc0ef763a628aab6a6f3bf14a3d8"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/doc.go",
+      "sha256": "952a3da781b751eb063b2f4d859568453896d76ee8ab2122209720879c150b75"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/go.mod",
+      "sha256": "1dcc4212afe08523613abb23420df58c1bea4507db876e3ceac1e758a1b76250"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/hash.go",
+      "sha256": "9412b1bbabe87879061f142774bc8cbe7dd6210340855b445279bd7d1ba43c41"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/hash_test.go",
+      "sha256": "922bf39c91f2e715526dd6277939aa324e53809466fa053b2d35ab55ed540b86"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/nat_induct.go",
+      "sha256": "c11b4a95db2d988c6efde61cfc472698c975d273af67c6b8d4b85193261d5b36"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/nat_induct_test.go",
+      "sha256": "7e9331ba6ac8f0c1da9d7d35eede58eb324018b0207124ad6f88c56f57777726"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/proof_check.go",
+      "sha256": "71f1b8648941e68c1bc67ae4cf640e35a31df20584b1f818f697fb5afc86e996"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/proof_check_test.go",
+      "sha256": "5f29b974ebb641f59723eba732c6b2ec227c52b7ff871a7ce470050a94c1cc18"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/verify.go",
+      "sha256": "79d70ede0ea7453667009d4575265f8fdc2860e35026065bb4ae5d374faa1b5e"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/verify_test.go",
+      "sha256": "eb287ff774bb5415b4f4b9bfa0d2510203da6cd857f613aa0a8fe11802f68bd3"
+    }
+  ],
+  "outcomes": {
+    "interface_accepted": 4,
+    "legacy_regressions": 3,
+    "malformed_interface": 16,
+    "ordinary_accepted": 8,
+    "ordinary_type_mismatch": 8
+  },
+  "pending": [
+    "W04 exact additive core/foundation/overlay/wire/limits/migration freeze and review",
+    "ordinary complete loop variant/range/word bridge and source-model composition in T02\u2013T06",
+    "W05 cumulative T01 gate; T07 installed activation"
+  ],
+  "regressions": [
+    {
+      "id": "legacy-bool",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.001813,
+          "cpu_user_seconds": 0.001815,
+          "exit_code": 0,
+          "peak_rss_bytes": 5259264,
+          "report": {
+            "declaration_count": 18,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "119e1045e63e0b64a381da21f6d7747116dfa74e8e4673b09ee6196ea153b691",
+              "export": "bf392e0305cb52c10c48dc98e4e9145a1d65b14b44125fbe47c174ca3ce406fc"
+            },
+            "module": "Probe.Bool.Cases",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.00797924998914823
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001468,
+          "cpu_user_seconds": 0.001514,
+          "exit_code": 0,
+          "peak_rss_bytes": 2752512,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 18,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "119e1045e63e0b64a381da21f6d7747116dfa74e8e4673b09ee6196ea153b691",
+              "export": "bf392e0305cb52c10c48dc98e4e9145a1d65b14b44125fbe47c174ca3ce406fc"
+            },
+            "module": "Probe.Bool.Cases",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.005969874968286604
+        }
+      },
+      "path": "fixtures/core-bool-cases/right-identity.hex",
+      "raw_sha256": "13b36cbcad82ecbd4e74b2f0f2c653c34f60fc07cf366729f0ab54c3df673e43"
+    },
+    {
+      "id": "legacy-nat",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.001539,
+          "cpu_user_seconds": 0.0012289999999999998,
+          "exit_code": 0,
+          "peak_rss_bytes": 4636672,
+          "report": {
+            "declaration_count": 4,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "6c0659df1debe8905c911aecf4e0b11e92ddb22f03ddb074966f1754401ddcd3",
+              "export": "d55736019ced0c81ce3756be26c824b4b91fe11dda69b25b6d90c31f3392110e"
+            },
+            "module": "Std.Nat",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.007828083005733788
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001279,
+          "cpu_user_seconds": 0.00101,
+          "exit_code": 0,
+          "peak_rss_bytes": 2408448,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 4,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "6c0659df1debe8905c911aecf4e0b11e92ddb22f03ddb074966f1754401ddcd3",
+              "export": "d55736019ced0c81ce3756be26c824b4b91fe11dda69b25b6d90c31f3392110e"
+            },
+            "module": "Std.Nat",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.005404333001933992
+        }
+      },
+      "path": "proofs/std/nat/std-nat.hex",
+      "raw_sha256": "04dbbaf904d6b8c8c8dbfb226a20d28cda77d65e0254c7958645936d6e634358"
+    },
+    {
+      "id": "retained-nat-induct",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.0021579999999999998,
+          "cpu_user_seconds": 0.002437,
+          "exit_code": 0,
+          "peak_rss_bytes": 5488640,
+          "report": {
+            "declaration_count": 26,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "079ff7f97411a72a464805774397243221a01cc45fde1362651a7b56b3d754cd",
+              "export": "5b1ad3933ffd40fb97f1953a76e33adc2eeb08a7a524cd817f7de41a7a313514"
+            },
+            "module": "Probe.GoPractical.ControlInduction",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.009055250033270568
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001627,
+          "cpu_user_seconds": 0.001689,
+          "exit_code": 0,
+          "peak_rss_bytes": 2932736,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 26,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "079ff7f97411a72a464805774397243221a01cc45fde1362651a7b56b3d754cd",
+              "export": "5b1ad3933ffd40fb97f1953a76e33adc2eeb08a7a524cd817f7de41a7a313514"
+            },
+            "module": "Probe.GoPractical.ControlInduction",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.008841041999403387
+        }
+      },
+      "path": "develop/migrations/go-practical/t01-w03/control-induction/control-invariant-entry-valid.mpcert",
+      "raw_sha256": "d5a9ddf4358f576450ec6973968d975af51d8a5084080000c9a4c222742754ad"
+    }
+  ],
+  "schema": "mpk.go_practical.nat_termination_report.v0",
+  "scope": "private additive fixed Bool.recType plus retained Sort0 Nat.induct; ordinary arbitrary-Nat order and general Sort0 strong-induction proofs; no production checker/profile/source-application or completed variant termination claim",
+  "status": "private strong-induction feasibility checked; W04 remains in progress"
+}

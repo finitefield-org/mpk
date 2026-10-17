@@ -41,6 +41,11 @@ remain T08–T11 work; the complete eleven-stage objective is unchanged.
   cases over 35 forms, including two-phase lvalues, single-call results,
   switch targets, array/slice range, byte/string copy/append and integer edges.
   Native observations do not establish loop termination or profile admission.
+- [Private order/strong-induction evidence](nat-termination/README.md):
+  16 ordinary claims, 20 isolated Bool type-selection interface cases and
+  three retained regression certificates checked by both private verifiers.
+  General Sort0 strong induction is measured; complete source-variant
+  termination and the additive core-interface freeze remain open.
 
 ## Shared-family decision
 
@@ -86,7 +91,9 @@ The complete source and operation tables still need review. Other open work is:
 3. Finish the closed typed overlay grammar and ordinary termination foundation.
    Root termination is now explicitly partial/total, missing invariants are
    untrusted true candidates, and missing total variants stay pending.
-   Exact well-founded/variant members, identities, proofs and budgets remain due.
+   General Sort0 strong induction now has private both-checker evidence with a
+   proposed Bool.recType interface. Exact joint core/foundation identities,
+   complete variant members, source composition and budgets remain due.
 4. Close every successor identity, schema, hash domain/preimage and vector,
    including old/new crossing and preservation of all four installed profiles.
 
@@ -119,9 +126,15 @@ T01 gate. No workflow or GitHub Actions is introduced or used.
 The operation/evaluation checkpoint additionally passes 54 cases over35 forms
 and 52 evidence checks. Its
 [metadata checker](../../../probes/go-practical/check_operation_metadata.py)
-checks the current cumulative draft; the earlier scope metadata log retains
+records the section31 draft boundary; the earlier scope metadata log retains
 its original section30 checkpoint.
 The [new verification record](evaluation-observations/verification/verification.json)
 separates native facts, metadata consistency and deferred ordinary proofs/gates.
 Neither operation catalogue generation nor native replay is a source-to-certificate
 or universal termination proof.
+
+The foundation checkpoint's
+[current metadata checker](../../../probes/go-practical/check_termination_metadata.py)
+validates its proof receipt, retained failed constructions, planned core
+ownership and unchanged predecessor inputs. It does not close W04 or establish
+termination of a complete Go application.
