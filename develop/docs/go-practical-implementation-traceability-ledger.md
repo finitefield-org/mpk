@@ -2738,3 +2738,89 @@ schemas and source predicates, reviewed producer/consumer migration and
 four-profile semantic preservation/activation/rollback remain required.
 W05 owns inactive publication and the cumulative T01 gate. No T is complete;
 the complete T02–T11 application/implementation/release objective stays active.
+
+## 42. T01-W04 concrete carrier specialization and ordinary expansion
+
+Entry: `4c6a8151b77c1640e7aaaf8c163bfd4dc914bbcc`, clean before this work.
+The preceding checkpoint bound limits/recipes/descriptor packaging but did
+not emit concrete ordinary carrier definitions. The
+[closed expansion](../migrations/go-practical/t01-w04/closed-carriers/README.md)
+now emits complete closed carrier/zero members and ordinary laws, preserving
+the full source/operation/validity and eleven-stage objective.
+
+Three root shapes cover type definitions, closed instances and expansion,
+with exact source/joint instance arms and six ordinary term arms. Two new
+candidate identities/domains avoid every prior Go and reserved C# name.
+Complete typed context, type-definition hash, global error U, source identity,
+ordered dependencies/results and derived shape/accounting fields enter
+instance hashes. Full reconstruction rejects extra/missing instances,
+unknown/axiom/free-variable forms and rehashed caller equations. Current
+source bodies, normative schemas, Certificate v0 and installed routes remain
+unchanged; no production core rule changes.
+
+Thirty-three retained original-Go type facts plus six anonymous boundary
+shapes give39 source/fixture types. Original raw source, literal fixture
+go.mod, source/module/package/declaration/type/signature/capture nodes and
+Error method signatures form a checked identity DAG. Literal declaration
+locators, ordinal choices, fixture module/capture and supplied roots are
+private inputs rather than independent source/root/alias/underlying proof.
+Aliases preserve target ids; Amount and OtherAmount keep distinct instances
+even though their core carriers are equal. Kernel conversion cannot prove
+Go nominal assignment or authorize a source conversion.
+
+Full expanded graph inspection includes zero-array and inactive error
+edges, all field/result order and source-sized words. Under U containing
+RejectCode and SliceError, error is not Plain and []error backing rejects.
+The main set has42 instances. The second explicit U contains only RejectCode
+and admits []error, giving43. Source paths/entry contracts establishing these
+complete universes remain unproved. Crossed contexts/U/instances/expansions
+reject instead of treating one predeclared source error id as uniform data.
+
+Carriers use all8/16/32/64 bits, complete256-byte string storage, actual array
+length versus finite padding, ordered heterogeneous structs/results, complete
+closed-error tags/payloads and typed slice descriptors. Empty products/arrays
+have a canonical-false Bool dummy; arbitrary input validity is a separate
+obligation. Slice paths retain NoStep/field/index kind and full index values.
+Owner labels remain Nat ghosts and establish no finite-id bound, source
+retirement/escape proof, NoAccess live witness or current/past namespace
+translation. Those pending requirements are not replaced by a guessed serial
+width or by carrier typing.
+
+The main expansion has90 new ordinary definitions and46 new ordinary
+theorems:42 explicit zero-recipe equalities plus four construction/projection
+laws over arbitrary heterogeneous values. The Plain-error set adds one
+instance/zero law. Both independently check in the unchanged joint private
+Rust/Go proposal with zero axioms and matching canonical/export/axiom hashes.
+Their certificates have171/174 total declarations and25,904/26,336 bytes.
+There is no payload enumeration, extensionality axiom, new opcode or source
+generic. The complete77-file private TCB proposal and seed remain unchanged.
+Only a new untrusted ordinary-term emitter is compiled/formatted.
+
+Six altered ordinary controls reject in both kernels with CoreTypeMismatch:
+one wrongly typed word zero, three noncanonical empty zero laws and two false
+universal projection claims forcing a result to zero. A well-typed zero
+definition alone is insufficient; the canonical zero law detects the altered
+Bool dummy. The report keeps malformed definitions, false ordinary claims,
+source/configuration errors and resource failures distinct. Two legacy
+Bool/Nat certificates reproduce in the same unchanged private checkers.
+All eight inputs are emitted twice with exact byte equality. Fresh replay
+rebuilds both binaries and reproduces every canonical certificate.
+
+The measured direct children and proof byte/term/declaration counts fit the
+preceding candidate envelope on Darwin; this is not Linux release evidence
+or an aggregate/application guarantee. Twenty selected tests cover full
+closure, aliases/nominal identities, all integer widths, array/struct bounds,
+bytes, global-U Plain, hidden cycles, result order/arity, context/schema/AST
+crossings, determinism and explicit proof-scope flags. The
+[verification record](../migrations/go-practical/t01-w04/closed-carriers/verification/verification.json)
+retains raw selected test/replay/metadata/format/compile logs and reasons.
+Earlier receipts, two diagnostics and143 predecessor paths remain unchanged;
+unaffected old proof/native/kernel suites are not rerun. The cumulative T01
+gate stays deferred to W05.
+
+W04 remains In progress. Full independent source/capture/root/alias/nominal/
+underlying/U completeness, validity and finite-id normalization proofs, all
+operation/contract/control/source-binding laws, downstream artifacts and
+reviewed producer/consumer migration/preservation remain required. W05 owns
+inactive publication and the T01 gate. No T is complete; all T02–T11
+implementation/application/release scope remains active.

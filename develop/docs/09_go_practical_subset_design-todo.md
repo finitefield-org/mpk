@@ -77,6 +77,14 @@ definitions-to-descriptor-to-context chain. The102 configuration vectors,
 21 Python/Rust/Go preimages and20 targeted tests preserve both private
 generations and four existing profile policies. The recipe inventory remains
 explicitly incomplete ordinary kernel/source foundation work.
+The [closed carrier expansion](../migrations/go-practical/t01-w04/closed-carriers/README.md)
+now derives42/43 concrete instances from39 captured/fixture types. Complete
+carrier/zero expansions and46/47 ordinary theorems pass both unchanged private
+checkers with zero axioms; six altered definitions/claims reject. Aliases,
+nominal identity, full word/byte shapes, global-U-dependent Plain and ordered
+result arity remain explicit. Owner labels stay Nat ghosts, with finite-id,
+input validity, complete source/operation bindings and normalization proofs
+still required. Twenty targeted tests cover the concrete expansion boundary.
 Complete source/wire tables, remaining variant/source foundation,
 limits, schemas/hash identities and migration review remain open.
 T01 is incomplete and no practical Go profile is active.

@@ -243,9 +243,20 @@ exact two-rule joint core proposal. Its recipe inventory is explicitly not
 a complete ordinary kernel/source foundation. Exact raw member bytes and
 acyclic descriptor/registry/context linkage have102 configuration vectors,
 21 three-observer hash preimages and20 targeted tests. The
-[current metadata checker](../../../probes/go-practical/check_foundation_limits_metadata.py)
+[section41 metadata checker](../../../probes/go-practical/check_foundation_limits_metadata.py)
 checks all earlier evidence,143 predecessor pins and both diagnostics.
 The [verification record](foundation-limits/verification/verification.json)
 retains selected checks and reasons. W04 stays open with full ordinary
 specialization/expansion/binding, source/contract/downstream schemas and
 reviewed migrations remaining. The cumulative T01 gate stays due in W05.
+
+The [closed carrier/ordinary expansion draft](closed-carriers/README.md)
+derives42/43 instances from39 source/fixture types and emits complete ordinary
+carriers/zeros with46/47 new checked theorems. Both unchanged private checkers
+accept the two full sets and reject six controls. Two legacy certificates
+also reproduce. The [current metadata checker](../../../probes/go-practical/check_carrier_metadata.py)
+checks exact schemas/closure/certificates, all retained evidence and source
+pins. Its [verification record](closed-carriers/verification/verification.json)
+records20 selected tests and full local replay. Source/validity/finite-id
+and operation bindings remain unproved; W04 and the complete objective stay
+open. The cumulative T01 gate remains assigned to W05.
