@@ -69,6 +69,9 @@ def generate(name):
         "historical_evidence_rule": "exact original Git epoch/receipts; current implementation requires new inputs and execution; metadata cannot promote proof or release readiness",
         "required_later_gates": ["T02–T06 complete source/ordinary/application proofs and stage gates", "T07 first native release", "T08–T11 maps/pointers and second native release"],
     }
+    if not name.startswith("core-"):
+        v["contract_members"].append(ref(RECORD / "source-kind/catalog.json"))
+        v["final_source_epoch_rule"] = "Final source kind is go_file; preceding private candidate models/fixtures are historical and cannot serve as production importers or be relabeled as current source evidence. T02 regenerates all dependent identities/artifacts."
     if name.startswith("core-"):
         v["measured_evidence"] = [ref(W04 / "nat-termination/observations.json")]
         v["vectors"] = [{"id": name + "-" + str(i), "condition": g, "expected": "enforce_exact_guard", "production_observed": False}
@@ -82,6 +85,8 @@ def generate(name):
 
 def check_package(write=False):
     audit = audit_predecessor(); RECORD.mkdir(parents=True, exist_ok=True)
+    from source_kind_freeze import build as final_source_kind
+    assert read(RECORD / "source-kind/catalog.json") == final_source_kind(), "final source-kind amendment reconstruction"
     manifest_path = VECTORS / "manifest.json"; old_path = RECORD / "predecessor-spec-manifest.json"
     if not old_path.exists():
         assert write, "missing retained manifest snapshot"

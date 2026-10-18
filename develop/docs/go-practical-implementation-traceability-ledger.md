@@ -4008,3 +4008,50 @@ completed. Its [result record](../migrations/go-practical/t01-w05/verification/c
 and raw logs are authoritative. W05/T01 remain **In progress** until the complete
 gate passes; T02 has not started. This is progress on the active full T01–T11
 objective, not a completion or release claim.
+
+
+## 60. T01-W05 full-gate findings,final vocabulary and retained input epochs
+
+The initial whole-repository scan remained active after1,434 seconds. Equivalent
+literal prefilters retain all127 matchers/four scopes and exact offsets/results.
+All9 existing positive/negative cases and3,206 differential cases agree, including
+escaped/inherited JSON context, symbol whitespace and path-only findings. The
+completed scan takes about258 seconds and exposes132 occurrences in35 files;
+its original failed output is retained, not counted as a pass.
+
+The final inactive [source-kind amendment](../migrations/go-practical/t01-w05/source-kind/README.md)
+uses go_file and an exact eight-member enum. Old candidate graphs cannot be
+aliased or relabeled as final source evidence. One complete amended source-object
+preimage agrees in existing independent Rust and Go hash engines,two runs each.
+This is metadata evidence only. No source admission,ordinary program proof or
+registered frontend execution is inferred; the169 preceding demands remain
+historical unelaborated fixture data. T02 must create a fresh complete graph.
+
+The successor fixture manifest seals36 exact historical files:27 frozen private
+model/fixture/failed-source records,7 intact compressed C# proof receipts with
+incidental prose-byte matches,and2 failed-gate raw logs. Independent code/data
+tables pin path/hash/size/class/epoch. Ten changed/foreign/path/epoch controls
+reject. No directory or production file is exempted;127 detection rules and the
+previous12 retained declarations stay unchanged. The full scan now passes over
+29,266 active files with48 validated historical/retained records. Scanner output
+uses current terminology so its own logs do not create active obsolete prose.
+
+Clippy then passes. The first workspace run exposes a pre-existing retained C#
+T05-W01 pin mismatch: its request/response fixtures were rebound by the already
+approved Boolean-proof refreeze40469d29,while the conformance record still names
+the original b0c9a5d5 bytes. Both original files are restored as exact historical
+Git objects. Original conformance,current fixtures,source/contract bodies,limits
+and C# profile definitions are unchanged. The retained test checks both epochs,
+all56 request/response pairs,complete source and raw sidecar bodies outside
+context/own-hash values,unchanged other facts,and current file digests. Deliberate
+invalid-Unicode cases remain intact. The focused test passes,and all9 boundary
+cases pass in the complete retry. No old receipt is rewritten to describe a new
+native run.
+
+The cumulative [gate](../migrations/go-practical/t01-w05/verification/check-fast-result.json)
+is still running through the workspace tests at this checkpoint. The transition
+trace test has passed; its longer idempotency/snapshot test remains active.
+W05/T01 are not complete and T02 has not started. All T02–T11 implementation,
+source/application proof,stage gates and native T07/T11 release work remain
+mandatory. [Verification details](../migrations/go-practical/t01-w05/verification/verification.json)
+retain superseded/failed attempts separately from actual passing checks.

@@ -68,6 +68,14 @@ correct post step; break does not imply a false loop condition.
 
 ## Contracts, proof and bounds
 
+The final captured Go file kind is `go_file`. The exact source-kind enum and
+source-object preimage in `develop/migrations/go-practical/t01-w05/source-kind/catalog.json`
+supersede the preliminary private candidate vocabulary. Earlier models and
+generated fixtures remain sealed historical data; they do not define a parser
+alias. T02 must generate fresh source identities and every dependent artifact
+against this final enum. No earlier candidate graph or checker observation is
+promoted by relabeling it.
+
 The closed70-head typed overlay has exact nominal/logical types, positional
 input/results, entry-old/current/header namespaces and source loop identities.
 Generated invariants and variants are untrusted candidates. Every loop needs

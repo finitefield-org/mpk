@@ -2,7 +2,11 @@
   "command": [
     "./scripts/check-fast.sh"
   ],
-  "status": "running",
-  "exit_code": null,
-  "scope": "cumulative T01 gate at W05; actual process still active"
+  "environment": {
+    "CARGO_NET_OFFLINE": "true"
+  },
+  "exit_code": 101,
+  "scanner_sha256": "14e61e16be3b706e18a2de0842f85f6091eb256d9713924b677e2212a54c3cc1",
+  "scope": "cumulative GO-PRAC-T01 W05 full local gate; native macOS development checks,not native Linux installed-release acceptance",
+  "wall_seconds": 862.7042574579827
 }

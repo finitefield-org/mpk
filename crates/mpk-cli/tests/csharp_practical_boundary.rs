@@ -889,10 +889,134 @@ fn csharp_03_t05_w01_retained_evidence_and_frozen_limits() {
     assert_eq!(record["deterministic_source_captures"], 55);
     assert_eq!(record["source_rejections"], 1);
     assert_eq!(record["files"].as_array().unwrap().len(), 3);
+    let epochs: Value =
+        serde_json::from_slice(
+            &fs::read(root.join(
+                "develop/migrations/csharp-03/boundary-attachment/retained-t05-w01/epochs.json",
+            ))
+            .unwrap(),
+        )
+        .unwrap();
+    assert_eq!(epochs["schema"], "mpk.test.retained_input_epoch.v1");
+    assert_eq!(epochs["files"].as_array().unwrap().len(), 2);
     for file in record["files"].as_array().unwrap() {
-        let bytes = fs::read(root.join(file["path"].as_str().unwrap())).unwrap();
+        let path = file["path"].as_str().unwrap();
+        let current = fs::read(root.join(path)).unwrap();
+        let bytes = if let Some(epoch) = epochs["files"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|entry| entry["path"] == path)
+        {
+            assert_eq!(epoch["historical_sha256"], file["sha256"]);
+            assert_eq!(epoch["historical_size_bytes"], file["size_bytes"]);
+            assert_eq!(
+                epoch["current_sha256"],
+                format!("{:x}", Sha256::digest(&current))
+            );
+            assert_eq!(epoch["current_size_bytes"], current.len());
+            fs::read(root.join(epoch["historical_path"].as_str().unwrap())).unwrap()
+        } else {
+            current
+        };
         assert_eq!(file["sha256"], format!("{:x}", Sha256::digest(&bytes)));
         assert_eq!(file["size_bytes"], bytes.len());
+    }
+    // Retain the old observation without pretending its input hashes describe
+    // the later refreeze. Every source byte and non-context sidecar field stays
+    // equal; current response file hashes still bind the current request bytes.
+    let base = root.join("develop/migrations/csharp-03/boundary-attachment");
+    let requests: Vec<Value> =
+        serde_json::from_slice(&fs::read(base.join("requests.json")).unwrap()).unwrap();
+    let original: Vec<Value> =
+        serde_json::from_slice(&fs::read(base.join("retained-t05-w01/requests.json")).unwrap())
+            .unwrap();
+    let responses: Vec<Value> =
+        serde_json::from_slice(&fs::read(base.join("responses.json")).unwrap()).unwrap();
+    let original_responses: Vec<Value> =
+        serde_json::from_slice(&fs::read(base.join("retained-t05-w01/responses.json")).unwrap())
+            .unwrap();
+    assert_eq!(requests.len(), original.len());
+    assert_eq!(responses.len(), original_responses.len());
+    assert_eq!(requests.len(), responses.len());
+    fn retained_sidecar_body(text: &str) -> String {
+        let mut spans = Vec::new();
+        for key in ["semantic_context", "contract_sha256", "binding_set_sha256"] {
+            let token = format!("\"{key}\":");
+            let matches = text.match_indices(&token).collect::<Vec<_>>();
+            assert!(matches.len() <= 1, "fixture metadata fields must be unique");
+            if let Some((offset, _)) = matches.first() {
+                let start = offset + token.len();
+                let mut stream =
+                    serde_json::Deserializer::from_str(&text[start..]).into_iter::<Value>();
+                stream.next().unwrap().unwrap();
+                spans.push((start, start + stream.byte_offset()));
+            }
+        }
+        spans.sort_unstable();
+        let mut body = String::new();
+        let mut previous = 0;
+        for (start, end) in spans {
+            assert!(previous <= start);
+            body.push_str(&text[previous..start]);
+            body.push_str("null");
+            previous = end;
+        }
+        body.push_str(&text[previous..]);
+        body
+    }
+    for ((before, after), (before_response, after_response)) in original
+        .iter()
+        .zip(&requests)
+        .zip(original_responses.iter().zip(&responses))
+    {
+        assert_eq!(before["id"], before_response["id"]);
+        assert_eq!(after["id"], after_response["id"]);
+        let current_request = after;
+        let mut before = before.clone();
+        let mut after = after.clone();
+        for request in [&mut before, &mut after] {
+            request.as_object_mut().unwrap().remove("id");
+            for input in request["inputs"].as_array_mut().unwrap() {
+                if input["kind"] == "sidecar" {
+                    input["utf8"] = retained_sidecar_body(input["utf8"].as_str().unwrap()).into();
+                }
+            }
+        }
+        assert_eq!(
+            before, after,
+            "refreeze must retain complete source and contract bodies"
+        );
+        let mut before_facts = before_response.clone();
+        let mut after_facts = after_response.clone();
+        for (response, request) in [(&mut before_facts, &before), (&mut after_facts, &after)] {
+            response.as_object_mut().unwrap().remove("id");
+            if let Some(facts) = response.get_mut("facts").filter(|facts| facts.is_object()) {
+                if let Some(files) = facts.get_mut("input_files").and_then(Value::as_array_mut) {
+                    for file in files {
+                        file.as_object_mut().unwrap().remove("raw_sha256");
+                    }
+                }
+                assert_eq!(facts["compilation_id"], request["compilation_id"]);
+            }
+        }
+        assert_eq!(
+            before_facts, after_facts,
+            "all non-input-hash native facts remain unchanged"
+        );
+        if let Some(files) = after_response["facts"]["input_files"].as_array() {
+            for file in files {
+                let input = current_request["inputs"]
+                    .as_array()
+                    .unwrap()
+                    .iter()
+                    .find(|input| input["path"] == file["path"])
+                    .unwrap();
+                let raw = input["utf8"].as_str().unwrap().as_bytes();
+                assert_eq!(file["raw_sha256"], format!("{:x}", Sha256::digest(raw)));
+                assert_eq!(file["size_bytes"], raw.len());
+            }
+        }
     }
     let package: Value = serde_json::from_slice(
         &fs::read(root.join("develop/specs/vectors/csharp-practical-profile-v1.json")).unwrap(),

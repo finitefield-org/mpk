@@ -26,6 +26,12 @@ transports have precisely the LF rules in their schema: API/frontend/release
 use one LF; policy/AI and domain preimages exclude it. No old-schema fallback,
 schema alias, ignored field, Boolean-as-integer or hash-only authority is allowed.
 
+The final source-kind enum in
+`develop/migrations/go-practical/t01-w05/source-kind/catalog.json` uses `go_file`
+for Go source. The preceding private candidate graph is a sealed historical
+fixture, not an allowed input dialect. New producers/importers regenerate all
+dependent source/context/IR/VC hashes; there is no old-tag alias or relabeling.
+
 Independent import regenerates source capture/type/scope/nominal identities,
 closed operations/contracts, region/control/effect linkage and every request.
 The ordinary assembly contains full canonical context certificate bytes and

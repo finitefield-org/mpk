@@ -4,6 +4,32 @@ Entry: W04 completion commit `68a44416e1b1a6dc3a84587cca784fc4b3a2b862`.
 Publication and targeted checks pass. The cumulative T01 gate is running;
 T01 and W05 are not complete until its successful result is recorded here.
 
+## Full-gate review fixes
+
+The final [source-kind amendment](source-kind/README.md) uses go_file and
+requires a new T02 source/artifact epoch. Its complete preimage agrees in the
+independent Rust and Go engines, twice each. The old private candidate models,
+their generated fixtures and failed source snapshots remain byte-identical.
+
+The obsolete-interface scanner now uses equivalent literal prefilters, with
+3,206 unchanged-result controls, all9 existing cases and the fixture manifest.
+All127 matchers and4 scopes are unchanged. Its new fixture-manifest version
+additionally seals36 individually reviewed historical files by exact path,
+hash,size,class and source epoch. It preserves the12 existing retained-record
+declarations and permits no directory/production-file exclusions. Ten changed
+seal controls reject; [details and original findings](verification/gir-prefilter/README.md)
+distinguish fixed history from current production. The complete scan passes.
+
+The first completed workspace run then exposed a pre-existing C# T05-W01
+input-epoch mismatch introduced by its approved later Boolean-proof refreeze.
+[Original requests/responses](../../csharp-03/boundary-attachment/retained-t05-w01/README.md)
+are restored from their original Git objects; old conformance and current
+fixtures stay unchanged. The updated retained-evidence test pins both epochs,
+compares complete source/contract bodies and native facts, and binds current
+response digests to actual current request bytes. Its targeted test and all9
+boundary-suite cases pass in the full retry. The remaining full gate is still
+running; no partial attempt is counted as completion.
+
 Five frozen inactive specifications own five new conformance vector sets:
 [profile](../../../specs/GO_PRACTICAL_PROFILE_V1.md),
 [foundation](../../../specs/GO_PRACTICAL_FOUNDATION_V1.md),

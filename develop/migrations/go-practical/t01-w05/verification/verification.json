@@ -1,13 +1,24 @@
 {
+  "csharp_retained_epoch_fix": {
+    "original_conformance_and_current_fixtures_unchanged": true,
+    "record": "csharp-retained-input-check.json",
+    "targeted_test": "passed"
+  },
   "full_gate": {
     "command": [
       "./scripts/check-fast.sh"
     ],
+    "failed_attempt": "initial-vocabulary-findings/check-fast-result.json",
     "result": "check-fast-result.json",
+    "retained_epoch_failure": "initial-retained-source-pin/check-fast-result.json",
     "selected_reason": "T01 final W; cumulative full local gate is mandatory; no T02 implementation starts until it passes",
-    "status": "running",
+    "status": "running_after_csharp_retained_epoch_fix",
     "stderr": "check-fast.stderr.log",
-    "stdout": "check-fast.stdout.log"
+    "stdout": "check-fast.stdout.log",
+    "superseded_attempts": [
+      "initial-unoptimized/check-fast-result.json",
+      "initial-literal-only/check-fast-result.json"
+    ]
   },
   "historical_replay_after_publication": {
     "path": "develop/migrations/go-practical/t01-w05/verification/historical-replay-after-publication.json",
@@ -19,7 +30,38 @@
   },
   "native_Linux_release_gate_executed": false,
   "profile_activated": false,
+  "raw_log_whitespace_preserved": [
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/initial-retained-source-pin/check-fast.stdout.log",
+      "reason": "original failed cargo stdout ends with a blank line; exact raw bytes retained",
+      "sha256": "54b0da256fbcc73a83baf92d6ec735bbe6c6551a6f9c650407b42826748982eb"
+    }
+  ],
+  "scanner_optimization": {
+    "all127_matchers_preserved": true,
+    "baseline_commit": "f1ada294",
+    "differential_cases": 3206,
+    "existing_fixture_cases": 9,
+    "manifest_entries": 10,
+    "reason": "Absent literals cannot match the unchanged literal/boundary regex; JSON escapes always retain decoded structured checks; path-only findings are checked independently.",
+    "report": "gir-prefilter/comparison.json",
+    "repository_scope_preserved": true
+  },
+  "scanner_retention": {
+    "all127_rules_unchanged": true,
+    "controls": "gir-prefilter/seal-controls.json",
+    "manifest_schema": "mpk.gir_to_vir.search_fixtures.v1",
+    "production_file_exclusions": [],
+    "sealed_records": 36,
+    "source_hash": "14e61e16be3b706e18a2de0842f85f6091eb256d9713924b677e2212a54c3cc1"
+  },
   "schema": "mpk.go_practical.w05_verification.v0",
+  "source_kind_amendment": {
+    "catalog": "../source-kind/catalog.json",
+    "go_file_kind": "go_file",
+    "native_hash_observation": "../source-kind/hash-observations.json",
+    "old_graph_relabeling_allowed": false
+  },
   "source_semantics_proved": false,
   "status": "targeted_passed_cumulative_gate_running",
   "targeted_results": {

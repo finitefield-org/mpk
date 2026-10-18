@@ -4,3 +4,475 @@
 ==> cargo fmt --check
 
 ==> /Users/kazuyoshitoshiya/ff/mpk/scripts/check-no-active-gir.sh --strict
+Obsolete-interface self-test: ok (29272 active files scanned; 48 retained records excluded)
+No active obsolete interfaces found.
+
+==> cargo clippy --workspace --all-targets -- -D warnings
+
+==> cargo test --workspace
+
+running 15 tests
+test session::tests::unknown_session_returns_structured_error ... ok
+test session::tests::rejects_module_names_with_outer_whitespace ... ok
+test session::tests::session_counter_overflow_returns_structured_error ... ok
+test session::tests::rejects_invalid_module_names ... ok
+test session::tests::starts_session_with_default_profile ... ok
+test session::tests::starts_multiple_sessions_with_deterministic_ids ... ok
+test session::tests::list_sessions_uses_creation_order_after_double_digit_ids ... ok
+test session::tests::start_session_response_serializes_stably ... ok
+test session::tests::maps_profiles_to_kernel_profiles ... ok
+test v2_tests::failed_target_materialization_does_not_leave_partial_helper_state ... ok
+test v2_tests::installed_java_profile_starts_only_with_the_revision_three_root ... ok
+test v2_tests::v2_routes_and_transports_are_closed_against_both_generations ... ok
+test v2_tests::helper_candidate_success_does_not_change_certificate_acceptance_authority ... ok
+test v2_tests::crossed_old_stale_and_noncanonical_operations_reject_atomically ... ok
+test v2_tests::all_three_profiles_produce_deterministic_bound_successor_sessions_and_vcs ... ok
+
+test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.32s
+
+
+running 3 tests
+test batch_response_serializes_stably ... ok
+test batch_returns_per_candidate_verdicts_in_order ... ok
+test batch_handles_ten_thousand_fake_candidates ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 5 tests
+test check_node_response_serializes_stably ... ok
+test check_node_error_serializes_stably ... ok
+test bad_nodes_return_structured_errors_without_mutating_proof_table ... ok
+test check_node_accepts_simple_exact_proof ... ok
+test check_node_validates_core_bootstrap_proofs_recursively ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 3 tests
+test unknown_proof_diagnostic_serializes_stably ... ok
+test rejected_exact_diagnostic_serializes_stably ... ok
+test rejected_intro_body_diagnostic_includes_local_context ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 1 test
+test invalid_candidate_benchmark_imports_and_rejects_deterministically ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.09s
+
+
+running 4 tests
+test jsonl_export_response_serializes_stably ... ok
+test jsonl_import_rejects_invalid_records_structurally ... ok
+test jsonl_import_skips_blank_lines ... ok
+test jsonl_round_trip_feeds_batch_candidate_checking ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 8 tests
+test rust_strategy_reuses_neutral_patterns_with_rust_specific_readiness ... ok
+test unknown_strategy_profile_rejects_deterministically ... ok
+test strategy_registry_binds_exact_go_and_rust_tuples_in_stable_order ... ok
+test obligation_outside_strategy_profile_has_deterministic_reason ... ok
+test payment_policy_alpha_profile_metadata_is_stable ... ok
+test payment_policy_alpha_reserve_theory_fails_under_non_theory_profile ... ok
+test profile_metadata_does_not_weaken_mvp_strict_theory_requirement ... ok
+test payment_policy_alpha_closes_first_reserve_nonnegative_with_checked_linarith ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 5 tests
+test proof_response_serializes_stably ... ok
+test proof_error_serializes_stably ... ok
+test proof_api_returns_structured_errors_without_mutating_table ... ok
+test proof_api_builds_simple_theorem_root ... ok
+test constructs_core_bootstrap_proofs_over_ids ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 7 tests
+test split_reports_not_applicable_for_non_pi_goal ... ok
+test theory_strategy_requires_mvp_strict_profile ... ok
+test split_strategy_proves_simple_propositional_fixture ... ok
+test strategies_try_exact_then_refl_in_safe_order ... ok
+test apply_strategy_proves_simple_application_fixture ... ok
+test theory_strategy_proves_max64_simple_vc_through_checked_certificate ... ok
+test theory_strategy_builds_all_checked_certificate_kinds ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 5 tests
+test term_response_serializes_stably ... ok
+test term_app_with_no_arguments_returns_function_id ... ok
+test term_api_returns_structured_errors ... ok
+test term_error_serializes_stably ... ok
+test constructs_terms_over_interned_ids ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 47 tests
+test binary_tags::tests::proof_node_tags_match_certificate_v0 ... ok
+test binary_tags::tests::level_tags_match_certificate_v0 ... ok
+test binary_tags::tests::declaration_tags_match_core_v0 ... ok
+test binary_tags::tests::term_tags_match_certificate_v0 ... ok
+test axiom_report::tests::shared_term_memoization_still_rejects_cycles ... ok
+test axiom_report::tests::future_declaration_references_reject ... ok
+test axiom_report::tests::shared_proof_dag_has_the_same_axiom_dependencies ... ok
+test canonical::tests::canonical_golden_fixture_accepts ... ok
+test canonical::tests::unsorted_name_table_decodes_but_fails_canonical_check ... ok
+test canonical::tests::noncanonical_fixtures_reject ... ok
+test axiom_report::tests::theory_primitives_are_reported_as_builtin_theory_axioms ... ok
+test axiom_report::tests::direct_and_transitive_dependencies_are_computed ... ok
+test axiom_report::tests::axiom_report_hash_uses_encoded_report_payload ... ok
+test decode::tests::decoder_rejects_non_minimal_varint ... ok
+test axiom_report::tests::axiom_fixture_matches_expected_report ... ok
+test decode::tests::decoder_round_trips_structural_certificate ... ok
+test decode::tests::golden_minimal_certificate_decodes ... ok
+test cert_basic::cert_basic_fixture_shapes_are_minimal ... ok
+test encode::tests::bounded_certificate_encoder_accepts_at_and_refuses_before_excess_allocation ... ok
+test encode::tests::certificate_sections_follow_fixed_order ... ok
+test encode::tests::encoder_uses_tags_for_core_nodes_and_declarations ... ok
+test encode::tests::unsigned_varints_are_minimal_leb128 ... ok
+test encode::tests::minimal_certificate_matches_golden_fixture ... ok
+test export::tests::declaration_name_is_included_in_interface_hash ... ok
+test cert_basic::cert_basic_fixtures_decode_and_hash ... ok
+test export::tests::definition_body_visibility_matches_reducibility ... ok
+test export::tests::missing_declaration_name_rejects ... ok
+test export::tests::export_block_hash_uses_export_domain ... ok
+test export::tests::export_block_derives_entries_for_public_declarations ... ok
+test export::tests::theorem_proof_body_is_excluded_from_export_hash ... ok
+test export::tests::theorem_type_is_included_in_export_hash ... ok
+test decode::tests::invalid_byte_fixtures_reject ... ok
+test hash::tests::domain_separator_changes_hashes ... ok
+test hash::tests::hash_domain_tags_match_cert_v0 ... ok
+test hash::tests::hash_hex_renders_lowercase_hex ... ok
+test imports::tests::all_zero_certificate_hash_rejects ... ok
+test hash::tests::named_hash_helpers_use_their_domains ... ok
+test imports::tests::all_zero_export_hash_rejects ... ok
+test hash::tests::hash_vectors_are_stable ... ok
+test imports::tests::bad_import_hash_rejects_through_canonical_decoder ... ok
+test imports::tests::certificate_imports_api_rejects_bad_hashes ... ok
+test imports::tests::certificate_imports_validate_through_canonical_decoder ... ok
+test imports::tests::duplicate_module_export_identity_rejects ... ok
+test imports::tests::import_table_sorts_by_module_export_and_certificate_hash ... ok
+test imports::tests::invalid_module_name_rejects_direct_validation ... ok
+test imports::tests::noncanonical_import_order_rejects ... ok
+test imports::tests::sorted_hash_pinned_imports_validate ... ok
+
+test result: ok. 47 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 31 tests
+test frontend_sandbox::tests::execution_host_profile_selects_one_closed_sandbox_contract ... ok
+test frontend_sandbox::tests::frontend_runner_freezes_the_first_kill_cause ... ok
+test frontend_runner::tests::registry_assertions_reject_before_installed_release_access ... ok
+test frontend_protocol::tests::public_path_scan_rejects_embedded_absolute_path_families ... ok
+test frontend_sandbox::tests::frontend_runner_stream_capture_marks_the_first_excess_byte ... ok
+test frontend_sandbox::tests::rust_resource_profile_constants_match_the_frozen_units ... ok
+test frontend_runner::tests::registered_rust_selection_uses_the_frontend_identifier_grammar ... ok
+test frontend_sandbox::tests::cgroup_event_observation_is_strict_and_peak_is_inclusive ... ok
+test frontend_sandbox::tests::memory_discharge_uses_byte_gauges_instead_of_per_cpu_stock ... ok
+test frontend_runner::tests::registered_contract_arguments_are_sorted_and_closed ... ok
+test policy_scan::v1::tests::policy_scan_v1_parser_help_is_side_effect_free ... ok
+test policy_scan::v1::tests::policy_scan_v1_parser_accepts_both_registered_rust_targets ... ok
+test frontend_protocol::tests::non_success_transport_is_exact_and_identity_pinned ... ok
+test policy_scan::v1::tests::policy_scan_v1_parser_normalizes_contract_order_and_forbids_old_locators ... ok
+test policy_scan::v1::tests::policy_scan_v1_parser_rejects_unknown_and_crossed_profiles_before_release_selection ... ok
+test policy_scan::v1::tests::policy_scan_v1_release_preflight_precedes_output_and_launch ... ok
+test policy_scan::v1::tests::policy_scan_v1_rejects_directory_output_before_launch ... ok
+test policy_scan::v1::tests::rust_contract_helper_identity_never_applies_go_whitespace_normalization ... ok
+test policy_scan::v1::tests::private_java_capture_preserves_source_contract_and_unlisted_inventory ... ok
+test program_certificate::tests::alpha_shape_rejects_reserved_tables_theory_primitives_and_raw_bool_types ... ok
+test program_certificate::tests::accepted_reference_report_is_bound_to_the_submitted_candidate_bytes ... ok
+test program_certificate::tests::reference_checker_protocol_is_verdict_discriminated_and_zero_count_compatible ... ok
+test frontend_registry::tests::test_resolver_accepts_only_complete_sealed_objects ... ok
+test policy_scan::v1::tests::policy_scan_v1_executes_every_normative_scan_cli_case ... ok
+test program_certificate::tests::checker_acceptance_pairs_have_distinct_fail_closed_classifications ... ok
+test policy_scan::v1::tests::policy_scan_v1_malformed_or_partial_success_cannot_become_ready ... ok
+test frontend_sandbox::tests::java_resource_profile_is_distinct_and_matches_its_frozen_probe ... ok
+test policy_scan::v1::tests::policy_scan_v1_ready_pipeline_is_single_launch_canonical_and_safe_write ... ok
+test policy_scan::v1::tests::policy_scan_v1_non_success_statuses_map_to_deterministic_readiness ... ok
+test frontend_runner::tests::validated_executable_bytes_are_snapshotted_before_launch ... ok
+test frontend_registry::tests::embedded_registry_constants_match_the_reviewed_registry ... ok
+
+test result: ok. 31 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.03s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 2 tests
+test successor_explanation_only_emits_a_sanitized_request ... ok
+test predecessor_explanation_provider_and_evidence_routes_are_absent ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.75s
+
+
+running 3 tests
+test top_level_help_exposes_no_provider_or_predecessor_route ... ok
+test explain_is_the_offline_successor_route_in_every_build ... ok
+test explain_requires_a_successor_source_request ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 1 test
+test csharp_ai_owner_is_registered_for_every_consumed_frozen_vector ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 3 tests
+test frozen_descriptor_binds_the_profile_project_recipe_and_candidate_inventory ... ok
+test registered_frontend_remains_closed_and_uses_the_successor_release_assembler ... ok
+test build_input_self_test_is_closed_against_hostile_ambient_settings ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.34s
+
+
+running 4 tests
+test provisioned_offline_closure_executes_the_capture_harness ... ok
+test private_cli_and_capture_boundary_are_closed_before_roslyn ... ok
+test frozen_selection_is_executably_owned_by_the_candidate ... ok
+test capture_harness_and_candidate_inventory_are_pinned ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+
+running 4 tests
+test provisioned_offline_closure_executes_the_contract_harness ... ok
+test executable_harness_build_gate_and_vector_manifest_own_t08 ... ok
+test frozen_contract_vector_semantic_row_and_limits_are_owned_exactly ... ok
+test parser_attachment_typing_and_hashing_are_private_and_closed ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 3 tests
+test provisioned_emission_is_accepted_by_the_shared_successor_validators ... ok
+test frozen_call_map_source_offsets_and_owned_profiles_are_exact ... ok
+test emission_owners_are_complete_and_the_csharp_route_is_active_only_in_successor ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 3 tests
+test cutover_owner_is_registered_on_both_semantic_registry_vectors ... ok
+test csharp_launcher_and_isolation_contract_remain_closed_after_activation ... ok
+test csharp_candidate_is_an_exact_member_of_the_active_successor_release ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.38s
+
+
+running 3 tests
+test active_revision_three_registry_is_consumed_as_raw_transport ... ok
+test pinned_candidate_executes_every_frontend_owned_vector ... ok
+test aggregate_owner_is_pinned_and_the_active_release_registers_csharp ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.27s
+
+
+running 5 tests
+test provisioned_offline_closure_executes_the_lowering_harness ... ok
+test executable_harness_build_gate_and_vector_manifest_own_t09 ... ok
+test lowering_diagnostics_and_semantic_rows_are_owned_exactly ... ok
+test frozen_scalar_checked_conversion_and_operation_vectors_are_exact ... ok
+test lowering_is_private_complete_and_separated_from_emission ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 2 tests
+test csharp_policy_owner_is_registered_for_every_consumed_frozen_vector ... ok
+test successor_scan_is_frontend_only_and_exactly_reimported ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+
+running 9 tests
+test csharp_03_t05_w01_retained_evidence_and_frozen_limits ... ok
+test csharp_03_t05_w02_provenance_linkage_and_byte_parser_cannot_be_bypassed ... ok
+test csharp_03_t05_w01_boundary_links_cannot_be_removed_or_moved ... ok
+test output::csharp_03_t05_w03_hostile_output_cannot_publish_evidence ... ok
+test output::csharp_03_t05_w03_original_source_output_and_cumulative_identity ... ok
+test csharp_03_t05_w02_real_source_input_matrix_and_two_run_identity ... ok
+test csharp_03_t05_w01_real_source_boundary_matrix ... ok
+test csharp_03_t05_w02_actual_source_aggregate_and_document_limits ... ok
+test output::csharp_03_t05_w03_actual_source_output_resource_boundaries ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 7.48s
+
+
+running 14 tests
+test boundary::csharp_03_t05_w01_retained_evidence_and_frozen_limits ... ok
+test boundary::csharp_03_t05_w02_provenance_linkage_and_byte_parser_cannot_be_bypassed ... ok
+test boundary::csharp_03_t05_w01_boundary_links_cannot_be_removed_or_moved ... ok
+test boundary::output::csharp_03_t05_w03_hostile_output_cannot_publish_evidence ... ok
+test csharp_03_t05_w06_data_route_totality ... ok
+test boundary::output::csharp_03_t05_w03_original_source_output_and_cumulative_identity ... ok
+test boundary::csharp_03_t05_w02_real_source_input_matrix_and_two_run_identity ... ok
+test boundary::csharp_03_t05_w01_real_source_boundary_matrix ... ok
+test boundary::csharp_03_t05_w02_actual_source_aggregate_and_document_limits ... ok
+test boundary::output::csharp_03_t05_w03_actual_source_output_resource_boundaries ... ok
+test transition::csharp_03_t05_w04_independent_import_requires_original_transition_contract ... ok
+test csharp_03_t05_w06_cumulative_emission_and_barriers ... ok
+test transition::csharp_03_t05_w04_actual_source_matrix_and_finite_clr_traces has been running for over 60 seconds
+test transition::idempotency::csharp_03_t05_w05_complete_snapshots_and_precedence has been running for over 60 seconds
+test transition::csharp_03_t05_w04_actual_source_matrix_and_finite_clr_traces ... ok
+test transition::idempotency::csharp_03_t05_w05_complete_snapshots_and_precedence ... ok
+
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 552.21s
+
+
+running 3 tests
+test private_inventory_freezes_two_identical_builds_and_stays_unregistered ... ok
+test private_descriptor_closes_the_exact_toolchain_build_and_environment ... ok
+test private_harness_rejects_mutations_and_strips_ambient_state ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.81s
+
+
+running 6 tests
+test csharp_03_t03_w01_pinned_roslyn_harness_passes_when_cache_is_present ... ok
+test csharp_03_t03_w01_executable_vectors_cover_the_exit_gate ... ok
+test csharp_03_t03_w01_gate_owns_every_frozen_capture_and_closure_rule ... ok
+test csharp_03_t03_w01_closed_instance_ids_match_the_registered_foundation ... ok
+test csharp_03_t03_w01_frozen_limit_vectors_route_only_here ... ok
+test csharp_03_t03_w01_capture_inputs_and_private_routing_are_exact ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+
+running 7 tests
+test csharp_03_t03_w10_pinned_source_harness_when_available ... ok
+test csharp_03_t03_w10_bound_obligations_nulls_and_restricted_concat ... ok
+test csharp_03_t03_w10_exact_private_inputs ... ok
+test csharp_03_t03_w10_contract_codec_signatures_reject_crossed_types ... ok
+test csharp_03_t03_w10_configuration_types_and_bounds_are_closed ... ok
+test csharp_03_t03_w10_string_source_fixture_matches_frozen_runtime_and_rust ... ok
+test csharp_03_t03_w10_replays_every_frozen_codec_under_all_hostile_cultures ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.73s
+
+
+running 20 tests
+test ordered::csharp_03_t03_w09_pinned_source_harness_when_available ... ok
+test csharp_03_t03_w07_pinned_source_harness_when_available ... ok
+test ordered::csharp_03_t03_w09_entry_projection_is_bound_to_source_members_and_hash ... ok
+test csharp_03_t03_w07_exact_private_inputs ... ok
+test ordered::csharp_03_t03_w09_replays_source_operation_handoff ... ok
+test csharp_03_t03_w07_frozen_array_limit_and_shared_equality ... ok
+test sequences::csharp_03_t03_w08_float_sequences_have_equality_but_no_order ... ok
+test sequences::csharp_03_t03_w08_pinned_source_harness_when_available ... ok
+test ordered::csharp_03_t03_w09_exact_private_inputs_and_loop_routing ... ok
+test sequences::csharp_03_t03_w08_every_positive_two_pass_vector_belongs_to_t04 ... ok
+test sequences::csharp_03_t03_w08_exact_private_inputs_and_loop_routing ... ok
+test ordered::csharp_03_t03_w09_total_key_matrix_and_conditional_map_comparison ... ok
+test ordered::csharp_03_t03_w09_frozen_collection_relations_and_null_lookup ... ok
+test ordered::csharp_03_t03_w09_canonical_scalar_keys_and_lexicographic_sequence_keys ... ok
+test sequences::csharp_03_t03_w08_rejects_partial_forged_and_residual_state ... ok
+test sequences::csharp_03_t03_w08_replays_the_actual_source_handoff ... ok
+test sequences::csharp_03_t03_w08_wrapper_projection_revalidates_binding_and_representation ... ok
+test ordered::csharp_03_t03_w09_set_projection_order_duplicates_and_limits ... ok
+test sequences::csharp_03_t03_w08_frozen_capacity_and_state_vectors ... ok
+test sequences::csharp_03_t03_w08_direct_publication_and_shared_operations ... ok
+
+test result: ok. 20 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.95s
+
+
+running 51 tests
+test csharp_03_t04_w01_input_inventory_and_pinned_frontend_when_available ... ok
+test csharp_03_t04_w01_raw_sidecar_duplicate_hash_and_unknown_field_rejections ... ok
+test csharp_03_t04_w01_nested_and_source_provenance_mutations ... ok
+test csharp_03_t04_w01_collection_clauses_use_source_bound_t03_projections ... ok
+test csharp_03_t04_w01_strict_attachment_modifies_and_sidecar_hashes ... ok
+test csharp_03_t04_w01_expression_types_purity_scopes_and_precedence ... ok
+test emission::csharp_03_t04_w06_construction_exception_paths_emit_and_discard ... FAILED
+test csharp_03_t04_w01_each_form_attachment_typing_and_bounded_facts ... ok
+test emission::csharp_03_t04_w06_conformance_binds_current_capture_and_rejection_matrix ... FAILED
+test emission::csharp_03_t04_w06_control_cross_feature_loops_emit_ordinary_vir ... FAILED
+test emission::csharp_03_t04_w06_importer_checks_construction_loop_fixed_point ... ok
+test emission::csharp_03_t04_w06_partial_callee_cannot_support_total_caller ... ok
+test csharp_03_t04_w01_frozen_limits_and_approved_partial_amendment ... ok
+test emission::csharp_03_t04_w06_real_collection_algorithms_emit_ordinary_vir ... FAILED
+test emission::csharp_03_t04_w06_actual_source_exceptions_emit_ordinary_vir ... ok
+test exceptions::csharp_03_t04_w04_closed_throws_match_original_clr ... ok
+test exceptions::csharp_03_t04_w04_constructor_storage_and_receiver_mutations_reject ... ok
+test emission::csharp_03_t04_w06_source_control_linkage_and_cfg_mutations_reject ... ok
+test exceptions::csharp_03_t04_w04_consumes_data_owner_successors_without_reconversion ... ok
+test exceptions::csharp_03_t04_w04_does_not_extend_legacy_wire_by_null_field ... ok
+test exceptions::csharp_03_t04_w04_hostile_source_tree_counts_reject_without_overflow ... ok
+test emission::csharp_03_t04_w06_filter_and_finally_mutations_reject_without_roslyn ... ok
+test exceptions::csharp_03_t04_w04_exceptional_contracts_and_closed_set ... ok
+test emission::csharp_03_t04_w06_actual_source_data_control_capture ... ok
+test exceptions::csharp_03_t04_w04_rejections_reach_the_intended_gate ... ok
+test exceptions::csharp_03_t04_w04_mutated_values_edges_and_declarations_reject ... ok
+test handlers::csharp_03_t04_w05_finally_completion_preserves_values_and_replaces_throws ... ok
+test exceptions::csharp_03_t04_w04_pinned_conformance ... ok
+test emission::csharp_03_t04_w06_ordinary_control_mutations_reject_without_roslyn ... ok
+test handlers::csharp_03_t04_w05_rejection_barriers_are_artifact_free ... ok
+test handlers::csharp_03_t04_w05_search_subject_and_filter_protocol_are_closed ... ok
+test handlers::csharp_03_t04_w05_conformance_binds_sources_graphs_and_pinned_inputs ... ok
+test exceptions::csharp_03_t04_w04_payload_contract_scope_and_type ... ok
+test handlers::csharp_03_t04_w05_original_clr_and_two_pass_traces ... ok
+test lowering::csharp_03_t04_w02_cfg_budget_is_inclusive_and_precedes_contract_typing ... ok
+test lowering::csharp_03_t04_w02_live_inputs_and_private_route_are_exact ... ok
+test lowering::csharp_03_t04_w02_explicit_var_foreach_equivalence_and_termination_boundaries ... ok
+test handlers::csharp_03_t04_w05_region_edge_order_and_filter_mutations ... ok
+test lowering::csharp_03_t04_w02_collection_obligations_and_foreach_write_rejections_remain_pending ... ok
+test lowering::csharp_03_t04_w02_source_operation_cannot_change_into_a_synthetic_opcode ... ok
+test lowering::csharp_03_t04_w02_graph_attachment_ids_operands_and_abrupt_mutations_reject ... ok
+test lowering::csharp_03_t04_w02_real_ordered_binding_clauses_survive_cfg_lowering ... ok
+test patterns::csharp_03_t04_w03_private_pins_and_rejections_are_retained ... ok
+test emission::csharp_03_t04_w06_pruned_ssa_for_actual_control_paths ... ok
+test patterns::csharp_03_t04_w03_unmatched_path_and_claim_mutations_reject ... ok
+test lowering::csharp_03_t04_w02_original_clr_and_independent_loop_interpreter_agree ... ok
+test patterns::csharp_03_t04_w03_decision_graphs_match_original_clr ... ok
+test csharp_03_t04_w01_actual_source_forms_and_pending_claims ... ok
+test emission::csharp_03_t04_w06_actual_source_patterns_emit_ordinary_vir ... ok
+test emission::csharp_03_t04_w06_actual_source_catches_emit_ordinary_vir ... ok
+test emission::csharp_03_t04_w06_actual_source_loops_emit_ordinary_vir ... ok
+
+failures:
+
+---- emission::csharp_03_t04_w06_construction_exception_paths_emit_and_discard stdout ----
+
+thread 'emission::csharp_03_t04_w06_construction_exception_paths_emit_and_discard' (27659599) panicked at crates/mpk-cli/tests/support/csharp_practical_control_emission.rs:1435:33:
+"array_initializer_catch": Source
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- emission::csharp_03_t04_w06_conformance_binds_current_capture_and_rejection_matrix stdout ----
+
+thread 'emission::csharp_03_t04_w06_conformance_binds_current_capture_and_rejection_matrix' (27659595) panicked at crates/mpk-cli/tests/support/csharp_practical_control_emission.rs:1561:9:
+assertion `left == right` failed
+  left: String("7b7e88bb586d4994569578989cd88dac973807f6950ede6275869a845f14fdb2")
+ right: "8f57a30edfbc9b58e61c84c5ddd27d8901d880c6694447b67bc9ac3654f0b585"
+
+---- emission::csharp_03_t04_w06_control_cross_feature_loops_emit_ordinary_vir stdout ----
+
+thread 'emission::csharp_03_t04_w06_control_cross_feature_loops_emit_ordinary_vir' (27659610) panicked at crates/mpk-cli/tests/support/csharp_practical_control_emission.rs:1068:10:
+called `Result::unwrap()` on an `Err` value: Source
+
+---- emission::csharp_03_t04_w06_real_collection_algorithms_emit_ordinary_vir stdout ----
+
+thread 'emission::csharp_03_t04_w06_real_collection_algorithms_emit_ordinary_vir' (27659693) panicked at crates/mpk-cli/tests/support/csharp_practical_control_emission.rs:782:10:
+called `Result::unwrap()` on an `Err` value: Source
+
+
+failures:
+    emission::csharp_03_t04_w06_conformance_binds_current_capture_and_rejection_matrix
+    emission::csharp_03_t04_w06_construction_exception_paths_emit_and_discard
+    emission::csharp_03_t04_w06_control_cross_feature_loops_emit_ordinary_vir
+    emission::csharp_03_t04_w06_real_collection_algorithms_emit_ordinary_vir
+
+test result: FAILED. 47 passed; 4 failed; 0 ignored; 0 measured; 0 filtered out; finished in 31.83s
+
