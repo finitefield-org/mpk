@@ -1,0 +1,134 @@
+{
+  "schema": "mpk-go-practical-t01-w05-calendar-structural-epoch-repair-1.0",
+  "status": "selected_repairs_passed_complete_repaired_gate_required",
+  "recorded_at_utc": "2026-10-18T09:47:39.689062+00:00",
+  "source_base_commit": "320ecd67ab420e1ea806196271eea3271f929fbe",
+  "changed_source_inputs": [
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_calendar_tests.rs",
+      "sha256": "49cd75c80129e9d1e0a1517eb0fad4cb41ff597f697837cafb9abde9211a5652",
+      "bytes": 23586
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_structural_equivalence_tests.rs",
+      "sha256": "fb6020e865380d159d288677e28f28f8fee23facd229df40ca937e6aabf175a1",
+      "bytes": 41827
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/retained-csharp/structural-boundary-epochs/manifest.json",
+      "sha256": "a34cf96a459a32156060f3026e8d36d2aa25215e0fa656c19f89ee9f76f5d00e",
+      "bytes": 8097
+    }
+  ],
+  "selection_reason": "Two reproduced historical archive comparisons affected by earlier approved count/domain refreshes. Retain complete historical comparisons and independently verify the actual current-source producer; unchanged semantic matrices are not repeated.",
+  "original_failures": [
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-calendar-diagnosis/result.json",
+      "sha256": "2e19880afb7810b8b7bc1591f68734a4a37465e7b21ebd2ec69fbeed58a005ed",
+      "bytes": 2577
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-calendar-diagnosis/related-structural-archive-result.json",
+      "sha256": "99146971b67a7ef83e454d3b0c98f150d614954610b0e7fdd101178771f49df5",
+      "bytes": 1412
+    }
+  ],
+  "original_compiler_source_snapshots": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-calendar-diagnosis/compiler-source-snapshots.json",
+    "sha256": "b3232dd1b762820fc60489c9d462e69742976d21b764d73d84b0bedfe7f72c94",
+    "bytes": 98171
+  },
+  "build": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-calendar-repair/structural-checkpoint/build-result.json",
+    "sha256": "fa249acdd3315bbd080122642b23d0f21b8836fbbf209bdb3cab9504ba235b89",
+    "bytes": 2642
+  },
+  "actual_test_profile": {
+    "opt_level": "1",
+    "debuginfo": 2,
+    "debug_assertions": true,
+    "overflow_checks": true,
+    "test": true
+  },
+  "checks": {
+    "calendar-recheck": {
+      "receipt": {
+        "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-calendar-repair/structural-checkpoint/calendar-recheck-result.json",
+        "sha256": "4973c74ab6ee5d0303f379e762fb502c7a0918e361c5be670a7628da83a499a1",
+        "bytes": 1561
+      },
+      "wall_seconds": 6.0202385840239
+    },
+    "structural-history": {
+      "receipt": {
+        "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-calendar-repair/structural-checkpoint/structural-history-result.json",
+        "sha256": "c195e12ea23c29f866228d111e64467d063330cef5760c5a1071cbd60e05211a",
+        "bytes": 1560
+      },
+      "wall_seconds": 3.1769463749369606
+    },
+    "structural-current-source": {
+      "receipt": {
+        "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-calendar-repair/structural-checkpoint/structural-current-source-result.json",
+        "sha256": "1543539b3be52ce884d802344bc12d118862320065b5323765dcb5180b877f45",
+        "bytes": 1560
+      },
+      "wall_seconds": 51.66962366597727
+    },
+    "format": {
+      "receipt": {
+        "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-calendar-repair/structural-checkpoint/format-result.json",
+        "sha256": "0d682728b08957919f17280623840440b739745d618bc1653776193faec88071",
+        "bytes": 1591
+      },
+      "wall_seconds": 1.0770400420296937
+    },
+    "clippy": {
+      "receipt": {
+        "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-calendar-repair/structural-checkpoint/clippy-result.json",
+        "sha256": "c5b404ef37f6e000a1ca643038f6455416be25e5ebd87b6804a272c9775f3e9e",
+        "bytes": 1502
+      },
+      "wall_seconds": 159.65114408289082
+    }
+  },
+  "calendar": {
+    "old_token_roots": 177,
+    "old_transitive_declarations": 2325,
+    "current_transitive_declarations": 2299,
+    "retired_exact_count_helpers": 26,
+    "unchanged_retained_bodies": 2298,
+    "retained_types_unchanged": true,
+    "current_full_closure_pinned": true,
+    "mutations_rejected": 4
+  },
+  "structural": {
+    "sealed_git_members": 16,
+    "historical_cases": 4,
+    "original_complete_comparison_retained": true,
+    "aggregate_reassociation_cases": 2,
+    "checkpoint_mutations_rejected": 4,
+    "current_original_source_cases": 4,
+    "historical_checkpoint_commit": "fe9dc4fc3ebc2554127591e708b2a2d224357751"
+  },
+  "raw_stdout_whitespace": {
+    "audit": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/raw-log-whitespace.json",
+    "exact_paths": 36,
+    "source_json_directory_exclusions": false
+  },
+  "production_changed": false,
+  "existing_certificate_bytes_changed": false,
+  "existing_source_captures_changed": false,
+  "checker_rules_or_limits_changed": false,
+  "current_checker_rerun_required": false,
+  "checker_scope_reason": "This repair changes test assertions and historical input linkage only; no checker, emitter or certificate bytes change. No new checker result is inferred from retained receipts.",
+  "original_full_gate": "Source320 diagnostic continues to completion to collect remaining failures. It already has a calendar assertion failure and cannot count as a passing gate. A complete retry over committed repaired source remains required.",
+  "complete_repaired_gate_passed": false,
+  "T01_complete": false,
+  "T02_started": false,
+  "go_demands_unelaborated": 169,
+  "csharp_application_proofs_pending": 987,
+  "source_or_application_proofs_discharged": false,
+  "native_Linux_release_gate_executed": false,
+  "profile_activated": false
+}

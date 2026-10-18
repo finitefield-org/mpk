@@ -36,7 +36,8 @@
     "targeted_test": "passed"
   },
   "full_gate": {
-    "actual_profile_verification": "retained-csharp-repair/test-profile/cargo-profile-result.json",
+    "actual_profile_verification": "retained-csharp-repair/test-profile/json-repaired-retry/cargo-profile-result.json",
+    "actual_profile_verification_sha256": "baf3154fc2834e4d632b22f1f2215421cfb99fadf505c8f0852160a0da7e64f3",
     "command": [
       "./scripts/check-fast.sh"
     ],
@@ -52,7 +53,9 @@
       "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true"
     },
     "selected_reason": "T01 final W; cumulative full local gate is mandatory; no T02 implementation starts until it passes",
-    "status": "required_repaired_committed_tree_not_started",
+    "source_commit": "320ecd67ab420e1ea806196271eea3271f929fbe",
+    "source_tree": "05b791d9e2fe6bb40709b3d47df7295f355e9d97",
+    "status": "running_with_calendar_archive_count_helper_assertion_failure_requires_repaired_retry",
     "stderr": "check-fast.stderr.log",
     "stdout": "check-fast.stdout.log",
     "superseded_attempts": [
@@ -74,7 +77,7 @@
   "profile_activated": false,
   "raw_log_whitespace_audit": {
     "directory_exclusions": false,
-    "exact_paths": 30,
+    "exact_paths": 36,
     "path": "retained-csharp-repair/raw-log-whitespace.json"
   },
   "raw_log_whitespace_preserved": [
@@ -144,9 +147,36 @@
     "old_graph_relabeling_allowed": false
   },
   "source_semantics_proved": false,
-  "status": "targeted_repairs_passed_repaired_cumulative_full_retry_required",
+  "status": "calendar_and_structural_epoch_selected_repairs_passed_original_diagnostic_running_with_failure",
   "targeted_results": {
     "path": "develop/migrations/go-practical/t01-w05/verification/targeted-results.json",
     "sha256": "ea675b508555ed889741c5e47bdfc54a02e05f1b258b7b4c26c5d2a446a8ab6a"
+  },
+  "remaining_document_root_reference_audit": {
+    "path": "retained-csharp-repair/json-boundary-repair/remaining-document-root-audit.json",
+    "sha256": "24268e5704842700073cf4a891de8c85e7e787a01943bc334fa6abfd3762d6e3",
+    "status": "passed_file_reference_audit_full_gate_pending",
+    "families_checked": 11,
+    "current_hex_members_checked": 33,
+    "full_gate_passed": false
+  },
+  "calendar_count_helper_archive_repair": {
+    "original_failure": "retained-csharp-repair/json-calendar-diagnosis/result.json",
+    "related_original_failure": "retained-csharp-repair/json-calendar-diagnosis/related-structural-archive-result.json",
+    "calendar_selected_result": "retained-csharp-repair/json-calendar-repair/focused-result.json",
+    "calendar_selected_status": "passed",
+    "calendar_mutations_rejected": 4,
+    "structural_archive_repair_status": "passed",
+    "T01_complete": false,
+    "T02_started": false,
+    "production_changed": false,
+    "fixtures_changed": false,
+    "profile_activated": false,
+    "status": "selected_repairs_passed_complete_repaired_gate_required",
+    "verification": "retained-csharp-repair/json-calendar-repair/verification.json",
+    "current_source_producer_status": "passed",
+    "format": "passed",
+    "clippy": "passed",
+    "new_complete_gate_required": true
   }
 }

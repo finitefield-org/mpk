@@ -1,0 +1,56 @@
+{
+  "source_base_commit": "320ecd67ab420e1ea806196271eea3271f929fbe",
+  "source_repair": "Uncommitted calendar test-only count-helper epoch guard; no production or fixture changes.",
+  "status": "passed",
+  "started_at_utc": "2026-10-18T09:20:12.653237+00:00",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "csharp_practical_vc",
+    "--no-run",
+    "--message-format=json"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_TARGET_DIR": "/private/tmp/mpk-t01-w05-json-repair-target",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true"
+  },
+  "RUST_MIN_STACK": "unset",
+  "input": {
+    "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_calendar_tests.rs",
+    "sha256": "49cd75c80129e9d1e0a1517eb0fad4cb41ff597f697837cafb9abde9211a5652",
+    "bytes": 23586
+  },
+  "selection_reason": "Only the integration test whose calendar historical dependency assertion failed. Existing production and certificate bytes are unchanged.",
+  "exit_code": 0,
+  "wall_seconds": 68.90207912505139,
+  "finished_at_utc": "2026-10-18T09:21:21.558134+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-calendar-repair/build.stdout.jsonl",
+    "sha256": "e171d1ff7df57476cc25ae7208b4eb436e3cf6a25131c18d265803115ceecc16",
+    "bytes": 30425
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-calendar-repair/build.stderr.log",
+    "sha256": "e6e8b766c5d1cbf49fd7cd0b0d3a8cb38cdab08c4128893959ce9b5c9ffea71f",
+    "bytes": 146
+  },
+  "executable": {
+    "path": "/private/tmp/mpk-t01-w05-json-repair-target/debug/deps/csharp_practical_vc-f5f78b9b819b93a0",
+    "sha256": "7f86c68fb2ede6b248c4080312cb89f459a6af3cf233228b61c87f287da8904f",
+    "bytes": 40937752
+  },
+  "profile": {
+    "opt_level": "1",
+    "debuginfo": 2,
+    "debug_assertions": true,
+    "overflow_checks": true,
+    "test": true
+  }
+}

@@ -4174,3 +4174,46 @@ stack/fatal target abort. It was partial and supplies no passing T01 gate.
 Every remaining target and all workspace tests must run again over the committed
 repaired tree. T01/W05 remain incomplete and T02 remains unstarted. No practical
 profile or application-proof status changes.
+
+## 65. T01-W05 calendar counter and structural archive epochs
+
+The source320 cumulative diagnostic confirms the repaired JSON token original
+sources, then reports one calendar-token historical preservation assertion.
+Its unchanged binary reproduces the failure in2.898 seconds: a former
+register-cube count result is compared with the reviewed shared17-bit result.
+The [diagnosis](../migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-calendar-diagnosis/result.json)
+preserves the original binary/source, both certificate inputs and raw error.
+
+All177 token definitions retain their own bodies. The exact transitive
+inventory changes from2,325 to2,299 declarations: only the known count result
+body changes and its26 old private helpers retire. All retained types and
+the other2,298 bodies remain exact. The repaired check separately compares
+the entire current closure with its immutable producer pin, including the
+new counter body. It passes in4.778 seconds; altered token/dependency/counter
+bodies and a counter type all reject. No definition or fixture changes.
+
+The related original structural-boundary historical test independently fails
+on the old counter's missing Success global. Its four pairs also span later
+reviewed domain/aggregate changes. The
+[retained epoch manifest](../migrations/go-practical/t01-w05/retained-csharp/structural-boundary-epochs/manifest.json)
+pins all16 original/checkpoint/current/receipt members against actual Git
+objects. Complete before-quoted-decimal to pre-count-refresh comparisons pass
+for all four pairs; the two aggregate pairs retain the unchanged exact
+8,192-step reassociation audit and every old transitive declaration check.
+The successors were recorded by fe9dc4fc, not the earlier09a14bdd epoch; the
+failed earlier-path lookup remains a setup observation, not a proof rejection.
+
+The repaired structural test preserves those complete comparisons and adds
+changed-checkpoint controls plus separate current canonical-pin checks.
+Its actual rebuilt execution now passes all four historical pairs in3.177
+seconds and rejects four altered checkpoint definitions. The calendar recheck
+passes in6.020 seconds with all four controls rejected. The separate actual
+current-source producer passes all four current contexts in51.670 seconds,
+including strict import, golden, source/context/program mutations and complete
+dependency comparisons. Targeted format and the affected integration target's
+Clippy pass without warnings. The [selected record](../migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-calendar-repair/verification.json)
+keeps those results distinct from retained historical/checker observations.
+No production or existing certificate bytes change. The source320 no-fail-fast
+diagnostic keeps running to collect other failures. A new complete repaired gate must
+pass before W05/T01 completes or T02 starts. All169 Go demands and987 C#
+application proofs retain their pending status; neither profile is activated.

@@ -6,6 +6,20 @@ retained C# fixture and JSON archive epoch mismatches. Their repaired source
 and normal golden checks now pass; a new complete gate over the committed
 repaired tree remains required. T01/W05 are incomplete and T02 is unstarted.
 
+The source320 diagnostic subsequently exposes a historical calendar-token
+count-helper comparison failure. Its isolated original failure is retained.
+The repaired calendar test preserves all177 token bodies, all retained types,
+2,298 unchanged dependency bodies and the exact26 retired counter helpers;
+the complete current2,299-declaration closure is independently compared with
+its pin. It passes with four altered bodies/types rejected. A related
+structural-boundary archive comparison also reproduces a stale historical
+dependency failure. Its [actual retained comparison epochs](retained-csharp/structural-boundary-epochs/README.md)
+preserve all original complete comparisons. Both repaired tests, all eight
+altered-definition/type controls, the actual current-source producer, format
+and affected Clippy now pass. The source320 full diagnostic continues to
+collect later failures; it cannot count as a passing T01 gate. See the
+[selected repair record](verification/retained-csharp-repair/json-calendar-repair/verification.json).
+
 ## Full-gate review fixes
 
 The final [source-kind amendment](source-kind/README.md) uses go_file and

@@ -1,0 +1,68 @@
+{
+  "source_base_commit": "320ecd67ab420e1ea806196271eea3271f929fbe",
+  "source_repair": "Calendar count-helper guard and retained complete structural historical checkpoint, test-only. No production or existing fixture changes.",
+  "status": "passed",
+  "started_at_utc": "2026-10-18T09:34:30.553722+00:00",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "csharp_practical_vc",
+    "--no-run",
+    "--message-format=json"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_TARGET_DIR": "/private/tmp/mpk-t01-w05-json-repair-target",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true"
+  },
+  "RUST_MIN_STACK": "unset",
+  "inputs": [
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_calendar_tests.rs",
+      "sha256": "49cd75c80129e9d1e0a1517eb0fad4cb41ff597f697837cafb9abde9211a5652",
+      "bytes": 23586
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_structural_equivalence_tests.rs",
+      "sha256": "fb6020e865380d159d288677e28f28f8fee23facd229df40ca937e6aabf175a1",
+      "bytes": 41827
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/retained-csharp/structural-boundary-epochs/manifest.json",
+      "sha256": "a34cf96a459a32156060f3026e8d36d2aa25215e0fa656c19f89ee9f76f5d00e",
+      "bytes": 8097
+    }
+  ],
+  "selection_reason": "Affected integration target for the two reproduced historical comparison failures and its actual current-source producer consumer.",
+  "exit_code": 0,
+  "wall_seconds": 85.84373375005089,
+  "finished_at_utc": "2026-10-18T09:35:56.402238+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-calendar-repair/structural-checkpoint/build.stdout.jsonl",
+    "sha256": "837439fba88fc4c7b3022f72b36ccb800fdd022d35b2eec342ddcea0d0a403f8",
+    "bytes": 30425
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-calendar-repair/structural-checkpoint/build.stderr.log",
+    "sha256": "5c88a3c7afe7aefca59f715c04746902a4a6ad928b63bf41530c0c3bf7ff2090",
+    "bytes": 146
+  },
+  "executable": {
+    "path": "/private/tmp/mpk-t01-w05-json-repair-target/debug/deps/csharp_practical_vc-f5f78b9b819b93a0",
+    "sha256": "c23f6fc804ad64aa7f28dc406fcd9bcfc18c7b45472308d20015387862740346",
+    "bytes": 40963576
+  },
+  "profile": {
+    "opt_level": "1",
+    "debuginfo": 2,
+    "debug_assertions": true,
+    "overflow_checks": true,
+    "test": true
+  }
+}

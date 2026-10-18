@@ -1,0 +1,31 @@
+{
+  "command": [
+    "rustc",
+    "--edition=2021",
+    "-Awarnings",
+    "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-calendar-diagnosis/definition-diff.rs",
+    "-L",
+    "dependency=target/debug/deps",
+    "-o",
+    "/private/tmp/mpk-t01-w05-calendar-definition-diff",
+    "--extern",
+    "mpk_cert=target/debug/deps/libmpk_cert-d574c01d902f8f1c.rlib",
+    "--extern",
+    "serde_json=target/debug/deps/libserde_json-4bed4a5776ab8879.rlib"
+  ],
+  "libraries": {
+    "mpk_cert": {
+      "path": "target/debug/deps/libmpk_cert-d574c01d902f8f1c.rlib",
+      "sha256": "5d7ed1da93cb7193a0008e791ddf6e5cfb770535f9023b10219371c376940024",
+      "bytes": 6103568
+    },
+    "serde_json": {
+      "path": "target/debug/deps/libserde_json-4bed4a5776ab8879.rlib",
+      "sha256": "6481dc6bab15ac150a2a23e877aa4e57ef82f5ea60315aaeeff26280033c1e4e",
+      "bytes": 4155872
+    }
+  },
+  "exit_code": 0,
+  "wall_seconds": 1.8088704169495031,
+  "scope": "Read-only structural diagnosis, copying the exact current comparator. No proof or gate completion."
+}

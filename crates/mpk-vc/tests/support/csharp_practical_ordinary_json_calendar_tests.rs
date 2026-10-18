@@ -443,19 +443,84 @@ fn csharp_03_t06_w09_json_calendar_runtime() {
     });
 }
 
-#[test]
-fn csharp_03_t06_w09_json_calendar_previous_token_preservation() {
-    use super::super::super::structural_equivalence_tests::same_definition_closure;
-    let path = fixture_root()
-        .parent()
-        .unwrap()
-        .join("json-calendar/previous-format/date-time-tokens.hex");
+fn calendar_pin(path: &Path, expected: &str) -> mpk_cert::encode::Certificate {
     let hex = fs::read_to_string(path).unwrap();
+    assert_eq!(format!("{:x}", Sha256::digest(hex.as_bytes())), expected);
     let bytes = (0..hex.trim().len())
         .step_by(2)
         .map(|i| u8::from_str_radix(&hex[i..i + 2], 16).unwrap())
         .collect::<Vec<_>>();
-    let old = mpk_cert::decode_canonical_certificate(&bytes).unwrap();
+    mpk_cert::decode_canonical_certificate(&bytes).unwrap()
+}
+
+fn calendar_token_history(
+    old: &mpk_cert::encode::Certificate,
+    new: &mpk_cert::encode::Certificate,
+    pin: &mpk_cert::encode::Certificate,
+    roots: &BTreeSet<String>,
+) -> Result<BTreeSet<String>, String> {
+    use super::super::super::structural_equivalence_tests::{
+        same_definition_bodies, same_definition_closure, same_definition_types,
+    };
+    let prior = same_definition_closure(old, old, roots)?;
+    let current = same_definition_closure(new, new, roots)?;
+    let token_names = new
+        .declarations
+        .iter()
+        .map(|d| new.name_table[d.name as usize].clone())
+        .filter(|name| name.starts_with("Mpk.CSharp.Ordinary.JsonTokens."))
+        .collect::<BTreeSet<_>>();
+    if token_names != *roots || roots.len() != 177 || prior.len() != 2325 || current.len() != 2299 {
+        return Err("calendar token or dependency inventory changed".into());
+    }
+    let prefix = format!(
+        "Mpk.CSharp.Ordinary.DomainCount.O{}.",
+        b"structural.scalar.mpk.csharp.value.u32.v1.saturated_cell_add"
+            .iter()
+            .map(|byte| format!("{byte:02x}"))
+            .collect::<String>()
+    );
+    let mut retired = (3..=27)
+        .map(|block| format!("{prefix}Block.B{block}"))
+        .collect::<BTreeSet<_>>();
+    retired.insert(format!("{prefix}State"));
+    if !current.is_subset(&prior)
+        || prior.difference(&current).cloned().collect::<BTreeSet<_>>() != retired
+    {
+        return Err("calendar count-helper retirement changed".into());
+    }
+    // The archive predates the reviewed 17-bit saturated-count replacement.
+    // Preserve every token body and every retained dependency type. Exactly
+    // one dependency body changed; its old register helpers alone retired.
+    // All other 2,298 retained bodies remain exact, without normalization.
+    same_definition_types(old, new, &current)?;
+    let counter = BTreeSet::from([format!("{prefix}Result")]);
+    if !counter.is_subset(&current) || same_definition_bodies(old, new, &counter).is_ok() {
+        return Err("expected exact historical count-helper refresh".into());
+    }
+    let unchanged = current.difference(&counter).cloned().collect();
+    same_definition_bodies(old, new, &unchanged)?;
+    // The current producer pin independently fixes the complete closure,
+    // including the changed counter. No dependency receives a body exemption
+    // here, and historical evidence grants no current application proof.
+    if same_definition_closure(pin, new, roots)? != current {
+        return Err("current calendar dependency closure changed".into());
+    }
+    Ok(current)
+}
+
+#[test]
+fn csharp_03_t06_w09_json_calendar_previous_token_preservation() {
+    use mpk_cert::encode::DeclarationKind;
+    let root = fixture_root().parent().unwrap().join("json-calendar");
+    let old = calendar_pin(
+        &root.join("previous-format/date-time-tokens.hex"),
+        "517c7d016baaacc3ad30becd066a0fc5ebf22af84953700ee53638ca8a43e90e",
+    );
+    let pin = calendar_pin(
+        &root.join("date-time-tokens.hex"),
+        "7aa13b9da05c35317d399a964654b8cdad3f0c58c5d1620daba5e4b65e41656b",
+    );
     let roots: BTreeSet<String> = old
         .declarations
         .iter()
@@ -469,9 +534,55 @@ fn csharp_03_t06_w09_json_calendar_previous_token_preservation() {
         }
         let program = generate_csharp_practical_ordinary_json_tokens(vir).unwrap();
         let new = mpk_cert::decode_canonical_certificate(program.certificate_bytes()).unwrap();
-        let checked = same_definition_closure(&old, &new, &roots).unwrap();
+        let checked = calendar_token_history(&old, &new, &pin, &roots).unwrap();
+        let helper = new
+            .declarations
+            .iter()
+            .find(|d| {
+                let name = &new.name_table[d.name as usize];
+                checked.contains(name)
+                    && !roots.contains(name)
+                    && !name.starts_with("Mpk.CSharp.Ordinary.DomainCount.")
+                    && matches!(d.kind, DeclarationKind::Def { .. })
+            })
+            .unwrap();
+        let counter = new
+            .declarations
+            .iter()
+            .find(|d| {
+                let name = &new.name_table[d.name as usize];
+                checked.contains(name)
+                    && name.starts_with("Mpk.CSharp.Ordinary.DomainCount.")
+                    && name.ends_with(".Result")
+            })
+            .unwrap();
+        for (name, change_type) in [
+            (roots.first().unwrap(), false),
+            (&new.name_table[helper.name as usize], false),
+            (&new.name_table[counter.name as usize], false),
+            (&new.name_table[counter.name as usize], true),
+        ] {
+            let mut changed = new.clone();
+            let declaration = changed
+                .declarations
+                .iter_mut()
+                .find(|d| &new.name_table[d.name as usize] == name)
+                .unwrap();
+            let DeclarationKind::Def { ty, value, .. } = &mut declaration.kind else {
+                panic!("calendar mutation target must be a definition")
+            };
+            if change_type {
+                *ty = *value;
+            } else {
+                *value = *ty;
+            }
+            assert!(
+                calendar_token_history(&old, &changed, &pin, &roots).is_err(),
+                "ignored calendar mutation: {name}, type={change_type}"
+            );
+        }
         eprintln!(
-            "Calendar JSON token preservation: {} roots, {} dependency declarations",
+            "Calendar JSON token preservation: {} roots, {} current dependencies; exact historical count refresh; four mutations rejected",
             roots.len(),
             checked.len()
         );

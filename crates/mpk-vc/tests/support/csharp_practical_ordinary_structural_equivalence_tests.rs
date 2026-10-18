@@ -438,32 +438,109 @@ pub(super) fn certificate(directory: &str, file: &str) -> Certificate {
 
 #[test]
 fn csharp_03_t06_w09_structural_boundary_previous_definition_preservation() {
-    let root = Path::new(env!("CARGO_MANIFEST_DIR"))
-        .join("../../develop/migrations/csharp-03/ordinary-foundation/structural-boundary");
-    for path in fs::read_dir(root.join("previous-quoted-decimal"))
+    use sha2::{Digest, Sha256};
+    let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+    let manifest = fs::read(root.join(
+        "develop/migrations/go-practical/t01-w05/retained-csharp/structural-boundary-epochs/manifest.json",
+    ))
+    .unwrap();
+    assert_eq!(
+        format!("{:x}", Sha256::digest(&manifest)),
+        "a34cf96a459a32156060f3026e8d36d2aa25215e0fa656c19f89ee9f76f5d00e"
+    );
+    let manifest: Value = serde_json::from_slice(&manifest).unwrap();
+    let cases = manifest["cases"].as_array().unwrap();
+    assert_eq!(cases.len(), 4);
+    let pin = |record: &Value| {
+        let bytes = fs::read(root.join(record["path"].as_str().unwrap())).unwrap();
+        assert_eq!(bytes.len() as u64, record["bytes"].as_u64().unwrap());
+        assert_eq!(
+            format!("{:x}", Sha256::digest(&bytes)),
+            record["sha256"].as_str().unwrap()
+        );
+        bytes
+    };
+    for receipt in manifest["supporting_retained_receipts"].as_array().unwrap() {
+        pin(receipt);
+    }
+    let directory = root.join(
+        "develop/migrations/csharp-03/ordinary-foundation/structural-boundary/previous-quoted-decimal",
+    );
+    let files = fs::read_dir(directory)
         .unwrap()
         .map(|r| r.unwrap().path())
-    {
-        if path.extension().and_then(|v| v.to_str()) != Some("hex") {
-            continue;
-        }
-        let name = path.file_name().unwrap().to_str().unwrap();
-        let old = certificate("structural-boundary/previous-quoted-decimal", name);
-        let new = certificate("structural-boundary", name);
+        .filter(|p| p.extension().and_then(|v| v.to_str()) == Some("hex"))
+        .map(|p| p.file_name().unwrap().to_str().unwrap().to_owned())
+        .collect::<BTreeSet<_>>();
+    assert_eq!(
+        files,
+        cases
+            .iter()
+            .map(|r| r["file"].as_str().unwrap().to_owned())
+            .collect()
+    );
+    let decode = |record: &Value| {
+        let hex = String::from_utf8(pin(record)).unwrap();
+        let hex = hex.trim();
+        let bytes = (0..hex.len())
+            .step_by(2)
+            .map(|i| u8::from_str_radix(&hex[i..i + 2], 16).unwrap())
+            .collect::<Vec<_>>();
+        mpk_cert::decode_canonical_certificate(&bytes).unwrap()
+    };
+    let compare = |old: &Certificate, new: &Certificate| {
         if old
             .name_table
             .iter()
             .any(|v| v == "Mpk.CSharp.Ordinary.AggregateFold.Pipeline")
         {
-            same_aggregate_scan(&old, &new).unwrap();
+            same_aggregate_scan(old, new)
         } else {
             let roots = old
                 .declarations
                 .iter()
                 .map(|d| old.name_table[d.name as usize].clone())
                 .collect();
-            same_definition_closure(&old, &new, &roots).unwrap();
+            same_definition_closure(old, new, &roots).map(|_| ())
         }
+    };
+    for case in cases {
+        let old = decode(&case["before_quoted_decimal"]);
+        // Preserve the original complete comparison at its actual retained
+        // pre-count-refresh checkpoint. Later reviewed domain/count changes
+        // are not claimed to have identical historical syntax. Every old
+        // dependency remains checked; aggregate reassociation stays exact.
+        let checkpoint = decode(&case["preservation_checkpoint"]);
+        compare(&old, &checkpoint).unwrap();
+        let mut changed = checkpoint.clone();
+        let original_names = old
+            .declarations
+            .iter()
+            .map(|d| old.name_table[d.name as usize].as_str())
+            .collect::<BTreeSet<_>>();
+        let declaration = changed
+            .declarations
+            .iter_mut()
+            .find(|d| {
+                original_names.contains(checkpoint.name_table[d.name as usize].as_str())
+                    && matches!(d.kind, DeclarationKind::Def { .. })
+            })
+            .unwrap();
+        let DeclarationKind::Def { ty, value, .. } = &mut declaration.kind else {
+            unreachable!()
+        };
+        *value = *ty;
+        assert!(compare(&old, &changed).is_err());
+        // Independently retain current pins. The current-source owner
+        // csharp_03_t06_w09_structural_boundary_original_sources regenerates
+        // and strictly imports the current programs and exercises mutations.
+        let current = decode(&case["current"]);
+        validate_csharp_practical_certificate_structure(&current).unwrap();
+        eprintln!(
+            "Structural historical preservation {}: {} complete old declarations; checkpoint mutation rejected; current pin separate",
+            case["file"].as_str().unwrap(),
+            old.declarations.len()
+        );
     }
 }
 
