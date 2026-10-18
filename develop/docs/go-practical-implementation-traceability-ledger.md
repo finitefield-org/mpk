@@ -4255,3 +4255,35 @@ repairs; the run itself cannot pass or complete T01. Preserve its terminal raw
 result, then run the complete gate over committed repaired source before
 completing W05/T01 or starting T02. All169 Go demands and987 C# application
 proofs remain pending, and neither practical profile is activated.
+
+## 67. T01-W05 complete aggregate archive preservation
+
+The same retired-count-helper mismatch reproduces in two still-queued
+source320 assertions: aliased consumers fail in0.155 seconds and the historical
+decimal parser comparison in0.119 seconds. The current combined/component
+closure already passes. The [original diagnosis](../migrations/go-practical/t01-w05/verification/retained-csharp-repair/aggregate-archive-diagnosis/README.md)
+retains both raw failures, the original executable/source and all477 input
+observations. The [sealed epoch manifest](../migrations/go-practical/t01-w05/retained-csharp/aggregate-preservation-epochs/manifest.json)
+binds716 exact Git members, reusing102 unchanged archived checkpoint vectors
+and copying123 from the actual09a14 checkpoint without changing existing bytes.
+
+The repaired original tests retain every one of225 vectors and all twelve
+non-cost metadata comparisons:133 vectors reassociate exactly8,192 StepTwo
+calls and92 remain byte-identical. Every original declaration and dependency
+stays checked; the shared comparator/normalizer is unchanged. All twelve
+families reject an altered old definition. This test passes in11.739 seconds
+and separately validates all225 current certificate pins. The decimal test
+passes in0.793 seconds, retaining the complete current component closure and
+checking both complete historical closures, with current/historical body
+mutations rejected. Targeted format and integration-target Clippy pass.
+
+Both unchanged current producer owners already pass actual regeneration and
+normal golden comparisons in the completed source320183-case lib target.
+Its exact raw output prefix and unchanged producer Git bytes are retained as
+completed-target evidence; it is not a terminal or passing whole gate. The
+[selected verification](../migrations/go-practical/t01-w05/verification/retained-csharp-repair/aggregate-archive-repair/verification.json)
+keeps this observation, historical regression comparisons, repaired test
+executions and the pending whole retry distinct. No production or existing
+fixture bytes change, and no new checker acceptance or source/application
+proof is inferred. W05/T01 remain incomplete, T02 remains unstarted, all169
+Go demands and987 C# application proofs remain pending, and no profile activates.

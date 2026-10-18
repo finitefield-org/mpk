@@ -1,0 +1,44 @@
+{
+  "status": "passed",
+  "started_at_utc": "2026-10-18T11:27:56.265441+00:00",
+  "command": [
+    "cargo",
+    "clippy",
+    "--offline",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "csharp_practical_vc",
+    "--",
+    "-D",
+    "warnings"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_TARGET_DIR": "/private/tmp/mpk-t01-w05-json-repair-target",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true"
+  },
+  "unset_environment": [
+    "RUST_MIN_STACK",
+    "MPK_W09_AGGREGATE_CONSUMER_OUT",
+    "MPK_W09_DECIMAL_SHARED_OUT"
+  ],
+  "build_receipt_sha256": "018a150caf4ea410792ec8375e524812c3416d2adb36c9b7a31949d656623b88",
+  "selection_reason": "Owning integration target after two test-only historical linkage changes; no unrelated semantic or language matrices.",
+  "exit_code": 0,
+  "expected_one_test_passed": null,
+  "wall_seconds": 12.953996542026289,
+  "finished_at_utc": "2026-10-18T11:28:09.220118+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/aggregate-archive-repair/clippy.stdout.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/aggregate-archive-repair/clippy.stderr.log",
+    "sha256": "a25a82868abe2905992d5a4a150e8768522050cd06af668aebafceb9d224a70a",
+    "bytes": 147
+  }
+}

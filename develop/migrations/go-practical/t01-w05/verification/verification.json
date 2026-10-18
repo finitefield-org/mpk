@@ -77,7 +77,7 @@
   "profile_activated": false,
   "raw_log_whitespace_audit": {
     "directory_exclusions": false,
-    "exact_paths": 40,
+    "exact_paths": 44,
     "path": "retained-csharp-repair/raw-log-whitespace.json"
   },
   "raw_log_whitespace_preserved": [
@@ -190,6 +190,25 @@
     "current_source_generation_import_golden_mutations": "passed_both_array_and_sum_owners",
     "format_and_targeted_clippy": "passed",
     "existing_inputs_unchanged": true,
+    "complete_repaired_gate_required": true,
+    "T02_started": false
+  },
+  "aggregate_archive_epoch_repair": {
+    "original_failures": [
+      "retained-csharp-repair/aggregate-archive-diagnosis/aliased-consumers-result.json",
+      "retained-csharp-repair/aggregate-archive-diagnosis/decimal-shared-result.json"
+    ],
+    "epoch_manifest": "../retained-csharp/aggregate-preservation-epochs/manifest.json",
+    "verification": "retained-csharp-repair/aggregate-archive-repair/verification.json",
+    "complete225_historical_vector_comparisons": "passed",
+    "non_cost_metadata_pairs": 12,
+    "reassociated_vectors": 133,
+    "unchanged_vectors": 92,
+    "mutations_rejected": 14,
+    "unchanged_complete_current_component_closure": "passed",
+    "unchanged_current_producer_cases": "passed_in_completed_source320_lib_target",
+    "format_and_targeted_clippy": "passed",
+    "production_and_existing_inputs_unchanged": true,
     "complete_repaired_gate_required": true,
     "T02_started": false
   }

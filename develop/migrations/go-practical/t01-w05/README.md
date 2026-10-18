@@ -91,6 +91,17 @@ as identical historical syntax. Production and existing certificate bytes stay
 unchanged. The original source320 diagnostic continues to collect late failures;
 a new complete repaired gate is mandatory before T01 completion or T02.
 
+Two further still-queued aggregate archive comparisons reproduce the same
+retired-helper mismatch. Their [selected repair](verification/retained-csharp-repair/aggregate-archive-repair/verification.json)
+passes all225 original vectors, all twelve non-cost metadata pairs and fourteen
+body mutation controls. The exact8,192-StepTwo audit and every old dependency
+remain checked at their sealed historical checkpoint; the complete current
+component closure is retained separately. All716 input members match recorded
+Git bytes. Both unchanged current producers already pass their normal generation
+and golden checks in the completed source320 lib target; that retained target
+observation does not complete the still-running whole diagnostic or its required
+complete repaired retry. T01 remains open and T02 remains unstarted.
+
 Five frozen inactive specifications own five new conformance vector sets:
 [profile](../../../specs/GO_PRACTICAL_PROFILE_V1.md),
 [foundation](../../../specs/GO_PRACTICAL_FOUNDATION_V1.md),

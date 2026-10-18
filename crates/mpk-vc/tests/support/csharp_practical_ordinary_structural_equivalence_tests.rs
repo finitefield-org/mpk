@@ -436,6 +436,73 @@ pub(super) fn certificate(directory: &str, file: &str) -> Certificate {
     mpk_cert::decode_canonical_certificate(&bytes).unwrap()
 }
 
+fn aggregate_epoch_manifest() -> Value {
+    use sha2::{Digest, Sha256};
+    let path = Path::new(env!("CARGO_MANIFEST_DIR")).join(
+        "../../develop/migrations/go-practical/t01-w05/retained-csharp/aggregate-preservation-epochs/manifest.json",
+    );
+    let bytes = fs::read(path).unwrap();
+    assert_eq!(
+        format!("{:x}", Sha256::digest(&bytes)),
+        "b75cd0713d0d45b91d6985b7ccc567f67cf2cd83bd693945827792f4942281fb"
+    );
+    let value: Value = serde_json::from_slice(&bytes).unwrap();
+    assert_eq!(value["case_count"], 225);
+    assert_eq!(value["families"].as_array().unwrap().len(), 12);
+    value
+}
+
+fn aggregate_epoch_bytes(record: &Value) -> Vec<u8> {
+    use sha2::{Digest, Sha256};
+    let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+    let bytes = fs::read(root.join(record["path"].as_str().unwrap())).unwrap();
+    assert_eq!(bytes.len() as u64, record["bytes"].as_u64().unwrap());
+    assert_eq!(
+        format!("{:x}", Sha256::digest(&bytes)),
+        record["sha256"].as_str().unwrap()
+    );
+    bytes
+}
+
+fn aggregate_epoch_certificate(record: &Value) -> (Vec<u8>, Certificate) {
+    let raw = aggregate_epoch_bytes(record);
+    let hex = std::str::from_utf8(&raw).unwrap().trim();
+    let bytes = (0..hex.len())
+        .step_by(2)
+        .map(|i| u8::from_str_radix(&hex[i..i + 2], 16).unwrap())
+        .collect::<Vec<_>>();
+    let cert = mpk_cert::decode_canonical_certificate(&bytes).unwrap();
+    (raw, cert)
+}
+
+fn assert_aggregate_epoch_mutation_rejected(old: &Certificate, new: &Certificate, aggregate: bool) {
+    let names = old
+        .declarations
+        .iter()
+        .map(|d| old.name_table[d.name as usize].clone())
+        .collect::<BTreeSet<_>>();
+    let mut forged = new.clone();
+    let declaration = forged
+        .declarations
+        .iter_mut()
+        .find(|d| {
+            let name = &new.name_table[d.name as usize];
+            names.contains(name)
+                && name != "Mpk.CSharp.Ordinary.AggregateFold.Pipeline"
+                && matches!(d.kind, DeclarationKind::Def { ty, value, .. } if ty != value)
+        })
+        .unwrap();
+    let DeclarationKind::Def { ty, value, .. } = &mut declaration.kind else {
+        unreachable!()
+    };
+    *value = *ty;
+    if aggregate {
+        assert!(same_aggregate_scan(old, &forged).is_err());
+    } else {
+        assert!(same_definition_closure(old, &forged, &names).is_err());
+    }
+}
+
 #[test]
 fn csharp_03_t06_w09_structural_boundary_previous_definition_preservation() {
     use sha2::{Digest, Sha256};
@@ -549,8 +616,10 @@ fn csharp_03_t06_w09_aggregate_aliased_consumer_preservation() {
     let base = Path::new(env!("CARGO_MANIFEST_DIR"))
         .join("../../develop/migrations/csharp-03/ordinary-foundation");
     let output = std::env::var_os("MPK_W09_AGGREGATE_CONSUMER_OUT").map(std::path::PathBuf::from);
+    let epochs = aggregate_epoch_manifest();
     let mut changed = 0;
     let mut unchanged = 0;
+    let mut mutations = 0;
     for family in [
         "binding-guards",
         "binding-orders",
@@ -568,18 +637,47 @@ fn csharp_03_t06_w09_aggregate_aliased_consumer_preservation() {
         let root = base.join(family);
         let archive = root.join("previous-step-eight");
         let target = output.as_ref().map_or(root.clone(), |out| out.join(family));
-        for path in fs::read_dir(&archive).unwrap().map(|v| v.unwrap().path()) {
-            if path.extension().and_then(|s| s.to_str()) != Some("hex") {
-                continue;
-            }
-            let file = path.file_name().unwrap().to_str().unwrap();
-            let old_hex = fs::read_to_string(&path).unwrap();
-            let new_hex = fs::read_to_string(target.join(file)).unwrap();
-            let old = certificate(archive.to_str().unwrap(), file);
+        let epoch = epochs["families"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|row| row["family"] == family)
+            .unwrap();
+        let cases = epoch["cases"].as_array().unwrap();
+        let files = fs::read_dir(&archive)
+            .unwrap()
+            .map(|v| v.unwrap().path())
+            .filter(|p| p.extension().and_then(|s| s.to_str()) == Some("hex"))
+            .map(|p| p.file_name().unwrap().to_str().unwrap().to_owned())
+            .collect::<BTreeSet<_>>();
+        assert_eq!(
+            files,
+            cases
+                .iter()
+                .map(|row| row["file"].as_str().unwrap().to_owned())
+                .collect()
+        );
+        for (index, case) in cases.iter().enumerate() {
+            let file = case["file"].as_str().unwrap();
+            let (old_hex, old) = aggregate_epoch_certificate(&case["before_step_eight"]);
+            // Keep every original declaration/dependency and the exact
+            // reassociation audit at its retained pre-counter-refresh epoch.
+            let (new_hex, new) = aggregate_epoch_certificate(&case["after_step_eight"]);
             let uses_aggregate = old
                 .name_table
                 .iter()
                 .any(|name| name == "Mpk.CSharp.Ordinary.AggregateFold.Pipeline");
+            if index == 0 {
+                assert_aggregate_epoch_mutation_rejected(&old, &new, uses_aggregate);
+                mutations += 1;
+            }
+            // Current pins have separate source generation/import owners. An
+            // explicitly supplied current output must still equal those pins.
+            let (current_hex, current) = aggregate_epoch_certificate(&case["current"]);
+            validate_csharp_practical_certificate_structure(&current).unwrap();
+            if output.is_some() {
+                assert_eq!(fs::read(target.join(file)).unwrap(), current_hex);
+            }
             if old_hex == new_hex {
                 assert!(
                     !uses_aggregate,
@@ -588,7 +686,6 @@ fn csharp_03_t06_w09_aggregate_aliased_consumer_preservation() {
                 unchanged += 1;
                 continue;
             }
-            let new = certificate(target.to_str().unwrap(), file);
             assert!(new
                 .name_table
                 .iter()
@@ -615,35 +712,60 @@ fn csharp_03_t06_w09_aggregate_aliased_consumer_preservation() {
                 _ => {}
             }
         }
+        let metadata = &epoch["metadata"];
         let mut old: Value =
-            serde_json::from_slice(&fs::read(archive.join("certificates.json")).unwrap()).unwrap();
+            serde_json::from_slice(&aggregate_epoch_bytes(&metadata["before_step_eight"])).unwrap();
         let mut new: Value =
-            serde_json::from_slice(&fs::read(target.join("certificates.json")).unwrap()).unwrap();
+            serde_json::from_slice(&aggregate_epoch_bytes(&metadata["after_step_eight"])).unwrap();
         remove_counts(&mut old);
         remove_counts(&mut new);
         assert_eq!(old, new, "{family}: non-cost metadata changed");
+        let current = aggregate_epoch_bytes(&metadata["current"]);
+        if output.is_some() {
+            assert_eq!(fs::read(target.join("certificates.json")).unwrap(), current);
+        }
     }
     assert!(changed > 0);
-    eprintln!("Aggregate aliased consumers: {changed} reassociated vectors, {unchanged} exactly unchanged vectors");
+    assert_eq!(changed + unchanged, 225);
+    assert_eq!(mutations, 12);
+    eprintln!("Aggregate historical aliased consumers: {changed} reassociated vectors, {unchanged} exactly unchanged vectors;12 non-cost metadata pairs unchanged;12 mutations rejected;225 current pins separate");
 }
 
 #[test]
 fn csharp_03_t06_w09_decimal_json_collection_definition_closure() {
+    let epochs = aggregate_epoch_manifest();
+    let epoch = &epochs["decimal_shared"];
     let dir = std::env::var("MPK_W09_DECIMAL_SHARED_OUT")
         .unwrap_or("decimal-json-collection-shared".into());
     let combined = certificate(&dir, "collection-json-decimal.hex");
-    let shared = certificate("json-collection-shared", "collection-json.hex");
+    let path = Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("../../develop/migrations/csharp-03/ordinary-foundation")
+        .join(&dir)
+        .join("collection-json-decimal.hex");
+    assert_eq!(
+        fs::read(path).unwrap(),
+        aggregate_epoch_bytes(&epoch["current_combined"])
+    );
+    let (_, shared) = aggregate_epoch_certificate(&epoch["current_component"]);
     let roots = shared
         .declarations
         .iter()
         .map(|d| shared.name_table[d.name as usize].clone())
         .collect();
     same_definition_closure(&shared, &combined, &roots).unwrap();
-    let old = certificate(
-        "decimal-parsers/previous-step-eight",
-        "binding-vc-money.hex",
-    );
-    same_aggregate_scan(&old, &combined).unwrap();
+    assert_aggregate_epoch_mutation_rejected(&shared, &combined, false);
+    let (_, old) = aggregate_epoch_certificate(&epoch["before_step_eight"]);
+    let (_, checkpoint) = aggregate_epoch_certificate(&epoch["after_step_eight_combined"]);
+    let (_, component) = aggregate_epoch_certificate(&epoch["after_step_eight_component"]);
+    let checkpoint_roots = component
+        .declarations
+        .iter()
+        .map(|d| component.name_table[d.name as usize].clone())
+        .collect();
+    same_definition_closure(&component, &checkpoint, &checkpoint_roots).unwrap();
+    same_aggregate_scan(&old, &checkpoint).unwrap();
+    assert_aggregate_epoch_mutation_rejected(&old, &checkpoint, true);
+    eprintln!("Decimal/JSON collection: complete current component closure and historical pre-StepEight preservation;historical/current body mutations rejected");
 }
 
 #[test]

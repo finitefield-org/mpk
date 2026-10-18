@@ -1,0 +1,60 @@
+{
+  "status": "failed",
+  "compiled_source_commit": "320ecd67ab420e1ea806196271eea3271f929fbe",
+  "repair_head": "0a68bf007146910dfd3a710a993626ec480ff860",
+  "started_at_utc": "2026-10-18T11:17:34.114158+00:00",
+  "command": [
+    "/private/tmp/mpk-t01-w05-calendar-original-test-binary",
+    "--exact",
+    "ordinary_carriers::structural_equivalence_tests::csharp_03_t06_w09_decimal_json_collection_definition_closure",
+    "--nocapture"
+  ],
+  "binary": {
+    "path": "/private/tmp/mpk-t01-w05-calendar-original-test-binary",
+    "sha256": "53da17280f5e86f1aeee4737592031f4b70d1fc5632f403e7512b4c12ee23656",
+    "bytes": 40911640
+  },
+  "original_source_package": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-calendar-diagnosis/compiler-source-snapshots.json",
+    "sha256": "b3232dd1b762820fc60489c9d462e69742976d21b764d73d84b0bedfe7f72c94",
+    "bytes": 98171
+  },
+  "original_source_member": "original-structural-equivalence-tests.rs",
+  "unset_environment": [
+    "RUST_MIN_STACK",
+    "MPK_W09_AGGREGATE_CONSUMER_OUT",
+    "MPK_W09_DECIMAL_SHARED_OUT"
+  ],
+  "selection_reason": "Concrete calendar/numeric failures show a later DomainCount epoch change. These two still-queued assertions also compare complete pre-StepEight archives with current definitions; diagnose exact original assertions before changing anything. This is not a repeated whole gate.",
+  "inputs": [
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/decimal-json-collection-shared/collection-json-decimal.hex",
+      "sha256": "ce07b2b5978d34ecfc542966f3715f35b821b5d7abfa355b378146e038013a83",
+      "bytes": 2671173
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/json-collection-shared/collection-json.hex",
+      "sha256": "a1e11cac6ddc6b3242a033a944293477d1eb6e3bd0df341aaa7ebde3a3404abd",
+      "bytes": 2671179
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/decimal-parsers/previous-step-eight/binding-vc-money.hex",
+      "sha256": "c592787d9c8c7c4ac3029919057809150e326a3d60b527f8f76f8dded90aa890",
+      "bytes": 991019
+    }
+  ],
+  "exit_code": 101,
+  "expected_one_test_passed": false,
+  "wall_seconds": 0.11920879106037319,
+  "finished_at_utc": "2026-10-18T11:17:34.264703+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/aggregate-archive-diagnosis/decimal-shared.stdout.log",
+    "sha256": "5460eb181356014e27034be35ba437bb925e3798741746c927670f719aa3b97b",
+    "bytes": 380
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/aggregate-archive-diagnosis/decimal-shared.stderr.log",
+    "sha256": "225cc3a88d4f02dfbec428f354daeebef06f103fafaccb82ddb024fad0adf9bf",
+    "bytes": 550
+  }
+}

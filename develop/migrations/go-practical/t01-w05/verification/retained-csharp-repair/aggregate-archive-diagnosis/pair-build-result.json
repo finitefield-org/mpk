@@ -1,0 +1,63 @@
+{
+  "command": [
+    "rustc",
+    "--edition=2021",
+    "-Awarnings",
+    "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/aggregate-archive-diagnosis/aggregate-pair-diagnosis.rs",
+    "-L",
+    "dependency=target/debug/deps",
+    "-o",
+    "/private/tmp/mpk-t01-w05-aggregate-pair-diagnosis",
+    "--extern",
+    "mpk_cert=target/debug/deps/libmpk_cert-d574c01d902f8f1c.rlib",
+    "--extern",
+    "serde_json=target/debug/deps/libserde_json-4bed4a5776ab8879.rlib"
+  ],
+  "exit_code": 0,
+  "wall_seconds": 1.8496707499725744,
+  "scope": "Read-only exact original aggregate/comparator diagnosis; no proof or gate completion.",
+  "sources": [
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/aggregate-archive-diagnosis/aggregate-pair-diagnosis.rs",
+      "sha256": "746d848c280c85fb7697c1455f18500942fb764c64a0f0ee882e053d388bfcec",
+      "bytes": 890
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/aggregate-archive-diagnosis/structural-comparator-with-aggregate.rs",
+      "sha256": "35e1dc3f9b940318a11cbac2b488025dd973f1b7d61135ac8b9ae288f2bb5041",
+      "bytes": 18341
+    }
+  ],
+  "libraries": [
+    {
+      "path": "target/debug/deps/libmpk_cert-d574c01d902f8f1c.rlib",
+      "sha256": "5d7ed1da93cb7193a0008e791ddf6e5cfb770535f9023b10219371c376940024",
+      "bytes": 6103568
+    },
+    {
+      "path": "target/debug/deps/libserde_json-4bed4a5776ab8879.rlib",
+      "sha256": "6481dc6bab15ac150a2a23e877aa4e57ef82f5ea60315aaeeff26280033c1e4e",
+      "bytes": 4155872
+    }
+  ],
+  "stdout": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/aggregate-archive-diagnosis/pair-build.stdout.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/aggregate-archive-diagnosis/pair-build.stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "executable": {
+    "path": "/private/tmp/mpk-t01-w05-aggregate-pair-diagnosis",
+    "sha256": "66b7f9528daa730239a8ae474bdcbabd565e2aa1ae33e974bb6ce5b51263dca2",
+    "bytes": 1222472
+  },
+  "source_storage": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/aggregate-archive-diagnosis/compiler-source-snapshots.json",
+    "sha256": "015130aaae159c2df209a68aa026691d17c727d8013ac2f98fd2266fef64ba1e",
+    "recovery": "Exact raw_utf8 member bytes at original recorded filenames."
+  }
+}
