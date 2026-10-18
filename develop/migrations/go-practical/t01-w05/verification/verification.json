@@ -55,7 +55,7 @@
     "selected_reason": "T01 final W; cumulative full local gate is mandatory; no T02 implementation starts until it passes",
     "source_commit": "320ecd67ab420e1ea806196271eea3271f929fbe",
     "source_tree": "05b791d9e2fe6bb40709b3d47df7295f355e9d97",
-    "status": "running_with_two_reproduced_historical_assertion_failures_requires_complete_repaired_retry",
+    "status": "running_failed_original_diagnostic_requires_complete_repaired_retry",
     "stderr": "check-fast.stderr.log",
     "stdout": "check-fast.stdout.log",
     "superseded_attempts": [
@@ -85,7 +85,7 @@
   "profile_activated": false,
   "raw_log_whitespace_audit": {
     "directory_exclusions": false,
-    "exact_paths": 44,
+    "exact_paths": 51,
     "path": "retained-csharp-repair/raw-log-whitespace.json"
   },
   "raw_log_whitespace_preserved": [
@@ -226,5 +226,22 @@
     "small_sample_only": true,
     "whole_gate_passed": false,
     "original_execution_continues": true
+  },
+  "option_core_source_epoch_repair": {
+    "verification": "retained-csharp-repair/json-option-core-repair/verification.json",
+    "original_failures": [
+      "retained-csharp-repair/json-option-core-diagnosis/result.json",
+      "retained-csharp-repair/json-option-core-diagnosis/string-result.json"
+    ],
+    "existing_input_and_guard_bytes_unchanged": true,
+    "original_i32_cases": 17,
+    "full_i32_packet_bits_each": 256,
+    "original_string_cases": 4,
+    "original_string_packet_observations": 9804,
+    "existing_complete_source_correspondence_and_mutations": "passed",
+    "affected_current_source_producer": "passed_one_selected_original_source_context",
+    "format_and_targeted_clippy": "passed",
+    "repaired_complete_gate_required": true,
+    "T02_started": false
   }
 }

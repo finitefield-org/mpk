@@ -1,0 +1,57 @@
+{
+  "status": "failed",
+  "compiled_source_commit": "320ecd67ab420e1ea806196271eea3271f929fbe",
+  "repository_head": "cd6a07a1801b9a034aab30f5a9acad631ded0407",
+  "started_at_utc": "2026-10-18T12:39:01.936887+00:00",
+  "command": [
+    "/private/tmp/mpk-t01-w05-calendar-original-test-binary",
+    "--exact",
+    "ordinary_carriers::literal_tests::json_token_tests::product_tests::sum_tests::csharp_03_t06_w09_json_sum_option_actual_core",
+    "--nocapture"
+  ],
+  "binary": {
+    "path": "/private/tmp/mpk-t01-w05-calendar-original-test-binary",
+    "sha256": "53da17280f5e86f1aeee4737592031f4b70d1fc5632f403e7512b4c12ee23656",
+    "bytes": 40911640
+  },
+  "inputs": [
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_sum_tests.rs",
+      "sha256": "2de3a246626e123884fb2ed2bfb49a08d094f171c09c1266c0479b642a2291f6",
+      "bytes": 4388,
+      "matches_original_source320_git_bytes": true
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/json-products/certificates.json",
+      "sha256": "0dd82e941e58325e4ff0c8733e13860388ade715708032831789e2630aaf59b6",
+      "bytes": 486397,
+      "matches_original_source320_git_bytes": true
+    }
+  ],
+  "unset_environment": [
+    "RUST_MIN_STACK",
+    "MPK_W09_JSON_PRODUCTS_OUT",
+    "MPK_CORE_MAX_STEPS",
+    "MPK_CORE_MAX_SECONDS"
+  ],
+  "prior_environment": {
+    "RUST_MIN_STACK": null,
+    "MPK_W09_JSON_PRODUCTS_OUT": null,
+    "MPK_CORE_MAX_STEPS": null,
+    "MPK_CORE_MAX_SECONDS": null
+  },
+  "scope": "Execute exact original newly failed Option test without preselecting any fixture row in the diagnostic wrapper. Test and complete metadata match original source320 Git bytes. Original whole gate remains running.",
+  "exit_code": 101,
+  "wall_seconds": 0.1244175829924643,
+  "finished_at_utc": "2026-10-18T12:39:02.088773+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-option-core-diagnosis/stdout.log",
+    "sha256": "45242d2fa9dd275a32977c40a9da618e286d99449abdabffbbc3f685809836d1",
+    "bytes": 408
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-option-core-diagnosis/stderr.log",
+    "sha256": "a64fc487107fb67073ad05cf06096f6c5535eb978086dfb1f5590faee78a6115",
+    "bytes": 358
+  }
+}

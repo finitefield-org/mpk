@@ -339,13 +339,16 @@ fn csharp_03_t06_w09_json_sum_string_payload_core() {
         });
     let rows: Value =
         serde_json::from_slice(&fs::read(root.join("certificates.json")).unwrap()).unwrap();
+    let id = "document-41dc96a4a1a5d49fa3ad6bb9e9408db0403bb5ac9ac63f7b6b6977745f0375f6";
+    assert_eq!(
+        super::super::super::super::boundary_document_tests::retained_document_id(id),
+        "document-7a157feb27ed416752b5dde8aa2bf373b9a2c82755d2caa89e955057176ee57b"
+    );
     let row = rows
         .as_array()
         .unwrap()
         .iter()
-        .find(|r| {
-            r["id"] == "document-7a157feb27ed416752b5dde8aa2bf373b9a2c82755d2caa89e955057176ee57b"
-        })
+        .find(|r| r["id"] == id)
         .unwrap();
     let hex =
         fs::read_to_string(root.join(format!("{}.hex", row["id"].as_str().unwrap()))).unwrap();

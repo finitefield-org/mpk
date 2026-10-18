@@ -1,0 +1,44 @@
+{
+  "status": "passed",
+  "started_at_utc": "2026-10-18T12:51:45.057425+00:00",
+  "command": [
+    "cargo",
+    "clippy",
+    "--offline",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "csharp_practical_vc",
+    "--",
+    "-D",
+    "warnings"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_TARGET_DIR": "/private/tmp/mpk-t01-w05-json-repair-target",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true"
+  },
+  "unset_environment": [
+    "RUST_MIN_STACK",
+    "MPK_W09_JSON_PRODUCTS_OUT",
+    "MPK_W09_JSON_PRODUCTS_SELECT",
+    "MPK_CORE_MAX_STEPS",
+    "MPK_CORE_MAX_SECONDS"
+  ],
+  "selection_reason": "Owning integration target for two test-only source fixture selectors; no unrelated semantic matrices or whole gate repetition.",
+  "exit_code": 0,
+  "wall_seconds": 6.00266850006301,
+  "finished_at_utc": "2026-10-18T12:51:51.060308+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-option-core-repair/clippy.stdout.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-option-core-repair/clippy.stderr.log",
+    "sha256": "b0812da12aec3f9e427a660515d089990671a6195e19490579eefd9fbcc1260f",
+    "bytes": 146
+  }
+}

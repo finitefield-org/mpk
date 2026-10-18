@@ -112,6 +112,17 @@ pressure while retaining every test, full bound, assertion, debug/overflow check
 and CLI acceptance/rejection check. Production/checker limits stay unchanged.
 This setting remains planned until the repaired whole gate actually executes.
 
+The diagnostic then reports two Option core tests that still search an old
+document ID. Their [original failures and selected repair](verification/retained-csharp-repair/json-option-core-repair/README.md)
+retain both original tests/inputs and require the existing complete source/native
+correspondence before using the exact current document. The i32 test passes all
+17 original256-bit packets; the string test passes all four original cases and
+9,804 original selected observations. Source correspondence/mutation controls,
+the one affected current source producer, format and targeted Clippy all pass.
+Existing fixtures and production/checker/evaluator bytes stay unchanged. The
+original full diagnostic continues; a complete repaired whole gate remains
+mandatory before T01 completion or T02.
+
 Five frozen inactive specifications own five new conformance vector sets:
 [profile](../../../specs/GO_PRACTICAL_PROFILE_V1.md),
 [foundation](../../../specs/GO_PRACTICAL_FOUNDATION_V1.md),

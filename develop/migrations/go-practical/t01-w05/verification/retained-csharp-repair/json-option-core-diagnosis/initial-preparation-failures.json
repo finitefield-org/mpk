@@ -1,0 +1,28 @@
+{
+  "schema": "mpk-diagnostic-preparation-failure-1.0",
+  "status": "setup_failed",
+  "original_test_executed": false,
+  "original_inputs_changed": false,
+  "observations": [
+    {
+      "label": "initial isolated wrapper preparation",
+      "exit_code": 1,
+      "stderr_observed": "Traceback (most recent call last):\n  File \"<stdin>\", line 3, in <module>\nStopIteration\n",
+      "cause": "Diagnostic setup tried to select the same old document ID before running the original test. That ID is absent from current metadata."
+    },
+    {
+      "label": "parallel initial metadata inspection",
+      "exit_code": 1,
+      "stderr_observed": "Traceback (most recent call last):\n  File \"<stdin>\", line 3, in <module>\nStopIteration\n",
+      "cause": "The read-only inspection repeated the same obsolete-ID assumption."
+    },
+    {
+      "label": "initial option inventory read-only inspection",
+      "exit_code": 1,
+      "stderr_observed": "Traceback (most recent call last):\n  File \"<stdin>\", line 5, in <module>\nKeyError: 'sums'\n",
+      "cause": "Inspection assumed sums was present in empty programs; the JSON format omits empty collections. Subsequent inspection uses get with an empty default.",
+      "original_test_executed": false
+    }
+  ],
+  "scope": "Preserve diagnostic setup failures separately from the actual test reproduction and all source/proof verdicts."
+}

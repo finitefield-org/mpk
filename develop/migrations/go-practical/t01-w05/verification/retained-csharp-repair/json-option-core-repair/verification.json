@@ -1,0 +1,187 @@
+{
+  "schema": "mpk-go-practical-t01-w05-option-core-source-epoch-repair-1.0",
+  "status": "selected_repairs_passed_complete_repaired_gate_required",
+  "recorded_at_utc": "2026-10-18T12:54:54.280713+00:00",
+  "source_base_commit": "cd6a07a1801b9a034aab30f5a9acad631ded0407",
+  "original_compiled_source_commit": "320ecd67ab420e1ea806196271eea3271f929fbe",
+  "selection_reason": "Two current Option tests search an old document ID absent from the current seven-row metadata. Keep their exact original case matrices/probes and use the existing complete three-pair source/native-fact guard before selecting the unique current Option<i32>. Execute both affected core consumers, existing correspondence controls and the one affected source producer; unrelated contexts/matrices are not repeated.",
+  "changed_source_inputs": [
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_sum_tests.rs",
+      "sha256": "255fd12e78e2f3e59cfe832cbb1cbeb48b346c25f2699008e0bb2568c8044f29",
+      "bytes": 4784
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_sum_runtime.rs",
+      "sha256": "7d3142e8fdfc832a4fa6118518922601fd87461b91221f4831fdb565a9e4bbce",
+      "bytes": 12890
+    }
+  ],
+  "original_failures": [
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-option-core-diagnosis/result.json",
+      "sha256": "a45f0cfb37ec180d0592abbff3c169dfb4b2bb006273d7434e3fe8ab3dc1acee",
+      "bytes": 2337
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-option-core-diagnosis/string-result.json",
+      "sha256": "b0029db71dfbf53b858ff98ba061db1d9af9f6e5f21b7f9b2267fbe7c894382a",
+      "bytes": 2246
+    }
+  ],
+  "diagnostic_preparation_failures": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-option-core-diagnosis/initial-preparation-failures.json",
+    "sha256": "e832cc9b5e3016ed344896a9fbbb7f9ffd6fc0444239776d6c8493d33feacc4b",
+    "bytes": 1390
+  },
+  "input_git_verification": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-option-core-diagnosis/input-git-verification.json",
+    "sha256": "82511b8e2d90fbd21f8a10265d968f1785a178b2821b1e582f6115fbc46359fb",
+    "bytes": 3604
+  },
+  "fixture_inventory_and_case_preservation": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-option-core-diagnosis/current-fixture-inventory.json",
+    "sha256": "e8d23a273cd0908e321c8394ec46697be3b5720be7253d6fff4d3359d7266abe",
+    "bytes": 2615
+  },
+  "preliminary_build_disposition": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-option-core-repair/initial-build-disposition.json",
+    "sha256": "6b04e3dabf8b4fec9eb6a679643c215ebe4be7a795c3d60cd69e20d57bbdad6b",
+    "bytes": 4348
+  },
+  "actual_test_profile": {
+    "opt_level": "1",
+    "debuginfo": 2,
+    "debug_assertions": true,
+    "overflow_checks": true,
+    "test": true
+  },
+  "checks": {
+    "build": {
+      "receipt": {
+        "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-option-core-repair/build-result.json",
+        "sha256": "385f21dffa3f618171760819937c8789f12965731f5da96530bac31424847724",
+        "bytes": 3254
+      },
+      "wall_seconds": 47.350774790975265
+    },
+    "option-i32-core": {
+      "receipt": {
+        "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-option-core-repair/option-i32-core-result.json",
+        "sha256": "a52580c3dd35759dd703ad296d27e941f0a9e3dfa1917c59916dd5ac06690e76",
+        "bytes": 1979
+      },
+      "wall_seconds": 65.59046516695525
+    },
+    "option-string-core": {
+      "receipt": {
+        "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-option-core-repair/option-string-core-result.json",
+        "sha256": "d1e165b5ba75157dfb7d1e1a9a10bc81a7aabf5dbdee118c4343abe4cc95c9a5",
+        "bytes": 2010
+      },
+      "wall_seconds": 45.947534292005
+    },
+    "source-correspondence": {
+      "receipt": {
+        "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-option-core-repair/source-correspondence-result.json",
+        "sha256": "dd6d81e919f84a7724717b5bd1af8e9d4f2a9c5afbb74bf4590caeeef664dc5d",
+        "bytes": 2020
+      },
+      "wall_seconds": 0.021416625007987022
+    },
+    "source-correspondence-mutations": {
+      "receipt": {
+        "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-option-core-repair/source-correspondence-mutations-result.json",
+        "sha256": "4b8807296592deecd9081a2a73a0f93521958cb16b5ab1835262525d3ed9c66e",
+        "bytes": 2002
+      },
+      "wall_seconds": 0.021110999980010092
+    },
+    "current-source-producer": {
+      "receipt": {
+        "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-option-core-repair/current-source-producer-result.json",
+        "sha256": "4f04c2be5c2c2eb4c8750449c7542838a38e4174e296ee041f8f114468f0101c",
+        "bytes": 2182
+      },
+      "wall_seconds": 6.412848833017051
+    },
+    "format-check": {
+      "receipt": {
+        "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-option-core-repair/format-check-result.json",
+        "sha256": "08d118a9db4400f88487aa0e9fca00744e17fa1d806cad2f606fe4df20c6dc9e",
+        "bytes": 1443
+      },
+      "wall_seconds": 0.21155958296731114
+    },
+    "clippy": {
+      "receipt": {
+        "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-option-core-repair/clippy-result.json",
+        "sha256": "d4b043bc7dda4d820ae8ac289af78d382afe769cc2c8b371dea886a6a9487b97",
+        "bytes": 1451
+      },
+      "wall_seconds": 6.00266850006301
+    }
+  },
+  "i32_core": {
+    "cases": 17,
+    "accepted": 5,
+    "rejected": 12,
+    "complete_packet_bits_each": 256,
+    "bit_assertions": 4352,
+    "original_case_and_assertion_suffix_byte_identical": true,
+    "unique_payload_type_selector": "mpk.csharp.value.i32.v1"
+  },
+  "string_core": {
+    "cases": 4,
+    "accepted": 3,
+    "rejected": 1,
+    "selected_original_packet_bits_each": [
+      2390,
+      2394,
+      2630,
+      2390
+    ],
+    "total_original_observations": 9804,
+    "full_wide_packet_or_universal_proof_claimed": false,
+    "original_case_probe_and_helper_bytes_unchanged": true
+  },
+  "source_correspondence": {
+    "pairs": 3,
+    "complete_source_contract_root_native_fact_and_raw_digest_checks": true,
+    "changed_source_contract_root_controls_rejected": 9,
+    "lone_UTF16_surrogate_substitution_rejected": 1,
+    "guard_bytes_unchanged": true
+  },
+  "current_producer": {
+    "selected_contexts": 1,
+    "available_contexts": 72,
+    "nonempty_golden_rows": 7,
+    "selected_id": "document-41dc96a4a1a5d49fa3ad6bb9e9408db0403bb5ac9ac63f7b6b6977745f0375f6",
+    "original_id": "document-7a157feb27ed416752b5dde8aa2bf373b9a2c82755d2caa89e955057176ee57b",
+    "normal_golden_mode": true,
+    "strict_import_dependencies_and_mutation_checks_retained": true,
+    "source_or_application_proofs_discharged": false
+  },
+  "raw_stdout_whitespace": {
+    "audit": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/raw-log-whitespace.json",
+    "exact_paths": 51,
+    "source_json_directory_exclusions": false
+  },
+  "production_changed": false,
+  "existing_certificate_or_metadata_bytes_changed": false,
+  "existing_source_captures_changed": false,
+  "case_matrices_probe_sets_or_resource_limits_changed": false,
+  "checker_rerun_required": false,
+  "checker_scope_reason": "Only test fixture selection changes. No generator, checker, certificate or captured-source bytes change, and no new checker acceptance or source proof is inferred.",
+  "original_full_gate": "Source320 still runs with four reported failures, including both unchanged old-ID Option tests. All seven known original isolated assertion/lookup failures now have selected passing repairs; keep collecting any remaining failures, preserve the terminal original run, then execute the complete repaired gate.",
+  "planned_repaired_gate_runtime_addition": {
+    "RUST_TEST_THREADS": "4"
+  },
+  "complete_repaired_gate_passed": false,
+  "T01_complete": false,
+  "T02_started": false,
+  "go_demands_unelaborated": 169,
+  "csharp_application_proofs_pending": 987,
+  "native_Linux_release_gate_executed": false,
+  "profile_activated": false
+}

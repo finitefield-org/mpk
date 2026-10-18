@@ -4308,3 +4308,40 @@ mandatory. No resource limit or production/checker source changes. The current
 diagnostic is not stopped or reconfigured. The retry setting is planned, not
 executed or passed, and no performance gain or native Linux resource acceptance
 is inferred. T01 remains incomplete and T02 remains unstarted.
+
+## 69. T01-W05 Option source-epoch lookup repair
+
+The unchanged source320 diagnostic reports two additional Option core failures.
+Their exact isolated reproductions fail in0.124 and0.126 seconds at the old
+document-ID lookup, before certificate loading or packet evaluation. The
+[diagnosis](../migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-option-core-diagnosis/README.md)
+retains both original sources, complete raw outputs and three separate diagnostic
+preparation errors. Ten source/guard/metadata/certificate/request-response members
+match their exact original Git bytes. The current seven-row metadata contains
+the guarded41dc96 document partner of the original7a157f source; the old row is
+absent. No parser-semantic or checker rejection is inferred from these lookups.
+
+Both repaired tests require the unchanged complete three-pair source/native-fact
+guard before selecting that current document; the i32 case also requires exactly
+one Option with an i32 payload. All17 i32 cases and256 bits per packet pass in
+65.590 seconds, preserving4,352 original assertions. All four string cases pass
+in45.948 seconds with the original9,804 selected wide-packet observations and
+UTF16 cell counts. Original case matrices, assertion suffixes and runtime helpers
+remain byte-identical. Wide selected observations are not promoted to universal
+or full-packet proof.
+
+The [selected verification](../migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-option-core-repair/verification.json)
+records both complete source-correspondence checks, nine altered source/contract/
+root controls and one surrogate substitution rejection. The affected current
+source producer regenerates and strictly imports the one selected document,
+compares its existing program/certificate golden and retains dependency/mutation
+checks in6.413 seconds. Unaffected source contexts are not repeated here.
+Targeted format and integration-target Clippy pass without warnings. No producer,
+evaluator, checker, existing fixture, source capture or resource limit changes.
+
+The original diagnostic continues with four reported failures; seven known
+original isolated failures now have selected passing repairs. No partial run or
+selected result supplies T01's full gate. Preserve the terminal original run,
+resolve remaining findings and execute the complete repaired gate with all
+tests and the recorded four-worker scheduling before T02. All169 Go demands and
+987 C# application proofs remain pending, and neither practical profile activates.
