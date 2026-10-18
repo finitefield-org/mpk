@@ -1,9 +1,10 @@
 # GO-PRAC T01-W05 inactive publication and cumulative gate
 
 Entry: W04 completion commit `68a44416e1b1a6dc3a84587cca784fc4b3a2b862`.
-Publication and targeted checks pass. The cumulative T01 gate has exposed
-retained C# control fixture epoch mismatches; repairs and revalidation are in progress;
-T01 and W05 are not complete until its successful result is recorded here.
+Publication and targeted repairs pass. Cumulative T01 diagnostics exposed
+retained C# fixture and JSON archive epoch mismatches. Their repaired source
+and normal golden checks now pass; a new complete gate over the committed
+repaired tree remains required. T01/W05 are incomplete and T02 is unstarted.
 
 ## Full-gate review fixes
 
@@ -47,6 +48,21 @@ A separate libtest stack overflow is also repaired with an explicit64MiB
 worker for its unchanged2,049-operation synthetic observer. The focused
 test passes with default parent settings. A complete new gate over the
 repaired tree is still mandatory; selected successes do not complete T01.
+
+The source43 cumulative retry confirms all14 previous assertion failures and
+the deep observer pass, then exposes an additional JSON string parser archive
+lookup failure. The [isolated original failure](verification/retained-csharp-repair/json-string-source-diagnosis/result.json)
+retains the actual missing-file error. The original pair-pipeline files use
+their original source IDs; current source IDs belong to the later Boolean
+context epoch. [Three exact source correspondences](retained-csharp/json-boundary-epochs/README.md)
+preserve both original/current inputs and complete native facts outside six
+sidecar digests. Repair, fresh JSON golden generation and selected validation
+now pass, including the complete source/contract/native correspondence, original
+UTF16 preservation, all archive comparisons and normal golden checks. Both new
+definition certificates pass both checkers with zero axioms. The original
+diagnostic gate is retained as [superseded and partial](verification/superseded-json-archive/disposition.json)
+after its concrete repair; it cannot count as a passing T01 gate. All targets
+remain required in the repaired complete retry. T02 remains unstarted.
 
 Five frozen inactive specifications own five new conformance vector sets:
 [profile](../../../specs/GO_PRACTICAL_PROFILE_V1.md),

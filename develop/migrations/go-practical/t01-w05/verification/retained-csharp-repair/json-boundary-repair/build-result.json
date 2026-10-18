@@ -1,0 +1,55 @@
+{
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "csharp_practical_vc",
+    "--no-run",
+    "--message-format=json"
+  ],
+  "source_commit": "43c6739990da01f6bd39eee2935fe9a837563800",
+  "working_tree_test_sources": [
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_document_epoch_tests.rs",
+      "sha256": "4321c7f47153653ff23fe2e699a802c38e7299c2086ecc78bdddb7f883a0c9ce"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_boundary_document_tests.rs",
+      "sha256": "8bd171f333e445fd1afd11669440b3a1856ca7dded9525993bd4e1ef1ca657b2"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_string_parse_tests.rs",
+      "sha256": "bcd516ee31d7e403bd09e63249ecbfdf00ef4f8ed318c5d8345ed5d294b2c874"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_token_tests.rs",
+      "sha256": "8057a5f6b568cb1f8bab8a957c7456c0502c0786f6bf2b5410dbbb320114aab9"
+    }
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_BUILD_JOBS": "2",
+    "CARGO_TARGET_DIR": "/private/tmp/mpk-t01-w05-json-repair-target"
+  },
+  "reason": "Compile only the changed CSharp VC integration target in a separate target directory, leaving the live diagnostic gate binary intact. All new edits are test code or retained/generated evidence.",
+  "status": "passed",
+  "exit_code": 0,
+  "wall_seconds": 1082.8127812501043,
+  "executable": "/private/tmp/mpk-t01-w05-json-repair-target/debug/deps/csharp_practical_vc-f5f78b9b819b93a0",
+  "profile": {
+    "opt_level": "1",
+    "debuginfo": 2,
+    "debug_assertions": true,
+    "overflow_checks": true,
+    "test": true
+  },
+  "binary_sha256": "c851a2f437c6290906d61e2dced08e83d578d6b4b17b6b9f98150c31490aaab8",
+  "build-artifacts.jsonl_sha256": "aa866e449ffc09e54d0722d1763492f467f4d52ff99c876517378dbd5e0c759c",
+  "build.stderr.log_sha256": "b6e96a7b1aa90b7266304d5d2d3b753ef949953901761207ed01e45939c5a506"
+}

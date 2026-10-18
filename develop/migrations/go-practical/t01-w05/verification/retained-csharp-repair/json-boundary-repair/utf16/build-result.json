@@ -1,0 +1,55 @@
+{
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "csharp_practical_vc",
+    "--no-run",
+    "--message-format=json"
+  ],
+  "source_commit": "43c6739990da01f6bd39eee2935fe9a837563800",
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_BUILD_JOBS": "2",
+    "CARGO_TARGET_DIR": "/private/tmp/mpk-t01-w05-json-repair-target"
+  },
+  "reason": "Recompile only the changed integration harness with the existing UTF16-preserving practical JSON parser; retain the original failed scalar-only guard and every raw fixture.",
+  "working_tree_test_sources": [
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_document_epoch_tests.rs",
+      "sha256": "b40f43f8a0a4faa8a1db6a4bd0c3e4b2eb390200d66cfa9e0083aa11523e2dd3"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_boundary_document_tests.rs",
+      "sha256": "8bd171f333e445fd1afd11669440b3a1856ca7dded9525993bd4e1ef1ca657b2"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_string_parse_tests.rs",
+      "sha256": "bcd516ee31d7e403bd09e63249ecbfdf00ef4f8ed318c5d8345ed5d294b2c874"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_token_tests.rs",
+      "sha256": "8057a5f6b568cb1f8bab8a957c7456c0502c0786f6bf2b5410dbbb320114aab9"
+    }
+  ],
+  "status": "passed",
+  "exit_code": 0,
+  "wall_seconds": 90.19881225004792,
+  "executable": "/private/tmp/mpk-t01-w05-json-repair-target/debug/deps/csharp_practical_vc-f5f78b9b819b93a0",
+  "profile": {
+    "opt_level": "1",
+    "debuginfo": 2,
+    "debug_assertions": true,
+    "overflow_checks": true,
+    "test": true
+  },
+  "binary_sha256": "b03022896d8e18caf457151f3f6b45ba726cdb999fde573e857c084baf7ab944",
+  "build-artifacts.jsonl_sha256": "350764278d5256a88f3855d17cac966dd70c6eac486bd428d0dd21f728b91082",
+  "build.stderr.log_sha256": "f155fd2064e7d7896a336d20bca323f39324dc053ed26c83cebbfa66267c6610"
+}

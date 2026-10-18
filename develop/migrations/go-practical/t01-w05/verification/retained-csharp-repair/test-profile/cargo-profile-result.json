@@ -1,0 +1,718 @@
+{
+  "all_expected_profile_settings": true,
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--workspace",
+    "--no-run",
+    "--message-format=json"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true"
+  },
+  "exit_code": 0,
+  "selected_reason": "Read Cargo JSON profiles for the already-compiled exact workspace test set; --no-run repeats no test execution. This independently verifies effective optimization/debug/overflow settings rather than inferring them from omitted rustc flags.",
+  "test_targets": [
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "rust_calls"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "java_profile_vectors"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "successor_source_artifacts"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "vir_hash"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "csharp_practical_spec"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "semantic_profile_registry"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "mpk_linux_sandbox"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "jsonl"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "check_api"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "policy_strategy"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "strategies"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "diagnostics"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "batch"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "proof_api"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "invalid_candidates_benchmark"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "term_api"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "program_wp"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "successor_go_migration"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "java_profile_spec"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "successor_rust_migration"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "source_map"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "canonical_json"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "csharp_practical_source_artifacts"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "fast_kernel_profile"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "csharp_practical_vc_model"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "verification_limits"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "csharp_practical_inventory"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "go_vir_corpus"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "semantic_profile_registry_runtime"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "mpk_cli"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "go_profile_vectors"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "csharp_practical_vir_model"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "successor_vc"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "vir_semantics_gate"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "source_manifest"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "rust_runtime_safety"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "vir_model"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "rust_positive_corpus"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "csharp_practical_migration"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "csharp_practical_types"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "policy_profiles"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "csharp_ai_explain"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "csharp_contracts"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "csharp_build_inputs"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "policy_scan"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "java_build_inputs"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "policy_schema_v1"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "successor_frontend_protocol"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "csharp_frontend_vectors"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "csharp_policy_verify"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "csharp_roslyn_session"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "csharp_lowering"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "frontend_limits"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "csharp_release_gate"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "java_source_maps"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "csharp_practical_codecs"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "csharp_practical_syntax"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "policy_cli"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "csharp_practical_build_inputs"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "ai_foundation"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "csharp_practical_transition"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "frontend_runner"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "csharp_practical_capture"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "java_frontend_runner"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "java_frontend_vectors"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "java_subset"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "csharp_practical_collections"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "successor_go_release"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "csharp_practical_frontend_protocol"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "csharp_practical_boundary"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "java_lowering"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "csharp_practical_numbers"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "java_release_gate"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "verify"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "csharp_practical_domain"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "csharp_frontend_runner"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "csharp_subset"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "csharp_practical_boundary_transition"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "successor_go_protocol"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "successor_rust_protocol"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "successor_atomic_cutover"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "successor_rust_release"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "java_policy_verify"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "java_contracts"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "mpk"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "csharp_capture"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "program_certificate"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "csharp_practical_probes"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "csharp_emission"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "ai_explain_v1"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "java_activation"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "csharp_practical_control"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "csharp_profile_vectors"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "vc_skeleton_v1"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "vir_validation"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "csharp_practical_vir_validation"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "vc_v1"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "vir_loops"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "mpk_api"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "release_bundle"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "csharp_profile_spec"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "theory_certificate_encoders"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "mpk_vc"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "csharp_practical_registry"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "csharp_practical_vc"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "safety_profiles"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "certificate_decoder_fuzz_smoke"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "program_encoding"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "theory_certificate_fuzz_smoke"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "vir_differential"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "vc_hash_v1"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "call_wp"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "mpk_kernel"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "mpk_cert"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "mpk_core"
+    },
+    {
+      "debug_assertions": true,
+      "opt_level": "1",
+      "overflow_checks": true,
+      "target": "mpk_theory"
+    }
+  ],
+  "wall_seconds": 0.36574666609521955
+}

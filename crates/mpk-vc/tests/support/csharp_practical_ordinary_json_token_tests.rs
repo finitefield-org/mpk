@@ -1519,6 +1519,7 @@ fn csharp_03_t06_w09_json_tokens_original_sources() {
     }
     let root = Path::new(env!("CARGO_MANIFEST_DIR"))
         .join("../../develop/migrations/csharp-03/ordinary-foundation/json-tokens");
+    let golden_root = root.join("boolean-refreeze");
     let mut rows = vec![];
     let mut observed = false;
     let mut previous: Option<(Vec<u8>, Vec<u8>)> = None;
@@ -1605,7 +1606,8 @@ fn csharp_03_t06_w09_json_tokens_original_sources() {
             "previous-quoted-codecs",
             "previous-quoted-decimal",
         ] {
-            let hex = fs::read_to_string(root.join(archive).join(format!("{id}.hex"))).unwrap();
+            let old_id = super::boundary_document_tests::retained_document_id(&id);
+            let hex = fs::read_to_string(root.join(archive).join(format!("{old_id}.hex"))).unwrap();
             let bytes = (0..hex.trim().len())
                 .step_by(2)
                 .map(|i| u8::from_str_radix(&hex[i..i + 2], 16).unwrap())
@@ -1694,7 +1696,7 @@ fn csharp_03_t06_w09_json_tokens_original_sources() {
             fs::write(dir.join(format!("{id}.hex")), &hex).unwrap();
         } else {
             assert_eq!(
-                fs::read_to_string(root.join(format!("{id}.hex"))).unwrap(),
+                fs::read_to_string(golden_root.join(format!("{id}.hex"))).unwrap(),
                 hex
             );
         }
@@ -1717,7 +1719,7 @@ fn csharp_03_t06_w09_json_tokens_original_sources() {
         .unwrap();
     } else {
         assert_eq!(
-            read("ordinary-foundation/json-tokens/certificates.json"),
+            read("ordinary-foundation/json-tokens/boolean-refreeze/certificates.json"),
             manifest
         );
     }

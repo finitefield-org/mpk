@@ -28,7 +28,7 @@ after reconciling the intervening shared artifacts and active registry.
 | GO-PRAC-T01-W02 | Complete | Reviewed implementation commit `fed1cf6047f97b1f73c0fc37c5023e19f4f9f035`; 39 cases reproduced twice |
 | GO-PRAC-T01-W03 | Complete | Reviewed implementation `9d4e6fb7855a66d9fff309e6dbd9143652ee6e21`; requirement-by-requirement completion audit in section28 |
 | GO-PRAC-T01-W04 | Complete | Commit `68a44416e1b1a6dc3a84587cca784fc4b3a2b862`; exact interfaces, resource bounds, consumer review and historical replay; section58 |
-| GO-PRAC-T01-W05 | In progress | Inactive publication and selected checks pass; cumulative gate exposed retained C# fixture epoch mismatches under repair; T02 waits for a passing full gate |
+| GO-PRAC-T01-W05 | In progress | Inactive publication and selected repairs pass, including current JSON archive/golden reconstruction; repaired cumulative gate remains mandatory before T02 |
 | GO-PRAC-T02–T07 | Not started | Sequential v1 implementation and public release |
 | GO-PRAC-T08–T11 | Not started | Sequential v2 freeze, maps, pointers and public release |
 
@@ -4114,3 +4114,63 @@ selected; no Cargo source/build descriptor or release profile changes. The
 [verification record](../migrations/go-practical/t01-w05/verification/retained-csharp-repair/verification.json)
 keeps selected passes, the abort, supersession and the pending full retry
 distinct. W05/T01 remain open and T02 remains unstarted.
+
+## 63. T01-W05 JSON archive source correspondence
+
+The source43 full retry confirms all14 previous assertion failures and the
+explicit-stack observer pass. Its ongoing409-test VC target then reports a
+JSON string parser original-source failure. An exact replay of the same
+compiled test with output capture disabled fails in5.87 seconds at a missing
+previous-pair-pipeline file. That archive retains original source IDs, while
+the current input requests use their later Boolean-context IDs. This is not
+a failed parser semantic assertion or a completed full gate.
+
+Two exact original Git objects from09a14bdde6b14408e4f25e55cb787dd989577d7e
+are retained in the [JSON boundary epoch record](../migrations/go-practical/t01-w05/retained-csharp/json-boundary-epochs/README.md).
+A closed three-pair test correspondence pins both complete epochs, compares
+all source/contract/root/native bodies outside context-derived fields and
+checks all raw native input digests before comparing. Altered source, contract
+and root controls are required. Historical archive lookups use original IDs;
+current JSON string/token golden reconstruction uses separate new directories.
+No old observations are overwritten or promoted to current source evidence.
+
+The affected single integration target is being compiled in a separate
+directory. Fresh generation, normal golden tests, both-checker definition
+validation and a repaired cumulative gate remain required. The original full
+diagnostic process continues with its original binary and failed raw output.
+W05/T01 remain incomplete and T02 is unstarted. All169 Go theorem requests and
+987 CSharp application proofs retain their preceding pending status.
+
+The first new Rust guard attempt fails both cases because scalar serde JSON
+cannot parse a retained lone UTF16 surrogate inside a sidecar. The original
+guard source/binary identity/logs are retained. The guard now uses the existing
+practical UTF16-preserving parser and writer, with an additional substitution
+control; raw inputs and all comparison obligations remain intact. Its
+incremental build and selected verification remain pending at this checkpoint.
+
+## 64. T01-W05 JSON selected verification and diagnostic supersession
+
+The UTF16-preserving guard now passes both tests: all three original/current
+source/native-fact pairs agree, nine altered source/contract/root controls and
+one lone-surrogate substitution reject. Both actual generators reconstruct all
+68 contexts and three nonempty certificates each. The six new JSON string/token
+hex files are byte-identical to their unchanged parent definitions. Both normal
+tests pass with generation flags removed; every strict import, forged metadata,
+cross-context mismatch and complete archived scan/definition comparison remains.
+Format and the single affected integration target's Clippy pass without warnings.
+
+All24 original scan archive members and six retained parent files match exact
+source43 Git objects. The six new members contain two distinct definition
+certificates, both accepted by unchanged Rust/Go development checkers with zero
+axioms and matching hashes. These are definition checks, not application/source
+proof or native release/resource acceptance. The [selected repair record](../migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-boundary-repair/verification.json)
+retains the original failed scalar-only guard and unchanged raw UTF16 fixtures.
+
+The old source43 gate is superseded only after those concrete repairs pass.
+Its actual terminal exit143 follows controlled termination of its owned Cargo
+parent/test child; original raw logs and hashes are retained after9,962.26 seconds.
+It had1,020 passing lines, one JSON archive lookup failure, and no additional
+stack/fatal target abort. It was partial and supplies no passing T01 gate.
+Every remaining target and all workspace tests must run again over the committed
+repaired tree. T01/W05 remain incomplete and T02 remains unstarted. No practical
+profile or application-proof status changes.

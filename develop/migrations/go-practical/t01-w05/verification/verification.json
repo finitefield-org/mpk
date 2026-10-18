@@ -1,4 +1,25 @@
 {
+  "additional_json_boundary_repair": {
+    "T02_started": false,
+    "archive_lookup_audit": "retained-csharp-repair/json-boundary-repair/archive-lookup-audit.json",
+    "changed_native_sidecar_digests": 6,
+    "generation_and_normal_validation": "passed",
+    "independent_source_comparison": "../retained-csharp/json-boundary-epochs/source-correspondence.json",
+    "initial_guard_failure": "retained-csharp-repair/json-boundary-repair/initial-scalar-json-guard.json",
+    "initial_working_tree_build": "retained-csharp-repair/json-boundary-repair/build-result.json",
+    "original_epoch": "../retained-csharp/json-boundary-epochs/epoch.json",
+    "original_failure": "retained-csharp-repair/json-string-source-diagnosis/result.json",
+    "original_files_unchanged": true,
+    "original_gate_disposition": "superseded-json-archive/disposition.json",
+    "original_source_commit": "09a14bdde6b14408e4f25e55cb787dd989577d7e",
+    "raw_utf16_fixtures_unchanged": true,
+    "repaired_full_gate_required": true,
+    "source_body_and_other_facts_unchanged": true,
+    "source_free_definition_checks": "passed_two_distinct_zero_axiom_definitions_six_members",
+    "source_pairs": 3,
+    "verification": "retained-csharp-repair/json-boundary-repair/verification.json",
+    "working_tree_build": "retained-csharp-repair/json-boundary-repair/utf16/build-result.json"
+  },
   "csharp_control_epoch_fix": {
     "capture_cases": 26,
     "clr_runs": 255,
@@ -15,11 +36,13 @@
     "targeted_test": "passed"
   },
   "full_gate": {
+    "actual_profile_verification": "retained-csharp-repair/test-profile/cargo-profile-result.json",
     "command": [
       "./scripts/check-fast.sh"
     ],
     "control_epoch_failure": "initial-csharp-control-source/check-fast-result.json",
     "failed_attempt": "initial-vocabulary-findings/check-fast-result.json",
+    "previous_source_commit": "43c6739990da01f6bd39eee2935fe9a837563800",
     "result": "check-fast-result.json",
     "retained_epoch_failure": "initial-retained-source-pin/check-fast-result.json",
     "retry_environment": {
@@ -29,14 +52,14 @@
       "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true"
     },
     "selected_reason": "T01 final W; cumulative full local gate is mandatory; no T02 implementation starts until it passes",
-    "source_commit": "94b544f4887ba4edae3ee6867bbeac82c88e248c",
-    "status": "old_failed_debug_invocation_superseded",
+    "status": "required_repaired_committed_tree_not_started",
     "stderr": "check-fast.stderr.log",
     "stdout": "check-fast.stdout.log",
     "superseded_attempts": [
       "initial-unoptimized/check-fast-result.json",
       "initial-literal-only/check-fast-result.json",
-      "superseded-slow-debug/check-fast-result.json"
+      "superseded-slow-debug/check-fast-result.json",
+      "superseded-json-archive/check-fast-result.json"
     ]
   },
   "historical_replay_after_publication": {
@@ -49,6 +72,11 @@
   },
   "native_Linux_release_gate_executed": false,
   "profile_activated": false,
+  "raw_log_whitespace_audit": {
+    "directory_exclusions": false,
+    "exact_paths": 30,
+    "path": "retained-csharp-repair/raw-log-whitespace.json"
+  },
   "raw_log_whitespace_preserved": [
     {
       "path": "develop/migrations/go-practical/t01-w05/verification/initial-retained-source-pin/check-fast.stdout.log",
@@ -116,7 +144,7 @@
     "old_graph_relabeling_allowed": false
   },
   "source_semantics_proved": false,
-  "status": "targeted_repairs_passed_full_retry_pending",
+  "status": "targeted_repairs_passed_repaired_cumulative_full_retry_required",
   "targeted_results": {
     "path": "develop/migrations/go-practical/t01-w05/verification/targeted-results.json",
     "sha256": "ea675b508555ed889741c5e47bdfc54a02e05f1b258b7b4c26c5d2a446a8ab6a"

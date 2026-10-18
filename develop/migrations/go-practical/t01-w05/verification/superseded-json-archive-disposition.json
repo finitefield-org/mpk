@@ -1,0 +1,64 @@
+{
+  "schema": "mpk.go_practical.superseded_diagnostic.v0",
+  "source_commit": "43c6739990da01f6bd39eee2935fe9a837563800",
+  "started_at_utc": "2026-10-18T01:37:17.125783+00:00",
+  "superseded_at_utc": "2026-10-18T04:23:18.678794+00:00",
+  "reason": "A concrete missing original JSON scan archive reference is reproduced and repaired. Both corrected source tests, two epoch guards, format/lint, actual fresh generations and both-checker definition checks now pass. The old compiled source43 gate cannot validate these repairs; retain it as a failed partial diagnostic and require a new complete all-target gate over the committed repaired tree. This is not an observation timeout or a claim of completed remaining tests.",
+  "owned_processes": [
+    {
+      "pid": 79865,
+      "ppid": 79862,
+      "state": "S",
+      "command": "bash ./scripts/check-fast.sh"
+    },
+    {
+      "pid": 81609,
+      "ppid": 79865,
+      "state": "S",
+      "command": "/Users/kazuyoshitoshiya/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo test --workspace --no-fail-fast"
+    },
+    {
+      "pid": 7584,
+      "ppid": 81609,
+      "state": "R",
+      "command": "/Users/kazuyoshitoshiya/ff/mpk/target/debug/deps/csharp_practical_vc-d17e5ac6d3501e9b"
+    }
+  ],
+  "signals": [
+    {
+      "pid": 81609,
+      "signal": "SIGSTOP",
+      "reason": "Prevent the known failed diagnostic Cargo parent from dispatching another target while its owned child exits."
+    },
+    {
+      "pid": 7584,
+      "signal": "SIGTERM"
+    },
+    {
+      "pid": 81609,
+      "signal": "SIGTERM"
+    },
+    {
+      "pid": 81609,
+      "signal": "SIGCONT",
+      "reason": "Deliver pending termination after the only owned test child has stopped writing."
+    }
+  ],
+  "all_remaining_tests_required_in_repaired_full_gate": true,
+  "T01_complete": false,
+  "T02_started": false,
+  "profile_activated": false,
+  "remaining_owned_pids": [
+    79865
+  ],
+  "actual_gate_exit_code": 143,
+  "actual_gate_wall_seconds": 9962.264965499984,
+  "archive": "superseded-json-archive",
+  "passed_test_lines": 1020,
+  "failed_test_lines": [
+    "test ordinary_carriers::literal_tests::json_string_parse_tests::csharp_03_t06_w09_json_string_parsers_original_sources ... FAILED"
+  ],
+  "fatal_target_lines": [],
+  "gate_was_partial": true,
+  "passing_gate_claimed": false
+}

@@ -2,6 +2,13 @@ use super::integer_format_tests::format_sources;
 use super::*;
 use core_eval::{apply, bit, sparse_cube};
 
+#[path = "csharp_practical_ordinary_document_epoch_tests.rs"]
+mod retained_epoch;
+
+pub(super) fn retained_document_id(id: &str) -> &'static str {
+    retained_epoch::previous_document_id(id)
+}
+
 pub(super) fn document_sources() -> Vec<(String, Value, Value)> {
     let mut sources = format_sources();
     let requests = read("boundary-output/source-requests.json");

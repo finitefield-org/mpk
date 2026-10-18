@@ -276,6 +276,7 @@ fn csharp_03_t06_w09_json_string_parsers_original_sources() {
     }
     let root = Path::new(env!("CARGO_MANIFEST_DIR"))
         .join("../../develop/migrations/csharp-03/ordinary-foundation/json-string-parsers");
+    let golden_root = root.join("boolean-refreeze");
     let mut rows = vec![];
     let mut observed = false;
     let mut previous: Option<(Vec<u8>, Vec<u8>)> = None;
@@ -351,10 +352,10 @@ fn csharp_03_t06_w09_json_string_parsers_original_sources() {
         assert_eq!(d.state_depth, 19);
         assert_eq!(d.scan_steps, 8_193);
         assert!(d.static_transformers > 4_096 && d.static_transformers <= 8_192);
-        let previous = fs::read_to_string(
-            root.join("previous-pair-pipeline")
-                .join(format!("{id}.hex")),
-        )
+        let previous = fs::read_to_string(root.join("previous-pair-pipeline").join(format!(
+            "{}.hex",
+            super::boundary_document_tests::retained_document_id(&id)
+        )))
         .unwrap();
         let previous = (0..previous.trim().len())
             .step_by(2)
@@ -372,7 +373,7 @@ fn csharp_03_t06_w09_json_string_parsers_original_sources() {
             fs::write(dir.join(format!("{id}.hex")), &hex).unwrap();
         } else {
             assert_eq!(
-                fs::read_to_string(root.join(format!("{id}.hex"))).unwrap(),
+                fs::read_to_string(golden_root.join(format!("{id}.hex"))).unwrap(),
                 hex
             );
         }
@@ -399,7 +400,9 @@ fn csharp_03_t06_w09_json_string_parsers_original_sources() {
         .unwrap();
     } else {
         assert_eq!(
-            super::read("ordinary-foundation/json-string-parsers/certificates.json"),
+            super::read(
+                "ordinary-foundation/json-string-parsers/boolean-refreeze/certificates.json"
+            ),
             manifest
         );
     }
