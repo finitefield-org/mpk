@@ -3,7 +3,7 @@
   "exit_code": 0,
   "observed_at_utc": "2026-10-18T09:48:57.087327+00:00",
   "source_base_commit": "320ecd67ab420e1ea806196271eea3271f929fbe",
-  "selection_reason": "Exact changed/new static repair source, epoch manifest, documentation and evidence files. Three still-written original full-gate outputs are excluded from this selected observation and remain mandatory in the complete repaired retry.",
+  "selection_reason": "Exact changed/new repair inputs. Two in-progress source320 gate raw logs were read and retained as the exact byte snapshots pinned in inputs and verified again before staging. The still-written result record was excluded. These snapshots are not a terminal or passing full gate; a complete repaired retry remains required.",
   "scanner": {
     "path": "scripts/check-no-active-gir.sh",
     "sha256": "14e61e16be3b706e18a2de0842f85f6091eb256d9713924b677e2212a54c3cc1",
@@ -1477,9 +1477,7 @@
   ],
   "missing_links": [],
   "excluded_live_outputs": [
-    "develop/migrations/go-practical/t01-w05/verification/check-fast-result.json",
-    "develop/migrations/go-practical/t01-w05/verification/check-fast-stderr.log",
-    "develop/migrations/go-practical/t01-w05/verification/check-fast-stdout.log"
+    "develop/migrations/go-practical/t01-w05/verification/check-fast-result.json"
   ],
   "source_JSON_directory_whitespace_exclusions": false,
   "full_gate_passed": false,
@@ -1495,5 +1493,16 @@
     ],
     "source_JSON_directory_exclusions": false,
     "index_matches_reviewed_inputs": true
-  }
+  },
+  "in_progress_gate_raw_snapshots": {
+    "source_commit": "320ecd67ab420e1ea806196271eea3271f929fbe",
+    "retained_in_commit": "596a142058cd3c451621a8bf19b7f9e927b26635",
+    "paths": [
+      "develop/migrations/go-practical/t01-w05/verification/check-fast.stdout.log",
+      "develop/migrations/go-practical/t01-w05/verification/check-fast.stderr.log"
+    ],
+    "scope": "Exact raw bytes observed and hash-checked at the recorded review/staging point only. Later live output is not frozen or claimed complete."
+  },
+  "scope_correction": "The initial review accidentally listed hyphenated stdout/stderr names as excluded. Their actual dotted names were included in the 85 observed inputs and in commit596a. The complete input byte/hash checks were valid; this correction labels their actual snapshot scope without changing observations.",
+  "reviewed_implementation_commit": "596a142058cd3c451621a8bf19b7f9e927b26635"
 }
