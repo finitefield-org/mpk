@@ -4287,3 +4287,24 @@ executions and the pending whole retry distinct. No production or existing
 fixture bytes change, and no new checker acceptance or source/application
 proof is inferred. W05/T01 remain incomplete, T02 remains unstarted, all169
 Go demands and987 C# application proofs remain pending, and no profile activates.
+
+## 68. T01-W05 live gate resource observation
+
+The same source320 gate and owned test/Cargo processes remain live. A short
+read-only process sample records ten test-worker stacks in the unchanged
+ordinary test evaluator and a main harness waiting for results. The
+[exact observation](../migrations/go-practical/t01-w05/verification/retained-csharp-repair/full-gate-live-profile/observation.json)
+and lossless raw sampler bytes are retained. Only two samples per thread were
+emitted, so no statistically reliable hot-path attribution, completion or
+deadlock-absence claim is made. The fixed-eight-entry identity memo and its
+original source320 bytes remain unchanged.
+
+The sampler reports physical footprint54.0G and peak58.2G on the64GiB macOS
+host. The next complete repaired gate will use `RUST_TEST_THREADS=4` to reduce
+aggregate concurrent host memory pressure, retaining the existing opt-level1,
+debug assertions and overflow checks. This changes test-worker scheduling only;
+all tests, full bounds, assertions, CLI build and accept/reject checks remain
+mandatory. No resource limit or production/checker source changes. The current
+diagnostic is not stopped or reconfigured. The retry setting is planned, not
+executed or passed, and no performance gain or native Linux resource acceptance
+is inferred. T01 remains incomplete and T02 remains unstarted.

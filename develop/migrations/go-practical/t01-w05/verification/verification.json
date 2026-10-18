@@ -63,7 +63,15 @@
       "initial-literal-only/check-fast-result.json",
       "superseded-slow-debug/check-fast-result.json",
       "superseded-json-archive/check-fast-result.json"
-    ]
+    ],
+    "planned_repaired_retry_environment": {
+      "CARGO_NET_OFFLINE": "true",
+      "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+      "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+      "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+      "RUST_TEST_THREADS": "4"
+    },
+    "planned_repaired_retry_environment_reason": "Reduce aggregate host memory pressure after the exact live ten-worker process sample; all tests and assertions remain mandatory. Not applied to the current source320 diagnostic."
   },
   "historical_replay_after_publication": {
     "path": "develop/migrations/go-practical/t01-w05/verification/historical-replay-after-publication.json",
@@ -211,5 +219,12 @@
     "production_and_existing_inputs_unchanged": true,
     "complete_repaired_gate_required": true,
     "T02_started": false
+  },
+  "live_gate_resource_observation": {
+    "record": "retained-csharp-repair/full-gate-live-profile/observation.json",
+    "sampled_test_workers": 10,
+    "small_sample_only": true,
+    "whole_gate_passed": false,
+    "original_execution_continues": true
   }
 }

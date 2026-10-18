@@ -1,0 +1,194 @@
+{
+  "schema": "mpk-go-practical-t01-w05-live-gate-observation-1.0",
+  "status": "live_diagnostic_no_test_verdict",
+  "recorded_at_utc": "2026-10-18T12:20:06.704203+00:00",
+  "compiled_source_commit": "320ecd67ab420e1ea806196271eea3271f929fbe",
+  "repository_head": "b384444a098d33f3c1cd52a2af0b3eebaef69d3c",
+  "test_session_id": 31844,
+  "owned_pids": {
+    "test": 33771,
+    "cargo": 61319,
+    "gate": 55665
+  },
+  "sampler_command": [
+    "/usr/bin/sample",
+    "33771",
+    "1",
+    "-file",
+    "/private/tmp/mpk-t01-w05-current-vc.sample.txt"
+  ],
+  "sampler_exit_code": 0,
+  "raw_sample": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/full-gate-live-profile/raw-sample.json",
+    "sha256": "d267b0a53ec2cdd8dc721ada8c301f24deaeaf49b779028f7760bb515c33b79a",
+    "bytes": 50733
+  },
+  "sampling_limitations": "Requested one second at one millisecond; only two samples per thread were emitted. Frames show the sampled operations, not a statistically reliable hot-path attribution, completion, deadlock absence or resource acceptance.",
+  "sampled_test_workers": 10,
+  "threads": [
+    {
+      "thread": "2 Thread_29653665   DispatchQueue_1: com.apple.main-thread  (serial)",
+      "samples": 2,
+      "observer_frames": []
+    },
+    {
+      "thread": "2 Thread_29682018: ordinary_carriers::literal_tests::boundary_utf8_tests::csharp_0",
+      "samples": 2,
+      "observer_frames": [
+        "+                     2 _RNvNtNtCsfDfc9Xnw2qy_19csharp_practical_vc17ordinary_carriers9core_eval3run  (in csharp_practical_vc-d17e5ac6d3501e9b) + 308  [0x104870248]  csharp_practical_ordinary_test_eval.rs:861",
+        "+                         1 _RINvNtNtCsfDfc9Xnw2qy_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-d17e5ac6d3501e9b) + 604  [0x104a9371c]  csharp_practical_ordinary_test_eval.rs:522",
+        "+                         1 _RINvNtNtCsfDfc9Xnw2qy_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-d17e5ac6d3501e9b) + 8440  [0x104a955b8]  csharp_practical_ordinary_test_eval.rs:714"
+      ]
+    },
+    {
+      "thread": "2 Thread_29729711: ordinary_carriers::literal_tests::boundary_utf8_tests::csharp_0",
+      "samples": 2,
+      "observer_frames": [
+        "+                     2 _RNvNtNtCsfDfc9Xnw2qy_19csharp_practical_vc17ordinary_carriers9core_eval3run  (in csharp_practical_vc-d17e5ac6d3501e9b) + 308  [0x104870248]  csharp_practical_ordinary_test_eval.rs:861",
+        "+                         1 _RINvNtNtCsfDfc9Xnw2qy_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-d17e5ac6d3501e9b) + 9420  [0x104a9598c]  csharp_practical_ordinary_test_eval.rs:809"
+      ]
+    },
+    {
+      "thread": "2 Thread_29806544: ordinary_carriers::literal_tests::decimal_fixed_format_tests::c",
+      "samples": 2,
+      "observer_frames": [
+        "+                       1 _RINvNtNtCsfDfc9Xnw2qy_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-d17e5ac6d3501e9b) + 6112  [0x104a94ca0]  csharp_practical_ordinary_test_eval.rs:686",
+        "+                       ! 1 _RNvMs5_NtNtCsfDfc9Xnw2qy_19csharp_practical_vc17ordinary_carriers9core_evalNtB5_15BitObservations8remember  (in csharp_practical_vc-d17e5ac6d3501e9b) + 216  [0x10486f090]  csharp_practical_ordinary_test_eval.rs:254",
+        "+                       1 _RINvNtNtCsfDfc9Xnw2qy_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-d17e5ac6d3501e9b) + 6288  [0x104a94d50]  csharp_practical_ordinary_test_eval.rs:711",
+        "+                         1 _RNvMs7_NtNtCsfDfc9Xnw2qy_19csharp_practical_vc17ordinary_carriers9core_evalNtB5_10LambdaMemo17remember_identity  (in csharp_practical_vc-d17e5ac6d3501e9b) + 180  [0x10486f85c]  csharp_practical_ordinary_test_eval.rs:357"
+      ]
+    },
+    {
+      "thread": "2 Thread_30366028: ordinary_carriers::literal_tests::json_string_parse_tests::csha",
+      "samples": 2,
+      "observer_frames": [
+        "+                   2 _RNvNtNtCsfDfc9Xnw2qy_19csharp_practical_vc17ordinary_carriers9core_eval3run  (in csharp_practical_vc-d17e5ac6d3501e9b) + 308  [0x104870248]  csharp_practical_ordinary_test_eval.rs:861",
+        "+                       1 _RINvNtNtCsfDfc9Xnw2qy_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-d17e5ac6d3501e9b) + 2944  [0x104a94040]  csharp_practical_ordinary_test_eval.rs:557",
+        "+                       1 _RINvNtNtCsfDfc9Xnw2qy_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-d17e5ac6d3501e9b) + 6288  [0x104a94d50]  csharp_practical_ordinary_test_eval.rs:711",
+        "+                         1 _RNvMs7_NtNtCsfDfc9Xnw2qy_19csharp_practical_vc17ordinary_carriers9core_evalNtB5_10LambdaMemo17remember_identity  (in csharp_practical_vc-d17e5ac6d3501e9b) + 180  [0x10486f85c]  csharp_practical_ordinary_test_eval.rs:357"
+      ]
+    },
+    {
+      "thread": "2 Thread_30466585: ordinary_carriers::literal_tests::json_string_parse_tests::csha",
+      "samples": 2,
+      "observer_frames": [
+        "+                   2 _RNvNtNtCsfDfc9Xnw2qy_19csharp_practical_vc17ordinary_carriers9core_eval3run  (in csharp_practical_vc-d17e5ac6d3501e9b) + 308  [0x104870248]  csharp_practical_ordinary_test_eval.rs:861",
+        "+                       2 _RINvNtNtCsfDfc9Xnw2qy_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-d17e5ac6d3501e9b) + 1680  [0x104a93b50]  csharp_practical_ordinary_test_eval.rs:797",
+        "+                         1 _RNvNtNtCsfDfc9Xnw2qy_19csharp_practical_vc17ordinary_carriers9core_eval11sparse_view  (in csharp_practical_vc-d17e5ac6d3501e9b) + 132  [0x10486fe90]  csharp_practical_ordinary_test_eval.rs:404",
+        "+                         1 _RNvNtNtCsfDfc9Xnw2qy_19csharp_practical_vc17ordinary_carriers9core_eval11sparse_view  (in csharp_practical_vc-d17e5ac6d3501e9b) + 144  [0x10486fe9c]  csharp_practical_ordinary_test_eval.rs:404"
+      ]
+    },
+    {
+      "thread": "2 Thread_30538412: ordinary_carriers::literal_tests::json_string_parse_tests::csha",
+      "samples": 2,
+      "observer_frames": [
+        "+                     1 _RINvNtNtCsfDfc9Xnw2qy_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-d17e5ac6d3501e9b) + 5232  [0x104a94930]  csharp_practical_ordinary_test_eval.rs:531",
+        "+                     1 _RINvNtNtCsfDfc9Xnw2qy_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-d17e5ac6d3501e9b) + 10208  [0x104a95ca0]  csharp_practical_ordinary_test_eval.rs:621"
+      ]
+    },
+    {
+      "thread": "2 Thread_30682651: ordinary_carriers::literal_tests::json_string_tests::csharp_03_",
+      "samples": 2,
+      "observer_frames": [
+        "+                     1 _RINvNtNtCsfDfc9Xnw2qy_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-d17e5ac6d3501e9b) + 2924  [0x104a9402c]  csharp_practical_ordinary_test_eval.rs:557",
+        "+                     1 _RINvNtNtCsfDfc9Xnw2qy_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-d17e5ac6d3501e9b) + 7800  [0x104a95338]  csharp_practical_ordinary_test_eval.rs:772"
+      ]
+    },
+    {
+      "thread": "2 Thread_31170138: ordinary_carriers::literal_tests::json_token_tests::csharp_03_t",
+      "samples": 2,
+      "observer_frames": [
+        "+                     1 _RINvNtNtCsfDfc9Xnw2qy_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-d17e5ac6d3501e9b) + 5888  [0x104a94bc0]  csharp_practical_ordinary_test_eval.rs:688",
+        "+                     1 _RINvNtNtCsfDfc9Xnw2qy_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-d17e5ac6d3501e9b) + 8440  [0x104a955b8]  csharp_practical_ordinary_test_eval.rs:714"
+      ]
+    },
+    {
+      "thread": "2 Thread_31919550: ordinary_carriers::literal_tests::json_token_tests::product_tes",
+      "samples": 2,
+      "observer_frames": [
+        "+                       2 _RINvNtNtCsfDfc9Xnw2qy_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-d17e5ac6d3501e9b) + 10316  [0x104a95d0c]  csharp_practical_ordinary_test_eval.rs:621",
+        "+                         2 _RNvMs7_NtNtCsfDfc9Xnw2qy_19csharp_practical_vc17ordinary_carriers9core_evalNtB5_10LambdaMemo15identity_result  (in csharp_practical_vc-d17e5ac6d3501e9b) + 160  [0x10486f750]  csharp_practical_ordinary_test_eval.rs:348"
+      ]
+    },
+    {
+      "thread": "2 Thread_31990513: ordinary_carriers::literal_tests::json_token_tests::product_tes",
+      "samples": 2,
+      "observer_frames": [
+        "2 _RINvNtNtCsfDfc9Xnw2qy_19csharp_practical_vc17ordinary_carriers9core_eval16evaluate_countedKb0_EB6_  (in csharp_practical_vc-d17e5ac6d3501e9b) + 1816  [0x104a93bd8]  csharp_practical_ordinary_test_eval.rs:601",
+        "2 _RNvNtNtCsfDfc9Xnw2qy_19csharp_practical_vc17ordinary_carriers9core_eval5defer  (in csharp_practical_vc-d17e5ac6d3501e9b) + 360  [0x10487055c]  csharp_practical_ordinary_test_eval.rs:470"
+      ]
+    }
+  ],
+  "physical_footprint_report": "54.0G",
+  "peak_physical_footprint_report": "58.2G",
+  "host_memory_and_live_process_observations": [
+    {
+      "command": [
+        "/usr/sbin/sysctl",
+        "-n",
+        "hw.memsize"
+      ],
+      "exit_code": 0,
+      "stdout": "68719476736\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/usr/sbin/sysctl",
+        "vm.swapusage"
+      ],
+      "exit_code": 0,
+      "stdout": "vm.swapusage: total = 3072.00M  used = 1441.44M  free = 1630.56M  (encrypted)\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/usr/bin/vm_stat"
+      ],
+      "exit_code": 0,
+      "stdout": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                     4488.\nPages active:                                1099260.\nPages inactive:                              1086536.\nPages speculative:                             23837.\nPages throttled:                                   0.\nPages wired down:                             344421.\nPages purgeable:                                4214.\n\"Translation faults\":                    10746073428.\nPages copy-on-write:                       704475879.\nPages zero filled:                        6519896572.\nPages reactivated:                         150998413.\nPages purged:                               17717166.\nFile-backed pages:                           1524104.\nAnonymous pages:                              685529.\nPages stored in compressor:                  5020067.\nPages occupied by compressor:                1581073.\nDecompressions:                             65278353.\nCompressions:                              103315768.\nPageins:                                   620092384.\nPageouts:                                      20881.\nSwapins:                                      342414.\nSwapouts:                                    1813686.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/bin/ps",
+        "-p",
+        "33771,55665,61319",
+        "-o",
+        "pid,ppid,etime,time,pcpu,rss,state,command"
+      ],
+      "exit_code": 0,
+      "stdout": "  PID  PPID  ELAPSED      TIME  %CPU    RSS STAT COMMAND\n33771 61319 06:47:16 1774:04.87 496.3 2465728 R    /Users/kazuyoshitoshiya/ff/mpk/target/debug/deps/csharp_practical_vc-d17e5ac6d3501e9b\n55665 55651 07:51:04   0:00.01   0.0   1088 S    bash ./scripts/check-fast.sh\n61319 55665 07:45:44   0:00.24   0.0  21248 S    /Users/kazuyoshitoshiya/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo test --workspace --no-fail-fast\n",
+      "stderr": ""
+    }
+  ],
+  "test_observer_source": {
+    "path": "crates/mpk-vc/src/csharp_practical_ordinary_test_eval.rs",
+    "sha256": "d4160220aa77546cb3911df2d66bbd0e8684f3020d128db9306288a87c661c8f",
+    "bytes": 38637,
+    "matches_compiled_source320_git_bytes": true,
+    "identity_memo_capacity": 8,
+    "identity_memo_unbounded_growth_claimed": false
+  },
+  "binary": {
+    "path": "target/debug/deps/csharp_practical_vc-d17e5ac6d3501e9b",
+    "sha256": "53da17280f5e86f1aeee4737592031f4b70d1fc5632f403e7512b4c12ee23656",
+    "bytes": 40911640
+  },
+  "current_gate_changed_or_stopped": false,
+  "test_assertions_inputs_or_resource_limits_changed": false,
+  "production_changed": false,
+  "whole_gate_passed": false,
+  "native_Linux_acceptance": false,
+  "source_or_application_proofs_discharged": false,
+  "planned_repaired_retry": {
+    "environment_addition": {
+      "RUST_TEST_THREADS": "4"
+    },
+    "scope": "Rust libtest worker concurrency only. All tests, full original bounds, debug assertions, overflow checks, CLI build and accept/reject checks remain mandatory. No production or checker resource limit changes.",
+    "reason": "Reduce concurrent aggregate host memory pressure relative to the observed ten-worker54G/58.2G process on a64GiB host. No performance gain or future result is claimed.",
+    "executed": false
+  },
+  "T01_complete": false,
+  "T02_started": false
+}

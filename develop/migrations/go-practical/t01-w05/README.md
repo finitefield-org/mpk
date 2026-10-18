@@ -102,6 +102,16 @@ and golden checks in the completed source320 lib target; that retained target
 observation does not complete the still-running whole diagnostic or its required
 complete repaired retry. T01 remains open and T02 remains unstarted.
 
+A [short live process observation](verification/retained-csharp-repair/full-gate-live-profile/README.md)
+retains the original source320 executable/evaluator identities and exact sampler
+bytes. It records ten test workers and a54.0G physical footprint (58.2G peak) on
+the64GiB host; only two samples per thread were emitted, so it supplies no test
+or resource verdict. The current diagnostic continues unchanged. The next full
+repaired retry will use `RUST_TEST_THREADS=4` to reduce concurrent host memory
+pressure while retaining every test, full bound, assertion, debug/overflow check
+and CLI acceptance/rejection check. Production/checker limits stay unchanged.
+This setting remains planned until the repaired whole gate actually executes.
+
 Five frozen inactive specifications own five new conformance vector sets:
 [profile](../../../specs/GO_PRACTICAL_PROFILE_V1.md),
 [foundation](../../../specs/GO_PRACTICAL_FOUNDATION_V1.md),
