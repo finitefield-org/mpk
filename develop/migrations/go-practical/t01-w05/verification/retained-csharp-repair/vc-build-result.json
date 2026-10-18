@@ -1,0 +1,21 @@
+{
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--target-dir",
+    "/private/tmp/mpk-t01-w05-repair-target",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "csharp_practical_vc",
+    "--no-run",
+    "--message-format=json"
+  ],
+  "executables": [
+    "/private/tmp/mpk-t01-w05-repair-target/debug/deps/csharp_practical_vc-e6d58012f705dea2"
+  ],
+  "exit_code": 0,
+  "selected_reason": "Compile the changed four VC/source/golden test owners without repeating the unaffected 405 tests; the full retry will run the complete target.",
+  "wall_seconds": 31.76566445908975
+}

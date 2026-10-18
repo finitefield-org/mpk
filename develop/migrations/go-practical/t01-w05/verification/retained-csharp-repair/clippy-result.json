@@ -1,0 +1,25 @@
+{
+  "command": [
+    "cargo",
+    "clippy",
+    "--offline",
+    "--target-dir",
+    "/private/tmp/mpk-t01-w05-repair-target",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "canonical_json",
+    "--test",
+    "csharp_practical_inventory",
+    "--test",
+    "csharp_practical_spec",
+    "--test",
+    "csharp_practical_vc",
+    "--",
+    "-D",
+    "warnings"
+  ],
+  "exit_code": 0,
+  "selected_reason": "The four changed Rust test targets include every changed assertion and shared historical-source accessor. Production libraries are unchanged.",
+  "wall_seconds": 45.937340416014194
+}

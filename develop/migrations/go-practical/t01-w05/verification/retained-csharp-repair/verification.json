@@ -1,0 +1,133 @@
+{
+  "CSharp_application_proofs_completed": false,
+  "Go_application_proofs_completed": false,
+  "T01_complete": false,
+  "T02_started": false,
+  "full_gate_after_repairs": "required next over a committed repaired tree; test opt-level1, debug assertions and overflow checks enabled; all test targets retained",
+  "historical_observations_rewritten": false,
+  "original_diagnostic_gate": {
+    "additional_aborted_target": "mpk-vc lib: aggregate_fold_shares_computed_predicate_words stack overflow",
+    "command": [
+      "./scripts/check-fast.sh"
+    ],
+    "known_failed_tests": [
+      "canonical_json_every_frozen_vector_container_is_loaded_and_digest_matched",
+      "csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item",
+      "csharp_03_t01_w02_search_fixtures_reject_added_or_deleted_consumers",
+      "csharp_03_t01_w02_inventory_closes_every_artifact_and_consumer_edge",
+      "csharp_03_t01_w10_publication_reproduces_the_complete_private_freeze",
+      "csharp_03_t01_w09_freeze_generator_is_reproducible",
+      "recursor_feasibility::csharp_03_t01_w09_checker_capacity_bytes_are_reproducible",
+      "recursor_feasibility::csharp_03_t01_w09_recursor_probe_bytes_are_reproducible",
+      "csharp_03_t01_w10_manifest_specs_and_generator_are_reproducible",
+      "csharp_03_t01_w10_upgrade_gate_and_nonactivation_decisions_are_closed",
+      "ordinary_carriers::domain_tests::csharp_03_t06_w09_aggregate_source_reconstruction",
+      "ordinary_carriers::literal_tests::boundary_document_tests::csharp_03_t06_w09_boundary_documents_original_sources_and_storage",
+      "ordinary_carriers::literal_tests::boundary_fragment_tests::csharp_03_t06_w09_boundary_fragments_original_sources",
+      "ordinary_carriers::literal_tests::boundary_utf8_tests::csharp_03_t06_w09_boundary_utf8_original_sources"
+    ],
+    "result": "../superseded-slow-debug/check-fast-result.json",
+    "source_commit": "94b544f4887ba4edae3ee6867bbeac82c88e248c",
+    "source_edits_during_run": "Test harnesses and separate metadata/golden/evidence records changed after the known failures. No production behavior, original fixture, historical Python generator, registry or published payload changes. This interrupted invocation does not validate repairs.",
+    "status": "superseded_with_complete_raw_logs_retained"
+  },
+  "production_source_changes": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_aggregate_fold.rs",
+      "scope": "cfg(test) worker stack allocation only; production functions and checker limits unchanged"
+    }
+  ],
+  "profile_activated": false,
+  "schema": "mpk.go_practical.retained_csharp_repair_verification.v0",
+  "status": "assertion_and_test_stack_repairs_passed_targeted_full_retry_pending",
+  "targeted": {
+    "canonical_json": "8 passed in targeted.stdout.log",
+    "clippy": "four changed Rust test targets pass with -D warnings",
+    "definition_checkers": "nine current golden members are three byte-identical definition certificates; all three accepted by current Rust and Go source-free checkers, zero axioms and matching hashes",
+    "epoch_guards": {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "develop/probes/go-practical",
+        "-p",
+        "test_retained_csharp_epoch.py",
+        "-v"
+      ],
+      "result": "passed; original output retained in tool transcript",
+      "selected_reason": "Foreign epoch, unknown authority field, path/mode escapes and changed raw input bytes must reject at the export boundary.",
+      "tests": 4
+    },
+    "format": "all nine changed Rust owners pass rustfmt --edition 2021 --config skip_children=true --check",
+    "go_publication": "five inactive specs/sets, all255 W04 inputs and26 predecessor sets preserved;31 manifest sets pass",
+    "inventory": "5 passed including all added/deleted consumer controls in targeted.stdout.log",
+    "normal_vc_tests": "all four reconstructed source/import/golden/mutation tests pass, generation flags explicitly removed",
+    "specification": "17 passed in spec-current.stdout.log, then the sole changed publication test passed in publication-final.stdout.log",
+    "stack_observer": "the original binary passes with a64MiB test stack; the repaired cfg(test) observer uses that explicit worker size and retains all2,049 operations, both results and the work-ratio negative control",
+    "vocabulary": "exact 99 changed/new files checked by all127 unchanged rules; zero findings; live gate outputs deferred to retry"
+  },
+  "verification_records": [
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/targeted-result.json",
+      "sha256": "f0af087ee9e629eca144d9ab012130cb9b1ec1ddd4151e809835624f2085e7ab"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/spec-current-result.json",
+      "sha256": "078283d13087741cf83de7ecf2c1ec93b181245fbb7b71760109a4bcf9c40d30"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/publication-current-result.json",
+      "sha256": "4fa43441e366460d3297698b07f17592192fd9b9146e737c5a5d6fad476f1415"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/publication-final-result.json",
+      "sha256": "33fdd0bdca4d73f53eb98c99f758e32206fc360f9f8adbd884423123051c07d0"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/epoch-private-result.json",
+      "sha256": "1cfbbd3301bd572f6d49766d9358d2e7734da8f33eac27d4edafb72d6e6cfbc0"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/epoch-published-result.json",
+      "sha256": "331f7c5ca8a6a9d978867288df77fb7ab6d34f399837b44a6cc7eb6d4ac96f03"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/vc-build-result.json",
+      "sha256": "683fa64bbdff19fa23c26e96ec25db4d611ce7ad4bfdf99cdea82fb658d7ab34"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/vc-aggregate-result.json",
+      "sha256": "84c79a566c3575b3e5177e36809602da4adc566526e2238f044929aecbac9255"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/vc-documents-result.json",
+      "sha256": "df6c28c7a4beabbe528502c7fb73c001f59e9ea32b38b7ca649b5b3520fca2d5"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/vc-fragments-result.json",
+      "sha256": "df011c1315da89c49c1c2bf3ce5594389abbb4f59057da3dff223648ecf28237"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/vc-utf8-result.json",
+      "sha256": "5556c3800aa807c7de19d0ffcd7745f25470421f67429c1db89b8aa649de3aa6"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/definition-checks/result.json",
+      "sha256": "0f8981460463a702c5f6c0c85fc2e17d24eff69e8573ccff362c8a39bed22f69"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/clippy-result.json",
+      "sha256": "79051b5540eb261ee7fffb9a56a9f42e550fc967670ae8009cbee425ad4201df"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/stack-control-result.json",
+      "sha256": "4d855caf480ef5e16619897e3b69f51abc3dab382bf3d7e8b5d7e36e780c9548"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/stack-fixed-result.json",
+      "sha256": "706e55ca3ad0575f5ccb0f8afc78a25306c60e411e104d52991b869deb7f332b"
+    }
+  ]
+}

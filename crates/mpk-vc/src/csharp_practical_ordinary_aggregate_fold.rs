@@ -629,6 +629,16 @@ mod tests {
     }
     #[test]
     fn aggregate_fold_shares_computed_predicate_words() {
+        // The observer deliberately evaluates 2,049 nested Boolean operations.
+        // Match the explicit stack used by the other deep semantic oracles.
+        std::thread::Builder::new()
+            .stack_size(64 * 1024 * 1024)
+            .spawn(observe_computed_predicate_word_sharing)
+            .unwrap()
+            .join()
+            .unwrap();
+    }
+    fn observe_computed_predicate_word_sharing() {
         use super::super::super::test_eval::run_counted;
         let mut b = Builder::new().unwrap();
         let fold = emit_fold(&mut b, 1).unwrap();

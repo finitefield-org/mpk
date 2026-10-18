@@ -198,23 +198,22 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
         let expected_status = match work_item.as_str() {
             "CSHARP-03-T01-W01" | "CSHARP-03-T01-W02" | "CSHARP-03-T01-W03"
             | "CSHARP-03-T01-W04" | "CSHARP-03-T01-W05" | "CSHARP-03-T01-W06"
-            | "CSHARP-03-T01-W07" | "CSHARP-03-T01-W08" | "CSHARP-03-T01-W09"
-            | "CSHARP-03-T01-W10" | "CSHARP-03-T02-W01" | "CSHARP-03-T02-W02"
-            | "CSHARP-03-T02-W03" | "CSHARP-03-T02-W04" | "CSHARP-03-T02-W05"
-            | "CSHARP-03-T02-W06" | "CSHARP-03-T02-W07" | "CSHARP-03-T02-W08"
-            | "CSHARP-03-T02-W09" | "CSHARP-03-T03-W01" | "CSHARP-03-T03-W02"
-            | "CSHARP-03-T03-W03" | "CSHARP-03-T03-W04" | "CSHARP-03-T03-W05"
-            | "CSHARP-03-T03-W06" | "CSHARP-03-T03-W07" | "CSHARP-03-T03-W08"
-            | "CSHARP-03-T03-W09" | "CSHARP-03-T03-W10" | "CSHARP-03-T03-W11"
-            | "CSHARP-03-T03-W12" | "CSHARP-03-T03-W13" | "CSHARP-03-T03-W14"
-            | "CSHARP-03-T04-W01" | "CSHARP-03-T04-W02" | "CSHARP-03-T04-W03"
-            | "CSHARP-03-T04-W04" | "CSHARP-03-T04-W05" | "CSHARP-03-T04-W06"
-            | "CSHARP-03-T05-W01" | "CSHARP-03-T05-W02" | "CSHARP-03-T05-W03"
-            | "CSHARP-03-T05-W04" | "CSHARP-03-T05-W05" | "CSHARP-03-T05-W06"
-            | "CSHARP-03-T06-W01" | "CSHARP-03-T06-W02" | "CSHARP-03-T06-W03"
-            | "CSHARP-03-T06-W04" | "CSHARP-03-T06-W05" | "CSHARP-03-T06-W06"
-            | "CSHARP-03-T06-W07" | "CSHARP-03-T06-W08" => "Complete",
-            "CSHARP-03-T06-W09" => "In progress",
+            | "CSHARP-03-T01-W07" | "CSHARP-03-T01-W08" | "CSHARP-03-T02-W01"
+            | "CSHARP-03-T02-W02" | "CSHARP-03-T02-W03" | "CSHARP-03-T02-W04"
+            | "CSHARP-03-T02-W05" | "CSHARP-03-T02-W06" | "CSHARP-03-T02-W07"
+            | "CSHARP-03-T02-W08" | "CSHARP-03-T02-W09" | "CSHARP-03-T03-W01"
+            | "CSHARP-03-T03-W02" | "CSHARP-03-T03-W03" | "CSHARP-03-T03-W04"
+            | "CSHARP-03-T03-W05" | "CSHARP-03-T03-W06" | "CSHARP-03-T03-W07"
+            | "CSHARP-03-T03-W08" | "CSHARP-03-T03-W09" | "CSHARP-03-T03-W10"
+            | "CSHARP-03-T03-W11" | "CSHARP-03-T03-W12" | "CSHARP-03-T03-W13"
+            | "CSHARP-03-T03-W14" | "CSHARP-03-T04-W01" | "CSHARP-03-T04-W02"
+            | "CSHARP-03-T04-W03" | "CSHARP-03-T04-W04" | "CSHARP-03-T04-W05"
+            | "CSHARP-03-T04-W06" | "CSHARP-03-T05-W01" | "CSHARP-03-T05-W02"
+            | "CSHARP-03-T05-W03" | "CSHARP-03-T05-W04" | "CSHARP-03-T05-W05"
+            | "CSHARP-03-T05-W06" | "CSHARP-03-T06-W01" | "CSHARP-03-T06-W02"
+            | "CSHARP-03-T06-W03" | "CSHARP-03-T06-W04" | "CSHARP-03-T06-W05"
+            | "CSHARP-03-T06-W06" | "CSHARP-03-T06-W07" | "CSHARP-03-T06-W08" => "Complete",
+            "CSHARP-03-T01-W09" => "In progress",
             _ => "Blocked",
         };
         assert_eq!(row.status, expected_status, "status drift for {work_item}");
@@ -1547,8 +1546,45 @@ fn assert_search_fingerprint(fixture: &Value, paths: &[String]) -> Result<(), St
         format!("{:x}", Sha256::digest(&inventory_bytes))
     );
     // Reconstruct only the historical path-set preimage, never cache files.
-    // The original frozen hash still binds every real consumer path exactly.
+    // Validate the exact current extension, then reconstruct the frozen preimage.
     let mut historical = paths.to_vec();
+    if id == "foundation.std_namespace" {
+        let extension = read_json(
+            "develop/migrations/go-practical/t01-w05/retained-csharp/consumer-extension.json",
+        );
+        assert_eq!(
+            extension["schema"],
+            "mpk.go_practical.retained_csharp_consumer_extension.v0"
+        );
+        assert_eq!(extension["fixture_id"], id);
+        assert_eq!(
+            extension["inventory_sha256"],
+            correction["inventory_sha256"]
+        );
+        assert_eq!(
+            extension["base_commit"],
+            "1207d19c7f05bdc0ae3df285590d33f1e2e3849d"
+        );
+        assert_eq!(extension["before_count"], expected_count);
+        assert_eq!(extension["before_sha256"], expected_hash);
+        assert!(array(&extension["deleted"]).is_empty());
+        let observed_hash = search_path_set_hash(paths);
+        if extension["current_count"] != paths.len() || extension["current_sha256"] != observed_hash
+        {
+            return Err(format!("{id}: reviewed current consumer extension changed"));
+        }
+        let mut additions = BTreeSet::new();
+        for row in array(&extension["added_files"]) {
+            let path = text(&row["path"]);
+            assert!(additions.insert(path.to_owned()));
+            assert!(paths.iter().any(|p| p == path));
+            let bytes = fs::read(repo_path(path)).unwrap();
+            assert_eq!(row["bytes"], bytes.len());
+            assert_eq!(row["sha256"], format!("{:x}", Sha256::digest(bytes)));
+        }
+        assert_eq!(additions.len(), 29);
+        historical.retain(|path| !additions.contains(path));
+    }
     if let Some(caches) = correction["recorded_cache_paths"].get(id) {
         for cache in array(caches) {
             let cache = text(cache);

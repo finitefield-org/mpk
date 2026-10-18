@@ -1,0 +1,21 @@
+{
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--target-dir",
+    "/private/tmp/mpk-t01-w05-repair-target",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "canonical_json",
+    "--test",
+    "csharp_practical_inventory",
+    "--test",
+    "csharp_practical_spec",
+    "--no-fail-fast"
+  ],
+  "exit_code": 101,
+  "selection_reason": "Changed 31-set manifest owner, exact current-versus-retained CSharp inventory, reopened status, and both historical freeze/publication/source-epoch test owners. Separate target directory keeps the still-running original diagnostic gate binaries unchanged.",
+  "wall_seconds": 103.31185691594146
+}

@@ -4055,3 +4055,62 @@ W05/T01 are not complete and T02 has not started. All T02–T11 implementation,
 source/application proof,stage gates and native T07/T11 release work remain
 mandatory. [Verification details](../migrations/go-practical/t01-w05/verification/verification.json)
 retain superseded/failed attempts separately from actual passing checks.
+
+## 61. T01-W05 retained CSharp epochs and cumulative gate findings
+
+Commit `94b544f4887ba4edae3ee6867bbeac82c88e248c` repairs the current
+control-capture epoch with actual pinned Roslyn/CLR execution: all26 source
+captures and255 CLR results agree outside28 sidecar input identities. All16
+affected emission tests pass; original observations stay unchanged.
+
+The next full diagnostic gate uses --no-fail-fast and exposes14 further
+metadata/source-golden test failures. The [repair record](../migrations/go-practical/t01-w05/verification/retained-csharp-repair/verification.json)
+distinguishes the still-running original compiled test binaries from repaired
+source and selected checks. The31-set manifest, exact147-to176 reference
+extension, CSharp pending ledger status and historical freeze/publication
+replays now pass their selected tests. Three retained epochs separately bind
+original published inputs, the later private Boolean candidate and entry-main
+status documents. Old Python generators and observations stay unchanged.
+Current CSharp T01-W09 remains In progress; T01-W10/T06-W09 remain Blocked,
+with all987 application proofs pending. Historical replay grants no present
+application-proof or activation authority.
+
+The ordinary aggregate count assertion now matches the existing grouped
+pipeline's4 +2,048 charged transformers, with unchanged16,384-cell semantics.
+Three new boundary golden directories reconstruct all68 contexts per family.
+Their nine hex files contain the same definition bytes as retained parent
+files, now linked to current source contexts by actual generation and normal
+strict import/golden/mutation checks. Each of three distinct certificates
+passes both current Rust and Go source-free checkers with zero axioms and
+matching hashes. These are definition certificates; application proofs remain
+pending. All four changed VC/source tests pass. Four export-guard tests and
+targeted format/vocabulary/publication checks also pass.
+
+The original full gate continues through long CSharp scalar oracle tests. Its
+existing failures remain retained. A new full gate over the repaired commit
+is still mandatory before W05/T01 complete or T02 begins. No production
+source, registered profile, frozen Go input, CSharp payload or installed
+registry changes in this repair. The full T02–T11 objective remains active.
+
+## 62. T01-W05 diagnostic supersession and explicit deep-observer stack
+
+The old diagnostic invocation is superseded after4,251 seconds, retaining its
+complete raw stdout/stderr and actual exit code -15. It had14 failed assertion
+tests plus a separate libtest stack overflow. The failed-test-line count alone
+omitted that abort; the complete stderr review records it explicitly. Its
+remaining scalar oracle cases did not finish, and no passing gate is claimed.
+
+The abort belongs to the synthetic computed-predicate sharing observer with
+2,049 nested Boolean operations. The same original binary passes on a64MiB
+test-worker stack, with427,009 shared versus3,664,442 repeated evaluation steps.
+Its cfg(test) harness now allocates that explicit stack, matching other deep
+semantic oracles. All operations, both semantic results and the >2x repeated
+work control remain. Production evaluator/checker code and limits are unchanged.
+The affected libtest is checked with RUST_MIN_STACK unset.
+
+The repaired whole gate is next, using test opt-level1 while explicitly
+retaining debug assertions and overflow checks. Every workspace test remains
+selected; no Cargo source/build descriptor or release profile changes. The
+[verification record](../migrations/go-practical/t01-w05/verification/retained-csharp-repair/verification.json)
+keeps selected passes, the abort, supersession and the pending full retry
+distinct. W05/T01 remain open and T02 remains unstarted.

@@ -278,7 +278,7 @@ fn csharp_03_t06_w09_boundary_fragments_original_sources() {
         fs::create_dir_all(dir).unwrap();
     }
     let root = Path::new(env!("CARGO_MANIFEST_DIR"))
-        .join("../../develop/migrations/csharp-03/ordinary-foundation/boundary-fragments");
+        .join("../../develop/migrations/csharp-03/ordinary-foundation/boundary-fragments/boolean-refreeze");
     let mut rows = vec![];
     let mut observed = false;
     let mut previous: Option<(Vec<u8>, Vec<u8>)> = None;

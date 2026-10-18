@@ -8,6 +8,9 @@ use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
+#[path = "support/retained_csharp_epoch.rs"]
+mod retained_epoch;
+
 const SPEC: &str = "develop/specs/CSHARP_PRACTICAL_FOUNDATION_V1.md";
 const DESCRIPTOR: &str = "develop/migrations/csharp-03/foundation/foundation-descriptor.json";
 const DEFINITIONS: &str = "develop/migrations/csharp-03/foundation/foundation-definitions.json";
@@ -1598,24 +1601,42 @@ fn csharp_03_t01_w09_vectors_cover_all_strict_mutations_limits_and_precedence() 
 }
 
 #[test]
-fn csharp_03_t01_w09_freeze_generator_is_reproducible() {
+fn csharp_03_current_amendment_stays_pending_beside_retained_publication() {
+    retained_epoch::assert_publication_retained_and_inactive();
+    let ledger = String::from_utf8(read(W10_LEDGER)).unwrap();
+    for (item, status) in [
+        ("CSHARP-03-T01-W09", "In progress"),
+        ("CSHARP-03-T01-W10", "Blocked"),
+        ("CSHARP-03-T06-W09", "Blocked"),
+    ] {
+        assert!(ledger.contains(&format!("| `{item}` | `{status}` |")));
+    }
+    assert_ne!(
+        document(W10_VECTORS)["frozen_contract"],
+        document(W09_FREEZE)
+    );
     let output = Command::new("python3")
         .arg(root().join("develop/probes/csharp-03/profile_freeze.py"))
         .arg("--check")
         .env("PYTHONDONTWRITEBYTECODE", "1")
         .current_dir(root())
         .output()
-        .expect("run W09 freeze generator");
-    assert!(
-        output.status.success(),
-        "{}{}",
-        String::from_utf8_lossy(&output.stdout),
-        String::from_utf8_lossy(&output.stderr)
-    );
+        .unwrap();
+    assert!(!output.status.success());
+    assert!(String::from_utf8_lossy(&output.stderr)
+        .ends_with("AssertionError: crates/mpk-core/src/bool_cases.rs\n"));
+}
+
+#[test]
+fn csharp_03_t01_w09_freeze_generator_is_reproducible() {
+    retained_epoch::replay("private");
 }
 
 #[test]
 fn csharp_03_t01_w10_publication_reproduces_the_complete_private_freeze() {
+    retained_epoch::assert_publication_retained_and_inactive();
+    let document = retained_epoch::published_document;
+    let read = retained_epoch::published;
     let package = document(W10_VECTORS);
     assert_keys(
         &package,
@@ -1696,7 +1717,6 @@ fn csharp_03_t01_w10_publication_reproduces_the_complete_private_freeze() {
         W09_CAPACITY,
         W09_FREEZE,
         W09_VECTORS,
-        "develop/migrations/csharp-03/probes/boolean-proof-elimination.json",
     ]);
     let evidence = array(&package["canonical_evidence"]);
     assert_eq!(evidence.len(), expected_evidence.len());
@@ -1726,7 +1746,6 @@ fn csharp_03_t01_w10_publication_reproduces_the_complete_private_freeze() {
     );
 
     let expected_members = BTreeMap::from([
-        ("develop/specs/CORE_V0.md", "normative_core_proof_interface"),
         (SPEC, "normative_foundation_specification"),
         (W10_PROFILE_SPEC, "normative_profile_specification"),
         (
@@ -1918,6 +1937,9 @@ fn csharp_03_t01_w10_freeze_and_downstream_ownership_is_total_and_exact() {
 
 #[test]
 fn csharp_03_t01_w10_upgrade_gate_and_nonactivation_decisions_are_closed() {
+    retained_epoch::assert_publication_retained_and_inactive();
+    let document = retained_epoch::published_document;
+    let read = retained_epoch::published;
     let package = document(W10_VECTORS);
     let upgrade = &package["upgrade_matrix"];
     assert!(text(&upgrade["future_change_rule"]).contains("new semantic-profile identity"));
@@ -2070,19 +2092,8 @@ fn csharp_03_t01_w10_manifest_specs_and_generator_are_reproducible() {
     assert!(shared.contains("102 globally unique successor"));
     assert!(shared.contains("Atomic migration and rollback"));
 
-    let output = Command::new("python3")
-        .arg(root().join(W10_GENERATOR))
-        .arg("--check")
-        .env("PYTHONDONTWRITEBYTECODE", "1")
-        .current_dir(root())
-        .output()
-        .expect("run W10 publication generator");
-    assert!(
-        output.status.success(),
-        "{}{}",
-        String::from_utf8_lossy(&output.stdout),
-        String::from_utf8_lossy(&output.stderr)
-    );
+    retained_epoch::assert_publication_retained_and_inactive();
+    retained_epoch::replay("published");
 }
 
 fn published_ledger_owners() -> BTreeMap<String, String> {

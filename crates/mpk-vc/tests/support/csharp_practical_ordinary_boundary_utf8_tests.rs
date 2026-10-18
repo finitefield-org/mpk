@@ -179,8 +179,9 @@ fn csharp_03_t06_w09_boundary_utf8_original_sources() {
     if let Some(dir) = &out {
         fs::create_dir_all(dir).unwrap();
     }
-    let root = Path::new(env!("CARGO_MANIFEST_DIR"))
-        .join("../../develop/migrations/csharp-03/ordinary-foundation/boundary-utf8");
+    let root = Path::new(env!("CARGO_MANIFEST_DIR")).join(
+        "../../develop/migrations/csharp-03/ordinary-foundation/boundary-utf8/boolean-refreeze",
+    );
     let mut rows = vec![];
     let mut observed = false;
     let mut previous: Option<(Vec<u8>, Vec<u8>)> = None;

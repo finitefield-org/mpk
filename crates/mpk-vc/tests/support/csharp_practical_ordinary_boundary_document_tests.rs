@@ -170,7 +170,7 @@ fn csharp_03_t06_w09_boundary_documents_original_sources_and_storage() {
         fs::create_dir_all(dir).unwrap();
     }
     let root = Path::new(env!("CARGO_MANIFEST_DIR"))
-        .join("../../develop/migrations/csharp-03/ordinary-foundation/boundary-documents");
+        .join("../../develop/migrations/csharp-03/ordinary-foundation/boundary-documents/boolean-refreeze");
     let mut rows = vec![];
     let mut observed = false;
     let mut previous: Option<(Vec<u8>, Vec<u8>)> = None;

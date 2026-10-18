@@ -379,7 +379,7 @@ fn csharp_03_t06_w09_aggregate_source_reconstruction() {
         let data: Value = serde_json::from_slice(&metadata).unwrap();
         assert_eq!(
             data["static_transformers"],
-            if expected.is_empty() { 0 } else { 8217 }
+            if expected.is_empty() { 0 } else { 2052 }
         );
         for key in [
             "schema",

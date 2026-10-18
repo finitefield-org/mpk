@@ -839,7 +839,9 @@ fn csharp_03_t01_w09_recursor_probe_bytes_are_reproducible() {
     for input in record["source_inventory"].as_array().unwrap() {
         assert_eq!(
             input["raw_sha256"],
-            super::sha(&super::read(input["path"].as_str().unwrap()))
+            super::sha(&super::retained_epoch::private(
+                input["path"].as_str().unwrap()
+            ))
         );
     }
     for run in record["runs"].as_array().unwrap() {
@@ -929,7 +931,9 @@ fn csharp_03_t01_w09_checker_capacity_bytes_are_reproducible() {
     for input in record["source_inventory"].as_array().unwrap() {
         assert_eq!(
             input["raw_sha256"],
-            super::sha(&super::read(input["path"].as_str().unwrap()))
+            super::sha(&super::retained_epoch::private(
+                input["path"].as_str().unwrap()
+            ))
         );
     }
     let mut source_bytes = serde_json::to_vec(&record["source_inventory"]).unwrap();

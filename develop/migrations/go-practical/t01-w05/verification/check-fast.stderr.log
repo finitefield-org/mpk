@@ -1,9 +1,7 @@
-    Checking mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
     Checking mpk-cli v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-cli)
-    Finished `dev` profile [unoptimized + debuginfo] target(s) in 3.35s
-   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.24s
    Compiling mpk-cli v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-cli)
-    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.46s
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.80s
      Running unittests src/lib.rs (target/debug/deps/mpk_api-d9210630aaf3f82e)
      Running tests/batch.rs (target/debug/deps/batch-dfffc77c65c1ddff)
      Running tests/check_api.rs (target/debug/deps/check_api-b7af145fcef0ec32)
@@ -35,4 +33,65 @@
      Running tests/csharp_practical_codecs.rs (target/debug/deps/csharp_practical_codecs-eaf217e26ca8db5b)
      Running tests/csharp_practical_collections.rs (target/debug/deps/csharp_practical_collections-4817e662caae1f05)
      Running tests/csharp_practical_control.rs (target/debug/deps/csharp_practical_control-c49d461743bbcd46)
-error: test failed, to rerun pass `-p mpk-cli --test csharp_practical_control`
+     Running tests/csharp_practical_domain.rs (target/debug/deps/csharp_practical_domain-4d87d7402d17e327)
+     Running tests/csharp_practical_frontend_protocol.rs (target/debug/deps/csharp_practical_frontend_protocol-77ba83248115b847)
+     Running tests/csharp_practical_migration.rs (target/debug/deps/csharp_practical_migration-584e0a3f9f675b8c)
+     Running tests/csharp_practical_numbers.rs (target/debug/deps/csharp_practical_numbers-0ca04243e287b532)
+     Running tests/csharp_practical_probes.rs (target/debug/deps/csharp_practical_probes-cbe01a649b0cd943)
+     Running tests/csharp_practical_syntax.rs (target/debug/deps/csharp_practical_syntax-0efd05b649021e14)
+     Running tests/csharp_practical_transition.rs (target/debug/deps/csharp_practical_transition-2a8e90124eec3bcf)
+     Running tests/csharp_practical_types.rs (target/debug/deps/csharp_practical_types-75832e3fd74897ff)
+     Running tests/csharp_profile_vectors.rs (target/debug/deps/csharp_profile_vectors-7546259abeb20b76)
+     Running tests/csharp_release_gate.rs (target/debug/deps/csharp_release_gate-03450f732f14e098)
+     Running tests/csharp_roslyn_session.rs (target/debug/deps/csharp_roslyn_session-f137162bf1af0336)
+     Running tests/csharp_subset.rs (target/debug/deps/csharp_subset-a26cecdf57fa7b82)
+     Running tests/frontend_limits.rs (target/debug/deps/frontend_limits-5d0e8ab1f4c1d683)
+     Running tests/frontend_runner.rs (target/debug/deps/frontend_runner-7e669bca65b71d31)
+     Running tests/java_activation.rs (target/debug/deps/java_activation-7464d3ce41858615)
+     Running tests/java_build_inputs.rs (target/debug/deps/java_build_inputs-e86033464e605264)
+     Running tests/java_contracts.rs (target/debug/deps/java_contracts-4181d8dd3af8928e)
+     Running tests/java_frontend_runner.rs (target/debug/deps/java_frontend_runner-8172cf2d8ad2da37)
+     Running tests/java_frontend_vectors.rs (target/debug/deps/java_frontend_vectors-08b084f3548f2b6a)
+     Running tests/java_lowering.rs (target/debug/deps/java_lowering-42d38377cf3b1b48)
+     Running tests/java_policy_verify.rs (target/debug/deps/java_policy_verify-9db593e4d32251f6)
+     Running tests/java_release_gate.rs (target/debug/deps/java_release_gate-69084cc5ef1be38a)
+     Running tests/java_source_maps.rs (target/debug/deps/java_source_maps-2fe7db4f368af657)
+     Running tests/java_subset.rs (target/debug/deps/java_subset-91f14747e09c3492)
+     Running tests/policy_cli.rs (target/debug/deps/policy_cli-6f197ad913ea64f1)
+     Running tests/policy_profiles.rs (target/debug/deps/policy_profiles-9198f9067ae4c910)
+     Running tests/policy_scan.rs (target/debug/deps/policy_scan-4e8185eeb97a0e36)
+     Running tests/policy_schema_v1.rs (target/debug/deps/policy_schema_v1-a994bf82783ab5ce)
+     Running tests/program_certificate.rs (target/debug/deps/program_certificate-dfd5449c79fd995e)
+     Running tests/successor_atomic_cutover.rs (target/debug/deps/successor_atomic_cutover-0821623b6fc38662)
+     Running tests/successor_frontend_protocol.rs (target/debug/deps/successor_frontend_protocol-d180a5512034f764)
+     Running tests/successor_go_protocol.rs (target/debug/deps/successor_go_protocol-ec84942c8c82acab)
+     Running tests/successor_go_release.rs (target/debug/deps/successor_go_release-62b1afb1a812ddf4)
+     Running tests/successor_rust_protocol.rs (target/debug/deps/successor_rust_protocol-8b07386c79aefd16)
+     Running tests/successor_rust_release.rs (target/debug/deps/successor_rust_release-f690fc9b9b5667d4)
+     Running tests/verify.rs (target/debug/deps/verify-d86f14ea3a18985c)
+     Running unittests src/lib.rs (target/debug/deps/mpk_core-7fceecc54f161188)
+     Running unittests src/lib.rs (target/debug/deps/mpk_kernel-a0256ce7de004263)
+     Running tests/certificate_decoder_fuzz_smoke.rs (target/debug/deps/certificate_decoder_fuzz_smoke-efd29cddc990d86e)
+     Running tests/fast_kernel_profile.rs (target/debug/deps/fast_kernel_profile-e5c25b1504a0f0b7)
+     Running tests/theory_certificate_encoders.rs (target/debug/deps/theory_certificate_encoders-a380b4de36947d52)
+     Running tests/theory_certificate_fuzz_smoke.rs (target/debug/deps/theory_certificate_fuzz_smoke-eb0faad60902e1df)
+     Running unittests src/lib.rs (target/debug/deps/mpk_linux_sandbox-5f44f322352583d5)
+     Running unittests src/lib.rs (target/debug/deps/mpk_theory-a3622614ccd9d1f0)
+     Running unittests src/lib.rs (target/debug/deps/mpk_vc-85dd6dcf9f9d6348)
+
+thread 'csharp_practical_vir_model::ordinary_carriers::structural::aggregate_fold::tests::aggregate_fold_shares_computed_predicate_words' (27911612) has overflowed its stack
+fatal runtime error: stack overflow, aborting
+error: test failed, to rerun pass `-p mpk-vc --lib`
+
+Caused by:
+  process didn't exit successfully: `/Users/kazuyoshitoshiya/ff/mpk/target/debug/deps/mpk_vc-85dd6dcf9f9d6348` (signal: 6, SIGABRT: process abort signal)
+     Running tests/call_wp.rs (target/debug/deps/call_wp-332a1d839e3c6dab)
+     Running tests/canonical_json.rs (target/debug/deps/canonical_json-65b1c099efdbcf4a)
+error: test failed, to rerun pass `-p mpk-vc --test canonical_json`
+     Running tests/csharp_practical_inventory.rs (target/debug/deps/csharp_practical_inventory-d34fc25aa5db7aa6)
+error: test failed, to rerun pass `-p mpk-vc --test csharp_practical_inventory`
+     Running tests/csharp_practical_registry.rs (target/debug/deps/csharp_practical_registry-aaf4987030e251ee)
+     Running tests/csharp_practical_source_artifacts.rs (target/debug/deps/csharp_practical_source_artifacts-53b3e9b108d5b745)
+     Running tests/csharp_practical_spec.rs (target/debug/deps/csharp_practical_spec-81a9c51573298128)
+error: test failed, to rerun pass `-p mpk-vc --test csharp_practical_spec`
+     Running tests/csharp_practical_vc.rs (target/debug/deps/csharp_practical_vc-275d24cd51fb68fd)

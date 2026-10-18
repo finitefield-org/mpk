@@ -37,6 +37,17 @@ input digests differ. The16 affected emission tests pass. See the
 The full gate reports all failed targets with --no-fail-fast and still requires
 every test to pass. No partial attempt counts as completion.
 
+The following no-fail-fast diagnostic run then exposes14 stale test assertions
+and current golden-file linkages. [Retained epochs and repair verification](retained-csharp/README.md)
+keep the original CSharp source/proof checkpoint pending and preserve every
+old observation. All known14 failures pass selected repaired tests; current
+ordinary definition certificates also pass both source-free checkers with
+zero axioms. The original diagnostic run is retained as superseded after4,251 seconds.
+A separate libtest stack overflow is also repaired with an explicit64MiB
+worker for its unchanged2,049-operation synthetic observer. The focused
+test passes with default parent settings. A complete new gate over the
+repaired tree is still mandatory; selected successes do not complete T01.
+
 Five frozen inactive specifications own five new conformance vector sets:
 [profile](../../../specs/GO_PRACTICAL_PROFILE_V1.md),
 [foundation](../../../specs/GO_PRACTICAL_FOUNDATION_V1.md),
@@ -67,8 +78,8 @@ the new source tree is byte-identical to the old one.
 
 The [selected checks](verification/targeted-results.json) cover new publication,
 manifest/schema ownership, byte pins and retained-vector preservation. This is
-the last W in T01, so the full local `./scripts/check-fast.sh` is executed once
-for cumulative T01 changes. Its [result](verification/check-fast-result.json)
+the last W in T01, so the full local `./scripts/check-fast.sh` is executed
+for cumulative T01 changes and retried after reviewed fixes. Its [result](verification/check-fast-result.json)
 and raw stdout/stderr distinguish completed validation from a running or failed
 gate. The native Linux installed-release/resource/isolation/application gates
 remain T07/T11 requirements; this macOS development gate cannot replace them.

@@ -22,13 +22,21 @@
     "failed_attempt": "initial-vocabulary-findings/check-fast-result.json",
     "result": "check-fast-result.json",
     "retained_epoch_failure": "initial-retained-source-pin/check-fast-result.json",
+    "retry_environment": {
+      "CARGO_NET_OFFLINE": "true",
+      "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+      "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+      "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true"
+    },
     "selected_reason": "T01 final W; cumulative full local gate is mandatory; no T02 implementation starts until it passes",
-    "status": "pending_restart_after_current_control_capture",
+    "source_commit": "94b544f4887ba4edae3ee6867bbeac82c88e248c",
+    "status": "old_failed_debug_invocation_superseded",
     "stderr": "check-fast.stderr.log",
     "stdout": "check-fast.stdout.log",
     "superseded_attempts": [
       "initial-unoptimized/check-fast-result.json",
-      "initial-literal-only/check-fast-result.json"
+      "initial-literal-only/check-fast-result.json",
+      "superseded-slow-debug/check-fast-result.json"
     ]
   },
   "historical_replay_after_publication": {
@@ -73,6 +81,15 @@
       "sha256": "f58396e3324ac31b5cfaef375a7acabd8b3fd242751e9f641351eadad61a7cde"
     }
   ],
+  "retained_csharp_epoch_repair": {
+    "additional_test_stack_abort_repaired": true,
+    "current_CSharp_refreeze_complete": false,
+    "distinct_definition_certificates_accepted_both_checkers": 3,
+    "full_retry_required": true,
+    "known_failed_tests_repaired": 14,
+    "normal_vc_tests_passed": 4,
+    "record": "retained-csharp-repair/verification.json"
+  },
   "scanner_optimization": {
     "all127_matchers_preserved": true,
     "baseline_commit": "f1ada294",
@@ -99,7 +116,7 @@
     "old_graph_relabeling_allowed": false
   },
   "source_semantics_proved": false,
-  "status": "targeted_passed_cumulative_gate_pending_restart",
+  "status": "targeted_repairs_passed_full_retry_pending",
   "targeted_results": {
     "path": "develop/migrations/go-practical/t01-w05/verification/targeted-results.json",
     "sha256": "ea675b508555ed889741c5e47bdfc54a02e05f1b258b7b4c26c5d2a446a8ab6a"
