@@ -1,0 +1,46 @@
+{
+  "status": "passed",
+  "started_at_utc": "2026-10-18T11:12:34.151265+00:00",
+  "command": [
+    "cargo",
+    "clippy",
+    "--offline",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "csharp_practical_vc",
+    "--",
+    "-D",
+    "warnings"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_TARGET_DIR": "/private/tmp/mpk-t01-w05-json-repair-target",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true"
+  },
+  "unset_environment": [
+    "RUST_MIN_STACK",
+    "MPK_W09_JSON_CELL_DIFF_OUT",
+    "MPK_W09_JSON_SEQUENCES_OUT",
+    "MPK_W09_JSON_SEQUENCES_PREVIOUS",
+    "MPK_W09_JSON_SUMS_OUT"
+  ],
+  "build_receipt_sha256": "98072174577846fb0f7358aa1123c3e9ce6a3f2e9a5a2755eca05e0181043394",
+  "selection_reason": "Owning integration target after one test-only change; no unrelated language or semantic matrices.",
+  "exit_code": 0,
+  "expected_one_test_passed": null,
+  "wall_seconds": 11.478495083050802,
+  "finished_at_utc": "2026-10-18T11:12:45.630164+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-numeric-capacity-repair/clippy.stdout.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-numeric-capacity-repair/clippy.stderr.log",
+    "sha256": "e0d6ba9cb088a4d296aa6744d7dd7465dbbdac65b50d8b5962d8f5125ca629b7",
+    "bytes": 147
+  }
+}

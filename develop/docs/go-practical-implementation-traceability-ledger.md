@@ -4217,3 +4217,41 @@ No production or existing certificate bytes change. The source320 no-fail-fast
 diagnostic keeps running to collect other failures. A new complete repaired gate must
 pass before W05/T01 completes or T02 starts. All169 Go demands and987 C#
 application proofs retain their pending status; neither profile is activated.
+
+## 66. T01-W05 numeric-capacity comparison epoch
+
+The unchanged source320 diagnostic later fails the JSON numeric-capacity
+declaration-name equality assertion. The original compiled case reproduces
+the failure in1.056 seconds, exit101; its complete raw name-set assertion and
+all five original source/certificate input hashes match the source320 Git tree.
+The [diagnosis](../migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-numeric-capacity-diagnosis/README.md)
+keeps the original failure separate from the repair. Each current family
+retires27 DomainCount helper names and changes the retained Result body in
+addition to the original six grammar blocks, without changing retained types.
+
+The [sealed epoch manifest](../migrations/go-practical/t01-w05/retained-csharp/json-numeric-capacity-epochs/manifest.json)
+binds eight exact Git members, including both complete after-cell-count
+certificates from09a14bdde6b14408e4f25e55cb787dd989577d7e. At those actual
+retained before/after epochs all2,092 array and2,295 sum declaration names and
+types agree, and exactly the original six grammar bodies change in each pair.
+The other2,086 and2,289 bodies remain exact. No helper namespace is exempted.
+These are bounded historical syntax comparisons, not current semantic proofs
+or additional checker acceptance.
+
+The repaired original assertion passes in29.688 seconds and rejects an
+unreviewed body, type and missing-declaration mutation in each pair. Both
+separate unchanged actual current-source tests pass: arrays in5.284 seconds
+and sums in6.202 seconds, including strict import, component dependency closure,
+metadata/certificate mutation and normal golden comparisons. Targeted format
+and the affected integration target's Clippy pass without warnings. The
+[selected record](../migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-numeric-capacity-repair/verification.json)
+records the actual optimized/debug-assertion/overflow-check profile and every
+raw input/result digest. No production implementation, existing certificate,
+source capture, checker rule or resource limit changes.
+
+The source320 no-fail-fast diagnostic continues with its original binary to
+collect remaining failures. Its known two assertion failures have selected
+repairs; the run itself cannot pass or complete T01. Preserve its terminal raw
+result, then run the complete gate over committed repaired source before
+completing W05/T01 or starting T02. All169 Go demands and987 C# application
+proofs remain pending, and neither practical profile is activated.

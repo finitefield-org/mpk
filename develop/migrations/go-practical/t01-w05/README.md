@@ -78,6 +78,19 @@ diagnostic gate is retained as [superseded and partial](verification/superseded-
 after its concrete repair; it cannot count as a passing T01 gate. All targets
 remain required in the repaired complete retry. T02 remains unstarted.
 
+The source320 diagnostic additionally finds calendar-token and numeric-capacity
+historical comparisons spanning later approved counter changes. The
+[calendar/structural selected repair](verification/retained-csharp-repair/json-calendar-repair/verification.json)
+and [numeric-capacity selected repair](verification/retained-csharp-repair/json-numeric-capacity-repair/verification.json)
+pass their complete retained comparisons and separate current-source producers,
+strict imports, golden and mutation checks. The original failures and exact
+input epochs remain retained. In particular all4,387 numeric-capacity names/types
+and the exact six changed grammar blocks per family remain checked at their
+original retained checkpoint; later current counter changes are not presented
+as identical historical syntax. Production and existing certificate bytes stay
+unchanged. The original source320 diagnostic continues to collect late failures;
+a new complete repaired gate is mandatory before T01 completion or T02.
+
 Five frozen inactive specifications own five new conformance vector sets:
 [profile](../../../specs/GO_PRACTICAL_PROFILE_V1.md),
 [foundation](../../../specs/GO_PRACTICAL_FOUNDATION_V1.md),

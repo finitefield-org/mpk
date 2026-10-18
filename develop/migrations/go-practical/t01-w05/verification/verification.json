@@ -55,7 +55,7 @@
     "selected_reason": "T01 final W; cumulative full local gate is mandatory; no T02 implementation starts until it passes",
     "source_commit": "320ecd67ab420e1ea806196271eea3271f929fbe",
     "source_tree": "05b791d9e2fe6bb40709b3d47df7295f355e9d97",
-    "status": "running_with_calendar_archive_count_helper_assertion_failure_requires_repaired_retry",
+    "status": "running_with_two_reproduced_historical_assertion_failures_requires_complete_repaired_retry",
     "stderr": "check-fast.stderr.log",
     "stdout": "check-fast.stdout.log",
     "superseded_attempts": [
@@ -77,7 +77,7 @@
   "profile_activated": false,
   "raw_log_whitespace_audit": {
     "directory_exclusions": false,
-    "exact_paths": 36,
+    "exact_paths": 40,
     "path": "retained-csharp-repair/raw-log-whitespace.json"
   },
   "raw_log_whitespace_preserved": [
@@ -178,5 +178,19 @@
     "format": "passed",
     "clippy": "passed",
     "new_complete_gate_required": true
+  },
+  "numeric_capacity_archive_repair": {
+    "original_failure": "retained-csharp-repair/json-numeric-capacity-diagnosis/result.json",
+    "epoch_manifest": "../retained-csharp/json-numeric-capacity-epochs/manifest.json",
+    "verification": "retained-csharp-repair/json-numeric-capacity-repair/verification.json",
+    "historical_complete_original_assertions": "passed",
+    "historical_declarations": 4387,
+    "changed_bodies_each": 6,
+    "unreviewed_mutations_rejected": 6,
+    "current_source_generation_import_golden_mutations": "passed_both_array_and_sum_owners",
+    "format_and_targeted_clippy": "passed",
+    "existing_inputs_unchanged": true,
+    "complete_repaired_gate_required": true,
+    "T02_started": false
   }
 }
