@@ -69,7 +69,7 @@ run check_no_github_actions_workflows
 run cargo fmt --check
 run "$repo_root/scripts/check-no-active-gir.sh" --strict
 run cargo clippy --workspace --all-targets -- -D warnings
-run cargo test --workspace
+run cargo test --workspace --no-fail-fast
 run cargo build -p mpk-cli
 
 check_accepts fixtures/cert-basic/zero-axiom.hex

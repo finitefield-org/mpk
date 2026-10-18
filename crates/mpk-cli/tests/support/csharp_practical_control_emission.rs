@@ -759,7 +759,7 @@ fn csharp_03_t04_w06_real_collection_algorithms_emit_ordinary_vir() {
         return;
     }
     let responses: Vec<Value> = serde_json::from_slice(&read(
-        "develop/migrations/csharp-03/control-emission/collection-responses.json",
+        "develop/migrations/csharp-03/control-emission/boolean-refreeze/collection-responses.json",
     ))
     .unwrap();
     assert_eq!(responses.len(), selections.len());
@@ -1047,7 +1047,7 @@ fn csharp_03_t04_w06_control_cross_feature_loops_emit_ordinary_vir() {
         return;
     }
     let responses: Vec<Value> = serde_json::from_slice(&read(
-        "develop/migrations/csharp-03/control-emission/cross-loop-responses.json",
+        "develop/migrations/csharp-03/control-emission/boolean-refreeze/cross-loop-responses.json",
     ))
     .unwrap();
     assert_eq!(responses.len(), selected.len());
@@ -1415,7 +1415,7 @@ fn csharp_03_t04_w06_construction_exception_paths_emit_and_discard() {
         return;
     }
     let mut responses: Vec<Value> = serde_json::from_slice(&read(
-        "develop/migrations/csharp-03/control-emission/construction-responses.json",
+        "develop/migrations/csharp-03/control-emission/boolean-refreeze/construction-responses.json",
     ))
     .unwrap();
     if let Some(id) = &selected {
@@ -1550,6 +1550,75 @@ fn csharp_03_t04_w06_construction_exception_paths_emit_and_discard() {
 }
 
 #[test]
+fn csharp_03_t04_w06_boolean_refreeze_capture_preserves_source_facts() {
+    let base = "develop/migrations/csharp-03/control-emission";
+    let epoch: Value =
+        serde_json::from_slice(&read(&format!("{base}/boolean-refreeze/epoch.json"))).unwrap();
+    assert_eq!(
+        epoch["schema"],
+        "mpk.csharp_practical.control_capture_epoch.v1"
+    );
+    assert_eq!(
+        epoch["proof_refreeze_commit"],
+        "40469d298f1d69558713d02ea0b553a1dd583bf5"
+    );
+    assert_eq!(epoch["native_installed_release_evidence"], false);
+    for file in epoch["files"].as_array().unwrap() {
+        let bytes = read(file["path"].as_str().unwrap());
+        assert_eq!(file["sha256"], sha256_raw_file_bytes(&bytes).to_hex());
+        assert_eq!(file["size_bytes"], bytes.len());
+    }
+    let raw: Vec<Value> =
+        serde_json::from_slice(&read(epoch["raw_responses"].as_str().unwrap())).unwrap();
+    assert_eq!(raw.len(), 26);
+    let mut all = Vec::new();
+    let mut runs = 0;
+    for name in ["collection", "cross-loop", "construction"] {
+        let previous: Vec<Value> =
+            serde_json::from_slice(&read(&format!("{base}/{name}-responses.json"))).unwrap();
+        let current: Vec<Value> = serde_json::from_slice(&read(&format!(
+            "{base}/boolean-refreeze/{name}-responses.json"
+        )))
+        .unwrap();
+        let requests: Vec<Value> = serde_json::from_slice(&read(&format!(
+            "{base}/boolean-refreeze/{name}-requests.json"
+        )))
+        .unwrap();
+        assert_eq!(previous.len(), current.len());
+        assert_eq!(requests.len(), current.len());
+        for ((mut old, new), request) in previous.into_iter().zip(&current).zip(requests) {
+            assert_eq!(new["id"], request["id"]);
+            assert_eq!(new["facts"]["compilation_id"], request["compilation_id"]);
+            assert_eq!(new["facts"]["selected_root_ids"], request["roots"]);
+            let files = new["facts"]["input_files"].as_array().unwrap();
+            assert_eq!(files.len(), request["inputs"].as_array().unwrap().len());
+            for input in request["inputs"].as_array().unwrap() {
+                let file = files.iter().find(|f| f["path"] == input["path"]).unwrap();
+                let bytes = input["utf8"].as_str().unwrap().as_bytes();
+                assert_eq!(file["kind"], input["kind"]);
+                assert_eq!(file["size_bytes"], bytes.len());
+                assert_eq!(file["raw_sha256"], sha256_raw_file_bytes(bytes).to_hex());
+            }
+            for file in old["facts"]["input_files"].as_array_mut().unwrap() {
+                if file["kind"] == "sidecar" {
+                    let replacement = files.iter().find(|f| f["path"] == file["path"]).unwrap();
+                    assert_eq!(file["kind"], replacement["kind"]);
+                    assert_eq!(file["size_bytes"], replacement["size_bytes"]);
+                    assert_ne!(file["raw_sha256"], replacement["raw_sha256"]);
+                    file["raw_sha256"] = replacement["raw_sha256"].clone();
+                }
+            }
+            // Only sidecar input identities may differ between these actual captures.
+            assert_eq!(old, *new);
+            runs += new["runs"].as_array().map_or(0, Vec::len);
+        }
+        all.extend(current);
+    }
+    assert_eq!(all, raw);
+    assert_eq!(runs, 255);
+}
+
+#[test]
 fn csharp_03_t04_w06_conformance_binds_current_capture_and_rejection_matrix() {
     let conformance: Value = serde_json::from_slice(&read(
         "develop/migrations/csharp-03/control-emission/conformance.json",
@@ -1557,7 +1626,14 @@ fn csharp_03_t04_w06_conformance_binds_current_capture_and_rejection_matrix() {
     .unwrap();
     assert_eq!(conformance["work_item"], "CSHARP-03-T04-W06");
     for file in conformance["files"].as_array().unwrap() {
-        let bytes = read(file["path"].as_str().unwrap());
+        let path = file["path"].as_str().unwrap();
+        let bytes = read(
+            if path == "develop/migrations/csharp-03/control-emission/loop-responses.json" {
+                "develop/migrations/csharp-03/control-emission/retained-t04-w06/loop-responses.json"
+            } else {
+                path
+            },
+        );
         assert_eq!(file["sha256"], sha256_raw_file_bytes(&bytes).to_hex());
         assert_eq!(file["size_bytes"], bytes.len());
     }

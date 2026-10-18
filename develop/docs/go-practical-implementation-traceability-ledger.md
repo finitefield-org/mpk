@@ -27,8 +27,8 @@ after reconciling the intervening shared artifacts and active registry.
 | GO-PRAC-T01-W01 | Complete | Reviewed implementation commit `bd5ee8047d8925f9c9d0f7502627fca33bb2c836`; completion audit below |
 | GO-PRAC-T01-W02 | Complete | Reviewed implementation commit `fed1cf6047f97b1f73c0fc37c5023e19f4f9f035`; 39 cases reproduced twice |
 | GO-PRAC-T01-W03 | Complete | Reviewed implementation `9d4e6fb7855a66d9fff309e6dbd9143652ee6e21`; requirement-by-requirement completion audit in section28 |
-| GO-PRAC-T01-W04 | In progress | Source/operation/contracts/limits and common frontend/policy/API designs with targeted evidence; Ordinary-program/materialized-policy signatures,Go host/budget closure and final consumer/axiom-policy/source-epoch migration review remain open |
-| GO-PRAC-T01-W05 | Blocked by W04 | Publish inactive package, review and full T01 gate |
+| GO-PRAC-T01-W04 | Complete | Commit `68a44416e1b1a6dc3a84587cca784fc4b3a2b862`; exact interfaces, resource bounds, consumer review and historical replay; section58 |
+| GO-PRAC-T01-W05 | In progress | Inactive publication and selected checks pass; cumulative gate exposed retained C# fixture epoch mismatches under repair; T02 waits for a passing full gate |
 | GO-PRAC-T02–T07 | Not started | Sequential v1 implementation and public release |
 | GO-PRAC-T08–T11 | Not started | Sequential v2 freeze, maps, pointers and public release |
 

@@ -1,7 +1,8 @@
 # GO-PRAC T01-W05 inactive publication and cumulative gate
 
 Entry: W04 completion commit `68a44416e1b1a6dc3a84587cca784fc4b3a2b862`.
-Publication and targeted checks pass. The cumulative T01 gate is running;
+Publication and targeted checks pass. The cumulative T01 gate has exposed
+retained C# control fixture epoch mismatches; repairs and revalidation are in progress;
 T01 and W05 are not complete until its successful result is recorded here.
 
 ## Full-gate review fixes
@@ -27,8 +28,14 @@ are restored from their original Git objects; old conformance and current
 fixtures stay unchanged. The updated retained-evidence test pins both epochs,
 compares complete source/contract bodies and native facts, and binds current
 response digests to actual current request bytes. Its targeted test and all9
-boundary-suite cases pass in the full retry. The remaining full gate is still
-running; no partial attempt is counted as completion.
+boundary-suite cases pass in the full retry. That retry then reports three
+control-emission source-input mismatches and one old loop-response hash pin.
+Original inputs and failed logs are retained. Fresh actual compiler capture
+accepts all26 current requests and preserves all255 CLR results; only28 sidecar
+input digests differ. The16 affected emission tests pass. See the
+[current capture epoch](../../csharp-03/control-emission/boolean-refreeze/README.md).
+The full gate reports all failed targets with --no-fail-fast and still requires
+every test to pass. No partial attempt counts as completion.
 
 Five frozen inactive specifications own five new conformance vector sets:
 [profile](../../../specs/GO_PRACTICAL_PROFILE_V1.md),
