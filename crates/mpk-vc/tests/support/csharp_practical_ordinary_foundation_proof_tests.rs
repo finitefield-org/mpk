@@ -1,6 +1,21 @@
 use super::*;
 use mpk_cert::encode::{Certificate, DeclarationKind, TermNode};
 
+pub(super) fn current_proof_inputs() -> std::path::PathBuf {
+    Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("../../develop/migrations/go-practical/t01-w05/retained-csharp/current-proof-inputs")
+}
+
+pub(super) fn current_proof_golden(stage: &str, id: &str, metadata: &[u8], bytes: &[u8]) {
+    let dir = current_proof_inputs().join(stage);
+    assert_eq!(metadata, fs::read(dir.join(format!("{id}.json"))).unwrap());
+    let hex = bytes.iter().map(|b| format!("{b:02x}")).collect::<String>() + "\n";
+    assert_eq!(
+        hex,
+        fs::read_to_string(dir.join(format!("{id}.hex"))).unwrap()
+    );
+}
+
 fn encode(mut c: Certificate) -> Vec<u8> {
     c.export_block = mpk_cert::build_export_block(&c).unwrap();
     c.axiom_report = mpk_cert::build_axiom_report(&c).unwrap();
@@ -180,6 +195,8 @@ fn csharp_03_t06_w09_foundation_proof_assembly_original_source() {
                 if let Some(dir) = &output {
                     fs::write(dir.join(format!("{id}.json")), p.canonical_bytes()).unwrap();
                     fs::write(dir.join(format!("{id}.hex")), p.certificate_bytes().iter().map(|b| format!("{b:02x}")).collect::<String>() + "\n").unwrap();
+                } else {
+                    current_proof_golden("foundation", &id, &p.canonical_bytes(), p.certificate_bytes());
                 }
                 previous = Some((p.canonical_bytes(), p.certificate_bytes().to_vec()));
                 contexts += 1;

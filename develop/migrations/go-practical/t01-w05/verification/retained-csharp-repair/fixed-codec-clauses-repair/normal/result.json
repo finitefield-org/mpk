@@ -1,0 +1,66 @@
+{
+  "status": "passed",
+  "mode": "normal",
+  "started_at_utc": "2026-10-18T18:41:13.093905+00:00",
+  "command": [
+    "/private/tmp/mpk-t01-w05-json-repair-target/debug/deps/csharp_practical_vc-f5f78b9b819b93a0",
+    "--exact",
+    "ordinary_carriers::public_domain_tests::contract_expression_tests::fixed_codec_clause_tests::csharp_03_t06_w09_fixed_codec_clauses_original_source",
+    "--nocapture"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_TARGET_DIR": "/private/tmp/mpk-t01-w05-json-repair-target",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true"
+  },
+  "unset_environment": [
+    "RUST_MIN_STACK",
+    "MPK_CORE_MAX_STEPS",
+    "MPK_CORE_MAX_SECONDS",
+    "MPK_W09_FIXED_CODEC_CLAUSES_OUT",
+    "MPK_W09_FIXED_CODEC_RESPONSES",
+    "MPK_W09_FIXED_CODEC_REQUESTS_OUT"
+  ],
+  "prior_environment": {
+    "RUST_MIN_STACK": null,
+    "MPK_CORE_MAX_STEPS": null,
+    "MPK_CORE_MAX_SECONDS": null,
+    "MPK_W09_FIXED_CODEC_CLAUSES_OUT": null,
+    "MPK_W09_FIXED_CODEC_RESPONSES": null,
+    "MPK_W09_FIXED_CODEC_REQUESTS_OUT": null
+  },
+  "test_source": {
+    "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_fixed_codec_clause_tests.rs",
+    "sha256": "8eff8cd8609056492fbf8d38db238163a8507e27cd0f667d1019cc9dcbf9382f",
+    "bytes": 23090
+  },
+  "build": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/fixed-codec-clauses-repair/build/result.json",
+    "sha256": "6f5f41df340a9546ba89cc50fa0cfe76941ef336823e16c673ed4c6c9d4c5fa3",
+    "bytes": 2138
+  },
+  "binary": {
+    "path": "/private/tmp/mpk-t01-w05-json-repair-target/debug/deps/csharp_practical_vc-f5f78b9b819b93a0",
+    "sha256": "17b721db9bead4c1322dd7d8a7b91f9e1825484e27d6dd2928b037cce30c19d3",
+    "bytes": 41036104
+  },
+  "selection_reason": "The actual original whole diagnostic fails this complete source owner only at the final input echo after all six codec contexts, 44 source clauses and 21088 format/composition bit observations pass. Re-run the entire unchanged case matrix, parser valid/invalid/oversized cases, all original format and complete parse-format bit loops, strict imports, metadata mutation and current component JSON/certificate byte goldens. No filters or output flags. The mixed-source owner does not echo requests.json and its body is byte unchanged; it already passes in the original whole diagnostic and remains required in the repaired full gate.",
+  "full_gate": "The entire repaired T01 gate remains mandatory; selected results do not complete W05/T01 or permit T02.",
+  "pid": 76550,
+  "exit_code": 0,
+  "wall_seconds": 142.77475641702767,
+  "finished_at_utc": "2026-10-18T18:43:35.870049+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/fixed-codec-clauses-repair/normal/stdout.log",
+    "sha256": "90121f2ea71737f73c63ad703b1dfac27cfada1ce980ddd2bca175634607c05f",
+    "bytes": 464
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/fixed-codec-clauses-repair/normal/stderr.log",
+    "sha256": "052c30043b83334df1f8b9ba9e04c32f9ea3718020bb2e1342454171da7ec67e",
+    "bytes": 280
+  },
+  "expected_one_test_passed": true
+}

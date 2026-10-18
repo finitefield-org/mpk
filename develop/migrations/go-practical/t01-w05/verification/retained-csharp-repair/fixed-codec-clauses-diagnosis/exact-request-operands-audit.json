@@ -1,0 +1,45 @@
+{
+  "schema": "mpk.go_practical.fixed_codec_clause_request_echo_audit.v0",
+  "status": "passed",
+  "observed_at_utc": "2026-10-18T18:36:46.055520+00:00",
+  "original_fixture": {
+    "path": "develop/migrations/csharp-03/ordinary-foundation/fixed-codec-clauses/requests.json",
+    "sha256": "ac456c0cae3e20d48f7f3c0e7eb77e459862dacb01edfd34c144f24f46dc93f9",
+    "bytes": 57546
+  },
+  "exact_assertion_operands": {
+    "left": {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/fixed-codec-clauses-diagnosis/left-requests.json",
+      "sha256": "ac456c0cae3e20d48f7f3c0e7eb77e459862dacb01edfd34c144f24f46dc93f9",
+      "bytes": 57546
+    },
+    "right": {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/fixed-codec-clauses-diagnosis/right-requests.json",
+      "sha256": "ffbfb9019bc0015f236cdbb5e65f44ca387cd1f29317629bad714d8412bcc73d",
+      "bytes": 57366
+    }
+  },
+  "left_is_original_fixture_bytes": true,
+  "complete_json_values_equal": true,
+  "full_nested_sidecar_utf8_strings_equal": true,
+  "fields_removed_or_normalized": false,
+  "request_contexts": 7,
+  "ids": [
+    "binary32",
+    "binary64",
+    "guid.n",
+    "guid.d",
+    "date",
+    "time",
+    "mixed"
+  ],
+  "six_original_codec_contexts_passed": true,
+  "source_clauses": 44,
+  "format_composition_bit_observations": 21088,
+  "entire_raw_byte_difference_is_terminal_newline": false,
+  "object_member_order_changes": [],
+  "first_byte_mismatch": 5450,
+  "left_suffix_hex": "66323832333532383837653265356264303166220a202020205d0a20207d0a5d",
+  "right_suffix_hex": "66323832333532383837653265356264303166220a202020205d0a20207d0a5d",
+  "classification": "Every original codec/runtime/closure/import/mutation/current golden assertion passed before the final requests.json byte echo. Full original request JSON values, including all nested sidecar strings, are equal. Exact representation difference is enumerated."
+}

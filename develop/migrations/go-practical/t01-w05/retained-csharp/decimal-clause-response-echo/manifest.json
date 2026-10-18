@@ -1,0 +1,34 @@
+{
+  "schema": "mpk.go_practical.decimal_clause_response_echo.v0",
+  "status": "exact_observed_serialized_input_echo",
+  "created_at_utc": "2026-10-18T17:55:30.372989+00:00",
+  "source320_original_fixture": {
+    "path": "develop/migrations/csharp-03/ordinary-foundation/decimal-clauses/responses.json",
+    "sha256": "f09de7776ffb91afc3b201214e2ded66b322cb19bd75ae18df8364d50141d5b2",
+    "bytes": 136077
+  },
+  "serialized_response_echo": {
+    "path": "develop/migrations/go-practical/t01-w05/retained-csharp/decimal-clause-response-echo/responses.json",
+    "sha256": "0f180550827736815730b25cc5c017bf4ab705ab19e61e193dfdf6e7c9ea8244",
+    "bytes": 136077
+  },
+  "observed_operands_audit": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/decimal-clauses-diagnosis/exact-response-operands-audit.json",
+    "sha256": "8ba9d4a3de57412cc8e4dba90435db7092637d0197b9ff2f48e7cc4336959c57",
+    "bytes": 45253
+  },
+  "original_test_source": {
+    "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_clause_tests.rs",
+    "sha256": "336b1440999bc49090413cb11774f81859afdecf7a3b90e3c16661c7970cf92b",
+    "bytes": 20319
+  },
+  "context_count": 9,
+  "operation_alias_closures": 44,
+  "attachments": 49,
+  "complete_original_json_values_equal": true,
+  "original_bytes_changed": false,
+  "fields_ignored_or_normalized": false,
+  "meaning": "The existing source owner parses original captured responses into serde_json::Value and emits to_vec_pretty. Freeze its exact observed serialized bytes separately; preserve the original input bytes and all original semantic/closure/import/mutation/current component golden assertions. This representation is not a fresh native capture or application proof.",
+  "whole_gate_passed": false,
+  "T01_complete": false
+}

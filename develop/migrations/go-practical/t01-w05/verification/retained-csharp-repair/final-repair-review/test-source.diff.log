@@ -1,0 +1,178 @@
+diff --git a/crates/mpk-vc/tests/support/csharp_practical_ordinary_control_edge_tests.rs b/crates/mpk-vc/tests/support/csharp_practical_ordinary_control_edge_tests.rs
+index d73ad75a..10008457 100644
+--- a/crates/mpk-vc/tests/support/csharp_practical_ordinary_control_edge_tests.rs
++++ b/crates/mpk-vc/tests/support/csharp_practical_ordinary_control_edge_tests.rs
+@@ -1108,0 +1109,39 @@ fn declaration_bodies(c: &mpk_cert::encode::Certificate) -> BTreeMap<String, Val
++fn control_preservation_after(previous_folder: &str) -> PathBuf {
++    use sha2::{Digest, Sha256};
++    static EPOCHS: std::sync::OnceLock<Value> = std::sync::OnceLock::new();
++    let repository = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
++    let epochs = EPOCHS.get_or_init(|| {
++        let bytes = fs::read(repository.join(
++            "develop/migrations/go-practical/t01-w05/retained-csharp/control-preservation-epochs/refined-manifest.json",
++        ))
++        .unwrap();
++        assert_eq!(
++            format!("{:x}", Sha256::digest(&bytes)),
++            "92db14d34d20f5e0dcd365dc5be134c367e93e65a6b5b5f432cfb7c2c81fca6c"
++        );
++        let epochs: Value = serde_json::from_slice(&bytes).unwrap();
++        assert_eq!(epochs["families"].as_array().unwrap().len(), 13);
++        assert_eq!(epochs["program_comparisons"], 228);
++        assert_eq!(epochs["members"].as_array().unwrap().len(), 528);
++        assert_eq!(epochs["after_cases"].as_array().unwrap().len(), 18);
++        for member in epochs["members"].as_array().unwrap().iter().chain(
++            epochs["supporting_receipts"].as_array().unwrap().iter(),
++        ) {
++            let bytes = fs::read(repository.join(member["path"].as_str().unwrap())).unwrap();
++            assert_eq!(bytes.len() as u64, member["bytes"].as_u64().unwrap());
++            assert_eq!(
++                format!("{:x}", Sha256::digest(&bytes)),
++                member["sha256"].as_str().unwrap()
++            );
++        }
++        epochs
++    });
++    let family = epochs["families"]
++        .as_array()
++        .unwrap()
++        .iter()
++        .find(|family| family["id"] == previous_folder)
++        .unwrap();
++    repository.join(family["after_directory"].as_str().unwrap())
++}
++
+@@ -1114,0 +1154 @@ fn preserves_existing_declarations(previous_folder: &str, strip_phis: bool) {
++    let after_epoch = control_preservation_after(previous_folder);
+@@ -1117 +1157 @@ fn preserves_existing_declarations(previous_folder: &str, strip_phis: bool) {
+-        .unwrap_or_else(|| root.join("control-edges"));
++        .unwrap_or(after_epoch);
+diff --git a/crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_clause_tests.rs b/crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_clause_tests.rs
+index 82f57d48..6e5e69df 100644
+--- a/crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_clause_tests.rs
++++ b/crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_clause_tests.rs
+@@ -317,0 +318,21 @@ fn csharp_03_t06_w09_decimal_clause_requests() {
++fn serialized_response_golden(original_root: &Path) -> std::path::PathBuf {
++    use sha2::{Digest, Sha256};
++    let original = fs::read(original_root.join("responses.json")).unwrap();
++    assert_eq!(
++        format!("{:x}", Sha256::digest(&original)),
++        "f09de7776ffb91afc3b201214e2ded66b322cb19bd75ae18df8364d50141d5b2"
++    );
++    let path = Path::new(env!("CARGO_MANIFEST_DIR")).join(
++        "../../develop/migrations/go-practical/t01-w05/retained-csharp/decimal-clause-response-echo/responses.json",
++    );
++    let serialized = fs::read(&path).unwrap();
++    assert_eq!(
++        format!("{:x}", Sha256::digest(&serialized)),
++        "0f180550827736815730b25cc5c017bf4ab705ab19e61e193dfdf6e7c9ea8244"
++    );
++    assert_eq!(
++        serde_json::from_slice::<Value>(&original).unwrap(),
++        serde_json::from_slice::<Value>(&serialized).unwrap()
++    );
++    path
++}
+@@ -326 +347,6 @@ fn output(name: &str, bytes: &[u8]) {
+-        assert_eq!(fs::read(root.join(name)).unwrap(), bytes, "{name}");
++        let path = if name == "responses.json" {
++            serialized_response_golden(&root)
++        } else {
++            root.join(name)
++        };
++        assert_eq!(fs::read(path).unwrap(), bytes, "{name}");
+diff --git a/crates/mpk-vc/tests/support/csharp_practical_ordinary_default_proof_tests.rs b/crates/mpk-vc/tests/support/csharp_practical_ordinary_default_proof_tests.rs
+index 4181847d..ab1b16d4 100644
+--- a/crates/mpk-vc/tests/support/csharp_practical_ordinary_default_proof_tests.rs
++++ b/crates/mpk-vc/tests/support/csharp_practical_ordinary_default_proof_tests.rs
+@@ -2 +2,3 @@ use super::*;
+-use foundation_proof_tests::{false_type, unchanged_prefix};
++use foundation_proof_tests::{
++    current_proof_golden, current_proof_inputs, false_type, unchanged_prefix,
++};
+@@ -20 +22 @@ fn csharp_03_t06_w09_actual_default_proofs_original_source() {
+-        let base=Path::new(env!("CARGO_MANIFEST_DIR")).join("../../develop/migrations/csharp-03/ordinary-foundation/verification-logs");
++        let base=current_proof_inputs();
+@@ -30,2 +32,2 @@ fn csharp_03_t06_w09_actual_default_proofs_original_source() {
+-            assert_eq!(p.identity().canonical_bytes(),fs::read(base.join(format!("identity-proofs/local/certificates/{id}.json"))).unwrap());
+-            let old=hex(if p.identity().proofs().is_empty(){base.join(format!("foundation-proofs/local/certificates/{id}.hex"))}else{base.join(format!("identity-proofs/local/certificates/{id}.hex"))});
++            assert_eq!(p.identity().canonical_bytes(),fs::read(base.join(format!("identity/{id}.json"))).unwrap());
++            let old=hex(if p.identity().proofs().is_empty(){base.join(format!("foundation/{id}.hex"))}else{base.join(format!("identity/{id}.hex"))});
+@@ -67,0 +70,2 @@ fn csharp_03_t06_w09_actual_default_proofs_original_source() {
++            else if p.proofs().is_empty(){assert_eq!(p.canonical_bytes(),fs::read(base.join(format!("default/{id}.json"))).unwrap());}
++            else{current_proof_golden("default",&id,&p.canonical_bytes(),p.certificate_bytes());}
+diff --git a/crates/mpk-vc/tests/support/csharp_practical_ordinary_fixed_codec_clause_tests.rs b/crates/mpk-vc/tests/support/csharp_practical_ordinary_fixed_codec_clause_tests.rs
+index 907f2efc..3985cce3 100644
+--- a/crates/mpk-vc/tests/support/csharp_practical_ordinary_fixed_codec_clause_tests.rs
++++ b/crates/mpk-vc/tests/support/csharp_practical_ordinary_fixed_codec_clause_tests.rs
+@@ -172,0 +173,21 @@ fn csharp_03_t06_w09_fixed_codec_clause_requests() {
++fn serialized_request_golden(original_root: &Path) -> std::path::PathBuf {
++    use sha2::{Digest, Sha256};
++    let original = fs::read(original_root.join("requests.json")).unwrap();
++    assert_eq!(
++        format!("{:x}", Sha256::digest(&original)),
++        "ac456c0cae3e20d48f7f3c0e7eb77e459862dacb01edfd34c144f24f46dc93f9"
++    );
++    let path = Path::new(env!("CARGO_MANIFEST_DIR")).join(
++        "../../develop/migrations/go-practical/t01-w05/retained-csharp/fixed-codec-clause-request-echo/requests.json",
++    );
++    let serialized = fs::read(&path).unwrap();
++    assert_eq!(
++        format!("{:x}", Sha256::digest(&serialized)),
++        "ffbfb9019bc0015f236cdbb5e65f44ca387cd1f29317629bad714d8412bcc73d"
++    );
++    assert_eq!(
++        serde_json::from_slice::<Value>(&original).unwrap(),
++        serde_json::from_slice::<Value>(&serialized).unwrap()
++    );
++    path
++}
+@@ -181 +202,6 @@ fn output(name: &str, bytes: &[u8]) {
+-        assert_eq!(fs::read(root.join(name)).unwrap(), bytes, "{name}");
++        let path = if name == "requests.json" {
++            serialized_request_golden(&root)
++        } else {
++            root.join(name)
++        };
++        assert_eq!(fs::read(path).unwrap(), bytes, "{name}");
+diff --git a/crates/mpk-vc/tests/support/csharp_practical_ordinary_foundation_proof_tests.rs b/crates/mpk-vc/tests/support/csharp_practical_ordinary_foundation_proof_tests.rs
+index 0dcbc05d..228b6de3 100644
+--- a/crates/mpk-vc/tests/support/csharp_practical_ordinary_foundation_proof_tests.rs
++++ b/crates/mpk-vc/tests/support/csharp_practical_ordinary_foundation_proof_tests.rs
+@@ -3,0 +4,15 @@ use mpk_cert::encode::{Certificate, DeclarationKind, TermNode};
++pub(super) fn current_proof_inputs() -> std::path::PathBuf {
++    Path::new(env!("CARGO_MANIFEST_DIR"))
++        .join("../../develop/migrations/go-practical/t01-w05/retained-csharp/current-proof-inputs")
++}
++
++pub(super) fn current_proof_golden(stage: &str, id: &str, metadata: &[u8], bytes: &[u8]) {
++    let dir = current_proof_inputs().join(stage);
++    assert_eq!(metadata, fs::read(dir.join(format!("{id}.json"))).unwrap());
++    let hex = bytes.iter().map(|b| format!("{b:02x}")).collect::<String>() + "\n";
++    assert_eq!(
++        hex,
++        fs::read_to_string(dir.join(format!("{id}.hex"))).unwrap()
++    );
++}
++
+@@ -182,0 +198,2 @@ fn csharp_03_t06_w09_foundation_proof_assembly_original_source() {
++                } else {
++                    current_proof_golden("foundation", &id, &p.canonical_bytes(), p.certificate_bytes());
+diff --git a/crates/mpk-vc/tests/support/csharp_practical_ordinary_identity_proof_tests.rs b/crates/mpk-vc/tests/support/csharp_practical_ordinary_identity_proof_tests.rs
+index 374decdf..094cf165 100644
+--- a/crates/mpk-vc/tests/support/csharp_practical_ordinary_identity_proof_tests.rs
++++ b/crates/mpk-vc/tests/support/csharp_practical_ordinary_identity_proof_tests.rs
+@@ -2 +2,3 @@ use super::*;
+-use foundation_proof_tests::{false_type, unchanged_prefix};
++use foundation_proof_tests::{
++    current_proof_golden, current_proof_inputs, false_type, unchanged_prefix,
++};
+@@ -30 +32 @@ fn csharp_03_t06_w09_identity_projection_proofs_original_source() {
+-        let original = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../develop/migrations/csharp-03/ordinary-foundation/verification-logs/foundation-proofs/local/certificates");
++        let original = current_proof_inputs().join("foundation");
+@@ -109,0 +112,5 @@ fn csharp_03_t06_w09_identity_projection_proofs_original_source() {
++            else if p.proofs().is_empty() {
++                assert_eq!(p.canonical_bytes(), fs::read(current_proof_inputs().join(format!("identity/{id}.json"))).unwrap());
++            } else {
++                current_proof_golden("identity", &id, &p.canonical_bytes(), p.certificate_bytes());
++            }

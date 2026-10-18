@@ -1106,15 +1106,55 @@ fn declaration_bodies(c: &mpk_cert::encode::Certificate) -> BTreeMap<String, Val
         .collect()
 }
 
+fn control_preservation_after(previous_folder: &str) -> PathBuf {
+    use sha2::{Digest, Sha256};
+    static EPOCHS: std::sync::OnceLock<Value> = std::sync::OnceLock::new();
+    let repository = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+    let epochs = EPOCHS.get_or_init(|| {
+        let bytes = fs::read(repository.join(
+            "develop/migrations/go-practical/t01-w05/retained-csharp/control-preservation-epochs/refined-manifest.json",
+        ))
+        .unwrap();
+        assert_eq!(
+            format!("{:x}", Sha256::digest(&bytes)),
+            "92db14d34d20f5e0dcd365dc5be134c367e93e65a6b5b5f432cfb7c2c81fca6c"
+        );
+        let epochs: Value = serde_json::from_slice(&bytes).unwrap();
+        assert_eq!(epochs["families"].as_array().unwrap().len(), 13);
+        assert_eq!(epochs["program_comparisons"], 228);
+        assert_eq!(epochs["members"].as_array().unwrap().len(), 528);
+        assert_eq!(epochs["after_cases"].as_array().unwrap().len(), 18);
+        for member in epochs["members"].as_array().unwrap().iter().chain(
+            epochs["supporting_receipts"].as_array().unwrap().iter(),
+        ) {
+            let bytes = fs::read(repository.join(member["path"].as_str().unwrap())).unwrap();
+            assert_eq!(bytes.len() as u64, member["bytes"].as_u64().unwrap());
+            assert_eq!(
+                format!("{:x}", Sha256::digest(&bytes)),
+                member["sha256"].as_str().unwrap()
+            );
+        }
+        epochs
+    });
+    let family = epochs["families"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|family| family["id"] == previous_folder)
+        .unwrap();
+    repository.join(family["after_directory"].as_str().unwrap())
+}
+
 fn preserves_existing_declarations(previous_folder: &str, strip_phis: bool) {
     let root = Path::new(env!("CARGO_MANIFEST_DIR"))
         .join("../../develop/migrations/csharp-03/ordinary-foundation");
     let previous = root.join(format!(
         "verification-logs/control-edges/{previous_folder}/control-edges"
     ));
+    let after_epoch = control_preservation_after(previous_folder);
     let current = std::env::var_os("MPK_W09_CONTROL_EDGES_OUT")
         .map(PathBuf::from)
-        .unwrap_or_else(|| root.join("control-edges"));
+        .unwrap_or(after_epoch);
     let mut count = 0;
     let mut added = 0;
     let mut memory_records = 0;

@@ -1,0 +1,8 @@
+{
+  "status": "diagnostic_reader_setup_error",
+  "command_source_raw_utf8": "from pathlib import Path\nimport json\np=Path('develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/raw-log-whitespace.json');v=json.loads(p.read_text());print(json.dumps({'keys':list(v),'count':len(v.get('exceptions',v.get('entries',[]))),'first':v.get('exceptions',v.get('entries',[]))[:1]},ensure_ascii=False))\n",
+  "exit_code": 1,
+  "error_raw_utf8": "Traceback (most recent call last):\n  File \"<stdin>\", line 3, in <module>\nAttributeError: 'list' object has no attribute 'get'\n",
+  "classification": "An inventory-only reader assumed a mapping before reading the retained JSON list schema; no test or checker was invoked and no file was changed.",
+  "corrected_reader": "Inspect the list type, count and first member before extending exact-file whitespace records."
+}

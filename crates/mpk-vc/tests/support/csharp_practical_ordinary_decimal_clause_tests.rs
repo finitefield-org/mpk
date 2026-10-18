@@ -315,6 +315,27 @@ fn csharp_03_t06_w09_decimal_clause_requests() {
         );
     }
 }
+fn serialized_response_golden(original_root: &Path) -> std::path::PathBuf {
+    use sha2::{Digest, Sha256};
+    let original = fs::read(original_root.join("responses.json")).unwrap();
+    assert_eq!(
+        format!("{:x}", Sha256::digest(&original)),
+        "f09de7776ffb91afc3b201214e2ded66b322cb19bd75ae18df8364d50141d5b2"
+    );
+    let path = Path::new(env!("CARGO_MANIFEST_DIR")).join(
+        "../../develop/migrations/go-practical/t01-w05/retained-csharp/decimal-clause-response-echo/responses.json",
+    );
+    let serialized = fs::read(&path).unwrap();
+    assert_eq!(
+        format!("{:x}", Sha256::digest(&serialized)),
+        "0f180550827736815730b25cc5c017bf4ab705ab19e61e193dfdf6e7c9ea8244"
+    );
+    assert_eq!(
+        serde_json::from_slice::<Value>(&original).unwrap(),
+        serde_json::from_slice::<Value>(&serialized).unwrap()
+    );
+    path
+}
 fn output(name: &str, bytes: &[u8]) {
     if let Some(root) = std::env::var_os("MPK_W09_DECIMAL_CLAUSES_OUT") {
         let root = std::path::PathBuf::from(root);
@@ -323,7 +344,12 @@ fn output(name: &str, bytes: &[u8]) {
     } else {
         let root = Path::new(env!("CARGO_MANIFEST_DIR"))
             .join("../../develop/migrations/csharp-03/ordinary-foundation/decimal-clauses");
-        assert_eq!(fs::read(root.join(name)).unwrap(), bytes, "{name}");
+        let path = if name == "responses.json" {
+            serialized_response_golden(&root)
+        } else {
+            root.join(name)
+        };
+        assert_eq!(fs::read(path).unwrap(), bytes, "{name}");
     }
 }
 #[test]

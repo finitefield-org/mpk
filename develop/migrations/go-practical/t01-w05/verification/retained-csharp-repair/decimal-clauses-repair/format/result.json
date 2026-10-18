@@ -1,0 +1,69 @@
+{
+  "status": "passed",
+  "mode": "format",
+  "started_at_utc": "2026-10-18T17:58:41.921601+00:00",
+  "command": [
+    "cargo",
+    "fmt",
+    "--package",
+    "mpk-vc",
+    "--",
+    "--check"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_TARGET_DIR": "/private/tmp/mpk-t01-w05-json-repair-target",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true"
+  },
+  "unset_environment": [
+    "RUST_MIN_STACK",
+    "MPK_CORE_MAX_STEPS",
+    "MPK_CORE_MAX_SECONDS",
+    "MPK_W09_DECIMAL_CLAUSES_OUT",
+    "MPK_W09_DECIMAL_CLAUSE_RESPONSES",
+    "MPK_W09_DECIMAL_CLAUSES_RUNTIME_CONTEXTS",
+    "MPK_W09_DECIMAL_CLAUSE_REQUESTS_OUT"
+  ],
+  "prior_environment": {
+    "RUST_MIN_STACK": null,
+    "MPK_CORE_MAX_STEPS": null,
+    "MPK_CORE_MAX_SECONDS": null,
+    "MPK_W09_DECIMAL_CLAUSES_OUT": null,
+    "MPK_W09_DECIMAL_CLAUSE_RESPONSES": null,
+    "MPK_W09_DECIMAL_CLAUSES_RUNTIME_CONTEXTS": null,
+    "MPK_W09_DECIMAL_CLAUSE_REQUESTS_OUT": null
+  },
+  "test_source": {
+    "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_clause_tests.rs",
+    "sha256": "44cefa6b2cdfa7af673819a1fbad9fe7ccfc14828cab541ef25b7fb35c7fa5f7",
+    "bytes": 21332
+  },
+  "build": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/decimal-clauses-repair/build-repaired-path/result.json",
+    "sha256": "5f6e4bca68f6caeeac8ee038f9cd48696f5b00a60ab233aaaaf5ef20057dec0f",
+    "bytes": 2155
+  },
+  "binary": {
+    "path": "/private/tmp/mpk-t01-w05-json-repair-target/debug/deps/csharp_practical_vc-f5f78b9b819b93a0",
+    "sha256": "fccfbf02a863673df9f8c7dd3860e339a18e3d88abc1f4b3b83cb649c759b220",
+    "bytes": 41035592
+  },
+  "selection_reason": "Check formatting of the affected mpk-vc source after qualifying the added helper's return type.",
+  "full_gate": "Deferred to the mandatory entire repaired T01 gate. This selected run does not complete W05/T01 or permit T02.",
+  "pid": 62943,
+  "exit_code": 0,
+  "wall_seconds": 4.728865250013769,
+  "finished_at_utc": "2026-10-18T17:58:46.651104+00:00",
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/decimal-clauses-repair/format/stdout.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/decimal-clauses-repair/format/stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  }
+}

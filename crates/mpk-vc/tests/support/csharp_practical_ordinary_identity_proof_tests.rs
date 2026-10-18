@@ -1,5 +1,7 @@
 use super::*;
-use foundation_proof_tests::{false_type, unchanged_prefix};
+use foundation_proof_tests::{
+    current_proof_golden, current_proof_inputs, false_type, unchanged_prefix,
+};
 use mpk_cert::encode::{Certificate, DeclarationKind, TermNode};
 
 pub(super) fn app<'a>(c: &'a Certificate, t: u32, name: &str) -> &'a [u32] {
@@ -27,7 +29,7 @@ fn csharp_03_t06_w09_identity_projection_proofs_original_source() {
         let bundle = b();
         let output = std::env::var_os("MPK_W09_IDENTITY_PROOFS_OUT").map(std::path::PathBuf::from);
         if let Some(dir) = &output { fs::create_dir_all(dir).unwrap(); }
-        let original = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../develop/migrations/csharp-03/ordinary-foundation/verification-logs/foundation-proofs/local/certificates");
+        let original = current_proof_inputs().join("foundation");
         let filter = std::env::var("MPK_W09_IDENTITY_SOURCE_FILTER").ok();
         let (mut contexts, mut proof_count, mut supplied, mut remaining, mut pending) = (0, 0, 0, 0, 0);
         let mut unchanged = 0;
@@ -107,6 +109,11 @@ fn csharp_03_t06_w09_identity_projection_proofs_original_source() {
                 }
             }
             if let Some(dir) = &output { fs::write(dir.join(format!("{id}.json")), p.canonical_bytes()).unwrap(); }
+            else if p.proofs().is_empty() {
+                assert_eq!(p.canonical_bytes(), fs::read(current_proof_inputs().join(format!("identity/{id}.json"))).unwrap());
+            } else {
+                current_proof_golden("identity", &id, &p.canonical_bytes(), p.certificate_bytes());
+            }
             contexts += 1; proof_count += p.proofs().len(); supplied += p.supplied_binding_sequent_ids().len(); remaining += p.remaining_binding_sequent_ids().len(); pending += p.pending_proof_ids().len();
         }
         eprintln!("identity projection proofs: {contexts} contexts, {proof_count} identity proofs, {supplied} supplied, {remaining} remaining, {pending} original application proof IDs, {unchanged} unchanged certificates");

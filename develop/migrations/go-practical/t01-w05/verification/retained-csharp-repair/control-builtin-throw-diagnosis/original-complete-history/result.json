@@ -1,0 +1,209 @@
+{
+  "status": "failed",
+  "compiled_source_commit": "320ecd67ab420e1ea806196271eea3271f929fbe",
+  "started_at_utc": "2026-10-18T16:03:54.005134+00:00",
+  "command": [
+    "/private/tmp/mpk-t01-w05-calendar-original-test-binary",
+    "--exact",
+    "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_edge_phi_preserves_existing_declarations",
+    "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_memory_preserves_existing_declarations",
+    "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_projection_preserves_existing_declarations",
+    "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_builtin_throw_preserves_existing_declarations",
+    "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_node_entry_preserves_existing_declarations",
+    "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_memory_effect_preserves_existing_declarations",
+    "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_source_frames_preserve_existing_declarations",
+    "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_native_operations_preserve_existing_declarations",
+    "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_native_options_preserve_existing_declarations",
+    "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_integrated_slots_preserve_existing_declarations",
+    "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::exceptions::csharp_03_t06_w09_control_native_exceptions_preserve_existing_declarations",
+    "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::native_literals::csharp_03_t06_w09_control_native_literals_preserve_existing_declarations",
+    "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::steps::csharp_03_t06_w09_control_source_steps_preserve_existing_declarations",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "binary": {
+    "path": "/private/tmp/mpk-t01-w05-calendar-original-test-binary",
+    "sha256": "53da17280f5e86f1aeee4737592031f4b70d1fc5632f403e7512b4c12ee23656",
+    "bytes": 40911640
+  },
+  "source_inputs": [
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_edge_tests.rs",
+      "sha256": "24a2a6b97b11bdbf5797b76dc7b006f8a3c8e621f9f07b5e82e084ef4ab9cfe2",
+      "bytes": 149758
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_exception_tests.rs",
+      "sha256": "b501e8629b97bdf6f072f30813af10f99294714df9d52fcba4a50dedb241549b",
+      "bytes": 9757
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_literal_tests.rs",
+      "sha256": "1589accd498b48ba29b1416ea860fc3fcfff653b32c1c10cac1a5a0b28db5391",
+      "bytes": 6329
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_step_tests.rs",
+      "sha256": "66eeac1f64c457adfe267b9ac3bba74ef54309fe798bb8d991b78c0eac7651eb",
+      "bytes": 49960
+    }
+  ],
+  "epoch_manifest": {
+    "path": "develop/migrations/go-practical/t01-w05/retained-csharp/control-preservation-epochs/manifest.json",
+    "sha256": "6ded1889933de894184dbdf92e3a513820b22e71b3a3a1e512febd3c500bd0da",
+    "bytes": 409028
+  },
+  "selected": [
+    {
+      "test": "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_edge_phi_preserves_existing_declarations",
+      "family": "before-phi-joins",
+      "strip_phis": true
+    },
+    {
+      "test": "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_memory_preserves_existing_declarations",
+      "family": "before-memory-bindings",
+      "strip_phis": false
+    },
+    {
+      "test": "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_projection_preserves_existing_declarations",
+      "family": "before-public-projection",
+      "strip_phis": false
+    },
+    {
+      "test": "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_builtin_throw_preserves_existing_declarations",
+      "family": "before-builtin-throw",
+      "strip_phis": false
+    },
+    {
+      "test": "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_node_entry_preserves_existing_declarations",
+      "family": "before-node-entry",
+      "strip_phis": false
+    },
+    {
+      "test": "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_memory_effect_preserves_existing_declarations",
+      "family": "before-memory-effects",
+      "strip_phis": false
+    },
+    {
+      "test": "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_source_frames_preserve_existing_declarations",
+      "family": "before-source-frames",
+      "strip_phis": false
+    },
+    {
+      "test": "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_native_operations_preserve_existing_declarations",
+      "family": "before-native-operations",
+      "strip_phis": false
+    },
+    {
+      "test": "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_native_options_preserve_existing_declarations",
+      "family": "before-native-options",
+      "strip_phis": false
+    },
+    {
+      "test": "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_integrated_slots_preserve_existing_declarations",
+      "family": "before-integrated-slots",
+      "strip_phis": false
+    },
+    {
+      "test": "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::exceptions::csharp_03_t06_w09_control_native_exceptions_preserve_existing_declarations",
+      "family": "before-native-exceptions",
+      "strip_phis": false
+    },
+    {
+      "test": "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::native_literals::csharp_03_t06_w09_control_native_literals_preserve_existing_declarations",
+      "family": "before-native-literals",
+      "strip_phis": false
+    },
+    {
+      "test": "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::steps::csharp_03_t06_w09_control_source_steps_preserve_existing_declarations",
+      "family": "before-source-steps",
+      "strip_phis": false
+    }
+  ],
+  "expected_tests": 13,
+  "expected_original_program_comparisons": 228,
+  "environment": {
+    "MPK_W09_CONTROL_EDGES_OUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t01-w05/retained-csharp/control-preservation-epochs/after-complete-source-executions"
+  },
+  "unset_environment": [
+    "RUST_MIN_STACK",
+    "MPK_CORE_MAX_STEPS",
+    "MPK_CORE_MAX_SECONDS"
+  ],
+  "previous_environment": {
+    "RUST_MIN_STACK": null,
+    "MPK_CORE_MAX_STEPS": null,
+    "MPK_CORE_MAX_SECONDS": null
+  },
+  "selection_reason": "All13 direct consumers of the same failed preservation helper, using the unchanged original binary and all17/18 complete original programs against the actual same-epoch complete-source-execution Git checkpoint. Preserve every original metadata/declaration assertion; no semantic normalization or producer/checker edit.",
+  "historical_regression_only": true,
+  "whole_gate_passed": false,
+  "application_proofs_discharged": false,
+  "exit_code": 101,
+  "wall_seconds": 3.288841374916956,
+  "finished_at_utc": "2026-10-18T16:03:57.321205+00:00",
+  "completed_cases": [
+    {
+      "name": "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_builtin_throw_preserves_existing_declarations",
+      "result": "ok"
+    },
+    {
+      "name": "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_edge_phi_preserves_existing_declarations",
+      "result": "ok"
+    },
+    {
+      "name": "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_integrated_slots_preserve_existing_declarations",
+      "result": "FAILED"
+    },
+    {
+      "name": "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_memory_effect_preserves_existing_declarations",
+      "result": "ok"
+    },
+    {
+      "name": "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_memory_preserves_existing_declarations",
+      "result": "ok"
+    },
+    {
+      "name": "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_native_operations_preserve_existing_declarations",
+      "result": "FAILED"
+    },
+    {
+      "name": "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_native_options_preserve_existing_declarations",
+      "result": "FAILED"
+    },
+    {
+      "name": "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_node_entry_preserves_existing_declarations",
+      "result": "ok"
+    },
+    {
+      "name": "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_projection_preserves_existing_declarations",
+      "result": "ok"
+    },
+    {
+      "name": "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_source_frames_preserve_existing_declarations",
+      "result": "ok"
+    },
+    {
+      "name": "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::exceptions::csharp_03_t06_w09_control_native_exceptions_preserve_existing_declarations",
+      "result": "FAILED"
+    },
+    {
+      "name": "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::native_literals::csharp_03_t06_w09_control_native_literals_preserve_existing_declarations",
+      "result": "FAILED"
+    },
+    {
+      "name": "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::steps::csharp_03_t06_w09_control_source_steps_preserve_existing_declarations",
+      "result": "ok"
+    }
+  ],
+  "stdout": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-builtin-throw-diagnosis/original-complete-history/stdout.log",
+    "sha256": "8c361f41d6e8a1e8489158d3fca3c48337a2efe8912e059a22aa4b9b00316f51",
+    "bytes": 3262
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-builtin-throw-diagnosis/original-complete-history/stderr.log",
+    "sha256": "b9d496d9b23356a79d1634872b6ec8b9911080258853e2f84292672089b064b3",
+    "bytes": 26163737
+  }
+}

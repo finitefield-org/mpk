@@ -1,0 +1,10 @@
+{
+  "status": "verified_live_wait",
+  "observed_at_utc": "2026-10-18T15:34:07.123896+00:00",
+  "process_output_raw_utf8": "  PID  PPID  ELAPSED      TIME  %CPU    RSS COMMAND\n33771 61319 10:01:17 2986:22.34 798.7 15605120 /Users/kazuyoshitoshiya/ff/mpk/target/debug/deps/csharp_practical_vc-d17e5ac6d3501e9b\n55665 55651 11:05:05   0:00.01   0.0   1088 bash ./scripts/check-fast.sh\n61319 55665 10:59:45   0:00.24   0.0  20096 /Users/kazuyoshitoshiya/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo test --workspace --no-fail-fast\n99405 31947    24:45   0:00.17   0.0   9488 /Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/default-proofs-current-generation/run-proof-owner.py default generate develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/default-proofs-current-generation/build/build-result.json develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/default-proofs-current-generation/default\n99407 99405    24:45  14:59.90  77.2  72368 /private/tmp/mpk-t01-w05-json-repair-target/debug/deps/csharp_practical_vc-f5f78b9b819b93a0 --exact ordinary_carriers::projection_tests::binding_relation_tests::default_proof_tests::csharp_03_t06_w09_actual_default_proofs_original_source --nocapture\n",
+  "whole_gate_session": 31844,
+  "default_generation_session": 14072,
+  "required_next_step": "Wait for actual45-case default terminal result; never infer acceptance from liveness or generated prefixes.",
+  "whole_gate_passed": false,
+  "application_proofs_discharged": false
+}

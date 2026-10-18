@@ -1,5 +1,7 @@
 use super::*;
-use foundation_proof_tests::{false_type, unchanged_prefix};
+use foundation_proof_tests::{
+    current_proof_golden, current_proof_inputs, false_type, unchanged_prefix,
+};
 use identity_proof_tests::app;
 use mpk_cert::encode::{DeclarationKind, TermNode};
 
@@ -17,7 +19,7 @@ fn hex(path: std::path::PathBuf) -> Vec<u8> {
 fn csharp_03_t06_w09_actual_default_proofs_original_source() {
     std::thread::Builder::new().stack_size(64*1024*1024).spawn(|| {
         let bundle=b();let out=std::env::var_os("MPK_W09_ACTUAL_DEFAULT_PROOFS_OUT").map(std::path::PathBuf::from);if let Some(p)=&out{fs::create_dir_all(p).unwrap();}
-        let base=Path::new(env!("CARGO_MANIFEST_DIR")).join("../../develop/migrations/csharp-03/ordinary-foundation/verification-logs");
+        let base=current_proof_inputs();
         let filter=std::env::var("MPK_W09_ACTUAL_DEFAULT_SOURCE_FILTER").ok();
         let(mut contexts,mut proofs,mut supplied,mut remaining,mut pending,mut pending_defaults,mut unchanged)=(0,0,0,0,0,0,0);
         for(id,row,facts)in sources(){
@@ -27,8 +29,8 @@ fn csharp_03_t06_w09_actual_default_proofs_original_source() {
             let emitted=emit_data_phase(&bundle,&context,&captures,&source).unwrap();let vir=emitted.vir();
             eprintln!("{id}: preserve original complete actual-default sequents");
             let p=generate_csharp_practical_ordinary_default_proofs(vir).unwrap_or_else(|e|panic!("{id}: {e:?}"));
-            assert_eq!(p.identity().canonical_bytes(),fs::read(base.join(format!("identity-proofs/local/certificates/{id}.json"))).unwrap());
-            let old=hex(if p.identity().proofs().is_empty(){base.join(format!("foundation-proofs/local/certificates/{id}.hex"))}else{base.join(format!("identity-proofs/local/certificates/{id}.hex"))});
+            assert_eq!(p.identity().canonical_bytes(),fs::read(base.join(format!("identity/{id}.json"))).unwrap());
+            let old=hex(if p.identity().proofs().is_empty(){base.join(format!("foundation/{id}.hex"))}else{base.join(format!("identity/{id}.hex"))});
             assert_eq!(p.identity().certificate_bytes(),old);
             let full=generate_csharp_practical_vc(PracticalVcSource{artifact_context:&context,captured_inputs:&captures,vir}).unwrap();let vc=full.binding_vcs();
             let original_defaults=vc.sequents().iter().filter(|s|s.kind=="actual_default").collect::<Vec<_>>();
@@ -65,6 +67,8 @@ fn csharp_03_t06_w09_actual_default_proofs_original_source() {
                 if let Some(dir)=&out{for(suffix,bytes)in[("",p.certificate_bytes()),("-wrong",wrong.as_slice())]{fs::write(dir.join(format!("{id}{suffix}.hex")),bytes.iter().map(|b|format!("{b:02x}")).collect::<String>()+"\n").unwrap();}}
             }
             if let Some(dir)=&out{fs::write(dir.join(format!("{id}.json")),p.canonical_bytes()).unwrap();}
+            else if p.proofs().is_empty(){assert_eq!(p.canonical_bytes(),fs::read(base.join(format!("default/{id}.json"))).unwrap());}
+            else{current_proof_golden("default",&id,&p.canonical_bytes(),p.certificate_bytes());}
             contexts+=1;proofs+=p.proofs().len();supplied+=p.supplied_binding_sequent_ids().len();remaining+=p.remaining_binding_sequent_ids().len();pending+=p.pending_proof_ids().len();pending_defaults+=p.pending_defaults().len();
         }
         eprintln!("actual-default proof assembly: {contexts} contexts, {proofs} proofs, {supplied} supplied, {remaining} remaining, {pending} application IDs pending, {pending_defaults} source-use defaults pending, {unchanged} unchanged certificates");

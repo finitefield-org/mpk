@@ -1,0 +1,67 @@
+{
+  "status": "passed",
+  "mode": "format",
+  "started_at_utc": "2026-10-18T18:41:13.100119+00:00",
+  "command": [
+    "cargo",
+    "fmt",
+    "--package",
+    "mpk-vc",
+    "--",
+    "--check"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_TARGET_DIR": "/private/tmp/mpk-t01-w05-json-repair-target",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true"
+  },
+  "unset_environment": [
+    "RUST_MIN_STACK",
+    "MPK_CORE_MAX_STEPS",
+    "MPK_CORE_MAX_SECONDS",
+    "MPK_W09_FIXED_CODEC_CLAUSES_OUT",
+    "MPK_W09_FIXED_CODEC_RESPONSES",
+    "MPK_W09_FIXED_CODEC_REQUESTS_OUT"
+  ],
+  "prior_environment": {
+    "RUST_MIN_STACK": null,
+    "MPK_CORE_MAX_STEPS": null,
+    "MPK_CORE_MAX_SECONDS": null,
+    "MPK_W09_FIXED_CODEC_CLAUSES_OUT": null,
+    "MPK_W09_FIXED_CODEC_RESPONSES": null,
+    "MPK_W09_FIXED_CODEC_REQUESTS_OUT": null
+  },
+  "test_source": {
+    "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_fixed_codec_clause_tests.rs",
+    "sha256": "8eff8cd8609056492fbf8d38db238163a8507e27cd0f667d1019cc9dcbf9382f",
+    "bytes": 23090
+  },
+  "build": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/fixed-codec-clauses-repair/build/result.json",
+    "sha256": "6f5f41df340a9546ba89cc50fa0cfe76941ef336823e16c673ed4c6c9d4c5fa3",
+    "bytes": 2138
+  },
+  "binary": {
+    "path": "/private/tmp/mpk-t01-w05-json-repair-target/debug/deps/csharp_practical_vc-f5f78b9b819b93a0",
+    "sha256": "17b721db9bead4c1322dd7d8a7b91f9e1825484e27d6dd2928b037cce30c19d3",
+    "bytes": 41036104
+  },
+  "selection_reason": "Check formatting of the one newly changed private fixed-codec support source.",
+  "full_gate": "The entire repaired T01 gate remains mandatory; selected results do not complete W05/T01 or permit T02.",
+  "pid": 76551,
+  "exit_code": 0,
+  "wall_seconds": 4.629369582980871,
+  "finished_at_utc": "2026-10-18T18:41:17.730063+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/fixed-codec-clauses-repair/format/stdout.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/fixed-codec-clauses-repair/format/stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  }
+}

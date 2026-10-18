@@ -1,0 +1,60 @@
+{
+  "status": "verified_live_wait",
+  "observed_at_utc": "2026-10-18T16:47:44.067338+00:00",
+  "processes": [
+    {
+      "pid": 17797,
+      "ppid": 32143,
+      "elapsed": "00:30",
+      "cpu_time": "0:12.53",
+      "cpu_percent": "22.0",
+      "rss_KiB": 9200,
+      "command": "/private/tmp/mpk-t01-w05-repair-target/debug/mpk check /Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t01-w05/retained-csharp/current-proof-inputs/default/binding-vc-option.hex",
+      "raw_ps_row": "17797 32143       00:30   0:12.53  22.0   9200 /private/tmp/mpk-t01-w05-repair-target/debug/mpk check /Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t01-w05/retained-csharp/current-proof-inputs/default/binding-vc-option.hex"
+    },
+    {
+      "pid": 33771,
+      "ppid": 61319,
+      "elapsed": "11:14:53",
+      "cpu_time": "3369:08.64",
+      "cpu_percent": "221.4",
+      "rss_KiB": 8886896,
+      "command": "/Users/kazuyoshitoshiya/ff/mpk/target/debug/deps/csharp_practical_vc-d17e5ac6d3501e9b",
+      "raw_ps_row": "33771 61319    11:14:53 3369:08.64 221.4 8886896 /Users/kazuyoshitoshiya/ff/mpk/target/debug/deps/csharp_practical_vc-d17e5ac6d3501e9b"
+    },
+    {
+      "pid": 55665,
+      "ppid": 55651,
+      "elapsed": "12:18:41",
+      "cpu_time": "0:00.01",
+      "cpu_percent": "0.0",
+      "rss_KiB": 1088,
+      "command": "bash ./scripts/check-fast.sh",
+      "raw_ps_row": "55665 55651    12:18:41   0:00.01   0.0   1088 bash ./scripts/check-fast.sh"
+    },
+    {
+      "pid": 61319,
+      "ppid": 55665,
+      "elapsed": "12:13:21",
+      "cpu_time": "0:00.24",
+      "cpu_percent": "0.0",
+      "rss_KiB": 19888,
+      "command": "/Users/kazuyoshitoshiya/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo test --workspace --no-fail-fast",
+      "raw_ps_row": "61319 55665    12:13:21   0:00.24   0.0  19888 /Users/kazuyoshitoshiya/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo test --workspace --no-fail-fast"
+    }
+  ],
+  "owned_live_sessions": {
+    "default_dual": 53193,
+    "original_whole_gate": 31844
+  },
+  "head": "e8ceb3c1fd8501e1fe774289091f188cdc8fdc65",
+  "main": "1c34ed5701df2e53fd515d49ad4d158cc728cb4b",
+  "normal_default_45_contexts": "passed_1915.528_seconds",
+  "control_13_owners_228_program_comparisons": "passed",
+  "control5negative_assertion_controls": "passed",
+  "source_and_evidence_not_committed": true,
+  "remaining": "Wait for actual independent-default terminal result, seal the complete proof corpus, perform static review and commit. Preserve original whole terminal result; entire repaired local gate must pass before T02.",
+  "whole_gate_passed": false,
+  "T01_complete": false,
+  "T02_started": false
+}

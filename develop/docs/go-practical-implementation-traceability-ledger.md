@@ -4345,3 +4345,176 @@ selected result supplies T01's full gate. Preserve the terminal original run,
 resolve remaining findings and execute the complete repaired gate with all
 tests and the recorded four-worker scheduling before T02. All169 Go demands and
 987 C# application proofs remain pending, and neither practical profile activates.
+
+## 70. T01-W05 current component proof inputs
+
+The source320 diagnostic also reports stale component-record comparisons in the
+actual-default and identity proof owners. Exact unchanged-binary reproductions
+fail in0.413 and0.704 seconds before their original semantic/kernel checks. The
+[original diagnosis](../migrations/go-practical/t01-w05/verification/retained-csharp-repair/default-proofs-diagnosis/archive-git-audit.json)
+retains both failures and verifies all138 old foundation/identity archive members
+against source320 and their original publication commits. Their original paths
+and bytes are unchanged. The complete current producer tree, captured C# fixture
+tree, replay helper and registered foundation/profile inputs also match source320.
+
+The unchanged foundation owner generates45 current contexts into a separate
+directory. Its87 type sequents,442 operation sequents,1,026 outcome records and
+all987 pending application IDs remain exactly equal to the retained records.
+The identity owner preserves its two full sequents and projection records.
+Every metadata difference is enumerated; hashes and hash-derived theorem names
+are not erased to make a current comparison pass. Current proof owners compare
+complete fixed current metadata/certificate bytes, including newly added normal
+golden checks. Reversing only those additions and input-path associations
+recovers all three original sources byte for byte, including99 assertions,
+complete loops, prefix/import checks, mutations and64MiB worker stacks.
+
+The [selected verification](../migrations/go-practical/t01-w05/verification/retained-csharp-repair/default-proofs-current-generation/verification.json)
+records all three complete generation and separate normal-mode tests passing
+over all45 contexts each. The default generation takes1,612.841 seconds and its
+normal mode1,915.528 seconds, preserving three default proofs,534 supplied and
+453 remaining sequents, all987 pending application IDs,32 source-use defaults
+and42 unchanged certificates. Both unchanged independent checkers accept all49
+distinct positive certificates with zero axioms and identical hashes and reject
+all five false certificates with CoreCheck errors. An initial observer JSON
+field-name error remains separately retained with both actual raw rejection
+outputs; it is not a semantic checker disagreement. Targeted format and
+integration-target Clippy pass. No production/checker implementation, limit or
+test bound changes.
+
+After every selected result is actually terminal and passed, the
+[sealed manifest](../migrations/go-practical/t01-w05/retained-csharp/current-proof-inputs/manifest.json)
+binds all189 current members,138 retained old members,45 nested context records,
+all generation/normal/dual-checker receipts and the exact original6ffd owner
+executable snapshot. It is created once without replacing any old corpus.
+The source320 whole diagnostic still collects known assertion failures. Its
+terminal result must be retained and the entire committed repaired gate must
+pass before W05/T01 completion or T02. All169 Go demands and987 C# application
+proof IDs remain pending, and neither practical profile activates.
+
+## 71. T01-W05 control preservation intervals
+
+The source320 whole diagnostic next reports a control built-in-throw declaration
+preservation failure. Its unchanged-binary isolated reproduction fails in0.230
+seconds after the first program's declaration checks pass. The
+[exact assertion operand audit](../migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-builtin-throw-diagnosis/exact-original-failure-diff.json)
+finds only three root context hashes differ. Approved-freeze commitf7333bc9
+updates all eighteen current JSON records in exactly those three fields; all
+certificate files and every other metadata value are byte-identical to the
+complete-source-execution checkpoint561db360. Existing inputs remain unchanged.
+
+The initial same-epoch complete-after candidate passes eight original owners
+but exposes five more metadata failures. Their exact four-field differences
+are a later resolved alias frame. The
+[refined manifest](../migrations/go-practical/t01-w05/retained-csharp/control-preservation-epochs/refined-manifest.json)
+retains all528 Git members and all228 original program comparisons. Those five
+earlier feature intervals end at the retained pre-source-step checkpoint, and
+the unchanged source-step owner checks the final extension for all eighteen
+contexts, including exactly two resolved alias frames and their source anchors.
+Both legs remain mandatory. No additional field is ignored or normalized.
+
+The [selected verification](../migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-builtin-throw-repair/verification.json)
+records all thirteen repaired normal-mode tests passing in9.334 seconds. All46
+original helper assertions, all complete declaration/term/level prefixes, nullable
+join checks, metadata comparisons, eight native-operation resolutions and
+program/memory counts remain byte-identical. Reversing only the added byte-pin
+loader and after-input selection recovers the complete original source exactly;
+the shared declaration-body comparator and all current producer/runtime code
+are unchanged.
+
+Five isolated mutations forge a source hash, source-function identity, public
+projection, alias source anchor or canonically valid cross-context certificate.
+All reach and fail assertions in the original comparison body; setup, decoding,
+pin-loader and runtime failures cannot satisfy these controls. The separate
+unchanged current source owner passes all eighteen contexts, strict imports,
+complete execution metadata/bridge checks and all36 normal JSON/hex golden
+comparisons in13.577 seconds. Targeted format and integration-target Clippy pass.
+No production/checker implementation, existing fixture, capture, limit or bound
+changes. Failed original/candidate runs and the separate archive-driver parse
+error remain preserved with exact inputs and raw outputs.
+
+The same original whole diagnostic continues to collect late findings. Its
+terminal result must be preserved and the complete repaired gate must pass over
+committed source with the recorded four-worker scheduling before W05/T01
+completion or T02. All169 Go demands and987 C# application proof IDs remain
+pending, and neither practical profile activates.
+
+## 72. T01-W05 decimal-clause response echo representation
+
+The original source320 whole diagnostic reports the decimal-clause candidate
+owner as a new failure. Its unchanged-binary reproduction fails in15.031 seconds
+only at the final `responses.json` output, after all nine source contexts,44
+operation aliases/closures,49 attachments, current metadata/certificate byte
+goldens and original strict import/mutation checks pass. The
+[exact assertion audit](../migrations/go-practical/t01-w05/verification/retained-csharp-repair/decimal-clauses-diagnosis/exact-response-operands-audit.json)
+retains both136,077-byte operands. Every JSON value is equal;98 object member
+orders differ after the existing `serde_json::Value` pretty serialization.
+
+The [fixed serialized echo](../migrations/go-practical/t01-w05/retained-csharp/decimal-clause-response-echo/README.md)
+is the exact original right operand. Both representations are SHA256-pinned and
+the new helper compares complete JSON values before selecting that separate
+fixed byte golden. The original captured input remains unchanged. No field is
+removed, normalized or ignored. The original final assertion still compares
+every output byte. Reversing only the helper and path selection recovers the
+complete original source, all17 assertions and every runtime case/count.
+
+The [selected verification](../migrations/go-practical/t01-w05/verification/retained-csharp-repair/decimal-clauses-repair/verification.json)
+records the repaired candidate passing all nine contexts in13.022 seconds,
+format and target Clippy. An initial added-helper type reference caused a
+compile failure before tests ran; its exact source and raw compiler diagnostic
+remain separately retained. Read-only input ordering checks find the six other
+response echo families already use sorted object members; those checks do not
+claim their tests or native captures passed.
+
+The changed final output helper is exercised by the complete candidate owner.
+Unchanged expensive runtime probes remain mandatory in the complete repaired
+gate. The original no-fail-fast diagnostic continues with20 reported failures,
+all now covered by selected passing repairs. Static input review and the entire
+committed-source repaired gate remain pending; neither this selected result nor
+any partial diagnostic completes W05/T01 or permits T02. All169 Go demands and
+987 C# application proof IDs remain pending, and neither practical profile
+activates.
+
+The original-source runtime owner is subsequently also reported as failed by
+the still-running source320 diagnostic. The entire repaired normal owner passes
+in1,090.264 seconds over all nine contexts, all10 original selected runtime
+conditions and5 failure definedness rejections, with no runtime filter/output
+flag. Its original runtime assertions, loops and counts remain unchanged.
+[Raw selected results](../migrations/go-practical/t01-w05/verification/retained-csharp-repair/decimal-clauses-repair/runtime-normal/result.json)
+and the exact executable snapshot are retained. The terminal original panic
+details remain to be reconciled. A later fixed-codec original-source owner now
+also fails in the original diagnostic and is selected-repaired in section73.
+The entire repaired full gate remains mandatory.
+
+## 73. T01-W05 fixed-codec request echo representation
+
+The source320 whole diagnostic next reports the fixed-codec original-source
+owner failed. The [unchanged-binary reproduction](../migrations/go-practical/t01-w05/verification/retained-csharp-repair/fixed-codec-clauses-diagnosis/result.json)
+passes all six codec contexts,44 source clauses and21,088 formatting/composition
+bit observations, then fails only the final `requests.json` echo in139.696
+seconds. Its two exact operands retain identical complete JSON values and every
+nested UTF8 sidecar string. The original57546-byte ASCII-escaped and observed
+57366-byte UTF8 pretty encodings differ in representation only; no object
+member order changes. Exact encoders reproduce both observed operands, including
+every original full-width invalid digit. All20 old fixture members match source320.
+
+The [fixed echo](../migrations/go-practical/t01-w05/retained-csharp/fixed-codec-clause-request-echo/README.md)
+is the exact original right operand. Three guards pin both original and echo
+bytes and compare complete JSON values before the original full byte assertion.
+The private helper and path selection reverse to the complete original source,
+including all23 assertions, valid/invalid/oversized parse cases and all format
+and complete parse-format bit loops. No original field, native capture, fixture,
+producer, interpreter, checker, test bound or resource limit changes.
+
+The [selected verification](../migrations/go-practical/t01-w05/verification/retained-csharp-repair/fixed-codec-clauses-repair/verification.json)
+records the full repaired normal owner passing in142.775 seconds, format and
+target Clippy. The mixed owner does not echo requests and remains byte unchanged;
+its original whole pass is retained and it remains required in the repaired gate.
+A read-only fourteen-input representation audit, validated against two actual
+Rust assertion operands, finds no further predicted encoding difference beyond
+the two diagnosed input echoes. It is not a test or native-capture pass claim
+for the other families.
+
+A final changed-input review precedes the commit, and the entire committed
+repaired gate remains required. The original whole diagnostic continues; all
+component certificate checks now pass both checkers as recorded in section70. These selected component regressions do not complete W05/T01 or permit
+T02, discharge the169 Go demands or987 C# application IDs, or activate profiles.

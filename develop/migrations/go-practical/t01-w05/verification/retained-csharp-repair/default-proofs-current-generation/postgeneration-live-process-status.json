@@ -1,0 +1,71 @@
+{
+  "status": "verified_live_wait",
+  "observed_at_utc": "2026-10-18T15:43:27.035489+00:00",
+  "head": "e8ceb3c1fd8501e1fe774289091f188cdc8fdc65",
+  "main": "1c34ed5701df2e53fd515d49ad4d158cc728cb4b",
+  "branch": "codex/go-practical",
+  "processes": [
+    {
+      "pid": 32161,
+      "ppid": 32157,
+      "elapsed": "05:56",
+      "cpu_time": "3:06.53",
+      "percent_cpu_observation": "36.0",
+      "rss_KiB": 59232,
+      "command": "/private/tmp/mpk-t01-w05-json-repair-target/debug/deps/csharp_practical_vc-f5f78b9b819b93a0 --exact ordinary_carriers::projection_tests::binding_relation_tests::default_proof_tests::csharp_03_t06_w09_actual_default_proofs_original_source --nocapture",
+      "raw_ps_row": "32161 32157       05:56   3:06.53  36.0  59232 /private/tmp/mpk-t01-w05-json-repair-target/debug/deps/csharp_practical_vc-f5f78b9b819b93a0 --exact ordinary_carriers::projection_tests::binding_relation_tests::default_proof_tests::csharp_03_t06_w09_actual_default_proofs_original_source --nocapture"
+    },
+    {
+      "pid": 32606,
+      "ppid": 32143,
+      "elapsed": "04:28",
+      "cpu_time": "2:07.86",
+      "percent_cpu_observation": "39.3",
+      "rss_KiB": 9088,
+      "command": "/private/tmp/mpk-t01-w05-repair-target/debug/mpk check /Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t01-w05/retained-csharp/current-proof-inputs/default/binding-vc-lookup-wrong.hex",
+      "raw_ps_row": "32606 32143       04:28   2:07.86  39.3   9088 /private/tmp/mpk-t01-w05-repair-target/debug/mpk check /Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t01-w05/retained-csharp/current-proof-inputs/default/binding-vc-lookup-wrong.hex"
+    },
+    {
+      "pid": 33771,
+      "ppid": 61319,
+      "elapsed": "10:10:36",
+      "cpu_time": "3043:50.73",
+      "percent_cpu_observation": "382.7",
+      "rss_KiB": 13893200,
+      "command": "/Users/kazuyoshitoshiya/ff/mpk/target/debug/deps/csharp_practical_vc-d17e5ac6d3501e9b",
+      "raw_ps_row": "33771 61319    10:10:36 3043:50.73 382.7 13893200 /Users/kazuyoshitoshiya/ff/mpk/target/debug/deps/csharp_practical_vc-d17e5ac6d3501e9b"
+    },
+    {
+      "pid": 55665,
+      "ppid": 55651,
+      "elapsed": "11:14:24",
+      "cpu_time": "0:00.01",
+      "percent_cpu_observation": "0.0",
+      "rss_KiB": 1088,
+      "command": "bash ./scripts/check-fast.sh",
+      "raw_ps_row": "55665 55651    11:14:24   0:00.01   0.0   1088 bash ./scripts/check-fast.sh"
+    },
+    {
+      "pid": 61319,
+      "ppid": 55665,
+      "elapsed": "11:09:04",
+      "cpu_time": "0:00.24",
+      "percent_cpu_observation": "0.0",
+      "rss_KiB": 19888,
+      "command": "/Users/kazuyoshitoshiya/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo test --workspace --no-fail-fast",
+      "raw_ps_row": "61319 55665    11:09:04   0:00.24   0.0  19888 /Users/kazuyoshitoshiya/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo test --workspace --no-fail-fast"
+    }
+  ],
+  "sessions": {
+    "default_normal": 78888,
+    "default_dual_checkers": 53193,
+    "original_whole_gate": 31844
+  },
+  "default_generation_passed": true,
+  "default_generation_contexts": 45,
+  "default_normal_status": "running",
+  "default_independent_checker_status": "running",
+  "whole_gate_passed": false,
+  "application_proofs_discharged": false,
+  "pending_requirement": "Wait on owned actual processes and preserve terminal results; complete current-default normal/dual checks and corpus sealing, then source320 terminal diagnostic and complete repaired full gate before T02."
+}

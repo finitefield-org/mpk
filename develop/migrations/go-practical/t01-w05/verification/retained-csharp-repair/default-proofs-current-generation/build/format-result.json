@@ -1,0 +1,57 @@
+{
+  "status": "passed",
+  "source_base_commit": "e8ceb3c1fd8501e1fe774289091f188cdc8fdc65",
+  "started_at_utc": "2026-10-18T15:05:57.908286+00:00",
+  "command": [
+    "rustfmt",
+    "--edition",
+    "2021",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_foundation_proof_tests.rs",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_identity_proof_tests.rs",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_default_proof_tests.rs"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_TARGET_DIR": "/private/tmp/mpk-t01-w05-json-repair-target",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true"
+  },
+  "RUST_MIN_STACK": "unset",
+  "inputs": [
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_foundation_proof_tests.rs",
+      "sha256": "e64bda8c9f9d7719b93c2cdb9fec6d684a1bb8aca6736e53fbfafcccf9383583",
+      "bytes": 13915
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_identity_proof_tests.rs",
+      "sha256": "d4f8aa9e860b42a09ebc0af345c0d37e22f182432abe3a88ce8da6b36b6e8394",
+      "bytes": 9479
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_default_proof_tests.rs",
+      "sha256": "ad988c40ceea7d09c572cce4e503048023448ff813c1a6acb2ef8d3556a0e450",
+      "bytes": 8182
+    }
+  ],
+  "selection_reason": "Reproduced foundation/identity dependencies use stale historical records. Build the three proof owners with separate current component goldens, preserving all original source contexts, sequents, prefix, strict import, kernel/mutation checks, and pending application proof counts. The full gate remains pending.",
+  "exit_code": 0,
+  "wall_seconds": 0.27798195800278336,
+  "finished_at_utc": "2026-10-18T15:05:58.190260+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/default-proofs-current-generation/build/format.stdout.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/default-proofs-current-generation/build/format.stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "formatted_source": {
+    "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_foundation_proof_tests.rs",
+    "sha256": "7d6cb52ea13a6bb0d1f2b4990ffd416d621c0f8f8a934516e9ea532a8a92e016",
+    "bytes": 13931
+  }
+}

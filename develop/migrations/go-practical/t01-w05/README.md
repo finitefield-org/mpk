@@ -123,6 +123,55 @@ Existing fixtures and production/checker/evaluator bytes stay unchanged. The
 original full diagnostic continues; a complete repaired whole gate remains
 mandatory before T01 completion or T02.
 
+The [current component proof-input repair](verification/retained-csharp-repair/default-proofs-current-generation/verification.json)
+retains original default/identity failures and all138 historical archive members.
+Complete producer/capture inputs remain unchanged. All three component stages
+pass generation and separate complete normal fixed-golden tests over all45
+contexts each. Both independent checkers accept all49 distinct positive proof
+certificates with zero axioms and matching hashes and reject all five false
+certificates with CoreCheck errors. All99 original test assertions and complete
+loops remain byte-identical after reversing only added golden checks and input
+associations. The [sealed current corpus](retained-csharp/current-proof-inputs/manifest.json)
+pins189 current members and their complete result/hash links. Three default
+component proofs retain all987 pending application IDs and32 source-use defaults.
+The original whole diagnostic continues, and the entire committed repaired gate
+must pass before T01 completion or T02.
+
+The [decimal-clause input echo repair](verification/retained-csharp-repair/decimal-clauses-repair/verification.json)
+retains a later original failure in the final response serialization assertion.
+All nine contexts,44 operation closures and49 attachments already pass; the
+complete JSON values are equal, while98 object member orders differ. A separate
+fixed echo preserves the exact observed serialized bytes, and guards pin both
+representations without changing the original captured input or any field. The
+original17 assertions and all runtime cases/counts remain unchanged. The complete
+candidate passes in13.022 seconds; format and targeted Clippy pass. The complete
+original-source runtime owner also passes in1,090.264 seconds, preserving all10
+original selected runtime conditions and5 failure definedness rejections. Static
+review and the complete repaired gate remain required before T01 completion or T02.
+
+The [fixed-codec request echo repair](verification/retained-csharp-repair/fixed-codec-clauses-repair/verification.json)
+retains a later failure only in the final request serialization. The original
+input uses ASCII Unicode escapes while the actual output uses literal UTF8;
+complete JSON values and nested sidecar strings are identical. A separate fixed
+echo preserves exact output bytes and the original input remains unchanged.
+The full repaired owner passes all six codecs,44 source clauses and21,088 original
+format/composition bit observations in142.775 seconds. All23 original assertions
+and every parser/format/composition case remain unchanged; format and target
+Clippy pass. Static review and the entire repaired gate remain mandatory.
+
+The diagnostic additionally exposes control-history comparisons that span an
+approved metadata refreeze and a later alias-frame extension. The
+[selected interval repair](verification/retained-csharp-repair/control-builtin-throw-repair/verification.json)
+passes all thirteen original owners and all228 complete program comparisons.
+All528 input members are pinned to their exact Git epochs. The original46-assertion
+helper and declaration comparator remain unchanged; five forged inputs reach and
+fail original assertions. A separate unchanged current source owner regenerates
+all eighteen current contexts and retains strict imports, execution metadata/
+bridge checks and all36 JSON/hex golden comparisons. Targeted format and Clippy
+pass. Existing inputs, production/checkers and resource bounds stay unchanged.
+The original and common-after candidate failures remain preserved, and the
+complete repaired gate remains mandatory.
+
 Five frozen inactive specifications own five new conformance vector sets:
 [profile](../../../specs/GO_PRACTICAL_PROFILE_V1.md),
 [foundation](../../../specs/GO_PRACTICAL_FOUNDATION_V1.md),

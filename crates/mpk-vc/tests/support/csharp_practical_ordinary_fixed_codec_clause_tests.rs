@@ -170,6 +170,27 @@ fn csharp_03_t06_w09_fixed_codec_clause_requests() {
         );
     }
 }
+fn serialized_request_golden(original_root: &Path) -> std::path::PathBuf {
+    use sha2::{Digest, Sha256};
+    let original = fs::read(original_root.join("requests.json")).unwrap();
+    assert_eq!(
+        format!("{:x}", Sha256::digest(&original)),
+        "ac456c0cae3e20d48f7f3c0e7eb77e459862dacb01edfd34c144f24f46dc93f9"
+    );
+    let path = Path::new(env!("CARGO_MANIFEST_DIR")).join(
+        "../../develop/migrations/go-practical/t01-w05/retained-csharp/fixed-codec-clause-request-echo/requests.json",
+    );
+    let serialized = fs::read(&path).unwrap();
+    assert_eq!(
+        format!("{:x}", Sha256::digest(&serialized)),
+        "ffbfb9019bc0015f236cdbb5e65f44ca387cd1f29317629bad714d8412bcc73d"
+    );
+    assert_eq!(
+        serde_json::from_slice::<Value>(&original).unwrap(),
+        serde_json::from_slice::<Value>(&serialized).unwrap()
+    );
+    path
+}
 fn output(name: &str, bytes: &[u8]) {
     if let Some(root) = std::env::var_os("MPK_W09_FIXED_CODEC_CLAUSES_OUT") {
         let root = std::path::PathBuf::from(root);
@@ -178,7 +199,12 @@ fn output(name: &str, bytes: &[u8]) {
     } else {
         let root = Path::new(env!("CARGO_MANIFEST_DIR"))
             .join("../../develop/migrations/csharp-03/ordinary-foundation/fixed-codec-clauses");
-        assert_eq!(fs::read(root.join(name)).unwrap(), bytes, "{name}");
+        let path = if name == "requests.json" {
+            serialized_request_golden(&root)
+        } else {
+            root.join(name)
+        };
+        assert_eq!(fs::read(path).unwrap(), bytes, "{name}");
     }
 }
 pub(super) fn alias(name: &str) -> String {

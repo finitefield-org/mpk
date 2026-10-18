@@ -1,0 +1,68 @@
+{
+  "status": "passed",
+  "mode": "normal",
+  "started_at_utc": "2026-10-18T17:58:41.929924+00:00",
+  "command": [
+    "/private/tmp/mpk-t01-w05-json-repair-target/debug/deps/csharp_practical_vc-f5f78b9b819b93a0",
+    "--exact",
+    "ordinary_carriers::public_domain_tests::contract_expression_tests::decimal_clause_tests::csharp_03_t06_w09_decimal_clauses_candidates",
+    "--nocapture"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_TARGET_DIR": "/private/tmp/mpk-t01-w05-json-repair-target",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true"
+  },
+  "unset_environment": [
+    "RUST_MIN_STACK",
+    "MPK_CORE_MAX_STEPS",
+    "MPK_CORE_MAX_SECONDS",
+    "MPK_W09_DECIMAL_CLAUSES_OUT",
+    "MPK_W09_DECIMAL_CLAUSE_RESPONSES",
+    "MPK_W09_DECIMAL_CLAUSES_RUNTIME_CONTEXTS",
+    "MPK_W09_DECIMAL_CLAUSE_REQUESTS_OUT"
+  ],
+  "prior_environment": {
+    "RUST_MIN_STACK": null,
+    "MPK_CORE_MAX_STEPS": null,
+    "MPK_CORE_MAX_SECONDS": null,
+    "MPK_W09_DECIMAL_CLAUSES_OUT": null,
+    "MPK_W09_DECIMAL_CLAUSE_RESPONSES": null,
+    "MPK_W09_DECIMAL_CLAUSES_RUNTIME_CONTEXTS": null,
+    "MPK_W09_DECIMAL_CLAUSE_REQUESTS_OUT": null
+  },
+  "test_source": {
+    "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_clause_tests.rs",
+    "sha256": "44cefa6b2cdfa7af673819a1fbad9fe7ccfc14828cab541ef25b7fb35c7fa5f7",
+    "bytes": 21332
+  },
+  "build": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/decimal-clauses-repair/build-repaired-path/result.json",
+    "sha256": "5f6e4bca68f6caeeac8ee038f9cd48696f5b00a60ab233aaaaf5ef20057dec0f",
+    "bytes": 2155
+  },
+  "binary": {
+    "path": "/private/tmp/mpk-t01-w05-json-repair-target/debug/deps/csharp_practical_vc-f5f78b9b819b93a0",
+    "sha256": "fccfbf02a863673df9f8c7dd3860e339a18e3d88abc1f4b3b83cb649c759b220",
+    "bytes": 41035592
+  },
+  "selection_reason": "All nine contexts, 44 operation closures, 49 attachments, full component JSON/certificate byte goldens and existing strict import/mutation checks share this final input echo helper. Runtime cases and their counts are byte unchanged; the mandatory complete repaired gate executes the original-source runtime owner. Do not repeat those expensive unchanged probes as a separate intermediate suite.",
+  "full_gate": "Deferred to the mandatory entire repaired T01 gate. This selected run does not complete W05/T01 or permit T02.",
+  "pid": 62944,
+  "exit_code": 0,
+  "wall_seconds": 13.022333874949254,
+  "finished_at_utc": "2026-10-18T17:58:54.952917+00:00",
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/decimal-clauses-repair/normal/stdout.log",
+    "sha256": "f37d1ee7cb6651ee69788b4767d8541d3587da3430218b7d29313c6d32a3c9e7",
+    "bytes": 261
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/decimal-clauses-repair/normal/stderr.log",
+    "sha256": "b29329012d9311a292ba3120f319c42f6307673a5c4ec9024292cca877b76dea",
+    "bytes": 465
+  },
+  "expected_one_test_passed": true
+}

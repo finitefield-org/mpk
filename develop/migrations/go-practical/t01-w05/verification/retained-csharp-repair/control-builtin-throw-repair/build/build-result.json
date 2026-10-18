@@ -1,0 +1,57 @@
+{
+  "status": "passed",
+  "source_base_commit": "e8ceb3c1fd8501e1fe774289091f188cdc8fdc65",
+  "started_at_utc": "2026-10-18T16:13:26.925415+00:00",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "csharp_practical_vc",
+    "--no-run",
+    "--message-format=json"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_TARGET_DIR": "/private/tmp/mpk-t01-w05-json-repair-target",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true"
+  },
+  "RUST_MIN_STACK": "unset",
+  "inputs": [
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_edge_tests.rs",
+      "sha256": "b7dd63d21d97a1b1ae05c3456395595f0a3626ef94f2710563092d08ae7b59b6",
+      "bytes": 151531
+    }
+  ],
+  "selection_reason": "The original control preservation helper compares metadata from different source epochs and five later alias-frame transitions. Change only its fixed historical after-input selection and add complete byte pins; retain all13 original owners, all228 program comparisons and the entire original assertion body. Build only the owning integration target.",
+  "exit_code": 0,
+  "wall_seconds": 71.1046237499686,
+  "finished_at_utc": "2026-10-18T16:14:38.030783+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-builtin-throw-repair/build/build.stdout.jsonl",
+    "sha256": "692fb32ada7cbdd334295e4d13f8eef1ced3072cc2eec06a4d489736f9f44974",
+    "bytes": 30425
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-builtin-throw-repair/build/build.stderr.log",
+    "sha256": "ddf1417370955e425b0a0209a4c2949588af1996402e73a8db1210eee293f094",
+    "bytes": 146
+  },
+  "executable": {
+    "path": "/private/tmp/mpk-t01-w05-json-repair-target/debug/deps/csharp_practical_vc-f5f78b9b819b93a0",
+    "sha256": "19bbab636e25a6abbda16b45217f74ae5c24d513f319086fb62c770f30473d69",
+    "bytes": 41034920
+  },
+  "profile": {
+    "opt_level": "1",
+    "debuginfo": 2,
+    "debug_assertions": true,
+    "overflow_checks": true,
+    "test": true
+  }
+}
