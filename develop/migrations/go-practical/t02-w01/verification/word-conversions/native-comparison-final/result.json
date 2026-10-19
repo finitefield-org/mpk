@@ -1,0 +1,55 @@
+{
+  "schema": "mpk.go_practical.word_conversions_native_comparison.v1",
+  "status": "passed",
+  "observed_at_utc": "2026-10-19T20:30:02.960875+00:00",
+  "native_execution": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-conversions/native/result.json",
+    "sha256": "4466cc5d0b09cf7b446923776552055d87319bf2f43dad9fd21e117a3afb6297",
+    "bytes": 6123
+  },
+  "query_origins": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-conversions/query-origins.json",
+    "sha256": "7dc2f2becdfec598da29682fb3a5ed23217a5d8542cdb1ee938cd0354fa7cf37",
+    "bytes": 4837
+  },
+  "Rust_execution": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-conversions/final/rust-tests/result.json",
+    "sha256": "5a06f9c12ea9c03931d29862509d57638a0758097871303a77a53c8ade92cd0c",
+    "bytes": 66495
+  },
+  "certificate": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-conversions/final/rust-tests/model/certificate.mpcert",
+    "sha256": "d8453a91807c0add99575b7b76a18cb9bf3e65d78895b5c8d4a5f75c1dcc09a1",
+    "bytes": 483095
+  },
+  "actual_Bool_model": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-conversions/final/rust-tests/model/model.json",
+    "sha256": "06417dd7360a4057cf1731d501c25e65323f740b9f25f258d7146a6e250c832c",
+    "bytes": 133730
+  },
+  "model_metrics": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-conversions/final/rust-tests/model/metrics.json",
+    "sha256": "63b36bcf2b9f5402a5d73f7720d56cbce9d5aa7f012f63e466eeb40d87cd30f2",
+    "bytes": 1293
+  },
+  "independent_integer_oracle": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-conversions/native-comparison-final/independent-integer-oracle.json",
+    "sha256": "5ba0bb1094618a1b912d6fa732c4999a3b284fb69486fee98b35c75b362eb151",
+    "bytes": 167523
+  },
+  "original_queries": 256,
+  "actual_source_conversion_results": 256,
+  "actual_count_normalizations": 256,
+  "defined_counts": 192,
+  "actual_false_signed_count_guards": 64,
+  "signed_exact_type_cases": 80,
+  "unsigned_exact_type_cases": 80,
+  "prepared_image_files": 5577,
+  "two_native_outputs_identical": true,
+  "Nat_Int_masks_ratios_quotients_or_theorem_bodies_executed": false,
+  "scope": "All32 operations retain all256 original complete rows. Actual decoded Bool conversion/sign/To64/count guards match actual typed Go conversions and real negative-count panics. Python uses arbitrary-precision modular casts, quotient by integer division and corrections by exact signed differences, independently of the product/mask proof recipe. Exactness flags identify theorem applicability by types, not an iff predicate over finite inputs. Nat/Int/ratio/quotient/mask/theorem bodies and variable shift source bodies do not execute in the Bool model. Both unchanged cores separately check universal conversion/count laws; full variable shifts/source/context/foundation/application/profile binding remains due.",
+  "CSharp_tests_executed": false,
+  "T02_W01_complete": false,
+  "public_profile_activated": false,
+  "full_T02_gate": "deferred to W04: check-fast.sh --skip-csharp"
+}

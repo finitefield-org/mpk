@@ -1,0 +1,142 @@
+{
+  "schema": "mpk.go_practical.fresh_word_conversions_native_observation.v1",
+  "status": "passed",
+  "observed_at_utc": "2026-10-19T20:03:04.069422+00:00",
+  "original_source": {
+    "path": "develop/probes/go-practical/conversion_observer.go",
+    "sha256": "9ca42890941c90ebdb05673aa7d27a10e68010d51f0d896e2d23a488c38dd4d5",
+    "bytes": 5577
+  },
+  "owned_source": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-conversions/native/inputs/conversion_observer.go",
+    "sha256": "9ca42890941c90ebdb05673aa7d27a10e68010d51f0d896e2d23a488c38dd4d5",
+    "bytes": 5577
+  },
+  "original_queries": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-conversions/queries.json",
+    "sha256": "42cae22421cb9724b2c4a0b40e9c3a9846d3de5d82ff224703e98eb5d1b2667c",
+    "bytes": 55363
+  },
+  "owned_queries": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-conversions/native/inputs/queries.json",
+    "sha256": "42cae22421cb9724b2c4a0b40e9c3a9846d3de5d82ff224703e98eb5d1b2667c",
+    "bytes": 55363
+  },
+  "compiler_version": "go version go1.25.0 darwin/arm64",
+  "complete_original_prepared_image": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/compiler-image/captured/selected/prepared-image.json",
+    "sha256": "c6bcb748bf728a999d4edd56fb4cd390f9c1134671990dfd4e35e0c1086cc75d",
+    "bytes": 2574682
+  },
+  "complete_original_image_checks": [
+    {
+      "label": "before fresh empty-cache native compilation",
+      "files": 5577,
+      "original_bytes": 163457770,
+      "seconds": 0.5955498750554398,
+      "status": "passed"
+    },
+    {
+      "label": "after native compilation and both executions",
+      "files": 5577,
+      "original_bytes": 163457770,
+      "seconds": 0.5816970840096474,
+      "status": "passed"
+    }
+  ],
+  "compiler": {
+    "path": "/private/tmp/mpk-go-practical-word-conversions-native-a29xdi2c/image/go/bin/go",
+    "sha256": "c812de5f1e8307431c5bce8ebc4887c180827abc5834a72cd640a8a14200a93b",
+    "bytes": 14117888
+  },
+  "observer_binary": {
+    "path": "/private/tmp/mpk-go-practical-word-conversions-native-a29xdi2c/word-conversions-observer",
+    "sha256": "57f8fec145630fa33ab94e06fb14c1e263b601e214cdec382dce7f17da90ea56",
+    "bytes": 3190754
+  },
+  "build_cache_initially_empty": true,
+  "environment": {
+    "GOROOT": "/private/tmp/mpk-go-practical-word-conversions-native-a29xdi2c/image/go",
+    "GOCACHE": "/private/tmp/mpk-go-practical-word-conversions-native-a29xdi2c/cache",
+    "GOPATH": "/private/tmp/mpk-go-practical-word-conversions-native-a29xdi2c/gopath",
+    "GOMODCACHE": "/private/tmp/mpk-go-practical-word-conversions-native-a29xdi2c/mod",
+    "GOENV": "off",
+    "GOWORK": "off",
+    "GOTOOLCHAIN": "local",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "GOTELEMETRY": "off",
+    "GO111MODULE": "off",
+    "CGO_ENABLED": "0",
+    "GOFLAGS": "",
+    "GOEXPERIMENT": ""
+  },
+  "commands": [
+    {
+      "name": "build",
+      "command": [
+        "/private/tmp/mpk-go-practical-word-conversions-native-a29xdi2c/image/go/bin/go",
+        "build",
+        "-trimpath",
+        "-buildvcs=false",
+        "-o",
+        "/private/tmp/mpk-go-practical-word-conversions-native-a29xdi2c/word-conversions-observer",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/word-conversions/native/inputs/conversion_observer.go"
+      ],
+      "exit_code": 0,
+      "seconds": 3.0718564999988303,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-conversions/native/build.stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-conversions/native/build.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "name": "run1",
+      "command": [
+        "/private/tmp/mpk-go-practical-word-conversions-native-a29xdi2c/word-conversions-observer"
+      ],
+      "exit_code": 0,
+      "seconds": 0.47732279100455344,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-conversions/native/run1.stdout.log",
+        "sha256": "06417dd7360a4057cf1731d501c25e65323f740b9f25f258d7146a6e250c832c",
+        "bytes": 133730
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-conversions/native/run1.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "name": "run2",
+      "command": [
+        "/private/tmp/mpk-go-practical-word-conversions-native-a29xdi2c/word-conversions-observer"
+      ],
+      "exit_code": 0,
+      "seconds": 0.007431167061440647,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-conversions/native/run2.stdout.log",
+        "sha256": "06417dd7360a4057cf1731d501c25e65323f740b9f25f258d7146a6e250c832c",
+        "bytes": 133730
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-conversions/native/run2.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    }
+  ],
+  "two_native_outputs_byte_identical": true,
+  "native_rows": 256,
+  "scope": "All256 original complete conversion rows with actual typed Go signed/unsigned casts and real negative-count shift faults. math/big validates actual truncation, extension masks, both target interpretations and computed modular corrections. Source signed/unsigned widening and all full64 count normalizations observed. Exact fresh5577-file prepared compiler image, empty cache and two byte-identical outputs. Finite observations supply no universal proof, source/application binding or Linux release gate.",
+  "CSharp_tests_executed": false,
+  "public_profile_activated": false,
+  "full_T02_gate": "deferred to W04: check-fast.sh --skip-csharp"
+}

@@ -1,0 +1,20 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error[E0382]: borrow of moved value: `x`
+   --> crates/mpk-vc/src/go_practical_ordinary/word_numeric/conversions/family.rs:273:39
+    |
+257 |         x: Expr,
+    |         - move occurs because `x` has type `syntax::Expr`, which does not implement the `Copy` trait
+...
+269 |             cv(&format!("{name}.Top"), vec![x]),
+    |                                             - value moved here
+...
+273 |             let e = identity_value(w, x.clone(), r.clone(), e)?.reverse();
+    |                                       ^ value borrowed here after move
+    |
+help: consider cloning the value if the performance cost is acceptable
+    |
+269 |             cv(&format!("{name}.Top"), vec![x.clone()]),
+    |                                              ++++++++
+
+For more information about this error, try `rustc --explain E0382`.
+error: could not compile `mpk-vc` (lib) due to 1 previous error

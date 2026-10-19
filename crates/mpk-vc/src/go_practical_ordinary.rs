@@ -171,6 +171,15 @@ pub struct GoWordSignedDivisionRefinement {
 pub struct GoWordSignedDivisionBounds {
     certificate: Vec<u8>,
 }
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoWordConversions {
+    certificate: Vec<u8>,
+}
+impl GoWordConversions {
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
+}
 impl GoWordSignedDivisionBounds {
     pub fn certificate_bytes(&self) -> &[u8] {
         &self.certificate
@@ -1287,6 +1296,29 @@ pub fn import_go_practical_word_signed_division_bounds(
         return Err(GoOrdinaryError::Limit);
     }
     let expected = generate_go_practical_word_signed_division_bounds()?;
+    if candidate != expected.certificate_bytes() {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    Ok(expected)
+}
+
+/// Prove the actual word conversions and signed shift-count normalization.
+/// Complete source/program/profile binding remains separate work.
+pub fn generate_go_practical_word_conversions() -> Result<GoWordConversions> {
+    let mut builder = range_builder()?;
+    let recipes = word::append_with_recipes(&mut builder)?;
+    word_numeric::append_conversions(&mut builder, &recipes)?;
+    builder.certificate.module = "Mpk.Go.Practical.WordConversions".into();
+    Ok(GoWordConversions {
+        certificate: builder.finish()?,
+    })
+}
+
+pub fn import_go_practical_word_conversions(candidate: &[u8]) -> Result<GoWordConversions> {
+    if candidate.len() > MAX_BYTES {
+        return Err(GoOrdinaryError::Limit);
+    }
+    let expected = generate_go_practical_word_conversions()?;
     if candidate != expected.certificate_bytes() {
         return Err(GoOrdinaryError::Linkage);
     }

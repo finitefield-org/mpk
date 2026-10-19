@@ -9,6 +9,7 @@ use super::{Builder, GoOrdinaryError, Result};
 use std::collections::BTreeMap;
 
 mod arithmetic;
+mod conversions;
 mod division;
 mod order;
 mod signed;
@@ -635,4 +636,19 @@ pub(super) fn append_signed_division_refinement(builder: &mut Builder) -> Result
 
 pub(super) fn append_signed_division_bounds(builder: &mut Builder) -> Result<()> {
     signed_division::append_bounds(builder)
+}
+
+pub(super) fn append_conversions(
+    builder: &mut Builder,
+    recipes: &BTreeMap<String, Expr>,
+) -> Result<()> {
+    let mut numeric = Numeric {
+        builder,
+        recipes,
+        serial: 0,
+    };
+    append_base(&mut numeric)?;
+    arithmetic::append_literal_value_prerequisites(&mut numeric)?;
+    order::append(numeric.builder, recipes)?;
+    conversions::append(numeric.builder)
 }

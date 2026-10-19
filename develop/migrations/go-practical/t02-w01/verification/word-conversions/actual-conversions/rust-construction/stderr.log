@@ -1,0 +1,32 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error[E0624]: method `literal_value_laws` is private
+   --> crates/mpk-vc/src/go_practical_ordinary/word_numeric.rs:651:13
+    |
+651 |     numeric.literal_value_laws()?;
+    |             ^^^^^^^^^^^^^^^^^^ private method
+    |
+   ::: crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/bits.rs:6:5
+    |
+  6 |     pub(super) fn literal_value_laws(&mut self) -> Result<()> {
+    |     --------------------------------------------------------- private method defined here
+
+error[E0382]: borrow of moved value: `x`
+   --> crates/mpk-vc/src/go_practical_ordinary/word_numeric/conversions/family.rs:273:39
+    |
+257 |         x: Expr,
+    |         - move occurs because `x` has type `syntax::Expr`, which does not implement the `Copy` trait
+...
+269 |             cv(&format!("{name}.Top"), vec![x]),
+    |                                             - value moved here
+...
+273 |             let e = identity_value(w, x.clone(), r.clone(), e)?.reverse();
+    |                                       ^ value borrowed here after move
+    |
+help: consider cloning the value if the performance cost is acceptable
+    |
+269 |             cv(&format!("{name}.Top"), vec![x.clone()]),
+    |                                              ++++++++
+
+Some errors have detailed explanations: E0382, E0624.
+For more information about an error, try `rustc --explain E0382`.
+error: could not compile `mpk-vc` (lib) due to 2 previous errors

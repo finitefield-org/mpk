@@ -332,3 +332,33 @@ timestamp. Native build/observations are not repeated. Remaining numeric/source/
 carrier/state/program/bounded 56-family/context/registry/application replay work
 and all 169 application demands remain open. W01 stays In progress, C# tests
 stay skipped and the cumulative T02 gate stays deferred to W04.
+
+The [actual conversion checkpoint](verification/word-conversions/README.md)
+now proves all32 signed/unsigned conversions among8/16/32/64-bit words. Actual
+lower/higher cube values compute the truncation quotient and exact radix ratio;
+computed extension masks give exact zero/sign extension balances. Both target
+integer interpretations have actual-result modular refinements, and signed/
+unsigned widening preserves its respective mathematical value exactly. Actual
+SignedTo64 count guards identify the source sign and provide exact nonnegative
+full64 count values; unsigned64 high-bit counts remain source-defined.
+
+Its1,882 declarations/31,495 terms/483,095 bytes have zero axioms under unchanged
+limits. All888 retained original named identities and complete old arithmetic/
+order raw bytes remain exact;994 declarations are new. Four affected roots,
+strict selected lint/format and172 same-byte streams pass, including170 actual
+type rejections. All256 original full conversion rows, plus their actual To64/
+count guards, agree with fresh typed Go/math-big and independent Python integers.
+There are64 real negative-count panics and192 defined counts. The Bool model
+executes actual circuits with unchanged ceilings; Nat/Int/quotient/ratio/mask/
+theorem and variable-shift bodies do not execute there. Exactness flags identify
+type-level theorem applicability, not an iff over finite observations.
+
+Original compiler/generator/fuel/type failures, complete failed candidates and
+raw/direct prefix diagnostics remain. Shared scalar proofs resolve declaration
+overflow without dropping any converter; small cube/definition/top equalities
+mapped through Value/Nat/Not resolve computed-major proof issues. The helper is
+ignored from creation. No core/fuel/axiom/limit/frozen-input change occurs.
+Variable/signed/right-shift numeric/source laws and all full foundation/context/
+registry/source/application work stay due. All169 application demands remain
+unelaborated, W01 is In progress, C# tests stay skipped and the cumulative T02
+gate stays deferred to W04.

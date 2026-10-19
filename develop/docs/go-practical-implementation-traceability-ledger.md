@@ -29,7 +29,7 @@ after reconciling the intervening shared artifacts and active registry.
 | GO-PRAC-T01-W03 | Complete | Reviewed implementation `9d4e6fb7855a66d9fff309e6dbd9143652ee6e21`; requirement-by-requirement completion audit in section28 |
 | GO-PRAC-T01-W04 | Complete | Commit `68a44416e1b1a6dc3a84587cca784fc4b3a2b862`; exact interfaces, resource bounds, consumer review and historical replay; section58 |
 | GO-PRAC-T01-W05 | Complete under user C# test deferral | Reviewed implementation `4b4c3a01ddfa2377d7ccc0116f128649ff3ec3b1`; amended cumulative gate passes594 tests and all other checks. Completion audit and section78. |
-| GO-PRAC-T02-W01 | In progress | Captured original source/module/archive/compiler/analysis components and fresh ordinary core/Nat/Int/range/word components have scoped evidence. Actual addition, fixed shifts/multiplication, unsigned bounds/order/equality/divisor guards, unsigned division/remainder and signed-product/negation correction/exact-result guards, actual negation/magnitude zero/definedness and signed magnitude/half-range/minimum/sign correspondence now check in both cores. Direct zero proofs assemble the signed-division prerequisites under the unchanged cap. Actual signed quotient/remainder reconstruction, quotient/remainder half bounds and universal zero/minimum-minus-one correction classification now check. Remaining numeric/source laws, complete bounded foundation, private context/registry and authoritative selected source/export replay remain due; sections79–96 and the W01 checkpoint index. |
+| GO-PRAC-T02-W01 | In progress | Captured original source/module/archive/compiler/analysis components and fresh ordinary core/Nat/Int/range/word components have scoped evidence. Actual addition, fixed shifts/multiplication, unsigned bounds/order/equality/divisor guards, unsigned division/remainder and signed-product/negation correction/exact-result guards, actual negation/magnitude zero/definedness and signed magnitude/half-range/minimum/sign correspondence now check in both cores. Direct zero proofs assemble signed-division prerequisites under the unchanged cap; actual signed reconstruction, half bounds and universal zero/minimum-minus-one correction classification check. All32 actual integer conversions and full64 count normalization now check. Variable/signed/right-shift numeric/source laws, complete bounded foundation, private context/registry and authoritative selected source/export replay remain due; sections79–97 and the W01 checkpoint index. |
 | GO-PRAC-T02-W02–W04 | Not started | Selected-function typing/closure, common artifact migration and final scalar/cumulative gate |
 | GO-PRAC-T03–T07 | Not started | Sequential remaining v1 implementation and public release |
 | GO-PRAC-T08–T11 | Not started | Sequential v2 freeze, maps, pointers and public release |
@@ -5416,3 +5416,77 @@ due. All169 application demands stay unelaborated and W01 is In progress. C#
 tests stay skipped; the cumulative T02 gate stays deferred to W04. No whole
 source-program proof, immutable application replay, practical activation or
 native Linux release acceptance is claimed.
+
+## 97. T02-W01 actual conversions and full64 count normalization
+
+The [actual conversion checkpoint](../migrations/go-practical/t02-w01/verification/word-conversions/README.md)
+proves all32 signed/unsigned source word converters among8/16/32/64-bit widths.
+Structural Fill/Ones/mask laws give Msource+Mask=Mtarget and
+U(Extend(x,fill))=U(x)+Mask*Bit(fill). Structural lower source cubes and actual
+higher source values compute Q and Ratio with Mtarget*Ratio=Msource and
+Usource=UactualResult+Mtarget*Q. Actual converter literal bits match these
+structures through the original pointwise/value congruence theorem. Every
+actual result is below its target modulus; no caller quotient or truth flag
+supplies a fact.
+
+Shared NarrowCross/WidenCross and ScalarCorrection ordinary Nat/Int proofs
+relate each source signedness to both actual unsigned/signed target values
+with computed modular corrections. For narrowing, the correction's positive
+part is Q plus target-sign when applicable, and its negative part is
+Ratio*source-sign when applicable. Widening uses target/source signs directly.
+Signed and unsigned source widening preserve their respective mathematical
+values exactly, including identity widths. Wrapping conversions stay defined.
+Actual SignedTo64 count guards equal Not(source top); their actual nonnegative
+guard supplies exact full64 count value. Unsigned To64 always preserves the
+full value; unsigned64 high-bit counts remain defined via the unsigned route.
+Full source count-type binding and variable shift numeric laws remain due.
+
+The complete certificate has1,882 declarations/31,495 terms/483,095 bytes and
+zero axioms under unchanged4096/131072/2097152 limits, leaving2,214 declaration
+slots. All888 retained original named type/body/proof/level/family identities
+and complete original arithmetic/order generator bytes remain exact;994
+conversion declarations are new. No renaming/substitution occurs. Structural
+metadata is diagnostic only; both unchanged cores inspect actual proof terms.
+
+Four affected roots, strict selected Clippy/Rust/Go format and172 same-byte
+streams pass, with two zero-axiom acceptances and170 actual type rejections.
+Controls change ten shared arithmetic laws/premises, all32 source converter
+bodies, all32 unsigned conservation and64 target refinement laws, twenty exact
+widening claims and twelve count claims/premises. An honestly different valid
+component passes both cores but rejects exact owning import. Format/fuel/resource
+outcomes do not count as semantic negatives. All255 frozen inputs remain exact.
+
+All256 original complete conversion rows agree between actual Bool circuits,
+two identical fresh pinned native Go outputs and independent Python modular
+integers. Each original input additionally exercises full64 normalization and
+source-signedness count guards:192 counts are defined and64 real negative-count
+Go shift panics are recovered. Eighty signed and eighty unsigned type-level
+exactness cases hold. Exactness flags denote theorem applicability by types,
+not an iff over finite-input exactness. The Bool model executes actual source/
+result/sign/To64/count guard circuits under unchanged ceilings; host derives
+numeric counterparts. Nat/Int/ratio/quotient/mask/theorem and variable-shift
+bodies do not execute there. Native typed casts/math-big and Python modular
+casts/integer division/exact differences remain separate finite counterparts.
+The full5577-file prepared image passes before/after checks with empty cache.
+
+The original native copied query path fails before image creation/native work;
+its exact runner/copied source/tool diagnostic remain. Only that path is fixed.
+Original Rust private-method/ownership failures and the per-family generator's
+4096-declaration overflow remain with snapshots/raw output. Sharing the scalar
+proof retains every operation inside the cap. Original full FillValue6 candidates
+exhaust normalization fuel in both cores; a cancellation equation alone is
+insufficient. Explicit small cube equalities mapped through Value resolve that
+expansion. Direct prefix diagnostics then identify MaskBalance3To3 and
+W8.UnsignedCountGuard type mismatches. Actual definition/top equalities mapped
+through Nat/Not contexts repair those computed-major recipes. All intended-
+positive failures and complete original candidate/checker observations remain;
+none counts among170 deliberate controls. The diagnostic helper is ignored
+from its creation, with separate listing and selected lint/format evidence.
+No checker/axiom/fuel/artifact limit changes or prefix proof authority are used.
+
+Variable/signed/right-shift numeric/source laws, full carrier/state/program/
+bounded56-family foundation/descriptor/private context/registry and authoritative
+original application source/export/selected-closure replay remain due. All169
+application demands stay unelaborated and W01 is In progress. C# tests stay
+skipped; the cumulative T02 gate stays W04. No complete source-program proof,
+immutable application replay, public activation or native Linux release is claimed.
