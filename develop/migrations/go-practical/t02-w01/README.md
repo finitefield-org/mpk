@@ -283,3 +283,20 @@ minimum/-one observations. The accepted altered SignedDiv definition explicitly
 shows that the prerequisite component does not yet prove signed division.
 Actual signed quotient/remainder laws and all remaining foundation/context/source
 replay work stay due. W01 is In progress; the cumulative T02 gate stays W04.
+
+The [actual signed-refinement checkpoint](verification/word-signed-refinement/README.md)
+now proves actual SignedDiv/SignedRem values against the mathematically signed
+actual magnitude quotient/remainder with ordinary computed modular corrections.
+The actual nonzero divisor guard yields both magnitude and signed mathematical
+reconstruction and the actual unsigned remainder bound. Explicit source operator
+definition theorems bind those results; replacing either signed operator by zero
+now rejects at every width. All 3,483 prior named prerequisites and 166 additional
+original Int proof dependencies keep exact metadata. The 3,897-declaration/
+94,497-term/1,390,896-byte certificate has zero axioms and fits unchanged limits.
+Four affected roots, strict selected lint/format, 62 same-byte paired streams
+with 60 actual type rejections and 160 original-input native/model/integer
+observations pass. Original computed-Xor proof failure/source/raw diagnostics
+remain; explicit Bool-to-Nat equality transport repairs the recipe. Universal
+quotient/half bounds and zero/minimum correction classification remain due,
+alongside the full remaining source/foundation/context/application work.
+W01 is In progress and the cumulative T02 gate stays deferred to W04.

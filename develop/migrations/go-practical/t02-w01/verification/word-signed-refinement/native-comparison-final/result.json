@@ -1,0 +1,59 @@
+{
+  "schema": "mpk.go_practical.actual_signed_refinement_native_comparison.v1",
+  "status": "passed",
+  "observed_at_utc": "2026-10-19T18:56:45.025060+00:00",
+  "native_execution": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-refinement/native/result.json",
+    "sha256": "681fbd4a13810d300ca2ad9e860c1a82ab373d63956fbce938a697973d66cc9c",
+    "bytes": 6203
+  },
+  "query_origins": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-refinement/query-origins.json",
+    "sha256": "bc10c9fbee79f89e668c5a4c7ef888dc52eeacc31313e277b8ed949c8e55da63",
+    "bytes": 2690
+  },
+  "certificate": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-refinement/final/rust-tests/model/certificate.mpcert",
+    "sha256": "a38c1903fb7add8bf7156b484d747612b52a985899227453a772f3a3b6498487",
+    "bytes": 1390896
+  },
+  "actual_Bool_model": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-refinement/final/rust-tests/model/model.json",
+    "sha256": "05db8ebc626d820ed791033e99b3dd33d9f849b0d1d422802d309b47ba466e25",
+    "bytes": 48425
+  },
+  "model_metrics": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-refinement/final/rust-tests/model/metrics.json",
+    "sha256": "3b13b45f319d1132328d17a608133938b31ca54d28e041691d6f041050f5909d",
+    "bytes": 1204
+  },
+  "independent_integer_oracle": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-refinement/native-comparison-final/independent-integer-oracle.json",
+    "sha256": "f5259d21b4558e582ae77c73fe06bd9d6a899124321da4b826b72930cc1d822c",
+    "bytes": 62826
+  },
+  "original_queries": 128,
+  "observations": 160,
+  "generic_sign_choices": 64,
+  "source_operator_queries": 96,
+  "defined_source_results": 88,
+  "source_zero_divisor_faults": 8,
+  "minimum_minus_one_source_cases": 8,
+  "generic_corrections": {
+    "0": 36,
+    "1": 16,
+    "-1": 12
+  },
+  "source_corrections": {
+    "0": 84,
+    "1": 4
+  },
+  "prepared_image_files": 5577,
+  "two_fresh_native_outputs_identical": true,
+  "Nat_Int_correction_or_theorem_bodies_executed": false,
+  "scope": "Actual source words/sign-selection/magnitude quotient and remainder/negated amounts/Boolean guards agree with independent typed Go and integers. Host derives small correction parts from actual decoded flags; native math/big and Python arithmetic validate exact correction equations. The minimum/-one and zero correction classification observed here is finite; its universal proof remains required, as do source/application/foundation release gates.",
+  "CSharp_tests_executed": false,
+  "T02_W01_complete": false,
+  "public_profile_activated": false,
+  "full_T02_gate": "deferred to W04: check-fast.sh --skip-csharp"
+}

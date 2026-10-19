@@ -378,6 +378,12 @@ impl Composer<'_> {
     }
 }
 pub(super) fn signed_division_prerequisites(inputs: &[Certificate]) -> Result<Builder> {
+    signed_division_prerequisites_with_roots(inputs, &[])
+}
+pub(super) fn signed_division_prerequisites_with_roots(
+    inputs: &[Certificate],
+    extra_roots: &[String],
+) -> Result<Builder> {
     let mut index = BTreeMap::new();
     let mut seen: BTreeMap<String, (String, String)> = BTreeMap::new();
     for (s, c) in inputs.iter().enumerate() {
@@ -508,6 +514,7 @@ pub(super) fn signed_division_prerequisites(inputs: &[Certificate]) -> Result<Bu
     ] {
         roots.push(format!("Mpk.Go.Practical.Int.{n}"));
     }
+    roots.extend_from_slice(extra_roots);
     for name in composer.dependency_order(&roots)? {
         composer.declaration(&name)?;
     }

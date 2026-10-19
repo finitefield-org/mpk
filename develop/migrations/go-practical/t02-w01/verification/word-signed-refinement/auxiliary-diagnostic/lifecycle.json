@@ -1,0 +1,35 @@
+{
+  "status": "ignored_by_default_after_all_original_executions_terminal",
+  "observed_at_utc": "2026-10-19T18:59:14.955841+00:00",
+  "before": {
+    "path": "crates/mpk-vc/tests/go_practical_word_signed_refinement_diagnostic.rs",
+    "sha256": "5ae0f55ebcd7ac323748892b49e44c94e9ba9b44f515e7cc12777d67c9206f64",
+    "bytes": 2283
+  },
+  "after": {
+    "path": "crates/mpk-vc/tests/go_practical_word_signed_refinement_diagnostic.rs",
+    "sha256": "e5e42c720fbeeb8ecbac667f8b63e2730459279ad6b0927a64942caa20fd207d",
+    "bytes": 2386
+  },
+  "ignore_attribute": "#[test]\n#[ignore = \"One-off original failed-certificate prefix diagnostic; explicitly select with --ignored.\"]\n",
+  "completed_main_paired_native_records": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-refinement/final/rust-tests/result.json",
+      "sha256": "e1714e601ccc52c1905db13ba9eab561748b37d9ed2738bed9d33aec8f56c964",
+      "bytes": 33395
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-refinement/paired-final/result.json",
+      "sha256": "2248c2de2fcc855363927c07a23890fb8fe86a60d8e1406902eb952fb69567c7",
+      "bytes": 157262
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-refinement/native-comparison-final/result.json",
+      "sha256": "7d4202ecba77aa54bbc8139c6b40183c88fa0a6f958a4e1ae34103a3ea201161",
+      "bytes": 2802
+    }
+  ],
+  "reason": "The standalone helper diagnoses one preserved failed candidate and requires explicit input/output environment. Keep its exact body/source/raw original run, then ignore it by default so normal local gates do not replay the one-off diagnostic or require that environment. The main library/proof/control/model target never compiled this separate test file, though orchestration captured it as an auxiliary input. Only the ignore attribute changes after all original handles terminate. Targeted ignored-test listing/lint/format cover the lifecycle; main proof/model tests are unaffected and are not repeated. Every current/snapshot source remains in strict changed-input scanning; no source exclusion.",
+  "CSharp_tests_executed": false,
+  "full_T02_gate": "deferred to W04: check-fast.sh --skip-csharp"
+}

@@ -13,6 +13,7 @@ mod division;
 mod order;
 mod signed;
 mod signed_bounds;
+mod signed_division;
 mod signed_magnitude;
 mod signed_product;
 mod zero;
@@ -626,4 +627,8 @@ pub(super) fn append_zero(builder: &mut Builder, recipes: &BTreeMap<String, Expr
     order::append(numeric.builder, recipes)?;
     signed_product::append_shared_prerequisites(numeric.builder)?;
     zero::append(numeric.builder, &[])
+}
+
+pub(super) fn append_signed_division_refinement(builder: &mut Builder) -> Result<()> {
+    signed_division::append(builder)
 }

@@ -163,6 +163,15 @@ pub struct GoWordZeroFoundation {
 pub struct GoWordSignedDivisionPrerequisites {
     certificate: Vec<u8>,
 }
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoWordSignedDivisionRefinement {
+    certificate: Vec<u8>,
+}
+impl GoWordSignedDivisionRefinement {
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
+}
 impl GoWordSignedDivisionPrerequisites {
     pub fn certificate_bytes(&self) -> &[u8] {
         &self.certificate
@@ -1155,6 +1164,57 @@ pub fn import_go_practical_word_signed_division_prerequisites(
         return Err(GoOrdinaryError::Limit);
     }
     let expected = generate_go_practical_word_signed_division_prerequisites()?;
+    if candidate != expected.certificate_bytes() {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    Ok(expected)
+}
+
+/// Prove actual signed division/remainder against their mathematical magnitudes
+/// with computed modular corrections. Correction classification remains separate.
+pub fn generate_go_practical_word_signed_division_refinement(
+) -> Result<GoWordSignedDivisionRefinement> {
+    let buffers = [
+        generate_go_practical_word_division_foundation()?
+            .certificate_bytes()
+            .to_vec(),
+        generate_go_practical_word_signed_bounds_foundation()?
+            .certificate_bytes()
+            .to_vec(),
+        generate_go_practical_word_zero_foundation()?
+            .certificate_bytes()
+            .to_vec(),
+        generate_go_practical_word_foundation()?
+            .certificate_bytes()
+            .to_vec(),
+    ];
+    let sources = buffers
+        .iter()
+        .map(|b| mpk_cert::decode_canonical_certificate(b).map_err(|_| GoOrdinaryError::Foundation))
+        .collect::<Result<Vec<_>>>()?;
+    let roots = [
+        "Reflexive",
+        "Symmetric",
+        "Transitive",
+        "AddRespects",
+        "MulRespectsLeft",
+        "MulRespectsRight",
+    ]
+    .map(|name| format!("Mpk.Go.Practical.Int.{name}"));
+    let mut builder = composition::signed_division_prerequisites_with_roots(&sources, &roots)?;
+    word_numeric::append_signed_division_refinement(&mut builder)?;
+    builder.certificate.module = "Mpk.Go.Practical.WordSignedDivisionRefinement".into();
+    Ok(GoWordSignedDivisionRefinement {
+        certificate: builder.finish()?,
+    })
+}
+pub fn import_go_practical_word_signed_division_refinement(
+    candidate: &[u8],
+) -> Result<GoWordSignedDivisionRefinement> {
+    if candidate.len() > MAX_BYTES {
+        return Err(GoOrdinaryError::Limit);
+    }
+    let expected = generate_go_practical_word_signed_division_refinement()?;
     if candidate != expected.certificate_bytes() {
         return Err(GoOrdinaryError::Linkage);
     }
