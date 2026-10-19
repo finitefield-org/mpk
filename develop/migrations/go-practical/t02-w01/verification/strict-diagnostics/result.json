@@ -1,0 +1,64 @@
+{
+  "status": "passed",
+  "observed_at_utc": "2026-10-19T07:20:53.058075+00:00",
+  "scope": "Changed scanner seal entries only, all existing fixture controls and the two new Go source files; no whole repository/stage gate and no CSharp test execution.",
+  "matcher_rules": 127,
+  "scopes": 4,
+  "exact_sealed_records_validated": 38,
+  "existing_fixture_checks": "passed",
+  "diagnostic_matches_preserved": {
+    "develop/migrations/go-practical/t02-w01/verification/input-review/changed-inputs-review.json": [
+      "helper-kind-go-source",
+      "helper-kind-go-source"
+    ],
+    "develop/migrations/go-practical/t02-w01/verification/final-input-review/changed-inputs-review.json": [
+      "helper-kind-go-source",
+      "helper-kind-go-source"
+    ]
+  },
+  "mutated_seal_rejections": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/input-review/changed-inputs-review.json",
+      "mutation": "sha256",
+      "status": "rejected"
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/input-review/changed-inputs-review.json",
+      "mutation": "size_bytes",
+      "status": "rejected"
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/input-review/changed-inputs-review.json",
+      "mutation": "source_epoch",
+      "status": "rejected"
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/input-review/changed-inputs-review.json",
+      "mutation": "path",
+      "status": "rejected"
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/final-input-review/changed-inputs-review.json",
+      "mutation": "sha256",
+      "status": "rejected"
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/final-input-review/changed-inputs-review.json",
+      "mutation": "size_bytes",
+      "status": "rejected"
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/final-input-review/changed-inputs-review.json",
+      "mutation": "source_epoch",
+      "status": "rejected"
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/final-input-review/changed-inputs-review.json",
+      "mutation": "path",
+      "status": "rejected"
+    }
+  ],
+  "production_sources_scanned_without_exclusions": 2,
+  "production_or_directory_exclusions_added": false,
+  "full_T02_gate": "deferred to W04: check-fast.sh --skip-csharp"
+}

@@ -1,7 +1,7 @@
 # Go Practical Subset Implementation Work Plan
 
 Status: T01 is complete under the explicit C# test deferral, with594 passing
-tests in `check-fast.sh --skip-csharp`; T02-W01 is ready. The
+tests in `check-fast.sh --skip-csharp`; T02-W01 is in progress. The
 [completion audit](../migrations/go-practical/t01-w05/completion-audit.json)
 and implementation ledger own the current status.
 

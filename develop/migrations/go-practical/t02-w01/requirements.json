@@ -1,0 +1,54 @@
+{
+  "schema": "mpk.go_practical.t02_w01_requirements.v1",
+  "status": "in_progress",
+  "predecessor_completion_commit": "fe1b85cb70c7ea390c02469706d09cdc913f973f",
+  "requirements_source": "develop/docs/09_go_practical_subset_design-todo.md#4-go-prac-t02--captured-modules-and-function-selection",
+  "requirements": [
+    {
+      "id": "T02-W01-R01",
+      "requirement": "Private frozen registry/context/parameters/foundation contracts; retained policy delegation; no installed/public activation",
+      "status": "pending",
+      "executor": "go-tools/go2vir/practical_context.go"
+    },
+    {
+      "id": "T02-W01-R02",
+      "requirement": "Immutable multi-capability source snapshots with exact8-kind raw buffers, complete namespaces, limits and rejection of path/symlink/mutable-namespace escape",
+      "status": "partial_source_object_codec_only",
+      "executor": "go-tools/go2vir/practical_capture.go and practical_source.go",
+      "completed_component": "Full final source-object preimage, owned bytes, exact8 kinds, strict JSON, logical paths and per-object/overlay bounds; filesystem authorization and aggregate namespace accounting remain pending."
+    },
+    {
+      "id": "T02-W01-R03",
+      "requirement": "Exact Go1.25.0/Linux amd64 compiler/stdlib/analysis inventory and effective go1.22–go1.25 requirements; reject toolchain fallback",
+      "status": "pending",
+      "executor": "go-tools/go2vir/practical_context.go and practical_capture.go"
+    },
+    {
+      "id": "T02-W01-R04",
+      "requirement": "Exact module graph/versions, go.mod/go.sum/metadata, versioned and capability-bound local replacements, selected-root mapping",
+      "status": "pending",
+      "executor": "go-tools/go2vir/practical_capture.go"
+    },
+    {
+      "id": "T02-W01-R05",
+      "requirement": "Offline original module/archive and Go sum verification; reject missing/stale checksum or snapshot, network/VCS/generation fallback",
+      "status": "pending",
+      "executor": "go-tools/go2vir/practical_capture.go"
+    },
+    {
+      "id": "T02-W01-R06",
+      "requirement": "Original source/export metadata and complete compiler identity; immutable original packages without rewritten/stub source; closed capture for the later verification-closure algorithm",
+      "status": "pending",
+      "executor": "go-tools/go2vir/practical_capture.go, snapshot.go, loader.go"
+    },
+    {
+      "id": "T02-W01-R07",
+      "requirement": "Affected existing Go behavior and independent validation, targeted format/lint/review; fullT02 gate only at W04, CSharp tests deferred by explicit instruction",
+      "status": "partial_source_object_targeted_checks_passed",
+      "executor": "go-tools/go2vir/practical_source_test.go and future capture/context tests",
+      "full_T02_gate": "deferred to T02-W04: check-fast.sh --skip-csharp"
+    }
+  ],
+  "T02_W01_complete": false,
+  "public_profile_activated": false
+}

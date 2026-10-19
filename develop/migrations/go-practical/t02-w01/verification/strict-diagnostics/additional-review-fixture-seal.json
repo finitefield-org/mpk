@@ -1,0 +1,11 @@
+{
+  "new_seal": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/reviewed-inputs/changed-inputs-review.json",
+    "sha256": "3c1dd53a6c80539a4cd971e3e494466e367f3a3cd4975e51bc5bd72c28033ab1",
+    "size_bytes": 60563,
+    "classification": "historical_scan_diagnostic",
+    "source_epoch": "worktree:7b62d1b63b216993ff2aa9111266a353c860d246962f1d77f4bb4d1515a35cfe",
+    "reason": "Exact failed changed-input review before its exclusions delegated the existing scanner configuration and fixture policy. Preserve the historical diagnostic while current code remains scanned under the unchanged matcher definitions."
+  },
+  "scope": "One exact historical review diagnostic; existing scanner/fixture exclusions are delegated by the corrected changed-input reviewer. No production/directory or matcher-scope exemption."
+}

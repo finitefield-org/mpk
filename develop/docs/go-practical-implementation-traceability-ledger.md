@@ -29,7 +29,7 @@ after reconciling the intervening shared artifacts and active registry.
 | GO-PRAC-T01-W03 | Complete | Reviewed implementation `9d4e6fb7855a66d9fff309e6dbd9143652ee6e21`; requirement-by-requirement completion audit in section28 |
 | GO-PRAC-T01-W04 | Complete | Commit `68a44416e1b1a6dc3a84587cca784fc4b3a2b862`; exact interfaces, resource bounds, consumer review and historical replay; section58 |
 | GO-PRAC-T01-W05 | Complete under user C# test deferral | Reviewed implementation `4b4c3a01ddfa2377d7ccc0116f128649ff3ec3b1`; amended cumulative gate passes594 tests and all other checks. Completion audit and section78. |
-| GO-PRAC-T02-W01 | Ready | T01 completion audit opens private context and immutable dependency capture implementation. |
+| GO-PRAC-T02-W01 | In progress | Final source-object/owned-byte component passes8 root tests and26 subtests, vet and format. Private contexts and complete module/snapshot/export capture remain pending; section79. |
 | GO-PRAC-T02–T07 | Not started | Sequential v1 implementation and public release |
 | GO-PRAC-T08–T11 | Not started | Sequential v2 freeze, maps, pointers and public release |
 
@@ -4669,3 +4669,42 @@ private contexts and immutable capture with real module/replacement/export/
 compiler identities and explicit rejection of escape, stale data, network and
 toolchain fallback. Native Linux release acceptance remains owned by T07/T11,
 and the complete T01–T11 objective remains open.
+
+## 79. T02-W01 entry and final source-object executor
+
+T02-W01 starts from T01 completion commit
+`fe1b85cb70c7ea390c02469706d09cdc913f973f`. Its [full requirement matrix](../migrations/go-practical/t02-w01/requirements.json)
+keeps private context contracts, real dependency/module/replacement capture,
+source/export/compiler identities, immutable namespaces and all required
+escape/stale/network/toolchain rejection cases pending until implemented.
+
+The first [executor component](../../go-tools/go2vir/practical_source.go)
+constructs the final complete source-object identity from independently owned
+original bytes. It accepts only the eight frozen kinds, including `go_file`,
+and rejects preceding candidate tags. Strict import checks all seven members,
+exact original data and identity, integer/null/Boolean distinction, normalized
+logical paths and file/overlay byte boundaries. Returned metadata/byte copies
+cannot mutate the stored source. This supplies no source/compiler/module/proof
+authority and does not activate the public profile.
+
+[Targeted verification](../migrations/go-practical/t02-w01/verification.json)
+passes eight root tests and26 subtests in4.302 seconds, package vet in0.929
+seconds and changed-file format in0.014 seconds with pinned Go1.25.0. Existing
+shared canonical/strict JSON and public-profile argument consumers are selected
+because the new component calls those codecs and must preserve public admission.
+A first shared-cache setup failure happens before tests; isolated writable
+caches pass with network/toolchain fallback disabled and vendored dependencies.
+No C# tests execute. No full gate is run during this intermediate W; the
+cumulative T02 gate remains deferred to W04 as required. W01 remains In progress.
+
+The unchanged strict source reviewer rejects two obsolete-kind literals in the
+initial negative tests. The corrected conformance test reads the exact original
+negative source object specified by the final frozen catalog and checks the
+fixture SHA before rejecting both its kind and complete record. Historical
+graphs stay unchanged. Final targeted tests/vet/format pass. Three exact failed
+diagnostics are sealed by path/hash/size/class/source epoch under the existing
+historical policy; all127 matcher definitions/four scopes and36 previous seals
+remain. Twelve altered-seal controls, existing fixtures and scanner shell syntax
+pass. No production/directory exemption is added. Original diagnostics remain
+byte-identical. Disk pressure is resolved by deleting only24GiB of ignored Rust
+incremental cache; sources, executables and verification records stay retained.

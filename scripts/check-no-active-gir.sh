@@ -206,6 +206,22 @@ EXPECTED_SEALED_RECORDS = {'develop/migrations/csharp-03/ordinary-foundation/ver
                                                       'frozen_private_model',
                                                       'f1ada294ec8d81c424da4ea71627f484993db4cc')}
 
+# Immutable failed diagnostics are history, not an accepted production dialect.
+EXPECTED_SEALED_RECORDS.update({'develop/migrations/go-practical/t02-w01/verification/final-input-review/changed-inputs-review.json': ('3a702ed21ab376692204a2b072053456a238eddecca0cde03ee2a9192257ea77',
+                                                                                                        58326,
+                                                                                                        'historical_scan_diagnostic',
+                                                                                                        'worktree:0aaff41c8e1ab2ae7064a24d9c1f5bc7ca8e23e586ea252013be0925d3011d4a'),
+ 'develop/migrations/go-practical/t02-w01/verification/input-review/changed-inputs-review.json': ('3bd8c1a65b410b50826f5e810a08610f49a7e662480785b88ba829d4aca99a35',
+                                                                                                  55689,
+                                                                                                  'historical_scan_diagnostic',
+                                                                                                  'worktree:1f5a0e2213557f65b50dc5c61fd88eaade5c3d7db07d479b567fd61aef7a3191')})
+
+# Preserve a fixture-review diagnostic under the same exact-file policy.
+EXPECTED_SEALED_RECORDS.update({'develop/migrations/go-practical/t02-w01/verification/reviewed-inputs/changed-inputs-review.json': ('3c1dd53a6c80539a4cd971e3e494466e367f3a3cd4975e51bc5bd72c28033ab1',
+                                                                                                     60563,
+                                                                                                     'historical_scan_diagnostic',
+                                                                                                     'worktree:7b62d1b63b216993ff2aa9111266a353c860d246962f1d77f4bb4d1515a35cfe')})
+
 DESIGN_PATHS = {
     path for path, activation in EXPECTED_RETAINED_RECORDS.items()
     if activation == "design_status_marker"

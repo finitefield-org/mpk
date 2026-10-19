@@ -416,6 +416,30 @@
       "classification": "frozen_private_model",
       "source_epoch": "f1ada294ec8d81c424da4ea71627f484993db4cc",
       "reason": "Immutable T01 experiment generating the preceding private fixture epoch; not a production validator. Final source-kind vocabulary and fresh source evidence are mandatory in T02."
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/input-review/changed-inputs-review.json",
+      "sha256": "3bd8c1a65b410b50826f5e810a08610f49a7e662480785b88ba829d4aca99a35",
+      "size_bytes": 55689,
+      "classification": "historical_scan_diagnostic",
+      "source_epoch": "worktree:1f5a0e2213557f65b50dc5c61fd88eaade5c3d7db07d479b567fd61aef7a3191",
+      "reason": "Exact original failed scanner diagnostic from before the obsolete-kind negative tests were aligned with the frozen historical fixture. Preserve immutable evidence; current production/tests remain subject to all127 matchers and four scopes."
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/final-input-review/changed-inputs-review.json",
+      "sha256": "3a702ed21ab376692204a2b072053456a238eddecca0cde03ee2a9192257ea77",
+      "size_bytes": 58326,
+      "classification": "historical_scan_diagnostic",
+      "source_epoch": "worktree:0aaff41c8e1ab2ae7064a24d9c1f5bc7ca8e23e586ea252013be0925d3011d4a",
+      "reason": "Exact original failed scanner diagnostic from before the obsolete-kind negative tests were aligned with the frozen historical fixture. Preserve immutable evidence; current production/tests remain subject to all127 matchers and four scopes."
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/reviewed-inputs/changed-inputs-review.json",
+      "sha256": "3c1dd53a6c80539a4cd971e3e494466e367f3a3cd4975e51bc5bd72c28033ab1",
+      "size_bytes": 60563,
+      "classification": "historical_scan_diagnostic",
+      "source_epoch": "worktree:7b62d1b63b216993ff2aa9111266a353c860d246962f1d77f4bb4d1515a35cfe",
+      "reason": "Exact failed changed-input review before its exclusions delegated the existing scanner configuration and fixture policy. Preserve the historical diagnostic while current code remains scanned under the unchanged matcher definitions."
     }
   ]
 }

@@ -1,0 +1,104 @@
+{
+  "status": "passed",
+  "command": [
+    "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/go",
+    "test",
+    "-mod=vendor",
+    "-run",
+    "^(TestPracticalSource.*|TestCanonicalJSONAndDomainHashesMatchSharedVectors|TestStrictJSONRejectsDuplicateAndForbiddenContractOrProtocolInput|TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads)$",
+    "-count=1",
+    "-json",
+    "."
+  ],
+  "cwd": "go-tools/go2vir",
+  "environment": {
+    "GOROOT": "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go",
+    "GOTOOLCHAIN": "local",
+    "GOENV": "off",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "GOTELEMETRY": "off",
+    "GOWORK": "off",
+    "GOCACHE": "/private/tmp/mpk-go-practical-t02-build-cache",
+    "GOPATH": "/private/tmp/mpk-go-practical-t02-gopath",
+    "GOMODCACHE": "/private/tmp/mpk-go-practical-t02-go-mod"
+  },
+  "compiler_version": "go version go1.25.0 darwin/arm64",
+  "compiler": {
+    "path": "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/go",
+    "sha256": "c812de5f1e8307431c5bce8ebc4887c180827abc5834a72cd640a8a14200a93b",
+    "bytes": 14117888
+  },
+  "sources": [
+    {
+      "path": "go-tools/go2vir/practical_source.go",
+      "sha256": "a6d1a5e93c682d698fcdf522e29e84cd1b502551922b850924eccc8fec60fbec",
+      "bytes": 5146
+    },
+    {
+      "path": "go-tools/go2vir/practical_source_test.go",
+      "sha256": "995a30a9343858bfc6c7dbcfd08875a504b389eaa52f4b011d6aa27663d88548",
+      "bytes": 8809
+    }
+  ],
+  "frozen_contract": {
+    "path": "develop/migrations/go-practical/t01-w05/source-kind/catalog.json",
+    "sha256": "1ddbd93204546f227c43dc7729d3547b56abe2a5870a4a418e1d424806b38219",
+    "bytes": 2858
+  },
+  "selection_reason": "New private source-object/owned-byte codec, complete frozen preimage, all8 source kinds, path/byte limits and malformed/forged records. Retain affected shared canonical/strict JSON and existing public-profile argument boundaries. Vet and format cover both new Go files. No CSharp tests; no T02 full gate during intermediate W01.",
+  "full_T02_gate": "deferred to T02-W04; use check-fast.sh --skip-csharp",
+  "T02_W01_complete": false,
+  "started_at_utc": "2026-10-19T07:14:31.109164+00:00",
+  "exit_code": 0,
+  "wall_seconds": 4.30182887497358,
+  "finished_at_utc": "2026-10-19T07:14:35.412574+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/source-object/final/selected/stdout.log",
+    "sha256": "3abd6b77f9da4ce11b3b8811f138a9cbf9e1b3d318dff1e8fede8bc4dc533b06",
+    "bytes": 35079
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/source-object/final/selected/stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "root_tests_passed": [
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads",
+    "TestCanonicalJSONAndDomainHashesMatchSharedVectors",
+    "TestStrictJSONRejectsDuplicateAndForbiddenContractOrProtocolInput",
+    "TestPracticalSourceFinalFrozenVector",
+    "TestPracticalSourceOwnsExactOriginalBytes",
+    "TestPracticalSourceRejectsForgedRecordsAndOldKinds",
+    "TestPracticalSourcePathsKindsAndLimits",
+    "TestPracticalSourceDoesNotActivateInstalledProfile"
+  ],
+  "subtests_passed": [
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/no_default_profile_or_target",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/wrong_command",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/wrong_profile",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/wrong_target",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/missing_profile",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/missing_target",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/reordered_singleton",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/duplicate_singleton",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/unknown_trailing_argument",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/uppercase_digest",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/nonportable_contract",
+    "TestStrictJSONRejectsDuplicateAndForbiddenContractOrProtocolInput/duplicate_protocol_key",
+    "TestStrictJSONRejectsDuplicateAndForbiddenContractOrProtocolInput/duplicate_contract_key",
+    "TestStrictJSONRejectsDuplicateAndForbiddenContractOrProtocolInput/float",
+    "TestStrictJSONRejectsDuplicateAndForbiddenContractOrProtocolInput/exponent",
+    "TestStrictJSONRejectsDuplicateAndForbiddenContractOrProtocolInput/integer_over_maximum",
+    "TestStrictJSONRejectsDuplicateAndForbiddenContractOrProtocolInput/lone_high_surrogate",
+    "TestStrictJSONRejectsDuplicateAndForbiddenContractOrProtocolInput/lone_low_surrogate",
+    "TestStrictJSONRejectsDuplicateAndForbiddenContractOrProtocolInput/second_value",
+    "TestPracticalSourceRejectsForgedRecordsAndOldKinds/missing_schema",
+    "TestPracticalSourceRejectsForgedRecordsAndOldKinds/missing_id",
+    "TestPracticalSourceRejectsForgedRecordsAndOldKinds/missing_capability",
+    "TestPracticalSourceRejectsForgedRecordsAndOldKinds/missing_path",
+    "TestPracticalSourceRejectsForgedRecordsAndOldKinds/missing_kind",
+    "TestPracticalSourceRejectsForgedRecordsAndOldKinds/missing_raw_sha256",
+    "TestPracticalSourceRejectsForgedRecordsAndOldKinds/missing_bytes"
+  ]
+}
