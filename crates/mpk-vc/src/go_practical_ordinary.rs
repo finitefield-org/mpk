@@ -146,6 +146,15 @@ pub struct GoWordDivisionFoundation {
 pub struct GoWordSignedProductFoundation {
     certificate: Vec<u8>,
 }
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoWordSignedMagnitudeFoundation {
+    certificate: Vec<u8>,
+}
+impl GoWordSignedMagnitudeFoundation {
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
+}
 impl GoWordSignedProductFoundation {
     pub fn certificate_bytes(&self) -> &[u8] {
         &self.certificate
@@ -1005,6 +1014,31 @@ pub fn import_go_practical_word_signed_product_foundation(
         return Err(GoOrdinaryError::Limit);
     }
     let expected = generate_go_practical_word_signed_product_foundation()?;
+    if candidate != expected.certificate_bytes() {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    Ok(expected)
+}
+
+/// Compile actual word negation, its exact-result guard and signed magnitudes.
+/// Complete source/program/profile authority remains separate work.
+pub fn generate_go_practical_word_signed_magnitude_foundation(
+) -> Result<GoWordSignedMagnitudeFoundation> {
+    let mut builder = range_builder()?;
+    let recipes = word::append_with_recipes(&mut builder)?;
+    word_numeric::append_signed_magnitude(&mut builder, &recipes)?;
+    builder.certificate.module = "Mpk.Go.Practical.WordSignedMagnitudeFoundation".into();
+    Ok(GoWordSignedMagnitudeFoundation {
+        certificate: builder.finish()?,
+    })
+}
+pub fn import_go_practical_word_signed_magnitude_foundation(
+    candidate: &[u8],
+) -> Result<GoWordSignedMagnitudeFoundation> {
+    if candidate.len() > MAX_BYTES {
+        return Err(GoOrdinaryError::Limit);
+    }
+    let expected = generate_go_practical_word_signed_magnitude_foundation()?;
     if candidate != expected.certificate_bytes() {
         return Err(GoOrdinaryError::Linkage);
     }

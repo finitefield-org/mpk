@@ -244,7 +244,7 @@ impl SignedProduct<'_> {
         self.theorem("ResidualCross", &args, e.then(next)?)?;
         self.reflection_agreement()
     }
-    fn reflection_agreement(&mut self) -> Result<()> {
+    pub(super) fn reflection_agreement(&mut self) -> Result<()> {
         let property = |env: &BTreeMap<&'static str, Expr>| {
             let (a, b) = (env["a"].clone(), env["b"].clone());
             pi(

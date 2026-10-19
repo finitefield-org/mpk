@@ -1,0 +1,33 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error[E0505]: cannot move out of `b` because it is borrowed
+  --> crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_magnitude/natural.rs:82:46
+   |
+19 |         let property = |a: Expr| {
+   |                        --------- borrow of `b` occurs here
+...
+22 |                 eq(nat(), add(a.clone(), b.clone()), m.clone()),
+   |                                          - borrow occurs due to use in closure
+...
+82 |                 ("bound", eq(boolean(), less(b, m), bit(true))),
+   |                                              ^ move out of `b` occurs here
+83 |             ],
+84 |             property(a.clone()),
+   |             -------- borrow later used here
+
+error[E0505]: cannot move out of `m` because it is borrowed
+  --> crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_magnitude/natural.rs:82:49
+   |
+19 |         let property = |a: Expr| {
+   |                        --------- borrow of `m` occurs here
+...
+22 |                 eq(nat(), add(a.clone(), b.clone()), m.clone()),
+   |                                                      - borrow occurs due to use in closure
+...
+82 |                 ("bound", eq(boolean(), less(b, m), bit(true))),
+   |                                                 ^ move out of `m` occurs here
+83 |             ],
+84 |             property(a.clone()),
+   |             -------- borrow later used here
+
+For more information about this error, try `rustc --explain E0505`.
+error: could not compile `mpk-vc` (lib) due to 2 previous errors

@@ -1,0 +1,10 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 37.19s
+     Running tests/go_practical_word_signed_magnitude.rs (target/debug/deps/go_practical_word_signed_magnitude-94e09452745f9f5c)
+
+thread 'actual_signed_magnitude_exact_import_and_named_prerequisite_preservation' (36950039) panicked at crates/mpk-vc/tests/go_practical_word_signed_magnitude.rs:29:5:
+assertion `left == right` failed: word-signed-magnitude-foundation: {"verdict":"rejected","module":null,"declaration_count":null,"axiom_count":null,"hashes":{"export":null,"axiom_report":null,"certificate":"fe4dc608609d57b3d561e921ee606814bd962ee20e54d62785797502174831a0"},"axiom_report":null,"error_code":"KERNEL_CORE_CHECK","error_detail":"{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"278824\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"12084\",\"kind\":\"check_type_mismatch\",\"term_index\":\"11995\"}}"}
+  left: false
+ right: true
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_word_signed_magnitude`

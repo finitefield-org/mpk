@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "command": [
+    "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/gofmt",
+    "-l",
+    "develop/probes/go-practical/signed_magnitude_observer.go"
+  ],
+  "exit_code": 0,
+  "seconds": 0.012870665988884866,
+  "source": {
+    "path": "develop/probes/go-practical/signed_magnitude_observer.go",
+    "sha256": "1cea7c19ca467623cd7cdc59140bfb37a8cc7c4e5581614e4782c5e8e191ac91",
+    "bytes": 3660
+  },
+  "formatter": {
+    "path": "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/gofmt",
+    "sha256": "f8c812fc7e22867e5970a687898cd62d8c15561ccc6800c84ac9fdc6583e4b03",
+    "bytes": 2914768
+  },
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-magnitude/final/go-format/stdout.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-magnitude/final/go-format/stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "selection_reason": "Only the new independent native Go negation/magnitude observer is edited. Original Go application/compiler/checker/old observers stay unchanged.",
+  "CSharp_tests_executed": false,
+  "full_T02_gate": "deferred to W04: check-fast.sh --skip-csharp"
+}

@@ -1,0 +1,45 @@
+{
+  "schema": "mpk.go_practical.signed_magnitude_native_comparison.v1",
+  "status": "passed",
+  "observed_at_utc": "2026-10-19T16:43:25.942529+00:00",
+  "native_execution": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-magnitude/native/result.json",
+    "sha256": "efbb08995c45b1ef0a54549cdb2d3fdb98cd6cfb2cf4bfa626076f0d6bc3bf05",
+    "bytes": 5977
+  },
+  "query_origins": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-magnitude/query-origins.json",
+    "sha256": "43e9a5fc27d62bac69938a7d7ec537e2f18a151c373029413db020c02438ef7e",
+    "bytes": 937
+  },
+  "actual_certificate": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-magnitude/final/rust-tests/model/certificate.mpcert",
+    "sha256": "5f3d83784114bfb471f9a8c305628c15c04e3f3b1398a566d4721c754912c976",
+    "bytes": 666154
+  },
+  "actual_Boolean_model": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-magnitude/final/rust-tests/model/model.json",
+    "sha256": "d69272cd78243f519d70f57b4486349064f02c9046ba5c6a05150875e6e84955",
+    "bytes": 97866
+  },
+  "model_metrics": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-magnitude/final/rust-tests/model/metrics.json",
+    "sha256": "60a78d93d21b0766d786eca8e4bd0a881a73f532e5af7296688de532bc057e6a",
+    "bytes": 811
+  },
+  "independent_integer_oracle": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-magnitude/native-comparison-final/independent-integer-oracle.json",
+    "sha256": "e55640c22d5fd1219570f108f6a1b9c935152a9c11fa1f3b100b2797a2432185",
+    "bytes": 163307
+  },
+  "selected_original_queries": 32,
+  "actual_stages": 960,
+  "exact_negations": 28,
+  "minimum_negation_wrap_cases": 4,
+  "zero_cases": 4,
+  "scope": "Actual decoded Boolean Neg, AbsBits, every complement-plus-one carry and IsZero/DivideDefined agree with two identical fresh typed signed/unsigned Go runs and math/big exact negation/absolute value. Independent Python integers derive carries using divisibility of the original low-bit prefixes, rather than repeating the adder. Host computes both correction parts and the exact-result guard from actual Boolean observations. Nat/correction/guard/theorem bodies are not executed; universal meaning checks separately in both cores. Minimum negation wraps, while its unsigned magnitude is the positive half modulus. No source-program, authoritative immutable application replay or native Linux release claim.",
+  "CSharp_tests_executed": false,
+  "T02_W01_complete": false,
+  "public_profile_activated": false,
+  "full_T02_gate": "deferred to W04: check-fast.sh --skip-csharp"
+}

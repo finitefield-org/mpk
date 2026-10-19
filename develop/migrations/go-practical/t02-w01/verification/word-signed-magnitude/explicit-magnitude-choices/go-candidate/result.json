@@ -1,0 +1,79 @@
+{
+  "status": "direct_candidate_observed",
+  "observed_at_utc": "2026-10-19T16:40:38.392201+00:00",
+  "command": [
+    "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+    "verify",
+    "develop/migrations/go-practical/t02-w01/verification/word-signed-magnitude/explicit-magnitude-choices/rust-construction/certificates/word-signed-magnitude-foundation.mpcert"
+  ],
+  "exit_code": 0,
+  "seconds": 1.4600756659638137,
+  "certificate": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-magnitude/explicit-magnitude-choices/rust-construction/certificates/word-signed-magnitude-foundation.mpcert",
+    "sha256": "5f3d83784114bfb471f9a8c305628c15c04e3f3b1398a566d4721c754912c976",
+    "bytes": 666154
+  },
+  "original_Rust_report": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-magnitude/explicit-magnitude-choices/rust-construction/certificates/word-signed-magnitude-foundation.rust.json",
+    "sha256": "6500149213da2ac0f7809368c02179d7248db04db6617e313184fb51112f4355",
+    "bytes": 610
+  },
+  "unchanged_go_binary": {
+    "path": "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+    "sha256": "33018244ca886f867256330d050077f7630c503529e3dc14ac3365f333c618a6",
+    "bytes": 3239410
+  },
+  "unchanged_go_source_build_evidence": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/core-interfaces/paired/result.json",
+    "sha256": "88ee756b4d9f6a61a1f61670baf626be23c6947d532a25fe3a0a65fa9b0a159a",
+    "bytes": 45747
+  },
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-magnitude/explicit-magnitude-choices/go-candidate/stdout.log",
+    "sha256": "f088686c2f494cead2525dbfb6f2c854857ad293325da6ed1f7e197705beb1f3",
+    "bytes": 356
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-magnitude/explicit-magnitude-choices/go-candidate/stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "Rust_observation": {
+    "verdict": "accepted",
+    "module": "Mpk.Go.Practical.WordSignedMagnitudeFoundation",
+    "declaration_count": 2163,
+    "axiom_count": 0,
+    "hashes": {
+      "export": "6e653d6516d35fa16bff2c9e03d135ddd6849beb5465a7bc1e603525bae1a91d",
+      "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+      "certificate": "f031a68a673245190e77e951c96c454214e7ce94874f07632dc81ec37d523614"
+    },
+    "axiom_report": {
+      "summary": {
+        "core_axiom_count": 0,
+        "builtin_theory_axiom_count": 0,
+        "go_semantics_axiom_count": 0,
+        "external_axiom_count": 0,
+        "total_axiom_count": 0
+      },
+      "entries": [],
+      "declaration_dependencies": []
+    },
+    "error_code": null,
+    "error_detail": null
+  },
+  "Go_observation": {
+    "verdict": "accepted",
+    "module": "Mpk.Go.Practical.WordSignedMagnitudeFoundation",
+    "declaration_count": 2163,
+    "hashes": {
+      "export": "6e653d6516d35fa16bff2c9e03d135ddd6849beb5465a7bc1e603525bae1a91d",
+      "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+      "certificate": "f031a68a673245190e77e951c96c454214e7ce94874f07632dc81ec37d523614"
+    }
+  },
+  "semantic_negative_counted": false,
+  "complete_paired_success_claimed": false,
+  "resource_or_Linux_release_claimed": false,
+  "scope": "One original intended-positive word-signed-magnitude certificate. Preserve both direct outcomes; full paired acceptance still requires both unchanged checkers to accept the same final bytes. A format/fuel/resource failure supplies no semantic negative."
+}

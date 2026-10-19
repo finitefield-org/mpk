@@ -12,6 +12,7 @@ mod arithmetic;
 mod division;
 mod order;
 mod signed;
+mod signed_magnitude;
 mod signed_product;
 
 const PREFIX: &str = "Mpk.Go.Practical.Word.Numeric";
@@ -585,4 +586,21 @@ pub(super) fn append_signed_product(
     append_base(&mut numeric)?;
     arithmetic::append(&mut numeric)?;
     signed_product::append(numeric.builder)
+}
+
+pub(super) fn append_signed_magnitude(
+    builder: &mut Builder,
+    recipes: &BTreeMap<String, Expr>,
+) -> Result<()> {
+    let mut numeric = Numeric {
+        builder,
+        recipes,
+        serial: 0,
+    };
+    append_base(&mut numeric)?;
+    // Keep the established Numeric checkpoint prefix before dependency selection.
+    arithmetic::append_division_prerequisites(&mut numeric)?;
+    order::append(numeric.builder, recipes)?;
+    signed_product::append_shared_prerequisites(numeric.builder)?;
+    signed_magnitude::append(numeric.builder)
 }

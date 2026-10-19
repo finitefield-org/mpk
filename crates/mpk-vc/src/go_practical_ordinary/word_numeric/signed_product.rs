@@ -110,3 +110,9 @@ pub(super) fn append(builder: &mut Builder) -> Result<()> {
     }
     Ok(())
 }
+
+pub(super) fn append_shared_prerequisites(builder: &mut Builder) -> Result<()> {
+    let mut product = SignedProduct { builder, serial: 0 };
+    product.natural_laws()?;
+    product.reflection_agreement()
+}

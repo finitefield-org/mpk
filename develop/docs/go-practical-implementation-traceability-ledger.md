@@ -29,7 +29,7 @@ after reconciling the intervening shared artifacts and active registry.
 | GO-PRAC-T01-W03 | Complete | Reviewed implementation `9d4e6fb7855a66d9fff309e6dbd9143652ee6e21`; requirement-by-requirement completion audit in section28 |
 | GO-PRAC-T01-W04 | Complete | Commit `68a44416e1b1a6dc3a84587cca784fc4b3a2b862`; exact interfaces, resource bounds, consumer review and historical replay; section58 |
 | GO-PRAC-T01-W05 | Complete under user C# test deferral | Reviewed implementation `4b4c3a01ddfa2377d7ccc0116f128649ff3ec3b1`; amended cumulative gate passes594 tests and all other checks. Completion audit and section78. |
-| GO-PRAC-T02-W01 | In progress | Captured original source/module/archive/compiler/analysis components and fresh ordinary core/Nat/Int/range/word components have scoped evidence. Actual addition, fixed shifts/multiplication, unsigned bounds/order/equality/divisor guards, unsigned division/remainder and signed-product correction/exact-result guards now check in both cores. Complete bounded foundation, private context/registry and authoritative selected source/export replay remain due; sections79–91 and the W01 checkpoint index. |
+| GO-PRAC-T02-W01 | In progress | Captured original source/module/archive/compiler/analysis components and fresh ordinary core/Nat/Int/range/word components have scoped evidence. Actual addition, fixed shifts/multiplication, unsigned bounds/order/equality/divisor guards, unsigned division/remainder and signed-product/negation correction/exact-result guards, actual negation/magnitude zero/definedness and signed magnitude correspondence now check in both cores. Complete bounded foundation, private context/registry and authoritative selected source/export replay remain due; sections79–92 and the W01 checkpoint index. |
 | GO-PRAC-T02-W02–W04 | Not started | Selected-function typing/closure, common artifact migration and final scalar/cumulative gate |
 | GO-PRAC-T03–T07 | Not started | Sequential remaining v1 implementation and public release |
 | GO-PRAC-T08–T11 | Not started | Sequential v2 freeze, maps, pointers and public release |
@@ -5161,3 +5161,40 @@ carrier/state/program laws and complete bounded56-family foundation/descriptor/
 registry/context/application capture remain due. All169 application demands stay
 unelaborated and W01 remains In progress. C# tests remain skipped; the cumulative
 T02 gate stays deferred to W04.
+
+## 92. T02-W01 actual signed negation, magnitude and exact-result guard
+
+The [signed magnitude checkpoint](../migrations/go-practical/t02-w01/verification/word-signed-magnitude/README.md)
+proves actual complement-plus-one negation/carry conservation, identifies its
+actual carry with IsZero and preserves actual zero/division guards through
+Neg and AbsBits. Actual zero implies a false sign bit, and a true sign implies
+the actual divisor guard. Balanced-Int signed magnitude corresponds to the
+actual signed input, including the minimum word. Computed signed-negation
+correction proves unconditional wrapped conservation; both exact-result guard
+directions and agreement with actual mathematical Int equality are proved.
+
+The2163-declaration/49,380-term/666,154-byte certificate has zero axioms and
+meets all unchanged frozen limits. All1795 retained named type/body/proof/level/
+family metadata identities match exact prior arithmetic/order/signed-product
+references; prior complete arithmetic/signed-product bytes remain unchanged.
+Four affected roots, strict Clippy/Rust/Go format and all45 current paired
+streams pass: two zero-axiom acceptances and43 actual core type rejections.
+No unrelated prior suite or intermediate full gate repeats.
+
+Actual Boolean Neg/AbsBits/carries/zero/definedness agree with two identical
+fresh pinned native Go runs and independent integers for32 original inputs
+and960 stages. There are28 exact negations, four minimum wraps and four zeros.
+The minimum's unsigned magnitude is the positive half modulus. Unary Nat/
+correction/guard/theorem bodies are not executed by this finite model;
+universal ordinary meanings check independently in both cores. Original
+compiler/proof-recipe failures, source-envelope/annotation qualifications and
+paired-runner positive-label error remain. The corrected matrix revalidates
+43 completed cases and runs only the two missing positives.
+
+Actual magnitude half-range bounds and signed division/remainder, remaining
+numeric/source/carrier/state/program foundation, complete bounded56-family
+assembly/descriptor/private registry/context and authoritative original source/
+export/selected-closure replay remain due. All169 application demands remain
+unelaborated and W01 is In progress. C# tests stay skipped; the cumulative
+T02 gate remains deferred to W04. No source-program proof, immutable application
+replay, practical activation or native Linux release acceptance is claimed.

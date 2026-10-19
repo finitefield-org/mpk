@@ -235,3 +235,18 @@ agree on1440 stages,21 exact products and27 wrapped products. Nat guard/witness
 bodies are checked universally in both cores rather than executed by the finite
 Bool model. Signed division and the remaining foundation/source/context work
 stay due; W01 remains In progress and the cumulative T02 gate stays W04.
+
+The [signed negation/magnitude checkpoint](verification/word-signed-magnitude/README.md)
+now proves actual complement-plus-one carry conservation, actual Neg/AbsBits
+zero/divisor-guard preservation, actual signed magnitude correspondence and
+computed signed-negation correction with both exact-result guard directions.
+Its2163 declarations/49,380 terms/666,154 bytes contain zero axioms and all1795
+retained named prerequisites match established arithmetic/order/signed-product
+references. Four current affected roots, strict Clippy/Rust/Go format and45
+same-byte paired streams pass, including43 actual core type rejections.
+All32 original Neg inputs,960 actual stages, four minimum wraps and four zeros
+agree with two identical fresh native Go outputs and independent integers.
+Original failed construction/observer records remain separately qualified;
+no bound, core rule, axiom, fuel, frozen input or public activation changes.
+Actual magnitude half-range/signed division and complete foundation/context/
+source replay remain due. W01 is In progress and the full T02 gate stays W04.
