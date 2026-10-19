@@ -26,6 +26,8 @@ exit status was not recorded; actual PIDs and tool sessions are absent. It is
 partial evidence and supplies no passing gate. The amended gate writes to a
 new `run/` directory, preserving those original outputs.
 
-The amended cumulative gate remains required before T01 completion and T02.
+The [amended cumulative gate](run/result.json) passed594 tests and all other
+checks in598.171 seconds. The [completion audit](../../completion-audit.json)
+closes T01 under this explicit user scope and opens T02-W01.
 All987 C# application IDs and169 Go demands remain pending. C# validation is
 deferred by the user; Go implementation and its proof obligations remain due.

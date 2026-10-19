@@ -1,0 +1,59 @@
+{
+  "status": "passed",
+  "source_commit": "4b4c3a01ddfa2377d7ccc0116f128649ff3ec3b1",
+  "source_tree": "076e02b74b41b6cf9222f97765b414ee9ff0824c",
+  "command": [
+    "./scripts/check-fast.sh",
+    "--skip-csharp"
+  ],
+  "scope": "Cumulative T01 Go development gate; CSharp tests explicitly deferred by user",
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "RUST_TEST_THREADS": "4"
+  },
+  "unset_environment": [
+    "RUST_MIN_STACK",
+    "MPK_CORE_MAX_STEPS",
+    "MPK_CORE_MAX_SECONDS"
+  ],
+  "amendment": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/go-development-gate/amendment.json",
+    "sha256": "37649f9e0ba525205ea98ae02b0afa83fda07ae4ce69ea38ec3cecd7da38a251",
+    "bytes": 1666
+  },
+  "gate": {
+    "path": "scripts/check-fast.sh",
+    "sha256": "0882301a0d2c935dd16253bf73c1ebac5735b1997c412656ce99bd8eb081a171",
+    "bytes": 2450
+  },
+  "test_router": {
+    "path": "scripts/cargo-test-without-csharp.py",
+    "sha256": "f481651f6ed61bb16dcf5e146885519dc6b713064dafecdbf16574ddd7f1a210",
+    "bytes": 2802
+  },
+  "scanner": {
+    "path": "scripts/check-no-active-gir.sh",
+    "sha256": "14e61e16be3b706e18a2de0842f85f6091eb256d9713924b677e2212a54c3cc1",
+    "bytes": 46705
+  },
+  "selection_reason": "Final W of T01. All remaining workspace targets and shared tests, format, strict scanner, Clippy, CLI build and two accepting/two rejecting fixtures. CSharp dedicated targets/unit/doc test names omitted only under the explicit user amendment.",
+  "native_Linux_installed_release_acceptance": false,
+  "started_at_utc": "2026-10-19T06:48:13.753004+00:00",
+  "pid": 52905,
+  "exit_code": 0,
+  "wall_seconds": 598.1708976250375,
+  "finished_at_utc": "2026-10-19T06:58:11.926696+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/go-development-gate/run/stdout.log",
+    "sha256": "e251c570f823a8c7bf16c127c6827a72ec040302e1d0ad7ce4fd4393769aedb3",
+    "bytes": 68610
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/go-development-gate/run/stderr.log",
+    "sha256": "bc97e7d1a97fbf5f070d225bcf6c006077d5bc38d38e92bfdcabdf4769e9b1bb",
+    "bytes": 10262
+  }
+}

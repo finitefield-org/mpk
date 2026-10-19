@@ -28,7 +28,8 @@ after reconciling the intervening shared artifacts and active registry.
 | GO-PRAC-T01-W02 | Complete | Reviewed implementation commit `fed1cf6047f97b1f73c0fc37c5023e19f4f9f035`; 39 cases reproduced twice |
 | GO-PRAC-T01-W03 | Complete | Reviewed implementation `9d4e6fb7855a66d9fff309e6dbd9143652ee6e21`; requirement-by-requirement completion audit in section28 |
 | GO-PRAC-T01-W04 | Complete | Commit `68a44416e1b1a6dc3a84587cca784fc4b3a2b862`; exact interfaces, resource bounds, consumer review and historical replay; section58 |
-| GO-PRAC-T01-W05 | In progress | Inactive publication and selected repairs pass. User explicitly defers C# tests; cumulative Go development gate uses `check-fast.sh --skip-csharp` before T02. Section77 records the amendment. |
+| GO-PRAC-T01-W05 | Complete under user C# test deferral | Reviewed implementation `4b4c3a01ddfa2377d7ccc0116f128649ff3ec3b1`; amended cumulative gate passes594 tests and all other checks. Completion audit and section78. |
+| GO-PRAC-T02-W01 | Ready | T01 completion audit opens private context and immutable dependency capture implementation. |
 | GO-PRAC-T02–T07 | Not started | Sequential v1 implementation and public release |
 | GO-PRAC-T08–T11 | Not started | Sequential v2 freeze, maps, pointers and public release |
 
@@ -4643,3 +4644,28 @@ counts as no passing gate. No C# application proof is promoted by these results.
 The amended cumulative Go development gate remains pending. T01 is incomplete
 and T02 is unstarted until it passes and T01's completion audit is recorded.
 All987 C# application IDs and169 Go demands remain pending.
+
+## 78. T01 completion under the explicit C# test deferral
+
+The [committed-source Go development gate](../migrations/go-practical/t01-w05/verification/go-development-gate/run/result.json)
+passes in598.171 seconds at implementation `4b4c3a01ddfa2377d7ccc0116f128649ff3ec3b1`.
+All594 selected tests pass, and all16 planned Cargo commands and70 integration
+targets are observed. Format, strict scanner, Clippy, no-workflow check, CLI
+build and two accepting/two rejecting fixtures pass. The37 dedicated C# test
+targets and C# unit/doc names are deferred under section77's explicit user
+instruction. This result supplies no default all-language or C# release pass.
+
+The [current completion audit](../migrations/go-practical/t01-w05/completion-audit.json)
+checks W01–W05 against the work plan. It rechecks all255 frozen design members,
+all five published specifications and five new vector sets, the31-set manifest,
+seven source-model/proof-review inputs and both unchanged installed registries.
+The original targeted publication checks pass. No semantic design decision is
+undefined. The reviewed133-input checkpoint has zero scanner/whitespace/link
+findings. No public profile activates; source semantics and all169 application
+demands remain assigned to T02–T06. All987 C# application IDs remain pending.
+
+T01/W05 is complete under the user amendment. T02-W01 is ready to implement
+private contexts and immutable capture with real module/replacement/export/
+compiler identities and explicit rejection of escape, stale data, network and
+toolchain fallback. Native Linux release acceptance remains owned by T07/T11,
+and the complete T01–T11 objective remains open.

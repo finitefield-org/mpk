@@ -36,7 +36,7 @@
     "targeted_test": "passed"
   },
   "full_gate": {
-    "status": "pending",
+    "status": "passed",
     "command": [
       "./scripts/check-fast.sh",
       "--skip-csharp"
@@ -44,7 +44,14 @@
     "result": "go-development-gate/run/result.json",
     "scope": "GO-PRAC development; CSharp tests explicitly deferred by user",
     "amendment": "go-development-gate/amendment.json",
-    "selected_reason": "Final W of T01; cumulative remaining workspace gate under the explicit user scope amendment. CSharp failures are retained, not counted as passing."
+    "selected_reason": "Final W of T01; cumulative remaining workspace gate under the explicit user scope amendment. CSharp failures are retained, not counted as passing.",
+    "source_commit": "4b4c3a01ddfa2377d7ccc0116f128649ff3ec3b1",
+    "source_tree": "076e02b74b41b6cf9222f97765b414ee9ff0824c",
+    "result_sha256": "4f59dacb4efdaa60631be2761ef6822c30b0715c3d32f21643909b8a30f9048b",
+    "tests_passed": 594,
+    "failed_tests": 0,
+    "wall_seconds": 598.1708976250375,
+    "CSharp_validation_deferred_by_user": true
   },
   "historical_replay_after_publication": {
     "path": "develop/migrations/go-practical/t01-w05/verification/historical-replay-after-publication.json",
@@ -128,7 +135,7 @@
     "old_graph_relabeling_allowed": false
   },
   "source_semantics_proved": false,
-  "status": "selected_repairs_passed_user_CSharp_skip_amendment_Go_development_gate_pending",
+  "status": "T01_complete_under_explicit_CSharp_test_deferral",
   "targeted_results": {
     "path": "develop/migrations/go-practical/t01-w05/verification/targeted-results.json",
     "sha256": "ea675b508555ed889741c5e47bdfc54a02e05f1b258b7b4c26c5d2a446a8ab6a"
@@ -376,5 +383,8 @@
     "CSharp_test_retry_requirements_in_historical_entries": "superseded_for_Go_development",
     "default_full_gate_and_native_release_scope_unchanged": true,
     "amendment": "go-development-gate/amendment.json"
-  }
+  },
+  "T01_complete": true,
+  "T02_started": false,
+  "completion_audit": "../completion-audit.json"
 }

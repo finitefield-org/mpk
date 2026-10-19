@@ -4,8 +4,11 @@ Current routing amendment (2026-10-19): the user explicitly defers C# tests.
 The [Go development gate](verification/go-development-gate/README.md) uses
 `./scripts/check-fast.sh --skip-csharp`; historical C# retry prerequisites below
 are superseded for Go development. Selected repairs now pass, including the
-complete18-context runtime. The amended cumulative gate remains pending before
-T01 completion and T02. C# release validation remains deferred.
+complete18-context runtime. The amended cumulative gate passed594 tests and
+all other checks in598.171 seconds. The [completion audit](completion-audit.json)
+closes T01 and opens T02-W01. C# release validation remains deferred.
+
+## Retained diagnosis before the routing amendment
 
 Entry: W04 completion commit `68a44416e1b1a6dc3a84587cca784fc4b3a2b862`.
 Publication and targeted repairs pass. Cumulative T01 diagnostics exposed

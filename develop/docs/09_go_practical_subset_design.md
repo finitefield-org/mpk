@@ -7,14 +7,15 @@ or public command is activated by this document.
 The implementation sequence is in
 [the companion work plan](09_go_practical_subset_design-todo.md).
 
-T01-W04's design freeze is complete. T01-W05 publishes the inactive
+T01 is complete under the explicit C# test deferral. T01-W05 published the inactive
 [profile](../specs/GO_PRACTICAL_PROFILE_V1.md),
 [ordinary foundation](../specs/GO_PRACTICAL_FOUNDATION_V1.md) and
 [shared artifacts](../specs/GO_PRACTICAL_SHARED_ARTIFACTS_V1.md), with separately
 owned Sort0 Nat/Bool core extensions. The publication and implementation status
 is recorded in the [ledger](go-practical-implementation-traceability-ledger.md).
-The cumulative T01 Go-development gate must pass before T02 implementation
-starts. On 2026-10-19 the user explicitly instructed that C# tests be skipped
+The cumulative T01 Go-development gate passed all594 selected tests and its
+other checks; the [completion audit](../migrations/go-practical/t01-w05/completion-audit.json)
+opens T02 implementation. On 2026-10-19 the user explicitly instructed that C# tests be skipped
 while Go development proceeds. GO-PRAC stage gates therefore use
 `./scripts/check-fast.sh --skip-csharp`; C# validation and release acceptance
 remain deferred, with their existing failures and evidence retained.

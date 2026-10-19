@@ -1,6 +1,12 @@
 # Go Practical Subset Implementation Work Plan
 
-Status: implementation authorized 2026-10-16. T01-W01, W02 and W03 are complete.
+Status: T01 is complete under the explicit C# test deferral, with594 passing
+tests in `check-fast.sh --skip-csharp`; T02-W01 is ready. The
+[completion audit](../migrations/go-practical/t01-w05/completion-audit.json)
+and implementation ledger own the current status.
+
+Historical design-stage notes: implementation was authorized 2026-10-16.
+At the following checkpoint T01-W01, W02 and W03 were complete.
 W03's [completion audit](../migrations/go-practical/t01-w03/completion-audit.json)
 pins reviewed implementation `9d4e6fb7855a66d9fff309e6dbd9143652ee6e21`.
 Its ordinary representations,
