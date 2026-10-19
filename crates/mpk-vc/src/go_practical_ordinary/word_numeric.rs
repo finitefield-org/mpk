@@ -12,6 +12,7 @@ mod arithmetic;
 mod division;
 mod order;
 mod signed;
+mod signed_bounds;
 mod signed_magnitude;
 mod signed_product;
 
@@ -603,4 +604,12 @@ pub(super) fn append_signed_magnitude(
     order::append(numeric.builder, recipes)?;
     signed_product::append_shared_prerequisites(numeric.builder)?;
     signed_magnitude::append(numeric.builder)
+}
+
+pub(super) fn append_signed_bounds(
+    builder: &mut Builder,
+    recipes: &BTreeMap<String, Expr>,
+) -> Result<()> {
+    append_signed_magnitude(builder, recipes)?;
+    signed_bounds::append(builder)
 }

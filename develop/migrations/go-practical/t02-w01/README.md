@@ -250,3 +250,18 @@ Original failed construction/observer records remain separately qualified;
 no bound, core rule, axiom, fuel, frozen input or public activation changes.
 Actual magnitude half-range/signed division and complete foundation/context/
 source replay remain due. W01 is In progress and the full T02 gate stays W04.
+
+The [signed half-bound checkpoint](verification/word-signed-bounds/README.md)
+now proves balanced half/lower-complement/top definitions, actual unsigned
+value decomposition, computed magnitude gap and unconditional half bound,
+strict nonnegative bounds and actual threshold/sign/minimum correspondence.
+Its2683 declarations/58,000 terms/818,605 bytes have zero axioms and preserve
+all2163 prior named declarations plus exact complete signed-magnitude bytes.
+Four affected roots, strict Clippy/Rust/Go format and60 same-byte paired
+streams pass, including58 actual core type rejections. All32 original inputs
+agree on96 actual source/Neg/AbsBits words and96 new Top applications with
+two identical fresh native Go outputs and independent integer counterparts.
+Four minima keep the magnitude high bit; no source input is excluded.
+Original failed compilation/source/raw diagnostics remain. Signed division/
+remainder and complete foundation/context/source replay remain due; W01 is
+In progress and the cumulative T02 gate stays deferred to W04.

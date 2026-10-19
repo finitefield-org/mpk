@@ -1,0 +1,79 @@
+{
+  "status": "direct_candidate_observed",
+  "observed_at_utc": "2026-10-19T17:07:38.251696+00:00",
+  "command": [
+    "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+    "verify",
+    "develop/migrations/go-practical/t02-w01/verification/word-signed-bounds/actual-half-range-and-sign/rust-construction/certificates/word-signed-bounds-foundation.mpcert"
+  ],
+  "exit_code": 0,
+  "seconds": 1.5585910830413923,
+  "certificate": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-bounds/actual-half-range-and-sign/rust-construction/certificates/word-signed-bounds-foundation.mpcert",
+    "sha256": "8895b359ea61393aaf241c82e26366498f06cd12a0645e5ba37e3cbe14c41a31",
+    "bytes": 818605
+  },
+  "original_Rust_report": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-bounds/actual-half-range-and-sign/rust-construction/certificates/word-signed-bounds-foundation.rust.json",
+    "sha256": "59d5c3a6716ef827362aff6c0d948c2f5c3564daf9b82d99445f0ae6656aa3c3",
+    "bytes": 607
+  },
+  "unchanged_go_binary": {
+    "path": "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+    "sha256": "33018244ca886f867256330d050077f7630c503529e3dc14ac3365f333c618a6",
+    "bytes": 3239410
+  },
+  "unchanged_go_source_build_evidence": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/core-interfaces/paired/result.json",
+    "sha256": "88ee756b4d9f6a61a1f61670baf626be23c6947d532a25fe3a0a65fa9b0a159a",
+    "bytes": 45747
+  },
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-bounds/actual-half-range-and-sign/go-candidate/stdout.log",
+    "sha256": "83b86ec55c5c83a2095d4824eacdeb1a66d90796bc2d6445a06cef84e9a77a96",
+    "bytes": 353
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-bounds/actual-half-range-and-sign/go-candidate/stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "Rust_observation": {
+    "verdict": "accepted",
+    "module": "Mpk.Go.Practical.WordSignedBoundsFoundation",
+    "declaration_count": 2683,
+    "axiom_count": 0,
+    "hashes": {
+      "export": "8be05e6e11cd172f475865830eecdc89c70a5dbf2f93eac106d12c7498c0a5fd",
+      "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+      "certificate": "de096662754ff6155328b90849f1946b75fde7860b458219153842c51d29c004"
+    },
+    "axiom_report": {
+      "summary": {
+        "core_axiom_count": 0,
+        "builtin_theory_axiom_count": 0,
+        "go_semantics_axiom_count": 0,
+        "external_axiom_count": 0,
+        "total_axiom_count": 0
+      },
+      "entries": [],
+      "declaration_dependencies": []
+    },
+    "error_code": null,
+    "error_detail": null
+  },
+  "Go_observation": {
+    "verdict": "accepted",
+    "module": "Mpk.Go.Practical.WordSignedBoundsFoundation",
+    "declaration_count": 2683,
+    "hashes": {
+      "export": "8be05e6e11cd172f475865830eecdc89c70a5dbf2f93eac106d12c7498c0a5fd",
+      "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+      "certificate": "de096662754ff6155328b90849f1946b75fde7860b458219153842c51d29c004"
+    }
+  },
+  "semantic_negative_counted": false,
+  "complete_paired_success_claimed": false,
+  "resource_or_Linux_release_claimed": false,
+  "scope": "One original intended-positive word-signed-bounds certificate. Preserve both direct outcomes; full paired acceptance still requires both unchanged checkers to accept the same final bytes. A format/fuel/resource failure supplies no semantic negative."
+}

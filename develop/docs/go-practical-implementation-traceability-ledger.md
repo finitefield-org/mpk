@@ -29,7 +29,7 @@ after reconciling the intervening shared artifacts and active registry.
 | GO-PRAC-T01-W03 | Complete | Reviewed implementation `9d4e6fb7855a66d9fff309e6dbd9143652ee6e21`; requirement-by-requirement completion audit in section28 |
 | GO-PRAC-T01-W04 | Complete | Commit `68a44416e1b1a6dc3a84587cca784fc4b3a2b862`; exact interfaces, resource bounds, consumer review and historical replay; section58 |
 | GO-PRAC-T01-W05 | Complete under user C# test deferral | Reviewed implementation `4b4c3a01ddfa2377d7ccc0116f128649ff3ec3b1`; amended cumulative gate passes594 tests and all other checks. Completion audit and section78. |
-| GO-PRAC-T02-W01 | In progress | Captured original source/module/archive/compiler/analysis components and fresh ordinary core/Nat/Int/range/word components have scoped evidence. Actual addition, fixed shifts/multiplication, unsigned bounds/order/equality/divisor guards, unsigned division/remainder and signed-product/negation correction/exact-result guards, actual negation/magnitude zero/definedness and signed magnitude correspondence now check in both cores. Complete bounded foundation, private context/registry and authoritative selected source/export replay remain due; sections79–92 and the W01 checkpoint index. |
+| GO-PRAC-T02-W01 | In progress | Captured original source/module/archive/compiler/analysis components and fresh ordinary core/Nat/Int/range/word components have scoped evidence. Actual addition, fixed shifts/multiplication, unsigned bounds/order/equality/divisor guards, unsigned division/remainder and signed-product/negation correction/exact-result guards, actual negation/magnitude zero/definedness and signed magnitude/half-range/minimum/sign correspondence now check in both cores. Complete bounded foundation, private context/registry and authoritative selected source/export replay remain due; sections79–93 and the W01 checkpoint index. |
 | GO-PRAC-T02-W02–W04 | Not started | Selected-function typing/closure, common artifact migration and final scalar/cumulative gate |
 | GO-PRAC-T03–T07 | Not started | Sequential remaining v1 implementation and public release |
 | GO-PRAC-T08–T11 | Not started | Sequential v2 freeze, maps, pointers and public release |
@@ -5198,3 +5198,40 @@ export/selected-closure replay remain due. All169 application demands remain
 unelaborated and W01 is In progress. C# tests stay skipped; the cumulative
 T02 gate remains deferred to W04. No source-program proof, immutable application
 replay, practical activation or native Linux release acceptance is claimed.
+
+## 93. T02-W01 actual magnitude half bounds and minimum/sign correspondence
+
+The [signed half-bound checkpoint](../migrations/go-practical/t02-w01/verification/word-signed-bounds/README.md)
+proves balanced half weights, every lower bit/complement and actual top-bit
+value decomposition. Actual magnitude plus a computed ordinary gap equals
+half the word modulus. This yields an unconditional magnitude half bound,
+strict nonnegative value/magnitude bounds and an actual unsigned half/sign
+threshold law. Both directions and Boolean agreement of half magnitude with
+the actual unsigned minimum-input value are proved. The actual magnitude
+sign equals that minimum predicate, preserving its high bit at the minimum.
+
+The2683-declaration/58,000-term/818,605-byte certificate has zero axioms and
+meets all unchanged frozen limits. Every2163 prior named type/body/proof/level/
+family metadata identity and complete signed-magnitude bytes remain exact.
+Four affected roots, strict Clippy/Rust/Go format and all60 same-byte current
+checker streams pass: two zero-axiom acceptances and58 actual core type
+rejections. No unaffected prior suite or intermediate full gate repeats.
+
+Actual Boolean source/Neg/AbsBits words and new Top functions agree with two
+identical fresh pinned native Go runs and independent integer counterparts
+for32 original inputs,96 word observations,2880 word bits and96 Top calls.
+There are four minimum magnitudes, four zeros and16 nonnegative inputs.
+Host recurrences derive Nat scalar counterparts; native Go uses direct masks
+and conditional gaps, while Python uses remainders and half minus absolute
+value. The finite model does not execute unary Nat/range/guard/theorem bodies;
+universal meanings check independently in both cores. Original compilation
+failure/source/raw diagnostics remain; the passing fixed-source construction
+emits exactly the final certificate bytes.
+
+Actual signed division/remainder with the minimum/minus-one case, remaining
+numeric/source/carrier/state/program foundation, bounded56-family descriptor/
+private registry/context and authoritative original source/export/selected-closure
+replay remain due. All169 application demands stay unelaborated and W01 is
+In progress. C# tests stay skipped; the cumulative T02 gate remains W04.
+No source-program proof, immutable application replay, practical activation
+or native Linux release acceptance is claimed.

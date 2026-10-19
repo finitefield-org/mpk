@@ -1,0 +1,47 @@
+{
+  "schema": "mpk.go_practical.signed_bounds_native_comparison.v1",
+  "status": "passed",
+  "observed_at_utc": "2026-10-19T17:15:00.520280+00:00",
+  "native_execution": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-bounds/native/result.json",
+    "sha256": "fae56c2d5d2a8f3d2de5a6de087cbb3675e6529da9f44d04047ed544ba4589fe",
+    "bytes": 6079
+  },
+  "query_origins": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-bounds/query-origins.json",
+    "sha256": "8c28cfc560c3abacb5df30046008fe515cf77d961a89c98d01ad63cc98849715",
+    "bytes": 949
+  },
+  "actual_certificate": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-bounds/final/rust-tests/model/certificate.mpcert",
+    "sha256": "8895b359ea61393aaf241c82e26366498f06cd12a0645e5ba37e3cbe14c41a31",
+    "bytes": 818605
+  },
+  "actual_Boolean_model": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-bounds/final/rust-tests/model/model.json",
+    "sha256": "4aa5f8e6b59d16e14e6409f564e71ab826fc12e9c5f0687f502c07bcb282b40e",
+    "bytes": 12038
+  },
+  "model_metrics": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-bounds/final/rust-tests/model/metrics.json",
+    "sha256": "42994908016c638997ba97341c937871dbbbc10e7216d54545fad9dc4f2fa3e9",
+    "bytes": 1044
+  },
+  "independent_integer_oracle": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-bounds/native-comparison-final/independent-integer-oracle.json",
+    "sha256": "ba84f273be7963261d928a484d23274447a4f397bbd162bc34eef56555b6b8af",
+    "bytes": 15495
+  },
+  "selected_original_queries": 32,
+  "actual_word_observations": 96,
+  "actual_Top_definition_applications": 96,
+  "actual_word_bit_observations": 2880,
+  "minimum_magnitude_cases": 4,
+  "zero_cases": 4,
+  "nonnegative_cases": 16,
+  "scope": "Actual decoded source/Neg/AbsBits word bits and new Top_d functions execute with unchanged Bool-only primitives. Host recurrences derive scalar half/low/complement/gap counterparts. Independent native Go uses typed direct masks and math-big absolute values; independent Python uses remainder/subtraction and half-minus-absolute gap. Universal Nat definitions/bounds/minimum/threshold laws check separately in both cores. No huge unary Nat, theorem execution, source/application proof or Linux release acceptance.",
+  "CSharp_tests_executed": false,
+  "T02_W01_complete": false,
+  "public_profile_activated": false,
+  "full_T02_gate": "deferred to W04: check-fast.sh --skip-csharp"
+}

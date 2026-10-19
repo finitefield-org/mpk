@@ -150,6 +150,15 @@ pub struct GoWordSignedProductFoundation {
 pub struct GoWordSignedMagnitudeFoundation {
     certificate: Vec<u8>,
 }
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoWordSignedBoundsFoundation {
+    certificate: Vec<u8>,
+}
+impl GoWordSignedBoundsFoundation {
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
+}
 impl GoWordSignedMagnitudeFoundation {
     pub fn certificate_bytes(&self) -> &[u8] {
         &self.certificate
@@ -1039,6 +1048,31 @@ pub fn import_go_practical_word_signed_magnitude_foundation(
         return Err(GoOrdinaryError::Limit);
     }
     let expected = generate_go_practical_word_signed_magnitude_foundation()?;
+    if candidate != expected.certificate_bytes() {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    Ok(expected)
+}
+
+/// Compile the actual signed word magnitude's computed gap and half-range bounds.
+/// Complete source/program/profile authority remains separate work.
+pub fn generate_go_practical_word_signed_bounds_foundation() -> Result<GoWordSignedBoundsFoundation>
+{
+    let mut builder = range_builder()?;
+    let recipes = word::append_with_recipes(&mut builder)?;
+    word_numeric::append_signed_bounds(&mut builder, &recipes)?;
+    builder.certificate.module = "Mpk.Go.Practical.WordSignedBoundsFoundation".into();
+    Ok(GoWordSignedBoundsFoundation {
+        certificate: builder.finish()?,
+    })
+}
+pub fn import_go_practical_word_signed_bounds_foundation(
+    candidate: &[u8],
+) -> Result<GoWordSignedBoundsFoundation> {
+    if candidate.len() > MAX_BYTES {
+        return Err(GoOrdinaryError::Limit);
+    }
+    let expected = generate_go_practical_word_signed_bounds_foundation()?;
     if candidate != expected.certificate_bytes() {
         return Err(GoOrdinaryError::Linkage);
     }
