@@ -143,3 +143,13 @@ Clippy and format pass. The initial insufficient embedding-injection proof and
 every original input/diagnostic remain; its initial negative passes are not
 counted. Half-open folds, full representations/operations/source foundation and
 descriptor/private context binding remain due; W01 stays In progress.
+
+The [actual half-open fold checkpoint](verification/range-foundation/README.md)
+adds eight ordinary definitions and31 laws. Bounded/interval preservation needs
+only equality over the actual visited prefix, including semantic equivalence
+for integer sums. Both current checkers agree on17 same-byte cases. Five scoped
+integration roots and a focused stronger typed-control root pass, as do strict
+Clippy and format. Original insufficient observation recipes, observer failures
+and the replaced weaker control remain recorded. Full carrier/source/operation/
+definedness foundation and descriptor/private context binding remain due; W01
+stays In progress and the T02 gate stays deferred to W04.

@@ -1,0 +1,15 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `test` profile [optimized + debuginfo] target(s) in 1m 19s
+     Running tests/go_practical_range_foundation.rs (target/debug/deps/go_practical_range_foundation-82a317b545f017e0)
+
+thread 'bounded_premises_allow_bodies_that_differ_outside_the_visited_prefix' (35977801) panicked at crates/mpk-vc/tests/go_practical_range_foundation.rs:27:5:
+assertion `left == right` failed: bounded-only-premise: {"verdict":"rejected","module":null,"declaration_count":null,"axiom_count":null,"hashes":{"export":null,"axiom_report":null,"certificate":"514c180976387d434cda60c2394a86254394968ff315e7d3d279c3b0d3ff54e9"},"axiom_report":null,"error_code":"KERNEL_CORE_CHECK","error_detail":"{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"63025\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"63040\",\"kind\":\"check_type_mismatch\",\"term_index\":\"62944\"}}"}
+  left: false
+ right: true
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'concrete_half_open_zero_nonempty_equal_and_reversed_intervals_check' (35977803) panicked at crates/mpk-vc/tests/go_practical_range_foundation.rs:27:5:
+assertion `left == right` failed: concrete-intervals: {"verdict":"rejected","module":null,"declaration_count":null,"axiom_count":null,"hashes":{"export":null,"axiom_report":null,"certificate":"9cc5ebb0de1e7ed28b30c6f3fc3d214d940818d5050e6a90d8476690a8d02110"},"axiom_report":null,"error_code":"KERNEL_CORE_CHECK","error_detail":"{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"63232\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"465\",\"kind\":\"check_type_mismatch\",\"term_index\":\"405\"}}"}
+  left: false
+ right: true
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_range_foundation`

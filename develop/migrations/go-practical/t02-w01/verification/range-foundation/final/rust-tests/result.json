@@ -1,0 +1,179 @@
+{
+  "schema": "mpk.go_practical.range_foundation_check.v1",
+  "status": "passed",
+  "started_at_utc": "2026-10-19T11:49:40.611295+00:00",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_range_foundation",
+    "--",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "MPK_GO_RANGE_FOUNDATION_TEST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/range-foundation/final/rust-tests/certificates"
+  },
+  "sources": [
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "80cb1cc5f6f31d96208d90cfe46b901254a7cbe3ee33d20dd92e5169a79f5744",
+      "bytes": 28259
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/syntax.rs",
+      "sha256": "8b1032155302ecb6814b25a5644ec8d469b891a4416f9380127d680c4226f3d6",
+      "bytes": 7852
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/natural.rs",
+      "sha256": "483fb9d5dba921566b448ee5f2551746986e2d4a6c11209b63102a8be4f0a0ec",
+      "bytes": 47316
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/integer.rs",
+      "sha256": "893e2f1295ab018251e3f78458c8827f09c98947f687e2ef11ea828907944c1a",
+      "bytes": 31338
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/polynomial.rs",
+      "sha256": "26eacb5eff9ae9bbeb444e9b66cb77cc07d4e5f6d12172e178a23d3b23e7f756",
+      "bytes": 9618
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/range.rs",
+      "sha256": "1246a6cb1ef83c67d3507f4258956eda6ce92cda5621859dbc68058fb7558dc1",
+      "bytes": 17074
+    },
+    {
+      "path": "crates/mpk-vc/tests/go_practical_range_foundation.rs",
+      "sha256": "c78c1cd9816d0ecfe009c74f818c9b56afd21545b4c6f13cce7316748dc3c272",
+      "bytes": 28589
+    },
+    {
+      "path": "proofs/std/bool/std-bool.hex",
+      "sha256": "88a37f9df68a18bc19d51c0832279ff97a2944fc1676326022269766933ee806",
+      "bytes": 1535
+    },
+    {
+      "path": "proofs/std/eq/std-eq.hex",
+      "sha256": "80d71a2ef388a6ad1dea166cca4bd10d9093d538edc4999743b6fb1ad80d03a1",
+      "bytes": 3069
+    },
+    {
+      "path": "proofs/std/nat/std-nat.hex",
+      "sha256": "65bc5b701561d07b0f675668d942917da23c43606c0cfe0f9edfa113be99f583",
+      "bytes": 743
+    }
+  ],
+  "selection_reason": "Fresh ordinary half-open Forall/Exists/NatSum/IntSum definitions and arbitrary-Nat zero/step/empty/preservation proofs, including actual bounded FoldForall premises and semantic integer equivalence. Scope tests to full actual component, exact import, retained integer hash, concrete empty/nonempty/equal/reversed intervals, actual bounded-only equality of bodies differing outside the visited prefix, ten altered/reencoded fold/law definitions and a forged bounded premise. No caller proof receipt or source-definedness claim. Only affected isolated Rust integration target, strict Clippy and changed-file format; no CSharp tests or broad/intermediate gate, and unchanged core/Go/legacy matrices retained.",
+  "CSharp_tests_executed": false,
+  "full_T02_gate": "deferred to T02-W04: check-fast.sh --skip-csharp",
+  "T02_W01_complete": false,
+  "exit_code": 0,
+  "wall_seconds": 7.734547584084794,
+  "finished_at_utc": "2026-10-19T11:49:48.346497+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/final/rust-tests/stdout.log",
+    "sha256": "080c618c98b03ae2bf58e6bf22335869d540e26b702fc72a80452618f95ea38f",
+    "bytes": 580
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/final/rust-tests/stderr.log",
+    "sha256": "593af7de5d0e805297b7a29d4ee472e032b5b27cb52c6aea531809f955515a96",
+    "bytes": 799
+  },
+  "tests_passed": 5,
+  "certificates": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/final/rust-tests/certificates/bool-reflect-proof.mpcert",
+      "sha256": "6cd9f5bf3410dd652232868eb78e993e5ced53102643ce677f668c159565be5c",
+      "bytes": 169077
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/final/rust-tests/certificates/bounded-intsum-function-equality.mpcert",
+      "sha256": "5ad7c16b8cb5f9b0cae12f692026fc2f5df0d5d6f9862c77591925111db7d6a1",
+      "bytes": 169125
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/final/rust-tests/certificates/bounded-natsum-proof.mpcert",
+      "sha256": "e7d10ea633ee1cd4bc4e898b1b204aeb15f21edd8b4bc5c100ef25578a9b9988",
+      "bytes": 169107
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/final/rust-tests/certificates/bounded-only-premise.mpcert",
+      "sha256": "f5d6c8cb406f1b19a7e18783b23e451ed09edea1a6481d173f469d92823b4109",
+      "bytes": 170616
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/final/rust-tests/certificates/concrete-intervals.mpcert",
+      "sha256": "1e8b897a3fb82865769e9cf14d2d4fc571344559842aec2177ad0e9ff7490c97",
+      "bytes": 192844
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/final/rust-tests/certificates/empty-proof.mpcert",
+      "sha256": "e7bfda6c4e93509ccf54ddd45c688c370fb21b371b635d5bbdbfd239ac91dc63",
+      "bytes": 169085
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/final/rust-tests/certificates/exists-zero.mpcert",
+      "sha256": "7d747a1ab0c543a7079374e6e63e2cedcfbba15152f75b93ac148c6d1b85e41f",
+      "bytes": 169069
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/final/rust-tests/certificates/forall-zero.mpcert",
+      "sha256": "355d41a9fab6ff2f899b7b830adef01c04876a92e7a9732f8080f4670116ce1a",
+      "bytes": 169069
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/final/rust-tests/certificates/forged-bounded-premise.mpcert",
+      "sha256": "207c4266672928a3687b8c47527c839c8a936c91249ecad85e9c376eba0c90cc",
+      "bytes": 169227
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/final/rust-tests/certificates/honest-different-range-component.mpcert",
+      "sha256": "9bdd88bf5d370ca8ce6fbc2df2535329d3eae1bdc15b37d80f2be4eb08eaf18e",
+      "bytes": 169112
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/final/rust-tests/certificates/ignored-lower.mpcert",
+      "sha256": "ce4e945f1f2b56f9bcd8912f90dbff845d92cd802f6d5f7ae18d1ea789ff7b47",
+      "bytes": 169124
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/final/rust-tests/certificates/inclusive-upper.mpcert",
+      "sha256": "09bf7e1c1c87d2de85925ccc4e1ae97c0b378c572e9730fcecae91813c2eea71",
+      "bytes": 169106
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/final/rust-tests/certificates/intsum-body.mpcert",
+      "sha256": "3b3c5a88b54226f1a4fd37625cd6b9bf21a0c822e4c927a81f5fe39d91b25c15",
+      "bytes": 169073
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/final/rust-tests/certificates/natsum-body.mpcert",
+      "sha256": "933725cf3295dfa4b77bfad6c4bb53a0c88a63bb1eaf4f70486b24c0eaec2ef1",
+      "bytes": 169069
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/final/rust-tests/certificates/range-foundation.mpcert",
+      "sha256": "66478faa7870c9a63ebd2fc982b81e82455dbb48606aff16f1728dc64aa54f88",
+      "bytes": 169034
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/final/rust-tests/certificates/retained-integer-basis.mpcert",
+      "sha256": "4da7c73b83dd1209c5712ea031daf013093022fc4cd76ea828b1c8c9632ec625",
+      "bytes": 160569
+    }
+  ]
+}

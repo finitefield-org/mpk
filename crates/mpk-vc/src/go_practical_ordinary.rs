@@ -13,6 +13,7 @@ use sha2::{Digest, Sha256};
 mod integer;
 mod natural;
 mod polynomial;
+mod range;
 mod syntax;
 
 const BOOL: &str = "Std.Bool";
@@ -72,6 +73,17 @@ pub struct GoIntegerFoundation {
 }
 
 impl GoIntegerFoundation {
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoRangeFoundation {
+    certificate: Vec<u8>,
+}
+
+impl GoRangeFoundation {
     pub fn certificate_bytes(&self) -> &[u8] {
         &self.certificate
     }
@@ -735,12 +747,16 @@ pub fn import_go_practical_natural_foundation(candidate: &[u8]) -> Result<GoNatu
 /// Compile balanced mathematical integers with semantic cross-sum equality.
 /// These ordinary library laws do not claim Go source correctness.
 pub fn generate_go_practical_integer_foundation() -> Result<GoIntegerFoundation> {
+    Ok(GoIntegerFoundation {
+        certificate: integer_builder()?.finish()?,
+    })
+}
+
+fn integer_builder() -> Result<Builder> {
     let mut builder = natural_builder()?;
     integer::append(&mut builder)?;
     builder.certificate.module = "Mpk.Go.Practical.IntegerFoundation".into();
-    Ok(GoIntegerFoundation {
-        certificate: builder.finish()?,
-    })
+    Ok(builder)
 }
 
 pub fn import_go_practical_integer_foundation(candidate: &[u8]) -> Result<GoIntegerFoundation> {
@@ -748,6 +764,28 @@ pub fn import_go_practical_integer_foundation(candidate: &[u8]) -> Result<GoInte
         return Err(GoOrdinaryError::Limit);
     }
     let expected = generate_go_practical_integer_foundation()?;
+    if candidate != expected.certificate_bytes() {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    Ok(expected)
+}
+
+/// Compile half-open logical folds and laws about total mathematical bodies.
+/// Source-expression definedness and application proofs remain separate work.
+pub fn generate_go_practical_range_foundation() -> Result<GoRangeFoundation> {
+    let mut builder = integer_builder()?;
+    range::append(&mut builder)?;
+    builder.certificate.module = "Mpk.Go.Practical.RangeFoundation".into();
+    Ok(GoRangeFoundation {
+        certificate: builder.finish()?,
+    })
+}
+
+pub fn import_go_practical_range_foundation(candidate: &[u8]) -> Result<GoRangeFoundation> {
+    if candidate.len() > MAX_BYTES {
+        return Err(GoOrdinaryError::Limit);
+    }
+    let expected = generate_go_practical_range_foundation()?;
     if candidate != expected.certificate_bytes() {
         return Err(GoOrdinaryError::Linkage);
     }

@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/range-foundation/run-paired.py", line 34, in <module>
+    assert inferred=='app' and expected in ['app','pi'],(name,r,go)
+AssertionError: ('intsum-body', {'verdict': 'rejected', 'module': None, 'declaration_count': None, 'axiom_count': None, 'hashes': {'export': None, 'axiom_report': None, 'certificate': '2a30692bd5b9e5a4e30295586fe36bc1922544247b9ae9c88ec024ca4bf0f58a'}, 'axiom_report': None, 'error_code': 'KERNEL_CORE_CHECK', 'error_detail': '{"code":"CORE_TYPE_MISMATCH","location":[{"field":"check"}],"details":{"expected_kind":"const","expected_term_index":"517","inferred_kind":"pi","inferred_term_index":"6146","kind":"check_type_mismatch","term_index":"6236"}}'}, {'verdict': 'rejected', 'error_kind': 'core_check', 'error_detail': 'term 6165 inferred pi but expected const'})

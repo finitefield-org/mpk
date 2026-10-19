@@ -1,0 +1,311 @@
+{
+  "schema": "mpk.go_practical.actual_range_foundation_checkpoint.v1",
+  "status": "component_checks_passed_work_item_in_progress",
+  "observed_at_utc": "2026-10-19T11:59:47.105742+00:00",
+  "entry_commit": "0679c5bfdb4af2a444301e96e434179b195cfc45",
+  "production_sources": [
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "80cb1cc5f6f31d96208d90cfe46b901254a7cbe3ee33d20dd92e5169a79f5744",
+      "bytes": 28259
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/syntax.rs",
+      "sha256": "8b1032155302ecb6814b25a5644ec8d469b891a4416f9380127d680c4226f3d6",
+      "bytes": 7852
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/natural.rs",
+      "sha256": "483fb9d5dba921566b448ee5f2551746986e2d4a6c11209b63102a8be4f0a0ec",
+      "bytes": 47316
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/integer.rs",
+      "sha256": "893e2f1295ab018251e3f78458c8827f09c98947f687e2ef11ea828907944c1a",
+      "bytes": 31338
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/polynomial.rs",
+      "sha256": "26eacb5eff9ae9bbeb444e9b66cb77cc07d4e5f6d12172e178a23d3b23e7f756",
+      "bytes": 9618
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/range.rs",
+      "sha256": "1246a6cb1ef83c67d3507f4258956eda6ce92cda5621859dbc68058fb7558dc1",
+      "bytes": 17074
+    }
+  ],
+  "current_test_source": {
+    "path": "crates/mpk-vc/tests/go_practical_range_foundation.rs",
+    "sha256": "290872726a2054eda37a2b03166953de0ae2e286e56e57acd4ea2dfa6d839650",
+    "bytes": 29925
+  },
+  "standard_raw_inputs": [
+    {
+      "path": "proofs/std/bool/std-bool.hex",
+      "sha256": "88a37f9df68a18bc19d51c0832279ff97a2944fc1676326022269766933ee806",
+      "bytes": 1535
+    },
+    {
+      "path": "proofs/std/eq/std-eq.hex",
+      "sha256": "80d71a2ef388a6ad1dea166cca4bd10d9093d538edc4999743b6fb1ad80d03a1",
+      "bytes": 3069
+    },
+    {
+      "path": "proofs/std/nat/std-nat.hex",
+      "sha256": "65bc5b701561d07b0f675668d942917da23c43606c0cfe0f9edfa113be99f583",
+      "bytes": 743
+    }
+  ],
+  "predecessor_changed_producer": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/predecessor-inputs/crates/mpk-vc/src/go_practical_ordinary.rs",
+    "sha256": "bfd0f06c0747d2dc33bf4507562a5540570f3255e581eac25701d46c0c25de1a",
+    "bytes": 27140
+  },
+  "fresh_component": {
+    "certificate": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/reviewed/rust-tests/certificates/range-foundation.mpcert",
+      "sha256": "66478faa7870c9a63ebd2fc982b81e82455dbb48606aff16f1728dc64aa54f88",
+      "bytes": 169034
+    },
+    "hashes": {
+      "export": "ee57f79f968439e27967da8272e65c400ed0ae3bdcb13731ab036a03e6ad652a",
+      "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+      "certificate": "ddb538b929f4ef0e04d6ac74f119d561e2df132cdba409aa61b0259b99179a70"
+    },
+    "declarations": 748,
+    "terms": 12738,
+    "bytes": 169034,
+    "axioms": 0,
+    "new_definitions": 8,
+    "new_laws": 31,
+    "Boolean_auxiliary_laws": 3,
+    "fold_families": [
+      "Forall",
+      "Exists",
+      "NatSum",
+      "IntSum"
+    ],
+    "laws_per_fold": [
+      "zero",
+      "successor step at lower+index",
+      "same bounds",
+      "conditional empty including reversed bounds",
+      "global pointwise preservation",
+      "preservation under actual bounded FoldForall premise",
+      "interval preservation under actual half-open Forall premise"
+    ],
+    "meaning": "Genuine arbitrary-Nat induction. Total mathematical bodies; interval count is truncated Sub upper lower. Integer sums preserve semantic cross-sum equivalence, never require function equality. No bound on logical Nat/Int and no finite unrolling proves the general laws.",
+    "exact_import": "Regenerate every complete ordinary byte; even valid different components reject exact import.",
+    "retained_integer_basis_hash": "20336bfcfe4ad0e03c81bf38f35d2af86b5cf669496064387d70d58ae1a152e5"
+  },
+  "Rust_roots_covered": {
+    "corrected_full_integration_roots": 5,
+    "additional_focused_typed_control_root": 1,
+    "unaffected_roots_repeated_after_control_strengthening": false,
+    "reason": "Only the integer-fold negative fixture changes after all five corrected roots pass. The separately executed new root checks a well-typed wrong value and its genuine step-law rejection; unchanged positive/other-negative proof bytes remain authoritative."
+  },
+  "same_byte_paired_cases": 17,
+  "zero_axiom_acceptances": 6,
+  "core_type_mismatch_rejections": 11,
+  "concrete_interval_or_sum_observations": 26,
+  "bounded_only_example": {
+    "body": "constant true",
+    "other": "Nat.IsZero",
+    "visited": "index0 in [0,1)",
+    "actual_bounded_premise_proved": true,
+    "Fold_and_interval_preservation_instantiated": true,
+    "outside_index1_results_proved": [
+      "true",
+      "false"
+    ],
+    "global_pointwise_premise_supplied": false
+  },
+  "typed_wrong_value_scope": "A three-argument constant-zero integer fold is accepted only as a typed value. Substituting it into the actual operation fails the required step law; both different components reject exact import. This acceptance is no source/application/fold-correctness claim.",
+  "results": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/initial/rust-tests/result.json",
+      "sha256": "10d5839959c45bf92e6433c4f80c1fef19f0714557d5457bcffcc0e1ac387c4a",
+      "bytes": 4022,
+      "status": "failed",
+      "seconds": 85.71900341694709,
+      "tests_passed": null
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/final/rust-tests/result.json",
+      "sha256": "539246f6ef28f59f104e6eab12cb195fd508bc5d00fc22ab0d1676f520a6da5a",
+      "bytes": 8245,
+      "status": "passed",
+      "seconds": 7.734547584084794,
+      "tests_passed": 5
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/reviewed/rust-tests/result.json",
+      "sha256": "044fad7985586ac81d2f5ac1ef865ee2debef5386f5288200180870fedb33d77",
+      "bytes": 8302,
+      "status": "passed",
+      "seconds": 6.951410999987274,
+      "tests_passed": 5
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/reviewed/clippy/result.json",
+      "sha256": "9cd7fe988a74a8a8087292f3d8da0b5db5685c315508d6aa0499d9684bd30eb6",
+      "bytes": 3831,
+      "status": "passed",
+      "seconds": 23.230431459029205,
+      "tests_passed": null
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/reviewed/format/result.json",
+      "sha256": "80b2a9f8262d6afea75c7e1dd40ea3fa9bfdc14f04970b5821018ae2c9783037",
+      "bytes": 3914,
+      "status": "passed",
+      "seconds": 0.047692625084891915,
+      "tests_passed": null
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/final/rust-control/result.json",
+      "sha256": "738ac5cea4160e659133a32a1a7405e7fe3cdc60475daa2e342e7c592f9b88df",
+      "bytes": 4423,
+      "status": "passed",
+      "seconds": 9.182085165986791,
+      "tests_passed": 1
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/final/clippy/result.json",
+      "sha256": "b91c7f3eb544f65c0fc2d353aed21d36d3fd3cfda67bbe4f58a5740d0a674b06",
+      "bytes": 3825,
+      "status": "passed",
+      "seconds": 2.1178832500008866,
+      "tests_passed": null
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/final/format/result.json",
+      "sha256": "ec2dd0248db2af0ffebba61e927bf4ac2dec414930382024e3b891d3d3f4f3a1",
+      "bytes": 3906,
+      "status": "passed",
+      "seconds": 0.3281979579478502,
+      "tests_passed": null
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/initial/paired-observer-failure/result.json",
+      "sha256": "bc77f4186837c3e7608a8f120af5d52a28657d55d387dae780fec47945b50c52",
+      "bytes": 1709,
+      "status": "observed_expected_observer_failure",
+      "seconds": 0.40769129199907184,
+      "tests_passed": null
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/initial/paired-second-observer-failure/result.json",
+      "sha256": "a2f15db5e443e2e4a0562f699ecc0db56761799c6763b7fcd7411c34e36c3242",
+      "bytes": 1759,
+      "status": "observed_expected_observer_failure",
+      "seconds": 9.284895083983429,
+      "tests_passed": null
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/paired-reviewed/result.json",
+      "sha256": "ad7f38c4f24e39ffd01f74857e8f255fc5d1a2587ba8e535c0491faf0392227e",
+      "bytes": 48230,
+      "status": "passed",
+      "seconds": null,
+      "tests_passed": null
+    }
+  ],
+  "initial_proof_recipe_failures": {
+    "initial_result": "develop/migrations/go-practical/t02-w01/verification/range-foundation/initial/rust-tests/result.json",
+    "all_general_foundation_laws_already_passed": true,
+    "failed_original_candidates": [
+      {
+        "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/initial/rust-tests/certificates/concrete-intervals.mpcert",
+        "sha256": "cc0f569e09c228dbd4606e73be1d2e1cd2702a56cd12d162fdb28f4180c8a0b1",
+        "bytes": 183180
+      },
+      {
+        "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/initial/rust-tests/certificates/bounded-only-premise.mpcert",
+        "sha256": "2b33ffabb03f438a7fc0bf53593d670acdaa7e5670f8143e500cfc2364d451f0",
+        "bytes": 170514
+      }
+    ],
+    "all_exact_source_and_raw_diagnostics_retained": true,
+    "cause": "Observation recipes implicitly rely on beta/recursor conversion underneath computed major arguments. The existing conversion strategy does not supply the missing congruence transports.",
+    "correction": "Explicit ordinary fold-step/body equalities, congruence and transitivity; explicit core-equality-to-integer-equivalence transport. Preserve the actual bounded-only premise and differing outside values.",
+    "source_counterexample_claimed": false,
+    "runtime_checker_changes": false
+  },
+  "review_resolutions": {
+    "formatter_cleanup_byte_equality": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/review/formatter-cleanup-byte-equality.json",
+      "sha256": "868ba5538751de65928f765cd9fd1cd2b23c2c4f2a9a0cab63438525a6913a86",
+      "bytes": 10202
+    },
+    "observer_failures": [
+      {
+        "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/initial/paired-observer-failure/result.json",
+        "sha256": "bc77f4186837c3e7608a8f120af5d52a28657d55d387dae780fec47945b50c52",
+        "bytes": 1709
+      },
+      {
+        "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/initial/paired-second-observer-failure/result.json",
+        "sha256": "a2f15db5e443e2e4a0562f699ecc0db56761799c6763b7fcd7411c34e36c3242",
+        "bytes": 1759
+      }
+    ],
+    "observer_correction": "Require CORE_TYPE_MISMATCH/check_type_mismatch and compare actual Rust inferred/expected kinds against the exact Go message for all seven existing term variants. No numeric term index equality is assumed across independent cores.",
+    "term_kind_sources": [
+      {
+        "path": "crates/mpk-core/src/infer.rs",
+        "sha256": "295c8e141b5545c1444ae43dec8e8dc9cf8735cf8570712891996190cff136b8",
+        "bytes": 44269
+      },
+      {
+        "path": "go-tools/mpk-checker-ref/core_check.go",
+        "sha256": "1fe9acc0f8277c1290dd24ff4af0cde526e9e0e283026192af4c0bd671331a0a",
+        "bytes": 32802
+      }
+    ],
+    "superseded_weaker_control": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/reviewed/rust-tests/certificates/intsum-body.mpcert",
+      "sha256": "3b3c5a88b54226f1a4fd37625cd6b9bf21a0c822e4c927a81f5fe39d91b25c15",
+      "bytes": 169073
+    },
+    "typed_control_source_change": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/review/typed-control-source-change.diff",
+      "sha256": "4551610141367cba9df0dd41d048057f8e1dda2e5cc30a394243993b9ef732ea",
+      "bytes": 2582
+    },
+    "control_correction": "Original generic mutation traversed the exposed result-carrier Pi as a fourth operation binder. New root constructs exactly the three frozen fold arguments, checks the resulting constant-zero value as well typed, then rejects its substitution into the actual fold step laws. Do not count the earlier wrong-arity rejection as this final semantic control."
+  },
+  "manual_review": {
+    "all_counts_unbounded_genuine_Nat": true,
+    "actual_half_open_lower_offset_and_truncated_count": true,
+    "actual_bounded_prefix_premise_no_outside_equality": true,
+    "integer_sum_uses_semantic_equivalence": true,
+    "body_definedness_and_source_correspondence_not_claimed": true,
+    "no_kernel_checker_axiom_opcode_eta_or_fuel_changes": true,
+    "unchanged_integer_component_exact_bytes_hash_checked": true
+  },
+  "selection_reason": "Fresh ordinary half-open Forall/Exists/NatSum/IntSum definitions and arbitrary-Nat zero/step/empty/preservation proofs, including actual bounded FoldForall premises and semantic integer equivalence. Scope tests to full actual component, exact import, retained integer hash, concrete empty/nonempty/equal/reversed intervals, actual bounded-only equality of bodies differing outside the visited prefix, ten altered/reencoded fold/law definitions and a forged bounded premise. No caller proof receipt or source-definedness claim. Only affected isolated Rust integration target, strict Clippy and changed-file format; no CSharp tests or broad/intermediate gate, and unchanged core/Go/legacy matrices retained.",
+  "focused_selection_reason": "Strengthen only the affected integer-fold negative control: separately check the wrong three-argument constant-zero fold as a well-typed value, then show it fails the actual step law when substituted for FoldIntSum. The old control incorrectly included the exposed result-carrier Pi as an extra binder. Run this single new Rust integration root only; retain earlier passing five roots and unchanged production/candidate evidence. No CSharp tests or intermediate full gate.",
+  "unchanged_checks_not_repeated": "Retain passing unchanged core/kernel/Go/legacy unit matrices. Rehash actual unchanged Go binary and every checker input, then verify all affected exact new candidate bytes. After the control-only fixture correction, run only its new Rust root and necessary Clippy/format; retain unchanged original positive/other-negative proof bytes.",
+  "frozen_design_preservation": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/frozen-design-preservation.json",
+    "sha256": "92dc47def75a67e28067a7a1201b3aa81bfe50ee893240d0ce56cdfc4dcc36a6",
+    "bytes": 671
+  },
+  "changed_input_review": "develop/migrations/go-practical/t02-w01/verification/range-foundation/input-review/changed-inputs-review.json",
+  "CSharp_tests_executed": false,
+  "full_T02_gate": "deferred to T02-W04: check-fast.sh --skip-csharp",
+  "T02_W01_complete": false,
+  "public_profile_activated": false,
+  "Go_application_theorem_demands_unelaborated": 169,
+  "source_program_proof_claimed": false,
+  "native_Linux_acceptance_claimed": false,
+  "remaining": [
+    "bounded definedness and partial/source expression semantics",
+    "actual full word/carrier and arithmetic/source bridges",
+    "complete operation/storage/lifetime/program ordinary foundation",
+    "full56-family foundation descriptor/private registry/context authority",
+    "authoritative immutable application capture/replay and complete source/export/closure mapping"
+  ]
+}
