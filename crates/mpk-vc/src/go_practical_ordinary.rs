@@ -10,6 +10,7 @@ use mpk_cert::encode::{
 };
 use sha2::{Digest, Sha256};
 
+mod composition;
 mod dependencies;
 mod integer;
 mod natural;
@@ -153,6 +154,24 @@ pub struct GoWordSignedMagnitudeFoundation {
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct GoWordSignedBoundsFoundation {
     certificate: Vec<u8>,
+}
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoWordZeroFoundation {
+    certificate: Vec<u8>,
+}
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoWordSignedDivisionPrerequisites {
+    certificate: Vec<u8>,
+}
+impl GoWordSignedDivisionPrerequisites {
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
+}
+impl GoWordZeroFoundation {
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
 }
 impl GoWordSignedBoundsFoundation {
     pub fn certificate_bytes(&self) -> &[u8] {
@@ -1073,6 +1092,69 @@ pub fn import_go_practical_word_signed_bounds_foundation(
         return Err(GoOrdinaryError::Limit);
     }
     let expected = generate_go_practical_word_signed_bounds_foundation()?;
+    if candidate != expected.certificate_bytes() {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    Ok(expected)
+}
+
+/// Compile direct actual word zero/positive-divisor correspondence.
+/// Complete source/program/profile authority remains separate work.
+pub fn generate_go_practical_word_zero_foundation() -> Result<GoWordZeroFoundation> {
+    let mut builder = range_builder()?;
+    let recipes = word::append_with_recipes(&mut builder)?;
+    word_numeric::append_zero(&mut builder, &recipes)?;
+    builder.certificate.module = "Mpk.Go.Practical.WordZeroFoundation".into();
+    Ok(GoWordZeroFoundation {
+        certificate: builder.finish()?,
+    })
+}
+pub fn import_go_practical_word_zero_foundation(candidate: &[u8]) -> Result<GoWordZeroFoundation> {
+    if candidate.len() > MAX_BYTES {
+        return Err(GoOrdinaryError::Limit);
+    }
+    let expected = generate_go_practical_word_zero_foundation()?;
+    if candidate != expected.certificate_bytes() {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    Ok(expected)
+}
+
+/// Compose the complete checked arithmetic prerequisites for signed division.
+/// This owns no signed-division/source-program completeness claim.
+pub fn generate_go_practical_word_signed_division_prerequisites(
+) -> Result<GoWordSignedDivisionPrerequisites> {
+    let buffers = [
+        generate_go_practical_word_division_foundation()?
+            .certificate_bytes()
+            .to_vec(),
+        generate_go_practical_word_signed_bounds_foundation()?
+            .certificate_bytes()
+            .to_vec(),
+        generate_go_practical_word_zero_foundation()?
+            .certificate_bytes()
+            .to_vec(),
+        generate_go_practical_word_foundation()?
+            .certificate_bytes()
+            .to_vec(),
+    ];
+    let sources = buffers
+        .iter()
+        .map(|b| mpk_cert::decode_canonical_certificate(b).map_err(|_| GoOrdinaryError::Foundation))
+        .collect::<Result<Vec<_>>>()?;
+    let mut builder = composition::signed_division_prerequisites(&sources)?;
+    builder.certificate.module = "Mpk.Go.Practical.WordSignedDivisionPrerequisites".into();
+    Ok(GoWordSignedDivisionPrerequisites {
+        certificate: builder.finish()?,
+    })
+}
+pub fn import_go_practical_word_signed_division_prerequisites(
+    candidate: &[u8],
+) -> Result<GoWordSignedDivisionPrerequisites> {
+    if candidate.len() > MAX_BYTES {
+        return Err(GoOrdinaryError::Limit);
+    }
+    let expected = generate_go_practical_word_signed_division_prerequisites()?;
     if candidate != expected.certificate_bytes() {
         return Err(GoOrdinaryError::Linkage);
     }

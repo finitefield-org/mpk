@@ -29,7 +29,7 @@ after reconciling the intervening shared artifacts and active registry.
 | GO-PRAC-T01-W03 | Complete | Reviewed implementation `9d4e6fb7855a66d9fff309e6dbd9143652ee6e21`; requirement-by-requirement completion audit in section28 |
 | GO-PRAC-T01-W04 | Complete | Commit `68a44416e1b1a6dc3a84587cca784fc4b3a2b862`; exact interfaces, resource bounds, consumer review and historical replay; section58 |
 | GO-PRAC-T01-W05 | Complete under user C# test deferral | Reviewed implementation `4b4c3a01ddfa2377d7ccc0116f128649ff3ec3b1`; amended cumulative gate passes594 tests and all other checks. Completion audit and section78. |
-| GO-PRAC-T02-W01 | In progress | Captured original source/module/archive/compiler/analysis components and fresh ordinary core/Nat/Int/range/word components have scoped evidence. Actual addition, fixed shifts/multiplication, unsigned bounds/order/equality/divisor guards, unsigned division/remainder and signed-product/negation correction/exact-result guards, actual negation/magnitude zero/definedness and signed magnitude/half-range/minimum/sign correspondence now check in both cores. Complete bounded foundation, private context/registry and authoritative selected source/export replay remain due; sections79–93 and the W01 checkpoint index. |
+| GO-PRAC-T02-W01 | In progress | Captured original source/module/archive/compiler/analysis components and fresh ordinary core/Nat/Int/range/word components have scoped evidence. Actual addition, fixed shifts/multiplication, unsigned bounds/order/equality/divisor guards, unsigned division/remainder and signed-product/negation correction/exact-result guards, actual negation/magnitude zero/definedness and signed magnitude/half-range/minimum/sign correspondence now check in both cores. Direct zero proofs assemble the complete required signed-division prerequisites under the unchanged declaration cap; actual signed quotient/remainder laws remain due. Complete bounded foundation, private context/registry and authoritative selected source/export replay remain due; sections79–94 and the W01 checkpoint index. |
 | GO-PRAC-T02-W02–W04 | Not started | Selected-function typing/closure, common artifact migration and final scalar/cumulative gate |
 | GO-PRAC-T03–T07 | Not started | Sequential remaining v1 implementation and public release |
 | GO-PRAC-T08–T11 | Not started | Sequential v2 freeze, maps, pointers and public release |
@@ -5235,3 +5235,52 @@ replay remain due. All169 application demands stay unelaborated and W01 is
 In progress. C# tests stay skipped; the cumulative T02 gate remains W04.
 No source-program proof, immutable application replay, practical activation
 or native Linux release acceptance is claimed.
+
+## 94. T02-W01 direct zero proofs and compact signed-division prerequisites
+
+The [direct-zero checkpoint](../migrations/go-practical/t02-w01/verification/word-zero/README.md)
+proves all-bit balanced zero reflection, natural zero correspondence, actual
+divisor positivity and zero-sign laws for every 8/16/32/64-bit word. Genuine
+unbounded Nat zero-sum/positive-product cancellation and actual positive weights
+support all cube depths 0..6. Its 274 declarations/10,538 terms/108,827 bytes
+contain zero axioms; all 209 retained original named types/bodies/proofs/levels/
+family metadata match exact established references.
+
+The [compact prerequisite checkpoint](../migrations/go-practical/t02-w01/verification/word-signed-division/README.md)
+retains all required unsigned conservation/remainder bounds, signed-magnitude/
+divisor/negation equations, half/minimum/sign laws and actual SignedDiv/SignedRem
+definitions. The original required closed union measured 4,173 declarations,
+exceeding the frozen 4,096 ceiling before signed laws. Twelve compiled-in
+same-type proved zero/nonzero/sign substitutions reduce the result to 3,483
+declarations/85,883 terms/1,255,288 bytes with zero axioms, leaving 613 slots.
+Every substituted interface is exact; every mapped output declaration matches
+its rewritten original full metadata. Both cores check all actual proof terms
+in a fresh prerequisite namespace. Complete original generators retain their
+raw bytes. Structural fingerprints and the diagnostic partial parser supply
+no checker or import authority; no limit, core, axiom or fuel changes.
+
+Each current component passes four affected roots and strict Clippy/Rust format;
+the shared new Go observer passes format. Both unchanged cores inspect the same
+43 zero streams (two acceptances/41 type rejections) and 33 prerequisite streams
+(three acceptances/30 type rejections). One accepted ordinary control replaces
+W8.SignedDiv with zero, explicitly demonstrating the remaining signed arithmetic
+linkage obligation. Exact owning import rejects that different valid component.
+No format/resource/fuel outcome is counted as a semantic negative.
+
+All 128 original full zero/signed input rows agree between the actual decoded
+Bool definitions, two identical fresh pinned native Go outputs and independent
+integers. There are 32 zero rows with four zeros, 96 signed rows with 88 defined
+outputs, eight recovered source zero-divisor faults and eight minimum/-one
+division/remainder observations. Finite models do not execute unary Nat/Int/
+theorem bodies. Native image checks cover the exact 5577-file prepared image
+with empty cache; the original copied schema label is preserved in a sealed
+run record and corrected only as an annotation. Original source/raw diagnostics
+and all 255 frozen inputs stay exact. No unaffected prior suite or intermediate
+whole gate repeats.
+
+Actual signed division/remainder with minimum/-one handling and all remaining
+numeric/source/carrier/state/program/foundation/descriptor/private context/
+registry/authoritative application replay work stay due. All 169 application
+demands remain unelaborated and W01 is In progress. C# tests stay skipped; the
+cumulative T02 gate stays deferred to W04. No source-program proof, immutable
+application replay, practical activation or native Linux release is claimed.

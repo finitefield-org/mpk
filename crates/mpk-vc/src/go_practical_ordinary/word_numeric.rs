@@ -15,6 +15,7 @@ mod signed;
 mod signed_bounds;
 mod signed_magnitude;
 mod signed_product;
+mod zero;
 
 const PREFIX: &str = "Mpk.Go.Practical.Word.Numeric";
 
@@ -612,4 +613,17 @@ pub(super) fn append_signed_bounds(
 ) -> Result<()> {
     append_signed_magnitude(builder, recipes)?;
     signed_bounds::append(builder)
+}
+
+pub(super) fn append_zero(builder: &mut Builder, recipes: &BTreeMap<String, Expr>) -> Result<()> {
+    let mut numeric = Numeric {
+        builder,
+        recipes,
+        serial: 0,
+    };
+    append_base(&mut numeric)?;
+    arithmetic::append_division_prerequisites(&mut numeric)?;
+    order::append(numeric.builder, recipes)?;
+    signed_product::append_shared_prerequisites(numeric.builder)?;
+    zero::append(numeric.builder, &[])
 }

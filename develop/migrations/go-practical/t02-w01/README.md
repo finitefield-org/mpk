@@ -265,3 +265,21 @@ Four minima keep the magnitude high bit; no source input is excluded.
 Original failed compilation/source/raw diagnostics remain. Signed division/
 remainder and complete foundation/context/source replay remain due; W01 is
 In progress and the cumulative T02 gate stays deferred to W04.
+
+The [direct-zero checkpoint](verification/word-zero/README.md) now proves actual
+zero/nonzero/sign laws with 274 declarations and all 209 original named
+prerequisites exact. The [compact signed-division prerequisite checkpoint](verification/word-signed-division/README.md)
+combines all required unsigned division, signed magnitude/half/minimum and actual
+signed operator definitions in 3,483 declarations/85,883 terms/1,255,288 bytes,
+with zero axioms. The original closed union needed 4,173 declarations; 12 exact
+same-type proved zero substitutions leave 613 slots under the unchanged limit.
+Every mapped type/body/proof/level/family matches its original reference, and
+complete original generators retain their bytes. Each component has four
+affected roots, strict Clippy/Rust format and a same-byte paired matrix:
+43 zero streams with 41 type rejections and 33 prerequisite streams with 30.
+All 128 original zero/signed rows agree with two identical fresh native Go runs
+and independent integers, including eight zero-divisor faults and eight
+minimum/-one observations. The accepted altered SignedDiv definition explicitly
+shows that the prerequisite component does not yet prove signed division.
+Actual signed quotient/remainder laws and all remaining foundation/context/source
+replay work stay due. W01 is In progress; the cumulative T02 gate stays W04.

@@ -1,0 +1,142 @@
+{
+  "schema": "mpk.go_practical.fresh_signed_bounds_native_observation.v1",
+  "status": "passed",
+  "observed_at_utc": "2026-10-19T18:05:53.794293+00:00",
+  "original_source": {
+    "path": "develop/probes/go-practical/division_prerequisite_observer.go",
+    "sha256": "12ca9d895835a58a0d50938930a829649b00b3b907c5fc2880c575a51737d997",
+    "bytes": 3227
+  },
+  "owned_source": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division/native/inputs/division_prerequisite_observer.go",
+    "sha256": "12ca9d895835a58a0d50938930a829649b00b3b907c5fc2880c575a51737d997",
+    "bytes": 3227
+  },
+  "original_queries": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division/queries.json",
+    "sha256": "75a2c0637e44db76f756254210ff1932a2e55b113d288f04c9895fe0765e6792",
+    "bytes": 27171
+  },
+  "owned_queries": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division/native/inputs/queries.json",
+    "sha256": "75a2c0637e44db76f756254210ff1932a2e55b113d288f04c9895fe0765e6792",
+    "bytes": 27171
+  },
+  "compiler_version": "go version go1.25.0 darwin/arm64",
+  "complete_original_prepared_image": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/compiler-image/captured/selected/prepared-image.json",
+    "sha256": "c6bcb748bf728a999d4edd56fb4cd390f9c1134671990dfd4e35e0c1086cc75d",
+    "bytes": 2574682
+  },
+  "complete_original_image_checks": [
+    {
+      "label": "before fresh empty-cache native compilation",
+      "files": 5577,
+      "original_bytes": 163457770,
+      "seconds": 5.113310166983865,
+      "status": "passed"
+    },
+    {
+      "label": "after native compilation and both executions",
+      "files": 5577,
+      "original_bytes": 163457770,
+      "seconds": 2.9405135000124574,
+      "status": "passed"
+    }
+  ],
+  "compiler": {
+    "path": "/private/tmp/mpk-go-practical-signed-division-native-p3n0t9m2/image/go/bin/go",
+    "sha256": "c812de5f1e8307431c5bce8ebc4887c180827abc5834a72cd640a8a14200a93b",
+    "bytes": 14117888
+  },
+  "observer_binary": {
+    "path": "/private/tmp/mpk-go-practical-signed-division-native-p3n0t9m2/signed-division-observer",
+    "sha256": "7502602363e3243122e67deb2600883a45f4457bedd084bf2b0684932f23ad38",
+    "bytes": 2987618
+  },
+  "build_cache_initially_empty": true,
+  "environment": {
+    "GOROOT": "/private/tmp/mpk-go-practical-signed-division-native-p3n0t9m2/image/go",
+    "GOCACHE": "/private/tmp/mpk-go-practical-signed-division-native-p3n0t9m2/cache",
+    "GOPATH": "/private/tmp/mpk-go-practical-signed-division-native-p3n0t9m2/gopath",
+    "GOMODCACHE": "/private/tmp/mpk-go-practical-signed-division-native-p3n0t9m2/mod",
+    "GOENV": "off",
+    "GOWORK": "off",
+    "GOTOOLCHAIN": "local",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "GOTELEMETRY": "off",
+    "GO111MODULE": "off",
+    "CGO_ENABLED": "0",
+    "GOFLAGS": "",
+    "GOEXPERIMENT": ""
+  },
+  "commands": [
+    {
+      "name": "build",
+      "command": [
+        "/private/tmp/mpk-go-practical-signed-division-native-p3n0t9m2/image/go/bin/go",
+        "build",
+        "-trimpath",
+        "-buildvcs=false",
+        "-o",
+        "/private/tmp/mpk-go-practical-signed-division-native-p3n0t9m2/signed-division-observer",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/word-signed-division/native/inputs/division_prerequisite_observer.go"
+      ],
+      "exit_code": 0,
+      "seconds": 4.919077749946155,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division/native/build.stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division/native/build.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "name": "run1",
+      "command": [
+        "/private/tmp/mpk-go-practical-signed-division-native-p3n0t9m2/signed-division-observer"
+      ],
+      "exit_code": 0,
+      "seconds": 0.48867833393160254,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division/native/run1.stdout.log",
+        "sha256": "5b0e39774485a054b604fe331a7d2190f51c08da966b6d6d88e3e7e38a24a130",
+        "bytes": 33549
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division/native/run1.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "name": "run2",
+      "command": [
+        "/private/tmp/mpk-go-practical-signed-division-native-p3n0t9m2/signed-division-observer"
+      ],
+      "exit_code": 0,
+      "seconds": 0.008284708950668573,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division/native/run2.stdout.log",
+        "sha256": "5b0e39774485a054b604fe331a7d2190f51c08da966b6d6d88e3e7e38a24a130",
+        "bytes": 33549
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division/native/run2.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    }
+  ],
+  "two_native_outputs_byte_identical": true,
+  "native_rows": 128,
+  "scope": "Actual typed Go zero/all-bit-zero/positive-divisor/sign predicates and SignedDiv/SignedRem over128 original full rows, including actual recovered source zero-divisor faults and normal minimum/-one wrapping. Fresh exact prepared compiler image/empty cache and two identical runs supply finite comparisons for both direct-zero and composed-prerequisite models. No universal signed division/source/application theorem or native Linux release gate is claimed.",
+  "CSharp_tests_executed": false,
+  "public_profile_activated": false,
+  "full_T02_gate": "deferred to W04: check-fast.sh --skip-csharp"
+}
