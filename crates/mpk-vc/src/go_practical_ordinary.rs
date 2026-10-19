@@ -16,6 +16,7 @@ mod polynomial;
 mod range;
 mod syntax;
 mod word;
+mod word_numeric;
 mod word_proofs;
 
 const BOOL: &str = "Std.Bool";
@@ -97,6 +98,17 @@ pub struct GoWordFoundation {
 }
 
 impl GoWordFoundation {
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoWordNumericFoundation {
+    certificate: Vec<u8>,
+}
+
+impl GoWordNumericFoundation {
     pub fn certificate_bytes(&self) -> &[u8] {
         &self.certificate
     }
@@ -825,6 +837,31 @@ pub fn import_go_practical_word_foundation(candidate: &[u8]) -> Result<GoWordFou
         return Err(GoOrdinaryError::Limit);
     }
     let expected = generate_go_practical_word_foundation()?;
+    if candidate != expected.certificate_bytes() {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    Ok(expected)
+}
+
+/// Compile actual word addition conservation in unbounded mathematical Nat.
+/// Source binding and complete Go profile authority remain separate work.
+pub fn generate_go_practical_word_numeric_foundation() -> Result<GoWordNumericFoundation> {
+    let mut builder = range_builder()?;
+    let recipes = word::append_with_recipes(&mut builder)?;
+    word_numeric::append(&mut builder, &recipes)?;
+    builder.certificate.module = "Mpk.Go.Practical.WordNumericFoundation".into();
+    Ok(GoWordNumericFoundation {
+        certificate: builder.finish()?,
+    })
+}
+
+pub fn import_go_practical_word_numeric_foundation(
+    candidate: &[u8],
+) -> Result<GoWordNumericFoundation> {
+    if candidate.len() > MAX_BYTES {
+        return Err(GoOrdinaryError::Limit);
+    }
+    let expected = generate_go_practical_word_numeric_foundation()?;
     if candidate != expected.certificate_bytes() {
         return Err(GoOrdinaryError::Linkage);
     }

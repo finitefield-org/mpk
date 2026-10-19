@@ -819,6 +819,10 @@ impl Words<'_> {
 }
 
 pub(super) fn append(builder: &mut Builder) -> Result<()> {
+    append_with_recipes(builder).map(|_| ())
+}
+
+pub(super) fn append_with_recipes(builder: &mut Builder) -> Result<BTreeMap<String, Expr>> {
     let mut words = Words {
         builder,
         definitions: BTreeMap::new(),
@@ -829,5 +833,5 @@ pub(super) fn append(builder: &mut Builder) -> Result<()> {
         words.family(width)?;
         word_proofs::word_laws(&mut words, width)?;
     }
-    Ok(())
+    Ok(words.definitions)
 }

@@ -1,0 +1,301 @@
+{
+  "schema": "mpk.go_practical.actual_word_numeric_checkpoint.v1",
+  "status": "component_checks_passed_work_item_in_progress",
+  "observed_at_utc": "2026-10-19T13:10:20.732633+00:00",
+  "entry_commit": "78944145b56e8c0fea42ec20b39f05df5b542077",
+  "production_sources": [
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "b48952e34b10317ee5d2e6ed48ce49169bfd79ddac40327baae66347551b165d",
+      "bytes": 30565
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/syntax.rs",
+      "sha256": "04dd2f0327d32ab4ddf357fdbc94816fdb28c2be5fbddfc2495c11df8fc4a5c7",
+      "bytes": 7833
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/natural.rs",
+      "sha256": "483fb9d5dba921566b448ee5f2551746986e2d4a6c11209b63102a8be4f0a0ec",
+      "bytes": 47316
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/integer.rs",
+      "sha256": "893e2f1295ab018251e3f78458c8827f09c98947f687e2ef11ea828907944c1a",
+      "bytes": 31338
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/polynomial.rs",
+      "sha256": "f9ae06bca999a04ce3204d5d65651a9ec7575fda70567972a1aa358e2730b3b2",
+      "bytes": 10141
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/range.rs",
+      "sha256": "1246a6cb1ef83c67d3507f4258956eda6ce92cda5621859dbc68058fb7558dc1",
+      "bytes": 17074
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word.rs",
+      "sha256": "22e95db9dea126890df5a32adedf54c89ffaa93ab79af23ec325695759643afa",
+      "bytes": 24624
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_proofs.rs",
+      "sha256": "208e689773abb4f172fcedb6b1a051e46e031dd05d77fe187e7561df2819a9dd",
+      "bytes": 13898
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric.rs",
+      "sha256": "35623e9fa0044aa8fd84b0dc36ada5dfe23ac377c5c4516f4567db86a5d3834d",
+      "bytes": 19006
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed.rs",
+      "sha256": "faf7559605fb721443858b5c7af349f8e4d1ebe8c99dc20db2462733ccee0436",
+      "bytes": 13465
+    }
+  ],
+  "test_and_interpreter_sources": [
+    {
+      "path": "crates/mpk-vc/tests/go_practical_word_numeric.rs",
+      "sha256": "b5706190112b93eb97e21b16991cd084c7305ac8792203627a860d8ad4814f49",
+      "bytes": 4533
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/go_word_numeric_controls.rs",
+      "sha256": "6a5fa6e9ff65f3dd9288d46cdf44e38ea392171c962435412fac67dcc7abc38f",
+      "bytes": 7221
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/go_word_numeric_observations.rs",
+      "sha256": "a12af94f933233edacf481761d12c95198d1f2bc046c7b0ff3d12aa4296399e7",
+      "bytes": 5398
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/go_word_eval.rs",
+      "sha256": "b563f3bd0faf010764fd64306f350af2ce3716a9304898c6db0f7d02c7161664",
+      "bytes": 14378
+    }
+  ],
+  "standard_raw_inputs": [
+    {
+      "path": "proofs/std/bool/std-bool.hex",
+      "sha256": "88a37f9df68a18bc19d51c0832279ff97a2944fc1676326022269766933ee806",
+      "bytes": 1535
+    },
+    {
+      "path": "proofs/std/eq/std-eq.hex",
+      "sha256": "80d71a2ef388a6ad1dea166cca4bd10d9093d538edc4999743b6fb1ad80d03a1",
+      "bytes": 3069
+    },
+    {
+      "path": "proofs/std/nat/std-nat.hex",
+      "sha256": "65bc5b701561d07b0f675668d942917da23c43606c0cfe0f9edfa113be99f583",
+      "bytes": 743
+    }
+  ],
+  "unchanged_query_input": {
+    "path": "develop/migrations/go-practical/t01-w04/word-numeric-bridge/queries.json",
+    "sha256": "eb2f627dc4b1b83e7b2c0f4731cb89aaf1b00818325bf75c184d57d56e8720d3",
+    "bytes": 34634
+  },
+  "fresh_component": {
+    "certificate": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-numeric/final/rust-tests/certificates/word-numeric-foundation.mpcert",
+      "sha256": "fd48d9fa0f5d26634e489bb03ebd68208dd9e7f6e2620e9a3cdf966f47d112ea",
+      "bytes": 743954
+    },
+    "hashes": {
+      "export": "0da7b4c8e76e7e9c8de84a3c792c858c8373ad66d631ad5da656a5ce4c91de50",
+      "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+      "certificate": "4cbb139e28e35e6b62d69f412081135480b83a172f16bce1a68ca0c7f8640597"
+    },
+    "declarations": 2579,
+    "terms": 55105,
+    "bytes": 743954,
+    "axioms": 0,
+    "new_ordinary_declarations": 687,
+    "widths": [
+      8,
+      16,
+      32,
+      64
+    ],
+    "shared_weight_depths": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "pointwise_value_congruence_depths": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "aligned_binary_blocks": 236,
+    "actual_sum_bit_and_carry_projection_laws": 240,
+    "denotation": "Genuine Nat scalar Bit/Value/Weight; low value plus preceding weight times high value, shared weight squaring. Signed is existing balanced Int.Make(unsigned,modulus*sign). Fresh recipes, never old seed/certificate/graph/context/receipt authority.",
+    "unsigned_law": "For arbitrary whole words, incoming Bool and unbounded initial Nat, initial+(Ux+Uy+incoming)=initial+(U(AddCarry)+modulus*actual_final_carry).",
+    "signed_laws": "Actual sign-stage incoming carry equals actual final carry implies signed natural cross sums, with arbitrary initial Nat. Checked reflection from actual NoOverflow=true supplies the exact premise; existing Int projections/cross-sum equivalence prove actual Signed operand addition. Go wraps independently of extra no-overflow mathematical claims.",
+    "exact_import": "Regenerate complete compiled bytes; altered, oversized and honestly different valid components reject. The component is not complete profile/foundation/context authority."
+  },
+  "retained_word_component": {
+    "original_verification": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/verification.json",
+      "sha256": "97aec81f6a0c833d656455a28d9643224b2961eb134035844df84afd3cb24337",
+      "bytes": 17062
+    },
+    "fresh_bytes": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-numeric/final/rust-tests/certificates/retained-word-basis.mpcert",
+      "sha256": "23c88fb260bf9d27c2defb64a892f275653cd1741ed030f00a911fed1b2aa11c",
+      "bytes": 433285
+    },
+    "hashes": {
+      "export": "5a56ae6199284dc503e5a2ef2babb6bc33a794446fa6c339889726874d986a08",
+      "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+      "certificate": "c00e978e19b88963b0c756314b400411b1dee28f35830022eca09a3e50a62a7e"
+    },
+    "declarations_retained": 1892,
+    "term_nodes_retained": 31104,
+    "complete_bytes_identical": true
+  },
+  "verification_selection": "The only production changes add private numeric proof recipes/component and expose compiled Boolean recipes plus separately named polynomial checkpoints. The full preceding word graph/raw hash checks all existing generator consumers; unaffected earlier matrices are retained. Run exactly four new isolated Rust roots, strict library/target Clippy and format. No CSharp tests, intermediate whole gate, trusted model opcode, checker change or public/source-program claim.",
+  "checks": {
+    "unsigned_smoke": {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-numeric/initial/rust-tests/result.json",
+        "sha256": "e87e65effc65c8dad9e252e6c81c181ef8afb661ea4f272621aede7087fa81e7",
+        "bytes": 4647
+      },
+      "wall_seconds": 181.53612075001,
+      "status": "passed"
+    },
+    "signed_smoke": {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-numeric/signed/rust-tests/result.json",
+        "sha256": "924b63d2ab8e2c16bb1c5935f4798d430bdb574b43213ad4aa1dd122bcd38cbc",
+        "bytes": 4844
+      },
+      "wall_seconds": 187.44857204100117,
+      "status": "passed"
+    },
+    "final_scoped_tests": {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-numeric/final/rust-tests/result.json",
+        "sha256": "892475b3f8b7286e82b3c43dfe458612bba2fbf6c669657f9b2b8185c49bb06f",
+        "bytes": 12270
+      },
+      "wall_seconds": 71.43974291696213,
+      "status": "passed"
+    },
+    "clippy": {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-numeric/final/clippy/result.json",
+        "sha256": "0cbfdd21d729467698410fbf7082b45d921776bb52b1121789d4e43eb7f590c3",
+        "bytes": 5269
+      },
+      "wall_seconds": 42.90868366602808,
+      "status": "passed"
+    },
+    "format": {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-numeric/final/format/result.json",
+        "sha256": "f3bcedcd9f3f70bb7b7f4c448272cc4636a87a4261022d49fad7587735fba0b4",
+        "bytes": 5737
+      },
+      "wall_seconds": 0.32682995800860226,
+      "status": "passed"
+    }
+  },
+  "final_Rust_logical_roots": 4,
+  "same_byte_paired_cases": 26,
+  "accepted_zero_axiom_with_exact_three_hashes": 3,
+  "rejected_core_type_mismatch": 23,
+  "core_rejection_subtypes": {
+    "check_type_mismatch": 15,
+    "lambda_domain_mismatch": 8
+  },
+  "negative_scope": {
+    "wrong_Bit_Weight_Value_definitions": 3,
+    "false_actual_sum_carry_projections": 8,
+    "ignored_actual_overflow_premises": 8,
+    "dropped_actual_final_carry_all_widths": 4,
+    "canonical_or_resource_failures_counted": false
+  },
+  "paired_checkers": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-numeric/paired-final-reviewed/result.json",
+    "sha256": "a688de8dfa4dc4c37487cc81fbe8144284ca72a1e2ab872b618975eb0caea12e",
+    "bytes": 66598
+  },
+  "initial_comparison_consumer": {
+    "original_failed_execution": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-numeric/paired-final/result.json",
+      "sha256": "ffe4a0a29e1a8f56308c9a48ebf15f00f52eb87f169f55da38939691c9c3299d",
+      "bytes": 26783
+    },
+    "same_original_bytes_cases_before_stop": 9,
+    "failure": "Consumer assumed only check_type_mismatch. Actual Rust and Go both reject SignedAddition-16 with lambda_domain_mismatch/CORE_TYPE_MISMATCH.",
+    "focused_reproduction": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-numeric/initial/paired-consumer/reproduction.json",
+      "sha256": "28f3eaf66e0417b2f44dbd8d8891b966262c5d3fcd208685a53f88b7e9a1d8e8",
+      "bytes": 1479
+    },
+    "producer_checker_Rust_test_inputs_changed_for_repair": false,
+    "ordinary_negative_or_success_counted_from_failure": false,
+    "repair": "Compare only the two actual precise mismatch subtypes with their corresponding exact Go error forms, then check all26 unchanged candidates."
+  },
+  "actual_finite_observations": {
+    "comparison": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-numeric/native-comparison-final/result.json",
+      "sha256": "8df36651e75624c8172c612aca5cadf15416d0059f54abd56abbc539225bdf2d",
+      "bytes": 2523
+    },
+    "model_metrics": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-numeric/final/rust-tests/model/metrics.json",
+      "sha256": "c18cec918e99143f6f6dfbf33f29f7046380fe999c178e047fc409347e9ea4d6",
+      "bytes": 434
+    },
+    "native_execution": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-numeric/native/result.json",
+      "sha256": "388b6146e02a663024b1ad13d2c22d5c2dc7d249202b9583f59ac706176e40ac",
+      "bytes": 5659
+    },
+    "queries": 288,
+    "signed_no_overflow": 210,
+    "signed_overflow": 78,
+    "AST_steps": 19103859,
+    "maximum_query_AST_steps": 203856,
+    "initial_Nat_values": [
+      "0",
+      "17",
+      "100000000000000000000000000000000000000000000000037"
+    ],
+    "two_native_byte_streams_identical": true,
+    "actual_Boolean_certificate_terms_executed": true,
+    "Nat_denotation_terms_executed": false,
+    "scalar_comparison": "Python derives exact scalar sums from original inputs and actual circuit outputs. Independent Python arithmetic and native typed Go/math-bits/math-big agree on every finite case. This does not execute2^64 unary successors or replace separately checked universal laws."
+  },
+  "frozen_design_preservation": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-numeric/frozen-design-preservation.json",
+    "sha256": "73d610a6e3141adf41fb8486323236378f41afa1ef7b12ae46bbfece11855870",
+    "bytes": 772
+  },
+  "strict_changed_input_review": "input-review/changed-inputs-review.json",
+  "CSharp_tests_executed": false,
+  "T02_W01_complete": false,
+  "public_profile_activated": false,
+  "all_Go_application_demands_remaining": 169,
+  "source_program_proof_claimed": false,
+  "authoritative_immutable_application_replay_claimed": false,
+  "native_Linux_gate_claimed": false,
+  "kernel_or_reduction_or_axiom_or_fuel_or_construction_bounds_changed": false,
+  "remaining_work": "Multiplication/division/shifts and other numeric/source correctness; full56-family carriers/strings/products/errors/slices/storage/lifetime/definedness/program foundation; descriptor/private registry/context and authoritative original source/export/selected-closure replay; all subsequent T02-T11 work.",
+  "full_T02_gate": "deferred to T02-W04: check-fast.sh --skip-csharp"
+}

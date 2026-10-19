@@ -1,0 +1,142 @@
+{
+  "schema": "mpk.go_practical.fresh_numeric_native_observation.v1",
+  "status": "passed",
+  "observed_at_utc": "2026-10-19T12:57:25.062792+00:00",
+  "original_source": {
+    "path": "develop/probes/go-practical/numeric_observer.go",
+    "sha256": "1e55596a265296db2cc302fead8da8f372b8c3298a422c1981a0c906a9c093d3",
+    "bytes": 3389
+  },
+  "owned_source": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-numeric/native/inputs/numeric_observer.go",
+    "sha256": "1e55596a265296db2cc302fead8da8f372b8c3298a422c1981a0c906a9c093d3",
+    "bytes": 3389
+  },
+  "original_queries": {
+    "path": "develop/migrations/go-practical/t01-w04/word-numeric-bridge/queries.json",
+    "sha256": "eb2f627dc4b1b83e7b2c0f4731cb89aaf1b00818325bf75c184d57d56e8720d3",
+    "bytes": 34634
+  },
+  "owned_queries": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-numeric/native/inputs/queries.json",
+    "sha256": "eb2f627dc4b1b83e7b2c0f4731cb89aaf1b00818325bf75c184d57d56e8720d3",
+    "bytes": 34634
+  },
+  "compiler_version": "go version go1.25.0 darwin/arm64",
+  "complete_original_prepared_image": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/compiler-image/captured/selected/prepared-image.json",
+    "sha256": "c6bcb748bf728a999d4edd56fb4cd390f9c1134671990dfd4e35e0c1086cc75d",
+    "bytes": 2574682
+  },
+  "complete_original_image_checks": [
+    {
+      "label": "before fresh empty-cache native compilation",
+      "files": 5577,
+      "original_bytes": 163457770,
+      "seconds": 3.1376750000054017,
+      "status": "passed"
+    },
+    {
+      "label": "after native compilation and both executions",
+      "files": 5577,
+      "original_bytes": 163457770,
+      "seconds": 1.5201582500012591,
+      "status": "passed"
+    }
+  ],
+  "compiler": {
+    "path": "/private/tmp/mpk-go-practical-numeric-native-p2d7bqa0/image/go/bin/go",
+    "sha256": "c812de5f1e8307431c5bce8ebc4887c180827abc5834a72cd640a8a14200a93b",
+    "bytes": 14117888
+  },
+  "observer_binary": {
+    "path": "/private/tmp/mpk-go-practical-numeric-native-p2d7bqa0/numeric-observer",
+    "sha256": "8ddb42145ab72638dc651b41c2568b4e08e694adbc6577f7f83474b5efe56c9e",
+    "bytes": 3123538
+  },
+  "build_cache_initially_empty": true,
+  "environment": {
+    "GOROOT": "/private/tmp/mpk-go-practical-numeric-native-p2d7bqa0/image/go",
+    "GOCACHE": "/private/tmp/mpk-go-practical-numeric-native-p2d7bqa0/cache",
+    "GOPATH": "/private/tmp/mpk-go-practical-numeric-native-p2d7bqa0/gopath",
+    "GOMODCACHE": "/private/tmp/mpk-go-practical-numeric-native-p2d7bqa0/mod",
+    "GOENV": "off",
+    "GOWORK": "off",
+    "GOTOOLCHAIN": "local",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "GOTELEMETRY": "off",
+    "GO111MODULE": "off",
+    "CGO_ENABLED": "0",
+    "GOFLAGS": "",
+    "GOEXPERIMENT": ""
+  },
+  "commands": [
+    {
+      "name": "build",
+      "command": [
+        "/private/tmp/mpk-go-practical-numeric-native-p2d7bqa0/image/go/bin/go",
+        "build",
+        "-trimpath",
+        "-buildvcs=false",
+        "-o",
+        "/private/tmp/mpk-go-practical-numeric-native-p2d7bqa0/numeric-observer",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/word-numeric/native/inputs/numeric_observer.go"
+      ],
+      "exit_code": 0,
+      "seconds": 7.398854666040279,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-numeric/native/build.stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-numeric/native/build.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "name": "run1",
+      "command": [
+        "/private/tmp/mpk-go-practical-numeric-native-p2d7bqa0/numeric-observer"
+      ],
+      "exit_code": 0,
+      "seconds": 0.5074538749177009,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-numeric/native/run1.stdout.log",
+        "sha256": "e50672cbea03b8ef24f4d09d0a87f20bec1c7493dfbc99ab7c5483429dc141ce",
+        "bytes": 92766
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-numeric/native/run1.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "name": "run2",
+      "command": [
+        "/private/tmp/mpk-go-practical-numeric-native-p2d7bqa0/numeric-observer"
+      ],
+      "exit_code": 0,
+      "seconds": 0.01833749993238598,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-numeric/native/run2.stdout.log",
+        "sha256": "e50672cbea03b8ef24f4d09d0a87f20bec1c7493dfbc99ab7c5483429dc141ce",
+        "bytes": 92766
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-numeric/native/run2.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    }
+  ],
+  "two_native_outputs_byte_identical": true,
+  "native_rows": 288,
+  "scope": "Actual typed native Go addition, math/bits carry and math/big exact arithmetic over the frozen288-query matrix. This is independent comparison evidence, not a universal arithmetic/source/application proof or native Linux release gate.",
+  "CSharp_tests_executed": false,
+  "public_profile_activated": false,
+  "full_T02_gate": "deferred to W04: check-fast.sh --skip-csharp"
+}

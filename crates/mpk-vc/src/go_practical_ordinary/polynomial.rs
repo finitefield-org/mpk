@@ -43,10 +43,20 @@ pub(super) fn checkpoint(
     serial: &mut usize,
     e: Equality,
 ) -> Result<Equality> {
+    checkpoint_named(builder, args, serial, "Mpk.Go.Practical.Int", e)
+}
+
+fn checkpoint_named(
+    builder: &mut Builder,
+    args: &[Binder],
+    serial: &mut usize,
+    prefix: &str,
+    e: Equality,
+) -> Result<Equality> {
     if e.left == e.right {
         return Ok(e);
     }
-    let name = format!("Mpk.Go.Practical.Int.CheckedStep{serial:04}");
+    let name = format!("{prefix}.CheckedStep{serial:04}");
     *serial += 1;
     emit(
         builder,
@@ -198,11 +208,12 @@ struct Polynomial<'a> {
     builder: &'a mut Builder,
     args: &'a [Binder],
     serial: &'a mut usize,
+    prefix: &'a str,
 }
 
 impl Polynomial<'_> {
     fn save(&mut self, e: Equality) -> Result<Equality> {
-        checkpoint(self.builder, self.args, self.serial, e)
+        checkpoint_named(self.builder, self.args, self.serial, self.prefix, e)
     }
     fn monoid(&mut self, kind: Monoid, node: Expr) -> Result<Equality> {
         let mut e = kind.associate(node)?;
@@ -274,10 +285,22 @@ pub(super) fn prove(
     left: Expr,
     right: Expr,
 ) -> Result<Equality> {
+    prove_named(builder, args, serial, "Mpk.Go.Practical.Int", left, right)
+}
+
+pub(super) fn prove_named(
+    builder: &mut Builder,
+    args: &[Binder],
+    serial: &mut usize,
+    prefix: &str,
+    left: Expr,
+    right: Expr,
+) -> Result<Equality> {
     let mut normalizer = Polynomial {
         builder,
         args,
         serial,
+        prefix,
     };
     let a = normalizer.normalize(left)?;
     let b = normalizer.normalize(right)?;

@@ -163,3 +163,17 @@ inputs, including forty runtime-domain failures. Corrected scoped Rust tests,
 strict Clippy and format pass; initial helper-name/native-preparation failures
 remain. Full Nat/Int interpretation/conservation, source-operation/nominal/state/
 program binding and descriptor/private context remain due; W01 stays In progress.
+
+The [actual word/numeric checkpoint](verification/word-numeric/README.md)
+adds balanced unbounded Nat values/shared weights, pointwise congruence, actual
+ripple addition conservation and conditional balanced-Int addition for all four
+widths. Both current checkers agree on26 unchanged candidates: three zero-axiom
+acceptances and23 core type rejections, including all four dropped-final-carry
+claims. Four scoped Rust roots, strict Clippy and format pass. Actual Boolean
+circuits, exact integer arithmetic and fresh pinned native Go agree on288
+numeric queries, with210 signed no-overflow cases and78 overflow cases. The
+original comparison-consumer subtype assertion and focused reproduction remain;
+no proof/checker bytes or limits change to repair it. Complete preceding word
+bytes and all255 frozen inputs remain unchanged. Remaining numeric/source/
+carrier/program laws and descriptor/private context binding remain due; W01
+stays In progress and the cumulative T02 gate stays deferred to W04.

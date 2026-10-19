@@ -1,0 +1,31 @@
+{
+  "status": "original_consumer_failure_reproduced",
+  "observed_at_utc": "2026-10-19T13:07:41.003576+00:00",
+  "command": [
+    "python3",
+    "-B",
+    "develop/migrations/go-practical/t02-w01/verification/word-numeric/initial/paired-consumer/reproduce.py"
+  ],
+  "exit_code": 1,
+  "seconds": 0.510797958006151,
+  "source": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-numeric/initial/paired-consumer/reproduce.py",
+    "sha256": "46ce81145cf51bad0384256e08bbca3941dd3d9f6af252a7153d050b205834f3",
+    "bytes": 1314
+  },
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-numeric/initial/paired-consumer/reproduced.stdout.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-numeric/initial/paired-consumer/reproduced.stderr.log",
+    "sha256": "254fdc32f749b60cc2eadf2e6059c591cf9358cd8ba2f504625c6d0117d077c8",
+    "bytes": 2231
+  },
+  "unchanged_original_certificate_and_binary": true,
+  "both_original_checkers_reject_same_bytes_as_core_type_mismatch": true,
+  "original_assertion_too_narrow": true,
+  "semantic_negative_counted": false,
+  "repair_scope": "Accept only exact current check_type_mismatch or lambda_domain_mismatch and compare the corresponding exact current Go error form. No producer/checker/proof/test-input change or ordinary checker budget change."
+}

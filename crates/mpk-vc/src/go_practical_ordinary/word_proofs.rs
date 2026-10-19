@@ -171,7 +171,7 @@ impl<'a> Evaluation<'a> {
     }
 }
 
-fn boolean_cases<F>(
+pub(super) fn boolean_cases<F>(
     names: &[&'static str],
     environment: &BTreeMap<&'static str, Expr>,
     proposition: &F,
