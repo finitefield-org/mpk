@@ -93,3 +93,12 @@ omission is fixed, all4 affected binder roots/10 subtests and current legacy,
 vet/format checks pass. This initially reads the original mutable namespace;
 complete consulted-input capture and immutable authoritative replay remain due,
 alongside the complete private context/compiler/foundation. W01 stays In progress.
+
+The [prepared compiler checkpoint](verification/compiler-image/README.md) now
+checks a complete original Go1.25.0 image:5,577 files,9 exact command/tool binaries,
+original specification/version witnesses and complete component ownership.
+Independent original-SDK hashes agree with the retained fresh inventory. Native
+image/reauthorized-change controls, the eleven-case build-info matrix, legacy
+checks and current vet/format pass; the original fixture-mode failure is retained.
+Complete analysis-library/frontend build identity and checked context/registry
+binding remain due before immutable production loading; W01 stays In progress.

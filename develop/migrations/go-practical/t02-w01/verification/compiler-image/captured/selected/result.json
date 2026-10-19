@@ -1,0 +1,100 @@
+{
+  "status": "passed",
+  "command": [
+    "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/go",
+    "test",
+    "-mod=vendor",
+    "-run",
+    "^TestPracticalCompilerValidatesActualPreparedImageAndRejectsReauthorizedChanges$",
+    "-count=1",
+    "-json",
+    "."
+  ],
+  "cwd": "go-tools/go2vir",
+  "environment": {
+    "GOROOT": "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go",
+    "GOTOOLCHAIN": "local",
+    "GOENV": "off",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "GOTELEMETRY": "off",
+    "GOWORK": "off",
+    "GOCACHE": "/private/tmp/mpk-go-practical-t02-build-cache",
+    "GOPATH": "/private/tmp/mpk-go-practical-t02-gopath",
+    "GOMODCACHE": "/private/tmp/mpk-go-practical-t02-go-mod",
+    "MPK_GO_PRACTICAL_COMPILER_EVIDENCE": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-image/captured/selected/prepared-image.json"
+  },
+  "compiler_version": "go version go1.25.0 darwin/arm64",
+  "compiler": {
+    "path": "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/go",
+    "sha256": "c812de5f1e8307431c5bce8ebc4887c180827abc5834a72cd640a8a14200a93b",
+    "bytes": 14117888
+  },
+  "sources": [
+    {
+      "path": "go-tools/go2vir/practical_compiler.go",
+      "sha256": "3f1824ccd1aed996999ee4ce60b2f5c31222d5fdef5ca0fde9cbe7381a5cc7bf",
+      "bytes": 9606
+    },
+    {
+      "path": "go-tools/go2vir/practical_compiler_test.go",
+      "sha256": "b44ac68aa7bee310740f83a34874e70345cf7f99fb95a8fc735eb4cccb255b18",
+      "bytes": 2624
+    },
+    {
+      "path": "go-tools/go2vir/practical_compiler_capture_test.go",
+      "sha256": "ce8793cfc3979241dcab18e529437e54ccd89497f39d2c6e3d4c006586fe2ef2",
+      "bytes": 11094
+    }
+  ],
+  "frozen_contract": {
+    "path": "develop/migrations/go-practical/t01-w01/entry-audit.json",
+    "sha256": "ecfe456fd52fd1b5f562f48126dddd487e00cc3b900147abe149b806fe64e828",
+    "bytes": 65080
+  },
+  "selection_reason": "Add test-only exclusive evidence output before caller-mutation controls, retaining the complete freshly verified compiler/component inventories. Retest that native root and all six controls, plus vet/format after the capture-test change. Production validation and the reviewed eleven-case metadata matrix are unchanged; previous pure/legacy/public-boundary results are retained. No CSharp tests or intermediate full gate.",
+  "full_T02_gate": "deferred to T02-W04; use check-fast.sh --skip-csharp",
+  "T02_W01_complete": false,
+  "started_at_utc": "2026-10-19T09:53:18.365738+00:00",
+  "input_vectors": [
+    {
+      "path": "develop/specs/GO_PRACTICAL_PROFILE_V1.md",
+      "sha256": "3afb71dc9f92075c9a1ca745291e8babc91055f633b366e51c49a301bd15cc86",
+      "bytes": 8197
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w01/entry-audit.json",
+      "sha256": "ecfe456fd52fd1b5f562f48126dddd487e00cc3b900147abe149b806fe64e828",
+      "bytes": 65080
+    }
+  ],
+  "exit_code": 0,
+  "wall_seconds": 7.594413332990371,
+  "finished_at_utc": "2026-10-19T09:53:25.960662+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/compiler-image/captured/selected/stdout.log",
+    "sha256": "7968dccf3c00716cab828804c821860b4492f86afaa4733a6d55c36ecbd767b5",
+    "bytes": 9410
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/compiler-image/captured/selected/stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "root_tests_passed": [
+    "TestPracticalCompilerValidatesActualPreparedImageAndRejectsReauthorizedChanges"
+  ],
+  "subtests_passed": [
+    "TestPracticalCompilerValidatesActualPreparedImageAndRejectsReauthorizedChanges/caller-inventory-alias",
+    "TestPracticalCompilerValidatesActualPreparedImageAndRejectsReauthorizedChanges/self-consistent-newer-release",
+    "TestPracticalCompilerValidatesActualPreparedImageAndRejectsReauthorizedChanges/mixed-host-inventory",
+    "TestPracticalCompilerValidatesActualPreparedImageAndRejectsReauthorizedChanges/rehashed-specification",
+    "TestPracticalCompilerValidatesActualPreparedImageAndRejectsReauthorizedChanges/rehashed-wrong-tool-binary",
+    "TestPracticalCompilerValidatesActualPreparedImageAndRejectsReauthorizedChanges/partial-original-test-fixture"
+  ],
+  "prepared_image": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/compiler-image/captured/selected/prepared-image.json",
+    "sha256": "c6bcb748bf728a999d4edd56fb4cd390f9c1134671990dfd4e35e0c1086cc75d",
+    "bytes": 2574682
+  }
+}

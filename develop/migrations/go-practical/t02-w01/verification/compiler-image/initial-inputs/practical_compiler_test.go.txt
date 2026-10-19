@@ -1,0 +1,32 @@
+package main
+
+import (
+	"encoding/json"
+	"os"
+	"reflect"
+	"testing"
+)
+
+func TestPracticalCompilerPinsOriginalRegisteredSourceWitnesses(t *testing.T) {
+	raw, err := os.ReadFile("../../develop/migrations/go-practical/t01-w01/entry-audit.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	var entry struct {
+		Compiler struct {
+			Witnesses []inventoryFile `json:"source_witnesses"`
+		} `json:"compiler_candidate"`
+	}
+	if err := json.Unmarshal(raw, &entry); err != nil {
+		t.Fatal(err)
+	}
+	if !reflect.DeepEqual(entry.Compiler.Witnesses, practicalCompilerWitnesses[:]) {
+		t.Fatal("Go specification/version source pins differ from the original registered compiler metadata")
+	}
+}
+
+func TestPracticalCompilerRejectsMissingInventoryBeforeFilesystemAccess(t *testing.T) {
+	if _, err := validatePracticalCompilerImage(launcherSelection{ToolchainGoRootPath: "/unavailable/caller/root"}); err == nil {
+		t.Fatal("empty compiler inventory allowed an unavailable caller-selected root")
+	}
+}

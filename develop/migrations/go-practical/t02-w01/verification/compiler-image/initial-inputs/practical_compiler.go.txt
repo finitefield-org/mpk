@@ -1,0 +1,203 @@
+package main
+
+import (
+	"crypto/sha256"
+	"debug/buildinfo"
+	"encoding/hex"
+	"fmt"
+	"io"
+	"os"
+	"path"
+	"path/filepath"
+	"strings"
+)
+
+// A verified prepared image, not a registered practical context or a native
+// release receipt. The caller must bind its exact inventory to that context.
+type practicalCompilerImage struct {
+	candidate launcherSelection
+	selection validatedLauncherSelection
+	host      string
+}
+
+// Original release-independent source witnesses pinned at T01 entry. They
+// identify Go1.25.0's specification and version handling, not a recipe fixture.
+var practicalCompilerWitnesses = [...]inventoryFile{
+	{Path: "go/VERSION", SizeBytes: 35, SHA256: "5b444481508c9a41ae34393cf2e0e06ddfa930b02c783a7ccad450b6a8eab773"},
+	{Path: "go/doc/go_spec.html", SizeBytes: 293108, SHA256: "42a4ff1c01efe8dc23eca4378b8fb03d76e9f2f079dab01298ffd74d8b0e3149"},
+	{Path: "go/src/go/types/version.go", SizeBytes: 2085, SHA256: "6a41744c247a4e22afa59098970b2dee3693f6c0a0556a043236758415755e83"},
+	{Path: "go/src/go/version/version.go", SizeBytes: 1970, SHA256: "7a910410a2b437e873749b2bb551085ff993617304331784afd83954a74c7f5c"},
+}
+
+func practicalCompilerInventoryShape(candidate launcherSelection) (string, error) {
+	if err := validateInventoryShape(candidate.ToolchainInventory.Files); err != nil {
+		return "", err
+	}
+	files := make(map[string]inventoryFile, len(candidate.ToolchainInventory.Files))
+	host := ""
+	for _, file := range candidate.ToolchainInventory.Files {
+		files[file.Path] = file
+		if strings.HasPrefix(file.Path, "go/pkg/tool/") {
+			tail := strings.TrimPrefix(file.Path, "go/pkg/tool/")
+			platform, _, found := strings.Cut(tail, "/")
+			if !found || platform != "linux_amd64" && platform != "darwin_arm64" || host != "" && host != platform {
+				return "", fmt.Errorf("practical compiler image has a mixed or unavailable host tool directory")
+			}
+			host = platform
+		}
+	}
+	if host == "" {
+		return "", fmt.Errorf("practical compiler image has no complete host tools")
+	}
+	for _, witness := range practicalCompilerWitnesses {
+		if files[witness.Path] != witness {
+			return "", fmt.Errorf("practical compiler Go1.25.0 source witness differs: %s", witness.Path)
+		}
+	}
+	for _, required := range []string{"go/go.env", "go/src/runtime/runtime2.go", "go/src/runtime/asm_amd64.s", "go/src/runtime/os_linux.go", "go/src/builtin/builtin.go", "go/src/unsafe/unsafe.go"} {
+		if file, exists := files[required]; !exists || file.Executable {
+			return "", fmt.Errorf("practical compiler image omits original target/compiler content")
+		}
+	}
+	tools := map[string]string{"go": "go/bin/go", "gofmt": "go/bin/gofmt"}
+	for _, tool := range []string{"asm", "cgo", "compile", "cover", "link", "preprofile", "vet"} {
+		tools["go-tool-"+tool] = "go/pkg/tool/" + host + "/" + tool
+	}
+	if len(candidate.ToolchainComponents) != len(tools)+1 {
+		return "", fmt.Errorf("practical compiler component set is not complete")
+	}
+	seen := map[string]bool{}
+	for _, component := range candidate.ToolchainComponents {
+		identity := component.Identity
+		if seen[identity.Name] || identity.Release != practicalCompilerRelease {
+			return "", fmt.Errorf("practical compiler components do not pin exactly Go1.25.0")
+		}
+		seen[identity.Name] = true
+		if identity.Name == "go-target-linux-amd64" {
+			if identity.Kind != "content" {
+				return "", fmt.Errorf("practical target content is not a content inventory")
+			}
+			for _, file := range component.Inventory.Files {
+				if file.Executable {
+					return "", fmt.Errorf("practical target content hides an executable")
+				}
+			}
+			continue
+		}
+		filename, exists := tools[identity.Name]
+		if !exists || identity.Kind != "executable" || len(component.Inventory.Files) != 1 || component.Inventory.Files[0] != files[filename] || !files[filename].Executable {
+			return "", fmt.Errorf("practical compiler executable/component mapping differs")
+		}
+	}
+	if !seen["go-target-linux-amd64"] {
+		return "", fmt.Errorf("practical compiler target content component is absent")
+	}
+	return host, nil
+}
+
+func validatePracticalCompilerBinary(root practicalRootReader, expected inventoryFile, host string) (err error) {
+	relative := strings.TrimPrefix(expected.Path, "go/")
+	// os.Root confines resolution; checking each original ancestor additionally
+	// rejects links that resolve to a different in-root path.
+	for directory := path.Dir(relative); directory != "."; directory = path.Dir(directory) {
+		info, err := root.Lstat(directory)
+		if err != nil || !releaseDirectoryModeValid(info.Mode()) {
+			return fmt.Errorf("practical compiler binary ancestor is missing, linked or unsealed")
+		}
+	}
+	before, err := root.Lstat(relative)
+	if err != nil || !releaseFileModeValid(before.Mode(), true) || before.Size() != expected.SizeBytes {
+		return fmt.Errorf("practical compiler binary is not the exact sealed regular file")
+	}
+	file, err := root.Open(relative)
+	if err != nil {
+		return err
+	}
+	defer func() {
+		if closeErr := file.Close(); err == nil {
+			err = closeErr
+		}
+	}()
+	opened, err := file.Stat()
+	if err != nil || !sameFileState(before, opened) {
+		return fmt.Errorf("practical compiler binary changed while opening")
+	}
+	hasher := sha256.New()
+	n, err := io.Copy(hasher, io.LimitReader(file, expected.SizeBytes+1))
+	if err != nil || n != expected.SizeBytes || hex.EncodeToString(hasher.Sum(nil)) != expected.SHA256 {
+		return fmt.Errorf("practical compiler binary differs from the selected inventory")
+	}
+	info, err := buildinfo.Read(file)
+	if err != nil || info.GoVersion != practicalCompilerRelease || info.Path != "cmd/"+path.Base(relative) {
+		return fmt.Errorf("practical compiler binary has wrong release or tool identity")
+	}
+	settings := map[string]string{}
+	for _, setting := range info.Settings {
+		if _, exists := settings[setting.Key]; exists {
+			return fmt.Errorf("practical compiler binary has repeated build settings")
+		}
+		settings[setting.Key] = setting.Value
+	}
+	osName, arch, _ := strings.Cut(host, "_")
+	if settings["GOOS"] != osName || settings["GOARCH"] != arch || settings["CGO_ENABLED"] != "0" || settings["-compiler"] != "gc" || settings["-buildmode"] != "exe" || settings["GOEXPERIMENT"] != "" {
+		return fmt.Errorf("practical compiler binary host/build configuration differs")
+	}
+	after, err := file.Stat()
+	named, nameErr := root.Lstat(relative)
+	if err != nil || nameErr != nil || !sameFileState(before, after) || !sameFileState(before, named) {
+		return fmt.Errorf("practical compiler binary changed during identity verification")
+	}
+	return nil
+}
+
+func validatePracticalCompilerImage(candidate launcherSelection) (practicalCompilerImage, error) {
+	host, err := practicalCompilerInventoryShape(candidate)
+	if err != nil {
+		return practicalCompilerImage{}, err
+	}
+	before, err := inspectPracticalPhysicalRoot(candidate.ToolchainGoRootPath)
+	if err != nil {
+		return practicalCompilerImage{}, err
+	}
+	standard, executable, err := validateToolchainCandidate(candidate)
+	if err != nil {
+		return practicalCompilerImage{}, err
+	}
+	for _, required := range []string{"builtin", "unsafe", "runtime", "go/types", "go/version", "bytes", "strings", "fmt", "net/http"} {
+		if _, exists := standard[required]; !exists {
+			return practicalCompilerImage{}, fmt.Errorf("practical compiler image lacks original standard-library sources")
+		}
+	}
+	root, err := openPracticalSourceRoot(candidate.ToolchainGoRootPath)
+	if err != nil {
+		return practicalCompilerImage{}, err
+	}
+	for _, component := range candidate.ToolchainComponents {
+		if component.Identity.Kind == "executable" {
+			if err := validatePracticalCompilerBinary(root, component.Inventory.Files[0], host); err != nil {
+				_ = root.Close()
+				return practicalCompilerImage{}, err
+			}
+		}
+	}
+	closeErr := root.Close()
+	after, err := os.Lstat(candidate.ToolchainGoRootPath)
+	if err != nil || closeErr != nil || !sameFileState(before, after) {
+		return practicalCompilerImage{}, fmt.Errorf("practical compiler image root changed during verification")
+	}
+	// Own every inventory and projection retained for later revalidation.
+	owned := launcherSelection{Toolchain: candidate.Toolchain, ToolchainGoRootPath: candidate.ToolchainGoRootPath, ToolchainInventory: candidate.ToolchainInventory}
+	owned.Toolchain.Components = append([]componentIdentity(nil), candidate.Toolchain.Components...)
+	owned.ToolchainInventory.Files = append([]inventoryFile(nil), candidate.ToolchainInventory.Files...)
+	for _, component := range candidate.ToolchainComponents {
+		component.Inventory.Files = append([]inventoryFile(nil), component.Inventory.Files...)
+		owned.ToolchainComponents = append(owned.ToolchainComponents, component)
+	}
+	selection := validatedLauncherSelection{Toolchain: owned.Toolchain, Target: targetIdentity{ID: goTarget, PointerWidth: goPointerWidth}, GoRoot: owned.ToolchainGoRootPath, GoExecutable: filepath.Clean(executable), StandardPackagePaths: standard}
+	return practicalCompilerImage{candidate: owned, selection: selection, host: host}, nil
+}
+
+func (image practicalCompilerImage) revalidate() error {
+	_, err := validatePracticalCompilerImage(image.candidate)
+	return err
+}

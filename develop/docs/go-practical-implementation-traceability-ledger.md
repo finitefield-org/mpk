@@ -4910,3 +4910,42 @@ metadata/versions, original source/export/build closure and immutable production
 replay remain due. W01 stays In progress; all169 application demands remain
 unelaborated. No source/program proof, public activation or native Linux receipt
 is claimed. C# tests stay deferred; full T02 gate stays deferred to W04.
+
+## 86. T02-W01 complete prepared compiler image validation
+
+The [prepared compiler checkpoint](../migrations/go-practical/t02-w01/verification/compiler-image/README.md)
+starts from `2acfe4c51804b325f6e1851f8f3332eb893d1ef5`. The private image validator
+checks all physical/root/component bytes and exact partition, four original
+registered specification/version witnesses, all9 Go1.25.0 tools and original
+Linux-amd64 runtime/library sources. Rooted regular nonblocking tool opens,
+streamed hashes and same-file observations bind decoded release/cmd identity,
+host/gc/exe/cgo/experiment configuration and Linux-host AMD64-v1 tuning. Retained
+inventories/projections own their arrays and support complete revalidation.
+
+The initial native attempt fails in test setup: only directories were sealed
+while file modes remained writable. Exact input copies and raw output remain.
+After the test-only mode fix, the full native root/six controls passes in7.770
+seconds. Review adds explicit AMD64-v1 and11 build-info negatives: both affected
+roots/17 subtests pass in8.141 seconds; the legacy metadata root/11 subtests passes
+in2.335 seconds. Five unaffected initial roots/11 subtests and initial legacy5
+roots/11 subtests retain passing evidence without repetition.
+
+Fresh exclusive inventory capture reruns its native root/six controls in7.594
+seconds; current vet/format pass. It retains5,577 files/163,457,770 bytes,10
+components/9 tool binaries and715 original Go source directories. Independent
+Python enumeration/hash/partition/canonical-identity checks match every original
+SDK byte and the original four registered source witnesses. The prepared fixture
+uses the existing release test/testdata pruning and mode normalization. Original
+implementation/support bytes are retained, with generation scripts inert.
+Rehashed changed version-source or gofmt-for-compile substitutions, newer release
+labels, mixed hosts and the previous partial SDK fixture reject. Caller array
+changes cannot mutate the retained compiler identity.
+
+This is a complete supplied prepared-image check, not a registered practical
+context or production immutable image. Exact analysis-library/frontend source/
+build identity, actual checked foundation/context/registry binding, full consulted
+module/source/export/build closure and immutable replay remain due. The fresh
+existing generic inventory is not a W03 wire migration or promoted T01 fixture.
+W01 stays In progress and all169 application demands remain unelaborated. No
+public activation, application proof or native Linux receipt is claimed. C# tests
+stay deferred; the cumulative T02 gate stays deferred to W04.

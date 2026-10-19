@@ -1,0 +1,247 @@
+{
+  "schema": "mpk.go_practical.prepared_compiler_checkpoint.v1",
+  "status": "component_checks_passed_work_item_in_progress",
+  "observed_at_utc": "2026-10-19T09:56:02.625304+00:00",
+  "entry_commit": "2acfe4c51804b325f6e1851f8f3332eb893d1ef5",
+  "sources": [
+    {
+      "path": "go-tools/go2vir/practical_compiler.go",
+      "sha256": "3f1824ccd1aed996999ee4ce60b2f5c31222d5fdef5ca0fde9cbe7381a5cc7bf",
+      "bytes": 9606
+    },
+    {
+      "path": "go-tools/go2vir/practical_compiler_test.go",
+      "sha256": "b44ac68aa7bee310740f83a34874e70345cf7f99fb95a8fc735eb4cccb255b18",
+      "bytes": 2624
+    },
+    {
+      "path": "go-tools/go2vir/practical_compiler_capture_test.go",
+      "sha256": "ce8793cfc3979241dcab18e529437e54ccd89497f39d2c6e3d4c006586fe2ef2",
+      "bytes": 11094
+    }
+  ],
+  "results": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/compiler-image/selected/result.json",
+      "sha256": "07f405776f2e35ef5ac06572a96df57310cb54276cd4214633c6da772c158860",
+      "bytes": 3685,
+      "attempt": "initial",
+      "mode": "selected",
+      "status": "failed",
+      "seconds": 5.8321277080103755,
+      "root_tests": 0,
+      "subtests": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/compiler-image/legacy/result.json",
+      "sha256": "18ac633bfcef4363484ad9429c92b06da2a0a4b9d1f2d7e65d2d2eec14bef7f0",
+      "bytes": 4910,
+      "attempt": "initial",
+      "mode": "legacy",
+      "status": "passed",
+      "seconds": 2.354730707942508,
+      "root_tests": 5,
+      "subtests": 11
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/compiler-image/vet/result.json",
+      "sha256": "ee2e727e8f5019ceaef1a54d678a61589db6f439a92f315e58d63b163f8d79f7",
+      "bytes": 3438,
+      "attempt": "initial",
+      "mode": "vet",
+      "status": "passed",
+      "seconds": 0.6488170410739258,
+      "root_tests": 0,
+      "subtests": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/compiler-image/format/result.json",
+      "sha256": "06da568010a1331ce649d5f9682b892b3a80cd3076217033483be06d7550d475",
+      "bytes": 3525,
+      "attempt": "initial",
+      "mode": "format",
+      "status": "passed",
+      "seconds": 0.006427500047720969,
+      "root_tests": 0,
+      "subtests": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/compiler-image/final/selected/result.json",
+      "sha256": "db877f58c52546903b4d0988c772cb378f05e095878a5b713ff57b142cb1fb54",
+      "bytes": 4115,
+      "attempt": "final",
+      "mode": "selected",
+      "status": "passed",
+      "seconds": 7.769722540979274,
+      "root_tests": 1,
+      "subtests": 6
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/compiler-image/final/vet/result.json",
+      "sha256": "d7c14fd4c38905cd3614ba05ef78c888e132621184702018abc6129689319080",
+      "bytes": 3161,
+      "attempt": "final",
+      "mode": "vet",
+      "status": "passed",
+      "seconds": 0.4259544579545036,
+      "root_tests": 0,
+      "subtests": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/compiler-image/final/format/result.json",
+      "sha256": "5750bf378cf764300761bee769f78d358505610ec1664f945057f0e68b21213a",
+      "bytes": 3248,
+      "attempt": "final",
+      "mode": "format",
+      "status": "passed",
+      "seconds": 0.006061500054784119,
+      "root_tests": 0,
+      "subtests": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/compiler-image/reviewed/selected/result.json",
+      "sha256": "e6afc67a21211727a84023cdda1beb0e6d38ed0ae91fa26d54b3efd058aa491f",
+      "bytes": 5328,
+      "attempt": "reviewed",
+      "mode": "selected",
+      "status": "passed",
+      "seconds": 8.140850583906285,
+      "root_tests": 2,
+      "subtests": 17
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/compiler-image/reviewed/legacy/result.json",
+      "sha256": "c7658fe1f30587aaaf0ab9dc81bc866e9b5e8a68012fa7a1d98aa9d411d88508",
+      "bytes": 4359,
+      "attempt": "reviewed",
+      "mode": "legacy",
+      "status": "passed",
+      "seconds": 2.335353291942738,
+      "root_tests": 1,
+      "subtests": 11
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/compiler-image/reviewed/vet/result.json",
+      "sha256": "ab94c046fa588130d71e4a387a4270f78f6981a6e065600529c5b1cf8ad7ad3b",
+      "bytes": 3251,
+      "attempt": "reviewed",
+      "mode": "vet",
+      "status": "passed",
+      "seconds": 0.617852249997668,
+      "root_tests": 0,
+      "subtests": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/compiler-image/reviewed/format/result.json",
+      "sha256": "ae7fb7ef8a641768a9ba88f7478f09e42c22b0fab2623de28d73202f4354acfc",
+      "bytes": 3339,
+      "attempt": "reviewed",
+      "mode": "format",
+      "status": "passed",
+      "seconds": 0.006327499984763563,
+      "root_tests": 0,
+      "subtests": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/compiler-image/captured/selected/result.json",
+      "sha256": "1d930722c2c0bc69710e91e1a97d069cf92f4d2b5e43a9960bc353a3a904099b",
+      "bytes": 4591,
+      "attempt": "captured",
+      "mode": "selected",
+      "status": "passed",
+      "seconds": 7.594413332990371,
+      "root_tests": 1,
+      "subtests": 6
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/compiler-image/captured/vet/result.json",
+      "sha256": "eb0254dbc15e977154c85065e7d4e28ff2fbcb8e4fffb18ddb23bcc105c4f445",
+      "bytes": 3204,
+      "attempt": "captured",
+      "mode": "vet",
+      "status": "passed",
+      "seconds": 0.4368366670096293,
+      "root_tests": 0,
+      "subtests": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/compiler-image/captured/format/result.json",
+      "sha256": "26bec7ed1b30d81ed8dab001ff7e1ca3735dba641ece9990cf72f91c7942d647",
+      "bytes": 3291,
+      "attempt": "captured",
+      "mode": "format",
+      "status": "passed",
+      "seconds": 0.005880917073227465,
+      "root_tests": 0,
+      "subtests": 0
+    }
+  ],
+  "initial_unaffected_passes": [
+    "TestLoaderEnvironmentIsClosedAndSorted",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/no_default_profile_or_target",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/wrong_command",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/wrong_profile",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/wrong_target",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/missing_profile",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/missing_target",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/reordered_singleton",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/duplicate_singleton",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/unknown_trailing_argument",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/uppercase_digest",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/nonportable_contract",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads",
+    "TestPracticalCompilerPinsOriginalRegisteredSourceWitnesses",
+    "TestPracticalCompilerRejectsMissingInventoryBeforeFilesystemAccess",
+    "TestPracticalSourceDoesNotActivateInstalledProfile"
+  ],
+  "current_native_root_tests": 1,
+  "current_native_subtests": 6,
+  "reviewed_metadata_root_tests": 1,
+  "reviewed_metadata_subtests": 11,
+  "prepared_inventory": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/compiler-image/captured/selected/prepared-image.json",
+    "sha256": "c6bcb748bf728a999d4edd56fb4cd390f9c1134671990dfd4e35e0c1086cc75d",
+    "bytes": 2574682
+  },
+  "independent_original_observation": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/compiler-image/original-observation/result.json",
+    "sha256": "53e4f00dfaaa15fea04e74e1af38bdd352bea15f002e3aa1bfec77aad9ede2ce",
+    "bytes": 1680
+  },
+  "observed_image": {
+    "files": 5577,
+    "bytes": 163457770,
+    "components": 10,
+    "executables": 9,
+    "standard_source_directories": 715,
+    "distribution_sha256": "a80de99f741cb69a8ed887c137b0be3d6368ddd051ac3145eb6feec7f85b6fb7"
+  },
+  "implemented": [
+    "Validate the complete supplied prepared-image inventory and exact component partition/digests/physical original content using the existing generic bundle inventory implementation. Require every Go1.25.0 tool and one complete target-content component, four original registered source witnesses and original Linux-amd64 runtime/standard-library sources.",
+    "Validate all nine command/tool binaries through rooted regular nonblocking opens, original ancestors, streamed raw hashes, same-file observations and decoded Go build metadata. Pin command identity, exact Go1.25.0, host, gc/exe, cgo-off/no-experiments and Linux-host AMD64-v1 configuration.",
+    "Retain owned copies of the root/component inventories and identity projections for later full revalidation. Original caller array mutations cannot change the retained image identity.",
+    "Reject mixed hosts, self-consistent newer release labels, all-rehashed altered specification/version sources and a freshly rehashed gofmt binary substituted for cmd/compile. Reject the preceding partial SDK test fixture as a complete prepared practical image.",
+    "Retain a fresh complete5,577-file inventory from the actual original prepared Go1.25.0 image. Independent Python enumeration/hash/canonical-identity/partition checks agree on every original SDK member and all four registered source witnesses."
+  ],
+  "reviewed_properties": [
+    "The first native attempt fails during test fixture setup because files were set writable while only directories were sealed. Original exact inputs and raw failed output remain; only the complete native root plus vet/format rerun after that test-only fix.",
+    "Review adds the explicit Linux-host AMD64-v1 build-info check and a host-independent eleven-case negative matrix. Actual complete native image/tool checks and both compiler versions exercise the affected parser; unaffected original boundary results are retained.",
+    "Test-only exclusive artifact output is emitted before mutable caller controls and is independently compared with every original SDK byte. This final capture change retests its native root and current vet/format; unchanged production/metadata/legacy checks keep the reviewed evidence.",
+    "The prepared fixture follows the existing release assembler test/testdata pruning and executable-mode normalization. Original implementation/support bytes are preserved; source build/generation scripts remain inert content.",
+    "This is a freshly generated private prepared-image inventory in the existing generic bundle schema. It is not a T01 fixture promoted to a checked foundation/context or a common artifact migration. Complete semantic context/registry binding and the W03 wire migration remain due.",
+    "Validation/revalidation of a prepared image does not supply production immutable mounts or package/source/export closure; those remain required before authoritative loading."
+  ],
+  "remaining": [
+    "Bind the exact prepared compiler image and complete analysis-library/frontend build-source inventory to an actual checked private foundation/registry/context; loaded effective per-file versions remain due.",
+    "Capture every consulted dependency input and complete original source/export/build closure, then materialize and replay only under the complete checked context and immutable namespace.",
+    "Finish W01, W02 original typing/two closures, W03 independently imported common artifacts and W04 scalar application proof/cumulative gate, then remaining T03-T11 scope."
+  ],
+  "CSharp_tests_executed": false,
+  "registered_practical_context": false,
+  "production_immutable_loader_materialized": false,
+  "public_profile_activated": false,
+  "source_program_proof_claimed": false,
+  "native_Linux_acceptance_claimed": false,
+  "T02_W01_complete": false,
+  "full_T02_gate": "deferred to T02-W04: check-fast.sh --skip-csharp"
+}
