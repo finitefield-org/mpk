@@ -20,20 +20,23 @@
     {
       "id": "T02-W01-R03",
       "requirement": "Exact Go1.25.0/Linux amd64 compiler/stdlib/analysis inventory and effective go1.22–go1.25 requirements; reject toolchain fallback",
-      "status": "pending",
-      "executor": "go-tools/go2vir/practical_context.go and practical_capture.go"
+      "status": "partial_original_module_compiler_requirements",
+      "executor": "go-tools/go2vir/practical_context.go and practical_capture.go",
+      "completed_component": "Full module patch requirements before language normalization; exact main proof-language table; retain dependency suggestions. Compiler/stdlib/analysis inventory and per-file loaded versions remain due."
     },
     {
       "id": "T02-W01-R04",
       "requirement": "Exact module graph/versions, go.mod/go.sum/metadata, versioned and capability-bound local replacements, selected-root mapping",
-      "status": "pending",
-      "executor": "go-tools/go2vir/practical_capture.go"
+      "status": "partial_original_manifests_and_local_replacement_authority",
+      "executor": "go-tools/go2vir/practical_capture.go",
+      "completed_component": "Original directives and go.mod/go.sum through rooted capture; local replacement capability checks and actual pinned offline Go graph differential. Complete versioned selected graph/snapshot binding remains due."
     },
     {
       "id": "T02-W01-R05",
       "requirement": "Offline original module/archive and Go sum verification; reject missing/stale checksum or snapshot, network/VCS/generation fallback",
-      "status": "pending",
-      "executor": "go-tools/go2vir/practical_capture.go"
+      "status": "partial_exact_manifest_h1_checks",
+      "executor": "go-tools/go2vir/practical_capture.go",
+      "completed_component": "Strict original go.sum parsing and exact go.mod Hash1 against independent Go observation. All archive/content/consulted-metadata provenance and production offline resolver enforcement remain due."
     },
     {
       "id": "T02-W01-R06",
@@ -46,7 +49,8 @@
       "requirement": "Affected existing Go behavior and independent validation, targeted format/lint/review; fullT02 gate only at W04, CSharp tests deferred by explicit instruction",
       "status": "partial_source_and_rooted_capture_targeted_checks_passed",
       "executor": "go-tools/go2vir/practical_source_test.go and future capture/context tests",
-      "full_T02_gate": "deferred to T02-W04: check-fast.sh --skip-csharp"
+      "full_T02_gate": "deferred to T02-W04: check-fast.sh --skip-csharp",
+      "completed_component": "Source object and rooted checks plus12 module/affected-boundary root tests52 subtests, current vet/format and separate7-root40-subtest legacy build. Full scope review and final T02 gate remain due."
     }
   ],
   "T02_W01_complete": false,

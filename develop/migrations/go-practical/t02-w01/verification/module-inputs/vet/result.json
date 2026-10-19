@@ -1,0 +1,89 @@
+{
+  "status": "passed",
+  "command": [
+    "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/go",
+    "vet",
+    "-mod=vendor",
+    "."
+  ],
+  "cwd": "go-tools/go2vir",
+  "environment": {
+    "GOROOT": "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go",
+    "GOTOOLCHAIN": "local",
+    "GOENV": "off",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "GOTELEMETRY": "off",
+    "GOWORK": "off",
+    "GOCACHE": "/private/tmp/mpk-go-practical-t02-build-cache",
+    "GOPATH": "/private/tmp/mpk-go-practical-t02-gopath",
+    "GOMODCACHE": "/private/tmp/mpk-go-practical-t02-go-mod"
+  },
+  "compiler_version": "go version go1.25.0 darwin/arm64",
+  "compiler": {
+    "path": "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/go",
+    "sha256": "c812de5f1e8307431c5bce8ebc4887c180827abc5834a72cd640a8a14200a93b",
+    "bytes": 14117888
+  },
+  "sources": [
+    {
+      "path": "go-tools/go2vir/practical_module.go",
+      "sha256": "6a6e59cf3bedbd4f9b44bb751171b85c2d486a7d7b9e6d17d0a3ab2e0416ed8b",
+      "bytes": 5531
+    },
+    {
+      "path": "go-tools/go2vir/practical_module_test.go",
+      "sha256": "3dea953e0d21d89d43c6a89b09f31be64ee172a91780d85cfa0f828b81b8894b",
+      "bytes": 7225
+    },
+    {
+      "path": "go-tools/go2vir/practical_module_capture.go",
+      "sha256": "ce5c2310977d3911e69c4d72779493c6c03968012c2ebe0e512be406c96426c2",
+      "bytes": 4150
+    },
+    {
+      "path": "go-tools/go2vir/practical_module_capture_test.go",
+      "sha256": "1575a63ae86c81abed2aeb0befcc354338df95c4874dec93585d4fe5e5b6c085",
+      "bytes": 9599
+    }
+  ],
+  "frozen_contract": {
+    "path": "develop/migrations/go-practical/t01-w05/source-kind/catalog.json",
+    "sha256": "1ddbd93204546f227c43dc7729d3547b56abe2a5870a4a418e1d424806b38219",
+    "bytes": 2858
+  },
+  "selection_reason": "New original go.mod/go.sum parsers, full compiler patch requirements before language normalization, exact manifest h1 checksum vector, captured local replacement authority and an actual pinned offline Go module-graph comparison. Closed loader environment, old profile rejection of ambient dependencies and closed public arguments are affected boundaries. Legacy mode checks four pure parser/checksum tests plus existing closed arguments and unavailable rooted capture. No CSharp tests or intermediate whole-stage gate.",
+  "full_T02_gate": "deferred to T02-W04; use check-fast.sh --skip-csharp",
+  "T02_W01_complete": false,
+  "started_at_utc": "2026-10-19T08:18:53.049657+00:00",
+  "input_vectors": [
+    {
+      "path": "develop/migrations/go-practical/t01-w02/module-probes.json",
+      "sha256": "c4ce51fdf23a8b55b6dbe0e9675fd710f37040ba183e45c868d3eb43fbd1320f",
+      "bytes": 115741
+    },
+    {
+      "path": "develop/probes/go-practical/module-cases.json",
+      "sha256": "b8aae7daac943cfec28581d994455c276d649411a1bb509c540bcc4e21a59af9",
+      "bytes": 11953
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/source-admission/catalog.json",
+      "sha256": "3882a7b8b8143a9e51eee4b42c29206da3d9c01e29c6cf334eb4e2ebf210d593",
+      "bytes": 31171
+    }
+  ],
+  "exit_code": 0,
+  "wall_seconds": 0.46138458291534334,
+  "finished_at_utc": "2026-10-19T08:18:53.511624+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/module-inputs/vet/stdout.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/module-inputs/vet/stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  }
+}

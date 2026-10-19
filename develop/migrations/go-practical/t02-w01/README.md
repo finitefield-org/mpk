@@ -54,3 +54,10 @@ fix all8 affected rooted tests/17 subtests plus vet/format pass. The Go1.23
 compatibility build separately passes3 root tests/11 subtests and rejects
 unavailable rooted capture. Materializing the loader namespace and complete
 context/module/compiler/source/export authority remain due; W01 stays open.
+
+The [original module input checkpoint](verification/module-inputs/README.md)
+adds exact manifest/version/checksum handling and captured local replacement
+mapping. A fresh pinned offline Go module-graph comparison agrees with original
+nested-module inputs. The12-root52-subtest selection, vet/format and separate
+legacy build pass. Versioned archive/graph/export capture and checked private
+context/foundation remain due; this does not complete W01.
