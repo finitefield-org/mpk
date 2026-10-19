@@ -1,0 +1,75 @@
+=== RUN   TestPracticalCaptureOriginalModulesAndOwnedSnapshot
+    practical_capture_test.go:57: write test file /private/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalCaptureOriginalModulesAndOwnedSnapshot123765445/001/main/assets/large.bin: open /private/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalCaptureOriginalModulesAndOwnedSnapshot123765445/001/main/assets/large.bin: no such file or directory
+--- FAIL: TestPracticalCaptureOriginalModulesAndOwnedSnapshot (0.00s)
+=== RUN   TestPracticalCaptureRejectsObservedSourceAndNamespaceChanges
+=== RUN   TestPracticalCaptureRejectsObservedSourceAndNamespaceChanges/content-with-restored-mtime
+    practical_capture_test.go:135: write test file /private/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalCaptureRejectsObservedSourceAndNamespaceChangescon1749478702/001/main/nested/policy.go: open /private/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalCaptureRejectsObservedSourceAndNamespaceChangescon1749478702/001/main/nested/policy.go: no such file or directory
+=== RUN   TestPracticalCaptureRejectsObservedSourceAndNamespaceChanges/removed-file
+    practical_capture_test.go:135: write test file /private/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalCaptureRejectsObservedSourceAndNamespaceChangesrem39988894/001/main/nested/policy.go: open /private/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalCaptureRejectsObservedSourceAndNamespaceChangesrem39988894/001/main/nested/policy.go: no such file or directory
+=== RUN   TestPracticalCaptureRejectsObservedSourceAndNamespaceChanges/new-directory-entry
+    practical_capture_test.go:135: write test file /private/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalCaptureRejectsObservedSourceAndNamespaceChangesnew2705307251/001/main/nested/policy.go: open /private/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalCaptureRejectsObservedSourceAndNamespaceChangesnew2705307251/001/main/nested/policy.go: no such file or directory
+=== RUN   TestPracticalCaptureRejectsObservedSourceAndNamespaceChanges/replaced-root
+    practical_capture_test.go:135: write test file /private/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalCaptureRejectsObservedSourceAndNamespaceChangesrep384770634/001/main/nested/policy.go: open /private/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalCaptureRejectsObservedSourceAndNamespaceChangesrep384770634/001/main/nested/policy.go: no such file or directory
+--- FAIL: TestPracticalCaptureRejectsObservedSourceAndNamespaceChanges (0.01s)
+    --- FAIL: TestPracticalCaptureRejectsObservedSourceAndNamespaceChanges/content-with-restored-mtime (0.00s)
+    --- FAIL: TestPracticalCaptureRejectsObservedSourceAndNamespaceChanges/removed-file (0.00s)
+    --- FAIL: TestPracticalCaptureRejectsObservedSourceAndNamespaceChanges/new-directory-entry (0.00s)
+    --- FAIL: TestPracticalCaptureRejectsObservedSourceAndNamespaceChanges/replaced-root (0.00s)
+=== RUN   TestPracticalCaptureRejectsLinksSpecialFilesAndInvalidPaths
+    practical_capture_test.go:173: write test file /private/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalCaptureRejectsLinksSpecialFilesAndInvalidPaths3248283290/001/main/real/policy.go: open /private/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalCaptureRejectsLinksSpecialFilesAndInvalidPaths3248283290/001/main/real/policy.go: no such file or directory
+--- FAIL: TestPracticalCaptureRejectsLinksSpecialFilesAndInvalidPaths (0.00s)
+=== RUN   TestPracticalCaptureRejectsLeafSwapBetweenStatAndOpen
+=== RUN   TestPracticalCaptureRejectsLeafSwapBetweenStatAndOpen/outside-symlink
+=== RUN   TestPracticalCaptureRejectsLeafSwapBetweenStatAndOpen/inside-symlink
+=== RUN   TestPracticalCaptureRejectsLeafSwapBetweenStatAndOpen/fifo
+=== RUN   TestPracticalCaptureRejectsLeafSwapBetweenStatAndOpen/new-inode
+--- PASS: TestPracticalCaptureRejectsLeafSwapBetweenStatAndOpen (0.02s)
+    --- PASS: TestPracticalCaptureRejectsLeafSwapBetweenStatAndOpen/outside-symlink (0.00s)
+    --- PASS: TestPracticalCaptureRejectsLeafSwapBetweenStatAndOpen/inside-symlink (0.00s)
+    --- PASS: TestPracticalCaptureRejectsLeafSwapBetweenStatAndOpen/fifo (0.00s)
+    --- PASS: TestPracticalCaptureRejectsLeafSwapBetweenStatAndOpen/new-inode (0.01s)
+=== RUN   TestPracticalCaptureSharesBudgetsAcrossCapabilities
+=== RUN   TestPracticalCaptureSharesBudgetsAcrossCapabilities/candidate-count
+=== RUN   TestPracticalCaptureSharesBudgetsAcrossCapabilities/manifest-count
+=== RUN   TestPracticalCaptureSharesBudgetsAcrossCapabilities/bytes
+=== RUN   TestPracticalCaptureSharesBudgetsAcrossCapabilities/contracts
+=== RUN   TestPracticalCaptureSharesBudgetsAcrossCapabilities/contract-bytes
+=== RUN   TestPracticalCaptureSharesBudgetsAcrossCapabilities/directories
+=== RUN   TestPracticalCaptureSharesBudgetsAcrossCapabilities/directory-entries
+--- PASS: TestPracticalCaptureSharesBudgetsAcrossCapabilities (0.02s)
+    --- PASS: TestPracticalCaptureSharesBudgetsAcrossCapabilities/candidate-count (0.00s)
+    --- PASS: TestPracticalCaptureSharesBudgetsAcrossCapabilities/manifest-count (0.00s)
+    --- PASS: TestPracticalCaptureSharesBudgetsAcrossCapabilities/bytes (0.00s)
+    --- PASS: TestPracticalCaptureSharesBudgetsAcrossCapabilities/contracts (0.00s)
+    --- PASS: TestPracticalCaptureSharesBudgetsAcrossCapabilities/contract-bytes (0.00s)
+    --- PASS: TestPracticalCaptureSharesBudgetsAcrossCapabilities/directories (0.00s)
+    --- PASS: TestPracticalCaptureSharesBudgetsAcrossCapabilities/directory-entries (0.00s)
+=== RUN   TestPracticalCaptureRejectsRoleChangesAndASCIICollisions
+--- PASS: TestPracticalCaptureRejectsRoleChangesAndASCIICollisions (0.00s)
+=== RUN   TestPracticalSourceFinalFrozenVector
+--- PASS: TestPracticalSourceFinalFrozenVector (0.00s)
+=== RUN   TestPracticalSourceOwnsExactOriginalBytes
+--- PASS: TestPracticalSourceOwnsExactOriginalBytes (0.00s)
+=== RUN   TestPracticalSourceRejectsForgedRecordsAndOldKinds
+=== RUN   TestPracticalSourceRejectsForgedRecordsAndOldKinds/missing_schema
+=== RUN   TestPracticalSourceRejectsForgedRecordsAndOldKinds/missing_id
+=== RUN   TestPracticalSourceRejectsForgedRecordsAndOldKinds/missing_capability
+=== RUN   TestPracticalSourceRejectsForgedRecordsAndOldKinds/missing_path
+=== RUN   TestPracticalSourceRejectsForgedRecordsAndOldKinds/missing_kind
+=== RUN   TestPracticalSourceRejectsForgedRecordsAndOldKinds/missing_raw_sha256
+=== RUN   TestPracticalSourceRejectsForgedRecordsAndOldKinds/missing_bytes
+--- PASS: TestPracticalSourceRejectsForgedRecordsAndOldKinds (0.00s)
+    --- PASS: TestPracticalSourceRejectsForgedRecordsAndOldKinds/missing_schema (0.00s)
+    --- PASS: TestPracticalSourceRejectsForgedRecordsAndOldKinds/missing_id (0.00s)
+    --- PASS: TestPracticalSourceRejectsForgedRecordsAndOldKinds/missing_capability (0.00s)
+    --- PASS: TestPracticalSourceRejectsForgedRecordsAndOldKinds/missing_path (0.00s)
+    --- PASS: TestPracticalSourceRejectsForgedRecordsAndOldKinds/missing_kind (0.00s)
+    --- PASS: TestPracticalSourceRejectsForgedRecordsAndOldKinds/missing_raw_sha256 (0.00s)
+    --- PASS: TestPracticalSourceRejectsForgedRecordsAndOldKinds/missing_bytes (0.00s)
+=== RUN   TestPracticalSourcePathsKindsAndLimits
+--- PASS: TestPracticalSourcePathsKindsAndLimits (0.01s)
+=== RUN   TestPracticalSourceDoesNotActivateInstalledProfile
+--- PASS: TestPracticalSourceDoesNotActivateInstalledProfile (0.00s)
+FAIL
+FAIL	github.com/finitefield-org/mpk/go-tools/go2vir	0.784s
+FAIL

@@ -13,9 +13,9 @@
     {
       "id": "T02-W01-R02",
       "requirement": "Immutable multi-capability source snapshots with exact8-kind raw buffers, complete namespaces, limits and rejection of path/symlink/mutable-namespace escape",
-      "status": "partial_source_object_codec_only",
+      "status": "partial_rooted_filesystem_capture_and_owned_snapshot",
       "executor": "go-tools/go2vir/practical_capture.go and practical_source.go",
-      "completed_component": "Full final source-object preimage, owned bytes, exact8 kinds, strict JSON, logical paths and per-object/overlay bounds; filesystem authorization and aggregate namespace accounting remain pending."
+      "completed_component": "Final source-object codec plus actual multi-root on-demand reads, exact namespace spelling, link/special-file/leaf-swap rejection, aggregate budgets, sticky failures and owned snapshot sealing. Private loader namespace materialization and complete capture/authority binding remain due."
     },
     {
       "id": "T02-W01-R03",
@@ -44,7 +44,7 @@
     {
       "id": "T02-W01-R07",
       "requirement": "Affected existing Go behavior and independent validation, targeted format/lint/review; fullT02 gate only at W04, CSharp tests deferred by explicit instruction",
-      "status": "partial_source_object_targeted_checks_passed",
+      "status": "partial_source_and_rooted_capture_targeted_checks_passed",
       "executor": "go-tools/go2vir/practical_source_test.go and future capture/context tests",
       "full_T02_gate": "deferred to T02-W04: check-fast.sh --skip-csharp"
     }

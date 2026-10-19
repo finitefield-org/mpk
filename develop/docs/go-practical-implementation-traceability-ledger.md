@@ -29,7 +29,7 @@ after reconciling the intervening shared artifacts and active registry.
 | GO-PRAC-T01-W03 | Complete | Reviewed implementation `9d4e6fb7855a66d9fff309e6dbd9143652ee6e21`; requirement-by-requirement completion audit in section28 |
 | GO-PRAC-T01-W04 | Complete | Commit `68a44416e1b1a6dc3a84587cca784fc4b3a2b862`; exact interfaces, resource bounds, consumer review and historical replay; section58 |
 | GO-PRAC-T01-W05 | Complete under user C# test deferral | Reviewed implementation `4b4c3a01ddfa2377d7ccc0116f128649ff3ec3b1`; amended cumulative gate passes594 tests and all other checks. Completion audit and section78. |
-| GO-PRAC-T02-W01 | In progress | Final source-object/owned-byte component passes8 root tests and26 subtests, vet and format. Private contexts and complete module/snapshot/export capture remain pending; section79. |
+| GO-PRAC-T02-W01 | In progress | Source-object codec and rooted multi-capability capture pass20 root tests/43 subtests; the native-asset review follow-up passes all8 affected rooted tests/17 subtests, vet/format and the legacy build. Complete private context/module/loader/export capture remains due; sections79–80. |
 | GO-PRAC-T02–T07 | Not started | Sequential v1 implementation and public release |
 | GO-PRAC-T08–T11 | Not started | Sequential v2 freeze, maps, pointers and public release |
 
@@ -4708,3 +4708,43 @@ remain. Twelve altered-seal controls, existing fixtures and scanner shell syntax
 pass. No production/directory exemption is added. Original diagnostics remain
 byte-identical. Disk pressure is resolved by deleting only24GiB of ignored Rust
 incremental cache; sources, executables and verification records stay retained.
+
+## 80. T02-W01 rooted filesystem capture and owned snapshots
+
+The [rooted capture checkpoint](../migrations/go-practical/t02-w01/verification/rooted-capture/README.md)
+starts from `2de5a51de7aaa4a9f639eaf4133b5dc6de332713`. Actual file reads bind
+explicit directory capabilities, exact original namespace spelling and stable
+descriptor identities. Go1.25 rooted/nonblocking opens reject outside/inside
+links, FIFO/file replacements and special inputs. No recursive scan rejects
+unrelated application assets. All frozen capture budgets aggregate across
+capabilities, repeated reads are not double-charged and errors prevent sealing.
+Finalization checks original and owned bytes and observed namespace changes;
+snapshots return copies in deterministic source-ID order. Original source files,
+replacement directives and unsupported unused function bodies remain complete.
+
+The first selection exposes missing nested test-fixture directories. After that
+setup fix, a focused regression reproduces case-alias admission on a simulated
+case-insensitive host; exact captured name membership corrects it. Both original
+diagnostics/code are retained. The [final results](../migrations/go-practical/t02-w01/verification/rooted-capture/verification.json)
+pass20 root tests and43 subtests in2.184 seconds, vet in0.398 seconds and format
+in0.007 seconds. Existing raw-buffer, snapshot, shared JSON/hash and closed public
+argument consumers are selected because the new executor uses those boundaries.
+A further source review reproduces rejection of unrelated unread native names
+containing a newline or backslash. The original failing logs and inputs remain
+retained. Private directory observations now retain native names while requested
+source paths still require exact spelling and strict logical-path validation.
+The positive test also requires every expected original input and role, including
+zero-byte `go.sum`. All8 affected rooted tests/17 subtests pass in2.083 seconds,
+vet in0.459 seconds and format in0.007 seconds. Unchanged source-object/shared
+JSON/prior-snapshot tests keep their passing20-test baseline; they are not rerun.
+The current Go1.23 build passes3 root tests/11 subtests in2.034 seconds and requires unavailable
+rooted capture to fail; it grants no practical-profile compiler/target support.
+
+This is original-byte capture, not a registered source/program proof or native
+Linux namespace-isolation claim. The design-stage context fixture is not promoted
+to a finished checked foundation. Private context/foundation authority, actual
+loader namespace materialization, complete module/replacement/archive/sum/export
+metadata and compiler inventory remain required under the full W01 matrix.
+All169 Go demands remain unelaborated. C# tests are deferred by the user; the
+whole T02 development gate remains deferred to W04, with no intermediate full
+gate run. T02-W01 is still In progress and the complete goal remains open.

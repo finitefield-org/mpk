@@ -44,3 +44,13 @@ No complete W01 or T02 claim is made. Targeted checks cover changed code and
 affected consumers; the cumulative T02 gate is deferred to W04 and will use
 `./scripts/check-fast.sh --skip-csharp` under the user's explicit instruction.
 All169 Go theorem demands remain unelaborated and no practical profile activates.
+
+The [rooted capture checkpoint](verification/rooted-capture/README.md) now adds
+actual multi-capability filesystem reads and sealed owned snapshots. It checks
+exact names, rooted/nonblocking opens, links/special files, observed namespace/
+content changes, aggregate budgets and deterministic identities. The final
+Go1.25 selection passes20 root tests/43 subtests; after the native-asset review
+fix all8 affected rooted tests/17 subtests plus vet/format pass. The Go1.23
+compatibility build separately passes3 root tests/11 subtests and rejects
+unavailable rooted capture. Materializing the loader namespace and complete
+context/module/compiler/source/export authority remain due; W01 stays open.

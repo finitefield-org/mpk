@@ -45,9 +45,7 @@ func practicalSourceObjectFor(capability, path, kind string, data []byte) (pract
 	if !validPracticalLogicalPath(capability) || !validPracticalLogicalPath(path) {
 		return practicalSourceObject{}, fmt.Errorf("practical source capability/path is not a normalized logical path")
 	}
-	switch kind {
-	case "go_file", "go_mod", "go_sum", "overlay", "metadata", "export_data", "excluded_source", "auxiliary":
-	default:
+	if !validPracticalSourceKind(kind) {
 		return practicalSourceObject{}, fmt.Errorf("unknown practical source kind %q", kind)
 	}
 	if len(data) > maximumCandidateBytes || kind == "overlay" && len(data) > maximumContractBytes {
@@ -66,6 +64,15 @@ func practicalSourceObjectFor(capability, path, kind string, data []byte) (pract
 	}
 	object.ID = id
 	return object, nil
+}
+
+func validPracticalSourceKind(kind string) bool {
+	switch kind {
+	case "go_file", "go_mod", "go_sum", "overlay", "metadata", "export_data", "excluded_source", "auxiliary":
+		return true
+	default:
+		return false
+	}
 }
 
 func validPracticalLogicalPath(path string) bool {

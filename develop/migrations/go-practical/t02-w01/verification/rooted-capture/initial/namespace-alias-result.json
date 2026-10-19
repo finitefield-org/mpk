@@ -1,0 +1,33 @@
+{
+  "status": "namespace_alias_regression_reproduced",
+  "exit_code": 1,
+  "failed_root_and_subtests": [
+    "TestPracticalCaptureRejectsNonExactNamespaceSpelling/nested/INPUT.go",
+    "TestPracticalCaptureRejectsNonExactNamespaceSpelling/NESTED/input.go",
+    "TestPracticalCaptureRejectsNonExactNamespaceSpelling"
+  ],
+  "cause": "Rooted filesystem lookup accepted case aliases absent from the original directory names; source identities must preserve the exact captured spelling.",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/rooted-capture/initial/namespace-alias.stdout.log",
+    "sha256": "14a6c086ea9e5898473b2cf48b6468469f2f7d3d3093193eff5b23664c5873d0",
+    "bytes": 4096
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/rooted-capture/initial/namespace-alias.stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "input_sources": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/rooted-capture/initial/practical_capture.go.txt",
+      "sha256": "505e897f0dccfebd970b04a3b42c10be45cb902756805adc7baf72e4fdc229dc",
+      "bytes": 13984
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/rooted-capture/initial/practical_capture_test.go.txt",
+      "sha256": "90f29ce4e7d539ac546ca9f820c8a33341d146c3e86dc6875ecf3a3ca1c968a2",
+      "bytes": 14308
+    }
+  ],
+  "test_fixture_setup": "Nested fixture directories corrected before this focused regression; initial setup failures remain in result.json."
+}

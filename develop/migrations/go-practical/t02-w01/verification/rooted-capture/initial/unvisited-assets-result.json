@@ -1,0 +1,31 @@
+{
+  "status": "unrelated_asset_name_restriction_reproduced",
+  "exit_code": 1,
+  "failed_tests": [
+    "TestPracticalCaptureOriginalModulesAndOwnedSnapshot"
+  ],
+  "cause": "Logical source-path restrictions were applied to every native directory entry, including assets the package loader never requests.",
+  "required_behavior": "Preserve native directory names internally; enforce logical source paths when reading a candidate. Keep complete namespace mutation checks and entry budgets.",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/rooted-capture/initial/unvisited-assets.stdout.log",
+    "sha256": "768e6b59e4d439835a091ba3613c2a9f284f69ea7a8e547f0ab3b604640940ce",
+    "bytes": 1795
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/rooted-capture/initial/unvisited-assets.stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "input_sources": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/rooted-capture/initial/unvisited-assets-practical_capture.go.txt",
+      "sha256": "0de5b71e2686bb377141949e1af328ccb21a664a5bf9006289f25cfe6f7d1016",
+      "bytes": 15391
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/rooted-capture/initial/unvisited-assets-practical_capture_test.go.txt",
+      "sha256": "56c4da448eebebde85e6c9e541a4041ad016d0da8f6306b74d28bea95367e227",
+      "bytes": 15313
+    }
+  ]
+}

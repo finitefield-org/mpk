@@ -1,0 +1,92 @@
+{
+  "status": "passed",
+  "command": [
+    "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/gofmt",
+    "-l",
+    "practical_source.go",
+    "practical_source_test.go",
+    "practical_capture.go",
+    "practical_capture_test.go",
+    "practical_root_go125.go",
+    "practical_root_unavailable.go",
+    "practical_root_unavailable_test.go"
+  ],
+  "cwd": "go-tools/go2vir",
+  "environment": {
+    "GOROOT": "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go",
+    "GOTOOLCHAIN": "local",
+    "GOENV": "off",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "GOTELEMETRY": "off",
+    "GOWORK": "off",
+    "GOCACHE": "/private/tmp/mpk-go-practical-t02-build-cache",
+    "GOPATH": "/private/tmp/mpk-go-practical-t02-gopath",
+    "GOMODCACHE": "/private/tmp/mpk-go-practical-t02-go-mod"
+  },
+  "compiler_version": "go version go1.25.0 darwin/arm64",
+  "compiler": {
+    "path": "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/go",
+    "sha256": "c812de5f1e8307431c5bce8ebc4887c180827abc5834a72cd640a8a14200a93b",
+    "bytes": 14117888
+  },
+  "sources": [
+    {
+      "path": "go-tools/go2vir/practical_source.go",
+      "sha256": "25d90659622e069862524c3c8b997d505e811de51e38aa76124503ca47952360",
+      "bytes": 5269
+    },
+    {
+      "path": "go-tools/go2vir/practical_source_test.go",
+      "sha256": "995a30a9343858bfc6c7dbcfd08875a504b389eaa52f4b011d6aa27663d88548",
+      "bytes": 8809
+    },
+    {
+      "path": "go-tools/go2vir/practical_capture.go",
+      "sha256": "dfb29be212671afa07acf284ad8239d8cf4da260f07b32db30e5e08391cc0696",
+      "bytes": 15359
+    },
+    {
+      "path": "go-tools/go2vir/practical_capture_test.go",
+      "sha256": "56c4da448eebebde85e6c9e541a4041ad016d0da8f6306b74d28bea95367e227",
+      "bytes": 15313
+    },
+    {
+      "path": "go-tools/go2vir/practical_root_go125.go",
+      "sha256": "0df55c7d98a83359e5a3b662bd28348c9f970a653a248bfc5dfdb1c8d216bc16",
+      "bytes": 519
+    },
+    {
+      "path": "go-tools/go2vir/practical_root_unavailable.go",
+      "sha256": "3dc114afa98fcb7cf17dad7cc66b8fbb282bc5b87d201d534c9c44ceb74eaed9",
+      "bytes": 247
+    },
+    {
+      "path": "go-tools/go2vir/practical_root_unavailable_test.go",
+      "sha256": "5e3b451ac8b686110a6eefaa21cb97b9d9da53866beee63e35c6d4884ad497c1",
+      "bytes": 300
+    }
+  ],
+  "frozen_contract": {
+    "path": "develop/migrations/go-practical/t01-w05/source-kind/catalog.json",
+    "sha256": "1ddbd93204546f227c43dc7729d3547b56abe2a5870a4a418e1d424806b38219",
+    "bytes": 2858
+  },
+  "selection_reason": "New multi-capability rooted filesystem capture and owned snapshot, exact namespace spelling, observed byte/namespace mutations, deterministic leaf swaps including FIFO/outside links, shared budgets and sticky errors. Retain all practical source-object tests, existing snapshot consumers, shared JSON/hash and public-profile argument boundaries. Vet/format cover all changed/new Go files. No CSharp tests; no full stage gate during intermediate W01.",
+  "full_T02_gate": "deferred to T02-W04; use check-fast.sh --skip-csharp",
+  "T02_W01_complete": false,
+  "started_at_utc": "2026-10-19T08:07:48.383661+00:00",
+  "exit_code": 0,
+  "wall_seconds": 0.0066940829856321216,
+  "finished_at_utc": "2026-10-19T08:07:48.390822+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/rooted-capture/reviewed/format/stdout.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/rooted-capture/reviewed/format/stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  }
+}
