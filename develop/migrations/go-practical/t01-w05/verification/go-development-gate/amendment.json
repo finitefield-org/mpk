@@ -1,0 +1,33 @@
+{
+  "schema": "mpk.go_practical.development_gate_amendment.v1",
+  "status": "authorized_Go_development_gate_pending",
+  "observed_at_utc": "2026-10-19T06:45:29.116419+00:00",
+  "user_instruction": "C#のテストはスキップして開発を進めてください。",
+  "source_base_commit": "145675b6d362035ae717af82006d3d622f8aa1a0",
+  "command": [
+    "./scripts/check-fast.sh",
+    "--skip-csharp"
+  ],
+  "scope": "Cumulative GO-PRAC development stage gates, starting with T01-W05. Dedicated CSharp test targets and CSharp unit/doc test names are deferred. Every other target and shared test, format, strict scanner, Clippy, CLI build and 2 accept/2 reject fixtures remain required.",
+  "CSharp_tests_restarted": false,
+  "CSharp_validation_and_release_deferred": true,
+  "default_full_gate_scope_unchanged": true,
+  "native_Linux_installed_release_gates_unchanged": true,
+  "T01_complete": false,
+  "T02_started": false,
+  "prior_selected_runtime": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/go-development-gate/previous-selected-runtime.json",
+    "sha256": "3ddddd6b830fea71c497451ac12842a0fce62a82f04f2230d40ff152b87e717e",
+    "bytes": 1114
+  },
+  "previous_full_diagnostic": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/go-development-gate/source320-disposition.json",
+    "sha256": "ee1a1a5c1483d951161e943d9db9ceaf52882d7dc24ab4592289ffe112a71fa3",
+    "bytes": 1444
+  },
+  "routing_check": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/go-development-gate/routing-check.json",
+    "sha256": "0c77ce5ff0c90760c03ef0bb853735d2915974dcabec1cbd97d9595e936b16fe",
+    "bytes": 824
+  }
+}

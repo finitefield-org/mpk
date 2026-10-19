@@ -1,0 +1,36 @@
+{
+  "schema": "mpk.go_practical.transition_clause_request_echo_audit.v0",
+  "status": "passed",
+  "observed_at_utc": "2026-10-18T19:59:16.275827+00:00",
+  "failure_location": "csharp_practical_ordinary_transition_clause_tests.rs:185 output requests.json",
+  "original_fixture": {
+    "path": "develop/migrations/csharp-03/ordinary-foundation/transition-clauses/requests.json",
+    "sha256": "4713089203738f04c343238e5169227077a94730900dd8fffd746bb1fe3167aa",
+    "bytes": 14601
+  },
+  "exact_assertion_operands": {
+    "left": {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/transition-clauses-diagnosis/left-requests.json",
+      "sha256": "4713089203738f04c343238e5169227077a94730900dd8fffd746bb1fe3167aa",
+      "bytes": 14601
+    },
+    "right": {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/transition-clauses-diagnosis/right-requests.json",
+      "sha256": "d7c656e8d2339a2d27b2b803d46fa74ff381532f23966b92b0e45adeb68f6edd",
+      "bytes": 14569
+    }
+  },
+  "complete_JSON_values_and_nested_UTF8_sidecar_strings_equal": true,
+  "request_contexts": 2,
+  "ids": [
+    "scalar-map",
+    "compound"
+  ],
+  "original_sorted_ASCII_pretty_matches": true,
+  "observed_sorted_UTF8_pretty_matches": true,
+  "only_terminal_newline_difference": false,
+  "first_byte_difference": 12029,
+  "all_original_context_checks_precede_final_echo_assertion": true,
+  "fields_removed_or_normalized": false,
+  "original_fixture_changed": false
+}

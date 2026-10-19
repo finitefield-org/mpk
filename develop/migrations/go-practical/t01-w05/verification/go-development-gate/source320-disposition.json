@@ -1,0 +1,33 @@
+{
+  "status": "partial_diagnostic_superseded_by_explicit_CSharp_skip_instruction",
+  "observed_at_utc": "2026-10-19T06:45:29.116419+00:00",
+  "source_commit": "320ecd67ab420e1ea806196271eea3271f929fbe",
+  "root_pid": 55665,
+  "cargo_pid": 61319,
+  "test_pid": 33771,
+  "session": 31844,
+  "authoritative_process_observation": "ps -p 33330,33334,55665,61319,33771 returns no rows; targeted process inventory returns no matching CSharp tests or gate commands; both old handles report Unknown process id.",
+  "terminal_exit_code": null,
+  "terminal_exit_status_recorded": false,
+  "observed_tests_passed": 1300,
+  "observed_tests_failed": 28,
+  "original_outputs_preserved": [
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/check-fast-result.json",
+      "sha256": "22afc3276bf43a81a42b53d4b50ab131ea0d890df21064d7b5e710e29618fcc5",
+      "bytes": 1134
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/check-fast.stdout.log",
+      "sha256": "32cb08e2aba420c23426cb7ddeaf29fefca5d789312b081be27fcf600f4b7f40",
+      "bytes": 166890
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/check-fast.stderr.log",
+      "sha256": "db021343561fd89da00c0178cf6495bc43093ea36b569fe1c02aca9d129675c2",
+      "bytes": 8349
+    }
+  ],
+  "passing_gate_claim": false,
+  "new_gate_directory": "develop/migrations/go-practical/t01-w05/verification/go-development-gate/run"
+}

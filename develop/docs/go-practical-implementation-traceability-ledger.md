@@ -28,7 +28,7 @@ after reconciling the intervening shared artifacts and active registry.
 | GO-PRAC-T01-W02 | Complete | Reviewed implementation commit `fed1cf6047f97b1f73c0fc37c5023e19f4f9f035`; 39 cases reproduced twice |
 | GO-PRAC-T01-W03 | Complete | Reviewed implementation `9d4e6fb7855a66d9fff309e6dbd9143652ee6e21`; requirement-by-requirement completion audit in section28 |
 | GO-PRAC-T01-W04 | Complete | Commit `68a44416e1b1a6dc3a84587cca784fc4b3a2b862`; exact interfaces, resource bounds, consumer review and historical replay; section58 |
-| GO-PRAC-T01-W05 | In progress | Inactive publication and selected repairs pass, including current JSON archive/golden reconstruction; repaired cumulative gate remains mandatory before T02 |
+| GO-PRAC-T01-W05 | In progress | Inactive publication and selected repairs pass. User explicitly defers C# tests; cumulative Go development gate uses `check-fast.sh --skip-csharp` before T02. Section77 records the amendment. |
 | GO-PRAC-T02–T07 | Not started | Sequential v1 implementation and public release |
 | GO-PRAC-T08–T11 | Not started | Sequential v2 freeze, maps, pointers and public release |
 
@@ -4518,3 +4518,128 @@ A final changed-input review precedes the commit, and the entire committed
 repaired gate remains required. The original whole diagnostic continues; all
 component certificate checks now pass both checkers as recorded in section70. These selected component regressions do not complete W05/T01 or permit
 T02, discharge the169 Go demands or987 C# application IDs, or activate profiles.
+
+## 74. T01-W05 transition and rich-literal request echoes
+
+The original source320 diagnostic next reports transition, control source-step
+and rich-literal source owner failures. Exact unchanged-binary reproductions
+show the transition and literal owners fail only at their final request echo
+in0.677 and1.640 seconds. Their complete JSON values and every nested UTF8
+source/sidecar string are identical; ASCII Unicode escapes versus literal UTF8
+change only the outer encoding. The [exact operands and selected repair](../migrations/go-practical/t01-w05/verification/retained-csharp-repair/input-echo-followup-repair/verification.json)
+retain both original inputs and separately fixed actual serialized operands.
+
+Each private output helper pins both representations and compares complete JSON
+values before retaining the original full byte assertion. Reversing only these
+helpers/path selections recovers both complete original sources, all11 assertion
+invocations per file and all original cases, seeds, selector/packet loops, imports,
+mutations, integration/definition-closure comparisons and component goldens.
+No field, source value, fixture, producer, interpreter, kernel, checker, test
+bound or resource limit changes.
+
+The complete repaired transition owner passes both contexts and999 projection
+observations in1.724 seconds. The literal owner passes18 constants and1,414
+packet observations in2.907 seconds, including source/integrated/public closures.
+Build, format and target Clippy pass. Other completed repair source bodies stay
+unchanged and are not re-run as an unrelated intermediate suite.
+
+The control source-step original owner is separately running over all18 contexts
+with every original step/component/SSA-origin and positive/negative check, no
+filters/output flags/ceilings. Its result is not yet known. Final input review
+and the entire committed repaired gate remain required; W05/T01 stays open and
+T02 is unstarted. All169 Go demands and987 C# application IDs remain pending.
+
+## 75. T01-W05 complete source-step component observer
+
+The [exact original source-step invocation](../migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-diagnosis/result.json)
+terminates after6,339.122 seconds with target exit101. The original line129
+component-count assertion sees actual3/expected2 during the first `count_fill`
+case. All eighteen original contexts were selected and every original runtime
+check was retained; failure interrupts that invocation before completing them.
+
+The [complete metadata audit](../migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/failure-analysis.json)
+finds three omitted existing components across all eighteen golden contexts:
+memory effects in `count_fill`/`index_update` and the source value constructor in
+`type`. All42 original input members and the three relevant production sources
+match source320 Git bytes. This is an obsolete test observer, with no producer,
+fixture, interpreter, kernel, checker or resource-bound change.
+
+The [additive repair](../migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/README.md)
+retains all original count summands, exact list comparisons and SSA/native/
+literal/slot checks, then validates the additional memory snapshot bindings and
+constructor public VIR signature, anchor, hashed definition and SSA argument
+indices. Reversing the additions recovers the entire original source file and
+all112 original assertion invocations; seven assertions are added. Every
+original runtime case, mutation and bit position remains.
+
+The initial E0624 build error and its exact input source/drivers are preserved.
+The corrected public-VIR inspection builds in34.270 seconds; format and targeted
+Clippy pass in3.246 and4.638 seconds. The complete original normal owner is now
+running over all18 contexts, including every original positive/negative check,
+strict import and all36 JSON/certificate goldens. No passing runtime result is
+yet claimed. Final input review and the entire committed repaired gate remain
+required before W05/T01 completion or T02. The original source320 whole
+diagnostic also continues; all169 Go demands and987 C# application IDs remain
+pending, with no profile activation.
+
+## 76. T01-W05 source-step SSA definition points
+
+The first complete repaired source-step owner fails after5,476.090 seconds at
+the newly added memory-binding observer. The [exact failed operands](../migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/ssa-origin-followup/binding-origin-analysis.json)
+contain eight bindings. Four source snapshots already agree; four SSA entries
+differ only in `node_id` because the observer copied invocation use sites in
+place of the original VIR definition points. The failed source/executable/raw
+logs are retained. No production semantic or original fixture change is needed.
+
+The [follow-up](../migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/ssa-origin-followup/README.md)
+independently reconstructs the unique definition point from original parameters,
+phis, literals, invocation normal results and handler exceptions, checking both
+value and type IDs. It retains every original assertion and runtime path. The
+original `run_steps` entry hardcodes true; existing metadata owners additionally
+share the same component observer with false, ending before runtime evaluation.
+There is no environment switch or runtime-bound reduction.
+
+The source audit recovers the entire original step file and the committed145675
+harness byte for byte:112 step and329 harness assertion calls remain, with nine
+additional step assertions. All42 original input members and three relevant
+production sources match source320 Git bytes. The corrected build passes in
+30.721 seconds. Both affected existing metadata consumers pass: all18 contexts/
+582 complete source steps in6.680 seconds, and the dedicated41-step constructor
+context in0.650 seconds. These are metadata checks, not runtime or application
+proof claims. Format and targeted Clippy pass in2.585 and4.046 seconds.
+
+The full original eighteen-context runtime retry is now running with every
+original example, mutation, bit position, strict import and all36 JSON/certificate
+goldens. Final input review and the entire committed repaired gate remain
+required before W05/T01 completion or T02. The original source320 whole diagnostic
+continues. All169 Go demands and987 C# application IDs remain pending, with no
+profile activation.
+
+## 77. User amendment: defer C# tests and proceed with Go
+
+On 2026-10-19 the user explicitly instructs: “C#のテストはスキップして開発を進めてください。”
+The [recorded amendment](../migrations/go-practical/t01-w05/verification/go-development-gate/amendment.json)
+supersedes historical C# whole-gate retry prerequisites for GO-PRAC development.
+The final W of each Go T uses `./scripts/check-fast.sh --skip-csharp`. The
+default command and native Linux installed-release gates keep their scope;
+C# validation/release remains deferred, and no profile is activated.
+
+The [routing check](../migrations/go-practical/t01-w05/verification/go-development-gate/routing-check.json)
+verifies the exact Cargo workspace partition: all70 other integration targets,
+every unit library, test-enabled binary and doctest stay selected across eight
+packages;37 dedicated C# integration targets and C# unit/doc names are deferred.
+Shared tests, format, strict scanner, Clippy, CLI build and two accepting/two
+rejecting fixtures remain required. No C# test is restarted for this amendment.
+
+The [already terminal selected runtime](../migrations/go-practical/t01-w05/verification/go-development-gate/previous-selected-runtime.json)
+passes all18 original contexts in10,017.322 seconds:582 local relations,
+9,852 true/10,853 false observations,20,725 total observations and36 current
+JSON/certificate goldens. All earlier failed attempts and raw logs remain.
+The original [source320 diagnostic](../migrations/go-practical/t01-w05/verification/go-development-gate/source320-disposition.json)
+retains1,300 reported passes and28 failures, but has no terminal exit status.
+Actual processes and old sessions are absent. It remains partial evidence and
+counts as no passing gate. No C# application proof is promoted by these results.
+
+The amended cumulative Go development gate remains pending. T01 is incomplete
+and T02 is unstarted until it passes and T01's completion audit is recorded.
+All987 C# application IDs and169 Go demands remain pending.

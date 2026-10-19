@@ -1,5 +1,12 @@
 # GO-PRAC T01-W05 inactive publication and cumulative gate
 
+Current routing amendment (2026-10-19): the user explicitly defers C# tests.
+The [Go development gate](verification/go-development-gate/README.md) uses
+`./scripts/check-fast.sh --skip-csharp`; historical C# retry prerequisites below
+are superseded for Go development. Selected repairs now pass, including the
+complete18-context runtime. The amended cumulative gate remains pending before
+T01 completion and T02. C# release validation remains deferred.
+
 Entry: W04 completion commit `68a44416e1b1a6dc3a84587cca784fc4b3a2b862`.
 Publication and targeted repairs pass. Cumulative T01 diagnostics exposed
 retained C# fixture and JSON archive epoch mismatches. Their repaired source
@@ -158,6 +165,24 @@ The full repaired owner passes all six codecs,44 source clauses and21,088 origin
 format/composition bit observations in142.775 seconds. All23 original assertions
 and every parser/format/composition case remain unchanged; format and target
 Clippy pass. Static review and the entire repaired gate remain mandatory.
+
+The [transition/literal input echo follow-up](verification/retained-csharp-repair/input-echo-followup-repair/verification.json)
+retains two further original failures only at the final request echo. Both
+complete JSON values and nested source/sidecar strings stay identical. Separate
+fixed serialized operands preserve every original case, all11 assertions per
+file and all full selector/packet loops. The repaired transition owner passes
+both contexts/999 observations; the literal owner passes18 constants/1,414
+observations. Build, format and target Clippy pass. The separate complete control
+source-step reproduction fails at its obsolete component-count assertion. Its
+[additive observer repair](verification/retained-csharp-repair/control-source-steps-repair/verification.json)
+includes the existing two memory effects and source constructor. Its first full
+runtime attempt exposes an added observer's SSA use-site/definition-point error.
+The [SSA follow-up](verification/retained-csharp-repair/control-source-steps-repair/ssa-origin-followup/verification.json)
+retains all112 original step and329 existing harness assertions, with nine added
+checks. Both shared metadata consumers pass, covering all18 contexts/582 complete
+source steps and the constructor context. Build, format and target Clippy pass;
+the complete original18-context runtime retry is running. Final input review
+and the entire repaired gate remain required.
 
 The diagnostic additionally exposes control-history comparisons that span an
 approved metadata refreeze and a later alias-frame extension. The

@@ -1,0 +1,90 @@
+{
+  "status": "passed",
+  "source_base_commit": "145675b6d362035ae717af82006d3d622f8aa1a0",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "csharp_practical_vc",
+    "--no-run",
+    "--message-format=json"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_TARGET_DIR": "/private/tmp/mpk-t01-w05-json-repair-target",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true"
+  },
+  "unset_environment": [
+    "RUST_MIN_STACK",
+    "MPK_CORE_MAX_STEPS",
+    "MPK_CORE_MAX_SECONDS",
+    "MPK_W09_CONTROL_EDGES_OUT"
+  ],
+  "prior_environment": {
+    "RUST_MIN_STACK": null,
+    "MPK_CORE_MAX_STEPS": null,
+    "MPK_CORE_MAX_SECONDS": null,
+    "MPK_W09_CONTROL_EDGES_OUT": null
+  },
+  "test_sources": [
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_step_tests.rs",
+      "sha256": "646ad3742f2e0518d304a077f22f262b4973d01436a468ffb7b7f842e41b358c",
+      "bytes": 54978
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_transition_clause_tests.rs",
+      "sha256": "cae1aa8a75c32f755ad9e3ce429828a291c497474e8f0b98ac58859d5bdaa401",
+      "bytes": 17872
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_literal_clause_tests.rs",
+      "sha256": "3c068a816c030526f24929aa201220de516de630fab8bd6ab5d42fcf465ca539",
+      "bytes": 17744
+    }
+  ],
+  "source_preservation_audit": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/source-preservation-audit-corrected.json",
+    "sha256": "fa51c38ac5f3e42e60ebf7c62542d5b9b9859eebac209e273f724d87e950255b",
+    "bytes": 2035
+  },
+  "failure_analysis": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/failure-analysis.json",
+    "sha256": "2b597144f9ed59ada10bb89c792cb4aa963cb8fe8b9531b2579e963c82b5dc7d",
+    "bytes": 22355
+  },
+  "started_at_utc": "2026-10-18T21:48:57.178957+00:00",
+  "selection_reason": "Only the private run_steps observer changes: include the existing memory-effect and constructor components and check their exact bindings. Compile its integration target; all112 original assertions and all18 original contexts remain, with seven additional assertions and the additive count RHS.",
+  "full_gate_passed": false,
+  "pid": 89099,
+  "exit_code": 0,
+  "wall_seconds": 34.26984770805575,
+  "finished_at_utc": "2026-10-18T21:49:31.449361+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/build-corrected/stdout.jsonl",
+    "sha256": "b79c1119b534b6d2baf3438726e1cf88fca7a082ed034e7efaa9ae9ae1a25992",
+    "bytes": 30425
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/build-corrected/stderr.log",
+    "sha256": "bf6aecaa9056890fe4a449778a1a70ac99c985674f87f14fefefe48196cc6d85",
+    "bytes": 146
+  },
+  "executable": {
+    "path": "/private/tmp/mpk-t01-w05-json-repair-target/debug/deps/csharp_practical_vc-f5f78b9b819b93a0",
+    "sha256": "64724a768b645109b1ceb2b6d0e2fdbe7bb7c3e457f44811ec2f6d8b7bd7796f",
+    "bytes": 41061768
+  },
+  "profile": {
+    "opt_level": "1",
+    "debuginfo": 2,
+    "debug_assertions": true,
+    "overflow_checks": true,
+    "test": true
+  }
+}

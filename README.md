@@ -182,6 +182,17 @@ only in the final W of a T, covering all changes in that T:
 ./scripts/check-fast.sh
 ```
 
+During GO-PRAC development, the user's 2026-10-19 instruction defers C# tests:
+
+```sh
+./scripts/check-fast.sh --skip-csharp
+```
+
+This mode selects every other workspace test target and shared test, filters
+C# unit/doc test names, and retains the other fast-gate checks. It records a
+Go-development result with C# validation deferred. Default and release gates
+retain their full scope. See the [Go work plan](develop/docs/09_go_practical_subset_design-todo.md).
+
 Do not reproduce the full gate by running all its components separately for
 each W. Record targeted results separately from the full gate deferred to T
 completion. The final W and its T cannot be marked complete, and the next T

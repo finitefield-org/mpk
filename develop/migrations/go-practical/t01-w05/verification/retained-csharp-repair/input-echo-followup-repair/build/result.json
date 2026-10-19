@@ -1,0 +1,63 @@
+{
+  "status": "passed",
+  "source_base_commit": "145675b6d362035ae717af82006d3d622f8aa1a0",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "csharp_practical_vc",
+    "--no-run",
+    "--message-format=json"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_TARGET_DIR": "/private/tmp/mpk-t01-w05-json-repair-target",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true"
+  },
+  "RUST_MIN_STACK": "unset",
+  "test_sources": [
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_transition_clause_tests.rs",
+      "sha256": "cae1aa8a75c32f755ad9e3ce429828a291c497474e8f0b98ac58859d5bdaa401",
+      "bytes": 17872
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_literal_clause_tests.rs",
+      "sha256": "3c068a816c030526f24929aa201220de516de630fab8bd6ab5d42fcf465ca539",
+      "bytes": 17744
+    }
+  ],
+  "started_at_utc": "2026-10-18T20:07:01.338974+00:00",
+  "selection_reason": "Only the final transition/literal request serialization reference paths and three strict guards per owner change. Build the affected integration target; every original case/selector loop/import/integration/golden assertion remains byte unchanged.",
+  "pid": 56958,
+  "exit_code": 0,
+  "wall_seconds": 41.52243445802014,
+  "finished_at_utc": "2026-10-18T20:07:42.861880+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/input-echo-followup-repair/build/stdout.jsonl",
+    "sha256": "475142cf0fcd62532ba46a1f47c02c28ed4fb21400c818a8989f699537096ce9",
+    "bytes": 30425
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/input-echo-followup-repair/build/stderr.log",
+    "sha256": "1a0e63f1af4d6b048f702e8f72e53d8f71568f2925877e5777de5a2a22a396ab",
+    "bytes": 146
+  },
+  "executable": {
+    "path": "/private/tmp/mpk-t01-w05-json-repair-target/debug/deps/csharp_practical_vc-f5f78b9b819b93a0",
+    "sha256": "fafbe139d1296cd6da2c1ed9260dbdfed37ea70b62d4aa97ca72cd50c653e5c0",
+    "bytes": 41037496
+  },
+  "profile": {
+    "opt_level": "1",
+    "debuginfo": 2,
+    "debug_assertions": true,
+    "overflow_checks": true,
+    "test": true
+  }
+}

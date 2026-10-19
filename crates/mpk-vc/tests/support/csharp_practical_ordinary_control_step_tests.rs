@@ -53,6 +53,25 @@ pub(super) fn run_steps(
     vir: &mpk_vc::csharp_practical_vir_validation::ValidatedPracticalVir,
     cert: &mpk_cert::encode::Certificate,
 ) -> usize {
+    inspect_steps(p, vir, cert, true)
+}
+
+pub(super) fn audit_step_components(
+    p: &OrdinaryControlEdgeProgram,
+    vir: &mpk_vc::csharp_practical_vir_validation::ValidatedPracticalVir,
+    cert: &mpk_cert::encode::Certificate,
+) -> usize {
+    inspect_steps(p, vir, cert, false)
+}
+
+fn inspect_steps(
+    p: &OrdinaryControlEdgeProgram,
+    vir: &mpk_vc::csharp_practical_vir_validation::ValidatedPracticalVir,
+    cert: &mpk_cert::encode::Certificate,
+    runtime: bool,
+) -> usize {
+    use sha2::{Digest, Sha256};
+
     let layouts = generate_csharp_practical_ordinary_carriers(vir).unwrap();
     let types: BTreeMap<_, _> = layouts
         .carriers()
@@ -126,9 +145,61 @@ pub(super) fn run_steps(
                 .iter()
                 .filter(|l| step.native_node_ids.contains(&l.result.node_id))
                 .collect::<Vec<_>>();
+            let effects = f
+                .memory_effects
+                .iter()
+                .filter(|effect| effect.source_node_id == source.id)
+                .collect::<Vec<_>>();
+            assert_eq!(effects.len(), usize::from(source.operation == "update"));
+            let constructors = blocks
+                .iter()
+                .filter(|block| !ops.iter().any(|op| op.source.node_id == block.node.id))
+                .filter_map(|block| {
+                    block.invocation.as_ref().map(|invocation| {
+                        assert_eq!(source.operation, "construct");
+                        assert!(f
+                            .source_constructor_invocation_node_ids
+                            .contains(&block.node.id));
+                        let constructor = vir
+                            .functions()
+                            .iter()
+                            .find(|function| function.id == invocation.operation_id)
+                            .unwrap();
+                        assert_eq!(
+                            (
+                                invocation
+                                    .operands
+                                    .iter()
+                                    .map(|value| &value.type_id)
+                                    .collect::<Vec<_>>(),
+                                vec![&invocation.result.type_id]
+                            ),
+                            (
+                                constructor
+                                    .parameter_values
+                                    .iter()
+                                    .map(|value| &value.type_id)
+                                    .collect::<Vec<_>>(),
+                                constructor.result_type_ids.iter().collect::<Vec<_>>()
+                            )
+                        );
+                        assert_eq!(anchor.result.as_ref(), Some(&invocation.result));
+                        let identity = format!("source.constructor.{}", source.id);
+                        let definition = format!(
+                            "Mpk.CSharp.Ordinary.SourceValueData.Relation.H{:x}",
+                            Sha256::digest(serde_json::to_vec(&identity).unwrap())
+                        );
+                        (invocation, definition)
+                    })
+                })
+                .collect::<Vec<_>>();
             assert_eq!(
                 step.components.len(),
-                1 + usize::from(transfer.is_some()) + ops.len() + literals.len()
+                1 + usize::from(transfer.is_some())
+                    + ops.len()
+                    + literals.len()
+                    + effects.len()
+                    + constructors.len()
             );
             let mut expected_components =
                 vec![("source_frame", frame.definition.as_ref().unwrap().as_str())];
@@ -143,6 +214,16 @@ pub(super) fn run_steps(
                 literals
                     .iter()
                     .map(|l| ("literal_result", l.definition.as_str())),
+            );
+            expected_components.extend(
+                effects
+                    .iter()
+                    .map(|effect| ("memory_effect", effect.definition.as_str())),
+            );
+            expected_components.extend(
+                constructors
+                    .iter()
+                    .map(|(_, definition)| ("source_constructor_normal", definition.as_str())),
             );
             expected_components.sort();
             let mut actual_components = step
@@ -296,8 +377,85 @@ pub(super) fn run_steps(
                                 .collect::<Vec<_>>()
                         );
                     }
+                    "memory_effect" => {
+                        let effect = effects
+                            .iter()
+                            .find(|effect| effect.definition == component.definition)
+                            .unwrap();
+                        let expected = effect
+                            .arguments
+                            .iter()
+                            .map(|argument| {
+                                let mut binding = argument.clone();
+                                if argument.kind == "ssa" {
+                                    let mut origins = vec![];
+                                    if native.parameter_values.iter().any(|value| {
+                                        value.id == argument.value_id
+                                            && value.type_id == argument.type_id
+                                    }) {
+                                        origins.push(&native.blocks[0].node.id);
+                                    }
+                                    for block in &native.blocks {
+                                        if block.phi_values.iter().any(|value| {
+                                            value.value.id == argument.value_id
+                                                && value.value.type_id == argument.type_id
+                                        }) || block.literal_values.iter().any(|value| {
+                                            value.result.id == argument.value_id
+                                                && value.result.type_id == argument.type_id
+                                        }) || block.handler_exception_value.as_ref().is_some_and(
+                                            |value| {
+                                                value.id == argument.value_id
+                                                    && value.type_id == argument.type_id
+                                            },
+                                        ) {
+                                            origins.push(&block.node.id);
+                                        }
+                                        if let Some(invocation) = &block.invocation {
+                                            if invocation.result.id == argument.value_id
+                                                && invocation.result.type_id == argument.type_id
+                                            {
+                                                origins.push(&invocation.normal_successor_id);
+                                            }
+                                        }
+                                    }
+                                    assert_eq!(origins.len(), 1);
+                                    binding.node_id = origins[0].clone();
+                                }
+                                binding.kind = match argument.kind.as_str() {
+                                    "ssa" => "ssa",
+                                    "source_before_assigned" => "source_entry_assigned",
+                                    "source_before_slot" => "source_entry_slot",
+                                    "source_after_assigned" => "source_exit_assigned",
+                                    "source_after_slot" => "source_exit_slot",
+                                    other => panic!("unexpected memory effect argument {other}"),
+                                }
+                                .into();
+                                binding
+                            })
+                            .collect::<Vec<_>>();
+                        assert_eq!(actual, expected.iter().collect::<Vec<_>>());
+                    }
+                    "source_constructor_normal" => {
+                        let (invocation, _) = constructors
+                            .iter()
+                            .find(|(_, definition)| definition == &component.definition)
+                            .unwrap();
+                        assert_eq!(
+                            component.argument_indices,
+                            invocation
+                                .operands
+                                .iter()
+                                .chain(std::iter::once(&invocation.result))
+                                .map(|value| ssa(&value.id))
+                                .collect::<Vec<_>>()
+                        );
+                    }
                     other => panic!("unexpected step component {other}"),
                 }
+            }
+            if !runtime {
+                observations += 1;
+                continue;
             }
             let depths = step
                 .arguments
@@ -474,6 +632,10 @@ pub(super) fn run_steps(
                 observations += 1;
             }
         }
+    }
+    if !runtime {
+        assert!(complete > 0);
+        return observations;
     }
     assert!(complete > 0 && positive > 0 && negative > 0 && shared > 0);
     let original: Value = serde_json::from_slice(&p.canonical_bytes()).unwrap();

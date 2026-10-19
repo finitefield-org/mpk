@@ -1,0 +1,104 @@
+--- develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-diagnosis/original-test-source.rs.txt
++++ crates/mpk-vc/tests/support/csharp_practical_ordinary_control_step_tests.rs
+@@ -55,0 +56,2 @@
++    use sha2::{Digest, Sha256};
++
+@@ -128,0 +131,40 @@
++            let effects = f
++                .memory_effects
++                .iter()
++                .filter(|effect| effect.source_node_id == source.id)
++                .collect::<Vec<_>>();
++            assert_eq!(effects.len(), usize::from(source.operation == "update"));
++            let constructors = blocks
++                .iter()
++                .filter(|block| !ops.iter().any(|op| op.source.node_id == block.node.id))
++                .filter_map(|block| {
++                    block.invocation.as_ref().map(|invocation| {
++                        assert_eq!(source.operation, "construct");
++                        assert!(f
++                            .source_constructor_invocation_node_ids
++                            .contains(&block.node.id));
++                        let signature =
++                            mpk_vc::csharp_practical_vir_model::source_value_constructor_operation(
++                                vir.construction_context().1,
++                                vir.data_closed(),
++                                &invocation.result.type_id,
++                            )
++                            .unwrap();
++                        assert_eq!(
++                            invocation
++                                .operands
++                                .iter()
++                                .map(|value| &value.type_id)
++                                .collect::<Vec<_>>(),
++                            signature.argument_type_ids.iter().collect::<Vec<_>>()
++                        );
++                        assert_eq!(anchor.result.as_ref(), Some(&invocation.result));
++                        let identity = format!("source.constructor.{}", source.id);
++                        let definition = format!(
++                            "Mpk.CSharp.Ordinary.SourceValueData.Relation.H{:x}",
++                            Sha256::digest(serde_json::to_vec(&identity).unwrap())
++                        );
++                        (invocation, definition)
++                    })
++                })
++                .collect::<Vec<_>>();
+@@ -131 +173,5 @@
+-                1 + usize::from(transfer.is_some()) + ops.len() + literals.len()
++                1 + usize::from(transfer.is_some())
++                    + ops.len()
++                    + literals.len()
++                    + effects.len()
++                    + constructors.len()
+@@ -145,0 +192,10 @@
++            );
++            expected_components.extend(
++                effects
++                    .iter()
++                    .map(|effect| ("memory_effect", effect.definition.as_str())),
++            );
++            expected_components.extend(
++                constructors
++                    .iter()
++                    .map(|(_, definition)| ("source_constructor_normal", definition.as_str())),
+@@ -295,0 +352,39 @@
++                                .collect::<Vec<_>>()
++                        );
++                    }
++                    "memory_effect" => {
++                        let effect = effects
++                            .iter()
++                            .find(|effect| effect.definition == component.definition)
++                            .unwrap();
++                        let expected = effect
++                            .arguments
++                            .iter()
++                            .map(|argument| {
++                                let mut binding = argument.clone();
++                                binding.kind = match argument.kind.as_str() {
++                                    "ssa" => "ssa",
++                                    "source_before_assigned" => "source_entry_assigned",
++                                    "source_before_slot" => "source_entry_slot",
++                                    "source_after_assigned" => "source_exit_assigned",
++                                    "source_after_slot" => "source_exit_slot",
++                                    other => panic!("unexpected memory effect argument {other}"),
++                                }
++                                .into();
++                                binding
++                            })
++                            .collect::<Vec<_>>();
++                        assert_eq!(actual, expected.iter().collect::<Vec<_>>());
++                    }
++                    "source_constructor_normal" => {
++                        let (invocation, _) = constructors
++                            .iter()
++                            .find(|(_, definition)| definition == &component.definition)
++                            .unwrap();
++                        assert_eq!(
++                            component.argument_indices,
++                            invocation
++                                .operands
++                                .iter()
++                                .chain(std::iter::once(&invocation.result))
++                                .map(|value| ssa(&value.id))

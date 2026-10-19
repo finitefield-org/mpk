@@ -1,23 +1,22 @@
 {
-  "RUST_MIN_STACK": "unset",
   "command": [
     "./scripts/check-fast.sh"
   ],
   "environment": {
     "CARGO_NET_OFFLINE": "true",
-    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
     "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
     "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true"
   },
-  "exit_code": 143,
-  "gate_sha256": "402af1a0cca727523d4c1cd68863280da15ed1ee10c0de2b8dfa6577e37e48f4",
+  "RUST_MIN_STACK": "unset",
+  "source_commit": "320ecd67ab420e1ea806196271eea3271f929fbe",
+  "source_tree": "05b791d9e2fe6bb40709b3d47df7295f355e9d97",
+  "scope": "cumulative GO-PRAC-T01 W05 full local gate over the committed JSON/archive repairs; native macOS development, not native Linux installed-release acceptance",
+  "started_at_utc": "2026-10-18T04:29:02.462016+00:00",
+  "status": "running",
   "scanner_sha256": "14e61e16be3b706e18a2de0842f85f6091eb256d9713924b677e2212a54c3cc1",
-  "scope": "cumulative GO-PRAC-T01 W05 full local gate; native macOS development, not native Linux installed-release acceptance",
-  "source_commit": "43c6739990da01f6bd39eee2935fe9a837563800",
-  "started_at_utc": "2026-10-18T01:37:17.125783+00:00",
-  "status": "failed",
-  "stderr_sha256": "55103e9b0282893b67d7fec3bb645a40d9b1ffd18bdb04d3b5a294664026fc20",
-  "stdout_sha256": "14a2101ea4d35bb9318c8e8111c62e18d9f0ef4b33f773332387e30c462ae3f0",
-  "test_profile_reason": "Optimize the long scalar oracle test code at level1 while preserving debug assertions, overflow checks and every workspace test. Production build recipes and release profiles are unchanged.",
-  "wall_seconds": 9962.264965499984
+  "gate_sha256": "402af1a0cca727523d4c1cd68863280da15ed1ee10c0de2b8dfa6577e37e48f4",
+  "test_profile_reason": "Same opt-level1 test profile as the preceding diagnostic, retaining debug assertions, overflow checks and all workspace targets. No production build/release descriptor change.",
+  "preceding_failed_diagnostic": "superseded-json-archive/check-fast-result.json",
+  "root_pid": 55665
 }

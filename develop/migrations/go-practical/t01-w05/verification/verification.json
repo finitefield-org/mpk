@@ -36,42 +36,15 @@
     "targeted_test": "passed"
   },
   "full_gate": {
-    "actual_profile_verification": "retained-csharp-repair/test-profile/json-repaired-retry/cargo-profile-result.json",
-    "actual_profile_verification_sha256": "baf3154fc2834e4d632b22f1f2215421cfb99fadf505c8f0852160a0da7e64f3",
+    "status": "pending",
     "command": [
-      "./scripts/check-fast.sh"
+      "./scripts/check-fast.sh",
+      "--skip-csharp"
     ],
-    "control_epoch_failure": "initial-csharp-control-source/check-fast-result.json",
-    "failed_attempt": "initial-vocabulary-findings/check-fast-result.json",
-    "previous_source_commit": "43c6739990da01f6bd39eee2935fe9a837563800",
-    "result": "check-fast-result.json",
-    "retained_epoch_failure": "initial-retained-source-pin/check-fast-result.json",
-    "retry_environment": {
-      "CARGO_NET_OFFLINE": "true",
-      "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
-      "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
-      "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true"
-    },
-    "selected_reason": "T01 final W; cumulative full local gate is mandatory; no T02 implementation starts until it passes",
-    "source_commit": "320ecd67ab420e1ea806196271eea3271f929fbe",
-    "source_tree": "05b791d9e2fe6bb40709b3d47df7295f355e9d97",
-    "status": "running_failed_original_diagnostic_requires_complete_repaired_retry",
-    "stderr": "check-fast.stderr.log",
-    "stdout": "check-fast.stdout.log",
-    "superseded_attempts": [
-      "initial-unoptimized/check-fast-result.json",
-      "initial-literal-only/check-fast-result.json",
-      "superseded-slow-debug/check-fast-result.json",
-      "superseded-json-archive/check-fast-result.json"
-    ],
-    "planned_repaired_retry_environment": {
-      "CARGO_NET_OFFLINE": "true",
-      "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
-      "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
-      "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
-      "RUST_TEST_THREADS": "4"
-    },
-    "planned_repaired_retry_environment_reason": "Reduce aggregate host memory pressure after the exact live ten-worker process sample; all tests and assertions remain mandatory. Not applied to the current source320 diagnostic."
+    "result": "go-development-gate/run/result.json",
+    "scope": "GO-PRAC development; CSharp tests explicitly deferred by user",
+    "amendment": "go-development-gate/amendment.json",
+    "selected_reason": "Final W of T01; cumulative remaining workspace gate under the explicit user scope amendment. CSharp failures are retained, not counted as passing."
   },
   "historical_replay_after_publication": {
     "path": "develop/migrations/go-practical/t01-w05/verification/historical-replay-after-publication.json",
@@ -155,7 +128,7 @@
     "old_graph_relabeling_allowed": false
   },
   "source_semantics_proved": false,
-  "status": "calendar_and_structural_epoch_selected_repairs_passed_original_diagnostic_running_with_failure",
+  "status": "selected_repairs_passed_user_CSharp_skip_amendment_Go_development_gate_pending",
   "targeted_results": {
     "path": "develop/migrations/go-practical/t01-w05/verification/targeted-results.json",
     "sha256": "ea675b508555ed889741c5e47bdfc54a02e05f1b258b7b4c26c5d2a446a8ab6a"
@@ -312,5 +285,96 @@
     "entire_repaired_gate_required": true,
     "T01_complete": false,
     "T02_started": false
+  },
+  "input_echo_followup_repair": {
+    "status": "all_selected_checks_passed_final_input_review_and_full_gate_pending",
+    "verification": "retained-csharp-repair/input-echo-followup-repair/verification.json",
+    "source_owners": 2,
+    "original_assertions_per_file": 11,
+    "transition_contexts": 2,
+    "transition_projection_observations": 999,
+    "literal_constants": 18,
+    "literal_packet_observations": 1414,
+    "original_fixture_and_source_values_unchanged": true,
+    "format_and_targeted_clippy": "passed",
+    "entire_committed_repaired_gate_required": true,
+    "T01_complete": false,
+    "T02_started": false
+  },
+  "additional_control_source_step_diagnosis": {
+    "status": "selected_observer_repair_passed_CSharp_retry_deferred",
+    "result": "retained-csharp-repair/control-source-steps-diagnosis/result.json",
+    "wall_seconds": 6339.1222947920905,
+    "failed_assertion": "Original line129, actual3/expected2; obsolete component observer omits existing memory update and source constructor components.",
+    "repair_verification": "retained-csharp-repair/control-source-steps-repair/ssa-origin-followup/verification.json",
+    "scope": "Both failed original attempts retained. Corrected shared metadata and complete18-context normal runtime pass; user now defers further CSharp tests."
+  },
+  "control_source_step_observer_repair": {
+    "status": "all_selected_checks_passed_CSharp_retry_deferred",
+    "verification": "retained-csharp-repair/control-source-steps-repair/ssa-origin-followup/verification.json",
+    "original_whole_file_assertions_preserved": 112,
+    "added_assertions": 9,
+    "original_input_members_unchanged": 42,
+    "component_mismatches_explained": 3,
+    "normal_mode": "passed_all18_original_contexts",
+    "corrected_build_seconds": 30.721012666937895,
+    "format_and_targeted_clippy": "passed",
+    "production_and_original_fixture_bytes_unchanged": true,
+    "entire_committed_repaired_gate_required": false,
+    "T01_complete": false,
+    "T02_started": false,
+    "harness_original_whole_file_assertions_preserved": 329,
+    "metadata_preflight_contexts": 18,
+    "metadata_complete_steps": 582,
+    "runtime_complete_steps": 582,
+    "runtime_positive": 9852,
+    "runtime_negative": 10853,
+    "runtime_observations": 20725,
+    "normal_seconds": 10017.322312208009,
+    "Go_development_gate_required": true
+  },
+  "historical_full_gate_before_CSharp_skip_amendment": {
+    "actual_profile_verification": "retained-csharp-repair/test-profile/json-repaired-retry/cargo-profile-result.json",
+    "actual_profile_verification_sha256": "baf3154fc2834e4d632b22f1f2215421cfb99fadf505c8f0852160a0da7e64f3",
+    "command": [
+      "./scripts/check-fast.sh"
+    ],
+    "control_epoch_failure": "initial-csharp-control-source/check-fast-result.json",
+    "failed_attempt": "initial-vocabulary-findings/check-fast-result.json",
+    "previous_source_commit": "43c6739990da01f6bd39eee2935fe9a837563800",
+    "result": "check-fast-result.json",
+    "retained_epoch_failure": "initial-retained-source-pin/check-fast-result.json",
+    "retry_environment": {
+      "CARGO_NET_OFFLINE": "true",
+      "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+      "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+      "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true"
+    },
+    "selected_reason": "T01 final W; cumulative full local gate is mandatory; no T02 implementation starts until it passes",
+    "source_commit": "320ecd67ab420e1ea806196271eea3271f929fbe",
+    "source_tree": "05b791d9e2fe6bb40709b3d47df7295f355e9d97",
+    "status": "running_failed_original_diagnostic_requires_complete_repaired_retry",
+    "stderr": "check-fast.stderr.log",
+    "stdout": "check-fast.stdout.log",
+    "superseded_attempts": [
+      "initial-unoptimized/check-fast-result.json",
+      "initial-literal-only/check-fast-result.json",
+      "superseded-slow-debug/check-fast-result.json",
+      "superseded-json-archive/check-fast-result.json"
+    ],
+    "planned_repaired_retry_environment": {
+      "CARGO_NET_OFFLINE": "true",
+      "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+      "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+      "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+      "RUST_TEST_THREADS": "4"
+    },
+    "planned_repaired_retry_environment_reason": "Reduce aggregate host memory pressure after the exact live ten-worker process sample; all tests and assertions remain mandatory. Not applied to the current source320 diagnostic."
+  },
+  "current_gate_policy": {
+    "authority": "Latest explicit user instruction, 2026-10-19",
+    "CSharp_test_retry_requirements_in_historical_entries": "superseded_for_Go_development",
+    "default_full_gate_and_native_release_scope_unchanged": true,
+    "amendment": "go-development-gate/amendment.json"
   }
 }

@@ -1,0 +1,95 @@
+{
+  "status": "passed",
+  "source_base_commit": "145675b6d362035ae717af82006d3d622f8aa1a0",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "csharp_practical_vc",
+    "--no-run",
+    "--message-format=json"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_TARGET_DIR": "/private/tmp/mpk-t01-w05-json-repair-target",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true"
+  },
+  "unset_environment": [
+    "RUST_MIN_STACK",
+    "MPK_CORE_MAX_STEPS",
+    "MPK_CORE_MAX_SECONDS",
+    "MPK_W09_CONTROL_EDGES_OUT"
+  ],
+  "prior_environment": {
+    "RUST_MIN_STACK": null,
+    "MPK_CORE_MAX_STEPS": null,
+    "MPK_CORE_MAX_SECONDS": null,
+    "MPK_W09_CONTROL_EDGES_OUT": null
+  },
+  "test_sources": [
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_step_tests.rs",
+      "sha256": "b452e954b202405a49ef934cee4eec16ca02572c9c14b24aa0d75e9e748781b2",
+      "bytes": 57985
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_edge_tests.rs",
+      "sha256": "0a0e1b27b03e792b15cec93233b6f87c8e6c93da77601353b59a583569dec78e",
+      "bytes": 151753
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_transition_clause_tests.rs",
+      "sha256": "cae1aa8a75c32f755ad9e3ce429828a291c497474e8f0b98ac58859d5bdaa401",
+      "bytes": 17872
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_literal_clause_tests.rs",
+      "sha256": "3c068a816c030526f24929aa201220de516de630fab8bd6ab5d42fcf465ca539",
+      "bytes": 17744
+    }
+  ],
+  "source_preservation_audit": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/ssa-origin-followup/source-preservation-audit.json",
+    "sha256": "dbcd86711ab891deba31b862deae78232e120ce6baa28b1aa9dd29e15a2c6c5a",
+    "bytes": 2012
+  },
+  "failure_analysis": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/ssa-origin-followup/binding-origin-analysis.json",
+    "sha256": "ea87cd051230cf85734b6deda17ab5c5bc71781154e0607d7845a16b566b70a3",
+    "bytes": 18278
+  },
+  "started_at_utc": "2026-10-18T23:27:58.570696+00:00",
+  "selection_reason": "Independently restore memory SSA definition origins and reuse the same component observer in two existing metadata owners. The full original runtime entry hardcodes true. Both entire old sources recover byte-for-byte:112 original step assertions plus9 additions, and329 original harness assertions. Compile the containing integration target; all18 full runtime contexts remain mandatory.",
+  "full_gate_passed": false,
+  "pid": 32610,
+  "exit_code": 0,
+  "wall_seconds": 30.721012666937895,
+  "finished_at_utc": "2026-10-18T23:28:29.291820+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/ssa-origin-followup/build/stdout.jsonl",
+    "sha256": "7f5b79e24dfdd72b58f6d5617adf5d1a52283aae4a7376bdb364e96e60ca3a66",
+    "bytes": 30425
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/ssa-origin-followup/build/stderr.log",
+    "sha256": "3d344156b67df8a5c2840cfa0621df308cec3c42fd0a9e6edb309d84949debcf",
+    "bytes": 146
+  },
+  "executable": {
+    "path": "/private/tmp/mpk-t01-w05-json-repair-target/debug/deps/csharp_practical_vc-f5f78b9b819b93a0",
+    "sha256": "9e7efddb5801266c199f0b0faf3bbcba7fe5ee2b8c1679d5ceb47375552b3e4d",
+    "bytes": 41062040
+  },
+  "profile": {
+    "opt_level": "1",
+    "debuginfo": 2,
+    "debug_assertions": true,
+    "overflow_checks": true,
+    "test": true
+  }
+}

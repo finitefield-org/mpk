@@ -1,0 +1,542 @@
+{
+  "commands": [
+    [
+      "cargo",
+      "test",
+      "--package",
+      "mpk-core",
+      "--no-fail-fast",
+      "--lib",
+      "--",
+      "--skip",
+      "csharp",
+      "--skip",
+      "CSharp",
+      "--skip",
+      "CSHARP"
+    ],
+    [
+      "cargo",
+      "test",
+      "--package",
+      "mpk-core",
+      "--no-fail-fast",
+      "--doc",
+      "--",
+      "--skip",
+      "csharp",
+      "--skip",
+      "CSharp",
+      "--skip",
+      "CSHARP"
+    ],
+    [
+      "cargo",
+      "test",
+      "--package",
+      "mpk-cert",
+      "--no-fail-fast",
+      "--lib",
+      "--",
+      "--skip",
+      "csharp",
+      "--skip",
+      "CSharp",
+      "--skip",
+      "CSHARP"
+    ],
+    [
+      "cargo",
+      "test",
+      "--package",
+      "mpk-cert",
+      "--no-fail-fast",
+      "--doc",
+      "--",
+      "--skip",
+      "csharp",
+      "--skip",
+      "CSharp",
+      "--skip",
+      "CSHARP"
+    ],
+    [
+      "cargo",
+      "test",
+      "--package",
+      "mpk-kernel",
+      "--no-fail-fast",
+      "--lib",
+      "--test",
+      "certificate_decoder_fuzz_smoke",
+      "--test",
+      "fast_kernel_profile",
+      "--test",
+      "theory_certificate_encoders",
+      "--test",
+      "theory_certificate_fuzz_smoke",
+      "--",
+      "--skip",
+      "csharp",
+      "--skip",
+      "CSharp",
+      "--skip",
+      "CSHARP"
+    ],
+    [
+      "cargo",
+      "test",
+      "--package",
+      "mpk-kernel",
+      "--no-fail-fast",
+      "--doc",
+      "--",
+      "--skip",
+      "csharp",
+      "--skip",
+      "CSharp",
+      "--skip",
+      "CSHARP"
+    ],
+    [
+      "cargo",
+      "test",
+      "--package",
+      "mpk-theory",
+      "--no-fail-fast",
+      "--lib",
+      "--",
+      "--skip",
+      "csharp",
+      "--skip",
+      "CSharp",
+      "--skip",
+      "CSHARP"
+    ],
+    [
+      "cargo",
+      "test",
+      "--package",
+      "mpk-theory",
+      "--no-fail-fast",
+      "--doc",
+      "--",
+      "--skip",
+      "csharp",
+      "--skip",
+      "CSharp",
+      "--skip",
+      "CSHARP"
+    ],
+    [
+      "cargo",
+      "test",
+      "--package",
+      "mpk-cli",
+      "--no-fail-fast",
+      "--lib",
+      "--bin",
+      "mpk",
+      "--test",
+      "ai_explain_v1",
+      "--test",
+      "ai_foundation",
+      "--test",
+      "frontend_limits",
+      "--test",
+      "frontend_runner",
+      "--test",
+      "java_activation",
+      "--test",
+      "java_build_inputs",
+      "--test",
+      "java_contracts",
+      "--test",
+      "java_frontend_runner",
+      "--test",
+      "java_frontend_vectors",
+      "--test",
+      "java_lowering",
+      "--test",
+      "java_policy_verify",
+      "--test",
+      "java_release_gate",
+      "--test",
+      "java_source_maps",
+      "--test",
+      "java_subset",
+      "--test",
+      "policy_cli",
+      "--test",
+      "policy_profiles",
+      "--test",
+      "policy_scan",
+      "--test",
+      "policy_schema_v1",
+      "--test",
+      "program_certificate",
+      "--test",
+      "successor_atomic_cutover",
+      "--test",
+      "successor_frontend_protocol",
+      "--test",
+      "successor_go_protocol",
+      "--test",
+      "successor_go_release",
+      "--test",
+      "successor_rust_protocol",
+      "--test",
+      "successor_rust_release",
+      "--test",
+      "verify",
+      "--",
+      "--skip",
+      "csharp",
+      "--skip",
+      "CSharp",
+      "--skip",
+      "CSHARP"
+    ],
+    [
+      "cargo",
+      "test",
+      "--package",
+      "mpk-cli",
+      "--no-fail-fast",
+      "--doc",
+      "--",
+      "--skip",
+      "csharp",
+      "--skip",
+      "CSharp",
+      "--skip",
+      "CSHARP"
+    ],
+    [
+      "cargo",
+      "test",
+      "--package",
+      "mpk-api",
+      "--no-fail-fast",
+      "--lib",
+      "--test",
+      "batch",
+      "--test",
+      "check_api",
+      "--test",
+      "diagnostics",
+      "--test",
+      "invalid_candidates_benchmark",
+      "--test",
+      "jsonl",
+      "--test",
+      "policy_strategy",
+      "--test",
+      "proof_api",
+      "--test",
+      "strategies",
+      "--test",
+      "term_api",
+      "--",
+      "--skip",
+      "csharp",
+      "--skip",
+      "CSharp",
+      "--skip",
+      "CSHARP"
+    ],
+    [
+      "cargo",
+      "test",
+      "--package",
+      "mpk-api",
+      "--no-fail-fast",
+      "--doc",
+      "--",
+      "--skip",
+      "csharp",
+      "--skip",
+      "CSharp",
+      "--skip",
+      "CSHARP"
+    ],
+    [
+      "cargo",
+      "test",
+      "--package",
+      "mpk-vc",
+      "--no-fail-fast",
+      "--lib",
+      "--test",
+      "call_wp",
+      "--test",
+      "canonical_json",
+      "--test",
+      "go_profile_vectors",
+      "--test",
+      "go_vir_corpus",
+      "--test",
+      "java_profile_spec",
+      "--test",
+      "java_profile_vectors",
+      "--test",
+      "program_encoding",
+      "--test",
+      "program_wp",
+      "--test",
+      "release_bundle",
+      "--test",
+      "rust_calls",
+      "--test",
+      "rust_positive_corpus",
+      "--test",
+      "rust_runtime_safety",
+      "--test",
+      "safety_profiles",
+      "--test",
+      "semantic_profile_registry",
+      "--test",
+      "semantic_profile_registry_runtime",
+      "--test",
+      "source_manifest",
+      "--test",
+      "source_map",
+      "--test",
+      "successor_go_migration",
+      "--test",
+      "successor_rust_migration",
+      "--test",
+      "successor_source_artifacts",
+      "--test",
+      "successor_vc",
+      "--test",
+      "vc_hash_v1",
+      "--test",
+      "vc_skeleton_v1",
+      "--test",
+      "vc_v1",
+      "--test",
+      "verification_limits",
+      "--test",
+      "vir_differential",
+      "--test",
+      "vir_hash",
+      "--test",
+      "vir_loops",
+      "--test",
+      "vir_model",
+      "--test",
+      "vir_semantics_gate",
+      "--test",
+      "vir_validation",
+      "--",
+      "--skip",
+      "csharp",
+      "--skip",
+      "CSharp",
+      "--skip",
+      "CSHARP"
+    ],
+    [
+      "cargo",
+      "test",
+      "--package",
+      "mpk-vc",
+      "--no-fail-fast",
+      "--doc",
+      "--",
+      "--skip",
+      "csharp",
+      "--skip",
+      "CSharp",
+      "--skip",
+      "CSHARP"
+    ],
+    [
+      "cargo",
+      "test",
+      "--package",
+      "mpk-linux-sandbox",
+      "--no-fail-fast",
+      "--lib",
+      "--",
+      "--skip",
+      "csharp",
+      "--skip",
+      "CSharp",
+      "--skip",
+      "CSHARP"
+    ],
+    [
+      "cargo",
+      "test",
+      "--package",
+      "mpk-linux-sandbox",
+      "--no-fail-fast",
+      "--doc",
+      "--",
+      "--skip",
+      "csharp",
+      "--skip",
+      "CSharp",
+      "--skip",
+      "CSHARP"
+    ]
+  ],
+  "omitted_integration_targets": [
+    {
+      "package": "mpk-cli",
+      "target": "csharp_ai_explain"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_build_inputs"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_capture"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_contracts"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_emission"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_frontend_runner"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_frontend_vectors"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_lowering"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_policy_verify"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_practical_boundary"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_practical_boundary_transition"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_practical_build_inputs"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_practical_capture"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_practical_codecs"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_practical_collections"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_practical_control"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_practical_domain"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_practical_frontend_protocol"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_practical_migration"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_practical_numbers"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_practical_probes"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_practical_syntax"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_practical_transition"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_practical_types"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_profile_vectors"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_release_gate"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_roslyn_session"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_subset"
+    },
+    {
+      "package": "mpk-vc",
+      "target": "csharp_practical_inventory"
+    },
+    {
+      "package": "mpk-vc",
+      "target": "csharp_practical_registry"
+    },
+    {
+      "package": "mpk-vc",
+      "target": "csharp_practical_source_artifacts"
+    },
+    {
+      "package": "mpk-vc",
+      "target": "csharp_practical_spec"
+    },
+    {
+      "package": "mpk-vc",
+      "target": "csharp_practical_vc"
+    },
+    {
+      "package": "mpk-vc",
+      "target": "csharp_practical_vc_model"
+    },
+    {
+      "package": "mpk-vc",
+      "target": "csharp_practical_vir_model"
+    },
+    {
+      "package": "mpk-vc",
+      "target": "csharp_practical_vir_validation"
+    },
+    {
+      "package": "mpk-vc",
+      "target": "csharp_profile_spec"
+    }
+  ],
+  "test_name_filters": [
+    "csharp",
+    "CSharp",
+    "CSHARP"
+  ],
+  "scope": "Go development; C# validation deferred by user instruction"
+}

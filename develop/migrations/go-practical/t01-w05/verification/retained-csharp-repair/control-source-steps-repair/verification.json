@@ -1,0 +1,126 @@
+{
+  "schema": "mpk.go_practical.control_source_step_observer_repair.v0",
+  "status": "first_complete_runtime_failed_added_SSA_origin_observer_followup_running",
+  "observed_at_utc": "2026-10-18T21:53:25.962712+00:00",
+  "source_base_commit": "145675b6d362035ae717af82006d3d622f8aa1a0",
+  "compiled_original_source": "320ecd67ab420e1ea806196271eea3271f929fbe",
+  "original_failure": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-diagnosis/result.json",
+    "sha256": "c5190d26991d9243be8f6be2c11ab82707b3d1404f803bef994d5b182c01d072",
+    "bytes": 13273
+  },
+  "original_failure_seconds": 6339.1222947920905,
+  "original_failed_assertion": "Original line129: step.components count actual3/expected2 at the first count_fill memory update.",
+  "failure_analysis": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/failure-analysis.json",
+    "sha256": "2b597144f9ed59ada10bb89c792cb4aa963cb8fe8b9531b2579e963c82b5dc7d",
+    "bytes": 22355
+  },
+  "source_preservation_audit": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/source-preservation-audit-corrected.json",
+    "sha256": "fa51c38ac5f3e42e60ebf7c62542d5b9b9859eebac209e273f724d87e950255b",
+    "bytes": 2035
+  },
+  "source": {
+    "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_step_tests.rs",
+    "sha256": "646ad3742f2e0518d304a077f22f262b4973d01436a468ffb7b7f842e41b358c",
+    "bytes": 54978
+  },
+  "original_whole_file_assertions_preserved": 112,
+  "added_assertions": 7,
+  "original_component_count_summands_retained": true,
+  "original_input_members_Git_pinned_unchanged": 42,
+  "production_sources_Git_pinned_unchanged": 3,
+  "affected_original_contexts": 18,
+  "metadata_component_mismatches_explained": 3,
+  "missing_original_component_roles": {
+    "memory_effect": [
+      "count_fill",
+      "index_update"
+    ],
+    "source_constructor_normal": [
+      "type"
+    ]
+  },
+  "component_checks": "Retain every original count/list/SSA/origin/native/literal/slot assertion; add exact memory-effect snapshot/SSA binding conversion and source-constructor public VIR signature, anchor, hashed definition and operand/result SSA indices.",
+  "selected_terminal_results": [
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/build-corrected/result.json",
+      "sha256": "074f14defac0673e914962dc31cd0fe548563c73a76b95846fe742ddefbabd19",
+      "bytes": 3503,
+      "status": "passed",
+      "exit_code": 0,
+      "wall_seconds": 34.26984770805575
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/format/result.json",
+      "sha256": "0e27e779cb8459cb6244f77c8454b86eb05a92ad11259afa3168c97edb7fc03f",
+      "bytes": 3761,
+      "status": "passed",
+      "exit_code": 0,
+      "wall_seconds": 3.245572583982721
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/clippy/result.json",
+      "sha256": "dc5bf910ffc22fbc27eba4166cb3fbce80aa7015942d64a976b83205b00e843b",
+      "bytes": 3909,
+      "status": "passed",
+      "exit_code": 0,
+      "wall_seconds": 4.637771208072081
+    }
+  ],
+  "normal_result": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/normal/result.json",
+  "normal_status": "failed",
+  "normal_binary": {
+    "path": "/private/tmp/mpk-t01-w05-json-repair-target/debug/deps/csharp_practical_vc-f5f78b9b819b93a0",
+    "sha256": "64724a768b645109b1ceb2b6d0e2fdbe7bb7c3e457f44811ec2f6d8b7bd7796f",
+    "bytes": 41061768
+  },
+  "normal_scope": "All18 original contexts, every original scalar example and literal forgery, all argument/bit mutations and positive/negative conjunction evaluations, strict import mutations and all36 JSON/hex goldens. No context filter, output flag, stack override or core ceiling.",
+  "initial_failed_build": {
+    "result": {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/build/result.json",
+      "sha256": "9497cb6453b1a72ee96552181a16a3a75da23cfc5f958ad95222b6ac775ea4ae",
+      "bytes": 3103
+    },
+    "inputs": {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/initial-private-api-attempt/input-snapshot.json",
+      "sha256": "be12baef9b5aadc4163a9a78ca014dc7ec620a6c98749715db34d626a4c0bb77",
+      "bytes": 2138
+    },
+    "initial_source_audit": {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/source-preservation-audit.json",
+      "sha256": "2f4870a1d3bf25b12f55c722ef494c8483f389367181703c6ac0396341b9b671",
+      "bytes": 2035
+    },
+    "cause": "E0624: initial test called crate-private construction_context/data_closed. Fixed by inspecting the public constructor VIR function parameter/result signature. No production API change."
+  },
+  "previous_passing_binary_snapshot": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/prior-passing-binary-snapshot.json",
+    "sha256": "b01fc23174824a39bd5edbeb18ad287fd01a631932a07f6a2a0acd3b665fbbbc",
+    "bytes": 871
+  },
+  "final_input_review_pending": true,
+  "production_interpreter_kernel_checker_changes": false,
+  "original_fixture_bytes_changed": false,
+  "application_proofs_discharged": false,
+  "profiles_activated": false,
+  "CSharp_application_ids_pending": 987,
+  "Go_demands_unelaborated": 169,
+  "whole_gate": "Original source320 diagnostic still running. Entire committed repaired T01 check-fast remains mandatory; selected checks do not complete W05/T01 or permit T02.",
+  "T01_complete": false,
+  "T02_started": false,
+  "normal_terminal_result": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/normal/result.json",
+    "sha256": "970d978211be5de63771e543347da4f7f46c7ea9b3e9e9a3e9e544bd8a47805d",
+    "bytes": 4481
+  },
+  "normal_failure_seconds": 5476.090286707971,
+  "normal_failure": "The added expected memory SSA bindings copied use-site node IDs; four entries differ only in node_id from canonical original VIR definition points. No runtime passing claim.",
+  "failed_attempt_source_and_executable_snapshot": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/ssa-origin-followup/previous-attempt-snapshot.json",
+    "sha256": "79b9b6d3df5f5b97b040612b7ad3d82e16d0d174ba28befd66c739b9cf8ae329",
+    "bytes": 1581
+  },
+  "followup_verification": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/ssa-origin-followup/verification.json"
+}

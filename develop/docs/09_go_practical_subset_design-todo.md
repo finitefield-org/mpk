@@ -279,13 +279,23 @@ all requested claims discharged, both-checker acceptance, and a deliberately
 incorrect case that fails at the intended boundary.
 
 Run targeted checks during W items. The final W of every T additionally runs
-`./scripts/check-fast.sh` for that T's cumulative changes and cannot complete
+`./scripts/check-fast.sh --skip-csharp` for that T's cumulative changes and cannot complete
 until it passes. Do not reproduce that whole gate during intermediate W
 items. Record why the selected tests cover the change and explicitly record
 the full gate as deferred until the final W. T07 and T11 also run the complete
 local native Linux release gates specified by the root README, with two-pass
 installed-release evidence. All execution stays local; no workflow files or
 GitHub Actions are introduced or used.
+
+The `--skip-csharp` routing implements the user's explicit 2026-10-19
+instruction to skip C# tests and continue Go development. It omits dedicated
+C# integration targets and C# unit/doc test names, while retaining every other
+workspace target and shared test. Format, strict vocabulary checks, Clippy,
+the CLI build and both accepting/rejecting CLI fixtures remain required.
+This is the GO-PRAC development gate; it does not certify C# or replace any
+native Linux installed-release acceptance requirement. The default command
+continues to execute all workspace tests. Earlier full-gate waits in historical
+records are superseded by this scheduling amendment.
 
 | Changed surface | Targeted validation family |
 | --- | --- |

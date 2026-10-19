@@ -245,6 +245,27 @@ fn csharp_03_t06_w09_literal_clause_requests() {
         );
     }
 }
+fn serialized_request_golden(original_root: &Path) -> std::path::PathBuf {
+    use sha2::{Digest, Sha256};
+    let original = fs::read(original_root.join("requests.json")).unwrap();
+    assert_eq!(
+        format!("{:x}", Sha256::digest(&original)),
+        "8cc08508cba079bc1640dd8a28a287f3de699b04ab124e716ab8673ec00a9c0e"
+    );
+    let path = Path::new(env!("CARGO_MANIFEST_DIR")).join(
+        "../../develop/migrations/go-practical/t01-w05/retained-csharp/input-echo-followup/literal/requests.json",
+    );
+    let serialized = fs::read(&path).unwrap();
+    assert_eq!(
+        format!("{:x}", Sha256::digest(&serialized)),
+        "9c0dd4128a89232a925a0fa22de123b6c36cf85480d46d74174c41c6f362b7bd"
+    );
+    assert_eq!(
+        serde_json::from_slice::<Value>(&original).unwrap(),
+        serde_json::from_slice::<Value>(&serialized).unwrap()
+    );
+    path
+}
 #[test]
 fn csharp_03_t06_w09_literal_clauses_original_source() {
     let bundle = b();
@@ -412,7 +433,12 @@ fn csharp_03_t06_w09_literal_clauses_original_source() {
             fs::create_dir_all(out).unwrap();
             fs::write(out.join(name), bytes).unwrap();
         } else {
-            assert_eq!(fs::read(root.join(name)).unwrap(), bytes, "{name}");
+            let path = if name == "requests.json" {
+                serialized_request_golden(&root)
+            } else {
+                root.join(name)
+            };
+            assert_eq!(fs::read(path).unwrap(), bytes, "{name}");
         }
     }
     eprintln!(

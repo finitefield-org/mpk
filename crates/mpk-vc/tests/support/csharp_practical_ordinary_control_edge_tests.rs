@@ -2828,6 +2828,10 @@ fn run_selected_cases_mode(
         }
         if native == NativeRuntime::StepMetadata {
             let count = steps::audit_steps(&p, vir);
+            let component_count = steps::audit_step_components(&p, vir, &c);
+            eprintln!(
+                "control source step component metadata {id}: {component_count} complete local components"
+            );
             eprintln!("control source step metadata {id}: {count} complete normal steps");
         }
         if native == NativeRuntime::ExecutionMetadata {

@@ -1,0 +1,9 @@
+# Additional input-echo regression repair
+
+The original transition and rich-literal owners fail only at their final `requests.json` echo in0.677 and1.640 seconds. The [exact transition operands](../transition-clauses-diagnosis/exact-request-operands-audit.json) and [literal operands](../literal-clauses-diagnosis/exact-request-operands-audit.json) preserve identical complete JSON values and nested UTF8 source/sidecar strings. Only the outer Unicode escape representation differs. Both original fixture sets remain unchanged.
+
+The [separate echoes](../../../retained-csharp/input-echo-followup/README.md) retain the exact actual right operands. Each owner adds three guards that pin original and echo bytes and compare their complete JSON values before its original full byte assertion. The [source audit](source-preservation-audit.json) reverses only the helper and path association to recover both complete original sources, all11 assertions per file and every case, seed, selector/packet loop, import, integration comparison and current component golden.
+
+[Selected verification](verification.json) records the full transition owner passing all two contexts and999 projection observations in1.724 seconds; the full literal owner passes all18 constants and1,414 packet observations in2.907 seconds. Both integrated/public definition closure comparisons remain. The41.522-second build, format and target Clippy pass. Other six previously completed repair bodies are byte unchanged and are not repeated as an unrelated intermediate suite.
+
+The separate control source-step owner is still being reproduced over all18 original contexts without filters, output flags or ceilings. Its running outputs are distinguished from these terminal results. Final changed-input review and the entire committed repaired T01 gate remain required. All169 Go demands and987 C# application IDs remain pending; no profile activates.

@@ -1,0 +1,7 @@
+--- original-harness
++++ current-harness
+@@ -2830,0 +2831,4 @@
++            let component_count = steps::audit_step_components(&p, vir, &c);
++            eprintln!(
++                "control source step component metadata {id}: {component_count} complete local components"
++            );

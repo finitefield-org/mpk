@@ -1,0 +1,119 @@
+{
+  "status": "passed",
+  "mode": "clippy",
+  "command": [
+    "cargo",
+    "clippy",
+    "--offline",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "csharp_practical_vc",
+    "--",
+    "-D",
+    "warnings"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_TARGET_DIR": "/private/tmp/mpk-t01-w05-json-repair-target",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true"
+  },
+  "unset_environment": [
+    "RUST_MIN_STACK",
+    "MPK_CORE_MAX_STEPS",
+    "MPK_CORE_MAX_SECONDS",
+    "MPK_W09_CONTROL_EDGES_OUT"
+  ],
+  "prior_environment": {
+    "RUST_MIN_STACK": null,
+    "MPK_CORE_MAX_STEPS": null,
+    "MPK_CORE_MAX_SECONDS": null,
+    "MPK_W09_CONTROL_EDGES_OUT": null
+  },
+  "binary": {
+    "path": "/private/tmp/mpk-t01-w05-json-repair-target/debug/deps/csharp_practical_vc-f5f78b9b819b93a0",
+    "sha256": "9e7efddb5801266c199f0b0faf3bbcba7fe5ee2b8c1679d5ceb47375552b3e4d",
+    "bytes": 41062040
+  },
+  "test_sources": [
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_step_tests.rs",
+      "sha256": "b452e954b202405a49ef934cee4eec16ca02572c9c14b24aa0d75e9e748781b2",
+      "bytes": 57985
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_edge_tests.rs",
+      "sha256": "0a0e1b27b03e792b15cec93233b6f87c8e6c93da77601353b59a583569dec78e",
+      "bytes": 151753
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_transition_clause_tests.rs",
+      "sha256": "cae1aa8a75c32f755ad9e3ce429828a291c497474e8f0b98ac58859d5bdaa401",
+      "bytes": 17872
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_literal_clause_tests.rs",
+      "sha256": "3c068a816c030526f24929aa201220de516de630fab8bd6ab5d42fcf465ca539",
+      "bytes": 17744
+    }
+  ],
+  "build": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/ssa-origin-followup/build/result.json",
+    "sha256": "1847346802cf124c109b0132611c6b61e98027ed5e498ee49be5dcfc340f4ab1",
+    "bytes": 3866
+  },
+  "source_preservation_audit": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/ssa-origin-followup/source-preservation-audit.json",
+    "sha256": "dbcd86711ab891deba31b862deae78232e120ce6baa28b1aa9dd29e15a2c6c5a",
+    "bytes": 2012
+  },
+  "binding_origin_analysis": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/ssa-origin-followup/binding-origin-analysis.json",
+    "sha256": "ea87cd051230cf85734b6deda17ab5c5bc71781154e0607d7845a16b566b70a3",
+    "bytes": 18278
+  },
+  "original_component_census": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/failure-analysis.json",
+    "sha256": "2b597144f9ed59ada10bb89c792cb4aa963cb8fe8b9531b2579e963c82b5dc7d",
+    "bytes": 22355
+  },
+  "original_contexts": [
+    "count_fill",
+    "while",
+    "for",
+    "short_circuit",
+    "switch",
+    "is_binding",
+    "guard_order",
+    "guard_throw",
+    "total_variable",
+    "index_update",
+    "foreach_string",
+    "foreach_string_var",
+    "foreach_array",
+    "foreach_array_var",
+    "lookup",
+    "governing_throw",
+    "type",
+    "string_property"
+  ],
+  "selection_reason": "Check the changed shared step observer and both metadata consumers through their integration target with warnings denied; do not rerun unrelated completed consumers.",
+  "started_at_utc": "2026-10-18T23:29:07.637119+00:00",
+  "full_gate": "The complete original runtime owner and the entire committed repaired T01 check-fast remain mandatory. Metadata/static checks do not complete W05/T01 or permit T02.",
+  "pid": 32896,
+  "exit_code": 0,
+  "wall_seconds": 4.046037999913096,
+  "finished_at_utc": "2026-10-18T23:29:11.683568+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/ssa-origin-followup/clippy/stdout.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/ssa-origin-followup/clippy/stderr.log",
+    "sha256": "856842b9c1356ba973c3e1e1e8b299e9797b978073a97548d6b5f09713861db9",
+    "bytes": 146
+  }
+}
