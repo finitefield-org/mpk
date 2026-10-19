@@ -1,0 +1,64 @@
+{
+  "status": "direct_candidate_observed",
+  "observed_at_utc": "2026-10-19T21:13:29.786830+00:00",
+  "command": [
+    "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+    "verify",
+    "develop/migrations/go-practical/t02-w01/verification/word-shifts/explicit-count-balance/rust-construction/certificates/word-shifts.mpcert"
+  ],
+  "exit_code": 1,
+  "seconds": 4.483199000009336,
+  "certificate": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-shifts/explicit-count-balance/rust-construction/certificates/word-shifts.mpcert",
+    "sha256": "a010fd3145d390bbba1a695007ca9cef8f157d798cf3646205bd4a8ff1722abb",
+    "bytes": 1099483
+  },
+  "original_Rust_report": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-shifts/explicit-count-balance/rust-construction/certificates/word-shifts.rust.json",
+    "sha256": "cdcdf7330498723de5b7072d1c9b582426cda84493e932b7637b89725a4f8219",
+    "bytes": 545
+  },
+  "unchanged_go_binary": {
+    "path": "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+    "sha256": "33018244ca886f867256330d050077f7630c503529e3dc14ac3365f333c618a6",
+    "bytes": 3239410
+  },
+  "unchanged_go_source_build_evidence": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/core-interfaces/paired/result.json",
+    "sha256": "88ee756b4d9f6a61a1f61670baf626be23c6947d532a25fe3a0a65fa9b0a159a",
+    "bytes": 45747
+  },
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-shifts/explicit-count-balance/go-candidate/stdout.log",
+    "sha256": "e2ae0d6e2b40027aae8c61b2df76ed0503ceb8e0148c2c92991c525c8551cfbb",
+    "bytes": 108
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-shifts/explicit-count-balance/go-candidate/stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "Rust_observation": {
+    "verdict": "rejected",
+    "module": null,
+    "declaration_count": null,
+    "axiom_count": null,
+    "hashes": {
+      "export": null,
+      "axiom_report": null,
+      "certificate": "5d4971db69d2139470c32d98538ff8d4e1a425aa13e6a2125ed61797a8431742"
+    },
+    "axiom_report": null,
+    "error_code": "KERNEL_CORE_CHECK",
+    "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"1128913\",\"inferred_kind\":\"pi\",\"inferred_term_index\":\"1129261\",\"kind\":\"check_type_mismatch\",\"term_index\":\"1128951\"}}"
+  },
+  "Go_observation": {
+    "verdict": "rejected",
+    "error_kind": "core_check",
+    "error_detail": "term 1127841 inferred pi but expected app"
+  },
+  "semantic_negative_counted": false,
+  "complete_paired_success_claimed": false,
+  "resource_or_Linux_release_claimed": false,
+  "scope": "One original intended-positive word-shifts certificate. Preserve both direct outcomes; full paired acceptance still requires both unchanged checkers to accept the same final bytes. A format/fuel/resource failure supplies no semantic negative."
+}

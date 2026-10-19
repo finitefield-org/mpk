@@ -5490,3 +5490,69 @@ original application source/export/selected-closure replay remain due. All169
 application demands stay unelaborated and W01 is In progress. C# tests stay
 skipped; the cumulative T02 gate stays W04. No complete source-program proof,
 immutable application replay, public activation or native Linux release is claimed.
+
+## 98. T02-W01 fixed right shifts and full64 high-count prerequisites
+
+The [new checkpoint](../migrations/go-practical/t02-w01/verification/word-shifts/README.md)
+proves genuine unbounded PowerMinusOne/exponent addition/positivity, balanced
+PopHigh conservation and cube bounds. Real unsigned/signed fixed right source
+circuits for all18 power-of-two amounts across8/16/32/64-bit widths bind through
+literal-address value congruence. Remainders are values of actual lowest source
+blocks, strictly below2^amount; signed fills preserve the actual source top.
+Full variable signed Int floor conservation remains required.
+
+The full64 count arithmetic uses the exact source balanced Or over bitsd..63,
+where d=log2(width). With a matching relatively weighted HighValue tree and
+the original low Digits_d prefix, ordinary proofs establish
+U64=Digits_d+2^d*HighValue and Nat.Equal(HighValue,0)=Not(CountHigh). No whole
+operand/count enumeration, huge unary data count or enormous evaluated power
+supplies a theorem. The low-prefix bound, full count/width/excess binding and
+all3 actual variable stages/final saturation/sign-fill/Int projection remain.
+
+The3105-declaration/77415-term/1100109-byte zero-axiom component fits the original
+4096/131072/2097152 caps and1024 core fuel. Private original-name composition
+keeps all1882 conversion declarations plus783 selected original source/arithmetic
+root dependencies. The existing Builder seed additionally retains four exact
+Std.Bool definitions(and/if/not/or); actual retained metadata is2669, with436 new
+shift declarations. All old types/bodies/proofs/levels/families match without
+rename/substitution, including complete raw converter and signed-division
+composer pins. Metadata and exact owning imports grant no proof authority.
+
+Both unchanged cores check103 complete same-byte streams: two zero-axiom
+positives and101 genuine type rejections, including actual source circuits,
+low remainders/bounds, high-tree definitions and real arithmetic premises. The
+original combined scoped run completes its101-control and504-model roots, then
+fails a separate count assertion that expected2665. Only the assertion and
+report-text count literals change to2669; only that affected root is rerun.
+Production bytes and control/model/query sources stay exact, preserving the
+original failed run. Current selected lint/format and ignored-helper listing
+pass; unaffected semantic roots are not repeated.
+
+Every original complete shift row stays intact. Actual decoded Boolean source
+stages, all64 count bits/guards/high trees and4212 real fixed-right observations
+agree with typed Go and independent Python integer arithmetic. Native Go
+observes24 negative-count panics,480 defined counts and309 defined high counts.
+A fresh pinned5577-file prepared image/empty cache yields two byte-identical
+outputs and passes before/after checks. Large counts compare actual zero/sign
+fill without huge powers. Nat/Int/witness/theorem bodies do not execute in the
+Boolean model; finite observations supply no universal arithmetic proof.
+
+Original compiler borrow failures, full WeightedBitZero type failure and both
+core observations remain. An ignored direct-prefix diagnostic identifies an
+unapplied Bool-case proof function; actual function application and explicit
+Bool congruences repair the recipe. Original planning/count-reader expectation,
+metadata test failure and observer lambda-subtype assumption stay preserved.
+The observer matcher accepts the observed genuine lambda domain mismatch and
+reuses its original complete first pair, then checks only the remaining100
+streams. Native key and early report-lookup errors occur before native/checker
+execution and remain labeled as tool observations. Exact source/candidate/raw
+reports are retained, with only per-file hash/length-bound original libtest EOF
+observations. All255 frozen inputs, official127-rule/four-scope scanner and39
+historical seals stay exact; no source/JSON/directory exclusion is introduced.
+
+W01 remains In progress and all169 authoritative original application demands
+remain unelaborated. Full carrier/state/storage/lifetime/program/bounded56-family
+foundation/descriptor/private registry/context and application source/export/
+selected-closure replay remain due. All T02-T11 scope/gates stay active. C# tests
+stay skipped; the cumulative T02 gate stays W04. No complete source-program,
+public-profile, immutable application replay or native Linux release is claimed.

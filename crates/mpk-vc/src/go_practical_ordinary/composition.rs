@@ -143,6 +143,7 @@ fn fingerprints(c: &Certificate) -> BTreeMap<String, (String, String)> {
 }
 struct Composer<'a> {
     inputs: &'a [Certificate],
+    signed_division_names: bool,
     builder: Builder,
     index: BTreeMap<String, (usize, usize)>,
     cloned: BTreeMap<String, u32>,
@@ -151,11 +152,25 @@ struct Composer<'a> {
     levels: BTreeMap<(usize, u32), u32>,
 }
 impl Composer<'_> {
+    fn source_name(&self, name: &str) -> String {
+        if self.signed_division_names {
+            replacement(name).unwrap_or_else(|| name.into())
+        } else {
+            name.into()
+        }
+    }
+    fn output_name(&self, name: &str) -> String {
+        if self.signed_division_names {
+            qualified(name)
+        } else {
+            name.into()
+        }
+    }
     fn dependency_order(&self, roots: &[String]) -> Result<Vec<String>> {
         let mut state: BTreeMap<String, u8> = BTreeMap::new();
         let mut output = vec![];
         for root in roots {
-            let mut pending = vec![(replacement(root).unwrap_or_else(|| root.clone()), false)];
+            let mut pending = vec![(self.source_name(root), false)];
             while let Some((name, exit)) = pending.pop() {
                 if exit {
                     state.insert(name.clone(), 2);
@@ -209,7 +224,7 @@ impl Composer<'_> {
                     }
                 }
                 for dependency in dependencies.into_iter().rev() {
-                    let dependency = replacement(&dependency).unwrap_or(dependency);
+                    let dependency = self.source_name(&dependency);
                     if state.get(&dependency) != Some(&2) {
                         pending.push((dependency, false));
                     }
@@ -312,11 +327,11 @@ impl Composer<'_> {
         Ok(id)
     }
     fn declaration(&mut self, name: &str) -> Result<u32> {
-        let name = replacement(name).unwrap_or_else(|| name.into());
+        let name = self.source_name(name);
         if let Some(id) = self.cloned.get(&name) {
             return Ok(*id);
         }
-        let out = qualified(&name);
+        let out = self.output_name(&name);
         if let Some(id) = self.builder.globals.get(&out) {
             self.cloned.insert(name, *id);
             return Ok(*id);
@@ -446,6 +461,7 @@ pub(super) fn signed_division_prerequisites_with_roots(
     }
     let mut composer = Composer {
         inputs,
+        signed_division_names: true,
         builder,
         index,
         cloned: BTreeMap::new(),
@@ -515,6 +531,106 @@ pub(super) fn signed_division_prerequisites_with_roots(
         roots.push(format!("Mpk.Go.Practical.Int.{n}"));
     }
     roots.extend_from_slice(extra_roots);
+    for name in composer.dependency_order(&roots)? {
+        composer.declaration(&name)?;
+    }
+    Ok(composer.builder)
+}
+
+/// Fixed private shift inputs retain original names and every conversion proof.
+/// This untrusted assembly supplies no proof, source or import authority.
+pub(super) fn word_shift_prerequisites(inputs: &[Certificate]) -> Result<Builder> {
+    if inputs.len() != 3 {
+        return Err(GoOrdinaryError::Foundation);
+    }
+    let mut index = BTreeMap::new();
+    let mut seen = BTreeMap::new();
+    for (s, c) in inputs.iter().enumerate() {
+        if !c.imports.is_empty()
+            || !c.proof_node_table.is_empty()
+            || !c.theory_certificates.is_empty()
+            || c.source_manifest.is_some()
+            || c.axiom_report.summary.total_axiom_count != 0
+            || c.declarations.iter().any(|d| {
+                !matches!(
+                    d.kind,
+                    DeclarationKind::Def { .. }
+                        | DeclarationKind::Theorem { .. }
+                        | DeclarationKind::Inductive { .. }
+                        | DeclarationKind::Constructor { .. }
+                        | DeclarationKind::Recursor { .. }
+                )
+            })
+        {
+            return Err(GoOrdinaryError::Foundation);
+        }
+        let hashes = fingerprints(c);
+        for (i, d) in c.declarations.iter().enumerate() {
+            let name = c.name_table[d.name as usize].clone();
+            if let Some(old) = seen.get(&name) {
+                if old != &hashes[&name] {
+                    return Err(GoOrdinaryError::Linkage);
+                }
+            } else {
+                seen.insert(name.clone(), hashes[&name].clone());
+                index.insert(name, (s, i));
+            }
+        }
+    }
+    let builder = Builder::new()?;
+    for (name, hash) in fingerprints(&builder.certificate) {
+        if seen.get(&name) != Some(&hash) {
+            return Err(GoOrdinaryError::Linkage);
+        }
+    }
+    let mut roots = inputs[0]
+        .declarations
+        .iter()
+        .map(|d| inputs[0].name_table[d.name as usize].clone())
+        .collect::<Vec<_>>();
+    for w in [8_usize, 16, 32, 64] {
+        for n in [
+            "ShiftLeft",
+            "ShiftRight",
+            "SignedShiftRight",
+            "Zero",
+            "Ones",
+            "Select",
+            "SignedCountDefined",
+        ] {
+            roots.push(format!("Mpk.Go.Practical.Word.W{w}.{n}"));
+        }
+        for i in [0]
+            .into_iter()
+            .chain((0..w.trailing_zeros()).map(|j| 1_usize << j))
+        {
+            roots.push(format!(
+                "Mpk.Go.Practical.Word.Numeric.W{w}.ShiftConservation{i}"
+            ));
+        }
+        roots.push(format!("Mpk.Go.Practical.Word.Numeric.W{w}.ZeroValue"));
+    }
+    for n in [
+        "PowerTwoAdd",
+        "PowerTwoZero",
+        "PowerTwoSucc",
+        "W64.DigitsValue",
+    ] {
+        roots.push(format!("Mpk.Go.Practical.Word.Numeric.{n}"));
+    }
+    for d in 0..=6 {
+        roots.push(format!("Mpk.Go.Practical.Word.Numeric.PowerTwoWeight{d}"));
+    }
+    let mut composer = Composer {
+        inputs,
+        signed_division_names: false,
+        builder,
+        index,
+        cloned: BTreeMap::new(),
+        visiting: BTreeSet::new(),
+        terms: BTreeMap::new(),
+        levels: BTreeMap::new(),
+    };
     for name in composer.dependency_order(&roots)? {
         composer.declaration(&name)?;
     }

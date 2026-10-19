@@ -1,0 +1,33 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error[E0505]: cannot move out of `a` because it is borrowed
+   --> crates/mpk-vc/src/go_practical_ordinary/word_numeric/shifts/counts/reflection.rs:168:38
+    |
+103 |         let property = |b: Expr| {
+    |                        --------- borrow of `a` occurs here
+...
+106 |                 equal(add(a.clone(), b.clone()), zero()),
+    |                           - borrow occurs due to use in closure
+...
+168 |                 bc("And", vec![equal(a, zero()), equal(b.clone(), zero())]),
+    |                                      ^ move out of `a` occurs here
+...
+171 |                     property(n.clone()),
+    |                     -------- borrow later used here
+
+error[E0505]: cannot move out of `p` because it is borrowed
+   --> crates/mpk-vc/src/go_practical_ordinary/word_numeric/shifts/counts/reflection.rs:307:27
+    |
+267 |         let property = |e: &BTreeMap<&'static str, Expr>| {
+    |                        ---------------------------------- borrow of `p` occurs here
+...
+270 |                 equal(mul(p.clone(), bit_value(e["bit"].clone())), zero()),
+    |                           - borrow occurs due to use in closure
+...
+307 |                 equal(mul(p, bit_value(b.clone())), zero()),
+    |                           ^ move out of `p` occurs here
+308 |                 bc("Not", vec![b]),
+309 |                 boolean_cases(&["bit"], &BTreeMap::new(), &property, &mut leaf)?,
+    |                                                           --------- borrow later used here
+
+For more information about this error, try `rustc --explain E0505`.
+error: could not compile `mpk-vc` (lib) due to 2 previous errors

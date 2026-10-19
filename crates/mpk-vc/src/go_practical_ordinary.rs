@@ -175,6 +175,15 @@ pub struct GoWordSignedDivisionBounds {
 pub struct GoWordConversions {
     certificate: Vec<u8>,
 }
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoWordShiftFoundation {
+    certificate: Vec<u8>,
+}
+impl GoWordShiftFoundation {
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
+}
 impl GoWordConversions {
     pub fn certificate_bytes(&self) -> &[u8] {
         &self.certificate
@@ -1319,6 +1328,44 @@ pub fn import_go_practical_word_conversions(candidate: &[u8]) -> Result<GoWordCo
         return Err(GoOrdinaryError::Limit);
     }
     let expected = generate_go_practical_word_conversions()?;
+    if candidate != expected.certificate_bytes() {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    Ok(expected)
+}
+
+/// Generate ordinary shift proof terms from exact original closed inputs.
+/// Complete source/program/profile authority remains separate work.
+pub fn generate_go_practical_word_shift_foundation() -> Result<GoWordShiftFoundation> {
+    let buffers = [
+        generate_go_practical_word_conversions()?
+            .certificate_bytes()
+            .to_vec(),
+        generate_go_practical_word_arithmetic_foundation()?
+            .certificate_bytes()
+            .to_vec(),
+        generate_go_practical_word_foundation()?
+            .certificate_bytes()
+            .to_vec(),
+    ];
+    let inputs = buffers
+        .iter()
+        .map(|b| mpk_cert::decode_canonical_certificate(b).map_err(|_| GoOrdinaryError::Foundation))
+        .collect::<Result<Vec<_>>>()?;
+    let mut builder = composition::word_shift_prerequisites(&inputs)?;
+    word_numeric::append_shifts(&mut builder)?;
+    builder.certificate.module = "Mpk.Go.Practical.WordShiftFoundation".into();
+    Ok(GoWordShiftFoundation {
+        certificate: builder.finish()?,
+    })
+}
+pub fn import_go_practical_word_shift_foundation(
+    candidate: &[u8],
+) -> Result<GoWordShiftFoundation> {
+    if candidate.len() > MAX_BYTES {
+        return Err(GoOrdinaryError::Limit);
+    }
+    let expected = generate_go_practical_word_shift_foundation()?;
     if candidate != expected.certificate_bytes() {
         return Err(GoOrdinaryError::Linkage);
     }

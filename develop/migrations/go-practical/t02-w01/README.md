@@ -362,3 +362,25 @@ Variable/signed/right-shift numeric/source laws and all full foundation/context/
 registry/source/application work stay due. All169 application demands remain
 unelaborated, W01 is In progress, C# tests stay skipped and the cumulative T02
 gate stays deferred to W04.
+
+The [fixed-right and full64 count checkpoint](verification/word-shifts/README.md)
+adds ordinary power/PopHigh proofs, all18 unsigned/signed fixed-right amount
+bindings with computed low-block remainders/bounds, and balanced high-count
+arithmetic/zero reflection. The component has3105 declarations,77415 terms,
+1100109 bytes and zero axioms, within unchanged caps. It retains2669 exact
+original named declarations (the2665 planned root dependencies plus four
+existing Builder seed definitions), including all1882 conversion declarations.
+Original converter and signed-division composer raw pins remain exact.
+
+Both unchanged cores inspect103 complete same-byte streams: two accepted
+positives and101 genuine type rejections. All504 original full shift rows,
+actual source stages/count guards and4212 fixed-right observations match typed
+Go and Python integers; there are24 real negative-count panics,480 defined
+counts and309 defined high counts. The combined scoped run completes its
+control/model roots, then exposes the omitted four seed definitions in its
+separate count assertion. Only that assertion/report count is corrected and
+the affected root rerun. Raw failures/sources and the original observer subtype
+assumption are retained; no source/JSON/directory exclusions or core/fuel/axiom/
+limit changes occur. The low-prefix bound and actual all3 variable-shift stage/
+saturation/signed-Int laws remain due. W01/T02-T11 and all169 application demands
+stay active; C# tests stay skipped and the cumulative T02 gate stays W04.

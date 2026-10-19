@@ -12,6 +12,7 @@ mod arithmetic;
 mod conversions;
 mod division;
 mod order;
+mod shifts;
 mod signed;
 mod signed_bounds;
 mod signed_division;
@@ -651,4 +652,8 @@ pub(super) fn append_conversions(
     arithmetic::append_literal_value_prerequisites(&mut numeric)?;
     order::append(numeric.builder, recipes)?;
     conversions::append(numeric.builder)
+}
+
+pub(super) fn append_shifts(builder: &mut Builder) -> Result<()> {
+    shifts::append(builder)
 }

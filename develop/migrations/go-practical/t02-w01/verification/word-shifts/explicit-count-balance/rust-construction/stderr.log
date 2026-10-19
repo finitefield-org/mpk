@@ -1,0 +1,10 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 38.76s
+     Running tests/go_practical_word_shifts.rs (target/debug/deps/go_practical_word_shifts-9b70ca5ad4427ca3)
+
+thread 'ordinary_shift_foundation_exact_import_and_original_preservation' (38292950) panicked at crates/mpk-vc/tests/go_practical_word_shifts.rs:27:5:
+assertion `left == right` failed: word-shifts: {"verdict":"rejected","module":null,"declaration_count":null,"axiom_count":null,"hashes":{"export":null,"axiom_report":null,"certificate":"5d4971db69d2139470c32d98538ff8d4e1a425aa13e6a2125ed61797a8431742"},"axiom_report":null,"error_code":"KERNEL_CORE_CHECK","error_detail":"{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"1128913\",\"inferred_kind\":\"pi\",\"inferred_term_index\":\"1129261\",\"kind\":\"check_type_mismatch\",\"term_index\":\"1128951\"}}"}
+  left: false
+ right: true
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_word_shifts`
