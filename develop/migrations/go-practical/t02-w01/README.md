@@ -153,3 +153,13 @@ Clippy and format. Original insufficient observation recipes, observer failures
 and the replaced weaker control remain recorded. Full carrier/source/operation/
 definedness foundation and descriptor/private context binding remain due; W01
 stays In progress and the T02 gate stays deferred to W04.
+
+The [actual full-width word checkpoint](verification/word-foundation/README.md)
+adds1000 ordinary circuit definitions and144 basic universal laws for all four
+widths. Exact current checkers agree on20 final candidates with zero-axiom
+positive hashes and17 core type rejections. Actual decoded-certificate terms,
+independent finite integer arithmetic and fresh pinned native Go agree on all1640
+inputs, including forty runtime-domain failures. Corrected scoped Rust tests,
+strict Clippy and format pass; initial helper-name/native-preparation failures
+remain. Full Nat/Int interpretation/conservation, source-operation/nominal/state/
+program binding and descriptor/private context remain due; W01 stays In progress.

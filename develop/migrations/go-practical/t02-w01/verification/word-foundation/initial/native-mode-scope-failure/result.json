@@ -1,0 +1,292 @@
+{
+  "status": "observed_expected_preparation_failure",
+  "observed_at_utc": "2026-10-19T12:28:42.364337+00:00",
+  "command": [
+    "python3",
+    "-B",
+    "develop/migrations/go-practical/t02-w01/verification/word-foundation/run-native.py",
+    "build"
+  ],
+  "exit_code": 1,
+  "seconds": 1.1715524580795318,
+  "original_script": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/initial/native-mode-scope-failure/run-native.py.txt",
+    "sha256": "1057b14107de7f180fe888e3aa0abb3937fd43498cb86e0b9654729eb224ab4d",
+    "bytes": 8347
+  },
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/initial/native-mode-scope-failure/stdout.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/initial/native-mode-scope-failure/stderr.log",
+    "sha256": "6e401686aa34a37881d6364573a427895cdf72a0f02a7d157e56398427325d3f",
+    "bytes": 503
+  },
+  "cause": "The original SDK includes42 executable source/support scripts whose frozen prepared-image entries intentionally have executable=false. All5577 original file bytes/hashes still match. Native materialization incorrectly requires original source permissions to equal prepared permissions before copying.",
+  "original_bytes_all5577_unchanged": true,
+  "prepared_source_mode_differences": [
+    {
+      "path": "go/lib/time/update.bash",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    },
+    {
+      "path": "go/lib/wasm/go_js_wasm_exec",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    },
+    {
+      "path": "go/lib/wasm/go_wasip1_wasm_exec",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    },
+    {
+      "path": "go/misc/ios/clangwrap.sh",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    },
+    {
+      "path": "go/src/all.bash",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    },
+    {
+      "path": "go/src/all.rc",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    },
+    {
+      "path": "go/src/bootstrap.bash",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    },
+    {
+      "path": "go/src/buildall.bash",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    },
+    {
+      "path": "go/src/clean.bash",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    },
+    {
+      "path": "go/src/clean.rc",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    },
+    {
+      "path": "go/src/cmd/compile/internal/ssa/_gen/cover.bash",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    },
+    {
+      "path": "go/src/cmd/compile/profile.sh",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    },
+    {
+      "path": "go/src/cmd/vendor/golang.org/x/sys/plan9/mkall.sh",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    },
+    {
+      "path": "go/src/cmd/vendor/golang.org/x/sys/plan9/mkerrors.sh",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    },
+    {
+      "path": "go/src/cmd/vendor/golang.org/x/sys/plan9/mksysnum_plan9.sh",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    },
+    {
+      "path": "go/src/cmd/vendor/golang.org/x/sys/unix/mkall.sh",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    },
+    {
+      "path": "go/src/cmd/vendor/golang.org/x/sys/unix/mkerrors.sh",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    },
+    {
+      "path": "go/src/cmd/vendor/golang.org/x/sys/windows/mkerrors.bash",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    },
+    {
+      "path": "go/src/cmd/vendor/golang.org/x/sys/windows/mkknownfolderids.bash",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    },
+    {
+      "path": "go/src/cmp.bash",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    },
+    {
+      "path": "go/src/crypto/internal/boring/build-boring.sh",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    },
+    {
+      "path": "go/src/crypto/internal/boring/build-goboring.sh",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    },
+    {
+      "path": "go/src/crypto/internal/boring/build.sh",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    },
+    {
+      "path": "go/src/go/doc/comment/mkstd.sh",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    },
+    {
+      "path": "go/src/make.bash",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    },
+    {
+      "path": "go/src/make.rc",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    },
+    {
+      "path": "go/src/race.bash",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    },
+    {
+      "path": "go/src/regexp/syntax/make_perl_groups.pl",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    },
+    {
+      "path": "go/src/run.bash",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    },
+    {
+      "path": "go/src/run.rc",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    },
+    {
+      "path": "go/src/runtime/race/mkcgo.sh",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    },
+    {
+      "path": "go/src/syscall/mkall.sh",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    },
+    {
+      "path": "go/src/syscall/mkerrors.sh",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    },
+    {
+      "path": "go/src/syscall/mksyscall.pl",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    },
+    {
+      "path": "go/src/syscall/mksyscall_libc.pl",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    },
+    {
+      "path": "go/src/syscall/mksysctl_openbsd.pl",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    },
+    {
+      "path": "go/src/syscall/mksysnum_dragonfly.pl",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    },
+    {
+      "path": "go/src/syscall/mksysnum_freebsd.pl",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    },
+    {
+      "path": "go/src/syscall/mksysnum_linux.pl",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    },
+    {
+      "path": "go/src/syscall/mksysnum_netbsd.pl",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    },
+    {
+      "path": "go/src/syscall/mksysnum_openbsd.pl",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    },
+    {
+      "path": "go/src/syscall/mksysnum_plan9.sh",
+      "original_executable": true,
+      "prepared_executable": false,
+      "original_bytes_hash_identical": true
+    }
+  ],
+  "original_partial_workspaces_retained": [
+    "/private/tmp/mpk-go-practical-word-native-6q51dz4k"
+  ],
+  "reproduced_partial_workspaces_retained": [
+    "/private/tmp/mpk-go-practical-word-native-7_4xlyb6"
+  ],
+  "correction_due": "Require executability of all actual selected command/tool binaries, retain exact bytes of every original source/support file, and set the isolated target permissions to the unchanged frozen prepared executable flags. Verify the complete prepared namespace/modes/hashes before and after build.",
+  "Go_compilation_or_execution_occurred": false,
+  "semantic_source_failure_claimed": false
+}

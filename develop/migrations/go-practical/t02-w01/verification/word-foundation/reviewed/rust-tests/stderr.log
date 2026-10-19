@@ -1,0 +1,10 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `test` profile [optimized + debuginfo] target(s) in 5.64s
+     Running tests/go_practical_word_foundation.rs (target/debug/deps/go_practical_word_foundation-9eb2adb69d57dd2a)
+
+thread 'false_carry_add_identity_and_divisor_guard_claims_reject_as_core_type_mismatches' (36092482) panicked at crates/mpk-vc/tests/go_practical_word_foundation.rs:34:9:
+assertion `left == right` failed: divisor-guard-8
+  left: String("KERNEL_CANONICAL_CERTIFICATE")
+ right: "KERNEL_CORE_CHECK"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_word_foundation`

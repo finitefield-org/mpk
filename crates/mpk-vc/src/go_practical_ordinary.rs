@@ -15,6 +15,8 @@ mod natural;
 mod polynomial;
 mod range;
 mod syntax;
+mod word;
+mod word_proofs;
 
 const BOOL: &str = "Std.Bool";
 const PREFIX: &str = "Mpk.Go.Practical.Bool";
@@ -84,6 +86,17 @@ pub struct GoRangeFoundation {
 }
 
 impl GoRangeFoundation {
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoWordFoundation {
+    certificate: Vec<u8>,
+}
+
+impl GoWordFoundation {
     pub fn certificate_bytes(&self) -> &[u8] {
         &self.certificate
     }
@@ -773,12 +786,16 @@ pub fn import_go_practical_integer_foundation(candidate: &[u8]) -> Result<GoInte
 /// Compile half-open logical folds and laws about total mathematical bodies.
 /// Source-expression definedness and application proofs remain separate work.
 pub fn generate_go_practical_range_foundation() -> Result<GoRangeFoundation> {
+    Ok(GoRangeFoundation {
+        certificate: range_builder()?.finish()?,
+    })
+}
+
+fn range_builder() -> Result<Builder> {
     let mut builder = integer_builder()?;
     range::append(&mut builder)?;
     builder.certificate.module = "Mpk.Go.Practical.RangeFoundation".into();
-    Ok(GoRangeFoundation {
-        certificate: builder.finish()?,
-    })
+    Ok(builder)
 }
 
 pub fn import_go_practical_range_foundation(candidate: &[u8]) -> Result<GoRangeFoundation> {
@@ -786,6 +803,28 @@ pub fn import_go_practical_range_foundation(candidate: &[u8]) -> Result<GoRangeF
         return Err(GoOrdinaryError::Limit);
     }
     let expected = generate_go_practical_range_foundation()?;
+    if candidate != expected.certificate_bytes() {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    Ok(expected)
+}
+
+/// Compile full-width ordinary word circuits and their basic universal laws.
+/// Source binding and general numeric/source correspondence remain required.
+pub fn generate_go_practical_word_foundation() -> Result<GoWordFoundation> {
+    let mut builder = range_builder()?;
+    word::append(&mut builder)?;
+    builder.certificate.module = "Mpk.Go.Practical.WordFoundation".into();
+    Ok(GoWordFoundation {
+        certificate: builder.finish()?,
+    })
+}
+
+pub fn import_go_practical_word_foundation(candidate: &[u8]) -> Result<GoWordFoundation> {
+    if candidate.len() > MAX_BYTES {
+        return Err(GoOrdinaryError::Limit);
+    }
+    let expected = generate_go_practical_word_foundation()?;
     if candidate != expected.certificate_bytes() {
         return Err(GoOrdinaryError::Linkage);
     }

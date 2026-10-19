@@ -5,17 +5,17 @@ use super::{Builder, DeclarationKind, DefinitionReducibility, GoOrdinaryError, R
 #[derive(Clone, Debug, Eq, PartialEq, Ord, PartialOrd)]
 pub(super) enum Expr {
     Sort0,
-    Var(&'static str),
+    Var(String),
     Constant(String),
     Apply(Box<Expr>, Vec<Expr>),
-    Lambda(&'static str, Box<Expr>, Box<Expr>),
-    Pi(&'static str, Box<Expr>, Box<Expr>),
+    Lambda(String, Box<Expr>, Box<Expr>),
+    Pi(String, Box<Expr>, Box<Expr>),
 }
 
 pub(super) type Binder = (&'static str, Expr);
 
-pub(super) fn var(name: &'static str) -> Expr {
-    Expr::Var(name)
+pub(super) fn var(name: &str) -> Expr {
+    Expr::Var(name.into())
 }
 pub(super) fn constant(name: &str) -> Expr {
     Expr::Constant(name.into())
@@ -36,11 +36,11 @@ pub(super) fn nc(name: &str, arguments: Vec<Expr>) -> Expr {
 pub(super) fn bc(name: &str, arguments: Vec<Expr>) -> Expr {
     call(&format!("Mpk.Go.Practical.Bool.{name}"), arguments)
 }
-pub(super) fn lam(name: &'static str, ty: Expr, body: Expr) -> Expr {
-    Expr::Lambda(name, Box::new(ty), Box::new(body))
+pub(super) fn lam(name: &str, ty: Expr, body: Expr) -> Expr {
+    Expr::Lambda(name.into(), Box::new(ty), Box::new(body))
 }
-pub(super) fn pi(name: &'static str, ty: Expr, body: Expr) -> Expr {
-    Expr::Pi(name, Box::new(ty), Box::new(body))
+pub(super) fn pi(name: &str, ty: Expr, body: Expr) -> Expr {
+    Expr::Pi(name.into(), Box::new(ty), Box::new(body))
 }
 pub(super) fn nat() -> Expr {
     constant("Std.Nat")
@@ -101,7 +101,7 @@ pub(super) fn induct(
     )
 }
 
-fn lower(builder: &mut Builder, expression: &Expr, context: &mut Vec<&'static str>) -> Result<u32> {
+fn lower(builder: &mut Builder, expression: &Expr, context: &mut Vec<String>) -> Result<u32> {
     match expression {
         Expr::Sort0 => Ok(builder.sort),
         Expr::Constant(name) => builder.constant(name),
@@ -123,7 +123,7 @@ fn lower(builder: &mut Builder, expression: &Expr, context: &mut Vec<&'static st
         }
         Expr::Lambda(name, ty, body) | Expr::Pi(name, ty, body) => {
             let ty = lower(builder, ty, context)?;
-            context.push(name);
+            context.push(name.clone());
             let body = lower(builder, body, context)?;
             context.pop();
             if matches!(expression, Expr::Lambda(..)) {

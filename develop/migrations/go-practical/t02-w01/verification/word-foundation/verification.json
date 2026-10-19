@@ -1,0 +1,371 @@
+{
+  "schema": "mpk.go_practical.actual_word_foundation_checkpoint.v1",
+  "status": "component_checks_passed_work_item_in_progress",
+  "observed_at_utc": "2026-10-19T12:43:08.544617+00:00",
+  "entry_commit": "bd41e0635c573fc9e7ba96a9bbce7f39577f5b33",
+  "production_sources": [
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "58917a014921a0e09788db939213643c98c35b99c7f67c1c6104bfadc5e2dbed",
+      "bytes": 29377
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/syntax.rs",
+      "sha256": "04dd2f0327d32ab4ddf357fdbc94816fdb28c2be5fbddfc2495c11df8fc4a5c7",
+      "bytes": 7833
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/natural.rs",
+      "sha256": "483fb9d5dba921566b448ee5f2551746986e2d4a6c11209b63102a8be4f0a0ec",
+      "bytes": 47316
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/integer.rs",
+      "sha256": "893e2f1295ab018251e3f78458c8827f09c98947f687e2ef11ea828907944c1a",
+      "bytes": 31338
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/polynomial.rs",
+      "sha256": "26eacb5eff9ae9bbeb444e9b66cb77cc07d4e5f6d12172e178a23d3b23e7f756",
+      "bytes": 9618
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/range.rs",
+      "sha256": "1246a6cb1ef83c67d3507f4258956eda6ce92cda5621859dbc68058fb7558dc1",
+      "bytes": 17074
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word.rs",
+      "sha256": "cfa1b7de1a7ebb675aa39e770fe2d21bd615aba97e0b218bab6599d9b84dd208",
+      "bytes": 24468
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_proofs.rs",
+      "sha256": "a700669cd5ef5dcd658c5a6201b9c0fc68e1bac2ada47a536ed88eb590116f66",
+      "bytes": 13887
+    }
+  ],
+  "current_test_source": {
+    "path": "crates/mpk-vc/tests/go_practical_word_foundation.rs",
+    "sha256": "3bead09b413996c5c732b1775a5ac2bf8cb1195191d7aabd27b7e5d3efa7e4f3",
+    "bytes": 14421
+  },
+  "actual_certificate_interpreter": {
+    "path": "crates/mpk-vc/tests/support/go_word_eval.rs",
+    "sha256": "b563f3bd0faf010764fd64306f350af2ce3716a9304898c6db0f7d02c7161664",
+    "bytes": 14378
+  },
+  "unchanged_query_input": {
+    "path": "develop/migrations/go-practical/t01-w04/word-foundation/queries.json",
+    "sha256": "3f9ee3ec12430dbbb08fd7bd25dca338cc4ed7f44f5b2d03382871a10dfab354",
+    "bytes": 261807
+  },
+  "standard_raw_inputs": [
+    {
+      "path": "proofs/std/bool/std-bool.hex",
+      "sha256": "88a37f9df68a18bc19d51c0832279ff97a2944fc1676326022269766933ee806",
+      "bytes": 1535
+    },
+    {
+      "path": "proofs/std/eq/std-eq.hex",
+      "sha256": "80d71a2ef388a6ad1dea166cca4bd10d9093d538edc4999743b6fb1ad80d03a1",
+      "bytes": 3069
+    },
+    {
+      "path": "proofs/std/nat/std-nat.hex",
+      "sha256": "65bc5b701561d07b0f675668d942917da23c43606c0cfe0f9edfa113be99f583",
+      "bytes": 743
+    }
+  ],
+  "predecessor_changed_producers": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/predecessor-inputs/crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "80cb1cc5f6f31d96208d90cfe46b901254a7cbe3ee33d20dd92e5169a79f5744",
+      "bytes": 28259
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/predecessor-inputs/crates/mpk-vc/src/go_practical_ordinary/syntax.rs",
+      "sha256": "8b1032155302ecb6814b25a5644ec8d469b891a4416f9380127d680c4226f3d6",
+      "bytes": 7852
+    }
+  ],
+  "fresh_component": {
+    "certificate": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/reviewed/rust-tests/certificates/word-foundation.mpcert",
+      "sha256": "23c88fb260bf9d27c2defb64a892f275653cd1741ed030f00a911fed1b2aa11c",
+      "bytes": 433285
+    },
+    "hashes": {
+      "export": "5a56ae6199284dc503e5a2ef2babb6bc33a794446fa6c339889726874d986a08",
+      "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+      "certificate": "c00e978e19b88963b0c756314b400411b1dee28f35830022eca09a3e50a62a7e"
+    },
+    "declarations": 1892,
+    "terms": 31104,
+    "bytes": 433285,
+    "axioms": 0,
+    "new_definitions": 1000,
+    "new_universal_basic_laws": 144,
+    "widths": [
+      8,
+      16,
+      32,
+      64
+    ],
+    "address_arity": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "operators": [
+      "Not",
+      "And",
+      "Or",
+      "Xor",
+      "AndNot",
+      "AddCarry",
+      "Add",
+      "Sub",
+      "Neg",
+      "Mul",
+      "Equal",
+      "NotEqual",
+      "UnsignedLess",
+      "UnsignedLessEqual",
+      "SignedLess",
+      "SignedLessEqual",
+      "ShiftLeft",
+      "ShiftRight",
+      "SignedShiftRight",
+      "UnsignedDiv",
+      "UnsignedRem",
+      "SignedDiv",
+      "SignedRem",
+      "all signed-source/unsigned-source width conversions"
+    ],
+    "guards": [
+      "nonzero divisor for Go execution; explicit zero model totalizers",
+      "entire64-bit unsigned shift count, saturation at width",
+      "negative signed count rejected after required source sign extension"
+    ],
+    "laws": "Four ordinary Boolean adder laws,124 named arbitrary-word carry-zero laws and16 pointwise AddZero/XorZero/AndOnes/NotNot laws over arbitrary whole words and all address selectors. Never enumerate whole operand values or assume word extensionality.",
+    "exact_import": "Regenerate all complete ordinary bytes; honestly different valid components and altered/rehashed claims reject exact import.",
+    "retained_range_hash": "ddb538b929f4ef0e04d6ac74f119d561e2df132cdba409aa61b0259b99179a70"
+  },
+  "Rust_verification_scope": {
+    "complete_component_smoke_roots": 2,
+    "larger_execution_unaffected_roots_passed": 4,
+    "larger_execution_affected_root_stopped_on_canonical_name": 1,
+    "focused_corrected_claim_root_passed": 1,
+    "final_logical_roots_covered": 5,
+    "reason": "Complete component/hash, model/oracle and typed-control roots pass. Correct only hyphenated names in one false-claim root; run that root alone for all12 claims. Retain other four actual passing roots and unchanged proof/model bytes.",
+    "focused_source_change": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/review/claim-name-source-change.diff",
+      "sha256": "4b6b9128905f161d873705fcd05ce3f4f87cd6abd18a3a587b40cde9ec3e9295",
+      "bytes": 943
+    }
+  },
+  "same_byte_paired_cases": 20,
+  "accepted_zero_axiom_with_exact_three_hashes": 3,
+  "rejected_core_type_mismatch": 17,
+  "negative_scope": {
+    "false_carry_add_identity_divisor_guard_claims": 12,
+    "Boolean_as_word_shift_counts": 4,
+    "typed_wrong_full_adder_definition": 1,
+    "original_canonical_helper_failure_counted_as_type_rejection": false
+  },
+  "actual_finite_observations": {
+    "comparison": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/native-comparison/result.json",
+      "sha256": "8126f2f6acfe4f7f5ed6f3b744fd4ad1302a4d7d4bf1b4ea545cfc5d67ff154e",
+      "bytes": 2453
+    },
+    "interpreter_executes_actual_decoded_certificate_terms": true,
+    "arithmetic_operation_shortcuts": false,
+    "primitive_values": "Bool constructors/recursors and externally assigned input bits; ordinary lambdas/applications/definitions/lets execute with captured environments and shared caches.",
+    "rows": 1640,
+    "word_results": 1312,
+    "Boolean_results": 288,
+    "runtime_domain_failures": 40,
+    "model_metrics": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/reviewed/rust-tests/model/metrics.json",
+      "sha256": "957d7ac2d28ac920835697efd8bb6e5e97de34004aec7853a6a8f5a518b6cc17",
+      "bytes": 447
+    },
+    "total_AST_steps": 592995280,
+    "maximum_query_AST_steps": 18693095,
+    "native_runs_byte_identical": true,
+    "numeric_or_source_universal_proof_claimed": false
+  },
+  "native_compiler_scope": {
+    "execution": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/native/result.json",
+      "sha256": "91befa8c2ae01cba094e5c295bd07e2bfbeeeb5636f965800bf2d2a8255e907d",
+      "bytes": 5727
+    },
+    "version": "go version go1.25.0 darwin/arm64",
+    "fresh_empty_build_cache": true,
+    "exact_prepared_namespace_files": 5577,
+    "exact_prepared_original_bytes": 163457770,
+    "original_image_bytes_modes_namespace_checked_before_after": true,
+    "compiler_stdlib_observer_source_bytes_rewritten": false,
+    "immutable_application_capture_or_Linux_release_claimed": false
+  },
+  "results": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/initial/rust-tests/result.json",
+      "sha256": "9051933470ac1204d520fcaf4d204b7b1548527e7a69c1dc43b945d2726d9090",
+      "bytes": 4820,
+      "status": "passed",
+      "seconds": 161.0575445840368,
+      "tests_passed": 2
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/reviewed/rust-tests/result.json",
+      "sha256": "93545d1b4726e0e30478e3e891ec16aadacd0f13d3159b76e34cfbd78388fe7d",
+      "bytes": 4756,
+      "status": "failed",
+      "seconds": 65.86308891698718,
+      "tests_passed": null
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/final/rust-claims/result.json",
+      "sha256": "999791b23dbc809279e5b78f8da56a31cbb03d973a77a1d60b6ff841ac0e2d3e",
+      "bytes": 7959,
+      "status": "passed",
+      "seconds": 15.321288208011538,
+      "tests_passed": 1
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/final/clippy/result.json",
+      "sha256": "b80ad0c2730242b15714fd4baa7a92260c121f0c9c15d3a603cedf858fecfd04",
+      "bytes": 4443,
+      "status": "passed",
+      "seconds": 48.123589875060134,
+      "tests_passed": null
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/final/format/result.json",
+      "sha256": "d70d6e4a5ae14bd814d2e8e18ccbb6cca879db518e83b82a9d072aa0e0f7c62a",
+      "bytes": 4643,
+      "status": "passed",
+      "seconds": 0.17743729194626212,
+      "tests_passed": null
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/reviewed/format/result.json",
+      "sha256": "57ca88c88f286bb5d73720c546eae1224ccc1410657cd8cf74148363bc84624d",
+      "bytes": 4650,
+      "status": "passed",
+      "seconds": 0.22528933396097273,
+      "tests_passed": null
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/paired-final/result.json",
+      "sha256": "870c5679bcdad9831f3c921add83e109ab13262ab94a98252f5194878affadfd",
+      "bytes": 52932,
+      "status": "passed",
+      "seconds": null,
+      "tests_passed": null
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/initial/native-image-scope-failure/result.json",
+      "sha256": "87ab4ad15972bb48240c349964afd8c7bd4b0120b9a1e56b37c9537ce4d48836",
+      "bytes": 1777,
+      "status": "observed_expected_preparation_failure",
+      "seconds": 3.697833416983485,
+      "tests_passed": null
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/initial/native-mode-scope-failure/result.json",
+      "sha256": "e9a2c34827e4afb6d9442f74a628834618dff58334c5101320e6de54595541b1",
+      "bytes": 9545,
+      "status": "observed_expected_preparation_failure",
+      "seconds": 1.1715524580795318,
+      "tests_passed": null
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/native/result.json",
+      "sha256": "91befa8c2ae01cba094e5c295bd07e2bfbeeeb5636f965800bf2d2a8255e907d",
+      "bytes": 5727,
+      "status": "passed",
+      "seconds": null,
+      "tests_passed": null
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/native-comparison/result.json",
+      "sha256": "8126f2f6acfe4f7f5ed6f3b744fd4ad1302a4d7d4bf1b4ea545cfc5d67ff154e",
+      "bytes": 2453,
+      "status": "passed",
+      "seconds": null,
+      "tests_passed": null
+    }
+  ],
+  "preserved_failures": [
+    {
+      "kind": "Noncanonical negative helper theorem name",
+      "result": "develop/migrations/go-practical/t02-w01/verification/word-foundation/reviewed/rust-tests/result.json",
+      "original_candidate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/reviewed/rust-tests/certificates/divisor-guard-8.mpcert",
+        "sha256": "27ac00ceeefd79a771c6299832dd5d74df03a46e1ad3bbc12bfc87ebee7ee76f",
+        "bytes": 433433
+      },
+      "original_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/reviewed/rust-tests/certificates/divisor-guard-8.rust.json",
+        "sha256": "f72f150b089db8eba72ec449a1bd4cfc51e34ca9c4b4ed241df36e5cbc9b2cb9",
+        "bytes": 322
+      },
+      "correction": "Canonical CamelCase helper name; require the intended actual core type mismatch after complete reencoding. Do not count the original format rejection."
+    },
+    {
+      "kind": "Prepared image versus complete original SDK namespace",
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/initial/native-image-scope-failure/result.json",
+        "sha256": "87ab4ad15972bb48240c349964afd8c7bd4b0120b9a1e56b37c9537ce4d48836",
+        "bytes": 1777
+      },
+      "correction": "Materialize exactly the unchanged5577 pinned original prepared files into a fresh isolated GOROOT. Keep complete actual prepared namespace checks and original/reproduced raw diagnostics."
+    },
+    {
+      "kind": "Original source-script permissions versus prepared permissions",
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/initial/native-mode-scope-failure/result.json",
+        "sha256": "e9a2c34827e4afb6d9442f74a628834618dff58334c5101320e6de54595541b1",
+        "bytes": 9545
+      },
+      "correction": "All original bytes already match. Require actual selected executable binaries to be executable; apply unchanged prepared flags to the isolated target, including42 original executable support/source scripts intentionally non-executable in the prepared image. No original/compiler/source/inventory byte mutation."
+    }
+  ],
+  "manual_review": {
+    "owned_binder_names_enable_capture_avoiding_substitution": true,
+    "alpha_renaming_and_actual_core_major_rewrites_produce_checked_terms": true,
+    "retained_range_complete_bytes_identical": true,
+    "full_bits_and_counts_no_JSON_integer_narrowing": true,
+    "signed_minimum_division_and_high_remainder_paths_observed": true,
+    "source_nominal_or_representability_authority_not_inferred_from_carrier": true,
+    "no_core_checker_arithmetic_opcode_axiom_extensionality_or_fuel_changes": true
+  },
+  "selection_reason": "The complete circuit component, actual1640-input certificate-DAG interpreter/oracle, exact import/retained Range, and typed-count/adder controls passed. One false-claim root stopped on a noncanonical hyphenated theorem name before core checking. Preserve all original bytes and diagnostics, correct only those generated test declaration names, and run just this affected12-case root. Other four roots and their unchanged production/proof/model bytes are retained; CSharp tests and intermediate full gate remain skipped.",
+  "unchanged_checks_not_repeated": "Current core/kernel/Go/legacy unit matrices remain retained for unchanged checker inputs; rehash actual Go binary/all sources and verify all new final candidate bytes. Initial larger Rust execution proves unaffected four roots, then only the12-claim root reruns after its naming-only correction. Complete changed producer/interpreter/consumer Clippy/format pass.",
+  "frozen_design_preservation": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/frozen-design-preservation.json",
+    "sha256": "d88bfc73ad28bfd152d4f36f2d3fc96d55158366039e24948532f1702d4cdee3",
+    "bytes": 696
+  },
+  "changed_input_review": "develop/migrations/go-practical/t02-w01/verification/word-foundation/input-review/changed-inputs-review.json",
+  "CSharp_tests_executed": false,
+  "full_T02_gate": "deferred to T02-W04: check-fast.sh --skip-csharp",
+  "T02_W01_complete": false,
+  "public_profile_activated": false,
+  "Go_application_theorem_demands_unelaborated": 169,
+  "full_numeric_source_or_application_proof_claimed": false,
+  "native_Linux_acceptance_claimed": false,
+  "remaining": [
+    "general unbounded Nat/balanced-Int interpretation/conservation and complete word operation arithmetic/source correspondence",
+    "captured nominal source-operation/constant representability/count binding",
+    "full carrier/string/product/error/slice/storage/lifetime/definedness/program ordinary foundation",
+    "complete56-family foundation descriptor/private registry/context authority",
+    "authoritative immutable application capture/replay and complete source/export/closure mapping"
+  ]
+}

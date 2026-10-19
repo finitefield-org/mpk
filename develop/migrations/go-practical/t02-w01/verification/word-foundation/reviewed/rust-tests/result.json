@@ -1,0 +1,117 @@
+{
+  "schema": "mpk.go_practical.word_foundation_check.v1",
+  "status": "failed",
+  "started_at_utc": "2026-10-19T12:21:27.169619+00:00",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_word_foundation",
+    "--",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "MPK_GO_WORD_FOUNDATION_TEST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/word-foundation/reviewed/rust-tests/certificates",
+    "MPK_GO_WORD_MODEL_TEST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/word-foundation/reviewed/rust-tests/model"
+  },
+  "sources": [
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "58917a014921a0e09788db939213643c98c35b99c7f67c1c6104bfadc5e2dbed",
+      "bytes": 29377
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/syntax.rs",
+      "sha256": "04dd2f0327d32ab4ddf357fdbc94816fdb28c2be5fbddfc2495c11df8fc4a5c7",
+      "bytes": 7833
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/natural.rs",
+      "sha256": "483fb9d5dba921566b448ee5f2551746986e2d4a6c11209b63102a8be4f0a0ec",
+      "bytes": 47316
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/integer.rs",
+      "sha256": "893e2f1295ab018251e3f78458c8827f09c98947f687e2ef11ea828907944c1a",
+      "bytes": 31338
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/polynomial.rs",
+      "sha256": "26eacb5eff9ae9bbeb444e9b66cb77cc07d4e5f6d12172e178a23d3b23e7f756",
+      "bytes": 9618
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/range.rs",
+      "sha256": "1246a6cb1ef83c67d3507f4258956eda6ce92cda5621859dbc68058fb7558dc1",
+      "bytes": 17074
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word.rs",
+      "sha256": "cfa1b7de1a7ebb675aa39e770fe2d21bd615aba97e0b218bab6599d9b84dd208",
+      "bytes": 24468
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_proofs.rs",
+      "sha256": "a700669cd5ef5dcd658c5a6201b9c0fc68e1bac2ada47a536ed88eb590116f66",
+      "bytes": 13887
+    },
+    {
+      "path": "crates/mpk-vc/tests/go_practical_word_foundation.rs",
+      "sha256": "b2cc7f18c4e2041de468d767bf61ebeda00b0d2a37c38476c706289ffc6c1240",
+      "bytes": 14195
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/go_word_eval.rs",
+      "sha256": "b563f3bd0faf010764fd64306f350af2ce3716a9304898c6db0f7d02c7161664",
+      "bytes": 14378
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/word-foundation/queries.json",
+      "sha256": "3f9ee3ec12430dbbb08fd7bd25dca338cc4ed7f44f5b2d03382871a10dfab354",
+      "bytes": 261807
+    },
+    {
+      "path": "proofs/std/bool/std-bool.hex",
+      "sha256": "88a37f9df68a18bc19d51c0832279ff97a2944fc1676326022269766933ee806",
+      "bytes": 1535
+    },
+    {
+      "path": "proofs/std/eq/std-eq.hex",
+      "sha256": "80d71a2ef388a6ad1dea166cca4bd10d9093d538edc4999743b6fb1ad80d03a1",
+      "bytes": 3069
+    },
+    {
+      "path": "proofs/std/nat/std-nat.hex",
+      "sha256": "65bc5b701561d07b0f675668d942917da23c43606c0cfe0f9edfa113be99f583",
+      "bytes": 743
+    }
+  ],
+  "selection_reason": "The initial complete all-width component and retained Range hash passed. Add actual decoded-certificate Boolean-term evaluation for all1640 frozen word inputs, an independent finite integer oracle, honest different-component import and17 ordinary typed/false controls. Scope verification to the five new integration roots, strict Clippy and changed producer/model/consumer format. Source/Nat correspondence remains open; no arithmetic model shortcut, CSharp tests, intermediate full gate or unaffected checker-unit rerun.",
+  "CSharp_tests_executed": false,
+  "full_T02_gate": "deferred to T02-W04: check-fast.sh --skip-csharp",
+  "T02_W01_complete": false,
+  "exit_code": 101,
+  "wall_seconds": 65.86308891698718,
+  "finished_at_utc": "2026-10-19T12:22:33.033964+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/reviewed/rust-tests/stdout.log",
+    "sha256": "4df4ced1fa0e1c7110e98b0e52af5587b861c39c2166aaced6e11c02346f5d9a",
+    "bytes": 796
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/reviewed/rust-tests/stderr.log",
+    "sha256": "c7f4fa6f9a493878186e7726e19ca287e97bc1d6e1700133be3394b12f957f32",
+    "bytes": 719
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "schema": "mpk.go_practical.word_model_native_comparison.v1",
+  "status": "passed",
+  "observed_at_utc": "2026-10-19T12:31:09.701460+00:00",
+  "native_execution": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/native/result.json",
+    "sha256": "91befa8c2ae01cba094e5c295bd07e2bfbeeeb5636f965800bf2d2a8255e907d",
+    "bytes": 5727
+  },
+  "actual_certificate": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/reviewed/rust-tests/certificates/word-foundation.mpcert",
+    "sha256": "23c88fb260bf9d27c2defb64a892f275653cd1741ed030f00a911fed1b2aa11c",
+    "bytes": 433285
+  },
+  "model_certificate": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/reviewed/rust-tests/model/certificate.mpcert",
+    "sha256": "23c88fb260bf9d27c2defb64a892f275653cd1741ed030f00a911fed1b2aa11c",
+    "bytes": 433285
+  },
+  "actual_decoded_certificate_model": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/reviewed/rust-tests/model/model.json",
+    "sha256": "615c927f8e56674f730cc62b0f29a8bc737fd7a949533f37197398abe2c1d671",
+    "bytes": 89878
+  },
+  "independent_integer_oracle": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/reviewed/rust-tests/model/oracle.json",
+    "sha256": "615c927f8e56674f730cc62b0f29a8bc737fd7a949533f37197398abe2c1d671",
+    "bytes": 89878
+  },
+  "model_metrics": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/reviewed/rust-tests/model/metrics.json",
+    "sha256": "957d7ac2d28ac920835697efd8bb6e5e97de34004aec7853a6a8f5a518b6cc17",
+    "bytes": 447
+  },
+  "rows": 1640,
+  "kind_counts": {
+    "word": 1312,
+    "boolean": 288,
+    "runtime_safety_failure": 40
+  },
+  "agreement": "Every actual decoded-certificate Boolean-DAG result/guard agrees with independent finite integer arithmetic and fresh pinned native Go execution. Two original native byte streams are identical. All full bits, signed minima, carry/remainder boundaries, full64 shift counts and conversions stay intact.",
+  "scope": "Finite observations and actual ordinary basic laws; no general Nat/Int conservation, Go source correspondence, whole application, immutable capture authority or Linux release proof.",
+  "CSharp_tests_executed": false,
+  "public_profile_activated": false,
+  "full_T02_gate": "deferred to W04: check-fast.sh --skip-csharp"
+}

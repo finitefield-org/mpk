@@ -1,0 +1,31 @@
+{
+  "status": "observed_expected_preparation_failure",
+  "observed_at_utc": "2026-10-19T12:27:13.601791+00:00",
+  "command": [
+    "python3",
+    "-B",
+    "develop/migrations/go-practical/t02-w01/verification/word-foundation/run-native.py",
+    "build"
+  ],
+  "exit_code": 1,
+  "seconds": 3.697833416983485,
+  "original_script": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/initial/native-image-scope-failure/run-native.py.txt",
+    "sha256": "72a0d5f23c0fbc4195bff6b931d4579a3ebed87de84475a358f1aff539e54deb",
+    "bytes": 7759
+  },
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/initial/native-image-scope-failure/stdout.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/initial/native-image-scope-failure/stderr.log",
+    "sha256": "6512f0bf1424fd70742e5bdeb4b4a121dc1b51af2da94eabf81f3351c1b389a7",
+    "bytes": 411231
+  },
+  "cause": "The5577-file frozen prepared build-image inventory is a complete prepared subset of the original SDK, not the full original SDK namespace. The native observer initially compares it against the full SDK, which also contains original tests/testdata. No compilation has run.",
+  "correction_due": "Materialize exactly the5577 pinned original prepared files into an isolated fresh GOROOT, verify original and copied bytes/modes, validate the complete actual prepared namespace before/after native build/execution. Do not rewrite compiler/source/stdlib bytes or weaken the prepared inventory.",
+  "all_original_and_reproduced_partial_inputs_retained": true,
+  "Go_semantic_failure_claimed": false
+}

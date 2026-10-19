@@ -17,10 +17,15 @@ checkpoints. Both current checkers agree on15 same-byte cases. Half-open folds,
 complete representations/operations/source foundation and private context binding
 remain in progress.
 
-The latest W01 [half-open fold checkpoint](../migrations/go-practical/t02-w01/verification/range-foundation/README.md)
+The W01 [half-open fold checkpoint](../migrations/go-practical/t02-w01/verification/range-foundation/README.md)
 adds eight definitions and31 checked laws with only the actual bounded-prefix
 premise. Both current checkers agree on17 same-byte cases. Full carrier/source/
 operation/definedness foundation and private context binding remain in progress.
+
+The latest W01 [full-width word checkpoint](../migrations/go-practical/t02-w01/verification/word-foundation/README.md)
+adds1000 ordinary definitions and144 basic laws for8/16/32/64-bit circuits. Both
+current checkers agree on20 candidates, and all1640 actual-DAG/integer/native-Go
+observations agree. Full numeric/source binding and private context remain open.
 
 Historical design-stage notes: implementation was authorized 2026-10-16.
 At the following checkpoint T01-W01, W02 and W03 were complete.
