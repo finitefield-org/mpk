@@ -367,6 +367,13 @@ or release acceptance condition and does not activate the private profile.
 Exit: dependency support and selection work through real private consumers.
 A source-extraction script or a manufactured stub package is insufficient.
 
+Implementation ordering amendment (2026-10-19): stage the two already frozen
+Sort0 core interfaces in T02-W01 as prerequisites for actual checked ordinary
+foundation definitions. The [record](../migrations/go-practical/t02-w01/core-foundation-ordering.json)
+changes execution order within T02; all frozen specification members/semantics
+remain unchanged. T02-W03 keeps the common artifact/importer migration and T02-W04
+keeps the cumulative gate. Public Go practical activation remains T07 work.
+
 ## 5. GO-PRAC-T03 — Domain types and ordinary syntax
 
 | Work item | Deliverable and acceptance evidence |

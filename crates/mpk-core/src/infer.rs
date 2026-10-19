@@ -17,6 +17,12 @@ pub fn infer(
         TermNode::Var(index) => infer_var(terms, context, term, index),
         TermNode::Const { global, levels } => {
             crate::bool_cases::check_bool_cases_constant_levels(env, global, !levels.is_empty())?;
+            crate::nat_induct::check_nat_induct_constant_levels(env, global, !levels.is_empty())?;
+            crate::bool_rec_type::check_bool_rec_type_constant_levels(
+                env,
+                global,
+                !levels.is_empty(),
+            )?;
             infer_const(env, term, global)
         }
         TermNode::Lam { ty, body } => infer_lam(levels, terms, context, env, term, ty, body),

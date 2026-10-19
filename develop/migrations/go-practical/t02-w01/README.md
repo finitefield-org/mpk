@@ -112,3 +112,12 @@ and initial private-output-alias failure remain explicit. Targeted current/legac
 compiler-consumer, vet/format and independent original-hash checks pass. Complete
 actual ordinary foundation/context/registry binding is the next critical work;
 application closure/immutable replay still remain due and W01 stays In progress.
+
+The [actual core/basis checkpoint](verification/core-interfaces/README.md) stages
+the two exact frozen core interfaces as an explicit W01 foundation prerequisite;
+W03 retains common migrations. All255 frozen design inputs remain unchanged.
+The fresh35-declaration zero-axiom ordinary basis proves an arbitrary-Nat legacy
+recursion identity and conditional Bool false-elimination. Both current checkers
+agree on all18 same-byte cases and exact positive hashes. Core/current/legacy,
+strict lint/format and targeted importer tests pass. Full ordinary foundation/
+descriptor/context and application closure/replay remain due; W01 stays In progress.

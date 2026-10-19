@@ -5002,3 +5002,56 @@ empty module-checksum columns leave terminal tabs on four rows. The exact
 the initial failed review remain unchanged. No source/JSON/directory or blanket
 whitespace exemption or strict scanner rule change is added. Runtime code/tests
 are unchanged, so passing executions are retained without repetition.
+
+## 88. T02-W01 frozen core prerequisites and actual ordinary basis
+
+The [core/basis checkpoint](../migrations/go-practical/t02-w01/verification/core-interfaces/README.md)
+starts from `72c65c83996038621b042cefd1f50413587187ba`. An explicit within-T02
+ordering amendment stages the two exact frozen Sort0 interfaces in W01, because
+actual checked foundation definitions depend on them. W03 keeps common source/
+artifact migration. All255 frozen design inputs still match; no specification
+semantics, Certificate-v0 bytes/opcodes, old reduction rules or logical axiom
+categories change, and no public Go practical profile activates.
+
+Current Rust/Go implementations adapt the four pinned primitive modules to the
+current checker integration points without overwriting old mirrored checker
+files. They independently enforce canonical generated/family-specific full
+signatures, Sort0 families, exact ordered/generated constructor names/types,
+actual universe arguments and prior type/opaque/proof DAG roots. Unused nodes
+remain unused and later constructors reject before environment mutation. Rust
+uses explicit private recursor modes; Go selects exact arity/offset/prefix logic.
+
+The142-test core baseline passes in4.078 seconds, current Go33 roots/37 subtests
+in1.819 seconds and legacy9 roots in1.680 seconds. Review adds one focused Rust
+constructor-metadata test and two current/legacy Go roots/three subtests, including
+standalone Bool constructor order/count/generated flags and higher-Nat rejection.
+Only new guard tests rerun. One unused-mut test warning is removed as a binding-
+only fix; strict core/kernel and ordinary-target Clippy plus final format pass.
+Go vet also passes. No C# test or intermediate full gate executes.
+
+Fresh production code composes exact standard Bool/Eq/Nat inputs into a complete
+35-declaration/485-term/4207-byte ordinary basis with0 axioms. The final identity
+definition computes using unchanged Nat.rec, while its general theorem uses
+Nat.induct for every Nat. Conditional Bool FalseElim uses type cases and existing
+ordinary Eq.rewrite with an explicit false-equality premise. The original
+Boolean basis stays byte/hash identical. Exact component import regenerates all
+bytes and rejects caller alterations. Four affected integration roots pass in
+92.748 seconds including compilation after strengthening the legacy binding.
+
+Both independently current checkers consume the same18 certificate bytes:
+three zero-axiom positives with identical full hashes, fifteen malformed/false
+core rejections. The basis certificate hash is
+`cf784b36a42929e22d7c2882f41acbcc45e631d4b1cef02af7f564373ec61444`.
+The paired observer first mistakes the Rust KERNEL_CORE_CHECK wrapper for a raw
+CORE_* code; original observer/partial outputs/raw reproduction remain. Correct
+wrapper/detail inspection fixes observation only; no checker/proof changes.
+Four exact-hash libtest raw outputs retain their ordinary final blank line,
+with no source/JSON/directory or blanket whitespace exclusion/scanner change.
+
+This is the actual ordinary core basis, not the complete56-operation-family
+foundation/descriptor/private registry/context or a source/application proof.
+All169 application demands remain unelaborated. Complete ordinary representations,
+operations, arithmetic, storage/lifetime and program/source bindings remain
+required, followed by W01 authority/capture closure, W02 original typing/closures,
+W03 independent common artifacts and W04 scalar proof/cumulative gate. W01 stays
+In progress; no native Linux release receipt or public activation is claimed.

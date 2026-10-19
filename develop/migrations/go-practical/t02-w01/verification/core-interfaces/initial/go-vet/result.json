@@ -1,0 +1,139 @@
+{
+  "status": "passed",
+  "command": [
+    "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/go",
+    "vet",
+    "-mod=readonly",
+    "."
+  ],
+  "cwd": "go-tools/mpk-checker-ref",
+  "environment": {
+    "GOROOT": "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go",
+    "GOENV": "off",
+    "GOWORK": "off",
+    "GOTOOLCHAIN": "local",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "GOTELEMETRY": "off",
+    "GOFLAGS": "",
+    "GOEXPERIMENT": "",
+    "CGO_ENABLED": "0",
+    "GOCACHE": "/private/tmp/mpk-go-practical-t02-build-cache"
+  },
+  "sources": [
+    {
+      "path": "crates/mpk-core/src/bool_rec_type.rs",
+      "sha256": "6091029972334e21151f3ea454502fffac09ffc60104d42978c27580defb2bb9",
+      "bytes": 13492
+    },
+    {
+      "path": "crates/mpk-core/src/env.rs",
+      "sha256": "550409fa634c63f2fe791cfb7f365562cf5f47daa9ca42f2bb1ee68faf28bc4f",
+      "bytes": 20762
+    },
+    {
+      "path": "crates/mpk-core/src/infer.rs",
+      "sha256": "295c8e141b5545c1444ae43dec8e8dc9cf8735cf8570712891996190cff136b8",
+      "bytes": 44269
+    },
+    {
+      "path": "crates/mpk-core/src/lib.rs",
+      "sha256": "f9c2957ec1027ff7195b286a5cc09f19a402664a3019462197226fa0f5bdbfcc",
+      "bytes": 2057
+    },
+    {
+      "path": "crates/mpk-core/src/nat_induct.rs",
+      "sha256": "d14071c07851fb80a0ca9376c36f48cb11610b3d8245455798a3f6839c46c1da",
+      "bytes": 13357
+    },
+    {
+      "path": "crates/mpk-core/src/reduce_inductive.rs",
+      "sha256": "c09aa087360f3a2ea10f7d8e5bffa73110e27120c9ef98cee9978fbef49502ad",
+      "bytes": 30943
+    },
+    {
+      "path": "crates/mpk-kernel/src/decl_driver.rs",
+      "sha256": "79fff5f980eec9ea2c44c518ac292324ad1b4b2b8ec8ef0a31309a4053e35ff6",
+      "bytes": 20280
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/bool_cases_test.go",
+      "sha256": "c2f1f22c035fcd8640ee7f697820c7c7a258b09c3ed6add072eef1978a79fa1c",
+      "bytes": 6167
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/bool_rec_type.go",
+      "sha256": "d5d3e93ab336e8686092547579f0d76640d280a6b347691890e6b63aeec13a0e",
+      "bytes": 4986
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/bool_rec_type_test.go",
+      "sha256": "5c29f0c493560c381c015d44605f0d9e63723caef320e0149bd0c510236cea7b",
+      "bytes": 4385
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/core_check.go",
+      "sha256": "1fe9acc0f8277c1290dd24ff4af0cde526e9e0e283026192af4c0bd671331a0a",
+      "bytes": 32802
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/core_check_test.go",
+      "sha256": "ea726b6f4ecba51dd003e5acdda995f14cd9544e00fd0b6de5bcace599d1493a",
+      "bytes": 5106
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/core_term_intern_test.go",
+      "sha256": "1703507c1036e184508a0a4a082173414f10f01688b20b9ffdb2a3ddc2d24fde",
+      "bytes": 2729
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/defeq.go",
+      "sha256": "a951f73a15315ed34c38829dfab819d34aa947b8050e3b097adb81bf37f65e0c",
+      "bytes": 10399
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/defeq_test.go",
+      "sha256": "f199578a7845974c785a2d4da64d8b995d67fc0ef763a628aab6a6f3bf14a3d8",
+      "bytes": 10158
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/nat_induct.go",
+      "sha256": "72b3fff34b37f57dde648735a4ba1f6191f11253394f71cd30566a23e578e8bb",
+      "bytes": 5751
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/nat_induct_test.go",
+      "sha256": "45b9e0a284faff6321a377540cd386045ae38734022a2efc9800908a89c8a0c4",
+      "bytes": 4737
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/proof_check_test.go",
+      "sha256": "5f29b974ebb641f59723eba732c6b2ec227c52b7ff871a7ce470050a94c1cc18",
+      "bytes": 5414
+    }
+  ],
+  "selection_reason": "Stage exactly the two frozen additive Sort0 interfaces as W01 foundation prerequisites, preserving all frozen source members and v0 bytes. All mpk-core tests are affected by global inference/environment/normalization integration. Go selects only core declarations/term interning/defeq/Bool cases/new interfaces/structural proof tests, excluding all CSharp agreement tests and unchanged decoder/hash/axiom-report targets. Legacy compiles/exercises only the new primitive matrices. Current Go vet/format and Rust changed-file format; fresh ordinary certificates and paired current checkers are subsequent scoped checks. No CSharp tests or intermediate full gate.",
+  "started_at_utc": "2026-10-19T10:39:29.422503+00:00",
+  "CSharp_tests_executed": false,
+  "T02_W01_complete": false,
+  "full_T02_gate": "deferred to W04: check-fast.sh --skip-csharp",
+  "compiler": {
+    "path": "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/go",
+    "sha256": "c812de5f1e8307431c5bce8ebc4887c180827abc5834a72cd640a8a14200a93b",
+    "bytes": 14117888
+  },
+  "compiler_version": "go version go1.25.0 darwin/arm64",
+  "exit_code": 0,
+  "wall_seconds": 0.3919741250574589,
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/core-interfaces/initial/go-vet/stdout.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/core-interfaces/initial/go-vet/stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "finished_at_utc": "2026-10-19T10:39:29.859590+00:00"
+}

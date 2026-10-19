@@ -1,0 +1,142 @@
+package mpkcheckerref
+
+import "testing"
+
+func boolRecTypeInstall(t *testing.T, s *coreState, family coreGlobalID) coreGlobalID {
+	t.Helper()
+	ty, err := s.boolRecTypeType(family)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := s.checkBoolRecTypeDeclaration("Test.Bool.recType", ty, family, true); err != nil {
+		t.Fatal(err)
+	}
+	global, err := s.env.registerGenerated("Test.Bool.recType", DeclRecursor, ty, family, true)
+	if err != nil {
+		t.Fatal(err)
+	}
+	return global
+}
+
+func TestBoolRecTypeSelectsSortZeroTypesAndKeepsNeutralApplications(t *testing.T) {
+	s, family, no, yes := boolCasesTestState(t)
+	g := boolRecTypeInstall(t, &s, family)
+	boolean := s.terms.constant(family, nil)
+	function := s.terms.pi(boolean, boolean)
+	recursor := s.terms.constant(g, nil)
+	sort := s.terms.sort(s.levels.zero())
+	for _, row := range []struct {
+		major    coreGlobalID
+		expected coreTermID
+	}{{no, boolean}, {yes, function}} {
+		value := s.terms.app(recursor, []coreTermID{boolean, function, s.terms.constant(row.major, nil)})
+		if ty, err := s.infer(value, nil); err != nil || ty != sort {
+			t.Fatal(ty, err)
+		}
+		assertDefeq(t, &s, value, row.expected, true)
+	}
+	context := coreLocalContext(nil).withBinder(sort).withBinder(sort).withBinder(boolean)
+	a, b, major := s.terms.varTerm(2), s.terms.varTerm(1), s.terms.varTerm(0)
+	partial := s.terms.app(recursor, []coreTermID{a})
+	if _, err := s.infer(partial, context); err != nil {
+		t.Fatal(err)
+	}
+	neutral := s.terms.app(recursor, []coreTermID{a, b, major})
+	if ty, err := s.infer(neutral, context); err != nil || ty != sort {
+		t.Fatal(ty, err)
+	}
+	assertDefeq(t, &s, neutral, a, false)
+	assertDefeq(t, &s, neutral, b, false)
+}
+
+func TestBoolRecTypeRejectsMalformedReservedAliasesAndClosesConstructors(t *testing.T) {
+	s, family, _, _ := boolCasesTestState(t)
+	ty, err := s.boolRecTypeType(family)
+	if err != nil {
+		t.Fatal(err)
+	}
+	boolean := s.terms.constant(family, nil)
+	if s.checkBoolRecTypeDeclaration("Test.Bool.recType", boolean, family, true) == nil || s.checkBoolRecTypeDeclaration("Test.Bool.recType", ty, family, false) == nil || s.checkBoolRecTypeDeclaration("Other.Bool.recType", ty, family, true) == nil {
+		t.Fatal("invalid reserved interface accepted")
+	}
+	boolRecTypeInstall(t, &s, family)
+	before := len(s.env.declarations)
+	for _, generated := range []bool{false, true} {
+		if _, err := s.env.registerGenerated("Test.Bool.extra", DeclConstructor, boolean, family, generated); err == nil {
+			t.Fatal("late constructor accepted")
+		}
+	}
+	if len(s.env.declarations) != before {
+		t.Fatal("rejected registration changed environment")
+	}
+}
+
+func TestBoolRecTypeRejectsPriorUsesButNotUnusedNodes(t *testing.T) {
+	for _, kind := range []string{"unused", "type", "opaque", "proof"} {
+		s, f, no, _ := boolCasesTestState(t)
+		boolean := s.terms.constant(f, nil)
+		value := s.terms.constant(no, []coreLevelID{s.levels.zero()})
+		switch kind {
+		case "type":
+			if _, err := s.env.registerTheorem("Test.Prior", s.terms.constant(f, []coreLevelID{s.levels.zero()}), value); err != nil {
+				t.Fatal(err)
+			}
+		case "opaque":
+			if _, err := s.env.register("Test.Prior", coreDeclaration{tag: DeclDef, ty: boolean, value: value, reducibility: Opaque}); err != nil {
+				t.Fatal(err)
+			}
+		case "proof":
+			if _, err := s.env.registerTheorem("Test.Prior", boolean, value); err != nil {
+				t.Fatal(err)
+			}
+		}
+		if err := s.checkPriorBoolRecTypeUses("Test.Bool.recType", f); (err == nil) != (kind == "unused") {
+			t.Fatalf("%s: %v", kind, err)
+		}
+	}
+}
+
+func TestBoolRecTypeRejectsHigherFamiliesAndAllInterfaceUniverseArguments(t *testing.T) {
+	s, f, no, yes := boolCasesTestState(t)
+	g := boolRecTypeInstall(t, &s, f)
+	for _, id := range []coreGlobalID{f, no, yes, g} {
+		if _, err := s.infer(s.terms.constant(id, []coreLevelID{s.levels.zero()}), nil); err == nil {
+			t.Fatal("interface accepted universe arguments")
+		}
+	}
+	upper := s.levels.succ(s.levels.zero())
+	higher, err := s.env.registerInductive("Test.Higher", s.terms.sort(upper))
+	if err != nil {
+		t.Fatal(err)
+	}
+	boolean := s.terms.constant(higher, nil)
+	for _, name := range []string{"Test.Higher.false", "Test.Higher.true"} {
+		if _, err := s.env.registerGenerated(name, DeclConstructor, boolean, higher, true); err != nil {
+			t.Fatal(err)
+		}
+	}
+	if _, err := s.boolRecTypeType(higher); err == nil {
+		t.Fatal("higher-universe Boolean family accepted")
+	}
+}
+
+func TestBoolRecTypeRejectsNoncanonicalConstructorMetadataWithoutCases(t *testing.T) {
+	for _, mutation := range []string{"order", "extra", "nongenerated"} {
+		t.Run(mutation, func(t *testing.T) {
+			s, family, no, yes := boolCasesTestState(t)
+			switch mutation {
+			case "order":
+				s.env.declarations[no], s.env.declarations[yes] = s.env.declarations[yes], s.env.declarations[no]
+			case "extra":
+				if _, err := s.env.registerGenerated("Test.Bool.extra", DeclConstructor, s.terms.constant(family, nil), family, true); err != nil {
+					t.Fatal(err)
+				}
+			case "nongenerated":
+				s.env.declarations[yes].generated = false
+			}
+			if _, err := s.boolRecTypeType(family); err == nil {
+				t.Fatal("noncanonical constructor metadata accepted")
+			}
+		})
+	}
+}

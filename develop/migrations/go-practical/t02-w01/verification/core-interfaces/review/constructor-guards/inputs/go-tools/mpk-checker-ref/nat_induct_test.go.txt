@@ -1,0 +1,132 @@
+package mpkcheckerref
+
+import "testing"
+
+func natInductState(t *testing.T) (coreState, coreGlobalID, coreGlobalID, coreGlobalID) {
+	t.Helper()
+	s := newCoreState()
+	f, err := s.env.registerInductive("Test.Nat", s.terms.sort(s.levels.zero()))
+	if err != nil {
+		t.Fatal(err)
+	}
+	nat := s.terms.constant(f, nil)
+	zero, err := s.env.registerGenerated("Test.Nat.zero", DeclConstructor, nat, f, true)
+	if err != nil {
+		t.Fatal(err)
+	}
+	succ, err := s.env.registerGenerated("Test.Nat.succ", DeclConstructor, s.terms.pi(nat, nat), f, true)
+	if err != nil {
+		t.Fatal(err)
+	}
+	return s, f, zero, succ
+}
+func natInductInstall(t *testing.T, s *coreState, f coreGlobalID) coreGlobalID {
+	t.Helper()
+	ty, err := s.natInductType(f)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = s.checkNatInductDeclaration("Test.Nat.induct", ty, f, true); err != nil {
+		t.Fatal(err)
+	}
+	g, err := s.env.registerGenerated("Test.Nat.induct", DeclRecursor, ty, f, true)
+	if err != nil {
+		t.Fatal(err)
+	}
+	return g
+}
+func TestNatInductEquationsAndNestedSuccessors(t *testing.T) {
+	s, f, z, succ := natInductState(t)
+	g := natInductInstall(t, &s, f)
+	nat := s.terms.constant(f, nil)
+	zero := s.terms.constant(z, nil)
+	successor := s.terms.constant(succ, nil)
+	rec := s.terms.constant(g, nil)
+	motive := s.terms.lam(nat, nat)
+	step := s.terms.lam(nat, s.terms.lam(nat, s.terms.app(successor, []coreTermID{s.terms.varTerm(0)})))
+	n := zero
+	for i := 0; i < 4; i++ {
+		a := s.terms.app(rec, []coreTermID{motive, zero, step, n})
+		ty, err := s.infer(a, nil)
+		if err != nil {
+			t.Fatal(ty, err)
+		}
+		assertDefeq(t, &s, ty, nat, true)
+		assertDefeq(t, &s, a, n, true)
+		n = s.terms.app(successor, []coreTermID{n})
+	}
+}
+func TestNatInductMalformedSignatureFlagsAndConstructorSet(t *testing.T) {
+	s, f, _, _ := natInductState(t)
+	ty, err := s.natInductType(f)
+	if err != nil {
+		t.Fatal(err)
+	}
+	nat := s.terms.constant(f, nil)
+	if s.checkNatInductDeclaration("Test.Nat.induct", nat, f, true) == nil || s.checkNatInductDeclaration("Test.Nat.induct", ty, f, false) == nil || s.checkNatInductDeclaration("Other.Nat.induct", ty, f, true) == nil {
+		t.Fatal("malformed eliminator accepted")
+	}
+	if _, err = s.env.registerGenerated("Test.Nat.extra", DeclConstructor, nat, f, true); err != nil {
+		t.Fatal(err)
+	}
+	if _, err = s.natInductType(f); err == nil {
+		t.Fatal("extra constructor accepted")
+	}
+}
+func TestNatInductClosesLaterConstructors(t *testing.T) {
+	s, f, _, _ := natInductState(t)
+	natInductInstall(t, &s, f)
+	before := len(s.env.declarations)
+	for _, generated := range []bool{false, true} {
+		if _, err := s.env.registerGenerated("Test.Nat.extra", DeclConstructor, s.terms.constant(f, nil), f, generated); err == nil {
+			t.Fatal("late constructor accepted")
+		}
+	}
+	if len(s.env.declarations) != before {
+		t.Fatal("rejected registration mutated environment")
+	}
+}
+func TestNatInductMonomorphicNeutralAndPartialUses(t *testing.T) {
+	s, f, z, succ := natInductState(t)
+	g := natInductInstall(t, &s, f)
+	for _, id := range []coreGlobalID{f, z, succ, g} {
+		if _, err := s.infer(s.terms.constant(id, []coreLevelID{s.levels.zero()}), nil); err == nil {
+			t.Fatal("nonempty levels accepted")
+		}
+	}
+	nat := s.terms.constant(f, nil)
+	sort := s.terms.sort(s.levels.zero())
+	zero := s.terms.constant(z, nil)
+	successor := s.terms.constant(succ, nil)
+	context := coreLocalContext(nil).withBinder(s.terms.pi(nat, sort))
+	context = context.withBinder(s.terms.app(s.terms.varTerm(0), []coreTermID{zero}))
+	ih := s.terms.app(s.terms.varTerm(2), []coreTermID{s.terms.varTerm(0)})
+	sn := s.terms.app(successor, []coreTermID{s.terms.varTerm(1)})
+	target := s.terms.app(s.terms.varTerm(3), []coreTermID{sn})
+	context = context.withBinder(s.terms.pi(nat, s.terms.pi(ih, target))).withBinder(nat)
+	p, b, step, n := s.terms.varTerm(3), s.terms.varTerm(2), s.terms.varTerm(1), s.terms.varTerm(0)
+	rec := s.terms.constant(g, nil)
+	partial := s.terms.app(rec, []coreTermID{p, b, step})
+	if _, err := s.infer(partial, context); err != nil {
+		t.Fatal(err)
+	}
+	a := s.terms.app(rec, []coreTermID{p, b, step, n})
+	want := s.terms.app(p, []coreTermID{n})
+	if ty, err := s.infer(a, context); err != nil || ty != want {
+		t.Fatal(ty, err)
+	}
+	assertDefeq(t, &s, a, b, false)
+}
+func TestNatInductPriorOpaqueAndTheoremUses(t *testing.T) {
+	for _, tag := range []DeclarationTag{DeclDef, DeclTheorem} {
+		s, f, z, _ := natInductState(t)
+		nat := s.terms.constant(f, nil)
+		value := s.terms.constant(z, []coreLevelID{s.levels.zero()})
+		if _, err := s.env.register("Test.Prior", coreDeclaration{tag: tag, ty: nat, value: value}); err != nil {
+			t.Fatal(err)
+		}
+		if err := s.checkPriorNatInductUses("Test.Nat.induct", f); err == nil {
+			t.Fatal("prior checked universe use accepted")
+		}
+	}
+}

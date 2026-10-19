@@ -14,6 +14,7 @@ const BOOL: &str = "Std.Bool";
 const PREFIX: &str = "Mpk.Go.Practical.Bool";
 const BOOL_HEX: &[u8] = include_bytes!("../../../proofs/std/bool/std-bool.hex");
 const EQ_HEX: &[u8] = include_bytes!("../../../proofs/std/eq/std-eq.hex");
+const NAT_HEX: &[u8] = include_bytes!("../../../proofs/std/nat/std-nat.hex");
 const MAX_BYTES: usize = 2_097_152;
 const MAX_TERMS: usize = 131_072;
 const MAX_DECLARATIONS: usize = 4_096;
@@ -33,6 +34,17 @@ pub struct GoBooleanFoundation {
 }
 
 impl GoBooleanFoundation {
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoCoreFoundation {
+    certificate: Vec<u8>,
+}
+
+impl GoCoreFoundation {
     pub fn certificate_bytes(&self) -> &[u8] {
         &self.certificate
     }
@@ -208,6 +220,150 @@ fn append_standard(certificate: &mut Certificate, source: Certificate) -> Result
 }
 
 impl Builder {
+    fn append_natural_numbers(&mut self) -> Result<()> {
+        append_standard(
+            &mut self.certificate,
+            standard_certificate(
+                NAT_HEX,
+                "65bc5b701561d07b0f675668d942917da23c43606c0cfe0f9edfa113be99f583",
+            )?,
+        )?;
+        self.globals = self
+            .certificate
+            .declarations
+            .iter()
+            .enumerate()
+            .map(|(i, d)| {
+                (
+                    self.certificate.name_table[d.name as usize].clone(),
+                    i as u32,
+                )
+            })
+            .collect();
+        self.terms = self
+            .certificate
+            .term_table
+            .iter()
+            .enumerate()
+            .map(|(i, t)| (key(t), i as u32))
+            .collect();
+        Ok(())
+    }
+
+    fn frozen_core_interfaces(&mut self) -> Result<()> {
+        let nat = self.constant("Std.Nat")?;
+        let zero = self.constant("Std.Nat.zero")?;
+        let successor = self.constant("Std.Nat.succ")?;
+        let motive_type = self.pi(nat, self.sort)?;
+        let p = self.var(0)?;
+        let zero_type = self.app(p, vec![zero])?;
+        let p = self.var(2)?;
+        let n = self.var(0)?;
+        let ih = self.app(p, vec![n])?;
+        let p = self.var(3)?;
+        let n = self.var(1)?;
+        let next = self.app(successor, vec![n])?;
+        let step_result = self.app(p, vec![next])?;
+        let step_result = self.pi(ih, step_result)?;
+        let step = self.pi(nat, step_result)?;
+        let p = self.var(3)?;
+        let n = self.var(0)?;
+        let result = self.app(p, vec![n])?;
+        let ty = self.pi(nat, result)?;
+        let ty = self.pi(step, ty)?;
+        let ty = self.pi(zero_type, ty)?;
+        let ty = self.pi(motive_type, ty)?;
+        self.declare(
+            "Std.Nat.induct".into(),
+            DeclarationKind::Recursor {
+                ty,
+                inductive: self.globals["Std.Nat"],
+                generated: true,
+            },
+        )?;
+        let ty = self.pi(self.boolean, self.sort)?;
+        let ty = self.pi(self.sort, ty)?;
+        let ty = self.pi(self.sort, ty)?;
+        self.declare(
+            "Std.Bool.recType".into(),
+            DeclarationKind::Recursor {
+                ty,
+                inductive: self.globals[BOOL],
+                generated: true,
+            },
+        )
+    }
+
+    fn natural_identity(&mut self) -> Result<()> {
+        const ID: &str = "Mpk.Go.Practical.Nat.Identity";
+        let nat = self.constant("Std.Nat")?;
+        let zero = self.constant("Std.Nat.zero")?;
+        let successor = self.constant("Std.Nat.succ")?;
+        let ih = self.var(0)?;
+        let step = self.app(successor, vec![ih])?;
+        let step = self.lam(nat, step)?;
+        let step = self.lam(nat, step)?;
+        let n = self.var(0)?;
+        let value = self.call("Std.Nat.rec", vec![zero, step, n])?;
+        let value = self.lam(nat, value)?;
+        let ty = self.pi(nat, nat)?;
+        self.declare(
+            ID.into(),
+            DeclarationKind::Def {
+                ty,
+                value,
+                reducibility: DefinitionReducibility::Reducible,
+            },
+        )?;
+
+        let identity_n = self.call(ID, vec![n])?;
+        let proposition = self.call("Std.Eq", vec![nat, identity_n, n])?;
+        let motive = self.lam(nat, proposition)?;
+        let base = self.call("Std.Eq.refl", vec![nat, zero])?;
+        let ih_type = self.call("Std.Eq", vec![nat, identity_n, n])?;
+        let n_under_ih = self.var(1)?;
+        let identity_under_ih = self.call(ID, vec![n_under_ih])?;
+        let ih = self.var(0)?;
+        let step = self.call(
+            "Std.Eq.congr",
+            vec![nat, nat, successor, identity_under_ih, n_under_ih, ih],
+        )?;
+        let step = self.lam(ih_type, step)?;
+        let step = self.lam(nat, step)?;
+        let proof = self.call("Std.Nat.induct", vec![motive, base, step, n])?;
+        let proof = self.lam(nat, proof)?;
+        let ty = self.pi(nat, proposition)?;
+        self.declare(
+            "Mpk.Go.Practical.Nat.IdentityLaw".into(),
+            DeclarationKind::Theorem { ty, proof },
+        )
+    }
+
+    fn boolean_contradiction_elimination(&mut self) -> Result<()> {
+        let no = self.constant("Std.Bool.false")?;
+        let yes = self.constant("Std.Bool.true")?;
+        let contradiction = self.equality(no, yes)?;
+        // Under A : Sort0, h : Eq false true, b : Bool, A is index2.
+        let a_under_tag = self.var(2)?;
+        let tag = self.var(0)?;
+        let selected = self.call("Std.Bool.recType", vec![self.boolean, a_under_tag, tag])?;
+        let motive = self.lam(self.boolean, selected)?;
+        let hypothesis = self.var(0)?;
+        let proof = self.call(
+            "Std.Eq.rewrite",
+            vec![self.boolean, no, yes, motive, hypothesis, yes],
+        )?;
+        let proof = self.lam(contradiction, proof)?;
+        let proof = self.lam(self.sort, proof)?;
+        let a = self.var(1)?;
+        let ty = self.pi(contradiction, a)?;
+        let ty = self.pi(self.sort, ty)?;
+        self.declare(
+            "Mpk.Go.Practical.Bool.FalseElim".into(),
+            DeclarationKind::Theorem { ty, proof },
+        )
+    }
+
     fn new() -> Result<Self> {
         let mut certificate = standard_certificate(
             BOOL_HEX,
@@ -490,6 +646,29 @@ pub fn import_go_practical_boolean_foundation(candidate: &[u8]) -> Result<GoBool
         return Err(GoOrdinaryError::Limit);
     }
     let expected = generate_go_practical_boolean_foundation()?;
+    if candidate != expected.certificate_bytes() {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    Ok(expected)
+}
+
+pub fn generate_go_practical_core_foundation() -> Result<GoCoreFoundation> {
+    let mut builder = boolean_builder()?;
+    builder.append_natural_numbers()?;
+    builder.frozen_core_interfaces()?;
+    builder.natural_identity()?;
+    builder.boolean_contradiction_elimination()?;
+    builder.certificate.module = "Mpk.Go.Practical.CoreFoundation".into();
+    Ok(GoCoreFoundation {
+        certificate: builder.finish()?,
+    })
+}
+
+pub fn import_go_practical_core_foundation(candidate: &[u8]) -> Result<GoCoreFoundation> {
+    if candidate.len() > MAX_BYTES {
+        return Err(GoOrdinaryError::Limit);
+    }
+    let expected = generate_go_practical_core_foundation()?;
     if candidate != expected.certificate_bytes() {
         return Err(GoOrdinaryError::Linkage);
     }
