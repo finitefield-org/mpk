@@ -1,0 +1,33 @@
+{
+  "schema": "mpk.go_practical.boolean_initial_construction_failure.v1",
+  "status": "preserved_original_construction_error",
+  "result": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/ordinary-boolean/initial/rust-tests/result.json",
+    "sha256": "fb7877236ed9bbac7d09020f98b33424381ce2e182491baa3237fecb561a66b4",
+    "bytes": 2630
+  },
+  "original_source_copies": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/ordinary-boolean/initial/inputs/go_practical_ordinary.rs.txt",
+      "sha256": "d19e36e1ea8ce0d469a0facad884c8364d9bf9c2c62c6910b2534b85994611a7",
+      "bytes": 4659
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/ordinary-boolean/initial/inputs/lib.rs.txt",
+      "sha256": "b5f86ab1e9f76e7c9a7087fc88e3b6e1b47d1dda7d956fe97efc2a08623d74f1",
+      "bytes": 9634
+    }
+  ],
+  "cause": "All3 tests stop with Linkage during generation before checker verification. The exact standard Boolean certificate defines Boolean operations only; it contains no Std.Eq globals.",
+  "correction": "Pin and compose the exact closed zero-axiom standard equality certificate, remapping names, levels, terms and declarations. Fresh generation and both-checker acceptance are still required. Do not interpret the construction error as a false source theorem or a checker rejection.",
+  "standard_boolean": {
+    "path": "proofs/std/bool/std-bool.hex",
+    "sha256": "88a37f9df68a18bc19d51c0832279ff97a2944fc1676326022269766933ee806",
+    "bytes": 1535
+  },
+  "standard_equality": {
+    "path": "proofs/std/eq/std-eq.hex",
+    "sha256": "80d71a2ef388a6ad1dea166cca4bd10d9093d538edc4999743b6fb1ad80d03a1",
+    "bytes": 3069
+  }
+}

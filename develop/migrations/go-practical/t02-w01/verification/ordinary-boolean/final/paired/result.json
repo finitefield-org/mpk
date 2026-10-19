@@ -1,0 +1,27 @@
+{
+  "schema": "mpk.go_practical.boolean_observer_failure.v1",
+  "status": "observer_failed_after_positive_acceptance_negative_not_run",
+  "cause": "The exact current Go CLI omits the uint64 axiom_count field when it is zero. The positive certificate was accepted and all raw checker bytes remain retained; direct indexing of the omitted zero field raises KeyError before the negative invocation.",
+  "go_cli_contract": {
+    "path": "go-tools/mpk-checker-ref/cmd/mpk-checker-ref/main.go",
+    "line": 105,
+    "field": "AxiomCount uint64 with json omitempty"
+  },
+  "original_driver": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/ordinary-boolean/final/paired/run-paired.py.txt",
+    "sha256": "bde70e494bc46de24f63977845dcd36e63553ec826f3c7ce0617b3fe014ff266",
+    "bytes": 3210
+  },
+  "positive_stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/ordinary-boolean/final/paired/boolean-foundation.stdout.log",
+    "sha256": "59cfab5d2473d3c324cae7b1fb2d9af95eaa2ac044dc8fc24776b2f883f6343d",
+    "bytes": 342
+  },
+  "positive_stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/ordinary-boolean/final/paired/boolean-foundation.stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "production_or_checker_change": false,
+  "correction": "Honor the exact compiled Go zero-omission contract and also require the Rust explicit zero count and complete matching report/certificate hashes. Rerun only the affected observation parser and its2 paired cases; leave the passing Rust tests unchanged."
+}

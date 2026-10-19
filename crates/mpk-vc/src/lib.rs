@@ -22,6 +22,8 @@ pub mod csharp_practical_vir_model;
 #[doc(hidden)]
 pub mod csharp_practical_vir_validation;
 pub mod expr_encode;
+#[doc(hidden)]
+pub mod go_practical_ordinary;
 pub mod grouping;
 pub mod hash;
 mod java_profile;

@@ -1,0 +1,128 @@
+{
+  "schema": "mpk.go_practical.paired_boolean_component.v1",
+  "status": "passed",
+  "observed_at_utc": "2026-10-19T08:35:47.263564+00:00",
+  "rust_tests": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/ordinary-boolean/final/rust-tests/result.json",
+    "sha256": "b770e3c5b2627d21faff8f31b54b877e2743a1ef0aededadd11ad8d0d6cd7e18",
+    "bytes": 3351
+  },
+  "go_checker_build": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/ordinary-boolean/initial/go-build/result.json",
+    "sha256": "99f4c077fb1fba18670eb40f970ac8e66da2f82ee430263337ce56a7e5ce8e1a",
+    "bytes": 3133
+  },
+  "go_checker_binary": {
+    "path": "/private/tmp/mpk-go-practical-t02-ordinary-boolean/checker-ref",
+    "sha256": "bc21d279807f5994a16287a532db65cac3bbb170bfa4d0ca5c6729825e24c62c",
+    "bytes": 3222018
+  },
+  "cases": [
+    {
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/ordinary-boolean/final/rust-tests/certificates/boolean-foundation.mpcert",
+        "sha256": "74a8ae4965b0713929d9874071129e62f4218fdbad2c77a3b59d084b7ac8039a",
+        "bytes": 3402
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-ordinary-boolean/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/ordinary-boolean/final/rust-tests/certificates/boolean-foundation.mpcert"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.005742874927818775,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/ordinary-boolean/reviewed/paired/boolean-foundation.stdout.log",
+        "sha256": "59cfab5d2473d3c324cae7b1fb2d9af95eaa2ac044dc8fc24776b2f883f6343d",
+        "bytes": 342
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/ordinary-boolean/reviewed/paired/boolean-foundation.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_report": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.BooleanFoundation",
+        "declaration_count": 26,
+        "axiom_count": 0,
+        "hashes": {
+          "export": "be71d4941bec7d03a4b7ad73a1941cce5ee30de88a302652e47349cda44578e0",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "f3ee9e0c4d0286bb1cce42a4d2146b2098da5b818ffe350cd5d612c3653690fd"
+        },
+        "axiom_report": {
+          "summary": {
+            "core_axiom_count": 0,
+            "builtin_theory_axiom_count": 0,
+            "go_semantics_axiom_count": 0,
+            "external_axiom_count": 0,
+            "total_axiom_count": 0
+          },
+          "entries": [],
+          "declaration_dependencies": []
+        },
+        "error_code": null,
+        "error_detail": null
+      },
+      "go_report": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.BooleanFoundation",
+        "declaration_count": 26,
+        "hashes": {
+          "export": "be71d4941bec7d03a4b7ad73a1941cce5ee30de88a302652e47349cda44578e0",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "f3ee9e0c4d0286bb1cce42a4d2146b2098da5b818ffe350cd5d612c3653690fd"
+        }
+      },
+      "same_ordinary_certificate_in_both_checkers": true
+    },
+    {
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/ordinary-boolean/final/rust-tests/certificates/incorrect-boolean-claim.mpcert",
+        "sha256": "d1da1ec27c451f1981fc37d9a684dee8cd82628af571a45b10d049b47ed8cdb7",
+        "bytes": 3435
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-ordinary-boolean/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/ordinary-boolean/final/rust-tests/certificates/incorrect-boolean-claim.mpcert"
+      ],
+      "exit_code": 1,
+      "wall_seconds": 0.004575875005684793,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/ordinary-boolean/reviewed/paired/incorrect-boolean-claim.stdout.log",
+        "sha256": "0b217e7617a1711717096a7d125ba8f26ec500ad657a506860975a00dc5a7417",
+        "bytes": 105
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/ordinary-boolean/reviewed/paired/incorrect-boolean-claim.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_report": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "551a2e3566b08c247134dc2fb03696843c3f08e8fd896b3a230ebd822bd0e2a1"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"395\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"397\",\"kind\":\"check_type_mismatch\",\"term_index\":\"396\"}}"
+      },
+      "go_report": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 396 inferred app but expected app"
+      },
+      "same_ordinary_certificate_in_both_checkers": true
+    }
+  ],
+  "scope": "Fresh actual zero-axiom ordinary Boolean definitions/laws and incorrect ordinary-claim rejection. Neither complete Go foundation/registry activation nor source/application proof or native Linux acceptance.",
+  "full_T02_gate": "deferred to T02-W04: check-fast.sh --skip-csharp",
+  "CSharp_tests_executed": false
+}

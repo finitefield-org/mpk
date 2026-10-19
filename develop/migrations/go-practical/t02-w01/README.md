@@ -61,3 +61,11 @@ mapping. A fresh pinned offline Go module-graph comparison agrees with original
 nested-module inputs. The12-root52-subtest selection, vet/format and separate
 legacy build pass. Versioned archive/graph/export capture and checked private
 context/foundation remain due; this does not complete W01.
+
+The [ordinary Boolean checkpoint](verification/ordinary-boolean/README.md)
+adds5 actual definitions and5 universal ordinary laws, exact component import,
+and fresh current-checker evidence. Both checkers accept the same zero-axiom
+certificate with identical hashes and reject an incorrect ordinary equality
+claim. Three targeted Rust integration tests, strict Clippy and format pass;
+no C# tests execute. This Boolean basis does not register the complete private
+foundation/context or complete W01.

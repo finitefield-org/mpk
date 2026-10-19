@@ -1,0 +1,134 @@
+{
+  "schema": "mpk.go_practical.ordinary_boolean_checkpoint.v1",
+  "status": "component_checks_passed_work_item_in_progress",
+  "observed_at_utc": "2026-10-19T08:37:14.134516+00:00",
+  "entry_commit": "4de537c4dfe3ab12ed8f7a0dda26df641550899d",
+  "sources": [
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "e75543b2efcf1be660da4c697387b53036b52c8881ac170aba723f94a68ed861",
+      "bytes": 18514
+    },
+    {
+      "path": "crates/mpk-vc/src/lib.rs",
+      "sha256": "b5f86ab1e9f76e7c9a7087fc88e3b6e1b47d1dda7d956fe97efc2a08623d74f1",
+      "bytes": 9634
+    },
+    {
+      "path": "crates/mpk-vc/tests/go_practical_ordinary.rs",
+      "sha256": "d19e36e1ea8ce0d469a0facad884c8364d9bf9c2c62c6910b2534b85994611a7",
+      "bytes": 4659
+    },
+    {
+      "path": "proofs/std/bool/std-bool.hex",
+      "sha256": "88a37f9df68a18bc19d51c0832279ff97a2944fc1676326022269766933ee806",
+      "bytes": 1535
+    },
+    {
+      "path": "proofs/std/eq/std-eq.hex",
+      "sha256": "80d71a2ef388a6ad1dea166cca4bd10d9093d538edc4999743b6fb1ad80d03a1",
+      "bytes": 3069
+    }
+  ],
+  "checker_inputs": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/ordinary-boolean/checker-inputs.json",
+    "sha256": "6296d74c1a85126a9f8d39b73419e2caa9b6a69fee9ff8ee53f28fec4ddca323",
+    "bytes": 12794
+  },
+  "selected_results": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/ordinary-boolean/final/rust-tests/result.json",
+      "sha256": "b770e3c5b2627d21faff8f31b54b877e2743a1ef0aededadd11ad8d0d6cd7e18",
+      "bytes": 3351,
+      "mode": "final/rust-tests",
+      "status": "passed",
+      "seconds": 83.38665450003464
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/ordinary-boolean/initial/go-build/result.json",
+      "sha256": "99f4c077fb1fba18670eb40f970ac8e66da2f82ee430263337ce56a7e5ce8e1a",
+      "bytes": 3133,
+      "mode": "initial/go-build",
+      "status": "passed",
+      "seconds": 3.6498891670489684
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/ordinary-boolean/final/format/result.json",
+      "sha256": "0319e6c84902a8b51a2e08613f7201a198ae12e4a882339ed641eb5d680505bb",
+      "bytes": 2399,
+      "mode": "final/format",
+      "status": "passed",
+      "seconds": 0.1761981250019744
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/ordinary-boolean/final/clippy/result.json",
+      "sha256": "d919ac2319d97e51b51c880e8b5354656921c07accc33b13a3b84993423b2946",
+      "bytes": 2600,
+      "mode": "final/clippy",
+      "status": "passed",
+      "seconds": 22.525214791996405
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/ordinary-boolean/reviewed/paired/result.json",
+      "sha256": "a10eb98ecddc852bef205bcaba23996af892d057fc038d54fada9a04d6d10733",
+      "bytes": 5801,
+      "mode": "reviewed/paired",
+      "status": "passed",
+      "seconds": null
+    }
+  ],
+  "Rust_integration_tests_passed": 3,
+  "CSharp_tests_executed": false,
+  "definition_count_added": 5,
+  "universal_theorem_count_added": 5,
+  "positive_certificate": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/ordinary-boolean/final/rust-tests/certificates/boolean-foundation.mpcert",
+    "sha256": "74a8ae4965b0713929d9874071129e62f4218fdbad2c77a3b59d084b7ac8039a",
+    "bytes": 3402
+  },
+  "positive_terms": 435,
+  "positive_total_declarations": 26,
+  "axioms": 0,
+  "same_bytes_paired_cases": 2,
+  "case_results": [
+    {
+      "kind": "actual_ordinary_boolean_definitions_and_universal_laws",
+      "result": "accepted_by_both_zero_axiom_complete_hashes_equal"
+    },
+    {
+      "kind": "incorrect_ordinary_equality_claim",
+      "result": "rejected_by_both_core_type_checkers_with_well_encoded_certificate"
+    }
+  ],
+  "initial_construction_failure": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/ordinary-boolean/initial/construction-failure.json",
+    "sha256": "12ac285563415402b79290d93e7446f8ab3b68c9eda5c96c0e24985066e42593",
+    "bytes": 1709
+  },
+  "initial_observer_failure": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/ordinary-boolean/final/paired/result.json",
+    "sha256": "a2e6d61f3aab88e2068111c74344182404e703d5ea9f3fea8a34f2a036f429ac",
+    "bytes": 1629
+  },
+  "reviewed_properties": [
+    "Compose exact pinned closed standard Boolean and equality certificates with complete name/level/term/global remapping; no arbitrary import resolver.",
+    "Generated Boolean cases uses the existing guarded interface; no new core rule, opcode or axiom.",
+    "DoubleNot uses checked congruence/transitivity before constructor iota; it does not assume reduction of a computed major.",
+    "Importer regenerates exact complete component bytes and enforces the2MiB bound; caller hashes/exports/receipts grant no authority.",
+    "All5 actual definitions and5 ordinary universal laws are fresh production generator output, checked by current Rust and Go implementations.",
+    "The exact Go CLI omits a zero uint64 axiom count; observer additionally requires Rust explicit zero and complete matching certificate/export/axiom-report hashes.",
+    "Only the new Rust integration target executes; CSharp test targets/unit suites do not execute."
+  ],
+  "remaining": [
+    "Complete ordinary Go foundation definitions and exact compiled descriptor/registry/context.",
+    "Word/Nat bridges and all required operation/source/state/frame/control/termination laws; no recipe inventory is promoted.",
+    "Original dependency archive/content/selected graph, compiler/library inventory and immutable production loader namespace.",
+    "All169 source application demands, original package/closure implementations, independent artifact imports and later source/application gates."
+  ],
+  "full_T02_gate": "deferred to T02-W04: check-fast.sh --skip-csharp",
+  "T02_W01_complete": false,
+  "private_complete_context_registered": false,
+  "public_profile_activated": false,
+  "source_program_proof_claimed": false,
+  "native_Linux_acceptance_claimed": false
+}

@@ -29,7 +29,7 @@ after reconciling the intervening shared artifacts and active registry.
 | GO-PRAC-T01-W03 | Complete | Reviewed implementation `9d4e6fb7855a66d9fff309e6dbd9143652ee6e21`; requirement-by-requirement completion audit in section28 |
 | GO-PRAC-T01-W04 | Complete | Commit `68a44416e1b1a6dc3a84587cca784fc4b3a2b862`; exact interfaces, resource bounds, consumer review and historical replay; section58 |
 | GO-PRAC-T01-W05 | Complete under user C# test deferral | Reviewed implementation `4b4c3a01ddfa2377d7ccc0116f128649ff3ec3b1`; amended cumulative gate passes594 tests and all other checks. Completion audit and section78. |
-| GO-PRAC-T02-W01 | In progress | Source-object codec and rooted multi-capability capture pass20 root tests/43 subtests; the native-asset review follow-up passes all8 affected rooted tests/17 subtests, vet/format and the legacy build. Original module/checksum/replacement checks also pass12 roots/52 subtests. Complete private context/versioned graph/loader/export capture remains due; sections79–81. |
+| GO-PRAC-T02-W01 | In progress | Source-object codec and rooted multi-capability capture pass20 root tests/43 subtests; the native-asset review follow-up passes all8 affected rooted tests/17 subtests, vet/format and the legacy build. Original module/checksum/replacement checks also pass12 roots/52 subtests. Actual ordinary Boolean definitions/laws also pass both checkers. Complete private context/versioned graph/loader/export capture remains due; sections79–82. |
 | GO-PRAC-T02–T07 | Not started | Sequential v1 implementation and public release |
 | GO-PRAC-T08–T11 | Not started | Sequential v2 freeze, maps, pointers and public release |
 
@@ -4774,3 +4774,35 @@ target. Original full-package type checking, checked private foundation/context,
 compiler/library inventory, archive/content and full graph binding, immutable
 loader materialization and export/build metadata remain due. W01 stays In
 progress. C# tests remain deferred; the cumulative T02 gate is deferred to W04.
+
+## 82. T02-W01 actual ordinary Boolean foundation basis
+
+The [Boolean component checkpoint](../migrations/go-practical/t02-w01/verification/ordinary-boolean/README.md)
+starts from `4de537c4dfe3ab12ed8f7a0dda26df641550899d`. Fresh production Rust code
+composes the exact pinned closed standard Boolean and equality declarations,
+with complete name/level/term/global remapping. It emits5 actual Boolean
+definitions and5 universal ordinary laws. DoubleNot explicitly uses equality
+congruence/transitivity before constructor iota; the existing dependent Boolean
+cases interface is used without a new core rule, opcode or axiom. Exact import
+regenerates complete component bytes instead of trusting caller metadata.
+
+The initial construction stops with missing-equality Linkage before checking;
+all3 failures and original inputs are preserved. After including the actual
+standard equality definitions, the new integration target passes3 tests in
+83.387 seconds including compilation. It checks current Rust acceptance,
+deterministic exact import and an incorrect ordinary Eq Bool false true claim.
+Current independently built Go consumes identical observed certificate bytes:
+both accept the3402-byte/435-term/26-declaration positive with0 axioms and all
+three hashes equal; both reject the well-encoded incorrect claim in core type
+checking. Strict Clippy passes in22.525 seconds and format in0.176 seconds.
+
+The first paired observer raises KeyError because the exact Go CLI omits its
+zero uint64 axiom-count field. Original positive output and the observer failure
+remain retained. The corrected parser checks that compiled omission contract,
+Rust explicit zero and matching full hashes. Only the2 affected observation
+cases rerun; passing Rust tests and the unchanged checker build are retained.
+No C# test target executes; the new isolated integration target avoids C# unit
+suite compilation/execution. This is a source-free Boolean basis, not the
+complete ordinary Go foundation, registered private context, source/program
+proof or native Linux receipt. All169 application demands remain unelaborated.
+W01 stays In progress and the cumulative T02 gate remains deferred to W04.
