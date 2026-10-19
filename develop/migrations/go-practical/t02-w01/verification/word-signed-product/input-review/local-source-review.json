@@ -1,0 +1,75 @@
+{
+  "schema": "mpk.go_practical.signed_product_local_source_review.v1",
+  "observed_at_utc": "2026-10-19T16:18:17.751995+00:00",
+  "review_kind": "Local agent source review with both independent production cores and exact named prerequisite checks; no separate agent or Go source-program audit.",
+  "sources": [
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "b043fba1ddd7ad3e41e2869109b9eced419359464504bf70930ee98b5472268d",
+      "bytes": 35374
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric.rs",
+      "sha256": "cff7fa3c6d790a9ba89bf06270fe2e4d68db920b8395fbb2371ee2f255e3108c",
+      "bytes": 20435
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product.rs",
+      "sha256": "cbb141e10d7695d78bcd3ac7ac90d5d13ba9e3f178feaf42b14eaca67f699f49",
+      "bytes": 3063
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product/family.rs",
+      "sha256": "dff5b4f1a2c2c8a62fd16ee3f41c2b76ca469af176bf39ee4028bc39902195b5",
+      "bytes": 7222
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product/natural.rs",
+      "sha256": "e890416bc4e02428a9999f49ee1bdb56d37d873f61e062c3cad8f8ad74233337",
+      "bytes": 14607
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product/projection.rs",
+      "sha256": "6d2ac4eb6189635a4b06f85ce6425c4d96c7aacc364bb5666fd6d91a7b079861",
+      "bytes": 4324
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product/scalar.rs",
+      "sha256": "a4f585f93c53efe5f85214c4a7338ebfe1ad3a977bd0c1e8b37f9a27619c7b8c",
+      "bytes": 10196
+    },
+    {
+      "path": "crates/mpk-vc/tests/go_practical_word_signed_product.rs",
+      "sha256": "e78a940e0d90e3f997d1744d9946f169eee190ec87cf42faf3450ff0b05877f9",
+      "bytes": 4853
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/go_word_signed_product_controls.rs",
+      "sha256": "29689163c25d7400f3818ef52773179570aeeca2a5820f38965de0db3df08b7a",
+      "bytes": 9040
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/go_word_signed_product_observations.rs",
+      "sha256": "4cdcc3bc81d079f24fb80d586c4567a33dec009f1251637176fb2232db3104f1",
+      "bytes": 8175
+    },
+    {
+      "path": "develop/probes/go-practical/signed_product_observer.go",
+      "sha256": "1c1f5882b3cf2f47fdd44261b0610958ad188bfd2bf259c021bb63d862b9ffed",
+      "bytes": 4454
+    }
+  ],
+  "findings": [],
+  "reviewed_properties": [
+    "The original full arithmetic prefix is generated before closed dependency retention. All2387 named prerequisite types/bodies/proofs/levels/family metadata match the established reference; no helper identity substitution. All old arithmetic/unsigned-division generation bytes remain exact.",
+    "Actual Signed operand/result projections use the established full-width Value and actual highest bits. Correction parts consume the real ordinary MulDiscard_width defined by the actual shift/carry recurrence; no caller quotient or truth flag.",
+    "Correction positive=q+sr+m*sx*sy and negative=ux*sy+uy*sx satisfy unconditional balanced-Int modular conservation. Int equivalence is Nat cross-sum equality rather than representative-function equality. Explicit projection laws avoid implicit large scalar/function conversion.",
+    "Actual NoOverflow is Nat.Equal of the two computed correction parts. Both directions are proved, and a further Bool law agrees with actual mathematical Int equality. Reverse implication uses genuine positive multiplier cancellation and an actual proven positive word modulus.",
+    "Zero-sum/successor contradiction, nested arbitrary-Nat multiplication cancellation and positive powers use ordinary equality/Bool elimination and genuine unbounded Nat induction. No bounded operand enumeration, new axiom, arithmetic opcode, core reduction, fuel or artifact limit change.",
+    "All31 wrong zero/power/cancellation/unsigned-premise/correction/always-true-guard/fake-premise/completeness/reflection claims reject as actual core type mismatches. No format/resource outcome or unmodified statement is counted as a negative.",
+    "The Bool-only model executes actual fixed shifts, product stages, carry and sign bits. It explicitly labels host-derived Nat witness/correction/guard observations; universal actual terms check separately in both cores. No arithmetic callback or huge unary execution.",
+    "Native typed signed/unsigned multiplication, Go casts, math/bits carries and math/big exact signed products are independent. Query selection retains every original full field/hex word; independent Python checks exact products and modular correction. All four minimum-times-minus-one cases wrap normally with correction1 and false exact-result guard.",
+    "No public profile/context/registry, Go source-program, immutable application replay or native Linux release acceptance is claimed. All169 application demands remain; CSharp tests and intermediate full gate are skipped as instructed."
+  ],
+  "required_follow_up": "Signed negation/magnitude/division, remaining numeric/source/carrier/state/program foundation and complete private context/immutable application capture remain due. Full T02 gate remains W04."
+}

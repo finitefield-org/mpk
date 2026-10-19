@@ -221,3 +221,17 @@ fresh pinned native Go and independent exact-prefix integers agree on96 queries,
 2640 stages, eight zero-divisor failures and34 arbitrary-remainder steps including
 ten high bits. Remaining signed/numeric/source/foundation/context/application
 work stays due; W01 remains In progress and the cumulative T02 gate stays W04.
+
+The [actual signed multiplication checkpoint](verification/word-signed-product/README.md)
+adds an unconditionally computed balanced-Int modular correction for the actual
+word product, plus both directions of its exact-result guard and agreement with
+actual mathematical Int equality. All four widths include minimum times minus
+one without excluding Go wrapping. Both unchanged cores agree on33 streams:
+two zero-axiom positives and31 core type rejections. Four scoped roots, strict
+Clippy and Rust/Go format pass; all2387 retained named prerequisites and complete
+prior arithmetic/unsigned-division byte hashes remain exact. Actual48-input Bool
+circuits, two identical fresh pinned native Go outputs and independent integers
+agree on1440 stages,21 exact products and27 wrapped products. Nat guard/witness
+bodies are checked universally in both cores rather than executed by the finite
+Bool model. Signed division and the remaining foundation/source/context work
+stay due; W01 remains In progress and the cumulative T02 gate stays W04.

@@ -12,6 +12,7 @@ mod arithmetic;
 mod division;
 mod order;
 mod signed;
+mod signed_product;
 
 const PREFIX: &str = "Mpk.Go.Practical.Word.Numeric";
 
@@ -570,4 +571,18 @@ pub(super) fn append_division(
     arithmetic::append_division_prerequisites(&mut numeric)?;
     order::append(numeric.builder, recipes)?;
     division::append(numeric.builder, recipes)
+}
+
+pub(super) fn append_signed_product(
+    builder: &mut Builder,
+    recipes: &BTreeMap<String, Expr>,
+) -> Result<()> {
+    let mut numeric = Numeric {
+        builder,
+        recipes,
+        serial: 0,
+    };
+    append_base(&mut numeric)?;
+    arithmetic::append(&mut numeric)?;
+    signed_product::append(numeric.builder)
 }

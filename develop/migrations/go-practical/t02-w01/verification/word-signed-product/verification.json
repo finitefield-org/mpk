@@ -1,0 +1,453 @@
+{
+  "schema": "mpk.go_practical.actual_signed_product_checkpoint.v1",
+  "status": "component_checks_passed_work_item_in_progress",
+  "observed_at_utc": "2026-10-19T16:14:37.983650+00:00",
+  "entry_commit": "9b4b8a0c1a8d71526d0957ded64883f7686d818f",
+  "production_sources": [
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "b043fba1ddd7ad3e41e2869109b9eced419359464504bf70930ee98b5472268d",
+      "bytes": 35374
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/dependencies.rs",
+      "sha256": "df5f835b6f2c1fa462add5749831d34c16edcd2872b9ff1a2aa55d8d4d91d4d5",
+      "bytes": 8016
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/integer.rs",
+      "sha256": "893e2f1295ab018251e3f78458c8827f09c98947f687e2ef11ea828907944c1a",
+      "bytes": 31338
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/natural.rs",
+      "sha256": "483fb9d5dba921566b448ee5f2551746986e2d4a6c11209b63102a8be4f0a0ec",
+      "bytes": 47316
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/polynomial.rs",
+      "sha256": "f9ae06bca999a04ce3204d5d65651a9ec7575fda70567972a1aa358e2730b3b2",
+      "bytes": 10141
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/range.rs",
+      "sha256": "1246a6cb1ef83c67d3507f4258956eda6ce92cda5621859dbc68058fb7558dc1",
+      "bytes": 17074
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/syntax.rs",
+      "sha256": "04dd2f0327d32ab4ddf357fdbc94816fdb28c2be5fbddfc2495c11df8fc4a5c7",
+      "bytes": 7833
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word.rs",
+      "sha256": "297146dfb3acf044507902fc921ff59da45db91f5f05200603a2449967a6322b",
+      "bytes": 24635
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/bits.rs",
+      "sha256": "7cc2147d8be034ff16643e7ee34501eccbe303b70e4cfff528e43c28b159effa",
+      "bytes": 2489
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/digits.rs",
+      "sha256": "59fe43cc7a5ac77626b43f011d028e79fecc8b2ad1178c45fc0268650c563da2",
+      "bytes": 5894
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/powers.rs",
+      "sha256": "28f1171150c19871b2ba042009d4acb1e4fa903319265c00945b1a3bfef831fc",
+      "bytes": 5277
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/product.rs",
+      "sha256": "d336264617a73b9d17fd0c914756c752a832cabfce5cfceba6bb01c928005910",
+      "bytes": 10678
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/push.rs",
+      "sha256": "042f36bb1f9151fa6445f1363fca0019424cc7e46a5d74fbae0ddd1a09a46821",
+      "bytes": 10896
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/shift.rs",
+      "sha256": "3cb288b7fbfb7d3bd42710291b0f61c9bb8138eb3c0a990e7ab6c481890a0c86",
+      "bytes": 14691
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic.rs",
+      "sha256": "9a3c22336edb3c22be361467d5ea18119b406b8b95336791a1bcb5de29eed187",
+      "bytes": 2072
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/horner.rs",
+      "sha256": "d77c46b353f6734fd2c14f8a70fdc45820223fb3008ba7b99198b1071aba392c",
+      "bytes": 7161
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/natural.rs",
+      "sha256": "ba3095625b0c89d61f802312305f6ea36f02f27f59a48cfdccd220076f49f08f",
+      "bytes": 12181
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/restoring.rs",
+      "sha256": "8c8ed814a46beecf4131ffbdc21a0b43dc2fe1bb4aaa95aab7a273f83462c619",
+      "bytes": 10870
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/stages.rs",
+      "sha256": "1a249e6f97ea56be6d46702cf36a7312b267ae86bcd42f43bf863e95cbfec4e8",
+      "bytes": 17837
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/word_step.rs",
+      "sha256": "5f067bec0a30cd36ff6d53317199364fdb98771afd4fe6fac6f162ff62ed9747",
+      "bytes": 7882
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/division.rs",
+      "sha256": "f1f3d8e2d709e5cca8dee2303d802360b80e1cb0f4f3c39da11e95fc129e3d84",
+      "bytes": 4434
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/order/bounds.rs",
+      "sha256": "ddebc3920ef57e3ff9e25c42855504033a7bb83a25730f98e4f6234b7a2f2cac",
+      "bytes": 9198
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/order/compare.rs",
+      "sha256": "4d213713089ddf7cc073af0f2257a0e0a1938d20cf327661051da9a08ff65a90",
+      "bytes": 11051
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/order/equality.rs",
+      "sha256": "7bc88a33579152c06d982a90ba7ce97db86dc227f53ce8b5335526a40998a2c9",
+      "bytes": 15011
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/order/natural.rs",
+      "sha256": "06e28ddc45c0963320b6cd116c66d534aeb6be5b14f36aef72cc439478e51114",
+      "bytes": 7417
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/order/zero.rs",
+      "sha256": "24da91a96eae6014753e40c021f1d30d313da37630213e58c0c5cbd686308a54",
+      "bytes": 5610
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/order.rs",
+      "sha256": "db4c2006e896439247420fb4d0ac8982152f30e664e6ce0eedf83306e482e6fc",
+      "bytes": 3777
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed.rs",
+      "sha256": "faf7559605fb721443858b5c7af349f8e4d1ebe8c99dc20db2462733ccee0436",
+      "bytes": 13465
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product/family.rs",
+      "sha256": "dff5b4f1a2c2c8a62fd16ee3f41c2b76ca469af176bf39ee4028bc39902195b5",
+      "bytes": 7222
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product/natural.rs",
+      "sha256": "e890416bc4e02428a9999f49ee1bdb56d37d873f61e062c3cad8f8ad74233337",
+      "bytes": 14607
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product/projection.rs",
+      "sha256": "6d2ac4eb6189635a4b06f85ce6425c4d96c7aacc364bb5666fd6d91a7b079861",
+      "bytes": 4324
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product/scalar.rs",
+      "sha256": "a4f585f93c53efe5f85214c4a7338ebfe1ad3a977bd0c1e8b37f9a27619c7b8c",
+      "bytes": 10196
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product.rs",
+      "sha256": "cbb141e10d7695d78bcd3ac7ac90d5d13ba9e3f178feaf42b14eaca67f699f49",
+      "bytes": 3063
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric.rs",
+      "sha256": "cff7fa3c6d790a9ba89bf06270fe2e4d68db920b8395fbb2371ee2f255e3108c",
+      "bytes": 20435
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_proofs.rs",
+      "sha256": "208e689773abb4f172fcedb6b1a051e46e031dd05d77fe187e7561df2819a9dd",
+      "bytes": 13898
+    }
+  ],
+  "test_model_and_query_sources": [
+    {
+      "path": "crates/mpk-vc/tests/go_practical_word_signed_product.rs",
+      "sha256": "e78a940e0d90e3f997d1744d9946f169eee190ec87cf42faf3450ff0b05877f9",
+      "bytes": 4853
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/go_word_signed_product_controls.rs",
+      "sha256": "29689163c25d7400f3818ef52773179570aeeca2a5820f38965de0db3df08b7a",
+      "bytes": 9040
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/go_word_signed_product_observations.rs",
+      "sha256": "4cdcc3bc81d079f24fb80d586c4567a33dec009f1251637176fb2232db3104f1",
+      "bytes": 8175
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/go_word_eval.rs",
+      "sha256": "b563f3bd0faf010764fd64306f350af2ce3716a9304898c6db0f7d02c7161664",
+      "bytes": 14378
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/go_word_division_dependencies.rs",
+      "sha256": "1cbd08c125206c011609ac09adc7bf125ddc611fb7aef0cb21b808565d2b4a0e",
+      "bytes": 3674
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/word-foundation/queries.json",
+      "sha256": "3f9ee3ec12430dbbb08fd7bd25dca338cc4ed7f44f5b2d03382871a10dfab354",
+      "bytes": 261807
+    }
+  ],
+  "standard_raw_inputs": [
+    {
+      "path": "proofs/std/bool/std-bool.hex",
+      "sha256": "88a37f9df68a18bc19d51c0832279ff97a2944fc1676326022269766933ee806",
+      "bytes": 1535
+    },
+    {
+      "path": "proofs/std/eq/std-eq.hex",
+      "sha256": "80d71a2ef388a6ad1dea166cca4bd10d9093d538edc4999743b6fb1ad80d03a1",
+      "bytes": 3069
+    },
+    {
+      "path": "proofs/std/nat/std-nat.hex",
+      "sha256": "65bc5b701561d07b0f675668d942917da23c43606c0cfe0f9edfa113be99f583",
+      "bytes": 743
+    }
+  ],
+  "fresh_component": {
+    "certificate": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/word-signed-product-foundation.mpcert",
+      "sha256": "5b0d67641b9a4c5de86a32411a29f00d6ebdd5cdb049f1b21839e79526a66eda",
+      "bytes": 1032832
+    },
+    "hashes": {
+      "export": "2059344241324a1e09621914ef2fccb70b3a241a1b7867124fee5e2b26ab5be4",
+      "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+      "certificate": "e274acd8187cee79256567ba13824c7a68d1ef286a30d16176895dad10797cdc"
+    },
+    "declarations": 2612,
+    "terms": 80631,
+    "bytes": 1032832,
+    "axioms": 0,
+    "retained_named_prerequisites": 2387,
+    "new_signed_product_declarations": 225,
+    "widths": [
+      8,
+      16,
+      32,
+      64
+    ],
+    "frozen_candidate_bounds": {
+      "bytes": 2097152,
+      "declarations": 4096,
+      "terms": 131072
+    },
+    "all_bounds_unchanged_and_met": true,
+    "actual_operand_interpretation": "S(word)=Int.Make(U(word),modulus*Bit(actual highest bit)), using the exact established signed projection declarations.",
+    "actual_correction": "Let q be the existing ordinary Nat MulDiscard_width computed from every real fixed-shift/product carry, and sx/sy/sr the actual operand/result sign bits. C_positive=q+sr+modulus*sx*sy; C_negative=Ux*sy+Uy*sx; C=Int.Make(C_positive,C_negative). No caller quotient or truth flag supplies authority.",
+    "unconditional_law": "Int.Equivalent(Int.Mul(S(x),S(y)),Int.Add(S(actual Mul(x,y)),Int.Mul(Int.FromNat(modulus),C))). Overflowing source multiplication is still a normal wrapped result.",
+    "exact_result_guard": "Actual ordinary NoOverflow(x,y)=Nat.Equal(C_positive,C_negative). It implies actual mathematical Int product equals actual signed machine result, and that Int equivalence implies the guard is true. A further ordinary Bool theorem equates it to actual balanced-Int.Equal(product,result).",
+    "positivity_and_cancellation": "Genuine arbitrary-Nat nested induction proves cancellation by any positive multiplier. Successor/zero contradiction is derived through checked Nat equality and ordinary Bool false-elimination. PowerTwo positivity uses genuine unbounded induction; exact old weight bridges prove every actual modulus positive. The reverse guard direction consumes this actual proof.",
+    "construction": "Explicit checked positive/negative Int projection laws expose Nat cross-sums before generic checked semiring/cancellation. Only local reflection Bool flags are enumerated; full word operands are universal. No function extensionality, arithmetic opcode, new core/axiom/fuel or source adapter.",
+    "exact_import": "Complete deterministic regeneration with owning bytes; altered/oversized/honestly different otherwise valid components reject. This component is not a complete descriptor/private registry/context or installed profile."
+  },
+  "prerequisite_preservation": {
+    "named_types_bodies_proofs_levels_metadata_match": 2387,
+    "arithmetic_reference": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-arithmetic/verification.json",
+      "sha256": "5f088546ad1da6184a37113432ffd0575d64765c3219af5c3a213cf8dee4c853",
+      "bytes": 22164
+    },
+    "complete_arithmetic_raw_sha256": "2c3261d71d9a7c8fcad98700f55f1ccc26865d7a11b57ab2f30b21d667ef0b1c",
+    "unsigned_division_reference": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-division/verification.json",
+      "sha256": "cafdc4c5c3e3bb3e097d9364a39ac09365a66a9e7f16caf33bfaa6020ef3df45",
+      "bytes": 23805
+    },
+    "complete_unsigned_division_raw_sha256": "64ef60d8a3517bede84945e89af06ab155ec04cc4346f1f828b20f8bbda4f462",
+    "unchanged_prior_suites_repeated": false,
+    "scope": "Generate the established full arithmetic prefix before ordinary dependency selection, retaining exact internal checkpoint identities. Compare every retained named declaration independently; only regenerate/hash the unchanged complete prior arithmetic/unsigned division consumers, without rerunning their proof/model/native suites."
+  },
+  "Rust_execution": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/result.json",
+    "sha256": "cb0fc806d5fb1476b721c27cddb0a24237aadda352edf672301fd3d058b38193",
+    "bytes": 19849
+  },
+  "passed_affected_roots": 4,
+  "paired_current_checkers": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/result.json",
+    "sha256": "0117c8e8ef670494ad6b7d4baf88961c5e23972f06b889031fc98d18636052d0",
+    "bytes": 84534
+  },
+  "same_byte_cases": 33,
+  "accepted_zero_axiom_exact_hashes": 2,
+  "rejected_core_type_mismatch": 31,
+  "core_mismatch_subtypes": {
+    "check_type_mismatch": 24,
+    "lambda_domain_mismatch": 7
+  },
+  "negative_case_names": [
+    "AlwaysTrueGuard-16",
+    "AlwaysTrueGuard-32",
+    "AlwaysTrueGuard-64",
+    "AlwaysTrueGuard-8",
+    "FakeTruePremise-16",
+    "FakeTruePremise-32",
+    "FakeTruePremise-64",
+    "FakeTruePremise-8",
+    "FalseComplete-16",
+    "FalseComplete-32",
+    "FalseComplete-64",
+    "FalseComplete-8",
+    "FalseIntegerEquality-16",
+    "FalseIntegerEquality-32",
+    "FalseIntegerEquality-64",
+    "FalseIntegerEquality-8",
+    "FalseReflection",
+    "IgnoredModulusPositive",
+    "IgnoredMultiplierPositive",
+    "IgnoredUnsignedWitness",
+    "WrongBalance",
+    "WrongNegativeCorrection-16",
+    "WrongNegativeCorrection-32",
+    "WrongNegativeCorrection-64",
+    "WrongNegativeCorrection-8",
+    "WrongPositiveCorrection-16",
+    "WrongPositiveCorrection-32",
+    "WrongPositiveCorrection-64",
+    "WrongPositiveCorrection-8",
+    "WrongZeroSum",
+    "ZeroPower"
+  ],
+  "initial_observations": [
+    {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/result.json",
+        "sha256": "432b564ffc860091851f7e72e4e77b0212eca41f306a7800b1b3613c03c31a8a",
+        "bytes": 9978
+      },
+      "scope": "Fresh closed arithmetic/Int prerequisites, genuine unbounded Nat zero-sum and positive multiplication cancellation, positive powers and all four positive moduli accept. All2387 named prerequisites and prior full byte hashes match. Later signed-product laws not yet attached."
+    },
+    {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/result.json",
+        "sha256": "05682335630e3cb121741cf936c8665819e6cb88a513948f6c261bd0c76fb592",
+        "bytes": 10178
+      },
+      "scope": "Generic signed correction balance, both exact-cross directions and Bool reflection agreement accept. All statements quantify over arbitrary Nat components; only local reflection flags use Bool cases."
+    },
+    {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/result.json",
+        "sha256": "be73ad89010e019e4e7bba392caa43c2d8735e9ece4a78f7a257d85fa48e1676",
+        "bytes": 10625
+      },
+      "scope": "All-width actual signed result, actual computed correction, exact guard reflection/completeness and agreement with balanced-Int equality accept. Exactly final certificate bytes; diagnostic unoptimized profile changes no core guard."
+    }
+  ],
+  "same_final_byte_Go_construction_acceptance": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/go-candidate/result.json",
+    "sha256": "700f5bc677b29cdc973eda5166f7c4c735f94d500e6107ace53f07cc3e7549a2",
+    "bytes": 3630
+  },
+  "checks": {
+    "strict_clippy": {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/result.json",
+        "sha256": "b14b6d4281108916d8ba3e47e6f6b28a41821118e4a58a9395a5ad5553bd087d",
+        "bytes": 10581
+      },
+      "status": "passed",
+      "wall_seconds": 21.602648874977604
+    },
+    "Rust_format": {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/result.json",
+        "sha256": "eaecbe6aff5dcdef1f7fb6219faf87cd155060f6744e47f259ec97a8a109da55",
+        "bytes": 13376
+      },
+      "status": "passed",
+      "wall_seconds": 0.3877765000797808
+    },
+    "new_native_Go_format": {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/go-format/result.json",
+        "sha256": "efc90d8e0440821bc02684787523e802904d17cd7614d602e6b1c456bd95e69d",
+        "bytes": 1459
+      },
+      "status": "passed",
+      "seconds": 0.036407416919246316
+    }
+  },
+  "actual_finite_observations": {
+    "comparison": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/native-comparison-final/result.json",
+      "sha256": "dfa8541f3f5f6631add45850002eef97ca001e6b72166109429a4946bd3bc2dc",
+      "bytes": 2705
+    },
+    "native_execution": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/native/result.json",
+      "sha256": "606433791006b95d83fa083f8fb7d1e76684a3b4d27f5f0f6ffa3c977911cd81",
+      "bytes": 5916
+    },
+    "native_source": {
+      "path": "develop/probes/go-practical/signed_product_observer.go",
+      "sha256": "1c1f5882b3cf2f47fdd44261b0610958ad188bfd2bf259c021bb63d862b9ffed",
+      "bytes": 4454
+    },
+    "query_origins": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/query-origins.json",
+      "sha256": "9e245ebf1c978320cd8246ddcb29acef32e4fe63fd0624ba2ea26343b3aeb93d",
+      "bytes": 1275
+    },
+    "metrics": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/model/metrics.json",
+      "sha256": "9db63979468846ad13c7c3599d8d01041dbbb32d9da4682a833ab4df9d282f3b",
+      "bytes": 905
+    },
+    "selected_original_queries": 48,
+    "actual_stages": 1440,
+    "actual_true_carries": 107,
+    "exact_signed_products": 21,
+    "overflowed_signed_products": 27,
+    "minimum_times_minus_one_cases": 4,
+    "AST_steps": 181613956,
+    "maximum_query_AST_steps": 13336376,
+    "two_native_outputs_byte_identical": true,
+    "prepared_image_files": 5577,
+    "actual_Boolean_terms_executed": true,
+    "Nat_witness_correction_guard_or_theorem_bodies_executed": false,
+    "scope": "Actual decoded Boolean multiplication/fixed shifts/carries/sign bits agree with two identical fresh typed signed/unsigned Go runs, math/big products/corrections and independent Python exact integers. Host derives the ordinary unsigned-discard recurrence and both correction parts from actual bits/carries. The Nat witness/correction/guard or theorem bodies are not executed by the Bool-only model; universal actual guard equivalence checks separately in both cores. Minimum signed value times minus one wraps in Go, has correction1 and false exact-result guard. No source-program, authoritative immutable application replay or native Linux release claim."
+  },
+  "frozen_design_preservation": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/frozen-design-preservation.json",
+    "sha256": "dd0bda122cba32363349000739dc992bb79123b0186291b7b318523e1d204732",
+    "bytes": 53034
+  },
+  "strict_changed_input_review": "input-review/changed-inputs-review.json",
+  "CSharp_tests_executed": false,
+  "T02_W01_complete": false,
+  "all_application_demands_remaining": 169,
+  "public_profile_activated": false,
+  "whole_source_program_proof_claimed": false,
+  "authoritative_immutable_application_replay_claimed": false,
+  "native_Linux_gate_claimed": false,
+  "kernel_axiom_fuel_or_artifact_bounds_changed": false,
+  "remaining_work": "Actual signed negation/magnitude and signed division/remainder, variable/signed/right-shift numeric/source laws, remaining full source-typed carrier/operation/storage/lifetime/program foundation, bounded56-family assembly/descriptor/private registry/context and authoritative original application source/export/selected-closure replay. All later T02-T11 gates remain.",
+  "full_T02_gate": "deferred to T02-W04: check-fast.sh --skip-csharp"
+}

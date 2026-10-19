@@ -1,0 +1,3675 @@
+{
+  "status": "passed",
+  "observed_at_utc": "2026-10-19T16:18:31.738801+00:00",
+  "source_base_commit": "9b4b8a0c1a8d71526d0957ded64883f7686d818f",
+  "selection_reason": "Actual all-width signed multiplication with an ordinary computed balanced-Int correction, both exact-result guard directions and agreement with actual mathematical Int equality.2612 declarations/80631 terms/1032832 bytes, zero axioms; all2387 retained named type/body/proof/level/family metadata identities and prior complete arithmetic/unsigned-division byte hashes stay exact. Genuine unbounded positive multiplication cancellation/power positivity, shared Nat algebra and explicit Int projections check without core/axiom/fuel/artifact bound changes. Four affected roots and33 current same-byte dual-core streams pass, including31 actual type rejections. Actual48-input1440-stage Bool model, two identical fresh pinned typed Go/math-big outputs and independent exact Python integers agree:21 exact products,27 wrapped products and four minimum-times-minus-one cases with correction1/false exact-result guard. Nat witness/correction/guard terms check universally in both cores rather than executing enormous unary values in the finite Bool model. Current strict Clippy/Rust/Go format pass. All255 frozen members, official127-rule/four-scope scanner and39 historical seals remain unchanged. Preserve all construction snapshots/raw output; only four exact hash/length-bound libtest EOF observations, no source/JSON/directory/blanket whitespace exclusions. No CSharp tests, intermediate full gate, public activation or source/application/Linux release claim. T02-W01 remains open; cumulative gate remains W04.",
+  "scanner": {
+    "path": "scripts/check-no-active-gir.sh",
+    "sha256": "d1515009334d5b63f622118e1b313955a8a56c800429da8c92035e0deea7ce00",
+    "bytes": 48685,
+    "matchers": 127,
+    "scope_count": 4,
+    "definitions_changed": false
+  },
+  "inputs": [
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "b043fba1ddd7ad3e41e2869109b9eced419359464504bf70930ee98b5472268d",
+      "bytes": 35374
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric.rs",
+      "sha256": "cff7fa3c6d790a9ba89bf06270fe2e4d68db920b8395fbb2371ee2f255e3108c",
+      "bytes": 20435
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product.rs",
+      "sha256": "cbb141e10d7695d78bcd3ac7ac90d5d13ba9e3f178feaf42b14eaca67f699f49",
+      "bytes": 3063
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product/family.rs",
+      "sha256": "dff5b4f1a2c2c8a62fd16ee3f41c2b76ca469af176bf39ee4028bc39902195b5",
+      "bytes": 7222
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product/natural.rs",
+      "sha256": "e890416bc4e02428a9999f49ee1bdb56d37d873f61e062c3cad8f8ad74233337",
+      "bytes": 14607
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product/projection.rs",
+      "sha256": "6d2ac4eb6189635a4b06f85ce6425c4d96c7aacc364bb5666fd6d91a7b079861",
+      "bytes": 4324
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product/scalar.rs",
+      "sha256": "a4f585f93c53efe5f85214c4a7338ebfe1ad3a977bd0c1e8b37f9a27619c7b8c",
+      "bytes": 10196
+    },
+    {
+      "path": "crates/mpk-vc/tests/go_practical_word_signed_product.rs",
+      "sha256": "e78a940e0d90e3f997d1744d9946f169eee190ec87cf42faf3450ff0b05877f9",
+      "bytes": 4853
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/go_word_signed_product_controls.rs",
+      "sha256": "29689163c25d7400f3818ef52773179570aeeca2a5820f38965de0db3df08b7a",
+      "bytes": 9040
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/go_word_signed_product_observations.rs",
+      "sha256": "4cdcc3bc81d079f24fb80d586c4567a33dec009f1251637176fb2232db3104f1",
+      "bytes": 8175
+    },
+    {
+      "path": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "sha256": "000df9f947e0ddb17a18ddf904269c7dd8c39b753dc419319dff67493c142d41",
+      "bytes": 339164
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/README.md",
+      "sha256": "0d135947f5225cf356739eb7ca74a3d8f37ac48f16cc11c6f971eb6ff7ce34c6",
+      "bytes": 16482
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/requirements.json",
+      "sha256": "366ec8a5d8a3e4f24f9547bd78bafdf55c860ddba51575d9a8dd5ef6e2dfbf74",
+      "bytes": 13347
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/README.md",
+      "sha256": "17a1c70c5746cb1532f6354f305c1fc2c692f30ed8452f6febc73a23ce874b52",
+      "bytes": 7646
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/go-candidate/result.json",
+      "sha256": "700f5bc677b29cdc973eda5166f7c4c735f94d500e6107ace53f07cc3e7549a2",
+      "bytes": 3630
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/go-candidate/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/go-candidate/stdout.log",
+      "sha256": "03574a35653f1a10f84bd59fe990850c5388f6acf227bb567c528667e59a09e1",
+      "bytes": 354
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/certificates/word-signed-product-foundation.mpcert",
+      "sha256": "5b0d67641b9a4c5de86a32411a29f00d6ebdd5cdb049f1b21839e79526a66eda",
+      "bytes": 1032832
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/certificates/word-signed-product-foundation.rust.json",
+      "sha256": "ab2e523be668217107acb68b1b9c2fc5d09c90c695ea4fa7fb88f52dc0d41ff6",
+      "bytes": 608
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "b043fba1ddd7ad3e41e2869109b9eced419359464504bf70930ee98b5472268d",
+      "bytes": 35374
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/dependencies.rs",
+      "sha256": "df5f835b6f2c1fa462add5749831d34c16edcd2872b9ff1a2aa55d8d4d91d4d5",
+      "bytes": 8016
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/integer.rs",
+      "sha256": "893e2f1295ab018251e3f78458c8827f09c98947f687e2ef11ea828907944c1a",
+      "bytes": 31338
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/natural.rs",
+      "sha256": "483fb9d5dba921566b448ee5f2551746986e2d4a6c11209b63102a8be4f0a0ec",
+      "bytes": 47316
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/polynomial.rs",
+      "sha256": "f9ae06bca999a04ce3204d5d65651a9ec7575fda70567972a1aa358e2730b3b2",
+      "bytes": 10141
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/range.rs",
+      "sha256": "1246a6cb1ef83c67d3507f4258956eda6ce92cda5621859dbc68058fb7558dc1",
+      "bytes": 17074
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/syntax.rs",
+      "sha256": "04dd2f0327d32ab4ddf357fdbc94816fdb28c2be5fbddfc2495c11df8fc4a5c7",
+      "bytes": 7833
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word.rs",
+      "sha256": "297146dfb3acf044507902fc921ff59da45db91f5f05200603a2449967a6322b",
+      "bytes": 24635
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric.rs",
+      "sha256": "cff7fa3c6d790a9ba89bf06270fe2e4d68db920b8395fbb2371ee2f255e3108c",
+      "bytes": 20435
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic.rs",
+      "sha256": "9a3c22336edb3c22be361467d5ea18119b406b8b95336791a1bcb5de29eed187",
+      "bytes": 2072
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/bits.rs",
+      "sha256": "7cc2147d8be034ff16643e7ee34501eccbe303b70e4cfff528e43c28b159effa",
+      "bytes": 2489
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/digits.rs",
+      "sha256": "59fe43cc7a5ac77626b43f011d028e79fecc8b2ad1178c45fc0268650c563da2",
+      "bytes": 5894
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/powers.rs",
+      "sha256": "28f1171150c19871b2ba042009d4acb1e4fa903319265c00945b1a3bfef831fc",
+      "bytes": 5277
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/product.rs",
+      "sha256": "d336264617a73b9d17fd0c914756c752a832cabfce5cfceba6bb01c928005910",
+      "bytes": 10678
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/push.rs",
+      "sha256": "042f36bb1f9151fa6445f1363fca0019424cc7e46a5d74fbae0ddd1a09a46821",
+      "bytes": 10896
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/shift.rs",
+      "sha256": "3cb288b7fbfb7d3bd42710291b0f61c9bb8138eb3c0a990e7ab6c481890a0c86",
+      "bytes": 14691
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/division.rs",
+      "sha256": "f1f3d8e2d709e5cca8dee2303d802360b80e1cb0f4f3c39da11e95fc129e3d84",
+      "bytes": 4434
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/horner.rs",
+      "sha256": "d77c46b353f6734fd2c14f8a70fdc45820223fb3008ba7b99198b1071aba392c",
+      "bytes": 7161
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/natural.rs",
+      "sha256": "ba3095625b0c89d61f802312305f6ea36f02f27f59a48cfdccd220076f49f08f",
+      "bytes": 12181
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/restoring.rs",
+      "sha256": "8c8ed814a46beecf4131ffbdc21a0b43dc2fe1bb4aaa95aab7a273f83462c619",
+      "bytes": 10870
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/stages.rs",
+      "sha256": "1a249e6f97ea56be6d46702cf36a7312b267ae86bcd42f43bf863e95cbfec4e8",
+      "bytes": 17837
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/word_step.rs",
+      "sha256": "5f067bec0a30cd36ff6d53317199364fdb98771afd4fe6fac6f162ff62ed9747",
+      "bytes": 7882
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/order.rs",
+      "sha256": "db4c2006e896439247420fb4d0ac8982152f30e664e6ce0eedf83306e482e6fc",
+      "bytes": 3777
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/order/bounds.rs",
+      "sha256": "ddebc3920ef57e3ff9e25c42855504033a7bb83a25730f98e4f6234b7a2f2cac",
+      "bytes": 9198
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/order/compare.rs",
+      "sha256": "4d213713089ddf7cc073af0f2257a0e0a1938d20cf327661051da9a08ff65a90",
+      "bytes": 11051
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/order/equality.rs",
+      "sha256": "7bc88a33579152c06d982a90ba7ce97db86dc227f53ce8b5335526a40998a2c9",
+      "bytes": 15011
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/order/natural.rs",
+      "sha256": "06e28ddc45c0963320b6cd116c66d534aeb6be5b14f36aef72cc439478e51114",
+      "bytes": 7417
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/order/zero.rs",
+      "sha256": "24da91a96eae6014753e40c021f1d30d313da37630213e58c0c5cbd686308a54",
+      "bytes": 5610
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed.rs",
+      "sha256": "faf7559605fb721443858b5c7af349f8e4d1ebe8c99dc20db2462733ccee0436",
+      "bytes": 13465
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product.rs",
+      "sha256": "cbb141e10d7695d78bcd3ac7ac90d5d13ba9e3f178feaf42b14eaca67f699f49",
+      "bytes": 3063
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product/family.rs",
+      "sha256": "dff5b4f1a2c2c8a62fd16ee3f41c2b76ca469af176bf39ee4028bc39902195b5",
+      "bytes": 7222
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product/natural.rs",
+      "sha256": "e890416bc4e02428a9999f49ee1bdb56d37d873f61e062c3cad8f8ad74233337",
+      "bytes": 14607
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product/projection.rs",
+      "sha256": "6d2ac4eb6189635a4b06f85ce6425c4d96c7aacc364bb5666fd6d91a7b079861",
+      "bytes": 4324
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product/scalar.rs",
+      "sha256": "a4f585f93c53efe5f85214c4a7338ebfe1ad3a977bd0c1e8b37f9a27619c7b8c",
+      "bytes": 10196
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_proofs.rs",
+      "sha256": "208e689773abb4f172fcedb6b1a051e46e031dd05d77fe187e7561df2819a9dd",
+      "bytes": 13898
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/inputs/crates/mpk-vc/tests/go_practical_word_signed_product.rs",
+      "sha256": "d03408e57802c1c994566f89fcfcf246ed797a450d449422e5c358566b282c41",
+      "bytes": 3422
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/inputs/crates/mpk-vc/tests/support/go_word_division_dependencies.rs",
+      "sha256": "1cbd08c125206c011609ac09adc7bf125ddc611fb7aef0cb21b808565d2b4a0e",
+      "bytes": 3674
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/inputs/crates/mpk-vc/tests/support/go_word_eval.rs",
+      "sha256": "b563f3bd0faf010764fd64306f350af2ce3716a9304898c6db0f7d02c7161664",
+      "bytes": 14378
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/inputs/proofs/std/bool/std-bool.hex",
+      "sha256": "88a37f9df68a18bc19d51c0832279ff97a2944fc1676326022269766933ee806",
+      "bytes": 1535
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/inputs/proofs/std/eq/std-eq.hex",
+      "sha256": "80d71a2ef388a6ad1dea166cca4bd10d9093d538edc4999743b6fb1ad80d03a1",
+      "bytes": 3069
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/inputs/proofs/std/nat/std-nat.hex",
+      "sha256": "65bc5b701561d07b0f675668d942917da23c43606c0cfe0f9edfa113be99f583",
+      "bytes": 743
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/result.json",
+      "sha256": "be73ad89010e019e4e7bba392caa43c2d8735e9ece4a78f7a257d85fa48e1676",
+      "bytes": 10625
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/stderr.log",
+      "sha256": "63f514aca6450da0e98b248173eb9d8eb23408e4f2080a9e33ce8bb58909115c",
+      "bytes": 273
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/stdout.log",
+      "sha256": "ebee4d5f83122192ae6438289db9a5f5e10b3d2b74226613bad9fd0837fce72e",
+      "bytes": 288
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/compare-native.py",
+      "sha256": "f020e6084498589d9c42a6cf04863935cccba1bdca65c6c5771810c94ae2138c",
+      "bytes": 5592
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "b043fba1ddd7ad3e41e2869109b9eced419359464504bf70930ee98b5472268d",
+      "bytes": 35374
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/crates/mpk-vc/src/go_practical_ordinary/dependencies.rs",
+      "sha256": "df5f835b6f2c1fa462add5749831d34c16edcd2872b9ff1a2aa55d8d4d91d4d5",
+      "bytes": 8016
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/crates/mpk-vc/src/go_practical_ordinary/integer.rs",
+      "sha256": "893e2f1295ab018251e3f78458c8827f09c98947f687e2ef11ea828907944c1a",
+      "bytes": 31338
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/crates/mpk-vc/src/go_practical_ordinary/natural.rs",
+      "sha256": "483fb9d5dba921566b448ee5f2551746986e2d4a6c11209b63102a8be4f0a0ec",
+      "bytes": 47316
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/crates/mpk-vc/src/go_practical_ordinary/polynomial.rs",
+      "sha256": "f9ae06bca999a04ce3204d5d65651a9ec7575fda70567972a1aa358e2730b3b2",
+      "bytes": 10141
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/crates/mpk-vc/src/go_practical_ordinary/range.rs",
+      "sha256": "1246a6cb1ef83c67d3507f4258956eda6ce92cda5621859dbc68058fb7558dc1",
+      "bytes": 17074
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/crates/mpk-vc/src/go_practical_ordinary/syntax.rs",
+      "sha256": "04dd2f0327d32ab4ddf357fdbc94816fdb28c2be5fbddfc2495c11df8fc4a5c7",
+      "bytes": 7833
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/crates/mpk-vc/src/go_practical_ordinary/word.rs",
+      "sha256": "297146dfb3acf044507902fc921ff59da45db91f5f05200603a2449967a6322b",
+      "bytes": 24635
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric.rs",
+      "sha256": "cff7fa3c6d790a9ba89bf06270fe2e4d68db920b8395fbb2371ee2f255e3108c",
+      "bytes": 20435
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic.rs",
+      "sha256": "9a3c22336edb3c22be361467d5ea18119b406b8b95336791a1bcb5de29eed187",
+      "bytes": 2072
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/bits.rs",
+      "sha256": "7cc2147d8be034ff16643e7ee34501eccbe303b70e4cfff528e43c28b159effa",
+      "bytes": 2489
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/digits.rs",
+      "sha256": "59fe43cc7a5ac77626b43f011d028e79fecc8b2ad1178c45fc0268650c563da2",
+      "bytes": 5894
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/powers.rs",
+      "sha256": "28f1171150c19871b2ba042009d4acb1e4fa903319265c00945b1a3bfef831fc",
+      "bytes": 5277
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/product.rs",
+      "sha256": "d336264617a73b9d17fd0c914756c752a832cabfce5cfceba6bb01c928005910",
+      "bytes": 10678
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/push.rs",
+      "sha256": "042f36bb1f9151fa6445f1363fca0019424cc7e46a5d74fbae0ddd1a09a46821",
+      "bytes": 10896
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/shift.rs",
+      "sha256": "3cb288b7fbfb7d3bd42710291b0f61c9bb8138eb3c0a990e7ab6c481890a0c86",
+      "bytes": 14691
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/division.rs",
+      "sha256": "f1f3d8e2d709e5cca8dee2303d802360b80e1cb0f4f3c39da11e95fc129e3d84",
+      "bytes": 4434
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/horner.rs",
+      "sha256": "d77c46b353f6734fd2c14f8a70fdc45820223fb3008ba7b99198b1071aba392c",
+      "bytes": 7161
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/natural.rs",
+      "sha256": "ba3095625b0c89d61f802312305f6ea36f02f27f59a48cfdccd220076f49f08f",
+      "bytes": 12181
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/restoring.rs",
+      "sha256": "8c8ed814a46beecf4131ffbdc21a0b43dc2fe1bb4aaa95aab7a273f83462c619",
+      "bytes": 10870
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/stages.rs",
+      "sha256": "1a249e6f97ea56be6d46702cf36a7312b267ae86bcd42f43bf863e95cbfec4e8",
+      "bytes": 17837
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/word_step.rs",
+      "sha256": "5f067bec0a30cd36ff6d53317199364fdb98771afd4fe6fac6f162ff62ed9747",
+      "bytes": 7882
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/order.rs",
+      "sha256": "db4c2006e896439247420fb4d0ac8982152f30e664e6ce0eedf83306e482e6fc",
+      "bytes": 3777
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/order/bounds.rs",
+      "sha256": "ddebc3920ef57e3ff9e25c42855504033a7bb83a25730f98e4f6234b7a2f2cac",
+      "bytes": 9198
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/order/compare.rs",
+      "sha256": "4d213713089ddf7cc073af0f2257a0e0a1938d20cf327661051da9a08ff65a90",
+      "bytes": 11051
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/order/equality.rs",
+      "sha256": "7bc88a33579152c06d982a90ba7ce97db86dc227f53ce8b5335526a40998a2c9",
+      "bytes": 15011
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/order/natural.rs",
+      "sha256": "06e28ddc45c0963320b6cd116c66d534aeb6be5b14f36aef72cc439478e51114",
+      "bytes": 7417
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/order/zero.rs",
+      "sha256": "24da91a96eae6014753e40c021f1d30d313da37630213e58c0c5cbd686308a54",
+      "bytes": 5610
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed.rs",
+      "sha256": "faf7559605fb721443858b5c7af349f8e4d1ebe8c99dc20db2462733ccee0436",
+      "bytes": 13465
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product.rs",
+      "sha256": "cbb141e10d7695d78bcd3ac7ac90d5d13ba9e3f178feaf42b14eaca67f699f49",
+      "bytes": 3063
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product/family.rs",
+      "sha256": "dff5b4f1a2c2c8a62fd16ee3f41c2b76ca469af176bf39ee4028bc39902195b5",
+      "bytes": 7222
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product/natural.rs",
+      "sha256": "e890416bc4e02428a9999f49ee1bdb56d37d873f61e062c3cad8f8ad74233337",
+      "bytes": 14607
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product/projection.rs",
+      "sha256": "6d2ac4eb6189635a4b06f85ce6425c4d96c7aacc364bb5666fd6d91a7b079861",
+      "bytes": 4324
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product/scalar.rs",
+      "sha256": "a4f585f93c53efe5f85214c4a7338ebfe1ad3a977bd0c1e8b37f9a27619c7b8c",
+      "bytes": 10196
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/crates/mpk-vc/src/go_practical_ordinary/word_proofs.rs",
+      "sha256": "208e689773abb4f172fcedb6b1a051e46e031dd05d77fe187e7561df2819a9dd",
+      "bytes": 13898
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/crates/mpk-vc/tests/go_practical_word_signed_product.rs",
+      "sha256": "e78a940e0d90e3f997d1744d9946f169eee190ec87cf42faf3450ff0b05877f9",
+      "bytes": 4853
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/crates/mpk-vc/tests/support/go_word_division_dependencies.rs",
+      "sha256": "1cbd08c125206c011609ac09adc7bf125ddc611fb7aef0cb21b808565d2b4a0e",
+      "bytes": 3674
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/crates/mpk-vc/tests/support/go_word_eval.rs",
+      "sha256": "b563f3bd0faf010764fd64306f350af2ce3716a9304898c6db0f7d02c7161664",
+      "bytes": 14378
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/crates/mpk-vc/tests/support/go_word_signed_product_controls.rs",
+      "sha256": "29689163c25d7400f3818ef52773179570aeeca2a5820f38965de0db3df08b7a",
+      "bytes": 9040
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/crates/mpk-vc/tests/support/go_word_signed_product_observations.rs",
+      "sha256": "4cdcc3bc81d079f24fb80d586c4567a33dec009f1251637176fb2232db3104f1",
+      "bytes": 8175
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/develop/migrations/go-practical/t01-w04/word-foundation/queries.json",
+      "sha256": "3f9ee3ec12430dbbb08fd7bd25dca338cc4ed7f44f5b2d03382871a10dfab354",
+      "bytes": 261807
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/proofs/std/bool/std-bool.hex",
+      "sha256": "88a37f9df68a18bc19d51c0832279ff97a2944fc1676326022269766933ee806",
+      "bytes": 1535
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/proofs/std/eq/std-eq.hex",
+      "sha256": "80d71a2ef388a6ad1dea166cca4bd10d9093d538edc4999743b6fb1ad80d03a1",
+      "bytes": 3069
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/inputs/proofs/std/nat/std-nat.hex",
+      "sha256": "65bc5b701561d07b0f675668d942917da23c43606c0cfe0f9edfa113be99f583",
+      "bytes": 743
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/result.json",
+      "sha256": "b14b6d4281108916d8ba3e47e6f6b28a41821118e4a58a9395a5ad5553bd087d",
+      "bytes": 10581
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/stderr.log",
+      "sha256": "73b2e7980519e8f9f2c753220652d6c20c96efc0683eefc2fd8aaa77fb5ec59b",
+      "bytes": 147
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/clippy/stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "b043fba1ddd7ad3e41e2869109b9eced419359464504bf70930ee98b5472268d",
+      "bytes": 35374
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/crates/mpk-vc/src/go_practical_ordinary/dependencies.rs",
+      "sha256": "df5f835b6f2c1fa462add5749831d34c16edcd2872b9ff1a2aa55d8d4d91d4d5",
+      "bytes": 8016
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/crates/mpk-vc/src/go_practical_ordinary/integer.rs",
+      "sha256": "893e2f1295ab018251e3f78458c8827f09c98947f687e2ef11ea828907944c1a",
+      "bytes": 31338
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/crates/mpk-vc/src/go_practical_ordinary/natural.rs",
+      "sha256": "483fb9d5dba921566b448ee5f2551746986e2d4a6c11209b63102a8be4f0a0ec",
+      "bytes": 47316
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/crates/mpk-vc/src/go_practical_ordinary/polynomial.rs",
+      "sha256": "f9ae06bca999a04ce3204d5d65651a9ec7575fda70567972a1aa358e2730b3b2",
+      "bytes": 10141
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/crates/mpk-vc/src/go_practical_ordinary/range.rs",
+      "sha256": "1246a6cb1ef83c67d3507f4258956eda6ce92cda5621859dbc68058fb7558dc1",
+      "bytes": 17074
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/crates/mpk-vc/src/go_practical_ordinary/syntax.rs",
+      "sha256": "04dd2f0327d32ab4ddf357fdbc94816fdb28c2be5fbddfc2495c11df8fc4a5c7",
+      "bytes": 7833
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/crates/mpk-vc/src/go_practical_ordinary/word.rs",
+      "sha256": "297146dfb3acf044507902fc921ff59da45db91f5f05200603a2449967a6322b",
+      "bytes": 24635
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric.rs",
+      "sha256": "cff7fa3c6d790a9ba89bf06270fe2e4d68db920b8395fbb2371ee2f255e3108c",
+      "bytes": 20435
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic.rs",
+      "sha256": "9a3c22336edb3c22be361467d5ea18119b406b8b95336791a1bcb5de29eed187",
+      "bytes": 2072
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/bits.rs",
+      "sha256": "7cc2147d8be034ff16643e7ee34501eccbe303b70e4cfff528e43c28b159effa",
+      "bytes": 2489
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/digits.rs",
+      "sha256": "59fe43cc7a5ac77626b43f011d028e79fecc8b2ad1178c45fc0268650c563da2",
+      "bytes": 5894
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/powers.rs",
+      "sha256": "28f1171150c19871b2ba042009d4acb1e4fa903319265c00945b1a3bfef831fc",
+      "bytes": 5277
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/product.rs",
+      "sha256": "d336264617a73b9d17fd0c914756c752a832cabfce5cfceba6bb01c928005910",
+      "bytes": 10678
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/push.rs",
+      "sha256": "042f36bb1f9151fa6445f1363fca0019424cc7e46a5d74fbae0ddd1a09a46821",
+      "bytes": 10896
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/shift.rs",
+      "sha256": "3cb288b7fbfb7d3bd42710291b0f61c9bb8138eb3c0a990e7ab6c481890a0c86",
+      "bytes": 14691
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/division.rs",
+      "sha256": "f1f3d8e2d709e5cca8dee2303d802360b80e1cb0f4f3c39da11e95fc129e3d84",
+      "bytes": 4434
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/horner.rs",
+      "sha256": "d77c46b353f6734fd2c14f8a70fdc45820223fb3008ba7b99198b1071aba392c",
+      "bytes": 7161
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/natural.rs",
+      "sha256": "ba3095625b0c89d61f802312305f6ea36f02f27f59a48cfdccd220076f49f08f",
+      "bytes": 12181
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/restoring.rs",
+      "sha256": "8c8ed814a46beecf4131ffbdc21a0b43dc2fe1bb4aaa95aab7a273f83462c619",
+      "bytes": 10870
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/stages.rs",
+      "sha256": "1a249e6f97ea56be6d46702cf36a7312b267ae86bcd42f43bf863e95cbfec4e8",
+      "bytes": 17837
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/word_step.rs",
+      "sha256": "5f067bec0a30cd36ff6d53317199364fdb98771afd4fe6fac6f162ff62ed9747",
+      "bytes": 7882
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/order.rs",
+      "sha256": "db4c2006e896439247420fb4d0ac8982152f30e664e6ce0eedf83306e482e6fc",
+      "bytes": 3777
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/order/bounds.rs",
+      "sha256": "ddebc3920ef57e3ff9e25c42855504033a7bb83a25730f98e4f6234b7a2f2cac",
+      "bytes": 9198
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/order/compare.rs",
+      "sha256": "4d213713089ddf7cc073af0f2257a0e0a1938d20cf327661051da9a08ff65a90",
+      "bytes": 11051
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/order/equality.rs",
+      "sha256": "7bc88a33579152c06d982a90ba7ce97db86dc227f53ce8b5335526a40998a2c9",
+      "bytes": 15011
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/order/natural.rs",
+      "sha256": "06e28ddc45c0963320b6cd116c66d534aeb6be5b14f36aef72cc439478e51114",
+      "bytes": 7417
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/order/zero.rs",
+      "sha256": "24da91a96eae6014753e40c021f1d30d313da37630213e58c0c5cbd686308a54",
+      "bytes": 5610
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed.rs",
+      "sha256": "faf7559605fb721443858b5c7af349f8e4d1ebe8c99dc20db2462733ccee0436",
+      "bytes": 13465
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product.rs",
+      "sha256": "cbb141e10d7695d78bcd3ac7ac90d5d13ba9e3f178feaf42b14eaca67f699f49",
+      "bytes": 3063
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product/family.rs",
+      "sha256": "dff5b4f1a2c2c8a62fd16ee3f41c2b76ca469af176bf39ee4028bc39902195b5",
+      "bytes": 7222
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product/natural.rs",
+      "sha256": "e890416bc4e02428a9999f49ee1bdb56d37d873f61e062c3cad8f8ad74233337",
+      "bytes": 14607
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product/projection.rs",
+      "sha256": "6d2ac4eb6189635a4b06f85ce6425c4d96c7aacc364bb5666fd6d91a7b079861",
+      "bytes": 4324
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product/scalar.rs",
+      "sha256": "a4f585f93c53efe5f85214c4a7338ebfe1ad3a977bd0c1e8b37f9a27619c7b8c",
+      "bytes": 10196
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/crates/mpk-vc/src/go_practical_ordinary/word_proofs.rs",
+      "sha256": "208e689773abb4f172fcedb6b1a051e46e031dd05d77fe187e7561df2819a9dd",
+      "bytes": 13898
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/crates/mpk-vc/tests/go_practical_word_signed_product.rs",
+      "sha256": "e78a940e0d90e3f997d1744d9946f169eee190ec87cf42faf3450ff0b05877f9",
+      "bytes": 4853
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/crates/mpk-vc/tests/support/go_word_division_dependencies.rs",
+      "sha256": "1cbd08c125206c011609ac09adc7bf125ddc611fb7aef0cb21b808565d2b4a0e",
+      "bytes": 3674
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/crates/mpk-vc/tests/support/go_word_eval.rs",
+      "sha256": "b563f3bd0faf010764fd64306f350af2ce3716a9304898c6db0f7d02c7161664",
+      "bytes": 14378
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/crates/mpk-vc/tests/support/go_word_signed_product_controls.rs",
+      "sha256": "29689163c25d7400f3818ef52773179570aeeca2a5820f38965de0db3df08b7a",
+      "bytes": 9040
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/crates/mpk-vc/tests/support/go_word_signed_product_observations.rs",
+      "sha256": "4cdcc3bc81d079f24fb80d586c4567a33dec009f1251637176fb2232db3104f1",
+      "bytes": 8175
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/develop/migrations/go-practical/t01-w04/word-foundation/queries.json",
+      "sha256": "3f9ee3ec12430dbbb08fd7bd25dca338cc4ed7f44f5b2d03382871a10dfab354",
+      "bytes": 261807
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/proofs/std/bool/std-bool.hex",
+      "sha256": "88a37f9df68a18bc19d51c0832279ff97a2944fc1676326022269766933ee806",
+      "bytes": 1535
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/proofs/std/eq/std-eq.hex",
+      "sha256": "80d71a2ef388a6ad1dea166cca4bd10d9093d538edc4999743b6fb1ad80d03a1",
+      "bytes": 3069
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/inputs/proofs/std/nat/std-nat.hex",
+      "sha256": "65bc5b701561d07b0f675668d942917da23c43606c0cfe0f9edfa113be99f583",
+      "bytes": 743
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/result.json",
+      "sha256": "eaecbe6aff5dcdef1f7fb6219faf87cd155060f6744e47f259ec97a8a109da55",
+      "bytes": 13376
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/format/stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/go-format/result.json",
+      "sha256": "efc90d8e0440821bc02684787523e802904d17cd7614d602e6b1c456bd95e69d",
+      "bytes": 1459
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/go-format/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/go-format/stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/AlwaysTrueGuard-16.mpcert",
+      "sha256": "a21dcf4ca4b434c0b419b5351e327549e38ae9e60c99f134721a5730ba30be3f",
+      "bytes": 1032847
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/AlwaysTrueGuard-16.rust.json",
+      "sha256": "992cccdd3b0ccad91e968a1271d86feb07539a96fef8064c62099e2dfd0f3a20",
+      "bytes": 540
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/AlwaysTrueGuard-32.mpcert",
+      "sha256": "95da6290f91c9f4eb7c61b90f945fd18a2d567f55748064a3c129166144c7a75",
+      "bytes": 1032847
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/AlwaysTrueGuard-32.rust.json",
+      "sha256": "b89a9dda0ef1eca5cf10a854366961f2a64fc233eed0f9374ec0ee7d435caf88",
+      "bytes": 540
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/AlwaysTrueGuard-64.mpcert",
+      "sha256": "dc0140b9f7575bae0c80df1aed12dce40b1b4f43ce75fa42a84eba1ff0636a97",
+      "bytes": 1032847
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/AlwaysTrueGuard-64.rust.json",
+      "sha256": "b220dd08a6efd9cd5aa615a0482ad70e58e54bb53866bdbfeea9f8c207d8c089",
+      "bytes": 540
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/AlwaysTrueGuard-8.mpcert",
+      "sha256": "c153f4a60605237feeb8586cb1ee44bfd4e75d01a9db115d31cc016da1ea1131",
+      "bytes": 1032847
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/AlwaysTrueGuard-8.rust.json",
+      "sha256": "21b25d353521a953f041a0db52e548de2f850eacb21c6614eaa7f7520af35b6d",
+      "bytes": 540
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/FakeTruePremise-16.mpcert",
+      "sha256": "aec350605240d2d46f881a5397acd2b2a56060747091a75bdba96894c4a22efb",
+      "bytes": 1032874
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/FakeTruePremise-16.rust.json",
+      "sha256": "1a3411dbd4fe58f4707f3ea7ce0ceba8e9f65510085e49d31b8ec63bee6677cc",
+      "bytes": 591
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/FakeTruePremise-32.mpcert",
+      "sha256": "00d71b4028aa1b2f328a43c40fd438649e58fe0cd67eb148b91b59bc3fd0902e",
+      "bytes": 1032874
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/FakeTruePremise-32.rust.json",
+      "sha256": "999c4d965e7fd3f81e32f58532cba876787a9b06e7f431a08509d96cf6dfd4b9",
+      "bytes": 591
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/FakeTruePremise-64.mpcert",
+      "sha256": "d82a59b8f996b9d2a93a9fb53f01daf11a1295cb7c4324268081144f85c67e4b",
+      "bytes": 1032874
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/FakeTruePremise-64.rust.json",
+      "sha256": "11c4dbca21984b33ebdab49abf649021d0c78df1b9564453b93ce0ab84e3b205",
+      "bytes": 591
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/FakeTruePremise-8.mpcert",
+      "sha256": "a9a4b4ea72d793ea1dad6102f943a88b77ca7c73e5fc324cf21513c5f5c844c2",
+      "bytes": 1032874
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/FakeTruePremise-8.rust.json",
+      "sha256": "31231f4e932569ec941f615727c6e3194a0cf42aad6759d0a16294860fb803ce",
+      "bytes": 591
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/FalseComplete-16.mpcert",
+      "sha256": "a35cc3ac890e324ec14fc9ebcf52e22b6bb8def62adcfe0816c8fc8053a19702",
+      "bytes": 1032865
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/FalseComplete-16.rust.json",
+      "sha256": "aa5fbbe2d73a27412a5666cd6357c15b6edc2b150584621bee6db9747d276709",
+      "bytes": 546
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/FalseComplete-32.mpcert",
+      "sha256": "a10c15823a3919cde591569ffadf5a25d77555d23c7331e357efe5a58de48f27",
+      "bytes": 1032865
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/FalseComplete-32.rust.json",
+      "sha256": "f213560d0ccb779e191416c596ea696e4c2b61d34763d2a1319111a7089328c5",
+      "bytes": 546
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/FalseComplete-64.mpcert",
+      "sha256": "f6c843ed3b16933773609e359854dfc4c0cf6289ee1176634137a47bc3c2afcc",
+      "bytes": 1032865
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/FalseComplete-64.rust.json",
+      "sha256": "18063ffd14fcebdefbe2c5fe76222de6b9a708754fb1d3e4f0a2c98d0ed3a200",
+      "bytes": 546
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/FalseComplete-8.mpcert",
+      "sha256": "62122ac6bd0eec5b89717adc8a89d53230ee7ccaeb601578170b3c82f35251b2",
+      "bytes": 1032865
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/FalseComplete-8.rust.json",
+      "sha256": "277f57214cc7b47a48398d7b7f2baeaf8f0f959d67da0d305149326d633cce8b",
+      "bytes": 546
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/FalseIntegerEquality-16.mpcert",
+      "sha256": "36eb94c4592cf6a6a593e7b5f7729d51613856a17bd51922a93aac113aac8504",
+      "bytes": 1032858
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/FalseIntegerEquality-16.rust.json",
+      "sha256": "34c0474aa5a0ca514ad98618eb90181daa09b010879c08d9969d5531453d2746",
+      "bytes": 546
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/FalseIntegerEquality-32.mpcert",
+      "sha256": "feb77f93e438a6b0217ed878036eb0d4939ffed6da4924819681d6c72d8ade28",
+      "bytes": 1032858
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/FalseIntegerEquality-32.rust.json",
+      "sha256": "0f58fb7a06abf610cca35ff9710937a5811bfba3255cc307ab802227746aaf4d",
+      "bytes": 546
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/FalseIntegerEquality-64.mpcert",
+      "sha256": "9b3097d0902487c4e0871281d39f64a9eb4a91face98eaa72373f640be8c2954",
+      "bytes": 1032858
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/FalseIntegerEquality-64.rust.json",
+      "sha256": "bc15f131b56469daef0da7e527f652303368b0b793ea5f1951ac24dc40c59cce",
+      "bytes": 546
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/FalseIntegerEquality-8.mpcert",
+      "sha256": "5cfe8c2f812d8cdbcfd21865133239c5db760506016c1e407dca2c405aae3a3e",
+      "bytes": 1032858
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/FalseIntegerEquality-8.rust.json",
+      "sha256": "0430593cc1335fd711aec0530a9e1ec2759cfe4e6aaab050e70f1a3b417b7fb2",
+      "bytes": 546
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/FalseReflection.mpcert",
+      "sha256": "259a59f54220a3b8544dc34056c5fff6c577f1a97ec96c7cc9a5643fbf15b242",
+      "bytes": 1032869
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/FalseReflection.rust.json",
+      "sha256": "01dc095939cc9c999e9b3205c41b49743c1b600a57cd337916c9343cb77ac950",
+      "bytes": 545
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/IgnoredModulusPositive.mpcert",
+      "sha256": "fb040408f694cc3fa642a9fd8b8c52c05bb4fad583a359e4d551c27f99d97e1a",
+      "bytes": 1032917
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/IgnoredModulusPositive.rust.json",
+      "sha256": "743e311b41a20eb58cb347d2460936db91b0d60ece02130d81ca65c5ed23866b",
+      "bytes": 591
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/IgnoredMultiplierPositive.mpcert",
+      "sha256": "0b0e0a47be78dc24206e01693ab69350fa2db16897be9c8a381bfa5c32983f36",
+      "bytes": 1032868
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/IgnoredMultiplierPositive.rust.json",
+      "sha256": "8013d6e50ec17b8f51c9c3f246ffa678f7726008e2cedbd2f671f040bb807637",
+      "bytes": 591
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/IgnoredUnsignedWitness.mpcert",
+      "sha256": "d9c7dcedc25df095ba8f6cc5b65f7a49ee8ac25934327787fcfecdad579baac4",
+      "bytes": 1032910
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/IgnoredUnsignedWitness.rust.json",
+      "sha256": "6370a3dada3e8eec87214f03645c35bd20ea4436a5cd300ff7467716875c9122",
+      "bytes": 591
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/WrongBalance.mpcert",
+      "sha256": "334785beac32a75c4081b0582f4a0fa9d62d0d47e5176ad1d438ba194c0f60fc",
+      "bytes": 1032902
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/WrongBalance.rust.json",
+      "sha256": "ad6ce1f034033f16307007f19e485cbbaab454e1700820c4286aa238467ef4af",
+      "bytes": 546
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/WrongNegativeCorrection-16.mpcert",
+      "sha256": "8b7520fd0ae960cc5ef1cd186f28faf1c9df72cfec41deec49b8a5d8b26f4fc2",
+      "bytes": 1032847
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/WrongNegativeCorrection-16.rust.json",
+      "sha256": "ac3e4076a89be0ae13363cdfc565ee19069b8508a53241090faa0efdbc054c7b",
+      "bytes": 546
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/WrongNegativeCorrection-32.mpcert",
+      "sha256": "b48b83b4db2b77543f691edffc6124ef1dd0c4b169cc433b12a02fae1fe57954",
+      "bytes": 1032847
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/WrongNegativeCorrection-32.rust.json",
+      "sha256": "288341871c83aa377c6f7ffb208999111c06985cbdef39855b2c98be4e3ad7eb",
+      "bytes": 546
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/WrongNegativeCorrection-64.mpcert",
+      "sha256": "bcfddc364cc2f96273541c5a606ca77b6d74b17e6bd31a3b355c707e6b364e94",
+      "bytes": 1032847
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/WrongNegativeCorrection-64.rust.json",
+      "sha256": "13d7070a8355877d0af794742d2ccb28f006d86f7a3a74189cfda72c836b18ef",
+      "bytes": 546
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/WrongNegativeCorrection-8.mpcert",
+      "sha256": "c12338409a68fdccc7a0fbb1fac52bddeb70730f5ab15632872ee1c58a65c8dd",
+      "bytes": 1032847
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/WrongNegativeCorrection-8.rust.json",
+      "sha256": "ca47e1a7f0360c3088365390057ba1893e0374d29f676f35fe76d977509a7218",
+      "bytes": 546
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/WrongPositiveCorrection-16.mpcert",
+      "sha256": "37f4a9ec4db8b5c79e5f7ed941b2ea405b8cd16109f70497bcdc04543b0c2638",
+      "bytes": 1032847
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/WrongPositiveCorrection-16.rust.json",
+      "sha256": "cd6e37e38e3d6c5df311dd6982b3f29d316af9b358c8b4a9f69c3f15de6cbeec",
+      "bytes": 546
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/WrongPositiveCorrection-32.mpcert",
+      "sha256": "75e862ba40e43ac6c628f2e0e4fce00b97473deaca758023c15432a36b7f561c",
+      "bytes": 1032847
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/WrongPositiveCorrection-32.rust.json",
+      "sha256": "0a2cb63b7e74cd4b96a18ed092fc706329f5414bc98677a6477940093a771791",
+      "bytes": 546
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/WrongPositiveCorrection-64.mpcert",
+      "sha256": "e778adf1c4441f818a7accaf85aa9a2c391be88aa994590063738804a90717f2",
+      "bytes": 1032847
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/WrongPositiveCorrection-64.rust.json",
+      "sha256": "a4ccf634826d38f09962fb7b5689246cbffb403270df58c48b838dfa2e1124d3",
+      "bytes": 546
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/WrongPositiveCorrection-8.mpcert",
+      "sha256": "cf82f1f81e1d80c74e579c6bf31e295cc499fd15bccd6586daf84f049286092c",
+      "bytes": 1032847
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/WrongPositiveCorrection-8.rust.json",
+      "sha256": "2c96a63e8cbab19e80833a2aa0154236a9a334329343513da7d6af87477ff164",
+      "bytes": 546
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/WrongZeroSum.mpcert",
+      "sha256": "9ccbe2942466aece9d6eb7a7442daf1ca4966f1cd87d1dfd45ba2451b6377dc0",
+      "bytes": 1032876
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/WrongZeroSum.rust.json",
+      "sha256": "352fb64faeb9846cdf27f45e80dc714f57307e225447a12ca47b3d357c48d664",
+      "bytes": 545
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/ZeroPower.mpcert",
+      "sha256": "3ff91481eba3b5ab95364c440d994da0cdf1339b0b241aa35b2aa1d669425848",
+      "bytes": 1032841
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/ZeroPower.rust.json",
+      "sha256": "1c989a854e0705cb8c484a35213ae0972a8888124b7f6003087c3c5a922022db",
+      "bytes": 541
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/honest-different-signed-product-component.mpcert",
+      "sha256": "134022ad0f58fa6d2da3fedd50bda19326e78465d488a894c5f4a30ebf241349",
+      "bytes": 1032925
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/honest-different-signed-product-component.rust.json",
+      "sha256": "5a7e843bca15563a259c1313fb7d2ee7bc44b056e257e855a478c0d74daab2dc",
+      "bytes": 608
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/word-signed-product-foundation.mpcert",
+      "sha256": "5b0d67641b9a4c5de86a32411a29f00d6ebdd5cdb049f1b21839e79526a66eda",
+      "bytes": 1032832
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/certificates/word-signed-product-foundation.rust.json",
+      "sha256": "ab2e523be668217107acb68b1b9c2fc5d09c90c695ea4fa7fb88f52dc0d41ff6",
+      "bytes": 608
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "b043fba1ddd7ad3e41e2869109b9eced419359464504bf70930ee98b5472268d",
+      "bytes": 35374
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/dependencies.rs",
+      "sha256": "df5f835b6f2c1fa462add5749831d34c16edcd2872b9ff1a2aa55d8d4d91d4d5",
+      "bytes": 8016
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/integer.rs",
+      "sha256": "893e2f1295ab018251e3f78458c8827f09c98947f687e2ef11ea828907944c1a",
+      "bytes": 31338
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/natural.rs",
+      "sha256": "483fb9d5dba921566b448ee5f2551746986e2d4a6c11209b63102a8be4f0a0ec",
+      "bytes": 47316
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/polynomial.rs",
+      "sha256": "f9ae06bca999a04ce3204d5d65651a9ec7575fda70567972a1aa358e2730b3b2",
+      "bytes": 10141
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/range.rs",
+      "sha256": "1246a6cb1ef83c67d3507f4258956eda6ce92cda5621859dbc68058fb7558dc1",
+      "bytes": 17074
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/syntax.rs",
+      "sha256": "04dd2f0327d32ab4ddf357fdbc94816fdb28c2be5fbddfc2495c11df8fc4a5c7",
+      "bytes": 7833
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/word.rs",
+      "sha256": "297146dfb3acf044507902fc921ff59da45db91f5f05200603a2449967a6322b",
+      "bytes": 24635
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric.rs",
+      "sha256": "cff7fa3c6d790a9ba89bf06270fe2e4d68db920b8395fbb2371ee2f255e3108c",
+      "bytes": 20435
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic.rs",
+      "sha256": "9a3c22336edb3c22be361467d5ea18119b406b8b95336791a1bcb5de29eed187",
+      "bytes": 2072
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/bits.rs",
+      "sha256": "7cc2147d8be034ff16643e7ee34501eccbe303b70e4cfff528e43c28b159effa",
+      "bytes": 2489
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/digits.rs",
+      "sha256": "59fe43cc7a5ac77626b43f011d028e79fecc8b2ad1178c45fc0268650c563da2",
+      "bytes": 5894
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/powers.rs",
+      "sha256": "28f1171150c19871b2ba042009d4acb1e4fa903319265c00945b1a3bfef831fc",
+      "bytes": 5277
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/product.rs",
+      "sha256": "d336264617a73b9d17fd0c914756c752a832cabfce5cfceba6bb01c928005910",
+      "bytes": 10678
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/push.rs",
+      "sha256": "042f36bb1f9151fa6445f1363fca0019424cc7e46a5d74fbae0ddd1a09a46821",
+      "bytes": 10896
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/shift.rs",
+      "sha256": "3cb288b7fbfb7d3bd42710291b0f61c9bb8138eb3c0a990e7ab6c481890a0c86",
+      "bytes": 14691
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/division.rs",
+      "sha256": "f1f3d8e2d709e5cca8dee2303d802360b80e1cb0f4f3c39da11e95fc129e3d84",
+      "bytes": 4434
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/horner.rs",
+      "sha256": "d77c46b353f6734fd2c14f8a70fdc45820223fb3008ba7b99198b1071aba392c",
+      "bytes": 7161
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/natural.rs",
+      "sha256": "ba3095625b0c89d61f802312305f6ea36f02f27f59a48cfdccd220076f49f08f",
+      "bytes": 12181
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/restoring.rs",
+      "sha256": "8c8ed814a46beecf4131ffbdc21a0b43dc2fe1bb4aaa95aab7a273f83462c619",
+      "bytes": 10870
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/stages.rs",
+      "sha256": "1a249e6f97ea56be6d46702cf36a7312b267ae86bcd42f43bf863e95cbfec4e8",
+      "bytes": 17837
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/word_step.rs",
+      "sha256": "5f067bec0a30cd36ff6d53317199364fdb98771afd4fe6fac6f162ff62ed9747",
+      "bytes": 7882
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/order.rs",
+      "sha256": "db4c2006e896439247420fb4d0ac8982152f30e664e6ce0eedf83306e482e6fc",
+      "bytes": 3777
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/order/bounds.rs",
+      "sha256": "ddebc3920ef57e3ff9e25c42855504033a7bb83a25730f98e4f6234b7a2f2cac",
+      "bytes": 9198
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/order/compare.rs",
+      "sha256": "4d213713089ddf7cc073af0f2257a0e0a1938d20cf327661051da9a08ff65a90",
+      "bytes": 11051
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/order/equality.rs",
+      "sha256": "7bc88a33579152c06d982a90ba7ce97db86dc227f53ce8b5335526a40998a2c9",
+      "bytes": 15011
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/order/natural.rs",
+      "sha256": "06e28ddc45c0963320b6cd116c66d534aeb6be5b14f36aef72cc439478e51114",
+      "bytes": 7417
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/order/zero.rs",
+      "sha256": "24da91a96eae6014753e40c021f1d30d313da37630213e58c0c5cbd686308a54",
+      "bytes": 5610
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed.rs",
+      "sha256": "faf7559605fb721443858b5c7af349f8e4d1ebe8c99dc20db2462733ccee0436",
+      "bytes": 13465
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product.rs",
+      "sha256": "cbb141e10d7695d78bcd3ac7ac90d5d13ba9e3f178feaf42b14eaca67f699f49",
+      "bytes": 3063
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product/family.rs",
+      "sha256": "dff5b4f1a2c2c8a62fd16ee3f41c2b76ca469af176bf39ee4028bc39902195b5",
+      "bytes": 7222
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product/natural.rs",
+      "sha256": "e890416bc4e02428a9999f49ee1bdb56d37d873f61e062c3cad8f8ad74233337",
+      "bytes": 14607
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product/projection.rs",
+      "sha256": "6d2ac4eb6189635a4b06f85ce6425c4d96c7aacc364bb5666fd6d91a7b079861",
+      "bytes": 4324
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product/scalar.rs",
+      "sha256": "a4f585f93c53efe5f85214c4a7338ebfe1ad3a977bd0c1e8b37f9a27619c7b8c",
+      "bytes": 10196
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/word_proofs.rs",
+      "sha256": "208e689773abb4f172fcedb6b1a051e46e031dd05d77fe187e7561df2819a9dd",
+      "bytes": 13898
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/crates/mpk-vc/tests/go_practical_word_signed_product.rs",
+      "sha256": "e78a940e0d90e3f997d1744d9946f169eee190ec87cf42faf3450ff0b05877f9",
+      "bytes": 4853
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/crates/mpk-vc/tests/support/go_word_division_dependencies.rs",
+      "sha256": "1cbd08c125206c011609ac09adc7bf125ddc611fb7aef0cb21b808565d2b4a0e",
+      "bytes": 3674
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/crates/mpk-vc/tests/support/go_word_eval.rs",
+      "sha256": "b563f3bd0faf010764fd64306f350af2ce3716a9304898c6db0f7d02c7161664",
+      "bytes": 14378
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/crates/mpk-vc/tests/support/go_word_signed_product_controls.rs",
+      "sha256": "29689163c25d7400f3818ef52773179570aeeca2a5820f38965de0db3df08b7a",
+      "bytes": 9040
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/crates/mpk-vc/tests/support/go_word_signed_product_observations.rs",
+      "sha256": "4cdcc3bc81d079f24fb80d586c4567a33dec009f1251637176fb2232db3104f1",
+      "bytes": 8175
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/develop/migrations/go-practical/t01-w04/word-foundation/queries.json",
+      "sha256": "3f9ee3ec12430dbbb08fd7bd25dca338cc4ed7f44f5b2d03382871a10dfab354",
+      "bytes": 261807
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/proofs/std/bool/std-bool.hex",
+      "sha256": "88a37f9df68a18bc19d51c0832279ff97a2944fc1676326022269766933ee806",
+      "bytes": 1535
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/proofs/std/eq/std-eq.hex",
+      "sha256": "80d71a2ef388a6ad1dea166cca4bd10d9093d538edc4999743b6fb1ad80d03a1",
+      "bytes": 3069
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/inputs/proofs/std/nat/std-nat.hex",
+      "sha256": "65bc5b701561d07b0f675668d942917da23c43606c0cfe0f9edfa113be99f583",
+      "bytes": 743
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/model/certificate.mpcert",
+      "sha256": "5b0d67641b9a4c5de86a32411a29f00d6ebdd5cdb049f1b21839e79526a66eda",
+      "bytes": 1032832
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/model/metrics.json",
+      "sha256": "9db63979468846ad13c7c3599d8d01041dbbb32d9da4682a833ab4df9d282f3b",
+      "bytes": 905
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/model/model.json",
+      "sha256": "306682ca4b96ee0b4a0702bdd545d85265b049de58d5adf6c748a59c9eb2ba5a",
+      "bytes": 160236
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/result.json",
+      "sha256": "cb0fc806d5fb1476b721c27cddb0a24237aadda352edf672301fd3d058b38193",
+      "bytes": 19849
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/stderr.log",
+      "sha256": "77d98c8b7d8e579bf97aafef3a1d96a66d0584d1b7f9e767ce63bc4712bd6bb6",
+      "bytes": 271
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/stdout.log",
+      "sha256": "0b1f42e26b834fc05856496835f8ad3b18390b205dbea4eb181fa6575de8da3b",
+      "bytes": 711
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/frozen-design-preservation.json",
+      "sha256": "dd0bda122cba32363349000739dc992bb79123b0186291b7b318523e1d204732",
+      "bytes": 53034
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/input-review/local-source-review.json",
+      "sha256": "530d3c50844fda191f239870eb1212df067bb43a3fe5d08c0b4741358e060244",
+      "bytes": 5319
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/input-review/raw-formatter-observations.json",
+      "sha256": "d25c8eacb9c0f46f833de556116406e7bffec8ae48fff755dd660eb51b11eabf",
+      "bytes": 1399
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/input-review/run-review.py",
+      "sha256": "bf1d658694ddcda1eb86aeab5e8a66b839ef8aef70d579750f4e8551c130e849",
+      "bytes": 5788
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/native-comparison-final/independent-integer-oracle.json",
+      "sha256": "3a33ab49ceaf55f0090d1d1fd7099ea9d91876edba7b656e78b14ffb73c19848",
+      "bytes": 256669
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/native-comparison-final/result.json",
+      "sha256": "dfa8541f3f5f6631add45850002eef97ca001e6b72166109429a4946bd3bc2dc",
+      "bytes": 2705
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/native/build.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/native/build.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/native/inputs/queries.json",
+      "sha256": "b6ab83d0b19fecfe4d49bd6c86edc5d3554fc8bc01c7b5613a289e6dda13735d",
+      "bytes": 9975
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/native/inputs/signed_product_observer.go",
+      "sha256": "1c1f5882b3cf2f47fdd44261b0610958ad188bfd2bf259c021bb63d862b9ffed",
+      "bytes": 4454
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/native/result.json",
+      "sha256": "606433791006b95d83fa083f8fb7d1e76684a3b4d27f5f0f6ffa3c977911cd81",
+      "bytes": 5916
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/native/run1.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/native/run1.stdout.log",
+      "sha256": "306682ca4b96ee0b4a0702bdd545d85265b049de58d5adf6c748a59c9eb2ba5a",
+      "bytes": 160236
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/native/run2.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/native/run2.stdout.log",
+      "sha256": "306682ca4b96ee0b4a0702bdd545d85265b049de58d5adf6c748a59c9eb2ba5a",
+      "bytes": 160236
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/certificates/word-signed-product-foundation.mpcert",
+      "sha256": "071d8359c53c15b024edf43bd9eabef3b50c48f5c3932bfc1940229c41fce9bf",
+      "bytes": 961021
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/certificates/word-signed-product-foundation.rust.json",
+      "sha256": "efa9469a3aca729e428d7e3259472e6f52227443339e12f8e91e02e6de9a3beb",
+      "bytes": 608
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "b043fba1ddd7ad3e41e2869109b9eced419359464504bf70930ee98b5472268d",
+      "bytes": 35374
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/dependencies.rs",
+      "sha256": "df5f835b6f2c1fa462add5749831d34c16edcd2872b9ff1a2aa55d8d4d91d4d5",
+      "bytes": 8016
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/integer.rs",
+      "sha256": "893e2f1295ab018251e3f78458c8827f09c98947f687e2ef11ea828907944c1a",
+      "bytes": 31338
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/natural.rs",
+      "sha256": "483fb9d5dba921566b448ee5f2551746986e2d4a6c11209b63102a8be4f0a0ec",
+      "bytes": 47316
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/polynomial.rs",
+      "sha256": "f9ae06bca999a04ce3204d5d65651a9ec7575fda70567972a1aa358e2730b3b2",
+      "bytes": 10141
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/range.rs",
+      "sha256": "1246a6cb1ef83c67d3507f4258956eda6ce92cda5621859dbc68058fb7558dc1",
+      "bytes": 17074
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/syntax.rs",
+      "sha256": "04dd2f0327d32ab4ddf357fdbc94816fdb28c2be5fbddfc2495c11df8fc4a5c7",
+      "bytes": 7833
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word.rs",
+      "sha256": "297146dfb3acf044507902fc921ff59da45db91f5f05200603a2449967a6322b",
+      "bytes": 24635
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric.rs",
+      "sha256": "cff7fa3c6d790a9ba89bf06270fe2e4d68db920b8395fbb2371ee2f255e3108c",
+      "bytes": 20435
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic.rs",
+      "sha256": "9a3c22336edb3c22be361467d5ea18119b406b8b95336791a1bcb5de29eed187",
+      "bytes": 2072
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/bits.rs",
+      "sha256": "7cc2147d8be034ff16643e7ee34501eccbe303b70e4cfff528e43c28b159effa",
+      "bytes": 2489
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/digits.rs",
+      "sha256": "59fe43cc7a5ac77626b43f011d028e79fecc8b2ad1178c45fc0268650c563da2",
+      "bytes": 5894
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/powers.rs",
+      "sha256": "28f1171150c19871b2ba042009d4acb1e4fa903319265c00945b1a3bfef831fc",
+      "bytes": 5277
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/product.rs",
+      "sha256": "d336264617a73b9d17fd0c914756c752a832cabfce5cfceba6bb01c928005910",
+      "bytes": 10678
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/push.rs",
+      "sha256": "042f36bb1f9151fa6445f1363fca0019424cc7e46a5d74fbae0ddd1a09a46821",
+      "bytes": 10896
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/shift.rs",
+      "sha256": "3cb288b7fbfb7d3bd42710291b0f61c9bb8138eb3c0a990e7ab6c481890a0c86",
+      "bytes": 14691
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/division.rs",
+      "sha256": "f1f3d8e2d709e5cca8dee2303d802360b80e1cb0f4f3c39da11e95fc129e3d84",
+      "bytes": 4434
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/horner.rs",
+      "sha256": "d77c46b353f6734fd2c14f8a70fdc45820223fb3008ba7b99198b1071aba392c",
+      "bytes": 7161
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/natural.rs",
+      "sha256": "ba3095625b0c89d61f802312305f6ea36f02f27f59a48cfdccd220076f49f08f",
+      "bytes": 12181
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/restoring.rs",
+      "sha256": "8c8ed814a46beecf4131ffbdc21a0b43dc2fe1bb4aaa95aab7a273f83462c619",
+      "bytes": 10870
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/stages.rs",
+      "sha256": "1a249e6f97ea56be6d46702cf36a7312b267ae86bcd42f43bf863e95cbfec4e8",
+      "bytes": 17837
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/word_step.rs",
+      "sha256": "5f067bec0a30cd36ff6d53317199364fdb98771afd4fe6fac6f162ff62ed9747",
+      "bytes": 7882
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/order.rs",
+      "sha256": "db4c2006e896439247420fb4d0ac8982152f30e664e6ce0eedf83306e482e6fc",
+      "bytes": 3777
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/order/bounds.rs",
+      "sha256": "ddebc3920ef57e3ff9e25c42855504033a7bb83a25730f98e4f6234b7a2f2cac",
+      "bytes": 9198
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/order/compare.rs",
+      "sha256": "4d213713089ddf7cc073af0f2257a0e0a1938d20cf327661051da9a08ff65a90",
+      "bytes": 11051
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/order/equality.rs",
+      "sha256": "7bc88a33579152c06d982a90ba7ce97db86dc227f53ce8b5335526a40998a2c9",
+      "bytes": 15011
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/order/natural.rs",
+      "sha256": "06e28ddc45c0963320b6cd116c66d534aeb6be5b14f36aef72cc439478e51114",
+      "bytes": 7417
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/order/zero.rs",
+      "sha256": "24da91a96eae6014753e40c021f1d30d313da37630213e58c0c5cbd686308a54",
+      "bytes": 5610
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed.rs",
+      "sha256": "faf7559605fb721443858b5c7af349f8e4d1ebe8c99dc20db2462733ccee0436",
+      "bytes": 13465
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product.rs",
+      "sha256": "16c7cd222fdc6cca0d0ef6b4b927a12ec4c1f37d6c1a621e396e62d508bc6bf5",
+      "bytes": 2931
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product/natural.rs",
+      "sha256": "e890416bc4e02428a9999f49ee1bdb56d37d873f61e062c3cad8f8ad74233337",
+      "bytes": 14607
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_proofs.rs",
+      "sha256": "208e689773abb4f172fcedb6b1a051e46e031dd05d77fe187e7561df2819a9dd",
+      "bytes": 13898
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/inputs/crates/mpk-vc/tests/go_practical_word_signed_product.rs",
+      "sha256": "d03408e57802c1c994566f89fcfcf246ed797a450d449422e5c358566b282c41",
+      "bytes": 3422
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/inputs/crates/mpk-vc/tests/support/go_word_division_dependencies.rs",
+      "sha256": "1cbd08c125206c011609ac09adc7bf125ddc611fb7aef0cb21b808565d2b4a0e",
+      "bytes": 3674
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/inputs/crates/mpk-vc/tests/support/go_word_eval.rs",
+      "sha256": "b563f3bd0faf010764fd64306f350af2ce3716a9304898c6db0f7d02c7161664",
+      "bytes": 14378
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/inputs/proofs/std/bool/std-bool.hex",
+      "sha256": "88a37f9df68a18bc19d51c0832279ff97a2944fc1676326022269766933ee806",
+      "bytes": 1535
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/inputs/proofs/std/eq/std-eq.hex",
+      "sha256": "80d71a2ef388a6ad1dea166cca4bd10d9093d538edc4999743b6fb1ad80d03a1",
+      "bytes": 3069
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/inputs/proofs/std/nat/std-nat.hex",
+      "sha256": "65bc5b701561d07b0f675668d942917da23c43606c0cfe0f9edfa113be99f583",
+      "bytes": 743
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/result.json",
+      "sha256": "432b564ffc860091851f7e72e4e77b0212eca41f306a7800b1b3613c03c31a8a",
+      "bytes": 9978
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/stderr.log",
+      "sha256": "b04503fc0fdda644be15d36bed4ff5ccfe474a95433a6233f03ded252e9e4ebd",
+      "bytes": 750
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/stdout.log",
+      "sha256": "a056f6eaaa75ca1c79bc2958b65b07aee15dd33bee715752ab3edab1490c19ef",
+      "bytes": 287
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/AlwaysTrueGuard-16.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/AlwaysTrueGuard-16.stdout.log",
+      "sha256": "7dd47e7cef945dafd2ad4ae2b1b2f5f135da82268d315d9bd57a4ccdd5ac90c7",
+      "bytes": 103
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/AlwaysTrueGuard-32.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/AlwaysTrueGuard-32.stdout.log",
+      "sha256": "7dd47e7cef945dafd2ad4ae2b1b2f5f135da82268d315d9bd57a4ccdd5ac90c7",
+      "bytes": 103
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/AlwaysTrueGuard-64.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/AlwaysTrueGuard-64.stdout.log",
+      "sha256": "7dd47e7cef945dafd2ad4ae2b1b2f5f135da82268d315d9bd57a4ccdd5ac90c7",
+      "bytes": 103
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/AlwaysTrueGuard-8.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/AlwaysTrueGuard-8.stdout.log",
+      "sha256": "7dd47e7cef945dafd2ad4ae2b1b2f5f135da82268d315d9bd57a4ccdd5ac90c7",
+      "bytes": 103
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/FakeTruePremise-16.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/FakeTruePremise-16.stdout.log",
+      "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+      "bytes": 89
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/FakeTruePremise-32.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/FakeTruePremise-32.stdout.log",
+      "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+      "bytes": 89
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/FakeTruePremise-64.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/FakeTruePremise-64.stdout.log",
+      "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+      "bytes": 89
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/FakeTruePremise-8.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/FakeTruePremise-8.stdout.log",
+      "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+      "bytes": 89
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/FalseComplete-16.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/FalseComplete-16.stdout.log",
+      "sha256": "b9230ea62014fd2219cf5deba662b815dc44a257c904a545f79c62eafa3da210",
+      "bytes": 109
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/FalseComplete-32.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/FalseComplete-32.stdout.log",
+      "sha256": "dd52ceff26ee83029162bc414f742f0ddfdc4795bdc8a96cf0988176bbb2a42b",
+      "bytes": 109
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/FalseComplete-64.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/FalseComplete-64.stdout.log",
+      "sha256": "3c48e65b68bade1598f80c895dc1dacc2f9fc7da23d0f30cd5fcb07694b6229c",
+      "bytes": 109
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/FalseComplete-8.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/FalseComplete-8.stdout.log",
+      "sha256": "a218f3e42a230c0da9b240a3fc55a21f46d4568351d6a5f29259f9a66faddad1",
+      "bytes": 109
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/FalseIntegerEquality-16.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/FalseIntegerEquality-16.stdout.log",
+      "sha256": "e44f8ec5053fdaabfbb807a967f0e4c0cb87b89a9ea694bb53180530bda5de2f",
+      "bytes": 109
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/FalseIntegerEquality-32.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/FalseIntegerEquality-32.stdout.log",
+      "sha256": "a1b26719e1a4e6f1cddf3993bad548a3b4a7457985f3e7105e41746e2e6f90f3",
+      "bytes": 109
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/FalseIntegerEquality-64.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/FalseIntegerEquality-64.stdout.log",
+      "sha256": "713ac2cad0cc5d8b96bf003dd38351ca2f0a114b78e2138416e89bc913eb0143",
+      "bytes": 109
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/FalseIntegerEquality-8.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/FalseIntegerEquality-8.stdout.log",
+      "sha256": "08720ff9a3bee57d19f373d16c83159d9f847f2819244855d6d114d9533f2c17",
+      "bytes": 109
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/FalseReflection.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/FalseReflection.stdout.log",
+      "sha256": "781b3048e24ef954ce59d23693d6bf9065c55da04848eb4b3d50cc642181edc7",
+      "bytes": 108
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/IgnoredModulusPositive.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/IgnoredModulusPositive.stdout.log",
+      "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+      "bytes": 89
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/IgnoredMultiplierPositive.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/IgnoredMultiplierPositive.stdout.log",
+      "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+      "bytes": 89
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/IgnoredUnsignedWitness.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/IgnoredUnsignedWitness.stdout.log",
+      "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+      "bytes": 89
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/WrongBalance.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/WrongBalance.stdout.log",
+      "sha256": "6781fdb9c8eff183588f312de7d0b3f0732142dff1c29663f696cb3c39313be8",
+      "bytes": 109
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/WrongNegativeCorrection-16.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/WrongNegativeCorrection-16.stdout.log",
+      "sha256": "808fb871fc3052e27197f2aa7f54a032a8ae17f45c6e4c383541158ebde15774",
+      "bytes": 109
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/WrongNegativeCorrection-32.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/WrongNegativeCorrection-32.stdout.log",
+      "sha256": "a8343b348a2577dea642c4c7fbe37e7f9f411f20dfd3e14b64527a598727cf07",
+      "bytes": 109
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/WrongNegativeCorrection-64.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/WrongNegativeCorrection-64.stdout.log",
+      "sha256": "f090ef8bbed8b6cc65e787a6c63bc5fef56a0bec9bf8a711cebb669bc28a2948",
+      "bytes": 109
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/WrongNegativeCorrection-8.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/WrongNegativeCorrection-8.stdout.log",
+      "sha256": "4fa27ad3a26c35e699733f27a3c4ba7fa5c86430cd47f90841d3247714534fb2",
+      "bytes": 109
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/WrongPositiveCorrection-16.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/WrongPositiveCorrection-16.stdout.log",
+      "sha256": "15204c0ad24488f84829a526fbfb9ed5beb0a4253c5a65ed8b16b232f749a23d",
+      "bytes": 109
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/WrongPositiveCorrection-32.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/WrongPositiveCorrection-32.stdout.log",
+      "sha256": "379b543ec11b532344e2b020df3569d617975664b2df5aa9d19557aca20ccb05",
+      "bytes": 109
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/WrongPositiveCorrection-64.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/WrongPositiveCorrection-64.stdout.log",
+      "sha256": "c416ded22011904fc9345512e11c39595c119df7e1e3e622653a7e213d2b2fe1",
+      "bytes": 109
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/WrongPositiveCorrection-8.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/WrongPositiveCorrection-8.stdout.log",
+      "sha256": "4b68cf55c057fa006add52464870f9e2c0de7dd68f3bde8cbba43b5920377c40",
+      "bytes": 109
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/WrongZeroSum.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/WrongZeroSum.stdout.log",
+      "sha256": "b4d0010a8507078696f6d4e7d12ce50d431f53ff57444c9ab9d3d8ad9c7b52b8",
+      "bytes": 108
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/ZeroPower.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/ZeroPower.stdout.log",
+      "sha256": "ec9f67beeb5bb78ce745f73bd0e207ce0b49dc2790eb8bc8614b96c0c4ef5815",
+      "bytes": 107
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/honest-different-signed-product-component.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/honest-different-signed-product-component.stdout.log",
+      "sha256": "115a44439a1cf2511904378731d3cdc66c041842057cd20db67d0313ca59e357",
+      "bytes": 354
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/result.json",
+      "sha256": "0117c8e8ef670494ad6b7d4baf88961c5e23972f06b889031fc98d18636052d0",
+      "bytes": 84534
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/word-signed-product-foundation.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/paired-final/word-signed-product-foundation.stdout.log",
+      "sha256": "03574a35653f1a10f84bd59fe990850c5388f6acf227bb567c528667e59a09e1",
+      "bytes": 354
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/queries.json",
+      "sha256": "b6ab83d0b19fecfe4d49bd6c86edc5d3554fc8bc01c7b5613a289e6dda13735d",
+      "bytes": 9975
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/query-origins.json",
+      "sha256": "9e245ebf1c978320cd8246ddcb29acef32e4fe63fd0624ba2ea26343b3aeb93d",
+      "bytes": 1275
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/record-checkpoint.py",
+      "sha256": "347628dc20b59621cb2ade9e4d5f08b0980949185a712018dc9c1d01f0b6f216",
+      "bytes": 10263
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/run-candidate-go.py",
+      "sha256": "357f614c287184c6f26d6446584894d243e3262015d2de1cb2c196bd4e89fa7a",
+      "bytes": 2511
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/run-native.py",
+      "sha256": "5a7e9e0251bb9739f4e05973d018f9c881821fa94a60c9bfb6271158dcee123f",
+      "bytes": 5777
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/run-paired.py",
+      "sha256": "3341fa992285bb0ef32d592ab97d92271772c22702e5bdf9f856698d962eabbe",
+      "bytes": 6034
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/run-selected.py",
+      "sha256": "537fe55d363855eb9eefb434a80abc48a0956820051e7ad0c7ce7ae4eeba22a4",
+      "bytes": 5000
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/certificates/word-signed-product-foundation.mpcert",
+      "sha256": "74268c9c7d29089b106fdf1e12c35955048053be84fa6cd0dc74928001e12e5d",
+      "bytes": 1008887
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/certificates/word-signed-product-foundation.rust.json",
+      "sha256": "6c9666a685e70fe2808ff2b163ca79452234a6b8aac0228f5306e0747eb90a1d",
+      "bytes": 608
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "b043fba1ddd7ad3e41e2869109b9eced419359464504bf70930ee98b5472268d",
+      "bytes": 35374
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/dependencies.rs",
+      "sha256": "df5f835b6f2c1fa462add5749831d34c16edcd2872b9ff1a2aa55d8d4d91d4d5",
+      "bytes": 8016
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/integer.rs",
+      "sha256": "893e2f1295ab018251e3f78458c8827f09c98947f687e2ef11ea828907944c1a",
+      "bytes": 31338
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/natural.rs",
+      "sha256": "483fb9d5dba921566b448ee5f2551746986e2d4a6c11209b63102a8be4f0a0ec",
+      "bytes": 47316
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/polynomial.rs",
+      "sha256": "f9ae06bca999a04ce3204d5d65651a9ec7575fda70567972a1aa358e2730b3b2",
+      "bytes": 10141
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/range.rs",
+      "sha256": "1246a6cb1ef83c67d3507f4258956eda6ce92cda5621859dbc68058fb7558dc1",
+      "bytes": 17074
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/syntax.rs",
+      "sha256": "04dd2f0327d32ab4ddf357fdbc94816fdb28c2be5fbddfc2495c11df8fc4a5c7",
+      "bytes": 7833
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word.rs",
+      "sha256": "297146dfb3acf044507902fc921ff59da45db91f5f05200603a2449967a6322b",
+      "bytes": 24635
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric.rs",
+      "sha256": "cff7fa3c6d790a9ba89bf06270fe2e4d68db920b8395fbb2371ee2f255e3108c",
+      "bytes": 20435
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic.rs",
+      "sha256": "9a3c22336edb3c22be361467d5ea18119b406b8b95336791a1bcb5de29eed187",
+      "bytes": 2072
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/bits.rs",
+      "sha256": "7cc2147d8be034ff16643e7ee34501eccbe303b70e4cfff528e43c28b159effa",
+      "bytes": 2489
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/digits.rs",
+      "sha256": "59fe43cc7a5ac77626b43f011d028e79fecc8b2ad1178c45fc0268650c563da2",
+      "bytes": 5894
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/powers.rs",
+      "sha256": "28f1171150c19871b2ba042009d4acb1e4fa903319265c00945b1a3bfef831fc",
+      "bytes": 5277
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/product.rs",
+      "sha256": "d336264617a73b9d17fd0c914756c752a832cabfce5cfceba6bb01c928005910",
+      "bytes": 10678
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/push.rs",
+      "sha256": "042f36bb1f9151fa6445f1363fca0019424cc7e46a5d74fbae0ddd1a09a46821",
+      "bytes": 10896
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/shift.rs",
+      "sha256": "3cb288b7fbfb7d3bd42710291b0f61c9bb8138eb3c0a990e7ab6c481890a0c86",
+      "bytes": 14691
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/division.rs",
+      "sha256": "f1f3d8e2d709e5cca8dee2303d802360b80e1cb0f4f3c39da11e95fc129e3d84",
+      "bytes": 4434
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/horner.rs",
+      "sha256": "d77c46b353f6734fd2c14f8a70fdc45820223fb3008ba7b99198b1071aba392c",
+      "bytes": 7161
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/natural.rs",
+      "sha256": "ba3095625b0c89d61f802312305f6ea36f02f27f59a48cfdccd220076f49f08f",
+      "bytes": 12181
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/restoring.rs",
+      "sha256": "8c8ed814a46beecf4131ffbdc21a0b43dc2fe1bb4aaa95aab7a273f83462c619",
+      "bytes": 10870
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/stages.rs",
+      "sha256": "1a249e6f97ea56be6d46702cf36a7312b267ae86bcd42f43bf863e95cbfec4e8",
+      "bytes": 17837
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/word_step.rs",
+      "sha256": "5f067bec0a30cd36ff6d53317199364fdb98771afd4fe6fac6f162ff62ed9747",
+      "bytes": 7882
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/order.rs",
+      "sha256": "db4c2006e896439247420fb4d0ac8982152f30e664e6ce0eedf83306e482e6fc",
+      "bytes": 3777
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/order/bounds.rs",
+      "sha256": "ddebc3920ef57e3ff9e25c42855504033a7bb83a25730f98e4f6234b7a2f2cac",
+      "bytes": 9198
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/order/compare.rs",
+      "sha256": "4d213713089ddf7cc073af0f2257a0e0a1938d20cf327661051da9a08ff65a90",
+      "bytes": 11051
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/order/equality.rs",
+      "sha256": "7bc88a33579152c06d982a90ba7ce97db86dc227f53ce8b5335526a40998a2c9",
+      "bytes": 15011
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/order/natural.rs",
+      "sha256": "06e28ddc45c0963320b6cd116c66d534aeb6be5b14f36aef72cc439478e51114",
+      "bytes": 7417
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/order/zero.rs",
+      "sha256": "24da91a96eae6014753e40c021f1d30d313da37630213e58c0c5cbd686308a54",
+      "bytes": 5610
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed.rs",
+      "sha256": "faf7559605fb721443858b5c7af349f8e4d1ebe8c99dc20db2462733ccee0436",
+      "bytes": 13465
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product.rs",
+      "sha256": "1779fed304e9ca172e511696edcab40a6c81c37682a2945c6394fba7f4abf419",
+      "bytes": 2971
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product/natural.rs",
+      "sha256": "e890416bc4e02428a9999f49ee1bdb56d37d873f61e062c3cad8f8ad74233337",
+      "bytes": 14607
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product/scalar.rs",
+      "sha256": "a4f585f93c53efe5f85214c4a7338ebfe1ad3a977bd0c1e8b37f9a27619c7b8c",
+      "bytes": 10196
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/inputs/crates/mpk-vc/src/go_practical_ordinary/word_proofs.rs",
+      "sha256": "208e689773abb4f172fcedb6b1a051e46e031dd05d77fe187e7561df2819a9dd",
+      "bytes": 13898
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/inputs/crates/mpk-vc/tests/go_practical_word_signed_product.rs",
+      "sha256": "d03408e57802c1c994566f89fcfcf246ed797a450d449422e5c358566b282c41",
+      "bytes": 3422
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/inputs/crates/mpk-vc/tests/support/go_word_division_dependencies.rs",
+      "sha256": "1cbd08c125206c011609ac09adc7bf125ddc611fb7aef0cb21b808565d2b4a0e",
+      "bytes": 3674
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/inputs/crates/mpk-vc/tests/support/go_word_eval.rs",
+      "sha256": "b563f3bd0faf010764fd64306f350af2ce3716a9304898c6db0f7d02c7161664",
+      "bytes": 14378
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/inputs/proofs/std/bool/std-bool.hex",
+      "sha256": "88a37f9df68a18bc19d51c0832279ff97a2944fc1676326022269766933ee806",
+      "bytes": 1535
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/inputs/proofs/std/eq/std-eq.hex",
+      "sha256": "80d71a2ef388a6ad1dea166cca4bd10d9093d538edc4999743b6fb1ad80d03a1",
+      "bytes": 3069
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/inputs/proofs/std/nat/std-nat.hex",
+      "sha256": "65bc5b701561d07b0f675668d942917da23c43606c0cfe0f9edfa113be99f583",
+      "bytes": 743
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/result.json",
+      "sha256": "05682335630e3cb121741cf936c8665819e6cb88a513948f6c261bd0c76fb592",
+      "bytes": 10178
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/stderr.log",
+      "sha256": "66d1aba43ea92f33a120668d74c067a8988b8557b9515238d2e8eb61ad384a1e",
+      "bytes": 1090
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/stdout.log",
+      "sha256": "9ffa61fc214b7d5f8a46b66e8958524a8ab6b11ad0ddd8cdf3ebb617929a58b4",
+      "bytes": 288
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/verification.json",
+      "sha256": "5875a02d3196350305f4f0ffc1ac2c1fab1c2e9693efc5ec3f053f1c708cc1ec",
+      "bytes": 21353
+    },
+    {
+      "path": "develop/probes/go-practical/signed_product_observer.go",
+      "sha256": "1c1f5882b3cf2f47fdd44261b0610958ad188bfd2bf259c021bb63d862b9ffed",
+      "bytes": 4454
+    }
+  ],
+  "selected_files": 455,
+  "findings": [],
+  "whitespace_errors": [],
+  "git_errors": [],
+  "raw_stdout_EOF_observations": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/stdout.log",
+      "sha256": "ebee4d5f83122192ae6438289db9a5f5e10b3d2b74226613bad9fd0837fce72e",
+      "bytes": 288,
+      "exact_raw_stdout_EOF_preserved": true,
+      "git_whitespace_output": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/actual-signed-product/rust-construction/stdout.log:8: new blank line at EOF.\n"
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/stdout.log",
+      "sha256": "0b1f42e26b834fc05856496835f8ad3b18390b205dbea4eb181fa6575de8da3b",
+      "bytes": 711,
+      "exact_raw_stdout_EOF_preserved": true,
+      "git_whitespace_output": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/stdout.log:12: new blank line at EOF.\n"
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/stdout.log",
+      "sha256": "a056f6eaaa75ca1c79bc2958b65b07aee15dd33bee715752ab3edab1490c19ef",
+      "bytes": 287,
+      "exact_raw_stdout_EOF_preserved": true,
+      "git_whitespace_output": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/natural-cancellation/rust-construction/stdout.log:8: new blank line at EOF.\n"
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/stdout.log",
+      "sha256": "9ffa61fc214b7d5f8a46b66e8958524a8ab6b11ad0ddd8cdf3ebb617929a58b4",
+      "bytes": 288,
+      "exact_raw_stdout_EOF_preserved": true,
+      "git_whitespace_output": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/scalar-correction/rust-construction/stdout.log:8: new blank line at EOF.\n"
+    }
+  ],
+  "local_markdown_links_checked": 268,
+  "links": [
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "09_go_practical_subset_design.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "09_go_practical_subset_design-todo.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/archive/java-03-t10-native-receipt.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w01/baseline-selection.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w01/entry-audit.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/entry_audit.py",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/test_entry_audit.py",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/host-toolchain.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/provision_host_toolchain.py",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/module_probe.go",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/run_module_probes.py",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/module-cases.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w02/module-probes.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w02/module-matrix.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w02/offline-snapshot-contract.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/check_module_report.py",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/test_module_report.py",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w02/preliminary-findings.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/main.rs",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/run_proof_pilot.py",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/check_proof_report.py",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/test_proof_report.py",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/pilot-corrected/observations.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/natural.rs",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/natural-conservation/observations.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word.rs",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/word-conservation-model.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/word-initial/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/word-initial/observations.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced.rs",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced/signed.rs",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/balanced-words/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/tree-initial/observations.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/tree-initial/projection-attempt/observations.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced/signed/fold.rs",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/prefix-sums/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/prefix-initial/observations.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced/signed/fold/signed_prefix.rs",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/signed-prefix-sums/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced/signed/order.rs",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced/signed/order/path.rs",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/order-guards/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/order_reference.go",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced/signed/fold/continuation.rs",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/continuation-initial/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/continuing-prefixes/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/quote_reference.go",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced/signed/fold/continuation/returned.rs",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced/signed/fold/continuation/returned/run.rs",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced/signed/fold/continuation/returned/quote.rs",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/halting-returns/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced/signed/bytes.rs",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/byte-tails/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/byte_reference.go",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/byte-initial/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds.rs",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/coverage.rs",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/index-bounds/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/index_reference.go",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices.rs",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/slice-stores/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/slice_reference.go",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/slice-initial/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/local-resource-host.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access.rs",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity.rs",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/embedding.rs",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/slice-access/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/access_reference.go",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/access_differential.py",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/model.rs",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/preservation.rs",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/readable.rs",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/reslicing/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/reslice_reference.go",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/reslice_differential.py",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/reslice-initial/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying.rs",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/bulk-copy/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/copy_reference.go",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/copy_differential.py",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/construction/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/stringop/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/affix/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/affix-initial/scope.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/affix-initial/fuel/scope.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/affix-certificates/Cargo.toml",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/aggregate/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/aggregate-certificates/src/aggregate.rs",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/aggregate-initial/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/feasibility-exit-audit.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/control-induction/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/feasibility-exit-audit.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/sequential-resources/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/completion-audit.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/feasibility-exit-audit.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/type-error-zero-decisions.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/source-vectors.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/scope-observations/observations.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/scope-observations/verification/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/operation-table.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/operation-loop-decisions.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/evaluation-observations/observations.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/evaluation-observations/verification/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/nat-termination/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/nat-type-selection-initial/observations.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/nat-termination/verification/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/variant-termination/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/variant-termination/verification/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/overlay-contracts/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/overlay-contracts/verification/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/storage-views/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/storage-views/verification/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/storage-lifetimes/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/storage-lifetimes/verification/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/source-admission/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/source-admission/verification/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/structural-limits/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/structural-limits/verification/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/identity-dag/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/identity-dag/verification/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/context-protocol/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/context-protocol/verification/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/foundation-limits/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/foundation-limits/verification/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/closed-carriers/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/closed-carriers/verification/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/contract-wire/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/contract-wire/verification/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/operation-signatures/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/operation-signatures/verification/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/vir-body/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/vir-body/verification/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/shared-vir/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/shared-vir/verification/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/capture-artifacts/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/capture-artifacts/verification/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/proof-artifacts/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/proof-artifacts/verification/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/word-foundation/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/word-foundation/verification/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/word-numeric-bridge/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/word-numeric-bridge/verification/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/ordinary-arithmetic/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/ordinary-arithmetic/verification/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/word-arithmetic/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/word-arithmetic/verification/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/frontend-envelope/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/frontend-envelope/verification/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/policy-api/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/policy-api/verification/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/api-contracts/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/api-contracts/verification/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/ai-explanation/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/ai-explanation/verification/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/release-contracts/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/release-contracts/verification/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/program-binding/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/consumer-review/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/completion-audit.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/source-feasibility-review.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/check-fast-result.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/source-kind/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/check-fast-result.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/retained-csharp/json-boundary-epochs/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-boundary-repair/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-calendar-diagnosis/result.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/retained-csharp/structural-boundary-epochs/manifest.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-calendar-repair/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-numeric-capacity-diagnosis/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/retained-csharp/json-numeric-capacity-epochs/manifest.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-numeric-capacity-repair/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/aggregate-archive-diagnosis/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/retained-csharp/aggregate-preservation-epochs/manifest.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/aggregate-archive-repair/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/full-gate-live-profile/observation.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-option-core-diagnosis/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-option-core-repair/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/default-proofs-diagnosis/archive-git-audit.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/default-proofs-current-generation/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/retained-csharp/current-proof-inputs/manifest.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-builtin-throw-diagnosis/exact-original-failure-diff.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/retained-csharp/control-preservation-epochs/refined-manifest.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-builtin-throw-repair/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/decimal-clauses-diagnosis/exact-response-operands-audit.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/retained-csharp/decimal-clause-response-echo/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/decimal-clauses-repair/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/decimal-clauses-repair/runtime-normal/result.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/fixed-codec-clauses-diagnosis/result.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/retained-csharp/fixed-codec-clause-request-echo/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/fixed-codec-clauses-repair/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/input-echo-followup-repair/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-diagnosis/result.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/failure-analysis.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/ssa-origin-followup/binding-origin-analysis.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/ssa-origin-followup/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/go-development-gate/amendment.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/go-development-gate/routing-check.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/go-development-gate/previous-selected-runtime.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/go-development-gate/source320-disposition.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/go-development-gate/run/result.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/completion-audit.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/requirements.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../../go-tools/go2vir/practical_source.go",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/rooted-capture/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/rooted-capture/verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/module-inputs/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/ordinary-boolean/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/module-archives/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/module-snapshots/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/module-resolution/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/compiler-image/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/analysis-inputs/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/core-interfaces/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/word-order/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/word-division/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/word-signed-product/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "requirements.json",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/rooted-capture/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/module-inputs/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/ordinary-boolean/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/module-archives/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/module-snapshots/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/module-resolution/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/compiler-image/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/analysis-inputs/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/core-interfaces/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/natural-foundation/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/integer-foundation/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/range-foundation/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/word-foundation/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/word-numeric/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/word-arithmetic/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/word-order/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/word-division/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/word-signed-product/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/README.md",
+      "target": "../../../../../../crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product.rs",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/README.md",
+      "target": "../word-arithmetic/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/README.md",
+      "target": "../word-division/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/README.md",
+      "target": "../../../../../../crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product/natural.rs",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/README.md",
+      "target": "../../../../../../crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product/scalar.rs",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/README.md",
+      "target": "../../../../../../crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product/family.rs",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/README.md",
+      "target": "../../../../../../crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product/projection.rs",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/README.md",
+      "target": "final/rust-tests/result.json",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/README.md",
+      "target": "paired-final/result.json",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/README.md",
+      "target": "final/clippy/result.json",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/README.md",
+      "target": "final/format/result.json",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/README.md",
+      "target": "final/go-format/result.json",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/README.md",
+      "target": "../../../../../../crates/mpk-vc/tests/support/go_word_signed_product_observations.rs",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/README.md",
+      "target": "native/result.json",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/README.md",
+      "target": "../../../../../probes/go-practical/signed_product_observer.go",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/README.md",
+      "target": "native-comparison-final/result.json",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/README.md",
+      "target": "query-origins.json",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/README.md",
+      "target": "natural-cancellation/rust-construction/result.json",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/README.md",
+      "target": "scalar-correction/rust-construction/result.json",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/README.md",
+      "target": "actual-signed-product/rust-construction/result.json",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/README.md",
+      "target": "actual-signed-product/go-candidate/result.json",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/README.md",
+      "target": "verification.json",
+      "exists": true
+    }
+  ],
+  "missing_links": [],
+  "validated_exact_historical_seals": 39,
+  "changed_exact_historical_record_observations": [],
+  "source_JSON_directory_exclusions": false,
+  "blanket_whitespace_exclusions": false,
+  "production_or_directory_exclusions_added": false,
+  "full_gate_passed": false
+}

@@ -29,7 +29,7 @@ after reconciling the intervening shared artifacts and active registry.
 | GO-PRAC-T01-W03 | Complete | Reviewed implementation `9d4e6fb7855a66d9fff309e6dbd9143652ee6e21`; requirement-by-requirement completion audit in section28 |
 | GO-PRAC-T01-W04 | Complete | Commit `68a44416e1b1a6dc3a84587cca784fc4b3a2b862`; exact interfaces, resource bounds, consumer review and historical replay; section58 |
 | GO-PRAC-T01-W05 | Complete under user C# test deferral | Reviewed implementation `4b4c3a01ddfa2377d7ccc0116f128649ff3ec3b1`; amended cumulative gate passes594 tests and all other checks. Completion audit and section78. |
-| GO-PRAC-T02-W01 | In progress | Captured original source/module/archive/compiler/analysis components and fresh ordinary core/Nat/Int/range/word components have scoped evidence. Actual addition, fixed shifts/multiplication, unsigned bounds/order/equality/divisor guards and complete unsigned division/remainder conservation now check in both cores. Complete bounded foundation, private context/registry and authoritative selected source/export replay remain due; sections79–90 and the W01 checkpoint index. |
+| GO-PRAC-T02-W01 | In progress | Captured original source/module/archive/compiler/analysis components and fresh ordinary core/Nat/Int/range/word components have scoped evidence. Actual addition, fixed shifts/multiplication, unsigned bounds/order/equality/divisor guards, unsigned division/remainder and signed-product correction/exact-result guards now check in both cores. Complete bounded foundation, private context/registry and authoritative selected source/export replay remain due; sections79–91 and the W01 checkpoint index. |
 | GO-PRAC-T02-W02–W04 | Not started | Selected-function typing/closure, common artifact migration and final scalar/cumulative gate |
 | GO-PRAC-T03–T07 | Not started | Sequential remaining v1 implementation and public release |
 | GO-PRAC-T08–T11 | Not started | Sequential v2 freeze, maps, pointers and public release |
@@ -5128,3 +5128,36 @@ authoritative original source/export/selected-closure replay remain due. All169
 application demands stay unelaborated; W01 remains In progress. C# tests remain
 skipped and the cumulative T02 gate stays deferred to W04. Public activation
 and native Linux release evidence remain later-stage requirements.
+
+## 91. T02-W01 actual signed product and exact-result equivalence
+
+The [signed product checkpoint](../migrations/go-practical/t02-w01/verification/word-signed-product/README.md)
+proves actual8/16/32/64-bit multiplication equals the mathematical signed product
+modulo a computed balanced-Int correction. The exact-result guard compares its
+two natural parts and is proved equivalent to actual balanced-Int equality of
+the mathematical product and signed machine result. Genuine unbounded Nat
+positive-multiplier cancellation and positive powers support the reverse
+implication; no caller-supplied quotient or unrelated truth flag is trusted.
+
+The2612-declaration/80,631-term/1,032,832-byte certificate has zero axioms and
+fits all unchanged frozen bounds. All2387 retained named types/bodies/proofs/
+levels/metadata match the exact established arithmetic component. Complete old
+arithmetic/unsigned-division generators keep their bytes, and their unaffected
+suites are not repeated. Four affected roots, strict Clippy/Rust/Go format and
+all33 exact-byte paired streams pass, including31 actual core type rejections.
+No core/axiom/fuel or frozen design input changes.
+
+Actual Bool circuits, two identical fresh pinned native Go runs and independent
+exact integers agree on48 original inputs,1440 stages and107 carries. Twenty-one
+signed products are exact and27 wrap. Every width includes minimum times minus
+one, with the actual wrapped Go result, correction1 and false exact-result guard.
+The finite model derives scalar correction quantities in host arithmetic;
+universal Nat guard/correction terms check separately in both cores. No source
+program, complete private context, immutable application replay, public profile
+or native Linux release claim is made.
+
+Signed negation/magnitude and signed division/remainder, remaining numeric/source/
+carrier/state/program laws and complete bounded56-family foundation/descriptor/
+registry/context/application capture remain due. All169 application demands stay
+unelaborated and W01 remains In progress. C# tests remain skipped; the cumulative
+T02 gate stays deferred to W04.
