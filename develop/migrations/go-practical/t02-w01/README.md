@@ -84,3 +84,12 @@ version, root-manifest and legacy no-rewrite consistency. Its9-root34-subtest
 selection, current vet/format and separate legacy build pass. Actual selected
 module graph, complete context/compiler authority and immutable original-package
 source/export loading remain due; W01 is still In progress.
+
+The [actual Go module discovery checkpoint](verification/module-resolution/README.md)
+now runs pinned offline Go version/replacement selection and binds preparation
+observations to original snapshots, roots, languages and main checksum ownership.
+An initial11-root31-subtest selection passes; after a reproduced checksum-owner
+omission is fixed, all4 affected binder roots/10 subtests and current legacy,
+vet/format checks pass. This initially reads the original mutable namespace;
+complete consulted-input capture and immutable authoritative replay remain due,
+alongside the complete private context/compiler/foundation. W01 stays In progress.

@@ -1,0 +1,129 @@
+{
+  "status": "passed",
+  "command": [
+    "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/go",
+    "test",
+    "-mod=vendor",
+    "-run",
+    "^(TestPracticalResolution.*|TestLoaderEnvironmentIsClosedAndSorted|TestPracticalSourceDoesNotActivateInstalledProfile|TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads)$",
+    "-count=1",
+    "-json",
+    "."
+  ],
+  "cwd": "go-tools/go2vir",
+  "environment": {
+    "GOROOT": "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go",
+    "GOTOOLCHAIN": "local",
+    "GOENV": "off",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "GOTELEMETRY": "off",
+    "GOWORK": "off",
+    "GOCACHE": "/private/tmp/mpk-go-practical-t02-build-cache",
+    "GOPATH": "/private/tmp/mpk-go-practical-t02-gopath",
+    "GOMODCACHE": "/private/tmp/mpk-go-practical-t02-go-mod"
+  },
+  "compiler_version": "go version go1.25.0 darwin/arm64",
+  "compiler": {
+    "path": "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/go",
+    "sha256": "c812de5f1e8307431c5bce8ebc4887c180827abc5834a72cd640a8a14200a93b",
+    "bytes": 14117888
+  },
+  "sources": [
+    {
+      "path": "go-tools/go2vir/practical_resolution.go",
+      "sha256": "f69cd936f23d31cc2568628f80199251d8a99c60dabec660b8ec608c9d2a61ef",
+      "bytes": 13783
+    },
+    {
+      "path": "go-tools/go2vir/practical_resolution_test.go",
+      "sha256": "3452a3afce4a26c02775462a8858d1a0110a77d162a82e38b37e8aaf1b923cdd",
+      "bytes": 2673
+    },
+    {
+      "path": "go-tools/go2vir/practical_resolution_capture_test.go",
+      "sha256": "76826f819b90df80cf9f8dc1530379de1cdf079951b56ca924709badefa6ff81",
+      "bytes": 10336
+    }
+  ],
+  "frozen_contract": {
+    "path": "develop/migrations/go-practical/t01-w05/source-kind/catalog.json",
+    "sha256": "1ddbd93204546f227c43dc7729d3547b56abe2a5870a4a418e1d424806b38219",
+    "bytes": 2858
+  },
+  "selection_reason": "New actual pinned offline Go list module discovery, original versioned/local/replacement input binding, transitive version upgrade, direct replacement precedence, strict/failed output rejection, output cancellation and exact compiler/target before source access. Select closed/sorted loader environment and inactive public profile/argument boundaries. Legacy executes four pure resolver tests and three closed/unavailable-root checks. Original source/ZIP/metadata implementations are unchanged and keep preceding evidence. Discovery is preparation only; production immutable replay, complete context/compiler/all-consulted-input closure and package typing remain due. No CSharp tests or intermediate full gate.",
+  "full_T02_gate": "deferred to T02-W04; use check-fast.sh --skip-csharp",
+  "T02_W01_complete": false,
+  "started_at_utc": "2026-10-19T09:35:32.869898+00:00",
+  "input_vectors": [
+    {
+      "path": "develop/migrations/go-practical/t01-w02/module-probes.json",
+      "sha256": "c4ce51fdf23a8b55b6dbe0e9675fd710f37040ba183e45c868d3eb43fbd1320f",
+      "bytes": 115741
+    },
+    {
+      "path": "develop/probes/go-practical/module-cases.json",
+      "sha256": "b8aae7daac943cfec28581d994455c276d649411a1bb509c540bcc4e21a59af9",
+      "bytes": 11953
+    }
+  ],
+  "exit_code": 0,
+  "wall_seconds": 3.8191183749586344,
+  "finished_at_utc": "2026-10-19T09:35:36.689657+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/module-resolution/selected/stdout.log",
+    "sha256": "20020548f6f75f0f1269376b537f8680056aefebfa1d3a93502fb724f3dee350",
+    "bytes": 45083
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/module-resolution/selected/stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "root_tests_passed": [
+    "TestLoaderEnvironmentIsClosedAndSorted",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads",
+    "TestPracticalResolutionUsesActualGoVersionSelectionAndOriginalSnapshots",
+    "TestPracticalResolutionBindsActualLocalAndVersionedReplacements",
+    "TestPracticalResolutionRejectsAlteredGoObservationsAgainstOriginalInputs",
+    "TestPracticalResolutionMissingOfflineInputsNeverAcquireReplacementSources",
+    "TestPracticalResolutionDecodesPinnedGoStreamAndRetainsMetadata",
+    "TestPracticalResolutionRejectsMalformedAmbiguousAndFailedGoOutput",
+    "TestPracticalResolutionOutputBoundCancelsAndRetainsOnlyBoundedBytes",
+    "TestPracticalResolutionRequiresExactCompilerBeforeInputReads",
+    "TestPracticalSourceDoesNotActivateInstalledProfile"
+  ],
+  "subtests_passed": [
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/no_default_profile_or_target",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/wrong_command",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/wrong_profile",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/wrong_target",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/missing_profile",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/missing_target",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/reordered_singleton",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/duplicate_singleton",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/unknown_trailing_argument",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/uppercase_digest",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/nonportable_contract",
+    "TestPracticalResolutionBindsActualLocalAndVersionedReplacements/local-exact-before-wildcard",
+    "TestPracticalResolutionBindsActualLocalAndVersionedReplacements/versioned",
+    "TestPracticalResolutionRejectsAlteredGoObservationsAgainstOriginalInputs/main-path",
+    "TestPracticalResolutionRejectsAlteredGoObservationsAgainstOriginalInputs/main-location",
+    "TestPracticalResolutionRejectsAlteredGoObservationsAgainstOriginalInputs/module-version",
+    "TestPracticalResolutionRejectsAlteredGoObservationsAgainstOriginalInputs/manifest-location",
+    "TestPracticalResolutionRejectsAlteredGoObservationsAgainstOriginalInputs/checksum",
+    "TestPracticalResolutionRejectsAlteredGoObservationsAgainstOriginalInputs/language",
+    "TestPracticalResolutionRejectsAlteredGoObservationsAgainstOriginalInputs/invented-replacement",
+    "TestPracticalResolutionRejectsAlteredGoObservationsAgainstOriginalInputs/duplicate-main",
+    "TestPracticalResolutionRejectsMalformedAmbiguousAndFailedGoOutput/duplicate-module",
+    "TestPracticalResolutionRejectsMalformedAmbiguousAndFailedGoOutput/replacement-error",
+    "TestPracticalResolutionRejectsMalformedAmbiguousAndFailedGoOutput/chained-replacement",
+    "TestPracticalResolutionRejectsMalformedAmbiguousAndFailedGoOutput/empty",
+    "TestPracticalResolutionRejectsMalformedAmbiguousAndFailedGoOutput/trailing",
+    "TestPracticalResolutionRejectsMalformedAmbiguousAndFailedGoOutput/duplicate-field",
+    "TestPracticalResolutionRejectsMalformedAmbiguousAndFailedGoOutput/unknown-Go-field",
+    "TestPracticalResolutionRejectsMalformedAmbiguousAndFailedGoOutput/Go-error",
+    "TestPracticalResolutionRejectsMalformedAmbiguousAndFailedGoOutput/array",
+    "TestPracticalResolutionRejectsMalformedAmbiguousAndFailedGoOutput/empty-path"
+  ]
+}

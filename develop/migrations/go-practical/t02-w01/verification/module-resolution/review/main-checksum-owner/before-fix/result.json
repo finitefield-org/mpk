@@ -1,0 +1,81 @@
+{
+  "status": "failed",
+  "command": [
+    "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/go",
+    "test",
+    "-mod=vendor",
+    "-run",
+    "^TestPracticalResolutionRejectsChecksumsOwnedByAnotherModuleInput$",
+    "-count=1",
+    "-json",
+    "."
+  ],
+  "cwd": "go-tools/go2vir",
+  "sources": [
+    {
+      "source": {
+        "path": "go-tools/go2vir/practical_resolution.go",
+        "sha256": "f69cd936f23d31cc2568628f80199251d8a99c60dabec660b8ec608c9d2a61ef",
+        "bytes": 13783
+      },
+      "retained": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/module-resolution/review/main-checksum-owner/before-fix/practical_resolution.go.txt",
+        "sha256": "f69cd936f23d31cc2568628f80199251d8a99c60dabec660b8ec608c9d2a61ef",
+        "bytes": 13783
+      }
+    },
+    {
+      "source": {
+        "path": "go-tools/go2vir/practical_resolution_test.go",
+        "sha256": "3452a3afce4a26c02775462a8858d1a0110a77d162a82e38b37e8aaf1b923cdd",
+        "bytes": 2673
+      },
+      "retained": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/module-resolution/review/main-checksum-owner/before-fix/practical_resolution_test.go.txt",
+        "sha256": "3452a3afce4a26c02775462a8858d1a0110a77d162a82e38b37e8aaf1b923cdd",
+        "bytes": 2673
+      }
+    },
+    {
+      "source": {
+        "path": "go-tools/go2vir/practical_resolution_capture_test.go",
+        "sha256": "ec40f233424e34206fa86908431a64702cb2b6b8691031687e21296371dd9be4",
+        "bytes": 12487
+      },
+      "retained": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/module-resolution/review/main-checksum-owner/before-fix/practical_resolution_capture_test.go.txt",
+        "sha256": "ec40f233424e34206fa86908431a64702cb2b6b8691031687e21296371dd9be4",
+        "bytes": 12487
+      }
+    }
+  ],
+  "environment": {
+    "GOROOT": "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go",
+    "GOTOOLCHAIN": "local",
+    "GOENV": "off",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "GOTELEMETRY": "off",
+    "GOWORK": "off",
+    "GOCACHE": "/private/tmp/mpk-go-practical-t02-build-cache",
+    "GOPATH": "/private/tmp/mpk-go-practical-t02-gopath",
+    "GOMODCACHE": "/private/tmp/mpk-go-practical-t02-go-mod"
+  },
+  "selection_reason": "Reproduce whether an independently captured checksum input can be substituted for the original main module go.sum. The actual discovery caller is unchanged; no public profile or source proof is claimed.",
+  "started_at_utc": "2026-10-19T09:39:46.256936+00:00",
+  "CSharp_tests_executed": false,
+  "full_T02_gate": "deferred to W04",
+  "exit_code": 1,
+  "wall_seconds": 2.0787867920007557,
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/module-resolution/review/main-checksum-owner/before-fix/stdout.log",
+    "sha256": "621e5bbc6b397a3dca7dc4e96fc900697898e7bf7a41d06c8e0ef16eb5b7c725",
+    "bytes": 1887
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/module-resolution/review/main-checksum-owner/before-fix/stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "finished_at_utc": "2026-10-19T09:39:48.336065+00:00"
+}

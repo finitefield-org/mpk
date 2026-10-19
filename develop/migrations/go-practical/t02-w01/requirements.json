@@ -23,21 +23,21 @@
       "requirement": "Exact Go1.25.0/Linux amd64 compiler/stdlib/analysis inventory and effective go1.22–go1.25 requirements; reject toolchain fallback",
       "status": "partial_original_module_compiler_requirements",
       "executor": "go-tools/go2vir/practical_context.go and practical_capture.go",
-      "completed_component": "Full module patch requirements before language normalization; exact main proof-language table; retain dependency suggestions. Compiler/stdlib/analysis inventory and per-file loaded versions remain due."
+      "completed_component": "Full module patch requirements before language normalization; exact main proof-language table; retain dependency suggestions. Compiler/stdlib/analysis inventory and per-file loaded versions remain due. Actual preparation discovery now checks the exact validated compiler executable hash before/after under the closed target/toolchain environment; complete practical inventory remains due."
     },
     {
       "id": "T02-W01-R04",
       "requirement": "Exact module graph/versions, go.mod/go.sum/metadata, versioned and capability-bound local replacements, selected-root mapping",
-      "status": "partial_original_local_and_versioned_module_snapshots",
-      "executor": "go-tools/go2vir/practical_module_capture.go and practical_module_snapshot.go",
-      "completed_component": "Original local replacement authority plus exact versioned .mod/.info/.ziphash/.zip capture, original manifest/archive checksum and root-manifest consistency. Actual complete selected Go graph/replacement ownership and all consulted metadata remain due."
+      "status": "partial_actual_offline_module_discovery_and_original_binding",
+      "executor": "go-tools/go2vir/practical_resolution.go, practical_module_capture.go and practical_module_snapshot.go",
+      "completed_component": "Actual pinned offline Go selects module versions and replacements; preparation observations bind original main/versioned/local metadata, exact directives and main checksum ownership. All consulted versions/metadata, authoritative immutable replay and selected-root mapping remain due."
     },
     {
       "id": "T02-W01-R05",
       "requirement": "Offline original module/archive and Go sum verification; reject missing/stale checksum or snapshot, network/VCS/generation fallback",
       "status": "partial_actual_versioned_snapshot_checksums_and_provenance",
       "executor": "go-tools/go2vir/practical_archive.go and practical_module_snapshot.go",
-      "completed_component": "Actual archive h1/CRC/namespace/source-content binding and original versioned .mod/.info/.ziphash/.zip consistency through captured original sums; missing/stale/inconsistent snapshot rejects without repair/download. Complete Go graph/compiler/source/export binding and production offline resolver enforcement remain due."
+      "completed_component": "Actual archive h1/CRC/namespace/source-content binding and original versioned .mod/.info/.ziphash/.zip consistency through captured original sums; missing/stale/inconsistent snapshot rejects without repair/download. Complete Go graph/compiler/source/export binding and production offline resolver enforcement remain due. Actual Go preparation discovery now runs with closed offline/no-VCS/no-toolchain-fallback settings; immutable resolver replay and complete input/compiler identity still remain due."
     },
     {
       "id": "T02-W01-R06",
@@ -51,7 +51,7 @@
       "status": "partial_source_and_rooted_capture_targeted_checks_passed",
       "executor": "go-tools/go2vir/practical_source_test.go and future capture/context tests",
       "full_T02_gate": "deferred to T02-W04: check-fast.sh --skip-csharp",
-      "completed_component": "Source object and rooted checks plus12 module/affected-boundary root tests52 subtests, current vet/format and separate7-root40-subtest legacy build. Full scope review and final T02 gate remain due. Archive component adds an initial13-root46-subtest boundary baseline, then all9 affected archive roots25 subtests and6 pure legacy roots17 subtests after review; current vet/format pass. Versioned module metadata adds9 selected roots34 subtests,5 legacy roots20 subtests and current vet/format; old unaffected pure ZIP/native-Go tests are retained without repetition."
+      "completed_component": "Source object and rooted checks plus12 module/affected-boundary root tests52 subtests, current vet/format and separate7-root40-subtest legacy build. Full scope review and final T02 gate remain due. Archive component adds an initial13-root46-subtest boundary baseline, then all9 affected archive roots25 subtests and6 pure legacy roots17 subtests after review; current vet/format pass. Versioned module metadata adds9 selected roots34 subtests,5 legacy roots20 subtests and current vet/format; old unaffected pure ZIP/native-Go tests are retained without repetition. Module discovery adds an initial11-root31-subtest selection, then4 affected binder roots10 subtests after checksum-owner regression/fix,7 legacy roots21 subtests and current vet/format. Unchanged earlier checks are retained."
     }
   ],
   "T02_W01_complete": false,

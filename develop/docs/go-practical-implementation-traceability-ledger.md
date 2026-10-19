@@ -4876,3 +4876,37 @@ all consulted metadata, complete checked foundation/context/compiler inventories
 and immutable original-package source/export loading. Source/program proof,
 public activation and native Linux acceptance remain unclaimed; the cumulative
 T02 gate remains deferred to W04.
+
+## 85. T02-W01 actual Go module discovery and original ownership
+
+The [module discovery checkpoint](../migrations/go-practical/t02-w01/verification/module-resolution/README.md)
+starts from `75a64d7cc1b52e15f961285bde03e133664d3e66`. Actual selected Go1.25.0
+runs readonly module discovery with closed offline Linux/amd64 settings, bounded
+output/deadline and executable hashes before/after. Strict streamed module rows
+bind original main/versioned/local inputs, exact replacement directives and
+checksums. Go performs actual transitive version selection. The private scratch
+cleanup retains its own paths; a separate value-copy environment passes the
+original module cache without chmodding it during cleanup.
+
+The initial11-root31-subtest selection passes in3.819 seconds: actual Go picks
+c@v1.1.0, exact local replacement precedes its wildcard, versioned replacement
+binds its original target, altered records reject and missing offline inputs
+fail. Original complete application bytes, manifest/sum and original cache mode
+remain unchanged. This does not type-check the unused map function. Legacy7
+roots/21 subtests pass in2.147 seconds; vet/format pass.
+
+Review reproduces foreign checksum ownership: valid sums from another captured
+input could replace an empty original main go.sum. Original failing test/logs
+and exact source inputs remain. The guard now requires the exact original
+main go.sum object before independently reconstructing checksum entries. All4
+affected binder roots/10 subtests pass in2.629 seconds; legacy7 roots/21 subtests
+pass in1.917 seconds, with vet/format. Unchanged initial stream/output/offline-
+failure/environment/public-boundary evidence is retained without repetition.
+
+This remains preparation discovery from a mutable original namespace. The test
+compiler fixture supplies no complete practical compiler/stdlib/analysis
+inventory. Complete checked private foundation/context, all consulted module
+metadata/versions, original source/export/build closure and immutable production
+replay remain due. W01 stays In progress; all169 application demands remain
+unelaborated. No source/program proof, public activation or native Linux receipt
+is claimed. C# tests stay deferred; full T02 gate stays deferred to W04.
