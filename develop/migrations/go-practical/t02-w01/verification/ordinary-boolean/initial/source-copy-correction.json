@@ -1,0 +1,29 @@
+{
+  "schema": "mpk.go_practical.boolean_source_copy_correction.v1",
+  "status": "original_generation_source_recovered_byte_exact",
+  "cause": "Source and integration test share the basename go_practical_ordinary.rs. Initial backup used only basename, so the test copy overwrote the source copy. The initial failure receipt retained both distinct original hashes.",
+  "unchanged_initial_result": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/ordinary-boolean/initial/rust-tests/result.json",
+    "sha256": "fb7877236ed9bbac7d09020f98b33424381ce2e182491baa3237fecb561a66b4",
+    "bytes": 2630
+  },
+  "unchanged_existing_test_copy": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/ordinary-boolean/initial/inputs/go_practical_ordinary.rs.txt",
+    "sha256": "d19e36e1ea8ce0d469a0facad884c8364d9bf9c2c62c6910b2534b85994611a7",
+    "bytes": 4659
+  },
+  "restored_original_generator": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/ordinary-boolean/initial/inputs/source-go_practical_ordinary.rs.txt",
+    "sha256": "21d3a0b22ddc39e7e316583146b7f0f54832160e67df4f9c0e9fa86bd59ffcac",
+    "bytes": 13873
+  },
+  "original_expected_source": {
+    "path": "crates/mpk-vc/src/go_practical_ordinary.rs",
+    "sha256": "21d3a0b22ddc39e7e316583146b7f0f54832160e67df4f9c0e9fa86bd59ffcac",
+    "bytes": 13873
+  },
+  "byte_exact_recovery_confirmed": true,
+  "production_source_modified": false,
+  "runtime_retests_required": false,
+  "reason_no_runtime_retest": "Only historical source-copy recovery and documentation change; original source bytes are verified against the pre-execution hash and length. Current production source and all passing Rust/paired/lint results remain exact."
+}

@@ -46,3 +46,10 @@ immutable loader namespace is materialized. All169 source application demands
 remain unelaborated. Native Linux acceptance and public profile activation stay
 with later gates; T02-W01 remains In progress. The full T02 gate is deferred to
 W04 (`check-fast.sh --skip-csharp`).
+
+A [source-copy correction](initial/source-copy-correction.json) records that the
+initial generator and integration test shared a basename. The initial copy
+retained the test but overwrote the generator copy. The original generator is
+now recovered byte for byte against its pre-execution SHA256 and length under
+a distinct filename. Existing raw results/copies remain unchanged. Production
+code and passing checks are unaffected; no runtime tests are repeated.

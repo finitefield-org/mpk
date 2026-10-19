@@ -4806,3 +4806,9 @@ suite compilation/execution. This is a source-free Boolean basis, not the
 complete ordinary Go foundation, registered private context, source/program
 proof or native Linux receipt. All169 application demands remain unelaborated.
 W01 stays In progress and the cumulative T02 gate remains deferred to W04.
+
+The Boolean checkpoint also records a historical source-copy correction: source
+and test have the same basename. The generator's original bytes are recovered
+under a distinct filename and match the original pre-execution SHA256 and length.
+Existing test copy and raw results remain unchanged. This documentation/evidence
+repair changes no production code and requires no runtime test repetition.
