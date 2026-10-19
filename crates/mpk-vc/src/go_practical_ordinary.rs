@@ -167,6 +167,15 @@ pub struct GoWordSignedDivisionPrerequisites {
 pub struct GoWordSignedDivisionRefinement {
     certificate: Vec<u8>,
 }
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoWordSignedDivisionBounds {
+    certificate: Vec<u8>,
+}
+impl GoWordSignedDivisionBounds {
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
+}
 impl GoWordSignedDivisionRefinement {
     pub fn certificate_bytes(&self) -> &[u8] {
         &self.certificate
@@ -1215,6 +1224,69 @@ pub fn import_go_practical_word_signed_division_refinement(
         return Err(GoOrdinaryError::Limit);
     }
     let expected = generate_go_practical_word_signed_division_refinement()?;
+    if candidate != expected.certificate_bytes() {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    Ok(expected)
+}
+
+/// Prove actual quotient/remainder ranges and classify their modular corrections.
+/// Complete source/program/profile authority remains separate work.
+pub fn generate_go_practical_word_signed_division_bounds() -> Result<GoWordSignedDivisionBounds> {
+    let buffers = [
+        generate_go_practical_word_division_foundation()?
+            .certificate_bytes()
+            .to_vec(),
+        generate_go_practical_word_signed_bounds_foundation()?
+            .certificate_bytes()
+            .to_vec(),
+        generate_go_practical_word_zero_foundation()?
+            .certificate_bytes()
+            .to_vec(),
+        generate_go_practical_word_foundation()?
+            .certificate_bytes()
+            .to_vec(),
+    ];
+    let sources = buffers
+        .iter()
+        .map(|bytes| {
+            mpk_cert::decode_canonical_certificate(bytes).map_err(|_| GoOrdinaryError::Foundation)
+        })
+        .collect::<Result<Vec<_>>>()?;
+    let mut roots = [
+        "Reflexive",
+        "Symmetric",
+        "Transitive",
+        "AddRespects",
+        "MulRespectsLeft",
+        "MulRespectsRight",
+    ]
+    .map(|name| format!("Mpk.Go.Practical.Int.{name}"))
+    .to_vec();
+    for width in [8_usize, 16, 32, 64] {
+        roots.push(format!(
+            "Mpk.Go.Practical.Word.SignedBounds.HalfPositive{}",
+            width.trailing_zeros()
+        ));
+        roots.push(format!(
+            "Mpk.Go.Practical.Word.SignedBounds.W{width}.MagnitudeHalfBalance"
+        ));
+    }
+    let mut builder = composition::signed_division_prerequisites_with_roots(&sources, &roots)?;
+    word_numeric::append_signed_division_refinement(&mut builder)?;
+    word_numeric::append_signed_division_bounds(&mut builder)?;
+    builder.certificate.module = "Mpk.Go.Practical.WordSignedDivisionBounds".into();
+    Ok(GoWordSignedDivisionBounds {
+        certificate: builder.finish()?,
+    })
+}
+pub fn import_go_practical_word_signed_division_bounds(
+    candidate: &[u8],
+) -> Result<GoWordSignedDivisionBounds> {
+    if candidate.len() > MAX_BYTES {
+        return Err(GoOrdinaryError::Limit);
+    }
+    let expected = generate_go_practical_word_signed_division_bounds()?;
     if candidate != expected.certificate_bytes() {
         return Err(GoOrdinaryError::Linkage);
     }

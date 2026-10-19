@@ -632,3 +632,7 @@ pub(super) fn append_zero(builder: &mut Builder, recipes: &BTreeMap<String, Expr
 pub(super) fn append_signed_division_refinement(builder: &mut Builder) -> Result<()> {
     signed_division::append(builder)
 }
+
+pub(super) fn append_signed_division_bounds(builder: &mut Builder) -> Result<()> {
+    signed_division::append_bounds(builder)
+}

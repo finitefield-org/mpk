@@ -1,0 +1,766 @@
+{
+  "schema": "mpk.go_practical.word_division_bounds_check.v1",
+  "status": "passed",
+  "started_at_utc": "2026-10-19T19:38:09.433315+00:00",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_word_division_bounds",
+    "--",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "MPK_GO_WORD_DIVISION_BOUNDS_TEST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates",
+    "MPK_GO_WORD_DIVISION_BOUNDS_MODEL_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/model"
+  },
+  "sources": [
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "81348ad750917b66f99197cfa522893a8e60d4d04f2041d34aee7c9bfbfe4b8d",
+      "bytes": 45489
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/composition.rs",
+      "sha256": "1f88a84afe3a1982d558c61cc0a8b2db1c187ea0ff1a4b24b7deb57572d2ee4f",
+      "bytes": 19348
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/dependencies.rs",
+      "sha256": "df5f835b6f2c1fa462add5749831d34c16edcd2872b9ff1a2aa55d8d4d91d4d5",
+      "bytes": 8016
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/integer.rs",
+      "sha256": "893e2f1295ab018251e3f78458c8827f09c98947f687e2ef11ea828907944c1a",
+      "bytes": 31338
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/natural.rs",
+      "sha256": "483fb9d5dba921566b448ee5f2551746986e2d4a6c11209b63102a8be4f0a0ec",
+      "bytes": 47316
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/polynomial.rs",
+      "sha256": "f9ae06bca999a04ce3204d5d65651a9ec7575fda70567972a1aa358e2730b3b2",
+      "bytes": 10141
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/range.rs",
+      "sha256": "1246a6cb1ef83c67d3507f4258956eda6ce92cda5621859dbc68058fb7558dc1",
+      "bytes": 17074
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/syntax.rs",
+      "sha256": "04dd2f0327d32ab4ddf357fdbc94816fdb28c2be5fbddfc2495c11df8fc4a5c7",
+      "bytes": 7833
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word.rs",
+      "sha256": "297146dfb3acf044507902fc921ff59da45db91f5f05200603a2449967a6322b",
+      "bytes": 24635
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/bits.rs",
+      "sha256": "7cc2147d8be034ff16643e7ee34501eccbe303b70e4cfff528e43c28b159effa",
+      "bytes": 2489
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/digits.rs",
+      "sha256": "59fe43cc7a5ac77626b43f011d028e79fecc8b2ad1178c45fc0268650c563da2",
+      "bytes": 5894
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/powers.rs",
+      "sha256": "28f1171150c19871b2ba042009d4acb1e4fa903319265c00945b1a3bfef831fc",
+      "bytes": 5277
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/product.rs",
+      "sha256": "d336264617a73b9d17fd0c914756c752a832cabfce5cfceba6bb01c928005910",
+      "bytes": 10678
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/push.rs",
+      "sha256": "042f36bb1f9151fa6445f1363fca0019424cc7e46a5d74fbae0ddd1a09a46821",
+      "bytes": 10896
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/shift.rs",
+      "sha256": "3cb288b7fbfb7d3bd42710291b0f61c9bb8138eb3c0a990e7ab6c481890a0c86",
+      "bytes": 14691
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic.rs",
+      "sha256": "9a3c22336edb3c22be361467d5ea18119b406b8b95336791a1bcb5de29eed187",
+      "bytes": 2072
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/horner.rs",
+      "sha256": "d77c46b353f6734fd2c14f8a70fdc45820223fb3008ba7b99198b1071aba392c",
+      "bytes": 7161
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/natural.rs",
+      "sha256": "ba3095625b0c89d61f802312305f6ea36f02f27f59a48cfdccd220076f49f08f",
+      "bytes": 12181
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/restoring.rs",
+      "sha256": "8c8ed814a46beecf4131ffbdc21a0b43dc2fe1bb4aaa95aab7a273f83462c619",
+      "bytes": 10870
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/stages.rs",
+      "sha256": "1a249e6f97ea56be6d46702cf36a7312b267ae86bcd42f43bf863e95cbfec4e8",
+      "bytes": 17837
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/word_step.rs",
+      "sha256": "5f067bec0a30cd36ff6d53317199364fdb98771afd4fe6fac6f162ff62ed9747",
+      "bytes": 7882
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/division.rs",
+      "sha256": "f1f3d8e2d709e5cca8dee2303d802360b80e1cb0f4f3c39da11e95fc129e3d84",
+      "bytes": 4434
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/order/bounds.rs",
+      "sha256": "ddebc3920ef57e3ff9e25c42855504033a7bb83a25730f98e4f6234b7a2f2cac",
+      "bytes": 9198
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/order/compare.rs",
+      "sha256": "4d213713089ddf7cc073af0f2257a0e0a1938d20cf327661051da9a08ff65a90",
+      "bytes": 11051
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/order/equality.rs",
+      "sha256": "7bc88a33579152c06d982a90ba7ce97db86dc227f53ce8b5335526a40998a2c9",
+      "bytes": 15011
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/order/natural.rs",
+      "sha256": "06e28ddc45c0963320b6cd116c66d534aeb6be5b14f36aef72cc439478e51114",
+      "bytes": 7417
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/order/zero.rs",
+      "sha256": "24da91a96eae6014753e40c021f1d30d313da37630213e58c0c5cbd686308a54",
+      "bytes": 5610
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/order.rs",
+      "sha256": "db4c2006e896439247420fb4d0ac8982152f30e664e6ce0eedf83306e482e6fc",
+      "bytes": 3777
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed.rs",
+      "sha256": "faf7559605fb721443858b5c7af349f8e4d1ebe8c99dc20db2462733ccee0436",
+      "bytes": 13465
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_bounds/family.rs",
+      "sha256": "15a47d438588c09e7a502794c01db47cbe30437ca4f47d107eb099be940f833e",
+      "bytes": 7616
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_bounds/half.rs",
+      "sha256": "129e10cfc613f5adb1af367226abd3f3b5ea5ede26a073181f220958ddaad964",
+      "bytes": 3490
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_bounds/minimum.rs",
+      "sha256": "11be04704cf92c239232773ca55980448eddb88827fc351ad2ce7ef34bbbddd4",
+      "bytes": 8514
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_bounds/scalar.rs",
+      "sha256": "f72dafc5fe0200340d107f3534c681f3d4225d6b43b6a41446a58121ae7a607c",
+      "bytes": 6948
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_bounds/split.rs",
+      "sha256": "28b984bb74edbada2c3f72edaec83f4fdca8f1cf6386d6c6d3941a8319274a85",
+      "bytes": 5514
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_bounds/threshold.rs",
+      "sha256": "4fd5f15e6a92c12f0a2610f5308ccc72578d9411b1dcd61eace07bed1ac9fc49",
+      "bytes": 6076
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_bounds.rs",
+      "sha256": "d36b81cb7e740ba30535b60bc39d52db898dd4cb237fbf27566f2b4d62888fe1",
+      "bytes": 4367
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_division/bounds/correction.rs",
+      "sha256": "846eeaeaf796feb536f70616499af8a554195b5c6b7b81f4160a651e77b56f1e",
+      "bytes": 13911
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_division/bounds/exception.rs",
+      "sha256": "0bbc987c7cfe3fdc6abf230f6b316c694b3e2ae5a5f5ffdd5a6fe1da4a5c9e8c",
+      "bytes": 36979
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_division/bounds/family.rs",
+      "sha256": "6336bd9c165c05a58fe873c4b1886c5c825af3a355cc5fe59131f64f2f0cbd2a",
+      "bytes": 9896
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_division/bounds/natural.rs",
+      "sha256": "afda6389a54861152d0fbcbfb1eeb4e755c9ad107893dd176ea6a36f74677fd1",
+      "bytes": 9605
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_division/bounds/signs.rs",
+      "sha256": "edd9769e7a1d3776accd825a4ad7307b5a4c587c5ad105f678fd330c04dfc426",
+      "bytes": 9637
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_division/bounds.rs",
+      "sha256": "2a2e53dbb62c4b3d10e215e463d3aa657f1f60ccd65a8002f8f1d7d87eaa64ee",
+      "bytes": 7474
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_division/family.rs",
+      "sha256": "0990a690eefb225e513c30d164dc356fbdbdf1ef1cff958bfefe2173c21a81d9",
+      "bytes": 10296
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_division/projection.rs",
+      "sha256": "66a6e4a6a8d6b8f3c1eb75aef960f0305266463c95e58bc4f4e8c003278047da",
+      "bytes": 7067
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_division/scalar.rs",
+      "sha256": "80a90379c6242d254edec822b52577458cd059a38ecebf9662a646bade8f965f",
+      "bytes": 3776
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_division/selection.rs",
+      "sha256": "78974a3c3d9636e6e73ba53f4d20cf7ad27d2124fda823b2200cce574e44df34",
+      "bytes": 4175
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_division.rs",
+      "sha256": "d614f7ad385b199cc9c8abc8c48363f91cf0a0b86b4b4db9586f136c25d15fc8",
+      "bytes": 9094
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_magnitude/magnitude.rs",
+      "sha256": "e145e07311aa83a19a6650a38e6a347667a765d75262cd86e9652dc70659601d",
+      "bytes": 9557
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_magnitude/natural.rs",
+      "sha256": "91561e986c8215161e1598ce47b2f64bb342b893a410f6a669cf17b03d7d12e8",
+      "bytes": 16174
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_magnitude/negation.rs",
+      "sha256": "360310d55824970c40928bf200e9ff50d034ccd9636bc1de184967337c842a52",
+      "bytes": 9509
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_magnitude/projection.rs",
+      "sha256": "73183d797dac16a4d42aec6e334d6c4de4856fea910be13b6fc39cc1fcf9b109",
+      "bytes": 5662
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_magnitude/signed_negation.rs",
+      "sha256": "31ddc86527a3fe99b0f5bbe6c2aa75f341424ddb12367ec10039914a67fec600",
+      "bytes": 6475
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_magnitude.rs",
+      "sha256": "87552516c85e5982f8df163d183ad95fe8f5d2d38cad8cafb24d47fd816eee46",
+      "bytes": 5050
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product/family.rs",
+      "sha256": "dff5b4f1a2c2c8a62fd16ee3f41c2b76ca469af176bf39ee4028bc39902195b5",
+      "bytes": 7222
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product/natural.rs",
+      "sha256": "e890416bc4e02428a9999f49ee1bdb56d37d873f61e062c3cad8f8ad74233337",
+      "bytes": 14607
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product/projection.rs",
+      "sha256": "6d2ac4eb6189635a4b06f85ce6425c4d96c7aacc364bb5666fd6d91a7b079861",
+      "bytes": 4324
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product/scalar.rs",
+      "sha256": "8bed121e69897dd7451ad074b33d0bad4f05c6f09184b607f16a9e9ec93a81b8",
+      "bytes": 10207
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_product.rs",
+      "sha256": "f0abef73903da434972a4ca65116e9c76c1640ec1133a06e6e9f25ed4c752ada",
+      "bytes": 3271
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/zero/cube.rs",
+      "sha256": "cc347bc6b4b06fed82b07b848bc806038e20163ca0e0747611843cbe94ef95e8",
+      "bytes": 8589
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/zero/family.rs",
+      "sha256": "1cb7fbbf27339bcf9c15ccf5511377a10ac41a01535bb959697bb07cbcc872a1",
+      "bytes": 3751
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/zero/natural.rs",
+      "sha256": "3aee2b6bb02d1df44b5436d210475be35bd7677e9411016f8f5e125e06abd35b",
+      "bytes": 7087
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/zero.rs",
+      "sha256": "8fa3d692464848e717fb6ff10acac8df3f5428bc587a384d52bf69591f06301b",
+      "bytes": 4482
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric.rs",
+      "sha256": "2eda5f6ae14b2dfab2035c77d7bebbafccff6a4014c2091e54dafa6ecc218d2d",
+      "bytes": 21962
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_proofs.rs",
+      "sha256": "208e689773abb4f172fcedb6b1a051e46e031dd05d77fe187e7561df2819a9dd",
+      "bytes": 13898
+    },
+    {
+      "path": "crates/mpk-vc/tests/go_practical_word_division_bounds.rs",
+      "sha256": "769c8f0a1d433d5b2ac1122190d875a424412a3a9476bd2fb2f82907ce021e84",
+      "bytes": 4863
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/go_word_division_bounds_controls.rs",
+      "sha256": "68e651e6ef6092d2a3d60b0068b22cbb21d631b2f352356ee831cf6c30c6d262",
+      "bytes": 12269
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/go_word_division_bounds_observations.rs",
+      "sha256": "a2c8d5280d0064ad30d0c22bd68bea17bcfa90288f788352037ab3fad26dedc4",
+      "bytes": 10038
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/go_word_eval.rs",
+      "sha256": "b563f3bd0faf010764fd64306f350af2ce3716a9304898c6db0f7d02c7161664",
+      "bytes": 14378
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/go_word_division_dependencies.rs",
+      "sha256": "1cbd08c125206c011609ac09adc7bf125ddc611fb7aef0cb21b808565d2b4a0e",
+      "bytes": 3674
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/word-foundation/queries.json",
+      "sha256": "3f9ee3ec12430dbbb08fd7bd25dca338cc4ed7f44f5b2d03382871a10dfab354",
+      "bytes": 261807
+    },
+    {
+      "path": "proofs/std/bool/std-bool.hex",
+      "sha256": "88a37f9df68a18bc19d51c0832279ff97a2944fc1676326022269766933ee806",
+      "bytes": 1535
+    },
+    {
+      "path": "proofs/std/eq/std-eq.hex",
+      "sha256": "80d71a2ef388a6ad1dea166cca4bd10d9093d538edc4999743b6fb1ad80d03a1",
+      "bytes": 3069
+    },
+    {
+      "path": "proofs/std/nat/std-nat.hex",
+      "sha256": "65bc5b701561d07b0f675668d942917da23c43606c0cfe0f9edfa113be99f583",
+      "bytes": 743
+    }
+  ],
+  "selection_reason": "Actual all-width quotient-half gaps and strict remainder-half bounds classify source corrections as the actual minimum dividend/negative-unit divisor exception. Prove zero remainder correction, exact optional quotient guard, negative-unit soundness/completeness, and normal minimum/-one source outputs from existing real unsigned/magnitude/refinement proofs. Retain all3897 prior named declarations and exact raw producer; eight additional actual half premises are selected from unchanged full original inputs. Only affected new target/library checks; no CSharp/unrelated suites/intermediate whole gate or final source/application completeness claim. Frozen4096/131072/2097152 ceilings remain.",
+  "construction_diagnostic_only": false,
+  "CSharp_tests_executed": false,
+  "full_T02_gate": "deferred to T02-W04: check-fast.sh --skip-csharp",
+  "T02_W01_complete": false,
+  "changed_inputs_during_execution": [],
+  "exit_code": 0,
+  "wall_seconds": 393.7583796669496,
+  "finished_at_utc": "2026-10-19T19:44:43.195914+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/stdout.log",
+    "sha256": "aa18c3c068b942e704301499ff29406f35a5e4314d43002650b5e35ac6c98835",
+    "bytes": 729
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/stderr.log",
+    "sha256": "b3506dd9faad0af1ee22d48553dfd280cdd99f43c9d270f5303e17ec5bc4f52b",
+    "bytes": 273
+  },
+  "certificates": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeDivisorPositive.mpcert",
+      "sha256": "24c679d02be5bf6b802c4d12d695781de4f21914cc619121ace32d399d082dfa",
+      "bytes": 1465616
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeExactGuard-16.mpcert",
+      "sha256": "92bc16b6a774a9621ecd231bc5c313ffd85ebe56c84f9a6afac0e82601ab70e9",
+      "bytes": 1465605
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeExactGuard-32.mpcert",
+      "sha256": "ad4ab38b1facbc52ea194e5563da88e2fd39a0e667df709e8d5f68e44aae6ff9",
+      "bytes": 1465607
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeExactGuard-64.mpcert",
+      "sha256": "1d84680b8cc9fd7de67926bae207fe7c0dbadb39ffe3ff22dd3b9883d6716d80",
+      "bytes": 1465607
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeExactGuard-8.mpcert",
+      "sha256": "3faa9f1ceac846c29ff976e5b18c26c2b2845bab2900ce965a71ccac218e7d63",
+      "bytes": 1465604
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeHalfPositive.mpcert",
+      "sha256": "0d645730355653beadbba8e190ce610050277a95d48279e8617cb493f82e28a0",
+      "bytes": 1465623
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeMinimumPremise-16.mpcert",
+      "sha256": "1e5dd24ed965e16df158e24693faea6cf290bfb5e33c1da9edcd60ddf2566ed7",
+      "bytes": 1465605
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeMinimumPremise-32.mpcert",
+      "sha256": "c17116eb5634965636775a2d92670747c76d0ae1bdcdb8375e181c576452e66d",
+      "bytes": 1465607
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeMinimumPremise-64.mpcert",
+      "sha256": "d3af77c31afaa63c322abe909eae232cc591cd486d32dcf513f5362185d8d580",
+      "bytes": 1465607
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeMinimumPremise-8.mpcert",
+      "sha256": "9562209baf800c2d72a50e3f73d2fcc619ed8d587de0c9b0991aff7504fd5666",
+      "bytes": 1465604
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeNegationGap.mpcert",
+      "sha256": "3d8aa3f32b9c5889a4ec0270504d6bb6d5d18c4261849a30c8051ccd0b3888c8",
+      "bytes": 1465622
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeSourceDivisor-16.mpcert",
+      "sha256": "923aadf7bb1be89d669f3c1cf407763138ce273f41d2ec023cc4d48438a8acb4",
+      "bytes": 1465598
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeSourceDivisor-32.mpcert",
+      "sha256": "44363a62b1d5538477c92b9a981438006816c8a14186395924363405d981e8c7",
+      "bytes": 1465600
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeSourceDivisor-64.mpcert",
+      "sha256": "6b6c0385bcdc2c4d57e5108598664d66fcb4ec3905f9a6d2c67b44300ee38037",
+      "bytes": 1465600
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeSourceDivisor-8.mpcert",
+      "sha256": "eb6effe5974e383528621d8f59a6623591ffb29e80f29e4b6dc7930df10d0c84",
+      "bytes": 1465598
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeStrictOrder.mpcert",
+      "sha256": "59d373c7315dc392120ea209f9036944f1df2b352736aa139ec3e07dc93f9c2c",
+      "bytes": 1465610
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeUnitRemainderBound.mpcert",
+      "sha256": "ef0d046eaff59da79b0b8ca22788fee7566d429829d77f4bf57b9e77d5a29863",
+      "bytes": 1465637
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeWordGap-16.mpcert",
+      "sha256": "cf2213f504b55d6edc5a30567200aef58b528f5129772a4cf547aa43da43a0c7",
+      "bytes": 1465598
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeWordGap-32.mpcert",
+      "sha256": "eb41d56c06aba01a77ea2b45b204c6c3134ccf23aac93b78b93cca8063d56181",
+      "bytes": 1465599
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeWordGap-64.mpcert",
+      "sha256": "d6303a914c68cc5f3f557479d5b02b22efaa53be7d3339ea2d14c35cc04cf7a6",
+      "bytes": 1465599
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeWordGap-8.mpcert",
+      "sha256": "1f2af9e6518491cbd8b19bdc832db577c87b9abff865a475c33e18a8ae81bfd4",
+      "bytes": 1465598
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseClassifiedConservation-16.mpcert",
+      "sha256": "17d58c7a1c8a680d50d2d9f82ed57ab681545430c773f637eb6b112e19b73937",
+      "bytes": 1465601
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseClassifiedConservation-32.mpcert",
+      "sha256": "4a29d26b3760f65c87b6d10c295036ec2494e10e3bc30c4e2484840167671fab",
+      "bytes": 1465603
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseClassifiedConservation-64.mpcert",
+      "sha256": "e98ebf3cecbdce06db0e61472db50c5fbfc9c9b78a4c7f25185c985b23d461a4",
+      "bytes": 1465603
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseClassifiedConservation-8.mpcert",
+      "sha256": "98ec856ddf71e65d0d1d2127893ab4e76711b6906f8df7ca1c469f9ff9f8f161",
+      "bytes": 1465600
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseHalfUnit.mpcert",
+      "sha256": "06075a791534b2c0e514f1a55964847ca26590edd5cdf830b4db60a07c98bfa8",
+      "bytes": 1465627
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumCharacterization-16.mpcert",
+      "sha256": "81f22904b3062685f72fa2ec4eb876741cba2627c8abc79064676513d588fb30",
+      "bytes": 1465589
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumCharacterization-32.mpcert",
+      "sha256": "b9049d01478892b2518104ed5cd453226d762c9b8d2f7158cfa137f3aec3eadc",
+      "bytes": 1465591
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumCharacterization-64.mpcert",
+      "sha256": "133ffb36c5e1d774b23e4ce6c2ae6d2751acb4aedf38fd3ea3ac159eae388aa4",
+      "bytes": 1465591
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumCharacterization-8.mpcert",
+      "sha256": "23ea96a63c1c844861abeb9999e0c624e06860e73dff36ca1062b7ebeab394d2",
+      "bytes": 1465588
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumSourceQuotient-16.mpcert",
+      "sha256": "ed5c64944638e2caf0e8faf032e9bc6ee634455d2eec92b488bef318538fbbff",
+      "bytes": 1465597
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumSourceQuotient-32.mpcert",
+      "sha256": "b15b06a301f13f669c056e6c8b32c023fa08e1d77b7f6eee1b628996382ca99e",
+      "bytes": 1465599
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumSourceQuotient-64.mpcert",
+      "sha256": "41d3442257ff397f60b18c6bfb2aebc7420a4962dd76b3e8a8dab4073c0a2a6e",
+      "bytes": 1465599
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumSourceQuotient-8.mpcert",
+      "sha256": "189268d9eb27105e1146995037f2f083241c5a16b34f581c3c5f688b4a101ebf",
+      "bytes": 1465596
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumSourceRemainder-16.mpcert",
+      "sha256": "26a9a6f03e181113f317db534c3544ee4eb2062f7c1c1af3628805d9b0d53d3a",
+      "bytes": 1465619
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumSourceRemainder-32.mpcert",
+      "sha256": "88f44255ad3ab9867940931bd88235042b1fdde8e8b3ca391a40f0103f37a982",
+      "bytes": 1465621
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumSourceRemainder-64.mpcert",
+      "sha256": "d2bbfeaf4ff419f1e2ac4e23ab61e57fd3aa76908174c20f9469d24cca3ec145",
+      "bytes": 1465621
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumSourceRemainder-8.mpcert",
+      "sha256": "0eb7eed44415b545ecaa57f52c683ea8a6c5f0be2e85088e35b28591f34f9d8b",
+      "bytes": 1465618
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseNegationSign.mpcert",
+      "sha256": "4d39159591eba0256f6243b78c8de6619fdb66596e77fb807f9dc7eb34ba2452",
+      "bytes": 1465643
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseNegativeUnitComplete-16.mpcert",
+      "sha256": "dde3f7932410d5ca872f5e23da763ae911786ca9b877363af8609b888178fa66",
+      "bytes": 1465583
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseNegativeUnitComplete-32.mpcert",
+      "sha256": "2d6913443c3d094f9ba9d55efd15d24246509ddacec4f58b56e0ad7d658ec431",
+      "bytes": 1465584
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseNegativeUnitComplete-64.mpcert",
+      "sha256": "31013bede8d888de6dd3dfce8bee8b86dc360a942335b5b9e9bdedccec8ec38e",
+      "bytes": 1465584
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseNegativeUnitComplete-8.mpcert",
+      "sha256": "d16c7fdf4d21a9f21bd49279e98ddd54ff26b0a44c742d13a8e3a8b389aa2a1f",
+      "bytes": 1465583
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseNegativeUnitReflect.mpcert",
+      "sha256": "5e69ec4f7200c8f9c581cabf7c86f6021572a107447eb096151c11dde5160352",
+      "bytes": 1465588
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseNegativeUnitSound-16.mpcert",
+      "sha256": "3be0daac914ca38fbd22af909867bc90cc28f68e20466b13805fceef24a8a855",
+      "bytes": 1465595
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseNegativeUnitSound-32.mpcert",
+      "sha256": "cf7cd889abb1211e3e5559537e3dc118159cb095a68b8dd56a7c4aba6122ca35",
+      "bytes": 1465596
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseNegativeUnitSound-64.mpcert",
+      "sha256": "14028cb75e2e46d2757d54ff990f6c5980d7dc160b57b5c4a43942831aa098b4",
+      "bytes": 1465596
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseNegativeUnitSound-8.mpcert",
+      "sha256": "f9dde25ef25d786ab7997f5c86e6371a646121689f04579c2fa51236a59dcd3f",
+      "bytes": 1465595
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseQuotientGap.mpcert",
+      "sha256": "7f717523e439f36034f31730f58caae19747161893bd36ecaf11859509201786",
+      "bytes": 1465628
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseQuotientHalf-16.mpcert",
+      "sha256": "483ac1ca718795044949ae157b72a4118e8d1d536b64c697f40dc7fc2b4084fe",
+      "bytes": 1465589
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseQuotientHalf-32.mpcert",
+      "sha256": "bf14109d804638c6aa7aa933d0e070a42febfe953ac0307eff4a66e91edbda27",
+      "bytes": 1465591
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseQuotientHalf-64.mpcert",
+      "sha256": "6898e65b4be7b652d9c6c7ead1836672d0019691ab6d23b68119bbe7c19b0abd",
+      "bytes": 1465591
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseQuotientHalf-8.mpcert",
+      "sha256": "ec6e37a085feea271a73f5c25e00aa47ca5f88d797b7cf5183ef0e314bc37676",
+      "bytes": 1465588
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseRemainderHalf-16.mpcert",
+      "sha256": "9fbdc15a49a0481122380610b0164c36217bf767751253d89fead28a52e790e3",
+      "bytes": 1465589
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseRemainderHalf-32.mpcert",
+      "sha256": "4c8bb37c585fb693cb8ec2afb6b90d9aac98e97cd49942179cd4cfbcf721e0e8",
+      "bytes": 1465591
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseRemainderHalf-64.mpcert",
+      "sha256": "c82ab9200ba08a030b9f3ef87109b85c091c1d071880536bccaaee5735489206",
+      "bytes": 1465591
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseRemainderHalf-8.mpcert",
+      "sha256": "09cdded4867871c5493009c622cdac51fc6174ebdb9ab011f79cfee1ad6d975c",
+      "bytes": 1465588
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseScalarCorrection.mpcert",
+      "sha256": "3609be5e9ac0bb8f76f03c623366f5e052a7b68fe4e0a4985b9ef704aa820a49",
+      "bytes": 1465597
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseStrictUpper.mpcert",
+      "sha256": "63488370fc1e38ae924eaab5953a2f6a50bd6f10bf1fc3b32c394239745b5518",
+      "bytes": 1465606
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseUnitQuotient.mpcert",
+      "sha256": "a3ea0aa95528939e931d44a427044ddabb7c13fcbacbc80d24dc193c9be149a9",
+      "bytes": 1465628
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/WrongMinimumDefinition-16.mpcert",
+      "sha256": "1f59e040426e54ca36811b498812e7c673325b9650fa9bd0bb3744de8e837225",
+      "bytes": 1465571
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/WrongMinimumDefinition-32.mpcert",
+      "sha256": "711216797a2fa1c5738aa790bb5f5db5d62dd91c934f821c1986b74faf354e7a",
+      "bytes": 1465573
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/WrongMinimumDefinition-64.mpcert",
+      "sha256": "7946d95c21bb51a02a56e53c4a9a8f3faf3ee3f09a63bc43510451f740444b28",
+      "bytes": 1465573
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/WrongMinimumDefinition-8.mpcert",
+      "sha256": "3d7f4b6b2c9ffcc2d7014ac41e312061de85e9e5817e465e5e3548c1420fc783",
+      "bytes": 1465571
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/WrongNegativeUnitDefinition-16.mpcert",
+      "sha256": "e6665cac9b2fba9c15714dc907b18c3fd3613e5e95d959d2d63e4f3a3ce1d555",
+      "bytes": 1465565
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/WrongNegativeUnitDefinition-32.mpcert",
+      "sha256": "f940787a75e95c0c67a20465f7f60846e75374c0f5316000c6d49663a7ae886f",
+      "bytes": 1465566
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/WrongNegativeUnitDefinition-64.mpcert",
+      "sha256": "fd9452630b270b4c18424c4c862c63a5bc51488231b94115f2deb58ceb4f4a02",
+      "bytes": 1465566
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/WrongNegativeUnitDefinition-8.mpcert",
+      "sha256": "55ac33440977b4f05f7883c07267a4d7fcd607a776be5180971c28dfd5247e89",
+      "bytes": 1465565
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/honest-different-division-bounds.mpcert",
+      "sha256": "a5ac4e326eadec5eb5b2ad1c3ed134344996941759d016760c84be8b1148b3c5",
+      "bytes": 1465656
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/word-division-bounds.mpcert",
+      "sha256": "a0158c8449e9f44c36279dd735166fe84f5b30f1d30a8caa337d32e256927e56",
+      "bytes": 1465556
+    }
+  ]
+}

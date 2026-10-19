@@ -300,3 +300,35 @@ remain; explicit Bool-to-Nat equality transport repairs the recipe. Universal
 quotient/half bounds and zero/minimum correction classification remain due,
 alongside the full remaining source/foundation/context/application work.
 W01 is In progress and the cumulative T02 gate stays deferred to W04.
+
+The [actual signed-division bound checkpoint](verification/word-signed-division-bounds/README.md)
+now proves these previously outstanding range and classification laws. The
+actual magnitude quotient is at most half the modulus and the remainder is
+strictly below half. The actual remainder correction is zero. The actual
+quotient correction is exactly the bit of the actual minimum-dividend/
+negative-unit-divisor predicate, whose divisor condition is proved equivalent
+in both directions to signed -1. This gives classified source reconstruction
+and exact reconstruction under a separate optional no-overflow guard. The
+minimum/-one operation stays source-defined, with actual quotient word value H
+and signed remainder zero.
+
+Its 4,093 declarations/99,499 terms/1,465,556 bytes have zero axioms and fit all
+unchanged limits, leaving three declaration slots. All 3,897 prior named
+declarations and complete old generator bytes remain exact; eight additional
+original half proofs and 188 new declarations provide the new laws. Four
+affected roots, strict selected Rust/Go lint/format, 70 same-byte streams with
+68 actual type rejections and 96 original full-input native/model/integer
+comparisons pass. Both actual source results execute for 88 defined pairs;
+eight source faults and eight minimum/-one rows stay present. The finite Bool
+model does not execute Nat/Int/predicate/theorem bodies. Both unchanged cores
+check the universal proofs separately.
+
+The original native wrapper stopped after successful build and two identical
+runs because of a copied expected unique-ID count. Exact original source/raw
+outputs and the observed diagnostic remain. Metadata recovery corrects only
+128 to 96, preserves unavailable elapsed times as null and qualifies original
+control-flow evidence; a new complete prepared-image recheck supplies its own
+timestamp. Native build/observations are not repeated. Remaining numeric/source/
+carrier/state/program/bounded 56-family/context/registry/application replay work
+and all 169 application demands remain open. W01 stays In progress, C# tests
+stay skipped and the cumulative T02 gate stays deferred to W04.

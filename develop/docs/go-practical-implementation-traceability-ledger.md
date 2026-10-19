@@ -29,7 +29,7 @@ after reconciling the intervening shared artifacts and active registry.
 | GO-PRAC-T01-W03 | Complete | Reviewed implementation `9d4e6fb7855a66d9fff309e6dbd9143652ee6e21`; requirement-by-requirement completion audit in section28 |
 | GO-PRAC-T01-W04 | Complete | Commit `68a44416e1b1a6dc3a84587cca784fc4b3a2b862`; exact interfaces, resource bounds, consumer review and historical replay; section58 |
 | GO-PRAC-T01-W05 | Complete under user C# test deferral | Reviewed implementation `4b4c3a01ddfa2377d7ccc0116f128649ff3ec3b1`; amended cumulative gate passes594 tests and all other checks. Completion audit and section78. |
-| GO-PRAC-T02-W01 | In progress | Captured original source/module/archive/compiler/analysis components and fresh ordinary core/Nat/Int/range/word components have scoped evidence. Actual addition, fixed shifts/multiplication, unsigned bounds/order/equality/divisor guards, unsigned division/remainder and signed-product/negation correction/exact-result guards, actual negation/magnitude zero/definedness and signed magnitude/half-range/minimum/sign correspondence now check in both cores. Direct zero proofs assemble the signed-division prerequisites under the unchanged cap; actual signed quotient/remainder reconstruction now proves computed modular corrections. Universal correction/minimum classification, complete bounded foundation, private context/registry and authoritative selected source/export replay remain due; sections79–95 and the W01 checkpoint index. |
+| GO-PRAC-T02-W01 | In progress | Captured original source/module/archive/compiler/analysis components and fresh ordinary core/Nat/Int/range/word components have scoped evidence. Actual addition, fixed shifts/multiplication, unsigned bounds/order/equality/divisor guards, unsigned division/remainder and signed-product/negation correction/exact-result guards, actual negation/magnitude zero/definedness and signed magnitude/half-range/minimum/sign correspondence now check in both cores. Direct zero proofs assemble the signed-division prerequisites under the unchanged cap. Actual signed quotient/remainder reconstruction, quotient/remainder half bounds and universal zero/minimum-minus-one correction classification now check. Remaining numeric/source laws, complete bounded foundation, private context/registry and authoritative selected source/export replay remain due; sections79–96 and the W01 checkpoint index. |
 | GO-PRAC-T02-W02–W04 | Not started | Selected-function typing/closure, common artifact migration and final scalar/cumulative gate |
 | GO-PRAC-T03–T07 | Not started | Sequential remaining v1 implementation and public release |
 | GO-PRAC-T08–T11 | Not started | Sequential v2 freeze, maps, pointers and public release |
@@ -5345,3 +5345,74 @@ context/authoritative original application replay scope remains active. All
 169 application demands stay unelaborated and W01 is In progress. C# tests stay
 skipped; the cumulative T02 gate stays W04. No source-program proof, immutable
 application replay, practical activation or native Linux release is claimed.
+
+## 96. T02-W01 actual signed division bounds and minimum/-one classification
+
+The [actual signed-division bounds checkpoint](../migrations/go-practical/t02-w01/verification/word-signed-division-bounds/README.md)
+proves the range/classification obligations left in section95. With actual
+magnitude operands a,d, actual unsigned quotient/remainder q,r, actual dividend
+magnitude gap gx and half modulus H, it computes QGap=(d-1)*q+r+gx and proves
+q+QGap=H under the actual nonzero source divisor guard. Thus q<=H. The actual
+divisor magnitude half balance and r<d give r<H. Generic Nat strict-gap,
+positive cancellation and induction proofs support the derivation.
+
+For arbitrary actual word z with U(z)+gap=H, ordinary proofs identify its sign
+with Nat.Equal(U(z),H) and its negated sign with actual DivideDefined(z).
+Consequently its selection correction is Equivalent to the Int bit of
+And(Not(flag),Nat.Equal(U(z),H)). The actual remainder correction is zero, so
+actual signed remainder refinement is exact. NegativeUnit(y), defined from
+the actual divisor sign and magnitude-one test, is sound and complete for the
+actual signed value being mathematical -1.
+
+The actual quotient reaches H with positive mathematical sign exactly when
+the original dividend is minimum and the original divisor is NegativeUnit.
+Its correction is therefore precisely the bit of MinimumMinusOne(x,y), and
+the actual source equation is
+Sx Equivalent to Sy*(S(actual SignedDiv)+M*Bit(MinimumMinusOne))+S(actual SignedRem).
+The separate optional QuotientNoOverflow guard yields exact quotient/source
+reconstruction. Source DivideDefined still excludes only zero; minimum/-one
+remains a normal operation with actual quotient unsigned value H and actual
+signed remainder zero, each backed by an explicit source result theorem.
+
+The complete certificate has 4,093 declarations/99,499 terms/1,465,556 bytes
+and zero axioms under unchanged bounds, leaving three declaration slots. It
+retains all 3,897 prior named type/body/proof/level/family identities and their
+complete raw generator bytes, adds eight exact original half positivity/balance
+proofs and 188 new declarations. Metadata observations are diagnostic only;
+both unchanged production cores inspect every actual proof term.
+
+Four affected roots, strict selected Clippy/Rust/Go format and 70 identical-byte
+paired streams pass: two zero-axiom acceptances with matching hashes and 68
+actual type rejections. Generic controls change gap/sign/correction/unit laws
+or premises; fourteen per width change ranges, actual predicates, optional/
+source guards and minimum source results. Exact owning import also rejects
+an honestly different valid component. No format/resource/fuel outcome is
+counted as a semantic negative. All 255 frozen design inputs remain exact.
+
+All 96 original complete signed-operation rows agree between the actual Bool
+model, two identical pinned native Go outputs and independent Python integers.
+Both actual source operators execute for 88 defined pairs, producing 176 source
+results. Eight source faults and eight minimum/-one rows remain. There are 80
+exact equations and 88 equations with the classified correction. The finite
+model executes actual Abs/unsigned magnitude/Neg/Top/guard circuits with its
+unchanged ceilings; host derives numeric gap/predicate/correction counterparts.
+Nat/Int/predicate/theorem bodies do not execute there. Universal classification
+is supplied by the separately checked certificate.
+
+The original native wrapper reached its later unique-ID count assertion after
+a successful build and two identical runs, then exited1 because it expected
+128 instead of96. Exact runner/source/raw native outputs and observed terminal
+tool text remain. Recovery corrects that count only and fully rechecks all5577
+prepared-image files. Original earlier validation/command statuses explicitly
+use reached-control-flow provenance; lost original times stay null. The new
+image recheck has its own recovery timing. No native build or observations
+repeat, no raw OS stderr or original elapsed time is invented, and this wrapper
+metadata failure is not a semantic negative.
+
+Remaining variable/signed/right-shift numeric/source laws, full carrier/state/
+program/bounded 56-family foundation, descriptor/private context/registry and
+authoritative original application source/export/selected-closure replay remain
+due. All169 application demands stay unelaborated and W01 is In progress. C#
+tests stay skipped; the cumulative T02 gate stays deferred to W04. No whole
+source-program proof, immutable application replay, practical activation or
+native Linux release acceptance is claimed.

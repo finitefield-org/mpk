@@ -1,5 +1,6 @@
 //! Actual signed quotient/remainder and explicit, computed modular corrections.
 use super::*;
+mod bounds;
 mod family;
 mod projection;
 mod scalar;
@@ -292,4 +293,8 @@ pub(super) fn append(builder: &mut Builder) -> Result<()> {
         r.family(width)?;
     }
     Ok(())
+}
+
+pub(super) fn append_bounds(builder: &mut Builder) -> Result<()> {
+    bounds::append(builder)
 }
