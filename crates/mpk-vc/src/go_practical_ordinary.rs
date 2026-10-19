@@ -10,7 +10,9 @@ use mpk_cert::encode::{
 };
 use sha2::{Digest, Sha256};
 
+mod integer;
 mod natural;
+mod polynomial;
 mod syntax;
 
 const BOOL: &str = "Std.Bool";
@@ -59,6 +61,17 @@ pub struct GoNaturalFoundation {
 }
 
 impl GoNaturalFoundation {
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoIntegerFoundation {
+    certificate: Vec<u8>,
+}
+
+impl GoIntegerFoundation {
     pub fn certificate_bytes(&self) -> &[u8] {
         &self.certificate
     }
@@ -696,12 +709,16 @@ pub fn import_go_practical_core_foundation(candidate: &[u8]) -> Result<GoCoreFou
 /// Compile unbounded Nat arithmetic and its ordinary universal laws. This
 /// component carries no Go source claim or complete foundation registration.
 pub fn generate_go_practical_natural_foundation() -> Result<GoNaturalFoundation> {
+    Ok(GoNaturalFoundation {
+        certificate: natural_builder()?.finish()?,
+    })
+}
+
+fn natural_builder() -> Result<Builder> {
     let mut builder = core_builder()?;
     natural::append(&mut builder)?;
     builder.certificate.module = "Mpk.Go.Practical.NaturalFoundation".into();
-    Ok(GoNaturalFoundation {
-        certificate: builder.finish()?,
-    })
+    Ok(builder)
 }
 
 pub fn import_go_practical_natural_foundation(candidate: &[u8]) -> Result<GoNaturalFoundation> {
@@ -709,6 +726,28 @@ pub fn import_go_practical_natural_foundation(candidate: &[u8]) -> Result<GoNatu
         return Err(GoOrdinaryError::Limit);
     }
     let expected = generate_go_practical_natural_foundation()?;
+    if candidate != expected.certificate_bytes() {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    Ok(expected)
+}
+
+/// Compile balanced mathematical integers with semantic cross-sum equality.
+/// These ordinary library laws do not claim Go source correctness.
+pub fn generate_go_practical_integer_foundation() -> Result<GoIntegerFoundation> {
+    let mut builder = natural_builder()?;
+    integer::append(&mut builder)?;
+    builder.certificate.module = "Mpk.Go.Practical.IntegerFoundation".into();
+    Ok(GoIntegerFoundation {
+        certificate: builder.finish()?,
+    })
+}
+
+pub fn import_go_practical_integer_foundation(candidate: &[u8]) -> Result<GoIntegerFoundation> {
+    if candidate.len() > MAX_BYTES {
+        return Err(GoOrdinaryError::Limit);
+    }
+    let expected = generate_go_practical_integer_foundation()?;
     if candidate != expected.certificate_bytes() {
         return Err(GoOrdinaryError::Linkage);
     }

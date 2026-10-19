@@ -1,0 +1,20 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `test` profile [optimized + debuginfo] target(s) in 2m 20s
+     Running tests/go_practical_integer_foundation.rs (target/debug/deps/go_practical_integer_foundation-4aab061315212f27)
+
+thread 'actual_balanced_integer_foundation_checks_all_ring_equivalence_and_observation_laws' (35928926) panicked at crates/mpk-vc/tests/go_practical_integer_foundation.rs:27:5:
+assertion `left == right` failed: integer-foundation: {"verdict":"rejected","module":null,"declaration_count":null,"axiom_count":null,"hashes":{"export":null,"axiom_report":null,"certificate":"ba160a286356ecdf3bb2a99cf7b26c33b9814a274c232a0c52dc6452885d0e70"},"axiom_report":null,"error_code":"KERNEL_CORE_CHECK","error_detail":"{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"980\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"57959\",\"kind\":\"check_type_mismatch\",\"term_index\":\"7\"}}"}
+  left: false
+ right: true
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'exact_integer_import_is_deterministic_and_preserves_the_complete_natural_basis' (35928963) panicked at crates/mpk-vc/tests/go_practical_integer_foundation.rs:27:5:
+assertion `left == right` failed: honest-different-integer-component: {"verdict":"rejected","module":null,"declaration_count":null,"axiom_count":null,"hashes":{"export":null,"axiom_report":null,"certificate":"009a6112e6e55f9fd17830466e110043f1349345b5db2e122ad322387d2d4f99"},"axiom_report":null,"error_code":"KERNEL_CORE_CHECK","error_detail":"{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"980\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"57959\",\"kind\":\"check_type_mismatch\",\"term_index\":\"7\"}}"}
+  left: false
+ right: true
+
+thread 'redundant_representations_are_equivalent_without_assuming_function_equality' (35929338) panicked at crates/mpk-vc/tests/go_practical_integer_foundation.rs:27:5:
+assertion `left == right` failed: redundant-representations: {"verdict":"rejected","module":null,"declaration_count":null,"axiom_count":null,"hashes":{"export":null,"axiom_report":null,"certificate":"a5365bfa3eb457014e31d2f07cf24b742adfb43128efcfdd15184ce7d092a78f"},"axiom_report":null,"error_code":"KERNEL_CORE_CHECK","error_detail":"{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"980\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"57959\",\"kind\":\"check_type_mismatch\",\"term_index\":\"7\"}}"}
+  left: false
+ right: true
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_integer_foundation`

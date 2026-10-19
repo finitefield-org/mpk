@@ -132,3 +132,14 @@ kernel change. Five scoped Rust integration roots, strict Clippy and format
 pass. All255 frozen inputs and the preceding core basis remain unchanged.
 Balanced integers/ranges, complete representations/operations/source laws and
 full descriptor/private context binding remain due; W01 stays In progress.
+
+The [actual balanced integer checkpoint](verification/integer-foundation/README.md)
+adds13 ordinary definitions,42 library laws and566 checked Nat-equality
+checkpoints. Both current checkers agree on15 same-byte cases with zero-axiom
+positive hashes and eleven core type rejections. Integer equality is the
+cross-sum relation on full unbounded Nat pairs, and arithmetic/observations
+respect redundant representatives. Four targeted integration roots, strict
+Clippy and format pass. The initial insufficient embedding-injection proof and
+every original input/diagnostic remain; its initial negative passes are not
+counted. Half-open folds, full representations/operations/source foundation and
+descriptor/private context binding remain due; W01 stays In progress.

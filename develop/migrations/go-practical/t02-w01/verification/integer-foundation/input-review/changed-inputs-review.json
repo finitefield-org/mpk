@@ -1,0 +1,1146 @@
+{
+  "status": "passed",
+  "observed_at_utc": "2026-10-19T11:36:57.553523+00:00",
+  "source_base_commit": "4b10216e775baa0aa6ce11719e1b93fe7d421b22",
+  "selection_reason": "Actual balanced integer ordinary representation, ring/equivalence/congruence/observation laws, exact importer and complete retained Nat basis. Polynomial rewriting emits only proofs using previously checked Nat laws, with actual premise-bearing checkpoints. Current independent checkers verify each original full candidate; initial embedding-injection proof failure and all exact input/diagnostic bytes remain. Every changed byte is scanned with unchanged127-rule/four-scope policy and all39 historical seals/fixtures. Only two exact original libtest EOF observations; no source/JSON/directory or blanket whitespace exclusions. Full T02 gate remains deferred to W04 and CSharp tests skipped.",
+  "scanner": {
+    "path": "scripts/check-no-active-gir.sh",
+    "sha256": "d1515009334d5b63f622118e1b313955a8a56c800429da8c92035e0deea7ce00",
+    "bytes": 48685,
+    "matchers": 127,
+    "scope_count": 4,
+    "definitions_changed": false
+  },
+  "inputs": [
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "bfd0f06c0747d2dc33bf4507562a5540570f3255e581eac25701d46c0c25de1a",
+      "bytes": 27140
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/integer.rs",
+      "sha256": "893e2f1295ab018251e3f78458c8827f09c98947f687e2ef11ea828907944c1a",
+      "bytes": 31338
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/polynomial.rs",
+      "sha256": "26eacb5eff9ae9bbeb444e9b66cb77cc07d4e5f6d12172e178a23d3b23e7f756",
+      "bytes": 9618
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/syntax.rs",
+      "sha256": "8b1032155302ecb6814b25a5644ec8d469b891a4416f9380127d680c4226f3d6",
+      "bytes": 7852
+    },
+    {
+      "path": "crates/mpk-vc/tests/go_practical_integer_foundation.rs",
+      "sha256": "43ef93f5bd3ffd95be6e7055d9d3abd14e27110b871a21ddeceab07f6878197a",
+      "bytes": 14939
+    },
+    {
+      "path": "develop/docs/09_go_practical_subset_design-todo.md",
+      "sha256": "4ca66001e5a9aa2233d2298cc1a0a367d3c7359c621de59bc4faa3205278d346",
+      "bytes": 40653
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/README.md",
+      "sha256": "cd3560c44475a9b67f890d11ca3520b4622fc1246dedc6cee6d19690693a4665",
+      "bytes": 9868
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/requirements.json",
+      "sha256": "4998830c5ada69df096f177107ee04e44f3bfd9bdb77273929b2f8d36903e7de",
+      "bytes": 9836
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification.json",
+      "sha256": "f0e8a077f1bdaeec48f53da583506dc9c623e54ec5e0c58f59588d9df150b4a7",
+      "bytes": 8617
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/README.md",
+      "sha256": "d332f0191068b7c6febc8f6a07d4fd72b19f2aaa3dc20e1e0dbf684fe3e5aed5",
+      "bytes": 5507
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/clippy/inputs/crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "bfd0f06c0747d2dc33bf4507562a5540570f3255e581eac25701d46c0c25de1a",
+      "bytes": 27140
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/clippy/inputs/crates/mpk-vc/src/go_practical_ordinary/integer.rs",
+      "sha256": "893e2f1295ab018251e3f78458c8827f09c98947f687e2ef11ea828907944c1a",
+      "bytes": 31338
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/clippy/inputs/crates/mpk-vc/src/go_practical_ordinary/natural.rs",
+      "sha256": "483fb9d5dba921566b448ee5f2551746986e2d4a6c11209b63102a8be4f0a0ec",
+      "bytes": 47316
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/clippy/inputs/crates/mpk-vc/src/go_practical_ordinary/polynomial.rs",
+      "sha256": "26eacb5eff9ae9bbeb444e9b66cb77cc07d4e5f6d12172e178a23d3b23e7f756",
+      "bytes": 9618
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/clippy/inputs/crates/mpk-vc/src/go_practical_ordinary/syntax.rs",
+      "sha256": "8b1032155302ecb6814b25a5644ec8d469b891a4416f9380127d680c4226f3d6",
+      "bytes": 7852
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/clippy/inputs/crates/mpk-vc/tests/go_practical_integer_foundation.rs",
+      "sha256": "43ef93f5bd3ffd95be6e7055d9d3abd14e27110b871a21ddeceab07f6878197a",
+      "bytes": 14939
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/clippy/inputs/proofs/std/bool/std-bool.hex",
+      "sha256": "88a37f9df68a18bc19d51c0832279ff97a2944fc1676326022269766933ee806",
+      "bytes": 1535
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/clippy/inputs/proofs/std/eq/std-eq.hex",
+      "sha256": "80d71a2ef388a6ad1dea166cca4bd10d9093d538edc4999743b6fb1ad80d03a1",
+      "bytes": 3069
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/clippy/inputs/proofs/std/nat/std-nat.hex",
+      "sha256": "65bc5b701561d07b0f675668d942917da23c43606c0cfe0f9edfa113be99f583",
+      "bytes": 743
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/clippy/result.json",
+      "sha256": "f65b5480caac5ae3893403178eb7d949db97d56cda19915704f9cc615cdcec72",
+      "bytes": 3549
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/clippy/stderr.log",
+      "sha256": "0299b349c089b29bd9b061771b105bf5b6e9a0be3c40b3063acf4dbc4848788b",
+      "bytes": 147
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/clippy/stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/format/inputs/crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "bfd0f06c0747d2dc33bf4507562a5540570f3255e581eac25701d46c0c25de1a",
+      "bytes": 27140
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/format/inputs/crates/mpk-vc/src/go_practical_ordinary/integer.rs",
+      "sha256": "893e2f1295ab018251e3f78458c8827f09c98947f687e2ef11ea828907944c1a",
+      "bytes": 31338
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/format/inputs/crates/mpk-vc/src/go_practical_ordinary/natural.rs",
+      "sha256": "483fb9d5dba921566b448ee5f2551746986e2d4a6c11209b63102a8be4f0a0ec",
+      "bytes": 47316
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/format/inputs/crates/mpk-vc/src/go_practical_ordinary/polynomial.rs",
+      "sha256": "26eacb5eff9ae9bbeb444e9b66cb77cc07d4e5f6d12172e178a23d3b23e7f756",
+      "bytes": 9618
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/format/inputs/crates/mpk-vc/src/go_practical_ordinary/syntax.rs",
+      "sha256": "8b1032155302ecb6814b25a5644ec8d469b891a4416f9380127d680c4226f3d6",
+      "bytes": 7852
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/format/inputs/crates/mpk-vc/tests/go_practical_integer_foundation.rs",
+      "sha256": "43ef93f5bd3ffd95be6e7055d9d3abd14e27110b871a21ddeceab07f6878197a",
+      "bytes": 14939
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/format/inputs/proofs/std/bool/std-bool.hex",
+      "sha256": "88a37f9df68a18bc19d51c0832279ff97a2944fc1676326022269766933ee806",
+      "bytes": 1535
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/format/inputs/proofs/std/eq/std-eq.hex",
+      "sha256": "80d71a2ef388a6ad1dea166cca4bd10d9093d538edc4999743b6fb1ad80d03a1",
+      "bytes": 3069
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/format/inputs/proofs/std/nat/std-nat.hex",
+      "sha256": "65bc5b701561d07b0f675668d942917da23c43606c0cfe0f9edfa113be99f583",
+      "bytes": 743
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/format/result.json",
+      "sha256": "d67446ce386adb72d7fbce21440db4226d7d2f01c0009ef69de207f1160634c1",
+      "bytes": 3810
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/format/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/format/stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/certificates/addition-premise.mpcert",
+      "sha256": "5857f37b045a9fc4411e9a8b3dbc99643c5093ee3d9b55e35e77bb852f57e57a",
+      "bytes": 160618
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/certificates/addition-premise.rust.json",
+      "sha256": "0df30d1744ac8c47ef2bd4e6230e61f8ac30e60fde8d8f0cd30721ce80e9262f",
+      "bytes": 536
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/certificates/equal-respects-premise.mpcert",
+      "sha256": "bd33035b013ee330ee2a7e9881307ae6b523e531464b77565e740f0befe86cfb",
+      "bytes": 160630
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/certificates/equal-respects-premise.rust.json",
+      "sha256": "ad82204228421f185054bb8048906e9df5bba9c73115ecbe0eb8168c63ec1273",
+      "bytes": 536
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/certificates/equivalent-function-equality.mpcert",
+      "sha256": "713b855305f3b37158f9947f02cc233cfca4de7e8d34d191fd322f41747d8ff7",
+      "bytes": 160613
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/certificates/equivalent-function-equality.rust.json",
+      "sha256": "fa57f2a5b441ee2cc8dcb4e1d62e1b0723d2a96b53d9b5bf5fc2bd4ed92c86f9",
+      "bytes": 537
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/certificates/false-function-equality.mpcert",
+      "sha256": "8fd8915cfaf00eb328b63f1c9d1d02687a572f454d09fe2559a11ec0a7cdccbc",
+      "bytes": 160815
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/certificates/false-function-equality.rust.json",
+      "sha256": "1b616e7370244cd647389419d3bb3677c99417e25fc1bc28dc21adeb853097fe",
+      "bytes": 540
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/certificates/honest-different-integer-component.mpcert",
+      "sha256": "38d098a4b7bb4eca31d06a2607abe2220bc27e9dff724a4f942f1605c1f10c91",
+      "bytes": 160647
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/certificates/honest-different-integer-component.rust.json",
+      "sha256": "dc460d2e32ade76cf8bac5402812571e695508b07e9efe86fea8a39253f864d2",
+      "bytes": 597
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/certificates/incomplete-multiplication.mpcert",
+      "sha256": "109af186b85a43e875fa1dc2927e963653d54dc30daa176c35e1ca0a3e1467b7",
+      "bytes": 160691
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/certificates/incomplete-multiplication.rust.json",
+      "sha256": "dc025084f699d73f591c469eda9866c03376f194cbe32e7a9b5cde18535da6f5",
+      "bytes": 537
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/certificates/integer-foundation.mpcert",
+      "sha256": "4da7c73b83dd1209c5712ea031daf013093022fc4cd76ea828b1c8c9632ec625",
+      "bytes": 160569
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/certificates/integer-foundation.rust.json",
+      "sha256": "c2085ee72e8847ebf71a9795dd9fa5d775b05181d9e1a0cc8a8d5bd7cfe53118",
+      "bytes": 597
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/certificates/less-equal-respects-premise.mpcert",
+      "sha256": "ade3cd14e8177deb2a88fce9f87ff5a258fd6bba76dbd16a778dc7fde66aae88",
+      "bytes": 160630
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/certificates/less-equal-respects-premise.rust.json",
+      "sha256": "6026f7adb5f4ba2075701ef9ef6768d1b2426423a3b2f9efb82e9a1e8529e085",
+      "bytes": 536
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/certificates/make.mpcert",
+      "sha256": "76b92de4f60e11a5f8a4f40a55470fe44cd4af515848a047e1d585c54d7810df",
+      "bytes": 160603
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/certificates/make.rust.json",
+      "sha256": "4a41b17a2ed016c8cf920d678c678ae83d417168dfa8f4bb947db09763a90482",
+      "bytes": 535
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/certificates/nat-injection-premise.mpcert",
+      "sha256": "a22ec0c8c7dcaea26e023b07aeef7f7430b0f2c6aa4924ea38cb1b164e671f29",
+      "bytes": 160614
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/certificates/nat-injection-premise.rust.json",
+      "sha256": "ba87e4f71fbee5ff167c7d04aa577abaca7176c348b2856f5566512af772b34d",
+      "bytes": 538
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/certificates/negative-projection.mpcert",
+      "sha256": "f3642acbdceea023e2409c3da23801bcf718d2a2e60246239155c1c751c74c6d",
+      "bytes": 160602
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/certificates/negative-projection.rust.json",
+      "sha256": "1429bf8d5bd3ac1b4c969476852df23c9efaed80cb133af7540969a9d5c1d2df",
+      "bytes": 535
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/certificates/positive-only-equal.mpcert",
+      "sha256": "bdb0067f3c9cb52c7636e14d9a4ad9ad3f2551f0977e2854d171411072887f4e",
+      "bytes": 160629
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/certificates/positive-only-equal.rust.json",
+      "sha256": "6b737e5fae92b26f34f3363ff5cf57b6d198598eed3b2d8b238ef9ca75e0bacd",
+      "bytes": 540
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/certificates/redundant-representations.mpcert",
+      "sha256": "cb4322c0e6c5af8e6be61301089313f257c21147a8dbaee35c73c22064b240ee",
+      "bytes": 161568
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/certificates/redundant-representations.rust.json",
+      "sha256": "7e271d6c8aa2189d80703d32d8c53206dbee2ee3704d7061b42b3fdfdad52b1e",
+      "bytes": 597
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/certificates/retained-natural-basis.mpcert",
+      "sha256": "252e78ffa4d8025eeba88fc42e23f6e565454369c8b3f8f71585ce32b18cedf4",
+      "bytes": 16469
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/certificates/retained-natural-basis.rust.json",
+      "sha256": "ea133a49d45218390ec29e4695655ae322b3b7e6c3caf9e687e96f8cba934407",
+      "bytes": 596
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/certificates/transitive-premise.mpcert",
+      "sha256": "96eae4a960cf5be04d18ca25d438fa152da724495c172404af4766e437ca73d9",
+      "bytes": 160613
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/certificates/transitive-premise.rust.json",
+      "sha256": "9d907818c35d25a9f48b79624374ab15b3082b36d6c775d7ab1f0dfce5ff3d3a",
+      "bytes": 536
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "bfd0f06c0747d2dc33bf4507562a5540570f3255e581eac25701d46c0c25de1a",
+      "bytes": 27140
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/integer.rs",
+      "sha256": "893e2f1295ab018251e3f78458c8827f09c98947f687e2ef11ea828907944c1a",
+      "bytes": 31338
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/natural.rs",
+      "sha256": "483fb9d5dba921566b448ee5f2551746986e2d4a6c11209b63102a8be4f0a0ec",
+      "bytes": 47316
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/polynomial.rs",
+      "sha256": "26eacb5eff9ae9bbeb444e9b66cb77cc07d4e5f6d12172e178a23d3b23e7f756",
+      "bytes": 9618
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/syntax.rs",
+      "sha256": "8b1032155302ecb6814b25a5644ec8d469b891a4416f9380127d680c4226f3d6",
+      "bytes": 7852
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/inputs/crates/mpk-vc/tests/go_practical_integer_foundation.rs",
+      "sha256": "43ef93f5bd3ffd95be6e7055d9d3abd14e27110b871a21ddeceab07f6878197a",
+      "bytes": 14939
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/inputs/proofs/std/bool/std-bool.hex",
+      "sha256": "88a37f9df68a18bc19d51c0832279ff97a2944fc1676326022269766933ee806",
+      "bytes": 1535
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/inputs/proofs/std/eq/std-eq.hex",
+      "sha256": "80d71a2ef388a6ad1dea166cca4bd10d9093d538edc4999743b6fb1ad80d03a1",
+      "bytes": 3069
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/inputs/proofs/std/nat/std-nat.hex",
+      "sha256": "65bc5b701561d07b0f675668d942917da23c43606c0cfe0f9edfa113be99f583",
+      "bytes": 743
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/result.json",
+      "sha256": "952b912219ca9a0429aeedfd8862faa781be690a1d329ca53971370845d0f271",
+      "bytes": 7797
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/stderr.log",
+      "sha256": "9460d04866ec944e8c3208666edacde4b0becb2ff0ee127cedb3479a23351911",
+      "bytes": 269
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/stdout.log",
+      "sha256": "c874d7d03aebfe9f2d455ea422e57440ebec3684221faa9b7be33e712ff1bf85",
+      "bytes": 528
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/frozen-design-preservation.json",
+      "sha256": "760f30424a99e891c71328c5d54f43e9004a2ffe2dae5bf9d605197e637dcbfc",
+      "bytes": 662
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/format/inputs/crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "bfd0f06c0747d2dc33bf4507562a5540570f3255e581eac25701d46c0c25de1a",
+      "bytes": 27140
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/format/inputs/crates/mpk-vc/src/go_practical_ordinary/integer.rs",
+      "sha256": "b57b3e12e431a75882049b3f6446250dc29d8d52a82a651f8c0ea63cc55b1964",
+      "bytes": 30665
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/format/inputs/crates/mpk-vc/src/go_practical_ordinary/natural.rs",
+      "sha256": "483fb9d5dba921566b448ee5f2551746986e2d4a6c11209b63102a8be4f0a0ec",
+      "bytes": 47316
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/format/inputs/crates/mpk-vc/src/go_practical_ordinary/polynomial.rs",
+      "sha256": "26eacb5eff9ae9bbeb444e9b66cb77cc07d4e5f6d12172e178a23d3b23e7f756",
+      "bytes": 9618
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/format/inputs/crates/mpk-vc/src/go_practical_ordinary/syntax.rs",
+      "sha256": "8b1032155302ecb6814b25a5644ec8d469b891a4416f9380127d680c4226f3d6",
+      "bytes": 7852
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/format/inputs/crates/mpk-vc/tests/go_practical_integer_foundation.rs",
+      "sha256": "43ef93f5bd3ffd95be6e7055d9d3abd14e27110b871a21ddeceab07f6878197a",
+      "bytes": 14939
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/format/inputs/proofs/std/bool/std-bool.hex",
+      "sha256": "88a37f9df68a18bc19d51c0832279ff97a2944fc1676326022269766933ee806",
+      "bytes": 1535
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/format/inputs/proofs/std/eq/std-eq.hex",
+      "sha256": "80d71a2ef388a6ad1dea166cca4bd10d9093d538edc4999743b6fb1ad80d03a1",
+      "bytes": 3069
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/format/inputs/proofs/std/nat/std-nat.hex",
+      "sha256": "65bc5b701561d07b0f675668d942917da23c43606c0cfe0f9edfa113be99f583",
+      "bytes": 743
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/format/result.json",
+      "sha256": "1d249d24c2e24df8541a4d9b5bef59ac8e8b4e93001bad2e581096b25f7591d9",
+      "bytes": 3814
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/format/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/format/stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/certificates/addition-premise.mpcert",
+      "sha256": "0731fa2132c81ab5c4cae2fb815c1b2db25a6be0b4cfd1c369a866f473a259c0",
+      "bytes": 159288
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/certificates/addition-premise.rust.json",
+      "sha256": "e210a85295a1b5f3875c173164a85715997bd8e55cbaa9b17da0a1315378d371",
+      "bytes": 536
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/certificates/equal-respects-premise.mpcert",
+      "sha256": "0fa537b5d31a601fefcc7a8f17cb24c6d89ffa8884835abf85400568e4510c65",
+      "bytes": 159300
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/certificates/equal-respects-premise.rust.json",
+      "sha256": "2beaa5b7f603b8f1aa35499f7583896eeaf1d1b9cb59f2d5f55dc6800603bee7",
+      "bytes": 536
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/certificates/equivalent-function-equality.mpcert",
+      "sha256": "354f99e423d960d6be85e8e3e0de023310fc20077ee50b7dddf565165f80aa78",
+      "bytes": 159283
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/certificates/equivalent-function-equality.rust.json",
+      "sha256": "ab55d4e7dde34ea27ed61b915ecb60e3ca24db2a564914e8b97363764e4a2653",
+      "bytes": 537
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/certificates/honest-different-integer-component.mpcert",
+      "sha256": "d6ffbe4fbf5e21e55539f8b9fb7cc068d0a5d62ba4a6ac0f3ef6eda1473de316",
+      "bytes": 159317
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/certificates/honest-different-integer-component.rust.json",
+      "sha256": "430a0ed0abd0b2c5d956b372a96654d604ccfa5139446c711179aa91d21cda46",
+      "bytes": 534
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/certificates/incomplete-multiplication.mpcert",
+      "sha256": "a16d87c14126e90e4e85affbb4dbf9807cc65e72dfe8e626933d7fe5f962d598",
+      "bytes": 159361
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/certificates/incomplete-multiplication.rust.json",
+      "sha256": "bd3860622659ab44babbb54dd4b99d0911d65f8dc7e3b68f85f7124bb94c360b",
+      "bytes": 537
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/certificates/integer-foundation.mpcert",
+      "sha256": "fc61a77ca7e1d87aeea8e2f86fc527bbe7c904d45d476b317d0a27e0c72c800c",
+      "bytes": 159239
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/certificates/integer-foundation.rust.json",
+      "sha256": "45bb7eacecb2846ad45e9210f94e6d7e5ecc742dbcf97487c8ae93156135bc96",
+      "bytes": 534
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/certificates/less-equal-respects-premise.mpcert",
+      "sha256": "e62559b5c3b9db04c4eb42175f2c83cd1773f3474a01094ea61f47aa096706f8",
+      "bytes": 159300
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/certificates/less-equal-respects-premise.rust.json",
+      "sha256": "37bbb6303993565f84509a2937f7ce24fead2027d83b879bb0d08afc92aa6622",
+      "bytes": 536
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/certificates/make.mpcert",
+      "sha256": "b24b15870ba94eb6b827819bf0cbd379f23748944cf346ba0e6a50d353bfa4ea",
+      "bytes": 159273
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/certificates/make.rust.json",
+      "sha256": "237a7a5577b728b48fa5239e88ab8baab438c87971eef63fd8780f78aa9b1b19",
+      "bytes": 535
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/certificates/nat-injection-premise.mpcert",
+      "sha256": "a6691adb44252a9002101ceca01c2b71d83e0f1ce368947d9dff1d916245b392",
+      "bytes": 159284
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/certificates/nat-injection-premise.rust.json",
+      "sha256": "7e3c9aa17575a2a75cd47f7d5a521ddfeb3103ed3ae2de15f83f0a7e6cf5f19d",
+      "bytes": 538
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/certificates/negative-projection.mpcert",
+      "sha256": "e80f21b18651fece827c52f1f353c868e5697194b5db47a7fa7eeed9a5c830e7",
+      "bytes": 159272
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/certificates/negative-projection.rust.json",
+      "sha256": "6ed6803dec2ee995de7b1abfeb73751804970bac723b7c40f900c2af83c1d2c0",
+      "bytes": 535
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/certificates/positive-only-equal.mpcert",
+      "sha256": "38267cb2482d158a6f7405cadcf6a8c1a17a25e87bb75505903a58d4c13bd809",
+      "bytes": 159299
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/certificates/positive-only-equal.rust.json",
+      "sha256": "e711568c385b13f54bc8c8b12394ac0d438c461ce52a2430864d18cd0c4996c0",
+      "bytes": 540
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/certificates/redundant-representations.mpcert",
+      "sha256": "94d4f2a6b167ec2089f1e18c968043b1c90c6247b97a93e8459de5653e4af7e6",
+      "bytes": 160238
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/certificates/redundant-representations.rust.json",
+      "sha256": "5cce226e87cfa673561605bc61ec37861326bfc974244534ad5b3e27b375c962",
+      "bytes": 534
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/certificates/retained-natural-basis.mpcert",
+      "sha256": "252e78ffa4d8025eeba88fc42e23f6e565454369c8b3f8f71585ce32b18cedf4",
+      "bytes": 16469
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/certificates/retained-natural-basis.rust.json",
+      "sha256": "ea133a49d45218390ec29e4695655ae322b3b7e6c3caf9e687e96f8cba934407",
+      "bytes": 596
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/certificates/transitive-premise.mpcert",
+      "sha256": "2e4cb63026eeda4392ec70a52a45c5adbc96abf901a000acb6d5969f3484cab1",
+      "bytes": 159283
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/certificates/transitive-premise.rust.json",
+      "sha256": "d4254cda0eeb3bf225e0d3e081dcb85066baec7b30c3962d506daba26a51995f",
+      "bytes": 536
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "bfd0f06c0747d2dc33bf4507562a5540570f3255e581eac25701d46c0c25de1a",
+      "bytes": 27140
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/integer.rs",
+      "sha256": "b57b3e12e431a75882049b3f6446250dc29d8d52a82a651f8c0ea63cc55b1964",
+      "bytes": 30665
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/natural.rs",
+      "sha256": "483fb9d5dba921566b448ee5f2551746986e2d4a6c11209b63102a8be4f0a0ec",
+      "bytes": 47316
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/polynomial.rs",
+      "sha256": "26eacb5eff9ae9bbeb444e9b66cb77cc07d4e5f6d12172e178a23d3b23e7f756",
+      "bytes": 9618
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/syntax.rs",
+      "sha256": "8b1032155302ecb6814b25a5644ec8d469b891a4416f9380127d680c4226f3d6",
+      "bytes": 7852
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/inputs/crates/mpk-vc/tests/go_practical_integer_foundation.rs",
+      "sha256": "43ef93f5bd3ffd95be6e7055d9d3abd14e27110b871a21ddeceab07f6878197a",
+      "bytes": 14939
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/inputs/proofs/std/bool/std-bool.hex",
+      "sha256": "88a37f9df68a18bc19d51c0832279ff97a2944fc1676326022269766933ee806",
+      "bytes": 1535
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/inputs/proofs/std/eq/std-eq.hex",
+      "sha256": "80d71a2ef388a6ad1dea166cca4bd10d9093d538edc4999743b6fb1ad80d03a1",
+      "bytes": 3069
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/inputs/proofs/std/nat/std-nat.hex",
+      "sha256": "65bc5b701561d07b0f675668d942917da23c43606c0cfe0f9edfa113be99f583",
+      "bytes": 743
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/result.json",
+      "sha256": "3c9cc5eea19a75d640d2378a376086264b820725b5d28a1504951e90ffc90b21",
+      "bytes": 3752
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/stderr.log",
+      "sha256": "a41053459c2e27212d523d93661a285028d19cef1eb02bc3e293ff7008a549c9",
+      "bytes": 2821
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/stdout.log",
+      "sha256": "d846c15c270dfbea37cddc5215803affdf47d5b0a8e93c98f345125a36b222a2",
+      "bytes": 776
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/input-review/raw-formatter-observations.json",
+      "sha256": "76fdc3cf51338aeeba5e9a407993b91c228a2b3a4554ad5ffc5a70ebc3c52b09",
+      "bytes": 767
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/input-review/run-review.py",
+      "sha256": "9b94710dcc38e31d1951dbbba2e23d218ae31a139ae6c0183858fda5e0d4bfd2",
+      "bytes": 4964
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/paired-final/addition-premise.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/paired-final/addition-premise.stdout.log",
+      "sha256": "ba6bfcac49d4bec7bb0135b72fd91f959b5e9eaa59f820f67eb56dda5817e3b2",
+      "bytes": 103
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/paired-final/equal-respects-premise.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/paired-final/equal-respects-premise.stdout.log",
+      "sha256": "d6a7ee858cb779302924c66ab96892130fb45b2e751ffad918762a1da9a06ba8",
+      "bytes": 105
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/paired-final/equivalent-function-equality.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/paired-final/equivalent-function-equality.stdout.log",
+      "sha256": "0fbccad8c1c902653b24c6cf8c100ac3952fed8cc5c8dc921ae0d7fead86a645",
+      "bytes": 106
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/paired-final/false-function-equality.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/paired-final/false-function-equality.stdout.log",
+      "sha256": "293b1a8b8f4330672700084e1e63e8a3d2dc30f6c9c4a7bf8f116d02249ea17f",
+      "bytes": 107
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/paired-final/honest-different-integer-component.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/paired-final/honest-different-integer-component.stdout.log",
+      "sha256": "3b2c0192be6bfcbe9396693338e4eccb04d4089dee7793f181dbca020a84e38a",
+      "bytes": 343
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/paired-final/incomplete-multiplication.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/paired-final/incomplete-multiplication.stdout.log",
+      "sha256": "26b94cf461a1543f5a15f6985046aae683f8573193fd36fb51c55d234deb3859",
+      "bytes": 106
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/paired-final/integer-foundation.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/paired-final/integer-foundation.stdout.log",
+      "sha256": "35151dda71c09ad123e4a2d0e8f8a3dd19238f53afe072c9862e8c8c792cf711",
+      "bytes": 343
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/paired-final/less-equal-respects-premise.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/paired-final/less-equal-respects-premise.stdout.log",
+      "sha256": "d6a7ee858cb779302924c66ab96892130fb45b2e751ffad918762a1da9a06ba8",
+      "bytes": 105
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/paired-final/make.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/paired-final/make.stdout.log",
+      "sha256": "d1ca21e6dc534af862fa312e30f19800d23b6424d34d88ca1430ffdc4cf3b3b8",
+      "bytes": 105
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/paired-final/nat-injection-premise.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/paired-final/nat-injection-premise.stdout.log",
+      "sha256": "5192bb346731f18ab5a7d449adf7a883d5fc300a23f229961c166d194d0bcf6e",
+      "bytes": 107
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/paired-final/negative-projection.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/paired-final/negative-projection.stdout.log",
+      "sha256": "d1ca21e6dc534af862fa312e30f19800d23b6424d34d88ca1430ffdc4cf3b3b8",
+      "bytes": 105
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/paired-final/positive-only-equal.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/paired-final/positive-only-equal.stdout.log",
+      "sha256": "704c8ef520a3509d799b31451fb1186f87dd0cedc04a9a9f0dacc9ea10bd6bad",
+      "bytes": 107
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/paired-final/redundant-representations.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/paired-final/redundant-representations.stdout.log",
+      "sha256": "c2156b5f081f774d502fa5ab9dbf15892facd884685de677f455f095b2c562f1",
+      "bytes": 343
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/paired-final/result.json",
+      "sha256": "b23c416eb0ad0aa48913a6e65661a16da40fadc3036dd9c19777344bcc3282d6",
+      "bytes": 41695
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/paired-final/retained-natural-basis.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/paired-final/retained-natural-basis.stdout.log",
+      "sha256": "14d3d18cf64fab62fcf056270addef2310b931c25be845d0e4b0ddc13defb7f4",
+      "bytes": 342
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/paired-final/transitive-premise.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/paired-final/transitive-premise.stdout.log",
+      "sha256": "ba6bfcac49d4bec7bb0135b72fd91f959b5e9eaa59f820f67eb56dda5817e3b2",
+      "bytes": 103
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/predecessor-inputs/crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "a8de5001e342ef509e97a4c4e206c7ba9558f2aee0bd83a9e7163b7c0f96b85e",
+      "bytes": 25995
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/predecessor-inputs/crates/mpk-vc/src/go_practical_ordinary/syntax.rs",
+      "sha256": "2e1e90424056f214bb7463edd5bfd5bf7ee6c68405d5149152009719a17604eb",
+      "bytes": 7661
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/run-paired.py",
+      "sha256": "757f6218d8463b39bba39a67d08689b091b2038b7cf2bdf2f2fb35b21c5a02e7",
+      "bytes": 3946
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/run-selected.py",
+      "sha256": "8327284250beadb60dc97fe789e41496bf72257f104346ded103a9f7ab93fe43",
+      "bytes": 4018
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/verification.json",
+      "sha256": "07731f53a2edeb1b36045d345d0deec4502f4230fd796d82d1f0c166cf5c625d",
+      "bytes": 10479
+    }
+  ],
+  "selected_files": 167,
+  "findings": [],
+  "whitespace_errors": [],
+  "git_errors": [],
+  "raw_stdout_EOF_observations": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/stdout.log",
+      "sha256": "c874d7d03aebfe9f2d455ea422e57440ebec3684221faa9b7be33e712ff1bf85",
+      "bytes": 528,
+      "exact_raw_stdout_EOF_preserved": true,
+      "git_whitespace_output": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/stdout.log:10: new blank line at EOF.\n"
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/stdout.log",
+      "sha256": "d846c15c270dfbea37cddc5215803affdf47d5b0a8e93c98f345125a36b222a2",
+      "bytes": 776,
+      "exact_raw_stdout_EOF_preserved": true,
+      "git_whitespace_output": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/stdout.log:16: new blank line at EOF.\n"
+    }
+  ],
+  "local_markdown_links_checked": 53,
+  "links": [
+    {
+      "document": "develop/docs/09_go_practical_subset_design-todo.md",
+      "target": "../migrations/go-practical/t01-w05/completion-audit.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/09_go_practical_subset_design-todo.md",
+      "target": "../migrations/go-practical/t02-w01/verification/natural-foundation/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/09_go_practical_subset_design-todo.md",
+      "target": "../migrations/go-practical/t02-w01/verification/integer-foundation/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/09_go_practical_subset_design-todo.md",
+      "target": "../migrations/go-practical/t01-w03/completion-audit.json",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/09_go_practical_subset_design-todo.md",
+      "target": "../migrations/go-practical/t01-w04/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/09_go_practical_subset_design-todo.md",
+      "target": "../migrations/go-practical/t01-w04/storage-lifetimes/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/09_go_practical_subset_design-todo.md",
+      "target": "../migrations/go-practical/t01-w04/source-admission/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/09_go_practical_subset_design-todo.md",
+      "target": "../migrations/go-practical/t01-w04/structural-limits/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/09_go_practical_subset_design-todo.md",
+      "target": "../migrations/go-practical/t01-w04/identity-dag/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/09_go_practical_subset_design-todo.md",
+      "target": "../migrations/go-practical/t01-w04/context-protocol/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/09_go_practical_subset_design-todo.md",
+      "target": "../migrations/go-practical/t01-w04/foundation-limits/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/09_go_practical_subset_design-todo.md",
+      "target": "../migrations/go-practical/t01-w04/closed-carriers/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/09_go_practical_subset_design-todo.md",
+      "target": "../migrations/go-practical/t01-w04/contract-wire/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/09_go_practical_subset_design-todo.md",
+      "target": "../migrations/go-practical/t01-w04/operation-signatures/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/09_go_practical_subset_design-todo.md",
+      "target": "../migrations/go-practical/t01-w04/vir-body/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/09_go_practical_subset_design-todo.md",
+      "target": "../migrations/go-practical/t01-w04/shared-vir/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/09_go_practical_subset_design-todo.md",
+      "target": "../migrations/go-practical/t01-w04/capture-artifacts/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/09_go_practical_subset_design-todo.md",
+      "target": "../migrations/go-practical/t01-w04/proof-artifacts/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/09_go_practical_subset_design-todo.md",
+      "target": "../migrations/go-practical/t01-w04/word-foundation/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/09_go_practical_subset_design-todo.md",
+      "target": "../migrations/go-practical/t01-w04/word-numeric-bridge/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/09_go_practical_subset_design-todo.md",
+      "target": "../migrations/go-practical/t01-w04/ordinary-arithmetic/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/09_go_practical_subset_design-todo.md",
+      "target": "../migrations/go-practical/t01-w04/word-arithmetic/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/09_go_practical_subset_design-todo.md",
+      "target": "../migrations/go-practical/t01-w04/frontend-envelope/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/09_go_practical_subset_design-todo.md",
+      "target": "../migrations/go-practical/t01-w04/policy-api/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/09_go_practical_subset_design-todo.md",
+      "target": "go-practical-implementation-traceability-ledger.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/09_go_practical_subset_design-todo.md",
+      "target": "09_go_practical_subset_design.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/09_go_practical_subset_design-todo.md",
+      "target": "../migrations/go-practical/t01-w04/api-contracts/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/09_go_practical_subset_design-todo.md",
+      "target": "../migrations/go-practical/t01-w04/ai-explanation/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/09_go_practical_subset_design-todo.md",
+      "target": "../migrations/go-practical/t01-w04/release-contracts/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/09_go_practical_subset_design-todo.md",
+      "target": "08_csharp_practical_subset_design-todo.md",
+      "exists": true
+    },
+    {
+      "document": "develop/docs/09_go_practical_subset_design-todo.md",
+      "target": "../migrations/go-practical/t02-w01/core-foundation-ordering.json",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "requirements.json",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/rooted-capture/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/module-inputs/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/ordinary-boolean/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/module-archives/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/module-snapshots/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/module-resolution/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/compiler-image/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/analysis-inputs/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/core-interfaces/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/natural-foundation/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/integer-foundation/README.md",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/README.md",
+      "target": "../../../../../../crates/mpk-vc/src/go_practical_ordinary/integer.rs",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/README.md",
+      "target": "../../../../../../crates/mpk-vc/src/go_practical_ordinary/polynomial.rs",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/README.md",
+      "target": "final/rust-tests/result.json",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/README.md",
+      "target": "paired-final/result.json",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/README.md",
+      "target": "final/clippy/result.json",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/README.md",
+      "target": "final/format/result.json",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/README.md",
+      "target": "verification.json",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/README.md",
+      "target": "initial/rust-tests/result.json",
+      "exists": true
+    },
+    {
+      "document": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/README.md",
+      "target": "frozen-design-preservation.json",
+      "exists": true
+    }
+  ],
+  "missing_links": [],
+  "validated_exact_historical_seals": 39,
+  "changed_exact_historical_record_observations": [],
+  "source_JSON_directory_exclusions": false,
+  "blanket_whitespace_exclusions": false,
+  "production_or_directory_exclusions_added": false,
+  "full_gate_passed": false
+}

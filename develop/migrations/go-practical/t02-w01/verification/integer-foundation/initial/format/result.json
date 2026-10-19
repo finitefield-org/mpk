@@ -1,0 +1,91 @@
+{
+  "schema": "mpk.go_practical.integer_foundation_check.v1",
+  "status": "passed",
+  "started_at_utc": "2026-10-19T11:29:37.789421+00:00",
+  "command": [
+    "rustfmt",
+    "--check",
+    "--edition",
+    "2021",
+    "--config",
+    "skip_children=true",
+    "crates/mpk-vc/src/go_practical_ordinary.rs",
+    "crates/mpk-vc/src/go_practical_ordinary/syntax.rs",
+    "crates/mpk-vc/src/go_practical_ordinary/natural.rs",
+    "crates/mpk-vc/src/go_practical_ordinary/integer.rs",
+    "crates/mpk-vc/src/go_practical_ordinary/polynomial.rs",
+    "crates/mpk-vc/tests/go_practical_integer_foundation.rs"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1"
+  },
+  "sources": [
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "bfd0f06c0747d2dc33bf4507562a5540570f3255e581eac25701d46c0c25de1a",
+      "bytes": 27140
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/syntax.rs",
+      "sha256": "8b1032155302ecb6814b25a5644ec8d469b891a4416f9380127d680c4226f3d6",
+      "bytes": 7852
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/natural.rs",
+      "sha256": "483fb9d5dba921566b448ee5f2551746986e2d4a6c11209b63102a8be4f0a0ec",
+      "bytes": 47316
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/integer.rs",
+      "sha256": "b57b3e12e431a75882049b3f6446250dc29d8d52a82a651f8c0ea63cc55b1964",
+      "bytes": 30665
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/polynomial.rs",
+      "sha256": "26eacb5eff9ae9bbeb444e9b66cb77cc07d4e5f6d12172e178a23d3b23e7f756",
+      "bytes": 9618
+    },
+    {
+      "path": "crates/mpk-vc/tests/go_practical_integer_foundation.rs",
+      "sha256": "43ef93f5bd3ffd95be6e7055d9d3abd14e27110b871a21ddeceab07f6878197a",
+      "bytes": 14939
+    },
+    {
+      "path": "proofs/std/bool/std-bool.hex",
+      "sha256": "88a37f9df68a18bc19d51c0832279ff97a2944fc1676326022269766933ee806",
+      "bytes": 1535
+    },
+    {
+      "path": "proofs/std/eq/std-eq.hex",
+      "sha256": "80d71a2ef388a6ad1dea166cca4bd10d9093d538edc4999743b6fb1ad80d03a1",
+      "bytes": 3069
+    },
+    {
+      "path": "proofs/std/nat/std-nat.hex",
+      "sha256": "65bc5b701561d07b0f675668d942917da23c43606c0cfe0f9edfa113be99f583",
+      "bytes": 743
+    }
+  ],
+  "selection_reason": "Fresh ordinary balanced integer representation, cross-sum equivalence and ring/representative-independent operations and observations. Every polynomial rewrite composes checked Nat laws in ordinary proof terms. Scope tests to new actual component, exact import, retained complete Nat hash, redundant representatives and ten fully reencoded wrong definitions or ignored premises plus false function equality. Private compiled syntax/polynomial construction is not a trusted evaluator or caller proof. Run no CSharp test target or broad/intermediate gate; unchanged core/Go/legacy matrices remain retained.",
+  "CSharp_tests_executed": false,
+  "full_T02_gate": "deferred to T02-W04: check-fast.sh --skip-csharp",
+  "T02_W01_complete": false,
+  "exit_code": 0,
+  "wall_seconds": 0.08144037495367229,
+  "finished_at_utc": "2026-10-19T11:29:37.871875+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/format/stdout.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/format/stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  }
+}

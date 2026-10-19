@@ -4,6 +4,7 @@ use super::{Builder, DeclarationKind, DefinitionReducibility, GoOrdinaryError, R
 
 #[derive(Clone, Debug, Eq, PartialEq, Ord, PartialOrd)]
 pub(super) enum Expr {
+    Sort0,
     Var(&'static str),
     Constant(String),
     Apply(Box<Expr>, Vec<Expr>),
@@ -102,6 +103,7 @@ pub(super) fn induct(
 
 fn lower(builder: &mut Builder, expression: &Expr, context: &mut Vec<&'static str>) -> Result<u32> {
     match expression {
+        Expr::Sort0 => Ok(builder.sort),
         Expr::Constant(name) => builder.constant(name),
         Expr::Var(name) => {
             let index = context
@@ -163,6 +165,7 @@ pub(super) fn emit(
     )
 }
 
+#[derive(Clone)]
 pub(super) struct Equality {
     pub ty: Expr,
     pub left: Expr,
@@ -171,6 +174,9 @@ pub(super) struct Equality {
 }
 
 impl Equality {
+    pub fn reflexive(value: Expr) -> Self {
+        Self::natural(value.clone(), value.clone(), refl(nat(), value))
+    }
     pub fn natural(left: Expr, right: Expr, proof: Expr) -> Self {
         Self {
             ty: nat(),
