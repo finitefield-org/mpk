@@ -29,7 +29,7 @@ after reconciling the intervening shared artifacts and active registry.
 | GO-PRAC-T01-W03 | Complete | Reviewed implementation `9d4e6fb7855a66d9fff309e6dbd9143652ee6e21`; requirement-by-requirement completion audit in section28 |
 | GO-PRAC-T01-W04 | Complete | Commit `68a44416e1b1a6dc3a84587cca784fc4b3a2b862`; exact interfaces, resource bounds, consumer review and historical replay; section58 |
 | GO-PRAC-T01-W05 | Complete under user C# test deferral | Reviewed implementation `4b4c3a01ddfa2377d7ccc0116f128649ff3ec3b1`; amended cumulative gate passes594 tests and all other checks. Completion audit and section78. |
-| GO-PRAC-T02-W01 | In progress | Source-object codec and rooted multi-capability capture pass20 root tests/43 subtests; the native-asset review follow-up passes all8 affected rooted tests/17 subtests, vet/format and the legacy build. Original module/checksum/replacement checks also pass12 roots/52 subtests. Actual ordinary Boolean definitions/laws also pass both checkers. Complete private context/versioned graph/loader/export capture remains due; sections79–82. |
+| GO-PRAC-T02-W01 | In progress | Source-object codec and rooted multi-capability capture pass20 root tests/43 subtests; the native-asset review follow-up passes all8 affected rooted tests/17 subtests, vet/format and the legacy build. Original module/checksum/replacement checks also pass12 roots/52 subtests. Actual ordinary Boolean definitions/laws also pass both checkers. Original ZIP/h1/CRC/content checks also pass with a current Go checksum oracle. Complete private context/versioned graph/loader/export capture remains due; sections79–83. |
 | GO-PRAC-T02–T07 | Not started | Sequential v1 implementation and public release |
 | GO-PRAC-T08–T11 | Not started | Sequential v2 freeze, maps, pointers and public release |
 
@@ -4812,3 +4812,43 @@ and test have the same basename. The generator's original bytes are recovered
 under a distinct filename and match the original pre-execution SHA256 and length.
 Existing test copy and raw results remain unchanged. This documentation/evidence
 repair changes no production code and requires no runtime test repetition.
+
+## 83. T02-W01 original ZIP provenance and content linkage
+
+The [archive checkpoint](../migrations/go-practical/t02-w01/verification/module-archives/README.md)
+starts from `a7b71f45beeefbac4d14ec2596872adadfe716d7`. Actual original auxiliary
+ZIP buffers retain raw identities separately from Go's member-content h1.
+Pinned unchanged `x/mod` v0.27.0 Hash1 is added from an archive verified against
+the existing repository Go sum, with the original BSD license retained. No
+module version or original Go manifest/sum changes.
+
+The parser checks exact module/version/path/manifest identities, Unicode
+simple-fold namespace collisions, file/directory/duplicate conflicts and Go
+ZIP sizes/regular member CRCs. A component trie avoids recursive or quadratic
+parent-string storage. Every original directory header is validated even if
+Go HashZip's repeated-name lookup would shadow it. Valid empty archives,
+Go-compatible zero-uncompressed directory metadata and opaque unselected
+assets remain ordinary inputs. Inventory copies retain member hashes/lengths;
+source content linkage grants no package/module/root authority on its own.
+Original captured go.sum ownership and a separate cached reconstruction prevent
+caller parsed maps from authorizing a new h1. Archive namespaces aggregate
+across capabilities, including implicit parents/repeated headers; repeated
+reads are not double charged and failures prevent sealing.
+
+Initial checks pass13 roots/46 subtests in2.251 seconds and the legacy build
+passes9 roots/28 subtests in2.040 seconds. Review reproduces a shadowed nonempty
+directory header bypass. The first focused attempt fails fixture creation
+because Go refuses a directory write; exact original inputs/logs remain. A
+corrected raw fixture demonstrates the actual missed check. After correction,
+all9 affected archive roots/25 subtests pass in1.642 seconds, six pure legacy
+roots/17 subtests pass in1.936 seconds, and current vet/format pass. Earlier
+unaffected boundary checks are retained without repetition. Actual pinned
+offline Go mod verify and MPK agree on original acceptance and changed-source
+rejection, without rewriting main go.mod/go.sum.
+
+Budget fixtures use seeded remaining counters, not full131072-entry/256MiB
+stress. W01 still owes full private context/foundation/compiler inventories,
+.mod/.info/.ziphash/root-manifest linkage, actual selected module graph and
+immutable original-package/source/export authority. No source/program proof,
+public activation or native Linux acceptance is claimed. No C# tests run;
+full T02 gate stays deferred to W04.

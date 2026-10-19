@@ -53,6 +53,8 @@ type practicalCaptureSession struct {
 	roots       map[string]practicalBoundRoot
 	directories map[string]practicalDirectoryState
 	files       map[string]practicalFileState
+	archives    map[string]practicalModuleArchive
+	archiveSums map[string]practicalModuleSums
 	foldedPaths map[string]string
 	counters    captureCounters
 	failed      error

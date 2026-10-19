@@ -69,3 +69,11 @@ certificate with identical hashes and reject an incorrect ordinary equality
 claim. Three targeted Rust integration tests, strict Clippy and format pass;
 no C# tests execute. This Boolean basis does not register the complete private
 foundation/context or complete W01.
+
+The [original archive checkpoint](verification/module-archives/README.md) now
+verifies raw ZIP identity, Go h1, complete namespace/size/CRC rules and source
+content linkage through actual captured checksum authority. Shared limits and
+private-map reconstruction reject forged/crossed inputs; current offline Go
+checksum observations agree on original and tampered files. The review fix and
+all targeted checks are recorded. Complete module metadata/graph/context/loader
+binding remain due; no W01 completion or profile activation is claimed.

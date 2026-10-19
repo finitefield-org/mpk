@@ -1,0 +1,5 @@
+{
+  "status": "fixture_setup_failed_before_shadowed_payload_assertion",
+  "cause": "Go zip.Writer refuses a nonempty directory write. All5 prior regular body/CRC/size/truncation controls pass; the intended shadowed-entry regression is not reached.",
+  "correction": "Construct ordinary stored entry headers and change equal-length names to directory names after writing, so the malformed original bytes can reach the reader. Original failed logs and inputs remain unchanged."
+}

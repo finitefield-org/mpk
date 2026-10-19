@@ -35,9 +35,9 @@
     {
       "id": "T02-W01-R05",
       "requirement": "Offline original module/archive and Go sum verification; reject missing/stale checksum or snapshot, network/VCS/generation fallback",
-      "status": "partial_exact_manifest_h1_checks",
+      "status": "partial_actual_archive_h1_crc_namespace_and_content_linkage",
       "executor": "go-tools/go2vir/practical_capture.go",
-      "completed_component": "Strict original go.sum parsing and exact go.mod Hash1 against independent Go observation. All archive/content/consulted-metadata provenance and production offline resolver enforcement remain due."
+      "completed_component": "Original go.mod H1 plus actual raw ZIP/h1/namespace/size/CRC validation, owned source content linkage, captured original checksum authority, aggregate namespace budgets and fresh pinned offline Go checksum oracle. Complete .mod/.info/.ziphash, graph/compiler/source/export binding and production offline resolver enforcement remain due."
     },
     {
       "id": "T02-W01-R06",
@@ -51,7 +51,7 @@
       "status": "partial_source_and_rooted_capture_targeted_checks_passed",
       "executor": "go-tools/go2vir/practical_source_test.go and future capture/context tests",
       "full_T02_gate": "deferred to T02-W04: check-fast.sh --skip-csharp",
-      "completed_component": "Source object and rooted checks plus12 module/affected-boundary root tests52 subtests, current vet/format and separate7-root40-subtest legacy build. Full scope review and final T02 gate remain due."
+      "completed_component": "Source object and rooted checks plus12 module/affected-boundary root tests52 subtests, current vet/format and separate7-root40-subtest legacy build. Full scope review and final T02 gate remain due. Archive component adds an initial13-root46-subtest boundary baseline, then all9 affected archive roots25 subtests and6 pure legacy roots17 subtests after review; current vet/format pass."
     }
   ],
   "T02_W01_complete": false,

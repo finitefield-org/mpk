@@ -1,0 +1,53 @@
+{
+  "status": "failed",
+  "command": [
+    "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/go",
+    "test",
+    "-mod=vendor",
+    "-run",
+    "^TestPracticalArchiveRejectsCorruptBodyCRCAndSizes$",
+    "-count=1",
+    "-json",
+    "."
+  ],
+  "environment": {
+    "GOROOT": "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go",
+    "GOTOOLCHAIN": "local",
+    "GOENV": "off",
+    "GOWORK": "off",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "GOTELEMETRY": "off",
+    "GOCACHE": "/private/tmp/mpk-go-practical-t02-build-cache",
+    "GOPATH": "/private/tmp/mpk-go-practical-t02-gopath",
+    "GOMODCACHE": "/private/tmp/mpk-go-practical-t02-go-mod"
+  },
+  "cwd": "go-tools/go2vir",
+  "exit_code": 1,
+  "wall_seconds": 1.2713156670797616,
+  "sources": [
+    {
+      "path": "go-tools/go2vir/practical_archive.go",
+      "sha256": "b52c24457ffbaa83fac0358936265c44741fafcec1e50104647d659ce5ac6ce7",
+      "bytes": 9623,
+      "original_copy": "develop/migrations/go-practical/t02-w01/verification/module-archives/shadowed-payload-regression/practical_archive.go.txt"
+    },
+    {
+      "path": "go-tools/go2vir/practical_archive_test.go",
+      "sha256": "1a659f37f4f5523569e4608e8c7799028117b006f403cfbab7954a7912488d3a",
+      "bytes": 12048,
+      "original_copy": "develop/migrations/go-practical/t02-w01/verification/module-archives/shadowed-payload-regression/practical_archive_test.go.txt"
+    }
+  ],
+  "selection_reason": "Actual review regression: a nonempty shadowed directory header must be opened/validated even though Go HashZip selects only the last entry with a repeated name.",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/module-archives/shadowed-payload-regression/stdout.log",
+    "sha256": "ee3fd15d6be2ab16fa815ae344980d2567119af9597ce9baa1118511a9680a66",
+    "bytes": 6443
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/module-archives/shadowed-payload-regression/stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  }
+}
