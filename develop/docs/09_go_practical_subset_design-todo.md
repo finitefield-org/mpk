@@ -5,6 +5,12 @@ tests in `check-fast.sh --skip-csharp`; T02-W01 is in progress. The
 [completion audit](../migrations/go-practical/t01-w05/completion-audit.json)
 and implementation ledger own the current status.
 
+The latest W01 [ordinary Nat checkpoint](../migrations/go-practical/t02-w01/verification/natural-foundation/README.md)
+adds eight unbounded arithmetic operations and45 ordinary checked laws,
+including general results for arbitrary naturals. Both current checkers agree on15
+same-byte cases; the complete ordinary foundation/private context and application
+source proofs remain in progress.
+
 Historical design-stage notes: implementation was authorized 2026-10-16.
 At the following checkpoint T01-W01, W02 and W03 were complete.
 W03's [completion audit](../migrations/go-practical/t01-w03/completion-audit.json)

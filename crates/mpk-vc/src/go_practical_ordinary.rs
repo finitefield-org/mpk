@@ -1,4 +1,4 @@
-//! Private, untrusted ordinary Boolean definitions for practical Go.
+//! Private, untrusted ordinary foundation definitions for practical Go.
 //!
 //! This component generates real closed terms. It is not the complete Go
 //! foundation descriptor, a source binding, or authority to activate a profile.
@@ -9,6 +9,9 @@ use mpk_cert::encode::{
     LevelNode, TermNode,
 };
 use sha2::{Digest, Sha256};
+
+mod natural;
+mod syntax;
 
 const BOOL: &str = "Std.Bool";
 const PREFIX: &str = "Mpk.Go.Practical.Bool";
@@ -45,6 +48,17 @@ pub struct GoCoreFoundation {
 }
 
 impl GoCoreFoundation {
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoNaturalFoundation {
+    certificate: Vec<u8>,
+}
+
+impl GoNaturalFoundation {
     pub fn certificate_bytes(&self) -> &[u8] {
         &self.certificate
     }
@@ -653,15 +667,19 @@ pub fn import_go_practical_boolean_foundation(candidate: &[u8]) -> Result<GoBool
 }
 
 pub fn generate_go_practical_core_foundation() -> Result<GoCoreFoundation> {
+    Ok(GoCoreFoundation {
+        certificate: core_builder()?.finish()?,
+    })
+}
+
+fn core_builder() -> Result<Builder> {
     let mut builder = boolean_builder()?;
     builder.append_natural_numbers()?;
     builder.frozen_core_interfaces()?;
     builder.natural_identity()?;
     builder.boolean_contradiction_elimination()?;
     builder.certificate.module = "Mpk.Go.Practical.CoreFoundation".into();
-    Ok(GoCoreFoundation {
-        certificate: builder.finish()?,
-    })
+    Ok(builder)
 }
 
 pub fn import_go_practical_core_foundation(candidate: &[u8]) -> Result<GoCoreFoundation> {
@@ -669,6 +687,28 @@ pub fn import_go_practical_core_foundation(candidate: &[u8]) -> Result<GoCoreFou
         return Err(GoOrdinaryError::Limit);
     }
     let expected = generate_go_practical_core_foundation()?;
+    if candidate != expected.certificate_bytes() {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    Ok(expected)
+}
+
+/// Compile unbounded Nat arithmetic and its ordinary universal laws. This
+/// component carries no Go source claim or complete foundation registration.
+pub fn generate_go_practical_natural_foundation() -> Result<GoNaturalFoundation> {
+    let mut builder = core_builder()?;
+    natural::append(&mut builder)?;
+    builder.certificate.module = "Mpk.Go.Practical.NaturalFoundation".into();
+    Ok(GoNaturalFoundation {
+        certificate: builder.finish()?,
+    })
+}
+
+pub fn import_go_practical_natural_foundation(candidate: &[u8]) -> Result<GoNaturalFoundation> {
+    if candidate.len() > MAX_BYTES {
+        return Err(GoOrdinaryError::Limit);
+    }
+    let expected = generate_go_practical_natural_foundation()?;
     if candidate != expected.certificate_bytes() {
         return Err(GoOrdinaryError::Linkage);
     }

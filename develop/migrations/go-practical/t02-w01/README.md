@@ -121,3 +121,14 @@ recursion identity and conditional Bool false-elimination. Both current checkers
 agree on all18 same-byte cases and exact positive hashes. Core/current/legacy,
 strict lint/format and targeted importer tests pass. Full ordinary foundation/
 descriptor/context and application closure/replay remain due; W01 stays In progress.
+
+The [actual unbounded Nat checkpoint](verification/natural-foundation/README.md)
+adds eight ordinary operations and45 checked laws, with88 total declarations
+and zero axioms. Both current independent checkers agree on all15 original byte
+streams: five acceptances with exact hashes and ten core type mismatches.
+The original insufficient reflexivity-only computation recipe is reproduced;
+explicit checked computation laws prove all20 correct observations without a
+kernel change. Five scoped Rust integration roots, strict Clippy and format
+pass. All255 frozen inputs and the preceding core basis remain unchanged.
+Balanced integers/ranges, complete representations/operations/source laws and
+full descriptor/private context binding remain due; W01 stays In progress.

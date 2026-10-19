@@ -1,0 +1,24 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error[E0382]: use of moved value: `k`
+   --> crates/mpk-vc/src/go_practical_ordinary/natural.rs:684:71
+    |
+684 |         let premise = |k| eq(nat(), add(a.clone(), k), add(b.clone(), k));
+    |                        -                           -                  ^ value used here after move
+    |                        |                           |
+    |                        |                           value moved here
+    |                        move occurs because `k` has type `syntax::Expr`, which does not implement the `Copy` trait
+    |
+note: consider changing this parameter type in function `add` to borrow instead if owning the value isn't necessary
+   --> crates/mpk-vc/src/go_practical_ordinary/syntax.rs:66:31
+    |
+ 66 | pub(super) fn add(a: Expr, b: Expr) -> Expr {
+    |               ---             ^^^^ this parameter takes ownership of the value
+    |               |
+    |               in this function
+help: consider cloning the value if the performance cost is acceptable
+    |
+684 |         let premise = |k| eq(nat(), add(a.clone(), k.clone()), add(b.clone(), k));
+    |                                                     ++++++++
+
+For more information about this error, try `rustc --explain E0382`.
+error: could not compile `mpk-vc` (lib) due to 1 previous error

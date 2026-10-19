@@ -1,0 +1,76 @@
+{
+  "status": "passed",
+  "observed_at_utc": "2026-10-19T11:19:41.254184+00:00",
+  "paired_evidence": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/natural-foundation/paired-final/result.json",
+    "sha256": "76c253e8e2c9638c6c94836c6d9943c2ec934bc4a7f6359b3f5623f221aaf907",
+    "bytes": 41591
+  },
+  "selection_reason": "After both-checker execution, classify every saved negative report precisely. Go CLI has no detailed numeric/type code; require the complete original inferred-app/expected-app diagnostic, excluding resource/format results. Recheck all original candidate/report hashes; do not rerun unchanged checker computations.",
+  "negative_reports": [
+    {
+      "name": "addition",
+      "rust_core_code": "CORE_TYPE_MISMATCH",
+      "go_original_detail": "term 734 inferred app but expected app",
+      "kind": "altered_definition_or_incorrect_proof"
+    },
+    {
+      "name": "cancellation",
+      "rust_core_code": "CORE_TYPE_MISMATCH",
+      "go_original_detail": "term 7 inferred app but expected app",
+      "kind": "altered_definition_or_incorrect_proof"
+    },
+    {
+      "name": "difference-decomposition",
+      "rust_core_code": "CORE_TYPE_MISMATCH",
+      "go_original_detail": "term 5623 inferred app but expected app",
+      "kind": "altered_definition_or_incorrect_proof"
+    },
+    {
+      "name": "direct-refl-stuck-major",
+      "rust_core_code": "CORE_TYPE_MISMATCH",
+      "go_original_detail": "term 6238 inferred app but expected app",
+      "kind": "insufficient_direct_reflexivity_recipe"
+    },
+    {
+      "name": "equality",
+      "rust_core_code": "CORE_TYPE_MISMATCH",
+      "go_original_detail": "term 407 inferred app but expected app",
+      "kind": "altered_definition_or_incorrect_proof"
+    },
+    {
+      "name": "false-clause-proof",
+      "rust_core_code": "CORE_TYPE_MISMATCH",
+      "go_original_detail": "term 407 inferred app but expected app",
+      "kind": "altered_definition_or_incorrect_proof"
+    },
+    {
+      "name": "multiplication",
+      "rust_core_code": "CORE_TYPE_MISMATCH",
+      "go_original_detail": "term 549 inferred app but expected app",
+      "kind": "altered_definition_or_incorrect_proof"
+    },
+    {
+      "name": "order",
+      "rust_core_code": "CORE_TYPE_MISMATCH",
+      "go_original_detail": "term 405 inferred app but expected app",
+      "kind": "altered_definition_or_incorrect_proof"
+    },
+    {
+      "name": "reflection",
+      "rust_core_code": "CORE_TYPE_MISMATCH",
+      "go_original_detail": "term 3721 inferred app but expected app",
+      "kind": "altered_definition_or_incorrect_proof"
+    },
+    {
+      "name": "subtraction",
+      "rust_core_code": "CORE_TYPE_MISMATCH",
+      "go_original_detail": "term 4543 inferred app but expected app",
+      "kind": "altered_definition_or_incorrect_proof"
+    }
+  ],
+  "wrong_definition_or_proof": 9,
+  "insufficient_original_recipe": 1,
+  "source_counterexample_claimed": false,
+  "tests_repeated": false
+}
