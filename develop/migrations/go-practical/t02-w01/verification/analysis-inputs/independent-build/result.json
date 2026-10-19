@@ -1,0 +1,158 @@
+{
+  "status": "passed",
+  "started_at_utc": "2026-10-19T10:17:00.907376+00:00",
+  "work": "/private/tmp/mpk-go-practical-analysis-independent-build",
+  "CSharp_tests_executed": false,
+  "registered_practical_context": false,
+  "native_Linux_acceptance_claimed": false,
+  "T02_W01_complete": false,
+  "full_T02_gate": "deferred to W04: check-fast.sh --skip-csharp",
+  "command": [
+    "/private/tmp/mpk-go-practical-analysis-independent-build/sdk/bin/go",
+    "build",
+    "-mod=vendor",
+    "-trimpath",
+    "-buildvcs=false",
+    "-pgo=off",
+    "-o",
+    "/private/tmp/mpk-go-practical-analysis-independent-build/built/go2vir",
+    "."
+  ],
+  "environment": {
+    "CGO_ENABLED": "0",
+    "GO111MODULE": "on",
+    "GOAMD64": "v1",
+    "GOARCH": "arm64",
+    "GOCACHE": "/private/tmp/mpk-go-practical-analysis-independent-build/cache",
+    "GODEBUG": "",
+    "GOENV": "off",
+    "GOEXPERIMENT": "",
+    "GOFLAGS": "",
+    "GOMAXPROCS": "1",
+    "GOMODCACHE": "/private/tmp/mpk-go-practical-analysis-independent-build/mod-cache",
+    "GONOPROXY": "",
+    "GONOSUMDB": "",
+    "GOOS": "darwin",
+    "GOPACKAGESDRIVER": "off",
+    "GOPATH": "/private/tmp/mpk-go-practical-analysis-independent-build/gopath",
+    "GOPRIVATE": "",
+    "GOPROXY": "off",
+    "GOROOT": "/private/tmp/mpk-go-practical-analysis-independent-build/sdk",
+    "GOSUMDB": "off",
+    "GOTELEMETRY": "off",
+    "GOTOOLCHAIN": "local",
+    "GOVCS": "*:off",
+    "GOWORK": "off",
+    "HOME": "/private/tmp/mpk-go-practical-analysis-independent-build/home",
+    "LANG": "C",
+    "LC_ALL": "C",
+    "PATH": "/private/tmp/mpk-go-practical-analysis-independent-build/sdk/bin",
+    "TMPDIR": "/private/tmp/mpk-go-practical-analysis-independent-build/tmp",
+    "TZ": "UTC"
+  },
+  "source_inventory": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/analysis-inputs/final/selected/captured-inputs.json",
+    "sha256": "eb9017487b62d4838f30e52ed331ff6e25068f028db6342e075cc8d1e3f0be4c",
+    "bytes": 76159
+  },
+  "paired_result": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/analysis-inputs/final/selected/reproduced-builds.json",
+    "sha256": "1382f2fcba0a65c4185b5349e84d6896aeb01e3f2a5bacffb4ef0b5fddf51d07",
+    "bytes": 4759
+  },
+  "prepared_compiler_inventory": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/compiler-image/captured/selected/prepared-image.json",
+    "sha256": "c6bcb748bf728a999d4edd56fb4cd390f9c1134671990dfd4e35e0c1086cc75d",
+    "bytes": 2574682
+  },
+  "prepared_compiler_distribution_sha256": "a80de99f741cb69a8ed887c137b0be3d6368ddd051ac3145eb6feec7f85b6fb7",
+  "build_sources": 169,
+  "vendored_go_sources": 126,
+  "vendor_files": 134,
+  "modules": [
+    {
+      "path": "golang.org/x/mod",
+      "version": "v0.27.0",
+      "archive": {
+        "path": "go-tools/go2vir/testdata/practical-analysis-cache/golang.org/x/mod/@v/v0.27.0.zip",
+        "sha256": "19fb241d46e4397d3193b5fa899e2a9d62bb5d1c41f73d09d29c17c3c0d3953c",
+        "bytes": 172649
+      },
+      "manifest": {
+        "path": "go-tools/go2vir/testdata/practical-analysis-cache/golang.org/x/mod/@v/v0.27.0.mod",
+        "sha256": "b20d6c1f4b46742e6af828327160346aeb3e622ab1780ad51b80e1d67adfe95b",
+        "bytes": 86
+      },
+      "checksum": "h1:kb+q2PyFnEADO2IEF935ehFUXlWiNjJWtRNgBLSfbxQ="
+    },
+    {
+      "path": "golang.org/x/sync",
+      "version": "v0.16.0",
+      "archive": {
+        "path": "go-tools/go2vir/testdata/practical-analysis-cache/golang.org/x/sync/@v/v0.16.0.zip",
+        "sha256": "ca43984183eb14f7f50d33da350312fed1c42e106dceac2437bfd5084b497dcd",
+        "bytes": 25707
+      },
+      "manifest": {
+        "path": "go-tools/go2vir/testdata/practical-analysis-cache/golang.org/x/sync/@v/v0.16.0.mod",
+        "sha256": "720b98f1bf033d6b64a454ca8c29cdca6e9265ab7d70db3b834dff49560f1587",
+        "bytes": 36
+      },
+      "checksum": "h1:ycBJEhp9p4vXvUZNszeOq0kGTPghopOL8q0fq3vstxw="
+    },
+    {
+      "path": "golang.org/x/tools",
+      "version": "v0.36.0",
+      "archive": {
+        "path": "go-tools/go2vir/testdata/practical-analysis-cache/golang.org/x/tools/@v/v0.36.0.zip",
+        "sha256": "85b486030e995cd5b4d56dea92f247b32bf4e0ae2fe6816b29d4514b5a43fec8",
+        "bytes": 3553586
+      },
+      "manifest": {
+        "path": "go-tools/go2vir/testdata/practical-analysis-cache/golang.org/x/tools/@v/v0.36.0.mod",
+        "sha256": "53792e623827ef40be8f1af36dcf12790e82780b3d33b4b0944f56a3584bc429",
+        "bytes": 301
+      },
+      "checksum": "h1:kWS0uv/zsvHEle1LbV5LE8QujrxB3wfQyxHfhOk0Qkg="
+    }
+  ],
+  "auxiliary_differences": [
+    {
+      "path": "vendor/golang.org/x/tools/go/ssa/TODO",
+      "original_sha256": "b6931b5043d81adf857f652a2e1be3d040298ef1ef2da0d61510be399ffd5e6d",
+      "original_bytes": 310,
+      "actual_sha256": "c7a1ffbdd0275b2ee2f249537c7a34dc2e9cec1b3394f0e51e68274e76fc2863",
+      "actual_bytes": 309
+    }
+  ],
+  "exit_code": 0,
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/analysis-inputs/independent-build/stdout.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/analysis-inputs/independent-build/stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "binary": {
+    "path": "/private/tmp/mpk-go-practical-analysis-independent-build/built/go2vir",
+    "sha256": "b10e2fcda5d51af98d57dc318745d68f64f06a9eaf3e71dd494f42ca7778743b",
+    "bytes": 8592898
+  },
+  "byte_exact_equal_to_both_primary_builds": true,
+  "build_info_observation": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/analysis-inputs/independent-build/binary-build-info.log",
+    "sha256": "e557c35a9ff43bf28d718e6c7f7e685a1b1acc150bff6b183e730f79c391b695",
+    "bytes": 645
+  },
+  "build_info_stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/analysis-inputs/independent-build/binary-build-info.stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "scope": "Independent fresh build from individually hash-checked original sources and the exact copied prepared compiler inventory, with a third empty cache and closed offline environment. Proves this development source/build correspondence, not a registered practical semantic context, application proof or native Linux release.",
+  "wall_seconds": 17.827743666013703,
+  "finished_at_utc": "2026-10-19T10:17:18.735396+00:00"
+}

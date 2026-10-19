@@ -4949,3 +4949,56 @@ existing generic inventory is not a W03 wire migration or promoted T01 fixture.
 W01 stays In progress and all169 application demands remain unelaborated. No
 public activation, application proof or native Linux receipt is claimed. C# tests
 stay deferred; the cumulative T02 gate stays deferred to W04.
+
+## 87. T02-W01 original analysis closure and reproduced frontend
+
+The [analysis build checkpoint](../migrations/go-practical/t02-w01/verification/analysis-inputs/README.md)
+starts from `27884419fe48bf7ef5525eb4660ad2e834ac0f9b`. Exact original frontend
+manifest/sums bind the existing x/mod0.27.0, x/sync0.16.0 and x/tools0.36.0 pins.
+Separate official-proxy preparation verifies the original copied go.sum and
+leaves both copied manifests unchanged; exact versioned snapshots become portable
+offline fixtures. Capture validates full source/archive/cache metadata, complete
+vendor package ownership and original compiled member content. Replacements,
+changed/crossed inputs, links and unknown compiler/embedded/assembler data reject.
+
+All126 Go sources and six license/patent files match their official archive
+members. One existing uncompiled SSA TODO omits a final LF. Its actual bytes and
+both complete raw identities remain explicit, without normalization or a source/
+whitespace exemption. The sealed181-object snapshot retains169 actual frontend/
+vendor build inputs:33 frontend Go sources,133 vendor files and three manifests.
+The exact binary reader is shared with the prepared compiler, preserving rooted
+regular/nonblocking opens, streamed raw hashes and same-file checks. Exact linked
+module/build validation alone grants no source-build/context authority.
+
+The initial selection passes10 roots/67 subtests, including both affected
+compiler consumers and11 compiler configuration controls, but the reproduction
+root stops after a successful first offline build because its selected private
+output contains the macOS /var alias. Exact original inputs/raw logs remain.
+The test-only selection fix supplies the normalized physical output and keeps
+alias rejection. The whole affected reproduction root passes in38.872 seconds;
+legacy7 roots/41 subtests pass in2.110 seconds. Current vet/format pass; the ten
+unaffected passing roots and earlier component suites are not repeated.
+
+Two builds materialize only owned original bytes under distinct paths and empty
+caches, use the exact prepared Go1.25.0 image with closed offline environment,
+validate the resulting frontend and compare all binary bytes. An independent
+observer recomputes every source-object ID, all module/manifest h1, original
+vendor comparisons and the exact5,577-file compiler image, then performs a third
+fresh-cache build in17.828 seconds. All three8,592,898-byte binaries match with
+SHA256 `b10e2fcda5d51af98d57dc318745d68f64f06a9eaf3e71dd494f42ca7778743b`.
+No C# tests or intermediate whole-project gate execute.
+
+The next critical step is the complete actual ordinary foundation with fresh
+both-checker acceptance/exact imports and private registry/context binding.
+Complete application dependency/source/export/build closure, loaded file versions
+and authoritative immutable application replay remain due. W01 stays In progress;
+all169 application demands remain unelaborated. Fresh development build metadata
+is not a registered profile, promoted T01 fixture, application proof, W03 wire
+migration or native Linux acceptance. Full T02 gate remains deferred to W04.
+
+The analysis input review also retains the original Go build-info formatter:
+empty module-checksum columns leave terminal tabs on four rows. The exact
+645-byte stdout/full hash and literal four lines are recorded; raw output and
+the initial failed review remain unchanged. No source/JSON/directory or blanket
+whitespace exemption or strict scanner rule change is added. Runtime code/tests
+are unchanged, so passing executions are retained without repetition.

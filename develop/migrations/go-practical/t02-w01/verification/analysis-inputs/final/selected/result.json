@@ -1,0 +1,170 @@
+{
+  "status": "passed",
+  "command": [
+    "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/go",
+    "test",
+    "-mod=vendor",
+    "-run",
+    "^TestPracticalAnalysisCapturedInputsRebuildTheSameActualFrontend$",
+    "-count=1",
+    "-json",
+    "."
+  ],
+  "cwd": "go-tools/go2vir",
+  "environment": {
+    "GOROOT": "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go",
+    "GOTOOLCHAIN": "local",
+    "GOENV": "off",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "GOTELEMETRY": "off",
+    "GOWORK": "off",
+    "GOCACHE": "/private/tmp/mpk-go-practical-t02-build-cache",
+    "GOPATH": "/private/tmp/mpk-go-practical-t02-gopath",
+    "GOMODCACHE": "/private/tmp/mpk-go-practical-t02-go-mod",
+    "MPK_GO_PRACTICAL_ANALYSIS_EVIDENCE": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-inputs/final/selected"
+  },
+  "compiler_version": "go version go1.25.0 darwin/arm64",
+  "compiler": {
+    "path": "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/go",
+    "sha256": "c812de5f1e8307431c5bce8ebc4887c180827abc5834a72cd640a8a14200a93b",
+    "bytes": 14117888
+  },
+  "sources": [
+    {
+      "path": "go-tools/go2vir/practical_analysis.go",
+      "sha256": "7681d113cfff36a5d97a8ccc76d2eab5632b764232ae516c778495946f55ef24",
+      "bytes": 13455
+    },
+    {
+      "path": "go-tools/go2vir/practical_analysis_test.go",
+      "sha256": "e2db8c23e7f7f0786c67326cd17a88c4a60c8f971618f7c5031f74a36e54f3ca",
+      "bytes": 7294
+    },
+    {
+      "path": "go-tools/go2vir/practical_analysis_capture_test.go",
+      "sha256": "999f73212ce5478b2d998211b85da8be3fa07a9096ae064f2417ee1bed20f727",
+      "bytes": 10948
+    },
+    {
+      "path": "go-tools/go2vir/practical_compiler.go",
+      "sha256": "751aa7f5bd191c59e270aa657879113336b5061102f350092d14a53ac409440e",
+      "bytes": 9991
+    }
+  ],
+  "frozen_contract": {
+    "path": "develop/migrations/go-practical/t01-w01/entry-audit.json",
+    "sha256": "ecfe456fd52fd1b5f562f48126dddd487e00cc3b900147abe149b806fe64e828",
+    "bytes": 65080
+  },
+  "selection_reason": "Fix only the native integration fixture selected output root: explicitly supply its physical normalized path and retain rejection of the original temporary path alias. The first original owned-source offline build succeeded before output-root validation stopped. Retest the complete two-fresh-cache binary reproduction root, plus current vet/format. The other ten current Go roots and seven legacy roots passed and are unchanged; retain their original evidence. No CSharp tests or intermediate full gate.",
+  "full_T02_gate": "deferred to T02-W04; use check-fast.sh --skip-csharp",
+  "T02_W01_complete": false,
+  "started_at_utc": "2026-10-19T10:14:17.564477+00:00",
+  "input_vectors": [
+    {
+      "path": "go-tools/go2vir/go.mod",
+      "sha256": "b90bfc21fd7a30139ab5852b895e0e1fcb7f8442d01ca4e2463c2ad1cfd15af3",
+      "bytes": 179
+    },
+    {
+      "path": "go-tools/go2vir/go.sum",
+      "sha256": "3b423539c29460b977ec958cd53a84c813d2c15a3d2cdfb841f07f3ef7a6104c",
+      "bytes": 632
+    },
+    {
+      "path": "go-tools/go2vir/vendor/modules.txt",
+      "sha256": "7acbaa5ff9b089a9665dae3dc009d872df913a55db4391bf1280243ddb60a99c",
+      "bytes": 1152
+    },
+    {
+      "path": "go-tools/go2vir/testdata/practical-analysis-cache/PROVENANCE.json",
+      "sha256": "75ac0bc56d42c580d1888ac3ebf0bb2d84c1e0b6869bbadfbb2709188eab641e",
+      "bytes": 4652
+    }
+  ],
+  "fixture_inputs": [
+    {
+      "path": "go-tools/go2vir/testdata/practical-analysis-cache/PROVENANCE.json",
+      "sha256": "75ac0bc56d42c580d1888ac3ebf0bb2d84c1e0b6869bbadfbb2709188eab641e",
+      "bytes": 4652
+    },
+    {
+      "path": "go-tools/go2vir/testdata/practical-analysis-cache/golang.org/x/mod/@v/v0.27.0.info",
+      "sha256": "04349209629977dda443e3693aac2e1fe69e4ec11f9e2394abd7964562081f77",
+      "bytes": 190
+    },
+    {
+      "path": "go-tools/go2vir/testdata/practical-analysis-cache/golang.org/x/mod/@v/v0.27.0.mod",
+      "sha256": "b20d6c1f4b46742e6af828327160346aeb3e622ab1780ad51b80e1d67adfe95b",
+      "bytes": 86
+    },
+    {
+      "path": "go-tools/go2vir/testdata/practical-analysis-cache/golang.org/x/mod/@v/v0.27.0.zip",
+      "sha256": "19fb241d46e4397d3193b5fa899e2a9d62bb5d1c41f73d09d29c17c3c0d3953c",
+      "bytes": 172649
+    },
+    {
+      "path": "go-tools/go2vir/testdata/practical-analysis-cache/golang.org/x/mod/@v/v0.27.0.ziphash",
+      "sha256": "04a0868750aac8cda3b141d56dea66c9318dd4c42abaadc9344dd4a79564b3c2",
+      "bytes": 47
+    },
+    {
+      "path": "go-tools/go2vir/testdata/practical-analysis-cache/golang.org/x/sync/@v/v0.16.0.info",
+      "sha256": "fd24e5454141026609d9f4fc219860cf6b35ba6755d18fea1bb0f8c57a5c21a7",
+      "bytes": 191
+    },
+    {
+      "path": "go-tools/go2vir/testdata/practical-analysis-cache/golang.org/x/sync/@v/v0.16.0.mod",
+      "sha256": "720b98f1bf033d6b64a454ca8c29cdca6e9265ab7d70db3b834dff49560f1587",
+      "bytes": 36
+    },
+    {
+      "path": "go-tools/go2vir/testdata/practical-analysis-cache/golang.org/x/sync/@v/v0.16.0.zip",
+      "sha256": "ca43984183eb14f7f50d33da350312fed1c42e106dceac2437bfd5084b497dcd",
+      "bytes": 25707
+    },
+    {
+      "path": "go-tools/go2vir/testdata/practical-analysis-cache/golang.org/x/sync/@v/v0.16.0.ziphash",
+      "sha256": "82dbee1faf4eaddc4edf8ec0f5e4c0ccb68b2aa6b5dba7d1f65784726a79f0c4",
+      "bytes": 47
+    },
+    {
+      "path": "go-tools/go2vir/testdata/practical-analysis-cache/golang.org/x/tools/@v/v0.36.0.info",
+      "sha256": "e216832347c36cd14aef42dc5fc33f5a1cc8715533297beec84806513c697f2a",
+      "bytes": 192
+    },
+    {
+      "path": "go-tools/go2vir/testdata/practical-analysis-cache/golang.org/x/tools/@v/v0.36.0.mod",
+      "sha256": "53792e623827ef40be8f1af36dcf12790e82780b3d33b4b0944f56a3584bc429",
+      "bytes": 301
+    },
+    {
+      "path": "go-tools/go2vir/testdata/practical-analysis-cache/golang.org/x/tools/@v/v0.36.0.zip",
+      "sha256": "85b486030e995cd5b4d56dea92f247b32bf4e0ae2fe6816b29d4514b5a43fec8",
+      "bytes": 3553586
+    },
+    {
+      "path": "go-tools/go2vir/testdata/practical-analysis-cache/golang.org/x/tools/@v/v0.36.0.ziphash",
+      "sha256": "fa7366314a5fe810f1d06b864d5d388acc909a7184235e16996f86a26484b368",
+      "bytes": 47
+    }
+  ],
+  "exit_code": 0,
+  "wall_seconds": 38.87212312500924,
+  "finished_at_utc": "2026-10-19T10:14:56.443680+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/analysis-inputs/final/selected/stdout.log",
+    "sha256": "d7acbf51f2fc44e32cbcc059d36a39cf71c035fae05ecfc44c5df7076927a60d",
+    "bytes": 2393
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/analysis-inputs/final/selected/stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "root_tests_passed": [
+    "TestPracticalAnalysisCapturedInputsRebuildTheSameActualFrontend"
+  ],
+  "subtests_passed": []
+}

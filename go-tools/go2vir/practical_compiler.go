@@ -96,23 +96,22 @@ func practicalCompilerInventoryShape(candidate launcherSelection) (string, error
 	return host, nil
 }
 
-func validatePracticalCompilerBinary(root practicalRootReader, expected inventoryFile, host string) (err error) {
-	relative := strings.TrimPrefix(expected.Path, "go/")
+func readPracticalGoBinaryBuildInfo(root practicalRootReader, expected inventoryFile, relative string) (info *debug.BuildInfo, err error) {
 	// os.Root confines resolution; checking each original ancestor additionally
 	// rejects links that resolve to a different in-root path.
 	for directory := path.Dir(relative); directory != "."; directory = path.Dir(directory) {
 		info, err := root.Lstat(directory)
 		if err != nil || !releaseDirectoryModeValid(info.Mode()) {
-			return fmt.Errorf("practical compiler binary ancestor is missing, linked or unsealed")
+			return nil, fmt.Errorf("practical compiler binary ancestor is missing, linked or unsealed")
 		}
 	}
 	before, err := root.Lstat(relative)
 	if err != nil || !releaseFileModeValid(before.Mode(), true) || before.Size() != expected.SizeBytes {
-		return fmt.Errorf("practical compiler binary is not the exact sealed regular file")
+		return nil, fmt.Errorf("practical compiler binary is not the exact sealed regular file")
 	}
 	file, err := root.Open(relative)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	defer func() {
 		if closeErr := file.Close(); err == nil {
@@ -121,30 +120,39 @@ func validatePracticalCompilerBinary(root practicalRootReader, expected inventor
 	}()
 	opened, err := file.Stat()
 	if err != nil || !sameFileState(before, opened) {
-		return fmt.Errorf("practical compiler binary changed while opening")
+		return nil, fmt.Errorf("practical compiler binary changed while opening")
 	}
 	hasher := sha256.New()
 	n, err := io.Copy(hasher, io.LimitReader(file, expected.SizeBytes+1))
 	if err != nil || n != expected.SizeBytes || hex.EncodeToString(hasher.Sum(nil)) != expected.SHA256 {
-		return fmt.Errorf("practical compiler binary differs from the selected inventory")
+		return nil, fmt.Errorf("practical compiler binary differs from the selected inventory")
 	}
-	info, err := buildinfo.Read(file)
+	info, err = buildinfo.Read(file)
 	if err != nil {
-		return err
-	}
-	if err := validatePracticalCompilerBuildInfo(info, path.Base(relative), host); err != nil {
-		return err
+		return nil, err
 	}
 	after, err := file.Stat()
 	named, nameErr := root.Lstat(relative)
 	if err != nil || nameErr != nil || !sameFileState(before, after) || !sameFileState(before, named) {
-		return fmt.Errorf("practical compiler binary changed during identity verification")
+		return nil, fmt.Errorf("practical compiler binary changed during identity verification")
 	}
-	return nil
+	return info, nil
+}
+
+func validatePracticalCompilerBinary(root practicalRootReader, expected inventoryFile, host string) error {
+	info, err := readPracticalGoBinaryBuildInfo(root, expected, strings.TrimPrefix(expected.Path, "go/"))
+	if err != nil {
+		return err
+	}
+	return validatePracticalCompilerBuildInfo(info, path.Base(expected.Path), host)
 }
 
 func validatePracticalCompilerBuildInfo(info *debug.BuildInfo, tool, host string) error {
-	if info == nil || info.GoVersion != practicalCompilerRelease || info.Path != "cmd/"+tool {
+	return validatePracticalGoBuildInfo(info, "cmd/"+tool, host)
+}
+
+func validatePracticalGoBuildInfo(info *debug.BuildInfo, importPath, host string) error {
+	if info == nil || info.GoVersion != practicalCompilerRelease || info.Path != importPath {
 		return fmt.Errorf("practical compiler binary has wrong release or tool identity")
 	}
 	if host != "linux_amd64" && host != "darwin_arm64" {

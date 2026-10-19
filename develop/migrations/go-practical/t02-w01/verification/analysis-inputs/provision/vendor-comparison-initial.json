@@ -1,0 +1,17 @@
+{
+  "status": "observed_auxiliary_difference",
+  "observed_at_utc": "2026-10-19T10:05:02.394799+00:00",
+  "differences": [
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/TODO",
+      "actual_sha256": "c7a1ffbdd0275b2ee2f249537c7a34dc2e9cec1b3394f0e51e68274e76fc2863",
+      "actual_bytes": 309,
+      "original_archive": "/private/tmp/mpk-go-practical-analysis-provision/cache/cache/download/golang.org/x/tools/@v/v0.36.0.zip",
+      "member": "golang.org/x/tools@v0.36.0/go/ssa/TODO",
+      "original_sha256": "b6931b5043d81adf857f652a2e1be3d040298ef1ef2da0d61510be399ffd5e6d",
+      "original_bytes": 310,
+      "compiled_Go_source": false
+    }
+  ],
+  "finding": "All vendored Go sources match their official pinned archives. The existing uncompiled SSA TODO omits one final LF. Preserve its actual bytes and explicit differing-member provenance; no normalization or source rewriting. Compiled sources and LICENSE/PATENTS must still match original archives exactly. The prepared build excludes unmodeled embed/assembler/data inputs and is rebuilt from the complete owned build-input set."
+}

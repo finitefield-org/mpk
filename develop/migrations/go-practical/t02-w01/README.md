@@ -102,3 +102,13 @@ image/reauthorized-change controls, the eleven-case build-info matrix, legacy
 checks and current vet/format pass; the original fixture-mode failure is retained.
 Complete analysis-library/frontend build identity and checked context/registry
 binding remain due before immutable production loading; W01 stays In progress.
+
+The [analysis/source build checkpoint](verification/analysis-inputs/README.md)
+now binds the exact three original analysis module snapshots and vendored code,
+retains169 sealed frontend/vendor build inputs and checks linked binary metadata.
+Two independent empty-cache builds and a separately reconstructed third build
+produce identical complete binaries. The existing uncompiled TODO byte difference
+and initial private-output-alias failure remain explicit. Targeted current/legacy,
+compiler-consumer, vet/format and independent original-hash checks pass. Complete
+actual ordinary foundation/context/registry binding is the next critical work;
+application closure/immutable replay still remain due and W01 stays In progress.

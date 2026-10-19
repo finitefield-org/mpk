@@ -1,0 +1,32 @@
+{
+  "path": "develop/migrations/go-practical/t02-w01/verification/analysis-inputs/independent-build/binary-build-info.log",
+  "sha256": "e557c35a9ff43bf28d718e6c7f7e685a1b1acc150bff6b183e730f79c391b695",
+  "bytes": 645,
+  "kind": "exact_original_go_build_info_empty_checksum_formatter",
+  "allowed_line_numbers": [
+    3,
+    4,
+    5,
+    6
+  ],
+  "exact_lines_hex": [
+    "096d6f64096769746875622e636f6d2f66696e6974656669656c642d6f72672f6d706b2f676f2d746f6f6c732f676f327669720928646576656c29090a",
+    "0964657009676f6c616e672e6f72672f782f6d6f640976302e32372e30090a",
+    "0964657009676f6c616e672e6f72672f782f73796e630976302e31362e30090a",
+    "0964657009676f6c616e672e6f72672f782f746f6f6c730976302e33362e30090a"
+  ],
+  "git_whitespace_output_raw_utf8": "develop/migrations/go-practical/t02-w01/verification/analysis-inputs/independent-build/binary-build-info.log:3: trailing whitespace.\n+\tmod\tgithub.com/finitefield-org/mpk/go-tools/go2vir\t(devel)\t\ndevelop/migrations/go-practical/t02-w01/verification/analysis-inputs/independent-build/binary-build-info.log:4: trailing whitespace.\n+\tdep\tgolang.org/x/mod\tv0.27.0\t\ndevelop/migrations/go-practical/t02-w01/verification/analysis-inputs/independent-build/binary-build-info.log:5: trailing whitespace.\n+\tdep\tgolang.org/x/sync\tv0.16.0\t\ndevelop/migrations/go-practical/t02-w01/verification/analysis-inputs/independent-build/binary-build-info.log:6: trailing whitespace.\n+\tdep\tgolang.org/x/tools\tv0.36.0\t\n",
+  "source_formatter_members": [
+    {
+      "path": "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/src/runtime/debug/mod.go",
+      "sha256": "2ed3d813e6d666049ff4320a361b2639ae6f6f185545da31cd56c7cc85f298aa",
+      "bytes": 8462
+    },
+    {
+      "path": "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/src/cmd/go/internal/version/version.go",
+      "sha256": "a4aba16ea90f40a1168f2d929b9ed6f67164c2ff892eb81b1cec78f695adbbbd",
+      "bytes": 5869
+    }
+  ],
+  "scope": "Only the exact four raw empty-checksum module rows in this645-byte native Go CLI stdout. Preserve original tabs, all raw outputs and failed review. No source/JSON/directory or general whitespace exclusion; strict scanner still processes this complete file."
+}
