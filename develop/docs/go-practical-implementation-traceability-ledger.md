@@ -1,6 +1,6 @@
 # Go Practical Implementation Traceability Ledger
 
-Updated: 2026-10-18. Objective: execute
+Updated: 2026-10-19. Objective: execute
 [the Go design](09_go_practical_subset_design.md) and
 [work plan](09_go_practical_subset_design-todo.md), starting at T01-W01.
 This ledger owns implementation status. No practical Go profile is active.
@@ -29,11 +29,14 @@ after reconciling the intervening shared artifacts and active registry.
 | GO-PRAC-T01-W03 | Complete | Reviewed implementation `9d4e6fb7855a66d9fff309e6dbd9143652ee6e21`; requirement-by-requirement completion audit in section28 |
 | GO-PRAC-T01-W04 | Complete | Commit `68a44416e1b1a6dc3a84587cca784fc4b3a2b862`; exact interfaces, resource bounds, consumer review and historical replay; section58 |
 | GO-PRAC-T01-W05 | Complete under user C# test deferral | Reviewed implementation `4b4c3a01ddfa2377d7ccc0116f128649ff3ec3b1`; amended cumulative gate passes594 tests and all other checks. Completion audit and section78. |
-| GO-PRAC-T02-W01 | In progress | Source-object codec and rooted multi-capability capture pass20 root tests/43 subtests; the native-asset review follow-up passes all8 affected rooted tests/17 subtests, vet/format and the legacy build. Original module/checksum/replacement checks also pass12 roots/52 subtests. Actual ordinary Boolean definitions/laws also pass both checkers. Original ZIP/h1/CRC/content checks also pass with a current Go checksum oracle. Versioned .mod/.info/.ziphash/ZIP consistency also passes9 roots/34 subtests. Complete context/selected graph/loader/export capture remains due; sections79–84. |
-| GO-PRAC-T02–T07 | Not started | Sequential v1 implementation and public release |
+| GO-PRAC-T02-W01 | In progress | Captured original source/module/archive/compiler/analysis components and fresh ordinary core/Nat/Int/range/word components have scoped evidence. Actual addition, fixed shifts/multiplication and unsigned bounds/order/equality/divisor guards now check in both cores. Complete bounded foundation, private context/registry and authoritative selected source/export replay remain due; sections79–89 and the W01 checkpoint index. |
+| GO-PRAC-T02-W02–W04 | Not started | Selected-function typing/closure, common artifact migration and final scalar/cumulative gate |
+| GO-PRAC-T03–T07 | Not started | Sequential remaining v1 implementation and public release |
 | GO-PRAC-T08–T11 | Not started | Sequential v2 freeze, maps, pointers and public release |
 
-No T is complete. `scripts/check-fast.sh` is due in T01-W05, not an intermediate W.
+T01 is complete under the explicit C# test deferral. T02 remains In progress;
+its cumulative `scripts/check-fast.sh --skip-csharp` gate is due in T02-W04,
+not an intermediate W.
 
 ## 3. T01-W01 baseline and deliverables
 
@@ -5055,3 +5058,39 @@ operations, arithmetic, storage/lifetime and program/source bindings remain
 required, followed by W01 authority/capture closure, W02 original typing/closures,
 W03 independent common artifacts and W04 scalar proof/cumulative gate. W01 stays
 In progress; no native Linux release receipt or public activation is claimed.
+
+## 89. T02-W01 actual numeric and word correspondence
+
+The [W01 checkpoint index](../migrations/go-practical/t02-w01/README.md) records
+the successive fresh unbounded Nat, balanced integer, half-open fold, full-width
+word, numeric addition and fixed-shift/multiplication components after section88.
+Their complete source, original findings, affected tests and both-checker
+observations remain separate from the169 unelaborated application demands.
+The current producer retains the exact preceding numeric and arithmetic bytes;
+their already passing unaffected suites are not repeated.
+
+The [word order checkpoint](../migrations/go-practical/t02-w01/verification/word-order/README.md)
+adds858 ordinary declarations for actual8/16/32/64-bit complement/value bounds,
+subtraction conservation, unsigned order, equality/zero and actual divisor-guard
+positivity. Its3437-declaration/71,143-term/985,945-byte certificate has zero
+axioms and fits every unchanged frozen component bound. Both unchanged
+production cores agree on31 exact streams: three zero-axiom acceptances with
+matching hashes and28 actual core type rejections. Four affected roots and
+current strict Clippy/format pass.
+
+Actual decoded Bool circuits agree with two identical fresh pinned native Go
+outputs and independent exact integers on272 original rows. Additional actual
+subtraction carries, IsZero and DivideDefined agree with independent host
+meanings. No unary Nat denotation/order/theorem body is executed by that finite
+model; universal genuine Nat proofs check separately in both cores. The first
+large64-bit equality-tree conversion exhausts existing fuel; explicit small
+block-fold proofs repair it. Original candidates, diagnostic prefixes, helper
+compilation failure and exact sources/raw output remain recorded. No checker
+rule, axiom, fuel, artifact bound or frozen design input changes.
+
+Actual division/remainder, remaining numeric/source laws, full bounded foundation
+assembly,56-family descriptor/private registry/context and authoritative original
+source/export/selected-closure replay remain due. W01 stays In progress and all169
+application demands remain unelaborated. C# tests stay skipped; the cumulative
+T02 gate remains deferred to W04. No practical profile, Go source/program proof,
+immutable application replay or native Linux release acceptance is claimed.

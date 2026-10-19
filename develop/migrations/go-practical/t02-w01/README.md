@@ -191,3 +191,18 @@ inputs. Scoped current Clippy and format pass. Every frozen artifact bound and
 all255 design inputs remain unchanged. Remaining numeric/source/carrier/program
 laws and descriptor/private context binding remain due; W01 stays In progress
 and the cumulative T02 gate stays deferred to W04.
+
+The [actual word bounds/order/guard checkpoint](verification/word-order/README.md)
+adds proved complement/value bounds, actual subtraction conservation, unsigned
+comparison and equality correspondence, zero values and actual divisor-guard
+positivity for all four widths. Both unchanged checkers agree on31 exact
+streams, with three zero-axiom acceptances and28 core type rejections. Four
+targeted roots, strict Clippy and format pass. Actual Bool circuits, fresh
+pinned native Go and independent integers agree on272 original queries;
+additional actual carry/zero/guard bits agree with host meanings. The original
+large-tree conversion limit and helper compilation error remain with complete
+sources/raw diagnostics; explicit small block folds fix conversion without
+changing checker fuel or artifact bounds. Prior numeric/arithmetic bytes and
+all255 frozen inputs remain exact. Actual division/remainder and the remaining
+foundation/source/context/application work remain due; W01 stays In progress
+and the cumulative T02 gate stays deferred to W04.

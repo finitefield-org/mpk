@@ -125,6 +125,17 @@ impl GoWordArithmeticFoundation {
     }
 }
 
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoWordOrderFoundation {
+    certificate: Vec<u8>,
+}
+
+impl GoWordOrderFoundation {
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
+}
+
 #[derive(Clone, Debug, Eq, PartialEq, Ord, PartialOrd)]
 enum Key {
     Sort(u32),
@@ -898,6 +909,31 @@ pub fn import_go_practical_word_arithmetic_foundation(
         return Err(GoOrdinaryError::Limit);
     }
     let expected = generate_go_practical_word_arithmetic_foundation()?;
+    if candidate != expected.certificate_bytes() {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    Ok(expected)
+}
+
+/// Compile actual word bounds, subtraction and unsigned order correspondence.
+/// Full source/program and complete foundation authority remain separate work.
+pub fn generate_go_practical_word_order_foundation() -> Result<GoWordOrderFoundation> {
+    let mut builder = range_builder()?;
+    let recipes = word::append_with_recipes(&mut builder)?;
+    word_numeric::append_order(&mut builder, &recipes)?;
+    builder.certificate.module = "Mpk.Go.Practical.WordOrderFoundation".into();
+    Ok(GoWordOrderFoundation {
+        certificate: builder.finish()?,
+    })
+}
+
+pub fn import_go_practical_word_order_foundation(
+    candidate: &[u8],
+) -> Result<GoWordOrderFoundation> {
+    if candidate.len() > MAX_BYTES {
+        return Err(GoOrdinaryError::Limit);
+    }
+    let expected = generate_go_practical_word_order_foundation()?;
     if candidate != expected.certificate_bytes() {
         return Err(GoOrdinaryError::Linkage);
     }

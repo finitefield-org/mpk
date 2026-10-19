@@ -1,0 +1,79 @@
+{
+  "status": "direct_candidate_observed",
+  "observed_at_utc": "2026-10-19T14:53:06.638543+00:00",
+  "command": [
+    "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+    "verify",
+    "develop/migrations/go-practical/t02-w01/verification/word-order/equality-explicit-blocks/rust-construction/certificates/word-order-foundation.mpcert"
+  ],
+  "exit_code": 0,
+  "seconds": 2.150387499947101,
+  "certificate": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-order/equality-explicit-blocks/rust-construction/certificates/word-order-foundation.mpcert",
+    "sha256": "c12b72e2f331427e24465ef60ef228b469d6c54c6d414bf005b4ba3a1a9380fa",
+    "bytes": 985945
+  },
+  "original_Rust_report": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-order/equality-explicit-blocks/rust-construction/certificates/word-order-foundation.rust.json",
+    "sha256": "893ba2ab89d335548155a8724138060c867a50bde639e3eca519af1ba8e688fd",
+    "bytes": 600
+  },
+  "unchanged_go_binary": {
+    "path": "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+    "sha256": "33018244ca886f867256330d050077f7630c503529e3dc14ac3365f333c618a6",
+    "bytes": 3239410
+  },
+  "unchanged_go_source_build_evidence": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/core-interfaces/paired/result.json",
+    "sha256": "88ee756b4d9f6a61a1f61670baf626be23c6947d532a25fe3a0a65fa9b0a159a",
+    "bytes": 45747
+  },
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-order/equality-explicit-blocks/go-candidate/stdout.log",
+    "sha256": "fd59a0fd8ff75ea930c8def9d83d00bc2ce70e24d2a5b6dff1cf990475eb1dd3",
+    "bytes": 346
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-order/equality-explicit-blocks/go-candidate/stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "Rust_observation": {
+    "verdict": "accepted",
+    "module": "Mpk.Go.Practical.WordOrderFoundation",
+    "declaration_count": 3437,
+    "axiom_count": 0,
+    "hashes": {
+      "export": "2e6265820c09f5c95daf6666b5675e935bc61bdebd2b0206594a5f801009efaa",
+      "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+      "certificate": "1e4f59ae52bb6e2d774ede00d039d833488ded5274e3104ed0e3e7f751983b45"
+    },
+    "axiom_report": {
+      "summary": {
+        "core_axiom_count": 0,
+        "builtin_theory_axiom_count": 0,
+        "go_semantics_axiom_count": 0,
+        "external_axiom_count": 0,
+        "total_axiom_count": 0
+      },
+      "entries": [],
+      "declaration_dependencies": []
+    },
+    "error_code": null,
+    "error_detail": null
+  },
+  "Go_observation": {
+    "verdict": "accepted",
+    "module": "Mpk.Go.Practical.WordOrderFoundation",
+    "declaration_count": 3437,
+    "hashes": {
+      "export": "2e6265820c09f5c95daf6666b5675e935bc61bdebd2b0206594a5f801009efaa",
+      "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+      "certificate": "1e4f59ae52bb6e2d774ede00d039d833488ded5274e3104ed0e3e7f751983b45"
+    }
+  },
+  "semantic_negative_counted": false,
+  "complete_paired_success_claimed": false,
+  "resource_or_Linux_release_claimed": false,
+  "scope": "One original intended-positive word-order certificate. Preserve both direct outcomes; full paired acceptance still requires both unchanged checkers to accept the same final bytes. A format/fuel/resource failure supplies no semantic negative."
+}

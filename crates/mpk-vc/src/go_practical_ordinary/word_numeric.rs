@@ -9,6 +9,7 @@ use super::{Builder, GoOrdinaryError, Result};
 use std::collections::BTreeMap;
 
 mod arithmetic;
+mod order;
 mod signed;
 
 const PREFIX: &str = "Mpk.Go.Practical.Word.Numeric";
@@ -543,4 +544,14 @@ pub(super) fn append_arithmetic(
     };
     append_base(&mut numeric)?;
     arithmetic::append(&mut numeric)
+}
+
+pub(super) fn append_order(builder: &mut Builder, recipes: &BTreeMap<String, Expr>) -> Result<()> {
+    let mut numeric = Numeric {
+        builder,
+        recipes,
+        serial: 0,
+    };
+    append_base(&mut numeric)?;
+    order::append(numeric.builder, recipes)
 }

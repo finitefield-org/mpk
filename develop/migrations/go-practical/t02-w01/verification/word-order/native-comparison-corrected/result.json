@@ -1,0 +1,54 @@
+{
+  "schema": "mpk.go_practical.word_order_native_comparison.v1",
+  "status": "passed",
+  "observed_at_utc": "2026-10-19T14:56:11.049837+00:00",
+  "native_execution": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-order/native/result.json",
+    "sha256": "ac42a63501041ac98abb745eda3ced127627847376687c06370fbb80d7e8f608",
+    "bytes": 5753
+  },
+  "query_origins": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-order/query-origins.json",
+    "sha256": "f2922fa695be1c040daa0923af7d896e87ba51b2eeead13c42aa8e5de858e55f",
+    "bytes": 5176
+  },
+  "actual_certificate": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-order/corrected/rust-tests/model/certificate.mpcert",
+    "sha256": "c12b72e2f331427e24465ef60ef228b469d6c54c6d414bf005b4ba3a1a9380fa",
+    "bytes": 985945
+  },
+  "actual_Boolean_certificate_model": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-order/corrected/rust-tests/model/model.json",
+    "sha256": "ce0ec4b45da5a0d7f0d18989be115d5bb5978ecc4665416320e494521430ef9e",
+    "bytes": 13952
+  },
+  "actual_Boolean_law_observations": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-order/corrected/rust-tests/model/laws.json",
+    "sha256": "486706bafe3e943a7b878d8f19d26d203084542a29fba366fbdd0f154afdeb15",
+    "bytes": 70012
+  },
+  "model_metrics": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-order/corrected/rust-tests/model/metrics.json",
+    "sha256": "f769a3d0c34ff5fd1d9d7dfc01ac51e67be3a5b3ae1eaf923eb22e88d11abba2",
+    "bytes": 799
+  },
+  "independent_integer_oracle": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-order/native-comparison-corrected/independent-integer-oracle.json",
+    "sha256": "e605ebba257fef9a02f8d834b5c5c991ce3e260867a26fabfccbb41affeca3b8",
+    "bytes": 20481
+  },
+  "independent_law_oracle": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-order/native-comparison-corrected/independent-law-oracle.json",
+    "sha256": "d1622781cfb137063bfe27427784031224d48916bb0612e113812f48d535672e",
+    "bytes": 92861
+  },
+  "selected_original_queries": 272,
+  "word_results": 80,
+  "boolean_results": 192,
+  "observed_zero_divisors": 52,
+  "observed_borrows": 85,
+  "scope": "Actual complement/subtraction/equality/comparison results from the decoded Bool circuit agree with two identical fresh typed native Go outputs and independent Python exact integers. Additional actual forward/reverse carry, IsZero and DivideDefined bits agree with independent host integer meanings; the unchanged native observer does not expose those internal guards. No unary Nat denotation/order/theorem body is executed by the Bool-only model. Universal genuine Nat laws are checked separately by both cores. No source-program, authoritative immutable application replay or native Linux release claim.",
+  "CSharp_tests_executed": false,
+  "public_profile_activated": false,
+  "full_T02_gate": "deferred to W04: check-fast.sh --skip-csharp"
+}
