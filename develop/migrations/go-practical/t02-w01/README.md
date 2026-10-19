@@ -77,3 +77,10 @@ private-map reconstruction reject forged/crossed inputs; current offline Go
 checksum observations agree on original and tampered files. The review fix and
 all targeted checks are recorded. Complete module metadata/graph/context/loader
 binding remain due; no W01 completion or profile activation is claimed.
+
+The [versioned module checkpoint](verification/module-snapshots/README.md)
+now binds original .mod/.info/.ziphash/.zip inputs and verifies original checksum,
+version, root-manifest and legacy no-rewrite consistency. Its9-root34-subtest
+selection, current vet/format and separate legacy build pass. Actual selected
+module graph, complete context/compiler authority and immutable original-package
+source/export loading remain due; W01 is still In progress.

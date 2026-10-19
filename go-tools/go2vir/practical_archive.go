@@ -212,17 +212,17 @@ func (archive practicalModuleArchive) verifyContent(relative string, source prac
 	return nil
 }
 
-func (session *practicalCaptureSession) captureModuleArchive(capability, relative string, identity module.Version, sums practicalModuleSums) (practicalModuleArchive, error) {
+func (session *practicalCaptureSession) originalModuleSums(sums practicalModuleSums) (practicalModuleSums, error) {
 	owner, exists := session.files[practicalCaptureKey(sums.source.object.Capability, sums.source.object.Path)]
 	if !exists || owner.buffer.object != sums.source.object || sums.source.object.Kind != "go_sum" {
-		return practicalModuleArchive{}, session.reject(fmt.Errorf("module ZIP checksums are not an original captured input"))
+		return practicalModuleSums{}, session.reject(fmt.Errorf("module checksums are not an original captured input"))
 	}
 	originalSums, cached := session.archiveSums[owner.buffer.object.ID]
 	if !cached {
 		var err error
 		originalSums, err = parsePracticalModuleSums(owner.buffer)
 		if err != nil {
-			return practicalModuleArchive{}, session.reject(err)
+			return practicalModuleSums{}, session.reject(err)
 		}
 		if session.archiveSums == nil {
 			session.archiveSums = make(map[string]practicalModuleSums)
@@ -231,6 +231,14 @@ func (session *practicalCaptureSession) captureModuleArchive(capability, relativ
 	}
 	// The supplied parsed map is not authority. Cache a separate original-byte
 	// reconstruction once, without reparsing a large go.sum for every module.
+	return originalSums, nil
+}
+
+func (session *practicalCaptureSession) captureModuleArchive(capability, relative string, identity module.Version, sums practicalModuleSums) (practicalModuleArchive, error) {
+	originalSums, err := session.originalModuleSums(sums)
+	if err != nil {
+		return practicalModuleArchive{}, err
+	}
 	expectedSum := originalSums.entries[identity]
 	source, err := session.readSource(capability, relative, "auxiliary")
 	if err != nil {

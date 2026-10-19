@@ -29,7 +29,7 @@ after reconciling the intervening shared artifacts and active registry.
 | GO-PRAC-T01-W03 | Complete | Reviewed implementation `9d4e6fb7855a66d9fff309e6dbd9143652ee6e21`; requirement-by-requirement completion audit in section28 |
 | GO-PRAC-T01-W04 | Complete | Commit `68a44416e1b1a6dc3a84587cca784fc4b3a2b862`; exact interfaces, resource bounds, consumer review and historical replay; section58 |
 | GO-PRAC-T01-W05 | Complete under user C# test deferral | Reviewed implementation `4b4c3a01ddfa2377d7ccc0116f128649ff3ec3b1`; amended cumulative gate passes594 tests and all other checks. Completion audit and section78. |
-| GO-PRAC-T02-W01 | In progress | Source-object codec and rooted multi-capability capture pass20 root tests/43 subtests; the native-asset review follow-up passes all8 affected rooted tests/17 subtests, vet/format and the legacy build. Original module/checksum/replacement checks also pass12 roots/52 subtests. Actual ordinary Boolean definitions/laws also pass both checkers. Original ZIP/h1/CRC/content checks also pass with a current Go checksum oracle. Complete private context/versioned graph/loader/export capture remains due; sections79–83. |
+| GO-PRAC-T02-W01 | In progress | Source-object codec and rooted multi-capability capture pass20 root tests/43 subtests; the native-asset review follow-up passes all8 affected rooted tests/17 subtests, vet/format and the legacy build. Original module/checksum/replacement checks also pass12 roots/52 subtests. Actual ordinary Boolean definitions/laws also pass both checkers. Original ZIP/h1/CRC/content checks also pass with a current Go checksum oracle. Versioned .mod/.info/.ziphash/ZIP consistency also passes9 roots/34 subtests. Complete context/selected graph/loader/export capture remains due; sections79–84. |
 | GO-PRAC-T02–T07 | Not started | Sequential v1 implementation and public release |
 | GO-PRAC-T08–T11 | Not started | Sequential v2 freeze, maps, pointers and public release |
 
@@ -4852,3 +4852,27 @@ stress. W01 still owes full private context/foundation/compiler inventories,
 immutable original-package/source/export authority. No source/program proof,
 public activation or native Linux acceptance is claimed. No C# tests run;
 full T02 gate stays deferred to W04.
+
+## 84. T02-W01 original versioned metadata and root-manifest consistency
+
+The [versioned module checkpoint](../migrations/go-practical/t02-w01/verification/module-snapshots/README.md)
+starts from `a4a875653ad701c9ff0675be010057098939a978`. One supplied selected
+identity captures original .mod/.info/.ziphash/.zip using official path/version
+escaping under a bound root. It verifies both manifest and archive h1 against
+a separately reconstructed captured go.sum index, retains opaque original
+Go info provenance, checks Go metadata types/version and compares trimmed hash
+metadata without changing raw bytes. A present ZIP root manifest must equal
+the separately checksummed .mod even when both checksums are independently valid.
+Legacy snapshots retain the original external .mod and never insert a manifest.
+Missing/stale/inconsistent inputs reject without cache repair or fallback.
+
+The9-root34-subtest selection passes in2.267 seconds, vet in0.415 seconds and
+format in0.006 seconds. Five legacy development roots/20 subtests pass in2.187
+seconds. Both existing archive-capture consumers cover the shared original-sum
+helper extraction. Unchanged pure ZIP parsing/CRC/native-Go checksum tests retain
+their earlier passing evidence without repetition. No C# tests or intermediate
+full gate run. W01 still owes actual complete selected-graph/replacement ownership,
+all consulted metadata, complete checked foundation/context/compiler inventories
+and immutable original-package source/export loading. Source/program proof,
+public activation and native Linux acceptance remain unclaimed; the cumulative
+T02 gate remains deferred to W04.
