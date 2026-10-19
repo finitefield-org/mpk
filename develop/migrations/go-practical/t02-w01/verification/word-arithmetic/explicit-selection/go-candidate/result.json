@@ -1,0 +1,64 @@
+{
+  "status": "direct_candidate_observed",
+  "observed_at_utc": "2026-10-19T13:46:54.594289+00:00",
+  "command": [
+    "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+    "verify",
+    "develop/migrations/go-practical/t02-w01/verification/word-arithmetic/explicit-selection/rust-construction/certificates/word-arithmetic-foundation.mpcert"
+  ],
+  "exit_code": 1,
+  "seconds": 3.0375227499753237,
+  "certificate": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-arithmetic/explicit-selection/rust-construction/certificates/word-arithmetic-foundation.mpcert",
+    "sha256": "5e9b0d6c20d987e207f65050e9037b73490f97f8b1aa9138218c372fba3e4c6a",
+    "bytes": 1232320
+  },
+  "original_Rust_report": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-arithmetic/explicit-selection/rust-construction/certificates/word-arithmetic-foundation.rust.json",
+    "sha256": "75ef99f578520028f4f0b740cc1611be9d0afefd87a02fae8dd6a7ed8ac7c213",
+    "bytes": 536
+  },
+  "unchanged_go_binary": {
+    "path": "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+    "sha256": "33018244ca886f867256330d050077f7630c503529e3dc14ac3365f333c618a6",
+    "bytes": 3239410
+  },
+  "unchanged_go_source_build_evidence": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/core-interfaces/paired/result.json",
+    "sha256": "88ee756b4d9f6a61a1f61670baf626be23c6947d532a25fe3a0a65fa9b0a159a",
+    "bytes": 45747
+  },
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-arithmetic/explicit-selection/go-candidate/stdout.log",
+    "sha256": "c3207805e8a0989459deb8ce0f2840f2feee0a3758885bbd424e7cca805ee7e7",
+    "bytes": 96
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-arithmetic/explicit-selection/go-candidate/stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "Rust_observation": {
+    "verdict": "rejected",
+    "module": null,
+    "declaration_count": null,
+    "axiom_count": null,
+    "hashes": {
+      "export": null,
+      "axiom_report": null,
+      "certificate": "2ea8418453758a22791b28490d0487d0092fc985e248cff565ae336aa3882d4d"
+    },
+    "axiom_report": null,
+    "error_code": "KERNEL_CORE_CHECK",
+    "error_detail": "{\"code\":\"CORE_FUEL_EXHAUSTED\",\"location\":[{\"field\":\"defeq\"},{\"field\":\"lhs\"},{\"field\":\"whnf\"}],\"details\":{\"lhs_term_index\":\"509590\",\"operation\":\"defeq_whnf\",\"rhs_term_index\":\"107932\",\"side\":\"lhs\",\"term_index\":\"509592\"}}"
+  },
+  "Go_observation": {
+    "verdict": "rejected",
+    "error_kind": "core_check",
+    "error_detail": "core reduction fuel exhausted"
+  },
+  "semantic_negative_counted": false,
+  "complete_paired_success_claimed": false,
+  "resource_or_Linux_release_claimed": false,
+  "scope": "One original intended-positive arithmetic certificate. Preserve both direct outcomes; full paired acceptance still requires both unchanged checkers to accept the same final bytes. A format/fuel/resource failure supplies no semantic negative."
+}

@@ -1,0 +1,31 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+warning: function `coefficient` is never used
+  --> crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic.rs:13:4
+   |
+13 | fn coefficient(i: usize) -> Expr {
+   |    ^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: function `unary` is never used
+  --> crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic.rs:16:4
+   |
+16 | fn unary(width: usize, name: &str, x: Expr) -> Expr {
+   |    ^^^^^
+
+warning: function `map_value` is never used
+  --> crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic.rs:33:4
+   |
+33 | fn map_value(d: usize, e: Equality) -> Equality {
+   |    ^^^^^^^^^
+
+warning: `mpk-vc` (lib) generated 3 warnings
+    Finished `test` profile [optimized + debuginfo] target(s) in 2m 47s
+     Running tests/go_practical_word_arithmetic.rs (target/debug/deps/go_practical_word_arithmetic-196fa7dd33adcb01)
+
+thread 'actual_arithmetic_component_exact_import_and_retained_numeric_basis' (36340135) panicked at crates/mpk-vc/tests/go_practical_word_arithmetic.rs:26:5:
+assertion `left == right` failed: word-arithmetic-foundation: {"verdict":"rejected","module":null,"declaration_count":null,"axiom_count":null,"hashes":{"export":null,"axiom_report":null,"certificate":"3a78e216333bee5e99ce8ed80b88c4af05d3f2870ae64a440785b6a4c3870c05"},"axiom_report":null,"error_code":"KERNEL_CORE_CHECK","error_detail":"{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"319991\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"320004\",\"kind\":\"check_type_mismatch\",\"term_index\":\"319961\"}}"}
+  left: false
+ right: true
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_word_arithmetic`

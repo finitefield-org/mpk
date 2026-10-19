@@ -1,0 +1,139 @@
+{
+  "schema": "mpk.go_practical.word_arithmetic_check.v1",
+  "status": "failed",
+  "started_at_utc": "2026-10-19T13:18:48.675082+00:00",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_word_arithmetic",
+    "--",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "MPK_GO_WORD_ARITHMETIC_TEST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/word-arithmetic/initial/rust-tests/certificates",
+    "MPK_GO_WORD_ARITHMETIC_MODEL_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/word-arithmetic/initial/rust-tests/model"
+  },
+  "sources": [
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "18e21f97f7121c4cbac21848774f75168ac5b7fd351ca3b5e62b647aa45ddde4",
+      "bytes": 31772
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/integer.rs",
+      "sha256": "893e2f1295ab018251e3f78458c8827f09c98947f687e2ef11ea828907944c1a",
+      "bytes": 31338
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/natural.rs",
+      "sha256": "483fb9d5dba921566b448ee5f2551746986e2d4a6c11209b63102a8be4f0a0ec",
+      "bytes": 47316
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/polynomial.rs",
+      "sha256": "f9ae06bca999a04ce3204d5d65651a9ec7575fda70567972a1aa358e2730b3b2",
+      "bytes": 10141
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/range.rs",
+      "sha256": "1246a6cb1ef83c67d3507f4258956eda6ce92cda5621859dbc68058fb7558dc1",
+      "bytes": 17074
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/syntax.rs",
+      "sha256": "04dd2f0327d32ab4ddf357fdbc94816fdb28c2be5fbddfc2495c11df8fc4a5c7",
+      "bytes": 7833
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word.rs",
+      "sha256": "22e95db9dea126890df5a32adedf54c89ffaa93ab79af23ec325695759643afa",
+      "bytes": 24624
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/powers.rs",
+      "sha256": "dc71f6d851dec7f30e2d89338b969455a2b7282d9fa218e8ab68744130d8d174",
+      "bytes": 4679
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic/push.rs",
+      "sha256": "2eab313b687f5ab09af8cc7c82e5e589716dce3522d3b099043b08f8cd662b03",
+      "bytes": 9844
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic.rs",
+      "sha256": "6122d1018b08c360e25078dfcb625f2203146aed745500ab218fda26189a2a55",
+      "bytes": 1384
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed.rs",
+      "sha256": "faf7559605fb721443858b5c7af349f8e4d1ebe8c99dc20db2462733ccee0436",
+      "bytes": 13465
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric.rs",
+      "sha256": "2620e7bf2db58b5da341641249fd567960917a871672ced81f593007122e7056",
+      "bytes": 19393
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_proofs.rs",
+      "sha256": "208e689773abb4f172fcedb6b1a051e46e031dd05d77fe187e7561df2819a9dd",
+      "bytes": 13898
+    },
+    {
+      "path": "crates/mpk-vc/tests/go_practical_word_arithmetic.rs",
+      "sha256": "90755170579cfa00297619e2b2048d247b4e9d2cf6d01b7a0e90f6a3de33969a",
+      "bytes": 3244
+    },
+    {
+      "path": "proofs/std/bool/std-bool.hex",
+      "sha256": "88a37f9df68a18bc19d51c0832279ff97a2944fc1676326022269766933ee806",
+      "bytes": 1535
+    },
+    {
+      "path": "proofs/std/eq/std-eq.hex",
+      "sha256": "80d71a2ef388a6ad1dea166cca4bd10d9093d538edc4999743b6fb1ad80d03a1",
+      "bytes": 3069
+    },
+    {
+      "path": "proofs/std/nat/std-nat.hex",
+      "sha256": "65bc5b701561d07b0f675668d942917da23c43606c0cfe0f9edfa113be99f583",
+      "bytes": 743
+    }
+  ],
+  "selection_reason": "First inspect the fresh unbounded PowerTwo addition/shared-weight laws and actual PushLow discarded-bit conservation, while retaining the complete preceding numeric graph/raw bytes. These are prerequisites for actual fixed left shifts and multiplication conservation; those final laws remain in construction. Only this new isolated Go integration root, not CSharp tests or an intermediate full gate.",
+  "CSharp_tests_executed": false,
+  "full_T02_gate": "deferred to T02-W04: check-fast.sh --skip-csharp",
+  "T02_W01_complete": false,
+  "exit_code": 101,
+  "wall_seconds": 174.69623083306942,
+  "finished_at_utc": "2026-10-19T13:21:43.372530+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-arithmetic/initial/rust-tests/stdout.log",
+    "sha256": "9a9be627b6b7da911dc1755af53ebb538434937b4248c4f1b996e7d73ee7e495",
+    "bytes": 294
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-arithmetic/initial/rust-tests/stderr.log",
+    "sha256": "2bdbaf78c54968804710619b948c0253beb7f944feb0c6ab8f834d7dad734ccb",
+    "bytes": 1926
+  },
+  "certificates": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-arithmetic/initial/rust-tests/certificates/word-arithmetic-foundation.mpcert",
+      "sha256": "ce27055d7baf4a8c414a1485cff27b13df3072d224080dd860eee90c11fe5fa3",
+      "bytes": 796499
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "schema": "mpk.go_practical.word_arithmetic_native_comparison.v1",
+  "status": "passed",
+  "observed_at_utc": "2026-10-19T14:02:05.455180+00:00",
+  "native_execution": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-arithmetic/native/result.json",
+    "sha256": "906648a4201d540e583ffc293624aacb783b0efc22c8cd19ba03370ad7f5aaf0",
+    "bytes": 5802
+  },
+  "query_origins": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-arithmetic/query-origins.json",
+    "sha256": "a6c30436d4a033d5d4c64d58686d424f842bdd4bc3e3f28c5b16722211580adc",
+    "bytes": 1236
+  },
+  "actual_certificate": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-arithmetic/final/rust-tests/model/certificate.mpcert",
+    "sha256": "2c3261d71d9a7c8fcad98700f55f1ccc26865d7a11b57ab2f30b21d667ef0b1c",
+    "bytes": 1358764
+  },
+  "actual_Boolean_certificate_model": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-arithmetic/final/rust-tests/model/model.json",
+    "sha256": "e89acfa2adcfc91594aa18a7232ab7d83dc0692910dd47539f5b26ec025be343",
+    "bytes": 151931
+  },
+  "model_metrics": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-arithmetic/final/rust-tests/model/metrics.json",
+    "sha256": "22350a98a066f3c7263a3a993e84d5af71fa940bf5fdc77a510aa758c39f713e",
+    "bytes": 663
+  },
+  "independent_integer_oracle": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-arithmetic/native-comparison-final/independent-integer-oracle.json",
+    "sha256": "ff9dfbe1fe62626e50b156ec9b9bdc8f4eab9d2910d2254a5ae5d1fada756eab",
+    "bytes": 246348
+  },
+  "selected_original_queries": 48,
+  "actual_fixed_shift_and_product_stages": 1440,
+  "observed_true_carries": 107,
+  "Nat_witness_declarations_executed": false,
+  "scope": "All actual Left_i/Mul_i/carry circuit bits execute from the same decoded current certificate with Boolean-only primitives. Host arithmetic derives scalar witness recurrence values. These agree with independent Python exact integers and two identical fresh native typed Go multiplication/shifts/addition/math-bits/math-big outputs. Universal Nat witnesses are checked separately in both cores; no arithmetic model callback, whole Go source/program, authoritative immutable application replay or Linux release proof.",
+  "CSharp_tests_executed": false,
+  "public_profile_activated": false,
+  "full_T02_gate": "deferred to W04: check-fast.sh --skip-csharp"
+}

@@ -1,0 +1,27 @@
+diff --git a/develop/migrations/go-practical/t02-w01/verification/word-arithmetic/final/rust-tests/inputs/crates/mpk-vc/tests/support/go_word_arithmetic_controls.rs b/crates/mpk-vc/tests/support/go_word_arithmetic_controls.rs
+index 72db39d0..edbaa465 100644
+--- a/develop/migrations/go-practical/t02-w01/verification/word-arithmetic/final/rust-tests/inputs/crates/mpk-vc/tests/support/go_word_arithmetic_controls.rs
++++ b/crates/mpk-vc/tests/support/go_word_arithmetic_controls.rs
+@@ -136,0 +137,9 @@ fn drop_addend(c: &mut Certificate, id: u32) -> u32 {
++fn zero_body(c: &mut Certificate, id: u32) -> u32 {
++    match c.term_table[id as usize].clone() {
++        TermNode::Lam { ty, body } => {
++            let body = zero_body(c, body);
++            term(c, TermNode::Lam { ty, body })
++        }
++        _ => constant(c, "Std.Nat.zero"),
++    }
++}
+@@ -211,0 +221,2 @@ fn false_shift_product_correspondence_and_discarded_value_claims_reject() {
++    let focused = std::env::var("MPK_GO_WORD_ARITHMETIC_CONTROL_SELECTION").ok();
++    assert!(focused.is_none() || focused.as_deref() == Some("zero-witness-and-final-shift"));
+@@ -219,0 +231,6 @@ fn false_shift_product_correspondence_and_discarded_value_claims_reject() {
++            if focused.is_some()
++                && mutation != "WrongMulDiscard"
++                && !(width == 64 && mutation == "WrongShiftDiscard")
++            {
++                continue;
++            }
+@@ -263,0 +281,2 @@ fn false_shift_product_correspondence_and_discarded_value_claims_reject() {
++                    } else if mutation == "WrongMulDiscard" {
++                        zero_body(&mut c, value)

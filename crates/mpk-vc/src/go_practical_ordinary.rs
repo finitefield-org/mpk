@@ -114,6 +114,17 @@ impl GoWordNumericFoundation {
     }
 }
 
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoWordArithmeticFoundation {
+    certificate: Vec<u8>,
+}
+
+impl GoWordArithmeticFoundation {
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
+}
+
 #[derive(Clone, Debug, Eq, PartialEq, Ord, PartialOrd)]
 enum Key {
     Sort(u32),
@@ -862,6 +873,31 @@ pub fn import_go_practical_word_numeric_foundation(
         return Err(GoOrdinaryError::Limit);
     }
     let expected = generate_go_practical_word_numeric_foundation()?;
+    if candidate != expected.certificate_bytes() {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    Ok(expected)
+}
+
+/// Compile ordinary numeric correspondence for the actual word arithmetic.
+/// Source binding and complete Go profile authority remain separate work.
+pub fn generate_go_practical_word_arithmetic_foundation() -> Result<GoWordArithmeticFoundation> {
+    let mut builder = range_builder()?;
+    let recipes = word::append_with_recipes(&mut builder)?;
+    word_numeric::append_arithmetic(&mut builder, &recipes)?;
+    builder.certificate.module = "Mpk.Go.Practical.WordArithmeticFoundation".into();
+    Ok(GoWordArithmeticFoundation {
+        certificate: builder.finish()?,
+    })
+}
+
+pub fn import_go_practical_word_arithmetic_foundation(
+    candidate: &[u8],
+) -> Result<GoWordArithmeticFoundation> {
+    if candidate.len() > MAX_BYTES {
+        return Err(GoOrdinaryError::Limit);
+    }
+    let expected = generate_go_practical_word_arithmetic_foundation()?;
     if candidate != expected.certificate_bytes() {
         return Err(GoOrdinaryError::Linkage);
     }

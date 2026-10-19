@@ -177,3 +177,17 @@ no proof/checker bytes or limits change to repair it. Complete preceding word
 bytes and all255 frozen inputs remain unchanged. Remaining numeric/source/
 carrier/program laws and descriptor/private context binding remain due; W01
 stays In progress and the cumulative T02 gate stays deferred to W04.
+
+The [actual fixed-shift/multiplication checkpoint](verification/word-arithmetic/README.md)
+adds genuine unbounded PowerTwo laws, actual discarded-bit/fixed-left-shift
+conservation, multiplier-prefix interpretation and complete actual Mul0..width
+conservation with a computed Nat witness. Both unchanged checkers agree on26
+final streams, with three zero-axiom acceptances and23 core type rejections.
+Actual48-input Boolean-circuit evaluation, fresh pinned native Go and exact
+integer arithmetic agree on1440 stages and107 carries. Original construction/
+conversion/diagnostic/control failures remain; the focused five-case correction
+retains eighteen unchanged typed rejections and all passing production/model
+inputs. Scoped current Clippy and format pass. Every frozen artifact bound and
+all255 design inputs remain unchanged. Remaining numeric/source/carrier/program
+laws and descriptor/private context binding remain due; W01 stays In progress
+and the cumulative T02 gate stays deferred to W04.

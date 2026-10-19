@@ -8,6 +8,7 @@ use super::word_proofs::{boolean_cases, Evaluation};
 use super::{Builder, GoOrdinaryError, Result};
 use std::collections::BTreeMap;
 
+mod arithmetic;
 mod signed;
 
 const PREFIX: &str = "Mpk.Go.Practical.Word.Numeric";
@@ -515,6 +516,10 @@ pub(super) fn append(builder: &mut Builder, recipes: &BTreeMap<String, Expr>) ->
         recipes,
         serial: 0,
     };
+    append_base(&mut numeric)
+}
+
+fn append_base(numeric: &mut Numeric<'_>) -> Result<()> {
     numeric.definitions()?;
     numeric.value_congruence()?;
     numeric.local_addition()?;
@@ -525,4 +530,17 @@ pub(super) fn append(builder: &mut Builder, recipes: &BTreeMap<String, Expr>) ->
         numeric.family(width)?;
     }
     Ok(())
+}
+
+pub(super) fn append_arithmetic(
+    builder: &mut Builder,
+    recipes: &BTreeMap<String, Expr>,
+) -> Result<()> {
+    let mut numeric = Numeric {
+        builder,
+        recipes,
+        serial: 0,
+    };
+    append_base(&mut numeric)?;
+    arithmetic::append(&mut numeric)
 }

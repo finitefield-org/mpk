@@ -1,0 +1,15 @@
+
+running 1 test
+test identify_original_first_failed_declaration_without_changing_the_checker ... boundary=2601 accepted=true last=Mpk.Go.Practical.Word.Numeric.PowerTwoWeight6
+boundary=2700 accepted=false last=Mpk.Go.Practical.Word.Numeric.ZeroValue2
+prefix=2650 accepted=true last=Mpk.Go.Practical.Word.Numeric.CheckedStep0182 error=None
+prefix=2675 accepted=true last=Mpk.Go.Practical.Word.Numeric.CheckedStep0204 error=None
+prefix=2687 accepted=true last=Mpk.Go.Practical.Word.Numeric.Push3 error=None
+prefix=2693 accepted=false last=Mpk.Go.Practical.Word.Numeric.Push5 error=Some("{\"code\":\"CORE_FUEL_EXHAUSTED\",\"location\":[{\"field\":\"reduce_inductive\"}],\"details\":{\"inductive\":\"0\",\"kind\":\"iota_fuel_exhausted\",\"recursor\":\"15\",\"term_index\":\"335802\"}}")
+prefix=2690 accepted=true last=Mpk.Go.Practical.Word.Numeric.Push4 error=None
+prefix=2691 accepted=false last=Mpk.Go.Practical.Word.Numeric.PushConservation4 error=Some("{\"code\":\"CORE_FUEL_EXHAUSTED\",\"location\":[{\"field\":\"reduce_inductive\"}],\"details\":{\"inductive\":\"0\",\"kind\":\"iota_fuel_exhausted\",\"recursor\":\"15\",\"term_index\":\"335802\"}}")
+first_failed_index=2690 name=Mpk.Go.Practical.Word.Numeric.PushConservation4
+ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 76.44s
+
