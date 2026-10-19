@@ -1,0 +1,80 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+warning: constant `DIVISION` is never used
+ --> crates/mpk-vc/src/go_practical_ordinary/word_numeric/division.rs:4:7
+  |
+4 | const DIVISION: &str = "Mpk.Go.Practical.Word.Division";
+  |       ^^^^^^^^
+  |
+  = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: function `dc` is never used
+ --> crates/mpk-vc/src/go_practical_ordinary/word_numeric/division.rs:5:4
+  |
+5 | fn dc(name: &str, args: Vec<Expr>) -> Expr {
+  |    ^^
+
+warning: function `order` is never used
+ --> crates/mpk-vc/src/go_practical_ordinary/word_numeric/division.rs:8:4
+  |
+8 | fn order(name: &str, args: Vec<Expr>) -> Expr {
+  |    ^^^^^
+
+warning: function `instance` is never used
+  --> crates/mpk-vc/src/go_practical_ordinary/word_numeric/division.rs:11:4
+   |
+11 | fn instance(name: &str, args: Vec<Expr>, left: Expr, right: Expr) -> Equality {
+   |    ^^^^^^^^
+
+warning: function `map_value` is never used
+  --> crates/mpk-vc/src/go_practical_ordinary/word_numeric/division.rs:14:4
+   |
+14 | fn map_value(d: usize, e: Equality) -> Equality {
+   |    ^^^^^^^^^
+
+warning: function `less_left` is never used
+  --> crates/mpk-vc/src/go_practical_ordinary/word_numeric/division.rs:23:4
+   |
+23 | fn less_left(e: Equality, b: Expr) -> Equality {
+   |    ^^^^^^^^^
+
+warning: function `less_right` is never used
+  --> crates/mpk-vc/src/go_practical_ordinary/word_numeric/division.rs:35:4
+   |
+35 | fn less_right(a: Expr, e: Equality) -> Equality {
+   |    ^^^^^^^^^^
+
+warning: function `bool_map` is never used
+  --> crates/mpk-vc/src/go_practical_ordinary/word_numeric/division.rs:47:4
+   |
+47 | fn bool_map(name: &str, e: Equality) -> Equality {
+   |    ^^^^^^^^
+
+warning: function `bool_right` is never used
+  --> crates/mpk-vc/src/go_practical_ordinary/word_numeric/division.rs:63:4
+   |
+63 | fn bool_right(name: &str, a: Expr, e: Equality) -> Equality {
+   |    ^^^^^^^^^^
+
+warning: struct `Division` is never constructed
+  --> crates/mpk-vc/src/go_practical_ordinary/word_numeric/division.rs:79:8
+   |
+79 | struct Division<'a> {
+   |        ^^^^^^^^
+
+warning: methods `emit`, `theorem`, and `polynomial` are never used
+   --> crates/mpk-vc/src/go_practical_ordinary/word_numeric/division.rs:84:8
+    |
+ 83 | impl Division<'_> {
+    | ----------------- methods in this implementation
+ 84 |     fn emit(
+    |        ^^^^
+...
+101 |     fn theorem(&mut self, name: &str, args: &[Binder], e: Equality) -> Result<()> {
+    |        ^^^^^^^
+...
+104 |     fn polynomial(&mut self, args: &[Binder], left: Expr, right: Expr) -> Result<Equality> {
+    |        ^^^^^^^^^^
+
+warning: `mpk-vc` (lib) generated 11 warnings
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 38.48s
+     Running tests/go_practical_word_division.rs (target/debug/deps/go_practical_word_division-703d9f6f53afbaf9)

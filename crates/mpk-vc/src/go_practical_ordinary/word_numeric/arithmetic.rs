@@ -61,3 +61,14 @@ pub(super) fn append(numeric: &mut Numeric<'_>) -> Result<()> {
     }
     Ok(())
 }
+
+pub(super) fn append_division_prerequisites(numeric: &mut Numeric<'_>) -> Result<()> {
+    // Match the established arithmetic producer's checkpoint identities.
+    // Unused power declarations are removed by closed dependency assembly.
+    numeric.powers()?;
+    numeric.push_laws()?;
+    for width in WIDTHS {
+        numeric.push_family(width)?;
+    }
+    Ok(())
+}

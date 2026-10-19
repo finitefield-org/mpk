@@ -10,6 +10,7 @@ use mpk_cert::encode::{
 };
 use sha2::{Digest, Sha256};
 
+mod dependencies;
 mod integer;
 mod natural;
 mod polynomial;
@@ -131,6 +132,16 @@ pub struct GoWordOrderFoundation {
 }
 
 impl GoWordOrderFoundation {
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoWordDivisionFoundation {
+    certificate: Vec<u8>,
+}
+impl GoWordDivisionFoundation {
     pub fn certificate_bytes(&self) -> &[u8] {
         &self.certificate
     }
@@ -934,6 +945,31 @@ pub fn import_go_practical_word_order_foundation(
         return Err(GoOrdinaryError::Limit);
     }
     let expected = generate_go_practical_word_order_foundation()?;
+    if candidate != expected.certificate_bytes() {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    Ok(expected)
+}
+
+/// Compile actual unsigned restoring-division laws from closed ordinary roots.
+/// Complete source/program/profile authority remains separate work.
+pub fn generate_go_practical_word_division_foundation() -> Result<GoWordDivisionFoundation> {
+    let mut builder = range_builder()?;
+    let recipes = word::append_with_recipes(&mut builder)?;
+    word_numeric::append_division(&mut builder, &recipes)?;
+    builder.certificate.module = "Mpk.Go.Practical.WordDivisionFoundation".into();
+    Ok(GoWordDivisionFoundation {
+        certificate: builder.finish()?,
+    })
+}
+
+pub fn import_go_practical_word_division_foundation(
+    candidate: &[u8],
+) -> Result<GoWordDivisionFoundation> {
+    if candidate.len() > MAX_BYTES {
+        return Err(GoOrdinaryError::Limit);
+    }
+    let expected = generate_go_practical_word_division_foundation()?;
     if candidate != expected.certificate_bytes() {
         return Err(GoOrdinaryError::Linkage);
     }

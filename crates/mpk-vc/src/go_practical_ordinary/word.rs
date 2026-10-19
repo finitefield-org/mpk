@@ -46,7 +46,7 @@ pub(super) fn choose(condition: Expr, yes: Expr, no: Expr, ty: Expr) -> Expr {
         vec![lam("_case", boolean(), ty), no, yes, condition],
     )
 }
-fn vector(width: usize, bits: Vec<Expr>) -> Result<Expr> {
+pub(super) fn vector(width: usize, bits: Vec<Expr>) -> Result<Expr> {
     if bits.len() != width {
         return Err(GoOrdinaryError::Linkage);
     }

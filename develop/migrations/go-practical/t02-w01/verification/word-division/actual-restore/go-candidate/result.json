@@ -1,0 +1,64 @@
+{
+  "status": "direct_candidate_observed",
+  "observed_at_utc": "2026-10-19T15:27:43.197903+00:00",
+  "command": [
+    "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+    "verify",
+    "develop/migrations/go-practical/t02-w01/verification/word-division/actual-restore/rust-construction/certificates/word-division-foundation.mpcert"
+  ],
+  "exit_code": 1,
+  "seconds": 0.5813445000676438,
+  "certificate": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-division/actual-restore/rust-construction/certificates/word-division-foundation.mpcert",
+    "sha256": "a36d8fdf5a6ad1c2d4a8b25c8bc756a3d00e3fdf9cc5f1f6dd87f818ae142ede",
+    "bytes": 683164
+  },
+  "original_Rust_report": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-division/actual-restore/rust-construction/certificates/word-division-foundation.rust.json",
+    "sha256": "238e5f7933943d6704966727c2807bd141b285c87a6b5a1f9268cf8434aad0f4",
+    "bytes": 539
+  },
+  "unchanged_go_binary": {
+    "path": "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+    "sha256": "33018244ca886f867256330d050077f7630c503529e3dc14ac3365f333c618a6",
+    "bytes": 3239410
+  },
+  "unchanged_go_source_build_evidence": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/core-interfaces/paired/result.json",
+    "sha256": "88ee756b4d9f6a61a1f61670baf626be23c6947d532a25fe3a0a65fa9b0a159a",
+    "bytes": 45747
+  },
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-division/actual-restore/go-candidate/stdout.log",
+    "sha256": "462095417d7b50052dea820d0bfb9283f4d9b80a75708305cefe98997230ee40",
+    "bytes": 104
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-division/actual-restore/go-candidate/stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "Rust_observation": {
+    "verdict": "rejected",
+    "module": null,
+    "declaration_count": null,
+    "axiom_count": null,
+    "hashes": {
+      "export": null,
+      "axiom_report": null,
+      "certificate": "feb53d8f18cc0a632264aa546f14ccbfcf4d49fb4e6b81585b815594ab18228d"
+    },
+    "axiom_report": null,
+    "error_code": "KERNEL_CORE_CHECK",
+    "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"311788\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"311795\",\"kind\":\"check_type_mismatch\",\"term_index\":\"15\"}}"
+  },
+  "Go_observation": {
+    "verdict": "rejected",
+    "error_kind": "core_check",
+    "error_detail": "term 15 inferred app but expected app"
+  },
+  "semantic_negative_counted": false,
+  "complete_paired_success_claimed": false,
+  "resource_or_Linux_release_claimed": false,
+  "scope": "One original intended-positive word-division certificate. Preserve both direct outcomes; full paired acceptance still requires both unchanged checkers to accept the same final bytes. A format/fuel/resource failure supplies no semantic negative."
+}

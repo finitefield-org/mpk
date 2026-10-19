@@ -206,3 +206,18 @@ changing checker fuel or artifact bounds. Prior numeric/arithmetic bytes and
 all255 frozen inputs remain exact. Actual division/remainder and the remaining
 foundation/source/context/application work remain due; W01 stays In progress
 and the cumulative T02 gate stays deferred to W04.
+
+The [actual unsigned division checkpoint](verification/word-division/README.md)
+now proves all120 restoring circuit stages, MSB-prefix interpretation and final
+Euclidean conservation/strict remainder bounds for all four widths under the
+actual nonzero-divisor guard. Both unchanged cores agree on24 current streams:
+two zero-axiom positives and22 core type rejections. Five affected roots, strict
+Clippy and Rust/Go format pass. All2198 retained prerequisite declarations match
+the exact prior named types/bodies/proofs/metadata. The initial result-bound
+mistake, nested-conversion limit and helper-name collision remain with complete
+sources/candidates/raw evidence; explicit folds and the established prerequisite
+generation order fix them without changing bounds/fuel. Actual Bool circuits,
+fresh pinned native Go and independent exact-prefix integers agree on96 queries,
+2640 stages, eight zero-divisor failures and34 arbitrary-remainder steps including
+ten high bits. Remaining signed/numeric/source/foundation/context/application
+work stays due; W01 remains In progress and the cumulative T02 gate stays W04.

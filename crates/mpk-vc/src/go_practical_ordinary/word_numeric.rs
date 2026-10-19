@@ -9,6 +9,7 @@ use super::{Builder, GoOrdinaryError, Result};
 use std::collections::BTreeMap;
 
 mod arithmetic;
+mod division;
 mod order;
 mod signed;
 
@@ -554,4 +555,19 @@ pub(super) fn append_order(builder: &mut Builder, recipes: &BTreeMap<String, Exp
     };
     append_base(&mut numeric)?;
     order::append(numeric.builder, recipes)
+}
+
+pub(super) fn append_division(
+    builder: &mut Builder,
+    recipes: &BTreeMap<String, Expr>,
+) -> Result<()> {
+    let mut numeric = Numeric {
+        builder,
+        recipes,
+        serial: 0,
+    };
+    append_base(&mut numeric)?;
+    arithmetic::append_division_prerequisites(&mut numeric)?;
+    order::append(numeric.builder, recipes)?;
+    division::append(numeric.builder, recipes)
 }

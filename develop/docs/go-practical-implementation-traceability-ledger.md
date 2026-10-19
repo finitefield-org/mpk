@@ -1,6 +1,6 @@
 # Go Practical Implementation Traceability Ledger
 
-Updated: 2026-10-19. Objective: execute
+Updated: 2026-10-20. Objective: execute
 [the Go design](09_go_practical_subset_design.md) and
 [work plan](09_go_practical_subset_design-todo.md), starting at T01-W01.
 This ledger owns implementation status. No practical Go profile is active.
@@ -29,7 +29,7 @@ after reconciling the intervening shared artifacts and active registry.
 | GO-PRAC-T01-W03 | Complete | Reviewed implementation `9d4e6fb7855a66d9fff309e6dbd9143652ee6e21`; requirement-by-requirement completion audit in section28 |
 | GO-PRAC-T01-W04 | Complete | Commit `68a44416e1b1a6dc3a84587cca784fc4b3a2b862`; exact interfaces, resource bounds, consumer review and historical replay; section58 |
 | GO-PRAC-T01-W05 | Complete under user C# test deferral | Reviewed implementation `4b4c3a01ddfa2377d7ccc0116f128649ff3ec3b1`; amended cumulative gate passes594 tests and all other checks. Completion audit and section78. |
-| GO-PRAC-T02-W01 | In progress | Captured original source/module/archive/compiler/analysis components and fresh ordinary core/Nat/Int/range/word components have scoped evidence. Actual addition, fixed shifts/multiplication and unsigned bounds/order/equality/divisor guards now check in both cores. Complete bounded foundation, private context/registry and authoritative selected source/export replay remain due; sections79–89 and the W01 checkpoint index. |
+| GO-PRAC-T02-W01 | In progress | Captured original source/module/archive/compiler/analysis components and fresh ordinary core/Nat/Int/range/word components have scoped evidence. Actual addition, fixed shifts/multiplication, unsigned bounds/order/equality/divisor guards and complete unsigned division/remainder conservation now check in both cores. Complete bounded foundation, private context/registry and authoritative selected source/export replay remain due; sections79–90 and the W01 checkpoint index. |
 | GO-PRAC-T02-W02–W04 | Not started | Selected-function typing/closure, common artifact migration and final scalar/cumulative gate |
 | GO-PRAC-T03–T07 | Not started | Sequential remaining v1 implementation and public release |
 | GO-PRAC-T08–T11 | Not started | Sequential v2 freeze, maps, pointers and public release |
@@ -5094,3 +5094,37 @@ source/export/selected-closure replay remain due. W01 stays In progress and all1
 application demands remain unelaborated. C# tests stay skipped; the cumulative
 T02 gate remains deferred to W04. No practical profile, Go source/program proof,
 immutable application replay or native Linux release acceptance is claimed.
+
+## 90. T02-W01 actual unsigned division and closed prerequisite identity
+
+The [division checkpoint](../migrations/go-practical/t02-w01/verification/word-division/README.md)
+proves all120 actual circuit stages and final unsigned Euclidean conservation
+and strict remainder bounds under the actual divisor guard. A shared unbounded
+Nat MSB-prefix library connects the real quotient bits and dividend to balanced
+word values. The3588-declaration/82,264-term/1,131,018-byte certificate has zero
+axioms and fits every unchanged frozen artifact bound. Both unchanged cores
+agree on24 current streams, including22 actual core type rejections.
+
+Closed ordinary prerequisite assembly traverses complete type/value/proof/family
+dependencies and retains primitive families. Independent named-DAG fingerprints
+confirm all2198 retained types/bodies/proofs/levels/metadata against the exact
+preceding order/arithmetic components. Review reproduces an initial helper-name
+collision and fixes it by using the established generation prefix before
+removing unused declarations. Earlier result-bound and implicit source-fold
+failures also remain with exact original candidates/source/raw diagnostics.
+Five current affected roots and strict Clippy/Rust/Go format pass. No checker,
+axiom, fuel, artifact bound or frozen design input changes.
+
+Actual Bool circuits, two identical fresh pinned native Go runs and independent
+exact-prefix integers agree on96 original queries and2640 stages, with eight
+zero-divisor runtime failures. Thirty-four additional arbitrary-remainder steps
+exercise ten high bits. Universal Nat laws check separately in both cores;
+the finite model does not execute unary Nat prefixes/theorem bodies. This is
+ordinary circuit evidence, not original Go application source/closure authority.
+
+Signed division/remainder, remaining numeric/source/carrier/state/program laws,
+complete bounded56-family foundation/descriptor/private registry/context and
+authoritative original source/export/selected-closure replay remain due. All169
+application demands stay unelaborated; W01 remains In progress. C# tests remain
+skipped and the cumulative T02 gate stays deferred to W04. Public activation
+and native Linux release evidence remain later-stage requirements.

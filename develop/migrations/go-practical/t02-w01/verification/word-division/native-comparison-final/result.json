@@ -1,0 +1,45 @@
+{
+  "schema": "mpk.go_practical.word_division_native_comparison.v1",
+  "status": "passed",
+  "observed_at_utc": "2026-10-19T15:27:49.559517+00:00",
+  "native_execution": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-division/native/result.json",
+    "sha256": "40d01c310c7049e999f8e88537c19df5732ae1c4a7b9f561681785057b585b98",
+    "bytes": 6043
+  },
+  "query_origins": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-division/query-origins.json",
+    "sha256": "240340eb0e3c018301ca588c504b8c89254f434f880e75afcee32fe79bc93940",
+    "bytes": 5954
+  },
+  "actual_certificate": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-division/final/rust-tests/model/certificate.mpcert",
+    "sha256": "4675a125f740574dcb1e0ae779c73a8264da91c92c9588c9c37568070fbbefd1",
+    "bytes": 1131018
+  },
+  "actual_Boolean_certificate_model": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-division/final/rust-tests/model/model.json",
+    "sha256": "ad26f28e77386fe4c0fe68018f86e2c7ed01d7ed679ccc58ff463039cc590d73",
+    "bytes": 615213
+  },
+  "model_metrics": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-division/final/rust-tests/model/metrics.json",
+    "sha256": "bbedf8f6ac4f42b9801695a737f34d13d860a1b5f6f4730824dae09f90fa94fc",
+    "bytes": 827
+  },
+  "independent_integer_oracle": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-division/native-comparison-final/independent-integer-oracle.json",
+    "sha256": "af2ffd83b4dc8d719cb1d06578fab7d8e3c2c7b68ded13214f737bfb5186b8cf",
+    "bytes": 1019368
+  },
+  "original_division_queries": 96,
+  "actual_division_stages": 2640,
+  "native_runtime_division_by_zero_rows": 8,
+  "arbitrary_restore_queries": 34,
+  "arbitrary_overflow_bits": 10,
+  "scope": "All actual retained source stage/carry/output bits and additional full-width arbitrary-remainder restore bits agree with two identical fresh typed native Go runs and independent Python exact prefix division/remainder. Eight zero-divisor rows match actual Go runtime panics and actual false circuit guards; totalized zero bits are not accepted Go division results. The Bool-only model does not execute unary Nat prefixes/denotations/order/theorem bodies. Universal genuine Nat laws check separately in both cores. No source-program, authoritative immutable application replay or native Linux release claim.",
+  "CSharp_tests_executed": false,
+  "T02_W01_complete": false,
+  "public_profile_activated": false,
+  "full_T02_gate": "deferred to W04: check-fast.sh --skip-csharp"
+}

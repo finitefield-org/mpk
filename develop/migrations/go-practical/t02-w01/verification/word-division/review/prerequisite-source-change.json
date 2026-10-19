@@ -1,0 +1,43 @@
+{
+  "status": "corrected_named_prerequisite_identity",
+  "original_passing_closed_component": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-division/final/rust-tests/result.json",
+    "sha256": "31966d4142b0d626d03e32efc4aec5843048dd248319ac83f49969b5f5bd6852",
+    "bytes": 15942
+  },
+  "focused_reproduction": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-division/named-prerequisite-reproduction/rust-tests/result.json",
+    "sha256": "4bdd32b8434aa038c4f7e859da81b0e8dda82a54386e362c2aae1ce9ab816dd6",
+    "bytes": 10037
+  },
+  "old_source": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-division/final/rust-tests/inputs/crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic.rs",
+    "sha256": "c6ea42b11973b907b83ba62252d829c2872b5c8ce168889b9f033159ff687727",
+    "bytes": 1899
+  },
+  "current_source": {
+    "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic.rs",
+    "sha256": "9a3c22336edb3c22be361467d5ea18119b406b8b95336791a1bcb5de29eed187",
+    "bytes": 2072
+  },
+  "current_five_root_execution": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-division/reviewed/rust-tests/result.json",
+    "sha256": "8a2d503097f3189809b2cf1dc47bfedd1533dd86ea7b67d27bddb37665ecd1c2",
+    "bytes": 16333
+  },
+  "named_retained_prerequisites_checked": 2198,
+  "old_certificate": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-division/final/rust-tests/certificates/word-division-foundation.mpcert",
+    "sha256": "4675a125f740574dcb1e0ae779c73a8264da91c92c9588c9c37568070fbbefd1",
+    "bytes": 1131018
+  },
+  "new_certificate": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-division/reviewed/rust-tests/certificates/word-division-foundation.mpcert",
+    "sha256": "64ef60d8a3517bede84945e89af06ab155ec04cc4346f1f828b20f8bbda4f462",
+    "bytes": 1131018
+  },
+  "actual_Bool_model_outputs_byte_identical": true,
+  "native_source_or_execution_repeated": false,
+  "finding": "The first closed candidate is valid in both cores but a selected push proof uses an internal Numeric.CheckedStep name with a different type/proof from the established arithmetic component. By-name declaration comparison reproduces the mismatch at CheckedStep0123. Closed validity alone does not establish cross-component prerequisite identity.",
+  "correction": "Run the exact established PowerTwo-then-Push construction prefix before closed dependency assembly. Unused power definitions/proofs are removed; all2198 retained named types, bodies, opaque proofs, levels and family metadata now match the two unchanged reference components. Same frozen artifact bounds and no altered core/axiom/fuel. Rerun all five affected roots and the exact current-byte paired matrix; retain unchanged original native source/build/output."
+}
