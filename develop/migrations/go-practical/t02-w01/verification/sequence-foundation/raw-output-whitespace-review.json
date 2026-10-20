@@ -1,0 +1,30 @@
+{
+  "status": "reviewed_original_raw_output_preserved",
+  "git_diff_check_exit_code": 2,
+  "complete_original_diagnostic": "develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/stdout.log:9: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/first-kernel/stdout.log:7: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/typed-controls/typed/stdout.log:10: new blank line at EOF.\n",
+  "complete_original_stderr": "",
+  "raw_process_logs": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/stdout.log",
+      "line": 9,
+      "sha256": "22e92d67c4980e1208f21b5d2e141d6de6f0632be7fb72775b65142605de8843",
+      "bytes": 390
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/first-kernel/stdout.log",
+      "line": 7,
+      "sha256": "845461a504153a045fac61367001c7acd3a348fb375d5a1c0cff7e7faa38e3d1",
+      "bytes": 249
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/typed-controls/typed/stdout.log",
+      "line": 10,
+      "sha256": "d194c6b8e8fbf5dbc413d7ddc54f720a5af35dc6755f80c7b3b50b868a8e9420",
+      "bytes": 404
+    }
+  ],
+  "source_or_document_whitespace_findings": 0,
+  "interpretation": "The three warnings are the final blank line printed by actual Cargo test output. Keep all original process-output bytes and their existing evidence hashes; no source/JSON/directory/matcher exclusion or whitespace rule is added. Rust format and strict lint passed.",
+  "raw_logs_trimmed": false,
+  "full_T_gate_passed": false
+}

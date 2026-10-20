@@ -18,6 +18,7 @@ mod polynomial;
 mod product;
 mod product_relation;
 mod range;
+mod sequence;
 mod syntax;
 mod word;
 mod word_numeric;
@@ -196,6 +197,17 @@ pub struct GoProductFoundation {
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct GoProductRelationFoundation {
     certificate: Vec<u8>,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoSequenceFoundation {
+    certificate: Vec<u8>,
+}
+
+impl GoSequenceFoundation {
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
 }
 impl GoProductRelationFoundation {
     pub fn certificate_bytes(&self) -> &[u8] {
@@ -1499,6 +1511,30 @@ pub fn import_go_practical_product_foundation(candidate: &[u8]) -> Result<GoProd
         return Err(GoOrdinaryError::Limit);
     }
     let expected = generate_go_practical_product_foundation()?;
+    if candidate != expected.certificate_bytes() {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    Ok(expected)
+}
+
+/// Ordinary indexed values, prefix relations, updates and validity laws.
+/// Connecting these mathematical sequences to frozen Go carriers/source
+/// operations remains an ordinary proof obligation, not a new representation.
+pub fn generate_go_practical_sequence_foundation() -> Result<GoSequenceFoundation> {
+    let mut builder = natural_builder()?;
+    product::append(&mut builder)?;
+    sequence::append(&mut builder)?;
+    builder.certificate.module = "Mpk.Go.Practical.SequenceFoundation".into();
+    Ok(GoSequenceFoundation {
+        certificate: builder.finish()?,
+    })
+}
+
+pub fn import_go_practical_sequence_foundation(candidate: &[u8]) -> Result<GoSequenceFoundation> {
+    if candidate.len() > MAX_BYTES {
+        return Err(GoOrdinaryError::Limit);
+    }
+    let expected = generate_go_practical_sequence_foundation()?;
     if candidate != expected.certificate_bytes() {
         return Err(GoOrdinaryError::Linkage);
     }

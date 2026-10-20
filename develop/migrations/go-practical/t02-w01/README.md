@@ -643,3 +643,14 @@ immutable frontend identity. Original SDK/setup failures and full actual buffers
 remain separate. Current scope is Go/Rust only; R06/W01/full ordinary foundation/
 private context/general namespace/selected closure/all169/T02-T11 remain due.
 The current cumulative T02 gate stays W04: `./scripts/check-fast.sh`.
+
+The [ordinary indexed sequence checkpoint](verification/sequence-foundation/README.md)
+adds16 actual definitions and36 universal laws for length/prefix/read/update/map/
+offset/append and element validity, including unbounded Nat induction for the
+right-append index bound. Both unchanged checkers agree on63 whole inputs: two
+zero-axiom acceptances and61 real type rejections. Three affected Rust roots,
+strict Clippy and format pass; all131 prior Nat/product identities remain exact.
+This is a mathematical prerequisite; all frozen Go carrier representations and
+source/word/domain/storage/program correspondence remain required. R01/W01/full
+private context/namespace/selected closure/all169/T02-T11 remain open. The
+cumulative T02 gate stays W04: `./scripts/check-fast.sh`.

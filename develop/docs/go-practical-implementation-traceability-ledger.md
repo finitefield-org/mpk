@@ -6544,3 +6544,44 @@ R06/W01, production kernel lifecycle/private context, complete consulted namespa
 selected closure, full56-family/all6-member/19-theorem source/program foundation,
 compiler-derived VC roots/all169 demands/T02-T11 remain open. The cumulative T02
 gate stays at W04: `./scripts/check-fast.sh`; it is not run in this intermediate W.
+
+## 116. T02-W01 actual indexed sequence and unbounded append bounds
+
+Entry is `f5f7f5415a9ac8b85d27aa4b22ed6063559e4a3b`. The
+[checkpoint](../migrations/go-practical/t02-w01/verification/sequence-foundation/README.md)
+adds16 actual ordinary indexed-sequence definitions and36 universal laws to the
+complete unchanged131-declaration Nat/product union. The complete183-declaration
+zero-axiom certificate has3248 terms/35076 bytes and is accepted with identical
+three hashes by both unchanged independent cores. There is no function
+extensionality, source-callable adapter, semantic axiom or new core rule.
+
+Actual definitions retain the length and all indexed values of arbitrary Sort0
+elements. Prefix equality observes explicit in-range indices. Laws cover reads/
+lengths, empty/reflexive/symmetric/transitive/restricted prefixes, functional
+updates/frames/overwrite, map identity/composition/congruence, offset composition,
+append observations and element-validity preservation. Genuine unbounded Nat
+induction proves the right-append index bound from both actual guards; append
+validity consumes that theorem. Map/update/offset validity retain their actual
+preservation/replacement/original/quantified-range witnesses. No supplied truth
+flag, bounded operand enumeration or dropped source obligation is accepted.
+
+Three affected Rust roots, strict Clippy and changed-file format pass. All63
+complete source-free streams have actual independent outcomes: two zero-axiom
+acceptances and61 genuine core type mismatches (36 false conclusions,21 erased
+premises, four type-correct changed operations). The extra honest definition is
+accepted by both cores and rejected by exact import. All original Nat/product
+named types/bodies/proofs/metadata remain exact. The original179-member first
+Rust-only epoch remains separate. The initial count preflight failure retains
+its source and diagnostics before any Go checker execution; the full63-case
+catalog is then executed without dropping a case or changing checker budgets.
+
+The generic mathematical sequence is an auxiliary proof representation. It
+changes no frozen Go full-word/256-byte-slot/array/nominal carrier. Its exact
+word/count/source/evaluation/domain/permission/invocation/alias/storage/state/
+program correspondence remains due. Unchanged Go capture/frontend/core/ref
+sources and unrelated suites are retained without repeat. The full frozen255
+members, original byte epochs and strict127-rule/four-scope/39-seal review remain
+required. No other-language test, agent or Actions runs; all validation handles
+are terminal before staging. R01/W01/full56-all6-19 ordinary foundation/private
+context/kernel/namespace/selected closure/all169/T02-T11 remain pending. The
+cumulative T02 gate stays W04: `./scripts/check-fast.sh`.
