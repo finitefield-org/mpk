@@ -4,6 +4,14 @@ use super::polynomial::mul_right;
 use super::syntax::*;
 use super::{word, Builder, Result};
 
+mod validity;
+pub(super) fn append_validity(builder: &mut Builder) -> Result<()> {
+    validity::append(builder)
+}
+pub(super) fn append_value_validity(builder: &mut Builder, n: usize) -> Result<()> {
+    validity::append_value(builder, n)
+}
+
 const SLOTS: [&str; 8] = ["s0", "s1", "s2", "s3", "s4", "s5", "s6", "s7"];
 const BITS: [&str; 6] = ["a0", "a1", "a2", "a3", "a4", "a5"];
 fn st(name: &str, args: Vec<Expr>) -> Expr {

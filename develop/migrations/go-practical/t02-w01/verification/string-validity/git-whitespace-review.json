@@ -1,0 +1,78 @@
+{
+  "status": "passed_with_original_output_retained",
+  "observed_at_utc": "2026-10-20T22:00:23.781438+00:00",
+  "initial_pre_style_check": {
+    "execution": {
+      "command": [
+        "/usr/bin/git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "status": "terminal",
+      "started_at_utc": "2026-10-20T21:59:39.630154+00:00",
+      "exit_code": 2,
+      "finished_at_utc": "2026-10-20T21:59:39.854756+00:00"
+    },
+    "stdout": "develop/docs/go-practical-implementation-traceability-ledger.md:6853: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/README.md:733: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/string-validity/epochs/initial/selected/stdout.log:11: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/string-validity/epochs/native-controls/selected/stdout.log:23: new blank line at EOF.\n",
+    "stderr": "",
+    "complete_original_document_inputs": [
+      {
+        "original_path": "develop/docs/go-practical-implementation-traceability-ledger.md",
+        "complete_pre_edit_input": "/private/tmp/mpk-go-string-validity-whitespace-initial/inputs/develop/docs/go-practical-implementation-traceability-ledger.md",
+        "sha256": "271e89cfb28b8308534aacc9a74e960fa57ab58e6380099e73fefab0d74daf0e",
+        "bytes": 453705
+      },
+      {
+        "original_path": "develop/migrations/go-practical/t02-w01/README.md",
+        "complete_pre_edit_input": "/private/tmp/mpk-go-string-validity-whitespace-initial/inputs/develop/migrations/go-practical/t02-w01/README.md",
+        "sha256": "cd90ddb8923575266b93ac4ebd4674a8a4573b89d586b6009db16533474f4cb0",
+        "bytes": 52093
+      }
+    ],
+    "documentation_fix": "Remove only the added final empty line in the two appended documents; original whole pre-edit files remain."
+  },
+  "actual_checks": [
+    {
+      "command": [
+        "/usr/bin/git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "exit_code": 2,
+      "stdout": "develop/migrations/go-practical/t02-w01/verification/string-validity/epochs/initial/selected/stdout.log:11: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/string-validity/epochs/native-controls/selected/stdout.log:23: new blank line at EOF.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/usr/bin/git",
+        "diff",
+        "--cached",
+        "--check",
+        "--",
+        ".",
+        ":(exclude)develop/migrations/go-practical/t02-w01/verification/string-validity/epochs/initial/selected/stdout.log",
+        ":(exclude)develop/migrations/go-practical/t02-w01/verification/string-validity/epochs/native-controls/selected/stdout.log"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "exact_raw_output_warnings": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/string-validity/epochs/initial/selected/stdout.log",
+      "sha256": "241f33fc57a37632ef5ae98dd6ad60c5e2e4989db36370eadf86b5d7c20f8f42",
+      "bytes": 554
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/string-validity/epochs/native-controls/selected/stdout.log",
+      "sha256": "8b0bd97e22cbdff1cdbee35edba6828259839eca7d72cbbeefc8ec216a6478fb",
+      "bytes": 1793
+    }
+  ],
+  "all_other_staged_files_pass_whitespace_check": true,
+  "original_Cargo_output_bytes_modified": false,
+  "obsolete_IR_matcher_scope_seal_or_exclusion_changes": false
+}

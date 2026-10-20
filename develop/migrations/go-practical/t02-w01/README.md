@@ -714,3 +714,19 @@ source evaluation/nominal identity/signed-domain/full operations/array/storage/
 state/program/private context/native kernel/namespace/selected closure/all169/
 T02-T11 remain due. Go/Rust scope and all frozen limits remain unchanged.
 R01/R06/W01 stay open; the cumulative T02 gate stays W04: `./scripts/check-fast.sh`.
+The [whole literal string validity checkpoint](verification/string-validity/README.md)
+now proves full unsigned64 length<=256 and universally quantified canonical
+whole-byte zero padding for literal carriers. Its1109-declaration zero-axiom
+component preserves all1053 original identities; full256 data preserves all3166
+old declarations/2112 bit proofs. Seven affected Rust roots, strict Clippy/four-
+file format and both unchanged independent cores pass120 complete streams:
+38 zero-axiom acceptances and82 genuine type mismatches. All19 original Go
+observations yield18 whole-valid carriers and one distinct257-byte domain error;
+14 additional binary boundary lengths pass. Malformed carriers reject after
+removing all2048 old byte observations and repairing actual64 length assertions,
+with their real carrier/length prefix still type-correct. Both original source/
+driver epochs and all candidate/output bytes remain. Source/constant evaluation,
+nominal identity/signed-domain/full operations/array/storage/state/program/private
+context/native kernel/namespace/selected closure/all169/T02-T11 remain due.
+Go/Rust scope, frozen limits and R01/R06/W01 stay unchanged. The cumulative
+T02 gate stays W04: `./scripts/check-fast.sh`.

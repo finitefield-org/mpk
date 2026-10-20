@@ -6799,3 +6799,54 @@ protocol and unrelated suites are not repeated. All actual source-consuming
 handles are terminal before staging. R01/R06/W01/full ordinary foundation/private
 context/native kernel/general namespace/selected closure/all169/T02-T11 remain
 open. The cumulative T02 gate stays W04: `./scripts/check-fast.sh`.
+## 121. T02-W01 actual whole literal string validity
+
+Entry is `08fe5c78de6d61117fe1c7c1440f9015c5ce8a57`. The
+[checkpoint](../migrations/go-practical/t02-w01/verification/string-validity/README.md)
+extends the exact frozen string carrier with real whole `String.Valid` witnesses
+for supplied literal data. All1053 original string identities and existing generic/
+data producer bytes remain exact. The1109-declaration/36114-term/470742-byte
+zero-axiom generic component adds56 ordinary laws and no definitions or primitives.
+
+The full unsigned64 numeric length is bounded by256. For lengths below256,
+actual upper56 bit observations establish high-clear; low-complement balance
+and unbounded Nat arithmetic prove the full upper bound and actual SizeIndex.
+For length256, all weighted high bits and low digits prove Size=Capacity.
+No truncated low byte replaces the full length. Ordinary Bool-address low/high/
+zero and same/cross comparisons consume real finite bounds and lower witnesses.
+
+Padding quantifies every Bool8 address and canonical whole Word8 zero. Proper
+dependent Bool eliminators follow the literal prefix boundary. Entire inside
+subtrees contradict an actual outside premise using proved index comparisons;
+entire padded subtrees reduce to exact whole-byte zero. Full256 uses the actual
+Size=Capacity and universal IndexBound, allowing arbitrary full-capacity data.
+No operand enumeration, function extensionality, semantic axiom or limit change.
+
+The empty value has3282 declarations/41104 terms/724026 bytes; three bytes have
+3282/41330/726144. The complete byte alphabet has3338/42970/748187 and preserves
+all3166 old data/2112-bit identities. All19 actual original Go observations retain
+complete source/expression/native values:18 complete whole-valid/2112-bit
+certificates and one distinct257-byte domain error. Fourteen extra lengths
+1/7/8/15/16/31/32/63/64/127/128/129/254/255 cover binary boundaries. Ordinary
+original Go expression evaluation and nominal/alias identity remain unproved.
+
+Seven affected Rust roots, strict Clippy and four-file format pass. Both
+unchanged independent cores agree on120 complete same-byte inputs:38 zero-axiom
+acceptances and82 genuine type mismatches. Controls change every56 new generic
+conclusion and erase21 real witness premises. Five malformed carriers break
+empty/partial padding or add length257/high32/high63. Every old2048 slot-bit
+observation and unused term DAG is removed; real64 length assertions are repaired
+to the modified carrier. That carrier/length prefix typechecks, while whole
+validity rejects. No partial certificate acceptance is claimed. Honest extra
+core acceptance and exact owning import remain separate.
+
+Both whole source/driver epochs and all complete original candidate/output
+bytes remain, with no failed execution in this checkpoint. All candidates and
+actual drivers are retained before checking. All255 frozen inputs,186 untouched
+Go build inputs and127 matchers/four scopes/39 seals remain exact; no new source/
+JSON/directory/seal exception. No other-language test, agent or Actions runs.
+Untouched Go/frontend/capture/core/ref/protocol and unrelated suites are not
+repeated. All actual source-consuming handles are terminal before staging.
+R01/R06/W01/full ordinary foundation/private context/native kernel/general
+namespace/selected closure/all169/T02-T11 stay open. The cumulative T02 gate
+stays W04: `./scripts/check-fast.sh`.

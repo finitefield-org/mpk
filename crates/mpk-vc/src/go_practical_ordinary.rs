@@ -245,6 +245,30 @@ pub struct GoStringValue {
     certificate: Vec<u8>,
     bytes: Vec<u8>,
 }
+
+/// Ordinary carrier validity only; no original source or nominal authority.
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoValidStringValue {
+    certificate: Vec<u8>,
+    bytes: Vec<u8>,
+}
+impl GoValidStringValue {
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
+    pub fn native_bytes(&self) -> &[u8] {
+        &self.bytes
+    }
+}
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoStringValidityFoundation {
+    certificate: Vec<u8>,
+}
+impl GoStringValidityFoundation {
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
+}
 impl GoStringValue {
     pub fn certificate_bytes(&self) -> &[u8] {
         &self.certificate
@@ -1721,6 +1745,63 @@ pub fn import_go_practical_string_value(
         return Err(GoOrdinaryError::Limit.into());
     }
     let expected = generate_go_practical_string_value(bytes)?;
+    if candidate != expected.certificate_bytes() {
+        return Err(GoOrdinaryError::Linkage.into());
+    }
+    Ok(expected)
+}
+
+/// Generic actual length/padding witnesses used by the source-free literal
+/// constructor. Existing string/data component bytes remain unchanged.
+pub fn generate_go_practical_string_validity_foundation() -> Result<GoStringValidityFoundation> {
+    let mut builder = word_index_builder()?;
+    string::append(&mut builder)?;
+    string::append_validity(&mut builder)?;
+    builder.certificate.module = "Mpk.Go.Practical.StringValidityFoundation".into();
+    Ok(GoStringValidityFoundation {
+        certificate: builder.finish()?,
+    })
+}
+pub fn import_go_practical_string_validity_foundation(
+    candidate: &[u8],
+) -> Result<GoStringValidityFoundation> {
+    if candidate.len() > MAX_BYTES {
+        return Err(GoOrdinaryError::Limit);
+    }
+    let expected = generate_go_practical_string_validity_foundation()?;
+    if candidate != expected.certificate_bytes() {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    Ok(expected)
+}
+
+/// Preserve every old bit proof and additionally prove String.Valid of the
+/// actual full carrier. The supplied bytes still confer no source authority.
+pub fn generate_go_practical_valid_string_value(
+    bytes: &[u8],
+) -> std::result::Result<GoValidStringValue, GoStringValueError> {
+    if bytes.len() > 256 {
+        return Err(GoStringValueError::Domain { bytes: bytes.len() });
+    }
+    let mut builder = word_index_builder()?;
+    string::append(&mut builder)?;
+    string::append_value(&mut builder, bytes)?;
+    string::append_validity(&mut builder)?;
+    string::append_value_validity(&mut builder, bytes.len())?;
+    builder.certificate.module = "Mpk.Go.Practical.ValidStringValue".into();
+    Ok(GoValidStringValue {
+        certificate: builder.finish()?,
+        bytes: bytes.to_vec(),
+    })
+}
+pub fn import_go_practical_valid_string_value(
+    candidate: &[u8],
+    bytes: &[u8],
+) -> std::result::Result<GoValidStringValue, GoStringValueError> {
+    if candidate.len() > MAX_BYTES {
+        return Err(GoOrdinaryError::Limit.into());
+    }
+    let expected = generate_go_practical_valid_string_value(bytes)?;
     if candidate != expected.certificate_bytes() {
         return Err(GoOrdinaryError::Linkage.into());
     }
