@@ -1,0 +1,46 @@
+{
+  "status": "reviewed_original_raw_output_findings",
+  "git_diff_check_passed": false,
+  "git_exit_code": 2,
+  "complete_stdout_utf8": "develop/migrations/go-practical/t02-w01/verification/word-index-foundation/epochs/explicit-controls/selected/stdout.log:22: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/word-index-foundation/epochs/initial/selected/stdout.log:8: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/word-index-foundation/epochs/length/selected/stdout.log:8: new blank line at EOF.\n",
+  "complete_stdout_sha256": "3b8c409ca0190841858959a034f0982d84c9b9a1521e6210edffcf672bb8843f",
+  "complete_stderr_hex": "",
+  "source_or_document_whitespace_findings": [],
+  "preserved_original_tool_output_findings": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-index-foundation/epochs/explicit-controls/selected/stdout.log",
+      "line": 22,
+      "kind": "new blank line at EOF.",
+      "unchanged_original_output": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-index-foundation/epochs/explicit-controls/selected/stdout.log",
+        "sha256": "0412bbf2081aa11f48bbcf14aacca6c804c0fdf3d4912c150600304e2ad7b0ed",
+        "bytes": 1616
+      },
+      "actual_line_hex": "0a"
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-index-foundation/epochs/initial/selected/stdout.log",
+      "line": 8,
+      "kind": "new blank line at EOF.",
+      "unchanged_original_output": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-index-foundation/epochs/initial/selected/stdout.log",
+        "sha256": "3b972f15cfba532fc8b84ec4e727de48173f7bcd4ed32fa5529c639bb63be536",
+        "bytes": 379
+      },
+      "actual_line_hex": "0a"
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-index-foundation/epochs/length/selected/stdout.log",
+      "line": 8,
+      "kind": "new blank line at EOF.",
+      "unchanged_original_output": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-index-foundation/epochs/length/selected/stdout.log",
+        "sha256": "40b98f94569fb7ff2d542352116eb070057bb25f69746ef065683f059d42c6dd",
+        "bytes": 379
+      },
+      "actual_line_hex": "0a"
+    }
+  ],
+  "explanation": "Three literal original Cargo EOF blank lines remain byte-exact as execution evidence. Current changed Rust files pass rustfmt. No original output is trimmed and no Git/scanner whitespace or source-policy exception is introduced.",
+  "new_policy_exclusion": false
+}

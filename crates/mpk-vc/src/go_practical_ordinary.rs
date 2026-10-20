@@ -221,6 +221,17 @@ impl GoFiniteVectorFoundation {
         &self.certificate
     }
 }
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoWordIndexFoundation {
+    certificate: Vec<u8>,
+}
+
+impl GoWordIndexFoundation {
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
+}
 impl GoProductRelationFoundation {
     pub fn certificate_bytes(&self) -> &[u8] {
         &self.certificate
@@ -1574,6 +1585,45 @@ pub fn import_go_practical_finite_vector_foundation(
         return Err(GoOrdinaryError::Limit);
     }
     let expected = generate_go_practical_finite_vector_foundation()?;
+    if candidate != expected.certificate_bytes() {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    Ok(expected)
+}
+
+/// Bind the complete unsigned64 Nat value to finite slot observations under
+/// its actual range proof. No source index or length is implicitly truncated.
+/// Complete source, signed-domain and private-context authority remains due.
+pub fn generate_go_practical_word_index_foundation() -> Result<GoWordIndexFoundation> {
+    let buffers = [
+        generate_go_practical_word_shift_foundation()?
+            .certificate_bytes()
+            .to_vec(),
+        generate_go_practical_finite_vector_foundation()?
+            .certificate_bytes()
+            .to_vec(),
+    ];
+    let inputs = buffers
+        .iter()
+        .map(|bytes| {
+            mpk_cert::decode_canonical_certificate(bytes).map_err(|_| GoOrdinaryError::Foundation)
+        })
+        .collect::<Result<Vec<_>>>()?;
+    let mut builder = composition::word_index_prerequisites(&inputs)?;
+    word_numeric::append_indices(&mut builder)?;
+    builder.certificate.module = "Mpk.Go.Practical.WordIndexFoundation".into();
+    Ok(GoWordIndexFoundation {
+        certificate: builder.finish()?,
+    })
+}
+
+pub fn import_go_practical_word_index_foundation(
+    candidate: &[u8],
+) -> Result<GoWordIndexFoundation> {
+    if candidate.len() > MAX_BYTES {
+        return Err(GoOrdinaryError::Limit);
+    }
+    let expected = generate_go_practical_word_index_foundation()?;
     if candidate != expected.certificate_bytes() {
         return Err(GoOrdinaryError::Linkage);
     }

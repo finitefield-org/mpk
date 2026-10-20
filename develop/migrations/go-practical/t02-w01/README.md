@@ -666,3 +666,18 @@ original failed epochs remain separate. Full64-bit word/count/source, nominal
 array/padding/empty-dummy/storage/program correspondence and complete private
 context remain required. R01/R06/W01 and T02-T11 remain open. The cumulative
 T02 gate stays W04: `./scripts/check-fast.sh`.
+
+The [full64 word-index checkpoint](verification/word-index-foundation/README.md)
+proves every depth0..8 actual unsigned64 range/high-bit condition and exact
+finite-slot observation, while preserving the complete64-bit length/index.
+Unbounded Nat induction proves index<count<=capacity, including count256.
+The complete1005-member zero-axiom component preserves786 unique old identities
+and all950 preliminary declarations; the original4053-member shift bytes remain
+exact. Four affected optimized Rust roots, strict Clippy/format and both
+unchanged independent cores agree on346 original full streams:11 acceptances
+and335 genuine type mismatches. Original debug failure/interruption, its precise
+unexposed-trial limit and all actual available byte epochs remain separate.
+Full signed/source/nominal/padding/empty-dummy/storage/program correspondence,
+complete ordinary foundation/private context/native namespace/selected closure,
+R01/R06/W01/all169/T02-T11 remain due. The cumulative T02 gate stays W04:
+`./scripts/check-fast.sh`.

@@ -34,56 +34,60 @@ impl Shifts<'_> {
     pub(super) fn counts(&mut self) -> Result<()> {
         self.count_combine()?;
         self.count_reflection_laws()?;
+        for d in 3..=6 {
+            self.count_family(d)?;
+        }
+        Ok(())
+    }
+    pub(super) fn count_family(&mut self, d: usize) -> Result<()> {
         let count = var("count");
         let args = [("count", word_type(64)?)];
-        for d in 3..=6 {
-            let bits = tree(d, d, 64, count.clone(), false)?;
-            let sum = tree(d, d, 64, count.clone(), true)?;
-            self.emit(
-                &format!("CountHigh{d}"),
-                &args,
-                boolean(),
-                bits.clone(),
-                false,
-            )?;
-            self.emit(
-                &format!("CountHighValue{d}"),
-                &args,
-                nat(),
-                sum.clone(),
-                false,
-            )?;
-            let balance = Self::count_range(d, d, 64, count.clone())?;
-            let sum_def = Equality::natural(
-                high_value(d, count.clone()),
-                sum.clone(),
-                refl(nat(), sum.clone()),
-            );
-            let balance = balance.then(
-                mul_right(coefficient(d), sum_def.reverse()).on_right(digits(d, count.clone())),
-            )?;
-            let full = Equality::natural(
-                digits(64, count.clone()),
-                value(6, count.clone()),
-                numeric("W64.DigitsValue", vec![count.clone()]),
-            );
-            self.theorem(
-                &format!("CountBalance{d}"),
-                &args,
-                full.reverse().then(balance)?,
-            )?;
-            let reflection = Self::count_zero(d, d, 64, count.clone())?;
-            let sum_def =
-                Equality::natural(high_value(d, count.clone()), sum.clone(), refl(nat(), sum));
-            // Transport a small definition equality through Nat.Equal before
-            // reducing its major; no computed-major conversion is assumed.
-            let bits_def =
-                Equality::boolean(high(d, count.clone()), bits.clone(), refl(boolean(), bits));
-            let proof = equal_left(sum_def, zero())
-                .then(reflection)?
-                .then(bool_map("Not", bits_def.reverse()))?;
-            self.theorem(&format!("CountHighZero{d}"), &args, proof)?;
-        }
+        let bits = tree(d, d, 64, count.clone(), false)?;
+        let sum = tree(d, d, 64, count.clone(), true)?;
+        self.emit(
+            &format!("CountHigh{d}"),
+            &args,
+            boolean(),
+            bits.clone(),
+            false,
+        )?;
+        self.emit(
+            &format!("CountHighValue{d}"),
+            &args,
+            nat(),
+            sum.clone(),
+            false,
+        )?;
+        let balance = Self::count_range(d, d, 64, count.clone())?;
+        let sum_def = Equality::natural(
+            high_value(d, count.clone()),
+            sum.clone(),
+            refl(nat(), sum.clone()),
+        );
+        let balance = balance.then(
+            mul_right(coefficient(d), sum_def.reverse()).on_right(digits(d, count.clone())),
+        )?;
+        let full = Equality::natural(
+            digits(64, count.clone()),
+            value(6, count.clone()),
+            numeric("W64.DigitsValue", vec![count.clone()]),
+        );
+        self.theorem(
+            &format!("CountBalance{d}"),
+            &args,
+            full.reverse().then(balance)?,
+        )?;
+        let reflection = Self::count_zero(d, d, 64, count.clone())?;
+        let sum_def =
+            Equality::natural(high_value(d, count.clone()), sum.clone(), refl(nat(), sum));
+        // Transport a small definition equality through Nat.Equal before
+        // reducing its major; no computed-major conversion is assumed.
+        let bits_def =
+            Equality::boolean(high(d, count.clone()), bits.clone(), refl(boolean(), bits));
+        let proof = equal_left(sum_def, zero())
+            .then(reflection)?
+            .then(bool_map("Not", bits_def.reverse()))?;
+        self.theorem(&format!("CountHighZero{d}"), &args, proof)?;
         Ok(())
     }
     fn count_combine(&mut self) -> Result<()> {

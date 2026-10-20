@@ -37,95 +37,99 @@ impl Shifts<'_> {
         Ok(())
     }
     fn count_prefixes(&mut self) -> Result<()> {
+        for i in 0..=6 {
+            self.count_prefix(i)?;
+        }
+        Ok(())
+    }
+    pub(super) fn count_prefix(&mut self, i: usize) -> Result<()> {
         let x = var("count");
         let args = [("count", word_type(64)?)];
-        for i in 0..=6 {
-            let body = if i == 0 {
-                zero()
-            } else {
-                add(
-                    complement(i - 1, x.clone()),
-                    mul(
-                        coefficient(i - 1),
-                        bit_value(bc("Not", vec![at(x.clone(), 64, i - 1)?])),
-                    ),
-                )
-            };
-            self.emit(
-                &format!("CountLowComplement{i}"),
-                &args,
-                nat(),
-                body.clone(),
-                false,
-            )?;
-            let cdef = Equality::natural(complement(i, x.clone()), body.clone(), refl(nat(), body));
-            let balance = if i == 0 {
-                Equality::natural(digits(0, x.clone()), zero(), refl(nat(), zero()))
-                    .on_left(complement(0, x.clone()))
-                    .then(cdef.on_right(zero()))?
-                    .on_left(one())
-                    .then(law("AddZero", vec![zero()], add(zero(), zero()), zero()).on_left(one()))?
-                    .then(law("ZeroAdd", vec![one()], add(zero(), one()), one()))?
-                    .then(
-                        Equality::natural(coefficient(0), one(), numeric("PowerTwoZero", vec![]))
-                            .reverse(),
-                    )?
-            } else {
-                let h = i - 1;
-                let a = digits(h, x.clone());
-                let z = complement(h, x.clone());
-                let b = at(x.clone(), 64, h)?;
-                let v = bit_value(b.clone());
-                let n = bit_value(bc("Not", vec![b.clone()]));
-                let p = coefficient(h);
-                let db = add(a.clone(), mul(p.clone(), v.clone()));
-                let start = Equality::natural(digits(i, x.clone()), db.clone(), refl(nat(), db))
-                    .on_left(complement(i, x.clone()))
-                    .then(cdef.on_right(add(a.clone(), mul(p.clone(), v.clone()))))?
-                    .on_left(one());
-                let target = mul(two(), p.clone());
-                let step = known(
-                    "CountPrefixComplementStep",
-                    vec![
-                        a,
-                        z,
-                        p.clone(),
-                        v,
-                        n,
-                        sh(&format!("CountLowBalance{h}"), vec![x.clone()]),
-                        sh("CountBitComplement", vec![b]),
-                    ],
-                    start.right.clone(),
-                    target.clone(),
-                );
-                start.then(step)?.then(
-                    Equality::natural(
-                        coefficient(i),
-                        target,
-                        numeric("PowerTwoSucc", vec![numeral(h)]),
-                    )
-                    .reverse(),
-                )?
-            };
-            self.theorem(&format!("CountLowBalance{i}"), &args, balance.clone())?;
-            self.theorem(
-                &format!("CountLowBound{i}"),
-                &args,
-                Equality::boolean(
-                    less(digits(i, x.clone()), coefficient(i)),
-                    bit(true),
-                    sh(
-                        "CountComplementBound",
-                        vec![
-                            digits(i, x.clone()),
-                            complement(i, x.clone()),
-                            coefficient(i),
-                            sh(&format!("CountLowBalance{i}"), vec![x.clone()]),
-                        ],
-                    ),
+        let body = if i == 0 {
+            zero()
+        } else {
+            add(
+                complement(i - 1, x.clone()),
+                mul(
+                    coefficient(i - 1),
+                    bit_value(bc("Not", vec![at(x.clone(), 64, i - 1)?])),
                 ),
-            )?;
-        }
+            )
+        };
+        self.emit(
+            &format!("CountLowComplement{i}"),
+            &args,
+            nat(),
+            body.clone(),
+            false,
+        )?;
+        let cdef = Equality::natural(complement(i, x.clone()), body.clone(), refl(nat(), body));
+        let balance = if i == 0 {
+            Equality::natural(digits(0, x.clone()), zero(), refl(nat(), zero()))
+                .on_left(complement(0, x.clone()))
+                .then(cdef.on_right(zero()))?
+                .on_left(one())
+                .then(law("AddZero", vec![zero()], add(zero(), zero()), zero()).on_left(one()))?
+                .then(law("ZeroAdd", vec![one()], add(zero(), one()), one()))?
+                .then(
+                    Equality::natural(coefficient(0), one(), numeric("PowerTwoZero", vec![]))
+                        .reverse(),
+                )?
+        } else {
+            let h = i - 1;
+            let a = digits(h, x.clone());
+            let z = complement(h, x.clone());
+            let b = at(x.clone(), 64, h)?;
+            let v = bit_value(b.clone());
+            let n = bit_value(bc("Not", vec![b.clone()]));
+            let p = coefficient(h);
+            let db = add(a.clone(), mul(p.clone(), v.clone()));
+            let start = Equality::natural(digits(i, x.clone()), db.clone(), refl(nat(), db))
+                .on_left(complement(i, x.clone()))
+                .then(cdef.on_right(add(a.clone(), mul(p.clone(), v.clone()))))?
+                .on_left(one());
+            let target = mul(two(), p.clone());
+            let step = known(
+                "CountPrefixComplementStep",
+                vec![
+                    a,
+                    z,
+                    p.clone(),
+                    v,
+                    n,
+                    sh(&format!("CountLowBalance{h}"), vec![x.clone()]),
+                    sh("CountBitComplement", vec![b]),
+                ],
+                start.right.clone(),
+                target.clone(),
+            );
+            start.then(step)?.then(
+                Equality::natural(
+                    coefficient(i),
+                    target,
+                    numeric("PowerTwoSucc", vec![numeral(h)]),
+                )
+                .reverse(),
+            )?
+        };
+        self.theorem(&format!("CountLowBalance{i}"), &args, balance.clone())?;
+        self.theorem(
+            &format!("CountLowBound{i}"),
+            &args,
+            Equality::boolean(
+                less(digits(i, x.clone()), coefficient(i)),
+                bit(true),
+                sh(
+                    "CountComplementBound",
+                    vec![
+                        digits(i, x.clone()),
+                        complement(i, x.clone()),
+                        coefficient(i),
+                        sh(&format!("CountLowBalance{i}"), vec![x.clone()]),
+                    ],
+                ),
+            ),
+        )?;
         Ok(())
     }
     fn count_branches(&mut self, d: usize) -> Result<()> {

@@ -22,6 +22,10 @@ mod signed_order;
 mod signed_product;
 mod zero;
 
+pub(super) fn append_indices(builder: &mut Builder) -> Result<()> {
+    shifts::append_indices(builder)
+}
+
 const PREFIX: &str = "Mpk.Go.Practical.Word.Numeric";
 
 fn numeric(name: &str, args: Vec<Expr>) -> Expr {

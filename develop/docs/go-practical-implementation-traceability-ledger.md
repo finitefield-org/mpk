@@ -6627,3 +6627,59 @@ or limit changes. No other-language test, delegation or Actions runs. All actual
 validation handles are terminal before staging. R01/R06/W01/full56-all6-19 ordinary
 foundation/private context/kernel/namespace/selected closure/all169 demands/
 T02-T11 remain pending. The cumulative T02 gate stays W04: `./scripts/check-fast.sh`.
+
+## 118. T02-W01 full64 indices, lengths and guarded finite observations
+
+Entry is `a19a97c4d601460b3ac73062b429bd196b9b9333`. The
+[checkpoint](../migrations/go-practical/t02-w01/verification/word-index-foundation/README.md)
+combines every413 original finite-data identity with461 original retained shift
+identities, sharing Nat88:786 unique original declarations. The219 new members
+are12 count definitions/14 laws,27 index/sequence definitions and166 universal
+laws. The complete1005-declaration,34267-term,445371-byte component has no imports
+or axioms. Both unchanged independent cores accept its whole bytes with the
+same three hashes. All950 original preliminary declarations remain exact; the
+factored original producer still emits the identical complete4053-member shift
+certificate.
+
+Balanced CountHigh/HighValue/Balance/HighZero cover every actual bit d..63 for
+all capacities1..256. Exact comparison with the original full unsigned Value6
+is proved equivalent to clearing that entire high-bit tree. The positive high
+branch retains its nonnegative excess; full-value replacement by the low slot
+address requires the actual full range proof. Digit/address order matches the
+original most-significant-head finite carrier. Read64 and Sequence64 retain the
+whole64-bit denotation. Nested unbounded Nat induction proves index<count<=cap
+implies index<cap, including full length256. Explicit range/All/upper witnesses
+establish mathematical sequence/slot observations and validity. Function/product
+equalities use reflexivity, congruence and rewrite, with no extensionality,
+semantic axiom, source callback, opcode or resource extension.
+
+The actual950/1005 debug components pass. Four optimized affected Rust roots,
+strict Clippy and ten-file format pass. All346 same-byte full inputs agree in
+both independent cores:11 zero-axiom acceptances and335 genuine type mismatches.
+Controls cover all180 altered conclusions,129 erased real premises,10 type-correct
+wrong operations and25 actual full64 guard fixtures (nine valid maxima,16 false
+boundary/high32/high63 guard claims). Wrong definitions drop upper32 bits, omit
+an address bit, discard high flags, ignore the source index or truncate length;
+their actual declaration prefixes typecheck before full streams reject. This
+supplies no partial-certificate acceptance. No format/fuel/resource substitute
+stands in for a semantic rejection.
+
+The first debug positive guard helper assumed unsupported implicit computed-major
+Boolean reduction. Its actual source/input/output remain, along with two passing
+roots and an explicit post-failure interruption. Completed original streams and
+all whole source/output epochs are retained. An unfinished unexposed trial has
+no original byte/outcome claim and is not replaced from a new run. Current inputs
+are saved before checking; explicit checked pointwise bit/Or equations then
+establish the real complete literal guards. All26 completed prior debug streams
+and full Rust reports match their optimized counterparts. Preliminary runtime
+input observation timing remains explicit; current drivers archive it prelaunch.
+
+This binds unsigned64 count/data mathematics. Signed source-index domain, actual
+frozen string/nominal-array/padding/empty-Bool-dummy/source/evaluation/permissions/
+invocation/alias/storage/state/program correspondence and complete ordinary
+foundation/private context/native kernel/namespace/selected closure/all169/
+T02-T11 remain due. R01/R06/W01 stay open. All255 frozen inputs and185 frontend
+inputs remain unchanged. Original127-rule/four-scope/39-seal review gains no
+exception. No unrelated suite, other-language test, agent or Actions runs.
+All actual source-consuming handles are terminal before staging. The cumulative
+T02 gate stays W04: `./scripts/check-fast.sh`.

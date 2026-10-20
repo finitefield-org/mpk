@@ -5,6 +5,7 @@ mod counts;
 mod fixed_right;
 mod pop;
 mod powers;
+mod sequence_index;
 mod variable;
 const SHIFTS: &str = "Mpk.Go.Practical.Word.Shifts";
 fn sh(name: &str, args: Vec<Expr>) -> Expr {
@@ -222,4 +223,15 @@ pub(super) fn append(builder: &mut Builder) -> Result<()> {
     s.count_bounds()?;
     s.variable()?;
     Ok(())
+}
+
+pub(super) fn append_indices(builder: &mut Builder) -> Result<()> {
+    let mut s = Shifts { builder, serial: 0 };
+    for d in [0, 1, 2, 7, 8] {
+        s.count_family(d)?;
+    }
+    for d in 7..=8 {
+        s.count_prefix(d)?;
+    }
+    sequence_index::append(s.builder)
 }

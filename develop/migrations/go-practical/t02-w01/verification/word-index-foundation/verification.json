@@ -1,0 +1,205 @@
+{
+  "schema": "mpk.go.practical.full64_word_index_checkpoint.v1",
+  "status": "scoped_checks_passed",
+  "basis_commit": "a19a97c4d601460b3ac73062b429bd196b9b9333",
+  "source_languages": [
+    "Go",
+    "Rust"
+  ],
+  "production_and_test_inputs": [
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "3fd66e2f0ba0db4619587e3fc5d4ee28acdf41b403139bcbdf2b35b684088a73",
+      "bytes": 58902
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/composition.rs",
+      "sha256": "4c5666aa1977b5c088d9c483d6f79a6860476cd5db2024662520dd6f0085a258",
+      "bytes": 29348
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric.rs",
+      "sha256": "492a84421fe0171eaed09d90f0106e9a65f4588c97488a80462a58488766920d",
+      "bytes": 22859
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/shifts.rs",
+      "sha256": "c7591303bdf2db57a523c344b65b4f0a3e8adf01744b716ff15e311c0f1588bb",
+      "bytes": 6965
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/shifts/counts.rs",
+      "sha256": "ca39d94fdbb776dc2d994b1d0ed64a460221b7fdd0d730d133a82dfcdaeb01d3",
+      "bytes": 6772
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/shifts/count_bounds.rs",
+      "sha256": "efde56cff46051ea22d303345dca00d53dccfb8fd28fd68990e81b054f0e8e87",
+      "bytes": 11513
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/shifts/sequence_index.rs",
+      "sha256": "8ab16b8b63308884963c3ba45d7dd10238e304ca43d851452974a20d6d536427",
+      "bytes": 26481
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/shifts/sequence_index/natural.rs",
+      "sha256": "92bba81540ec5205d98a8a6d97d3e49d6d0a49b4830e33b7e6a70075b3e751dd",
+      "bytes": 4232
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/shifts/sequence_index/upper.rs",
+      "sha256": "1cb6a7b965b4584dc5d21cf4ece612347a12b083bf30ea33b6bfffbb3b1c35fb",
+      "bytes": 5269
+    },
+    {
+      "path": "crates/mpk-vc/tests/go_practical_word_index_foundation.rs",
+      "sha256": "45d3836aa408eac04031277319b995ddb7a33858d97a7c111536e18ffd51f0b0",
+      "bytes": 28961
+    }
+  ],
+  "component": {
+    "declarations": 1005,
+    "terms": 34267,
+    "bytes": 445371,
+    "axioms": 0,
+    "imports": 0,
+    "old_finite_declarations_preserved": 413,
+    "retained_original_shift_declarations_preserved": 461,
+    "shared_Nat_declarations": 88,
+    "unique_original_declarations": 786,
+    "new_count_definitions": 12,
+    "new_count_laws": 14,
+    "new_index_sequence_definitions": 27,
+    "new_universal_index_length_laws": 166,
+    "prior_debug_950_declarations_preserved": 950,
+    "full_original_shift_bytes_preserved": true,
+    "full_original_shift_declarations": 4053,
+    "depths": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "capacities": [
+      1,
+      2,
+      4,
+      8,
+      16,
+      32,
+      64,
+      128,
+      256
+    ],
+    "machine_word_bits": 64,
+    "source_or_word_operand_enumeration": false,
+    "function_extensionality": false,
+    "core_extension": false
+  },
+  "checks": {
+    "selected": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-index-foundation/epochs/explicit-controls/selected/result.json",
+      "sha256": "4d7d7d6a854041f266c8c6857fc24a9dc16dfc93ba9d78cdfa5ac2e50d5cf697",
+      "bytes": 119963
+    },
+    "lint": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-index-foundation/epochs/explicit-controls/lint/result.json",
+      "sha256": "5b6b5d4242cf1ecdf713af171b4261eadd6fe6c946d9e12d7798a6ba04db9071",
+      "bytes": 119973
+    },
+    "format": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-index-foundation/epochs/explicit-controls/format/result.json",
+      "sha256": "93bdb1d24d2a231d2186456caa371f9fcc1dd0fce52ff9f311e582dfbbcf22d4",
+      "bytes": 120621
+    }
+  },
+  "original_debug_full_component": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-index-foundation/epochs/length/selected/candidates/word-index-foundation.mpcert",
+    "sha256": "e5cad51494caf9325036b900c515d01aac7d0f538e65c903fb324e115e3b2c60",
+    "bytes": 445371
+  },
+  "current_optimized_full_component": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-index-foundation/epochs/explicit-controls/selected/candidates/word-index-foundation.mpcert",
+    "sha256": "e5cad51494caf9325036b900c515d01aac7d0f538e65c903fb324e115e3b2c60",
+    "bytes": 445371
+  },
+  "debug_optimized_correspondence": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-index-foundation/debug-optimized-correspondence.json",
+    "sha256": "0a5239ad8fa38219eb01f73b77092a82ea7d9f1879bd5c7472393b0da3219059",
+    "bytes": 5616
+  },
+  "independent_full_component_preflight": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-index-foundation/paired/preflight/result.json",
+    "sha256": "ccc43d559a3375751a317fae68e01aaf3ac68b8c77e3883de62bd92f60865b42",
+    "bytes": 4860
+  },
+  "limits": {
+    "declarations": 4096,
+    "terms": 131072,
+    "bytes": 2097152,
+    "fuel": 1024
+  },
+  "frozen_design_inputs_unchanged": 255,
+  "Go_frontend_original_inputs_unchanged": 185,
+  "complete_original_source_epochs": 4,
+  "complete_source_preimages_verified": 1440,
+  "unexposed_interrupted_trial": "No original byte/outcome claim; never reconstructed from a fresh run. See epochs/controls/interruption.json.",
+  "partial_certificate_acceptance_claimed": false,
+  "source_program_or_private_context_proof_claimed": false,
+  "R01_completed": false,
+  "R06_completed": false,
+  "W01_completed": false,
+  "public_profile_activated": false,
+  "native_release_acceptance": false,
+  "new_scan_exclusion": false,
+  "original_scan_matcher_scope_seal_counts": [
+    127,
+    4,
+    39
+  ],
+  "full_T_gate": {
+    "executed": false,
+    "deferred_to": "GO-PRAC-T02-W04",
+    "command": "./scripts/check-fast.sh"
+  },
+  "remaining": "Full signed source-index domain, exact frozen string/nominal-array/padding/empty-dummy/source/evaluation/permissions/invocation/alias/storage/state/program correspondence and complete ordinary foundation/private context, native kernel/namespace/selected closure/all169 demands/T02-T11 remain required.",
+  "complete_original_catalog": {
+    "inputs": 346,
+    "zero_axiom_acceptances": 11,
+    "genuine_type_mismatches": 335,
+    "altered_conclusions": 180,
+    "erased_real_premises": 129,
+    "type_correct_wrong_operations": 10,
+    "literal_guard_cases": 25,
+    "literal_guard_acceptances": 9,
+    "literal_guard_rejections": 16
+  },
+  "independent_paired_record": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-index-foundation/paired/result.json",
+    "bytes": 901274,
+    "sha256": "61c518ad39a826a28d7feb038f2db7c9c18bf0301752ea70151c4a7fe2564bfc"
+  },
+  "all_actual_source_consuming_handles_terminal": true,
+  "input_review": "input-review.json",
+  "original_execution_outputs": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-index-foundation/execution-outputs.json",
+    "bytes": 243618,
+    "sha256": "c8d23e7ac727083f3674e434de200f32916edc0c082571bcd694d45c0ca23745"
+  },
+  "original_epoch_inputs": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-index-foundation/original-epoch-inputs.json",
+    "bytes": 1387,
+    "sha256": "0e3e58ca64a5fc152fbaff9222f714bd9dceffda3a5068ccc78840eb3ce36efa"
+  },
+  "frozen_input_preservation": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-index-foundation/frozen-input-preservation.json",
+    "bytes": 52844,
+    "sha256": "bf60c2dc66b6c526ea6cc170cb395b0fa5206052ee72dd154791c8b8306ff4f4"
+  }
+}

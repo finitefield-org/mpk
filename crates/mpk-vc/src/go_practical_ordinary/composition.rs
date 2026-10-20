@@ -706,3 +706,106 @@ pub(super) fn word_signed_order_prerequisites(inputs: &[Certificate]) -> Result<
     }
     Ok(composer.builder)
 }
+
+/// Exact finite-data and full64 count dependencies; roots are compiled in.
+/// This assembly supplies no source/program, import or checked authority.
+pub(super) fn word_index_prerequisites(inputs: &[Certificate]) -> Result<Builder> {
+    if inputs.len() != 2
+        || inputs[0].module != "Mpk.Go.Practical.WordShiftFoundation"
+        || inputs[1].module != "Mpk.Go.Practical.FiniteVectorFoundation"
+    {
+        return Err(GoOrdinaryError::Foundation);
+    }
+    let mut index = BTreeMap::new();
+    let mut seen = BTreeMap::new();
+    for (s, c) in inputs.iter().enumerate() {
+        if !c.imports.is_empty()
+            || !c.proof_node_table.is_empty()
+            || !c.theory_certificates.is_empty()
+            || c.source_manifest.is_some()
+            || c.axiom_report.summary.total_axiom_count != 0
+            || c.declarations.iter().any(|d| {
+                !matches!(
+                    d.kind,
+                    DeclarationKind::Def { .. }
+                        | DeclarationKind::Theorem { .. }
+                        | DeclarationKind::Inductive { .. }
+                        | DeclarationKind::Constructor { .. }
+                        | DeclarationKind::Recursor { .. }
+                )
+            })
+        {
+            return Err(GoOrdinaryError::Foundation);
+        }
+        let hashes = fingerprints(c);
+        for (i, d) in c.declarations.iter().enumerate() {
+            let name = c.name_table[d.name as usize].clone();
+            if let Some(old) = seen.get(&name) {
+                if old != &hashes[&name] {
+                    return Err(GoOrdinaryError::Linkage);
+                }
+            } else {
+                seen.insert(name.clone(), hashes[&name].clone());
+                index.insert(name, (s, i));
+            }
+        }
+    }
+    let builder = Builder::new()?;
+    for (name, hash) in fingerprints(&builder.certificate) {
+        if seen.get(&name) != Some(&hash) {
+            return Err(GoOrdinaryError::Linkage);
+        }
+    }
+    let mut roots = inputs[1]
+        .declarations
+        .iter()
+        .map(|d| inputs[1].name_table[d.name as usize].clone())
+        .collect::<Vec<_>>();
+    for name in [
+        "CountRangeCompose",
+        "CountPairZero",
+        "WeightedBitZero",
+        "PowerPositive",
+        "CountBitComplement",
+        "CountPrefixComplementStep",
+        "CountComplementBound",
+        "CountNoLessExtension",
+        "CountPositiveDecomposition",
+        "CountNonzeroPositive",
+        "TwoMul",
+    ] {
+        roots.push(format!("Mpk.Go.Practical.Word.Shifts.{name}"));
+    }
+    for d in 0..=6 {
+        for name in ["CountLowComplement", "CountLowBalance", "CountLowBound"] {
+            roots.push(format!("Mpk.Go.Practical.Word.Shifts.{name}{d}"));
+        }
+    }
+    for d in 3..=6 {
+        for name in ["CountBalance", "CountHighZero", "CountSmallValue"] {
+            roots.push(format!("Mpk.Go.Practical.Word.Shifts.{name}{d}"));
+        }
+    }
+    for name in [
+        "W64.DigitsValue",
+        "PowerTwoZero",
+        "PowerTwoSucc",
+        "PowerTwoAdd",
+    ] {
+        roots.push(format!("Mpk.Go.Practical.Word.Numeric.{name}"));
+    }
+    let mut composer = Composer {
+        inputs,
+        signed_division_names: false,
+        builder,
+        index,
+        cloned: BTreeMap::new(),
+        visiting: BTreeSet::new(),
+        terms: BTreeMap::new(),
+        levels: BTreeMap::new(),
+    };
+    for name in composer.dependency_order(&roots)? {
+        composer.declaration(&name)?;
+    }
+    Ok(composer.builder)
+}
