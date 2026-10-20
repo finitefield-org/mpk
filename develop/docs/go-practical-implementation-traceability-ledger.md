@@ -6908,3 +6908,62 @@ nominal/signed-domain/array/storage/state/program/full ordinary foundation/priva
 context/native kernel/general namespace/selected closure/all169/T02-T11 remain
 due. R01/R06/W01 stay open. All source-consuming verification handles are
 terminal before staging; the cumulative T02 gate stays W04: `./scripts/check-fast.sh`.
+
+## 123. T02-W01 actual full-byte string equality and reflected content
+
+Entry is `3720e9d0a582d37fcc2ad21634949e35817b8380`. The
+[checkpoint](../migrations/go-practical/t02-w01/verification/string-equality/README.md)
+retains all1143 original normalization identities and exact old generic bytes.
+Its1215 declarations/38100 terms/496415 bytes add13 ordinary definitions/59
+laws, with zero axioms/imports and no core, extensionality or limit change.
+
+Fixed-depth D0..8 Bool predicate folds prove actual step/reflection/completion.
+ByteEqual checks all eight curried byte bits. String Equal selects its real
+full unsigned64 Nat length-equality flag before the guarded prefix fold. A
+mismatch returns false before data; equal lengths compare every in-prefix byte
+bit and ignore unobservable tails. NotEqual is actual Bool negation. The full
+length is never replaced by low8 digits; empty and256-zero-byte values differ.
+
+A true result reflects to genuine size equality and every observable bit;
+those actual witnesses conversely prove true equality. The bitwise relation
+has checked equivalence laws and receives old whole-Word8 equality through
+actual congruence, avoiding function extensionality. Reflexivity, symmetry,
+true-result transitivity, respects on both operands and Equal/NotEqual
+normalization invariance are proved. Actual Go source/type/evaluation and
+profile-domain admission remain separate from raw mathematical carrier facts.
+
+Six affected Rust roots, strict target Clippy and five-file format pass. Both
+unchanged independent cores agree on all123 complete same-byte inputs:two
+zero-axiom acceptances and121 genuine type mismatches. Every59 conclusion and
+47 actual witness premises is exercised. Fifteen altered definitions have
+well-typed full definition prefixes and actual saved definition counterexamples:
+constant true/false, ignored length, low8-only length, length-only comparison,
+unguarded tail comparison, identity NotEqual and each omitted bit0..7. No partial
+certificate acceptance is claimed. The tail case deliberately uses dirty raw
+padding; it supplies no admitted-source counterexample. Other14 input carriers
+have canonical tails. Exact owning import rejects honest core-accepted extras.
+
+Actual finite definition evaluation observes all65536 byte pairs in13144961
+AST steps and75 complete raw/normalized Equal/NotEqual cases in23729207 steps.
+The whole arrays/full64 lengths cover18 empty/full/binary lengths, dirty tails,
+first/high and last/low changes, short equal prefixes, NUL/invalid UTF8/multibyte/
+distinct Unicode bytes and0 versus256 zero bytes. Only core constructors/
+eliminators and full native input data are primitive; no arithmetic/string
+definition callback or theorem body supplies results. The observer's50M-step/
+2M-value/2M-environment ceilings stay fixed. This matrix supplies no universal
+proof and no native Go source/runtime receipt; both cores check the proof.
+
+Both complete source/driver epochs,745 original source preimages and all full
+candidate/input/output bytes remain, with no failed verification execution in
+this checkpoint. Every candidate/actual driver is retained before checking.
+The old producer bytes and identities are exact; untouched Go/frontend/native
+capture/core/ref/protocol and unrelated suites are not repeated. All255 frozen
+inputs,186 Go build inputs and127 matchers/four scopes/39 seals remain exact;
+no new source/JSON/directory/seal exclusion, language, agent or Actions.
+
+Full original Go source/evaluation/nominal/signed-domain binding, all four
+bytewise order comparisons/prefix/suffix/substring/concat/source preservation,
+array/storage/state/program/full ordinary foundation/private descriptor/registry/
+context/native kernel/general namespace/selected closure/all169/T02-T11 remain
+due. R01/R06/W01 stay open. All source-consuming handles are terminal before
+staging; the cumulative T02 gate stays W04: `./scripts/check-fast.sh`.

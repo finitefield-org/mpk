@@ -278,6 +278,15 @@ impl GoStringNormalizationFoundation {
         &self.certificate
     }
 }
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoStringEqualityFoundation {
+    certificate: Vec<u8>,
+}
+impl GoStringEqualityFoundation {
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
+}
 impl GoStringValue {
     pub fn certificate_bytes(&self) -> &[u8] {
         &self.certificate
@@ -1804,6 +1813,32 @@ pub fn import_go_practical_string_normalization_foundation(
         return Err(GoOrdinaryError::Limit);
     }
     let expected = generate_go_practical_string_normalization_foundation()?;
+    if candidate != expected.certificate_bytes() {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    Ok(expected)
+}
+
+/// Actual full-byte string equality and its reflected logical content relation.
+/// Source evaluation, nominal identity and profile/context admission are separate.
+pub fn generate_go_practical_string_equality_foundation() -> Result<GoStringEqualityFoundation> {
+    let mut builder = word_index_builder()?;
+    string::append(&mut builder)?;
+    string::append_validity(&mut builder)?;
+    string::append_normalization(&mut builder)?;
+    string::append_equality(&mut builder)?;
+    builder.certificate.module = "Mpk.Go.Practical.StringEqualityFoundation".into();
+    Ok(GoStringEqualityFoundation {
+        certificate: builder.finish()?,
+    })
+}
+pub fn import_go_practical_string_equality_foundation(
+    candidate: &[u8],
+) -> Result<GoStringEqualityFoundation> {
+    if candidate.len() > MAX_BYTES {
+        return Err(GoOrdinaryError::Limit);
+    }
+    let expected = generate_go_practical_string_equality_foundation()?;
     if candidate != expected.certificate_bytes() {
         return Err(GoOrdinaryError::Linkage);
     }

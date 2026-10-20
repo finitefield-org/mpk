@@ -746,3 +746,19 @@ source/evaluation/nominal/signed-domain/state/program/full foundation/private
 context/native kernel/namespace/selected closure/all169/T02-T11 remain due.
 Go/Rust scope and frozen limits stay unchanged. R01/R06/W01 remain open; the
 cumulative T02 gate stays W04: `./scripts/check-fast.sh`.
+
+The [full-byte string equality checkpoint](verification/string-equality/README.md)
+adds actual ByteEqual/String Equal/NotEqual with reflection/completion to real
+full64 size equality and every observable byte bit. Its1215-declaration zero-
+axiom component retains all1143 old identities and exact bytes. Six affected
+Rust roots, strict Clippy/five-file format and both unchanged cores pass123
+complete streams:two zero-axiom acceptances and121 genuine type mismatches.
+All59 conclusions/47 real premises/15 typed wrong definitions with actual
+counterexamples are checked. Actual definition observation covers all65536 byte
+pairs and75 whole raw/normalized cases. Full data/source epochs remain; neither
+finite observation nor dirty-padding counterexamples grant source authority.
+Original Go source/evaluation/nominal/signed-domain binding, all four bytewise
+order comparisons/prefix/suffix/substring/concat/source preservation/full
+foundation/private context/native namespace/selected closure/all169/T02-T11
+remain due. Go/Rust scope and limits stay unchanged; R01/R06/W01 remain open.
+The cumulative T02 gate stays W04: `./scripts/check-fast.sh`.

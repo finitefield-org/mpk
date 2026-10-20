@@ -4,8 +4,12 @@ use super::polynomial::mul_right;
 use super::syntax::*;
 use super::{word, Builder, Result};
 
+mod equality;
 mod normalization;
 mod validity;
+pub(super) fn append_equality(builder: &mut Builder) -> Result<()> {
+    equality::append(builder)
+}
 pub(super) fn append_normalization(builder: &mut Builder) -> Result<()> {
     normalization::append(builder)
 }
