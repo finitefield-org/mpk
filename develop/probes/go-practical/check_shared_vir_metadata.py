@@ -17,8 +17,8 @@ def main():
     w=RECORD.parent;r=check_retained();old=check_bodies()
     require(len(old['inputs'])==604 and old['hash_vectors']==69,'preceding typed-body evidence retained')
     require(r['outcomes']=={'retained_native':5,'go_typed_unproved':2,'configuration_rejection':66} and len(r['preservation'])==5,'whole shared case/preservation coverage')
-    cat=identities();ids={x['identity'] for x in cat['identities']}|set(cat['reserved_csharp']['identities'])|{TYPE_SCHEMA,INSTANCE_SCHEMA,OLD_SCOPE_SCHEMA,BINDING_SCHEMA,OLD_OP_SCHEMA,OLD_BODY_SCHEMA}
-    domains={x['domain'] for x in cat['identities']}|set(cat['reserved_csharp']['domains'])|{TYPE_DOMAIN,INSTANCE_DOMAIN,OLD_SCOPE_DOMAIN,BINDING_DOMAIN,OLD_OP_DOMAIN,OLD_BODY_DOMAIN}
+    cat=identities();ids={x['identity'] for x in cat['identities']}|set(cat['reserved_retired']['identities'])|{TYPE_SCHEMA,INSTANCE_SCHEMA,OLD_SCOPE_SCHEMA,BINDING_SCHEMA,OLD_OP_SCHEMA,OLD_BODY_SCHEMA}
+    domains={x['domain'] for x in cat['identities']}|set(cat['reserved_retired']['domains'])|{TYPE_DOMAIN,INSTANCE_DOMAIN,OLD_SCOPE_DOMAIN,BINDING_DOMAIN,OLD_OP_DOMAIN,OLD_BODY_DOMAIN}
     new=[(SCOPE_SCHEMA,SCOPE_DOMAIN),(SET_SCHEMA,SET_DOMAIN),(CONTRACT_SCHEMA,CONTRACT_DOMAIN),(OP_SCHEMA,OP_DOMAIN),(BODY_SCHEMA,BODY_DOMAIN)]
     require(len({x[0] for x in new})==len({x[1] for x in new})==5,'unique new Go families')
     require(all(s not in ids and d not in domains for s,d in new),'new identities avoid earlier Go and inactive C# reservations')

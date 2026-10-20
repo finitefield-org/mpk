@@ -60,7 +60,7 @@ def generate(name):
         "schema": schema, "status": "frozen_inactive_design", "work_item": "GO-PRAC-T01-W05",
         "semantic_profile": "mpk.go.practical.v1", "owner_tests": owners,
         "predecessor_commit": PREDECESSOR, "owning_spec": ref(ROOT / "develop/specs" / spec),
-        "publication_generator": ref(Path(__file__)),
+        "publication_generator": ref(Path(__file__)), "scope_amendment": ref(ROOT / "develop/migrations/go-rust-only/scope.json"),
         "contract_members": [ref(W04 / p) for p in sorted(set(members))],
         "core_interfaces": core,
         "design_completion": ref(W04 / "completion-audit.json"),
@@ -92,7 +92,22 @@ def check_package(write=False):
         assert write, "missing retained manifest snapshot"
         old_path.write_bytes(manifest_path.read_bytes())
     old = read(old_path); assert len(old["vectors"]) == 26
+    scope = read(ROOT / "develop/migrations/go-rust-only/scope.json")
+    retired = {row["path"]: row for row in scope["retired_vector_records"]}
+    assert len(retired) == 7 and scope["source_languages"] == ["go", "rust"]
+    assert all(next(row for row in old["vectors"] if row["path"] == path) == record for path, record in retired.items())
+    retired_owners = set(scope["retired_implementation_owners"])
     expected = copy.deepcopy(old)
+    expected["vectors"] = [row for row in expected["vectors"] if row["path"] not in retired]
+    for row in expected["vectors"]:
+        row["implementation_test_owners"] = [owner for owner in row["implementation_test_owners"] if owner not in retired_owners]
+        assert row["implementation_test_owners"]
+        for old_owner, new_owner in [("crates/mpk-cli/tests/csharp_ai_explain.rs", "crates/mpk-cli/tests/successor_ai_explain.rs"), ("crates/mpk-cli/tests/csharp_policy_verify.rs", "crates/mpk-cli/tests/successor_policy_verify.rs")]:
+            original = next(record for record in old["vectors"] if record["path"] == row["path"])
+            if old_owner in original["implementation_test_owners"]:
+                row["implementation_test_owners"].append(new_owner)
+    registry_path = VECTORS / "semantic-profile-registry-v4.json"
+    expected["vectors"].append({"schema_id": "mpk.semantic_profile.registry.go_rust.v1", "path": str(registry_path.relative_to(ROOT)), "sha256": sha(registry_path.read_bytes()), "owning_spec": "develop/specs/LANGUAGE_SUPPORT_SCOPE_V1.md", "implementation_test_owners": ["crates/mpk-vc/tests/semantic_profile_registry_runtime.rs"]})
     for name, (schema, spec, owners) in PUBLICATIONS.items():
         doc = generate(name); raw = encoded(doc); path = VECTORS / (name + ".json")
         if write: path.write_bytes(raw)
@@ -102,12 +117,13 @@ def check_package(write=False):
                                     "implementation_test_owners": owners + [SHELL_OWNER]})
     expected["vectors"].sort(key=lambda r: r["path"])
     if write: manifest_path.write_bytes(encoded(expected))
-    assert read(manifest_path) == expected, "exact26 retained entries plus5 inactive Go/core vector sets"
+    assert read(manifest_path) == expected, "exact Go/Rust scope manifest with five inactive Go/core sets and revision-4 registry"
     for r in old["vectors"]:
+        if r["path"] in retired: continue
         assert sha((ROOT / r["path"]).read_bytes()) == r["sha256"], "retained specification vector bytes unchanged"
     return {"schema": "mpk.go_practical.w05_publication_audit.v0", "status": "inactive_specification_published",
             "predecessor_commit": PREDECESSOR, "frozen_W04_members": len(audit["design_inputs"]),
-            "retained_vector_sets": 26, "new_vector_sets": 5, "total_vector_sets": 31,
+            "retained_vector_sets": 19, "retired_vector_sets": 7, "new_vector_sets": 6, "total_vector_sets": 25, "scope_amendment": ref(ROOT / "develop/migrations/go-rust-only/scope.json"),
             "specifications": [ref(ROOT / "develop/specs" / v[1]) for v in PUBLICATIONS.values()],
             "vectors": [ref(VECTORS / (n + ".json")) for n in PUBLICATIONS], "manifest": ref(manifest_path),
             "program_proofs_generated": False, "public_profile_activated": False,
@@ -118,10 +134,10 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     g = parser.add_mutually_exclusive_group(required=True); g.add_argument("--write", action="store_true"); g.add_argument("--check", action="store_true")
     args = parser.parse_args(); result = check_package(args.write)
-    path = RECORD / "publication-audit.json"
+    path = ROOT / "develop/migrations/go-rust-only/publication-audit.json"
     if args.write: path.write_bytes(encoded(result))
     assert path.read_bytes() == encoded(result), "publication audit reconstruction"
-    print("PASS: five inactive specifications/vector sets; all255 W04 pins and26 retained vector sets unchanged;31 total manifest entries; no proof or activation inferred")
+    print("PASS: five inactive specifications/vector sets; all255 historical W04 pins and19 retained vector sets unchanged;7 retired sets removed;25 current manifest entries; no proof or activation inferred")
 
 
 if __name__ == "__main__": main()

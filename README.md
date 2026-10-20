@@ -1,9 +1,9 @@
 # MPK: Machine Proof Kernel
 
 MPK is a certificate-first proof kernel and program-verification toolchain for
-AI-assisted proof workflows. The active release accepts restricted Go, Rust,
-C#, and Java programs through one registered successor pipeline and produces
-deterministic verification artifacts.
+AI-assisted proof workflows. The toolchain accepts restricted Go and Rust
+programs through one registered successor pipeline and produces deterministic
+verification artifacts.
 
 The trusted boundary is deliberately small. Source, contracts, compilers,
 frontends, VIR, VC JSON, policy reports, AI requests, Markdown, CI status, and
@@ -14,70 +14,20 @@ checker.
 
 ## Current status
 
-The 2026-10-16 user-authorized order starts practical Go before the practical
-C# release. Follow the [Go work plan](develop/docs/09_go_practical_subset_design-todo.md)
+MPK supports Go and Rust only. The installed semantic-profile registry is
+revision 4, with the Go fixed and Rust checked profiles. The canonical
+`mpk.release.bundle_registry.v1` contains two frontend/toolchain pairs and
+three tuples: Go `linux/amd64`, Rust `i686-unknown-linux-gnu`, and Rust
+`x86_64-unknown-linux-gnu`. Removed and unknown languages fail closed.
+See the [language scope](develop/specs/LANGUAGE_SUPPORT_SCOPE_V1.md).
+
+Practical Go expansion continues in the [Go work plan](develop/docs/09_go_practical_subset_design-todo.md)
 and [implementation ledger](develop/docs/go-practical-implementation-traceability-ledger.md).
-The unresolved CSHARP-03 checkpoint is retained for later resumption; Go
-independently validates the common facilities it needs. This scheduling change
-activates no new profile.
-
-The workspace version is `0.1.0`, and the installed CLI is `mpk`.
-`JAVA-03-T10` completed the four-language atomic successor cutover:
-
-- semantic-profile registry revision 3 is the only active profile registry;
-- `mpk.release.bundle_registry.v1` is the only active bundle registry;
-- Go, Rust, C#, and Java resolve five exact frontend/toolchain tuples from the
-  installed release beside `bin/mpk`;
-- policy scan and evidence use `mpk.policy.scan.v2` and
-  `mpk.policy.evidence.v2`;
-- `mpk explain` emits only a deterministic, sanitized
-  `mpk.ai.explain.request.v2` helper request;
-- callers cannot supply registry paths, executable paths, bundle identities,
-  toolchain roots, provider credentials, or compatibility flags.
-
-Certificate v0 and both source-free checking paths remain unchanged by this
-frontend migration.
-
-`JAVA-03-T01` completed the [Java 25 profile freeze](develop/specs/JAVA_PROFILE_V0.md),
-including conformance vectors and pinned compiler/JVM compatibility evidence.
-`JAVA-03-T02` added the [offline build candidate](java-tools/README.md), with
-two isolated builds and exact source/class/JAR inventories. `JAVA-03-T03`
-completed the inactive registry, contract and artifact validators. `JAVA-03-T04`
-added internal input capture, the public compiler API adapter and bounded
-diagnostics. `JAVA-03-T05` added internal source admission, inert initialization,
-acyclic call closure and typed contract sidecars. `JAVA-03-T06` added private
-CFG/lowering, original-byte source maps and deterministic complete artifacts.
-`JAVA-03-T07` completed the registered candidate bundles and JVM runner,
-including native x86-64 Linux acceptance. `JAVA-03-T08` completed private
-VC/policy/evidence/AI/API integration, and `JAVA-03-T09` completed the
-two-build/two-run conformance, differential, fuzz, upgrade and native Linux
-release rehearsal recorded in the
-[Java implementation ledger](develop/docs/java-03-implementation-traceability-ledger.md).
-`JAVA-03-T10` installed the exact revision-3 registry and Java Linux-x64
-tuple, removed executable staging routes, added the Java example, and made the
-four-language local Linux gate the sole release owner. On 2026-09-03 the full
-gate passed twice on native x86-64 Linux; the receipt is recorded in the
-[Java implementation ledger](develop/docs/java-03-implementation-traceability-ledger.md).
-`JAVA-03`, `CSHARP-03-T01-W01` through `W10`, and
-`CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09` and
-`CSHARP-03-T03-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10/W11/W12/W13` are complete. The practical
-C# specification package is normative but inactive; predecessor-producer
-migration and complete successor-consumer closure remain private and
-uninstalled. The first practical source capture/closure gate also remains
-private and uninstalled. Concise-syntax and exact-name normalization is likewise
-private and uninstalled; immutable data declaration, enum, type-graph, and
-recursive-default validation is also private. Constructor flow analysis,
-receiver-first calls, and invariant obligations remain private as well.
-Ordered init/required transactions and finalization are also private.
-Shared structural equality and canonical ordering remain private.
-Array bounds, initialization and ownership plans are also private.
-Typed bounded-sequence construction and wrapper projection remain private.
-T03-W09 completed private ordered map/set projection and typed operation handoffs.
-T03-W10 completed private UTF-16 string plans and the shared typed boundary codecs.
-T03-W11 completed exact float/double/decimal relations and typed numeric source plans.
-T03-W12 completed nullable relations and application outcome projections with pending binding obligations.
-T03-W13 completed calendar/time/GUID and bound instant/money relations with pending source, currency, and error-projection obligations.
-`CSHARP-03-T03-W14` is now ready.
+T02-W01 remains in progress; the practical Go profile is not installed.
+The new revision-4 release metadata requires its own native Linux release
+validation. Previous release receipts apply to their original registry bytes.
+Certificate v0 and both source-free checking paths retain their existing
+formats and acceptance rules.
 
 ## Build from source
 
@@ -109,7 +59,7 @@ cargo run --quiet -p mpk-cli -- package verify-certs \
 
 ## Successor policy CLI
 
-Each request supplies only a source root, a revision-3 semantic-context
+Each request supplies only a source root, a revision-4 semantic-context
 envelope, a selection envelope, normalized Go/Rust contract paths, and an
 output path. The installed release selects every security-sensitive identity.
 
@@ -140,10 +90,7 @@ Only `trusted_evidence` links backed by accepted certificates or checked
 theory certificates can support an `mpk_verified` property.
 
 Rust uses the same command shape and may repeat `--contract`; see
-[the Rust example](examples/rust-payment-policy/README.md). C# and Java
-contract paths come from their validated selection envelopes, so those
-requests do not accept `--contract`; see
-[the Java example](examples/java-payment-policy/README.md).
+[the Rust example](examples/rust-payment-policy/README.md).
 
 ## Sanitized explanation request
 
@@ -169,7 +116,7 @@ This repository intentionally does not use GitHub Actions or workflow files.
 Do not create, trigger, monitor, or rely on `.github/workflows/`. All checks
 must be started locally from reviewed bytes. The full gate validates frozen
 inputs, uses digest-pinned images, disables network access during verification,
-materializes one installed release, runs all four registered frontends,
+materializes one installed release, runs both registered frontends,
 checks both source-free verifiers, and repeats the installed-release pass
 twice.
 
@@ -181,17 +128,6 @@ only in the final W of a T, covering all changes in that T:
 ```sh
 ./scripts/check-fast.sh
 ```
-
-During GO-PRAC development, the user's 2026-10-19 instruction defers C# tests:
-
-```sh
-./scripts/check-fast.sh --skip-csharp
-```
-
-This mode selects every other workspace test target and shared test, filters
-C# unit/doc test names, and retains the other fast-gate checks. It records a
-Go-development result with C# validation deferred. Default and release gates
-retain their full scope. See the [Go work plan](develop/docs/09_go_practical_subset_design-todo.md).
 
 Do not reproduce the full gate by running all its components separately for
 each W. Record targeted results separately from the full gate deferred to T
@@ -207,16 +143,13 @@ networkless gate:
 
 ```sh
 sudo ./scripts/build-release-bundles.sh --provision-build-inputs rust
-./scripts/build-csharp-frontend.sh --provision-build-inputs
-./scripts/build-java-frontend.sh --import-build-inputs \
-  /absolute/path/to/OpenJDK25U-jdk_x64_linux_hotspot_25.0.4.1_1.tar.gz
 ```
 
 Then run the full local release gate on a reviewed Linux host with writable
 cgroup v2:
 
 ```sh
-sudo ./scripts/check-java-frontend.sh
+sudo ./scripts/check-go-rust-frontend.sh
 sudo ./scripts/check-all.sh
 ```
 
@@ -231,8 +164,6 @@ Useful targeted checks:
 ```sh
 cargo test --workspace
 cargo test -p mpk-cli --test successor_atomic_cutover
-cargo test -p mpk-cli --test java_activation
-cargo test -p mpk-cli --test csharp_policy_verify
 cargo test -p mpk-vc --test go_vir_corpus
 (cd go-tools/go2vir && go test -count=1 ./...)
 ```
@@ -243,11 +174,9 @@ cargo test -p mpk-vc --test go_vir_corpus
 crates/                 kernel, certificates, VC, API, and installed CLI
 go-tools/go2vir/        restricted Go successor frontend
 rust-tools/rust2vir/    restricted Rust successor frontend and private driver
-csharp-tools/csharp2vir restricted C# successor frontend
 release/                frozen build inputs and active successor registries
 docs/                   user-facing operation and integration guides
 develop/                normative specs, vectors, roadmaps, and migration logs
-examples/               Go, Rust, and Java policy examples
 fixtures/               certificate and frontend regression corpora
 scripts/                generation and verification gates
 ```
@@ -255,12 +184,8 @@ scripts/                generation and verification gates
 ## Documentation
 
 - [Alpha Demo Guide](docs/alpha-demo.md)
-- [C# Samples and Supported Subset](docs/csharp-samples-and-subset.md)
-- [Practical C# Expansion Design](develop/docs/08_csharp_practical_subset_design.md)
 - [Go Practical Expansion Design](develop/docs/09_go_practical_subset_design.md)
 - [Go Practical Expansion Work Plan](develop/docs/09_go_practical_subset_design-todo.md)
-- [Practical C# Profile v1 (normative, inactive)](develop/specs/CSHARP_PRACTICAL_PROFILE_V1.md)
-- [Practical C# Successor Shared Artifacts v1 (normative, inactive)](develop/specs/CSHARP_PRACTICAL_SHARED_ARTIFACTS_V1.md)
 - [ProofOps Policy Local Verification](docs/proof-ops-policy-ci.md)
 - [ProofOps Engine Support Design](docs/proof-ops-engine-design.md)
 - [Web System Integration Guide](docs/web-system-integration.md)
@@ -268,11 +193,9 @@ scripts/                generation and verification gates
 - [Security Policy](SECURITY.md)
 - [Development Documentation](develop/README.md)
 
-Normative successor contracts are in
-[`SEMANTIC_PROFILE_REGISTRY_V1.md`](develop/specs/SEMANTIC_PROFILE_REGISTRY_V1.md)
-and [`CSHARP_PROFILE_V0.md`](develop/specs/CSHARP_PROFILE_V0.md). The additional
-practical C# contracts above are published but remain outside the active
-registry until the planned atomic activation.
+Normative scope and registry contracts are in
+[`LANGUAGE_SUPPORT_SCOPE_V1.md`](develop/specs/LANGUAGE_SUPPORT_SCOPE_V1.md) and
+[`SEMANTIC_PROFILE_REGISTRY_V1.md`](develop/specs/SEMANTIC_PROFILE_REGISTRY_V1.md).
 
 ## License
 

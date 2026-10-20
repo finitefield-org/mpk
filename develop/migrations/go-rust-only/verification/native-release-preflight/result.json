@@ -1,0 +1,24 @@
+{
+  "status": "environment_unavailable",
+  "command": [
+    "bash",
+    "./scripts/check-go-rust-frontend.sh"
+  ],
+  "exit_code": 69,
+  "logs": {
+    "stdout": {
+      "path": "develop/migrations/go-rust-only/verification/native-release-preflight/stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "stderr": {
+      "path": "develop/migrations/go-rust-only/verification/native-release-preflight/stderr.log",
+      "sha256": "47666214777330638fc201a2e2e44479dffa2a51558cd8d3d1f4b4903617ffcf",
+      "bytes": 122
+    }
+  },
+  "selection_reason": "Verify the replacement Go/Rust release gate fails closed on this macOS arm64 host before any native-only command. Complete native x86-64 Linux gate remains pending; emulation is not substituted.",
+  "complete_native_gate_executed": false,
+  "native_release_acceptance": false,
+  "observed_at_utc": "2026-10-20T15:12:44.696439+00:00"
+}

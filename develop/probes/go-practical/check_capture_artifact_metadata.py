@@ -14,8 +14,8 @@ def main():
     w=RECORD.parent;r=check_retained();old=check_modules()
     require(len(old['inputs'])==625 and old['hash_vectors']==62 and old['outcomes']=={'retained_native':5,'go_typed_unproved':2,'configuration_rejection':66},'preceding complete module evidence retained')
     require(r['outcomes']=={'map_linked_unproved':8,'frontend_linked_unproved':8,'configuration_rejection':171} and r['hash_vectors']==19 and len(r['preservation'])==5,'complete capture outcomes/hash/baseline coverage')
-    cat=identities();ids={x['identity'] for x in cat['identities']}|set(cat['reserved_csharp']['identities'])|{SCOPE_SCHEMA,SET_SCHEMA,CONTRACT_SCHEMA,OP_SCHEMA,BODY_SCHEMA}
-    domains={x['domain'] for x in cat['identities']}|set(cat['reserved_csharp']['domains'])|{SCOPE_DOMAIN,SET_DOMAIN,CONTRACT_DOMAIN,OP_DOMAIN,BODY_DOMAIN}
+    cat=identities();ids={x['identity'] for x in cat['identities']}|set(cat['reserved_retired']['identities'])|{SCOPE_SCHEMA,SET_SCHEMA,CONTRACT_SCHEMA,OP_SCHEMA,BODY_SCHEMA}
+    domains={x['domain'] for x in cat['identities']}|set(cat['reserved_retired']['domains'])|{SCOPE_DOMAIN,SET_DOMAIN,CONTRACT_DOMAIN,OP_DOMAIN,BODY_DOMAIN}
     require(INVENTORY_SCHEMA not in ids and INVENTORY_DOMAIN not in domains,'new unreserved Go inventory family')
     data=strict_json((RECORD/'artifacts.json').read_bytes());schema=strict_json((RECORD/'schema.json').read_bytes());go=next(x for x in data if 'project_spec' in x)
     require([set(x['fields']) for x in schema['roots']]==[set(go['source_map']),set(go['manifest']),set(go['manifest']['manifest']['input_inventory'])],'exact required root field sets')

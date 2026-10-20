@@ -1,0 +1,65 @@
+{
+  "command": [
+    "/usr/bin/hdiutil",
+    "attach",
+    "-nobrowse",
+    "-owners",
+    "on",
+    "-mountpoint",
+    "/Users/kazuyoshitoshiya/ff/mpk/release/build-input-cache/rust",
+    "-plist",
+    "/private/tmp/mpk-go-rust-scope/frozen-rust-sdk.sparseimage"
+  ],
+  "exit_code": 0,
+  "logs": {
+    "stdout": {
+      "path": "develop/migrations/go-rust-only/verification/sdk-case-volume/attach.stdout.log",
+      "sha256": "868c62bd279f5439437ab4332868cc35eeffe975e832b0b8dc9a82966b45eb37",
+      "bytes": 1861
+    },
+    "stderr": {
+      "path": "develop/migrations/go-rust-only/verification/sdk-case-volume/attach.stderr.log",
+      "sha256": "18256f10b28588093e7f08eb4daca160a5d805b84453e0b2da470ab6085e133e",
+      "bytes": 191
+    }
+  },
+  "observed_at_utc": "2026-10-20T15:17:35.239887+00:00",
+  "attachment": {
+    "system-entities": [
+      {
+        "content-hint": "EFI",
+        "dev-entry": "/dev/disk30s1",
+        "potentially-mountable": true,
+        "unmapped-content-hint": "C12A7328-F81F-11D2-BA4B-00A0C93EC93B",
+        "volume-kind": "msdos"
+      },
+      {
+        "content-hint": "41504653-0000-11AA-AA11-00306543ECAC",
+        "dev-entry": "/dev/disk31s1",
+        "mount-point": "/Users/kazuyoshitoshiya/ff/mpk/release/build-input-cache/rust",
+        "potentially-mountable": true,
+        "unmapped-content-hint": "41504653-0000-11AA-AA11-00306543ECAC",
+        "volume-kind": "apfs"
+      },
+      {
+        "content-hint": "Apple_APFS",
+        "dev-entry": "/dev/disk30s2",
+        "potentially-mountable": false,
+        "unmapped-content-hint": "7C3457EF-0000-11AA-AA11-00306543ECAC"
+      },
+      {
+        "content-hint": "EF57347C-0000-11AA-AA11-00306543ECAC",
+        "dev-entry": "/dev/disk31",
+        "potentially-mountable": false,
+        "unmapped-content-hint": "EF57347C-0000-11AA-AA11-00306543ECAC"
+      },
+      {
+        "content-hint": "GUID_partition_scheme",
+        "dev-entry": "/dev/disk30",
+        "potentially-mountable": false,
+        "unmapped-content-hint": "GUID_partition_scheme"
+      }
+    ]
+  },
+  "case_sensitive_probe_passed": true
+}

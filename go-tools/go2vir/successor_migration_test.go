@@ -10,7 +10,7 @@ import (
 )
 
 const updateSuccessorGoCorpusEnv = "MPK_UPDATE_GO_CORPUS"
-const activeGoFrontendBundleID = "frontend.go.go2vir.candidate.v1"
+const activeGoFrontendBundleID = "frontend.go.go2vir.candidate.v2"
 const activeGoToolchainBundleID = "toolchain.go.go1.25.0.linux-amd64.candidate.v1"
 
 type successorRegistryFixture struct {
@@ -285,7 +285,7 @@ func successorManifestReference(t *testing.T) (sourceManifest, successorRegistry
 	if err := json.Unmarshal(raw, &registry); err != nil {
 		t.Fatalf("decode successor Go registry: %v", err)
 	}
-	if registry.Schema != "mpk.release.bundle_registry.v1" || registry.ID != registryID || len(registry.FrontendBundles) != 4 || len(registry.ToolchainBundles) != 4 || len(registry.Tuples) != 5 {
+	if registry.Schema != "mpk.release.bundle_registry.v1" || registry.ID != registryID || len(registry.FrontendBundles) != 2 || len(registry.ToolchainBundles) != 2 || len(registry.Tuples) != 3 {
 		t.Fatal("active registry shape is not the complete successor release")
 	}
 	frontend := registry.FrontendBundles[0]

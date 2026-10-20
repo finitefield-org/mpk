@@ -58,7 +58,7 @@ def sources():
                   HERE / "check_proof_report.py", HERE / "entry_audit.py",
                   ROOT / "fixtures/core-bool-cases/right-identity.hex",
                   ROOT / "proofs/std/nat/std-nat.hex",
-                  ROOT / "develop/migrations/csharp-03/probes/boolean-proof-elimination-logs/producer/builder.rs"])
+                  ROOT / "develop/probes/go-practical/support/builder.rs"])
     return [{"path": p.relative_to(ROOT).as_posix(), "sha256": sha(p.read_bytes())} for p in sorted(paths)]
 
 

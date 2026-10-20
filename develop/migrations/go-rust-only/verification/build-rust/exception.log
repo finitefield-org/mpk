@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/private/tmp/mpk-go-rust-scope/build-frontends.py", line 41, in <module>
+    target=build.portable_rust_build(work);bins={n:target/'x86_64-unknown-linux-gnu/release'/n for n in ['rust2vir','rust2vir-driver']}
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kazuyoshitoshiya/ff/mpk/scripts/successor_release_bundles.py", line 532, in portable_rust_build
+    _descriptor, cache = rust.check_build_inputs()
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kazuyoshitoshiya/ff/mpk/scripts/rust_build_inputs.py", line 1217, in check_build_inputs
+    root = validate_cache(descriptor)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kazuyoshitoshiya/ff/mpk/scripts/rust_build_inputs.py", line 1036, in validate_cache
+    raise RustBuildFailure(code)
+rust_build_inputs.RustBuildFailure: RUST_BUILD_INPUTS_CACHE_KEY

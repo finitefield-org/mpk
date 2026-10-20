@@ -8,7 +8,7 @@ from identity_catalog import SHARED,GO
 from structural_limit_catalog import generate as limits_catalog
 
 ROOT=Path(__file__).resolve().parents[3]
-ACTIVE_VECTOR=ROOT/"develop/specs/vectors/semantic-profile-registry-v3.json"
+ACTIVE_VECTOR=ROOT/"develop/specs/vectors/semantic-profile-registry-v4.json"
 GO_PROFILE="mpk.go.practical.v1"
 CONTRACTS=("ai","evidence","frontend","manifest","policy","release","source_map","vc","vir")
 
@@ -166,7 +166,7 @@ def schemas():
     }
     roots=[]
     types={
-        "registry":{"schema":"literal registry.v3","id":"literal registry.v3","revision":"uint exact1","profiles":"ordered exact5 entry.v3 records","registry_sha256":"sha256"},
+        "registry":{"schema":"literal registry.v3","id":"literal registry.v3","revision":"uint exact1","profiles":"ordered exact3 entry.v3 records","registry_sha256":"sha256"},
         "registry_entry":{"schema":"literal entry.v3","source_language":"registered language","semantic_profile":"registered exact profile","semantic_parameters_schema":"registered parameters schema","selection_schema":"registered selection schema","foundation_descriptor":"null or exact registered Go foundation_ref","contracts":"exact nine compiled profile contract IDs","entry_sha256":"sha256"},
         "context":{"schema":"literal context.v3","profile_registry":"registry_ref","profile_entry_sha256":"registered entry sha256","source_language":"entry language","semantic_profile":"entry profile","semantic_parameters":"entry-bound parameters envelope","foundation_descriptor":"entry-equal nullable foundation_ref"},
         "validated_request":{"schema":"literal validated_request.v3","semantic_context":"context.v3","selection":"entry-bound selection envelope","request_sha256":"sha256"},
@@ -179,6 +179,6 @@ def schemas():
         roots.append({"name":name,"schema":table[name][0],"ordered_fields":keys,"required_fields":keys,"optional_fields":[],"field_types":types[name],"unknown_fields":"reject","hash_domain":table[name][1],"hash_field":hash_field,"hash_preimage_fields":[k for k in keys if k!=hash_field]})
     return {"schema":"mpk.go_practical.context_protocol_draft.v0","status":"private closed context/registry/request rules; no complete foundation or activation","roots":roots,
             "nested":{"registry_ref":["schema","id","revision","registry_sha256"],"foundation_ref":["schema","id","content_sha256"],"envelope":["schema","value"],"go_selector":["package","function","receiver"],"receiver_selector":["package","type_name"],"go_parameter_values":list(registration_fixture()["go_parameters"])},
-            "foundation_rule":"retained four profiles require null; Go practical requires the exact compiled Go reference; no caller bundle/descriptor/allowlist",
+            "foundation_rule":"retained two profiles require null; Go practical requires the exact compiled Go reference; no caller bundle/descriptor/allowlist",
             "legacy_rule":"parameter/selection policy delegated to unchanged actual v1 compiled Rust validators; not a hand-copied subset",
             "remaining":["complete registered Go foundation definitions/limits schemas and proofs, compiled profile payloads, independent production import","full source/snapshot/alias resolution, downstream common roots/unions/preimages and reviewed migration/activation/release gates"]}

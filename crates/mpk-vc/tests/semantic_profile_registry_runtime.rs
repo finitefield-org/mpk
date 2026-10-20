@@ -2,48 +2,28 @@ use mpk_vc::semantic_profile_registry::{
     canonical_registry_transport, classify_semantic_registry_failure, semantic_profile_entry_hash,
     semantic_profile_registry_hash, validate_compiled_profile_envelope,
     validate_registry_selection_envelope, validate_registry_semantic_context,
-    validate_revision_2_append_only, validate_semantic_context_linkage,
-    validate_semantic_profile_registry, validate_semantic_registry_limit,
-    validate_semantic_request, CompiledSemanticProfile, ProfileContractField, RegistryRevision,
-    SemanticRegistryFailureDisposition, SemanticRegistryFailureSurface, SemanticRegistryLimit,
-    SemanticRegistryValidationError, ValidatedSemanticProfileRegistry,
-    COMPILED_PROFILE_PAYLOAD_CANONICAL_BYTES_MAX, CSHARP_SCALAR_ENTRY_SHA256,
-    CSHARP_SCALAR_PROFILE, REGISTRY_CANONICAL_BYTES_MAX, REGISTRY_TRANSPORT_BYTES_MAX,
-    REVISION_1_REGISTRY_SHA256, REVISION_2_REGISTRY_SHA256, SELECTION_CANONICAL_BYTES_MAX,
+    validate_semantic_context_linkage, validate_semantic_profile_registry,
+    validate_semantic_registry_limit, validate_semantic_request, ProfileContractField,
+    RegistryRevision, SemanticRegistryFailureDisposition, SemanticRegistryFailureSurface,
+    SemanticRegistryLimit, SemanticRegistryValidationError, ValidatedSemanticProfileRegistry,
+    COMPILED_PROFILE_PAYLOAD_CANONICAL_BYTES_MAX, REGISTRY_CANONICAL_BYTES_MAX,
+    REGISTRY_TRANSPORT_BYTES_MAX, SELECTION_CANONICAL_BYTES_MAX,
     SEMANTIC_PARAMETERS_CANONICAL_BYTES_MAX, SEMANTIC_REGISTRY_IDENTIFIER_BYTES_MAX,
     SEMANTIC_REGISTRY_JSON_NESTING_MAX, SEMANTIC_REGISTRY_PROFILES_MAX,
     SEMANTIC_REGISTRY_REVISION_MAX, SOURCE_LANGUAGE_BYTES_MAX,
 };
-use mpk_vc::successor_source_artifacts::import_successor_vir_json;
 use mpk_vc::{
-    canonical_json_bytes, import_vir_json, parse_strict_json, sha256_raw_file_bytes,
-    SemanticProfile, StrictJsonLimits, StrictJsonValue,
+    canonical_json_bytes, parse_strict_json, sha256_raw_file_bytes, StrictJsonLimits,
+    StrictJsonValue,
 };
 use serde_json::{Map, Value};
 use std::collections::BTreeSet;
 
 const REGISTRY_V1_BYTES: &[u8] =
     include_bytes!("../../../develop/specs/vectors/semantic-profile-registry-v1.json");
-const REGISTRY_V2_BYTES: &[u8] =
-    include_bytes!("../../../develop/specs/vectors/semantic-profile-registry-v2.json");
-const CSHARP_PROFILE_BYTES: &[u8] =
-    include_bytes!("../../../develop/specs/vectors/csharp-profile-v0.json");
-const MANIFEST_BYTES: &[u8] = include_bytes!("../../../develop/specs/vectors/manifest.json");
-const ACTIVE_VIR_BYTES: &[u8] =
-    include_bytes!("../../../fixtures/vir-go/frontend/basic-branch/vir.json");
-const ACTIVE_SEMANTIC_REGISTRY_BYTES: &[u8] =
-    include_bytes!("../../../release/bundles/semantic-profile-registry.json");
 
 const TEST_LIMITS: StrictJsonLimits =
     StrictJsonLimits::new(4 * 1024 * 1024, 1_000_000, 128, 2 * 1024 * 1024);
-const RUNTIME_OWNER: &str = "crates/mpk-vc/tests/semantic_profile_registry_runtime.rs";
-const SOURCE_ARTIFACT_OWNER: &str = "crates/mpk-vc/tests/successor_source_artifacts.rs";
-const SUCCESSOR_VC_OWNER: &str = "crates/mpk-vc/tests/successor_vc.rs";
-const SUCCESSOR_POLICY_OWNER: &str = "crates/mpk-cli/tests/csharp_policy_verify.rs";
-const SUCCESSOR_AI_OWNER: &str = "crates/mpk-cli/tests/csharp_ai_explain.rs";
-const SUCCESSOR_API_OWNER: &str = "crates/mpk-api/src/v2_tests.rs";
-const V1_SHA256: &str = "f7007417279f5173d0102ec2833095f2d97f271e1cdf2622d381d31e6ab86ae7";
-const V2_SHA256: &str = "19c657283836cb920f5c971f9c84ab267d48ea724c05bc1628de4889b4dd059f";
 
 #[test]
 fn revision_one_transport_hash_and_registry_vectors_execute_runtime_validation() {
@@ -273,311 +253,6 @@ fn context_profile_envelope_and_limit_vectors_execute_runtime_dispatch() {
         let accepted = validate_semantic_registry_limit(limit, value).is_ok();
         assert_eq!(accepted, text(field(case, "expect")) == "accept", "{id}");
     }
-}
-
-#[test]
-fn revision_two_csharp_hash_append_only_and_active_payload_vectors_execute_runtime_code() {
-    let v1_vectors = load(REGISTRY_V1_BYTES, "revision-1 vectors");
-    let v2_vectors = load(REGISTRY_V2_BYTES, "revision-2 vectors");
-    assert_exact_fields(
-        &v2_vectors,
-        &[
-            "schema",
-            "owner_test",
-            "mechanism_spec",
-            "profile_spec",
-            "predecessor",
-            "csharp_entry",
-            "registry",
-            "hash_cases",
-            "append_only_cases",
-            "activation_cases",
-        ],
-    );
-    assert_eq!(
-        text(field(&v2_vectors, "schema")),
-        "mpk.semantic_profile.registry.conformance.v2"
-    );
-    assert_eq!(
-        text(field(&v2_vectors, "owner_test")),
-        "crates/mpk-vc/tests/csharp_profile_spec.rs"
-    );
-    assert_eq!(
-        text(field(&v2_vectors, "mechanism_spec")),
-        "develop/specs/SEMANTIC_PROFILE_REGISTRY_V1.md"
-    );
-    assert_eq!(
-        text(field(&v2_vectors, "profile_spec")),
-        "develop/specs/CSHARP_PROFILE_V0.md"
-    );
-
-    let predecessor = validate_registry_fixture(
-        field(&v2_vectors, "predecessor"),
-        RegistryRevision::Revision1,
-    );
-    let successor =
-        validate_registry_fixture(field(&v2_vectors, "registry"), RegistryRevision::Revision2);
-    assert_eq!(
-        predecessor.identity().registry_sha256(),
-        REVISION_1_REGISTRY_SHA256
-    );
-    assert_eq!(
-        successor.identity().registry_sha256(),
-        REVISION_2_REGISTRY_SHA256
-    );
-    validate_revision_2_append_only(&predecessor, &successor)
-        .expect("revision 2 is an exact append-only successor");
-
-    for case in array(field(&v2_vectors, "hash_cases")) {
-        let id = text(field(case, "id"));
-        let pointer = text(field(case, "source_pointer"));
-        let complete = if pointer.is_empty() {
-            field(&v2_vectors, "registry")
-        } else {
-            field(&v2_vectors, "registry")
-                .pointer(pointer)
-                .unwrap_or_else(|| panic!("missing hash pointer {pointer}"))
-        };
-        let digest = match text(field(case, "excluded_field")) {
-            "entry_sha256" => semantic_profile_entry_hash(complete),
-            "registry_sha256" => semantic_profile_registry_hash(complete),
-            other => panic!("unknown excluded hash field {other}"),
-        }
-        .unwrap_or_else(|error| panic!("{id}: {error}"));
-        assert_eq!(digest, text(field(case, "expected_sha256")), "{id}");
-        assert_eq!(
-            canonical(complete).len() as i64,
-            integer(field(case, "expected_complete_jcs_utf8_length")),
-            "{id}"
-        );
-    }
-
-    let csharp_entry = successor
-        .lookup("csharp", CSHARP_SCALAR_PROFILE)
-        .expect("revision 2 C# entry");
-    assert_eq!(csharp_entry.entry_sha256(), CSHARP_SCALAR_ENTRY_SHA256);
-    assert_eq!(
-        csharp_entry.canonical_json(),
-        canonical(field(&v2_vectors, "csharp_entry"))
-    );
-    assert_eq!(
-        csharp_entry.compiled_profile(),
-        CompiledSemanticProfile::CSharpScalarV0
-    );
-    assert!(predecessor
-        .lookup("csharp", CSHARP_SCALAR_PROFILE)
-        .is_none());
-    for later in ["java", "dart", "typescript", "python"] {
-        assert!(successor
-            .lookup(later, &format!("mpk.{later}.unknown.v0"))
-            .is_none());
-    }
-
-    let v1_go_request = field(field(&v1_vectors, "fixtures"), "go_request");
-    let error = validate_semantic_request(&successor, v1_go_request)
-        .expect_err("revision-2 consumer rejects revision-1 context identity");
-    assert_eq!(error.code().as_str(), "SEMANTIC_REGISTRY_ASSERTION");
-    assert_eq!(error.phase().as_str(), "registry_identity");
-    let v1_go_context =
-        validate_registry_semantic_context(&predecessor, field(v1_go_request, "semantic_context"))
-            .expect("revision-1 Go context");
-    let error = validate_registry_selection_envelope(
-        &successor,
-        &v1_go_context,
-        field(v1_go_request, "selection"),
-    )
-    .expect_err("selection validation reasserts the complete registry identity");
-    assert_eq!(error.code().as_str(), "SEMANTIC_REGISTRY_ASSERTION");
-    assert_eq!(error.phase().as_str(), "registry_identity");
-
-    for case in array(field(&v2_vectors, "append_only_cases")) {
-        assert_eq!(text(field(case, "expect")), "pass");
-        match text(field(case, "id")) {
-            "append.csharp_first" => assert_eq!(
-                successor.entries()[0].compiled_profile(),
-                CompiledSemanticProfile::CSharpScalarV0
-            ),
-            "append.go_bytes_unchanged" => assert_eq!(
-                successor.entries()[1].canonical_json(),
-                predecessor.entries()[0].canonical_json()
-            ),
-            "append.rust_bytes_unchanged" => assert_eq!(
-                successor.entries()[2].canonical_json(),
-                predecessor.entries()[1].canonical_json()
-            ),
-            "append.exact_count" => assert_eq!(successor.entries().len(), 3),
-            "append.no_later_language" => assert_eq!(successor.entries().len(), 3),
-            "append.no_contract_mutation" => {
-                validate_revision_2_append_only(&predecessor, &successor).unwrap()
-            }
-            "append.old_root_rejects_csharp" => {
-                assert!(predecessor
-                    .lookup("csharp", CSHARP_SCALAR_PROFILE)
-                    .is_none())
-            }
-            "append.new_root_rejects_old_context" => {
-                assert!(validate_semantic_request(&successor, v1_go_request).is_err())
-            }
-            id => panic!("unknown append-only case {id}"),
-        }
-    }
-
-    let active = validate_semantic_profile_registry(
-        ACTIVE_SEMANTIC_REGISTRY_BYTES,
-        RegistryRevision::Revision3,
-    )
-    .expect("active revision-3 semantic registry");
-    let active_csharp_entry = active
-        .lookup("csharp", CSHARP_SCALAR_PROFILE)
-        .expect("active C# entry");
-    assert_eq!(
-        active_csharp_entry.canonical_json(),
-        csharp_entry.canonical_json()
-    );
-
-    let csharp_profile = load(CSHARP_PROFILE_BYTES, "C# profile vectors");
-    let profile_identity = field(&csharp_profile, "profile_identity");
-    assert_exact_fields(
-        profile_identity,
-        &[
-            "source_language",
-            "semantic_profile",
-            "semantic_parameters_schema",
-            "selection_schema",
-            "contract_schema",
-            "profile_entry_sha256",
-            "registry_revision",
-            "registry_sha256",
-        ],
-    );
-    let identity = active.identity();
-    assert_eq!(
-        text(field(profile_identity, "source_language")),
-        csharp_entry.source_language()
-    );
-    assert_eq!(
-        text(field(profile_identity, "semantic_profile")),
-        csharp_entry.semantic_profile()
-    );
-    assert_eq!(
-        text(field(profile_identity, "semantic_parameters_schema")),
-        csharp_entry.semantic_parameters_schema()
-    );
-    assert_eq!(
-        text(field(profile_identity, "selection_schema")),
-        csharp_entry.selection_schema()
-    );
-    assert_eq!(
-        text(field(profile_identity, "contract_schema")),
-        "mpk.csharp.contract.v0"
-    );
-    assert_eq!(
-        text(field(profile_identity, "profile_entry_sha256")),
-        csharp_entry.entry_sha256()
-    );
-    assert_eq!(
-        boundary_integer(field(profile_identity, "registry_revision")),
-        identity.revision()
-    );
-    assert_eq!(
-        text(field(profile_identity, "registry_sha256")),
-        identity.registry_sha256()
-    );
-    let csharp_request = serde_json::json!({
-        "semantic_context": {
-            "profile_registry": {
-                "schema": identity.schema(),
-                "id": identity.id(),
-                "revision": identity.revision(),
-                "registry_sha256": identity.registry_sha256()
-            },
-            "profile_entry_sha256": field(profile_identity, "profile_entry_sha256"),
-            "source_language": field(profile_identity, "source_language"),
-            "semantic_profile": field(profile_identity, "semantic_profile"),
-            "semantic_parameters": field(&csharp_profile, "semantic_parameters")
-        },
-        "selection": field(&csharp_profile, "selection_fixture")
-    });
-    let validated = validate_semantic_request(&active, &csharp_request)
-        .expect("frozen C# parameter and selection dispatch");
-    assert_eq!(
-        validated.compiled_profile(),
-        CompiledSemanticProfile::CSharpScalarV0
-    );
-    assert_eq!(
-        serde_json::to_value(&validated).expect("validated request serialization"),
-        csharp_request,
-        "the sealed validated model serializes only its revalidated wire fields"
-    );
-
-    let mut seen_fields = BTreeSet::new();
-    for record in array(field(&csharp_profile, "profile_contracts")) {
-        let field_name = text(field(record, "field"));
-        let contract_field =
-            ProfileContractField::from_name(field_name).expect("known C# contract field");
-        assert!(seen_fields.insert(contract_field));
-        validate_compiled_profile_envelope(&active, field(record, "envelope"), contract_field)
-            .unwrap_or_else(|error| panic!("C# {field_name} payload: {error}"));
-    }
-    assert_eq!(seen_fields.len(), 9);
-}
-
-#[test]
-fn runtime_ownership_is_appended_and_the_successor_is_the_only_active_importer() {
-    assert_eq!(sha256_raw_file_bytes(REGISTRY_V1_BYTES).to_hex(), V1_SHA256);
-    assert_eq!(sha256_raw_file_bytes(REGISTRY_V2_BYTES).to_hex(), V2_SHA256);
-
-    let manifest = load(MANIFEST_BYTES, "vector manifest");
-    for (path, expected) in [
-        (
-            "develop/specs/vectors/semantic-profile-registry-v1.json",
-            vec![
-                "crates/mpk-vc/tests/semantic_profile_registry.rs",
-                RUNTIME_OWNER,
-                SOURCE_ARTIFACT_OWNER,
-                SUCCESSOR_VC_OWNER,
-                SUCCESSOR_POLICY_OWNER,
-                SUCCESSOR_AI_OWNER,
-                SUCCESSOR_API_OWNER,
-                "crates/mpk-cli/tests/successor_atomic_cutover.rs",
-            ],
-        ),
-        (
-            "develop/specs/vectors/semantic-profile-registry-v2.json",
-            vec![
-                "crates/mpk-vc/tests/csharp_profile_spec.rs",
-                RUNTIME_OWNER,
-                SUCCESSOR_VC_OWNER,
-                SUCCESSOR_POLICY_OWNER,
-                SUCCESSOR_AI_OWNER,
-                SUCCESSOR_API_OWNER,
-                "crates/mpk-cli/tests/successor_atomic_cutover.rs",
-            ],
-        ),
-    ] {
-        let record = array(field(&manifest, "vectors"))
-            .iter()
-            .find(|record| text(field(record, "path")) == path)
-            .unwrap_or_else(|| panic!("missing vector manifest record {path}"));
-        let expected = expected
-            .into_iter()
-            .map(|owner| Value::String(owner.to_owned()))
-            .collect::<Vec<_>>();
-        assert_eq!(array(field(record, "implementation_test_owners")), expected);
-    }
-
-    assert!(serde_json::from_str::<SemanticProfile>(r#""mpk.csharp.scalar.v0""#).is_err());
-    let active_registry = validate_semantic_profile_registry(
-        ACTIVE_SEMANTIC_REGISTRY_BYTES,
-        RegistryRevision::Revision3,
-    )
-    .expect("active semantic registry");
-    import_successor_vir_json(ACTIVE_VIR_BYTES, &active_registry)
-        .expect("the successor importer owns the active VIR fixture");
-    assert!(
-        import_vir_json(ACTIVE_VIR_BYTES).is_err(),
-        "the predecessor importer accepted active successor VIR bytes"
-    );
 }
 
 fn validate_registry_fixture(
@@ -884,4 +559,31 @@ fn assert_exact_fields(value: &Value, expected: &[&str]) {
         fields.keys().map(String::as_str).collect::<BTreeSet<_>>(),
         expected.iter().copied().collect::<BTreeSet<_>>()
     );
+}
+
+#[test]
+fn installed_registry_contains_only_go_and_rust_and_rejects_other_profiles() {
+    use mpk_vc::semantic_profile_registry::CompiledSemanticProfile;
+    let raw = include_bytes!("../../../release/bundles/semantic-profile-registry.json");
+    let registry = validate_semantic_profile_registry(raw, RegistryRevision::Revision4).unwrap();
+    assert_eq!(registry.identity().revision(), 4);
+    assert_eq!(
+        registry
+            .entries()
+            .iter()
+            .map(|entry| entry.source_language())
+            .collect::<Vec<_>>(),
+        ["go", "rust"]
+    );
+    for language in ["java", "csharp", "python", "typescript", "unknown"] {
+        assert!(registry
+            .lookup(language, &format!("mpk.{language}.scalar.v0"))
+            .is_none());
+        assert!(CompiledSemanticProfile::from_identity(
+            language,
+            &format!("mpk.{language}.scalar.v0")
+        )
+        .is_none());
+    }
+    assert!(validate_semantic_profile_registry(raw, RegistryRevision::Revision1).is_err());
 }

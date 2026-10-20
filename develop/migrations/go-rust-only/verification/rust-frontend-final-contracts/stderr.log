@@ -1,0 +1,15 @@
+   Compiling rust2vir v0.1.0 (/mpk/frontend)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 10.29s
+     Running tests/contracts.rs (/mpk/target/x86_64-unknown-linux-gnu/debug/deps/contracts-a7dd0473b4a40e07)
+warning: field `v` is never read
+ --> /mpk/tmp/rust2vir-contract-check-42-2/src/lib.rs:1:14
+  |
+1 | pub struct P{v:u64}
+  |            - ^
+  |            |
+  |            field in this struct
+  |
+  = note: `#[warn(dead_code)]` on by default
+
+warning: 1 warning emitted
+

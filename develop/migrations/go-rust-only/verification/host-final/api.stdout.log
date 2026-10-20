@@ -1,0 +1,19 @@
+
+running 14 tests
+test session::tests::rejects_invalid_module_names ... ok
+test session::tests::unknown_session_returns_structured_error ... ok
+test session::tests::rejects_module_names_with_outer_whitespace ... ok
+test session::tests::session_counter_overflow_returns_structured_error ... ok
+test session::tests::list_sessions_uses_creation_order_after_double_digit_ids ... ok
+test session::tests::starts_session_with_default_profile ... ok
+test session::tests::starts_multiple_sessions_with_deterministic_ids ... ok
+test session::tests::maps_profiles_to_kernel_profiles ... ok
+test session::tests::start_session_response_serializes_stably ... ok
+test v2_tests::failed_target_materialization_does_not_leave_partial_helper_state ... ok
+test v2_tests::v2_routes_and_transports_are_closed_against_both_generations ... ok
+test v2_tests::helper_candidate_success_does_not_change_certificate_acceptance_authority ... ok
+test v2_tests::crossed_old_stale_and_noncanonical_operations_reject_atomically ... ok
+test v2_tests::both_supported_profiles_produce_deterministic_bound_successor_sessions_and_vcs ... ok
+
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.22s
+

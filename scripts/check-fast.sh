@@ -6,13 +6,8 @@ mpk_bin="$repo_root/target/debug/mpk"
 
 cd "$repo_root"
 
-skip_csharp=false
-if [[ "${1:-}" == "--skip-csharp" ]]; then
-  skip_csharp=true
-  shift
-fi
 if [[ $# -ne 0 ]]; then
-  printf 'usage: %s [--skip-csharp]\n' "$0" >&2
+  printf 'usage: %s\n' "$0" >&2
   exit 2
 fi
 
@@ -79,11 +74,7 @@ run check_no_github_actions_workflows
 run cargo fmt --check
 run "$repo_root/scripts/check-no-active-gir.sh" --strict
 run cargo clippy --workspace --all-targets -- -D warnings
-if "$skip_csharp"; then
-  run python3 "$repo_root/scripts/cargo-test-without-csharp.py"
-else
-  run cargo test --workspace --no-fail-fast
-fi
+run cargo test --workspace --no-fail-fast
 run cargo build -p mpk-cli
 
 check_accepts fixtures/cert-basic/zero-axiom.hex

@@ -1,0 +1,29 @@
+{
+  "status": "passed",
+  "command": [
+    "./scripts/check-no-active-gir.sh",
+    "--strict"
+  ],
+  "exit_code": 0,
+  "execution_context": "outside sandbox; internal /usr/bin/git",
+  "active_files_scanned": 306142,
+  "existing_retained_record_exclusions": 51,
+  "matcher_count": 127,
+  "matcher_scopes": 4,
+  "exact_seals": 39,
+  "rules_or_exclusions_changed": false,
+  "logs": {
+    "stdout": {
+      "path": "develop/migrations/go-rust-only/verification/strict-final/stdout.log",
+      "sha256": "41338b932094743401da2d99629373241de2a1ea2462a6ce73a996903a4950b1",
+      "bytes": 130
+    },
+    "stderr": {
+      "path": "develop/migrations/go-rust-only/verification/strict-final/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  },
+  "decoded_original_diagnostic_review": "Reported separately; one exact preserved negative stdout remains a decoded finding. No zero-all-decoded claim.",
+  "observed_at_utc": "2026-10-20T16:54:22.667731+00:00"
+}

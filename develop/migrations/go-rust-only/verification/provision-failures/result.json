@@ -1,0 +1,45 @@
+{
+  "status": "failed",
+  "attempts": [
+    {
+      "attempt": "first",
+      "exit_code": 69,
+      "logs": [
+        {
+          "path": "develop/migrations/go-rust-only/verification/provision-failures/provision-rust.stdout",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "path": "develop/migrations/go-rust-only/verification/provision-failures/provision-rust.stderr",
+          "sha256": "25aedf4ae75196081254e1e1787001ea73341060206be29532a5876649d54fb4",
+          "bytes": 31
+        }
+      ]
+    },
+    {
+      "attempt": "second",
+      "exit_code": 65,
+      "logs": [
+        {
+          "path": "develop/migrations/go-rust-only/verification/provision-failures/provision-rust2.stdout",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "path": "develop/migrations/go-rust-only/verification/provision-failures/provision-rust2.stderr",
+          "sha256": "effaa6aa3045b42ca1caf82d2016f4c9e3dbb3a1635ad44498759d7c1b89bd38",
+          "bytes": 28
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "The official downloader deleted the second attempt temporary archive before exposing its actual complete byte buffer or final observed digest. These unavailable originals are not replaced by subsequent downloads.",
+    "A later HEAD advertises 1044930068 bytes and range support; the last observed partial buffer was smaller. Incomplete transfer is a hypothesis until a complete SHA-verified fetch and observed provision establish the actual outcome."
+  ],
+  "fixed_llvm_sha256": "54ec30358afcc9fb8aa74307db3046f5187f9fb89fb37064cdde906e062ebf36",
+  "release_author_source": "https://discourse.llvm.org/t/18-1-8-has-been-tagged/79726",
+  "digest_matches_release_author": true,
+  "native_release_acceptance": false
+}

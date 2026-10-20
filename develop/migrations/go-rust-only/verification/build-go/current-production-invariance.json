@@ -1,0 +1,1285 @@
+{
+  "status": "passed",
+  "production_input_count": 181,
+  "unchanged_production_inputs": 181,
+  "test_input_count": 39,
+  "changed_test_inputs": [
+    {
+      "path": "go-tools/go2vir/successor_migration_test.go",
+      "sha256": "b70160eddf0e0eda9a9a24d101de8d164b6a83585ade312d8b18d369f4f8bd5f",
+      "bytes": 21694,
+      "current_sha256": "ce27f8982dd8d7beec8c2093bd2ba0bb75ee9c9a9350f66547d1e8751e0ad99e",
+      "unchanged": false
+    }
+  ],
+  "reason": "Release Go binary depends on the unchanged production source/module/vendor buffers. The corpus helper changed only its expected registry counts after the original two builds. Test-built helper binaries use a separate command and are not substituted for the pinned release binary.",
+  "production_inputs": [
+    {
+      "path": "go-tools/go2vir/bundle_selection.go",
+      "sha256": "b174bacc9a3ee1b3793a48f801b794044b3eafb886dcb7da208666108f34962f",
+      "bytes": 22651,
+      "current_sha256": "b174bacc9a3ee1b3793a48f801b794044b3eafb886dcb7da208666108f34962f",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/canonical_json.go",
+      "sha256": "0b266e9187e97e8a3275978099cafb3cc16edf12c1094d8ef533909bbf22f16b",
+      "bytes": 10460,
+      "current_sha256": "0b266e9187e97e8a3275978099cafb3cc16edf12c1094d8ef533909bbf22f16b",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/contract.go",
+      "sha256": "51316ed3fecbf200f569567f46fd9065c912a41d03299b96021e44c2418c9bda",
+      "bytes": 30100,
+      "current_sha256": "51316ed3fecbf200f569567f46fd9065c912a41d03299b96021e44c2418c9bda",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/emit.go",
+      "sha256": "8e9457ca250c53bbe01de30644dc9085946e807df75737fef5933a3de42916ec",
+      "bytes": 10285,
+      "current_sha256": "8e9457ca250c53bbe01de30644dc9085946e807df75737fef5933a3de42916ec",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/features.go",
+      "sha256": "050c9e7f59d429aeceb82a8fdbbac7a2ef2d78bad4e6759e237ab60508eb69fc",
+      "bytes": 18090,
+      "current_sha256": "050c9e7f59d429aeceb82a8fdbbac7a2ef2d78bad4e6759e237ab60508eb69fc",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/go.mod",
+      "sha256": "b90bfc21fd7a30139ab5852b895e0e1fcb7f8442d01ca4e2463c2ad1cfd15af3",
+      "bytes": 179,
+      "current_sha256": "b90bfc21fd7a30139ab5852b895e0e1fcb7f8442d01ca4e2463c2ad1cfd15af3",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/go.sum",
+      "sha256": "3b423539c29460b977ec958cd53a84c813d2c15a3d2cdfb841f07f3ef7a6104c",
+      "bytes": 632,
+      "current_sha256": "3b423539c29460b977ec958cd53a84c813d2c15a3d2cdfb841f07f3ef7a6104c",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/hash.go",
+      "sha256": "180957d685df429f8c458e503d7e3a3ce4235458dc65daeaa53e4c2e4549d7d8",
+      "bytes": 1258,
+      "current_sha256": "180957d685df429f8c458e503d7e3a3ce4235458dc65daeaa53e4c2e4549d7d8",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/loader.go",
+      "sha256": "6034f01b6e9b2e46adfc131299f21a8b38bbc1415a93de0de91db39eb2f296eb",
+      "bytes": 11318,
+      "current_sha256": "6034f01b6e9b2e46adfc131299f21a8b38bbc1415a93de0de91db39eb2f296eb",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/lower.go",
+      "sha256": "82b8eaad794af22071073a223a7f24cb3bae7ba8143a487f1a9fa794db140052",
+      "bytes": 50967,
+      "current_sha256": "82b8eaad794af22071073a223a7f24cb3bae7ba8143a487f1a9fa794db140052",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/lower_types.go",
+      "sha256": "40378faf14b85bd585b0425b333d1e0b4b66738912e2fbb7a0f3479ce90c33f1",
+      "bytes": 5075,
+      "current_sha256": "40378faf14b85bd585b0425b333d1e0b4b66738912e2fbb7a0f3479ce90c33f1",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/main.go",
+      "sha256": "353468be619893d2235442d8fc686b03c4ab0e15751fc73e94f5777932d50911",
+      "bytes": 14048,
+      "current_sha256": "353468be619893d2235442d8fc686b03c4ab0e15751fc73e94f5777932d50911",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/manifest.go",
+      "sha256": "37c20f41cb3a11b90f5dadba2aaca5e694f4ddb1d058b7d7bfde985e039a6176",
+      "bytes": 9152,
+      "current_sha256": "37c20f41cb3a11b90f5dadba2aaca5e694f4ddb1d058b7d7bfde985e039a6176",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/practical_analysis.go",
+      "sha256": "7681d113cfff36a5d97a8ccc76d2eab5632b764232ae516c778495946f55ef24",
+      "bytes": 13455,
+      "current_sha256": "7681d113cfff36a5d97a8ccc76d2eab5632b764232ae516c778495946f55ef24",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/practical_archive.go",
+      "sha256": "b198df0fa990bbedfd1e0c88bbb444d0bd86f560ccb74b912dc42f0a3b30d957",
+      "bytes": 10987,
+      "current_sha256": "b198df0fa990bbedfd1e0c88bbb444d0bd86f560ccb74b912dc42f0a3b30d957",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/practical_archive_fold.go",
+      "sha256": "5791982a8213e654c8e653f6ffc1da7b9eb1900ad207826eb025e66b7aa1439e",
+      "bytes": 1072,
+      "current_sha256": "5791982a8213e654c8e653f6ffc1da7b9eb1900ad207826eb025e66b7aa1439e",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/practical_capture.go",
+      "sha256": "9328ddf2554d62a22dc916dab5036be4bbb7504b1f64456345e84ccc6383715e",
+      "bytes": 15534,
+      "current_sha256": "9328ddf2554d62a22dc916dab5036be4bbb7504b1f64456345e84ccc6383715e",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/practical_cleanup_go125.go",
+      "sha256": "2fd7b44d266025e697ee0e2f6858b50762ebc192318b48d60b5c67d2bcd34b13",
+      "bytes": 1063,
+      "current_sha256": "2fd7b44d266025e697ee0e2f6858b50762ebc192318b48d60b5c67d2bcd34b13",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/practical_cleanup_unavailable.go",
+      "sha256": "fc04fa620db586e47e3c046af6d57134fb39113de0fca03eacc29ada9e5dbc42",
+      "bytes": 185,
+      "current_sha256": "fc04fa620db586e47e3c046af6d57134fb39113de0fca03eacc29ada9e5dbc42",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/practical_compiler.go",
+      "sha256": "751aa7f5bd191c59e270aa657879113336b5061102f350092d14a53ac409440e",
+      "bytes": 9991,
+      "current_sha256": "751aa7f5bd191c59e270aa657879113336b5061102f350092d14a53ac409440e",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/practical_exports.go",
+      "sha256": "92247836dccddfc403a2247609ea23c8767b144c94e9003e2de9cb3b53c111c4",
+      "bytes": 21708,
+      "current_sha256": "92247836dccddfc403a2247609ea23c8767b144c94e9003e2de9cb3b53c111c4",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/practical_image_inputs.go",
+      "sha256": "dd83fc053f9760bb5cd1c75b6c4624daaa4d04177552f9d983f19e94802b3002",
+      "bytes": 9882,
+      "current_sha256": "dd83fc053f9760bb5cd1c75b6c4624daaa4d04177552f9d983f19e94802b3002",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/practical_module.go",
+      "sha256": "c79cf236d7799e2d6e66d5bd5e883ff56d7f495220b5a905a9df57ef155883ef",
+      "bytes": 5783,
+      "current_sha256": "c79cf236d7799e2d6e66d5bd5e883ff56d7f495220b5a905a9df57ef155883ef",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/practical_module_capture.go",
+      "sha256": "9183743b7a532f5169e9013a75c22cbd7ca7f97669b752c416e46b74def36390",
+      "bytes": 4510,
+      "current_sha256": "9183743b7a532f5169e9013a75c22cbd7ca7f97669b752c416e46b74def36390",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/practical_module_inputs.go",
+      "sha256": "0b4615d58882d1a50b8ed169c795ee84d6f9d0ba2c3b65b3e13c8b1c863d93ce",
+      "bytes": 1881,
+      "current_sha256": "0b4615d58882d1a50b8ed169c795ee84d6f9d0ba2c3b65b3e13c8b1c863d93ce",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/practical_module_snapshot.go",
+      "sha256": "9f3fae6478b88d18d23f59d9b2189d48edbb3bc64ba9cd6a9df8f2139b61601b",
+      "bytes": 4434,
+      "current_sha256": "9f3fae6478b88d18d23f59d9b2189d48edbb3bc64ba9cd6a9df8f2139b61601b",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/practical_namespace.go",
+      "sha256": "138d1c45284c11cf78b8718194670a14be056be69005f466b02c20942e4fcb8a",
+      "bytes": 6259,
+      "current_sha256": "138d1c45284c11cf78b8718194670a14be056be69005f466b02c20942e4fcb8a",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/practical_observation.go",
+      "sha256": "da6418587f9c1880270fa5a4fdfd8b951d6485e420ad894bbc0b0e8ef62a36df",
+      "bytes": 6132,
+      "current_sha256": "da6418587f9c1880270fa5a4fdfd8b951d6485e420ad894bbc0b0e8ef62a36df",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/practical_package.go",
+      "sha256": "5567b2612e07cdac329bb3050fcb6ee3f8f923c9a15461be4a6945697e813ae5",
+      "bytes": 9240,
+      "current_sha256": "5567b2612e07cdac329bb3050fcb6ee3f8f923c9a15461be4a6945697e813ae5",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/practical_replay.go",
+      "sha256": "57453ab28a0dea15810bf3847112a7b23799ed7e9c7121e73c1dd3fdf52da532",
+      "bytes": 14868,
+      "current_sha256": "57453ab28a0dea15810bf3847112a7b23799ed7e9c7121e73c1dd3fdf52da532",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/practical_replay_compare.go",
+      "sha256": "1cbbc4ba5ef946251241ca433299f5a50acafea15492eb97ae9c6b0b080c4ba7",
+      "bytes": 10337,
+      "current_sha256": "1cbbc4ba5ef946251241ca433299f5a50acafea15492eb97ae9c6b0b080c4ba7",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/practical_resolution.go",
+      "sha256": "92e7bd066717592533029b43410a7fd884774b7975507434e96f553c5a7030a3",
+      "bytes": 13426,
+      "current_sha256": "92e7bd066717592533029b43410a7fd884774b7975507434e96f553c5a7030a3",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/practical_root_go125.go",
+      "sha256": "0df55c7d98a83359e5a3b662bd28348c9f970a653a248bfc5dfdb1c8d216bc16",
+      "bytes": 519,
+      "current_sha256": "0df55c7d98a83359e5a3b662bd28348c9f970a653a248bfc5dfdb1c8d216bc16",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/practical_root_unavailable.go",
+      "sha256": "3dc114afa98fcb7cf17dad7cc66b8fbb282bc5b87d201d534c9c44ceb74eaed9",
+      "bytes": 247,
+      "current_sha256": "3dc114afa98fcb7cf17dad7cc66b8fbb282bc5b87d201d534c9c44ceb74eaed9",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/practical_snapshot.go",
+      "sha256": "7efb262dd5c22e504f131a42aa5a7ff12cf90f18a8c0b583ca26be819ba06fc3",
+      "bytes": 9173,
+      "current_sha256": "7efb262dd5c22e504f131a42aa5a7ff12cf90f18a8c0b583ca26be819ba06fc3",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/practical_source.go",
+      "sha256": "25d90659622e069862524c3c8b997d505e811de51e38aa76124503ca47952360",
+      "bytes": 5269,
+      "current_sha256": "25d90659622e069862524c3c8b997d505e811de51e38aa76124503ca47952360",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/practical_stdlib.go",
+      "sha256": "89e816dffaccfce1d6b1623de8b937a123f1b31365c36e8e8208ba26cb02b3ef",
+      "bytes": 9048,
+      "current_sha256": "89e816dffaccfce1d6b1623de8b937a123f1b31365c36e8e8208ba26cb02b3ef",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/practical_syntax.go",
+      "sha256": "3bb22cc6f6ec9f6d3d276490f573008a1b5ba2f390c17afd1aeb62a5022e0feb",
+      "bytes": 8064,
+      "current_sha256": "3bb22cc6f6ec9f6d3d276490f573008a1b5ba2f390c17afd1aeb62a5022e0feb",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/practical_typecheck.go",
+      "sha256": "6dbea1598199e4e1fc0c562906ee2b1e295b03bc90e29bb8a3d4b38e35b16e46",
+      "bytes": 16051,
+      "current_sha256": "6dbea1598199e4e1fc0c562906ee2b1e295b03bc90e29bb8a3d4b38e35b16e46",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/practical_view.go",
+      "sha256": "1b2096c22e4546dd31f6be77f992e0575f8ba63f90394ee31e5ebffcc03a7692",
+      "bytes": 6679,
+      "current_sha256": "1b2096c22e4546dd31f6be77f992e0575f8ba63f90394ee31e5ebffcc03a7692",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/preflight.go",
+      "sha256": "8faf415d2954ac1821dd3c8f7bbf6d58e48ce9a5bbf56fd8d46d91651120d711",
+      "bytes": 27204,
+      "current_sha256": "8faf415d2954ac1821dd3c8f7bbf6d58e48ce9a5bbf56fd8d46d91651120d711",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/protocol.go",
+      "sha256": "11a2088602b48cb339dbff6c1647387df92e0d2308174c56eb2d40bbf088883f",
+      "bytes": 9548,
+      "current_sha256": "11a2088602b48cb339dbff6c1647387df92e0d2308174c56eb2d40bbf088883f",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/registered_selection.go",
+      "sha256": "d232c2c1640447dfece6c372d412d15ff260cae2149979f624a7044759955777",
+      "bytes": 6315,
+      "current_sha256": "d232c2c1640447dfece6c372d412d15ff260cae2149979f624a7044759955777",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/secure_open_unix.go",
+      "sha256": "f53a822b58eae96837789f1d193665f34127ab0b74b842415e4112dc64055369",
+      "bytes": 310,
+      "current_sha256": "f53a822b58eae96837789f1d193665f34127ab0b74b842415e4112dc64055369",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/secure_open_windows.go",
+      "sha256": "fb2c78196c792dc3d4f6d40731e1e3d8edd7237a982125444591724fcb7754d3",
+      "bytes": 579,
+      "current_sha256": "fb2c78196c792dc3d4f6d40731e1e3d8edd7237a982125444591724fcb7754d3",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/snapshot.go",
+      "sha256": "b67ac51476f2d28b37a75fa3cd800c78c0745cdbf2cb9dd16f659be436d9e3ab",
+      "bytes": 5346,
+      "current_sha256": "b67ac51476f2d28b37a75fa3cd800c78c0745cdbf2cb9dd16f659be436d9e3ab",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/source_map.go",
+      "sha256": "393d0d1d7b17f7ceb27b8003fc4aefc85bdd35844621b9a34a974cdb0fdef3f3",
+      "bytes": 5166,
+      "current_sha256": "393d0d1d7b17f7ceb27b8003fc4aefc85bdd35844621b9a34a974cdb0fdef3f3",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/ssa.go",
+      "sha256": "871a444533e536a62aadb828b4c407a58cbd48b595617a17f94075934cb4384e",
+      "bytes": 1183,
+      "current_sha256": "871a444533e536a62aadb828b4c407a58cbd48b595617a17f94075934cb4384e",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/testdata/preflight/valid/go.mod",
+      "sha256": "96a5843d08c3c5310825b54930c7141d63f07f98ec82b06a940c7bd42aa14be6",
+      "bytes": 39,
+      "current_sha256": "96a5843d08c3c5310825b54930c7141d63f07f98ec82b06a940c7bd42aa14be6",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/testdata/preflight/valid/go.sum",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "current_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/testdata/preflight/valid/helper/helper.go",
+      "sha256": "bc072d288433f3f0852fe7ee2a3efbaea582fdbdf6ee89f840b6d44631a2039f",
+      "bytes": 64,
+      "current_sha256": "bc072d288433f3f0852fe7ee2a3efbaea582fdbdf6ee89f840b6d44631a2039f",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/testdata/preflight/valid/identity.go",
+      "sha256": "8c90d31b7a3505ecbadf942995504233241ebfc5fca651597c8062bbae303b0d",
+      "bytes": 121,
+      "current_sha256": "8c90d31b7a3505ecbadf942995504233241ebfc5fca651597c8062bbae303b0d",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/mod/internal/lazyregexp/lazyre.go",
+      "sha256": "2c98e15329ce3fb10d4348f791446d1a7f557b92c954a26a7188dad26f78974b",
+      "bytes": 1871,
+      "current_sha256": "2c98e15329ce3fb10d4348f791446d1a7f557b92c954a26a7188dad26f78974b",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/mod/modfile/print.go",
+      "sha256": "f69e398d1c0f1dad8b704f6b2b7f20e294fc2b7d90ea4ca862c17fbc3fd35514",
+      "bytes": 3870,
+      "current_sha256": "f69e398d1c0f1dad8b704f6b2b7f20e294fc2b7d90ea4ca862c17fbc3fd35514",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/mod/modfile/read.go",
+      "sha256": "ae587831de240effc4b9a3f84fffb1d3e1a73ac29930ccaec0b9db8897370be9",
+      "bytes": 23964,
+      "current_sha256": "ae587831de240effc4b9a3f84fffb1d3e1a73ac29930ccaec0b9db8897370be9",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/mod/modfile/rule.go",
+      "sha256": "2aca758f4006e1f6698fa5570c36ac826959e763d729bf76f44f0514e4510731",
+      "bytes": 50421,
+      "current_sha256": "2aca758f4006e1f6698fa5570c36ac826959e763d729bf76f44f0514e4510731",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/mod/modfile/work.go",
+      "sha256": "ad31b233b102190481c0b6bb6a4b350c9b34ae8836f349431fe297687cb68fc5",
+      "bytes": 7829,
+      "current_sha256": "ad31b233b102190481c0b6bb6a4b350c9b34ae8836f349431fe297687cb68fc5",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/mod/module/module.go",
+      "sha256": "d4ca5a29e60707f0566cc9b2fd1b6c4aef406403440c64d358f51c27da63cfbf",
+      "bytes": 27534,
+      "current_sha256": "d4ca5a29e60707f0566cc9b2fd1b6c4aef406403440c64d358f51c27da63cfbf",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/mod/module/pseudo.go",
+      "sha256": "55f36593e394a3595a52f636028442f6be9ed010a6a7e0403dac980b545a374d",
+      "bytes": 8630,
+      "current_sha256": "55f36593e394a3595a52f636028442f6be9ed010a6a7e0403dac980b545a374d",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/mod/semver/semver.go",
+      "sha256": "23305fff81d9a4a2bcf643f65087287349dfd03c97aea8b7f947b1da1cd1b6a2",
+      "bytes": 9260,
+      "current_sha256": "23305fff81d9a4a2bcf643f65087287349dfd03c97aea8b7f947b1da1cd1b6a2",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/mod/sumdb/dirhash/hash.go",
+      "sha256": "24de6a735c1605e39b6381e6962787faa5c59adab896fb66dbc1ac8b6afcb297",
+      "bytes": 4094,
+      "current_sha256": "24de6a735c1605e39b6381e6962787faa5c59adab896fb66dbc1ac8b6afcb297",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/sync/errgroup/errgroup.go",
+      "sha256": "696b0385dd5f1a165c7d0251160afc3d652b9f64f4a8f64b9a9495e6ac4695eb",
+      "bytes": 4007,
+      "current_sha256": "696b0385dd5f1a165c7d0251160afc3d652b9f64f4a8f64b9a9495e6ac4695eb",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ast/astutil/enclosing.go",
+      "sha256": "d4b16aa6d161c540127e68793394f33aabfd1a405f21dbdc606531b27bb26514",
+      "bytes": 17149,
+      "current_sha256": "d4b16aa6d161c540127e68793394f33aabfd1a405f21dbdc606531b27bb26514",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ast/astutil/imports.go",
+      "sha256": "22a81e013209847faef4e3ef07d77048c0eef52872a45fdaf1f18e461cbf3a14",
+      "bytes": 13898,
+      "current_sha256": "22a81e013209847faef4e3ef07d77048c0eef52872a45fdaf1f18e461cbf3a14",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ast/astutil/rewrite.go",
+      "sha256": "9f4e08f8ae25f0ad3841656bdccfa82f92ef6dcc9c35630771df2d5b2a9a7691",
+      "bytes": 12721,
+      "current_sha256": "9f4e08f8ae25f0ad3841656bdccfa82f92ef6dcc9c35630771df2d5b2a9a7691",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ast/astutil/util.go",
+      "sha256": "c4fd6def2830db96b562cebddbe0e253f50f42f06b902a02ddbbb307e4a4884f",
+      "bytes": 369,
+      "current_sha256": "c4fd6def2830db96b562cebddbe0e253f50f42f06b902a02ddbbb307e4a4884f",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/buildutil/allpackages.go",
+      "sha256": "6d6e3c1cf1165f5c9b0aa22679e6273c71cc65010e242dafadacf31801df4c9b",
+      "bytes": 5050,
+      "current_sha256": "6d6e3c1cf1165f5c9b0aa22679e6273c71cc65010e242dafadacf31801df4c9b",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/buildutil/fakecontext.go",
+      "sha256": "6ded146e1702086fbc8c280cc6c44386c3987c76b919d670912effb7380b4a76",
+      "bytes": 3405,
+      "current_sha256": "6ded146e1702086fbc8c280cc6c44386c3987c76b919d670912effb7380b4a76",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/buildutil/overlay.go",
+      "sha256": "8f815669fe88022c66f2c300ae140720f09bc80100cd263b85b02c4f0159d760",
+      "bytes": 2930,
+      "current_sha256": "8f815669fe88022c66f2c300ae140720f09bc80100cd263b85b02c4f0159d760",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/buildutil/tags.go",
+      "sha256": "0eb4410cbe907f4dbbb0495159120665e523e83c7293972ddcbfe1eb48e7126d",
+      "bytes": 2740,
+      "current_sha256": "0eb4410cbe907f4dbbb0495159120665e523e83c7293972ddcbfe1eb48e7126d",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/buildutil/util.go",
+      "sha256": "44ab7b94eee0b950e1a67e7830b651359552ec2f8eec7fb6f8d63e778fb5d90c",
+      "bytes": 5871,
+      "current_sha256": "44ab7b94eee0b950e1a67e7830b651359552ec2f8eec7fb6f8d63e778fb5d90c",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/gcexportdata/gcexportdata.go",
+      "sha256": "11d7509118b6ea206c3eed768f3d9f48208cd1263e7b40adf92da7ec0b63e0e4",
+      "bytes": 9205,
+      "current_sha256": "11d7509118b6ea206c3eed768f3d9f48208cd1263e7b40adf92da7ec0b63e0e4",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/gcexportdata/importer.go",
+      "sha256": "144f9060e1cf20b36b8ca2930da56b08d3ea79fece33424bc13f420b56ea08da",
+      "bytes": 2026,
+      "current_sha256": "144f9060e1cf20b36b8ca2930da56b08d3ea79fece33424bc13f420b56ea08da",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/internal/cgo/cgo.go",
+      "sha256": "144d7ea9c29a7e301bd39ecdacb697730c45d3c8988474d1ad40f943bc8ff043",
+      "bytes": 7387,
+      "current_sha256": "144d7ea9c29a7e301bd39ecdacb697730c45d3c8988474d1ad40f943bc8ff043",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/internal/cgo/cgo_pkgconfig.go",
+      "sha256": "a092411fb0cba1e8d8dfbdbfbd9f739c584e7dd7525d8d63c295c4180710f3aa",
+      "bytes": 1140,
+      "current_sha256": "a092411fb0cba1e8d8dfbdbfbd9f739c584e7dd7525d8d63c295c4180710f3aa",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/loader/doc.go",
+      "sha256": "340f40b536bba5ff9032e872d08e258a927e035b46e60629237fc73df59e8451",
+      "bytes": 9563,
+      "current_sha256": "340f40b536bba5ff9032e872d08e258a927e035b46e60629237fc73df59e8451",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/loader/loader.go",
+      "sha256": "065421b19cfa4e89d859c2d160d9957b4e6d7a0b090c4895132b452a8cc9d8de",
+      "bytes": 33800,
+      "current_sha256": "065421b19cfa4e89d859c2d160d9957b4e6d7a0b090c4895132b452a8cc9d8de",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/loader/util.go",
+      "sha256": "102a6f34c9675e5087ae99647c36afa9b12f7dc786e2109cc9a7d5e01b438444",
+      "bytes": 2998,
+      "current_sha256": "102a6f34c9675e5087ae99647c36afa9b12f7dc786e2109cc9a7d5e01b438444",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/packages/doc.go",
+      "sha256": "4a6d8ed8c653c2c3dfbe566ce30a0eece34df2bcadc012cc230b4ac92ca4d9fe",
+      "bytes": 12441,
+      "current_sha256": "4a6d8ed8c653c2c3dfbe566ce30a0eece34df2bcadc012cc230b4ac92ca4d9fe",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/packages/external.go",
+      "sha256": "913aeda530dbc214b50ebd179d3a5aded8855ed2e121451b512903eb1b174974",
+      "bytes": 5338,
+      "current_sha256": "913aeda530dbc214b50ebd179d3a5aded8855ed2e121451b512903eb1b174974",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/packages/golist.go",
+      "sha256": "3cefc07d6729d09989d99f293d51e2755efdfdfaee4acbc33d79650822db6133",
+      "bytes": 38018,
+      "current_sha256": "3cefc07d6729d09989d99f293d51e2755efdfdfaee4acbc33d79650822db6133",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/packages/golist_overlay.go",
+      "sha256": "771f2fc0133663f07056923ccd0bc22a00732d1d58cf3dd40961812e477ad9df",
+      "bytes": 2404,
+      "current_sha256": "771f2fc0133663f07056923ccd0bc22a00732d1d58cf3dd40961812e477ad9df",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/packages/loadmode_string.go",
+      "sha256": "b2ab5a9e57f504018fa50045ee8af11db90e7097bb3aa910a820b8a1cf757b39",
+      "bytes": 1238,
+      "current_sha256": "b2ab5a9e57f504018fa50045ee8af11db90e7097bb3aa910a820b8a1cf757b39",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/packages/packages.go",
+      "sha256": "578858b8bc69e9cd19effaa8d6b7a141eb4d161a44d4deda57b9c1bfef6ff73b",
+      "bytes": 50647,
+      "current_sha256": "578858b8bc69e9cd19effaa8d6b7a141eb4d161a44d4deda57b9c1bfef6ff73b",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/packages/visit.go",
+      "sha256": "0d697e86d8c1673d1c1cfa0014f3da44faf3ffd18fab7632e8f88b5084c46ac5",
+      "bytes": 1780,
+      "current_sha256": "0d697e86d8c1673d1c1cfa0014f3da44faf3ffd18fab7632e8f88b5084c46ac5",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/block.go",
+      "sha256": "2ad41f66924645eb5238cc4475c5cd0e219adbcbcf05bbc004f8a07ca35ba483",
+      "bytes": 2848,
+      "current_sha256": "2ad41f66924645eb5238cc4475c5cd0e219adbcbcf05bbc004f8a07ca35ba483",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/blockopt.go",
+      "sha256": "f6af102e18988740f4f78c321dfc5942a3d71d69501a17f7cabecfeb1dd8882a",
+      "bytes": 4484,
+      "current_sha256": "f6af102e18988740f4f78c321dfc5942a3d71d69501a17f7cabecfeb1dd8882a",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/builder.go",
+      "sha256": "9cce5e887959a2c8d7dc025bbfca1a364725fe99cc45f2833c000704533acf12",
+      "bytes": 94291,
+      "current_sha256": "9cce5e887959a2c8d7dc025bbfca1a364725fe99cc45f2833c000704533acf12",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/const.go",
+      "sha256": "1e6747e387435f242da8baa22d45c4ff19220f7be298c1dbd8d55a5c76e17c6d",
+      "bytes": 5208,
+      "current_sha256": "1e6747e387435f242da8baa22d45c4ff19220f7be298c1dbd8d55a5c76e17c6d",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/create.go",
+      "sha256": "92e39cf494ce588cc0e5aa2e0bdfb56b0a1dc0e43a440d3918b43211d210f8ee",
+      "bytes": 8924,
+      "current_sha256": "92e39cf494ce588cc0e5aa2e0bdfb56b0a1dc0e43a440d3918b43211d210f8ee",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/doc.go",
+      "sha256": "6b395cddfeccacbc321c6511d6e48dc5b74b707f9c8a6f4034f0646ed8b30957",
+      "bytes": 6017,
+      "current_sha256": "6b395cddfeccacbc321c6511d6e48dc5b74b707f9c8a6f4034f0646ed8b30957",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/dom.go",
+      "sha256": "9871bc1973a6a506b1a2422c8b7ade7283b7ba2ee9d7b797ae17522492cde5f9",
+      "bytes": 9672,
+      "current_sha256": "9871bc1973a6a506b1a2422c8b7ade7283b7ba2ee9d7b797ae17522492cde5f9",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/emit.go",
+      "sha256": "0e6233bd623c8a72cdeef46fc1976726df65a47995a6cd69f32e7196732a3d07",
+      "bytes": 17249,
+      "current_sha256": "0e6233bd623c8a72cdeef46fc1976726df65a47995a6cd69f32e7196732a3d07",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/func.go",
+      "sha256": "c708d9fc7d788d5176c4f490ed685841ee68949ec565351f71c4ac3283f6d43a",
+      "bytes": 24057,
+      "current_sha256": "c708d9fc7d788d5176c4f490ed685841ee68949ec565351f71c4ac3283f6d43a",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/instantiate.go",
+      "sha256": "0ffe4cc113fb4dabd3038cd01e59aa6f9b3f9e5ca7960e9b6cf4a0707b1f73aa",
+      "bytes": 3598,
+      "current_sha256": "0ffe4cc113fb4dabd3038cd01e59aa6f9b3f9e5ca7960e9b6cf4a0707b1f73aa",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/lift.go",
+      "sha256": "b9da517437891c942788bbe22ab9e98bfa069cf227d7ddc64b283610b19fad76",
+      "bytes": 19285,
+      "current_sha256": "b9da517437891c942788bbe22ab9e98bfa069cf227d7ddc64b283610b19fad76",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/lvalue.go",
+      "sha256": "32f162a4303393ebd80d615b56b58ac075a35c9361d125e3b2557221977805b4",
+      "bytes": 4166,
+      "current_sha256": "32f162a4303393ebd80d615b56b58ac075a35c9361d125e3b2557221977805b4",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/methods.go",
+      "sha256": "3a8356704edb80ac102f7db1474bdcb94470d96cab44a04d67cf9150dc5280e6",
+      "bytes": 5198,
+      "current_sha256": "3a8356704edb80ac102f7db1474bdcb94470d96cab44a04d67cf9150dc5280e6",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/mode.go",
+      "sha256": "e8c757b27722b7cf60bdc802c125376bf9ae5f9c51014b9e3dad483f06906c76",
+      "bytes": 3219,
+      "current_sha256": "e8c757b27722b7cf60bdc802c125376bf9ae5f9c51014b9e3dad483f06906c76",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/print.go",
+      "sha256": "c344b1b6ab172da1230698fd7040f5c6f8253c29bb4eaac1d79b3dab01819f70",
+      "bytes": 11055,
+      "current_sha256": "c344b1b6ab172da1230698fd7040f5c6f8253c29bb4eaac1d79b3dab01819f70",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/sanity.go",
+      "sha256": "9a2288a93f981531c55aad81e153d80bb06e2422e8ae249bcda2333fdcfb43a5",
+      "bytes": 18304,
+      "current_sha256": "9a2288a93f981531c55aad81e153d80bb06e2422e8ae249bcda2333fdcfb43a5",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/source.go",
+      "sha256": "28ac1e6ec3315042b116b16cb7000a7829765fed4e8a5af04374e9abb587e638",
+      "bytes": 9467,
+      "current_sha256": "28ac1e6ec3315042b116b16cb7000a7829765fed4e8a5af04374e9abb587e638",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/ssa.go",
+      "sha256": "53c7d3587184ef3870150ff2f36f061e02f426882afd73efd79ed4e81e624894",
+      "bytes": 65046,
+      "current_sha256": "53c7d3587184ef3870150ff2f36f061e02f426882afd73efd79ed4e81e624894",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/ssautil/deprecated.go",
+      "sha256": "ac67c09546bb1bae69cc0f50d6fbb5dcb9e9437d3c0413a2ba14198dcdbb9a7d",
+      "bytes": 1088,
+      "current_sha256": "ac67c09546bb1bae69cc0f50d6fbb5dcb9e9437d3c0413a2ba14198dcdbb9a7d",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/ssautil/load.go",
+      "sha256": "75d8dfc8c53af6a209147e419d6ebf0b637d21de527972b1ecaf5922d69715c0",
+      "bytes": 6785,
+      "current_sha256": "75d8dfc8c53af6a209147e419d6ebf0b637d21de527972b1ecaf5922d69715c0",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/ssautil/switch.go",
+      "sha256": "b482570dcd2c671ccecd79edc9fa2db4a0b8b63baf3fbdd97128478a4aba4617",
+      "bytes": 6955,
+      "current_sha256": "b482570dcd2c671ccecd79edc9fa2db4a0b8b63baf3fbdd97128478a4aba4617",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/ssautil/visit.go",
+      "sha256": "8a7a6bd2b641012ef17b06e4d4b43e0ea3df4a432979a5699eb1274459e31301",
+      "bytes": 5182,
+      "current_sha256": "8a7a6bd2b641012ef17b06e4d4b43e0ea3df4a432979a5699eb1274459e31301",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/subst.go",
+      "sha256": "8d8412e368d69d2d88ccd082535307444a85b92459334eb53a3e6b4a0180e63d",
+      "bytes": 19762,
+      "current_sha256": "8d8412e368d69d2d88ccd082535307444a85b92459334eb53a3e6b4a0180e63d",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/task.go",
+      "sha256": "f90f38ebaea5edc6703885b3a7fc8b16f2078fadf20eaeb6331dd72760b7bfd1",
+      "bytes": 2943,
+      "current_sha256": "f90f38ebaea5edc6703885b3a7fc8b16f2078fadf20eaeb6331dd72760b7bfd1",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/typeset.go",
+      "sha256": "b040023683a602c27c8927b8b2b54578a664c53568a70973e8746d64bcad5d19",
+      "bytes": 4912,
+      "current_sha256": "b040023683a602c27c8927b8b2b54578a664c53568a70973e8746d64bcad5d19",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/util.go",
+      "sha256": "39603595b62b4d8bc9c2c797bfc8268564d2ca3d3e0c6682aee42e3ced649106",
+      "bytes": 10820,
+      "current_sha256": "39603595b62b4d8bc9c2c797bfc8268564d2ca3d3e0c6682aee42e3ced649106",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/wrappers.go",
+      "sha256": "16025b548f1236d9c0fadfe8c7d1348db6c711345b979182204b1f724228a9e1",
+      "bytes": 10060,
+      "current_sha256": "16025b548f1236d9c0fadfe8c7d1348db6c711345b979182204b1f724228a9e1",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/types/objectpath/objectpath.go",
+      "sha256": "ccb1916e084d1de3d7ed826a570fd37d97ebb7234001fb3e182b73633cb93659",
+      "bytes": 25795,
+      "current_sha256": "ccb1916e084d1de3d7ed826a570fd37d97ebb7234001fb3e182b73633cb93659",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/types/typeutil/callee.go",
+      "sha256": "b37197ad34f51938d5fbf72d10941f7d3d3d611b8c4dcca5bbebd9e3c9ce1c68",
+      "bytes": 2675,
+      "current_sha256": "b37197ad34f51938d5fbf72d10941f7d3d3d611b8c4dcca5bbebd9e3c9ce1c68",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/types/typeutil/imports.go",
+      "sha256": "0ae519946446f6dbe09a616e3c63373c2582b335ccf7b0f754b411dc2bcc407e",
+      "bytes": 883,
+      "current_sha256": "0ae519946446f6dbe09a616e3c63373c2582b335ccf7b0f754b411dc2bcc407e",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/types/typeutil/map.go",
+      "sha256": "2ff104e4e79d0bff03184c502b02724f07fa778f4dd60d0ac4d15472ad6d8553",
+      "bytes": 12379,
+      "current_sha256": "2ff104e4e79d0bff03184c502b02724f07fa778f4dd60d0ac4d15472ad6d8553",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/types/typeutil/methodsetcache.go",
+      "sha256": "100c78e2baf07de1d4a620904ffb0a57ef440392629c6324fce3a385811627f2",
+      "bytes": 2132,
+      "current_sha256": "100c78e2baf07de1d4a620904ffb0a57ef440392629c6324fce3a385811627f2",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/types/typeutil/ui.go",
+      "sha256": "f3fab1cec5e81bdf56207ebf00a54b739c636624a4c6ab3d9b2ec26a7a486560",
+      "bytes": 1680,
+      "current_sha256": "f3fab1cec5e81bdf56207ebf00a54b739c636624a4c6ab3d9b2ec26a7a486560",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/aliases/aliases.go",
+      "sha256": "9ca766639a703d9c3b0ba68c6182068f42417e70fcca831dc6499077d87b4b90",
+      "bytes": 1414,
+      "current_sha256": "9ca766639a703d9c3b0ba68c6182068f42417e70fcca831dc6499077d87b4b90",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/aliases/aliases_go122.go",
+      "sha256": "7fa6b0412b405a2296016c7fdb0fab26639e2ea42d8bdde6d056be1e6b4a4f9a",
+      "bytes": 2838,
+      "current_sha256": "7fa6b0412b405a2296016c7fdb0fab26639e2ea42d8bdde6d056be1e6b4a4f9a",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/event/core/event.go",
+      "sha256": "6d2acef1c114259b059f9228abde12c42fd0c5d8079c101aa2be4ab6701fe6e1",
+      "bytes": 2126,
+      "current_sha256": "6d2acef1c114259b059f9228abde12c42fd0c5d8079c101aa2be4ab6701fe6e1",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/event/core/export.go",
+      "sha256": "5e21b09d6630036c00f5963ccbd8494b3138693880ad19ca4355fa3a02d5db60",
+      "bytes": 2248,
+      "current_sha256": "5e21b09d6630036c00f5963ccbd8494b3138693880ad19ca4355fa3a02d5db60",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/event/core/fast.go",
+      "sha256": "eeca498a9f3c6057f571c9836a5f0c6ae2cfa9ae71a43961f935fb3db8dda83e",
+      "bytes": 2222,
+      "current_sha256": "eeca498a9f3c6057f571c9836a5f0c6ae2cfa9ae71a43961f935fb3db8dda83e",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/event/doc.go",
+      "sha256": "b445c134d90b26e77a83d413fc1be3033e2ba8979c10efb3d46280e70392e890",
+      "bytes": 298,
+      "current_sha256": "b445c134d90b26e77a83d413fc1be3033e2ba8979c10efb3d46280e70392e890",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/event/event.go",
+      "sha256": "7c047e8aae01bd441f81bb710e9dc26a639b0bd7cdf1f6b55d425103046f33a1",
+      "bytes": 4464,
+      "current_sha256": "7c047e8aae01bd441f81bb710e9dc26a639b0bd7cdf1f6b55d425103046f33a1",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/event/keys/keys.go",
+      "sha256": "a70eef67a67b5ae5ade4e3905466c06a7ef2a06e9fe615082b4f50f78ac3ecc0",
+      "bytes": 15856,
+      "current_sha256": "a70eef67a67b5ae5ade4e3905466c06a7ef2a06e9fe615082b4f50f78ac3ecc0",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/event/keys/standard.go",
+      "sha256": "a148501721c061870eed1bd936028157e6b3b109391763dafb00888b3a221b60",
+      "bytes": 961,
+      "current_sha256": "a148501721c061870eed1bd936028157e6b3b109391763dafb00888b3a221b60",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/event/keys/util.go",
+      "sha256": "0df0a7d65008baf347371eb61c8dd26d3c1eb6f22099f605ee9716d76f2dcd35",
+      "bytes": 488,
+      "current_sha256": "0df0a7d65008baf347371eb61c8dd26d3c1eb6f22099f605ee9716d76f2dcd35",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/event/label/label.go",
+      "sha256": "3dba9ef645843ef0d98414482f60b5e0ca08c0a36427283e4e136c0bc94e8961",
+      "bytes": 5671,
+      "current_sha256": "3dba9ef645843ef0d98414482f60b5e0ca08c0a36427283e4e136c0bc94e8961",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gcimporter/bimport.go",
+      "sha256": "f5b8b401f4b36fdd589ba4c836fb1c74929ee63db2bad349d7092b9f24e1ad64",
+      "bytes": 2016,
+      "current_sha256": "f5b8b401f4b36fdd589ba4c836fb1c74929ee63db2bad349d7092b9f24e1ad64",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gcimporter/exportdata.go",
+      "sha256": "5d3acd6def1174913b2f1256492a3ca671d578f67b6907fcb548294dfcc114dd",
+      "bytes": 12356,
+      "current_sha256": "5d3acd6def1174913b2f1256492a3ca671d578f67b6907fcb548294dfcc114dd",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gcimporter/gcimporter.go",
+      "sha256": "2e615f50e10859939ddb1f8baa3eb94c6ba7f9a5b4a39e87687f1d9c4c1b7d4f",
+      "bytes": 3136,
+      "current_sha256": "2e615f50e10859939ddb1f8baa3eb94c6ba7f9a5b4a39e87687f1d9c4c1b7d4f",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gcimporter/iexport.go",
+      "sha256": "8eb3cf50185b0a1861c8e33d016192ec42f32b8eb30ea547457d6c39f18c1fa4",
+      "bytes": 43385,
+      "current_sha256": "8eb3cf50185b0a1861c8e33d016192ec42f32b8eb30ea547457d6c39f18c1fa4",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gcimporter/iimport.go",
+      "sha256": "b4b8ec555f6c97d1a74ea1fb2b9306b22424c90b9bc8ced656151c6ffc3d3ebc",
+      "bytes": 28798,
+      "current_sha256": "b4b8ec555f6c97d1a74ea1fb2b9306b22424c90b9bc8ced656151c6ffc3d3ebc",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gcimporter/iimport_go122.go",
+      "sha256": "f11a6b62c87b052147f166374bc6885317575c866ec8cb5e2c33d94551ebffae",
+      "bytes": 1087,
+      "current_sha256": "f11a6b62c87b052147f166374bc6885317575c866ec8cb5e2c33d94551ebffae",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gcimporter/predeclared.go",
+      "sha256": "c749f1f8f79b08ec0ff11e963f54b264e2edcf1d8a79e654c9776a550e0f936a",
+      "bytes": 2116,
+      "current_sha256": "c749f1f8f79b08ec0ff11e963f54b264e2edcf1d8a79e654c9776a550e0f936a",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gcimporter/support.go",
+      "sha256": "c03a9375b40c46a4ee4f8b4b89fc5b04abb60cff8f84815229febfaaffb28bc0",
+      "bytes": 697,
+      "current_sha256": "c03a9375b40c46a4ee4f8b4b89fc5b04abb60cff8f84815229febfaaffb28bc0",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gcimporter/ureader_yes.go",
+      "sha256": "d37b69bc6374e76004da2b1bb91c3c34e53b728ebf2ce2de271492f303b47706",
+      "bytes": 19607,
+      "current_sha256": "d37b69bc6374e76004da2b1bb91c3c34e53b728ebf2ce2de271492f303b47706",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gocommand/invoke.go",
+      "sha256": "6a07f4ecd3e7566643810962ba551001b50bd4403e87a915327899f0cd6d55a5",
+      "bytes": 17409,
+      "current_sha256": "6a07f4ecd3e7566643810962ba551001b50bd4403e87a915327899f0cd6d55a5",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gocommand/invoke_notunix.go",
+      "sha256": "df5c54077bf4ba9f2674cef5ccaa81e779d15dbb405845dec4ffaa4522f0c211",
+      "bytes": 377,
+      "current_sha256": "df5c54077bf4ba9f2674cef5ccaa81e779d15dbb405845dec4ffaa4522f0c211",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gocommand/invoke_unix.go",
+      "sha256": "d2157f049e3394fa873136bd180fd295e46d543b8f13dd1542ffa21665bdf0c6",
+      "bytes": 361,
+      "current_sha256": "d2157f049e3394fa873136bd180fd295e46d543b8f13dd1542ffa21665bdf0c6",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gocommand/vendor.go",
+      "sha256": "e945f1e01b59274b673488b1cbb5a0bdb470b47d26c0dfdc12f859e5860fe3be",
+      "bytes": 5242,
+      "current_sha256": "e945f1e01b59274b673488b1cbb5a0bdb470b47d26c0dfdc12f859e5860fe3be",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gocommand/version.go",
+      "sha256": "5fdbec1757ec9f0a9a4c19d52f5dacef9268210dd0997fce2930abd378cf03e8",
+      "bytes": 2284,
+      "current_sha256": "5fdbec1757ec9f0a9a4c19d52f5dacef9268210dd0997fce2930abd378cf03e8",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/packagesinternal/packages.go",
+      "sha256": "fc0553fc12bd0244147a183719504350895c81eea15ce8bd46a63568cb3dd2aa",
+      "bytes": 788,
+      "current_sha256": "fc0553fc12bd0244147a183719504350895c81eea15ce8bd46a63568cb3dd2aa",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/pkgbits/codes.go",
+      "sha256": "5c461c53bbb51051b771cdf19529769d1f2ebfc477a55d79c577cec8d9fb36b8",
+      "bytes": 1726,
+      "current_sha256": "5c461c53bbb51051b771cdf19529769d1f2ebfc477a55d79c577cec8d9fb36b8",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/pkgbits/decoder.go",
+      "sha256": "c33bc4c61be2941ad7e548add06486b9c42b6aa65cb15514089fccf19b946e06",
+      "bytes": 13766,
+      "current_sha256": "c33bc4c61be2941ad7e548add06486b9c42b6aa65cb15514089fccf19b946e06",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/pkgbits/doc.go",
+      "sha256": "1d77eb03ea757b7e5dfccb19f21cd37881afaf7c54a9168b12ed703ef6033744",
+      "bytes": 1543,
+      "current_sha256": "1d77eb03ea757b7e5dfccb19f21cd37881afaf7c54a9168b12ed703ef6033744",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/pkgbits/encoder.go",
+      "sha256": "0518a4b2e6be4f9429d1b73b97388ae79574291383d131967700bb8101048cb3",
+      "bytes": 9781,
+      "current_sha256": "0518a4b2e6be4f9429d1b73b97388ae79574291383d131967700bb8101048cb3",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/pkgbits/flags.go",
+      "sha256": "4f999d54f9614c9c2aa162e048fdec78158bbcafebeef188a2fef9a347a8e488",
+      "bytes": 253,
+      "current_sha256": "4f999d54f9614c9c2aa162e048fdec78158bbcafebeef188a2fef9a347a8e488",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/pkgbits/reloc.go",
+      "sha256": "04fe1a5ee6398ee088d2c358ffbbf5610b9a86f4db79616ae7ca823fe5365e38",
+      "bytes": 835,
+      "current_sha256": "04fe1a5ee6398ee088d2c358ffbbf5610b9a86f4db79616ae7ca823fe5365e38",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/pkgbits/support.go",
+      "sha256": "b21d95c059b9f6c697d2e5a4fe6907650402d26bd6d0207f2297906cd7753543",
+      "bytes": 336,
+      "current_sha256": "b21d95c059b9f6c697d2e5a4fe6907650402d26bd6d0207f2297906cd7753543",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/pkgbits/sync.go",
+      "sha256": "4f6b2ae8d2bef0eced46e8baf60c4b0f096615fbd8e1c10ca351e2c1e181de7d",
+      "bytes": 2475,
+      "current_sha256": "4f6b2ae8d2bef0eced46e8baf60c4b0f096615fbd8e1c10ca351e2c1e181de7d",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/pkgbits/syncmarker_string.go",
+      "sha256": "0d2ff4992c445a0c06f3a99f53f743d169e3affd7a3b7602bfcd47c99290f994",
+      "bytes": 2989,
+      "current_sha256": "0d2ff4992c445a0c06f3a99f53f743d169e3affd7a3b7602bfcd47c99290f994",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/pkgbits/version.go",
+      "sha256": "6ac51749ef68e607e0b517de0cb202ca19dbdea299be75e0ba3440837b45ca23",
+      "bytes": 2444,
+      "current_sha256": "6ac51749ef68e607e0b517de0cb202ca19dbdea299be75e0ba3440837b45ca23",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/stdlib/deps.go",
+      "sha256": "45cc3b108d99b510dcc7e29c110d0750dc663faae26c468ce94013f8bd609732",
+      "bytes": 17802,
+      "current_sha256": "45cc3b108d99b510dcc7e29c110d0750dc663faae26c468ce94013f8bd609732",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/stdlib/import.go",
+      "sha256": "616c6c669e1252a653965b65d8784bfb40a2f1185565bda3cb29fe6704ef0464",
+      "bytes": 2518,
+      "current_sha256": "616c6c669e1252a653965b65d8784bfb40a2f1185565bda3cb29fe6704ef0464",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/stdlib/manifest.go",
+      "sha256": "f82a44714aafdf9c1cf9da430737591d64fe71b3874ecf1a587e7c987e3bc068",
+      "bytes": 697762,
+      "current_sha256": "f82a44714aafdf9c1cf9da430737591d64fe71b3874ecf1a587e7c987e3bc068",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/stdlib/stdlib.go",
+      "sha256": "6eb0d62fad82e62b84d37c24b9bec2596f475b04466871414722ef1f0b83bf3a",
+      "bytes": 2858,
+      "current_sha256": "6eb0d62fad82e62b84d37c24b9bec2596f475b04466871414722ef1f0b83bf3a",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typeparams/common.go",
+      "sha256": "897b914268f42beefb0e6c22121b59b6f89d915e18923b1f65f5153331344ea7",
+      "bytes": 2078,
+      "current_sha256": "897b914268f42beefb0e6c22121b59b6f89d915e18923b1f65f5153331344ea7",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typeparams/coretype.go",
+      "sha256": "7dc166581791474e92609c5a176153a134d506a89ed9ed253283e163914f66b9",
+      "bytes": 5506,
+      "current_sha256": "7dc166581791474e92609c5a176153a134d506a89ed9ed253283e163914f66b9",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typeparams/free.go",
+      "sha256": "b6411d6084f544aa7634356a009275c894cb8ce9a103bf17fe3a12640de0bb9a",
+      "bytes": 3159,
+      "current_sha256": "b6411d6084f544aa7634356a009275c894cb8ce9a103bf17fe3a12640de0bb9a",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typeparams/normalize.go",
+      "sha256": "3466cd5d44ac24f1dd392cbc99217a04bbe03d94f6dac1122f74c2da54594131",
+      "bytes": 6844,
+      "current_sha256": "3466cd5d44ac24f1dd392cbc99217a04bbe03d94f6dac1122f74c2da54594131",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typeparams/termlist.go",
+      "sha256": "12c02e6bfb07862b3c689521de7f140d709764615ba45a217c0975fef36775bc",
+      "bytes": 4066,
+      "current_sha256": "12c02e6bfb07862b3c689521de7f140d709764615ba45a217c0975fef36775bc",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typeparams/typeterm.go",
+      "sha256": "8b07ccdb692525921710ac25043c57b3a1472eda1bc2dfc701b9793835a662d2",
+      "bytes": 3835,
+      "current_sha256": "8b07ccdb692525921710ac25043c57b3a1472eda1bc2dfc701b9793835a662d2",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typesinternal/classify_call.go",
+      "sha256": "2a4cfa556b5a6c01e982a547ad18a65a7d36ca2b3783b1baeb0d74937becd0a9",
+      "bytes": 3657,
+      "current_sha256": "2a4cfa556b5a6c01e982a547ad18a65a7d36ca2b3783b1baeb0d74937becd0a9",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typesinternal/element.go",
+      "sha256": "4db7ab3cedff579a6fdd38f27e61afb4a1422f49c5c5fac4ae8ef3d5261d4136",
+      "bytes": 4018,
+      "current_sha256": "4db7ab3cedff579a6fdd38f27e61afb4a1422f49c5c5fac4ae8ef3d5261d4136",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typesinternal/errorcode.go",
+      "sha256": "194f42c4cfa2bcb5ac5ebd9b8400a6424d4ffb4d2e4996d3763598791467207b",
+      "bytes": 34767,
+      "current_sha256": "194f42c4cfa2bcb5ac5ebd9b8400a6424d4ffb4d2e4996d3763598791467207b",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typesinternal/errorcode_string.go",
+      "sha256": "32f91e4d3af45b513dffba82d283db0c5981ce6aa16172a74b65aed383956b8e",
+      "bytes": 7664,
+      "current_sha256": "32f91e4d3af45b513dffba82d283db0c5981ce6aa16172a74b65aed383956b8e",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typesinternal/qualifier.go",
+      "sha256": "83d9e4277e0c47c1003224a07b39c50d0b9b696a9dd744594c4d1e32692bd590",
+      "bytes": 1226,
+      "current_sha256": "83d9e4277e0c47c1003224a07b39c50d0b9b696a9dd744594c4d1e32692bd590",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typesinternal/recv.go",
+      "sha256": "c8787e980f61efeab19c99ca7dc4d1f318b9fa77c3952add7f82be3c947b47b0",
+      "bytes": 1411,
+      "current_sha256": "c8787e980f61efeab19c99ca7dc4d1f318b9fa77c3952add7f82be3c947b47b0",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typesinternal/toonew.go",
+      "sha256": "54cff0151c458fce40c8e85746718c415087863df29229f6168ded7e338ba2c4",
+      "bytes": 2943,
+      "current_sha256": "54cff0151c458fce40c8e85746718c415087863df29229f6168ded7e338ba2c4",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typesinternal/types.go",
+      "sha256": "543aecec3a36dc1aaa3f9e04fe81d8c7bc69adce7eb3fb544ece5f7b4322650f",
+      "bytes": 4766,
+      "current_sha256": "543aecec3a36dc1aaa3f9e04fe81d8c7bc69adce7eb3fb544ece5f7b4322650f",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typesinternal/varkind.go",
+      "sha256": "576a8a171f0363590ed52e599328684eab41aa40e6b908f95c1abaf411d967f8",
+      "bytes": 1141,
+      "current_sha256": "576a8a171f0363590ed52e599328684eab41aa40e6b908f95c1abaf411d967f8",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typesinternal/zerovalue.go",
+      "sha256": "b33371d9438a3cfcdcbe8409d5f5351ee2e0a427c0436d777c7f291337e873b3",
+      "bytes": 10864,
+      "current_sha256": "b33371d9438a3cfcdcbe8409d5f5351ee2e0a427c0436d777c7f291337e873b3",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/versions/features.go",
+      "sha256": "98ab11824e7856eee2e4a3149b24bfa42bcf3a28297604edb3d8aedbdcbeddc5",
+      "bytes": 1330,
+      "current_sha256": "98ab11824e7856eee2e4a3149b24bfa42bcf3a28297604edb3d8aedbdcbeddc5",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/versions/gover.go",
+      "sha256": "fe5a58b005181f17e132c3261ce552a58454d178356bf8a5f294914d3915a750",
+      "bytes": 4297,
+      "current_sha256": "fe5a58b005181f17e132c3261ce552a58454d178356bf8a5f294914d3915a750",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/versions/types.go",
+      "sha256": "e08b60c8fe9503229f2e5dac29d84ba092e14aba41824e68f201b338e40930a6",
+      "bytes": 1180,
+      "current_sha256": "e08b60c8fe9503229f2e5dac29d84ba092e14aba41824e68f201b338e40930a6",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/versions/versions.go",
+      "sha256": "c63d071bcf95bb6a3f1f869a51255198980de8c36ddbff20227653cd33b4769d",
+      "bytes": 2030,
+      "current_sha256": "c63d071bcf95bb6a3f1f869a51255198980de8c36ddbff20227653cd33b4769d",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vendor/modules.txt",
+      "sha256": "7acbaa5ff9b089a9665dae3dc009d872df913a55db4391bf1280243ddb60a99c",
+      "bytes": 1152,
+      "current_sha256": "7acbaa5ff9b089a9665dae3dc009d872df913a55db4391bf1280243ddb60a99c",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vir_limits.go",
+      "sha256": "35c56519d657de24f9c32555b5048e68411fe4d37e5f3875c5a540ff8d6a980a",
+      "bytes": 8636,
+      "current_sha256": "35c56519d657de24f9c32555b5048e68411fe4d37e5f3875c5a540ff8d6a980a",
+      "unchanged": true
+    },
+    {
+      "path": "go-tools/go2vir/vir_types.go",
+      "sha256": "46acb9fd47787e916b970f9f4d2736c0edeeb474aa842bb047a5bdae23c1177a",
+      "bytes": 17461,
+      "current_sha256": "46acb9fd47787e916b970f9f4d2736c0edeeb474aa842bb047a5bdae23c1177a",
+      "unchanged": true
+    }
+  ]
+}

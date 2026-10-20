@@ -4,8 +4,7 @@
     {
       "implementation_test_owners": [
         "crates/mpk-api/src/v1_tests.rs",
-        "crates/mpk-api/src/v2_tests.rs",
-        "crates/mpk-cli/tests/java_policy_verify.rs"
+        "crates/mpk-api/src/v2_tests.rs"
       ],
       "owning_spec": "develop/specs/AI_API_V1.md",
       "path": "develop/specs/vectors/ai-api-v1.json",
@@ -15,8 +14,7 @@
     {
       "implementation_test_owners": [
         "crates/mpk-cli/tests/ai_explain_v1.rs",
-        "crates/mpk-cli/tests/csharp_ai_explain.rs",
-        "crates/mpk-cli/tests/java_policy_verify.rs"
+        "crates/mpk-cli/tests/successor_ai_explain.rs"
       ],
       "owning_spec": "develop/specs/AI_EXPLAIN_V1.md",
       "path": "develop/specs/vectors/ai-explain-v1.json",
@@ -32,7 +30,7 @@
       "owning_spec": "develop/specs/CORE_BOOL_TYPE_CASES_V1.md",
       "path": "develop/specs/vectors/core-bool-type-cases-v1.json",
       "schema_id": "mpk.core.bool_type_cases.conformance.v1",
-      "sha256": "07afeaac5fe0e102a3171a76156663033600242fe69228b8604942b016f425d1"
+      "sha256": "aed4f165e28749017acb3344b1dd3050983a52fa8e1fa5c708c703f082f4d424"
     },
     {
       "implementation_test_owners": [
@@ -43,47 +41,7 @@
       "owning_spec": "develop/specs/CORE_NAT_INDUCTION_V1.md",
       "path": "develop/specs/vectors/core-nat-induction-v1.json",
       "schema_id": "mpk.core.nat_induction.conformance.v1",
-      "sha256": "c73736197be2909631b35ee3f3830929a1513c0a898244d94c85c3c796e65f88"
-    },
-    {
-      "implementation_test_owners": [
-        "crates/mpk-vc/tests/csharp_practical_spec.rs"
-      ],
-      "owning_spec": "develop/specs/CSHARP_PRACTICAL_FOUNDATION_V1.md",
-      "path": "develop/specs/vectors/csharp-practical-foundation-v1.json",
-      "schema_id": "mpk.csharp.practical.foundation.conformance.v1",
-      "sha256": "05faabe132256a9051164214b8c4726856f62e5767c4fcd41b01f1ffd8a86988"
-    },
-    {
-      "implementation_test_owners": [
-        "crates/mpk-vc/tests/csharp_practical_spec.rs"
-      ],
-      "owning_spec": "develop/specs/CSHARP_PRACTICAL_PROFILE_V1.md",
-      "path": "develop/specs/vectors/csharp-practical-profile-v1.json",
-      "schema_id": "mpk.csharp.practical.profile.conformance.v1",
-      "sha256": "de401830e1cd4221465d25c6fe31dad7d704ae8959edfc1145db8099f7bfffa6"
-    },
-    {
-      "implementation_test_owners": [
-        "crates/mpk-vc/tests/csharp_profile_spec.rs",
-        "crates/mpk-cli/tests/csharp_capture.rs",
-        "crates/mpk-cli/tests/csharp_roslyn_session.rs",
-        "crates/mpk-cli/tests/csharp_subset.rs",
-        "crates/mpk-cli/tests/csharp_contracts.rs",
-        "crates/mpk-cli/tests/csharp_lowering.rs",
-        "crates/mpk-cli/tests/csharp_emission.rs",
-        "crates/mpk-cli/tests/csharp_frontend_vectors.rs",
-        "crates/mpk-cli/tests/csharp_frontend_runner.rs",
-        "crates/mpk-vc/tests/successor_vc.rs",
-        "crates/mpk-cli/tests/csharp_policy_verify.rs",
-        "crates/mpk-cli/tests/csharp_ai_explain.rs",
-        "crates/mpk-api/src/v2_tests.rs",
-        "crates/mpk-cli/tests/csharp_profile_vectors.rs"
-      ],
-      "owning_spec": "develop/specs/CSHARP_PROFILE_V0.md",
-      "path": "develop/specs/vectors/csharp-profile-v0.json",
-      "schema_id": "mpk.csharp.profile.conformance.v0",
-      "sha256": "8109f781ca1f2b90ba02f786da09ba97602f4cd484b8835b561d5ecf4e7781c8"
+      "sha256": "cd6626fb4745ce9d6ce8e14d51e441cf90cab64db34b5d41f41dc35b09b55524"
     },
     {
       "implementation_test_owners": [
@@ -104,7 +62,7 @@
       "owning_spec": "develop/specs/GO_PRACTICAL_FOUNDATION_V1.md",
       "path": "develop/specs/vectors/go-practical-foundation-v1.json",
       "schema_id": "mpk.go.practical.foundation.conformance.v1",
-      "sha256": "3bbcc8a0b61a123ee10142bc2d8ff400b83c3f1e372e8c33dffb33b76b8a2055"
+      "sha256": "5a1f4af71328abf4677bbb812192fd93952fbb7ddcfb265d9ab886f5d7de1e65"
     },
     {
       "implementation_test_owners": [
@@ -114,7 +72,7 @@
       "owning_spec": "develop/specs/GO_PRACTICAL_PROFILE_V1.md",
       "path": "develop/specs/vectors/go-practical-profile-v1.json",
       "schema_id": "mpk.go.practical.profile.conformance.v1",
-      "sha256": "3a99c4bc0fd81f0c9de94e76282e3f288fae55d51dc50b962c866b86f0a5da8b"
+      "sha256": "1ebb9d8471bd264a5fcf4ce362bcbc5be348866800f363e38e174ea61ca3f729"
     },
     {
       "implementation_test_owners": [
@@ -124,7 +82,7 @@
       "owning_spec": "develop/specs/GO_PRACTICAL_SHARED_ARTIFACTS_V1.md",
       "path": "develop/specs/vectors/go-practical-shared-artifacts-v1.json",
       "schema_id": "mpk.go.practical.shared_artifacts.conformance.v1",
-      "sha256": "82237353bb04222f75620ef397a0eaa82f3673351ad8bff7c328a3b887a6ea27"
+      "sha256": "75a92bb107851a32a08d908271eeba40f17d6ad0032dc3b92056b8c7f36c16e0"
     },
     {
       "implementation_test_owners": [
@@ -136,34 +94,6 @@
       "path": "develop/specs/vectors/go-vir-profile-v0.json",
       "schema_id": "mpk.go.vir_profile.conformance.v0",
       "sha256": "1b408f57739eff2f053ea2c9e13fc7e78ee15ab72388b56e3f251fc1cf700dab"
-    },
-    {
-      "implementation_test_owners": [
-        "crates/mpk-vc/tests/java_profile_spec.rs",
-        "crates/mpk-cli/tests/java_build_inputs.rs",
-        "crates/mpk-vc/tests/java_profile_vectors.rs",
-        "crates/mpk-cli/tests/java_frontend_vectors.rs",
-        "crates/mpk-cli/tests/java_subset.rs",
-        "crates/mpk-cli/tests/java_contracts.rs",
-        "crates/mpk-cli/tests/java_lowering.rs",
-        "crates/mpk-cli/tests/java_source_maps.rs",
-        "crates/mpk-cli/tests/java_frontend_runner.rs",
-        "crates/mpk-cli/tests/java_policy_verify.rs",
-        "crates/mpk-cli/tests/java_release_gate.rs"
-      ],
-      "owning_spec": "develop/specs/JAVA_PROFILE_V0.md",
-      "path": "develop/specs/vectors/java-profile-v0.json",
-      "schema_id": "mpk.java.profile.conformance.v0",
-      "sha256": "6d5b467efd44cdf044f21e34adf53a87c9c06ede78f664107b5e246794e1aea0"
-    },
-    {
-      "implementation_test_owners": [
-        "crates/mpk-cli/tests/java_release_gate.rs"
-      ],
-      "owning_spec": "develop/specs/JAVA_PROFILE_V0.md",
-      "path": "develop/specs/vectors/java-t09-corpus.json",
-      "schema_id": "mpk.java.t09.corpus.v0",
-      "sha256": "870071158bffb23ca08a71a33aa9632030a6c38cfb67bc2ca7c4bd9d154f6938"
     },
     {
       "implementation_test_owners": [
@@ -235,10 +165,10 @@
         "crates/mpk-vc/tests/semantic_profile_registry_runtime.rs",
         "crates/mpk-vc/tests/successor_source_artifacts.rs",
         "crates/mpk-vc/tests/successor_vc.rs",
-        "crates/mpk-cli/tests/csharp_policy_verify.rs",
-        "crates/mpk-cli/tests/csharp_ai_explain.rs",
         "crates/mpk-api/src/v2_tests.rs",
-        "crates/mpk-cli/tests/successor_atomic_cutover.rs"
+        "crates/mpk-cli/tests/successor_atomic_cutover.rs",
+        "crates/mpk-cli/tests/successor_ai_explain.rs",
+        "crates/mpk-cli/tests/successor_policy_verify.rs"
       ],
       "owning_spec": "develop/specs/SEMANTIC_PROFILE_REGISTRY_V1.md",
       "path": "develop/specs/vectors/semantic-profile-registry-v1.json",
@@ -247,30 +177,12 @@
     },
     {
       "implementation_test_owners": [
-        "crates/mpk-vc/tests/csharp_profile_spec.rs",
-        "crates/mpk-vc/tests/semantic_profile_registry_runtime.rs",
-        "crates/mpk-vc/tests/successor_vc.rs",
-        "crates/mpk-cli/tests/csharp_policy_verify.rs",
-        "crates/mpk-cli/tests/csharp_ai_explain.rs",
-        "crates/mpk-api/src/v2_tests.rs",
-        "crates/mpk-cli/tests/successor_atomic_cutover.rs"
+        "crates/mpk-vc/tests/semantic_profile_registry_runtime.rs"
       ],
-      "owning_spec": "develop/specs/CSHARP_PROFILE_V0.md",
-      "path": "develop/specs/vectors/semantic-profile-registry-v2.json",
-      "schema_id": "mpk.semantic_profile.registry.conformance.v2",
-      "sha256": "19c657283836cb920f5c971f9c84ab267d48ea724c05bc1628de4889b4dd059f"
-    },
-    {
-      "implementation_test_owners": [
-        "crates/mpk-vc/tests/java_profile_spec.rs",
-        "crates/mpk-vc/tests/java_profile_vectors.rs",
-        "crates/mpk-cli/tests/java_policy_verify.rs",
-        "crates/mpk-cli/tests/java_release_gate.rs"
-      ],
-      "owning_spec": "develop/specs/JAVA_PROFILE_V0.md",
-      "path": "develop/specs/vectors/semantic-profile-registry-v3.json",
-      "schema_id": "mpk.semantic_profile.registry.conformance.v3",
-      "sha256": "fde7ed93585f6d3f9772f2703d3bdd3f87793520981d4472a8673101fdb24c4b"
+      "owning_spec": "develop/specs/LANGUAGE_SUPPORT_SCOPE_V1.md",
+      "path": "develop/specs/vectors/semantic-profile-registry-v4.json",
+      "schema_id": "mpk.semantic_profile.registry.go_rust.v1",
+      "sha256": "96a084493bf7e5c5323bbe3d1b478215e85173d1bc8f7503e84e446f1ff15dcd"
     },
     {
       "implementation_test_owners": [

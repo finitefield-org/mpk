@@ -29,25 +29,17 @@ pub const SUCCESSOR_BUNDLE_CANDIDATE_SCHEMA: &str = "mpk.release.bundle_candidat
 pub const SUCCESSOR_RELEASE_REGISTRY_HASH_DOMAIN: HashDomain =
     HashDomain::new("MPK-BUNDLE-REGISTRY-1.0");
 pub const ACTIVE_RELEASE_REGISTRY_SHA256: &str =
-    "7877c7c04fae912815713a8a7f6f9900198721ea572788f6f48d1dbe3f00afbd";
-pub const CSHARP_FRONTEND_BUNDLE_ID: &str = "frontend.csharp.csharp2vir.candidate.v1";
-pub const CSHARP_TOOLCHAIN_BUNDLE_ID: &str =
-    "toolchain.csharp.roslyn-5_6_0.dotnet-10_0_11.candidate.v1";
-pub const CSHARP_FRONTEND_SHA256: &str =
-    "e245d50913f8589be6fd763aa9185d3812b932a5dabc0e21ed03744eafa09f49";
-pub const CSHARP_HOST_PROFILE_ID: &str = "mpk.host.linux-x86_64-gnu.glibc2_27.cgroup2_tmpfs.v0";
-pub const CSHARP_RUNTIME_LAYOUT_ID: &str =
-    "mpk.runtime.linux-x86_64-gnu.glibc2_27.cgroup2_tmpfs.v0";
-pub const GO_FRONTEND_BUNDLE_ID: &str = "frontend.go.go2vir.candidate.v1";
+    "ca8215be15326c32d7523f25590586c37d6fc7ef6646aecf784fba0bfc8163f0";
+pub const GO_FRONTEND_BUNDLE_ID: &str = "frontend.go.go2vir.candidate.v2";
 pub const GO_TOOLCHAIN_BUNDLE_ID: &str = "toolchain.go.go1.25.0.linux-amd64.candidate.v1";
 pub const GO_FRONTEND_SHA256: &str =
-    "62dda4ba6589347eea5e4d59b035b41988fc6cab65088c1039e79ecbc92e8bff";
-pub const RUST_FRONTEND_BUNDLE_ID: &str = "frontend.rust.rust2vir.candidate.v2";
+    "ccc4a984d41b5da7b3a6838cbfaeee3eb23f675a2e4d7fb5d4f9fcd7e597d538";
+pub const RUST_FRONTEND_BUNDLE_ID: &str = "frontend.rust.rust2vir.candidate.v3";
 pub const RUST_TOOLCHAIN_BUNDLE_ID: &str = "toolchain.rust.nightly-2025-06-01.candidate.v1";
 pub const RUST_FRONTEND_SHA256: &str =
-    "dd8715c3a54e0e02a940cfac5b61ed87d0ca8afb9b6259e853c0dd700e32f344";
+    "c51eaa33b0953f2b21295b880beaf0d3a684c54d4910ecdc9f4f7238919579ab";
 pub const RUST_DRIVER_SHA256: &str =
-    "84d2c05f7c9e49b68c5eb79dde3566791d52f2603baa10e2bcf8f9f4ad7c3da7";
+    "7c7ef17e7b2742cfdec6170d78b09c2a50e8a95cab1aa4e72ea2b88c779290b3";
 pub const RUST_TOOLCHAIN_DISTRIBUTION_SHA256: &str =
     "86dab73dadd3a3184064e7d7da7e878562eba4cfc4c8a969bc8f44a5e865c90a";
 
@@ -600,11 +592,8 @@ fn validate_projection(
             semantic_registry,
             ProfileContractField::Release,
         )?;
-        // C# has a private frontend limit in addition to the shared VIR
-        // artifact limit. Go's existing frontend limit is the shared one.
+        // Both supported frontends use the shared VIR artifact limit.
         let expected_frontend_limit = match context.semantic_profile() {
-            "mpk.csharp.scalar.v0" => "mpk.csharp.limits.v0",
-            "mpk.java.scalar.v0" => "mpk.java.limits.v0",
             "mpk.go.fixed.v0" | "mpk.rust.checked.v0" => "mpk.vir.limits.v0",
             _ => return Err(contract_failure()),
         };
@@ -636,11 +625,7 @@ fn validate_projection(
             validate_rust_release_contract(toolchain, release_contract)?;
             validate_rust_runtime_linkage(frontend, toolchain, layouts)?;
         }
-        if context.semantic_profile() == "mpk.java.scalar.v0"
-            && !crate::java_release::exact_release(frontend, toolchain, hosts, layouts)
-        {
-            return Err(linkage_failure());
-        }
+
         let context_key = serde_json::to_string(&tuple.semantic_context).map_err(|_| {
             failure(
                 SuccessorReleaseValidationPhase::Order,
@@ -708,11 +693,6 @@ fn validate_frontend(
     frontend: &SuccessorFrontendBundle,
     semantic_registry: &ValidatedSemanticProfileRegistry,
 ) -> Result<(), SuccessorReleaseError> {
-    if frontend.bundle_id == crate::java_release::FRONTEND_ID
-        && frontend != &crate::java_release::candidate().frontend_bundles[0]
-    {
-        return Err(linkage_failure());
-    }
     if frontend.schema != SUCCESSOR_FRONTEND_BUNDLE_SCHEMA
         || !valid_identifier(&frontend.bundle_id)
         || frontend.name.is_empty()
@@ -756,27 +736,7 @@ fn validate_frontend(
     for binary in &frontend.subordinate_binaries {
         validate_executable_record(binary, &files, false)?;
     }
-    if frontend.bundle_id == CSHARP_FRONTEND_BUNDLE_ID
-        && (frontend.name != "csharp2vir"
-            || frontend.version != "0.1.0"
-            || frontend.main.path != "csharp2vir.dll"
-            || frontend.main.binary_sha256 != CSHARP_FRONTEND_SHA256
-            || !matches!(frontend.main.runtime, ExecutableRuntime::Static)
-            || frontend
-                .subordinate_binaries
-                .iter()
-                .map(|binary| binary.name.as_str())
-                .collect::<Vec<_>>()
-                != [
-                    "Microsoft.CodeAnalysis.CSharp.dll",
-                    "Microsoft.CodeAnalysis.dll",
-                ])
-    {
-        return Err(failure(
-            SuccessorReleaseValidationPhase::Linkage,
-            SuccessorReleaseErrorCode::Linkage,
-        ));
-    }
+
     if frontend.bundle_id == GO_FRONTEND_BUNDLE_ID
         && (frontend.name != "go2vir"
             || frontend.version != "go1.25.0-profile-v1-staging"
@@ -824,14 +784,9 @@ fn validate_frontend(
 fn validate_toolchain(
     toolchain: &SuccessorToolchainBundle,
     hosts: &[ExecutionHostProfile],
-    layouts: &[NativeRuntimeLayoutProfile],
+    _layouts: &[NativeRuntimeLayoutProfile],
     semantic_registry: &ValidatedSemanticProfileRegistry,
 ) -> Result<(), SuccessorReleaseError> {
-    if toolchain.bundle_id == crate::java_release::TOOLCHAIN_ID
-        && toolchain != &crate::java_release::candidate().toolchain_bundles[0]
-    {
-        return Err(linkage_failure());
-    }
     if toolchain.schema != SUCCESSOR_TOOLCHAIN_BUNDLE_SCHEMA
         || !valid_identifier(&toolchain.bundle_id)
         || !hosts
@@ -912,28 +867,7 @@ fn validate_toolchain(
     if covered.len() != root_files.len() {
         return Err(inventory_failure());
     }
-    if toolchain.bundle_id == CSHARP_TOOLCHAIN_BUNDLE_ID {
-        let names = toolchain
-            .components
-            .iter()
-            .map(ToolchainComponent::name)
-            .collect::<Vec<_>>();
-        if toolchain.execution_host_profile_id != CSHARP_HOST_PROFILE_ID
-            || names
-                != [
-                    "dotnet",
-                    "dotnet-runtime",
-                    "native-runtime",
-                    "reference-pack",
-                ]
-        {
-            return Err(failure(
-                SuccessorReleaseValidationPhase::Linkage,
-                SuccessorReleaseErrorCode::Linkage,
-            ));
-        }
-        validate_csharp_runtime_linkage(toolchain, layouts, &root_files)?;
-    }
+
     if toolchain.bundle_id == RUST_TOOLCHAIN_BUNDLE_ID {
         let names = toolchain
             .components
@@ -1019,39 +953,6 @@ fn rust_toolchain_components_are_exact(components: &[ToolchainComponent]) -> boo
         }
         _ => false,
     })
-}
-
-fn validate_csharp_runtime_linkage(
-    toolchain: &SuccessorToolchainBundle,
-    layouts: &[NativeRuntimeLayoutProfile],
-    root_files: &BTreeMap<&str, &InventoryFile>,
-) -> Result<(), SuccessorReleaseError> {
-    let layout = layouts
-        .iter()
-        .find(|layout| layout.id == CSHARP_RUNTIME_LAYOUT_ID)
-        .ok_or_else(inventory_failure)?;
-    let native_inventory = toolchain
-        .components
-        .iter()
-        .find_map(|component| match component {
-            ToolchainComponent::Content {
-                name, inventory, ..
-            } if name == "native-runtime" => Some(inventory),
-            _ => None,
-        })
-        .ok_or_else(inventory_failure)?;
-    let native_files = inventory_files(native_inventory);
-    let runtime = toolchain
-        .components
-        .iter()
-        .find_map(|component| match component {
-            ToolchainComponent::Executable { name, runtime, .. } if name == "dotnet" => {
-                Some(runtime)
-            }
-            _ => None,
-        })
-        .ok_or_else(inventory_failure)?;
-    validate_dynamic_runtime_linkage(runtime, layout, &native_files, root_files)
 }
 
 fn validate_dynamic_runtime_linkage(

@@ -1,0 +1,262 @@
+{
+  "language": "rust",
+  "started_at_utc": "2026-10-20T15:44:52.481386+00:00",
+  "native_release_acceptance": false,
+  "selection_reason": "Language scope requires new compiled registry identity in both supported frontends. Two independent builds use the exact pinned compiler/link flags; no Go/Rust runtime semantics or proof limits are reduced.",
+  "status": "passed",
+  "outputs": [
+    {
+      "rust2vir": {
+        "path": "/private/tmp/mpk-go-rust-scope/build-rust-retry-first/target/x86_64-unknown-linux-gnu/release/rust2vir",
+        "sha256": "c51eaa33b0953f2b21295b880beaf0d3a684c54d4910ecdc9f4f7238919579ab",
+        "bytes": 3444704
+      },
+      "rust2vir-driver": {
+        "path": "/private/tmp/mpk-go-rust-scope/build-rust-retry-first/target/x86_64-unknown-linux-gnu/release/rust2vir-driver",
+        "sha256": "7c7ef17e7b2742cfdec6170d78b09c2a50e8a95cab1aa4e72ea2b88c779290b3",
+        "bytes": 1477088
+      }
+    },
+    {
+      "rust2vir": {
+        "path": "/private/tmp/mpk-go-rust-scope/build-rust-retry-second/target/x86_64-unknown-linux-gnu/release/rust2vir",
+        "sha256": "c51eaa33b0953f2b21295b880beaf0d3a684c54d4910ecdc9f4f7238919579ab",
+        "bytes": 3444704
+      },
+      "rust2vir-driver": {
+        "path": "/private/tmp/mpk-go-rust-scope/build-rust-retry-second/target/x86_64-unknown-linux-gnu/release/rust2vir-driver",
+        "sha256": "7c7ef17e7b2742cfdec6170d78b09c2a50e8a95cab1aa4e72ea2b88c779290b3",
+        "bytes": 1477088
+      }
+    }
+  ],
+  "byte_identical": true,
+  "commands": [
+    {
+      "command": [
+        "/usr/bin/git",
+        "ls-files",
+        "release/build-input-cache"
+      ],
+      "exit_code": 0,
+      "seconds": 0.03433990478515625,
+      "stdout": {
+        "path": "develop/migrations/go-rust-only/verification/build-rust-retry/command-00.stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "develop/migrations/go-rust-only/verification/build-rust-retry/command-00.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "command": [
+        "/usr/local/bin/docker",
+        "image",
+        "inspect",
+        "docker.io/library/ubuntu@sha256:dca176c9663a7ba4c1f0e710986f5a25e672842963d95b960191e2d9f7185ebe"
+      ],
+      "exit_code": 0,
+      "seconds": 0.19850802421569824
+    },
+    {
+      "command": [
+        "/usr/local/bin/docker",
+        "run",
+        "--rm",
+        "--pull=never",
+        "--network=none",
+        "--ipc=none",
+        "--platform=linux/amd64",
+        "--read-only",
+        "--user=65534:65534",
+        "--cap-drop=ALL",
+        "--security-opt=no-new-privileges",
+        "--security-opt=seccomp=unconfined",
+        "--pids-limit=-1",
+        "--ulimit=nofile=4096:4096",
+        "--tmpfs=/mpk/home:rw,nosuid,nodev,noexec,mode=0777",
+        "--tmpfs=/mpk/cargo-home:rw,nosuid,nodev,noexec,mode=0777",
+        "--tmpfs=/mpk/tmp:rw,nosuid,nodev,noexec,mode=1777",
+        "--tmpfs=/mpk/work:rw,nosuid,nodev,noexec,mode=0777",
+        "--mount=type=bind,src=/Users/kazuyoshitoshiya/ff/mpk/rust-tools/rust2vir,dst=/mpk/frontend,readonly",
+        "--mount=type=bind,src=/Users/kazuyoshitoshiya/ff/mpk/release/build-input-cache/rust/2fa1c788c00506390b422ba01fc101b99001be5bc1146f2a43c340742f7d3cf6/toolchain,dst=/mpk/toolchain,readonly",
+        "--mount=type=bind,src=/Users/kazuyoshitoshiya/ff/mpk/release/build-input-cache/rust/2fa1c788c00506390b422ba01fc101b99001be5bc1146f2a43c340742f7d3cf6/vendor,dst=/mpk/vendor,readonly",
+        "--mount=type=bind,src=/Users/kazuyoshitoshiya/ff/mpk/release/build-input-cache/rust/2fa1c788c00506390b422ba01fc101b99001be5bc1146f2a43c340742f7d3cf6/cargo-home-seed/config.toml,dst=/mpk/cargo-home/config.toml,readonly",
+        "--mount=type=bind,src=/Users/kazuyoshitoshiya/ff/mpk/release/build-input-cache/rust/2fa1c788c00506390b422ba01fc101b99001be5bc1146f2a43c340742f7d3cf6/native-sysroot,dst=/mpk/native-sysroot,readonly",
+        "--mount=type=bind,src=/Users/kazuyoshitoshiya/ff/mpk/release/build-input-cache/rust/2fa1c788c00506390b422ba01fc101b99001be5bc1146f2a43c340742f7d3cf6/native-runtime,dst=/mpk/native-runtime,readonly",
+        "--mount=type=bind,src=/Users/kazuyoshitoshiya/ff/mpk/release/build-input-cache/rust/2fa1c788c00506390b422ba01fc101b99001be5bc1146f2a43c340742f7d3cf6/native-runtime/lib64,dst=/lib64,readonly",
+        "--mount=type=bind,src=/Users/kazuyoshitoshiya/ff/mpk/release/build-input-cache/rust/2fa1c788c00506390b422ba01fc101b99001be5bc1146f2a43c340742f7d3cf6/native-runtime/lib/x86_64-linux-gnu,dst=/lib/x86_64-linux-gnu,readonly",
+        "--mount=type=bind,src=/Users/kazuyoshitoshiya/ff/mpk/release/build-input-cache/rust/2fa1c788c00506390b422ba01fc101b99001be5bc1146f2a43c340742f7d3cf6/native-runtime/lib/x86_64-linux-gnu,dst=/usr/lib/x86_64-linux-gnu,readonly",
+        "--mount=type=bind,src=/private/tmp/mpk-go-rust-scope/build-rust-retry-first/target,dst=/mpk/target",
+        "--workdir=/mpk/frontend",
+        "docker.io/library/ubuntu@sha256:dca176c9663a7ba4c1f0e710986f5a25e672842963d95b960191e2d9f7185ebe",
+        "/usr/bin/env",
+        "-i",
+        "AR=/mpk/toolchain/bin/llvm-ar",
+        "CARGO_BUILD_JOBS=1",
+        "CARGO_ENCODED_RUSTFLAGS=-Clinker=/mpk/toolchain/bin/clang\u001f-Clink-arg=--sysroot=/mpk/native-sysroot\u001f-Clink-arg=-fuse-ld=lld\u001f--remap-path-prefix=/mpk/frontend=.",
+        "CARGO_HOME=/mpk/cargo-home",
+        "CARGO_INCREMENTAL=0",
+        "CARGO_NET_OFFLINE=true",
+        "CARGO_TARGET_DIR=/mpk/target",
+        "CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_LINKER=/mpk/toolchain/bin/clang",
+        "CARGO_TERM_COLOR=never",
+        "CC=/mpk/toolchain/bin/clang",
+        "CFLAGS=--sysroot=/mpk/native-sysroot -fdebug-prefix-map=/mpk/frontend=.",
+        "CXX=/mpk/toolchain/bin/clang++",
+        "CXXFLAGS=--sysroot=/mpk/native-sysroot -fdebug-prefix-map=/mpk/frontend=.",
+        "HOME=/mpk/home",
+        "LANG=C",
+        "LC_ALL=C",
+        "LD_LIBRARY_PATH=/mpk/toolchain/lib",
+        "PATH=/mpk/toolchain/bin",
+        "RANLIB=/mpk/toolchain/bin/llvm-ranlib",
+        "RUSTC=/mpk/toolchain/bin/rustc",
+        "RUST_BACKTRACE=0",
+        "SOURCE_DATE_EPOCH=1748736000",
+        "TERM=dumb",
+        "TMPDIR=/mpk/tmp",
+        "TZ=UTC",
+        "/mpk/toolchain/bin/cargo",
+        "build",
+        "--locked",
+        "--offline",
+        "--release",
+        "--bins",
+        "--target",
+        "x86_64-unknown-linux-gnu",
+        "--jobs",
+        "1"
+      ],
+      "exit_code": 0,
+      "seconds": 69.79411005973816,
+      "stdout": {
+        "path": "develop/migrations/go-rust-only/verification/build-rust-retry/command-02.stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "develop/migrations/go-rust-only/verification/build-rust-retry/command-02.stderr.log",
+        "sha256": "ef5058ea5f134240bb2548b58cf9d48c0f7c0abd949d450bc78f06a5b6fd393b",
+        "bytes": 108
+      }
+    },
+    {
+      "command": [
+        "/usr/bin/git",
+        "ls-files",
+        "release/build-input-cache"
+      ],
+      "exit_code": 0,
+      "seconds": 0.13303518295288086,
+      "stdout": {
+        "path": "develop/migrations/go-rust-only/verification/build-rust-retry/command-03.stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "develop/migrations/go-rust-only/verification/build-rust-retry/command-03.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "command": [
+        "/usr/local/bin/docker",
+        "image",
+        "inspect",
+        "docker.io/library/ubuntu@sha256:dca176c9663a7ba4c1f0e710986f5a25e672842963d95b960191e2d9f7185ebe"
+      ],
+      "exit_code": 0,
+      "seconds": 0.03697800636291504
+    },
+    {
+      "command": [
+        "/usr/local/bin/docker",
+        "run",
+        "--rm",
+        "--pull=never",
+        "--network=none",
+        "--ipc=none",
+        "--platform=linux/amd64",
+        "--read-only",
+        "--user=65534:65534",
+        "--cap-drop=ALL",
+        "--security-opt=no-new-privileges",
+        "--security-opt=seccomp=unconfined",
+        "--pids-limit=-1",
+        "--ulimit=nofile=4096:4096",
+        "--tmpfs=/mpk/home:rw,nosuid,nodev,noexec,mode=0777",
+        "--tmpfs=/mpk/cargo-home:rw,nosuid,nodev,noexec,mode=0777",
+        "--tmpfs=/mpk/tmp:rw,nosuid,nodev,noexec,mode=1777",
+        "--tmpfs=/mpk/work:rw,nosuid,nodev,noexec,mode=0777",
+        "--mount=type=bind,src=/Users/kazuyoshitoshiya/ff/mpk/rust-tools/rust2vir,dst=/mpk/frontend,readonly",
+        "--mount=type=bind,src=/Users/kazuyoshitoshiya/ff/mpk/release/build-input-cache/rust/2fa1c788c00506390b422ba01fc101b99001be5bc1146f2a43c340742f7d3cf6/toolchain,dst=/mpk/toolchain,readonly",
+        "--mount=type=bind,src=/Users/kazuyoshitoshiya/ff/mpk/release/build-input-cache/rust/2fa1c788c00506390b422ba01fc101b99001be5bc1146f2a43c340742f7d3cf6/vendor,dst=/mpk/vendor,readonly",
+        "--mount=type=bind,src=/Users/kazuyoshitoshiya/ff/mpk/release/build-input-cache/rust/2fa1c788c00506390b422ba01fc101b99001be5bc1146f2a43c340742f7d3cf6/cargo-home-seed/config.toml,dst=/mpk/cargo-home/config.toml,readonly",
+        "--mount=type=bind,src=/Users/kazuyoshitoshiya/ff/mpk/release/build-input-cache/rust/2fa1c788c00506390b422ba01fc101b99001be5bc1146f2a43c340742f7d3cf6/native-sysroot,dst=/mpk/native-sysroot,readonly",
+        "--mount=type=bind,src=/Users/kazuyoshitoshiya/ff/mpk/release/build-input-cache/rust/2fa1c788c00506390b422ba01fc101b99001be5bc1146f2a43c340742f7d3cf6/native-runtime,dst=/mpk/native-runtime,readonly",
+        "--mount=type=bind,src=/Users/kazuyoshitoshiya/ff/mpk/release/build-input-cache/rust/2fa1c788c00506390b422ba01fc101b99001be5bc1146f2a43c340742f7d3cf6/native-runtime/lib64,dst=/lib64,readonly",
+        "--mount=type=bind,src=/Users/kazuyoshitoshiya/ff/mpk/release/build-input-cache/rust/2fa1c788c00506390b422ba01fc101b99001be5bc1146f2a43c340742f7d3cf6/native-runtime/lib/x86_64-linux-gnu,dst=/lib/x86_64-linux-gnu,readonly",
+        "--mount=type=bind,src=/Users/kazuyoshitoshiya/ff/mpk/release/build-input-cache/rust/2fa1c788c00506390b422ba01fc101b99001be5bc1146f2a43c340742f7d3cf6/native-runtime/lib/x86_64-linux-gnu,dst=/usr/lib/x86_64-linux-gnu,readonly",
+        "--mount=type=bind,src=/private/tmp/mpk-go-rust-scope/build-rust-retry-second/target,dst=/mpk/target",
+        "--workdir=/mpk/frontend",
+        "docker.io/library/ubuntu@sha256:dca176c9663a7ba4c1f0e710986f5a25e672842963d95b960191e2d9f7185ebe",
+        "/usr/bin/env",
+        "-i",
+        "AR=/mpk/toolchain/bin/llvm-ar",
+        "CARGO_BUILD_JOBS=1",
+        "CARGO_ENCODED_RUSTFLAGS=-Clinker=/mpk/toolchain/bin/clang\u001f-Clink-arg=--sysroot=/mpk/native-sysroot\u001f-Clink-arg=-fuse-ld=lld\u001f--remap-path-prefix=/mpk/frontend=.",
+        "CARGO_HOME=/mpk/cargo-home",
+        "CARGO_INCREMENTAL=0",
+        "CARGO_NET_OFFLINE=true",
+        "CARGO_TARGET_DIR=/mpk/target",
+        "CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_LINKER=/mpk/toolchain/bin/clang",
+        "CARGO_TERM_COLOR=never",
+        "CC=/mpk/toolchain/bin/clang",
+        "CFLAGS=--sysroot=/mpk/native-sysroot -fdebug-prefix-map=/mpk/frontend=.",
+        "CXX=/mpk/toolchain/bin/clang++",
+        "CXXFLAGS=--sysroot=/mpk/native-sysroot -fdebug-prefix-map=/mpk/frontend=.",
+        "HOME=/mpk/home",
+        "LANG=C",
+        "LC_ALL=C",
+        "LD_LIBRARY_PATH=/mpk/toolchain/lib",
+        "PATH=/mpk/toolchain/bin",
+        "RANLIB=/mpk/toolchain/bin/llvm-ranlib",
+        "RUSTC=/mpk/toolchain/bin/rustc",
+        "RUST_BACKTRACE=0",
+        "SOURCE_DATE_EPOCH=1748736000",
+        "TERM=dumb",
+        "TMPDIR=/mpk/tmp",
+        "TZ=UTC",
+        "/mpk/toolchain/bin/cargo",
+        "build",
+        "--locked",
+        "--offline",
+        "--release",
+        "--bins",
+        "--target",
+        "x86_64-unknown-linux-gnu",
+        "--jobs",
+        "1"
+      ],
+      "exit_code": 0,
+      "seconds": 63.507466077804565,
+      "stdout": {
+        "path": "develop/migrations/go-rust-only/verification/build-rust-retry/command-05.stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "develop/migrations/go-rust-only/verification/build-rust-retry/command-05.stderr.log",
+        "sha256": "80b44e297e80ac7c8b7d50718bf1cd92b74bf402dd1c8c0267ec3caebc570035",
+        "bytes": 108
+      }
+    }
+  ],
+  "whole_source_inputs_unchanged": true,
+  "finished_at_utc": "2026-10-20T15:47:20.897242+00:00"
+}

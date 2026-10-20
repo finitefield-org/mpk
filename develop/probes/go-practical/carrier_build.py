@@ -15,9 +15,9 @@ def prepare(destination):
     manifest=destination/"probe/Cargo.toml"
     manifest.write_text(manifest.read_text().replace("[workspace]","").replace("../../../../crates/","../crates/"))
     source=destination/"probe/src/main.rs";text=source.read_text()
-    old='"../../../../migrations/csharp-03/probes/boolean-proof-elimination-logs/producer/builder.rs"'
+    old='"../../support/builder.rs"'
     assert text.count(old)==1
-    source.write_text(text.replace(old,json.dumps(str(ROOT/"develop/migrations/csharp-03/probes/boolean-proof-elimination-logs/producer/builder.rs"))))
+    source.write_text(text.replace(old,json.dumps(str(ROOT/"develop/probes/go-practical/support/builder.rs"))))
     (destination/"Cargo.lock").write_bytes((PRODUCER/"Cargo.lock").read_bytes())
     receipt={"generated":[{"path":p,"sha256":sha(raw)} for p,raw in sorted(prior.files().items())]}
     (destination/"private-build-inputs.json").write_bytes(json_bytes(receipt))

@@ -1,0 +1,64 @@
+{
+  "status": "passed",
+  "controls": [
+    {
+      "name": "native-x86-flags",
+      "expected": true,
+      "synthetic": true
+    },
+    {
+      "name": "missing-long-mode",
+      "expected": false,
+      "synthetic": true
+    },
+    {
+      "name": "missing-sse2",
+      "expected": false,
+      "synthetic": true
+    },
+    {
+      "name": "substring-flags",
+      "expected": false,
+      "synthetic": true
+    },
+    {
+      "name": "non-flag-field",
+      "expected": false,
+      "synthetic": true
+    },
+    {
+      "name": "translated-flags",
+      "expected": false,
+      "synthetic": true
+    },
+    {
+      "name": "late-translation-marker",
+      "expected": false,
+      "synthetic": true
+    }
+  ],
+  "original_actual_emulated_cpuinfo": {
+    "path": "develop/migrations/go-rust-only/verification/native-host-guard/emulated-cpuinfo.stdout.log",
+    "sha256": "887e7ea00535df6e13b234e1ad46e879c443dd5cc3ccd7857fd32f7d003eb8bb",
+    "bytes": 6460,
+    "accepted_by_final_guard": false
+  },
+  "fresh_darwin_observation": {
+    "exit_code": 69,
+    "logs": {
+      "stdout": {
+        "path": "develop/migrations/go-rust-only/verification/native-host-guard/final-darwin.stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "develop/migrations/go-rust-only/verification/native-host-guard/final-darwin.stderr.log",
+        "sha256": "e2839f7bb42b6a6c44c4d0914f1fad85e6b422a1a2f5164c2103e8785a0655b8",
+        "bytes": 62
+      }
+    }
+  },
+  "selection_reason": "Retain the preliminary hardware rejection formerly supplied through the removed language gate. Match the existing practical-Go predicate: x86 flags plus rejection of VirtualApple translation metadata. A positive fixture is not native acceptance; the full source-free/native gate remains required.",
+  "native_release_acceptance": false,
+  "observed_at_utc": "2026-10-20T16:22:24.191514+00:00"
+}

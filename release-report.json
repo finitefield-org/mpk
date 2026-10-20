@@ -18,34 +18,13 @@
     },
     "semantic_registry": {
       "path": "release/bundles/semantic-profile-registry.json",
-      "sha256": "1c9671f7db1f872f93d21757c271b39ddedd4fe612f4f388fe1700acd9808080"
+      "sha256": "6b7d64f4d7cdd0579bd6f858bdb3a18ad32a141811b38f77ca4ade04e3275903"
     },
     "bundle_registry": {
       "path": "release/bundles/bundle-registry.json",
-      "sha256": "f2da0168c30ac72b2d624a2af76959231114b5ad862fad9d893c4e15b48395d0"
+      "sha256": "75ddf100d5ab9b14934aebf1a23ca849045e50623cbfc25c78e2086d03414165"
     },
-    "active_fixtures": [
-      {
-        "path": "fixtures/csharp/policy/scan.json",
-        "sha256": "3a89743d1c57be285d10b0df2ad1ad6fd367246160a031da3eaffc90e412e68b"
-      },
-      {
-        "path": "fixtures/csharp/policy/evidence.json",
-        "sha256": "45349b1007e9c0003990073d5be3464ae9d6da8d3b479882fe51a19a83cb7019"
-      },
-      {
-        "path": "fixtures/csharp/policy/program-certificate.hex",
-        "sha256": "b592729891b9165570e906d0fd2dd8dc77531e2e07f0122a716166506a6ec3f2"
-      },
-      {
-        "path": "fixtures/csharp/ai/request.json",
-        "sha256": "31add0337cc1589b401dd9069801460837c7f1b851752e66eff3d45f273e0759"
-      },
-      {
-        "path": "fixtures/csharp/ai/explanation.json",
-        "sha256": "a256b658bac25a3e3d888d07f69da81366be0382b88215ad843554c5b24b24a7"
-      }
-    ]
+    "active_fixtures": []
   },
   "package": {
     "module": "Example.Basic.Package",
@@ -131,25 +110,9 @@
     "semantic_registry": {
       "schema": "mpk.semantic_profile.registry.v1",
       "id": "mpk.semantic_profile.registry.v1",
-      "revision": 3,
-      "registry_sha256": "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557",
+      "revision": 4,
+      "registry_sha256": "25c92a9be951c91d0692aeb92003ae1d9fc5dd2d6a337c980ff6e681b222d2c0",
       "profiles": [
-        {
-          "source_language": "csharp",
-          "semantic_profile": "mpk.csharp.scalar.v0",
-          "entry_sha256": "d4cc54a5364af848af845a9044d0f5aec962e6e509554e9a9b75a7a9f0b6e7ac",
-          "contracts": {
-            "ai": "mpk.profile.ai.csharp_scalar.v0",
-            "evidence": "mpk.profile.evidence.csharp_scalar.v0",
-            "frontend": "mpk.profile.frontend.csharp_scalar.v0",
-            "manifest": "mpk.profile.manifest.csharp_scalar.v0",
-            "policy": "mpk.profile.policy.csharp_scalar.v0",
-            "release": "mpk.profile.release.csharp_scalar.v0",
-            "source_map": "mpk.profile.source_map.csharp_scalar.v0",
-            "vc": "mpk.profile.vc.csharp_scalar.v0",
-            "vir": "mpk.profile.vir.csharp_scalar.v0"
-          }
-        },
         {
           "source_language": "go",
           "semantic_profile": "mpk.go.fixed.v0",
@@ -164,22 +127,6 @@
             "source_map": "mpk.profile.source_map.go_fixed.v0",
             "vc": "mpk.profile.vc.go_fixed.v0",
             "vir": "mpk.profile.vir.go_fixed.v0"
-          }
-        },
-        {
-          "source_language": "java",
-          "semantic_profile": "mpk.java.scalar.v0",
-          "entry_sha256": "0d80d13f97c45557fa9978eccc2545ffdb3fc1b93a26856b365a9be200470301",
-          "contracts": {
-            "ai": "mpk.profile.ai.java_scalar.v0",
-            "evidence": "mpk.profile.evidence.java_scalar.v0",
-            "frontend": "mpk.profile.frontend.java_scalar.v0",
-            "manifest": "mpk.profile.manifest.java_scalar.v0",
-            "policy": "mpk.profile.policy.java_scalar.v0",
-            "release": "mpk.profile.release.java_scalar.v0",
-            "source_map": "mpk.profile.source_map.java_scalar.v0",
-            "vc": "mpk.profile.vc.java_scalar.v0",
-            "vir": "mpk.profile.vir.java_scalar.v0"
           }
         },
         {
@@ -203,29 +150,25 @@
     "bundle_registry": {
       "schema": "mpk.release.bundle_registry.v1",
       "id": "mpk.release.registry.v1",
-      "registry_sha256": "7877c7c04fae912815713a8a7f6f9900198721ea572788f6f48d1dbe3f00afbd",
+      "registry_sha256": "ca8215be15326c32d7523f25590586c37d6fc7ef6646aecf784fba0bfc8163f0",
       "frontend_bundle_ids": [
-        "frontend.csharp.csharp2vir.candidate.v1",
-        "frontend.go.go2vir.candidate.v1",
-        "frontend.java.java2vir.candidate.v2",
-        "frontend.rust.rust2vir.candidate.v2"
+        "frontend.go.go2vir.candidate.v2",
+        "frontend.rust.rust2vir.candidate.v3"
       ],
       "toolchain_bundle_ids": [
-        "toolchain.csharp.roslyn-5_6_0.dotnet-10_0_11.candidate.v1",
         "toolchain.go.go1.25.0.linux-amd64.candidate.v1",
-        "toolchain.java.temurin-25_0_4_1_1.candidate.v1",
         "toolchain.rust.nightly-2025-06-01.candidate.v1"
       ],
       "tuples": [
         {
-          "frontend_bundle_id": "frontend.go.go2vir.candidate.v1",
+          "frontend_bundle_id": "frontend.go.go2vir.candidate.v2",
           "limit_profile_id": "mpk.vir.limits.v0",
           "semantic_context": {
             "profile_entry_sha256": "b10ec338d1f2b3fefc015e4d46c27def43e92ff3d87341624b48c93db951ca96",
             "profile_registry": {
               "id": "mpk.semantic_profile.registry.v1",
-              "registry_sha256": "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557",
-              "revision": 3,
+              "registry_sha256": "25c92a9be951c91d0692aeb92003ae1d9fc5dd2d6a337c980ff6e681b222d2c0",
+              "revision": 4,
               "schema": "mpk.semantic_profile.registry.v1"
             },
             "semantic_parameters": {
@@ -241,14 +184,14 @@
           "toolchain_bundle_id": "toolchain.go.go1.25.0.linux-amd64.candidate.v1"
         },
         {
-          "frontend_bundle_id": "frontend.rust.rust2vir.candidate.v2",
+          "frontend_bundle_id": "frontend.rust.rust2vir.candidate.v3",
           "limit_profile_id": "mpk.vir.limits.v0",
           "semantic_context": {
             "profile_entry_sha256": "1cee9716bb21d07e07b8bc1de59ecaf83437549a4d595039486312260816f057",
             "profile_registry": {
               "id": "mpk.semantic_profile.registry.v1",
-              "registry_sha256": "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557",
-              "revision": 3,
+              "registry_sha256": "25c92a9be951c91d0692aeb92003ae1d9fc5dd2d6a337c980ff6e681b222d2c0",
+              "revision": 4,
               "schema": "mpk.semantic_profile.registry.v1"
             },
             "semantic_parameters": {
@@ -266,14 +209,14 @@
           "toolchain_bundle_id": "toolchain.rust.nightly-2025-06-01.candidate.v1"
         },
         {
-          "frontend_bundle_id": "frontend.rust.rust2vir.candidate.v2",
+          "frontend_bundle_id": "frontend.rust.rust2vir.candidate.v3",
           "limit_profile_id": "mpk.vir.limits.v0",
           "semantic_context": {
             "profile_entry_sha256": "1cee9716bb21d07e07b8bc1de59ecaf83437549a4d595039486312260816f057",
             "profile_registry": {
               "id": "mpk.semantic_profile.registry.v1",
-              "registry_sha256": "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557",
-              "revision": 3,
+              "registry_sha256": "25c92a9be951c91d0692aeb92003ae1d9fc5dd2d6a337c980ff6e681b222d2c0",
+              "revision": 4,
               "schema": "mpk.semantic_profile.registry.v1"
             },
             "semantic_parameters": {
@@ -289,103 +232,24 @@
             "source_language": "rust"
           },
           "toolchain_bundle_id": "toolchain.rust.nightly-2025-06-01.candidate.v1"
-        },
-        {
-          "frontend_bundle_id": "frontend.csharp.csharp2vir.candidate.v1",
-          "limit_profile_id": "mpk.vir.limits.v0",
-          "semantic_context": {
-            "profile_entry_sha256": "d4cc54a5364af848af845a9044d0f5aec962e6e509554e9a9b75a7a9f0b6e7ac",
-            "profile_registry": {
-              "id": "mpk.semantic_profile.registry.v1",
-              "registry_sha256": "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557",
-              "revision": 3,
-              "schema": "mpk.semantic_profile.registry.v1"
-            },
-            "semantic_parameters": {
-              "schema": "mpk.semantic_parameters.csharp_scalar.v0",
-              "value": {
-                "check_overflow_default": false,
-                "documentation_mode": "none",
-                "language_version": "14.0",
-                "nullable_context": "disable",
-                "optimization": "release",
-                "platform": "x64",
-                "pointer_width": 64,
-                "preprocessor_symbols": [],
-                "source_kind": "regular",
-                "target_framework": "net10.0",
-                "target_id": "linux-x64",
-                "unsafe": false
-              }
-            },
-            "semantic_profile": "mpk.csharp.scalar.v0",
-            "source_language": "csharp"
-          },
-          "toolchain_bundle_id": "toolchain.csharp.roslyn-5_6_0.dotnet-10_0_11.candidate.v1"
-        },
-        {
-          "frontend_bundle_id": "frontend.java.java2vir.candidate.v2",
-          "limit_profile_id": "mpk.vir.limits.v0",
-          "semantic_context": {
-            "profile_entry_sha256": "0d80d13f97c45557fa9978eccc2545ffdb3fc1b93a26856b365a9be200470301",
-            "profile_registry": {
-              "id": "mpk.semantic_profile.registry.v1",
-              "registry_sha256": "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557",
-              "revision": 3,
-              "schema": "mpk.semantic_profile.registry.v1"
-            },
-            "semantic_parameters": {
-              "schema": "mpk.semantic_parameters.java_scalar.v0",
-              "value": {
-                "annotation_processing": "none",
-                "encoding": "UTF-8",
-                "language_version": "25",
-                "preview": false,
-                "release": "25",
-                "target_id": "linux-x64"
-              }
-            },
-            "semantic_profile": "mpk.java.scalar.v0",
-            "source_language": "java"
-          },
-          "toolchain_bundle_id": "toolchain.java.temurin-25_0_4_1_1.candidate.v1"
         }
       ]
     },
     "candidate_projections": [
       {
-        "language": "csharp",
-        "path": "release/bundles/candidates/csharp.json",
-        "sha256": "0361d6d544f3fcc0f3957836a41fd460676ef7b1f65e073fb542b0ea0363b650",
-        "schema": "mpk.release.bundle_candidate.v1"
-      },
-      {
         "language": "go",
         "path": "release/bundles/candidates/go.json",
-        "sha256": "14f4284b642a651259f0622dec1905f14a2b13e226c213f83ec1498a125e60d8",
-        "schema": "mpk.release.bundle_candidate.v1"
-      },
-      {
-        "language": "java",
-        "path": "release/bundles/candidates/java.json",
-        "sha256": "e2bfb53d2166e5504d06f7d473fe382d2805d6b43bb552319f758d8359125a38",
+        "sha256": "10228952b1fac7cd7d45da288ae35013b0cde26185d953906db55d89a358bc83",
         "schema": "mpk.release.bundle_candidate.v1"
       },
       {
         "language": "rust",
         "path": "release/bundles/candidates/rust.json",
-        "sha256": "af41ec64b399d9d542b626774d93e6e4c2865fd4be1c02ddff66df931cdb3768",
+        "sha256": "b04b7d405fb92b8dbec1725b2cb74ef3031cb7fb6f5e011ddd138a8ca30a5e12",
         "schema": "mpk.release.bundle_candidate.v1"
       }
     ],
     "migration_reports": [
-      {
-        "path": "develop/migrations/archive/csharp-02-final-review.json",
-        "sha256": "90a680f321bb8f2b61dcd4d91a792ce74194b7e6750646292723f588cc8eaac1",
-        "schema": "mpk.csharp.staged_release.final_review.v0",
-        "status": "reviewed_zero_findings",
-        "summary": null
-      },
       {
         "path": "develop/migrations/archive/go-successor-semantic-difference-report.json",
         "sha256": "a3a5ec19d7b787c5712e813ea1f60516609c1a3a88138c5270fe6d6b91f593f7",
@@ -418,33 +282,14 @@
       }
     ],
     "native_acceptance": {
-      "path": "develop/migrations/archive/java-03-t10-native-receipt.json",
-      "sha256": "712261fc353e1f84e70eecd8f0db690f5b9f7e364eef32b8f5afc5446fdd1de8",
-      "architecture": "x86_64",
-      "bundle_registry": {
-        "raw_sha256": "f2da0168c30ac72b2d624a2af76959231114b5ad862fad9d893c4e15b48395d0",
-        "registry_sha256": "7877c7c04fae912815713a8a7f6f9900198721ea572788f6f48d1dbe3f00afbd"
-      },
-      "certificate_sha256": "782ac1d28c39e171549c81e24d1059fc3544d1222fe4978247024d9397c08ef7",
-      "command": "./scripts/check-java-frontend.sh",
-      "date": "2026-09-03",
-      "exit_code": 0,
-      "host_profile_id": "mpk.host.linux-x86_64-gnu.java25.v0",
-      "installed_release_passes": 2,
-      "kernel": "6.8.0-134-generic",
-      "private_report_sha256": "46b2e57807392999aa01fa78396810333e4e9e9614c53a7c64982e6a895c0b47",
-      "schema": "mpk.java.t10.native_receipt.v0",
-      "semantic_registry": {
-        "raw_sha256": "1c9671f7db1f872f93d21757c271b39ddedd4fe612f4f388fe1700acd9808080",
-        "registry_sha256": "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557",
-        "revision": 3
-      },
-      "status": "accepted"
+      "status": "pending",
+      "reason": "Go/Rust registry revision 4 requires its own native Linux release gate",
+      "command": "sudo ./scripts/check-go-rust-frontend.sh"
     },
     "reproduction": [
       "./scripts/build-release-bundles.sh --check successor",
       "./scripts/check-release-bundles.sh --fixture successor",
-      "sudo ./scripts/check-java-frontend.sh",
+      "sudo ./scripts/check-go-rust-frontend.sh",
       "python3 scripts/generate-release-report.py --check"
     ],
     "certificate_v0_unchanged": true,

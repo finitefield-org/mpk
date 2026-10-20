@@ -9,20 +9,16 @@ from policy_native_build import prefix, CARGO, linked_inputs
 from run_proof_pilot import ROOT, sha
 from check_scope_report import require
 
-FIXTURES = ('fixtures/csharp/ai', 'fixtures/csharp/policy',
-            'fixtures/rust-basic/positive/module-calls/artifacts',
+FIXTURES = ('fixtures/rust-basic/positive/module-calls/artifacts',
             'rust-tools/rust2vir/testdata/positive/module-calls/source')
-FILES = ('crates/mpk-cli/tests/csharp_ai_explain.rs',
+FILES = ('crates/mpk-cli/tests/successor_ai_explain.rs',
          'crates/mpk-cli/tests/support/successor_policy.rs',
          'develop/specs/vectors/ai-explain-v1.json',
-         'develop/specs/vectors/csharp-profile-v0.json',
-         'develop/specs/vectors/java-profile-v0.json',
          'develop/specs/vectors/semantic-profile-registry-v1.json',
-         'develop/specs/vectors/semantic-profile-registry-v2.json',
-         'develop/specs/vectors/semantic-profile-registry-v3.json',
+         'develop/specs/vectors/semantic-profile-registry-v4.json',
          'develop/specs/vectors/manifest.json')
-TESTS = ('all_profiles_stage_deterministic_redacted_requests_and_untrusted_reports',
-         'csharp_ai_owner_is_registered_for_every_consumed_frozen_vector')
+TESTS = ('go_and_rust_stage_deterministic_redacted_requests_and_untrusted_reports',
+         'go_rust_ai_owner_is_registered_for_every_consumed_frozen_vector')
 
 
 def inputs():
@@ -47,7 +43,7 @@ def run(record):
         if not target.exists() or sha(target.read_bytes()) != row['checksum']: target.write_bytes(source.read_bytes())
         copied.append({'name': row['name'], 'version': row['version'], 'sha256': row['checksum']})
     command = p + ['cargo', 'test', '--offline', '--locked', '-p', 'mpk-cli',
-                   '--test', 'csharp_ai_explain', '--', '--nocapture', '--test-threads=1']
+                   '--test', 'successor_ai_explain', '--', '--nocapture', '--test-threads=1']
     record.mkdir(parents=True, exist_ok=True); runs = []
     for index in (1, 2):
         start = time.monotonic()
@@ -61,7 +57,7 @@ def run(record):
                      'stdout_sha256': sha(result.stdout), 'stderr_sha256': sha(result.stderr),
                      'tests': list(TESTS), 'passed': 2})
     require(before == inputs(), 'native AI consumer/test/fixture sources fixed during both runs')
-    return {'scope': 'unchanged public AI consumers over real GoFixed,Rust,CSharp certificates; Java AI and APIv4 execution not observed here',
+    return {'scope': 'unchanged public AI consumers over real GoFixed,Rust certificates; practical Go AI and APIv4 execution not observed here',
             'command': command, 'container': audit, 'available_root_archives': copied,
             'inputs': before, 'runs': runs, 'network_used': False,
             'release_gate': False, 'public_source_changed': False}

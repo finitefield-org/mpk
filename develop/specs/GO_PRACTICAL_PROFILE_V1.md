@@ -1,5 +1,11 @@
 # Go practical profile v1
 
+Scope amendment: [LANGUAGE_SUPPORT_SCOPE_V1.md](LANGUAGE_SUPPORT_SCOPE_V1.md)
+limits implementation and retained contexts to Go/Rust. Four future contexts
+replace earlier six-context retention statements; all Go semantics, common
+artifact members, proof obligations and resource caps remain required.
+
+
 Status: frozen inactive design, GO-PRAC-T01-W05. Public selection, the installed
 four-language registry and executable release remain unchanged. T02–T07 implement
 and prove this profile; T08–T11 add maps/pointers and the second release. This
@@ -111,7 +117,7 @@ and a registered source-bound application claim are distinct results. Every
 required source/definedness/operation/path/call/loop/frame/result member must
 bind the exact independently regenerated ordinary statement and be discharged
 by identical certificate bytes in both checkers. Go requires zero axioms.
-Retained Rust/C#/Java contexts preserve their exact mvp-theory policy where
+Retained Rust contexts preserve their exact mvp-theory policy where
 applicable. AI prose, valid metadata, definition-only checks and missing-member
 lists cannot establish a source claim. Existing169 private Go demands remain
 unelaborated at this publication; no complete Go program proof is published.
@@ -120,7 +126,8 @@ The183-file migration and24-requirement handoff remain mandatory implementation
 coverage. Historical observations replay at their original source epoch; new
 production bytes require fresh evidence. T07 activates one complete shared
 artifact family only after all native local gates, both-checker application
-proofs, four-profile preservation, two-pass installed replay and atomic rollback
-checks. Inactive C# practical identities remain reserved and are not activated
-as a Go prerequisite. Every stage's final W must pass its cumulative local
+proofs, preservation of all four required Go/Rust target contexts, two-pass
+installed replay and atomic rollback checks. Retired identities remain reserved
+without a frontend or release prerequisite. Every stage's final W must pass its
+cumulative local
 `check-fast`; release gates follow the root README. No workflow is required.

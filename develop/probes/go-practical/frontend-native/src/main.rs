@@ -219,7 +219,7 @@ fn main() {
     let input: Value = serde_json::from_str(&raw).unwrap();
     let registry = validate_semantic_profile_registry(
         &canonical_registry_transport(&input["registry"]).unwrap(),
-        RegistryRevision::Revision3,
+        RegistryRevision::Revision4,
     )
     .unwrap();
     let out=input["queries"].as_array().unwrap().iter().map(|q|{

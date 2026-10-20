@@ -1,0 +1,42 @@
+   Compiling mpk-vc v0.1.0 (/mpk/crates/mpk-vc)
+    Checking mpk-api v0.1.0 (/mpk/crates/mpk-api)
+   Compiling mpk-cli v0.1.0 (/mpk/crates/mpk-cli)
+warning: unnecessary braces around function argument
+    --> crates/mpk-cli/src/frontend_sandbox.rs:2804:42
+     |
+2804 |         verify_resource_process_controls({ RESOURCE_ADDRESS_SPACE_LIMIT })?;
+     |                                          ^^                            ^^
+     |
+     = note: `#[warn(unused_braces)]` (part of `#[warn(unused)]`) on by default
+help: remove these braces
+     |
+2804 -         verify_resource_process_controls({ RESOURCE_ADDRESS_SPACE_LIMIT })?;
+2804 +         verify_resource_process_controls(RESOURCE_ADDRESS_SPACE_LIMIT)?;
+     |
+
+warning: unnecessary braces around function argument
+    --> crates/mpk-cli/src/frontend_sandbox.rs:2850:18
+     |
+2850 |             Some({ c"size=21474836480,nr_inodes=262144,noswap,mode=700" }),
+     |                  ^^                                                    ^^
+     |
+help: remove these braces
+     |
+2850 -             Some({ c"size=21474836480,nr_inodes=262144,noswap,mode=700" }),
+2850 +             Some(c"size=21474836480,nr_inodes=262144,noswap,mode=700"),
+     |
+
+warning: unnecessary braces around function argument
+    --> crates/mpk-cli/src/frontend_sandbox.rs:2975:31
+     |
+2975 |     std::env::set_current_dir({ "/" }).map_err(|_| 125)?;
+     |                               ^^   ^^
+     |
+help: remove these braces
+     |
+2975 -     std::env::set_current_dir({ "/" }).map_err(|_| 125)?;
+2975 +     std::env::set_current_dir("/").map_err(|_| 125)?;
+     |
+
+warning: `mpk-cli` (lib) generated 3 warnings (run `cargo fix --lib -p mpk-cli` to apply 3 suggestions)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1m 11s

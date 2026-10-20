@@ -1,7 +1,16 @@
 # Go Practical Subset Implementation Work Plan
 
-Status: T01 is complete under the explicit C# test deferral, with594 passing
-tests in `check-fast.sh --skip-csharp`; T02-W01 is in progress. The
+Scope amendment (2026-10-20): MPK supports **Go and Rust only**. Follow
+[the normative language scope](../specs/LANGUAGE_SUPPORT_SCOPE_V1.md).
+Java/C# implementation, resumption and release dependencies are retired.
+Future common-artifact integration covers retained Go, practical Go, Rust32
+and Rust64. All Go proof, compiler-binding and resource requirements remain.
+Earlier checkpoint descriptions below are historical evidence of their own
+inputs; they do not preserve removed-language product support.
+
+
+Status: T01 passed its historical 594-test gate. The current scope supports
+Go/Rust only; T02-W01 remains in progress. The
 [completion audit](../migrations/go-practical/t01-w05/completion-audit.json)
 and implementation ledger own the current status.
 
@@ -223,8 +232,9 @@ migrations and native release gates remain required before activation.
 
 The [implementation ledger](go-practical-implementation-traceability-ledger.md)
 owns detailed status, source/checker identities and local verification.
-The user-authorized amendment moves Go before the practical C# release.
-T01's full gate remains due in W05. Scope and semantic decisions are owned by
+Implementation now targets Go/Rust without another language's release
+prerequisite. T01 passed its historical W05 gate; T02's cumulative gate remains
+due in W04. Scope and semantic decisions are owned by
 [the design](09_go_practical_subset_design.md).
 
 The [common API contract design](../migrations/go-practical/t01-w04/api-contracts/README.md)
@@ -241,15 +251,16 @@ closes the v4 wire and redaction/batching rules. All169 current Go demands
 remain pending across complete32-property batches. Local statuses,source
 bindings and full theory/axiom summaries come from policy; provider prose
 cannot change them. English/Japanese bundles and40 independent hashes remain
-separate from unchanged actual GoFixed/Rust/CSharp AI consumer tests. No
-provider is contacted. Native Java AI preservation and compiled v4 integration
-remain T07 work. Release roots,ordinary-program/materialized-policy signatures
+separate from the original consumer tests at that archived source epoch. No
+provider is contacted. Compiled v4 integration for the four required Go/Rust
+target contexts remains T07 work. Release roots,ordinary-program/materialized-policy signatures
 and exhaustive consumer migration review remain W04 work; W05 owns publication
 and the cumulative T01 gate.
 
 The [release metadata design](../migrations/go-practical/t01-w04/release-contracts/README.md)
 closes seven root shapes and the acyclic build/image/hash/readiness contract.
-Actual old validators resolve all4 languages/5 target tuples; metadata-only
+At that archived checkpoint, old validators covered4 languages/5 target tuples;
+current implementation supports Go/Rust only. Metadata-only
 projections cannot run as new-protocol binaries or authorize activation. New
 IDs rebind component scope/content refs without mutating old inventories.
 229 cases and13 independent Rust/Go hashes pass. Actual new-family builders,
@@ -259,16 +270,10 @@ closure plus exhaustive consumer migration/axiom-policy/source-epoch review.
 
 ## 1. Entry, ordering, and execution
 
-Go practical implementation may start before the practical C# release, as
-explicitly authorized by the user on 2026-10-16. T01-W01 records the amendment,
-an exact clean source baseline, and the last installed Go/Rust/scalar-C#/Java
-release receipt. The historical receipt proves only its own release, not all
-later source changes. The current C#
-[work-plan status](08_csharp_practical_subset_design-todo.md) includes reopened
-foundation work; it is neither a completed prerequisite nor proof of shared
-facilities. Go validates every facility it needs through its own gates.
-Remaining practical C# work resumes after GO-PRAC and reconciles any intervening
-shared-artifact changes. Production language phases remain serial.
+Go practical implementation proceeds independently under the Go/Rust-only
+scope. The C# and Java work plans are retired. Each Go facility must be
+validated through Go's own gates; prior receipts attest only to their original
+source and registry identities. Production phases remain serial.
 
 Execute T01 through T11 serially, and W01 through the last W serially within
 each T. Each W has a concrete review boundary. Multiple requested work items
@@ -307,7 +312,7 @@ all requested claims discharged, both-checker acceptance, and a deliberately
 incorrect case that fails at the intended boundary.
 
 Run targeted checks during W items. The final W of every T additionally runs
-`./scripts/check-fast.sh --skip-csharp` for that T's cumulative changes and cannot complete
+`./scripts/check-fast.sh` for that T's cumulative changes and cannot complete
 until it passes. Do not reproduce that whole gate during intermediate W
 items. Record why the selected tests cover the change and explicitly record
 the full gate as deferred until the final W. T07 and T11 also run the complete
@@ -315,31 +320,9 @@ local native Linux release gates specified by the root README, with two-pass
 installed-release evidence. All execution stays local; no workflow files or
 GitHub Actions are introduced or used.
 
-The `--skip-csharp` routing implements the user's explicit 2026-10-19
-instruction to skip C# tests and continue Go development. It omits dedicated
-C# integration targets and C# unit/doc test names, while retaining every other
-workspace target and shared test. Format, strict vocabulary checks, Clippy,
-the CLI build and both accepting/rejecting CLI fixtures remain required.
-This is the GO-PRAC development gate; it does not certify C# or replace any
-native Linux installed-release acceptance requirement. The default command
-continues to execute all workspace tests. Earlier full-gate waits in historical
-records are superseded by this scheduling amendment.
-
-| Changed surface | Targeted validation family |
-| --- | --- |
-| Freeze/specification | Strict schema/vector validation, ownership inventory, `python3 scripts/check-spec-vectors.py --check` after normative publication |
-| Capture and loading | Go preflight, snapshot, loader and newly added module/closure tests; module graph tampering and offline replay |
-| Go typing/lowering | New practical-profile source tests plus affected existing Go-profile and corpus tests |
-| Shared artifacts | Independent import, context/hash/type/effect negatives, each inventoried consumer and predecessor migration |
-| VC/proof | Exact path/obligation cases, checked binding/lemma proofs, application theorem fixtures, both source-free checkers |
-| Policy/API | Readiness/claim status, pending obligations, assumptions, rejected or stale evidence, exact strategy registration |
-| Release | Registered-runner isolation, build-input and output replay, target/identity crossing, current README Linux gates |
-
-Existing executable anchors include `go-tools/go2vir` tests,
-`crates/mpk-vc/tests/go_vir_corpus.rs`, and
-`crates/mpk-cli/tests/successor_atomic_cutover.rs`. The freeze inventories name
-the new primary executors before implementation. Avoid running every existing
-test family for a local change without an impact reason.
+The fast gate now runs every remaining workspace test. The previous C#
+test deferral is historical; the removed implementation has no tests to skip.
+Native Linux release acceptance remains a separate required gate.
 
 ## 3. GO-PRAC-T01 — Feasibility and v1 freeze
 

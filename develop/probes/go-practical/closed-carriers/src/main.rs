@@ -1,6 +1,6 @@
 //! Untrusted closed ordinary-term emitter, using the retained private core proposal.
 include!(
-    "../../../../migrations/csharp-03/probes/boolean-proof-elimination-logs/producer/builder.rs"
+    "../../support/builder.rs"
 );
 
 use mpk_cert::encode::DefinitionReducibility;

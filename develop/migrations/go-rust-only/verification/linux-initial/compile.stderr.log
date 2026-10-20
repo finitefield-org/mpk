@@ -1,0 +1,21 @@
+    Checking mpk-core v0.1.0 (/mpk/crates/mpk-core)
+    Checking mpk-cert v0.1.0 (/mpk/crates/mpk-cert)
+    Checking mpk-theory v0.1.0 (/mpk/crates/mpk-theory)
+    Checking mpk-kernel v0.1.0 (/mpk/crates/mpk-kernel)
+   Compiling mpk-vc v0.1.0 (/mpk/crates/mpk-vc)
+    Checking mpk-api v0.1.0 (/mpk/crates/mpk-api)
+    Checking mpk-linux-sandbox v0.1.0 (/mpk/crates/mpk-linux-sandbox)
+   Compiling mpk-cli v0.1.0 (/mpk/crates/mpk-cli)
+error: failed to run custom build command for `mpk-cli v0.1.0 (/mpk/crates/mpk-cli)`
+
+Caused by:
+  process didn't exit successfully: `/target/debug/build/mpk-cli-5195dd78a41f8d33/build-script-build` (exit status: 101)
+  --- stdout
+  cargo:rerun-if-changed=/mpk/crates/mpk-cli/../../release/bundles/bundle-registry.json
+  cargo:rerun-if-changed=/mpk/crates/mpk-cli/../../release/bundles/semantic-profile-registry.json
+
+  --- stderr
+
+  thread 'main' (144) panicked at crates/mpk-cli/build.rs:44:17:
+  validate fixed release registry /mpk/crates/mpk-cli/../../release/bundles/bundle-registry.json: SUCCESSOR_RELEASE_HASH at successor release phase hash
+  note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace

@@ -25,8 +25,8 @@ def main():
     require(draft["full_shared_schema_freeze"] is False and draft["production_source_import"] is False and draft["migration_completed"] is False and draft["remaining"],"private identity/source/migration boundary")
     require(work["status"]=="in progress; not frozen or published" and work["open_decisions"],"W04 remains open")
     c=strict_json((RECORD/"catalog.json").read_bytes());ids={x["identity"] for x in c["identities"] if x["identity"]};domains={x["domain"] for x in c["identities"] if x["domain"]}
-    require(not ids.intersection(c["reserved_csharp"]["identities"]) and not domains.intersection(c["reserved_csharp"]["domains"]),"reserved frozen C# identities/preimages")
-    require(set(c["profiles_at_v1_activation"])=={"mpk.go.practical.v1","mpk.go.fixed.v0","mpk.csharp.scalar.v0","mpk.rust.checked.v0","mpk.java.scalar.v0"},"one future family, four retained profiles and Go; no C# practical activation")
+    require(not ids.intersection(c["reserved_retired"]["identities"]) and not domains.intersection(c["reserved_retired"]["domains"]),"retired identity tombstones")
+    require(set(c["profiles_at_v1_activation"])=={"mpk.go.practical.v1","mpk.go.fixed.v0","mpk.rust.checked.v0"},"one future family with retained Go and Rust profiles")
     inventory=strict_json((w04/"surface-inventory.json").read_bytes());pins=inventory["discovered_files"]
     require(len(pins)==len({p["path"] for p in pins})==143,"predecessor coverage")
     for p in pins+inventory["baseline"]+[p for o in inventory["component_owners"] for p in o["existing_anchors"]]:require(sha((ROOT/p["path"]).read_bytes())==p["sha256"],"unchanged predecessor/baseline")

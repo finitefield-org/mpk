@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "exit_code": 0,
+  "command": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_vir_corpus"
+  ],
+  "environment": {
+    "MPK_UPDATE_GO_VIR_CORPUS": "1"
+  },
+  "logs": {
+    "stdout": {
+      "path": "develop/migrations/go-rust-only/verification/go-vc-final-update/stdout.log",
+      "sha256": "3b156d42d09d1436f08474a2e0a206c915691a802d414eb53ccbc27ab5c9393c",
+      "bytes": 191
+    },
+    "stderr": {
+      "path": "develop/migrations/go-rust-only/verification/go-vc-final-update/stderr.log",
+      "sha256": "8920797bd1be4ba3895c916bf8f94f0b89db71c6fb28d5ecb2a4ff888729ed61",
+      "bytes": 234
+    }
+  },
+  "selection_reason": "Refresh the affected Go VC/skeleton/certificate-manifest/index family after the actual Go frontend publication; readonly validation is included in the final host VC lane.",
+  "native_release_acceptance": false
+}

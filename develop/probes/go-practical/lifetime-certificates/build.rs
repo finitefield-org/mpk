@@ -31,8 +31,8 @@ fn mirror(source: &Path, output: &Path, relative: &Path, root: &Path) {
                     )
                 })
                 .collect();
-            let builder=root.join("develop/migrations/csharp-03/probes/boolean-proof-elimination-logs/producer/builder.rs");
-            text=once(text,"\"../../../../migrations/csharp-03/probes/boolean-proof-elimination-logs/producer/builder.rs\"",&format!("{:?}",builder));
+            let builder=root.join("develop/probes/go-practical/support/builder.rs");
+            text=once(text,"\"../../support/builder.rs\"",&format!("{:?}",builder));
             text=once(text,"Expr::Constant(name) => b.constant(name).unwrap(),","Expr::Constant(name) => if name==\"__Sort0\" {b.sort} else {b.constant(name).unwrap()},");
             text=once(text,"let args = std::env::args().collect::<Vec<_>>();","let args = std::env::args().collect::<Vec<_>>();\n    if args.get(1).map(String::as_str)==Some(\"lifetime-generate\") { assert_eq!(args.len(),4); word::generate_lifetimes(Path::new(&args[2]),Path::new(&args[3])); return; }");
         } else if rel == Path::new("word.rs") {

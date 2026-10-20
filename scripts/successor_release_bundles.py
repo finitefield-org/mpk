@@ -23,8 +23,6 @@ SCRIPT_ROOT = Path(__file__).resolve().parent
 REPOSITORY_ROOT = SCRIPT_ROOT.parent
 sys.path.insert(0, str(SCRIPT_ROOT))
 
-import csharp_release_bundles as csharp  # noqa: E402
-import java_release_bundles as java  # noqa: E402
 import release_bundles as go_release  # noqa: E402
 import rust_build_inputs as rust  # noqa: E402
 
@@ -33,11 +31,11 @@ REGISTRY_PATH = REPOSITORY_ROOT / "release/bundles/bundle-registry.json"
 SEMANTIC_REGISTRY_PATH = REPOSITORY_ROOT / "release/bundles/semantic-profile-registry.json"
 CANDIDATE_PATHS = {
     language: REPOSITORY_ROOT / f"release/bundles/candidates/{language}.json"
-    for language in ("go", "rust", "csharp", "java")
+    for language in ("go", "rust")
 }
-REGISTRY_SHA256 = "7877c7c04fae912815713a8a7f6f9900198721ea572788f6f48d1dbe3f00afbd"
+REGISTRY_SHA256 = "ca8215be15326c32d7523f25590586c37d6fc7ef6646aecf784fba0bfc8163f0"
 SEMANTIC_REGISTRY_SHA256 = (
-    "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557"
+    "25c92a9be951c91d0692aeb92003ae1d9fc5dd2d6a337c980ff6e681b222d2c0"
 )
 REGISTRY_DOMAIN = b"MPK-BUNDLE-REGISTRY-1.0\0"
 CONTENT_DOMAIN = b"MPK-BUNDLE-CONTENT-0.1\0"
@@ -122,7 +120,7 @@ def encoded_multiset(values: object) -> Counter[bytes]:
 def validate_release_models() -> tuple[dict[str, object], dict[str, dict[str, object]]]:
     registry, registry_bytes = read_canonical(REGISTRY_PATH)
     semantic, semantic_bytes = read_canonical(SEMANTIC_REGISTRY_PATH)
-    vector_path = REPOSITORY_ROOT / "develop/specs/vectors/semantic-profile-registry-v3.json"
+    vector_path = REPOSITORY_ROOT / "develop/specs/vectors/semantic-profile-registry-v4.json"
     try:
         vectors = json.loads(vector_path.read_bytes())
     except (OSError, UnicodeDecodeError, json.JSONDecodeError) as error:
@@ -131,7 +129,7 @@ def validate_release_models() -> tuple[dict[str, object], dict[str, dict[str, ob
         semantic != vectors.get("registry")
         or semantic.get("registry_sha256") != SEMANTIC_REGISTRY_SHA256
         or hashlib.sha256(semantic_bytes).hexdigest()
-        != "1c9671f7db1f872f93d21757c271b39ddedd4fe612f4f388fe1700acd9808080"
+        != "6b7d64f4d7cdd0579bd6f858bdb3a18ad32a141811b38f77ca4ade04e3275903"
     ):
         raise SuccessorReleaseFailure()
     candidates = {language: read_canonical(path)[0] for language, path in CANDIDATE_PATHS.items()}
@@ -153,7 +151,7 @@ def validate_release_models() -> tuple[dict[str, object], dict[str, dict[str, ob
     if hashlib.sha256(REGISTRY_DOMAIN + canonical(payload)).hexdigest() != REGISTRY_SHA256:
         raise SuccessorReleaseFailure()
     if hashlib.sha256(registry_bytes).hexdigest() != (
-        "f2da0168c30ac72b2d624a2af76959231114b5ad862fad9d893c4e15b48395d0"
+        "75ddf100d5ab9b14934aebf1a23ca849045e50623cbfc25c78e2086d03414165"
     ):
         raise SuccessorReleaseFailure()
     for field, key in (
@@ -166,6 +164,12 @@ def validate_release_models() -> tuple[dict[str, object], dict[str, dict[str, ob
             keyed_union(candidate_values, field, key)
         ):
             raise SuccessorReleaseFailure()
+    # A changed inventory identity must be rebound even when its file bytes are unchanged.
+    for candidate in candidate_values:
+        for field, digest_field in (("frontend_bundles", "bundle_sha256"), ("toolchain_bundles", "distribution_sha256")):
+            for bundle in candidate[field]:
+                if hashlib.sha256(CONTENT_DOMAIN + canonical(bundle["inventory"])).hexdigest() != bundle[digest_field]:
+                    raise SuccessorReleaseFailure()
     expected_tuples = [
         entry
         for candidate in candidate_values
@@ -174,9 +178,9 @@ def validate_release_models() -> tuple[dict[str, object], dict[str, dict[str, ob
     if encoded_multiset(registry.get("tuples")) != encoded_multiset(expected_tuples):
         raise SuccessorReleaseFailure()
     if (
-        len(registry["frontend_bundles"]) != 4
-        or len(registry["toolchain_bundles"]) != 4
-        or len(registry["tuples"]) != 5
+        len(registry["frontend_bundles"]) != 2
+        or len(registry["toolchain_bundles"]) != 2
+        or len(registry["tuples"]) != 3
     ):
         raise SuccessorReleaseFailure()
     return registry, candidates
@@ -244,17 +248,6 @@ def build_go(work: Path, candidate: dict[str, object]) -> dict[str, Path]:
     return roots
 
 
-def build_csharp(work: Path, candidate: dict[str, object]) -> dict[str, Path]:
-    generated_candidate, _registry, output = csharp.build_once(work)
-    if generated_candidate != candidate:
-        raise SuccessorReleaseFailure()
-    roots = {
-        str(candidate["frontend_bundles"][0]["bundle_id"]): output / "frontend",
-        str(candidate["toolchain_bundles"][0]["bundle_id"]): output / "toolchain",
-    }
-    validate_root(output / "frontend", candidate["frontend_bundles"][0])
-    validate_root(output / "toolchain", candidate["toolchain_bundles"][0])
-    return roots
 
 
 def build_rust(work: Path, candidate: dict[str, object]) -> dict[str, Path]:
@@ -293,11 +286,6 @@ def build_rust(work: Path, candidate: dict[str, object]) -> dict[str, Path]:
     }
 
 
-def build_java(work: Path, candidate: dict[str, object]) -> dict[str, Path]:
-    roots = java.build_roots(work, candidate)
-    for bundle in candidate["frontend_bundles"] + candidate["toolchain_bundles"]:
-        validate_root(roots[str(bundle["bundle_id"])], bundle)
-    return roots
 
 
 def build_roots(work: Path, candidates: dict[str, dict[str, object]]) -> dict[str, Path]:
@@ -305,8 +293,6 @@ def build_roots(work: Path, candidates: dict[str, dict[str, object]]) -> dict[st
     for language, builder in (
         ("go", build_go),
         ("rust", build_rust),
-        ("csharp", build_csharp),
-        ("java", build_java),
     ):
         language_work = work / language
         language_work.mkdir(parents=True)
@@ -334,7 +320,6 @@ def tree_state(root: Path) -> dict[str, tuple[int, int, str]]:
 
 
 def check() -> None:
-    check_java_trace_parser()
     _registry, candidates = validate_release_models()
     with tempfile.TemporaryDirectory(prefix="mpk-successor-release-") as temporary:
         root = Path(temporary)
@@ -393,7 +378,7 @@ def run_installed(executable: Path, *, hostile: bool = False) -> None:
     if not executable.is_absolute() or executable.name != "mpk":
         raise SuccessorReleaseFailure("BUNDLE_ASSEMBLER_USAGE", 64)
     reports: list[object] = []
-    for language in ("go", "rust", "csharp", "java"):
+    for language in ("go", "rust"):
         suffix = "-hostile" if hostile else ""
         command = go_release.rust_fixture_cgroup_command(
             [str(executable), f"--inside-successor-cutover-{language}{suffix}"]
@@ -427,213 +412,12 @@ def run_installed(executable: Path, *, hostile: bool = False) -> None:
     )
 
 
-def parse_java_trace(data: bytes) -> dict[str, object]:
-    """Attribute policy installation and thread creation to the active JVM."""
-    try:
-        lines = data.decode("ascii").splitlines()
-    except UnicodeDecodeError as error:
-        raise SuccessorReleaseFailure("BUNDLE_JAVA_NATIVE_TRACE") from error
-    events: list[tuple[int, str]] = []
-    pending: dict[int, str] = {}
-    for line in lines:
-        match = re.fullmatch(r"([0-9]+)\s+(.+)", line)
-        if match is None:
-            continue
-        pid, call = int(match[1]), match[2]
-        resumed = re.fullmatch(r"<\.\.\. ([a-z0-9_]+) resumed>(.*)", call)
-        if resumed is not None:
-            prefix = pending.pop(pid, "")
-            if not prefix.startswith(resumed[1] + "("):
-                raise SuccessorReleaseFailure("BUNDLE_JAVA_NATIVE_TRACE")
-            call = prefix + resumed[2]
-        if call.endswith("<unfinished ...>"):
-            if pid in pending:
-                raise SuccessorReleaseFailure("BUNDLE_JAVA_NATIVE_TRACE")
-            pending[pid] = call.removesuffix("<unfinished ...>")
-        else:
-            events.append((pid, call))
-    launches = [
-        (index, pid)
-        for index, (pid, call) in enumerate(events)
-        if call.startswith('execve("/mpk/toolchain/jdk/bin/java",') and call.endswith(" = 0")
-    ]
-    if len(launches) != 1 or pending:
-        raise SuccessorReleaseFailure("BUNDLE_JAVA_NATIVE_TRACE")
-    start, java_pid = launches[0]
-    before = [call for pid, call in events[:start] if pid == java_pid]
-    if not any(
-        call.startswith("seccomp(SECCOMP_SET_MODE_FILTER,") and call.endswith(" = 0")
-        for call in before
-    ):
-        raise SuccessorReleaseFailure("BUNDLE_JAVA_NATIVE_TRACE")
-    for family in ("AF_INET", "AF_UNIX"):
-        if not any(
-            call.startswith(f"socket({family},") and " = -1 EPERM " in call
-            for call in before
-        ):
-            raise SuccessorReleaseFailure("BUNDLE_JAVA_NATIVE_TRACE")
-    clones: list[tuple[int, int, set[str]]] = []
-    for pid, call in events[start + 1 :]:
-        match = re.fullmatch(
-            r"clone\(.*flags=([^,]+),.*\)\s+= ([1-9][0-9]*)"
-            r"(?: /\* ([1-9][0-9]*) in strace's PID NS \*/)?",
-            call,
-        )
-        if match is not None:
-            clones.append(
-                (
-                    pid,
-                    int(match[3] or match[2]),
-                    {flag.strip() for flag in match[1].split("|")},
-                )
-            )
-    threads = {java_pid}
-    while True:
-        expanded = threads | {child for parent, child, _flags in clones if parent in threads}
-        if expanded == threads:
-            break
-        threads = expanded
-    observed = [flags for parent, _child, flags in clones if parent in threads]
-    expected = {
-        "CLONE_VM",
-        "CLONE_FS",
-        "CLONE_FILES",
-        "CLONE_SIGHAND",
-        "CLONE_THREAD",
-        "CLONE_SYSVSEM",
-        "CLONE_SETTLS",
-        "CLONE_PARENT_SETTID",
-        "CLONE_CHILD_CLEARTID",
-    }
-    if not observed or len(observed) != len(clones) or any(flags != expected for flags in observed):
-        raise SuccessorReleaseFailure("BUNDLE_JAVA_NATIVE_TRACE")
-    clone3_fallbacks = [
-        pid
-        for pid, call in events[start + 1 :]
-        if call.startswith("clone3(") and " = -1 ENOSYS " in call
-    ]
-    if not clone3_fallbacks or any(pid not in threads for pid in clone3_fallbacks):
-        raise SuccessorReleaseFailure("BUNDLE_JAVA_NATIVE_TRACE")
-    return {
-        "jvm_thread_flags": sorted(expected),
-        "jvm_clone3_fallback": True,
-        "jvm_thread_creations": len(observed),
-        "preexec_socket_denials": ["AF_INET", "AF_UNIX"],
-    }
 
 
-def check_java_trace_parser() -> None:
-    fixture = b'''7 seccomp(SECCOMP_SET_MODE_FILTER, 0, {len=1, filter=0x1}) = 0
-7 socket(AF_INET, SOCK_STREAM, 0) = -1 EPERM (Operation not permitted)
-7 socket(AF_UNIX, SOCK_STREAM, 0) = -1 EPERM (Operation not permitted)
-7 execve("/mpk/toolchain/jdk/bin/java", ["java"], 0x1) = 0
-7 clone3({flags=0}, 88) = -1 ENOSYS (Function not implemented)
-7 clone(child_stack=0x1, flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID <unfinished ...>
-7 <... clone resumed>, parent_tid=0x1, tls=0x1, child_tidptr=0x1) = 2 /* 8 in strace's PID NS */
-8 clone(child_stack=0x2, flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, parent_tid=0x2, tls=0x2, child_tidptr=0x2) = 3 /* 9 in strace's PID NS */
-'''
-    if parse_java_trace(fixture)["jvm_thread_creations"] != 2:
-        raise SuccessorReleaseFailure("BUNDLE_JAVA_TRACE_PARSER")
-    mutations = (
-        fixture.replace(b"7 clone", b"9 clone").replace(
-            b"7 <... clone", b"9 <... clone"
-        ),
-        fixture.replace(b"8 clone", b"19 clone"),
-        fixture.replace(b"7 seccomp", b"9 seccomp"),
-        fixture.replace(b"7 socket(AF_UNIX", b"9 socket(AF_UNIX"),
-        fixture.replace(b"7 clone3", b"19 clone3"),
-        fixture.replace(b"|CLONE_THREAD", b"|CLONE_VFORK"),
-        fixture[: fixture.index(b"7 <... clone")],
-    )
-    for changed in mutations:
-        try:
-            parse_java_trace(changed)
-        except SuccessorReleaseFailure:
-            continue
-        raise SuccessorReleaseFailure("BUNDLE_JAVA_TRACE_PARSER")
 
 
-def run_java_case(executable: Path, case: str, *, hostile: bool = False) -> bytes:
-    if case not in {"int.identity", "int.division", "int.shift_unsigned_right"}:
-        raise SuccessorReleaseFailure("BUNDLE_ASSEMBLER_USAGE", 64)
-    mode = (
-        "--inside-successor-cutover-java-hostile-case"
-        if hostile
-        else "--inside-successor-cutover-java-case"
-    )
-    command = go_release.rust_fixture_cgroup_command([str(executable), mode, case])
-    result = go_release.run_bounded_rust_fixture(
-        command, cwd=executable.parent.parent, env={}
-    )
-    if result.returncode != 0 or result.stderr:
-        sys.stderr.buffer.write(result.stderr)
-        raise SuccessorReleaseFailure("BUNDLE_JAVA_NATIVE_RUN")
-    try:
-        report = json.loads(result.stdout)
-    except (UnicodeDecodeError, json.JSONDecodeError) as error:
-        raise SuccessorReleaseFailure("BUNDLE_JAVA_NATIVE_RUN") from error
-    if (
-        not isinstance(report, dict)
-        or report.get("language") != "java"
-        or report.get("status") != "ir-lowered"
-        or canonical_line(report) != result.stdout
-    ):
-        raise SuccessorReleaseFailure("BUNDLE_JAVA_NATIVE_RUN")
-    return result.stdout
 
 
-def check_cgroup_cleanup_attribution() -> None:
-    """Reject cleanup accounting that accidentally consumes sibling churn."""
-    command = go_release.rust_fixture_cgroup_command(["/usr/bin/sleep", "1"])
-    unrelated = Path(f"/sys/fs/cgroup/mpk-java-unrelated-{os.getpid()}")
-    process: subprocess.Popen[bytes] | None = None
-    unrelated_created = False
-    try:
-        process = subprocess.Popen(
-            command,
-            cwd="/tmp",
-            env={},
-            stdin=subprocess.DEVNULL,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            start_new_session=True,
-        )
-        owned = Path(f"/sys/fs/cgroup/mpk-rust-fixture-{process.pid}")
-        deadline = time.monotonic() + 2
-        while (
-            not (owned / "domain").is_dir()
-            and process.poll() is None
-            and time.monotonic() < deadline
-        ):
-            time.sleep(0.005)
-        if not (owned / "domain").is_dir() or unrelated.exists():
-            raise SuccessorReleaseFailure("BUNDLE_JAVA_CGROUP_ATTRIBUTION")
-        unrelated.mkdir()
-        unrelated_created = True
-        stdout, stderr = process.communicate(timeout=10)
-        if process.returncode != 0 or stdout or stderr or owned.exists():
-            raise SuccessorReleaseFailure("BUNDLE_JAVA_CGROUP_ATTRIBUTION")
-    except (OSError, subprocess.SubprocessError) as error:
-        raise SuccessorReleaseFailure("BUNDLE_JAVA_CGROUP_ATTRIBUTION") from error
-    finally:
-        cleanup_failed = False
-        if process is not None and process.poll() is None:
-            try:
-                process.terminate()
-                try:
-                    process.communicate(timeout=5)
-                except subprocess.TimeoutExpired:
-                    process.kill()
-                    process.communicate()
-            except (OSError, subprocess.SubprocessError):
-                cleanup_failed = True
-        if unrelated_created:
-            try:
-                unrelated.rmdir()
-            except OSError:
-                cleanup_failed = True
-        if cleanup_failed:
-            raise SuccessorReleaseFailure("BUNDLE_JAVA_CGROUP_ATTRIBUTION")
 
 
 def make_tree_writable(root: Path) -> None:
@@ -651,232 +435,8 @@ def rewrite_file(path: Path, data: bytes, mode: int = 0o444) -> None:
     path.chmod(mode)
 
 
-def validate_java_active_mutations(executable: Path) -> list[str]:
-    image = executable.parent.parent
-    control = go_release.rust_fixture_cgroup_command(
-        [str(executable), "--inside-successor-java-release-control"]
-    )
-    control_result = go_release.run_bounded_rust_fixture(
-        control, cwd=image, env={}
-    )
-    if control_result.returncode != 0 or control_result.stdout or control_result.stderr:
-        raise SuccessorReleaseFailure("BUNDLE_JAVA_ACTIVE_MUTATION_CONTROL")
-    frontend = f"libexec/mpk/bundles/{java.FRONTEND_ID}/java2vir.jar"
-    java_executable = f"libexec/mpk/bundles/{java.TOOLCHAIN_ID}/jdk/bin/java"
-    modules = f"libexec/mpk/bundles/{java.TOOLCHAIN_ID}/jdk/lib/modules"
-    jvm = f"libexec/mpk/bundles/{java.TOOLCHAIN_ID}/jdk/lib/server/libjvm.so"
-    mutations = [
-        "jar-byte",
-        "manifest-classpath",
-        "processor-service",
-        "jdk-byte",
-        "missing-native",
-        "unknown-native",
-        "writable-input",
-        "symlink",
-        "hardlink",
-        "registry-context",
-    ]
-    completed: list[str] = []
-    with tempfile.TemporaryDirectory(prefix="mpk-java-active-mutations-") as temporary:
-        root = Path(temporary)
-        for mutation in mutations:
-            changed = root / mutation
-            shutil.copytree(image, changed, symlinks=True)
-            try:
-                if mutation in {"jar-byte", "jdk-byte"}:
-                    path = changed / (frontend if mutation == "jar-byte" else modules)
-                    data = bytearray(path.read_bytes())
-                    data[-1] ^= 1
-                    rewrite_file(path, bytes(data))
-                elif mutation in {"manifest-classpath", "processor-service"}:
-                    path = changed / frontend
-                    with zipfile.ZipFile(io.BytesIO(path.read_bytes())) as original:
-                        output = io.BytesIO()
-                        with zipfile.ZipFile(
-                            output, "w", compression=zipfile.ZIP_STORED
-                        ) as archive:
-                            for name in original.namelist():
-                                value = original.read(name)
-                                if (
-                                    mutation == "manifest-classpath"
-                                    and name == "META-INF/MANIFEST.MF"
-                                ):
-                                    value = (
-                                        b"Manifest-Version: 1.0\r\n"
-                                        b"Class-Path: /host/poison.jar\r\n\r\n"
-                                    )
-                                archive.writestr(name, value)
-                            if mutation == "processor-service":
-                                archive.writestr(
-                                    "META-INF/services/javax.annotation.processing.Processor",
-                                    "poison.Processor\n",
-                                )
-                    rewrite_file(path, output.getvalue())
-                elif mutation == "writable-input":
-                    (changed / java_executable).chmod(0o755)
-                elif mutation == "registry-context":
-                    path = changed / "share/mpk/bundle-registry.json"
-                    value = json.loads(path.read_bytes())
-                    value["profile_registry"]["revision"] = 2
-                    payload = dict(value)
-                    payload.pop("registry_sha256", None)
-                    value["registry_sha256"] = hashlib.sha256(
-                        REGISTRY_DOMAIN + canonical(payload)
-                    ).hexdigest()
-                    rewrite_file(path, canonical_line(value))
-                else:
-                    path = changed / jvm
-                    path.parent.chmod(0o755)
-                    if mutation == "unknown-native":
-                        unregistered = path.parent / "unregistered.so"
-                        unregistered.write_bytes(b"unregistered")
-                        unregistered.chmod(0o444)
-                    else:
-                        path.unlink()
-                        if mutation == "symlink":
-                            path.symlink_to("../libjava.so")
-                        elif mutation == "hardlink":
-                            os.link(path.parent.parent / "libjava.so", path)
-                    path.parent.chmod(0o555)
-                command = go_release.rust_fixture_cgroup_command(
-                    [
-                        str(changed / "bin/mpk"),
-                        "--inside-successor-java-release-before-source",
-                    ]
-                )
-                result = go_release.run_bounded_rust_fixture(
-                    command, cwd=changed, env={}
-                )
-                if result.returncode != 0 or result.stdout or result.stderr:
-                    raise SuccessorReleaseFailure("BUNDLE_JAVA_ACTIVE_MUTATION")
-                completed.append(mutation)
-            finally:
-                make_tree_writable(changed)
-                shutil.rmtree(changed)
-    return completed
 
 
-def run_java_native_gate(executable: Path) -> None:
-    try:
-        cpuinfo = Path("/proc/cpuinfo").read_text(encoding="ascii")
-    except (OSError, UnicodeError) as error:
-        raise SuccessorReleaseFailure("BUNDLE_JAVA_NATIVE_HOST_REQUIRED", 69) from error
-    required_cpu_flags = {"lm", "sse2"}
-    has_required_cpu_flags = any(
-        line.startswith("flags")
-        and required_cpu_flags.issubset(line.split(":", 1)[1].split())
-        for line in cpuinfo.splitlines()
-        if ":" in line
-    )
-    if (
-        sys.platform != "linux"
-        or os.uname().machine != "x86_64"
-        or os.geteuid() != 0
-        or not has_required_cpu_flags
-        or not executable.is_absolute()
-        or executable.name != "mpk"
-        or not os.access("/sys/fs/cgroup/cgroup.subtree_control", os.W_OK)
-        or not Path("/usr/bin/strace").is_file()
-    ):
-        raise SuccessorReleaseFailure("BUNDLE_JAVA_NATIVE_HOST_REQUIRED", 69)
-
-    check_java_trace_parser()
-    check_cgroup_cleanup_attribution()
-    cases = {
-        case: hashlib.sha256(run_java_case(executable, case)).hexdigest()
-        for case in ("int.identity", "int.division", "int.shift_unsigned_right")
-    }
-    hostile = run_java_case(executable, "int.identity", hostile=True)
-    if hashlib.sha256(hostile).hexdigest() != cases["int.identity"]:
-        raise SuccessorReleaseFailure("BUNDLE_JAVA_NATIVE_AMBIENT")
-
-    # A complete active image must not reach source processing unless the
-    # release supervisor has delegated the exact owned cgroup hierarchy.
-    try:
-        undelegated = subprocess.run(
-            [
-                str(executable),
-                "--inside-successor-cutover-java-case",
-                "int.identity",
-            ],
-            cwd=executable.parent.parent,
-            env={},
-            stdin=subprocess.DEVNULL,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            timeout=120,
-            check=False,
-        )
-    except (OSError, subprocess.SubprocessError) as error:
-        raise SuccessorReleaseFailure("BUNDLE_JAVA_NATIVE_CGROUP_REQUIRED") from error
-    if undelegated.returncode == 0 or undelegated.stdout:
-        raise SuccessorReleaseFailure("BUNDLE_JAVA_NATIVE_CGROUP_REQUIRED")
-
-    faults = ["oom", "pids", "timeout", "stdout", "stderr", "tmpfs"]
-    for case in faults:
-        command = go_release.rust_fixture_cgroup_command(
-            [str(executable), "--inside-successor-java-resource", case]
-        )
-        result = go_release.run_bounded_rust_fixture(
-            command, cwd=executable.parent.parent, env={}
-        )
-        if result.returncode != 0 or result.stdout or result.stderr:
-            raise SuccessorReleaseFailure("BUNDLE_JAVA_NATIVE_RESOURCE")
-
-    mutation_ids = validate_java_active_mutations(executable)
-
-    with tempfile.TemporaryDirectory(prefix="mpk-java-active-native-") as temporary:
-        trace = Path(temporary) / "syscalls.log"
-        command = go_release.rust_fixture_cgroup_command(
-            [
-                str(executable),
-                "--inside-successor-java-trace-probe",
-            ]
-        )
-        traced = go_release.run_bounded_rust_fixture(
-            [
-                "/usr/bin/strace",
-                "-f",
-                "-qq",
-                "--decode-pids=pidns",
-                "-s",
-                "256",
-                "-o",
-                str(trace),
-                "-e",
-                "trace=execve,execveat,clone,clone3,seccomp,prctl,capset,socket,unshare",
-                *command,
-            ],
-            cwd=executable.parent.parent,
-            env={},
-        )
-        if traced.returncode != 0 or traced.stderr:
-            sys.stderr.buffer.write(traced.stderr)
-            raise SuccessorReleaseFailure("BUNDLE_JAVA_NATIVE_TRACE")
-        if traced.stdout:
-            raise SuccessorReleaseFailure("BUNDLE_JAVA_NATIVE_TRACE")
-        trace_bytes = trace.read_bytes()
-        if len(trace_bytes) > 8 * 1024 * 1024:
-            raise SuccessorReleaseFailure("BUNDLE_JAVA_NATIVE_TRACE")
-        observation = parse_java_trace(trace_bytes)
-
-    sys.stdout.buffer.write(
-        canonical_line(
-            {
-                "cases": cases,
-                "hostile_environment_equal": True,
-                "native_architecture": "x86_64",
-                "registry_sha256": REGISTRY_SHA256,
-                "resource_faults": faults,
-                "schema": "mpk.java.active_native_gate.v0",
-                "source_precedence_mutations": mutation_ids,
-                "syscall_observation": observation,
-                "syscall_trace_sha256": hashlib.sha256(trace_bytes).hexdigest(),
-                "undelegated_cgroup_rejected": True,
-            }
-        )
-    )
 
 
 def write_canonical(path: Path, value: object) -> None:
@@ -887,19 +447,18 @@ def write_canonical(path: Path, value: object) -> None:
 
 def update_descriptors() -> None:
     semantic_vector = json.loads(
-        (REPOSITORY_ROOT / "develop/specs/vectors/semantic-profile-registry-v3.json").read_bytes()
+        (REPOSITORY_ROOT / "develop/specs/vectors/semantic-profile-registry-v4.json").read_bytes()
     )
     semantic = semantic_vector["registry"]
     identity = {key: semantic[key] for key in ("schema", "id", "revision", "registry_sha256")}
     candidates: dict[str, dict[str, object]] = {}
-    for language in ("go", "rust", "csharp"):
+    for language in ("go", "rust"):
         current = read_canonical(CANDIDATE_PATHS[language])[0]
         candidate = copy.deepcopy(current)
         candidate["profile_registry"] = identity
         for release_tuple in candidate["tuples"]:
             release_tuple["semantic_context"]["profile_registry"] = identity
         candidates[language] = candidate
-    candidates["java"] = copy.deepcopy(java.descriptors())
     registry: dict[str, object] = {
         "schema": "mpk.release.bundle_registry.v1",
         "id": "mpk.release.registry.v1",
@@ -938,7 +497,7 @@ def update_descriptors() -> None:
 
 def rebound_candidate(language: str) -> dict[str, object]:
     semantic = json.loads(
-        (REPOSITORY_ROOT / "develop/specs/vectors/semantic-profile-registry-v3.json").read_bytes()
+        (REPOSITORY_ROOT / "develop/specs/vectors/semantic-profile-registry-v4.json").read_bytes()
     )["registry"]
     identity = {key: semantic[key] for key in ("schema", "id", "revision", "registry_sha256")}
     candidate = copy.deepcopy(read_canonical(CANDIDATE_PATHS[language])[0])
@@ -1075,8 +634,6 @@ def main(argv: list[str]) -> int:
             run_installed(Path(argv[1]))
         elif len(argv) == 2 and argv[0] == "run-installed-hostile":
             run_installed(Path(argv[1]), hostile=True)
-        elif len(argv) == 2 and argv[0] == "run-installed-java-native-gate":
-            run_java_native_gate(Path(argv[1]))
         else:
             raise SuccessorReleaseFailure("BUNDLE_ASSEMBLER_USAGE", 64)
         return 0
@@ -1084,9 +641,6 @@ def main(argv: list[str]) -> int:
         print(error.code, file=sys.stderr)
         return error.exit_code
     except (
-        csharp.CSharpReleaseFailure,
-        csharp.csharp_build_inputs.CSharpBuildFailure,
-        java.BUILD.BuildFailure,
         go_release.BundleFailure,
         rust.RustBuildFailure,
     ) as error:

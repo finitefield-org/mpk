@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/private/tmp/mpk-go-rust-scope/provision-case-sensitive.py", line 42, in <module>
+    rust.update_build_inputs(provision=True)
+  File "/Users/kazuyoshitoshiya/ff/mpk/scripts/rust_build_inputs.py", line 4388, in update_build_inputs
+    descriptor = materialize_production_cache(vector, staging, Path(temporary))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kazuyoshitoshiya/ff/mpk/scripts/rust_build_inputs.py", line 4367, in materialize_production_cache
+    build_cargo_fuzz_twice(vector, staging, work)
+  File "/Users/kazuyoshitoshiya/ff/mpk/scripts/rust_build_inputs.py", line 4047, in build_cargo_fuzz_twice
+    with mounted_writable_workspace(
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/contextlib.py", line 137, in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+  File "/Users/kazuyoshitoshiya/ff/mpk/scripts/rust_build_inputs.py", line 1980, in mounted_writable_workspace
+    require_host_kernel_abi(RUST_MINIMUM_KERNEL_ABI)
+  File "/Users/kazuyoshitoshiya/ff/mpk/scripts/rust_build_inputs.py", line 1751, in require_host_kernel_abi
+    raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+rust_build_inputs.RustBuildFailure: BUNDLE_PUBLICATION_UNAVAILABLE

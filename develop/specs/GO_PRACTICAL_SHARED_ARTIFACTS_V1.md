@@ -1,5 +1,11 @@
 # Go practical shared artifacts v1
 
+Scope amendment: [LANGUAGE_SUPPORT_SCOPE_V1.md](LANGUAGE_SUPPORT_SCOPE_V1.md)
+limits implementation and retained contexts to Go/Rust. Four future contexts
+replace earlier six-context retention statements; all Go semantics, common
+artifact members, proof obligations and resource caps remain required.
+
+
 Status: frozen inactive Go-owned shared-family design. This document owns
 `mpk.go.practical.shared_artifacts.conformance.v1` at
 `develop/specs/vectors/go-practical-shared-artifacts-v1.json`. Primary test owner:
@@ -12,9 +18,9 @@ numeric budget and cross-artifact predicate. Its identity catalogue is the
 closed unreserved Go-owned family. In particular common context/registry/source/
 VIR/frontend/release use v3 identities, VC/skeleton use v4, and policy/API/AI use
 their exact v4 identities. Go foundation/source identities remain v1. All four
-retained profiles and practical Go share one new installed family at T07;
-both Rust32/64 contexts give six required target contexts. Frozen v1/v2 codecs
-and the inactive C# practical namespace cannot be widened or relabeled.
+required Go/Rust target contexts share one new installed family at T07:
+Go fixed, practical Go, Rust32 and Rust64. Frozen v1/v2 codecs and retired
+identity namespaces cannot be widened or relabeled.
 
 Use narrowed RFC8785 JSON: UTF8 scalar strings, safe integral metadata, exact
 Boolean/null distinction, no duplicate/unknown members, exact required union
@@ -61,10 +67,12 @@ size fields; separately bound modes remain mandatory. New bundle IDs rebind
 component inventory owner scopes and all dependent hashes/library refs. Old
 metadata projections and linkage-fixture hashes do not establish runtime support.
 
-The frozen183-consumer migration preserves retained source/contract/operation/
-axiom meaning and keeps inactive C# private. T02 implements additive private
-producers/importers and real source/ordinary bindings. T07 performs complete
-native local gates, all six contexts, four-profile preservation, two installed
+The original183-consumer catalogue remains a historical coverage index. The
+scope amendment removes retired-language owners; every remaining Go/Rust
+consumer and common member must preserve source/contract/operation/axiom
+meaning. T02 implements additive private producers/importers and real
+source/ordinary bindings. T07 performs complete native local gates, all four
+required target contexts, preservation of every Go/Rust policy, two installed
 replays and compare-and-swap activation/rollback. Metadata cannot grant readiness.
 Historical helpers/observations stay at their original Git epoch; current
 production requires fresh inputs and execution. No partial mix of families is

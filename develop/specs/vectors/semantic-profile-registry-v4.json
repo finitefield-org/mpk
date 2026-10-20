@@ -1,0 +1,59 @@
+{
+  "schema": "mpk.semantic_profile.registry.go_rust.v1",
+  "owner_test": "crates/mpk-vc/tests/semantic_profile_registry_runtime.rs",
+  "registry": {
+    "id": "mpk.semantic_profile.registry.v1",
+    "profiles": [
+      {
+        "contracts": {
+          "ai": "mpk.profile.ai.go_fixed.v0",
+          "evidence": "mpk.profile.evidence.go_fixed.v0",
+          "frontend": "mpk.profile.frontend.go_fixed.v0",
+          "manifest": "mpk.profile.manifest.go_fixed.v0",
+          "policy": "mpk.profile.policy.go_fixed.v0",
+          "release": "mpk.profile.release.go_fixed.v0",
+          "source_map": "mpk.profile.source_map.go_fixed.v0",
+          "vc": "mpk.profile.vc.go_fixed.v0",
+          "vir": "mpk.profile.vir.go_fixed.v0"
+        },
+        "entry_sha256": "b10ec338d1f2b3fefc015e4d46c27def43e92ff3d87341624b48c93db951ca96",
+        "schema": "mpk.semantic_profile.entry.v1",
+        "selection_schema": "mpk.selection.go_function.v0",
+        "semantic_parameters_schema": "mpk.semantic_parameters.go_fixed.v0",
+        "semantic_profile": "mpk.go.fixed.v0",
+        "source_language": "go"
+      },
+      {
+        "contracts": {
+          "ai": "mpk.profile.ai.rust_checked.v0",
+          "evidence": "mpk.profile.evidence.rust_checked.v0",
+          "frontend": "mpk.profile.frontend.rust_checked.v0",
+          "manifest": "mpk.profile.manifest.rust_checked.v0",
+          "policy": "mpk.profile.policy.rust_checked.v0",
+          "release": "mpk.profile.release.rust_checked.v0",
+          "source_map": "mpk.profile.source_map.rust_checked.v0",
+          "vc": "mpk.profile.vc.rust_checked.v0",
+          "vir": "mpk.profile.vir.rust_checked.v0"
+        },
+        "entry_sha256": "1cee9716bb21d07e07b8bc1de59ecaf83437549a4d595039486312260816f057",
+        "schema": "mpk.semantic_profile.entry.v1",
+        "selection_schema": "mpk.selection.rust_function.v0",
+        "semantic_parameters_schema": "mpk.semantic_parameters.rust_checked.v0",
+        "semantic_profile": "mpk.rust.checked.v0",
+        "source_language": "rust"
+      }
+    ],
+    "revision": 4,
+    "schema": "mpk.semantic_profile.registry.v1",
+    "registry_sha256": "25c92a9be951c91d0692aeb92003ae1d9fc5dd2d6a337c980ff6e681b222d2c0"
+  },
+  "supported_languages": [
+    "go",
+    "rust"
+  ],
+  "retained_entry_hashes": {
+    "go": "b10ec338d1f2b3fefc015e4d46c27def43e92ff3d87341624b48c93db951ca96",
+    "rust": "1cee9716bb21d07e07b8bc1de59ecaf83437549a4d595039486312260816f057"
+  },
+  "installed_revision": 4
+}

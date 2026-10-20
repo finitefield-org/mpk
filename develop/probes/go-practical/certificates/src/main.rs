@@ -4,7 +4,7 @@
 //! Its old C# status is irrelevant: every new certificate must independently
 //! pass both checkers before any feasibility claim can use it.
 include!(
-    "../../../../migrations/csharp-03/probes/boolean-proof-elimination-logs/producer/builder.rs"
+    "../../support/builder.rs"
 );
 
 use serde_json::{json, Value};

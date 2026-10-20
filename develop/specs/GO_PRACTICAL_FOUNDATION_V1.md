@@ -1,5 +1,11 @@
 # Go practical ordinary foundation v1
 
+Scope amendment: [LANGUAGE_SUPPORT_SCOPE_V1.md](LANGUAGE_SUPPORT_SCOPE_V1.md)
+limits implementation and retained contexts to Go/Rust. Four future contexts
+replace earlier six-context retention statements; all Go semantics, common
+artifact members, proof obligations and resource caps remain required.
+
+
 Status: frozen inactive design. This document owns
 `mpk.go.practical.foundation.conformance.v1` at
 `develop/specs/vectors/go-practical-foundation-v1.json`. Primary test owner:

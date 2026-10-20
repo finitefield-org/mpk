@@ -1,24 +1,19 @@
 # Go Practical Subset Expansion Design
 
-Status: implementation authorized on 2026-10-16, starting with
-`GO-PRAC-T01-W01`. The user-authorized scheduling amendment permits Go work
-before the practical C# release. No specification, profile, registry entry,
-or public command is activated by this document.
-The implementation sequence is in
-[the companion work plan](09_go_practical_subset_design-todo.md).
+Scope amendment (2026-10-20): MPK supports **Go and Rust only**. Follow
+[the normative language scope](../specs/LANGUAGE_SUPPORT_SCOPE_V1.md).
+Java/C# implementation, resumption and release dependencies are retired.
+Future common-artifact integration covers retained Go, practical Go, Rust32
+and Rust64. All Go proof, compiler-binding and resource requirements remain.
+Earlier checkpoint descriptions below are historical evidence of their own
+inputs; they do not preserve removed-language product support.
 
-T01 is complete under the explicit C# test deferral. T01-W05 published the inactive
-[profile](../specs/GO_PRACTICAL_PROFILE_V1.md),
-[ordinary foundation](../specs/GO_PRACTICAL_FOUNDATION_V1.md) and
-[shared artifacts](../specs/GO_PRACTICAL_SHARED_ARTIFACTS_V1.md), with separately
-owned Sort0 Nat/Bool core extensions. The publication and implementation status
-is recorded in the [ledger](go-practical-implementation-traceability-ledger.md).
-The cumulative T01 Go-development gate passed all594 selected tests and its
-other checks; the [completion audit](../migrations/go-practical/t01-w05/completion-audit.json)
-opens T02 implementation. On 2026-10-19 the user explicitly instructed that C# tests be skipped
-while Go development proceeds. GO-PRAC stage gates therefore use
-`./scripts/check-fast.sh --skip-csharp`; C# validation and release acceptance
-remain deferred, with their existing failures and evidence retained.
+
+Status: design accepted; practical Go remains inactive. T01 passed its
+historical gate; T02-W01 implementation continues under the Go/Rust-only
+scope. No public practical Go selection, installed tuple or complete Go
+program proof is claimed. The workspace gate runs at the final W of each T.
+The revision-4 retained release requires its own native Linux validation.
 
 ## 1. Decision and delivery order
 
@@ -54,55 +49,18 @@ checking a definition alone does not establish support for a proof claim.
 
 ## 2. Baseline, authority, and scheduling
 
-The baseline is [GO_VIR_PROFILE_V0.md](../specs/GO_VIR_PROFILE_V0.md), not the
-historical `GO_SUBSET_V0.md`. Its existing value domain is Bool, fixed-width
-integers, fixed arrays, and nominal structs. Restricted loops and static calls
-already exist. Functions can declare multiple results, but called functions
-currently have exactly one result. The new work therefore extends the call
-and assignment model rather than introducing result lists from nothing.
+The current product supports Go and Rust. The retained release has Go fixed
+and Rust checked profiles, with Go linux/amd64 and both Rust32/64 targets.
+The historical source baseline and receipts apply only to their own bytes.
 
-Current integration obstacles include package-wide subset rejection,
-dependency-free `go.mod`, unit-local struct identities, and the absence of
-strings, slices, maps, and pointers. The principal code owners are
-`go-tools/go2vir/{preflight,loader,features,lower_types,lower,contract}.go`,
-`crates/mpk-vc/src/{vir,vir_validate,program_wp,program_encode}.rs`, and the
-successor artifact/profile consumers. The current policy strategy in
-`crates/mpk-api/src/policy_strategy.rs` covers a small payment-oriented set;
-new source syntax does not automatically expand that strategy.
+Go implementation follows T01 through T11 and each W in order. Every needed
+shared facility is independently validated through Go's own proof, compiler,
+consumer and release gates. No other-language release is a prerequisite.
 
-This design is subordinate to Certificate v0, the trust boundary, the active
-semantic registry, and the current shared-artifact specifications. The fixed
-Go profile retains its accepted inputs, diagnostics, limits, and semantics.
-The new profile carries its own source rules, dependency policy, target,
-limits, operations, contracts, and conformance vectors.
-
-The user-authorized serial order is:
-
-```text
-registered Go/Rust/scalar-C#/Java release + audited current source baseline
-  -> Go practical v1 (T01–T07)
-  -> Go practical v2
-  -> resume and finish practical C# from its retained checkpoint
-  -> Dart, TypeScript, and Python
-```
-
-This replaces the original proposal to wait for practical C#. The amendment
-is also recorded in [the multi-language design](06_multilanguage_frontend_design.md).
-T01-W01 pins the clean source baseline and the last installed-release receipt
-separately: that historical receipt does not certify subsequent source
-changes. Go's own feasibility, freeze, stage gates, and native release gates
-remain required. Earlier Go integration value justifies moving this work onto
-the critical path; the cost is deferring remaining practical C# work and
-reconciling its shared artifacts before it resumes. No production language
-phases run concurrently.
-
-The practical C# work plan currently records reopened foundation work and
-pending proof completion. Its
-[current status and amendment](08_csharp_practical_subset_design-todo.md)
-are authoritative; older completion prose is not evidence that Go can already
-reuse a finished foundation. Planning this Go extension does not depend on
-declaring that work complete. Its release receipt is no longer an entry
-condition for GO-PRAC. A C# completion claim cannot replace Go's own proofs.
+The first practical Go release covers ordinary types and syntax, multiple
+results/errors, bounded strings, slices and useful loops. Bounded maps,
+restricted pointers and state transitions follow the existing second-release
+plan. All source binding and proof obligations remain required.
 
 ## 3. Trust and artifact strategy
 
@@ -134,16 +92,10 @@ correct. If a required construction cannot be expressed and checked within
 the available kernel and resource limits, the corresponding milestone stays
 incomplete; a checker change would need its own explicit design and review.
 
-Start from the registered release and audited source baseline. Common
-mechanisms for closed specialization, ordinary definitions, explicit control,
-and source binding may be reused only after their Go-required scope passes
-Go's own independent validation and proof gates. Inactive C# code is a
-candidate implementation, not an established dependency. If a needed common
-facility is unfinished, complete and verify that bounded facility in GO-PRAC
-instead of waiting for the entire C# profile or assuming its correctness.
-Go owns its bindings: C# UTF-16 strings, ordered
-collections, exceptions, and overflow rules are not Go semantics. Do not
-copy the C# frontend's source-specific types into a Go interface.
+Common facilities are reused only after Go's own validation and proof gates.
+Go owns its source bindings, UTF-8 byte strings, unordered maps, zero values,
+copy semantics and compiler-derived operation roots. Retained Rust contracts
+and policy/checker profiles must continue to pass their own regressions.
 
 Before implementing a changed serialized shape, freeze its exact producer,
 consumer, schema, hash-domain, limits, and migration inventory. Extending a
@@ -468,7 +420,7 @@ Canonical key sorting may encode the internal finite mapping, but it cannot
 define a source iteration order. The v2 rejection of `range` over maps is
 intentional. A later version could admit iteration with universally
 quantified iteration choices or order-independent proofs; it must not reuse
-C# ordered-map semantics. Required negative cases include nil writes, missing
+the semantics of an ordered map. Required negative cases include nil writes, missing
 versus zero values, aliased mutation, bound overflow on a new key, and
 acceptance that depends on a convenient iteration order.
 
@@ -642,8 +594,7 @@ parsers in place. New profile-specific files sit beside these owners.
 | Regression/release tests | Existing Go corpus, profile vectors, source-free checker and installed-release tests | Paired source/VIR/VC/proof cases, both-checker acceptance and replay |
 
 T01 and T08 inventory exact symbols/files after their entry revisions are
-pinned; the current C# implementation can move these common owners before
-Go work starts. Every frozen requirement gets one primary executor and all
+pinned against the reviewed Go/Rust source snapshot. Every frozen requirement gets one primary executor and all
 affected consumers. Test-only model evaluation is not a production executor.
 
 ## 14. Validation and release gates

@@ -33,7 +33,7 @@ fn legacy() -> Result<Value, String> {
     let raw = include_bytes!("../../../../../release/bundles/bundle-registry.json");
     let semantic = validate_semantic_profile_registry(
         include_bytes!("../../../../../release/bundles/semantic-profile-registry.json"),
-        RegistryRevision::Revision3,
+        RegistryRevision::Revision4,
     )
     .map_err(|e| e.to_string())?;
     let registry =
@@ -54,10 +54,10 @@ fn legacy() -> Result<Value, String> {
     }
     let original: Value = serde_json::from_slice(raw).map_err(|e| e.to_string())?;
     let mut controls = Vec::new();
-    for name in ["reserved_csharp_v2", "unknown_field", "wrong_hash"] {
+    for name in ["reserved_registry_v2", "unknown_field", "wrong_hash"] {
         let mut v = original.clone();
         match name {
-            "reserved_csharp_v2" => v["schema"] = json!("mpk.release.bundle_registry.v2"),
+            "reserved_registry_v2" => v["schema"] = json!("mpk.release.bundle_registry.v2"),
             "unknown_field" => v["accepted"] = json!(true),
             _ => v["registry_sha256"] = json!("0".repeat(64)),
         };

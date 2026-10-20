@@ -19,13 +19,10 @@ use crate::canonical_json::{
     BoundedJsonSerializeError, StrictJsonLimits,
 };
 use crate::hash::{hash_domain_separated_raw, HashDomain};
-use crate::program_encode::ProgramExprContext;
 use crate::program_wp::{
     generate_program_vcs_from_profiled_projection, ProfiledProgramVcModule, ProgramVcMemberKind,
 };
-use crate::safety_check::{
-    required_safety_checks, CompiledRequiredCheckProfile, SafetyEvidenceRoute, VirSafetyOperation,
-};
+use crate::safety_check::{CompiledRequiredCheckProfile, SafetyEvidenceRoute};
 use crate::semantic_profile::{
     GoFixedParameters, SemanticParameters, SemanticProfile, SourceLanguage,
 };
@@ -51,8 +48,8 @@ use crate::verification_limits::{
     VC_CANONICAL_JSON_BYTES_MAX, VC_CANONICAL_SKELETON_JSON_BYTES_MAX,
 };
 use crate::vir::{
-    LowercaseSha256, VirContract, VirFunction, VirInstruction, VirModule, VirSafetyCheck, VirType,
-    VirUnit, VIR_SCHEMA_VERSION,
+    LowercaseSha256, VirContract, VirFunction, VirInstruction, VirModule, VirSafetyCheck, VirUnit,
+    VIR_SCHEMA_VERSION,
 };
 use crate::vir_canonical::{contract_hash, vir_hash};
 use crate::vir_validate::validate_vir;
@@ -960,131 +957,14 @@ fn projection_semantics(
                 SourceLanguage::Rust,
             ))
         }
-        CompiledSemanticProfile::CSharpScalarV0 | CompiledSemanticProfile::JavaScalarV0 => Ok((
-            SemanticProfile::GoFixedV0,
-            SemanticParameters::GoFixed(GoFixedParameters {
-                target_id: "linux/amd64".to_owned(),
-                pointer_width: crate::PointerWidth::Bits64,
-            }),
-            SourceLanguage::Go,
-        )),
     }
 }
 
 fn validate_projection(
     projection: &VirModule,
-    profile: CompiledSemanticProfile,
+    _profile: CompiledSemanticProfile,
 ) -> Result<(), SuccessorVcError> {
-    if !matches!(
-        profile,
-        CompiledSemanticProfile::CSharpScalarV0 | CompiledSemanticProfile::JavaScalarV0
-    ) {
-        return validate_vir(projection).map_err(|error| source_failure(error.to_string()));
-    }
-
-    // C# and Java have their own method IDs and required-check rules. For the
-    // common structural/type validator only, use private Go-shaped IDs and
-    // check lists. The original Java lists are checked at VIR import; the WP
-    // pass independently regenerates both languages' original check lists.
-    let mut structural = scalar_structural_projection(projection, profile.source_language())?;
-    let context_projection = structural.clone();
-    for (unit_index, unit) in structural.units.iter_mut().enumerate() {
-        for (function_index, function) in unit.functions.iter_mut().enumerate() {
-            let context = ProgramExprContext::for_validated_function(
-                &context_projection,
-                &context_projection.units[unit_index],
-                &context_projection.units[unit_index].functions[function_index],
-            )
-            .map_err(|error| source_failure(error.to_string()))?;
-            for instruction in function
-                .blocks
-                .iter_mut()
-                .flat_map(|block| &mut block.instructions)
-            {
-                let (operation, operands) = safety_operation(&context, instruction)?;
-                *instruction_checks_mut(instruction) =
-                    required_safety_checks(SemanticProfile::GoFixedV0, operation, &operands)
-                        .map_err(|error| source_failure(error.to_string()))?;
-            }
-        }
-    }
-    structural.vir_hash =
-        vir_hash(&structural).map_err(|error| source_failure(error.to_string()))?;
-    validate_vir(&structural).map_err(|error| source_failure(error.to_string()))
-}
-
-// Used by Java's VIR importer before returning a validated artifact, without
-// generating VCs, certificates or any public compatibility representation.
-pub(crate) fn validate_java_vir_structure(
-    source: &ValidatedSuccessorVir,
-) -> Result<(), SuccessorVcError> {
-    let projection = project_successor_vir(source, CompiledSemanticProfile::JavaScalarV0)?;
-    validate_projection(&projection, CompiledSemanticProfile::JavaScalarV0)
-}
-
-fn scalar_structural_projection(
-    projection: &VirModule,
-    language: &str,
-) -> Result<VirModule, SuccessorVcError> {
-    if projection.units.len() != 1
-        || !projection.units[0].type_decls.is_empty()
-        || !projection.units[0].const_decls.is_empty()
-    {
-        return Err(source_failure(
-            "scalar projection requires one unit and no type or constant declarations",
-        ));
-    }
-
-    let mut structural = projection.clone();
-    let mut function_ids = BTreeMap::new();
-    for (index, function) in structural.units[0].functions.iter().enumerate() {
-        function_ids.insert(function.id.clone(), format!("{language}.f{index:04}"));
-    }
-
-    structural.units[0].id = language.to_owned();
-    structural.units[0].name = language.to_owned();
-    let mut contract_hashes = BTreeMap::new();
-    for (index, function) in structural.units[0].functions.iter_mut().enumerate() {
-        let id = function_ids
-            .get(&function.id)
-            .ok_or_else(|| source_failure("scalar validation surrogate is absent"))?
-            .clone();
-        let name = format!("f{index:04}");
-        function.id = id.clone();
-        function.unit_id = language.to_owned();
-        function.name = name;
-        function.contracts.unit_id = language.to_owned();
-        function.contracts.function_id = id.clone();
-        function.contracts.contract_hash = contract_hash(&function.contracts)
-            .map_err(|error| source_failure(error.to_string()))?;
-        contract_hashes.insert(id, function.contracts.contract_hash.clone());
-    }
-    for function in &mut structural.units[0].functions {
-        for instruction in function
-            .blocks
-            .iter_mut()
-            .flat_map(|block| &mut block.instructions)
-        {
-            if let VirInstruction::CallStatic {
-                function,
-                contract_hash,
-                ..
-            } = instruction
-            {
-                *function = function_ids
-                    .get(function)
-                    .ok_or_else(|| source_failure("scalar static callee surrogate is absent"))?
-                    .clone();
-                *contract_hash = contract_hashes
-                    .get(function)
-                    .ok_or_else(|| source_failure("scalar static callee contract is absent"))?
-                    .clone();
-            }
-        }
-    }
-    structural.vir_hash =
-        vir_hash(&structural).map_err(|error| source_failure(error.to_string()))?;
-    Ok(structural)
+    validate_vir(projection).map_err(|error| source_failure(error.to_string()))
 }
 
 fn compiled_check_profile(
@@ -1101,12 +981,6 @@ fn compiled_check_profile(
         }
         (CompiledSemanticProfile::RustCheckedV0, "mpk.rust.checked.v0") => {
             Ok(CompiledRequiredCheckProfile::RustCheckedV0)
-        }
-        (CompiledSemanticProfile::CSharpScalarV0, "mpk.csharp.required_checks.v0") => {
-            Ok(CompiledRequiredCheckProfile::CSharpScalarV0)
-        }
-        (CompiledSemanticProfile::JavaScalarV0, "mpk.java.required_checks.v0") => {
-            Ok(CompiledRequiredCheckProfile::JavaScalarV0)
         }
         _ => Err(profile_failure(
             "required-check profile does not own the entry",
@@ -1319,59 +1193,7 @@ fn build_source_projection(
     ))
 }
 
-fn safety_operation(
-    context: &ProgramExprContext,
-    instruction: &VirInstruction,
-) -> Result<(VirSafetyOperation, Vec<VirType>), SuccessorVcError> {
-    match instruction {
-        VirInstruction::BinOp { op, lhs, rhs, .. } => Ok((
-            VirSafetyOperation::Binary(*op),
-            vec![
-                context
-                    .value_type(lhs)
-                    .map_err(|error| source_failure(error.to_string()))?,
-                context
-                    .value_type(rhs)
-                    .map_err(|error| source_failure(error.to_string()))?,
-            ],
-        )),
-        VirInstruction::UnaryOp { op, value, .. } => Ok((
-            VirSafetyOperation::Unary(*op),
-            vec![context
-                .value_type(value)
-                .map_err(|error| source_failure(error.to_string()))?],
-        )),
-        VirInstruction::Index { base, index, .. } => Ok((
-            VirSafetyOperation::Index,
-            vec![
-                context
-                    .value_type(base)
-                    .map_err(|error| source_failure(error.to_string()))?,
-                context
-                    .value_type(index)
-                    .map_err(|error| source_failure(error.to_string()))?,
-            ],
-        )),
-        other => Ok((VirSafetyOperation::None(other.kind()), Vec::new())),
-    }
-}
-
 fn instruction_checks(instruction: &VirInstruction) -> &[VirSafetyCheck] {
-    match instruction {
-        VirInstruction::Const { safety_checks, .. }
-        | VirInstruction::Copy { safety_checks, .. }
-        | VirInstruction::BinOp { safety_checks, .. }
-        | VirInstruction::UnaryOp { safety_checks, .. }
-        | VirInstruction::Convert { safety_checks, .. }
-        | VirInstruction::Field { safety_checks, .. }
-        | VirInstruction::Index { safety_checks, .. }
-        | VirInstruction::MakeStruct { safety_checks, .. }
-        | VirInstruction::MakeArray { safety_checks, .. }
-        | VirInstruction::CallStatic { safety_checks, .. } => safety_checks,
-    }
-}
-
-fn instruction_checks_mut(instruction: &mut VirInstruction) -> &mut Vec<VirSafetyCheck> {
     match instruction {
         VirInstruction::Const { safety_checks, .. }
         | VirInstruction::Copy { safety_checks, .. }

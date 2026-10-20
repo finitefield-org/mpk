@@ -42,8 +42,8 @@ fn mirror(source: &Path, output: &Path, relative: &Path, extension: &Path, root:
                     }
                 })
                 .collect();
-            let builder = root.join("develop/migrations/csharp-03/probes/boolean-proof-elimination-logs/producer/builder.rs");
-            text = replace_once(text, "\"../../../../migrations/csharp-03/probes/boolean-proof-elimination-logs/producer/builder.rs\"", &format!("{:?}", builder));
+            let builder = root.join("develop/probes/go-practical/support/builder.rs");
+            text = replace_once(text, "\"../../support/builder.rs\"", &format!("{:?}", builder));
             text = text
                 .replace("stringop-generate", "affix-generate")
                 .replace("stringop-trace", "affix-trace");

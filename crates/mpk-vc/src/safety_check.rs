@@ -30,16 +30,12 @@ pub const SAFETY_GROUPED_CERTIFICATE_FOUNDATION: &str = "Std.Program.Base";
 pub(crate) enum CompiledRequiredCheckProfile {
     GoFixedV0,
     RustCheckedV0,
-    CSharpScalarV0,
-    JavaScalarV0,
 }
 
 impl CompiledRequiredCheckProfile {
     const fn encoding_profile(self) -> SemanticProfile {
         match self {
-            Self::GoFixedV0 | Self::CSharpScalarV0 | Self::JavaScalarV0 => {
-                SemanticProfile::GoFixedV0
-            }
+            Self::GoFixedV0 => SemanticProfile::GoFixedV0,
             Self::RustCheckedV0 => SemanticProfile::RustCheckedV0,
         }
     }
@@ -104,11 +100,8 @@ pub(crate) fn required_safety_checks_for_profile(
     profile: CompiledRequiredCheckProfile,
     operation: VirSafetyOperation,
     operand_types: &[VirType],
-    actual: &[VirSafetyCheck],
+    _actual: &[VirSafetyCheck],
 ) -> Result<Vec<VirSafetyCheck>, SafetyCheckError> {
-    if profile == CompiledRequiredCheckProfile::JavaScalarV0 {
-        return required_java_safety_checks(operation, operand_types);
-    }
     match operation {
         VirSafetyOperation::None(_) => {
             if !operand_types.is_empty() {
@@ -138,28 +131,9 @@ pub(crate) fn required_safety_checks_for_profile(
                 (CompiledRequiredCheckProfile::RustCheckedV0, VirBinaryOperator::BvMul) => {
                     vec![integer_check(OverflowOperation::Mul, signed)]
                 }
-                (CompiledRequiredCheckProfile::CSharpScalarV0, VirBinaryOperator::BvAdd)
-                    if has_explicit_overflow_check(actual) =>
-                {
-                    vec![integer_check(OverflowOperation::Add, signed)]
-                }
-                (CompiledRequiredCheckProfile::CSharpScalarV0, VirBinaryOperator::BvSub)
-                    if has_explicit_overflow_check(actual) =>
-                {
-                    vec![integer_check(OverflowOperation::Sub, signed)]
-                }
-                (CompiledRequiredCheckProfile::CSharpScalarV0, VirBinaryOperator::BvMul)
-                    if has_explicit_overflow_check(actual) =>
-                {
-                    vec![integer_check(OverflowOperation::Mul, signed)]
-                }
                 (_, VirBinaryOperator::BvSdiv) => {
                     let mut checks = vec![VirSafetyCheck::DivisorNonzero {}];
-                    if matches!(
-                        profile,
-                        CompiledRequiredCheckProfile::RustCheckedV0
-                            | CompiledRequiredCheckProfile::CSharpScalarV0
-                    ) {
+                    if matches!(profile, CompiledRequiredCheckProfile::RustCheckedV0) {
                         checks.push(VirSafetyCheck::SignedDivremRepresentable {
                             operation: DivRemOperation::Div,
                         });
@@ -168,11 +142,7 @@ pub(crate) fn required_safety_checks_for_profile(
                 }
                 (_, VirBinaryOperator::BvSrem) => {
                     let mut checks = vec![VirSafetyCheck::DivisorNonzero {}];
-                    if matches!(
-                        profile,
-                        CompiledRequiredCheckProfile::RustCheckedV0
-                            | CompiledRequiredCheckProfile::CSharpScalarV0
-                    ) {
+                    if matches!(profile, CompiledRequiredCheckProfile::RustCheckedV0) {
                         checks.push(VirSafetyCheck::SignedDivremRepresentable {
                             operation: DivRemOperation::Rem,
                         });
@@ -196,9 +166,7 @@ pub(crate) fn required_safety_checks_for_profile(
                     if profile == CompiledRequiredCheckProfile::RustCheckedV0 {
                         checks.push(VirSafetyCheck::ShiftCountLessThanWidth {});
                     }
-                    if profile == CompiledRequiredCheckProfile::CSharpScalarV0 {
-                        checks.clear();
-                    }
+
                     checks
                 }
                 _ => Vec::new(),
@@ -213,9 +181,7 @@ pub(crate) fn required_safety_checks_for_profile(
             };
             validate_unary_operand(profile.encoding_profile(), operator, operand)?;
             if operator == VirUnaryOperator::BvNeg
-                && (profile == CompiledRequiredCheckProfile::RustCheckedV0
-                    || (profile == CompiledRequiredCheckProfile::CSharpScalarV0
-                        && has_explicit_overflow_check(actual)))
+                && (profile == CompiledRequiredCheckProfile::RustCheckedV0)
             {
                 Ok(vec![integer_check(OverflowOperation::Neg, true)])
             } else {
@@ -235,12 +201,7 @@ pub(crate) fn required_safety_checks_for_profile(
                     "index safety context requires an array and a bitvector index",
                 ));
             }
-            if profile == CompiledRequiredCheckProfile::CSharpScalarV0 {
-                return Err(invalid(
-                    "VIR_CSHARP_INDEX_TYPE",
-                    "C# scalar profile does not admit Index",
-                ));
-            }
+
             if profile == CompiledRequiredCheckProfile::RustCheckedV0
                 && matches!(index, VirType::Bv { signed: true, .. })
             {
@@ -252,92 +213,6 @@ pub(crate) fn required_safety_checks_for_profile(
             Ok(vec![VirSafetyCheck::IndexInBounds {}])
         }
     }
-}
-
-// Java owns this finite rule independently of C# checked intent and Go shift
-// checks. Artifact validation additionally proves the exact linked shift mask.
-fn required_java_safety_checks(
-    operation: VirSafetyOperation,
-    operands: &[VirType],
-) -> Result<Vec<VirSafetyCheck>, SafetyCheckError> {
-    use crate::java_profile::{is_integer, is_scalar};
-    use crate::vir::BitVectorWidth::{Bits32, Bits64};
-    use VirBinaryOperator as Op;
-    let valid = match (operation, operands) {
-        (VirSafetyOperation::None(kind), []) => matches!(
-            kind,
-            VirInstructionKind::Const
-                | VirInstructionKind::Copy
-                | VirInstructionKind::Convert
-                | VirInstructionKind::CallStatic
-        ),
-        (VirSafetyOperation::Unary(VirUnaryOperator::Not), [ty]) => matches!(ty, VirType::Bool {}),
-        (VirSafetyOperation::Unary(VirUnaryOperator::BvNeg | VirUnaryOperator::BvNot), [ty]) => {
-            is_integer(ty)
-        }
-        (VirSafetyOperation::Binary(Op::Eq | Op::NotEq), [left, right]) => {
-            left == right && is_scalar(left)
-        }
-        (
-            VirSafetyOperation::Binary(
-                Op::BvAdd
-                | Op::BvSub
-                | Op::BvMul
-                | Op::BvSdiv
-                | Op::BvSrem
-                | Op::BvAnd
-                | Op::BvOr
-                | Op::BvXor
-                | Op::SignedLt
-                | Op::SignedLe
-                | Op::SignedGt
-                | Op::SignedGe,
-            ),
-            [left, right],
-        ) => left == right && is_integer(left),
-        (VirSafetyOperation::Binary(Op::BvShl | Op::BvAshr), [left, right]) => {
-            is_integer(left)
-                && matches!(
-                    right,
-                    VirType::Bv {
-                        width: Bits32,
-                        signed: true
-                    }
-                )
-        }
-        (VirSafetyOperation::Binary(Op::BvLshr), [left, right]) => {
-            matches!(
-                left,
-                VirType::Bv {
-                    width: Bits32 | Bits64,
-                    signed: false
-                }
-            ) && matches!(
-                right,
-                VirType::Bv {
-                    width: Bits32,
-                    signed: true
-                }
-            )
-        }
-        _ => false,
-    };
-    if !valid {
-        return Err(invalid(
-            "VIR_JAVA_OPERATION",
-            "operation or operands are outside the Java scalar profile",
-        ));
-    }
-    Ok(
-        if matches!(
-            operation,
-            VirSafetyOperation::Binary(Op::BvSdiv | Op::BvSrem)
-        ) {
-            vec![VirSafetyCheck::DivisorNonzero {}]
-        } else {
-            Vec::new()
-        },
-    )
 }
 
 /// Validates exact kind, order, operation, and signedness metadata.
@@ -821,12 +696,6 @@ pub(crate) fn classify_safety_evidence_for_profile(
             foundation: SAFETY_GROUPED_CERTIFICATE_FOUNDATION,
         }
     }
-}
-
-fn has_explicit_overflow_check(actual: &[VirSafetyCheck]) -> bool {
-    actual
-        .iter()
-        .any(|check| matches!(check, VirSafetyCheck::IntegerNoOverflow { .. }))
 }
 
 fn mvp_bitvec_ground_supports(proposition: &MpkExprTerm) -> bool {

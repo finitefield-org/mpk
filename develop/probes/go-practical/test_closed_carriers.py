@@ -126,8 +126,8 @@ class ClosedCarrierTests(unittest.TestCase):
         from identity_catalog import generate
         c=generate();ids={r["identity"] for r in c["identities"]};domains={r["domain"] for r in c["identities"]}
         for row in schemas()["new_identities"]:
-            self.assertNotIn(row["schema"],ids|set(c["reserved_csharp"]["identities"]))
-            self.assertNotIn(row["domain"],domains|set(c["reserved_csharp"]["domains"]))
+            self.assertNotIn(row["schema"],ids|set(c["reserved_retired"]["identities"]))
+            self.assertNotIn(row["domain"],domains|set(c["reserved_retired"]["domains"]))
 
     def test_both_actual_checkers_and_false_controls_remain_distinct_from_source_proofs(self):
         r=json.loads((RECORD/"observations.json").read_text())

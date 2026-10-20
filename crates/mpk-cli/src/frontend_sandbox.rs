@@ -130,14 +130,15 @@ fn first_execution_kill_cause(
 pub(crate) const LEGACY_EXECUTION_HOST_PROFILE_ID: &str = "mpk.host.linux-x86_64-gnu.v0";
 pub(crate) const RUST_EXECUTION_HOST_PROFILE_ID: &str =
     "mpk.host.linux-x86_64-gnu.glibc2_27.cgroup2_tmpfs.v0";
-const CSHARP_BOOTSTRAP_EXECUTABLE: &str = "dotnet/dotnet";
-const JAVA_BOOTSTRAP_EXECUTABLE: &str = "jdk/bin/java";
+
+#[path = "go_practical_frontend_runner.rs"]
+pub(crate) mod go_practical;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 enum SandboxProfile {
     LegacyNamespaces,
     Cgroup2Tmpfs,
-    Java25,
+    GoPractical,
 }
 
 impl SandboxProfile {
@@ -147,8 +148,8 @@ impl SandboxProfile {
 
     #[cfg(any(test, target_os = "linux"))]
     fn memory(self) -> u64 {
-        if self == Self::Java25 {
-            mpk_vc::java_release::MEMORY_BYTES
+        if self == Self::GoPractical {
+            go_practical::FRONTEND_MEMORY
         } else {
             CGROUP_MEMORY_LIMIT
         }
@@ -156,8 +157,8 @@ impl SandboxProfile {
 
     #[cfg(any(test, target_os = "linux"))]
     fn pids(self) -> u64 {
-        if self == Self::Java25 {
-            mpk_vc::java_release::PIDS
+        if self == Self::GoPractical {
+            go_practical::FRONTEND_PIDS
         } else {
             CGROUP_TASK_LIMIT
         }
@@ -165,17 +166,25 @@ impl SandboxProfile {
 
     #[cfg(any(test, target_os = "linux"))]
     fn tmpfs(self) -> u64 {
-        if self == Self::Java25 {
-            mpk_vc::java_release::TMPFS_BYTES
+        if self == Self::GoPractical {
+            go_practical::FRONTEND_TMPFS
         } else {
             WRITABLE_ALLOCATED_BYTES_LIMIT
         }
     }
 
-    #[cfg(target_os = "linux")]
+    #[cfg(any(test, target_os = "linux"))]
+    fn timeout(self, requested: Duration) -> Duration {
+        match self {
+            Self::GoPractical => Duration::from_secs(go_practical::FRONTEND_SECONDS).min(requested),
+            _ => requested,
+        }
+    }
+
+    #[cfg(any(test, target_os = "linux"))]
     fn probe_id(self) -> &'static str {
-        if self == Self::Java25 {
-            "mpk.release.probe.java25.v0"
+        if self == Self::GoPractical {
+            go_practical::PROBE_ID
         } else {
             RESOURCE_PROBE_PROFILE_ID
         }
@@ -192,7 +201,7 @@ pub(crate) struct PreparedSandbox {
 const FRONTEND_WALL_CLOCK_TIMEOUT: Duration = Duration::from_secs(300);
 #[cfg(target_os = "linux")]
 const RESOURCE_PROBE_MARKER: &str = ".mpk-release-probe-cgroup2-tmpfs-v0";
-#[cfg(target_os = "linux")]
+#[cfg(any(test, target_os = "linux"))]
 const RESOURCE_PROBE_PROFILE_ID: &str = "mpk.release.probe.linux_namespaces_cgroup2_tmpfs.v0";
 #[cfg(target_os = "linux")]
 const RESOURCE_PROBE_OUTPUT: &[u8] = b"mpk.release.probe.linux_namespaces_cgroup2_tmpfs.v0 ok\n";
@@ -215,7 +224,6 @@ const RESOURCE_OPEN_FILE_LIMIT: u64 = 1_024;
 #[cfg(any(test, target_os = "linux"))]
 const RESOURCE_ADDRESS_SPACE_LIMIT: u64 = 17_179_869_184;
 #[cfg(any(test, target_os = "linux"))]
-const CSHARP_RESOURCE_ADDRESS_SPACE_LIMIT: u64 = 1_099_511_627_776;
 #[cfg(any(test, target_os = "linux"))]
 const WRITABLE_ALLOCATED_BYTES_LIMIT: u64 = 21_474_836_480;
 #[cfg(any(test, target_os = "linux"))]
@@ -311,15 +319,15 @@ pub(crate) fn prepare_release_sandbox(
     }
     #[cfg(target_os = "linux")]
     {
-        if profile == SandboxProfile::Java25 {
-            require_native_java_host()?;
+        if profile == SandboxProfile::GoPractical {
+            go_practical::require_native_host()?;
         }
         let resource_session = match profile {
             SandboxProfile::LegacyNamespaces => {
                 run_sandbox_probe(profile, None)?;
                 None
             }
-            SandboxProfile::Cgroup2Tmpfs | SandboxProfile::Java25 => {
+            SandboxProfile::Cgroup2Tmpfs | SandboxProfile::GoPractical => {
                 if RESOURCE_SESSION_STATE
                     .compare_exchange(0, 1, Ordering::AcqRel, Ordering::Acquire)
                     .is_err()
@@ -344,31 +352,23 @@ pub(crate) fn prepare_release_sandbox(
     }
 }
 
-#[cfg(target_os = "linux")]
-fn require_native_java_host() -> Result<(), SandboxError> {
-    // Build-target or emulated uname alone is not native-host evidence. The
-    // initial proc view must describe x86-64 CPUs before any namespace setup.
-    let cpuinfo = read_bounded_file(Path::new("/proc/cpuinfo"), 16 * 1024 * 1024)?;
-    let cpuinfo = std::str::from_utf8(&cpuinfo).map_err(|_| SandboxError::Unavailable)?;
-    if !cfg!(target_arch = "x86_64")
-        || !cpuinfo.lines().any(|line| {
+#[cfg(any(test, target_os = "linux"))]
+fn native_x86_64_cpuinfo(cpuinfo: &str) -> bool {
+    cfg!(target_arch = "x86_64")
+        && cpuinfo.lines().any(|line| {
             line.split_once(':').is_some_and(|(key, value)| {
                 key.trim() == "flags"
                     && value.split_ascii_whitespace().any(|flag| flag == "lm")
                     && value.split_ascii_whitespace().any(|flag| flag == "sse2")
             })
         })
-    {
-        return Err(SandboxError::Unavailable);
-    }
-    Ok(())
 }
 
 fn sandbox_profile(execution_host_profile_id: &str) -> Result<SandboxProfile, SandboxError> {
     match execution_host_profile_id {
         LEGACY_EXECUTION_HOST_PROFILE_ID => Ok(SandboxProfile::LegacyNamespaces),
         RUST_EXECUTION_HOST_PROFILE_ID => Ok(SandboxProfile::Cgroup2Tmpfs),
-        mpk_vc::java_release::HOST_ID => Ok(SandboxProfile::Java25),
+        go_practical::HOST_ID => Ok(SandboxProfile::GoPractical),
         _ => Err(SandboxError::Unavailable),
     }
 }
@@ -1368,21 +1368,15 @@ pub(crate) fn launch_release_frontend(
             profile,
             mut resource_session,
         } = prepared;
-        if !matches!(
-            executable,
-            "bin/go2vir" | "bin/rust2vir" | CSHARP_BOOTSTRAP_EXECUTABLE | JAVA_BOOTSTRAP_EXECUTABLE
-        ) {
+        if profile == SandboxProfile::GoPractical {
             return Err(SandboxError::Unavailable);
         }
-        let resource_frontend = matches!(
-            executable,
-            "bin/rust2vir" | CSHARP_BOOTSTRAP_EXECUTABLE | JAVA_BOOTSTRAP_EXECUTABLE
-        );
-        let csharp_frontend = executable == CSHARP_BOOTSTRAP_EXECUTABLE;
-        let java_frontend = executable == JAVA_BOOTSTRAP_EXECUTABLE;
+        if !matches!(executable, "bin/go2vir" | "bin/rust2vir") {
+            return Err(SandboxError::Unavailable);
+        }
+        let resource_frontend = matches!(executable, "bin/rust2vir");
         if profile.resource() != resource_frontend
             || profile.resource() != resource_session.is_some()
-            || (profile == SandboxProfile::Java25) != java_frontend
         {
             return Err(SandboxError::Unavailable);
         }
@@ -1413,24 +1407,9 @@ pub(crate) fn launch_release_frontend(
         ] {
             fs::create_dir_all(root.join(relative)).map_err(|_| SandboxError::Unavailable)?;
         }
-        if csharp_frontend {
-            for relative in [
-                "mpk/empty-home",
-                "mpk/empty-nuget",
-                "mpk/empty-nuget-http",
-                "mpk/empty-nuget-plugins",
-            ] {
-                fs::create_dir_all(root.join(relative)).map_err(|_| SandboxError::Unavailable)?;
-            }
-        }
-        if java_frontend {
-            fs::create_dir_all(root.join("mpk/empty-home"))
-                .map_err(|_| SandboxError::Unavailable)?;
-        }
+
         fs::write(root.join("dev/null"), b"").map_err(|_| SandboxError::Unavailable)?;
-        if csharp_frontend || java_frontend {
-            fs::write(root.join("dev/urandom"), b"").map_err(|_| SandboxError::Unavailable)?;
-        }
+
         if resource_frontend {
             for relative in ["proc", "lib64", "lib/x86_64-linux-gnu"] {
                 fs::create_dir_all(root.join(relative)).map_err(|_| SandboxError::Unavailable)?;
@@ -1449,24 +1428,12 @@ pub(crate) fn launch_release_frontend(
         ] {
             seal_read_only_tree(&root.join(relative))?;
         }
-        if csharp_frontend {
-            for relative in [
-                "mpk/empty-home",
-                "mpk/empty-nuget",
-                "mpk/empty-nuget-http",
-                "mpk/empty-nuget-plugins",
-            ] {
-                seal_read_only_tree(&root.join(relative))?;
-            }
-        }
-        if java_frontend {
-            seal_read_only_tree(&root.join("mpk/empty-home"))?;
-        }
+
         let current_executable = match profile {
             SandboxProfile::LegacyNamespaces => {
                 std::env::current_exe().map_err(|_| SandboxError::Unavailable)?
             }
-            SandboxProfile::Cgroup2Tmpfs | SandboxProfile::Java25 => {
+            SandboxProfile::Cgroup2Tmpfs | SandboxProfile::GoPractical => {
                 PathBuf::from("/proc/self/exe")
             }
         };
@@ -1508,82 +1475,39 @@ pub(crate) fn launch_release_frontend(
     }
 }
 
-pub(crate) fn launch_java_frontend(
-    prepared: PreparedSandbox,
-    frontend: &BundleSnapshot,
-    toolchain: &BundleSnapshot,
-    plan: &mpk_vc::java_release::JavaLauncherPlan,
-    captured_inputs: &[CapturedInput<'_>],
-) -> Result<SandboxOutput, SandboxError> {
-    if prepared.profile != SandboxProfile::Java25 {
-        return Err(SandboxError::Unavailable);
+#[cfg(any(test, target_os = "linux"))]
+fn validate_resource_probe_output(
+    profile: SandboxProfile,
+    output: Result<SandboxOutput, SandboxError>,
+) -> Result<(), SandboxError> {
+    match output {
+        // The source-free probe cannot establish source/theorem falsity.
+        // Preserve practical-Go operational exhaustion as resource pending;
+        // retained profiles keep their existing environment-error surface.
+        Err(SandboxError::Killed) if profile == SandboxProfile::GoPractical => {
+            Err(SandboxError::Killed)
+        }
+        Ok(output)
+            if profile == SandboxProfile::GoPractical
+                && (output.signaled
+                    || output.stream_limit_exceeded
+                    || output.stdout.len() > 512) =>
+        {
+            Err(SandboxError::Killed)
+        }
+        Ok(output)
+            if profile.resource()
+                && output.exit_code == Some(0)
+                && !output.signaled
+                && output.stdout == format!("{} ok\n", profile.probe_id()).as_bytes()
+                && output.stderr_observed_bytes == 0
+                && !output.stream_limit_exceeded
+                && output.stdout.len() <= 512 =>
+        {
+            Ok(())
+        }
+        _ => Err(SandboxError::Unavailable),
     }
-    launch_release_frontend(
-        prepared,
-        frontend,
-        toolchain,
-        JAVA_BOOTSTRAP_EXECUTABLE,
-        &plan.argv()[1..],
-        plan.environment(),
-        captured_inputs,
-        &[],
-        &[],
-    )
-}
-
-/// Runs the registered JVM and JAR through Java's exact sandbox solely to
-/// measure native JVM thread/syscall behavior. Complete source processing is
-/// exercised separately by the native cases; keeping trace transport out of
-/// their frozen 120-second request budget avoids measuring ptrace overhead as
-/// frontend work. This helper has no production command route.
-pub(crate) fn launch_java_trace_probe(
-    prepared: PreparedSandbox,
-    frontend: &BundleSnapshot,
-    toolchain: &BundleSnapshot,
-) -> Result<SandboxOutput, SandboxError> {
-    if prepared.profile != SandboxProfile::Java25 {
-        return Err(SandboxError::Unavailable);
-    }
-    let mut arguments = mpk_vc::java_release::ARGV_PREFIX[1..]
-        .iter()
-        .map(|value| (*value).to_owned())
-        .collect::<Vec<_>>();
-    arguments.push("--version".to_owned());
-    launch_release_frontend(
-        prepared,
-        frontend,
-        toolchain,
-        JAVA_BOOTSTRAP_EXECUTABLE,
-        &arguments,
-        &mpk_vc::java_release::environment(),
-        &[],
-        &[],
-        &[],
-    )
-}
-
-#[allow(clippy::too_many_arguments)]
-pub(crate) fn launch_csharp_frontend(
-    prepared: PreparedSandbox,
-    frontend: &BundleSnapshot,
-    toolchain: &BundleSnapshot,
-    args: &[String],
-    environment: &BTreeMap<String, String>,
-    captured_inputs: &[CapturedInput<'_>],
-    staged_directories: &[&str],
-    staged_placeholders: &[&str],
-) -> Result<SandboxOutput, SandboxError> {
-    launch_release_frontend(
-        prepared,
-        frontend,
-        toolchain,
-        CSHARP_BOOTSTRAP_EXECUTABLE,
-        args,
-        environment,
-        captured_inputs,
-        staged_directories,
-        staged_placeholders,
-    )
 }
 
 #[cfg(target_os = "linux")]
@@ -1593,7 +1517,9 @@ fn run_sandbox_probe(
 ) -> Result<(), SandboxError> {
     let temporary = PrivateTempDir::create(match profile {
         SandboxProfile::LegacyNamespaces => "mpk-frontend-probe-",
-        SandboxProfile::Cgroup2Tmpfs | SandboxProfile::Java25 => "mpk-frontend-resource-probe-",
+        SandboxProfile::Cgroup2Tmpfs | SandboxProfile::GoPractical => {
+            "mpk-frontend-resource-probe-"
+        }
     })?;
     if profile.resource() {
         let cgroup_path = resource_session
@@ -1621,19 +1547,7 @@ fn run_sandbox_probe(
             cgroup,
             false,
         );
-        let result = match output {
-            Ok(output)
-                if output.exit_code == Some(0)
-                    && !output.signaled
-                    && output.stdout == format!("{} ok\n", profile.probe_id()).as_bytes()
-                    && output.stderr_observed_bytes == 0
-                    && !output.stream_limit_exceeded
-                    && output.stdout.len() <= 512 =>
-            {
-                Ok(())
-            }
-            _ => Err(SandboxError::Unavailable),
-        };
+        let result = validate_resource_probe_output(profile, output);
         temporary.remove();
         let cleanup = cgroup.finish_resource_after_backing_release();
         return cleanup.and(result);
@@ -1679,7 +1593,7 @@ fn run_sandbox_probe(
     let expected_stdout = match profile {
         SandboxProfile::LegacyNamespaces => b"mpk.release.probe.v0 ok\n".as_slice(),
         SandboxProfile::Cgroup2Tmpfs => RESOURCE_PROBE_OUTPUT,
-        SandboxProfile::Java25 => return Err(SandboxError::Unavailable),
+        SandboxProfile::GoPractical => return Err(SandboxError::Unavailable),
     };
     let result = match (status, output) {
         (Some(status), Some(output))
@@ -1755,26 +1669,13 @@ fn run_closed_process_with_timeout(
 ) -> Result<SandboxOutput, SandboxError> {
     #[cfg(target_os = "linux")]
     if let Some(cgroup) = resource_cgroup {
-        let java = cgroup.profile == SandboxProfile::Java25;
         return run_resource_process_with_limits(
             current_directory,
             args,
             environment,
-            if java {
-                Duration::from_secs(mpk_vc::java_release::TIMEOUT_SECONDS).min(timeout)
-            } else {
-                timeout
-            },
-            if java {
-                268_435_456
-            } else {
-                FRONTEND_STDOUT_BYTES_MAX
-            },
-            if java {
-                2_097_152
-            } else {
-                FRONTEND_STDERR_BYTES_MAX
-            },
+            cgroup.profile.timeout(timeout),
+            FRONTEND_STDOUT_BYTES_MAX,
+            FRONTEND_STDERR_BYTES_MAX,
             cgroup,
             true,
         );
@@ -2154,15 +2055,7 @@ fn prepare_resource_launch(
     }
     let cgroup_directory = File::open(&cgroup.path).map_err(|_| SandboxError::Unavailable)?;
     let current_directory = File::open(current_directory).map_err(|_| SandboxError::Unavailable)?;
-    let address_space_limit = if cgroup.profile == SandboxProfile::Cgroup2Tmpfs
-        && args
-            .get(3)
-            .is_some_and(|argument| argument == CSHARP_BOOTSTRAP_EXECUTABLE)
-    {
-        CSHARP_RESOURCE_ADDRESS_SPACE_LIMIT
-    } else {
-        RESOURCE_ADDRESS_SPACE_LIMIT
-    };
+    let address_space_limit = RESOURCE_ADDRESS_SPACE_LIMIT;
     let capacity = args.len().checked_add(1).ok_or(SandboxError::Unavailable)?;
     let mut arguments = Vec::with_capacity(capacity);
     arguments.push(OsString::from("mpk"));
@@ -2576,171 +2469,6 @@ pub(crate) fn run_probe() -> u8 {
     }
 }
 
-/// Source-free fault injection for T07's explicit native gate. This exists
-/// only in test executables and uses the same Java leaf, limits, supervision
-/// and cleanup as the registered JVM. It cannot select an external payload.
-#[cfg(all(test, target_os = "linux"))]
-pub(crate) fn test_java_resource_boundary(case: &str) -> Result<(), SandboxError> {
-    if !["oom", "pids", "timeout", "stdout", "stderr", "tmpfs"].contains(&case) {
-        return Err(SandboxError::Unavailable);
-    }
-    let PreparedSandbox {
-        mut resource_session,
-        ..
-    } = prepare_release_sandbox(mpk_vc::java_release::HOST_ID)?;
-    let session = resource_session.as_mut().ok_or(SandboxError::Unavailable)?;
-    session.prepare_next_resource_leaf()?;
-    let temporary = PrivateTempDir::create("mpk-java-resource-test-")?;
-    let started = Instant::now();
-    let output = run_resource_process_with_limits(
-        temporary.path(),
-        &["__mpk_java_resource_fault_v0".to_owned(), case.to_owned()],
-        &BTreeMap::new(),
-        Duration::from_secs(mpk_vc::java_release::TIMEOUT_SECONDS),
-        268_435_456,
-        2_097_152,
-        session,
-        false,
-    );
-    let elapsed = started.elapsed();
-    let pids = read_flat_counters(&session.path.join("pids.events"))?;
-    let memory = read_flat_counters(&session.path.join("memory.events.local"))?;
-    let observed = match case {
-        "oom" => {
-            matches!(output, Err(SandboxError::Killed))
-                && memory.get("oom_kill").is_some_and(|value| *value > 0)
-        }
-        "pids" => {
-            matches!(output, Err(SandboxError::Killed))
-                && pids.get("max").is_some_and(|value| *value > 0)
-        }
-        "timeout" => {
-            matches!(output, Err(SandboxError::Killed))
-                && elapsed >= Duration::from_secs(mpk_vc::java_release::TIMEOUT_SECONDS)
-        }
-        "stdout" | "stderr" => output.is_ok_and(|output| output.stream_limit_exceeded),
-        "tmpfs" => output.is_ok_and(|output| {
-            output.exit_code == Some(0)
-                && !output.signaled
-                && output.stdout.is_empty()
-                && output.stderr_observed_bytes == 0
-        }),
-        _ => false,
-    };
-    temporary.remove();
-    // Limit events intentionally make the first result Killed. Cleanup must
-    // nevertheless remove the leaf and restore the exact manager/domain state.
-    let release = session.finish_resource_after_backing_release();
-    session.finish_session()?;
-    if !observed
-        || (matches!(case, "oom" | "pids") && !matches!(release, Err(SandboxError::Killed)))
-        || (!matches!(case, "oom" | "pids") && release.is_err())
-    {
-        return Err(SandboxError::Unavailable);
-    }
-    Ok(())
-}
-
-#[cfg(all(test, target_os = "linux"))]
-pub(crate) fn run_java_resource_test_child(case: &str) -> u8 {
-    let run = || -> Result<(), u8> {
-        let directory = current_cgroup_directory().map_err(|_| 125)?;
-        verify_self_in_resource_cgroup(&directory, SandboxProfile::Java25)?;
-        verify_resource_process_controls(mpk_vc::java_release::ADDRESS_SPACE_BYTES)?;
-        verify_only_standard_descriptors()?;
-        match case {
-            "oom" => {
-                let mut bytes = vec![0_u8; 2 * mpk_vc::java_release::MEMORY_BYTES as usize];
-                for page in bytes.chunks_mut(4096) {
-                    page[0] = 1;
-                    std::hint::black_box(&*page);
-                }
-                std::hint::black_box(bytes);
-                Err(125) // Surviving the real accounting limit is a failed test.
-            }
-            "pids" => {
-                let mut threads = Vec::new();
-                for _ in 0..=mpk_vc::java_release::PIDS {
-                    match thread::Builder::new()
-                        .stack_size(65_536)
-                        .spawn(|| thread::sleep(Duration::from_secs(180)))
-                    {
-                        Ok(thread) => threads.push(thread),
-                        Err(error) if error.raw_os_error() == Some(11) => return Ok(()),
-                        Err(_) => return Err(125),
-                    }
-                }
-                Err(125)
-            }
-            "timeout" => {
-                thread::sleep(Duration::from_secs(180));
-                Err(125)
-            }
-            "stdout" | "stderr" => {
-                let bytes = [b'x'; 65_536];
-                let count = if case == "stdout" { 4097 } else { 33 };
-                for _ in 0..count {
-                    if case == "stdout" {
-                        io::stdout().write_all(&bytes).map_err(|_| 125)?;
-                    } else {
-                        io::stderr().write_all(&bytes).map_err(|_| 125)?;
-                    }
-                }
-                Ok(())
-            }
-            "tmpfs" => test_java_tmpfs_capacity(),
-            _ => Err(125),
-        }
-    };
-    match run() {
-        Ok(()) => 0,
-        Err(code) => code,
-    }
-}
-
-#[cfg(all(test, target_os = "linux"))]
-#[allow(deprecated)]
-fn test_java_tmpfs_capacity() -> Result<(), u8> {
-    use rustix::mount::{
-        mount, mount_change, unmount, MountFlags, MountPropagationFlags, UnmountFlags,
-    };
-    rustix::thread::unshare(rustix::thread::UnshareFlags::NEWNS).map_err(|_| 125)?;
-    mount_change(
-        "/",
-        MountPropagationFlags::PRIVATE | MountPropagationFlags::REC,
-    )
-    .map_err(|_| 125)?;
-    let root = std::env::current_dir().map_err(|_| 125)?;
-    let target = root.join("tmpfs");
-    fs::create_dir(&target).map_err(|_| 125)?;
-    mount(
-        "tmpfs",
-        &target,
-        "tmpfs",
-        MountFlags::NOSUID | MountFlags::NODEV | MountFlags::NOEXEC,
-        Some(c"size=67108864,nr_inodes=262144,noswap,mode=700"),
-    )
-    .map_err(|_| 125)?;
-    validate_resource_tmpfs_mount(
-        &target,
-        mpk_vc::java_release::TMPFS_BYTES,
-        WRITABLE_INODE_LIMIT,
-        true,
-    )?;
-    let mut file = File::create(target.join("bytes")).map_err(|_| 125)?;
-    let chunk = [0_u8; 65_536];
-    for _ in 0..1024 {
-        file.write_all(&chunk).map_err(|_| 125)?;
-    }
-    if !matches!(file.write_all(&[1]), Err(error) if error.raw_os_error() == Some(28)) {
-        return Err(125);
-    }
-    drop(file);
-    unmount(&target, UnmountFlags::empty()).map_err(|_| 125)?;
-    fs::remove_dir(target).map_err(|_| 125)?;
-    Ok(())
-}
-
 #[cfg(target_os = "linux")]
 #[allow(deprecated)]
 fn linux_probe() -> Result<u8, u8> {
@@ -2756,9 +2484,10 @@ fn linux_probe() -> Result<u8, u8> {
     use std::os::unix::fs::symlink;
 
     let resource_cgroup = resource_probe_cgroup()?;
-    let java_probe = resource_cgroup
+    let go_probe = resource_cgroup
         .as_ref()
-        .is_some_and(|(_, profile)| *profile == SandboxProfile::Java25);
+        .is_some_and(|(_, profile)| *profile == SandboxProfile::GoPractical);
+    let unprivileged_probe = go_probe;
     if let Some((cgroup, profile)) = resource_cgroup.as_ref() {
         validate_minimum_kernel_version([6, 4, 0])?;
         verify_only_standard_descriptors()?;
@@ -2771,25 +2500,25 @@ fn linux_probe() -> Result<u8, u8> {
         )
         .map_err(|_| 125)?;
         let root = std::env::current_dir().map_err(|_| 125)?;
-        probe_resource_tmpfs(&root)?;
+        probe_resource_tmpfs(&root, *profile)?;
     } else {
         validate_minimum_kernel_version([5, 10, 0])?;
     }
     let uid = rustix::process::getuid().as_raw();
     let gid = rustix::process::getgid().as_raw();
-    if java_probe {
+    if unprivileged_probe {
         rustix::thread::set_thread_groups(&[]).map_err(|_| 125)?;
     }
     unshare(UnshareFlags::NEWUSER).map_err(|_| 125)?;
     fs::write("/proc/self/setgroups", b"deny\n").map_err(|_| 125)?;
-    let mapped_identity = if java_probe { 65534 } else { 0 };
+    let mapped_identity = if unprivileged_probe { 65534 } else { 0 };
     fs::write("/proc/self/uid_map", format!("{mapped_identity} {uid} 1\n")).map_err(|_| 125)?;
     fs::write("/proc/self/gid_map", format!("{mapped_identity} {gid} 1\n")).map_err(|_| 125)?;
     unshare(
         UnshareFlags::NEWNS | UnshareFlags::NEWNET | UnshareFlags::NEWIPC | UnshareFlags::NEWUTS,
     )
     .map_err(|_| 125)?;
-    if java_probe {
+    if unprivileged_probe {
         unshare(UnshareFlags::NEWPID).map_err(|_| 125)?;
     }
     set_no_new_privs(true).map_err(|_| 125)?;
@@ -2885,8 +2614,8 @@ fn linux_probe() -> Result<u8, u8> {
         return Err(125);
     }
 
-    if java_probe {
-        mpk_linux_sandbox::install_java_probe_policy().map_err(|_| 125)?;
+    if go_probe {
+        mpk_linux_sandbox::install_go_probe_policy().map_err(|_| 125)?;
     }
     if let Some((_, profile)) = resource_cgroup {
         println!("{} ok", profile.probe_id());
@@ -2909,7 +2638,7 @@ fn resource_probe_cgroup() -> Result<Option<(PathBuf, SandboxProfile)>, u8> {
     let mut lines = contents.lines();
     let profile = match lines.next() {
         Some(RESOURCE_PROBE_PROFILE_ID) => SandboxProfile::Cgroup2Tmpfs,
-        Some("mpk.release.probe.java25.v0") => SandboxProfile::Java25,
+        Some(go_practical::PROBE_ID) => SandboxProfile::GoPractical,
         _ => return Err(125),
     };
     let path = lines.next().ok_or(125)?;
@@ -2920,11 +2649,28 @@ fn resource_probe_cgroup() -> Result<Option<(PathBuf, SandboxProfile)>, u8> {
 }
 
 #[cfg(target_os = "linux")]
-fn probe_resource_tmpfs(root: &Path) -> Result<(), u8> {
+fn probe_resource_tmpfs(root: &Path, profile: SandboxProfile) -> Result<(), u8> {
     use rustix::mount::{mount, unmount, MountFlags, UnmountFlags};
 
     let target = root.join("resource-tmpfs");
     fs::create_dir(&target).map_err(|_| 125)?;
+    if profile == SandboxProfile::GoPractical {
+        mount(
+            "tmpfs",
+            &target,
+            "tmpfs",
+            MountFlags::NOSUID | MountFlags::NODEV | MountFlags::NOEXEC,
+            Some(go_practical::FRONTEND_TMPFS_OPTIONS),
+        )
+        .map_err(|_| 125)?;
+        validate_resource_tmpfs_mount(
+            &target,
+            profile.tmpfs(),
+            go_practical::FRONTEND_INODES,
+            true,
+        )?;
+        unmount(&target, UnmountFlags::empty()).map_err(|_| 125)?;
+    }
     mount(
         "tmpfs",
         &target,
@@ -3042,48 +2788,19 @@ fn linux_bootstrap(arguments: &[String]) -> Result<u8, u8> {
     let Some((executable, arguments)) = arguments.split_first() else {
         return Err(125);
     };
-    let resource_frontend = matches!(
-        executable.as_str(),
-        "bin/rust2vir" | CSHARP_BOOTSTRAP_EXECUTABLE | JAVA_BOOTSTRAP_EXECUTABLE
-    );
-    let csharp_frontend = executable == CSHARP_BOOTSTRAP_EXECUTABLE;
-    let java_frontend = executable == JAVA_BOOTSTRAP_EXECUTABLE;
-    let profile = if java_frontend {
-        SandboxProfile::Java25
-    } else {
-        SandboxProfile::Cgroup2Tmpfs
-    };
-    if !matches!(
-        executable.as_str(),
-        "bin/go2vir" | "bin/rust2vir" | CSHARP_BOOTSTRAP_EXECUTABLE | JAVA_BOOTSTRAP_EXECUTABLE
-    ) || resource_cgroup.is_some() != resource_frontend
+    let resource_frontend = matches!(executable.as_str(), "bin/rust2vir");
+    let profile = { SandboxProfile::Cgroup2Tmpfs };
+    if !matches!(executable.as_str(), "bin/go2vir" | "bin/rust2vir")
+        || resource_cgroup.is_some() != resource_frontend
     {
         return Err(125);
     }
     if let Some(cgroup) = resource_cgroup {
         verify_only_standard_descriptors()?;
         verify_self_in_resource_cgroup(cgroup, profile)?;
-        verify_resource_process_controls(if csharp_frontend {
-            CSHARP_RESOURCE_ADDRESS_SPACE_LIMIT
-        } else {
-            RESOURCE_ADDRESS_SPACE_LIMIT
-        })?;
+        verify_resource_process_controls(RESOURCE_ADDRESS_SPACE_LIMIT)?;
     }
-    if java_frontend {
-        let expected = &mpk_vc::java_release::ARGV_PREFIX[1..];
-        if arguments.len() <= expected.len()
-            || !arguments
-                .iter()
-                .take(expected.len())
-                .map(String::as_str)
-                .eq(expected.iter().copied())
-            || std::env::vars().collect::<BTreeMap<_, _>>() != mpk_vc::java_release::environment()
-        {
-            return Err(125);
-        }
-        // Supplementary host groups must not survive the user namespace.
-        rustix::thread::set_thread_groups(&[]).map_err(|_| 125)?;
-    }
+
     if executable == "bin/go2vir" {
         for (resource, limit) in [
             (Resource::Core, 0),
@@ -3127,11 +2844,7 @@ fn linux_bootstrap(arguments: &[String]) -> Result<u8, u8> {
             &privileged_mount,
             "tmpfs",
             MountFlags::NOSUID | MountFlags::NODEV,
-            Some(if java_frontend {
-                c"size=67108864,nr_inodes=262144,noswap,mode=700"
-            } else {
-                c"size=21474836480,nr_inodes=262144,noswap,mode=700"
-            }),
+            Some(c"size=21474836480,nr_inodes=262144,noswap,mode=700"),
         )
         .map_err(|_| 125)?;
         validate_resource_tmpfs_mount(
@@ -3148,7 +2861,7 @@ fn linux_bootstrap(arguments: &[String]) -> Result<u8, u8> {
     let gid = rustix::process::getgid().as_raw();
     unshare(UnshareFlags::NEWUSER).map_err(|_| 125)?;
     fs::write("/proc/self/setgroups", b"deny\n").map_err(|_| 125)?;
-    let mapped_identity = if java_frontend { 65534 } else { 0 };
+    let mapped_identity = { 0 };
     fs::write("/proc/self/uid_map", format!("{mapped_identity} {uid} 1\n")).map_err(|_| 125)?;
     fs::write("/proc/self/gid_map", format!("{mapped_identity} {gid} 1\n")).map_err(|_| 125)?;
     unshare(
@@ -3226,42 +2939,10 @@ fn linux_bootstrap(arguments: &[String]) -> Result<u8, u8> {
         "",
     )
     .map_err(|_| 125)?;
-    if csharp_frontend || java_frontend {
-        let urandom = fs::metadata("/dev/urandom").map_err(|_| 125)?;
-        if !urandom.file_type().is_char_device() || urandom.rdev() != 265 {
-            return Err(125);
-        }
-        let urandom_target = root.join("dev/urandom");
-        mount_bind("/dev/urandom", &urandom_target).map_err(|_| 125)?;
-        let mounted_urandom = fs::metadata(&urandom_target).map_err(|_| 125)?;
-        if mounted_urandom.dev() != urandom.dev()
-            || mounted_urandom.ino() != urandom.ino()
-            || mounted_urandom.rdev() != urandom.rdev()
-        {
-            return Err(125);
-        }
-        mount_remount(
-            &urandom_target,
-            MountFlags::BIND | MountFlags::RDONLY | MountFlags::NOSUID | MountFlags::NOEXEC,
-            "",
-        )
-        .map_err(|_| 125)?;
-    }
+
     if resource_frontend {
         let runtime_source = root.join("mpk/toolchain/native-runtime");
-        let runtime = if csharp_frontend || java_frontend {
-            let runtime = root.join("mpk/native-runtime");
-            mount_bind(&runtime_source, &runtime).map_err(|_| 125)?;
-            mount_remount(
-                &runtime,
-                MountFlags::BIND | MountFlags::RDONLY | MountFlags::NOSUID | MountFlags::NODEV,
-                "",
-            )
-            .map_err(|_| 125)?;
-            runtime
-        } else {
-            runtime_source
-        };
+        let runtime = { runtime_source };
         let libraries = runtime.join("lib/x86_64-linux-gnu");
         let library_target = root.join("lib/x86_64-linux-gnu");
         mount_bind(&libraries, &library_target).map_err(|_| 125)?;
@@ -3288,12 +2969,7 @@ fn linux_bootstrap(arguments: &[String]) -> Result<u8, u8> {
     )
     .map_err(|_| 125)?;
     rustix::process::chroot(&root).map_err(|_| 125)?;
-    std::env::set_current_dir(if csharp_frontend || java_frontend {
-        "/mpk/source"
-    } else {
-        "/"
-    })
-    .map_err(|_| 125)?;
+    std::env::set_current_dir("/").map_err(|_| 125)?;
     set_no_new_privs(true).map_err(|_| 125)?;
     if resource_cgroup.is_some() {
         // The launcher opens this mount namespace before releasing the
@@ -3307,26 +2983,7 @@ fn linux_bootstrap(arguments: &[String]) -> Result<u8, u8> {
             return Err(125);
         }
     }
-    let status = if csharp_frontend || java_frontend {
-        let program = if java_frontend {
-            mpk_vc::java_release::PROGRAM
-        } else {
-            "/mpk/toolchain/dotnet/dotnet"
-        };
-        let mut child_arguments = Vec::with_capacity(arguments.len() + 1);
-        child_arguments.push(OsString::from(program));
-        child_arguments.extend(arguments.iter().map(OsString::from));
-        let null = File::open("/dev/null").map_err(|_| 125)?;
-        let launch = if java_frontend {
-            mpk_linux_sandbox::run_java_pid_namespace_process_with_proc
-        } else {
-            mpk_linux_sandbox::run_pending_pid_namespace_process_with_proc
-        };
-        launch(Path::new(program), child_arguments, null).map_err(|error| match error {
-            mpk_linux_sandbox::LaunchError::CloneOrSetup(_) => 125,
-            mpk_linux_sandbox::LaunchError::Exec(_) => 126,
-        })?
-    } else {
+    let status = {
         let mut command = if executable == "bin/rust2vir" {
             let mut command = Command::new("/lib64/ld-linux-x86-64.so.2");
             command.args([
@@ -3372,14 +3029,145 @@ mod tests {
             sandbox_profile(RUST_EXECUTION_HOST_PROFILE_ID),
             Ok(SandboxProfile::Cgroup2Tmpfs)
         );
-        assert_eq!(
-            sandbox_profile(mpk_vc::java_release::HOST_ID),
-            Ok(SandboxProfile::Java25)
-        );
+
         assert_eq!(
             sandbox_profile("mpk.host.linux-x86_64-gnu.glibc2_27.v0"),
             Err(SandboxError::Unavailable)
         );
+    }
+
+    #[test]
+    fn go_practical_resource_contract_is_separate_from_all_retained_routes() {
+        let go = SandboxProfile::GoPractical;
+        assert_eq!(sandbox_profile(go_practical::HOST_ID), Ok(go));
+        assert!(go.resource());
+        assert_eq!(go.memory(), 2_147_483_648);
+        assert_eq!(go.pids(), 128);
+        assert_eq!(go.tmpfs(), 536_870_912);
+        assert_eq!(
+            go.timeout(Duration::from_secs(300)),
+            Duration::from_secs(120)
+        );
+        assert_eq!(go.timeout(Duration::from_secs(7)), Duration::from_secs(7));
+        for profile in [
+            SandboxProfile::LegacyNamespaces,
+            SandboxProfile::Cgroup2Tmpfs,
+        ] {
+            assert_eq!(
+                profile.timeout(Duration::from_secs(300)),
+                Duration::from_secs(300)
+            );
+            assert_eq!(profile.memory(), 34_359_738_368);
+            assert_eq!(profile.pids(), 256);
+            assert_eq!(profile.tmpfs(), 21_474_836_480);
+        }
+
+        assert_eq!(
+            sandbox_profile("mpk.host.linux-x86_64-gnu.go_practical.v2"),
+            Err(SandboxError::Unavailable)
+        );
+        #[cfg(target_os = "linux")]
+        assert_eq!(go.probe_id(), go_practical::PROBE_ID);
+    }
+
+    #[test]
+    fn go_practical_native_cpu_guard_does_not_accept_an_emulated_name() {
+        for text in [
+            "",
+            "model name : x86_64\n",
+            "Features : lm sse2\n",
+            "flags : lm\n",
+            "flags : sse2\n",
+            "flags : lm\nflags : sse2\n",
+        ] {
+            assert!(!native_x86_64_cpuinfo(text), "{text:?}");
+        }
+        assert_eq!(
+            native_x86_64_cpuinfo("flags : sse2 lm\n"),
+            cfg!(target_arch = "x86_64")
+        );
+    }
+
+    #[cfg(target_os = "linux")]
+    #[test]
+    fn go_practical_real_non_native_cpu_rejects_before_any_cgroup_mutation() {
+        let cpuinfo = fs::read_to_string("/proc/cpuinfo").expect("actual original CPU observation");
+        if native_x86_64_cpuinfo(&cpuinfo) {
+            eprintln!(
+                "native CPU: non-native rejection control is inapplicable; no acceptance inferred"
+            );
+            return;
+        }
+        let before = RESOURCE_SESSION_STATE.load(Ordering::Acquire);
+        assert!(matches!(
+            go_practical::prepare(),
+            Err(go_practical::GoHostFailure::Environment)
+        ));
+        assert_eq!(RESOURCE_SESSION_STATE.load(Ordering::Acquire), before);
+        eprintln!("actual non-native practical-Go preparation rejected before cgroup mutation");
+    }
+
+    #[test]
+    fn go_practical_probe_resource_failure_cannot_become_environment_failure() {
+        assert_eq!(
+            validate_resource_probe_output(SandboxProfile::GoPractical, Err(SandboxError::Killed)),
+            Err(SandboxError::Killed),
+            "practical-Go operational kill must remain resource pending"
+        );
+    }
+
+    #[test]
+    fn go_practical_probe_classification_preserves_protocol_and_retained_failures() {
+        for profile in [SandboxProfile::GoPractical, SandboxProfile::Cgroup2Tmpfs] {
+            let good = || SandboxOutput {
+                exit_code: Some(0),
+                signaled: false,
+                stdout: format!("{} ok\n", profile.probe_id()).into_bytes(),
+                stderr_observed_bytes: 0,
+                stream_limit_exceeded: false,
+            };
+            assert_eq!(validate_resource_probe_output(profile, Ok(good())), Ok(()));
+            for case in 0..8 {
+                let mut observed = good();
+                match case {
+                    0 => observed.signaled = true,
+                    1 => observed.stream_limit_exceeded = true,
+                    2 => observed.stdout = vec![b'x'; 513],
+                    3 => observed.stderr_observed_bytes = 1,
+                    4 => observed.stdout.push(b'x'),
+                    5 => observed.exit_code = Some(125),
+                    6 => observed.exit_code = Some(1),
+                    7 => observed.exit_code = None,
+                    _ => unreachable!(),
+                }
+                let expected = if profile == SandboxProfile::GoPractical && case < 3 {
+                    SandboxError::Killed
+                } else {
+                    SandboxError::Unavailable
+                };
+                assert_eq!(
+                    validate_resource_probe_output(profile, Ok(observed)),
+                    Err(expected),
+                    "{profile:?}/{case}"
+                );
+            }
+            for error in [
+                SandboxError::Killed,
+                SandboxError::Spawn,
+                SandboxError::Unavailable,
+            ] {
+                let expected =
+                    if profile == SandboxProfile::GoPractical && error == SandboxError::Killed {
+                        SandboxError::Killed
+                    } else {
+                        SandboxError::Unavailable
+                    };
+                assert_eq!(
+                    validate_resource_probe_output(profile, Err(error)),
+                    Err(expected)
+                );
+            }
+        }
     }
 
     #[test]
@@ -3457,38 +3245,6 @@ mod tests {
         assert_eq!(CGROUP_SWAP_LIMIT, 0);
         assert_eq!(WRITABLE_ALLOCATED_BYTES_LIMIT, 21_474_836_480);
         assert_eq!(WRITABLE_INODE_LIMIT, 262_144);
-    }
-
-    #[test]
-    fn java_resource_profile_is_distinct_and_matches_its_frozen_probe() {
-        let vector: serde_json::Value = serde_json::from_slice(include_bytes!(
-            "../../../develop/specs/vectors/java-profile-v0.json"
-        ))
-        .unwrap();
-        let probe = &vector["host_probe"];
-        assert_eq!(
-            SandboxProfile::Java25.memory(),
-            probe["cgroup_controls_verified"]["memory.max"]
-        );
-        assert_eq!(
-            SandboxProfile::Java25.pids(),
-            probe["cgroup_controls_verified"]["pids.max"]
-        );
-        assert_eq!(SandboxProfile::Java25.tmpfs(), probe["tmpfs_bytes"]);
-        assert_eq!(
-            CGROUP_SWAP_LIMIT,
-            probe["cgroup_controls_verified"]["memory.swap.max"]
-        );
-        assert_eq!(RESOURCE_ADDRESS_SPACE_LIMIT, probe["address_space_bytes"]);
-        assert_eq!(RESOURCE_OPEN_FILE_LIMIT, probe["open_files"]);
-        assert_ne!(
-            SandboxProfile::Java25.memory(),
-            SandboxProfile::Cgroup2Tmpfs.memory()
-        );
-        assert_ne!(
-            SandboxProfile::Java25.tmpfs(),
-            SandboxProfile::Cgroup2Tmpfs.tmpfs()
-        );
     }
 
     #[cfg(target_os = "linux")]

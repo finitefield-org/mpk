@@ -16,7 +16,7 @@ def sources():
  paths.extend(p for p in (ROOT/'go-tools/mpk-checker-ref').rglob('*') if p.is_file())
  paths.extend(SEED.rglob('*'));paths.extend((HERE/'control-certificates').rglob('*'))
  paths.extend((HERE/'certificates/src').rglob('*.rs'))
- paths.extend([Path(__file__),ROOT/'proofs/std/nat/std-nat.hex',ROOT/'fixtures/core-bool-cases/right-identity.hex',ROOT/'develop/migrations/csharp-03/probes/boolean-proof-elimination-logs/producer/builder.rs'])
+ paths.extend([Path(__file__),ROOT/'proofs/std/nat/std-nat.hex',ROOT/'fixtures/core-bool-cases/right-identity.hex',ROOT/'develop/probes/go-practical/support/builder.rs'])
  return [{'path':p.relative_to(ROOT).as_posix(),'sha256':sha(p.read_bytes())} for p in sorted(set(paths)) if p.is_file()]
 def files():
  result={}
@@ -94,8 +94,8 @@ def files():
 def producer_files():
  result={p.relative_to(HERE/'certificates/src').as_posix():p.read_text() for p in (HERE/'certificates/src').rglob('*.rs')}
  s=result['main.rs'];s=''.join(('//'+x[3:] if x.startswith('//!') else x)+'\n' for x in s.splitlines())
- builder=ROOT/'develop/migrations/csharp-03/probes/boolean-proof-elimination-logs/producer/builder.rs'
- s=once(s,'"../../../../migrations/csharp-03/probes/boolean-proof-elimination-logs/producer/builder.rs"',__import__('json').dumps(str(builder)))
+ builder=ROOT/'develop/probes/go-practical/support/builder.rs'
+ s=once(s,'"../../support/builder.rs"',__import__('json').dumps(str(builder)))
  s=once(s,'let args = std::env::args().collect::<Vec<_>>();','let args = std::env::args().collect::<Vec<_>>();\n    if args.get(1).map(String::as_str)==Some("control-generate") { assert_eq!(args.len(),4); word::generate_control(Path::new(&args[2]),Path::new(&args[3])); return; }')
  result['main.rs']=s;result['word.rs']+='\nmod control;\npub(super) fn generate_control(root:&Path,output:&Path) { control::generate(root,output); }\n'
  result['word/control.rs']=(HERE/'control-certificates/src/control.rs').read_text()

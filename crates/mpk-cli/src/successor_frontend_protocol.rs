@@ -277,8 +277,7 @@ fn validate_shape(
     }
     let rejected = array_field(object, "rejected_features")?;
     let diagnostics = array_field(object, "diagnostics")?;
-    let java_profile = value["semantic_context"]["source_language"] == "java";
-    validate_issues(rejected, diagnostics, status, phase, java_profile)?;
+    validate_issues(rejected, diagnostics, status, phase)?;
     let phase_valid = match status {
         "ir-lowered" => phase == "emission" && rejected.is_empty() && diagnostics.is_empty(),
         "rejected" => {
@@ -425,9 +424,8 @@ fn validate_success_artifacts(
 fn validate_issues(
     rejected: &[Value],
     diagnostics: &[Value],
-    status: &str,
-    phase: &str,
-    java_profile: bool,
+    _status: &str,
+    _phase: &str,
 ) -> Result<(), SuccessorFrontendProtocolError> {
     let issue_count = rejected
         .len()
@@ -462,10 +460,7 @@ fn validate_issues(
             {
                 return Err(protocol(SuccessorFrontendProtocolCode::ProtocolShape));
             }
-            validate_csharp_issue(code, message, status, phase)?;
-            if java_profile || code.starts_with("JAVA_") {
-                validate_java_issue(code, message, status, phase)?;
-            }
+
             total_message_bytes = total_message_bytes
                 .checked_add(message.len())
                 .ok_or_else(|| protocol(SuccessorFrontendProtocolCode::ProtocolLimit))?;
@@ -500,215 +495,6 @@ fn validate_issues(
     }
     if total_message_bytes > ISSUE_MESSAGE_TOTAL_MAX {
         return Err(protocol(SuccessorFrontendProtocolCode::ProtocolLimit));
-    }
-    Ok(())
-}
-
-fn validate_csharp_issue(
-    code: &str,
-    message: &str,
-    status: &str,
-    phase: &str,
-) -> Result<(), SuccessorFrontendProtocolError> {
-    if !code.starts_with("CSHARP_") {
-        return Ok(());
-    }
-    let (expected_status, expected_phase) = match code {
-        "CSHARP_CAPTURE_FILE_TYPE" | "CSHARP_CAPTURE_PATH" | "CSHARP_CAPTURE_INVENTORY" => {
-            ("rejected", Some("capture"))
-        }
-        "CSHARP_SOURCE_ENCODING" | "CSHARP_SOURCE_PARSE" => ("source-error", Some("source")),
-        "CSHARP_SOURCE_DIAGNOSTIC" => ("source-error", Some("metadata")),
-        "CSHARP_TOOLCHAIN_ARCHIVE"
-        | "CSHARP_TOOLCHAIN_RUNTIME"
-        | "CSHARP_TOOLCHAIN_ROSLYN"
-        | "CSHARP_TOOLCHAIN_REFERENCE" => ("frontend-error", Some("release")),
-        "CSHARP_TOOLCHAIN_OPTIONS" | "CSHARP_TOOLCHAIN_ADAPTER" => ("frontend-error", None),
-        "CSHARP_SUBSET_TYPE" | "CSHARP_SUBSET_LITERAL" => ("rejected", Some("typecheck")),
-        "CSHARP_SUBSET_DECLARATION"
-        | "CSHARP_SUBSET_CONTROL_FLOW"
-        | "CSHARP_SUBSET_OPERATION"
-        | "CSHARP_SUBSET_OVERFLOW_CONTEXT"
-        | "CSHARP_SUBSET_CHECKED_CONVERSION"
-        | "CSHARP_SUBSET_CONVERSION"
-        | "CSHARP_SUBSET_CALL"
-        | "CSHARP_SUBSET_INITIALIZATION"
-        | "CSHARP_SUBSET_PURITY"
-        | "CSHARP_SUBSET_ABRUPT"
-        | "CSHARP_CONTRACT_JSON"
-        | "CSHARP_CONTRACT_SHAPE"
-        | "CSHARP_CONTRACT_IDENTITY"
-        | "CSHARP_CONTRACT_DUPLICATE"
-        | "CSHARP_CONTRACT_MISSING"
-        | "CSHARP_CONTRACT_UNUSED"
-        | "CSHARP_CONTRACT_TYPE"
-        | "CSHARP_CONTRACT_OPERATOR"
-        | "CSHARP_CONTRACT_HASH" => ("rejected", Some("subset")),
-        "CSHARP_LOWERING_OPERATION"
-        | "CSHARP_LOWERING_CFG"
-        | "CSHARP_LOWERING_CHECK_MISSING"
-        | "CSHARP_LOWERING_CHECK_EXTRA"
-        | "CSHARP_LOWERING_CHECK_ORDER" => ("rejected", Some("lowering")),
-        "CSHARP_SOURCE_MAP_EXTERNAL" | "CSHARP_SOURCE_MAP_RANGE" | "CSHARP_SOURCE_MAP_UTF16" => {
-            ("frontend-error", Some("emission"))
-        }
-        "CSHARP_FRONTEND_OUTPUT_LIMIT"
-        | "CSHARP_FRONTEND_DIAGNOSTIC_BUDGET"
-        | "CSHARP_FRONTEND_INTERNAL" => ("frontend-error", None),
-        "CSHARP_LIMIT_SOURCE_FILES"
-        | "CSHARP_LIMIT_SOURCE_FILE_BYTES"
-        | "CSHARP_LIMIT_SOURCE_TOTAL_BYTES"
-        | "CSHARP_LIMIT_CONTRACT_FILES"
-        | "CSHARP_LIMIT_CONTRACT_FILE_BYTES"
-        | "CSHARP_LIMIT_CONTRACT_TOTAL_BYTES"
-        | "CSHARP_LIMIT_SNAPSHOT_ENTRIES"
-        | "CSHARP_LIMIT_SNAPSHOT_TOTAL_BYTES"
-        | "CSHARP_LIMIT_NORMALIZED_PATH_BYTES"
-        | "CSHARP_LIMIT_CANONICAL_METHOD_ID_BYTES"
-        | "CSHARP_LIMIT_SELECTED_METHODS"
-        | "CSHARP_LIMIT_METHOD_CLOSURE"
-        | "CSHARP_LIMIT_SYNTAX_NODES"
-        | "CSHARP_LIMIT_OPERATIONS_PER_METHOD"
-        | "CSHARP_LIMIT_OPERATIONS_PER_CLOSURE"
-        | "CSHARP_LIMIT_CFG_BLOCKS_PER_METHOD"
-        | "CSHARP_LIMIT_CFG_BLOCKS_PER_CLOSURE"
-        | "CSHARP_LIMIT_CONTRACT_CLAUSES"
-        | "CSHARP_LIMIT_CONTRACT_NODES_PER_METHOD"
-        | "CSHARP_LIMIT_CONTRACT_NODES_PER_CLOSURE"
-        | "CSHARP_LIMIT_CONTRACT_DEPTH"
-        | "CSHARP_LIMIT_FRONTEND_ARGUMENT_BYTES"
-        | "CSHARP_LIMIT_VIR_CANONICAL_BYTES"
-        | "CSHARP_LIMIT_SOURCE_MAP_CANONICAL_BYTES"
-        | "CSHARP_LIMIT_SOURCE_MANIFEST_CANONICAL_BYTES" => ("rejected", None),
-        _ => return Err(protocol(SuccessorFrontendProtocolCode::ProtocolShape)),
-    };
-    if status != expected_status || expected_phase.is_some_and(|expected| phase != expected) {
-        return Err(protocol(SuccessorFrontendProtocolCode::ProtocolShape));
-    }
-    let expected_message = if code == "CSHARP_SOURCE_DIAGNOSTIC" {
-        let Some(id) = message.strip_prefix("C# compiler diagnostic ") else {
-            return Err(protocol(SuccessorFrontendProtocolCode::ProtocolShape));
-        };
-        if id.len() != 6
-            || !id.starts_with("CS")
-            || !id.as_bytes()[2..].iter().all(u8::is_ascii_digit)
-        {
-            return Err(protocol(SuccessorFrontendProtocolCode::ProtocolShape));
-        }
-        return Ok(());
-    } else if code.starts_with("CSHARP_LIMIT_") {
-        "C# profile limit exceeded"
-    } else {
-        match status {
-            "source-error" => "C# source is invalid",
-            "rejected" => "C# source is outside the frozen profile",
-            "frontend-error" => "C# frontend failed closed",
-            _ => return Err(protocol(SuccessorFrontendProtocolCode::ProtocolShape)),
-        }
-    };
-    if message != expected_message {
-        return Err(protocol(SuccessorFrontendProtocolCode::ProtocolShape));
-    }
-    Ok(())
-}
-
-// Independently compiled Java codebook. A Java failure cannot fall back to an
-// arbitrary shared issue code, compiler prose, or a caller-local release phase.
-fn validate_java_issue(
-    code: &str,
-    message: &str,
-    status: &str,
-    phase: &str,
-) -> Result<(), SuccessorFrontendProtocolError> {
-    let (expected_status, expected_phase) = match code {
-        "JAVA_CAPTURE_FILE_TYPE"
-        | "JAVA_CAPTURE_PATH"
-        | "JAVA_CAPTURE_INVENTORY"
-        | "JAVA_LIMIT_SOURCE_FILES"
-        | "JAVA_LIMIT_SOURCE_FILE_BYTES"
-        | "JAVA_LIMIT_SOURCE_TOTAL_BYTES"
-        | "JAVA_LIMIT_CONTRACT_FILES"
-        | "JAVA_LIMIT_CONTRACT_FILE_BYTES"
-        | "JAVA_LIMIT_CONTRACT_TOTAL_BYTES"
-        | "JAVA_LIMIT_SNAPSHOT_ENTRIES"
-        | "JAVA_LIMIT_SNAPSHOT_TOTAL_BYTES"
-        | "JAVA_LIMIT_NORMALIZED_PATH_BYTES"
-        | "JAVA_LIMIT_CANONICAL_METHOD_ID_BYTES"
-        | "JAVA_LIMIT_SELECTED_METHODS"
-        | "JAVA_LIMIT_FRONTEND_ARGUMENT_BYTES" => ("rejected", Some("capture")),
-        "JAVA_LIMIT_SYNTAX_NODES" | "JAVA_LIMIT_SYNTAX_DEPTH" => ("rejected", Some("source")),
-        "JAVA_SOURCE_ENCODING" | "JAVA_SOURCE_PARSE" => ("source-error", Some("source")),
-        "JAVA_SOURCE_DIAGNOSTIC" => ("source-error", Some("typecheck")),
-        "JAVA_TOOLCHAIN_ARCHIVE"
-        | "JAVA_TOOLCHAIN_RUNTIME"
-        | "JAVA_TOOLCHAIN_COMPILER"
-        | "JAVA_TOOLCHAIN_REFERENCE"
-        | "JAVA_TOOLCHAIN_OPTIONS" => ("frontend-error", Some("metadata")),
-        "JAVA_SUBSET_DECLARATION"
-        | "JAVA_SUBSET_IDENTIFIER"
-        | "JAVA_SUBSET_TYPE"
-        | "JAVA_SUBSET_LITERAL"
-        | "JAVA_SUBSET_CONTROL_FLOW"
-        | "JAVA_SUBSET_OPERATION"
-        | "JAVA_SUBSET_CONVERSION"
-        | "JAVA_SUBSET_CALL"
-        | "JAVA_SUBSET_INITIALIZATION"
-        | "JAVA_SUBSET_PURITY"
-        | "JAVA_SUBSET_ABRUPT"
-        | "JAVA_CONTRACT_JSON"
-        | "JAVA_CONTRACT_SHAPE"
-        | "JAVA_CONTRACT_IDENTITY"
-        | "JAVA_CONTRACT_DUPLICATE"
-        | "JAVA_CONTRACT_MISSING"
-        | "JAVA_CONTRACT_UNUSED"
-        | "JAVA_CONTRACT_TYPE"
-        | "JAVA_CONTRACT_OPERATOR"
-        | "JAVA_CONTRACT_HASH"
-        | "JAVA_LIMIT_METHOD_CLOSURE"
-        | "JAVA_LIMIT_PARAMETER_SLOTS"
-        | "JAVA_LIMIT_CONTRACT_CLAUSES"
-        | "JAVA_LIMIT_CONTRACT_NODES_PER_METHOD"
-        | "JAVA_LIMIT_CONTRACT_NODES_PER_CLOSURE"
-        | "JAVA_LIMIT_CONTRACT_DEPTH" => ("rejected", Some("subset")),
-        "JAVA_LOWERING_OPERATION"
-        | "JAVA_LOWERING_CFG"
-        | "JAVA_LOWERING_CHECK_MISSING"
-        | "JAVA_LOWERING_CHECK_EXTRA"
-        | "JAVA_LOWERING_CHECK_ORDER"
-        | "JAVA_LOWERING_SHIFT_PATTERN"
-        | "JAVA_LIMIT_INSTRUCTIONS_PER_METHOD"
-        | "JAVA_LIMIT_INSTRUCTIONS_PER_CLOSURE"
-        | "JAVA_LIMIT_CFG_BLOCKS_PER_METHOD"
-        | "JAVA_LIMIT_CFG_BLOCKS_PER_CLOSURE" => ("rejected", Some("lowering")),
-        "JAVA_LIMIT_VIR_CANONICAL_BYTES"
-        | "JAVA_LIMIT_SOURCE_MAP_CANONICAL_BYTES"
-        | "JAVA_LIMIT_SOURCE_MANIFEST_CANONICAL_BYTES" => ("rejected", Some("emission")),
-        "JAVA_SOURCE_MAP_EXTERNAL" | "JAVA_SOURCE_MAP_RANGE" | "JAVA_SOURCE_MAP_UTF16" => {
-            ("frontend-error", Some("emission"))
-        }
-        "JAVA_TOOLCHAIN_ADAPTER"
-        | "JAVA_TOOLCHAIN_FILE_MANAGER"
-        | "JAVA_FRONTEND_DIAGNOSTIC_BUDGET"
-        | "JAVA_FRONTEND_OUTPUT_LIMIT"
-        | "JAVA_FRONTEND_RESOURCE"
-        | "JAVA_FRONTEND_INTERNAL" => ("frontend-error", None),
-        _ => return Err(protocol(SuccessorFrontendProtocolCode::ProtocolShape)),
-    };
-    let expected_message = if code.starts_with("JAVA_LIMIT_") {
-        "Java profile limit exceeded"
-    } else {
-        match expected_status {
-            "rejected" => "Java source is outside the frozen profile",
-            "source-error" => "Java source is invalid",
-            _ => "Java frontend failed closed",
-        }
-    };
-    if status != expected_status
-        || message != expected_message
-        || phase == "release"
-        || expected_phase.is_some_and(|expected| phase != expected)
-    {
-        return Err(protocol(SuccessorFrontendProtocolCode::ProtocolShape));
     }
     Ok(())
 }
@@ -909,23 +695,6 @@ fn integer_field(
     field(object, name)?
         .as_i64()
         .ok_or_else(|| protocol(SuccessorFrontendProtocolCode::ProtocolShape))
-}
-
-/// W09's private source-artifact consumer. The active v1 protocol above does
-/// not gain a fallback branch; this entry accepts only the v2 root emitted by
-/// the private predecessor migration.
-pub(crate) fn consume_private_successor_source_artifacts(
-    artifact: &crate::csharp_practical_migration::PrivateSuccessorArtifact,
-) -> Result<String, &'static str> {
-    if artifact.schema() != crate::csharp_practical_migration::SUCCESSOR_SOURCE_ARTIFACTS_SCHEMA {
-        return Err("private source-artifact schema");
-    }
-    crate::csharp_practical_migration::validate_private_successor_schema(
-        crate::csharp_practical_migration::PrivateSuccessorSchemaKind::FrontendSourceArtifacts,
-        artifact.canonical_bytes(),
-    )
-    .map_err(|_| "private source-artifact transport")?;
-    Ok(artifact.sha256().to_owned())
 }
 
 const fn protocol(code: SuccessorFrontendProtocolCode) -> SuccessorFrontendProtocolError {

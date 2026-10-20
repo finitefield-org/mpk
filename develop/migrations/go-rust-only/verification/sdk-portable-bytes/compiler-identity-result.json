@@ -1,0 +1,36 @@
+{
+  "command": [
+    "/usr/local/bin/docker",
+    "run",
+    "--rm",
+    "--platform=linux/amd64",
+    "--pull=never",
+    "--network=none",
+    "--read-only",
+    "--user=65534:65534",
+    "--cap-drop=ALL",
+    "--security-opt=no-new-privileges",
+    "--mount=type=bind,src=/Users/kazuyoshitoshiya/ff/mpk/release/build-input-cache/rust/.portable-sdk-stage-go-rust/toolchain,dst=/mpk/toolchain,readonly",
+    "docker.io/library/ubuntu@sha256:dca176c9663a7ba4c1f0e710986f5a25e672842963d95b960191e2d9f7185ebe",
+    "/usr/bin/env",
+    "-i",
+    "LD_LIBRARY_PATH=/mpk/toolchain/lib",
+    "/mpk/toolchain/bin/rustc",
+    "--verbose",
+    "--version"
+  ],
+  "exit_code": 0,
+  "native_release_acceptance": false,
+  "selection_reason": "Confirm the frozen compiler executes from the new case-sensitive cache view and reports the exact expected identity; no project source is exposed and full SDK validation remains separate.",
+  "stdout": {
+    "path": "develop/migrations/go-rust-only/verification/sdk-portable-bytes/compiler-identity.stdout.log",
+    "sha256": "87d89f59e940e9dc0a70c56aaf149c0be9938375b144138e939c34ac9d1fd0b5",
+    "bytes": 212
+  },
+  "stderr": {
+    "path": "develop/migrations/go-rust-only/verification/sdk-portable-bytes/compiler-identity.stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "status": "passed"
+}

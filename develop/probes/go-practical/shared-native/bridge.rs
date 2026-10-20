@@ -9,14 +9,6 @@ pub fn go_practical_shared_probe(source: &ValidatedSuccessorVir) -> Result<(Valu
             CompiledSemanticProfile::RustCheckedV0,
             CompiledRequiredCheckProfile::RustCheckedV0,
         ),
-        "mpk.csharp.scalar.v0" => (
-            CompiledSemanticProfile::CSharpScalarV0,
-            CompiledRequiredCheckProfile::CSharpScalarV0,
-        ),
-        "mpk.java.scalar.v0" => (
-            CompiledSemanticProfile::JavaScalarV0,
-            CompiledRequiredCheckProfile::JavaScalarV0,
-        ),
         _ => return Err("unknown retained profile".to_owned()),
     };
     let projection = project_successor_vir(source, profile).map_err(|e| e.to_string())?;

@@ -1,0 +1,31 @@
+{
+  "status": "reviewed_with_retained_negative_diagnostic",
+  "original_automated_review": {
+    "status": "failed",
+    "path": "release/build-input-cache/rust/.review-evidence-go-rust/original-prestage-review.json",
+    "sha256": "728216eb8c4b5d089af251220780a9f9cfd8550b8f732cf7b446deb94e152186",
+    "bytes": 2158618
+  },
+  "decoded_complete_payload_count": 5425,
+  "all_findings": [
+    {
+      "matcher_id": "helper-kind-go-source",
+      "owner": "GO-VIR-02-T12",
+      "path": "develop/migrations/go-rust-only/verification/observed-scratch-logs/complete.bytes.json#decoded-3731",
+      "line": 3
+    }
+  ],
+  "known_original_negative_stdout": {
+    "path": "/private/tmp/mpk-go-rust-scope/strict-second.stdout",
+    "sha256": "97d99ee6a9731ff12bdee9a0dee495df761746a1413478dccba0452761a09c9a",
+    "bytes": 272,
+    "also_retained_in": "develop/migrations/go-rust-only/verification/observed-scratch-logs/complete.bytes.json"
+  },
+  "active_stored_file_findings": 0,
+  "decoded_negative_diagnostic_findings": 1,
+  "unexpected_source_or_metadata_findings": 0,
+  "zero_findings_claimed_for_all_decoded_payloads": false,
+  "matching_rules_changed": false,
+  "new_source_JSON_directory_or_blanket_exclusions": false,
+  "interpretation": "The only decoded finding is the actual stdout of the earlier failed obsolete-interface scan, not an accepted source/program artifact. Its full original bytes and the failed audit remain preserved. No matcher, seal, source/JSON/directory exclusion or acceptance rule is changed."
+}

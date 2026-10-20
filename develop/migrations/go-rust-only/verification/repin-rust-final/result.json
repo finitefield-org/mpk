@@ -1,0 +1,35 @@
+{
+  "status": "passed_after_fresh_process_validation",
+  "initial_attempt": {
+    "exit_code": 1,
+    "logs": {
+      "stdout": {
+        "path": "develop/migrations/go-rust-only/verification/repin-rust-final/initial-attempt.stdout.log",
+        "sha256": "c51a60d1583e8e4776f8c9f25a6e09894d5b85ed406543fb2ec84389f469c7cd",
+        "bytes": 65
+      },
+      "stderr": {
+        "path": "develop/migrations/go-rust-only/verification/repin-rust-final/initial-attempt.stderr.log",
+        "sha256": "450c9c16781969362a99af9888d4a33080952e8c9d0c9293327475d6ef485d3d",
+        "bytes": 378
+      }
+    },
+    "reason": "The updater validated using the imported module old REGISTRY_SHA256 after editing its source file. The actual new files validate in a fresh process; the initial failed result is retained."
+  },
+  "final_validation": {
+    "exit_code": 0,
+    "new_process": true
+  },
+  "old_registry": "998dddc9c923c0f29c4217d58a02323bbf861a086faff6b4b93d87c42a943314",
+  "new_registry": "ca8215be15326c32d7523f25590586c37d6fc7ef6646aecf784fba0bfc8163f0",
+  "old_binaries": {
+    "rust2vir": "dd8715c3a54e0e02a940cfac5b61ed87d0ca8afb9b6259e853c0dd700e32f344",
+    "rust2vir-driver": "84d2c05f7c9e49b68c5eb79dde3566791d52f2603baa10e2bcf8f9f4ad7c3da7"
+  },
+  "new_binaries": {
+    "rust2vir": "c51eaa33b0953f2b21295b880beaf0d3a684c54d4910ecdc9f4f7238919579ab",
+    "rust2vir-driver": "7c7ef17e7b2742cfdec6170d78b09c2a50e8a95cab1aa4e72ea2b88c779290b3"
+  },
+  "complete_preimages": 158,
+  "frontend_execution_claimed": false
+}

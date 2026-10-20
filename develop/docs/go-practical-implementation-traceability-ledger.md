@@ -6440,3 +6440,60 @@ roots/private descriptor/registry/context/retained policies and all169 demands/
 T02-T11 remain required. R06/W01 stay pending, C# tests stay skipped, and the
 cumulative T02 gate stays W04: ./scripts/check-fast.sh --skip-csharp. No public
 profile or source/program/application proof activates.
+
+## 114. Go/Rust-only scope and rebuilt registered frontends
+
+Entry is 528b599aacfe439d4abd8f50e046a754c9a24435. The user-authorized
+[scope amendment](../specs/LANGUAGE_SUPPORT_SCOPE_V1.md) retires Java/C# and
+other program-language support. The [checkpoint](../migrations/go-rust-only/README.md)
+keeps every original/failing epoch separate from current evidence. Dedicated
+implementations, launchers, build inputs, examples, specifications and test
+owners are removed. Thirty-six remaining foreign-language probes/replay files
+are retained as exact original bytes and removed from current execution paths.
+No C# tests, agents or Actions run.
+
+Installed registry revision4 has only unchanged Go fixed/Rust checked entries,
+two frontend/toolchain pairs and three tuples. Future practical integration
+requires Go fixed, practical Go, Rust32 and Rust64. New immutable frontend IDs
+are Go candidate.v2/Rust candidate.v3. Two exact pinned Go builds agree at
+9004378 bytes/SHA256 ccc4a984d41b5da7b3a6838cbfaeee3eb23f675a2e4d7fb5d4f9fcd7e597d538.
+Two independent Rust builds agree at3444704 wrapper bytes/SHA256
+c51eaa33b0953f2b21295b880beaf0d3a684c54d4910ecdc9f4f7238919579ab and
+1477088 driver bytes/SHA256 7c7ef17e7b2742cfdec6170d78b09c2a50e8a95cab1aa4e72ea2b88c779290b3.
+Their whole original input buffers remain unchanged during execution. The
+final bundle registry is ca8215be15326c32d7523f25590586c37d6fc7ef6646aecf784fba0bfc8163f0.
+
+The fixed Rust SDK is reconstructed byte-for-byte at its existing cache key,
+including two clean builds of both tools and every descriptor/file hash.
+Original download, case-collision, native-host and emulator-limit failures
+remain recorded. A case-sensitive owned cache preserves all Linux headers.
+Portable reconstruction authenticates bytes; native provisioning, cgroup/
+noexec/source-execution isolation and native release acceptance remain pending.
+No frozen descriptor, compiler/link argument or production execution limit is
+changed to promote that result.
+
+Actual Go/Rust source publishers run twice per case; Rust's105 public mirror
+files agree byte-for-byte. Original typed validity/presence masks retain798
+valid hashes and39 absent hash fields, plus complete canonical transports/raw
+references. Unchanged whitespace controls retain their original bytes. Final
+host VC48/CLI26/API14 tests and affected Clippy pass; Linux CLI13/API5 and
+Clippy pass. Pinned Rust readonly23 tests plus15 affected contract tests,
+readonly Go/Go-VC corpus, both formatters and25-vector publication checks pass.
+Only a stale shared doc comment changes after the host functional lane; final
+format/Clippy cover that comment without unnecessary functional repetition.
+
+All127 obsolete rules/four scopes/39 seals remain unchanged. Preliminary
+full-byte review of5425 payloads retains one reported original failed-scan
+diagnostic; it is not an accepted current source artifact and is not erased.
+Current-file strict checking, final staged review and commit audit are recorded
+separately. No source/JSON/directory or blanket exemption is introduced.
+Every actual source consumer is terminal before staging.
+
+Production kernel lifecycle/private context ownership, complete general
+namespace/selected-closure binding and full56-family ordinary Go source/
+carrier/type/operation/storage/lifetime/state/program foundation remain due.
+All common members/19 theorem families/all169 demands/T02–T11 remain required.
+R06/W01 stay pending; no practical Go profile or source/program/application
+proof activates. Kernel/Go caps are unchanged. The cumulative T02 gate remains
+W04: ./scripts/check-fast.sh, with no language-specific skip mode. The new
+native Go/Rust release gate requires its own actual native Linux acceptance.

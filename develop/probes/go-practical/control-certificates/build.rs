@@ -31,8 +31,8 @@ fn mirror(source: &Path, output: &Path, relative: &Path, root: &Path) {
                     )
                 })
                 .collect();
-            let builder=root.join("develop/migrations/csharp-03/probes/boolean-proof-elimination-logs/producer/builder.rs");
-            text=once(text,"\"../../../../migrations/csharp-03/probes/boolean-proof-elimination-logs/producer/builder.rs\"",&format!("{:?}",builder));
+            let builder=root.join("develop/probes/go-practical/support/builder.rs");
+            text=once(text,"\"../../support/builder.rs\"",&format!("{:?}",builder));
             text=once(text,"let args = std::env::args().collect::<Vec<_>>();","let args = std::env::args().collect::<Vec<_>>();\n    if args.get(1).map(String::as_str)==Some(\"control-generate\") { assert_eq!(args.len(),4); word::generate_control(Path::new(&args[2]),Path::new(&args[3])); return; }");
         } else if rel == Path::new("word.rs") {
             text.push_str("\nmod control;\npub(super) fn generate_control(root:&Path,output:&Path) { control::generate(root,output); }\n");

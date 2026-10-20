@@ -1,0 +1,10 @@
+{
+  "earlier_strict_run": {
+    "status": "passed",
+    "execution_context": "inside sandbox",
+    "limitation": "The scanner internally invokes /usr/bin/git. This earlier invocation did not follow the requested outside-sandbox Git execution context; it is retained and does not replace the final run."
+  },
+  "final_strict_run_requirement": "Execute the unchanged scanner outside the sandbox with /usr/bin/git; original127 rules/four scopes/39 exact seals remain unchanged.",
+  "whole_T_gate": "Deferred to GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "observed_at_utc": "2026-10-20T16:39:00.993070+00:00"
+}

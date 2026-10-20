@@ -1,10 +1,9 @@
 # Successor Semantic Profile Registry v1 Specification
 
-Status: normative, frozen, and active as the successor registry schema.
-`CSHARP-02-T20` activated revision 2 on 2026-08-30, and `JAVA-03-T10` installed
-the append-only revision-3 Go/Rust/C#/Java root on 2026-09-03. Historical
-handoff and migration clauses below record the required activation path;
-revision-1 and revision-2 roots are not alternate active inputs.
+Status: normative registry mechanism. The installed registry is Go/Rust-only
+revision 4. [LANGUAGE_SUPPORT_SCOPE_V1.md](LANGUAGE_SUPPORT_SCOPE_V1.md)
+supersedes the historical extension and activation clauses below. Revisions
+2/3 and removed-language profiles are not compiled or accepted.
 
 This specification is the `MLANG-01-T02` successor-extension decision. MPK
 chooses a closed, hash-pinned semantic-profile registry rather than adding a

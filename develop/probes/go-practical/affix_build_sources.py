@@ -26,8 +26,8 @@ def expected_sources():
         relative=p.relative_to(HERE/'certificates/src').as_posix();text=p.read_text()
         if relative=='main.rs':
             text=''.join(('//'+line[3:] if line.startswith('//!') else line)+'\n' for line in text.splitlines())
-            builder=ROOT/'develop/migrations/csharp-03/probes/boolean-proof-elimination-logs/producer/builder.rs'
-            text=once(text,'"../../../../migrations/csharp-03/probes/boolean-proof-elimination-logs/producer/builder.rs"',json.dumps(str(builder),ensure_ascii=False))
+            builder=ROOT/'develop/probes/go-practical/support/builder.rs'
+            text=once(text,'"../../support/builder.rs"',json.dumps(str(builder),ensure_ascii=False))
             text=text.replace('stringop-generate','affix-generate').replace('stringop-trace','affix-trace')
         elif relative==ACCESS:
             text=once(text,'{PREFIX}.StringOperationCapacity{count}','{PREFIX}.StringAffixCapacity{count}')+payload('fn affix_embedding(')

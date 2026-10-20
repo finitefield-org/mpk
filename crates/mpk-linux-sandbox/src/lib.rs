@@ -18,18 +18,19 @@ use rustix::io::{fcntl_dupfd_cloexec, fcntl_getfd, fcntl_setfd, FdFlags};
 use rustix::pipe::{pipe_with, PipeFlags};
 use rustix::process::{pidfd_send_signal, waitid, Signal, WaitId, WaitIdOptions, WaitIdStatus};
 
-mod java_policy;
+mod go_policy;
+mod seccomp;
 
-/// Irreversibly installs the Java privilege/syscall boundary in a dedicated,
-/// single-threaded capability-probe process. No source may be exposed to it.
-/// Its only UID/GID must already be mapped to 65534 in a private user namespace.
-pub fn install_java_probe_policy() -> io::Result<()> {
-    let filter = java_policy::filter();
-    let program = java_policy::program(&filter);
-    if java_policy::install(&program) {
+/// Installs the separate practical-Go compiler/runtime syscall policy in the
+/// same source-free, single-threaded nonroot capability probe. Exact pinned Go
+/// process flags are included in the finite syscall policy.
+pub fn install_go_probe_policy() -> io::Result<()> {
+    let filter = go_policy::filter();
+    let program = seccomp::program(&filter);
+    if seccomp::install(&program) {
         Ok(())
     } else {
-        Err(io::Error::other("Java native policy unavailable"))
+        Err(io::Error::other("practical Go native policy unavailable"))
     }
 }
 
@@ -326,31 +327,13 @@ pub fn run_pending_pid_namespace_process_with_proc(
     arguments: Vec<OsString>,
     stdin: File,
 ) -> Result<ExitStatus, LaunchError> {
-    run_pid_namespace_process(executable, arguments, stdin, false)
-}
-
-/// Java's private runtime additionally drops all capabilities and installs
-/// the closed x86-64 syscall/thread filter after mounting its private procfs.
-/// The caller must already have mapped its only UID/GID to 65534 and cleared
-/// supplementary groups. This entrypoint never selects a host executable.
-pub fn run_java_pid_namespace_process_with_proc(
-    executable: &Path,
-    arguments: Vec<OsString>,
-    stdin: File,
-) -> Result<ExitStatus, LaunchError> {
-    if executable != Path::new("/mpk/toolchain/jdk/bin/java") {
-        return Err(LaunchError::CloneOrSetup(invalid_input(
-            "unregistered Java executable",
-        )));
-    }
-    run_pid_namespace_process(executable, arguments, stdin, true)
+    run_pid_namespace_process(executable, arguments, stdin)
 }
 
 fn run_pid_namespace_process(
     executable: &Path,
     arguments: Vec<OsString>,
     stdin: File,
-    java: bool,
 ) -> Result<ExitStatus, LaunchError> {
     validate_parent_reaping_contract().map_err(LaunchError::CloneOrSetup)?;
     if !executable.is_absolute() {
@@ -382,10 +365,7 @@ fn run_pid_namespace_process(
         set_tid_size: 0,
         cgroup: 0,
     };
-    let java_filter = java_policy::filter();
-    let java_program = java_policy::program(&java_filter);
     let child_plan = PendingPidNamespacePlan {
-        java_program: java.then_some(&java_program),
         executable: executable.as_ptr(),
         stdin: stdin.as_raw_fd(),
         error_writer: error_writer.as_raw_fd(),
@@ -655,7 +635,6 @@ struct ChildPlan {
 }
 
 struct PendingPidNamespacePlan {
-    java_program: Option<*const libc::sock_fprog>,
     executable: *const c_char,
     stdin: RawFd,
     error_writer: RawFd,
@@ -712,11 +691,7 @@ fn pending_pid_namespace_trampoline(plan: &PendingPidNamespacePlan) -> ! {
     {
         child_fail(plan.error_writer, CHILD_SETUP_MARKER, CHILD_SETUP_EXIT);
     }
-    if let Some(program) = plan.java_program {
-        if !java_policy::install(program) {
-            child_fail(plan.error_writer, CHILD_SETUP_MARKER, CHILD_SETUP_EXIT);
-        }
-    }
+
     let result = raw_syscall3(
         libc::SYS_execve,
         plan.executable as usize,
