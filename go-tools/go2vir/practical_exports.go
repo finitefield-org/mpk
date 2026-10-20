@@ -15,6 +15,8 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"golang.org/x/mod/module"
 )
 
 // Original command metadata is retained in full. These selected fields do not
@@ -172,7 +174,16 @@ func (session *practicalCaptureSession) capturePracticalPackageExports(compiler 
 	stderr := &practicalBoundedOutput{maximum: maximumContractBytes, cancel: cancel}
 	command := exec.CommandContext(ctx, compiler.selection.GoExecutable, "list", "-mod=readonly", "-deps", "-export", "-compiled", "-json", selectedPackage)
 	command.Dir = directory
-	command.Env = pinnedLoaderEnvironment(compiler.selection, filesystem)
+	environmentFS := filesystem
+	if cache, err := practicalExportOriginalCache(discovery); err != nil {
+		return result, session.reject(err)
+	} else if cache != nil {
+		environmentFS.goMod, err = session.practicalPhysicalDirectory(*cache)
+		if err != nil {
+			return result, err
+		}
+	}
+	command.Env = pinnedLoaderEnvironment(compiler.selection, environmentFS)
 	command.Stdout = stdout
 	command.Stderr = stderr
 	if err := command.Run(); err != nil {
@@ -270,6 +281,42 @@ func (session *practicalCaptureSession) capturePracticalPackageExports(compiler 
 	}
 	sort.Slice(result.packages, func(i, j int) bool { return result.packages[i].importPath < result.packages[j].importPath })
 	return result, nil
+}
+
+// The native export command must read the same original offline module cache
+// as discovery. Derive its root from the already bound original archive/.mod
+// identities; never replace it with an ambient cache or a downloading proxy.
+func practicalExportOriginalCache(discovery practicalModuleDiscovery) (*practicalModuleLocation, error) {
+	var selected *practicalModuleLocation
+	for _, resolved := range discovery.modules {
+		if resolved.versioned == nil {
+			continue
+		}
+		identity := resolved.versioned.identity
+		escaped, err := module.EscapePath(identity.Path)
+		if err != nil {
+			return nil, err
+		}
+		version, err := module.EscapeVersion(identity.Version)
+		if err != nil {
+			return nil, err
+		}
+		object := resolved.manifest.object
+		suffix := path.Join("cache/download", escaped, "@v", version+".mod")
+		prefix := ""
+		if object.Path != suffix {
+			if !strings.HasSuffix(object.Path, "/"+suffix) {
+				return nil, fmt.Errorf("export module cache crossed its original download identity")
+			}
+			prefix = strings.TrimSuffix(object.Path, "/"+suffix)
+		}
+		location := practicalModuleLocation{capability: object.Capability, directory: prefix}
+		if selected != nil && *selected != location {
+			return nil, fmt.Errorf("export packages crossed original offline module caches")
+		}
+		selected = &location
+	}
+	return selected, nil
 }
 
 // Read the native archive's own build ID, rather than accepting the metadata

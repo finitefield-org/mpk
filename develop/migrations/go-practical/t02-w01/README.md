@@ -542,3 +542,21 @@ remain exact. Full original export/compiler ownership, authoritative immutable
 native graph/package/export/selected-closure replay and the full foundation/
 private context/all169 demands/T02-T11 remain due. R06/W01 stay open; C# tests
 stay skipped and the cumulative T02 gate stays W04.
+
+The [original byte-image/native replay checkpoint](verification/replay-image/README.md)
+preserves original absolute/relative/versioned replacement paths and full
+source bodies in owned images, with complete namespace/not-captured records,
+shared frozen budgets and the full5577-file compiler copy. Native export
+preparation uses the same original offline module cache. Two fresh offline
+kernel-readonly executions reproduce all4 module objects/all182 package
+objects except only the derived export locator and all181 original archives/
+79406918 bytes. The unselected HTTP handler/panic initializer remain original
+and are not executed. Actual readonly-input/hidden-SDK/missing-source controls
+reject. Local Linux/amd64 runs are x86-64-emulated on Linux/aarch64; they grant
+no native Linux release claim. All22 affected roots/177 subtests, current vet/
+format, Go1.23 compile-only and two176-input frontend builds pass. Independent
+audits preserve11334 source preimages, the whole copied compiler/image bytes
+and all255 frozen members. Complete production kernel/context/consulted namespace/
+selected-closure bindings/full56-all6-19 source/program foundation/private context/
+all169 demands/T02-T11 remain due. R06/W01 stay open; C# tests stay skipped and
+the T02 gate stays W04.

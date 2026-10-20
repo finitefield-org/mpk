@@ -1,0 +1,182 @@
+{
+  "schema": "mpk.go_practical.replay_image_checkpoint.v1",
+  "status": "scoped_checks_passed",
+  "entry_commit": "f7b52db31ae688a074b89339ec6ae70a0e3f1adf",
+  "observed_at_utc": "2026-10-20T08:22:49.351941+00:00",
+  "checks": [
+    {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/replay-image/closed-images/selected/result.json",
+        "sha256": "b0fdbeeaa688aa6e33893435cc6d948731e040a5d3ce9983aca825e0fa35fd65",
+        "bytes": 35194
+      },
+      "seconds": 118.9182870000368
+    },
+    {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/replay-image/closed-images/legacy/result.json",
+        "sha256": "599d71b431c21291ed00cf49e26c95cc181bc8e8b9b628f226239df14beb070a",
+        "bytes": 17154
+      },
+      "seconds": 3.9067051669117063
+    },
+    {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/replay-image/closed-images/vet/result.json",
+        "sha256": "5e335f704a46f75108eb739ab6d8847f6facb03142098a630880c44c1f8df45e",
+        "bytes": 17169
+      },
+      "seconds": 1.1535440419102088
+    },
+    {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/replay-image/closed-images/format/result.json",
+        "sha256": "a8f2a3250f9c4455b2db0d4051b622a5441146972a0a85bd20c824d2daa2548b",
+        "bytes": 17479
+      },
+      "seconds": 0.04587504197843373
+    }
+  ],
+  "affected_Go_roots": 22,
+  "subtests": 177,
+  "native_checks": [
+    {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/replay-image/initial/linux-prepare/result.json",
+        "sha256": "2061ea19d0d19773b84b257b500cabe5e1490e5278ba4d949ef70c585eba20c3",
+        "bytes": 17553
+      },
+      "checks": [
+        {
+          "label": "producer",
+          "seconds": 228.63841433404014
+        }
+      ]
+    },
+    {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/replay-image/initial/linux-replay-1/result.json",
+        "sha256": "559ca071d3bab0db6cb96125f3e52449ceaa76cd3ccde57926bcda679be971eb",
+        "bytes": 25166
+      },
+      "checks": [
+        {
+          "label": "modules",
+          "seconds": 0.5420400419970974
+        },
+        {
+          "label": "packages",
+          "seconds": 73.84811374999117
+        }
+      ]
+    },
+    {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/replay-image/initial/linux-replay-2/result.json",
+        "sha256": "9459c3b64db316701cf9f88c935b42ea64c8d55a1c90dd1b59dc1326e2f4a0c1",
+        "bytes": 25166
+      },
+      "checks": [
+        {
+          "label": "modules",
+          "seconds": 0.3136083750287071
+        },
+        {
+          "label": "packages",
+          "seconds": 74.73017804208212
+        }
+      ]
+    },
+    {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/replay-image/initial/linux-controls/result.json",
+        "sha256": "8af9b533b92a997fe399ff52c9738e88e107c875656cbb5acbc24d8263872b21",
+        "bytes": 30352
+      },
+      "checks": [
+        {
+          "label": "readonly-input",
+          "seconds": 0.4131762079196051
+        },
+        {
+          "label": "ambient-sdk",
+          "seconds": 0.22569320804905146
+        },
+        {
+          "label": "missing-original-source",
+          "seconds": 74.6039265000727
+        }
+      ]
+    }
+  ],
+  "native_image_manifest": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/replay-image/initial/linux-prepare/replay-image.json",
+    "sha256": "3c7dfd5c2acb34957eaea47ea1d513e7cc88b4324192439ecd94cf6f755ab913",
+    "bytes": 6703313
+  },
+  "native_comparisons": [
+    {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/replay-image/initial/linux-replay-1/comparison.json",
+        "sha256": "624552176231b8915cc31016b256f0e781fbc15aca366c5ba4ad61205a343bf2",
+        "bytes": 204266
+      },
+      "cache": "/private/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/mpk-go-practical-replay-y14amxgd"
+    },
+    {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/replay-image/initial/linux-replay-2/comparison.json",
+        "sha256": "7f03e222b9ad901dd77fce3688aa95ace4085a21a574cdaa35858995d12299d2",
+        "bytes": 204266
+      },
+      "cache": "/private/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/mpk-go-practical-replay-lqjo5of5"
+    }
+  ],
+  "original_source_preimages_independently_checked": 11334,
+  "original_source_bytes": 329526124,
+  "native_original_source_objects": 5493,
+  "source_typed_packages": 181,
+  "source_syntax_nodes": 1472495,
+  "full_original_modules_equal": 4,
+  "full_original_packages_equal_except_derived_export_locator": 182,
+  "whole_original_exports_equal_per_replay": 181,
+  "whole_original_export_bytes_equal_per_replay": 79406918,
+  "complete_original_compiler_inventory_files": 5577,
+  "complete_private_image_unchanged_after_all_kernel_commands": true,
+  "snapshot_digest_independently_reconstructed": "bb713d118a1948bcd7f902fca211228412a33a10273387143b79c66c0d348cda",
+  "image_digest_independently_reconstructed": "d0b44c42c2fbf7df0e7b7349878e53665e2b0012041917d041d2f377eb812c45",
+  "relative_absolute_and_versioned_replacements_unchanged": true,
+  "two_fresh_derived_caches": true,
+  "original_init_or_application_executed": false,
+  "kernel_readonly_source_control": "chmod rejects EROFS",
+  "ambient_SDK_control": "masked and not executable",
+  "missing_original_source_control": "offline readonly import rejects; not a semantic source counterexample",
+  "frontend_builds": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/replay-image/closed-images/selected/reproduced-builds.json",
+    "sha256": "21e2ea2908f15cd08ca463f3fc5122a9b5467d2a3193d4f56f0a6374e8f5c9f1",
+    "bytes": 4759
+  },
+  "frontend_inputs": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/replay-image/closed-images/selected/captured-inputs.json",
+    "sha256": "96b921c13dc2330eb67de12d099d4050d54085f4cb1395a3a3d8fd96721a601a",
+    "bytes": 79102
+  },
+  "frozen_inputs": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/replay-image/frozen-design-preservation.json",
+    "sha256": "03648b1210000e688552c3aad369560a3c884a2ef2e8343ccee1786183d662e9",
+    "bytes": 53230
+  },
+  "all_actual_validation_handles_terminal": true,
+  "CSharp_tests_executed": false,
+  "agents_used": false,
+  "GitHub_Actions_used": false,
+  "x86_64_emulated_local_Linux": true,
+  "native_Linux_release_claim": false,
+  "T02_W01_complete": false,
+  "R06_status": "pending",
+  "registered_context_or_source_program_application_proof": false,
+  "full_T02_gate_passed": false,
+  "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh --skip-csharp",
+  "selection_reason": "New owned byte-image materialization and source/origin/namespace/limit consumers; changed native export original-module-cache selection; affected source/package/module/export and frontend analysis consumers. Complete actual kernel replay covers all original bodies and all182 native packages, not a source extraction/stub or signature-only adapter. Unrelated scalar/Rust/kernel/full-Go/CSharp suites are retained without rerun.",
+  "remaining": "Production kernel-sandbox lifecycle/private context ownership and complete general consulted namespace/selected-closure bindings remain due. Full56-family source/carrier/nominal/type/operation/storage/lifetime/state/program foundation/all6 common members/19 theorem families, compiler-derived complete operation/VC roots/private descriptor/registry/context/retained policies/all169 demands/T02-T11 remain required."
+}

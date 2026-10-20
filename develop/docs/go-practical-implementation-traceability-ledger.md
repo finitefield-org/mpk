@@ -6174,3 +6174,61 @@ with original paths/hash/lengths. Official strict scanning covers every stored
 file unchanged; additional decoded historical-data diagnostics remain explicit
 and carry no current-source authority. No matcher/fixture/seal/file/directory
 exclusion changes and no old source is relabeled as a fresh observation.
+
+## 110. T02-W01 original byte images and isolated native compiler replay
+
+Entry is f7b52db31ae688a074b89339ec6ae70a0e3f1adf. The
+[byte-image/native replay checkpoint](../migrations/go-practical/t02-w01/verification/replay-image/README.md)
+keeps original root aliases, complete captured source/body bytes, namespace
+records and not-captured distinctions. The private filesystem mirrors original
+paths without source/go.mod rewriting or signature stubs. Original snapshots
+share all frozen source/contract/directory budgets; two individually fitting
+144-MiB inputs reject together beyond256MiB. Crossed origins/missing ownership/
+rehashed snapshot/path/duplicate controls reject. Full original compiler files
+copy as bounded streams under their existing toolchain inventory and revalidate
+after sealing. Read-only file permissions alone confer no production isolation.
+
+The export preparer now derives the original offline module-cache root from
+selected versioned archive/manifest identities; an unrelated empty scratch
+cache no longer prevents valid dependency exports. The actual example retains
+relative local, absolute local and versioned replacements, all5493 captured
+source objects/181 original source-typed packages/1472495 nodes, an unselected
+HTTP handler and an unselected panic initializer. No application initializer
+or body executes during loading/compilation.
+
+A pinned already available local Docker image has the registered Go1.25.0
+Linux/amd64 binary hash b93cdfdbc72f1afc... and no network. A producer builds
+the complete original5577-file compiler/source image, then exits/removes its
+original temporary roots. Two independent fresh-cache containers mount only
+owned input images read-only at the original paths, hide the ambient SDK and
+receive no original application/frontend source mount. All4 original module
+objects and all182 package objects agree, except only the derived export-cache
+locator. Every181 original archive/79406918 bytes agrees byte-for-byte on both
+runs, including all own build IDs/member bounds/targets. Actual chmod rejects
+EROFS, the masked ambient SDK is not executable, and deleting an original
+versioned source from a separate negative image rejects offline readonly
+import resolution. This is a capture failure, not a source semantic counterexample.
+The local server is Linux/aarch64 and x86-64 is emulated; no native Linux release
+acceptance is claimed. No CSharp/Java tests, agents or Actions execute.
+
+All22 affected Go roots/177 subtests pass in118.92s, current vet/format and
+Go1.23 compile/link with zero tests pass. Two independent empty-cache frontend
+builds from176 sealed inputs,40 frontend/133 vendor files plus metadata, agree
+on8592898 bytes and SHA2563fe0ec047ee3e9fe... Independent audits reconstruct
+11334 complete source preimages, original snapshot/image frames, all5577 copied
+compiler file hashes/modes and all source-image bytes unchanged after all kernel
+commands. All255 frozen members remain exact. Complete raw source/binary/data
+epochs remain losslessly serialized; strict changed-input and staged/committed
+blob audits use unchanged127 rules/four scopes/39 seals with no source/JSON/
+directory/blanket exclusions. All actual handles are terminal before staging.
+Unrelated scalar/Rust/kernel/full-Go/CSharp suites and intermediate whole gates
+are not rerun.
+
+Production kernel-sandbox lifecycle/private context ownership and complete
+general consulted namespace/selected-closure bindings remain due. Full56-family
+source/carrier/nominal/type/operation/storage/lifetime/state/program foundation,
+all6 common members/19 theorem families, compiler-derived complete operation/
+VC roots/private descriptor/registry/context/retained policies and all169 demands/
+T02-T11 remain required. R06/W01 remain pending; no public profile/source/program/
+application proof or native Linux release claim. C# tests stay skipped and the
+T02 cumulative gate stays W04.
