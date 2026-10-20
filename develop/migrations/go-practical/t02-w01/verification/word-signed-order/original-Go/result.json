@@ -1,0 +1,103 @@
+{
+  "status": "complete_original_observation",
+  "command": [
+    "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+    "verify",
+    "develop/migrations/go-practical/t02-w01/verification/word-signed-order/initial/construction/certificates/word-signed-order.mpcert"
+  ],
+  "exit_code": 1,
+  "seconds": 0.9450349999824539,
+  "certificate": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-order/initial/construction/certificates/word-signed-order.mpcert",
+    "sha256": "d33c2efb0fa90673aa114831d3671d11ecb1d3d3ba4bcb2415d35ca765859fbf",
+    "bytes": 996606
+  },
+  "go_binary": {
+    "path": "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+    "sha256": "33018244ca886f867256330d050077f7630c503529e3dc14ac3365f333c618a6",
+    "bytes": 3239410
+  },
+  "go_production_sources": [
+    {
+      "path": "go-tools/mpk-checker-ref/axiom_report.go",
+      "sha256": "c4b90708cee28a9198de51b44882e4c6fb1b012331378ab82a1c2f9537472d57",
+      "bytes": 23259
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/bool_cases.go",
+      "sha256": "99112f01a5a83465e7d28e47a8995fcba41dd3f3c99d6cbd423bd3e4bd709432",
+      "bytes": 5272
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/bool_rec_type.go",
+      "sha256": "d5d3e93ab336e8686092547579f0d76640d280a6b347691890e6b63aeec13a0e",
+      "bytes": 4986
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/cmd/mpk-checker-ref/main.go",
+      "sha256": "33961ea1b42b933405f3d18a05a13d9a08551879a92d699c75f674a1d7a056e0",
+      "bytes": 2893
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/core_check.go",
+      "sha256": "1fe9acc0f8277c1290dd24ff4af0cde526e9e0e283026192af4c0bd671331a0a",
+      "bytes": 32802
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/decoder.go",
+      "sha256": "636a3cefeebe2b8cdaf2191992f5ab08edb293aa019e366d33e7590a6e0e2a02",
+      "bytes": 38400
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/defeq.go",
+      "sha256": "a951f73a15315ed34c38829dfab819d34aa947b8050e3b097adb81bf37f65e0c",
+      "bytes": 10399
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/doc.go",
+      "sha256": "952a3da781b751eb063b2f4d859568453896d76ee8ab2122209720879c150b75",
+      "bytes": 112
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/hash.go",
+      "sha256": "9412b1bbabe87879061f142774bc8cbe7dd6210340855b445279bd7d1ba43c41",
+      "bytes": 7917
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/nat_induct.go",
+      "sha256": "72b3fff34b37f57dde648735a4ba1f6191f11253394f71cd30566a23e578e8bb",
+      "bytes": 5751
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/proof_check.go",
+      "sha256": "71f1b8648941e68c1bc67ae4cf640e35a31df20584b1f818f697fb5afc86e996",
+      "bytes": 17766
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/verify.go",
+      "sha256": "79d70ede0ea7453667009d4575265f8fdc2860e35026065bb4ae5d374faa1b5e",
+      "bytes": 10238
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/go.mod",
+      "sha256": "1dcc4212afe08523613abb23420df58c1bea4507db876e3ceac1e758a1b76250",
+      "bytes": 72
+    }
+  ],
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-order/original-Go/stdout.log",
+    "sha256": "f3f3cc925aa084013b272bed4c05be9d38998c5b882e1314e145fbe12587e16a",
+    "bytes": 108
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-order/original-Go/stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "observation": {
+    "verdict": "rejected",
+    "error_kind": "core_check",
+    "error_detail": "term 426060 inferred app but expected app"
+  },
+  "scope": "Complete original insufficient proof recipe, not a semantic control, Go source counterexample, fuel/resource failure or prefix acceptance. No unchanged core/axiom/fuel/cap changes."
+}

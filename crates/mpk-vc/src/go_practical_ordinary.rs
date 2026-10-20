@@ -179,6 +179,15 @@ pub struct GoWordConversions {
 pub struct GoWordShiftFoundation {
     certificate: Vec<u8>,
 }
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoWordSignedOrderFoundation {
+    certificate: Vec<u8>,
+}
+impl GoWordSignedOrderFoundation {
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
+}
 impl GoWordShiftFoundation {
     pub fn certificate_bytes(&self) -> &[u8] {
         &self.certificate
@@ -1366,6 +1375,43 @@ pub fn import_go_practical_word_shift_foundation(
         return Err(GoOrdinaryError::Limit);
     }
     let expected = generate_go_practical_word_shift_foundation()?;
+    if candidate != expected.certificate_bytes() {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    Ok(expected)
+}
+
+/// Prove signed comparison of the actual word circuits and balanced integers.
+/// This component supplies no complete source/program/profile authority.
+pub fn generate_go_practical_word_signed_order_foundation() -> Result<GoWordSignedOrderFoundation> {
+    let buffers = [
+        generate_go_practical_word_order_foundation()?
+            .certificate_bytes()
+            .to_vec(),
+        generate_go_practical_word_shift_foundation()?
+            .certificate_bytes()
+            .to_vec(),
+    ];
+    let inputs = buffers
+        .iter()
+        .map(|bytes| {
+            mpk_cert::decode_canonical_certificate(bytes).map_err(|_| GoOrdinaryError::Foundation)
+        })
+        .collect::<Result<Vec<_>>>()?;
+    let mut builder = composition::word_signed_order_prerequisites(&inputs)?;
+    word_numeric::append_signed_order(&mut builder)?;
+    builder.certificate.module = "Mpk.Go.Practical.WordSignedOrderFoundation".into();
+    Ok(GoWordSignedOrderFoundation {
+        certificate: builder.finish()?,
+    })
+}
+pub fn import_go_practical_word_signed_order_foundation(
+    candidate: &[u8],
+) -> Result<GoWordSignedOrderFoundation> {
+    if candidate.len() > MAX_BYTES {
+        return Err(GoOrdinaryError::Limit);
+    }
+    let expected = generate_go_practical_word_signed_order_foundation()?;
     if candidate != expected.certificate_bytes() {
         return Err(GoOrdinaryError::Linkage);
     }

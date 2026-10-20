@@ -1,0 +1,189 @@
+{
+  "schema": "mpk.go_practical.word_signed_order_checkpoint.v1",
+  "status": "scoped_checks_passed",
+  "entry_commit": "63b680e9d3eee4bbd6c30e9869ed692714eaffa2",
+  "observed_at_utc": "2026-10-20T01:22:17.425978+00:00",
+  "fresh_component": {
+    "certificate": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-order/final/tests/certificates/word-signed-order.mpcert",
+      "sha256": "0f61e8eb6a89cac3e2fa786f6027901424e2edaeb730df5dee0c5e8db49e8587",
+      "bytes": 996816
+    },
+    "declarations": 3457,
+    "terms": 71954,
+    "bytes": 996816,
+    "axioms": 0,
+    "logical_hashes": {
+      "export": "95c6847a75ae5ab62192117f1bc34284585eb3a361f8eb99084bfa5c1dbe59dc",
+      "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+      "certificate": "6c9c497057bd41c35286dcdf7e74dcd311d775b1d1042a2f5de8ab5806f7c41f"
+    },
+    "remaining_declaration_slots": 639
+  },
+  "production_sources": [
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "60276ae3d17cf0a08e45c2ab442c330533ef22ba80612c7ce6ba0a4f3b5f43a3",
+      "bytes": 49890
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/composition.rs",
+      "sha256": "b43661ddbead39a660515f0cde243c56641f5b683a83cf3c910e911cff375a9f",
+      "bytes": 25794
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric.rs",
+      "sha256": "8f9a0480c1155fffc064f823670bc83067ae70610033d6dc6bb5434c161b6391",
+      "bytes": 22615
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_order.rs",
+      "sha256": "6c7c557d594f5ea7376e5525829b4a68aa728248d7687f5d133e46366127182e",
+      "bytes": 15574
+    }
+  ],
+  "checks": {
+    "initial/construction": {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-order/initial/construction/result.json",
+        "sha256": "715887301128d2b50596b4931caa02f5c308fa6221d0ef8e13c01b3e375f9076",
+        "bytes": 22135
+      },
+      "wall_seconds": 94.46763037494384
+    },
+    "diagnose-original/diagnostic": {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-order/diagnose-original/diagnostic/result.json",
+        "sha256": "0f7ceef0f923dd84cc0a7465664336eb67df26a33ddbfe048f3e74748b739e6d",
+        "bytes": 22260
+      },
+      "wall_seconds": 5.597443499951623
+    },
+    "explicit-sign-choice/construction": {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-order/explicit-sign-choice/construction/result.json",
+        "sha256": "39b8e881c67a80a13c910d168156dae4bae3b7ac94f56da10fe20964e56d8fd9",
+        "bytes": 22397
+      },
+      "wall_seconds": 100.16901533294003
+    },
+    "final/tests": {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-order/final/tests/result.json",
+        "sha256": "15a9a7629b829b391549547384705883cc20f1f752d74ab4e2bc6feca10952a2",
+        "bytes": 29793
+      },
+      "wall_seconds": 59.95799354207702
+    },
+    "final/clippy": {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-order/final/clippy/result.json",
+        "sha256": "2fde52126c4ccff07228996fc825f76102f0c76fec1bc85fe22d5867b93b200e",
+        "bytes": 22051
+      },
+      "wall_seconds": 23.97044454200659
+    },
+    "final/format": {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-order/final/format/result.json",
+        "sha256": "1bba8212463b9f2ffeaac813659e56671ab1ba292dbd0d0a301b7fdf61c071b5",
+        "bytes": 29102
+      },
+      "wall_seconds": 0.47390358394477516
+    },
+    "final/diagnostic-list": {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-order/final/diagnostic-list/result.json",
+        "sha256": "5f71b1e10da946b303e7502db4110ed6454a9fde5cb49e18fab896296245c0bf",
+        "bytes": 22429
+      },
+      "wall_seconds": 1.6483162499498576
+    }
+  },
+  "paired_current_cores": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-order/paired-completed/result.json",
+    "sha256": "801e06cf57af1c3dd5618a5a5367e90bf5966988dc7f8f7bc188f538855b10d5",
+    "bytes": 74861
+  },
+  "same_byte_streams": 29,
+  "zero_axiom_positives": 2,
+  "genuine_core_type_mismatches": 27,
+  "mismatch_subtypes": {
+    "lambda_domain_mismatch": 3,
+    "check_type_mismatch": 24
+  },
+  "finite_counterparts": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-order/finite-counterparts/result.json",
+    "sha256": "cd3f5aeca8f2eba1f2eb0376a89f267d351d546932536f4477c3083e2f1ef5f0",
+    "bytes": 2652
+  },
+  "original_complete_failed_candidate": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-order/initial/construction/certificates/word-signed-order.mpcert",
+    "sha256": "d33c2efb0fa90673aa114831d3671d11ecb1d3d3ba4bcb2415d35ca765859fbf",
+    "bytes": 996606
+  },
+  "original_full_Rust_report": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-order/initial/construction/certificates/word-signed-order.rust.json",
+    "sha256": "cec22e466d880eb4fd187f90fb8bd54fb3627eb39682889a44a6d4999c3c6f31",
+    "bytes": 543
+  },
+  "original_full_Go_observation": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-order/original-Go/validated-result.json",
+    "sha256": "4fa2c56eeffdeb84c5313d946b3e17f8ad0b88cac9ac702006b6060a4e4f05f2",
+    "bytes": 1693
+  },
+  "direct_ignored_diagnostic": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-order/diagnose-original/diagnostic/diagnostic.json",
+    "sha256": "5ee1b2780c1590cc002f83aa7bce5d756a8edaab8ad9c2e8a60b2e14ce50aeb9",
+    "bytes": 1353
+  },
+  "observer_failures": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-order/run-original-go.py",
+      "sha256": "7a8ac742e55c23589e28430f8c7800eb189835f4266ce022dde19941bcf01b84",
+      "bytes": 2110
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-order/original-Go/observer-diagnostic.log",
+      "sha256": "af6776c05abc8ab35ab832a530fac20265a438d20b4c89b80d45b1e4b07bdeb1",
+      "bytes": 980
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-order/observer-failures/finite-original.py",
+      "sha256": "bae2463231f543c0c36372af2c6435647ece9819f8e025fea1168b44d497af44",
+      "bytes": 6113
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-order/observer-failures/finite-original-output.log",
+      "sha256": "9156e77088918e6613f2717ed4d87e69edf137cdcaa25b060d76efdfe4bdf4a8",
+      "bytes": 353
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-order/observer-failures/paired-original.py",
+      "sha256": "0ce953ecdbcaa94c6cf776f17be1218bb55e189d8a548846603a7609ebcdbc1a",
+      "bytes": 5095
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-order/observer-failures/paired-original-output.log",
+      "sha256": "43d4673a68bbf3fa87fcd67116f4365ad8a90ed0ce795cfa20dde020e08a6564",
+      "bytes": 315
+    }
+  ],
+  "repair_scope": "Explicit ordinary Eq transport of the computed Xor condition to its checked literal before Bool.cases. No new core conversion/iota rule, axiom, fuel, bound or imported assumption. Original insufficient complete recipe remains with both core outcomes and direct suffix diagnosis. Observer repairs retain original sources/raw output, compare actual differing Go/Rust schemas and all40 original native runtime outcomes, reuse28 complete Go streams and execute only the missing canonical positive.",
+  "frozen_inputs": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-order/frozen-design-preservation.json",
+    "sha256": "e568fb0dff77af9b12ea55f51780113c0b689949cd43ae882b51415b44b9539d",
+    "bytes": 52893
+  },
+  "strict_changed_input_review": "input-review/changed-inputs-review.json",
+  "proof_scope": "Unconditional actual signed ordering only. Full3437 original order types/bodies/proofs/levels/families are retained; shared strict-gap proofs are included and rechecked. No source/compiler/application correspondence or complete foundation/context/registry authority is claimed.",
+  "CSharp_tests_executed": false,
+  "T02_W01_complete": false,
+  "remaining_application_demands": 169,
+  "public_profile_activated": false,
+  "whole_source_program_proof_claimed": false,
+  "immutable_application_replay_claimed": false,
+  "native_Linux_gate_claimed": false,
+  "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh --skip-csharp",
+  "remaining_scope": "Full56-family bounded ordinary foundation and complete source/carrier/nominal/type/operation/storage/lifetime/state/program bindings, descriptor/private registry/context and retained policy delegation. Original application source/export/selected-closure authoritative immutable loading/replay, all169 application demands and original T02-T11 work/gates remain required."
+}

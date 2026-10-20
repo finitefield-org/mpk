@@ -416,3 +416,19 @@ and full64 shift checkpoints while preserving every original requirement. Full
 foundation/private context and authoritative original application source/export/
 selected-closure materialization/replay remain due; all169 demands and T02-T11
 stay active. C# tests stay skipped and the cumulative T02 gate stays W04.
+
+The [actual signed-order checkpoint](verification/word-signed-order/README.md)
+proves all8/16/32/64-bit source signed Less/LessEqual circuits equal the actual
+balanced unbounded Int comparisons. The3457-declaration/71954-term/996816-byte
+zero-axiom component retains every3437 original order identity and rechecks
+the genuine strict-gap dependency closure. All three affected Rust roots,
+selected Clippy/format/ignored-helper listing and29 same-byte paired streams
+pass, including27 genuine type rejections for altered source operations/sign
+addresses, claims and real bound premises. All96 original signed comparisons
+match retained actual Bool/native results; every1640 original result and40 real
+native runtime failures remain checked. Initial computed-major proof failure,
+direct diagnosis and all observer schema/format failures retain full inputs/raw
+output; corrected observers reuse completed native/core streams. All255 frozen
+members and preceding complete order/shift bytes remain exact. Full foundation/
+source/program/context and all169 demands/T02-T11 remain open; C# tests stay
+skipped and the cumulative T02 gate stays W04.

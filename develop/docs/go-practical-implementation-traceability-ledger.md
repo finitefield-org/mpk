@@ -5680,3 +5680,54 @@ selected-closure namespace materialization and authoritative immutable replay
 remain due. All169 application demands and T02-T11 stay open; W01 remains
 In progress. C# tests stay skipped and the cumulative T02 gate stays W04.
 No public activation, source/application proof or native Linux release is claimed.
+
+## 101. T02-W01 actual signed ordering and balanced Int comparison
+
+Entry is `63b680e9d3eee4bbd6c30e9869ed692714eaffa2`. The
+[checkpoint](../migrations/go-practical/t02-w01/verification/word-signed-order/README.md)
+proves unconditional source SignedLess/SignedLessEqual correspondence to the
+actual balanced unbounded Int comparisons at8/16/32/64 bits. Actual top bits,
+full unsigned values and checked word bounds/projections supply cross-sum
+comparison. Matching signs cancel a common modulus; opposite signs use genuine
+unbounded strict gaps and ordinary padding laws. LessEqual negates reversed
+actual Less. No caller Boolean premise, operand enumeration, axiom, new opcode
+or extensionality rule replaces these proofs.
+
+The fixed composition retains all3437 original order named types/bodies/proofs/
+levels/families and adds the full strict-gap proof closure. Both cores recheck
+all included proofs with imports empty. The3457-declaration/71954-term/996816-
+byte component fits unchanged caps/fuel and has zero axioms. All old order raw
+c12b72e2... and complete4053-shift raw119c384d... bytes remain exact under current
+generation. Three affected Rust roots, selected strict Clippy, current format
+and the new ignored helper's explicit listing pass. Both unchanged cores inspect
+29 complete streams: two zero-axiom positives and27 genuine type rejections,
+including24 check mismatches and three lambda-domain mismatches. Controls alter
+actual signed comparison functions, both real sign addresses, mathematical
+claims and real bound domains; exact ownership separately rejects a valid extra
+definition accepted by both cores.
+
+All96 original full signed comparison queries retain their actual Bool/native
+results. Independent fingerprints compare every1892 original word identity and
+3437 original order identities. All1640 original results,40 actual runtime
+failures and original source/query/output/prepared-image evidence remain intact.
+No unchanged native build or Bool evaluation reruns. New Python cross-sum/gap
+counterparts cover all four sign branches, without executing new theorem bodies
+or claiming universal authority from finite observations.
+
+The original complete candidate fails both cores at SignedLessScalar index3448.
+Explicit checked Eq transport of computed Xor to a literal before Bool.cases
+repairs the ordinary recipe without a core rule change. Full original sources,
+bytes, raw reports and direct ignored prefix diagnosis remain. Three observer
+schema/format mistakes are separately retained and repaired against actual
+protocols, reusing completed Go streams and preserving every native runtime
+outcome. Zero axioms bind the exact checked empty axiom-report hash rather than
+an absent Go field default. No prefix acceptance is claimed.
+
+All255 frozen inputs and official127 rules/four scopes/39 seals remain unchanged.
+Only four exact raw libtest stdout EOF observations are retained. Full signed
+equality/remaining mathematical and56-family source/carrier/nominal/type/operation/
+storage/lifetime/state/program foundation, bounded descriptor/private registry/
+context/policy delegation and authoritative original application source/export/
+selected-closure loading/replay remain due. All169 application demands and
+T02-T11 stay open; W01 remains In progress. C# tests stay skipped and the
+cumulative T02 gate stays W04. No public/source/application/Linux release claim.

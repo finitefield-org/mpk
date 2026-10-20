@@ -1,0 +1,10 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `test` profile [optimized + debuginfo] target(s) in 1m 29s
+     Running tests/go_practical_word_signed_order.rs (target/debug/deps/go_practical_word_signed_order-5f718fc54796c34d)
+
+thread 'actual_signed_order_component_and_complete_old_identities' (39002866) panicked at crates/mpk-vc/tests/go_practical_word_signed_order.rs:28:5:
+assertion `left == right` failed: word-signed-order: {"verdict":"rejected","module":null,"declaration_count":null,"axiom_count":null,"hashes":{"export":null,"axiom_report":null,"certificate":"44e328ea50953e63784ef1633e0e3ece277f50aa70d3549b6e9eeffb21776af0"},"axiom_report":null,"error_code":"KERNEL_CORE_CHECK","error_detail":"{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"426425\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"426434\",\"kind\":\"check_type_mismatch\",\"term_index\":\"426286\"}}"}
+  left: false
+ right: true
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_word_signed_order`
