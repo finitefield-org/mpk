@@ -1,16 +1,16 @@
 //! Full64 count bits, with the exact balanced high-bit tree of the source.
 use super::*;
 mod reflection;
-fn digits(i: usize, x: Expr) -> Expr {
+pub(super) fn digits(i: usize, x: Expr) -> Expr {
     numeric(&format!("W64.Digits{i}"), vec![x])
 }
-fn high(d: usize, x: Expr) -> Expr {
+pub(super) fn high(d: usize, x: Expr) -> Expr {
     sh(&format!("CountHigh{d}"), vec![x])
 }
-fn high_value(d: usize, x: Expr) -> Expr {
+pub(super) fn high_value(d: usize, x: Expr) -> Expr {
     sh(&format!("CountHighValue{d}"), vec![x])
 }
-fn tree(d: usize, a: usize, b: usize, x: Expr, numeric: bool) -> Result<Expr> {
+pub(super) fn tree(d: usize, a: usize, b: usize, x: Expr, numeric: bool) -> Result<Expr> {
     if b == a + 1 {
         let bit = at(x, 64, a)?;
         return Ok(if numeric {

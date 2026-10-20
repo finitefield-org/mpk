@@ -5556,3 +5556,78 @@ foundation/descriptor/private registry/context and application source/export/
 selected-closure replay remain due. All T02-T11 scope/gates stay active. C# tests
 stay skipped; the cumulative T02 gate stays W04. No complete source-program,
 public-profile, immutable application replay or native Linux release is claimed.
+
+## 99. T02-W01 actual variable shifts over complete64-bit source counts
+
+The [full-count shift checkpoint](../migrations/go-practical/t02-w01/verification/word-shift-count-bounds/README.md)
+proves actual source ShiftLeft/ShiftRight/SignedShiftRight at widths8/16/32/64,
+including every low-stage selection and the exact final high-bit zero/sign fill.
+CountLowComplement gives true low-prefix bounds. Actual CountHigh=false/true
+implies the full U64 count is Low or width+computed Excess respectively, with
+Nat.Less(U64,width)=Not(CountHigh). Large unsigned counts remain source-defined;
+this predicate selects a branch and does not restrict the operation domain.
+Symbolic PowerTwoAdd gives PowerTwo(U64)=Modulus*PowerTwo(Excess) on large counts.
+No clipping, huge unary exponent, caller truth flag or ad-hoc shift rule occurs.
+
+Actual staged left discards and unsigned/signed right low-block remainders
+compose through shared genuine Nat scalar identities and original fixed shifts.
+Unbounded Nat strict-gap induction and actual source complement/bit-complement
+witnesses prove remainder<PowerTwo(full-count), including huge signed-fill
+remainders. Source signed output top preservation is explicit. Full actual laws
+are U(resultLeft)+M*D=P*U(input) and U(input)+M*PowerMinusOne(count)*Bit(fill)=
+P*U(resultRight)+R. Unsigned right simplifies false fill to its canonical Nat
+conservation. Final actual source Zero/Select(sign,Ones,Zero) is bound through
+ordinary Bool value/top selection proofs; no extra iota/extensionality rule is
+added to either core.
+
+Actual SignedPositive/Negative and established Int constructor projections give
+P*S(input)≈S(actualLeft)+M*Int.Make(D+target-sign,P*source-sign) and
+S(input)≈P*S(actualSignedRight)+FromNat(R), with the real nonnegative bounded R.
+Signed right has floor semantics, including negative inputs. The private
+conversion cross-projection wrapper adds no old factory terms; its full raw
+conversion pin and every3105 original named type/body/proof/level/family identity
+remain exact. Diagnostic metadata also preserves all3240/3352/3542/3685 accepted
+intermediate component identities; no fingerprint grants proof authority.
+
+The4053-declaration/101285-term/1454895-byte zero-axiom certificate fits unchanged
+4096/131072/2097152 caps and1024 core conversion fuel, leaving43 declaration
+slots. Two affected Rust roots and selected current lint/format/ignored-helper
+listing pass. Both unchanged cores inspect85 complete same-byte streams: two
+accepted zero-axiom positives and83 genuine core type rejections. Controls change
+new real arithmetic/guard premises, count excess/complements/branch identities,
+well-typed source Zero replacements, original count bit63 for all3 shifts at all
+widths, computed witnesses and actual signed interpretations/top/remainder bounds.
+An honestly different valid component passes both cores but fails exact ownership.
+
+All504 original complete rows and real negative-count panics stay intact.
+Because original source circuits/all3105 named metadata are exact, their existing
+actual Bool/typed native/Python observations are reused without repeating the
+unchanged Bool suite or native build. Original source/query/output/image hashes
+are revalidated. New Python counterparts check exact full-count decompositions,
+seven low-prefix complements per row,2586 actual stages and signed modular/floor
+balances, preserving96 huge symbolic witnesses without giant powers. Native
+observations still have24 negative-count panics,480 defined results and309
+defined high counts. No new Nat/Int/witness/theorem body executes in finite
+observations; universal authority comes from complete proof checking.
+
+The original right-stage certificate fails both cores at declaration3403,
+W8.SignedRightStageTop1. The source selector returns a whole word, so applying
+that selected function to its top address needs a real SelectTop Bool-case
+lemma. Adding that checked lemma repairs the recipe. The first ignored helper's
+relative-path failure occurs before prefix checking and stays preserved; the
+repaired repository path/source capture diagnoses the exact original failure.
+Original private saturation visibility failure and its source/raw compile output
+stay preserved; a private parent wrapper resolves it. The outer subprocess
+observer wait300s neither changes checker limits nor claims resource admission;
+the original60s wrapper remains. All original sources, complete candidates and
+raw checker reports remain, with only exact per-file hash/length libtest EOF
+observations. No source/JSON/directory exclusions, core/axiom/fuel/artifact bound,
+frozen-input, scanner-policy or gate changes occur.
+
+W01 remains In progress. Full source/carrier/type/operation/storage/lifetime/
+state/program foundation, bounded56-family assembly/descriptor/private registry/
+context and authoritative original application source/export/selected-closure
+replay remain due. All169 demands remain unelaborated and T02-T11 scope stays
+active. C# tests stay skipped; the cumulative T02 gate stays W04. No public
+profile, full source-program proof, immutable replay or native Linux release
+is claimed.

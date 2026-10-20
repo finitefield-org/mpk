@@ -384,3 +384,20 @@ assumption are retained; no source/JSON/directory exclusions or core/fuel/axiom/
 limit changes occur. The low-prefix bound and actual all3 variable-shift stage/
 saturation/signed-Int laws remain due. W01/T02-T11 and all169 application demands
 stay active; C# tests stay skipped and the cumulative T02 gate stays W04.
+
+The [full-count variable-shift checkpoint](verification/word-shift-count-bounds/README.md)
+now proves actual source left/unsigned-right/signed-right stages and final
+zero/sign fill for all unsigned64-bit counts, actual discard/remainder witnesses
+and strict bounds. Actual signed left wrapping correction and signed right floor
+Int conservation are proved through the established real integer projections.
+The4053-declaration/101285-term/1454895-byte zero-axiom component fits unchanged
+caps/fuel. All3105 previous metadata identities and the old full conversion raw
+pin remain exact. Both unchanged cores inspect85 complete same-byte streams,
+including83 genuine source/arithmetic/premise/interpretation type rejections.
+The finite counterparts reuse504 exact original Bool/native rows and verify
+2586 stage observations with full counts; no huge powers or new theorem bodies
+execute. Original pointwise-selection type failure, ignored diagnostic path
+failure and private wrapper compile error remain with exact source/raw records.
+No checker/axiom/fuel/cap/frozen-input changes occur. Full source/program/
+foundation/context/registry and all169 application demands remain due; W01 and
+T02-T11 remain active, C# tests stay skipped and the cumulative gate stays W04.

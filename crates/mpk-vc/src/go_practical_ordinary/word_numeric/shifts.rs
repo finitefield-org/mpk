@@ -1,9 +1,11 @@
 //! Actual full-count shifts, with ordinary numeric witnesses and source binding.
 use super::*;
+mod count_bounds;
 mod counts;
 mod fixed_right;
 mod pop;
 mod powers;
+mod variable;
 const SHIFTS: &str = "Mpk.Go.Practical.Word.Shifts";
 fn sh(name: &str, args: Vec<Expr>) -> Expr {
     call(&format!("{SHIFTS}.{name}"), args)
@@ -217,5 +219,7 @@ pub(super) fn append(builder: &mut Builder) -> Result<()> {
         s.fixed_right(w)?;
     }
     s.counts()?;
+    s.count_bounds()?;
+    s.variable()?;
     Ok(())
 }

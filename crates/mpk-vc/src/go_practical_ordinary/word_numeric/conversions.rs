@@ -5,6 +5,11 @@ mod family;
 mod integer;
 mod scalar;
 
+// Private reuse of established ordinary projection equations; no new authority.
+pub(super) fn projection_cross(a: Expr, b: Expr) -> Result<(Equality, Equality)> {
+    integer::cross(a, b)
+}
+
 const CONVERSIONS: &str = "Mpk.Go.Practical.Word.Conversions";
 fn cv(name: &str, args: Vec<Expr>) -> Expr {
     call(&format!("{CONVERSIONS}.{name}"), args)
