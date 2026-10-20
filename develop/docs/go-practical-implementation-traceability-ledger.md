@@ -6683,3 +6683,61 @@ inputs remain unchanged. Original127-rule/four-scope/39-seal review gains no
 exception. No unrelated suite, other-language test, agent or Actions runs.
 All actual source-consuming handles are terminal before staging. The cumulative
 T02 gate stays W04: `./scripts/check-fast.sh`.
+
+## 119. T02-W01 actual original Go string constants and native full carrier data
+
+Entry is `8b54c50c3c917baff244fd0f8f6102d6e83d8230`. The
+[checkpoint](../migrations/go-practical/t02-w01/verification/string-constants/README.md)
+queries only the original package path and physical source-ID/byte span against
+its private complete original type/source owner. The whole original source,
+expression, compiler/image/module bindings and every native string byte remain
+owned independently. No caller AST, typed package, replacement source, import
+callback or supplied value enters. Existing byte/type/syntax failures retire
+later queries. Returned views and data survive original roots, donor buffers,
+image and owner retirement without aliasing them.
+
+The native flattened data shape retains all64 length bits and256 arbitrary8-bit
+slots, including NUL/invalid UTF-8 and zero padding. Empty/1/255/256 values retain
+their exact byte count;257 remains whole and returns a distinct modeled-domain
+error. Folded, named/alias/reference/selector/parenthesized/rune-conversion and
+CRLF raw-string observations use actual Go constant values. An alias retains
+its actual display spelling; it grants no nominal/source identity. The exact
+ordinary curried carrier, source-expression evaluation, signed source-index,
+nominal-array/padding/empty-dummy/storage/state/program correspondence remain due.
+
+Ten affected roots/77 subtests, current Go vet/changed-file format and zero-test
+Go1.23 compile/link pass. The42 new string subtests include damaged complete
+source data outside the expression, invalid/foreign/partial/unknown locators,
+import/tag/non-string/runtime expressions, failed owners and full byte/lifetime
+checks. The existing complete four-module/181-package/1472495-node original HTTP/
+replacement image also observes its own two constants after original roots and
+donor buffers retire. Full unused bodies and panic initializers remain original
+and unexecuted. The final5771-file/7421-namespace observation is retained; no
+production kernel/context/general closure authority is inferred.
+
+All three complete Go source/driver epochs and five actual original source/
+export frames remain. The first failed test assumed a canonical target display
+for AliasText; its actual alias display/native bytes and full test output remain.
+The corrected display-only expectation passes. A later test-only update archives
+actual successful child module diagnostics and owned module/package outputs.
+Separately unarchived earlier module diagnostics are explicit and never filled
+from a new run. All actual verification drivers are saved before launch.
+
+The actual complete closure has186 inputs (50 frontend/133 vendor/three metadata),
+adding only practical_string_constant.go to all185 exact prior inputs. Two fresh
+pinned offline Linux/amd64 development builds agree at9004162 bytes/SHA256
+8eb9e81d1be647a0814ffbb81ce94050b73c161cb726b10c60758e2d48cee2ec;
+two captured-original empty-cache host builds agree at8592898 bytes/SHA256
+4c9c0cfd4f42e26a995b69e41591c6fc0857b1fffc6762782fad191d930f30f8.
+The published binary/registry epoch stays separate. Closed public admission
+passes. After edits confined to Go1.25 test expectations/record fields, unchanged
+production builds, owner and public/legacy outcomes are retained without repeat;
+final selected/image/vet/format checks cover the actual last source epoch.
+
+All255 frozen inputs, original127-rule/four-scope/39-seal review and original raw
+byte epochs remain required; no new exclusion, language or limit. Unchanged Rust
+mathematics/core/ref/protocol and unrelated suites are not repeated. No other-
+language test, agent or Actions runs. All actual source-consuming verification
+handles are terminal before staging. R01/R06/W01/full ordinary foundation/private
+context/native kernel/general namespace/selected closure/all169/T02-T11 stay due.
+The cumulative T02 gate stays W04: `./scripts/check-fast.sh`.

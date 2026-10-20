@@ -681,3 +681,20 @@ Full signed/source/nominal/padding/empty-dummy/storage/program correspondence,
 complete ordinary foundation/private context/native namespace/selected closure,
 R01/R06/W01/all169/T02-T11 remain due. The cumulative T02 gate stays W04:
 `./scripts/check-fast.sh`.
+
+The [original string constant checkpoint](verification/string-constants/README.md)
+adds a private physical-locator observation over the owned complete original Go
+packages. It retains complete source/expression/native bytes and converts full64
+length/256 full8-bit data slots with zero padding;257 bytes remains complete and
+returns a distinct modeled-domain error. Actual folded/named/alias/selector,
+CRLF/all-byte/boundary/invalid-query/damaged/lifetime cases and the complete
+four-module HTTP/replacement image pass. Ten affected roots/77 subtests, current
+vet/format, zero-test legacy compilation and both pairs of fresh development/
+captured-original builds pass. The186-input closure preserves every prior185
+input. Original source/output/driver epochs and the initial mistaken alias
+expectation remain; separately missing earlier module diagnostics are explicit.
+These are native data facts; ordinary source evaluation/curried carrier/nominal
+identity/full source-program/private context/kernel/general namespace/selected
+closure/all169/T02-T11 remain due. R01/R06/W01 stay open and Go/Rust scope,
+frozen limits/published registry remain unchanged. The cumulative T02 gate stays
+W04: `./scripts/check-fast.sh`.

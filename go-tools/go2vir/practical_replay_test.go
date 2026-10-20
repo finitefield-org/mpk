@@ -227,7 +227,7 @@ func TestPracticalReplayPrepareWholeOriginalModuleAndCompilerImage(t *testing.T)
 			exports.output, exports.diagnostics = failure.originalOutput()
 		}
 	}
-	retainPracticalSyntaxEvidence(t, "replay-native-original-export.json", map[string]any{"stdout": exports.output, "stderr": exports.diagnostics, "error": fmt.Sprint(err), "module_output": discovery.output})
+	retainPracticalSyntaxEvidence(t, "replay-native-original-export.json", map[string]any{"stdout": exports.output, "stderr": exports.diagnostics, "error": fmt.Sprint(err), "module_output": discovery.output, "module_diagnostics": discovery.observation.diagnostics})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -272,6 +272,41 @@ func TestPracticalReplayPrepareWholeOriginalModuleAndCompilerImage(t *testing.T)
 		t.Fatal(err)
 	}
 	defer owned.Close()
+	// Use the same physical-locator API on this actual complete multi-module
+	// owner, after original roots and donor buffers have retired. These remain
+	// native constant observations, not source/program evaluation proofs.
+	var stringObservations []map[string]any
+	for _, row := range []struct {
+		name, pkg, path, prefix, raw string
+		source, want                 []byte
+	}{
+		{"application", "example.com/app", "policy.go", "strings.HasPrefix(s,", `"pay:"`, application, []byte("pay:")},
+		{"replacement-init", "example.com/relative", "dep.go", "panic(", `"not executed"`, files[3]["dep.go"], []byte("not executed")},
+	} {
+		var object practicalSourceObject
+		for _, candidate := range owned.packages[row.pkg].sources {
+			if candidate.Path == row.path {
+				object = candidate
+			}
+		}
+		if object.ID == "" {
+			t.Fatal("complete original module lost its string source", row.pkg)
+		}
+		span := practicalStringTestSpan(t, object, row.source, row.prefix, row.raw)
+		value, err := owned.stringConstant(row.pkg, span)
+		if err != nil || !bytes.Equal(value.nativeBytes(), row.want) || !bytes.Equal(value.originalSource().data, row.source) {
+			t.Fatal("original multi-module constant observation changed", err)
+		}
+		native := practicalStringTestEvidence(value)
+		retainPracticalSyntaxEvidence(t, "replay-string-"+row.name+"-native.json", native)
+		carrier, err := value.carrier()
+		if err != nil {
+			t.Fatal(err)
+		}
+		practicalStringTestCarrier(t, carrier, row.want)
+		native["length_word"], native["byte_slots"] = carrier.lengthWord, carrier.byteSlots
+		stringObservations = append(stringObservations, native)
+	}
 	restored := owned.inputs
 	sources, err := restored.snapshotForRoots(sealed.snapshot.roots)
 	if err != nil || sources.contentSHA256 != sealed.snapshot.contentSHA256 {
@@ -308,6 +343,7 @@ func TestPracticalReplayPrepareWholeOriginalModuleAndCompilerImage(t *testing.T)
 		"compiler_inventory": compiler.candidate.ToolchainInventory, "compiler_components": compiler.selection.Toolchain.Components,
 		"main_original_directory": roots[0].Directory, "cache_original_directory": roots[1].Directory,
 		"requested_package": "example.com/app", "original_module_output": discovery.output,
+		"original_module_diagnostics": owned.moduleDiagnostics, "original_package_diagnostics": owned.packageDiagnostics,
 		"original_package_output": exports.output, "original_export_objects": exports.snapshot.sourceObjects(),
 		"complete_source_typed_packages": len(loader.packages), "complete_syntax_nodes": loader.syntax.count,
 		"registered_context_or_source_program_proof": false, "authoritative_selected_closure_replay_complete": false,
@@ -316,6 +352,7 @@ func TestPracticalReplayPrepareWholeOriginalModuleAndCompilerImage(t *testing.T)
 		"restored_export_snapshot_digest":        exportSnapshot.contentSHA256,
 		"original_roots_retired_before_consumer": true, "original_donor_buffers_cleared_before_consumer": true,
 		"restored_original_module_bindings": len(modules), "restored_complete_original_objects": len(restored.snapshot.ids),
+		"original_native_string_constants": stringObservations,
 	}
 	raw, err := json.MarshalIndent(record, "", "  ")
 	if err != nil {
