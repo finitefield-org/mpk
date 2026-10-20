@@ -1,0 +1,171 @@
+{
+  "schema": "mpk.go_practical.ordinary_string_checkpoint.v1",
+  "status": "scoped_checks_passed",
+  "entry_commit": "22c964d225582ff6d955c4fe64ad98bbe4ce028f",
+  "observed_at_utc": "2026-10-20T21:23:39.878072+00:00",
+  "source_language_scope": [
+    "Go",
+    "Rust"
+  ],
+  "affected_checks": {
+    "selected": {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-foundation/epochs/native-controls/selected/result.json",
+        "sha256": "c7ae00594d2906fc39ef8d7144c567017cb61526be902692d349de002a5b16a5",
+        "bytes": 128317
+      },
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-foundation/epochs/native-controls/selected/stdout.log",
+        "sha256": "4728cd31b32f947ae4655eeb2a80648854d32d215f62fad28607ff3d5fad4d43",
+        "bytes": 1212
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-foundation/epochs/native-controls/selected/stderr.log",
+        "sha256": "fef8f6fd612749deaaea38c4c0a64d8618a6d4c20ef0c192d0eda9c08af35a81",
+        "bytes": 259
+      }
+    },
+    "lint": {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-foundation/epochs/lint-cleanup/lint/result.json",
+        "sha256": "de257b8e9244d8e4c7ae9da7282230ef24448b993291e17ef44765960ef38be3",
+        "bytes": 128260
+      },
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-foundation/epochs/lint-cleanup/lint/stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-foundation/epochs/lint-cleanup/lint/stderr.log",
+        "sha256": "878d59b426d83bd2e6530da09fccf9c38457f13261f06de95842e1875735e1e0",
+        "bytes": 136
+      }
+    },
+    "format": {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-foundation/epochs/lint-cleanup/format/result.json",
+        "sha256": "18fbc881a1b7db88f11b8d7b6ca7cfae20d947edbb18647618c37a111188a9c0",
+        "bytes": 128340
+      },
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-foundation/epochs/lint-cleanup/format/stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-foundation/epochs/lint-cleanup/format/stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    }
+  },
+  "affected_Rust_test_roots": 5,
+  "independent_comparison": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-foundation/paired/result.json",
+    "sha256": "e791f5258bc2845df20fd788e052ad76ec23cd5f54a74e40c6a6ae537a18e62b",
+    "bytes": 221499
+  },
+  "complete_same_byte_inputs": 81,
+  "zero_axiom_acceptances": 22,
+  "genuine_core_type_mismatches": 59,
+  "rejections": {
+    "altered_universal_conclusions": 30,
+    "erased_actual_premises": 18,
+    "well_typed_changed_operations": 5,
+    "changed_actual_literal_bit_claims": 6
+  },
+  "component": {
+    "declarations": 1053,
+    "terms": 34875,
+    "bytes": 454703,
+    "new_definitions": 18,
+    "new_laws": 30,
+    "all_original_prerequisite_declarations_exact": 1005,
+    "axioms": 0,
+    "imports": 0,
+    "input": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-foundation/epochs/native-controls/selected/candidates/string-foundation.mpcert",
+      "sha256": "dd06b58c4719a984bb3b1b308af9bee073cf7e167e7e9a8360eacb54dadf80da",
+      "bytes": 454703
+    },
+    "hashes": {
+      "export": "cf9285d2af257d59c7fb08a07ab3a2cf6e0c28b7dbb18219b477cfcabe3e1cbe",
+      "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+      "certificate": "6ec25af428dce362a07d6d5437882017035577b308866d6e1324da41fd99a93d"
+    }
+  },
+  "complete_native_alphabet": {
+    "declarations": 3166,
+    "terms": 40410,
+    "bytes": 706009,
+    "length_bit_laws": 64,
+    "byte_slot_bit_laws": 2048,
+    "input": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-foundation/epochs/native-controls/selected/candidates/string-all-bytes.mpcert",
+      "sha256": "fe5ce010a6533b7bc5b47135cbe347a54ccbf69efb40005cf7171ea2d3ee8f52",
+      "bytes": 706009
+    },
+    "hashes": {
+      "export": "39a14cd06dd203ddaf8688c6beb81a88a2fc267d5af1bb6181bea075e9932458",
+      "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+      "certificate": "fb1f311e4af3ff6f262691e9e0115fa23a1a47d7b0b902165b2e7d9d7bf1edae"
+    }
+  },
+  "actual_original_Go_observations": {
+    "native_inputs": 19,
+    "whole_original_source_and_expression_retained": true,
+    "full_2112_bit_certificates": 18,
+    "distinct_257_byte_domain_errors": 1,
+    "original_evidence": "../string-constants/input-review.json",
+    "source_evaluation_or_nominal_identity_proof": false
+  },
+  "ordinary_shape": "(tag:Bool)->Bool.recType (Bool^6->Bool) (Bool^8->Bool^3->Bool) tag; most-significant-head slot/bit addresses",
+  "validity": "Actual full unsigned64 Size<=256 and every out-of-prefix Bool8 slot equal to canonical Word8 zero; real product/quantified witnesses required.",
+  "zero_validity_proved": true,
+  "native_nonzero_literal_whole_Valid_witnesses_proved": false,
+  "source_evaluation_or_nominal_identity_proved": false,
+  "selection_reason": "The new source-free string constructor and guarded ordinary operations extend the exact old1005-member component. Check every new universal conclusion, actual supplied range/padding/validity premise, well-typed changed operation, exact owning imports and actual Go native observations. The five target roots plus Clippy/three-file format cover producer/consumer changes; untouched core/ref, Go capture/frontend, protocol and unrelated workspace suites are not repeated. The final edit only changes a fixed domain diagnostic to identical literal bytes; no production recipe or emitted candidate changes.",
+  "all_candidates_saved_before_checking": true,
+  "all_actual_test_and_checker_handles_terminal": true,
+  "git_whitespace_review": "git-whitespace-review.json: four exact original Cargo stdout EOF blank lines retained; all other staged files pass",
+  "original_source_epochs": [
+    "epochs/explicit-zero/inputs.json",
+    "epochs/initial/inputs.json",
+    "epochs/lint-cleanup/inputs.json",
+    "epochs/native-controls/inputs.json",
+    "epochs/projection/inputs.json",
+    "epochs/zero-import/inputs.json"
+  ],
+  "original_failure_history": [
+    {
+      "epoch": "initial",
+      "cause": "ZeroValue direct reflexivity assumed unsupported implicit evaluation of the nested numeric recursor. Full original candidate rejects by genuine core type mismatch."
+    },
+    {
+      "epoch": "explicit-zero",
+      "cause": "Missing polynomial::mul_right import stops compilation; both actual command outputs remain, with no candidate/outcome invented."
+    },
+    {
+      "epoch": "zero-import",
+      "cause": "The ZeroCubeValue1 recipe used its induction hypothesis before explicitly transporting the projected cube equality. Both full original candidate failures remain."
+    },
+    {
+      "epoch": "native-controls/lint",
+      "cause": "Clippy rejects unnecessary format! on a fixed native-domain record string; the final identical byte literal fixes only record formatting."
+    }
+  ],
+  "proof_repair": "One actual Numeric.ValueDefinition per depth plus explicit projected-cube Eq.congr, prior zero values and Nat.MulZero/AddZero. No new core rule, extensionality, semantic axiom or resource extension.",
+  "wrong_definition_prefixes": "Five actual changed definition prefixes typecheck; all complete original law streams reject. Prefix typing supplies no partial certificate acceptance.",
+  "current_Go_frontend_build_inputs_unchanged": 186,
+  "frozen_design_inputs_unchanged": 255,
+  "checker_or_frozen_limit_changes": false,
+  "public_profile_activated": false,
+  "native_release_acceptance": false,
+  "R01_complete": false,
+  "R06_complete": false,
+  "W01_complete": false,
+  "full_T_gate_passed": false,
+  "full_T_gate": "deferred to GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "remaining": "Ordinary original source/constant evaluation, actual nominal/alias identity, nonzero literal whole-validity witnesses, signed source-index domain, full string operations/arrays/padding/empty dummy/storage/state/program correspondence; complete ordinary foundation/private registry/context; production native kernel/general namespace/selected closure/all169 demands/T02-T11."
+}

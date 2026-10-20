@@ -698,3 +698,19 @@ identity/full source-program/private context/kernel/general namespace/selected
 closure/all169/T02-T11 remain due. R01/R06/W01 stay open and Go/Rust scope,
 frozen limits/published registry remain unchanged. The cumulative T02 gate stays
 W04: `./scripts/check-fast.sh`.
+
+The [ordinary string carrier checkpoint](verification/string-foundation/README.md)
+implements the exact frozen fullWord64/256 curried Word8 product and actual
+constructor/field/bit/full64 sequence/read/zero/validity laws. All1005 prior
+identities remain exact; the1053-declaration zero-axiom component adds18
+definitions/30 laws. Five affected Rust roots, strict Clippy/three-file format
+and both unchanged independent cores cover81 full inputs:22 acceptances and59
+genuine type mismatches. Actual19 original Go source/expression/native-value
+observations produce18 complete2112-bit certificates and one distinct257-byte
+domain error; no nominal/source/context identity is inferred. Complete source/
+candidate/output epochs, implicit-zero/projected-cube/import/style failures and
+final unchanged semantic outcomes remain explicit. Nonzero literal whole Valid,
+source evaluation/nominal identity/signed-domain/full operations/array/storage/
+state/program/private context/native kernel/namespace/selected closure/all169/
+T02-T11 remain due. Go/Rust scope and all frozen limits remain unchanged.
+R01/R06/W01 stay open; the cumulative T02 gate stays W04: `./scripts/check-fast.sh`.

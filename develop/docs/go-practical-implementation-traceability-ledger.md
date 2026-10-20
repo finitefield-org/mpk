@@ -6741,3 +6741,61 @@ language test, agent or Actions runs. All actual source-consuming verification
 handles are terminal before staging. R01/R06/W01/full ordinary foundation/private
 context/native kernel/general namespace/selected closure/all169/T02-T11 stay due.
 The cumulative T02 gate stays W04: `./scripts/check-fast.sh`.
+
+## 120. T02-W01 exact ordinary strings and actual original native byte data
+
+Entry is `22c964d225582ff6d955c4fe64ad98bbe4ce028f`. The
+[checkpoint](../migrations/go-practical/t02-w01/verification/string-foundation/README.md)
+preserves all1005 original full64-index identities and adds18 ordinary string
+definitions/30 laws. The complete1053-declaration/34875-term/454703-byte component
+uses the exact frozen dependent Boolean product of a full Word64 and256 curried
+Word8 slots. Constructor/field/bit projection, complete numeric size, mathematical
+sequence/read correspondence and canonical zero are actual checked terms. Head
+address bits select the upper half; no truncated length/index replaces its full
+value before the real bounds are consumed.
+
+Validity is the actual product of full numeric length<=256 and quantified
+whole-byte zero padding outside that length. Constructor/extraction/access laws
+retain real upper/within/padding/validity witnesses. Unbounded Nat range closure
+and actual full-word observation laws establish guarded finite reads. Canonical
+ZeroValue/ZeroFits/ZeroPadding/ZeroValid are proved without extensionality,
+semantic axioms, new core rules or resource increases. Mathematical raw lookup
+still grants no source access authority.
+
+The source-free value constructor encodes all64 length and2048 data bits as
+actual ordinary theorems. All19 original Go observations from the previous
+owned-source checkpoint retain their whole original source/expression/native
+bytes. Eighteen full2112-bit certificates pass, including NUL/invalid UTF-8,
+all256 byte values, CRLF and named/alias data; the original257-byte value remains
+whole and returns its distinct modeled-domain error. The complete alphabet has
+3166 declarations/40410 terms/706009 bytes. These are exact data encodings;
+nonzero literal whole Valid witnesses, original Go evaluation/nominal identity
+and source/program/context proofs remain due. Equal data grants no alias/type
+identity or source proof.
+
+Five affected Rust roots, final strict Clippy and three-file format pass. Both
+unchanged independent cores agree on all81 full original inputs:22 zero-axiom
+acceptances and59 genuine type mismatches. Every30 new universal conclusion,
+18 real witness premises, five type-correct changed operations and six actual
+length/data bit claims are exercised. Changed definition prefixes typecheck
+before whole law streams reject; no partial certificate acceptance is claimed.
+Honest extensions remain core-accepted and exact owning-import rejected, as is
+a different actual byte input.
+
+All six whole source/driver epochs and complete available candidate/output
+bytes remain. The first direct numeric-zero recipe and later projected-cube
+hypothesis conversion both reject by genuine type mismatch. Missing import
+stops two compiler invocations without an invented candidate. Explicit actual
+cube equality transport, balanced value equations and Nat arithmetic repair
+zero evaluation. The final fixed-domain record replaces unnecessary format!
+with identical literal bytes; production recipes and all81 inputs/outcomes stay
+exact. Current lint/format cover that test-only edit without repeating semantic
+checks. All candidate bytes and actual drivers are saved before verification.
+
+All255 frozen inputs,186 unchanged Go frontend build inputs and original127-
+rule/four-scope/39-seal checks remain required, with no new exclusion or limit.
+No other-language test, agent or Actions runs. Untouched Go/capture/core/ref/
+protocol and unrelated suites are not repeated. All actual source-consuming
+handles are terminal before staging. R01/R06/W01/full ordinary foundation/private
+context/native kernel/general namespace/selected closure/all169/T02-T11 remain
+open. The cumulative T02 gate stays W04: `./scripts/check-fast.sh`.

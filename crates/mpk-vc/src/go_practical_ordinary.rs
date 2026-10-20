@@ -20,6 +20,7 @@ mod product;
 mod product_relation;
 mod range;
 mod sequence;
+mod string;
 mod syntax;
 mod word;
 mod word_numeric;
@@ -225,6 +226,42 @@ impl GoFiniteVectorFoundation {
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct GoWordIndexFoundation {
     certificate: Vec<u8>,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoStringFoundation {
+    certificate: Vec<u8>,
+}
+impl GoStringFoundation {
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
+}
+
+/// Source-free data only. Original Go evaluation/nominal/context authority is
+/// deliberately not inferred from a native value or its ordinary bit proofs.
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoStringValue {
+    certificate: Vec<u8>,
+    bytes: Vec<u8>,
+}
+impl GoStringValue {
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
+    pub fn native_bytes(&self) -> &[u8] {
+        &self.bytes
+    }
+}
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum GoStringValueError {
+    Domain { bytes: usize },
+    Foundation(GoOrdinaryError),
+}
+impl From<GoOrdinaryError> for GoStringValueError {
+    fn from(error: GoOrdinaryError) -> Self {
+        Self::Foundation(error)
+    }
 }
 
 impl GoWordIndexFoundation {
@@ -1594,7 +1631,7 @@ pub fn import_go_practical_finite_vector_foundation(
 /// Bind the complete unsigned64 Nat value to finite slot observations under
 /// its actual range proof. No source index or length is implicitly truncated.
 /// Complete source, signed-domain and private-context authority remains due.
-pub fn generate_go_practical_word_index_foundation() -> Result<GoWordIndexFoundation> {
+fn word_index_builder() -> Result<Builder> {
     let buffers = [
         generate_go_practical_word_shift_foundation()?
             .certificate_bytes()
@@ -1611,6 +1648,11 @@ pub fn generate_go_practical_word_index_foundation() -> Result<GoWordIndexFounda
         .collect::<Result<Vec<_>>>()?;
     let mut builder = composition::word_index_prerequisites(&inputs)?;
     word_numeric::append_indices(&mut builder)?;
+    Ok(builder)
+}
+
+pub fn generate_go_practical_word_index_foundation() -> Result<GoWordIndexFoundation> {
+    let mut builder = word_index_builder()?;
     builder.certificate.module = "Mpk.Go.Practical.WordIndexFoundation".into();
     Ok(GoWordIndexFoundation {
         certificate: builder.finish()?,
@@ -1626,6 +1668,61 @@ pub fn import_go_practical_word_index_foundation(
     let expected = generate_go_practical_word_index_foundation()?;
     if candidate != expected.certificate_bytes() {
         return Err(GoOrdinaryError::Linkage);
+    }
+    Ok(expected)
+}
+
+/// The frozen curried Word64/256 Word8 string shape and actual guarded ordinary
+/// observations. This is not a source evaluation or registered Go context.
+pub fn generate_go_practical_string_foundation() -> Result<GoStringFoundation> {
+    let mut builder = word_index_builder()?;
+    string::append(&mut builder)?;
+    builder.certificate.module = "Mpk.Go.Practical.StringFoundation".into();
+    Ok(GoStringFoundation {
+        certificate: builder.finish()?,
+    })
+}
+
+pub fn import_go_practical_string_foundation(candidate: &[u8]) -> Result<GoStringFoundation> {
+    if candidate.len() > MAX_BYTES {
+        return Err(GoOrdinaryError::Limit);
+    }
+    let expected = generate_go_practical_string_foundation()?;
+    if candidate != expected.certificate_bytes() {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    Ok(expected)
+}
+
+/// Construct source-free ordinary data, with all64 length and2048 slot bits
+/// proved equal to the supplied native bytes. The original Go expression and
+/// its source/nominal/context/program obligations are still separate.
+pub fn generate_go_practical_string_value(
+    bytes: &[u8],
+) -> std::result::Result<GoStringValue, GoStringValueError> {
+    if bytes.len() > 256 {
+        return Err(GoStringValueError::Domain { bytes: bytes.len() });
+    }
+    let mut builder = word_index_builder()?;
+    string::append(&mut builder)?;
+    string::append_value(&mut builder, bytes)?;
+    builder.certificate.module = "Mpk.Go.Practical.StringValue".into();
+    Ok(GoStringValue {
+        certificate: builder.finish()?,
+        bytes: bytes.to_vec(),
+    })
+}
+
+pub fn import_go_practical_string_value(
+    candidate: &[u8],
+    bytes: &[u8],
+) -> std::result::Result<GoStringValue, GoStringValueError> {
+    if candidate.len() > MAX_BYTES {
+        return Err(GoOrdinaryError::Limit.into());
+    }
+    let expected = generate_go_practical_string_value(bytes)?;
+    if candidate != expected.certificate_bytes() {
+        return Err(GoOrdinaryError::Linkage.into());
     }
     Ok(expected)
 }

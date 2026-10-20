@@ -1,0 +1,16 @@
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error[E0425]: cannot find function `mul_right` in this scope
+   --> crates/mpk-vc/src/go_practical_ordinary/string.rs:612:23
+    |
+612 |                 .then(mul_right(weight.clone(), right).on_right(zero()))?
+    |                       ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  3 + use crate::go_practical_ordinary::polynomial::mul_right;
+    |
+
+For more information about this error, try `rustc --explain E0425`.
+error: could not compile `mpk-vc` (lib) due to 1 previous error
