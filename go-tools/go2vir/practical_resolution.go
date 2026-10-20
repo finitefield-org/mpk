@@ -24,6 +24,22 @@ type practicalModuleDiscovery struct {
 	modules        []practicalResolvedModule
 }
 
+// Keep complete bounded child diagnostics available to private capture
+// callers on failure; the generic Error string retains its existing surface.
+type practicalGoDiscoveryFailure struct {
+	cause       error
+	output      []byte
+	diagnostics []byte
+}
+
+func (failure *practicalGoDiscoveryFailure) Error() string {
+	return fmt.Sprintf("original offline Go module discovery failed: %v", failure.cause)
+}
+func (failure *practicalGoDiscoveryFailure) Unwrap() error { return failure.cause }
+func (failure *practicalGoDiscoveryFailure) originalOutput() ([]byte, []byte) {
+	return bytes.Clone(failure.output), bytes.Clone(failure.diagnostics)
+}
+
 type practicalResolvedModule struct {
 	identity    module.Version
 	replacement module.Version
@@ -314,7 +330,7 @@ func (session *practicalCaptureSession) discoverPracticalModules(mainLocation, c
 	command.Dir, command.Env = directory, pinnedLoaderEnvironment(selection, environmentFS)
 	command.Stdout, command.Stderr = stdout, stderr
 	if err := command.Run(); err != nil {
-		return practicalModuleDiscovery{}, session.reject(fmt.Errorf("original offline Go module discovery failed: %w", err))
+		return practicalModuleDiscovery{}, session.reject(&practicalGoDiscoveryFailure{cause: err, output: bytes.Clone(stdout.Bytes()), diagnostics: bytes.Clone(stderr.Bytes())})
 	}
 	if !checkExecutable() {
 		return practicalModuleDiscovery{}, session.reject(fmt.Errorf("selected Go executable changed during module discovery"))

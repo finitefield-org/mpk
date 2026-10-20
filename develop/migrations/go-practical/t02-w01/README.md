@@ -511,3 +511,17 @@ now own separate original byte storage; AST remains untrusted compiler data.
 These compiler locators grant no type/profile/source-proof authority. Original
 complete package build/file selection/type checking/export/compiler binding and
 immutable application/selected-closure replay remain due; R06 and W01 stay open.
+
+
+The [sealed source package checkpoint](verification/source-packages/README.md)
+adds fixed-target Go build/file selection and complete source-only Go typing
+from original captured module roots/verified versioned archives. All81 original
+sources retain77 typed/3 type-error/1 syntax-error outcomes. Relative/absolute
+replacements, nominal/alias identity, unused-body errors, archive/source linkage
+and closed import failures are checked without original-source/mod rewriting
+or typed-package adapters. All24 affected roots/201 subtests, current vet/format,
+Go1.23 compile-only and two173-input fresh frontend builds pass. Original failed
+source epochs and fresh actual native diagnostics remain explicit. Missing
+stdlib/export input stays not captured. Authoritative immutable native graph/
+package/export replay and complete original compiler/stdlib/context/foundation
+ownership remain due; R06/W01 stay open and no profile/source proof activates.

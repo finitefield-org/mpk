@@ -6053,3 +6053,61 @@ operation/VC roots/private descriptor/registry/context/retained policies and
 all169 application demands/T02-T11 remain required. W01 stays In progress.
 C# tests stay skipped and the cumulative T02 gate remains W04. No public profile,
 source-program/application verification or native Linux release claim is made.
+
+
+## 108. T02-W01 sealed package selection and original source types
+
+Entry is `ae1e11cb85931d708b35f32b1dd84be0fa77e96d`. The
+[source package checkpoint](../migrations/go-practical/t02-w01/verification/source-packages/README.md)
+replays actual Go1.25.0 build selection over the sealed namespace with every
+filesystem callback closed, targetLinux/amd64/GOAMD64v1/cgo-off and fixed default
+Linux experiments/release tags. Host build.Default, ambient flags or an external
+module subprocess cannot select files. Active/excluded/cgo/test/auxiliary source
+identities preserve original roles and complete bytes. A native pinned go list
+observation agrees; replay works after original-root removal.
+
+The source-only type checker uses captured actual selected-module facts,
+original go.mod requirements/local roots or complete checksummed versioned
+archives. It checks every full original selected source/body with actual
+Go1.25.0 go/types and gc/amd64 sizes. No initializer executes and no caller
+supplies fabricated dependency type/signature packages. Relative and absolute
+replacements preserve raw manifests and work after physical-root removal.
+Cross-package named/alias identity and exact source file versions survive.
+Original unused-body errors, archive/source mismatches, import cycles/internal
+crossings/nested modules and unread/crossed source roles reject. Missing standard
+source/export remains not captured; no adapter or filesystem fallback fills it.
+
+All24 affected Go roots/201 subtests pass in75.81s. Every81 frozen original
+source reproduces its native status:77 typed,3 type errors,1 syntax error.
+Ninety-one generated runtime source/module/root records remain intact. Independent
+comparison checks260 complete final source preimages:81 originals,six native
+build-selection files,173 current frontend/vendor inputs. Two independent
+empty-cache builds from37 frontend/133 vendor files plus metadata agree on the
+8592898-byte binary, SHA256257d3603a0fa2049... Current vet/format pass and Go1.23
+compile/link runs zero tests. All255 frozen members remain exact; no unrelated
+scalar/Rust/kernel/full-Go/oracle suite is repeated.
+
+Three original failed source epochs remain. An invalid test fixture required
+a Go1.23 dependency under mainGo1.22, so native Go -mod=readonly rejected before
+typing. Original test-level sources/stdout/stderr remain, while the old driver
+exposed no nested child stdout/stderr; those initial child bytes are not claimed
+retained. A fresh reproduction keeps its own complete generated inputs/actual
+child outputs, without relabeling them as the initial epoch. Private discovery
+errors now separately own complete bounded child output/diagnostics with the
+old Error/Unwrap surface. Correcting the fixture's main requirement restores
+its intended valid Go input. A separate test expected the wrong wording for an
+actual correct ZIP-content rejection; its assertion is corrected without a
+product relaxation. No failure is a semantic source counterexample/resource
+verdict. All actual test/build/audit handles are terminal before staging.
+
+R03/R06/R07 preserve every prior foundation/archive/source/build checkpoint and
+all seven requirements. R06 remains pending: complete original stdlib/source/
+export/compiler ownership and authoritative immutable native module/package/
+export/selected-closure replay still remain due. These private compiler facts
+confer no nominal/source/program/profile proof authority. Full bounded56-family
+source/carrier/nominal/type/operation/storage/lifetime/state/program foundation,
+all six common members/19 theorem families, complete compiler-derived operation/
+VC roots/private descriptor/registry/context/retained policies and all169
+application demands/T02-T11 remain required. W01 stays In progress. C# tests
+stay skipped and the cumulative T02 gate remains W04. No public profile,
+source/program/application verification or native Linux release claim is made.
