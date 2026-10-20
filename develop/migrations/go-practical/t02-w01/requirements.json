@@ -88,13 +88,13 @@
       "executor": "go-tools/go2vir/practical_compiler.go, practical_analysis.go, practical_module.go and practical_resolution.go",
       "completed_component": "Actual complete prepared Go1.25.0 compiler/stdlib inventory plus exact original analysis module snapshots, all126 vendored Go sources, owned frontend/vendor build input closure and exact linked-library/build metadata. Two independent empty-cache builds from169 sealed original inputs and an independently reconstructed third build produce identical8,592,898-byte binaries. Original uncompiled TODO difference remains explicitly inventoried without normalization. Complete actual ordinary foundation/private context/registry binding and loaded application file versions remain due; no production immutable application image or native Linux receipt is claimed.",
       "latest_frontend_build_checkpoint": {
-        "evidence": "verification/archive-ownership/final/selected/reproduced-builds.json",
-        "sealed_original_inputs": 170,
-        "frontend_files": 34,
+        "evidence": "verification/source-syntax/source-view-owned/selected/reproduced-builds.json",
+        "sealed_original_inputs": 171,
+        "frontend_files": 35,
         "vendor_files": 133,
         "independent_empty_cache_builds": 2,
         "binary_bytes": 8592898,
-        "binary_sha256": "7a8a86f713dbc1e0098db6af12f5b24134f5603466e59dfc9cf25edabea2142a",
+        "binary_sha256": "ddec23feecaedcdef80fc2c6f1942aecb7dfdceb0e7724dda933e359453e38a6",
         "registered_practical_context": false,
         "native_Linux_acceptance_claimed": false
       },
@@ -107,6 +107,28 @@
           "independent_empty_cache_builds": 2,
           "binary_bytes": 8592898,
           "binary_sha256": "2a9d7c49b925818d372c886397c4e195d5fbf09cb53d4e31c2c39cf49ef6a67f",
+          "registered_practical_context": false,
+          "native_Linux_acceptance_claimed": false
+        },
+        {
+          "evidence": "verification/archive-ownership/final/selected/reproduced-builds.json",
+          "sealed_original_inputs": 170,
+          "frontend_files": 34,
+          "vendor_files": 133,
+          "independent_empty_cache_builds": 2,
+          "binary_bytes": 8592898,
+          "binary_sha256": "7a8a86f713dbc1e0098db6af12f5b24134f5603466e59dfc9cf25edabea2142a",
+          "registered_practical_context": false,
+          "native_Linux_acceptance_claimed": false
+        },
+        {
+          "evidence": "verification/source-syntax/reflected-interfaces/selected/reproduced-builds.json",
+          "sealed_original_inputs": 171,
+          "frontend_files": 35,
+          "vendor_files": 133,
+          "independent_empty_cache_builds": 2,
+          "binary_bytes": 8592898,
+          "binary_sha256": "4d14e1e0d117488441e34a99fbf0ad6329cf7f6b7e63366f799024eac520536c",
           "registered_practical_context": false,
           "native_Linux_acceptance_claimed": false
         }
@@ -136,7 +158,14 @@
       "id": "T02-W01-R06",
       "requirement": "Original source/export metadata and complete compiler identity; immutable original packages without rewritten/stub source; closed capture for the later verification-closure algorithm",
       "status": "pending",
-      "executor": "go-tools/go2vir/practical_capture.go, snapshot.go, loader.go"
+      "executor": "go-tools/go2vir/practical_capture.go, snapshot.go, loader.go",
+      "preparatory_original_syntax_checkpoint": {
+        "evidence": "verification/source-syntax/verification.json",
+        "scope": "Private sealed go_file syntax image retains all original bytes/AST nodes and physical source-ID/byte spans without filesystem fallback or stub rewriting. Exact original raw-string/comment CR ends, inherited declaration ends, Unicode identifiers, forged //line positions, foreign/mutated nodes and capability/path ambiguity are checked. Independent reflection confirms2090 complete materialized nodes across all80 syntax-valid cases from the81-source frozen catalog; original syntax error and three Go type errors remain distinct. All1710 original native function-node obligations and253 complete source-object preimages agree. Complete package build/file selection, module/compiler/effective-language/source/export binding, original package type checking and authoritative immutable package/selected-closure replay remain due. These private compiler locators provide no nominal or source-proof authority. Actual returned parsed-source/cache byte alias is reproduced and fixed by separately owned first/cache source views; original failure and previous11-root receipt remain intact. AST remains shared untrusted compiler data.",
+        "R06_completed": false,
+        "immutable_original_package_typecheck_or_replay_claimed": false,
+        "public_profile_activated": false
+      }
     },
     {
       "id": "T02-W01-R07",
@@ -271,18 +300,27 @@
         }
       ],
       "latest_capture_scoped_checks": {
-        "evidence": "verification/archive-ownership/verification.json",
-        "affected_Go_roots": 14,
-        "subtests": 45,
-        "new_ownership_regression_cases": 4,
-        "original_failing_epochs_preserved": 2,
-        "complete_original_inputs_observed_independently": true,
+        "evidence": "verification/source-syntax/verification.json",
+        "affected_Go_roots": 12,
+        "subtests": 99,
+        "all_original_source_cases": 81,
+        "syntax_valid_originals": 80,
+        "original_syntax_errors_preserved": 1,
+        "original_type_errors_among_syntax_valid_cases": 3,
+        "all_materialized_distinct_nodes": 2090,
+        "original_native_function_node_obligations": 1710,
+        "complete_source_preimages_independently_checked": 253,
+        "new_current_frontend_build_inputs": 171,
         "two_fresh_current_frontend_builds_identical": true,
-        "legacy": "Go1.23 compile/link only; no tests executed",
+        "original_failed_epochs_preserved": 3,
+        "legacy": "Go1.23 compile/link only; zero tests executed",
         "vet_format": "passed",
+        "all_actual_validation_handles_terminal": true,
         "unaffected_prior_suites_repeated": false,
         "CSharp_tests_executed": false,
-        "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh --skip-csharp"
+        "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh --skip-csharp",
+        "returned_source_cache_alias_regression_reproduced_and_fixed": true,
+        "previous_complete_passing11_root_epoch_retained": true
       },
       "latest_assembly_probe_scoped_checks": {
         "evidence": "verification/product-foundation/foundation-assembly-probe/verification.json",
@@ -294,7 +332,23 @@
         "clippy_format_explicit_listing": "passed",
         "CSharp_tests_executed": false,
         "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh --skip-csharp"
-      }
+      },
+      "prior_capture_scoped_checkpoints": [
+        {
+          "evidence": "verification/archive-ownership/verification.json",
+          "affected_Go_roots": 14,
+          "subtests": 45,
+          "new_ownership_regression_cases": 4,
+          "original_failing_epochs_preserved": 2,
+          "complete_original_inputs_observed_independently": true,
+          "two_fresh_current_frontend_builds_identical": true,
+          "legacy": "Go1.23 compile/link only; no tests executed",
+          "vet_format": "passed",
+          "unaffected_prior_suites_repeated": false,
+          "CSharp_tests_executed": false,
+          "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh --skip-csharp"
+        }
+      ]
     }
   ],
   "T02_W01_complete": false,

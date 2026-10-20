@@ -494,3 +494,20 @@ matrix now passes every input. The final product receipt binds120 current
 same-byte streams across product/consumer/assembly checks:69 zero-axiom positives
 and51 genuine type mismatches. All actual handles are terminal. Strict
 changed-input and staged/committed-blob audits cover the final current tree. C# tests stay skipped and the T02 gate stays W04.
+
+
+The [closed original syntax checkpoint](verification/source-syntax/README.md)
+adds private parsing from sealed original go_file buffers and physical source-ID/
+byte origins, retaining complete original declarations and unsupported bodies.
+CR-bearing raw strings/comments, forged line directives, all materialized
+comments/nodes and capability/path ambiguity are checked without source stubs
+or filesystem fallback. Twelve affected roots/99 subtests, current vet/format,
+Go1.23 compile-only and two actual fresh-cache171-input frontend builds pass.
+All81 original source cases,2090 complete AST nodes and1710 original native
+function-node obligations are preserved; syntax validity is distinguished from
+three original Go type errors. Original failures/full source epochs remain, including the actual returned-source
+cache alias regression and previous11-root receipt. First/cache source views
+now own separate original byte storage; AST remains untrusted compiler data.
+These compiler locators grant no type/profile/source-proof authority. Original
+complete package build/file selection/type checking/export/compiler binding and
+immutable application/selected-closure replay remain due; R06 and W01 stay open.

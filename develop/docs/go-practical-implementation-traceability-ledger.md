@@ -5991,3 +5991,65 @@ Go struct comparability, field order/evaluation/effects and invocation/source
 AST binding remain separate work. All169 demands/T02-T11 stay open; W01 remains
 In progress. C# tests stay skipped and the cumulative T02 gate remains W04.
 No public/profile/source/application/Linux release claim is made.
+
+
+## 107. T02-W01 closed original syntax and physical byte origins
+
+Entry is `11946e845d64e29f242ed8bc5d3477a4ac80dd02`. The
+[closed original syntax checkpoint](../migrations/go-practical/t02-w01/verification/source-syntax/README.md)
+adds a private image over exact sealed go_file objects. Parsing opens no
+filesystem and cannot substitute a stub or replacement source. Complete
+original declarations and unsupported bodies remain present. Source IDs name
+token files, separating ambiguous capability/path joined spellings. Physical
+source-ID/byte locators ignore adjusted //line positions and recover raw-string/
+comment carriage returns and complete enclosing declaration ends. Returned
+bytes are separately owned. Missing/unread/wrong-role/corrupt/case/escape reads
+and foreign/position-changed nodes or altered identifier tokens fail sticky.
+
+The practical4194304-node counter includes every materialized comment group/
+comment, including unattached File.Comments omitted by ast.Walk(File). Shared
+Doc/Comment/Imports edges count once; cached original trees consume no second
+budget. Exact remaining-budget acceptance and over-budget transactional
+failure pass; the old1000000-node limit remains unchanged. These locators and
+untrusted compiler ASTs grant no nominal/source/program proof authority.
+
+All12 selected Go roots/99 subtests pass in92.16s. The complete81-source frozen
+admission catalog stays byte-exact:80 syntax-valid sources and one original
+syntax error. Three of those80 retain original Go type errors, so syntax
+success is not reported as package type-check success or profile admission.
+Independent traversal of every AST field agrees on all2090 materialized nodes;
+every1710 original native function-node kind/start/end obligation agrees.
+A separate physical witness checks all five complete CR-bearing comment tokens,
+Unicode identifiers, a raw string/full enclosing declaration and forged //line
+origins. Source parsing succeeds after removal of its original physical inputs.
+
+Independent reconstruction checks253 complete final source-object preimages:
+all81 originals, the physical witness and171 current frontend/vendor inputs.
+Two actual independent empty-cache builds from35 frontend/133 vendor files
+plus metadata agree on the8592898-byte binary, SHA256ddec23feecaedcdef...
+Current vet/format pass; Go1.23 compile/link runs zero tests. No unrelated Rust/
+scalar/checker/archive/module/native matrix is rerun. Full original compiler/
+source inputs, logs and255 exact frozen members remain retained.
+
+All three original failed source epochs remain complete. The initial ast.Walk-only
+path missed unattached comments and its duplicate-visit budget expectation
+failed. The production comment repair was followed by a test-only reflection
+observer that mistakenly stopped at interface/pointer aliases. Repairing that
+observer yields the complete unchanged81-case matrix; neither failure is a
+semantic source counterexample. A later actual returned-source mutation exposes
+a source-view/cache byte alias. Separately owned first/cache views fix the
+regression; the prior complete11-root receipt/source epoch remains intact.
+All12 corrected roots and two new fresh builds pass; AST remains shared
+untrusted compiler data. All actual build/test handles are terminal.
+
+Requirements R03/R06/R07 preserve all old frontend/archive/foundation/assembly
+checkpoints and all seven original requirements. R06 remains pending: original
+package build/file selection, exact module/compiler/effective-language/source/
+export ownership, original package type checking and authoritative immutable
+original package/export/selected-closure replay still remain due. Full bounded
+56-family source/carrier/nominal/type/operation/storage/lifetime/state/program
+foundation, all six common members/19 theorem families, complete compiler-derived
+operation/VC roots/private descriptor/registry/context/retained policies and
+all169 application demands/T02-T11 remain required. W01 stays In progress.
+C# tests stay skipped and the cumulative T02 gate remains W04. No public profile,
+source-program/application verification or native Linux release claim is made.
