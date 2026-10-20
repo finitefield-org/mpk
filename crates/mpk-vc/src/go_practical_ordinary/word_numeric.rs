@@ -16,6 +16,7 @@ mod shifts;
 mod signed;
 mod signed_bounds;
 mod signed_division;
+mod signed_equality;
 mod signed_magnitude;
 mod signed_order;
 mod signed_product;
@@ -661,4 +662,8 @@ pub(super) fn append_shifts(builder: &mut Builder) -> Result<()> {
 
 pub(super) fn append_signed_order(builder: &mut Builder) -> Result<()> {
     signed_order::append(builder)
+}
+
+pub(super) fn append_signed_equality(builder: &mut Builder) -> Result<()> {
+    signed_equality::append(builder)
 }

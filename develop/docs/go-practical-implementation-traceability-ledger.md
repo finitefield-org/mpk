@@ -5731,3 +5731,58 @@ context/policy delegation and authoritative original application source/export/
 selected-closure loading/replay remain due. All169 application demands and
 T02-T11 stay open; W01 remains In progress. C# tests stay skipped and the
 cumulative T02 gate stays W04. No public/source/application/Linux release claim.
+
+## 102. T02-W01 actual signed equality and integer equivalence
+
+Entry is `c4bd126d0e347f09db444d35df3831c61e1fd4c6`. The
+[checkpoint](../migrations/go-practical/t02-w01/verification/word-signed-equality/README.md)
+proves actual source Equal/NotEqual correspondence to balanced unbounded
+Int.Equal for all8/16/32/64-bit operands and both Int.Equivalent directions.
+The actual complete balanced bit-equality tree supplies real top-sign coherence
+through3/4/5/6 checked conjunction projections; real EqualNatural connects Nat
+value equality to that source premise. The scalar proof discharges the actual
+coherence callback and word bounds, using additive translation for matching
+signs and genuine strict order/contradiction otherwise. No caller truth flag,
+new core rule, axiom, arithmetic opcode or extensionality appears.
+
+All3457 prior signed-order named types/bodies/proofs/levels/families and its
+complete regenerated0f61e8eb... raw bytes remain exact. The shared builder
+refactor retains the old module and wire stream. The new3489-declaration/
+72690-term/1007869-byte zero-axiom component fits unchanged caps/fuel and has
+imports empty. Both unchanged cores recheck every included body. Projecting
+the actual equality tree avoids382 unnecessary half-threshold dependencies for
+this recipe; the complete original signed-bounds component and full56-family
+requirements remain intact.
+
+All three affected Rust roots, selected strict Clippy and format pass. Both
+unchanged cores inspect46 complete same-byte streams: two zero-axiom positives
+and44 genuine type rejections (38 check/six lambda). Controls alter actual source
+Equal/NotEqual functions, falsify sign/integer/equivalence claims, erase real
+value-equality/bound premises and weaken the actual coherence callback's result.
+Exact owning import separately rejects an honest extra valid definition that
+both cores accept. Determinism, appended bytes and the original byte limit are
+checked. Zero axioms require the exact checked empty report hash and full Rust
+report rather than a default for Go's absent axiom_count field.
+
+Fresh actual Go signed/unsigned equality observations read the whole original
+1640-query document and match all96 original equality rows and old decoded Bool
+outcomes. Actual signed decimal payload values match unbounded Python integers;
+full bit comparisons/right-tree projections/sign coherence and balanced cross
+sums match. All1892 old Bool and3457 signed-order identities are exact, and all
+1640 original outcomes/40 real native runtime failures remain checked. No
+unchanged Bool evaluation reruns. The new observer owns exact original source,
+builds from an empty cache, produces identical complete output twice and passes
+vet/format on the complete verified5577-file Go1.25 image. Finite observations
+execute no new Nat/Int/theorem bodies and grant no universal proof authority.
+
+The initial complete construction passes and equals the final positive bytes;
+all full sources, commands, raw reports and output remain. All255 frozen members
+and official127 rules/four scopes/39 seals stay unchanged. Only two exact raw
+libtest stdout EOF observations are retained; no source/JSON/directory/blanket
+exclusion is added. Full56-family ordinary/source/carrier/nominal/type/operation/
+storage/lifetime/state/program foundation, descriptor/private registry/context,
+retained-policy delegation and authoritative original source/export/selected-
+closure application loading/replay remain due. All169 demands and T02-T11 stay
+open, R06 stays pending and W01 remains In progress. C# tests stay skipped and
+the cumulative T02 gate stays W04. No public/source/application/Linux release
+claim is made.

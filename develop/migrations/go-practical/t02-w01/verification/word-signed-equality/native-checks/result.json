@@ -1,0 +1,103 @@
+{
+  "status": "passed",
+  "observed_at_utc": "2026-10-20T01:47:54.147867+00:00",
+  "native_execution": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-equality/native/result.json",
+    "sha256": "72447d720bc9d698d6d76c76bc3c8660de3253b79fa4420674269b1ab3de9ac9",
+    "bytes": 6190
+  },
+  "runner": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/word-signed-equality/check-native.py",
+    "sha256": "a5fd9bc439b48a488c3ade11fa21af980ba4bda794478b35adc02149b3b6b9ca",
+    "bytes": 3870
+  },
+  "original_source": {
+    "path": "develop/probes/go-practical/word_equality_observer.go",
+    "sha256": "e18d42a08468cf33abb4a25e710e60e5acd7891a6b2a83641d0b330c2f26b0ef",
+    "bytes": 2265
+  },
+  "owned_source": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-equality/native/inputs/word_equality_observer.go",
+    "sha256": "e18d42a08468cf33abb4a25e710e60e5acd7891a6b2a83641d0b330c2f26b0ef",
+    "bytes": 2265
+  },
+  "compiler": {
+    "path": "/private/tmp/mpk-go-practical-equality-native-9kunzhhx/image/go/bin/go",
+    "sha256": "c812de5f1e8307431c5bce8ebc4887c180827abc5834a72cd640a8a14200a93b",
+    "bytes": 14117888
+  },
+  "complete_original_image_checks": [
+    {
+      "label": "before affected observer vet/format",
+      "status": "passed",
+      "files": 5577,
+      "seconds": 1.077619457966648
+    },
+    {
+      "label": "after affected observer vet/format",
+      "status": "passed",
+      "files": 5577,
+      "seconds": 0.6136562919709831
+    }
+  ],
+  "environment": {
+    "GOROOT": "/private/tmp/mpk-go-practical-equality-native-9kunzhhx/image/go",
+    "GOCACHE": "/private/tmp/mpk-go-practical-equality-native-9kunzhhx/cache",
+    "GOPATH": "/private/tmp/mpk-go-practical-equality-native-9kunzhhx/gopath",
+    "GOMODCACHE": "/private/tmp/mpk-go-practical-equality-native-9kunzhhx/mod",
+    "GOENV": "off",
+    "GOWORK": "off",
+    "GOTOOLCHAIN": "local",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "GOTELEMETRY": "off",
+    "GO111MODULE": "off",
+    "CGO_ENABLED": "0",
+    "GOFLAGS": "",
+    "GOEXPERIMENT": ""
+  },
+  "commands": [
+    {
+      "name": "vet",
+      "command": [
+        "/private/tmp/mpk-go-practical-equality-native-9kunzhhx/image/go/bin/go",
+        "vet",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/word-signed-equality/native/inputs/word_equality_observer.go"
+      ],
+      "exit_code": 0,
+      "seconds": 2.942423583008349,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-equality/native-checks/vet.stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-equality/native-checks/vet.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "name": "format",
+      "command": [
+        "/private/tmp/mpk-go-practical-equality-native-9kunzhhx/image/go/bin/gofmt",
+        "-l",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/word-signed-equality/native/inputs/word_equality_observer.go"
+      ],
+      "exit_code": 0,
+      "seconds": 0.20698374998755753,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-equality/native-checks/format.stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-equality/native-checks/format.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    }
+  ],
+  "CSharp_tests_executed": false,
+  "selection_reason": "Only the newly added typed equality observer is affected; vet and gofmt check the complete original source on the same verified Go1.25 image. No unrelated observer/go2vir/full-gate suites are repeated."
+}

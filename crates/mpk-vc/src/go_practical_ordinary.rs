@@ -183,6 +183,15 @@ pub struct GoWordShiftFoundation {
 pub struct GoWordSignedOrderFoundation {
     certificate: Vec<u8>,
 }
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoWordSignedEqualityFoundation {
+    certificate: Vec<u8>,
+}
+impl GoWordSignedEqualityFoundation {
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
+}
 impl GoWordSignedOrderFoundation {
     pub fn certificate_bytes(&self) -> &[u8] {
         &self.certificate
@@ -1384,6 +1393,13 @@ pub fn import_go_practical_word_shift_foundation(
 /// Prove signed comparison of the actual word circuits and balanced integers.
 /// This component supplies no complete source/program/profile authority.
 pub fn generate_go_practical_word_signed_order_foundation() -> Result<GoWordSignedOrderFoundation> {
+    let mut builder = signed_order_builder()?;
+    builder.certificate.module = "Mpk.Go.Practical.WordSignedOrderFoundation".into();
+    Ok(GoWordSignedOrderFoundation {
+        certificate: builder.finish()?,
+    })
+}
+fn signed_order_builder() -> Result<Builder> {
     let buffers = [
         generate_go_practical_word_order_foundation()?
             .certificate_bytes()
@@ -1400,10 +1416,7 @@ pub fn generate_go_practical_word_signed_order_foundation() -> Result<GoWordSign
         .collect::<Result<Vec<_>>>()?;
     let mut builder = composition::word_signed_order_prerequisites(&inputs)?;
     word_numeric::append_signed_order(&mut builder)?;
-    builder.certificate.module = "Mpk.Go.Practical.WordSignedOrderFoundation".into();
-    Ok(GoWordSignedOrderFoundation {
-        certificate: builder.finish()?,
-    })
+    Ok(builder)
 }
 pub fn import_go_practical_word_signed_order_foundation(
     candidate: &[u8],
@@ -1412,6 +1425,30 @@ pub fn import_go_practical_word_signed_order_foundation(
         return Err(GoOrdinaryError::Limit);
     }
     let expected = generate_go_practical_word_signed_order_foundation()?;
+    if candidate != expected.certificate_bytes() {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    Ok(expected)
+}
+
+/// Connect actual equality/inequality circuits with balanced Int equivalence.
+/// Complete source/program/profile authority remains separate work.
+pub fn generate_go_practical_word_signed_equality_foundation(
+) -> Result<GoWordSignedEqualityFoundation> {
+    let mut builder = signed_order_builder()?;
+    word_numeric::append_signed_equality(&mut builder)?;
+    builder.certificate.module = "Mpk.Go.Practical.WordSignedEqualityFoundation".into();
+    Ok(GoWordSignedEqualityFoundation {
+        certificate: builder.finish()?,
+    })
+}
+pub fn import_go_practical_word_signed_equality_foundation(
+    candidate: &[u8],
+) -> Result<GoWordSignedEqualityFoundation> {
+    if candidate.len() > MAX_BYTES {
+        return Err(GoOrdinaryError::Limit);
+    }
+    let expected = generate_go_practical_word_signed_equality_foundation()?;
     if candidate != expected.certificate_bytes() {
         return Err(GoOrdinaryError::Linkage);
     }

@@ -74,7 +74,7 @@ fn literal(width: usize, value: u64) -> Result<Expr> {
         (0..width).map(|i| bit(value & (1u64 << i) != 0)).collect(),
     )
 }
-fn fold_bits(name: &str, values: &[Expr], empty: bool) -> Expr {
+pub(super) fn fold_bits(name: &str, values: &[Expr], empty: bool) -> Expr {
     match values {
         [] => bit(empty),
         [a] => a.clone(),

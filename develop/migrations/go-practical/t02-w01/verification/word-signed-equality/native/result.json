@@ -1,0 +1,147 @@
+{
+  "schema": "mpk.go_practical.fresh_signed_equality_native_observation.v1",
+  "status": "passed",
+  "observed_at_utc": "2026-10-20T01:42:43.537511+00:00",
+  "original_source": {
+    "path": "develop/probes/go-practical/word_equality_observer.go",
+    "sha256": "e18d42a08468cf33abb4a25e710e60e5acd7891a6b2a83641d0b330c2f26b0ef",
+    "bytes": 2265
+  },
+  "owned_source": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-equality/native/inputs/word_equality_observer.go",
+    "sha256": "e18d42a08468cf33abb4a25e710e60e5acd7891a6b2a83641d0b330c2f26b0ef",
+    "bytes": 2265
+  },
+  "original_queries": {
+    "path": "develop/migrations/go-practical/t01-w04/word-foundation/queries.json",
+    "sha256": "3f9ee3ec12430dbbb08fd7bd25dca338cc4ed7f44f5b2d03382871a10dfab354",
+    "bytes": 261807
+  },
+  "owned_queries": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-equality/native/inputs/queries.json",
+    "sha256": "3f9ee3ec12430dbbb08fd7bd25dca338cc4ed7f44f5b2d03382871a10dfab354",
+    "bytes": 261807
+  },
+  "compiler_version": "go version go1.25.0 darwin/arm64",
+  "complete_original_prepared_image": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/compiler-image/captured/selected/prepared-image.json",
+    "sha256": "c6bcb748bf728a999d4edd56fb4cd390f9c1134671990dfd4e35e0c1086cc75d",
+    "bytes": 2574682
+  },
+  "complete_original_image_checks": [
+    {
+      "label": "before fresh empty-cache native compilation",
+      "files": 5577,
+      "original_bytes": 163457770,
+      "seconds": 1.0015172080602497,
+      "status": "passed"
+    },
+    {
+      "label": "after native compilation and both executions",
+      "files": 5577,
+      "original_bytes": 163457770,
+      "seconds": 0.8676847079768777,
+      "status": "passed"
+    }
+  ],
+  "compiler": {
+    "path": "/private/tmp/mpk-go-practical-equality-native-9kunzhhx/image/go/bin/go",
+    "sha256": "c812de5f1e8307431c5bce8ebc4887c180827abc5834a72cd640a8a14200a93b",
+    "bytes": 14117888
+  },
+  "observer_binary": {
+    "path": "/private/tmp/mpk-go-practical-equality-native-9kunzhhx/equality-observer",
+    "sha256": "d11e225b41d42cc40e1a7c7514cc6ac2c0674cbb9cb335ea8f92b1d17330c84e",
+    "bytes": 2970194
+  },
+  "build_cache_initially_empty": true,
+  "environment": {
+    "GOROOT": "/private/tmp/mpk-go-practical-equality-native-9kunzhhx/image/go",
+    "GOCACHE": "/private/tmp/mpk-go-practical-equality-native-9kunzhhx/cache",
+    "GOPATH": "/private/tmp/mpk-go-practical-equality-native-9kunzhhx/gopath",
+    "GOMODCACHE": "/private/tmp/mpk-go-practical-equality-native-9kunzhhx/mod",
+    "GOENV": "off",
+    "GOWORK": "off",
+    "GOTOOLCHAIN": "local",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "GOTELEMETRY": "off",
+    "GO111MODULE": "off",
+    "CGO_ENABLED": "0",
+    "GOFLAGS": "",
+    "GOEXPERIMENT": ""
+  },
+  "commands": [
+    {
+      "name": "build",
+      "command": [
+        "/private/tmp/mpk-go-practical-equality-native-9kunzhhx/image/go/bin/go",
+        "build",
+        "-trimpath",
+        "-buildvcs=false",
+        "-o",
+        "/private/tmp/mpk-go-practical-equality-native-9kunzhhx/equality-observer",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/word-signed-equality/native/inputs/word_equality_observer.go"
+      ],
+      "exit_code": 0,
+      "seconds": 5.013542374945246,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-equality/native/build.stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-equality/native/build.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "name": "run1",
+      "command": [
+        "/private/tmp/mpk-go-practical-equality-native-9kunzhhx/equality-observer"
+      ],
+      "exit_code": 0,
+      "seconds": 0.48440749989822507,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-equality/native/run1.stdout.log",
+        "sha256": "a983ba5ff7c9e173c2109106cf73b378b083bcb28c824158cb0512c460283d42",
+        "bytes": 13680
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-equality/native/run1.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "name": "run2",
+      "command": [
+        "/private/tmp/mpk-go-practical-equality-native-9kunzhhx/equality-observer"
+      ],
+      "exit_code": 0,
+      "seconds": 0.012778500095009804,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-equality/native/run2.stdout.log",
+        "sha256": "a983ba5ff7c9e173c2109106cf73b378b083bcb28c824158cb0512c460283d42",
+        "bytes": 13680
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-equality/native/run2.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    }
+  ],
+  "two_native_outputs_byte_identical": true,
+  "native_rows": 96,
+  "native_kind_counts": {
+    "word": 0,
+    "boolean": 96,
+    "runtime_safety_failure": 0
+  },
+  "scope": "Fresh actual typed int8/int16/int32/int64 and uint8/uint16/uint32/uint64 equality/inequality observations for all96 original Equal/NotEqual rows from the complete unchanged1640-query input. Signed values are actual Go conversions, not a host arithmetic shortcut. New observer source is owned verbatim; no original application/observer/query is rewritten. Complete prepared image is checked before/after and two outputs match. This is finite independent evidence, not universal proof/source/program/profile/immutable replay or native Linux release authority.",
+  "CSharp_tests_executed": false,
+  "public_profile_activated": false,
+  "full_T02_gate": "deferred to W04: check-fast.sh --skip-csharp"
+}

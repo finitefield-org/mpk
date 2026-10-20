@@ -432,3 +432,20 @@ output; corrected observers reuse completed native/core streams. All255 frozen
 members and preceding complete order/shift bytes remain exact. Full foundation/
 source/program/context and all169 demands/T02-T11 remain open; C# tests stay
 skipped and the cumulative T02 gate stays W04.
+
+The [actual signed-equality checkpoint](verification/word-signed-equality/README.md)
+connects all8/16/32/64-bit source Equal/NotEqual to actual balanced unbounded
+Int.Equal and proves both Int.Equivalent directions. The real balanced all-bit
+equality tree yields actual top-sign coherence in3/4/5/6 checked steps, and
+EqualNatural discharges the scalar coherence callback. All3457 previous signed-
+order identities and its full raw bytes remain exact. The3489-declaration/
+72690-term/1007869-byte zero-axiom component fits all unchanged caps/fuel.
+Three affected Rust roots, selected Clippy/format and46 same-byte paired streams
+pass, including44 genuine type rejections (38 check/six lambda). Fresh typed Go
+signed/unsigned equality matches all96 original full queries and old decoded
+Bool outcomes; every1640 original result and40 native runtime failures remain
+checked. The new observer builds from an empty cache, produces identical output
+twice and passes vet/format on the complete verified5577-file Go1.25 image.
+All255 frozen members remain exact. Full56-family/source/program/context and
+authoritative immutable application replay/all169 demands/T02-T11 remain due;
+W01 remains In progress. C# tests stay skipped and the cumulative gate stays W04.
