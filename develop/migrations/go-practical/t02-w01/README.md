@@ -525,3 +525,20 @@ source epochs and fresh actual native diagnostics remain explicit. Missing
 stdlib/export input stays not captured. Authoritative immutable native graph/
 package/export replay and complete original compiler/stdlib/context/foundation
 ownership remain due; R06/W01 stay open and no profile/source proof activates.
+
+The [original SDK source/export checkpoint](verification/standard-sources/README.md)
+captures the complete original prepared Go source inventory and checks178
+whole application/SDK packages through sealed vendor/internal imports. All179
+native packages and178 complete79390348-byte compiler archives retain original
+file/import/compiled/root/build-ID correspondence. The full1472407-node source
+image and an unselected HTTP handler survive without filesystem fallback. All51
+affected roots/325 subtests, current vet/format and Go1.23 compile-only pass;
+two fresh175-input frontend builds agree. Every available original byte epoch,
+including binary assets/archive buffers, remains losslessly serialized and
+independently scanned. Three export failures retain precise limitations: original
+archive payloads from the first two were not exposed before cleanup and remain
+unavailable; later fresh observations are not substituted. All255 frozen members
+remain exact. Full original export/compiler ownership, authoritative immutable
+native graph/package/export/selected-closure replay and the full foundation/
+private context/all169 demands/T02-T11 remain due. R06/W01 stay open; C# tests
+stay skipped and the cumulative T02 gate stays W04.

@@ -23,19 +23,21 @@ type practicalTypeModule struct {
 // or a registered context. The complete module/compiler/export and immutable
 // command replay still need their independent ownership bindings.
 type practicalTypedPackage struct {
-	importPath     string
-	moduleSourceID string
-	sources        practicalPackageSources
-	files          []*ast.File
-	types          *types.Package
-	info           *types.Info
-	fileVersions   map[string]string
+	importPath      string
+	moduleSourceID  string
+	sources         practicalPackageSources
+	files           []*ast.File
+	types           *types.Package
+	info            *types.Info
+	fileVersions    map[string]string
+	standardLibrary bool
 }
 
 type practicalSourceTypes struct {
 	syntax   *practicalSyntaxImage
 	modules  []practicalTypeModule
 	standard map[string]struct{}
+	stdlib   *practicalStdlibSources
 	packages map[string]*practicalTypedPackage
 	checking map[string]bool
 	failed   error
@@ -251,15 +253,32 @@ func (importer practicalSourceImporter) ImportFrom(name, _ string, mode types.Im
 			return types.Unsafe, nil
 		}
 	}
-	if _, standard := importer.loader.standard[name]; standard {
+	if name == "builtin" {
+		return nil, importer.loader.reject(fmt.Errorf("the Go predeclared universe is not an importable source package"))
+	}
+	for _, part := range strings.Split(name, "/") {
+		if part == "vendor" {
+			return nil, importer.loader.reject(fmt.Errorf("explicit vendor import is outside the original import namespace"))
+		}
+	}
+	fromStandard := importer.loader.stdlib.contains(importer.from)
+	if fromStandard {
+		resolved, err := importer.loader.stdlib.resolve(name, importer.from)
+		if err != nil {
+			return nil, importer.loader.reject(err)
+		}
+		name = resolved
+	}
+	_, standard := importer.loader.standard[name]
+	if standard && !importer.loader.stdlib.contains(name) {
 		return nil, importer.loader.reject(fmt.Errorf("standard package %s needs captured original source/export data: %w", name, errPracticalNotCaptured))
 	}
 	parts := strings.Split(name, "/")
 	for i, part := range parts {
-		if part == "vendor" {
-			return nil, importer.loader.reject(fmt.Errorf("explicit vendor import is outside the original module-mode import namespace"))
-		}
 		if part == "internal" {
+			if standard && !fromStandard {
+				return nil, importer.loader.reject(fmt.Errorf("original standard-library internal import crosses the compiler source root"))
+			}
 			parent := strings.Join(parts[:i], "/")
 			if parent != "" && importer.from != parent && !strings.HasPrefix(importer.from, parent+"/") {
 				return nil, importer.loader.reject(fmt.Errorf("original Go internal import crosses its parent namespace"))
@@ -288,6 +307,15 @@ func (loader *practicalSourceTypes) typecheck(importPath string) (*practicalType
 	}
 	if loader.checking[importPath] {
 		return nil, loader.reject(fmt.Errorf("original source packages have an import cycle"))
+	}
+	if loader.stdlib.contains(importPath) {
+		location := loader.stdlib.location
+		location.directory = path.Join(location.directory, importPath)
+		sources, err := loader.syntax.snapshot.replayPackageBuild(location)
+		if err != nil {
+			return nil, loader.reject(err)
+		}
+		return loader.checkOriginalPackage(importPath, loader.stdlib.moduleSourceID, loader.stdlib.goVersion, sources, true)
 	}
 	var owner *practicalTypeModule
 	for i := range loader.modules {
@@ -334,9 +362,17 @@ func (loader *practicalSourceTypes) typecheck(importPath string) (*practicalType
 			}
 		}
 	}
+	goVersion := "go1.16"
+	if owner.manifest.file.Go != nil {
+		goVersion = "go" + owner.manifest.file.Go.Version
+	}
+	return loader.checkOriginalPackage(importPath, owner.manifest.source.object.ID, goVersion, sources, false)
+}
+
+func (loader *practicalSourceTypes) checkOriginalPackage(importPath, moduleSourceID, goVersion string, sources practicalPackageSources, standard bool) (*practicalTypedPackage, error) {
 	loader.checking[importPath] = true
 	defer delete(loader.checking, importPath)
-	loaded := &practicalTypedPackage{importPath: importPath, moduleSourceID: owner.manifest.source.object.ID, sources: sources, fileVersions: map[string]string{}}
+	loaded := &practicalTypedPackage{importPath: importPath, moduleSourceID: moduleSourceID, sources: sources, fileVersions: map[string]string{}, standardLibrary: standard}
 	for _, source := range sources.active {
 		parsed, err := loader.syntax.parse(source.Capability, source.Path)
 		if err != nil {
@@ -348,10 +384,6 @@ func (loader *practicalSourceTypes) typecheck(importPath string) (*practicalType
 		loaded.files = append(loaded.files, parsed.file)
 	}
 	loaded.info = &types.Info{Types: map[ast.Expr]types.TypeAndValue{}, Defs: map[*ast.Ident]types.Object{}, Uses: map[*ast.Ident]types.Object{}, Implicits: map[ast.Node]types.Object{}, Selections: map[*ast.SelectorExpr]*types.Selection{}, Scopes: map[ast.Node]*types.Scope{}, Instances: map[*ast.Ident]types.Instance{}, FileVersions: map[*ast.File]string{}}
-	goVersion := "go1.16"
-	if owner.manifest.file.Go != nil {
-		goVersion = "go" + owner.manifest.file.Go.Version
-	}
 	config := types.Config{GoVersion: goVersion, Sizes: types.SizesFor("gc", "amd64"), Importer: practicalSourceImporter{loader: loader, from: importPath}, IgnoreFuncBodies: false, FakeImportC: false, DisableUnusedImportCheck: false}
 	checked, err := config.Check(importPath, loader.syntax.fileSet, loaded.files, loaded.info)
 	if loader.failed != nil {

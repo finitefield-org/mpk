@@ -314,6 +314,13 @@ func readPracticalRegularFile(root practicalRootReader, relative string, before 
 }
 
 func (session *practicalCaptureSession) readSource(capability, relative, kind string) (buffer practicalSourceBuffer, err error) {
+	return session.readSourceClassified(capability, relative, kind, nil)
+}
+
+// A compiler-owned source inventory may derive a final non-overlay role from
+// the same complete original bytes that are captured. No speculative source
+// object is relabeled and no second read can race the classification.
+func (session *practicalCaptureSession) readSourceClassified(capability, relative, kind string, classify func([]byte) (string, error)) (buffer practicalSourceBuffer, err error) {
 	if !validPracticalLogicalPath(relative) || !validPracticalSourceKind(kind) {
 		return buffer, session.reject(fmt.Errorf("invalid practical source path or role"))
 	}
@@ -334,7 +341,15 @@ func (session *practicalCaptureSession) readSource(capability, relative, kind st
 			return fmt.Errorf("practical source spelling differs from its original namespace")
 		}
 		if old, exists := session.files[key]; exists {
-			if old.kind != kind {
+			expected := kind
+			if classify != nil {
+				var classifyErr error
+				expected, classifyErr = classify(old.buffer.sourceBytes())
+				if classifyErr != nil {
+					return classifyErr
+				}
+			}
+			if old.kind != expected {
 				return fmt.Errorf("practical source path was assigned different roles")
 			}
 			buffer = old.buffer
@@ -350,6 +365,15 @@ func (session *practicalCaptureSession) readSource(capability, relative, kind st
 		data, err := readPracticalRegularFile(root, relative, before, practicalSourceFileLimit(kind))
 		if err != nil {
 			return err
+		}
+		if classify != nil {
+			kind, err = classify(data)
+			if err != nil {
+				return err
+			}
+			if !validPracticalSourceKind(kind) || kind == "overlay" {
+				return fmt.Errorf("compiler source classifier returned an unknown or overlay role")
+			}
 		}
 		buffer, err = newPracticalSourceBuffer(capability, relative, kind, data)
 		if err != nil {

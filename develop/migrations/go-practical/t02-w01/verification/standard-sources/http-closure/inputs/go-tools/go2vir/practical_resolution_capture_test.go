@@ -1,0 +1,235 @@
+//go:build go1.25 && (linux || darwin)
+
+package main
+
+import (
+	"archive/zip"
+	"bytes"
+	"encoding/json"
+	"io"
+	"os"
+	"path/filepath"
+	"runtime"
+	"strings"
+	"testing"
+
+	"golang.org/x/mod/module"
+	"golang.org/x/mod/sumdb/dirhash"
+)
+
+func practicalTestResolverSelection(t *testing.T) validatedLauncherSelection {
+	t.Helper()
+	if runtime.Version() != practicalCompilerRelease {
+		t.Fatalf("exact pinned resolver compiler required: %s", runtime.Version())
+	}
+	toolchain := computeCurrentToolchainCandidate(t)
+	if toolchain.err != nil {
+		t.Fatal(toolchain.err)
+	}
+	standard, executable, err := validateToolchainCandidate(launcherSelection{Toolchain: toolchain.identity, ToolchainGoRootPath: toolchain.root, ToolchainInventory: toolchain.inventory, ToolchainComponents: toolchain.components})
+	if err != nil {
+		t.Fatal(err)
+	}
+	return validatedLauncherSelection{Toolchain: toolchain.identity, GoRoot: toolchain.root, GoExecutable: executable, Target: targetIdentity{ID: goTarget, PointerWidth: goPointerWidth}, StandardPackagePaths: standard}
+}
+
+func writePracticalResolutionDependency(t *testing.T, root string, identity module.Version, mod []byte) string {
+	t.Helper()
+	files := []practicalArchiveTestEntry{{name: "go.mod", data: mod}, {name: "dep.go", data: []byte("package dep\nfunc Identity(x int64) int64 { return x }\nfunc Unused(m map[int]int) int { return len(m) }\n")}}
+	raw := practicalArchiveTestZIP(t, practicalArchiveTestEntries(identity, files), zip.Deflate)
+	sum := practicalArchiveTestSum(t, raw)
+	modSum, err := dirhash.Hash1([]string{"go.mod"}, func(string) (io.ReadCloser, error) { return io.NopCloser(bytes.NewReader(mod)), nil })
+	if err != nil {
+		t.Fatal(err)
+	}
+	escaped, err := module.EscapePath(identity.Path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	version, err := module.EscapeVersion(identity.Version)
+	if err != nil {
+		t.Fatal(err)
+	}
+	prefix := filepath.Join(root, "cache", "download", escaped, "@v", version)
+	for suffix, data := range map[string][]byte{".mod": mod, ".info": []byte(`{"Version":"` + identity.Version + `","Time":"2020-01-02T03:04:05Z"}`), ".zip": raw, ".ziphash": []byte(sum)} {
+		writePracticalTestFile(t, prefix+suffix, data, 0o600)
+	}
+	for _, file := range files {
+		writePracticalTestFile(t, filepath.Join(root, escaped+"@"+version, file.name), file.data, 0o600)
+	}
+	return identity.Path + " " + identity.Version + " " + sum + "\n" + identity.Path + " " + identity.Version + "/go.mod " + modSum + "\n"
+}
+
+func TestPracticalResolutionUsesActualGoVersionSelectionAndOriginalSnapshots(t *testing.T) {
+	selection := practicalTestResolverSelection(t)
+	roots, _ := practicalTestCaptureRoots(t)
+	mainRaw := []byte("module example.com/app\n\ngo 1.25.0\nrequire (\n example.com/a v1.0.0\n example.com/b v1.0.0\n)\n")
+	sums := ""
+	for _, item := range []struct{ path, version, extra string }{
+		{"example.com/a", "v1.0.0", "require example.com/c v1.0.0\n"},
+		{"example.com/b", "v1.0.0", "require example.com/c v1.1.0\n"},
+		{"example.com/c", "v1.0.0", ""}, {"example.com/c", "v1.1.0", ""},
+	} {
+		sums += writePracticalResolutionDependency(t, roots[1].Directory, module.Version{Path: item.path, Version: item.version}, []byte("module "+item.path+"\n\ngo 1.22\n"+item.extra))
+	}
+	writePracticalTestFile(t, filepath.Join(roots[0].Directory, "go.mod"), mainRaw, 0o600)
+	writePracticalTestFile(t, filepath.Join(roots[0].Directory, "go.sum"), []byte(sums), 0o600)
+	application := []byte("package policy\nfunc Selected(x int64) int64 { return x }\nfunc Unused(m map[string]int) int { return len(m) }\n")
+	writePracticalTestFile(t, filepath.Join(roots[0].Directory, "policy.go"), application, 0o600)
+	session := practicalTestSession(t, roots)
+	cacheBefore, err := os.Stat(roots[1].Directory)
+	if err != nil {
+		t.Fatal(err)
+	}
+	discovery, err := session.discoverPracticalModules(practicalModuleLocation{capability: roots[0].Capability}, practicalModuleLocation{capability: roots[1].Capability}, selection)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(discovery.modules) != 4 || discovery.modules[3].identity != (module.Version{Path: "example.com/c", Version: "v1.1.0"}) {
+		t.Fatalf("Go did not select the actual transitive upgrade: %+v", discovery.modules)
+	}
+	for _, captured := range discovery.modules {
+		if captured.identity.Path != "example.com/app" && (captured.versioned == nil || captured.manifest.object.Kind != "go_mod") {
+			t.Fatal("selected Go module omitted its original versioned snapshot")
+		}
+	}
+	cacheAfter, err := os.Stat(roots[1].Directory)
+	if err != nil || cacheBefore.Mode() != cacheAfter.Mode() {
+		t.Fatal("private scratch cleanup changed original cache permissions")
+	}
+	for name, expected := range map[string][]byte{"go.mod": mainRaw, "go.sum": []byte(sums), "policy.go": application} {
+		actual, err := os.ReadFile(filepath.Join(roots[0].Directory, name))
+		if err != nil || !bytes.Equal(actual, expected) {
+			t.Fatal("module discovery rewrote an original application input")
+		}
+	}
+	if _, err := session.seal(); err != nil {
+		t.Fatal(err)
+	}
+	t.Log("actual pinned offline Go selected a@v1.0.0, b@v1.0.0, c@v1.1.0; original modules/source preserved; package typing and immutable replay are not claimed")
+}
+
+func TestPracticalResolutionBindsActualLocalAndVersionedReplacements(t *testing.T) {
+	selection := practicalTestResolverSelection(t)
+	for _, local := range []bool{true, false} {
+		t.Run(map[bool]string{true: "local-exact-before-wildcard", false: "versioned"}[local], func(t *testing.T) {
+			roots, base := practicalTestCaptureRoots(t)
+			raw := "module example.com/app\ngo 1.25.0\nrequire example.com/requested v1.0.0\n"
+			sums := ""
+			if local {
+				unused := practicalSourceRoot{Capability: "unused-local", Directory: filepath.Join(base, "unused")}
+				writePracticalTestFile(t, filepath.Join(unused.Directory, "go.mod"), []byte("module example.com/requested\ngo 1.22\n"), 0o600)
+				roots = append(roots, unused)
+				writePracticalTestFile(t, filepath.Join(roots[1].Directory, "go.mod"), []byte("module example.com/requested\ngo 1.22\n"), 0o600)
+				raw += "replace example.com/requested => ../unused\nreplace example.com/requested v1.0.0 => ../dep\n"
+			} else {
+				raw += "replace example.com/requested => example.com/actual v1.1.0\n"
+				sums = writePracticalResolutionDependency(t, roots[1].Directory, module.Version{Path: "example.com/actual", Version: "v1.1.0"}, []byte("module example.com/actual\ngo 1.22\n"))
+			}
+			writePracticalTestFile(t, filepath.Join(roots[0].Directory, "go.mod"), []byte(raw), 0o600)
+			writePracticalTestFile(t, filepath.Join(roots[0].Directory, "go.sum"), []byte(sums), 0o600)
+			session := practicalTestSession(t, roots)
+			discovery, err := session.discoverPracticalModules(practicalModuleLocation{capability: roots[0].Capability}, practicalModuleLocation{capability: roots[1].Capability}, selection)
+			if err != nil {
+				t.Fatal(err)
+			}
+			if len(discovery.modules) != 2 || discovery.modules[1].identity.Path != "example.com/requested" || local && (discovery.modules[1].location == nil || discovery.modules[1].location.capability != roots[1].Capability) || !local && (discovery.modules[1].versioned == nil || discovery.modules[1].replacement.Path != "example.com/actual") {
+				t.Fatal("actual Go replacement was rebound to a different module/root")
+			}
+			if _, err := session.seal(); err != nil {
+				t.Fatal(err)
+			}
+		})
+	}
+}
+
+func TestPracticalResolutionRejectsAlteredGoObservationsAgainstOriginalInputs(t *testing.T) {
+	// Each altered observation gets a fresh original-byte capture transaction.
+	for _, mutation := range []string{"main-path", "main-location", "module-version", "manifest-location", "checksum", "language", "invented-replacement", "duplicate-main"} {
+		t.Run(mutation, func(t *testing.T) {
+			fixture := preparePracticalModuleSnapshotFixture(t, practicalArchiveFixtureIdentity, false)
+			session, _ := capturePracticalModuleSnapshotFixture(t, fixture, fixture.mod)
+			main, err := session.captureModule(practicalModuleLocation{capability: fixture.roots[0].Capability}, true)
+			if err != nil {
+				t.Fatal(err)
+			}
+			rows := []practicalGoListedModule{
+				{Path: "example.com/app", Main: true, Dir: fixture.roots[0].Directory, GoMod: filepath.Join(fixture.roots[0].Directory, "go.mod"), GoVersion: "1.25.0"},
+				{Path: fixture.identity.Path, Version: fixture.identity.Version, GoMod: filepath.Join(fixture.roots[1].Directory, fixture.prefix+".mod"), GoVersion: "1.22", Sum: fixture.sum},
+			}
+			switch mutation {
+			case "main-path":
+				rows[0].Path = "example.com/forged"
+			case "main-location":
+				rows[0].Dir = filepath.Join(fixture.roots[0].Directory, "other")
+			case "module-version":
+				rows[1].Version = "v1.0.1"
+			case "manifest-location":
+				rows[1].GoMod = filepath.Join(fixture.roots[0].Directory, "go.mod")
+			case "checksum":
+				rows[1].Sum = "caller h1"
+			case "language":
+				rows[1].GoVersion = "1.24"
+			case "invented-replacement":
+				rows[1].Replace = &practicalGoListedModule{Path: "example.com/other", Version: "v1.0.0"}
+			case "duplicate-main":
+				rows = append(rows, rows[0])
+			}
+			cache := practicalModuleLocation{capability: fixture.roots[1].Capability}
+			if _, err := session.bindPracticalGoModuleRows(main, cache, rows); err == nil || session.failed == nil {
+				encoded, _ := json.Marshal(rows)
+				t.Fatalf("altered observation accepted: %s", encoded)
+			}
+		})
+	}
+}
+
+func TestPracticalResolutionMissingOfflineInputsNeverAcquireReplacementSources(t *testing.T) {
+	selection := practicalTestResolverSelection(t)
+	roots, _ := practicalTestCaptureRoots(t)
+	writePracticalTestFile(t, filepath.Join(roots[0].Directory, "go.mod"), []byte("module example.com/app\ngo 1.25.0\nrequire example.com/missing v1.0.0\n"), 0o600)
+	writePracticalTestFile(t, filepath.Join(roots[0].Directory, "go.sum"), nil, 0o600)
+	session := practicalTestSession(t, roots)
+	if _, err := session.discoverPracticalModules(practicalModuleLocation{capability: roots[0].Capability}, practicalModuleLocation{capability: roots[1].Capability}, selection); err == nil || !strings.Contains(err.Error(), "offline Go module discovery failed") {
+		t.Fatal("missing offline graph inputs did not fail closed")
+	}
+	if _, err := os.Lstat(filepath.Join(roots[1].Directory, "example.com", "missing@v1.0.0")); !os.IsNotExist(err) {
+		t.Fatal("missing module source was acquired or manufactured")
+	}
+}
+
+func TestPracticalResolutionRejectsChecksumsOwnedByAnotherModuleInput(t *testing.T) {
+	fixture := preparePracticalModuleSnapshotFixture(t, practicalArchiveFixtureIdentity, false)
+	modSum, err := dirhash.Hash1([]string{"go.mod"}, func(string) (io.ReadCloser, error) { return io.NopCloser(bytes.NewReader(fixture.mod)), nil })
+	if err != nil {
+		t.Fatal(err)
+	}
+	foreign := fixture.identity.Path + " " + fixture.identity.Version + " " + fixture.sum + "\n" + fixture.identity.Path + " " + fixture.identity.Version + "/go.mod " + modSum + "\n"
+	writePracticalTestFile(t, filepath.Join(fixture.roots[0].Directory, "go.mod"), []byte("module example.com/app\ngo 1.25.0\nrequire "+fixture.identity.Path+" "+fixture.identity.Version+"\n"), 0o600)
+	writePracticalTestFile(t, filepath.Join(fixture.roots[0].Directory, "go.sum"), nil, 0o600)
+	writePracticalTestFile(t, filepath.Join(fixture.roots[0].Directory, "foreign.sum"), []byte(foreign), 0o600)
+	for suffix, raw := range fixture.files {
+		writePracticalTestFile(t, filepath.Join(fixture.roots[1].Directory, fixture.prefix+suffix), raw, 0o600)
+	}
+	session := practicalTestSession(t, fixture.roots)
+	main, err := session.captureModule(practicalModuleLocation{capability: fixture.roots[0].Capability}, true)
+	if err != nil {
+		t.Fatal(err)
+	}
+	source, err := session.readSource(fixture.roots[0].Capability, "foreign.sum", "go_sum")
+	if err != nil {
+		t.Fatal(err)
+	}
+	foreignSums, err := parsePracticalModuleSums(source)
+	if err != nil {
+		t.Fatal(err)
+	}
+	main.sums = &foreignSums
+	rows := []practicalGoListedModule{
+		{Path: "example.com/app", Main: true, Dir: fixture.roots[0].Directory, GoMod: filepath.Join(fixture.roots[0].Directory, "go.mod"), GoVersion: "1.25.0"},
+		{Path: fixture.identity.Path, Version: fixture.identity.Version, GoMod: filepath.Join(fixture.roots[1].Directory, fixture.prefix+".mod"), GoVersion: "1.22", Sum: fixture.sum},
+	}
+	if _, err := session.bindPracticalGoModuleRows(main, practicalModuleLocation{capability: fixture.roots[1].Capability}, rows); err == nil || session.failed == nil {
+		t.Fatal("foreign checksum input replaced the original main module's empty go.sum")
+	}
+}

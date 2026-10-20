@@ -6111,3 +6111,66 @@ VC roots/private descriptor/registry/context/retained policies and all169
 application demands/T02-T11 remain required. W01 stays In progress. C# tests
 stay skipped and the cumulative T02 gate remains W04. No public profile,
 source/program/application verification or native Linux release claim is made.
+
+## 109. T02-W01 original standard sources and compiler exports
+
+Entry is 3029c13a2eb6b1f8969521fcd023e73dddc39b77. The
+[SDK source/export checkpoint](../migrations/go-practical/t02-w01/verification/standard-sources/README.md)
+captures every original compiler src inventory member with complete bytes,
+original role and exact namespace/compiler hashes. The common rooted reader
+classifies final roles from one original read without relabeling or a second
+read. Whole SDK source imports obey original vendor/internal ownership.
+
+All178 original application/SDK packages type check from sealed source bodies
+after application/cache removal and denying both compiler-root paths. The
+unselected net/http handler remains. Full1472407 materialized nodes fit the
+unchanged source budget. Actual native Go sees179 packages including unsafe,
+which remains the compiler intrinsic and has no substituted AST/export adapter.
+All178 original compiler archives/79390348 bytes correspond to original source/
+compiled filenames, import maps/order, selected root, complete package closure
+and each archive own target/build ID. These remain private compiler observations.
+
+All51 affected Go roots/325 subtests pass in142.19s, including14 export alterations
+and five SDK controls. Current vet/format and Go1.23 compile/link with zero tests
+pass. Two independent empty-cache frontend builds from175 sealed inputs,39
+frontend/133 vendor files plus metadata, agree on8592898 bytes and SHA256
+23b866a6f56459c2461993a97f7d37d4899e69dee68af3ff1ccc320671e15ce9.
+An independent auditor recomputes all original source preimages, native package
+correspondence and complete archive member/build-ID bindings. All255 frozen
+inputs remain exact. Unrelated scalar/Rust/kernel/full-Go suites are not repeated.
+
+Three export failure epochs remain explicit. Native generation first succeeded
+but strict capture rejected the private cache /var symlink spelling. Resolving
+only the new private cache before generation preserves strict caller-root rules.
+The next reader incorrectly expected newline padding; actual Go writes zero.
+Original test/application/native outputs remain, plus all5482 source objects in
+the second epoch, but original .a payloads from these two failed captures were
+not exposed before cleanup and remain unavailable. Fresh archives are not
+relabeled as either original. The third retains all5660 objects including every
+archive and reveals incorrect sorting after SDK vendor rewriting. Preserving
+original native/source import order fixes correspondence. No failure is a source
+semantic counterexample or proof-resource verdict. Complete producer payloads
+are losslessly serialized with transfer receipts; all original SDK whitespace
+remains in decoded bytes. Strict review scans every stored file and decoded
+source/archive payload under unchanged127 rules/four scopes/39 seals, with no
+source/JSON/directory/blanket whitespace exclusions. All actual handles are
+terminal before staging and complete staged/committed blob audits remain required.
+
+Complete original export/compiler ownership and authoritative immutable native
+module/package/export/selected-closure replay remain due. Full56-family source/
+carrier/nominal/type/operation/storage/lifetime/state/program foundation, all6
+common members/19 theorem families, compiler-derived complete operation/VC roots/
+private descriptor/registry/context/retained policies and all169 demands/T02-T11
+remain required. R06/W01 stay pending. C# tests stay skipped and the cumulative
+T02 gate stays W04. No public profile/source/program/application proof or native
+Linux release claim is made.
+
+The initial strict scan also finds a retired identifier spelling used as a
+test diagnostic key. Current source renames only that metadata key; the complete
+affected SDK/export fixture and metadata checks pass again,3 roots/30 subtests
+in54.78s. Production source/body bytes are unchanged. Earlier exact producer
+source/JSON files and the initial strict report remain inert byte preimages
+with original paths/hash/lengths. Official strict scanning covers every stored
+file unchanged; additional decoded historical-data diagnostics remain explicit
+and carry no current-source authority. No matcher/fixture/seal/file/directory
+exclusion changes and no old source is relabeled as a fresh observation.
