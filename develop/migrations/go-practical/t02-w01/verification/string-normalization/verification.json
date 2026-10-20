@@ -1,0 +1,180 @@
+{
+  "schema": "mpk.go_practical.string_normalization_checkpoint.v1",
+  "status": "scoped_checks_passed",
+  "entry_commit": "a874633cef63dcfa10965d0b702789937969f98c",
+  "observed_at_utc": "2026-10-20T22:29:14.412101+00:00",
+  "source_language_scope": [
+    "Go",
+    "Rust"
+  ],
+  "affected_checks": {
+    "retained_four_core_roots": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-normalization/epochs/typed-controls/selected/result.json",
+      "sha256": "8f31a0e6a14e0aaedad0053545f74af30858ce5b75439878b9fcc33404f1b6e0",
+      "bytes": 121870
+    },
+    "observations": {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-normalization/epochs/trimmed-observer/observations/result.json",
+        "sha256": "6a72d71905372871c95f4d47d263b9c3c1548cc23717587acfadaaf592eda239",
+        "bytes": 121971
+      },
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-normalization/epochs/trimmed-observer/observations/stdout.log",
+        "sha256": "a4388cea3e43862daf66e7bae0bfd1e1aff0809b21fca8962298d8b055f42ac2",
+        "bytes": 405
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-normalization/epochs/trimmed-observer/observations/stderr.log",
+        "sha256": "c082638d9d19f2490732c4acd41e6d658cbfba3ef6a05a66b8676b45ec78f57a",
+        "bytes": 265
+      }
+    },
+    "lint": {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-normalization/epochs/trimmed-observer/lint/result.json",
+        "sha256": "a1cd558b2d084f82529f59fe20b90b561906a9403a953f904f0801f72d46b74a",
+        "bytes": 121887
+      },
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-normalization/epochs/trimmed-observer/lint/stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-normalization/epochs/trimmed-observer/lint/stderr.log",
+        "sha256": "79e631f99dd426fa4ecd2dbbcab6e54064ba3e6e5228f64c82cbd55d6a5150ec",
+        "bytes": 136
+      }
+    },
+    "format": {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-normalization/epochs/trimmed-observer/format/result.json",
+        "sha256": "cde1298bc3364f266c0545fccc87240b51497c8a6254d659c6e74c97f90c6c23",
+        "bytes": 122105
+      },
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-normalization/epochs/trimmed-observer/format/stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-normalization/epochs/trimmed-observer/format/stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    }
+  },
+  "affected_Rust_test_roots": 5,
+  "root_selection": "Four unchanged certificate roots pass in the original five-root command. That actual command fails only in its finite observer. Only the observer source changes; its full54-input root passes separately. Final Clippy/five-file format cover the actual last epoch; passing production/core roots are retained without repetition.",
+  "complete_same_byte_inputs": 65,
+  "zero_axiom_acceptances": 2,
+  "genuine_core_type_mismatches": 63,
+  "independent_comparison": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-normalization/paired/result.json",
+    "sha256": "7d3a7257996d4cb95b1c96b4a349e946150e9193b2bec8c3d4cb8415bb339d3b",
+    "bytes": 172350
+  },
+  "generic_component": {
+    "declarations": 1143,
+    "terms": 36820,
+    "bytes": 479936,
+    "new_definitions": 6,
+    "new_ordinary_laws": 28,
+    "all1109_prior_string_identities_exact": true,
+    "old_generic_producer_bytes_exact": true,
+    "input": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-normalization/epochs/typed-controls/selected/candidates/normalization-foundation.mpcert",
+      "sha256": "c57b169c30f2c29dd9e1fcba631d7534c7ab7caa5474aed3308d06cbd4d6897f",
+      "bytes": 479936
+    },
+    "hashes": {
+      "export": "0edd1e2999002145cb30e2fa709dd7c03d92f97c7be22a07a561136fb2153a41",
+      "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+      "certificate": "f44a9bb2205c7b300d18774801b00a3cd38b313b6a7064d024c7281ffd797195"
+    }
+  },
+  "actual_laws": "Exact entire Word64 length and all64 projections; canonical whole Word8 padding; Valid consumes real full upper bound; logical size/observable-slot equivalence with actual symmetry/transitivity/guard transport; full64 guarded reads/sequence observations; normalization content preservation and pointwise stability/idempotence/empty/full laws. No extensionality or source access authority.",
+  "negative_controls": {
+    "actual_generic_conclusions": 28,
+    "actual_erased_witnesses": 28,
+    "type_correct_wrong_operations": 7,
+    "operation_definition_prefixes_typecheck": true,
+    "partial_certificate_acceptance_claimed": false
+  },
+  "finite_observer": {
+    "complete_raw_inputs": 54,
+    "each_full_length_bits": 64,
+    "each_full_data_bits": 2048,
+    "actual_original_normalized_and_twice_values_observed": true,
+    "actual_AST_steps": 28685384,
+    "lengths": [
+      0,
+      1,
+      2,
+      3,
+      7,
+      8,
+      15,
+      16,
+      31,
+      32,
+      63,
+      64,
+      127,
+      128,
+      129,
+      254,
+      255,
+      256
+    ],
+    "patterns": 3,
+    "actual_certificate_definitions_executed": true,
+    "arithmetic_or_string_definition_callbacks": false,
+    "theorem_bodies_executed": false,
+    "supplies_universal_proof": false,
+    "unchanged_step_value_environment_ceilings": [
+      50000000,
+      2000000,
+      2000000
+    ],
+    "retained_old_complete_inputs": 31,
+    "retained_old_available_results": 30,
+    "original_uncompleted_case": "raw-63-0",
+    "original_detailed_counters_available": false,
+    "missing_original_output_reconstructed": false,
+    "repair": "Only de Bruijn free-variable environment trimming, variable-thunk sharing and already-forced argument sharing. All original input bytes and30 available outputs match except step counts; no ceiling or high-level primitive added."
+  },
+  "original_failed_epochs": [
+    {
+      "epoch": "initial",
+      "kind": "CORE_NOT_A_FUNCTION",
+      "meaning": "Insufficient explicit content-function view"
+    },
+    {
+      "epoch": "contents-function",
+      "kind": "CORE_FUEL_EXHAUSTED",
+      "meaning": "Implicit MakeSize conversion needs explicit length congruence"
+    },
+    {
+      "epoch": "typed-controls",
+      "kind": "finite_observer_resource_ceiling",
+      "meaning": "Four certificate roots pass; observer retains31 inputs/30 outputs"
+    }
+  ],
+  "complete_source_epochs": 5,
+  "all_candidates_and_drivers_saved_before_verification": true,
+  "all_actual_test_checker_handles_terminal": true,
+  "frozen_design_inputs_unchanged": 255,
+  "Go_frontend_inputs_unchanged": 186,
+  "checker_limits_or_frozen_caps_changed": false,
+  "public_profile_activated": false,
+  "source_program_or_registered_context_proof": false,
+  "native_release_acceptance": false,
+  "R01_complete": false,
+  "R06_complete": false,
+  "W01_complete": false,
+  "full_T_gate_passed": false,
+  "full_T_gate": "deferred to GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "remaining": "Complete string compare/substring/concat compatibility and source-to-carrier preservation; ordinary original Go source/constant evaluation, nominal/alias identity/signed domains/array/storage/state/program; complete ordinary foundation/private descriptor/registry/context/native kernel/general namespace/selected closure/all169/T02-T11."
+}

@@ -1,0 +1,8 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `release` profile [optimized] target(s) in 36.32s
+     Running tests/go_practical_string_normalization.rs (target/release/deps/go_practical_string_normalization-2b8b9d6bc8c3d95f)
+
+thread 'generic_normalization_preserves_all1109_original_identities' (44207418) panicked at crates/mpk-vc/tests/go_practical_string_normalization.rs:43:9:
+normalization-foundation: first declaration type-check failure Mpk.Go.Practical.String.Normalization.EquivalentSlot: {"verdict":"rejected","module":null,"declaration_count":null,"axiom_count":null,"hashes":{"export":null,"axiom_report":null,"certificate":"0a048f808c895f042b9cd65d80c28bfad611511d2ec1ae33b891fe0e3d2216fc"},"axiom_report":null,"error_code":"KERNEL_CORE_CHECK","error_detail":"{\"code\":\"CORE_NOT_A_FUNCTION\",\"location\":[{\"field\":\"infer\"},{\"field\":\"app\"},{\"index\":3}],\"details\":{\"actual\":\"app\",\"argument_index\":\"3\",\"argument_term_index\":\"109\",\"function_term_index\":\"235887\",\"function_type_index\":\"235909\",\"kind\":\"app_function_type_not_pi\",\"term_index\":\"235889\",\"whnf_type_index\":\"235909\"}}"}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_string_normalization`

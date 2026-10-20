@@ -730,3 +730,19 @@ nominal identity/signed-domain/full operations/array/storage/state/program/priva
 context/native kernel/namespace/selected closure/all169/T02-T11 remain due.
 Go/Rust scope, frozen limits and R01/R06/W01 stay unchanged. The cumulative
 T02 gate stays W04: `./scripts/check-fast.sh`.
+
+The [canonical string normalization checkpoint](verification/string-normalization/README.md)
+adds six definitions/28 ordinary laws for full-word length, whole-byte padding,
+logical observable content equivalence and actual guarded byte/sequence reads.
+Its1143-declaration zero-axiom component preserves all1109 old identities and
+exact generic bytes. Both unchanged cores agree on65 complete streams:two
+zero-axiom acceptances and63 genuine type mismatches. Four certificate roots
+pass in a command retaining one failed finite observer. The observer alone is
+corrected and all54 identical raw-carrier cases pass separately;31 old inputs/
+30 available outputs, full failures/source epochs and fixed ceilings remain.
+Production/core-consumer bytes stay exact; final Clippy/five-file format pass.
+Full compare/substring/concat compatibility/source preservation, original Go
+source/evaluation/nominal/signed-domain/state/program/full foundation/private
+context/native kernel/namespace/selected closure/all169/T02-T11 remain due.
+Go/Rust scope and frozen limits stay unchanged. R01/R06/W01 remain open; the
+cumulative T02 gate stays W04: `./scripts/check-fast.sh`.

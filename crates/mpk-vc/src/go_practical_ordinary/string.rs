@@ -4,7 +4,11 @@ use super::polynomial::mul_right;
 use super::syntax::*;
 use super::{word, Builder, Result};
 
+mod normalization;
 mod validity;
+pub(super) fn append_normalization(builder: &mut Builder) -> Result<()> {
+    normalization::append(builder)
+}
 pub(super) fn append_validity(builder: &mut Builder) -> Result<()> {
     validity::append(builder)
 }

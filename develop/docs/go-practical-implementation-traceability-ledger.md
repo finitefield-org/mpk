@@ -6850,3 +6850,61 @@ repeated. All actual source-consuming handles are terminal before staging.
 R01/R06/W01/full ordinary foundation/private context/native kernel/general
 namespace/selected closure/all169/T02-T11 stay open. The cumulative T02 gate
 stays W04: `./scripts/check-fast.sh`.
+
+## 122. T02-W01 canonical string padding and full-word observation preservation
+
+Entry is `a874633cef63dcfa10965d0b702789937969f98c`. The
+[checkpoint](../migrations/go-practical/t02-w01/verification/string-normalization/README.md)
+retains all1109 original string-validity identities and exact old generic bytes.
+Its1143 declarations/36820 terms/479936 bytes add six definitions/28 ordinary
+laws with zero axioms, imports or core/limit changes.
+
+Normalization preserves the exact entire Word64 length and every length bit.
+Each Bool8 slot uses its real Nat index against the full numeric length to
+retain the complete byte or canonical zero. Padding is unconditional; actual
+whole Valid consumes the genuine full length<=256 witness, permitting dirty
+input tails without admitting an out-of-domain length. Logical size and
+observable whole-byte equality supply a real equivalence relation. Symmetry,
+transitivity and the full64 guarded read/sequence laws transport actual inside/
+upper witnesses before low8 slot addressing. Normalization preserves that
+relation on both inputs, already padded slots and pointwise idempotence. Empty/
+full laws consume actual size equalities. No extensionality or source authority.
+
+Both unchanged independent cores agree on65 complete same-byte inputs:two
+zero-axiom acceptances and63 genuine type mismatches. Every28 generic conclusion
+and28 real witness premises are exercised. Seven wrong normalizers retain tails,
+delete prefixes, reverse the guard, use equality at the boundary, return the
+input, zero the length or return zero. Their entire actual definition prefixes
+typecheck before whole law streams reject; no partial acceptance is claimed.
+Honest extra core acceptance remains distinct from exact owning import.
+
+Four certificate roots pass in the original five-root command, whose finite
+observer explicitly fails at its resource ceiling. Its31 original inputs and30
+available full results remain; raw63 has no invented original output/counters.
+Only the observer changes, using de Bruijn free-variable environment trimming,
+variable-thunk sharing and already-forced argument sharing. All54 unchanged
+cases then pass separately in28685384 actual definition-evaluation steps, with
+all64 length/2048 data bits, raw/normalized/twice data,18 empty/full/binary lengths
+and three arbitrary-byte patterns. Every old input and available result is exact
+except step counts. Only core constructors/eliminators and the complete input
+carrier are native; no arithmetic/string definition callback or theorem body
+supplies observations. Its50M-step/2M-value/2M-environment ceilings stay fixed;
+the universal proof is independently checked by the cores.
+
+The final five affected roots combine those four retained core roots with the
+corrected observer root. Production and certificate-consumer bytes remain exact
+across that observer-only correction. Final strict Clippy/five-file format pass;
+passing semantic checks are retained without unnecessary repeat. All five
+complete source/driver epochs,1842 original source preimages and actual full
+candidate/output bytes remain. Initial content application and implicit size
+conversion failures are retained as CORE_NOT_A_FUNCTION/CORE_FUEL_EXHAUSTED;
+ordinary explicit function view/length congruence repair the recipes at the
+unchanged limits. They are not semantic/source counterexamples.
+
+All255 frozen inputs,186 unchanged Go build inputs and127 matchers/four scopes/
+39 seals stay exact; no new exclusion, language, agent or Actions. Full compare/
+substring/concat compatibility/source preservation and original source/evaluation/
+nominal/signed-domain/array/storage/state/program/full ordinary foundation/private
+context/native kernel/general namespace/selected closure/all169/T02-T11 remain
+due. R01/R06/W01 stay open. All source-consuming verification handles are
+terminal before staging; the cumulative T02 gate stays W04: `./scripts/check-fast.sh`.
