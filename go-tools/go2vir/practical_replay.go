@@ -9,6 +9,7 @@ import (
 	"path/filepath"
 	"sort"
 	"strings"
+	"sync"
 )
 
 // The origins are launcher-authorized names, not new source identities. Keep
@@ -60,7 +61,11 @@ type practicalReplayDirectory struct {
 // survive in inputs; unread names remain not-captured, never invented bytes.
 // A native consumer must still bind its full consulted input/namespace closure.
 type practicalReplayImage struct {
+	mutex            sync.Mutex
+	activeViews      int
+	closed           bool
 	root             string
+	plan             *practicalReplayNamespace
 	namespace        []practicalReplayDirectory
 	mounts           []practicalReplayMount
 	files            []practicalReplayFile
@@ -135,59 +140,12 @@ func validatePracticalReplaySources(inputs []practicalReplaySources) error {
 // Use the full owned original namespace for absence/not-captured decisions.
 // An unmaterialized opaque original name must never become evidence of absence.
 func (image *practicalReplayImage) readCaptured(capability, relative, kind string) (practicalSourceBuffer, error) {
-	namespace := practicalSourceSnapshot{directories: map[string][]practicalDirectoryEntry{}}
-	for _, mount := range image.mounts {
-		namespace.roots = append(namespace.roots, mount.capability)
-	}
-	sort.Strings(namespace.roots)
-	for _, directory := range image.namespace {
-		namespace.directories[practicalCaptureKey(directory.capability, directory.relative)] = directory.entries
-	}
-	entry, err := namespace.pathEntry(capability, relative)
+	view, err := image.openVerifiedView()
 	if err != nil {
 		return practicalSourceBuffer{}, err
 	}
-	if entry.Type != 0 {
-		return practicalSourceBuffer{}, fmt.Errorf("replay source is not an original regular namespace entry")
-	}
-	for _, file := range image.files {
-		for _, object := range file.objects {
-			if object.Capability != capability || object.Path != relative {
-				continue
-			}
-			if object.Kind != kind {
-				return practicalSourceBuffer{}, fmt.Errorf("replay source role differs from its original captured role")
-			}
-			reader, err := openPracticalSourceRoot(image.root)
-			if err != nil {
-				return practicalSourceBuffer{}, err
-			}
-			name, err := filepath.Rel(image.root, image.privatePath(file.original))
-			if err != nil {
-				_ = reader.Close()
-				return practicalSourceBuffer{}, err
-			}
-			info, err := reader.Lstat(filepath.ToSlash(name))
-			if err != nil || !info.Mode().IsRegular() || info.Mode()&os.ModeSymlink != 0 {
-				_ = reader.Close()
-				return practicalSourceBuffer{}, fmt.Errorf("private replay source is missing, linked or not regular")
-			}
-			raw, err := readPracticalRegularFile(reader, filepath.ToSlash(name), info, practicalSourceFileLimit(kind))
-			closeErr := reader.Close()
-			if err != nil || closeErr != nil {
-				if err == nil {
-					err = closeErr
-				}
-				return practicalSourceBuffer{}, err
-			}
-			buffer, err := newPracticalSourceBuffer(capability, relative, kind, raw)
-			if err != nil || buffer.object != object {
-				return practicalSourceBuffer{}, fmt.Errorf("private replay bytes differ from the full original source")
-			}
-			return buffer, nil
-		}
-	}
-	return practicalSourceBuffer{}, fmt.Errorf("original replay input %s/%s: %w", capability, relative, errPracticalNotCaptured)
+	defer view.Close()
+	return view.readCaptured(capability, relative, kind)
 }
 
 func (image *practicalReplayImage) privatePath(original string) string {
@@ -279,6 +237,10 @@ func materializePracticalReplaySources(parent string, inputs []practicalReplaySo
 	}
 	inputs = append([]practicalReplaySources(nil), inputs...)
 	sort.Slice(inputs, func(i, j int) bool { return inputs[i].snapshot.contentSHA256 < inputs[j].snapshot.contentSHA256 })
+	plan, err := reconcilePracticalReplayNamespace(inputs, compiler)
+	if err != nil {
+		return nil, err
+	}
 	root, err := os.MkdirTemp(parent, "go-practical-replay-")
 	if err != nil {
 		return nil, err
@@ -287,7 +249,8 @@ func materializePracticalReplaySources(parent string, inputs []practicalReplaySo
 	if err != nil {
 		return nil, err
 	}
-	image := &practicalReplayImage{root: root}
+	plan.root = root
+	image := &practicalReplayImage{root: root, plan: plan}
 	success := false
 	defer func() {
 		if !success {
@@ -433,5 +396,21 @@ func materializePracticalReplaySources(parent string, inputs []practicalReplaySo
 }
 
 func (image *practicalReplayImage) Close() error {
-	return removeSnapshot(image.root)
+	image.mutex.Lock()
+	defer image.mutex.Unlock()
+	if image.closed {
+		return nil
+	}
+	if image.activeViews != 0 {
+		return fmt.Errorf("replay byte image still has owned consumer views")
+	}
+	root := image.root
+	if image.plan != nil {
+		root = image.plan.root
+	}
+	if err := removePracticalReplayImage(root); err != nil {
+		return err
+	}
+	image.closed = true
+	return nil
 }

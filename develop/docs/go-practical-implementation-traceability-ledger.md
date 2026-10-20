@@ -6232,3 +6232,72 @@ VC roots/private descriptor/registry/context/retained policies and all169 demand
 T02-T11 remain required. R06/W01 remain pending; no public profile/source/program/
 application proof or native Linux release claim. C# tests stay skipped and the
 T02 cumulative gate stays W04.
+
+
+## 111. T02-W01 consistent original namespaces and owned verified image views
+
+Entry is c9e105f340d46562c7c8c9c14934175359fc7225. The
+[namespace/view checkpoint](../migrations/go-practical/t02-w01/verification/namespace-view/README.md)
+reproduces and fixes an actual image-builder defect: two complete captures of
+the same original physical directory with different names were accepted as a
+union. The full original failing epoch, both source inputs, original namespace
+observations and accepted image remain. Five controls now reject unread added
+names, file/directory disagreement, crossed roles, changed bytes and a nested
+root beneath observed absence. Congruent aliases and authorized unvisited
+nested refinement retain their full per-capability original identities.
+
+Owned rooted image-reader transactions verify exact complete image closure,
+file bytes/length/modes and every expected directory before use. Their namespace
+and source metadata have independent ownership. Real original absence stays
+distinct from unvisited/not-captured or missing backing. Ignoring an invalid
+lookup, wrong role or changed input cannot restore the transaction, including
+after byte restoration. Live views prevent image deletion, closing is
+idempotent, and closed views/images reject reuse. Go1.25 rooted cleanup changes
+directory permissions only and preserves outside symlink-target bytes/mode.
+File/directory setuid/setgid/sticky bits now reject under the exact existing
+release mode policy. All6 actual Linux controls fail before and pass after the
+fix. Four Darwin cases cannot materialize setuid/setgid flags and retain their
+precise limitation; both actual sticky cases pass. Opened views reject later
+source mode mutation and retain failure after permission restoration.
+Six backing controls cover changed bytes, missing file, changed mode, extra
+ignored Go file, extra directory and symlink. Old shared scalar cleanup stays
+untouched.
+
+All30 affected Go roots/192 subtests pass in120.65s; current vet/format and
+Go1.23 compile/link with zero tests pass. Two fresh frontend builds from180
+original inputs,44 frontend/133 vendor files plus metadata, reproduce8592898
+bytes with SHA2565158c73313b8928b980961e6337fd6a1e0f905b595c06f2f444b3f571b368216.
+The new view validates5590 materialized files/6441 reconciled original namespace
+nodes/full5577-file compiler during the actual Linux producer. Full original
+5493 source objects/181 source-typed packages/1472495 nodes, original relative/
+absolute/versioned replacements and unused HTTP handler/panic initializer
+survive. Two independent fresh-cache offline kernel-readonly replays reproduce
+all4 original modules/all182 original packages except derived export locator
+and all181 original archives/79406918 bytes per replay. This byte total is
+bound to this producer's own complete originals. Applications and initializers
+are compiled without execution. The unchanged local harness retains prior
+three kernel controls without repetition. Linux/amd64 is emulated locally on
+Linux/aarch64 and grants no native Linux release claim.
+
+One formatter diagnostic preserves its entire original test source. Exact
+gofmt comparison changes only a map-value alignment, with production sources/
+frontend inputs byte-exact; both affected runtime roots and current vet/format
+pass after correction. The independent observer's original130-payload count
+assumption remains and is corrected to the complete actual131-payload set.
+
+Independent reconstruction checks22668 complete source preimages plus131 full
+namespace/view payloads, exact entire materialized image, full compiler
+inventory, original snapshot/image framing and all255 frozen members. Strict
+review scans every changed file and decoded original payload under unchanged
+127 rules/four scopes/39 seals, followed by staged/committed-blob audits. All
+actual drivers/containers are terminal before staging. Requirements R03/R06/
+R07 preserve all prior checkpoints and keep the new work preparatory.
+
+Production kernel lifecycle/private context ownership and complete general
+consulted namespace/selected-closure bindings remain due. Full56-family source/
+carrier/nominal/type/operation/storage/lifetime/state/program foundation, all6
+common members/19 theorem families, compiler-derived complete operation/VC
+roots/private descriptor/registry/context/retained policies and all169 demands/
+T02-T11 remain required. R06/W01 stay pending, C# tests stay skipped, and the
+cumulative T02 gate stays W04: ./scripts/check-fast.sh --skip-csharp. No public
+profile or source/program/application proof activates.

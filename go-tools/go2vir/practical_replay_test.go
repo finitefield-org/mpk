@@ -252,6 +252,14 @@ func TestPracticalReplayPrepareWholeOriginalModuleAndCompilerImage(t *testing.T)
 		t.Fatal(err)
 	}
 	// Deliberately retain the image for the independent second container.
+	view, err := image.openVerifiedView()
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer view.Close()
+	if err := view.check(); err != nil {
+		t.Fatal(err)
+	}
 	var mounts, inputs, namespaces []map[string]any
 	for _, mount := range image.mounts {
 		mounts = append(mounts, map[string]any{"capability": mount.capability, "original": mount.original, "private": mount.private})
@@ -271,6 +279,7 @@ func TestPracticalReplayPrepareWholeOriginalModuleAndCompilerImage(t *testing.T)
 		"original_package_output": exports.output, "original_export_objects": exports.snapshot.sourceObjects(),
 		"complete_source_typed_packages": len(loader.packages), "complete_syntax_nodes": loader.syntax.count,
 		"registered_context_or_source_program_proof": false, "authoritative_selected_closure_replay_complete": false,
+		"verified_materialized_files": len(view.plan.files), "reconciled_original_namespace_nodes": len(view.plan.nodes),
 	}
 	raw, err := json.MarshalIndent(record, "", "  ")
 	if err != nil {

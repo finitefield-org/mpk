@@ -560,3 +560,26 @@ and all255 frozen members. Complete production kernel/context/consulted namespac
 selected-closure bindings/full56-all6-19 source/program foundation/private context/
 all169 demands/T02-T11 remain due. R06/W01 stay open; C# tests stay skipped and
 the T02 gate stays W04.
+
+
+The [original namespace/owned view checkpoint](verification/namespace-view/README.md)
+rejects contradictory complete directory views across original root aliases,
+including native type, role, bytes and observed-parent disagreements. The
+actual initial failure and both original inputs remain byte-exact. Compatible
+aliases and unvisited nested refinement preserve separate source identities.
+Owned rooted reader transactions validate the complete5590-file image against
+6441 reconciled original namespace nodes; failures stay sticky and live views
+retain image lifetime. Rooted cleanup preserves outside link-target bytes/mode.
+All30 affected roots/192 subtests, current vet/format, Go1.23 compile-only and
+two180-input fresh frontend builds pass. A real Linux producer validates the
+full5577-file compiler and original whole source image; two independent kernel
+replays reproduce all4 original modules/all182 packages except derived export
+locator/all181 complete79406918-byte archives. Independent audits check22668
+source preimages,131 additional complete payloads, every materialized file and
+all255 frozen members. All6 Linux special-permission controls pass after reproducing the original
+failures. Four unmaterialized Darwin controls retain explicit backing limits.
+One test-only formatter alignment preserves exact production bytes; both
+affected roots/current vet/format pass after correction. Prior byte-identical kernel controls remain preserved
+without repetition. R06/W01/private context and complete general consulted
+namespace/selected-closure/source-program foundation/all169/T02-T11 remain due.
+C# tests stay skipped and the cumulative T02 gate stays W04.
