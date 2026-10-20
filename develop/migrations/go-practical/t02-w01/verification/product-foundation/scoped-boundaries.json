@@ -1,0 +1,42 @@
+{
+  "status": "generic_positive_control_ownership_boundaries_passed_consumers_pending",
+  "observed_at_utc": "2026-10-20T02:54:24.846289+00:00",
+  "complete_generic_component": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/product-foundation/generic-component.json",
+    "sha256": "839e07a005311d12ac90117c349b710c90f282075e6dae83d6854101699a9cf9",
+    "bytes": 9792
+  },
+  "selected_Rust_controls": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/product-foundation/eager-controls/tests/result.json",
+    "sha256": "2cc3f66d9c6ee53d846fe3c0c6a210f21cbc8176bd390855d487d3c96fbf2ef0",
+    "bytes": 36184
+  },
+  "complete_same_byte_control_checks": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/product-foundation/eager-paired/result.json",
+    "sha256": "43552a358d0406d8438df963e90b9b0b6049c4a7d7399a39c7ac0aa9126420e1",
+    "bytes": 123729
+  },
+  "genuine_type_rejections": 50,
+  "mismatch_subtypes": {
+    "lambda_domain_mismatch": 15,
+    "check_type_mismatch": 35
+  },
+  "owning_import_determinism_trailing_byte_original_byte_limit": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/product-foundation/eager-ownership/tests/result.json",
+    "sha256": "23ff956004729b844fe9972495cd8ed7b30da5ed13faabdb803db995f40a1bb0",
+    "bytes": 23087
+  },
+  "actual_valid_extra_definition_both_cores": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/product-foundation/owning-extra-Go/result.json",
+    "sha256": "b54ede3025edc2b77fd531ebd21cb99568930b93efc66bfdc54e8d1f94376bf1",
+    "bytes": 5520
+  },
+  "unrelated_suites_repeated": false,
+  "full_expanded_matrix_complete": false,
+  "full_type_sharing_matrix_complete": false,
+  "all_actual_validation_handles_terminal": false,
+  "CSharp_tests_executed": false,
+  "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh --skip-csharp",
+  "T02_W01_complete": false,
+  "scope": "These newly added controls and ownership root were executed early as targeted roots while the earlier-ordered full consumer matrices continue. All50 complete typed rejections and the genuine valid extra definition are actual independent kernel executions, not expected outcomes or prefix checks. The original full harness may later execute the same affected roots; both actual epochs remain explicit. No original field/claim or long test is cancelled, no source/application/private-context/full56-family authority is promoted."
+}

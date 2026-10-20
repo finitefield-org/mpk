@@ -1,0 +1,60 @@
+{
+  "status": "exactly_pair_type_syntax_and_output_label_differ",
+  "observed_at_utc": "2026-10-20T03:30:42.474263+00:00",
+  "runner": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/product-foundation/audit-shared-consumer-source.py",
+    "sha256": "2b8dac79e57c31a943fb2aecb4a17ecbc42f7236f9b69e3d59d875cad1d39bfa",
+    "bytes": 3420
+  },
+  "complete_sources": [
+    {
+      "path": "crates/mpk-vc/tests/support/go_product_foundation_shapes.rs",
+      "sha256": "d71bd5d0e67d953bb2c39edf46d8cd8dd4959357fe4bcbf019624c3c64b123d9",
+      "bytes": 11431
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/go_product_alias_shapes.rs",
+      "sha256": "0539b9dfa09ce483f82befa57ace788cfc82fbe5d696253c5c8bb85d45cad8c8",
+      "bytes": 11474
+    }
+  ],
+  "literal_differences": [
+    {
+      "original": "fn rec_type(a: E, b: E, tag: E) -> E {\n    app(c(\"Std.Bool.recType\"), vec![a, b, tag])\n}\nfn pair(a: E, b: E) -> E {\n    pi(\"_tag\", c(\"Std.Bool\"), rec_type(a, b, v(\"_tag\")))\n}\n",
+      "shared": "fn pair(a: E, b: E) -> E {\n    // This checked type definition is not applied as a neutral function here.\n    // Projections use the library's explicitly typed Left/Right interfaces.\n    pc(\"Type\", vec![a, b])\n}\n"
+    },
+    {
+      "original": "inspect(&format!(\"balanced-shape-{arity:02}\"), &bytes, true);",
+      "shared": "inspect(&format!(\"alias-balanced-shape-{arity:02}\"), &bytes, true);"
+    }
+  ],
+  "original_execution_source_snapshots": [
+    {
+      "run": "expanded",
+      "complete_original_snapshot": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/product-foundation/final/inputs/crates/mpk-vc/tests/support/go_product_foundation_shapes.rs",
+        "sha256": "d71bd5d0e67d953bb2c39edf46d8cd8dd4959357fe4bcbf019624c3c64b123d9",
+        "bytes": 11431
+      },
+      "observed_execution_status": "failed"
+    },
+    {
+      "run": "shared",
+      "complete_original_snapshot": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/product-foundation/alias-consumers/initial/inputs/crates/mpk-vc/tests/support/go_product_alias_shapes.rs",
+        "sha256": "0539b9dfa09ce483f82befa57ace788cfc82fbe5d696253c5c8bb85d45cad8c8",
+        "bytes": 11474
+      },
+      "observed_execution_status": "running"
+    }
+  ],
+  "all65_arity_loop_and_every_constructor_projection_replace_claim_proof_binder_lowering_and_cap_check_elsewhere_byte_identical": true,
+  "leaf_obligations": {
+    "pack": 2080,
+    "reconstruct": 2080,
+    "updated": 2080,
+    "unchanged": 87360,
+    "total": 93600
+  },
+  "scope": "Independent exact source-delta observation only. Both full source files and their original execution snapshots remain untouched. The whole matrix including every arbitrary independent type/value/field, actual projection/update and complete original cap check is text-identical except the two displayed literal substitutions. The sole type-name expansion is separately compared against its exact checked body in derived goal-type graphs. No source replacement/normalization, dropped field/claim or missing execution is accepted as proof/source/context/application authority; actual complete production-core outcomes remain separately required."
+}

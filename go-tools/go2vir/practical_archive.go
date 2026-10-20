@@ -33,6 +33,18 @@ type practicalModuleArchive struct {
 	namespaceEntries uint64
 }
 
+// The session owns its verified cache. Returned handles independently own both
+// derived member metadata and original bytes, including on the first read.
+func copyPracticalModuleArchive(archive practicalModuleArchive) practicalModuleArchive {
+	owned := archive
+	owned.source = practicalSourceBuffer{object: archive.source.object, data: archive.source.sourceBytes()}
+	owned.members = make(map[string]practicalArchiveMember, len(archive.members))
+	for name, member := range archive.members {
+		owned.members[name] = member
+	}
+	return owned
+}
+
 type practicalArchiveNameKey struct {
 	parent uint32
 	folded string
@@ -248,7 +260,7 @@ func (session *practicalCaptureSession) captureModuleArchive(capability, relativ
 		if old.identity != identity || old.sum != expectedSum {
 			return practicalModuleArchive{}, session.reject(fmt.Errorf("cached module ZIP identity or checksum changed"))
 		}
-		return old, nil
+		return copyPracticalModuleArchive(old), nil
 	}
 	archive, err := parsePracticalModuleArchive(identity, source, expectedSum, maximumDirectoryEntries-int(session.counters.directoryEntries))
 	if err != nil {
@@ -258,6 +270,6 @@ func (session *practicalCaptureSession) captureModuleArchive(capability, relativ
 	if session.archives == nil {
 		session.archives = make(map[string]practicalModuleArchive)
 	}
-	session.archives[source.object.ID] = archive
-	return archive, nil
+	session.archives[source.object.ID] = copyPracticalModuleArchive(archive)
+	return copyPracticalModuleArchive(archive), nil
 }

@@ -1,0 +1,70 @@
+{
+  "status": "passed",
+  "observed_at_utc": "2026-10-20T03:15:48.145397+00:00",
+  "runner": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/archive-ownership/observe-original-inputs.py",
+    "sha256": "002590d35df787cb4b8f733efcba9822f5d4461b44a1ce8eedec2b3d91053757",
+    "bytes": 4210
+  },
+  "complete_actual_input_logs": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/archive-ownership/reviewed/regression/stdout.log",
+      "sha256": "caefac1e2fd0e9f75166e1c23ffd1f716d7ab7fbf340146fd082a8ba75fd3be2",
+      "bytes": 20340
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/archive-ownership/final/selected/stdout.log",
+      "sha256": "a1122291d4b760bc35737ca511e3d98d15f67ecb8acdb0b276524e09e65fa25a",
+      "bytes": 77234
+    }
+  ],
+  "full_original_first_and_cached_inputs_identical_before_and_after_fix": true,
+  "actual_original_archive_source_object": {
+    "schema": "mpk.go.source_object.v1",
+    "capability": "workspace/main",
+    "path": "module.zip",
+    "kind": "auxiliary",
+    "raw_sha256": "c9709da224b4ce06a628df8d4507fa1fff1815f649525f6705faf6b2b40841c5",
+    "bytes": 577,
+    "id": "5615579744ead32394652813784fd114edb92c8ed45bf8cf95a693993e3cb8da"
+  },
+  "independent_original_source_id_matches": true,
+  "independent_complete_Go_h1": "h1:MTsAUxsuzB4cUq0dDw78AH8ovfJ05oBPSyUb+5y8IPA=",
+  "all_original_members": [
+    "example.com/pracdep@v1.0.0/dep.go",
+    "example.com/pracdep@v1.0.0/go.mod"
+  ],
+  "original_bytes": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/archive-ownership/observed-inputs/changed-dependency.go",
+      "sha256": "17e387ee233708424722f981cb4479e5531e018986de4cd2613711b6a3384f76",
+      "bytes": 203
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/archive-ownership/observed-inputs/dependency.go",
+      "sha256": "f3285d0a89d57d265ce5808abf19b0c9ba37cbd7a99597bf55cd1031131cb549",
+      "bytes": 167
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/archive-ownership/observed-inputs/dependency.go.mod",
+      "sha256": "a093d5cade700e6d6c0c547712306c08bf8ab4abb439b7c6d1d997f791da0c83",
+      "bytes": 36
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/archive-ownership/observed-inputs/main.go.mod",
+      "sha256": "22e34c796bba12362171be18e4a7c935f34f714d16844e89f09b9229cd15dfa4",
+      "bytes": 33
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/archive-ownership/observed-inputs/main.go.sum",
+      "sha256": "226927e1387dfd6fb13f31d7ef30492004ee192246b9ebfb6f957807eb684055",
+      "bytes": 75
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/archive-ownership/observed-inputs/original.zip",
+      "sha256": "c9709da224b4ce06a628df8d4507fa1fff1815f649525f6705faf6b2b40841c5",
+      "bytes": 577
+    }
+  ],
+  "scope": "Every complete actual logged ZIP/main metadata/changed-member payload is compared across all4 original failing and4 final passing cases. Complete original ZIP encodings, Go member hashes/checksums and typed source IDs remain exact; no input normalization or source replacement occurs. This independently observes the ownership regression fixtures, not application source/typechecking/context or immutable package replay authority."
+}

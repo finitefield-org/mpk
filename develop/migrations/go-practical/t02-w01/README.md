@@ -449,3 +449,48 @@ twice and passes vet/format on the complete verified5577-file Go1.25 image.
 All255 frozen members remain exact. Full56-family/source/program/context and
 authoritative immutable application replay/all169 demands/T02-T11 remain due;
 W01 remains In progress. C# tests stay skipped and the cumulative gate stays W04.
+
+The [archive return-ownership checkpoint](verification/archive-ownership/README.md)
+reproduces and fixes first-read/cache-hit aliasing of verified member maps and
+original raw ZIP bytes. Returned values and the session cache now own separate
+complete buffers/maps. All four original regressions and full original inputs
+remain recorded. The14 affected Go roots/45 subtests and current vet/format pass;
+Go1.23 performs compile/link only. Two actual fresh-cache frontend builds from170
+sealed inputs agree byte-for-byte. All255 frozen inputs remain exact. All related
+actual handles are terminal; the final receipts preserve their initial epochs
+and source/result bindings for strict changed-input and Git blob audits. Full
+context/immutable application replay and all169 demands remain due.
+
+The [ordinary heterogeneous-product checkpoint](verification/product-foundation/README.md)
+adds generic construction, projections, pointwise observations, updates, maps
+and typed validity preservation. The complete78-declaration zero-axiom basis
+passes both cores; all50 new actual semantic negatives and exact ownership pass
+their selected checks. The expanded prototype stops at the fixed producer term
+guard at arity60 after0..59. The complete0..64-field type-sharing matrix passes
+Rust with93600 leaf obligations; an independent comparison preserves all2210
+original goal types. The expanded Go observer finishes all112 generated inputs
+and records the five over-budget original shapes as unavailable. The complete
+shared Go matrix now passes all65 inputs with matching full hashes. The
+consolidated three boundary roots and Clippy/format pass;52 complete current
+inputs reuse exact prior Go executions.
+The ordinary value laws grant no source operation,
+Go evaluation-order, invocation, storage or program correspondence authority.
+W01 remains In progress; C# tests stay skipped and the T02 gate stays W04.
+
+The [full-original assembly capacity observation](verification/product-foundation/foundation-assembly-analysis/README.md)
+retains all23 mathematical component inputs and their12249 distinct names, with
+no same-name type/body/proof/level/family conflicts. The complete full64 shift
+and product combination actually passes both kernels at exactly4096 declarations,
+101705 terms and1428859 bytes, preserving every original node modulo exact
+sharing. A valid alternate named proof passes both kernels but strict assembly
+rejects its changed identity; a false full-composition claim rejects in both.
+This diagnostic leaves zero declaration slots and does not complete production
+root derivation/full56-family source/private context or any of the169 demands.
+The complete library exceeds one artifact's fixed bounds; full original inventory
+and compiler-derived complete VC dependency closure remain separate requirements.
+The expanded observer is terminal; the main three-root wrapper is consolidated
+without changing any source captured by the shared observer. The shared Go
+matrix now passes every input. The final product receipt binds120 current
+same-byte streams across product/consumer/assembly checks:69 zero-axiom positives
+and51 genuine type mismatches. All actual handles are terminal. Strict
+changed-input and staged/committed-blob audits cover the final current tree. C# tests stay skipped and the T02 gate stays W04.

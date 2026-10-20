@@ -15,6 +15,7 @@ mod dependencies;
 mod integer;
 mod natural;
 mod polynomial;
+mod product;
 mod range;
 mod syntax;
 mod word;
@@ -186,6 +187,15 @@ pub struct GoWordSignedOrderFoundation {
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct GoWordSignedEqualityFoundation {
     certificate: Vec<u8>,
+}
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoProductFoundation {
+    certificate: Vec<u8>,
+}
+impl GoProductFoundation {
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
 }
 impl GoWordSignedEqualityFoundation {
     pub fn certificate_bytes(&self) -> &[u8] {
@@ -1449,6 +1459,27 @@ pub fn import_go_practical_word_signed_equality_foundation(
         return Err(GoOrdinaryError::Limit);
     }
     let expected = generate_go_practical_word_signed_equality_foundation()?;
+    if candidate != expected.certificate_bytes() {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    Ok(expected)
+}
+
+/// Ordinary heterogeneous value products, observations, frames and validity.
+/// Source types, invocation identity and complete context remain separate work.
+pub fn generate_go_practical_product_foundation() -> Result<GoProductFoundation> {
+    let mut builder = core_builder()?;
+    product::append(&mut builder)?;
+    builder.certificate.module = "Mpk.Go.Practical.ProductFoundation".into();
+    Ok(GoProductFoundation {
+        certificate: builder.finish()?,
+    })
+}
+pub fn import_go_practical_product_foundation(candidate: &[u8]) -> Result<GoProductFoundation> {
+    if candidate.len() > MAX_BYTES {
+        return Err(GoOrdinaryError::Limit);
+    }
+    let expected = generate_go_practical_product_foundation()?;
     if candidate != expected.certificate_bytes() {
         return Err(GoOrdinaryError::Linkage);
     }

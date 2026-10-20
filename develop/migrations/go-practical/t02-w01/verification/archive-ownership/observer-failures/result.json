@@ -1,0 +1,22 @@
+{
+  "status": "original_observer_failure_preserved",
+  "exit_code": 1,
+  "files": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/archive-ownership/observer-failures/line-observer.py",
+      "sha256": "ceb6c176a134c8e0650f494a0676aa4e8daf92063be5464b551bc28e832afb71",
+      "bytes": 4197
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/archive-ownership/observer-failures/line-observer.stderr.log",
+      "sha256": "c8493a457ab210452400fbeaaab90099576d5a4e5797bb66241aa672f38c52e8",
+      "bytes": 248
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/archive-ownership/observer-failures/line-observer.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  ],
+  "reason": "The observer assumed each Go JSON Output fragment contains one complete t.Log line. Complete actual logged payloads exceed the fragment size; concatenate all original Output bytes in recorded order before matching. This changes the observer only, not input data, tests or source semantics."
+}

@@ -5786,3 +5786,152 @@ closure application loading/replay remain due. All169 demands and T02-T11 stay
 open, R06 stays pending and W01 remains In progress. C# tests stay skipped and
 the cumulative T02 gate stays W04. No public/source/application/Linux release
 claim is made.
+
+## 103. T02-W01 independent ownership of verified archive returns
+
+Entry is `7154ec0b2ac2ab56ac21e87e018d2f2c02545366`. The
+[checkpoint](../migrations/go-practical/t02-w01/verification/archive-ownership/README.md)
+reproduces an actual private session-cache ownership failure for both initial
+and cached archive results. Returned member-map mutations authorized changed
+dependency content through a fresh cache lookup; returned raw-byte mutations
+reached the original captured ZIP. Separate complete source buffers and member
+maps now belong to the cache and every return. Original h1/CRC/namespace rules,
+full original bytes and one-time capture budget charges remain exact.
+
+All four pre-fix cases fail in both the first and fully logged original epochs;
+all sources/runners/raw output remain. Independent Python observation compares
+all complete logged pre-fix/final ZIP/main metadata/changed-member payloads,
+reconstructs the original source-object identity and computes h1 from both full
+original members. An initial fragment-boundary observer failure remains; its
+repair losslessly concatenates original Go JSON Output fragments in order.
+
+All14 affected Go roots/45 subtests, current vet and changed-file format pass.
+Go1.23 compiles/links only and executes no tests. The changed production input
+is rebuilt twice from170 sealed complete inputs with distinct roots and fresh
+caches. Both8,592,898-byte frontend binaries have SHA2567a8a86f7...; all34
+frontend/133 vendor files and manifests have exact independently reconstructed
+source-object identities and owned original bytes. The previous frontend epoch
+and original auxiliary vendor TODO length difference remain intact.
+
+All255 frozen inputs remain exact. Every archive and related product handle
+is terminal. The final archive receipt retains its complete original pending
+receipt and binds the finished product checkpoint. Strict changed-input review
+and staged/committed-blob audit use the final current tree. Full56-family
+foundation/source/program/private context and authoritative immutable original
+application loading/replay remain due. All169 demands and T02-T11 stay open;
+W01 remains In progress. C# tests stay skipped and the cumulative T02 gate stays
+W04. No public activation, source/application proof or Linux release is claimed.
+
+## 104. T02-W01 heterogeneous products and complete shared consumer proof
+
+Entry is `7154ec0b2ac2ab56ac21e87e018d2f2c02545366`. The
+[component checkpoint](../migrations/go-practical/t02-w01/verification/product-foundation/README.md)
+adds14 ordinary definitions/29 laws over the complete original35 core basis.
+Both unchanged cores accept the complete78-declaration/1164-term/11788-byte
+zero-axiom component. Generic Sort0 products use the frozen dependent Bool
+eliminators; applied binders and constructor results expose actual Pi types,
+with checked TypeAsFunction/PointwiseAsFunction identities preserving named
+links. Pointwise equality/reconstruction, updates/frames/overwrite/commutation,
+maps and actual per-field validity/preservation witnesses require no funext,
+new kernel rule, caller truth flag, axiom/import trust or fuel/cap change.
+
+All50 meaningful source/claim/premise controls pass both actual cores with
+35 check/fifteen lambda-domain mismatches. Exact owning import separately
+rejects a valid79-declaration extra definition accepted by both cores. Original
+construction/linkage/inference failures retain their complete sources, bytes,
+full checker reports and separately born-ignored direct diagnoses.
+
+The original expanded65-arity consumer stops at its unchanged pre-encoding
+producer guard at60 after0..59 pass Rust; its other three roots pass. Complete
+original-algorithm construction of every0..64 input is retained independently.
+All60 in-budget inputs equal their full original checked bytes. Expanded60 has
+131819 terms and64 has150040, outside the frozen131072-term producer budget;
+they remain construction-only with no inferred general-kernel limit verdict.
+Original relative-path/limit-assumption diagnostic failures, corrective
+interruption before any over-cap kernel call and all partial/raw sources remain.
+Only the erroneous new diagnostic is interrupted; original semantic runs continue.
+
+The active checked-type-sharing consumer preserves every independent field
+carrier/value/binder/claim/proof and all65 arities. Its complete Rust matrix
+passes in5285.00s with93600 leaf obligations:2080 pack/2080 reconstruct/2080
+updated/87360 unchanged fields. The64-field input has144 declarations/32198
+terms/305189 bytes under unchanged caps/fuel and zero axioms. Exact source-delta
+audit finds only pair-type syntax and output-label substitutions. Independent
+exact graph comparison checks all2210 original goal types, reusing43 complete
+prior byte-identical comparisons and checking22 more after expanding only the
+exact checked Product.Type body. Every original78 basis identity remains exact.
+Expanded60..64 matching goal types grant no admission or kernel proof authority.
+
+Selected Clippy/format and all three born-ignored diagnostic listings pass.
+All255 frozen inputs and preceding complete scalar certificates remain exact.
+The expanded Go observer is now terminal after all112 generated inputs; its
+five unavailable over-budget original shapes stay explicit. Only the main
+prototype wrapper is consolidated into three passing boundary roots after that
+relevant handle is terminal. The shared observer captures no edited wrapper and
+all its own sources remain exact. Current main Clippy/format and52 whole-byte
+Go-boundary reuses pass; the complete active65 shared matrix stays unchanged.
+All65 shared Go inputs now pass with identical three hashes and checked empty
+axiom reports; every actual handle is terminal. The final receipt binds120
+complete current byte streams including the three assembly-probe cases:
+69 zero-axiom acceptances and51 genuine type mismatches (36 check/fifteen lambda).
+Final source/result bindings and current-tree strict/Git blob audits preserve
+all failure/raw/source epochs. Full56-family source/carrier/nominal/
+type/operation/storage/lifetime/state/program foundation, descriptor/private
+registry/context, retained policies and authoritative original application/
+export/selected-closure immutable loading/replay remain required. All169 demands
+and T02-T11 stay open; W01 remains In progress. C# tests stay skipped and the
+cumulative T02 gate stays W04. No public/source/application/Linux release claim.
+
+## 105. T02-W01 exact full-original assembly capacity and identity
+
+Entry is `7154ec0b2ac2ab56ac21e87e018d2f2c02545366`. The
+[complete ordinary inventory](../migrations/go-practical/t02-w01/verification/product-foundation/foundation-assembly-analysis/README.md)
+measures all23 mathematical component inputs without dropping any original
+name/type/body/proof/level/generated-family identity. Exact cross-input DAG
+comparison finds no same-name metadata conflicts. Their whole12249-name/
+274049-used-term union exceeds unchanged4096/131072 bounds. Full64 shifts plus
+signed equality/products already require6501 names/155380 terms. These counts
+are structural measurements, with no fabricated encoded byte bound or kernel
+verdict and no full56-family/source/program/context completion claim.
+
+The [born-ignored assembly probe](../migrations/go-practical/t02-w01/verification/product-foundation/foundation-assembly-probe/README.md)
+retains the entire4053-declaration full64 shift and78-declaration product inputs.
+Their35 original core identities coincide, so all43 new product declarations
+produce exactly4096 names. The complete101705-term/1428859-byte zero-axiom
+artifact passes both unchanged cores, imports empty. Every original term/name/
+level, type/body/proof/kind/reducibility/generated-family identity survives
+exact sharing without pruning, beta/eta/delta/type-alias rewriting, substitution
+or new kernel/import/axiom/fuel/cap authority. Independent exact-node equality
+compares every original input to the actual assembled bytes; no source node is
+lost. Complete original raw119c384d... and06d60305... inputs remain intact.
+
+A genuine closed Let returns the original Std.Eq.symm proof with its exact type.
+Both kernels accept that78-declaration/1166-term/11797-byte alternative, while
+exact assembly rejects its changed original named proof. This distinguishes
+identity from a type-only match or silently preferring one body. A false
+UnitZeroValid claim inside the whole4096-declaration composition genuinely
+rejects with a core type mismatch in both kernels. All three complete streams,
+actual raw outputs, sources and original identities are retained; zero axioms
+bind complete Rust report/checked empty hash, without a Go missing-field default.
+
+The selected explicit probe root passes in17.51s; strict Clippy, changed-file
+format and its born-ignored listing pass. All probe handles are terminal.
+Requirements R01/R07 record only diagnostic capacity/identity evidence, preserving
+all seven original requirements, archive checkpoints and R06 pending. No public
+or production assembler/registry/context is installed. Full original inventory
+and complete compiler-derived operation/VC root closure remain separate; caller
+roots, omitted obligations or unchecked imports cannot solve capacity. Full56
+families/six common members, source/nominal/type/storage/lifetime/state/program
+bindings, retained policies and authoritative original package/export/application
+replay remain due. All169 demands/T02-T11 remain open; W01 stays In progress.
+The expanded Go observer is terminal; only the main wrapper it captured is
+consolidated into three passing roots, preserving every old source/raw byte.
+The shared Go observer captures no edited main wrapper and its sources remain
+unchanged. All52 main boundary inputs reuse exact complete prior Go executions.
+All65 shared Go inputs now pass and the final product receipt binds every
+current source/result after all actual handles terminate. Preliminary review
+retains its3083-file/13-exact-stdout-EOF observation epoch. Final review covers
+the final tree with unchanged127 rules/four scopes/39 seals and14 exact original
+libtest stdout EOF observations; no source/JSON/directory/blanket exclusion is
+added. Staged/committed-blob audits bind reviewed SHA256/length to actual Git
+objects. C# tests stay skipped and the cumulative T02 gate stays W04.

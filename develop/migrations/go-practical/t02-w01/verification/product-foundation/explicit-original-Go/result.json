@@ -1,0 +1,127 @@
+{
+  "status": "full_original_observation_preserved",
+  "certificate": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/product-foundation/explicit-function-types/construction/certificates/product-foundation.mpcert",
+    "sha256": "082fb8eeba6cb22fa208a3670a009f33e23952eee7f64d5184e1169d55677870",
+    "bytes": 11540
+  },
+  "rust_report": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/product-foundation/explicit-function-types/construction/certificates/product-foundation.rust.json",
+    "sha256": "1ed3c9b277c8d82b083985a2dfa9cf7b3185bcb6ad12040cc9934e9832b2ad8c",
+    "bytes": 625
+  },
+  "go_binary": {
+    "path": "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+    "sha256": "33018244ca886f867256330d050077f7630c503529e3dc14ac3365f333c618a6",
+    "bytes": 3239410
+  },
+  "go_production_sources": [
+    {
+      "path": "go-tools/mpk-checker-ref/axiom_report.go",
+      "sha256": "c4b90708cee28a9198de51b44882e4c6fb1b012331378ab82a1c2f9537472d57",
+      "bytes": 23259
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/bool_cases.go",
+      "sha256": "99112f01a5a83465e7d28e47a8995fcba41dd3f3c99d6cbd423bd3e4bd709432",
+      "bytes": 5272
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/bool_rec_type.go",
+      "sha256": "d5d3e93ab336e8686092547579f0d76640d280a6b347691890e6b63aeec13a0e",
+      "bytes": 4986
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/cmd/mpk-checker-ref/main.go",
+      "sha256": "33961ea1b42b933405f3d18a05a13d9a08551879a92d699c75f674a1d7a056e0",
+      "bytes": 2893
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/core_check.go",
+      "sha256": "1fe9acc0f8277c1290dd24ff4af0cde526e9e0e283026192af4c0bd671331a0a",
+      "bytes": 32802
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/decoder.go",
+      "sha256": "636a3cefeebe2b8cdaf2191992f5ab08edb293aa019e366d33e7590a6e0e2a02",
+      "bytes": 38400
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/defeq.go",
+      "sha256": "a951f73a15315ed34c38829dfab819d34aa947b8050e3b097adb81bf37f65e0c",
+      "bytes": 10399
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/doc.go",
+      "sha256": "952a3da781b751eb063b2f4d859568453896d76ee8ab2122209720879c150b75",
+      "bytes": 112
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/hash.go",
+      "sha256": "9412b1bbabe87879061f142774bc8cbe7dd6210340855b445279bd7d1ba43c41",
+      "bytes": 7917
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/nat_induct.go",
+      "sha256": "72b3fff34b37f57dde648735a4ba1f6191f11253394f71cd30566a23e578e8bb",
+      "bytes": 5751
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/proof_check.go",
+      "sha256": "71f1b8648941e68c1bc67ae4cf640e35a31df20584b1f818f697fb5afc86e996",
+      "bytes": 17766
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/verify.go",
+      "sha256": "79d70ede0ea7453667009d4575265f8fdc2860e35026065bb4ae5d374faa1b5e",
+      "bytes": 10238
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/go.mod",
+      "sha256": "1dcc4212afe08523613abb23420df58c1bea4507db876e3ceac1e758a1b76250",
+      "bytes": 72
+    }
+  ],
+  "prior_build_evidence": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/core-interfaces/paired/result.json",
+    "sha256": "88ee756b4d9f6a61a1f61670baf626be23c6947d532a25fe3a0a65fa9b0a159a",
+    "bytes": 45747
+  },
+  "command": [
+    "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+    "verify",
+    "develop/migrations/go-practical/t02-w01/verification/product-foundation/explicit-function-types/construction/certificates/product-foundation.mpcert"
+  ],
+  "exit_code": 1,
+  "seconds": 0.011725667049176991,
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/product-foundation/explicit-original-Go/stdout.log",
+    "sha256": "32da91a77139bd8112b8adcbc1e32cca28878c9d29774694e7bb6aa50c4c7051",
+    "bytes": 123
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/product-foundation/explicit-original-Go/stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "rust_observation": {
+    "verdict": "rejected",
+    "module": null,
+    "declaration_count": null,
+    "axiom_count": null,
+    "hashes": {
+      "export": null,
+      "axiom_report": null,
+      "certificate": "b91a0bcd2603acff7b055a53e907337edc957141c04cba4e52563ebab95b8132"
+    },
+    "axiom_report": null,
+    "error_code": "KERNEL_CORE_CHECK",
+    "error_detail": "{\"code\":\"CORE_NOT_A_FUNCTION\",\"location\":[{\"field\":\"infer\"},{\"field\":\"app\"},{\"index\":4}],\"details\":{\"actual\":\"app\",\"argument_index\":\"4\",\"argument_term_index\":\"7\",\"function_term_index\":\"717\",\"function_type_index\":\"657\",\"kind\":\"app_function_type_not_pi\",\"term_index\":\"1119\",\"whnf_type_index\":\"657\"}}"
+  },
+  "go_observation": {
+    "verdict": "rejected",
+    "error_kind": "core_check",
+    "error_detail": "application 1119 argument 4 has non-pi function type app"
+  },
+  "scope": "Actual complete original candidate in both unchanged cores, not a semantic counterexample or prefix acceptance. Original recipe relied on delta unfolding during neutral function-type inference; repair must stay in ordinary emitted types without kernel/fuel changes."
+}

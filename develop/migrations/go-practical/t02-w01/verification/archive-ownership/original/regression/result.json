@@ -1,0 +1,396 @@
+{
+  "status": "failed",
+  "command": [
+    "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/go",
+    "test",
+    "-mod=vendor",
+    "-run",
+    "^TestPracticalArchiveReturnedValuesCannotMutateSessionCache$",
+    "-count=1",
+    "-json",
+    "."
+  ],
+  "cwd": "go-tools/go2vir",
+  "environment": {
+    "GOROOT": "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go",
+    "GOTOOLCHAIN": "local",
+    "GOENV": "off",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "GOVCS": "*:off",
+    "GOTELEMETRY": "off",
+    "GOWORK": "off",
+    "CGO_ENABLED": "0",
+    "GOMAXPROCS": "1",
+    "GOFLAGS": "-buildvcs=false",
+    "GOCACHE": "/private/tmp/mpk-go-practical-t02-build-cache",
+    "GOPATH": "/private/tmp/mpk-go-practical-t02-gopath",
+    "GOMODCACHE": "/private/tmp/mpk-go-practical-t02-go-mod"
+  },
+  "compiler_version": "go version go1.25.0 darwin/arm64",
+  "compiler": {
+    "path": "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/go",
+    "sha256": "c812de5f1e8307431c5bce8ebc4887c180827abc5834a72cd640a8a14200a93b",
+    "bytes": 14117888
+  },
+  "sources": [
+    {
+      "path": "go-tools/go2vir/active_corpus_test.go",
+      "sha256": "fdd64563b0103dcf833816455b181daf3df270e5d50446fee6860c4362b46369",
+      "bytes": 19494
+    },
+    {
+      "path": "go-tools/go2vir/bundle_candidate_test.go",
+      "sha256": "ca92ebb2c1b153c750db5f80724f2aa04bc60758508d77c5a6f5c72514548e41",
+      "bytes": 12027
+    },
+    {
+      "path": "go-tools/go2vir/bundle_selection.go",
+      "sha256": "b174bacc9a3ee1b3793a48f801b794044b3eafb886dcb7da208666108f34962f",
+      "bytes": 22651
+    },
+    {
+      "path": "go-tools/go2vir/canonical_json.go",
+      "sha256": "0b266e9187e97e8a3275978099cafb3cc16edf12c1094d8ef533909bbf22f16b",
+      "bytes": 10460
+    },
+    {
+      "path": "go-tools/go2vir/contract.go",
+      "sha256": "51316ed3fecbf200f569567f46fd9065c912a41d03299b96021e44c2418c9bda",
+      "bytes": 30100
+    },
+    {
+      "path": "go-tools/go2vir/corpus_test.go",
+      "sha256": "08007ed264fcc6da716241e72d7fb26bb53918aed84b13cfd1a66f17d6711f87",
+      "bytes": 16972
+    },
+    {
+      "path": "go-tools/go2vir/emit.go",
+      "sha256": "8e9457ca250c53bbe01de30644dc9085946e807df75737fef5933a3de42916ec",
+      "bytes": 10285
+    },
+    {
+      "path": "go-tools/go2vir/features.go",
+      "sha256": "050c9e7f59d429aeceb82a8fdbbac7a2ef2d78bad4e6759e237ab60508eb69fc",
+      "bytes": 18090
+    },
+    {
+      "path": "go-tools/go2vir/hash.go",
+      "sha256": "180957d685df429f8c458e503d7e3a3ce4235458dc65daeaa53e4c2e4549d7d8",
+      "bytes": 1258
+    },
+    {
+      "path": "go-tools/go2vir/loader.go",
+      "sha256": "6034f01b6e9b2e46adfc131299f21a8b38bbc1415a93de0de91db39eb2f296eb",
+      "bytes": 11318
+    },
+    {
+      "path": "go-tools/go2vir/loader_test.go",
+      "sha256": "294211d2b4a7b716b5cd9034c54c172123ff79cadc1e5afde4d71a8226d7e30d",
+      "bytes": 6649
+    },
+    {
+      "path": "go-tools/go2vir/lower.go",
+      "sha256": "82b8eaad794af22071073a223a7f24cb3bae7ba8143a487f1a9fa794db140052",
+      "bytes": 50967
+    },
+    {
+      "path": "go-tools/go2vir/lower_types.go",
+      "sha256": "40378faf14b85bd585b0425b333d1e0b4b66738912e2fbb7a0f3479ce90c33f1",
+      "bytes": 5075
+    },
+    {
+      "path": "go-tools/go2vir/main.go",
+      "sha256": "353468be619893d2235442d8fc686b03c4ab0e15751fc73e94f5777932d50911",
+      "bytes": 14048
+    },
+    {
+      "path": "go-tools/go2vir/main_test.go",
+      "sha256": "ec42bf8fea669fff426d89f8e18411a4cfeae6aa8933ccfb702ae41288e73aa5",
+      "bytes": 37853
+    },
+    {
+      "path": "go-tools/go2vir/manifest.go",
+      "sha256": "37c20f41cb3a11b90f5dadba2aaca5e694f4ddb1d058b7d7bfde985e039a6176",
+      "bytes": 9152
+    },
+    {
+      "path": "go-tools/go2vir/manifest_test.go",
+      "sha256": "cb75b2617a003777d68581bdde73cbc54d998bbb037fa57e96bec88f4fd4031b",
+      "bytes": 4684
+    },
+    {
+      "path": "go-tools/go2vir/practical_analysis.go",
+      "sha256": "7681d113cfff36a5d97a8ccc76d2eab5632b764232ae516c778495946f55ef24",
+      "bytes": 13455
+    },
+    {
+      "path": "go-tools/go2vir/practical_analysis_capture_test.go",
+      "sha256": "999f73212ce5478b2d998211b85da8be3fa07a9096ae064f2417ee1bed20f727",
+      "bytes": 10948
+    },
+    {
+      "path": "go-tools/go2vir/practical_analysis_test.go",
+      "sha256": "e2db8c23e7f7f0786c67326cd17a88c4a60c8f971618f7c5031f74a36e54f3ca",
+      "bytes": 7294
+    },
+    {
+      "path": "go-tools/go2vir/practical_archive.go",
+      "sha256": "ad995d22331b7ef003c7f7a5d38d6531f32157f0f73b525330b317e81b41534b",
+      "bytes": 10335
+    },
+    {
+      "path": "go-tools/go2vir/practical_archive_capture_test.go",
+      "sha256": "a082111f9fdb66ef54b1f4f0847580a106aea6e31eca6bbbb8da2b46698b5dce",
+      "bytes": 9691
+    },
+    {
+      "path": "go-tools/go2vir/practical_archive_fold.go",
+      "sha256": "5791982a8213e654c8e653f6ffc1da7b9eb1900ad207826eb025e66b7aa1439e",
+      "bytes": 1072
+    },
+    {
+      "path": "go-tools/go2vir/practical_archive_ownership_test.go",
+      "sha256": "5490eccf362c86008253930cc210315900be005293e1117c58df9bac080d772e",
+      "bytes": 3321
+    },
+    {
+      "path": "go-tools/go2vir/practical_archive_test.go",
+      "sha256": "1a659f37f4f5523569e4608e8c7799028117b006f403cfbab7954a7912488d3a",
+      "bytes": 12048
+    },
+    {
+      "path": "go-tools/go2vir/practical_capture.go",
+      "sha256": "a4452eb5531809c63bd85766f2168168934b4b164f5832db876b183c5b090ac0",
+      "bytes": 14606
+    },
+    {
+      "path": "go-tools/go2vir/practical_capture_test.go",
+      "sha256": "56c4da448eebebde85e6c9e541a4041ad016d0da8f6306b74d28bea95367e227",
+      "bytes": 15313
+    },
+    {
+      "path": "go-tools/go2vir/practical_compiler.go",
+      "sha256": "751aa7f5bd191c59e270aa657879113336b5061102f350092d14a53ac409440e",
+      "bytes": 9991
+    },
+    {
+      "path": "go-tools/go2vir/practical_compiler_capture_test.go",
+      "sha256": "ce8793cfc3979241dcab18e529437e54ccd89497f39d2c6e3d4c006586fe2ef2",
+      "bytes": 11094
+    },
+    {
+      "path": "go-tools/go2vir/practical_compiler_test.go",
+      "sha256": "b44ac68aa7bee310740f83a34874e70345cf7f99fb95a8fc735eb4cccb255b18",
+      "bytes": 2624
+    },
+    {
+      "path": "go-tools/go2vir/practical_module.go",
+      "sha256": "6a6e59cf3bedbd4f9b44bb751171b85c2d486a7d7b9e6d17d0a3ab2e0416ed8b",
+      "bytes": 5531
+    },
+    {
+      "path": "go-tools/go2vir/practical_module_capture.go",
+      "sha256": "ce5c2310977d3911e69c4d72779493c6c03968012c2ebe0e512be406c96426c2",
+      "bytes": 4150
+    },
+    {
+      "path": "go-tools/go2vir/practical_module_capture_test.go",
+      "sha256": "1575a63ae86c81abed2aeb0befcc354338df95c4874dec93585d4fe5e5b6c085",
+      "bytes": 9599
+    },
+    {
+      "path": "go-tools/go2vir/practical_module_snapshot.go",
+      "sha256": "84b42b360ade8de47379d8623315c93d0e88462078f845e493f0774481872372",
+      "bytes": 4143
+    },
+    {
+      "path": "go-tools/go2vir/practical_module_snapshot_capture_test.go",
+      "sha256": "3ee4ed013d253944e25a3c2e62158c14ab17d427730fc0fbedafa9777414a7bb",
+      "bytes": 8027
+    },
+    {
+      "path": "go-tools/go2vir/practical_module_snapshot_test.go",
+      "sha256": "2bbe78c3752a8aba2ef4da3bdffcd7445ef1e03e7e05ebd657aab954474cd1fc",
+      "bytes": 1604
+    },
+    {
+      "path": "go-tools/go2vir/practical_module_test.go",
+      "sha256": "3dea953e0d21d89d43c6a89b09f31be64ee172a91780d85cfa0f828b81b8894b",
+      "bytes": 7225
+    },
+    {
+      "path": "go-tools/go2vir/practical_resolution.go",
+      "sha256": "26b155ff75346f76a7bf0c466ac368db29688090549b8ce54f6138ac05038e9b",
+      "bytes": 14125
+    },
+    {
+      "path": "go-tools/go2vir/practical_resolution_capture_test.go",
+      "sha256": "ec40f233424e34206fa86908431a64702cb2b6b8691031687e21296371dd9be4",
+      "bytes": 12487
+    },
+    {
+      "path": "go-tools/go2vir/practical_resolution_test.go",
+      "sha256": "3452a3afce4a26c02775462a8858d1a0110a77d162a82e38b37e8aaf1b923cdd",
+      "bytes": 2673
+    },
+    {
+      "path": "go-tools/go2vir/practical_root_go125.go",
+      "sha256": "0df55c7d98a83359e5a3b662bd28348c9f970a653a248bfc5dfdb1c8d216bc16",
+      "bytes": 519
+    },
+    {
+      "path": "go-tools/go2vir/practical_root_unavailable.go",
+      "sha256": "3dc114afa98fcb7cf17dad7cc66b8fbb282bc5b87d201d534c9c44ceb74eaed9",
+      "bytes": 247
+    },
+    {
+      "path": "go-tools/go2vir/practical_root_unavailable_test.go",
+      "sha256": "5e3b451ac8b686110a6eefaa21cb97b9d9da53866beee63e35c6d4884ad497c1",
+      "bytes": 300
+    },
+    {
+      "path": "go-tools/go2vir/practical_snapshot.go",
+      "sha256": "7efb262dd5c22e504f131a42aa5a7ff12cf90f18a8c0b583ca26be819ba06fc3",
+      "bytes": 9173
+    },
+    {
+      "path": "go-tools/go2vir/practical_snapshot_test.go",
+      "sha256": "09967a5aba8648123f84c00e1ff517097ed68949d05cd8f25504ba0668716682",
+      "bytes": 18104
+    },
+    {
+      "path": "go-tools/go2vir/practical_source.go",
+      "sha256": "25d90659622e069862524c3c8b997d505e811de51e38aa76124503ca47952360",
+      "bytes": 5269
+    },
+    {
+      "path": "go-tools/go2vir/practical_source_test.go",
+      "sha256": "995a30a9343858bfc6c7dbcfd08875a504b389eaa52f4b011d6aa27663d88548",
+      "bytes": 8809
+    },
+    {
+      "path": "go-tools/go2vir/preflight.go",
+      "sha256": "8faf415d2954ac1821dd3c8f7bbf6d58e48ce9a5bbf56fd8d46d91651120d711",
+      "bytes": 27204
+    },
+    {
+      "path": "go-tools/go2vir/preflight_test.go",
+      "sha256": "adfa1f4844a44d66190ff8b4e7a4e5015add7f9ece73bd1d2f5cbd6547f0e100",
+      "bytes": 12140
+    },
+    {
+      "path": "go-tools/go2vir/profile_v0_test.go",
+      "sha256": "72205ffe1b8ed8fa42982fc61284cb56c9c94e1723ee7e80104ca65d346e067c",
+      "bytes": 3294
+    },
+    {
+      "path": "go-tools/go2vir/profile_v0_vectors_test.go",
+      "sha256": "c0960b21d6eb8ff4864fa7f4632222c54b67d331a26ecc1c6c811d63d7940c64",
+      "bytes": 2115
+    },
+    {
+      "path": "go-tools/go2vir/protocol.go",
+      "sha256": "11a2088602b48cb339dbff6c1647387df92e0d2308174c56eb2d40bbf088883f",
+      "bytes": 9548
+    },
+    {
+      "path": "go-tools/go2vir/registered_selection.go",
+      "sha256": "d232c2c1640447dfece6c372d412d15ff260cae2149979f624a7044759955777",
+      "bytes": 6315
+    },
+    {
+      "path": "go-tools/go2vir/secure_open_unix.go",
+      "sha256": "f53a822b58eae96837789f1d193665f34127ab0b74b842415e4112dc64055369",
+      "bytes": 310
+    },
+    {
+      "path": "go-tools/go2vir/secure_open_windows.go",
+      "sha256": "fb2c78196c792dc3d4f6d40731e1e3d8edd7237a982125444591724fcb7754d3",
+      "bytes": 579
+    },
+    {
+      "path": "go-tools/go2vir/snapshot.go",
+      "sha256": "b67ac51476f2d28b37a75fa3cd800c78c0745cdbf2cb9dd16f659be436d9e3ab",
+      "bytes": 5346
+    },
+    {
+      "path": "go-tools/go2vir/snapshot_test.go",
+      "sha256": "23aee6661119cfef77d8426c9d8d69d5b3dfb0cfe6e9ec6bb530193b37657547",
+      "bytes": 2613
+    },
+    {
+      "path": "go-tools/go2vir/source_map.go",
+      "sha256": "393d0d1d7b17f7ceb27b8003fc4aefc85bdd35844621b9a34a974cdb0fdef3f3",
+      "bytes": 5166
+    },
+    {
+      "path": "go-tools/go2vir/ssa.go",
+      "sha256": "871a444533e536a62aadb828b4c407a58cbd48b595617a17f94075934cb4384e",
+      "bytes": 1183
+    },
+    {
+      "path": "go-tools/go2vir/successor_migration_test.go",
+      "sha256": "77b22bf193270f3fb639ce299479f8cb113c978d15145e1291c0683f1e69c213",
+      "bytes": 21694
+    },
+    {
+      "path": "go-tools/go2vir/vir_limits.go",
+      "sha256": "35c56519d657de24f9c32555b5048e68411fe4d37e5f3875c5a540ff8d6a980a",
+      "bytes": 8636
+    },
+    {
+      "path": "go-tools/go2vir/vir_types.go",
+      "sha256": "51023734e8eba6bb65aa1bc7759feadbc8c171ce8d66db313c8eaa65f4121088",
+      "bytes": 16722
+    },
+    {
+      "path": "go-tools/go2vir/go.mod",
+      "sha256": "b90bfc21fd7a30139ab5852b895e0e1fcb7f8442d01ca4e2463c2ad1cfd15af3",
+      "bytes": 179
+    },
+    {
+      "path": "go-tools/go2vir/go.sum",
+      "sha256": "3b423539c29460b977ec958cd53a84c813d2c15a3d2cdfb841f07f3ef7a6104c",
+      "bytes": 632
+    },
+    {
+      "path": "go-tools/go2vir/vendor/modules.txt",
+      "sha256": "7acbaa5ff9b089a9665dae3dc009d872df913a55db4391bf1280243ddb60a99c",
+      "bytes": 1152
+    }
+  ],
+  "source_snapshot": "develop/migrations/go-practical/t02-w01/verification/archive-ownership/original/inputs",
+  "runner": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/archive-ownership/run-selected.py",
+    "sha256": "c5409db073ad94c10beeec655614cb5acd9b7acaa1a1e37b29485ec4eb19d00f",
+    "bytes": 6441
+  },
+  "selection_reason": "Reproduce actual private archive-cache ownership: first and cached returned member maps/raw ZIP bytes must not mutate the session's checksum-verified original cache or raw buffers; changed content must keep rejecting, original namespace/budgets/seal stay exact. Source edits are independent of the ongoing ordinary Rust product matrices and do not touch their captured Rust or Go checker inputs. Later affected archive/versioned-resolution/analysis-frontend consumers require selected checks. No CSharp/agents/Actions or intermediate full gate.",
+  "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh --skip-csharp",
+  "T02_W01_complete": false,
+  "started_at_utc": "2026-10-20T03:03:03.373274+00:00",
+  "exit_code": 1,
+  "wall_seconds": 3.9826220830436796,
+  "finished_at_utc": "2026-10-20T03:03:07.357729+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/archive-ownership/original/regression/stdout.log",
+    "sha256": "ae7dd5ebf91eb8bfb03e5c854220bd4c6b817681592b789878ace64eae041492",
+    "bytes": 7012
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/archive-ownership/original/regression/stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "sources_unchanged_during_execution": true,
+  "root_tests_passed": [],
+  "subtests_passed": [],
+  "tests_failed": [
+    "TestPracticalArchiveReturnedValuesCannotMutateSessionCache/first/member-map",
+    "TestPracticalArchiveReturnedValuesCannotMutateSessionCache/first/raw-bytes",
+    "TestPracticalArchiveReturnedValuesCannotMutateSessionCache/cached/member-map",
+    "TestPracticalArchiveReturnedValuesCannotMutateSessionCache/cached/raw-bytes",
+    "TestPracticalArchiveReturnedValuesCannotMutateSessionCache"
+  ]
+}

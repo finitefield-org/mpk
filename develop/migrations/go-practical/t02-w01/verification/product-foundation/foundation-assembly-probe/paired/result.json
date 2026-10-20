@@ -1,0 +1,278 @@
+{
+  "status": "passed",
+  "started_at_utc": "2026-10-20T04:14:39.536446+00:00",
+  "runner": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/product-foundation/foundation-assembly-probe/run-paired.py",
+    "sha256": "b811ef841cceddb63c1a26991c68288d82dcceac7a2d475d3b98ee1ba8d9cbc8",
+    "bytes": 4521
+  },
+  "actual_terminal_Rust_execution": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/product-foundation/foundation-assembly-probe/initial/tests/result.json",
+    "sha256": "57c635197bc9b6be8e5f3d53b80eac9ab98883cc5222f13f7a2a63fd20f8d7ae",
+    "bytes": 22930
+  },
+  "go_binary": {
+    "path": "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+    "sha256": "33018244ca886f867256330d050077f7630c503529e3dc14ac3365f333c618a6",
+    "bytes": 3239410
+  },
+  "go_production_sources": [
+    {
+      "path": "go-tools/mpk-checker-ref/axiom_report.go",
+      "sha256": "c4b90708cee28a9198de51b44882e4c6fb1b012331378ab82a1c2f9537472d57",
+      "bytes": 23259
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/bool_cases.go",
+      "sha256": "99112f01a5a83465e7d28e47a8995fcba41dd3f3c99d6cbd423bd3e4bd709432",
+      "bytes": 5272
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/bool_rec_type.go",
+      "sha256": "d5d3e93ab336e8686092547579f0d76640d280a6b347691890e6b63aeec13a0e",
+      "bytes": 4986
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/cmd/mpk-checker-ref/main.go",
+      "sha256": "33961ea1b42b933405f3d18a05a13d9a08551879a92d699c75f674a1d7a056e0",
+      "bytes": 2893
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/core_check.go",
+      "sha256": "1fe9acc0f8277c1290dd24ff4af0cde526e9e0e283026192af4c0bd671331a0a",
+      "bytes": 32802
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/decoder.go",
+      "sha256": "636a3cefeebe2b8cdaf2191992f5ab08edb293aa019e366d33e7590a6e0e2a02",
+      "bytes": 38400
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/defeq.go",
+      "sha256": "a951f73a15315ed34c38829dfab819d34aa947b8050e3b097adb81bf37f65e0c",
+      "bytes": 10399
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/doc.go",
+      "sha256": "952a3da781b751eb063b2f4d859568453896d76ee8ab2122209720879c150b75",
+      "bytes": 112
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/hash.go",
+      "sha256": "9412b1bbabe87879061f142774bc8cbe7dd6210340855b445279bd7d1ba43c41",
+      "bytes": 7917
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/nat_induct.go",
+      "sha256": "72b3fff34b37f57dde648735a4ba1f6191f11253394f71cd30566a23e578e8bb",
+      "bytes": 5751
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/proof_check.go",
+      "sha256": "71f1b8648941e68c1bc67ae4cf640e35a31df20584b1f818f697fb5afc86e996",
+      "bytes": 17766
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/verify.go",
+      "sha256": "79d70ede0ea7453667009d4575265f8fdc2860e35026065bb4ae5d374faa1b5e",
+      "bytes": 10238
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/go.mod",
+      "sha256": "1dcc4212afe08523613abb23420df58c1bea4507db876e3ceac1e758a1b76250",
+      "bytes": 72
+    }
+  ],
+  "prior_actual_binary_build_evidence": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/core-interfaces/paired/result.json",
+    "sha256": "88ee756b4d9f6a61a1f61670baf626be23c6947d532a25fe3a0a65fa9b0a159a",
+    "bytes": 45747
+  },
+  "cases": [
+    {
+      "name": "full-shift-product",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/product-foundation/foundation-assembly-probe/initial/tests/certificates/full-shift-product.mpcert",
+        "sha256": "8598ba78c8219da70559f07a96188b07468911aeb121f3c41b109ad451a770eb",
+        "bytes": 1428859
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/product-foundation/foundation-assembly-probe/initial/tests/certificates/full-shift-product.rust.json",
+        "sha256": "d8ce4a39c92c462146f5147da7a8e7856ac5165e4fe4f1d5d6cf45da8bd996d2",
+        "bytes": 610
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/product-foundation/foundation-assembly-probe/initial/tests/certificates/full-shift-product.mpcert"
+      ],
+      "exit_code": 0,
+      "seconds": 10.47878837492317,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/product-foundation/foundation-assembly-probe/paired/full-shift-product.stdout.log",
+        "sha256": "08113a9bc49b7ac34c563f13faf2e9727062f3a4f78abefb8a4e67ff75ed4591",
+        "bytes": 356
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/product-foundation/foundation-assembly-probe/paired/full-shift-product.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.FullShiftProductAssemblyProbe",
+        "declaration_count": 4096,
+        "axiom_count": 0,
+        "hashes": {
+          "export": "900f86f23b0833e330a6baeeb38d11cb9a31ff8055f1d73df495927729e03fdb",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "66384b7584b3f4a84cf621a34d2d7efc22abd7027e00707d71f52cdd168a83d2"
+        },
+        "axiom_report": {
+          "summary": {
+            "core_axiom_count": 0,
+            "builtin_theory_axiom_count": 0,
+            "go_semantics_axiom_count": 0,
+            "external_axiom_count": 0,
+            "total_axiom_count": 0
+          },
+          "entries": [],
+          "declaration_dependencies": []
+        },
+        "error_code": null,
+        "error_detail": null
+      },
+      "go_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.FullShiftProductAssemblyProbe",
+        "declaration_count": 4096,
+        "hashes": {
+          "export": "900f86f23b0833e330a6baeeb38d11cb9a31ff8055f1d73df495927729e03fdb",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "66384b7584b3f4a84cf621a34d2d7efc22abd7027e00707d71f52cdd168a83d2"
+        }
+      },
+      "entire_original_bytes_sealed_before_and_after_actual_Go_execution": true
+    },
+    {
+      "name": "valid-named-proof-variant",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/product-foundation/foundation-assembly-probe/initial/tests/certificates/valid-named-proof-variant.mpcert",
+        "sha256": "1e60fee4b0a13ef379771a7440211abead1467759a04f91d47ba51b3883245bb",
+        "bytes": 11797
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/product-foundation/foundation-assembly-probe/initial/tests/certificates/valid-named-proof-variant.rust.json",
+        "sha256": "2cf8bc18038df108be3ec4e44e4a420ea815243101ca4a93dccdf44da0b9f4ac",
+        "bytes": 596
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/product-foundation/foundation-assembly-probe/initial/tests/certificates/valid-named-proof-variant.mpcert"
+      ],
+      "exit_code": 0,
+      "seconds": 0.014383959001861513,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/product-foundation/foundation-assembly-probe/paired/valid-named-proof-variant.stdout.log",
+        "sha256": "cd65f3249568eb042a3877636dec5f9b180b3efee17120d12d3b2595643658b3",
+        "bytes": 342
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/product-foundation/foundation-assembly-probe/paired/valid-named-proof-variant.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.ProductFoundation",
+        "declaration_count": 78,
+        "axiom_count": 0,
+        "hashes": {
+          "export": "205e71dbddc031eff70b71ea828dcf42c297bf90080d4f7b828fed6aff4cf32b",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "9238b654160ccf6073671b0648d09d1b172a2a332fa8938a5a20731f113b58d2"
+        },
+        "axiom_report": {
+          "summary": {
+            "core_axiom_count": 0,
+            "builtin_theory_axiom_count": 0,
+            "go_semantics_axiom_count": 0,
+            "external_axiom_count": 0,
+            "total_axiom_count": 0
+          },
+          "entries": [],
+          "declaration_dependencies": []
+        },
+        "error_code": null,
+        "error_detail": null
+      },
+      "go_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.ProductFoundation",
+        "declaration_count": 78,
+        "hashes": {
+          "export": "205e71dbddc031eff70b71ea828dcf42c297bf90080d4f7b828fed6aff4cf32b",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "9238b654160ccf6073671b0648d09d1b172a2a332fa8938a5a20731f113b58d2"
+        }
+      },
+      "entire_original_bytes_sealed_before_and_after_actual_Go_execution": true
+    },
+    {
+      "name": "false-unit-in-full-assembly",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/product-foundation/foundation-assembly-probe/initial/tests/certificates/false-unit-in-full-assembly.mpcert",
+        "sha256": "1558839c69031387d85c3aca6782f76fc0d388f484e10587eab6c35048969ba5",
+        "bytes": 1428885
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/product-foundation/foundation-assembly-probe/initial/tests/certificates/false-unit-in-full-assembly.rust.json",
+        "sha256": "6b291bc51a87468dd1cb5b1546566ecdc051d03ca97486036dd626844e1baf26",
+        "bytes": 534
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/product-foundation/foundation-assembly-probe/initial/tests/certificates/false-unit-in-full-assembly.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 5.253131334087811,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/product-foundation/foundation-assembly-probe/paired/false-unit-in-full-assembly.stdout.log",
+        "sha256": "a6901adbbba3ce8bfb7e33893e601ffdbc5e489d67e64bc2a9edc6a96038b760",
+        "bytes": 105
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/product-foundation/foundation-assembly-probe/paired/false-unit-in-full-assembly.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "a10b49fd0a9fdbba4c9ad64021c5324d2902b5f3dfe673fbc8bd02f9e1b6b0ce"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"612\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"468\",\"kind\":\"check_type_mismatch\",\"term_index\":\"407\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 407 inferred app but expected app"
+      },
+      "entire_original_bytes_sealed_before_and_after_actual_Go_execution": true
+    }
+  ],
+  "scope": "Complete4096-declaration full64 shift+product composition, genuine alternate same-name theorem proof and one false full-assembly Unit claim. Full original bytes and raw output in both cores; exact empty axiom-report hash binds zero axioms without a default for Go absent axiom_count. All original type/body/proof/level/family metadata retained; no new core/import/axiom/fuel/cap rule or complete56/source/private-context/program/application authority.",
+  "same_byte_streams": 3,
+  "zero_axiom_positives": 2,
+  "genuine_core_type_mismatches": 1,
+  "finished_at_utc": "2026-10-20T04:14:55.299341+00:00"
+}
