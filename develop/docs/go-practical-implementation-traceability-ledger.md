@@ -6497,3 +6497,50 @@ R06/W01 stay pending; no practical Go profile or source/program/application
 proof activates. Kernel/Go caps are unchanged. The cumulative T02 gate remains
 W04: ./scripts/check-fast.sh, with no language-specific skip mode. The new
 native Go/Rust release gate requires its own actual native Linux acceptance.
+
+## 115. T02-W01 owned original package universe
+
+Entry is `ed67a4c388defe8babdbc55f29851552562121d9`. The
+[checkpoint](../migrations/go-practical/t02-w01/verification/original-packages/README.md)
+adds a single private image consumer for original module resolution, separate
+source/export snapshots, complete original source typing and actual compiler
+archive/command correspondence. No caller typed-package/source/import adapter
+is accepted. Source/metadata returns own their buffers; original preparation
+and image retirement cannot change them. Failed source transactions stop later
+inventory access; close retires the owner's access. These are compiler/data
+facts and confer no registered context, kernel execution or source/program proof.
+
+Eight affected roots/thirty-five subtests pass, including fifteen new ownership/
+membership cases, eleven retained public-boundary cases and nine original
+build-input rejection cases. The capture consumer owns all185 current build
+inputs (49 frontend/133 vendor files plus metadata), including the new source.
+Two native-host empty-cache builds from those captured originals agree at
+8592898 bytes/SHA256
+7d5967e7d552398f5c7d4b71401b39ccb4330ee256a2eabbaf907e81d89182f8.
+These native-host development bytes have no installed frontend identity. The
+changed original application fixture retains four module bindings,181 whole
+source-typed packages,1472495 syntax nodes,5674 original source/export objects,
+5771 materialized files and7411 namespace nodes after original root/donor buffer
+retirement. Unused channel/map/unsafe/callback bodies and a panic initializer
+remain whole; the initializer does not execute. Current vet/changed-file format
+and Go1.23 compile/link with zero tests pass. Source inputs remain unchanged
+during all actual executions. Unaffected core/math/protocol suites are retained
+without repeat. Every actual source-consuming handle is terminal before staging.
+
+The initial compile/setup failure retains its original source/outputs: the old
+Go1.25 SDK contains only six regular files. A separate official fixed Go1.25.0
+archive restores the toolchain, preserving that partial SDK. Its TLS setup and
+build-command preflight failures remain separate. Two fresh pinned development
+builds are byte-identical at9004394 bytes/SHA256
+0eb0fda3e43922ccb424a5a1299ba3173cadddb715c083b55d1adfc0f2c1f214.
+These bytes have no installed immutable frontend identity; no prior identity or
+native receipt is reused. Published registry/artifacts remain at their original
+epoch; release rebinding is required before installing the new binary.
+
+All original full buffers, original/failing epochs and the complete frozen255
+input members remain required. No source kind is relabeled, no scan exception
+or proof/resource limit is changed, and no other-language test or Actions runs.
+R06/W01, production kernel lifecycle/private context, complete consulted namespace/
+selected closure, full56-family/all6-member/19-theorem source/program foundation,
+compiler-derived VC roots/all169 demands/T02-T11 remain open. The cumulative T02
+gate stays at W04: `./scripts/check-fast.sh`; it is not run in this intermediate W.

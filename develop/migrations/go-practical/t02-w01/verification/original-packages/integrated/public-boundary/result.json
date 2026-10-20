@@ -1,0 +1,49 @@
+{
+  "status": "passed",
+  "command": [
+    "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+    "test",
+    "-json",
+    "-count=1",
+    "-run",
+    "^(TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads|TestGoProfileIdentityIsClosed|TestPracticalSourceDoesNotActivateInstalledProfile)$"
+  ],
+  "cwd": "go-tools/go2vir",
+  "environment": {
+    "GOROOT": "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go",
+    "GOTOOLCHAIN": "local",
+    "GOENV": "off",
+    "GOWORK": "off",
+    "GOFLAGS": "-mod=vendor",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "CGO_ENABLED": "0",
+    "GOMAXPROCS": "1",
+    "GOCACHE": "/private/tmp/mpk-go-practical-t02-go-cache",
+    "GOMODCACHE": "/private/tmp/mpk-go-practical-t02-go-mod"
+  },
+  "exit_code": 0,
+  "seconds": 2.4334024579729885,
+  "passed_tests": [
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/no_default_profile_or_target",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/wrong_command",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/wrong_profile",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/wrong_target",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/missing_profile",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/missing_target",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/reordered_singleton",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/duplicate_singleton",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/unknown_trailing_argument",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/uppercase_digest",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/nonportable_contract",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads",
+    "TestPracticalSourceDoesNotActivateInstalledProfile",
+    "TestGoProfileIdentityIsClosed"
+  ],
+  "failed_tests": [],
+  "source_inputs_unchanged": true,
+  "selection_reason": "The private production file changes final linker bytes. Check the retained public closed profile/launcher boundary and continued rejection of the inactive practical profile before source access. Release identities are not reused for development binaries; unrelated protocol/math suites stay deferred.",
+  "native_release_acceptance": false,
+  "full_T_gate": "deferred to GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "finished_at_utc": "2026-10-20T17:37:03.900178+00:00"
+}

@@ -267,10 +267,12 @@ func TestPracticalReplayPrepareWholeOriginalModuleAndCompilerImage(t *testing.T)
 			clear(buffer.data)
 		}
 	}
-	restored, err := view.restoreOriginalInputs()
+	owned, err := image.originalPackages(practicalModuleLocation{capability: roots[0].Capability}, practicalModuleLocation{capability: roots[1].Capability}, discovery, exports, roots[2].Capability)
 	if err != nil {
 		t.Fatal(err)
 	}
+	defer owned.Close()
+	restored := owned.inputs
 	sources, err := restored.snapshotForRoots(sealed.snapshot.roots)
 	if err != nil || sources.contentSHA256 != sealed.snapshot.contentSHA256 {
 		t.Fatal("restored original source snapshot differs", err)
@@ -279,22 +281,9 @@ func TestPracticalReplayPrepareWholeOriginalModuleAndCompilerImage(t *testing.T)
 	if err != nil || exportSnapshot.contentSHA256 != exports.snapshot.contentSHA256 {
 		t.Fatal("restored original export snapshot differs", err)
 	}
-	rebound, err := restored.restoreOriginalDiscovery(practicalModuleLocation{capability: roots[0].Capability}, practicalModuleLocation{capability: roots[1].Capability}, discovery)
-	if err != nil {
-		t.Fatal(err)
-	}
-	modules := rebound.modules
-	loader, err := newPracticalSourceTypesWithStandardLibrary(sources, rebound, *image.compiler, roots[2].Capability)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if _, err := loader.typecheck("example.com/app"); err != nil {
-		t.Fatal(err)
-	}
+	modules := owned.modules
+	loader := owned.loader
 	exports.snapshot = exportSnapshot
-	if err := exports.bindOriginalSourceTypes(loader, rebound, *image.compiler, roots[2].Capability); err != nil {
-		t.Fatal(err)
-	}
 	if err := view.check(); err != nil {
 		t.Fatal(err)
 	}

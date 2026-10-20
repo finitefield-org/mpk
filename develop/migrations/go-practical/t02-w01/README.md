@@ -630,3 +630,16 @@ Full56-all6-19 source/program foundation/private descriptor/registry/context/
 retained policies/all169 demands/T02-T11 remain required. R06/W01 stay open;
 no public profile/source/program proof activates. C# tests stay skipped; the
 cumulative T02 gate remains W04: ./scripts/check-fast.sh --skip-csharp.
+
+The [owned original package checkpoint](verification/original-packages/README.md)
+now combines the actual original module/source/export/image consumers. It
+reconstructs complete source types and binds controlled Go observations and
+whole original archives with independent metadata/byte ownership and lifetime.
+Eight affected roots/thirty-five subtests, vet/format and zero-test Go1.23 compilation
+pass. The existing four-module/181-package/1,472,495-node original fixture now
+uses this owner after retiring original roots and buffers. Two fresh pinned
+development builds agree; their new bytes are not registered under a previous
+immutable frontend identity. Original SDK/setup failures and full actual buffers
+remain separate. Current scope is Go/Rust only; R06/W01/full ordinary foundation/
+private context/general namespace/selected closure/all169/T02-T11 remain due.
+The current cumulative T02 gate stays W04: `./scripts/check-fast.sh`.
