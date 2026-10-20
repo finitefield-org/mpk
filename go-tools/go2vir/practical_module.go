@@ -5,6 +5,7 @@ import (
 	"encoding/base64"
 	"fmt"
 	"go/version"
+	"maps"
 	"strings"
 	"unicode/utf8"
 
@@ -26,6 +27,13 @@ type practicalModuleManifest struct {
 type practicalModuleSums struct {
 	source  practicalSourceBuffer
 	entries map[module.Version]string
+}
+
+func copyPracticalModuleSums(sums practicalModuleSums) practicalModuleSums {
+	return practicalModuleSums{
+		source:  practicalSourceBuffer{object: sums.source.object, data: sums.source.sourceBytes()},
+		entries: maps.Clone(sums.entries),
+	}
 }
 
 func practicalProofLanguage(value string) bool {

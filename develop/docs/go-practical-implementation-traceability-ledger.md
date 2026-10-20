@@ -6301,3 +6301,76 @@ roots/private descriptor/registry/context/retained policies and all169 demands/
 T02-T11 remain required. R06/W01 stay pending, C# tests stay skipped, and the
 cumulative T02 gate stays W04: ./scripts/check-fast.sh --skip-csharp. No public
 profile or source/program/application proof activates.
+
+
+## 112. T02-W01 original image consumers and shared module/checksum ownership
+
+Entry is 784d1cea5e2656be1df1b8f2bbbfd86b86378543. The
+[immutable consumer checkpoint](../migrations/go-practical/t02-w01/verification/image-consumer/README.md)
+restores every original source/export buffer through the verified rooted view,
+with full raw identities, all8 roles, independent namespace/root metadata,
+unread/not-captured distinctions and separately owned capability projections.
+Both restored source/export snapshot digests equal their complete originals.
+New data remains usable after the view and image close. Original collection and
+immutable consumers share one implementation of main/checksum ownership,
+relative/absolute/versioned replacement facts, authorized longest local roots,
+offline ZIP/info/hash metadata and actual Go observation correspondence.
+The immutable backend has no host filesystem, process, proxy or VCS callback.
+This correspondence is not independent module selection or registered context
+execution authority; those final bindings remain due.
+
+Original compiler-export cache roots are sealed with the full original archive
+bytes and composed with source inputs under the same frozen limits. The actual
+Linux producer creates a5771-file image containing5674 original source/export
+objects and all5577 compiler files. Before any consumer source typing, it
+removes all fixture-owned original application/module/SDK roots and clears the
+donor snapshots' raw buffers. The image consumer restores both snapshots,
+rebinds all4 modules, source-types all181 original packages/1472495 nodes and
+binds every181 original archive. Relative/absolute/versioned original directives,
+unused HTTP handler and panic initializer remain exact. No application body or
+initializer executes; no source/mod/signature/typed-package stub is substituted.
+
+A returned-checksum-source regression exposes shared raw evidence in both the
+new image cache and the original collector; the collector also exposes its
+parsed map. Actual failed epochs and complete original/mutated buffers remain.
+A shared deep copy now separates returned byte storage and map storage from
+private cache authority. Both fixed focused roots and subsequent ZIP/hash
+verification pass. Twelve altered native module controls reject. These are
+capture/ownership controls, not semantic source counterexamples.
+
+All59 affected Go roots/290 subtests pass in111.93s, with current vet/format and
+Go1.23 compile/link with zero tests. Four Darwin setuid/setgid controls cannot
+materialize requested flags and retain explicit backing limitations. The
+byte-identical exact mode guard retains prior6 actual Linux controls. Two fresh
+frontend builds from182 original inputs,46 frontend/133 vendor files plus
+metadata, agree on8592898 bytes and SHA256
+fcaf538353eed957519b935ae137e80eb982d4f847d0b879670e10437f50b4fa.
+Two independent fresh-cache offline readonly kernel executions reproduce all4
+native module objects/all182 package objects except derived export locator and
+all181 original archives/79406936 bytes each. They mount only owned original
+path images, hide ambient SDK and receive no original application/frontend
+source. Linux/amd64 is emulated on local Linux/aarch64; native Linux release
+acceptance remains due. The exact previous harness controls are retained
+without repetition. No CSharp tests, agents or Actions execute.
+
+Independent reconstruction verifies22668 source-object preimages across both
+full epochs,327 complete extra payloads/187 extra canonical preimages, both
+snapshot frames, full image framing/closure, all7411 original namespace nodes,
+all5577 compiler files and all255 frozen members. Initial compile/fixture/root
+and evidence-name failures retain exact sources/results. The first all-role
+runtime buffers and the second native module stdout were not exposed before
+their respective initial fixture failures; the precise limitation record
+keeps them unavailable. Later uniquely named observations never replace lost
+originals. Mutated cache bytes stay diagnostic mutations, not canonical source
+preimages. Strict127-rule/four-scope/39-seal review scans all changed stored files
+and decoded complete payloads, followed by staged/committed-blob audits. All20
+actual result drivers/10 containers are terminal before staging.
+
+Production kernel lifecycle/private context ownership and complete general
+consulted namespace/selected-closure bindings remain due. Full56-family source/
+carrier/nominal/type/operation/storage/lifetime/state/program foundation, all6
+common members/19 theorem families, compiler-derived complete operation/VC
+roots/private descriptor/registry/context/retained policies and all169 demands/
+T02-T11 remain required. R06/W01 stay pending, C# tests stay skipped, and the
+cumulative T02 gate stays W04: ./scripts/check-fast.sh --skip-csharp. No public
+profile or source/program/application proof activates.

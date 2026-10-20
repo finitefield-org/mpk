@@ -243,7 +243,7 @@ func (session *practicalCaptureSession) originalModuleSums(sums practicalModuleS
 	}
 	// The supplied parsed map is not authority. Cache a separate original-byte
 	// reconstruction once, without reparsing a large go.sum for every module.
-	return originalSums, nil
+	return copyPracticalModuleSums(originalSums), nil
 }
 
 func (session *practicalCaptureSession) captureModuleArchive(capability, relative string, identity module.Version, sums practicalModuleSums) (practicalModuleArchive, error) {

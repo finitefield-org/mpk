@@ -47,6 +47,10 @@ func validatePracticalModuleInfo(source practicalSourceBuffer, identity module.V
 }
 
 func (session *practicalCaptureSession) captureVersionedModule(downloadRoot practicalModuleLocation, identity module.Version, suppliedSums practicalModuleSums) (practicalVersionedModule, error) {
+	return capturePracticalVersionedModule(session, downloadRoot, identity, suppliedSums)
+}
+
+func capturePracticalVersionedModule(session practicalModuleInputs, downloadRoot practicalModuleLocation, identity module.Version, suppliedSums practicalModuleSums) (practicalVersionedModule, error) {
 	if module.Check(identity.Path, identity.Version) != nil || module.CanonicalVersion(identity.Version) != identity.Version ||
 		downloadRoot.directory != "" && !validPracticalLogicalPath(downloadRoot.directory) {
 		return practicalVersionedModule{}, session.reject(fmt.Errorf("invalid selected module or original download-cache location"))

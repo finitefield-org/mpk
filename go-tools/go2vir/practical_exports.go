@@ -55,6 +55,7 @@ type practicalPackageExports struct {
 	output, diagnostics []byte
 	packages            []practicalCapturedPackageExport
 	snapshot            practicalSourceSnapshot
+	replay              practicalReplaySources
 }
 
 func decodePracticalPackageExports(raw []byte) ([]practicalGoPackageExport, error) {
@@ -275,10 +276,11 @@ func (session *practicalCaptureSession) capturePracticalPackageExports(compiler 
 	if selectedCount != 1 {
 		return result, session.reject(fmt.Errorf("native export preparation did not resolve the selected package exactly once"))
 	}
-	result.snapshot, err = exports.seal()
+	result.replay, err = exports.sealPracticalReplaySources()
 	if err != nil {
 		return result, session.reject(err)
 	}
+	result.snapshot = result.replay.snapshot
 	sort.Slice(result.packages, func(i, j int) bool { return result.packages[i].importPath < result.packages[j].importPath })
 	return result, nil
 }

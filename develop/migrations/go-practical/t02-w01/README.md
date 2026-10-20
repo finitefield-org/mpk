@@ -583,3 +583,26 @@ affected roots/current vet/format pass after correction. Prior byte-identical ke
 without repetition. R06/W01/private context and complete general consulted
 namespace/selected-closure/source-program foundation/all169/T02-T11 remain due.
 C# tests stay skipped and the cumulative T02 gate stays W04.
+
+
+The [restored original image consumer checkpoint](verification/image-consumer/README.md)
+restores all5674 original source/export objects through the verified rooted
+view, preserving separate source/export snapshot digests and all original
+namespaces. Source and original compiler export caches share frozen budgets.
+The actual Linux producer removes every original fixture application/module/SDK
+root and clears donor snapshot buffers before rebinding all4 modules, typing
+all181 complete packages/1472495 nodes and binding all181 full original archives.
+Collection and immutable image consumption use the same complete module rules;
+no filesystem/process fallback supplies consumer data. Actual checksum-source
+and parsed-map cache aliases in both consumers are reproduced and fixed by
+independent returned copies. All original failures, raw inputs and precise
+initial unexposed-observation limitations remain. All59 affected roots/290
+subtests, current vet/format, Go1.23 compile-only and two182-input fresh frontend
+builds pass; four Darwin special-mode cases retain explicit backing limits.
+Two fresh readonly kernel replays reproduce every original module/package
+object except derived export locator and all181 complete79406936-byte archives.
+Independent reconstruction checks22668 source preimages/327 additional complete
+payloads, the full5771-file image/7411 original namespace nodes, both snapshot
+frames and all255 frozen members. R06/W01/private context/general consulted
+namespace/selected-closure/full56-all6-19 foundation/all169/T02-T11 remain due.
+C# tests stay skipped and the cumulative T02 gate stays W04.

@@ -123,6 +123,10 @@ func (view *practicalReplayView) ready() error {
 func (view *practicalReplayView) readCaptured(capability, relative, kind string) (practicalSourceBuffer, error) {
 	view.mutex.Lock()
 	defer view.mutex.Unlock()
+	return view.readCapturedLocked(capability, relative, kind)
+}
+
+func (view *practicalReplayView) readCapturedLocked(capability, relative, kind string) (practicalSourceBuffer, error) {
 	if err := view.ready(); err != nil {
 		return practicalSourceBuffer{}, err
 	}

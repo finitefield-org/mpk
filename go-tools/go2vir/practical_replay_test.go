@@ -237,17 +237,8 @@ func TestPracticalReplayPrepareWholeOriginalModuleAndCompilerImage(t *testing.T)
 		t.Fatal(err)
 	}
 	retainPracticalStandardSnapshot(t, sealed.snapshot)
-	loader, err := newPracticalSourceTypesWithStandardLibrary(sealed.snapshot, discovery, compiler, roots[2].Capability)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if _, err := loader.typecheck("example.com/app"); err != nil {
-		t.Fatal(err)
-	}
-	if err := exports.bindOriginalSourceTypes(loader, discovery, compiler, roots[2].Capability); err != nil {
-		t.Fatal(err)
-	}
-	image, err := materializePracticalReplaySources(output, []practicalReplaySources{sealed}, &compiler, roots[2].Capability)
+	replayInputs := []practicalReplaySources{sealed, exports.replay}
+	image, err := materializePracticalReplaySources(output, replayInputs, &compiler, roots[2].Capability)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -259,6 +250,58 @@ func TestPracticalReplayPrepareWholeOriginalModuleAndCompilerImage(t *testing.T)
 	defer view.Close()
 	if err := view.check(); err != nil {
 		t.Fatal(err)
+	}
+	// Original roots are disposable fixture-owned directories, including the
+	// separately cloned SDK. No original application/SDK path can supply data
+	// to the following immutable module/source/export consumer.
+	for _, root := range roots {
+		if err := removePracticalReplayImage(root.Directory); err != nil {
+			t.Fatal(err)
+		}
+		if _, err := os.Lstat(root.Directory); !os.IsNotExist(err) {
+			t.Fatal("original producer root survived retirement", err)
+		}
+	}
+	for _, input := range replayInputs {
+		for _, buffer := range input.snapshot.buffers {
+			clear(buffer.data)
+		}
+	}
+	restored, err := view.restoreOriginalInputs()
+	if err != nil {
+		t.Fatal(err)
+	}
+	sources, err := restored.snapshotForRoots(sealed.snapshot.roots)
+	if err != nil || sources.contentSHA256 != sealed.snapshot.contentSHA256 {
+		t.Fatal("restored original source snapshot differs", err)
+	}
+	exportSnapshot, err := restored.snapshotForRoots(exports.snapshot.roots)
+	if err != nil || exportSnapshot.contentSHA256 != exports.snapshot.contentSHA256 {
+		t.Fatal("restored original export snapshot differs", err)
+	}
+	modules, err := restored.bindOriginalModuleOutput(practicalModuleLocation{capability: roots[0].Capability}, practicalModuleLocation{capability: roots[1].Capability}, discovery.output)
+	if err != nil {
+		t.Fatal(err)
+	}
+	rebound := practicalModuleDiscovery{output: bytes.Clone(discovery.output), compilerSHA256: discovery.compilerSHA256, mainSourceID: discovery.mainSourceID, modules: modules}
+	loader, err := newPracticalSourceTypesWithStandardLibrary(sources, rebound, *image.compiler, roots[2].Capability)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err := loader.typecheck("example.com/app"); err != nil {
+		t.Fatal(err)
+	}
+	exports.snapshot = exportSnapshot
+	if err := exports.bindOriginalSourceTypes(loader, rebound, *image.compiler, roots[2].Capability); err != nil {
+		t.Fatal(err)
+	}
+	if err := view.check(); err != nil {
+		t.Fatal(err)
+	}
+	retainPracticalStandardSnapshot(t, restored.snapshot)
+	var sourceSnapshots []map[string]any
+	for _, input := range replayInputs {
+		sourceSnapshots = append(sourceSnapshots, map[string]any{"digest": input.snapshot.contentSHA256, "roots": input.snapshot.roots, "origins": input.origins, "source_ids": input.snapshot.ids})
 	}
 	var mounts, inputs, namespaces []map[string]any
 	for _, mount := range image.mounts {
@@ -280,6 +323,10 @@ func TestPracticalReplayPrepareWholeOriginalModuleAndCompilerImage(t *testing.T)
 		"complete_source_typed_packages": len(loader.packages), "complete_syntax_nodes": loader.syntax.count,
 		"registered_context_or_source_program_proof": false, "authoritative_selected_closure_replay_complete": false,
 		"verified_materialized_files": len(view.plan.files), "reconciled_original_namespace_nodes": len(view.plan.nodes),
+		"original_source_snapshots": sourceSnapshots, "restored_source_snapshot_digest": sources.contentSHA256,
+		"restored_export_snapshot_digest":        exportSnapshot.contentSHA256,
+		"original_roots_retired_before_consumer": true, "original_donor_buffers_cleared_before_consumer": true,
+		"restored_original_module_bindings": len(modules), "restored_complete_original_objects": len(restored.snapshot.ids),
 	}
 	raw, err := json.MarshalIndent(record, "", "  ")
 	if err != nil {

@@ -116,10 +116,7 @@ func decodePracticalGoModules(raw []byte) ([]practicalGoListedModule, error) {
 }
 
 func (session *practicalCaptureSession) practicalPhysicalDirectory(location practicalModuleLocation) (string, error) {
-	if _, err := session.readDirectory(location.capability, location.directory); err != nil {
-		return "", err
-	}
-	return filepath.Join(session.roots[location.capability].physical, filepath.FromSlash(location.directory)), nil
+	return practicalModulePhysicalDirectory(session, location)
 }
 
 func practicalReplacementDirective(manifest practicalModuleManifest, identity module.Version) (int, error) {
@@ -149,17 +146,24 @@ func practicalReplacementDirective(manifest practicalModuleManifest, identity mo
 }
 
 func (session *practicalCaptureSession) bindPracticalGoModuleRows(main practicalCapturedModule, cache practicalModuleLocation, rows []practicalGoListedModule) ([]practicalResolvedModule, error) {
-	original, exists := session.files[practicalCaptureKey(main.location.capability, practicalModuleFile(main.location, "go.mod"))]
-	if !exists || original.buffer.object != main.manifest.source.object {
+	return bindPracticalGoModuleRows(session, main, cache, rows)
+}
+
+func bindPracticalGoModuleRows(session practicalModuleInputs, main practicalCapturedModule, cache practicalModuleLocation, rows []practicalGoListedModule) ([]practicalResolvedModule, error) {
+	original, err := session.readSource(main.location.capability, practicalModuleFile(main.location, "go.mod"), "go_mod")
+	if err != nil || original.object != main.manifest.source.object {
 		return nil, session.reject(fmt.Errorf("resolved module owner is not an original captured main manifest"))
 	}
 	if main.sums != nil {
-		checksums, exists := session.files[practicalCaptureKey(main.location.capability, practicalModuleFile(main.location, "go.sum"))]
-		if !exists || checksums.buffer.object != main.sums.source.object {
+		checksums, err := session.readSource(main.location.capability, practicalModuleFile(main.location, "go.sum"), "go_sum")
+		if err != nil || checksums.object != main.sums.source.object {
 			return nil, session.reject(fmt.Errorf("resolved module checksums do not belong to the original main module"))
 		}
+		if _, err := session.originalModuleSums(*main.sums); err != nil {
+			return nil, err
+		}
 	}
-	manifest, err := parsePracticalModuleManifest(original.buffer, true)
+	manifest, err := parsePracticalModuleManifest(original, true)
 	if err != nil {
 		return nil, session.reject(err)
 	}
@@ -185,7 +189,7 @@ func (session *practicalCaptureSession) bindPracticalGoModuleRows(main practical
 				return nil, session.reject(fmt.Errorf("resolved main module differs from its original captured input"))
 			}
 			location := main.location
-			modules = append(modules, practicalResolvedModule{identity: identity, manifest: original.buffer, location: &location})
+			modules = append(modules, practicalResolvedModule{identity: identity, manifest: original, location: &location})
 			continue
 		}
 		if module.Check(identity.Path, identity.Version) != nil || module.CanonicalVersion(identity.Version) != identity.Version {
@@ -240,7 +244,7 @@ func (session *practicalCaptureSession) bindPracticalGoModuleRows(main practical
 		if err != nil {
 			return nil, err
 		}
-		goMod := filepath.Join(session.roots[cache.capability].physical, filepath.FromSlash(captured.manifest.source.object.Path))
+		goMod := filepath.Join(session.originalRoots()[cache.capability], filepath.FromSlash(captured.manifest.source.object.Path))
 		escapedPath, _ := module.EscapePath(effective.Path)
 		escapedVersion, _ := module.EscapeVersion(effective.Version)
 		expectedDirectory := filepath.Join(physicalCache, filepath.FromSlash(escapedPath)+"@"+escapedVersion)

@@ -23,6 +23,10 @@ func practicalModuleFile(location practicalModuleLocation, name string) string {
 }
 
 func (session *practicalCaptureSession) captureModule(location practicalModuleLocation, main bool) (practicalCapturedModule, error) {
+	return capturePracticalModule(session, location, main)
+}
+
+func capturePracticalModule(session practicalModuleInputs, location practicalModuleLocation, main bool) (practicalCapturedModule, error) {
 	entries, err := session.readDirectory(location.capability, location.directory)
 	if err != nil {
 		return practicalCapturedModule{}, err
@@ -60,13 +64,16 @@ func (session *practicalCaptureSession) captureModule(location practicalModuleLo
 // Resolve one original directive into an already authorized capability. This
 // does not select a replacement/version; Go's resolved graph must still agree.
 func (session *practicalCaptureSession) captureLocalReplacement(owner practicalCapturedModule, directive int) (practicalCapturedModule, error) {
-	key := practicalCaptureKey(owner.location.capability, practicalModuleFile(owner.location, "go.mod"))
-	original, exists := session.files[key]
-	if !exists || original.buffer.object != owner.manifest.source.object {
+	return capturePracticalLocalReplacement(session, owner, directive)
+}
+
+func capturePracticalLocalReplacement(session practicalModuleInputs, owner practicalCapturedModule, directive int) (practicalCapturedModule, error) {
+	original, err := session.readSource(owner.location.capability, practicalModuleFile(owner.location, "go.mod"), "go_mod")
+	if err != nil || original.object != owner.manifest.source.object {
 		return practicalCapturedModule{}, session.reject(fmt.Errorf("replacement owner is not an original captured manifest"))
 	}
 	// Reparse owned original bytes rather than trusting a mutable parser tree.
-	manifest, err := parsePracticalModuleManifest(original.buffer, owner.manifest.main)
+	manifest, err := parsePracticalModuleManifest(original, owner.manifest.main)
 	if err != nil || directive < 0 || directive >= len(manifest.file.Replace) {
 		return practicalCapturedModule{}, session.reject(fmt.Errorf("invalid original replacement directive"))
 	}
@@ -74,24 +81,25 @@ func (session *practicalCaptureSession) captureLocalReplacement(owner practicalC
 	if replacement.Version != "" {
 		return practicalCapturedModule{}, session.reject(fmt.Errorf("replacement requires an offline versioned snapshot"))
 	}
-	ownerRoot := session.roots[owner.location.capability]
+	roots := session.originalRoots()
+	ownerRoot := roots[owner.location.capability]
 	target := replacement.Path
 	if !filepath.IsAbs(target) {
-		target = filepath.Join(ownerRoot.physical, filepath.FromSlash(owner.location.directory), target)
+		target = filepath.Join(ownerRoot, filepath.FromSlash(owner.location.directory), target)
 	}
 	target = filepath.Clean(target)
 	var selected practicalModuleLocation
 	longest := -1
 	ambiguous := false
-	for capability, root := range session.roots {
-		relative, err := filepath.Rel(root.physical, target)
+	for capability, root := range roots {
+		relative, err := filepath.Rel(root, target)
 		if err != nil || relative == ".." || strings.HasPrefix(relative, ".."+string(filepath.Separator)) || filepath.IsAbs(relative) {
 			continue
 		}
-		if len(root.physical) < longest {
+		if len(root) < longest {
 			continue
 		}
-		if len(root.physical) == longest {
+		if len(root) == longest {
 			ambiguous = true
 			continue
 		}
@@ -99,7 +107,7 @@ func (session *practicalCaptureSession) captureLocalReplacement(owner practicalC
 			relative = ""
 		}
 		selected = practicalModuleLocation{capability: capability, directory: filepath.ToSlash(relative)}
-		longest = len(root.physical)
+		longest = len(root)
 		ambiguous = false
 	}
 	if longest < 0 {

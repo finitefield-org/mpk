@@ -1,0 +1,77 @@
+{
+  "status": "passed",
+  "observed_at_utc": "2026-10-20T10:19:51.820145+00:00",
+  "sources": [
+    {
+      "path": "go-tools/go2vir/practical_module_inputs.go",
+      "sha256": "0b4615d58882d1a50b8ed169c795ee84d6f9d0ba2c3b65b3e13c8b1c863d93ce",
+      "bytes": 1881
+    },
+    {
+      "path": "go-tools/go2vir/practical_image_inputs.go",
+      "sha256": "083c92ce0eb320b8990d171a501cd8b317722e2e1ade75c4352124887314f85d",
+      "bytes": 8544
+    },
+    {
+      "path": "go-tools/go2vir/practical_image_inputs_test.go",
+      "sha256": "2aa97cf257d290cf2fa4a43052a73fc16f9dbb7bc605ec18876b14d3be047678",
+      "bytes": 13171
+    },
+    {
+      "path": "go-tools/go2vir/practical_module.go",
+      "sha256": "c79cf236d7799e2d6e66d5bd5e883ff56d7f495220b5a905a9df57ef155883ef",
+      "bytes": 5783
+    },
+    {
+      "path": "go-tools/go2vir/practical_archive.go",
+      "sha256": "b198df0fa990bbedfd1e0c88bbb444d0bd86f560ccb74b912dc42f0a3b30d957",
+      "bytes": 10987
+    },
+    {
+      "path": "go-tools/go2vir/practical_module_capture.go",
+      "sha256": "9183743b7a532f5169e9013a75c22cbd7ca7f97669b752c416e46b74def36390",
+      "bytes": 4510
+    },
+    {
+      "path": "go-tools/go2vir/practical_module_snapshot.go",
+      "sha256": "9f3fae6478b88d18d23f59d9b2189d48edbb3bc64ba9cd6a9df8f2139b61601b",
+      "bytes": 4434
+    },
+    {
+      "path": "go-tools/go2vir/practical_resolution.go",
+      "sha256": "4a550e14acb314148f5b0f5e7582155a32baaf73427db439e5f184a97aac99fe",
+      "bytes": 14964
+    },
+    {
+      "path": "go-tools/go2vir/practical_exports.go",
+      "sha256": "9d8516e7a4ac1b480717c2cbcdc82ebb1ba72ca3af8781976d078b2f4ca9e8f3",
+      "bytes": 21382
+    },
+    {
+      "path": "go-tools/go2vir/practical_view.go",
+      "sha256": "1b2096c22e4546dd31f6be77f992e0575f8ba63f90394ee31e5ebffcc03a7692",
+      "bytes": 6679
+    },
+    {
+      "path": "go-tools/go2vir/practical_replay_test.go",
+      "sha256": "d83b99d6ffa711b755b86525e4e39f3547b10e5bae27fba28b4bbcba1580087b",
+      "bytes": 16024
+    }
+  ],
+  "reviewed_boundaries": [
+    "The rooted view verifies exact full image closure before/after restoration. Each original source is read with original role/whole identity/mode/bounds; restored namespace entry slices, origin maps, raw buffers and projected snapshots own their storage. No collector or image allocation supplies consumer bytes after donor retirement.",
+    "The shared module interface preserves actual collection rules. Main manifest and checksum sources must belong to the original main location; parser/cache maps cannot replace original bytes. Local replacements reparse original directives and choose exact longest authorized root, rejecting equal-root ambiguity or escapes. Image physical-directory correspondence uses original names and sealed namespaces without filesystem callbacks.",
+    "Versioned manifests/info/ZIP/hash inputs use the same original sums, full archive/h1/CRC/content parser and unchanged shared entry limits. Returned archives remain separately owned. Shared copied checksum source/map values fix the actual observed cache alias in both collector and new immutable backend.",
+    "Native module metadata is supplied preparation data; correspondence checks do not prove actual module selection or create registered context/execution authority. Current actual full native command outputs are independently compared against complete originals on both readonly kernel executions. Complete general execution/context/consulted namespace/selected closure authority remains due.",
+    "Whole producer seals original export root authorization and source/export snapshots before ephemeral cache retirement. It materializes both without resets to frozen counters, removes original fixture roots including only the separately cloned SDK, clears donor buffers, restores full source/export bytes, rebinds every original module and source-checks every complete original package. Application/initializer code never executes.",
+    "Current59 roots/290 subtests, both checksum ownership guards, archive-return ownership controls, all12 altered module facts, full SDK/source/export consumer and two fresh182-input frontend builds pass. Go1.23 compile-only/vet/format pass; source byte shapes and original hash preimages are independently checked.",
+    "All original source epochs/errors are retained. Precise initial missing runtime buffers/stdout remain unavailable; no fresh observations are relabelled as those originals. In-memory checksum-owner control is defined by captured actual test code and complete original fixture, without claiming a separately serialized registered request. Mutated negative buffers never acquire canonical original IDs.",
+    "All20 actual result drivers/10 containers are terminal. Full image/snapshot/compiler/source preimages/frozen255 and whole181 archives are independently audited. Local Linux x86-64 emulation is explicit. Strict127/4/39 and all frozen source/core bounds remain unchanged; CSharp/agents/Actions/intermediate full gates stay skipped.",
+    "Full56/all6/19 source/carrier/nominal/type/operation/storage/lifetime/state/program foundation, compiler-derived complete operation/VC roots/private descriptor/registry/context/retained policies/all169/T02-T11 remain due. R06/W01 remain pending with no public profile/source/program/application proof or native Linux release claim."
+  ],
+  "findings": [],
+  "all_actual_validation_handles_terminal": true,
+  "CSharp_tests_executed": false,
+  "T02_W01_complete": false,
+  "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh --skip-csharp"
+}

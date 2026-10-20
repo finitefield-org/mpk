@@ -1,0 +1,32 @@
+{
+  "status": "explicit_original_epoch_limitations",
+  "missing_original_observations_replaced_by_fresh_runs": false,
+  "limitations": [
+    {
+      "epoch": "restored/regression",
+      "test": "TestPracticalImageInputsRestoreAllRolesAndOwnTheirOriginalNamespaces",
+      "observation": "The fixture opened a source-root session before writing its role files; the actual collector rejected the changed root identity before the full role-buffer record was exposed.",
+      "retained": "Complete actual source epoch, command/environment/compiler identity, stdout/stderr and failed result.",
+      "unavailable": "Individually exposed runtime raw buffers/source objects for this first all-role fixture. Later successful epochs retain their own complete buffers and do not replace this failed original."
+    },
+    {
+      "epoch": "restored/regression",
+      "test": "TestPracticalImageInputsRejectAlteredOriginalModuleObservations",
+      "observation": "An unqualified evidence filename already belonged to the earlier module-graph test. O_EXCL rejected the second write before its native stdout was persisted.",
+      "retained": "Actual source epoch, original second fixture namespaces/source objects/full raw input map and exact filename-collision diagnostic; earlier native stdout remains attached to its own original test.",
+      "unavailable": "Second fixture original native module stdout from the failed write. Fresh uniquely named observations remain separate."
+    }
+  ],
+  "initial_compile_error": {
+    "epoch": "initial/regression",
+    "detail": "The first new test used manifest.source where the value was already a practicalSourceBuffer. Full compile inputs and actual build diagnostics remain; no source test body executed."
+  },
+  "checksum_controls": {
+    "epochs": [
+      "checksum-source/ownership",
+      "checksum-both/ownership"
+    ],
+    "classification": "Actual checksum-source/cache ownership regressions; no semantic source counterexample. Mutated returned bytes stay mutated diagnostics, not canonical original preimages. The before-mutation collection record retains the actual original checksum source even if a later observer field shares the mutated caller buffer."
+  },
+  "checksum_owner_control": "The altered in-memory owner parameter is specified by the exact retained test source, original root/source fixture and original module output; it is not a separately serialized candidate request or a registered context."
+}
