@@ -1,0 +1,103 @@
+{
+  "schema": "mpk.go_practical.sealed_namespace_checkpoint.v1",
+  "status": "scoped_checks_passed",
+  "source_base_commit": "7405cf5fd5c88f0e31ca96076618e296869ad095",
+  "observed_at_utc": "2026-10-20T00:46:39.068815+00:00",
+  "production_sources": [
+    {
+      "path": "go-tools/go2vir/practical_capture.go",
+      "sha256": "a4452eb5531809c63bd85766f2168168934b4b164f5832db876b183c5b090ac0",
+      "bytes": 14606
+    },
+    {
+      "path": "go-tools/go2vir/practical_snapshot.go",
+      "sha256": "7efb262dd5c22e504f131a42aa5a7ff12cf90f18a8c0b583ca26be819ba06fc3",
+      "bytes": 9173
+    },
+    {
+      "path": "go-tools/go2vir/practical_source.go",
+      "sha256": "25d90659622e069862524c3c8b997d505e811de51e38aa76124503ca47952360",
+      "bytes": 5269
+    }
+  ],
+  "tests": {
+    "path": "go-tools/go2vir/practical_snapshot_test.go",
+    "sha256": "09967a5aba8648123f84c00e1ff517097ed68949d05cd8f25504ba0668716682",
+    "bytes": 18104
+  },
+  "original_failure": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/sealed-namespace/original/regression/result.json",
+    "sha256": "7e323e8cf27cf74cfcfe4483566b3560601cf77b0db2fc2afe85fdb55f65d3e3",
+    "bytes": 13814
+  },
+  "selected_checks": {
+    "selected": {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/sealed-namespace/final/selected/result.json",
+        "sha256": "881353a15f4dab7afb5b66946bf2dc734638dda355e6663fa0f64c06bf249461",
+        "bytes": 25444
+      },
+      "root_tests": 34,
+      "subtests": 101,
+      "wall_seconds": 70.46985366591252
+    },
+    "legacy": {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/sealed-namespace/final/legacy/result.json",
+        "sha256": "1b9651844d7a7c0d8e856fb1e1be1249504ed89108735bc154cadae7b76fe8f1",
+        "bytes": 15265
+      },
+      "root_tests": 7,
+      "subtests": 11,
+      "wall_seconds": 3.3284097919240594
+    },
+    "vet": {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/sealed-namespace/final/vet/result.json",
+        "sha256": "94a9d30ee28af6050430db2d01dd79ed258eb7b697448a7bb6883b1c9180c715",
+        "bytes": 13724
+      },
+      "root_tests": 0,
+      "subtests": 0,
+      "wall_seconds": 0.9068055419484153
+    },
+    "format": {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/sealed-namespace/final/format/result.json",
+        "sha256": "fae9f44e884b1b8282d9691cac0a3832cf6d222f98f3ba1750c5091fbb03c505",
+        "bytes": 13797
+      },
+      "root_tests": 0,
+      "subtests": 0,
+      "wall_seconds": 0.020756207988597453
+    }
+  },
+  "independent_observations": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/sealed-namespace/independent-observations.json",
+    "sha256": "c359cc7b09b942a81753feaf2d8e0b2a318300b93d3c032e80d0f81b2aebff74",
+    "bytes": 10117
+  },
+  "actual_frontend_reproduction": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/sealed-namespace/final/selected/reproduced-builds.json",
+    "sha256": "4b84345d796281b7c8133e0831ef6041b376d00eb904fac2ec73be830d47828f",
+    "bytes": 4759
+  },
+  "frozen_inputs": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/sealed-namespace/frozen-design-preservation.json",
+    "sha256": "9c059e5c34dd9cd121982e31c919651c4c670e6d19562cbfc6cbf5cb22c04b40",
+    "bytes": 53106
+  },
+  "preceding_word_component_unchanged": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-shift-count-bounds/final/rust-tests/certificates/word-shift-counts.mpcert",
+    "sha256": "119c384ddefd5afc6c42de2171df608d4b5b6329304912d3e9ce29860751e1b2",
+    "bytes": 1454895
+  },
+  "selection_reason": "Reproduce the actual sealed-buffer ownership failure before production edits, then exercise sealed namespace/lookup/absence ownership and all affected successful seal consumers: rooted source, local/versioned module, original archive and actual two-fresh-cache frontend builds. Preserve complete unchanged old snapshot/environment/public boundaries and the Go1.23 unavailable-root build. Unchanged arithmetic/kernel/Bool/native word matrices are retained without repetition. Vet and changed-file gofmt are scoped checks. No CSharp tests, intermediate whole gate, public activation, immutable application replay or Linux release claim.",
+  "review": "input-review/changed-inputs-review.json",
+  "T02_W01_complete": false,
+  "public_profile_activated": false,
+  "remaining_application_demands": 169,
+  "CSharp_tests_executed": false,
+  "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh --skip-csharp",
+  "remaining_scope": "Complete56-family ordinary source/carrier/nominal/type/operation/storage/lifetime/state/program foundation and bounded assembly/descriptor/private registry/context/retained policy delegation. Original source/export/selected closure immutable application loading/replay and all original T02-T11 tasks/gates remain required. This read-only namespace component grants no registered context, source equivalence, Go application proof or native Linux release authority."
+}

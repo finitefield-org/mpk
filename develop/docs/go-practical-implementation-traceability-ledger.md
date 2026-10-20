@@ -5631,3 +5631,52 @@ replay remain due. All169 demands remain unelaborated and T02-T11 scope stays
 active. C# tests stay skipped; the cumulative T02 gate stays W04. No public
 profile, full source-program proof, immutable replay or native Linux release
 is claimed.
+
+## 100. T02-W01 sealed original namespaces and snapshot ownership
+
+Entry is `7405cf5fd5c88f0e31ca96076618e296869ad095`. The
+[checkpoint](../migrations/go-practical/t02-w01/verification/sealed-namespace/README.md)
+implements a read-only sealed capability/path/role namespace. Every complete
+visited native directory enumeration survives seal, including empty directories,
+unread names and native newline/backslash asset names. Source buffers and
+namespace arrays are independently owned after original root/namespace/byte
+revalidation. Lookups retain exact names/roles and never reopen original roots.
+Only observed complete-parent absence returns ErrNotExist; unvisited directories
+and present-but-unread sources return a distinct uncaptured-input error.
+
+The original collected-byte alias is reproduced before production edits: changing
+the collector after seal changes the stored original package text. Complete
+original sources/test inputs/raw failure remain. Seal now copies every original
+buffer; returned source/location metadata, bytes, capability and directory arrays
+are also copies. Tests remove every original root and mutate retained collector
+allocations before checking every original file and directory observation.
+
+Thirty lookup cases and actual independent recaptures exercise missing-vs-
+uncaptured inputs, exact roles/capabilities, links/special files, source bytes,
+native entry names/types, empty-directory changes, visited coverage and root-set
+identity. A private binary-framed hash binds all observed native name bytes/type
+bits and complete source IDs. It preserves invalid UTF-8 without JSON loss;
+six raw-name hash units grant no captured-namespace authority. Reversed root/read
+order and different physical paths keep identical content identities. Unread
+asset content remains outside captured source bytes while its observed name/type
+is retained. No new public schema, caller adapter or registry authority appears.
+
+All34 affected Go roots/101 subtests pass in70.47s. Seven Go1.23 compatibility
+roots/eleven subtests and current vet/changed-file format pass. The actual native
+frontend consumer builds twice from170 sealed original inputs with independent
+empty caches and distinct roots; both8,592,898-byte outputs have SHA256
+`2a9d7c49b925818d372c886397c4e195d5fbf09cb53d4e31c2c39cf49ef6a67f`.
+Python independently reconstructs17 complete framed preimages and99 full original
+source-object identities. Prior third-build and arithmetic/core/word/native
+matrices retain their original epochs and are not unnecessarily repeated.
+
+All255 frozen members and the preceding4053-declaration complete shift bytes
+remain exact. Current W01 requirements point to the actual latest shift and
+sealed-namespace checkpoints without changing the original R01-R07 scope.
+Full56-family ordinary source/carrier/type/operation/storage/lifetime/state/
+program foundation, bounded assembly/descriptor/private registry/context and
+retained policy delegation remain required. Original application source/export/
+selected-closure namespace materialization and authoritative immutable replay
+remain due. All169 application demands and T02-T11 stay open; W01 remains
+In progress. C# tests stay skipped and the cumulative T02 gate stays W04.
+No public activation, source/application proof or native Linux release is claimed.

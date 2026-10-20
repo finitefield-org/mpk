@@ -62,11 +62,6 @@ type practicalCaptureSession struct {
 	openRoot    func(string) (practicalRootReader, error)
 }
 
-type practicalSourceSnapshot struct {
-	buffers map[string]practicalSourceBuffer
-	ids     []string
-}
-
 func newPracticalCaptureSession(roots []practicalSourceRoot) (*practicalCaptureSession, error) {
 	if len(roots) == 0 || len(roots) > maximumVisitedDirectories {
 		return nil, fmt.Errorf("practical source root set is empty or exceeds the directory bound")
@@ -421,32 +416,10 @@ func (session *practicalCaptureSession) seal() (practicalSourceSnapshot, error) 
 			return practicalSourceSnapshot{}, err
 		}
 	}
-	snapshot := practicalSourceSnapshot{buffers: make(map[string]practicalSourceBuffer)}
-	for _, file := range session.files {
-		id := file.buffer.sourceObject().ID
-		if _, exists := snapshot.buffers[id]; exists {
-			return practicalSourceSnapshot{}, session.reject(fmt.Errorf("duplicate practical source identity"))
-		}
-		snapshot.buffers[id] = file.buffer
-		snapshot.ids = append(snapshot.ids, id)
+	snapshot, err := copyPracticalSourceSnapshot(session)
+	if err != nil {
+		return practicalSourceSnapshot{}, session.reject(err)
 	}
-	sort.Strings(snapshot.ids)
 	session.sealed = true
 	return snapshot, nil
-}
-
-func (snapshot practicalSourceSnapshot) sourceObjects() []practicalSourceObject {
-	objects := make([]practicalSourceObject, len(snapshot.ids))
-	for i, id := range snapshot.ids {
-		objects[i] = snapshot.buffers[id].sourceObject()
-	}
-	return objects
-}
-
-func (snapshot practicalSourceSnapshot) sourceBytes(id string) ([]byte, bool) {
-	buffer, exists := snapshot.buffers[id]
-	if !exists {
-		return nil, false
-	}
-	return buffer.sourceBytes(), true
 }

@@ -401,3 +401,18 @@ failure and private wrapper compile error remain with exact source/raw records.
 No checker/axiom/fuel/cap/frozen-input changes occur. Full source/program/
 foundation/context/registry and all169 application demands remain due; W01 and
 T02-T11 remain active, C# tests stay skipped and the cumulative gate stays W04.
+
+The [sealed original namespace checkpoint](verification/sealed-namespace/README.md)
+retains complete visited native directory names/types and independent snapshot
+allocations. Read-only capability/path/role lookup distinguishes observed
+absence from present-but-unread and unvisited inputs, without original filesystem
+access or fallback. The original collector/snapshot byte alias is reproduced
+and retained; seal now owns fresh bytes and namespace arrays. All34 affected Go
+roots/101 subtests, seven legacy roots/eleven subtests, current vet/format and17
+independent complete hash preimages pass. Two fresh-cache frontend builds from170
+sealed inputs agree byte-for-byte. All255 frozen inputs and the preceding shift
+certificate remain exact. Current requirements now point to these actual capture
+and full64 shift checkpoints while preserving every original requirement. Full
+foundation/private context and authoritative original application source/export/
+selected-closure materialization/replay remain due; all169 demands and T02-T11
+stay active. C# tests stay skipped and the cumulative T02 gate stays W04.

@@ -1,0 +1,55 @@
+{
+  "status": "passed",
+  "observed_at_utc": "2026-10-20T00:49:45.664872+00:00",
+  "auditor": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sealed-namespace/check-checkpoint.py",
+    "sha256": "55c247ef3ea68b40f568cd47d93a72ab85a8386a37076710af7f9cf170da2a21",
+    "bytes": 6615
+  },
+  "verification": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/sealed-namespace/verification.json",
+    "sha256": "db983bc54ffa2977b4afb31747033bca729c621124671b444aa83035d5c6512f",
+    "bytes": 5139
+  },
+  "executions": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/sealed-namespace/original/regression/result.json",
+      "sha256": "7e323e8cf27cf74cfcfe4483566b3560601cf77b0db2fc2afe85fdb55f65d3e3",
+      "bytes": 13814
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/sealed-namespace/final/selected/result.json",
+      "sha256": "881353a15f4dab7afb5b66946bf2dc734638dda355e6663fa0f64c06bf249461",
+      "bytes": 25444
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/sealed-namespace/final/legacy/result.json",
+      "sha256": "1b9651844d7a7c0d8e856fb1e1be1249504ed89108735bc154cadae7b76fe8f1",
+      "bytes": 15265
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/sealed-namespace/final/vet/result.json",
+      "sha256": "94a9d30ee28af6050430db2d01dd79ed258eb7b697448a7bb6883b1c9180c715",
+      "bytes": 13724
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/sealed-namespace/final/format/result.json",
+      "sha256": "fae9f44e884b1b8282d9691cac0a3832cf6d222f98f3ba1750c5091fbb03c505",
+      "bytes": 13797
+    }
+  ],
+  "current_Go_roots": 34,
+  "current_Go_subtests": 101,
+  "legacy_roots": 7,
+  "legacy_subtests": 11,
+  "original_alias_failure_preserved": true,
+  "complete_hash_preimages": 17,
+  "complete_source_objects_reconstructed": 99,
+  "actual_owned_frontend_inputs": 170,
+  "byte_identical_frontend_builds": 2,
+  "frozen_members_unchanged": 255,
+  "CSharp_tests_executed": false,
+  "T02_W01_complete": false,
+  "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh --skip-csharp",
+  "scope": "Retained local evidence and complete current input epochs only. Final changed-input review remains separate. Full56-family foundation/private context and original application source/export/selected-closure immutable loading/replay, all169 application demands and full T02-T11 scope remain required."
+}
