@@ -1,0 +1,16 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 49.95s
+     Running tests/go_practical_finite_vector_foundation.rs (target/debug/deps/go_practical_finite_vector_foundation-25fd3ea2f89d9522)
+
+thread 'finite_vector_laws_reject_false_claims_erased_bounds_and_wrong_operations' (43296865) panicked at crates/mpk-vc/tests/go_practical_finite_vector_foundation.rs:48:9:
+assertion `left == right` failed: false-D4.LookupIndex
+  left: String("CORE_FUEL_EXHAUSTED")
+ right: "CORE_TYPE_MISMATCH"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'finite_vectors_preserve_all_sequence_prerequisites_and_slot_depths' (43296866) panicked at crates/mpk-vc/tests/go_practical_finite_vector_foundation.rs:35:17:
+finite-vector-foundation: first declaration type-check failure Mpk.Go.Practical.FiniteVector.D4.LookupIndex: DeclarationCheckError { kind: CoreCheck, detail: "{\"code\":\"CORE_FUEL_EXHAUSTED\",\"location\":[{\"field\":\"defeq\"},{\"field\":\"lhs\"},{\"field\":\"whnf\"}],\"details\":{\"lhs_term_index\":\"21794\",\"operation\":\"defeq_whnf\",\"rhs_term_index\":\"23182\",\"side\":\"lhs\",\"term_index\":\"23348\"}}" }; full verdict {"verdict":"rejected","module":null,"declaration_count":null,"axiom_count":null,"hashes":{"export":null,"axiom_report":null,"certificate":"d1e0bc403395c1d360e4081b770f4cdd915b04dd816b5fb2c6e015f1e508a001"},"axiom_report":null,"error_code":"KERNEL_CORE_CHECK","error_detail":"{\"code\":\"CORE_FUEL_EXHAUSTED\",\"location\":[{\"field\":\"defeq\"},{\"field\":\"lhs\"},{\"field\":\"whnf\"}],\"details\":{\"lhs_term_index\":\"21794\",\"operation\":\"defeq_whnf\",\"rhs_term_index\":\"23182\",\"side\":\"lhs\",\"term_index\":\"23348\"}}"}
+
+thread 'exact_finite_vector_ownership_is_separate_from_core_acceptance' (43296864) panicked at crates/mpk-vc/tests/go_practical_finite_vector_foundation.rs:35:17:
+finite-vector-honest-extra: first declaration type-check failure Mpk.Go.Practical.FiniteVector.D4.LookupIndex: DeclarationCheckError { kind: CoreCheck, detail: "{\"code\":\"CORE_FUEL_EXHAUSTED\",\"location\":[{\"field\":\"defeq\"},{\"field\":\"lhs\"},{\"field\":\"whnf\"}],\"details\":{\"lhs_term_index\":\"21794\",\"operation\":\"defeq_whnf\",\"rhs_term_index\":\"23182\",\"side\":\"lhs\",\"term_index\":\"23348\"}}" }; full verdict {"verdict":"rejected","module":null,"declaration_count":null,"axiom_count":null,"hashes":{"export":null,"axiom_report":null,"certificate":"85311be850e5e80ea5074ca5fe3228c3f7b9c821763049e6debb9cb4ff9460b4"},"axiom_report":null,"error_code":"KERNEL_CORE_CHECK","error_detail":"{\"code\":\"CORE_FUEL_EXHAUSTED\",\"location\":[{\"field\":\"defeq\"},{\"field\":\"lhs\"},{\"field\":\"whnf\"}],\"details\":{\"lhs_term_index\":\"21794\",\"operation\":\"defeq_whnf\",\"rhs_term_index\":\"23182\",\"side\":\"lhs\",\"term_index\":\"23348\"}}"}
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_finite_vector_foundation`

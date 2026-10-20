@@ -6585,3 +6585,45 @@ required. No other-language test, agent or Actions runs; all validation handles
 are terminal before staging. R01/W01/full56-all6-19 ordinary foundation/private
 context/kernel/namespace/selected closure/all169/T02-T11 remain pending. The
 cumulative T02 gate stays W04: `./scripts/check-fast.sh`.
+
+## 117. T02-W01 actual finite-slot observations and sequence validity
+
+Entry is `b8fdd9973575288d5b974d9cd755d52b8002b101`. The
+[checkpoint](../migrations/go-practical/t02-w01/verification/finite-vector-foundation/README.md)
+adds91 ordinary definitions and139 universal laws to all183 unchanged sequence
+prerequisite declarations. The complete413-member,6834-term,80953-byte component
+has no axioms or imports. Both unchanged independent cores accept the same whole
+bytes with identical three hashes; no function extensionality or new core rule
+is assumed.
+
+All depths0..8 retain every1..256 arbitrary Sort0 element in the actual Boolean
+address shape. The head address bit selects the upper half. Index bounds,
+exact original-slot reads, every bounded Nat read, explicit-length embedding,
+actual guarded index validity and All/Fits predicate preservation are proved
+with ordinary terms. Generic one-level branch/bound laws and explicit function/
+product definition equalities avoid expensive implicit expansion while retaining
+all fixed capacities and1024 fuel. The first direct and symbolic-spacing fuel
+failures, two compiler ownership failures, initial format failure and exact
+whole source/candidate/output epochs remain; earlier outcomes are not relabeled.
+Driver reconstruction provenance matches each original execution receipt hash.
+
+Three affected Rust tests, strict Clippy and changed-file format pass. The full
+202-input independent comparison has two zero-axiom acceptances and200 genuine
+type mismatches:139 altered conclusions,50 erased range/validity/observation
+premises and11 type-correct changed operations. Actual Boolean range conclusions
+are reversed with their entire computed left side retained. Each wrong operation
+definition prefix typechecks; its full law stream rejects. No partial certificate
+acceptance, format/fuel/resource substitute, supplied truth flag or operand/
+source enumeration is used. Honest-extra/core acceptance and exact owning import
+remain separate. All original183 prerequisite identities are compared completely.
+
+This is the finite data bridge. It does not replace the frozen full64 length/
+index and256 full-byte string carrier or nominal positive-array/padding/empty
+Bool dummy/source/domain/invocation/alias/storage/state/program proofs. Unchanged
+Go frontend/capture/core sources and unrelated tests are retained without repeat.
+All255 frozen inputs,185 current frontend build inputs, original byte buffers
+and strict127-rule/four-scope/39-seal review remain required; no scan exception
+or limit changes. No other-language test, delegation or Actions runs. All actual
+validation handles are terminal before staging. R01/R06/W01/full56-all6-19 ordinary
+foundation/private context/kernel/namespace/selected closure/all169 demands/
+T02-T11 remain pending. The cumulative T02 gate stays W04: `./scripts/check-fast.sh`.

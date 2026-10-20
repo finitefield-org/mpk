@@ -654,3 +654,15 @@ This is a mathematical prerequisite; all frozen Go carrier representations and
 source/word/domain/storage/program correspondence remain required. R01/W01/full
 private context/namespace/selected closure/all169/T02-T11 remain open. The
 cumulative T02 gate stays W04: `./scripts/check-fast.sh`.
+
+The [ordinary finite-vector checkpoint](verification/finite-vector-foundation/README.md)
+connects all1..256 arbitrary-element Boolean-addressed slots to explicit-length
+Nat-indexed sequence observations and validity. Its full413-member zero-axiom
+component preserves all183 original sequence identities. Both unchanged cores
+agree on202 whole streams: two acceptances and200 genuine type mismatches.
+Three affected Rust tests, strict Clippy and format pass. Generic one-level
+proofs and explicit equalities retain the fixed capacities within1024 fuel;
+original failed epochs remain separate. Full64-bit word/count/source, nominal
+array/padding/empty-dummy/storage/program correspondence and complete private
+context remain required. R01/R06/W01 and T02-T11 remain open. The cumulative
+T02 gate stays W04: `./scripts/check-fast.sh`.

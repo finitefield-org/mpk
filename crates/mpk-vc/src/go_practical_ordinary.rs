@@ -12,6 +12,7 @@ use sha2::{Digest, Sha256};
 
 mod composition;
 mod dependencies;
+mod finite_vector;
 mod integer;
 mod natural;
 mod polynomial;
@@ -205,6 +206,17 @@ pub struct GoSequenceFoundation {
 }
 
 impl GoSequenceFoundation {
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoFiniteVectorFoundation {
+    certificate: Vec<u8>,
+}
+
+impl GoFiniteVectorFoundation {
     pub fn certificate_bytes(&self) -> &[u8] {
         &self.certificate
     }
@@ -1535,6 +1547,33 @@ pub fn import_go_practical_sequence_foundation(candidate: &[u8]) -> Result<GoSeq
         return Err(GoOrdinaryError::Limit);
     }
     let expected = generate_go_practical_sequence_foundation()?;
+    if candidate != expected.certificate_bytes() {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    Ok(expected)
+}
+
+/// Preserve every arbitrary element of a finite Bool-indexed vector when
+/// observing it as a Nat-indexed sequence. Source word/count conversions,
+/// nominal identities and the complete Go context still require proofs.
+pub fn generate_go_practical_finite_vector_foundation() -> Result<GoFiniteVectorFoundation> {
+    let mut builder = natural_builder()?;
+    product::append(&mut builder)?;
+    sequence::append(&mut builder)?;
+    finite_vector::append(&mut builder)?;
+    builder.certificate.module = "Mpk.Go.Practical.FiniteVectorFoundation".into();
+    Ok(GoFiniteVectorFoundation {
+        certificate: builder.finish()?,
+    })
+}
+
+pub fn import_go_practical_finite_vector_foundation(
+    candidate: &[u8],
+) -> Result<GoFiniteVectorFoundation> {
+    if candidate.len() > MAX_BYTES {
+        return Err(GoOrdinaryError::Limit);
+    }
+    let expected = generate_go_practical_finite_vector_foundation()?;
     if candidate != expected.certificate_bytes() {
         return Err(GoOrdinaryError::Linkage);
     }

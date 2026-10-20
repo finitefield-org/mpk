@@ -1,0 +1,8 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.88s
+     Running tests/go_practical_finite_vector_foundation.rs (target/debug/deps/go_practical_finite_vector_foundation-25fd3ea2f89d9522)
+
+thread 'finite_vectors_preserve_all_sequence_prerequisites_and_slot_depths' (43276278) panicked at crates/mpk-vc/tests/go_practical_finite_vector_foundation.rs:35:17:
+finite-vector-foundation: first declaration type-check failure Mpk.Go.Practical.FiniteVector.D5.LookupIndex: DeclarationCheckError { kind: CoreCheck, detail: "{\"code\":\"CORE_FUEL_EXHAUSTED\",\"location\":[{\"field\":\"defeq\"},{\"field\":\"rhs\"},{\"field\":\"whnf\"}],\"details\":{\"lhs_term_index\":\"21416\",\"operation\":\"defeq_whnf\",\"rhs_term_index\":\"24775\",\"side\":\"rhs\",\"term_index\":\"24956\"}}" }; full verdict {"verdict":"rejected","module":null,"declaration_count":null,"axiom_count":null,"hashes":{"export":null,"axiom_report":null,"certificate":"32d365605aded38918ebc80a22499b9ed8a4c2c2fe5fe956fe91e75376f79c56"},"axiom_report":null,"error_code":"KERNEL_CORE_CHECK","error_detail":"{\"code\":\"CORE_FUEL_EXHAUSTED\",\"location\":[{\"field\":\"defeq\"},{\"field\":\"rhs\"},{\"field\":\"whnf\"}],\"details\":{\"lhs_term_index\":\"21416\",\"operation\":\"defeq_whnf\",\"rhs_term_index\":\"24775\",\"side\":\"rhs\",\"term_index\":\"24956\"}}"}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_finite_vector_foundation`
