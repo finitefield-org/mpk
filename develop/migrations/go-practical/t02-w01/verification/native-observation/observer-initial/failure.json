@@ -1,0 +1,11 @@
+{
+  "status": "failed",
+  "scope": "initial sandbox process observation; actual validation results already terminal",
+  "source_sha256": "0b9e33fa9223252e8f252a5b7be9c07c019abcee73bc010ee0ceecb4f65a75c8",
+  "source_bytes": 2539,
+  "complete_original_error_output": "Traceback (most recent call last):\n  File \"/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/native-observation/observe-terminal.py\", line 32, in <module>\n    observed = subprocess.run([\"/bin/ps\", \"-axo\", \"pid=,command=\"],\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/subprocess.py\", line 548, in run\n    with Popen(*popenargs, **kwargs) as process:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/subprocess.py\", line 1026, in __init__\n    self._execute_child(args, executable, preexec_fn, close_fds,\n  File \"/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/subprocess.py\", line 1950, in _execute_child\n    raise child_exception_type(errno_num, err_msg, err_filename)\nPermissionError: [Errno 1] Operation not permitted: '/bin/ps'\n",
+  "original_stdout": "",
+  "complete_observer_result_emitted": false,
+  "same_source_outside_sandbox_observation": "../terminal-handles.json",
+  "validation_process_restarted_or_interrupted": false
+}

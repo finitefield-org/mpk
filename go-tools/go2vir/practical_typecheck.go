@@ -85,6 +85,9 @@ func practicalVersionedSourceLocation(manifest practicalSourceObject, identity m
 }
 
 func newPracticalSourceTypes(snapshot practicalSourceSnapshot, discovery practicalModuleDiscovery, compiler practicalCompilerImage) (*practicalSourceTypes, error) {
+	if err := discovery.requireOriginalObservation(); err != nil {
+		return nil, err
+	}
 	if runtime.Version() != practicalCompilerRelease || compiler.selection.Target.ID != goTarget || compiler.selection.Target.PointerWidth != 64 || !sha256Pattern.MatchString(discovery.compilerSHA256) {
 		return nil, fmt.Errorf("original source type checking requires the exact prepared Go1.25.0 target")
 	}

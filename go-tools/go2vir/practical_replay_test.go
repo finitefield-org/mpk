@@ -279,11 +279,11 @@ func TestPracticalReplayPrepareWholeOriginalModuleAndCompilerImage(t *testing.T)
 	if err != nil || exportSnapshot.contentSHA256 != exports.snapshot.contentSHA256 {
 		t.Fatal("restored original export snapshot differs", err)
 	}
-	modules, err := restored.bindOriginalModuleOutput(practicalModuleLocation{capability: roots[0].Capability}, practicalModuleLocation{capability: roots[1].Capability}, discovery.output)
+	rebound, err := restored.restoreOriginalDiscovery(practicalModuleLocation{capability: roots[0].Capability}, practicalModuleLocation{capability: roots[1].Capability}, discovery)
 	if err != nil {
 		t.Fatal(err)
 	}
-	rebound := practicalModuleDiscovery{output: bytes.Clone(discovery.output), compilerSHA256: discovery.compilerSHA256, mainSourceID: discovery.mainSourceID, modules: modules}
+	modules := rebound.modules
 	loader, err := newPracticalSourceTypesWithStandardLibrary(sources, rebound, *image.compiler, roots[2].Capability)
 	if err != nil {
 		t.Fatal(err)
@@ -334,5 +334,8 @@ func TestPracticalReplayPrepareWholeOriginalModuleAndCompilerImage(t *testing.T)
 	}
 	if err := os.WriteFile(filepath.Join(output, "replay-image.json"), append(raw, '\n'), 0o600); err != nil {
 		t.Fatal(err)
+	}
+	if os.Getenv("MPK_GO_PRACTICAL_REPLAY_EXCHANGE") == "1" {
+		comparePracticalOwnedNativeRounds(t, output, image, discovery, exports)
 	}
 }

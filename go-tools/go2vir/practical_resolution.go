@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"os/exec"
 	"path"
 	"path/filepath"
 	"sort"
@@ -22,6 +21,7 @@ type practicalModuleDiscovery struct {
 	compilerSHA256 string
 	mainSourceID   string
 	modules        []practicalResolvedModule
+	observation    *practicalGoObservation
 }
 
 // Keep complete bounded child diagnostics available to private capture
@@ -274,31 +274,9 @@ func bindPracticalGoModuleRows(session practicalModuleInputs, main practicalCapt
 // The existing validated launcher supplies only compiler identity here. It
 // grants no practical-profile registration or foundation/source proof authority.
 func (session *practicalCaptureSession) discoverPracticalModules(mainLocation, cache practicalModuleLocation, selection validatedLauncherSelection) (practicalModuleDiscovery, error) {
-	goHash := ""
-	for _, component := range selection.Toolchain.Components {
-		if component.Name == "go" && component.Kind == "executable" && component.Release == practicalCompilerRelease {
-			goHash = component.BinarySHA256
-		}
-	}
-	if !sha256Pattern.MatchString(goHash) || selection.Target.ID != goTarget || selection.Target.PointerWidth != goPointerWidth || selection.GoExecutable != filepath.Join(selection.GoRoot, "bin", executableName("go")) {
+	goHash, err := practicalGoCommandCompiler(selection)
+	if err != nil || !practicalGoExecutableMatches(selection, goHash) {
 		return practicalModuleDiscovery{}, session.reject(fmt.Errorf("module discovery requires the exact validated Go1.25 compiler/target"))
-	}
-	checkExecutable := func() bool {
-		root, err := openPracticalSourceRoot(selection.GoRoot)
-		if err != nil {
-			return false
-		}
-		info, err := root.Lstat("bin/" + executableName("go"))
-		if err != nil || !info.Mode().IsRegular() {
-			_ = root.Close()
-			return false
-		}
-		data, err := readPracticalRegularFile(root, "bin/"+executableName("go"), info, maximumCandidateBytes)
-		closeErr := root.Close()
-		return err == nil && closeErr == nil && sha256Hex(data) == goHash
-	}
-	if !checkExecutable() {
-		return practicalModuleDiscovery{}, session.reject(fmt.Errorf("selected Go executable differs from its validated identity"))
 	}
 	main, err := session.captureModule(mainLocation, true)
 	if err != nil {
@@ -326,20 +304,11 @@ func (session *practicalCaptureSession) discoverPracticalModules(mainLocation, c
 	defer filesystem.Close()
 	environmentFS := filesystem
 	environmentFS.goMod = moduleCache
-	ctx, cancel := context.WithTimeout(context.Background(), 120*time.Second)
-	defer cancel()
-	stdout := &practicalBoundedOutput{maximum: maximumCandidateBytes, cancel: cancel}
-	stderr := &practicalBoundedOutput{maximum: maximumContractBytes, cancel: cancel}
-	command := exec.CommandContext(ctx, selection.GoExecutable, "list", "-mod=readonly", "-m", "-json", "all")
-	command.Dir, command.Env = directory, pinnedLoaderEnvironment(selection, environmentFS)
-	command.Stdout, command.Stderr = stdout, stderr
-	if err := command.Run(); err != nil {
-		return practicalModuleDiscovery{}, session.reject(&practicalGoDiscoveryFailure{cause: err, output: bytes.Clone(stdout.Bytes()), diagnostics: bytes.Clone(stderr.Bytes())})
+	observation, err := runPracticalGoObservation(selection, environmentFS, directory, main.manifest.source.object.ID, practicalGoModules, "")
+	if err != nil {
+		return practicalModuleDiscovery{}, session.reject(err)
 	}
-	if !checkExecutable() {
-		return practicalModuleDiscovery{}, session.reject(fmt.Errorf("selected Go executable changed during module discovery"))
-	}
-	rows, err := decodePracticalGoModules(stdout.Bytes())
+	rows, err := decodePracticalGoModules(observation.output)
 	if err != nil {
 		return practicalModuleDiscovery{}, session.reject(err)
 	}
@@ -347,5 +316,5 @@ func (session *practicalCaptureSession) discoverPracticalModules(mainLocation, c
 	if err != nil {
 		return practicalModuleDiscovery{}, err
 	}
-	return practicalModuleDiscovery{output: bytes.Clone(stdout.Bytes()), compilerSHA256: goHash, mainSourceID: main.manifest.source.object.ID, modules: modules}, nil
+	return practicalModuleDiscovery{output: bytes.Clone(observation.output), compilerSHA256: goHash, mainSourceID: main.manifest.source.object.ID, modules: modules, observation: observation}, nil
 }

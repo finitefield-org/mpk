@@ -2,19 +2,16 @@ package main
 
 import (
 	"bytes"
-	"context"
 	"encoding/json"
 	"fmt"
 	"io"
 	"maps"
-	"os/exec"
 	"path"
 	"path/filepath"
 	"reflect"
 	"sort"
 	"strconv"
 	"strings"
-	"time"
 
 	"golang.org/x/mod/module"
 )
@@ -56,6 +53,7 @@ type practicalPackageExports struct {
 	packages            []practicalCapturedPackageExport
 	snapshot            practicalSourceSnapshot
 	replay              practicalReplaySources
+	observation         *practicalGoObservation
 }
 
 func decodePracticalPackageExports(raw []byte) ([]practicalGoPackageExport, error) {
@@ -139,8 +137,14 @@ func practicalExportSourceLocation(compiler practicalCompilerImage, discovery pr
 
 func (session *practicalCaptureSession) capturePracticalPackageExports(compiler practicalCompilerImage, discovery practicalModuleDiscovery, sdkCapability string, mainLocation practicalModuleLocation, selectedPackage string) (practicalPackageExports, error) {
 	result := practicalPackageExports{compilerSHA256: discovery.compilerSHA256, distributionSHA256: compiler.selection.Toolchain.DistributionSHA256, mainSourceID: discovery.mainSourceID, requestedPackage: selectedPackage}
+	if err := discovery.requireOriginalObservation(); err != nil {
+		return result, session.reject(err)
+	}
 	if err := compiler.revalidate(); err != nil {
 		return result, session.reject(err)
+	}
+	if discovery.observation.compilerRoot != compiler.selection.GoRoot || discovery.observation.distributionSHA256 != compiler.selection.Toolchain.DistributionSHA256 {
+		return result, session.reject(fmt.Errorf("native export preparation crossed its original module compiler image"))
 	}
 	var main *practicalResolvedModule
 	for i := range discovery.modules {
@@ -158,6 +162,9 @@ func (session *practicalCaptureSession) capturePracticalPackageExports(compiler 
 	if err != nil {
 		return result, err
 	}
+	if directory != discovery.observation.directory {
+		return result, session.reject(fmt.Errorf("native export preparation crossed its original main directory"))
+	}
 	filesystem, err := newLoaderFilesystem()
 	if err != nil {
 		return result, session.reject(err)
@@ -169,12 +176,6 @@ func (session *practicalCaptureSession) capturePracticalPackageExports(compiler 
 	if err != nil {
 		return result, session.reject(err)
 	}
-	ctx, cancel := context.WithTimeout(context.Background(), 120*time.Second)
-	defer cancel()
-	stdout := &practicalBoundedOutput{maximum: maximumCandidateBytes, cancel: cancel}
-	stderr := &practicalBoundedOutput{maximum: maximumContractBytes, cancel: cancel}
-	command := exec.CommandContext(ctx, compiler.selection.GoExecutable, "list", "-mod=readonly", "-deps", "-export", "-compiled", "-json", selectedPackage)
-	command.Dir = directory
 	environmentFS := filesystem
 	if cache, err := practicalExportOriginalCache(discovery); err != nil {
 		return result, session.reject(err)
@@ -184,13 +185,11 @@ func (session *practicalCaptureSession) capturePracticalPackageExports(compiler 
 			return result, err
 		}
 	}
-	command.Env = pinnedLoaderEnvironment(compiler.selection, environmentFS)
-	command.Stdout = stdout
-	command.Stderr = stderr
-	if err := command.Run(); err != nil {
-		return result, session.reject(&practicalGoDiscoveryFailure{cause: err, output: bytes.Clone(stdout.Bytes()), diagnostics: bytes.Clone(stderr.Bytes())})
+	result.observation, err = runPracticalGoObservation(compiler.selection, environmentFS, directory, discovery.mainSourceID, practicalGoPackages, selectedPackage)
+	if err != nil {
+		return result, session.reject(err)
 	}
-	result.output, result.diagnostics = bytes.Clone(stdout.Bytes()), bytes.Clone(stderr.Bytes())
+	result.output, result.diagnostics = bytes.Clone(result.observation.output), bytes.Clone(result.observation.diagnostics)
 	result.buildCacheDirectory = filesystem.goBuild
 	if err := compiler.revalidate(); err != nil {
 		return result, session.reject(err)
@@ -391,6 +390,12 @@ func validatePracticalExportRoot(rows []practicalGoPackageExport, selectedPackag
 // be replayed against the immutable original module/package namespace before
 // any registered context can acquire loader authority.
 func (exports practicalPackageExports) bindOriginalSourceTypes(loader *practicalSourceTypes, discovery practicalModuleDiscovery, compiler practicalCompilerImage, sdkCapability string) error {
+	if err := discovery.requireOriginalObservation(); err != nil {
+		return err
+	}
+	if err := exports.requireOriginalObservation(); err != nil {
+		return err
+	}
 	if loader == nil || loader.failed != nil || loader.syntax.failed != nil || loader.stdlib == nil || exports.compilerSHA256 != discovery.compilerSHA256 || exports.compilerSHA256 != loader.stdlib.compilerSHA256 || exports.distributionSHA256 != loader.stdlib.distributionSHA256 || exports.distributionSHA256 != compiler.selection.Toolchain.DistributionSHA256 || exports.mainSourceID != discovery.mainSourceID {
 		return fmt.Errorf("export preparation crossed original compiler/module/source ownership")
 	}
@@ -404,7 +409,13 @@ func (exports practicalPackageExports) bindOriginalSourceTypes(loader *practical
 	if err := validatePracticalExportRoot(rows, exports.requestedPackage); err != nil {
 		return err
 	}
-	if len(rows) != len(exports.packages) || len(rows) != len(loader.packages)+1 {
+	intrinsics := 0
+	for _, row := range rows {
+		if row.ImportPath == "unsafe" {
+			intrinsics++
+		}
+	}
+	if len(rows) != len(exports.packages) || len(rows) != len(loader.packages)+intrinsics {
 		return fmt.Errorf("original compiler export/source package closure is incomplete")
 	}
 	byPath := map[string]practicalCapturedPackageExport{}

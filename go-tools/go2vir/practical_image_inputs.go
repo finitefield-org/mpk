@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"maps"
 	"sort"
@@ -176,6 +177,33 @@ func (inputs *practicalImageInputs) bindOriginalModuleOutput(mainLocation, cache
 		return nil, inputs.reject(err)
 	}
 	return bindPracticalGoModuleRows(inputs, main, cache, rows)
+}
+
+func (inputs *practicalImageInputs) restoreOriginalDiscovery(mainLocation, cache practicalModuleLocation, original practicalModuleDiscovery) (practicalModuleDiscovery, error) {
+	if err := original.requireOriginalObservation(); err != nil {
+		return practicalModuleDiscovery{}, inputs.reject(err)
+	}
+	directory, err := inputs.practicalPhysicalDirectory(mainLocation)
+	if err != nil {
+		return practicalModuleDiscovery{}, err
+	}
+	moduleCache, err := inputs.practicalPhysicalDirectory(cache)
+	if err != nil {
+		return practicalModuleDiscovery{}, err
+	}
+	main, err := inputs.captureModule(mainLocation, true)
+	if err != nil {
+		return practicalModuleDiscovery{}, err
+	}
+	if main.manifest.source.object.ID != original.mainSourceID || directory != original.observation.directory || moduleCache != original.observation.moduleCache {
+		return practicalModuleDiscovery{}, inputs.reject(fmt.Errorf("original Go observation crossed its original main/cache roots"))
+	}
+	modules, err := inputs.bindOriginalModuleOutput(mainLocation, cache, original.output)
+	if err != nil {
+		return practicalModuleDiscovery{}, err
+	}
+	return practicalModuleDiscovery{output: bytes.Clone(original.observation.output), compilerSHA256: original.compilerSHA256,
+		mainSourceID: original.mainSourceID, modules: modules, observation: original.observation}, nil
 }
 
 // Preserve the exact original capability subset, including unread names. This

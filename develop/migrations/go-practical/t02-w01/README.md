@@ -606,3 +606,27 @@ payloads, the full5771-file image/7411 original namespace nodes, both snapshot
 frames and all255 frozen members. R06/W01/private context/general consulted
 namespace/selected-closure/full56-all6-19 foundation/all169/T02-T11 remain due.
 C# tests stay skipped and the cumulative T02 gate stays W04.
+
+The [complete original observation checkpoint](verification/native-observation/README.md)
+requires actual privately owned controlled Go module/package observations before
+original module/source/export/image consumption. A live Go-owned full-image
+baseline compares every complete native field and archive byte from two
+independent readonly executions with fresh caches. All4 module objects/all182
+package objects except generated Export locator and181 archives/79406936 bytes
+per run agree, also under an independent comparator. Diagnostics, unknown fields,
+unmodelled Root, membership, cache escape, archive mutations and lifetime/close
+controls reject. These are preparation/data correspondence checks; production
+kernel/context/complete general consulted namespace and selected closure remain
+due. A genuine original1-native/1-source package without unsafe now binds using
+actual intrinsic membership. A sole compiler-guard diagnostic compatibility
+failure retains its exact old source/result; after all original handles terminate,
+only that prior literal is restored and its exact guard/current frontend builds
+pass. Unaffected complete source/control-flow observations are retained.
+Two fresh184-input builds agree; current legacy compile-only/vet/format pass.
+Independent reconstruction checks33643 complete source preimages across six
+epochs,453 extra complete payloads, both snapshots/full image/compiler inventory
+and all255 frozen members. All13 original drivers/six containers are terminal.
+Full56-all6-19 source/program foundation/private descriptor/registry/context/
+retained policies/all169 demands/T02-T11 remain required. R06/W01 stay open;
+no public profile/source/program proof activates. C# tests stay skipped; the
+cumulative T02 gate remains W04: ./scripts/check-fast.sh --skip-csharp.

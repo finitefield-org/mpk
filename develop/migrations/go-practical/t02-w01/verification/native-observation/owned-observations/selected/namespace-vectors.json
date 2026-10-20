@@ -1,0 +1,2666 @@
+{
+  "immutable_application_replay_claimed": false,
+  "registered_context": false,
+  "vectors": [
+    {
+      "capabilities": [
+        "workspace/dep",
+        "workspace/main",
+        "workspace/unused"
+      ],
+      "directories": [
+        {
+          "capability": "workspace/dep",
+          "entries": [
+            {
+              "name_hex": "706f6c6963792e676f",
+              "type_bits": 0
+            }
+          ],
+          "path": ""
+        },
+        {
+          "capability": "workspace/main",
+          "entries": [
+            {
+              "name_hex": "656d707479",
+              "type_bits": 2147483648
+            },
+            {
+              "name_hex": "6578706f727473",
+              "type_bits": 2147483648
+            },
+            {
+              "name_hex": "676f2e6d6f64",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "676f2e73756d",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "69676e6f7265640a61737365742e62696e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6c696e6b65642d646972",
+              "type_bits": 134217728
+            },
+            {
+              "name_hex": "6c696e6b65642e676f",
+              "type_bits": 134217728
+            },
+            {
+              "name_hex": "6d657461646174612e6a736f6e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6e61746976655c61737365742e62696e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6f70617175652e6173736574",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6f746865725f77696e646f77732e676f",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "70656e64696e67",
+              "type_bits": 2147483648
+            },
+            {
+              "name_hex": "706f6c6963792e636f6e74726163742e6a736f6e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "706f6c6963792e676f",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "7370656369616c2e676f",
+              "type_bits": 33554432
+            },
+            {
+              "name_hex": "756e726561642e676f",
+              "type_bits": 0
+            }
+          ],
+          "path": ""
+        },
+        {
+          "capability": "workspace/main",
+          "entries": [],
+          "path": "empty"
+        },
+        {
+          "capability": "workspace/main",
+          "entries": [
+            {
+              "name_hex": "706b672e61",
+              "type_bits": 0
+            }
+          ],
+          "path": "exports"
+        }
+      ],
+      "label": "original",
+      "scope": "actual native captured namespace",
+      "sha256": "f03fd6df554a762fc4d5e3876f5dadd03ad8850188d50d6577102d0e6e26fb81",
+      "source_ids": [
+        "094fd60d50eca9aeddfe5d443a11462aedae83f38d6140ff06eb85c1f83b1520",
+        "146dc291a49b61a3e43e3f912e358eba2d94e0a98eb1c949ec884fc5014c3b31",
+        "552a1190a624385444079ae9612ec3b9b93a6bd1d43fab063da021588ff58eb6",
+        "57fbf5245f0d495e4c1c1c40a720d72699b0112af52ec19c63b3b3e140966e09",
+        "8b48dcd2fef26b7be919e18afc182f5ff205680dd55fd127b558374330033549",
+        "b3bc2f74afac42b2293dfa3c7f94340fc8f7acd728bced335e8ab940373aec82",
+        "ba947bed23229661427d7ab824c77d8c803c33ae0e4dce61dbb9ebf8cbb976b4",
+        "f2a7e16a89674c629dbf4f79ae2ced7cdc44b96d81a9577e6bbcd9ef5ae7a2bc",
+        "f62d05f7d60e6d0995395e3c22abe87245196e14aace1c10a4b1ce73965ef0d8"
+      ],
+      "sources": [
+        {
+          "bytes_hex": "7b226f726967696e616c223a747275657d0d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "094fd60d50eca9aeddfe5d443a11462aedae83f38d6140ff06eb85c1f83b1520",
+            "capability": "workspace/main",
+            "path": "metadata.json",
+            "kind": "metadata",
+            "raw_sha256": "b394f0692c06177a3960586e9ffa8f5ba3888a720acdaf62e6461398935bc992",
+            "bytes": 19
+          }
+        },
+        {
+          "bytes_hex": "7b7d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "146dc291a49b61a3e43e3f912e358eba2d94e0a98eb1c949ec884fc5014c3b31",
+            "capability": "workspace/main",
+            "path": "policy.contract.json",
+            "kind": "overlay",
+            "raw_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+            "bytes": 3
+          }
+        },
+        {
+          "bytes_hex": "7061636b61676520706f6c6963790a66756e632053656c6563746564287820696e7436342920696e743634207b2072657475726e2078207d0a66756e6320556e75736564286d206d61705b737472696e675d696e742920696e74207b2072657475726e206c656e286d29207d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "552a1190a624385444079ae9612ec3b9b93a6bd1d43fab063da021588ff58eb6",
+            "capability": "workspace/main",
+            "path": "policy.go",
+            "kind": "go_file",
+            "raw_sha256": "292d7fc3f94fc62a018dfc9504e61b21dcb507a6f8852faae622ee976f1c73e3",
+            "bytes": 109
+          }
+        },
+        {
+          "bytes_hex": "00ff800a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "57fbf5245f0d495e4c1c1c40a720d72699b0112af52ec19c63b3b3e140966e09",
+            "capability": "workspace/main",
+            "path": "exports/pkg.a",
+            "kind": "export_data",
+            "raw_sha256": "6d6f7836f1e146dc0204afb5133dae52fdc05603d8ac2dc793b481b0e0829fd1",
+            "bytes": 4
+          }
+        },
+        {
+          "bytes_hex": "",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "8b48dcd2fef26b7be919e18afc182f5ff205680dd55fd127b558374330033549",
+            "capability": "workspace/main",
+            "path": "go.sum",
+            "kind": "go_sum",
+            "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          }
+        },
+        {
+          "bytes_hex": "ff0001",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "b3bc2f74afac42b2293dfa3c7f94340fc8f7acd728bced335e8ab940373aec82",
+            "capability": "workspace/main",
+            "path": "opaque.asset",
+            "kind": "auxiliary",
+            "raw_sha256": "942e1e2a66a427b6551732f758bc314f22b9cdec9365a3425c9184de299392b5",
+            "bytes": 3
+          }
+        },
+        {
+          "bytes_hex": "6d6f64756c65206578616d706c652e636f6d2f706f6c6963790a676f20312e32352e300a7265706c616365206578616d706c652e636f6d2f646570203d3e202e2e2f6465700a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "ba947bed23229661427d7ab824c77d8c803c33ae0e4dce61dbb9ebf8cbb976b4",
+            "capability": "workspace/main",
+            "path": "go.mod",
+            "kind": "go_mod",
+            "raw_sha256": "8f799c9888464f16fa7879c0e348f09227e6f3d489c28ae2446851c47042224f",
+            "bytes": 70
+          }
+        },
+        {
+          "bytes_hex": "7061636b616765206465700a66756e63204964656e74697479287820696e7436342920696e743634207b2072657475726e2078207d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "f2a7e16a89674c629dbf4f79ae2ced7cdc44b96d81a9577e6bbcd9ef5ae7a2bc",
+            "capability": "workspace/dep",
+            "path": "policy.go",
+            "kind": "go_file",
+            "raw_sha256": "bff02c4da5d9caabebf78789380afd5a43d480a75c5d9396f292be4028c06981",
+            "bytes": 54
+          }
+        },
+        {
+          "bytes_hex": "2f2f676f3a6275696c642077696e646f77730a0a7061636b61676520706f6c6963790a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "f62d05f7d60e6d0995395e3c22abe87245196e14aace1c10a4b1ce73965ef0d8",
+            "capability": "workspace/main",
+            "path": "other_windows.go",
+            "kind": "excluded_source",
+            "raw_sha256": "945e4f7ad19eb98433d383a39ab9867162d912f2cfd8bed353b137c1d271d537",
+            "bytes": 35
+          }
+        }
+      ]
+    },
+    {
+      "capabilities": [
+        "workspace/dep",
+        "workspace/main",
+        "workspace/unused"
+      ],
+      "directories": [
+        {
+          "capability": "workspace/dep",
+          "entries": [
+            {
+              "name_hex": "706f6c6963792e676f",
+              "type_bits": 0
+            }
+          ],
+          "path": ""
+        },
+        {
+          "capability": "workspace/main",
+          "entries": [
+            {
+              "name_hex": "656d707479",
+              "type_bits": 2147483648
+            },
+            {
+              "name_hex": "6578706f727473",
+              "type_bits": 2147483648
+            },
+            {
+              "name_hex": "676f2e6d6f64",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "676f2e73756d",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "69676e6f7265640a61737365742e62696e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6c696e6b65642d646972",
+              "type_bits": 134217728
+            },
+            {
+              "name_hex": "6c696e6b65642e676f",
+              "type_bits": 134217728
+            },
+            {
+              "name_hex": "6d657461646174612e6a736f6e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6e61746976655c61737365742e62696e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6f70617175652e6173736574",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6f746865725f77696e646f77732e676f",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "70656e64696e67",
+              "type_bits": 2147483648
+            },
+            {
+              "name_hex": "706f6c6963792e636f6e74726163742e6a736f6e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "706f6c6963792e676f",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "7370656369616c2e676f",
+              "type_bits": 33554432
+            },
+            {
+              "name_hex": "756e726561642e676f",
+              "type_bits": 0
+            }
+          ],
+          "path": ""
+        },
+        {
+          "capability": "workspace/main",
+          "entries": [],
+          "path": "empty"
+        },
+        {
+          "capability": "workspace/main",
+          "entries": [
+            {
+              "name_hex": "706b672e61",
+              "type_bits": 0
+            }
+          ],
+          "path": "exports"
+        }
+      ],
+      "label": "reordered",
+      "scope": "actual native captured namespace",
+      "sha256": "f03fd6df554a762fc4d5e3876f5dadd03ad8850188d50d6577102d0e6e26fb81",
+      "source_ids": [
+        "094fd60d50eca9aeddfe5d443a11462aedae83f38d6140ff06eb85c1f83b1520",
+        "146dc291a49b61a3e43e3f912e358eba2d94e0a98eb1c949ec884fc5014c3b31",
+        "552a1190a624385444079ae9612ec3b9b93a6bd1d43fab063da021588ff58eb6",
+        "57fbf5245f0d495e4c1c1c40a720d72699b0112af52ec19c63b3b3e140966e09",
+        "8b48dcd2fef26b7be919e18afc182f5ff205680dd55fd127b558374330033549",
+        "b3bc2f74afac42b2293dfa3c7f94340fc8f7acd728bced335e8ab940373aec82",
+        "ba947bed23229661427d7ab824c77d8c803c33ae0e4dce61dbb9ebf8cbb976b4",
+        "f2a7e16a89674c629dbf4f79ae2ced7cdc44b96d81a9577e6bbcd9ef5ae7a2bc",
+        "f62d05f7d60e6d0995395e3c22abe87245196e14aace1c10a4b1ce73965ef0d8"
+      ],
+      "sources": [
+        {
+          "bytes_hex": "7b226f726967696e616c223a747275657d0d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "094fd60d50eca9aeddfe5d443a11462aedae83f38d6140ff06eb85c1f83b1520",
+            "capability": "workspace/main",
+            "path": "metadata.json",
+            "kind": "metadata",
+            "raw_sha256": "b394f0692c06177a3960586e9ffa8f5ba3888a720acdaf62e6461398935bc992",
+            "bytes": 19
+          }
+        },
+        {
+          "bytes_hex": "7b7d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "146dc291a49b61a3e43e3f912e358eba2d94e0a98eb1c949ec884fc5014c3b31",
+            "capability": "workspace/main",
+            "path": "policy.contract.json",
+            "kind": "overlay",
+            "raw_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+            "bytes": 3
+          }
+        },
+        {
+          "bytes_hex": "7061636b61676520706f6c6963790a66756e632053656c6563746564287820696e7436342920696e743634207b2072657475726e2078207d0a66756e6320556e75736564286d206d61705b737472696e675d696e742920696e74207b2072657475726e206c656e286d29207d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "552a1190a624385444079ae9612ec3b9b93a6bd1d43fab063da021588ff58eb6",
+            "capability": "workspace/main",
+            "path": "policy.go",
+            "kind": "go_file",
+            "raw_sha256": "292d7fc3f94fc62a018dfc9504e61b21dcb507a6f8852faae622ee976f1c73e3",
+            "bytes": 109
+          }
+        },
+        {
+          "bytes_hex": "00ff800a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "57fbf5245f0d495e4c1c1c40a720d72699b0112af52ec19c63b3b3e140966e09",
+            "capability": "workspace/main",
+            "path": "exports/pkg.a",
+            "kind": "export_data",
+            "raw_sha256": "6d6f7836f1e146dc0204afb5133dae52fdc05603d8ac2dc793b481b0e0829fd1",
+            "bytes": 4
+          }
+        },
+        {
+          "bytes_hex": "",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "8b48dcd2fef26b7be919e18afc182f5ff205680dd55fd127b558374330033549",
+            "capability": "workspace/main",
+            "path": "go.sum",
+            "kind": "go_sum",
+            "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          }
+        },
+        {
+          "bytes_hex": "ff0001",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "b3bc2f74afac42b2293dfa3c7f94340fc8f7acd728bced335e8ab940373aec82",
+            "capability": "workspace/main",
+            "path": "opaque.asset",
+            "kind": "auxiliary",
+            "raw_sha256": "942e1e2a66a427b6551732f758bc314f22b9cdec9365a3425c9184de299392b5",
+            "bytes": 3
+          }
+        },
+        {
+          "bytes_hex": "6d6f64756c65206578616d706c652e636f6d2f706f6c6963790a676f20312e32352e300a7265706c616365206578616d706c652e636f6d2f646570203d3e202e2e2f6465700a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "ba947bed23229661427d7ab824c77d8c803c33ae0e4dce61dbb9ebf8cbb976b4",
+            "capability": "workspace/main",
+            "path": "go.mod",
+            "kind": "go_mod",
+            "raw_sha256": "8f799c9888464f16fa7879c0e348f09227e6f3d489c28ae2446851c47042224f",
+            "bytes": 70
+          }
+        },
+        {
+          "bytes_hex": "7061636b616765206465700a66756e63204964656e74697479287820696e7436342920696e743634207b2072657475726e2078207d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "f2a7e16a89674c629dbf4f79ae2ced7cdc44b96d81a9577e6bbcd9ef5ae7a2bc",
+            "capability": "workspace/dep",
+            "path": "policy.go",
+            "kind": "go_file",
+            "raw_sha256": "bff02c4da5d9caabebf78789380afd5a43d480a75c5d9396f292be4028c06981",
+            "bytes": 54
+          }
+        },
+        {
+          "bytes_hex": "2f2f676f3a6275696c642077696e646f77730a0a7061636b61676520706f6c6963790a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "f62d05f7d60e6d0995395e3c22abe87245196e14aace1c10a4b1ce73965ef0d8",
+            "capability": "workspace/main",
+            "path": "other_windows.go",
+            "kind": "excluded_source",
+            "raw_sha256": "945e4f7ad19eb98433d383a39ab9867162d912f2cfd8bed353b137c1d271d537",
+            "bytes": 35
+          }
+        }
+      ]
+    },
+    {
+      "capabilities": [
+        "workspace/dep",
+        "workspace/main",
+        "workspace/unused"
+      ],
+      "directories": [
+        {
+          "capability": "workspace/dep",
+          "entries": [
+            {
+              "name_hex": "706f6c6963792e676f",
+              "type_bits": 0
+            }
+          ],
+          "path": ""
+        },
+        {
+          "capability": "workspace/main",
+          "entries": [
+            {
+              "name_hex": "61646465642e676f",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "656d707479",
+              "type_bits": 2147483648
+            },
+            {
+              "name_hex": "6578706f727473",
+              "type_bits": 2147483648
+            },
+            {
+              "name_hex": "676f2e6d6f64",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "676f2e73756d",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "69676e6f7265640a61737365742e62696e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6c696e6b65642d646972",
+              "type_bits": 134217728
+            },
+            {
+              "name_hex": "6c696e6b65642e676f",
+              "type_bits": 134217728
+            },
+            {
+              "name_hex": "6d657461646174612e6a736f6e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6e61746976655c61737365742e62696e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6f70617175652e6173736574",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6f746865725f77696e646f77732e676f",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "70656e64696e67",
+              "type_bits": 2147483648
+            },
+            {
+              "name_hex": "706f6c6963792e636f6e74726163742e6a736f6e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "706f6c6963792e676f",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "7370656369616c2e676f",
+              "type_bits": 33554432
+            },
+            {
+              "name_hex": "756e726561642e676f",
+              "type_bits": 0
+            }
+          ],
+          "path": ""
+        },
+        {
+          "capability": "workspace/main",
+          "entries": [],
+          "path": "empty"
+        },
+        {
+          "capability": "workspace/main",
+          "entries": [
+            {
+              "name_hex": "706b672e61",
+              "type_bits": 0
+            }
+          ],
+          "path": "exports"
+        }
+      ],
+      "label": "added-entry",
+      "scope": "actual independent native recapture",
+      "sha256": "50959138be4287aa0254c3a663d336f57cc9568189b3c7fd763b3e1eae43e9a1",
+      "source_ids": [
+        "094fd60d50eca9aeddfe5d443a11462aedae83f38d6140ff06eb85c1f83b1520",
+        "146dc291a49b61a3e43e3f912e358eba2d94e0a98eb1c949ec884fc5014c3b31",
+        "552a1190a624385444079ae9612ec3b9b93a6bd1d43fab063da021588ff58eb6",
+        "57fbf5245f0d495e4c1c1c40a720d72699b0112af52ec19c63b3b3e140966e09",
+        "8b48dcd2fef26b7be919e18afc182f5ff205680dd55fd127b558374330033549",
+        "b3bc2f74afac42b2293dfa3c7f94340fc8f7acd728bced335e8ab940373aec82",
+        "ba947bed23229661427d7ab824c77d8c803c33ae0e4dce61dbb9ebf8cbb976b4",
+        "f2a7e16a89674c629dbf4f79ae2ced7cdc44b96d81a9577e6bbcd9ef5ae7a2bc",
+        "f62d05f7d60e6d0995395e3c22abe87245196e14aace1c10a4b1ce73965ef0d8"
+      ],
+      "sources": [
+        {
+          "bytes_hex": "7b226f726967696e616c223a747275657d0d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "094fd60d50eca9aeddfe5d443a11462aedae83f38d6140ff06eb85c1f83b1520",
+            "capability": "workspace/main",
+            "path": "metadata.json",
+            "kind": "metadata",
+            "raw_sha256": "b394f0692c06177a3960586e9ffa8f5ba3888a720acdaf62e6461398935bc992",
+            "bytes": 19
+          }
+        },
+        {
+          "bytes_hex": "7b7d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "146dc291a49b61a3e43e3f912e358eba2d94e0a98eb1c949ec884fc5014c3b31",
+            "capability": "workspace/main",
+            "path": "policy.contract.json",
+            "kind": "overlay",
+            "raw_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+            "bytes": 3
+          }
+        },
+        {
+          "bytes_hex": "7061636b61676520706f6c6963790a66756e632053656c6563746564287820696e7436342920696e743634207b2072657475726e2078207d0a66756e6320556e75736564286d206d61705b737472696e675d696e742920696e74207b2072657475726e206c656e286d29207d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "552a1190a624385444079ae9612ec3b9b93a6bd1d43fab063da021588ff58eb6",
+            "capability": "workspace/main",
+            "path": "policy.go",
+            "kind": "go_file",
+            "raw_sha256": "292d7fc3f94fc62a018dfc9504e61b21dcb507a6f8852faae622ee976f1c73e3",
+            "bytes": 109
+          }
+        },
+        {
+          "bytes_hex": "00ff800a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "57fbf5245f0d495e4c1c1c40a720d72699b0112af52ec19c63b3b3e140966e09",
+            "capability": "workspace/main",
+            "path": "exports/pkg.a",
+            "kind": "export_data",
+            "raw_sha256": "6d6f7836f1e146dc0204afb5133dae52fdc05603d8ac2dc793b481b0e0829fd1",
+            "bytes": 4
+          }
+        },
+        {
+          "bytes_hex": "",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "8b48dcd2fef26b7be919e18afc182f5ff205680dd55fd127b558374330033549",
+            "capability": "workspace/main",
+            "path": "go.sum",
+            "kind": "go_sum",
+            "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          }
+        },
+        {
+          "bytes_hex": "ff0001",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "b3bc2f74afac42b2293dfa3c7f94340fc8f7acd728bced335e8ab940373aec82",
+            "capability": "workspace/main",
+            "path": "opaque.asset",
+            "kind": "auxiliary",
+            "raw_sha256": "942e1e2a66a427b6551732f758bc314f22b9cdec9365a3425c9184de299392b5",
+            "bytes": 3
+          }
+        },
+        {
+          "bytes_hex": "6d6f64756c65206578616d706c652e636f6d2f706f6c6963790a676f20312e32352e300a7265706c616365206578616d706c652e636f6d2f646570203d3e202e2e2f6465700a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "ba947bed23229661427d7ab824c77d8c803c33ae0e4dce61dbb9ebf8cbb976b4",
+            "capability": "workspace/main",
+            "path": "go.mod",
+            "kind": "go_mod",
+            "raw_sha256": "8f799c9888464f16fa7879c0e348f09227e6f3d489c28ae2446851c47042224f",
+            "bytes": 70
+          }
+        },
+        {
+          "bytes_hex": "7061636b616765206465700a66756e63204964656e74697479287820696e7436342920696e743634207b2072657475726e2078207d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "f2a7e16a89674c629dbf4f79ae2ced7cdc44b96d81a9577e6bbcd9ef5ae7a2bc",
+            "capability": "workspace/dep",
+            "path": "policy.go",
+            "kind": "go_file",
+            "raw_sha256": "bff02c4da5d9caabebf78789380afd5a43d480a75c5d9396f292be4028c06981",
+            "bytes": 54
+          }
+        },
+        {
+          "bytes_hex": "2f2f676f3a6275696c642077696e646f77730a0a7061636b61676520706f6c6963790a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "f62d05f7d60e6d0995395e3c22abe87245196e14aace1c10a4b1ce73965ef0d8",
+            "capability": "workspace/main",
+            "path": "other_windows.go",
+            "kind": "excluded_source",
+            "raw_sha256": "945e4f7ad19eb98433d383a39ab9867162d912f2cfd8bed353b137c1d271d537",
+            "bytes": 35
+          }
+        }
+      ]
+    },
+    {
+      "capabilities": [
+        "workspace/dep",
+        "workspace/main",
+        "workspace/unused"
+      ],
+      "directories": [
+        {
+          "capability": "workspace/dep",
+          "entries": [
+            {
+              "name_hex": "706f6c6963792e676f",
+              "type_bits": 0
+            }
+          ],
+          "path": ""
+        },
+        {
+          "capability": "workspace/main",
+          "entries": [
+            {
+              "name_hex": "656d707479",
+              "type_bits": 2147483648
+            },
+            {
+              "name_hex": "6578706f727473",
+              "type_bits": 2147483648
+            },
+            {
+              "name_hex": "676f2e6d6f64",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "676f2e73756d",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "69676e6f7265640a61737365742e62696e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6c696e6b65642d646972",
+              "type_bits": 134217728
+            },
+            {
+              "name_hex": "6c696e6b65642e676f",
+              "type_bits": 134217728
+            },
+            {
+              "name_hex": "6d657461646174612e6a736f6e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6e61746976655c61737365742e62696e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6f70617175652e6173736574",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6f746865725f77696e646f77732e676f",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "70656e64696e67",
+              "type_bits": 2147483648
+            },
+            {
+              "name_hex": "706f6c6963792e636f6e74726163742e6a736f6e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "706f6c6963792e676f",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "72656e616d65642e676f",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "7370656369616c2e676f",
+              "type_bits": 33554432
+            }
+          ],
+          "path": ""
+        },
+        {
+          "capability": "workspace/main",
+          "entries": [],
+          "path": "empty"
+        },
+        {
+          "capability": "workspace/main",
+          "entries": [
+            {
+              "name_hex": "706b672e61",
+              "type_bits": 0
+            }
+          ],
+          "path": "exports"
+        }
+      ],
+      "label": "renamed-unread",
+      "scope": "actual independent native recapture",
+      "sha256": "2c526e67322e00336608685912ca755086cc3a98b1b4a0bf509cde4a89775d5a",
+      "source_ids": [
+        "094fd60d50eca9aeddfe5d443a11462aedae83f38d6140ff06eb85c1f83b1520",
+        "146dc291a49b61a3e43e3f912e358eba2d94e0a98eb1c949ec884fc5014c3b31",
+        "552a1190a624385444079ae9612ec3b9b93a6bd1d43fab063da021588ff58eb6",
+        "57fbf5245f0d495e4c1c1c40a720d72699b0112af52ec19c63b3b3e140966e09",
+        "8b48dcd2fef26b7be919e18afc182f5ff205680dd55fd127b558374330033549",
+        "b3bc2f74afac42b2293dfa3c7f94340fc8f7acd728bced335e8ab940373aec82",
+        "ba947bed23229661427d7ab824c77d8c803c33ae0e4dce61dbb9ebf8cbb976b4",
+        "f2a7e16a89674c629dbf4f79ae2ced7cdc44b96d81a9577e6bbcd9ef5ae7a2bc",
+        "f62d05f7d60e6d0995395e3c22abe87245196e14aace1c10a4b1ce73965ef0d8"
+      ],
+      "sources": [
+        {
+          "bytes_hex": "7b226f726967696e616c223a747275657d0d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "094fd60d50eca9aeddfe5d443a11462aedae83f38d6140ff06eb85c1f83b1520",
+            "capability": "workspace/main",
+            "path": "metadata.json",
+            "kind": "metadata",
+            "raw_sha256": "b394f0692c06177a3960586e9ffa8f5ba3888a720acdaf62e6461398935bc992",
+            "bytes": 19
+          }
+        },
+        {
+          "bytes_hex": "7b7d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "146dc291a49b61a3e43e3f912e358eba2d94e0a98eb1c949ec884fc5014c3b31",
+            "capability": "workspace/main",
+            "path": "policy.contract.json",
+            "kind": "overlay",
+            "raw_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+            "bytes": 3
+          }
+        },
+        {
+          "bytes_hex": "7061636b61676520706f6c6963790a66756e632053656c6563746564287820696e7436342920696e743634207b2072657475726e2078207d0a66756e6320556e75736564286d206d61705b737472696e675d696e742920696e74207b2072657475726e206c656e286d29207d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "552a1190a624385444079ae9612ec3b9b93a6bd1d43fab063da021588ff58eb6",
+            "capability": "workspace/main",
+            "path": "policy.go",
+            "kind": "go_file",
+            "raw_sha256": "292d7fc3f94fc62a018dfc9504e61b21dcb507a6f8852faae622ee976f1c73e3",
+            "bytes": 109
+          }
+        },
+        {
+          "bytes_hex": "00ff800a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "57fbf5245f0d495e4c1c1c40a720d72699b0112af52ec19c63b3b3e140966e09",
+            "capability": "workspace/main",
+            "path": "exports/pkg.a",
+            "kind": "export_data",
+            "raw_sha256": "6d6f7836f1e146dc0204afb5133dae52fdc05603d8ac2dc793b481b0e0829fd1",
+            "bytes": 4
+          }
+        },
+        {
+          "bytes_hex": "",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "8b48dcd2fef26b7be919e18afc182f5ff205680dd55fd127b558374330033549",
+            "capability": "workspace/main",
+            "path": "go.sum",
+            "kind": "go_sum",
+            "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          }
+        },
+        {
+          "bytes_hex": "ff0001",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "b3bc2f74afac42b2293dfa3c7f94340fc8f7acd728bced335e8ab940373aec82",
+            "capability": "workspace/main",
+            "path": "opaque.asset",
+            "kind": "auxiliary",
+            "raw_sha256": "942e1e2a66a427b6551732f758bc314f22b9cdec9365a3425c9184de299392b5",
+            "bytes": 3
+          }
+        },
+        {
+          "bytes_hex": "6d6f64756c65206578616d706c652e636f6d2f706f6c6963790a676f20312e32352e300a7265706c616365206578616d706c652e636f6d2f646570203d3e202e2e2f6465700a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "ba947bed23229661427d7ab824c77d8c803c33ae0e4dce61dbb9ebf8cbb976b4",
+            "capability": "workspace/main",
+            "path": "go.mod",
+            "kind": "go_mod",
+            "raw_sha256": "8f799c9888464f16fa7879c0e348f09227e6f3d489c28ae2446851c47042224f",
+            "bytes": 70
+          }
+        },
+        {
+          "bytes_hex": "7061636b616765206465700a66756e63204964656e74697479287820696e7436342920696e743634207b2072657475726e2078207d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "f2a7e16a89674c629dbf4f79ae2ced7cdc44b96d81a9577e6bbcd9ef5ae7a2bc",
+            "capability": "workspace/dep",
+            "path": "policy.go",
+            "kind": "go_file",
+            "raw_sha256": "bff02c4da5d9caabebf78789380afd5a43d480a75c5d9396f292be4028c06981",
+            "bytes": 54
+          }
+        },
+        {
+          "bytes_hex": "2f2f676f3a6275696c642077696e646f77730a0a7061636b61676520706f6c6963790a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "f62d05f7d60e6d0995395e3c22abe87245196e14aace1c10a4b1ce73965ef0d8",
+            "capability": "workspace/main",
+            "path": "other_windows.go",
+            "kind": "excluded_source",
+            "raw_sha256": "945e4f7ad19eb98433d383a39ab9867162d912f2cfd8bed353b137c1d271d537",
+            "bytes": 35
+          }
+        }
+      ]
+    },
+    {
+      "capabilities": [
+        "workspace/dep",
+        "workspace/main",
+        "workspace/unused"
+      ],
+      "directories": [
+        {
+          "capability": "workspace/dep",
+          "entries": [
+            {
+              "name_hex": "706f6c6963792e676f",
+              "type_bits": 0
+            }
+          ],
+          "path": ""
+        },
+        {
+          "capability": "workspace/main",
+          "entries": [
+            {
+              "name_hex": "656d707479",
+              "type_bits": 2147483648
+            },
+            {
+              "name_hex": "6578706f727473",
+              "type_bits": 2147483648
+            },
+            {
+              "name_hex": "676f2e6d6f64",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "676f2e73756d",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "69676e6f7265640a61737365742e62696e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6c696e6b65642d646972",
+              "type_bits": 134217728
+            },
+            {
+              "name_hex": "6c696e6b65642e676f",
+              "type_bits": 134217728
+            },
+            {
+              "name_hex": "6d657461646174612e6a736f6e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6e61746976655c61737365742e62696e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6f70617175652e6173736574",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6f746865725f77696e646f77732e676f",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "70656e64696e67",
+              "type_bits": 2147483648
+            },
+            {
+              "name_hex": "706f6c6963792e636f6e74726163742e6a736f6e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "706f6c6963792e676f",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "7370656369616c2e676f",
+              "type_bits": 33554432
+            },
+            {
+              "name_hex": "756e726561642e676f",
+              "type_bits": 2147483648
+            }
+          ],
+          "path": ""
+        },
+        {
+          "capability": "workspace/main",
+          "entries": [],
+          "path": "empty"
+        },
+        {
+          "capability": "workspace/main",
+          "entries": [
+            {
+              "name_hex": "706b672e61",
+              "type_bits": 0
+            }
+          ],
+          "path": "exports"
+        }
+      ],
+      "label": "changed-native-type",
+      "scope": "actual independent native recapture",
+      "sha256": "a3f3430e9bc4d91e4f408c2802f2d8de47821e266fd41b70e90906f1c4c7b8c3",
+      "source_ids": [
+        "094fd60d50eca9aeddfe5d443a11462aedae83f38d6140ff06eb85c1f83b1520",
+        "146dc291a49b61a3e43e3f912e358eba2d94e0a98eb1c949ec884fc5014c3b31",
+        "552a1190a624385444079ae9612ec3b9b93a6bd1d43fab063da021588ff58eb6",
+        "57fbf5245f0d495e4c1c1c40a720d72699b0112af52ec19c63b3b3e140966e09",
+        "8b48dcd2fef26b7be919e18afc182f5ff205680dd55fd127b558374330033549",
+        "b3bc2f74afac42b2293dfa3c7f94340fc8f7acd728bced335e8ab940373aec82",
+        "ba947bed23229661427d7ab824c77d8c803c33ae0e4dce61dbb9ebf8cbb976b4",
+        "f2a7e16a89674c629dbf4f79ae2ced7cdc44b96d81a9577e6bbcd9ef5ae7a2bc",
+        "f62d05f7d60e6d0995395e3c22abe87245196e14aace1c10a4b1ce73965ef0d8"
+      ],
+      "sources": [
+        {
+          "bytes_hex": "7b226f726967696e616c223a747275657d0d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "094fd60d50eca9aeddfe5d443a11462aedae83f38d6140ff06eb85c1f83b1520",
+            "capability": "workspace/main",
+            "path": "metadata.json",
+            "kind": "metadata",
+            "raw_sha256": "b394f0692c06177a3960586e9ffa8f5ba3888a720acdaf62e6461398935bc992",
+            "bytes": 19
+          }
+        },
+        {
+          "bytes_hex": "7b7d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "146dc291a49b61a3e43e3f912e358eba2d94e0a98eb1c949ec884fc5014c3b31",
+            "capability": "workspace/main",
+            "path": "policy.contract.json",
+            "kind": "overlay",
+            "raw_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+            "bytes": 3
+          }
+        },
+        {
+          "bytes_hex": "7061636b61676520706f6c6963790a66756e632053656c6563746564287820696e7436342920696e743634207b2072657475726e2078207d0a66756e6320556e75736564286d206d61705b737472696e675d696e742920696e74207b2072657475726e206c656e286d29207d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "552a1190a624385444079ae9612ec3b9b93a6bd1d43fab063da021588ff58eb6",
+            "capability": "workspace/main",
+            "path": "policy.go",
+            "kind": "go_file",
+            "raw_sha256": "292d7fc3f94fc62a018dfc9504e61b21dcb507a6f8852faae622ee976f1c73e3",
+            "bytes": 109
+          }
+        },
+        {
+          "bytes_hex": "00ff800a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "57fbf5245f0d495e4c1c1c40a720d72699b0112af52ec19c63b3b3e140966e09",
+            "capability": "workspace/main",
+            "path": "exports/pkg.a",
+            "kind": "export_data",
+            "raw_sha256": "6d6f7836f1e146dc0204afb5133dae52fdc05603d8ac2dc793b481b0e0829fd1",
+            "bytes": 4
+          }
+        },
+        {
+          "bytes_hex": "",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "8b48dcd2fef26b7be919e18afc182f5ff205680dd55fd127b558374330033549",
+            "capability": "workspace/main",
+            "path": "go.sum",
+            "kind": "go_sum",
+            "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          }
+        },
+        {
+          "bytes_hex": "ff0001",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "b3bc2f74afac42b2293dfa3c7f94340fc8f7acd728bced335e8ab940373aec82",
+            "capability": "workspace/main",
+            "path": "opaque.asset",
+            "kind": "auxiliary",
+            "raw_sha256": "942e1e2a66a427b6551732f758bc314f22b9cdec9365a3425c9184de299392b5",
+            "bytes": 3
+          }
+        },
+        {
+          "bytes_hex": "6d6f64756c65206578616d706c652e636f6d2f706f6c6963790a676f20312e32352e300a7265706c616365206578616d706c652e636f6d2f646570203d3e202e2e2f6465700a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "ba947bed23229661427d7ab824c77d8c803c33ae0e4dce61dbb9ebf8cbb976b4",
+            "capability": "workspace/main",
+            "path": "go.mod",
+            "kind": "go_mod",
+            "raw_sha256": "8f799c9888464f16fa7879c0e348f09227e6f3d489c28ae2446851c47042224f",
+            "bytes": 70
+          }
+        },
+        {
+          "bytes_hex": "7061636b616765206465700a66756e63204964656e74697479287820696e7436342920696e743634207b2072657475726e2078207d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "f2a7e16a89674c629dbf4f79ae2ced7cdc44b96d81a9577e6bbcd9ef5ae7a2bc",
+            "capability": "workspace/dep",
+            "path": "policy.go",
+            "kind": "go_file",
+            "raw_sha256": "bff02c4da5d9caabebf78789380afd5a43d480a75c5d9396f292be4028c06981",
+            "bytes": 54
+          }
+        },
+        {
+          "bytes_hex": "2f2f676f3a6275696c642077696e646f77730a0a7061636b61676520706f6c6963790a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "f62d05f7d60e6d0995395e3c22abe87245196e14aace1c10a4b1ce73965ef0d8",
+            "capability": "workspace/main",
+            "path": "other_windows.go",
+            "kind": "excluded_source",
+            "raw_sha256": "945e4f7ad19eb98433d383a39ab9867162d912f2cfd8bed353b137c1d271d537",
+            "bytes": 35
+          }
+        }
+      ]
+    },
+    {
+      "capabilities": [
+        "workspace/dep",
+        "workspace/main",
+        "workspace/unused"
+      ],
+      "directories": [
+        {
+          "capability": "workspace/dep",
+          "entries": [
+            {
+              "name_hex": "706f6c6963792e676f",
+              "type_bits": 0
+            }
+          ],
+          "path": ""
+        },
+        {
+          "capability": "workspace/main",
+          "entries": [
+            {
+              "name_hex": "656d707479",
+              "type_bits": 2147483648
+            },
+            {
+              "name_hex": "6578706f727473",
+              "type_bits": 2147483648
+            },
+            {
+              "name_hex": "676f2e6d6f64",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "676f2e73756d",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "69676e6f7265640a61737365742e62696e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6c696e6b65642d646972",
+              "type_bits": 134217728
+            },
+            {
+              "name_hex": "6c696e6b65642e676f",
+              "type_bits": 134217728
+            },
+            {
+              "name_hex": "6d657461646174612e6a736f6e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6e61746976655c61737365742e62696e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6f70617175652e6173736574",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6f746865725f77696e646f77732e676f",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "70656e64696e67",
+              "type_bits": 2147483648
+            },
+            {
+              "name_hex": "706f6c6963792e636f6e74726163742e6a736f6e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "706f6c6963792e676f",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "7370656369616c2e676f",
+              "type_bits": 33554432
+            },
+            {
+              "name_hex": "756e726561642e676f",
+              "type_bits": 0
+            }
+          ],
+          "path": ""
+        },
+        {
+          "capability": "workspace/main",
+          "entries": [
+            {
+              "name_hex": "6164646564",
+              "type_bits": 0
+            }
+          ],
+          "path": "empty"
+        },
+        {
+          "capability": "workspace/main",
+          "entries": [
+            {
+              "name_hex": "706b672e61",
+              "type_bits": 0
+            }
+          ],
+          "path": "exports"
+        }
+      ],
+      "label": "visited-empty-now-nonempty",
+      "scope": "actual independent native recapture",
+      "sha256": "ab4ecc0797acfb6d9395c950815c8d1f38a33afed818d058c6439355c013c9c8",
+      "source_ids": [
+        "094fd60d50eca9aeddfe5d443a11462aedae83f38d6140ff06eb85c1f83b1520",
+        "146dc291a49b61a3e43e3f912e358eba2d94e0a98eb1c949ec884fc5014c3b31",
+        "552a1190a624385444079ae9612ec3b9b93a6bd1d43fab063da021588ff58eb6",
+        "57fbf5245f0d495e4c1c1c40a720d72699b0112af52ec19c63b3b3e140966e09",
+        "8b48dcd2fef26b7be919e18afc182f5ff205680dd55fd127b558374330033549",
+        "b3bc2f74afac42b2293dfa3c7f94340fc8f7acd728bced335e8ab940373aec82",
+        "ba947bed23229661427d7ab824c77d8c803c33ae0e4dce61dbb9ebf8cbb976b4",
+        "f2a7e16a89674c629dbf4f79ae2ced7cdc44b96d81a9577e6bbcd9ef5ae7a2bc",
+        "f62d05f7d60e6d0995395e3c22abe87245196e14aace1c10a4b1ce73965ef0d8"
+      ],
+      "sources": [
+        {
+          "bytes_hex": "7b226f726967696e616c223a747275657d0d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "094fd60d50eca9aeddfe5d443a11462aedae83f38d6140ff06eb85c1f83b1520",
+            "capability": "workspace/main",
+            "path": "metadata.json",
+            "kind": "metadata",
+            "raw_sha256": "b394f0692c06177a3960586e9ffa8f5ba3888a720acdaf62e6461398935bc992",
+            "bytes": 19
+          }
+        },
+        {
+          "bytes_hex": "7b7d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "146dc291a49b61a3e43e3f912e358eba2d94e0a98eb1c949ec884fc5014c3b31",
+            "capability": "workspace/main",
+            "path": "policy.contract.json",
+            "kind": "overlay",
+            "raw_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+            "bytes": 3
+          }
+        },
+        {
+          "bytes_hex": "7061636b61676520706f6c6963790a66756e632053656c6563746564287820696e7436342920696e743634207b2072657475726e2078207d0a66756e6320556e75736564286d206d61705b737472696e675d696e742920696e74207b2072657475726e206c656e286d29207d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "552a1190a624385444079ae9612ec3b9b93a6bd1d43fab063da021588ff58eb6",
+            "capability": "workspace/main",
+            "path": "policy.go",
+            "kind": "go_file",
+            "raw_sha256": "292d7fc3f94fc62a018dfc9504e61b21dcb507a6f8852faae622ee976f1c73e3",
+            "bytes": 109
+          }
+        },
+        {
+          "bytes_hex": "00ff800a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "57fbf5245f0d495e4c1c1c40a720d72699b0112af52ec19c63b3b3e140966e09",
+            "capability": "workspace/main",
+            "path": "exports/pkg.a",
+            "kind": "export_data",
+            "raw_sha256": "6d6f7836f1e146dc0204afb5133dae52fdc05603d8ac2dc793b481b0e0829fd1",
+            "bytes": 4
+          }
+        },
+        {
+          "bytes_hex": "",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "8b48dcd2fef26b7be919e18afc182f5ff205680dd55fd127b558374330033549",
+            "capability": "workspace/main",
+            "path": "go.sum",
+            "kind": "go_sum",
+            "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          }
+        },
+        {
+          "bytes_hex": "ff0001",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "b3bc2f74afac42b2293dfa3c7f94340fc8f7acd728bced335e8ab940373aec82",
+            "capability": "workspace/main",
+            "path": "opaque.asset",
+            "kind": "auxiliary",
+            "raw_sha256": "942e1e2a66a427b6551732f758bc314f22b9cdec9365a3425c9184de299392b5",
+            "bytes": 3
+          }
+        },
+        {
+          "bytes_hex": "6d6f64756c65206578616d706c652e636f6d2f706f6c6963790a676f20312e32352e300a7265706c616365206578616d706c652e636f6d2f646570203d3e202e2e2f6465700a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "ba947bed23229661427d7ab824c77d8c803c33ae0e4dce61dbb9ebf8cbb976b4",
+            "capability": "workspace/main",
+            "path": "go.mod",
+            "kind": "go_mod",
+            "raw_sha256": "8f799c9888464f16fa7879c0e348f09227e6f3d489c28ae2446851c47042224f",
+            "bytes": 70
+          }
+        },
+        {
+          "bytes_hex": "7061636b616765206465700a66756e63204964656e74697479287820696e7436342920696e743634207b2072657475726e2078207d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "f2a7e16a89674c629dbf4f79ae2ced7cdc44b96d81a9577e6bbcd9ef5ae7a2bc",
+            "capability": "workspace/dep",
+            "path": "policy.go",
+            "kind": "go_file",
+            "raw_sha256": "bff02c4da5d9caabebf78789380afd5a43d480a75c5d9396f292be4028c06981",
+            "bytes": 54
+          }
+        },
+        {
+          "bytes_hex": "2f2f676f3a6275696c642077696e646f77730a0a7061636b61676520706f6c6963790a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "f62d05f7d60e6d0995395e3c22abe87245196e14aace1c10a4b1ce73965ef0d8",
+            "capability": "workspace/main",
+            "path": "other_windows.go",
+            "kind": "excluded_source",
+            "raw_sha256": "945e4f7ad19eb98433d383a39ab9867162d912f2cfd8bed353b137c1d271d537",
+            "bytes": 35
+          }
+        }
+      ]
+    },
+    {
+      "capabilities": [
+        "workspace/dep",
+        "workspace/main",
+        "workspace/unused"
+      ],
+      "directories": [
+        {
+          "capability": "workspace/dep",
+          "entries": [
+            {
+              "name_hex": "706f6c6963792e676f",
+              "type_bits": 0
+            }
+          ],
+          "path": ""
+        },
+        {
+          "capability": "workspace/main",
+          "entries": [
+            {
+              "name_hex": "656d707479",
+              "type_bits": 2147483648
+            },
+            {
+              "name_hex": "6578706f727473",
+              "type_bits": 2147483648
+            },
+            {
+              "name_hex": "676f2e6d6f64",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "676f2e73756d",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "69676e6f7265640a61737365742e62696e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6c696e6b65642d646972",
+              "type_bits": 134217728
+            },
+            {
+              "name_hex": "6c696e6b65642e676f",
+              "type_bits": 134217728
+            },
+            {
+              "name_hex": "6d657461646174612e6a736f6e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6e61746976655c61737365742e62696e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6f70617175652e6173736574",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6f746865725f77696e646f77732e676f",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "70656e64696e67",
+              "type_bits": 2147483648
+            },
+            {
+              "name_hex": "706f6c6963792e636f6e74726163742e6a736f6e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "706f6c6963792e676f",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "7370656369616c2e676f",
+              "type_bits": 33554432
+            },
+            {
+              "name_hex": "756e726561642e676f",
+              "type_bits": 0
+            }
+          ],
+          "path": ""
+        },
+        {
+          "capability": "workspace/main",
+          "entries": [],
+          "path": "empty"
+        },
+        {
+          "capability": "workspace/main",
+          "entries": [
+            {
+              "name_hex": "706b672e61",
+              "type_bits": 0
+            }
+          ],
+          "path": "exports"
+        }
+      ],
+      "label": "source-bytes",
+      "scope": "actual independent native recapture",
+      "sha256": "3315a6d2b0044d89e08905a57f7db4439f1d3c08f64886724c3d854a7103d8af",
+      "source_ids": [
+        "094fd60d50eca9aeddfe5d443a11462aedae83f38d6140ff06eb85c1f83b1520",
+        "146dc291a49b61a3e43e3f912e358eba2d94e0a98eb1c949ec884fc5014c3b31",
+        "57fbf5245f0d495e4c1c1c40a720d72699b0112af52ec19c63b3b3e140966e09",
+        "8b48dcd2fef26b7be919e18afc182f5ff205680dd55fd127b558374330033549",
+        "b3bc2f74afac42b2293dfa3c7f94340fc8f7acd728bced335e8ab940373aec82",
+        "ba947bed23229661427d7ab824c77d8c803c33ae0e4dce61dbb9ebf8cbb976b4",
+        "c5a9695f6b42103dae9de8c31cecee9a63eb7c4435cfc2737ff037b5d33beb3b",
+        "f2a7e16a89674c629dbf4f79ae2ced7cdc44b96d81a9577e6bbcd9ef5ae7a2bc",
+        "f62d05f7d60e6d0995395e3c22abe87245196e14aace1c10a4b1ce73965ef0d8"
+      ],
+      "sources": [
+        {
+          "bytes_hex": "7b226f726967696e616c223a747275657d0d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "094fd60d50eca9aeddfe5d443a11462aedae83f38d6140ff06eb85c1f83b1520",
+            "capability": "workspace/main",
+            "path": "metadata.json",
+            "kind": "metadata",
+            "raw_sha256": "b394f0692c06177a3960586e9ffa8f5ba3888a720acdaf62e6461398935bc992",
+            "bytes": 19
+          }
+        },
+        {
+          "bytes_hex": "7b7d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "146dc291a49b61a3e43e3f912e358eba2d94e0a98eb1c949ec884fc5014c3b31",
+            "capability": "workspace/main",
+            "path": "policy.contract.json",
+            "kind": "overlay",
+            "raw_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+            "bytes": 3
+          }
+        },
+        {
+          "bytes_hex": "00ff800a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "57fbf5245f0d495e4c1c1c40a720d72699b0112af52ec19c63b3b3e140966e09",
+            "capability": "workspace/main",
+            "path": "exports/pkg.a",
+            "kind": "export_data",
+            "raw_sha256": "6d6f7836f1e146dc0204afb5133dae52fdc05603d8ac2dc793b481b0e0829fd1",
+            "bytes": 4
+          }
+        },
+        {
+          "bytes_hex": "",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "8b48dcd2fef26b7be919e18afc182f5ff205680dd55fd127b558374330033549",
+            "capability": "workspace/main",
+            "path": "go.sum",
+            "kind": "go_sum",
+            "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          }
+        },
+        {
+          "bytes_hex": "ff0001",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "b3bc2f74afac42b2293dfa3c7f94340fc8f7acd728bced335e8ab940373aec82",
+            "capability": "workspace/main",
+            "path": "opaque.asset",
+            "kind": "auxiliary",
+            "raw_sha256": "942e1e2a66a427b6551732f758bc314f22b9cdec9365a3425c9184de299392b5",
+            "bytes": 3
+          }
+        },
+        {
+          "bytes_hex": "6d6f64756c65206578616d706c652e636f6d2f706f6c6963790a676f20312e32352e300a7265706c616365206578616d706c652e636f6d2f646570203d3e202e2e2f6465700a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "ba947bed23229661427d7ab824c77d8c803c33ae0e4dce61dbb9ebf8cbb976b4",
+            "capability": "workspace/main",
+            "path": "go.mod",
+            "kind": "go_mod",
+            "raw_sha256": "8f799c9888464f16fa7879c0e348f09227e6f3d489c28ae2446851c47042224f",
+            "bytes": 70
+          }
+        },
+        {
+          "bytes_hex": "7061636b61676520646966666572656e740a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "c5a9695f6b42103dae9de8c31cecee9a63eb7c4435cfc2737ff037b5d33beb3b",
+            "capability": "workspace/main",
+            "path": "policy.go",
+            "kind": "go_file",
+            "raw_sha256": "b44669b642d0a32eb326636d5dbf8c0d2c08cf36c0a300535c223cbb248c755a",
+            "bytes": 18
+          }
+        },
+        {
+          "bytes_hex": "7061636b616765206465700a66756e63204964656e74697479287820696e7436342920696e743634207b2072657475726e2078207d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "f2a7e16a89674c629dbf4f79ae2ced7cdc44b96d81a9577e6bbcd9ef5ae7a2bc",
+            "capability": "workspace/dep",
+            "path": "policy.go",
+            "kind": "go_file",
+            "raw_sha256": "bff02c4da5d9caabebf78789380afd5a43d480a75c5d9396f292be4028c06981",
+            "bytes": 54
+          }
+        },
+        {
+          "bytes_hex": "2f2f676f3a6275696c642077696e646f77730a0a7061636b61676520706f6c6963790a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "f62d05f7d60e6d0995395e3c22abe87245196e14aace1c10a4b1ce73965ef0d8",
+            "capability": "workspace/main",
+            "path": "other_windows.go",
+            "kind": "excluded_source",
+            "raw_sha256": "945e4f7ad19eb98433d383a39ab9867162d912f2cfd8bed353b137c1d271d537",
+            "bytes": 35
+          }
+        }
+      ]
+    },
+    {
+      "capabilities": [
+        "workspace/dep",
+        "workspace/main",
+        "workspace/unused"
+      ],
+      "directories": [
+        {
+          "capability": "workspace/dep",
+          "entries": [
+            {
+              "name_hex": "706f6c6963792e676f",
+              "type_bits": 0
+            }
+          ],
+          "path": ""
+        },
+        {
+          "capability": "workspace/main",
+          "entries": [
+            {
+              "name_hex": "656d707479",
+              "type_bits": 2147483648
+            },
+            {
+              "name_hex": "6578706f727473",
+              "type_bits": 2147483648
+            },
+            {
+              "name_hex": "676f2e6d6f64",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "676f2e73756d",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "69676e6f7265640a61737365742e62696e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6c696e6b65642d646972",
+              "type_bits": 134217728
+            },
+            {
+              "name_hex": "6c696e6b65642e676f",
+              "type_bits": 134217728
+            },
+            {
+              "name_hex": "6d657461646174612e6a736f6e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6e61746976655c61737365742e62696e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6f70617175652e6173736574",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6f746865725f77696e646f77732e676f",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "70656e64696e67",
+              "type_bits": 2147483648
+            },
+            {
+              "name_hex": "706f6c6963792e636f6e74726163742e6a736f6e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "706f6c6963792e676f",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "7370656369616c2e676f",
+              "type_bits": 33554432
+            },
+            {
+              "name_hex": "756e726561642e676f",
+              "type_bits": 0
+            }
+          ],
+          "path": ""
+        },
+        {
+          "capability": "workspace/main",
+          "entries": [],
+          "path": "empty"
+        },
+        {
+          "capability": "workspace/main",
+          "entries": [
+            {
+              "name_hex": "706b672e61",
+              "type_bits": 0
+            }
+          ],
+          "path": "exports"
+        }
+      ],
+      "label": "source-role",
+      "scope": "actual independent native recapture",
+      "sha256": "76dcadb2c03284378e22b4b2d3ce1e6279e96c106fcd10922e4b3b3c4c2377ca",
+      "source_ids": [
+        "146dc291a49b61a3e43e3f912e358eba2d94e0a98eb1c949ec884fc5014c3b31",
+        "552a1190a624385444079ae9612ec3b9b93a6bd1d43fab063da021588ff58eb6",
+        "57fbf5245f0d495e4c1c1c40a720d72699b0112af52ec19c63b3b3e140966e09",
+        "873a1c48fcd5ed6270aa7612723fd86f82d329f9172a6d94095eeb633d8c6361",
+        "8b48dcd2fef26b7be919e18afc182f5ff205680dd55fd127b558374330033549",
+        "b3bc2f74afac42b2293dfa3c7f94340fc8f7acd728bced335e8ab940373aec82",
+        "ba947bed23229661427d7ab824c77d8c803c33ae0e4dce61dbb9ebf8cbb976b4",
+        "f2a7e16a89674c629dbf4f79ae2ced7cdc44b96d81a9577e6bbcd9ef5ae7a2bc",
+        "f62d05f7d60e6d0995395e3c22abe87245196e14aace1c10a4b1ce73965ef0d8"
+      ],
+      "sources": [
+        {
+          "bytes_hex": "7b7d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "146dc291a49b61a3e43e3f912e358eba2d94e0a98eb1c949ec884fc5014c3b31",
+            "capability": "workspace/main",
+            "path": "policy.contract.json",
+            "kind": "overlay",
+            "raw_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+            "bytes": 3
+          }
+        },
+        {
+          "bytes_hex": "7061636b61676520706f6c6963790a66756e632053656c6563746564287820696e7436342920696e743634207b2072657475726e2078207d0a66756e6320556e75736564286d206d61705b737472696e675d696e742920696e74207b2072657475726e206c656e286d29207d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "552a1190a624385444079ae9612ec3b9b93a6bd1d43fab063da021588ff58eb6",
+            "capability": "workspace/main",
+            "path": "policy.go",
+            "kind": "go_file",
+            "raw_sha256": "292d7fc3f94fc62a018dfc9504e61b21dcb507a6f8852faae622ee976f1c73e3",
+            "bytes": 109
+          }
+        },
+        {
+          "bytes_hex": "00ff800a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "57fbf5245f0d495e4c1c1c40a720d72699b0112af52ec19c63b3b3e140966e09",
+            "capability": "workspace/main",
+            "path": "exports/pkg.a",
+            "kind": "export_data",
+            "raw_sha256": "6d6f7836f1e146dc0204afb5133dae52fdc05603d8ac2dc793b481b0e0829fd1",
+            "bytes": 4
+          }
+        },
+        {
+          "bytes_hex": "7b226f726967696e616c223a747275657d0d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "873a1c48fcd5ed6270aa7612723fd86f82d329f9172a6d94095eeb633d8c6361",
+            "capability": "workspace/main",
+            "path": "metadata.json",
+            "kind": "auxiliary",
+            "raw_sha256": "b394f0692c06177a3960586e9ffa8f5ba3888a720acdaf62e6461398935bc992",
+            "bytes": 19
+          }
+        },
+        {
+          "bytes_hex": "",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "8b48dcd2fef26b7be919e18afc182f5ff205680dd55fd127b558374330033549",
+            "capability": "workspace/main",
+            "path": "go.sum",
+            "kind": "go_sum",
+            "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          }
+        },
+        {
+          "bytes_hex": "ff0001",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "b3bc2f74afac42b2293dfa3c7f94340fc8f7acd728bced335e8ab940373aec82",
+            "capability": "workspace/main",
+            "path": "opaque.asset",
+            "kind": "auxiliary",
+            "raw_sha256": "942e1e2a66a427b6551732f758bc314f22b9cdec9365a3425c9184de299392b5",
+            "bytes": 3
+          }
+        },
+        {
+          "bytes_hex": "6d6f64756c65206578616d706c652e636f6d2f706f6c6963790a676f20312e32352e300a7265706c616365206578616d706c652e636f6d2f646570203d3e202e2e2f6465700a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "ba947bed23229661427d7ab824c77d8c803c33ae0e4dce61dbb9ebf8cbb976b4",
+            "capability": "workspace/main",
+            "path": "go.mod",
+            "kind": "go_mod",
+            "raw_sha256": "8f799c9888464f16fa7879c0e348f09227e6f3d489c28ae2446851c47042224f",
+            "bytes": 70
+          }
+        },
+        {
+          "bytes_hex": "7061636b616765206465700a66756e63204964656e74697479287820696e7436342920696e743634207b2072657475726e2078207d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "f2a7e16a89674c629dbf4f79ae2ced7cdc44b96d81a9577e6bbcd9ef5ae7a2bc",
+            "capability": "workspace/dep",
+            "path": "policy.go",
+            "kind": "go_file",
+            "raw_sha256": "bff02c4da5d9caabebf78789380afd5a43d480a75c5d9396f292be4028c06981",
+            "bytes": 54
+          }
+        },
+        {
+          "bytes_hex": "2f2f676f3a6275696c642077696e646f77730a0a7061636b61676520706f6c6963790a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "f62d05f7d60e6d0995395e3c22abe87245196e14aace1c10a4b1ce73965ef0d8",
+            "capability": "workspace/main",
+            "path": "other_windows.go",
+            "kind": "excluded_source",
+            "raw_sha256": "945e4f7ad19eb98433d383a39ab9867162d912f2cfd8bed353b137c1d271d537",
+            "bytes": 35
+          }
+        }
+      ]
+    },
+    {
+      "capabilities": [
+        "workspace/dep",
+        "workspace/main",
+        "workspace/unused"
+      ],
+      "directories": [
+        {
+          "capability": "workspace/dep",
+          "entries": [
+            {
+              "name_hex": "706f6c6963792e676f",
+              "type_bits": 0
+            }
+          ],
+          "path": ""
+        },
+        {
+          "capability": "workspace/main",
+          "entries": [
+            {
+              "name_hex": "656d707479",
+              "type_bits": 2147483648
+            },
+            {
+              "name_hex": "6578706f727473",
+              "type_bits": 2147483648
+            },
+            {
+              "name_hex": "676f2e6d6f64",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "676f2e73756d",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "69676e6f7265640a61737365742e62696e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6c696e6b65642d646972",
+              "type_bits": 134217728
+            },
+            {
+              "name_hex": "6c696e6b65642e676f",
+              "type_bits": 134217728
+            },
+            {
+              "name_hex": "6d657461646174612e6a736f6e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6e61746976655c61737365742e62696e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6f70617175652e6173736574",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6f746865725f77696e646f77732e676f",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "70656e64696e67",
+              "type_bits": 2147483648
+            },
+            {
+              "name_hex": "706f6c6963792e636f6e74726163742e6a736f6e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "706f6c6963792e676f",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "7370656369616c2e676f",
+              "type_bits": 33554432
+            },
+            {
+              "name_hex": "756e726561642e676f",
+              "type_bits": 0
+            }
+          ],
+          "path": ""
+        },
+        {
+          "capability": "workspace/main",
+          "entries": [],
+          "path": "empty"
+        },
+        {
+          "capability": "workspace/main",
+          "entries": [
+            {
+              "name_hex": "706b672e61",
+              "type_bits": 0
+            }
+          ],
+          "path": "exports"
+        },
+        {
+          "capability": "workspace/main",
+          "entries": [
+            {
+              "name_hex": "756e63617074757265642e676f",
+              "type_bits": 0
+            }
+          ],
+          "path": "pending"
+        }
+      ],
+      "label": "additional-visited-directory",
+      "scope": "actual independent native recapture",
+      "sha256": "58c868e07ca3af6e7442eee4ec36b926c3d875aa75dff694c95b543d378e5f12",
+      "source_ids": [
+        "094fd60d50eca9aeddfe5d443a11462aedae83f38d6140ff06eb85c1f83b1520",
+        "146dc291a49b61a3e43e3f912e358eba2d94e0a98eb1c949ec884fc5014c3b31",
+        "552a1190a624385444079ae9612ec3b9b93a6bd1d43fab063da021588ff58eb6",
+        "57fbf5245f0d495e4c1c1c40a720d72699b0112af52ec19c63b3b3e140966e09",
+        "8b48dcd2fef26b7be919e18afc182f5ff205680dd55fd127b558374330033549",
+        "b3bc2f74afac42b2293dfa3c7f94340fc8f7acd728bced335e8ab940373aec82",
+        "ba947bed23229661427d7ab824c77d8c803c33ae0e4dce61dbb9ebf8cbb976b4",
+        "f2a7e16a89674c629dbf4f79ae2ced7cdc44b96d81a9577e6bbcd9ef5ae7a2bc",
+        "f62d05f7d60e6d0995395e3c22abe87245196e14aace1c10a4b1ce73965ef0d8"
+      ],
+      "sources": [
+        {
+          "bytes_hex": "7b226f726967696e616c223a747275657d0d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "094fd60d50eca9aeddfe5d443a11462aedae83f38d6140ff06eb85c1f83b1520",
+            "capability": "workspace/main",
+            "path": "metadata.json",
+            "kind": "metadata",
+            "raw_sha256": "b394f0692c06177a3960586e9ffa8f5ba3888a720acdaf62e6461398935bc992",
+            "bytes": 19
+          }
+        },
+        {
+          "bytes_hex": "7b7d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "146dc291a49b61a3e43e3f912e358eba2d94e0a98eb1c949ec884fc5014c3b31",
+            "capability": "workspace/main",
+            "path": "policy.contract.json",
+            "kind": "overlay",
+            "raw_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+            "bytes": 3
+          }
+        },
+        {
+          "bytes_hex": "7061636b61676520706f6c6963790a66756e632053656c6563746564287820696e7436342920696e743634207b2072657475726e2078207d0a66756e6320556e75736564286d206d61705b737472696e675d696e742920696e74207b2072657475726e206c656e286d29207d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "552a1190a624385444079ae9612ec3b9b93a6bd1d43fab063da021588ff58eb6",
+            "capability": "workspace/main",
+            "path": "policy.go",
+            "kind": "go_file",
+            "raw_sha256": "292d7fc3f94fc62a018dfc9504e61b21dcb507a6f8852faae622ee976f1c73e3",
+            "bytes": 109
+          }
+        },
+        {
+          "bytes_hex": "00ff800a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "57fbf5245f0d495e4c1c1c40a720d72699b0112af52ec19c63b3b3e140966e09",
+            "capability": "workspace/main",
+            "path": "exports/pkg.a",
+            "kind": "export_data",
+            "raw_sha256": "6d6f7836f1e146dc0204afb5133dae52fdc05603d8ac2dc793b481b0e0829fd1",
+            "bytes": 4
+          }
+        },
+        {
+          "bytes_hex": "",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "8b48dcd2fef26b7be919e18afc182f5ff205680dd55fd127b558374330033549",
+            "capability": "workspace/main",
+            "path": "go.sum",
+            "kind": "go_sum",
+            "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          }
+        },
+        {
+          "bytes_hex": "ff0001",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "b3bc2f74afac42b2293dfa3c7f94340fc8f7acd728bced335e8ab940373aec82",
+            "capability": "workspace/main",
+            "path": "opaque.asset",
+            "kind": "auxiliary",
+            "raw_sha256": "942e1e2a66a427b6551732f758bc314f22b9cdec9365a3425c9184de299392b5",
+            "bytes": 3
+          }
+        },
+        {
+          "bytes_hex": "6d6f64756c65206578616d706c652e636f6d2f706f6c6963790a676f20312e32352e300a7265706c616365206578616d706c652e636f6d2f646570203d3e202e2e2f6465700a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "ba947bed23229661427d7ab824c77d8c803c33ae0e4dce61dbb9ebf8cbb976b4",
+            "capability": "workspace/main",
+            "path": "go.mod",
+            "kind": "go_mod",
+            "raw_sha256": "8f799c9888464f16fa7879c0e348f09227e6f3d489c28ae2446851c47042224f",
+            "bytes": 70
+          }
+        },
+        {
+          "bytes_hex": "7061636b616765206465700a66756e63204964656e74697479287820696e7436342920696e743634207b2072657475726e2078207d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "f2a7e16a89674c629dbf4f79ae2ced7cdc44b96d81a9577e6bbcd9ef5ae7a2bc",
+            "capability": "workspace/dep",
+            "path": "policy.go",
+            "kind": "go_file",
+            "raw_sha256": "bff02c4da5d9caabebf78789380afd5a43d480a75c5d9396f292be4028c06981",
+            "bytes": 54
+          }
+        },
+        {
+          "bytes_hex": "2f2f676f3a6275696c642077696e646f77730a0a7061636b61676520706f6c6963790a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "f62d05f7d60e6d0995395e3c22abe87245196e14aace1c10a4b1ce73965ef0d8",
+            "capability": "workspace/main",
+            "path": "other_windows.go",
+            "kind": "excluded_source",
+            "raw_sha256": "945e4f7ad19eb98433d383a39ab9867162d912f2cfd8bed353b137c1d271d537",
+            "bytes": 35
+          }
+        }
+      ]
+    },
+    {
+      "capabilities": [
+        "workspace/additional",
+        "workspace/dep",
+        "workspace/main",
+        "workspace/unused"
+      ],
+      "directories": [
+        {
+          "capability": "workspace/dep",
+          "entries": [
+            {
+              "name_hex": "706f6c6963792e676f",
+              "type_bits": 0
+            }
+          ],
+          "path": ""
+        },
+        {
+          "capability": "workspace/main",
+          "entries": [
+            {
+              "name_hex": "656d707479",
+              "type_bits": 2147483648
+            },
+            {
+              "name_hex": "6578706f727473",
+              "type_bits": 2147483648
+            },
+            {
+              "name_hex": "676f2e6d6f64",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "676f2e73756d",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "69676e6f7265640a61737365742e62696e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6c696e6b65642d646972",
+              "type_bits": 134217728
+            },
+            {
+              "name_hex": "6c696e6b65642e676f",
+              "type_bits": 134217728
+            },
+            {
+              "name_hex": "6d657461646174612e6a736f6e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6e61746976655c61737365742e62696e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6f70617175652e6173736574",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6f746865725f77696e646f77732e676f",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "70656e64696e67",
+              "type_bits": 2147483648
+            },
+            {
+              "name_hex": "706f6c6963792e636f6e74726163742e6a736f6e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "706f6c6963792e676f",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "7370656369616c2e676f",
+              "type_bits": 33554432
+            },
+            {
+              "name_hex": "756e726561642e676f",
+              "type_bits": 0
+            }
+          ],
+          "path": ""
+        },
+        {
+          "capability": "workspace/main",
+          "entries": [],
+          "path": "empty"
+        },
+        {
+          "capability": "workspace/main",
+          "entries": [
+            {
+              "name_hex": "706b672e61",
+              "type_bits": 0
+            }
+          ],
+          "path": "exports"
+        }
+      ],
+      "label": "additional-authorized-root",
+      "scope": "actual independent native recapture",
+      "sha256": "aa73f75fdaedcf31e3e1ab4ec4d8d066a11454d99222c0f9c377a52ba57c42b4",
+      "source_ids": [
+        "094fd60d50eca9aeddfe5d443a11462aedae83f38d6140ff06eb85c1f83b1520",
+        "146dc291a49b61a3e43e3f912e358eba2d94e0a98eb1c949ec884fc5014c3b31",
+        "552a1190a624385444079ae9612ec3b9b93a6bd1d43fab063da021588ff58eb6",
+        "57fbf5245f0d495e4c1c1c40a720d72699b0112af52ec19c63b3b3e140966e09",
+        "8b48dcd2fef26b7be919e18afc182f5ff205680dd55fd127b558374330033549",
+        "b3bc2f74afac42b2293dfa3c7f94340fc8f7acd728bced335e8ab940373aec82",
+        "ba947bed23229661427d7ab824c77d8c803c33ae0e4dce61dbb9ebf8cbb976b4",
+        "f2a7e16a89674c629dbf4f79ae2ced7cdc44b96d81a9577e6bbcd9ef5ae7a2bc",
+        "f62d05f7d60e6d0995395e3c22abe87245196e14aace1c10a4b1ce73965ef0d8"
+      ],
+      "sources": [
+        {
+          "bytes_hex": "7b226f726967696e616c223a747275657d0d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "094fd60d50eca9aeddfe5d443a11462aedae83f38d6140ff06eb85c1f83b1520",
+            "capability": "workspace/main",
+            "path": "metadata.json",
+            "kind": "metadata",
+            "raw_sha256": "b394f0692c06177a3960586e9ffa8f5ba3888a720acdaf62e6461398935bc992",
+            "bytes": 19
+          }
+        },
+        {
+          "bytes_hex": "7b7d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "146dc291a49b61a3e43e3f912e358eba2d94e0a98eb1c949ec884fc5014c3b31",
+            "capability": "workspace/main",
+            "path": "policy.contract.json",
+            "kind": "overlay",
+            "raw_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+            "bytes": 3
+          }
+        },
+        {
+          "bytes_hex": "7061636b61676520706f6c6963790a66756e632053656c6563746564287820696e7436342920696e743634207b2072657475726e2078207d0a66756e6320556e75736564286d206d61705b737472696e675d696e742920696e74207b2072657475726e206c656e286d29207d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "552a1190a624385444079ae9612ec3b9b93a6bd1d43fab063da021588ff58eb6",
+            "capability": "workspace/main",
+            "path": "policy.go",
+            "kind": "go_file",
+            "raw_sha256": "292d7fc3f94fc62a018dfc9504e61b21dcb507a6f8852faae622ee976f1c73e3",
+            "bytes": 109
+          }
+        },
+        {
+          "bytes_hex": "00ff800a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "57fbf5245f0d495e4c1c1c40a720d72699b0112af52ec19c63b3b3e140966e09",
+            "capability": "workspace/main",
+            "path": "exports/pkg.a",
+            "kind": "export_data",
+            "raw_sha256": "6d6f7836f1e146dc0204afb5133dae52fdc05603d8ac2dc793b481b0e0829fd1",
+            "bytes": 4
+          }
+        },
+        {
+          "bytes_hex": "",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "8b48dcd2fef26b7be919e18afc182f5ff205680dd55fd127b558374330033549",
+            "capability": "workspace/main",
+            "path": "go.sum",
+            "kind": "go_sum",
+            "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          }
+        },
+        {
+          "bytes_hex": "ff0001",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "b3bc2f74afac42b2293dfa3c7f94340fc8f7acd728bced335e8ab940373aec82",
+            "capability": "workspace/main",
+            "path": "opaque.asset",
+            "kind": "auxiliary",
+            "raw_sha256": "942e1e2a66a427b6551732f758bc314f22b9cdec9365a3425c9184de299392b5",
+            "bytes": 3
+          }
+        },
+        {
+          "bytes_hex": "6d6f64756c65206578616d706c652e636f6d2f706f6c6963790a676f20312e32352e300a7265706c616365206578616d706c652e636f6d2f646570203d3e202e2e2f6465700a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "ba947bed23229661427d7ab824c77d8c803c33ae0e4dce61dbb9ebf8cbb976b4",
+            "capability": "workspace/main",
+            "path": "go.mod",
+            "kind": "go_mod",
+            "raw_sha256": "8f799c9888464f16fa7879c0e348f09227e6f3d489c28ae2446851c47042224f",
+            "bytes": 70
+          }
+        },
+        {
+          "bytes_hex": "7061636b616765206465700a66756e63204964656e74697479287820696e7436342920696e743634207b2072657475726e2078207d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "f2a7e16a89674c629dbf4f79ae2ced7cdc44b96d81a9577e6bbcd9ef5ae7a2bc",
+            "capability": "workspace/dep",
+            "path": "policy.go",
+            "kind": "go_file",
+            "raw_sha256": "bff02c4da5d9caabebf78789380afd5a43d480a75c5d9396f292be4028c06981",
+            "bytes": 54
+          }
+        },
+        {
+          "bytes_hex": "2f2f676f3a6275696c642077696e646f77730a0a7061636b61676520706f6c6963790a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "f62d05f7d60e6d0995395e3c22abe87245196e14aace1c10a4b1ce73965ef0d8",
+            "capability": "workspace/main",
+            "path": "other_windows.go",
+            "kind": "excluded_source",
+            "raw_sha256": "945e4f7ad19eb98433d383a39ab9867162d912f2cfd8bed353b137c1d271d537",
+            "bytes": 35
+          }
+        }
+      ]
+    },
+    {
+      "capabilities": [
+        "workspace/dep",
+        "workspace/main",
+        "workspace/unused"
+      ],
+      "directories": [
+        {
+          "capability": "workspace/dep",
+          "entries": [
+            {
+              "name_hex": "706f6c6963792e676f",
+              "type_bits": 0
+            }
+          ],
+          "path": ""
+        },
+        {
+          "capability": "workspace/main",
+          "entries": [
+            {
+              "name_hex": "656d707479",
+              "type_bits": 2147483648
+            },
+            {
+              "name_hex": "6578706f727473",
+              "type_bits": 2147483648
+            },
+            {
+              "name_hex": "676f2e6d6f64",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "676f2e73756d",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "69676e6f7265640a61737365742e62696e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6c696e6b65642d646972",
+              "type_bits": 134217728
+            },
+            {
+              "name_hex": "6c696e6b65642e676f",
+              "type_bits": 134217728
+            },
+            {
+              "name_hex": "6d657461646174612e6a736f6e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6e61746976655c61737365742e62696e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6f70617175652e6173736574",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "6f746865725f77696e646f77732e676f",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "70656e64696e67",
+              "type_bits": 2147483648
+            },
+            {
+              "name_hex": "706f6c6963792e636f6e74726163742e6a736f6e",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "706f6c6963792e676f",
+              "type_bits": 0
+            },
+            {
+              "name_hex": "7370656369616c2e676f",
+              "type_bits": 33554432
+            },
+            {
+              "name_hex": "756e726561642e676f",
+              "type_bits": 0
+            }
+          ],
+          "path": ""
+        },
+        {
+          "capability": "workspace/main",
+          "entries": [],
+          "path": "empty"
+        },
+        {
+          "capability": "workspace/main",
+          "entries": [
+            {
+              "name_hex": "706b672e61",
+              "type_bits": 0
+            }
+          ],
+          "path": "exports"
+        }
+      ],
+      "label": "unread-content-only",
+      "scope": "actual independent native recapture",
+      "sha256": "f03fd6df554a762fc4d5e3876f5dadd03ad8850188d50d6577102d0e6e26fb81",
+      "source_ids": [
+        "094fd60d50eca9aeddfe5d443a11462aedae83f38d6140ff06eb85c1f83b1520",
+        "146dc291a49b61a3e43e3f912e358eba2d94e0a98eb1c949ec884fc5014c3b31",
+        "552a1190a624385444079ae9612ec3b9b93a6bd1d43fab063da021588ff58eb6",
+        "57fbf5245f0d495e4c1c1c40a720d72699b0112af52ec19c63b3b3e140966e09",
+        "8b48dcd2fef26b7be919e18afc182f5ff205680dd55fd127b558374330033549",
+        "b3bc2f74afac42b2293dfa3c7f94340fc8f7acd728bced335e8ab940373aec82",
+        "ba947bed23229661427d7ab824c77d8c803c33ae0e4dce61dbb9ebf8cbb976b4",
+        "f2a7e16a89674c629dbf4f79ae2ced7cdc44b96d81a9577e6bbcd9ef5ae7a2bc",
+        "f62d05f7d60e6d0995395e3c22abe87245196e14aace1c10a4b1ce73965ef0d8"
+      ],
+      "sources": [
+        {
+          "bytes_hex": "7b226f726967696e616c223a747275657d0d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "094fd60d50eca9aeddfe5d443a11462aedae83f38d6140ff06eb85c1f83b1520",
+            "capability": "workspace/main",
+            "path": "metadata.json",
+            "kind": "metadata",
+            "raw_sha256": "b394f0692c06177a3960586e9ffa8f5ba3888a720acdaf62e6461398935bc992",
+            "bytes": 19
+          }
+        },
+        {
+          "bytes_hex": "7b7d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "146dc291a49b61a3e43e3f912e358eba2d94e0a98eb1c949ec884fc5014c3b31",
+            "capability": "workspace/main",
+            "path": "policy.contract.json",
+            "kind": "overlay",
+            "raw_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+            "bytes": 3
+          }
+        },
+        {
+          "bytes_hex": "7061636b61676520706f6c6963790a66756e632053656c6563746564287820696e7436342920696e743634207b2072657475726e2078207d0a66756e6320556e75736564286d206d61705b737472696e675d696e742920696e74207b2072657475726e206c656e286d29207d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "552a1190a624385444079ae9612ec3b9b93a6bd1d43fab063da021588ff58eb6",
+            "capability": "workspace/main",
+            "path": "policy.go",
+            "kind": "go_file",
+            "raw_sha256": "292d7fc3f94fc62a018dfc9504e61b21dcb507a6f8852faae622ee976f1c73e3",
+            "bytes": 109
+          }
+        },
+        {
+          "bytes_hex": "00ff800a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "57fbf5245f0d495e4c1c1c40a720d72699b0112af52ec19c63b3b3e140966e09",
+            "capability": "workspace/main",
+            "path": "exports/pkg.a",
+            "kind": "export_data",
+            "raw_sha256": "6d6f7836f1e146dc0204afb5133dae52fdc05603d8ac2dc793b481b0e0829fd1",
+            "bytes": 4
+          }
+        },
+        {
+          "bytes_hex": "",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "8b48dcd2fef26b7be919e18afc182f5ff205680dd55fd127b558374330033549",
+            "capability": "workspace/main",
+            "path": "go.sum",
+            "kind": "go_sum",
+            "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          }
+        },
+        {
+          "bytes_hex": "ff0001",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "b3bc2f74afac42b2293dfa3c7f94340fc8f7acd728bced335e8ab940373aec82",
+            "capability": "workspace/main",
+            "path": "opaque.asset",
+            "kind": "auxiliary",
+            "raw_sha256": "942e1e2a66a427b6551732f758bc314f22b9cdec9365a3425c9184de299392b5",
+            "bytes": 3
+          }
+        },
+        {
+          "bytes_hex": "6d6f64756c65206578616d706c652e636f6d2f706f6c6963790a676f20312e32352e300a7265706c616365206578616d706c652e636f6d2f646570203d3e202e2e2f6465700a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "ba947bed23229661427d7ab824c77d8c803c33ae0e4dce61dbb9ebf8cbb976b4",
+            "capability": "workspace/main",
+            "path": "go.mod",
+            "kind": "go_mod",
+            "raw_sha256": "8f799c9888464f16fa7879c0e348f09227e6f3d489c28ae2446851c47042224f",
+            "bytes": 70
+          }
+        },
+        {
+          "bytes_hex": "7061636b616765206465700a66756e63204964656e74697479287820696e7436342920696e743634207b2072657475726e2078207d0a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "f2a7e16a89674c629dbf4f79ae2ced7cdc44b96d81a9577e6bbcd9ef5ae7a2bc",
+            "capability": "workspace/dep",
+            "path": "policy.go",
+            "kind": "go_file",
+            "raw_sha256": "bff02c4da5d9caabebf78789380afd5a43d480a75c5d9396f292be4028c06981",
+            "bytes": 54
+          }
+        },
+        {
+          "bytes_hex": "2f2f676f3a6275696c642077696e646f77730a0a7061636b61676520706f6c6963790a",
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "f62d05f7d60e6d0995395e3c22abe87245196e14aace1c10a4b1ce73965ef0d8",
+            "capability": "workspace/main",
+            "path": "other_windows.go",
+            "kind": "excluded_source",
+            "raw_sha256": "945e4f7ad19eb98433d383a39ab9867162d912f2cfd8bed353b137c1d271d537",
+            "bytes": 35
+          }
+        }
+      ]
+    },
+    {
+      "capabilities": [
+        "root"
+      ],
+      "directories": [
+        {
+          "capability": "root",
+          "entries": [
+            {
+              "name_hex": "ff",
+              "type_bits": 0
+            }
+          ],
+          "path": ""
+        }
+      ],
+      "label": "raw-name-ff",
+      "scope": "private hash framing unit only; not a captured namespace",
+      "sha256": "9d25315573577e0b78b2f145de92f4e1c2860e145727c66317431ff6dec4f5a0",
+      "source_ids": null,
+      "sources": []
+    },
+    {
+      "capabilities": [
+        "root"
+      ],
+      "directories": [
+        {
+          "capability": "root",
+          "entries": [
+            {
+              "name_hex": "fe",
+              "type_bits": 0
+            }
+          ],
+          "path": ""
+        }
+      ],
+      "label": "raw-name-fe",
+      "scope": "private hash framing unit only; not a captured namespace",
+      "sha256": "910c2a67a628b682486c62022fd173aa6fa23b53f983cfc912ce72ef3466e677",
+      "source_ids": null,
+      "sources": []
+    },
+    {
+      "capabilities": [
+        "root"
+      ],
+      "directories": [
+        {
+          "capability": "root",
+          "entries": [
+            {
+              "name_hex": "efbfbd",
+              "type_bits": 0
+            }
+          ],
+          "path": ""
+        }
+      ],
+      "label": "raw-name-efbfbd",
+      "scope": "private hash framing unit only; not a captured namespace",
+      "sha256": "7765e3fcab37f805bcab17604a621f272911cdac653e0d48ac9045018dc98b37",
+      "source_ids": null,
+      "sources": []
+    },
+    {
+      "capabilities": [
+        "root"
+      ],
+      "directories": [
+        {
+          "capability": "root",
+          "entries": [
+            {
+              "name_hex": "610062",
+              "type_bits": 0
+            }
+          ],
+          "path": ""
+        }
+      ],
+      "label": "raw-name-610062",
+      "scope": "private hash framing unit only; not a captured namespace",
+      "sha256": "bd1a4a957e5c51f097b235b513eab082cb08012cf4bf3e0b6c9d04a5b525f5d4",
+      "source_ids": null,
+      "sources": []
+    },
+    {
+      "capabilities": [
+        "root"
+      ],
+      "directories": [
+        {
+          "capability": "root",
+          "entries": [
+            {
+              "name_hex": "61",
+              "type_bits": 0
+            }
+          ],
+          "path": ""
+        }
+      ],
+      "label": "raw-name-61",
+      "scope": "private hash framing unit only; not a captured namespace",
+      "sha256": "044fc35ee2dddd8b72390927fd4fb45f176dd3c0b7fec459823af0e1aeb0aa0e",
+      "source_ids": null,
+      "sources": []
+    },
+    {
+      "capabilities": [
+        "root"
+      ],
+      "directories": [
+        {
+          "capability": "root",
+          "entries": [
+            {
+              "name_hex": "6162",
+              "type_bits": 0
+            }
+          ],
+          "path": ""
+        }
+      ],
+      "label": "raw-name-6162",
+      "scope": "private hash framing unit only; not a captured namespace",
+      "sha256": "125cccb7c08b9a6c22bdf9c6ad048bf066aef11d5ffdda1f5d48b742e07a3be9",
+      "source_ids": null,
+      "sources": []
+    }
+  ]
+}

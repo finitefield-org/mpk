@@ -6374,3 +6374,69 @@ roots/private descriptor/registry/context/retained policies and all169 demands/
 T02-T11 remain required. R06/W01 stay pending, C# tests stay skipped, and the
 cumulative T02 gate stays W04: ./scripts/check-fast.sh --skip-csharp. No public
 profile or source/program/application proof activates.
+
+## 113. T02-W01 complete actual Go observation ownership and live comparisons
+
+Entry is 4e805ee2ee352adfac35119f53ee1396db701920. The
+[original observation checkpoint](../migrations/go-practical/t02-w01/verification/native-observation/README.md)
+retains complete actual controlled Go module/package observations in private
+owned storage. Fixed commands/pinned executable/environment/selector cannot be
+replaced by caller commands. Source/export/image consumers require the actual
+whole original observation and exact compiler/main/cache ownership. Unobserved
+copies, compatible subsets and rewritten transports do not acquire authority.
+
+The Go-owned baseline holds a verified image lease across two independent
+fresh-cache kernel-readonly executions. The same actual original owner consumes
+their complete outputs and every archive byte. All4 module objects/all182 package
+objects except generated Export locator/all181 complete archives/79406936 bytes
+per run agree, independently checked by another comparator. Full generic
+metadata includes native fields outside the narrow binder, including Root;
+unknown fields, membership, diagnostics, cache escape and archive changes reject.
+Rooted concrete cache reads, whole build IDs, sticky failure, live image cleanup
+prevention and permanent close are checked. Comparison does not manufacture a
+kernel execution attestation or registered context from supplied data/status.
+
+The actual producer removes original application/module/SDK roots and clears
+donor buffers before restoring5674 objects, rebinding4 modules, source-typing181
+complete packages/1472495 nodes and binding181 archives. No application body or
+initializer runs. Full original relative/absolute/versioned replacements remain.
+Independent replay receives only readonly owned original path images, hides
+ambient SDK and mounts no original application/frontend source. Local Linux/
+aarch64 emulates Linux/amd64; native Linux release acceptance remains due.
+
+A genuine original no-import package reproduces a one-native/one-source package
+closure rejection caused by always assuming unsafe. The binder now counts
+actual intrinsic membership; complete original/fixed SDK/source/export epochs
+remain. Three observation roots/five ownership controls and one baseline root/
+12 cases pass. The affected suite passes61 roots/295 subtests in210.42s with one
+existing compiler-guard diagnostic compatibility failure. After all original
+Go/native handles terminate, only that prior literal is restored. The exact
+guard and two current frontend builds pass; every other complete source byte,
+condition/control flow and unaffected observed runtime case remains exact.
+Effective coverage is63 distinct affected roots/307 subtests. Current vet/format
+and Go1.23 compile/link with zero tests pass. Four Darwin special-mode controls
+cannot materialize requested bits; the byte-exact guard retains prior6 actual
+Linux controls without repetition. Two fresh184-input builds,48 frontend/133
+vendor files plus metadata, agree on8592898 bytes and SHA256
+29f795e4a9d5bb17783cfe4b20609ee2f508f058868a950b9dc5ce04770fbe72.
+
+The initial bounded native export signal:killed retains original whole inputs,
+successful original module output and actual empty failed stdout/stderr. A fresh
+successful execution remains separate. The initial observer sandbox PermissionError
+and whole source remain, with the same observer completed outside the sandbox.
+Independent reconstruction checks33643 complete source preimages across six
+epochs,453 extra whole payloads/83 canonical preimages, both source/export
+snapshot frames, full image closure/compiler inventory and all255 frozen members.
+All13 original result drivers/six containers are terminal before staging. Strict
+127-rule/four-scope/39-seal review scans every changed stored file and decoded
+complete payload, followed by staged/committed-blob audits, without new exclusions.
+No C# tests, agents, Actions or intermediate whole gate run.
+
+Production kernel lifecycle/private context ownership and complete general
+consulted namespace/selected-closure bindings remain due. Full56-family source/
+carrier/nominal/type/operation/storage/lifetime/state/program foundation, all6
+common members/19 theorem families, compiler-derived complete operation/VC
+roots/private descriptor/registry/context/retained policies and all169 demands/
+T02-T11 remain required. R06/W01 stay pending, C# tests stay skipped, and the
+cumulative T02 gate stays W04: ./scripts/check-fast.sh --skip-csharp. No public
+profile or source/program/application proof activates.
