@@ -1,0 +1,9 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error[E0282]: type annotations needed
+   --> crates/mpk-vc/src/go_practical_ordinary/product_relation.rs:381:42
+    |
+381 |                     truth(bc("And", vec![env["a"].clone(), env["b"].clone()])),
+    |                                          ^^^^^^^^ cannot infer type
+
+For more information about this error, try `rustc --explain E0282`.
+error: could not compile `mpk-vc` (lib) due to 1 previous error

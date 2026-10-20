@@ -5935,3 +5935,59 @@ the final tree with unchanged127 rules/four scopes/39 seals and14 exact original
 libtest stdout EOF observations; no source/JSON/directory/blanket exclusion is
 added. Staged/committed-blob audits bind reviewed SHA256/length to actual Git
 objects. C# tests stay skipped and the cumulative T02 gate stays W04.
+
+
+## 106. T02-W01 typed field equivalence and actual product comparisons
+
+Entry is `27490ecb06ff728162bb9499c7b5773c23b83514`. The
+[relational product checkpoint](../migrations/go-practical/t02-w01/verification/product-relations/README.md)
+adds actual products of two typed field-relation witnesses. Construction and
+both projections are ordinary terms. Reflexivity/symmetry/transitivity require
+actual field laws; updates preserve the opposite witness and require a witness
+for the replacement values; maps require both actual preservation functions.
+Actual comparator conjunction reflects/completes the product relation using
+real per-field proofs. No arbitrary representation equality or function
+extensionality is assumed. Two definitions/fourteen laws add16 declarations.
+
+The94-declaration/1621-term/16265-byte generic component and3581-declaration/
+74155-term/1029561-byte numeric component pass both unchanged cores with zero
+axioms and empty imports. The numeric component retains the entire3489-name
+signed-equality foundation plus every43 product extension. Every old78/3489
+named type/body/proof/level/family identity and both complete old raw hashes
+remain exact. Both directions for all16 ordered8/16/32/64 word pairs use actual
+full-word equality and existing Signed/Int.Equivalent proofs, quantifying full
+arbitrary word values. A separate six-Nat universal law uses actual balanced
+integer representation-shift proofs to establish pair comparison truth across
+different representations. Go source structs are not yet admitted by these laws.
+
+Four selected Rust roots pass in67.57s; current strict Clippy and format pass.
+Both cores inspect all84 complete original byte streams. Four positives have
+identical three hashes and checked empty axiom reports; all80 meaningful
+negatives genuinely type-reject:52 check and28 lambda-domain mismatches.
+These include every47 new law false claim,30 real field/equivalence/map/
+comparator premise erasures and three actual comparator/relation/projection
+corruptions. Honest95/3582-name extensions pass both kernels while exact
+component ownership rejects them. Whole construction/final canonical bytes
+and Rust reports coincide; trailing/over-budget ownership checks also pass.
+
+The initial compiler E0282 environment annotation and original receipt
+observer30/50 subtype assumption remain with complete actual sources and raw
+outputs. Counting existing reports corrects the observer to28/52 without
+changing any semantic verdict/stream. No failure substitutes for a semantic
+negative, no source/JSON/directory exclusion or blanket whitespace exception
+is added, and all255 frozen inputs remain exact. All actual validation handles
+are terminal. The unchanged65-arity layout matrix/93600 leaf obligations and
+prior frontend/legacy matrices remain retained without unrelated reruns;
+no new all65 relation-consumer matrix is claimed. Fixed declaration/term/byte/
+fuel limits, core rules, axiom and import policy remain unchanged.
+
+Requirements R01/R07 retain their old product, archive and assembly records
+and all seven original requirements; R06 stays pending. Full bounded56-family
+source/carrier/nominal/type/operation/storage/lifetime/state/program foundation,
+all six common members/19 theorem families, complete compiler-derived roots,
+private descriptor/registry/context/retained policies and authoritative
+immutable original package/export/selected-closure replay remain due. Actual
+Go struct comparability, field order/evaluation/effects and invocation/source
+AST binding remain separate work. All169 demands/T02-T11 stay open; W01 remains
+In progress. C# tests stay skipped and the cumulative T02 gate remains W04.
+No public/profile/source/application/Linux release claim is made.

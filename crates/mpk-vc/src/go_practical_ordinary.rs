@@ -16,6 +16,7 @@ mod integer;
 mod natural;
 mod polynomial;
 mod product;
+mod product_relation;
 mod range;
 mod syntax;
 mod word;
@@ -191,6 +192,24 @@ pub struct GoWordSignedEqualityFoundation {
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct GoProductFoundation {
     certificate: Vec<u8>,
+}
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoProductRelationFoundation {
+    certificate: Vec<u8>,
+}
+impl GoProductRelationFoundation {
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
+}
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoWordProductEqualityFoundation {
+    certificate: Vec<u8>,
+}
+impl GoWordProductEqualityFoundation {
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
 }
 impl GoProductFoundation {
     pub fn certificate_bytes(&self) -> &[u8] {
@@ -1480,6 +1499,57 @@ pub fn import_go_practical_product_foundation(candidate: &[u8]) -> Result<GoProd
         return Err(GoOrdinaryError::Limit);
     }
     let expected = generate_go_practical_product_foundation()?;
+    if candidate != expected.certificate_bytes() {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    Ok(expected)
+}
+
+/// Lift actual typed field relations and comparator proofs to products.
+/// Nominal/source types and complete Go context remain separate work.
+pub fn generate_go_practical_product_relation_foundation() -> Result<GoProductRelationFoundation> {
+    let mut builder = core_builder()?;
+    product::append(&mut builder)?;
+    product_relation::append(&mut builder)?;
+    builder.certificate.module = "Mpk.Go.Practical.ProductRelationFoundation".into();
+    Ok(GoProductRelationFoundation {
+        certificate: builder.finish()?,
+    })
+}
+pub fn import_go_practical_product_relation_foundation(
+    candidate: &[u8],
+) -> Result<GoProductRelationFoundation> {
+    if candidate.len() > MAX_BYTES {
+        return Err(GoOrdinaryError::Limit);
+    }
+    let expected = generate_go_practical_product_relation_foundation()?;
+    if candidate != expected.certificate_bytes() {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    Ok(expected)
+}
+
+/// Compare arbitrary pairs of actual word models through Int equivalence.
+/// Source struct comparability, evaluation and program correspondence remain due.
+pub fn generate_go_practical_word_product_equality_foundation(
+) -> Result<GoWordProductEqualityFoundation> {
+    let mut builder = signed_order_builder()?;
+    word_numeric::append_signed_equality(&mut builder)?;
+    product::append(&mut builder)?;
+    product_relation::append(&mut builder)?;
+    product_relation::append_word_pairs(&mut builder)?;
+    builder.certificate.module = "Mpk.Go.Practical.WordProductEqualityFoundation".into();
+    Ok(GoWordProductEqualityFoundation {
+        certificate: builder.finish()?,
+    })
+}
+pub fn import_go_practical_word_product_equality_foundation(
+    candidate: &[u8],
+) -> Result<GoWordProductEqualityFoundation> {
+    if candidate.len() > MAX_BYTES {
+        return Err(GoOrdinaryError::Limit);
+    }
+    let expected = generate_go_practical_word_product_equality_foundation()?;
     if candidate != expected.certificate_bytes() {
         return Err(GoOrdinaryError::Linkage);
     }
