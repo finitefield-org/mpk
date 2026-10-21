@@ -762,3 +762,28 @@ order comparisons/prefix/suffix/substring/concat/source preservation/full
 foundation/private context/native namespace/selected closure/all169/T02-T11
 remain due. Go/Rust scope and limits stay unchanged; R01/R06/W01 remain open.
 The cumulative T02 gate stays W04: `./scripts/check-fast.sh`.
+
+The [unsigned-byte string order checkpoint](verification/string-order/README.md)
+adds actual end/byte ranks and four comparisons. Its1,706 declarations/52,523
+terms/679,227 bytes retain all1,215 prior string identities and exact old
+StringEquality/full WordOrder bytes, adding26 definitions/190 ordinary laws.
+First-difference reflection/completion carries a real address, equality at every
+smaller index and a strict rank difference. Full64-size guards distinguish end
+from NUL; actual Word8 unsigned bridges, pointwise respects/normalization,
+rank-vector total equality and reflexivity are checked without axioms, function
+extensionality, core or limit changes. Six affected roots and both unchanged
+cores agree on339 complete inputs:two zero-axiom acceptances and337 genuine
+mismatches, including190 altered conclusions,122 typed-witness domain changes
+and25 typed wrong definitions with actual canonical-padding counterexamples.
+Finite actual-DAG observations cover65,536 bytepairs and75 full stringcases,
+all four operations,both directions,raw/normalized; they supply no source proof.
+A receiver-only Clippy correction regenerates the identical full certificate;
+current strict Clippy/all six changed-file format pass. Ten full source epochs/
+3,779 preimages retain14 executions and all five original failures, including
+both original rejected Boolean candidates and their actual16-case diagnostic.
+All255 frozen inputs,186 Go build inputs and127/four/39 scanner counts stay exact,
+with no new exclusion or language. The bounded bridge to existing full-size
+String.Equality and original source/evaluation/nominal/signed-domain binding,
+prefix/suffix/substring/concat/source preservation, private foundation/context,
+native kernel/general namespace/selected closure/all169/T02-T11 remain due.
+R01/R06/W01 stay open; the cumulative T02 gate remains W04: `./scripts/check-fast.sh`.

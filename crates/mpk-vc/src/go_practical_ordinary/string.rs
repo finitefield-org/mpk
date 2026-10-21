@@ -6,7 +6,11 @@ use super::{word, Builder, Result};
 
 mod equality;
 mod normalization;
+mod order;
 mod validity;
+pub(super) fn append_order(builder: &mut Builder) -> Result<()> {
+    order::append(builder)
+}
 pub(super) fn append_equality(builder: &mut Builder) -> Result<()> {
     equality::append(builder)
 }

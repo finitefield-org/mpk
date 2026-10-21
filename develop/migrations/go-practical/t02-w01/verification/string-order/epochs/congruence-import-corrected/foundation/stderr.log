@@ -1,0 +1,59 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+warning: function `call` is never used
+  --> crates/mpk-vc/tests/go_practical_string_order.rs:82:4
+   |
+82 | fn call(c: &mut Certificate, name: &str, arguments: Vec<u32>) -> u32 {
+   |    ^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: function `bad_result` is never used
+   --> crates/mpk-vc/tests/go_practical_string_order.rs:121:4
+    |
+121 | fn bad_result(c: &mut Certificate, ty: u32) -> u32 {
+    |    ^^^^^^^^^^
+
+warning: function `erase` is never used
+   --> crates/mpk-vc/tests/go_practical_string_order.rs:163:4
+    |
+163 | fn erase(c: &mut Certificate, ty: u32, at: usize, domain: u32) -> u32 {
+    |    ^^^^^
+
+warning: variant `Raw` is never constructed
+  --> crates/mpk-vc/tests/support/go_string_equality_eval.rs:39:5
+   |
+17 | enum Value {
+   |      ----- variant in this enum
+...
+39 |     Raw {
+   |     ^^^
+   |
+   = note: `Value` has derived impls for the traits `Debug` and `Clone`, but these are intentionally ignored during dead code analysis
+
+warning: methods `byte_input`, `raw`, `word_bits`, `length`, `bytes`, and `steps` are never used
+   --> crates/mpk-vc/tests/support/go_string_equality_eval.rs:360:12
+    |
+ 58 | impl<'a> Interpreter<'a> {
+    | ------------------------ methods in this implementation
+...
+360 |     pub fn byte_input(&mut self, bits: u8) -> u32 {
+    |            ^^^^^^^^^^
+...
+363 |     pub fn raw(&mut self, length: u64, bytes: [u8; 256]) -> u32 {
+    |            ^^^
+...
+381 |     fn word_bits(&mut self, width: u8, value: u32) -> u64 {
+    |        ^^^^^^^^^
+...
+394 |     pub fn length(&mut self, value: u32) -> u64 {
+    |            ^^^^^^
+...
+398 |     pub fn bytes(&mut self, value: u32) -> [u8; 256] {
+    |            ^^^^^
+...
+408 |     pub fn steps(&self) -> usize {
+    |            ^^^^^
+
+warning: `mpk-vc` (test "go_practical_string_order") generated 5 warnings
+    Finished `release` profile [optimized] target(s) in 32.77s
+     Running tests/go_practical_string_order.rs (target/release/deps/go_practical_string_order-4a0089e8bcfe9e70)

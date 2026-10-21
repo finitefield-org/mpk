@@ -287,6 +287,15 @@ impl GoStringEqualityFoundation {
         &self.certificate
     }
 }
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoStringOrderFoundation {
+    certificate: Vec<u8>,
+}
+impl GoStringOrderFoundation {
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
+}
 impl GoStringValue {
     pub fn certificate_bytes(&self) -> &[u8] {
         &self.certificate
@@ -1839,6 +1848,43 @@ pub fn import_go_practical_string_equality_foundation(
         return Err(GoOrdinaryError::Limit);
     }
     let expected = generate_go_practical_string_equality_foundation()?;
+    if candidate != expected.certificate_bytes() {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    Ok(expected)
+}
+
+/// Ordinary unsigned-byte lexicographic order on the frozen complete carrier.
+/// Original Go source/evaluation/nominal/context admission remains separate.
+pub fn generate_go_practical_string_order_foundation() -> Result<GoStringOrderFoundation> {
+    let buffers = [
+        generate_go_practical_string_equality_foundation()?
+            .certificate_bytes()
+            .to_vec(),
+        generate_go_practical_word_order_foundation()?
+            .certificate_bytes()
+            .to_vec(),
+    ];
+    let inputs = buffers
+        .iter()
+        .map(|bytes| {
+            mpk_cert::decode_canonical_certificate(bytes).map_err(|_| GoOrdinaryError::Foundation)
+        })
+        .collect::<Result<Vec<_>>>()?;
+    let mut builder = composition::string_order_prerequisites(&inputs)?;
+    string::append_order(&mut builder)?;
+    builder.certificate.module = "Mpk.Go.Practical.StringOrderFoundation".into();
+    Ok(GoStringOrderFoundation {
+        certificate: builder.finish()?,
+    })
+}
+pub fn import_go_practical_string_order_foundation(
+    candidate: &[u8],
+) -> Result<GoStringOrderFoundation> {
+    if candidate.len() > MAX_BYTES {
+        return Err(GoOrdinaryError::Limit);
+    }
+    let expected = generate_go_practical_string_order_foundation()?;
     if candidate != expected.certificate_bytes() {
         return Err(GoOrdinaryError::Linkage);
     }

@@ -1,0 +1,91 @@
+{
+  "status": "passed_with_original_output_retained",
+  "observed_at_utc": "2026-10-21T00:12:14.622748+00:00",
+  "actual_checks": [
+    {
+      "command": [
+        "/usr/bin/git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "exit_code": 2,
+      "stdout": "develop/migrations/go-practical/t02-w01/verification/string-order/epochs/borrow-corrected/foundation/stdout.log:7: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/string-order/epochs/congruence-import-corrected/foundation/stdout.log:7: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/string-order/epochs/factored-boolean-total/foundation/stdout.log:11: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/string-order/epochs/lint-corrected/foundation/stdout.log:7: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/string-order/epochs/original-boolean-diagnosis/diagnostic/stdout.log:22: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/string-order/epochs/rank-order/foundation/stdout.log:7: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/string-order/epochs/semantic-controls/selected/stdout.log:19: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/string-order/epochs/total-order/foundation/stdout.log:11: new blank line at EOF.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/usr/bin/git",
+        "diff",
+        "--cached",
+        "--check",
+        "--",
+        ".",
+        ":(exclude)develop/migrations/go-practical/t02-w01/verification/string-order/epochs/borrow-corrected/foundation/stdout.log",
+        ":(exclude)develop/migrations/go-practical/t02-w01/verification/string-order/epochs/congruence-import-corrected/foundation/stdout.log",
+        ":(exclude)develop/migrations/go-practical/t02-w01/verification/string-order/epochs/factored-boolean-total/foundation/stdout.log",
+        ":(exclude)develop/migrations/go-practical/t02-w01/verification/string-order/epochs/lint-corrected/foundation/stdout.log",
+        ":(exclude)develop/migrations/go-practical/t02-w01/verification/string-order/epochs/original-boolean-diagnosis/diagnostic/stdout.log",
+        ":(exclude)develop/migrations/go-practical/t02-w01/verification/string-order/epochs/rank-order/foundation/stdout.log",
+        ":(exclude)develop/migrations/go-practical/t02-w01/verification/string-order/epochs/semantic-controls/selected/stdout.log",
+        ":(exclude)develop/migrations/go-practical/t02-w01/verification/string-order/epochs/total-order/foundation/stdout.log"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "exact_raw_output_warnings": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/string-order/epochs/borrow-corrected/foundation/stdout.log",
+      "sha256": "b45e14b2ff6c5176ec3934f322837821c6ed4aedaa2949e0561b403f747907ae",
+      "bytes": 296,
+      "warning": "develop/migrations/go-practical/t02-w01/verification/string-order/epochs/borrow-corrected/foundation/stdout.log:7: new blank line at EOF."
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/string-order/epochs/congruence-import-corrected/foundation/stdout.log",
+      "sha256": "9a0349ad7c22d4bd7b726e8af4eeeff76393766481620d3f5ea7390d2c720364",
+      "bytes": 296,
+      "warning": "develop/migrations/go-practical/t02-w01/verification/string-order/epochs/congruence-import-corrected/foundation/stdout.log:7: new blank line at EOF."
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/string-order/epochs/factored-boolean-total/foundation/stdout.log",
+      "sha256": "37b2e5aed49bc58deca8c7ae81d5b0f0aa26ee4c94332dce3f547ea740a37f7c",
+      "bytes": 263,
+      "warning": "develop/migrations/go-practical/t02-w01/verification/string-order/epochs/factored-boolean-total/foundation/stdout.log:11: new blank line at EOF."
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/string-order/epochs/lint-corrected/foundation/stdout.log",
+      "sha256": "7e00452822908e1ae98e8600d066da08074880af75fbdbb7736806437273cb38",
+      "bytes": 296,
+      "warning": "develop/migrations/go-practical/t02-w01/verification/string-order/epochs/lint-corrected/foundation/stdout.log:7: new blank line at EOF."
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/string-order/epochs/original-boolean-diagnosis/diagnostic/stdout.log",
+      "sha256": "2fc30cea847994d242c8b8eb2cc73a033bddc080a5f67983af3636b14458012f",
+      "bytes": 720,
+      "warning": "develop/migrations/go-practical/t02-w01/verification/string-order/epochs/original-boolean-diagnosis/diagnostic/stdout.log:22: new blank line at EOF."
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/string-order/epochs/rank-order/foundation/stdout.log",
+      "sha256": "52d43aa82a0921385d3d3239a54747d160376e1c7a2ab0f5ad742ebb951ae012",
+      "bytes": 296,
+      "warning": "develop/migrations/go-practical/t02-w01/verification/string-order/epochs/rank-order/foundation/stdout.log:7: new blank line at EOF."
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/string-order/epochs/semantic-controls/selected/stdout.log",
+      "sha256": "f8696e4dc28cadc4229c74ba9c24e0e72a3776cb26b5d333678a5a3c4002ee8c",
+      "bytes": 1437,
+      "warning": "develop/migrations/go-practical/t02-w01/verification/string-order/epochs/semantic-controls/selected/stdout.log:19: new blank line at EOF."
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/string-order/epochs/total-order/foundation/stdout.log",
+      "sha256": "279102196f0afb25db9c8ca3d3371a554f32831350b94587a600146272eba0c5",
+      "bytes": 263,
+      "warning": "develop/migrations/go-practical/t02-w01/verification/string-order/epochs/total-order/foundation/stdout.log:11: new blank line at EOF."
+    }
+  ],
+  "all_other_staged_files_pass_whitespace_check": true,
+  "original_Cargo_output_bytes_modified": false,
+  "obsolete_IR_matcher_scope_seal_or_exclusion_changes": false
+}

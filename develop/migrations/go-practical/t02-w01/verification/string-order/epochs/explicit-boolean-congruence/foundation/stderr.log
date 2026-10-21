@@ -1,0 +1,83 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error[E0433]: cannot find `GoOrdinaryError` in `super`
+   --> crates/mpk-vc/src/go_practical_ordinary/string/order.rs:222:41
+    |
+222 |         return Err(super::super::super::GoOrdinaryError::Linkage);
+    |                                         ^^^^^^^^^^^^^^^ could not find `GoOrdinaryError` in the crate root
+    |
+help: consider importing this enum
+    |
+  3 + use crate::go_practical_ordinary::GoOrdinaryError;
+    |
+help: if you import `GoOrdinaryError`, refer to it directly
+    |
+222 -         return Err(super::super::super::GoOrdinaryError::Linkage);
+222 +         return Err(GoOrdinaryError::Linkage);
+    |
+
+error[E0433]: cannot find `GoOrdinaryError` in `super`
+   --> crates/mpk-vc/src/go_practical_ordinary/string/order.rs:225:41
+    |
+225 |         return Err(super::super::super::GoOrdinaryError::Linkage);
+    |                                         ^^^^^^^^^^^^^^^ could not find `GoOrdinaryError` in the crate root
+    |
+help: consider importing this enum
+    |
+  3 + use crate::go_practical_ordinary::GoOrdinaryError;
+    |
+help: if you import `GoOrdinaryError`, refer to it directly
+    |
+225 -         return Err(super::super::super::GoOrdinaryError::Linkage);
+225 +         return Err(GoOrdinaryError::Linkage);
+    |
+
+error[E0433]: cannot find `GoOrdinaryError` in `super`
+   --> crates/mpk-vc/src/go_practical_ordinary/string/order.rs:234:41
+    |
+234 |             .ok_or(super::super::super::GoOrdinaryError::Linkage)?;
+    |                                         ^^^^^^^^^^^^^^^ could not find `GoOrdinaryError` in the crate root
+    |
+help: consider importing this enum
+    |
+  3 + use crate::go_practical_ordinary::GoOrdinaryError;
+    |
+help: if you import `GoOrdinaryError`, refer to it directly
+    |
+234 -             .ok_or(super::super::super::GoOrdinaryError::Linkage)?;
+234 +             .ok_or(GoOrdinaryError::Linkage)?;
+    |
+
+error[E0433]: cannot find `GoOrdinaryError` in `super`
+   --> crates/mpk-vc/src/go_practical_ordinary/string/order.rs:238:50
+    |
+238 |             _ => return Err(super::super::super::GoOrdinaryError::Linkage),
+    |                                                  ^^^^^^^^^^^^^^^ could not find `GoOrdinaryError` in the crate root
+    |
+help: consider importing this enum
+    |
+  3 + use crate::go_practical_ordinary::GoOrdinaryError;
+    |
+help: if you import `GoOrdinaryError`, refer to it directly
+    |
+238 -             _ => return Err(super::super::super::GoOrdinaryError::Linkage),
+238 +             _ => return Err(GoOrdinaryError::Linkage),
+    |
+
+error[E0433]: cannot find `GoOrdinaryError` in `super`
+   --> crates/mpk-vc/src/go_practical_ordinary/string/order.rs:432:49
+    |
+432 |                 return Err(super::super::super::GoOrdinaryError::Linkage);
+    |                                                 ^^^^^^^^^^^^^^^ could not find `GoOrdinaryError` in the crate root
+    |
+help: consider importing this enum
+    |
+  3 + use crate::go_practical_ordinary::GoOrdinaryError;
+    |
+help: if you import `GoOrdinaryError`, refer to it directly
+    |
+432 -                 return Err(super::super::super::GoOrdinaryError::Linkage);
+432 +                 return Err(GoOrdinaryError::Linkage);
+    |
+
+For more information about this error, try `rustc --explain E0433`.
+error: could not compile `mpk-vc` (lib) due to 5 previous errors

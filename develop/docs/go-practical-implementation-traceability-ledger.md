@@ -6967,3 +6967,60 @@ array/storage/state/program/full ordinary foundation/private descriptor/registry
 context/native kernel/general namespace/selected closure/all169/T02-T11 remain
 due. R01/R06/W01 stay open. All source-consuming handles are terminal before
 staging; the cumulative T02 gate stays W04: `./scripts/check-fast.sh`.
+
+## 124. T02-W01 actual unsigned-byte/end ranks and lexicographic witnesses
+
+Entry is `8814646e76c9dd75d2666e4610e8c091ea44fc8b`. The
+[checkpoint](../migrations/go-practical/t02-w01/verification/string-order/README.md)
+preserves all1,215 original string identities and exact old StringEquality/full
+WordOrder bytes. Its1,706 declarations/52,523 terms/679,227 bytes add26 ordinary
+definitions/190 laws, without axioms/imports, function extensionality, core or
+limit changes. The private composition roots remain compiled-in closed math.
+
+Rank0 represents end and each present byte has its actual unsigned value+1;
+the guard reads the full64 logical size. D0..8 Nat-vector equality and Less
+prove genuine first-difference reflection/completion: a real address, equal
+values at every smaller index and a strict rank difference. The actual unsigned
+Word8 circuits agree with present-byte rank comparisons. Four operations have
+checked reversal/complement, pointwise content respects/normalization,
+reflexivity and total equality of rank vectors. The universal bounded bridge
+to the old full-size string equality and source admission are still due.
+
+Six affected Rust roots pass. Both unchanged independent cores agree on339
+complete current inputs:two zero-axiom acceptances and337 type mismatches,
+including190 changed conclusions,122 replaced typed-witness domains and25 typed
+wrong definitions. Every changed definition has a well-typed full definition
+prefix and an actual saved counterexample with canonical tails. Empty depth0
+prefixes are vacuous; mutation checks the exact typed contract, not logical
+independence. Partial certificate acceptance is never claimed.
+
+Actual definition execution observes all65,536 unsigned byte pairs in113,660,694
+AST steps and75 full strings in147,304,477 steps:four operations,both operand
+orders,raw/normalized,18 boundary lengths,dirty tails,first/high and last/low
+changes,short equal prefixes,NUL/UTF8/binary and0 versus256 zero bytes. All
+complete arrays/full64 lengths and available partial results remain. Core
+constructors/eliminators and complete native data are the only primitives;
+no arithmetic/string callback or theorem body supplies observations. Existing
+50M-step/2M-value/2M-environment ceilings stay fixed. This matrix supplies neither
+the universal proof nor native Go source/runtime evidence.
+
+Ten whole source/driver epochs and3,779 original preimages retain14 actual
+executions and five original failures:borrow/import compile errors,two rejected
+nested-Bool reflexivity candidates,and strict Clippy's argument-count failure.
+The actual16-case diagnostic observes equal Boolean endpoints; explicit
+congruence/transitivity repairs conversion without changing the core/fuel.
+Both original failed candidates are also rejected by the unchanged Go core.
+The final receiver-only lint repair regenerates the identical full certificate;
+prior semantic/proof checks are retained against those exact bytes, with current
+strict target Clippy/all six changed-file format passing. Every candidate and
+actual driver is saved before checking, with all available complete outputs.
+
+All255 frozen inputs,186 Go frontend build inputs and127 matchers/four scopes/
+39 seals remain exact. No new source/JSON/directory/seal exception,language,
+agent or Actions is introduced. Unchanged suites are retained without repeat.
+The bounded full-size equality bridge,original Go source/evaluation/nominal/
+signed-domain binding,prefix/suffix/substring/concat/source preservation,array/
+storage/state/program,full ordinary foundation/private descriptor/registry/
+context,native kernel/general namespace/selected closure/all169/T02-T11 remain
+due. R01/R06/W01 stay open. All source-consuming handles are terminal before
+staging; the cumulative T02 gate remains W04: `./scripts/check-fast.sh`.
