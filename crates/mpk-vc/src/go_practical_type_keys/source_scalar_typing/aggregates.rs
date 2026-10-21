@@ -104,6 +104,11 @@ impl Engine<'_> {
             )
         };
         from == to
+            || self.is_error(to)
+                && self
+                    .error_implementations
+                    .get(from)
+                    .is_some_and(Option::is_some)
             || (!named(from) || !named(to))
                 && self
                     .shape(from)
@@ -217,6 +222,16 @@ impl Engine<'_> {
         let a = self.one(&arg)?;
         if a.nil {
             if !self.has_nil(&typ) {
+                return Err(GoScalarTypingError::Type);
+            }
+            return Ok(Step::Done(vec![self.atom(&typ, false)]));
+        }
+        if self.is_error(&typ) {
+            if !a
+                .typ
+                .as_ref()
+                .is_some_and(|from| self.assignable(from, &typ))
+            {
                 return Err(GoScalarTypingError::Type);
             }
             return Ok(Step::Done(vec![self.atom(&typ, false)]));

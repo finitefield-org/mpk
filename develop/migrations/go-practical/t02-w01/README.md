@@ -1196,3 +1196,23 @@ typing, source evaluation/carrier/capture/context/resource/storage/program proof
 full56 foundation/registry and nativeLinux/generalnamespace/selectedclosure/
 all169/T02–T11 remain due. Go/Rust only; R01/R06/W01 remain open, public practical
 profile stays inactive and the T02 whole gate stays W04: `./scripts/check-fast.sh`.
+
+The [original method/error typing checkpoint](verification/method-typing/README.md) resolves actual value
+methods and immediately called method expressions with canonical receiver
+identity, aliases, original parameter/result types, visibility, field/method
+shadowing and repeated embedding paths. Error() string signature dependencies
+remain distinct from actual calls; pointer/value and interface-dispatch cases
+are explicit. All143 exact positive type/provenance outcomes and300 original
+rejections agree on461 cases;18 valid outside-reader forms stay separate. Real
+Go selections agree on69 caller/callee/body/type records,23 promoted paths,
+18 method expressions and8 opaque declarations. Three new Rust/seven affected
+scalar/aggregate/builtin roots,70-input/16-result controls,200-call flat work,
+original4985/950/1659 outcomes and scoped lint/vet/formats pass. Nine epochs/
+6990 preimages retain22 scoped checks and31709 original files/98995757 bytes
+with literal byte/mode audit. SDK14496/frontend189/frozen255/ordinary448 basis
+stays exact. Promotion/interface type facts do not relax frozen v1 admission.
+Complete body/statement/call-state/source-evaluation/carrier/capture/context/
+resource/storage/program proofs, full56 foundation/registry and nativeLinux/
+generalnamespace/selectedclosure/all169/T02–T11 remain due. Go/Rust only;
+R01/R06/W01 stay open, public profile remains inactive and the T02 whole gate
+stays W04: `./scripts/check-fast.sh`.

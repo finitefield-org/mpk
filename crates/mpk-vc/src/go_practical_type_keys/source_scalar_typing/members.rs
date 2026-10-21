@@ -7,53 +7,7 @@ impl Engine<'_> {
             && matches!(self.scopes.lookup_identifier(source,base),Ok(Some(GoNameLookup::Original(b)))if b.kind()==GoSourceNameKind::Import))
     }
     fn method_blocks(&mut self, id: &str, name: &str) -> Result<bool> {
-        let Some(GoSourceTypeKey::Nominal { declaration_id, .. }) = self.keys.get(id) else {
-            return Ok(false);
-        };
-        let decl = self
-            .declarations
-            .get(declaration_id)
-            .ok_or(GoScalarTypingError::Type)?
-            .clone();
-        let mut receivers = vec![];
-        for (source, parsed) in self.scopes.sources() {
-            if self.scopes.source_package(source) != Some(decl.package_id.as_str()) {
-                continue;
-            }
-            for n in parsed.nodes() {
-                if n.kind() != "FuncDecl" || list(n, "Recv").is_empty() {
-                    continue;
-                }
-                if attr(self.node(source, child(n, "Name")?)?, "Name") != Some(name) {
-                    continue;
-                }
-                let receiver = child(n, "Recv")?;
-                let fields = list(self.node(source, receiver)?, "List");
-                if fields.len() != 1 {
-                    return Err(GoScalarTypingError::Type);
-                }
-                let mut typ = child(self.node(source, fields[0])?, "Type")?;
-                while matches!(self.node(source, typ)?.kind(), "StarExpr" | "ParenExpr") {
-                    typ = child(self.node(source, typ)?, "X")?;
-                }
-                // Receiver spelling can be a local alias, including one from
-                // another file. Resolve its original denotation, not its name.
-                if matches!(self.symbol(source,typ),Ok(GoNameLookup::Original(b))if b.kind()==GoSourceNameKind::Type&&b.package_id()==decl.package_id)
-                {
-                    receivers.push((source.to_string(), typ));
-                }
-            }
-        }
-        for (source, node) in receivers {
-            // Unrelated unsupported receivers cannot denote this already
-            // derived v2 type. Do not import their graph into its type facts.
-            if derive_go_source_type(self.scopes, &source, node)
-                .is_ok_and(|graph| graph.roots()[0] == id)
-            {
-                return Ok(true);
-            }
-        }
-        Ok(false)
+        Ok(!self.direct_methods(id, name)?.is_empty())
     }
     pub(super) fn field(&mut self, source: &str, base: Atom, name: &str) -> Result<Atom> {
         if name == "_" {

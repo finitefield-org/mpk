@@ -4,8 +4,10 @@ use super::*;
 mod aggregates;
 mod literals;
 mod members;
+mod methods;
 mod operators;
 mod slice_builtins;
+pub use methods::{GoErrorImplementation, GoMethodCallHeader, GoSourceMethod};
 use operators::comparison;
 pub use slice_builtins::GoSliceBuiltinHeader;
 
@@ -85,6 +87,8 @@ pub struct GoScalarTyping {
     values: Vec<GoSourceScalarValue>,
     calls: Vec<GoScalarCallHeader>,
     slice_builtins: Vec<GoSliceBuiltinHeader>,
+    method_calls: Vec<GoMethodCallHeader>,
+    error_implementations: Vec<GoErrorImplementation>,
 }
 impl GoScalarTyping {
     pub fn source(&self, id: &str) -> Option<&GoParsedSource> {
@@ -98,6 +102,12 @@ impl GoScalarTyping {
     }
     pub fn slice_builtin_headers(&self) -> &[GoSliceBuiltinHeader] {
         &self.slice_builtins
+    }
+    pub fn method_call_headers(&self) -> &[GoMethodCallHeader] {
+        &self.method_calls
+    }
+    pub fn error_implementations(&self) -> &[GoErrorImplementation] {
+        &self.error_implementations
     }
 }
 /// Original value-type facts. No runtime payload, store permission or body proof.
@@ -134,6 +144,8 @@ pub struct GoValueTyping {
     values: Vec<GoSourceTypedValue>,
     calls: Vec<GoScalarCallHeader>,
     slice_builtins: Vec<GoSliceBuiltinHeader>,
+    method_calls: Vec<GoMethodCallHeader>,
+    error_implementations: Vec<GoErrorImplementation>,
     types: BTreeMap<String, GoSourceTypeKey>,
     underlying: BTreeMap<String, String>,
     declarations: BTreeMap<String, GoTypeDeclarationKey>,
@@ -150,6 +162,12 @@ impl GoValueTyping {
     }
     pub fn slice_builtin_headers(&self) -> &[GoSliceBuiltinHeader] {
         &self.slice_builtins
+    }
+    pub fn method_call_headers(&self) -> &[GoMethodCallHeader] {
+        &self.method_calls
+    }
+    pub fn error_implementations(&self) -> &[GoErrorImplementation] {
+        &self.error_implementations
     }
     pub fn types(&self) -> impl Iterator<Item = &GoSourceTypeKey> {
         self.types.values()
@@ -174,6 +192,8 @@ impl GoValueTyping {
             values,
             calls: self.calls,
             slice_builtins: self.slice_builtins,
+            method_calls: self.method_calls,
+            error_implementations: self.error_implementations,
         })
     }
 }
@@ -262,6 +282,9 @@ enum Destination {
     Reused(Request),
 }
 enum Plan {
+    MethodReceiver(Request, usize, Vec<Request>),
+    MethodFirst(Box<GoMethodCallHeader>, Vec<Request>),
+    MethodReady(Box<GoMethodCallHeader>, Vec<Request>),
     Make(String, Vec<Request>),
     AppendFirst(Vec<Request>, bool),
     AppendReady(String, Vec<Request>, bool),
@@ -296,6 +319,7 @@ impl Plan {
             | Self::Unary(_, r)
             | Self::Cast(_, r) => vec![r.clone()],
             Self::Field(r, _) | Self::Range(r, _) => vec![r.clone()],
+            Self::MethodReceiver(r, _, _) => vec![r.clone()],
             Self::Index(a, b) => vec![a.clone(), b.clone()],
             Self::Slice(r, bounds, _) => std::iter::once(r.clone())
                 .chain(bounds.iter().flatten().cloned())
@@ -308,6 +332,8 @@ impl Plan {
             | Self::AppendFirst(rs, _)
             | Self::AppendReady(_, rs, _)
             | Self::Copy(rs)
+            | Self::MethodFirst(_, rs)
+            | Self::MethodReady(_, rs)
             | Self::CallFirst(_, rs)
             | Self::CallReady(_, rs) => rs.clone(),
             Self::DeclarationFirst(dest, rs) | Self::DeclarationReady(dest, rs) => rs
@@ -342,6 +368,10 @@ struct Engine<'a> {
     active: BTreeSet<Request>,
     calls: BTreeSet<GoScalarCallHeader>,
     slice_builtins: BTreeSet<GoSliceBuiltinHeader>,
+    method_calls: BTreeSet<GoMethodCallHeader>,
+    method_packages: methods::MethodPackages,
+    method_receivers: BTreeMap<(String, usize), Option<(String, bool)>>,
+    error_implementations: BTreeMap<String, Option<GoErrorImplementation>>,
 }
 fn attr<'a>(n: &'a GoSyntaxNode, key: &str) -> Option<&'a str> {
     n.attributes().find_map(|(k, v)| (k == key).then_some(v))
@@ -386,6 +416,10 @@ impl<'a> Engine<'a> {
             active: BTreeSet::new(),
             calls: BTreeSet::new(),
             slice_builtins: BTreeSet::new(),
+            method_calls: BTreeSet::new(),
+            method_packages: BTreeMap::new(),
+            method_receivers: BTreeMap::new(),
+            error_implementations: BTreeMap::new(),
         }
     }
     fn node(&self, source: &str, node: usize) -> Result<&GoSyntaxNode> {
@@ -410,6 +444,7 @@ impl<'a> Engine<'a> {
                 return Err(GoScalarTypingError::Type);
             }
         }
+        self.ensure_error_implementation(&id)?;
         Ok(id)
     }
     fn builtin(&mut self, name: &str) -> Result<String> {
@@ -432,6 +467,9 @@ impl<'a> Engine<'a> {
         }
         for decl in graph.declarations() {
             self.declarations.insert(decl.id.clone(), decl.clone());
+        }
+        for key in graph.types() {
+            self.ensure_error_implementation(key.id())?;
         }
         Ok(id.into())
     }
@@ -754,6 +792,15 @@ impl<'a> Engine<'a> {
                             .iter()
                             .map(|&arg| Request::raw(&r.source, arg))
                             .collect::<Vec<_>>();
+                        let mut selector = fun;
+                        while self.node(&r.source, selector)?.kind() == "ParenExpr" {
+                            selector = child(self.node(&r.source, selector)?, "X")?;
+                        }
+                        if self.node(&r.source, selector)?.kind() == "SelectorExpr"
+                            && !self.is_package_selector(&r.source, selector)?
+                        {
+                            return self.method_plan(r, selector, args);
+                        }
                         if self.symbol(&r.source, fun).is_err() {
                             if args.len() != 1 {
                                 return Err(GoScalarTypingError::Arity);
@@ -868,6 +915,18 @@ impl<'a> Engine<'a> {
     }
     fn finish(&mut self, r: &Request, plan: Plan) -> Result<Step> {
         match plan {
+            Plan::MethodReceiver(base, selector, args) => {
+                let atom = self.one(&base)?;
+                let typ = atom.typ.ok_or(GoScalarTypingError::Type)?;
+                let header = self.method_header(r, selector, &typ, false)?;
+                Ok(Step::More(Plan::MethodFirst(Box::new(header), args)))
+            }
+            Plan::MethodFirst(header, args) => self.method_first(*header, args),
+            Plan::MethodReady(header, args) => {
+                let facts = self.expand(&args)?;
+                self.check_types(&facts, &header.parameters)?;
+                self.method_result(*header)
+            }
             Plan::Make(typ, args) => self.make_slice(r, typ, args),
             Plan::AppendFirst(args, dots) => self.append_first(r, args, dots),
             Plan::AppendReady(typ, args, dots) => self.append_ready(r, typ, args, dots),
@@ -1156,6 +1215,8 @@ impl<'a> Engine<'a> {
             values,
             calls: self.calls.into_iter().collect(),
             slice_builtins: self.slice_builtins.into_iter().collect(),
+            method_calls: self.method_calls.into_iter().collect(),
+            error_implementations: self.error_implementations.into_values().flatten().collect(),
             types: self.keys,
             underlying: self.underlying,
             declarations: self.declarations,
