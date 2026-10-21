@@ -7656,3 +7656,27 @@ Whole-v1/package/selected closure and actual source evaluation/state/program
 proofs, full56 foundation/registry and nativeLinux/generalnamespace/all169/T02–T11
 remain due. Go/Rust only; R01/R06/W01 stay open, the public profile stays inactive,
 and the T02 whole gate stays finalW04: `./scripts/check-fast.sh`.
+
+## 150. T02-W01 original source dependency and static-call metadata
+
+The [original source dependency metadata checkpoint](../migrations/go-practical/t02-w01/verification/source-closure/README.md)
+uses intact owned native packages to retain exact roots, original function/type/
+value-spec dispositions,528 physical calls,1101 body/type/constant/signature/
+rejected edges and23 issues with root paths. All31 selected cases (13 positive
+metadata/18 diagnostic),512-function/70-parameter/70-root controls, inherited
+constant shadows, Error signature/body distinction and source ownership pass.
+The15 crossed-owner controls and81 original native source outcomes remain exact;
+unselected dependency type errors reject. Current Go formats/vet pass.15 epochs/
+12735 preimages preserve25 checks/two original fixture/assertion failures and9
+archives/55282 files/494736364 bytes compare literally. SDK14496/frozen255/old
+frontend189/ordinary448 basis remains; one new private Go production file is
+explicit. Independent Rust closure validation, contracts/Root/Plain/closed error,
+complete capture/context/source execution/state/program proofs, full56 foundation/
+registry and nativeLinux/generalnamespace/all169/T02–T11 remain due. Go/Rust only;
+R01/R06/W01 stay open, the public profile stays inactive, and the T02 whole gate
+stays finalW04: `./scripts/check-fast.sh`.
+
+The current190 captured frontend inputs additionally rebuild twice from independent
+empty caches with identical8592898-byte outputs (SHA256
+`589e82c3c73b95df654501cc71776d9a1a3095371a0ee11170ac2dff4a816eea`).
+This is a local Darwin/arm64 build observation; native Linux acceptance remains due.
