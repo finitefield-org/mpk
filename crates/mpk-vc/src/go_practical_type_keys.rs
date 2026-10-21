@@ -14,6 +14,7 @@ mod lex;
 mod parse;
 mod source_constants;
 mod source_declarations;
+mod source_dependencies;
 mod source_scalar_typing;
 mod source_scopes;
 mod source_signatures;

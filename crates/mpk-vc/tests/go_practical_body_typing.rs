@@ -108,7 +108,14 @@ fn matches_original_go_function_bodies() {
             Err(e) => json!({"accepted":false,"error":e,"evaluation_state_or_program_proof":false}),
         };
         retain(&format!("case-{n:05}-actual.json"), &outcome);
-        if input["outside_body_typing"] == true && row["native"]["accepted"] == true {
+        let aggregate_constant = matches!(
+            input["label"].as_str(),
+            Some("outside/const N=len(a);var _ [N]Word" | "outside/const N=cap(a);var _ [N]Word")
+        );
+        if input["outside_body_typing"] == true
+            && !aggregate_constant
+            && row["native"]["accepted"] == true
+        {
             if actual.is_ok() {
                 failures.push(format!(
                     "outside case {n} {} accepted: {outcome}",

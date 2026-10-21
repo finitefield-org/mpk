@@ -92,7 +92,7 @@ impl GoScalarCallHeader {
 }
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct GoScalarTyping {
-    scopes: GoSourceScopes,
+    scopes: std::sync::Arc<GoSourceScopes>,
     values: Vec<GoSourceScalarValue>,
     calls: Vec<GoScalarCallHeader>,
     slice_builtins: Vec<GoSliceBuiltinHeader>,
@@ -149,7 +149,7 @@ impl GoSourceTypedValue {
 }
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct GoValueTyping {
-    scopes: GoSourceScopes,
+    scopes: std::sync::Arc<GoSourceScopes>,
     values: Vec<GoSourceTypedValue>,
     calls: Vec<GoScalarCallHeader>,
     slice_builtins: Vec<GoSliceBuiltinHeader>,
@@ -402,6 +402,7 @@ struct Engine<'a> {
     error_implementations: BTreeMap<String, Option<GoErrorImplementation>>,
     function_owners: BTreeMap<String, Vec<Option<usize>>>,
     return_signatures: BTreeMap<(String, usize), GoSourceSignature>,
+    compilation_reads: source_dependencies::Reads,
 }
 fn attr<'a>(n: &'a GoSyntaxNode, key: &str) -> Option<&'a str> {
     n.attributes().find_map(|(k, v)| (k == key).then_some(v))
@@ -452,6 +453,7 @@ impl<'a> Engine<'a> {
             error_implementations: BTreeMap::new(),
             function_owners: BTreeMap::new(),
             return_signatures: BTreeMap::new(),
+            compilation_reads: source_dependencies::Reads::new(),
         }
     }
     fn node(&self, source: &str, node: usize) -> Result<&GoSyntaxNode> {
@@ -488,6 +490,8 @@ impl<'a> Engine<'a> {
         self.graph_type(&graph, &graph.roots()[0])
     }
     fn graph_type(&mut self, graph: &GoDerivedSourceTypes, id: &str) -> Result<String> {
+        self.compilation_reads
+            .extend(graph.compilation_reads.clone());
         for key in graph.types() {
             self.put_key(key.clone())?;
             if let Some(base) = graph.underlying(key.id()) {
@@ -527,6 +531,18 @@ impl<'a> Engine<'a> {
             value: Some(value),
             addressable: false,
         })
+    }
+    fn exact_constant(&mut self, source: &str, node: usize) -> Result<GoEvaluatedConstant> {
+        let (value, reads) =
+            source_dependencies::expression(self.scopes, source, node).map_err(constant_error)?;
+        self.compilation_reads.extend(reads);
+        Ok(value)
+    }
+    fn exact_binding(&mut self, binding: &GoSourceNameBinding) -> Result<GoEvaluatedConstant> {
+        let (value, reads) =
+            source_dependencies::binding(self.scopes, binding).map_err(constant_error)?;
+        self.compilation_reads.extend(reads);
+        Ok(value)
     }
     fn facts(&self, r: &Request) -> Result<Facts> {
         self.done.get(r).cloned().ok_or(GoScalarTypingError::Type)
@@ -753,10 +769,10 @@ impl<'a> Engine<'a> {
             Target::Expression(node, Mode::Raw) => {
                 let n = self.node(&r.source, *node)?.clone();
                 let step = match n.kind() {
-                    "BasicLit" => Step::Done(vec![self.constant(
-                        evaluate_go_constant(self.scopes, &r.source, *node)
-                            .map_err(constant_error)?,
-                    )?]),
+                    "BasicLit" => {
+                        let value = self.exact_constant(&r.source, *node)?;
+                        Step::Done(vec![self.constant(value)?])
+                    }
                     "SelectorExpr" if !self.is_package_selector(&r.source, *node)? => {
                         Step::More(Plan::Field(
                             Request::raw(&r.source, child(&n, "X")?),
@@ -770,10 +786,8 @@ impl<'a> Engine<'a> {
                             Step::More(Plan::Forward(Request::binding(&b, self.binding_index(&b)?)))
                         }
                         GoNameLookup::Original(b) if b.kind() == GoSourceNameKind::Constant => {
-                            Step::Done(vec![self.constant(
-                                evaluate_go_constant_binding(self.scopes, &b)
-                                    .map_err(constant_error)?,
-                            )?])
+                            let value = self.exact_binding(&b)?;
+                            Step::Done(vec![self.constant(value)?])
                         }
                         GoNameLookup::Predeclared {
                             name,
@@ -788,10 +802,10 @@ impl<'a> Engine<'a> {
                         GoNameLookup::Predeclared {
                             kind: GoSourceNameKind::BuiltinConstant,
                             ..
-                        } => Step::Done(vec![self.constant(
-                            evaluate_go_constant(self.scopes, &r.source, *node)
-                                .map_err(constant_error)?,
-                        )?]),
+                        } => {
+                            let value = self.exact_constant(&r.source, *node)?;
+                            Step::Done(vec![self.constant(value)?])
+                        }
                         _ => return Err(GoScalarTypingError::Unsupported),
                     },
                     "ParenExpr" => {
@@ -1291,7 +1305,7 @@ impl<'a> Engine<'a> {
             })
         }
         Ok(GoValueTyping {
-            scopes: self.scopes.clone(),
+            scopes: source_dependencies::shared_sources(self.scopes),
             values,
             calls: self.calls.into_iter().collect(),
             slice_builtins: self.slice_builtins.into_iter().collect(),
@@ -1396,4 +1410,58 @@ pub fn infer_go_scalar_binding(
         return Err(GoScalarTypingError::Type);
     }
     engine.run(Request::binding(binding, index))?.scalar_only()
+}
+
+/// Internal scheduler request: derive a len/cap result from actual original
+/// argument typing. Compiled reads do not assert runtime argument evaluation.
+pub(super) fn constant_measure(
+    scopes: &GoSourceScopes,
+    source: &str,
+    node: usize,
+) -> std::result::Result<(GoEvaluatedConstant, source_dependencies::Reads), GoConstantError> {
+    fn mapped(error: GoScalarTypingError) -> GoConstantError {
+        match error {
+            GoScalarTypingError::Constant(e) => e,
+            GoScalarTypingError::Unsupported
+            | GoScalarTypingError::SourceType(GoSourceTypeError::Unsupported)
+            | GoScalarTypingError::Signature(GoSourceSignatureError::Unsupported) => {
+                GoConstantError::Unsupported
+            }
+            GoScalarTypingError::Cycle
+            | GoScalarTypingError::SourceType(GoSourceTypeError::Cycle) => GoConstantError::Cycle,
+            GoScalarTypingError::Limit => GoConstantError::Resource,
+            _ => GoConstantError::Type,
+        }
+    }
+    let mut engine = Engine::new(scopes);
+    let root = Request::raw(source, node);
+    engine.compute(root.clone()).map_err(mapped)?;
+    let value = engine
+        .one(&root)
+        .map_err(mapped)?
+        .value
+        .ok_or(GoConstantError::NotConstant)?;
+    let mut reads = engine.compilation_reads.clone();
+    for request in engine.done.keys() {
+        let Target::Expression(node, Mode::Raw) = request.target else {
+            continue;
+        };
+        if engine
+            .node(&request.source, node)
+            .is_ok_and(|n| n.kind() == "Ident")
+        {
+            if let Ok(GoNameLookup::Original(b)) = engine.symbol(&request.source, node) {
+                if b.kind() == GoSourceNameKind::Variable {
+                    reads.insert(source_dependencies::Read {
+                        source: request.source.clone(),
+                        node,
+                        definition_source: b.source_object_id().into(),
+                        declaration: b.declaration_node(),
+                        name: b.name_node(),
+                    });
+                }
+            }
+        }
+    }
+    Ok((value, reads))
 }

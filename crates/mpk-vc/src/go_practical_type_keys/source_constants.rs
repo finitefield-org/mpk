@@ -1,7 +1,7 @@
 //! Exact scalar constants derived from owned original syntax and lexical
 //! bindings. Candidate type identities are not complete capture/program proofs.
 use super::*;
-mod evaluate;
+pub(super) mod evaluate;
 mod integer;
 pub use evaluate::{
     evaluate_go_constant, evaluate_go_constant_binding, evaluate_go_constant_declaration,

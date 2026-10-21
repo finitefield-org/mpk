@@ -333,6 +333,17 @@ impl<'a> Engine<'a> {
                         name,
                         kind: GoSourceNameKind::BuiltinFunction,
                     } => {
+                        if matches!(name.as_str(), "len" | "cap") {
+                            if args.len() != 1 {
+                                return Err(GoConstantError::Type);
+                            }
+                            return Ok(Ok(source_dependencies::measure(
+                                self.scopes,
+                                &r.source,
+                                node,
+                                context,
+                            )?));
+                        }
                         if !matches!(name.as_str(), "len" | "min" | "max") {
                             return Err(GoConstantError::Unsupported);
                         }
@@ -429,20 +440,35 @@ impl<'a> Engine<'a> {
 }
 /// Evaluate one actual original expression. Name lookup and implicit iota
 /// context come from owned syntax, never caller-supplied values or callbacks.
-/// Float/complex operations and aggregate-value constant builtins remain outside
-/// this scalar reader; success is not whole-source type or program authority.
+/// Float/complex operations remain outside this reader. Array len/cap derives
+/// original argument types and constant-call rules through the flat scheduler;
+/// success is not whole-source type or program authority.
 pub fn evaluate_go_constant(
     scopes: &GoSourceScopes,
     source: &str,
     node: usize,
 ) -> Result<GoEvaluatedConstant> {
+    source_dependencies::expression(scopes, source, node).map(|r| r.0)
+}
+pub(in super::super) fn expression_raw(
+    scopes: &GoSourceScopes,
+    source: &str,
+    node: usize,
+) -> Result<GoEvaluatedConstant> {
     let engine = Engine::new(scopes);
-    let context = engine.context(source, node)?;
+    let context =
+        source_dependencies::context(scopes, source, node).or(engine.context(source, node)?);
     engine.run(Request::expression(source, node, context))
 }
 /// Evaluate an actual const declaration member, including inferred/repeated
 /// expression lists, current iota, inherited type annotations and exact scope.
 pub fn evaluate_go_constant_binding(
+    scopes: &GoSourceScopes,
+    binding: &GoSourceNameBinding,
+) -> Result<GoEvaluatedConstant> {
+    source_dependencies::binding(scopes, binding).map(|r| r.0)
+}
+pub(in super::super) fn binding_raw(
     scopes: &GoSourceScopes,
     binding: &GoSourceNameBinding,
 ) -> Result<GoEvaluatedConstant> {
@@ -454,6 +480,13 @@ pub fn evaluate_go_constant_binding(
 /// Check every member of one original ConstSpec, including blank names and
 /// inherited expressions/types at the current spec's actual iota/scope.
 pub fn evaluate_go_constant_declaration(
+    scopes: &GoSourceScopes,
+    source: &str,
+    spec: usize,
+) -> Result<Vec<GoEvaluatedConstant>> {
+    source_dependencies::declaration(scopes, source, spec).map(|r| r.0)
+}
+pub(in super::super) fn declaration_raw(
     scopes: &GoSourceScopes,
     source: &str,
     spec: usize,
@@ -478,4 +511,30 @@ pub fn evaluate_go_constant_declaration(
         values.push(engine.done.get(&root).ok_or(GoConstantError::Type)?.clone());
     }
     Ok(values)
+}
+pub(in super::super) fn context_nodes(
+    scopes: &GoSourceScopes,
+    source: &str,
+    spec: usize,
+) -> Result<BTreeSet<usize>> {
+    let engine = Engine::new(scopes);
+    let meta = engine
+        .specs
+        .get(&(source.into(), spec))
+        .ok_or(GoConstantError::Locator)?;
+    if !meta.valid {
+        return Err(GoConstantError::Type);
+    }
+    let mut work = meta.values.clone();
+    work.extend(meta.typ);
+    let mut nodes = BTreeSet::new();
+    while let Some(node) = work.pop() {
+        if !nodes.insert(node) {
+            continue;
+        }
+        for edge in engine.node(source, node)?.edges() {
+            work.extend(edge.targets());
+        }
+    }
+    Ok(nodes)
 }

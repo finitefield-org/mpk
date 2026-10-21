@@ -235,12 +235,13 @@ impl Body<'_> {
                     self.compute(spec, Request::declaration(self.source, spec))?;
                 }
                 Some("const") => {
-                    let values = at(
+                    let (values, reads) = at(
                         self.source,
                         spec,
-                        evaluate_go_constant_declaration(self.engine.scopes, self.source, spec)
+                        source_dependencies::declaration(self.engine.scopes, self.source, spec)
                             .map_err(constant_error),
                     )?;
+                    self.engine.compilation_reads.extend(reads);
                     for value in &values {
                         at(self.source, spec, self.engine.constant(value.clone()))?;
                     }
@@ -623,6 +624,11 @@ impl Body<'_> {
     }
     fn locals(&self) -> BodyResult<Vec<GoSourceNameBinding>> {
         let mut read = BTreeSet::new();
+        for use_site in &self.engine.compilation_reads {
+            if use_site.definition_source == self.source {
+                read.insert((use_site.declaration, use_site.name));
+            }
+        }
         for request in self.engine.done.keys() {
             let Target::Expression(node, Mode::Raw) = request.target else {
                 continue;

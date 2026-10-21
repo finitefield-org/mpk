@@ -1265,3 +1265,20 @@ halting. Other bodies/packages/selected closure, source evaluation/state/program
 proofs, full56 foundation/registry and nativeLinux/generalnamespace/selectedclosure/
 all169/T02–T11 remain due. Go/Rust only; R01/R06/W01 stay open, the public profile
 stays inactive and the whole T02 gate stays finalW04: `./scripts/check-fast.sh`.
+
+The [original array-constant dependency checkpoint](verification/aggregate-constants/README.md)
+closes the required len/cap gaps through actual declared/inferred/alias/return/
+import type inference, current repeated-ConstSpec iota/scope and compiler variable
+reads. Flat shared dependency work rejects cross-reader cycles. All345 exact
+positive values/types and56 rejections agree on406 Go1.25 cases;5 frozen-domain
+boundary controls remain outside. Four new/38 current affected Rust roots,
+512-link/four-thread controls and scoped Clippy/vet/formats pass. Original495 body
+cases now give176/299/20; original5117 constant cases4833/281/3, with all original
+corpus bytes retained.8 epochs/6656 preimages preserve24 checks/one initial
+visibility failure and15 archives/34406 files/93144308 bytes pass literal byte/mode
+audit. Two scope/signature input-inventory followup reruns agree exactly with the
+initial maps. SDK14496/frontend189/frozen255/ordinary448 basis stays exact.
+Whole-v1/package/selected closure and actual source evaluation/state/program
+proofs, full56 foundation/registry and nativeLinux/generalnamespace/all169/T02–T11
+remain due. Go/Rust only; R01/R06/W01 stay open, the public profile stays inactive,
+and the T02 whole gate stays finalW04: `./scripts/check-fast.sh`.

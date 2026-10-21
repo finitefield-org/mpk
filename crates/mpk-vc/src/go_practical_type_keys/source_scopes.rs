@@ -146,7 +146,11 @@ impl GoSourceScopes {
     /// not assert that the syntax position is a lexical use: selector fields,
     /// labels, declaration names and typed composite keys need their own rules.
     pub fn lookup_identifier(&self, source: &str, node: usize) -> Result<Option<GoNameLookup>> {
-        self.lookup_context(source, node, None)
+        self.lookup_context(
+            source,
+            node,
+            source_dependencies::context(self, source, node),
+        )
     }
     // Implicitly repeated ConstSpecs reuse an original expression node but its
     // names are resolved at the repeated declaration's actual lexical point.

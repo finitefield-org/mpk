@@ -1,15 +1,14 @@
 //! Check actual literal element syntax, including contextual elided types.
 use super::*;
 impl Engine<'_> {
-    fn literal_indices(&self, source: &str, node: usize) -> Result<Vec<(u64, usize)>> {
+    fn literal_indices(&mut self, source: &str, node: usize) -> Result<Vec<(u64, usize)>> {
         let mut result = vec![];
         let mut seen = BTreeSet::new();
         let mut next = 0u64;
-        for &element in list(self.node(source, node)?, "Elts") {
-            let e = self.node(source, element)?;
+        for element in list(self.node(source, node)?, "Elts").to_vec() {
+            let e = self.node(source, element)?.clone();
             let value = if e.kind() == "KeyValueExpr" {
-                let key = evaluate_go_constant(self.scopes, source, child(e, "Key")?)
-                    .map_err(constant_error)?;
+                let key = self.exact_constant(source, child(&e, "Key")?)?;
                 next = self
                     .index_number(&Atom {
                         typ: None,
@@ -19,7 +18,7 @@ impl Engine<'_> {
                         addressable: false,
                     })?
                     .ok_or(GoScalarTypingError::Type)?;
-                child(e, "Value")?
+                child(&e, "Value")?
             } else {
                 element
             };

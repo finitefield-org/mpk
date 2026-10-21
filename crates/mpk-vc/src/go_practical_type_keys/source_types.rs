@@ -21,7 +21,8 @@ impl std::error::Error for GoSourceTypeError {}
 type Result<T> = std::result::Result<T, GoSourceTypeError>;
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct GoDerivedSourceTypes {
-    scopes: GoSourceScopes,
+    scopes: std::sync::Arc<GoSourceScopes>,
+    pub(super) compilation_reads: source_dependencies::Reads,
     roots: Vec<String>,
     declarations: BTreeMap<String, GoTypeDeclarationKey>,
     types: BTreeMap<String, GoSourceTypeKey>,
@@ -543,7 +544,8 @@ impl<'a> Builder<'a> {
         self.types.retain(|id, _| reachable.contains(id));
         underlying.retain(|id, _| reachable.contains(id));
         Ok(GoDerivedSourceTypes {
-            scopes: self.scopes.clone(),
+            scopes: source_dependencies::shared_sources(self.scopes),
+            compilation_reads: source_dependencies::Reads::new(),
             roots,
             declarations: self.declarations,
             types: self.types,
@@ -575,11 +577,18 @@ pub fn derive_go_source_type(
     source: &str,
     node: usize,
 ) -> Result<GoDerivedSourceTypes> {
-    Builder::new(scopes).run(vec![Request::expr(source, node)])
+    source_dependencies::type_nodes(scopes, source, &[node])
 }
 // A signature's ordered fields share one owned source/type graph. Grouped
 // names reuse an original type expression; no synthetic AST or type is added.
 pub(super) fn derive_go_source_type_nodes(
+    scopes: &GoSourceScopes,
+    source: &str,
+    nodes: &[usize],
+) -> Result<GoDerivedSourceTypes> {
+    source_dependencies::type_nodes(scopes, source, nodes)
+}
+pub(super) fn derive_nodes_raw(
     scopes: &GoSourceScopes,
     source: &str,
     nodes: &[usize],
@@ -603,6 +612,13 @@ pub(super) fn derive_go_variadic_binding_type(
 }
 /// Resolve an actual original TypeSpec and every referenced type declaration.
 pub fn derive_go_source_type_declaration(
+    scopes: &GoSourceScopes,
+    source: &str,
+    spec: usize,
+) -> Result<GoDerivedSourceTypes> {
+    source_dependencies::type_declaration(scopes, source, spec)
+}
+pub(super) fn derive_declaration_raw(
     scopes: &GoSourceScopes,
     source: &str,
     spec: usize,

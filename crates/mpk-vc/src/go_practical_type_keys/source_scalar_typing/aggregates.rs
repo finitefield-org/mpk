@@ -10,6 +10,11 @@ impl Engine<'_> {
             }
             let n = self.node(&r.source, node)?;
             if n.kind() == "CallExpr" {
+                if self.method_calls.iter().any(|call| {
+                    call.call_source_object_id() == r.source && call.call_node() == node
+                }) {
+                    return Ok(true);
+                }
                 let fun = child(n, "Fun")?;
                 match self.symbol(&r.source, fun) {
                     Ok(GoNameLookup::Original(b)) if b.kind() == GoSourceNameKind::Function => {
