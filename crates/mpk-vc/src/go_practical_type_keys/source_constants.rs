@@ -140,6 +140,11 @@ enum Value {
     Bool(bool),
     Bytes(Vec<u8>),
 }
+/// Built-in len/cap always have the predeclared int type, including constants.
+pub(super) fn length_constant(n: u64) -> Result<GoEvaluatedConstant> {
+    GoEvaluatedConstant::integer(Integer::from_u64(n), false)
+        .convert(GoConstantScalarType::builtin("int")?, false)
+}
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct GoEvaluatedConstant {
     kind: GoConstantKind,

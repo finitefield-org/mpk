@@ -115,9 +115,15 @@ fn matches_original_go_scalar_expression_and_binding_types() {
             }
         };
         retain(&format!("case-{n:05}-actual.json"), &outcome);
-        if input["outside_scalar_typing"] == true && row["native"]["accepted"] == true {
+        if input["outside_scalar_typing"] == true
+            && row["native"]["accepted"] == true
+            && actual.is_err()
+        {
             assert!(row["native"]["accepted"] == true);
-            assert!(actual.is_err(), "outside {n}");
+            assert!(
+                input["label"].as_str().unwrap().contains("1.0"),
+                "remaining outside form {n}"
+            );
             outside += 1;
         } else if row["native"]["accepted"] == true {
             assert_eq!(outcome, row["native"], "case {n} {}", input["label"]);

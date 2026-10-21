@@ -1158,3 +1158,23 @@ capture/context/resource/storage/program proofs, full56 foundation/registry and
 nativeLinux/generalnamespace/selectedclosure/all169/T02–T11 remain due. Go/Rust
 only; R01/R06/W01 stay open, public practical profile stays inactive and the T02
 whole gate stays W04: `./scripts/check-fast.sh`.
+
+The [original aggregate value typing checkpoint](verification/value-typing/README.md) extends the shared
+scalar engine with canonical array/slice/struct assignments and conversions,
+actual direct/promoted field visibility/ambiguity, indexing/slicing and original
+int index contexts, literal element contexts, array/slice range variables and
+aggregate static call headers. Receiver aliases use actual type denotation. Nil origin remains distinct from its actual
+destination materialization. All474 exact positive outcomes and463 actual Go
+rejections agree on950 final cases; thirteen valid forms stay explicitly
+unmodeled. Two new Rust/three affected scalar roots, original4985 scalar cases,
+20000-node work and scoped lint/vet/formats pass. The scalar basis now has2776
+exact positives/2205 agreeing rejections/four unmodeled float forms. Twenty-six
+epochs/20013 preimages retain48 checks/four failures and50550 original files/
+154017214 bytes with literal byte/mode audit; incomplete original outputs are
+not reconstructed. SDK14496/frontend189/frozen255/ordinary448 basis stays exact.
+make/append/copy/method/interface and full body/statement/call-state typing,
+source evaluation/carrier/capture/context/resource/storage/program proofs,
+full56 foundation/registry and nativeLinux/generalnamespace/selectedclosure/
+all169/T02–T11 remain due. Go/Rust only; R01/R06/W01 stay open, public practical
+profile remains inactive and the T02 whole gate stays W04:
+`./scripts/check-fast.sh`.

@@ -1,6 +1,9 @@
-//! Independent scalar expression/initializer typing over owned original syntax.
+//! Independent scalar/aggregate value typing over owned original syntax.
 //! Header argument/result checks do not check callee bodies or invocation state.
 use super::*;
+mod aggregates;
+mod literals;
+mod members;
 mod operators;
 use operators::comparison;
 
@@ -10,6 +13,7 @@ pub enum GoScalarTypingError {
     Name,
     Unsupported,
     Type,
+    Limit,
     Arity,
     Cycle,
     Constant(GoConstantError),
@@ -90,11 +94,85 @@ impl GoScalarTyping {
         &self.calls
     }
 }
+/// Original value-type facts. No runtime payload, store permission or body proof.
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoSourceTypedValue {
+    typ: GoSourceTypeKey,
+    scalar: Option<GoConstantScalarType>,
+    constant: Option<GoEvaluatedConstant>,
+    addressable: bool,
+    untyped_nil: bool,
+}
+impl GoSourceTypedValue {
+    /// Value type after contextual materialization. An untyped nil expression
+    /// retains its separate marker and uses the actual expected destination.
+    pub fn source_type_key(&self) -> &GoSourceTypeKey {
+        &self.typ
+    }
+    pub fn scalar_type(&self) -> Option<&GoConstantScalarType> {
+        self.scalar.as_ref()
+    }
+    pub fn constant(&self) -> Option<&GoEvaluatedConstant> {
+        self.constant.as_ref()
+    }
+    pub fn addressable(&self) -> bool {
+        self.addressable
+    }
+    pub fn is_untyped_nil(&self) -> bool {
+        self.untyped_nil
+    }
+}
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoValueTyping {
+    scopes: GoSourceScopes,
+    values: Vec<GoSourceTypedValue>,
+    calls: Vec<GoScalarCallHeader>,
+    types: BTreeMap<String, GoSourceTypeKey>,
+    underlying: BTreeMap<String, String>,
+    declarations: BTreeMap<String, GoTypeDeclarationKey>,
+}
+impl GoValueTyping {
+    pub fn source(&self, id: &str) -> Option<&GoParsedSource> {
+        self.scopes.source(id)
+    }
+    pub fn values(&self) -> &[GoSourceTypedValue] {
+        &self.values
+    }
+    pub fn call_headers(&self) -> &[GoScalarCallHeader] {
+        &self.calls
+    }
+    pub fn types(&self) -> impl Iterator<Item = &GoSourceTypeKey> {
+        self.types.values()
+    }
+    pub fn underlying(&self, id: &str) -> Option<&str> {
+        self.underlying.get(id).map(String::as_str)
+    }
+    pub fn declarations(&self) -> impl Iterator<Item = &GoTypeDeclarationKey> {
+        self.declarations.values()
+    }
+    fn scalar_only(self) -> Result<GoScalarTyping> {
+        let mut values = vec![];
+        for value in self.values {
+            values.push(GoSourceScalarValue {
+                typ: value.scalar.ok_or(GoScalarTypingError::Unsupported)?,
+                constant: value.constant,
+                addressable: value.addressable,
+            });
+        }
+        Ok(GoScalarTyping {
+            scopes: self.scopes,
+            values,
+            calls: self.calls,
+        })
+    }
+}
 #[derive(Clone, Debug, Eq, PartialEq, Ord, PartialOrd)]
 enum Mode {
     Raw,
     Value(Option<String>),
     Fixed(String),
+    Element(String),
+    Index,
 }
 #[derive(Clone, Debug, Eq, PartialEq, Ord, PartialOrd)]
 enum Target {
@@ -108,6 +186,18 @@ struct Request {
     target: Target,
 }
 impl Request {
+    fn index(source: &str, node: usize) -> Self {
+        Self {
+            source: source.into(),
+            target: Target::Expression(node, Mode::Index),
+        }
+    }
+    fn element(source: &str, node: usize, typ: String) -> Self {
+        Self {
+            source: source.into(),
+            target: Target::Expression(node, Mode::Element(typ)),
+        }
+    }
     fn raw(source: &str, node: usize) -> Self {
         Self {
             source: source.into(),
@@ -148,7 +238,8 @@ impl Request {
 #[derive(Clone, Debug)]
 struct Atom {
     typ: Option<String>,
-    kind: GoConstantKind,
+    kind: Option<GoConstantKind>,
+    nil: bool,
     value: Option<GoEvaluatedConstant>,
     addressable: bool,
 }
@@ -160,6 +251,7 @@ enum Destination {
     Reused(Request),
 }
 enum Plan {
+    IndexValue(Request),
     Forward(Request),
     Select(Request, usize),
     Materialize(Request, Option<String>),
@@ -173,15 +265,27 @@ enum Plan {
     CallReady(Box<GoScalarCallHeader>, Vec<Request>),
     DeclarationFirst(Vec<Destination>, Vec<Request>),
     DeclarationReady(Vec<Destination>, Vec<Request>),
+    Field(Request, String),
+    Index(Request, Request),
+    Slice(Request, Box<[Option<Request>; 3]>, bool),
+    Literal(String, Vec<Request>),
+    Range(Request, usize),
 }
 impl Plan {
     fn inputs(&self) -> Vec<Request> {
         match self {
             Self::Forward(r)
+            | Self::IndexValue(r)
             | Self::Select(r, _)
             | Self::Materialize(r, _)
             | Self::Unary(_, r)
             | Self::Cast(_, r) => vec![r.clone()],
+            Self::Field(r, _) | Self::Range(r, _) => vec![r.clone()],
+            Self::Index(a, b) => vec![a.clone(), b.clone()],
+            Self::Slice(r, bounds, _) => std::iter::once(r.clone())
+                .chain(bounds.iter().flatten().cloned())
+                .collect(),
+            Self::Literal(_, rs) => rs.clone(),
             Self::BinaryFirst(_, a, b) | Self::BinaryReady(_, a, b) => vec![a.clone(), b.clone()],
             Self::BuiltinFirst(_, rs)
             | Self::BuiltinReady(_, rs)
@@ -212,6 +316,9 @@ enum Work {
 struct Engine<'a> {
     scopes: &'a GoSourceScopes,
     types: BTreeMap<String, GoConstantScalarType>,
+    keys: BTreeMap<String, GoSourceTypeKey>,
+    underlying: BTreeMap<String, String>,
+    declarations: BTreeMap<String, GoTypeDeclarationKey>,
     done: BTreeMap<Request, Facts>,
     active: BTreeSet<Request>,
     calls: BTreeSet<GoScalarCallHeader>,
@@ -252,6 +359,9 @@ impl<'a> Engine<'a> {
         Self {
             scopes,
             types: BTreeMap::new(),
+            keys: BTreeMap::new(),
+            underlying: BTreeMap::new(),
+            declarations: BTreeMap::new(),
             done: BTreeMap::new(),
             active: BTreeSet::new(),
             calls: BTreeSet::new(),
@@ -265,6 +375,15 @@ impl<'a> Engine<'a> {
     }
     fn intern(&mut self, typ: GoConstantScalarType) -> Result<String> {
         let id = typ.source_type_key().id().to_string();
+        self.put_key(typ.source_type_key().clone())?;
+        if let Some(decl) = typ.declaration() {
+            self.declarations.insert(decl.id.clone(), decl.clone());
+            let base =
+                GoConstantScalarType::builtin(typ.underlying_builtin()).map_err(constant_error)?;
+            self.put_key(base.source_type_key().clone())?;
+            self.underlying
+                .insert(id.clone(), base.source_type_key().id().to_string());
+        }
         if let Some(prior) = self.types.insert(id.clone(), typ.clone()) {
             if prior != typ {
                 return Err(GoScalarTypingError::Type);
@@ -281,12 +400,25 @@ impl<'a> Engine<'a> {
         self.graph_type(&graph, &graph.roots()[0])
     }
     fn graph_type(&mut self, graph: &GoDerivedSourceTypes, id: &str) -> Result<String> {
-        self.intern(GoConstantScalarType::from_source_graph(graph, id).map_err(constant_error)?)
+        for key in graph.types() {
+            self.put_key(key.clone())?;
+            if let Some(base) = graph.underlying(key.id()) {
+                self.underlying.insert(key.id().into(), base.into());
+            }
+            if let Ok(typ) = GoConstantScalarType::from_source_graph(graph, key.id()) {
+                self.types.insert(key.id().into(), typ);
+            }
+        }
+        for decl in graph.declarations() {
+            self.declarations.insert(decl.id.clone(), decl.clone());
+        }
+        Ok(id.into())
     }
     fn atom(&self, id: &str, addressable: bool) -> Atom {
         Atom {
             typ: Some(id.into()),
-            kind: kind(&self.types[id]),
+            kind: self.types.get(id).map(kind),
+            nil: false,
             value: None,
             addressable,
         }
@@ -299,7 +431,8 @@ impl<'a> Engine<'a> {
             .transpose()?;
         Ok(Atom {
             typ,
-            kind: value.kind(),
+            kind: Some(value.kind()),
+            nil: false,
             value: Some(value),
             addressable: false,
         })
@@ -460,6 +593,19 @@ impl<'a> Engine<'a> {
                     })
                     .ok_or(GoScalarTypingError::Locator)?;
                 let n = self.node(&r.source, b.declaration_node())?;
+                if n.kind() == "RangeStmt" {
+                    let ordinal = if list(n, "Key").contains(&b.name_node()) {
+                        0
+                    } else if list(n, "Value").contains(&b.name_node()) {
+                        1
+                    } else {
+                        return Err(GoScalarTypingError::Locator);
+                    };
+                    return Ok(Step::More(Plan::Range(
+                        Request::raw(&r.source, child(n, "X")?),
+                        ordinal,
+                    )));
+                }
                 if matches!(n.kind(), "FuncDecl" | "FuncLit") {
                     let declared = derive_go_declared_binding_type(self.scopes, b)
                         .map_err(GoScalarTypingError::Signature)?;
@@ -491,6 +637,20 @@ impl<'a> Engine<'a> {
                 }
                 Ok(Step::More(self.declaration(&r.source, *node)?))
             }
+            Target::Expression(node, Mode::Element(typ)) => {
+                let n = self.node(&r.source, *node)?;
+                if n.kind() == "CompositeLit" && list(n, "Type").is_empty() {
+                    return Ok(Step::More(self.literal(&r.source, *node, Some(typ))?));
+                }
+                Ok(Step::More(Plan::Forward(Request::value(
+                    &r.source,
+                    *node,
+                    Some(typ.clone()),
+                ))))
+            }
+            Target::Expression(node, Mode::Index) => {
+                Ok(Step::More(Plan::IndexValue(Request::raw(&r.source, *node))))
+            }
             Target::Expression(node, Mode::Value(expected)) => Ok(Step::More(Plan::Materialize(
                 Request::raw(&r.source, *node),
                 expected.clone(),
@@ -503,6 +663,14 @@ impl<'a> Engine<'a> {
                         evaluate_go_constant(self.scopes, &r.source, *node)
                             .map_err(constant_error)?,
                     )?]),
+                    "SelectorExpr" if !self.is_package_selector(&r.source, *node)? => {
+                        Step::More(Plan::Field(
+                            Request::raw(&r.source, child(&n, "X")?),
+                            attr(self.node(&r.source, child(&n, "Sel")?)?, "Name")
+                                .ok_or(GoScalarTypingError::Locator)?
+                                .into(),
+                        ))
+                    }
                     "Ident" | "SelectorExpr" => match self.symbol(&r.source, *node)? {
                         GoNameLookup::Original(b) if b.kind() == GoSourceNameKind::Variable => {
                             Step::More(Plan::Forward(Request::binding(&b, self.binding_index(&b)?)))
@@ -513,6 +681,16 @@ impl<'a> Engine<'a> {
                                     .map_err(constant_error)?,
                             )?])
                         }
+                        GoNameLookup::Predeclared {
+                            name,
+                            kind: GoSourceNameKind::BuiltinNil,
+                        } if name == "nil" => Step::Done(vec![Atom {
+                            typ: None,
+                            kind: None,
+                            nil: true,
+                            value: None,
+                            addressable: false,
+                        }]),
                         GoNameLookup::Predeclared {
                             kind: GoSourceNameKind::BuiltinConstant,
                             ..
@@ -543,6 +721,13 @@ impl<'a> Engine<'a> {
                             .iter()
                             .map(|&arg| Request::raw(&r.source, arg))
                             .collect::<Vec<_>>();
+                        if self.symbol(&r.source, fun).is_err() {
+                            if args.len() != 1 {
+                                return Err(GoScalarTypingError::Arity);
+                            }
+                            let typ = self.annotation(&r.source, fun)?;
+                            return Ok(Step::More(Plan::Cast(typ, args[0].clone())));
+                        }
                         match self.symbol(&r.source, fun)? {
                             GoNameLookup::Predeclared {
                                 kind: GoSourceNameKind::BuiltinType,
@@ -564,7 +749,7 @@ impl<'a> Engine<'a> {
                             GoNameLookup::Predeclared {
                                 name,
                                 kind: GoSourceNameKind::BuiltinFunction,
-                            } if matches!(name.as_str(), "len" | "min" | "max") => {
+                            } if matches!(name.as_str(), "len" | "cap" | "min" | "max") => {
                                 Step::More(Plan::BuiltinFirst(name, args))
                             }
                             GoNameLookup::Original(b) if b.kind() == GoSourceNameKind::Function => {
@@ -576,6 +761,20 @@ impl<'a> Engine<'a> {
                             _ => return Err(GoScalarTypingError::Unsupported),
                         }
                     }
+                    "CompositeLit" => Step::More(self.literal(&r.source, *node, None)?),
+                    "IndexExpr" => Step::More(Plan::Index(
+                        Request::raw(&r.source, child(&n, "X")?),
+                        Request::index(&r.source, child(&n, "Index")?),
+                    )),
+                    "SliceExpr" => Step::More(Plan::Slice(
+                        Request::raw(&r.source, child(&n, "X")?),
+                        Box::new(["Low", "High", "Max"].map(|role| {
+                            list(&n, role)
+                                .first()
+                                .map(|&n| Request::index(&r.source, n))
+                        })),
+                        attr(&n, "Slice3") == Some("true"),
+                    )),
                     _ => return Err(GoScalarTypingError::Unsupported),
                 };
                 Ok(step)
@@ -636,6 +835,18 @@ impl<'a> Engine<'a> {
     }
     fn finish(&mut self, r: &Request, plan: Plan) -> Result<Step> {
         match plan {
+            Plan::IndexValue(raw) => {
+                let a = self.one(&raw)?;
+                if a.typ.is_some() {
+                    return Ok(Step::Done(vec![a]));
+                }
+                let int = self.builtin("int")?;
+                Ok(Step::More(Plan::Forward(Request::value(
+                    &raw.source,
+                    raw.expression()?,
+                    Some(int),
+                ))))
+            }
             Plan::Forward(child) => Ok(Step::Done(self.facts(&child)?)),
             Plan::Select(child, index) => {
                 let facts = self.facts(&child)?;
@@ -661,17 +872,30 @@ impl<'a> Engine<'a> {
                 } else if let Some(t) = &a.typ {
                     t.clone()
                 } else {
-                    self.default_type(a.kind)?
+                    self.default_type(a.kind.ok_or(GoScalarTypingError::Type)?)?
                 };
                 if let Some(current) = &a.typ {
-                    if current != &typ {
+                    if !self.assignable(current, &typ) {
                         return Err(GoScalarTypingError::Type);
                     }
                     return Ok(Step::Done(vec![a]));
                 }
+                if a.nil {
+                    if !self.has_nil(&typ) {
+                        return Err(GoScalarTypingError::Type);
+                    }
+                    a.typ = Some(typ);
+                    return Ok(Step::Done(vec![a]));
+                }
                 if let Some(value) = a.value {
                     let converted = value
-                        .convert(self.types[&typ].clone(), false)
+                        .convert(
+                            self.types
+                                .get(&typ)
+                                .ok_or(GoScalarTypingError::Type)?
+                                .clone(),
+                            false,
+                        )
                         .map_err(constant_error)?;
                     a = self.constant(converted)?;
                     return Ok(Step::Done(vec![a]));
@@ -692,31 +916,43 @@ impl<'a> Engine<'a> {
                 let b = self.one(&y)?;
                 Ok(Step::Done(vec![self.binary(&op, a, b)?]))
             }
-            Plan::Cast(typ, arg) => {
-                let a = self.one(&arg)?;
-                if let Some(value) = a.value {
-                    return Ok(Step::Done(vec![self.constant(
-                        value
-                            .convert(self.types[&typ].clone(), true)
-                            .map_err(constant_error)?,
-                    )?]));
-                }
-                if a.typ.is_none() {
-                    return Ok(Step::More(Plan::Forward(Request::value(
-                        &arg.source,
-                        arg.expression()?,
-                        Some(typ),
-                    ))));
-                }
-                let from = &self.types[a.typ.as_ref().ok_or(GoScalarTypingError::Type)?];
-                let to = &self.types[&typ];
-                if from.underlying_builtin() != to.underlying_builtin()
-                    && !(from.integer_shape().is_some()
-                        && (to.integer_shape().is_some() || to.underlying_builtin() == "string"))
-                {
-                    return Err(GoScalarTypingError::Type);
+            Plan::Cast(typ, arg) => self.cast(typ, arg),
+            Plan::Field(base, name) => {
+                let a = self.one(&base)?;
+                Ok(Step::Done(vec![self.field(&r.source, a, &name)?]))
+            }
+            Plan::Index(base, index) => {
+                let a = self.one(&base)?;
+                let i = self.one(&index)?;
+                Ok(Step::Done(vec![self.index(a, i)?]))
+            }
+            Plan::Slice(base, bounds, full) => {
+                let a = self.one(&base)?;
+                let bounds = bounds
+                    .iter()
+                    .map(|r| r.as_ref().map(|r| self.one(r)).transpose())
+                    .collect::<Result<Vec<_>>>()?;
+                Ok(Step::Done(vec![self.slice(a, &bounds, full)?]))
+            }
+            Plan::Literal(typ, args) => {
+                for arg in args {
+                    self.one(&arg)?;
                 }
                 Ok(Step::Done(vec![self.atom(&typ, false)]))
+            }
+            Plan::Range(base, index) => {
+                let a = self.one(&base)?;
+                let typ = match self.shape(a.typ.as_deref().ok_or(GoScalarTypingError::Type)?)? {
+                    GoSourceTypeKey::Array { element, .. }
+                    | GoSourceTypeKey::Slice { element, .. } => element.clone(),
+                    _ => return Err(GoScalarTypingError::Unsupported),
+                };
+                let typ = if index == 0 {
+                    self.builtin("int")?
+                } else {
+                    typ
+                };
+                Ok(Step::Done(vec![self.atom(&typ, true)]))
             }
             Plan::BuiltinFirst(name, args) => self.builtin_first(r, name, args),
             Plan::BuiltinReady(name, args) => {
@@ -796,10 +1032,11 @@ impl<'a> Engine<'a> {
         let mut result = vec![];
         for (a, target) in facts.into_iter().zip(targets) {
             let typ = a.typ.ok_or(GoScalarTypingError::Type)?;
-            if target.is_some_and(|t| t != typ) {
+            let target = target.unwrap_or_else(|| typ.clone());
+            if !self.assignable(&typ, &target) {
                 return Err(GoScalarTypingError::Type);
             }
-            result.push(self.atom(&typ, true))
+            result.push(self.atom(&target, true))
         }
         Ok(Step::Done(result))
     }
@@ -818,11 +1055,11 @@ impl<'a> Engine<'a> {
         if facts.len() != types.len() {
             return Err(GoScalarTypingError::Arity);
         }
-        if facts
-            .iter()
-            .zip(types)
-            .any(|(a, t)| a.typ.as_ref() != Some(t))
-        {
+        if facts.iter().zip(types).any(|(a, t)| {
+            !a.typ
+                .as_ref()
+                .is_some_and(|actual| self.assignable(actual, t))
+        }) {
             return Err(GoScalarTypingError::Type);
         }
         Ok(())
@@ -832,7 +1069,7 @@ impl<'a> Engine<'a> {
         self.calls.insert(header);
         Ok(Step::Done(values))
     }
-    fn run(mut self, root: Request) -> Result<GoScalarTyping> {
+    fn run(mut self, root: Request) -> Result<GoValueTyping> {
         let mut work = vec![Work::Visit(root.clone())];
         while let Some(task) = work.pop() {
             let (r, step) = match task {
@@ -869,18 +1106,67 @@ impl<'a> Engine<'a> {
         let mut values = vec![];
         for fact in facts {
             let id = fact.typ.ok_or(GoScalarTypingError::Type)?;
-            values.push(GoSourceScalarValue {
-                typ: self.types[&id].clone(),
+            values.push(GoSourceTypedValue {
+                typ: self.keys[&id].clone(),
+                scalar: self.types.get(&id).cloned(),
                 constant: fact.value,
                 addressable: fact.addressable,
+                untyped_nil: fact.nil,
             })
         }
-        Ok(GoScalarTyping {
+        Ok(GoValueTyping {
             scopes: self.scopes.clone(),
             values,
             calls: self.calls.into_iter().collect(),
+            types: self.keys,
+            underlying: self.underlying,
+            declarations: self.declarations,
         })
     }
+}
+/// Type one value in default context. The containing body and dynamic accesses
+/// still require their own independent checks.
+pub fn infer_go_value(scopes: &GoSourceScopes, source: &str, node: usize) -> Result<GoValueTyping> {
+    let result = infer_go_results(scopes, source, node)?;
+    if result.values.len() != 1 {
+        return Err(GoScalarTypingError::Arity);
+    }
+    Ok(result)
+}
+/// Derive the0..16 results of an original expression. Calls carry only the
+/// original callee header; this is not evaluation or a callee-body proof.
+pub fn infer_go_results(
+    scopes: &GoSourceScopes,
+    source: &str,
+    node: usize,
+) -> Result<GoValueTyping> {
+    Engine::new(scopes).run(Request::value(source, node, None))
+}
+/// Check one original value against an independently derived type annotation.
+/// No relationship to an actual assignment statement is asserted here.
+pub fn check_go_assignment(
+    scopes: &GoSourceScopes,
+    source: &str,
+    node: usize,
+    type_source: &str,
+    type_node: usize,
+) -> Result<GoValueTyping> {
+    let mut engine = Engine::new(scopes);
+    let typ = engine.annotation(type_source, type_node)?;
+    engine.run(Request::value(source, node, Some(typ)))
+}
+/// Infer an original variable, including all siblings and reused destinations
+/// in its actual initializer, or the original array/slice range binding.
+pub fn infer_go_binding(
+    scopes: &GoSourceScopes,
+    binding: &GoSourceNameBinding,
+) -> Result<GoValueTyping> {
+    let engine = Engine::new(scopes);
+    let index = engine.binding_index(binding)?;
+    if binding.kind() != GoSourceNameKind::Variable {
+        return Err(GoScalarTypingError::Type);
+    }
+    engine.run(Request::binding(binding, index))
 }
 /// Type one scalar value in default value context. A void or multiple-result
 /// call cannot stand in for one value. No containing body is typechecked here.
@@ -902,7 +1188,7 @@ pub fn infer_go_scalar_results(
     source: &str,
     node: usize,
 ) -> Result<GoScalarTyping> {
-    Engine::new(scopes).run(Request::value(source, node, None))
+    infer_go_results(scopes, source, node)?.scalar_only()
 }
 /// Check assignment compatibility against one independently derived original
 /// scalar type expression. No actual statement relationship is asserted here.
@@ -915,7 +1201,9 @@ pub fn check_go_scalar_assignment(
 ) -> Result<GoScalarTyping> {
     let mut engine = Engine::new(scopes);
     let typ = engine.annotation(type_source, type_node)?;
-    engine.run(Request::value(source, node, Some(typ)))
+    engine
+        .run(Request::value(source, node, Some(typ)))?
+        .scalar_only()
 }
 /// Derive a real scalar variable's type, checking its complete shared initializer
 /// declaration (including reused short-declaration targets) where present.
@@ -928,5 +1216,5 @@ pub fn infer_go_scalar_binding(
     if binding.kind() != GoSourceNameKind::Variable {
         return Err(GoScalarTypingError::Type);
     }
-    engine.run(Request::binding(binding, index))
+    engine.run(Request::binding(binding, index))?.scalar_only()
 }

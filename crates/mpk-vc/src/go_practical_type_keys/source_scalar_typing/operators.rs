@@ -2,16 +2,19 @@ use super::*;
 pub(super) fn comparison(op: &str) -> bool {
     matches!(op, "==" | "!=" | "<" | "<=" | ">" | ">=")
 }
-fn integer(kind: GoConstantKind) -> bool {
-    matches!(kind, GoConstantKind::Integer | GoConstantKind::Rune)
+fn integer(kind: Option<GoConstantKind>) -> bool {
+    matches!(kind, Some(GoConstantKind::Integer | GoConstantKind::Rune))
 }
 impl Engine<'_> {
-    pub(super) fn compatible_kind(&self, k: GoConstantKind, typ: &str) -> bool {
-        let t = &self.types[typ];
+    pub(super) fn compatible_kind(&self, k: Option<GoConstantKind>, typ: &str) -> bool {
+        let Some(t) = self.types.get(typ) else {
+            return false;
+        };
         match k {
-            GoConstantKind::Bool => t.underlying_builtin() == "bool",
-            GoConstantKind::String => t.underlying_builtin() == "string",
-            _ => t.integer_shape().is_some(),
+            Some(GoConstantKind::Bool) => t.underlying_builtin() == "bool",
+            Some(GoConstantKind::String) => t.underlying_builtin() == "string",
+            Some(_) => t.integer_shape().is_some(),
+            None => false,
         }
     }
     pub(super) fn default_type(&mut self, k: GoConstantKind) -> Result<String> {
@@ -23,13 +26,16 @@ impl Engine<'_> {
         })
     }
     fn common_kind(&self, values: &[Atom]) -> Result<GoConstantKind> {
-        let mut kinds = values.iter().map(|a| a.kind);
-        let mut k = kinds.next().ok_or(GoScalarTypingError::Arity)?;
+        let mut kinds = values
+            .iter()
+            .map(|a| a.kind.ok_or(GoScalarTypingError::Type));
+        let mut k = kinds.next().ok_or(GoScalarTypingError::Arity)??;
         for next in kinds {
+            let next = next?;
             if k == next {
                 continue;
             }
-            if integer(k) && integer(next) {
+            if integer(Some(k)) && integer(Some(next)) {
                 k = GoConstantKind::Rune
             } else {
                 return Err(GoScalarTypingError::Type);
@@ -52,11 +58,11 @@ impl Engine<'_> {
     fn check_binary(&self, op: &str, a: &Atom, b: &Atom) -> Result<()> {
         let common = self.common_kind(&[a.clone(), b.clone()])?;
         let allowed = match op {
-            "+" => integer(common) || common == GoConstantKind::String,
-            "-" | "*" | "/" | "%" | "&" | "|" | "^" | "&^" => integer(common),
+            "+" => integer(Some(common)) || common == GoConstantKind::String,
+            "-" | "*" | "/" | "%" | "&" | "|" | "^" | "&^" => integer(Some(common)),
             "&&" | "||" => common == GoConstantKind::Bool,
             "==" | "!=" => true,
-            "<" | "<=" | ">" | ">=" => integer(common) || common == GoConstantKind::String,
+            "<" | "<=" | ">" | ">=" => integer(Some(common)) || common == GoConstantKind::String,
             _ => false,
         };
         if !allowed {
@@ -78,7 +84,7 @@ impl Engine<'_> {
             return self.constant(source_constants::unary(op, value).map_err(constant_error)?);
         }
         if !(matches!(op, "+" | "-" | "^") && integer(a.kind)
-            || op == "!" && a.kind == GoConstantKind::Bool)
+            || op == "!" && a.kind == Some(GoConstantKind::Bool))
         {
             return Err(GoScalarTypingError::Type);
         }
@@ -88,6 +94,9 @@ impl Engine<'_> {
     pub(super) fn binary_first(&mut self, op: String, x: Request, y: Request) -> Result<Step> {
         let a = self.one(&x)?;
         let b = self.one(&y)?;
+        if a.kind.is_none() || b.kind.is_none() {
+            return Ok(Step::Done(vec![self.aggregate_comparison(&op, &a, &b)?]));
+        }
         if let (Some(left), Some(right)) = (&a.value, &b.value) {
             return Ok(Step::Done(vec![self.constant(
                 source_constants::binary(&op, left.clone(), right.clone())
@@ -146,7 +155,8 @@ impl Engine<'_> {
         }
         Ok(Step::Done(vec![Atom {
             typ: None,
-            kind: k,
+            kind: Some(k),
+            nil: false,
             value: None,
             addressable: false,
         }]))
@@ -174,7 +184,8 @@ impl Engine<'_> {
         if comparison(op) {
             return Ok(Atom {
                 typ: None,
-                kind: GoConstantKind::Bool,
+                kind: Some(GoConstantKind::Bool),
+                nil: false,
                 value: None,
                 addressable: false,
             });
@@ -182,7 +193,8 @@ impl Engine<'_> {
         let k = self.common_kind(&[a.clone(), b])?;
         Ok(Atom {
             typ: a.typ,
-            kind: k,
+            kind: Some(k),
+            nil: false,
             value: None,
             addressable: false,
         })
@@ -197,21 +209,8 @@ impl Engine<'_> {
             .iter()
             .map(|a| self.one(a))
             .collect::<Result<Vec<_>>>()?;
-        if name == "len" {
-            if values.len() != 1 {
-                return Err(GoScalarTypingError::Arity);
-            }
-            if values[0].kind != GoConstantKind::String {
-                return Err(GoScalarTypingError::Type);
-            }
-            if values[0].value.is_some() {
-                return Ok(Step::Done(vec![self.constant(
-                    evaluate_go_constant(self.scopes, &r.source, r.expression()?)
-                        .map_err(constant_error)?,
-                )?]));
-            }
-            let typ = self.builtin("int")?;
-            return Ok(Step::Done(vec![self.atom(&typ, false)]));
+        if matches!(name.as_str(), "len" | "cap") {
+            return self.len_cap(r, &name, &args, values);
         }
         if values.is_empty() {
             return Err(GoScalarTypingError::Arity);
@@ -267,7 +266,8 @@ impl Engine<'_> {
         }
         Ok(Atom {
             typ,
-            kind: k,
+            kind: Some(k),
+            nil: false,
             value: None,
             addressable: false,
         })
