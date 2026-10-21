@@ -120,6 +120,11 @@ impl GoSourceScopes {
     pub(super) fn sources(&self) -> impl Iterator<Item = (&str, &GoParsedSource)> {
         self.syntax.iter().map(|(id, source)| (id.as_str(), source))
     }
+    pub(super) fn package_binding(&self, binding: &GoSourceNameBinding) -> bool {
+        self.package_scopes
+            .get(binding.package_id())
+            .is_some_and(|scope| *scope == binding.scope)
+    }
     pub(super) fn source_package(&self, source: &str) -> Option<&str> {
         let parsed = self.syntax.get(source)?;
         let file = *self.node_scopes.get(&(source.to_string(), parsed.root()))?;

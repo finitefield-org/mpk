@@ -200,6 +200,24 @@ func (b *practicalClosureBuilder) index() error {
 			}
 		}
 		for _, file := range native.files {
+			// Inventory unselected nested declarations without entering their
+			// bodies into verification. Native typechecking already saw them.
+			pending := []ast.Node{file}
+			seen := map[ast.Node]bool{}
+			for len(pending) > 0 {
+				node := pending[len(pending)-1]
+				pending = pending[:len(pending)-1]
+				if seen[node] {
+					continue
+				}
+				seen[node] = true
+				if declaration, ok := node.(*ast.GenDecl); ok {
+					if err := b.specs(native, declaration); err != nil {
+						return err
+					}
+				}
+				pending = append(pending, practicalClosureChildren(node)...)
+			}
 			for _, d := range file.Decls {
 				switch d := d.(type) {
 				case *ast.FuncDecl:

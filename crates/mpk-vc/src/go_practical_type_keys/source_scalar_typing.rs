@@ -9,6 +9,7 @@ mod members;
 mod methods;
 mod operators;
 mod returns;
+mod selection;
 mod slice_builtins;
 pub use assignments::{check_go_assignment_statement, GoAssignmentTarget, GoAssignmentTyping};
 pub use bodies::{
@@ -18,6 +19,11 @@ pub use bodies::{
 pub use methods::{GoErrorImplementation, GoMethodCallHeader, GoSourceMethod};
 use operators::comparison;
 pub use returns::{check_go_return_statement, GoReturnTyping};
+pub use selection::{
+    derive_go_source_selection, GoSourceSelection, GoSourceSelectionCall,
+    GoSourceSelectionDeclaration, GoSourceSelectionDependency, GoSourceSelectionError,
+    GoSourceSelectionErrorKind, GoSourceSelectionRef, GoSourceSelectionRole,
+};
 pub use slice_builtins::GoSliceBuiltinHeader;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]

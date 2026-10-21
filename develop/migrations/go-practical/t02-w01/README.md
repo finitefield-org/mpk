@@ -1304,3 +1304,20 @@ The current190 captured frontend inputs additionally rebuild twice from independ
 empty caches with identical8592898-byte outputs (SHA256
 `589e82c3c73b95df654501cc71776d9a1a3095371a0ee11170ac2dff4a816eea`).
 This is a local Darwin/arm64 build observation; native Linux acceptance remains due.
+
+The [independent original-source selection checkpoint](verification/source-selection/README.md)
+reconstructs selected bodies/static calls/type/constant/signature dependencies in
+Rust from owned original buffers and physical roots, without native AST/type/call
+facts. Go now explicitly inventories all unselected nested declarations. All33
+native cases pass;15 independent positive graphs match9795 declaration rows,
+516 calls/1071 dependencies, and18 independent negatives reject. Three new and
+11 affected old Rust roots,512 helpers/70 parameters/70 roots, scoped Clippy/vet/
+formats pass.21 epochs/17902 preimages retain34 executions/three original
+failures;11 archives/23775 files/232605508 bytes pass literal byte/mode audit.
+The190 frontend inputs rebuild twice to identical8592898-byte outputs with
+SHA256 `764e57a7db286f4a76fc41bb1b15e92cf23a57fc8d6400f4fec84712afc02d9b`.
+SDK14496/frozen255/ordinary448 stay exact. Capture/wire/contract authority,
+complete v1 admission and source runtime/state/program proofs, full56 foundation/
+registry and nativeLinux/all169/T02–T11 remain due. Go/Rust only; R01/R06/W01
+remain open, public profile stays inactive, and the T02 full gate remains
+finalW04: `./scripts/check-fast.sh`.

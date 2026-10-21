@@ -89,6 +89,11 @@ const N=h.N
 const Shadow=3
 var Counter int64
 var GlobalArray [3]byte
+type BoundArray [4]W
+var Inferred=NewArray()
+func NewArray()BoundArray{return BoundArray{}}
+func InferredLen()int{return len(Inferred)}
+func InferredLocal()int{a:=NewArray();return len(a)}
 var Startup=Start()
 func Start()int64{panic("application variable initializer must not execute")}
 func init(){panic("application initialization must not execute")}
@@ -150,7 +155,7 @@ func TooMany()(int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,i
 		name  string
 		codes []string
 	}{
-		{"Pure", nil}, {"ErrorOnly", nil}, {"Method", nil}, {"MethodExpression", nil}, {"GlobalConstant", nil}, {"GlobalIgnoredElement", nil}, {"Local", nil}, {"Slice", nil}, {"Spread", nil}, {"Context", nil}, {"ContextBlank", nil}, {"ManyRoot", nil}, {"Chain0", nil},
+		{"Pure", nil}, {"ErrorOnly", nil}, {"Method", nil}, {"MethodExpression", nil}, {"GlobalConstant", nil}, {"GlobalIgnoredElement", nil}, {"Local", nil}, {"Slice", nil}, {"Spread", nil}, {"Context", nil}, {"ContextBlank", nil}, {"InferredLen", nil}, {"InferredLocal", nil}, {"ManyRoot", nil}, {"Chain0", nil},
 		{"CallError", []string{"builtin_panic"}}, {"Dispatch", []string{"indirect_call"}}, {"Promoted", []string{"promoted_selector"}}, {"PointerCall", []string{"syntax_*ast.StarExpr"}}, {"MethodValue", []string{"function_value", "indirect_call"}}, {"Indirect", []string{"function_value_type", "indirect_call"}}, {"GlobalRead", []string{"mutable_package_state"}}, {"GlobalWrite", []string{"mutable_package_state"}}, {"GlobalNonconstant", []string{"mutable_package_state"}}, {"BranchRoot", []string{"syntax_*ast.DeferStmt"}}, {"Self", []string{"call_cycle"}}, {"CycleRoot", []string{"call_cycle"}}, {"OpaqueRoot", []string{"missing_body"}}, {"GenericRoot", []string{"generic_declaration"}}, {"Min", []string{"builtin_min"}}, {"TooMany", []string{"result_limit"}}, {"StringRange", []string{"range_kind"}}, {"init", []string{"initialization_root", "builtin_panic"}},
 	}
 	var saved practicalSourceClosure
@@ -279,6 +284,25 @@ func TooMany()(int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,i
 			for _, call := range result.calls {
 				if !dependencySet[practicalClosureDependency{call.caller, call.callee, "body_dependency"}] {
 					t.Fatal("source call is missing its body dependency", call)
+				}
+			}
+			if test.name == "Pure" {
+				nested := 0
+				for _, d := range result.declarations {
+					if d.kind == "function" {
+						continue
+					}
+					for _, fn := range result.declarations {
+						if fn.kind == "function" && d.ref.span.sourceID == fn.ref.span.sourceID && fn.ref.span.start < d.ref.span.start && d.ref.span.end < fn.ref.span.end {
+							nested++
+							if !reflect.DeepEqual(d.roles, []string{"type_check_only"}) {
+								t.Fatal("unselected local declaration entered proof", d)
+							}
+						}
+					}
+				}
+				if nested < 11 {
+					t.Fatal("unselected nested declaration inventory omitted", nested)
 				}
 			}
 			// Native object calls independently match the physical declaration graph.

@@ -1,0 +1,21 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.58s
+     Running tests/go_practical_source_selection.rs (target/debug/deps/go_practical_source_selection-bdf9c918b2ae45c6)
+
+thread 'reconstructs_original_selected_functions_without_native_type_facts' (50163481) panicked at crates/mpk-vc/tests/go_practical_source_selection.rs:213:5:
+case 0 declaration mismatch
+case 1 declaration mismatch
+case 2 declaration mismatch
+case 3 declaration mismatch
+case 4 declaration mismatch
+case 5 declaration mismatch
+case 6 dependencies expected [{"from":{"end":1822,"package":"example.com/policy","source":"8f969ec544d445b09eefa61354364f3607610833d96abbf3c8e57ba109da6664","start":1813},"role":"constant_dependency","to":{"end":1802,"package":"example.com/policy","source":"8f969ec544d445b09eefa61354364f3607610833d96abbf3c8e57ba109da6664","start":1777}},{"from":{"end":1844,"package":"example.com/policy","source":"8f969ec544d445b09eefa61354364f3607610833d96abbf3c8e57ba109da6664","start":1758},"role":"constant_dependency","to":{"end":1802,"package":"example.com/policy","source":"8f969ec544d445b09eefa61354364f3607610833d96abbf3c8e57ba109da6664","start":1777}},{"from":{"end":1844,"package":"example.com/policy","source":"8f969ec544d445b09eefa61354364f3607610833d96abbf3c8e57ba109da6664","start":1758},"role":"constant_dependency","to":{"end":1806,"package":"example.com/policy","source":"8f969ec544d445b09eefa61354364f3607610833d96abbf3c8e57ba109da6664","start":1803}},{"from":{"end":1844,"package":"example.com/policy","source":"8f969ec544d445b09eefa61354364f3607610833d96abbf3c8e57ba109da6664","start":1758},"role":"type_dependency","to":{"end":1822,"package":"example.com/policy","source":"8f969ec544d445b09eefa61354364f3607610833d96abbf3c8e57ba109da6664","start":1813}}] actual [{"from":{"end":1822,"package":"example.com/policy","source":"8f969ec544d445b09eefa61354364f3607610833d96abbf3c8e57ba109da6664","start":1813},"role":"constant_dependency","to":{"end":1802,"package":"example.com/policy","source":"8f969ec544d445b09eefa61354364f3607610833d96abbf3c8e57ba109da6664","start":1777}},{"from":{"end":1830,"package":"example.com/policy","source":"8f969ec544d445b09eefa61354364f3607610833d96abbf3c8e57ba109da6664","start":1827},"role":"type_dependency","to":{"end":1822,"package":"example.com/policy","source":"8f969ec544d445b09eefa61354364f3607610833d96abbf3c8e57ba109da6664","start":1813}},{"from":{"end":1844,"package":"example.com/policy","source":"8f969ec544d445b09eefa61354364f3607610833d96abbf3c8e57ba109da6664","start":1758},"role":"body_declaration","to":{"end":1830,"package":"example.com/policy","source":"8f969ec544d445b09eefa61354364f3607610833d96abbf3c8e57ba109da6664","start":1827}},{"from":{"end":1844,"package":"example.com/policy","source":"8f969ec544d445b09eefa61354364f3607610833d96abbf3c8e57ba109da6664","start":1758},"role":"constant_dependency","to":{"end":1802,"package":"example.com/policy","source":"8f969ec544d445b09eefa61354364f3607610833d96abbf3c8e57ba109da6664","start":1777}},{"from":{"end":1844,"package":"example.com/policy","source":"8f969ec544d445b09eefa61354364f3607610833d96abbf3c8e57ba109da6664","start":1758},"role":"constant_dependency","to":{"end":1806,"package":"example.com/policy","source":"8f969ec544d445b09eefa61354364f3607610833d96abbf3c8e57ba109da6664","start":1803}},{"from":{"end":1844,"package":"example.com/policy","source":"8f969ec544d445b09eefa61354364f3607610833d96abbf3c8e57ba109da6664","start":1758},"role":"type_dependency","to":{"end":1822,"package":"example.com/policy","source":"8f969ec544d445b09eefa61354364f3607610833d96abbf3c8e57ba109da6664","start":1813}}]
+case 6 declaration mismatch
+case 7 positive failed: {"error":"GoSourceSelectionError { source: \"8f969ec544d445b09eefa61354364f3607610833d96abbf3c8e57ba109da6664\", node: 628, kind: Typing(Name), path: [GoSourceSelectionRef { source: \"8f969ec544d445b09eefa61354364f3607610833d96abbf3c8e57ba109da6664\", node: 615 }] }"}
+case 8 declaration mismatch
+case 9 declaration mismatch
+case 10 declaration mismatch
+case 11 declaration mismatch
+case 12 declaration mismatch
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_source_selection`
