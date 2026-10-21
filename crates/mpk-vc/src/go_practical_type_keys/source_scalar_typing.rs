@@ -7,10 +7,12 @@ mod literals;
 mod members;
 mod methods;
 mod operators;
+mod returns;
 mod slice_builtins;
 pub use assignments::{check_go_assignment_statement, GoAssignmentTarget, GoAssignmentTyping};
 pub use methods::{GoErrorImplementation, GoMethodCallHeader, GoSourceMethod};
 use operators::comparison;
+pub use returns::{check_go_return_statement, GoReturnTyping};
 pub use slice_builtins::GoSliceBuiltinHeader;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -214,6 +216,7 @@ enum Target {
     Declaration(usize),
     Assignment(usize),
     AssignmentOperation(usize),
+    Return(usize),
 }
 #[derive(Clone, Debug, Eq, PartialEq, Ord, PartialOrd)]
 struct Request {
@@ -286,6 +289,8 @@ enum Destination {
     Reused(Request),
 }
 enum Plan {
+    ReturnFirst(Vec<String>, Vec<Request>),
+    ReturnReady(Vec<String>, Vec<Request>),
     AssignmentFirst(Vec<Option<Request>>, Vec<Request>),
     AssignmentReady(Vec<Option<Request>>, Vec<Request>),
     ShortAssignment(Request),
@@ -321,6 +326,7 @@ enum Plan {
 impl Plan {
     fn inputs(&self) -> Vec<Request> {
         match self {
+            Self::ReturnFirst(_, args) | Self::ReturnReady(_, args) => args.clone(),
             Self::AssignmentFirst(lhs, rhs) | Self::AssignmentReady(lhs, rhs) => lhs
                 .iter()
                 .flatten()
@@ -389,6 +395,8 @@ struct Engine<'a> {
     method_packages: methods::MethodPackages,
     method_receivers: BTreeMap<(String, usize), Option<(String, bool)>>,
     error_implementations: BTreeMap<String, Option<GoErrorImplementation>>,
+    function_owners: BTreeMap<String, Vec<Option<usize>>>,
+    return_signatures: BTreeMap<(String, usize), GoSourceSignature>,
 }
 fn attr<'a>(n: &'a GoSyntaxNode, key: &str) -> Option<&'a str> {
     n.attributes().find_map(|(k, v)| (k == key).then_some(v))
@@ -437,6 +445,8 @@ impl<'a> Engine<'a> {
             method_packages: BTreeMap::new(),
             method_receivers: BTreeMap::new(),
             error_implementations: BTreeMap::new(),
+            function_owners: BTreeMap::new(),
+            return_signatures: BTreeMap::new(),
         }
     }
     fn node(&self, source: &str, node: usize) -> Result<&GoSyntaxNode> {
@@ -659,6 +669,7 @@ impl<'a> Engine<'a> {
     }
     fn plan(&mut self, r: &Request) -> Result<Step> {
         match &r.target {
+            Target::Return(node) => self.return_plan(&r.source, *node),
             Target::Assignment(node) => self.assignment_plan(&r.source, *node),
             Target::AssignmentOperation(node) => self.assignment_operation(&r.source, *node),
             Target::Binding(index) => {
@@ -934,6 +945,11 @@ impl<'a> Engine<'a> {
     }
     fn finish(&mut self, r: &Request, plan: Plan) -> Result<Step> {
         match plan {
+            Plan::ReturnFirst(types, args) => self.return_first(types, args),
+            Plan::ReturnReady(types, args) => {
+                let facts = self.expand(&args)?;
+                self.return_result(&types, &facts)
+            }
             Plan::AssignmentFirst(lhs, rhs) => self.assignment_first(lhs, rhs),
             Plan::AssignmentReady(lhs, rhs) => {
                 let facts = self.expand(&rhs)?;

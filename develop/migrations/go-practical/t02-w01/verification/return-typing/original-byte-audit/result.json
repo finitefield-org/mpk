@@ -1,0 +1,91 @@
+{
+  "status": "passed",
+  "observed_at_utc": "2026-10-21T20:27:24.022546+00:00",
+  "actual_driver_prelaunch_sha256": "ac785a04c03b158eaf69ede01ef9e2104219106cd85c7ebd22023b4233fafb9b",
+  "archives": [
+    {
+      "name": "native-original",
+      "files": 1261,
+      "bytes": 5147402
+    },
+    {
+      "name": "native-import-original",
+      "files": 1261,
+      "bytes": 5155076
+    },
+    {
+      "name": "rust-initial-original",
+      "files": 1265,
+      "bytes": 4500796
+    },
+    {
+      "name": "rust-original",
+      "files": 1265,
+      "bytes": 4496008
+    },
+    {
+      "name": "scalar-original",
+      "files": 9977,
+      "bytes": 26537358
+    },
+    {
+      "name": "aggregate-original",
+      "files": 1904,
+      "bytes": 6665786
+    },
+    {
+      "name": "builtin-original",
+      "files": 3322,
+      "bytes": 12553721
+    },
+    {
+      "name": "method-original",
+      "files": 928,
+      "bytes": 4134560
+    },
+    {
+      "name": "assignment-original",
+      "files": 2871,
+      "bytes": 8972367
+    }
+  ],
+  "actual_original_files_compared_literally": 24054,
+  "actual_original_bytes_compared_literally": 78163074,
+  "all_original_modes_compared": true,
+  "actual_return_cases": 630,
+  "independent_observations": {
+    "supported": 150,
+    "rejected": 470,
+    "outside": 10,
+    "signature_slots": 2214,
+    "result_slots": 448,
+    "named_results": 205,
+    "implicit_returns": 39,
+    "nested_function_returns": 8,
+    "method_returns": 4,
+    "calls": 17,
+    "opaque_calls": 3,
+    "max_parameters": 70
+  },
+  "first_reference_build_failed_before_any_native_cases": true,
+  "initial_unused_import_rejection_not_return_type_rejection": {
+    "index": 583,
+    "label": "foreign/error/nil",
+    "original_native_accepted": false,
+    "original_partial_return_typed": true,
+    "original_program_authority": false,
+    "corrected_original_source_references_import_by_type": true,
+    "original_inputs_outputs_and_failure_retained": true
+  },
+  "original_static_and_nested_function_ownership_retained": true,
+  "flat_contextual_unary_nodes": 20000,
+  "function_results_boundary16_and17": true,
+  "previous_scalar_cases": 4985,
+  "previous_aggregate_cases": 950,
+  "previous_builtin_cases": 1659,
+  "previous_method_cases": 461,
+  "previous_assignment_cases": 1433,
+  "native_checker_panics_still_distinct_from_rejections": 3,
+  "body_state_or_program_proof": false,
+  "not_recreated_or_recompiled": true
+}

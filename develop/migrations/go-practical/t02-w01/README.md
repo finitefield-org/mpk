@@ -1231,3 +1231,20 @@ whole-body checking, actual evaluation/store/call-state/program proofs, full56
 foundation/registry and nativeLinux/generalnamespace/selectedclosure/all169/
 T02–T11 remain due. Go/Rust only; R01/R06/W01 remain open, public profile stays
 inactive and the full T02 gate stays finalW04: `./scripts/check-fast.sh`.
+
+The [original return typing checkpoint](verification/return-typing/README.md) binds actual return nodes through original AST edges to the nearest
+function declaration/literal and checks ordered results, tuple forwarding,
+constant/shift contexts and named/blank/shadowed implicit returns. All150 exact
+positive type/provenance outcomes and470 rejections agree on630 Go1.25 cases;
+10 valid forms stay outside the reader.2214 signature slots/448 result slots/
+205 named variables/39 implicit returns/8 nested owners/4 methods/17 call records
+agree independently. Three new Rust/thirteen affected old roots,70-input/16-and17-
+result controls,20000-node work and scoped lint/vet/formats pass. Nine epochs/
+7062 preimages retain20 executions/two initial failures and24054 original files/
+78163074 bytes with literal byte/mode audit. The initial unused-import package
+rejection remains separate from partial return typing; both original corpora
+remain. SDK14496/frontend189/frozen255/ordinary448 basis stays exact. Actual
+condition/control/whole-body and evaluation/state/program proofs, full56
+foundation/registry and nativeLinux/generalnamespace/selectedclosure/all169/
+T02–T11 remain due. Go/Rust only; R01/R06/W01 stay open, the public profile stays
+inactive and the whole T02 gate stays finalW04: `./scripts/check-fast.sh`.
