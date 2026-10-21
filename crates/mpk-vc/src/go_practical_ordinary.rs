@@ -10,6 +10,7 @@ use mpk_cert::encode::{
 };
 use sha2::{Digest, Sha256};
 
+mod array;
 mod composition;
 mod dependencies;
 mod finite_vector;
@@ -328,6 +329,15 @@ pub struct GoStringAffixFoundation {
     certificate: Vec<u8>,
 }
 impl GoStringAffixFoundation {
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
+}
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoArrayFoundation {
+    certificate: Vec<u8>,
+}
+impl GoArrayFoundation {
     pub fn certificate_bytes(&self) -> &[u8] {
         &self.certificate
     }
@@ -2026,12 +2036,35 @@ pub fn import_go_practical_string_concat_foundation(
 /// Checked prefix/suffix on complete frozen strings, with full-width positions.
 /// Original source/library symbol/type/context authority remains separate.
 pub fn generate_go_practical_string_affix_foundation() -> Result<GoStringAffixFoundation> {
-    let mut builder = string_concat_builder()?;
-    string::append_affix(&mut builder)?;
+    let mut builder = string_affix_builder()?;
     builder.certificate.module = "Mpk.Go.Practical.StringAffixFoundation".into();
     Ok(GoStringAffixFoundation {
         certificate: builder.finish()?,
     })
+}
+fn string_affix_builder() -> Result<Builder> {
+    let mut builder = string_concat_builder()?;
+    string::append_affix(&mut builder)?;
+    Ok(builder)
+}
+/// Full frozen fixed-array value laws. Source/nominal/storage authority is separate.
+pub fn generate_go_practical_array_foundation() -> Result<GoArrayFoundation> {
+    let mut builder = string_affix_builder()?;
+    array::append(&mut builder)?;
+    builder.certificate.module = "Mpk.Go.Practical.ArrayFoundation".into();
+    Ok(GoArrayFoundation {
+        certificate: builder.finish()?,
+    })
+}
+pub fn import_go_practical_array_foundation(candidate: &[u8]) -> Result<GoArrayFoundation> {
+    if candidate.len() > MAX_BYTES {
+        return Err(GoOrdinaryError::Limit);
+    }
+    let expected = generate_go_practical_array_foundation()?;
+    if candidate != expected.certificate_bytes() {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    Ok(expected)
 }
 pub fn import_go_practical_string_affix_foundation(
     candidate: &[u8],

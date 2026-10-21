@@ -1,0 +1,37 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error[E0425]: cannot find function `import_go_practical_string_array_foundation` in this scope
+    --> crates/mpk-vc/tests/go_practical_array.rs:246:9
+     |
+ 246 |         import_go_practical_string_array_foundation(&raw),
+     |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+     |
+    ::: crates/mpk-vc/src/go_practical_ordinary.rs:2059:1
+     |
+2059 | pub fn import_go_practical_array_foundation(candidate: &[u8]) -> Result<GoArrayFoundation> {
+     | ------------------------------------------------------------------------------------------ similarly named function `import_go_practical_array_foundation` defined here
+     |
+help: a function with a similar name exists
+     |
+ 246 -         import_go_practical_string_array_foundation(&raw),
+ 246 +         import_go_practical_array_foundation(&raw),
+     |
+
+error[E0425]: cannot find function `import_go_practical_string_array_foundation` in this scope
+    --> crates/mpk-vc/tests/go_practical_array.rs:250:9
+     |
+ 250 |         import_go_practical_string_array_foundation(&vec![0; 2097153]),
+     |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+     |
+    ::: crates/mpk-vc/src/go_practical_ordinary.rs:2059:1
+     |
+2059 | pub fn import_go_practical_array_foundation(candidate: &[u8]) -> Result<GoArrayFoundation> {
+     | ------------------------------------------------------------------------------------------ similarly named function `import_go_practical_array_foundation` defined here
+     |
+help: a function with a similar name exists
+     |
+ 250 -         import_go_practical_string_array_foundation(&vec![0; 2097153]),
+ 250 +         import_go_practical_array_foundation(&vec![0; 2097153]),
+     |
+
+For more information about this error, try `rustc --explain E0425`.
+error: could not compile `mpk-vc` (test "go_practical_array") due to 2 previous errors

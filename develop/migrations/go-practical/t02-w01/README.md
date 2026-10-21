@@ -873,3 +873,23 @@ preservation, full foundation/context/native kernel/general namespace/selected
 closure/all169/T02–T11 remain due. Go and Rust remain the only source languages.
 R01/R06/W01 stay open; the cumulative T02 gate remains W04:
 `./scripts/check-fast.sh`.
+
+The [fixed-array checkpoint](verification/array-foundation/README.md) adds
+all frozen empty/positive array shapes,full64 reads and signed/unsigned guards,
+zero/copy/padding/normalization/update validity,visible equality and heterogeneous
+element-relation preservation. Its2,688 declarations/80,853 terms/1,033,685 bytes
+retain all2,254 prior identities and exact916,686 old affix bytes;131 definitions
+and303 ordinary laws add no axiom/core/extensionality/root/cap/limit change.
+Five affected Rust roots,strict Clippy/eight-file format and both unchanged cores
+pass794 complete inputs:two zero-axiom acceptances and792 genuine type
+mismatches (303 conclusions,452 typed witness domains,37 typed wrong
+definitions with actual countermodels). Actual-DAG evaluation checks132 whole
+outputs/396 full64 reads/nine guard pairs/one empty dummy in34,700,456 steps.
+Nine source epochs/3,679 preimages retain14 checks and five original
+failures;two original full failed candidates also reject independently in Go.
+All255 frozen/186 Go inputs and127/four/39 scanner counts remain exact,without
+new exclusions. Go and Rust remain the only source languages. Full source/type/
+evaluation/nominal and array-store/aliasing/state/program correspondence,complete
+private foundation/context/native Linux/general namespace/selected closure/all169/
+T02–T11 remain due. R01/R06/W01 stay open;the cumulative T02 gate remains W04:
+`./scripts/check-fast.sh`.
