@@ -305,6 +305,15 @@ impl GoStringBoundedOrderFoundation {
         &self.certificate
     }
 }
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoStringSliceFoundation {
+    certificate: Vec<u8>,
+}
+impl GoStringSliceFoundation {
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
+}
 impl GoStringValue {
     pub fn certificate_bytes(&self) -> &[u8] {
         &self.certificate
@@ -1922,6 +1931,43 @@ pub fn import_go_practical_string_bounded_order_foundation(
         return Err(GoOrdinaryError::Limit);
     }
     let expected = generate_go_practical_string_bounded_order_foundation()?;
+    if candidate != expected.certificate_bytes() {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    Ok(expected)
+}
+
+/// Complete frozen substring carrier, actual signed guards and byte equations.
+/// Original source/type/context authority remains a separate obligation.
+pub fn generate_go_practical_string_slice_foundation() -> Result<GoStringSliceFoundation> {
+    let buffers = [
+        generate_go_practical_string_bounded_order_foundation()?
+            .certificate_bytes()
+            .to_vec(),
+        generate_go_practical_word_order_foundation()?
+            .certificate_bytes()
+            .to_vec(),
+    ];
+    let inputs = buffers
+        .iter()
+        .map(|bytes| {
+            mpk_cert::decode_canonical_certificate(bytes).map_err(|_| GoOrdinaryError::Foundation)
+        })
+        .collect::<Result<Vec<_>>>()?;
+    let mut builder = composition::string_slice_prerequisites(&inputs)?;
+    string::append_slice(&mut builder)?;
+    builder.certificate.module = "Mpk.Go.Practical.StringSliceFoundation".into();
+    Ok(GoStringSliceFoundation {
+        certificate: builder.finish()?,
+    })
+}
+pub fn import_go_practical_string_slice_foundation(
+    candidate: &[u8],
+) -> Result<GoStringSliceFoundation> {
+    if candidate.len() > MAX_BYTES {
+        return Err(GoOrdinaryError::Limit);
+    }
+    let expected = generate_go_practical_string_slice_foundation()?;
     if candidate != expected.certificate_bytes() {
         return Err(GoOrdinaryError::Linkage);
     }

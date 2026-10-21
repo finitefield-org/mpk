@@ -7,7 +7,11 @@ use super::{word, Builder, Result};
 mod equality;
 mod normalization;
 mod order;
+mod slice;
 mod validity;
+pub(super) fn append_slice(builder: &mut Builder) -> Result<()> {
+    slice::append(builder)
+}
 pub(super) fn append_order(builder: &mut Builder) -> Result<()> {
     order::append(builder)
 }

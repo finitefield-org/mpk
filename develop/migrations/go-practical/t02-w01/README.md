@@ -810,3 +810,26 @@ exact. Source/type/evaluation/nominal/signed-domain binding,prefix/suffix/substr
 concat/source preservation/private context/full foundation/native kernel/general
 namespace/selected closure/all169/T02-T11 remain due. R01/R06/W01 stay open;
 the cumulative T02 gate remains W04: `./scripts/check-fast.sh`.
+
+The [guarded substring checkpoint](verification/string-slice/README.md) now
+constructs the complete frozen result with actual signed64 guard equivalence,
+full-width subtraction, checked non-wrapping source addition and real bounds
+before address conversion. Length, byte content, canonical padding, validity,
+weak content equivalence and normalization are proved. Its 2,142 declarations,
+67,192 terms and 865,248 bytes retain all 1,729 prior identities and exact old
+producer bytes; six definitions and 53 ordinary laws change no axiom, core rule,
+extensionality, capacity or limit. Source capacity is a profile precondition.
+Five affected Rust roots, strict Clippy, ten-file format and both unchanged cores
+pass 125 complete inputs: two zero-axiom acceptances and 123 type mismatches
+(53 conclusions, 66 typed witness domains, four typed wrong definitions with
+actual countermodels). Actual-DAG execution observes 78 whole raw/normalized
+outputs and 307 signed guards in 113,263,317 steps. Output-only replays keep
+complete 256-slot inputs/all64 endpoint bits and unchanged observer ceilings.
+Eleven full source epochs/4,251 preimages retain 13 checks and all seven original
+failures with available candidates and outputs. All 255 frozen inputs, 186 Go
+inputs and 127/four/39 scanner counts remain exact, without new exclusions.
+Original Go source/type/evaluation/nominal binding and source preservation,
+checked prefix/suffix, bounded concat, private context/full foundation/native
+kernel/general namespace/selected closure/all169/T02–T11 remain due. Go and Rust
+remain the only source languages. R01/R06/W01 stay open; the cumulative T02 gate
+remains W04: `./scripts/check-fast.sh`.

@@ -7074,3 +7074,47 @@ program, full ordinary foundation/private descriptor/registry/context,native
 kernel/general namespace/selected closure/all169/T02-T11 remain due. R01/R06/W01
 stay open; all source-consuming handles are terminal before staging and the
 cumulative T02 gate remains W04: `./scripts/check-fast.sh`.
+
+## 126. T02-W01 complete guarded frozen string substrings
+
+The [substring checkpoint](../migrations/go-practical/t02-w01/verification/string-slice/README.md)
+adds the complete frozen two-index carrier. Its 2,142 declarations, 67,192 terms
+and 865,248 bytes preserve all 1,729 preceding identities and the exact old
+687,164-byte producer. Six definitions and 53 ordinary laws use closed full64
+prerequisites without axioms, core rules, extensionality, caller roots or changes
+to the frozen capacity and checker limits.
+
+Actual sign bits and complete comparison circuits give a guard equivalent to
+`0 <= low <= high <= len(s)` in the existing balanced signed64 interpretation.
+Full64 subtraction supplies result length. Actual addition supplies each source
+position; its exact value and lack of wrap are proved before reading. A real
+strict bound precedes any eight-bit address conversion. Length, observable byte
+content, upper capacity, canonical padding, validity, weak content equivalence
+and input/output normalization are proved. Source capacity remains a separate
+profile precondition. These mathematical laws confer no original-source authority.
+
+Five affected Rust roots, strict target Clippy and ten-file format pass. Both
+unchanged independent cores agree on 125 complete same-byte candidates: two
+zero-axiom acceptances and 123 genuine type mismatches, comprising 53 changed
+conclusions, 66 actual typed witness domains and four typed wrong definitions.
+Actual countermodels expose each wrong definition. Actual-DAG execution covers
+39 complete carriers raw/normalized, 78 whole outputs, 307 signed guards and
+113,263,317 steps. Full input arrays and all64 endpoint bits remain intact;
+long outputs replay 64 slots at a time under unchanged observer ceilings.
+No arithmetic/string callback or theorem body supplies observations.
+
+Eleven complete source epochs and 4,251 original preimages retain 13 checks and
+all seven original failures: three construction Linkages before emission, two
+complete fuel-rejected candidates, a format syntax failure and an observer
+ceiling failure with available partial output. Adding the fixed addition root,
+explicit word-equality congruence and independent output replays repairs these
+without reconstructed original outputs, cap changes or evaluator exceptions.
+
+All 255 frozen inputs, 186 Go inputs and 127/four/39 matcher/scope/seal counts
+remain exact. Go and Rust remain the only source languages. Original Go source,
+type, evaluation and nominal binding, source-to-carrier preservation, checked
+prefix/suffix and bounded concat, array/storage/state/program, full foundation,
+private descriptor/registry/context, native kernel/general namespace/selected
+closure/all169/T02–T11 remain due. R01/R06/W01 stay open. All consuming test and
+checker handles are terminal before staging; the cumulative T02 gate remains
+W04: `./scripts/check-fast.sh`.

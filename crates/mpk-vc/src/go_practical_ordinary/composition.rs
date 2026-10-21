@@ -888,3 +888,87 @@ pub(super) fn string_order_prerequisites(inputs: &[Certificate]) -> Result<Build
     }
     Ok(composer.builder)
 }
+
+pub(super) fn string_slice_prerequisites(inputs: &[Certificate]) -> Result<Builder> {
+    if inputs.len() != 2
+        || inputs[0].module != "Mpk.Go.Practical.StringBoundedOrderFoundation"
+        || inputs[1].module != "Mpk.Go.Practical.WordOrderFoundation"
+    {
+        return Err(GoOrdinaryError::Foundation);
+    }
+    let mut index = BTreeMap::new();
+    let mut seen = BTreeMap::new();
+    for (source, certificate) in inputs.iter().enumerate() {
+        if !certificate.imports.is_empty()
+            || !certificate.proof_node_table.is_empty()
+            || !certificate.theory_certificates.is_empty()
+            || certificate.source_manifest.is_some()
+            || certificate.axiom_report.summary.total_axiom_count != 0
+            || certificate.declarations.iter().any(|d| {
+                !matches!(
+                    d.kind,
+                    DeclarationKind::Def { .. }
+                        | DeclarationKind::Theorem { .. }
+                        | DeclarationKind::Inductive { .. }
+                        | DeclarationKind::Constructor { .. }
+                        | DeclarationKind::Recursor { .. }
+                )
+            })
+        {
+            return Err(GoOrdinaryError::Foundation);
+        }
+        let hashes = fingerprints(certificate);
+        for (declaration, d) in certificate.declarations.iter().enumerate() {
+            let name = certificate.name_table[d.name as usize].clone();
+            if let Some(prior) = seen.get(&name) {
+                if prior != &hashes[&name] {
+                    return Err(GoOrdinaryError::Linkage);
+                }
+            } else {
+                seen.insert(name.clone(), hashes[&name].clone());
+                index.insert(name, (source, declaration));
+            }
+        }
+    }
+    let builder = Builder::new()?;
+    for (name, hash) in fingerprints(&builder.certificate) {
+        if seen.get(&name) != Some(&hash) {
+            return Err(GoOrdinaryError::Linkage);
+        }
+    }
+    let mut roots = inputs[0]
+        .declarations
+        .iter()
+        .map(|d| inputs[0].name_table[d.name as usize].clone())
+        .collect::<Vec<_>>();
+    // Whole prior string component and closed actual 64-bit arithmetic roots.
+    // These compiler recipes accept no caller-selected assembly authority.
+    for name in [
+        "W64.SubtractionConservation",
+        "W64.UnsignedLessNatural",
+        "W64.ValueBound",
+    ] {
+        roots.push(format!("Mpk.Go.Practical.Word.Order.{name}"));
+    }
+    roots.push("Mpk.Go.Practical.Word.W64.Add".into());
+    for name in ["W64.AdditionConservation", "W64.Signed"] {
+        roots.push(format!("Mpk.Go.Practical.Word.Numeric.{name}"));
+    }
+    for name in ["FromNat", "Less", "LessEqual"] {
+        roots.push(format!("Mpk.Go.Practical.Int.{name}"));
+    }
+    let mut composer = Composer {
+        inputs,
+        signed_division_names: false,
+        builder,
+        index,
+        cloned: BTreeMap::new(),
+        visiting: BTreeSet::new(),
+        terms: BTreeMap::new(),
+        levels: BTreeMap::new(),
+    };
+    for name in composer.dependency_order(&roots)? {
+        composer.declaration(&name)?;
+    }
+    Ok(composer.builder)
+}
