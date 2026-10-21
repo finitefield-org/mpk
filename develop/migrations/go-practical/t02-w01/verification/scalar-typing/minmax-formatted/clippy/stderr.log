@@ -1,0 +1,18 @@
+    Blocking waiting for file lock on build directory
+    Checking mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error: unneeded `return` statement
+   --> crates/mpk-vc/src/go_practical_type_keys/source_scalar_typing/operators.rs:249:13
+    |
+249 |             return Ok(Step::More(Plan::BuiltinReady(name, next)));
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#needless_return
+    = note: `-D clippy::needless-return` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::needless_return)]`
+help: remove `return`
+    |
+249 -             return Ok(Step::More(Plan::BuiltinReady(name, next)));
+249 +             Ok(Step::More(Plan::BuiltinReady(name, next)))
+    |
+
+error: could not compile `mpk-vc` (lib) due to 1 previous error

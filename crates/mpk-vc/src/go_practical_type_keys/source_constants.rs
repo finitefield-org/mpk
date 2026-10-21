@@ -59,7 +59,33 @@ impl GoConstantScalarType {
     pub fn declaration(&self) -> Option<&GoTypeDeclarationKey> {
         self.declaration.as_ref()
     }
-    fn builtin(name: &str) -> Result<Self> {
+    // The graph was independently derived from original type syntax. Reuse its
+    // exact nominal key and normalized scalar base; no caller type map is read.
+    pub(super) fn from_source_graph(types: &GoDerivedSourceTypes, id: &str) -> Result<Self> {
+        let key = types
+            .types()
+            .find(|key| key.id() == id)
+            .ok_or(GoConstantError::Type)?;
+        let base = types.underlying(id).unwrap_or(id);
+        let Some(GoSourceTypeKey::Builtin { name, .. }) =
+            types.types().find(|key| key.id() == base)
+        else {
+            return Err(GoConstantError::Unsupported);
+        };
+        let mut scalar = Self::builtin(name)?;
+        scalar.key = key.clone();
+        if let GoSourceTypeKey::Nominal { declaration_id, .. } = key {
+            scalar.declaration = Some(
+                types
+                    .declarations()
+                    .find(|d| &d.id == declaration_id)
+                    .ok_or(GoConstantError::Type)?
+                    .clone(),
+            );
+        }
+        Ok(scalar)
+    }
+    pub(super) fn builtin(name: &str) -> Result<Self> {
         let canonical = match name {
             "byte" => "uint8",
             "rune" => "int32",
@@ -94,7 +120,7 @@ impl GoConstantScalarType {
             declaration: None,
         })
     }
-    fn integer_shape(&self) -> Option<(u8, bool)> {
+    pub(super) fn integer_shape(&self) -> Option<(u8, bool)> {
         match self.underlying.as_str() {
             "int8" => Some((8, true)),
             "int16" => Some((16, true)),
@@ -191,7 +217,7 @@ impl GoEvaluatedConstant {
         }
         Ok(self)
     }
-    fn convert(mut self, target: GoConstantScalarType, explicit: bool) -> Result<Self> {
+    pub(super) fn convert(mut self, target: GoConstantScalarType, explicit: bool) -> Result<Self> {
         if !explicit
             && self
                 .typ
@@ -233,7 +259,7 @@ fn merge(
     }
     Ok((a, b))
 }
-fn unary(op: &str, mut a: GoEvaluatedConstant) -> Result<GoEvaluatedConstant> {
+pub(super) fn unary(op: &str, mut a: GoEvaluatedConstant) -> Result<GoEvaluatedConstant> {
     a.value = match (op, &a.value) {
         ("+", Value::Integer(n)) => Value::Integer(n.clone()),
         ("-", Value::Integer(n)) => Value::Integer(n.neg()),
@@ -250,7 +276,11 @@ fn unary(op: &str, mut a: GoEvaluatedConstant) -> Result<GoEvaluatedConstant> {
     };
     a.checked()
 }
-fn binary(op: &str, a: GoEvaluatedConstant, b: GoEvaluatedConstant) -> Result<GoEvaluatedConstant> {
+pub(super) fn binary(
+    op: &str,
+    a: GoEvaluatedConstant,
+    b: GoEvaluatedConstant,
+) -> Result<GoEvaluatedConstant> {
     if matches!(op, "<<" | ">>") {
         let (Value::Integer(x), Value::Integer(y)) = (&a.value, &b.value) else {
             return Err(GoConstantError::Type);
@@ -440,4 +470,32 @@ pub(super) fn quoted(raw: &[u8]) -> Result<(Vec<u8>, Option<u32>)> {
         None
     };
     Ok((out, rune))
+}
+
+// Shared exact scalar min/max, independent of expression traversal.
+pub(super) fn min_max(name: &str, args: Vec<GoEvaluatedConstant>) -> Result<GoEvaluatedConstant> {
+    let mut iter = args.into_iter();
+    let mut result = iter.next().ok_or(GoConstantError::Type)?;
+    if result.kind == GoConstantKind::Bool {
+        return Err(GoConstantError::Type);
+    }
+    for arg in iter {
+        let (a, b) = merge(result, arg)?;
+        let rune =
+            a.typ.is_none() && (a.kind == GoConstantKind::Rune || b.kind == GoConstantKind::Rune);
+        let order = match (&a.value, &b.value) {
+            (Value::Integer(x), Value::Integer(y)) => x.cmp(y),
+            (Value::Bytes(x), Value::Bytes(y)) => x.cmp(y),
+            _ => return Err(GoConstantError::Type),
+        };
+        result = if (name == "min" && order.is_gt()) || (name == "max" && order.is_lt()) {
+            b
+        } else {
+            a
+        };
+        if rune {
+            result.kind = GoConstantKind::Rune
+        }
+    }
+    Ok(result)
 }

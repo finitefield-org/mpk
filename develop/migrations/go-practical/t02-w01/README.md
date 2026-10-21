@@ -1140,3 +1140,21 @@ carrier/capture/context/resource and storage/program proofs, full56 foundation/
 registry and nativeLinux/generalnamespace/selectedclosure/all169/T02–T11 remain
 due. Go/Rust only; R01/R06/W01 stay open, public practical profile stays inactive
 and the T02 whole gate stays W04: `./scripts/check-fast.sh`.
+
+The [independent scalar typing checkpoint](verification/scalar-typing/README.md)
+derives original scalar expression and shared/inferred/short initializer types
+with canonical nominal identity, real default/expected contexts, exact constant
+versus runtime rules and scalar0–16 static call-header linkage. Contextual shifts
+and builtin min/max internal defaulting remain distinct; single-value and
+result-list APIs preserve arity. All2775 exact positive type/value/addressability
+outcomes and2205 actual Go rejections agree; five valid outside-reader cases stay
+explicit. Three new Rust/two affected constant roots,20000-node flat contextual
+work and scoped lint/vet/formats pass. Nine epochs/6862 preimages preserve18
+checks/three failures and all49052 original files/126193706 bytes with literal
+byte/mode audit, including both original false partial acceptances. SDK14496/
+frontend189/frozen255/ordinary448 basis remains exact. Aggregate/method/range/
+interface/body/assignment/call-state typing and source evaluation/carrier/
+capture/context/resource/storage/program proofs, full56 foundation/registry and
+nativeLinux/generalnamespace/selectedclosure/all169/T02–T11 remain due. Go/Rust
+only; R01/R06/W01 stay open, public practical profile stays inactive and the T02
+whole gate stays W04: `./scripts/check-fast.sh`.

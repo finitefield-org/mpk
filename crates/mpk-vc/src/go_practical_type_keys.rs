@@ -14,6 +14,7 @@ mod lex;
 mod parse;
 mod source_constants;
 mod source_declarations;
+mod source_scalar_typing;
 mod source_scopes;
 mod source_signatures;
 mod source_types;
@@ -27,6 +28,11 @@ pub use source_constants::{
     GoConstantScalarType, GoEvaluatedConstant,
 };
 pub use source_declarations::{GoBoundTypeDeclaration, GoSourceTypeDeclarations};
+pub use source_scalar_typing::{
+    check_go_scalar_assignment, infer_go_scalar_binding, infer_go_scalar_results,
+    infer_go_scalar_value, GoScalarCallHeader, GoScalarTyping, GoScalarTypingError,
+    GoSourceScalarValue,
+};
 pub use source_scopes::{
     build_go_source_scopes, GoNameLookup, GoSourceNameBinding, GoSourceNameKind,
     GoSourceScopeError, GoSourceScopes,

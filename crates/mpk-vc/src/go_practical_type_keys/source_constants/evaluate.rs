@@ -384,31 +384,7 @@ impl<'a> Engine<'a> {
                     )
                     .convert(GoConstantScalarType::builtin("int")?, false);
                 }
-                let mut iter = args.iter();
-                let mut result = value(iter.next().ok_or(GoConstantError::Type)?)?;
-                if result.kind == GoConstantKind::Bool {
-                    return Err(GoConstantError::Type);
-                }
-                for arg in iter {
-                    let (a, b) = merge(result, value(arg)?)?;
-                    let rune = a.typ.is_none()
-                        && (a.kind == GoConstantKind::Rune || b.kind == GoConstantKind::Rune);
-                    let order = match (&a.value, &b.value) {
-                        (Value::Integer(x), Value::Integer(y)) => x.cmp(y),
-                        (Value::Bytes(x), Value::Bytes(y)) => x.cmp(y),
-                        _ => return Err(GoConstantError::Type),
-                    };
-                    result = if (name == "min" && order.is_gt()) || (name == "max" && order.is_lt())
-                    {
-                        b
-                    } else {
-                        a
-                    };
-                    if rune {
-                        result.kind = GoConstantKind::Rune
-                    }
-                }
-                Ok(result)
+                min_max(&name, args.iter().map(value).collect::<Result<Vec<_>>>()?)
             }
         }
     }
