@@ -29,8 +29,9 @@ pub use source_constants::{
 };
 pub use source_declarations::{GoBoundTypeDeclaration, GoSourceTypeDeclarations};
 pub use source_scalar_typing::{
-    check_go_assignment, check_go_scalar_assignment, infer_go_binding, infer_go_results,
-    infer_go_scalar_binding, infer_go_scalar_results, infer_go_scalar_value, infer_go_value,
+    check_go_assignment, check_go_assignment_statement, check_go_scalar_assignment,
+    infer_go_binding, infer_go_results, infer_go_scalar_binding, infer_go_scalar_results,
+    infer_go_scalar_value, infer_go_value, GoAssignmentTarget, GoAssignmentTyping,
     GoErrorImplementation, GoMethodCallHeader, GoScalarCallHeader, GoScalarTyping,
     GoScalarTypingError, GoSliceBuiltinHeader, GoSourceMethod, GoSourceScalarValue,
     GoSourceTypedValue, GoValueTyping,

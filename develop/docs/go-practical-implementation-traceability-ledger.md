@@ -7582,3 +7582,20 @@ resource/storage/program proofs, full56 foundation/registry and nativeLinux/
 generalnamespace/selectedclosure/all169/T02–T11 remain due. Go/Rust only;
 R01/R06/W01 stay open, public profile remains inactive and the T02 whole gate
 stays W04: `./scripts/check-fast.sh`.
+
+## 146. T02-W01 original assignment targets and statement type compatibility
+
+The [original assignment typing checkpoint](../migrations/go-practical/t02-w01/verification/assignment-typing/README.md) checks actual assignment/short-declaration/compound/incdec syntax,
+writable targets, complete parallel/tuple lists, contextual constants/shifts,
+blank destinations and original new/reused bindings. All475 exact positives and
+951 actual rejections agree on1433 Go1.25 cases;7 valid outside-reader forms stay
+separate.903 ordered slots/215 new bindings/72 blanks/17 original static call
+headers agree independently. Three new Rust/ten affected old roots,200-variable
+parallel/short lists,16/17-result boundaries,20000-node contextual work and scoped
+lint/vet/formats pass. Five epochs/3902 preimages retain14 executions/one malformed
+deep-fixture failure and24739 original files/77332904 bytes with literal byte/mode
+audit. SDK14496/frontend189/frozen255/ordinary448 basis stays exact. Return/control/
+whole-body checking, actual evaluation/store/call-state/program proofs, full56
+foundation/registry and nativeLinux/generalnamespace/selectedclosure/all169/
+T02–T11 remain due. Go/Rust only; R01/R06/W01 remain open, public profile stays
+inactive and the full T02 gate stays finalW04: `./scripts/check-fast.sh`.

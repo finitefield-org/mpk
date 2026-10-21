@@ -2,11 +2,13 @@
 //! Header argument/result checks do not check callee bodies or invocation state.
 use super::*;
 mod aggregates;
+mod assignments;
 mod literals;
 mod members;
 mod methods;
 mod operators;
 mod slice_builtins;
+pub use assignments::{check_go_assignment_statement, GoAssignmentTarget, GoAssignmentTyping};
 pub use methods::{GoErrorImplementation, GoMethodCallHeader, GoSourceMethod};
 use operators::comparison;
 pub use slice_builtins::GoSliceBuiltinHeader;
@@ -210,6 +212,8 @@ enum Target {
     Expression(usize, Mode),
     Binding(usize),
     Declaration(usize),
+    Assignment(usize),
+    AssignmentOperation(usize),
 }
 #[derive(Clone, Debug, Eq, PartialEq, Ord, PartialOrd)]
 struct Request {
@@ -282,6 +286,11 @@ enum Destination {
     Reused(Request),
 }
 enum Plan {
+    AssignmentFirst(Vec<Option<Request>>, Vec<Request>),
+    AssignmentReady(Vec<Option<Request>>, Vec<Request>),
+    ShortAssignment(Request),
+    Compound(String, Request, Request),
+    Increment(Request),
     MethodReceiver(Request, usize, Vec<Request>),
     MethodFirst(Box<GoMethodCallHeader>, Vec<Request>),
     MethodReady(Box<GoMethodCallHeader>, Vec<Request>),
@@ -312,6 +321,14 @@ enum Plan {
 impl Plan {
     fn inputs(&self) -> Vec<Request> {
         match self {
+            Self::AssignmentFirst(lhs, rhs) | Self::AssignmentReady(lhs, rhs) => lhs
+                .iter()
+                .flatten()
+                .cloned()
+                .chain(rhs.iter().cloned())
+                .collect(),
+            Self::ShortAssignment(r) | Self::Increment(r) => vec![r.clone()],
+            Self::Compound(_, a, b) => vec![a.clone(), b.clone()],
             Self::Forward(r)
             | Self::IndexValue(r)
             | Self::Select(r, _)
@@ -642,6 +659,8 @@ impl<'a> Engine<'a> {
     }
     fn plan(&mut self, r: &Request) -> Result<Step> {
         match &r.target {
+            Target::Assignment(node) => self.assignment_plan(&r.source, *node),
+            Target::AssignmentOperation(node) => self.assignment_operation(&r.source, *node),
             Target::Binding(index) => {
                 let b = self
                     .scopes
@@ -915,6 +934,39 @@ impl<'a> Engine<'a> {
     }
     fn finish(&mut self, r: &Request, plan: Plan) -> Result<Step> {
         match plan {
+            Plan::AssignmentFirst(lhs, rhs) => self.assignment_first(lhs, rhs),
+            Plan::AssignmentReady(lhs, rhs) => {
+                let facts = self.expand(&rhs)?;
+                self.assignment_result(&lhs, facts)
+            }
+            Plan::ShortAssignment(declaration) => {
+                let mut facts = self.facts(&declaration)?;
+                let Target::Assignment(node) = r.target else {
+                    return Err(GoScalarTypingError::Locator);
+                };
+                for (a, &n) in facts
+                    .iter_mut()
+                    .zip(list(self.node(&r.source, node)?, "Lhs"))
+                {
+                    a.addressable = !self.blank_target(&r.source, n)?;
+                }
+                Ok(Step::Done(facts))
+            }
+            Plan::Compound(op, lhs, rhs) => {
+                self.assignment_targets(&[Some(lhs.clone())])?;
+                self.binary_first(op, lhs, rhs)
+            }
+            Plan::Increment(lhs) => {
+                self.assignment_targets(&[Some(lhs.clone())])?;
+                let a = self.one(&lhs)?;
+                if !matches!(a.kind, Some(GoConstantKind::Integer | GoConstantKind::Rune)) {
+                    return Err(GoScalarTypingError::Type);
+                }
+                Ok(Step::Done(vec![self.atom(
+                    a.typ.as_deref().ok_or(GoScalarTypingError::Type)?,
+                    false,
+                )]))
+            }
             Plan::MethodReceiver(base, selector, args) => {
                 let atom = self.one(&base)?;
                 let typ = atom.typ.ok_or(GoScalarTypingError::Type)?;
