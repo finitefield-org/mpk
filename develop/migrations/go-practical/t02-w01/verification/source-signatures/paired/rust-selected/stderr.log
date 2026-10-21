@@ -1,0 +1,8 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 6.74s
+     Running tests/go_practical_source_signatures.rs (target/debug/deps/go_practical_source_signatures-dd679f3d0abb5f8d)
+
+thread 'matches_actual_original_signatures_and_declared_bindings' (48198833) panicked at crates/mpk-vc/tests/go_practical_source_signatures.rs:186:32:
+missing original binding 3 {"end_byte":283,"expected_reader_error":"InferenceRequired","name":"x","source_object_id":"059c821c7dab40b6eda9ddc3134e860757c58691f4664f5fb8fa5dbc8e4073fb","start_byte":282,"type_id":null}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_source_signatures`

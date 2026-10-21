@@ -15,6 +15,7 @@ mod parse;
 mod source_constants;
 mod source_declarations;
 mod source_scopes;
+mod source_signatures;
 mod source_types;
 mod validate;
 pub use lex::{lex_go_source, GoLexError, GoLexErrorKind, GoLexToken, GoLexedSource};
@@ -29,6 +30,10 @@ pub use source_declarations::{GoBoundTypeDeclaration, GoSourceTypeDeclarations};
 pub use source_scopes::{
     build_go_source_scopes, GoNameLookup, GoSourceNameBinding, GoSourceNameKind,
     GoSourceScopeError, GoSourceScopes,
+};
+pub use source_signatures::{
+    derive_go_declared_binding_type, derive_go_source_signature, GoDeclaredSourceBindingType,
+    GoSourceSignature, GoSourceSignatureError, GoSourceSignatureRole, GoSourceSignatureSlot,
 };
 pub use source_types::{
     check_go_source_type_declarations, check_go_source_type_declarations_with_scopes,

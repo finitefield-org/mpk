@@ -52,6 +52,7 @@ impl GoDerivedSourceTypes {
 enum Target {
     Expression(usize),
     Declaration(usize),
+    VariadicBinding(usize),
 }
 #[derive(Clone, Debug, Eq, PartialEq, Ord, PartialOrd)]
 struct Request {
@@ -249,6 +250,16 @@ impl<'a> Builder<'a> {
     fn plan(&mut self, r: &Request) -> Result<std::result::Result<String, Plan>> {
         let node = match r.target {
             Target::Expression(n) => n,
+            Target::VariadicBinding(n) => {
+                let typ = self.node(&r.source, n)?;
+                if typ.kind() != "Ellipsis" {
+                    return Err(GoSourceTypeError::NotType);
+                }
+                return Ok(Err(Plan::Slice(Request::expr(
+                    &r.source,
+                    child(typ, "Elt")?,
+                ))));
+            }
             Target::Declaration(spec) => {
                 let decl = self.declaration(&r.source, spec)?;
                 let rhs = child(self.node(&r.source, spec)?, "Type")?;
@@ -277,6 +288,9 @@ impl<'a> Builder<'a> {
                 GoNameLookup::Original(b) if b.kind() == GoSourceNameKind::Type => Ok(Err(
                     Plan::Forward(Request::decl(b.source_object_id(), b.declaration_node())),
                 )),
+                GoNameLookup::Original(b) if b.kind() == GoSourceNameKind::TypeParameter => {
+                    Err(GoSourceTypeError::Unsupported)
+                }
                 _ => Err(GoSourceTypeError::NotType),
             },
             "ParenExpr" => Ok(Err(Plan::Forward(Request::expr(&r.source, child(n, "X")?)))),
@@ -562,6 +576,30 @@ pub fn derive_go_source_type(
     node: usize,
 ) -> Result<GoDerivedSourceTypes> {
     Builder::new(scopes).run(vec![Request::expr(source, node)])
+}
+// A signature's ordered fields share one owned source/type graph. Grouped
+// names reuse an original type expression; no synthetic AST or type is added.
+pub(super) fn derive_go_source_type_nodes(
+    scopes: &GoSourceScopes,
+    source: &str,
+    nodes: &[usize],
+) -> Result<GoDerivedSourceTypes> {
+    Builder::new(scopes).run(
+        nodes
+            .iter()
+            .map(|&node| Request::expr(source, node))
+            .collect(),
+    )
+}
+pub(super) fn derive_go_variadic_binding_type(
+    scopes: &GoSourceScopes,
+    source: &str,
+    node: usize,
+) -> Result<GoDerivedSourceTypes> {
+    Builder::new(scopes).run(vec![Request {
+        source: source.into(),
+        target: Target::VariadicBinding(node),
+    }])
 }
 /// Resolve an actual original TypeSpec and every referenced type declaration.
 pub fn derive_go_source_type_declaration(

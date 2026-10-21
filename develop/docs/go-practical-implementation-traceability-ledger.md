@@ -7477,3 +7477,24 @@ proofs, full56 foundation/registry and nativeLinux/generalnamespace/selected
 closure/all169/T02–T11 remain due. Go/Rust only; R01/R06/W01 stay open, public
 practical profile remains inactive and the T02 whole gate stays W04:
 `./scripts/check-fast.sh`.
+
+## 141. T02-W01 original function slots and binding annotations
+
+The [original signature and binding-annotation checkpoint](../migrations/go-practical/t02-w01/verification/source-signatures/README.md)
+retains ordered receiver/input/result and declared-variable types with exact
+original Field/name/type nodes, grouped sharing, unnamed/blank slots and local/
+imported aliases. Supported27 signatures and250 declared bindings match real Go
+keys and physical origins. Four valid signatures/three value types remain out
+of domain, five inferred variables require expression typing and one native
+function-type name remains type-only metadata. Local nominal receivers, fixed
+result arity0–16,70-input sharing, variadic-variable slice normalization and
+annotation/body separation retain their distinct checks. Five new Rust roots,
+four affected type roots and scoped lint/vet/formats pass. Eleven epochs/8344
+preimages preserve24 executions/three failures and all33373 original files/
+262995192 bytes with literal byte/mode audit; missing partial outputs are not
+recreated. SDK14496/frontend189/frozen255/ordinary448 basis remains exact.
+Expression/initializer/body/assignment/call/state typing, source evaluation/
+carrier/capture/context/resource and storage/program proofs, full56 foundation/
+registry and nativeLinux/generalnamespace/selectedclosure/all169/T02–T11 remain
+due. Go/Rust only; R01/R06/W01 stay open, public practical profile stays inactive
+and the T02 whole gate stays W04: `./scripts/check-fast.sh`.

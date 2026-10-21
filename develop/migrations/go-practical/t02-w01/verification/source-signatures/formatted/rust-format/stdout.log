@@ -1,0 +1,20 @@
+Diff in /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_type_keys/source_signatures.rs:196:
+                     return Err(GoSourceSignatureError::Limit);
+                 }
+             }
+-            if let std::collections::btree_map::Entry::Vacant(entry) = self.root_indices.entry(typ) {
++            if let std::collections::btree_map::Entry::Vacant(entry) = self.root_indices.entry(typ)
++            {
+                 entry.insert(self.roots.len());
+                 self.roots.push(typ);
+             }
+Diff in /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_type_keys/source_signatures.rs:196:
+                     return Err(GoSourceSignatureError::Limit);
+                 }
+             }
+-            if let std::collections::btree_map::Entry::Vacant(entry) = self.root_indices.entry(typ) {
++            if let std::collections::btree_map::Entry::Vacant(entry) = self.root_indices.entry(typ)
++            {
+                 entry.insert(self.roots.len());
+                 self.roots.push(typ);
+             }
