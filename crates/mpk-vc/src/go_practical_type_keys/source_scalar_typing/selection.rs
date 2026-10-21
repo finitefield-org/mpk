@@ -2,6 +2,7 @@
 //! inputs. This supplies no whole-package/capture/contract/state/program proof.
 use super::*;
 use std::sync::Arc;
+mod directives;
 
 #[derive(Clone, Debug, Eq, PartialEq, Ord, PartialOrd)]
 pub struct GoSourceSelectionRef {
@@ -116,6 +117,7 @@ pub enum GoSourceSelectionErrorKind {
     Unsupported,
     MissingBody,
     CallCycle,
+    CompilerDirective { start: usize, end: usize },
 }
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct GoSourceSelectionError {
@@ -182,6 +184,7 @@ struct Original {
     declaration: GoSourceSelectionDeclaration,
     typ: Option<usize>,
     values: Vec<usize>,
+    directive: Option<(usize, usize)>,
 }
 struct Pending {
     locator: GoSourceSelectionRef,
@@ -226,6 +229,7 @@ impl<'a> Selection<'a> {
             {
                 continue;
             }
+            let directives = directives::function_docs(parsed);
             for (node, n) in parsed.nodes().iter().enumerate() {
                 if n.kind() == "FuncDecl" {
                     let name = attr(&parsed.nodes()[list(n, "Name")[0]], "Name").unwrap_or("");
@@ -242,6 +246,7 @@ impl<'a> Selection<'a> {
                             },
                             typ: None,
                             values: vec![],
+                            directive: directives.get(&n.start()).copied(),
                         },
                     );
                 }
@@ -283,6 +288,7 @@ impl<'a> Selection<'a> {
                             },
                             typ,
                             values,
+                            directive: None,
                         },
                     );
                 }
@@ -907,6 +913,14 @@ impl<'a> Selection<'a> {
         let n = self.node(&w.locator.source, w.locator.node).clone();
         match n.kind() {
             "FuncDecl" => {
+                if let Some((start, end)) = self.originals[&w.locator].directive {
+                    return Err(fail(
+                        &w.locator,
+                        w.locator.node,
+                        GoSourceSelectionErrorKind::CompilerDirective { start, end },
+                        &w.path,
+                    ));
+                }
                 let signature =
                     derive_go_source_signature(self.scopes, &w.locator.source, w.locator.node)
                         .map_err(|e| {

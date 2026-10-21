@@ -1321,3 +1321,20 @@ complete v1 admission and source runtime/state/program proofs, full56 foundation
 registry and nativeLinux/all169/T02–T11 remain due. Go/Rust only; R01/R06/W01
 remain open, public profile stays inactive, and the T02 full gate remains
 finalW04: `./scripts/check-fast.sh`.
+
+The [independent function-directive checkpoint](verification/source-directives/README.md)
+rejects reached function documentation directives in both body and signature
+roles, including Error compatibility, from original bytes alone. Physical
+comment groups, inserted semicolons, CRLF/internal CR and //line retain original
+spans/paths; unselected functions stay type-check-only. All51 current native
+cases and33 unchanged original Rust cases pass:39 exact positive graphs/45
+rejections, with11 exact directive spans/paths. Four affected Rust roots,512
+helpers/70 parameters/70 roots and scoped Clippy/vet/formats pass.12 epochs/
+10229 preimages retain16 executions/three failures;6 archives/22619 files/
+254849781 bytes compare literally. The explicit original-corpus inventory
+followup reruns all roots and both174-file passing maps agree byte for byte.
+SDK14496/frontend190/frozen255/ordinary448 stay exact. Capture/wire/contract/full
+v1 admission and source runtime/state/program proofs, full56 foundation/private
+registry and nativeLinux/all169/T02–T11 remain due. Go/Rust only; R01/R06/W01
+stay open, public profile stays inactive and the T02 full gate stays finalW04:
+`./scripts/check-fast.sh`.

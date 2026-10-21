@@ -1,0 +1,92 @@
+{
+  "status": "passed",
+  "observed_at_utc": "2026-10-21T23:14:58.638818+00:00",
+  "actual_driver_prelaunch_sha256": "cbb4b76bac1d38dd4f1f4c53ddfad9ab37fc817477e72ec1fc0a00b7ccef39fc",
+  "archives": [
+    {
+      "name": "assertion-native-original",
+      "files": 11077,
+      "bytes": 106834719
+    },
+    {
+      "name": "complete-rust-original",
+      "files": 174,
+      "bytes": 15052108
+    },
+    {
+      "name": "failed-native-original",
+      "files": 3,
+      "bytes": 48845
+    },
+    {
+      "name": "initial-rust-original",
+      "files": 114,
+      "bytes": 11027253
+    },
+    {
+      "name": "native-original",
+      "files": 11077,
+      "bytes": 106834748
+    },
+    {
+      "name": "rust-original",
+      "files": 174,
+      "bytes": 15052108
+    }
+  ],
+  "actual_original_files_compared_literally": 22619,
+  "actual_original_bytes_compared_literally": 254849781,
+  "all_original_modes_compared": true,
+  "corpora": {
+    "current": {
+      "cases": 51,
+      "positive_graphs": 24,
+      "negative_rejections": 27,
+      "calls": 516,
+      "dependencies": 1071,
+      "declarations": 16200,
+      "exact_directive_spans": 10,
+      "directive_path_lengths": [
+        2,
+        1,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "baseline": {
+      "cases": 33,
+      "positive_graphs": 15,
+      "negative_rejections": 18,
+      "calls": 516,
+      "dependencies": 1071,
+      "declarations": 9795,
+      "exact_directive_spans": 1,
+      "directive_path_lengths": [
+        2
+      ]
+    }
+  },
+  "total_original_cases": 84,
+  "exact_positive_graphs": 39,
+  "independent_negative_rejections": 45,
+  "exact_directive_spans_and_paths": 11,
+  "full_original_comment_tokens_including_CR": true,
+  "pinned_go_parser_source": {
+    "path": "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/src/go/parser/parser.go",
+    "bytes": 75688,
+    "sha256": "ad0a0a8fce883ab86ec3d2bf1d8d8dcc1072534bff46ab26c0796795f7b3087a"
+  },
+  "all_prior_frontend_inputs_unchanged": 190,
+  "fresh_frontend_rebuild_required": false,
+  "initial_rust_observation_limit": "The first comparison asserted the directive span before writing case27 actual rows in both threads; those two actual rows were not retained. All114 actually available files, complete code/input epochs and actual stdout/stderr remain. The test now retains actual rows before assertions; no missing old row is recreated.",
+  "source_admission_capture_or_execution_program_proof": false,
+  "not_recreated_or_recompiled": true,
+  "passing_Rust_replays_byte_exact": true,
+  "baseline_corpus_explicitly_in_final_prelaunch_inventory": true
+}

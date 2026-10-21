@@ -1,6 +1,6 @@
 use mpk_vc::go_practical_type_keys::{
     derive_go_source_selection, import_go_type_key_components, GoSourceSelection,
-    GoSourceSelectionRef, GoTypeKeyComponents, GoTypeSourceBuffer,
+    GoSourceSelectionErrorKind, GoSourceSelectionRef, GoTypeKeyComponents, GoTypeSourceBuffer,
 };
 use mpk_vc::{
     canonical_json_bytes, hash_canonical_json, parse_strict_json, HashDomain, StrictJsonLimits,
@@ -9,7 +9,7 @@ use serde_json::{json, Value};
 use std::path::PathBuf;
 fn root() -> PathBuf {
     PathBuf::from(env!("CARGO_MANIFEST_DIR"))
-        .join("../../develop/migrations/go-practical/t02-w01/verification/source-selection")
+        .join("../../develop/migrations/go-practical/t02-w01/verification/source-directives")
 }
 fn bytes(value: &Value) -> Vec<u8> {
     let s = value.as_str().unwrap().as_bytes();
@@ -143,17 +143,14 @@ fn output(s: &GoSourceSelection) -> Value {
     let dependencies=s.dependencies().iter().map(|d|json!({"from":reference(s,d.from()),"to":reference(s,d.to()),"role":d.role().as_str()})).collect();
     json!({"declarations":normalized(declarations),"calls":normalized(calls),"dependencies":normalized(dependencies)})
 }
-#[test]
-fn reconstructs_original_selected_functions_without_native_type_facts() {
-    let cases: Value =
-        serde_json::from_slice(&std::fs::read(root().join("corpus.json")).unwrap()).unwrap();
+fn compare_original_cases(cases: Value, count: usize, label: &str) {
     let cases = cases.as_array().unwrap();
-    assert_eq!(cases.len(), 33);
+    assert_eq!(cases.len(), count);
     let (mut positive, mut negative) = (0, 0);
     let mut failures = vec![];
     for (n, row) in cases.iter().enumerate() {
         let input = &row["input"];
-        retain(&format!("case-{n:02}-input.json"), input);
+        retain(&format!("{label}-case-{n:02}-input.json"), input);
         let keys = keys(input).unwrap();
         let r = &input["root"];
         let r = locator(
@@ -163,11 +160,68 @@ fn reconstructs_original_selected_functions_without_native_type_facts() {
             r["end"].as_u64().unwrap() as usize,
         );
         let result = derive_go_source_selection(&keys, &[r]);
+        let physical = |r: &GoSourceSelectionRef| {
+            let n = &keys
+                .source_declarations()
+                .source(r.source_object_id())
+                .unwrap()
+                .nodes()[r.node()];
+            json!({"source":r.source_object_id(),"start":n.start(),"end":n.end()})
+        };
         let actual = match &result {
             Ok(s) => output(s),
-            Err(e) => json!({"error":format!("{e:?}")}),
+            Err(e) => {
+                let mut v = json!({"error":format!("{e:?}"),"source":e.source_object_id(),"node":e.node(),"path":e.path().iter().map(&physical).collect::<Vec<_>>()});
+                if let GoSourceSelectionErrorKind::CompilerDirective { start, end } = e.kind() {
+                    v["compiler_directive"] = json!({"start":start,"end":end});
+                }
+                v
+            }
         };
-        retain(&format!("case-{n:02}-actual.json"), &actual);
+        retain(&format!("{label}-case-{n:02}-actual.json"), &actual);
+        if let Err(e) = &result {
+            if let GoSourceSelectionErrorKind::CompilerDirective { start, end } = e.kind() {
+                let native = &row["native"];
+                let issue = native["issues"]
+                    .as_array()
+                    .unwrap()
+                    .iter()
+                    .find(|i| {
+                        i["code"] == "compiler_directive"
+                            && i["source"] == e.source_object_id()
+                            && i["start"] == *start
+                            && i["end"] == *end
+                    })
+                    .expect("independently recovered original directive span");
+                let declaration =
+                    physical(&GoSourceSelectionRef::new(e.source_object_id(), e.node()));
+                assert_eq!(
+                    declaration,
+                    json!({"source":issue["declaration"]["source"],"start":issue["declaration"]["start"],"end":issue["declaration"]["end"]})
+                );
+                assert_eq!(
+                    actual["path"][0],
+                    json!({"source":input["root"]["source"],"start":input["root"]["start"],"end":input["root"]["end"]})
+                );
+                assert_eq!(
+                    actual["path"].as_array().unwrap().last().unwrap(),
+                    &declaration
+                );
+                let physical_native =
+                    |r: &Value| json!({"source":r["source"],"start":r["start"],"end":r["end"]});
+                for edge in actual["path"].as_array().unwrap().windows(2) {
+                    assert!(
+                        native["dependencies"]
+                            .as_array()
+                            .unwrap()
+                            .iter()
+                            .any(|d| physical_native(&d["from"]) == edge[0]
+                                && physical_native(&d["to"]) == edge[1]),
+                        "error path is not an original dependency"
+                    );
+                }
+            }
+        }
         if input["expected_issue_codes"].is_null() {
             positive += 1;
             if let Ok(s) = &result {
@@ -207,10 +261,25 @@ fn reconstructs_original_selected_functions_without_native_type_facts() {
         }
     }
     retain(
-        "summary.json",
+        &format!("{label}-summary.json"),
         &json!({"positive":positive,"negative":negative,"failures":failures}),
     );
     assert!(failures.is_empty(), "{}", failures.join("\n"));
+}
+#[test]
+fn reconstructs_original_selected_functions_without_native_type_facts() {
+    let cases =
+        serde_json::from_slice(&std::fs::read(root().join("corpus.json")).unwrap()).unwrap();
+    compare_original_cases(cases, 51, "current");
+}
+#[test]
+fn preserves_the_original_33_case_selection_corpus() {
+    let path = root()
+        .parent()
+        .unwrap()
+        .join("source-selection/corpus.json");
+    let cases = serde_json::from_slice(&std::fs::read(path).unwrap()).unwrap();
+    compare_original_cases(cases, 33, "baseline");
 }
 #[test]
 fn selection_owns_sources_and_rejects_nonoriginal_roots() {

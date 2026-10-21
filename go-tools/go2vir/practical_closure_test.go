@@ -132,7 +132,47 @@ func StringRange(s string){for range s{}}
 func Slice(s []int64)int64{var result int64;for _,x:=range s{result+=x};return result}
 func Spread(s []int64)[]int64{return append(s,s...)}
 func TooMany()(int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int){return 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
+//go:nosplit
+func DirectiveRoot()int{return 1}
+func DirectiveCaller()int{return DirectiveRoot()}
+type DirectiveCode uint16
+//go:noinline
+func(DirectiveCode)Error()string{return "directive body"}
+func DirectiveBox()error{return DirectiveCode(0)}
+func DirectiveType(x DirectiveCode)DirectiveCode{return x}
+//go:noinline
+
+func DocBlank()int{return 1}
+/* //go:nosplit */
+func DocBlock()int{return 1}
+// go:nosplit
+func DocSpaced()int{return 1}
+func DocLiteral()string{return "//go:nosplit"}
+func DocPrevious(){} // ordinary trailing comment
+func DocTrailing()int{return 1}
+/* note */ func DocSameLine()int{return 1}
+//go:mpk_unknown
+
+// Only this final group belongs to the declaration.
+func DocLaterGroup()int{return 1}
+func DocBeforeBlock(){} /* first line
+//go:mpk_unknown
+*/
+func DocAfterBlock()int{return 1}
+//go:nosplit
+/* bridge */
+func DocBlockBridge()int{return 1}
+/* bridge */
+//go:mpk_unknown
+func DocFollowingBlock()int{return 1}
+	//go:noinline
+func DocIndented()int{return 1}
+//line absent-generated.go:70
+//go:noinline
+func DocLine()int{return 1}
 `
+	policy += "func DocRaw()string{return `//go:noinline\nraw literal`}\n"
+	policy += "//g\ro:mpk_unknown\nfunc DocCR()int{return 1}\n"
 	params, args := []string{}, []string{}
 	for n := 0; n < 70; n++ {
 		params = append(params, fmt.Sprintf("p%d int64", n))
@@ -157,6 +197,9 @@ func TooMany()(int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,i
 	}{
 		{"Pure", nil}, {"ErrorOnly", nil}, {"Method", nil}, {"MethodExpression", nil}, {"GlobalConstant", nil}, {"GlobalIgnoredElement", nil}, {"Local", nil}, {"Slice", nil}, {"Spread", nil}, {"Context", nil}, {"ContextBlank", nil}, {"InferredLen", nil}, {"InferredLocal", nil}, {"ManyRoot", nil}, {"Chain0", nil},
 		{"CallError", []string{"builtin_panic"}}, {"Dispatch", []string{"indirect_call"}}, {"Promoted", []string{"promoted_selector"}}, {"PointerCall", []string{"syntax_*ast.StarExpr"}}, {"MethodValue", []string{"function_value", "indirect_call"}}, {"Indirect", []string{"function_value_type", "indirect_call"}}, {"GlobalRead", []string{"mutable_package_state"}}, {"GlobalWrite", []string{"mutable_package_state"}}, {"GlobalNonconstant", []string{"mutable_package_state"}}, {"BranchRoot", []string{"syntax_*ast.DeferStmt"}}, {"Self", []string{"call_cycle"}}, {"CycleRoot", []string{"call_cycle"}}, {"OpaqueRoot", []string{"missing_body"}}, {"GenericRoot", []string{"generic_declaration"}}, {"Min", []string{"builtin_min"}}, {"TooMany", []string{"result_limit"}}, {"StringRange", []string{"range_kind"}}, {"init", []string{"initialization_root", "builtin_panic"}},
+		{"DirectiveRoot", []string{"compiler_directive"}}, {"DirectiveCaller", []string{"compiler_directive"}}, {"DirectiveBox", []string{"compiler_directive"}}, {"DirectiveType", []string{"compiler_directive"}},
+		{"DocBlank", nil}, {"DocBlock", nil}, {"DocSpaced", nil}, {"DocLiteral", nil}, {"DocTrailing", nil}, {"DocSameLine", nil}, {"DocLaterGroup", nil}, {"DocAfterBlock", nil}, {"DocRaw", nil},
+		{"DocBlockBridge", []string{"compiler_directive"}}, {"DocFollowingBlock", []string{"compiler_directive"}}, {"DocCR", []string{"compiler_directive"}}, {"DocIndented", []string{"compiler_directive"}}, {"DocLine", []string{"compiler_directive"}},
 	}
 	var saved practicalSourceClosure
 	for index, test := range tests {
@@ -198,7 +241,7 @@ func TooMany()(int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,i
 			if test.name == "ErrorOnly" {
 				found := false
 				for _, d := range result.declarations {
-					if d.kind == "function" && reflect.DeepEqual(d.names, []string{"Error"}) {
+					if d.kind == "function" && reflect.DeepEqual(d.names, []string{"Error"}) && !reflect.DeepEqual(d.roles, []string{"type_check_only"}) {
 						found = true
 						if !reflect.DeepEqual(d.roles, []string{"signature_dependency"}) {
 							t.Fatal("error compatibility pulled the Error body into proof", d)
