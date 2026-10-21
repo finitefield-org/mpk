@@ -7437,3 +7437,22 @@ full type-expression/nominal/alias/module/capture/context and ordinary source/
 storage/program requirements remain due, together with full56 foundation/
 registry, nativeLinux/generalnamespace/selectedclosure/all169/T02–T11. Go/Rust
 only; R01/R06/W01 stay open and the T02 whole gate stays W04: `./scripts/check-fast.sh`.
+
+## 139. T02-W01 independent exact original scalar constants
+
+The [independent scalar constant checkpoint](../migrations/go-practical/t02-w01/verification/source-constants/README.md)
+evaluates real original scalar syntax with multiword exact integers, pinned
+compiler precision and typed representability, preserved scalar/nominal keys,
+byte strings/runes/bools and grouped/inferred/imported constants. Repeated specs
+use their actual current lexical point and iota; inherited annotations and name
+shadowing remain exact. All4832 actual Go scalar values/types match;281 real
+rejections agree and four valid outside-reader cases stay explicitly unmodeled.
+One Go/two new Rust/three affected scope roots, strict lint/scoped vet/formats
+pass. Runtime-pinned native rerun preserves10235 full original files exactly;
+SDK14496, frontend189, frozen255 and ordinary448 basis remain unchanged. Seven
+epochs/5063 preimages retain18 executions/three original failures and all30978
+original files/66409565 bytes with literal byte/mode audit. Full type/array/
+nominal/source-evaluation/capture/context and ordinary storage/program proofs,
+resource closure, full56 foundation/registry and nativeLinux/generalnamespace/
+selectedclosure/all169/T02–T11 remain due. Go/Rust only; R01/R06/W01 stay open
+and the T02 whole gate stays W04: `./scripts/check-fast.sh`.

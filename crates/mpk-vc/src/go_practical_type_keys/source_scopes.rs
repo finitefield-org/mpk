@@ -117,10 +117,37 @@ impl GoSourceScopes {
     pub fn bindings(&self) -> &[GoSourceNameBinding] {
         &self.bindings
     }
+    pub(super) fn sources(&self) -> impl Iterator<Item = (&str, &GoParsedSource)> {
+        self.syntax.iter().map(|(id, source)| (id.as_str(), source))
+    }
+    pub(super) fn imported_member(
+        &self,
+        path: &str,
+        name: &str,
+    ) -> Result<Option<GoSourceNameBinding>> {
+        if !name.chars().next().is_some_and(validate::exported) {
+            return Ok(None);
+        }
+        let package = self.imports.get(path).ok_or(GoSourceScopeError::Import)?;
+        Ok(self.scopes[self.package_scopes[package]]
+            .names
+            .get(name)
+            .map(|&id| self.bindings[id].clone()))
+    }
     /// Lookup in the lexical namespace at an actual original Ident. This does
     /// not assert that the syntax position is a lexical use: selector fields,
     /// labels, declaration names and typed composite keys need their own rules.
     pub fn lookup_identifier(&self, source: &str, node: usize) -> Result<Option<GoNameLookup>> {
+        self.lookup_context(source, node, None)
+    }
+    // Implicitly repeated ConstSpecs reuse an original expression node but its
+    // names are resolved at the repeated declaration's actual lexical point.
+    pub(super) fn lookup_context(
+        &self,
+        source: &str,
+        node: usize,
+        context: Option<usize>,
+    ) -> Result<Option<GoNameLookup>> {
         let parsed = self.syntax.get(source).ok_or(GoSourceScopeError::Locator)?;
         let ident = parsed
             .nodes()
@@ -130,9 +157,18 @@ impl GoSourceScopes {
             return Err(GoSourceScopeError::Locator);
         }
         let name = attr(ident, "Name").ok_or(GoSourceScopeError::Syntax)?;
+        let position = match context {
+            Some(id) => parsed
+                .nodes()
+                .get(id)
+                .ok_or(GoSourceScopeError::Locator)?
+                .end()
+                .saturating_sub(1),
+            None => ident.start(),
+        };
         let mut scope = *self
             .node_scopes
-            .get(&(source.to_string(), node))
+            .get(&(source.to_string(), context.unwrap_or(node)))
             .ok_or(GoSourceScopeError::Locator)?;
         loop {
             let current = &self.scopes[scope];
@@ -152,9 +188,10 @@ impl GoSourceScopes {
                 // own declared parameter. Go records this binder in Uses;
                 // do not widen visibility for other receiver occurrences.
                 let own_parameter = b.kind == GoSourceNameKind::TypeParameter
+                    && context.is_none()
                     && b.name_node == node
                     && b.source_object_id == source;
-                if own_parameter || b.visible_from <= ident.start() || current.parent.is_none() {
+                if own_parameter || b.visible_from <= position || current.parent.is_none() {
                     return Ok(Some(GoNameLookup::Original(b.clone())));
                 }
             }

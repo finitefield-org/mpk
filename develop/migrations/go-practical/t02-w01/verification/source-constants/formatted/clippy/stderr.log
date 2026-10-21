@@ -1,0 +1,43 @@
+    Checking mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error: large size difference between variants
+  --> crates/mpk-vc/src/go_practical_type_keys/source_constants/evaluate.rs:37:1
+   |
+37 | / enum Plan {
+38 | |     Forward(Request),
+39 | |     Unary(String, Request),
+40 | |     Binary(String, Request, Request),
+   | |     -------------------------------- the second-largest variant contains at least 120 bytes
+41 | |     Convert(GoConstantScalarType, Request, bool),
+   | |     -------------------------------------------- the largest variant contains at least 321 bytes
+42 | |     Builtin(String, Vec<Request>),
+43 | | }
+   | |_^ the entire enum is at least 328 bytes
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#large_enum_variant
+   = note: `-D clippy::large-enum-variant` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(clippy::large_enum_variant)]`
+help: consider boxing the large fields or introducing indirection in some other way to reduce the total size of the enum
+   |
+41 -     Convert(GoConstantScalarType, Request, bool),
+41 +     Convert(Box<GoConstantScalarType>, Request, bool),
+   |
+
+error: large size difference between variants
+  --> crates/mpk-vc/src/go_practical_type_keys/source_constants/evaluate.rs:53:1
+   |
+53 | / enum Work {
+54 | |     Visit(Request),
+   | |     -------------- the second-largest variant contains at least 48 bytes
+55 | |     Finish(Request, Plan),
+   | |     --------------------- the largest variant contains at least 376 bytes
+56 | | }
+   | |_^ the entire enum is at least 376 bytes
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#large_enum_variant
+help: consider boxing the large fields or introducing indirection in some other way to reduce the total size of the enum
+   |
+55 -     Finish(Request, Plan),
+55 +     Finish(Request, Box<Plan>),
+   |
+
+error: could not compile `mpk-vc` (lib) due to 2 previous errors

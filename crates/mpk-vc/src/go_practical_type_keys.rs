@@ -12,12 +12,17 @@ use std::collections::{BTreeMap, BTreeSet};
 
 mod lex;
 mod parse;
+mod source_constants;
 mod source_declarations;
 mod source_scopes;
 mod validate;
 pub use lex::{lex_go_source, GoLexError, GoLexErrorKind, GoLexToken, GoLexedSource};
 pub use parse::{
     parse_go_source, GoParseError, GoParseErrorKind, GoParsedSource, GoSyntaxEdge, GoSyntaxNode,
+};
+pub use source_constants::{
+    evaluate_go_constant, evaluate_go_constant_binding, GoConstantError, GoConstantKind,
+    GoConstantScalarType, GoEvaluatedConstant,
 };
 pub use source_declarations::{GoBoundTypeDeclaration, GoSourceTypeDeclarations};
 pub use source_scopes::{
