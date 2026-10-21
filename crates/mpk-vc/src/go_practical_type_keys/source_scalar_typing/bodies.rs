@@ -375,6 +375,24 @@ impl Body<'_> {
                         GoBodyErrorKind::Typing(GoScalarTypingError::Type),
                     ));
                 }
+                if role == "Value" {
+                    at(
+                        self.source,
+                        target,
+                        self.engine.record_range_boxing(
+                            self.source,
+                            x,
+                            &typ,
+                            a.typ.as_deref().ok_or_else(|| {
+                                error(
+                                    self.source,
+                                    target,
+                                    GoBodyErrorKind::Typing(GoScalarTypingError::Type),
+                                )
+                            })?,
+                        ),
+                    )?;
+                }
                 self.record(target, name, &a)?;
             }
         }

@@ -1,6 +1,21 @@
 //! Shared value-type registry, assignment/conversion and comparison rules.
 use super::*;
 impl Engine<'_> {
+    pub(super) fn range_operand_evaluated(&mut self, source: &str, node: usize) -> Result<bool> {
+        let n = self.node(source, node)?.clone();
+        if let Some(&value) = list(&n, "Value").first() {
+            if !self.blank_target(source, value)? {
+                return Ok(true);
+            }
+        }
+        let request = Request::raw(source, child(&n, "X")?);
+        self.compute(request.clone())?;
+        let fact = self.one(&request)?;
+        Ok(!matches!(
+            self.shape(fact.typ.as_deref().ok_or(GoScalarTypingError::Type)?)?,
+            GoSourceTypeKey::Array { .. }
+        ) || self.contains_call(&request)?)
+    }
     fn contains_call(&self, r: &Request) -> Result<bool> {
         let mut work = vec![r.expression()?];
         let mut seen = BTreeSet::new();
@@ -239,6 +254,11 @@ impl Engine<'_> {
             {
                 return Err(GoScalarTypingError::Type);
             }
+            self.record_error_boxings(
+                std::slice::from_ref(&arg),
+                std::slice::from_ref(&a),
+                &[Some(typ.clone())],
+            )?;
             return Ok(Step::Done(vec![self.atom(&typ, false)]));
         }
         if let Some(value) = a.value {

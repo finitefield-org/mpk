@@ -159,6 +159,8 @@ pub struct GoSourceSelection {
     declarations: Vec<GoSourceSelectionDeclaration>,
     dependencies: Vec<GoSourceSelectionDependency>,
     calls: Vec<GoSourceSelectionCall>,
+    error_boxings: Vec<GoErrorBoxing>,
+    boxed_error_types: Vec<String>,
 }
 impl GoSourceSelection {
     pub fn source(&self, id: &str) -> Option<&GoParsedSource> {
@@ -179,6 +181,16 @@ impl GoSourceSelection {
     pub fn calls(&self) -> &[GoSourceSelectionCall] {
         &self.calls
     }
+    /// Concrete-to-error sites in selected bodies, including all branches but
+    /// excluding unevaluated operands. Entry error cases are separate inputs.
+    pub fn body_error_boxings(&self) -> &[GoErrorBoxing] {
+        &self.error_boxings
+    }
+    /// This body-derived union is not the complete global error universe: a
+    /// verification unit must additionally bind every error-bearing entry case.
+    pub fn body_boxed_error_type_ids(&self) -> &[String] {
+        &self.boxed_error_types
+    }
 }
 struct Original {
     declaration: GoSourceSelectionDeclaration,
@@ -198,6 +210,7 @@ struct Selection<'a> {
     done: BTreeSet<(GoSourceSelectionRef, GoSourceSelectionRole)>,
     dependencies: BTreeSet<GoSourceSelectionDependency>,
     calls: BTreeSet<GoSourceSelectionCall>,
+    error_boxings: BTreeSet<GoErrorBoxing>,
 }
 fn fail(
     locator: &GoSourceSelectionRef,
@@ -301,6 +314,7 @@ impl<'a> Selection<'a> {
             done: BTreeSet::new(),
             dependencies: BTreeSet::new(),
             calls: BTreeSet::new(),
+            error_boxings: BTreeSet::new(),
         }
     }
     fn need(
@@ -499,15 +513,35 @@ impl<'a> Selection<'a> {
         let mut engine = Engine::new(self.scopes);
         let mut tasks = roots;
         let mut seen = BTreeSet::new();
+        let mut boxings: BTreeMap<usize, Vec<&GoErrorBoxing>> = BTreeMap::new();
+        if let Some(typing) = typing {
+            for site in typing.error_boxings() {
+                if site.source_object_id() == from.source {
+                    boxings
+                        .entry(site.expression_node())
+                        .or_default()
+                        .push(site);
+                }
+            }
+        }
         while let Some((node, runtime)) = tasks.pop() {
             if !seen.insert((node, runtime)) {
                 continue;
             }
             let n = self.node(&from.source, node).clone();
+            if runtime {
+                if let Some(sites) = boxings.get(&node) {
+                    self.error_boxings
+                        .extend(sites.iter().map(|site| (*site).clone()));
+                }
+            }
             let err = |e| fail(from, node, GoSourceSelectionErrorKind::Typing(e), path);
             match n.kind() {
                 "RangeStmt" => {
-                    tasks.push((child(&n, "X").map_err(err)?, runtime));
+                    let evaluates = engine
+                        .range_operand_evaluated(&from.source, node)
+                        .map_err(err)?;
+                    tasks.push((child(&n, "X").map_err(err)?, runtime && evaluates));
                     tasks.extend(list(&n, "Body").iter().map(|&n| (n, runtime)));
                     if attr(&n, "Tok") != Some(":=") {
                         tasks.extend(
@@ -1165,6 +1199,14 @@ pub fn derive_go_source_selection(
         .collect();
     let dependencies = builder.dependencies.into_iter().collect();
     let calls = builder.calls.into_iter().collect();
+    let boxed_error_types = builder
+        .error_boxings
+        .iter()
+        .map(|site| site.value_type_id().to_string())
+        .collect::<BTreeSet<_>>()
+        .into_iter()
+        .collect();
+    let error_boxings = builder.error_boxings.into_iter().collect();
     Ok(GoSourceSelection {
         scopes: Arc::new(scopes),
         packages: keys.wire.packages.clone(),
@@ -1172,5 +1214,7 @@ pub fn derive_go_source_selection(
         declarations,
         dependencies,
         calls,
+        error_boxings,
+        boxed_error_types,
     })
 }

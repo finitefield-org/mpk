@@ -165,7 +165,7 @@ impl Engine<'_> {
         let mut targets = vec![typ.clone()];
         targets.extend((1..facts.len()).map(|_| target.clone()));
         if args.len() == 1 && facts.len() != 1 {
-            self.check_types(&facts, &targets)?;
+            self.error_arguments(&args, &facts, &targets)?;
             return self.slice_result(r, "append", typ);
         }
         let next = args
@@ -191,7 +191,7 @@ impl Engine<'_> {
         };
         let mut targets = vec![typ.clone()];
         targets.extend((1..facts.len()).map(|_| target.clone()));
-        self.check_types(&facts, &targets)?;
+        self.error_arguments(&args, &facts, &targets)?;
         self.slice_result(r, "append", typ)
     }
     pub(super) fn copy_slice(&mut self, r: &Request, args: Vec<Request>) -> Result<Step> {

@@ -450,7 +450,7 @@ impl Engine<'_> {
             return Err(GoScalarTypingError::Arity);
         }
         if args.len() == 1 && facts.len() != 1 {
-            self.check_types(&facts, &header.parameters)?;
+            self.error_arguments(&args, &facts, &header.parameters)?;
             return self.method_result(header);
         }
         let next = args

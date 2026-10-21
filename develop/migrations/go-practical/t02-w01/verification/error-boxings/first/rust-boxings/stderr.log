@@ -1,0 +1,10 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 18.17s
+     Running tests/go_practical_error_boxings.rs (target/debug/deps/go_practical_error_boxings-44b73f07350d9657)
+
+thread 'reconstructs_original_error_boxings_and_body_type_union_without_native_facts' (50526555) panicked at crates/mpk-vc/tests/go_practical_error_boxings.rs:138:9:
+assertion `left == right` failed: "ConstLen" typed
+  left: Array []
+ right: Array [Object {"end": Number(2025), "projection": Number(0), "source": String("2bda44d4fd13fdcb6129f4b65352bee2181dd944836021fc29f50540c3fcebff"), "start": Number(2018), "type_id": String("2d3894d6075f8cf09f2318d8f5b7eadcf7a2c77ed476a2342ed5facf3473e463")}]
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_error_boxings`

@@ -156,7 +156,7 @@ impl Engine<'_> {
             return Err(GoScalarTypingError::Arity);
         }
         if args.len() == 1 && facts.len() != 1 {
-            return self.return_result(&types, &facts);
+            return self.return_result(&args, &types, &facts);
         }
         let next = args
             .iter()
@@ -171,8 +171,13 @@ impl Engine<'_> {
             .collect::<Result<Vec<_>>>()?;
         Ok(Step::More(Plan::ReturnReady(types, next)))
     }
-    pub(super) fn return_result(&self, types: &[String], facts: &[Atom]) -> Result<Step> {
-        self.check_types(facts, types)?;
+    pub(super) fn return_result(
+        &mut self,
+        args: &[Request],
+        types: &[String],
+        facts: &[Atom],
+    ) -> Result<Step> {
+        self.error_arguments(args, facts, types)?;
         Ok(Step::Done(
             types.iter().map(|t| self.atom(t, false)).collect(),
         ))

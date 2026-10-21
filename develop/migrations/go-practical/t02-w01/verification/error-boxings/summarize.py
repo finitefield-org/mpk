@@ -1,0 +1,29 @@
+"""Report terminal affected checks with their exact scope and original receipts."""
+from pathlib import Path
+import datetime,hashlib,json
+OUT=Path(__file__).resolve().parent;BASE='aaf5055ef92575d94bc00b541605001665cbc8cb'
+def seal(p):
+ raw=Path(p).read_bytes();return {'path':str(p),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest()}
+epochs=[json.loads(p.read_bytes())for p in OUT.glob('*/inputs.json')if(p.parent/'run-checks.py').exists()];executions=[]
+for p in sorted(OUT.glob('*/*/result.json')):
+ d=json.loads(p.read_bytes())
+ if'source_receipt'not in d:continue
+ assert d['status']in {'passed','failed'}
+ for k in ['stdout','stderr']:assert seal(d[k]['path'])==d[k]
+ executions.append({'result':seal(p),'status':d['status'],'command':d['command']})
+assert(len(epochs),sum(len(e['sources'])for e in epochs),len(executions),sum(e['status']=='failed'for e in executions))==(15,12854,26,3)
+checks={'Rust-boxings':OUT/'complete/rust-boxings/result.json','Go-boxings':OUT/'box-native/go-boxings/result.json','frontend-reproduction':OUT/'frontend/frontend/result.json'}
+for mode in ['rust-scalar','rust-aggregates','rust-methods','rust-assignments','rust-returns','rust-builtins','rust-bodies','rust-selection','clippy','rust-format','go-format','vet']:checks[mode]=OUT/'controls'/mode/'result.json'
+for p in checks.values():assert json.loads(p.read_bytes())['status']=='passed'
+audit=json.loads((OUT/'original-byte-audit/result.json').read_bytes());assert audit['status']=='passed'
+record={'status':'scoped_checks_passed','basis_commit':BASE,'observed_at_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'source_languages':['Go','Rust'],'current_checks':{k:seal(p)for k,p in checks.items()},'actual_executions':executions,'source_epochs':15,'whole_source_preimages':12854,'original_failed_scoped_checks':3,
+'initial_failures':['The combined native run reused exclusive original-output basenames for two independent owners. The second owner failed before retaining its application input; the original first-owner output and all prelaunch sources remain.','Separating the second owner into a child directory first exposed the missing mkdir. The corrected setup creates that directory; all46 new native cases then pass. Both earlier mixed runs independently passed all51 previous source-closure cases, and neither is labeled a whole-run pass.','A typed-site equality assertion included a compile-only constant-declaration site checked by the separate constant reader. The value engine emits128 observed sites versus129 full compiler typed sites; ConstLen is the exact difference. The API/test now explicitly claim checked value evidence as a subset. Complete125 body sites and every body type union match, with no relaxation of that complete comparison.'],
+'original_new_cases':46,'exact_body_boxing_sites':125,'checked_value_sites':128,'full_compiler_typed_sites':129,'all_compiler_typed_sites_claimed':False,'value_evidence_excludes_const_reader_site':'ConstLen','body_type_unions_match_completely':True,'tuple_projections_and_range_elements_distinguished':True,'unevaluated_len_cap_and_single_variable_array_range_excluded':True,'all_branches_and_selected_callees_included':True,'unselected_functions_and_global_initializers_excluded_from_body_union':True,
+'legacy_native_source_closure_scope':{'original_result':seal(OUT/'isolated-native/go-oracle/result.json'),'overall_run_status':'failed due to new output-directory setup','actual_old_roots_passed':53,'selected_case_count':51,'old_roots_failed_or_skipped':False},
+'old_Rust_roots':24,'new_Rust_roots':2,'total_affected_Rust_roots':26,'old_selection_cases':84,'old_selection_exact_graphs':39,'old_selection_rejections':45,'parameter_control':70,'tuple_result_control':16,'helper_control':512,'root_control':70,
+'selection_reason':'Shared value-engine metadata and range evaluation affect scalar/value/method/assignment/return/slice/body/selection consumers. Only these targeted tests plus selected Clippy/formats/vet and fresh actual frontend builds run. No parser/scopes/constants/core/ordinary or unrelated language semantic suite, and no intermediate full/equivalent gate.',
+'original_archives':[seal(p)for p in sorted(OUT.glob('*/manifest.json'))],'complete_original_files':audit['actual_original_files_compared_literally'],'complete_original_bytes':audit['actual_original_bytes_compared_literally'],'literal_byte_mode_audit':seal(OUT/'original-byte-audit/result.json'),'SDK_current_exact':seal(OUT/'sdk-check/result.json'),
+'previous_directive_basis':seal(OUT.parent/'source-directives/verification.json'),'previous_source_selection_basis':seal(OUT.parent/'source-selection/verification.json'),'unchanged_ordinary_paired_basis':seal(OUT.parent/'storage-lens/paired/result.json'),'previous_frontend_basis':seal(OUT.parent/'source-selection/frontend-original/manifest.json'),
+'fresh_frontend_inputs':190,'fresh_independent_empty_cache_builds':2,'fresh_frontend_binary_bytes':audit['frontend_binary_bytes'],'fresh_frontend_binary_sha256':audit['frontend_binary_sha256'],'native_Linux_release_acceptance':False,
+'global_error_universe_entry_constraints_complete':False,'full_Root_Plain_error_payload_shape_cycle_and_weight_admission_complete':False,'closed_error_dynamic_dispatch_complete':False,'registered_capture_context_or_module_build_authority':False,'contract_dependent_verification_closure_complete':False,'source_runtime_state_program_proof':False,'all56_foundation_and_all169_requirements_complete':False,'public_profile_activated':False,'R01_complete':False,'R06_complete':False,'W01_complete':False,'full_T_gate':'deferred to GO-PRAC-T02-W04: ./scripts/check-fast.sh'}
+(OUT/'verification.json').write_text(json.dumps(record,indent=2)+'\n');print(json.dumps({k:record[k]for k in ['status','source_epochs','whole_source_preimages','exact_body_boxing_sites','complete_original_files','complete_original_bytes']}))

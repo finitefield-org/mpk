@@ -35,11 +35,12 @@ pub use source_scalar_typing::{
     infer_go_binding, infer_go_results, infer_go_scalar_binding, infer_go_scalar_results,
     infer_go_scalar_value, infer_go_value, GoAssignmentTarget, GoAssignmentTyping, GoBodyBranch,
     GoBodyConstant, GoBodyErrorKind, GoBodyExpression, GoBodyStatement, GoBodyTyping,
-    GoBodyTypingError, GoErrorImplementation, GoMethodCallHeader, GoReturnTyping,
-    GoScalarCallHeader, GoScalarTyping, GoScalarTypingError, GoSliceBuiltinHeader, GoSourceMethod,
-    GoSourceScalarValue, GoSourceSelection, GoSourceSelectionCall, GoSourceSelectionDeclaration,
-    GoSourceSelectionDependency, GoSourceSelectionError, GoSourceSelectionErrorKind,
-    GoSourceSelectionRef, GoSourceSelectionRole, GoSourceTypedValue, GoValueTyping,
+    GoBodyTypingError, GoErrorBoxing, GoErrorBoxingProjection, GoErrorImplementation,
+    GoMethodCallHeader, GoReturnTyping, GoScalarCallHeader, GoScalarTyping, GoScalarTypingError,
+    GoSliceBuiltinHeader, GoSourceMethod, GoSourceScalarValue, GoSourceSelection,
+    GoSourceSelectionCall, GoSourceSelectionDeclaration, GoSourceSelectionDependency,
+    GoSourceSelectionError, GoSourceSelectionErrorKind, GoSourceSelectionRef,
+    GoSourceSelectionRole, GoSourceTypedValue, GoValueTyping,
 };
 pub use source_scopes::{
     build_go_source_scopes, GoNameLookup, GoSourceNameBinding, GoSourceNameKind,

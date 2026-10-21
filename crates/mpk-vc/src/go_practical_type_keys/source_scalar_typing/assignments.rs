@@ -143,7 +143,7 @@ impl Engine<'_> {
             return Err(GoScalarTypingError::Arity);
         }
         if rhs.len() == 1 && facts.len() != 1 {
-            return self.assignment_result(&lhs, facts);
+            return self.assignment_result(&lhs, &rhs, facts);
         }
         let next = rhs
             .iter()
@@ -152,24 +152,30 @@ impl Engine<'_> {
             .collect::<Result<Vec<_>>>()?;
         Ok(Step::More(Plan::AssignmentReady(lhs, next)))
     }
-    pub(super) fn assignment_result(&self, lhs: &[Option<Request>], facts: Facts) -> Result<Step> {
+    pub(super) fn assignment_result(
+        &mut self,
+        lhs: &[Option<Request>],
+        rhs: &[Request],
+        facts: Facts,
+    ) -> Result<Step> {
         let targets = self.assignment_targets(lhs)?;
         if facts.len() != targets.len() {
             return Err(GoScalarTypingError::Arity);
         }
         let result = facts
-            .into_iter()
-            .zip(targets)
+            .iter()
+            .zip(&targets)
             .map(|(a, target)| {
-                let typ = a.typ.ok_or(GoScalarTypingError::Type)?;
+                let typ = a.typ.clone().ok_or(GoScalarTypingError::Type)?;
                 let blank = target.is_none();
-                let target = target.unwrap_or_else(|| typ.clone());
+                let target = target.clone().unwrap_or_else(|| typ.clone());
                 if !self.assignable(&typ, &target) {
                     return Err(GoScalarTypingError::Type);
                 }
                 Ok(self.atom(&target, !blank))
             })
             .collect::<Result<Vec<_>>>()?;
+        self.record_error_boxings(rhs, &facts, &targets)?;
         Ok(Step::Done(result))
     }
 }

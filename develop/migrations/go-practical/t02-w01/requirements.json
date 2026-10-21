@@ -1189,6 +1189,23 @@
         "R06_complete": false,
         "W01_complete": false,
         "full_T_gate": "deferred to GO-PRAC-T02-W04: ./scripts/check-fast.sh"
+      },
+      "preparatory_original_error_boxing_checkpoint": {
+        "executor": "source_scalar_typing/error_boxings.rs, checked value/statement consumers and source selection; native original Go comparison observer and range evaluation",
+        "evidence": "verification/error-boxings/verification.json",
+        "status": "scoped_checks_passed",
+        "completed_component": "Original concrete-to-error operand provenance with exact type identity and distinct tuple-result/range-element projections across declarations, assignments, returns, calls, method expressions, literals and append. Selected-body walk derives body type unions across all branches/callees while excluding unevaluated len/cap/single-variable constant-array range operands and unrelated initializers/bodies. Go/Rust range dependency walks both preserve original type-only operands. No caller AST/types/expected-target/boxing facts enter the constructor.",
+        "scoped_validation": "46 actual original cases match125 body sites and every body type union. All128 emitted value-engine sites are native typed sites; the compiler has129 due to one ConstLen site delegated to the constant reader, explicitly outside the complete-inventory claim.2 new/24 affected existing Rust roots;70 arguments/16 tuple results/512 helper/70 root controls and scoped Clippy/vet/formats pass. Old84 source-selection cases39 exact graphs/45 rejections remain. All51 legacy native closure cases pass within mixed runs; those runs remain overall failed for new observer output setup.15 epochs/12854 preimages retain26 checks/three failures.14 archives/54753 files/385437972 bytes compare literally with modes. SDK14496/frozen255/ordinary448 exact.190 inputs rebuild twice from empty caches to identical8592898-byte SHA256=cf8dc06b5f000f8256f481c82135713e89a93876e420014485b4893846f97121 onDarwin/arm64; nativeLinux acceptance not claimed.",
+        "remaining": "Every error-bearing entry case must be source/context bound to construct full U. Complete Root/Plain, permitted payload kinds, expanded cycles/depth/weights, finite Error dispatch and its effects remain required. Full package/build/version/namespace/capture/context authority and native candidate importer; contracts, source runtime/calls/stores/loops/state/program proofs, full56 ordinary foundation/private registry and nativeLinux/all169/T02-T11 remain.",
+        "original_body_boxing_union_derived": true,
+        "global_error_universe_complete": false,
+        "complete_Root_Plain_and_finite_dispatch": false,
+        "registered_context_or_source_program_authority": false,
+        "public_profile_activated": false,
+        "R01_complete": false,
+        "R06_complete": false,
+        "W01_complete": false,
+        "full_T_gate": "deferred to GO-PRAC-T02-W04: ./scripts/check-fast.sh"
       }
     },
     {

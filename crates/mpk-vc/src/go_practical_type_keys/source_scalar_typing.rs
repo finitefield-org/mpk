@@ -4,6 +4,7 @@ use super::*;
 mod aggregates;
 mod assignments;
 mod bodies;
+mod error_boxings;
 mod literals;
 mod members;
 mod methods;
@@ -16,6 +17,7 @@ pub use bodies::{
     check_go_function_body, GoBodyBranch, GoBodyConstant, GoBodyErrorKind, GoBodyExpression,
     GoBodyStatement, GoBodyTyping, GoBodyTypingError,
 };
+pub use error_boxings::{GoErrorBoxing, GoErrorBoxingProjection};
 pub use methods::{GoErrorImplementation, GoMethodCallHeader, GoSourceMethod};
 use operators::comparison;
 pub use returns::{check_go_return_statement, GoReturnTyping};
@@ -104,6 +106,7 @@ pub struct GoScalarTyping {
     slice_builtins: Vec<GoSliceBuiltinHeader>,
     method_calls: Vec<GoMethodCallHeader>,
     error_implementations: Vec<GoErrorImplementation>,
+    error_boxings: Vec<GoErrorBoxing>,
 }
 impl GoScalarTyping {
     pub fn source(&self, id: &str) -> Option<&GoParsedSource> {
@@ -120,6 +123,11 @@ impl GoScalarTyping {
     }
     pub fn method_call_headers(&self) -> &[GoMethodCallHeader] {
         &self.method_calls
+    }
+    /// Potential uses observed by this value engine, including dependencies.
+    /// Separate constant-reader/type-annotation checks are not a complete site list.
+    pub fn error_boxings(&self) -> &[GoErrorBoxing] {
+        &self.error_boxings
     }
     pub fn error_implementations(&self) -> &[GoErrorImplementation] {
         &self.error_implementations
@@ -161,6 +169,7 @@ pub struct GoValueTyping {
     slice_builtins: Vec<GoSliceBuiltinHeader>,
     method_calls: Vec<GoMethodCallHeader>,
     error_implementations: Vec<GoErrorImplementation>,
+    error_boxings: Vec<GoErrorBoxing>,
     types: BTreeMap<String, GoSourceTypeKey>,
     underlying: BTreeMap<String, String>,
     declarations: BTreeMap<String, GoTypeDeclarationKey>,
@@ -180,6 +189,11 @@ impl GoValueTyping {
     }
     pub fn method_call_headers(&self) -> &[GoMethodCallHeader] {
         &self.method_calls
+    }
+    /// Potential uses observed by this value engine, including dependencies.
+    /// Separate constant-reader/type-annotation checks are not a complete site list.
+    pub fn error_boxings(&self) -> &[GoErrorBoxing] {
+        &self.error_boxings
     }
     pub fn error_implementations(&self) -> &[GoErrorImplementation] {
         &self.error_implementations
@@ -209,6 +223,7 @@ impl GoValueTyping {
             slice_builtins: self.slice_builtins,
             method_calls: self.method_calls,
             error_implementations: self.error_implementations,
+            error_boxings: self.error_boxings,
         })
     }
 }
@@ -406,6 +421,7 @@ struct Engine<'a> {
     method_packages: methods::MethodPackages,
     method_receivers: BTreeMap<(String, usize), Option<(String, bool)>>,
     error_implementations: BTreeMap<String, Option<GoErrorImplementation>>,
+    error_boxings: BTreeSet<GoErrorBoxing>,
     function_owners: BTreeMap<String, Vec<Option<usize>>>,
     return_signatures: BTreeMap<(String, usize), GoSourceSignature>,
     compilation_reads: source_dependencies::Reads,
@@ -457,6 +473,7 @@ impl<'a> Engine<'a> {
             method_packages: BTreeMap::new(),
             method_receivers: BTreeMap::new(),
             error_implementations: BTreeMap::new(),
+            error_boxings: BTreeSet::new(),
             function_owners: BTreeMap::new(),
             return_signatures: BTreeMap::new(),
             compilation_reads: source_dependencies::Reads::new(),
@@ -973,12 +990,12 @@ impl<'a> Engine<'a> {
             Plan::ReturnFirst(types, args) => self.return_first(types, args),
             Plan::ReturnReady(types, args) => {
                 let facts = self.expand(&args)?;
-                self.return_result(&types, &facts)
+                self.return_result(&args, &types, &facts)
             }
             Plan::AssignmentFirst(lhs, rhs) => self.assignment_first(lhs, rhs),
             Plan::AssignmentReady(lhs, rhs) => {
                 let facts = self.expand(&rhs)?;
-                self.assignment_result(&lhs, facts)
+                self.assignment_result(&lhs, &rhs, facts)
             }
             Plan::ShortAssignment(declaration) => {
                 let mut facts = self.facts(&declaration)?;
@@ -1017,7 +1034,7 @@ impl<'a> Engine<'a> {
             Plan::MethodFirst(header, args) => self.method_first(*header, args),
             Plan::MethodReady(header, args) => {
                 let facts = self.expand(&args)?;
-                self.check_types(&facts, &header.parameters)?;
+                self.error_arguments(&args, &facts, &header.parameters)?;
                 self.method_result(*header)
             }
             Plan::Make(typ, args) => self.make_slice(r, typ, args),
@@ -1067,6 +1084,11 @@ impl<'a> Engine<'a> {
                     if !self.assignable(current, &typ) {
                         return Err(GoScalarTypingError::Type);
                     }
+                    self.record_error_boxings(
+                        std::slice::from_ref(&raw),
+                        std::slice::from_ref(&a),
+                        &[Some(typ)],
+                    )?;
                     return Ok(Step::Done(vec![a]));
                 }
                 if a.nil {
@@ -1157,7 +1179,7 @@ impl<'a> Engine<'a> {
                     return Err(GoScalarTypingError::Arity);
                 }
                 if args.len() == 1 && facts.len() != 1 {
-                    self.check_types(&facts, &header.parameters)?;
+                    self.error_arguments(&args, &facts, &header.parameters)?;
                     return self.call_result(*header);
                 }
                 let next = args
@@ -1175,7 +1197,7 @@ impl<'a> Engine<'a> {
             }
             Plan::CallReady(header, args) => {
                 let facts = self.expand(&args)?;
-                self.check_types(&facts, &header.parameters)?;
+                self.error_arguments(&args, &facts, &header.parameters)?;
                 self.call_result(*header)
             }
             Plan::DeclarationFirst(dest, rhs) => {
@@ -1188,7 +1210,7 @@ impl<'a> Engine<'a> {
                     .map(|d| self.destination(d))
                     .collect::<Result<Vec<_>>>()?;
                 if rhs.len() == 1 && facts.len() != 1 {
-                    return self.declared(facts, targets);
+                    return self.declared(&rhs, facts, targets);
                 }
                 let next = rhs
                     .iter()
@@ -1203,7 +1225,7 @@ impl<'a> Engine<'a> {
                     .iter()
                     .map(|d| self.destination(d))
                     .collect::<Result<Vec<_>>>()?;
-                self.declared(facts, targets)
+                self.declared(&rhs, facts, targets)
             }
         }
     }
@@ -1214,19 +1236,25 @@ impl<'a> Engine<'a> {
             Destination::Reused(r) => Ok(self.one(r)?.typ),
         }
     }
-    fn declared(&self, facts: Facts, targets: Vec<Option<String>>) -> Result<Step> {
+    fn declared(
+        &mut self,
+        args: &[Request],
+        facts: Facts,
+        targets: Vec<Option<String>>,
+    ) -> Result<Step> {
         if facts.len() != targets.len() {
             return Err(GoScalarTypingError::Arity);
         }
         let mut result = vec![];
-        for (a, target) in facts.into_iter().zip(targets) {
-            let typ = a.typ.ok_or(GoScalarTypingError::Type)?;
-            let target = target.unwrap_or_else(|| typ.clone());
+        for (a, target) in facts.iter().zip(&targets) {
+            let typ = a.typ.clone().ok_or(GoScalarTypingError::Type)?;
+            let target = target.clone().unwrap_or_else(|| typ.clone());
             if !self.assignable(&typ, &target) {
                 return Err(GoScalarTypingError::Type);
             }
             result.push(self.atom(&target, true))
         }
+        self.record_error_boxings(args, &facts, &targets)?;
         Ok(Step::Done(result))
     }
     fn expand(&self, args: &[Request]) -> Result<Facts> {
@@ -1317,6 +1345,7 @@ impl<'a> Engine<'a> {
             slice_builtins: self.slice_builtins.into_iter().collect(),
             method_calls: self.method_calls.into_iter().collect(),
             error_implementations: self.error_implementations.into_values().flatten().collect(),
+            error_boxings: self.error_boxings.into_iter().collect(),
             types: self.keys,
             underlying: self.underlying,
             declarations: self.declarations,

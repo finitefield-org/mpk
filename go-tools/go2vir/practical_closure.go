@@ -358,6 +358,41 @@ func practicalClosureFunction(info *types.Info, e ast.Expr) (types.Object, *type
 	}
 	return nil, nil
 }
+
+// With at most one iteration variable, a constant array length supplies the
+// range bound without evaluating the original operand. A blank value is absent.
+func practicalClosureRangeEvaluated(info *types.Info, n *ast.RangeStmt) bool {
+	value := practicalClosureUnparen(n.Value)
+	if value != nil {
+		if id, ok := value.(*ast.Ident); !ok || id.Name != "_" {
+			return true
+		}
+	}
+	typ := info.TypeOf(n.X)
+	if typ == nil {
+		return true
+	}
+	if _, ok := typ.Underlying().(*types.Array); !ok {
+		return true
+	}
+	called := false
+	ast.Inspect(n.X, func(node ast.Node) bool {
+		if called {
+			return false
+		}
+		switch node := node.(type) {
+		case *ast.UnaryExpr:
+			called = node.Op == token.ARROW
+		case *ast.CallExpr:
+			if info.Types[node].Value != nil {
+				return false
+			}
+			called = !info.Types[node.Fun].IsType()
+		}
+		return !called
+	})
+	return called
+}
 func (b *practicalClosureBuilder) walk(ref practicalClosureRef, roots []ast.Node, runtime bool, path []practicalClosureRef) error {
 	original := b.originals[ref]
 	info := original.loaded.info
@@ -619,6 +654,13 @@ func (b *practicalClosureBuilder) walk(ref practicalClosureRef, roots []ast.Node
 					}
 				}
 			}
+			push(n.X, t.runtime && practicalClosureRangeEvaluated(info, n), false)
+			push(n.Body, t.runtime, false)
+			if n.Tok != token.DEFINE {
+				push(n.Key, t.runtime, false)
+				push(n.Value, t.runtime, false)
+			}
+			continue
 		case *ast.Ellipsis:
 			if n.Elt != nil {
 				if err := b.issue("variadic_signature", ref, n, path); err != nil {

@@ -7718,3 +7718,25 @@ v1 admission and source runtime/state/program proofs, full56 foundation/private
 registry and nativeLinux/all169/T02–T11 remain due. Go/Rust only; R01/R06/W01
 stay open, public profile stays inactive and the T02 full gate stays finalW04:
 `./scripts/check-fast.sh`.
+
+## 153. T02-W01 original error-boxing provenance and body type union
+
+The [original error-boxing checkpoint](../migrations/go-practical/t02-w01/verification/error-boxings/README.md)
+records original concrete-to-error operands with separate tuple-result/range-
+element projections and derives selected-body type unions without caller
+compiler facts. Both Go/Rust walks now honor unevaluated constant-array ranges.
+All46 new original cases match125 complete body sites/unions;128 emitted value
+sites are a subset of129 compiler sites, with the compile-only ConstLen site
+explicitly delegated. Two new/24 affected old Rust roots,70-argument/16-result/
+512-helper/70-root controls and Clippy/vet/formats pass. All51 old native closure
+cases pass within the earlier mixed runs, whose new output-directory failures
+remain overall failures.15 epochs/12854 preimages retain26 executions/three
+failures;14 archives/54753 files/385437972 bytes compare literally.190 frontend
+inputs rebuild twice to identical8592898-byte outputs, SHA256
+`cf8dc06b5f000f8256f481c82135713e89a93876e420014485b4893846f97121`.
+SDK14496/frozen255/ordinary448 remain exact. Entry-case constraints/full global U,
+Root/Plain/payload/cycle/weight admission and finite Error dispatch, complete
+capture/contracts/source runtime/state/program proofs, full56 foundation/private
+registry and nativeLinux/all169/T02–T11 remain due. Go/Rust only; R01/R06/W01 stay
+open, public profile stays inactive, and the T02 full gate stays finalW04:
+`./scripts/check-fast.sh`.
