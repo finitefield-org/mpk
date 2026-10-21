@@ -7253,3 +7253,37 @@ remains W04: `./scripts/check-fast.sh`.
 Actual comparator laws and complete validity witnesses remain typed prerequisites. Source comparability and nominal binding are separate; empty length never admits a noncomparable source element type. The original accepted corruption remains accepted historical evidence; the repaired current candidate rejects in both kernels. All source-consuming handles terminate before staging.
 
 The whole original SDK archive uses seven reversible text chunks with exact decoded bytes. The original failed input review and its three compressed-binary token matches remain reported; decoded SDK/source inputs have no findings, and no scanner exception is added.
+
+## 131. T02-W01 complete slice metadata and full-width header guards
+
+The [slice-descriptor checkpoint](../migrations/go-practical/t02-w01/verification/slice-descriptor/README.md)
+implements the exact frozen six-field representation: nil Bool, Nat owner,
+16 full Word8/Word64 path cells and full Word64 offset/length/capacity.
+Construction, projection, copy, reconstruction, field equality and metadata
+updates preserve complete values and owner/path references. Full signed and
+unsigned index/two/three-bound guards match actual Nat/Int interpretations;
+reslicing uses capacity, nil has no index, and address addition is unbounded.
+HeaderValid binds actual bounds and canonical nil metadata, with typed live
+storage/NoAccess/source/permission correspondence explicitly still required.
+The 2,290-declaration/69,289-term/896,669-byte component adds 35 definitions and
+113 ordinary laws, preserving all 2,142 prior identities/full 865,248 parent
+bytes without axiom/core/extensionality/root/cap/limit changes. Five affected
+Rust roots, strict Clippy/six-file format and both unchanged cores pass 186
+complete inputs: two zero-axiom acceptances and 184 genuine type mismatches
+(113 conclusions, 43 typed witness domains, 28 runtime definitions with actual
+countermodels). Original Go supplies 400 complete inputs/2,400 bounds results,
+16 descriptor cases and ten shared-view observations. Actual-DAG execution
+checks 1,264 complete outputs and all 2,400 guards in 60,486,975 steps, including
+all 256 raw path-kind byte values and complete high index/offset bits.
+Five source epochs/2,073 preimages retain 11 executions/three original fuel
+failures; all three original complete candidates also reject in Go. The
+separate original fixture-path capture failure precedes Cargo and retains its
+full changed preimages. No original output is invented. Frozen/source/scanner
+identities remain exact without new exclusions. Go and Rust remain the only
+source languages. Full source/type/nominal preservation, typed live owners/
+views/aliasing/permissions/lifetime/state/program, private foundation/context/
+native Linux/general namespace/selected closure/all 169/T02–T11 remain due.
+R01/R06/W01 stay open; the cumulative T02 gate remains W04:
+`./scripts/check-fast.sh`.
+
+All source-consuming handles terminate before staging. Passed current roots remain without unnecessary repeat. Raw invalid path samples confer no source admission, and header validity grants no live typed backing or permission.

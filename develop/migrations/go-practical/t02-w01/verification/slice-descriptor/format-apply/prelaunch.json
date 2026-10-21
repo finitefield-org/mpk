@@ -1,0 +1,46 @@
+{
+  "command": [
+    "rustfmt",
+    "--edition",
+    "2021",
+    "--config",
+    "skip_children=true",
+    "crates/mpk-vc/src/go_practical_ordinary.rs",
+    "crates/mpk-vc/src/go_practical_ordinary/slice_descriptor.rs",
+    "crates/mpk-vc/src/go_practical_ordinary/slice_descriptor/guards.rs",
+    "crates/mpk-vc/src/go_practical_ordinary/slice_descriptor/validity.rs",
+    "crates/mpk-vc/tests/go_practical_slice_descriptor.rs"
+  ],
+  "inputs": [
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "78abf6233fbbee5b23b0cfe8cbc2e6d1f5fcdf9b070d05a6ed8c03fd9a2a16ae",
+      "bytes": 77604,
+      "complete_input": "develop/migrations/go-practical/t02-w01/verification/slice-descriptor/format-apply/inputs/crates/mpk-vc/src/go_practical_ordinary.rs"
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/slice_descriptor.rs",
+      "sha256": "158c7a620f54794655165dc0169138de39fdf53f3c3ba9feea7749b83d125e8d",
+      "bytes": 9651,
+      "complete_input": "develop/migrations/go-practical/t02-w01/verification/slice-descriptor/format-apply/inputs/crates/mpk-vc/src/go_practical_ordinary/slice_descriptor.rs"
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/slice_descriptor/guards.rs",
+      "sha256": "c51c00a52584ce09ad860f2ec3471f1d471892d58a99cd0f9f79028708af3cd0",
+      "bytes": 5832,
+      "complete_input": "develop/migrations/go-practical/t02-w01/verification/slice-descriptor/format-apply/inputs/crates/mpk-vc/src/go_practical_ordinary/slice_descriptor/guards.rs"
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/slice_descriptor/validity.rs",
+      "sha256": "ae4709ef7334b8c67a4af968deaf025043b2eb9890d97e02ad8e9aaa623391ec",
+      "bytes": 4214,
+      "complete_input": "develop/migrations/go-practical/t02-w01/verification/slice-descriptor/format-apply/inputs/crates/mpk-vc/src/go_practical_ordinary/slice_descriptor/validity.rs"
+    },
+    {
+      "path": "crates/mpk-vc/tests/go_practical_slice_descriptor.rs",
+      "sha256": "d715fef9dc66105f0c3ce276ad7f2569f7c89a890da9b61f9ffdbb3ce1818524",
+      "bytes": 7971,
+      "complete_input": "develop/migrations/go-practical/t02-w01/verification/slice-descriptor/format-apply/inputs/crates/mpk-vc/tests/go_practical_slice_descriptor.rs"
+    }
+  ]
+}

@@ -1,0 +1,177 @@
+{
+  "status": "passed",
+  "started_at_utc": "2026-10-21T08:08:04.219169+00:00",
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/slice-descriptor/native-go/observe-go.py",
+    "sha256": "449d0f4d140ee677e7c299275f7ca644e6259647a05c10f970c1e93b3f656e01",
+    "bytes": 7926
+  },
+  "pinned_original_sdk_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/array-equality/native-go/result.json",
+    "sha256": "10aaacac3066b26cc38f7f76c79070fa9bb00d287c55b606324125848398bfac",
+    "bytes": 10308
+  },
+  "whole_original_sdk_inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/array-equality/native-go/sdk-inputs.json",
+    "sha256": "27f1650c85855eec3e4fa7825ff6b3f0a49196e0c2b23b793866cda2fb3f7354",
+    "bytes": 3284260
+  },
+  "lossless_original_sdk_transport": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/array-equality/toolchain-archive/manifest.json",
+    "sha256": "4ed723094bccf8673bddd75765d0905fdde09cf53e332363b258796a34e62809",
+    "bytes": 4332
+  },
+  "compiler_binary": {
+    "path": "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+    "sha256": "c812de5f1e8307431c5bce8ebc4887c180827abc5834a72cd640a8a14200a93b",
+    "bytes": 14117888
+  },
+  "sources": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/slice-descriptor/native-go/main.go",
+      "sha256": "93573ba173cb10c17c42b301ff497567f1c7b5bcfbe59cec902715eddb38f301",
+      "bytes": 1624
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/slice-descriptor/native-go/aliases.go",
+      "sha256": "850bdb77f53980b279297230e68a33b21a89bdf51f7f99ed58a0e6db7bf44ed8",
+      "bytes": 721
+    }
+  ],
+  "cases_input": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/slice-descriptor/native-go/cases.json",
+    "sha256": "de334fd558aaf322126e27720f7ae5f155850b12ff83c8d29ad52ad4ffa6f6c2",
+    "bytes": 1162448
+  },
+  "environment": {
+    "GOROOT": "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go",
+    "GOTOOLCHAIN": "local",
+    "GOENV": "off",
+    "GOWORK": "off",
+    "GO111MODULE": "off",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "CGO_ENABLED": "0",
+    "GOMAXPROCS": "1",
+    "GOCACHE": "/private/tmp/mpk-go-slice-descriptor-go-cache"
+  },
+  "commands": [
+    {
+      "name": "version",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+        "version"
+      ],
+      "exit_code": 0,
+      "seconds": 0.029981166939251125,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/slice-descriptor/native-go/version.stdout.log",
+        "sha256": "2e13f287eba3d1fa15b1d8dc82c2b80ac9d8a6d7443acfe04422e57b5d6a9e76",
+        "bytes": 33
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/slice-descriptor/native-go/version.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "name": "build",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+        "build",
+        "-o",
+        "/private/tmp/mpk-go-slice-descriptor-native-oracle",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/slice-descriptor/native-go/main.go"
+      ],
+      "exit_code": 0,
+      "seconds": 6.070938708027825,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/slice-descriptor/native-go/build.stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/slice-descriptor/native-go/build.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "name": "bounds",
+      "command": [
+        "/private/tmp/mpk-go-slice-descriptor-native-oracle"
+      ],
+      "exit_code": 0,
+      "seconds": 0.7189173749648035,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/slice-descriptor/native-go/bounds.stdout.log",
+        "sha256": "28b18cfd53a8fb3012b35f2d48e171e27afc7079285a6a68fee676c8d8044e36",
+        "bytes": 71810
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/slice-descriptor/native-go/bounds.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "name": "alias-build",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+        "build",
+        "-o",
+        "/private/tmp/mpk-go-slice-descriptor-alias-oracle",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/slice-descriptor/native-go/aliases.go"
+      ],
+      "exit_code": 0,
+      "seconds": 0.21325816703028977,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/slice-descriptor/native-go/alias-build.stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/slice-descriptor/native-go/alias-build.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "name": "aliases",
+      "command": [
+        "/private/tmp/mpk-go-slice-descriptor-alias-oracle"
+      ],
+      "exit_code": 0,
+      "seconds": 0.47678437491413206,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/slice-descriptor/native-go/aliases.stdout.log",
+        "sha256": "d54c094de6d005058f0518cde01d2dad596916b75b35bf6af789644dbc28b84e",
+        "bytes": 181
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/slice-descriptor/native-go/aliases.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    }
+  ],
+  "source_or_registered_context_proof": false,
+  "native_Linux_release_acceptance": false,
+  "closed_profile_source_admission_claimed": false,
+  "oracle_binary": {
+    "path": "/private/tmp/mpk-go-slice-descriptor-native-oracle",
+    "sha256": "33b70b6d72dee3dddcc1a59ef1d8e62a8c0dc0f361fa01fb645e57dcb48a6b32",
+    "bytes": 2987186
+  },
+  "alias_binary": {
+    "path": "/private/tmp/mpk-go-slice-descriptor-alias-oracle",
+    "sha256": "f8a7edd54827fb39b656f8ea3154a3a5eac6c0a1cd2881d893a556f8ccbc7154",
+    "bytes": 2762258
+  },
+  "whole_input_cases": 400,
+  "actual_bounds_results": 2400,
+  "nil_and_non_nil_descriptors": 16,
+  "shared_view_observations": 10,
+  "finished_at_utc": "2026-10-21T08:08:12.529438+00:00"
+}

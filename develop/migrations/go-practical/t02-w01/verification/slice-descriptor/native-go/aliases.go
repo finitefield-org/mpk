@@ -1,0 +1,3 @@
+package main
+import("encoding/json";"os")
+func main(){rows:=make([][4]uint64,2);rows[0]=[4]uint64{1,2,3,4};child:=rows[0][:];copyOfChild:=child;copyOfChild[1]=9;afterChild:=rows[0];rows[0]=[4]uint64{5,6,7,8};afterParent:=append([]uint64(nil),child...);empty:=child[:0];tail:=empty[:cap(empty)];tail[3]=17;var nilSlice []uint64;nonNil:=make([]uint64,0);if err:=json.NewEncoder(os.Stdout).Encode(struct{AfterChild [4]uint64;AfterParent []uint64;AfterTail [4]uint64;CopyCap int;EmptyLen int;EmptyCap int;NilSlice bool;NonNil bool;NilReslice bool;NonNilReslice bool}{afterChild,afterParent,rows[0],cap(copyOfChild),len(empty),cap(empty),nilSlice==nil,nonNil==nil,nilSlice[:0:0]==nil,nonNil[:0:0]==nil});err!=nil{panic(err)}}
