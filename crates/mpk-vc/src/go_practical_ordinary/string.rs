@@ -9,6 +9,9 @@ mod normalization;
 mod order;
 mod slice;
 mod validity;
+pub(super) fn append_affix(builder: &mut Builder) -> Result<()> {
+    slice::append_affix(builder)
+}
 pub(super) fn append_concat(builder: &mut Builder) -> Result<()> {
     slice::append_concat(builder)
 }

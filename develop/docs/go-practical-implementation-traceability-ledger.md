@@ -7164,3 +7164,36 @@ prefix/suffix, array/storage/state/program, private descriptor/registry/context,
 full foundation/native kernel/general namespace/selected closure/all169/T02–T11
 remain due. R01/R06/W01 stay open. All consuming handles are terminal before
 staging; the cumulative T02 gate remains W04: `./scripts/check-fast.sh`.
+
+## 128. T02-W01 complete frozen string prefix and suffix
+
+The [affix checkpoint](../migrations/go-practical/t02-w01/verification/string-affix/README.md)
+adds full prefix/suffix predicates with actual64-bit length guards, subtraction
+and non-wrapping source positions, full-index byte-bit reflection/completeness,
+weak content/normalization preservation, empty/self/too-long cases and bounded
+concat laws. Its2,254 declarations/71,079 terms/916,686 bytes retain all2,195 old
+identities and exact896,032 previous producer bytes. Ten definitions and49
+ordinary laws change no axiom/core/extensionality/root/cap/limit. Checked slot
+access is guarded by a full64-bit range test and proved equal to the original
+read for every raw word; word/natural guards are checked equivalent.
+
+Five affected Rust roots, strict target Clippy, nine-file format and both
+unchanged cores pass128 complete inputs:two zero-axiom acceptances and126
+type mismatches (49 conclusions,68 typed witness domains,nine typed wrong
+definitions with actual countermodels). Passed foundation/observation roots are
+retained without repeating them on identical production/test bytes. Actual-DAG
+execution checks27 pairs/four normalization modes/both predicates:216 complete
+results,504 full64 positions and six wide guards in619,708,955 steps. Complete
+input arrays/all128 length bits and unchanged finite ceilings are retained.
+
+Nine source epochs/3,605 preimages retain13 executions and three original
+failures:one construction Linkage without an emitted candidate and two original
+finite-memory limits with their input/partial/output records. Word guards and
+universally equal checked reads repair evaluation, with no invented original
+output. All255 frozen inputs,186 Go inputs and127/four/39 scanner counts remain
+exact, with no new exclusions. Go and Rust remain the only source languages.
+Original source/type/evaluation/nominal/library-symbol adapters and preservation,
+array/storage/state/program, full foundation/private context/native kernel/general
+namespace/selected closure/all169/T02–T11 remain due. R01/R06/W01 remain open;
+all consuming handles terminate before staging. The cumulative T02 gate remains
+W04: `./scripts/check-fast.sh`.

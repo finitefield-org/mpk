@@ -856,3 +856,20 @@ checked prefix/suffix, private context/full foundation/native kernel/general
 namespace/selected closure/all169/T02–T11 remain due. Go and Rust remain the only
 source languages. R01/R06/W01 stay open; the cumulative T02 gate remains W04:
 `./scripts/check-fast.sh`.
+
+The [checked prefix/suffix checkpoint](verification/string-affix/README.md)
+adds full-index reflection/completeness, actual64-bit source position equations,
+normalization/weak-content preservation and empty/self/too-long/concat laws.
+Its2,254 declarations/71,079 terms/916,686 bytes preserve all2,195 previous
+identities and exact896,032 old producer bytes; ten definitions and49 ordinary
+laws change no axiom/core/extensionality/cap/limit. Five affected Rust roots,
+strict target Clippy/nine-file format and both unchanged cores pass128 full
+inputs:two zero-axiom acceptances and126 type mismatches. Actual-DAG tests
+check216 whole predicates,504 full64 positions and six wide guards in619,708,955
+steps. Nine source epochs/3,605 preimages retain13 executions and three
+original failures. All255 frozen/186 Go inputs and127/four/39 scanner counts
+remain exact. Original source/type/evaluation/nominal/library-symbol adapters and
+preservation, full foundation/context/native kernel/general namespace/selected
+closure/all169/T02–T11 remain due. Go and Rust remain the only source languages.
+R01/R06/W01 stay open; the cumulative T02 gate remains W04:
+`./scripts/check-fast.sh`.

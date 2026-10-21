@@ -323,6 +323,15 @@ impl GoStringConcatFoundation {
         &self.certificate
     }
 }
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoStringAffixFoundation {
+    certificate: Vec<u8>,
+}
+impl GoStringAffixFoundation {
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
+}
 impl GoStringValue {
     pub fn certificate_bytes(&self) -> &[u8] {
         &self.certificate
@@ -1990,12 +1999,16 @@ pub fn import_go_practical_string_slice_foundation(
 /// Complete frozen string concatenation under a separate result-capacity premise.
 /// Source/type/evaluation/context authority remains a separate obligation.
 pub fn generate_go_practical_string_concat_foundation() -> Result<GoStringConcatFoundation> {
-    let mut builder = string_slice_builder()?;
-    string::append_concat(&mut builder)?;
+    let mut builder = string_concat_builder()?;
     builder.certificate.module = "Mpk.Go.Practical.StringConcatFoundation".into();
     Ok(GoStringConcatFoundation {
         certificate: builder.finish()?,
     })
+}
+fn string_concat_builder() -> Result<Builder> {
+    let mut builder = string_slice_builder()?;
+    string::append_concat(&mut builder)?;
+    Ok(builder)
 }
 pub fn import_go_practical_string_concat_foundation(
     candidate: &[u8],
@@ -2004,6 +2017,29 @@ pub fn import_go_practical_string_concat_foundation(
         return Err(GoOrdinaryError::Limit);
     }
     let expected = generate_go_practical_string_concat_foundation()?;
+    if candidate != expected.certificate_bytes() {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    Ok(expected)
+}
+
+/// Checked prefix/suffix on complete frozen strings, with full-width positions.
+/// Original source/library symbol/type/context authority remains separate.
+pub fn generate_go_practical_string_affix_foundation() -> Result<GoStringAffixFoundation> {
+    let mut builder = string_concat_builder()?;
+    string::append_affix(&mut builder)?;
+    builder.certificate.module = "Mpk.Go.Practical.StringAffixFoundation".into();
+    Ok(GoStringAffixFoundation {
+        certificate: builder.finish()?,
+    })
+}
+pub fn import_go_practical_string_affix_foundation(
+    candidate: &[u8],
+) -> Result<GoStringAffixFoundation> {
+    if candidate.len() > MAX_BYTES {
+        return Err(GoOrdinaryError::Limit);
+    }
+    let expected = generate_go_practical_string_affix_foundation()?;
     if candidate != expected.certificate_bytes() {
         return Err(GoOrdinaryError::Linkage);
     }

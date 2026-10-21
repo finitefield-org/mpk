@@ -1,6 +1,10 @@
 //! Full-width substring arithmetic and the frozen complete output carrier.
 //! Signed guards precede access; bytes outside the result are canonical zero.
 use super::*;
+mod affix;
+pub(super) fn append_affix(builder: &mut Builder) -> Result<()> {
+    affix::append(builder)
+}
 mod carrier;
 mod concat;
 pub(super) fn append_concat(builder: &mut Builder) -> Result<()> {
