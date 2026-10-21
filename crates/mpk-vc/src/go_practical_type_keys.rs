@@ -10,8 +10,12 @@ use serde::{Deserialize, Serialize};
 use std::collections::{BTreeMap, BTreeSet};
 
 mod lex;
+mod parse;
 mod validate;
 pub use lex::{lex_go_source, GoLexError, GoLexErrorKind, GoLexToken, GoLexedSource};
+pub use parse::{
+    parse_go_source, GoParseError, GoParseErrorKind, GoParsedSource, GoSyntaxEdge, GoSyntaxNode,
+};
 
 const SOURCE_SCHEMA: &str = "mpk.go.source_object.v1";
 const SOURCE_DOMAIN: HashDomain = HashDomain::new("MPK-GO-SOURCE-OBJECT-1.0");

@@ -1,0 +1,11 @@
+    Blocking waiting for file lock on build directory
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 32.11s
+     Running tests/go_practical_parse.rs (target/debug/deps/go_practical_parse-f157750fb890c518)
+
+thread 'independent_original_go_syntax' (47302926) panicked at crates/mpk-vc/tests/go_practical_parse.rs:55:5:
+assertion `left == right` failed: smoke-0000: actual {"accepted":false,"error_kind":"Syntax","offset":1036,"source_typing_or_program_authority":false}; native None
+  left: Bool(false)
+ right: Bool(true)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_parse`

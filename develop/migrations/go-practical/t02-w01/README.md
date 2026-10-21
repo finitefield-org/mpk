@@ -1037,3 +1037,20 @@ live-store/permission/lifetime/program or profile authority. Those complete
 requirements, full U/foundation/context/registry and all native Linux/general
 namespace/selected closure/all169/T02–T11 remain due. Go/Rust only; R01/R06/W01
 stay open and the T02 whole gate remains W04: `./scripts/check-fast.sh`.
+
+The [independent Go syntax checkpoint](verification/go-parse/README.md) adds
+Rust parsing of full source declarations, types/generics, expressions and function
+bodies/statements into owned physical syntax arenas. Every2996 real Go1.25
+reference decision agrees:2969 accept/27 reject, with5,731,905 exact canonical
+AST nodes across50 kinds. Default62-case, ownership/raw-byte/untyped-boundary and
+0/1000/20000/100000-depth tests pass. Two Go and three Rust roots, strict lint,
+scoped formats and the actual433.43-second full original-source comparison pass.
+Twelve epochs/8577 preimages retain20 executions, four original failures and all
+12,165 original files/1,268,912,231 bytes, with literal decoded byte/mode audits.
+The select-case colon bug is fixed without discarding original failures. Frozen
+255 inputs, complete SDK,189 frontend inputs and ordinary448-case proof basis
+remain exact and unaffected suites are retained. Syntax supplies no name/type/
+nominal/capture/version/context or source/carrier/store/program authority. Those
+full requirements, U/foundation/registry, nativeLinux/generalnamespace/selected
+closure/all169/T02–T11 remain due. Go/Rust only; R01/R06/W01 stay open and the T02
+whole gate stays W04: `./scripts/check-fast.sh`.
