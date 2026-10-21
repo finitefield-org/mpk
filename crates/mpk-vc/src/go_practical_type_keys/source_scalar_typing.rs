@@ -3,6 +3,7 @@
 use super::*;
 mod aggregates;
 mod assignments;
+mod bodies;
 mod literals;
 mod members;
 mod methods;
@@ -10,6 +11,10 @@ mod operators;
 mod returns;
 mod slice_builtins;
 pub use assignments::{check_go_assignment_statement, GoAssignmentTarget, GoAssignmentTyping};
+pub use bodies::{
+    check_go_function_body, GoBodyBranch, GoBodyConstant, GoBodyErrorKind, GoBodyExpression,
+    GoBodyStatement, GoBodyTyping, GoBodyTypingError,
+};
 pub use methods::{GoErrorImplementation, GoMethodCallHeader, GoSourceMethod};
 use operators::comparison;
 pub use returns::{check_go_return_statement, GoReturnTyping};
@@ -1233,7 +1238,7 @@ impl<'a> Engine<'a> {
         self.calls.insert(header);
         Ok(Step::Done(values))
     }
-    fn run(mut self, root: Request) -> Result<GoValueTyping> {
+    fn compute(&mut self, root: Request) -> Result<()> {
         let mut work = vec![Work::Visit(root.clone())];
         while let Some(task) = work.pop() {
             let (r, step) = match task {
@@ -1266,7 +1271,14 @@ impl<'a> Engine<'a> {
                 }
             }
         }
+        Ok(())
+    }
+    fn run(mut self, root: Request) -> Result<GoValueTyping> {
+        self.compute(root.clone())?;
         let facts = self.done.remove(&root).ok_or(GoScalarTypingError::Type)?;
+        self.into_typing(facts)
+    }
+    fn into_typing(self, facts: Facts) -> Result<GoValueTyping> {
         let mut values = vec![];
         for fact in facts {
             let id = fact.typ.ok_or(GoScalarTypingError::Type)?;

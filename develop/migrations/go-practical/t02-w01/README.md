@@ -1248,3 +1248,20 @@ condition/control/whole-body and evaluation/state/program proofs, full56
 foundation/registry and nativeLinux/generalnamespace/selectedclosure/all169/
 T02–T11 remain due. Go/Rust only; R01/R06/W01 stay open, the public profile stays
 inactive and the whole T02 gate stays finalW04: `./scripts/check-fast.sh`.
+
+The [original function-body typing checkpoint](verification/body-typing/README.md) checks every supported original statement, including unreachable syntax,
+local/blank/repeated const declarations, conditions/switch duplicates, array/slice
+ranges, actual branch targets, unused locals and Go syntactic final-return rules.
+All174 exact positive outcomes and299 rejections agree on495 Go1.25 cases;22 valid
+reader gaps remain explicit.1665 signature slots/1972 statements/442 expression
+uses/113 branches/14 const specs and16 members/57 locals/28 syntactically
+terminating bodies agree independently. Four new Rust/sixteen old value-statement/
+two constant/four source-type roots,1001-statement/70-input/20000-node controls
+and scoped lint/vet/formats pass. Four epochs/3305 preimages retain17 passed
+checks and32576 original files/92971348 bytes with literal byte/mode audit.
+SDK14496/frontend189/frozen255/ordinary448 basis stays exact. Const len/cap of
+arrays remain required v1 reader gaps; syntactic termination proves no runtime
+halting. Other bodies/packages/selected closure, source evaluation/state/program
+proofs, full56 foundation/registry and nativeLinux/generalnamespace/selectedclosure/
+all169/T02–T11 remain due. Go/Rust only; R01/R06/W01 stay open, the public profile
+stays inactive and the whole T02 gate stays finalW04: `./scripts/check-fast.sh`.

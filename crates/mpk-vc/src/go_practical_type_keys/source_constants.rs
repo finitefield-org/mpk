@@ -3,7 +3,9 @@
 use super::*;
 mod evaluate;
 mod integer;
-pub use evaluate::{evaluate_go_constant, evaluate_go_constant_binding};
+pub use evaluate::{
+    evaluate_go_constant, evaluate_go_constant_binding, evaluate_go_constant_declaration,
+};
 use integer::Integer;
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum GoConstantError {

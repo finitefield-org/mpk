@@ -388,7 +388,7 @@ impl<'a> Engine<'a> {
             }
         }
     }
-    fn run(mut self, root: Request) -> Result<GoEvaluatedConstant> {
+    fn compute(&mut self, root: Request) -> Result<()> {
         let mut tasks = vec![Work::Visit(root.clone())];
         while let Some(task) = tasks.pop() {
             match task {
@@ -420,6 +420,10 @@ impl<'a> Engine<'a> {
                 }
             }
         }
+        Ok(())
+    }
+    fn run(mut self, root: Request) -> Result<GoEvaluatedConstant> {
+        self.compute(root.clone())?;
         self.done.remove(&root).ok_or(GoConstantError::Type)
     }
 }
@@ -446,4 +450,32 @@ pub fn evaluate_go_constant_binding(
         return Err(GoConstantError::Locator);
     }
     Engine::new(scopes).run(Request::binding(binding))
+}
+/// Check every member of one original ConstSpec, including blank names and
+/// inherited expressions/types at the current spec's actual iota/scope.
+pub fn evaluate_go_constant_declaration(
+    scopes: &GoSourceScopes,
+    source: &str,
+    spec: usize,
+) -> Result<Vec<GoEvaluatedConstant>> {
+    let mut engine = Engine::new(scopes);
+    let names = engine
+        .specs
+        .get(&(source.into(), spec))
+        .ok_or(GoConstantError::NotConstant)?
+        .names
+        .clone();
+    if names.is_empty() {
+        return Err(GoConstantError::Type);
+    }
+    let mut values = vec![];
+    for name in names {
+        let root = Request {
+            source: source.into(),
+            target: Target::Binding { spec, name },
+        };
+        engine.compute(root.clone())?;
+        values.push(engine.done.get(&root).ok_or(GoConstantError::Type)?.clone());
+    }
+    Ok(values)
 }

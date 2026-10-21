@@ -286,7 +286,7 @@ impl Engine<'_> {
         };
         matches!(self.shape(element),Ok(GoSourceTypeKey::Builtin{name,..})if matches!(name.as_str(),"uint8"|"int32"))
     }
-    fn comparable(&self, id: &str) -> Result<bool> {
+    pub(super) fn comparable(&self, id: &str) -> Result<bool> {
         let mut work = vec![id.to_string()];
         let mut seen = BTreeSet::new();
         while let Some(id) = work.pop() {

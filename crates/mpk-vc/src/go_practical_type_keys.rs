@@ -24,17 +24,18 @@ pub use parse::{
     parse_go_source, GoParseError, GoParseErrorKind, GoParsedSource, GoSyntaxEdge, GoSyntaxNode,
 };
 pub use source_constants::{
-    evaluate_go_constant, evaluate_go_constant_binding, GoConstantError, GoConstantKind,
-    GoConstantScalarType, GoEvaluatedConstant,
+    evaluate_go_constant, evaluate_go_constant_binding, evaluate_go_constant_declaration,
+    GoConstantError, GoConstantKind, GoConstantScalarType, GoEvaluatedConstant,
 };
 pub use source_declarations::{GoBoundTypeDeclaration, GoSourceTypeDeclarations};
 pub use source_scalar_typing::{
-    check_go_assignment, check_go_assignment_statement, check_go_return_statement,
-    check_go_scalar_assignment, infer_go_binding, infer_go_results, infer_go_scalar_binding,
-    infer_go_scalar_results, infer_go_scalar_value, infer_go_value, GoAssignmentTarget,
-    GoAssignmentTyping, GoErrorImplementation, GoMethodCallHeader, GoReturnTyping,
-    GoScalarCallHeader, GoScalarTyping, GoScalarTypingError, GoSliceBuiltinHeader, GoSourceMethod,
-    GoSourceScalarValue, GoSourceTypedValue, GoValueTyping,
+    check_go_assignment, check_go_assignment_statement, check_go_function_body,
+    check_go_return_statement, check_go_scalar_assignment, infer_go_binding, infer_go_results,
+    infer_go_scalar_binding, infer_go_scalar_results, infer_go_scalar_value, infer_go_value,
+    GoAssignmentTarget, GoAssignmentTyping, GoBodyBranch, GoBodyConstant, GoBodyErrorKind,
+    GoBodyExpression, GoBodyStatement, GoBodyTyping, GoBodyTypingError, GoErrorImplementation,
+    GoMethodCallHeader, GoReturnTyping, GoScalarCallHeader, GoScalarTyping, GoScalarTypingError,
+    GoSliceBuiltinHeader, GoSourceMethod, GoSourceScalarValue, GoSourceTypedValue, GoValueTyping,
 };
 pub use source_scopes::{
     build_go_source_scopes, GoNameLookup, GoSourceNameBinding, GoSourceNameKind,
