@@ -1,0 +1,39 @@
+package policy
+import (
+ alias "example.com/policy/helper"
+ "example.com/policy/oddpath"
+)
+type Root struct { A alias.Record; B domain.Record }
+type Amount uint16
+const ( First = iota; Second; Third = Second + 1 )
+var Shared Amount
+func Probe(root Root, x uint16) (out uint16) {
+ _ = root
+ const Outer = 7
+ type Local = Amount
+ const C = 2
+ { const C = C+1; _ = C }
+ { var int uint16=2; { var int=int+1; _=int } }
+ { x:=x+1; _=x }
+ { type Node struct{ Next *Node }; var node Node; _=node }
+ const Label=1
+Label: for { _=Label; break Label }
+ { const Outer = 9; var int = Outer; _ = int; var typed Local; _ = typed }
+ x, fresh := x+1, Outer
+ _ = fresh
+ if x := x+1; x > 0 { _ = x } else if y := x; y > 0 { _ = y }
+ for i:=0; i<2; i++ { _=i; const Inner=1; _=Inner }
+ for k,v := range []uint16{1,2} { _=k; _=v }
+ for _,x := range []uint16{x} { _=x }
+ switch x:=x; x { case 1: type Case=Amount; var c Case; _=c; default: const C=8; _=C }
+ switch z:=any(root).(type) { case Root: _=z; default: _=z }
+ select { case v,ok := <- make(chan uint16): _=v; _=ok; default: }
+ select { case v:= <- make(chan uint16): _=v; case v:= <- make(chan uint16): _=v; default: }
+ fn := func(c uint16) (r uint16) { return c }; _=fn
+ _=Shared; _=OtherFile; _=alias.Value; _=domain.Value; _=Third
+ return x
+}
+type Box[T any] struct{ V T }
+func (b Box[U]) Method(v U) U { var out U = v; return out }
+func Generic[T any](x T) T { return x }
+func init(){panic("application must not execute")}

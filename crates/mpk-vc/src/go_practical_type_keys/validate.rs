@@ -1,6 +1,9 @@
 use super::*;
 
 pub(super) mod unicode;
+pub(super) fn exported(c: char) -> bool {
+    unicode::upper(c)
+}
 
 fn need(ok: bool, error: GoTypeKeyError) -> Result<()> {
     if ok {

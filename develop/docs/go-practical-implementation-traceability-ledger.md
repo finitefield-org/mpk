@@ -7419,3 +7419,21 @@ denotation, full scope/type/constant/nominal/capture/context and storage/program
 requirements remain due, together with full56 foundation/registry, nativeLinux/
 generalnamespace/selectedclosure/all169/T02–T11. Go/Rust only; R01/R06/W01 stay
 open and the T02 whole gate stays final W04: `./scripts/check-fast.sh`.
+
+## 138. T02-W01 independent original Go lexical scope bindings
+
+The [independent lexical scope checkpoint](../migrations/go-practical/t02-w01/verification/source-scopes/README.md)
+retains actual package/file/function/block/implicit-clause/type-parameter
+bindings, visibility starts, import aliases/default names/dot exports and shadow
+blockers from complete owned syntax. All117 real Go lexical observations match
+original definition source/position and binding kind. One Go and three Rust roots,
+strict Clippy, scoped vet and changed-file formats pass; only affected roots
+rerun after fixes. Nine epochs/6510 preimages retain21 executions/four original
+failures and all22433 original files/174595501 bytes with literal byte/mode audit.
+Unresolved import metadata never guesses a name or exposes an uncertain outer
+binding. Existing parser/lexer/importer behavior, frozen255, frontend189 and
+ordinary448-case basis remain unchanged and are retained. Constant evaluation,
+full type-expression/nominal/alias/module/capture/context and ordinary source/
+storage/program requirements remain due, together with full56 foundation/
+registry, nativeLinux/generalnamespace/selectedclosure/all169/T02–T11. Go/Rust
+only; R01/R06/W01 stay open and the T02 whole gate stays W04: `./scripts/check-fast.sh`.
