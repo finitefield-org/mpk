@@ -7317,3 +7317,27 @@ general namespace/selected closure/all 169/T02–T11 remain due. R01/R06/W01
 stay open; the cumulative T02 gate remains W04: `./scripts/check-fast.sh`.
 
 All consuming handles terminate before staging. No mathematical view dictionary supplies source path, live-store or permission authority.
+
+## 133. T02-W01 owned original native types and structural storage routes
+
+The [original storage-source checkpoint](../migrations/go-practical/t02-w01/verification/storage-source/README.md)
+adds native typed storage-route extraction from exact physical spans in owned
+original packages. Full ordered type closures, physical named/alias/imported
+declarations, promoted field paths and full-width integer index expressions
+remain bound to complete original source bytes. Slice indexing explicitly
+pivots to its descriptor; it grants no owner/path/offset/permission proof.
+Anonymous Go type equality shares shapes without conflating source declarations.
+All native child edges are checked, including zero arrays; geometry256/64/16
+and the final artifact4096 limit remain unchanged. Native observation nodes use
+the existing4,194,304 source-syntax budget, not an incorrect count of semantic
+type declarations. Global-U/Plain/weight/final-depth and canonical source IDs
+remain separate. Seven affected Go roots/62 subtests, two exact original-input
+frontend builds (188 inputs), inactive public boundaries, vet/three-file format
+and Go1.23.2 compile pass. Nine source epochs/2,241 preimages retain24 executions;
+five exact lossless archives preserve all original native inputs/outputs.
+Existing Rust448-case view evidence is retained without unnecessary reruns.
+Go and Rust remain the only source languages. Independent Rust source/nominal/
+path import, ordinary source/route/lens correspondence, shared live owners/
+permissions/lifetimes/state/program, full foundation/context/registry and all
+native Linux/general namespace/selected closure/all169/T02–T11 remain due.
+R01/R06/W01 remain open; T02 whole gate stays W04: `./scripts/check-fast.sh`.

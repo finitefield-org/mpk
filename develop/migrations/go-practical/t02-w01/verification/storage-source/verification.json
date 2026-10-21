@@ -1,0 +1,762 @@
+{
+  "status": "scoped_checks_passed",
+  "basis_commit": "db1eb8375120c2c4dade880d85df1d41f2164663",
+  "observed_at_utc": "2026-10-21T11:00:37.816685+00:00",
+  "source_languages": [
+    "Go",
+    "Rust"
+  ],
+  "implementation": [
+    "go-tools/go2vir/practical_storage.go",
+    "go-tools/go2vir/practical_storage_types.go"
+  ],
+  "current_checks": {
+    "selected": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/exact-locators/selected/result.json",
+      "bytes": 88598,
+      "sha256": "c53e79c5ea408d915069f43569e6c288de9e55a2d6b6b29f21476efc9e95191f"
+    },
+    "analysis-inputs": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/exact-locators/analysis-inputs/result.json",
+      "bytes": 87028,
+      "sha256": "b6d0024fb69f852cd99ddb28d33f5085ebc511d1bcd9365661605ff6773b5552"
+    },
+    "public-boundary": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/exact-locators/public-boundary/result.json",
+      "bytes": 87173,
+      "sha256": "c54a209337f30e0be8473a4d509bd353127881b7f7d2b654157347d905120766"
+    },
+    "vet": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/exact-locators/vet/result.json",
+      "bytes": 85713,
+      "sha256": "13988a6862d5307064dbfc12629e21fe7e35b68f7af51ec82d2a045ae2d90c75"
+    },
+    "format": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/exact-locators/format/result.json",
+      "bytes": 85804,
+      "sha256": "d93615902963de739bfc081f7488654aed114c0743159b7e425f8d75bff8425a"
+    },
+    "legacy": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/exact-locators/legacy/result.json",
+      "bytes": 85674,
+      "sha256": "252c51224371184bb464adaf47fe12dd9279a284e591627f83f7fdbb9b22a52f"
+    }
+  },
+  "same_complete_current_Go_sources": true,
+  "affected_Go_roots": 7,
+  "subtests": 62,
+  "positive_route_observations": 30,
+  "rejected_nonpaths_or_unsupported_layouts": 12,
+  "additional_crossed_or_inexact_locator_controls": 5,
+  "original_owner_retired_after_query": true,
+  "unchanged_Rust_view_basis": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/verification.json",
+    "bytes": 28277,
+    "sha256": "193d95380dd5571166e69fed096ab5182d9e7056cf3b81d84e6c1d4951d80969"
+  },
+  "unchanged_Rust_paired_checks": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/paired/result.json",
+    "bytes": 1162607,
+    "sha256": "7f9b8802904abfc7f9a121d1413bad33a8d7ab7024ed28b4f804259e6e70cd83"
+  },
+  "original_source_epochs": 9,
+  "source_preimages": 2241,
+  "actual_executions": [
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/alias-observations/selected/result.json",
+        "bytes": 88632,
+        "sha256": "7be8ec6de86b434dc788f6e51859b077f01b2b77d8ea862bb8eefe256e56dbbe"
+      },
+      "status": "failed",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-timeout=20m",
+        "-run",
+        "^TestPracticalStorage"
+      ],
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/alias-observations/selected/stdout.log",
+        "bytes": 40354,
+        "sha256": "3cd1f39ecd5dd9e73e7287d330b7ee4167ab994a397d10cdff862011ce625ca2"
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/alias-observations/selected/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "formatter_mutation_expected": false
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/alias-observations-raw/format-write/result.json",
+        "bytes": 85873,
+        "sha256": "fa8821d266e5685ad1520fcfe482cd89174c82aea8c1483d93fc269538b60bf2"
+      },
+      "status": "passed",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/gofmt",
+        "-w",
+        "practical_storage.go",
+        "practical_storage_types.go",
+        "practical_storage_test.go"
+      ],
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/alias-observations-raw/format-write/stdout.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/alias-observations-raw/format-write/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "formatter_mutation_expected": true
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/complete-shapes/analysis-inputs/result.json",
+        "bytes": 87035,
+        "sha256": "6508def0b9c65682be862e32f368f03a34d15371a32dd57396d7aa7459f0b7fc"
+      },
+      "status": "passed",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-timeout=20m",
+        "-run",
+        "^(TestPracticalAnalysisCapturedInputsRebuildTheSameActualFrontend|TestPracticalAnalysisCaptureRejectsAlteredAndUnclosedInputs)$"
+      ],
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/complete-shapes/analysis-inputs/stdout.log",
+        "bytes": 12546,
+        "sha256": "e84cd9129defa3ee9c89cfaf6dbca7e2ba46974a2116365d375aa74a27309abe"
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/complete-shapes/analysis-inputs/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "formatter_mutation_expected": false
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/complete-shapes/format/result.json",
+        "bytes": 85812,
+        "sha256": "928575bf7a711814ce6d72796bcd169cb0c319a0682700b87dfd80ae2fd5e9ec"
+      },
+      "status": "passed",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/gofmt",
+        "-l",
+        "practical_storage.go",
+        "practical_storage_types.go",
+        "practical_storage_test.go"
+      ],
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/complete-shapes/format/stdout.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/complete-shapes/format/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "formatter_mutation_expected": false
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/complete-shapes/legacy/result.json",
+        "bytes": 85681,
+        "sha256": "2b70a98034898375d9346c9536dd6856d5aa7d9857fcaf228ce1072a62b889cb"
+      },
+      "status": "passed",
+      "command": [
+        "/usr/local/go/bin/go",
+        "test",
+        "-json",
+        "-run",
+        "^$",
+        "./..."
+      ],
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/complete-shapes/legacy/stdout.log",
+        "bytes": 774,
+        "sha256": "c9cc834bb5353966fdf4cba6891944fae71cfa9600e363b4b552464b7c0cc4ca"
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/complete-shapes/legacy/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "formatter_mutation_expected": false
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/complete-shapes/public-boundary/result.json",
+        "bytes": 87178,
+        "sha256": "f8bf769478d5b33a4767b72f24517f2fc65017bdebc0520235a5de3deea2ec26"
+      },
+      "status": "passed",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-run",
+        "^(TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads|TestGoProfileIdentityIsClosed|TestPracticalSourceDoesNotActivateInstalledProfile)$"
+      ],
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/complete-shapes/public-boundary/stdout.log",
+        "bytes": 15187,
+        "sha256": "0e9930344d9ffa803608179ed9c6973a3353446b47ef540ae42bdd570b41c425"
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/complete-shapes/public-boundary/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "formatter_mutation_expected": false
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/complete-shapes/selected/result.json",
+        "bytes": 88491,
+        "sha256": "a38e912d891e28fb59ed3ac4ee34c9adf802a2d8743abe991c9d8518253f9b77"
+      },
+      "status": "passed",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-timeout=20m",
+        "-run",
+        "^TestPracticalStorage"
+      ],
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/complete-shapes/selected/stdout.log",
+        "bytes": 38134,
+        "sha256": "b6d255dc7f8fc910644d83ec2711f5486321dbc377cb6ba489fb6b1a5b3f8b03"
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/complete-shapes/selected/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "formatter_mutation_expected": false
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/complete-shapes/vet/result.json",
+        "bytes": 85720,
+        "sha256": "92384ebbbc889f396f372c8f716cb07a2128f03c7c437547e85762cbd12a741e"
+      },
+      "status": "passed",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+        "vet",
+        "./..."
+      ],
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/complete-shapes/vet/stdout.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/complete-shapes/vet/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "formatter_mutation_expected": false
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/complete-shapes-raw/format-write/result.json",
+        "bytes": 85852,
+        "sha256": "66a772d0e187e77520f7272bf97e07f388ce19123e43c68ffe4b86f55b85ce43"
+      },
+      "status": "passed",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/gofmt",
+        "-w",
+        "practical_storage.go",
+        "practical_storage_types.go",
+        "practical_storage_test.go"
+      ],
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/complete-shapes-raw/format-write/stdout.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/complete-shapes-raw/format-write/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "formatter_mutation_expected": true
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/exact-locators/analysis-inputs/result.json",
+        "bytes": 87028,
+        "sha256": "b6d0024fb69f852cd99ddb28d33f5085ebc511d1bcd9365661605ff6773b5552"
+      },
+      "status": "passed",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-timeout=20m",
+        "-run",
+        "^(TestPracticalAnalysisCapturedInputsRebuildTheSameActualFrontend|TestPracticalAnalysisCaptureRejectsAlteredAndUnclosedInputs)$"
+      ],
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/exact-locators/analysis-inputs/stdout.log",
+        "bytes": 12543,
+        "sha256": "c7578381d3b88607e50fa454945680db791c5a99f7ae8991a660a6bb9443438e"
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/exact-locators/analysis-inputs/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "formatter_mutation_expected": false
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/exact-locators/format/result.json",
+        "bytes": 85804,
+        "sha256": "d93615902963de739bfc081f7488654aed114c0743159b7e425f8d75bff8425a"
+      },
+      "status": "passed",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/gofmt",
+        "-l",
+        "practical_storage.go",
+        "practical_storage_types.go",
+        "practical_storage_test.go"
+      ],
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/exact-locators/format/stdout.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/exact-locators/format/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "formatter_mutation_expected": false
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/exact-locators/legacy/result.json",
+        "bytes": 85674,
+        "sha256": "252c51224371184bb464adaf47fe12dd9279a284e591627f83f7fdbb9b22a52f"
+      },
+      "status": "passed",
+      "command": [
+        "/usr/local/go/bin/go",
+        "test",
+        "-json",
+        "-run",
+        "^$",
+        "./..."
+      ],
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/exact-locators/legacy/stdout.log",
+        "bytes": 775,
+        "sha256": "6b1a8f5cfd1f54c104aea9dad2ad2d002ade76840847dca085b3f4625652c2c8"
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/exact-locators/legacy/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "formatter_mutation_expected": false
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/exact-locators/public-boundary/result.json",
+        "bytes": 87173,
+        "sha256": "c54a209337f30e0be8473a4d509bd353127881b7f7d2b654157347d905120766"
+      },
+      "status": "passed",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-run",
+        "^(TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads|TestGoProfileIdentityIsClosed|TestPracticalSourceDoesNotActivateInstalledProfile)$"
+      ],
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/exact-locators/public-boundary/stdout.log",
+        "bytes": 15182,
+        "sha256": "89c96a240dbf2340930b63a10f99f1b65eb61d96ec2a14ddfc2649d02aac7c0a"
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/exact-locators/public-boundary/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "formatter_mutation_expected": false
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/exact-locators/selected/result.json",
+        "bytes": 88598,
+        "sha256": "c53e79c5ea408d915069f43569e6c288de9e55a2d6b6b29f21476efc9e95191f"
+      },
+      "status": "passed",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-timeout=20m",
+        "-run",
+        "^TestPracticalStorage"
+      ],
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/exact-locators/selected/stdout.log",
+        "bytes": 39919,
+        "sha256": "edc7cb19bb1bfac1e57f7f715e4476eb720e9db69ed5e58728a0e8085931999c"
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/exact-locators/selected/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "formatter_mutation_expected": false
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/exact-locators/vet/result.json",
+        "bytes": 85713,
+        "sha256": "13988a6862d5307064dbfc12629e21fe7e35b68f7af51ec82d2a045ae2d90c75"
+      },
+      "status": "passed",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+        "vet",
+        "./..."
+      ],
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/exact-locators/vet/stdout.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/exact-locators/vet/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "formatter_mutation_expected": false
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/exact-locators-raw/format-write/result.json",
+        "bytes": 85845,
+        "sha256": "3554dddebf4b252651bd798d0b22f0bc47427bfdc771460e4ca94b8d99f2b9c7"
+      },
+      "status": "passed",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/gofmt",
+        "-w",
+        "practical_storage.go",
+        "practical_storage_types.go",
+        "practical_storage_test.go"
+      ],
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/exact-locators-raw/format-write/stdout.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/exact-locators-raw/format-write/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "formatter_mutation_expected": true
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/original-owned/selected/result.json",
+        "bytes": 87670,
+        "sha256": "60a4c1167d9fb1f8b724322f0ed6bc009458814f887ab495dbcd87e9dbadcfe5"
+      },
+      "status": "passed",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-timeout=20m",
+        "-run",
+        "^TestPracticalStorage"
+      ],
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/original-owned/selected/stdout.log",
+        "bytes": 25730,
+        "sha256": "7c3ba5aef8cfdac240fdfcd8ed901acc7eab42b0943b14c34373bff11f6239b3"
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/original-owned/selected/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "formatter_mutation_expected": false
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/raw-source/format-write/result.json",
+        "bytes": 85788,
+        "sha256": "0fb2804d0ce442684ba7cc5163692f6dd89e3b36920d44e9508bb1f22ddc45c9"
+      },
+      "status": "passed",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/gofmt",
+        "-w",
+        "practical_storage.go",
+        "practical_storage_types.go",
+        "practical_storage_test.go"
+      ],
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/raw-source/format-write/stdout.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/raw-source/format-write/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "formatter_mutation_expected": true
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/source-budget/analysis-inputs/result.json",
+        "bytes": 87021,
+        "sha256": "9436371a7fac86de8b6722ab3451589c804bf46587e102e1ecbec9e06dd05da1"
+      },
+      "status": "passed",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-timeout=20m",
+        "-run",
+        "^(TestPracticalAnalysisCapturedInputsRebuildTheSameActualFrontend|TestPracticalAnalysisCaptureRejectsAlteredAndUnclosedInputs)$"
+      ],
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/source-budget/analysis-inputs/stdout.log",
+        "bytes": 12546,
+        "sha256": "30560d334ad030a49a31c4fd89eb2ac7432d5a476e2bc18928749bc6b1c7c361"
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/source-budget/analysis-inputs/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "formatter_mutation_expected": false
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/source-budget/format/result.json",
+        "bytes": 85798,
+        "sha256": "f7a2b38b7d49f46510368560d81c9300db8fd03a54d4430b4546c815d5f86e5a"
+      },
+      "status": "passed",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/gofmt",
+        "-l",
+        "practical_storage.go",
+        "practical_storage_types.go",
+        "practical_storage_test.go"
+      ],
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/source-budget/format/stdout.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/source-budget/format/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "formatter_mutation_expected": false
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/source-budget/legacy/result.json",
+        "bytes": 85666,
+        "sha256": "64d45117c0ecb58adf5613531af8f625da5d7963aac9e83dc5e4e37bb05f4fba"
+      },
+      "status": "passed",
+      "command": [
+        "/usr/local/go/bin/go",
+        "test",
+        "-json",
+        "-run",
+        "^$",
+        "./..."
+      ],
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/source-budget/legacy/stdout.log",
+        "bytes": 777,
+        "sha256": "2e982e784c5a10a838f2b692249d08457c9befc5a48623ef3638ffd33388bab3"
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/source-budget/legacy/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "formatter_mutation_expected": false
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/source-budget/public-boundary/result.json",
+        "bytes": 87166,
+        "sha256": "e4e77e86f06009da3e146c9ffd3b86999103a6f51b82b1aa2babccbd11b8b384"
+      },
+      "status": "passed",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-run",
+        "^(TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads|TestGoProfileIdentityIsClosed|TestPracticalSourceDoesNotActivateInstalledProfile)$"
+      ],
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/source-budget/public-boundary/stdout.log",
+        "bytes": 15182,
+        "sha256": "d270f8464f4cbad37892fd8117da1e5f31d0156ae928427192b863b028efc4fe"
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/source-budget/public-boundary/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "formatter_mutation_expected": false
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/source-budget/selected/result.json",
+        "bytes": 88474,
+        "sha256": "185e6543f961d656c1b88558995a9cbf32c7e523c4d82946f48dddb63c8eb79b"
+      },
+      "status": "passed",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-timeout=20m",
+        "-run",
+        "^TestPracticalStorage"
+      ],
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/source-budget/selected/stdout.log",
+        "bytes": 38148,
+        "sha256": "0e34eff9dd89dc38b9efc44830ad19a38e58a8d5f5cc0a13f9bcc44dcefae0c8"
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/source-budget/selected/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "formatter_mutation_expected": false
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/source-budget/vet/result.json",
+        "bytes": 85705,
+        "sha256": "99424a886ac408d14f939cb5d3b55be090f8df2ec2021d9a307a5e72d7b6271c"
+      },
+      "status": "passed",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+        "vet",
+        "./..."
+      ],
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/source-budget/vet/stdout.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/source-budget/vet/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "formatter_mutation_expected": false
+    }
+  ],
+  "lossless_original_native_archives": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/native-archive-alias-observations/alias-observations/manifest.json",
+      "bytes": 4848186,
+      "sha256": "992521aff329d568821bb34edb08f999405753b8fe93776413129ef8f64420fc"
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/native-archive-exact-locators/exact-locators/manifest.json",
+      "bytes": 4804381,
+      "sha256": "fa8fb2c7fced06ff41ab97b0043e8ebf77b1367872f70f519cb42c12513cdc51"
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/native-archive-source-budget/source-budget/manifest.json",
+      "bytes": 4792767,
+      "sha256": "0e68282beda357b2373d7a6c974cc2eea934ea90f83791eab4c6aacec9fb9f7a"
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/native-archives/complete-shapes/manifest.json",
+      "bytes": 4814740,
+      "sha256": "ebf127d37e6d38d8ce49f1f98aef470f9a351fa4a8f95c737853987bd0fd85dc"
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/native-archives/original-owned/manifest.json",
+      "bytes": 4799602,
+      "sha256": "d0810b1885f744d248cc6c53ee0949fe95269de1dd51db1e6547455c7bf261d5"
+    }
+  ],
+  "all_original_native_sources_buffers_and_outputs_retained": true,
+  "new_frontend_build_inputs": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/exact-locators/analysis-inputs/captured-inputs.json",
+    "bytes": 84206,
+    "sha256": "1f0e92a25a75443bcf9b23d857402af90d641836eea5f19a3f1255f49c03a82a"
+  },
+  "actual_rebuilt_frontends": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/storage-source/exact-locators/analysis-inputs/reproduced-builds.json",
+    "bytes": 4759,
+    "sha256": "0e9dacc217f5d4ad9f024e6c742627fda7ac72304df59fe9aef51e4b4dbe2a31"
+  },
+  "frontend_build_inputs": 188,
+  "artifact_type_declaration_limit_unchanged": 4096,
+  "observation_node_budget_is_existing_source_syntax_budget": 4194304,
+  "array_field_depth_limits_unchanged": [
+    256,
+    64,
+    16
+  ],
+  "source_type_ID_or_ordinary_semantics_proof": false,
+  "complete_global_U_Plain_weight_or_final_depth_proof": false,
+  "Rust_source_type_and_path_import_complete": false,
+  "registered_context_or_live_owner_permission_proof": false,
+  "native_release_acceptance": false,
+  "public_profile_activated": false,
+  "R01_complete": false,
+  "R06_complete": false,
+  "W01_complete": false,
+  "full_T_gate": "deferred to GO-PRAC-T02-W04: ./scripts/check-fast.sh"
+}
