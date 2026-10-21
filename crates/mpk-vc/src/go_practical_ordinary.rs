@@ -342,6 +342,15 @@ impl GoArrayFoundation {
         &self.certificate
     }
 }
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoArrayEqualityFoundation {
+    certificate: Vec<u8>,
+}
+impl GoArrayEqualityFoundation {
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
+}
 impl GoStringValue {
     pub fn certificate_bytes(&self) -> &[u8] {
         &self.certificate
@@ -2049,12 +2058,37 @@ fn string_affix_builder() -> Result<Builder> {
 }
 /// Full frozen fixed-array value laws. Source/nominal/storage authority is separate.
 pub fn generate_go_practical_array_foundation() -> Result<GoArrayFoundation> {
-    let mut builder = string_affix_builder()?;
-    array::append(&mut builder)?;
+    let mut builder = array_builder()?;
     builder.certificate.module = "Mpk.Go.Practical.ArrayFoundation".into();
     Ok(GoArrayFoundation {
         certificate: builder.finish()?,
     })
+}
+fn array_builder() -> Result<Builder> {
+    let mut builder = string_affix_builder()?;
+    array::append(&mut builder)?;
+    Ok(builder)
+}
+/// Complete fixed-array comparison laws; source comparability/admission is separate.
+pub fn generate_go_practical_array_equality_foundation() -> Result<GoArrayEqualityFoundation> {
+    let mut builder = array_builder()?;
+    array::append_equality(&mut builder)?;
+    builder.certificate.module = "Mpk.Go.Practical.ArrayEqualityFoundation".into();
+    Ok(GoArrayEqualityFoundation {
+        certificate: builder.finish()?,
+    })
+}
+pub fn import_go_practical_array_equality_foundation(
+    candidate: &[u8],
+) -> Result<GoArrayEqualityFoundation> {
+    if candidate.len() > MAX_BYTES {
+        return Err(GoOrdinaryError::Limit);
+    }
+    let expected = generate_go_practical_array_equality_foundation()?;
+    if candidate != expected.certificate_bytes() {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    Ok(expected)
 }
 pub fn import_go_practical_array_foundation(candidate: &[u8]) -> Result<GoArrayFoundation> {
     if candidate.len() > MAX_BYTES {

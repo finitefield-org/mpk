@@ -1,0 +1,77 @@
+# T02-W01 fixed-array comparison with actual element laws
+
+The [ordinary component](../../../../../../crates/mpk-vc/src/go_practical_ordinary/array/equality.rs)
+adds fixed-array equality and inequality at every frozen positive depth0..8,
+plus the canonical empty representation. Its2,981 declarations/89,121 terms/
+1,132,748 bytes preserve all2,688 prior identities and the complete1,033,685-byte
+array producer. There are47 new definitions and246 ordinary laws, without an
+axiom, function extensionality, core rule, caller-selected root or limit change.
+
+For positive arrays, each visible slot contributes the actual element comparison;
+padding contributes true. A balanced conjunction computes equality, and Boolean
+negation computes inequality. Reflection and completeness lift actual typed
+element-comparator laws and validity witnesses to the complete visible relation.
+Inequality yields a real refutation of that relation; the converse consumes the
+forward comparator law. Full64-bit read reflection also requires the actual shape
+and range witnesses. Reflexivity, symmetry and transitivity require their real
+conditional element laws. Pointwise congruence, normalization of both
+operands, copy and relation-respecting comparator preservation use checked
+ordinary proofs without equality of arbitrary functions.
+
+The concrete byte instantiation fixes the existing full-eight-bit comparator and
+its reflection/completeness proofs. Callers cannot supply its comparator or truth
+values. A direct ByteNotEqualStep law binds the concrete negative wrapper to the
+negation of concrete equality at every depth. Empty comparison returns true/false
+for equality/inequality; canonical dummy equality still requires both validity
+witnesses. These are mathematical components. Generic comparator parameters do
+not admit Go callbacks or caller semantic adapters.
+
+The [verification receipt](verification.json) records five affected Rust roots,
+strict target Clippy and eleven-file format on identical current production/test
+bytes. The [two-core receipt](paired-complete/result.json) checks783 complete
+same-byte inputs:two zero-axiom acceptances and781 genuine type mismatches,
+comprising246 changed conclusions,488 actual typed witness domains and47
+typed wrong definitions. Every wrong runtime definition has an actual result
+countermodel. Exact ownership rejects an otherwise core-accepted extension and
+the unchanged byte cap. No unrelated whole suite or intermediate T gate runs.
+
+The [native Go observation](native-go/result.json) compiles actual array `==` and
+`!=` at all257 lengths0..256 using pinned Go1.25.0 darwin/arm64. It keeps1,028
+whole256-byte input pairs, four variants per length, including visible first/last
+and high-bit differences and differences only outside the logical length. The
+unchanged finite interpreter evaluates the actual decoded ordinary definitions
+for1,292 raw/normalized case pairs and2,584 operator results, all matching Go in
+536,538,673 AST steps. Full original inputs and all64 length bits precede each
+evaluation; no definition callback or theorem body supplies outputs. Existing
+per-case50M-step/2M-value/2M-environment ceilings remain unchanged.
+
+Native negative cases reject slice/map/function elements, distinct named array
+types, a struct containing a slice and zero-length arrays of noncomparable
+elements. These eight compiler rejections establish observation fixtures; source
+comparability must still be enforced by the eventual admitted-source rules.
+In particular, length zero does not make a forbidden element type comparable.
+The complete57,906,112-byte SDK archive and all14,496 original regular files/
+202,722,007 bytes retain hashes and namespace checks before/after execution.
+Darwin observation supplies no native Linux release acceptance.
+
+Thirteen full source epochs/5,454 preimages retain19 executions and six
+original failures:four compilation failures, one construction/linkage failure
+and one failed control suite. The [original paired run](paired/result.json)
+records that both kernels accepted the typed ByteNotEqual mutation before its
+direct wrapper law existed. That was a missing law, not checker disagreement;
+the accepted corruption is never counted as a rejection. After recording the
+failure, only the verified failed Rust child was [stopped](failed-run-stop/result.json).
+Its partial candidates and actual outputs remain. The nine direct wrapper laws
+were added only after both original consuming handles ended, then the complete
+affected current checks were rerun. No missing original output is reconstructed.
+
+The [input review](input-review.json) checks complete preimages, actual outputs,
+decoded input payloads, original SDK bytes,255 frozen inputs,186 frontend inputs,
+local links and unchanged127/four/39/51 matcher/scope/seal/exclusion counts.
+No source, JSON, directory, seal or blanket exception is added. Go and Rust
+remain the only source languages. Original source/type/evaluation/nominal/length
+binding, source-to-carrier preservation, array/struct/slice storage/aliasing/
+state/program laws, complete private foundation/descriptor/registry/context,
+native Linux/general namespace/selected closure/all169/T02–T11 remain due.
+R01/R06/W01 stay open. The cumulative T02 gate remains W04:
+`./scripts/check-fast.sh`.

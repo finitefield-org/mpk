@@ -1,0 +1,40 @@
+{
+  "status": "passed",
+  "observed_at_utc": "2026-10-21T07:27:46.229316+00:00",
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/array-equality/archive-preservation/transport-archive.py",
+    "sha256": "7635b73c499a89c2ebde5b922537e5d8fe332ca7613d8d9ed41fd10e48bb5cba",
+    "bytes": 4117
+  },
+  "original_native_execution": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/array-equality/native-go/result.json",
+    "sha256": "10aaacac3066b26cc38f7f76c79070fa9bb00d287c55b606324125848398bfac",
+    "bytes": 10308
+  },
+  "original_archive": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/array-equality/native-go/go1.25.0.darwin-arm64.tar.gz",
+    "sha256": "544932844156d8172f7a28f77f2ac9c15a23046698b6243f633b0a0b00c0749c",
+    "bytes": 57906112
+  },
+  "lossless_transport": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/array-equality/toolchain-archive/manifest.json",
+    "sha256": "4ed723094bccf8673bddd75765d0905fdde09cf53e332363b258796a34e62809",
+    "bytes": 4332
+  },
+  "retained_original_external_copy": {
+    "path": "/private/tmp/mpk-go-array-equality-preserved-native-archive/go1.25.0.darwin-arm64.tar.gz",
+    "sha256": "544932844156d8172f7a28f77f2ac9c15a23046698b6243f633b0a0b00c0749c",
+    "bytes": 57906112
+  },
+  "fully_decoded_bytes_equal_to_actual_original_input": true,
+  "raw_original_unchanged_before_relocation": true,
+  "scanner_matcher_scope_seal_or_exclusion_changes": false,
+  "source_or_metadata_exclusion_added": false,
+  "restoration_command": [
+    "python3",
+    "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/array-equality/transport-archive.py",
+    "restore",
+    "DESTINATION"
+  ],
+  "raw_binary_relocated_after_all_consumers_terminated": true
+}

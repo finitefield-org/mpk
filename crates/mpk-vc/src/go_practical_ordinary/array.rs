@@ -2,6 +2,10 @@
 //! Full-word reads, canonical padding and value updates grant no source authority.
 use super::syntax::*;
 use super::{Builder, Result};
+mod equality;
+pub(super) fn append_equality(builder: &mut Builder) -> Result<()> {
+    equality::append(builder)
+}
 mod guards;
 mod normalization;
 mod relation;

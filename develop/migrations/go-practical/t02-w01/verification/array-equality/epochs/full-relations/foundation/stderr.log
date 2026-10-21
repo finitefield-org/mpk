@@ -1,0 +1,14 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error: mismatched closing delimiter: `}`
+  --> crates/mpk-vc/src/go_practical_ordinary/array/equality/stability.rs:28:13
+   |
+24 |  fn related_stability(&mut self,d:usize)->Result<()> {
+   |                                                      - closing delimiter possibly meant for this
+...
+28 |   let law=pi("_x",a.clone(),pi("_xx",a.clone(),pi("_y",a.clone(),pi("_yy",a.clone(),pi("_px",app(p.clone(),vec![x.clone()]),pi("_pxx...
+   |             ^ unclosed delimiter
+...
+33 |  }
+   |  ^ mismatched closing delimiter
+
+error: could not compile `mpk-vc` (lib) due to 1 previous error

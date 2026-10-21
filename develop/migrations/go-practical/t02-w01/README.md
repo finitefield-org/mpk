@@ -893,3 +893,31 @@ evaluation/nominal and array-store/aliasing/state/program correspondence,complet
 private foundation/context/native Linux/general namespace/selected closure/all169/
 T02–T11 remain due. R01/R06/W01 stay open;the cumulative T02 gate remains W04:
 `./scripts/check-fast.sh`.
+
+The [array-comparison checkpoint](verification/array-equality/README.md) adds
+actual element-comparator folds, reflection/completeness, inequality/refutation,
+full 64 read reflection, conditional algebra and pointwise/normalization/copy/
+relation preservation for every positive depth 0..8 and canonical empty values.
+Its 2,981 declarations/89,121 terms/1,132,748 bytes retain all 2,688 prior identities
+and exact 1,033,685 old array bytes;47 definitions and 246 ordinary laws change no
+axiom/core/extensionality/root/cap/limit. The closed byte instantiation uses the
+actual existing eight-bit comparator and directly binds its `!=` wrapper.
+Five affected Rust roots, strict Clippy/eleven-file format and both unchanged
+cores pass 783 whole inputs:two zero-axiom acceptances and 781 type
+mismatches (246 conclusions,488 typed witness domains,47 typed wrong
+definitions with actual countermodels). Pinned original Go comparisons cover
+all 257 lengths and 1,028 whole input pairs; actual-DAG execution matches2,584
+operator results in 536,538,673 steps, including raw and normalized operands.
+Eight native compiler type rejections include zero-length noncomparable arrays.
+The whole SDK archive/all 14,496 original files retain exact bytes. Thirteen
+source epochs/5,454 preimages retain 19 checks and six original failures;
+the initial accepted ByteNotEqual corruption and stopped failed suite remain
+separate evidence. Only affected checks rerun after the nine missing wrapper
+laws are added. All255 frozen/186 frontend inputs and 127/four/39/51 scanner
+counts remain exact, without new exclusions. Go and Rust remain the only source
+languages. Full source/type/evaluation/nominal preservation, storage/aliasing/
+state/program, private foundation/context/native Linux/general namespace/selected
+closure/all 169/T02–T11 remain due. R01/R06/W01 stay open; the cumulative T02 gate
+remains W04: `./scripts/check-fast.sh`.
+
+The whole original SDK archive uses seven reversible text chunks with exact decoded bytes. The original failed input review and its three compressed-binary token matches remain reported; decoded SDK/source inputs have no findings, and no scanner exception is added.

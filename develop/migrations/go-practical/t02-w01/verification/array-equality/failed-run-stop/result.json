@@ -1,0 +1,10 @@
+{
+  "observed_at_utc": "2026-10-21T06:42:06.135118+00:00",
+  "reason": "The typed-definition root has already failed: ByteNotEqual mutation is accepted by both cores because a direct concrete complement law is missing. Preserve the original partial run, stop only its exact Rust child, add that law, then run the complete affected suite again. No unrelated process or passing suite is stopped.",
+  "process_before_signal": "27590 27589 /Users/kazuyoshitoshiya/ff/mpk/target/release/deps/go_practical_array_equality-c2fda9ef323cc6a5 --nocapture --skip array_equality_preserves_all2688_prior_identities --skip observations_match_original_go_all_lengths_and_normalization\n",
+  "parent_before_signal": "27589 27584 /Users/kazuyoshitoshiya/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo test --release --offline --locked -p mpk-vc --test go_practical_array_equality -- --nocapture --skip array_equality_preserves_all2688_prior_identities --skip observations_match_original_go_all_lengths_and_normalization\n",
+  "target_pid": 27590,
+  "signal": 15,
+  "signal_sent": true,
+  "original_outputs_reconstructed": false
+}

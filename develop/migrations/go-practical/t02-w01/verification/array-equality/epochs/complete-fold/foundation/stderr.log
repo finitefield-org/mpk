@@ -1,0 +1,31 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error[E0505]: cannot move out of `fl` because it is borrowed
+  --> crates/mpk-vc/src/go_practical_ordinary/array/equality/preservation.rs:91:58
+   |
+44 |         let branch = |yes| -> Result<Expr> {
+   |                      --------------------- borrow of `fl` occurs here
+45 |             let l = Equality::boolean(
+46 |                 fl.clone(),
+   |                 -- borrow occurs due to use in closure
+...
+91 |                             decide(inside, eq(boolean(), fl, fr), branch(false)?, branch(true)?),
+   |                                                          ^^       ------ borrow later used here
+   |                                                          |
+   |                                                          move out of `fl` occurs here
+
+error[E0505]: cannot move out of `fr` because it is borrowed
+  --> crates/mpk-vc/src/go_practical_ordinary/array/equality/preservation.rs:91:62
+   |
+44 |         let branch = |yes| -> Result<Expr> {
+   |                      --------------------- borrow of `fr` occurs here
+...
+55 |                 fr.clone(),
+   |                 -- borrow occurs due to use in closure
+...
+91 |                             decide(inside, eq(boolean(), fl, fr), branch(false)?, branch(true)?),
+   |                                                              ^^   ------ borrow later used here
+   |                                                              |
+   |                                                              move out of `fr` occurs here
+
+For more information about this error, try `rustc --explain E0505`.
+error: could not compile `mpk-vc` (lib) due to 2 previous errors

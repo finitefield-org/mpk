@@ -1,0 +1,180 @@
+{
+  "status": "passed",
+  "started_at_utc": "2026-10-21T06:21:08.232381+00:00",
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/array-equality/native-comparability/observe-go-comparability.py",
+    "sha256": "c3ee8bc77810da41524883b31bdec35696921faeb5dcfea4d77a207f6642d9f5",
+    "bytes": 2862
+  },
+  "pinned_sdk_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/array-equality/native-go/result.json",
+    "sha256": "10aaacac3066b26cc38f7f76c79070fa9bb00d287c55b606324125848398bfac",
+    "bytes": 10308
+  },
+  "compiler_binary": {
+    "path": "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+    "sha256": "c812de5f1e8307431c5bce8ebc4887c180827abc5834a72cd640a8a14200a93b",
+    "bytes": 14117888
+  },
+  "whole_original_sdk_inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/array-equality/native-go/sdk-inputs.json",
+    "sha256": "27f1650c85855eec3e4fa7825ff6b3f0a49196e0c2b23b793866cda2fb3f7354",
+    "bytes": 3284260
+  },
+  "toolchain_archive": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/array-equality/native-go/go1.25.0.darwin-arm64.tar.gz",
+    "sha256": "544932844156d8172f7a28f77f2ac9c15a23046698b6243f633b0a0b00c0749c",
+    "bytes": 57906112
+  },
+  "sources": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/array-equality/native-comparability/zero-slice-elements.go",
+      "sha256": "e26da48fd051327c95fadf223dee34556d9f43be97d4ab87baf899e90be430dc",
+      "bytes": 53
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/array-equality/native-comparability/zero-map-elements.go",
+      "sha256": "36a5f9f8631f6c3631bacc376e8b8f7c929dbff752368a6f6acce8acc52d52da",
+      "bytes": 58
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/array-equality/native-comparability/zero-function-elements.go",
+      "sha256": "3a57d72b0e85a6e4e2b67dcd8b4a0b5a2e092d6b740df0487d75bf68a753602c",
+      "bytes": 53
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/array-equality/native-comparability/struct-containing-slice.go",
+      "sha256": "a6a41d78bdd23879d46c37d0ff456cd864e88bcb540392896c0878a1d14c578d",
+      "bytes": 85
+    }
+  ],
+  "environment": {
+    "GOROOT": "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go",
+    "GOTOOLCHAIN": "local",
+    "GOENV": "off",
+    "GOWORK": "off",
+    "GO111MODULE": "off",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "CGO_ENABLED": "0",
+    "GOMAXPROCS": "1",
+    "GOCACHE": "/private/tmp/mpk-array-equality-go-cache"
+  },
+  "cases": [
+    {
+      "name": "zero-slice-elements",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+        "tool",
+        "compile",
+        "-o",
+        "/private/tmp/mpk-array-compare-zero-slice-elements.o",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/array-equality/native-comparability/zero-slice-elements.go"
+      ],
+      "exit_code": 2,
+      "seconds": 0.01970129192341119,
+      "source": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/array-equality/native-comparability/zero-slice-elements.go",
+        "sha256": "e26da48fd051327c95fadf223dee34556d9f43be97d4ab87baf899e90be430dc",
+        "bytes": 53
+      },
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/array-equality/native-comparability/zero-slice-elements.stdout.log",
+        "sha256": "265718cdf0bc5ff702dd63575175369a241d79a16f42645609008d7d6e9f6a70",
+        "bytes": 206
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/array-equality/native-comparability/zero-slice-elements.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "name": "zero-map-elements",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+        "tool",
+        "compile",
+        "-o",
+        "/private/tmp/mpk-array-compare-zero-map-elements.o",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/array-equality/native-comparability/zero-map-elements.go"
+      ],
+      "exit_code": 2,
+      "seconds": 0.018202750012278557,
+      "source": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/array-equality/native-comparability/zero-map-elements.go",
+        "sha256": "36a5f9f8631f6c3631bacc376e8b8f7c929dbff752368a6f6acce8acc52d52da",
+        "bytes": 58
+      },
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/array-equality/native-comparability/zero-map-elements.stdout.log",
+        "sha256": "2057f951b09b0f9d33a5b274c61aa0b29607f4b4ab59f2ef4ce6fbb4949a9a64",
+        "bytes": 209
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/array-equality/native-comparability/zero-map-elements.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "name": "zero-function-elements",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+        "tool",
+        "compile",
+        "-o",
+        "/private/tmp/mpk-array-compare-zero-function-elements.o",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/array-equality/native-comparability/zero-function-elements.go"
+      ],
+      "exit_code": 2,
+      "seconds": 0.017217541113495827,
+      "source": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/array-equality/native-comparability/zero-function-elements.go",
+        "sha256": "3a57d72b0e85a6e4e2b67dcd8b4a0b5a2e092d6b740df0487d75bf68a753602c",
+        "bytes": 53
+      },
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/array-equality/native-comparability/zero-function-elements.stdout.log",
+        "sha256": "1b181255456cf63fb8c55cae4e4181cdf77c58cfa7eda6ce8373ffb246540d06",
+        "bytes": 209
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/array-equality/native-comparability/zero-function-elements.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "name": "struct-containing-slice",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+        "tool",
+        "compile",
+        "-o",
+        "/private/tmp/mpk-array-compare-struct-containing-slice.o",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/array-equality/native-comparability/struct-containing-slice.go"
+      ],
+      "exit_code": 2,
+      "seconds": 0.017667792038992047,
+      "source": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/array-equality/native-comparability/struct-containing-slice.go",
+        "sha256": "a6a41d78bdd23879d46c37d0ff456cd864e88bcb540392896c0878a1d14c578d",
+        "bytes": 85
+      },
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/array-equality/native-comparability/struct-containing-slice.stdout.log",
+        "sha256": "d9b169bf6d1e6b82d568d988ae457f9e5146121b6d2b86ffb5cf94dea1dc2cf8",
+        "bytes": 208
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/array-equality/native-comparability/struct-containing-slice.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    }
+  ],
+  "ordinary_source_or_registered_profile_proof": false,
+  "typed_original_source_rejections": 4,
+  "finished_at_utc": "2026-10-21T06:21:08.879120+00:00"
+}
