@@ -1,6 +1,6 @@
 use super::*;
 
-mod unicode;
+pub(super) mod unicode;
 
 fn need(ok: bool, error: GoTypeKeyError) -> Result<()> {
     if ok {

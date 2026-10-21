@@ -1,6 +1,6 @@
 // Pinned Go1.25.0 unicode/tables.go, Unicode15.0.0: exact L/Nd/Lu ranges.
 // Generated ranges; the evidence generator checks the complete pinned source.
-pub(super) fn letter(c: char) -> bool {
+pub(in crate::go_practical_type_keys) fn letter(c: char) -> bool {
     contains(L, c as u32)
 }
 const L: &[(u32, u32, u32)] = &[
@@ -628,7 +628,7 @@ const L: &[(u32, u32, u32)] = &[
     (0x30000, 0x3134a, 1),
     (0x31350, 0x323af, 1),
 ];
-pub(super) fn digit(c: char) -> bool {
+pub(in crate::go_practical_type_keys) fn digit(c: char) -> bool {
     contains(ND, c as u32)
 }
 const ND: &[(u32, u32, u32)] = &[

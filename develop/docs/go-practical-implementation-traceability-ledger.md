@@ -7363,3 +7363,23 @@ source/carrier/route/lens correspondence, live stores/permissions/lifetime/state
 program, complete foundation/context/registry and all native Linux/general
 namespace/selected closure/all169/T02–T11 remain due. Go/Rust only; R01/R06/W01
 stay open and the T02 whole gate remains W04: `./scripts/check-fast.sh`.
+
+## 135. T02-W01 independent Rust physical Go lexical source reading
+
+The [independent Go lexer checkpoint](../migrations/go-practical/t02-w01/verification/go-lex/README.md) adds a
+Rust physical tokenizer over owned original Go buffers, including pinned Unicode,
+all number/operator/literal forms, comments/directives and exact semicolon rules.
+All5853 real Go1.25 reference cases agree:5714 accepted streams contain7,702,601
+exact token tuples and139 cases reject in both. The default2919-case edge corpus
+and ownership controls pass; a separate4,194,307-token Go/Rust boundary has the
+same whole stream hash. Token count follows owned byte length plus two, not the
+unchanged AST-node budget. Two Go and three Rust roots, strict lint and scoped
+formats pass. Eight epochs/5662 preimages retain15 checks and all35,114 original
+files/565,549,694 bytes in lossless native and deduplicated Rust transports. The
+whole pinned SDK, frozen255 design inputs, existing189 frontend inputs and prior
+448-case ordinary/core evidence remain exact; unaffected suites are retained.
+Lexing gives no parsing, typing, source/nominal/capture, source/carrier/path,
+live-store/permission/lifetime/program or profile authority. Those complete
+requirements, full U/foundation/context/registry and all native Linux/general
+namespace/selected closure/all169/T02–T11 remain due. Go/Rust only; R01/R06/W01
+stay open and the T02 whole gate remains W04: `./scripts/check-fast.sh`.

@@ -9,7 +9,9 @@ use crate::hash::{hash_canonical_json, sha256_raw_file_bytes, HashDomain};
 use serde::{Deserialize, Serialize};
 use std::collections::{BTreeMap, BTreeSet};
 
+mod lex;
 mod validate;
+pub use lex::{lex_go_source, GoLexError, GoLexErrorKind, GoLexToken, GoLexedSource};
 
 const SOURCE_SCHEMA: &str = "mpk.go.source_object.v1";
 const SOURCE_DOMAIN: HashDomain = HashDomain::new("MPK-GO-SOURCE-OBJECT-1.0");
