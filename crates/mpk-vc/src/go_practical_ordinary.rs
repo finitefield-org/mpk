@@ -296,6 +296,15 @@ impl GoStringOrderFoundation {
         &self.certificate
     }
 }
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoStringBoundedOrderFoundation {
+    certificate: Vec<u8>,
+}
+impl GoStringBoundedOrderFoundation {
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
+}
 impl GoStringValue {
     pub fn certificate_bytes(&self) -> &[u8] {
         &self.certificate
@@ -1857,6 +1866,13 @@ pub fn import_go_practical_string_equality_foundation(
 /// Ordinary unsigned-byte lexicographic order on the frozen complete carrier.
 /// Original Go source/evaluation/nominal/context admission remains separate.
 pub fn generate_go_practical_string_order_foundation() -> Result<GoStringOrderFoundation> {
+    let mut builder = string_order_builder()?;
+    builder.certificate.module = "Mpk.Go.Practical.StringOrderFoundation".into();
+    Ok(GoStringOrderFoundation {
+        certificate: builder.finish()?,
+    })
+}
+fn string_order_builder() -> Result<Builder> {
     let buffers = [
         generate_go_practical_string_equality_foundation()?
             .certificate_bytes()
@@ -1873,10 +1889,7 @@ pub fn generate_go_practical_string_order_foundation() -> Result<GoStringOrderFo
         .collect::<Result<Vec<_>>>()?;
     let mut builder = composition::string_order_prerequisites(&inputs)?;
     string::append_order(&mut builder)?;
-    builder.certificate.module = "Mpk.Go.Practical.StringOrderFoundation".into();
-    Ok(GoStringOrderFoundation {
-        certificate: builder.finish()?,
-    })
+    Ok(builder)
 }
 pub fn import_go_practical_string_order_foundation(
     candidate: &[u8],
@@ -1885,6 +1898,30 @@ pub fn import_go_practical_string_order_foundation(
         return Err(GoOrdinaryError::Limit);
     }
     let expected = generate_go_practical_string_order_foundation()?;
+    if candidate != expected.certificate_bytes() {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    Ok(expected)
+}
+
+/// Bound witnesses connect rank order to actual full-size string equality.
+/// This ordinary foundation does not admit original Go source or a context.
+pub fn generate_go_practical_string_bounded_order_foundation(
+) -> Result<GoStringBoundedOrderFoundation> {
+    let mut builder = string_order_builder()?;
+    string::append_bounded_order(&mut builder)?;
+    builder.certificate.module = "Mpk.Go.Practical.StringBoundedOrderFoundation".into();
+    Ok(GoStringBoundedOrderFoundation {
+        certificate: builder.finish()?,
+    })
+}
+pub fn import_go_practical_string_bounded_order_foundation(
+    candidate: &[u8],
+) -> Result<GoStringBoundedOrderFoundation> {
+    if candidate.len() > MAX_BYTES {
+        return Err(GoOrdinaryError::Limit);
+    }
+    let expected = generate_go_practical_string_bounded_order_foundation()?;
     if candidate != expected.certificate_bytes() {
         return Err(GoOrdinaryError::Linkage);
     }

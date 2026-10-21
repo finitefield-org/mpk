@@ -11,6 +11,9 @@ mod validity;
 pub(super) fn append_order(builder: &mut Builder) -> Result<()> {
     order::append(builder)
 }
+pub(super) fn append_bounded_order(builder: &mut Builder) -> Result<()> {
+    order::append_bounded(builder)
+}
 pub(super) fn append_equality(builder: &mut Builder) -> Result<()> {
     equality::append(builder)
 }

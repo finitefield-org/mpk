@@ -7024,3 +7024,53 @@ storage/state/program,full ordinary foundation/private descriptor/registry/
 context,native kernel/general namespace/selected closure/all169/T02-T11 remain
 due. R01/R06/W01 stay open. All source-consuming handles are terminal before
 staging; the cumulative T02 gate remains W04: `./scripts/check-fast.sh`.
+
+## 125. T02-W01 bounded byte-rank order matches actual string equality
+
+Entry is `86f29e185fa4911f5a03a68f9c75c37055215a7b`. The
+[checkpoint](../migrations/go-practical/t02-w01/verification/string-order-bounded/README.md)
+retains all1,706 old identities and exact full order producer bytes. Its1,729
+declarations/53,121 terms/687,164 bytes add23 ordinary laws and no definitions,
+axioms/imports/core rules/extensionality/limits. The private builder extraction
+preserves closed compiled-in prerequisites and supplies no caller-root or source
+authority.
+
+A larger length's real upper witness bounds the smaller length strictly below256.
+Only then does original guarded BoundedIndex convert full64 length to an address.
+Equal ranks would identify end0 with an actual present-byte successor; ordinary
+Nat laws refute that. Both upper witnesses recover full length equality, then
+actual unsigned ByteEqual reflection recovers every observable bit. Under those
+bounds, rank equality is exactly existing full-size String.Equality. The actual
+four operators satisfy neither-strict/both-weak equality, weak antisymmetry,
+trichotomy and equality/strict/weak consistency without function equality by fiat.
+
+Five affected Rust roots/current strict Clippy/five-file format pass. Both
+unchanged independent cores agree on62 complete inputs:two zero-axiom acceptances
+and60 genuine type mismatches (23 altered conclusions/37 actual typed-witness
+domains). Actual-DAG execution observes the same75 original bounded full carriers,
+raw/normalized, in152,401,067 steps, including rank/string/neither-strict/both-weak/
+trichotomy and actual full64 upper flags. Five raw carriers with256/257,257/256,
+257/258,511/512 and512/511 lengths give actual rank equality true/full-size
+equality false in5,157,035 steps, preserving all64 length bits/all256 slots and
+NUL0/present-rank-nonzero behavior. These lie outside the frozen profile domain;
+they are not admitted-source counterexamples. Only core constructors/eliminators
+and complete input data are primitive; no arithmetic/string callback or theorem
+body supplies observations. The50M-step/2M-value/2M-environment ceilings stay fixed;
+finite data observations provide no universal or source/program proof.
+
+Three full source epochs/1,143 preimages retain seven actual checks. The initial
+17-law component passes. A reversed intermediate trichotomy Eq chain then returns
+Linkage before candidate emission; the complete original source/driver and all
+five root outcomes remain. Removing the reversal repairs construction without
+checker/cap/observer changes or a reconstructed original certificate/output.
+Every candidate is saved before checking; available partial observations remain.
+
+All255 frozen inputs,186 Go build inputs and127 matchers/four scopes/39 seals stay
+exact, without a new source/JSON/directory/seal exception, language, agent or
+Actions. Unchanged byte/arithmetic/Go/frontend/native/core/ref/protocol suites
+remain without repeat. Original source/type/evaluation/nominal/signed-domain
+binding, prefix/suffix/substring/concat/source preservation,array/storage/state/
+program, full ordinary foundation/private descriptor/registry/context,native
+kernel/general namespace/selected closure/all169/T02-T11 remain due. R01/R06/W01
+stay open; all source-consuming handles are terminal before staging and the
+cumulative T02 gate remains W04: `./scripts/check-fast.sh`.

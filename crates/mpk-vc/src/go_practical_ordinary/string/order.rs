@@ -3,7 +3,12 @@
 use super::*;
 use crate::go_practical_ordinary::GoOrdinaryError;
 
+mod bounded;
 mod string_values;
+
+pub(super) fn append_bounded(builder: &mut Builder) -> Result<()> {
+    bounded::append(builder)
+}
 
 const POS: [&str; 8] = ["p0", "p1", "p2", "p3", "p4", "p5", "p6", "p7"];
 const QUERY: [&str; 8] = ["j0", "j1", "j2", "j3", "j4", "j5", "j6", "j7"];

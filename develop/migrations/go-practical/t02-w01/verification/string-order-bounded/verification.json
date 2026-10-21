@@ -1,0 +1,306 @@
+{
+  "schema": "mpk.go_practical.string_bounded_order_checkpoint.v1",
+  "status": "scoped_checks_passed",
+  "entry_commit": "86f29e185fa4911f5a03a68f9c75c37055215a7b",
+  "observed_at_utc": "2026-10-21T00:33:02.840894+00:00",
+  "source_language_scope": [
+    "Go",
+    "Rust"
+  ],
+  "generic_component": {
+    "declarations": 1729,
+    "terms": 53121,
+    "bytes": 687164,
+    "new_definitions": 0,
+    "new_ordinary_laws": 23,
+    "all1706_prior_identities_exact": true,
+    "old_complete_order_producer_bytes_exact": true,
+    "input": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-order-bounded/epochs/direction-corrected/selected/candidates/bounded-order-foundation.mpcert",
+      "sha256": "d6d199698289dc3e5128cbb5869bdb3ef16f140bc26f4da1ceb680f57e920e5b",
+      "bytes": 687164
+    }
+  },
+  "proof_structure": "A real upper witness on the larger full64 logical size makes the shorter length a valid slot address, using the original guarded Word.Index.D8.BoundedIndex. Equal ranks would identify end0 with the actual present-byte successor, a contradiction proved with ordinary Nat.Equal/Pred laws. Both upper witnesses therefore recover full size equality. Pointwise rank equality recovers every observable byte bit via actual unsigned value equality/ByteEqual reflection, without function extensionality. Reflection/completion connects this real content relation to existing string Equal. Total/neither-strict and both-weak equality, weak antisymmetry, trichotomy, equality exclusion and weak inclusion all use the actual operators.",
+  "affected_Rust_test_roots": 5,
+  "affected_checks": {
+    "selected": {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-order-bounded/epochs/direction-corrected/selected/result.json",
+        "sha256": "4469aa93af05acc2a97fcb1959bf9a34354d710d7f64a5876594d2038a4beada",
+        "bytes": 126065
+      },
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-order-bounded/epochs/direction-corrected/selected/stdout.log",
+        "sha256": "210775c18274eb15361d1a40a3db5089950b224cfbbcdcc1537b70f4d8183651",
+        "bytes": 1182
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-order-bounded/epochs/direction-corrected/selected/stderr.log",
+        "sha256": "4a9d197fec771c55abf63bf805220507528d23374c082cc2e9d4ee421bbd85f3",
+        "bytes": 266
+      }
+    },
+    "lint": {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-order-bounded/epochs/direction-corrected/lint/result.json",
+        "sha256": "6f66e1a3f4e3eebfab75ad0c6bea411314b8e79aeb4d7e3a5d43ddffcef78050",
+        "bytes": 126074
+      },
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-order-bounded/epochs/direction-corrected/lint/stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-order-bounded/epochs/direction-corrected/lint/stderr.log",
+        "sha256": "5d0df881923ac6d93847bc77f21596f8780b7231dfcf813de25b6abb3360d636",
+        "bytes": 137
+      }
+    },
+    "format": {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-order-bounded/epochs/direction-corrected/format/result.json",
+        "sha256": "e7601ca48f0e12b01bd0ba1416c8766ba4d84fbe9429396737d29616f2c3f5fc",
+        "bytes": 126290
+      },
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-order-bounded/epochs/direction-corrected/format/stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-order-bounded/epochs/direction-corrected/format/stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    }
+  },
+  "complete_same_byte_inputs": 62,
+  "zero_axiom_acceptances": 2,
+  "genuine_core_type_mismatches": 60,
+  "independent_comparison": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-order-bounded/paired/result.json",
+    "sha256": "61cc07769571913469cdcb28937ef89f142e85dc4df373ba685b3fd47c928ac6",
+    "bytes": 165574
+  },
+  "negative_controls": {
+    "changed_actual_conclusions": 23,
+    "changed_required_typed_witness_domains": 37,
+    "partial_certificate_acceptance_claimed": false
+  },
+  "finite_observations": {
+    "whole_bounded_input_pairs": 75,
+    "raw_and_normalized_observations": 150,
+    "bounded_AST_steps": 152401067,
+    "full_length_word_bits": 64,
+    "all_byte_bits": 8,
+    "complete_original_arrays_and_available_partial_outputs_retained": true,
+    "columns": [
+      "Less",
+      "LessEqual",
+      "Greater",
+      "GreaterEqual",
+      "StringEqual",
+      "RankEqual",
+      "neither_strict",
+      "both_weak",
+      "trichotomy",
+      "upper_left",
+      "upper_right"
+    ],
+    "actual_definition_callbacks": false,
+    "theorem_bodies_executed": false,
+    "supplies_universal_proof": false,
+    "native_Go_source_or_runtime_receipt": false,
+    "observer_ceilings_unchanged": [
+      50000000,
+      2000000,
+      2000000
+    ]
+  },
+  "required_bound_countermodels": {
+    "cases": 5,
+    "full_raw_lengths": [
+      [
+        256,
+        257
+      ],
+      [
+        257,
+        256
+      ],
+      [
+        257,
+        258
+      ],
+      [
+        511,
+        512
+      ],
+      [
+        512,
+        511
+      ]
+    ],
+    "AST_steps": 5157035,
+    "every_observed_rank_equal_true_and_full_string_equal_false": true,
+    "full64_bits_and_all256_slot_bytes_retained": true,
+    "actual_NUL_value_zero_and_present_NUL_rank_nonzero": true,
+    "within_frozen_profile_domain": false,
+    "admitted_source_program_counterexample": false
+  },
+  "complete_source_epochs": 3,
+  "complete_original_source_preimages": 1143,
+  "actual_executions": [
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-order-bounded/epochs/direction-corrected/format/result.json",
+        "sha256": "e7601ca48f0e12b01bd0ba1416c8766ba4d84fbe9429396737d29616f2c3f5fc",
+        "bytes": 126290
+      },
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-order-bounded/epochs/direction-corrected/format/stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-order-bounded/epochs/direction-corrected/format/stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "status": "passed",
+      "exit_code": 0
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-order-bounded/epochs/direction-corrected/lint/result.json",
+        "sha256": "6f66e1a3f4e3eebfab75ad0c6bea411314b8e79aeb4d7e3a5d43ddffcef78050",
+        "bytes": 126074
+      },
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-order-bounded/epochs/direction-corrected/lint/stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-order-bounded/epochs/direction-corrected/lint/stderr.log",
+        "sha256": "5d0df881923ac6d93847bc77f21596f8780b7231dfcf813de25b6abb3360d636",
+        "bytes": 137
+      },
+      "status": "passed",
+      "exit_code": 0
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-order-bounded/epochs/direction-corrected/selected/result.json",
+        "sha256": "4469aa93af05acc2a97fcb1959bf9a34354d710d7f64a5876594d2038a4beada",
+        "bytes": 126065
+      },
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-order-bounded/epochs/direction-corrected/selected/stdout.log",
+        "sha256": "210775c18274eb15361d1a40a3db5089950b224cfbbcdcc1537b70f4d8183651",
+        "bytes": 1182
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-order-bounded/epochs/direction-corrected/selected/stderr.log",
+        "sha256": "4a9d197fec771c55abf63bf805220507528d23374c082cc2e9d4ee421bbd85f3",
+        "bytes": 266
+      },
+      "status": "passed",
+      "exit_code": 0
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-order-bounded/epochs/initial/foundation/result.json",
+        "sha256": "a3a53bc6695df44208f3f9ff93a4603534f0a4cc219ea575b4065a5e9035c222",
+        "bytes": 126075
+      },
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-order-bounded/epochs/initial/foundation/stdout.log",
+        "sha256": "0d1ef9da3db41d28dcb310a656c0adafcc4e17d68e8cc6ef2a856094f014a341",
+        "bytes": 318
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-order-bounded/epochs/initial/foundation/stderr.log",
+        "sha256": "7b0dcfe223c6b89f19aa18aace9f2a7b8da7e32894df7de01e6d3e7e088a5ff2",
+        "bytes": 2645
+      },
+      "status": "passed",
+      "exit_code": 0
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-order-bounded/epochs/semantic-controls/format/result.json",
+        "sha256": "5015d5d413660bd46587b4dcbd1a23ebf0469f9fd3e30b7d7c9122b746077787",
+        "bytes": 126280
+      },
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-order-bounded/epochs/semantic-controls/format/stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-order-bounded/epochs/semantic-controls/format/stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "status": "passed",
+      "exit_code": 0
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-order-bounded/epochs/semantic-controls/lint/result.json",
+        "sha256": "d6d756cc704028a96a74f0046eda4360f058ad390d84e8aa63a7aed562022058",
+        "bytes": 126064
+      },
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-order-bounded/epochs/semantic-controls/lint/stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-order-bounded/epochs/semantic-controls/lint/stderr.log",
+        "sha256": "12a41bdbb341565649df096e6ce2ef430776aa242e4fc57f1e86333eb4bc21f1",
+        "bytes": 136
+      },
+      "status": "passed",
+      "exit_code": 0
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-order-bounded/epochs/semantic-controls/selected/result.json",
+        "sha256": "f025f49b7afe4e48a4bce88f9aee402d0cf1aacb5f817e4857df85b54214be7f",
+        "bytes": 126057
+      },
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-order-bounded/epochs/semantic-controls/selected/stdout.log",
+        "sha256": "14dbd9d567b274f42c485b060d81be99835cc92efdcf322554efffeefcb77175",
+        "bytes": 858
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-order-bounded/epochs/semantic-controls/selected/stderr.log",
+        "sha256": "7931605501acbad667695cc62b06b6b979274df3d5fe79e97cb3995b549f3dd7",
+        "bytes": 1495
+      },
+      "status": "failed",
+      "exit_code": 101
+    }
+  ],
+  "original_failure": "The added trichotomy recipe reversed an intermediate Eq chain, so construction returned Linkage before any candidate could be emitted; all five root outcomes, complete original source and driver/output bytes remain. Removing that reversal repairs the recipe; no checker/cap/observer change or reconstructed original certificate is used. The initial17-law component passed separately.",
+  "selection_reason": "Select the new ordinary producer and actual consumers, all1706 prior identities/complete old order bytes, exact ownership, every new conclusion and required typed witness, plus75 whole raw/normalized cases for the actual new statements and five genuine out-of-domain countermodels proving why bounds matter. Byte/arithmetic circuits, Go/frontend/native capture/core/ref/protocol and unrelated suites remain exact and are not repeated; current target Clippy/five-file format cover all edited Rust files. All checks run locally.",
+  "all_candidates_and_actual_drivers_saved_before_verification": true,
+  "all_actual_test_checker_handles_terminal": true,
+  "frozen_design_inputs_unchanged": 255,
+  "Go_frontend_build_inputs_unchanged": 186,
+  "checker_limits_or_frozen_caps_changed": false,
+  "public_profile_activated": false,
+  "source_program_or_registered_context_proof": false,
+  "native_release_acceptance": false,
+  "R01_complete": false,
+  "R06_complete": false,
+  "W01_complete": false,
+  "full_T_gate_passed": false,
+  "full_T_gate": "deferred to GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "remaining": "Original Go source/type/evaluation/nominal/signed-domain binding and source preservation; prefix/suffix/substring/concat/array/storage/state/program; full ordinary foundation/private descriptor/registry/context/native kernel/general namespace/selected closure/all169/T02-T11. Fixed raw data/proof carriers and observer results alone provide no source authority."
+}

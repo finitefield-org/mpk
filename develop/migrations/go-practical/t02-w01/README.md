@@ -787,3 +787,26 @@ String.Equality and original source/evaluation/nominal/signed-domain binding,
 prefix/suffix/substring/concat/source preservation, private foundation/context,
 native kernel/general namespace/selected closure/all169/T02-T11 remain due.
 R01/R06/W01 stay open; the cumulative T02 gate remains W04: `./scripts/check-fast.sh`.
+
+The [bounded order/equality checkpoint](verification/string-order-bounded/README.md)
+now proves rank equality exactly matches existing full-size String.Equality
+under both actual upper witnesses. A strict bound precedes full64 length-to-slot
+conversion; end0 versus a present-byte successor recovers length equality and
+actual unsigned value/byte reflection recovers all observable bits. Its1,729
+declarations/53,121 terms/687,164 bytes retain all1,706 prior identities and exact
+old order bytes, adding23 ordinary laws without new definitions/axioms/core/
+extensionality/limits. Neither-strict/both-weak equality, weak antisymmetry,
+trichotomy and equality/strict/weak consistency use the actual four operators.
+Five affected roots, strict target Clippy/five-file format and both unchanged
+cores pass62 complete candidates:two zero-axiom acceptances/60 type mismatches,
+with23 changed conclusions/37 typed-witness changes. Actual definition evaluation
+observes75 whole raw/normalized pairs and five out-of-domain full64 countermodels
+showing why bounds matter; these supply no admitted-source counterexample.
+Three complete source epochs/1,143 preimages and seven checks preserve the
+original trichotomy construction Linkage and all five root failure outputs;
+removing the reversed Eq chain repairs construction before any new candidate is
+claimed. All255 frozen inputs,186 Go inputs and127/four/39 scanner counts stay
+exact. Source/type/evaluation/nominal/signed-domain binding,prefix/suffix/substring/
+concat/source preservation/private context/full foundation/native kernel/general
+namespace/selected closure/all169/T02-T11 remain due. R01/R06/W01 stay open;
+the cumulative T02 gate remains W04: `./scripts/check-fast.sh`.
