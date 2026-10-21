@@ -5,7 +5,9 @@ mod aggregates;
 mod literals;
 mod members;
 mod operators;
+mod slice_builtins;
 use operators::comparison;
+pub use slice_builtins::GoSliceBuiltinHeader;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum GoScalarTypingError {
@@ -82,6 +84,7 @@ pub struct GoScalarTyping {
     scopes: GoSourceScopes,
     values: Vec<GoSourceScalarValue>,
     calls: Vec<GoScalarCallHeader>,
+    slice_builtins: Vec<GoSliceBuiltinHeader>,
 }
 impl GoScalarTyping {
     pub fn source(&self, id: &str) -> Option<&GoParsedSource> {
@@ -92,6 +95,9 @@ impl GoScalarTyping {
     }
     pub fn call_headers(&self) -> &[GoScalarCallHeader] {
         &self.calls
+    }
+    pub fn slice_builtin_headers(&self) -> &[GoSliceBuiltinHeader] {
+        &self.slice_builtins
     }
 }
 /// Original value-type facts. No runtime payload, store permission or body proof.
@@ -127,6 +133,7 @@ pub struct GoValueTyping {
     scopes: GoSourceScopes,
     values: Vec<GoSourceTypedValue>,
     calls: Vec<GoScalarCallHeader>,
+    slice_builtins: Vec<GoSliceBuiltinHeader>,
     types: BTreeMap<String, GoSourceTypeKey>,
     underlying: BTreeMap<String, String>,
     declarations: BTreeMap<String, GoTypeDeclarationKey>,
@@ -140,6 +147,9 @@ impl GoValueTyping {
     }
     pub fn call_headers(&self) -> &[GoScalarCallHeader] {
         &self.calls
+    }
+    pub fn slice_builtin_headers(&self) -> &[GoSliceBuiltinHeader] {
+        &self.slice_builtins
     }
     pub fn types(&self) -> impl Iterator<Item = &GoSourceTypeKey> {
         self.types.values()
@@ -163,6 +173,7 @@ impl GoValueTyping {
             scopes: self.scopes,
             values,
             calls: self.calls,
+            slice_builtins: self.slice_builtins,
         })
     }
 }
@@ -251,6 +262,10 @@ enum Destination {
     Reused(Request),
 }
 enum Plan {
+    Make(String, Vec<Request>),
+    AppendFirst(Vec<Request>, bool),
+    AppendReady(String, Vec<Request>, bool),
+    Copy(Vec<Request>),
     IndexValue(Request),
     Forward(Request),
     Select(Request, usize),
@@ -289,6 +304,10 @@ impl Plan {
             Self::BinaryFirst(_, a, b) | Self::BinaryReady(_, a, b) => vec![a.clone(), b.clone()],
             Self::BuiltinFirst(_, rs)
             | Self::BuiltinReady(_, rs)
+            | Self::Make(_, rs)
+            | Self::AppendFirst(rs, _)
+            | Self::AppendReady(_, rs, _)
+            | Self::Copy(rs)
             | Self::CallFirst(_, rs)
             | Self::CallReady(_, rs) => rs.clone(),
             Self::DeclarationFirst(dest, rs) | Self::DeclarationReady(dest, rs) => rs
@@ -322,6 +341,7 @@ struct Engine<'a> {
     done: BTreeMap<Request, Facts>,
     active: BTreeSet<Request>,
     calls: BTreeSet<GoScalarCallHeader>,
+    slice_builtins: BTreeSet<GoSliceBuiltinHeader>,
 }
 fn attr<'a>(n: &'a GoSyntaxNode, key: &str) -> Option<&'a str> {
     n.attributes().find_map(|(k, v)| (k == key).then_some(v))
@@ -365,6 +385,7 @@ impl<'a> Engine<'a> {
             done: BTreeMap::new(),
             active: BTreeSet::new(),
             calls: BTreeSet::new(),
+            slice_builtins: BTreeSet::new(),
         }
     }
     fn node(&self, source: &str, node: usize) -> Result<&GoSyntaxNode> {
@@ -713,10 +734,22 @@ impl<'a> Engine<'a> {
                         Request::raw(&r.source, child(&n, "Y")?),
                     )),
                     "CallExpr" => {
-                        if attr(&n, "Ellipsis") == Some("true") {
+                        let fun = child(&n, "Fun")?;
+                        let dots = attr(&n, "Ellipsis") == Some("true");
+                        if let Ok(GoNameLookup::Predeclared {
+                            name,
+                            kind: GoSourceNameKind::BuiltinFunction,
+                        }) = self.symbol(&r.source, fun)
+                        {
+                            if matches!(name.as_str(), "make" | "append" | "copy") {
+                                return Ok(Step::More(
+                                    self.slice_builtin_plan(&r.source, *node, &name, dots)?,
+                                ));
+                            }
+                        }
+                        if dots {
                             return Err(GoScalarTypingError::Unsupported);
                         }
-                        let fun = child(&n, "Fun")?;
                         let args = list(&n, "Args")
                             .iter()
                             .map(|&arg| Request::raw(&r.source, arg))
@@ -835,6 +868,10 @@ impl<'a> Engine<'a> {
     }
     fn finish(&mut self, r: &Request, plan: Plan) -> Result<Step> {
         match plan {
+            Plan::Make(typ, args) => self.make_slice(r, typ, args),
+            Plan::AppendFirst(args, dots) => self.append_first(r, args, dots),
+            Plan::AppendReady(typ, args, dots) => self.append_ready(r, typ, args, dots),
+            Plan::Copy(args) => self.copy_slice(r, args),
             Plan::IndexValue(raw) => {
                 let a = self.one(&raw)?;
                 if a.typ.is_some() {
@@ -1118,6 +1155,7 @@ impl<'a> Engine<'a> {
             scopes: self.scopes.clone(),
             values,
             calls: self.calls.into_iter().collect(),
+            slice_builtins: self.slice_builtins.into_iter().collect(),
             types: self.keys,
             underlying: self.underlying,
             declarations: self.declarations,

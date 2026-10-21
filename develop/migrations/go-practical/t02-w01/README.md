@@ -1178,3 +1178,21 @@ full56 foundation/registry and nativeLinux/generalnamespace/selectedclosure/
 all169/T02–T11 remain due. Go/Rust only; R01/R06/W01 stay open, public practical
 profile remains inactive and the T02 whole gate stays W04:
 `./scripts/check-fast.sh`.
+
+The [original slice builtin typing checkpoint](verification/slice-builtins/README.md) adds make/append/copy
+with actual original named/element types, size/index contexts, value/spread/
+string-byte forms, tuple calls and retained source-node headers in both value
+and scalar API projections. All510 exact positive type observations and1143
+original rejections agree on1659 cases; three valid outside-key forms and three
+actual Go1.25 checker panics stay separate. Four same-source compiler controls
+confirm tuple/string append-spread compilation and preserve three compiler
+internal errors; type-info agreement supplies no compiled-source admission.
+Two new Rust/three scalar/two aggregate roots and scoped lint/vet/formats pass;
+all4985 scalar/950 aggregate outcomes and20000-node work remain exact. Ten epochs/
+7723 preimages retain19 scoped executions/three failures and24139 original files/
+80622279 bytes with literal byte/mode audit. SDK14496/frontend189/frozen255/
+ordinary448 basis stays exact. Complete method/interface/body/statement/call-state
+typing, source evaluation/carrier/capture/context/resource/storage/program proofs,
+full56 foundation/registry and nativeLinux/generalnamespace/selectedclosure/
+all169/T02–T11 remain due. Go/Rust only; R01/R06/W01 remain open, public practical
+profile stays inactive and the T02 whole gate stays W04: `./scripts/check-fast.sh`.

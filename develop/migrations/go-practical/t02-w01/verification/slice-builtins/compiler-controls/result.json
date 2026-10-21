@@ -1,0 +1,208 @@
+{
+  "status": "observed",
+  "corpus": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/slice-builtins/corpus.json",
+    "bytes": 12707299,
+    "sha256": "3d05d40484b4abe90f9670fdc918e1554272b299fff3de8cbe4d43870292bee4"
+  },
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/slice-builtins/compiler-controls/driver.py",
+    "bytes": 2701,
+    "sha256": "c424d6341301f8a56c7a29715cc0bf7013435036992d99b9cf6f2919844b772f"
+  },
+  "original_controls": [
+    {
+      "status": "accepted",
+      "label": "edge-append(PairBytesString()...)",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+        "tool",
+        "compile",
+        "-p",
+        "example.com/scalar",
+        "-o",
+        "/private/tmp/mpk-go-slice-builtins-compiler-1605/original.o",
+        "/private/tmp/mpk-go-slice-builtins-compiler-1605/original.go"
+      ],
+      "actual_driver_prelaunch": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/slice-builtins/compiler-controls/driver.py",
+        "bytes": 2701,
+        "sha256": "c424d6341301f8a56c7a29715cc0bf7013435036992d99b9cf6f2919844b772f"
+      },
+      "original_input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/slice-builtins/compiler-controls/case-01605/input.json",
+        "bytes": 8363,
+        "sha256": "9d47a347b3397d3cd94188c84d322ffd0e276087067dcdd1f9092bb0beb24f02"
+      },
+      "original_source": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/slice-builtins/compiler-controls/case-01605/original.go.raw",
+        "bytes": 1731,
+        "sha256": "9214843ea1c6055470c06017a81764fd201a959a91d0409e751081f568eb2d5d"
+      },
+      "compiler_source": {
+        "path": "/private/tmp/mpk-go-slice-builtins-compiler-1605/original.go",
+        "bytes": 1731,
+        "sha256": "9214843ea1c6055470c06017a81764fd201a959a91d0409e751081f568eb2d5d"
+      },
+      "applications_executed": false,
+      "exit_code": 0,
+      "seconds": 0.1811038750456646,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/slice-builtins/compiler-controls/case-01605/stdout.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/slice-builtins/compiler-controls/case-01605/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "source_bytes_unchanged": true
+    },
+    {
+      "status": "not_accepted",
+      "label": "copy-nil-bytes",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+        "tool",
+        "compile",
+        "-p",
+        "example.com/scalar",
+        "-o",
+        "/private/tmp/mpk-go-slice-builtins-compiler-1465/original.o",
+        "/private/tmp/mpk-go-slice-builtins-compiler-1465/original.go"
+      ],
+      "actual_driver_prelaunch": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/slice-builtins/compiler-controls/driver.py",
+        "bytes": 2701,
+        "sha256": "c424d6341301f8a56c7a29715cc0bf7013435036992d99b9cf6f2919844b772f"
+      },
+      "original_input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/slice-builtins/compiler-controls/case-01465/input.json",
+        "bytes": 8297,
+        "sha256": "f0a084642483367f2150b8627ce73f28ea6ef68ba9a4a81756feed6d68cbc8bd"
+      },
+      "original_source": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/slice-builtins/compiler-controls/case-01465/original.go.raw",
+        "bytes": 1718,
+        "sha256": "8a2b9edac10408eebdadc6f0cdec49279fbb51125f47dedfb1031f1fde17dce2"
+      },
+      "compiler_source": {
+        "path": "/private/tmp/mpk-go-slice-builtins-compiler-1465/original.go",
+        "bytes": 1718,
+        "sha256": "8a2b9edac10408eebdadc6f0cdec49279fbb51125f47dedfb1031f1fde17dce2"
+      },
+      "applications_executed": false,
+      "exit_code": 2,
+      "seconds": 0.023991707945242524,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/slice-builtins/compiler-controls/case-01465/stdout.log",
+        "bytes": 227,
+        "sha256": "a1eec15afff7217958f0d6085063f0d8c35d53e207f86cdcdd8c9d53dc0a9de4"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/slice-builtins/compiler-controls/case-01465/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "source_bytes_unchanged": true
+    },
+    {
+      "status": "not_accepted",
+      "label": "copy-nil-str",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+        "tool",
+        "compile",
+        "-p",
+        "example.com/scalar",
+        "-o",
+        "/private/tmp/mpk-go-slice-builtins-compiler-1468/original.o",
+        "/private/tmp/mpk-go-slice-builtins-compiler-1468/original.go"
+      ],
+      "actual_driver_prelaunch": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/slice-builtins/compiler-controls/driver.py",
+        "bytes": 2701,
+        "sha256": "c424d6341301f8a56c7a29715cc0bf7013435036992d99b9cf6f2919844b772f"
+      },
+      "original_input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/slice-builtins/compiler-controls/case-01468/input.json",
+        "bytes": 8291,
+        "sha256": "76b0d82a452df4eafcedc2b95f7393711e3db5ce9671475c1a4c498e9845ba16"
+      },
+      "original_source": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/slice-builtins/compiler-controls/case-01468/original.go.raw",
+        "bytes": 1716,
+        "sha256": "6f41420fe792f91ac81d6aa74858885ff59b8ff5abb36d8095f838087440b72e"
+      },
+      "compiler_source": {
+        "path": "/private/tmp/mpk-go-slice-builtins-compiler-1468/original.go",
+        "bytes": 1716,
+        "sha256": "6f41420fe792f91ac81d6aa74858885ff59b8ff5abb36d8095f838087440b72e"
+      },
+      "applications_executed": false,
+      "exit_code": 2,
+      "seconds": 0.025286374962888658,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/slice-builtins/compiler-controls/case-01468/stdout.log",
+        "bytes": 227,
+        "sha256": "a1eec15afff7217958f0d6085063f0d8c35d53e207f86cdcdd8c9d53dc0a9de4"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/slice-builtins/compiler-controls/case-01468/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "source_bytes_unchanged": true
+    },
+    {
+      "status": "not_accepted",
+      "label": "append-spread-nil-str",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+        "tool",
+        "compile",
+        "-p",
+        "example.com/scalar",
+        "-o",
+        "/private/tmp/mpk-go-slice-builtins-compiler-1147/original.o",
+        "/private/tmp/mpk-go-slice-builtins-compiler-1147/original.go"
+      ],
+      "actual_driver_prelaunch": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/slice-builtins/compiler-controls/driver.py",
+        "bytes": 2701,
+        "sha256": "c424d6341301f8a56c7a29715cc0bf7013435036992d99b9cf6f2919844b772f"
+      },
+      "original_input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/slice-builtins/compiler-controls/case-01147/input.json",
+        "bytes": 13099,
+        "sha256": "6e1e75b3f6d3b72ac899bc99697b8e4a80bf3b5e9ddda7a9d34a3e3ae753e695"
+      },
+      "original_source": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/slice-builtins/compiler-controls/case-01147/original.go.raw",
+        "bytes": 1721,
+        "sha256": "7cd64640505f55dd82298109b96b900904ce1554c92434fc4e19131752598aec"
+      },
+      "compiler_source": {
+        "path": "/private/tmp/mpk-go-slice-builtins-compiler-1147/original.go",
+        "bytes": 1721,
+        "sha256": "7cd64640505f55dd82298109b96b900904ce1554c92434fc4e19131752598aec"
+      },
+      "applications_executed": false,
+      "exit_code": 2,
+      "seconds": 0.02400779095478356,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/slice-builtins/compiler-controls/case-01147/stdout.log",
+        "bytes": 220,
+        "sha256": "7db734de2466de3e4456bec8b284ab11cd40da879c56aefbceb92ee081666920"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/slice-builtins/compiler-controls/case-01147/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "source_bytes_unchanged": true
+    }
+  ],
+  "applications_executed": false
+}
