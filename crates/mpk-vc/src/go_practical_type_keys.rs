@@ -1,5 +1,6 @@
-//! Private source-type key components. Hash/shape/closure checks are not Go
-//! source typing, a registered capture context, or source/program authority.
+//! Private source-type key components with exact original declaration syntax
+//! membership. Neither that membership nor hash/shape/closure checks establish
+//! Go source typing, a registered capture context or source/program authority.
 //!
 //! Version two retains embedded-field identity and raw tag bytes. The earlier
 //! private v1 draft cannot distinguish an embedded field from an explicit
@@ -11,11 +12,13 @@ use std::collections::{BTreeMap, BTreeSet};
 
 mod lex;
 mod parse;
+mod source_declarations;
 mod validate;
 pub use lex::{lex_go_source, GoLexError, GoLexErrorKind, GoLexToken, GoLexedSource};
 pub use parse::{
     parse_go_source, GoParseError, GoParseErrorKind, GoParsedSource, GoSyntaxEdge, GoSyntaxNode,
 };
+pub use source_declarations::{GoBoundTypeDeclaration, GoSourceTypeDeclarations};
 
 const SOURCE_SCHEMA: &str = "mpk.go.source_object.v1";
 const SOURCE_DOMAIN: HashDomain = HashDomain::new("MPK-GO-SOURCE-OBJECT-1.0");
@@ -219,13 +222,14 @@ struct WireComponents {
     content_sha256: String,
 }
 
-/// Internally consistent candidate keys and owned bytes. This type deliberately
-/// provides no semantic context, source-typing witness or program admission.
+/// Internally consistent candidate keys, owned bytes and exact declaration
+/// syntax membership. No semantic context, typing witness or program admission.
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct GoTypeKeyComponents {
     wire: WireComponents,
     canonical: Vec<u8>,
     sources: BTreeMap<String, GoTypeSourceBuffer>,
+    source_declarations: GoSourceTypeDeclarations,
 }
 impl GoTypeKeyComponents {
     pub fn canonical_bytes(&self) -> &[u8] {
@@ -249,6 +253,10 @@ impl GoTypeKeyComponents {
     pub fn source(&self, id: &str) -> Option<&GoTypeSourceBuffer> {
         self.sources.get(id)
     }
+    /// Original syntax membership, not name/type resolution or a capture proof.
+    pub fn source_declarations(&self) -> &GoSourceTypeDeclarations {
+        &self.source_declarations
+    }
 }
 pub fn import_go_type_key_components(
     record: &[u8],
@@ -256,6 +264,7 @@ pub fn import_go_type_key_components(
 ) -> Result<GoTypeKeyComponents> {
     let wire: WireComponents = decode(record)?;
     validate::components(&wire, sources)?;
+    let source_declarations = source_declarations::bind(&wire, sources)?;
     let value = crate::canonical_json::parse_strict_json(record, limits())
         .map_err(|_| GoTypeKeyError::Json)?;
     let canonical = canonical_json_bytes(&value).map_err(|_| GoTypeKeyError::Json)?;
@@ -266,6 +275,7 @@ pub fn import_go_type_key_components(
             .iter()
             .map(|s| (s.object.id.clone(), s.clone()))
             .collect(),
+        source_declarations,
     })
 }
 fn limits() -> StrictJsonLimits {

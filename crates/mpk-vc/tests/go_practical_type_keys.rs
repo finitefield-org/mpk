@@ -127,6 +127,78 @@ fn rekey(v: &mut Value) {
         .sort_by(|a, b| a.as_str().cmp(&b.as_str()));
     root_seal(v);
 }
+// Repair every affected identity and edge before testing source membership.
+// A rejection must come from original syntax, not a stale candidate hash.
+fn rekey_membership(v: &mut Value) {
+    let mut packages = BTreeMap::new();
+    for p in v["packages"].as_array_mut().unwrap() {
+        let old = p["id"].as_str().unwrap().to_string();
+        seal(p, "MPK-GO-TYPE-PACKAGE-2.0", "id");
+        packages.insert(old, p["id"].clone());
+    }
+    sort(&mut v["packages"], "id");
+    for r in v["package_roots"].as_array_mut().unwrap() {
+        *r = packages[r.as_str().unwrap()].clone();
+    }
+    v["package_roots"]
+        .as_array_mut()
+        .unwrap()
+        .sort_by(|a, b| a.as_str().cmp(&b.as_str()));
+    let mut declarations = BTreeMap::new();
+    for d in v["declarations"].as_array_mut().unwrap() {
+        d["package_id"] = packages[d["package_id"].as_str().unwrap()].clone();
+        let old = d["id"].as_str().unwrap().to_string();
+        seal(d, "MPK-GO-TYPE-DECLARATION-2.0", "id");
+        declarations.insert(old, d["id"].clone());
+    }
+    sort(&mut v["declarations"], "id");
+    for t in v["types"].as_array_mut().unwrap() {
+        if t["kind"] == "nominal" {
+            t["declaration_id"] = declarations[t["declaration_id"].as_str().unwrap()].clone();
+        }
+        if let Some(fields) = t.get_mut("fields").and_then(Value::as_array_mut) {
+            for f in fields {
+                if let Some(p) = f["unexported_package_id"].as_str() {
+                    f["unexported_package_id"] = packages[p].clone();
+                }
+            }
+        }
+    }
+    for a in v["aliases"].as_array_mut().unwrap() {
+        a["declaration_id"] = declarations[a["declaration_id"].as_str().unwrap()].clone();
+    }
+    sort(&mut v["aliases"], "declaration_id");
+    rekey(v);
+}
+fn replace_source(v: &mut Value, buffers: &mut [GoTypeSourceBuffer], id: &str, raw: &[u8]) {
+    let b = buffers.iter_mut().find(|b| b.object().id == id).unwrap();
+    let object = b.object();
+    *b = GoTypeSourceBuffer::new(&object.capability, &object.path, &object.kind, raw).unwrap();
+    let next = b.object().id.clone();
+    for s in v["source_objects"].as_array_mut().unwrap() {
+        if s["id"] == id {
+            *s = serde_json::to_value(b.object()).unwrap();
+        }
+    }
+    sort(&mut v["source_objects"], "id");
+    for p in v["packages"].as_array_mut().unwrap() {
+        for s in p["source_objects"].as_array_mut().unwrap() {
+            if s == id {
+                *s = json!(next);
+            }
+        }
+        p["source_objects"]
+            .as_array_mut()
+            .unwrap()
+            .sort_by(|a, b| a.as_str().cmp(&b.as_str()));
+    }
+    for d in v["declarations"].as_array_mut().unwrap() {
+        if d["source_object_id"] == id {
+            d["source_object_id"] = json!(next);
+        }
+    }
+    rekey_membership(v);
+}
 fn retain(name: &str, wire: &[u8], outcome: &str) {
     if let Some(root) = std::env::var_os("MPK_GO_TYPE_KEYS_RUST_OUTPUT") {
         use std::io::Write;
@@ -157,6 +229,7 @@ fn retain_sources(name: &str, buffers: &[GoTypeSourceBuffer]) {
 fn reject(name: &str, v: &Value, buffers: &[GoTypeSourceBuffer], expected: GoTypeKeyError) {
     let bytes = canonical(v);
     retain(name, &bytes, "candidate-before-import\n");
+    retain_sources(name, buffers);
     let error = import_go_type_key_components(&bytes, buffers).unwrap_err();
     println!("{name}: actual component rejection {error:?}");
     assert_eq!(error, expected, "{name}");
@@ -171,6 +244,7 @@ fn imports_actual_original_go_components() {
             "original-Go-candidate-before-import\n",
         );
         let keys = import_go_type_key_components(&wire, &buffers).unwrap();
+        assert_bound_declarations(&format!("positive-{n:02}"), &keys);
         println!(
             "original-Go-{n:02}: exact canonical components {}",
             keys.content_hash()
@@ -187,6 +261,44 @@ fn imports_actual_original_go_components() {
         caller.fill(0);
         assert_eq!(keys.canonical_bytes(), wire);
     }
+}
+
+fn assert_bound_declarations(
+    label: &str,
+    keys: &mpk_vc::go_practical_type_keys::GoTypeKeyComponents,
+) {
+    let syntax = keys.source_declarations();
+    assert_eq!(syntax.declarations().count(), keys.declarations().len());
+    for d in keys.declarations() {
+        let bound = syntax.declaration(&d.id).unwrap();
+        assert_eq!(bound.declaration_id(), d.id);
+        assert_eq!(bound.package_id(), d.package_id);
+        assert_eq!(bound.source_object_id(), d.source_object_id);
+        assert_eq!(bound.is_alias(), d.kind == "alias_type");
+        let source = syntax.source(&d.source_object_id).unwrap();
+        assert_eq!(source.source(), keys.source(&d.source_object_id).unwrap());
+        let node = &source.nodes()[bound.type_spec_node()];
+        assert_eq!(node.kind(), "TypeSpec");
+        assert_eq!(
+            (node.start() as u64, node.end() as u64),
+            (d.start_byte, d.end_byte)
+        );
+        assert_eq!(
+            source.spelling(bound.name_node()).unwrap(),
+            d.name.as_bytes()
+        );
+        assert!(source
+            .spelling(bound.type_node())
+            .is_some_and(|b| !b.is_empty()));
+        let row = json!({"declaration":d,"syntax_node":bound.type_spec_node(),"name_node":bound.name_node(),"type_node":bound.type_node(),"whole_TypeSpec_bytes":source.spelling(bound.type_spec_node()).unwrap(),"whole_Type_bytes":source.spelling(bound.type_node()).unwrap()});
+        retain(
+            &format!("{label}-bound-{}", d.id),
+            &canonical(&row),
+            "actual-independent-original-syntax\n",
+        );
+    }
+    assert!(syntax.source(&"f".repeat(64)).is_none());
+    assert!(syntax.declaration(&"f".repeat(64)).is_none());
 }
 #[test]
 fn strict_wire_original_bytes_and_exact_membership() {
@@ -541,4 +653,231 @@ fn component_boundaries_do_not_claim_source_typing() {
     // These invented component roots have no original Go declaration. Their
     // acceptance documents the boundary: hash/closure checks are not typing
     // witnesses and cannot be used as source/program or registered authority.
+}
+
+// Deliberately constructed candidate metadata. The selected TypeSpec has a
+// uint16-shaped candidate graph, but its type expression is not yet resolved.
+// Actual compiler-produced positive streams are checked separately above.
+fn syntax_candidate(
+    text: &str,
+    spec: &str,
+    name: &str,
+    alias: bool,
+) -> (Value, Vec<GoTypeSourceBuffer>) {
+    let file = GoTypeSourceBuffer::new("root", "policy.go", "go_file", text.as_bytes()).unwrap();
+    let module = GoTypeSourceBuffer::new(
+        "root",
+        "go.mod",
+        "go_mod",
+        b"module example.com/policy\ngo 1.25.0\n",
+    )
+    .unwrap();
+    let mut package = json!({"schema":"mpk.go.type_package.v2","module_source_object_id":module.object().id,"import_path":"example.com/policy","package_name":"policy","source_objects":[file.object().id]});
+    seal(&mut package, "MPK-GO-TYPE-PACKAGE-2.0", "id");
+    let start = text.rfind(spec).unwrap();
+    let mut declaration = json!({"schema":"mpk.go.type_declaration.v2","package_id":package["id"],"source_object_id":file.object().id,"kind":if alias {"alias_type"}else{"type"},"start_byte":start,"end_byte":start+spec.len(),"name":name});
+    seal(&mut declaration, "MPK-GO-TYPE-DECLARATION-2.0", "id");
+    let mut scalar = json!({"schema":"mpk.go.source_type.v2","kind":"builtin","name":"uint16","width":16,"signed":false});
+    seal(&mut scalar, "MPK-GO-SOURCE-TYPE-2.0", "id");
+    let mut types = vec![scalar.clone()];
+    let (aliases, underlying) = if alias {
+        (
+            json!([{"declaration_id":declaration["id"],"target_type_id":scalar["id"]}]),
+            json!([]),
+        )
+    } else {
+        let mut nominal = json!({"schema":"mpk.go.source_type.v2","kind":"nominal","declaration_id":declaration["id"]});
+        seal(&mut nominal, "MPK-GO-SOURCE-TYPE-2.0", "id");
+        let underlying = json!([{"type_id":nominal["id"],"underlying_type_id":scalar["id"]}]);
+        types.push(nominal);
+        (json!([]), underlying)
+    };
+    let roots: Vec<_> = types.iter().map(|t| t["id"].clone()).collect();
+    let mut v = json!({"schema":"mpk.go.type_components.v2","source_objects":[file.object(),module.object()],"packages":[package.clone()],"declarations":[declaration],"types":types,"underlying":underlying,"aliases":aliases,"package_roots":[package["id"]],"type_roots":roots});
+    sort(&mut v["source_objects"], "id");
+    rekey_membership(&mut v);
+    (v, vec![file, module])
+}
+#[test]
+fn rejects_rehashed_original_declaration_locators_and_names() {
+    let (wire, buffers) = fixture(0);
+    let original: Value = serde_json::from_slice(&wire).unwrap();
+    for name in [
+        "forged-name",
+        "inside-name",
+        "short-type-end",
+        "identifier-only",
+        "including-type-keyword",
+        "wrong-package-clause",
+    ] {
+        let mut v = original.clone();
+        let d = v["declarations"]
+            .as_array_mut()
+            .unwrap()
+            .iter_mut()
+            .find(|d| d["name"] == "Count")
+            .unwrap();
+        match name {
+            "forged-name" => d["name"] = json!("Counter"),
+            "inside-name" => d["start_byte"] = json!(d["start_byte"].as_u64().unwrap() + 1),
+            "short-type-end" => d["end_byte"] = json!(d["end_byte"].as_u64().unwrap() - 1),
+            "identifier-only" => d["end_byte"] = json!(d["start_byte"].as_u64().unwrap() + 5),
+            "including-type-keyword" => {
+                d["start_byte"] = json!(d["start_byte"].as_u64().unwrap() - 5)
+            }
+            "wrong-package-clause" => {
+                let p = v["packages"]
+                    .as_array_mut()
+                    .unwrap()
+                    .iter_mut()
+                    .find(|p| p["package_name"] == "policy")
+                    .unwrap();
+                p["package_name"] = json!("forged");
+            }
+            _ => unreachable!(),
+        }
+        rekey_membership(&mut v);
+        reject(name, &v, &buffers, GoTypeKeyError::Source);
+    }
+    for (name, text, spec, alias) in [
+        (
+            "alias-marked-definition",
+            "package policy\ntype Count = uint16\n",
+            "Count = uint16",
+            false,
+        ),
+        (
+            "definition-marked-alias",
+            "package policy\ntype Count uint16\n",
+            "Count uint16",
+            true,
+        ),
+        (
+            "generic-definition",
+            "package policy\ntype Count[T any] uint16\n",
+            "Count[T any] uint16",
+            false,
+        ),
+        (
+            "generic-alias",
+            "package policy\ntype Count[T any] = uint16\n",
+            "Count[T any] = uint16",
+            true,
+        ),
+        (
+            "value-declaration-as-type",
+            "package policy\nvar Count uint16\n",
+            "Count uint16",
+            false,
+        ),
+    ] {
+        let (v, buffers) = syntax_candidate(text, spec, "Count", alias);
+        reject(name, &v, &buffers, GoTypeKeyError::Source);
+    }
+}
+#[test]
+fn checks_complete_package_files_not_only_selected_spans() {
+    let text = "package policy\ntype Count uint16\n";
+    let (original, original_buffers) = syntax_candidate(text, "Count uint16", "Count", false);
+    for (name, tail) in [
+        (
+            "malformed-unselected-body",
+            b"func bad(){var x = }\n".as_slice(),
+        ),
+        ("nonutf8-unselected-bytes", b"// invalid \xff\n".as_slice()),
+        ("second-package-clause", b"package forged\n".as_slice()),
+    ] {
+        let mut v = original.clone();
+        let mut buffers = original_buffers.clone();
+        let source = &buffers[0];
+        let id = source.object().id.clone();
+        let mut raw = source.bytes().to_vec();
+        raw.extend_from_slice(tail);
+        replace_source(&mut v, &mut buffers, &id, &raw);
+        reject(name, &v, &buffers, GoTypeKeyError::Source);
+    }
+    for (name, text) in [
+        ("unselected-file-wrong-package", "package other\n"),
+        (
+            "unselected-file-malformed-body",
+            "package policy\nfunc bad(){var x = }\n",
+        ),
+    ] {
+        let mut v = original.clone();
+        let mut buffers = original_buffers.clone();
+        let file = GoTypeSourceBuffer::new("root", "extra.go", "go_file", text.as_bytes()).unwrap();
+        v["source_objects"]
+            .as_array_mut()
+            .unwrap()
+            .push(serde_json::to_value(file.object()).unwrap());
+        sort(&mut v["source_objects"], "id");
+        let files = v["packages"][0]["source_objects"].as_array_mut().unwrap();
+        files.push(json!(file.object().id));
+        files.sort_by(|a, b| a.as_str().cmp(&b.as_str()));
+        buffers.push(file);
+        rekey_membership(&mut v);
+        reject(name, &v, &buffers, GoTypeKeyError::Source);
+    }
+}
+#[test]
+fn binds_physical_local_shadowed_and_unicode_syntax_without_type_authority() {
+    for (name, text, spec, decl, alias) in [
+        (
+            "physical-unicode-crlf",
+            "package policy\r\n//line forged.go:700\r\ntype É = uint16\r\n",
+            "É = uint16",
+            "É",
+            true,
+        ),
+        (
+            "grouped-spec",
+            "package policy\ntype (\n Other uint8\n Count uint16\n)\n",
+            "Count uint16",
+            "Count",
+            false,
+        ),
+        (
+            "shadowed-local",
+            "package policy\ntype Count uint8\nfunc f(){type Count uint16; var x Count; _ = x}\n",
+            "Count uint16",
+            "Count",
+            false,
+        ),
+        (
+            "unselected-generic",
+            "package policy\ntype Generic[T any] []T\ntype Count uint16\n",
+            "Count uint16",
+            "Count",
+            false,
+        ),
+        (
+            "untyped-body",
+            "package policy\ntype Count uint16\nfunc f(){var x uint16 = missing; _ = x}\n",
+            "Count uint16",
+            "Count",
+            false,
+        ),
+        (
+            "unresolved-type-expression",
+            "package policy\ntype Count Missing\n",
+            "Count Missing",
+            "Count",
+            false,
+        ),
+    ] {
+        let (v, buffers) = syntax_candidate(text, spec, decl, alias);
+        let bytes = canonical(&v);
+        retain(
+            name,
+            &bytes,
+            "constructed-syntax-membership-candidate-before-import\n",
+        );
+        retain_sources(name, &buffers);
+        let keys = import_go_type_key_components(&bytes, &buffers).unwrap();
+        assert_bound_declarations(name, &keys);
+        assert_eq!(keys.canonical_bytes(), bytes);
+        // The last two controls deliberately have no Go typing witness. Bound
+        // syntax and a self-consistent uint16 graph cannot supply that witness.
+        println!("{name}: original syntax membership only; no typing authority");
+    }
 }

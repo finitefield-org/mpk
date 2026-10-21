@@ -7402,3 +7402,20 @@ nominal/capture/version/context or source/carrier/store/program authority. Those
 full requirements, U/foundation/registry, nativeLinux/generalnamespace/selected
 closure/all169/T02–T11 remain due. Go/Rust only; R01/R06/W01 stay open and the T02
 whole gate stays W04: `./scripts/check-fast.sh`.
+
+## 137. T02-W01 independent exact original declaration syntax membership
+
+The [original declaration syntax checkpoint](../migrations/go-practical/t02-w01/verification/source-declarations/README.md)
+adds independent Rust binding of all candidate package clauses and exact physical
+TypeSpec/name/alias membership, retaining complete immutable parsed sources.
+All five actual Go-produced streams keep identical canonical bytes/hashes; eight
+affected Rust roots, strict lint and scoped format pass. Sixteen fully rehashed
+source controls reject, while six constructed physical/local/Unicode/untyped
+boundary cases document syntax-only acceptance. Two input epochs/1488 preimages
+retain four checks and all236 original files/842726 bytes with literal byte/mode
+comparison. Parser/lexer, Go frontend189 inputs, frozen255 and ordinary448-stream
+basis remain unchanged; unaffected evidence is retained. Type-expression graph
+denotation, full scope/type/constant/nominal/capture/context and storage/program
+requirements remain due, together with full56 foundation/registry, nativeLinux/
+generalnamespace/selectedclosure/all169/T02–T11. Go/Rust only; R01/R06/W01 stay
+open and the T02 whole gate stays final W04: `./scripts/check-fast.sh`.
