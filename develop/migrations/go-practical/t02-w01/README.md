@@ -833,3 +833,26 @@ checked prefix/suffix, bounded concat, private context/full foundation/native
 kernel/general namespace/selected closure/all169/T02–T11 remain due. Go and Rust
 remain the only source languages. R01/R06/W01 stay open; the cumulative T02 gate
 remains W04: `./scripts/check-fast.sh`.
+
+The [bounded concatenation checkpoint](verification/string-concat/README.md)
+adds the complete frozen result, actual64-bit addition/carry and right-index
+subtraction, with the full length-sum capacity obligation kept separate from
+Go panic definedness. Length conservation, no carry, input/result bounds,
+full-word byte equations, canonical padding/validity and observable equivalence/
+normalization preservation are proved. Its 2,195 declarations, 69,528 terms and
+896,032 bytes retain all 2,142 prior identities and exact old producer bytes;
+seven definitions and 46 ordinary laws change no axiom/core/extensionality/limit.
+Five affected Rust roots across identical source bytes, strict Clippy, eight-file
+format and both unchanged cores pass 117 actual inputs: two zero-axiom acceptances
+and 115 type mismatches (46 conclusions, 62 typed witness domains, seven typed
+wrong definitions with actual countermodels). Passed roots are retained without
+unnecessary repeat. Actual-DAG execution covers 100 whole outputs in four
+normalization modes, 28 profile rejections and eight full64 carry cases in
+536,136,409 steps, with complete inputs and unchanged observer ceilings.
+Seven source epochs/2,758 preimages retain ten checks and all three original
+failures. All 255 frozen inputs, 186 Go inputs and 127/four/39 scanner counts
+remain exact. Original source/type/evaluation/nominal binding and preservation,
+checked prefix/suffix, private context/full foundation/native kernel/general
+namespace/selected closure/all169/T02–T11 remain due. Go and Rust remain the only
+source languages. R01/R06/W01 stay open; the cumulative T02 gate remains W04:
+`./scripts/check-fast.sh`.

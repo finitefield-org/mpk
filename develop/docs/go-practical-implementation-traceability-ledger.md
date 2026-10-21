@@ -7118,3 +7118,49 @@ private descriptor/registry/context, native kernel/general namespace/selected
 closure/all169/T02–T11 remain due. R01/R06/W01 stay open. All consuming test and
 checker handles are terminal before staging; the cumulative T02 gate remains
 W04: `./scripts/check-fast.sh`.
+
+## 127. T02-W01 complete bounded frozen string concatenation
+
+The [concatenation checkpoint](../migrations/go-practical/t02-w01/verification/string-concat/README.md)
+adds the complete frozen result under a separate profile capacity premise.
+Its 2,195 declarations, 69,528 terms and 896,032 bytes preserve all 2,142 old
+identities and the exact 865,248-byte substring producer. Seven definitions and
+46 ordinary laws add no axiom, core rule, extensionality, caller root or limit.
+The private builder extraction preserves the old complete component.
+
+The full natural length sum supplies the capacity obligation. Actual64-bit
+addition supplies result length and carry; their conservation law and the
+capacity premise prove no carry and both operand bounds. Actual subtraction
+supplies right-side read positions, with exact natural values and bounds before
+access. Full-word left/right read equations, canonical padding, validity, weak
+observable content equivalence and input/output normalization are proved.
+Capacity rejection does not represent a Go panic or admitted-source counterexample.
+
+Five affected Rust roots, strict target Clippy and eight-file format pass on
+identical production/test source bytes. Passed foundation and observation roots
+are retained without repeating them while the three remaining roots run. Both
+unchanged independent cores agree on 117 complete actual inputs: two zero-axiom
+acceptances and 115 genuine type mismatches, with 46 changed conclusions, 62
+typed witness domains and seven typed wrong definitions with actual countermodels.
+Actual-DAG evaluation covers 32 whole input pairs in four normalization modes,
+100 whole outputs, 28 profile capacity rejections and eight full64 carry cases
+in 536,136,409 steps. Full input arrays/all128 input length bits and unchanged
+observer ceilings remain; long outputs replay 64 slots at a time. Huge raw carry
+cases observe actual carry/wrapped length without pretending to execute a natural
+sum beyond the finite evaluator's integer representation. Universal ordinary
+conservation and no-carry proofs are checked separately by both kernels.
+
+Seven full source epochs/2,758 preimages retain ten checks and all three original
+failures. Two complete content candidates fail type checking because an operand
+name collides with a Boolean slot binder; distinct operand names repair it.
+The original test-import compilation failure remains without an invented
+candidate. Every emitted candidate is saved before checking, with no replacement
+of original failed outputs by a later pass.
+
+All 255 frozen inputs, 186 Go inputs and 127/four/39 scanner counts remain exact,
+without new exclusions or languages. Go and Rust remain the only source languages.
+Original source/type/evaluation/nominal binding and source preservation, checked
+prefix/suffix, array/storage/state/program, private descriptor/registry/context,
+full foundation/native kernel/general namespace/selected closure/all169/T02–T11
+remain due. R01/R06/W01 stay open. All consuming handles are terminal before
+staging; the cumulative T02 gate remains W04: `./scripts/check-fast.sh`.

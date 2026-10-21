@@ -2,6 +2,10 @@
 //! Signed guards precede access; bytes outside the result are canonical zero.
 use super::*;
 mod carrier;
+mod concat;
+pub(super) fn append_concat(builder: &mut Builder) -> Result<()> {
+    concat::append(builder)
+}
 mod guards;
 mod preservation;
 mod signed;

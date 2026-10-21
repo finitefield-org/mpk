@@ -314,6 +314,15 @@ impl GoStringSliceFoundation {
         &self.certificate
     }
 }
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoStringConcatFoundation {
+    certificate: Vec<u8>,
+}
+impl GoStringConcatFoundation {
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
+}
 impl GoStringValue {
     pub fn certificate_bytes(&self) -> &[u8] {
         &self.certificate
@@ -1940,6 +1949,13 @@ pub fn import_go_practical_string_bounded_order_foundation(
 /// Complete frozen substring carrier, actual signed guards and byte equations.
 /// Original source/type/context authority remains a separate obligation.
 pub fn generate_go_practical_string_slice_foundation() -> Result<GoStringSliceFoundation> {
+    let mut builder = string_slice_builder()?;
+    builder.certificate.module = "Mpk.Go.Practical.StringSliceFoundation".into();
+    Ok(GoStringSliceFoundation {
+        certificate: builder.finish()?,
+    })
+}
+fn string_slice_builder() -> Result<Builder> {
     let buffers = [
         generate_go_practical_string_bounded_order_foundation()?
             .certificate_bytes()
@@ -1956,10 +1972,7 @@ pub fn generate_go_practical_string_slice_foundation() -> Result<GoStringSliceFo
         .collect::<Result<Vec<_>>>()?;
     let mut builder = composition::string_slice_prerequisites(&inputs)?;
     string::append_slice(&mut builder)?;
-    builder.certificate.module = "Mpk.Go.Practical.StringSliceFoundation".into();
-    Ok(GoStringSliceFoundation {
-        certificate: builder.finish()?,
-    })
+    Ok(builder)
 }
 pub fn import_go_practical_string_slice_foundation(
     candidate: &[u8],
@@ -1968,6 +1981,29 @@ pub fn import_go_practical_string_slice_foundation(
         return Err(GoOrdinaryError::Limit);
     }
     let expected = generate_go_practical_string_slice_foundation()?;
+    if candidate != expected.certificate_bytes() {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    Ok(expected)
+}
+
+/// Complete frozen string concatenation under a separate result-capacity premise.
+/// Source/type/evaluation/context authority remains a separate obligation.
+pub fn generate_go_practical_string_concat_foundation() -> Result<GoStringConcatFoundation> {
+    let mut builder = string_slice_builder()?;
+    string::append_concat(&mut builder)?;
+    builder.certificate.module = "Mpk.Go.Practical.StringConcatFoundation".into();
+    Ok(GoStringConcatFoundation {
+        certificate: builder.finish()?,
+    })
+}
+pub fn import_go_practical_string_concat_foundation(
+    candidate: &[u8],
+) -> Result<GoStringConcatFoundation> {
+    if candidate.len() > MAX_BYTES {
+        return Err(GoOrdinaryError::Limit);
+    }
+    let expected = generate_go_practical_string_concat_foundation()?;
     if candidate != expected.certificate_bytes() {
         return Err(GoOrdinaryError::Linkage);
     }
