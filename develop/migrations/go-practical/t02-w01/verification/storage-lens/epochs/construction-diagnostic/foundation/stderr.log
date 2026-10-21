@@ -1,0 +1,9 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `release` profile [optimized] target(s) in 34.37s
+     Running tests/go_practical_storage_lens.rs (target/release/deps/go_practical_storage_lens-ec1d355628761861)
+storage lens construction failed at LeftFieldSiblingFrame: Linkage
+
+thread 'lens_retains_complete_parent' (46616911) panicked at crates/mpk-vc/tests/go_practical_storage_lens.rs:59:74:
+called `Result::unwrap()` on an `Err` value: Linkage
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_storage_lens`

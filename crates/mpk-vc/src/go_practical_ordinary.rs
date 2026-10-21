@@ -22,6 +22,7 @@ mod product_relation;
 mod range;
 mod sequence;
 mod slice_descriptor;
+mod storage_lens;
 mod string;
 mod syntax;
 mod word;
@@ -352,6 +353,15 @@ pub struct GoSliceDescriptorFoundation {
     certificate: Vec<u8>,
 }
 impl GoSliceDescriptorFoundation {
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
+}
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoStorageLensFoundation {
+    certificate: Vec<u8>,
+}
+impl GoStorageLensFoundation {
     pub fn certificate_bytes(&self) -> &[u8] {
         &self.certificate
     }
@@ -2116,6 +2126,28 @@ pub fn import_go_practical_slice_descriptor_foundation(
         return Err(GoOrdinaryError::Limit);
     }
     let expected = generate_go_practical_slice_descriptor_foundation()?;
+    if candidate != expected.certificate_bytes() {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    Ok(expected)
+}
+/// Compositional typed value views. Source paths, live owners and permissions are separate.
+pub fn generate_go_practical_storage_lens_foundation() -> Result<GoStorageLensFoundation> {
+    let mut builder = array_builder()?;
+    product_relation::append(&mut builder)?;
+    storage_lens::append(&mut builder)?;
+    builder.certificate.module = "Mpk.Go.Practical.StorageLensFoundation".into();
+    Ok(GoStorageLensFoundation {
+        certificate: builder.finish()?,
+    })
+}
+pub fn import_go_practical_storage_lens_foundation(
+    candidate: &[u8],
+) -> Result<GoStorageLensFoundation> {
+    if candidate.len() > MAX_BYTES {
+        return Err(GoOrdinaryError::Limit);
+    }
+    let expected = generate_go_practical_storage_lens_foundation()?;
     if candidate != expected.certificate_bytes() {
         return Err(GoOrdinaryError::Linkage);
     }

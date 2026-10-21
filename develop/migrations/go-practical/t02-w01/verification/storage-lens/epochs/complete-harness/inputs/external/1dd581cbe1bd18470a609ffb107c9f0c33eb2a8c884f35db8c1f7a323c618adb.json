@@ -1,0 +1,122 @@
+{
+  "status": "failed",
+  "started_at_utc": "2026-10-21T09:28:16.433209+00:00",
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/storage-lens/native-go/observe-go.py",
+    "sha256": "f97386b21c322a551fa295402f649baef9344d71344fdad0daba5e2e99f3fe9e",
+    "bytes": 8682
+  },
+  "pinned_original_sdk_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/array-equality/native-go/result.json",
+    "sha256": "10aaacac3066b26cc38f7f76c79070fa9bb00d287c55b606324125848398bfac",
+    "bytes": 10308
+  },
+  "whole_original_sdk_inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/array-equality/native-go/sdk-inputs.json",
+    "sha256": "27f1650c85855eec3e4fa7825ff6b3f0a49196e0c2b23b793866cda2fb3f7354",
+    "bytes": 3284260
+  },
+  "lossless_original_sdk_transport": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/array-equality/toolchain-archive/manifest.json",
+    "sha256": "4ed723094bccf8673bddd75765d0905fdde09cf53e332363b258796a34e62809",
+    "bytes": 4332
+  },
+  "compiler_binary": {
+    "path": "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+    "sha256": "c812de5f1e8307431c5bce8ebc4887c180827abc5834a72cd640a8a14200a93b",
+    "bytes": 14117888
+  },
+  "sources": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/storage-lens/native-go/main.go",
+      "sha256": "4e998cdc52a22ab9e7c35738df02b9676e75de23289e92f3daed430d7f5a4cf1",
+      "bytes": 43794
+    }
+  ],
+  "cases_input": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/storage-lens/native-go/cases.json",
+    "sha256": "656a12e960db09826c5fca712f572cd5784b7b99af99fa7ef71fff8926709068",
+    "bytes": 1147271
+  },
+  "environment": {
+    "GOROOT": "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go",
+    "GOTOOLCHAIN": "local",
+    "GOENV": "off",
+    "GOWORK": "off",
+    "GO111MODULE": "off",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "CGO_ENABLED": "0",
+    "GOMAXPROCS": "1",
+    "GOCACHE": "/private/tmp/mpk-go-storage-lens-go-cache"
+  },
+  "commands": [
+    {
+      "name": "version",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+        "version"
+      ],
+      "exit_code": 0,
+      "seconds": 0.03499054198618978,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/storage-lens/native-go/version.stdout.log",
+        "sha256": "2e13f287eba3d1fa15b1d8dc82c2b80ac9d8a6d7443acfe04422e57b5d6a9e76",
+        "bytes": 33
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/storage-lens/native-go/version.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "name": "build",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+        "build",
+        "-o",
+        "/private/tmp/mpk-go-storage-lens-native-oracle",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/storage-lens/native-go/main.go"
+      ],
+      "exit_code": 0,
+      "seconds": 6.8183979579480365,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/storage-lens/native-go/build.stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/storage-lens/native-go/build.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "name": "views",
+      "command": [
+        "/private/tmp/mpk-go-storage-lens-native-oracle"
+      ],
+      "exit_code": 0,
+      "seconds": 0.5630273750284687,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/storage-lens/native-go/views.stdout.log",
+        "sha256": "f2106179883f51537d2ae51472c705cacf0f137a8d510a5ceaeb17fb9fd854b3",
+        "bytes": 708534
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/storage-lens/native-go/views.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    }
+  ],
+  "source_or_registered_context_proof": false,
+  "native_Linux_release_acceptance": false,
+  "closed_profile_source_admission_claimed": false,
+  "oracle_binary": {
+    "path": "/private/tmp/mpk-go-storage-lens-native-oracle",
+    "sha256": "c0a81195de630d1a4b8817e7ff8da556c9ccb75c5f9a9080336ea6858dfb0cf7",
+    "bytes": 3136850
+  }
+}

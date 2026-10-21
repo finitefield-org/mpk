@@ -951,3 +951,29 @@ views/aliasing/permissions/lifetime/state/program, private foundation/context/
 native Linux/general namespace/selected closure/all 169/T02–T11 remain due.
 R01/R06/W01 stay open; the cumulative T02 gate remains W04:
 `./scripts/check-fast.sh`.
+
+The [storage-view checkpoint](verification/storage-lens/README.md) adds
+ordinary typed current-parent read/update composition, identity/association,
+heterogeneous field views, all array depths 0 through 8, and disjoint frame
+composition. Full Word64/Nat indices and real shape/range/relation/validity
+premises remain explicit; recursive element observations avoid function
+extensionality. Its 2,902 declarations/87,423 terms/1,115,975 bytes preserve all
+2,688 prior identities/full 1,033,685 producer bytes and reuse the existing 16
+product-relation declarations. The lens namespace adds 17 definitions and
+181 laws, with zero axioms and unchanged core/limits/private registration.
+Five affected Rust roots, strict target Clippy/11-file format and both cores
+pass 448 full inputs: two zero-axiom acceptances and 446 type mismatches
+(181 conclusions, 249 selected real premise domains, 16 typed wrong definitions with
+actual countermodels). Original Go supplies 203 complete buffer pairs/1,015
+root snapshots; actual ordinary definitions match 1,060 roots/406 alias reads
+in 67,909,080 aggregate steps, including nine nested-array splits and paths
+through length 16. Eleven source epochs/4,848 preimages retain 17 executions
+and four Rust failures; two complete failed candidates also reject in Go.
+The original native JSON-tag failure retains all original sources/actual
+outputs; its overwritten first binary is unavailable and not reconstructed.
+The exact current executable is retained. No scanner exclusion is added.
+Go and Rust remain the only source languages. Actual source/nominal binding,
+typed path synthesis/live owners/shared stores/aliasing/permissions/lifetime/
+state/program, full foundation/private registry/context and native Linux/
+general namespace/selected closure/all 169/T02–T11 remain due. R01/R06/W01
+stay open; the cumulative T02 gate remains W04: `./scripts/check-fast.sh`.
