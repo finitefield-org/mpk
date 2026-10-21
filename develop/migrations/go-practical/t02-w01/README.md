@@ -999,3 +999,23 @@ path import, ordinary source/route/lens correspondence, shared live owners/
 permissions/lifetimes/state/program, full foundation/context/registry and all
 native Linux/general namespace/selected closure/all169/T02–T11 remain due.
 R01/R06/W01 remain open; T02 whole gate stays W04: `./scripts/check-fast.sh`.
+
+The [original-source type-key checkpoint](verification/type-keys/README.md)
+adds a private Go producer and independent Rust component importer. Exact owned
+original source bytes, full active package sets, real go.mod objects, physical
+named/alias TypeSpec spans, raw tag bytes, embedding, pinned UnicodeLu export
+scopes, distinct native int/uint names and alias-transparent semantic children
+are retained in new private v2 key preimages. All255 frozen old draft inputs
+remain exact. Five actual original Go streams import in Rust with identical
+canonical bytes/hashes; nine affected Go roots/67 subtests and five Rust roots,
+actual189-input paired frontend builds, inactive boundaries, strict lint,
+changed-file format and legacy compile pass. Ten epochs/6,953 preimages retain
+23 actual checks, two original check failures, four original prelaunch races,
+and six lossless original archives. The current driver serializes preimages.
+These are internally consistent candidate components only; synthetic64-field/
+depth16 roots deliberately do not gain source-typing authority. Full original
+source/nominal/alias/capture proofs, U/Plain/weight/final-depth/counts, ordinary
+source/carrier/route/lens correspondence, live stores/permissions/lifetime/state/
+program, complete foundation/context/registry and all native Linux/general
+namespace/selected closure/all169/T02–T11 remain due. Go/Rust only; R01/R06/W01
+stay open and the T02 whole gate remains W04: `./scripts/check-fast.sh`.

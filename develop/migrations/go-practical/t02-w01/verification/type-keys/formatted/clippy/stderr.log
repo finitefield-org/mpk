@@ -1,0 +1,14 @@
+    Checking mpk-cert v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-cert)
+    Checking mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Checking mpk-kernel v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-kernel)
+error: manual implementation of `.is_multiple_of()`
+   --> crates/mpk-vc/src/go_practical_type_keys/validate/unicode.rs:858:24
+    |
+858 |         value <= hi && (value - lo) % stride == 0
+    |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with: `(value - lo).is_multiple_of(stride)`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#manual_is_multiple_of
+    = note: `-D clippy::manual-is-multiple-of` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::manual_is_multiple_of)]`
+
+error: could not compile `mpk-vc` (lib) due to 1 previous error

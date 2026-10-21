@@ -10,6 +10,8 @@ pub mod canonical_json;
 pub mod expr_encode;
 #[doc(hidden)]
 pub mod go_practical_ordinary;
+#[doc(hidden)]
+pub mod go_practical_type_keys;
 pub mod grouping;
 pub mod hash;
 pub mod program_encode;

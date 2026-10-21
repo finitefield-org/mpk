@@ -1,0 +1,16 @@
+package policy
+import "example.com/policy/helper"
+type Count uint16
+type Alias = Count
+type Other uint16
+type Root struct {
+ A struct { Value Alias }; B struct { Value Count }; E struct { Count }; D struct { Count Count }
+ Tags struct { Raw byte "\xff"; Replacement byte "�"; Empty byte }
+ Names struct { É byte; ǅ byte; ᴬ byte; _ byte; _ byte }
+ Words struct { I int; I8 int8; I16 int16; I32 int32; I64 int64; U uint; U8 uint8; U16 uint16; U32 uint32; U64 uint64; R rune; B byte; Flag bool; Text string }
+ Zero [0]Other; Max [256]byte; Ref []Count; Empty struct{}; Err error; Foreign helper.Record
+}
+func Inspect(root Root, alias Alias, direct Count, imported helper.Record, values [2]byte, index uint32) {
+ _ = root; _ = alias; _ = direct; _ = imported; _ = values[index]
+}
+func init(){panic("application must not execute")}

@@ -21,13 +21,13 @@ const (
 // Local node numbers only describe this owned native observation. They are
 // never source-type IDs, nominal identity proofs or closed-context members.
 type practicalStorageType struct {
-	kind, display      string
-	width              int
-	signed             bool
-	length             uint64
-	child, declaration int
-	fields             []practicalStorageField
-	depth              int
+	kind, display, builtin string
+	width                  int
+	signed                 bool
+	length                 uint64
+	child, declaration     int
+	fields                 []practicalStorageField
+	depth                  int
 }
 type practicalStorageField struct {
 	name, packagePath, tag string
@@ -215,6 +215,7 @@ func (b *practicalStorageTypeBuilder) capture(t types.Type) (int, error) {
 			return 0, err
 		}
 	case *types.Basic:
+		node.builtin = types.Typ[v.Kind()].Name()
 		switch v.Kind() {
 		case types.Bool:
 			node.kind = "bool"
