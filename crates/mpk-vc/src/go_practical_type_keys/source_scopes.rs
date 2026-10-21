@@ -120,6 +120,14 @@ impl GoSourceScopes {
     pub(super) fn sources(&self) -> impl Iterator<Item = (&str, &GoParsedSource)> {
         self.syntax.iter().map(|(id, source)| (id.as_str(), source))
     }
+    pub(super) fn source_package(&self, source: &str) -> Option<&str> {
+        let parsed = self.syntax.get(source)?;
+        let file = *self.node_scopes.get(&(source.to_string(), parsed.root()))?;
+        let package = self.scopes[file].parent?;
+        self.package_scopes
+            .iter()
+            .find_map(|(id, &scope)| (scope == package).then_some(id.as_str()))
+    }
     pub(super) fn imported_member(
         &self,
         path: &str,

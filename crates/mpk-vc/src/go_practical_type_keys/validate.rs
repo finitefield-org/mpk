@@ -288,17 +288,11 @@ pub(super) fn components(w: &WireComponents, buffers: &[GoTypeSourceBuffer]) -> 
                         used_packages.insert(package.as_str());
                     }
                     if field.embedded {
-                        // Alias spelling may differ from the target's name;
-                        // source typing must establish that spelling separately.
+                        // An original type-name alias can transparently denote
+                        // any admitted non-pointer value type. Exact source
+                        // typing must establish its field spelling separately.
                         need(
-                            field.name != "_"
-                                && matches!(
-                                    types.get(field.type_id.as_str()),
-                                    Some(
-                                        GoSourceTypeKey::Nominal { .. }
-                                            | GoSourceTypeKey::Builtin { .. }
-                                    )
-                                ),
+                            field.name != "_" && types.contains_key(field.type_id.as_str()),
                             GoTypeKeyError::Reference,
                         )?;
                     }

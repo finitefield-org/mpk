@@ -1,0 +1,8 @@
+{
+  "kind": "original_returned_exec_command_output",
+  "command": "python3 develop/migrations/go-practical/t02-w01/verification/source-types/review-inputs.py",
+  "exit_code": 1,
+  "output": "Traceback (most recent call last):\n  File \"/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-types/review-inputs.py\", line 96, in <module>\n    obj=json.loads(buf);values(obj,proxy)\n                        ^^^^^^^^^^^^^^^^^\n  File \"/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-types/review-inputs.py\", line 40, in values\n    if key in {'raw_hex','whole_original_bytes'}and'object'in obj:source(obj['object'],raw)\n                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-types/review-inputs.py\", line 23, in source\n    assert obj['schema']=='mpk.go.source_object.v1'and obj['bytes']==len(raw)and obj['raw_sha256']==hashlib.sha256(raw).hexdigest()\nAssertionError\n",
+  "cause": "The existing importer deliberately appends one newline to an owned buffer without repairing its source-object identity and asserts Identity rejection. Scan the complete changed bytes and verify that exact negative mutation against its actual original bytes.",
+  "not_native_or_test_output_reconstruction": true
+}

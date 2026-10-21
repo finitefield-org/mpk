@@ -1,0 +1,8 @@
+{
+  "kind": "original_returned_exec_command_output",
+  "command": "python3 develop/migrations/go-practical/t02-w01/verification/source-types/summarize.py",
+  "exit_code": 1,
+  "output": "Traceback (most recent call last):\n  File \"/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-types/summarize.py\", line 8, in <module>\n    assert len(epochs)==8 and sum(len(e['sources'])for e in epochs)==5288\nAssertionError\n",
+  "cause": "The eighth inputs.json is the native conversion receipt, not a source-check epoch. There are seven source epochs and5288 source preimages.",
+  "not_native_or_test_output_reconstruction": true
+}

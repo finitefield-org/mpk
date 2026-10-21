@@ -354,7 +354,7 @@ fn child(n: &GoSyntaxNode, role: &str) -> Result<usize> {
 
 // Whole syntax was independently lexed before this decoder runs. Keep string
 // byte escapes distinct from Unicode escapes and from rune scalar values.
-fn quoted(raw: &[u8]) -> Result<(Vec<u8>, Option<u32>)> {
+pub(super) fn quoted(raw: &[u8]) -> Result<(Vec<u8>, Option<u32>)> {
     if raw.len() < 2 {
         return Err(GoConstantError::Type);
     }

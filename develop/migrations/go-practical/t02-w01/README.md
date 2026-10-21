@@ -1102,3 +1102,22 @@ nominal/source-evaluation/capture/context and ordinary storage/program proofs,
 resource closure, full56 foundation/registry and nativeLinux/generalnamespace/
 selectedclosure/all169/T02–T11 remain due. Go/Rust only; R01/R06/W01 stay open
 and the T02 whole gate stays W04: `./scripts/check-fast.sh`.
+
+The [original source type denotation checkpoint](verification/source-types/README.md)
+derives private v2 scalar/nominal/alias/array/slice/struct graphs from actual
+owned type syntax and scalar constant lengths. Ordered grouped/embedded alias
+fields, package visibility and exact raw tags agree with seven new and five
+retained native streams. Normalized underlying types erase intermediate nominal
+spelling while original declaration/alias traces remain. Larger immutable
+source scopes handle omitted unused imports only with exact source/package
+matching. Four new Rust roots, seven fully rehashed body controls, two context
+substitutions, eight existing importer roots and scoped lint/vet/formats pass.
+Seven epochs/5288 preimages retain17 checks/three original failures and all11339
+original files/88718325 bytes with literal byte/mode audit; missing partial
+outputs remain unreconstructed. SDK14496, frontend189, frozen255 and previous
+scalar/scope/parser/lexer/ordinary448 evidence remain unchanged. Complete source
+typing/evaluation/carrier/module/capture/context/resource and storage/program
+proofs, full56 foundation/registry and nativeLinux/generalnamespace/selected
+closure/all169/T02–T11 remain due. Go/Rust only; R01/R06/W01 stay open, public
+practical profile remains inactive and the T02 whole gate stays W04:
+`./scripts/check-fast.sh`.
