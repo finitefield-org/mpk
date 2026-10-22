@@ -25,6 +25,7 @@ mod range;
 mod sequence;
 mod slice_descriptor;
 mod source_error_boxing;
+mod source_error_cases;
 mod source_error_layout;
 mod source_error_operations;
 mod storage_lens;
@@ -36,6 +37,10 @@ mod word_proofs;
 pub use source_error_boxing::{
     generate_go_practical_source_error_boxing_foundation,
     import_go_practical_source_error_boxing_foundation, GoSourceErrorBoxingFoundation,
+};
+pub use source_error_cases::{
+    generate_go_practical_source_error_case_catalogue, GoSourceErrorCaseCatalogue,
+    GoSourceErrorCaseRow,
 };
 pub use source_error_layout::{
     generate_go_practical_source_error_layout_foundation,
@@ -543,6 +548,7 @@ fn key(term: &TermNode) -> Key {
     }
 }
 
+#[derive(Clone)]
 struct Builder {
     certificate: Certificate,
     terms: BTreeMap<Key, u32>,

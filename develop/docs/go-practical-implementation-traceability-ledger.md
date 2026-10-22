@@ -8005,3 +8005,37 @@ all169/T02-T11 remain due. Earlier historical-scope findings remain for the
 final strict gate. Go/Rust only; R01/R06/W01 stay open, the public practical
 profile stays inactive and the T02 full gate stays final W04:
 `./scripts/check-fast.sh`.
+
+## 164. T02-W01 complete source error case rows
+
+The [case-row checkpoint](../migrations/go-practical/t02-w01/verification/source-error-cases/README.md)
+proves full64-bit tag comparisons and actual HasCase for every target against
+every original boxed source type, universally over its whole payload. Each row
+retains every original source-specific type/zero/constructor/nil/copy/payload
+definition AND theorem, with exact closed math dependencies. Unused general
+math remains in its separate complete library. No caller root list/comparator,
+smaller U/case/root/helper/parameter cap or source execution assumption is added.
+All5 old operations streams replay literally after the builder refactor.
+
+Both cores agree on87 full streams:80 zero-axiom mathematical acceptances and7
+genuine type mismatches. Normal78 rows include70 large rows/all4,900 pairs and
+8 small rows/26 pairs. Original932.081-second Rust and1001.988-second Go large
+runs remain intact without observation-timeout restart. Independent frozen
+comparison covers4,926 pairs,9,930 new complete theorem statements,10,944 prior
+operation statements and320,256 actual tag bits, preserving every source
+payload/zero/descriptor. Large rows have1,491 declarations, max17,297 terms and
+max496,239 bytes under unchanged native caps. Scoped Clippy/format pass;11 source
+epochs/6,503 original rows and324 current Go prelaunch inputs remain.
+
+Coherent prior duplicate-tag/constant-false nil/copy math remains accepted but
+fails exact import and the frozen body oracle; full row statements make both
+true type-rejection controls. Wrong positive/negative comparison claims and
+last-row/first-target substitution also reject. Independent source-owner/module
+checking rejects a different mathematically accepted row for the requested type.
+Source-Go finite dispatch/receiver-once/callee/effect execution, all nil/copy/
+boxing/comparison and zero evaluation, arbitrary-input/inactive-case validity,
+canonical capture/module/U/tag bindings, all entry/result/store/frame/lifetime/
+loop/runtime/program/full56 foundation/private registry/context/nativeLinux/
+all169/T02-T11 remain due. Earlier historical-scope findings remain for the final
+strict gate. Go/Rust only; R01/R06/W01 stay open, the public practical profile
+stays inactive and the full T02 gate stays final W04: `./scripts/check-fast.sh`.

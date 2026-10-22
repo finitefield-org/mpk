@@ -462,6 +462,13 @@ impl Operations<'_> {
 pub fn generate_go_practical_source_error_operations_foundation(
     domain: &GoSourceValueDomain,
 ) -> Result<GoSourceErrorOperationsFoundation> {
+    let (builder, mut foundation) = operations_builder(domain)?;
+    foundation.certificate = builder.finish()?;
+    Ok(foundation)
+}
+pub(super) fn operations_builder(
+    domain: &GoSourceValueDomain,
+) -> Result<(Builder, GoSourceErrorOperationsFoundation)> {
     let (mut builder, boxing) = source_error_boxing::nil_builder(domain)?;
     let source_module = boxing.source_layout_module_name().to_string();
     let boxing_module = boxing.module_name().to_string();
@@ -492,14 +499,15 @@ pub fn generate_go_practical_source_error_operations_foundation(
         generator.nil_has_no_case(id, *ordinal)?;
     }
     builder.certificate.module = module.clone();
-    Ok(GoSourceErrorOperationsFoundation {
+    let foundation = GoSourceErrorOperationsFoundation {
         source_module,
         boxing_module,
         module,
         error_type,
         cases,
-        certificate: builder.finish()?,
-    })
+        certificate: vec![],
+    };
+    Ok((builder, foundation))
 }
 pub fn import_go_practical_source_error_operations_foundation(
     candidate: &[u8],
