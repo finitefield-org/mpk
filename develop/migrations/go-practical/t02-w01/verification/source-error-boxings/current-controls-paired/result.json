@@ -1,0 +1,513 @@
+{
+  "status": "passed",
+  "started_at_utc": "2026-10-22T11:07:02.101203+00:00",
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls-paired/driver.py",
+    "bytes": 5447,
+    "sha256": "138bd5a869473f35e9b8c610fb585419e91fd89546f9fcaf5f9e2d29be0fc058"
+  },
+  "complete_prelaunch_inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls-paired/prelaunch-inputs.json",
+    "bytes": 19800,
+    "sha256": "0c1231032b49912ee931f81972271405b504e63933e1ab1c2e18f539c583336d"
+  },
+  "original_Rust_executions": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls/result.json",
+      "bytes": 6028,
+      "sha256": "61a139dff344d5cbcb778354bd03a7cd5633762dc5e5c54ec2da1b68e548656c"
+    }
+  ],
+  "go_binary": {
+    "path": "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+    "sha256": "33018244ca886f867256330d050077f7630c503529e3dc14ac3365f333c618a6",
+    "bytes": 3239410
+  },
+  "go_production_sources": [
+    {
+      "path": "go-tools/mpk-checker-ref/axiom_report.go",
+      "sha256": "c4b90708cee28a9198de51b44882e4c6fb1b012331378ab82a1c2f9537472d57",
+      "bytes": 23259
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/bool_cases.go",
+      "sha256": "99112f01a5a83465e7d28e47a8995fcba41dd3f3c99d6cbd423bd3e4bd709432",
+      "bytes": 5272
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/bool_rec_type.go",
+      "sha256": "d5d3e93ab336e8686092547579f0d76640d280a6b347691890e6b63aeec13a0e",
+      "bytes": 4986
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/cmd/mpk-checker-ref/main.go",
+      "sha256": "33961ea1b42b933405f3d18a05a13d9a08551879a92d699c75f674a1d7a056e0",
+      "bytes": 2893
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/core_check.go",
+      "sha256": "1fe9acc0f8277c1290dd24ff4af0cde526e9e0e283026192af4c0bd671331a0a",
+      "bytes": 32802
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/decoder.go",
+      "sha256": "636a3cefeebe2b8cdaf2191992f5ab08edb293aa019e366d33e7590a6e0e2a02",
+      "bytes": 38400
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/defeq.go",
+      "sha256": "a951f73a15315ed34c38829dfab819d34aa947b8050e3b097adb81bf37f65e0c",
+      "bytes": 10399
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/doc.go",
+      "sha256": "952a3da781b751eb063b2f4d859568453896d76ee8ab2122209720879c150b75",
+      "bytes": 112
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/hash.go",
+      "sha256": "9412b1bbabe87879061f142774bc8cbe7dd6210340855b445279bd7d1ba43c41",
+      "bytes": 7917
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/nat_induct.go",
+      "sha256": "72b3fff34b37f57dde648735a4ba1f6191f11253394f71cd30566a23e578e8bb",
+      "bytes": 5751
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/proof_check.go",
+      "sha256": "71f1b8648941e68c1bc67ae4cf640e35a31df20584b1f818f697fb5afc86e996",
+      "bytes": 17766
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/verify.go",
+      "sha256": "79d70ede0ea7453667009d4575265f8fdc2860e35026065bb4ae5d374faa1b5e",
+      "bytes": 10238
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/go.mod",
+      "sha256": "1dcc4212afe08523613abb23420df58c1bea4507db876e3ceac1e758a1b76250",
+      "bytes": 72
+    }
+  ],
+  "actual_unchanged_Go_build_evidence": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/core-interfaces/paired/result.json",
+    "bytes": 45747,
+    "sha256": "88ee756b4d9f6a61a1f61670baf626be23c6947d532a25fe3a0a65fa9b0a159a"
+  },
+  "cases": [
+    {
+      "name": "colliding-source-tags-are-only-math",
+      "certificate": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls/certificates/colliding-source-tags-are-only-math.mpcert",
+        "bytes": 512454,
+        "sha256": "f812e51d00f85d4a168b02eeb661a899409739765b78c0ad69dd2c0346af28a0"
+      },
+      "rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls/certificates/colliding-source-tags-are-only-math.rust.json",
+        "bytes": 671,
+        "sha256": "307890e1c9a89bacc38b00b244a32bcf71b323258a9e83f5e0d3df985fdd7f9e"
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls/certificates/colliding-source-tags-are-only-math.mpcert"
+      ],
+      "exit_code": 0,
+      "seconds": 1.3393739159218967,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls-paired/colliding-source-tags-are-only-math.stdout.log",
+        "bytes": 417,
+        "sha256": "fe6eab27504f7d2944860aaeb32f1958ba2d8fec77e03b83389b2128eb99ff73"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls-paired/colliding-source-tags-are-only-math.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "rust_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S2919b154ec4a360dd623fe0a7764868d868d740781fa41a90185a2dcd397fec7.Boxing",
+        "declaration_count": 2207,
+        "axiom_count": 0,
+        "hashes": {
+          "export": "e444ce47e051584fe15a32cfb7ce30ddff923c2ebe2346e4ea922f4ccdee7c61",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "43e0fa84abd0e7c24a59b0c36a998ef3d657e62308b14a548e752a1711d66fbf"
+        },
+        "axiom_report": {
+          "summary": {
+            "core_axiom_count": 0,
+            "builtin_theory_axiom_count": 0,
+            "go_semantics_axiom_count": 0,
+            "external_axiom_count": 0,
+            "total_axiom_count": 0
+          },
+          "entries": [],
+          "declaration_dependencies": []
+        },
+        "error_code": null,
+        "error_detail": null
+      },
+      "go_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S2919b154ec4a360dd623fe0a7764868d868d740781fa41a90185a2dcd397fec7.Boxing",
+        "declaration_count": 2207,
+        "hashes": {
+          "export": "e444ce47e051584fe15a32cfb7ce30ddff923c2ebe2346e4ea922f4ccdee7c61",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "43e0fa84abd0e7c24a59b0c36a998ef3d657e62308b14a548e752a1711d66fbf"
+        }
+      }
+    },
+    {
+      "name": "drop-active-0",
+      "certificate": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls/certificates/drop-active-0.mpcert",
+        "bytes": 512501,
+        "sha256": "cfe19f16436889d9b3e1e9f44a76ef51d736cb441107720780dbdbab0c43daaa"
+      },
+      "rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls/certificates/drop-active-0.rust.json",
+        "bytes": 543,
+        "sha256": "2183053c8adf0f112f69d6f64fc9c7ba009a1b3ed9bb64c91b67a9beeca6fc4e"
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls/certificates/drop-active-0.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.48966304096393287,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls-paired/drop-active-0.stdout.log",
+        "bytes": 108,
+        "sha256": "de43d8cfd99cc12bcbc1c03315b4373de42507ff6d2448ae4b49c50d16f52ee5"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls-paired/drop-active-0.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "a4150ccc15c4e85039ea8514db09257c7c5de49f1731df0e4bdcbc158d4ff2ca"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"171061\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"171069\",\"kind\":\"check_type_mismatch\",\"term_index\":\"171067\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 170962 inferred app but expected app"
+      }
+    },
+    {
+      "name": "drop-active-1",
+      "certificate": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls/certificates/drop-active-1.mpcert",
+        "bytes": 512501,
+        "sha256": "92d1d1c04f3892397e9a36f9d53c2a0a5137709153f52c70f820fca394585d9c"
+      },
+      "rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls/certificates/drop-active-1.rust.json",
+        "bytes": 543,
+        "sha256": "ca527583e320bc02e481a55f068bcf88392272683e6f8ca540caf8b360278875"
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls/certificates/drop-active-1.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.5137187080690637,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls-paired/drop-active-1.stdout.log",
+        "bytes": 108,
+        "sha256": "02b98855b02fa926f140cbbd248550ddcbd1f8a4292cecd6d92dc93cd44ea1b3"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls-paired/drop-active-1.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "0bf94a009dd21253204e32a7c4def3c0d2c1c5a914865db444c8341fad76a698"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"171504\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"171512\",\"kind\":\"check_type_mismatch\",\"term_index\":\"171510\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 171405 inferred app but expected app"
+      }
+    },
+    {
+      "name": "drop-active-2",
+      "certificate": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls/certificates/drop-active-2.mpcert",
+        "bytes": 512521,
+        "sha256": "b49b316541c130f63ee72b5eb79c2ef3a0bf393b91c6ff04209bc12d19d59b52"
+      },
+      "rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls/certificates/drop-active-2.rust.json",
+        "bytes": 543,
+        "sha256": "c10d7738de759d4355b00aeeae1eeee122cca84ee4fc9ad64e0d48f68512ce0a"
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls/certificates/drop-active-2.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.49911512492690235,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls-paired/drop-active-2.stdout.log",
+        "bytes": 108,
+        "sha256": "ba417700ffd847d15ff9c27bc922cb068a55826c417d57ff8b5dcdcc4af340e7"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls-paired/drop-active-2.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "c6456d8b7177096f5e969e2cd2d798ec30d2f16eb94f4fbef0ce85bbd549a4c0"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"171907\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"171917\",\"kind\":\"check_type_mismatch\",\"term_index\":\"171915\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 171810 inferred app but expected app"
+      }
+    },
+    {
+      "name": "drop-active-3",
+      "certificate": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls/certificates/drop-active-3.mpcert",
+        "bytes": 512521,
+        "sha256": "6cf1a8162e9a699ab039771a6bf8c40332e7fb8cea15d671e3e47200dcca27d0"
+      },
+      "rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls/certificates/drop-active-3.rust.json",
+        "bytes": 543,
+        "sha256": "24daba36b2c9bb8e8ee0849fa442fa5c4e3a72333f201bf5046770590b534ad9"
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls/certificates/drop-active-3.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.5587808749405667,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls-paired/drop-active-3.stdout.log",
+        "bytes": 108,
+        "sha256": "84f87635a2513d23997bfdce919de8d98bed4adf93cb7ab551b65efe8558eefa"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls-paired/drop-active-3.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "e6eb60b66322cde8c7e0726b27ff50f65a4ee9a014d42be6da04b1a062bb3da4"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"172222\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"172228\",\"kind\":\"check_type_mismatch\",\"term_index\":\"172226\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 172121 inferred app but expected app"
+      }
+    },
+    {
+      "name": "leak-inactive-bool",
+      "certificate": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls/certificates/leak-inactive-bool.mpcert",
+        "bytes": 512520,
+        "sha256": "590ea893ee3de5f836b3bc8d2842f824cd31c296edd4f7bea859685b8ad5dd90"
+      },
+      "rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls/certificates/leak-inactive-bool.rust.json",
+        "bytes": 543,
+        "sha256": "8ed90ba8408c32ae190611b6f4e0dbc67940aed3ee900e5e045ef4a037b68955"
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls/certificates/leak-inactive-bool.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.5247853749897331,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls-paired/leak-inactive-bool.stdout.log",
+        "bytes": 108,
+        "sha256": "1e9a686a8150f7d106dd8e4eba4f80e1603719ded7c684fd7a4501032d14cc83"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls-paired/leak-inactive-bool.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "f2646c049bf81665de335adca11cddebb1ad455e6b0f57f8cf5fb758a075d1dd"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"171065\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"171071\",\"kind\":\"check_type_mismatch\",\"term_index\":\"171069\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 170964 inferred app but expected app"
+      }
+    },
+    {
+      "name": "leak-inactive-slice-nil",
+      "certificate": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls/certificates/leak-inactive-slice-nil.mpcert",
+        "bytes": 512560,
+        "sha256": "2daf984e1ccdd6df588e89289f8da5e534f8ce32496760d84d95acd36e9bafea"
+      },
+      "rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls/certificates/leak-inactive-slice-nil.rust.json",
+        "bytes": 543,
+        "sha256": "9609b597a6d4d9d2f6b7c630d8b00f2ec8e71e5ac29664841a1855aa4d27b118"
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls/certificates/leak-inactive-slice-nil.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.5174377500079572,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls-paired/leak-inactive-slice-nil.stdout.log",
+        "bytes": 108,
+        "sha256": "a09c7a8257600cf510d8c04ee49a42697ed0068ddd5b8e20bbcfe7be404931cd"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls-paired/leak-inactive-slice-nil.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "563f2cc3c454b18dfa1a95c9573d2a1dd54762029a74076eedab4795f21a0663"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"171069\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"171075\",\"kind\":\"check_type_mismatch\",\"term_index\":\"171073\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 170968 inferred app but expected app"
+      }
+    },
+    {
+      "name": "nil-tag",
+      "certificate": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls/certificates/nil-tag.mpcert",
+        "bytes": 512454,
+        "sha256": "428f8b8878da8b0e07e8e475a2a09f12d1967a7ca4270e39d50ae353477a9efb"
+      },
+      "rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls/certificates/nil-tag.rust.json",
+        "bytes": 537,
+        "sha256": "728f9da05c2943b9d015a164abb129a39cba24c380975f753ac0a2758173683e"
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls/certificates/nil-tag.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.1223125000251457,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls-paired/nil-tag.stdout.log",
+        "bytes": 105,
+        "sha256": "d6a7ee858cb779302924c66ab96892130fb45b2e751ffad918762a1da9a06ba8"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/current-controls-paired/nil-tag.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "ef1e0fdb35712d570c807c22dd7ec856a1efecece04edd332deaa5ac1b29c5c4"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"171370\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"465\",\"kind\":\"check_type_mismatch\",\"term_index\":\"405\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 405 inferred app but expected app"
+      }
+    }
+  ],
+  "scope": "Whole original source-specific boxing certificate streams, with all tags, active payloads and inactive zeros. Every original input and the unchanged Go binary/source closure is captured before checking. Private source-key boxing is not source-runtime validity or canonical context/program authority. No arbitrary-input validity/canonical capture/context/program/release claim.",
+  "same_byte_streams": 8,
+  "zero_axiom_acceptances": 1,
+  "genuine_type_rejections": 7,
+  "whole_inputs_unchanged": true,
+  "finished_at_utc": "2026-10-22T11:07:07.729710+00:00"
+}

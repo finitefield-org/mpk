@@ -61,7 +61,7 @@ pub(super) fn make(types: &[Expr], values: &[Expr]) -> Expr {
         }
     }
 }
-fn get(types: &[Expr], value: Expr, index: usize) -> Expr {
+pub(super) fn get(types: &[Expr], value: Expr, index: usize) -> Expr {
     if types.len() == 1 {
         return value;
     }

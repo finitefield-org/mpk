@@ -7938,3 +7938,36 @@ scope/contract wire, native Linux and all169 application demands/T02-T11 remain
 due. Earlier historical-scope findings remain for the final gate. Go/Rust only;
 R01/R06/W01 stay open, the public profile stays inactive and full T02 gate stays
 final W04: `./scripts/check-fast.sh`.
+
+## 162. T02-W01 source-specific error boxing
+
+The [source error-boxing checkpoint](../migrations/go-practical/t02-w01/verification/source-error-boxings/README.md)
+uses the complete checked private source U, nonzero source-type-ID-sorted tags,
+full active payloads and every inactive source zero in the frozen balanced
+carrier. Checked whole BoxRecipe and a shared leaf-congruence theorem preserve
+whole payload-vector equality, active/tag/nil/nonnil/concrete-zero/own-case
+laws without function extensionality. All2050 prior core/error-value and all
+source type/zero/recipe identities remain exact. Compiled generic Nil dependencies
+are copied unchanged; unused adapter laws remain in their complete old library.
+
+Both cores agree on14 distinct full streams: six zero-axiom mathematical
+acceptances and eight genuine type rejections. Five normal units include
+actual70 cases/73 source types. Independent frozen structure checks78 complete
+constructors and4,992 actual decoded tag bits. A coherent tag collision passes
+mathematics but fails exact source import and the source-tag oracle. N70 has
+3,198 declarations,46,233 terms and882,738 bytes under unchanged budgets, with
+no smaller case/root/helper/parameter cap. Full5/source and71/generic literal
+replay and current scoped Clippy/format pass. All46 source epochs/24,623 input
+rows plus106 current Go prelaunch originals remain. Resource failures, the first
+incomplete Bool.rec observer and its corrected rerun are preserved. A pairing
+epoch-name guard stopped before Go launch; its unchanged driver is explicitly
+archived after terminal without a prelaunch claim, and corrected pairing passes.
+The unused Java-manifest Git attributes rule is removed; Go/Rust scope remains.
+
+Source-Go boxing/zero evaluation, arbitrary-input/inactive-case validity and
+canonical capture/module/U/tag/boxing binding, entry/receiver/dispatch/
+precondition/result/store/frame/lifetime/loop/runtime/program proofs, full56
+foundation/private registry/context, native Linux and all169/T02-T11 remain due.
+Earlier historical-scope scanner findings remain for the final strict gate.
+R01/R06/W01 stay open; the public practical profile stays inactive and the
+cumulative T02 gate remains final W04: `./scripts/check-fast.sh`.

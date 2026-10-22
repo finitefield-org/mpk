@@ -170,6 +170,18 @@ fn shape(source: &Sources<'_>, module: &str, id: &str) -> Result<(Expr, Expr)> {
 pub fn generate_go_practical_source_error_layout_foundation(
     domain: &GoSourceValueDomain,
 ) -> Result<GoSourceErrorLayoutFoundation> {
+    let (builder, mut foundation, _) = source_builder(domain)?;
+    foundation.certificate = builder.finish()?;
+    Ok(foundation)
+}
+
+pub(super) fn source_builder(
+    domain: &GoSourceValueDomain,
+) -> Result<(
+    Builder,
+    GoSourceErrorLayoutFoundation,
+    BTreeMap<String, Expr>,
+)> {
     let cases = domain
         .error_cases()
         .iter()
@@ -247,12 +259,13 @@ pub fn generate_go_practical_source_error_layout_foundation(
         true,
     )?;
     builder.certificate.module = module.clone();
-    Ok(GoSourceErrorLayoutFoundation {
+    let foundation = GoSourceErrorLayoutFoundation {
         source_error_type: error,
         cases: source.cases,
         module,
-        certificate: builder.finish()?,
-    })
+        certificate: vec![],
+    };
+    Ok((builder, foundation, recipes))
 }
 fn emit_source(builder: &mut Builder, module: &str, id: &str, ty: Expr, zero: Expr) -> Result<()> {
     emit(

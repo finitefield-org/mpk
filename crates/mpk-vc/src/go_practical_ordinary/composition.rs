@@ -5,6 +5,57 @@ use serde_json::{json, Value};
 use std::collections::BTreeSet;
 
 const SCOPE: &str = "Mpk.Go.Practical.Word.SignedDivision.Prerequisite";
+
+/// Close compiled-in declaration roots without changing any retained named
+/// type, body, proof or inductive metadata. This is producer packaging only;
+/// each resulting complete ordinary certificate still needs both checkers.
+pub(super) fn retain_declarations(input: Builder, roots: &[String]) -> Result<Builder> {
+    let inputs = [input.certificate];
+    let identities = fingerprints(&inputs[0]);
+    let builder = Builder::new()?;
+    for (name, identity) in fingerprints(&builder.certificate) {
+        if identities.get(&name) != Some(&identity) {
+            return Err(GoOrdinaryError::Linkage);
+        }
+    }
+    let index = inputs[0]
+        .declarations
+        .iter()
+        .enumerate()
+        .map(|(i, d)| (inputs[0].name_table[d.name as usize].clone(), (0, i)))
+        .collect();
+    let mut composer = Composer {
+        inputs: &inputs,
+        signed_division_names: false,
+        builder,
+        index,
+        cloned: BTreeMap::new(),
+        visiting: BTreeSet::new(),
+        terms: BTreeMap::new(),
+        levels: BTreeMap::new(),
+    };
+    let mut roots = roots.to_vec();
+    for d in &inputs[0].declarations {
+        if matches!(
+            d.kind,
+            DeclarationKind::Inductive { .. }
+                | DeclarationKind::Constructor { .. }
+                | DeclarationKind::Recursor { .. }
+        ) {
+            roots.push(inputs[0].name_table[d.name as usize].clone());
+        }
+    }
+    for name in composer.dependency_order(&roots)? {
+        composer.declaration(&name)?;
+    }
+    for (name, identity) in fingerprints(&composer.builder.certificate) {
+        if identities.get(&name) != Some(&identity) {
+            return Err(GoOrdinaryError::Linkage);
+        }
+    }
+    composer.builder.certificate.module = inputs[0].module.clone();
+    Ok(composer.builder)
+}
 fn replacement(name: &str) -> Option<String> {
     for w in [8, 16, 32, 64] {
         for (old, new) in [

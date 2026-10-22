@@ -1,0 +1,69 @@
+{
+  "status": "passed",
+  "command": [
+    "rustfmt",
+    "--edition=2021",
+    "--config",
+    "skip_children=true",
+    "crates/mpk-vc/src/go_practical_ordinary/composition.rs",
+    "crates/mpk-vc/src/go_practical_ordinary.rs",
+    "crates/mpk-vc/src/go_practical_ordinary/error_layout.rs",
+    "crates/mpk-vc/src/go_practical_ordinary/source_error_layout.rs",
+    "crates/mpk-vc/src/go_practical_ordinary/source_error_boxing.rs",
+    "crates/mpk-vc/tests/go_practical_source_error_boxings.rs"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1"
+  },
+  "source_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/closed-basis-format/inputs.json",
+    "bytes": 182819,
+    "sha256": "7af2f8e5c8d33616484272076e6dab7b5a3a23ae67e1be0041e0c601c7ac9661"
+  },
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/closed-basis-format/driver.py",
+    "bytes": 7053,
+    "sha256": "4be021497f419d5965eb3cd68b02203833dda497ada5f4850b234ab4d0741506"
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustc",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustfmt",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    }
+  },
+  "selection_reason": "New source-U boxing constructors retain the complete balanced error carrier, full active payload and every inactive source zero. Exact private source tags, whole payload-vector and active/tag observations, nonnil for all values including concrete zero, and own-case comparison have actual checked witnesses. Preserve all prior source-layout named identities and complete replay its original artifacts after builder refactor. Check original empty/single/dispatch-grown/root-with-slice source units before separate actual70-case source unit. No smaller case limit, kernel/axiom/native budget or frontend changes; source runtime validity/canonical context/boxing correspondence remain due. Scoped tests only, no unrelated suites or intermediate broad gate.",
+  "full_T_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "formatter_mutation_expected": true,
+  "started_at_utc": "2026-10-22T10:45:50.291534+00:00",
+  "exit_code": 0,
+  "seconds": 0.4051122081000358,
+  "whole_source_inputs_unchanged": false,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/closed-basis-format/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/closed-basis-format/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "certificates": [],
+  "finished_at_utc": "2026-10-22T10:45:50.699217+00:00"
+}

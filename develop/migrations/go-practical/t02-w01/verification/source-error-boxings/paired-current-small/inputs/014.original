@@ -1,0 +1,93 @@
+{
+  "status": "passed",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_source_error_boxings",
+    "complete_source_boxing",
+    "--",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "MPK_GO_SOURCE_ERROR_BOXINGS_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/bit-witness/certificates"
+  },
+  "source_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/bit-witness/inputs.json",
+    "bytes": 181857,
+    "sha256": "b7f8b2a6499937633476665e059bc7f738063c26b5377e815ce0b8d67dc3dceb"
+  },
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/bit-witness/driver.py",
+    "bytes": 6996,
+    "sha256": "144e584b25869bcbdb1fba713ca4b068a10cf4915581f22a7b3928bf5fd92f59"
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustc",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustfmt",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    }
+  },
+  "selection_reason": "New source-U boxing constructors retain the complete balanced error carrier, full active payload and every inactive source zero. Exact private source tags, whole payload-vector and active/tag observations, nonnil for all values including concrete zero, and own-case comparison have actual checked witnesses. Preserve all prior source-layout named identities and complete replay its original artifacts after builder refactor. Check original empty/single/dispatch-grown/root-with-slice source units before separate actual70-case source unit. No smaller case limit, kernel/axiom/native budget or frontend changes; source runtime validity/canonical context/boxing correspondence remain due. Scoped tests only, no unrelated suites or intermediate broad gate.",
+  "full_T_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "formatter_mutation_expected": false,
+  "started_at_utc": "2026-10-22T10:11:16.515619+00:00",
+  "exit_code": 0,
+  "seconds": 110.32570241601206,
+  "whole_source_inputs_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/bit-witness/stdout.log",
+    "bytes": 283,
+    "sha256": "e30818447862cf3c009b3fc2b40553f213572e3d10710662b9467dea75c5cb6a"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/bit-witness/stderr.log",
+    "bytes": 273,
+    "sha256": "5543a376086d96f95fd8b2cfaece18217a9bd861af8518eb1f3d54c235dd2b84"
+  },
+  "certificates": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/bit-witness/certificates/all-root-shapes.mpcert",
+      "bytes": 529698,
+      "sha256": "ffdbe16316646e83a3c9f9a7403d01e69dc8510d05dfec335276793bc239421a"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/bit-witness/certificates/boxing-only.mpcert",
+      "bytes": 493835,
+      "sha256": "dd8a81ddfc42fa4bf2bacac60b00d7d1fb15fee24bc242bd54384cd3da861bb0"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/bit-witness/certificates/entry.mpcert",
+      "bytes": 506826,
+      "sha256": "a7848164d1defa5cdc0be4d87270be6ae791c0af164d5914c6c1b0854426b2ff"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/bit-witness/certificates/nil-only.mpcert",
+      "bytes": 487491,
+      "sha256": "6f01eddf6230fc68801c89758bdc095217e7010412c1e298f565068683184224"
+    }
+  ],
+  "finished_at_utc": "2026-10-22T10:13:06.844440+00:00"
+}
