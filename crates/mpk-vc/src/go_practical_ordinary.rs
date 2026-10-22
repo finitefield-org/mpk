@@ -24,12 +24,17 @@ mod product_relation;
 mod range;
 mod sequence;
 mod slice_descriptor;
+mod source_error_layout;
 mod storage_lens;
 mod string;
 mod syntax;
 mod word;
 mod word_numeric;
 mod word_proofs;
+pub use source_error_layout::{
+    generate_go_practical_source_error_layout_foundation,
+    import_go_practical_source_error_layout_foundation, GoSourceErrorLayoutFoundation,
+};
 
 const BOOL: &str = "Std.Bool";
 const PREFIX: &str = "Mpk.Go.Practical.Bool";

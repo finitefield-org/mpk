@@ -7904,3 +7904,37 @@ contract wire, native Linux and all169 application demands/T02-T11 remain due.
 Earlier historical-scope findings remain for the final gate. Go/Rust only;
 R01/R06/W01 stay open, public practical profile stays inactive and the T02 full
 gate stays final W04: `./scripts/check-fast.sh`.
+
+## 161. T02-W01 source-derived error carrier zero recipes
+
+The [source error-layout checkpoint](../migrations/go-practical/t02-w01/verification/source-error-layouts/README.md)
+uses every case and checked value type of the private original-source domain.
+Named identities, all fields, zero-length array/nil-slice element edges, full
+word/string256/array/slice/error shapes and same-U payloads remain present.
+Every source type gets actual Carrier/Zero/ZeroRecipe definitions, and an
+ordinary NilFromSourceZeros proof couples the generated source zeros to the
+existing complete balanced nil. The private preparation hash grants no frozen
+capture/context/instance authority. No source or arbitrary-input validity is
+inferred from recipe typing.
+
+Both cores agree on15 distinct complete streams: seven zero-axiom mathematical
+acceptances and eight retained-recipe type rejections. Five normal units include
+actual70 cases/73 types; independent frozen structure covers all115 type recipes.
+A coherent Bool zero=true alternative is valid mathematics but fails exact source
+import and the independent source recipe oracle. Fresh complete-byte replay
+preserves all five source and71 prior generic artifacts literally. Current
+Clippy/format pass. N70 retains2788 declarations123265 terms1167441 bytes under
+unchanged native budgets, with no smaller case cap.17 source epochs preserve9069
+original rows; Go pairing preserves92 complete prelaunch inputs and modes. The
+initial observer's two absolute-path copy destinations are explicitly recorded,
+original source bytes archived after terminal without a prelaunch claim, and the
+corrected complete-input observer rerun passes. Original receipts remain intact.
+
+Arbitrary-input and source-Go zero-evaluation/canonical-zero soundness,
+inactive-case validity, canonical capture/module-role/U/tag/boxing binding and
+entry/receiver/dispatch/precondition/result/store/frame/lifetime/loop/runtime/
+program proofs, full56-family foundation/private registry/context, canonical
+scope/contract wire, native Linux and all169 application demands/T02-T11 remain
+due. Earlier historical-scope findings remain for the final gate. Go/Rust only;
+R01/R06/W01 stay open, the public profile stays inactive and full T02 gate stays
+final W04: `./scripts/check-fast.sh`.

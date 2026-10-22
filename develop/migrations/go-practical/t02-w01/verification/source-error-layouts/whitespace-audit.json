@@ -1,0 +1,80 @@
+{
+  "status": "passed_with_exact_immutable_libtest_stdout_eof_records",
+  "initial_default_check": {
+    "command": [
+      "/usr/bin/git",
+      "diff",
+      "--cached",
+      "--check"
+    ],
+    "exit_code": 2,
+    "stdout": "develop/migrations/go-practical/t02-w01/verification/source-error-layouts/controls/stdout.log:7: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/source-error-layouts/first-large/stdout.log:7: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/source-error-layouts/first/stdout.log:11: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/source-error-layouts/ownership/stdout.log:6: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/source-error-layouts/replay/stdout.log:13: new blank line at EOF.\n",
+    "stderr": ""
+  },
+  "preserved_original_stdout": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-layouts/controls/stdout.log",
+      "bytes": 271,
+      "sha256": "d2b896706e5cc87b763ba4a38fb74e730a2edd48bc561c654edf2f7a222397d4"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-layouts/first-large/stdout.log",
+      "bytes": 192,
+      "sha256": "cdb334eb678915090658916ec06ab47cca014a0f44532bca3a2c205bce361bec"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-layouts/first/stdout.log",
+      "bytes": 362,
+      "sha256": "f84902e2df831958c596be9647f66199dfaebe4900db22c8acf9aa465057662d"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-layouts/ownership/stdout.log",
+      "bytes": 179,
+      "sha256": "8b70efe8d6147ef3d9e38e28c00b74879ac7aacaca9e37e0da50deb6112cae1f"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-layouts/replay/stdout.log",
+      "bytes": 499,
+      "sha256": "9e593d511cd15006f979697dce714f9f57fd2ae4fea2a9fae2e6c420ce8e3155"
+    }
+  ],
+  "default_check_all_other_files": {
+    "command": [
+      "/usr/bin/git",
+      "diff",
+      "--cached",
+      "--check",
+      "--",
+      ".",
+      ":(top,literal,exclude)develop/migrations/go-practical/t02-w01/verification/source-error-layouts/controls/stdout.log",
+      ":(top,literal,exclude)develop/migrations/go-practical/t02-w01/verification/source-error-layouts/first-large/stdout.log",
+      ":(top,literal,exclude)develop/migrations/go-practical/t02-w01/verification/source-error-layouts/first/stdout.log",
+      ":(top,literal,exclude)develop/migrations/go-practical/t02-w01/verification/source-error-layouts/ownership/stdout.log",
+      ":(top,literal,exclude)develop/migrations/go-practical/t02-w01/verification/source-error-layouts/replay/stdout.log"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "raw_stdout_other_whitespace_check": {
+    "command": [
+      "/usr/bin/git",
+      "-c",
+      "core.whitespace=-blank-at-eof",
+      "diff",
+      "--cached",
+      "--check",
+      "--",
+      "develop/migrations/go-practical/t02-w01/verification/source-error-layouts/controls/stdout.log",
+      "develop/migrations/go-practical/t02-w01/verification/source-error-layouts/first-large/stdout.log",
+      "develop/migrations/go-practical/t02-w01/verification/source-error-layouts/first/stdout.log",
+      "develop/migrations/go-practical/t02-w01/verification/source-error-layouts/ownership/stdout.log",
+      "develop/migrations/go-practical/t02-w01/verification/source-error-layouts/replay/stdout.log"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "persistent_git_or_repository_scanner_configuration_changed": false,
+  "scope": "Original successful libtest standard output final blank lines are retained byte-for-byte. Default whitespace check covers every other staged file; only blank-at-eof is disabled for the exact preserved original stdout files."
+}

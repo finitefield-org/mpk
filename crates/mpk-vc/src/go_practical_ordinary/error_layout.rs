@@ -10,7 +10,7 @@ fn pc(name: &str, args: Vec<Expr>) -> Expr {
 fn ec(name: &str, args: Vec<Expr>) -> Expr {
     call(&format!("Mpk.Go.Practical.ErrorValue.{name}"), args)
 }
-fn product(types: &[Expr]) -> Expr {
+pub(super) fn product(types: &[Expr]) -> Expr {
     match types {
         [] => boolean(),
         [one] => one.clone(),
@@ -31,7 +31,7 @@ fn product(types: &[Expr]) -> Expr {
         }
     }
 }
-fn make(types: &[Expr], values: &[Expr]) -> Expr {
+pub(super) fn make(types: &[Expr], values: &[Expr]) -> Expr {
     match values {
         [] => bit(false),
         [one] => one.clone(),
