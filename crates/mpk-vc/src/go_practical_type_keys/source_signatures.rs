@@ -211,6 +211,18 @@ impl Fields<'_> {
         Ok(())
     }
 }
+// Derive from this exact original scope, then retain that same shared owner.
+pub(super) fn derive_shared_signature(
+    scopes: &std::sync::Arc<GoSourceScopes>,
+    source: &str,
+    function: usize,
+) -> Result<GoSourceSignature> {
+    let mut signature = derive_go_source_signature(scopes, source, function)?;
+    signature
+        .types
+        .share_source_owner(std::sync::Arc::clone(scopes));
+    Ok(signature)
+}
 /// Derive actual ordered receiver/input/result slot types. Function bodies are
 /// retained by original locator but not typechecked or proved by this API.
 pub fn derive_go_source_signature(

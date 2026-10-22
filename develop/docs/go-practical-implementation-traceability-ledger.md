@@ -7827,3 +7827,26 @@ nativeLinux/all169/T02–T11 remain due. Earlier unchanged historical-scope scan
 findings still require final-gate resolution. Go/Rust only; R01/R06/W01 stay open,
 the public profile stays inactive and the T02 full gate stays final W04:
 `./scripts/check-fast.sh`.
+
+## 158. T02-W01 original function-contract modules and defaults
+
+The [contract-module checkpoint](../migrations/go-practical/t02-w01/verification/contract-modules/README.md)
+separates explicit roots from actual callees and captured optional annotations.
+Every body gets its annotation or a partial/true/all-same-U default without a
+fabricated raw source object. Reached annotations extend finite Error selection;
+missing invariants/range ranks and pending total for ranks retain origins.
+Generated expressions count toward the same1024/function and8192/module limits.
+Original named receiver identity is separate from carrier admission, allowing
+unselected map receiver annotations while rejecting selected map signatures.
+Shared original owners and cached checked input types avoid repeated complete
+scope copies. Six new/31 affected old Rust roots,17 current native Go cases,
+70 successive annotation case additions/141 bodies,512 helpers/513 bodies and
+Clippy/vet/formats pass. The original16-case epoch remains retained. Six prior
+output maps are literally unchanged;22303 native files/178494135 bytes and modes
+remain archived, and SDK14496 files/202722007 bytes remain exact. Canonical
+scope/contract/context wire, application/stdlib/capture authority, blank-field
+zero obligations and all source/definedness/call/frame/store/loop/runtime/program
+proofs, full56 foundation/private registry/nativeLinux/all169/T02–T11 remain due.
+Earlier unchanged historical-scope findings remain for final-gate resolution.
+Go/Rust only; R01/R06/W01 stay open, the public profile stays inactive and the
+T02 full gate remains final W04: `./scripts/check-fast.sh`.

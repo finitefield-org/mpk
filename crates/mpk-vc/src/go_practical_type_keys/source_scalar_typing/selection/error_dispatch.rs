@@ -116,6 +116,53 @@ pub fn derive_go_source_error_selection(
     roots: &[GoSourceSelectionRef],
     entries: &[GoErrorEntryConstraint],
 ) -> std::result::Result<GoSourceErrorSelection, GoSourceErrorSelectionError> {
+    match derive_selection(keys, roots, Some(entries), |_| {
+        Ok::<_, std::convert::Infallible>(BTreeMap::new())
+    }) {
+        Ok(value) => Ok(value),
+        Err(GoSourceModuleSelectionError::Selection(e)) => Err(e),
+        Err(GoSourceModuleSelectionError::Contract(never)) => match never {},
+    }
+}
+pub(in super::super::super) enum GoSourceModuleSelectionError<E> {
+    Selection(GoSourceErrorSelectionError),
+    Contract(E),
+}
+impl<E> From<GoSourceSelectionError> for GoSourceModuleSelectionError<E> {
+    fn from(e: GoSourceSelectionError) -> Self {
+        Self::Selection(e.into())
+    }
+}
+impl<E> From<GoSourceDomainError> for GoSourceModuleSelectionError<E> {
+    fn from(e: GoSourceDomainError) -> Self {
+        Self::Selection(e.into())
+    }
+}
+pub(in super::super::super) fn derive_go_source_error_module_selection<E, F>(
+    keys: &GoTypeKeyComponents,
+    roots: &[GoSourceSelectionRef],
+    contracts: F,
+) -> std::result::Result<GoSourceErrorSelection, GoSourceModuleSelectionError<E>>
+where
+    F: FnMut(
+        &GoSourceSelection,
+    )
+        -> std::result::Result<BTreeMap<GoSourceSelectionRef, Vec<GoErrorEntryConstraint>>, E>,
+{
+    derive_selection(keys, roots, None, contracts)
+}
+fn derive_selection<E, F>(
+    keys: &GoTypeKeyComponents,
+    roots: &[GoSourceSelectionRef],
+    fixed_entries: Option<&[GoErrorEntryConstraint]>,
+    mut contracts: F,
+) -> std::result::Result<GoSourceErrorSelection, GoSourceModuleSelectionError<E>>
+where
+    F: FnMut(
+        &GoSourceSelection,
+    )
+        -> std::result::Result<BTreeMap<GoSourceSelectionRef, Vec<GoErrorEntryConstraint>>, E>,
+{
     let first = roots
         .first()
         .cloned()
@@ -152,26 +199,44 @@ pub fn derive_go_source_error_selection(
         builder.need(r.clone(), GoSourceSelectionRole::SelectedRoot, &[])?;
     }
     let mut cursor = 0;
-    let mut seeded = false;
+    let mut seeded = BTreeSet::new();
     let mut expanded = BTreeSet::new();
     loop {
         builder.drain(&mut cursor)?;
         let selected = builder.snapshot(Arc::clone(&scopes), keys, &roots);
-        let domain = derive_go_source_value_domain(&selected, entries)?;
-        if !seeded {
-            // Validate the complete entry predicates before using their original
-            // declarations as dependencies. Aliases and constant/type/signature
-            // dependencies are then walked by the same original-source reader.
-            for row in entries {
-                for case in row.cases() {
-                    builder.need(
-                        case.clone(),
-                        GoSourceSelectionRole::TypeDependency,
-                        std::slice::from_ref(row.root()),
-                    )?;
+        let annotations = if fixed_entries.is_none() {
+            contracts(&selected).map_err(GoSourceModuleSelectionError::Contract)?
+        } else {
+            BTreeMap::new()
+        };
+        let dynamic_entries = annotations.values().flatten().cloned().collect::<Vec<_>>();
+        let entries = fixed_entries.unwrap_or(&dynamic_entries);
+        let domain = if fixed_entries.is_some() {
+            derive_go_source_value_domain(&selected, entries)?
+        } else {
+            super::super::domains::derive_contract_domain(&selected, &annotations)?
+        };
+        // A newly selected Error body can introduce another actual annotation.
+        // Preserve each function-to-case dependency and its original root path.
+        for row in entries {
+            for case in row.cases() {
+                if seeded.insert((row.root().clone(), case.clone())) {
+                    let path = builder
+                        .work
+                        .iter()
+                        .find(|w| {
+                            w.locator == *row.root()
+                                && matches!(
+                                    w.role,
+                                    GoSourceSelectionRole::SelectedRoot
+                                        | GoSourceSelectionRole::BodyDependency
+                                )
+                        })
+                        .map(|w| w.path.clone())
+                        .unwrap_or_else(|| vec![row.root().clone()]);
+                    builder.need(case.clone(), GoSourceSelectionRole::TypeDependency, &path)?;
                 }
             }
-            seeded = true;
         }
         let sites = builder
             .error_calls

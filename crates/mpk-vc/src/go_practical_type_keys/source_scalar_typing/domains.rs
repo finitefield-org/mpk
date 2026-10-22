@@ -414,6 +414,24 @@ pub fn derive_go_source_value_domain(
     selection: &GoSourceSelection,
     entries: &[GoErrorEntryConstraint],
 ) -> DomainResult<GoSourceValueDomain> {
+    derive_domain(selection, entries, None)
+}
+/// Every actual body receives a contract entry. An annotated body has its
+/// complete explicit predicates; other bodies get every case of the same U.
+/// Generated defaults do not seed U or manufacture a raw overlay source.
+pub(in super::super) fn derive_contract_domain(
+    selection: &GoSourceSelection,
+    annotations: &BTreeMap<GoSourceSelectionRef, Vec<GoErrorEntryConstraint>>,
+) -> DomainResult<GoSourceValueDomain> {
+    let entries = annotations.values().flatten().cloned().collect::<Vec<_>>();
+    let annotated = annotations.keys().cloned().collect::<BTreeSet<_>>();
+    derive_domain(selection, &entries, Some(&annotated))
+}
+fn derive_domain(
+    selection: &GoSourceSelection,
+    entries: &[GoErrorEntryConstraint],
+    annotated: Option<&BTreeSet<GoSourceSelectionRef>>,
+) -> DomainResult<GoSourceValueDomain> {
     let scopes = selection.scopes();
     let mut domain = Domain {
         engine: Engine::new(scopes),
@@ -425,33 +443,41 @@ pub fn derive_go_source_value_domain(
         }
         let r = d.locator();
         if d.kind() == "function" {
-            let signature = derive_go_source_signature(scopes, r.source_object_id(), r.node())
-                .map_err(|e| failure(GoSourceDomainErrorKind::Signature(e), None))?;
-            domain.graph(signature.types())?;
-            if selection.roots().contains(r) {
-                inputs.insert(
-                    r.clone(),
-                    signature
-                        .slots()
-                        .iter()
-                        .filter(|s| s.role() != GoSourceSignatureRole::Result)
-                        .map(|s| s.type_id().to_string())
-                        .collect::<Vec<_>>(),
-                );
+            // Selected body caches already include every original signature
+            // type and receiver-first input slot. Reusing them avoids cloning
+            // the complete source scope graph once per body on every U round.
+            let input_types = if let Some(checked) = selection.checked_body_types(r) {
+                domain.absorb(checked)?;
+                checked.inputs.clone()
+            } else {
+                let signature = derive_go_source_signature(scopes, r.source_object_id(), r.node())
+                    .map_err(|e| failure(GoSourceDomainErrorKind::Signature(e), None))?;
+                domain.graph(signature.types())?;
+                signature
+                    .slots()
+                    .iter()
+                    .filter(|s| s.role() != GoSourceSignatureRole::Result)
+                    .map(|s| s.type_id().to_string())
+                    .collect()
+            };
+            if selection.roots().contains(r)
+                || annotated.is_some()
+                    && d.roles()
+                        .any(|role| role == GoSourceSelectionRole::BodyDependency)
+            {
+                inputs.insert(r.clone(), input_types);
             }
             if d.roles().any(|role| {
                 matches!(
                     role,
                     GoSourceSelectionRole::SelectedRoot | GoSourceSelectionRole::BodyDependency
                 )
-            }) {
-                let body = selection.checked_body_types(r).ok_or_else(|| {
-                    failure(
-                        GoSourceDomainErrorKind::Typing(GoScalarTypingError::Locator),
-                        None,
-                    )
-                })?;
-                domain.absorb(body)?;
+            }) && selection.checked_body_types(r).is_none()
+            {
+                return Err(failure(
+                    GoSourceDomainErrorKind::Typing(GoScalarTypingError::Locator),
+                    None,
+                ));
             }
         } else if d.kind() == "type" {
             let graph = derive_go_source_type_declaration(scopes, r.source_object_id(), r.node())
@@ -556,6 +582,11 @@ pub fn derive_go_source_value_domain(
                 if domain.is_error(&id) {
                     let cases = supplied
                         .remove(&(root.clone(), input, path.clone()))
+                        .or_else(|| {
+                            annotated
+                                .filter(|set| !set.contains(root))
+                                .map(|_| universe.clone())
+                        })
                         .ok_or_else(|| GoSourceDomainError {
                             kind: GoSourceDomainErrorKind::MissingEntry,
                             source: Some(root.clone()),

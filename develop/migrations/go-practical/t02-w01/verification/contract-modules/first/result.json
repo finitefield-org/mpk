@@ -1,0 +1,41 @@
+{
+  "status": "passed",
+  "command": [
+    "cargo",
+    "check",
+    "--offline",
+    "-p",
+    "mpk-vc",
+    "--lib"
+  ],
+  "cwd": ".",
+  "environment": {},
+  "source_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-modules/first/inputs.json",
+    "bytes": 312752,
+    "sha256": "6aed185ed94301fb4cbe3961eb2171a0f7a2ec78c56e960142e4c5532cb7b010"
+  },
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-modules/first/driver.py",
+    "bytes": 9786,
+    "sha256": "3c179820ab51c79fa577a78592674903bb2cb3ab96a9c203e59f1c45c601c292"
+  },
+  "selection_reason": "Original contract modules separate roots from actual callees, optional captured sidecars and explicit same-U default candidates. Reuse original source selection, domain and expression typing. Check new modules, original Go closure/type/header observations and affected finite selection, domain, overlays, expression and signature owners. Production Go and unrelated semantics are unchanged; no intermediate full/equivalent gate.",
+  "full_T_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "formatter_mutation_expected": false,
+  "started_at_utc": "2026-10-22T02:29:07.615209+00:00",
+  "exit_code": 0,
+  "seconds": 9.672905250103213,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-modules/first/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-modules/first/stderr.log",
+    "bytes": 146,
+    "sha256": "21667e1389b96d57cd9461a45b251243f0200d960cc5c40f0c739e4b2c14bcaa"
+  },
+  "whole_source_inputs_unchanged": true,
+  "finished_at_utc": "2026-10-22T02:29:17.374445+00:00"
+}

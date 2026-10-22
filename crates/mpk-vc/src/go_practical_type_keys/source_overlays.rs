@@ -4,6 +4,12 @@ use super::*;
 use serde_json::Value;
 use std::sync::Arc;
 mod expressions;
+mod module;
+pub use module::{
+    derive_go_source_contract_module, GoCapturedFunctionOverlay, GoSourceContractModule,
+    GoSourceContractOrigin, GoSourceFunctionContract, GoSourceFunctionLoopContract,
+    GoSourceLoopCandidateOrigin,
+};
 mod syntax;
 pub use expressions::{
     derive_go_typed_source_overlays, GoContractExpression, GoContractExpressionReference,
@@ -310,15 +316,124 @@ impl Binder<'_> {
             .map_err(|e| failure(GoSourceOverlayErrorKind::Type(e)))?;
         Ok((r, graph.roots()[0].clone()))
     }
+    // Select a method by its original named receiver declaration. Identity
+    // lookup must not require admitting an unselected receiver's underlying
+    // map/interface/etc as a practical value type. Selected signatures still
+    // pass the ordinary source type checks before a contract can be produced.
+    fn receiver_declaration(
+        &self,
+        source: &str,
+        node: usize,
+    ) -> OverlayResult<Option<GoSourceSelectionRef>> {
+        let mut current = GoSourceSelectionRef::new(source, node);
+        let mut seen = BTreeSet::new();
+        loop {
+            if !seen.insert(current.clone()) {
+                return Err(failure(GoSourceOverlayErrorKind::TypeSelector));
+            }
+            let parsed = self
+                .scopes
+                .source(current.source_object_id())
+                .ok_or_else(|| failure(GoSourceOverlayErrorKind::Source))?;
+            let n = parsed
+                .nodes()
+                .get(current.node())
+                .ok_or_else(|| failure(GoSourceOverlayErrorKind::Source))?;
+            let child = |role| {
+                source_signatures::list(n, role)
+                    .first()
+                    .copied()
+                    .ok_or_else(|| failure(GoSourceOverlayErrorKind::TypeSelector))
+            };
+            let binding = match n.kind() {
+                "TypeSpec" => {
+                    if source_signatures::attr(n, "Alias") != Some("true") {
+                        return Ok(Some(current));
+                    }
+                    current = GoSourceSelectionRef::new(current.source_object_id(), child("Type")?);
+                    continue;
+                }
+                "ParenExpr" | "IndexExpr" | "IndexListExpr" => {
+                    current = GoSourceSelectionRef::new(current.source_object_id(), child("X")?);
+                    continue;
+                }
+                "Ident" => match self
+                    .scopes
+                    .lookup_identifier(current.source_object_id(), current.node())
+                    .map_err(|e| failure(GoSourceOverlayErrorKind::Scope(e)))?
+                {
+                    Some(GoNameLookup::Original(b)) => b,
+                    _ => return Ok(None),
+                },
+                "SelectorExpr" => {
+                    let x = child("X")?;
+                    let Some(GoNameLookup::Original(import)) = self
+                        .scopes
+                        .lookup_identifier(current.source_object_id(), x)
+                        .map_err(|e| failure(GoSourceOverlayErrorKind::Scope(e)))?
+                    else {
+                        return Ok(None);
+                    };
+                    if import.kind() != GoSourceNameKind::Import {
+                        return Ok(None);
+                    }
+                    let name = source_signatures::attr(&parsed.nodes()[child("Sel")?], "Name")
+                        .ok_or_else(|| failure(GoSourceOverlayErrorKind::TypeSelector))?;
+                    let path = import
+                        .import_path()
+                        .ok_or_else(|| failure(GoSourceOverlayErrorKind::TypeSelector))?;
+                    let Some(binding) = self
+                        .scopes
+                        .imported_member(path, name)
+                        .map_err(|e| failure(GoSourceOverlayErrorKind::Scope(e)))?
+                    else {
+                        return Ok(None);
+                    };
+                    binding
+                }
+                _ => return Ok(None),
+            };
+            if binding.kind() != GoSourceNameKind::Type {
+                return Ok(None);
+            }
+            current =
+                GoSourceSelectionRef::new(binding.source_object_id(), binding.declaration_node());
+        }
+    }
     fn function(&self, overlay: &GoSourceOverlay) -> OverlayResult<GoSourceSelectionRef> {
-        let selector = overlay.function_selector();
+        let r = self.resolve(overlay.function_selector())?;
+        if self
+            .keys
+            .source(r.source_object_id())
+            .is_none_or(|s| s.object().path != overlay.source_path())
+        {
+            return Err(failure(GoSourceOverlayErrorKind::Source));
+        }
+        Ok(r)
+    }
+    fn resolve(&self, selector: &GoSourceFunctionSelector) -> OverlayResult<GoSourceSelectionRef> {
+        if !selector.validate() {
+            return Err(failure(GoSourceOverlayErrorKind::Selector));
+        }
         let package = self.package(&selector.package)?;
         let receiver = selector
             .receiver
             .as_ref()
             .map(|r| {
-                self.type_ref(&format!("{}.{}", r.package, r.type_name))
-                    .map(|(_, id)| id)
+                let package = self.package(&r.package)?;
+                let binding = self
+                    .scopes
+                    .bindings()
+                    .iter()
+                    .find(|b| {
+                        b.package_id() == package.id
+                            && b.name() == r.type_name
+                            && b.kind() == GoSourceNameKind::Type
+                            && self.scopes.package_binding(b)
+                    })
+                    .ok_or_else(|| failure(GoSourceOverlayErrorKind::TypeSelector))?;
+                self.receiver_declaration(binding.source_object_id(), binding.declaration_node())?
+                    .ok_or_else(|| failure(GoSourceOverlayErrorKind::TypeSelector))
             })
             .transpose()?;
         let mut matches = vec![];
@@ -344,8 +459,9 @@ impl Binder<'_> {
                     .copied();
                 let matched = match (recv, &receiver) {
                     (None, None) => true,
-                    (Some(typ), Some(id)) => derive_go_source_type(&self.scopes, source, typ)
-                        .is_ok_and(|g| g.roots() == [id.clone()]),
+                    (Some(typ), Some(id)) => self
+                        .receiver_declaration(source, typ)
+                        .is_ok_and(|r| r.as_ref() == Some(id)),
                     _ => false,
                 };
                 if matched {
@@ -356,15 +472,7 @@ impl Binder<'_> {
         if matches.len() != 1 {
             return Err(failure(GoSourceOverlayErrorKind::Selector));
         }
-        let r = matches.pop().unwrap();
-        if self
-            .keys
-            .source(r.source_object_id())
-            .is_none_or(|s| s.object().path != overlay.source_path())
-        {
-            return Err(failure(GoSourceOverlayErrorKind::Source));
-        }
-        Ok(r)
+        Ok(matches.pop().unwrap())
     }
     fn bind(&self, overlay: &GoSourceOverlay) -> OverlayResult<GoBoundSourceOverlay> {
         if self.keys.sources.values().any(|s| {
@@ -374,9 +482,12 @@ impl Binder<'_> {
             return Err(failure(GoSourceOverlayErrorKind::Source));
         }
         let root = self.function(overlay)?;
-        let signature =
-            derive_go_source_signature(&self.scopes, root.source_object_id(), root.node())
-                .map_err(|e| failure(GoSourceOverlayErrorKind::Signature(e)))?;
+        let signature = source_signatures::derive_shared_signature(
+            &self.scopes,
+            root.source_object_id(),
+            root.node(),
+        )
+        .map_err(|e| failure(GoSourceOverlayErrorKind::Signature(e)))?;
         let graph = signature.types();
         let types = graph
             .types()
@@ -491,33 +602,7 @@ impl Binder<'_> {
             return Err(failure(GoSourceOverlayErrorKind::MissingEntry));
         }
         let parsed = self.scopes.source(root.source_object_id()).unwrap();
-        let mut nodes = vec![];
-        let mut work = signature.body_node().into_iter().collect::<Vec<_>>();
-        while let Some(node) = work.pop() {
-            let n = &parsed.nodes()[node];
-            if n.kind() == "FuncLit" {
-                continue;
-            }
-            if matches!(n.kind(), "ForStmt" | "RangeStmt") {
-                nodes.push(node)
-            }
-            for e in n.edges() {
-                work.extend(e.targets());
-            }
-        }
-        nodes.sort_by_key(|&n| parsed.nodes()[n].start());
-        if nodes.len() > 1024 {
-            return Err(failure(GoSourceOverlayErrorKind::Limit));
-        }
-        let mut loops = nodes
-            .iter()
-            .enumerate()
-            .map(|(ordinal, &node)| GoBoundOverlayLoop {
-                node,
-                ordinal,
-                overlay_row: None,
-            })
-            .collect::<Vec<_>>();
+        let mut loops = original_loops(&self.scopes, &root, &signature)?;
         for (row, annotation) in overlay.wire.loops.iter().enumerate() {
             let s = &annotation.selector;
             let target = loops
@@ -545,6 +630,42 @@ impl Binder<'_> {
             loops,
         })
     }
+}
+fn original_loops(
+    scopes: &GoSourceScopes,
+    root: &GoSourceSelectionRef,
+    signature: &GoSourceSignature,
+) -> OverlayResult<Vec<GoBoundOverlayLoop>> {
+    let parsed = scopes
+        .source(root.source_object_id())
+        .ok_or_else(|| failure(GoSourceOverlayErrorKind::Source))?;
+    let mut nodes = vec![];
+    let mut work = signature.body_node().into_iter().collect::<Vec<_>>();
+    while let Some(node) = work.pop() {
+        let n = &parsed.nodes()[node];
+        if n.kind() == "FuncLit" {
+            continue;
+        }
+        if matches!(n.kind(), "ForStmt" | "RangeStmt") {
+            nodes.push(node);
+        }
+        for edge in n.edges() {
+            work.extend(edge.targets());
+        }
+    }
+    nodes.sort_by_key(|&n| parsed.nodes()[n].start());
+    if nodes.len() > 1024 {
+        return Err(failure(GoSourceOverlayErrorKind::Limit));
+    }
+    Ok(nodes
+        .into_iter()
+        .enumerate()
+        .map(|(ordinal, node)| GoBoundOverlayLoop {
+            node,
+            ordinal,
+            overlay_row: None,
+        })
+        .collect())
 }
 pub fn bind_go_source_overlay(
     keys: &GoTypeKeyComponents,

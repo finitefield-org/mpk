@@ -1,0 +1,65 @@
+{
+  "status": "passed",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_contract_expressions",
+    "--test",
+    "go_practical_source_overlays",
+    "--test",
+    "go_practical_source_scopes",
+    "--test",
+    "go_practical_source_domains",
+    "--test",
+    "go_practical_error_dispatch",
+    "--test",
+    "go_practical_source_selection",
+    "--test",
+    "go_practical_source_signatures",
+    "--",
+    "--nocapture"
+  ],
+  "cwd": ".",
+  "environment": {
+    "MPK_GO_AFFECTED_RUST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-modules/affected/observations",
+    "MPK_GO_CONTRACT_EXPRESSIONS_RUST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-modules/affected/observations/contract_expressions",
+    "MPK_GO_SOURCE_OVERLAYS_RUST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-modules/affected/observations/source_overlays",
+    "MPK_GO_SOURCE_SCOPES_RUST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-modules/affected/observations/source_scopes",
+    "MPK_GO_SOURCE_DOMAINS_RUST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-modules/affected/observations/source_domains",
+    "MPK_GO_ERROR_DISPATCH_RUST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-modules/affected/observations/error_dispatch",
+    "MPK_GO_SOURCE_SELECTION_RUST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-modules/affected/observations/source_selection",
+    "MPK_GO_SOURCE_SIGNATURES_RUST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-modules/affected/observations/source_signatures"
+  },
+  "source_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-modules/affected/inputs.json",
+    "bytes": 314445,
+    "sha256": "2f96bdebd262352e0605865eed52130e0acbcdb4e3370d8e7897def9c8fc935b"
+  },
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-modules/affected/driver.py",
+    "bytes": 9810,
+    "sha256": "cf1d95c46e3de5e3105e01f08607b19acef16424deb4f5c6c9e391dd9e4e2eed"
+  },
+  "selection_reason": "Original contract modules separate roots from actual callees, optional captured sidecars and explicit same-U default candidates. Reuse original source selection, domain and expression typing. Check new modules, original Go closure/type/header observations and affected finite selection, domain, overlays, expression and signature owners. Production Go and unrelated semantics are unchanged; no intermediate full/equivalent gate.",
+  "full_T_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "formatter_mutation_expected": false,
+  "started_at_utc": "2026-10-22T02:55:03.613610+00:00",
+  "exit_code": 0,
+  "seconds": 187.76623774995096,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-modules/affected/stdout.log",
+    "bytes": 3292,
+    "sha256": "88f8a947821addc37d8fb92b8b8aa0f1f79bcd567eac4dad86789a992a3ccc63"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-modules/affected/stderr.log",
+    "bytes": 974,
+    "sha256": "5d64842a3635842fec822647953a6943c9674fadfb1dc5c96b20d98b87299708"
+  },
+  "whole_source_inputs_unchanged": true,
+  "finished_at_utc": "2026-10-22T02:58:11.607646+00:00"
+}

@@ -31,12 +31,15 @@ pub use source_constants::{
 };
 pub use source_declarations::{GoBoundTypeDeclaration, GoSourceTypeDeclarations};
 pub use source_overlays::{
-    bind_go_source_overlay, derive_go_source_overlay_selection, derive_go_typed_source_overlays,
-    GoBoundOverlayLoop, GoBoundSourceOverlay, GoContractExpression, GoContractExpressionReference,
+    bind_go_source_overlay, derive_go_source_contract_module, derive_go_source_overlay_selection,
+    derive_go_typed_source_overlays, GoBoundOverlayLoop, GoBoundSourceOverlay,
+    GoCapturedFunctionOverlay, GoContractExpression, GoContractExpressionReference,
     GoContractExpressionType, GoContractHeaderBinding, GoContractObservation, GoContractPhase,
-    GoContractTypingError, GoContractTypingErrorKind, GoSourceFunctionSelector, GoSourceOverlay,
-    GoSourceOverlayError, GoSourceOverlayErrorKind, GoSourceOverlaySelection,
-    GoSourceReceiverSelector, GoTypedOverlayLoop, GoTypedSourceOverlay, GoTypedSourceOverlaySet,
+    GoContractTypingError, GoContractTypingErrorKind, GoSourceContractModule,
+    GoSourceContractOrigin, GoSourceFunctionContract, GoSourceFunctionLoopContract,
+    GoSourceFunctionSelector, GoSourceLoopCandidateOrigin, GoSourceOverlay, GoSourceOverlayError,
+    GoSourceOverlayErrorKind, GoSourceOverlaySelection, GoSourceReceiverSelector,
+    GoTypedOverlayLoop, GoTypedSourceOverlay, GoTypedSourceOverlaySet,
 };
 pub use source_scalar_typing::{
     check_go_assignment, check_go_assignment_statement, check_go_function_body,

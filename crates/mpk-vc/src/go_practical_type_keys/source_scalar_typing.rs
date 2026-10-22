@@ -13,6 +13,7 @@ mod methods;
 mod operators;
 mod returns;
 mod selection;
+pub(super) use selection::{derive_go_source_error_module_selection, GoSourceModuleSelectionError};
 mod slice_builtins;
 pub use assignments::{check_go_assignment_statement, GoAssignmentTarget, GoAssignmentTyping};
 pub use bodies::{

@@ -1,0 +1,49 @@
+{
+  "status": "passed",
+  "command": [
+    "rustfmt",
+    "--edition=2021",
+    "crates/mpk-vc/src/go_practical_type_keys.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/source_scopes.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/source_types.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/source_signatures.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/source_scalar_typing.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/source_scalar_typing/selection.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/source_scalar_typing/selection/error_dispatch.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/source_scalar_typing/domains.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/source_overlays.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/source_overlays/expressions.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/source_overlays/module.rs",
+    "crates/mpk-vc/tests/go_practical_contract_modules.rs"
+  ],
+  "cwd": ".",
+  "environment": {},
+  "source_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-modules/receiver-rust-formatted/inputs.json",
+    "bytes": 314685,
+    "sha256": "57cb9b13a6fac9797c58af0964487e0689172403f0d28b20f4e05261761195c2"
+  },
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-modules/receiver-rust-formatted/driver.py",
+    "bytes": 9786,
+    "sha256": "3c179820ab51c79fa577a78592674903bb2cb3ab96a9c203e59f1c45c601c292"
+  },
+  "selection_reason": "Original contract modules separate roots from actual callees, optional captured sidecars and explicit same-U default candidates. Reuse original source selection, domain and expression typing. Check new modules, original Go closure/type/header observations and affected finite selection, domain, overlays, expression and signature owners. Production Go and unrelated semantics are unchanged; no intermediate full/equivalent gate.",
+  "full_T_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "formatter_mutation_expected": true,
+  "started_at_utc": "2026-10-22T02:48:52.964017+00:00",
+  "exit_code": 0,
+  "seconds": 0.5655528749339283,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-modules/receiver-rust-formatted/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-modules/receiver-rust-formatted/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "whole_source_inputs_unchanged": false,
+  "finished_at_utc": "2026-10-22T02:48:53.541904+00:00"
+}

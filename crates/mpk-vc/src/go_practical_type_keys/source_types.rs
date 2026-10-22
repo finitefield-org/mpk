@@ -37,6 +37,11 @@ pub struct GoDerivedSourceTypes {
     aliases: BTreeMap<String, String>,
 }
 impl GoDerivedSourceTypes {
+    // Only the private original-source signature constructor reuses its own
+    // input owner. Keep one complete immutable scope graph across many bodies.
+    pub(super) fn share_source_owner(&mut self, scopes: std::sync::Arc<GoSourceScopes>) {
+        self.scopes = scopes;
+    }
     pub fn source(&self, id: &str) -> Option<&GoParsedSource> {
         self.scopes.source(id)
     }

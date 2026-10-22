@@ -1,0 +1,60 @@
+{
+  "status": "passed",
+  "command": [
+    "cargo",
+    "clippy",
+    "--offline",
+    "-p",
+    "mpk-vc",
+    "--lib",
+    "--test",
+    "go_practical_contract_modules",
+    "--test",
+    "go_practical_contract_expressions",
+    "--test",
+    "go_practical_source_signatures",
+    "--test",
+    "go_practical_source_overlays",
+    "--test",
+    "go_practical_source_scopes",
+    "--test",
+    "go_practical_source_domains",
+    "--test",
+    "go_practical_error_dispatch",
+    "--test",
+    "go_practical_source_selection",
+    "--",
+    "-D",
+    "warnings"
+  ],
+  "cwd": ".",
+  "environment": {},
+  "source_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-modules/lint/inputs.json",
+    "bytes": 314381,
+    "sha256": "1f26864767beb80c92dc824524368b6848e7e76d9b93226b05c510ed7f4fe83f"
+  },
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-modules/lint/driver.py",
+    "bytes": 9786,
+    "sha256": "3c179820ab51c79fa577a78592674903bb2cb3ab96a9c203e59f1c45c601c292"
+  },
+  "selection_reason": "Original contract modules separate roots from actual callees, optional captured sidecars and explicit same-U default candidates. Reuse original source selection, domain and expression typing. Check new modules, original Go closure/type/header observations and affected finite selection, domain, overlays, expression and signature owners. Production Go and unrelated semantics are unchanged; no intermediate full/equivalent gate.",
+  "full_T_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "formatter_mutation_expected": false,
+  "started_at_utc": "2026-10-22T02:49:55.732998+00:00",
+  "exit_code": 0,
+  "seconds": 13.242555209086277,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-modules/lint/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-modules/lint/stderr.log",
+    "bytes": 147,
+    "sha256": "6bb373301060c77c4d869a4f08580eb1d58f0eed931e0d93827c311f6835dde9"
+  },
+  "whole_source_inputs_unchanged": true,
+  "finished_at_utc": "2026-10-22T02:50:09.055356+00:00"
+}

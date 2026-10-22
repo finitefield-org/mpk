@@ -1397,3 +1397,14 @@ with scoped Clippy/vet/formats and complete original-input records. Canonical
 capture-dependent scope/contract/context IDs and whole-module callee/default
 contracts remain due, together with all runtime/source/program proofs and
 R01/R06/W01 completion. Go/Rust only; the T02 full gate stays final W04.
+
+The [original function-contract module checkpoint](verification/contract-modules/README.md)
+keeps selected roots, reached callees and optional captured sidecars distinct.
+Every body receives its actual annotation or an explicit partial/true/all-same-U
+default with no raw overlay ID. Callee annotations extend finite Error closure;
+generated invariants/range ranks remain unproved candidates and missing total
+for ranks remain pending. Six new/31 affected old Rust roots and17 current Go
+cases pass, including70 annotation-driven additions and512 helpers. Original
+bytes/modes and the initial source epoch remain retained. Canonical scope-set/
+contract/context authority, complete source/runtime/program proofs and
+R01/R06/W01 completion remain due. Go/Rust only; T02 full gate stays final W04.

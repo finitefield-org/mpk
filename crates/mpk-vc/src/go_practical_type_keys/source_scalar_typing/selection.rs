@@ -4,6 +4,9 @@ use super::*;
 use std::sync::Arc;
 mod directives;
 mod error_dispatch;
+pub(in super::super) use error_dispatch::{
+    derive_go_source_error_module_selection, GoSourceModuleSelectionError,
+};
 pub use error_dispatch::{
     derive_go_source_error_selection, GoSourceErrorDispatch, GoSourceErrorSelection,
     GoSourceErrorSelectionError,
@@ -210,6 +213,7 @@ pub(super) struct GoSelectedBodyTypes {
     pub(super) declarations: BTreeMap<String, GoTypeDeclarationKey>,
     pub(super) implementations: Vec<GoErrorImplementation>,
     local_types: BTreeMap<(usize, usize), String>,
+    pub(super) inputs: Vec<String>,
 }
 impl GoSelectedBodyTypes {
     fn checked(body: &GoBodyTyping) -> Self {
@@ -219,6 +223,13 @@ impl GoSelectedBodyTypes {
             underlying: typing.underlying.clone(),
             declarations: typing.declarations.clone(),
             implementations: typing.error_implementations.clone(),
+            inputs: body
+                .signature()
+                .slots()
+                .iter()
+                .filter(|s| s.role() != GoSourceSignatureRole::Result)
+                .map(|s| s.type_id().to_string())
+                .collect(),
             local_types: body
                 .local_variables()
                 .iter()

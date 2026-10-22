@@ -1,0 +1,60 @@
+{
+  "status": "passed",
+  "command": [
+    "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+    "test",
+    "-json",
+    "-count=1",
+    "-timeout=40m",
+    "-run",
+    "^TestPracticalContractModuleOriginalContexts$"
+  ],
+  "cwd": "go-tools/go2vir",
+  "environment": {
+    "GOROOT": "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go",
+    "GOTOOLCHAIN": "local",
+    "GOENV": "off",
+    "GOWORK": "off",
+    "GOFLAGS": "-mod=vendor",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "CGO_ENABLED": "0",
+    "GOMAXPROCS": "1",
+    "GOCACHE": "/private/tmp/mpk-go-practical-t02-go-cache",
+    "GOMODCACHE": "/private/tmp/mpk-go-practical-t02-go-mod",
+    "MPK_GO_PRACTICAL_SYNTAX_EVIDENCE": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-modules/native-receivers/observations"
+  },
+  "source_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-modules/native-receivers/inputs.json",
+    "bytes": 314105,
+    "sha256": "d67af24e1c28ce423c5a3cd8500f2219db44a9a158661a5b685f6a2d0398c596"
+  },
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-modules/native-receivers/driver.py",
+    "bytes": 9786,
+    "sha256": "3c179820ab51c79fa577a78592674903bb2cb3ab96a9c203e59f1c45c601c292"
+  },
+  "selection_reason": "Original contract modules separate roots from actual callees, optional captured sidecars and explicit same-U default candidates. Reuse original source selection, domain and expression typing. Check new modules, original Go closure/type/header observations and affected finite selection, domain, overlays, expression and signature owners. Production Go and unrelated semantics are unchanged; no intermediate full/equivalent gate.",
+  "full_T_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "formatter_mutation_expected": false,
+  "started_at_utc": "2026-10-22T02:46:20.794351+00:00",
+  "exit_code": 0,
+  "seconds": 48.97323849995155,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-modules/native-receivers/stdout.log",
+    "bytes": 1438,
+    "sha256": "1e566d1ccfd40fdfe1b1f83f5f7c296c65c78faba12db9bc0f02fc95575ed5c2"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-modules/native-receivers/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "whole_source_inputs_unchanged": true,
+  "finished_at_utc": "2026-10-22T02:47:09.988752+00:00",
+  "pass_tests": [
+    "TestPracticalContractModuleOriginalContexts"
+  ],
+  "fail_tests": [],
+  "skip_tests": []
+}

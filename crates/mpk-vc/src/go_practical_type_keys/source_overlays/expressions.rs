@@ -105,6 +105,7 @@ pub enum GoContractTypingErrorKind {
     Scope,
     Literal,
     Case,
+    Limit,
 }
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct GoContractTypingError {
@@ -143,7 +144,7 @@ impl std::fmt::Display for GoContractTypingError {
 }
 impl std::error::Error for GoContractTypingError {}
 type Checked<T> = std::result::Result<T, GoContractTypingError>;
-fn error(kind: GoContractTypingErrorKind) -> GoContractTypingError {
+pub(super) fn error(kind: GoContractTypingErrorKind) -> GoContractTypingError {
     GoContractTypingError {
         kind,
         overlay: None,
@@ -153,7 +154,7 @@ fn error(kind: GoContractTypingErrorKind) -> GoContractTypingError {
         path: vec![],
     }
 }
-fn overlay_error(e: GoSourceOverlayError) -> GoContractTypingError {
+pub(super) fn overlay_error(e: GoSourceOverlayError) -> GoContractTypingError {
     let overlay = e.overlay_object_id().map(str::to_string);
     let mut result = error(GoContractTypingErrorKind::Overlay(Box::new(e)));
     result.overlay = overlay;
@@ -785,6 +786,12 @@ pub fn derive_go_typed_source_overlays(
     overlays: &[GoSourceOverlay],
 ) -> Checked<GoTypedSourceOverlaySet> {
     let original = derive_go_source_overlay_selection(keys, overlays).map_err(overlay_error)?;
+    type_source_overlays(keys, original)
+}
+pub(super) fn type_source_overlays(
+    keys: &GoTypeKeyComponents,
+    original: GoSourceOverlaySelection,
+) -> Checked<GoTypedSourceOverlaySet> {
     let mut names = BTreeMap::new();
     let mut graphs = vec![];
     let mut builtins = vec![];
@@ -871,32 +878,13 @@ pub fn derive_go_typed_source_overlays(
         .collect();
     let mut checked = vec![];
     for bound in &original.overlays {
-        let mut headers = BTreeMap::new();
-        for l in &bound.loops {
-            let variables = bound
-                .scopes
-                .loop_header_variables(bound.root.source_object_id(), l.node)
-                .map_err(|_| error(GoContractTypingErrorKind::Scope))?;
-            let bindings = variables
-                .into_iter()
-                .map(|binding| {
-                    let typ = if binding.declaration_node() == bound.root.node() {
-                        bound
-                            .signature
-                            .slots()
-                            .iter()
-                            .find(|s| s.name_node() == Some(binding.name_node()))
-                            .map(|s| s.type_id())
-                    } else {
-                        domain.selection().checked_local_type(&bound.root, &binding)
-                    }
-                    .ok_or_else(|| error(GoContractTypingErrorKind::Scope))?
-                    .to_string();
-                    Ok(GoContractHeaderBinding { binding, typ })
-                })
-                .collect::<Checked<_>>()?;
-            headers.insert(l.node, bindings);
-        }
+        let headers = header_bindings(
+            &bound.scopes,
+            &bound.root,
+            &bound.signature,
+            &bound.loops,
+            &domain,
+        )?;
         checked.push(
             Checker {
                 bound,
@@ -914,4 +902,76 @@ pub fn derive_go_typed_source_overlays(
         domain,
         type_dependencies: dependencies.into_iter().collect(),
     })
+}
+pub(super) fn header_bindings(
+    scopes: &GoSourceScopes,
+    root: &GoSourceSelectionRef,
+    signature: &GoSourceSignature,
+    loops: &[GoBoundOverlayLoop],
+    domain: &GoSourceValueDomain,
+) -> Checked<BTreeMap<usize, Vec<GoContractHeaderBinding>>> {
+    let mut headers = BTreeMap::new();
+    for l in loops {
+        let variables = scopes
+            .loop_header_variables(root.source_object_id(), l.node)
+            .map_err(|_| error(GoContractTypingErrorKind::Scope))?;
+        let bindings = variables
+            .into_iter()
+            .map(|binding| {
+                let typ = if binding.declaration_node() == root.node() {
+                    signature
+                        .slots()
+                        .iter()
+                        .find(|s| s.name_node() == Some(binding.name_node()))
+                        .map(|s| s.type_id())
+                } else {
+                    domain.selection().checked_local_type(root, &binding)
+                }
+                .ok_or_else(|| error(GoContractTypingErrorKind::Scope))?
+                .to_string();
+                Ok(GoContractHeaderBinding { binding, typ })
+            })
+            .collect::<Checked<_>>()?;
+        headers.insert(l.node, bindings);
+    }
+    Ok(headers)
+}
+pub(super) fn true_candidate() -> GoContractExpression {
+    let mut e = GoContractExpression::new("bool.literal", GoContractExpressionType::Bool, vec![]);
+    e.literal = Some(Value::Bool(true));
+    e
+}
+pub(super) fn complete_loop(
+    node: usize,
+    ordinal: usize,
+    bindings: Vec<GoContractHeaderBinding>,
+    original: Option<&GoTypedOverlayLoop>,
+    total: bool,
+    range: bool,
+) -> GoTypedOverlayLoop {
+    let mut out = original.cloned().unwrap_or(GoTypedOverlayLoop {
+        node,
+        ordinal,
+        annotation: None,
+        bindings,
+        invariants: vec![],
+        variant: None,
+    });
+    if out.invariants.is_empty() {
+        out.invariants.push(true_candidate());
+    }
+    if out.variant.is_none() && total && range {
+        let observation = |op| {
+            let mut e = GoContractExpression::new(op, GoContractExpressionType::Nat, vec![]);
+            e.reference = Some(GoContractExpressionReference::Range { loop_node: node });
+            e.observation = Some(GoContractObservation::Header { loop_node: node });
+            e
+        };
+        out.variant = Some(GoContractExpression::new(
+            "nat.sub",
+            GoContractExpressionType::Nat,
+            vec![observation("range.length"), observation("range.index")],
+        ));
+    }
+    out
 }
