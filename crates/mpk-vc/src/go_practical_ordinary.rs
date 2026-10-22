@@ -29,6 +29,7 @@ mod source_error_cases;
 mod source_error_dispatch;
 mod source_error_layout;
 mod source_error_operations;
+mod source_error_receiver;
 mod storage_lens;
 mod string;
 mod syntax;
@@ -55,6 +56,7 @@ pub use source_error_operations::{
     generate_go_practical_source_error_operations_foundation,
     import_go_practical_source_error_operations_foundation, GoSourceErrorOperationsFoundation,
 };
+pub use source_error_receiver::GoSourceErrorReceiverRow;
 
 const BOOL: &str = "Std.Bool";
 const PREFIX: &str = "Mpk.Go.Practical.Bool";

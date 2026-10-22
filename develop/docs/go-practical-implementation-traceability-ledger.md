@@ -8072,3 +8072,33 @@ target/context, full56 foundation/private registry/native Linux/all169/T02-T11
 proofs remain due. Earlier historical-scope findings remain for the final
 strict gate. Go/Rust only; R01/R06/W01 stay open, the public practical profile
 stays inactive and the full T02 gate stays final W04: `./scripts/check-fast.sh`.
+
+## 166. T02-W01 source-error receiver tag premises
+
+The [receiver checkpoint](../migrations/go-practical/t02-w01/verification/source-error-receiver/README.md)
+adds ordinary Tag(e)=source-tag (or nil-tag) premises for arbitrary complete
+same-U receiver values. Checked match/suffix/selection/nil/copy equations use
+that exact premise. Original Box/Nil witnesses establish it and instantiate
+the constructed-value equations. Every source/case/selector/payload proof
+remains; no caller truth predicate, source-validity assumption, reduced U or
+new admission cap is introduced.
+
+Both full cores agree on100 whole streams:93 zero-axiom mathematical
+acceptances and7 genuine type rejections. Normal92 include21 small-site
+rows and all70 large concrete types plus nil. Independent comparison covers
+92 complete receiver predicate definitions/11,157 receiver statements, all
+old selector/source/case/operation statements,327,808 tag bits and368 actual
+decoded original/copied target/nil observations. All92 prior selector rows
+replay literally; scoped Clippy/format pass. Coherent wrong ordinal math and
+different accepted callsite rows fail exact import/frozen ownership. Large
+maxima1,998 declarations/21,797 terms/
+677,025 bytes fit unchanged native caps. All12 source
+epochs/9,453 input rows/365 current Go prelaunch originals remain,
+without observation-timeout restarts.
+
+Source receiver-once/nil-safety/callee/precondition/results/effects/frame,
+input validity, canonical capture/module/U/tag/target/context binding, full56
+foundation/private registry/nativeLinux/all169/T02-T11 remain due. Earlier
+historical-scope scanner findings remain for the final strict gate. Go/Rust
+only; R01/R06/W01 stay open, the public practical profile stays inactive, and
+the full T02 gate stays final W04: `./scripts/check-fast.sh`.

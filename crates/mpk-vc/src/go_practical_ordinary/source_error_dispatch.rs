@@ -338,6 +338,14 @@ impl GoSourceErrorDispatchCatalogue {
         call: &GoSourceErrorCall,
         boxed_type: Option<&str>,
     ) -> Result<GoSourceErrorDispatchRow> {
+        let (builder, row) = self.row_builder(call, boxed_type)?;
+        complete_row(builder, row)
+    }
+    pub(super) fn row_builder(
+        &self,
+        call: &GoSourceErrorCall,
+        boxed_type: Option<&str>,
+    ) -> Result<(Builder, GoSourceErrorDispatchRow)> {
         if !self.calls.contains(call) {
             return Err(GoOrdinaryError::Linkage);
         }
@@ -380,7 +388,7 @@ impl GoSourceErrorDispatchCatalogue {
             self.cases.source_layout_module_name(),
         )?;
         builder.certificate.module = module.clone();
-        Ok(GoSourceErrorDispatchRow {
+        let row = GoSourceErrorDispatchRow {
             module,
             source_module: self.cases.source_layout_module_name().into(),
             boxing_module: self.cases.boxing_module_name().into(),
@@ -390,8 +398,9 @@ impl GoSourceErrorDispatchCatalogue {
             targets: self.targets.clone(),
             cases: self.cases.case_tags().to_vec(),
             boxed_type: boxed_type.map(str::to_string),
-            certificate: builder.finish()?,
-        })
+            certificate: vec![],
+        };
+        Ok((builder, row))
     }
     pub fn import_row(
         &self,
@@ -408,6 +417,13 @@ impl GoSourceErrorDispatchCatalogue {
         }
         Ok(expected)
     }
+}
+pub(super) fn complete_row(
+    builder: Builder,
+    mut row: GoSourceErrorDispatchRow,
+) -> Result<GoSourceErrorDispatchRow> {
+    row.certificate = builder.finish()?;
+    Ok(row)
 }
 pub fn generate_go_practical_source_error_dispatch_catalogue(
     selection: &GoSourceErrorSelection,

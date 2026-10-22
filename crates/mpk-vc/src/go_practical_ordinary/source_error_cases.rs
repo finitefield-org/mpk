@@ -60,7 +60,7 @@ fn truth(value: Expr, expected: bool) -> Expr {
     eq(boolean(), value, bit(expected))
 }
 
-fn comparison_proof(left: Expr, right: Expr, a: u64, b: u64) -> Result<Expr> {
+pub(super) fn comparison_proof(left: Expr, right: Expr, a: u64, b: u64) -> Result<Expr> {
     if a == b {
         return Ok(call(
             "Mpk.Go.Practical.ErrorValue.TagEqualReflexive",
